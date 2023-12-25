@@ -54,7 +54,8 @@
             <groupId>org.scala-lang.modules</groupId>
             <artifactId>scala-xml_2.13</artifactId>
             <version>2.1.0</version>
-        </dependency>        <dependency>
+        </dependency>
+        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
         </dependency>

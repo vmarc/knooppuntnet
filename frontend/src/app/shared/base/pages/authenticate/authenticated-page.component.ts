@@ -5,7 +5,7 @@ import { UserService } from '../../../user';
 import { UserErrorComponent } from '../../../user/user-error.component';
 
 @Component({
-  selector: 'kpn-authenticate-page',
+  selector: 'kpn-authenticated-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p i18n="@@authenticate-page.title">Logging in...</p>
@@ -14,7 +14,7 @@ import { UserErrorComponent } from '../../../user/user-error.component';
   standalone: true,
   imports: [UserErrorComponent],
 })
-export class AuthenticatePageComponent {
+export class AuthenticatedPageComponent {
   private readonly userService = inject(UserService);
 
   constructor() {

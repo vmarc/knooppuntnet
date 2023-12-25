@@ -128,12 +128,7 @@ class ServerConfiguration() {
   }
 
   @Bean
-  def oauthApplicationKey(@Value("${oauthApplicationKey}") value: String): String = {
-    value
-  }
-
-  @Bean
-  def oauthApplicationSecret(@Value("${oauthApplicationSecret}") value: String): String = {
+  def oauthClientId(@Value("${oauth.client-id}") value: String): String = {
     value
   }
 

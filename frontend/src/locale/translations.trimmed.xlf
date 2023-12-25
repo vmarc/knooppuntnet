@@ -33,7 +33,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-breadcrumb.component.ts</context>
@@ -49,7 +49,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
@@ -65,7 +65,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
@@ -184,7 +184,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">34</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-breadcrumb.component.ts</context>
@@ -200,7 +200,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
@@ -216,7 +216,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
@@ -547,21 +547,21 @@
         <source>Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="changes-page.title">
         <source>Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">38,40</context>
+          <context context-type="linenumber">39,41</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="changes-page.login-required">
-        <source>The details of the changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="START_TAG_KPN_LINK_LOGIN"/><x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="CLOSE_TAG_KPN_LINK_LOGIN"/> .</source>
+        <source>The details of the changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">47,52</context>
+          <context context-type="linenumber">48,51</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.title">
@@ -2934,14 +2934,14 @@
         <source>Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-page.network-not-found">
         <source>Network not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">41,43</context>
+          <context context-type="linenumber">42,44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/_network-details-page.component.ts</context>
@@ -2965,10 +2965,10 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-changes.login-required">
-        <source>The details of network changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="START_TAG_KPN_LINK_LOGIN"/><x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="CLOSE_TAG_KPN_LINK_LOGIN"/> .</source>
+        <source>The details of network changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">45,50</context>
+          <context context-type="linenumber">46,49</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-changes.network-created">
@@ -3726,14 +3726,14 @@
         <source>Node changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="node.node-not-found">
         <source>Node not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
@@ -3745,10 +3745,10 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="node.login-required">
-        <source>The details of the node changes history is available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN_LINK_LOGIN"/><x ctype="x-kpn_link_login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN_LINK_LOGIN"/> .</source>
+        <source>The details of the node changes history is available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">64,69</context>
+          <context context-type="linenumber">65,68</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="node-change.created">
@@ -4550,14 +4550,14 @@
         <source>Route changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.route-not-found">
         <source>Route not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">56,58</context>
+          <context context-type="linenumber">57,59</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
@@ -4569,10 +4569,10 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-changes.login-required">
-        <source>The details of the route changes history is available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN_LINK_LOGIN"/><x ctype="x-kpn_link_login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN_LINK_LOGIN"/> .</source>
+        <source>The details of the route changes history is available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">60,65</context>
+          <context context-type="linenumber">61,64</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-change.created">
@@ -4922,14 +4922,14 @@
         <source>Changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/changes/_subset-changes-page.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-changes.login-required">
-        <source>This details of the changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="START_TAG_KPN_LINK_LOGIN"/><x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="CLOSE_TAG_KPN_LINK_LOGIN"/> .</source>
+        <source>This details of the changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/changes/_subset-changes-page.component.ts</context>
-          <context context-type="linenumber">41,46</context>
+          <context context-type="linenumber">42,45</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-page.menu.networks">
@@ -8153,8 +8153,8 @@
       <trans-unit datatype="html" id="authenticate-page.title">
         <source>Logging in...</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/authenticate/authenticate-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="sourcefile">src/app/shared/base/pages/authenticate/authenticated-page.component.ts</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="home.page-title">
@@ -8196,77 +8196,77 @@
         <source>Login</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="login.note.1">
         <source>Login allows you to view extra information, such as changeset details, network history, route history and node history.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">18,21</context>
+          <context context-type="linenumber">19,22</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="login.note.2">
         <source>This information is available to registered OpenStreetMap users only.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">22,24</context>
+          <context context-type="linenumber">23,25</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="login.note.3">
         <source>After clicking the "login" button below, you will be directed (via the OpenStreetMap login page if you are not logged in to OpenStreetMap yet) to the OpenStreetMap page "Authorize access to your account". Click the button "Grant access" (leave the option "read your user preferences" checked).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">25,30</context>
+          <context context-type="linenumber">26,31</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="login.note.4">
         <source>The knooppuntnet application only reads your username from the user preferences to establish that you are a registered OpenStreetMap user. All other user preferences are ignored, and not stored in knooppuntnet.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">31,35</context>
+          <context context-type="linenumber">32,36</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="login.note.5">
         <source>This login procedure uses OpenStreetMap security. Knooppuntnet does not have access to your password at any moment.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">36,39</context>
+          <context context-type="linenumber">37,40</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="login.note.6">
         <source>You remain logged in (also after closing you browser), until you explicitly logout through the logout page. To login again after logout you will have to use the same login procedure again.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">40,44</context>
+          <context context-type="linenumber">41,45</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="login.submit">
         <source>Login</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">47,49</context>
+          <context context-type="linenumber">49,51</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="logout.title">
         <source>Logout</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="logout.logged-in">
         <source>You are currently logged in as <x ctype="x-kpn_osm_link_user" equiv-text="&lt;kpn-osm-link-user&gt;" id="START_TAG_KPN_OSM_LINK_USER"/><x ctype="x-kpn_osm_link_user" equiv-text="&lt;/kpn-osm-link-user&gt;" id="CLOSE_TAG_KPN_OSM_LINK_USER"/> .</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">26,30</context>
+          <context context-type="linenumber">25,29</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="logout.note.1">
         <source>This allows you to view extra information that is available to OpenStreetMap users only.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">32,34</context>
+          <context context-type="linenumber">31,34</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="logout.note.2">
@@ -8280,21 +8280,21 @@
         <source>Logout</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">47,49</context>
+          <context context-type="linenumber">48,50</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="logout.not-logged-in">
         <source>You are not logged in.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="logout.login-comment">
         <source>You can <x ctype="x-a" equiv-text="&lt;a routerLink=&quot;/login&quot;&gt;" id="START_LINK"/>login<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> to view extra information that is available to <x ctype="x-kpn_osm_website" equiv-text="&lt;kpn-osm-website&gt;" id="START_TAG_KPN_OSM_WEBSITE"/><x ctype="x-kpn_osm_website" equiv-text="&lt;/kpn-osm-website&gt;" id="CLOSE_TAG_KPN_OSM_WEBSITE"/> users only.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">55,59</context>
+          <context context-type="linenumber">59,64</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="not-found.title">
@@ -8518,20 +8518,6 @@
           <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="login">
-        <source>login</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/shared/link/link-login.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="link.logout">
-        <source>logout</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/shared/link/link-logout.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
       <trans-unit datatype="html" id="link-node.title">
         <source>Open node page</source>
         <context-group purpose="location">
@@ -8564,21 +8550,21 @@
         <source>Sorry.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/link/timeout.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="timeout.message-2">
         <source>No response from editor.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/link/timeout.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="timeout.message-3">
         <source>Has the editor (JOSM) been started? Has remote control been enabled in the editor?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/link/timeout.component.ts</context>
-          <context context-type="linenumber">11,13</context>
+          <context context-type="linenumber">13,15</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="experimental.title">
@@ -10211,6 +10197,41 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/services/poi-name.service.ts</context>
           <context context-type="linenumber">144</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="user.login.discovery-document-load-error">
+        <source>Login failed while trying to retrieve security configuration from OpenStreetMap.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
+          <context context-type="linenumber">163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="user.login.access-denied">
+        <source>Login failed, received access denied from OpenStreetMap.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
+          <context context-type="linenumber">173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="user.login.login-failed">
+        <source>Login failed</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
+          <context context-type="linenumber">177</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="user.login.client-id-error">
+        <source>Could not get clientId from knooppuntnet server.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
+          <context context-type="linenumber">222</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="user.login.username-failed">
+        <source>Could not get username from knooppuntnet server.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
+          <context context-type="linenumber">267</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.status">

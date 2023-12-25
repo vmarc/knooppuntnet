@@ -41,9 +41,7 @@ import { SubsetChangesSidebarComponent } from './subset-changes-sidebar.componen
           @if (loggedIn() === false) {
             <p i18n="@@subset-changes.login-required">
               This details of the changes history are available to registered OpenStreetMap
-              contributors only, after
-              <kpn-user-link-login />
-              .
+              contributors only, after <kpn-user-link-login></kpn-user-link-login>.
             </p>
           } @else {
             <p>

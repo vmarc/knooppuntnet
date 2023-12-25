@@ -64,9 +64,7 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
             class="kpn-spacer-above"
           >
             The details of the node changes history is available to registered OpenStreetMap
-            contributors only, after
-            <kpn-user-link-login />
-            .
+            contributors only, after <kpn-user-link-login></kpn-user-link-login>.
           </div>
 
           <ng-template #changes>

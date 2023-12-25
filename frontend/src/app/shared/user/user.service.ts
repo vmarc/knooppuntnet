@@ -21,6 +21,7 @@ import { map } from 'rxjs';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs';
 import { UserStore } from './user.store';
+import * as Sentry from '@sentry/angular-ivy';
 
 interface AuthorizationError {
   error: string;
@@ -38,9 +39,9 @@ export class UserService implements OnDestroy {
   private readonly document = inject(DOCUMENT);
 
   private readonly subscriptions = new Subscriptions();
-  private readonly localStorageUserKey = 'osm-user-name'; // using new key to avoid clash with old login mechanism
+  private readonly localStorageUserKey = 'osm-user'; // using new key to avoid clash with old login mechanism
   private readonly oldLocalStorageUserKey = 'user';
-  private showDebugInformation = true;
+  private showDebugInformation = false;
   private returnUrl: string | null = null;
 
   private authConfig = {
@@ -74,19 +75,11 @@ export class UserService implements OnDestroy {
 
   login(): void {
     this.userStore.resetError();
-    this.loadDiscoveryDocumentAndTryLogin().subscribe({
-      next: () => {
-        if (this.returnUrl) {
-          this.debug(`login() initCodeFlow() returnUrl=${this.returnUrl}`);
-          this.oauthService.initCodeFlow(this.returnUrl);
-        }
-      },
-      error: () => {
-        console.log(`TODO login() error !!!`);
-      },
-      complete: () => {
-        console.log(`TODO login() complete !!!`);
-      },
+    this.loadDiscoveryDocumentAndTryLogin().subscribe(() => {
+      if (this.returnUrl) {
+        this.debug(`login() initCodeFlow() returnUrl=${this.returnUrl}`);
+        this.oauthService.initCodeFlow(this.returnUrl);
+      }
     });
   }
 
@@ -167,9 +160,8 @@ export class UserService implements OnDestroy {
   private handleErrorEvent(errorEvent: OAuthErrorEvent): void {
     this.debug('OAuthErrorEvent:', errorEvent);
     if (errorEvent.type === 'discovery_document_load_error') {
-      this.userStore.updateError(
-        'Login failed while trying to retrieve security configuration from OpenStreetMap.'
-      );
+      const message = $localize`:@@user.login.discovery-document-load-error:Login failed while trying to retrieve security configuration from OpenStreetMap.`;
+      this.userStore.updateError(message);
       if (errorEvent.reason instanceof HttpErrorResponse) {
         const httpErrorResponse = errorEvent.reason as HttpErrorResponse;
         this.userStore.updateErrorDetail(httpErrorResponse.message);
@@ -178,10 +170,12 @@ export class UserService implements OnDestroy {
       if (errorEvent.params) {
         const authorizationError = errorEvent.params as AuthorizationError;
         if (authorizationError.error && authorizationError.error === 'access_denied') {
-          this.userStore.updateError('Login failed, received access denied from OpenStreetMap.');
+          const message = $localize`:@@user.login.access-denied:Login failed, received access denied from OpenStreetMap.`;
+          this.userStore.updateError(message);
           this.userStore.updateErrorDetail(authorizationError.error_description);
         } else {
-          this.userStore.updateError('Login failed, ' + authorizationError.error);
+          const message = $localize`:@@user.login.login-failed:Login failed`;
+          this.userStore.updateError(message + ', ' + authorizationError.error);
           this.userStore.updateErrorDetail(JSON.stringify(errorEvent.params));
         }
       }
@@ -198,7 +192,7 @@ export class UserService implements OnDestroy {
     // TODO remove following line after one month or so (only needed short time to clean up old mechanism)
     this.browserStorageService.remove(this.oldLocalStorageUserKey);
     const userFromStorage = this.browserStorageService.get(this.localStorageUserKey);
-    // TODO this.updateSentryUser(userFromStorage);
+    this.updateSentryUser(userFromStorage);
     this.userStore.updateUser(userFromStorage);
     this.debug(`user from storage: ${userFromStorage}`);
   }
@@ -221,12 +215,12 @@ export class UserService implements OnDestroy {
   private loadClientId(): Observable<string | null> {
     const context = this.locationErrorHandlingContext;
     return this.http.get('/api/client-id', { context, responseType: 'text' }).pipe(
-      tap(() => console.log(`loadCLientId() returned`)),
       catchError((error) => {
         console.log([`loadCLientId() error`, error]);
         if (error instanceof HttpErrorResponse) {
           const httpErrorResponse = error as HttpErrorResponse;
-          this.userStore.updateError('Could not get clientId from knooppuntnet server');
+          const message = $localize`:@@user.login.client-id-error:Could not get clientId from knooppuntnet server.`;
+          this.userStore.updateError(message);
           this.userStore.updateErrorDetail(httpErrorResponse.message);
         }
         return of(null);
@@ -235,17 +229,27 @@ export class UserService implements OnDestroy {
   }
 
   private updateUser(user: string | null): void {
-    // this.updateSentryUser(user);
+    this.updateSentryUser(user);
     if (user) {
       this.browserStorageService.set(this.localStorageUserKey, user);
-      // Sentry.setUser({
-      //   _id: user,
-      // });
+      Sentry.setUser({
+        _id: user,
+      });
     } else {
       this.browserStorageService.remove(this.localStorageUserKey);
-      // Sentry.setUser(null);
+      Sentry.setUser(null);
     }
     this.userStore.updateUser(user);
+  }
+
+  private updateSentryUser(user: string | null): void {
+    if (user) {
+      Sentry.setUser({
+        _id: user,
+      });
+    } else {
+      Sentry.setUser(null);
+    }
   }
 
   private tokenReceived(): void {
@@ -260,7 +264,8 @@ export class UserService implements OnDestroy {
           catchError((error) => {
             if (error instanceof HttpErrorResponse) {
               const httpErrorResponse = error as HttpErrorResponse;
-              this.userStore.updateError('Could not get username from knooppuntnet server');
+              const message = $localize`:@@user.login.username-failed:Could not get username from knooppuntnet server.`;
+              this.userStore.updateError(message);
               this.userStore.updateErrorDetail(httpErrorResponse.message);
             }
             return of(null);

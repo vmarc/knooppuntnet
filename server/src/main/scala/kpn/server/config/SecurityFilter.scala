@@ -2,10 +2,10 @@ package kpn.server.config
 
 import java.text.ParseException
 import java.util
-
 import com.nimbusds.jose.JOSEException
 import com.nimbusds.jose.crypto.MACVerifier
 import com.nimbusds.jwt.SignedJWT
+
 import javax.servlet.FilterChain
 import javax.servlet.ServletRequest
 import javax.servlet.ServletResponse
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest
 import kpn.server.api.authentication.AuthenticationConfiguration
 import kpn.server.api.authentication.Crypto
 import org.apache.commons.codec.binary.Base64.decodeBase64
+import org.slf4j.LoggerFactory
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.GenericFilterBean
@@ -21,6 +22,7 @@ import org.springframework.web.filter.GenericFilterBean
 class SecurityFilter(crypto: Crypto, cryptoKey: String) extends GenericFilterBean {
 
   private val verifier = new MACVerifier(decodeBase64(cryptoKey))
+  private val log = LoggerFactory.getLogger(classOf[SecurityFilter])
 
   override def doFilter(servletRequest: ServletRequest, servletResponse: ServletResponse, filterChain: FilterChain): Unit = {
     val httpRequest = servletRequest.asInstanceOf[HttpServletRequest]
@@ -61,10 +63,9 @@ class SecurityFilter(crypto: Crypto, cryptoKey: String) extends GenericFilterBea
       }
     } catch {
       case e: ParseException =>
-        System.out.println("ParseException" + e.getMessage)
+        log.error("ParseException" + e.getMessage)
       case e: JOSEException =>
-        System.out.println("JOSEException " + e.getMessage)
+        log.error("JOSEException " + e.getMessage)
     }
   }
-
 }

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthenticatePageComponent } from './pages/authenticate/authenticate-page.component';
+import { AuthenticatedPageComponent } from './pages/authenticate/authenticated-page.component';
 import { HomePageComponent } from './pages/home/home-page.component';
 import { LoginPageComponent } from './pages/login/login-page.component';
 import { LogoutPageComponent } from './pages/logout/logout-page.component';
@@ -11,8 +11,8 @@ export const baseRoutes: Routes = [
     component: HomePageComponent,
   },
   {
-    path: 'authenticate',
-    component: AuthenticatePageComponent,
+    path: 'authenticated',
+    component: AuthenticatedPageComponent,
   },
   {
     path: 'login',

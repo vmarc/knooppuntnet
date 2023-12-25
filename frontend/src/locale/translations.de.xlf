@@ -2,22 +2,6 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" target-language="de" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="login" datatype="html">
-        <source>login</source>
-        <target>Anmelden</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/shared/link/link-login.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="link.logout" datatype="html">
-        <source>logout</source>
-        <target>Abmelden</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/shared/link/link-logout.component.ts</context>
-          <context context-type="linenumber">9</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="osm-link.oath-clients" datatype="html">
         <source>list of authorised applications</source>
         <target>Liste der autorisierten Anwendungen</target>
@@ -1430,8 +1414,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Logging in...</source>
         <target>Anmelden ...</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/authenticate/authenticate-page.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="sourcefile">src/app/shared/base/pages/authenticate/authenticated-page.component.ts</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-map.title" datatype="html">
@@ -2011,7 +1995,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Anmelden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.1" datatype="html">
@@ -2019,7 +2003,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Mit der Anmeldung können Sie zusätzliche Informationen anzeigen, z. B. Änderungssatzdetails, Netzwerk-, Routen- und Knoten-Änderungen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">18,21</context>
+          <context context-type="linenumber">19,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.2" datatype="html">
@@ -2027,7 +2011,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Diese Informationen stehen nur registrierten OpenStreetMap-Benutzern zur Verfügung.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">22,24</context>
+          <context context-type="linenumber">23,25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.3" datatype="html">
@@ -2035,7 +2019,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Nachdem Sie unten auf die Schaltfläche &quot;Anmelden&quot; geklickt haben, werden Sie (über die OpenStreetMap-Anmeldeseite, wenn Sie noch nicht bei OpenStreetMap angemeldet sind) zur OpenStreetMap-Seite &quot;Zugriff auf Ihr Konto autorisieren&quot; weitergeleitet. Klicken Sie auf die Schaltfläche &quot;Zugriff gewähren&quot; (lassen Sie die Option &quot;Benutzereinstellungen lesen&quot; aktiviert).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">25,30</context>
+          <context context-type="linenumber">26,31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.4" datatype="html">
@@ -2043,7 +2027,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Die knooppuntnet-Anwendung liest nur Ihren Benutzernamen aus den Benutzereinstellungen, um festzustellen, dass Sie ein registrierter OpenStreetMap-Benutzer sind. Alle anderen Benutzereinstellungen werden ignoriert und nicht in knooppuntnet gespeichert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">31,35</context>
+          <context context-type="linenumber">32,36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.5" datatype="html">
@@ -2051,7 +2035,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Diese Anmeldeprozedur verwendet die OpenStreetMap-Sicherheit. Knooppuntnet hat zu keinem Zeitpunkt Zugriff auf Ihr Passwort.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">36,39</context>
+          <context context-type="linenumber">37,40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.note.6" datatype="html">
@@ -2059,7 +2043,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Sie bleiben angemeldet (auch nach dem Schließen Ihres Browsers), bis Sie sich explizit über die Abmeldeseite abmelden. Um sich nach dem Abmelden erneut anzumelden, müssen Sie das gleiche Anmeldeverfahren erneut verwenden.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">40,44</context>
+          <context context-type="linenumber">41,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="login.submit" datatype="html">
@@ -2067,7 +2051,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Anmelden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">47,49</context>
+          <context context-type="linenumber">49,51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.title" datatype="html">
@@ -2075,7 +2059,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Abmelden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.logged-in" datatype="html">
@@ -2083,7 +2067,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Sie sind derzeit als <x ctype="x-kpn-osm-link-user" equiv-text="&lt;kpn-osm-link-user&gt;" id="START_TAG_KPN-OSM-LINK-USER"/> <x ctype="x-kpn-osm-link-user" equiv-text="&lt;/kpn-osm-link-user&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER"/> angemeldet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">26,30</context>
+          <context context-type="linenumber">25,29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.note.1" datatype="html">
@@ -2091,7 +2075,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Hiermit können Sie zusätzliche Informationen anzeigen, die nur OpenStreetMap-Benutzern zur Verfügung stehen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">32,34</context>
+          <context context-type="linenumber">31,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.note.2" datatype="html">
@@ -2107,7 +2091,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Abmelden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">47,49</context>
+          <context context-type="linenumber">48,50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.not-logged-in" datatype="html">
@@ -2115,7 +2099,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Sie sind nicht angemeldet.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="logout.login-comment" datatype="html">
@@ -2123,7 +2107,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Sie können sich <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>anmelden<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/>, um zusätzliche Informationen anzuzeigen, die nur <x ctype="x-kpn-osm-website" equiv-text="&lt;kpn-osm-website&gt;" id="START_TAG_KPN-OSM-WEBSITE"/> <x ctype="x-kpn-osm-website" equiv-text="&lt;/kpn-osm-website&gt;" id="CLOSE_TAG_KPN-OSM-WEBSITE"/> Benutzern zur Verfügung stehen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">55,59</context>
+          <context context-type="linenumber">59,64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="not-found.title" datatype="html">
@@ -4366,11 +4350,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.login-required" datatype="html">
-        <source>The details of the route changes history is available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN_LINK_LOGIN"/><x ctype="x-kpn_link_login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN_LINK_LOGIN"/> .</source>
-        <target>Die Details der Routenänderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung, nach  <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>.</target>
+        <source>The details of the route changes history is available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
+        <target>Die Details der Routenänderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung, nach  <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">60,65</context>
+          <context context-type="linenumber">61,64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.route-map" datatype="html">
@@ -4580,7 +4564,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Routenänderungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.no-geometry-diff" datatype="html">
@@ -4789,15 +4773,15 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Änderungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/changes/_subset-changes-page.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-changes.login-required" datatype="html">
-        <source>This details of the changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="START_TAG_KPN_LINK_LOGIN"/><x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="CLOSE_TAG_KPN_LINK_LOGIN"/> .</source>
-        <target>Diese Details der Änderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung nach <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/> <x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>.</target>
+        <source>This details of the changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
+        <target>Diese Details der Änderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung nach <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/> <x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/changes/_subset-changes-page.component.ts</context>
-          <context context-type="linenumber">41,46</context>
+          <context context-type="linenumber">42,45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-facts.title" datatype="html">
@@ -5620,7 +5604,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Route nicht gefunden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">56,58</context>
+          <context context-type="linenumber">57,59</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
@@ -5672,7 +5656,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knotenänderungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.title" datatype="html">
@@ -5980,7 +5964,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">32</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-breadcrumb.component.ts</context>
@@ -5996,7 +5980,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
@@ -6012,7 +5996,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
@@ -6132,7 +6116,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">34</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/components/location-page-breadcrumb.component.ts</context>
@@ -6148,7 +6132,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
@@ -6164,7 +6148,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">43</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/_route-page.component.ts</context>
@@ -6280,7 +6264,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Änderungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changes-page.title" datatype="html">
@@ -6288,15 +6272,15 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Änderungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">38,40</context>
+          <context context-type="linenumber">39,41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changes-page.login-required" datatype="html">
-        <source>The details of the changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="START_TAG_KPN_LINK_LOGIN"/><x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="CLOSE_TAG_KPN_LINK_LOGIN"/> .</source>
-        <target>Die Details der Änderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung nach <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>.</target>
+        <source>The details of the changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
+        <target>Die Details der Änderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung nach <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
-          <context context-type="linenumber">47,52</context>
+          <context context-type="linenumber">48,51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.orphan-nodes" datatype="html">
@@ -6328,15 +6312,15 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Änderungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.login-required" datatype="html">
-        <source>The details of network changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="START_TAG_KPN_LINK_LOGIN"/><x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login /&gt;" id="CLOSE_TAG_KPN_LINK_LOGIN"/> .</source>
-        <target>Die Details des Netzwerkänderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung, nach <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/><x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>.</target>
+        <source>The details of network changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
+        <target>Die Details des Netzwerkänderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung, nach <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">45,50</context>
+          <context context-type="linenumber">46,49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.title" datatype="html">
@@ -6820,12 +6804,12 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="node.login-required" datatype="html">
-        <source>The details of the node changes history is available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_link_login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN_LINK_LOGIN"/><x ctype="x-kpn_link_login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN_LINK_LOGIN"/> .</source>
-        <target>Die Details der Knotenänderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung nach <x ctype="x-kpn-link-login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN-LINK-LOGIN"/> <x ctype="x-kpn-link-login" equiv-text="&lt;/kpn-link-login&gt;" id="CLOSE_TAG_KPN-LINK-LOGIN"/>
+        <source>The details of the node changes history is available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
+        <target>Die Details der Knotenänderungen stehen nur registrierten OpenStreetMap-Mitwirkenden zur Verfügung nach <x ctype="x-kpn_uesr_link_login" equiv-text="&lt;kpn-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/> <x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>
           .</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">64,69</context>
+          <context context-type="linenumber">65,68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.node-map" datatype="html">
@@ -6841,7 +6825,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knoten nicht gefunden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">58</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/_node-details-page.component.ts</context>
@@ -6989,7 +6973,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Entschuldigung.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/link/timeout.component.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="timeout.message-2" datatype="html">
@@ -6997,7 +6981,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Keine Antwort vom Editor.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/link/timeout.component.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="timeout.message-3" datatype="html">
@@ -7005,7 +6989,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Wurde der Editor (JOSM) gestartet? Wurde die Fernbedienung im Editor aktiviert?</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/link/timeout.component.ts</context>
-          <context context-type="linenumber">11,13</context>
+          <context context-type="linenumber">13,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.all" datatype="html">
@@ -8266,7 +8250,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Netzwerk nicht gefunden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">41,43</context>
+          <context context-type="linenumber">42,44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/_network-details-page.component.ts</context>
@@ -11607,6 +11591,46 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
           <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.login.discovery-document-load-error" datatype="html">
+        <source>Login failed while trying to retrieve security configuration from OpenStreetMap.</source>
+        <target>Login failed while trying to retrieve security configuration from OpenStreetMap.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
+          <context context-type="linenumber">163</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.login.access-denied" datatype="html">
+        <source>Login failed, received access denied from OpenStreetMap.</source>
+        <target>Login failed, received access denied from OpenStreetMap.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
+          <context context-type="linenumber">173</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.login.login-failed" datatype="html">
+        <source>Login failed</source>
+        <target>Login failed</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
+          <context context-type="linenumber">177</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.login.client-id-error" datatype="html">
+        <source>Could not get clientId from knooppuntnet server.</source>
+        <target>Could not get clientId from knooppuntnet server.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
+          <context context-type="linenumber">222</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="user.login.username-failed" datatype="html">
+        <source>Could not get username from knooppuntnet server.</source>
+        <target>Could not get username from knooppuntnet server.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
+          <context context-type="linenumber">267</context>
         </context-group>
       </trans-unit>
     </body>

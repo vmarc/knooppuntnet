@@ -45,9 +45,7 @@ import { NetworkChangesSidebarComponent } from './network-changes-sidebar.compon
         <ng-template #networkFound>
           <div *ngIf="loggedIn() === false; else changes" i18n="@@network-changes.login-required">
             The details of network changes history are available to registered OpenStreetMap
-            contributors only, after
-            <kpn-user-link-login />
-            .
+            contributors only, after <kpn-user-link-login></kpn-user-link-login>.
           </div>
           <ng-template #changes>
             <p>

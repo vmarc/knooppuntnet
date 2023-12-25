@@ -47,9 +47,7 @@ import { selectChangesPage } from '../store/changes.selectors';
           @if (!loggedIn()) {
             <p i18n="@@changes-page.login-required" class="kpn-spacer-above">
               The details of the changes history are available to registered OpenStreetMap
-              contributors only, after
-              <kpn-user-link-login />
-              .
+              contributors only, after <kpn-user-link-login></kpn-user-link-login>.
             </p>
           } @else {
             @if (response.result; as page) {
