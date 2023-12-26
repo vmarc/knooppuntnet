@@ -1,0 +1,207 @@
+---
+GET http://127.0.0.1:4000/oauth2/authorization/osm
+Headers
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: nl-BE,nl;q=0.9,en-GB;q=0.8,en;q=0.7,nl-NL;q=0.6,en-US;q=0.5
+  Cache-Control: no-cache
+  Connection: keep-alive
+  Cookie: JSESSIONID=9AC33D146F4C1AC04C053FE89E3191A3; XSRF-TOKEN=ecb737c9-fa36-4388-a90d-6bae27ec86ea
+  Host: 127.0.0.1:4000
+  Pragma: no-cache
+  Referer: http://127.0.0.1:4000/user-login
+  Sec-Fetch-Dest: document
+  Sec-Fetch-Mode: navigate
+  Sec-Fetch-Site: same-origin
+  Sec-Fetch-User: ?1
+  Upgrade-Insecure-Requests: 1
+  User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+  sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+
+Response 302 FOUND
+Headers
+  Access-Control-Allow-Origin: *
+  cache-control: no-cache, no-store, max-age=0, must-revalidate
+  connection: close
+  content-length: 0
+  date: Tue, 26 Dec 2023 14:53:31 GMT
+  expires: 0
+  location: https://www.openstreetmap.org/oauth2/authorize?response_type=code&client_id=j0tqvzCzdDV_xV7HOuSH5nkqLNsTI0--tfAvoEtJ0Do&scope=read_prefs&state=a5FqUlA4BZGXJPjY2eyZaxllOZg8J6LTyJmLGNBUBYg%3D&redirect_uri=http://127.0.0.1:4000/login/oauth2/code/osm
+  pragma: no-cache
+  x-content-type-options: nosniff
+  x-frame-options: DENY
+  x-xss-protection: 1; mode=block
+Content: mimeType=x-unknown
+---
+GET https://www.openstreetmap.org/oauth2/authorize?response_type=code&client_id=j0tqvzCzdDV_xV7HOuSH5nkqLNsTI0--tfAvoEtJ0Do&scope=read_prefs&state=a5FqUlA4BZGXJPjY2eyZaxllOZg8J6LTyJmLGNBUBYg=&redirect_uri=http://127.0.0.1:4000/login/oauth2/code/osm
+Headers
+  :authority: www.openstreetmap.org
+  :method: GET
+  :path: /oauth2/authorize?response_type=code&client_id=j0tqvzCzdDV_xV7HOuSH5nkqLNsTI0--tfAvoEtJ0Do&scope=read_prefs&state=a5FqUlA4BZGXJPjY2eyZaxllOZg8J6LTyJmLGNBUBYg%3D&redirect_uri=http://127.0.0.1:4000/login/oauth2/code/osm
+  :scheme: https
+  accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+  accept-encoding: gzip, deflate, br
+  accept-language: nl-BE,nl;q=0.9,en-GB;q=0.8,en;q=0.7,nl-NL;q=0.6,en-US;q=0.5
+  cache-control: no-cache
+  cookie: _osm_session=a0acdf10bcac76426db9f45a44873d3d; _pk_id.1.cf09=38cd9f939d715beb.1703433984.; _pk_ref.1.cf09=%5B%22%22%2C%22%22%2C1703599518%2C%22http%3A%2F%2F127.0.0.1%3A4000%2F%22%5D; _pk_ses.1.cf09=1; _osm_totp_token=965146; _osm_banner_donate_2023=1; _osm_location=4.94075|51.54224|19|M
+  pragma: no-cache
+  referer: http://127.0.0.1:4000/
+  sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+  sec-fetch-dest: document
+  sec-fetch-mode: navigate
+  sec-fetch-site: cross-site
+  sec-fetch-user: ?1
+  upgrade-insecure-requests: 1
+  user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+
+Response 302 FOUND
+Headers
+  cache-control: no-cache
+  content-language: en
+  content-security-policy: default-src 'self'; child-src 'self'; connect-src 'self' matomo.openstreetmap.org; font-src 'none'; frame-ancestors 'self'; frame-src 'self'; img-src 'self' data: www.gravatar.com *.wp.com tile.openstreetmap.org *.tile.openstreetmap.org *.tile.thunderforest.com tileserver.memomaps.de tile.tracestrack.com *.openstreetmap.fr matomo.openstreetmap.org https://openstreetmap-user-avatars.s3.dualstack.eu-west-1.amazonaws.com https://openstreetmap-gps-images.s3.dualstack.eu-west-1.amazonaws.com; manifest-src 'self'; media-src 'none'; object-src 'self'; script-src 'self' matomo.openstreetmap.org; style-src 'self'; worker-src 'none'
+  content-type: text/html; charset=utf-8
+  date: Tue, 26 Dec 2023 14:53:31 GMT
+  location: http://127.0.0.1:4000/login/oauth2/code/osm?code=ilfVEGheygMjuJP5J0W6Jki14qX0maHVPejrgF26C9I&state=a5FqUlA4BZGXJPjY2eyZaxllOZg8J6LTyJmLGNBUBYg%3D
+  referrer-policy: strict-origin-when-cross-origin
+  server: Apache/2.4.54 (Ubuntu)
+  set-cookie: _osm_session=a0acdf10bcac76426db9f45a44873d3d; path=/; expires=Tue, 23 Jan 2024 14:53:31 GMT; HttpOnly; secure; SameSite=Lax
+  status: 302 Found
+  strict-transport-security: max-age=31536000; includeSubDomains; preload
+  vary: Accept-Language,Origin
+  x-content-type-options: nosniff
+  x-download-options: noopen
+  x-frame-options: sameorigin
+  x-permitted-cross-domain-policies: none
+  x-powered-by: Phusion Passenger(R) 6.0.19
+  x-request-id: ZYro672OPjyqcorC74zoCwABHS8
+  x-runtime: 0.022783
+  x-xss-protection: 1; mode=block
+Content: mimeType=text/html
+null
+---
+GET http://127.0.0.1:4000/login/oauth2/code/osm?code=ilfVEGheygMjuJP5J0W6Jki14qX0maHVPejrgF26C9I&state=a5FqUlA4BZGXJPjY2eyZaxllOZg8J6LTyJmLGNBUBYg=
+Headers
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: nl-BE,nl;q=0.9,en-GB;q=0.8,en;q=0.7,nl-NL;q=0.6,en-US;q=0.5
+  Cache-Control: no-cache
+  Connection: keep-alive
+  Cookie: JSESSIONID=9AC33D146F4C1AC04C053FE89E3191A3; XSRF-TOKEN=ecb737c9-fa36-4388-a90d-6bae27ec86ea
+  Host: 127.0.0.1:4000
+  Pragma: no-cache
+  Referer: http://127.0.0.1:4000/
+  Sec-Fetch-Dest: document
+  Sec-Fetch-Mode: navigate
+  Sec-Fetch-Site: cross-site
+  Sec-Fetch-User: ?1
+  Upgrade-Insecure-Requests: 1
+  User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+  sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+
+Response 302 FOUND
+Headers
+  Access-Control-Allow-Origin: *
+  cache-control: no-cache, no-store, max-age=0, must-revalidate
+  connection: close
+  content-length: 0
+  date: Tue, 26 Dec 2023 14:53:31 GMT
+  expires: 0
+  location: http://127.0.0.1:4000/
+  pragma: no-cache
+  set-cookie: JSESSIONID=7C892C11B51F94B88201CEC6E95CFFBE; Path=/; HttpOnly
+  set-cookie: XSRF-TOKEN=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/
+  set-cookie: XSRF-TOKEN=b6183953-3135-4f3a-9dc4-3200095fadb2; Path=/
+  x-content-type-options: nosniff
+  x-frame-options: DENY
+  x-xss-protection: 1; mode=block
+Content: mimeType=x-unknown
+---
+GET http://127.0.0.1:4000/
+Headers
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: nl-BE,nl;q=0.9,en-GB;q=0.8,en;q=0.7,nl-NL;q=0.6,en-US;q=0.5
+  Cache-Control: no-cache
+  Connection: keep-alive
+  Cookie: JSESSIONID=7C892C11B51F94B88201CEC6E95CFFBE; XSRF-TOKEN=b6183953-3135-4f3a-9dc4-3200095fadb2
+  Host: 127.0.0.1:4000
+  Pragma: no-cache
+  Referer: http://127.0.0.1:4000/
+  Sec-Fetch-Dest: document
+  Sec-Fetch-Mode: navigate
+  Sec-Fetch-Site: cross-site
+  Sec-Fetch-User: ?1
+  Upgrade-Insecure-Requests: 1
+  User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+  sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+
+Response 200 OK
+Headers
+  Access-Control-Allow-Origin: *
+  Cache-Control: no-cache
+  Connection: keep-alive
+  Content-Length: 596
+  Content-Type: text/html
+  Date: Tue, 26 Dec 2023 14:53:31 GMT
+  Keep-Alive: timeout=5
+Content: mimeType=text/html
+<!doctype html>
+<html lang="en">
+<head>
+  <script type="module" src="/@vite/client"></script>
+
+  <meta charset="utf-8">
+  <title>knooppuntnet oauth2-spike</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"></head>
+<body>
+  <kpn-root></kpn-root>
+<script src="polyfills.js" type="module"></script><script src="main.js" type="module"></script></body>
+</html>
+
+---
+GET http://127.0.0.1:4000/user
+Headers
+  Accept: application/json, text/plain, */*
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: nl-BE,nl;q=0.9,en-GB;q=0.8,en;q=0.7,nl-NL;q=0.6,en-US;q=0.5
+  Cache-Control: no-cache
+  Connection: keep-alive
+  Cookie: JSESSIONID=7C892C11B51F94B88201CEC6E95CFFBE; XSRF-TOKEN=b6183953-3135-4f3a-9dc4-3200095fadb2
+  Host: 127.0.0.1:4000
+  Pragma: no-cache
+  Referer: http://127.0.0.1:4000/
+  Sec-Fetch-Dest: empty
+  Sec-Fetch-Mode: cors
+  Sec-Fetch-Site: same-origin
+  User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+  sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+
+Response 200 OK
+Headers
+  Access-Control-Allow-Origin: *
+  cache-control: no-cache, no-store, max-age=0, must-revalidate
+  connection: close
+  content-length: 5
+  content-type: application/json;charset=UTF-8
+  date: Tue, 26 Dec 2023 14:53:31 GMT
+  expires: 0
+  pragma: no-cache
+  x-content-type-options: nosniff
+  x-frame-options: DENY
+  x-xss-protection: 1; mode=block
+Content: mimeType=application/json
+vmarc

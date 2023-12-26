@@ -6,15 +6,13 @@ import { UserService } from './user.service';
 @Component({
   selector: 'kpn-user-link-login',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-
- <a rel="nofollow noreferrer" (click)="login()">login</a> `,
+  template: `<a rel="nofollow noreferrer" (click)="click()">login</a>`,
   standalone: true,
 })
 export class UserLinkLoginComponent {
   private readonly userService = inject(UserService);
 
-  login(): void {
-    this.userService.loginLinkClicked();
+  click(): void {
+    this.userService.login();
   }
 }

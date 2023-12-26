@@ -7,5 +7,4 @@ class UserParser {
     val displayNam = (user \ "@display_name").text
     if (displayNam.isEmpty) None else Some(displayNam)
   }
-
 }

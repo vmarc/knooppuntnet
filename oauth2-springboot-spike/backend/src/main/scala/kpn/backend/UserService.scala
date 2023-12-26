@@ -11,6 +11,6 @@ class UserService extends OAuth2UserService[OAuth2UserRequest, OAuth2User]{
   override def loadUser(userRequest: OAuth2UserRequest): OAuth2User = {
     val accessToken = userRequest.getAccessToken
     // TODO use accessToken to pick up the username from OpenStreetMap (use UserParser)
-    new KpnUser("vmarc")
+    new ServerAuthenticationUser("vmarc")
   }
 }
