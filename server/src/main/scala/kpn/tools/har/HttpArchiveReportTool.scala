@@ -18,7 +18,7 @@ import scala.collection.convert.ImplicitConversions.`collection AsScalaIterable`
 
 object HttpArchiveReportTool {
   def main(args: Array[String]): Unit = {
-    new HttpArchiveReportTool().report("/home/vmarc/springboot-osm.har")
+    new HttpArchiveReportTool().report("/home/vmarc/test.har")
   }
 }
 
@@ -71,7 +71,8 @@ class HttpArchiveReportTool {
     if (content != null) {
       println("Content: mimeType=" + content.getMimeType)
       if (content.getMimeType != null && content.getMimeType.contains("text/html")) {
-        println("  html content not printed")
+        // println("  html content not printed")
+        println(content.getText)
       }
       else if (content.getMimeType != null && content.getMimeType.contains("application/json")) try {
         val jsonObject = Json.value[Object](content.getText, classOf[Object])

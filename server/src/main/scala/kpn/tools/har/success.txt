@@ -1,0 +1,236 @@
+---
+GET http://127.0.0.1:8080/oauth2/authorization/osm
+Headers
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: nl-BE,nl;q=0.9,en-GB;q=0.8,en;q=0.7,nl-NL;q=0.6,en-US;q=0.5
+  Cache-Control: no-cache
+  Connection: keep-alive
+  Cookie: JSESSIONID=F8820395833DCC02ECCABDF82177D106
+  Host: 127.0.0.1:8080
+  Pragma: no-cache
+  Referer: http://127.0.0.1:8080/
+  Sec-Fetch-Dest: document
+  Sec-Fetch-Mode: navigate
+  Sec-Fetch-Site: same-origin
+  Sec-Fetch-User: ?1
+  Upgrade-Insecure-Requests: 1
+  User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+  sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+
+Response 302 FOUND
+Headers
+  Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+  Connection: keep-alive
+  Content-Length: 0
+  Date: Mon, 25 Dec 2023 20:52:58 GMT
+  Expires: 0
+  Keep-Alive: timeout=60
+  Location: https://www.openstreetmap.org/oauth2/authorize?response_type=code&client_id=j0tqvzCzdDV_xV7HOuSH5nkqLNsTI0--tfAvoEtJ0Do&scope=read_prefs&state=vJ-DHOsQyVyxmkrtWHSWrToWXI1dIgZ05b5kkl7mTwc%3D&redirect_uri=http://127.0.0.1:8080/login/oauth2/code/osm
+  Pragma: no-cache
+  Set-Cookie: JSESSIONID=FC908EDC97A09D7C70F89CCCB3638CCC; Path=/; HttpOnly
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+Content: mimeType=x-unknown
+---
+GET https://www.openstreetmap.org/oauth2/authorize?response_type=code&client_id=j0tqvzCzdDV_xV7HOuSH5nkqLNsTI0--tfAvoEtJ0Do&scope=read_prefs&state=vJ-DHOsQyVyxmkrtWHSWrToWXI1dIgZ05b5kkl7mTwc=&redirect_uri=http://127.0.0.1:8080/login/oauth2/code/osm
+Headers
+  :authority: www.openstreetmap.org
+  :method: GET
+  :path: /oauth2/authorize?response_type=code&client_id=j0tqvzCzdDV_xV7HOuSH5nkqLNsTI0--tfAvoEtJ0Do&scope=read_prefs&state=vJ-DHOsQyVyxmkrtWHSWrToWXI1dIgZ05b5kkl7mTwc%3D&redirect_uri=http://127.0.0.1:8080/login/oauth2/code/osm
+  :scheme: https
+  accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+  accept-encoding: gzip, deflate, br
+  accept-language: nl-BE,nl;q=0.9,en-GB;q=0.8,en;q=0.7,nl-NL;q=0.6,en-US;q=0.5
+  cache-control: no-cache
+  cookie: _osm_session=a0acdf10bcac76426db9f45a44873d3d; _pk_id.1.cf09=38cd9f939d715beb.1703433984.; _osm_banner_donate_2023=1; _osm_location=4.4683|51.4677|10|M; _pk_ref.1.cf09=%5B%22%22%2C%22%22%2C1703520361%2C%22http%3A%2F%2Flocalhost%3A8080%2F%22%5D
+  pragma: no-cache
+  referer: http://127.0.0.1:8080/
+  sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+  sec-fetch-dest: document
+  sec-fetch-mode: navigate
+  sec-fetch-site: cross-site
+  sec-fetch-user: ?1
+  upgrade-insecure-requests: 1
+  user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+
+Response 302 FOUND
+Headers
+  cache-control: no-cache
+  content-language: en
+  content-security-policy: default-src 'self'; child-src 'self'; connect-src 'self' matomo.openstreetmap.org; font-src 'none'; frame-ancestors 'self'; frame-src 'self'; img-src 'self' data: www.gravatar.com *.wp.com tile.openstreetmap.org *.tile.openstreetmap.org *.tile.thunderforest.com tileserver.memomaps.de tile.tracestrack.com *.openstreetmap.fr matomo.openstreetmap.org https://openstreetmap-user-avatars.s3.dualstack.eu-west-1.amazonaws.com https://openstreetmap-gps-images.s3.dualstack.eu-west-1.amazonaws.com; manifest-src 'self'; media-src 'none'; object-src 'self'; script-src 'self' matomo.openstreetmap.org; style-src 'self'; worker-src 'none'
+  content-type: text/html; charset=utf-8
+  date: Mon, 25 Dec 2023 20:52:58 GMT
+  location: http://127.0.0.1:8080/login/oauth2/code/osm?code=vt_fx2GbYqoA9u8AuffOEKO6ehVtPB5Wks5KVzHlXQo&state=vJ-DHOsQyVyxmkrtWHSWrToWXI1dIgZ05b5kkl7mTwc%3D
+  referrer-policy: strict-origin-when-cross-origin
+  server: Apache/2.4.54 (Ubuntu)
+  set-cookie: _osm_session=a0acdf10bcac76426db9f45a44873d3d; path=/; expires=Mon, 22 Jan 2024 20:52:58 GMT; HttpOnly; secure; SameSite=Lax
+  status: 302 Found
+  strict-transport-security: max-age=31536000; includeSubDomains; preload
+  vary: Accept-Language,Origin
+  x-content-type-options: nosniff
+  x-download-options: noopen
+  x-frame-options: sameorigin
+  x-permitted-cross-domain-policies: none
+  x-powered-by: Phusion Passenger(R) 6.0.19
+  x-request-id: ZYnrqlQaXPm0YoCqFsUA6gABhwk
+  x-runtime: 0.133996
+  x-xss-protection: 1; mode=block
+Content: mimeType=text/html
+null
+---
+GET http://127.0.0.1:8080/login/oauth2/code/osm?code=vt_fx2GbYqoA9u8AuffOEKO6ehVtPB5Wks5KVzHlXQo&state=vJ-DHOsQyVyxmkrtWHSWrToWXI1dIgZ05b5kkl7mTwc=
+Headers
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: nl-BE,nl;q=0.9,en-GB;q=0.8,en;q=0.7,nl-NL;q=0.6,en-US;q=0.5
+  Cache-Control: no-cache
+  Connection: keep-alive
+  Cookie: JSESSIONID=FC908EDC97A09D7C70F89CCCB3638CCC
+  Host: 127.0.0.1:8080
+  Pragma: no-cache
+  Referer: http://127.0.0.1:8080/
+  Sec-Fetch-Dest: document
+  Sec-Fetch-Mode: navigate
+  Sec-Fetch-Site: cross-site
+  Sec-Fetch-User: ?1
+  Upgrade-Insecure-Requests: 1
+  User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+  sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+
+Response 302 FOUND
+Headers
+  Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+  Connection: keep-alive
+  Content-Length: 0
+  Date: Mon, 25 Dec 2023 20:52:58 GMT
+  Expires: 0
+  Keep-Alive: timeout=60
+  Location: http://127.0.0.1:8080/
+  Pragma: no-cache
+  Set-Cookie: JSESSIONID=67B0B93929724EAD74B37887BEB110BB; Path=/; HttpOnly
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+Content: mimeType=x-unknown
+---
+GET http://127.0.0.1:8080/
+Headers
+  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: nl-BE,nl;q=0.9,en-GB;q=0.8,en;q=0.7,nl-NL;q=0.6,en-US;q=0.5
+  Cache-Control: no-cache
+  Connection: keep-alive
+  Cookie: JSESSIONID=67B0B93929724EAD74B37887BEB110BB
+  Host: 127.0.0.1:8080
+  Pragma: no-cache
+  Referer: http://127.0.0.1:8080/
+  Sec-Fetch-Dest: document
+  Sec-Fetch-Mode: navigate
+  Sec-Fetch-Site: cross-site
+  Sec-Fetch-User: ?1
+  Upgrade-Insecure-Requests: 1
+  User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+  sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+
+Response 200 OK
+Headers
+  Accept-Ranges: bytes
+  Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+  Connection: keep-alive
+  Content-Language: nl-BE
+  Content-Length: 1037
+  Content-Type: text/html
+  Date: Mon, 25 Dec 2023 20:52:58 GMT
+  Expires: 0
+  Keep-Alive: timeout=60
+  Last-Modified: Mon, 25 Dec 2023 17:18:39 GMT
+  Pragma: no-cache
+  Vary: Origin
+  Vary: Access-Control-Request-Method
+  Vary: Access-Control-Request-Headers
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+Content: mimeType=text/html
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<title>Demo</title>
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width" />
+<base href="/" />
+<link rel="stylesheet" type="text/css"
+    href="/webjars/bootstrap/css/bootstrap.min.css" />
+<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+<script type="text/javascript"
+    src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <h1>Login</h1>
+    <div class="container unauthenticated">
+        With OSM: <a href="/oauth2/authorization/osm">click here</a>
+    </div>
+    <div class="container authenticated" style="display: none">
+        Logged in as: <span id="user"></span>
+    </div>
+    <script type="text/javascript">
+          $.get("/user", function(data) {
+            $("#user").html(data.name);
+            $(".unauthenticated").hide()
+            $(".authenticated").show()
+          });
+        </script>
+</body>
+</html>
+---
+GET http://127.0.0.1:8080/user
+Headers
+  Accept: */*
+  Accept-Encoding: gzip, deflate, br
+  Accept-Language: nl-BE,nl;q=0.9,en-GB;q=0.8,en;q=0.7,nl-NL;q=0.6,en-US;q=0.5
+  Cache-Control: no-cache
+  Connection: keep-alive
+  Cookie: JSESSIONID=67B0B93929724EAD74B37887BEB110BB
+  Host: 127.0.0.1:8080
+  Pragma: no-cache
+  Referer: http://127.0.0.1:8080/
+  Sec-Fetch-Dest: empty
+  Sec-Fetch-Mode: cors
+  Sec-Fetch-Site: same-origin
+  User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36
+  X-Requested-With: XMLHttpRequest
+  sec-ch-ua: "Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"
+  sec-ch-ua-mobile: ?0
+  sec-ch-ua-platform: "Linux"
+
+Response 200 OK
+Headers
+  Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+  Connection: keep-alive
+  Content-Type: application/json
+  Date: Mon, 25 Dec 2023 20:52:58 GMT
+  Expires: 0
+  Keep-Alive: timeout=60
+  Pragma: no-cache
+  Transfer-Encoding: chunked
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+Content: mimeType=application/json
+{
+  "name" : "vmarc"
+}
+
+Process finished with exit code 0
