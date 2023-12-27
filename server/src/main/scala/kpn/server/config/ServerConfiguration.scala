@@ -128,16 +128,6 @@ class ServerConfiguration() {
   }
 
   @Bean
-  def oauthClientId(@Value("${oauth.client-id}") value: String): String = {
-    value
-  }
-
-  @Bean
-  def cryptoKey(@Value("${cryptoKey}") value: String): String = {
-    value
-  }
-
-  @Bean
   def locationConfiguration: LocationConfiguration = {
     new LocationConfigurationReader().read()
   }

@@ -58,13 +58,14 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
         <p *ngIf="!response.result; else nodeFound" i18n="@@node.node-not-found">Node not found</p>
 
         <ng-template #nodeFound>
-          <div
-            *ngIf="loggedIn() === false; else changes"
-            i18n="@@node.login-required"
-            class="kpn-spacer-above"
-          >
-            The details of the node changes history is available to registered OpenStreetMap
-            contributors only, after <kpn-user-link-login></kpn-user-link-login>.
+          <div *ngIf="loggedIn() === false; else changes">
+            <p i18n="@@node.login-required">
+              The details of the node changes history is available to logged in OpenStreetMap
+              contributors only.
+            </p>
+            <p>
+              <kpn-user-link-login />
+            </p>
           </div>
 
           <ng-template #changes>

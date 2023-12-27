@@ -13,6 +13,6 @@ export class UserLinkLoginComponent {
   private readonly userService = inject(UserService);
 
   login(): void {
-    this.userService.loginLinkClicked();
+    this.userService.login();
   }
 }

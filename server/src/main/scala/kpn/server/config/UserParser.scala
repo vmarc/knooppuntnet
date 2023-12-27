@@ -1,4 +1,4 @@
-package kpn.server.api.authentication
+package kpn.server.config
 
 class UserParser {
 

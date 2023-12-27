@@ -7,6 +7,14 @@ PROXY_CONFIG = {
     target: "http://localhost:9005",
     secure: false,
   },
+  "/oauth2/**": {
+    target: "http://localhost:9005",
+    secure: false,
+  },
+  "/login/**": {
+    target: "http://localhost:9005",
+    secure: false,
+  },
   "/websocket/*": {
     target: "ws://localhost:9005",
     secure: false,

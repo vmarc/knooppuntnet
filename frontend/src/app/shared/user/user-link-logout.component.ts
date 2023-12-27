@@ -13,6 +13,6 @@ export class UserLinkLogoutComponent {
   private readonly userService = inject(UserService);
 
   logout(): void {
-    this.userService.logoutLinkClicked();
+    this.userService.logout();
   }
 }

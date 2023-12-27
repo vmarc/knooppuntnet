@@ -1,6 +1,7 @@
 package kpn.server.api.authentication
 
 import kpn.core.util.UnitTest
+import kpn.server.config.UserParser
 
 import scala.xml.XML
 

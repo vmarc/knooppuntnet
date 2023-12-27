@@ -58,9 +58,14 @@ import { RouteChangesSidebarComponent } from './route-changes-sidebar.component'
           Route not found
         </div>
         <ng-template #routeFound>
-          <div *ngIf="loggedIn() === false; else changes" i18n="@@route-changes.login-required">
-            The details of the route changes history is available to registered OpenStreetMap
-            contributors only, after <kpn-user-link-login></kpn-user-link-login>.
+          <div *ngIf="loggedIn() === false; else changes">
+            <p i18n="@@route-changes.login-required">
+              The details of the route history is available to logged in OpenStreetMap contributors
+              only.
+            </p>
+            <p>
+              <kpn-user-link-login />
+            </p>
           </div>
           <ng-template #changes>
             <div *ngIf="response.result as page">

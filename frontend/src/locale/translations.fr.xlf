@@ -1409,14 +1409,6 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
           <context context-type="linenumber">62,64</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="authenticate-page.title" datatype="html">
-        <source>Logging in...</source>
-        <target>Connexion en cours ...</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/authenticate/authenticated-page.component.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-      </trans-unit>
       <trans-unit id="subset-map.title" datatype="html">
         <source>Map</source>
         <target>Carte</target>
@@ -1987,128 +1979,6 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/base/pages/home/home-page.component.ts</context>
           <context context-type="linenumber">22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="login.title" datatype="html">
-        <source>Login</source>
-        <target>Connexion</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">16</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="login.note.1" datatype="html">
-        <source>Login allows you to view extra information, such as changeset details, network history, route history and node history.</source>
-        <target>La connexion vous permet d&apos;afficher des informations supplémentaires, telles que les détails du groupe de modifications, l&apos;historique des réseaux, l&apos;historique des itinéraires et l&apos;historique des carrefours.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">19,22</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="login.note.2" datatype="html">
-        <source>This information is available to registered OpenStreetMap users only.</source>
-        <target>Ces informations sont disponibles uniquement pour les utilisateurs enregistrés d&apos;OpenStreetMap.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">23,25</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="login.note.3" datatype="html">
-        <source>After clicking the &quot;login&quot; button below, you will be directed (via the OpenStreetMap login page if you are not logged in to OpenStreetMap yet) to the OpenStreetMap page &quot;Authorize access to your account&quot;. Click the button &quot;Grant access&quot; (leave the option &quot;read your user preferences&quot; checked).</source>
-        <target>Après avoir cliqué sur le bouton &quot;connexion&quot; ci-dessous, vous serez dirigé (via la page de connexion d&apos;OpenStreetMap si vous n&apos;êtes pas encore connecté à OpenStreetMap) vers la page d&apos;OpenStreetMap &quot;Autoriser l&apos;accès à votre compte&quot;. Cliquez sur le bouton &quot;Accorder l&apos;accès&quot; (laissez l&apos;option &quot;lire vos préférences utilisateur&quot; cochée).</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">26,31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="login.note.4" datatype="html">
-        <source>The knooppuntnet application only reads your username from the user preferences to establish that you are a registered OpenStreetMap user. All other user preferences are ignored, and not stored in knooppuntnet.</source>
-        <target>L&apos;application knooppuntnet lit uniquement votre nom d&apos;utilisateur dans les préférences de l&apos;utilisateur pour établir que vous êtes un utilisateur OpenStreetMap enregistré. Toutes les autres préférences de l&apos;utilisateur sont ignorées et ne sont pas stockées dans knooppuntnet.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">32,36</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="login.note.5" datatype="html">
-        <source>This login procedure uses OpenStreetMap security. Knooppuntnet does not have access to your password at any moment.</source>
-        <target>Cette procédure de connexion utilise la sécurité OpenStreetMap. Knooppuntnet n&apos;a à aucun moment accès à votre mot de passe.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">37,40</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="login.note.6" datatype="html">
-        <source>You remain logged in (also after closing you browser), until you explicitly logout through the logout page. To login again after logout you will have to use the same login procedure again.</source>
-        <target>Vous restez connecté (même après avoir fermé votre navigateur), jusqu&apos;à ce que vous vous déconnectiez explicitement via la page de déconnexion. Pour vous reconnecter après la déconnexion, vous devrez à nouveau utiliser la même procédure de connexion.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">41,45</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="login.submit" datatype="html">
-        <source>Login</source>
-        <target>Connexion</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/login/login-page.component.ts</context>
-          <context context-type="linenumber">49,51</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="logout.title" datatype="html">
-        <source>Logout</source>
-        <target>Déconnexion</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">21</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="logout.logged-in" datatype="html">
-        <source>You are currently logged in as <x ctype="x-kpn_osm_link_user" equiv-text="&lt;kpn-osm-link-user&gt;" id="START_TAG_KPN_OSM_LINK_USER"/><x ctype="x-kpn_osm_link_user" equiv-text="&lt;/kpn-osm-link-user&gt;" id="CLOSE_TAG_KPN_OSM_LINK_USER"/> .</source>
-        <target>Vous êtes actuellement connecté en tant que <x ctype="x-kpn-osm-link-user" equiv-text="&lt;kpn-osm-link-user&gt;" id="START_TAG_KPN-OSM-LINK-USER"/><x ctype="x-kpn-osm-link-user" equiv-text="&lt;/kpn-osm-link-user&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER"/>.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">25,29</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="logout.note.1" datatype="html">
-        <source>This allows you to view extra information that is available to OpenStreetMap users only.</source>
-        <target>Cela vous permet d&apos;afficher des informations supplémentaires qui sont disponibles uniquement pour les utilisateurs d&apos;OpenStreetMap.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">31,34</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="logout.note.2" datatype="html">
-        <source>After logging out you can continue to use this website. However, the additional information such as changesets, network changes, route changes and node changes will not be visible anymore. Your personal OpenStreetMap <x ctype="x-kpn_osm_link_user_oath_clients" equiv-text="&lt;kpn-osm-link-user-oath-clients&gt;" id="START_TAG_KPN_OSM_LINK_USER_OATH_CLIENTS"/><x ctype="x-kpn_osm_link_user_oath_clients" equiv-text="&lt;/kpn-osm-link-user-oath-clients&gt;" id="CLOSE_TAG_KPN_OSM_LINK_USER_OATH_CLIENTS"/> will still contain this application. The application can safely be revoked. The authorization will not be used anymore. A new authorization will be created when logging in again.</source>
-        <target>Après votre déconnexion, vous pouvez continuer à utiliser ce site. Cependant, les informations complémentaires telles que groupes de modifications, modifications de réseau, modifications d&apos;itinéraire et modifications de nœuds ne seront plus visibles.
-Votre compte OpenStreetMap <x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;kpn-osm-link-user-oath-clients&gt;" id="START_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/><x ctype="x-kpn-osm-link-user-oath-clients" equiv-text="&lt;/kpn-osm-link-user-oath-clients&gt;" id="CLOSE_TAG_KPN-OSM-LINK-USER-OATH-CLIENTS"/> contiendra sera toujours lié à cette application. L&apos;application peut être supprimé sans crainte.
-L&apos;autorisation ne sera plus utilisée. Une nouvelle autorisation sera créée lors de votre prochaine connexion.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">36,44</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="logout.submit" datatype="html">
-        <source>Logout</source>
-        <target>Déconnexion</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">48,50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="logout.not-logged-in" datatype="html">
-        <source>You are not logged in.</source>
-        <target>Vous n&apos;êtes pas connecté.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">58</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="logout.login-comment" datatype="html">
-        <source>You can <x ctype="x-a" equiv-text="&lt;a routerLink=&quot;/login&quot;&gt;" id="START_LINK"/>login<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> to view extra information that is available to <x ctype="x-kpn_osm_website" equiv-text="&lt;kpn-osm-website&gt;" id="START_TAG_KPN_OSM_WEBSITE"/><x ctype="x-kpn_osm_website" equiv-text="&lt;/kpn-osm-website&gt;" id="CLOSE_TAG_KPN_OSM_WEBSITE"/> users only.</source>
-        <target>Vous devez vous <x ctype="x-a" equiv-text="&lt;a&gt;" id="START_LINK"/>identifier<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> pour afficher des informations supplémentaires disponibles <x ctype="x-kpn_osm_website" equiv-text="&lt;kpn-osm-website&gt;" id="START_TAG_KPN_OSM_WEBSITE"/><x ctype="x-kpn_osm_website" equiv-text="&lt;/kpn-osm-website&gt;" id="CLOSE_TAG_KPN_OSM_WEBSITE"/> uniquement pour les utilisateurs.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/base/pages/logout/logout-page.component.ts</context>
-          <context context-type="linenumber">59,64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="not-found.title" datatype="html">
@@ -4344,11 +4214,11 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.login-required" datatype="html">
-        <source>The details of the route changes history is available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
-        <target>Les détails de l&apos;historique des modifications de l&apos;itinéraire ne sont disponibles que pour les contributeurs d&apos;OpenStreetMap enregistrés, après <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/> .</target>
+        <source>The details of the route history is available to logged in OpenStreetMap contributors only.</source>
+        <target>Les détails de l&apos;historique des modifications de l&apos;itinéraire ne sont disponibles que pour les contributeurs d&apos;OpenStreetMap connectés.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/changes/_route-changes-page.component.ts</context>
-          <context context-type="linenumber">61,64</context>
+          <context context-type="linenumber">62,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.route-map" datatype="html">
@@ -4768,8 +4638,8 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
         </context-group>
       </trans-unit>
       <trans-unit id="subset-changes.login-required" datatype="html">
-        <source>This details of the changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
-        <target>Le détail de l&apos;historique de changement est uniquement disponible pour les contributeurs OpenStreetMap enregistrés, après <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/></target>
+        <source>This details of the changes history are available to logged in OpenStreetMap contributors only.</source>
+        <target>Le détail de l&apos;historique de changement est uniquement disponible pour les contributeurs OpenStreetMap connectés.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/changes/_subset-changes-page.component.ts</context>
           <context context-type="linenumber">42,45</context>
@@ -6267,8 +6137,8 @@ Le [carrefour](docs/fr.html#glossaire-carrefour &quot;carrefour dans le glossair
         </context-group>
       </trans-unit>
       <trans-unit id="changes-page.login-required" datatype="html">
-        <source>The details of the changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
-        <target>Les détails de l&apos;historique des modifications ne sont disponibles que pour les contributeurs OpenStreetMap enregistrés. <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/></target>
+        <source>The details of the changes history are available to logged in OpenStreetMap contributors only.</source>
+        <target>Les détails de l&apos;historique des modifications ne sont disponibles que pour les contributeurs OpenStreetMap connectés.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changes/page/_changes-page.component.ts</context>
           <context context-type="linenumber">48,51</context>
@@ -6307,11 +6177,11 @@ Le [carrefour](docs/fr.html#glossaire-carrefour &quot;carrefour dans le glossair
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.login-required" datatype="html">
-        <source>The details of network changes history are available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
-        <target>Le détail de l&apos;historique de changement du réseau est uniquement disponible pour les contributeurs OpenStreetMap enregistrés, après <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn-user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/></target>
+        <source>The details of network history are available to logged in OpenStreetMap contributors only.</source>
+        <target>Le détail de l&apos;historique de changement du réseau est uniquement disponible pour les contributeurs OpenStreetMap connectés.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/changes/_network-changes-page.component.ts</context>
-          <context context-type="linenumber">46,49</context>
+          <context context-type="linenumber">47,50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.title" datatype="html">
@@ -6795,11 +6665,11 @@ Le [carrefour](docs/fr.html#glossaire-carrefour &quot;carrefour dans le glossair
         </context-group>
       </trans-unit>
       <trans-unit id="node.login-required" datatype="html">
-        <source>The details of the node changes history is available to registered OpenStreetMap contributors only, after <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/>.</source>
-        <target>Le détail de l&apos;historique de changement du nœud est uniquement disponible pour les contributeurs OpenStreetMap enregistrés, après <x ctype="x-kpn_user_link_login" equiv-text="&lt;kpn-user-link-login&gt;" id="START_TAG_KPN_USER_LINK_LOGIN"/><x ctype="x-kpn_user_link_login" equiv-text="&lt;/kpn-user-link-login&gt;" id="CLOSE_TAG_KPN_USER_LINK_LOGIN"/></target>
+        <source>The details of the node changes history is available to logged in OpenStreetMap contributors only.</source>
+        <target>Le détail de l&apos;historique de changement du nœud est uniquement disponible pour les contributeurs OpenStreetMap connectés.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/changes/_node-changes-page.component.ts</context>
-          <context context-type="linenumber">65,68</context>
+          <context context-type="linenumber">62,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.node-map" datatype="html">
@@ -11581,46 +11451,6 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
           <context context-type="linenumber">101</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="user.login.discovery-document-load-error" datatype="html">
-        <source>Login failed while trying to retrieve security configuration from OpenStreetMap.</source>
-        <target>Login failed while trying to retrieve security configuration from OpenStreetMap.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
-          <context context-type="linenumber">163</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="user.login.access-denied" datatype="html">
-        <source>Login failed, received access denied from OpenStreetMap.</source>
-        <target>Login failed, received access denied from OpenStreetMap.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
-          <context context-type="linenumber">173</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="user.login.login-failed" datatype="html">
-        <source>Login failed</source>
-        <target>Login failed</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
-          <context context-type="linenumber">177</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="user.login.client-id-error" datatype="html">
-        <source>Could not get clientId from knooppuntnet server.</source>
-        <target>Could not get clientId from knooppuntnet server.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
-          <context context-type="linenumber">222</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="user.login.username-failed" datatype="html">
-        <source>Could not get username from knooppuntnet server.</source>
-        <target>Could not get username from knooppuntnet server.</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/user/user.service.ts</context>
-          <context context-type="linenumber">267</context>
         </context-group>
       </trans-unit>
     </body>
