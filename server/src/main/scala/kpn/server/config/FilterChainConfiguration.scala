@@ -20,7 +20,11 @@ class FilterChainConfiguration(
     http
       .addFilterAfter(serverAuthenticationFilter, classOf[LogoutFilter])
       .addFilterAfter(new RequestContextFilter(testEnabled), classOf[ServerAuthenticationFilter])
-      .csrf(csrf => csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse))
+      .authorizeRequests(authorizeRequests =>
+        authorizeRequests.anyRequest().permitAll()
+      )
+      //.csrf(csrf => csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse))
+      .csrf(csrf => csrf.disable)
       .logout(logout =>
         logout
           .logoutUrl("/oauth2/logout")
