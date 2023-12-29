@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -24,8 +22,8 @@ import { selectNetworkId } from '../store/network.selectors';
       <li i18n="@@breadcrumb.network">Network</li>
     </ul>
 
-    <ng-container *ngIf="networkIdSignal() as networkId">
-      <ng-container *ngIf="summarySignal() as summary">
+    @if (networkIdSignal(); as networkId) {
+      @if (summarySignal(); as summary) {
         <kpn-page-header [pageTitle]="networkPageTitle(summary.name)" subject="network-page">
           <span class="header-network-type-icon">
             <mat-icon [svgIcon]="summary.networkType"></mat-icon>
@@ -88,14 +86,12 @@ import { selectNetworkId } from '../store/network.selectors';
             Changes
           </kpn-page-menu-option>
         </kpn-page-menu>
-      </ng-container>
-    </ng-container>
+      }
+    }
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     MatIconModule,
-    NgIf,
     PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,

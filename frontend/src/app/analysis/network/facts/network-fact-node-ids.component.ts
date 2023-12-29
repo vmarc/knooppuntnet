@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -9,15 +8,17 @@ import { OsmLinkNodeComponent } from '@app/components/shared/link';
   selector: 'kpn-network-fact-node-ids',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngFor="let elementId of elementIds">
-      <kpn-osm-link-node [nodeId]="elementId" [title]="elementId.toString()" />
-      <span class="kpn-brackets-link">
-        <kpn-josm-node [nodeId]="elementId" />
-      </span>
-    </div>
+    @for (elementId of elementIds; track elementId) {
+      <div>
+        <kpn-osm-link-node [nodeId]="elementId" [title]="elementId.toString()" />
+        <span class="kpn-brackets-link">
+          <kpn-josm-node [nodeId]="elementId" />
+        </span>
+      </div>
+    }
   `,
   standalone: true,
-  imports: [NgFor, OsmLinkNodeComponent, JosmNodeComponent],
+  imports: [OsmLinkNodeComponent, JosmNodeComponent],
 })
 export class NetworkFactNodeIdsComponent {
   @Input() elementIds: number[];

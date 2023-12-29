@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -26,32 +24,29 @@ import { NetworkMapComponent } from './network-map.component';
         i18n-pageTitle="@@network-map.title"
       />
 
-      <div *ngIf="apiResponse() as response">
-        <p
-          *ngIf="!response.result; else networkFound"
-          class="kpn-spacer-above"
-          i18n="@@network-page.network-not-found"
-        >
-          Network not found
-        </p>
-        <ng-template #networkFound>
-          <kpn-network-map
-            [networkId]="networkId()"
-            [page]="response.result"
-            [mapPositionFromUrl]="mapPositionFromUrl()"
-          />
-        </ng-template>
-      </div>
+      @if (apiResponse(); as response) {
+        <div>
+          @if (!response.result) {
+            <p class="kpn-spacer-above" i18n="@@network-page.network-not-found">
+              Network not found
+            </p>
+          } @else {
+            <kpn-network-map
+              [networkId]="networkId()"
+              [page]="response.result"
+              [mapPositionFromUrl]="mapPositionFromUrl()"
+            />
+          }
+        </div>
+      }
       <kpn-network-map-sidebar sidebar />
     </kpn-page>
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     NetworkMapComponent,
     NetworkMapSidebarComponent,
     NetworkPageHeaderComponent,
-    NgIf,
     PageComponent,
   ],
 })

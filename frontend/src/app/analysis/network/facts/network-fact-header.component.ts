@@ -16,9 +16,7 @@ import { EditService } from '@app/components/shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <span class="kpn-thick">
-        <kpn-fact-name [fact]="fact.name"></kpn-fact-name>
-      </span>
+      <span class="kpn-thick"><kpn-fact-name [fact]="fact.name"></kpn-fact-name></span>
       <span class="kpn-brackets">{{ factCount() }}</span>
       <kpn-fact-level [factLevel]="factLevel()" class="level" />
       <a

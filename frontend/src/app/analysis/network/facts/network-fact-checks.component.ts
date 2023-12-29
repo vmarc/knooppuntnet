@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -23,20 +22,22 @@ import { LinkNodeComponent } from '@app/components/shared/link';
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let check of checks; let i = index">
-          <td>
-            <span class="kpn-thin">{{ i + 1 }}</span>
-          </td>
-          <td>
-            <kpn-link-node [nodeId]="check.nodeId" [nodeName]="check.nodeName" />
-          </td>
-          <td>
-            {{ check.expected }}
-          </td>
-          <td>
-            {{ check.actual }}
-          </td>
-        </tr>
+        @for (check of checks; track $index) {
+          <tr>
+            <td>
+              <span class="kpn-thin">{{ $index + 1 }}</span>
+            </td>
+            <td>
+              <kpn-link-node [nodeId]="check.nodeId" [nodeName]="check.nodeName" />
+            </td>
+            <td>
+              {{ check.expected }}
+            </td>
+            <td>
+              {{ check.actual }}
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   `,
@@ -46,7 +47,7 @@ import { LinkNodeComponent } from '@app/components/shared/link';
     }
   `,
   standalone: true,
-  imports: [NgFor, LinkNodeComponent],
+  imports: [LinkNodeComponent],
 })
 export class NetworkFactChecksComponent {
   @Input() checks: Check[];

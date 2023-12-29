@@ -1,6 +1,3 @@
-import { AsyncPipe } from '@angular/common';
-import { NgFor } from '@angular/common';
-import { NgIf } from '@angular/common';
 import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -38,60 +35,59 @@ import { NetworkChangesSidebarComponent } from './network-changes-sidebar.compon
         i18n-pageTitle="@@network-changes.title"
       />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <p *ngIf="!response.result; else networkFound" i18n="@@network-page.network-not-found">
-          Network not found
-        </p>
-        <ng-template #networkFound>
-          <div *ngIf="loggedIn() === false; else changes">
-            <p i18n="@@network-changes.login-required">
-              The details of network history are available to logged in OpenStreetMap contributors
-              only.
-            </p>
-            <p>
-              <kpn-user-link-login />
-            </p>
-          </div>
-          <ng-template #changes>
-            <p>
-              <kpn-situation-on [timestamp]="response.situationOn" />
-            </p>
-            <kpn-changes
-              [impact]="impact()"
-              [pageSize]="pageSize()"
-              [pageIndex]="pageIndex()"
-              (impactChange)="onImpactChange($event)"
-              (pageSizeChange)="onPageSizeChange($event)"
-              (pageIndexChange)="onPageIndexChange($event)"
-              [totalCount]="response.result.totalCount"
-              [changeCount]="response.result.changes.length"
-            >
-              <kpn-items>
-                <kpn-item
-                  *ngFor="let networkChangeInfo of response.result.changes"
-                  [index]="networkChangeInfo.rowIndex"
-                >
-                  <kpn-network-change-set [networkChangeInfo]="networkChangeInfo" />
-                </kpn-item>
-              </kpn-items>
-            </kpn-changes>
-          </ng-template>
-        </ng-template>
-      </div>
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          @if (!response.result) {
+            <p i18n="@@network-page.network-not-found">Network not found</p>
+          } @else {
+            @if (loggedIn() === false) {
+              <p i18n="@@network-changes.login-required">
+                The details of network history are available to logged in OpenStreetMap contributors
+                only.
+              </p>
+              <p>
+                <kpn-user-link-login />
+              </p>
+            } @else {
+              <p>
+                <kpn-situation-on [timestamp]="response.situationOn" />
+              </p>
+              <kpn-changes
+                [impact]="impact()"
+                [pageSize]="pageSize()"
+                [pageIndex]="pageIndex()"
+                (impactChange)="onImpactChange($event)"
+                (pageSizeChange)="onPageSizeChange($event)"
+                (pageIndexChange)="onPageIndexChange($event)"
+                [totalCount]="response.result.totalCount"
+                [changeCount]="response.result.changes.length"
+              >
+                <kpn-items>
+                  @for (
+                    networkChangeInfo of response.result.changes;
+                    track networkChangeInfo.rowIndex
+                  ) {
+                    <kpn-item [index]="networkChangeInfo.rowIndex">
+                      <kpn-network-change-set [networkChangeInfo]="networkChangeInfo" />
+                    </kpn-item>
+                  }
+                </kpn-items>
+              </kpn-changes>
+            }
+          }
+        </div>
+      }
       <kpn-network-changes-sidebar sidebar />
     </kpn-page>
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     ChangesComponent,
     ItemComponent,
     ItemsComponent,
     NetworkChangeSetComponent,
     NetworkChangesSidebarComponent,
     NetworkPageHeaderComponent,
-    NgFor,
-    NgIf,
     PageComponent,
     SituationOnComponent,
     UserLinkLoginComponent,

@@ -1,6 +1,3 @@
-import { AsyncPipe } from '@angular/common';
-import { NgFor } from '@angular/common';
-import { NgIf } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -28,40 +25,44 @@ import { NetworkFactComponent } from './network-fact.component';
         pageTitle="Facts"
         i18n-pageTitle="@@network-facts.title"
       />
-
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <div *ngIf="!response.result">
-          <p i18n="@@network-page.network-not-found">Network not found</p>
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          @if (!response.result) {
+            <p i18n="@@network-page.network-not-found">Network not found</p>
+          } @else {
+            @if (response.result; as page) {
+              <kpn-situation-on [timestamp]="response.situationOn" />
+              @if (page.facts.length === 0) {
+                <p class="kpn-line">
+                  <span i18n="@@network-facts.no-facts">No facts</span>
+                  <kpn-icon-happy />
+                </p>
+              } @else {
+                @if (page.facts.length > 0) {
+                  <kpn-items>
+                    @for (fact of page.facts; track $index) {
+                      <kpn-item [index]="$index">
+                        <kpn-network-fact [fact]="fact" [networkType]="page.summary.networkType" />
+                      </kpn-item>
+                    }
+                  </kpn-items>
+                }
+              }
+            }
+          }
         </div>
-        <div *ngIf="response.result as page">
-          <kpn-situation-on [timestamp]="response.situationOn" />
-
-          <p *ngIf="page.facts.length === 0" class="kpn-line">
-            <span i18n="@@network-facts.no-facts">No facts</span>
-            <kpn-icon-happy />
-          </p>
-
-          <kpn-items *ngIf="page.facts.length > 0">
-            <kpn-item *ngFor="let fact of page.facts; let i = index" [index]="i">
-              <kpn-network-fact [fact]="fact" [networkType]="page.summary.networkType" />
-            </kpn-item>
-          </kpn-items>
-        </div>
-      </div>
+      }
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
   `,
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
-    AsyncPipe,
     IconHappyComponent,
     ItemComponent,
     ItemsComponent,
     NetworkFactComponent,
     NetworkPageHeaderComponent,
-    NgFor,
-    NgIf,
     PageComponent,
     SituationOnComponent,
   ],

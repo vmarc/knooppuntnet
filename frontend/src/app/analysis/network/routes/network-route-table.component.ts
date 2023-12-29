@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -75,12 +74,9 @@ import { NetworkRoutesService } from './network-routes.service';
           Symbol
         </th>
         <td mat-cell *matCellDef="let route" class="symbol">
-          <kpn-symbol
-            *ngIf="route.symbol"
-            [description]="route.symbol"
-            [width]="25"
-            [height]="25"
-          />
+          @if (route.symbol) {
+            <kpn-symbol [description]="route.symbol" [width]="25" [height]="25" />
+          }
         </td>
       </ng-container>
 
@@ -181,7 +177,6 @@ import { NetworkRoutesService } from './network-routes.service';
     MatSortModule,
     MatTableModule,
     NetworkRouteAnalysisComponent,
-    NgIf,
     OsmLinkRelationComponent,
     SymbolComponent,
   ],

@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -13,167 +11,177 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- changeType -->
-    <div *ngIf="isCreate()">
-      <b i18n="@@network-changes.network-created">Network created</b>
-    </div>
-    <div *ngIf="isDelete()">
-      <b i18n="@@network-changes.network-deleted">Network deleted</b>
-    </div>
+    @if (isCreate()) {
+      <div>
+        <b i18n="@@network-changes.network-created">Network created</b>
+      </div>
+    }
+    @if (isDelete()) {
+      <div>
+        <b i18n="@@network-changes.network-deleted">Network deleted</b>
+      </div>
+    }
 
-    <div *ngIf="isInitialValue()">
-      <span i18n="@@network-changes.network-initial-value">
-        Oldest known state of the network.
-      </span>
-    </div>
+    @if (isInitialValue()) {
+      <div i18n="@@network-changes.network-initial-value">Oldest known state of the network.</div>
+    }
 
     <!-- networkNodesAdded -->
-    <div *ngIf="networkChangeInfo.networkNodes.added.length > 0" class="kpn-text-only-line">
-      <span *ngIf="!isInitialValue()" class="kpn-label" i18n="@@network-changes.network-nodes.added"
-        >Added node(s)</span
-      >
-      <span *ngIf="isInitialValue()" class="kpn-label" i18n="@@network-changes.network-nodes.list"
-        >Nodes</span
-      >
-      <div class="kpn-comma-list">
-        <span *ngFor="let ref of networkChangeInfo.networkNodes.added">
-          <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
-        </span>
+    @if (networkChangeInfo.networkNodes.added.length > 0) {
+      <div class="kpn-text-only-line">
+        @if (isInitialValue()) {
+          <span class="kpn-label" i18n="@@network-changes.network-nodes.list">Nodes</span>
+        } @else {
+          <span class="kpn-label" i18n="@@network-changes.network-nodes.added">Added node(s)</span>
+        }
+        <div class="kpn-comma-list">
+          @for (ref of networkChangeInfo.networkNodes.added; track $index) {
+            <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+          }
+        </div>
       </div>
-    </div>
+    }
 
     <!-- routesAdded -->
-    <div *ngIf="networkChangeInfo.routes.added.length > 0" class="kpn-text-only-line">
-      <span *ngIf="!isInitialValue()" class="kpn-label" i18n="@@network-changes.routes.added"
-        >Added route(s)</span
-      >
-      <span *ngIf="isInitialValue()" class="kpn-label" i18n="@@network-changes.routes.list"
-        >Routes</span
-      >
-      <div class="kpn-comma-list">
-        <span *ngFor="let ref of networkChangeInfo.routes.added">
-          <kpn-link-route
-            [routeId]="ref.id"
-            [routeName]="ref.name"
-            [networkType]="networkChangeInfo.networkType"
-          />
-        </span>
+    @if (networkChangeInfo.routes.added.length > 0) {
+      <div class="kpn-text-only-line">
+        @if (isInitialValue()) {
+          <span class="kpn-label" i18n="@@network-changes.routes.list">Routes</span>
+        } @else {
+          <span class="kpn-label" i18n="@@network-changes.routes.added">Added route(s)</span>
+        }
+        <div class="kpn-comma-list">
+          @for (ref of networkChangeInfo.routes.added; track $index) {
+            <kpn-link-route
+              [routeId]="ref.id"
+              [routeName]="ref.name"
+              [networkType]="networkChangeInfo.networkType"
+            />
+          }
+        </div>
       </div>
-    </div>
+    }
 
     <!-- nodesAdded -->
-    <div *ngIf="networkChangeInfo.nodes.added.length > 0">
-      <span i18n="@@network-changes.nodes.added">
+    @if (networkChangeInfo.nodes.added.length > 0) {
+      <div i18n="@@network-changes.nodes.added">
         Added non-network node member(s) in network relation
-      </span>
-    </div>
+      </div>
+    }
 
     <!-- waysAdded -->
-    <div *ngIf="networkChangeInfo.ways.added.length > 0">
-      <span i18n="@@network-changes.ways.added"> Added way member(s) in network relation </span>
-    </div>
+    @if (networkChangeInfo.ways.added.length > 0) {
+      <div i18n="@@network-changes.ways.added">Added way member(s) in network relation</div>
+    }
 
     <!-- relationsAdded -->
-    <div *ngIf="networkChangeInfo.relations.added.length > 0">
-      <span i18n="@@network-changes.relations.added">
+    @if (networkChangeInfo.relations.added.length > 0) {
+      <div i18n="@@network-changes.relations.added">
         Added non-route relation(s) in network relation
-      </span>
-    </div>
+      </div>
+    }
 
     <!-- networkDataUpdate -->
-    <div *ngIf="networkChangeInfo.networkDataUpdated">
-      <span i18n="@@network-changes.network-relation-updated"> Updated network relation </span>
-    </div>
+    @if (networkChangeInfo.networkDataUpdated) {
+      <div i18n="@@network-changes.network-relation-updated">Updated network relation</div>
+    }
 
     <!-- networkNodesUpdated -->
-    <div *ngIf="networkChangeInfo.networkNodes.updated.length > 0" class="kpn-line">
-      <span class="kpn-label" i18n="@@network-changes.network-nodes.updated">
-        Updated network node(s)
-      </span>
-      <div class="kpn-comma-list">
-        <span *ngFor="let ref of networkChangeInfo.networkNodes.updated">
-          <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+    @if (networkChangeInfo.networkNodes.updated.length > 0) {
+      <div class="kpn-line">
+        <span class="kpn-label" i18n="@@network-changes.network-nodes.updated">
+          Updated network node(s)
         </span>
+        <div class="kpn-comma-list">
+          @for (ref of networkChangeInfo.networkNodes.updated; track $index) {
+            <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+          }
+        </div>
       </div>
-    </div>
+    }
 
     <!-- routesUpdated -->
-    <div *ngIf="networkChangeInfo.routes.updated.length > 0" class="kpn-line">
-      <span class="kpn-label" i18n="@@network-changes.routes.updated"> Updated route(s) </span>
-      <div class="kpn-comma-list">
-        <span *ngFor="let ref of networkChangeInfo.routes.updated">
-          <kpn-link-route
-            [routeId]="ref.id"
-            [routeName]="ref.name"
-            [networkType]="networkChangeInfo.networkType"
-          />
-        </span>
+    @if (networkChangeInfo.routes.updated.length > 0) {
+      <div class="kpn-line">
+        <span class="kpn-label" i18n="@@network-changes.routes.updated">Updated route(s)</span>
+        <div class="kpn-comma-list">
+          @for (ref of networkChangeInfo.routes.updated; track $index) {
+            <kpn-link-route
+              [routeId]="ref.id"
+              [routeName]="ref.name"
+              [networkType]="networkChangeInfo.networkType"
+            />
+          }
+        </div>
       </div>
-    </div>
+    }
 
     <!-- nodesUpdated -->
-    <div *ngIf="networkChangeInfo.nodes.updated.length > 0">
-      <span i18n="@@network-changes.nodes.updated"> Updated non-network node(s) </span>
-    </div>
+    @if (networkChangeInfo.nodes.updated.length > 0) {
+      <div i18n="@@network-changes.nodes.updated">Updated non-network node(s)</div>
+    }
 
     <!-- waysUpdated -->
-    <div *ngIf="networkChangeInfo.ways.updated.length > 0">
-      <span i18n="@@network-changes.ways.updated">Updated way member(s)</span>
-    </div>
+    @if (networkChangeInfo.ways.updated.length > 0) {
+      <div i18n="@@network-changes.ways.updated">Updated way member(s)</div>
+    }
 
     <!-- relationsUpdated -->
-    <div *ngIf="networkChangeInfo.relations.updated.length > 0">
-      <span i18n="@@network-changes.relations.updated"> Updated non-route relation(s) </span>
-    </div>
+    @if (networkChangeInfo.relations.updated.length > 0) {
+      <div i18n="@@network-changes.relations.updated">Updated non-route relation(s)</div>
+    }
 
     <!-- networkNodesRemoved -->
-    <div *ngIf="networkChangeInfo.networkNodes.removed.length > 0" class="kpn-line">
-      <span class="kpn-label" i18n="@@network-changes.network-nodes.removed">
-        Removed network node(s)
-      </span>
-      <div class="kpn-comma-list">
-        <span *ngFor="let ref of networkChangeInfo.networkNodes.removed">
-          <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+    @if (networkChangeInfo.networkNodes.removed.length > 0) {
+      <div class="kpn-line">
+        <span class="kpn-label" i18n="@@network-changes.network-nodes.removed">
+          Removed network node(s)
         </span>
+        <div class="kpn-comma-list">
+          @for (ref of networkChangeInfo.networkNodes.removed; track $index) {
+            <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+          }
+        </div>
       </div>
-    </div>
+    }
 
     <!-- routesRemoved -->
-    <div *ngIf="networkChangeInfo.routes.removed.length > 0" class="kpn-line">
-      <span class="kpn-label" i18n="@@network-changes.routes.removed"> Removed route(s) </span>
-      <div class="kpn-comma-list">
-        <span *ngFor="let ref of networkChangeInfo.routes.removed">
-          <kpn-link-route
-            [routeId]="ref.id"
-            [routeName]="ref.name"
-            [networkType]="networkChangeInfo.networkType"
-          />
-        </span>
+    @if (networkChangeInfo.routes.removed.length > 0) {
+      <div class="kpn-line">
+        <span class="kpn-label" i18n="@@network-changes.routes.removed">Removed route(s)</span>
+        <div class="kpn-comma-list">
+          @for (ref of networkChangeInfo.routes.removed; track $index) {
+            <kpn-link-route
+              [routeId]="ref.id"
+              [routeName]="ref.name"
+              [networkType]="networkChangeInfo.networkType"
+            />
+          }
+        </div>
       </div>
-    </div>
+    }
 
     <!-- nodesRemoved -->
-    <div *ngIf="networkChangeInfo.nodes.removed.length > 0">
-      <span i18n="@@network-changes.nodes.removed">
+    @if (networkChangeInfo.nodes.removed.length > 0) {
+      <div i18n="@@network-changes.nodes.removed">
         Removed non-network node member(s) from network relation
-      </span>
-    </div>
+      </div>
+    }
 
     <!-- waysRemoved -->
-    <div *ngIf="networkChangeInfo.ways.removed.length > 0">
-      <span i18n="@@network-changes.ways.removed">
-        Removed way member(s) from network relation
-      </span>
-    </div>
+    @if (networkChangeInfo.ways.removed.length > 0) {
+      <div i18n="@@network-changes.ways.removed">Removed way member(s) from network relation</div>
+    }
 
     <!-- relationsRemoved -->
-    <div *ngIf="networkChangeInfo.relations.removed.length > 0">
-      <span i18n="@@network-changes.relations.removed">
+    @if (networkChangeInfo.relations.removed.length > 0) {
+      <div i18n="@@network-changes.relations.removed">
         Removed non-route relation(s) from network relation
-      </span>
-    </div>
+      </div>
+    }
   `,
   standalone: true,
-  imports: [NgIf, NgFor, LinkNodeComponent, LinkRouteComponent],
+  imports: [LinkNodeComponent, LinkRouteComponent],
 })
 export class NetworkChangeComponent {
   @Input() networkChangeInfo: NetworkChangeInfo;

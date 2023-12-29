@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -24,24 +22,23 @@ import { NetworkDetailsComponent } from './network-details.component';
         i18n-pageTitle="@@network-details.title"
       />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <div *ngIf="!response.result">
-          <p i18n="@@network-page.network-not-found">Network not found</p>
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          @if (!response.result) {
+            <p i18n="@@network-page.network-not-found">Network not found</p>
+          } @else {
+            <kpn-network-details [response]="response" />
+          }
         </div>
-        <div *ngIf="response.result">
-          <kpn-network-details [response]="response" />
-        </div>
-      </div>
+      }
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
   `,
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
-    AsyncPipe,
     NetworkDetailsComponent,
     NetworkPageHeaderComponent,
-    NgIf,
     PageComponent,
   ],
 })

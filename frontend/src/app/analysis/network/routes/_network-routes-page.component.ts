@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -25,36 +23,35 @@ import { NetworkRoutesSidebarComponent } from './network-routes-sidebar.componen
         i18n-pageTitle="@@network-routes.title"
       />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <div *ngIf="!response.result">
-          <p i18n="@@network-page.network-not-found">Network not found</p>
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          @if (!response.result) {
+            <p i18n="@@network-page.network-not-found">Network not found</p>
+          } @else {
+            <p>
+              <kpn-situation-on [timestamp]="response.situationOn" />
+            </p>
+            @if (response.result.routes.length === 0) {
+              <p i18n="@@network-routes.no-routes">No network routes in network</p>
+            } @else {
+              <kpn-network-route-table
+                [timeInfo]="response.result.timeInfo"
+                [surveyDateInfo]="response.result.surveyDateInfo"
+                [networkType]="response.result.networkType"
+                [routes]="response.result.routes"
+              />
+            }
+          }
         </div>
-        <div *ngIf="response.result">
-          <p>
-            <kpn-situation-on [timestamp]="response.situationOn" />
-          </p>
-          <div *ngIf="response.result.routes.length === 0" i18n="@@network-routes.no-routes">
-            No network routes in network
-          </div>
-          <kpn-network-route-table
-            *ngIf="response.result.routes.length > 0"
-            [timeInfo]="response.result.timeInfo"
-            [surveyDateInfo]="response.result.surveyDateInfo"
-            [networkType]="response.result.networkType"
-            [routes]="response.result.routes"
-          />
-        </div>
-      </div>
+      }
       <kpn-network-routes-sidebar sidebar />
     </kpn-page>
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     NetworkPageHeaderComponent,
     NetworkRouteTableComponent,
     NetworkRoutesSidebarComponent,
-    NgIf,
     PageComponent,
     SituationOnComponent,
   ],
