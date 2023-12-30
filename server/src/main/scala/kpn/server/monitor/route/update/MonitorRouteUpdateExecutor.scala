@@ -765,6 +765,7 @@ class MonitorRouteUpdateExecutor(
           case None =>
           case Some(reference) =>
             analyzeReference(reference, Some(subRelation)) match {
+              case None =>
               case Some(state) =>
                 monitorRouteRepository.saveRouteState(state)
                 context = context.copy(
@@ -1369,7 +1370,7 @@ class MonitorRouteUpdateExecutor(
       case None => context
       case Some(newRoute) =>
         val oldReferenceType = context.oldRoute.map(_.referenceType)
-        if (newRoute.referenceType == "multi-gpx" && oldReferenceType != "multi-gpx") {
+        if (newRoute.referenceType == "multi-gpx" && !oldReferenceType.contains("multi-gpx")) {
           context.oldReferenceIds.foreach { referenceId =>
             monitorRouteRepository.deleteRouteReferenceById(referenceId._id)
           }

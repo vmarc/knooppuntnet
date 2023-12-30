@@ -14,7 +14,7 @@ import kpn.server.json.Json
 import java.io.File
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
-import scala.collection.convert.ImplicitConversions.`collection AsScalaIterable`
+import scala.jdk.CollectionConverters._
 
 object HttpArchiveReportTool {
   def main(args: Array[String]): Unit = {
@@ -26,7 +26,7 @@ class HttpArchiveReportTool {
 
   def report(filename: String): Unit = {
     val har = readHar(filename)
-    har.getLog.getEntries.toSeq.filter(includeEntry).foreach(reportEntry)
+    har.getLog.getEntries.asScala.filter(includeEntry).foreach(reportEntry)
   }
 
   private def reportEntry(entry: HarEntry): Unit = {
@@ -38,7 +38,7 @@ class HttpArchiveReportTool {
     println("---")
     val url = URLDecoder.decode(request.getUrl, StandardCharsets.UTF_8)
     println(s"${request.getMethod} ${url}")
-    printHeaders(request.getHeaders.toSeq)
+    printHeaders(request.getHeaders.asScala.toSeq)
     printPostData(request.getPostData)
   }
 
@@ -47,7 +47,7 @@ class HttpArchiveReportTool {
 
     val status = HttpStatus.byCode(response.getStatus)
     println(s"Response ${status.getCode} ${status.name()}")
-    printHeaders(response.getHeaders.toSeq)
+    printHeaders(response.getHeaders.asScala.toSeq)
     printResponseContent(response.getContent)
   }
 
@@ -59,9 +59,9 @@ class HttpArchiveReportTool {
   }
 
   private def printPostData(postData: HarPostData): Unit = {
-    if (postData != null && postData.getParams.toSeq.nonEmpty) {
+    if (postData != null && postData.getParams.asScala.toSeq.nonEmpty) {
       println("postData")
-      postData.getParams.toSeq.foreach { param =>
+      postData.getParams.asScala.toSeq.foreach { param =>
         println(s"  ${param.getName}: ${param.getValue}")
       }
     }

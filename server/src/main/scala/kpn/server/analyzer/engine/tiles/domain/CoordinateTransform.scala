@@ -59,8 +59,8 @@ object CoordinateTransform {
     0.5 - 0.25 * log((1 + sinus) / (1 - sinus)) / Pi
   }
 
-  def toWorldCoordinates(lineString: LineString): Array[Coordinate] = {
-    (0 until lineString.getNumPoints).toArray.map { index =>
+  def toWorldCoordinates(lineString: LineString): Seq[Coordinate] = {
+    (0 until lineString.getNumPoints).map { index =>
       val point = lineString.getPointN(index)
       val x = lonToWorldX(point.getX)
       val y = latToWorldY(point.getY)
@@ -69,7 +69,7 @@ object CoordinateTransform {
   }
 
   def wayToWorldCoordinates(way: Way): Seq[Coordinate] = {
-    way.nodes.toArray.map(node => new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat)))
+    way.nodes.map(node => new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat)))
   }
 
 }
