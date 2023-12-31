@@ -11,7 +11,7 @@ class NetworkShapeAnalyzerTest extends UnitTest {
 
   ignore("shape") {
 
-    val networkRelation = new TestData() {
+    val relation = new TestData() {
       node(1001, latitude = "10", longitude = "1")
       node(1002, latitude = "20", longitude = "1")
       node(1003, latitude = "20", longitude = "0")
@@ -29,7 +29,7 @@ class NetworkShapeAnalyzerTest extends UnitTest {
       )
     }.data.relations(1)
 
-    val shape = analyze(networkRelation)
+    val shape = analyze(relation)
 
     shape.get.bounds should equal(Bounds(10.0, 0.0, 20.0, 1.0))
     shape.get.coordinates should equal("[10.0,0.0],[20.0,0.0],[20.0,1.0],[10.0,1.0],[10.0,0.0]")
@@ -37,7 +37,7 @@ class NetworkShapeAnalyzerTest extends UnitTest {
 
   ignore("connection nodes are excluded from the shape") {
 
-    val networkRelation = new TestData() {
+    val relation = new TestData() {
       node(1001, latitude = "10", longitude = "1")
       node(1002, latitude = "20", longitude = "1")
       node(1003, latitude = "20", longitude = "0")
@@ -55,7 +55,7 @@ class NetworkShapeAnalyzerTest extends UnitTest {
       )
     }.data.relations(1)
 
-    val shape = analyze(networkRelation)
+    val shape = analyze(relation)
 
     shape.get.bounds should equal(Bounds(10.0, 0.0, 20.0, 1.0))
     shape.get.coordinates should equal("[10.0,1.0],[20.0,0.0],[20.0,1.0],[10.0,1.0]")

@@ -88,20 +88,20 @@ class SystemStatusMonitorImpl(
 
       try {
         val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
-        response.getStatusCode match {
-          case HttpStatus.OK =>
+        if (response.getStatusCode == HttpStatus.OK) {
 
-            val databaseInfo = Json.objectMapper.readValue(response.getBody, classOf[DatabaseInfo])
-            Seq(
-              SystemStatusValue(s"${config.name}-docs", databaseInfo.doc_count),
-              SystemStatusValue(s"${config.name}-disk-size", databaseInfo.sizes.file),
-              SystemStatusValue(s"${config.name}-data-size-external", databaseInfo.sizes.external),
-              SystemStatusValue(s"${config.name}-data-size", databaseInfo.sizes.active)
-            )
-          case _ =>
-            // TODO log error
-            println("ERROR " + url)
-            Seq.empty
+          val databaseInfo = Json.objectMapper.readValue(response.getBody, classOf[DatabaseInfo])
+          Seq(
+            SystemStatusValue(s"${config.name}-docs", databaseInfo.doc_count),
+            SystemStatusValue(s"${config.name}-disk-size", databaseInfo.sizes.file),
+            SystemStatusValue(s"${config.name}-data-size-external", databaseInfo.sizes.external),
+            SystemStatusValue(s"${config.name}-data-size", databaseInfo.sizes.active)
+          )
+        }
+        else {
+          // TODO log error
+          println("ERROR " + url)
+          Seq.empty
         }
       }
       catch {

@@ -50,26 +50,25 @@ class ChangeSetInfoApiImpl(directory: File) extends ChangeSetInfoApi {
 
       try {
         val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
-        response.getStatusCode match {
-          case HttpStatus.OK =>
-            log.debug(s"Retrieved changeset $changeSetId info from OSM API")
-            Thread.sleep(5000)
-            val xmlString = response.getBody
-            if (xmlString.contains("<error>Connection to database failed</error>")) {
-              log.error("""Exception while fetching changeset, xml contains: "Connection to database failed". Going to sleep for 5 minutes""")
-              Thread.sleep(5L * 60 * 1000)
-              None
-            }
-            else {
-              FileUtils.writeStringToFile(cachedChangeSetInfoFile, xmlString, "UTF-8")
-              val xml = XML.loadString(xmlString)
-              Some(new ChangeSetInfoParser().parse(xml))
-            }
-
-          case _ =>
-            log.error(s"Could not retrieve changeset $changeSetId info from OSM API")
-            Thread.sleep(5000)
+        if (response.getStatusCode == HttpStatus.OK) {
+          log.debug(s"Retrieved changeset $changeSetId info from OSM API")
+          Thread.sleep(5000)
+          val xmlString = response.getBody
+          if (xmlString.contains("<error>Connection to database failed</error>")) {
+            log.error("""Exception while fetching changeset, xml contains: "Connection to database failed". Going to sleep for 5 minutes""")
+            Thread.sleep(5L * 60 * 1000)
             None
+          }
+          else {
+            FileUtils.writeStringToFile(cachedChangeSetInfoFile, xmlString, "UTF-8")
+            val xml = XML.loadString(xmlString)
+            Some(new ChangeSetInfoParser().parse(xml))
+          }
+        }
+        else {
+          log.error(s"Could not retrieve changeset $changeSetId info from OSM API")
+          Thread.sleep(5000)
+          None
         }
       }
       catch {

@@ -20,7 +20,7 @@ class FilterChainConfiguration(
     http
       .addFilterAfter(serverAuthenticationFilter, classOf[LogoutFilter])
       .addFilterAfter(new RequestContextFilter(testEnabled), classOf[ServerAuthenticationFilter])
-      .authorizeRequests(authorizeRequests =>
+      .authorizeHttpRequests(authorizeRequests =>
         authorizeRequests.anyRequest().permitAll()
       )
       //.csrf(csrf => csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse))
@@ -35,7 +35,9 @@ class FilterChainConfiguration(
       .oauth2Login(configurer =>
         configurer
           .successHandler(new ServerAuthenticationSuccessHandler())
-          .userInfoEndpoint.userService(userService)
+          .userInfoEndpoint(userInfoEndpoint =>
+            userInfoEndpoint.userService(userService)
+          )
       )
     http.build()
   }

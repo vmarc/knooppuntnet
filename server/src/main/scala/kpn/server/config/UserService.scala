@@ -24,12 +24,12 @@ class UserService extends OAuth2UserService[OAuth2UserRequest, OAuth2User] {
   override def loadUser(userRequest: OAuth2UserRequest): OAuth2User = {
     val accessToken = userRequest.getAccessToken.getTokenValue
     val userDetailsResponse = requestUserDetails(accessToken)
-    userDetailsResponse.getStatusCode match {
-      case HttpStatus.OK =>
-        val user = parseUser(userDetailsResponse)
-        new ServerAuthenticationUser(user)
-      case _ =>
-        throw new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodes.ACCESS_DENIED))
+    if (userDetailsResponse.getStatusCode == HttpStatus.OK) {
+      val user = parseUser(userDetailsResponse)
+      new ServerAuthenticationUser(user)
+    }
+    else {
+      throw new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodes.ACCESS_DENIED))
     }
   }
 

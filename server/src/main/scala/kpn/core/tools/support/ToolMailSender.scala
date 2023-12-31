@@ -32,7 +32,7 @@ class ToolMailSender {
     message.setTo(mailTo)
     message.setSubject(subject)
     message.setText(text)
-    mailSender.send(message)
+    mailSender.send(Array(message): _*)
   }
 
 }

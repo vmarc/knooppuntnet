@@ -163,11 +163,12 @@ object FindDeletedNodesHistoryTool {
     headers.setAcceptCharset(java.util.Arrays.asList(Charset.forName("UTF-8")))
     val entity = new HttpEntity[String]("", headers)
     val response = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
-    response.getStatusCode match {
-      case HttpStatus.OK =>
-        val apiResponse = Json.objectMapper.readValue(response.getBody, classOf[ApiResponse[Long]])
-        apiResponse.result.map(replicationNumber => ReplicationId(replicationNumber))
-      case _ => None
+    if (response.getStatusCode == HttpStatus.OK) {
+      val apiResponse = Json.objectMapper.readValue(response.getBody, classOf[ApiResponse[Long]])
+      apiResponse.result.map(replicationNumber => ReplicationId(replicationNumber))
+    }
+    else {
+      None
     }
   }
 
@@ -181,11 +182,9 @@ object FindDeletedNodesHistoryTool {
     val entity = new HttpEntity[String]("", headers)
 
     val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
-    response.getStatusCode match {
-      case HttpStatus.OK =>
-        val xmlString = response.getBody
-        FileUtils.writeStringToFile(new File(s"/kpn/deleted/$nodeId.xml"), xmlString, "UTF-8")
-      case _ =>
+    if (response.getStatusCode == HttpStatus.OK) {
+      val xmlString = response.getBody
+      FileUtils.writeStringToFile(new File(s"/kpn/deleted/$nodeId.xml"), xmlString, "UTF-8")
     }
   }
 

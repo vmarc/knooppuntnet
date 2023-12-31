@@ -42,26 +42,25 @@ class AppMonitor(
 
     try {
       val response: ResponseEntity[String] = restTemplate.getForEntity(url, classOf[String])
-      response.getStatusCode match {
-        case HttpStatus.OK =>
-          val apiResponse = Json.value(response.getBody, classOf[ApiResponse[String]])
-          apiResponse.situationOn match {
-            case Some(timestamp) =>
-              val now = TimestampLocal.toLocal(Time.system())
-              val localTimestamp = TimestampLocal.toLocal(timestamp)
-              val alertTimestamp = TimestampUtil.relativeSeconds(localTimestamp, alertMinutes * 60)
-              if (now > alertTimestamp) {
-                throttledSend("alert", localTimestamp.yyyymmddhhmmss)
-              }
-              else {
-                log.info(s"OK - situationOn=${localTimestamp.yyyymmddhhmmss}")
-              }
-            case _ =>
-              throttledSend("alert", "Could not determine situationOn")
-          }
-
-        case _ =>
-          throttledSend("alert", "Could not retrieve situationOn")
+      if (response.getStatusCode == HttpStatus.OK) {
+        val apiResponse = Json.value(response.getBody, classOf[ApiResponse[String]])
+        apiResponse.situationOn match {
+          case Some(timestamp) =>
+            val now = TimestampLocal.toLocal(Time.system())
+            val localTimestamp = TimestampLocal.toLocal(timestamp)
+            val alertTimestamp = TimestampUtil.relativeSeconds(localTimestamp, alertMinutes * 60)
+            if (now > alertTimestamp) {
+              throttledSend("alert", localTimestamp.yyyymmddhhmmss)
+            }
+            else {
+              log.info(s"OK - situationOn=${localTimestamp.yyyymmddhhmmss}")
+            }
+          case _ =>
+            throttledSend("alert", "Could not determine situationOn")
+        }
+      }
+      else {
+        throttledSend("alert", "Could not retrieve situationOn")
       }
     }
     catch {

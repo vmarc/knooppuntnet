@@ -28,14 +28,14 @@ class ReplicationRequestExecutorImpl() extends ReplicationRequestExecutor {
     val entity = new HttpEntity[String]("", headers)
     try {
       val response: ResponseEntity[Array[Byte]] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[Array[Byte]])
-      response.getStatusCode match {
-        case HttpStatus.OK =>
-          val gis = new GZIPInputStream(new ByteArrayInputStream(response.getBody))
-          val xml = Source.fromInputStream(gis).getLines().mkString("\n")
-          Some(xml)
-        case httpStatus =>
-          log.warn(s"Unexpected http status code $httpStatus (will retry), url=$url")
-          None
+      if (response.getStatusCode == HttpStatus.OK) {
+        val gis = new GZIPInputStream(new ByteArrayInputStream(response.getBody))
+        val xml = Source.fromInputStream(gis).getLines().mkString("\n")
+        Some(xml)
+      }
+      else {
+        log.warn(s"Unexpected http status code ${response.getStatusCode} (will retry), url=$url")
+        None
       }
     }
     catch {
@@ -52,12 +52,12 @@ class ReplicationRequestExecutorImpl() extends ReplicationRequestExecutor {
     val entity = new HttpEntity[String]("", headers)
     try {
       val response: ResponseEntity[String] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[String])
-      response.getStatusCode match {
-        case HttpStatus.OK =>
-          Some(response.getBody)
-        case httpStatus =>
-          log.warn(s"Unexpected http status code $httpStatus (will retry), url=$url")
-          None
+      if (response.getStatusCode == HttpStatus.OK) {
+        Some(response.getBody)
+      }
+      else {
+        log.warn(s"Unexpected http status code ${response.getStatusCode} (will retry), url=$url")
+        None
       }
     }
     catch {
