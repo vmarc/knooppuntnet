@@ -22,17 +22,26 @@ import org.springframework.context.annotation.Primary
 import org.springframework.scheduling.TaskScheduler
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler
+import org.springframework.session.data.mongo.config.annotation.web.http.EnableMongoHttpSession
+import org.springframework.session.data.mongo.JdkMongoSessionConverter
 
+import java.time.Duration
 import java.util.concurrent.Executor
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
 import scala.concurrent.ExecutionContext
 
 @Configuration
+@EnableMongoHttpSession
 class ServerConfiguration() {
 
   @Bean
   @Primary
   def objectMapper: ObjectMapper = Json.objectMapper
+
+  @Bean
+  def mongoSessionConverter = {
+    new JdkMongoSessionConverter(Duration.ofMinutes(5))
+  }
 
   @Bean
   def threadMetrics = new JvmThreadMetrics

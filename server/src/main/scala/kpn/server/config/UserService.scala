@@ -12,6 +12,8 @@ import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException
 import org.springframework.security.oauth2.core.OAuth2Error
 import org.springframework.security.oauth2.core.OAuth2ErrorCodes
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User
+import org.springframework.security.oauth2.core.user.OAuth2UserAuthority
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 
@@ -26,7 +28,11 @@ class UserService extends OAuth2UserService[OAuth2UserRequest, OAuth2User] {
     val userDetailsResponse = requestUserDetails(accessToken)
     if (userDetailsResponse.getStatusCode == HttpStatus.OK) {
       val user = parseUser(userDetailsResponse)
-      new ServerAuthenticationUser(user)
+      val authorities = new java.util.ArrayList[OAuth2UserAuthority]()
+      val attributes = new java.util.HashMap[String, AnyRef]()
+      attributes.put("name", user)
+      new DefaultOAuth2User(authorities, attributes,
+        "name")
     }
     else {
       throw new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodes.ACCESS_DENIED))
