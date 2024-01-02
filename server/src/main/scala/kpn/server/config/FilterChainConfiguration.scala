@@ -5,12 +5,12 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.logout.LogoutFilter
-import org.springframework.security.web.csrf.CookieCsrfTokenRepository
 
 @Configuration
 class FilterChainConfiguration(
   serverAuthenticationFilter: ServerAuthenticationFilter,
-  serverAuthenticationSuccessHandler: ServerAuthenticationSuccessHandler,
+  loginSuccessHandler: ServerAuthenticationLoginSuccessHandler,
+  logoutSuccessHandler: ServerAuthenticationLogoutSuccessHandler,
   userService: UserService,
   testEnabled: Boolean
 ) {
@@ -28,17 +28,16 @@ class FilterChainConfiguration(
       .logout(logout =>
         logout
           .logoutUrl("/oauth2/logout")
-          .logoutSuccessHandler((request, response, authentication) => {
-            // the default is redirect to 'logoutSuccessUrl", but we just want http 200 OK status
-          })
+          .logoutSuccessHandler(logoutSuccessHandler)
       )
       .oauth2Login(configurer =>
         configurer
-          .successHandler(new ServerAuthenticationSuccessHandler())
+          .successHandler(loginSuccessHandler)
           .userInfoEndpoint(userInfoEndpoint =>
             userInfoEndpoint.userService(userService)
           )
       )
+
     http.build()
   }
 }

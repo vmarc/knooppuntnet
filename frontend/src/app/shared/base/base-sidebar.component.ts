@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { UserService } from '../user';
 
 @Component({
   selector: 'kpn-base-sidebar',
@@ -33,6 +34,9 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
           <li>
             <button mat-stroked-button (click)="forceError()">Sentry, force error</button>
           </li>
+          <li>
+            <button mat-stroked-button (click)="users()">Users</button>
+          </li>
         </ul>
       }
     </kpn-sidebar>
@@ -49,6 +53,7 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
 })
 export class BaseSidebarComponent {
   extraFunctionsEnabled = false;
+  private readonly userService = inject(UserService);
 
   toggleExtraFunctions(): void {
     this.extraFunctionsEnabled = !this.extraFunctionsEnabled;
@@ -56,5 +61,9 @@ export class BaseSidebarComponent {
 
   forceError(): void {
     throw new Error('Forced error to verify Sentry reporting');
+  }
+
+  users(): void {
+    this.userService.users();
   }
 }

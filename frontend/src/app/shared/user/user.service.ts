@@ -2,6 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { UserSession } from '@api/common/common/user-session';
 import { UserStore } from './user.store';
 import * as Sentry from '@sentry/angular-ivy';
 
@@ -27,6 +28,13 @@ export class UserService {
     this.http.post('/oauth2/logout', { responseType: 'text' }).subscribe({
       next: () => this.updateUser(null),
       error: () => this.updateUser(null),
+    });
+  }
+
+  users() {
+    this.http.get<UserSession[]>('/oauth2/users').subscribe((sessions) => {
+      console.log('sessions');
+      sessions.forEach((session) => console.log(`   ${JSON.stringify(session)}`));
     });
   }
 

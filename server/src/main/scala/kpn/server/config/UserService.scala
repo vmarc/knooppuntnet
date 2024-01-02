@@ -31,8 +31,7 @@ class UserService extends OAuth2UserService[OAuth2UserRequest, OAuth2User] {
       val authorities = new java.util.ArrayList[OAuth2UserAuthority]()
       val attributes = new java.util.HashMap[String, AnyRef]()
       attributes.put("name", user)
-      new DefaultOAuth2User(authorities, attributes,
-        "name")
+      new DefaultOAuth2User(authorities, attributes, "name")
     }
     else {
       throw new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodes.ACCESS_DENIED))

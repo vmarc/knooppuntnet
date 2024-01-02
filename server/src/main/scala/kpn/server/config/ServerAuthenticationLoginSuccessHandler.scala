@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 
 @Component
-class ServerAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+class ServerAuthenticationLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
   override def onAuthenticationSuccess(request: HttpServletRequest, response: HttpServletResponse, authentication: Authentication): Unit = {
     val session = request.getSession(false)

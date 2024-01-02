@@ -6,6 +6,8 @@ import kpn.database.base.Database
 import kpn.database.base.DatabaseImpl
 import kpn.database.base.MetricsDatabase
 import kpn.database.base.MetricsDatabaseImpl
+import kpn.database.base.SessionDatabase
+import kpn.database.base.SessionDatabaseImpl
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
@@ -22,26 +24,17 @@ import org.springframework.context.annotation.Primary
 import org.springframework.scheduling.TaskScheduler
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler
-import org.springframework.session.data.mongo.config.annotation.web.http.EnableMongoHttpSession
-import org.springframework.session.data.mongo.JdkMongoSessionConverter
 
-import java.time.Duration
 import java.util.concurrent.Executor
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
 import scala.concurrent.ExecutionContext
 
 @Configuration
-@EnableMongoHttpSession
 class ServerConfiguration() {
 
   @Bean
   @Primary
   def objectMapper: ObjectMapper = Json.objectMapper
-
-  @Bean
-  def mongoSessionConverter = {
-    new JdkMongoSessionConverter(Duration.ofMinutes(5))
-  }
 
   @Bean
   def threadMetrics = new JvmThreadMetrics
@@ -158,6 +151,16 @@ class ServerConfiguration() {
     val mongoClient = MongoClient(url)
     new MetricsDatabaseImpl(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
   }
+
+  @Bean
+  def sessionDatabase(
+    @Value("${spring.data.mongodb.uri}") uri: String,
+    @Value("${spring.data.mongodb.database}") databaseName: String,
+  ): SessionDatabase = {
+    val mongoClient = MongoClient(uri)
+    new SessionDatabaseImpl(mongoClient.getDatabase(databaseName).withCodecRegistry(Mongo.codecRegistry))
+  }
+
 
   @Bean def taskScheduler: TaskScheduler = {
     val threadPoolTaskScheduler = new ThreadPoolTaskScheduler
