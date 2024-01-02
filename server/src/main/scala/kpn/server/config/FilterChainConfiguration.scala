@@ -3,6 +3,8 @@ package kpn.server.config
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.core.session.SessionRegistry
+import org.springframework.security.core.session.SessionRegistryImpl
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.logout.LogoutFilter
 
@@ -37,7 +39,15 @@ class FilterChainConfiguration(
             userInfoEndpoint.userService(userService)
           )
       )
+      .sessionManagement(sessionManagement =>
+        sessionManagement.maximumSessions(10).sessionRegistry(sessionRegistry)
+      )
 
     http.build()
+  }
+
+  @Bean
+  def sessionRegistry: SessionRegistry = {
+    new SessionRegistryImpl()
   }
 }
