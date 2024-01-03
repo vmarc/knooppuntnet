@@ -66,13 +66,13 @@ class AuthenticationCookieFilter(cryptoKey: String) extends HttpFilter {
         }
       }
       catch {
-        case e =>
+        case e: Exception =>
           log.warn(s"Could not verify signature in knooppuntnet cookie: ${e.getMessage}")
           None
       }
     }
     catch {
-      case e =>
+      case e: Exception =>
         log.warn(s"Could not parse knooppuntnet cookie: ${e.getMessage}")
         None
     }

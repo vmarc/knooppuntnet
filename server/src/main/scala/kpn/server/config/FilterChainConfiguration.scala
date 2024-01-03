@@ -11,6 +11,7 @@ class FilterChainConfiguration(
   authenticationReturnUrlFilter: AuthenticationReturnUrlFilter,
   authenticationCookieFilter: AuthenticationCookieFilter,
   loginSuccessHandler: ServerAuthenticationLoginSuccessHandler,
+  authorizationRequestResolver: CustomAuthorizationRequestResolver,
   userService: UserService,
   testEnabled: Boolean
 ) {
@@ -31,6 +32,9 @@ class FilterChainConfiguration(
           .successHandler(loginSuccessHandler)
           .userInfoEndpoint(userInfoEndpoint =>
             userInfoEndpoint.userService(userService)
+          )
+          .authorizationEndpoint(authorizationEndpoint =>
+            authorizationEndpoint.authorizationRequestResolver(authorizationRequestResolver)
           )
       )
 
