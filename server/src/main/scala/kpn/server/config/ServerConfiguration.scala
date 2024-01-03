@@ -6,8 +6,6 @@ import kpn.database.base.Database
 import kpn.database.base.DatabaseImpl
 import kpn.database.base.MetricsDatabase
 import kpn.database.base.MetricsDatabaseImpl
-import kpn.database.base.SessionDatabase
-import kpn.database.base.SessionDatabaseImpl
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationConfigurationReader
@@ -130,6 +128,11 @@ class ServerConfiguration() {
   }
 
   @Bean
+  def cryptoKey(@Value("${cryptoKey}") value: String): String = {
+    value
+  }
+
+  @Bean
   def locationConfiguration: LocationConfiguration = {
     new LocationConfigurationReader().read()
   }
@@ -151,16 +154,6 @@ class ServerConfiguration() {
     val mongoClient = MongoClient(url)
     new MetricsDatabaseImpl(mongoClient.getDatabase(name).withCodecRegistry(Mongo.codecRegistry))
   }
-
-  @Bean
-  def sessionDatabase(
-    @Value("${spring.data.mongodb.uri}") uri: String,
-    @Value("${spring.data.mongodb.database}") databaseName: String,
-  ): SessionDatabase = {
-    val mongoClient = MongoClient(uri)
-    new SessionDatabaseImpl(mongoClient.getDatabase(databaseName).withCodecRegistry(Mongo.codecRegistry))
-  }
-
 
   @Bean def taskScheduler: TaskScheduler = {
     val threadPoolTaskScheduler = new ThreadPoolTaskScheduler

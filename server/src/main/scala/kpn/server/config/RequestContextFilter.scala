@@ -2,14 +2,12 @@ package kpn.server.config
 
 import kpn.server.api.CurrentUser
 import nl.basjes.parse.useragent.UserAgentAnalyzer
-import org.springframework.web.filter.GenericFilterBean
-
 import jakarta.servlet.FilterChain
-import jakarta.servlet.ServletRequest
-import jakarta.servlet.ServletResponse
+import jakarta.servlet.http.HttpFilter
 import jakarta.servlet.http.HttpServletRequest
+import jakarta.servlet.http.HttpServletResponse
 
-class RequestContextFilter(testEnabled: Boolean) extends GenericFilterBean {
+class RequestContextFilter(testEnabled: Boolean) extends HttpFilter {
 
   private val userAgentAnalyzer = UserAgentAnalyzer.newBuilder
     .withCache(10000)
@@ -18,17 +16,21 @@ class RequestContextFilter(testEnabled: Boolean) extends GenericFilterBean {
     .withField("DeviceName")
     .build
 
-  override def doFilter(servletRequest: ServletRequest, servletResponse: ServletResponse, filterChain: FilterChain): Unit = {
-    val httpRequest = servletRequest.asInstanceOf[HttpServletRequest]
-    val headers: java.util.Map[String, String] = new java.util.HashMap[String, String]();
-    val headerIterator = httpRequest.getHeaderNames
+  override def doFilter(
+    request: HttpServletRequest,
+    response: HttpServletResponse,
+    filterChain: FilterChain
+  ): Unit = {
+
+    val headers = new java.util.HashMap[String, String]();
+    val headerIterator = request.getHeaderNames
     while (headerIterator.hasMoreElements) {
       val headerName = headerIterator.nextElement()
-      val headerValue = httpRequest.getHeader(headerName)
+      val headerValue = request.getHeader(headerName)
       headers.put(headerName, headerValue)
     }
     val result = userAgentAnalyzer.parse(headers)
-    val remoteAddress = httpRequest.getRemoteAddr
+    val remoteAddress = request.getRemoteAddr
     val userAgentString = Option(result.getUserAgentString)
     val deviceClass = Option(result.get("DeviceClass").getValue)
     val deviceName = Option(result.get("DeviceName").getValue)
@@ -44,7 +46,7 @@ class RequestContextFilter(testEnabled: Boolean) extends GenericFilterBean {
         )
       )
     )
-    filterChain.doFilter(httpRequest, servletResponse)
+    filterChain.doFilter(request, response)
     RequestContext.instance.remove()
   }
 }

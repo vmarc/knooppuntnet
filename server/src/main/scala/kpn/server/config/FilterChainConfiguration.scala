@@ -3,16 +3,14 @@ package kpn.server.config
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.core.session.SessionRegistry
-import org.springframework.security.core.session.SessionRegistryImpl
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.logout.LogoutFilter
 
 @Configuration
 class FilterChainConfiguration(
-  serverAuthenticationFilter: ServerAuthenticationFilter,
+  authenticationReturnUrlFilter: AuthenticationReturnUrlFilter,
+  authenticationCookieFilter: AuthenticationCookieFilter,
   loginSuccessHandler: ServerAuthenticationLoginSuccessHandler,
-  logoutSuccessHandler: ServerAuthenticationLogoutSuccessHandler,
   userService: UserService,
   testEnabled: Boolean
 ) {
@@ -20,18 +18,14 @@ class FilterChainConfiguration(
   @Bean
   def filterChain(http: HttpSecurity): SecurityFilterChain = {
     http
-      .addFilterAfter(serverAuthenticationFilter, classOf[LogoutFilter])
-      .addFilterAfter(new RequestContextFilter(testEnabled), classOf[ServerAuthenticationFilter])
+      .addFilterAfter(authenticationReturnUrlFilter, classOf[LogoutFilter])
+      .addFilterAfter(authenticationCookieFilter, classOf[AuthenticationReturnUrlFilter])
+      .addFilterAfter(new RequestContextFilter(testEnabled), classOf[AuthenticationCookieFilter])
       .authorizeHttpRequests(authorizeRequests =>
         authorizeRequests.anyRequest().permitAll()
       )
       //.csrf(csrf => csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse))
       .csrf(csrf => csrf.disable)
-      .logout(logout =>
-        logout
-          .logoutUrl("/oauth2/logout")
-          .logoutSuccessHandler(logoutSuccessHandler)
-      )
       .oauth2Login(configurer =>
         configurer
           .successHandler(loginSuccessHandler)
@@ -39,15 +33,7 @@ class FilterChainConfiguration(
             userInfoEndpoint.userService(userService)
           )
       )
-      .sessionManagement(sessionManagement =>
-        sessionManagement.maximumSessions(10).sessionRegistry(sessionRegistry)
-      )
 
     http.build()
-  }
-
-  @Bean
-  def sessionRegistry: SessionRegistry = {
-    new SessionRegistryImpl()
   }
 }

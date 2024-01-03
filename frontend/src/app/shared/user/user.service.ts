@@ -2,7 +2,7 @@ import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { UserSession } from '@api/common/common/user-session';
+import { BrowserStorageService } from '@app/services';
 import { UserStore } from './user.store';
 import * as Sentry from '@sentry/angular-ivy';
 
@@ -10,32 +10,41 @@ import * as Sentry from '@sentry/angular-ivy';
 export class UserService {
   private readonly http = inject(HttpClient);
   private readonly userStore = inject(UserStore);
+  private readonly browserStorageService = inject(BrowserStorageService);
   private readonly document = inject(DOCUMENT);
 
   constructor() {
-    this.http.get('/oauth2/user', { responseType: 'text' }).subscribe((user) => {
-      if (user && user.length > 0) {
-        this.updateUser(user);
-      }
-    });
+    const user = this.browserStorageService.get('user');
+    if (user == null) {
+      this.http.get('/oauth2/user', { responseType: 'text' }).subscribe((user) => {
+        if (user && user.length > 0) {
+          this.registerUser(user);
+        }
+      });
+    } else {
+      this.updateUser(user);
+    }
   }
 
   login(): void {
     this.document.location.assign('/oauth2/authorization/osm');
   }
 
+  private registerUser(user: string): void {
+    this.browserStorageService.set('user', user);
+    this.updateUser(user);
+  }
+
   logout(): void {
     this.http.post('/oauth2/logout', { responseType: 'text' }).subscribe({
-      next: () => this.updateUser(null),
-      error: () => this.updateUser(null),
+      next: () => this.logoutUser(),
+      error: () => this.logoutUser(),
     });
   }
 
-  users() {
-    this.http.get<UserSession[]>('/oauth2/users').subscribe((sessions) => {
-      console.log('sessions');
-      sessions.forEach((session) => console.log(`   ${JSON.stringify(session)}`));
-    });
+  private logoutUser(): void {
+    this.browserStorageService.remove('user');
+    this.updateUser(null);
   }
 
   private updateUser(user: string | null): void {
