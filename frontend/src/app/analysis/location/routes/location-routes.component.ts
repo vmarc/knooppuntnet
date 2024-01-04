@@ -3,28 +3,23 @@ import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { LocationRoutesPage } from '@api/common/location';
 import { LocationRouteTableComponent } from './location-route-table.component';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'kpn-location-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      *ngIf="page.routes.length === 0"
-      class="kpn-spacer-above"
-      i18n="@@location-routes.no-routes"
-    >
-      No routes
-    </div>
-    <kpn-location-route-table
-      *ngIf="page.routes.length > 0"
-      [timeInfo]="page.timeInfo"
-      [routes]="page.routes"
-      [routeCount]="page.routeCount"
-    />
+    @if (page.routes.length === 0) {
+      <div class="kpn-spacer-above" i18n="@@location-routes.no-routes">No routes</div>
+    } @else {
+      <kpn-location-route-table
+        [timeInfo]="page.timeInfo"
+        [routes]="page.routes"
+        [routeCount]="page.routeCount"
+      />
+    }
   `,
   standalone: true,
-  imports: [NgIf, LocationRouteTableComponent],
+  imports: [LocationRouteTableComponent],
 })
 export class LocationRoutesComponent {
   @Input() page: LocationRoutesPage;

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -10,13 +9,16 @@ import { Util } from './util';
   selector: 'kpn-country-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="country">{{ countryName() }}</ng-container>
-    <ng-container *ngIf="!country" i18n="@@country.unsupported">
-      Unsupported (not Belgium, The Netherlands, Germany, France, Austria, Spain or Denmark)
-    </ng-container>
+    @if (country) {
+      {{ countryName() }}
+    } @else {
+      <ng-container i18n="@@country.unsupported">
+        Unsupported (not Belgium, The Netherlands, Germany, France, Austria, Spain or Denmark)
+      </ng-container>
+    }
   `,
   standalone: true,
-  imports: [NgIf],
+  imports: [],
 })
 export class CountryNameComponent {
   @Input({ required: true }) country: Country;

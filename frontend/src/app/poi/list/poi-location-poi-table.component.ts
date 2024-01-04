@@ -1,5 +1,4 @@
 import { AsyncPipe } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
@@ -44,9 +43,11 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
       <ng-container matColumnDef="layer">
         <th mat-header-cell *matHeaderCellDef i18n="@@location-pois.table.layer">Layer</th>
         <td mat-cell *matCellDef="let poi">
-          <span *ngFor="let layer of poi.layers">
-            {{ layer }}
-          </span>
+          @for (layer of poi.layers; track layer) {
+            <span>
+              {{ layer }}
+            </span>
+          }
         </td>
       </ng-container>
 
@@ -105,7 +106,7 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
     }
   `,
   standalone: true,
-  imports: [PaginatorComponent, MatTableModule, NgFor, RouterLink, AsyncPipe],
+  imports: [PaginatorComponent, MatTableModule, RouterLink, AsyncPipe],
 })
 export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   @Input({ required: true }) pois: LocationPoiInfo[];

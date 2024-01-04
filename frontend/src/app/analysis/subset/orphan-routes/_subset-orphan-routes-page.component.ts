@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -26,21 +25,24 @@ import { SubsetOrphanRoutesTableComponent } from './subset-orphan-routes-table.c
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <p>
-          <kpn-situation-on [timestamp]="response.situationOn" />
-        </p>
-        <p *ngIf="response.result.routes.length === 0" class="kpn-line">
-          <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>
-        </p>
-        <div *ngIf="response.result.routes.length > 0">
-          <kpn-subset-orphan-routes-table
-            [timeInfo]="response.result.timeInfo"
-            [networkType]="response.result.subsetInfo.networkType"
-            [orphanRoutes]="response.result.routes"
-          />
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          <p>
+            <kpn-situation-on [timestamp]="response.situationOn" />
+          </p>
+          @if (response.result.routes.length === 0) {
+            <p class="kpn-line">
+              <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>
+            </p>
+          } @else {
+            <kpn-subset-orphan-routes-table
+              [timeInfo]="response.result.timeInfo"
+              [networkType]="response.result.subsetInfo.networkType"
+              [orphanRoutes]="response.result.routes"
+            />
+          }
         </div>
-      </div>
+      }
       <kpn-subset-orphan-routes-sidebar sidebar />
     </kpn-page>
   `,
@@ -48,7 +50,6 @@ import { SubsetOrphanRoutesTableComponent } from './subset-orphan-routes-table.c
   imports: [
     AsyncPipe,
     ErrorComponent,
-    NgIf,
     PageComponent,
     SituationOnComponent,
     SubsetOrphanRoutesSidebarComponent,

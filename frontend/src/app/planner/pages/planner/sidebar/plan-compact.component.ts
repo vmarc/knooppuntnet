@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -11,19 +9,23 @@ import { PlannerService } from '../../../planner.service';
   selector: 'kpn-plan-compact',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <span *ngIf="plan.sourceNode !== null" class="node">
-      {{ plan.sourceNode.nodeName }}
-    </span>
-    <ng-container *ngFor="let leg of plan.legs">
-      <ng-container *ngFor="let legRoute of leg.routes; let i = index">
-        <span *ngIf="hasColour(legRoute)" class="colour">
-          {{ colours(legRoute) }}
-        </span>
+    @if (plan.sourceNode !== null) {
+      <span class="node">
+        {{ plan.sourceNode.nodeName }}
+      </span>
+    }
+    @for (leg of plan.legs; track leg) {
+      @for (legRoute of leg.routes; track legRoute; let i = $index) {
+        @if (hasColour(legRoute)) {
+          <span class="colour">
+            {{ colours(legRoute) }}
+          </span>
+        }
         <span class="node" [class.visited-node]="i < leg.routes.size - 1">
           {{ legRoute.sinkNode.nodeName }}
         </span>
-      </ng-container>
-    </ng-container>
+      }
+    }
   `,
   styles: `
     .node {
@@ -41,7 +43,7 @@ import { PlannerService } from '../../../planner.service';
     }
   `,
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [],
 })
 export class PlanCompactComponent {
   @Input() plan: Plan;

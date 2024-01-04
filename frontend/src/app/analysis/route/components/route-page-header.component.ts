@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -17,8 +16,11 @@ import { PageHeaderComponent } from '@app/components/shared/page';
         <mat-icon [svgIcon]="networkType" />
       </span>
       <span i18n="@@route.title">Route</span>
-      <span *ngIf="routeName">&nbsp;{{ routeName }}</span>
-      <span *ngIf="!routeName">&nbsp;{{ routeId }}</span>
+      @if (routeName) {
+        <span>&nbsp;{{ routeName }}</span>
+      } @else {
+        <span>&nbsp;{{ routeId }}</span>
+      }
     </kpn-page-header>
 
     <kpn-page-menu>
@@ -49,7 +51,7 @@ import { PageHeaderComponent } from '@app/components/shared/page';
     </kpn-page-menu>
   `,
   standalone: true,
-  imports: [MatIconModule, NgIf, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
+  imports: [MatIconModule, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class RoutePageHeaderComponent {
   @Input() routeId: string;

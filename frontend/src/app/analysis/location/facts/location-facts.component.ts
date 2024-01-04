@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -24,45 +22,49 @@ import { Store } from '@ngrx/store';
   selector: 'kpn-location-facts',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="locationFacts.length === 0" class="kpn-line kpn-spacer-above">
-      <span i18n="@@location-facts.none">No facts</span>
-      <kpn-icon-happy />
-    </div>
-
-    <kpn-items *ngIf="locationFacts.length > 0">
-      <kpn-item *ngFor="let locationFact of locationFacts; let i = index" [index]="i">
-        <div class="kpn-line">
-          <kpn-fact-name [fact]="locationFact.fact" />
-          <kpn-brackets>{{ locationFact.refs.length }}</kpn-brackets>
-          <kpn-fact-level [factLevel]="factLevel(locationFact.fact)" class="level" />
-          <a
-            rel="nofollow"
-            (click)="edit(locationFact)"
-            title="Open in editor (like JOSM)"
-            i18n-title="@@edit.link.title"
-            i18n="@@edit.link"
-            >edit</a
-          >
-        </div>
-        <div class="description">
-          <kpn-fact-description [factInfo]="factInfo(locationFact)" />
-        </div>
-        <div *ngIf="locationFact.elementType === 'route'" class="elements kpn-comma-list">
-          <kpn-link-route
-            *ngFor="let ref of locationFact.refs"
-            [routeId]="ref.id"
-            [routeName]="ref.name"
-          />
-        </div>
-        <div *ngIf="locationFact.elementType === 'node'" class="elements kpn-comma-list">
-          <kpn-link-node
-            *ngFor="let ref of locationFact.refs"
-            [nodeId]="ref.id"
-            [nodeName]="ref.name"
-          />
-        </div>
-      </kpn-item>
-    </kpn-items>
+    @if (locationFacts.length === 0) {
+      <div class="kpn-line kpn-spacer-above">
+        <span i18n="@@location-facts.none">No facts</span>
+        <kpn-icon-happy />
+      </div>
+    } @else {
+      <kpn-items>
+        @for (locationFact of locationFacts; track locationFact; let i = $index) {
+          <kpn-item [index]="i">
+            <div class="kpn-line">
+              <kpn-fact-name [fact]="locationFact.fact" />
+              <kpn-brackets>{{ locationFact.refs.length }}</kpn-brackets>
+              <kpn-fact-level [factLevel]="factLevel(locationFact.fact)" class="level" />
+              <a
+                rel="nofollow"
+                (click)="edit(locationFact)"
+                title="Open in editor (like JOSM)"
+                i18n-title="@@edit.link.title"
+                i18n="@@edit.link"
+                >edit</a
+              >
+            </div>
+            <div class="description">
+              <kpn-fact-description [factInfo]="factInfo(locationFact)" />
+            </div>
+            @if (locationFact.elementType === 'route') {
+              <div class="elements kpn-comma-list">
+                @for (ref of locationFact.refs; track ref) {
+                  <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+                }
+              </div>
+            }
+            @if (locationFact.elementType === 'node') {
+              <div class="elements kpn-comma-list">
+                @for (ref of locationFact.refs; track ref) {
+                  <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+                }
+              </div>
+            }
+          </kpn-item>
+        }
+      </kpn-items>
+    }
   `,
   styles: `
     .description {
@@ -87,8 +89,6 @@ import { Store } from '@ngrx/store';
     ItemsComponent,
     LinkNodeComponent,
     LinkRouteComponent,
-    NgFor,
-    NgIf,
   ],
 })
 export class LocationFactsComponent {

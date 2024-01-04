@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -38,48 +37,51 @@ import { LocationTreeComponent } from './location-tree.component';
     <kpn-page>
       <kpn-error />
 
-      <div *ngIf="locationNode$ | async as locationNode">
-        <ul class="breadcrumb">
-          <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-          <li>
-            <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-          </li>
-          <li>
-            <a [routerLink]="networkTypeLink()">
-              <kpn-network-type-name [networkType]="networkType" />
-            </a>
-          </li>
-          <li>
+      @if (locationNode$ | async; as locationNode) {
+        <div>
+          <ul class="breadcrumb">
+            <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
+            <li>
+              <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
+            </li>
+            <li>
+              <a [routerLink]="networkTypeLink()">
+                <kpn-network-type-name [networkType]="networkType" />
+              </a>
+            </li>
+            <li>
+              <kpn-country-name [country]="country" />
+            </li>
+          </ul>
+          <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
+            <span class="header-network-type-icon">
+              <mat-icon [svgIcon]="networkType" />
+            </span>
+            <kpn-network-type-name [networkType]="networkType" />
+            <span i18n="@@subset.in" class="in">in</span>
             <kpn-country-name [country]="country" />
-          </li>
-        </ul>
-
-        <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
-          <span class="header-network-type-icon">
-            <mat-icon [svgIcon]="networkType" />
-          </span>
-          <kpn-network-type-name [networkType]="networkType" />
-          <span i18n="@@subset.in" class="in">in</span>
-          <kpn-country-name [country]="country" />
-        </kpn-page-header>
-
-        <div *ngIf="isModeName() | async">
-          <kpn-location-selector
-            [country]="country"
-            [locationNode]="locationNode"
-            (selection)="selected($event)"
-          />
+          </kpn-page-header>
+          @if (isModeName() | async) {
+            <div>
+              <kpn-location-selector
+                [country]="country"
+                [locationNode]="locationNode"
+                (selection)="selected($event)"
+              />
+            </div>
+          }
+          @if (isModeTree() | async) {
+            <div>
+              <kpn-location-tree
+                [networkType]="networkType"
+                [country]="country"
+                [locationNode]="locationNode"
+                (selection)="selected($event)"
+              />
+            </div>
+          }
         </div>
-
-        <div *ngIf="isModeTree() | async">
-          <kpn-location-tree
-            [networkType]="networkType"
-            [country]="country"
-            [locationNode]="locationNode"
-            (selection)="selected($event)"
-          />
-        </div>
-      </div>
+      }
       <kpn-location-selection-sidebar sidebar />
     </kpn-page>
   `,
@@ -102,7 +104,6 @@ import { LocationTreeComponent } from './location-tree.component';
     LocationTreeComponent,
     MatIconModule,
     NetworkTypeNameComponent,
-    NgIf,
     PageComponent,
     PageHeaderComponent,
     RouterLink,

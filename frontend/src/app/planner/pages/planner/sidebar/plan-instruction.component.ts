@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -10,45 +9,65 @@ import { PlanInstructionCommandComponent } from './plan-instruction-command.comp
   selector: 'kpn-plan-instruction',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="instruction.node" class="node">
-      <div *ngIf="instruction.node.length <= 3" class="node-number">
-        {{ instruction.node }}
+    @if (instruction.node) {
+      <div class="node">
+        @if (instruction.node.length <= 3) {
+          <div class="node-number">
+            {{ instruction.node }}
+          </div>
+        }
+        @if (instruction.node.length > 3) {
+          <div class="node-number-long">
+            {{ instruction.node }}
+          </div>
+        }
       </div>
-      <div *ngIf="instruction.node.length > 3" class="node-number-long">
-        {{ instruction.node }}
+    }
+    @if (instruction.colour) {
+      <div class="colour">
+        {{ translate('follow-colour') }}
+        {{ colour(instruction.colour) }}
       </div>
-    </div>
-    <div *ngIf="instruction.colour" class="colour">
-      {{ translate('follow-colour') }}
-      {{ colour(instruction.colour) }}
-    </div>
-    <div *ngIf="!instruction.node && !instruction.colour" class="instruction">
-      <kpn-plan-instruction-command [command]="instruction.command"></kpn-plan-instruction-command>
-      <div>
-        <div *ngIf="instruction.heading">
-          <span class="kpn-label"
-            >{{ translate('head') }} {{ translate('heading-' + instruction.heading) }}</span
-          >
-          <span *ngIf="instruction.street">
-            {{ instruction.street }}
-          </span>
-        </div>
-        <div *ngIf="!instruction.heading">
-          <span *ngIf="instruction.street" class="kpn-label">{{
-            translate('command-' + instruction.command)
-          }}</span>
-          <span>
-            {{ instruction.street }}
-          </span>
-          <span *ngIf="!instruction.street">
-            {{ translate('command-' + instruction.command) }}
-          </span>
-        </div>
-        <div class="kpn-meters">
-          {{ instruction.distance }}
+    }
+    @if (!instruction.node && !instruction.colour) {
+      <div class="instruction">
+        <kpn-plan-instruction-command
+          [command]="instruction.command"
+        ></kpn-plan-instruction-command>
+        <div>
+          @if (instruction.heading) {
+            <div>
+              <span class="kpn-label"
+                >{{ translate('head') }} {{ translate('heading-' + instruction.heading) }}</span
+              >
+              @if (instruction.street) {
+                <span>
+                  {{ instruction.street }}
+                </span>
+              }
+            </div>
+          }
+          @if (!instruction.heading) {
+            <div>
+              @if (instruction.street) {
+                <span class="kpn-label">{{ translate('command-' + instruction.command) }}</span>
+              }
+              <span>
+                {{ instruction.street }}
+              </span>
+              @if (!instruction.street) {
+                <span>
+                  {{ translate('command-' + instruction.command) }}
+                </span>
+              }
+            </div>
+          }
+          <div class="kpn-meters">
+            {{ instruction.distance }}
+          </div>
         </div>
       </div>
-    </div>
+    }
   `,
   styles: `
     .instruction {
@@ -101,7 +120,7 @@ import { PlanInstructionCommandComponent } from './plan-instruction-command.comp
     }
   `,
   standalone: true,
-  imports: [NgIf, PlanInstructionCommandComponent],
+  imports: [PlanInstructionCommandComponent],
 })
 export class PlanInstructionComponent {
   @Input() instruction: PlanInstruction;

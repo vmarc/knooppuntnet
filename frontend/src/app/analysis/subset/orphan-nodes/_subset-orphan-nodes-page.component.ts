@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -27,21 +26,24 @@ import { SubsetOrphanNodesTableComponent } from './subset-orphan-nodes-table.com
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <p>
-          <kpn-situation-on [timestamp]="response.situationOn" />
-        </p>
-        <p *ngIf="response.result.nodes.length === 0" class="kpn-line">
-          <kpn-icon-happy />
-          <span i18n="@@subset-orphan-nodes.no-routes">No orphan nodes</span>
-        </p>
-        <div *ngIf="response.result.nodes.length > 0">
-          <kpn-subset-orphan-nodes-table
-            [timeInfo]="response.result.timeInfo"
-            [nodes]="response.result.nodes"
-          />
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          <p>
+            <kpn-situation-on [timestamp]="response.situationOn" />
+          </p>
+          @if (response.result.nodes.length === 0) {
+            <p class="kpn-line">
+              <kpn-icon-happy />
+              <span i18n="@@subset-orphan-nodes.no-routes">No orphan nodes</span>
+            </p>
+          } @else {
+            <kpn-subset-orphan-nodes-table
+              [timeInfo]="response.result.timeInfo"
+              [nodes]="response.result.nodes"
+            />
+          }
         </div>
-      </div>
+      }
       <kpn-subset-orphan-nodes-sidebar sidebar />
     </kpn-page>
   `,
@@ -50,7 +52,6 @@ import { SubsetOrphanNodesTableComponent } from './subset-orphan-nodes-table.com
     AsyncPipe,
     ErrorComponent,
     IconHappyComponent,
-    NgIf,
     PageComponent,
     SituationOnComponent,
     SubsetOrphanNodesSidebarComponent,

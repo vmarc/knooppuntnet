@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { NgIf } from '@angular/common';
+
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -10,15 +10,11 @@ import { Observable } from 'rxjs';
   selector: 'kpn-form-status',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container
-      *ngIf="(statusChanges | async) === 'VALID'; then valid; else invalid"
-    ></ng-container>
-    <ng-template #valid>
+    @if ((statusChanges | async) === 'VALID') {
       <span [id]="formName + '-valid'" class="form-valid">Valid</span>
-    </ng-template>
-    <ng-template #invalid>
+    } @else {
       <span [id]="formName + '-invalid'" class="form-valid">Invalid</span>
-    </ng-template>
+    }
   `,
   styles: `
     .form-valid {
@@ -26,7 +22,7 @@ import { Observable } from 'rxjs';
     }
   `,
   standalone: true,
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
 })
 export class FormStatusComponent {
   @Input({ required: true }) formName: string;

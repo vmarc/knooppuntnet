@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -14,74 +13,79 @@ import { LegendIconComponent } from './legend-icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel [expanded]="expanded$ | async" (expandedChange)="expandedChanged($event)">
-      <mat-expansion-panel-header i18n="@@planner.legend"> Legend </mat-expansion-panel-header>
+      <mat-expansion-panel-header i18n="@@planner.legend">Legend</mat-expansion-panel-header>
 
-      <div *ngIf="plannerMapMode() as mapMode">
-        <div *ngIf="mapMode === 'surface'" class="legend">
-          <div>
-            <kpn-legend-icon color="rgb(0, 200, 0)" />
-            <span i18n="@@planner.legend.paved">Paved</span>
+      @if (plannerMapMode(); as mapMode) {
+        @if (mapMode === 'surface') {
+          <div class="legend">
+            <div>
+              <kpn-legend-icon color="rgb(0, 200, 0)" />
+              <span i18n="@@planner.legend.paved">Paved</span>
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(255, 165, 0)" />
+              <span i18n="@@planner.legend.unpaved">Unpaved</span>
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(0, 0, 200)" />
+              <span i18n="@@planner.legend.surface-unknown">Surface unknown</span>
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(0, 200, 0)" [proposed]="true" />
+              <span i18n="@@planner.legend.proposed">Proposed</span>
+            </div>
           </div>
-          <div>
-            <kpn-legend-icon color="rgb(255, 165, 0)" />
-            <span i18n="@@planner.legend.unpaved">Unpaved</span>
+        }
+        @if (mapMode === 'survey') {
+          <div class="legend">
+            <div>
+              <kpn-legend-icon color="rgb(0, 255, 0)" />
+              <span i18n="@@planner.legend.survey.last-month">Last month</span>
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(0, 200, 0)" />
+              <span i18n="@@planner.legend.survey.last-half-month">Last half year</span>
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(0, 150, 0)" />
+              <span i18n="@@planner.legend.survey.last-year">Last year</span>
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(0, 90, 0)" />
+              <span i18n="@@planner.legend.survey.last-two-years">Last two years</span>
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(150, 0, 0)" />
+              <span i18n="@@planner.legend.survey.more-than-tow-years-ago"
+                >More than two years ago</span
+              >
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(255, 255, 0)" circleColor="rgb(225, 225, 0)" />
+              <span i18n="@@planner.legend.survey.unknown">Unknown</span>
+            </div>
           </div>
-          <div>
-            <kpn-legend-icon color="rgb(0, 0, 200)" />
-            <span i18n="@@planner.legend.surface-unknown">Surface unknown</span>
+        }
+        @if (mapMode === 'analysis') {
+          <div class="legend">
+            <div>
+              <kpn-legend-icon color="rgb(0, 200, 0)" />
+              <span i18n="@@planner.legend.analysis.ok">OK</span>
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(0, 150, 0)" />
+              <span i18n="@@planner.legend.survey.ok-orphan">OK Orphan</span>
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(255, 0, 0)" />
+              <span i18n="@@planner.legend.survey.review">Review</span>
+            </div>
+            <div>
+              <kpn-legend-icon color="rgb(187, 0, 0)" />
+              <span i18n="@@planner.legend.survey.review-orphan">Review Orphan</span>
+            </div>
           </div>
-          <div>
-            <kpn-legend-icon color="rgb(0, 200, 0)" [proposed]="true" />
-            <span i18n="@@planner.legend.proposed">Proposed</span>
-          </div>
-        </div>
-        <div *ngIf="mapMode === 'survey'" class="legend">
-          <div>
-            <kpn-legend-icon color="rgb(0, 255, 0)" />
-            <span i18n="@@planner.legend.survey.last-month">Last month</span>
-          </div>
-          <div>
-            <kpn-legend-icon color="rgb(0, 200, 0)" />
-            <span i18n="@@planner.legend.survey.last-half-month">Last half year</span>
-          </div>
-          <div>
-            <kpn-legend-icon color="rgb(0, 150, 0)" />
-            <span i18n="@@planner.legend.survey.last-year">Last year</span>
-          </div>
-          <div>
-            <kpn-legend-icon color="rgb(0, 90, 0)" />
-            <span i18n="@@planner.legend.survey.last-two-years">Last two years</span>
-          </div>
-          <div>
-            <kpn-legend-icon color="rgb(150, 0, 0)" />
-            <span i18n="@@planner.legend.survey.more-than-tow-years-ago"
-              >More than two years ago</span
-            >
-          </div>
-          <div>
-            <kpn-legend-icon color="rgb(255, 255, 0)" circleColor="rgb(225, 225, 0)" />
-            <span i18n="@@planner.legend.survey.unknown">Unknown</span>
-          </div>
-        </div>
-        <div *ngIf="mapMode === 'analysis'" class="legend">
-          <div>
-            <kpn-legend-icon color="rgb(0, 200, 0)" />
-            <span i18n="@@planner.legend.analysis.ok">OK</span>
-          </div>
-          <div>
-            <kpn-legend-icon color="rgb(0, 150, 0)" />
-            <span i18n="@@planner.legend.survey.ok-orphan">OK Orphan</span>
-          </div>
-          <div>
-            <kpn-legend-icon color="rgb(255, 0, 0)" />
-            <span i18n="@@planner.legend.survey.review">Review</span>
-          </div>
-          <div>
-            <kpn-legend-icon color="rgb(187, 0, 0)" />
-            <span i18n="@@planner.legend.survey.review-orphan">Review Orphan</span>
-          </div>
-        </div>
-
+        }
         <div class="legend">
           <div>
             <div class="legend-icon">
@@ -117,7 +121,7 @@ import { LegendIconComponent } from './legend-icon.component';
             <span i18n="@@planner.legend.marker.via-node">Via node</span>
           </div>
         </div>
-      </div>
+      }
     </mat-expansion-panel>
   `,
   styles: `
@@ -133,7 +137,7 @@ import { LegendIconComponent } from './legend-icon.component';
     }
   `,
   standalone: true,
-  imports: [MatExpansionModule, NgIf, LegendIconComponent, AsyncPipe],
+  imports: [MatExpansionModule, LegendIconComponent, AsyncPipe],
 })
 export class PlannerSideBarLegendComponent {
   readonly expanded$ = this.store.select(selectPreferencesShowLegend);

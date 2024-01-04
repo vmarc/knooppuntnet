@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -79,7 +78,6 @@ import { setTag } from '@sentry/angular-ivy';
   standalone: true,
   imports: [
     MatSidenavModule,
-    NgIf,
     PageExperimentalComponent,
     PageFooterComponent,
     RouterOutlet,

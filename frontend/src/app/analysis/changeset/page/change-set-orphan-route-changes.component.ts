@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -16,19 +15,21 @@ import { RouteDiffsData } from './route-diffs/route-diffs-data';
   selector: 'kpn-change-set-orphan-route-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngFor="let refs of page.orphanRouteChanges" class="kpn-level-1">
-      <div class="kpn-level-1-header kpn-line">
-        <kpn-network-type-icon [networkType]="refs.subset.networkType" />
-        <span>{{ refs.subset.country.toUpperCase() }}</span>
-        <span i18n="@@change-set.orphan-routes.title">Free routes</span>
+    @for (refs of page.orphanRouteChanges; track refs) {
+      <div class="kpn-level-1">
+        <div class="kpn-level-1-header kpn-line">
+          <kpn-network-type-icon [networkType]="refs.subset.networkType" />
+          <span>{{ refs.subset.country.toUpperCase() }}</span>
+          <span i18n="@@change-set.orphan-routes.title">Free routes</span>
+        </div>
+        <div class="kpn-level-1-body">
+          <kpn-route-diffs [data]="routeDiffs(refs)" />
+        </div>
       </div>
-      <div class="kpn-level-1-body">
-        <kpn-route-diffs [data]="routeDiffs(refs)" />
-      </div>
-    </div>
+    }
   `,
   standalone: true,
-  imports: [NgFor, NetworkTypeIconComponent, RouteDiffsComponent],
+  imports: [NetworkTypeIconComponent, RouteDiffsComponent],
 })
 export class ChangeSetOrphanRouteChangesComponent {
   @Input() page: ChangeSetPage;

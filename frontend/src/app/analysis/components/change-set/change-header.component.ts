@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -17,28 +16,37 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <span *ngIf="changeKey.changeSetId === 0" i18n="@@change-header.start"> Start </span>
-      <kpn-link-changeset
-        *ngIf="changeKey.changeSetId > 0"
-        [changeSetId]="changeKey.changeSetId"
-        [replicationNumber]="changeKey.replicationNumber"
-        class="kpn-thick"
-      />
-      <kpn-timestamp
-        *ngIf="timestampOnSameLine$ | async"
-        [timestamp]="changeKey.timestamp"
-        class="kpn-thin"
-      />
-      <kpn-icon-happy *ngIf="happy" />
-      <kpn-icon-investigate *ngIf="investigate" />
+      @if (changeKey.changeSetId === 0) {
+        <span i18n="@@change-header.start"> Start </span>
+      }
+      @if (changeKey.changeSetId > 0) {
+        <kpn-link-changeset
+          [changeSetId]="changeKey.changeSetId"
+          [replicationNumber]="changeKey.replicationNumber"
+          class="kpn-thick"
+        />
+      }
+      @if (timestampOnSameLine$ | async) {
+        <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin" />
+      }
+      @if (happy) {
+        <kpn-icon-happy />
+      }
+      @if (investigate) {
+        <kpn-icon-investigate />
+      }
     </div>
-    <div *ngIf="timestampOnSeparateLine$ | async">
-      <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin" />
-    </div>
+    @if (timestampOnSeparateLine$ | async) {
+      <div>
+        <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin" />
+      </div>
+    }
 
-    <div *ngIf="comment" class="comment">
-      {{ comment }}
-    </div>
+    @if (comment) {
+      <div class="comment">
+        {{ comment }}
+      </div>
+    }
   `,
   styles: `
     .comment {
@@ -53,7 +61,6 @@ import { map } from 'rxjs/operators';
     IconHappyComponent,
     IconInvestigateComponent,
     LinkChangesetComponent,
-    NgIf,
     TimestampComponent,
   ],
 })

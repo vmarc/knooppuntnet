@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -39,14 +38,12 @@ import { StatusSidebarComponent } from './status-sidebar.component';
 
       <h1>System</h1>
 
-      <div *ngIf="page$ | async as page">
+      @if (page$ | async; as page) {
         <kpn-status-page-menu [links]="statusLinks" [periodType]="page.periodType" />
-
         <div>
           <a [routerLink]="'TODO previous'" class="previous">previous</a>
           <a [routerLink]="'TODO next'">next</a>
         </div>
-
         <div class="chart-group">
           <h2>Backend disk space</h2>
           <kpn-disk-space-used-chart
@@ -62,7 +59,6 @@ import { StatusSidebarComponent } from './status-sidebar.component';
             [xAxisLabel]="xAxisLabel"
           />
         </div>
-
         <div class="chart-group">
           <h2>Analysis database</h2>
           <kpn-docs-chart [barChart]="page.analysisDocCount" [xAxisLabel]="xAxisLabel" />
@@ -73,7 +69,6 @@ import { StatusSidebarComponent } from './status-sidebar.component';
           />
           <kpn-data-size-chart [barChart]="page.analysisDataSize" [xAxisLabel]="xAxisLabel" />
         </div>
-
         <div class="chart-group">
           <h2>Changes database</h2>
           <kpn-docs-chart [barChart]="page.changesDocCount" [xAxisLabel]="xAxisLabel" />
@@ -84,7 +79,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
           />
           <kpn-data-size-chart [barChart]="page.changesDataSize" [xAxisLabel]="xAxisLabel" />
         </div>
-      </div>
+      }
       <kpn-status-sidebar sidebar />
     </kpn-page>
   `,
@@ -111,7 +106,6 @@ import { StatusSidebarComponent } from './status-sidebar.component';
     DiskSpaceOverpassChartComponent,
     DiskSpaceUsedChartComponent,
     DocsChartComponent,
-    NgIf,
     PageComponent,
     RouterLink,
     StatusPageMenuComponent,

@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -19,45 +19,39 @@ import { MapService } from '../../../services/map.service';
   selector: 'kpn-planner-popup-route',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="response$ | async as response">
-      <h2>
-        <span i18n="@@map.route-popup.title">Route</span>
-        {{ response.result.name }}
-      </h2>
-
+    @if (response$ | async; as response) {
       <div>
-        <span
-          *ngIf="response.result.networkReferences.length === 1"
-          class="kpn-label"
-          i18n="@@map.route-popup.network"
-          >Network</span
-        >
-        <span
-          *ngIf="response.result.networkReferences.length !== 1"
-          class="kpn-label"
-          i18n="@@map.route-popup.networks"
-          >Networks</span
-        >
-        <span
-          *ngIf="response.result.networkReferences.length === 0"
-          i18n="@@map.route-popup.no-networks"
-          >None</span
-        >
-        <div *ngFor="let ref of response.result.networkReferences" class="reference">
-          <a [routerLink]="'/analysis/network/' + ref.id">{{ ref.name }}</a>
+        <h2>
+          <span i18n="@@map.route-popup.title">Route</span>
+          {{ response.result.name }}
+        </h2>
+        <div>
+          @if (response.result.networkReferences.length === 1) {
+            <span class="kpn-label" i18n="@@map.route-popup.network">Network</span>
+          }
+          @if (response.result.networkReferences.length !== 1) {
+            <span class="kpn-label" i18n="@@map.route-popup.networks">Networks</span>
+          }
+          @if (response.result.networkReferences.length === 0) {
+            <span i18n="@@map.route-popup.no-networks">None</span>
+          }
+          @for (ref of response.result.networkReferences; track ref) {
+            <div class="reference">
+              <a [routerLink]="'/analysis/network/' + ref.id">{{ ref.name }}</a>
+            </div>
+          }
         </div>
+        <p class="more-details">
+          <kpn-link-route
+            [routeId]="response.result.id"
+            [routeName]="response.result.name"
+            [networkType]="networkType$ | async"
+            title="More details"
+            i18n-title="@@map.route-popup.more-details"
+          />
+        </p>
       </div>
-
-      <p class="more-details">
-        <kpn-link-route
-          [routeId]="response.result.id"
-          [routeName]="response.result.name"
-          [networkType]="networkType$ | async"
-          title="More details"
-          i18n-title="@@map.route-popup.more-details"
-        />
-      </p>
-    </div>
+    }
   `,
   styles: `
     .reference {
@@ -69,7 +63,7 @@ import { MapService } from '../../../services/map.service';
     }
   `,
   standalone: true,
-  imports: [NgIf, NgFor, RouterLink, LinkRouteComponent, AsyncPipe],
+  imports: [RouterLink, LinkRouteComponent, AsyncPipe],
 })
 export class MapPopupRouteComponent implements OnInit {
   protected response$: Observable<ApiResponse<MapRouteDetail>>;

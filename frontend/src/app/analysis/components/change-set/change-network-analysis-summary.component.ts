@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { ChangeSetNetwork } from '@api/common';
@@ -21,17 +20,17 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
         [comment]="changeSet.comment"
       />
 
-      <div *ngFor="let action of networkActions">
+      @for (action of networkActions; track action) {
         <kpn-change-set-network [changeSetNetworkAction]="action" />
-      </div>
+      }
 
-      <div *ngFor="let orphanNodeChanges of changeSet.network.orphanNodeChanges">
+      @for (orphanNodeChanges of changeSet.network.orphanNodeChanges; track orphanNodeChanges) {
         <kpn-change-set-orphan-nodes [subsetElementRefs]="orphanNodeChanges" />
-      </div>
+      }
 
-      <div *ngFor="let orphanRouteChanges of changeSet.network.orphanRouteChanges">
+      @for (orphanRouteChanges of changeSet.network.orphanRouteChanges; track orphanRouteChanges) {
         <kpn-change-set-orphan-routes [subsetElementRefs]="orphanRouteChanges" />
-      </div>
+      }
     </div>
   `,
   styles: `
@@ -46,7 +45,6 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
     ChangesSetNetworkComponent,
     ChangesSetOrphanNodesComponent,
     ChangesSetOrphanRoutesComponent,
-    NgFor,
   ],
 })
 export class ChangeNetworkAnalysisSummaryComponent implements OnInit {

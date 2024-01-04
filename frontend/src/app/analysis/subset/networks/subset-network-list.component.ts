@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -12,13 +11,15 @@ import { SubsetNetworkComponent } from './subset-network.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-items>
-      <kpn-item *ngFor="let network of networks; let i = index" [index]="i">
-        <kpn-subset-network [network]="network" />
-      </kpn-item>
+      @for (network of networks; track network; let i = $index) {
+        <kpn-item [index]="i">
+          <kpn-subset-network [network]="network" />
+        </kpn-item>
+      }
     </kpn-items>
   `,
   standalone: true,
-  imports: [ItemsComponent, NgFor, ItemComponent, SubsetNetworkComponent],
+  imports: [ItemsComponent, ItemComponent, SubsetNetworkComponent],
 })
 export class SubsetNetworkListComponent {
   @Input() networks: NetworkAttributes[];

@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -11,17 +9,23 @@ import { RouteNodeComponent } from './route-node.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <p *ngIf="analysis.map.endNodes.length === 0">?</p>
+    @if (analysis.map.endNodes.length === 0) {
+      <p>?</p>
+    }
     <!-- eslint-enable @angular-eslint/template/i18n -->
-    <p *ngFor="let node of analysis.map.endNodes">
-      <kpn-route-node [node]="node" title="marker-icon-red-small.png" />
-    </p>
-    <p *ngFor="let node of analysis.map.endTentacleNodes">
-      <kpn-route-node [node]="node" title="marker-icon-purple-small.png" />
-    </p>
+    @for (node of analysis.map.endNodes; track node) {
+      <p>
+        <kpn-route-node [node]="node" title="marker-icon-red-small.png" />
+      </p>
+    }
+    @for (node of analysis.map.endTentacleNodes; track node) {
+      <p>
+        <kpn-route-node [node]="node" title="marker-icon-purple-small.png" />
+      </p>
+    }
   `,
   standalone: true,
-  imports: [NgIf, NgFor, RouteNodeComponent],
+  imports: [RouteNodeComponent],
 })
 export class RouteEndNodesComponent {
   @Input() analysis: RouteInfoAnalysis;

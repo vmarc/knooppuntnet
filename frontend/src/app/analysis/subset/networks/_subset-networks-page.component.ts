@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -32,31 +31,30 @@ import { SubsetNetworkTableComponent } from './subset-network-table.component';
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <div *ngIf="response.result.networks.length === 0" i18n="@@subset-networks.no-networks">
-          No networks
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          @if (response.result.networks.length === 0) {
+            <div i18n="@@subset-networks.no-networks">No networks</div>
+          } @else {
+            <div>
+              <p>
+                <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+              </p>
+              <markdown i18n="@@subset-networks.summary">
+                _There are __{{ response.result.networkCount | integer }}__ networks, with a total
+                of __{{ response.result.nodeCount | integer }}__ nodes and __{{
+                  response.result.routeCount | integer
+                }}__ routes with an overall length of __{{ response.result.km | integer }}__ km._
+              </markdown>
+              @if (large$ | async) {
+                <kpn-subset-network-table [networks]="response.result.networks" />
+              } @else {
+                <kpn-subset-network-list [networks]="response.result.networks" />
+              }
+            </div>
+          }
         </div>
-        <div *ngIf="response.result.networks.length > 0">
-          <p>
-            <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-          </p>
-
-          <markdown i18n="@@subset-networks.summary">
-            _There are __{{ response.result.networkCount | integer }}__ networks, with a total of
-            __{{ response.result.nodeCount | integer }}__ nodes and __{{
-              response.result.routeCount | integer
-            }}__ routes with an overall length of __{{ response.result.km | integer }}__ km._
-          </markdown>
-
-          <ng-container *ngIf="large$ | async; then table; else list"></ng-container>
-          <ng-template #table>
-            <kpn-subset-network-table [networks]="response.result.networks" />
-          </ng-template>
-          <ng-template #list>
-            <kpn-subset-network-list [networks]="response.result.networks" />
-          </ng-template>
-        </div>
-      </div>
+      }
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
@@ -66,7 +64,6 @@ import { SubsetNetworkTableComponent } from './subset-network-table.component';
     ErrorComponent,
     IntegerFormatPipe,
     MarkdownModule,
-    NgIf,
     PageComponent,
     SituationOnComponent,
     SubsetNetworkListComponent,

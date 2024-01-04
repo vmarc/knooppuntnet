@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -9,31 +7,37 @@ import { InterpretedTags } from './interpreted-tags';
   selector: 'kpn-tags-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="tags.isEmpty()" i18n="@@tags.no-tags" class="no-tags"
-      >No tags
-    </ng-container>
-
-    <table *ngIf="!tags.isEmpty()" title="tags" class="kpn-table">
-      <thead>
-        <tr>
-          <th i18n="@@tags.key">Key</th>
-          <th i18n="@@tags.value">Value</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let tag of tags.standardTags()">
-          <td>{{ tag.key }}</td>
-          <td>{{ tag.value }}</td>
-        </tr>
-        <tr *ngIf="tags.hasExtraTags() && tags.hasStandardTags()">
-          <td colspan="2"></td>
-        </tr>
-        <tr *ngFor="let tag of tags.extraTags()">
-          <td>{{ tag.key }}</td>
-          <td>{{ tag.value }}</td>
-        </tr>
-      </tbody>
-    </table>
+    @if (tags.isEmpty()) {
+      <ng-container i18n="@@tags.no-tags" class="no-tags">No tags</ng-container>
+    } @else {
+      <table title="tags" class="kpn-table">
+        <thead>
+          <tr>
+            <th i18n="@@tags.key">Key</th>
+            <th i18n="@@tags.value">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (tag of tags.standardTags(); track tag) {
+            <tr>
+              <td>{{ tag.key }}</td>
+              <td>{{ tag.value }}</td>
+            </tr>
+          }
+          @if (tags.hasExtraTags() && tags.hasStandardTags()) {
+            <tr>
+              <td colspan="2"></td>
+            </tr>
+          }
+          @for (tag of tags.extraTags(); track tag) {
+            <tr>
+              <td>{{ tag.key }}</td>
+              <td>{{ tag.value }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    }
   `,
   styles: `
     .no-tags {
@@ -42,7 +46,7 @@ import { InterpretedTags } from './interpreted-tags';
     }
   `,
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [],
 })
 export class TagsTableComponent {
   @Input({ required: true }) tags: InterpretedTags;

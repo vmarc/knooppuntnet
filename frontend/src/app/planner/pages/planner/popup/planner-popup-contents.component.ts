@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { NgClass } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -12,7 +11,7 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
   selector: 'kpn-planner-popup-contents',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="mapService.popupType$ | async as popupType">
+    @if (mapService.popupType$ | async; as popupType) {
       <div [ngClass]="{ hidden: popupType !== 'poi' }">
         <kpn-planner-popup-poi />
       </div>
@@ -22,7 +21,7 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
       <div [ngClass]="{ hidden: popupType !== 'route' }">
         <kpn-planner-popup-route />
       </div>
-    </div>
+    }
   `,
   styles: `
     .hidden {
@@ -34,7 +33,6 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
     AsyncPipe,
     MapPopupRouteComponent,
     NgClass,
-    NgIf,
     PlannerPopupNodeComponent,
     PlannerPopupPoiComponent,
   ],

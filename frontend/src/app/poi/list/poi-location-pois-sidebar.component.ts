@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -21,35 +21,41 @@ import { CountrySelectComponent } from './country-select.component';
       <div class="location-selector">
         <kpn-country-select (country)="countryChanged($event)" />
 
-        <div *ngIf="locationNode() as locationNode">
-          <kpn-location-selector
-            [country]="country"
-            [locationNode]="locationNode"
-            [all]="true"
-            (selection)="locationSelectionChanged($event)"
-          />
-        </div>
+        @if (locationNode(); as locationNode) {
+          <div>
+            <kpn-location-selector
+              [country]="country"
+              [locationNode]="locationNode"
+              [all]="true"
+              (selection)="locationSelectionChanged($event)"
+            />
+          </div>
+        }
       </div>
 
-      <div *ngIf="apiResponse() as response" class="filter">
-        <div *ngIf="response.result as page">
-          <div *ngFor="let group of page.groups">
-            <div>
-              <mat-checkbox>
-                <span class="poi-group-name">{{ group.name }}</span>
-              </mat-checkbox>
-            </div>
-            <div class="poi-group-body">
-              <div *ngFor="let poiCount of group.poiCounts">
+      @if (apiResponse(); as response) {
+        <div class="filter">
+          @if (response.result; as page) {
+            @for (group of page.groups; track group) {
+              <div>
                 <mat-checkbox>
-                  <span class="poi-name">{{ poiCount.name }}</span>
-                  <span class="poi-count">{{ poiCount.count }}</span>
+                  <span class="poi-group-name">{{ group.name }}</span>
                 </mat-checkbox>
               </div>
-            </div>
-          </div>
+              <div class="poi-group-body">
+                @for (poiCount of group.poiCounts; track poiCount) {
+                  <div>
+                    <mat-checkbox>
+                      <span class="poi-name">{{ poiCount.name }}</span>
+                      <span class="poi-count">{{ poiCount.count }}</span>
+                    </mat-checkbox>
+                  </div>
+                }
+              </div>
+            }
+          }
         </div>
-      </div>
+      }
     </kpn-sidebar>
   `,
   styles: `
@@ -91,8 +97,6 @@ import { CountrySelectComponent } from './country-select.component';
     CountrySelectComponent,
     LocationSelectorComponent,
     MatCheckboxModule,
-    NgFor,
-    NgIf,
     SidebarComponent,
   ],
 })

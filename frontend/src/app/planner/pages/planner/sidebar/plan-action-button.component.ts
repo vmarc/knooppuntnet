@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -17,26 +16,18 @@ import { map } from 'rxjs/operators';
   selector: 'kpn-plan-action-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button
-      mat-stroked-button
-      *ngIf="showButtonText$ | async"
-      (click)="action.emit()"
-      [disabled]="!enabled"
-      [title]="title"
-    >
-      <mat-icon [svgIcon]="icon" />
-      <span class="button-text">{{ text }}</span>
-    </button>
+    @if (showButtonText$ | async) {
+      <button mat-stroked-button (click)="action.emit()" [disabled]="!enabled" [title]="title">
+        <mat-icon [svgIcon]="icon" />
+        <span class="button-text">{{ text }}</span>
+      </button>
+    }
 
-    <button
-      mat-icon-button
-      *ngIf="showButtonIcon$ | async"
-      (click)="action.emit()"
-      [disabled]="!enabled"
-      [title]="title"
-    >
-      <mat-icon [svgIcon]="icon" />
-    </button>
+    @if (showButtonIcon$ | async) {
+      <button mat-icon-button (click)="action.emit()" [disabled]="!enabled" [title]="title">
+        <mat-icon [svgIcon]="icon" />
+      </button>
+    }
   `,
   styles: `
     .button-text {
@@ -53,7 +44,7 @@ import { map } from 'rxjs/operators';
     }
   `,
   standalone: true,
-  imports: [NgIf, MatButtonModule, MatIconModule, AsyncPipe],
+  imports: [MatButtonModule, MatIconModule, AsyncPipe],
 })
 export class PlanActionButtonComponent implements OnInit {
   @Input() enabled = false;

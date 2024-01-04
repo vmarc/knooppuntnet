@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Inject } from '@angular/core';
@@ -17,27 +16,28 @@ import { CsNcComponent } from './network/cs-nc.component';
   selector: 'kpn-change-set-network-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngFor="let networkChangeInfo of page.networkChanges" class="kpn-level-1">
-      <a [id]="networkChangeInfo.networkId"></a>
-      <div class="kpn-level-1-header">
-        <div class="kpn-line">
-          <kpn-network-type-icon [networkType]="networkChangeInfo.networkType" />
-          <span i18n="@@change-set.network-changes.network">Network</span>
-          <kpn-link-network-details
-            [networkId]="networkChangeInfo.networkId"
-            [networkType]="networkChangeInfo.networkType"
-            [networkName]="networkChangeInfo.networkName"
-          />
+    @for (networkChangeInfo of page.networkChanges; track networkChangeInfo) {
+      <div class="kpn-level-1">
+        <a [id]="networkChangeInfo.networkId"></a>
+        <div class="kpn-level-1-header">
+          <div class="kpn-line">
+            <kpn-network-type-icon [networkType]="networkChangeInfo.networkType" />
+            <span i18n="@@change-set.network-changes.network">Network</span>
+            <kpn-link-network-details
+              [networkId]="networkChangeInfo.networkId"
+              [networkType]="networkChangeInfo.networkType"
+              [networkName]="networkChangeInfo.networkName"
+            />
+          </div>
+        </div>
+        <div class="kpn-level-1-body">
+          <kpn-cs-nc-component [page]="page" [networkChangeInfo]="networkChangeInfo" />
         </div>
       </div>
-
-      <div class="kpn-level-1-body">
-        <kpn-cs-nc-component [page]="page" [networkChangeInfo]="networkChangeInfo" />
-      </div>
-    </div>
+    }
   `,
   standalone: true,
-  imports: [CsNcComponent, LinkNetworkDetailsComponent, NetworkTypeIconComponent, NgFor],
+  imports: [CsNcComponent, LinkNetworkDetailsComponent, NetworkTypeIconComponent],
 })
 export class ChangeSetNetworkChangesComponent implements OnDestroy, AfterViewInit {
   @Input({ required: true }) page: ChangeSetPage;

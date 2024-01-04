@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,9 +20,11 @@ import { Subsets } from '@app/kpn/common';
       <th rowspan="2" i18n="@@overview-table.comment">Comment</th>
     </tr>
     <tr>
-      <th class="value-cell" *ngFor="let subset of subsets()">
-        <mat-icon [svgIcon]="subset.networkType" />
-      </th>
+      @for (subset of subsets(); track subset) {
+        <th class="value-cell">
+          <mat-icon [svgIcon]="subset.networkType" />
+        </th>
+      }
     </tr>
   `,
   styles: `
@@ -32,7 +33,7 @@ import { Subsets } from '@app/kpn/common';
     }
   `,
   standalone: true,
-  imports: [NgFor, MatIconModule],
+  imports: [MatIconModule],
 })
 export class OverviewTableHeaderComponent {
   subsets() {

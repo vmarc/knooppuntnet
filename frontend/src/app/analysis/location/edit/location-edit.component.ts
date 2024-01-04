@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -37,12 +36,14 @@ import { BehaviorSubject } from 'rxjs';
         <span i18n="@@location-edit.full-routes">routes with ways (takes more time)</span>
       </mat-checkbox>
     </p>
-    <p *ngIf="showEstimatedTime$ | async">
-      <i i18n="@@location-edit.time-warning">
-        We estimate that it will take perhaps about {{ seconds }} seconds to load all nodes and
-        routes in the editor.
-      </i>
-    </p>
+    @if (showEstimatedTime$ | async) {
+      <p>
+        <i i18n="@@location-edit.time-warning">
+          We estimate that it will take perhaps about {{ seconds }} seconds to load all nodes and
+          routes in the editor.
+        </i>
+      </p>
+    }
     <p>
       <button
         mat-raised-button
@@ -57,7 +58,7 @@ import { BehaviorSubject } from 'rxjs';
     </p>
   `,
   standalone: true,
-  imports: [MatCheckboxModule, NgIf, MatButtonModule, AsyncPipe],
+  imports: [MatCheckboxModule, MatButtonModule, AsyncPipe],
 })
 export class LocationEditComponent implements OnInit {
   @Input() page: LocationEditPage;

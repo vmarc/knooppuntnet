@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -44,26 +44,26 @@ import { LocationOption } from './location-option';
           [displayWith]="displayName"
           (opened)="resetWarning()"
         >
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{ option.name }}
-            <span *ngIf="nodeCount(option) > 0" class="node-count">({{ nodeCount(option) }})</span>
-          </mat-option>
+          @for (option of filteredOptions | async; track option) {
+            <mat-option [value]="option">
+              {{ option.name }}
+              @if (nodeCount(option) > 0) {
+                <span class="node-count">({{ nodeCount(option) }})</span>
+              }
+            </mat-option>
+          }
         </mat-autocomplete>
       </mat-form-field>
-      <p
-        *ngIf="warningSelectionMandatory"
-        class="kpn-warning"
-        i18n="@@location.selector.warning-selection-mandatory"
-      >
-        Please make a selection in the field above
-      </p>
-      <p
-        *ngIf="warningSelectionInvalid"
-        class="kpn-warning"
-        i18n="@@location.selector.warning-selection-invalid"
-      >
-        Please select a value from the list
-      </p>
+      @if (warningSelectionMandatory) {
+        <p class="kpn-warning" i18n="@@location.selector.warning-selection-mandatory">
+          Please make a selection in the field above
+        </p>
+      }
+      @if (warningSelectionInvalid) {
+        <p class="kpn-warning" i18n="@@location.selector.warning-selection-invalid">
+          Please select a value from the list
+        </p>
+      }
       <button mat-stroked-button (submit)="select()" i18n="@@location.selector.button">
         Location overview
       </button>
@@ -93,8 +93,6 @@ import { LocationOption } from './location-option';
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
-    NgFor,
-    NgIf,
     ReactiveFormsModule,
   ],
 })

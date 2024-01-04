@@ -1,4 +1,4 @@
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -30,45 +30,47 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       </thead>
 
       <tbody>
-        <tr *ngFor="let network of networks">
-          <td>
-            <kpn-link-network-details
-              [networkId]="network.id"
-              [networkType]="network.networkType"
-              [networkName]="network.name"
-            />
-          </td>
-          <td class="happy">
-            <kpn-subset-network-happy [network]="network" />
-          </td>
-          <td class="number-value kpn-km">
-            {{ network.km | integer }}
-          </td>
-          <td class="number-value">
-            {{ network.nodeCount | integer }}
-          </td>
-          <td class="number-value">
-            {{ network.routeCount | integer }}
-          </td>
-          <td class="number-value">
-            {{ network.brokenRouteCount }}
-          </td>
-          <td [ngClass]="{ 'kpn-warning': network.brokenRouteCount > 0 }" class="number-value">
-            {{ network.brokenRoutePercentage }}
-          </td>
-          <td class="number-value">
-            {{ network.integrity.count }}
-          </td>
-          <td class="number-value">
-            {{ network.integrity.coverage }}
-          </td>
-          <td class="number-value">
-            {{ network.integrity.okRate }}
-          </td>
-          <td class="number-value">
-            {{ network.connectionCount }}
-          </td>
-        </tr>
+        @for (network of networks; track network) {
+          <tr>
+            <td>
+              <kpn-link-network-details
+                [networkId]="network.id"
+                [networkType]="network.networkType"
+                [networkName]="network.name"
+              />
+            </td>
+            <td class="happy">
+              <kpn-subset-network-happy [network]="network" />
+            </td>
+            <td class="number-value kpn-km">
+              {{ network.km | integer }}
+            </td>
+            <td class="number-value">
+              {{ network.nodeCount | integer }}
+            </td>
+            <td class="number-value">
+              {{ network.routeCount | integer }}
+            </td>
+            <td class="number-value">
+              {{ network.brokenRouteCount }}
+            </td>
+            <td [ngClass]="{ 'kpn-warning': network.brokenRouteCount > 0 }" class="number-value">
+              {{ network.brokenRoutePercentage }}
+            </td>
+            <td class="number-value">
+              {{ network.integrity.count }}
+            </td>
+            <td class="number-value">
+              {{ network.integrity.coverage }}
+            </td>
+            <td class="number-value">
+              {{ network.integrity.okRate }}
+            </td>
+            <td class="number-value">
+              {{ network.connectionCount }}
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   `,
@@ -83,13 +85,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
     }
   `,
   standalone: true,
-  imports: [
-    IntegerFormatPipe,
-    LinkNetworkDetailsComponent,
-    NgClass,
-    NgFor,
-    SubsetNetworkHappyComponent,
-  ],
+  imports: [IntegerFormatPipe, LinkNetworkDetailsComponent, NgClass, SubsetNetworkHappyComponent],
 })
 export class SubsetNetworkTableComponent {
   @Input() networks: NetworkAttributes[];

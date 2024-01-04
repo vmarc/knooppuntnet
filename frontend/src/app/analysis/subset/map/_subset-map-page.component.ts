@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -25,9 +24,9 @@ import { SubsetMapComponent } from './subset-map.component';
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response">
+      @if (apiResponse(); as response) {
         <kpn-subset-map />
-      </div>
+      }
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
@@ -35,7 +34,6 @@ import { SubsetMapComponent } from './subset-map.component';
   imports: [
     AsyncPipe,
     ErrorComponent,
-    NgIf,
     PageComponent,
     SubsetMapComponent,
     SubsetPageHeaderBlockComponent,

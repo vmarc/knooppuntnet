@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -36,20 +35,20 @@ import { OverviewTableComponent } from './overview-table.component';
 
       <kpn-error></kpn-error>
 
-      <div *ngIf="response$ | async as response" class="kpn-spacer-above">
-        <div *ngIf="response.result">
-          <div class="situation-on">
-            <kpn-situation-on [timestamp]="response.situationOn" />
-          </div>
-          <ng-content *ngIf="tableFormat$ | async; then table; else list"></ng-content>
-          <ng-template #table>
-            <kpn-overview-table [statistics]="response.result" />
-          </ng-template>
-          <ng-template #list>
-            <kpn-overview-list [statistics]="response.result" />
-          </ng-template>
+      @if (response$ | async; as response) {
+        <div class="kpn-spacer-above">
+          @if (response.result) {
+            <div class="situation-on">
+              <kpn-situation-on [timestamp]="response.situationOn" />
+            </div>
+            @if (tableFormat$ | async) {
+              <kpn-overview-table [statistics]="response.result" />
+            } @else {
+              <kpn-overview-list [statistics]="response.result" />
+            }
+          }
         </div>
-      </div>
+      }
       <kpn-overview-sidebar sidebar />
     </kpn-page>
   `,
@@ -62,7 +61,6 @@ import { OverviewTableComponent } from './overview-table.component';
   imports: [
     AsyncPipe,
     ErrorComponent,
-    NgIf,
     OverviewListComponent,
     OverviewSidebarComponent,
     OverviewTableComponent,

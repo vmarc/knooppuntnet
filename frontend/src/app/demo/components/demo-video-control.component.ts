@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -28,8 +27,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
         </div>
       </div>
 
-      <div *ngIf="enabled$ | async; then enabled; else disabled"></div>
-      <ng-template #enabled>
+      @if (enabled$ | async) {
         <a
           (click)="play()"
           class="play-pause-button"
@@ -37,12 +35,11 @@ import { selectDemoEnabled } from '../store/demo.selectors';
         >
           <mat-icon [svgIcon]="icon$ | async" />
         </a>
-      </ng-template>
-      <ng-template #disabled>
+      } @else {
         <span class="play-pause-button-disabled">
           <mat-icon [svgIcon]="icon$ | async" />
         </span>
-      </ng-template>
+      }
     </div>
   `,
   styles: `
@@ -104,7 +101,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
     }
   `,
   standalone: true,
-  imports: [NgClass, NgIf, MatIconModule, AsyncPipe],
+  imports: [NgClass, MatIconModule, AsyncPipe],
 })
 export class DemoVideoControlComponent {
   @Input({ required: true }) name: string;

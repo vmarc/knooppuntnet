@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PageWidth } from '@app/components/shared';
@@ -14,7 +13,9 @@ import { PlanActionsComponent } from './plan-actions.component';
   template: `
     <div class="toolbar">
       <kpn-plan-actions />
-      <kpn-network-type-selector *ngIf="showNetworkTypeSelector$ | async" />
+      @if (showNetworkTypeSelector$ | async) {
+        <kpn-network-type-selector />
+      }
     </div>
   `,
   styles: `
@@ -24,7 +25,7 @@ import { PlanActionsComponent } from './plan-actions.component';
     }
   `,
   standalone: true,
-  imports: [AsyncPipe, NetworkTypeSelectorComponent, NgIf, PlanActionsComponent],
+  imports: [AsyncPipe, NetworkTypeSelectorComponent, PlanActionsComponent],
 })
 export class PlannerToolbarComponent {
   showNetworkTypeSelector$: Observable<boolean>;

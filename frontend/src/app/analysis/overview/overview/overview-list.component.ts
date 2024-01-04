@@ -4,18 +4,17 @@ import { StatisticValues } from '@api/common/statistics';
 import { Stat } from '../domain/stat';
 import { OverviewConfigurationService } from './overview-configuration.service';
 import { OverviewListStatComponent } from './overview-list-stat.component';
-import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'kpn-overview-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngFor="let stat of stats">
+    @for (stat of stats; track stat) {
       <kpn-overview-list-stat [stat]="stat" />
-    </div>
+    }
   `,
   standalone: true,
-  imports: [NgFor, OverviewListStatComponent],
+  imports: [OverviewListStatComponent],
 })
 export class OverviewListComponent implements OnInit {
   @Input() statistics: StatisticValues[];

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -22,7 +21,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <kpn-page>
-      <div *ngIf="response$ | async as response">
+      @if (response$ | async; as response) {
         <p>
           <span class="kpn-label">The analysis is up-to-date until</span>
           <kpn-timestamp [timestamp]="response.situationOn" />
@@ -40,14 +39,13 @@ import { StatusSidebarComponent } from './status-sidebar.component';
           <kpn-status-links [links]="logLinks" />
         </p>
         <kpn-server-disk-usage [diskUsage]="response.result.diskUsage" />
-      </div>
+      }
       <kpn-status-sidebar sidebar />
     </kpn-page>
   `,
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
     PageComponent,
     ServerDiskUsageComponent,
     StatusLinksComponent,

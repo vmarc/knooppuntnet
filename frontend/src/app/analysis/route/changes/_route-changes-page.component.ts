@@ -1,6 +1,4 @@
 import { AsyncPipe } from '@angular/common';
-import { NgFor } from '@angular/common';
-import { NgIf } from '@angular/common';
 import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -53,48 +51,78 @@ import { RouteChangesSidebarComponent } from './route-changes-sidebar.component'
         [networkType]="networkType()"
       />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <div *ngIf="!response.result; else routeFound" i18n="@@route.route-not-found">
-          Route not found
-        </div>
-        <ng-template #routeFound>
-          <div *ngIf="loggedIn() === false; else changes">
-            <p i18n="@@route-changes.login-required">
-              The details of the route history is available to logged in OpenStreetMap contributors
-              only.
-            </p>
-            <p>
-              <kpn-user-link-login />
-            </p>
-          </div>
-          <ng-template #changes>
-            <div *ngIf="response.result as page">
-              <p>
-                <kpn-situation-on [timestamp]="response.situationOn" />
-              </p>
-              <kpn-changes
-                [impact]="impact()"
-                [pageSize]="pageSize()"
-                [pageIndex]="pageIndex()"
-                (impactChange)="onImpactChange($event)"
-                (pageSizeChange)="onPageSizeChange($event)"
-                (pageIndexChange)="onPageIndexChange($event)"
-                [totalCount]="page.totalCount"
-                [changeCount]="page.changeCount"
-              >
-                <kpn-items>
-                  <kpn-item
-                    *ngFor="let routeChangeInfo of page.changes"
-                    [index]="routeChangeInfo.rowIndex"
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          @if (!response.result) {
+            <div i18n="@@route.route-not-found">Route not found</div>
+          } @else {
+            @if (loggedIn() === false) {
+              <div>
+                <p i18n="@@route-changes.login-required">
+                  The details of the route history is available to logged in OpenStreetMap
+                  contributors only.
+                </p>
+                <p>
+                  <kpn-user-link-login />
+                </p>
+              </div>
+            } @else {
+              @if (response.result; as page) {
+                <div>
+                  <p>
+                    <kpn-situation-on [timestamp]="response.situationOn" />
+                  </p>
+                  <kpn-changes
+                    [impact]="impact()"
+                    [pageSize]="pageSize()"
+                    [pageIndex]="pageIndex()"
+                    (impactChange)="onImpactChange($event)"
+                    (pageSizeChange)="onPageSizeChange($event)"
+                    (pageIndexChange)="onPageIndexChange($event)"
+                    [totalCount]="page.totalCount"
+                    [changeCount]="page.changeCount"
                   >
-                    <kpn-route-change [routeChangeInfo]="routeChangeInfo" />
-                  </kpn-item>
-                </kpn-items>
-              </kpn-changes>
-            </div>
-          </ng-template>
-        </ng-template>
-      </div>
+                    <kpn-items>
+                      @for (routeChangeInfo of page.changes; track routeChangeInfo) {
+                        <kpn-item [index]="routeChangeInfo.rowIndex">
+                          <kpn-route-change [routeChangeInfo]="routeChangeInfo" />
+                        </kpn-item>
+                      }
+                    </kpn-items>
+                  </kpn-changes>
+                </div>
+              }
+            }
+            <ng-template #changes>
+              @if (response.result; as page) {
+                <div>
+                  <p>
+                    <kpn-situation-on [timestamp]="response.situationOn" />
+                  </p>
+                  <kpn-changes
+                    [impact]="impact()"
+                    [pageSize]="pageSize()"
+                    [pageIndex]="pageIndex()"
+                    (impactChange)="onImpactChange($event)"
+                    (pageSizeChange)="onPageSizeChange($event)"
+                    (pageIndexChange)="onPageIndexChange($event)"
+                    [totalCount]="page.totalCount"
+                    [changeCount]="page.changeCount"
+                  >
+                    <kpn-items>
+                      @for (routeChangeInfo of page.changes; track routeChangeInfo) {
+                        <kpn-item [index]="routeChangeInfo.rowIndex">
+                          <kpn-route-change [routeChangeInfo]="routeChangeInfo" />
+                        </kpn-item>
+                      }
+                    </kpn-items>
+                  </kpn-changes>
+                </div>
+              }
+            </ng-template>
+          }
+        </div>
+      }
       <kpn-route-changes-sidebar sidebar />
     </kpn-page>
   `,
@@ -104,8 +132,6 @@ import { RouteChangesSidebarComponent } from './route-changes-sidebar.component'
     ChangesComponent,
     ItemComponent,
     ItemsComponent,
-    NgFor,
-    NgIf,
     PageComponent,
     RouteChangeComponent,
     RouteChangesSidebarComponent,

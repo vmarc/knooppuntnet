@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -40,14 +39,12 @@ import { StatusSidebarComponent } from './status-sidebar.component';
 
       <h1>Log analysis</h1>
 
-      <div *ngIf="page$ | async as page">
+      @if (page$ | async; as page) {
         <kpn-status-page-menu [links]="statusLinks" [periodType]="page.periodType" />
-
         <div>
           <a [routerLink]="'TODO previous'" class="previous">previous</a>
           <a [routerLink]="'TODO next'">next</a>
         </div>
-
         <div class="chart-group">
           <h2>Analysis</h2>
           <kpn-log-tile-chart [barChart]="page.tile" [xAxisLabel]="xAxisLabel" />
@@ -59,7 +56,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
           <kpn-log-robot-chart [barChart]="page.robot" [xAxisLabel]="xAxisLabel" />
           <kpn-log-non-robot-chart [barChart]="page.nonRobot" [xAxisLabel]="xAxisLabel" />
         </div>
-      </div>
+      }
       <kpn-status-sidebar sidebar />
     </kpn-page>
   `,
@@ -87,7 +84,6 @@ import { StatusSidebarComponent } from './status-sidebar.component';
     LogRobotChartComponent,
     LogTileChartComponent,
     LogTileRobotChartComponent,
-    NgIf,
     PageComponent,
     RouterLink,
     StatusPageMenuComponent,

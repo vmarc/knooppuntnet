@@ -16,9 +16,7 @@ import { RouteDiffComponent } from './route-diff.component';
 
     @if (!routeChangeInfo.geometryDiff) {
       <div class="kpn-detail" i18n="@@route-change.no-geometry-diff">No geometry change</div>
-    }
-
-    @if (routeChangeInfo.geometryDiff) {
+    } @else {
       <div class="kpn-detail">
         <kpn-route-change-map
           [geometryDiff]="routeChangeInfo.geometryDiff"

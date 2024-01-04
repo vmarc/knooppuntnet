@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { NgIf } from '@angular/common';
+
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 /*
@@ -37,7 +37,9 @@ import { PageFooterComponent } from './page-footer.component';
         fixedTopGap="48"
         [opened]="isSidebarOpen()"
       >
-        <kpn-sidebar-back *ngIf="smallPage" />
+        @if (smallPage) {
+          <kpn-sidebar-back />
+        }
         <kpn-page-experimental />
         <ng-content select="[sidebar]" />
       </mat-sidenav>
@@ -52,9 +54,11 @@ import { PageFooterComponent } from './page-footer.component';
           <main>
             <ng-content />
           </main>
-          <footer *ngIf="showFooter()">
-            <kpn-page-footer />
-          </footer>
+          @if (showFooter()) {
+            <footer>
+              <kpn-page-footer />
+            </footer>
+          }
         </div>
       </mat-sidenav-content>
     </mat-sidenav-container>
@@ -90,7 +94,6 @@ import { PageFooterComponent } from './page-footer.component';
   imports: [
     AsyncPipe,
     MatSidenavModule,
-    NgIf,
     PageExperimentalComponent,
     PageFooterComponent,
     RouterOutlet,

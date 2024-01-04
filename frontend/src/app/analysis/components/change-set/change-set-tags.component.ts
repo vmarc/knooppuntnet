@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -10,11 +8,13 @@ import { Tags } from '@api/custom';
   selector: 'kpn-change-set-tags',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="hasTags()">
+    @if (hasTags()) {
       <div class="tags">
-        <div *ngFor="let tag of tags()" class="tag">{{ tag.key }} = {{ tag.value }}</div>
+        @for (tag of tags(); track tag) {
+          <div class="tag">{{ tag.key }} = {{ tag.value }}</div>
+        }
       </div>
-    </div>
+    }
   `,
   styles: `
     .tags {
@@ -32,7 +32,7 @@ import { Tags } from '@api/custom';
     }
   `,
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [],
 })
 export class ChangeSetTagsComponent {
   @Input() changeSetTags: Tags;

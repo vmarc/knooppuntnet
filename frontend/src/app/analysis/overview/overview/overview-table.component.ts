@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -16,14 +15,14 @@ import { OverviewTableRowComponent } from './overview-table-row.component';
     <table title="overview" class="kpn-table">
       <kpn-overview-table-header />
       <tbody>
-        <ng-container *ngFor="let stat of stats">
+        @for (stat of stats; track stat) {
           <kpn-overview-table-row [stat]="stat" />
-        </ng-container>
+        }
       </tbody>
     </table>
   `,
   standalone: true,
-  imports: [OverviewTableHeaderComponent, NgFor, OverviewTableRowComponent],
+  imports: [OverviewTableHeaderComponent, OverviewTableRowComponent],
 })
 export class OverviewTableComponent implements OnInit {
   @Input() statistics: StatisticValues[];

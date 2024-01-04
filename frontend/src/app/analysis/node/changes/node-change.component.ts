@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -19,29 +18,37 @@ import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node
       [comment]="nodeChangeInfo.comment"
     />
 
-    <div *ngIf="isCreate()" class="kpn-detail">
-      <b i18n="@@node-change.created">Node created</b>
-    </div>
-    <div *ngIf="isDelete()" class="kpn-detail">
-      <b i18n="@@node-change.deleted">Node deleted</b>
-    </div>
+    @if (isCreate()) {
+      <div class="kpn-detail">
+        <b i18n="@@node-change.created">Node created</b>
+      </div>
+    }
+    @if (isDelete()) {
+      <div class="kpn-detail">
+        <b i18n="@@node-change.deleted">Node deleted</b>
+      </div>
+    }
 
-    <div *ngIf="nodeChangeInfo.changeKey.changeSetId === 0">
-      <p i18n="@@node.initial-value">Oldest known state of the node.</p>
-    </div>
+    @if (nodeChangeInfo.changeKey.changeSetId === 0) {
+      <div>
+        <p i18n="@@node.initial-value">Oldest known state of the node.</p>
+      </div>
+    }
 
     <kpn-change-set-tags [changeSetTags]="nodeChangeInfo.changeTags" />
 
     <div class="kpn-detail">
       <span i18n="@@node.version">Version</span>
       {{ nodeChangeInfo.version }}
-      <span *ngIf="isVersionUnchanged()" i18n="@@node.unchanged">(Unchanged)</span>
+      @if (isVersionUnchanged()) {
+        <span i18n="@@node.unchanged">(Unchanged)</span>
+      }
     </div>
 
     <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo" />
   `,
   standalone: true,
-  imports: [ChangeHeaderComponent, ChangeSetTagsComponent, NgIf, NodeChangeDetailComponent],
+  imports: [ChangeHeaderComponent, ChangeSetTagsComponent, NodeChangeDetailComponent],
 })
 export class NodeChangeComponent {
   @Input() nodeChangeInfo: NodeChangeInfo;

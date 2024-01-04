@@ -1,5 +1,5 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -70,16 +70,11 @@ import { LocationFlatNode } from './location-flat-node';
         [ngClass]="{ hidden: !all && expandableNode.nodeCount === 0 }"
       >
         <div mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + expandableNode.name">
-          <mat-icon
-            svgIcon="expand"
-            *ngIf="treeControl.isExpanded(expandableNode)"
-            class="expand-collapse-icon"
-          />
-          <mat-icon
-            svgIcon="collapse"
-            *ngIf="!treeControl.isExpanded(expandableNode)"
-            class="expand-collapse-icon"
-          />
+          @if (treeControl.isExpanded(expandableNode)) {
+            <mat-icon svgIcon="expand" class="expand-collapse-icon" />
+          } @else {
+            <mat-icon svgIcon="collapse" class="expand-collapse-icon" />
+          }
         </div>
         <a (click)="select(expandableNode)">{{ expandableNode.name }}</a
         ><span class="node-count">{{ expandableNode.nodeCount }}</span>
@@ -112,7 +107,7 @@ import { LocationFlatNode } from './location-flat-node';
     }
   `,
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatRadioModule, MatTreeModule, NgClass, NgIf],
+  imports: [MatButtonModule, MatIconModule, MatRadioModule, MatTreeModule, NgClass],
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;

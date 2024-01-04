@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -15,39 +14,40 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <div *ngIf="apiResponse() as response" class="filter">
-        <div class="title" i18n="@@location-routes-sidebar.filter.title">Filter</div>
-
-        <mat-radio-group
-          [value]="locationRoutesType.all"
-          (change)="locationRoutesTypeChanged($event)"
-        >
-          <div>
-            <mat-radio-button [value]="locationRoutesType.all">
-              <span i18n="@@location-routes-sidebar.filter.all">All</span
-              ><span class="kpn-brackets">{{ response.result.allRouteCount }}</span>
-            </mat-radio-button>
-          </div>
-          <div>
-            <mat-radio-button [value]="locationRoutesType.facts">
-              <span i18n="@@location-routes-sidebar.filter.facts">Facts</span
-              ><span class="kpn-brackets">{{ response.result.factsRouteCount }}</span>
-            </mat-radio-button>
-          </div>
-          <div>
-            <mat-radio-button [value]="locationRoutesType.inaccessible">
-              <span i18n="@@location-routes-sidebar.filter.inaccessible">Inaccessible</span
-              ><span class="kpn-brackets">{{ response.result.inaccessibleRouteCount }}</span>
-            </mat-radio-button>
-          </div>
-          <div>
-            <mat-radio-button [value]="locationRoutesType.survey">
-              <span i18n="@@location-routes-sidebar.filter.survey">Survey</span
-              ><span class="kpn-brackets">{{ response.result.surveyRouteCount }}</span>
-            </mat-radio-button>
-          </div>
-        </mat-radio-group>
-      </div>
+      @if (apiResponse(); as response) {
+        <div class="filter">
+          <div class="title" i18n="@@location-routes-sidebar.filter.title">Filter</div>
+          <mat-radio-group
+            [value]="locationRoutesType.all"
+            (change)="locationRoutesTypeChanged($event)"
+          >
+            <div>
+              <mat-radio-button [value]="locationRoutesType.all">
+                <span i18n="@@location-routes-sidebar.filter.all">All</span
+                ><span class="kpn-brackets">{{ response.result.allRouteCount }}</span>
+              </mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button [value]="locationRoutesType.facts">
+                <span i18n="@@location-routes-sidebar.filter.facts">Facts</span
+                ><span class="kpn-brackets">{{ response.result.factsRouteCount }}</span>
+              </mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button [value]="locationRoutesType.inaccessible">
+                <span i18n="@@location-routes-sidebar.filter.inaccessible">Inaccessible</span
+                ><span class="kpn-brackets">{{ response.result.inaccessibleRouteCount }}</span>
+              </mat-radio-button>
+            </div>
+            <div>
+              <mat-radio-button [value]="locationRoutesType.survey">
+                <span i18n="@@location-routes-sidebar.filter.survey">Survey</span
+                ><span class="kpn-brackets">{{ response.result.surveyRouteCount }}</span>
+              </mat-radio-button>
+            </div>
+          </mat-radio-group>
+        </div>
+      }
     </kpn-sidebar>
   `,
   styles: `
@@ -60,7 +60,7 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
     }
   `,
   standalone: true,
-  imports: [SidebarComponent, NgIf, MatRadioModule, AsyncPipe],
+  imports: [SidebarComponent, MatRadioModule, AsyncPipe],
 })
 export class LocationRoutesSidebarComponent {
   readonly locationRoutesType = LocationRoutesType;

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -27,11 +26,13 @@ import { LocationNodesComponent } from './location-nodes.component';
       />
 
       <kpn-error />
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <kpn-location-response [response]="response">
-          <kpn-location-nodes [page]="response.result" />
-        </kpn-location-response>
-      </div>
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          <kpn-location-response [response]="response">
+            <kpn-location-nodes [page]="response.result" />
+          </kpn-location-response>
+        </div>
+      }
       <kpn-location-nodes-sidebar sidebar />
     </kpn-page>
   `,
@@ -43,7 +44,6 @@ import { LocationNodesComponent } from './location-nodes.component';
     LocationNodesSidebarComponent,
     LocationPageHeaderComponent,
     LocationResponseComponent,
-    NgIf,
     PageComponent,
   ],
 })

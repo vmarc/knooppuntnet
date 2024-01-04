@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { NgIf } from '@angular/common';
+
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { VersionService } from '@app/services';
@@ -10,20 +10,23 @@ import { VersionService } from '@app/services';
   template: `
     <div [ngClass]="{ hidden: !isExperimental() }" class="warning-message">
       <span i18n="@@experimental.title">Warning: experimental !</span>
-      <span *ngIf="!moreDetailOpen">
-        <a id="more" (click)="more()" i18n="@@experimental.more">more</a>
-      </span>
-      <div *ngIf="moreDetailOpen">
-        <p i18n="@@experimental.message-1">
-          This is an experimental version of the knooppuntnet website.
-        </p>
-        <p i18n="@@experimental.message-2">
-          The data may not be completely correct, and some functions may not work as expected.
-          Unless you are here for trying out new functionality, you may be better off using the
-          <a [href]="link()">stable version</a> of knooppuntnet instead.
-        </p>
-        <a (click)="less()" i18n="@@experimental.less">less</a>
-      </div>
+      @if (!moreDetailOpen) {
+        <span>
+          <a id="more" (click)="more()" i18n="@@experimental.more">more</a>
+        </span>
+      } @else {
+        <div>
+          <p i18n="@@experimental.message-1">
+            This is an experimental version of the knooppuntnet website.
+          </p>
+          <p i18n="@@experimental.message-2">
+            The data may not be completely correct, and some functions may not work as expected.
+            Unless you are here for trying out new functionality, you may be better off using the
+            <a [href]="link()">stable version</a> of knooppuntnet instead.
+          </p>
+          <a (click)="less()" i18n="@@experimental.less">less</a>
+        </div>
+      }
     </div>
   `,
   styles: `
@@ -37,7 +40,7 @@ import { VersionService } from '@app/services';
     }
   `,
   standalone: true,
-  imports: [NgClass, NgIf],
+  imports: [NgClass],
 })
 export class PageExperimentalComponent {
   moreDetailOpen = false;

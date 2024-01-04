@@ -1,6 +1,4 @@
 import { AsyncPipe } from '@angular/common';
-import { NgFor } from '@angular/common';
-import { NgIf } from '@angular/common';
 import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -54,48 +52,78 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <p *ngIf="!response.result; else nodeFound" i18n="@@node.node-not-found">Node not found</p>
-
-        <ng-template #nodeFound>
-          <div *ngIf="loggedIn() === false; else changes">
-            <p i18n="@@node.login-required">
-              The details of the node changes history is available to logged in OpenStreetMap
-              contributors only.
-            </p>
-            <p>
-              <kpn-user-link-login />
-            </p>
-          </div>
-
-          <ng-template #changes>
-            <div *ngIf="response.result as page">
-              <p>
-                <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
-              </p>
-              <kpn-changes
-                [impact]="impact()"
-                [pageSize]="pageSize()"
-                [pageIndex]="pageIndex()"
-                (impactChange)="onImpactChange($event)"
-                (pageSizeChange)="onPageSizeChange($event)"
-                (pageIndexChange)="onPageIndexChange($event)"
-                [totalCount]="page.totalCount"
-                [changeCount]="page.changes.length"
-              >
-                <kpn-items>
-                  <kpn-item
-                    *ngFor="let nodeChangeInfo of page.changes"
-                    [index]="nodeChangeInfo.rowIndex"
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          @if (!response.result) {
+            <p i18n="@@node.node-not-found">Node not found</p>
+          } @else {
+            @if (loggedIn() === false) {
+              <div>
+                <p i18n="@@node.login-required">
+                  The details of the node changes history is available to logged in OpenStreetMap
+                  contributors only.
+                </p>
+                <p>
+                  <kpn-user-link-login />
+                </p>
+              </div>
+            } @else {
+              @if (response.result; as page) {
+                <div>
+                  <p>
+                    <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+                  </p>
+                  <kpn-changes
+                    [impact]="impact()"
+                    [pageSize]="pageSize()"
+                    [pageIndex]="pageIndex()"
+                    (impactChange)="onImpactChange($event)"
+                    (pageSizeChange)="onPageSizeChange($event)"
+                    (pageIndexChange)="onPageIndexChange($event)"
+                    [totalCount]="page.totalCount"
+                    [changeCount]="page.changes.length"
                   >
-                    <kpn-node-change [nodeChangeInfo]="nodeChangeInfo" />
-                  </kpn-item>
-                </kpn-items>
-              </kpn-changes>
-            </div>
-          </ng-template>
-        </ng-template>
-      </div>
+                    <kpn-items>
+                      @for (nodeChangeInfo of page.changes; track nodeChangeInfo) {
+                        <kpn-item [index]="nodeChangeInfo.rowIndex">
+                          <kpn-node-change [nodeChangeInfo]="nodeChangeInfo" />
+                        </kpn-item>
+                      }
+                    </kpn-items>
+                  </kpn-changes>
+                </div>
+              }
+            }
+            <ng-template #changes>
+              @if (response.result; as page) {
+                <div>
+                  <p>
+                    <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+                  </p>
+                  <kpn-changes
+                    [impact]="impact()"
+                    [pageSize]="pageSize()"
+                    [pageIndex]="pageIndex()"
+                    (impactChange)="onImpactChange($event)"
+                    (pageSizeChange)="onPageSizeChange($event)"
+                    (pageIndexChange)="onPageIndexChange($event)"
+                    [totalCount]="page.totalCount"
+                    [changeCount]="page.changes.length"
+                  >
+                    <kpn-items>
+                      @for (nodeChangeInfo of page.changes; track nodeChangeInfo) {
+                        <kpn-item [index]="nodeChangeInfo.rowIndex">
+                          <kpn-node-change [nodeChangeInfo]="nodeChangeInfo" />
+                        </kpn-item>
+                      }
+                    </kpn-items>
+                  </kpn-changes>
+                </div>
+              }
+            </ng-template>
+          }
+        </div>
+      }
       <kpn-node-changes-sidebar sidebar />
     </kpn-page>
   `,
@@ -106,8 +134,6 @@ import { NodeChangesSidebarComponent } from './node-changes-sidebar.component';
     ErrorComponent,
     ItemComponent,
     ItemsComponent,
-    NgFor,
-    NgIf,
     NodeChangeComponent,
     NodeChangesSidebarComponent,
     NodePageHeaderComponent,

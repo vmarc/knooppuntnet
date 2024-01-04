@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -18,30 +17,18 @@ import { SymbolWheelComponent } from './symbol-wheel.component';
   template: `
     <div [style]="box" class="box">
       <canvas #symbolCanvas [width]="width" [height]="height"></canvas>
-      <kpn-symbol-hiker
-        *ngIf="isForegroundHiker()"
-        [width]="width"
-        [height]="height"
-        [color]="foregroundColor()"
-      ></kpn-symbol-hiker>
-      <kpn-symbol-hiker
-        *ngIf="isForeground2Hiker()"
-        [width]="width"
-        [height]="height"
-        [color]="foreground2Color()"
-      ></kpn-symbol-hiker>
-      <kpn-symbol-wheel
-        *ngIf="isForegroundWheel()"
-        [width]="width"
-        [height]="height"
-        [color]="foregroundColor()"
-      ></kpn-symbol-wheel>
-      <kpn-symbol-wheel
-        *ngIf="isForeground2Wheel()"
-        [width]="width"
-        [height]="height"
-        [color]="foreground2Color()"
-      ></kpn-symbol-wheel>
+      @if (isForegroundHiker()) {
+        <kpn-symbol-hiker [width]="width" [height]="height" [color]="foregroundColor()" />
+      }
+      @if (isForeground2Hiker()) {
+        <kpn-symbol-hiker [width]="width" [height]="height" [color]="foreground2Color()" />
+      }
+      @if (isForegroundWheel()) {
+        <kpn-symbol-wheel [width]="width" [height]="height" [color]="foregroundColor()" />
+      }
+      @if (isForeground2Wheel()) {
+        <kpn-symbol-wheel [width]="width" [height]="height" [color]="foreground2Color()" />
+      }
     </div>
   `,
   styles: `
@@ -64,7 +51,7 @@ import { SymbolWheelComponent } from './symbol-wheel.component';
     }
   `,
   standalone: true,
-  imports: [SymbolHikerComponent, SymbolWheelComponent, NgIf],
+  imports: [SymbolHikerComponent, SymbolWheelComponent],
 })
 export class SymbolComponent implements OnInit, AfterViewInit {
   @Input({ required: true }) description: string;

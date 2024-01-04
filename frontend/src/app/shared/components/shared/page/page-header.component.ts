@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -18,7 +17,9 @@ import { PageService } from '../page.service';
       <h1 #title class="kpn-ellipsis">
         <ng-content></ng-content>
       </h1>
-      <kpn-doc-link *ngIf="subject" [subject]="subject" />
+      @if (subject) {
+        <kpn-doc-link [subject]="subject" />
+      }
     </div>
   `,
   styles: `
@@ -33,7 +34,7 @@ import { PageService } from '../page.service';
     }
   `,
   standalone: true,
-  imports: [NgIf, DocLinkComponent],
+  imports: [DocLinkComponent],
 })
 export class PageHeaderComponent implements AfterViewInit, OnChanges {
   @Input({ required: false }) subject: string;

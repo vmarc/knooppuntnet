@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
@@ -12,7 +11,9 @@ import { MapService } from '../../../services/map.service';
   template: `
     <div class="poi-config">
       <div class="col-icon">
-        <img *ngIf="icon" width="32" height="37" [src]="'assets/images/pois/' + icon" alt="icon" />
+        @if (icon) {
+          <img width="32" height="37" [src]="'assets/images/pois/' + icon" alt="icon" />
+        }
       </div>
 
       <div class="col-name">
@@ -69,7 +70,7 @@ import { MapService } from '../../../services/map.service';
     }
   `,
   standalone: true,
-  imports: [NgIf, MatRadioModule],
+  imports: [MatRadioModule],
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {
   @Input() poiId: string;

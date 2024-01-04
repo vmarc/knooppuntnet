@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -24,21 +23,14 @@ import { PoiMapComponent } from './poi-map.component';
         interest information.
       </p>
 
-      <div *ngIf="apiResponse() as response">
+      @if (apiResponse(); as response) {
         <kpn-poi-map />
-      </div>
+      }
       <kpn-base-sidebar sidebar />
     </kpn-page>
   `,
   standalone: true,
-  imports: [
-    AsyncPipe,
-    BaseSidebarComponent,
-    NgIf,
-    PageComponent,
-    PageHeaderComponent,
-    PoiMapComponent,
-  ],
+  imports: [AsyncPipe, BaseSidebarComponent, PageComponent, PageHeaderComponent, PoiMapComponent],
 })
 export class PoiAreasPageComponent implements OnInit {
   readonly apiResponse = this.store.selectSignal(selectPoiAreasPage);

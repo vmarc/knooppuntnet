@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -33,9 +32,11 @@ import { I18nService } from '@app/i18n';
           issues
         </a>
       </li>
-      <li *ngIf="settings">
-        <a routerLink="/settings" i18n="@@footer.settings"> settings </a>
-      </li>
+      @if (settings) {
+        <li>
+          <a routerLink="/settings" i18n="@@footer.settings"> settings </a>
+        </li>
+      }
     </ul>
   `,
   styles: `
@@ -48,7 +49,7 @@ import { I18nService } from '@app/i18n';
     }
   `,
   standalone: true,
-  imports: [NgIf, RouterLink],
+  imports: [RouterLink],
 })
 export class PageFooterComponent {
   @Input({ required: false }) settings = false;

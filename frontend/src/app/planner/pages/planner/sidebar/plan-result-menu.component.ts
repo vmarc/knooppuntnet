@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { NgClass } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -12,35 +11,39 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
   selector: 'kpn-plan-result-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="menu" *ngIf="plannerResultMode() as resultMode">
-      <span>
-        <a
-          [ngClass]="{ selected: resultMode === 'compact' }"
-          (click)="resultModeCompact($event)"
-          i18n="@@planner.compact"
-        >
-          Compact
-        </a>
-      </span>
-      <span>
-        <a
-          [ngClass]="{ selected: resultMode === 'detailed' }"
-          (click)="resultModeDetailed($event)"
-          i18n="@@planner.detailed"
-        >
-          Detailed
-        </a>
-      </span>
-      <span *ngIf="instructions()">
-        <a
-          [ngClass]="{ selected: resultMode === 'instructions' }"
-          (click)="resultModeInstructions($event)"
-          i18n="@@planner.instructions"
-        >
-          Instructions
-        </a>
-      </span>
-    </div>
+    @if (plannerResultMode(); as resultMode) {
+      <div class="menu">
+        <span>
+          <a
+            [ngClass]="{ selected: resultMode === 'compact' }"
+            (click)="resultModeCompact($event)"
+            i18n="@@planner.compact"
+          >
+            Compact
+          </a>
+        </span>
+        <span>
+          <a
+            [ngClass]="{ selected: resultMode === 'detailed' }"
+            (click)="resultModeDetailed($event)"
+            i18n="@@planner.detailed"
+          >
+            Detailed
+          </a>
+        </span>
+        @if (instructions()) {
+          <span>
+            <a
+              [ngClass]="{ selected: resultMode === 'instructions' }"
+              (click)="resultModeInstructions($event)"
+              i18n="@@planner.instructions"
+            >
+              Instructions
+            </a>
+          </span>
+        }
+      </div>
+    }
   `,
   styles: `
     .menu {
@@ -59,7 +62,7 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
     }
   `,
   standalone: true,
-  imports: [NgIf, NgClass, AsyncPipe],
+  imports: [NgClass, AsyncPipe],
 })
 export class PlanResultMenuComponent {
   readonly plannerResultMode = this.store.selectSignal(selectPlannerResultMode);

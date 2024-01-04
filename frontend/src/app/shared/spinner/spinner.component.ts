@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -11,9 +10,13 @@ import { SpinnerService } from './spinner.service';
 @Component({
   selector: 'kpn-spinner',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <mat-spinner *ngIf="showSpinner$ | async" diameter="40" /> `,
+  template: `
+    @if (showSpinner$ | async) {
+      <mat-spinner diameter="40" />
+    }
+  `,
   standalone: true,
-  imports: [NgIf, MatProgressSpinnerModule, AsyncPipe],
+  imports: [MatProgressSpinnerModule, AsyncPipe],
 })
 export class SpinnerComponent implements OnInit {
   showSpinner$: Observable<boolean>;

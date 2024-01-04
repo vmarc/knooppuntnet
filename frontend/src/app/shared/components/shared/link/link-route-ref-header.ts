@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -14,17 +13,17 @@ import { OsmLinkRelationComponent } from './osm-link-relation.component';
   template: `
     <div class="kpn-line">
       <div class="kpn-thick">
-        <kpn-link-route *ngIf="known" [routeId]="ref.id" [routeName]="ref.name"></kpn-link-route>
-        <span *ngIf="!known">{{ ref.name }}</span>
+        @if (known) {
+          <kpn-link-route [routeId]="ref.id" [routeName]="ref.name"></kpn-link-route>
+        } @else {
+          <span>{{ ref.name }}</span>
+        }
       </div>
-      <kpn-osm-link-relation
-        [relationId]="ref.id"
-        [title]="ref.id.toString()"
-      ></kpn-osm-link-relation>
+      <kpn-osm-link-relation [relationId]="ref.id" [title]="ref.id.toString()" />
     </div>
   `,
   standalone: true,
-  imports: [NgIf, LinkRouteComponent, OsmLinkRelationComponent],
+  imports: [LinkRouteComponent, OsmLinkRelationComponent],
 })
 export class LinkRouteRefHeaderComponent implements OnInit {
   @Input({ required: true }) ref: Ref;

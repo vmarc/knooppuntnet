@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -24,51 +22,65 @@ import { MarkdownModule } from 'ngx-markdown';
         </span>
       </p>
 
-      <p *ngIf="!nodeInfo.active" class="kpn-warning" i18n="@@node.inactive">
-        This network node is not active anymore.
-      </p>
+      @if (!nodeInfo.active) {
+        <p class="kpn-warning" i18n="@@node.inactive">This network node is not active anymore.</p>
+      }
 
-      <table *ngIf="nodeInfo.names.length > 1">
-        <tr *ngFor="let nodeName of nodeInfo.names">
-          <td class="network-name">
-            {{ nodeName.name }}
-          </td>
-          <td>
-            <div class="kpn-line">
+      @if (nodeInfo.names.length > 1) {
+        <table>
+          @for (nodeName of nodeInfo.names; track nodeName) {
+            <tr>
+              <td class="network-name">
+                {{ nodeName.name }}
+              </td>
+              <td>
+                <div class="kpn-line">
+                  <kpn-network-type [networkType]="nodeName.networkType">
+                    <span i18n="@@node.node" class="network-type">network node</span>
+                    <span class="kpn-brackets">
+                      <kpn-network-scope-name [networkScope]="nodeName.networkScope" />
+                    </span>
+                  </kpn-network-type>
+                </div>
+              </td>
+            </tr>
+          }
+        </table>
+      }
+
+      @if (nodeInfo.names.length === 1) {
+        <div>
+          @for (nodeName of nodeInfo.names; track nodeName) {
+            <p>
               <kpn-network-type [networkType]="nodeName.networkType">
                 <span i18n="@@node.node" class="network-type">network node</span>
-                <span class="kpn-brackets">
-                  <kpn-network-scope-name [networkScope]="nodeName.networkScope" />
-                </span>
               </kpn-network-type>
-            </div>
-          </td>
-        </tr>
-      </table>
+            </p>
+          }
+        </div>
+      }
 
-      <div *ngIf="nodeInfo.names.length === 1">
-        <p *ngFor="let nodeName of nodeInfo.names">
-          <kpn-network-type [networkType]="nodeName.networkType">
-            <span i18n="@@node.node" class="network-type">network node</span>
-          </kpn-network-type>
+      @if (nodeInfo.country) {
+        <p>
+          <kpn-country-name [country]="nodeInfo.country" />
         </p>
-      </div>
+      }
 
-      <p *ngIf="nodeInfo.country">
-        <kpn-country-name [country]="nodeInfo.country" />
-      </p>
+      @if (nodeInfo.active && nodeInfo.orphan) {
+        <p i18n="@@node.orphan">
+          This network node does not belong to a known node network (orphan).
+        </p>
+      }
 
-      <p *ngIf="nodeInfo.active && nodeInfo.orphan" i18n="@@node.orphan">
-        This network node does not belong to a known node network (orphan).
-      </p>
-
-      <p *ngIf="isProposed()" class="kpn-line">
-        <mat-icon svgIcon="warning" style="min-width: 24px" />
-        <markdown i18n="@@node.proposed">
-          Proposed: the network node is assumed to still be in a planning phase and likely not
-          signposted in the field.
-        </markdown>
-      </p>
+      @if (isProposed()) {
+        <p class="kpn-line">
+          <mat-icon svgIcon="warning" style="min-width: 24px" />
+          <markdown i18n="@@node.proposed">
+            Proposed: the network node is assumed to still be in a planning phase and likely not
+            signposted in the field.
+          </markdown>
+        </p>
+      }
     </div>
   `,
   styles: `
@@ -88,8 +100,6 @@ import { MarkdownModule } from 'ngx-markdown';
     MatIconModule,
     NetworkScopeNameComponent,
     NetworkTypeComponent,
-    NgFor,
-    NgIf,
     OsmLinkNodeComponent,
   ],
 })

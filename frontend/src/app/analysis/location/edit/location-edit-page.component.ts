@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
@@ -28,32 +27,40 @@ import { LocationEditComponent } from './location-edit.component';
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response; else analyzing" class="kpn-spacer-above">
-        <kpn-location-response [situationOnEnabled]="false" [response]="response">
-          <p
-            *ngIf="response.result.tooManyNodes"
-            class="too-many-nodes"
-            i18n="@@location-edit.too-many-nodes.1"
-          >
-            This location contains more than the maximum number of nodes ({{
-              response.result.maxNodes
-            }}) that can be loaded in the editor in one go. This limitation is to avoid overloading
-            the OpenStreetMap api while loading the node and route details from JOSM.
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          <kpn-location-response [situationOnEnabled]="false" [response]="response">
+            @if (response.result.tooManyNodes) {
+              <p class="too-many-nodes" i18n="@@location-edit.too-many-nodes.1">
+                This location contains more than the maximum number of nodes ({{
+                  response.result.maxNodes
+                }}) that can be loaded in the editor in one go. This limitation is to avoid
+                overloading the OpenStreetMap api while loading the node and route details from
+                JOSM.
+              </p>
+            }
+            @if (response.result.tooManyNodes) {
+              <p class="too-many-nodes" i18n="@@location-edit.too-many-nodes.2">
+                Please select a location with less nodes.
+              </p>
+            } @else {
+              <kpn-location-edit [page]="response.result" />
+            }
+          </kpn-location-response>
+        </div>
+      } @else {
+        @if (noHttpError$ | async) {
+          <p class="analyzing" i18n="@@location-edit.analyzing">
+            Analyzing location nodes and routes, please wait...
           </p>
-          <p
-            *ngIf="response.result.tooManyNodes"
-            class="too-many-nodes"
-            i18n="@@location-edit.too-many-nodes.2"
-          >
-            Please select a location with less nodes.
-          </p>
-          <kpn-location-edit *ngIf="!response.result.tooManyNodes" [page]="response.result" />
-        </kpn-location-response>
-      </div>
+        }
+      }
       <ng-template #analyzing>
-        <p *ngIf="noHttpError$ | async" class="analyzing" i18n="@@location-edit.analyzing">
-          Analyzing location nodes and routes, please wait...
-        </p>
+        @if (noHttpError$ | async) {
+          <p class="analyzing" i18n="@@location-edit.analyzing">
+            Analyzing location nodes and routes, please wait...
+          </p>
+        }
       </ng-template>
       <kpn-location-sidebar sidebar />
     </kpn-page>
@@ -76,7 +83,6 @@ import { LocationEditComponent } from './location-edit.component';
     LocationPageHeaderComponent,
     LocationResponseComponent,
     LocationSidebarComponent,
-    NgIf,
     PageComponent,
   ],
 })

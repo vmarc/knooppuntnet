@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
@@ -19,21 +19,25 @@ import { MapLayerTranslationService } from '../services';
   template: `
     <mat-menu #mapMenu="matMenu" class="map-control-menu">
       <ng-template matMenuContent>
-        <div *ngIf="layerStates$ | async as layerStates" (click)="$event.stopPropagation()">
-          <div *ngFor="let layerState of layerStates" [hidden]="!layerState.enabled">
-            <mat-checkbox
-              (click)="$event.stopPropagation()"
-              [checked]="layerState.visible"
-              (change)="layerVisibleChanged(layerState, $event)"
-            >
-              {{ layerNameTranslation(layerState) }}
-            </mat-checkbox>
-            <mat-divider
-              *ngIf="layerState.layerName === 'osm' && layerStates.length > 2"
-            ></mat-divider>
+        @if (layerStates$ | async; as layerStates) {
+          <div (click)="$event.stopPropagation()">
+            @for (layerState of layerStates; track layerState) {
+              <div [hidden]="!layerState.enabled">
+                <mat-checkbox
+                  (click)="$event.stopPropagation()"
+                  [checked]="layerState.visible"
+                  (change)="layerVisibleChanged(layerState, $event)"
+                >
+                  {{ layerNameTranslation(layerState) }}
+                </mat-checkbox>
+                @if (layerState.layerName === 'osm' && layerStates.length > 2) {
+                  <mat-divider></mat-divider>
+                }
+              </div>
+            }
+            <ng-content></ng-content>
           </div>
-          <ng-content></ng-content>
-        </div>
+        }
       </ng-template>
     </mat-menu>
 
@@ -54,15 +58,7 @@ import { MapLayerTranslationService } from '../services';
     }
   `,
   standalone: true,
-  imports: [
-    AsyncPipe,
-    MatCheckboxModule,
-    MatDividerModule,
-    MatIconModule,
-    MatMenuModule,
-    NgFor,
-    NgIf,
-  ],
+  imports: [AsyncPipe, MatCheckboxModule, MatDividerModule, MatIconModule, MatMenuModule],
 })
 export class LayerSwitcherComponent {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -12,8 +11,11 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   template: `
     <kpn-page-header [pageTitle]="nodeName" subject="node-page">
       <span i18n="@@node.title">Node</span>
-      <span *ngIf="nodeName">&nbsp;{{ nodeName }}</span>
-      <span *ngIf="!nodeName">&nbsp;{{ nodeId }}</span>
+      @if (nodeName) {
+        <span>&nbsp;{{ nodeName }}</span>
+      } @else {
+        <span>&nbsp;{{ nodeId }}</span>
+      }
     </kpn-page-header>
 
     <kpn-page-menu>
@@ -44,7 +46,7 @@ import { PageHeaderComponent } from '@app/components/shared/page';
     </kpn-page-menu>
   `,
   standalone: true,
-  imports: [NgIf, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
+  imports: [PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class NodePageHeaderComponent {
   @Input() nodeId: string;

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -10,8 +9,11 @@ import { Stat } from '../domain/stat';
   selector: 'kpn-overview-value',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a *ngIf="hasLink()" [routerLink]="link()">{{ value() }}</a>
-    <span *ngIf="!hasLink()">{{ value() }}</span>
+    @if (hasLink()) {
+      <a [routerLink]="link()">{{ value() }}</a>
+    } @else {
+      <span>{{ value() }}</span>
+    }
   `,
   styles: `
     :host {
@@ -19,7 +21,7 @@ import { Stat } from '../domain/stat';
     }
   `,
   standalone: true,
-  imports: [NgIf, RouterLink],
+  imports: [RouterLink],
 })
 export class OverviewValueComponent {
   @Input() stat: Stat;

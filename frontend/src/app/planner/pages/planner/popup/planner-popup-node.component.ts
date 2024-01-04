@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -29,7 +27,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
   selector: 'kpn-planner-popup-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="response$ | async as response">
+    @if (response$ | async; as response) {
       <h2>
         <ng-container i18n="@@map.node-popup.title">Node</ng-container>
         {{ response.result.name }}
@@ -38,46 +36,39 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
         <span class="kpn-label" i18n="@@map.node-popup.last-updated">Last updated</span>
         <kpn-timestamp [timestamp]="response.result.lastUpdated" />
       </p>
-
       <div>
-        <span
-          *ngIf="response.result.networkReferences.length === 1"
-          class="kpn-label"
-          i18n="@@map.node-popup.network"
-          >Network</span
-        >
-        <span
-          *ngIf="response.result.networkReferences.length !== 1"
-          class="kpn-label"
-          i18n="@@map.node-popup.networks"
-          >Networks</span
-        >
-        <span
-          *ngIf="response.result.networkReferences.length === 0"
-          i18n="@@map.node-popup.no-networks"
-          >None</span
-        >
-        <div *ngFor="let ref of response.result.networkReferences" class="reference">
-          <a [routerLink]="'/analysis/network/' + ref.id">{{ ref.name }}</a>
-        </div>
+        @if (response.result.networkReferences.length === 1) {
+          <span class="kpn-label" i18n="@@map.node-popup.network">Network</span>
+        }
+        @if (response.result.networkReferences.length !== 1) {
+          <span class="kpn-label" i18n="@@map.node-popup.networks">Networks</span>
+        }
+        @if (response.result.networkReferences.length === 0) {
+          <span i18n="@@map.node-popup.no-networks">None</span>
+        }
+        @for (ref of response.result.networkReferences; track ref) {
+          <div class="reference">
+            <a [routerLink]="'/analysis/network/' + ref.id">{{ ref.name }}</a>
+          </div>
+        }
       </div>
-
-      <div *ngIf="response.result.routeReferences.length > 0">
-        <span class="kpn-label" i18n="@@map.node-popup.routes">Routes</span>
-        <span
-          *ngIf="response.result.routeReferences.length === 0"
-          i18n="@@map.node-popup.routes.none"
-          >None</span
-        >
-        <div *ngFor="let ref of response.result.routeReferences" class="reference">
-          <kpn-link-route
-            [routeId]="ref.id"
-            [routeName]="ref.name"
-            [networkType]="ref.networkType"
-          />
+      @if (response.result.routeReferences.length > 0) {
+        <div>
+          <span class="kpn-label" i18n="@@map.node-popup.routes">Routes</span>
+          @if (response.result.routeReferences.length === 0) {
+            <span i18n="@@map.node-popup.routes.none">None</span>
+          }
+          @for (ref of response.result.routeReferences; track ref) {
+            <div class="reference">
+              <kpn-link-route
+                [routeId]="ref.id"
+                [routeName]="ref.name"
+                [networkType]="ref.networkType"
+              />
+            </div>
+          }
         </div>
-      </div>
-
+      }
       <div class="more-details">
         <a
           [routerLink]="'/analysis/node/' + response.result.id"
@@ -86,7 +77,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
           More details
         </a>
       </div>
-    </div>
+    }
   `,
   styles: `
     .reference {
@@ -98,7 +89,7 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
     }
   `,
   standalone: true,
-  imports: [AsyncPipe, LinkRouteComponent, NgFor, NgIf, RouterLink, TimestampComponent],
+  imports: [AsyncPipe, LinkRouteComponent, RouterLink, TimestampComponent],
 })
 export class PlannerPopupNodeComponent implements OnInit, OnDestroy {
   response$: Observable<ApiResponse<MapNodeDetail>>;

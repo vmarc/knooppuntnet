@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
@@ -9,8 +8,12 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
   selector: 'kpn-subset-network-happy',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-icon-happy *ngIf="interpretedNetwork.happy()"></kpn-icon-happy>
-    <kpn-icon-happy *ngIf="interpretedNetwork.veryHappy()" class="very-happy" />
+    @if (interpretedNetwork.happy()) {
+      <kpn-icon-happy></kpn-icon-happy>
+    }
+    @if (interpretedNetwork.veryHappy()) {
+      <kpn-icon-happy class="very-happy" />
+    }
   `,
   styles: `
     .very-happy {
@@ -18,7 +21,7 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
     }
   `,
   standalone: true,
-  imports: [NgIf, IconHappyComponent],
+  imports: [IconHappyComponent],
 })
 export class SubsetNetworkHappyComponent implements OnInit {
   @Input() network: NetworkAttributes;

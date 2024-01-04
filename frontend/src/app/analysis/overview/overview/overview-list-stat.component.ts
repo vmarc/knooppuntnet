@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -15,8 +14,11 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
       <div class="header">
         <div (click)="toggleOpen()" class="title">
           <span class="expand-collapse-icon">
-            <mat-icon svgIcon="expand" *ngIf="open"></mat-icon>
-            <mat-icon svgIcon="collapse" *ngIf="!open"></mat-icon>
+            @if (open) {
+              <mat-icon svgIcon="expand"></mat-icon>
+            } @else {
+              <mat-icon svgIcon="collapse"></mat-icon>
+            }
           </span>
           <span class="name">
             {{ stat.configuration.name }}
@@ -27,15 +29,20 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
         </div>
       </div>
 
-      <div *ngIf="open" class="body">
-        <div class="comment">
-          <markdown *ngIf="stat.configuration.markdown" [data]="comment(stat)"></markdown>
-          <p *ngIf="!stat.configuration.markdown">
-            {{ stat.configuration.comment }}
-          </p>
+      @if (open) {
+        <div class="body">
+          <div class="comment">
+            @if (stat.configuration.markdown) {
+              <markdown [data]="comment(stat)"></markdown>
+            } @else {
+              <p>
+                {{ stat.configuration.comment }}
+              </p>
+            }
+          </div>
+          <kpn-overview-list-stat-table [stat]="stat" />
         </div>
-        <kpn-overview-list-stat-table [stat]="stat" />
-      </div>
+      }
     </div>
   `,
   styles: `
@@ -89,7 +96,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
     }
   `,
   standalone: true,
-  imports: [MarkdownModule, MatIconModule, NgIf, OverviewListStatTableComponent],
+  imports: [MarkdownModule, MatIconModule, OverviewListStatTableComponent],
 })
 export class OverviewListStatComponent {
   @Input() stat: Stat;

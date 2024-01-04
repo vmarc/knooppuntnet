@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -11,9 +10,11 @@ import { selectDemoVideoPlayButtonEnabled } from '../store/demo.selectors';
   selector: 'kpn-demo-video-play-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="videoPlayButtonEnabled()" (click)="play()" class="play-button">
-      <mat-icon svgIcon="play" />
-    </div>
+    @if (videoPlayButtonEnabled()) {
+      <div (click)="play()" class="play-button">
+        <mat-icon svgIcon="play" />
+      </div>
+    }
   `,
   styles: `
     .play-button {
@@ -46,7 +47,7 @@ import { selectDemoVideoPlayButtonEnabled } from '../store/demo.selectors';
     }
   `,
   standalone: true,
-  imports: [NgIf, MatIconModule, AsyncPipe],
+  imports: [MatIconModule, AsyncPipe],
 })
 export class DemoVideoPlayButtonComponent {
   readonly videoPlayButtonEnabled = this.store.selectSignal(selectDemoVideoPlayButtonEnabled);

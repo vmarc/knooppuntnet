@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -12,15 +10,17 @@ import { I18nService } from '@app/i18n';
   selector: 'kpn-node-location',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="!hasLocation()" i18n="@@node.location.none">None</p>
+    @if (!hasLocation()) {
+      <p i18n="@@node.location.none">None</p>
+    }
     <div class="kpn-comma-list">
-      <a *ngFor="let name of locationNames(); let i = index" [routerLink]="locationLink(i)">{{
-        name
-      }}</a>
+      @for (name of locationNames(); track name; let i = $index) {
+        <a [routerLink]="locationLink(i)">{{ name }}</a>
+      }
     </div>
   `,
   standalone: true,
-  imports: [NgIf, NgFor, RouterLink],
+  imports: [RouterLink],
 })
 export class NodeLocationComponent {
   @Input() networkType: NetworkType;

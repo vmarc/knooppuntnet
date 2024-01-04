@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -12,18 +11,20 @@ import { OnInit } from '@angular/core';
     <br />
     <br />
     <button (click)="toggleVisible()">JSON</button>
-    <div *ngIf="visible">
-      <br />
-      <pre
-        >{{ contents }}
-</pre
-      >
-    </div>
+    @if (visible) {
+      <div>
+        <br />
+        <pre
+          >{{ contents }}
+          </pre
+        >
+      </div>
+    }
     <br />
     <br />
   `,
   standalone: true,
-  imports: [NgIf],
+  imports: [],
 })
 export class JsonComponent implements OnInit {
   @Input({ required: true }) object: any;

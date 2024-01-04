@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -27,9 +26,11 @@ import { CsNcWaysUpdatedComponent } from './cs-nc-ways-updated.component';
   template: `
     <kpn-cs-nc-type [networkChangeInfo]="networkChangeInfo" />
 
-    <div *ngIf="networkChangeInfo.after" class="kpn-detail">
-      <kpn-version-change [before]="networkChangeInfo.before" [after]="networkChangeInfo.after" />
-    </div>
+    @if (networkChangeInfo.after) {
+      <div class="kpn-detail">
+        <kpn-version-change [before]="networkChangeInfo.before" [after]="networkChangeInfo.after" />
+      </div>
+    }
 
     <kpn-cs-nc-nodes-removed [networkChangeInfo]="networkChangeInfo" />
     <kpn-cs-nc-nodes-added [networkChangeInfo]="networkChangeInfo" />
@@ -59,7 +60,6 @@ import { CsNcWaysUpdatedComponent } from './cs-nc-ways-updated.component';
     CsNcWaysAddedComponent,
     CsNcWaysRemovedComponent,
     CsNcWaysUpdatedComponent,
-    NgIf,
     NodeDiffsComponent,
     RouteDiffsComponent,
     VersionChangeComponent,

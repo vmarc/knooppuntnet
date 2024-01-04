@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
@@ -67,12 +66,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       <ng-container matColumnDef="symbol">
         <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.symbol">Symbol</th>
         <td mat-cell *matCellDef="let route" class="symbol">
-          <kpn-symbol
-            *ngIf="route.symbol"
-            [description]="route.symbol"
-            [width]="25"
-            [height]="25"
-          />
+          @if (route.symbol) {
+            <kpn-symbol [description]="route.symbol" [width]="25" [height]="25" />
+          }
         </td>
       </ng-container>
 
@@ -152,7 +148,6 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
     MatSortModule,
     MatTableModule,
     OsmLinkRelationComponent,
-    NgIf,
     PaginatorComponent,
     SymbolComponent,
   ],

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -15,13 +14,15 @@ import { NetworkTypeIconComponent } from '../network-type-icon.component';
     <div class="kpn-line">
       <kpn-network-type-icon [networkType]="reference.networkType" />
       <a [routerLink]="link" [state]="state" title="">{{ reference.name }}</a>
-      <span *ngIf="mixedNetworkScopes" class="kpn-brackets kpn-thin">
-        <kpn-network-scope-name [networkScope]="reference.networkScope" />
-      </span>
+      @if (mixedNetworkScopes) {
+        <span class="kpn-brackets kpn-thin">
+          <kpn-network-scope-name [networkScope]="reference.networkScope" />
+        </span>
+      }
     </div>
   `,
   standalone: true,
-  imports: [NetworkScopeNameComponent, NetworkTypeIconComponent, NgIf, RouterLink],
+  imports: [NetworkScopeNameComponent, NetworkTypeIconComponent, RouterLink],
 })
 export class IconLinkComponent implements OnInit {
   @Input({ required: true }) reference: Reference;

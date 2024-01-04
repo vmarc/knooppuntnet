@@ -1,4 +1,4 @@
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -10,7 +10,9 @@ import { RouterLink } from '@angular/router';
   template: `
     <a [routerLink]="link" [ngClass]="{ active: active }" [state]="state" class="link">
       <ng-content />
-      <span *ngIf="!!elementCount" class="element-count"> ({{ elementCount }}) </span>
+      @if (!!elementCount) {
+        <span class="element-count"> ({{ elementCount }}) </span>
+      }
     </a>
   `,
   styles: `
@@ -29,7 +31,7 @@ import { RouterLink } from '@angular/router';
     }
   `,
   standalone: true,
-  imports: [RouterLink, NgClass, NgIf],
+  imports: [RouterLink, NgClass],
 })
 export class PageMenuOptionComponent {
   @Input({ required: true }) link: string;

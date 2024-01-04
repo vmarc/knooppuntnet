@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
@@ -76,16 +75,17 @@ import { PlannerService } from '../../../planner.service';
           Node strip
         </button>
 
-        <button
-          *ngIf="instructions()"
-          mat-stroked-button
-          (click)="printInstructions()"
-          title="Produce a route pdf with navigation instructions"
-          i18n-title="@@plan.output.navigation-instructions-pdf.tooltip"
-          i18n="@@plan.output.navigation-instructions-pdf"
-        >
-          Navigation instructions
-        </button>
+        @if (instructions()) {
+          <button
+            mat-stroked-button
+            (click)="printInstructions()"
+            title="Produce a route pdf with navigation instructions"
+            i18n-title="@@plan.output.navigation-instructions-pdf.tooltip"
+            i18n="@@plan.output.navigation-instructions-pdf"
+          >
+            Navigation instructions
+          </button>
+        }
 
         <button
           mat-stroked-button
@@ -143,7 +143,6 @@ import { PlannerService } from '../../../planner.service';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    NgIf,
   ],
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {

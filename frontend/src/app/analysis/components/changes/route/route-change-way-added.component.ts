@@ -28,9 +28,7 @@ import { TagsTableComponent } from '@app/components/shared/tags';
             </div>
             <!-- eslint-enable @angular-eslint/template/i18n -->
           </div>
-        }
-
-        @if (!isWayChangedInThisChangeset(wayInfo)) {
+        } @else {
           <div class="kpn-detail">
             <div class="kpn-thin">
               <kpn-meta-data [metaData]="wayInfo" />

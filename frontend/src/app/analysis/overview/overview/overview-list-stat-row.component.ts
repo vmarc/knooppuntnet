@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -15,9 +14,11 @@ import { OverviewValueComponent } from './overview-value.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <tr>
-      <td *ngIf="rowspan" [rowSpan]="rowspan">
-        <kpn-country-name [country]="country" />
-      </td>
+      @if (rowspan) {
+        <td [rowSpan]="rowspan">
+          <kpn-country-name [country]="country" />
+        </td>
+      }
       <td>
         <kpn-network-type-icon [networkType]="networkType" />
       </td>
@@ -38,7 +39,7 @@ import { OverviewValueComponent } from './overview-value.component';
     }
   `,
   standalone: true,
-  imports: [CountryNameComponent, NetworkTypeIconComponent, NgIf, OverviewValueComponent],
+  imports: [CountryNameComponent, NetworkTypeIconComponent, OverviewValueComponent],
 })
 export class OverviewListStatRowComponent {
   @Input() rowspan: number = null;

@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { forwardRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -17,84 +15,132 @@ import { LinkRouteComponent } from '@app/components/shared/link';
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <div *ngFor="let tree of trees">
-      <div class="kpn-line location-block">
-        <span>{{ tree.locationName }}</span>
-        <kpn-icon-happy *ngIf="tree.happy" />
-        <kpn-icon-investigate *ngIf="tree.investigate" />
-      </div>
+    @for (tree of trees; track tree) {
       <div>
-        <div *ngIf="tree.routeChanges.removed.length > 0" class="refs-block">
-          <div>Removed routes ({{ tree.routeChanges.removed.length }})</div>
-          <div *ngFor="let ref of tree.routeChanges.removed" class="refs">
-            <div class="kpn-line">
-              <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
-              <kpn-icon-happy *ngIf="ref.happy" />
-              <kpn-icon-investigate *ngIf="ref.investigate" />
-            </div>
-          </div>
+        <div class="kpn-line location-block">
+          <span>{{ tree.locationName }}</span>
+          @if (tree.happy) {
+            <kpn-icon-happy />
+          }
+          @if (tree.investigate) {
+            <kpn-icon-investigate />
+          }
         </div>
-
-        <div *ngIf="tree.routeChanges.added.length > 0" class="refs-block">
-          <div>Added routes ({{ tree.routeChanges.added.length }})</div>
-          <div *ngFor="let ref of tree.routeChanges.added" class="refs">
-            <div class="kpn-line">
-              <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
-              <kpn-icon-happy *ngIf="ref.happy" />
-              <kpn-icon-investigate *ngIf="ref.investigate" />
+        <div>
+          @if (tree.routeChanges.removed.length > 0) {
+            <div class="refs-block">
+              <div>Removed routes ({{ tree.routeChanges.removed.length }})</div>
+              @for (ref of tree.routeChanges.removed; track ref) {
+                <div class="refs">
+                  <div class="kpn-line">
+                    <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+                    @if (ref.happy) {
+                      <kpn-icon-happy />
+                    }
+                    @if (ref.investigate) {
+                      <kpn-icon-investigate />
+                    }
+                  </div>
+                </div>
+              }
             </div>
-          </div>
+          }
+          @if (tree.routeChanges.added.length > 0) {
+            <div class="refs-block">
+              <div>Added routes ({{ tree.routeChanges.added.length }})</div>
+              @for (ref of tree.routeChanges.added; track ref) {
+                <div class="refs">
+                  <div class="kpn-line">
+                    <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+                    @if (ref.happy) {
+                      <kpn-icon-happy />
+                    }
+                    @if (ref.investigate) {
+                      <kpn-icon-investigate />
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+          @if (tree.routeChanges.updated.length > 0) {
+            <div class="refs-block">
+              <div>Updated routes ({{ tree.routeChanges.updated.length }})</div>
+              @for (ref of tree.routeChanges.updated; track ref) {
+                <div class="refs">
+                  <div class="kpn-line">
+                    <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
+                    @if (ref.happy) {
+                      <kpn-icon-happy />
+                    }
+                    @if (ref.investigate) {
+                      <kpn-icon-investigate />
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+          @if (tree.nodeChanges.removed.length > 0) {
+            <div class="refs-block">
+              <div>Updated nodes ({{ tree.nodeChanges.removed.length }})</div>
+              @for (ref of tree.nodeChanges.removed; track ref) {
+                <div class="refs">
+                  <div class="kpn-line">
+                    <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+                    @if (ref.happy) {
+                      <kpn-icon-happy />
+                    }
+                    @if (ref.investigate) {
+                      <kpn-icon-investigate />
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+          @if (tree.nodeChanges.added.length > 0) {
+            <div class="refs-block">
+              <div>Updated nodes ({{ tree.nodeChanges.added.length }})</div>
+              @for (ref of tree.nodeChanges.added; track ref) {
+                <div class="refs">
+                  <div class="kpn-line">
+                    <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+                    @if (ref.happy) {
+                      <kpn-icon-happy />
+                    }
+                    @if (ref.investigate) {
+                      <kpn-icon-investigate />
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
+          @if (tree.nodeChanges.updated.length > 0) {
+            <div class="refs-block">
+              <div>Updated nodes ({{ tree.nodeChanges.updated.length }})</div>
+              @for (ref of tree.nodeChanges.updated; track ref) {
+                <div class="refs">
+                  <div class="kpn-line">
+                    <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
+                    @if (ref.happy) {
+                      <kpn-icon-happy />
+                    }
+                    @if (ref.investigate) {
+                      <kpn-icon-investigate />
+                    }
+                  </div>
+                </div>
+              }
+            </div>
+          }
         </div>
-
-        <div *ngIf="tree.routeChanges.updated.length > 0" class="refs-block">
-          <div>Updated routes ({{ tree.routeChanges.updated.length }})</div>
-          <div *ngFor="let ref of tree.routeChanges.updated" class="refs">
-            <div class="kpn-line">
-              <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
-              <kpn-icon-happy *ngIf="ref.happy" />
-              <kpn-icon-investigate *ngIf="ref.investigate" />
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="tree.nodeChanges.removed.length > 0" class="refs-block">
-          <div>Updated nodes ({{ tree.nodeChanges.removed.length }})</div>
-          <div *ngFor="let ref of tree.nodeChanges.removed" class="refs">
-            <div class="kpn-line">
-              <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
-              <kpn-icon-happy *ngIf="ref.happy" />
-              <kpn-icon-investigate *ngIf="ref.investigate" />
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="tree.nodeChanges.added.length > 0" class="refs-block">
-          <div>Updated nodes ({{ tree.nodeChanges.added.length }})</div>
-          <div *ngFor="let ref of tree.nodeChanges.added" class="refs">
-            <div class="kpn-line">
-              <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
-              <kpn-icon-happy *ngIf="ref.happy" />
-              <kpn-icon-investigate *ngIf="ref.investigate" />
-            </div>
-          </div>
-        </div>
-
-        <div *ngIf="tree.nodeChanges.updated.length > 0" class="refs-block">
-          <div>Updated nodes ({{ tree.nodeChanges.updated.length }})</div>
-          <div *ngFor="let ref of tree.nodeChanges.updated" class="refs">
-            <div class="kpn-line">
-              <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
-              <kpn-icon-happy *ngIf="ref.happy" />
-              <kpn-icon-investigate *ngIf="ref.investigate" />
-            </div>
-          </div>
+        <div class="children">
+          <kpn-change-set-location-tree-node [trees]="tree.children" />
         </div>
       </div>
-
-      <div class="children">
-        <kpn-change-set-location-tree-node [trees]="tree.children" />
-      </div>
-    </div>
+    }
   `,
   styles: `
     .children {
@@ -121,8 +167,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
     IconInvestigateComponent,
     LinkNodeComponent,
     LinkRouteComponent,
-    NgFor,
-    NgIf,
     forwardRef(() => ChangeSetLocationTreeNodeComponent),
   ],
 })

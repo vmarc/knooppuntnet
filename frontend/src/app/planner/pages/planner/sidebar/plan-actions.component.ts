@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { Injector } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -21,61 +20,63 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
   selector: 'kpn-plan-actions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="buttons" *ngIf="plan$ | async as plan">
-      <kpn-plan-action-button
-        *ngIf="showUndoButton$ | async"
-        (action)="undo()"
-        [enabled]="undoEnabled()"
-        icon="undo"
-        text="Undo"
-        i18n-text="@@planner.action.undo"
-        title="Undo the previous action"
-        i18n-title="@@planner.action.undo.title"
-      />
-
-      <kpn-plan-action-button
-        *ngIf="showRedoButton$ | async"
-        (action)="redo()"
-        [enabled]="redoEnabled()"
-        icon="redo"
-        text="Redo"
-        i18n-text="@@planner.action.redo"
-        title="Redo the action that was previously undone"
-        i18n-title="@@planner.action.redo.title"
-      />
-
-      <kpn-plan-action-button
-        *ngIf="showResetButton$ | async"
-        (action)="reset()"
-        [enabled]="hasStartNode(plan)"
-        icon="reset"
-        text="Reset"
-        i18n-text="@@planner.action.reset"
-        title="Wipe out current route plan and restart route planning from scratch"
-        i18n-title="@@planner.action.reset.title"
-      />
-
-      <kpn-plan-action-button
-        *ngIf="showReverseButton$ | async"
-        (action)="reverse()"
-        [enabled]="hasRoute(plan)"
-        icon="reverse"
-        text="Reverse"
-        i18n-text="@@planner.action.reverse"
-        title="Reverse the route direction (startnode becomes endnode, and vice versa)"
-        i18n-title="@@planner.action.reverse.title"
-      />
-
-      <kpn-plan-action-button
-        (action)="output()"
-        [enabled]="hasRoute(plan)"
-        icon="output"
-        text="Output"
-        i18n-text="@@planner.action.output"
-        title="Output planned route"
-        i18n-title="@@planner.action.output.title"
-      />
-    </div>
+    @if (plan$ | async; as plan) {
+      <div class="buttons">
+        @if (showUndoButton$ | async) {
+          <kpn-plan-action-button
+            (action)="undo()"
+            [enabled]="undoEnabled()"
+            icon="undo"
+            text="Undo"
+            i18n-text="@@planner.action.undo"
+            title="Undo the previous action"
+            i18n-title="@@planner.action.undo.title"
+          />
+        }
+        @if (showRedoButton$ | async) {
+          <kpn-plan-action-button
+            (action)="redo()"
+            [enabled]="redoEnabled()"
+            icon="redo"
+            text="Redo"
+            i18n-text="@@planner.action.redo"
+            title="Redo the action that was previously undone"
+            i18n-title="@@planner.action.redo.title"
+          />
+        }
+        @if (showResetButton$ | async) {
+          <kpn-plan-action-button
+            (action)="reset()"
+            [enabled]="hasStartNode(plan)"
+            icon="reset"
+            text="Reset"
+            i18n-text="@@planner.action.reset"
+            title="Wipe out current route plan and restart route planning from scratch"
+            i18n-title="@@planner.action.reset.title"
+          />
+        }
+        @if (showReverseButton$ | async) {
+          <kpn-plan-action-button
+            (action)="reverse()"
+            [enabled]="hasRoute(plan)"
+            icon="reverse"
+            text="Reverse"
+            i18n-text="@@planner.action.reverse"
+            title="Reverse the route direction (startnode becomes endnode, and vice versa)"
+            i18n-title="@@planner.action.reverse.title"
+          />
+        }
+        <kpn-plan-action-button
+          (action)="output()"
+          [enabled]="hasRoute(plan)"
+          icon="output"
+          text="Output"
+          i18n-text="@@planner.action.output"
+          title="Output planned route"
+          i18n-title="@@planner.action.output.title"
+        />
+      </div>
+    }
   `,
   styles: `
     .buttons {
@@ -85,7 +86,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
     }
   `,
   standalone: true,
-  imports: [NgIf, PlanActionButtonComponent, AsyncPipe],
+  imports: [PlanActionButtonComponent, AsyncPipe],
 })
 export class PlanActionsComponent implements OnInit {
   plan$: Observable<Plan>;

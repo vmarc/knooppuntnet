@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -14,15 +13,11 @@ import { selectDemoEnabled } from '../store/demo.selectors';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <div *ngIf="enabled(); then comment; else disabled"></div>
-
-      <ng-template #comment>
+      @if (enabled()) {
         <p i18n="@@demo.select-video">Select a video on the left by clicking its play button.</p>
-      </ng-template>
-
-      <ng-template #disabled>
+      } @else {
         <kpn-demo-disabled />
-      </ng-template>
+      }
 
       <div class="video-icon">
         <mat-icon svgIcon="video" />
@@ -44,14 +39,7 @@ import { selectDemoEnabled } from '../store/demo.selectors';
     }
   `,
   standalone: true,
-  imports: [
-    AsyncPipe,
-    DemoDisabledComponent,
-    DemoSidebarComponent,
-    MatIconModule,
-    NgIf,
-    PageComponent,
-  ],
+  imports: [AsyncPipe, DemoDisabledComponent, DemoSidebarComponent, MatIconModule, PageComponent],
 })
 export class DemoMenuComponent {
   readonly enabled = this.store.selectSignal(selectDemoEnabled);

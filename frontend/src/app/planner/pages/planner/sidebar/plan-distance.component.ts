@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -10,10 +9,12 @@ import { Plan } from '../../../domain/plan/plan';
   selector: 'kpn-plan-distance',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="meters > 0" class="distance">
-      <span i18n="@@plan.distance" class="kpn-label">Distance</span>{{ distance() }}
-      <span i18n="@@plan.unpaved" class="kpn-label">Unpaved</span>{{ unpaved() }}
-    </div>
+    @if (meters > 0) {
+      <div class="distance">
+        <span i18n="@@plan.distance" class="kpn-label">Distance</span>{{ distance() }}
+        <span i18n="@@plan.unpaved" class="kpn-label">Unpaved</span>{{ unpaved() }}
+      </div>
+    }
   `,
   styles: `
     .distance {
@@ -26,7 +27,7 @@ import { Plan } from '../../../domain/plan/plan';
     }
   `,
   standalone: true,
-  imports: [NgIf],
+  imports: [],
 })
 export class PlanDistanceComponent implements OnChanges {
   @Input() plan: Plan;

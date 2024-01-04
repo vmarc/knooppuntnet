@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -25,34 +24,37 @@ import { MapService } from '../../../services/map.service';
   selector: 'kpn-planner-popup-poi',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="response$ | async">
-      <div *ngIf="!poi" class="item" i18n="@@poi.detail.none">No details available</div>
-
-      <div *ngIf="poi">
-        <kpn-poi-analysis [poi]="poi" />
-
-        <div *ngIf="poi.mainTags && poi.mainTags.tags.length > 0" class="item">
-          <kpn-tags-table [tags]="mainTags()" />
+    @if (response$ | async) {
+      @if (!poi) {
+        <div class="item" i18n="@@poi.detail.none">No details available</div>
+      } @else {
+        <div>
+          <kpn-poi-analysis [poi]="poi" />
+          @if (poi.mainTags && poi.mainTags.tags.length > 0) {
+            <div class="item">
+              <kpn-tags-table [tags]="mainTags()" />
+            </div>
+          }
+          @if (poi.extraTags && poi.extraTags.tags.length > 0) {
+            <div class="item">
+              <kpn-tags-table [tags]="extraTags()" />
+            </div>
+          }
+          <div class="item">
+            <kpn-osm-link
+              [kind]="poiClick.poiId.elementType"
+              [elementId]="poiClick.poiId.elementId.toString()"
+              title="osm"
+            />
+            <kpn-josm-link
+              [kind]="poiClick.poiId.elementType"
+              [elementId]="poiClick.poiId.elementId"
+              title="edit"
+            />
+          </div>
         </div>
-
-        <div *ngIf="poi.extraTags && poi.extraTags.tags.length > 0" class="item">
-          <kpn-tags-table [tags]="extraTags()" />
-        </div>
-
-        <div class="item">
-          <kpn-osm-link
-            [kind]="poiClick.poiId.elementType"
-            [elementId]="poiClick.poiId.elementId.toString()"
-            title="osm"
-          />
-          <kpn-josm-link
-            [kind]="poiClick.poiId.elementType"
-            [elementId]="poiClick.poiId.elementId"
-            title="edit"
-          />
-        </div>
-      </div>
-    </div>
+      }
+    }
   `,
   styles: `
     .item {
@@ -69,7 +71,6 @@ import { MapService } from '../../../services/map.service';
   imports: [
     AsyncPipe,
     JosmLinkComponent,
-    NgIf,
     OsmLinkComponent,
     PoiAnalysisComponent,
     TagsTableComponent,

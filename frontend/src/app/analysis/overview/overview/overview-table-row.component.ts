@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -18,14 +16,19 @@ import { OverviewValueComponent } from './overview-value.component';
     <td class="value-cell">
       {{ total() }}
     </td>
-    <td class="value-cell" *ngFor="let subset of subsets()">
-      <kpn-overview-value [stat]="stat" [subset]="subset" />
-    </td>
+    @for (subset of subsets(); track subset) {
+      <td class="value-cell">
+        <kpn-overview-value [stat]="stat" [subset]="subset" />
+      </td>
+    }
     <td class="comment-cell">
-      <markdown *ngIf="stat.configuration.markdown" [data]="comment()" />
-      <p *ngIf="!stat.configuration.markdown">
-        {{ stat.configuration.comment }}
-      </p>
+      @if (stat.configuration.markdown) {
+        <markdown [data]="comment()" />
+      } @else {
+        <p>
+          {{ stat.configuration.comment }}
+        </p>
+      }
     </td>
   `,
   styles: `
@@ -51,7 +54,7 @@ import { OverviewValueComponent } from './overview-value.component';
     }
   `,
   standalone: true,
-  imports: [NgFor, OverviewValueComponent, NgIf, MarkdownModule],
+  imports: [OverviewValueComponent, MarkdownModule],
 })
 export class OverviewTableRowComponent {
   @Input() stat: Stat;

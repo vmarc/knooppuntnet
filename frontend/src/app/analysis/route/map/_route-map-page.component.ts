@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -39,14 +38,13 @@ import { RouteMapComponent } from './route-map.component';
         [networkType]="networkType()"
       />
 
-      <div *ngIf="apiResponse() as response">
-        <div *ngIf="!response.result" class="kpn-spacer-above" i18n="@@route.route-not-found">
-          Route not found
-        </div>
-        <div *ngIf="response.result">
+      @if (apiResponse(); as response) {
+        @if (!response.result) {
+          <div class="kpn-spacer-above" i18n="@@route.route-not-found">Route not found</div>
+        } @else {
           <kpn-route-map />
-        </div>
-      </div>
+        }
+      }
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
   `,
@@ -54,7 +52,6 @@ import { RouteMapComponent } from './route-map.component';
   imports: [
     AnalysisSidebarComponent,
     AsyncPipe,
-    NgIf,
     PageComponent,
     RouteMapComponent,
     RoutePageHeaderComponent,

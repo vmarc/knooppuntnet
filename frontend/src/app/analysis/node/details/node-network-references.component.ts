@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -11,17 +9,21 @@ import { NodeNetworkReferenceComponent } from './node-network-reference.componen
   selector: 'kpn-node-network-references',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="references.length === 0" i18n="@@node.network-references.none">None</p>
-    <p *ngFor="let reference of references">
-      <kpn-node-network-reference
-        [nodeInfo]="nodeInfo"
-        [reference]="reference"
-        [mixedNetworkScopes]="mixedNetworkScopes"
-      />
-    </p>
+    @if (references.length === 0) {
+      <p i18n="@@node.network-references.none">None</p>
+    }
+    @for (reference of references; track reference) {
+      <p>
+        <kpn-node-network-reference
+          [nodeInfo]="nodeInfo"
+          [reference]="reference"
+          [mixedNetworkScopes]="mixedNetworkScopes"
+        />
+      </p>
+    }
   `,
   standalone: true,
-  imports: [NgIf, NgFor, NodeNetworkReferenceComponent],
+  imports: [NodeNetworkReferenceComponent],
 })
 export class NodeNetworkReferencesComponent {
   @Input() nodeInfo: NodeInfo;

@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { OnChanges } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -15,13 +14,15 @@ import { PlanInstructionComponent } from './plan-instruction.component';
   selector: 'kpn-plan-instructions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngFor="let instruction of instructions">
-      <kpn-plan-instruction [instruction]="instruction" />
-      <mat-divider />
-    </div>
+    @for (instruction of instructions; track instruction) {
+      <div>
+        <kpn-plan-instruction [instruction]="instruction" />
+        <mat-divider />
+      </div>
+    }
   `,
   standalone: true,
-  imports: [NgFor, PlanInstructionComponent, MatDividerModule],
+  imports: [PlanInstructionComponent, MatDividerModule],
 })
 export class PlanInstructionsComponent implements OnChanges {
   @Input() plan: Plan;

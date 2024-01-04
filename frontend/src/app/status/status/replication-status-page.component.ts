@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -39,14 +38,12 @@ import { StatusSidebarComponent } from './status-sidebar.component';
 
       <h1>Replication</h1>
 
-      <div *ngIf="page$ | async as page">
+      @if (page$ | async; as page) {
         <kpn-status-page-menu [links]="statusLinks" [periodType]="page.periodType" />
-
         <div>
           <a [routerLink]="'TODO previous'" class="previous">previous</a>
           <a [routerLink]="'TODO next'">next</a>
         </div>
-
         <div class="chart-group">
           <kpn-delay-chart [barChart]="page.delay" [xAxisLabel]="xAxisLabel" />
           <kpn-analysis-delay-chart [barChart]="page.analysisDelay" [xAxisLabel]="xAxisLabel" />
@@ -56,7 +53,6 @@ import { StatusSidebarComponent } from './status-sidebar.component';
             [xAxisLabel]="xAxisLabel"
           />
         </div>
-
         <div class="chart-group">
           <kpn-replication-bytes-chart
             [barChart]="page.replicationBytes"
@@ -71,7 +67,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
             [xAxisLabel]="xAxisLabel"
           />
         </div>
-      </div>
+      }
       <kpn-status-sidebar sidebar />
     </kpn-page>
   `,
@@ -93,7 +89,6 @@ import { StatusSidebarComponent } from './status-sidebar.component';
     AnalysisDelayChartComponent,
     AsyncPipe,
     DelayChartComponent,
-    NgIf,
     PageComponent,
     ReplicationBytesChartComponent,
     ReplicationChangesetsChartComponent,

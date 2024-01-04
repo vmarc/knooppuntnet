@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -30,11 +29,11 @@ import { LocationMapService } from './location-map.service';
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response">
+      @if (apiResponse(); as response) {
         <kpn-location-response [response]="response">
           <kpn-location-map />
         </kpn-location-response>
-      </div>
+      }
       <kpn-location-sidebar sidebar />
     </kpn-page>
   `,
@@ -46,7 +45,6 @@ import { LocationMapService } from './location-map.service';
     LocationPageHeaderComponent,
     LocationResponseComponent,
     LocationSidebarComponent,
-    NgIf,
     PageComponent,
   ],
 })

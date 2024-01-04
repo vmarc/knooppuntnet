@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { Signal } from '@angular/core';
 import { computed } from '@angular/core';
@@ -23,9 +22,8 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
   selector: 'kpn-location-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container *ngIf="locationKey() as key">
+    @if (locationKey(); as key) {
       <kpn-location-page-breadcrumb [locationKey]="key" />
-
       <kpn-page-header [pageTitle]="fullPageTitle()" subject="location-page">
         <span class="header-network-type-icon">
           <mat-icon [svgIcon]="key.networkType" />
@@ -34,7 +32,6 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         <span i18n="@@location-page.header.in">in</span>
         {{ locationName(key) }}
       </kpn-page-header>
-
       <kpn-page-menu>
         <kpn-page-menu-option
           [link]="nodesLink()"
@@ -44,7 +41,6 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         >
           Nodes
         </kpn-page-menu-option>
-
         <kpn-page-menu-option
           [link]="routesLink()"
           [active]="pageName === 'routes'"
@@ -53,7 +49,6 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         >
           Routes
         </kpn-page-menu-option>
-
         <kpn-page-menu-option
           [link]="factsLink()"
           [active]="pageName === 'facts'"
@@ -62,7 +57,6 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         >
           Facts
         </kpn-page-menu-option>
-
         <kpn-page-menu-option
           [link]="mapLink()"
           [active]="pageName === 'map'"
@@ -70,7 +64,6 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         >
           Map
         </kpn-page-menu-option>
-
         <kpn-page-menu-option
           [link]="changesLink()"
           [active]="pageName === 'changes'"
@@ -79,7 +72,6 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         >
           Changes
         </kpn-page-menu-option>
-
         <kpn-page-menu-option
           [link]="editLink()"
           [active]="pageName === 'edit'"
@@ -88,7 +80,7 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
           Load in editor
         </kpn-page-menu-option>
       </kpn-page-menu>
-    </ng-container>
+    }
   `,
   standalone: true,
   imports: [
@@ -96,7 +88,6 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
     LocationPageBreadcrumbComponent,
     MatIconModule,
     NetworkTypeNameComponent,
-    NgIf,
     PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -17,17 +16,22 @@ import { PlanInstructionsComponent } from './plan-instructions.component';
   selector: 'kpn-plan-result',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="plan$ | async as plan">
+    @if (plan$ | async; as plan) {
       <kpn-plan-distance [plan]="plan" />
-      <kpn-plan-compact *ngIf="compact()" [plan]="plan" />
-      <kpn-plan-detailed *ngIf="detailed()" [plan]="plan" />
-      <kpn-plan-instructions *ngIf="instructions()" [plan]="plan" />
-    </div>
+      @if (compact()) {
+        <kpn-plan-compact [plan]="plan" />
+      }
+      @if (detailed()) {
+        <kpn-plan-detailed [plan]="plan" />
+      }
+      @if (instructions()) {
+        <kpn-plan-instructions [plan]="plan" />
+      }
+    }
   `,
   standalone: true,
   imports: [
     AsyncPipe,
-    NgIf,
     PlanCompactComponent,
     PlanDetailedComponent,
     PlanDistanceComponent,

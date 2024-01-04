@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -11,46 +9,62 @@ import { PlannerService } from '../../../planner.service';
   selector: 'kpn-plan-detailed',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="plan.sourceNode !== null" class="node user-selected">
-      <div *ngIf="plan.sourceNode.nodeName.length <= 3" class="text">
-        {{ plan.sourceNode.nodeName }}
+    @if (plan.sourceNode !== null) {
+      <div class="node user-selected">
+        @if (plan.sourceNode.nodeName.length <= 3) {
+          <div class="text">
+            {{ plan.sourceNode.nodeName }}
+          </div>
+        }
+        @if (plan.sourceNode.nodeName.length > 3) {
+          <div class="text-long">
+            {{ plan.sourceNode.nodeName }}
+          </div>
+        }
       </div>
-      <div *ngIf="plan.sourceNode.nodeName.length > 3" class="text-long">
-        {{ plan.sourceNode.nodeName }}
-      </div>
-    </div>
+    }
 
-    <div *ngFor="let leg of plan.legs">
-      <div *ngIf="leg.routes.isEmpty()">
+    @for (leg of plan.legs; track leg) {
+      @if (leg.routes.isEmpty()) {
         <div class="leg" i18n="@@plan-detailed.calculating">Calculating...</div>
         <div class="node">
-          <div *ngIf="leg.sinkNode.nodeName.length <= 3" class="text">
-            {{ leg.sinkNode.nodeName }}
-          </div>
-          <div *ngIf="leg.sinkNode.nodeName.length > 3" class="text-long">
-            {{ leg.sinkNode.nodeName }}
-          </div>
+          @if (leg.sinkNode.nodeName.length <= 3) {
+            <div class="text">
+              {{ leg.sinkNode.nodeName }}
+            </div>
+          }
+          @if (leg.sinkNode.nodeName.length > 3) {
+            <div class="text-long">
+              {{ leg.sinkNode.nodeName }}
+            </div>
+          }
         </div>
-      </div>
-      <div *ngFor="let legRoute of leg.routes; let i = index">
+      }
+      @for (legRoute of leg.routes; track legRoute; let i = $index) {
         <!-- eslint-disable @angular-eslint/template/i18n -->
         <div class="leg">
           {{ legRoute.meters }} m
-          <span *ngIf="hasColour(legRoute)" class="colour">
-            {{ colours(legRoute) }}
-          </span>
+          @if (hasColour(legRoute)) {
+            <span class="colour">
+              {{ colours(legRoute) }}
+            </span>
+          }
         </div>
         <!-- eslint-enable @angular-eslint/template/i18n -->
         <div class="node" [class.server-selected]="i < leg.routes.size - 1">
-          <div *ngIf="legRoute.sinkNode.nodeName.length <= 3" class="text">
-            {{ legRoute.sinkNode.nodeName }}
-          </div>
-          <div *ngIf="legRoute.sinkNode.nodeName.length > 3" class="text-long">
-            {{ legRoute.sinkNode.nodeName }}
-          </div>
+          @if (legRoute.sinkNode.nodeName.length <= 3) {
+            <div class="text">
+              {{ legRoute.sinkNode.nodeName }}
+            </div>
+          }
+          @if (legRoute.sinkNode.nodeName.length > 3) {
+            <div class="text-long">
+              {{ legRoute.sinkNode.nodeName }}
+            </div>
+          }
         </div>
-      </div>
-    </div>
+      }
+    }
   `,
   styles: `
     .leg {
@@ -91,7 +105,7 @@ import { PlannerService } from '../../../planner.service';
     }
   `,
   standalone: true,
-  imports: [NgIf, NgFor],
+  imports: [],
 })
 export class PlanDetailedComponent {
   @Input() plan: Plan;

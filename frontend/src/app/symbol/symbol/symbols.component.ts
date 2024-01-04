@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -17,50 +16,60 @@ import { SymbolComponent } from './symbol.component';
       <h1>Symbols</h1>
       <h2>Background shapes</h2>
       <div class="symbols">
-        <div *ngFor="let symbol of backgroundSymbols" class="symbol">
-          <div class="symbol-name">{{ symbol }}</div>
-          <kpn-symbol [description]="backgroundShapeDescription(symbol)" [grid]="true"></kpn-symbol>
-        </div>
+        @for (symbol of backgroundSymbols; track symbol) {
+          <div class="symbol">
+            <div class="symbol-name">{{ symbol }}</div>
+            <kpn-symbol [description]="backgroundShapeDescription(symbol)" [grid]="true" />
+          </div>
+        }
       </div>
       <h2>Foreground shapes</h2>
       <div class="symbols">
-        <div *ngFor="let symbol of symbols" class="symbol">
-          <div class="symbol-name">{{ symbol }}</div>
-          <kpn-symbol [description]="foregroundShapeDescription(symbol)" [grid]="true"></kpn-symbol>
-        </div>
+        @for (symbol of symbols; track symbol) {
+          <div class="symbol">
+            <div class="symbol-name">{{ symbol }}</div>
+            <kpn-symbol [description]="foregroundShapeDescription(symbol)" [grid]="true" />
+          </div>
+        }
       </div>
       <h2>Wiki examples</h2>
       <div>
-        <div *ngFor="let symbol of wikiExamples" class="example">
-          <div class="symbol-name">{{ symbol }}</div>
-          <kpn-symbol [description]="symbol" [grid]="true"></kpn-symbol>
-        </div>
+        @for (symbol of wikiExamples; track symbol) {
+          <div class="example">
+            <div class="symbol-name">{{ symbol }}</div>
+            <kpn-symbol [description]="symbol" [grid]="true"></kpn-symbol>
+          </div>
+        }
       </div>
       <h2>Node network examples</h2>
       <div>
-        <div *ngFor="let example of nodeNetworkExamples" class="example">
-          <div class="symbol-name">
-            <span>{{ example.description }}</span>
-            <a [routerLink]="'/analysis/route/' + example.relationId">
-              {{ example.relationId }}
-            </a>
+        @for (example of nodeNetworkExamples; track example) {
+          <div class="example">
+            <div class="symbol-name">
+              <span>{{ example.description }}</span>
+              <a [routerLink]="'/analysis/route/' + example.relationId">
+                {{ example.relationId }}
+              </a>
+            </div>
+            <kpn-symbol [description]="example.description" [grid]="true" />
           </div>
-          <kpn-symbol [description]="example.description" [grid]="true"></kpn-symbol>
-        </div>
+        }
       </div>
       <h2>Monitor examples</h2>
       <div>
-        <div *ngFor="let example of monitorExamples" class="example">
-          <div class="symbol-name">
-            <span>{{ example.description }} (relation </span>
-            <kpn-osm-link-relation
-              [relationId]="example.relationId"
-              [title]="example.relationId.toString()"
-            />
-            <span>)</span>
+        @for (example of monitorExamples; track example) {
+          <div class="example">
+            <div class="symbol-name">
+              <span>{{ example.description }} (relation </span>
+              <kpn-osm-link-relation
+                [relationId]="example.relationId"
+                [title]="example.relationId.toString()"
+              />
+              <span>)</span>
+            </div>
+            <kpn-symbol [description]="example.description" [grid]="true" />
           </div>
-          <kpn-symbol [description]="example.description" [grid]="true"></kpn-symbol>
-        </div>
+        }
       </div>
     </div>
   `,
@@ -92,7 +101,7 @@ import { SymbolComponent } from './symbol.component';
     }
   `,
   standalone: true,
-  imports: [NgFor, SymbolComponent, OsmLinkRelationComponent, RouterLink],
+  imports: [SymbolComponent, OsmLinkRelationComponent, RouterLink],
 })
 export class SymbolsComponent {
   readonly symbols = SymbolShape.foregroundShapes;

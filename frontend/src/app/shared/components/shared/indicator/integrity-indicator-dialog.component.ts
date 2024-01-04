@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Inject } from '@angular/core';
@@ -14,34 +13,46 @@ import { IntegrityIndicatorData } from './integrity-indicator-data';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-indicator-dialog letter="E" i18n-letter="@@integrity-indicator.letter" [color]="color">
-      <span dialog-title *ngIf="isGray()" i18n="@@integrity-indicator.gray.title">
-        OK - expected route count missing
-      </span>
-      <markdown dialog-body *ngIf="isGray()" i18n="@@integrity-indicator.gray.text">
-        This network node does not have an *"{{ tag }}"* tag. This is OK because the use of this tag
-        is optional.
-      </markdown>
+      @if (isGray()) {
+        <span dialog-title i18n="@@integrity-indicator.gray.title">
+          OK - expected route count missing
+        </span>
+      }
+      @if (isGray()) {
+        <markdown dialog-body i18n="@@integrity-indicator.gray.text">
+          This network node does not have an *"{{ tag }}"* tag. This is OK because the use of this
+          tag is optional.
+        </markdown>
+      }
 
-      <span dialog-title *ngIf="isGreen()" i18n="@@integrity-indicator.green.title">
-        OK - expected route count
-      </span>
-      <markdown dialog-body *ngIf="isGreen()" i18n="@@integrity-indicator.green.text">
-        The number of routes found in this network node ({{ actual }}) does match the expected
-        number of routes ({{ expected }}) as defined in the *"{{ tag }}"* tag on this node. This is
-        what we expect.
-      </markdown>
+      @if (isGreen()) {
+        <span dialog-title i18n="@@integrity-indicator.green.title">
+          OK - expected route count
+        </span>
+      }
+      @if (isGreen()) {
+        <markdown dialog-body i18n="@@integrity-indicator.green.text">
+          The number of routes found in this network node ({{ actual }}) does match the expected
+          number of routes ({{ expected }}) as defined in the *"{{ tag }}"* tag on this node. This
+          is what we expect.
+        </markdown>
+      }
 
-      <span dialog-title *ngIf="isRed()" i18n="@@integrity-indicator.red.title">
-        Not OK - unexpected route count
-      </span>
-      <markdown dialog-body *ngIf="isRed()" i18n="@@integrity-indicator.red.text">
-        The number of routes found in this network node ({{ actual }}) does not match the expected
-        number of routes ({{ expected }}) as defined in the *"{{ tag }}"* tag on this node.
-      </markdown>
+      @if (isRed()) {
+        <span dialog-title i18n="@@integrity-indicator.red.title">
+          Not OK - unexpected route count
+        </span>
+      }
+      @if (isRed()) {
+        <markdown dialog-body i18n="@@integrity-indicator.red.text">
+          The number of routes found in this network node ({{ actual }}) does not match the expected
+          number of routes ({{ expected }}) as defined in the *"{{ tag }}"* tag on this node.
+        </markdown>
+      }
     </kpn-indicator-dialog>
   `,
   standalone: true,
-  imports: [IndicatorDialogComponent, NgIf, MarkdownModule],
+  imports: [IndicatorDialogComponent, MarkdownModule],
 })
 export class IntegrityIndicatorDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) private indicatorData: IntegrityIndicatorData) {}

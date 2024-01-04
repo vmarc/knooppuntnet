@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -22,117 +20,117 @@ import { Store } from '@ngrx/store';
   selector: 'kpn-subset-fact-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="page.networks.length === 0" class="kpn-line">
-      <span i18n="@@subset-facts.no-facts">No facts</span>
-      <kpn-icon-happy />
-    </div>
-    <div *ngIf="page.networks.length > 0">
-      <div class="kpn-space-separated kpn-label">
-        <span>{{ refCount }}</span>
-        <span *ngIf="hasNodeRefs()" i18n="@@subset-facts.node-refs"
-          >{refCount, plural, one {node} other {nodes}}</span
-        >
-        <span *ngIf="hasRouteRefs()" i18n="@@subset-facts.route-refs"
-          >{refCount, plural, one {route} other {routes}}</span
-        >
-        <span *ngIf="hasOsmNodeRefs()" i18n="@@subset-facts.osm-node-refs"
-          >{refCount, plural, one {node} other {nodes}}</span
-        >
-        <span *ngIf="hasOsmWayRefs()" i18n="@@subset-facts.osm-way-refs"
-          >{refCount, plural, one {way} other {ways}}</span
-        >
-        <span
-          *ngIf="hasOsmRelationRefs()"
-          i18n="@@subset-facts.osm-relation-refs"
-          >{refCount, plural, one {relation} other {relations}}</span
-        >
-        <span i18n="@@subset-facts.in-networks"
-          >{page.networks.length, plural, one {in 1 network} other {in
-          {{ page.networks.length }} networks}}</span
-        >
-        <span *ngIf="factCount !== refCount" i18n="@@subset-facts.fact-count"
-          >{factCount, plural, one {(1 fact)} other {({{
-            factCount
-          }}
-          facts)}}</span
-        >
+    @if (page.networks.length === 0) {
+      <div class="kpn-line">
+        <span i18n="@@subset-facts.no-facts">No facts</span>
+        <kpn-icon-happy />
       </div>
-
-      <kpn-items>
-        <kpn-item
-          *ngFor="let networkFactRefs of page.networks; let i = index"
-          [index]="i"
-        >
-          <div class="fact-detail">
-            <span
-              *ngIf="networkFactRefs.networkId === 0"
-              i18n="@@subset-facts.orphan-routes"
-              >Free routes</span
+    } @else {
+      <div>
+        <div class="kpn-space-separated kpn-label">
+          <span>{{ refCount }}</span>
+          @if (hasNodeRefs()) {
+            <span i18n="@@subset-facts.node-refs">{refCount, plural, one {node} other {nodes}}</span>
+          }
+          @if (hasRouteRefs()) {
+            <span i18n="@@subset-facts.route-refs">{refCount, plural, one {route} other {routes}}</span>
+          }
+          @if (hasOsmNodeRefs()) {
+            <span i18n="@@subset-facts.osm-node-refs">{refCount, plural, one {node} other {nodes}}</span>
+          }
+          @if (hasOsmWayRefs()) {
+            <span i18n="@@subset-facts.osm-way-refs">{refCount, plural, one {way} other {ways}}</span>
+          }
+          @if (hasOsmRelationRefs()) {
+            <span i18n="@@subset-facts.osm-relation-refs">{refCount, plural, one {relation} other {relations}}</span>
+          }
+          <span i18n="@@subset-facts.in-networks">
+            {page.networks.length, plural, one {in 1 network} other {in {{ page.networks.length }} networks}}
+          </span>
+          @if (factCount !== refCount) {
+            <span i18n="@@subset-facts.fact-count">
+              {factCount, plural, one {(1 fact)} other {({{ factCount }} facts)}}
+            </span
             >
-            <a
-              *ngIf="networkFactRefs.networkId !== 0"
-              [routerLink]="'/analysis/network/' + networkFactRefs.networkId"
-            >
-              {{ networkFactRefs.networkName }}
-            </a>
-          </div>
-          <div class="fact-detail">
-            <span
-              *ngIf="hasNodeRefs()"
-              i18n="@@subset-facts.nodes"
-              class="kpn-label"
-              >{networkFactRefs.factRefs.length, plural, one {1 node} other
-              {{{networkFactRefs.factRefs.length}} nodes}}</span
-            >
-            <span
-              *ngIf="hasRouteRefs()"
-              i18n="@@subset-facts.routes"
-              class="kpn-label"
-              >{networkFactRefs.factRefs.length, plural, one {1 route} other
-              {{{networkFactRefs.factRefs.length}} routes}}</span
-            >
-            <a
-              rel="nofollow"
-              (click)="edit()"
-              title="Open in editor (like JOSM)"
-              i18n-title="@@edit.link.title"
-              i18n="@@edit.link"
-              >edit</a
-            >
-          </div>
-          <div class="kpn-comma-list fact-detail">
-            <span *ngFor="let ref of networkFactRefs.factRefs">
-              <kpn-link-node
-                *ngIf="hasNodeRefs()"
-                [nodeId]="ref.id"
-                [nodeName]="ref.name"
-              />
-              <kpn-link-route
-                *ngIf="hasRouteRefs()"
-                [routeId]="ref.id"
-                [routeName]="ref.name"
-                [networkType]="page.subsetInfo.networkType"
-              />
-              <kpn-osm-link-node
-                *ngIf="hasOsmNodeRefs()"
-                [nodeId]="ref.id"
-                [title]="ref.name"
-              />
-              <kpn-osm-link-way
-                *ngIf="hasOsmWayRefs()"
-                [wayId]="ref.id"
-                [title]="ref.name"
-              />
-              <kpn-osm-link-relation
-                *ngIf="hasOsmRelationRefs()"
-                [relationId]="ref.id"
-                [title]="ref.name"
-              />
-            </span>
-          </div>
-        </kpn-item>
-      </kpn-items>
-    </div>
+          }
+        </div>
+        <kpn-items>
+          @for (networkFactRefs of page.networks; track networkFactRefs; let i = $index) {
+            <kpn-item [index]="i">
+              <div class="fact-detail">
+                @if (networkFactRefs.networkId === 0) {
+                  <span i18n="@@subset-facts.orphan-routes">Free routes</span>
+                }
+                @if (networkFactRefs.networkId !== 0) {
+                  <a [routerLink]="'/analysis/network/' + networkFactRefs.networkId">
+                    {{ networkFactRefs.networkName }}
+                  </a>
+                }
+              </div>
+              <div class="fact-detail">
+                @if (hasNodeRefs()) {
+                  <span i18n="@@subset-facts.nodes" class="kpn-label">
+                    {networkFactRefs.factRefs.length, plural, one {1 node} other {{{ networkFactRefs.factRefs.length }} nodes}}
+                  </span>
+                }
+                @if (hasRouteRefs()) {
+                  <span i18n="@@subset-facts.routes" class="kpn-label">
+                    {networkFactRefs.factRefs.length, plural, one {1 route} other
+                      {{{ networkFactRefs.factRefs.length }} routes}}
+                  </span>
+                }
+                <a
+                  rel="nofollow"
+                  (click)="edit()"
+                  title="Open in editor (like JOSM)"
+                  i18n-title="@@edit.link.title"
+                  i18n="@@edit.link"
+                >
+                  edit
+                </a>
+              </div>
+              <div class="kpn-comma-list fact-detail">
+                @for (ref of networkFactRefs.factRefs; track ref) {
+                  <span>
+                    @if (hasNodeRefs()) {
+                      <kpn-link-node
+                        [nodeId]="ref.id"
+                        [nodeName]="ref.name"
+                      />
+                    }
+                    @if (hasRouteRefs()) {
+                      <kpn-link-route
+                        [routeId]="ref.id"
+                        [routeName]="ref.name"
+                        [networkType]="page.subsetInfo.networkType"
+                      />
+                    }
+                    @if (hasOsmNodeRefs()) {
+                      <kpn-osm-link-node
+                        [nodeId]="ref.id"
+                        [title]="ref.name"
+                      />
+                    }
+                    @if (hasOsmWayRefs()) {
+                      <kpn-osm-link-way
+                        [wayId]="ref.id"
+                        [title]="ref.name"
+                      />
+                    }
+                    @if (hasOsmRelationRefs()) {
+                      <kpn-osm-link-relation
+                        [relationId]="ref.id"
+                        [title]="ref.name"
+                      />
+                    }
+                  </span>
+                }
+              </div>
+            </kpn-item>
+          }
+        </kpn-items>
+      </div>
+    }
   `,
   styleUrl: './_subset-fact-details-page.component.scss',
   standalone: true,
@@ -142,8 +140,6 @@ import { Store } from '@ngrx/store';
     ItemsComponent,
     LinkNodeComponent,
     LinkRouteComponent,
-    NgFor,
-    NgIf,
     OsmLinkNodeComponent,
     OsmLinkRelationComponent,
     OsmLinkWayComponent,

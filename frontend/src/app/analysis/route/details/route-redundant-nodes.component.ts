@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -9,12 +8,14 @@ import { RouteNodeComponent } from './route-node.component';
   selector: 'kpn-route-redundant-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngFor="let node of analysis.map.redundantNodes">
-      <kpn-route-node [node]="node" title="marker-icon-yellow-small.png" />
-    </p>
+    @for (node of analysis.map.redundantNodes; track node) {
+      <p>
+        <kpn-route-node [node]="node" title="marker-icon-yellow-small.png" />
+      </p>
+    }
   `,
   standalone: true,
-  imports: [NgFor, RouteNodeComponent],
+  imports: [RouteNodeComponent],
 })
 export class RouteRedundantNodesComponent {
   @Input() analysis: RouteInfoAnalysis;

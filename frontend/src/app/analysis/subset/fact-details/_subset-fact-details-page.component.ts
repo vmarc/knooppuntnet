@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -22,7 +21,7 @@ import { SubsetFactDetailsComponent } from './subset-fact-details.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <div *ngIf="subsetFact() as fact">
+      @if (subsetFact(); as fact) {
         <div>
           <kpn-subset-page-header-block
             pageName="facts"
@@ -36,15 +35,17 @@ import { SubsetFactDetailsComponent } from './subset-fact-details.component';
             <kpn-fact-description [factInfo]="factInfo(fact)" />
           </div>
         </div>
-
         <kpn-error />
-
-        <div *ngIf="apiResponse() as response">
-          <div *ngIf="response.result">
-            <kpn-subset-fact-details [page]="response.result" />
+        @if (apiResponse(); as response) {
+          <div>
+            @if (response.result) {
+              <div>
+                <kpn-subset-fact-details [page]="response.result" />
+              </div>
+            }
           </div>
-        </div>
-      </div>
+        }
+      }
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
@@ -55,7 +56,6 @@ import { SubsetFactDetailsComponent } from './subset-fact-details.component';
     ErrorComponent,
     FactDescriptionComponent,
     FactNameComponent,
-    NgIf,
     PageComponent,
     SubsetFactDetailsComponent,
     SubsetPageHeaderBlockComponent,

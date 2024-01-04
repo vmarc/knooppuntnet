@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -15,22 +14,16 @@ import { LocationPoisSidebarComponent } from './poi-location-pois-sidebar.compon
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <div *ngIf="apiResponse() as response">
-        <div *ngIf="response.result as page">
+      @if (apiResponse(); as response) {
+        @if (response.result; as page) {
           <kpn-poi-location-poi-table [pois]="page.pois" [poiCount]="page.poiCount" />
-        </div>
-      </div>
+        }
+      }
       <kpn-location-pois-sidebar sidebar />
     </kpn-page>
   `,
   standalone: true,
-  imports: [
-    AsyncPipe,
-    LocationPoisSidebarComponent,
-    NgIf,
-    PageComponent,
-    PoiLocationPoiTableComponent,
-  ],
+  imports: [AsyncPipe, LocationPoisSidebarComponent, PageComponent, PoiLocationPoiTableComponent],
 })
 export class PoiLocationPoisPageComponent implements OnInit {
   readonly apiResponse = this.store.selectSignal(selectLocationPoisPage);

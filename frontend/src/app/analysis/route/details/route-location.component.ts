@@ -1,5 +1,3 @@
-import { NgIf } from '@angular/common';
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -15,19 +13,20 @@ import { I18nService } from '@app/i18n';
   selector: 'kpn-route-location',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p *ngIf="!hasLocations()" i18n="@@route.location.none">None</p>
-    <div *ngIf="hasLocations()">
-      <div *ngFor="let candidate of locationAnalysis.candidates" class="candidates">
-        <div class="kpn-comma-list">
-          <a
-            *ngFor="let name of locationNames(candidate.location); let i = index"
-            [routerLink]="locationLink(candidate.location, i)"
-            >{{ name }}</a
-          >
+    @if (!hasLocations()) {
+      <p i18n="@@route.location.none">None</p>
+    } @else {
+      @for (candidate of locationAnalysis.candidates; track candidate) {
+        <div class="candidates">
+          <div class="kpn-comma-list">
+            @for (name of locationNames(candidate.location); track name; let i = $index) {
+              <a [routerLink]="locationLink(candidate.location, i)">{{ name }}</a>
+            }
+          </div>
+          <div class="percentage">{{ percentage(candidate) }}</div>
         </div>
-        <div class="percentage">{{ percentage(candidate) }}</div>
-      </div>
-    </div>
+      }
+    }
   `,
   styles: `
     .candidates {
@@ -40,7 +39,7 @@ import { I18nService } from '@app/i18n';
     }
   `,
   standalone: true,
-  imports: [NgIf, NgFor, RouterLink],
+  imports: [RouterLink],
 })
 export class RouteLocationComponent {
   @Input() networkType: NetworkType;

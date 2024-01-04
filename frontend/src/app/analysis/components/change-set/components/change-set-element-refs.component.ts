@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -13,11 +12,13 @@ import { ChangesSetElementRefComponent } from './change-set-element-ref.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <kpn-change-set-element-ref *ngFor="let element of elements" [element]="element" />
+      @for (element of elements; track element) {
+        <kpn-change-set-element-ref [element]="element" />
+      }
     </div>
   `,
   standalone: true,
-  imports: [NgFor, ChangesSetElementRefComponent],
+  imports: [ChangesSetElementRefComponent],
 })
 export class ChangesSetElementRefsComponent implements OnInit {
   @Input() elementType: string;

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -40,14 +39,15 @@ import { NodeMapComponent } from './node-map.component';
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response">
-        <div *ngIf="!response.result" class="kpn-spacer-above" i18n="@@node.node-not-found">
-          Node not found
+      @if (apiResponse(); as response) {
+        <div>
+          @if (!response.result) {
+            <div class="kpn-spacer-above" i18n="@@node.node-not-found">Node not found</div>
+          } @else {
+            <kpn-node-map />
+          }
         </div>
-        <div *ngIf="response.result as page">
-          <kpn-node-map />
-        </div>
-      </div>
+      }
       <kpn-node-details-sidebar sidebar />
     </kpn-page>
   `,
@@ -55,7 +55,6 @@ import { NodeMapComponent } from './node-map.component';
   imports: [
     AsyncPipe,
     ErrorComponent,
-    NgIf,
     NodeDetailsSidebarComponent,
     NodeMapComponent,
     NodePageHeaderComponent,

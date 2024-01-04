@@ -1,4 +1,4 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -39,40 +39,44 @@ import { SubsetSidebarComponent } from '../subset-sidebar.component';
 
       <kpn-error />
 
-      <div *ngIf="apiResponse() as response" class="kpn-spacer-above">
-        <p>
-          <kpn-situation-on [timestamp]="response.situationOn" />
-        </p>
-        <p *ngIf="!hasFacts(response)" class="kpn-line">
-          <span i18n="@@subset-facts.no-facts">No facts</span>
-          <kpn-icon-happy />
-        </p>
-        <div *ngIf="hasFacts(response)" class="kpn-line">
-          <kpn-items>
-            <kpn-item
-              *ngFor="let factCount of response.result.factCounts; let i = index"
-              [index]="i"
-            >
-              <div class="kpn-line">
-                <a [routerLink]="factCount.fact">
-                  <kpn-fact-name [fact]="factCount.fact" />
-                </a>
-                <span>({{ factCount.count }})</span>
-                <kpn-fact-level [factLevel]="factLevel(factCount.fact)" />
-                <a
-                  rel="nofollow"
-                  (click)="edit(factCount.fact)"
-                  title="Open in editor (like JOSM)"
-                  i18n-title="@@edit.link.title"
-                  i18n="@@edit.link"
-                  >edit</a
-                >
-              </div>
-              <kpn-fact-description [factInfo]="factInfo(factCount)" />
-            </kpn-item>
-          </kpn-items>
+      @if (apiResponse(); as response) {
+        <div class="kpn-spacer-above">
+          <p>
+            <kpn-situation-on [timestamp]="response.situationOn" />
+          </p>
+          @if (!hasFacts(response)) {
+            <p class="kpn-line">
+              <span i18n="@@subset-facts.no-facts">No facts</span>
+              <kpn-icon-happy />
+            </p>
+          } @else {
+            <div class="kpn-line">
+              <kpn-items>
+                @for (factCount of response.result.factCounts; track factCount; let i = $index) {
+                  <kpn-item [index]="i">
+                    <div class="kpn-line">
+                      <a [routerLink]="factCount.fact">
+                        <kpn-fact-name [fact]="factCount.fact" />
+                      </a>
+                      <span>({{ factCount.count }})</span>
+                      <kpn-fact-level [factLevel]="factLevel(factCount.fact)" />
+                      <a
+                        rel="nofollow"
+                        (click)="edit(factCount.fact)"
+                        title="Open in editor (like JOSM)"
+                        i18n-title="@@edit.link.title"
+                        i18n="@@edit.link"
+                        >edit</a
+                      >
+                    </div>
+                    <kpn-fact-description [factInfo]="factInfo(factCount)" />
+                  </kpn-item>
+                }
+              </kpn-items>
+            </div>
+          }
         </div>
-      </div>
+      }
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
@@ -86,8 +90,6 @@ import { SubsetSidebarComponent } from '../subset-sidebar.component';
     IconHappyComponent,
     ItemComponent,
     ItemsComponent,
-    NgFor,
-    NgIf,
     PageComponent,
     RouterLink,
     SituationOnComponent,

@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -10,16 +9,18 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   template: `
     <table class="kpn-table">
       <tbody>
-        <tr *ngFor="let structureString of structureStrings">
-          <td>
-            <span [innerHTML]="formatted(structureString)"></span>
-          </td>
-        </tr>
+        @for (structureString of structureStrings; track structureString) {
+          <tr>
+            <td>
+              <span [innerHTML]="formatted(structureString)"></span>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   `,
   standalone: true,
-  imports: [NgFor],
+  imports: [],
 })
 export class RouteStructureComponent {
   @Input() structureStrings: string[];

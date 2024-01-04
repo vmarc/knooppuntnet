@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
-import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
@@ -31,16 +30,14 @@ import { VideoCoverComponent } from './video-cover.component';
   template: `
     <kpn-page>
       <div class="video-page">
-        <div *ngIf="enabled$ | async; then enabled; else disabled"></div>
-
-        <ng-template #disabled>
-          <kpn-demo-disabled />
-        </ng-template>
-
-        <ng-template #enabled>
-          <kpn-video-cover *ngIf="!canPlayReceived" />
+        @if (enabled$ | async) {
+          @if (!canPlayReceived) {
+            <kpn-video-cover />
+          }
           <kpn-demo-video-play-button />
-        </ng-template>
+        } @else {
+          <kpn-demo-disabled />
+        }
 
         <div [ngClass]="{ hidden: (disabled$ | async) || !canPlayReceived }">
           <video
@@ -89,7 +86,6 @@ import { VideoCoverComponent } from './video-cover.component';
     DemoVideoPlayButtonComponent,
     DemoVideoProgressComponent,
     NgClass,
-    NgIf,
     PageComponent,
     VideoCoverComponent,
   ],

@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -18,38 +17,42 @@ import { PlannerService } from '../../../planner.service';
   selector: 'kpn-plan-tip',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="planPhase$ | async as planPhase" class="tip">
-      <p
-        *ngIf="planPhaseEnum.zoomInClickStartNode === planPhase"
-        i18n="@@planner-tip.zoom-in-click-start-node"
-      >
-        Zoom in or use magnifying glass to find the startnode of your route.
-      </p>
-      <p *ngIf="planPhaseEnum.clickStartNode === planPhase" i18n="@@planner-tip.click-start-node">
-        Use zoom, pan or use magnifying glass to find and click the startnode of your route.
-      </p>
-      <p
-        *ngIf="planPhaseEnum.zoomInClickEndNode === planPhase"
-        i18n="@@planner-tip.zoom-in-click-end-node"
-      >
-        Zoom in and click the endnode of your route.
-      </p>
-      <p *ngIf="planPhaseEnum.clickEndNode === planPhase" i18n="@@planner-tip.click-end-node">
-        Click the endnode of your route.
-      </p>
-      <p *ngIf="planPhaseEnum.extendRoute === planPhase">
-        <ng-container i18n="@@planner-tip.extend-route">
-          Extend or adapt your route. Output when satisfied.
-        </ng-container>
-        <a
-          id="read-more"
-          [href]="more()"
-          i18n="@@planner-tip.read-more"
-          target="knooppuntnet-documentation"
-          >read more</a
-        >
-      </p>
-    </div>
+    @if (planPhase$ | async; as planPhase) {
+      <div class="tip">
+        @if (planPhaseEnum.zoomInClickStartNode === planPhase) {
+          <p i18n="@@planner-tip.zoom-in-click-start-node">
+            Zoom in or use magnifying glass to find the startnode of your route.
+          </p>
+        }
+        @if (planPhaseEnum.clickStartNode === planPhase) {
+          <p i18n="@@planner-tip.click-start-node">
+            Use zoom, pan or use magnifying glass to find and click the startnode of your route.
+          </p>
+        }
+        @if (planPhaseEnum.zoomInClickEndNode === planPhase) {
+          <p i18n="@@planner-tip.zoom-in-click-end-node">
+            Zoom in and click the endnode of your route.
+          </p>
+        }
+        @if (planPhaseEnum.clickEndNode === planPhase) {
+          <p i18n="@@planner-tip.click-end-node">Click the endnode of your route.</p>
+        }
+        @if (planPhaseEnum.extendRoute === planPhase) {
+          <p>
+            <ng-container i18n="@@planner-tip.extend-route">
+              Extend or adapt your route. Output when satisfied.
+            </ng-container>
+            <a
+              id="read-more"
+              [href]="more()"
+              i18n="@@planner-tip.read-more"
+              target="knooppuntnet-documentation"
+              >read more</a
+            >
+          </p>
+        }
+      </div>
+    }
   `,
   styles: `
     .tip {
@@ -72,7 +75,7 @@ import { PlannerService } from '../../../planner.service';
     }
   `,
   standalone: true,
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
 })
 export class PlanTipComponent implements OnInit {
   planPhase$: Observable<PlanPhase>;

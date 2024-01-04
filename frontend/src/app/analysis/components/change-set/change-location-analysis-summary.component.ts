@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -23,33 +22,37 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
         [comment]="changeSet.comment"
       />
 
-      <div *ngFor="let locationChanges of changeSet.location.changes">
-        <div class="kpn-line">
-          <kpn-network-type-icon [networkType]="locationChanges.networkType" />
-          <div class="location-names">
-            <div
-              *ngFor="let locationName of locationChanges.locationNames; let i = index"
-              class="location-name"
-            >
-              <a
-                [routerLink]="
-                  locationLink(locationChanges.networkType, locationChanges.locationNames, i)
-                "
-                >{{ locationName }}</a
-              >
+      @for (locationChanges of changeSet.location.changes; track locationChanges) {
+        <div>
+          <div class="kpn-line">
+            <kpn-network-type-icon [networkType]="locationChanges.networkType" />
+            <div class="location-names">
+              @for (
+                locationName of locationChanges.locationNames;
+                track locationName;
+                let i = $index
+              ) {
+                <div class="location-name">
+                  <a
+                    [routerLink]="
+                      locationLink(locationChanges.networkType, locationChanges.locationNames, i)
+                    "
+                    >{{ locationName }}</a
+                  >
+                </div>
+              }
             </div>
           </div>
+          <kpn-change-set-element-refs
+            [elementType]="'node'"
+            [changeSetElementRefs]="locationChanges.nodeChanges"
+          />
+          <kpn-change-set-element-refs
+            [elementType]="'route'"
+            [changeSetElementRefs]="locationChanges.routeChanges"
+          />
         </div>
-
-        <kpn-change-set-element-refs
-          [elementType]="'node'"
-          [changeSetElementRefs]="locationChanges.nodeChanges"
-        />
-        <kpn-change-set-element-refs
-          [elementType]="'route'"
-          [changeSetElementRefs]="locationChanges.routeChanges"
-        />
-      </div>
+      }
     </div>
   `,
   styles: `
@@ -75,7 +78,6 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
     ChangeHeaderComponent,
     ChangesSetElementRefsComponent,
     NetworkTypeIconComponent,
-    NgFor,
     RouterLink,
   ],
 })
