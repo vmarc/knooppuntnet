@@ -12,7 +12,7 @@ export class UserService {
   private readonly document = inject(DOCUMENT);
 
   constructor() {
-    this.http.get('/oauth2/user', { responseType: 'text' }).subscribe((user) => {
+    this.http.get('/api/oauth2/user', { responseType: 'text' }).subscribe((user) => {
       if (user && user.length > 0) {
         this.updateUser(user);
       }
@@ -20,11 +20,11 @@ export class UserService {
   }
 
   login(): void {
-    this.document.location.assign('/oauth2/authorization/osm');
+    this.document.location.assign('/api/oauth2/authorization/osm');
   }
 
   logout(): void {
-    this.http.post('/oauth2/logout', { responseType: 'text' }).subscribe({
+    this.http.post('/api/oauth2/logout', { responseType: 'text' }).subscribe({
       next: () => this.updateUser(null),
       error: () => this.updateUser(null),
     });

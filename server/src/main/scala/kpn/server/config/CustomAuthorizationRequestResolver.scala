@@ -14,7 +14,7 @@ class CustomAuthorizationRequestResolver(
 
   private val defaultResolver = new DefaultOAuth2AuthorizationRequestResolver(
     clientRegistrationRepository,
-    "/oauth2/authorization"
+    "/api/oauth2/authorization"
   )
 
   override def resolve(request: HttpServletRequest): OAuth2AuthorizationRequest = {
@@ -61,7 +61,7 @@ class CustomAuthorizationRequestResolver(
       sb.append(":")
       sb.append(request.getServerPort)
     }
-    sb.append("/login/oauth2/code/osm")
+    sb.append("/api/oauth2/code/osm")
     sb.toString()
   }
 }

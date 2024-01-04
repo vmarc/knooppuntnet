@@ -27,8 +27,9 @@ class FilterChainConfiguration(
       )
       //.csrf(csrf => csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse))
       .csrf(csrf => csrf.disable)
-      .oauth2Login(configurer =>
-        configurer
+      .oauth2Login(oauth2Login =>
+        oauth2Login
+          .loginProcessingUrl("/api/oauth2/code/*")
           .successHandler(loginSuccessHandler)
           .userInfoEndpoint(userInfoEndpoint =>
             userInfoEndpoint.userService(userService)

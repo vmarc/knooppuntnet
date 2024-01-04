@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class AuthenticationController(api: Api) {
 
-  @GetMapping(Array("/oauth2/user"))
+  @GetMapping(Array("/api/oauth2/user"))
   def user(): String = {
     api.execute("user") {
       RequestContext.user match {
@@ -25,7 +25,7 @@ class AuthenticationController(api: Api) {
     }
   }
 
-  @PostMapping(value = Array("/oauth2/logout"))
+  @PostMapping(value = Array("/api/oauth2/logout"))
   @ResponseBody
   def logout(response: HttpServletResponse): ResponseEntity[_] = {
     api.execute("logout") {
