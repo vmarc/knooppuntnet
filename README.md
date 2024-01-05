@@ -54,7 +54,7 @@ and/or the GPX trace.
 
 <a name="contribute"></a>
 
-Here are a number of ways of how to contribute to the project:
+Here are a number of ways of how you can contribute to the project:
 
 - validate routes on the ground
 
@@ -116,12 +116,12 @@ Select _"Export: All"_ and _"Filename: translations.XX.xlf"_ where XX is the 2 l
 
 Klik _"Export"_ and save the file in the _"locale"_ directory in your git clone:
 
-	knooppuntnet/client/src/locale
+	knooppuntnet/frontend/src/locale
 
 To see your translations in action, restart the application in development for given
-language, for example:
+language, for example (from directory knooppuntnet/frontend):
 
-	yarn run start:de
+	npm run serve:translation:de
 
 Note: changes to the English texts have to be done directly in the application code.
 
@@ -129,13 +129,12 @@ Note: changes to the English texts have to be done directly in the application c
 
 These are the instructions for installing the client application on your local computer (for development purposes).
 
-#### yarn
+#### node.js and npm
 
-We use _"yarn"_ to manage the software dependencies and to help in installing
+We use _"npm"_ to manage the software dependencies and to help in installing
 and running the client application.
 
-Go to [yarn](https://yarnpkg.com), click the install button, and follow the
-instructions for your operating system.
+If you do not have a version of node.js installed, please follow the [directions for installation on nodejs.org](https://nodejs.org/en/download/).
 
 #### git
 
@@ -153,25 +152,27 @@ Get the source code:
 
 Install the software and fetch all dependencies:
 
-	cd knooppuntnet/client/
-	yarn install
+	cd knooppuntnet/frontend/
+	npm install
 
 Build and run the client:
 
-	yarn run start:en
+	ng serve
+
+In a web browser on your computer, open:
+
+    http://localhost:4000
 
 The above command will build and start the English version of the application in development mode.
 Use one of the following commands to start the application in another language:
 
 | Language | Command             
 |----------|---------------------
-| English  | `yarn run start:en` 
-| Dutch    | `yarn run start:nl` 
-| German   | `yarn run start:de` 
-| French   | `yarn run start:fr` 
+| Dutch    | `npm run serve:translation:nl` 
+| German   | `npm run serve:translation:de` 
+| French   | `npm run serve:translation:fr` 
 
-When starting the application in a language other than English, the texts that are not translated yet are shown in
-English.
+When starting the application in a language other than English, the texts that are not translated yet are shown in English.
 
 ### OpenStreetMap mapping
 
@@ -209,6 +210,8 @@ Translation support for the appication is provided by for free by
 [POEditor](https://poeditor.com/) (supporter of open source projects).
 You can [join the translation effort](https://poeditor.com/join/project/Bfvs2fvcYI)
 at their web-site.
+
+![logo](docs/poeditor.svg)
 
 All map data is coming from [OpenStreetMap](http://www.openstreetmap.org).
 
