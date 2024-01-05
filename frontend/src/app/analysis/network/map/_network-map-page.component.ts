@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -51,11 +52,10 @@ import { NetworkMapComponent } from './network-map.component';
   ],
 })
 export class NetworkMapPageComponent implements OnInit, OnDestroy {
-  readonly networkId = this.store.selectSignal(selectNetworkId);
-  readonly apiResponse = this.store.selectSignal(selectNetworkMapPage);
-  readonly mapPositionFromUrl = this.store.selectSignal(selectNetworkMapPositionFromUrl);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly networkId = this.store.selectSignal(selectNetworkId);
+  protected readonly apiResponse = this.store.selectSignal(selectNetworkMapPage);
+  protected readonly mapPositionFromUrl = this.store.selectSignal(selectNetworkMapPositionFromUrl);
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkMapPageInit());

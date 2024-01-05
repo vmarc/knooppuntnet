@@ -1,10 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { OnInit } from '@angular/core';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapZoomService } from '@app/ol/services';
-import { SidebarComponent } from '@app/components/shared/sidebar';
-import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { NetworkMapLegendIconComponent } from './network-map-legend-icon.component';
 
@@ -15,10 +14,10 @@ import { NetworkMapLegendIconComponent } from './network-map-legend-icon.compone
     <kpn-sidebar>
       @if (zoomLevel$ | async; as zoomLevel) {
         <div class="kpn-tip">
-          @if (zoomLevel < minZoom()) {
+          @if (zoomLevel < minZoom) {
             <p i18n="@@network-map.side-bar.tip-zoom-in">Zoom in for node or route details.</p>
           }
-          @if (zoomLevel >= minZoom()) {
+          @if (zoomLevel >= minZoom) {
             <div class="legend">
               <div>
                 <kpn-network-map-legend-icon color="rgb(0,200,0)" />
@@ -51,16 +50,8 @@ import { NetworkMapLegendIconComponent } from './network-map-legend-icon.compone
   standalone: true,
   imports: [SidebarComponent, NetworkMapLegendIconComponent, AsyncPipe],
 })
-export class NetworkMapSidebarComponent implements OnInit {
-  zoomLevel$: Observable<number>;
-
-  constructor(private mapZoomService: MapZoomService) {}
-
-  ngOnInit(): void {
-    this.zoomLevel$ = this.mapZoomService.zoomLevel$.pipe(delay(0));
-  }
-
-  minZoom(): number {
-    return ZoomLevel.vectorTileMinZoom;
-  }
+export class NetworkMapSidebarComponent {
+  private readonly mapZoomService = inject(MapZoomService);
+  protected readonly zoomLevel$ = this.mapZoomService.zoomLevel$.pipe(delay(0));
+  protected readonly minZoom = ZoomLevel.vectorTileMinZoom;
 }

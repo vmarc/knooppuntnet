@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network';
 import { NetworkMapPosition } from '@app/ol/domain';
@@ -21,15 +22,11 @@ import View from 'ol/View';
 
 @Injectable()
 export class NetworkMapService extends OpenlayersMapService {
-  private networkMapPositionKey = 'network-map-position';
+  private readonly mapZoomService = inject(MapZoomService);
+  private readonly mapClickService = inject(MapClickService);
+  private readonly storage = inject(BrowserStorageService);
 
-  constructor(
-    private mapZoomService: MapZoomService,
-    private mapClickService: MapClickService,
-    private storage: BrowserStorageService
-  ) {
-    super();
-  }
+  private networkMapPositionKey = 'network-map-position';
 
   init(networkId: number, page: NetworkMapPage, mapPositionFromUrl: NetworkMapPosition): void {
     this.registerLayers(page);

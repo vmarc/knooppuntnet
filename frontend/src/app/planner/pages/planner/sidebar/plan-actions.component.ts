@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { Injector } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -88,32 +89,21 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
   standalone: true,
   imports: [PlanActionButtonComponent, AsyncPipe],
 })
-export class PlanActionsComponent implements OnInit {
-  plan$: Observable<Plan>;
+export class PlanActionsComponent {
+  private readonly plannerService = inject(PlannerService);
+  private readonly pageWidthService = inject(PageWidthService);
+  private readonly dialog = inject(MatDialog);
+  private readonly injector = inject(Injector);
 
-  showUndoButton$: Observable<boolean>;
-  showRedoButton$: Observable<boolean>;
-  showResetButton$: Observable<boolean>;
-  showReverseButton$: Observable<boolean>;
-
-  constructor(
-    private plannerService: PlannerService,
-    private pageWidthService: PageWidthService,
-    private dialog: MatDialog,
-    private injector: Injector
-  ) {}
-
-  ngOnInit(): void {
-    this.plan$ = this.plannerService.context.plan$;
-    this.showUndoButton$ = this.pageWidthService.current$.pipe(
-      map((pageWidth) => pageWidth !== PageWidth.veryVerySmall)
-    );
-    this.showRedoButton$ = this.showUndoButton$;
-    this.showResetButton$ = this.pageWidthService.current$.pipe(
-      map((pageWidth) => pageWidth !== PageWidth.verySmall && pageWidth !== PageWidth.veryVerySmall)
-    );
-    this.showReverseButton$ = this.showResetButton$;
-  }
+  protected readonly plan$ = this.plannerService.context.plan$;
+  protected readonly showUndoButton$ = this.pageWidthService.current$.pipe(
+    map((pageWidth) => pageWidth !== PageWidth.veryVerySmall)
+  );
+  protected readonly showRedoButton$ = this.showUndoButton$;
+  protected readonly showResetButton$ = this.pageWidthService.current$.pipe(
+    map((pageWidth) => pageWidth !== PageWidth.verySmall && pageWidth !== PageWidth.veryVerySmall)
+  );
+  protected readonly showReverseButton$ = this.showResetButton$;
 
   undo(): void {
     this.plannerService.context.undo();

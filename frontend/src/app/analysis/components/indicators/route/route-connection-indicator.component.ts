@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -23,9 +24,9 @@ import { RouteConnectionIndicatorDialogComponent } from './route-connection-indi
 })
 export class RouteConnectionIndicatorComponent implements OnInit {
   @Input() route: NetworkRouteRow;
-  color: string;
 
-  constructor(private dialog: MatDialog) {}
+  private readonly dialog = inject(MatDialog);
+  color: string;
 
   ngOnInit(): void {
     this.color = this.route.roleConnection ? 'blue' : 'gray';

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
@@ -25,10 +26,8 @@ import { PoiMapService } from './poi-map.service';
   imports: [LayerSwitcherComponent],
 })
 export class PoiMapComponent implements AfterViewInit, OnDestroy {
-  constructor(
-    protected service: PoiMapService,
-    private store: Store
-  ) {}
+  protected readonly service = inject(PoiMapService);
+  private readonly store = inject(Store);
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionPoiAreasPageMapViewInit());

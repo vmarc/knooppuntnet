@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -59,13 +60,12 @@ import { RouteMapComponent } from './route-map.component';
   ],
 })
 export class RouteMapPageComponent implements OnInit, OnDestroy {
-  readonly routeId = this.store.selectSignal(selectRouteId);
-  readonly routeName = this.store.selectSignal(selectRouteName);
-  readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
-  readonly apiResponse = this.store.selectSignal(selectRouteMapPage);
-  readonly networkType = this.store.selectSignal(selectRouteNetworkType);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly routeId = this.store.selectSignal(selectRouteId);
+  protected readonly routeName = this.store.selectSignal(selectRouteName);
+  protected readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
+  protected readonly apiResponse = this.store.selectSignal(selectRouteMapPage);
+  protected readonly networkType = this.store.selectSignal(selectRouteNetworkType);
 
   ngOnInit(): void {
     this.store.dispatch(actionRouteMapPageInit());

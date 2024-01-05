@@ -1,15 +1,16 @@
 declare let require: any;
 
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable()
 export class IconService {
-  constructor(
-    private iconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
+  private readonly iconRegistry = inject(MatIconRegistry);
+  private readonly domSanitizer = inject(DomSanitizer);
+
+  constructor() {
     this.registerIcons();
   }
 

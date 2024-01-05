@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -33,9 +34,8 @@ import { PoiMapComponent } from './poi-map.component';
   imports: [AsyncPipe, BaseSidebarComponent, PageComponent, PageHeaderComponent, PoiMapComponent],
 })
 export class PoiAreasPageComponent implements OnInit {
-  readonly apiResponse = this.store.selectSignal(selectPoiAreasPage);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly apiResponse = this.store.selectSignal(selectPoiAreasPage);
 
   ngOnInit(): void {
     this.store.dispatch(actionPoiAreasPageInit());

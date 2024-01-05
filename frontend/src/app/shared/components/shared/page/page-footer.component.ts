@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -54,7 +55,7 @@ import { I18nService } from '@app/i18n';
 export class PageFooterComponent {
   @Input({ required: false }) settings = false;
 
-  constructor(private i18nService: I18nService) {}
+  private readonly i18nService = inject(I18nService);
 
   issues(): string {
     const languageSpecificSubject = this.i18nService.translation(`@@wiki.issues`);

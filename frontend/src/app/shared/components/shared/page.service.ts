@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { BrowserStorageService } from '@app/services';
@@ -9,6 +10,10 @@ import { PageWidthService } from './page-width.service';
   providedIn: 'root',
 })
 export class PageService {
+  private readonly pageWidthService = inject(PageWidthService);
+  private readonly titleService = inject(Title);
+  private readonly browserStorageService = inject(BrowserStorageService);
+
   private readonly sideBarOpenLocalStorageKey = 'sidebar-open';
   readonly toolbarBackgroundColor$: Observable<string>;
   readonly defaultTitle = 'knooppuntnet';
@@ -19,12 +24,8 @@ export class PageService {
 
   private initializing = true;
 
-  constructor(
-    private pageWidthService: PageWidthService,
-    private titleService: Title,
-    private browserStorageService: BrowserStorageService
-  ) {
-    pageWidthService.current$.subscribe(() => this.pageWidthChanged());
+  constructor() {
+    this.pageWidthService.current$.subscribe(() => this.pageWidthChanged());
     this._toolbarBackgroundColor$ = new BehaviorSubject<string>(null);
     this.toolbarBackgroundColor$ = this._toolbarBackgroundColor$.asObservable();
     this.initializing = false;

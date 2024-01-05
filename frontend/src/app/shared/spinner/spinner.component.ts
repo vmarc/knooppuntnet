@@ -1,9 +1,8 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { Observable } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { SpinnerService } from './spinner.service';
 
@@ -18,12 +17,7 @@ import { SpinnerService } from './spinner.service';
   standalone: true,
   imports: [MatProgressSpinnerModule, AsyncPipe],
 })
-export class SpinnerComponent implements OnInit {
-  showSpinner$: Observable<boolean>;
-
-  constructor(private spinnerService: SpinnerService) {}
-
-  ngOnInit(): void {
-    this.showSpinner$ = this.spinnerService.spinnerState$.pipe(debounceTime(300));
-  }
+export class SpinnerComponent {
+  private readonly spinnerService = inject(SpinnerService);
+  protected readonly showSpinner$ = this.spinnerService.spinnerState$.pipe(debounceTime(300));
 }

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -17,6 +18,8 @@ import { AnalysisStrategy } from './preferences.state';
 
 @Injectable()
 export class PreferencesService {
+  private readonly store = inject(Store);
+
   private _state = this.store.selectSignal(selectPreferencesState);
 
   readonly strategy = computed(() => {
@@ -62,8 +65,6 @@ export class PreferencesService {
   readonly planProposed = computed(() => {
     return this._state().planProposed;
   });
-
-  constructor(private store: Store) {}
 
   setStrategy(strategy: AnalysisStrategy): void {
     this.store.dispatch(actionPreferencesAnalysisStrategy({ strategy }));

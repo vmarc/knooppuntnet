@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
@@ -7,14 +8,14 @@ import { actionDemoEnabledChanged } from './store/demo.actions';
 
 @Injectable()
 export class DemoService {
+  private readonly store = inject(Store);
+  private readonly pageWidthService = inject(PageWidthService);
+
   private videoElement: HTMLVideoElement;
   private sourceElement: HTMLSourceElement;
 
-  constructor(
-    private store: Store,
-    private pageWidthService: PageWidthService
-  ) {
-    pageWidthService.current$
+  constructor() {
+    this.pageWidthService.current$
       .pipe(map((pageWidth) => pageWidth === PageWidth.veryLarge))
       .subscribe((enabled) => {
         this.store.dispatch(actionDemoEnabledChanged({ enabled }));

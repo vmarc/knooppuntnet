@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -25,12 +26,8 @@ import { TagDiffsTextComponent } from './tag-diffs-text.component';
 })
 export class TagDiffsComponent {
   @Input() tagDiffs: TagDiffs;
-
-  small$: Observable<boolean>;
-
-  constructor(private pageWidthService: PageWidthService) {
-    this.small$ = pageWidthService.current$.pipe(map(() => this.small()));
-  }
+  private readonly pageWidthService = inject(PageWidthService);
+  protected readonly small$ = this.pageWidthService.current$.pipe(map(() => this.small()));
 
   private small(): boolean {
     return (

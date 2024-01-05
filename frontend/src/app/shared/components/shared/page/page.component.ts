@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -102,15 +103,13 @@ import { PageFooterComponent } from './page-footer.component';
   ],
 })
 export class PageComponent implements OnInit, OnDestroy {
-  readonly showFooter = this.store.selectSignal(selectPageShowFooter);
-  smallPage = false;
-  private readonly subscriptions = new Subscriptions();
+  private readonly store = inject(Store);
+  private readonly pageService = inject(PageService);
+  private readonly pageWidthService = inject(PageWidthService);
 
-  constructor(
-    private store: Store,
-    private pageService: PageService,
-    private pageWidthService: PageWidthService
-  ) {}
+  protected readonly showFooter = this.store.selectSignal(selectPageShowFooter);
+  protected smallPage = false;
+  private readonly subscriptions = new Subscriptions();
 
   ngOnInit(): void {
     this.subscriptions.add(

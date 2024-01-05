@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -26,7 +27,6 @@ import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { FilterOptions } from '@app/kpn/filter';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
@@ -187,28 +187,24 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   @Input() networkType: NetworkType;
   @Input() routes: NetworkRouteRow[];
 
-  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 
-  @ViewChild(EditAndPaginatorComponent, { static: true })
-  paginator: EditAndPaginatorComponent;
+  private readonly pageWidthService = inject(PageWidthService);
+  private readonly networkRoutesService = inject(NetworkRoutesService);
+  private readonly editService = inject(EditService);
+  private readonly store = inject(Store);
 
-  dataSource: MatTableDataSource<NetworkRouteRow>;
-  displayedColumns$: Observable<Array<string>>;
+  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  protected readonly dataSource = new MatTableDataSource<NetworkRouteRow>();
+  protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
+    map(() => this.displayedColumns())
+  );
 
-  private readonly filterCriteria$: BehaviorSubject<NetworkRouteFilterCriteria> =
-    new BehaviorSubject(new NetworkRouteFilterCriteria());
-
-  constructor(
-    private pageWidthService: PageWidthService,
-    private networkRoutesService: NetworkRoutesService,
-    private editService: EditService,
-    private store: Store
-  ) {
-    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
-  }
+  private readonly filterCriteria$ = new BehaviorSubject<NetworkRouteFilterCriteria>(
+    new NetworkRouteFilterCriteria()
+  );
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria$
       .pipe(

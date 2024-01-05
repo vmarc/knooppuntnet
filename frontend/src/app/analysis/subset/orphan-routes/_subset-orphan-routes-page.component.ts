@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -58,9 +59,8 @@ import { SubsetOrphanRoutesTableComponent } from './subset-orphan-routes-table.c
   ],
 })
 export class SubsetOrphanRoutesPageComponent implements OnInit {
-  readonly apiResponse = this.store.selectSignal(selectSubsetOrphanRoutesPage);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly apiResponse = this.store.selectSignal(selectSubsetOrphanRoutesPage);
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetOrphanRoutesPageInit());

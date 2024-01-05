@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -43,7 +44,7 @@ import { EditService } from '@app/components/shared';
 export class NetworkFactHeaderComponent {
   @Input() fact: NetworkFact;
 
-  constructor(private editService: EditService) {}
+  private readonly editService = inject(EditService);
 
   factLevel(): FactLevel {
     return Facts.factLevels.get(this.fact.name);

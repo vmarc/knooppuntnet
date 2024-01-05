@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -84,7 +85,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
 export class ChangeLocationAnalysisSummaryComponent {
   @Input() changeSet: ChangeSetSummaryInfo;
 
-  constructor(private i18nService: I18nService) {}
+  private readonly i18nService = inject(I18nService);
 
   locationLink(networkType: NetworkType, locationNames: string[], index: number): string {
     const country = locationNames[0].toLowerCase();

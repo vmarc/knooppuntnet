@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { NetworkType } from '@api/custom';
@@ -52,6 +53,14 @@ import { PlannerState } from '../../store/planner-state';
   providedIn: 'root',
 })
 export class PlannerMapService extends OpenlayersMapService {
+  private readonly plannerService = inject(PlannerService);
+  private readonly poiService = inject(PoiService);
+  private readonly mapZoomService = inject(MapZoomService);
+  private readonly poiTileLayerService = inject(PoiTileLayerService);
+  private readonly mapService = inject(MapService);
+  private readonly browserStorageService = inject(BrowserStorageService);
+  private readonly store = inject(Store);
+
   private readonly plannerPositionKey = 'planner-position';
 
   private readonly defaultPoiLayerStates: MapLayerState[] = [
@@ -92,18 +101,6 @@ export class PlannerMapService extends OpenlayersMapService {
   private networkVectorLayerStyle = new MainMapStyle(this.parameters$);
 
   private subcriptions = new Subscriptions();
-
-  constructor(
-    private plannerService: PlannerService,
-    private poiService: PoiService,
-    private mapZoomService: MapZoomService,
-    private poiTileLayerService: PoiTileLayerService,
-    private mapService: MapService,
-    private browserStorageService: BrowserStorageService,
-    private store: Store
-  ) {
-    super();
-  }
 
   toQueryParams(state: PlannerState): Params {
     const position = MapPosition.toQueryParam(state.position);

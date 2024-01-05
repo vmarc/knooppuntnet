@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,7 +31,7 @@ import { PageService } from '..';
   imports: [MatListModule, MatIconModule],
 })
 export class SidebarBackComponent {
-  constructor(private pageService: PageService) {}
+  private readonly pageService = inject(PageService);
 
   back(): void {
     this.pageService.toggleSidebarOpen();

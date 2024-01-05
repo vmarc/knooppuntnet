@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
@@ -42,9 +43,8 @@ import { selectDemoProgress } from '../store/demo.selectors';
   imports: [MatSliderModule, AsyncPipe],
 })
 export class DemoVideoProgressComponent {
-  readonly progress = this.store.selectSignal(selectDemoProgress);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly progress = this.store.selectSignal(selectDemoProgress);
 
   updateProgress(event) {
     this.store.dispatch(actionDemoUpdateProgress({ progress: event.value }));

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
 import { Inject } from '@angular/core';
 import { Pipe, PipeTransform } from '@angular/core';
@@ -9,7 +10,7 @@ import { TimestampUtil } from '..';
   standalone: true,
 })
 export class TimestampDayPipe implements PipeTransform {
-  constructor(@Inject(LOCALE_ID) public locale: string) {}
+  public locale: string = inject(LOCALE_ID);
 
   transform(timestamp: Timestamp): string {
     const year = TimestampUtil.year(timestamp);

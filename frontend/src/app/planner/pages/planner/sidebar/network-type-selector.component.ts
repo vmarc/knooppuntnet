@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
@@ -54,9 +55,8 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
   imports: [MatButtonToggleModule, MatIconModule, AsyncPipe],
 })
 export class NetworkTypeSelectorComponent {
-  readonly networkType = this.store.selectSignal(selectPlannerNetworkType);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly networkType = this.store.selectSignal(selectPlannerNetworkType);
 
   networkTypeChanged(event: MatButtonToggleChange) {
     const networkType: NetworkType = event.value;

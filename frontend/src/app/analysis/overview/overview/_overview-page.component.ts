@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -71,13 +72,11 @@ import { OverviewTableComponent } from './overview-table.component';
   ],
 })
 export class OverviewPageComponent implements OnInit {
-  readonly tableFormat$ = this.overviewService.tableFormat$;
-  response$: Observable<ApiResponse<StatisticValues[]>>;
+  private readonly apiService = inject(ApiService);
+  private readonly overviewService = inject(OverviewService);
 
-  constructor(
-    private apiService: ApiService,
-    private overviewService: OverviewService
-  ) {}
+  protected readonly tableFormat$ = this.overviewService.tableFormat$;
+  protected response$: Observable<ApiResponse<StatisticValues[]>>;
 
   ngOnInit(): void {
     this.response$ = this.apiService.overview();

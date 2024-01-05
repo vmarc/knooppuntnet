@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
@@ -27,10 +28,8 @@ import { NodeMapService } from './node-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class NodeMapComponent implements AfterViewInit, OnDestroy {
-  constructor(
-    private store: Store,
-    protected service: NodeMapService
-  ) {}
+  private readonly store = inject(Store);
+  protected readonly service = inject(NodeMapService);
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionNodeMapViewInit());

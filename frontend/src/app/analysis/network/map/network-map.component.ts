@@ -1,12 +1,13 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network';
+import { Util } from '@app/components/shared';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { NetworkMapPosition } from '@app/ol/domain';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
-import { Util } from '@app/components/shared';
 import { Store } from '@ngrx/store';
 import { actionNetworkMapViewInit } from '../store/network.actions';
 import { NetworkControlComponent } from './network-control.component';
@@ -36,10 +37,8 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
   @Input() page: NetworkMapPage;
   @Input() mapPositionFromUrl: NetworkMapPosition;
 
-  constructor(
-    protected service: NetworkMapService,
-    private store: Store
-  ) {}
+  protected readonly service = inject(NetworkMapService);
+  private readonly store = inject(Store);
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionNetworkMapViewInit());

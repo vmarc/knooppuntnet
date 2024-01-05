@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -63,6 +64,8 @@ import { BehaviorSubject } from 'rxjs';
 export class LocationEditComponent implements OnInit {
   @Input() page: LocationEditPage;
 
+  private readonly editService = inject(EditService);
+
   seconds = 0;
 
   nodeSelection = true;
@@ -72,8 +75,6 @@ export class LocationEditComponent implements OnInit {
   showEstimatedTime$ = new BehaviorSubject<boolean>(false);
 
   private readonly configuration = new EditConfiguration();
-
-  constructor(private editService: EditService) {}
 
   ngOnInit(): void {
     this.updateExpectation();

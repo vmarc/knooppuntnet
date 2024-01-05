@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ViewChild } from '@angular/core';
@@ -92,17 +93,16 @@ import { VideoCoverComponent } from './video-cover.component';
 })
 export class DemoVideoComponent implements AfterViewInit, OnDestroy {
   @ViewChild('videoPlayer', { static: false }) videoElementRef: ElementRef;
-  @ViewChild('videoPlayerSource', { static: false })
-  videoPlayerSourceRef: ElementRef;
+  @ViewChild('videoPlayerSource', { static: false }) videoPlayerSourceRef: ElementRef;
 
-  canPlayReceived = false;
-  readonly enabled$: Observable<boolean> = this.store.pipe(select(selectDemoEnabled));
-  readonly disabled$: Observable<boolean> = this.enabled$.pipe(map((enabled) => !enabled));
+  private readonly store = inject(Store);
+  private readonly demoService = inject(DemoService);
 
-  constructor(
-    private store: Store,
-    private demoService: DemoService
-  ) {}
+  protected canPlayReceived = false;
+  protected readonly enabled$: Observable<boolean> = this.store.pipe(select(selectDemoEnabled));
+  protected readonly disabled$: Observable<boolean> = this.enabled$.pipe(
+    map((enabled) => !enabled)
+  );
 
   ngAfterViewInit(): void {
     this.demoService.setVideoElement(

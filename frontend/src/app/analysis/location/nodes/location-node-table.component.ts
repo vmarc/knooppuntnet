@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
@@ -22,7 +23,6 @@ import { LinkNodeComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { EditParameters } from '../../components/edit';
 import { actionLocationNodesPageSize } from '../store/location.actions';
@@ -152,24 +152,20 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   @Input() nodes: LocationNodeInfo[];
   @Input() nodeCount: number;
 
-  @ViewChild(PaginatorComponent, { static: true })
-  paginator: PaginatorComponent;
+  @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
-  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
-  readonly pageIndex = this.store.selectSignal(selectLocationNodesPageIndex);
-  readonly networkType = this.store.selectSignal(selectLocationNetworkType);
+  private readonly pageWidthService = inject(PageWidthService);
+  private readonly editService = inject(EditService);
+  private readonly store = inject(Store);
 
-  dataSource: MatTableDataSource<LocationNodeInfo>;
-  displayedColumns$: Observable<Array<string>>;
+  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  protected readonly pageIndex = this.store.selectSignal(selectLocationNodesPageIndex);
+  protected readonly networkType = this.store.selectSignal(selectLocationNetworkType);
 
-  constructor(
-    private pageWidthService: PageWidthService,
-    private editService: EditService,
-    private store: Store
-  ) {
-    this.dataSource = new MatTableDataSource();
-    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
-  }
+  protected readonly dataSource = new MatTableDataSource<LocationNodeInfo>();
+  protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
+    map(() => this.displayedColumns())
+  );
 
   ngOnInit(): void {
     this.dataSource.data = this.nodes;

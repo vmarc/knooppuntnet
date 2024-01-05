@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NodeMapInfo } from '@api/common';
 import { NetworkType } from '@api/custom';
@@ -21,9 +22,7 @@ import View from 'ol/View';
 
 @Injectable()
 export class NodeMapService extends OpenlayersMapService {
-  constructor(private mapClickService: MapClickService) {
-    super();
-  }
+  private readonly mapClickService = inject(MapClickService);
 
   init(
     nodeMapInfo: NodeMapInfo,

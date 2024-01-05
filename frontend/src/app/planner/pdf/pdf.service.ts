@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { List } from 'immutable';
 import { Plan } from '../domain/plan/plan';
@@ -11,7 +12,7 @@ import { BitmapIconService } from './services/bitmap-icon.service';
 
 @Injectable()
 export class PdfService {
-  constructor(private iconService: BitmapIconService) {}
+  private readonly iconService = inject(BitmapIconService);
 
   printDocument(plan: Plan, planUrl: string, name: string, qrCode: any): void {
     new PdfDocument(plan, planUrl, name, qrCode).print();

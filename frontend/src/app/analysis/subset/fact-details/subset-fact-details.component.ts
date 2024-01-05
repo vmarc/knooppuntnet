@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -14,7 +15,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { OsmLinkWayComponent } from '@app/components/shared/link';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'kpn-subset-fact-details',
@@ -44,14 +44,11 @@ import { Store } from '@ngrx/store';
           @if (hasOsmRelationRefs()) {
             <span i18n="@@subset-facts.osm-relation-refs">{refCount, plural, one {relation} other {relations}}</span>
           }
-          <span i18n="@@subset-facts.in-networks">
-            {page.networks.length, plural, one {in 1 network} other {in {{ page.networks.length }} networks}}
-          </span>
+          <span
+            i18n="@@subset-facts.in-networks">{page.networks.length, plural, one {in 1 network} other {in {{ page.networks.length }} networks}}</span>
           @if (factCount !== refCount) {
-            <span i18n="@@subset-facts.fact-count">
-              {factCount, plural, one {(1 fact)} other {({{ factCount }} facts)}}
-            </span
-            >
+            <span
+              i18n="@@subset-facts.fact-count">{factCount, plural, one {(1 fact)} other {({{ factCount }} facts)}}</span>
           }
         </div>
         <kpn-items>
@@ -69,15 +66,13 @@ import { Store } from '@ngrx/store';
               </div>
               <div class="fact-detail">
                 @if (hasNodeRefs()) {
-                  <span i18n="@@subset-facts.nodes" class="kpn-label">
-                    {networkFactRefs.factRefs.length, plural, one {1 node} other {{{ networkFactRefs.factRefs.length }} nodes}}
-                  </span>
+                  <span i18n="@@subset-facts.nodes"
+                    class="kpn-label">{networkFactRefs.factRefs.length, plural, one {1 node} other {{{ networkFactRefs.factRefs.length }} nodes}}</span>
                 }
                 @if (hasRouteRefs()) {
-                  <span i18n="@@subset-facts.routes" class="kpn-label">
-                    {networkFactRefs.factRefs.length, plural, one {1 route} other
-                      {{{ networkFactRefs.factRefs.length }} routes}}
-                  </span>
+                  <span i18n="@@subset-facts.routes"
+                    class="kpn-label">{networkFactRefs.factRefs.length, plural, one {1 route} other
+                    {{{ networkFactRefs.factRefs.length }} routes}}</span>
                 }
                 <a
                   rel="nofollow"
@@ -149,13 +144,10 @@ import { Store } from '@ngrx/store';
 export class SubsetFactDetailsComponent implements OnInit {
   @Input() page: SubsetFactDetailsPage;
 
-  refCount = 0;
-  factCount = 0;
+  private readonly editService = inject(EditService);
 
-  constructor(
-    private editService: EditService,
-    private store: Store
-  ) {}
+  protected refCount = 0;
+  protected factCount = 0;
 
   ngOnInit(): void {
     this.refCount = this.calculateRefCount();

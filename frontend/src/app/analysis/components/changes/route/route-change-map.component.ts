@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -35,7 +36,7 @@ export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   @Input() nodes: RawNode[];
   @Input() bounds: Bounds;
 
-  constructor(protected service: RouteChangeMapService) {}
+  protected readonly service = inject(RouteChangeMapService);
 
   ngAfterViewInit(): void {
     setTimeout(() => this.service.init(this.geometryDiff, this.nodes, this.bounds), 1);

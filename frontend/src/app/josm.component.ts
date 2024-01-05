@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { EditService } from '@app/components/shared';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -93,18 +94,12 @@ import { DeviceDetectorService } from 'ngx-device-detector';
   standalone: true,
 })
 export class JosmComponent {
-  browser = '';
-  iframeLoaded = false;
+  private readonly deviceService = inject(DeviceDetectorService);
+  private readonly editService = inject(EditService);
+  protected readonly browser = this.deviceService.browser;
   private url1 = 'http://127.0.0.1:8111/import?url=https://api.openstreetmap.org/api/0.6/relation/';
   private url2 = '/full';
   url = `${this.url1}272946${this.url2}`;
-
-  constructor(
-    private deviceService: DeviceDetectorService,
-    private editService: EditService
-  ) {
-    this.browser = deviceService.browser;
-  }
 
   josm1(): void {
     this.editService.edit({

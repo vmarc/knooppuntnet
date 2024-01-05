@@ -164,8 +164,7 @@ export class MonitorRouteMapDeviationsComponent {
     return this.service.page()?.deviations ?? [];
   });
 
-  @ViewChild('deviationSelectionList', { static: false })
-  selectionList: MatSelectionList;
+  @ViewChild('deviationSelectionList', { static: false }) selectionList: MatSelectionList;
 
   constructor() {
     effect(() => {

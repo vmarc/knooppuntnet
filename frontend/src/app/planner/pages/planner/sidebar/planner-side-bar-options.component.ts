@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
@@ -38,11 +39,10 @@ import { Store } from '@ngrx/store';
   imports: [MatExpansionModule, MatCheckboxModule, AsyncPipe],
 })
 export class PlannerSideBarOptionsComponent {
-  readonly expanded$ = this.store.select(selectPreferencesShowOptions);
-  readonly showProposed$ = this.store.select(selectPreferencesShowProposed);
-  readonly planProposed$ = this.store.select(selectPreferencesPlanProposed);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly expanded$ = this.store.select(selectPreferencesShowOptions);
+  protected readonly showProposed$ = this.store.select(selectPreferencesShowProposed);
+  protected readonly planProposed$ = this.store.select(selectPreferencesPlanProposed);
 
   expandedChanged(expanded: boolean): void {
     this.store.dispatch(actionPreferencesShowOptions({ value: expanded }));

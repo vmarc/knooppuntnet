@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PlanParams } from '@api/common/planner';
@@ -9,16 +10,12 @@ import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { RouteControlComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
-import { MapZoomService } from '@app/ol/services';
-import { NewMapService } from '@app/ol/services';
-import { PoiTileLayerService } from '@app/ol/services';
 import { PageService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { PageComponent } from '@app/components/shared/page';
 import { selectFragment } from '@app/core';
 import { selectQueryParam } from '@app/core';
 import { ApiService } from '@app/services';
-import { PoiService } from '@app/services';
 import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
@@ -91,22 +88,18 @@ import { PlannerToolbarComponent } from './sidebar/planner-toolbar.component';
   ],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
-  private planLoaded = false;
-  private readonly subscriptions = new Subscriptions();
+  protected readonly service = inject(PlannerMapService);
+  private readonly pageService = inject(PageService);
+  private readonly mapService = inject(MapService);
+  private readonly plannerService = inject(PlannerService);
+  private readonly dialog = inject(MatDialog);
+  private readonly apiService = inject(ApiService);
+  private readonly store = inject(Store);
 
-  constructor(
-    protected service: PlannerMapService,
-    private newMapService: NewMapService,
-    private pageService: PageService,
-    private mapService: MapService,
-    private poiService: PoiService,
-    private poiTileLayerService: PoiTileLayerService,
-    private plannerService: PlannerService,
-    private mapZoomService: MapZoomService,
-    private dialog: MatDialog,
-    private apiService: ApiService,
-    private store: Store
-  ) {
+  private readonly subscriptions = new Subscriptions();
+  private planLoaded = false;
+
+  constructor() {
     this.store.dispatch(actionPlannerInit());
     this.plannerService.context.error$.subscribe((error) => {
       if (error instanceof HttpErrorResponse) {

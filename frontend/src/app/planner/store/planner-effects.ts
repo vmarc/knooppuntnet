@@ -1,8 +1,8 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { selectQueryParams, selectRouteParams } from '@app/core';
 import { actionSharedSurveyDateInfoInit } from '@app/core';
-import { BrowserStorageService } from '@app/services';
 import { PoiService } from '@app/services';
 import { Actions } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -32,6 +32,12 @@ import { PlannerState } from './planner-state';
 
 @Injectable()
 export class PlannerEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+  private readonly poiService = inject(PoiService);
+  private readonly plannerMapService = inject(PlannerMapService);
+
   // noinspection JSUnusedGlobalSymbols
   plannerPageInitSurveyDayInfo = createEffect(() => {
     return this.actions$.pipe(
@@ -150,16 +156,6 @@ export class PlannerEffects {
     },
     { dispatch: false }
   );
-
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private router: Router,
-    private route: ActivatedRoute,
-    private storage: BrowserStorageService,
-    private poiService: PoiService,
-    private plannerMapService: PlannerMapService
-  ) {}
 
   private navigate(state: PlannerState): Observable<boolean> {
     const queryParams = this.plannerMapService.toQueryParams(state);

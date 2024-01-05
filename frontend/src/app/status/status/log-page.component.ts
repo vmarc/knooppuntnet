@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -91,14 +92,12 @@ import { StatusSidebarComponent } from './status-sidebar.component';
   ],
 })
 export class LogPageComponent implements OnInit {
-  page$: Observable<LogPage>;
-  statusLinks: StatusLinks;
-  xAxisLabel: string;
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly apiService = inject(ApiService);
 
-  constructor(
-    private readonly activatedRoute: ActivatedRoute,
-    private readonly apiService: ApiService
-  ) {}
+  protected page$: Observable<LogPage>;
+  protected statusLinks: StatusLinks;
+  protected xAxisLabel: string;
 
   ngOnInit(): void {
     this.page$ = this.activatedRoute.params.pipe(

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -133,7 +134,10 @@ import { map } from 'rxjs/operators';
 export class ChangeSetLocationChangesComponent /*implements OnInit*/ {
   @Input() changess: LocationChanges[];
 
-  sidebarClass$: Observable<string>;
+  private readonly pageService = inject(PageService);
+  protected readonly sidebarClass$: Observable<string> = this.pageService.sidebarOpen.pipe(
+    map((open) => (open ? 'sidebar-open' : 'sidebar-closed'))
+  );
 
   // treeControl = new FlatTreeControl<LocationTreeItem>(
   //   (node) => node.level,
@@ -148,12 +152,6 @@ export class ChangeSetLocationChangesComponent /*implements OnInit*/ {
   // );
   //
   // dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-  constructor(private pageService: PageService) {
-    this.sidebarClass$ = pageService.sidebarOpen.pipe(
-      map((open) => (open ? 'sidebar-open' : 'sidebar-closed'))
-    );
-  }
 
   // ngOnInit() {
   //   // this.dataSource.data = this.changess;

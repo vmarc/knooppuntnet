@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
@@ -30,7 +31,7 @@ import { LocationModeService } from './location-mode.service';
   imports: [MatRadioModule],
 })
 export class LocationModeComponent {
-  constructor(private locationModeService: LocationModeService) {}
+  private readonly locationModeService = inject(LocationModeService);
 
   mode() {
     return this.locationModeService.currentMode();

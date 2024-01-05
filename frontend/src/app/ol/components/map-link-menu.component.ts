@@ -1,7 +1,7 @@
+import { inject } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenuModule } from '@angular/material/menu';
@@ -53,12 +53,8 @@ import { MAP_SERVICE_TOKEN } from '../services';
   imports: [MatMenuModule, MatIconModule],
 })
 export class MapLinkMenuComponent {
+  private readonly openlayersMapService: OpenlayersMapService = inject(MAP_SERVICE_TOKEN);
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
-
-  constructor(
-    @Inject(MAP_SERVICE_TOKEN)
-    private openlayersMapService: OpenlayersMapService
-  ) {}
 
   openPopupMenu(): void {
     this.trigger.openMenu();

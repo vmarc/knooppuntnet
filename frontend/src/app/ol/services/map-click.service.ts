@@ -1,4 +1,5 @@
 import { Location } from '@angular/common';
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MapBrowserEvent } from 'ol';
@@ -15,13 +16,11 @@ import MapBrowserEventType from 'ol/MapBrowserEventType';
   providedIn: 'root',
 })
 export class MapClickService {
+  private readonly router = inject(Router);
+  private readonly location = inject(Location);
+
   private interaction: Interaction = this.buildInteraction();
   private ctrl = false;
-
-  constructor(
-    private router: Router,
-    private location: Location
-  ) {}
 
   installOn(map: Map): void {
     map.addInteraction(this.interaction);

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -16,10 +17,10 @@ import { AnalysisSidebarComponent } from '@app/components/shared/sidebar';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
+import { SymbolComponent } from '@app/symbol';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { SymbolComponent } from '@app/symbol';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { actionRouteDetailsPageDestroy } from '../store/route.actions';
 import { actionRouteDetailsPageInit } from '../store/route.actions';
@@ -183,18 +184,16 @@ import { RouteSummaryComponent } from './route-summary.component';
   ],
 })
 export class RoutePageComponent implements OnInit, OnDestroy {
-  readonly routeId = this.store.selectSignal(selectRouteId);
-  readonly routeName = this.store.selectSignal(selectRouteName);
-  readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
-  readonly apiResponse = this.store.selectSignal(selectRouteDetailsPage);
-  readonly networkType = this.store.selectSignal(selectRouteNetworkType);
+  private readonly pageWidthService = inject(PageWidthService);
+  private readonly store = inject(Store);
+
+  protected readonly routeId = this.store.selectSignal(selectRouteId);
+  protected readonly routeName = this.store.selectSignal(selectRouteName);
+  protected readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
+  protected readonly apiResponse = this.store.selectSignal(selectRouteDetailsPage);
+  protected readonly networkType = this.store.selectSignal(selectRouteNetworkType);
 
   showRouteDetails$: Observable<boolean>;
-
-  constructor(
-    private pageWidthService: PageWidthService,
-    private store: Store
-  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionRouteDetailsPageInit());

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { PlanRoute } from '@api/common/planner';
 import { selectPreferencesPlanProposed } from '@app/core';
@@ -25,6 +26,10 @@ import { PlannerTranslations } from './util/planner-translations';
   providedIn: 'root',
 })
 export class PlannerService {
+  private readonly apiService = inject(ApiService);
+  private readonly mapService = inject(MapService);
+  private readonly store = inject(Store);
+
   engine: PlannerEngine;
 
   private readonly routeLayer = new PlannerRouteLayerImpl();
@@ -47,11 +52,7 @@ export class PlannerService {
     this.store.select(selectPlannerNetworkType)
   );
 
-  constructor(
-    private apiService: ApiService,
-    private mapService: MapService,
-    private store: Store
-  ) {
+  constructor() {
     this.engine = new PlannerEngineImpl(this.context);
   }
 

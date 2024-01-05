@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
@@ -35,7 +36,7 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
 export class GeolocationControlComponent {
   @Output() action = new EventEmitter<Coordinate>();
 
-  constructor(private dialog: MatDialog) {}
+  private readonly dialog = inject(MatDialog);
 
   onClick(): void {
     if (!navigator.geolocation) {

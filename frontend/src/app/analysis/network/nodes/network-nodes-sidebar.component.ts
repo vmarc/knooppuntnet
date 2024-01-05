@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FilterComponent } from '@app/analysis/components/filter';
@@ -17,5 +18,5 @@ import { NetworkNodesService } from './network-nodes.service';
   imports: [SidebarComponent, FilterComponent, AsyncPipe],
 })
 export class NetworkNodesSidebarComponent {
-  constructor(public networkNodesService: NetworkNodesService) {}
+  protected readonly networkNodesService = inject(NetworkNodesService);
 }

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
@@ -99,9 +100,8 @@ import { selectFrisoMode } from '../store/friso.selectors';
   imports: [SidebarComponent, MatRadioModule, AsyncPipe],
 })
 export class FrisoSidebarComponent {
+  private readonly store = inject(Store);
   protected readonly mode = this.store.selectSignal(selectFrisoMode);
-
-  constructor(private store: Store) {}
 
   modeChanged(change: MatRadioChange): void {
     this.store.dispatch(actionFrisoMode({ mode: change.value }));

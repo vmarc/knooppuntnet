@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -66,9 +67,8 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   ],
 })
 export class AnalysisHorseRidingPageComponent {
-  readonly nlLink = this.analysisStrategyService.link('horse-riding', 'nl');
-  readonly beLink = this.analysisStrategyService.link('horse-riding', 'be');
-  readonly frLink = this.analysisStrategyService.link('horse-riding', 'fr');
-
-  constructor(private analysisStrategyService: AnalysisStrategyService) {}
+  private readonly analysisStrategyService = inject(AnalysisStrategyService);
+  protected readonly nlLink = this.analysisStrategyService.link('horse-riding', 'nl');
+  protected readonly beLink = this.analysisStrategyService.link('horse-riding', 'be');
+  protected readonly frLink = this.analysisStrategyService.link('horse-riding', 'fr');
 }

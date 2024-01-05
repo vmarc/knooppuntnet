@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { selectPreferencesAnalysisStrategy } from '@app/core';
 import { AnalysisStrategy } from '@app/core';
@@ -7,7 +8,7 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AnalysisStrategyService {
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
 
   link(networkType: string, country: string): Observable<string> {
     return this.store

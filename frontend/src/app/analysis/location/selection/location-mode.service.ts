@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { BrowserStorageService } from '@app/services';
 import { BehaviorSubject } from 'rxjs';
@@ -6,15 +7,17 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class LocationModeService {
+  private readonly browserStorageService = inject(BrowserStorageService);
+
   isModeName: Observable<boolean>;
   isModeTree: Observable<boolean>;
   private readonly localStorageKey = 'location-mode';
   private readonly modeSubject: BehaviorSubject<string>;
 
-  constructor(private browserStorageService: BrowserStorageService) {
-    let initialMode = browserStorageService.get(this.localStorageKey);
+  constructor() {
+    let initialMode = this.browserStorageService.get(this.localStorageKey);
     if (initialMode === null) {
-      browserStorageService.set(this.localStorageKey, 'name');
+      this.browserStorageService.set(this.localStorageKey, 'name');
       initialMode = 'name';
     }
     this.modeSubject = new BehaviorSubject(initialMode);

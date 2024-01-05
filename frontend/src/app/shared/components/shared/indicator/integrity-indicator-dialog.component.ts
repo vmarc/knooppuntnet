@@ -1,6 +1,6 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NetworkScopes } from '@app/kpn/common';
 import { NetworkTypes } from '@app/kpn/common';
@@ -55,7 +55,7 @@ import { IntegrityIndicatorData } from './integrity-indicator-data';
   imports: [IndicatorDialogComponent, MarkdownModule],
 })
 export class IntegrityIndicatorDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) private indicatorData: IntegrityIndicatorData) {}
+  private readonly indicatorData: IntegrityIndicatorData = inject(MAT_DIALOG_DATA);
 
   get color(): string {
     return this.indicatorData.color();

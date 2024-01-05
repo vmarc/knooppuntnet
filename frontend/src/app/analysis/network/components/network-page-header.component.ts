@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -102,10 +103,9 @@ export class NetworkPageHeaderComponent {
   @Input() pageName: string;
   @Input() pageTitle: string;
 
-  readonly networkIdSignal = this.store.selectSignal(selectNetworkId);
-  readonly summarySignal = this.store.selectSignal(selectNetworkSummary);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly networkIdSignal = this.store.selectSignal(selectNetworkId);
+  protected readonly summarySignal = this.store.selectSignal(selectNetworkSummary);
 
   networkPageTitle(networkName: string): string {
     if (networkName) {

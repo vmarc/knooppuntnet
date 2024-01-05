@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -35,14 +36,15 @@ import { CountryName } from './country-name';
 export class CountrySelectComponent implements OnInit, OnDestroy {
   @Output() country = new EventEmitter<Country | null>();
 
-  countryNames: CountryName[];
-  private readonly subscriptions = new Subscriptions();
+  private readonly i18nService = inject(I18nService);
 
+  protected countryNames: CountryName[];
+  private readonly subscriptions = new Subscriptions();
   readonly selectedCountry = new FormControl<Country>(null);
 
-  constructor(i18nService: I18nService) {
+  constructor() {
     this.countryNames = Countries.all.map((country) => {
-      const name = i18nService.translation(`@@country.${country}`);
+      const name = this.i18nService.translation(`@@country.${country}`);
       return new CountryName(country, name);
     });
   }

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -63,12 +64,11 @@ import { NodeMapComponent } from './node-map.component';
   ],
 })
 export class NodeMapPageComponent implements OnInit, OnDestroy {
+  private readonly store = inject(Store);
   protected readonly nodeId = this.store.selectSignal(selectNodeId);
   protected readonly nodeName = this.store.selectSignal(selectNodeName);
   protected readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
   protected readonly apiResponse = this.store.selectSignal(selectNodeMapPage);
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeMapPageInit());

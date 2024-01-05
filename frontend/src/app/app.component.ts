@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -86,19 +87,19 @@ import { setTag } from '@sentry/angular-ivy';
   ],
 })
 export class AppComponent implements OnDestroy {
+  private readonly store = inject(Store);
+  private readonly iconService = inject(IconService);
+  private readonly spinnerService = inject(SpinnerService);
+  private readonly versionService = inject(VersionService);
+  private readonly router = inject(Router);
+
   private readonly subscriptions = new Subscriptions();
 
-  constructor(
-    private store: Store,
-    private iconService: IconService,
-    private spinnerService: SpinnerService,
-    private versionService: VersionService,
-    router: Router
-  ) {
-    setTag('knooppuntnet-version', versionService.version);
+  constructor() {
+    setTag('knooppuntnet-version', this.versionService.version);
 
     this.subscriptions.add(
-      router.events.subscribe({
+      this.router.events.subscribe({
         next: (event) => {
           if (event instanceof RouteConfigLoadStart) {
             this.spinnerService.start(`lazy-load-${event.route.path}`);

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
@@ -87,12 +88,11 @@ import { LocationEditComponent } from './location-edit.component';
   ],
 })
 export class LocationEditPageComponent implements OnInit, OnDestroy {
+  private readonly store = inject(Store);
   readonly apiResponse = this.store.selectSignal(selectLocationEditPage);
   readonly noHttpError$ = this.store
     .select(selectSharedHttpError)
     .pipe(map((error) => error == null));
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationEditPageInit());

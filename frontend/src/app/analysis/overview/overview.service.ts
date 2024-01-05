@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
@@ -11,6 +12,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class OverviewService {
+  private readonly pageWidthService = inject(PageWidthService);
+  private readonly browserStorageService = inject(BrowserStorageService);
+
   readonly list = 'list';
   readonly table = 'table';
   readonly automatic = 'automatic';
@@ -18,10 +22,7 @@ export class OverviewService {
   readonly formatPreference$: BehaviorSubject<string>;
   private readonly localStorageKey = 'overview-format';
 
-  constructor(
-    private pageWidthService: PageWidthService,
-    private browserStorageService: BrowserStorageService
-  ) {
+  constructor() {
     this.formatPreference$ = new BehaviorSubject(this.determineInitialPreference());
     this.tableFormat$ = combineLatest([
       this.formatPreference$,

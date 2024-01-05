@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -41,9 +42,8 @@ import { SubsetMapComponent } from './subset-map.component';
   ],
 })
 export class SubsetMapPageComponent implements OnInit {
-  readonly apiResponse = this.store.selectSignal(selectSubsetMapPage);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly apiResponse = this.store.selectSignal(selectSubsetMapPage);
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetMapPageInit());

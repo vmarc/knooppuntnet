@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -60,6 +61,15 @@ import { selectSubsetMapPage } from './subset.selectors';
 
 @Injectable()
 export class SubsetEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly apiService = inject(ApiService);
+  private readonly editService = inject(EditService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly subsetMapService = inject(SubsetMapService);
+  private readonly dialog = inject(MatDialog);
+
   // noinspection JSUnusedGlobalSymbols
   networksPageInit = createEffect(() => {
     return this.actions$.pipe(
@@ -333,17 +343,6 @@ export class SubsetEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private apiService: ApiService,
-    private editService: EditService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private subsetMapService: SubsetMapService,
-    private dialog: MatDialog
-  ) {}
 
   private navigate(changesParameters: ChangesParameters): Promise<boolean> {
     const queryParams: Params = {

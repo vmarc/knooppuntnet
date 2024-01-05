@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -29,7 +30,7 @@ import { I18nService } from '@app/i18n';
 export class DocLinkComponent {
   @Input({ required: true }) subject: string;
 
-  constructor(private i18nService: I18nService) {}
+  private readonly i18nService = inject(I18nService);
 
   href(): string {
     const languageSpecificSubject = this.i18nService.translation(`@@wiki.${this.subject}`);

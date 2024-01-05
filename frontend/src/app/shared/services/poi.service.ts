@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { InterpretedPoiConfiguration } from '@app/ol/domain';
 import { Map } from 'immutable';
@@ -11,6 +12,10 @@ import { PoiPreferences } from './poi-preferences';
 
 @Injectable()
 export class PoiService {
+  private readonly apiService = inject(ApiService);
+  private readonly poiNameService = inject(PoiNameService);
+  private readonly browserStorageService = inject(BrowserStorageService);
+
   readonly changeCount: BehaviorSubject<number> = new BehaviorSubject(0);
   poiActive = Map<string, boolean>();
   readonly poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> = new BehaviorSubject(
@@ -20,11 +25,7 @@ export class PoiService {
   private poiPreferences: PoiPreferences;
   private readonly poiNames: Map<string, string> = this.poiNameService.buildPoiNames();
 
-  constructor(
-    private apiService: ApiService,
-    private poiNameService: PoiNameService,
-    private browserStorageService: BrowserStorageService
-  ) {
+  constructor() {
     this.loadPoiConfiguration();
   }
 

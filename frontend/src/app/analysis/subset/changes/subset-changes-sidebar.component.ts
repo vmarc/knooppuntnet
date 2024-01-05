@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { SidebarComponent } from '@app/components/shared/sidebar';
@@ -22,11 +23,10 @@ import { selectSubsetChangesFilterOptions } from '../store/subset.selectors';
   imports: [SidebarComponent, ChangeFilterComponent, AsyncPipe],
 })
 export class SubsetChangesSidebarComponent {
-  readonly filterOptions$ = this.store
+  private readonly store = inject(Store);
+  protected readonly filterOptions$ = this.store
     .select(selectSubsetChangesFilterOptions)
     .pipe(filter((filterOptions) => !!filterOptions));
-
-  constructor(private store: Store) {}
 
   onOptionSelected(option: ChangeOption): void {
     this.store.dispatch(actionSubsetChangesFilterOption({ option }));

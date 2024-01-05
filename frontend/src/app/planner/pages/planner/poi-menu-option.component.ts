@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { Signal } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -38,10 +39,9 @@ import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
 export class PoiMenuOptionComponent implements OnInit {
   @Input() groupName: string;
 
-  readonly enabled = this.store.selectSignal(selectPlannerPoisVisible);
+  private readonly store = inject(Store);
+  protected readonly enabled = this.store.selectSignal(selectPlannerPoisVisible);
   protected visible: Signal<boolean>;
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.visible = this.store.selectSignal(selectPlannerPoiGroupVisible(this.groupName));

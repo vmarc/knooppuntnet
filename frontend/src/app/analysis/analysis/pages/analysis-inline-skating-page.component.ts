@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -54,7 +55,6 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   ],
 })
 export class AnalysisInlineSkatingPageComponent {
-  readonly nlLink = this.analysisStrategyService.link('inline-skating', 'nl');
-
-  constructor(private analysisStrategyService: AnalysisStrategyService) {}
+  private readonly analysisStrategyService = inject(AnalysisStrategyService);
+  protected readonly nlLink = this.analysisStrategyService.link('inline-skating', 'nl');
 }

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -26,9 +27,8 @@ import { LocationPoisSidebarComponent } from './poi-location-pois-sidebar.compon
   imports: [AsyncPipe, LocationPoisSidebarComponent, PageComponent, PoiLocationPoiTableComponent],
 })
 export class PoiLocationPoisPageComponent implements OnInit {
-  readonly apiResponse = this.store.selectSignal(selectLocationPoisPage);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly apiResponse = this.store.selectSignal(selectLocationPoisPage);
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationPoisPageInit());

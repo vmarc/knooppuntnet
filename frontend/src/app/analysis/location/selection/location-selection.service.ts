@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { LocationNode } from '@api/common/location';
 import { Country } from '@api/custom';
@@ -9,9 +10,9 @@ import { map } from 'rxjs/operators';
 
 @Injectable()
 export class LocationSelectionService {
-  private locationsCache: Map<string, Observable<LocationNode>> = new Map();
+  private readonly apiService = inject(ApiService);
 
-  constructor(private apiService: ApiService) {}
+  private locationsCache: Map<string, Observable<LocationNode>> = new Map();
 
   locations(networkType: NetworkType, country: Country): Observable<LocationNode> {
     const key = `${networkType}:${country}`;

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -110,18 +111,15 @@ import { LocationTreeComponent } from './location-tree.component';
   ],
 })
 export class LocationSelectionPageComponent implements OnInit, OnDestroy {
-  locationNode$: Observable<LocalLocationNode>;
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly locationModeService = inject(LocationModeService);
+  private readonly locationSelectionService = inject(LocationSelectionService);
+  private readonly router = inject(Router);
+  private readonly store = inject(Store);
 
-  networkType: NetworkType;
-  country: Country;
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private locationModeService: LocationModeService,
-    private locationSelectionService: LocationSelectionService,
-    private router: Router,
-    private store: Store
-  ) {}
+  protected locationNode$: Observable<LocalLocationNode>;
+  protected networkType: NetworkType;
+  protected country: Country;
 
   isModeName() {
     return this.locationModeService.isModeName;

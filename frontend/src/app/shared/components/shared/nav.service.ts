@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ParamMap } from '@angular/router';
@@ -7,16 +8,11 @@ import { ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class NavService {
-  private readonly paramMap;
-  private readonly queryParamMap;
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
-    this.paramMap = toSignal(this.route.paramMap);
-    this.queryParamMap = toSignal(this.route.queryParamMap);
-  }
+  private readonly paramMap = toSignal(this.route.paramMap);
+  private readonly queryParamMap = toSignal(this.route.queryParamMap);
 
   public params(): ParamMap {
     return this.paramMap();

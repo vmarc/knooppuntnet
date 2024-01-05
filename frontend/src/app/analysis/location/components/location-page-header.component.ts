@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { Signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -97,6 +98,7 @@ export class LocationPageHeaderComponent {
   @Input() pageName: string;
   @Input() pageTitle: string;
 
+  private readonly store = inject(Store);
   readonly locationKey = this.store.selectSignal(selectLocationKey);
   readonly nodeCount = this.store.selectSignal(selectLocationNodeCount);
   readonly routeCount = this.store.selectSignal(selectLocationRouteCount);
@@ -111,8 +113,6 @@ export class LocationPageHeaderComponent {
   readonly editLink = this.link('edit');
 
   readonly fullPageTitle = computed(() => `${this.locationKey().name} | ${this.pageTitle}`);
-
-  constructor(private store: Store) {}
 
   locationName(locationKey: LocationKey): string {
     const nameParts = locationKey.name.split(':');

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component, Input, OnInit } from '@angular/core';
 import { StatisticValues } from '@api/common/statistics';
@@ -19,9 +20,9 @@ import { OverviewListStatComponent } from './overview-list-stat.component';
 export class OverviewListComponent implements OnInit {
   @Input() statistics: StatisticValues[];
 
-  stats: Stat[];
+  private readonly overviewConfigurationService = inject(OverviewConfigurationService);
 
-  constructor(private overviewConfigurationService: OverviewConfigurationService) {}
+  protected stats: Stat[];
 
   ngOnInit(): void {
     this.stats = this.overviewConfigurationService.statisticConfigurations

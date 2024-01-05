@@ -1,4 +1,5 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { merge } from 'rxjs';
@@ -8,6 +9,8 @@ import { PageWidth } from './page-width';
   providedIn: 'root',
 })
 export class PageWidthService {
+  private readonly breakpointObserver = inject(BreakpointObserver);
+
   public current$ = new ReplaySubject<PageWidth>();
 
   private readonly veryVerySmallMaxWidth = 400;
@@ -16,7 +19,7 @@ export class PageWidthService {
   private readonly mediumMaxWidth = 1024;
   private readonly largeMaxWidth = 1300;
 
-  constructor(breakpointObserver: BreakpointObserver) {
+  constructor() {
     const veryVerySmallMediaQuery = `(max-width: ${this.veryVerySmallMaxWidth}px)`;
     const verySmallMediaQuery = `(max-width: ${this.verySmallMaxWidth}px)`;
     const smallMediaQuery = `(max-width: ${this.smallMaxWidth}px)`;
@@ -24,11 +27,11 @@ export class PageWidthService {
     const largeMediaQuery = `(max-width: ${this.largeMaxWidth}px)`;
 
     const breakpointState$ = merge(
-      breakpointObserver.observe(veryVerySmallMediaQuery),
-      breakpointObserver.observe(verySmallMediaQuery),
-      breakpointObserver.observe(smallMediaQuery),
-      breakpointObserver.observe(mediumMediaQuery),
-      breakpointObserver.observe(largeMediaQuery)
+      this.breakpointObserver.observe(veryVerySmallMediaQuery),
+      this.breakpointObserver.observe(verySmallMediaQuery),
+      this.breakpointObserver.observe(smallMediaQuery),
+      this.breakpointObserver.observe(mediumMediaQuery),
+      this.breakpointObserver.observe(largeMediaQuery)
     );
 
     breakpointState$.subscribe(() => this.current$.next(this.currentPageWidth()));

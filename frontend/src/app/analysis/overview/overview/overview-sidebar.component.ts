@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
@@ -64,12 +65,12 @@ import { OverviewService } from '../overview.service';
   imports: [SidebarComponent, MatRadioModule, AsyncPipe],
 })
 export class OverviewSidebarComponent {
-  readonly optionList = this.overviewService.list;
-  readonly optionTable = this.overviewService.table;
-  readonly optionAutomatic = this.overviewService.automatic;
-  readonly formatPreference$ = this.overviewService.formatPreference$;
+  private readonly overviewService = inject(OverviewService);
 
-  constructor(private overviewService: OverviewService) {}
+  protected readonly optionList = this.overviewService.list;
+  protected readonly optionTable = this.overviewService.table;
+  protected readonly optionAutomatic = this.overviewService.automatic;
+  protected readonly formatPreference$ = this.overviewService.formatPreference$;
 
   optionChanged(event: MatRadioChange) {
     this.overviewService.preferFormat(event.value);

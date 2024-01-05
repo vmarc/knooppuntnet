@@ -1,7 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
-import { Inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ChangesPage } from '@api/common';
 import { PoiDetail } from '@api/common';
@@ -63,12 +63,12 @@ import { timeout } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
-  constructor(
-    @Inject(LOCALE_ID) public locale: string,
-    private http: HttpClient,
-    markdownService: MarkdownService
-  ) {
-    markdownService.renderer.link = (href: string, title: string, text: string) =>
+  public readonly locale: string = inject(LOCALE_ID);
+  private readonly http = inject(HttpClient);
+  private readonly markdownService = inject(MarkdownService);
+
+  constructor() {
+    this.markdownService.renderer.link = (href: string, title: string, text: string) =>
       `<a href="${href}" title="${title}" target="_blank" rel="nofollow noreferrer">${text}</a>`;
   }
 

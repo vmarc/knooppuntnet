@@ -1,6 +1,6 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NetworkType } from '@api/custom';
 import { IndicatorDialogComponent } from '@app/components/shared/indicator';
@@ -19,6 +19,8 @@ import { RouteAccessibleData } from './route-accessible-data';
         <span dialog-title i18n="@@route-accessible-indicator.gray.title">
           OK - Accessibility unknown
         </span>
+      }
+      @if (data.color === 'gray') {
         <div dialog-body i18n="@@route-accessible-indicator.gray.text">
           Accessibility information is unknown for this type of route.
         </div>
@@ -26,6 +28,8 @@ import { RouteAccessibleData } from './route-accessible-data';
 
       @if (data.color === 'green') {
         <span dialog-title i18n="@@route-accessible-indicator.green.title"> OK - Accessible </span>
+      }
+      @if (data.color === 'green') {
         <div dialog-body>
           @switch (data.networkType) {
             @case (NetworkType.cycling) {
@@ -56,6 +60,8 @@ import { RouteAccessibleData } from './route-accessible-data';
         <span dialog-title i18n="@@route-accessible-indicator.red.title">
           Not OK - Not Accessible
         </span>
+      }
+      @if (data.color === 'red') {
         <div dialog-body>
           @switch (data.networkType) {
             @case (NetworkType.cycling) {
@@ -87,7 +93,6 @@ import { RouteAccessibleData } from './route-accessible-data';
   imports: [IndicatorDialogComponent],
 })
 export class RouteAccessibleIndicatorDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: RouteAccessibleData) {}
-
+  protected readonly data: RouteAccessibleData = inject(MAT_DIALOG_DATA);
   protected readonly NetworkType = NetworkType;
 }

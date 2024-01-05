@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -92,17 +93,15 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
   imports: [AsyncPipe, LinkRouteComponent, RouterLink, TimestampComponent],
 })
 export class PlannerPopupNodeComponent implements OnInit, OnDestroy {
-  response$: Observable<ApiResponse<MapNodeDetail>>;
+  private readonly apiService = inject(ApiService);
+  private readonly mapService = inject(MapService);
+  private readonly mapZoomService = inject(MapZoomService);
+  private readonly plannerService = inject(PlannerService);
+  private readonly store = inject(Store);
+
+  protected response$: Observable<ApiResponse<MapNodeDetail>>;
   private zoomLevel = 0;
   private readonly subscriptions = new Subscriptions();
-
-  constructor(
-    private apiService: ApiService,
-    private mapService: MapService,
-    private mapZoomService: MapZoomService,
-    private plannerService: PlannerService,
-    private store: Store
-  ) {}
 
   ngOnInit(): void {
     this.response$ = this.mapService.nodeClicked$.pipe(

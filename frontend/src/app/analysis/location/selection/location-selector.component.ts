@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -102,18 +103,16 @@ export class LocationSelectorComponent implements OnInit {
   @Input() all = false;
   @Output() selection = new EventEmitter<string>();
 
-  warningSelectionMandatory = false;
-  warningSelectionInvalid = false;
-  options: LocationOption[] = [];
-  locationInputControl = new UntypedFormControl();
-  filteredOptions: Observable<LocationOption[]>;
-  readonly formGroup: UntypedFormGroup;
+  private readonly fb = inject(UntypedFormBuilder);
 
-  constructor(private fb: UntypedFormBuilder) {
-    this.formGroup = this.fb.group({
-      locationInputControl: this.locationInputControl,
-    });
-  }
+  protected warningSelectionMandatory = false;
+  protected warningSelectionInvalid = false;
+  protected options: LocationOption[] = [];
+  protected locationInputControl = new UntypedFormControl();
+  protected filteredOptions: Observable<LocationOption[]>;
+  protected readonly formGroup = this.fb.group({
+    locationInputControl: this.locationInputControl,
+  });
 
   ngOnInit(): void {
     this.options = this.toOptions('', this.locationNode);

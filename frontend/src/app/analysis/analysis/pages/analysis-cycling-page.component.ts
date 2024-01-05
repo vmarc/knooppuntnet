@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -90,13 +91,12 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   ],
 })
 export class AnalysisCyclingPageComponent {
-  readonly nlLink = this.analysisStrategyService.link('cycling', 'nl');
-  readonly beLink = this.analysisStrategyService.link('cycling', 'be');
-  readonly deLink = this.analysisStrategyService.link('cycling', 'de');
-  readonly frLink = this.analysisStrategyService.link('cycling', 'fr');
-  readonly atLink = this.analysisStrategyService.link('cycling', 'at');
-  readonly esLink = this.analysisStrategyService.link('cycling', 'es');
-  readonly dkLink = this.analysisStrategyService.link('cycling', 'dk');
-
-  constructor(private analysisStrategyService: AnalysisStrategyService) {}
+  private readonly analysisStrategyService = inject(AnalysisStrategyService);
+  protected readonly nlLink = this.analysisStrategyService.link('cycling', 'nl');
+  protected readonly beLink = this.analysisStrategyService.link('cycling', 'be');
+  protected readonly deLink = this.analysisStrategyService.link('cycling', 'de');
+  protected readonly frLink = this.analysisStrategyService.link('cycling', 'fr');
+  protected readonly atLink = this.analysisStrategyService.link('cycling', 'at');
+  protected readonly esLink = this.analysisStrategyService.link('cycling', 'es');
+  protected readonly dkLink = this.analysisStrategyService.link('cycling', 'dk');
 }

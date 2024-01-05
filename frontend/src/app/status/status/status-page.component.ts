@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -54,13 +55,12 @@ import { StatusSidebarComponent } from './status-sidebar.component';
   ],
 })
 export class StatusPageComponent implements OnInit {
-  response$: Observable<ApiResponse<Status>>;
+  private readonly apiService = inject(ApiService);
 
-  replicationLinks: StatusLinks;
-  systemLinks: StatusLinks;
-  logLinks: StatusLinks;
-
-  constructor(private readonly apiService: ApiService) {}
+  protected response$: Observable<ApiResponse<Status>>;
+  protected replicationLinks: StatusLinks;
+  protected systemLinks: StatusLinks;
+  protected logLinks: StatusLinks;
 
   ngOnInit(): void {
     this.response$ = this.apiService.status().pipe(

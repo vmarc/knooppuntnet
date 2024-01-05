@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -78,14 +79,12 @@ import { PlannerService } from '../../../planner.service';
   imports: [AsyncPipe],
 })
 export class PlanTipComponent implements OnInit {
-  planPhase$: Observable<PlanPhase>;
-  planPhaseEnum = PlanPhase;
+  private readonly plannerService = inject(PlannerService);
+  private readonly mapZoomService = inject(MapZoomService);
+  private readonly i18nService = inject(I18nService);
 
-  constructor(
-    private plannerService: PlannerService,
-    private mapZoomService: MapZoomService,
-    private i18nService: I18nService
-  ) {}
+  protected planPhase$: Observable<PlanPhase>;
+  protected planPhaseEnum = PlanPhase;
 
   ngOnInit(): void {
     this.planPhase$ = combineLatest([

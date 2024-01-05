@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -25,7 +26,6 @@ import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { FilterOptions } from '@app/kpn/filter';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
@@ -191,32 +191,29 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   @Input() surveyDateInfo: SurveyDateInfo;
   @Input() nodes: NetworkNodeRow[];
 
-  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 
-  @ViewChild(EditAndPaginatorComponent, { static: true })
-  paginator: EditAndPaginatorComponent;
+  private readonly pageWidthService = inject(PageWidthService);
+  private readonly networkNodesService = inject(NetworkNodesService);
+  private readonly editService = inject(EditService);
+  private readonly store = inject(Store);
+  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
 
-  dataSource: MatTableDataSource<NetworkNodeRow>;
-  headerColumns1$: Observable<Array<string>>;
-  headerColumns2$: Observable<Array<string>>;
-  displayedColumns$: Observable<Array<string>>;
+  protected readonly dataSource = new MatTableDataSource<NetworkNodeRow>();
+  protected readonly headerColumns1$ = this.pageWidthService.current$.pipe(
+    map(() => this.headerColumns1())
+  );
+  protected readonly headerColumns2$ = this.pageWidthService.current$.pipe(
+    map(() => this.headerColumns2())
+  );
+  protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
+    map(() => this.displayedColumns())
+  );
 
   private readonly filterCriteria$: BehaviorSubject<NetworkNodeFilterCriteria> =
     new BehaviorSubject(new NetworkNodeFilterCriteria());
 
-  constructor(
-    private pageWidthService: PageWidthService,
-    private networkNodesService: NetworkNodesService,
-    private editService: EditService,
-    private store: Store
-  ) {
-    this.headerColumns1$ = pageWidthService.current$.pipe(map(() => this.headerColumns1()));
-    this.headerColumns2$ = pageWidthService.current$.pipe(map(() => this.headerColumns2()));
-    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
-  }
-
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource<NetworkNodeRow>();
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria$
       .pipe(

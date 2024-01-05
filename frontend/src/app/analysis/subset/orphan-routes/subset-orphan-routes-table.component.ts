@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -132,25 +133,18 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   @Input() networkType: NetworkType;
   @Input() orphanRoutes: OrphanRouteInfo[];
 
-  @ViewChild(EditAndPaginatorComponent, { static: true })
-  paginator: EditAndPaginatorComponent;
+  @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 
-  dataSource: MatTableDataSource<OrphanRouteInfo>;
+  private readonly subsetOrphanRoutesService = inject(SubsetOrphanRoutesService);
+  private readonly editService = inject(EditService);
+  private readonly store = inject(Store);
 
-  displayedColumns = ['nr', 'analysis', 'name', 'distance', 'last-survey', 'last-edit'];
-
-  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
-
+  protected dataSource = new MatTableDataSource<OrphanRouteInfo>();
+  protected displayedColumns = ['nr', 'analysis', 'name', 'distance', 'last-survey', 'last-edit'];
+  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
   private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanRouteFilterCriteria());
 
-  constructor(
-    private subsetOrphanRoutesService: SubsetOrphanRoutesService,
-    private editService: EditService,
-    private store: Store
-  ) {}
-
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria$.subscribe((criteria) => {
       const filter = new SubsetOrphanRouteFilter(this.timeInfo, criteria, this.filterCriteria$);

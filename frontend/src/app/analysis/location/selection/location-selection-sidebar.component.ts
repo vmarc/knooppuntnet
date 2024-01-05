@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy';
@@ -20,7 +21,7 @@ import { LocationModeComponent } from './location-mode.component';
   imports: [SidebarComponent, AnalysisStrategyComponent, LocationModeComponent],
 })
 export class LocationSelectionSidebarComponent {
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
 
   onStrategyChange(strategy: AnalysisStrategy) {
     this.store.dispatch(actionLocationSelectionPageStrategy({ strategy }));

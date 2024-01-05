@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -140,10 +141,9 @@ import { LegendIconComponent } from './legend-icon.component';
   imports: [MatExpansionModule, LegendIconComponent, AsyncPipe],
 })
 export class PlannerSideBarLegendComponent {
-  readonly expanded$ = this.store.select(selectPreferencesShowLegend);
-  readonly plannerMapMode = this.store.selectSignal(selectPlannerMapMode);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly expanded$ = this.store.select(selectPreferencesShowLegend);
+  protected readonly plannerMapMode = this.store.selectSignal(selectPlannerMapMode);
 
   expandedChanged(expanded: boolean): void {
     this.store.dispatch(actionPreferencesShowLegend({ value: expanded }));

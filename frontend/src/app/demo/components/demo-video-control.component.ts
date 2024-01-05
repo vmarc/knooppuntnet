@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -107,22 +108,21 @@ export class DemoVideoControlComponent {
   @Input({ required: true }) name: string;
   @Input({ required: true }) duration: string;
 
-  readonly selected$: Observable<boolean> = this.store
+  private readonly store = inject(Store);
+  protected readonly selected$: Observable<boolean> = this.store
     .select(selectDemoVideo)
     .pipe(map((current) => current === this.name));
 
-  readonly playing$: Observable<boolean> = combineLatest([
+  protected readonly playing$: Observable<boolean> = combineLatest([
     this.selected$,
     this.store.select(selectDemoPlaying),
   ]).pipe(map(([selected, playing]) => selected && playing));
 
-  readonly icon$: Observable<string> = this.playing$.pipe(
+  protected readonly icon$: Observable<string> = this.playing$.pipe(
     map((playing) => (playing ? 'pause' : 'play'))
   );
 
-  readonly enabled$: Observable<boolean> = this.store.select(selectDemoEnabled);
-
-  constructor(private store: Store) {}
+  protected readonly enabled$: Observable<boolean> = this.store.select(selectDemoEnabled);
 
   play(): void {
     this.store.dispatch(actionDemoControlPlay({ video: this.name }));

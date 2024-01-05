@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -70,10 +71,11 @@ export class ChangeHeaderComponent {
   @Input() investigate: boolean;
   @Input() comment: string;
 
-  timestampOnSameLine$: Observable<boolean>;
-  timestampOnSeparateLine$: Observable<boolean>;
+  private readonly pageWidthService = inject(PageWidthService);
+  protected timestampOnSameLine$: Observable<boolean>;
+  protected timestampOnSeparateLine$: Observable<boolean>;
 
-  constructor(private pageWidthService: PageWidthService) {
+  constructor() {
     this.timestampOnSeparateLine$ = this.pageWidthService.current$.pipe(
       map(() => this.timestampOnSeparateLine())
     );

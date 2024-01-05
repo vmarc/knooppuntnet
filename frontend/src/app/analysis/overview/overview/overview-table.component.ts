@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -27,9 +28,9 @@ import { OverviewTableRowComponent } from './overview-table-row.component';
 export class OverviewTableComponent implements OnInit {
   @Input() statistics: StatisticValues[];
 
-  stats: Stat[];
+  private readonly overviewService = inject(OverviewConfigurationService);
 
-  constructor(private overviewService: OverviewConfigurationService) {}
+  protected stats: Stat[];
 
   ngOnInit(): void {
     this.stats = this.overviewService.statisticConfigurations.toArray().map((configuration) => {

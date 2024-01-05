@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -42,11 +43,14 @@ export class SubsetPageHeaderBlockComponent {
   @Input() pageName: string;
   @Input() pageTitle: string;
 
-  readonly subset = this.store.selectSignal(selectSubset);
-  readonly subsetInfo = this.store.selectSignal(selectSubsetInfo);
-  readonly networkType = computed(() => this.subset().networkType);
+  private readonly store = inject(Store);
+  private readonly i18nService = inject(I18nService);
 
-  readonly subsetName = computed(() => {
+  protected readonly subset = this.store.selectSignal(selectSubset);
+  protected readonly subsetInfo = this.store.selectSignal(selectSubsetInfo);
+  protected readonly networkType = computed(() => this.subset().networkType);
+
+  protected readonly subsetName = computed(() => {
     const ss = this.subset();
     const networkType = this.i18nService.translation('@@network-type.' + ss.networkType);
     const country = this.i18nService.translation('@@country.' + ss.country);
@@ -54,10 +58,5 @@ export class SubsetPageHeaderBlockComponent {
     return `${networkType} ${inWord} ${country}`;
   });
 
-  readonly subsetPageTitle = computed(() => `${this.subsetName()} | ${this.pageTitle}`);
-
-  constructor(
-    private store: Store,
-    private i18nService: I18nService
-  ) {}
+  protected readonly subsetPageTitle = computed(() => `${this.subsetName()} | ${this.pageTitle}`);
 }

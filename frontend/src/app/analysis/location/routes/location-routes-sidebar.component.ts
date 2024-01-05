@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
@@ -63,10 +64,9 @@ import { selectLocationRoutesPage } from '../store/location.selectors';
   imports: [SidebarComponent, MatRadioModule, AsyncPipe],
 })
 export class LocationRoutesSidebarComponent {
+  private readonly store = inject(Store);
   readonly locationRoutesType = LocationRoutesType;
   readonly apiResponse = this.store.selectSignal(selectLocationRoutesPage);
-
-  constructor(private store: Store) {}
 
   locationRoutesTypeChanged(change: MatRadioChange): void {
     const locationRoutesType = change.value as LocationRoutesType;

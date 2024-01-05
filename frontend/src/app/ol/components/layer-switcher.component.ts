@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
@@ -61,14 +62,11 @@ import { MapLayerTranslationService } from '../services';
   imports: [AsyncPipe, MatCheckboxModule, MatDividerModule, MatIconModule, MatMenuModule],
 })
 export class LayerSwitcherComponent {
+  private readonly openlayersMapService: OpenlayersMapService = inject(MAP_SERVICE_TOKEN);
+  private readonly mapLayerTranslationService = inject(MapLayerTranslationService);
+
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   protected readonly layerStates$ = this.openlayersMapService.layerStates$;
-
-  constructor(
-    @Inject(MAP_SERVICE_TOKEN)
-    private openlayersMapService: OpenlayersMapService,
-    private mapLayerTranslationService: MapLayerTranslationService
-  ) {}
 
   openPopupMenu(): void {
     this.trigger.openMenu();

@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MapService } from '../../../services/map.service';
@@ -38,5 +39,5 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
   ],
 })
 export class PlannerPopupContentsComponent {
-  constructor(public mapService: MapService) {}
+  protected readonly mapService = inject(MapService);
 }

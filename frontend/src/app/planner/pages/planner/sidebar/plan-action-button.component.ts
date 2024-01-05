@@ -1,15 +1,14 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Component({
@@ -46,22 +45,17 @@ import { map } from 'rxjs/operators';
   standalone: true,
   imports: [MatButtonModule, MatIconModule, AsyncPipe],
 })
-export class PlanActionButtonComponent implements OnInit {
+export class PlanActionButtonComponent {
   @Input() enabled = false;
   @Input() icon = '';
   @Input() text = '';
   @Input() title = '';
   @Output() action = new EventEmitter<any>();
 
-  showButtonText$: Observable<boolean>;
-  showButtonIcon$: Observable<boolean>;
+  private readonly pageWidthService = inject(PageWidthService);
 
-  constructor(private pageWidthService: PageWidthService) {}
-
-  ngOnInit(): void {
-    this.showButtonText$ = this.pageWidthService.current$.pipe(
-      map((pageWidth) => pageWidth === PageWidth.veryLarge || pageWidth === PageWidth.large)
-    );
-    this.showButtonIcon$ = this.showButtonText$.pipe(map((enabled) => !enabled));
-  }
+  protected showButtonText$ = this.pageWidthService.current$.pipe(
+    map((pageWidth) => pageWidth === PageWidth.veryLarge || pageWidth === PageWidth.large)
+  );
+  protected showButtonIcon$ = this.showButtonText$.pipe(map((enabled) => !enabled));
 }

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -25,7 +26,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 export class RouteStructureComponent {
   @Input() structureStrings: string[];
 
-  constructor(private sanitizer: DomSanitizer) {}
+  private readonly sanitizer = inject(DomSanitizer);
 
   formatted(structureString: string): SafeHtml {
     let html = structureString;

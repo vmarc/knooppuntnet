@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
 import { NetworkType } from '@api/custom';
@@ -22,9 +23,7 @@ import { of } from 'rxjs';
 
 @Injectable()
 export class LocationMapService extends OpenlayersMapService {
-  constructor(private mapClickService: MapClickService) {
-    super();
-  }
+  private readonly mapClickService = inject(MapClickService);
 
   init(
     networkType: NetworkType,

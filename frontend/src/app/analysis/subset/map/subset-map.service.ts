@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
 import { SubsetMapNetwork } from '@api/common/subset';
@@ -20,9 +21,7 @@ import { actionSubsetMapPageNetworkClicked } from '../store/subset.actions';
 
 @Injectable()
 export class SubsetMapService extends OpenlayersMapService {
-  constructor(private store: Store) {
-    super();
-  }
+  private readonly store = inject(Store);
 
   init(networks: SubsetMapNetwork[], bounds: Bounds): void {
     this.registerLayers(networks);

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -40,10 +41,9 @@ export class PageHeaderComponent implements AfterViewInit, OnChanges {
   @Input({ required: false }) subject: string;
   @Input({ required: false }) pageTitle: string;
 
-  @ViewChild('title', { read: ElementRef, static: true })
-  renderedTitle: ElementRef;
+  private readonly pageService = inject(PageService);
 
-  constructor(private pageService: PageService) {}
+  @ViewChild('title', { read: ElementRef, static: true }) renderedTitle: ElementRef;
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['pageTitle']) {

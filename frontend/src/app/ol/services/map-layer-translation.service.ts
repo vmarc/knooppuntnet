@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { I18nService } from '@app/i18n';
 import { BackgroundLayer } from '../layers';
@@ -9,6 +10,8 @@ import { MapLayerDefinition } from './map-layer-definition';
   providedIn: 'root',
 })
 export class MapLayerTranslationService {
+  private readonly i18nService = inject(I18nService);
+
   readonly mapLayerDefinitions: MapLayerDefinition[] = [
     { name: BackgroundLayer.id, translation: '@@map.layer.background' },
     { name: OsmLayer.id, translation: '@@map.layer.osm' },
@@ -59,8 +62,6 @@ export class MapLayerTranslationService {
     { name: 'network-marker-layer', translation: '@@map.layer.networks' },
     // { name: '', translation: '' },
   ];
-
-  constructor(private i18nService: I18nService) {}
 
   translation(layerName: string): string {
     const layerDefinition = this.mapLayerDefinitions.find(

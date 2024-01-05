@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { selectQueryParam } from '@app/core';
@@ -31,6 +32,12 @@ import { selectPoiAreasPage } from './poi.selectors';
 
 @Injectable()
 export class PoiEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly poiService = inject(PoiService);
+  private readonly apiService = inject(ApiService);
+  private readonly poiMapService = inject(PoiMapService);
+
   // noinspection JSUnusedGlobalSymbols
   pageSize = createEffect(() => {
     return this.actions$.pipe(
@@ -107,13 +114,4 @@ export class PoiEffects {
       dispatch: false,
     }
   );
-
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private router: Router,
-    private poiService: PoiService,
-    private apiService: ApiService,
-    private poiMapService: PoiMapService
-  ) {}
 }

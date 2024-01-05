@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { actionSharedHttpError } from '@app/core';
 import { ApiService } from '@app/services';
@@ -16,26 +17,24 @@ import { EditParameters } from './edit-parameters';
 
 @Injectable()
 export class EditService {
+  private readonly apiService = inject(ApiService);
+  private readonly store = inject(Store);
+
   private progressCount = 0;
   private progressSteps = 0;
 
   private subscription: Subscription;
 
-  readonly progress$ = new BehaviorSubject<number>(0);
-  readonly showProgress$ = new BehaviorSubject<boolean>(false);
-  readonly ready$ = new BehaviorSubject<boolean>(false);
-  readonly error$ = new BehaviorSubject<boolean>(false);
-  readonly errorName$ = new BehaviorSubject<string>('');
-  readonly errorMessage$ = new BehaviorSubject<string>('');
-  readonly timeout$ = new BehaviorSubject<boolean>(false);
-  readonly errorCouldNotConnect$ = new BehaviorSubject<boolean>(false);
+  public readonly progress$ = new BehaviorSubject<number>(0);
+  public readonly showProgress$ = new BehaviorSubject<boolean>(false);
+  public readonly ready$ = new BehaviorSubject<boolean>(false);
+  public readonly error$ = new BehaviorSubject<boolean>(false);
+  public readonly errorName$ = new BehaviorSubject<string>('');
+  public readonly errorMessage$ = new BehaviorSubject<string>('');
+  public readonly timeout$ = new BehaviorSubject<boolean>(false);
+  public readonly errorCouldNotConnect$ = new BehaviorSubject<boolean>(false);
 
   private readonly configuration = new EditConfiguration();
-
-  constructor(
-    private apiService: ApiService,
-    private store: Store
-  ) {}
 
   edit(parameters: EditParameters): void {
     this.store.dispatch(actionSharedHttpError({ httpError: null }));

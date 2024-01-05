@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -63,10 +64,9 @@ import { SubsetFactDetailsComponent } from './subset-fact-details.component';
   ],
 })
 export class SubsetFactDetailsPageComponent implements OnInit {
-  readonly subsetFact = this.store.selectSignal(selectSubsetFact);
-  readonly apiResponse = this.store.selectSignal(selectSubsetFactDetailsPage);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly subsetFact = this.store.selectSignal(selectSubsetFact);
+  protected readonly apiResponse = this.store.selectSignal(selectSubsetFactDetailsPage);
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetFactDetailsPageInit());

@@ -1,6 +1,6 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { RouterLink } from '@angular/router';
@@ -56,10 +56,8 @@ import { SubsetMapNetwork } from '@api/common/subset';
   imports: [MatDialogModule, RouterLink, MatButtonModule],
 })
 export class SubsetMapNetworkDialogComponent {
-  constructor(
-    private dialogRef: MatDialogRef<SubsetMapNetworkDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public network: SubsetMapNetwork
-  ) {}
+  private readonly dialogRef = inject(MatDialogRef<SubsetMapNetworkDialogComponent>);
+  protected readonly network: SubsetMapNetwork = inject(MAT_DIALOG_DATA);
 
   closeDialog(): void {
     this.dialogRef.close();

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -49,9 +50,8 @@ import { LocationChangesComponent } from './location-changes.component';
   ],
 })
 export class LocationChangesPageComponent implements OnInit, OnDestroy {
-  readonly apiResponse = this.store.selectSignal(selectLocationChangesPage);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly apiResponse = this.store.selectSignal(selectLocationChangesPage);
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationChangesPageInit());

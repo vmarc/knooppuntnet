@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
@@ -28,10 +29,8 @@ import { SubsetMapService } from './subset-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class SubsetMapComponent implements AfterViewInit, OnDestroy {
-  constructor(
-    protected service: SubsetMapService,
-    private store: Store
-  ) {}
+  protected readonly service = inject(SubsetMapService);
+  private readonly store = inject(Store);
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionSubsetMapViewInit());

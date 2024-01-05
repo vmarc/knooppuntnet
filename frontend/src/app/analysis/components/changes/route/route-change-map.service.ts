@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
 import { RawNode } from '@api/common/data/raw';
@@ -17,9 +18,7 @@ import View from 'ol/View';
 
 @Injectable()
 export class RouteChangeMapService extends OpenlayersMapService {
-  constructor(private i18nService: I18nService) {
-    super();
-  }
+  private readonly i18nService = inject(I18nService);
 
   init(geometryDiff: GeometryDiff, nodes: RawNode[], bounds: Bounds): void {
     this.registerLayers(geometryDiff, nodes);

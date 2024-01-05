@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -48,7 +49,7 @@ import { PlannerService } from '../../../planner.service';
 export class PlanCompactComponent {
   @Input() plan: Plan;
 
-  constructor(private plannerService: PlannerService) {}
+  private readonly plannerService = inject(PlannerService);
 
   hasColour(planRoute: PlanRoute): boolean {
     return this.plannerService.hasColour(planRoute);

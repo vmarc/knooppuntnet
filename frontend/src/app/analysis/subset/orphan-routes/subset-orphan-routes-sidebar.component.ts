@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FilterComponent } from '@app/analysis/components/filter';
@@ -17,7 +18,6 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   imports: [SidebarComponent, FilterComponent, AsyncPipe],
 })
 export class SubsetOrphanRoutesSidebarComponent {
-  filterOptions$ = this.subsetOrphanRoutesService.filterOptions$;
-
-  constructor(private subsetOrphanRoutesService: SubsetOrphanRoutesService) {}
+  private readonly subsetOrphanRoutesService = inject(SubsetOrphanRoutesService);
+  protected readonly filterOptions$ = this.subsetOrphanRoutesService.filterOptions$;
 }

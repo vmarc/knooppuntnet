@@ -1,8 +1,8 @@
+import { inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { PoiAnalysis } from '@api/common';
-import { Tags } from '@api/custom';
 import { PoiService } from '@app/services';
 
 @Component({
@@ -248,9 +248,8 @@ import { PoiService } from '@app/services';
 })
 export class PoiAnalysisComponent {
   @Input({ required: true }) poi: PoiAnalysis;
-  tags: Tags;
 
-  constructor(private poiService: PoiService) {}
+  private readonly poiService = inject(PoiService);
 
   layerName(): string {
     const layer = this.poi.layers[0];

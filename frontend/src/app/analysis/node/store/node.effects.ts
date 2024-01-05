@@ -1,4 +1,5 @@
 import { Location } from '@angular/common';
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -48,6 +49,14 @@ import { selectNodeMapPositionFromUrl } from './node.selectors';
 
 @Injectable()
 export class NodeEffects {
+  private readonly nodeMapService = inject(NodeMapService);
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly apiService = inject(ApiService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly location = inject(Location);
+
   // noinspection JSUnusedGlobalSymbols
   nodeDetailsPageInit = createEffect(() => {
     return this.actions$.pipe(
@@ -203,16 +212,6 @@ export class NodeEffects {
       })
     );
   });
-
-  constructor(
-    private nodeMapService: NodeMapService,
-    private actions$: Actions,
-    private store: Store,
-    private apiService: ApiService,
-    private router: Router,
-    private route: ActivatedRoute,
-    private location: Location
-  ) {}
 
   private navigate(changesParameters: ChangesParameters): Promise<boolean> {
     const queryParams: Params = {

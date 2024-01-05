@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -158,13 +159,12 @@ import { NodeSummaryComponent } from './node-summary.component';
   ],
 })
 export class NodeDetailsPageComponent implements OnInit, OnDestroy {
-  readonly nodeId = this.store.selectSignal(selectNodeId);
-  readonly nodeName = this.store.selectSignal(selectNodeName);
-  readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
-  readonly networkTypes = this.store.selectSignal(selectNodeNetworkTypes);
-  readonly apiResponse = this.store.selectSignal(selectNodeDetailsPage);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly nodeId = this.store.selectSignal(selectNodeId);
+  protected readonly nodeName = this.store.selectSignal(selectNodeName);
+  protected readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
+  protected readonly networkTypes = this.store.selectSignal(selectNodeNetworkTypes);
+  protected readonly apiResponse = this.store.selectSignal(selectNodeDetailsPage);
 
   ngOnInit(): void {
     this.store.dispatch(actionNodeDetailsPageInit());

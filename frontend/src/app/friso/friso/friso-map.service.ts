@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
 import { NetworkType } from '@api/custom';
@@ -27,16 +28,14 @@ import { FrisoNode } from './friso-node';
 
 @Injectable()
 export class FrisoMapService extends OpenlayersMapService {
+  private readonly store = inject(Store);
+
   private readonly bounds: Bounds = {
     minLat: 50.92176250622567,
     minLon: 3.5257314989690713,
     maxLat: 53.28321294207922,
     maxLon: 6.729255052272727,
   };
-
-  constructor(private store: Store) {
-    super();
-  }
 
   init(mode: string): void {
     this.registerLayers(mode);

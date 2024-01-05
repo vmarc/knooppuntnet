@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -25,10 +26,8 @@ export class JosmLinkComponent {
   @Input({ required: true }) elementId: number;
   @Input({ required: false }) full = false;
 
-  constructor(
-    private apiService: ApiService,
-    private dialog: MatDialog
-  ) {}
+  private readonly apiService = inject(ApiService);
+  private readonly dialog = inject(MatDialog);
 
   edit(): void {
     const url = 'http://localhost:8111/import?url=https://api.openstreetmap.org/api/0.6';

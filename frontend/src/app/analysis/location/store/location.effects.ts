@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationChangesParameters } from '@api/common/location';
@@ -53,6 +54,12 @@ import { selectLocationMapPage } from './location.selectors';
 
 @Injectable()
 export class LocationEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+  private readonly apiService = inject(ApiService);
+  private readonly locationMapLayerService = inject(LocationMapService);
+
   // noinspection JSUnusedGlobalSymbols
   analysisStrategy = createEffect(() => {
     return this.actions$.pipe(
@@ -238,12 +245,4 @@ export class LocationEffects {
       map((response) => actionLocationEditPageLoaded(response))
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private router: Router,
-    private apiService: ApiService,
-    private locationMapLayerService: LocationMapService
-  ) {}
 }

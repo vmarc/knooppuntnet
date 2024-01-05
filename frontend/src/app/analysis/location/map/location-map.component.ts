@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -35,10 +36,8 @@ export class LocationMapComponent implements AfterViewInit, OnDestroy {
   @Input() bounds: Bounds;
   @Input() geoJson: string;
 
-  constructor(
-    protected service: LocationMapService,
-    private store: Store
-  ) {}
+  protected readonly service = inject(LocationMapService);
+  private readonly store = inject(Store);
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionLocationMapViewInit());

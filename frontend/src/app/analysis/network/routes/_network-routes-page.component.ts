@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -57,9 +58,8 @@ import { NetworkRoutesSidebarComponent } from './network-routes-sidebar.componen
   ],
 })
 export class NetworkRoutesPageComponent implements OnInit, OnDestroy {
-  readonly apiResponse = this.store.selectSignal(selectNetworkRoutesPage);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly apiResponse = this.store.selectSignal(selectNetworkRoutesPage);
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkRoutesPageInit());

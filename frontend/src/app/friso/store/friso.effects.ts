@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -23,6 +24,13 @@ import { actionFrisoMapViewInit } from './friso.actions';
 
 @Injectable()
 export class FrisoEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly dialog = inject(MatDialog);
+  private readonly frisoMapService = inject(FrisoMapService);
+
   // noinspection JSUnusedGlobalSymbols
   mapViewInit = createEffect(() => {
     return this.actions$.pipe(
@@ -86,13 +94,4 @@ export class FrisoEffects {
     });
     return from(promise);
   }
-
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private router: Router,
-    private route: ActivatedRoute,
-    private dialog: MatDialog,
-    private frisoMapService: FrisoMapService
-  ) {}
 }

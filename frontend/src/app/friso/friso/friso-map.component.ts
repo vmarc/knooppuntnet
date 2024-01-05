@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -28,10 +29,8 @@ import { FrisoMapService } from './friso-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class FrisoMapComponent implements AfterViewInit, OnDestroy {
-  constructor(
-    protected service: FrisoMapService,
-    private store: Store
-  ) {}
+  protected readonly service = inject(FrisoMapService);
+  private readonly store = inject(Store);
 
   ngAfterViewInit(): void {
     this.store.dispatch(actionFrisoMapViewInit());

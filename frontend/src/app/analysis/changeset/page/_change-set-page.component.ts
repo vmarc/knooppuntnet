@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -63,13 +64,10 @@ class ChangeSetKey {
   ],
 })
 export class ChangeSetPageComponent implements OnInit {
-  response$: Observable<ApiResponse<ChangeSetPage>>;
-  changeSetTitle = '';
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private apiService: ApiService
-  ) {}
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly apiService = inject(ApiService);
+  protected response$: Observable<ApiResponse<ChangeSetPage>>;
+  protected changeSetTitle = '';
 
   ngOnInit(): void {
     this.response$ = this.activatedRoute.params.pipe(

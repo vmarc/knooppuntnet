@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -9,7 +10,6 @@ import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetNetworksPageInit } from '../store/subset.actions';
@@ -73,16 +73,13 @@ import { SubsetNetworkTableComponent } from './subset-network-table.component';
   ],
 })
 export class SubsetNetworksPageComponent implements OnInit {
-  large$: Observable<boolean>;
+  private readonly store = inject(Store);
+  private readonly pageWidthService = inject(PageWidthService);
 
-  readonly apiResponse = this.store.selectSignal(selectSubsetNetworksPage);
-
-  constructor(
-    private store: Store,
-    private pageWidthService: PageWidthService
-  ) {
-    this.large$ = pageWidthService.current$.pipe(map(() => this.pageWidthService.isVeryLarge()));
-  }
+  protected readonly apiResponse = this.store.selectSignal(selectSubsetNetworksPage);
+  protected readonly large$ = this.pageWidthService.current$.pipe(
+    map(() => this.pageWidthService.isVeryLarge())
+  );
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetNetworksPageInit());

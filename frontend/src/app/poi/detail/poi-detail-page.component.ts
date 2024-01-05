@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -154,12 +155,10 @@ import { mergeMap } from 'rxjs/operators';
   ],
 })
 export class PoiDetailPageComponent implements OnInit {
-  response$: Observable<ApiResponse<PoiDetail>>;
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly apiService = inject(ApiService);
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private apiService: ApiService
-  ) {}
+  protected response$: Observable<ApiResponse<PoiDetail>>;
 
   ngOnInit(): void {
     this.response$ = this.activatedRoute.params.pipe(

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -70,9 +71,8 @@ import { PlannerPopupContentsComponent } from './planner-popup-contents.componen
   imports: [PlannerPopupContentsComponent],
 })
 export class PlannerPopupComponent implements AfterViewInit {
-  offset = false;
-
-  constructor(private plannerService: PlannerService) {}
+  private readonly plannerService = inject(PlannerService);
+  protected offset = false;
 
   closePopup() {
     this.plannerService.context.overlay.setPosition(undefined, 0);

@@ -1,4 +1,5 @@
 import { Location } from '@angular/common';
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
@@ -57,6 +58,14 @@ import { selectNetworkMapPage } from './network.selectors';
 
 @Injectable()
 export class NetworkEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly location = inject(Location);
+  private readonly apiService = inject(ApiService);
+  private readonly networkMapService = inject(NetworkMapService);
+
   // noinspection JSUnusedGlobalSymbols
   networkDetailsPageInit = createEffect(() => {
     return this.actions$.pipe(
@@ -279,16 +288,6 @@ export class NetworkEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private router: Router,
-    private route: ActivatedRoute,
-    private location: Location,
-    private apiService: ApiService,
-    private networkMapService: NetworkMapService
-  ) {}
 
   private navigate(changesParameters: ChangesParameters): Promise<boolean> {
     const queryParams: Params = {

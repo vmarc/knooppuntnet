@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy';
@@ -18,7 +19,7 @@ import { Store } from '@ngrx/store';
   imports: [AnalysisStrategyComponent, SidebarComponent],
 })
 export class AnalysisSidebarComponent {
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
 
   onStrategyChange(strategy: AnalysisStrategy) {
     this.store.dispatch(actionPreferencesAnalysisStrategy({ strategy }));

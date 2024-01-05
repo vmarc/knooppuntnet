@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 
 export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
@@ -9,7 +10,7 @@ export const BROWSER_STORAGE = new InjectionToken<Storage>('Browser Storage', {
   providedIn: 'root',
 })
 export class BrowserStorageService {
-  constructor(@Inject(BROWSER_STORAGE) private storage: Storage) {}
+  private storage: Storage = inject(BROWSER_STORAGE);
 
   get(key: string): string | null {
     return this.storage.getItem(key);

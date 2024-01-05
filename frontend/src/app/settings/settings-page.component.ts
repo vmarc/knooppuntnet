@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -89,10 +90,9 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
   ],
 })
 export class SettingsPageComponent {
-  readonly instructions = this.store.selectSignal(selectPreferencesInstructions);
-  readonly extraLayers = this.store.selectSignal(selectPreferencesExtraLayers);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly instructions = this.store.selectSignal(selectPreferencesInstructions);
+  protected readonly extraLayers = this.store.selectSignal(selectPreferencesExtraLayers);
 
   instructionsChanged(event: MatSlideToggleChange): void {
     this.store.dispatch(actionPreferencesInstructions({ instructions: event.checked }));

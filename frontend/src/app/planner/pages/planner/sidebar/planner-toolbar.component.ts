@@ -1,8 +1,8 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NetworkTypeSelectorComponent } from './network-type-selector.component';
 import { PlanActionsComponent } from './plan-actions.component';
@@ -28,11 +28,9 @@ import { PlanActionsComponent } from './plan-actions.component';
   imports: [AsyncPipe, NetworkTypeSelectorComponent, PlanActionsComponent],
 })
 export class PlannerToolbarComponent {
-  showNetworkTypeSelector$: Observable<boolean>;
+  private readonly pageWidthService = inject(PageWidthService);
 
-  constructor(private pageWidthService: PageWidthService) {
-    this.showNetworkTypeSelector$ = pageWidthService.current$.pipe(
-      map((pageWidth) => pageWidth === PageWidth.veryLarge)
-    );
-  }
+  protected showNetworkTypeSelector$ = this.pageWidthService.current$.pipe(
+    map((pageWidth) => pageWidth === PageWidth.veryLarge)
+  );
 }

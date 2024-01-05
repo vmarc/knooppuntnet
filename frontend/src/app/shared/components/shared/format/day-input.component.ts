@@ -1,5 +1,5 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Inject } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
@@ -46,9 +46,10 @@ export class DayInputComponent {
   @Input({ required: true }) date: FormControl<Date | null>;
   @Input({ required: true }) label: string;
 
-  constructor(@Inject(MAT_DATE_LOCALE) private matDateLocale: string) {}
+  private readonly matDateLocale = inject(MAT_DATE_LOCALE);
 
   dateFormatString(): string {
-    return DayUtil.formatString(this.matDateLocale);
+    console.log(['this.matDateLocale', this.matDateLocale]);
+    return DayUtil.formatString(this.matDateLocale.toString());
   }
 }

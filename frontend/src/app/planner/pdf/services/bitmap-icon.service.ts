@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import * as canvg from 'canvg';
@@ -9,9 +10,9 @@ import { map, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class BitmapIconService {
-  icons: Map<string, string> = Map<string, string>();
+  private readonly iconRegistry = inject(MatIconRegistry);
 
-  constructor(private iconRegistry: MatIconRegistry) {}
+  icons: Map<string, string> = Map<string, string>();
 
   public getIcon(iconName: string): Observable<string> {
     const icon = this.icons.get(iconName);

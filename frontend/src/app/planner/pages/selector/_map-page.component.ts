@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -20,7 +21,7 @@ import { MapService } from '../../services/map.service';
         <li i18n="@@breadcrumb.map">Map</li>
       </ul>
 
-      <kpn-page-header subject="planner" i18n="@@planner.map"> Map </kpn-page-header>
+      <kpn-page-header subject="planner" i18n="@@planner.map"> Map</kpn-page-header>
       <kpn-icon-buttons>
         <kpn-icon-button
           routerLink="/map/cycling"
@@ -74,7 +75,7 @@ import { MapService } from '../../services/map.service';
   ],
 })
 export class MapPageComponent implements OnInit {
-  constructor(private mapService: MapService) {}
+  private readonly mapService = inject(MapService);
 
   ngOnInit(): void {
     this.mapService.nextNetworkType(null);

@@ -58,16 +58,14 @@ import { UserStore } from '../../../user/user.store';
   imports: [UserLinkLoginComponent, UserLinkLogoutComponent],
 })
 export class SidebarFooterComponent {
-  private readonly userStore = inject(UserStore);
-  readonly loggedIn = this.userStore.loggedIn;
-  readonly user = this.userStore.user;
-
   @Input({ required: false }) loginEnabled = true;
 
-  constructor(
-    private router: Router,
-    private versionService: VersionService
-  ) {}
+  private readonly router = inject(Router);
+  private readonly versionService = inject(VersionService);
+
+  private readonly userStore = inject(UserStore);
+  protected readonly loggedIn = this.userStore.loggedIn;
+  protected readonly user = this.userStore.user;
 
   version(): string {
     return this.versionService.version;

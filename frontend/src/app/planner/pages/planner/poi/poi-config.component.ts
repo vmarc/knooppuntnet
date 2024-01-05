@@ -1,9 +1,9 @@
+import { inject } from '@angular/core';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { PoiService } from '@app/services';
 import { Subscriptions } from '@app/util';
-import { MapService } from '../../../services/map.service';
 
 @Component({
   selector: 'kpn-poi-config',
@@ -75,15 +75,13 @@ import { MapService } from '../../../services/map.service';
 export class PoiConfigComponent implements OnInit, OnDestroy {
   @Input() poiId: string;
   @Input() name: string;
-  icon: string;
-  minLevel = 0;
-  level = 0;
-  private readonly subscriptions = new Subscriptions();
 
-  constructor(
-    private mapService: MapService,
-    private poiService: PoiService
-  ) {}
+  private readonly poiService = inject(PoiService);
+
+  protected icon: string;
+  protected minLevel = 0;
+  protected level = 0;
+  private readonly subscriptions = new Subscriptions();
 
   ngOnInit(): void {
     this.subscriptions.add(

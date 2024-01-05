@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -26,7 +27,7 @@ export class NodeLocationComponent {
   @Input() networkType: NetworkType;
   @Input() locations: string[];
 
-  constructor(private i18nService: I18nService) {}
+  private readonly i18nService = inject(I18nService);
 
   hasLocation() {
     return this.locations && this.locations.length > 0;

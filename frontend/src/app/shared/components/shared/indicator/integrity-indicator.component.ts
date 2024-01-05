@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -23,7 +24,7 @@ import { IntegrityIndicatorDialogComponent } from './integrity-indicator-dialog.
 export class IntegrityIndicatorComponent {
   @Input({ required: true }) data: IntegrityIndicatorData;
 
-  constructor(private dialog: MatDialog) {}
+  private readonly dialog = inject(MatDialog);
 
   onOpenDialog() {
     this.dialog.open(IntegrityIndicatorDialogComponent, {

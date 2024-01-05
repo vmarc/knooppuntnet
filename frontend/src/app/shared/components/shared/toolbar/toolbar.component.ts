@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -6,7 +7,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { SpinnerComponent } from '@app/spinner';
-import { Observable } from 'rxjs';
 import { PageService } from '..';
 
 @Component({
@@ -83,11 +83,8 @@ import { PageService } from '..';
   ],
 })
 export class ToolbarComponent {
-  toolbarBackgroundColor$: Observable<string>;
-
-  constructor(private pageService: PageService) {
-    this.toolbarBackgroundColor$ = pageService.toolbarBackgroundColor$;
-  }
+  private readonly pageService = inject(PageService);
+  protected readonly toolbarBackgroundColor$ = this.pageService.toolbarBackgroundColor$;
 
   toggleSidebarOpen() {
     this.pageService.toggleSidebarOpen();

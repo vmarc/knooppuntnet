@@ -1,5 +1,6 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { NgClass } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -116,6 +117,8 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
 
   @Output() selection = new EventEmitter<string>();
 
+  private readonly dialog = inject(MatDialog);
+
   all = false;
 
   treeControl = new FlatTreeControl<LocationFlatNode>(
@@ -133,8 +136,6 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   private readonly subscriptions = new Subscriptions();
 
   hasChild = (_: number, node: LocationFlatNode) => node.expandable;
-
-  constructor(private dialog: MatDialog) {}
 
   ngOnInit() {
     this.dataSource.data = [this.locationNode];

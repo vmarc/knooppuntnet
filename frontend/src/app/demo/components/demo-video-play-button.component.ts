@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -50,9 +51,10 @@ import { selectDemoVideoPlayButtonEnabled } from '../store/demo.selectors';
   imports: [MatIconModule, AsyncPipe],
 })
 export class DemoVideoPlayButtonComponent {
-  readonly videoPlayButtonEnabled = this.store.selectSignal(selectDemoVideoPlayButtonEnabled);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly videoPlayButtonEnabled = this.store.selectSignal(
+    selectDemoVideoPlayButtonEnabled
+  );
 
   play(): void {
     this.store.dispatch(actionDemoPlay());

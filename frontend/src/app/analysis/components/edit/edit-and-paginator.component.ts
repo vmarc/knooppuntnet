@@ -51,8 +51,7 @@ export class EditAndPaginatorComponent {
   @Output() pageIndexChange = new EventEmitter<number>();
   @Output() edit = new EventEmitter<void>();
 
-  @ViewChild(PaginatorComponent, { static: true })
-  paginator: PaginatorComponent;
+  @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
   editClicked() {
     this.edit.emit();

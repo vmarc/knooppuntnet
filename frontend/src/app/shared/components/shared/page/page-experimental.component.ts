@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { VersionService } from '@app/services';
@@ -43,9 +43,9 @@ import { VersionService } from '@app/services';
   imports: [NgClass],
 })
 export class PageExperimentalComponent {
-  moreDetailOpen = false;
+  private readonly versionService = inject(VersionService);
 
-  constructor(private versionService: VersionService) {}
+  protected moreDetailOpen = false;
 
   isExperimental(): boolean {
     return this.versionService.experimental;

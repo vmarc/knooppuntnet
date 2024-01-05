@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ApiService } from '@app/services';
@@ -17,12 +18,9 @@ import { SurveyDateValues } from './survey-date-values';
 
 @Injectable()
 export class SharedEffects {
-  constructor(
-    private actions$: Actions,
-    private dialog: MatDialog,
-    private store: Store,
-    private apiService: ApiService
-  ) {}
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly apiService = inject(ApiService);
 
   // noinspection JSUnusedGlobalSymbols
   surveyDateInfoInit = createEffect(() => {

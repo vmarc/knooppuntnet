@@ -1,8 +1,7 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { Plan } from '../../../domain/plan/plan';
 import { PlannerService } from '../../../planner.service';
 import { selectPlannerResultModeInstructions } from '../../../store/planner-selectors';
 import { selectPlannerResultModeDetailed } from '../../../store/planner-selectors';
@@ -38,18 +37,12 @@ import { PlanInstructionsComponent } from './plan-instructions.component';
     PlanInstructionsComponent,
   ],
 })
-export class PlanResultComponent implements OnInit {
-  readonly compact = this.store.selectSignal(selectPlannerResultModeCompact);
-  readonly detailed = this.store.selectSignal(selectPlannerResultModeDetailed);
-  readonly instructions = this.store.selectSignal(selectPlannerResultModeInstructions);
-  plan$: Observable<Plan>;
+export class PlanResultComponent {
+  private readonly plannerService = inject(PlannerService);
+  private readonly store = inject(Store);
 
-  constructor(
-    private plannerService: PlannerService,
-    private store: Store
-  ) {}
-
-  ngOnInit(): void {
-    this.plan$ = this.plannerService.context.plan$;
-  }
+  protected readonly compact = this.store.selectSignal(selectPlannerResultModeCompact);
+  protected readonly detailed = this.store.selectSignal(selectPlannerResultModeDetailed);
+  protected readonly instructions = this.store.selectSignal(selectPlannerResultModeInstructions);
+  protected readonly plan$ = this.plannerService.context.plan$;
 }

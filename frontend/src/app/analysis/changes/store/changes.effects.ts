@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -33,6 +34,12 @@ import { selectChangesParameters } from './changes.selectors';
 
 @Injectable()
 export class ChangesEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
+  private readonly apiService = inject(ApiService);
+
   // noinspection JSUnusedGlobalSymbols
   changesPage = createEffect(() => {
     return this.actions$.pipe(
@@ -113,14 +120,6 @@ export class ChangesEffects {
       })
     );
   });
-
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private router: Router,
-    private route: ActivatedRoute,
-    private apiService: ApiService
-  ) {}
 
   private navigate(
     strategy: AnalysisStrategy,

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -43,11 +44,9 @@ import { selectPlannerMapMode } from '../../../store/planner-selectors';
   imports: [MatExpansionModule, MatRadioModule, AsyncPipe],
 })
 export class PlannerSideBarAppearanceComponent {
-  readonly mapMode$ = this.store.select(selectPlannerMapMode);
-
-  readonly expanded$ = this.store.select(selectPreferencesShowAppearanceOptions);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly mapMode$ = this.store.select(selectPlannerMapMode);
+  protected readonly expanded$ = this.store.select(selectPreferencesShowAppearanceOptions);
 
   expandedChanged(expanded: boolean): void {
     this.store.dispatch(actionPreferencesShowAppearanceOptions({ value: expanded }));

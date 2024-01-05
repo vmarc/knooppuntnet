@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -101,12 +102,11 @@ import { CountrySelectComponent } from './country-select.component';
   ],
 })
 export class LocationPoisSidebarComponent implements OnInit {
-  readonly apiResponse = this.store.selectSignal(selectLocationPoiSummaryPage);
-  readonly locationNode = this.store.selectSignal(selectLocationPoiSummaryLocationNode);
+  private readonly store = inject(Store);
+  protected readonly apiResponse = this.store.selectSignal(selectLocationPoiSummaryPage);
+  protected readonly locationNode = this.store.selectSignal(selectLocationPoiSummaryLocationNode);
 
   country = Country.be;
-
-  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationPoiSummaryPageInit());

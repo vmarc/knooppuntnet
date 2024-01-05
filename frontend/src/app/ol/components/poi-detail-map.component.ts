@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
@@ -31,7 +32,7 @@ import { PoiDetailMapService } from './poi-detail-map.service';
 export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
   @Input({ required: true }) poiDetail: PoiDetail;
 
-  constructor(protected service: PoiDetailMapService) {}
+  protected readonly service = inject(PoiDetailMapService);
 
   ngAfterViewInit(): void {
     this.service.init(this.poiDetail);

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -45,7 +46,7 @@ export class RouteLocationComponent {
   @Input() networkType: NetworkType;
   @Input() locationAnalysis: RouteLocationAnalysis;
 
-  constructor(private i18nService: I18nService) {}
+  private readonly i18nService = inject(I18nService);
 
   locationNames(location: Location): string[] {
     const country = location.names[0].toUpperCase();

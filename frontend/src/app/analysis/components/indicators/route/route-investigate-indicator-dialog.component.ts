@@ -1,6 +1,6 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IndicatorDialogComponent } from '@app/components/shared/indicator';
 
@@ -35,13 +35,5 @@ import { IndicatorDialogComponent } from '@app/components/shared/indicator';
   imports: [IndicatorDialogComponent],
 })
 export class RouteInvestigateIndicatorDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public color: string) {}
-
-  isGreen() {
-    return this.color === 'green';
-  }
-
-  isRed() {
-    return this.color === 'red';
-  }
+  protected readonly color: string = inject(MAT_DIALOG_DATA);
 }

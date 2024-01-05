@@ -1,4 +1,5 @@
 import { DOCUMENT } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -42,12 +43,9 @@ import { CsNcComponent } from './network/cs-nc.component';
 export class ChangeSetNetworkChangesComponent implements OnDestroy, AfterViewInit {
   @Input({ required: true }) page: ChangeSetPage;
 
+  private readonly route = inject(ActivatedRoute);
+  private readonly document = inject(DOCUMENT);
   private readonly subscriptions = new Subscriptions();
-
-  constructor(
-    private route: ActivatedRoute,
-    @Inject(DOCUMENT) private document
-  ) {}
 
   ngAfterViewInit(): void {
     this.subscriptions.add(

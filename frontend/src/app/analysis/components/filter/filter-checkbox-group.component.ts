@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -26,7 +27,7 @@ import { FilterOptionGroup } from '@app/kpn/filter';
 export class FilterCheckboxGroupComponent {
   @Input() group: FilterOptionGroup;
 
-  constructor(private i18nService: I18nService) {}
+  private readonly i18nService = inject(I18nService);
 
   isSelected() {
     return false;

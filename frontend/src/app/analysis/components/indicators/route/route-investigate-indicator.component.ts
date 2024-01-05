@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -22,9 +23,9 @@ import { RouteInvestigateIndicatorDialogComponent } from './route-investigate-in
 })
 export class RouteInvestigateIndicatorComponent implements OnInit {
   @Input() investigate: boolean;
-  color: string;
 
-  constructor(private dialog: MatDialog) {}
+  private readonly dialog = inject(MatDialog);
+  color: string;
 
   ngOnInit(): void {
     this.color = this.investigate ? 'red' : 'green';

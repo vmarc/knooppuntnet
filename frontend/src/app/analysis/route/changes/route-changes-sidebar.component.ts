@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
@@ -24,11 +25,10 @@ import { selectRouteChangesFilterOptions } from '../store/route.selectors';
   imports: [SidebarComponent, ChangeFilterComponent, AsyncPipe],
 })
 export class RouteChangesSidebarComponent {
-  filterOptions$ = this.store
+  private readonly store = inject(Store);
+  protected readonly filterOptions$ = this.store
     .select(selectRouteChangesFilterOptions)
     .pipe(filter((filterOptions) => !!filterOptions));
-
-  constructor(private store: Store) {}
 
   onOptionSelected(option: ChangeOption): void {
     this.store.dispatch(actionRouteChangesFilterOption({ option }));

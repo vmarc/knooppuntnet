@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -65,9 +66,8 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
   imports: [AsyncPipe, MatCheckboxModule, MatDividerModule, PoiMenuOptionComponent],
 })
 export class PoiMenuComponent {
-  readonly visible = this.store.selectSignal(selectPlannerPoisVisible);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly visible = this.store.selectSignal(selectPlannerPoisVisible);
 
   visibleChanged(event: MatCheckboxChange): void {
     this.store.dispatch(actionPlannerPoisVisible({ visible: event.checked }));

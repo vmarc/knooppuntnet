@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -23,6 +24,11 @@ import { selectDemoEnabled } from './demo.selectors';
 
 @Injectable()
 export class DemoEffects {
+  private readonly actions$ = inject(Actions);
+  private readonly store = inject(Store);
+  private readonly router = inject(Router);
+  private readonly demoService = inject(DemoService);
+
   // noinspection JSUnusedGlobalSymbols
   initialStartVideo = createEffect(
     () => {
@@ -116,11 +122,4 @@ export class DemoEffects {
     },
     { dispatch: false }
   );
-
-  constructor(
-    private actions$: Actions,
-    private store: Store,
-    private router: Router,
-    private demoService: DemoService
-  ) {}
 }

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -63,8 +64,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   ],
 })
 export class AnalysisCanoePageComponent {
+  private readonly analysisStrategyService = inject(AnalysisStrategyService);
   protected readonly nlLink$ = this.analysisStrategyService.link('canoe', 'nl');
   protected readonly frLink$ = this.analysisStrategyService.link('canoe', 'fr');
-
-  constructor(private analysisStrategyService: AnalysisStrategyService) {}
 }

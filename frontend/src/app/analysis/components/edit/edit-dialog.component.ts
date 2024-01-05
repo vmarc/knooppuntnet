@@ -1,9 +1,9 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -79,13 +79,10 @@ import { EditService } from './edit.service';
   imports: [AsyncPipe, MatButtonModule, MatDialogModule, MatProgressBarModule],
 })
 export class EditDialogComponent implements OnInit, OnDestroy {
+  protected readonly parameters: EditParameters = inject(MAT_DIALOG_DATA);
+  protected readonly editService = inject(EditService);
+  private readonly dialogRef = inject(MatDialogRef<EditDialogComponent>);
   private readonly subscriptions = new Subscriptions();
-
-  constructor(
-    private dialogRef: MatDialogRef<EditDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public parameters: EditParameters,
-    public editService: EditService
-  ) {}
 
   ngOnInit(): void {
     this.closeDialogUponReady();

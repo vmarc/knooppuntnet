@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { PoiService } from '@app/services';
 import { StyleFunction } from 'ol/style/Style';
@@ -10,13 +11,14 @@ import { PoiStyleMap } from '../style';
   providedIn: 'root',
 })
 export class PoiTileLayerService {
+  private readonly poiService = inject(PoiService);
+
   static poiLayerName = 'pois';
   poiStyleMap: PoiStyleMap;
 
-  constructor(private poiService: PoiService) {
+  constructor() {
     console.log('PoiTileLayerService.constructor');
-
-    poiService.poiConfiguration.subscribe((configuration) => {
+    this.poiService.poiConfiguration.subscribe((configuration) => {
       if (configuration !== null) {
         this.poiStyleMap = new PoiStyleMap(configuration);
       }

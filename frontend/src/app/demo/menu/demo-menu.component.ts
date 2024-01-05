@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -42,7 +43,6 @@ import { selectDemoEnabled } from '../store/demo.selectors';
   imports: [AsyncPipe, DemoDisabledComponent, DemoSidebarComponent, MatIconModule, PageComponent],
 })
 export class DemoMenuComponent {
-  readonly enabled = this.store.selectSignal(selectDemoEnabled);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly enabled = this.store.selectSignal(selectDemoEnabled);
 }

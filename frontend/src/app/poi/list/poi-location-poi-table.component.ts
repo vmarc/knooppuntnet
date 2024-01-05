@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
@@ -112,22 +113,18 @@ export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   @Input({ required: true }) pois: LocationPoiInfo[];
   @Input({ required: true }) poiCount: number;
 
-  @ViewChild(PaginatorComponent, { static: true })
-  paginator: PaginatorComponent;
+  @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
-  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
-  readonly pageIndex = this.store.selectSignal(selectLocationPoisPageIndex);
+  private readonly pageWidthService = inject(PageWidthService);
+  private readonly store = inject(Store);
 
-  dataSource: MatTableDataSource<LocationPoiInfo>;
-  displayedColumns$: Observable<Array<string>>;
+  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  protected readonly pageIndex = this.store.selectSignal(selectLocationPoisPageIndex);
 
-  constructor(
-    private pageWidthService: PageWidthService,
-    private store: Store
-  ) {
-    this.dataSource = new MatTableDataSource();
-    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
-  }
+  protected readonly dataSource = new MatTableDataSource<LocationPoiInfo>();
+  protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
+    map(() => this.displayedColumns())
+  );
 
   ngOnInit(): void {
     this.dataSource.data = this.pois;

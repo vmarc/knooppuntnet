@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -102,24 +103,21 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
   @Input() timeInfo: TimeInfo;
   @Input() nodes: OrphanNodeInfo[];
 
-  @ViewChild(EditAndPaginatorComponent, { static: true })
-  paginator: EditAndPaginatorComponent;
-  dataSource: MatTableDataSource<OrphanNodeInfo>;
+  @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 
-  displayedColumns = ['nr', 'node', 'name', 'last-survey', 'last-edit'];
+  private readonly subsetOrphanNodesService = inject(SubsetOrphanNodesService);
+  private readonly editService = inject(EditService);
+  private readonly store = inject(Store);
 
-  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  protected readonly dataSource = new MatTableDataSource<OrphanNodeInfo>();
+
+  protected displayedColumns = ['nr', 'node', 'name', 'last-survey', 'last-edit'];
+
+  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
 
   private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanNodeFilterCriteria());
 
-  constructor(
-    private subsetOrphanNodesService: SubsetOrphanNodesService,
-    private editService: EditService,
-    private store: Store
-  ) {}
-
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource();
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria$.subscribe((criteria) => {
       const filter = new SubsetOrphanNodeFilter(this.timeInfo, criteria, this.filterCriteria$);

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { ViewChild } from '@angular/core';
@@ -157,24 +158,20 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   @Input() routes: LocationRouteInfo[];
   @Input() routeCount: number;
 
-  @ViewChild(PaginatorComponent, { static: true })
-  paginator: PaginatorComponent;
+  @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
-  readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
-  readonly pageIndex = this.store.selectSignal(selectLocationRoutesPageIndex);
-  readonly networkType = this.store.selectSignal(selectLocationNetworkType);
+  private readonly pageWidthService = inject(PageWidthService);
+  private readonly editService = inject(EditService);
+  private readonly store = inject(Store);
 
-  dataSource: MatTableDataSource<LocationRouteInfo>;
-  displayedColumns$: Observable<Array<string>>;
+  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  protected readonly pageIndex = this.store.selectSignal(selectLocationRoutesPageIndex);
+  protected readonly networkType = this.store.selectSignal(selectLocationNetworkType);
 
-  constructor(
-    private pageWidthService: PageWidthService,
-    private editService: EditService,
-    private store: Store
-  ) {
-    this.dataSource = new MatTableDataSource();
-    this.displayedColumns$ = pageWidthService.current$.pipe(map(() => this.displayedColumns()));
-  }
+  protected readonly dataSource = new MatTableDataSource<LocationRouteInfo>();
+  protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
+    map(() => this.displayedColumns())
+  );
 
   ngOnInit(): void {
     this.dataSource.data = this.routes;

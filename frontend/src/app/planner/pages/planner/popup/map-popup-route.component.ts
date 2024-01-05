@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -66,14 +67,12 @@ import { MapService } from '../../../services/map.service';
   imports: [RouterLink, LinkRouteComponent, AsyncPipe],
 })
 export class MapPopupRouteComponent implements OnInit {
+  private readonly apiService = inject(ApiService);
+  private readonly mapService = inject(MapService);
+  private readonly plannerService = inject(PlannerService);
+
   protected response$: Observable<ApiResponse<MapRouteDetail>>;
   protected networkType$ = this.mapService.networkType$;
-
-  constructor(
-    private apiService: ApiService,
-    private mapService: MapService,
-    private plannerService: PlannerService
-  ) {}
 
   ngOnInit(): void {
     this.response$ = this.mapService.routeClicked$.pipe(

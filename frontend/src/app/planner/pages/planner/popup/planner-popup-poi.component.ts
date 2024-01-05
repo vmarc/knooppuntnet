@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
@@ -12,7 +13,6 @@ import { OsmLinkComponent } from '@app/components/shared/link';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { ApiService } from '@app/services';
-import { PoiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { filter, mergeMap, tap } from 'rxjs/operators';
@@ -77,19 +77,16 @@ import { MapService } from '../../../services/map.service';
   ],
 })
 export class PlannerPopupPoiComponent implements OnInit {
-  response$: Observable<ApiResponse<PoiPage>>;
+  private readonly mapService = inject(MapService);
+  private readonly apiService = inject(ApiService);
+  private readonly plannerService = inject(PlannerService);
 
-  poiClick: PoiClick;
-  poiPage: PoiPage;
-  poi: PoiAnalysis;
-  tags: Tags;
+  protected response$: Observable<ApiResponse<PoiPage>>;
 
-  constructor(
-    private mapService: MapService,
-    private apiService: ApiService,
-    private poiService: PoiService,
-    private plannerService: PlannerService
-  ) {}
+  protected poiClick: PoiClick;
+  protected poiPage: PoiPage;
+  protected poi: PoiAnalysis;
+  protected tags: Tags;
 
   ngOnInit(): void {
     this.response$ = this.mapService.poiClicked$.pipe(

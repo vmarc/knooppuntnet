@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -37,9 +38,8 @@ import { Store } from '@ngrx/store';
 export class AnalysisStrategyComponent {
   @Output() strategyChange = new EventEmitter<AnalysisStrategy>();
 
-  readonly strategy = this.store.selectSignal(selectPreferencesAnalysisStrategy);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly strategy = this.store.selectSignal(selectPreferencesAnalysisStrategy);
 
   onStrategyChange(event: MatRadioChange) {
     this.strategyChange.emit(event.value);

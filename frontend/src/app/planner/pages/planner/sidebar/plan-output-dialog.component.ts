@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
@@ -147,19 +148,18 @@ import { PlannerService } from '../../../planner.service';
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   @ViewChild('routename') input: ElementRef;
-  name = '';
-  planUrl = '';
 
-  qrCode: string | ArrayBuffer = '';
+  private readonly pdfService = inject(PdfService);
+  private readonly plannerService = inject(PlannerService);
+  private readonly store = inject(Store);
+  private readonly apiService = inject(ApiService);
+
+  protected name = '';
+  protected planUrl = '';
+
+  protected qrCode: string | ArrayBuffer = '';
 
   readonly instructions = this.store.selectSignal(selectPreferencesInstructions);
-
-  constructor(
-    private pdfService: PdfService,
-    private plannerService: PlannerService,
-    private store: Store,
-    private apiService: ApiService
-  ) {}
 
   ngOnInit(): void {
     this.name = this.defaultName();

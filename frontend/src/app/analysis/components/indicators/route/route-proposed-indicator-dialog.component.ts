@@ -1,6 +1,6 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IndicatorDialogComponent } from '@app/components/shared/indicator';
 import { MarkdownModule } from 'ngx-markdown';
@@ -37,5 +37,5 @@ import { MarkdownModule } from 'ngx-markdown';
   imports: [IndicatorDialogComponent, MarkdownModule],
 })
 export class RouteProposedIndicatorDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public color: string) {}
+  protected readonly color: string = inject(MAT_DIALOG_DATA);
 }

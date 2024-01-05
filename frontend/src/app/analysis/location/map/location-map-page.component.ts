@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -49,13 +50,10 @@ import { LocationMapService } from './location-map.service';
   ],
 })
 export class LocationMapPageComponent implements OnInit, OnDestroy {
+  private readonly store = inject(Store);
+
   protected readonly apiResponse = this.store.selectSignal(selectLocationMapPage);
   protected readonly networkType = this.store.selectSignal(selectLocationNetworkType);
-
-  constructor(
-    private locationMapLayerService: LocationMapService,
-    private store: Store
-  ) {}
 
   ngOnInit(): void {
     this.store.dispatch(actionLocationMapPageInit());

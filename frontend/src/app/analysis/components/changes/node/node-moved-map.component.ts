@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component, Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -29,7 +30,7 @@ import { NodeMovedMapService } from './node-moved-map.service';
 export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
   @Input() nodeMoved: NodeMoved;
 
-  constructor(protected service: NodeMovedMapService) {}
+  protected readonly service = inject(NodeMovedMapService);
 
   ngAfterViewInit(): void {
     setTimeout(() => this.service.init(this.nodeMoved), 1);

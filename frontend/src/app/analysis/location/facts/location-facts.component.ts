@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { Component } from '@angular/core';
@@ -94,10 +95,7 @@ import { Store } from '@ngrx/store';
 export class LocationFactsComponent {
   @Input() locationFacts: LocationFact[];
 
-  constructor(
-    private editService: EditService,
-    private store: Store
-  ) {}
+  private readonly editService = inject(EditService);
 
   factLevel(fact: Fact): FactLevel {
     return Facts.factLevels.get(fact);

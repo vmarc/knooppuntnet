@@ -4,6 +4,7 @@ import { HttpEvent } from '@angular/common/http';
 import { HttpHandler } from '@angular/common/http';
 import { HttpInterceptor } from '@angular/common/http';
 import { HttpRequest } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { actionSharedHttpError } from '@app/core';
 import { Store } from '@ngrx/store';
@@ -17,10 +18,8 @@ export const LOCAL_ERROR_HANDLING = new HttpContextToken(() => false);
 
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
-  constructor(
-    private spinnerService: SpinnerService,
-    private store: Store
-  ) {}
+  private readonly spinnerService = inject(SpinnerService);
+  private readonly store = inject(Store);
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let result$: Observable<HttpEvent<any>>;

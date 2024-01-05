@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { RouteMapInfo } from '@api/common/route';
 import { OlUtil } from '@app/ol';
@@ -22,12 +23,8 @@ import View from 'ol/View';
 
 @Injectable()
 export class RouteMapService extends OpenlayersMapService {
-  constructor(
-    private mapClickService: MapClickService,
-    private i18nService: I18nService
-  ) {
-    super();
-  }
+  private readonly mapClickService = inject(MapClickService);
+  private readonly i18nService = inject(I18nService);
 
   init(routeMapInfo: RouteMapInfo, mapPositionFromUrl: MapPosition): void {
     this.registerLayers(routeMapInfo);

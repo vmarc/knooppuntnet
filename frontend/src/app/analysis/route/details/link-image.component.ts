@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -29,9 +30,10 @@ export class LinkImageComponent implements OnInit, OnDestroy, AfterViewChecked {
   @Input() linkName: string;
   @ViewChild('image', { static: false }) imageRef: ElementRef;
   @ViewChild('imageWrapper', { static: false }) divRef: ElementRef;
-  resizeSubscription$: Subscription;
 
-  constructor(private renderer: Renderer2) {}
+  private readonly renderer = inject(Renderer2);
+
+  private resizeSubscription$: Subscription;
 
   ngOnInit(): void {
     this.resizeSubscription$ = fromEvent(window, 'resize').subscribe(() => {

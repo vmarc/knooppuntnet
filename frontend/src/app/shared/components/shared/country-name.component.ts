@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
@@ -23,7 +24,7 @@ import { Util } from './util';
 export class CountryNameComponent {
   @Input({ required: true }) country: Country;
 
-  constructor(private i18nService: I18nService) {}
+  private readonly i18nService = inject(I18nService);
 
   countryName(): string {
     return this.i18nService.translation('@@country.' + Util.safeGet(() => this.country));

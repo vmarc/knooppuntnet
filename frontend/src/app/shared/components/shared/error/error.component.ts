@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { selectSharedHttpError } from '@app/core';
@@ -50,9 +51,8 @@ import { Store } from '@ngrx/store';
   imports: [AsyncPipe],
 })
 export class ErrorComponent {
-  readonly sharedHttpError = this.store.selectSignal(selectSharedHttpError);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly sharedHttpError = this.store.selectSignal(selectSharedHttpError);
 
   isRecoverableServerError(httpError: string): boolean {
     return httpError === 'error-502' || httpError === 'error-504' || httpError === 'error-0';

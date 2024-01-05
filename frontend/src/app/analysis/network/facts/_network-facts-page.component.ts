@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -68,9 +69,8 @@ import { NetworkFactComponent } from './network-fact.component';
   ],
 })
 export class NetworkFactsPageComponent implements OnInit, OnDestroy {
-  readonly apiResponse = this.store.selectSignal(selectNetworkFactsPage);
-
-  constructor(private store: Store) {}
+  private readonly store = inject(Store);
+  protected readonly apiResponse = this.store.selectSignal(selectNetworkFactsPage);
 
   ngOnInit(): void {
     this.store.dispatch(actionNetworkFactsPageInit());

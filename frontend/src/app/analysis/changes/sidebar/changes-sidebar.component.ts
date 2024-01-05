@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
@@ -28,11 +29,11 @@ import { selectChangesFilterOptions } from '../store/changes.selectors';
   imports: [AnalysisStrategyComponent, AsyncPipe, ChangeFilterComponent, SidebarComponent],
 })
 export class ChangesSidebarComponent {
+  private readonly store = inject(Store);
+
   filterOptions$ = this.store
     .select(selectChangesFilterOptions)
     .pipe(filter((filterOptions) => !!filterOptions));
-
-  constructor(private store: Store) {}
 
   onOptionSelected(option: ChangeOption): void {
     this.store.dispatch(actionChangesFilterOption({ option }));

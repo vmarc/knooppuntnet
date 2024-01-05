@@ -1,4 +1,5 @@
 import { DOCUMENT } from '@angular/common';
+import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Inject } from '@angular/core';
@@ -10,6 +11,8 @@ import { MonitorRouteSaveStep } from './route/monitor-route-save-step';
 
 @Injectable()
 export class MonitorWebsocketService {
+  private readonly document = inject(DOCUMENT);
+
   private readonly logEnabled = false;
   private readonly _steps = signal<MonitorRouteSaveStep[]>([]);
   private readonly _errors = signal<string[]>([]);
@@ -21,8 +24,6 @@ export class MonitorWebsocketService {
   readonly errors = this._errors.asReadonly();
   readonly busy = this._busy.asReadonly();
   readonly done = this._done.asReadonly();
-
-  constructor(@Inject(DOCUMENT) private document) {}
 
   sendCommand(command: MonitorRouteUpdate) {
     let protocol = 'wss';

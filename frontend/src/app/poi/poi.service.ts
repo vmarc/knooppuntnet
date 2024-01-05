@@ -1,7 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
+import { inject } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
-import { Inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { LocationPoiParameters } from '@api/common/poi';
 import { LocationPoiSummaryPage } from '@api/common/poi';
@@ -9,16 +9,12 @@ import { LocationPoisPage } from '@api/common/poi';
 import { PoiLocationsPage } from '@api/common/poi';
 import { ApiResponse } from '@api/custom';
 import { Country } from '@api/custom';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class PoiService {
-  constructor(
-    @Inject(LOCALE_ID) public locale: string,
-    private http: HttpClient,
-    private store: Store
-  ) {}
+  public locale: string = inject(LOCALE_ID);
+  private http = inject(HttpClient);
 
   locationPois(
     location: string,

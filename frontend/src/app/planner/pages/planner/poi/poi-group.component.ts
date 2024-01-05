@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -65,7 +66,7 @@ export class PoiGroupComponent {
   @Input() name: string;
   @Input() title: string;
 
-  constructor(private poiService: PoiService) {}
+  private readonly poiService = inject(PoiService);
 
   isEnabled(): boolean {
     return this.poiService.isGroupEnabled(this.name);
