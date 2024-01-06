@@ -7,14 +7,14 @@ import com.nimbusds.jwt.JWTClaimsSet
 import com.nimbusds.jwt.SignedJWT
 import jakarta.servlet.http.Cookie
 import org.springframework.security.core.Authentication
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler
 import org.springframework.stereotype.Component
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.apache.commons.codec.binary.Base64.decodeBase64
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler
 
 @Component
-class ServerAuthenticationLoginSuccessHandler(cryptoKey: String) extends SimpleUrlAuthenticationSuccessHandler {
+class CustomAuthenticationSuccessHandler(cryptoKey: String) extends AuthenticationSuccessHandler {
 
   override def onAuthenticationSuccess(
     request: HttpServletRequest,
@@ -32,7 +32,6 @@ class ServerAuthenticationLoginSuccessHandler(cryptoKey: String) extends SimpleU
         response.sendRedirect(returnUrl)
       }
     }
-    super.onAuthenticationSuccess(request, response, authentication)
   }
 
   private def knooppuntnetCookie(authentication: Authentication): Cookie = {

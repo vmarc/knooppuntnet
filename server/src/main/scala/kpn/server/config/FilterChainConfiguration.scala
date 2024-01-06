@@ -10,7 +10,8 @@ import org.springframework.security.web.authentication.logout.LogoutFilter
 class FilterChainConfiguration(
   authenticationReturnUrlFilter: AuthenticationReturnUrlFilter,
   authenticationCookieFilter: AuthenticationCookieFilter,
-  loginSuccessHandler: ServerAuthenticationLoginSuccessHandler,
+  authenticationSuccessHandler: CustomAuthenticationSuccessHandler,
+  authenticationFailureHandler: CustomAuthenticationFailureHandler,
   authorizationRequestResolver: CustomAuthorizationRequestResolver,
   userService: UserService,
   testEnabled: Boolean
@@ -30,7 +31,8 @@ class FilterChainConfiguration(
       .oauth2Login(oauth2Login =>
         oauth2Login
           .loginProcessingUrl("/api/oauth2/code/*")
-          .successHandler(loginSuccessHandler)
+          .successHandler(authenticationSuccessHandler)
+          .failureHandler(authenticationFailureHandler)
           .userInfoEndpoint(userInfoEndpoint =>
             userInfoEndpoint.userService(userService)
           )
