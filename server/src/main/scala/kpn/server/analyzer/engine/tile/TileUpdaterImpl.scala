@@ -6,6 +6,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
+import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.OldTile
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
@@ -34,7 +35,7 @@ class TileUpdaterImpl(
 
   private class Updater(minZoomLevel: Int) {
 
-    private val nodeCache = new TileDataCache[TileDataNode]()
+    private val nodeCache = new TileDataCache[NodeTileInfo]()
     private val routeCache = new TileDataCache[TileDataRoute]()
 
     def update(): Unit = {
@@ -68,15 +69,16 @@ class TileUpdaterImpl(
     private def collectTileDataNodes(networkType: NetworkType, tile: OldTile): Seq[TileDataNode] = {
       val nodeIds = tileRepository.nodeIds(networkType, tile)
       nodeIds.flatMap { nodeId =>
-        nodeCache.getOrElseUpdate(
+        val nodeTileInfoOption = nodeCache.getOrElseUpdate(
           nodeId,
-          nodeRepository.nodeTileInfoById(nodeId) match {
-            case Some(tileInfoNode) => tileDataNodeBuilder.build(networkType, tileInfoNode)
-            case None =>
-              log.error(s"Unexpected data integrity problem: node $nodeId for tile ${networkType.name}-${tile.name} not found in database")
-              None
-          }
+          nodeRepository.nodeTileInfoById(nodeId)
         )
+        nodeTileInfoOption match {
+          case Some(tileInfoNode) => tileDataNodeBuilder.build(networkType, tileInfoNode)
+          case None =>
+            log.error(s"Unexpected data integrity problem: node $nodeId for tile ${networkType.name}-${tile.name} not found in database")
+            None
+        }
       }
     }
 

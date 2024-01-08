@@ -14,7 +14,7 @@ import scala.util.Failure
 import scala.util.Success
 
 @Component
-class TileDataNodeBuilderImpl() extends TileDataNodeBuilder {
+class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
 
   private val prioritizedScopes = Seq(
     NetworkScope.regional, // prefer regional over local
