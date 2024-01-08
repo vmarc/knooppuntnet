@@ -49,7 +49,6 @@ export class DayInputComponent {
   private readonly matDateLocale = inject(MAT_DATE_LOCALE);
 
   dateFormatString(): string {
-    console.log(['this.matDateLocale', this.matDateLocale]);
     return DayUtil.formatString(this.matDateLocale.toString());
   }
 }

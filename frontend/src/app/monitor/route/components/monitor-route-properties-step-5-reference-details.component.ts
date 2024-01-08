@@ -173,7 +173,9 @@ export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {
   @Input({ required: true }) oldReferenceTimestamp: Timestamp | null;
 
   selectFile(selectEvent: any) {
-    this.referenceFile.setValue(selectEvent.target.files[0]);
-    this.referenceFilename.setValue(selectEvent.target.files[0].name);
+    if (selectEvent.target.files && selectEvent.target.files.length > 0) {
+      this.referenceFile.setValue(selectEvent.target.files[0]);
+      this.referenceFilename.setValue(selectEvent.target.files[0].name);
+    }
   }
 }

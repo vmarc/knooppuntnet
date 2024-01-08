@@ -119,7 +119,9 @@ export class MonitorRouteGpxReferenceComponent {
   @Input({ required: true }) referenceFile: FormControl<File>;
 
   selectFile(selectEvent: any) {
-    this.referenceFile.setValue(selectEvent.target.files[0]);
-    this.referenceFilename.setValue(selectEvent.target.files[0].name);
+    if (selectEvent.target.files && selectEvent.target.files.length > 0) {
+      this.referenceFile.setValue(selectEvent.target.files[0]);
+      this.referenceFilename.setValue(selectEvent.target.files[0].name);
+    }
   }
 }
