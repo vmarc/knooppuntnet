@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
-import * as canvg from 'canvg';
+import { Canvg } from 'canvg';
 import { Map } from 'immutable';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -27,8 +27,9 @@ export class BitmapIconService {
       map((svgElement) => {
         const str: string = svgElement.outerHTML;
         const canvas: HTMLCanvasElement = document.createElement('canvas');
-        // @ts-ignore
-        canvg(canvas, str);
+        const context = canvas.getContext('2d');
+        const v = Canvg.fromString(context, str);
+        v.start();
         return canvas.toDataURL('image/png');
       }),
       tap((icon) => {
