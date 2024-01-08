@@ -43,7 +43,9 @@ export class RouteChangeMapService extends OpenlayersMapService {
     const registry = new MapLayerRegistry();
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);
-    registry.register([], RouteNodesLayer.build(nodes), true);
+    if (nodes && nodes.length > 0) {
+      registry.register([], RouteNodesLayer.build(nodes), true);
+    }
     new RouteChangeLayers(this.i18nService)
       .build(geometryDiff)
       .forEach((mapLayer) => registry.register([], mapLayer, true));
