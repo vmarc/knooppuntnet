@@ -66,11 +66,19 @@ export class NetworkFactHeaderComponent {
   edit(networkFact: NetworkFact): void {
     let editParameters: EditParameters = null;
 
-    if (networkFact.elementType === 'node') {
+    if (
+      networkFact.elementType === 'node' &&
+      networkFact.elementIds &&
+      networkFact.elementIds.length > 0
+    ) {
       editParameters = {
         nodeIds: networkFact.elementIds,
       };
-    } else if (networkFact.elementType === 'route') {
+    } else if (
+      networkFact.elementType === 'route' &&
+      networkFact.elementIds &&
+      networkFact.elementIds.length > 0
+    ) {
       editParameters = {
         relationIds: networkFact.elementIds,
         fullRelation: true,
@@ -80,7 +88,9 @@ export class NetworkFactHeaderComponent {
         nodeIds: networkFact.checks.map((check) => check.nodeId),
       };
     }
-    this.editService.edit(editParameters);
+    if (editParameters !== null) {
+      this.editService.edit(editParameters);
+    }
   }
 
   factInfo(networkFact: NetworkFact): FactInfo {
