@@ -1,5 +1,25 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 
-case class RouteWay(way: Way, reversed: Boolean = false)
+case class RouteWay(way: Way, reversed: Boolean = false) {
+
+  def startNode: Node = {
+    if (reversed) {
+      way.nodes.last
+    }
+    else {
+      way.nodes.head
+    }
+  }
+
+  def endNode: Node = {
+    if (reversed) {
+      way.nodes.head
+    }
+    else {
+      way.nodes.last
+    }
+  }
+}

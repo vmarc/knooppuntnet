@@ -39,7 +39,7 @@ object CaseStudy {
     routeAnalyzer.analyze(routeRelation).get
   }
 
-  private def load(filename: String): Relation = {
+  def load(filename: String): Relation = {
 
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)

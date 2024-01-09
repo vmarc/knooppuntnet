@@ -98,14 +98,16 @@ class Issue2_OverlappingWays extends UnitTest {
   }
 
   private def withoutConnectionNode(rawData: RawData, connectingNodeName: String): RawData = {
-    rawData.copy(nodes = rawData.nodes.map(node =>
-      if (node.tags.has("rwn_ref", connectingNodeName)) {
-        node.copy(tags = node.tags.without("rwn_ref").without("network:type"))
-      }
-      else {
-        node
-      }
-    ))
+    rawData.copy(
+      nodes = rawData.nodes.map(node =>
+        if (node.tags.has("rwn_ref", connectingNodeName)) {
+          node.copy(tags = node.tags.without("rwn_ref").without("network:type"))
+        }
+        else {
+          node
+        }
+      )
+    )
   }
 
   private def makeGeojson(name: String, trackSegment: TrackSegment): Unit = {
