@@ -10,7 +10,7 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.util.Xml
 
-class OsmXmlWriter(out: PrintWriter) {
+class OsmXmlWriter(out: PrintWriter, full: Boolean = true) {
 
   def printHeader(): Unit = {
     out.println("""<?xml version="1.0" encoding="UTF-8"?>""")
@@ -29,7 +29,12 @@ class OsmXmlWriter(out: PrintWriter) {
     val timestamp = node.timestamp.iso
     val changeset = node.changeSetId
 
-    out.print(s"""  <node id="$id" version="$version" lat="$lat" lon="$lon" timestamp="$timestamp" changeset="$changeset"""")
+    if (full) {
+      out.print(s"""  <node id="$id" version="$version" lat="$lat" lon="$lon" timestamp="$timestamp" changeset="$changeset"""")
+    }
+    else {
+      out.print(s"""  <node id="$id" lat="$lat" lon="$lon"""")
+    }
 
     if (node.tags.isEmpty) {
       out.println("/>")
@@ -46,7 +51,12 @@ class OsmXmlWriter(out: PrintWriter) {
     val version = way.version
     val timestamp = way.timestamp.iso
     val changeset = way.changeSetId
-    out.println(s"""  <way id="$id" version="$version" timestamp="$timestamp" changeset="$changeset">""")
+    if (full) {
+      out.println(s"""  <way id="$id" version="$version" timestamp="$timestamp" changeset="$changeset">""")
+    }
+    else {
+      out.println(s"""  <way id="$id">""")
+    }
     printTags(way.tags)
     printNodeReferences(way.nodeIds)
     out.println("  </way>")
@@ -57,7 +67,12 @@ class OsmXmlWriter(out: PrintWriter) {
     val version = relation.version
     val timestamp = relation.timestamp.iso
     val changeset = relation.changeSetId
-    out.println(s"""  <relation id="$id" version="$version" timestamp="$timestamp" changeset="$changeset">""")
+    if (full) {
+      out.println(s"""  <relation id="$id" version="$version" timestamp="$timestamp" changeset="$changeset">""")
+    }
+    else {
+      out.println(s"""  <relation id="$id">""")
+    }
     printMembers(relation.members)
     printTags(relation.tags)
     out.println("  </relation>")

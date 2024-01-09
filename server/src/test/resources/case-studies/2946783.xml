@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <osm version="0.6">
-  <node id="1477592213" version="1" lat="51.239306" lon="5.1896452" timestamp="2011-10-23T09:56:00Z" changeset="9630994" uid="29172" user="susvhv"/>
-  <node id="1477592232" version="2" lat="51.2392779" lon="5.1893322" timestamp="2013-12-11T15:24:26Z" changeset="19397445" uid="30514" user="bavh"/>
-  <node id="1477592235" version="1" lat="51.2394975" lon="5.1903211" timestamp="2011-10-23T09:56:00Z" changeset="9630994" uid="29172" user="susvhv"/>
-  <node id="1477592241" version="1" lat="51.2393997" lon="5.1899246" timestamp="2011-10-23T09:56:00Z" changeset="9630994" uid="29172" user="susvhv"/>
-  <node id="1477821126" version="3" lat="51.2397614" lon="5.1910638" timestamp="2013-12-11T15:24:26Z" changeset="19397445" uid="30514" user="bavh">
-    <tag k="rwn_ref" v="42"/>
-  </node>
-  <node id="1477821133" version="2" lat="51.2400347" lon="5.1958408" timestamp="2013-05-20T18:45:32Z" changeset="16214022" uid="436365" user="escada"/>
-  <node id="1477821134" version="2" lat="51.2400033" lon="5.194209" timestamp="2013-05-20T18:45:32Z" changeset="16214022" uid="436365" user="escada"/>
-  <node id="1477821135" version="2" lat="51.2399653" lon="5.1971034" timestamp="2013-05-20T18:45:32Z" changeset="16214022" uid="436365" user="escada"/>
-  <node id="1477821141" version="2" lat="51.2399346" lon="5.1930853" timestamp="2013-05-20T18:45:32Z" changeset="16214022" uid="436365" user="escada"/>
-  <node id="1477821142" version="2" lat="51.2399026" lon="5.1977517" timestamp="2013-05-20T18:45:32Z" changeset="16214022" uid="436365" user="escada"/>
-  <node id="1477821144" version="3" lat="51.2396494" lon="5.1911104" timestamp="2013-12-11T15:24:26Z" changeset="19397445" uid="30514" user="bavh"/>
-  <node id="1477821151" version="2" lat="51.2398041" lon="5.192044" timestamp="2013-05-20T18:45:32Z" changeset="16214022" uid="436365" user="escada"/>
-  <node id="1832804226" version="1" lat="51.2401053" lon="5.1979449" timestamp="2012-07-21T07:26:11Z" changeset="12402359" uid="29172" user="susvhv"/>
-  <node id="201976299" version="7" lat="51.2389759" lon="5.1864252" timestamp="2013-12-11T15:24:26Z" changeset="19397445" uid="30514" user="bavh">
+  <node id="201976299" lat="51.2389759" lon="5.1864252">
     <tag k="rwn_ref" v="41"/>
   </node>
-  <node id="2313420583" version="2" lat="51.2390408" lon="5.1866315" timestamp="2013-12-11T15:24:26Z" changeset="19397445" uid="30514" user="bavh">
+  <node id="1477592213" lat="51.239306" lon="5.1896452"/>
+  <node id="1477592232" lat="51.2392779" lon="5.1893322"/>
+  <node id="1477592235" lat="51.2394975" lon="5.1903211"/>
+  <node id="1477592241" lat="51.2393997" lon="5.1899246"/>
+  <node id="1477821126" lat="51.2397614" lon="5.1910638">
+    <tag k="rwn_ref" v="42"/>
+  </node>
+  <node id="1477821133" lat="51.2400347" lon="5.1958408"/>
+  <node id="1477821134" lat="51.2400033" lon="5.194209"/>
+  <node id="1477821135" lat="51.2399653" lon="5.1971034"/>
+  <node id="1477821141" lat="51.2399346" lon="5.1930853"/>
+  <node id="1477821142" lat="51.2399026" lon="5.1977517"/>
+  <node id="1477821144" lat="51.2396494" lon="5.1911104"/>
+  <node id="1477821151" lat="51.2398041" lon="5.192044"/>
+  <node id="1832804226" lat="51.2401053" lon="5.1979449"/>
+  <node id="2313420583" lat="51.2390408" lon="5.1866315">
     <tag k="amenity" v="parking"/>
   </node>
-  <node id="2313420601" version="2" lat="51.2392734" lon="5.1886183" timestamp="2013-12-11T15:24:26Z" changeset="19397445" uid="30514" user="bavh"/>
-  <node id="2313420610" version="2" lat="51.2393629" lon="5.1891023" timestamp="2013-12-11T15:24:26Z" changeset="19397445" uid="30514" user="bavh"/>
-  <node id="2313420633" version="1" lat="51.2396678" lon="5.190369" timestamp="2013-05-20T18:45:01Z" changeset="16214022" uid="436365" user="escada"/>
-  <node id="2313420635" version="1" lat="51.2397311" lon="5.1908742" timestamp="2013-05-20T18:45:01Z" changeset="16214022" uid="436365" user="escada"/>
-  <node id="2575883868" version="1" lat="51.2390147" lon="5.1865277" timestamp="2013-12-11T15:24:24Z" changeset="19397445" uid="30514" user="bavh"/>
-  <node id="2575883869" version="1" lat="51.2390825" lon="5.1869833" timestamp="2013-12-11T15:24:24Z" changeset="19397445" uid="30514" user="bavh"/>
-  <node id="2575883870" version="1" lat="51.2391364" lon="5.1876109" timestamp="2013-12-11T15:24:24Z" changeset="19397445" uid="30514" user="bavh"/>
-  <node id="2575883871" version="1" lat="51.2392234" lon="5.1882043" timestamp="2013-12-11T15:24:24Z" changeset="19397445" uid="30514" user="bavh"/>
-  <node id="2575883872" version="1" lat="51.2392939" lon="5.1890891" timestamp="2013-12-11T15:24:24Z" changeset="19397445" uid="30514" user="bavh"/>
-  <node id="2575883873" version="1" lat="51.2393096" lon="5.1888143" timestamp="2013-12-11T15:24:24Z" changeset="19397445" uid="30514" user="bavh"/>
-  <node id="2575883874" version="1" lat="51.239705" lon="5.1914097" timestamp="2013-12-11T15:24:24Z" changeset="19397445" uid="30514" user="bavh"/>
-  <way id="222369194" version="2" timestamp="2013-12-11T15:24:25Z" changeset="19397445" uid="30514" user="bavh">
+  <node id="2313420601" lat="51.2392734" lon="5.1886183"/>
+  <node id="2313420610" lat="51.2393629" lon="5.1891023"/>
+  <node id="2313420633" lat="51.2396678" lon="5.190369"/>
+  <node id="2313420635" lat="51.2397311" lon="5.1908742"/>
+  <node id="2575883868" lat="51.2390147" lon="5.1865277"/>
+  <node id="2575883869" lat="51.2390825" lon="5.1869833"/>
+  <node id="2575883870" lat="51.2391364" lon="5.1876109"/>
+  <node id="2575883871" lat="51.2392234" lon="5.1882043"/>
+  <node id="2575883872" lat="51.2392939" lon="5.1890891"/>
+  <node id="2575883873" lat="51.2393096" lon="5.1888143"/>
+  <node id="2575883874" lat="51.239705" lon="5.1914097"/>
+  <way id="222369194">
     <tag k="highway" v="track"/>
     <tag k="surface" v="ground"/>
     <tag k="tracktype" v="grade2"/>
@@ -59,14 +59,14 @@
     <nd ref="1477821142"/>
     <nd ref="1832804226"/>
   </way>
-  <way id="251358828" version="1" timestamp="2013-12-11T15:24:24Z" changeset="19397445" uid="30514" user="bavh">
+  <way id="251358828">
     <tag k="highway" v="path"/>
     <tag k="surface" v="ground"/>
     <tag k="tracktype" v="grade4"/>
     <nd ref="2575883873"/>
     <nd ref="2313420610"/>
   </way>
-  <way id="251358829" version="1" timestamp="2013-12-11T15:24:24Z" changeset="19397445" uid="30514" user="bavh">
+  <way id="251358829">
     <tag k="highway" v="path"/>
     <tag k="surface" v="ground"/>
     <tag k="tracktype" v="grade4"/>
@@ -75,7 +75,7 @@
     <nd ref="2313420635"/>
     <nd ref="1477821126"/>
   </way>
-  <relation id="2946783" version="2" timestamp="2013-12-11T15:24:25Z" changeset="19397445" uid="30514" user="bavh">
+  <relation id="2946783">
     <member type="way" ref="222369194" role=""/>
     <member type="way" ref="251358828" role=""/>
     <member type="way" ref="251358829" role=""/>

@@ -1,79 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
-    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.
-    </note>
-    <meta osm_base="2020-10-20T21:27:02Z"/>
-
-    <node id="4959876500" lat="52.3071563" lon="5.0472308" version="1" timestamp="2017-07-09T13:29:50Z"  changeset="50152742" uid="410965" user="Christian Zierleyn"/>
-    <node id="4959876501" lat="52.3071431" lon="5.0473381" version="1" timestamp="2017-07-09T13:29:50Z" changeset="50152742" uid="410965" user="Christian Zierleyn"/>
-    <node id="4959876502" lat="52.3071333" lon="5.0474910" version="1" timestamp="2017-07-09T13:29:50Z" changeset="50152742" uid="410965" user="Christian Zierleyn"/>
-    <node id="4959876503" lat="52.3071333" lon="5.0476519" version="1" timestamp="2017-07-09T13:29:50Z" changeset="50152742" uid="410965" user="Christian Zierleyn"/>
-    <node id="4959876504" lat="52.3071333" lon="5.0477833" version="1" timestamp="2017-07-09T13:29:50Z" changeset="50152742" uid="410965" user="Christian Zierleyn"/>
-    <node id="4959876505" lat="52.3071317" lon="5.0478906" version="1" timestamp="2017-07-09T13:29:50Z" changeset="50152742" uid="410965" user="Christian Zierleyn"/>
-    <node id="4959876506" lat="52.3071300" lon="5.0480194" version="1" timestamp="2017-07-09T13:29:50Z" changeset="50152742" uid="410965" user="Christian Zierleyn"/>
-    <node id="4959876507" lat="52.3071021" lon="5.0481106" version="1" timestamp="2017-07-09T13:29:50Z" changeset="50152742" uid="410965" user="Christian Zierleyn"/>
-    <node id="4959876508" lat="52.3070513" lon="5.0482152" version="1" timestamp="2017-07-09T13:29:50Z" changeset="50152742" uid="410965" user="Christian Zierleyn"/>
-    <node id="4959876509" lat="52.3069988" lon="5.0483251" version="1" timestamp="2017-07-09T13:29:50Z" changeset="50152742" uid="410965" user="Christian Zierleyn"/>
-    <node id="8023161280" lat="52.3069629" lon="5.0482873" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023161281" lat="52.3067620" lon="5.0479867" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023161282" lat="52.3067410" lon="5.0474906" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023161283" lat="52.3067187" lon="5.0474133" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023161284" lat="52.3063497" lon="5.0472287" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023176585" lat="52.3063353" lon="5.0471922" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023176586" lat="52.3064929" lon="5.0467734" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023176587" lat="52.3065204" lon="5.0467777" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023176588" lat="52.3066018" lon="5.0469624" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023176589" lat="52.3067870" lon="5.0470655" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023176590" lat="52.3069734" lon="5.0471492" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023176591" lat="52.3070417" lon="5.0472158" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ"/>
-    <node id="8023176592" lat="52.3071706" lon="5.0471789" version="1" timestamp="2020-10-19T20:35:17Z" changeset="92728310" uid="2337040" user="IIVQ">
-        <tag k="expected_rwn_route_relations" v="2"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rwn_ref" v="62"/>
-    </node>
-    <way id="860823983" version="1" timestamp="2020-10-19T20:35:18Z" changeset="92728310" uid="2337040" user="IIVQ">
-        <nd ref="8023176592"/>
-        <nd ref="4959876500"/>
-        <nd ref="4959876501"/>
-        <nd ref="4959876502"/>
-        <nd ref="4959876503"/>
-        <nd ref="4959876504"/>
-        <nd ref="4959876505"/>
-        <nd ref="4959876506"/>
-        <nd ref="4959876507"/>
-        <nd ref="4959876508"/>
-        <nd ref="4959876509"/>
-        <tag k="bicycle" v="no"/>
-        <tag k="highway" v="footway"/>
-        <tag k="horse" v="no"/>
-        <tag k="lit" v="no"/>
-        <tag k="surface" v="unpaved"/>
-    </way>
-    <way id="860823984" version="1" timestamp="2020-10-19T20:35:18Z" changeset="92728310" uid="2337040" user="IIVQ">
-        <nd ref="8023176592"/>
-        <nd ref="8023176591"/>
-        <nd ref="8023176590"/>
-        <nd ref="8023176589"/>
-        <nd ref="8023176588"/>
-        <nd ref="8023176587"/>
-        <nd ref="8023176586"/>
-        <nd ref="8023176585"/>
-        <nd ref="8023161284"/>
-        <nd ref="8023161283"/>
-        <nd ref="8023161282"/>
-        <nd ref="8023161281"/>
-        <nd ref="8023161280"/>
-        <nd ref="4959876509"/>
-        <tag k="highway" v="path"/>
-    </way>
-    <relation id="11772920" version="1" timestamp="2020-10-19T20:35:19Z" changeset="92728310" uid="2337040" user="IIVQ">
-        <member type="way" ref="860823983" role=""/>
-        <member type="way" ref="860823984" role=""/>
-        <tag k="network" v="rwn"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="ref" v="62-62"/>
-        <tag k="route" v="foot"/>
-        <tag k="type" v="route"/>
-    </relation>
-
+<osm version="0.6">
+  <node id="4959876500" lat="52.3071563" lon="5.0472308"/>
+  <node id="4959876501" lat="52.3071431" lon="5.0473381"/>
+  <node id="4959876502" lat="52.3071333" lon="5.0474910"/>
+  <node id="4959876503" lat="52.3071333" lon="5.0476519"/>
+  <node id="4959876504" lat="52.3071333" lon="5.0477833"/>
+  <node id="4959876505" lat="52.3071317" lon="5.0478906"/>
+  <node id="4959876506" lat="52.3071300" lon="5.0480194"/>
+  <node id="4959876507" lat="52.3071021" lon="5.0481106"/>
+  <node id="4959876508" lat="52.3070513" lon="5.0482152"/>
+  <node id="4959876509" lat="52.3069988" lon="5.0483251"/>
+  <node id="8023161280" lat="52.3069629" lon="5.0482873"/>
+  <node id="8023161281" lat="52.3067620" lon="5.0479867"/>
+  <node id="8023161282" lat="52.3067410" lon="5.0474906"/>
+  <node id="8023161283" lat="52.3067187" lon="5.0474133"/>
+  <node id="8023161284" lat="52.3063497" lon="5.0472287"/>
+  <node id="8023176585" lat="52.3063353" lon="5.0471922"/>
+  <node id="8023176586" lat="52.3064929" lon="5.0467734"/>
+  <node id="8023176587" lat="52.3065204" lon="5.0467777"/>
+  <node id="8023176588" lat="52.3066018" lon="5.0469624"/>
+  <node id="8023176589" lat="52.3067870" lon="5.0470655"/>
+  <node id="8023176590" lat="52.3069734" lon="5.0471492"/>
+  <node id="8023176591" lat="52.3070417" lon="5.0472158"/>
+  <node id="8023176592" lat="52.3071706" lon="5.0471789">
+    <tag k="expected_rwn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="62"/>
+  </node>
+  <way id="860823983">
+    <tag k="bicycle" v="no"/>
+    <tag k="highway" v="footway"/>
+    <tag k="horse" v="no"/>
+    <tag k="lit" v="no"/>
+    <tag k="surface" v="unpaved"/>
+    <nd ref="8023176592"/>
+    <nd ref="4959876500"/>
+    <nd ref="4959876501"/>
+    <nd ref="4959876502"/>
+    <nd ref="4959876503"/>
+    <nd ref="4959876504"/>
+    <nd ref="4959876505"/>
+    <nd ref="4959876506"/>
+    <nd ref="4959876507"/>
+    <nd ref="4959876508"/>
+    <nd ref="4959876509"/>
+  </way>
+  <way id="860823984">
+    <tag k="highway" v="path"/>
+    <nd ref="8023176592"/>
+    <nd ref="8023176591"/>
+    <nd ref="8023176590"/>
+    <nd ref="8023176589"/>
+    <nd ref="8023176588"/>
+    <nd ref="8023176587"/>
+    <nd ref="8023176586"/>
+    <nd ref="8023176585"/>
+    <nd ref="8023161284"/>
+    <nd ref="8023161283"/>
+    <nd ref="8023161282"/>
+    <nd ref="8023161281"/>
+    <nd ref="8023161280"/>
+    <nd ref="4959876509"/>
+  </way>
+  <relation id="11772920">
+    <member type="way" ref="860823983" role=""/>
+    <member type="way" ref="860823984" role=""/>
+    <tag k="network" v="rwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="ref" v="62-62"/>
+    <tag k="route" v="foot"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

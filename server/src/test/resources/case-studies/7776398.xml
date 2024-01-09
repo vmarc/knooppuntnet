@@ -1,89 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
-    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-    <meta osm_base="2021-07-22T14:24:28Z"/>
-
-    <node id="45749578" lat="52.2172168" lon="4.4769943" version="7" timestamp="2019-09-12T11:37:34Z" changeset="74389339" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rwn_route_relations" v="4"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="operator:rwn" v="Bollenstreek"/>
-        <tag k="rwn_ref" v="28"/>
-    </node>
-    <node id="4610568626" lat="52.2162020" lon="4.4779447" version="2" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
-    <node id="4610568640" lat="52.2168846" lon="4.4777960" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610568641" lat="52.2151805" lon="4.4779989" version="4" timestamp="2020-05-31T13:48:32Z" changeset="86009522" uid="294028" user="dvdhoven">
-        <tag k="network:type" v="node_network"/>
-        <tag k="note" v="tussenknooppunt om validatieproblemen vanwege lus te voorkomen"/>
-        <tag k="remark" v="Het lijkt erop dat knooppuntnet moeite heeft met een ref tag met 2x een streepje erin. Daarom 28-vv gewijzigd in vv"/>
-        <tag k="rwn_ref" v="vv"/>
-    </node>
-    <node id="4610568645" lat="52.2170870" lon="4.4773857" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610568646" lat="52.2155745" lon="4.4779883" version="2" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
-    <node id="4610568649" lat="52.2160157" lon="4.4780091" version="2" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
-    <node id="4610568650" lat="52.2169605" lon="4.4777015" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610568651" lat="52.2152388" lon="4.4780961" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610568654" lat="52.2154160" lon="4.4780722" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610568656" lat="52.2157308" lon="4.4779767" version="2" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
-    <node id="4610568657" lat="52.2152944" lon="4.4781035" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610568663" lat="52.2170826" lon="4.4772049" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610568664" lat="52.2170286" lon="4.4776108" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610568665" lat="52.2167351" lon="4.4778659" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610568666" lat="52.2170717" lon="4.4775016" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610568667" lat="52.2163828" lon="4.4778599" version="1" timestamp="2017-01-15T21:07:21Z" changeset="45199690" uid="1771198" user="Commodoortje"/>
-    <node id="4610578584" lat="52.2158900" lon="4.4779915" version="1" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
-    <node id="4610578585" lat="52.2157889" lon="4.4780198" version="1" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
-    <node id="4610578586" lat="52.2157607" lon="4.4780094" version="1" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
-    <node id="4610578587" lat="52.2152029" lon="4.4780678" version="1" timestamp="2017-01-15T21:13:14Z" changeset="45199791" uid="1771198" user="Commodoortje"/>
-    <way id="544200646" version="1" timestamp="2017-12-02T19:13:01Z" changeset="54279156" uid="2812529" user="multimodaal">
-        <nd ref="4610568641"/>
-        <nd ref="4610578587"/>
-        <nd ref="4610568651"/>
-        <nd ref="4610568657"/>
-        <nd ref="4610568654"/>
-        <nd ref="4610568646"/>
-        <nd ref="4610568656"/>
-        <nd ref="4610578586"/>
-        <nd ref="4610578585"/>
-        <nd ref="4610578584"/>
-        <nd ref="4610568649"/>
-        <nd ref="4610568626"/>
-        <nd ref="4610568667"/>
-        <nd ref="4610568665"/>
-        <nd ref="4610568640"/>
-        <nd ref="4610568650"/>
-        <nd ref="4610568664"/>
-        <nd ref="4610568666"/>
-        <nd ref="4610568645"/>
-        <nd ref="4610568663"/>
-        <tag k="bicycle" v="no"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="path"/>
-        <tag k="horse" v="yes"/>
-        <tag k="lit" v="no"/>
-        <tag k="motor_vehicle" v="no"/>
-        <tag k="surface" v="dirt"/>
-    </way>
-    <way id="544200647" version="1" timestamp="2017-12-02T19:13:01Z" changeset="54279156" uid="2812529" user="multimodaal">
-        <nd ref="45749578"/>
-        <nd ref="4610568663"/>
-        <tag k="bicycle" v="no"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="path"/>
-        <tag k="horse" v="yes"/>
-        <tag k="lit" v="no"/>
-        <tag k="motor_vehicle" v="no"/>
-        <tag k="surface" v="dirt"/>
-    </way>
-    <relation id="7776398" version="9" timestamp="2020-05-31T13:48:32Z" changeset="86009522" uid="294028" user="dvdhoven">
-        <member type="way" ref="544200647" role=""/>
-        <member type="way" ref="544200646" role=""/>
-        <tag k="comment" v="route loopt in rondje, begint en eind bij zelfde knooppunt (en daardor foutmelding in www.knooppuntnet.nl)"/>
-        <tag k="network" v="rwn"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="operator" v="Bollenstreek"/>
-        <tag k="ref" v="28-vv"/>
-        <tag k="route" v="foot"/>
-        <tag k="type" v="route"/>
-    </relation>
-
+<osm version="0.6">
+  <node id="45749578" lat="52.2172168" lon="4.4769943">
+    <tag k="expected_rwn_route_relations" v="4"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="operator:rwn" v="Bollenstreek"/>
+    <tag k="rwn_ref" v="28"/>
+  </node>
+  <node id="4610568626" lat="52.2162020" lon="4.4779447"/>
+  <node id="4610568640" lat="52.2168846" lon="4.4777960"/>
+  <node id="4610568641" lat="52.2151805" lon="4.4779989">
+    <tag k="network:type" v="node_network"/>
+    <tag k="note" v="tussenknooppunt om validatieproblemen vanwege lus te voorkomen"/>
+    <tag k="remark" v="Het lijkt erop dat knooppuntnet moeite heeft met een ref tag met 2x een streepje erin. Daarom 28-vv gewijzigd in vv"/>
+    <tag k="rwn_ref" v="vv"/>
+  </node>
+  <node id="4610568645" lat="52.2170870" lon="4.4773857"/>
+  <node id="4610568646" lat="52.2155745" lon="4.4779883"/>
+  <node id="4610568649" lat="52.2160157" lon="4.4780091"/>
+  <node id="4610568650" lat="52.2169605" lon="4.4777015"/>
+  <node id="4610568651" lat="52.2152388" lon="4.4780961"/>
+  <node id="4610568654" lat="52.2154160" lon="4.4780722"/>
+  <node id="4610568656" lat="52.2157308" lon="4.4779767"/>
+  <node id="4610568657" lat="52.2152944" lon="4.4781035"/>
+  <node id="4610568663" lat="52.2170826" lon="4.4772049"/>
+  <node id="4610568664" lat="52.2170286" lon="4.4776108"/>
+  <node id="4610568665" lat="52.2167351" lon="4.4778659"/>
+  <node id="4610568666" lat="52.2170717" lon="4.4775016"/>
+  <node id="4610568667" lat="52.2163828" lon="4.4778599"/>
+  <node id="4610578584" lat="52.2158900" lon="4.4779915"/>
+  <node id="4610578585" lat="52.2157889" lon="4.4780198"/>
+  <node id="4610578586" lat="52.2157607" lon="4.4780094"/>
+  <node id="4610578587" lat="52.2152029" lon="4.4780678"/>
+  <way id="544200646">
+    <tag k="bicycle" v="no"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="yes"/>
+    <tag k="lit" v="no"/>
+    <tag k="motor_vehicle" v="no"/>
+    <tag k="surface" v="dirt"/>
+    <nd ref="4610568641"/>
+    <nd ref="4610578587"/>
+    <nd ref="4610568651"/>
+    <nd ref="4610568657"/>
+    <nd ref="4610568654"/>
+    <nd ref="4610568646"/>
+    <nd ref="4610568656"/>
+    <nd ref="4610578586"/>
+    <nd ref="4610578585"/>
+    <nd ref="4610578584"/>
+    <nd ref="4610568649"/>
+    <nd ref="4610568626"/>
+    <nd ref="4610568667"/>
+    <nd ref="4610568665"/>
+    <nd ref="4610568640"/>
+    <nd ref="4610568650"/>
+    <nd ref="4610568664"/>
+    <nd ref="4610568666"/>
+    <nd ref="4610568645"/>
+    <nd ref="4610568663"/>
+  </way>
+  <way id="544200647">
+    <tag k="bicycle" v="no"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="horse" v="yes"/>
+    <tag k="lit" v="no"/>
+    <tag k="motor_vehicle" v="no"/>
+    <tag k="surface" v="dirt"/>
+    <nd ref="45749578"/>
+    <nd ref="4610568663"/>
+  </way>
+  <relation id="7776398">
+    <member type="way" ref="544200647" role=""/>
+    <member type="way" ref="544200646" role=""/>
+    <tag k="comment" v="route loopt in rondje, begint en eind bij zelfde knooppunt (en daardor foutmelding in www.knooppuntnet.nl)"/>
+    <tag k="network" v="rwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="operator" v="Bollenstreek"/>
+    <tag k="ref" v="28-vv"/>
+    <tag k="route" v="foot"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

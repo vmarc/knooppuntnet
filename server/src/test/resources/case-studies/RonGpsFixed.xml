@@ -1,243 +1,242 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--suppress ALL -->
 <osm version="0.6">
-	<node id="1317057858" version="1" lat="51.7275591" lon="5.4341494" timestamp="2011-06-09T10:39:41Z" changeset="8387248" uid="4054" user="Andre Engels"/>
-	<node id="1431949021" version="1" lat="51.7270665" lon="5.4421574" timestamp="2011-09-13T15:06:18Z" changeset="9290271" uid="138025" user="krommenek"/>
-	<node id="1448025122" version="1" lat="51.7270953" lon="5.4420044" timestamp="2011-09-28T13:23:54Z" changeset="9419626" uid="524359" user="fietsrouteplanner10"/>
-	<node id="2721997429" version="1" lat="51.7286615" lon="5.4509261" timestamp="2014-03-16T20:20:06Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="2721997543" version="1" lat="51.7286862" lon="5.4510092" timestamp="2014-03-16T20:20:07Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="2721997965" version="1" lat="51.7269939" lon="5.4429899" timestamp="2014-03-16T20:20:10Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="2721998004" version="1" lat="51.7276823" lon="5.4348959" timestamp="2014-03-16T20:20:11Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="2721998007" version="1" lat="51.7276818" lon="5.4355892" timestamp="2014-03-16T20:20:11Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="2721998010" version="1" lat="51.7277679" lon="5.4368431" timestamp="2014-03-16T20:20:11Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="2721998013" version="1" lat="51.7277596" lon="5.4364784" timestamp="2014-03-16T20:20:11Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="2721998016" version="1" lat="51.7277599" lon="5.4363991" timestamp="2014-03-16T20:20:11Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="2721998019" version="1" lat="51.7277267" lon="5.4359197" timestamp="2014-03-16T20:20:11Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="2721998022" version="1" lat="51.7277628" lon="5.4365008" timestamp="2014-03-16T20:20:11Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="2721998091" version="1" lat="51.7276001" lon="5.4467409" timestamp="2014-03-16T20:20:12Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43660067" version="3" lat="51.7269753" lon="5.4431723" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43660146" version="3" lat="51.7269909" lon="5.4437903" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43660162" version="3" lat="51.7270123" lon="5.44281" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43661084" version="4" lat="51.7272731" lon="5.4410565" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43661715" version="6" lat="51.727483" lon="5.4339221" timestamp="2014-07-13T19:00:20Z" changeset="24127108" uid="1967639" user="lucb1e">
-		<tag k="name" v="Nuland"/>
-		<tag k="source" v="AND"/>
-		<tag k="is_in:country" v="The Netherlands"/>
-		<tag k="name:carnaval" v="Waoterrijk"/>
-		<tag k="population" v="1000"/>
-		<tag k="AND_nodes" v="594241"/>
-		<tag k="is_in:continent" v="Europe"/>
-		<tag k="network:type" v="node_network"/>
-		<tag k="rwn_ref" v="89"/>
-		<tag k="is_in" v="NL"/>
-		<tag k="is_in:province" v="North Brabant"/>
-		<tag k="postal_code" v="5391"/>
-		<tag k="place" v="village"/>
-		<tag k="AND_nosr_p" v="10015388"/>
-		<tag k="is_in:country_code" v="NL"/>
-	</node>
-	<node id="43661767" version="3" lat="51.7274811" lon="5.4399478" timestamp="2009-12-25T19:02:48Z" changeset="3449948" uid="211771" user="AND_fixbot"/>
-	<node id="43662025" version="3" lat="51.7275095" lon="5.4463282" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43662167" version="3" lat="51.7276015" lon="5.4392002" timestamp="2013-12-14T12:11:12Z" changeset="19447431" uid="1794001" user="Imergis"/>
-	<node id="43662404" version="3" lat="51.7276639" lon="5.4472364" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43662426" version="2" lat="51.72767" lon="5.43472" timestamp="2009-12-23T19:04:15Z" changeset="3436936" uid="12946" user="AND"/>
-	<node id="43662432" version="2" lat="51.72768" lon="5.43482" timestamp="2009-12-23T19:04:15Z" changeset="3436936" uid="12946" user="AND"/>
-	<node id="43662668" version="5" lat="51.7277003" lon="5.4363991" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43662669" version="3" lat="51.7277405" lon="5.4477817" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43662749" version="4" lat="51.7276998" lon="5.4365277" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43662765" version="2" lat="51.72773" lon="5.43832" timestamp="2009-12-23T19:04:16Z" changeset="3436936" uid="12946" user="AND"/>
-	<node id="43662805" version="3" lat="51.727761" lon="5.4373173" timestamp="2013-12-14T12:11:12Z" changeset="19447431" uid="1794001" user="Imergis"/>
-	<node id="43662825" version="4" lat="51.7277782" lon="5.4375134" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43662826" version="3" lat="51.727794" lon="5.4480827" timestamp="2014-03-16T20:20:24Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43663722" version="4" lat="51.7280118" lon="5.4487763" timestamp="2014-03-16T20:20:25Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43666196" version="4" lat="51.7286329" lon="5.4508496" timestamp="2014-03-16T20:20:25Z" changeset="21144122" uid="4054" user="Andre Engels"/>
-	<node id="43666613" version="5" lat="51.7287306" lon="5.4510614" timestamp="2014-03-16T20:20:25Z" changeset="21144122" uid="4054" user="Andre Engels">
-		<tag k="name" v="Schotsheuvel"/>
-		<tag k="source" v="AND"/>
-		<tag k="AND_nodes" v="593791"/>
-		<tag k="network:type" v="node_network"/>
-		<tag k="rwn_ref" v="91"/>
-		<tag k="is_in" v="NL"/>
-		<tag k="postal_code" v="5391"/>
-		<tag k="place" v="village"/>
-		<tag k="AND_nosr_p" v="10015390"/>
-	</node>
-	<node id="627823538" version="2" lat="51.7270421" lon="5.4423199" timestamp="2014-03-16T20:20:26Z" changeset="21144122" uid="4054" user="Andre Engels">
-		<tag k="highway" v="bus_stop"/>
-		<tag k="name" v="Zandstraat"/>
-		<tag k="zone" v="6224"/>
-	</node>
-	<node id="627823540" version="2" lat="51.7273192" lon="5.44535" timestamp="2014-03-16T20:20:26Z" changeset="21144122" uid="4054" user="Andre Engels">
-		<tag k="highway" v="bus_stop"/>
-		<tag k="name" v="Schotsheuvel"/>
-	</node>
-	<way id="266674555" version="2" timestamp="2014-04-13T16:50:28Z" changeset="21668997" uid="189624" user="RonGps">
-		<tag k="name" v="Zandstraat"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="AND_nosr_r" v="15556480"/>
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="oneway" v="yes"/>
-		<nd ref="2721998016"/>
-		<nd ref="2721998019"/>
-		<nd ref="2721998007"/>
-	</way>
-	<way id="274091781" version="1" timestamp="2014-04-13T16:50:24Z" changeset="21668997" uid="189624" user="RonGps">
-		<tag k="name" v="Zandstraat"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="AND_nosr_r" v="15556480"/>
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="oneway" v="yes"/>
-		<nd ref="2721998007"/>
-		<nd ref="43662668"/>
-	</way>
-	<way id="274091782" version="1" timestamp="2014-04-13T16:50:24Z" changeset="21668997" uid="189624" user="RonGps">
-		<tag k="name" v="Zandstraat"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="AND_nosr_r" v="15556516"/>
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="oneway" v="yes"/>
-		<nd ref="43662805"/>
-		<nd ref="2721998010"/>
-		<nd ref="2721998022"/>
-		<nd ref="2721998013"/>
-		<nd ref="2721998016"/>
-	</way>
-	<way id="280366196" version="1" timestamp="2014-05-08T21:30:35Z" changeset="22219648" uid="494968" user="Jelle92">
-		<tag k="cycleway:width" v="2.1"/>
-		<tag k="name" v="Zandstraat"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="AND_nosr_r" v="15556520;15556484;15556504"/>
-		<tag k="cycleway" v="track"/>
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="cycleway:surface" v="paving_stones"/>
-		<nd ref="43662025"/>
-		<nd ref="2721998091"/>
-		<nd ref="43662404"/>
-		<nd ref="43662669"/>
-		<nd ref="43662826"/>
-		<nd ref="43663722"/>
-		<nd ref="43666196"/>
-		<nd ref="2721997429"/>
-		<nd ref="2721997543"/>
-		<nd ref="43666613"/>
-	</way>
-	<way id="6944545" version="2" timestamp="2010-08-14T13:33:01Z" changeset="5490716" uid="12946" user="AND">
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="AND_nosr_r" v="15556518"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="name" v="Zandstraat"/>
-		<nd ref="43662805"/>
-		<nd ref="43662825"/>
-	</way>
-	<way id="6944546" version="2" timestamp="2010-08-14T13:32:52Z" changeset="5490716" uid="12946" user="AND">
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="AND_nosr_r" v="15556517"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="name" v="Zandstraat"/>
-		<nd ref="43662167"/>
-		<nd ref="43662765"/>
-		<nd ref="43662825"/>
-	</way>
-	<way id="6944547" version="4" timestamp="2014-04-13T16:50:28Z" changeset="21668997" uid="189624" user="RonGps">
-		<tag k="name" v="Zandstraat"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="AND_nosr_r" v="15556516"/>
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="oneway" v="yes"/>
-		<nd ref="43662749"/>
-		<nd ref="43662805"/>
-	</way>
-	<way id="6944549" version="3" timestamp="2014-03-16T20:20:47Z" changeset="21144122" uid="4054" user="Andre Engels">
-		<tag k="name" v="Zandstraat"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="AND_nosr_r" v="15556514"/>
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="oneway" v="yes"/>
-		<nd ref="43662668"/>
-		<nd ref="43662749"/>
-	</way>
-	<way id="6944561" version="7" timestamp="2014-05-08T21:30:43Z" changeset="22219648" uid="494968" user="Jelle92">
-		<tag k="cycleway:width" v="2.1"/>
-		<tag k="name" v="Zandstraat"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="AND_nosr_r" v="15556520;15556484;15556504"/>
-		<tag k="cycleway" v="track"/>
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="cycleway:surface" v="paving_stones"/>
-		<nd ref="1431949021"/>
-		<nd ref="627823538"/>
-		<nd ref="43660162"/>
-		<nd ref="2721997965"/>
-		<nd ref="43660067"/>
-		<nd ref="43660146"/>
-		<nd ref="627823540"/>
-		<nd ref="43662025"/>
-	</way>
-	<way id="6944579" version="2" timestamp="2010-08-14T13:32:59Z" changeset="5490716" uid="12946" user="AND">
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="AND_nosr_r" v="15556487"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="name" v="Zandstraat"/>
-		<nd ref="43661767"/>
-		<nd ref="43662167"/>
-	</way>
-	<way id="6944581" version="4" timestamp="2014-03-16T20:20:48Z" changeset="21144122" uid="4054" user="Andre Engels">
-		<tag k="name" v="Prins Bernhardplein"/>
-		<tag k="maxspeed" v="30"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="AND_nosr_r" v="15556485"/>
-		<tag k="AND:importance_level" v="4"/>
-		<nd ref="43661715"/>
-		<nd ref="1317057858"/>
-		<nd ref="43662426"/>
-		<nd ref="43662432"/>
-	</way>
-	<way id="6944582" version="6" timestamp="2013-06-02T05:57:40Z" changeset="16386534" uid="672253" user="JanFi">
-		<tag k="name" v="Zandstraat"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="AND_nosr_r" v="15556484"/>
-		<tag k="cycleway" v="no"/>
-		<tag k="AND:importance_level" v="4"/>
-		<nd ref="43661084"/>
-		<nd ref="1448025122"/>
-		<nd ref="1431949021"/>
-	</way>
-	<way id="6944584" version="2" timestamp="2010-08-14T13:33:00Z" changeset="5490716" uid="12946" user="AND">
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="AND_nosr_r" v="15556482"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="name" v="Zandstraat"/>
-		<nd ref="43661084"/>
-		<nd ref="43661767"/>
-	</way>
-	<way id="6944587" version="3" timestamp="2014-03-16T20:20:49Z" changeset="21144122" uid="4054" user="Andre Engels">
-		<tag k="AND:importance_level" v="4"/>
-		<tag k="AND_nosr_r" v="15556480"/>
-		<tag k="highway" v="tertiary"/>
-		<tag k="name" v="Zandstraat"/>
-		<nd ref="43662432"/>
-		<nd ref="2721998004"/>
-		<nd ref="2721998007"/>
-	</way>
-	<relation id="3118541" version="4" timestamp="2014-05-08T21:30:47Z" changeset="22219648" uid="494968" user="Jelle92">
-		<member type="way" ref="6944581" role=""/>
-		<member type="way" ref="6944587" role=""/>
-		<member type="way" ref="274091781" role="forward"/>
-		<member type="way" ref="6944549" role="forward"/>
-		<member type="way" ref="6944547" role="forward"/>
-		<member type="way" ref="266674555" role="forward"/>
-		<member type="way" ref="274091782" role="forward"/>
-		<member type="way" ref="6944545" role=""/>
-		<member type="way" ref="6944546" role=""/>
-		<member type="way" ref="6944579" role=""/>
-		<member type="way" ref="6944584" role=""/>
-		<member type="way" ref="6944582" role=""/>
-		<member type="way" ref="6944561" role=""/>
-		<member type="way" ref="280366196" role=""/>
-		<tag k="network:type" v="node_network"/>
-		<tag k="network" v="rwn"/>
-		<tag k="note" v="89-91"/>
-		<tag k="route" v="foot"/>
-		<tag k="type" v="route"/>
-	</relation>
+  <node id="43660067" lat="51.7269753" lon="5.4431723"/>
+  <node id="43660146" lat="51.7269909" lon="5.4437903"/>
+  <node id="43660162" lat="51.7270123" lon="5.44281"/>
+  <node id="43661084" lat="51.7272731" lon="5.4410565"/>
+  <node id="43661715" lat="51.727483" lon="5.4339221">
+    <tag k="name" v="Nuland"/>
+    <tag k="source" v="AND"/>
+    <tag k="is_in:country" v="The Netherlands"/>
+    <tag k="name:carnaval" v="Waoterrijk"/>
+    <tag k="population" v="1000"/>
+    <tag k="AND_nodes" v="594241"/>
+    <tag k="is_in:continent" v="Europe"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="89"/>
+    <tag k="is_in" v="NL"/>
+    <tag k="is_in:province" v="North Brabant"/>
+    <tag k="postal_code" v="5391"/>
+    <tag k="place" v="village"/>
+    <tag k="AND_nosr_p" v="10015388"/>
+    <tag k="is_in:country_code" v="NL"/>
+  </node>
+  <node id="43661767" lat="51.7274811" lon="5.4399478"/>
+  <node id="43662025" lat="51.7275095" lon="5.4463282"/>
+  <node id="43662167" lat="51.7276015" lon="5.4392002"/>
+  <node id="43662404" lat="51.7276639" lon="5.4472364"/>
+  <node id="43662426" lat="51.72767" lon="5.43472"/>
+  <node id="43662432" lat="51.72768" lon="5.43482"/>
+  <node id="43662668" lat="51.7277003" lon="5.4363991"/>
+  <node id="43662669" lat="51.7277405" lon="5.4477817"/>
+  <node id="43662749" lat="51.7276998" lon="5.4365277"/>
+  <node id="43662765" lat="51.72773" lon="5.43832"/>
+  <node id="43662805" lat="51.727761" lon="5.4373173"/>
+  <node id="43662825" lat="51.7277782" lon="5.4375134"/>
+  <node id="43662826" lat="51.727794" lon="5.4480827"/>
+  <node id="43663722" lat="51.7280118" lon="5.4487763"/>
+  <node id="43666196" lat="51.7286329" lon="5.4508496"/>
+  <node id="43666613" lat="51.7287306" lon="5.4510614">
+    <tag k="name" v="Schotsheuvel"/>
+    <tag k="source" v="AND"/>
+    <tag k="AND_nodes" v="593791"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="91"/>
+    <tag k="is_in" v="NL"/>
+    <tag k="postal_code" v="5391"/>
+    <tag k="place" v="village"/>
+    <tag k="AND_nosr_p" v="10015390"/>
+  </node>
+  <node id="627823538" lat="51.7270421" lon="5.4423199">
+    <tag k="highway" v="bus_stop"/>
+    <tag k="name" v="Zandstraat"/>
+    <tag k="zone" v="6224"/>
+  </node>
+  <node id="627823540" lat="51.7273192" lon="5.44535">
+    <tag k="highway" v="bus_stop"/>
+    <tag k="name" v="Schotsheuvel"/>
+  </node>
+  <node id="1317057858" lat="51.7275591" lon="5.4341494"/>
+  <node id="1431949021" lat="51.7270665" lon="5.4421574"/>
+  <node id="1448025122" lat="51.7270953" lon="5.4420044"/>
+  <node id="2721997429" lat="51.7286615" lon="5.4509261"/>
+  <node id="2721997543" lat="51.7286862" lon="5.4510092"/>
+  <node id="2721997965" lat="51.7269939" lon="5.4429899"/>
+  <node id="2721998004" lat="51.7276823" lon="5.4348959"/>
+  <node id="2721998007" lat="51.7276818" lon="5.4355892"/>
+  <node id="2721998010" lat="51.7277679" lon="5.4368431"/>
+  <node id="2721998013" lat="51.7277596" lon="5.4364784"/>
+  <node id="2721998016" lat="51.7277599" lon="5.4363991"/>
+  <node id="2721998019" lat="51.7277267" lon="5.4359197"/>
+  <node id="2721998022" lat="51.7277628" lon="5.4365008"/>
+  <node id="2721998091" lat="51.7276001" lon="5.4467409"/>
+  <way id="6944545">
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="AND_nosr_r" v="15556518"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Zandstraat"/>
+    <nd ref="43662805"/>
+    <nd ref="43662825"/>
+  </way>
+  <way id="6944546">
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="AND_nosr_r" v="15556517"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Zandstraat"/>
+    <nd ref="43662167"/>
+    <nd ref="43662765"/>
+    <nd ref="43662825"/>
+  </way>
+  <way id="6944547">
+    <tag k="name" v="Zandstraat"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="AND_nosr_r" v="15556516"/>
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="43662749"/>
+    <nd ref="43662805"/>
+  </way>
+  <way id="6944549">
+    <tag k="name" v="Zandstraat"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="AND_nosr_r" v="15556514"/>
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="43662668"/>
+    <nd ref="43662749"/>
+  </way>
+  <way id="6944561">
+    <tag k="cycleway:width" v="2.1"/>
+    <tag k="name" v="Zandstraat"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="AND_nosr_r" v="15556520;15556484;15556504"/>
+    <tag k="cycleway" v="track"/>
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="cycleway:surface" v="paving_stones"/>
+    <nd ref="1431949021"/>
+    <nd ref="627823538"/>
+    <nd ref="43660162"/>
+    <nd ref="2721997965"/>
+    <nd ref="43660067"/>
+    <nd ref="43660146"/>
+    <nd ref="627823540"/>
+    <nd ref="43662025"/>
+  </way>
+  <way id="6944579">
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="AND_nosr_r" v="15556487"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Zandstraat"/>
+    <nd ref="43661767"/>
+    <nd ref="43662167"/>
+  </way>
+  <way id="6944581">
+    <tag k="name" v="Prins Bernhardplein"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="AND_nosr_r" v="15556485"/>
+    <tag k="AND:importance_level" v="4"/>
+    <nd ref="43661715"/>
+    <nd ref="1317057858"/>
+    <nd ref="43662426"/>
+    <nd ref="43662432"/>
+  </way>
+  <way id="6944582">
+    <tag k="name" v="Zandstraat"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="AND_nosr_r" v="15556484"/>
+    <tag k="cycleway" v="no"/>
+    <tag k="AND:importance_level" v="4"/>
+    <nd ref="43661084"/>
+    <nd ref="1448025122"/>
+    <nd ref="1431949021"/>
+  </way>
+  <way id="6944584">
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="AND_nosr_r" v="15556482"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Zandstraat"/>
+    <nd ref="43661084"/>
+    <nd ref="43661767"/>
+  </way>
+  <way id="6944587">
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="AND_nosr_r" v="15556480"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Zandstraat"/>
+    <nd ref="43662432"/>
+    <nd ref="2721998004"/>
+    <nd ref="2721998007"/>
+  </way>
+  <way id="266674555">
+    <tag k="name" v="Zandstraat"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="AND_nosr_r" v="15556480"/>
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="2721998016"/>
+    <nd ref="2721998019"/>
+    <nd ref="2721998007"/>
+  </way>
+  <way id="274091781">
+    <tag k="name" v="Zandstraat"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="AND_nosr_r" v="15556480"/>
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="2721998007"/>
+    <nd ref="43662668"/>
+  </way>
+  <way id="274091782">
+    <tag k="name" v="Zandstraat"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="AND_nosr_r" v="15556516"/>
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="43662805"/>
+    <nd ref="2721998010"/>
+    <nd ref="2721998022"/>
+    <nd ref="2721998013"/>
+    <nd ref="2721998016"/>
+  </way>
+  <way id="280366196">
+    <tag k="cycleway:width" v="2.1"/>
+    <tag k="name" v="Zandstraat"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="AND_nosr_r" v="15556520;15556484;15556504"/>
+    <tag k="cycleway" v="track"/>
+    <tag k="AND:importance_level" v="4"/>
+    <tag k="cycleway:surface" v="paving_stones"/>
+    <nd ref="43662025"/>
+    <nd ref="2721998091"/>
+    <nd ref="43662404"/>
+    <nd ref="43662669"/>
+    <nd ref="43662826"/>
+    <nd ref="43663722"/>
+    <nd ref="43666196"/>
+    <nd ref="2721997429"/>
+    <nd ref="2721997543"/>
+    <nd ref="43666613"/>
+  </way>
+  <relation id="3118541">
+    <member type="way" ref="6944581" role=""/>
+    <member type="way" ref="6944587" role=""/>
+    <member type="way" ref="274091781" role="forward"/>
+    <member type="way" ref="6944549" role="forward"/>
+    <member type="way" ref="6944547" role="forward"/>
+    <member type="way" ref="266674555" role="forward"/>
+    <member type="way" ref="274091782" role="forward"/>
+    <member type="way" ref="6944545" role=""/>
+    <member type="way" ref="6944546" role=""/>
+    <member type="way" ref="6944579" role=""/>
+    <member type="way" ref="6944584" role=""/>
+    <member type="way" ref="6944582" role=""/>
+    <member type="way" ref="6944561" role=""/>
+    <member type="way" ref="280366196" role=""/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="network" v="rwn"/>
+    <tag k="note" v="89-91"/>
+    <tag k="route" v="foot"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

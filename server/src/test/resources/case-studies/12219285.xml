@@ -1,61 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.56.9 76e5016d">
-    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-    <meta osm_base="2021-10-16T11:16:22Z"/>
-
-    <node id="1280250777" lat="45.1809819" lon="6.4277536" version="2" timestamp="2011-09-22T22:54:05Z" changeset="9372878" uid="37548" user="Marcussacapuces91"/>
-    <node id="1280250803" lat="45.1811804" lon="6.4277936" version="3" timestamp="2019-09-30T17:43:38Z" changeset="75114114" uid="444627" user="frantz58">
-        <tag k="highway" v="turning_circle"/>
-    </node>
-    <node id="1280253436" lat="45.1812522" lon="6.4276536" version="3" timestamp="2021-01-21T21:46:36Z" changeset="97929056" uid="10296811" user="Luc Gential">
-        <tag k="lwn_name" v="Le Villard"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rwn_ref" v="o"/>
-    </node>
-    <node id="1441041828" lat="45.1812431" lon="6.4277531" version="3" timestamp="2021-01-21T21:46:36Z" changeset="97929056" uid="10296811" user="Luc Gential"/>
-    <node id="6117048241" lat="45.1808381" lon="6.4277381" version="4" timestamp="2021-10-08T16:05:03Z" changeset="112271081" uid="7103674" user="Peter Elderson">
-        <tag k="network:type" v="node_network"/>
-        <tag k="rwn_name" v="Le Villard"/>
-    </node>
-    <node id="6795972465" lat="45.1808871" lon="6.4277434" version="1" timestamp="2019-09-14T20:51:58Z" changeset="74484243" uid="10296811" user="Luc Gential"/>
-    <way id="898160835" version="1" timestamp="2021-01-21T21:40:50Z" changeset="97928866" uid="10296811" user="Luc Gential">
-        <nd ref="1280250803"/>
-        <nd ref="1280250777"/>
-        <nd ref="6795972465"/>
-        <nd ref="6117048241"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="name" v="Route des Villards"/>
-        <tag k="ref" v="D 81D"/>
-    </way>
-    <way id="898161419" version="2" timestamp="2021-03-03T21:31:33Z" changeset="100375600" uid="10296811" user="Luc Gential">
-        <nd ref="1280250803"/>
-        <nd ref="1441041828"/>
-        <tag k="highway" v="track"/>
-        <tag k="motor_vehicle" v="no"/>
-        <tag k="name" v="Chemin du Ley"/>
-    </way>
-    <way id="913305741" version="1" timestamp="2021-03-03T21:31:33Z" changeset="100375600" uid="10296811" user="Luc Gential">
-        <nd ref="1441041828"/>
-        <nd ref="1280253436"/>
-        <tag k="highway" v="track"/>
-        <tag k="motor_vehicle" v="no"/>
-    </way>
-    <relation id="12219285" version="7" timestamp="2021-10-08T15:34:18Z" changeset="112269831" uid="7103674" user="Peter Elderson">
-        <member type="node" ref="6117048241" role=""/>
-        <member type="way" ref="898160835" role=""/>
-        <member type="way" ref="898161419" role=""/>
-        <member type="way" ref="913305741" role=""/>
-        <member type="node" ref="1280253436" role=""/>
-        <tag k="colour" v="yellow"/>
-        <tag k="from" v="Le Villard"/>
-        <tag k="network" v="rwn"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="operator" v="Communauté de communes Maurienne Galibier"/>
-        <tag k="osmc:symbol" v="yellow:none:yellow_bar"/>
-        <tag k="ref" v="Le Villard - Le Villard"/>
-        <tag k="route" v="hiking"/>
-        <tag k="to" v="Le Villard"/>
-        <tag k="type" v="route"/>
-    </relation>
-
+<osm version="0.6">
+  <node id="1280250777" lat="45.1809819" lon="6.4277536"/>
+  <node id="1280250803" lat="45.1811804" lon="6.4277936">
+    <tag k="highway" v="turning_circle"/>
+  </node>
+  <node id="1280253436" lat="45.1812522" lon="6.4276536">
+    <tag k="lwn_name" v="Le Villard"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="o"/>
+  </node>
+  <node id="1441041828" lat="45.1812431" lon="6.4277531"/>
+  <node id="6117048241" lat="45.1808381" lon="6.4277381">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_name" v="Le Villard"/>
+  </node>
+  <node id="6795972465" lat="45.1808871" lon="6.4277434"/>
+  <way id="898160835">
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Route des Villards"/>
+    <tag k="ref" v="D 81D"/>
+    <nd ref="1280250803"/>
+    <nd ref="1280250777"/>
+    <nd ref="6795972465"/>
+    <nd ref="6117048241"/>
+  </way>
+  <way id="898161419">
+    <tag k="highway" v="track"/>
+    <tag k="motor_vehicle" v="no"/>
+    <tag k="name" v="Chemin du Ley"/>
+    <nd ref="1280250803"/>
+    <nd ref="1441041828"/>
+  </way>
+  <way id="913305741">
+    <tag k="highway" v="track"/>
+    <tag k="motor_vehicle" v="no"/>
+    <nd ref="1441041828"/>
+    <nd ref="1280253436"/>
+  </way>
+  <relation id="12219285">
+    <member type="node" ref="6117048241" role=""/>
+    <member type="way" ref="898160835" role=""/>
+    <member type="way" ref="898161419" role=""/>
+    <member type="way" ref="913305741" role=""/>
+    <member type="node" ref="1280253436" role=""/>
+    <tag k="colour" v="yellow"/>
+    <tag k="from" v="Le Villard"/>
+    <tag k="network" v="rwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="operator" v="Communauté de communes Maurienne Galibier"/>
+    <tag k="osmc:symbol" v="yellow:none:yellow_bar"/>
+    <tag k="ref" v="Le Villard - Le Villard"/>
+    <tag k="route" v="hiking"/>
+    <tag k="to" v="Le Villard"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

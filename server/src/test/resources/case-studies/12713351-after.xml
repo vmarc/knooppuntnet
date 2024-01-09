@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
-<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-<meta osm_base="2021-05-15T15:08:43Z"/>
-
-  <node id="8731919672" lat="52.0510580" lon="4.2410825" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee"/>
-  <node id="8731919673" lat="52.0522905" lon="4.2461378" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee"/>
-  <node id="8731919674" lat="52.0522526" lon="4.2463873" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee"/>
-  <node id="8731919675" lat="52.0524142" lon="4.2470578" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee"/>
-  <node id="8731919676" lat="52.0532389" lon="4.2465562" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee"/>
-  <node id="8731919677" lat="52.0533065" lon="4.2465938" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee"/>
-  <node id="8731919678" lat="52.0534550" lon="4.2471597" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee"/>
-  <node id="8731919679" lat="52.0534401" lon="4.2472670" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee"/>
-  <node id="8731919680" lat="52.0533593" lon="4.2475540" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee"/>
-  <node id="8731919681" lat="52.0540603" lon="4.2505903" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee">
+<osm version="0.6">
+  <node id="8731919672" lat="52.0510580" lon="4.2410825"/>
+  <node id="8731919673" lat="52.0522905" lon="4.2461378"/>
+  <node id="8731919674" lat="52.0522526" lon="4.2463873"/>
+  <node id="8731919675" lat="52.0524142" lon="4.2470578"/>
+  <node id="8731919676" lat="52.0532389" lon="4.2465562"/>
+  <node id="8731919677" lat="52.0533065" lon="4.2465938"/>
+  <node id="8731919678" lat="52.0534550" lon="4.2471597"/>
+  <node id="8731919679" lat="52.0534401" lon="4.2472670"/>
+  <node id="8731919680" lat="52.0533593" lon="4.2475540"/>
+  <node id="8731919681" lat="52.0540603" lon="4.2505903">
     <tag k="name" v="52"/>
     <tag k="network:type" v="node_network"/>
     <tag k="rpf_ref" v="52"/>
   </node>
-  <node id="8734240777" lat="52.0517907" lon="4.2406227" version="1" timestamp="2021-05-15T15:08:19Z" changeset="104737699" uid="132649" user="Haynee">
+  <node id="8734240777" lat="52.0517907" lon="4.2406227">
     <tag k="name" v="59"/>
     <tag k="network:type" v="node_network"/>
     <tag k="rpn_ref" v="59"/>
   </node>
-  <way id="943003728" version="2" timestamp="2021-05-15T15:08:19Z" changeset="104737699" uid="132649" user="Haynee">
+  <way id="943003728">
+    <tag k="waterway" v="canal"/>
     <nd ref="8734240777"/>
     <nd ref="8731919672"/>
     <nd ref="8731919673"/>
@@ -34,9 +32,8 @@
     <nd ref="8731919679"/>
     <nd ref="8731919680"/>
     <nd ref="8731919681"/>
-    <tag k="waterway" v="canal"/>
   </way>
-  <relation id="12713351" version="1" timestamp="2021-05-14T20:01:50Z" changeset="104705857" uid="132649" user="Haynee">
+  <relation id="12713351">
     <member type="way" ref="943003728" role="route"/>
     <tag k="colour" v="green"/>
     <tag k="name" v="rpn 52-59"/>
@@ -46,5 +43,4 @@
     <tag k="route" v="canoe"/>
     <tag k="type" v="route"/>
   </relation>
-
 </osm>

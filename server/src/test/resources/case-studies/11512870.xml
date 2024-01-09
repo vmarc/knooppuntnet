@@ -1,404 +1,400 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
-    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-    <meta osm_base="2020-08-17T16:03:03Z"/>
-
-    <node id="301008702" lat="51.8426545" lon="5.8587459" version="9" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven"/>
-    <node id="301008704" lat="51.8423355" lon="5.8583830" version="7" timestamp="2018-05-23T16:57:46Z" changeset="59217807" uid="324890" user="Kogacarlo"/>
-    <node id="301008706" lat="51.8420867" lon="5.8583369" version="8" timestamp="2018-05-23T16:57:46Z" changeset="59217807" uid="324890" user="Kogacarlo"/>
-    <node id="301008707" lat="51.8419719" lon="5.8583636" version="3" timestamp="2010-12-01T21:00:51Z" changeset="6508524" uid="105255" user="Sven L"/>
-    <node id="301008708" lat="51.8416857" lon="5.8586359" version="8" timestamp="2019-09-06T06:35:23Z" changeset="74158684" uid="294028" user="dvdhoven"/>
-    <node id="301008713" lat="51.8415864" lon="5.8599502" version="7" timestamp="2020-08-15T22:38:47Z" changeset="89458251" uid="9449340" user="Famlam"/>
-    <node id="301008714" lat="51.8416473" lon="5.8601151" version="15" timestamp="2020-08-17T08:40:13Z" changeset="89505549" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="2"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="45"/>
-    </node>
-    <node id="301008715" lat="51.8418313" lon="5.8603589" version="7" timestamp="2019-02-14T12:53:37Z" changeset="67192599" uid="9426039" user="GHNL"/>
-    <node id="301008716" lat="51.8420308" lon="5.8604315" version="8" timestamp="2018-05-23T16:57:46Z" changeset="59217807" uid="324890" user="Kogacarlo"/>
-    <node id="301008717" lat="51.8423019" lon="5.8604232" version="5" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven"/>
-    <node id="301008718" lat="51.8425489" lon="5.8602087" version="16" timestamp="2020-08-17T08:40:13Z" changeset="89505549" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="2"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="45"/>
-    </node>
-    <node id="301008719" lat="51.8427037" lon="5.8599097" version="15" timestamp="2020-08-17T08:40:14Z" changeset="89505549" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="2"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="45"/>
-    </node>
-    <node id="301008720" lat="51.8427721" lon="5.8596794" version="6" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven"/>
-    <node id="301008723" lat="51.8427752" lon="5.8591066" version="6" timestamp="2018-05-23T16:57:46Z" changeset="59217807" uid="324890" user="Kogacarlo"/>
-    <node id="302102477" lat="51.8414930" lon="5.8596025" version="14" timestamp="2020-08-17T08:27:23Z" changeset="89504800" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="3"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="45"/>
-    </node>
-    <node id="302941691" lat="51.8418303" lon="5.8584512" version="15" timestamp="2020-08-17T08:40:14Z" changeset="89505549" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="2"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="45"/>
-    </node>
-    <node id="303363411" lat="51.8422169" lon="5.8604572" version="4" timestamp="2018-05-23T16:57:46Z" changeset="59217807" uid="324890" user="Kogacarlo"/>
-    <node id="1015045148" lat="51.8416099" lon="5.8587576" version="13" timestamp="2020-08-17T08:27:23Z" changeset="89504800" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="3"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="45"/>
-    </node>
-    <node id="1015045173" lat="51.8426367" lon="5.8600726" version="3" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven"/>
-    <node id="1015045174" lat="51.8423892" lon="5.8603860" version="2" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven"/>
-    <node id="1015045175" lat="51.8418021" lon="5.8603382" version="2" timestamp="2018-05-23T16:57:46Z" changeset="59217807" uid="324890" user="Kogacarlo"/>
-    <node id="1015045179" lat="51.8425109" lon="5.8585098" version="4" timestamp="2018-05-23T17:52:02Z" changeset="59219451" uid="324890" user="Kogacarlo"/>
-    <node id="1015045191" lat="51.8427895" lon="5.8595633" version="3" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven"/>
-    <node id="2118560301" lat="51.8422207" lon="5.8583420" version="3" timestamp="2019-11-03T16:55:52Z" changeset="76556601" uid="9449340" user="Famlam"/>
-    <node id="2346405782" lat="51.8426166" lon="5.8586620" version="5" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="backward"/>
-    </node>
-    <node id="2346405788" lat="51.8427923" lon="5.8592198" version="3" timestamp="2018-05-23T17:52:02Z" changeset="59219451" uid="324890" user="Kogacarlo">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </node>
-    <node id="2509722539" lat="51.8424079" lon="5.8584218" version="8" timestamp="2020-08-17T08:40:14Z" changeset="89505549" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="2"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="45"/>
-    </node>
-    <node id="2509722616" lat="51.8420189" lon="5.8583432" version="8" timestamp="2020-08-17T08:40:14Z" changeset="89505549" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="2"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="45"/>
-    </node>
-    <node id="2535851296" lat="51.8424861" lon="5.8602904" version="3" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven"/>
-    <node id="2535851298" lat="51.8427442" lon="5.8597924" version="4" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven"/>
-    <node id="2908362892" lat="51.8426823" lon="5.8588076" version="4" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </node>
-    <node id="3546325374" lat="51.8425865" lon="5.8586189" version="11" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven"/>
-    <node id="3546325376" lat="51.8427977" lon="5.8592784" version="8" timestamp="2018-05-28T13:48:42Z" changeset="59341373" uid="294028" user="dvdhoven"/>
-    <node id="4811573497" lat="51.8427653" lon="5.8590639" version="2" timestamp="2018-05-23T17:52:03Z" changeset="59219451" uid="324890" user="Kogacarlo">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="backward"/>
-    </node>
-    <node id="4811573499" lat="51.8427988" lon="5.8594370" version="2" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven"/>
-    <node id="4811573501" lat="51.8425182" lon="5.8602445" version="3" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </node>
-    <node id="4811573502" lat="51.8425778" lon="5.8601653" version="3" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="backward"/>
-    </node>
-    <node id="4811573504" lat="51.8427269" lon="5.8598445" version="3" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="backward"/>
-    </node>
-    <node id="4811573505" lat="51.8426816" lon="5.8599752" version="3" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </node>
-    <node id="4811573506" lat="51.8417175" lon="5.8602450" version="3" timestamp="2018-05-23T17:52:03Z" changeset="59219451" uid="324890" user="Kogacarlo"/>
-    <node id="5628202009" lat="51.8422951" lon="5.8583621" version="2" timestamp="2018-05-23T16:57:47Z" changeset="59217807" uid="324890" user="Kogacarlo">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="backward"/>
-    </node>
-    <node id="5628202011" lat="51.8421769" lon="5.8604567" version="2" timestamp="2018-05-23T16:57:47Z" changeset="59217807" uid="324890" user="Kogacarlo">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="backward"/>
-    </node>
-    <node id="5628202012" lat="51.8418971" lon="5.8603937" version="4" timestamp="2018-05-28T13:48:42Z" changeset="59341373" uid="294028" user="dvdhoven">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </node>
-    <node id="5628202015" lat="51.8416376" lon="5.8600895" version="1" timestamp="2018-05-19T08:23:45Z" changeset="59097542" uid="294028" user="dvdhoven">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="backward"/>
-    </node>
-    <node id="5628203222" lat="51.8416362" lon="5.8587191" version="2" timestamp="2018-05-23T16:57:48Z" changeset="59217807" uid="324890" user="Kogacarlo">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="backward"/>
-    </node>
-    <node id="5628203224" lat="51.8418924" lon="5.8584078" version="1" timestamp="2018-05-19T08:23:46Z" changeset="59097542" uid="294028" user="dvdhoven"/>
-    <node id="5628203228" lat="51.8421193" lon="5.8583378" version="1" timestamp="2018-05-19T08:23:46Z" changeset="59097542" uid="294028" user="dvdhoven">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </node>
-    <node id="5628203229" lat="51.8420508" lon="5.8583393" version="1" timestamp="2018-05-19T08:23:46Z" changeset="59097542" uid="294028" user="dvdhoven">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="backward"/>
-    </node>
-    <node id="5638020096" lat="51.8427077" lon="5.8588692" version="2" timestamp="2018-05-23T17:52:03Z" changeset="59219451" uid="324890" user="Kogacarlo"/>
-    <node id="5638020097" lat="51.8423628" lon="5.8583976" version="2" timestamp="2019-11-05T20:39:11Z" changeset="76667202" uid="9449340" user="Famlam">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </node>
-    <node id="5638020100" lat="51.8415079" lon="5.8596608" version="1" timestamp="2018-05-23T16:57:45Z" changeset="59217807" uid="324890" user="Kogacarlo">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </node>
-    <node id="5638020101" lat="51.8417916" lon="5.8584988" version="1" timestamp="2018-05-23T16:57:45Z" changeset="59217807" uid="324890" user="Kogacarlo">
-        <tag k="highway" v="traffic_signals"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </node>
-    <node id="5638020105" lat="51.8417451" lon="5.8585561" version="2" timestamp="2019-09-06T06:35:23Z" changeset="74158684" uid="294028" user="dvdhoven"/>
-    <node id="5638106529" lat="51.8427377" lon="5.8589706" version="1" timestamp="2018-05-23T17:52:00Z" changeset="59219451" uid="324890" user="Kogacarlo"/>
-    <node id="6853427680" lat="51.8426110" lon="5.8601131" version="1" timestamp="2019-10-05T11:20:14Z" changeset="75315580" uid="9449340" user="Famlam"/>
-    <node id="7816309539" lat="51.8415652" lon="5.8598823" version="1" timestamp="2020-08-15T22:38:47Z" changeset="89458251" uid="9449340" user="Famlam"/>
-    <node id="7816309541" lat="51.8415366" lon="5.8597716" version="1" timestamp="2020-08-15T22:38:47Z" changeset="89458251" uid="9449340" user="Famlam"/>
-    <way id="239641560" version="9" timestamp="2019-09-06T06:35:23Z" changeset="74158684" uid="294028" user="dvdhoven">
-        <nd ref="2509722616"/>
-        <nd ref="301008707"/>
-        <nd ref="5628203224"/>
-        <nd ref="302941691"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="lit" v="yes"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="segregated" v="yes"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </way>
-    <way id="239641562" version="6" timestamp="2019-09-06T06:35:23Z" changeset="74158684" uid="294028" user="dvdhoven">
-        <nd ref="301008715"/>
-        <nd ref="5628202012"/>
-        <nd ref="301008716"/>
-        <nd ref="5628202011"/>
-        <nd ref="303363411"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="lit" v="yes"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="segregated" v="yes"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </way>
-    <way id="239641574" version="11" timestamp="2019-09-06T06:35:23Z" changeset="74158684" uid="294028" user="dvdhoven">
-        <nd ref="2509722539"/>
-        <nd ref="5638020097"/>
-        <nd ref="301008704"/>
-        <nd ref="5628202009"/>
-        <nd ref="2118560301"/>
-        <nd ref="5628203228"/>
-        <nd ref="301008706"/>
-        <nd ref="5628203229"/>
-        <nd ref="2509722616"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="lit" v="yes"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="segregated" v="yes"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </way>
-    <way id="244748203" version="4" timestamp="2019-09-06T06:35:23Z" changeset="74158684" uid="294028" user="dvdhoven">
-        <nd ref="301008714"/>
-        <nd ref="4811573506"/>
-        <nd ref="1015045175"/>
-        <nd ref="301008715"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="lit" v="yes"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="segregated" v="yes"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </way>
-    <way id="488870938" version="3" timestamp="2019-09-06T06:35:23Z" changeset="74158684" uid="294028" user="dvdhoven">
-        <nd ref="301008719"/>
-        <nd ref="4811573504"/>
-        <nd ref="2535851298"/>
-        <nd ref="301008720"/>
-        <nd ref="1015045191"/>
-        <nd ref="4811573499"/>
-        <nd ref="3546325376"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="lit" v="yes"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="segregated" v="yes"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </way>
-    <way id="488870940" version="3" timestamp="2019-10-05T11:20:14Z" changeset="75315580" uid="9449340" user="Famlam">
-        <nd ref="301008718"/>
-        <nd ref="4811573502"/>
-        <nd ref="6853427680"/>
-        <nd ref="1015045173"/>
-        <nd ref="4811573505"/>
-        <nd ref="301008719"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="lit" v="yes"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="segregated" v="yes"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </way>
-    <way id="488870942" version="3" timestamp="2019-09-06T06:35:23Z" changeset="74158684" uid="294028" user="dvdhoven">
-        <nd ref="303363411"/>
-        <nd ref="301008717"/>
-        <nd ref="1015045174"/>
-        <nd ref="2535851296"/>
-        <nd ref="4811573501"/>
-        <nd ref="301008718"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="lit" v="yes"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="segregated" v="yes"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </way>
-    <way id="488870944" version="6" timestamp="2020-08-16T15:26:06Z" changeset="89475344" uid="9449340" user="Famlam">
-        <nd ref="302102477"/>
-        <nd ref="5638020100"/>
-        <nd ref="7816309541"/>
-        <tag k="fixme" v="Unclear whether it stays accessible for cars until St. Anna, and if so, whether they can also turn left"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="residential"/>
-        <tag k="lit" v="yes"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="oneway" v="yes"/>
-        <tag k="oneway:bicycle" v="no"/>
-        <tag k="oneway:mofa" v="no"/>
-        <tag k="oneway:moped" v="no"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-    </way>
-    <way id="488870945" version="4" timestamp="2019-09-06T06:35:23Z" changeset="74158684" uid="294028" user="dvdhoven">
-        <nd ref="302941691"/>
-        <nd ref="5638020101"/>
-        <nd ref="5638020105"/>
-        <nd ref="301008708"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="lit" v="yes"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="segregated" v="yes"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </way>
-    <way id="488870946" version="6" timestamp="2020-08-15T22:38:47Z" changeset="89458251" uid="9449340" user="Famlam">
-        <nd ref="301008708"/>
-        <nd ref="5628203222"/>
-        <nd ref="1015045148"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="oneway" v="yes"/>
-        <tag k="oneway:bicycle" v="no"/>
-        <tag k="oneway:mofa" v="no"/>
-        <tag k="oneway:moped" v="no"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="surface" v="paving_stones"/>
-    </way>
-    <way id="589390220" version="3" timestamp="2020-08-15T22:38:47Z" changeset="89458251" uid="9449340" user="Famlam">
-        <nd ref="7816309541"/>
-        <nd ref="7816309539"/>
-        <nd ref="301008713"/>
-        <nd ref="5628202015"/>
-        <nd ref="301008714"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="lit" v="yes"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="segregated" v="yes"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </way>
-    <way id="591609295" version="3" timestamp="2019-09-08T07:59:15Z" changeset="74220762" uid="294028" user="dvdhoven">
-        <nd ref="3546325376"/>
-        <nd ref="2346405788"/>
-        <nd ref="301008723"/>
-        <nd ref="4811573497"/>
-        <nd ref="5638106529"/>
-        <nd ref="5638020096"/>
-        <nd ref="2908362892"/>
-        <nd ref="301008702"/>
-        <nd ref="2346405782"/>
-        <nd ref="3546325374"/>
-        <nd ref="1015045179"/>
-        <nd ref="2509722539"/>
-        <tag k="foot" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="lit" v="yes"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Keizer Karelplein"/>
-        <tag k="segregated" v="yes"/>
-        <tag k="sidewalk" v="right"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="paving_stones"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="traffic_signals:direction" v="forward"/>
-    </way>
-    <relation id="11512870" version="1" timestamp="2020-08-17T08:27:21Z" changeset="89504800" uid="7103674" user="Peter Elderson">
-        <member type="way" ref="488870946" role=""/>
-        <member type="way" ref="488870945" role=""/>
-        <member type="way" ref="239641560" role=""/>
-        <member type="way" ref="239641574" role=""/>
-        <member type="way" ref="591609295" role=""/>
-        <member type="way" ref="488870938" role=""/>
-        <member type="way" ref="488870940" role=""/>
-        <member type="way" ref="488870942" role=""/>
-        <member type="way" ref="239641562" role=""/>
-        <member type="way" ref="244748203" role=""/>
-        <member type="way" ref="589390220" role=""/>
-        <member type="way" ref="488870944" role=""/>
-        <tag k="network" v="rcn"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="ref" v="45-45"/>
-        <tag k="route" v="bicycle"/>
-        <tag k="type" v="route"/>
-    </relation>
-
+<osm version="0.6">
+  <node id="301008702" lat="51.8426545" lon="5.8587459"/>
+  <node id="301008704" lat="51.8423355" lon="5.8583830"/>
+  <node id="301008706" lat="51.8420867" lon="5.8583369"/>
+  <node id="301008707" lat="51.8419719" lon="5.8583636"/>
+  <node id="301008708" lat="51.8416857" lon="5.8586359"/>
+  <node id="301008713" lat="51.8415864" lon="5.8599502"/>
+  <node id="301008714" lat="51.8416473" lon="5.8601151">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="301008715" lat="51.8418313" lon="5.8603589"/>
+  <node id="301008716" lat="51.8420308" lon="5.8604315"/>
+  <node id="301008717" lat="51.8423019" lon="5.8604232"/>
+  <node id="301008718" lat="51.8425489" lon="5.8602087">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="301008719" lat="51.8427037" lon="5.8599097">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="301008720" lat="51.8427721" lon="5.8596794"/>
+  <node id="301008723" lat="51.8427752" lon="5.8591066"/>
+  <node id="302102477" lat="51.8414930" lon="5.8596025">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="302941691" lat="51.8418303" lon="5.8584512">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="303363411" lat="51.8422169" lon="5.8604572"/>
+  <node id="1015045148" lat="51.8416099" lon="5.8587576">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="1015045173" lat="51.8426367" lon="5.8600726"/>
+  <node id="1015045174" lat="51.8423892" lon="5.8603860"/>
+  <node id="1015045175" lat="51.8418021" lon="5.8603382"/>
+  <node id="1015045179" lat="51.8425109" lon="5.8585098"/>
+  <node id="1015045191" lat="51.8427895" lon="5.8595633"/>
+  <node id="2118560301" lat="51.8422207" lon="5.8583420"/>
+  <node id="2346405782" lat="51.8426166" lon="5.8586620">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="2346405788" lat="51.8427923" lon="5.8592198">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="2509722539" lat="51.8424079" lon="5.8584218">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="2509722616" lat="51.8420189" lon="5.8583432">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="45"/>
+  </node>
+  <node id="2535851296" lat="51.8424861" lon="5.8602904"/>
+  <node id="2535851298" lat="51.8427442" lon="5.8597924"/>
+  <node id="2908362892" lat="51.8426823" lon="5.8588076">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="3546325374" lat="51.8425865" lon="5.8586189"/>
+  <node id="3546325376" lat="51.8427977" lon="5.8592784"/>
+  <node id="4811573497" lat="51.8427653" lon="5.8590639">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="4811573499" lat="51.8427988" lon="5.8594370"/>
+  <node id="4811573501" lat="51.8425182" lon="5.8602445">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="4811573502" lat="51.8425778" lon="5.8601653">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="4811573504" lat="51.8427269" lon="5.8598445">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="4811573505" lat="51.8426816" lon="5.8599752">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="4811573506" lat="51.8417175" lon="5.8602450"/>
+  <node id="5628202009" lat="51.8422951" lon="5.8583621">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="5628202011" lat="51.8421769" lon="5.8604567">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="5628202012" lat="51.8418971" lon="5.8603937">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5628202015" lat="51.8416376" lon="5.8600895">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="5628203222" lat="51.8416362" lon="5.8587191">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="5628203224" lat="51.8418924" lon="5.8584078"/>
+  <node id="5628203228" lat="51.8421193" lon="5.8583378">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5628203229" lat="51.8420508" lon="5.8583393">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="backward"/>
+  </node>
+  <node id="5638020096" lat="51.8427077" lon="5.8588692"/>
+  <node id="5638020097" lat="51.8423628" lon="5.8583976">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5638020100" lat="51.8415079" lon="5.8596608">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5638020101" lat="51.8417916" lon="5.8584988">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5638020105" lat="51.8417451" lon="5.8585561"/>
+  <node id="5638106529" lat="51.8427377" lon="5.8589706"/>
+  <node id="6853427680" lat="51.8426110" lon="5.8601131"/>
+  <node id="7816309539" lat="51.8415652" lon="5.8598823"/>
+  <node id="7816309541" lat="51.8415366" lon="5.8597716"/>
+  <way id="239641560">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+    <nd ref="2509722616"/>
+    <nd ref="301008707"/>
+    <nd ref="5628203224"/>
+    <nd ref="302941691"/>
+  </way>
+  <way id="239641562">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+    <nd ref="301008715"/>
+    <nd ref="5628202012"/>
+    <nd ref="301008716"/>
+    <nd ref="5628202011"/>
+    <nd ref="303363411"/>
+  </way>
+  <way id="239641574">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+    <nd ref="2509722539"/>
+    <nd ref="5638020097"/>
+    <nd ref="301008704"/>
+    <nd ref="5628202009"/>
+    <nd ref="2118560301"/>
+    <nd ref="5628203228"/>
+    <nd ref="301008706"/>
+    <nd ref="5628203229"/>
+    <nd ref="2509722616"/>
+  </way>
+  <way id="244748203">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+    <nd ref="301008714"/>
+    <nd ref="4811573506"/>
+    <nd ref="1015045175"/>
+    <nd ref="301008715"/>
+  </way>
+  <way id="488870938">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+    <nd ref="301008719"/>
+    <nd ref="4811573504"/>
+    <nd ref="2535851298"/>
+    <nd ref="301008720"/>
+    <nd ref="1015045191"/>
+    <nd ref="4811573499"/>
+    <nd ref="3546325376"/>
+  </way>
+  <way id="488870940">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+    <nd ref="301008718"/>
+    <nd ref="4811573502"/>
+    <nd ref="6853427680"/>
+    <nd ref="1015045173"/>
+    <nd ref="4811573505"/>
+    <nd ref="301008719"/>
+  </way>
+  <way id="488870942">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+    <nd ref="303363411"/>
+    <nd ref="301008717"/>
+    <nd ref="1015045174"/>
+    <nd ref="2535851296"/>
+    <nd ref="4811573501"/>
+    <nd ref="301008718"/>
+  </way>
+  <way id="488870944">
+    <tag k="fixme" v="Unclear whether it stays accessible for cars until St. Anna, and if so, whether they can also turn left"/>
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="302102477"/>
+    <nd ref="5638020100"/>
+    <nd ref="7816309541"/>
+  </way>
+  <way id="488870945">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+    <nd ref="302941691"/>
+    <nd ref="5638020101"/>
+    <nd ref="5638020105"/>
+    <nd ref="301008708"/>
+  </way>
+  <way id="488870946">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="surface" v="paving_stones"/>
+    <nd ref="301008708"/>
+    <nd ref="5628203222"/>
+    <nd ref="1015045148"/>
+  </way>
+  <way id="589390220">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+    <nd ref="7816309541"/>
+    <nd ref="7816309539"/>
+    <nd ref="301008713"/>
+    <nd ref="5628202015"/>
+    <nd ref="301008714"/>
+  </way>
+  <way id="591609295">
+    <tag k="foot" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Keizer Karelplein"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+    <nd ref="3546325376"/>
+    <nd ref="2346405788"/>
+    <nd ref="301008723"/>
+    <nd ref="4811573497"/>
+    <nd ref="5638106529"/>
+    <nd ref="5638020096"/>
+    <nd ref="2908362892"/>
+    <nd ref="301008702"/>
+    <nd ref="2346405782"/>
+    <nd ref="3546325374"/>
+    <nd ref="1015045179"/>
+    <nd ref="2509722539"/>
+  </way>
+  <relation id="11512870">
+    <member type="way" ref="488870946" role=""/>
+    <member type="way" ref="488870945" role=""/>
+    <member type="way" ref="239641560" role=""/>
+    <member type="way" ref="239641574" role=""/>
+    <member type="way" ref="591609295" role=""/>
+    <member type="way" ref="488870938" role=""/>
+    <member type="way" ref="488870940" role=""/>
+    <member type="way" ref="488870942" role=""/>
+    <member type="way" ref="239641562" role=""/>
+    <member type="way" ref="244748203" role=""/>
+    <member type="way" ref="589390220" role=""/>
+    <member type="way" ref="488870944" role=""/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="ref" v="45-45"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

@@ -1,46 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <osm version="0.6">
-  <node id="1032457785" version="2" lat="51.2483566" lon="3.6953584" timestamp="2012-06-12T14:29:09Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1032457830" version="2" lat="51.2481975" lon="3.6959183" timestamp="2014-01-11T16:30:26Z" changeset="19937772" uid="203114" user="Jeroen Muris">
-    <tag k="rwn_ref" v="48"/>
-  </node>
-  <node id="1032457848" version="2" lat="51.2522578" lon="3.6932235" timestamp="2012-06-12T14:29:09Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1032457874" version="2" lat="51.2520746" lon="3.6931737" timestamp="2012-06-12T14:29:09Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1032457892" version="1" lat="51.2508355" lon="3.69392" timestamp="2010-12-11T01:05:12Z" changeset="6616695" uid="48796" user="Ldp"/>
-  <node id="1032457911" version="1" lat="51.2494597" lon="3.6937219" timestamp="2010-12-11T01:05:12Z" changeset="6616695" uid="48796" user="Ldp"/>
-  <node id="1032457925" version="2" lat="51.2541048" lon="3.6932375" timestamp="2012-06-12T14:29:09Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1032457943" version="3" lat="51.2482868" lon="3.6956029" timestamp="2014-01-11T16:30:27Z" changeset="19937772" uid="203114" user="Jeroen Muris">
-    <tag k="rwn_ref" v="48"/>
-  </node>
-  <node id="1032457950" version="2" lat="51.2489127" lon="3.6941282" timestamp="2012-06-12T14:29:10Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1032457959" version="2" lat="51.2531592" lon="3.6934121" timestamp="2012-06-12T14:29:10Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1032457975" version="1" lat="51.2511572" lon="3.6936997" timestamp="2010-12-11T01:05:14Z" changeset="6616695" uid="48796" user="Ldp"/>
-  <node id="1032457979" version="2" lat="51.2518935" lon="3.6932251" timestamp="2012-06-12T14:29:10Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1032458020" version="1" lat="51.2484214" lon="3.6950085" timestamp="2010-12-11T01:05:15Z" changeset="6616695" uid="48796" user="Ldp"/>
-  <node id="1032458031" version="2" lat="51.2484603" lon="3.6947555" timestamp="2012-06-12T14:29:10Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1032458043" version="2" lat="51.2526805" lon="3.6933901" timestamp="2012-06-12T14:29:10Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1032458074" version="2" lat="51.2524555" lon="3.6933195" timestamp="2012-06-12T14:29:10Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1037911386" version="2" lat="51.248091" lon="3.6957081" timestamp="2014-01-11T16:30:27Z" changeset="19937772" uid="203114" user="Jeroen Muris">
-    <tag k="rwn_ref" v="48"/>
-  </node>
-  <node id="1037911424" version="1" lat="51.248181" lon="3.6956872" timestamp="2010-12-13T23:43:28Z" changeset="6654295" uid="48796" user="Ldp"/>
-  <node id="1784704533" version="1" lat="51.2485263" lon="3.6946248" timestamp="2012-06-12T14:28:44Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1784704554" version="1" lat="51.24909" lon="3.6939051" timestamp="2012-06-12T14:28:45Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1784704740" version="1" lat="51.2521649" lon="3.6931831" timestamp="2012-06-12T14:28:49Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="1784704815" version="1" lat="51.2539476" lon="3.6932957" timestamp="2012-06-12T14:28:50Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="297611238" version="7" lat="51.2551081" lon="3.6926494" timestamp="2014-01-11T16:30:27Z" changeset="19937772" uid="203114" user="Jeroen Muris">
+  <node id="297611238" lat="51.2551081" lon="3.6926494">
     <tag k="rcn_ref" v="54"/>
     <tag k="rwn_ref" v="49"/>
   </node>
-  <node id="297611239" version="3" lat="51.2547883" lon="3.6929839" timestamp="2010-12-11T01:05:51Z" changeset="6616695" uid="48796" user="Ldp"/>
-  <node id="297611240" version="3" lat="51.2537902" lon="3.693322" timestamp="2012-06-12T14:29:11Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="297611241" version="3" lat="51.2529113" lon="3.6934178" timestamp="2012-06-12T14:29:11Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <node id="297611242" version="2" lat="51.2514927" lon="3.693499" timestamp="2010-12-11T01:05:26Z" changeset="6616695" uid="48796" user="Ldp"/>
-  <node id="297611243" version="1" lat="51.250709" lon="3.6939514" timestamp="2008-09-17T00:52:32Z" changeset="656263" uid="48796" user="Ldp"/>
-  <node id="297611244" version="2" lat="51.2497039" lon="3.6937079" timestamp="2010-12-11T01:05:28Z" changeset="6616695" uid="48796" user="Ldp"/>
-  <node id="297611245" version="2" lat="51.2492263" lon="3.6938093" timestamp="2010-12-11T01:05:33Z" changeset="6616695" uid="48796" user="Ldp"/>
-  <node id="297611246" version="3" lat="51.2486189" lon="3.6945101" timestamp="2012-06-12T14:29:11Z" changeset="11875104" uid="138772" user="lodde1949"/>
-  <way id="256188399" version="1" timestamp="2014-01-11T16:30:14Z" changeset="19937772" uid="203114" user="Jeroen Muris">
+  <node id="297611239" lat="51.2547883" lon="3.6929839"/>
+  <node id="297611240" lat="51.2537902" lon="3.693322"/>
+  <node id="297611241" lat="51.2529113" lon="3.6934178"/>
+  <node id="297611242" lat="51.2514927" lon="3.693499"/>
+  <node id="297611243" lat="51.250709" lon="3.6939514"/>
+  <node id="297611244" lat="51.2497039" lon="3.6937079"/>
+  <node id="297611245" lat="51.2492263" lon="3.6938093"/>
+  <node id="297611246" lat="51.2486189" lon="3.6945101"/>
+  <node id="1032457785" lat="51.2483566" lon="3.6953584"/>
+  <node id="1032457830" lat="51.2481975" lon="3.6959183">
+    <tag k="rwn_ref" v="48"/>
+  </node>
+  <node id="1032457848" lat="51.2522578" lon="3.6932235"/>
+  <node id="1032457874" lat="51.2520746" lon="3.6931737"/>
+  <node id="1032457892" lat="51.2508355" lon="3.69392"/>
+  <node id="1032457911" lat="51.2494597" lon="3.6937219"/>
+  <node id="1032457925" lat="51.2541048" lon="3.6932375"/>
+  <node id="1032457943" lat="51.2482868" lon="3.6956029">
+    <tag k="rwn_ref" v="48"/>
+  </node>
+  <node id="1032457950" lat="51.2489127" lon="3.6941282"/>
+  <node id="1032457959" lat="51.2531592" lon="3.6934121"/>
+  <node id="1032457975" lat="51.2511572" lon="3.6936997"/>
+  <node id="1032457979" lat="51.2518935" lon="3.6932251"/>
+  <node id="1032458020" lat="51.2484214" lon="3.6950085"/>
+  <node id="1032458031" lat="51.2484603" lon="3.6947555"/>
+  <node id="1032458043" lat="51.2526805" lon="3.6933901"/>
+  <node id="1032458074" lat="51.2524555" lon="3.6933195"/>
+  <node id="1037911386" lat="51.248091" lon="3.6957081">
+    <tag k="rwn_ref" v="48"/>
+  </node>
+  <node id="1037911424" lat="51.248181" lon="3.6956872"/>
+  <node id="1784704533" lat="51.2485263" lon="3.6946248"/>
+  <node id="1784704554" lat="51.24909" lon="3.6939051"/>
+  <node id="1784704740" lat="51.2521649" lon="3.6931831"/>
+  <node id="1784704815" lat="51.2539476" lon="3.6932957"/>
+  <way id="27126022">
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="1"/>
+    <tag k="name" v="Spoorstraat"/>
+    <nd ref="297611238"/>
+    <nd ref="297611239"/>
+  </way>
+  <way id="88971170">
+    <tag k="highway" v="unclassified"/>
+    <tag k="lanes" v="1"/>
+    <tag k="name" v="Spoorstraat"/>
+    <nd ref="297611243"/>
+    <nd ref="297611244"/>
+    <nd ref="1032457911"/>
+    <nd ref="297611245"/>
+    <nd ref="1784704554"/>
+    <nd ref="1032457950"/>
+    <nd ref="297611246"/>
+    <nd ref="1784704533"/>
+    <nd ref="1032458031"/>
+    <nd ref="1032458020"/>
+    <nd ref="1032457785"/>
+    <nd ref="1032457943"/>
+  </way>
+  <way id="88971173">
+    <tag k="name" v="Spoorstraat"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="bridge" v="yes"/>
+    <tag k="lanes" v="1"/>
+    <tag k="layer" v="1"/>
+    <nd ref="1032457892"/>
+    <nd ref="297611243"/>
+  </way>
+  <way id="89524611">
+    <tag k="highway" v="unclassified"/>
+    <nd ref="1032457943"/>
+    <nd ref="1037911424"/>
+    <nd ref="1037911386"/>
+  </way>
+  <way id="256188399">
     <tag k="highway" v="unclassified"/>
     <tag k="lanes" v="1"/>
     <tag k="name" v="Spoorstraat"/>
@@ -60,53 +99,14 @@
     <nd ref="1032457975"/>
     <nd ref="1032457892"/>
   </way>
-  <way id="256188401" version="1" timestamp="2014-01-11T16:30:15Z" changeset="19937772" uid="203114" user="Jeroen Muris">
+  <way id="256188401">
     <tag k="highway" v="unclassified"/>
     <tag k="lanes" v="1"/>
     <tag k="name" v="Spoorstraat"/>
     <nd ref="1032457943"/>
     <nd ref="1032457830"/>
   </way>
-  <way id="27126022" version="4" timestamp="2014-01-11T16:30:26Z" changeset="19937772" uid="203114" user="Jeroen Muris">
-    <tag k="highway" v="unclassified"/>
-    <tag k="lanes" v="1"/>
-    <tag k="name" v="Spoorstraat"/>
-    <nd ref="297611238"/>
-    <nd ref="297611239"/>
-  </way>
-  <way id="88971170" version="4" timestamp="2014-01-11T16:30:26Z" changeset="19937772" uid="203114" user="Jeroen Muris">
-    <tag k="highway" v="unclassified"/>
-    <tag k="lanes" v="1"/>
-    <tag k="name" v="Spoorstraat"/>
-    <nd ref="297611243"/>
-    <nd ref="297611244"/>
-    <nd ref="1032457911"/>
-    <nd ref="297611245"/>
-    <nd ref="1784704554"/>
-    <nd ref="1032457950"/>
-    <nd ref="297611246"/>
-    <nd ref="1784704533"/>
-    <nd ref="1032458031"/>
-    <nd ref="1032458020"/>
-    <nd ref="1032457785"/>
-    <nd ref="1032457943"/>
-  </way>
-  <way id="88971173" version="1" timestamp="2010-12-11T01:05:18Z" changeset="6616695" uid="48796" user="Ldp">
-    <tag k="name" v="Spoorstraat"/>
-    <tag k="highway" v="unclassified"/>
-    <tag k="bridge" v="yes"/>
-    <tag k="lanes" v="1"/>
-    <tag k="layer" v="1"/>
-    <nd ref="1032457892"/>
-    <nd ref="297611243"/>
-  </way>
-  <way id="89524611" version="1" timestamp="2010-12-13T23:43:42Z" changeset="6654295" uid="48796" user="Ldp">
-    <tag k="highway" v="unclassified"/>
-    <nd ref="1032457943"/>
-    <nd ref="1037911424"/>
-    <nd ref="1037911386"/>
-  </way>
-  <relation id="3431904" version="1" timestamp="2014-01-11T16:30:15Z" changeset="19937772" uid="203114" user="Jeroen Muris">
+  <relation id="3431904">
     <member type="way" ref="89524611" role=""/>
     <member type="way" ref="256188401" role=""/>
     <member type="way" ref="88971170" role=""/>

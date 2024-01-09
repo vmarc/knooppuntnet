@@ -8,9 +8,12 @@ import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.common.Time
 import kpn.core.common.TimestampUtil
 
-class Parser() {
+class Parser(full: Boolean = true) {
+
+  private val now = Time.now
 
   def parse(xml: scala.xml.Node): RawData = {
     val timestamp = {
@@ -33,9 +36,9 @@ class Parser() {
       val id = idIn(n)
       val latitude = (n \ "@lat").text
       val longitude = (n \ "@lon").text
-      val version = (n \ "@version").text.toInt
-      val timestamp = timestampIn(n)
-      val changeSetId = (n \ "@changeset").text.toLong
+      val version = if (full) (n \ "@version").text.toInt else 0
+      val timestamp = if (full) timestampIn(n) else now
+      val changeSetId = if (full) (n \ "@changeset").text.toLong else 0
       val tags = tagsIn(n)
       RawNode(id, latitude, longitude, version, timestamp, changeSetId, tags)
     }
@@ -44,9 +47,9 @@ class Parser() {
   private def waysIn(xml: scala.xml.Node): Seq[RawWay] = {
     (xml \ "way").map { w =>
       val id = idIn(w)
-      val version = (w \ "@version").text.toInt
-      val timestamp = timestampIn(w)
-      val changeSetId = (w \ "@changeset").text.toLong
+      val version = if (full) (w \ "@version").text.toInt else 0
+      val timestamp = if (full) timestampIn(w) else now
+      val changeSetId = if (full) (w \ "@changeset").text.toLong else 0
       val nodeIds = (w \ "nd").map(t => (t \ "@ref").text.toLong)
       val tags = tagsIn(w)
       RawWay(id, version, timestamp, changeSetId, nodeIds.toVector, tags)
@@ -56,9 +59,9 @@ class Parser() {
   private def relationsIn(xml: scala.xml.Node): Seq[RawRelation] = {
     (xml \ "relation").map { r =>
       val id = idIn(r)
-      val version = (r \ "@version").text.toInt
-      val timestamp = timestampIn(r)
-      val changeSetId = (r \ "@changeset").text.toLong
+      val version = if (full) (r \ "@version").text.toInt else 0
+      val timestamp = if (full) timestampIn(r) else now
+      val changeSetId = if (full) (r \ "@changeset").text.toLong else 0
       val members = (r \ "member").map { t =>
         val memberType = (t \ "@type").text
         val ref = (t \ "@ref").text.toLong

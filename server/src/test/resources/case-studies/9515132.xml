@@ -1,57 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
-<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-<meta osm_base="2019-04-24T14:48:02Z"/>
-
-  <node id="60285252" lat="50.7188032" lon="4.6131325" version="21" timestamp="2018-08-08T12:25:39Z" changeset="61466538" uid="3401173" user="Anakil">
+<osm version="0.6">
+  <node id="60285252" lat="50.7188032" lon="4.6131325">
     <tag k="highway" v="traffic_signals"/>
   </node>
-  <node id="248763285" lat="50.7162856" lon="4.6087550" version="7" timestamp="2017-05-01T09:25:44Z" changeset="48301526" uid="425006" user="music">
+  <node id="248763285" lat="50.7162856" lon="4.6087550">
     <tag k="network:type" v="node_network"/>
     <tag k="highway" v="mini_roundabout"/>
     <tag k="rcn_ref" v="64"/>
   </node>
-  <node id="248763323" lat="50.7164776" lon="4.6089637" version="4" timestamp="2018-08-08T09:32:39Z" changeset="61461230" uid="3401173" user="Anakil"/>
-  <node id="248763324" lat="50.7171664" lon="4.6102581" version="9" timestamp="2017-05-01T09:25:44Z" changeset="48301526" uid="425006" user="music">
+  <node id="248763323" lat="50.7164776" lon="4.6089637"/>
+  <node id="248763324" lat="50.7171664" lon="4.6102581">
     <tag k="network:type" v="node_network"/>
     <tag k="rcn_ref" v="64"/>
   </node>
-  <node id="248763325" lat="50.7191927" lon="4.6138398" version="12" timestamp="2009-03-26T10:02:47Z" changeset="861333" uid="9796" user="Ben VdA"/>
-  <node id="248763326" lat="50.7197101" lon="4.6145323" version="14" timestamp="2017-05-01T09:25:43Z" changeset="48301526" uid="425006" user="music">
+  <node id="248763325" lat="50.7191927" lon="4.6138398"/>
+  <node id="248763326" lat="50.7197101" lon="4.6145323">
     <tag k="network:type" v="node_network"/>
     <tag k="rcn_ref" v="63"/>
   </node>
-  <node id="300608110" lat="50.7170521" lon="4.6100733" version="4" timestamp="2018-08-08T11:50:22Z" changeset="61465376" uid="3401173" user="Anakil"/>
-  <node id="300608115" lat="50.7172941" lon="4.6104666" version="5" timestamp="2018-08-08T12:25:39Z" changeset="61466538" uid="3401173" user="Anakil"/>
-  <node id="332071216" lat="50.7166948" lon="4.6094068" version="6" timestamp="2018-11-19T18:02:26Z" changeset="64667620" uid="3401173" user="Anakil"/>
-  <node id="765171582" lat="50.7181067" lon="4.6118293" version="3" timestamp="2018-08-08T12:25:39Z" changeset="61466538" uid="3401173" user="Anakil"/>
-  <node id="765171872" lat="50.7179164" lon="4.6114902" version="3" timestamp="2019-02-16T17:39:49Z" changeset="67258775" uid="3401173" user="Anakil"/>
-  <node id="1618958327" lat="50.7176359" lon="4.6110251" version="3" timestamp="2019-03-02T13:14:58Z" changeset="67713340" uid="675543" user="filu"/>
-  <node id="4762818197" lat="50.7177458" lon="4.6111827" version="2" timestamp="2018-08-08T12:25:39Z" changeset="61466538" uid="3401173" user="Anakil"/>
-  <node id="5676186962" lat="50.7186883" lon="4.6129143" version="2" timestamp="2018-08-08T12:25:39Z" changeset="61466538" uid="3401173" user="Anakil">
+  <node id="300608110" lat="50.7170521" lon="4.6100733"/>
+  <node id="300608115" lat="50.7172941" lon="4.6104666"/>
+  <node id="332071216" lat="50.7166948" lon="4.6094068"/>
+  <node id="765171582" lat="50.7181067" lon="4.6118293"/>
+  <node id="765171872" lat="50.7179164" lon="4.6114902"/>
+  <node id="1618958327" lat="50.7176359" lon="4.6110251"/>
+  <node id="4762818197" lat="50.7177458" lon="4.6111827"/>
+  <node id="5676186962" lat="50.7186883" lon="4.6129143">
     <tag k="crossing" v="traffic_signals"/>
     <tag k="highway" v="crossing"/>
   </node>
-  <node id="5676186963" lat="50.7188601" lon="4.6132660" version="2" timestamp="2018-08-08T12:25:39Z" changeset="61466538" uid="3401173" user="Anakil">
+  <node id="5676186963" lat="50.7188601" lon="4.6132660">
     <tag k="crossing" v="traffic_signals"/>
     <tag k="highway" v="crossing"/>
   </node>
-  <node id="5676186964" lat="50.7181362" lon="4.6118830" version="2" timestamp="2018-08-08T12:25:39Z" changeset="61466538" uid="3401173" user="Anakil">
+  <node id="5676186964" lat="50.7181362" lon="4.6118830">
     <tag k="crossing" v="uncontrolled"/>
     <tag k="highway" v="crossing"/>
   </node>
-  <node id="5817611053" lat="50.7163612" lon="4.6088176" version="1" timestamp="2018-08-08T09:32:38Z" changeset="61461230" uid="3401173" user="Anakil"/>
-  <node id="5817830829" lat="50.7164194" lon="4.6088907" version="2" timestamp="2018-08-08T12:25:39Z" changeset="61466538" uid="3401173" user="Anakil">
+  <node id="5817611053" lat="50.7163612" lon="4.6088176"/>
+  <node id="5817830829" lat="50.7164194" lon="4.6088907">
     <tag k="crossing" v="uncontrolled"/>
     <tag k="highway" v="crossing"/>
   </node>
-  <node id="5817916072" lat="50.7170227" lon="4.6100186" version="1" timestamp="2018-08-08T12:25:38Z" changeset="61466538" uid="3401173" user="Anakil">
+  <node id="5817916072" lat="50.7170227" lon="4.6100186">
     <tag k="crossing" v="uncontrolled"/>
     <tag k="highway" v="crossing"/>
   </node>
-  <node id="6074155739" lat="50.7166840" lon="4.6093847" version="1" timestamp="2018-11-19T18:02:25Z" changeset="64667620" uid="3401173" user="Anakil"/>
-  <node id="6283137076" lat="50.7179010" lon="4.6114625" version="1" timestamp="2019-02-16T17:39:42Z" changeset="67258775" uid="3401173" user="Anakil"/>
-  <way id="23053437" version="22" timestamp="2019-02-16T17:39:51Z" changeset="67258775" uid="3401173" user="Anakil">
+  <node id="6074155739" lat="50.7166840" lon="4.6093847"/>
+  <node id="6283137076" lat="50.7179010" lon="4.6114625"/>
+  <way id="23053437">
+    <tag k="class:bicycle:roadcycling" v="-1"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rue de Bruxelles"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="surface" v="asphalt"/>
     <nd ref="300608115"/>
     <nd ref="1618958327"/>
     <nd ref="4762818197"/>
@@ -61,13 +63,11 @@
     <nd ref="5676186964"/>
     <nd ref="5676186962"/>
     <nd ref="60285252"/>
-    <tag k="class:bicycle:roadcycling" v="-1"/>
-    <tag k="highway" v="residential"/>
-    <tag k="name" v="Rue de Bruxelles"/>
-    <tag k="oneway" v="yes"/>
-    <tag k="surface" v="asphalt"/>
   </way>
-  <way id="31821448" version="9" timestamp="2018-11-19T18:02:32Z" changeset="64667620" uid="3401173" user="Anakil">
+  <way id="31821448">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Rue Haute"/>
+    <tag k="surface" v="asphalt"/>
     <nd ref="248763285"/>
     <nd ref="5817611053"/>
     <nd ref="5817830829"/>
@@ -76,34 +76,31 @@
     <nd ref="332071216"/>
     <nd ref="5817916072"/>
     <nd ref="300608110"/>
-    <tag k="highway" v="residential"/>
-    <tag k="name" v="Rue Haute"/>
-    <tag k="surface" v="asphalt"/>
   </way>
-  <way id="31821458" version="13" timestamp="2018-06-08T19:05:36Z" changeset="59676593" uid="3401173" user="Anakil">
-    <nd ref="60285252"/>
-    <nd ref="5676186963"/>
-    <nd ref="248763325"/>
-    <nd ref="248763326"/>
+  <way id="31821458">
     <tag k="highway" v="residential"/>
     <tag k="name" v="Rue Joseph Joppart"/>
     <tag k="oneway" v="yes"/>
     <tag k="surface" v="asphalt"/>
+    <nd ref="60285252"/>
+    <nd ref="5676186963"/>
+    <nd ref="248763325"/>
+    <nd ref="248763326"/>
   </way>
-  <way id="119957426" version="1" timestamp="2011-07-01T20:48:28Z" changeset="8602968" uid="362083" user="ghia">
-    <nd ref="248763324"/>
-    <nd ref="300608115"/>
+  <way id="119957426">
     <tag k="highway" v="residential"/>
     <tag k="name" v="Rue de Bruxelles"/>
     <tag k="oneway" v="yes"/>
-  </way>
-  <way id="119957427" version="1" timestamp="2011-07-01T20:48:28Z" changeset="8602968" uid="362083" user="ghia">
-    <nd ref="300608110"/>
     <nd ref="248763324"/>
+    <nd ref="300608115"/>
+  </way>
+  <way id="119957427">
     <tag k="highway" v="residential"/>
     <tag k="name" v="Rue Haute"/>
+    <nd ref="300608110"/>
+    <nd ref="248763324"/>
   </way>
-  <relation id="9515132" version="1" timestamp="2019-04-24T14:04:30Z" changeset="69527684" uid="8054928" user="noelbov">
+  <relation id="9515132">
     <member type="way" ref="31821458" role=""/>
     <member type="way" ref="23053437" role=""/>
     <member type="way" ref="119957426" role=""/>
@@ -116,5 +113,4 @@
     <tag k="route" v="bicycle"/>
     <tag k="type" v="route"/>
   </relation>
-
 </osm>

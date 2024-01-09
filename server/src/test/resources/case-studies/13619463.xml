@@ -1,56 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
-<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-<meta osm_base="2022-01-22T08:05:09Z"/>
-
-  <node id="240716882" lat="45.2451668" lon="6.3514885" version="3" timestamp="2021-01-09T16:39:52Z" changeset="97219798" uid="10296811" user="Luc Gential"/>
-  <node id="240716885" lat="45.2450023" lon="6.3513485" version="3" timestamp="2021-11-03T17:12:32Z" changeset="113341761" uid="662440" user="JFK73"/>
-  <node id="604952795" lat="45.2449149" lon="6.3512082" version="5" timestamp="2021-12-31T09:18:30Z" changeset="115599590" uid="10296811" user="Luc Gential">
+<osm version="0.6">
+  <node id="240716882" lat="45.2451668" lon="6.3514885"/>
+  <node id="240716885" lat="45.2450023" lon="6.3513485"/>
+  <node id="604952795" lat="45.2449149" lon="6.3512082">
     <tag k="lwn_name" v="Albiez le Jeune - Chef Lieu"/>
     <tag k="network:type" v="node_network"/>
   </node>
-  <node id="5538102918" lat="45.2449757" lon="6.3512723" version="1" timestamp="2018-04-08T15:16:57Z" changeset="57915715" uid="2025491" user="Map_Clautch">
+  <node id="5538102918" lat="45.2449757" lon="6.3512723">
     <tag k="bus" v="yes"/>
     <tag k="name" v="Albiez Centre (arrêt scolaire)"/>
     <tag k="public_transport" v="stop_position"/>
   </node>
-  <node id="8571616873" lat="45.2457256" lon="6.3520203" version="3" timestamp="2021-04-11T18:51:54Z" changeset="102752215" uid="10296811" user="Luc Gential">
+  <node id="8571616873" lat="45.2457256" lon="6.3520203">
     <tag k="ele" v="1368"/>
     <tag k="mountain_pass" v="yes"/>
     <tag k="name" v="Col de la Confrérie"/>
     <tag k="natural" v="saddle"/>
   </node>
-  <node id="9381471057" lat="45.2457752" lon="6.3520736" version="2" timestamp="2021-12-31T10:18:11Z" changeset="115602004" uid="10296811" user="Luc Gential">
+  <node id="9381471057" lat="45.2457752" lon="6.3520736">
     <tag k="lwn_name" v="Albiez le Jeune - Chef Lieu"/>
     <tag k="network:type" v="node_network"/>
   </node>
-  <way id="47519868" version="4" timestamp="2021-12-31T09:18:30Z" changeset="115599590" uid="10296811" user="Luc Gential">
-    <nd ref="604952795"/>
-    <nd ref="5538102918"/>
-    <nd ref="240716885"/>
+  <way id="47519868">
     <tag k="highway" v="residential"/>
     <tag k="maxspeed" v="30"/>
     <tag k="source" v="GPS"/>
-  </way>
-  <way id="893712342" version="5" timestamp="2021-12-31T10:18:11Z" changeset="115602004" uid="10296811" user="Luc Gential">
-    <nd ref="9381471057"/>
-    <nd ref="8571616873"/>
-    <nd ref="240716882"/>
+    <nd ref="604952795"/>
+    <nd ref="5538102918"/>
     <nd ref="240716885"/>
+  </way>
+  <way id="893712342">
     <tag k="highway" v="tertiary"/>
     <tag k="maxspeed" v="30"/>
     <tag k="name" v="Rue de la Confrérie"/>
     <tag k="ref" v="D 80"/>
+    <nd ref="9381471057"/>
+    <nd ref="8571616873"/>
+    <nd ref="240716882"/>
+    <nd ref="240716885"/>
   </way>
-  <relation id="13619463" version="2" timestamp="2021-12-31T10:38:39Z" changeset="115602798" uid="10296811" user="Luc Gential">
+  <relation id="13619463">
     <member type="way" ref="47519868" role=""/>
     <member type="way" ref="893712342" role=""/>
     <tag k="network" v="lwn"/>
     <tag k="network:type" v="node_network"/>
-<!--    <tag k="note" v="Albiez le Jeune - Chef Lieu - Albiez le Jeune - Chef Lieu"/>-->
     <tag k="osmc:symbol" v="yellow:none:yellow_bar"/>
     <tag k="route" v="hiking"/>
     <tag k="type" v="route"/>
   </relation>
-
 </osm>

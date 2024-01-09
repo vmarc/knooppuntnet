@@ -1,54 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
-    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-    <meta osm_base="2018-09-18T08:57:02Z"/>
-
-    <node id="528785516" lat="51.9499945" lon="4.4995420" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
-    <node id="528785517" lat="51.9468119" lon="4.4987476" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
-    <node id="528785519" lat="51.9462542" lon="4.4982180" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
-    <node id="528785521" lat="51.9459958" lon="4.4976222" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
-    <node id="528785523" lat="51.9459141" lon="4.4969602" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
-    <node id="528785525" lat="51.9459686" lon="4.4959672" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
-    <node id="528785527" lat="51.9462270" lon="4.4941357" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
-    <node id="528785529" lat="51.9462814" lon="4.4930986" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
-    <node id="528785531" lat="51.9459822" lon="4.4912892" version="1" timestamp="2009-10-11T13:10:17Z" changeset="2813609" uid="36080" user="nimapper"/>
-    <node id="5781967201" lat="51.9457953" lon="4.4906006" version="3" timestamp="2018-07-25T15:05:21Z" changeset="61059777" uid="553736" user="A67-A67">
-        <tag k="network:type" v="node_network"/>
-        <tag k="operator:rmn" v="De Rotte"/>
-        <tag k="operator:rpn" v="De Rotte"/>
-        <tag k="rmn_ref" v="8"/>
-        <tag k="rpn_ref" v="8"/>
-    </node>
-    <node id="5832934452" lat="51.9502312" lon="4.4998123" version="2" timestamp="2018-08-14T19:40:03Z" changeset="61668132" uid="2812529" user="multimodaal">
-        <tag k="network:type" v="node_network"/>
-        <tag k="rpn_ref" v="39"/>
-    </node>
-    <way id="610553223" version="2" timestamp="2018-08-14T19:29:59Z" changeset="61667853" uid="2812529" user="multimodaal">
-        <nd ref="5832934452"/>
-        <nd ref="528785516"/>
-        <nd ref="528785517"/>
-        <nd ref="528785519"/>
-        <nd ref="528785521"/>
-        <nd ref="528785523"/>
-        <nd ref="528785525"/>
-        <nd ref="528785527"/>
-        <nd ref="528785529"/>
-        <nd ref="528785531"/>
-        <nd ref="5781967201"/>
-        <tag k="CEMT" v="0"/>
-        <tag k="name" v="Rotte"/>
-        <tag k="water_system" v="boezem"/>
-        <tag k="waterway" v="river"/>
-    </way>
-    <relation id="8473146" version="4" timestamp="2018-09-03T19:15:36Z" changeset="62257162" uid="553736" user="A67-A67">
-        <member type="way" ref="610553223" role=""/>
-        <tag k="colour" v="green"/>
-        <tag k="comment" v="Er wordt een doorvaarthoogte van 0,80 m gegarandeerd op deze route of anders een overdraagvoorziening."/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="network" v="rpn"/>
-        <tag k="note" v="8-39; canoe"/>
-        <tag k="route" v="canoe"/>
-        <tag k="type" v="route"/>
-    </relation>
-
+<osm version="0.6">
+  <node id="528785516" lat="51.9499945" lon="4.4995420"/>
+  <node id="528785517" lat="51.9468119" lon="4.4987476"/>
+  <node id="528785519" lat="51.9462542" lon="4.4982180"/>
+  <node id="528785521" lat="51.9459958" lon="4.4976222"/>
+  <node id="528785523" lat="51.9459141" lon="4.4969602"/>
+  <node id="528785525" lat="51.9459686" lon="4.4959672"/>
+  <node id="528785527" lat="51.9462270" lon="4.4941357"/>
+  <node id="528785529" lat="51.9462814" lon="4.4930986"/>
+  <node id="528785531" lat="51.9459822" lon="4.4912892"/>
+  <node id="5781967201" lat="51.9457953" lon="4.4906006">
+    <tag k="network:type" v="node_network"/>
+    <tag k="operator:rmn" v="De Rotte"/>
+    <tag k="operator:rpn" v="De Rotte"/>
+    <tag k="rmn_ref" v="8"/>
+    <tag k="rpn_ref" v="8"/>
+  </node>
+  <node id="5832934452" lat="51.9502312" lon="4.4998123">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rpn_ref" v="39"/>
+  </node>
+  <way id="610553223">
+    <tag k="CEMT" v="0"/>
+    <tag k="name" v="Rotte"/>
+    <tag k="water_system" v="boezem"/>
+    <tag k="waterway" v="river"/>
+    <nd ref="5832934452"/>
+    <nd ref="528785516"/>
+    <nd ref="528785517"/>
+    <nd ref="528785519"/>
+    <nd ref="528785521"/>
+    <nd ref="528785523"/>
+    <nd ref="528785525"/>
+    <nd ref="528785527"/>
+    <nd ref="528785529"/>
+    <nd ref="528785531"/>
+    <nd ref="5781967201"/>
+  </way>
+  <relation id="8473146">
+    <member type="way" ref="610553223" role=""/>
+    <tag k="colour" v="green"/>
+    <tag k="comment" v="Er wordt een doorvaarthoogte van 0,80 m gegarandeerd op deze route of anders een overdraagvoorziening."/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="network" v="rpn"/>
+    <tag k="note" v="8-39; canoe"/>
+    <tag k="route" v="canoe"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

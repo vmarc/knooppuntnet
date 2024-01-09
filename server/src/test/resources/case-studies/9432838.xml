@@ -1,239 +1,235 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.56.3 eb200aeb">
-    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-    <meta osm_base="2021-03-22T19:48:42Z"/>
-
-    <node id="44766825" lat="51.9928383" lon="6.2231431" version="4" timestamp="2012-10-30T21:35:52Z" changeset="13691953" uid="494990" user="groen_duiven"/>
-    <node id="44769181" lat="51.9932628" lon="6.2234241" version="5" timestamp="2020-05-31T11:37:57Z" changeset="86006081" uid="553736" user="A67-A67"/>
-    <node id="44770285" lat="51.9939035" lon="6.2237563" version="5" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="44772451" lat="51.9942799" lon="6.2239459" version="6" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="44774186" lat="51.9946423" lon="6.2242534" version="5" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar">
-        <tag k="traffic_calming" v="choker"/>
-    </node>
-    <node id="44776578" lat="51.9949820" lon="6.2245741" version="4" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="44776961" lat="51.9951972" lon="6.2249309" version="3" timestamp="2010-06-06T19:01:55Z" changeset="4921311" uid="181994" user="goppermann"/>
-    <node id="44777785" lat="51.9953386" lon="6.2251580" version="4" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="44778781" lat="51.9954978" lon="6.2253117" version="4" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="44779147" lat="51.9956030" lon="6.2253564" version="4" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="44779946" lat="51.9956944" lon="6.2253915" version="6" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="44780431" lat="51.9958853" lon="6.2255138" version="7" timestamp="2019-09-13T07:21:07Z" changeset="74420788" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="3"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="30"/>
-    </node>
-    <node id="304881081" lat="51.9922910" lon="6.2229345" version="7" timestamp="2019-09-13T07:21:07Z" changeset="74420788" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="3"/>
-        <tag k="name:rcn_ref" v="Molencomplex"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="30"/>
-    </node>
-    <node id="304881083" lat="51.9923669" lon="6.2226442" version="13" timestamp="2021-02-03T09:51:47Z" changeset="98635439" uid="294028" user="dvdhoven">
-        <tag k="expected_rcn_route_relations" v="3"/>
-        <tag k="name:rcn_ref" v="Molencomplex"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="30"/>
-        <tag k="rwn_ref" v="P88"/>
-    </node>
-    <node id="763455662" lat="51.9927160" lon="6.2229673" version="2" timestamp="2021-02-03T09:51:47Z" changeset="98635439" uid="294028" user="dvdhoven"/>
-    <node id="763455671" lat="51.9926260" lon="6.2228554" version="1" timestamp="2010-06-03T18:12:57Z" changeset="4894787" uid="181994" user="goppermann"/>
-    <node id="763455679" lat="51.9925153" lon="6.2227447" version="1" timestamp="2010-06-03T18:12:57Z" changeset="4894787" uid="181994" user="goppermann"/>
-    <node id="763455682" lat="51.9924117" lon="6.2226662" version="2" timestamp="2012-10-30T21:35:52Z" changeset="13691953" uid="494990" user="groen_duiven"/>
-    <node id="763455687" lat="51.9924544" lon="6.2226949" version="1" timestamp="2010-06-03T18:12:58Z" changeset="4894787" uid="181994" user="goppermann"/>
-    <node id="765970817" lat="51.9935388" lon="6.2236026" version="2" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="1744054172" lat="51.9941388" lon="6.2238478" version="3" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="1990264015" lat="51.9924825" lon="6.2230231" version="2" timestamp="2021-02-03T09:51:47Z" changeset="98635439" uid="294028" user="dvdhoven"/>
-    <node id="1990264017" lat="51.9927454" lon="6.2230810" version="1" timestamp="2012-10-30T21:35:50Z" changeset="13691953" uid="494990" user="groen_duiven"/>
-    <node id="1990264019" lat="51.9923233" lon="6.2227846" version="3" timestamp="2021-02-03T09:51:47Z" changeset="98635439" uid="294028" user="dvdhoven"/>
-    <node id="1990264023" lat="51.9923147" lon="6.2229528" version="1" timestamp="2012-10-30T21:35:51Z" changeset="13691953" uid="494990" user="groen_duiven"/>
-    <node id="1990264026" lat="51.9923940" lon="6.2229957" version="1" timestamp="2012-10-30T21:35:51Z" changeset="13691953" uid="494990" user="groen_duiven"/>
-    <node id="2201771490" lat="51.9934208" lon="6.2235230" version="1" timestamp="2013-03-14T15:43:12Z" changeset="15363836" uid="6424" user="Lambertus"/>
-    <node id="3170295271" lat="51.9936451" lon="6.2236507" version="2" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="3170295279" lat="51.9942154" lon="6.2238959" version="2" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="6360953141" lat="51.9959037" lon="6.2254118" version="3" timestamp="2019-09-13T07:21:07Z" changeset="74420788" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rcn_route_relations" v="2"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="30"/>
-    </node>
-    <node id="6360953148" lat="51.9957899" lon="6.2254570" version="1" timestamp="2019-03-25T18:45:48Z" changeset="68518523" uid="294028" user="dvdhoven"/>
-    <node id="7574929718" lat="51.9928936" lon="6.2231766" version="1" timestamp="2020-05-31T11:37:57Z" changeset="86006081" uid="553736" user="A67-A67"/>
-    <node id="7951763737" lat="51.9943589" lon="6.2240119" version="1" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="7951763738" lat="51.9944803" lon="6.2241223" version="1" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="7951763739" lat="51.9949153" lon="6.2244996" version="1" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="7951763740" lat="51.9950454" lon="6.2246590" version="1" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="7951763741" lat="51.9952939" lon="6.2250919" version="1" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="7951763742" lat="51.9954014" lon="6.2252306" version="1" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="7951763743" lat="51.9954467" lon="6.2252721" version="1" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar"/>
-    <node id="8390032430" lat="51.9927814" lon="6.2230432" version="1" timestamp="2021-02-03T09:51:47Z" changeset="98635439" uid="294028" user="dvdhoven"/>
-    <node id="8390032433" lat="51.9924376" lon="6.2230102" version="1" timestamp="2021-02-03T09:51:47Z" changeset="98635439" uid="294028" user="dvdhoven"/>
-    <node id="8390032434" lat="51.9926130" lon="6.2230414" version="1" timestamp="2021-02-03T09:51:47Z" changeset="98635439" uid="294028" user="dvdhoven"/>
-    <way id="6792739" version="8" timestamp="2020-09-28T15:46:46Z" changeset="91653004" uid="1993800" user="BAGgeraar">
-        <nd ref="44766825"/>
-        <nd ref="7574929718"/>
-        <tag k="hgv" v="no"/>
-        <tag k="highway" v="secondary"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="name" v="Wehlsedijk"/>
-        <tag k="ref" v="N814"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="6792753" version="6" timestamp="2019-03-26T06:46:42Z" changeset="68534088" uid="294028" user="dvdhoven">
-        <nd ref="44779946"/>
-        <nd ref="6360953148"/>
-        <nd ref="44780431"/>
-        <tag k="hgv" v="no"/>
-        <tag k="highway" v="secondary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="name" v="Dorpsstraat LK"/>
-        <tag k="oneway" v="yes"/>
-        <tag k="ref" v="N814"/>
-    </way>
-    <way id="6792754" version="4" timestamp="2014-12-12T15:40:19Z" changeset="27424413" uid="2394881" user="It's so funny_mechanical">
-        <nd ref="44779147"/>
-        <nd ref="44779946"/>
-        <tag k="bridge" v="yes"/>
-        <tag k="hgv" v="no"/>
-        <tag k="highway" v="secondary"/>
-        <tag k="layer" v="1"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="name" v="Dorpsstraat LK"/>
-        <tag k="ref" v="N814"/>
-    </way>
-    <way id="6792758" version="9" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar">
-        <nd ref="44769181"/>
-        <nd ref="2201771490"/>
-        <nd ref="765970817"/>
-        <nd ref="3170295271"/>
-        <nd ref="44770285"/>
-        <nd ref="1744054172"/>
-        <nd ref="3170295279"/>
-        <nd ref="44772451"/>
-        <nd ref="7951763737"/>
-        <nd ref="7951763738"/>
-        <nd ref="44774186"/>
-        <nd ref="7951763739"/>
-        <nd ref="44776578"/>
-        <nd ref="7951763740"/>
-        <nd ref="44776961"/>
-        <nd ref="7951763741"/>
-        <nd ref="44777785"/>
-        <nd ref="7951763742"/>
-        <nd ref="7951763743"/>
-        <nd ref="44778781"/>
-        <nd ref="44779147"/>
-        <tag k="hgv" v="no"/>
-        <tag k="highway" v="secondary"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="name" v="Dorpsstraat LK"/>
-        <tag k="ref" v="N814"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="60981862" version="6" timestamp="2021-02-03T09:51:47Z" changeset="98635439" uid="294028" user="dvdhoven">
-        <nd ref="44766825"/>
-        <nd ref="8390032430"/>
-        <nd ref="763455662"/>
-        <nd ref="763455671"/>
-        <nd ref="763455679"/>
-        <nd ref="763455687"/>
-        <nd ref="763455682"/>
-        <nd ref="304881083"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Wehlsedijk"/>
-        <tag k="oneway" v="yes"/>
-        <tag k="segregated" v="no"/>
-        <tag k="sidewalk" v="no"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="asphalt"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="width" v="2"/>
-    </way>
-    <way id="188397099" version="4" timestamp="2021-02-03T09:51:47Z" changeset="98635439" uid="294028" user="dvdhoven">
-        <nd ref="304881081"/>
-        <nd ref="1990264023"/>
-        <nd ref="1990264026"/>
-        <nd ref="8390032433"/>
-        <nd ref="1990264015"/>
-        <nd ref="8390032434"/>
-        <nd ref="1990264017"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="mofa" v="designated"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Wehlsedijk"/>
-        <tag k="oneway" v="yes"/>
-        <tag k="segregated" v="no"/>
-        <tag k="sidewalk" v="no"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="asphalt"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-        <tag k="width" v="2"/>
-    </way>
-    <way id="188397101" version="5" timestamp="2016-11-16T21:47:52Z" changeset="43712014" uid="99810" user="Martin Borsje">
-        <nd ref="304881081"/>
-        <nd ref="1990264019"/>
-        <nd ref="304881083"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="mofa" v="yes"/>
-        <tag k="moped" v="designated"/>
-        <tag k="name" v="Wehlsedijk"/>
-        <tag k="sidewalk" v="no"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="asphalt"/>
-        <tag k="traffic_sign" v="NL:G12a"/>
-    </way>
-    <way id="188397104" version="5" timestamp="2020-09-28T15:46:46Z" changeset="91653004" uid="1993800" user="BAGgeraar">
-        <nd ref="1990264017"/>
-        <nd ref="44766825"/>
-        <tag k="hgv" v="no"/>
-        <tag k="highway" v="secondary"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="name" v="Wehlsedijk"/>
-        <tag k="ref" v="N814"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="679293364" version="2" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar">
-        <nd ref="6360953141"/>
-        <nd ref="44779946"/>
-        <tag k="bicycle" v="yes"/>
-        <tag k="bicycle:backward" v="use_sidepath"/>
-        <tag k="hgv" v="no"/>
-        <tag k="highway" v="secondary"/>
-        <tag k="lit" v="yes"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="name" v="Hummeloseweg"/>
-        <tag k="oneway" v="yes"/>
-        <tag k="ref" v="N814"/>
-        <tag k="smoothness" v="good"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="810209472" version="3" timestamp="2020-09-28T15:46:46Z" changeset="91653004" uid="1993800" user="BAGgeraar">
-        <nd ref="7574929718"/>
-        <nd ref="44769181"/>
-        <tag k="bridge" v="movable"/>
-        <tag k="hgv" v="no"/>
-        <tag k="highway" v="secondary"/>
-        <tag k="layer" v="1"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="name" v="Ophaalbrug Laag-Keppel"/>
-        <tag k="ref" v="N814"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <relation id="9432838" version="8" timestamp="2020-09-28T15:42:26Z" changeset="91653004" uid="1993800" user="BAGgeraar">
-        <member type="way" ref="679293364" role="forward"/>
-        <member type="way" ref="6792753" role="forward"/>
-        <member type="way" ref="6792754" role=""/>
-        <member type="way" ref="6792758" role=""/>
-        <member type="way" ref="810209472" role=""/>
-        <member type="way" ref="6792739" role=""/>
-        <member type="way" ref="60981862" role="forward"/>
-        <member type="way" ref="188397101" role="backward"/>
-        <member type="way" ref="188397104" role="forward"/>
-        <member type="way" ref="188397099" role="forward"/>
-        <tag k="network" v="rcn"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="ref" v="30-30"/>
-        <tag k="route" v="bicycle"/>
-        <tag k="type" v="route"/>
-    </relation>
-
+<osm version="0.6">
+  <node id="44766825" lat="51.9928383" lon="6.2231431"/>
+  <node id="44769181" lat="51.9932628" lon="6.2234241"/>
+  <node id="44770285" lat="51.9939035" lon="6.2237563"/>
+  <node id="44772451" lat="51.9942799" lon="6.2239459"/>
+  <node id="44774186" lat="51.9946423" lon="6.2242534">
+    <tag k="traffic_calming" v="choker"/>
+  </node>
+  <node id="44776578" lat="51.9949820" lon="6.2245741"/>
+  <node id="44776961" lat="51.9951972" lon="6.2249309"/>
+  <node id="44777785" lat="51.9953386" lon="6.2251580"/>
+  <node id="44778781" lat="51.9954978" lon="6.2253117"/>
+  <node id="44779147" lat="51.9956030" lon="6.2253564"/>
+  <node id="44779946" lat="51.9956944" lon="6.2253915"/>
+  <node id="44780431" lat="51.9958853" lon="6.2255138">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="30"/>
+  </node>
+  <node id="304881081" lat="51.9922910" lon="6.2229345">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="name:rcn_ref" v="Molencomplex"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="30"/>
+  </node>
+  <node id="304881083" lat="51.9923669" lon="6.2226442">
+    <tag k="expected_rcn_route_relations" v="3"/>
+    <tag k="name:rcn_ref" v="Molencomplex"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="30"/>
+    <tag k="rwn_ref" v="P88"/>
+  </node>
+  <node id="763455662" lat="51.9927160" lon="6.2229673"/>
+  <node id="763455671" lat="51.9926260" lon="6.2228554"/>
+  <node id="763455679" lat="51.9925153" lon="6.2227447"/>
+  <node id="763455682" lat="51.9924117" lon="6.2226662"/>
+  <node id="763455687" lat="51.9924544" lon="6.2226949"/>
+  <node id="765970817" lat="51.9935388" lon="6.2236026"/>
+  <node id="1744054172" lat="51.9941388" lon="6.2238478"/>
+  <node id="1990264015" lat="51.9924825" lon="6.2230231"/>
+  <node id="1990264017" lat="51.9927454" lon="6.2230810"/>
+  <node id="1990264019" lat="51.9923233" lon="6.2227846"/>
+  <node id="1990264023" lat="51.9923147" lon="6.2229528"/>
+  <node id="1990264026" lat="51.9923940" lon="6.2229957"/>
+  <node id="2201771490" lat="51.9934208" lon="6.2235230"/>
+  <node id="3170295271" lat="51.9936451" lon="6.2236507"/>
+  <node id="3170295279" lat="51.9942154" lon="6.2238959"/>
+  <node id="6360953141" lat="51.9959037" lon="6.2254118">
+    <tag k="expected_rcn_route_relations" v="2"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="30"/>
+  </node>
+  <node id="6360953148" lat="51.9957899" lon="6.2254570"/>
+  <node id="7574929718" lat="51.9928936" lon="6.2231766"/>
+  <node id="7951763737" lat="51.9943589" lon="6.2240119"/>
+  <node id="7951763738" lat="51.9944803" lon="6.2241223"/>
+  <node id="7951763739" lat="51.9949153" lon="6.2244996"/>
+  <node id="7951763740" lat="51.9950454" lon="6.2246590"/>
+  <node id="7951763741" lat="51.9952939" lon="6.2250919"/>
+  <node id="7951763742" lat="51.9954014" lon="6.2252306"/>
+  <node id="7951763743" lat="51.9954467" lon="6.2252721"/>
+  <node id="8390032430" lat="51.9927814" lon="6.2230432"/>
+  <node id="8390032433" lat="51.9924376" lon="6.2230102"/>
+  <node id="8390032434" lat="51.9926130" lon="6.2230414"/>
+  <way id="6792739">
+    <tag k="hgv" v="no"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Wehlsedijk"/>
+    <tag k="ref" v="N814"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="44766825"/>
+    <nd ref="7574929718"/>
+  </way>
+  <way id="6792753">
+    <tag k="hgv" v="no"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Dorpsstraat LK"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="N814"/>
+    <nd ref="44779946"/>
+    <nd ref="6360953148"/>
+    <nd ref="44780431"/>
+  </way>
+  <way id="6792754">
+    <tag k="bridge" v="yes"/>
+    <tag k="hgv" v="no"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="layer" v="1"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Dorpsstraat LK"/>
+    <tag k="ref" v="N814"/>
+    <nd ref="44779147"/>
+    <nd ref="44779946"/>
+  </way>
+  <way id="6792758">
+    <tag k="hgv" v="no"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Dorpsstraat LK"/>
+    <tag k="ref" v="N814"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="44769181"/>
+    <nd ref="2201771490"/>
+    <nd ref="765970817"/>
+    <nd ref="3170295271"/>
+    <nd ref="44770285"/>
+    <nd ref="1744054172"/>
+    <nd ref="3170295279"/>
+    <nd ref="44772451"/>
+    <nd ref="7951763737"/>
+    <nd ref="7951763738"/>
+    <nd ref="44774186"/>
+    <nd ref="7951763739"/>
+    <nd ref="44776578"/>
+    <nd ref="7951763740"/>
+    <nd ref="44776961"/>
+    <nd ref="7951763741"/>
+    <nd ref="44777785"/>
+    <nd ref="7951763742"/>
+    <nd ref="7951763743"/>
+    <nd ref="44778781"/>
+    <nd ref="44779147"/>
+  </way>
+  <way id="60981862">
+    <tag k="highway" v="cycleway"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Wehlsedijk"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="segregated" v="no"/>
+    <tag k="sidewalk" v="no"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="width" v="2"/>
+    <nd ref="44766825"/>
+    <nd ref="8390032430"/>
+    <nd ref="763455662"/>
+    <nd ref="763455671"/>
+    <nd ref="763455679"/>
+    <nd ref="763455687"/>
+    <nd ref="763455682"/>
+    <nd ref="304881083"/>
+  </way>
+  <way id="188397099">
+    <tag k="highway" v="cycleway"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Wehlsedijk"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="segregated" v="no"/>
+    <tag k="sidewalk" v="no"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <tag k="width" v="2"/>
+    <nd ref="304881081"/>
+    <nd ref="1990264023"/>
+    <nd ref="1990264026"/>
+    <nd ref="8390032433"/>
+    <nd ref="1990264015"/>
+    <nd ref="8390032434"/>
+    <nd ref="1990264017"/>
+  </way>
+  <way id="188397101">
+    <tag k="highway" v="cycleway"/>
+    <tag k="mofa" v="yes"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Wehlsedijk"/>
+    <tag k="sidewalk" v="no"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <nd ref="304881081"/>
+    <nd ref="1990264019"/>
+    <nd ref="304881083"/>
+  </way>
+  <way id="188397104">
+    <tag k="hgv" v="no"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Wehlsedijk"/>
+    <tag k="ref" v="N814"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="1990264017"/>
+    <nd ref="44766825"/>
+  </way>
+  <way id="679293364">
+    <tag k="bicycle" v="yes"/>
+    <tag k="bicycle:backward" v="use_sidepath"/>
+    <tag k="hgv" v="no"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Hummeloseweg"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="N814"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="6360953141"/>
+    <nd ref="44779946"/>
+  </way>
+  <way id="810209472">
+    <tag k="bridge" v="movable"/>
+    <tag k="hgv" v="no"/>
+    <tag k="highway" v="secondary"/>
+    <tag k="layer" v="1"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Ophaalbrug Laag-Keppel"/>
+    <tag k="ref" v="N814"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="7574929718"/>
+    <nd ref="44769181"/>
+  </way>
+  <relation id="9432838">
+    <member type="way" ref="679293364" role="forward"/>
+    <member type="way" ref="6792753" role="forward"/>
+    <member type="way" ref="6792754" role=""/>
+    <member type="way" ref="6792758" role=""/>
+    <member type="way" ref="810209472" role=""/>
+    <member type="way" ref="6792739" role=""/>
+    <member type="way" ref="60981862" role="forward"/>
+    <member type="way" ref="188397101" role="backward"/>
+    <member type="way" ref="188397104" role="forward"/>
+    <member type="way" ref="188397099" role="forward"/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="ref" v="30-30"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

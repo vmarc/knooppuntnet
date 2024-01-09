@@ -1,636 +1,632 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
-    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-    <meta osm_base="2022-06-22T09:46:46Z"/>
-
-    <node id="276055174" lat="48.5070036" lon="12.1114152" version="2" timestamp="2008-10-05T23:31:59Z" changeset="94868" uid="43021" user="Czmartin"/>
-    <node id="276055175" lat="48.5067982" lon="12.1100027" version="2" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="276055197" lat="48.5150441" lon="12.1112705" version="4" timestamp="2020-05-01T16:41:35Z" changeset="84482753" uid="10511495" user="FirefighterCGH"/>
-    <node id="276055198" lat="48.5154589" lon="12.1107876" version="2" timestamp="2011-02-14T13:20:09Z" changeset="7285762" uid="43021" user="Czmartin"/>
-    <node id="276055199" lat="48.5156078" lon="12.1106366" version="3" timestamp="2020-05-26T20:47:53Z" changeset="85791242" uid="10511495" user="FirefighterCGH"/>
-    <node id="276055201" lat="48.5156846" lon="12.1105675" version="3" timestamp="2020-05-26T20:47:53Z" changeset="85791242" uid="10511495" user="FirefighterCGH"/>
-    <node id="276055203" lat="48.5157512" lon="12.1105291" version="4" timestamp="2012-08-26T22:11:32Z" changeset="12872781" uid="43021" user="Czmartin"/>
-    <node id="302431133" lat="48.5072931" lon="12.1086435" version="3" timestamp="2020-04-25T18:34:21Z" changeset="84117463" uid="10511495" user="FirefighterCGH"/>
-    <node id="302431134" lat="48.5073215" lon="12.1088174" version="3" timestamp="2020-08-25T16:23:29Z" changeset="89925298" uid="10511495" user="FirefighterCGH"/>
-    <node id="302431135" lat="48.5073392" lon="12.1090230" version="2" timestamp="2013-04-05T18:46:06Z" changeset="15623685" uid="175773" user="Duck"/>
-    <node id="302431136" lat="48.5073404" lon="12.1091434" version="3" timestamp="2020-08-25T16:04:45Z" changeset="89924582" uid="10511495" user="FirefighterCGH">
-        <tag k="direction" v="forward"/>
-        <tag k="highway" v="give_way"/>
-    </node>
-    <node id="302431137" lat="48.5073352" lon="12.1092787" version="3" timestamp="2020-04-25T18:34:21Z" changeset="84117463" uid="10511495" user="FirefighterCGH"/>
-    <node id="302431138" lat="48.5073268" lon="12.1093825" version="3" timestamp="2020-04-25T18:34:21Z" changeset="84117463" uid="10511495" user="FirefighterCGH"/>
-    <node id="302431142" lat="48.5070945" lon="12.1094730" version="4" timestamp="2022-04-15T11:54:28Z" changeset="119748305" uid="10511495" user="FirefighterCGH">
-        <tag k="name" v="Obergolding"/>
-        <tag k="traffic_sign" v="city_limit"/>
-        <tag k="traffic_sign:direction" v="backward"/>
-    </node>
-    <node id="302431144" lat="48.5069088" lon="12.1107144" version="1" timestamp="2008-10-05T23:31:38Z" changeset="94868" uid="43021" user="Czmartin"/>
-    <node id="302431145" lat="48.5069783" lon="12.1115008" version="3" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="302431146" lat="48.5069713" lon="12.1110696" version="1" timestamp="2008-10-05T23:31:38Z" changeset="94868" uid="43021" user="Czmartin"/>
-    <node id="302431172" lat="48.5070030" lon="12.1112861" version="2" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="380446976" lat="48.5163700" lon="12.1109259" version="4" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH"/>
-    <node id="380446977" lat="48.5161959" lon="12.1112016" version="2" timestamp="2012-08-26T22:11:36Z" changeset="12872781" uid="43021" user="Czmartin"/>
-    <node id="380446978" lat="48.5160670" lon="12.1113773" version="2" timestamp="2012-08-26T22:11:36Z" changeset="12872781" uid="43021" user="Czmartin"/>
-    <node id="380446979" lat="48.5158966" lon="12.1117673" version="1" timestamp="2009-04-22T12:01:28Z" changeset="896377" uid="113019" user="wolfganglandshut"/>
-    <node id="380446981" lat="48.5158098" lon="12.1120413" version="3" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="636108611" lat="48.5070493" lon="12.1115677" version="3" timestamp="2020-08-25T16:04:45Z" changeset="89924582" uid="10511495" user="FirefighterCGH">
-        <tag k="direction" v="backward"/>
-        <tag k="highway" v="give_way"/>
-    </node>
-    <node id="636108612" lat="48.5070944" lon="12.1116733" version="2" timestamp="2013-04-05T18:46:07Z" changeset="15623685" uid="175773" user="Duck"/>
-    <node id="636108613" lat="48.5072572" lon="12.1121770" version="2" timestamp="2013-04-05T18:46:07Z" changeset="15623685" uid="175773" user="Duck"/>
-    <node id="636108614" lat="48.5074792" lon="12.1129343" version="2" timestamp="2013-04-05T18:46:07Z" changeset="15623685" uid="175773" user="Duck"/>
-    <node id="636108615" lat="48.5076507" lon="12.1137542" version="3" timestamp="2015-10-12T22:40:37Z" changeset="34601063" uid="43021" user="Czmartin"/>
-    <node id="636108616" lat="48.5078240" lon="12.1144886" version="4" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH">
-        <tag k="highway" v="turning_circle"/>
-    </node>
-    <node id="747941620" lat="48.5106078" lon="12.1178169" version="1" timestamp="2010-05-25T16:18:12Z" changeset="4805112" uid="189353" user="RettungsElch"/>
-    <node id="747941623" lat="48.5147517" lon="12.1140462" version="5" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941646" lat="48.5135797" lon="12.1165159" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941661" lat="48.5099967" lon="12.1172516" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941672" lat="48.5136022" lon="12.1167366" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941676" lat="48.5156274" lon="12.1121912" version="3" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941686" lat="48.5091864" lon="12.1165844" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941697" lat="48.5136101" lon="12.1169483" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941700" lat="48.5123549" lon="12.1181929" version="2" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941703" lat="48.5154428" lon="12.1124169" version="4" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941722" lat="48.5080004" lon="12.1150140" version="2" timestamp="2013-04-05T18:46:07Z" changeset="15623685" uid="175773" user="Duck"/>
-    <node id="747941729" lat="48.5134653" lon="12.1171217" version="1" timestamp="2010-05-25T16:18:14Z" changeset="4805112" uid="189353" user="RettungsElch"/>
-    <node id="747941732" lat="48.5118628" lon="12.1182040" version="2" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941733" lat="48.5154340" lon="12.1125594" version="3" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941756" lat="48.5129126" lon="12.1175957" version="2" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941758" lat="48.5115268" lon="12.1181173" version="3" timestamp="2021-03-03T09:30:53Z" changeset="100336451" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941760" lat="48.5153541" lon="12.1129911" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941796" lat="48.5111630" lon="12.1179412" version="2" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="747941815" lat="48.5135461" lon="12.1159166" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="1152749171" lat="48.5152599" lon="12.1110102" version="2" timestamp="2012-08-26T22:11:27Z" changeset="12872781" uid="43021" user="Czmartin"/>
-    <node id="1884568396" lat="48.5159084" lon="12.1106764" version="2" timestamp="2020-05-26T20:47:53Z" changeset="85791242" uid="10511495" user="FirefighterCGH"/>
-    <node id="2251102275" lat="48.5078489" lon="12.1148132" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="2251102276" lat="48.5078785" lon="12.1148633" version="1" timestamp="2013-04-05T18:46:03Z" changeset="15623685" uid="175773" user="Duck"/>
-    <node id="2358867724" lat="48.5099361" lon="12.1172010" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="2358880498" lat="48.5078440" lon="12.1147900" version="3" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="2770577282" lat="48.5126105" lon="12.1060162" version="2" timestamp="2021-01-20T12:52:40Z" changeset="97838854" uid="10511495" user="FirefighterCGH">
-        <tag k="board_type" v="history"/>
-        <tag k="information" v="board"/>
-        <tag k="name" v="Landshuter Höhenwanderweg - Ringwall"/>
-        <tag k="operator" v="Landkreis Landshut"/>
-        <tag k="tourism" v="information"/>
-    </node>
-    <node id="2770577291" lat="48.5074229" lon="12.1084679" version="2" timestamp="2020-05-02T15:14:36Z" changeset="84525553" uid="10511495" user="FirefighterCGH"/>
-    <node id="2770577296" lat="48.5083107" lon="12.1075030" version="1" timestamp="2014-04-05T19:52:29Z" changeset="21520509" uid="17984" user="W&amp;G"/>
-    <node id="2770577299" lat="48.5091120" lon="12.1065959" version="1" timestamp="2014-04-05T19:52:29Z" changeset="21520509" uid="17984" user="W&amp;G"/>
-    <node id="2770577304" lat="48.5094393" lon="12.1057018" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577307" lat="48.5095321" lon="12.1052123" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577310" lat="48.5096494" lon="12.1048153" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577314" lat="48.5100577" lon="12.1042299" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577316" lat="48.5104726" lon="12.1040812" version="1" timestamp="2014-04-05T19:52:29Z" changeset="21520509" uid="17984" user="W&amp;G"/>
-    <node id="2770577319" lat="48.5107978" lon="12.1044230" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577322" lat="48.5109719" lon="12.1044727" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577333" lat="48.5113119" lon="12.1044899" version="1" timestamp="2014-04-05T19:52:29Z" changeset="21520509" uid="17984" user="W&amp;G"/>
-    <node id="2770577339" lat="48.5116116" lon="12.1047208" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577350" lat="48.5118177" lon="12.1049327" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577355" lat="48.5123170" lon="12.1056300" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577357" lat="48.5126173" lon="12.1061012" version="1" timestamp="2014-04-05T19:52:29Z" changeset="21520509" uid="17984" user="W&amp;G"/>
-    <node id="2770577358" lat="48.5127789" lon="12.1065375" version="1" timestamp="2014-04-05T19:52:29Z" changeset="21520509" uid="17984" user="W&amp;G"/>
-    <node id="2770577362" lat="48.5128056" lon="12.1068773" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577366" lat="48.5128731" lon="12.1078938" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577368" lat="48.5131983" lon="12.1087307" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577372" lat="48.5135143" lon="12.1108531" version="2" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="2770577375" lat="48.5135243" lon="12.1091545" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577382" lat="48.5135012" lon="12.1106653" version="2" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="2770577385" lat="48.5136629" lon="12.1095555" version="2" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="2770577387" lat="48.5136783" lon="12.1105194" version="2" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="2770577390" lat="48.5137967" lon="12.1112880" version="2" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="2770577392" lat="48.5137561" lon="12.1101510" version="1" timestamp="2014-04-05T19:52:29Z" changeset="21520509" uid="17984" user="W&amp;G"/>
-    <node id="2770577394" lat="48.5137700" lon="12.1104069" version="2" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="2770577395" lat="48.5137685" lon="12.1102810" version="1" timestamp="2014-04-05T19:52:29Z" changeset="21520509" uid="17984" user="W&amp;G"/>
-    <node id="2770577397" lat="48.5140835" lon="12.1114114" version="2" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="2770577399" lat="48.5147216" lon="12.1114151" version="2" timestamp="2020-05-01T16:41:35Z" changeset="84482753" uid="10511495" user="FirefighterCGH"/>
-    <node id="2770577401" lat="48.5148347" lon="12.1114602" version="2" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="3783960254" lat="48.5078036" lon="12.1145865" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="3783960256" lat="48.5083951" lon="12.1154707" version="3" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="3783960257" lat="48.5085519" lon="12.1157319" version="1" timestamp="2015-10-12T22:40:33Z" changeset="34601063" uid="43021" user="Czmartin"/>
-    <node id="3783960258" lat="48.5086686" lon="12.1159600" version="2" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="3783960259" lat="48.5087577" lon="12.1160957" version="1" timestamp="2015-10-12T22:40:33Z" changeset="34601063" uid="43021" user="Czmartin"/>
-    <node id="4776575425" lat="48.5068164" lon="12.1101703" version="2" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="5163425187" lat="48.5072766" lon="12.1093859" version="1" timestamp="2017-10-12T16:22:34Z" changeset="52864752" uid="818053" user="schoka"/>
-    <node id="7446971599" lat="48.5068641" lon="12.1104348" version="2" timestamp="2020-05-02T15:14:36Z" changeset="84525553" uid="10511495" user="FirefighterCGH"/>
-    <node id="7446971602" lat="48.5068000" lon="12.1099336" version="2" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="7446971624" lat="48.5073491" lon="12.1085704" version="1" timestamp="2020-04-25T18:34:21Z" changeset="84117463" uid="10511495" user="FirefighterCGH"/>
-    <node id="7446971625" lat="48.5075356" lon="12.1082925" version="1" timestamp="2020-04-25T18:34:21Z" changeset="84117463" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940090" lat="48.5157441" lon="12.1121083" version="2" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940091" lat="48.5155099" lon="12.1122753" version="3" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940092" lat="48.5152291" lon="12.1133033" version="2" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940093" lat="48.5138731" lon="12.1153748" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940094" lat="48.5137727" lon="12.1154972" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940095" lat="48.5136879" lon="12.1156290" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940096" lat="48.5136196" lon="12.1157507" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940097" lat="48.5135718" lon="12.1158479" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940098" lat="48.5135403" lon="12.1160291" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940099" lat="48.5135550" lon="12.1162154" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940100" lat="48.5136162" lon="12.1168510" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940101" lat="48.5136176" lon="12.1168949" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940223" lat="48.5097934" lon="12.1170278" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940224" lat="48.5098866" lon="12.1171320" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940225" lat="48.5102867" lon="12.1175648" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940226" lat="48.5104379" lon="12.1177084" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940227" lat="48.5094655" lon="12.1168158" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940228" lat="48.5096264" lon="12.1169054" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940229" lat="48.5093283" lon="12.1167265" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940230" lat="48.5084821" lon="12.1155909" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940231" lat="48.5081869" lon="12.1152519" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940232" lat="48.5077809" lon="12.1144223" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470940233" lat="48.5078291" lon="12.1147192" version="2" timestamp="2021-02-10T20:33:28Z" changeset="99063137" uid="10511495" user="FirefighterCGH">
-        <tag k="name" v="Obergolding"/>
-        <tag k="traffic_sign" v="city_limit"/>
-        <tag k="traffic_sign:direction" v="forward"/>
-    </node>
-    <node id="7470940234" lat="48.5078163" lon="12.1145254" version="1" timestamp="2020-05-01T14:21:55Z" changeset="84475397" uid="10511495" user="FirefighterCGH"/>
-    <node id="7470959438" lat="48.5161869" lon="12.1108537" version="1" timestamp="2020-05-01T14:30:46Z" changeset="84475820" uid="10511495" user="FirefighterCGH"/>
-    <node id="7471609802" lat="48.5147894" lon="12.1114204" version="2" timestamp="2020-09-10T16:13:51Z" changeset="90712626" uid="10511495" user="FirefighterCGH">
-        <tag k="direction" v="backward"/>
-        <tag k="highway" v="give_way"/>
-    </node>
-    <node id="7473841701" lat="48.5089031" lon="12.1068978" version="1" timestamp="2020-05-02T15:14:36Z" changeset="84525553" uid="10511495" user="FirefighterCGH"/>
-    <node id="7473892071" lat="48.5070693" lon="12.1116101" version="1" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="7473892083" lat="48.5070129" lon="12.1115295" version="1" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="7473892084" lat="48.5070066" lon="12.1113434" version="1" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="7473901541" lat="48.5142081" lon="12.1114179" version="1" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="7473901542" lat="48.5139319" lon="12.1113696" version="1" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="7473901543" lat="48.5136528" lon="12.1111189" version="1" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="7473901544" lat="48.5134980" lon="12.1107215" version="1" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="7473901545" lat="48.5135315" lon="12.1106007" version="1" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="7473901546" lat="48.5137380" lon="12.1104647" version="1" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH"/>
-    <node id="7473901577" lat="48.5159333" lon="12.1116165" version="2" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499112199" lat="48.5070070" lon="12.1113747" version="1" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="7499112200" lat="48.5069959" lon="12.1114605" version="1" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="7499112203" lat="48.5068044" lon="12.1100906" version="1" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="7499112204" lat="48.5068107" lon="12.1098787" version="1" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="7499112205" lat="48.5068258" lon="12.1098183" version="1" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="7499112206" lat="48.5068604" lon="12.1097365" version="1" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="7499112207" lat="48.5069342" lon="12.1096346" version="1" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="7499112208" lat="48.5070257" lon="12.1095327" version="1" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="7499112209" lat="48.5072207" lon="12.1094019" version="1" timestamp="2020-05-08T19:01:20Z" changeset="84911851" uid="3249777" user="opendcc"/>
-    <node id="7499121918" lat="48.5120167" lon="12.1051928" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121919" lat="48.5114907" lon="12.1046081" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121920" lat="48.5127079" lon="12.1063086" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121921" lat="48.5130952" lon="12.1085939" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121922" lat="48.5130011" lon="12.1083820" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121923" lat="48.5129389" lon="12.1081808" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121924" lat="48.5128163" lon="12.1075398" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121925" lat="48.5133147" lon="12.1088393" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121926" lat="48.5134168" lon="12.1089573" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121927" lat="48.5136238" lon="12.1093932" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121928" lat="48.5137029" lon="12.1097647" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121929" lat="48.5112115" lon="12.1044557" version="2" timestamp="2020-11-07T20:59:28Z" changeset="93720560" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499121930" lat="48.5111309" lon="12.1044646" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121931" lat="48.5108955" lon="12.1044619" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121932" lat="48.5107267" lon="12.1043627" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121933" lat="48.5105481" lon="12.1041414" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121934" lat="48.5104441" lon="12.1040703" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121935" lat="48.5104059" lon="12.1040623" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121936" lat="48.5103260" lon="12.1040757" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121937" lat="48.5102425" lon="12.1040998" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121938" lat="48.5101687" lon="12.1041307" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121939" lat="48.5099395" lon="12.1043439" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121940" lat="48.5098711" lon="12.1044311" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121941" lat="48.5097787" lon="12.1045974" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121942" lat="48.5093997" lon="12.1058118" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121943" lat="48.5094935" lon="12.1055891" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121944" lat="48.5095304" lon="12.1055214" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121945" lat="48.5095437" lon="12.1054792" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121946" lat="48.5095535" lon="12.1054161" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121947" lat="48.5095517" lon="12.1053779" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121948" lat="48.5095450" lon="12.1053021" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121949" lat="48.5095197" lon="12.1051258" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121950" lat="48.5095237" lon="12.1050540" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121951" lat="48.5095339" lon="12.1050044" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499121952" lat="48.5095668" lon="12.1049441" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc"/>
-    <node id="7499223823" lat="48.5149634" lon="12.1136097" version="2" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223826" lat="48.5127935" lon="12.1177099" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223827" lat="48.5126698" lon="12.1178815" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223828" lat="48.5127311" lon="12.1177879" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223829" lat="48.5126052" lon="12.1179785" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223830" lat="48.5125364" lon="12.1180510" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223831" lat="48.5124811" lon="12.1181112" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223832" lat="48.5122483" lon="12.1182254" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223833" lat="48.5121248" lon="12.1182222" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223834" lat="48.5120365" lon="12.1182257" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223835" lat="48.5116935" lon="12.1181800" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223836" lat="48.5113383" lon="12.1180138" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223837" lat="48.5109923" lon="12.1179022" version="2" timestamp="2021-03-03T09:30:53Z" changeset="100336451" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223838" lat="48.5108288" lon="12.1178788" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223839" lat="48.5107112" lon="12.1178532" version="1" timestamp="2020-05-08T20:06:04Z" changeset="84914609" uid="10511495" user="FirefighterCGH"/>
-    <node id="7499223840" lat="48.5088323" lon="12.1161808" version="2" timestamp="2020-07-31T12:38:43Z" changeset="88783008" uid="10511495" user="FirefighterCGH">
-        <tag k="traffic_sign" v="DE:354"/>
-        <tag k="traffic_sign:direction" v="backward"/>
-    </node>
-    <node id="7560719924" lat="48.5135746" lon="12.1170019" version="1" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="7560719935" lat="48.5087132" lon="12.1160279" version="1" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="7560719944" lat="48.5154730" lon="12.1123152" version="1" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="7560719945" lat="48.5154167" lon="12.1126917" version="1" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="7560719946" lat="48.5152920" lon="12.1131613" version="1" timestamp="2020-05-26T20:12:07Z" changeset="85790178" uid="10511495" user="FirefighterCGH"/>
-    <node id="7560744890" lat="48.5135382" lon="12.1159700" version="1" timestamp="2020-05-26T20:47:53Z" changeset="85791242" uid="10511495" user="FirefighterCGH"/>
-    <node id="7560744922" lat="48.5160791" lon="12.1107950" version="1" timestamp="2020-05-26T20:47:53Z" changeset="85791242" uid="10511495" user="FirefighterCGH"/>
-    <node id="7772936543" lat="48.5088501" lon="12.1162010" version="1" timestamp="2020-07-31T12:38:43Z" changeset="88783008" uid="10511495" user="FirefighterCGH"/>
-    <node id="7843863954" lat="48.5071652" lon="12.1094267" version="1" timestamp="2020-08-25T16:23:29Z" changeset="89925298" uid="10511495" user="FirefighterCGH"/>
-    <node id="7985480884" lat="48.5100098" lon="12.1174019" version="4" timestamp="2020-12-05T18:13:00Z" changeset="95343616" uid="10511495" user="FirefighterCGH">
-        <tag k="destination:ref" v="T1"/>
-        <tag k="direction_east" v="T1"/>
-        <tag k="ele" v="466"/>
-        <tag k="guidepost" v="hiking"/>
-        <tag k="information" v="guidepost"/>
-        <tag k="material" v="wood"/>
-        <tag k="tourism" v="information"/>
-    </node>
-    <node id="8241614387" lat="48.5136218" lon="12.1167675" version="1" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH">
-        <tag k="information" v="guidepost"/>
-        <tag k="tourism" v="information"/>
-    </node>
-    <node id="8241614388" lat="48.5140062" lon="12.1151880" version="1" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH"/>
-    <node id="8241614389" lat="48.5141329" lon="12.1149349" version="1" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH"/>
-    <node id="8241614390" lat="48.5143046" lon="12.1146335" version="1" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH"/>
-    <node id="8241614391" lat="48.5149800" lon="12.1136355" version="1" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH">
-        <tag k="information" v="guidepost"/>
-        <tag k="tourism" v="information"/>
-    </node>
-    <node id="8241614397" lat="48.5157626" lon="12.1121324" version="1" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH">
-        <tag k="information" v="guidepost"/>
-        <tag k="tourism" v="information"/>
-    </node>
-    <node id="8241614401" lat="48.5159531" lon="12.1115494" version="1" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH"/>
-    <node id="8482294741" lat="48.5116095" lon="12.1181540" version="1" timestamp="2021-03-03T09:30:53Z" changeset="100336451" uid="10511495" user="FirefighterCGH"/>
-    <node id="8482294747" lat="48.5110654" lon="12.1179130" version="1" timestamp="2021-03-03T09:30:53Z" changeset="100336451" uid="10511495" user="FirefighterCGH"/>
-    <way id="33433647" version="12" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH">
-        <nd ref="380446976"/>
-        <nd ref="380446977"/>
-        <nd ref="380446978"/>
-        <nd ref="8241614401"/>
-        <nd ref="7473901577"/>
-        <nd ref="380446979"/>
-        <tag k="highway" v="track"/>
-        <tag k="surface" v="compacted"/>
-        <tag k="tracktype" v="grade2"/>
-    </way>
-    <way id="50097579" version="6" timestamp="2020-08-25T17:21:50Z" changeset="89927505" uid="10511495" user="FirefighterCGH">
-        <nd ref="302431145"/>
-        <nd ref="7473892083"/>
-        <nd ref="636108611"/>
-        <nd ref="7473892071"/>
-        <nd ref="636108612"/>
-        <nd ref="636108613"/>
-        <nd ref="636108614"/>
-        <nd ref="636108615"/>
-        <nd ref="7470940232"/>
-        <nd ref="636108616"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="name" v="Feldweg"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="272126075" version="4" timestamp="2020-05-02T15:44:51Z" changeset="84526745" uid="10511495" user="FirefighterCGH">
-        <nd ref="2770577401"/>
-        <nd ref="7471609802"/>
-        <nd ref="2770577399"/>
-        <nd ref="7473901541"/>
-        <nd ref="2770577397"/>
-        <nd ref="7473901542"/>
-        <nd ref="2770577390"/>
-        <nd ref="7473901543"/>
-        <nd ref="2770577372"/>
-        <nd ref="7473901544"/>
-        <nd ref="2770577382"/>
-        <nd ref="7473901545"/>
-        <nd ref="2770577387"/>
-        <nd ref="7473901546"/>
-        <nd ref="2770577394"/>
-        <nd ref="2770577395"/>
-        <nd ref="2770577392"/>
-        <tag k="highway" v="residential"/>
-        <tag k="lanes" v="1"/>
-        <tag k="name" v="Schloßberg"/>
-        <tag k="surface" v="gravel"/>
-    </way>
-    <way id="272126079" version="4" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc">
-        <nd ref="7499121920"/>
-        <nd ref="2770577357"/>
-        <nd ref="2770577355"/>
-        <nd ref="7499121918"/>
-        <nd ref="2770577350"/>
-        <nd ref="2770577339"/>
-        <nd ref="7499121919"/>
-        <nd ref="2770577333"/>
-        <nd ref="7499121929"/>
-        <nd ref="7499121930"/>
-        <nd ref="2770577322"/>
-        <nd ref="7499121931"/>
-        <nd ref="2770577319"/>
-        <nd ref="7499121932"/>
-        <nd ref="7499121933"/>
-        <nd ref="2770577316"/>
-        <nd ref="7499121934"/>
-        <nd ref="7499121935"/>
-        <nd ref="7499121936"/>
-        <nd ref="7499121937"/>
-        <nd ref="7499121938"/>
-        <nd ref="2770577314"/>
-        <nd ref="7499121939"/>
-        <nd ref="7499121940"/>
-        <nd ref="7499121941"/>
-        <nd ref="2770577310"/>
-        <nd ref="7499121952"/>
-        <nd ref="7499121951"/>
-        <nd ref="7499121950"/>
-        <nd ref="7499121949"/>
-        <nd ref="2770577307"/>
-        <nd ref="7499121948"/>
-        <nd ref="7499121947"/>
-        <nd ref="7499121946"/>
-        <nd ref="7499121945"/>
-        <nd ref="7499121944"/>
-        <nd ref="7499121943"/>
-        <nd ref="2770577304"/>
-        <nd ref="7499121942"/>
-        <nd ref="2770577299"/>
-        <nd ref="7473841701"/>
-        <nd ref="2770577296"/>
-        <nd ref="7446971625"/>
-        <nd ref="2770577291"/>
-        <nd ref="7446971624"/>
-        <nd ref="302431133"/>
-        <tag k="highway" v="track"/>
-        <tag k="motor_vehicle" v="yes"/>
-        <tag k="motorcar" v="yes"/>
-        <tag k="motorcycle" v="yes"/>
-        <tag k="surface" v="gravel"/>
-        <tag k="tracktype" v="grade3"/>
-    </way>
-    <way id="531997511" version="5" timestamp="2020-07-31T12:38:43Z" changeset="88783008" uid="10511495" user="FirefighterCGH">
-        <nd ref="2358867724"/>
-        <nd ref="7470940224"/>
-        <nd ref="7470940223"/>
-        <nd ref="7470940228"/>
-        <nd ref="7470940227"/>
-        <nd ref="7470940229"/>
-        <nd ref="747941686"/>
-        <nd ref="7772936543"/>
-        <nd ref="7499223840"/>
-        <nd ref="3783960259"/>
-        <nd ref="7560719935"/>
-        <nd ref="3783960258"/>
-        <nd ref="3783960257"/>
-        <nd ref="7470940230"/>
-        <nd ref="3783960256"/>
-        <nd ref="7470940231"/>
-        <nd ref="747941722"/>
-        <nd ref="2251102276"/>
-        <nd ref="2251102275"/>
-        <nd ref="2358880498"/>
-        <nd ref="7470940233"/>
-        <tag k="highway" v="track"/>
-        <tag k="surface" v="fine_gravel"/>
-        <tag k="tracktype" v="grade3"/>
-    </way>
-    <way id="532009021" version="7" timestamp="2022-04-15T11:54:28Z" changeset="119748305" uid="10511495" user="FirefighterCGH">
-        <nd ref="302431145"/>
-        <nd ref="7499112200"/>
-        <nd ref="276055174"/>
-        <nd ref="7499112199"/>
-        <nd ref="7473892084"/>
-        <nd ref="302431172"/>
-        <nd ref="302431146"/>
-        <nd ref="302431144"/>
-        <nd ref="7446971599"/>
-        <nd ref="4776575425"/>
-        <nd ref="7499112203"/>
-        <nd ref="276055175"/>
-        <nd ref="7446971602"/>
-        <nd ref="7499112204"/>
-        <nd ref="7499112205"/>
-        <nd ref="7499112206"/>
-        <nd ref="7499112207"/>
-        <nd ref="7499112208"/>
-        <nd ref="302431142"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxweight" v="7.5"/>
-        <tag k="name" v="An der Kreisstraße"/>
-        <tag k="priority_road" v="designated"/>
-        <tag k="ref" v="LA 21"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="532009027" version="5" timestamp="2022-04-15T11:54:28Z" changeset="119748305" uid="10511495" user="FirefighterCGH">
-        <nd ref="2770577401"/>
-        <nd ref="276055197"/>
-        <nd ref="1152749171"/>
-        <nd ref="276055198"/>
-        <nd ref="276055199"/>
-        <nd ref="276055201"/>
-        <nd ref="276055203"/>
-        <tag k="destination:backward" v="Kumhausen;Obergolding"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="lit" v="no"/>
-        <tag k="maxspeed" v="100"/>
-        <tag k="maxweight" v="7.5"/>
-        <tag k="ref" v="LA 21"/>
-        <tag k="source:maxspeed" v="sign"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="560340630" version="4" timestamp="2020-06-07T12:44:52Z" changeset="86307062" uid="10511495" user="FirefighterCGH">
-        <nd ref="276055203"/>
-        <nd ref="1884568396"/>
-        <nd ref="7560744922"/>
-        <nd ref="7470959438"/>
-        <nd ref="380446976"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="lit" v="yes"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="ref" v="LA 21"/>
-        <tag k="source:maxspeed" v="sign"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="798825561" version="3" timestamp="2021-02-10T20:33:28Z" changeset="99063137" uid="10511495" user="FirefighterCGH">
-        <nd ref="7470940233"/>
-        <nd ref="3783960254"/>
-        <nd ref="7470940234"/>
-        <nd ref="636108616"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="name" v="Feldweg"/>
-        <tag k="surface" v="asphalt"/>
-        <tag k="tracktype" v="grade3"/>
-    </way>
-    <way id="798827652" version="4" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH">
-        <nd ref="7499223823"/>
-        <nd ref="747941623"/>
-        <nd ref="8241614390"/>
-        <nd ref="8241614389"/>
-        <nd ref="8241614388"/>
-        <nd ref="7470940093"/>
-        <nd ref="7470940094"/>
-        <nd ref="7470940095"/>
-        <nd ref="7470940096"/>
-        <nd ref="7470940097"/>
-        <nd ref="747941815"/>
-        <nd ref="7560744890"/>
-        <nd ref="7470940098"/>
-        <nd ref="7470940099"/>
-        <nd ref="747941646"/>
-        <nd ref="747941672"/>
-        <nd ref="7470940100"/>
-        <nd ref="7470940101"/>
-        <nd ref="747941697"/>
-        <nd ref="7560719924"/>
-        <tag k="highway" v="track"/>
-        <tag k="lit" v="no"/>
-        <tag k="name" v="Altstraßenschlucht"/>
-        <tag k="surface" v="fine_gravel"/>
-        <tag k="tracktype" v="grade2"/>
-    </way>
-    <way id="801741236" version="1" timestamp="2020-05-08T19:11:30Z" changeset="84912240" uid="3249777" user="opendcc">
-        <nd ref="2770577392"/>
-        <nd ref="7499121928"/>
-        <nd ref="2770577385"/>
-        <nd ref="7499121927"/>
-        <nd ref="2770577375"/>
-        <nd ref="7499121926"/>
-        <nd ref="7499121925"/>
-        <nd ref="2770577368"/>
-        <nd ref="7499121921"/>
-        <nd ref="7499121922"/>
-        <nd ref="7499121923"/>
-        <nd ref="2770577366"/>
-        <nd ref="7499121924"/>
-        <nd ref="2770577362"/>
-        <nd ref="2770577358"/>
-        <nd ref="7499121920"/>
-        <tag k="highway" v="track"/>
-        <tag k="tracktype" v="grade5"/>
-    </way>
-    <way id="808549594" version="3" timestamp="2021-03-03T09:30:53Z" changeset="100336451" uid="10511495" user="FirefighterCGH">
-        <nd ref="7560719924"/>
-        <nd ref="747941729"/>
-        <nd ref="747941756"/>
-        <nd ref="7499223826"/>
-        <nd ref="7499223828"/>
-        <nd ref="7499223827"/>
-        <nd ref="7499223829"/>
-        <nd ref="7499223830"/>
-        <nd ref="7499223831"/>
-        <nd ref="747941700"/>
-        <nd ref="7499223832"/>
-        <nd ref="7499223833"/>
-        <nd ref="7499223834"/>
-        <nd ref="747941732"/>
-        <nd ref="7499223835"/>
-        <nd ref="8482294741"/>
-        <nd ref="747941758"/>
-        <nd ref="7499223836"/>
-        <nd ref="747941796"/>
-        <nd ref="8482294747"/>
-        <nd ref="7499223837"/>
-        <nd ref="7499223838"/>
-        <nd ref="7499223839"/>
-        <nd ref="747941620"/>
-        <nd ref="7470940226"/>
-        <nd ref="7470940225"/>
-        <nd ref="747941661"/>
-        <nd ref="2358867724"/>
-        <tag k="highway" v="track"/>
-        <tag k="surface" v="fine_gravel"/>
-    </way>
-    <way id="840601926" version="3" timestamp="2022-04-15T11:54:28Z" changeset="119748305" uid="10511495" user="FirefighterCGH">
-        <nd ref="302431142"/>
-        <nd ref="7843863954"/>
-        <nd ref="7499112209"/>
-        <nd ref="5163425187"/>
-        <nd ref="302431138"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="100"/>
-        <tag k="maxweight" v="7.5"/>
-        <tag k="name" v="An der Kreisstraße"/>
-        <tag k="ref" v="LA 21"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="840601927" version="3" timestamp="2021-10-30T10:15:44Z" changeset="113154966" uid="323389" user="Michael_H">
-        <nd ref="302431134"/>
-        <nd ref="302431135"/>
-        <nd ref="302431136"/>
-        <nd ref="302431137"/>
-        <nd ref="302431138"/>
-        <tag k="destination:backward" v="Kirche"/>
-        <tag k="highway" v="unclassified"/>
-        <tag k="maxspeed" v="100"/>
-        <tag k="name" v="St.-Ulrich-Straße"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="868118128" version="1" timestamp="2020-11-07T20:59:28Z" changeset="93720560" uid="10511495" user="FirefighterCGH">
-        <nd ref="302431133"/>
-        <nd ref="302431134"/>
-        <tag k="highway" v="unclassified"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="name" v="St.-Ulrich-Straße"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="886341936" version="1" timestamp="2020-12-18T23:09:16Z" changeset="96093487" uid="10511495" user="FirefighterCGH">
-        <nd ref="380446979"/>
-        <nd ref="380446981"/>
-        <nd ref="7470940090"/>
-        <nd ref="747941676"/>
-        <nd ref="7470940091"/>
-        <nd ref="7560719944"/>
-        <nd ref="747941703"/>
-        <nd ref="747941733"/>
-        <nd ref="7560719945"/>
-        <nd ref="747941760"/>
-        <nd ref="7560719946"/>
-        <nd ref="7470940092"/>
-        <nd ref="7499223823"/>
-        <tag k="cutting" v="yes"/>
-        <tag k="highway" v="track"/>
-        <tag k="lit" v="no"/>
-        <tag k="name" v="Altstraßenschlucht"/>
-        <tag k="surface" v="fine_gravel"/>
-        <tag k="tracktype" v="grade2"/>
-    </way>
-    <relation id="7645863" version="16" timestamp="2021-01-20T12:52:40Z" changeset="97838854" uid="10511495" user="FirefighterCGH">
-        <member type="node" ref="7985480884" role="guidepost"/>
-        <member type="node" ref="8241614387" role="guidepost"/>
-        <member type="node" ref="8241614391" role="guidepost"/>
-        <member type="way" ref="272126079" role=""/>
-        <member type="way" ref="801741236" role=""/>
-        <member type="way" ref="272126075" role=""/>
-        <member type="way" ref="532009027" role=""/>
-        <member type="way" ref="560340630" role=""/>
-        <member type="way" ref="33433647" role=""/>
-        <member type="way" ref="798827652" role=""/>
-        <member type="way" ref="886341936" role=""/>
-        <member type="way" ref="808549594" role=""/>
-        <member type="way" ref="531997511" role=""/>
-        <member type="way" ref="798825561" role=""/>
-        <member type="way" ref="50097579" role=""/>
-        <member type="way" ref="532009021" role=""/>
-        <member type="way" ref="840601926" role=""/>
-        <member type="way" ref="840601927" role=""/>
-        <member type="way" ref="868118128" role=""/>
-        <member type="node" ref="8241614397" role="guidepost"/>
-        <member type="node" ref="2770577282" role="board"/>
-        <tag k="ascent" v="78"/>
-        <tag k="colour" v="blue"/>
-        <tag k="descent" v="78"/>
-        <tag k="description" v="Rundweg über den Landshuter Höhenwanderweg. Von Schloßberg nach Obergolding und zurück."/>
-        <tag k="distance" v="3.4"/>
-        <tag k="from" v="Schloßberg"/>
-        <tag k="name" v="T2 - Obergolding"/>
-        <tag k="network" v="lwn"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="operator" v="Landkreis Landshut"/>
-        <tag k="osmc:symbol" v="blue:blue:white_hiker"/>
-        <tag k="ref" v="T2"/>
-        <tag k="roundtrip" v="yes"/>
-        <tag k="route" v="hiking"/>
-        <tag k="to" v="Schloßberg"/>
-        <tag k="type" v="route"/>
-    </relation>
-
+<osm version="0.6">
+  <node id="276055174" lat="48.5070036" lon="12.1114152"/>
+  <node id="276055175" lat="48.5067982" lon="12.1100027"/>
+  <node id="276055197" lat="48.5150441" lon="12.1112705"/>
+  <node id="276055198" lat="48.5154589" lon="12.1107876"/>
+  <node id="276055199" lat="48.5156078" lon="12.1106366"/>
+  <node id="276055201" lat="48.5156846" lon="12.1105675"/>
+  <node id="276055203" lat="48.5157512" lon="12.1105291"/>
+  <node id="302431133" lat="48.5072931" lon="12.1086435"/>
+  <node id="302431134" lat="48.5073215" lon="12.1088174"/>
+  <node id="302431135" lat="48.5073392" lon="12.1090230"/>
+  <node id="302431136" lat="48.5073404" lon="12.1091434">
+    <tag k="direction" v="forward"/>
+    <tag k="highway" v="give_way"/>
+  </node>
+  <node id="302431137" lat="48.5073352" lon="12.1092787"/>
+  <node id="302431138" lat="48.5073268" lon="12.1093825"/>
+  <node id="302431142" lat="48.5070945" lon="12.1094730">
+    <tag k="name" v="Obergolding"/>
+    <tag k="traffic_sign" v="city_limit"/>
+    <tag k="traffic_sign:direction" v="backward"/>
+  </node>
+  <node id="302431144" lat="48.5069088" lon="12.1107144"/>
+  <node id="302431145" lat="48.5069783" lon="12.1115008"/>
+  <node id="302431146" lat="48.5069713" lon="12.1110696"/>
+  <node id="302431172" lat="48.5070030" lon="12.1112861"/>
+  <node id="380446976" lat="48.5163700" lon="12.1109259"/>
+  <node id="380446977" lat="48.5161959" lon="12.1112016"/>
+  <node id="380446978" lat="48.5160670" lon="12.1113773"/>
+  <node id="380446979" lat="48.5158966" lon="12.1117673"/>
+  <node id="380446981" lat="48.5158098" lon="12.1120413"/>
+  <node id="636108611" lat="48.5070493" lon="12.1115677">
+    <tag k="direction" v="backward"/>
+    <tag k="highway" v="give_way"/>
+  </node>
+  <node id="636108612" lat="48.5070944" lon="12.1116733"/>
+  <node id="636108613" lat="48.5072572" lon="12.1121770"/>
+  <node id="636108614" lat="48.5074792" lon="12.1129343"/>
+  <node id="636108615" lat="48.5076507" lon="12.1137542"/>
+  <node id="636108616" lat="48.5078240" lon="12.1144886">
+    <tag k="highway" v="turning_circle"/>
+  </node>
+  <node id="747941620" lat="48.5106078" lon="12.1178169"/>
+  <node id="747941623" lat="48.5147517" lon="12.1140462"/>
+  <node id="747941646" lat="48.5135797" lon="12.1165159"/>
+  <node id="747941661" lat="48.5099967" lon="12.1172516"/>
+  <node id="747941672" lat="48.5136022" lon="12.1167366"/>
+  <node id="747941676" lat="48.5156274" lon="12.1121912"/>
+  <node id="747941686" lat="48.5091864" lon="12.1165844"/>
+  <node id="747941697" lat="48.5136101" lon="12.1169483"/>
+  <node id="747941700" lat="48.5123549" lon="12.1181929"/>
+  <node id="747941703" lat="48.5154428" lon="12.1124169"/>
+  <node id="747941722" lat="48.5080004" lon="12.1150140"/>
+  <node id="747941729" lat="48.5134653" lon="12.1171217"/>
+  <node id="747941732" lat="48.5118628" lon="12.1182040"/>
+  <node id="747941733" lat="48.5154340" lon="12.1125594"/>
+  <node id="747941756" lat="48.5129126" lon="12.1175957"/>
+  <node id="747941758" lat="48.5115268" lon="12.1181173"/>
+  <node id="747941760" lat="48.5153541" lon="12.1129911"/>
+  <node id="747941796" lat="48.5111630" lon="12.1179412"/>
+  <node id="747941815" lat="48.5135461" lon="12.1159166"/>
+  <node id="1152749171" lat="48.5152599" lon="12.1110102"/>
+  <node id="1884568396" lat="48.5159084" lon="12.1106764"/>
+  <node id="2251102275" lat="48.5078489" lon="12.1148132"/>
+  <node id="2251102276" lat="48.5078785" lon="12.1148633"/>
+  <node id="2358867724" lat="48.5099361" lon="12.1172010"/>
+  <node id="2358880498" lat="48.5078440" lon="12.1147900"/>
+  <node id="2770577282" lat="48.5126105" lon="12.1060162">
+    <tag k="board_type" v="history"/>
+    <tag k="information" v="board"/>
+    <tag k="name" v="Landshuter Höhenwanderweg - Ringwall"/>
+    <tag k="operator" v="Landkreis Landshut"/>
+    <tag k="tourism" v="information"/>
+  </node>
+  <node id="2770577291" lat="48.5074229" lon="12.1084679"/>
+  <node id="2770577296" lat="48.5083107" lon="12.1075030"/>
+  <node id="2770577299" lat="48.5091120" lon="12.1065959"/>
+  <node id="2770577304" lat="48.5094393" lon="12.1057018"/>
+  <node id="2770577307" lat="48.5095321" lon="12.1052123"/>
+  <node id="2770577310" lat="48.5096494" lon="12.1048153"/>
+  <node id="2770577314" lat="48.5100577" lon="12.1042299"/>
+  <node id="2770577316" lat="48.5104726" lon="12.1040812"/>
+  <node id="2770577319" lat="48.5107978" lon="12.1044230"/>
+  <node id="2770577322" lat="48.5109719" lon="12.1044727"/>
+  <node id="2770577333" lat="48.5113119" lon="12.1044899"/>
+  <node id="2770577339" lat="48.5116116" lon="12.1047208"/>
+  <node id="2770577350" lat="48.5118177" lon="12.1049327"/>
+  <node id="2770577355" lat="48.5123170" lon="12.1056300"/>
+  <node id="2770577357" lat="48.5126173" lon="12.1061012"/>
+  <node id="2770577358" lat="48.5127789" lon="12.1065375"/>
+  <node id="2770577362" lat="48.5128056" lon="12.1068773"/>
+  <node id="2770577366" lat="48.5128731" lon="12.1078938"/>
+  <node id="2770577368" lat="48.5131983" lon="12.1087307"/>
+  <node id="2770577372" lat="48.5135143" lon="12.1108531"/>
+  <node id="2770577375" lat="48.5135243" lon="12.1091545"/>
+  <node id="2770577382" lat="48.5135012" lon="12.1106653"/>
+  <node id="2770577385" lat="48.5136629" lon="12.1095555"/>
+  <node id="2770577387" lat="48.5136783" lon="12.1105194"/>
+  <node id="2770577390" lat="48.5137967" lon="12.1112880"/>
+  <node id="2770577392" lat="48.5137561" lon="12.1101510"/>
+  <node id="2770577394" lat="48.5137700" lon="12.1104069"/>
+  <node id="2770577395" lat="48.5137685" lon="12.1102810"/>
+  <node id="2770577397" lat="48.5140835" lon="12.1114114"/>
+  <node id="2770577399" lat="48.5147216" lon="12.1114151"/>
+  <node id="2770577401" lat="48.5148347" lon="12.1114602"/>
+  <node id="3783960254" lat="48.5078036" lon="12.1145865"/>
+  <node id="3783960256" lat="48.5083951" lon="12.1154707"/>
+  <node id="3783960257" lat="48.5085519" lon="12.1157319"/>
+  <node id="3783960258" lat="48.5086686" lon="12.1159600"/>
+  <node id="3783960259" lat="48.5087577" lon="12.1160957"/>
+  <node id="4776575425" lat="48.5068164" lon="12.1101703"/>
+  <node id="5163425187" lat="48.5072766" lon="12.1093859"/>
+  <node id="7446971599" lat="48.5068641" lon="12.1104348"/>
+  <node id="7446971602" lat="48.5068000" lon="12.1099336"/>
+  <node id="7446971624" lat="48.5073491" lon="12.1085704"/>
+  <node id="7446971625" lat="48.5075356" lon="12.1082925"/>
+  <node id="7470940090" lat="48.5157441" lon="12.1121083"/>
+  <node id="7470940091" lat="48.5155099" lon="12.1122753"/>
+  <node id="7470940092" lat="48.5152291" lon="12.1133033"/>
+  <node id="7470940093" lat="48.5138731" lon="12.1153748"/>
+  <node id="7470940094" lat="48.5137727" lon="12.1154972"/>
+  <node id="7470940095" lat="48.5136879" lon="12.1156290"/>
+  <node id="7470940096" lat="48.5136196" lon="12.1157507"/>
+  <node id="7470940097" lat="48.5135718" lon="12.1158479"/>
+  <node id="7470940098" lat="48.5135403" lon="12.1160291"/>
+  <node id="7470940099" lat="48.5135550" lon="12.1162154"/>
+  <node id="7470940100" lat="48.5136162" lon="12.1168510"/>
+  <node id="7470940101" lat="48.5136176" lon="12.1168949"/>
+  <node id="7470940223" lat="48.5097934" lon="12.1170278"/>
+  <node id="7470940224" lat="48.5098866" lon="12.1171320"/>
+  <node id="7470940225" lat="48.5102867" lon="12.1175648"/>
+  <node id="7470940226" lat="48.5104379" lon="12.1177084"/>
+  <node id="7470940227" lat="48.5094655" lon="12.1168158"/>
+  <node id="7470940228" lat="48.5096264" lon="12.1169054"/>
+  <node id="7470940229" lat="48.5093283" lon="12.1167265"/>
+  <node id="7470940230" lat="48.5084821" lon="12.1155909"/>
+  <node id="7470940231" lat="48.5081869" lon="12.1152519"/>
+  <node id="7470940232" lat="48.5077809" lon="12.1144223"/>
+  <node id="7470940233" lat="48.5078291" lon="12.1147192">
+    <tag k="name" v="Obergolding"/>
+    <tag k="traffic_sign" v="city_limit"/>
+    <tag k="traffic_sign:direction" v="forward"/>
+  </node>
+  <node id="7470940234" lat="48.5078163" lon="12.1145254"/>
+  <node id="7470959438" lat="48.5161869" lon="12.1108537"/>
+  <node id="7471609802" lat="48.5147894" lon="12.1114204">
+    <tag k="direction" v="backward"/>
+    <tag k="highway" v="give_way"/>
+  </node>
+  <node id="7473841701" lat="48.5089031" lon="12.1068978"/>
+  <node id="7473892071" lat="48.5070693" lon="12.1116101"/>
+  <node id="7473892083" lat="48.5070129" lon="12.1115295"/>
+  <node id="7473892084" lat="48.5070066" lon="12.1113434"/>
+  <node id="7473901541" lat="48.5142081" lon="12.1114179"/>
+  <node id="7473901542" lat="48.5139319" lon="12.1113696"/>
+  <node id="7473901543" lat="48.5136528" lon="12.1111189"/>
+  <node id="7473901544" lat="48.5134980" lon="12.1107215"/>
+  <node id="7473901545" lat="48.5135315" lon="12.1106007"/>
+  <node id="7473901546" lat="48.5137380" lon="12.1104647"/>
+  <node id="7473901577" lat="48.5159333" lon="12.1116165"/>
+  <node id="7499112199" lat="48.5070070" lon="12.1113747"/>
+  <node id="7499112200" lat="48.5069959" lon="12.1114605"/>
+  <node id="7499112203" lat="48.5068044" lon="12.1100906"/>
+  <node id="7499112204" lat="48.5068107" lon="12.1098787"/>
+  <node id="7499112205" lat="48.5068258" lon="12.1098183"/>
+  <node id="7499112206" lat="48.5068604" lon="12.1097365"/>
+  <node id="7499112207" lat="48.5069342" lon="12.1096346"/>
+  <node id="7499112208" lat="48.5070257" lon="12.1095327"/>
+  <node id="7499112209" lat="48.5072207" lon="12.1094019"/>
+  <node id="7499121918" lat="48.5120167" lon="12.1051928"/>
+  <node id="7499121919" lat="48.5114907" lon="12.1046081"/>
+  <node id="7499121920" lat="48.5127079" lon="12.1063086"/>
+  <node id="7499121921" lat="48.5130952" lon="12.1085939"/>
+  <node id="7499121922" lat="48.5130011" lon="12.1083820"/>
+  <node id="7499121923" lat="48.5129389" lon="12.1081808"/>
+  <node id="7499121924" lat="48.5128163" lon="12.1075398"/>
+  <node id="7499121925" lat="48.5133147" lon="12.1088393"/>
+  <node id="7499121926" lat="48.5134168" lon="12.1089573"/>
+  <node id="7499121927" lat="48.5136238" lon="12.1093932"/>
+  <node id="7499121928" lat="48.5137029" lon="12.1097647"/>
+  <node id="7499121929" lat="48.5112115" lon="12.1044557"/>
+  <node id="7499121930" lat="48.5111309" lon="12.1044646"/>
+  <node id="7499121931" lat="48.5108955" lon="12.1044619"/>
+  <node id="7499121932" lat="48.5107267" lon="12.1043627"/>
+  <node id="7499121933" lat="48.5105481" lon="12.1041414"/>
+  <node id="7499121934" lat="48.5104441" lon="12.1040703"/>
+  <node id="7499121935" lat="48.5104059" lon="12.1040623"/>
+  <node id="7499121936" lat="48.5103260" lon="12.1040757"/>
+  <node id="7499121937" lat="48.5102425" lon="12.1040998"/>
+  <node id="7499121938" lat="48.5101687" lon="12.1041307"/>
+  <node id="7499121939" lat="48.5099395" lon="12.1043439"/>
+  <node id="7499121940" lat="48.5098711" lon="12.1044311"/>
+  <node id="7499121941" lat="48.5097787" lon="12.1045974"/>
+  <node id="7499121942" lat="48.5093997" lon="12.1058118"/>
+  <node id="7499121943" lat="48.5094935" lon="12.1055891"/>
+  <node id="7499121944" lat="48.5095304" lon="12.1055214"/>
+  <node id="7499121945" lat="48.5095437" lon="12.1054792"/>
+  <node id="7499121946" lat="48.5095535" lon="12.1054161"/>
+  <node id="7499121947" lat="48.5095517" lon="12.1053779"/>
+  <node id="7499121948" lat="48.5095450" lon="12.1053021"/>
+  <node id="7499121949" lat="48.5095197" lon="12.1051258"/>
+  <node id="7499121950" lat="48.5095237" lon="12.1050540"/>
+  <node id="7499121951" lat="48.5095339" lon="12.1050044"/>
+  <node id="7499121952" lat="48.5095668" lon="12.1049441"/>
+  <node id="7499223823" lat="48.5149634" lon="12.1136097"/>
+  <node id="7499223826" lat="48.5127935" lon="12.1177099"/>
+  <node id="7499223827" lat="48.5126698" lon="12.1178815"/>
+  <node id="7499223828" lat="48.5127311" lon="12.1177879"/>
+  <node id="7499223829" lat="48.5126052" lon="12.1179785"/>
+  <node id="7499223830" lat="48.5125364" lon="12.1180510"/>
+  <node id="7499223831" lat="48.5124811" lon="12.1181112"/>
+  <node id="7499223832" lat="48.5122483" lon="12.1182254"/>
+  <node id="7499223833" lat="48.5121248" lon="12.1182222"/>
+  <node id="7499223834" lat="48.5120365" lon="12.1182257"/>
+  <node id="7499223835" lat="48.5116935" lon="12.1181800"/>
+  <node id="7499223836" lat="48.5113383" lon="12.1180138"/>
+  <node id="7499223837" lat="48.5109923" lon="12.1179022"/>
+  <node id="7499223838" lat="48.5108288" lon="12.1178788"/>
+  <node id="7499223839" lat="48.5107112" lon="12.1178532"/>
+  <node id="7499223840" lat="48.5088323" lon="12.1161808">
+    <tag k="traffic_sign" v="DE:354"/>
+    <tag k="traffic_sign:direction" v="backward"/>
+  </node>
+  <node id="7560719924" lat="48.5135746" lon="12.1170019"/>
+  <node id="7560719935" lat="48.5087132" lon="12.1160279"/>
+  <node id="7560719944" lat="48.5154730" lon="12.1123152"/>
+  <node id="7560719945" lat="48.5154167" lon="12.1126917"/>
+  <node id="7560719946" lat="48.5152920" lon="12.1131613"/>
+  <node id="7560744890" lat="48.5135382" lon="12.1159700"/>
+  <node id="7560744922" lat="48.5160791" lon="12.1107950"/>
+  <node id="7772936543" lat="48.5088501" lon="12.1162010"/>
+  <node id="7843863954" lat="48.5071652" lon="12.1094267"/>
+  <node id="7985480884" lat="48.5100098" lon="12.1174019">
+    <tag k="destination:ref" v="T1"/>
+    <tag k="direction_east" v="T1"/>
+    <tag k="ele" v="466"/>
+    <tag k="guidepost" v="hiking"/>
+    <tag k="information" v="guidepost"/>
+    <tag k="material" v="wood"/>
+    <tag k="tourism" v="information"/>
+  </node>
+  <node id="8241614387" lat="48.5136218" lon="12.1167675">
+    <tag k="information" v="guidepost"/>
+    <tag k="tourism" v="information"/>
+  </node>
+  <node id="8241614388" lat="48.5140062" lon="12.1151880"/>
+  <node id="8241614389" lat="48.5141329" lon="12.1149349"/>
+  <node id="8241614390" lat="48.5143046" lon="12.1146335"/>
+  <node id="8241614391" lat="48.5149800" lon="12.1136355">
+    <tag k="information" v="guidepost"/>
+    <tag k="tourism" v="information"/>
+  </node>
+  <node id="8241614397" lat="48.5157626" lon="12.1121324">
+    <tag k="information" v="guidepost"/>
+    <tag k="tourism" v="information"/>
+  </node>
+  <node id="8241614401" lat="48.5159531" lon="12.1115494"/>
+  <node id="8482294741" lat="48.5116095" lon="12.1181540"/>
+  <node id="8482294747" lat="48.5110654" lon="12.1179130"/>
+  <way id="33433647">
+    <tag k="highway" v="track"/>
+    <tag k="surface" v="compacted"/>
+    <tag k="tracktype" v="grade2"/>
+    <nd ref="380446976"/>
+    <nd ref="380446977"/>
+    <nd ref="380446978"/>
+    <nd ref="8241614401"/>
+    <nd ref="7473901577"/>
+    <nd ref="380446979"/>
+  </way>
+  <way id="50097579">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Feldweg"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="302431145"/>
+    <nd ref="7473892083"/>
+    <nd ref="636108611"/>
+    <nd ref="7473892071"/>
+    <nd ref="636108612"/>
+    <nd ref="636108613"/>
+    <nd ref="636108614"/>
+    <nd ref="636108615"/>
+    <nd ref="7470940232"/>
+    <nd ref="636108616"/>
+  </way>
+  <way id="272126075">
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="name" v="Schloßberg"/>
+    <tag k="surface" v="gravel"/>
+    <nd ref="2770577401"/>
+    <nd ref="7471609802"/>
+    <nd ref="2770577399"/>
+    <nd ref="7473901541"/>
+    <nd ref="2770577397"/>
+    <nd ref="7473901542"/>
+    <nd ref="2770577390"/>
+    <nd ref="7473901543"/>
+    <nd ref="2770577372"/>
+    <nd ref="7473901544"/>
+    <nd ref="2770577382"/>
+    <nd ref="7473901545"/>
+    <nd ref="2770577387"/>
+    <nd ref="7473901546"/>
+    <nd ref="2770577394"/>
+    <nd ref="2770577395"/>
+    <nd ref="2770577392"/>
+  </way>
+  <way id="272126079">
+    <tag k="highway" v="track"/>
+    <tag k="motor_vehicle" v="yes"/>
+    <tag k="motorcar" v="yes"/>
+    <tag k="motorcycle" v="yes"/>
+    <tag k="surface" v="gravel"/>
+    <tag k="tracktype" v="grade3"/>
+    <nd ref="7499121920"/>
+    <nd ref="2770577357"/>
+    <nd ref="2770577355"/>
+    <nd ref="7499121918"/>
+    <nd ref="2770577350"/>
+    <nd ref="2770577339"/>
+    <nd ref="7499121919"/>
+    <nd ref="2770577333"/>
+    <nd ref="7499121929"/>
+    <nd ref="7499121930"/>
+    <nd ref="2770577322"/>
+    <nd ref="7499121931"/>
+    <nd ref="2770577319"/>
+    <nd ref="7499121932"/>
+    <nd ref="7499121933"/>
+    <nd ref="2770577316"/>
+    <nd ref="7499121934"/>
+    <nd ref="7499121935"/>
+    <nd ref="7499121936"/>
+    <nd ref="7499121937"/>
+    <nd ref="7499121938"/>
+    <nd ref="2770577314"/>
+    <nd ref="7499121939"/>
+    <nd ref="7499121940"/>
+    <nd ref="7499121941"/>
+    <nd ref="2770577310"/>
+    <nd ref="7499121952"/>
+    <nd ref="7499121951"/>
+    <nd ref="7499121950"/>
+    <nd ref="7499121949"/>
+    <nd ref="2770577307"/>
+    <nd ref="7499121948"/>
+    <nd ref="7499121947"/>
+    <nd ref="7499121946"/>
+    <nd ref="7499121945"/>
+    <nd ref="7499121944"/>
+    <nd ref="7499121943"/>
+    <nd ref="2770577304"/>
+    <nd ref="7499121942"/>
+    <nd ref="2770577299"/>
+    <nd ref="7473841701"/>
+    <nd ref="2770577296"/>
+    <nd ref="7446971625"/>
+    <nd ref="2770577291"/>
+    <nd ref="7446971624"/>
+    <nd ref="302431133"/>
+  </way>
+  <way id="531997511">
+    <tag k="highway" v="track"/>
+    <tag k="surface" v="fine_gravel"/>
+    <tag k="tracktype" v="grade3"/>
+    <nd ref="2358867724"/>
+    <nd ref="7470940224"/>
+    <nd ref="7470940223"/>
+    <nd ref="7470940228"/>
+    <nd ref="7470940227"/>
+    <nd ref="7470940229"/>
+    <nd ref="747941686"/>
+    <nd ref="7772936543"/>
+    <nd ref="7499223840"/>
+    <nd ref="3783960259"/>
+    <nd ref="7560719935"/>
+    <nd ref="3783960258"/>
+    <nd ref="3783960257"/>
+    <nd ref="7470940230"/>
+    <nd ref="3783960256"/>
+    <nd ref="7470940231"/>
+    <nd ref="747941722"/>
+    <nd ref="2251102276"/>
+    <nd ref="2251102275"/>
+    <nd ref="2358880498"/>
+    <nd ref="7470940233"/>
+  </way>
+  <way id="532009021">
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxweight" v="7.5"/>
+    <tag k="name" v="An der Kreisstraße"/>
+    <tag k="priority_road" v="designated"/>
+    <tag k="ref" v="LA 21"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="302431145"/>
+    <nd ref="7499112200"/>
+    <nd ref="276055174"/>
+    <nd ref="7499112199"/>
+    <nd ref="7473892084"/>
+    <nd ref="302431172"/>
+    <nd ref="302431146"/>
+    <nd ref="302431144"/>
+    <nd ref="7446971599"/>
+    <nd ref="4776575425"/>
+    <nd ref="7499112203"/>
+    <nd ref="276055175"/>
+    <nd ref="7446971602"/>
+    <nd ref="7499112204"/>
+    <nd ref="7499112205"/>
+    <nd ref="7499112206"/>
+    <nd ref="7499112207"/>
+    <nd ref="7499112208"/>
+    <nd ref="302431142"/>
+  </way>
+  <way id="532009027">
+    <tag k="destination:backward" v="Kumhausen;Obergolding"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="lit" v="no"/>
+    <tag k="maxspeed" v="100"/>
+    <tag k="maxweight" v="7.5"/>
+    <tag k="ref" v="LA 21"/>
+    <tag k="source:maxspeed" v="sign"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="2770577401"/>
+    <nd ref="276055197"/>
+    <nd ref="1152749171"/>
+    <nd ref="276055198"/>
+    <nd ref="276055199"/>
+    <nd ref="276055201"/>
+    <nd ref="276055203"/>
+  </way>
+  <way id="560340630">
+    <tag k="highway" v="tertiary"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="ref" v="LA 21"/>
+    <tag k="source:maxspeed" v="sign"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="276055203"/>
+    <nd ref="1884568396"/>
+    <nd ref="7560744922"/>
+    <nd ref="7470959438"/>
+    <nd ref="380446976"/>
+  </way>
+  <way id="798825561">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Feldweg"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="tracktype" v="grade3"/>
+    <nd ref="7470940233"/>
+    <nd ref="3783960254"/>
+    <nd ref="7470940234"/>
+    <nd ref="636108616"/>
+  </way>
+  <way id="798827652">
+    <tag k="highway" v="track"/>
+    <tag k="lit" v="no"/>
+    <tag k="name" v="Altstraßenschlucht"/>
+    <tag k="surface" v="fine_gravel"/>
+    <tag k="tracktype" v="grade2"/>
+    <nd ref="7499223823"/>
+    <nd ref="747941623"/>
+    <nd ref="8241614390"/>
+    <nd ref="8241614389"/>
+    <nd ref="8241614388"/>
+    <nd ref="7470940093"/>
+    <nd ref="7470940094"/>
+    <nd ref="7470940095"/>
+    <nd ref="7470940096"/>
+    <nd ref="7470940097"/>
+    <nd ref="747941815"/>
+    <nd ref="7560744890"/>
+    <nd ref="7470940098"/>
+    <nd ref="7470940099"/>
+    <nd ref="747941646"/>
+    <nd ref="747941672"/>
+    <nd ref="7470940100"/>
+    <nd ref="7470940101"/>
+    <nd ref="747941697"/>
+    <nd ref="7560719924"/>
+  </way>
+  <way id="801741236">
+    <tag k="highway" v="track"/>
+    <tag k="tracktype" v="grade5"/>
+    <nd ref="2770577392"/>
+    <nd ref="7499121928"/>
+    <nd ref="2770577385"/>
+    <nd ref="7499121927"/>
+    <nd ref="2770577375"/>
+    <nd ref="7499121926"/>
+    <nd ref="7499121925"/>
+    <nd ref="2770577368"/>
+    <nd ref="7499121921"/>
+    <nd ref="7499121922"/>
+    <nd ref="7499121923"/>
+    <nd ref="2770577366"/>
+    <nd ref="7499121924"/>
+    <nd ref="2770577362"/>
+    <nd ref="2770577358"/>
+    <nd ref="7499121920"/>
+  </way>
+  <way id="808549594">
+    <tag k="highway" v="track"/>
+    <tag k="surface" v="fine_gravel"/>
+    <nd ref="7560719924"/>
+    <nd ref="747941729"/>
+    <nd ref="747941756"/>
+    <nd ref="7499223826"/>
+    <nd ref="7499223828"/>
+    <nd ref="7499223827"/>
+    <nd ref="7499223829"/>
+    <nd ref="7499223830"/>
+    <nd ref="7499223831"/>
+    <nd ref="747941700"/>
+    <nd ref="7499223832"/>
+    <nd ref="7499223833"/>
+    <nd ref="7499223834"/>
+    <nd ref="747941732"/>
+    <nd ref="7499223835"/>
+    <nd ref="8482294741"/>
+    <nd ref="747941758"/>
+    <nd ref="7499223836"/>
+    <nd ref="747941796"/>
+    <nd ref="8482294747"/>
+    <nd ref="7499223837"/>
+    <nd ref="7499223838"/>
+    <nd ref="7499223839"/>
+    <nd ref="747941620"/>
+    <nd ref="7470940226"/>
+    <nd ref="7470940225"/>
+    <nd ref="747941661"/>
+    <nd ref="2358867724"/>
+  </way>
+  <way id="840601926">
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="100"/>
+    <tag k="maxweight" v="7.5"/>
+    <tag k="name" v="An der Kreisstraße"/>
+    <tag k="ref" v="LA 21"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="302431142"/>
+    <nd ref="7843863954"/>
+    <nd ref="7499112209"/>
+    <nd ref="5163425187"/>
+    <nd ref="302431138"/>
+  </way>
+  <way id="840601927">
+    <tag k="destination:backward" v="Kirche"/>
+    <tag k="highway" v="unclassified"/>
+    <tag k="maxspeed" v="100"/>
+    <tag k="name" v="St.-Ulrich-Straße"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="302431134"/>
+    <nd ref="302431135"/>
+    <nd ref="302431136"/>
+    <nd ref="302431137"/>
+    <nd ref="302431138"/>
+  </way>
+  <way id="868118128">
+    <tag k="highway" v="unclassified"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="St.-Ulrich-Straße"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="302431133"/>
+    <nd ref="302431134"/>
+  </way>
+  <way id="886341936">
+    <tag k="cutting" v="yes"/>
+    <tag k="highway" v="track"/>
+    <tag k="lit" v="no"/>
+    <tag k="name" v="Altstraßenschlucht"/>
+    <tag k="surface" v="fine_gravel"/>
+    <tag k="tracktype" v="grade2"/>
+    <nd ref="380446979"/>
+    <nd ref="380446981"/>
+    <nd ref="7470940090"/>
+    <nd ref="747941676"/>
+    <nd ref="7470940091"/>
+    <nd ref="7560719944"/>
+    <nd ref="747941703"/>
+    <nd ref="747941733"/>
+    <nd ref="7560719945"/>
+    <nd ref="747941760"/>
+    <nd ref="7560719946"/>
+    <nd ref="7470940092"/>
+    <nd ref="7499223823"/>
+  </way>
+  <relation id="7645863">
+    <member type="node" ref="7985480884" role="guidepost"/>
+    <member type="node" ref="8241614387" role="guidepost"/>
+    <member type="node" ref="8241614391" role="guidepost"/>
+    <member type="way" ref="272126079" role=""/>
+    <member type="way" ref="801741236" role=""/>
+    <member type="way" ref="272126075" role=""/>
+    <member type="way" ref="532009027" role=""/>
+    <member type="way" ref="560340630" role=""/>
+    <member type="way" ref="33433647" role=""/>
+    <member type="way" ref="798827652" role=""/>
+    <member type="way" ref="886341936" role=""/>
+    <member type="way" ref="808549594" role=""/>
+    <member type="way" ref="531997511" role=""/>
+    <member type="way" ref="798825561" role=""/>
+    <member type="way" ref="50097579" role=""/>
+    <member type="way" ref="532009021" role=""/>
+    <member type="way" ref="840601926" role=""/>
+    <member type="way" ref="840601927" role=""/>
+    <member type="way" ref="868118128" role=""/>
+    <member type="node" ref="8241614397" role="guidepost"/>
+    <member type="node" ref="2770577282" role="board"/>
+    <tag k="ascent" v="78"/>
+    <tag k="colour" v="blue"/>
+    <tag k="descent" v="78"/>
+    <tag k="description" v="Rundweg über den Landshuter Höhenwanderweg. Von Schloßberg nach Obergolding und zurück."/>
+    <tag k="distance" v="3.4"/>
+    <tag k="from" v="Schloßberg"/>
+    <tag k="name" v="T2 - Obergolding"/>
+    <tag k="network" v="lwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="operator" v="Landkreis Landshut"/>
+    <tag k="osmc:symbol" v="blue:blue:white_hiker"/>
+    <tag k="ref" v="T2"/>
+    <tag k="roundtrip" v="yes"/>
+    <tag k="route" v="hiking"/>
+    <tag k="to" v="Schloßberg"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

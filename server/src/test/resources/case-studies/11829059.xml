@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
-<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-<meta osm_base="2022-01-22T08:05:09Z"/>
-
-  <node id="495412430" lat="42.4675149" lon="2.9659487" version="3" timestamp="2021-09-05T16:05:52Z" changeset="110756115" uid="11250200" user="Hades34">
+<osm version="0.6">
+  <node id="495412430" lat="42.4675149" lon="2.9659487">
     <tag k="information" v="guidepost"/>
     <tag k="name" v="AE94- Coll del Faig"/>
     <tag k="network:type" v="node_network"/>
@@ -11,32 +8,32 @@
     <tag k="rwn_ref" v="AE94"/>
     <tag k="tourism" v="information"/>
   </node>
-  <node id="495412434" lat="42.4674410" lon="2.9659730" version="1" timestamp="2009-09-13T17:31:42Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412436" lat="42.4671400" lon="2.9665740" version="1" timestamp="2009-09-13T17:31:42Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412438" lat="42.4667490" lon="2.9678050" version="1" timestamp="2009-09-13T17:31:42Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412439" lat="42.4666510" lon="2.9696400" version="1" timestamp="2009-09-13T17:31:42Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412446" lat="42.4665950" lon="2.9718360" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412449" lat="42.4669970" lon="2.9725670" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412450" lat="42.4670550" lon="2.9733110" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412454" lat="42.4674190" lon="2.9751230" version="2" timestamp="2021-09-05T16:05:52Z" changeset="110756115" uid="11250200" user="Hades34"/>
-  <node id="495412456" lat="42.4674180" lon="2.9757990" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412458" lat="42.4675690" lon="2.9765290" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412459" lat="42.4678690" lon="2.9768070" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412461" lat="42.4679990" lon="2.9773170" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412465" lat="42.4679870" lon="2.9774030" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412467" lat="42.4683032" lon="2.9796757" version="2" timestamp="2021-09-05T16:05:52Z" changeset="110756115" uid="11250200" user="Hades34"/>
-  <node id="495412469" lat="42.4685056" lon="2.9801398" version="2" timestamp="2021-09-05T16:05:52Z" changeset="110756115" uid="11250200" user="Hades34"/>
-  <node id="495412471" lat="42.4689810" lon="2.9810350" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412473" lat="42.4691280" lon="2.9811870" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412477" lat="42.4700130" lon="2.9816470" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412478" lat="42.4707190" lon="2.9817260" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412485" lat="42.4710780" lon="2.9818700" version="1" timestamp="2009-09-13T17:31:43Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412487" lat="42.4715590" lon="2.9819450" version="1" timestamp="2009-09-13T17:31:44Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412490" lat="42.4719060" lon="2.9825220" version="1" timestamp="2009-09-13T17:31:44Z" changeset="2472042" uid="26868" user="Geum"/>
-  <node id="495412493" lat="42.4721410" lon="2.9831990" version="6" timestamp="2020-11-04T04:47:44Z" changeset="93513706" uid="922338" user="Hervé TUC">
+  <node id="495412434" lat="42.4674410" lon="2.9659730"/>
+  <node id="495412436" lat="42.4671400" lon="2.9665740"/>
+  <node id="495412438" lat="42.4667490" lon="2.9678050"/>
+  <node id="495412439" lat="42.4666510" lon="2.9696400"/>
+  <node id="495412446" lat="42.4665950" lon="2.9718360"/>
+  <node id="495412449" lat="42.4669970" lon="2.9725670"/>
+  <node id="495412450" lat="42.4670550" lon="2.9733110"/>
+  <node id="495412454" lat="42.4674190" lon="2.9751230"/>
+  <node id="495412456" lat="42.4674180" lon="2.9757990"/>
+  <node id="495412458" lat="42.4675690" lon="2.9765290"/>
+  <node id="495412459" lat="42.4678690" lon="2.9768070"/>
+  <node id="495412461" lat="42.4679990" lon="2.9773170"/>
+  <node id="495412465" lat="42.4679870" lon="2.9774030"/>
+  <node id="495412467" lat="42.4683032" lon="2.9796757"/>
+  <node id="495412469" lat="42.4685056" lon="2.9801398"/>
+  <node id="495412471" lat="42.4689810" lon="2.9810350"/>
+  <node id="495412473" lat="42.4691280" lon="2.9811870"/>
+  <node id="495412477" lat="42.4700130" lon="2.9816470"/>
+  <node id="495412478" lat="42.4707190" lon="2.9817260"/>
+  <node id="495412485" lat="42.4710780" lon="2.9818700"/>
+  <node id="495412487" lat="42.4715590" lon="2.9819450"/>
+  <node id="495412490" lat="42.4719060" lon="2.9825220"/>
+  <node id="495412493" lat="42.4721410" lon="2.9831990">
     <tag k="information" v="guidepost"/>
     <tag k="mountain_pass" v="yes"/>
-    <tag k="name" v="Coll de l'Estaca"/>
+    <tag k="name" v="Coll de l&apos;Estaca"/>
     <tag k="natural" v="saddle"/>
     <tag k="network:type" v="node_network"/>
     <tag k="operator" v="Itinerànnia"/>
@@ -44,9 +41,13 @@
     <tag k="rwn_ref" v="AE106"/>
     <tag k="tourism" v="information"/>
   </node>
-  <node id="9064229257" lat="42.4682184" lon="2.9793072" version="1" timestamp="2021-09-05T16:05:52Z" changeset="110756115" uid="11250200" user="Hades34"/>
-  <node id="9064229295" lat="42.4680892" lon="2.9786492" version="1" timestamp="2021-09-05T16:05:52Z" changeset="110756115" uid="11250200" user="Hades34"/>
-  <way id="866653573" version="2" timestamp="2021-09-05T16:05:52Z" changeset="110756115" uid="11250200" user="Hades34">
+  <node id="9064229257" lat="42.4682184" lon="2.9793072"/>
+  <node id="9064229295" lat="42.4680892" lon="2.9786492"/>
+  <way id="866653573">
+    <tag k="highway" v="path"/>
+    <tag k="ref:FFRP" v="GR10"/>
+    <tag k="sac_scale" v="mountain_hiking"/>
+    <tag k="source" v="GPS"/>
     <nd ref="495412430"/>
     <nd ref="495412434"/>
     <nd ref="495412436"/>
@@ -73,21 +74,15 @@
     <nd ref="495412487"/>
     <nd ref="495412490"/>
     <nd ref="495412493"/>
-    <tag k="highway" v="path"/>
-    <tag k="ref:FFRP" v="GR10"/>
-    <tag k="sac_scale" v="mountain_hiking"/>
-    <tag k="source" v="GPS"/>
   </way>
-  <relation id="11829059" version="2" timestamp="2021-11-08T10:55:20Z" changeset="113516771" uid="270456" user="pyrog">
+  <relation id="11829059">
     <member type="node" ref="495412430" role=""/>
     <member type="way" ref="866653573" role=""/>
     <member type="node" ref="495412493" role=""/>
     <tag k="network" v="rwn"/>
     <tag k="network:type" v="node_network"/>
-<!--    <tag k="note" v="AE93-AE106"/>-->
     <tag k="operator" v="Itinerànnia"/>
     <tag k="route" v="hiking"/>
     <tag k="type" v="route"/>
   </relation>
-
 </osm>

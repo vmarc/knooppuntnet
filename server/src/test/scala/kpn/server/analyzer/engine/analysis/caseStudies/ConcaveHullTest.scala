@@ -16,7 +16,7 @@ class ConcaveHullTest extends UnitTest {
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
 
-    val rawData = new Parser().parse(xml)
+    val rawData = new Parser(full = false).parse(xml)
 
     val data = new DataBuilder(rawData).data
     val networkRelation = data.relations(4257206)

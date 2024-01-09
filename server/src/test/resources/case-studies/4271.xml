@@ -1,1041 +1,1039 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <osm version="0.6">
-
-    <node id="25914755" lat="51.1906728" lon="4.4488951" version="5" timestamp="2017-08-11T09:48:44Z" changeset="51027605" uid="138772" user="lodde1949"/>
-    <node id="25914756" lat="51.1903075" lon="4.4490512" version="4" timestamp="2013-03-30T20:30:28Z" changeset="15556016" uid="685580" user="Gilbert54"/>
-    <node id="25914758" lat="51.1902534" lon="4.4492629" version="5" timestamp="2013-03-30T20:30:28Z" changeset="15556016" uid="685580" user="Gilbert54"/>
-    <node id="25914761" lat="51.1906561" lon="4.4492550" version="15" timestamp="2017-08-11T09:48:44Z" changeset="51027605" uid="138772" user="lodde1949"/>
-    <node id="25914764" lat="51.1913952" lon="4.4498933" version="12" timestamp="2015-12-22T11:31:27Z" changeset="36103194" uid="138772" user="lodde1949"/>
-    <node id="25914766" lat="51.1915399" lon="4.4500125" version="18" timestamp="2017-08-12T15:08:57Z" changeset="51060613" uid="138772" user="lodde1949"/>
-    <node id="25914767" lat="51.1923630" lon="4.4506265" version="12" timestamp="2017-08-12T15:08:57Z" changeset="51060613" uid="138772" user="lodde1949"/>
-    <node id="25914769" lat="51.1903760" lon="4.4492819" version="5" timestamp="2013-03-20T16:17:39Z" changeset="15433652" uid="15188" user="Polyglot"/>
-    <node id="25914770" lat="51.1897371" lon="4.4491559" version="11" timestamp="2011-08-29T21:17:52Z" changeset="9161781" uid="310392" user="meet00"/>
-    <node id="25914771" lat="51.1900618" lon="4.4491193" version="3" timestamp="2011-08-29T21:17:52Z" changeset="9161781" uid="310392" user="meet00"/>
-    <node id="25914978" lat="51.1952023" lon="4.4517769" version="5" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="25914982" lat="51.1950384" lon="4.4525476" version="4" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="25914984" lat="51.1947542" lon="4.4534606" version="5" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="25914985" lat="51.1953698" lon="4.4539843" version="6" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="26022289" lat="51.1965303" lon="4.4591909" version="6" timestamp="2018-01-31T10:47:41Z" changeset="55927744" uid="138772" user="lodde1949">
-        <tag k="highway" v="traffic_signals"/>
-    </node>
-    <node id="26022290" lat="51.1962274" lon="4.4594746" version="5" timestamp="2018-02-07T15:40:12Z" changeset="56152911" uid="138772" user="lodde1949">
-        <tag k="highway" v="traffic_signals"/>
-    </node>
-    <node id="26022291" lat="51.1957297" lon="4.4600653" version="2" timestamp="2018-02-07T11:47:53Z" changeset="56146316" uid="138772" user="lodde1949"/>
-    <node id="26022292" lat="51.1954120" lon="4.4604268" version="5" timestamp="2018-02-07T11:47:53Z" changeset="56146316" uid="138772" user="lodde1949"/>
-    <node id="26151628" lat="51.1883796" lon="4.4482430" version="8" timestamp="2017-08-08T10:21:03Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="26151630" lat="51.1884488" lon="4.4484484" version="9" timestamp="2017-08-08T10:21:03Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="26151635" lat="51.1882626" lon="4.4484947" version="5" timestamp="2017-08-08T10:21:03Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="26151668" lat="51.1882657" lon="4.4483018" version="5" timestamp="2017-08-08T10:21:03Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="26151690" lat="51.1889040" lon="4.4490027" version="5" timestamp="2012-01-22T15:09:26Z" changeset="10465577" uid="6072" user="Eimai"/>
-    <node id="26151693" lat="51.1876795" lon="4.4493499" version="1" timestamp="2007-02-25T12:18:44Z" changeset="224051" uid="6072" user="Eimai"/>
-    <node id="26151694" lat="51.1875091" lon="4.4494790" version="8" timestamp="2017-10-21T13:50:47Z" changeset="53128639" uid="138772" user="lodde1949"/>
-    <node id="26152202" lat="51.1884405" lon="4.4483231" version="7" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="26152209" lat="51.1883482" lon="4.4482356" version="5" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="26193081" lat="51.1869283" lon="4.4506815" version="4" timestamp="2017-10-21T13:50:47Z" changeset="53128639" uid="138772" user="lodde1949"/>
-    <node id="26193084" lat="51.1867373" lon="4.4498481" version="12" timestamp="2017-10-21T13:50:47Z" changeset="53128639" uid="138772" user="lodde1949"/>
-    <node id="26508074" lat="51.1946249" lon="4.4558410" version="2" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="26508075" lat="51.1940873" lon="4.4573578" version="4" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="26508077" lat="51.1939890" lon="4.4576561" version="3" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="26508078" lat="51.1943616" lon="4.4580034" version="3" timestamp="2018-01-31T10:21:12Z" changeset="55927053" uid="138772" user="lodde1949"/>
-    <node id="26508079" lat="51.1944741" lon="4.4577111" version="5" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="26508080" lat="51.1949966" lon="4.4585853" version="3" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="26508081" lat="51.1951043" lon="4.4582732" version="6" timestamp="2018-01-31T10:47:41Z" changeset="55927744" uid="138772" user="lodde1949"/>
-    <node id="26508282" lat="51.1959942" lon="4.4594919" version="2" timestamp="2017-07-29T16:24:36Z" changeset="50675716" uid="138772" user="lodde1949"/>
-    <node id="26508283" lat="51.1960881" lon="4.4591827" version="5" timestamp="2018-01-31T10:47:41Z" changeset="55927744" uid="138772" user="lodde1949"/>
-    <node id="26854480" lat="51.2005813" lon="4.4652637" version="11" timestamp="2018-02-24T18:04:48Z" changeset="56642220" uid="138772" user="lodde1949"/>
-    <node id="26854481" lat="51.2007149" lon="4.4647830" version="7" timestamp="2018-02-17T18:24:13Z" changeset="56446941" uid="138772" user="lodde1949"/>
-    <node id="26854482" lat="51.2005076" lon="4.4633458" version="2" timestamp="2018-02-17T18:24:13Z" changeset="56446941" uid="138772" user="lodde1949"/>
-    <node id="26854485" lat="51.2003963" lon="4.4622030" version="2" timestamp="2018-02-17T18:24:13Z" changeset="56446941" uid="138772" user="lodde1949"/>
-    <node id="26855553" lat="51.1975738" lon="4.4597379" version="3" timestamp="2011-08-29T21:17:52Z" changeset="9161781" uid="310392" user="meet00"/>
-    <node id="26855556" lat="51.1989071" lon="4.4599599" version="5" timestamp="2018-01-31T12:30:33Z" changeset="55930717" uid="138772" user="lodde1949"/>
-    <node id="26879820" lat="51.1965770" lon="4.4647191" version="7" timestamp="2018-02-07T14:21:01Z" changeset="56150713" uid="138772" user="lodde1949"/>
-    <node id="26879839" lat="51.1965200" lon="4.4774655" version="5" timestamp="2018-01-18T15:20:21Z" changeset="55552406" uid="138772" user="lodde1949"/>
-    <node id="26879842" lat="51.1989826" lon="4.4649040" version="7" timestamp="2016-02-15T18:10:46Z" changeset="37230774" uid="138772" user="lodde1949"/>
-    <node id="26879845" lat="51.1968372" lon="4.4722002" version="2" timestamp="2008-01-11T18:19:01Z" changeset="604252" uid="6072" user="Eimai">
-        <tag k="created_by" v="JOSM"/>
-    </node>
-    <node id="26879866" lat="51.1974649" lon="4.4695651" version="4" timestamp="2018-02-18T17:52:54Z" changeset="56469717" uid="138772" user="lodde1949"/>
-    <node id="26879904" lat="51.1992740" lon="4.4622054" version="2" timestamp="2018-02-11T13:35:17Z" changeset="56263623" uid="138772" user="lodde1949"/>
-    <node id="26879913" lat="51.1993443" lon="4.4623441" version="2" timestamp="2018-02-11T13:35:17Z" changeset="56263623" uid="138772" user="lodde1949"/>
-    <node id="26879938" lat="51.1969688" lon="4.4756030" version="6" timestamp="2018-01-18T15:05:00Z" changeset="55552058" uid="138772" user="lodde1949"/>
-    <node id="26879941" lat="51.1973227" lon="4.4661587" version="8" timestamp="2018-02-02T17:02:08Z" changeset="56001892" uid="138772" user="lodde1949"/>
-    <node id="26879948" lat="51.1977594" lon="4.4676421" version="3" timestamp="2018-02-18T17:52:54Z" changeset="56469717" uid="138772" user="lodde1949"/>
-    <node id="26879952" lat="51.1973558" lon="4.4649133" version="10" timestamp="2018-02-02T17:02:08Z" changeset="56001892" uid="138772" user="lodde1949"/>
-    <node id="26879956" lat="51.1984248" lon="4.4648037" version="6" timestamp="2016-02-15T18:10:46Z" changeset="37230774" uid="138772" user="lodde1949"/>
-    <node id="26879979" lat="51.1963789" lon="4.4740758" version="6" timestamp="2018-01-20T17:55:34Z" changeset="55609369" uid="138772" user="lodde1949"/>
-    <node id="26879999" lat="51.1971780" lon="4.4706621" version="3" timestamp="2012-03-07T00:32:49Z" changeset="10895986" uid="31573" user="SPQRobin"/>
-    <node id="26880012" lat="51.1961341" lon="4.4793337" version="9" timestamp="2018-01-18T10:55:32Z" changeset="55546451" uid="138772" user="lodde1949"/>
-    <node id="26880025" lat="51.1973421" lon="4.4675626" version="7" timestamp="2018-02-09T10:28:46Z" changeset="56212417" uid="138772" user="lodde1949"/>
-    <node id="26880038" lat="51.1955075" lon="4.4645594" version="6" timestamp="2018-02-19T16:41:53Z" changeset="56497088" uid="138772" user="lodde1949"/>
-    <node id="26880039" lat="51.1979244" lon="4.4677494" version="9" timestamp="2018-02-18T17:52:54Z" changeset="56469717" uid="138772" user="lodde1949"/>
-    <node id="26880049" lat="51.1972139" lon="4.4746634" version="5" timestamp="2018-01-23T14:24:37Z" changeset="55685547" uid="138772" user="lodde1949"/>
-    <node id="26880073" lat="51.1996626" lon="4.4650374" version="6" timestamp="2016-02-15T18:10:46Z" changeset="37230774" uid="138772" user="lodde1949"/>
-    <node id="27131592" lat="51.1898880" lon="4.4492256" version="4" timestamp="2011-08-29T21:17:53Z" changeset="9161781" uid="310392" user="meet00"/>
-    <node id="27279314" lat="51.1869397" lon="4.4507523" version="4" timestamp="2017-10-21T13:50:47Z" changeset="53128639" uid="138772" user="lodde1949"/>
-    <node id="27279320" lat="51.1856362" lon="4.4534912" version="3" timestamp="2009-02-06T13:09:36Z" changeset="195619" uid="6072" user="Eimai"/>
-    <node id="27279326" lat="51.1848628" lon="4.4552722" version="3" timestamp="2009-02-06T13:09:36Z" changeset="195619" uid="6072" user="Eimai"/>
-    <node id="27279331" lat="51.1844372" lon="4.4559155" version="5" timestamp="2018-09-30T06:29:04Z" changeset="63054343" uid="672253" user="JanFi"/>
-    <node id="27279335" lat="51.1840491" lon="4.4564953" version="2" timestamp="2008-12-20T14:46:20Z" changeset="498847" uid="6072" user="Eimai"/>
-    <node id="27279337" lat="51.1837330" lon="4.4568601" version="2" timestamp="2008-12-20T14:46:20Z" changeset="498847" uid="6072" user="Eimai"/>
-    <node id="27279340" lat="51.1855219" lon="4.4539526" version="3" timestamp="2009-02-06T13:09:36Z" changeset="195619" uid="6072" user="Eimai"/>
-    <node id="27279583" lat="51.1815608" lon="4.4564095" version="2" timestamp="2008-12-20T14:46:21Z" changeset="498847" uid="6072" user="Eimai"/>
-    <node id="27279584" lat="51.1817289" lon="4.4564095" version="2" timestamp="2008-12-20T14:46:21Z" changeset="498847" uid="6072" user="Eimai"/>
-    <node id="27279585" lat="51.1819445" lon="4.4564151" version="3" timestamp="2012-01-27T18:11:29Z" changeset="10514830" uid="6072" user="Eimai"/>
-    <node id="27279587" lat="51.1821391" lon="4.4563344" version="2" timestamp="2008-12-20T14:46:21Z" changeset="498847" uid="6072" user="Eimai"/>
-    <node id="27279588" lat="51.1823611" lon="4.4562271" version="2" timestamp="2008-12-20T14:46:21Z" changeset="498847" uid="6072" user="Eimai"/>
-    <node id="27279589" lat="51.1827915" lon="4.4566884" version="2" timestamp="2008-12-20T14:46:20Z" changeset="498847" uid="6072" user="Eimai"/>
-    <node id="27279592" lat="51.1830740" lon="4.4569566" version="2" timestamp="2008-12-20T14:46:20Z" changeset="498847" uid="6072" user="Eimai"/>
-    <node id="27279594" lat="51.1833007" lon="4.4570983" version="3" timestamp="2018-09-30T06:29:04Z" changeset="63054343" uid="672253" user="JanFi"/>
-    <node id="27279596" lat="51.1834287" lon="4.4571130" version="3" timestamp="2012-01-27T18:11:29Z" changeset="10514830" uid="6072" user="Eimai"/>
-    <node id="27280148" lat="51.1808162" lon="4.4566932" version="3" timestamp="2017-10-17T10:42:06Z" changeset="53007580" uid="138772" user="lodde1949"/>
-    <node id="27280151" lat="51.1811936" lon="4.4565664" version="2" timestamp="2012-01-27T18:11:29Z" changeset="10514830" uid="6072" user="Eimai"/>
-    <node id="27280152" lat="51.1813304" lon="4.4564987" version="2" timestamp="2012-01-27T18:11:30Z" changeset="10514830" uid="6072" user="Eimai"/>
-    <node id="27406098" lat="51.1946828" lon="4.4821870" version="6" timestamp="2018-01-19T17:08:23Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="27590296" lat="51.1990624" lon="4.4608875" version="7" timestamp="2018-02-11T13:35:17Z" changeset="56263623" uid="138772" user="lodde1949"/>
-    <node id="27590304" lat="51.1954479" lon="4.4630999" version="8" timestamp="2018-02-07T15:40:12Z" changeset="56152911" uid="138772" user="lodde1949"/>
-    <node id="27590305" lat="51.1954791" lon="4.4625317" version="4" timestamp="2018-02-07T15:40:12Z" changeset="56152911" uid="138772" user="lodde1949"/>
-    <node id="27590307" lat="51.1957109" lon="4.4617844" version="4" timestamp="2018-02-07T15:40:12Z" changeset="56152911" uid="138772" user="lodde1949"/>
-    <node id="27590309" lat="51.1959481" lon="4.4614318" version="6" timestamp="2018-02-07T15:40:12Z" changeset="56152911" uid="138772" user="lodde1949"/>
-    <node id="34912427" lat="51.1954845" lon="4.4605598" version="3" timestamp="2018-02-07T11:47:53Z" changeset="56146316" uid="138772" user="lodde1949"/>
-    <node id="178918537" lat="51.1931965" lon="4.4821661" version="9" timestamp="2016-07-01T20:48:15Z" changeset="40427709" uid="436365" user="escada">
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="05"/>
-    </node>
-    <node id="178918971" lat="51.1932573" lon="4.4822297" version="5" timestamp="2016-07-01T20:48:15Z" changeset="40427709" uid="436365" user="escada"/>
-    <node id="205130651" lat="51.1761207" lon="4.4529150" version="11" timestamp="2017-10-16T17:27:03Z" changeset="52988756" uid="138772" user="lodde1949"/>
-    <node id="218589187" lat="51.1935162" lon="4.4823771" version="2" timestamp="2018-01-19T17:08:23Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="218589188" lat="51.1933613" lon="4.4823312" version="2" timestamp="2016-07-01T20:48:15Z" changeset="40427709" uid="436365" user="escada"/>
-    <node id="218589190" lat="51.1933123" lon="4.4822839" version="2" timestamp="2016-07-01T20:48:15Z" changeset="40427709" uid="436365" user="escada"/>
-    <node id="218590445" lat="51.1936745" lon="4.4823025" version="1" timestamp="2008-01-11T17:32:05Z" changeset="604252" uid="6072" user="Eimai"/>
-    <node id="218590446" lat="51.1937618" lon="4.4822250" version="2" timestamp="2018-01-19T17:08:23Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="218590447" lat="51.1939230" lon="4.4820785" version="3" timestamp="2018-01-19T17:08:23Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="218590449" lat="51.1940925" lon="4.4819238" version="3" timestamp="2018-01-19T17:08:23Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="218590450" lat="51.1942058" lon="4.4819020" version="4" timestamp="2018-01-19T17:08:23Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="218590451" lat="51.1943224" lon="4.4819700" version="4" timestamp="2018-01-19T17:53:58Z" changeset="55584507" uid="138772" user="lodde1949"/>
-    <node id="218645392" lat="51.1955880" lon="4.4824809" version="6" timestamp="2018-01-19T17:08:23Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="218646069" lat="51.1958668" lon="4.4810850" version="4" timestamp="2018-01-19T17:08:23Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="218653297" lat="51.1959832" lon="4.4799971" version="3" timestamp="2014-04-24T03:49:07Z" changeset="21899582" uid="436365" user="escada"/>
-    <node id="218653298" lat="51.1959296" lon="4.4803084" version="3" timestamp="2014-04-24T03:49:07Z" changeset="21899582" uid="436365" user="escada"/>
-    <node id="218658575" lat="51.1958832" lon="4.4810344" version="4" timestamp="2018-01-19T17:08:23Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="218672211" lat="51.1967135" lon="4.4727667" version="7" timestamp="2008-12-13T21:15:28Z" changeset="352803" uid="6072" user="Eimai"/>
-    <node id="218681043" lat="51.1976692" lon="4.4676011" version="6" timestamp="2018-02-18T17:52:54Z" changeset="56469717" uid="138772" user="lodde1949"/>
-    <node id="218683484" lat="51.1973239" lon="4.4656123" version="3" timestamp="2018-02-02T17:02:08Z" changeset="56001892" uid="138772" user="lodde1949"/>
-    <node id="218686647" lat="51.1986313" lon="4.4648394" version="5" timestamp="2016-02-15T18:10:45Z" changeset="37230774" uid="138772" user="lodde1949"/>
-    <node id="218687259" lat="51.1960966" lon="4.4646212" version="3" timestamp="2018-02-07T14:21:01Z" changeset="56150713" uid="138772" user="lodde1949"/>
-    <node id="218689615" lat="51.1955831" lon="4.4620769" version="3" timestamp="2018-02-07T15:40:12Z" changeset="56152911" uid="138772" user="lodde1949"/>
-    <node id="218696733" lat="51.2006791" lon="4.4649153" version="3" timestamp="2018-02-17T18:24:13Z" changeset="56446941" uid="138772" user="lodde1949"/>
-    <node id="218720410" lat="51.1921587" lon="4.4504922" version="10" timestamp="2008-12-20T16:05:52Z" changeset="498847" uid="6072" user="Eimai"/>
-    <node id="218742768" lat="51.1805832" lon="4.4566459" version="2" timestamp="2017-10-17T10:42:06Z" changeset="53007580" uid="138772" user="lodde1949"/>
-    <node id="218742771" lat="51.1801004" lon="4.4565555" version="2" timestamp="2017-10-17T10:42:06Z" changeset="53007580" uid="138772" user="lodde1949"/>
-    <node id="218742772" lat="51.1798815" lon="4.4565015" version="6" timestamp="2017-10-17T10:42:06Z" changeset="53007580" uid="138772" user="lodde1949"/>
-    <node id="218742774" lat="51.1797309" lon="4.4564523" version="4" timestamp="2017-10-23T12:58:22Z" changeset="53178134" uid="138772" user="lodde1949"/>
-    <node id="218742775" lat="51.1793533" lon="4.4561766" version="2" timestamp="2017-10-22T16:45:52Z" changeset="53156390" uid="138772" user="lodde1949"/>
-    <node id="218742776" lat="51.1786229" lon="4.4554373" version="4" timestamp="2017-10-22T16:45:52Z" changeset="53156390" uid="138772" user="lodde1949"/>
-    <node id="218742778" lat="51.1780724" lon="4.4549118" version="3" timestamp="2017-10-22T16:45:52Z" changeset="53156390" uid="138772" user="lodde1949">
-        <tag k="highway" v="crossing"/>
-    </node>
-    <node id="218742780" lat="51.1779622" lon="4.4548895" version="5" timestamp="2017-10-22T17:13:05Z" changeset="53156971" uid="138772" user="lodde1949"/>
-    <node id="218742782" lat="51.1777984" lon="4.4547041" version="4" timestamp="2016-01-21T21:26:09Z" changeset="36729253" uid="15188" user="Polyglot">
-        <tag k="bus" v="yes"/>
-        <tag k="public_transport" v="stop_position"/>
-    </node>
-    <node id="218742783" lat="51.1762446" lon="4.4530558" version="3" timestamp="2017-10-16T17:27:03Z" changeset="52988756" uid="138772" user="lodde1949"/>
-    <node id="313003898" lat="51.1895783" lon="4.4491446" version="41" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="313004311" lat="51.1948663" lon="4.4516275" version="52" timestamp="2017-07-28T17:19:47Z" changeset="50654589" uid="138772" user="lodde1949"/>
-    <node id="322633494" lat="51.1958175" lon="4.4811060" version="3" timestamp="2018-01-19T17:08:23Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="410945799" lat="51.1927976" lon="4.4507875" version="1" timestamp="2009-05-25T16:10:18Z" changeset="1317188" uid="6072" user="Eimai"/>
-    <node id="568048986" lat="51.1892685" lon="4.4491169" version="2" timestamp="2012-01-22T15:09:26Z" changeset="10465577" uid="6072" user="Eimai"/>
-    <node id="568048989" lat="51.1898907" lon="4.4491346" version="2" timestamp="2011-08-29T21:17:53Z" changeset="9161781" uid="310392" user="meet00"/>
-    <node id="568553660" lat="51.1951438" lon="4.4521468" version="3" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="649600493" lat="51.1961370" lon="4.4595115" version="1" timestamp="2010-02-21T21:29:38Z" changeset="3938247" uid="10613" user="ivom"/>
-    <node id="649600594" lat="51.1963709" lon="4.4591855" version="3" timestamp="2018-01-31T10:47:42Z" changeset="55927744" uid="138772" user="lodde1949"/>
-    <node id="649600596" lat="51.1963166" lon="4.4595001" version="2" timestamp="2011-08-29T21:17:53Z" changeset="9161781" uid="310392" user="meet00"/>
-    <node id="834493133" lat="51.1882505" lon="4.4483470" version="4" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="834493137" lat="51.1882448" lon="4.4483974" version="4" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="834493144" lat="51.1883168" lon="4.4482436" version="4" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="834493146" lat="51.1882884" lon="4.4482664" version="4" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="834493155" lat="51.1885328" lon="4.4485066" version="3" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="834493159" lat="51.1885889" lon="4.4485703" version="3" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="834493164" lat="51.1884524" lon="4.4483844" version="4" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="834493167" lat="51.1884150" lon="4.4482734" version="4" timestamp="2017-08-08T10:21:04Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="1417577353" lat="51.1915457" lon="4.4500219" version="2" timestamp="2015-12-22T11:31:26Z" changeset="36103194" uid="138772" user="lodde1949"/>
-    <node id="1601212177" lat="51.1887009" lon="4.4487196" version="1" timestamp="2012-01-22T15:09:23Z" changeset="10465577" uid="6072" user="Eimai"/>
-    <node id="1601212180" lat="51.1889826" lon="4.4490706" version="2" timestamp="2017-02-09T17:57:55Z" changeset="45953515" uid="672253" user="JanFi"/>
-    <node id="1601212184" lat="51.1890048" lon="4.4490814" version="1" timestamp="2012-01-22T15:09:23Z" changeset="10465577" uid="6072" user="Eimai"/>
-    <node id="1601212192" lat="51.1890908" lon="4.4490990" version="1" timestamp="2012-01-22T15:09:23Z" changeset="10465577" uid="6072" user="Eimai"/>
-    <node id="1607666462" lat="51.1815127" lon="4.4564134" version="1" timestamp="2012-01-27T18:11:26Z" changeset="10514830" uid="6072" user="Eimai"/>
-    <node id="1607666469" lat="51.1820093" lon="4.4564049" version="1" timestamp="2012-01-27T18:11:26Z" changeset="10514830" uid="6072" user="Eimai"/>
-    <node id="1607666486" lat="51.1833646" lon="4.4571153" version="1" timestamp="2012-01-27T18:11:27Z" changeset="10514830" uid="6072" user="Eimai"/>
-    <node id="1607666487" lat="51.1834794" lon="4.4570843" version="1" timestamp="2012-01-27T18:11:27Z" changeset="10514830" uid="6072" user="Eimai"/>
-    <node id="1607666488" lat="51.1835660" lon="4.4570194" version="1" timestamp="2012-01-27T18:11:27Z" changeset="10514830" uid="6072" user="Eimai"/>
-    <node id="1915678531" lat="51.1876069" lon="4.4494341" version="1" timestamp="2012-09-15T16:57:13Z" changeset="13120491" uid="672253" user="JanFi"/>
-    <node id="2180607636" lat="51.1972418" lon="4.4703771" version="1" timestamp="2013-03-02T00:14:09Z" changeset="15216433" uid="285830" user="bolwerK"/>
-    <node id="2211552055" lat="51.1952803" lon="4.4539039" version="2" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949">
-        <tag k="highway" v="crossing"/>
-    </node>
-    <node id="2213454911" lat="51.1963568" lon="4.4593458" version="3" timestamp="2018-02-07T15:40:12Z" changeset="56152911" uid="138772" user="lodde1949"/>
-    <node id="2213454914" lat="51.1964171" lon="4.4595191" version="1" timestamp="2013-03-21T19:00:18Z" changeset="15446483" uid="15188" user="Polyglot"/>
-    <node id="2213454915" lat="51.1968830" lon="4.4596072" version="2" timestamp="2016-07-01T21:56:31Z" changeset="40428986" uid="15188" user="Polyglot">
-        <tag k="bus" v="yes"/>
-        <tag k="public_transport" v="stop_position"/>
-    </node>
-    <node id="2239187728" lat="51.1904834" lon="4.4489568" version="1" timestamp="2013-03-30T20:30:11Z" changeset="15556016" uid="685580" user="Gilbert54"/>
-    <node id="2523623519" lat="51.1946100" lon="4.4821310" version="3" timestamp="2015-12-22T16:26:21Z" changeset="36108913" uid="138772" user="lodde1949">
-        <tag k="crossing" v="uncontrolled"/>
-        <tag k="highway" v="crossing"/>
-    </node>
-    <node id="2523623526" lat="51.1947756" lon="4.4822539" version="3" timestamp="2018-01-19T17:08:24Z" changeset="55583501" uid="138772" user="lodde1949">
-        <tag k="crossing" v="uncontrolled"/>
-        <tag k="highway" v="crossing"/>
-    </node>
-    <node id="2523623527" lat="51.1956055" lon="4.4823654" version="2" timestamp="2018-01-19T17:08:25Z" changeset="55583501" uid="138772" user="lodde1949">
-        <tag k="crossing" v="uncontrolled"/>
-        <tag k="highway" v="crossing"/>
-    </node>
-    <node id="2693278503" lat="51.1760720" lon="4.4528675" version="3" timestamp="2017-10-16T17:27:04Z" changeset="52988756" uid="138772" user="lodde1949">
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="08"/>
-    </node>
-    <node id="2812570241" lat="51.1958747" lon="4.4807412" version="2" timestamp="2018-01-19T17:08:25Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="2812570242" lat="51.1959040" lon="4.4809091" version="2" timestamp="2018-01-19T17:08:25Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="3886436160" lat="51.1954538" lon="4.4628107" version="2" timestamp="2018-02-07T15:40:12Z" changeset="56152911" uid="138772" user="lodde1949"/>
-    <node id="3904968356" lat="51.1941390" lon="4.4819025" version="2" timestamp="2018-01-19T17:08:25Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="3904968655" lat="51.1949373" lon="4.4823085" version="2" timestamp="2018-01-19T17:08:27Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="4229149197" lat="51.1906786" lon="4.4490659" version="2" timestamp="2017-08-11T09:48:47Z" changeset="51027605" uid="138772" user="lodde1949"/>
-    <node id="4281797217" lat="51.1933405" lon="4.4823111" version="1" timestamp="2016-07-04T11:15:32Z" changeset="40476175" uid="436365" user="escada"/>
-    <node id="4281797253" lat="51.1938367" lon="4.4821497" version="2" timestamp="2018-01-19T17:08:29Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="4335281151" lat="51.1760886" lon="4.4528839" version="2" timestamp="2017-10-16T17:27:04Z" changeset="52988756" uid="138772" user="lodde1949">
-        <tag k="direction" v="forward"/>
-        <tag k="highway" v="give_way"/>
-    </node>
-    <node id="4544962010" lat="51.2006912" lon="4.4647189" version="2" timestamp="2018-02-17T18:24:17Z" changeset="56446941" uid="138772" user="lodde1949"/>
-    <node id="4676982206" lat="51.1898094" lon="4.4491893" version="1" timestamp="2017-02-09T17:57:54Z" changeset="45953515" uid="672253" user="JanFi"/>
-    <node id="4676982207" lat="51.1898109" lon="4.4491457" version="1" timestamp="2017-02-09T17:57:54Z" changeset="45953515" uid="672253" user="JanFi"/>
-    <node id="4796390759" lat="51.1992965" lon="4.4623513" version="2" timestamp="2018-02-11T13:35:18Z" changeset="56263623" uid="138772" user="lodde1949"/>
-    <node id="4796390789" lat="51.2002937" lon="4.4622155" version="2" timestamp="2018-02-17T18:24:17Z" changeset="56446941" uid="138772" user="lodde1949"/>
-    <node id="4811277366" lat="51.1826128" lon="4.4564968" version="1" timestamp="2017-04-23T10:44:06Z" changeset="48056263" uid="5696982" user="AbcNc"/>
-    <node id="4813636455" lat="51.1950498" lon="4.4517052" version="1" timestamp="2017-04-24T14:52:23Z" changeset="48093731" uid="5696982" user="AbcNc"/>
-    <node id="4999216113" lat="51.1938344" lon="4.4512101" version="1" timestamp="2017-07-28T07:39:05Z" changeset="50640258" uid="138772" user="lodde1949"/>
-    <node id="4999216115" lat="51.1952799" lon="4.4541136" version="1" timestamp="2017-07-28T07:39:05Z" changeset="50640258" uid="138772" user="lodde1949"/>
-    <node id="5000390816" lat="51.1943772" lon="4.4565503" version="1" timestamp="2017-07-28T17:39:38Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="5000390817" lat="51.1949539" lon="4.4549577" version="1" timestamp="2017-07-28T17:39:38Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="5000390818" lat="51.1951064" lon="4.4523298" version="1" timestamp="2017-07-28T17:39:38Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="5000390819" lat="51.1951818" lon="4.4519671" version="1" timestamp="2017-07-28T17:39:38Z" changeset="50655008" uid="138772" user="lodde1949"/>
-    <node id="5001828678" lat="51.1959854" lon="4.4597632" version="1" timestamp="2017-07-29T16:24:36Z" changeset="50675716" uid="138772" user="lodde1949"/>
-    <node id="5001828679" lat="51.1961097" lon="4.4595904" version="2" timestamp="2018-02-07T15:40:16Z" changeset="56152911" uid="138772" user="lodde1949"/>
-    <node id="5022011897" lat="51.1882489" lon="4.4484483" version="1" timestamp="2017-08-08T10:21:03Z" changeset="50939874" uid="138772" user="lodde1949"/>
-    <node id="5028163112" lat="51.1905462" lon="4.4493036" version="1" timestamp="2017-08-11T09:48:43Z" changeset="51027605" uid="138772" user="lodde1949"/>
-    <node id="5028163113" lat="51.1906128" lon="4.4492931" version="1" timestamp="2017-08-11T09:48:43Z" changeset="51027605" uid="138772" user="lodde1949"/>
-    <node id="5028163114" lat="51.1906786" lon="4.4491366" version="1" timestamp="2017-08-11T09:48:43Z" changeset="51027605" uid="138772" user="lodde1949"/>
-    <node id="5028163115" lat="51.1905877" lon="4.4489127" version="1" timestamp="2017-08-11T09:48:43Z" changeset="51027605" uid="138772" user="lodde1949"/>
-    <node id="5172756480" lat="51.1808926" lon="4.4567314" version="1" timestamp="2017-10-17T10:42:03Z" changeset="53007580" uid="138772" user="lodde1949"/>
-    <node id="5180007136" lat="51.1869079" lon="4.4508466" version="1" timestamp="2017-10-21T13:50:38Z" changeset="53128639" uid="138772" user="lodde1949"/>
-    <node id="5182058266" lat="51.1790309" lon="4.4558531" version="1" timestamp="2017-10-22T16:45:46Z" changeset="53156390" uid="138772" user="lodde1949"/>
-    <node id="5182097763" lat="51.1770231" lon="4.4538875" version="1" timestamp="2017-10-22T17:13:02Z" changeset="53156971" uid="138772" user="lodde1949"/>
-    <node id="5183781846" lat="51.1795883" lon="4.4563553" version="1" timestamp="2017-10-23T12:58:22Z" changeset="53178134" uid="138772" user="lodde1949"/>
-    <node id="5349474846" lat="51.1947441" lon="4.4822351" version="1" timestamp="2018-01-19T17:08:18Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="5349474847" lat="51.1948696" lon="4.4822879" version="1" timestamp="2018-01-19T17:08:18Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="5349474865" lat="51.1935765" lon="4.4823734" version="1" timestamp="2018-01-19T17:08:18Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="5349474866" lat="51.1936247" lon="4.4823533" version="1" timestamp="2018-01-19T17:08:18Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="5349474867" lat="51.1942223" lon="4.4819112" version="1" timestamp="2018-01-19T17:08:18Z" changeset="55583501" uid="138772" user="lodde1949"/>
-    <node id="5351284845" lat="51.1953480" lon="4.4824065" version="1" timestamp="2018-01-20T16:28:27Z" changeset="55607458" uid="138772" user="lodde1949"/>
-    <node id="5351401546" lat="51.1964332" lon="4.4739016" version="2" timestamp="2018-02-11T14:11:07Z" changeset="56264458" uid="138772" user="lodde1949"/>
-    <node id="5351401547" lat="51.1965531" lon="4.4734335" version="1" timestamp="2018-01-20T17:55:33Z" changeset="55609369" uid="138772" user="lodde1949"/>
-    <node id="5374882143" lat="51.1954952" lon="4.4590359" version="1" timestamp="2018-01-31T10:03:12Z" changeset="55926561" uid="138772" user="lodde1949"/>
-    <node id="5374958674" lat="51.1965042" lon="4.4595515" version="1" timestamp="2018-01-31T10:47:38Z" changeset="55927744" uid="138772" user="lodde1949"/>
-    <node id="5380993984" lat="51.1969612" lon="4.4648145" version="1" timestamp="2018-02-02T17:02:06Z" changeset="56001892" uid="138772" user="lodde1949"/>
-    <node id="5380993985" lat="51.1973198" lon="4.4657134" version="1" timestamp="2018-02-02T17:02:06Z" changeset="56001892" uid="138772" user="lodde1949"/>
-    <node id="5396007712" lat="51.1955272" lon="4.4622873" version="1" timestamp="2018-02-07T15:40:07Z" changeset="56152911" uid="138772" user="lodde1949"/>
-    <node id="5418732381" lat="51.2006369" lon="4.4645757" version="1" timestamp="2018-02-17T18:24:11Z" changeset="56446941" uid="138772" user="lodde1949"/>
-    <node id="5420738030" lat="51.1978126" lon="4.4676691" version="1" timestamp="2018-02-18T17:52:50Z" changeset="56469717" uid="138772" user="lodde1949"/>
-    <node id="5433898954" lat="51.2004284" lon="4.4651793" version="1" timestamp="2018-02-24T18:04:47Z" changeset="56642220" uid="138772" user="lodde1949"/>
-    <node id="5940117104" lat="51.1813816" lon="4.4564748" version="1" timestamp="2018-09-30T06:29:03Z" changeset="63054343" uid="672253" user="JanFi"/>
-    <node id="5940117135" lat="51.1831892" lon="4.4570377" version="1" timestamp="2018-09-30T06:29:03Z" changeset="63054343" uid="672253" user="JanFi"/>
-    <way id="4313960" version="11" timestamp="2017-02-09T17:57:55Z" changeset="45953515" uid="672253" user="JanFi">
-        <nd ref="26151630"/>
-        <nd ref="834493164"/>
-        <nd ref="26152202"/>
-        <nd ref="834493167"/>
-        <nd ref="26151628"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="junction" v="roundabout"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Deurnestraat"/>
-        <tag k="oneway:bicycle" v="no"/>
-    </way>
-    <way id="4313971" version="9" timestamp="2017-02-09T17:57:55Z" changeset="45953515" uid="672253" user="JanFi">
-        <nd ref="26151635"/>
-        <nd ref="26151693"/>
-        <nd ref="1915678531"/>
-        <nd ref="26151694"/>
-        <nd ref="26193084"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Deurnestraat"/>
-        <tag k="oneway:bicycle" v="no"/>
-    </way>
-    <way id="4317230" version="11" timestamp="2010-07-07T13:06:06Z" changeset="5158365" uid="6072" user="Eimai">
-        <nd ref="25914761"/>
-        <nd ref="25914764"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-    </way>
-    <way id="4317244" version="10" timestamp="2017-02-09T17:57:55Z" changeset="45953515" uid="672253" user="JanFi">
-        <nd ref="25914770"/>
-        <nd ref="4676982206"/>
-        <nd ref="27131592"/>
-        <tag k="bicycle" v="use_sidepath"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="4317250" version="11" timestamp="2017-02-09T17:57:56Z" changeset="45953515" uid="672253" user="JanFi">
-        <nd ref="1601212180"/>
-        <nd ref="26151690"/>
-        <nd ref="1601212177"/>
-        <nd ref="834493159"/>
-        <nd ref="834493155"/>
-        <nd ref="26151630"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-        <tag k="oneway:bicycle" v="no"/>
-    </way>
-    <way id="4352254" version="5" timestamp="2017-07-28T17:39:39Z" changeset="50655008" uid="138772" user="lodde1949">
-        <nd ref="25914985"/>
-        <nd ref="4999216115"/>
-        <nd ref="5000390817"/>
-        <nd ref="26508074"/>
-        <nd ref="5000390816"/>
-        <nd ref="26508075"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Ruimtevaartlaan"/>
-    </way>
-    <way id="4352308" version="6" timestamp="2017-02-11T14:05:05Z" changeset="45998397" uid="672253" user="JanFi">
-        <nd ref="26022289"/>
-        <nd ref="649600594"/>
-        <nd ref="26508283"/>
-        <nd ref="26508081"/>
-        <nd ref="26508079"/>
-        <nd ref="26508075"/>
-        <tag k="cycleway:buffer" v="0.60"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="cycleway:surface" v="paving_stones:20"/>
-        <tag k="cycleway:width" v="1.60"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Boekenberglei"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="4404300" version="8" timestamp="2018-02-17T18:24:17Z" changeset="56446941" uid="138772" user="lodde1949">
-        <nd ref="26854481"/>
-        <nd ref="4544962010"/>
-        <nd ref="5418732381"/>
-        <nd ref="26854482"/>
-        <nd ref="26854485"/>
-        <tag k="cycleway" v="track"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Menegemlei"/>
-    </way>
-    <way id="4437527" version="8" timestamp="2017-02-11T14:05:05Z" changeset="45998397" uid="672253" user="JanFi">
-        <nd ref="26022290"/>
-        <nd ref="649600596"/>
-        <nd ref="2213454914"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Boekenberglei"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="4437528" version="6" timestamp="2018-01-31T10:03:17Z" changeset="55926561" uid="138772" user="lodde1949">
-        <nd ref="26508077"/>
-        <nd ref="26508078"/>
-        <nd ref="26508080"/>
-        <nd ref="5374882143"/>
-        <nd ref="26508282"/>
-        <nd ref="649600493"/>
-        <nd ref="26022290"/>
-        <tag k="cycleway:buffer" v="0.60"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="cycleway:surface" v="paving_stones:20"/>
-        <tag k="cycleway:width" v="1.60"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Boekenberglei"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="4442835" version="7" timestamp="2017-10-21T13:50:56Z" changeset="53128639" uid="138772" user="lodde1949">
-        <nd ref="26193084"/>
-        <nd ref="26193081"/>
-        <nd ref="27279314"/>
-        <nd ref="5180007136"/>
-        <nd ref="27279320"/>
-        <nd ref="27279340"/>
-        <nd ref="27279326"/>
-        <nd ref="27279331"/>
-        <tag k="highway" v="unclassified"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Leemputtelaarbaan"/>
-    </way>
-    <way id="4442849" version="4" timestamp="2018-09-30T06:29:04Z" changeset="63054343" uid="672253" user="JanFi">
-        <nd ref="27279583"/>
-        <nd ref="1607666462"/>
-        <nd ref="5940117104"/>
-        <nd ref="27280152"/>
-        <tag k="bicycle" v="yes"/>
-        <tag k="highway" v="path"/>
-        <tag k="vehicle" v="no"/>
-    </way>
-    <way id="4442852" version="3" timestamp="2012-01-27T18:11:28Z" changeset="10514830" uid="6072" user="Eimai">
-        <nd ref="27280152"/>
-        <nd ref="27280151"/>
-        <tag k="bicycle" v="yes"/>
-        <tag k="highway" v="path"/>
-        <tag k="layer" v="-1"/>
-        <tag k="tunnel" v="yes"/>
-        <tag k="vehicle" v="no"/>
-    </way>
-    <way id="4442853" version="4" timestamp="2017-10-17T10:42:09Z" changeset="53007580" uid="138772" user="lodde1949">
-        <nd ref="27280151"/>
-        <nd ref="5172756480"/>
-        <nd ref="27280148"/>
-        <tag k="bicycle" v="yes"/>
-        <tag k="highway" v="path"/>
-        <tag k="vehicle" v="no"/>
-    </way>
-    <way id="4498506" version="4" timestamp="2017-04-16T10:08:00Z" changeset="47834519" uid="2209894" user="Spanholz">
-        <nd ref="26854485"/>
-        <nd ref="4796390789"/>
-        <nd ref="26879913"/>
-        <nd ref="4796390759"/>
-        <nd ref="26879904"/>
-        <nd ref="27590296"/>
-        <nd ref="26855556"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Gouverneur Holvoetlaan"/>
-        <tag k="oneway" v="yes"/>
-        <tag k="oneway:bicycle" v="no"/>
-    </way>
-    <way id="4498509" version="5" timestamp="2018-02-07T15:40:16Z" changeset="56152911" uid="138772" user="lodde1949">
-        <nd ref="26880038"/>
-        <nd ref="27590304"/>
-        <nd ref="3886436160"/>
-        <nd ref="27590305"/>
-        <nd ref="5396007712"/>
-        <nd ref="218689615"/>
-        <nd ref="27590307"/>
-        <nd ref="27590309"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Eduard Van Steenbergenlaan"/>
-    </way>
-    <way id="4498510" version="8" timestamp="2018-02-24T18:04:48Z" changeset="56642220" uid="138772" user="lodde1949">
-        <nd ref="26854480"/>
-        <nd ref="5433898954"/>
-        <nd ref="26880073"/>
-        <nd ref="26879842"/>
-        <nd ref="218686647"/>
-        <nd ref="26879956"/>
-        <nd ref="26879952"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Unitaslaan"/>
-    </way>
-    <way id="4542365" version="4" timestamp="2010-08-05T19:03:28Z" changeset="5411004" uid="6072" user="Eimai">
-        <nd ref="26854481"/>
-        <nd ref="218696733"/>
-        <nd ref="26854480"/>
-        <tag k="cycleway" v="track"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Eksterlaar"/>
-    </way>
-    <way id="4542366" version="5" timestamp="2015-12-12T09:54:39Z" changeset="35905791" uid="138772" user="lodde1949">
-        <nd ref="26880039"/>
-        <nd ref="26879866"/>
-        <nd ref="2180607636"/>
-        <nd ref="26879999"/>
-        <nd ref="26879845"/>
-        <nd ref="218672211"/>
-        <tag k="highway" v="track"/>
-        <tag k="name" v="Grensstraat"/>
-    </way>
-    <way id="4543971" version="2" timestamp="2010-08-06T12:32:37Z" changeset="5416446" uid="6072" user="Eimai">
-        <nd ref="26879941"/>
-        <nd ref="26880025"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Floralaan"/>
-    </way>
-    <way id="4543972" version="4" timestamp="2018-02-02T17:02:08Z" changeset="56001892" uid="138772" user="lodde1949">
-        <nd ref="26879952"/>
-        <nd ref="218683484"/>
-        <nd ref="5380993985"/>
-        <nd ref="26879941"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Charles Philipslaan"/>
-    </way>
-    <way id="4543974" version="7" timestamp="2010-08-05T19:07:31Z" changeset="5411042" uid="6072" user="Eimai">
-        <nd ref="26880049"/>
-        <nd ref="26879979"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Posthoevestraat"/>
-        <tag k="postal_code" v="2150"/>
-    </way>
-    <way id="17268542" version="6" timestamp="2016-07-04T11:15:37Z" changeset="40476175" uid="436365" user="escada">
-        <nd ref="218589187"/>
-        <nd ref="218589188"/>
-        <nd ref="4281797217"/>
-        <nd ref="218589190"/>
-        <nd ref="178918971"/>
-        <nd ref="178918537"/>
-        <tag k="highway" v="unclassified"/>
-        <tag k="name" v="Langbaan"/>
-        <tag k="sidewalk" v="no"/>
-        <tag k="surface" v="asphalt"/>
-    </way>
-    <way id="19732000" version="9" timestamp="2017-08-11T09:48:47Z" changeset="51027605" uid="138772" user="lodde1949">
-        <nd ref="25914755"/>
-        <nd ref="5028163115"/>
-        <nd ref="2239187728"/>
-        <nd ref="25914756"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="20458103" version="7" timestamp="2018-01-19T17:08:29Z" changeset="55583501" uid="138772" user="lodde1949">
-        <nd ref="218589187"/>
-        <nd ref="5349474865"/>
-        <nd ref="5349474866"/>
-        <nd ref="218590445"/>
-        <nd ref="218590446"/>
-        <nd ref="4281797253"/>
-        <nd ref="218590447"/>
-        <nd ref="218590449"/>
-        <nd ref="3904968356"/>
-        <nd ref="218590450"/>
-        <nd ref="5349474867"/>
-        <nd ref="218590451"/>
-        <nd ref="2523623519"/>
-        <nd ref="27406098"/>
-        <tag k="access" v="destination"/>
-        <tag k="highway" v="residential"/>
-        <tag k="name" v="Frans Theyslei"/>
-    </way>
-    <way id="20460590" version="8" timestamp="2018-01-20T16:28:32Z" changeset="55607458" uid="138772" user="lodde1949">
-        <nd ref="218645392"/>
-        <nd ref="5351284845"/>
-        <nd ref="3904968655"/>
-        <nd ref="5349474847"/>
-        <nd ref="2523623526"/>
-        <nd ref="5349474846"/>
-        <nd ref="27406098"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="maxweight" v="5.5"/>
-        <tag k="maxweight:vehicle:conditional" v="none @ delivery"/>
-        <tag k="name" v="Georges De Grooflei"/>
-        <tag k="oneway:bicycle" v="no"/>
-    </way>
-    <way id="20460623" version="7" timestamp="2013-11-07T21:02:33Z" changeset="18771910" uid="1198074" user="DoubleA">
-        <nd ref="218645392"/>
-        <nd ref="2523623527"/>
-        <nd ref="322633494"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="maxweight" v="5.5"/>
-        <tag k="maxweight:vehicle:conditional" v="none @ delivery"/>
-        <tag k="name" v="Lindenboomstraat"/>
-    </way>
-    <way id="20460878" version="7" timestamp="2012-08-21T22:22:25Z" changeset="12814310" uid="145231" user="woodpeck_repair">
-        <nd ref="218653297"/>
-        <nd ref="218653298"/>
-        <tag k="bicycle" v="yes"/>
-        <tag k="footway" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="layer" v="-1"/>
-        <tag k="moped" v="yes"/>
-        <tag k="tunnel" v="yes"/>
-        <tag k="vehicle" v="no"/>
-    </way>
-    <way id="20460881" version="6" timestamp="2012-08-21T22:23:11Z" changeset="12814310" uid="145231" user="woodpeck_repair">
-        <nd ref="26880012"/>
-        <nd ref="218653297"/>
-        <tag k="bicycle" v="yes"/>
-        <tag k="footway" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="moped" v="yes"/>
-        <tag k="vehicle" v="no"/>
-    </way>
-    <way id="20460885" version="7" timestamp="2014-04-24T03:49:07Z" changeset="21899582" uid="436365" user="escada">
-        <nd ref="218653298"/>
-        <nd ref="2812570241"/>
-        <nd ref="2812570242"/>
-        <tag k="bicycle" v="yes"/>
-        <tag k="footway" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="moped" v="yes"/>
-        <tag k="vehicle" v="no"/>
-    </way>
-    <way id="20461145" version="5" timestamp="2014-07-19T05:56:15Z" changeset="24233350" uid="15188" user="Polyglot">
-        <nd ref="218646069"/>
-        <nd ref="218658575"/>
-        <nd ref="2812570242"/>
-        <tag k="highway" v="cycleway"/>
-    </way>
-    <way id="20461703" version="7" timestamp="2018-01-20T17:55:36Z" changeset="55609369" uid="138772" user="lodde1949">
-        <nd ref="218672211"/>
-        <nd ref="5351401547"/>
-        <nd ref="5351401546"/>
-        <nd ref="26879979"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Grensstraat"/>
-        <tag k="postal_code" v="2100;2150"/>
-    </way>
-    <way id="20462059" version="2" timestamp="2010-08-05T19:07:32Z" changeset="5411042" uid="6072" user="Eimai">
-        <nd ref="26880049"/>
-        <nd ref="26879938"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="August Van Putlei"/>
-    </way>
-    <way id="20462163" version="5" timestamp="2018-02-18T17:53:03Z" changeset="56469717" uid="138772" user="lodde1949">
-        <nd ref="26880039"/>
-        <nd ref="5420738030"/>
-        <nd ref="26879948"/>
-        <nd ref="218681043"/>
-        <nd ref="26880025"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Mortselsesteenweg"/>
-    </way>
-    <way id="20462382" version="4" timestamp="2018-02-02T17:02:09Z" changeset="56001892" uid="138772" user="lodde1949">
-        <nd ref="26879952"/>
-        <nd ref="5380993984"/>
-        <nd ref="26879820"/>
-        <nd ref="218687259"/>
-        <nd ref="26880038"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Unitaslaan"/>
-    </way>
-    <way id="20462579" version="3" timestamp="2010-08-06T12:32:36Z" changeset="5416446" uid="6072" user="Eimai">
-        <nd ref="27590309"/>
-        <nd ref="34912427"/>
-        <nd ref="26022292"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Eduard Van Steenbergenlaan"/>
-    </way>
-    <way id="20462702" version="6" timestamp="2017-07-29T16:24:36Z" changeset="50675716" uid="138772" user="lodde1949">
-        <nd ref="26022290"/>
-        <nd ref="5001828679"/>
-        <nd ref="5001828678"/>
-        <nd ref="26022291"/>
-        <nd ref="26022292"/>
-        <tag k="cycleway" v="track"/>
-        <tag k="cycleway:buffer" v="2"/>
-        <tag k="cycleway:width" v="1.52"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Drakenhoflaan"/>
-    </way>
-    <way id="20462710" version="7" timestamp="2017-03-11T04:32:53Z" changeset="46754893" uid="672253" user="JanFi">
-        <nd ref="26022289"/>
-        <nd ref="2213454911"/>
-        <tag k="cycleway" v="track"/>
-        <tag k="cycleway:buffer" v="2"/>
-        <tag k="cycleway:width" v="1.52"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Drakenhoflaan"/>
-    </way>
-    <way id="20463973" version="3" timestamp="2010-07-26T19:54:14Z" changeset="5323993" uid="6072" user="Eimai">
-        <nd ref="26508075"/>
-        <nd ref="26508077"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-    </way>
-    <way id="20464002" version="4" timestamp="2017-11-09T15:53:04Z" changeset="53642620" uid="6089259" user="Slim naar Antwerpen">
-        <nd ref="25914985"/>
-        <nd ref="2211552055"/>
-        <nd ref="25914984"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Luchtvaartstraat"/>
-        <tag k="oneway" v="yes"/>
-        <tag k="oneway:bicycle" v="no"/>
-    </way>
-    <way id="20464119" version="6" timestamp="2017-08-11T09:48:47Z" changeset="51027605" uid="138772" user="lodde1949">
-        <nd ref="25914761"/>
-        <nd ref="5028163114"/>
-        <nd ref="4229149197"/>
-        <nd ref="25914755"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="20465172" version="5" timestamp="2017-10-23T12:58:23Z" changeset="53178134" uid="138772" user="lodde1949">
-        <nd ref="27280148"/>
-        <nd ref="218742768"/>
-        <nd ref="218742771"/>
-        <nd ref="218742772"/>
-        <nd ref="218742774"/>
-        <nd ref="5183781846"/>
-        <nd ref="218742775"/>
-        <nd ref="5182058266"/>
-        <nd ref="218742776"/>
-        <nd ref="218742778"/>
-        <nd ref="218742780"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Dieseghemlei"/>
-    </way>
-    <way id="20474784" version="5" timestamp="2017-11-09T15:53:04Z" changeset="53642620" uid="6089259" user="Slim naar Antwerpen">
-        <nd ref="25914984"/>
-        <nd ref="25914982"/>
-        <nd ref="5000390818"/>
-        <nd ref="568553660"/>
-        <nd ref="5000390819"/>
-        <nd ref="25914978"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Alfred Oststraat"/>
-        <tag k="oneway" v="yes"/>
-        <tag k="oneway:bicycle" v="no"/>
-    </way>
-    <way id="22947405" version="5" timestamp="2017-02-09T17:58:00Z" changeset="45953515" uid="672253" user="JanFi">
-        <nd ref="26151628"/>
-        <nd ref="26152209"/>
-        <nd ref="834493144"/>
-        <nd ref="834493146"/>
-        <nd ref="26151668"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="junction" v="roundabout"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Deurnestraat"/>
-        <tag k="oneway:bicycle" v="no"/>
-    </way>
-    <way id="22947406" version="6" timestamp="2017-08-08T10:21:05Z" changeset="50939874" uid="138772" user="lodde1949">
-        <nd ref="26151668"/>
-        <nd ref="834493133"/>
-        <nd ref="834493137"/>
-        <nd ref="5022011897"/>
-        <nd ref="26151635"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="junction" v="roundabout"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Deurnestraat"/>
-        <tag k="oneway:bicycle" v="no"/>
-    </way>
-    <way id="23917273" version="6" timestamp="2017-02-09T17:58:01Z" changeset="45953515" uid="672253" user="JanFi">
-        <nd ref="25914756"/>
-        <nd ref="25914771"/>
-        <nd ref="568048989"/>
-        <nd ref="4676982207"/>
-        <nd ref="25914770"/>
-        <tag k="bicycle" v="use_sidepath"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="23917312" version="7" timestamp="2017-08-11T09:48:47Z" changeset="51027605" uid="138772" user="lodde1949">
-        <nd ref="25914769"/>
-        <nd ref="5028163112"/>
-        <nd ref="5028163113"/>
-        <nd ref="25914761"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="23917328" version="6" timestamp="2017-02-09T17:58:01Z" changeset="45953515" uid="672253" user="JanFi">
-        <nd ref="27131592"/>
-        <nd ref="25914758"/>
-        <nd ref="25914769"/>
-        <tag k="bicycle" v="use_sidepath"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="24311589" version="13" timestamp="2016-08-04T10:16:50Z" changeset="41233993" uid="436365" user="escada">
-        <nd ref="205130651"/>
-        <nd ref="4335281151"/>
-        <nd ref="2693278503"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Dieseghemlei"/>
-    </way>
-    <way id="27466017" version="6" timestamp="2018-09-30T06:29:05Z" changeset="63054343" uid="672253" user="JanFi">
-        <nd ref="27279331"/>
-        <nd ref="27279335"/>
-        <nd ref="27279337"/>
-        <nd ref="1607666488"/>
-        <nd ref="1607666487"/>
-        <nd ref="27279596"/>
-        <nd ref="1607666486"/>
-        <nd ref="27279594"/>
-        <nd ref="5940117135"/>
-        <nd ref="27279592"/>
-        <nd ref="27279589"/>
-        <nd ref="4811277366"/>
-        <nd ref="27279588"/>
-        <tag k="highway" v="unclassified"/>
-        <tag k="name" v="Waesdonckstraat"/>
-    </way>
-    <way id="28390409" version="7" timestamp="2011-12-13T01:09:15Z" changeset="10104420" uid="15188" user="Polyglot">
-        <nd ref="25914766"/>
-        <nd ref="1417577353"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-    </way>
-    <way id="35409473" version="2" timestamp="2010-07-07T13:06:11Z" changeset="5158365" uid="6072" user="Eimai">
-        <nd ref="25914764"/>
-        <nd ref="25914766"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-    </way>
-    <way id="35409758" version="3" timestamp="2012-01-27T18:11:29Z" changeset="10514830" uid="6072" user="Eimai">
-        <nd ref="27279588"/>
-        <nd ref="27279587"/>
-        <nd ref="1607666469"/>
-        <nd ref="27279585"/>
-        <nd ref="27279584"/>
-        <nd ref="27279583"/>
-        <tag k="bicycle" v="yes"/>
-        <tag k="highway" v="path"/>
-        <tag k="vehicle" v="no"/>
-    </way>
-    <way id="41421316" version="3" timestamp="2017-10-22T17:13:08Z" changeset="53156971" uid="138772" user="lodde1949">
-        <nd ref="218742780"/>
-        <nd ref="218742782"/>
-        <nd ref="5182097763"/>
-        <nd ref="218742783"/>
-        <nd ref="205130651"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="Dieseghemlei"/>
-    </way>
-    <way id="71154181" version="2" timestamp="2010-08-05T19:13:49Z" changeset="5411121" uid="6072" user="Eimai">
-        <nd ref="26879938"/>
-        <nd ref="26879839"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="30"/>
-        <tag k="maxspeed:zone" v="school"/>
-        <tag k="name" v="August Van Putlei"/>
-    </way>
-    <way id="71155239" version="1" timestamp="2010-08-05T19:13:45Z" changeset="5411121" uid="6072" user="Eimai">
-        <nd ref="26879839"/>
-        <nd ref="26880012"/>
-        <tag k="access" v="destination"/>
-        <tag k="bicycle" v="yes"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="moped" v="yes"/>
-        <tag k="name" v="August Van Putlei"/>
-    </way>
-    <way id="71155241" version="4" timestamp="2012-08-21T22:23:01Z" changeset="12814310" uid="145231" user="woodpeck_repair">
-        <nd ref="218646069"/>
-        <nd ref="322633494"/>
-        <tag k="bicycle" v="yes"/>
-        <tag k="footway" v="yes"/>
-        <tag k="highway" v="cycleway"/>
-        <tag k="moped" v="yes"/>
-        <tag k="vehicle" v="no"/>
-    </way>
-    <way id="141003829" version="3" timestamp="2017-07-28T07:39:12Z" changeset="50640258" uid="138772" user="lodde1949">
-        <nd ref="1417577353"/>
-        <nd ref="218720410"/>
-        <nd ref="25914767"/>
-        <nd ref="410945799"/>
-        <nd ref="4999216113"/>
-        <nd ref="313004311"/>
-        <nd ref="4813636455"/>
-        <nd ref="25914978"/>
-        <tag k="highway" v="residential"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-    </way>
-    <way id="211334427" version="3" timestamp="2018-01-31T10:47:44Z" changeset="55927744" uid="138772" user="lodde1949">
-        <nd ref="2213454914"/>
-        <nd ref="5374958674"/>
-        <nd ref="2213454915"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Boekenberglei"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="211334428" version="2" timestamp="2017-02-11T14:05:26Z" changeset="45998397" uid="672253" user="JanFi">
-        <nd ref="2213454915"/>
-        <nd ref="26855553"/>
-        <nd ref="26855556"/>
-        <tag k="cycleway:right" v="track"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Boekenberglei"/>
-        <tag k="oneway" v="yes"/>
-    </way>
-    <way id="211334434" version="3" timestamp="2017-03-11T04:32:59Z" changeset="46754893" uid="672253" user="JanFi">
-        <nd ref="2213454911"/>
-        <nd ref="26022290"/>
-        <tag k="cycleway" v="track"/>
-        <tag k="cycleway:buffer" v="2"/>
-        <tag k="cycleway:width" v="1.52"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Drakenhoflaan"/>
-    </way>
-    <way id="473622572" version="1" timestamp="2017-02-09T17:57:54Z" changeset="45953515" uid="672253" user="JanFi">
-        <nd ref="1601212180"/>
-        <nd ref="1601212184"/>
-        <nd ref="1601212192"/>
-        <nd ref="568048986"/>
-        <nd ref="313003898"/>
-        <nd ref="25914770"/>
-        <tag k="bicycle" v="use_sidepath"/>
-        <tag k="highway" v="tertiary"/>
-        <tag k="maxspeed" v="50"/>
-        <tag k="maxspeed:default" v="built-up_area"/>
-        <tag k="name" v="Vosstraat"/>
-        <tag k="oneway:bicycle" v="no"/>
-    </way>
-    <relation id="4271" version="30" timestamp="2018-09-30T06:29:07Z" changeset="63054343" uid="672253" user="JanFi">
-        <member type="way" ref="17268542" role=""/>
-        <member type="way" ref="20458103" role=""/>
-        <member type="way" ref="20460590" role=""/>
-        <member type="way" ref="20460623" role=""/>
-        <member type="way" ref="71155241" role=""/>
-        <member type="way" ref="20461145" role=""/>
-        <member type="way" ref="20460885" role=""/>
-        <member type="way" ref="20460878" role=""/>
-        <member type="way" ref="20460881" role=""/>
-        <member type="way" ref="71155239" role=""/>
-        <member type="way" ref="71154181" role=""/>
-        <member type="way" ref="20462059" role=""/>
-        <member type="way" ref="4543974" role=""/>
-        <member type="way" ref="20461703" role=""/>
-        <member type="way" ref="4542366" role=""/>
-        <member type="way" ref="20462163" role=""/>
-        <member type="way" ref="4543971" role=""/>
-        <member type="way" ref="4543972" role=""/>
-        <member type="way" ref="20462382" role="forward"/>
-        <member type="way" ref="4498509" role="forward"/>
-        <member type="way" ref="20462579" role="forward"/>
-        <member type="way" ref="20462702" role="backward"/>
-        <member type="way" ref="4498510" role="forward"/>
-        <member type="way" ref="4542365" role="forward"/>
-        <member type="way" ref="4404300" role="backward"/>
-        <member type="way" ref="4498506" role="backward"/>
-        <member type="way" ref="211334428" role="forward"/>
-        <member type="way" ref="211334427" role="forward"/>
-        <member type="way" ref="4437527" role="forward"/>
-        <member type="way" ref="211334434" role="backward"/>
-        <member type="way" ref="20462710" role="backward"/>
-        <member type="way" ref="4352308" role="forward"/>
-        <member type="way" ref="4437528" role="forward"/>
-        <member type="way" ref="20463973" role="forward"/>
-        <member type="way" ref="4352254" role=""/>
-        <member type="way" ref="20464002" role=""/>
-        <member type="way" ref="20474784" role=""/>
-        <member type="way" ref="141003829" role=""/>
-        <member type="way" ref="28390409" role=""/>
-        <member type="way" ref="35409473" role=""/>
-        <member type="way" ref="4317230" role=""/>
-        <member type="way" ref="20464119" role="forward"/>
-        <member type="way" ref="19732000" role="forward"/>
-        <member type="way" ref="23917273" role="forward"/>
-        <member type="way" ref="23917312" role="forward"/>
-        <member type="way" ref="23917328" role="forward"/>
-        <member type="way" ref="4317244" role="forward"/>
-        <member type="way" ref="473622572" role=""/>
-        <member type="way" ref="4317250" role=""/>
-        <member type="way" ref="4313960" role=""/>
-        <member type="way" ref="22947405" role=""/>
-        <member type="way" ref="22947406" role=""/>
-        <member type="way" ref="4313971" role=""/>
-        <member type="way" ref="4442835" role=""/>
-        <member type="way" ref="27466017" role=""/>
-        <member type="way" ref="35409758" role=""/>
-        <member type="way" ref="4442849" role=""/>
-        <member type="way" ref="4442852" role=""/>
-        <member type="way" ref="4442853" role=""/>
-        <member type="way" ref="20465172" role=""/>
-        <member type="way" ref="41421316" role=""/>
-        <member type="way" ref="24311589" role=""/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="network" v="rcn"/>
-        <tag k="note" v="05-08"/>
-        <tag k="route" v="bicycle"/>
-        <tag k="type" v="route"/>
-    </relation>
-
+  <node id="25914755" lat="51.1906728" lon="4.4488951"/>
+  <node id="25914756" lat="51.1903075" lon="4.4490512"/>
+  <node id="25914758" lat="51.1902534" lon="4.4492629"/>
+  <node id="25914761" lat="51.1906561" lon="4.4492550"/>
+  <node id="25914764" lat="51.1913952" lon="4.4498933"/>
+  <node id="25914766" lat="51.1915399" lon="4.4500125"/>
+  <node id="25914767" lat="51.1923630" lon="4.4506265"/>
+  <node id="25914769" lat="51.1903760" lon="4.4492819"/>
+  <node id="25914770" lat="51.1897371" lon="4.4491559"/>
+  <node id="25914771" lat="51.1900618" lon="4.4491193"/>
+  <node id="25914978" lat="51.1952023" lon="4.4517769"/>
+  <node id="25914982" lat="51.1950384" lon="4.4525476"/>
+  <node id="25914984" lat="51.1947542" lon="4.4534606"/>
+  <node id="25914985" lat="51.1953698" lon="4.4539843"/>
+  <node id="26022289" lat="51.1965303" lon="4.4591909">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="26022290" lat="51.1962274" lon="4.4594746">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="26022291" lat="51.1957297" lon="4.4600653"/>
+  <node id="26022292" lat="51.1954120" lon="4.4604268"/>
+  <node id="26151628" lat="51.1883796" lon="4.4482430"/>
+  <node id="26151630" lat="51.1884488" lon="4.4484484"/>
+  <node id="26151635" lat="51.1882626" lon="4.4484947"/>
+  <node id="26151668" lat="51.1882657" lon="4.4483018"/>
+  <node id="26151690" lat="51.1889040" lon="4.4490027"/>
+  <node id="26151693" lat="51.1876795" lon="4.4493499"/>
+  <node id="26151694" lat="51.1875091" lon="4.4494790"/>
+  <node id="26152202" lat="51.1884405" lon="4.4483231"/>
+  <node id="26152209" lat="51.1883482" lon="4.4482356"/>
+  <node id="26193081" lat="51.1869283" lon="4.4506815"/>
+  <node id="26193084" lat="51.1867373" lon="4.4498481"/>
+  <node id="26508074" lat="51.1946249" lon="4.4558410"/>
+  <node id="26508075" lat="51.1940873" lon="4.4573578"/>
+  <node id="26508077" lat="51.1939890" lon="4.4576561"/>
+  <node id="26508078" lat="51.1943616" lon="4.4580034"/>
+  <node id="26508079" lat="51.1944741" lon="4.4577111"/>
+  <node id="26508080" lat="51.1949966" lon="4.4585853"/>
+  <node id="26508081" lat="51.1951043" lon="4.4582732"/>
+  <node id="26508282" lat="51.1959942" lon="4.4594919"/>
+  <node id="26508283" lat="51.1960881" lon="4.4591827"/>
+  <node id="26854480" lat="51.2005813" lon="4.4652637"/>
+  <node id="26854481" lat="51.2007149" lon="4.4647830"/>
+  <node id="26854482" lat="51.2005076" lon="4.4633458"/>
+  <node id="26854485" lat="51.2003963" lon="4.4622030"/>
+  <node id="26855553" lat="51.1975738" lon="4.4597379"/>
+  <node id="26855556" lat="51.1989071" lon="4.4599599"/>
+  <node id="26879820" lat="51.1965770" lon="4.4647191"/>
+  <node id="26879839" lat="51.1965200" lon="4.4774655"/>
+  <node id="26879842" lat="51.1989826" lon="4.4649040"/>
+  <node id="26879845" lat="51.1968372" lon="4.4722002">
+    <tag k="created_by" v="JOSM"/>
+  </node>
+  <node id="26879866" lat="51.1974649" lon="4.4695651"/>
+  <node id="26879904" lat="51.1992740" lon="4.4622054"/>
+  <node id="26879913" lat="51.1993443" lon="4.4623441"/>
+  <node id="26879938" lat="51.1969688" lon="4.4756030"/>
+  <node id="26879941" lat="51.1973227" lon="4.4661587"/>
+  <node id="26879948" lat="51.1977594" lon="4.4676421"/>
+  <node id="26879952" lat="51.1973558" lon="4.4649133"/>
+  <node id="26879956" lat="51.1984248" lon="4.4648037"/>
+  <node id="26879979" lat="51.1963789" lon="4.4740758"/>
+  <node id="26879999" lat="51.1971780" lon="4.4706621"/>
+  <node id="26880012" lat="51.1961341" lon="4.4793337"/>
+  <node id="26880025" lat="51.1973421" lon="4.4675626"/>
+  <node id="26880038" lat="51.1955075" lon="4.4645594"/>
+  <node id="26880039" lat="51.1979244" lon="4.4677494"/>
+  <node id="26880049" lat="51.1972139" lon="4.4746634"/>
+  <node id="26880073" lat="51.1996626" lon="4.4650374"/>
+  <node id="27131592" lat="51.1898880" lon="4.4492256"/>
+  <node id="27279314" lat="51.1869397" lon="4.4507523"/>
+  <node id="27279320" lat="51.1856362" lon="4.4534912"/>
+  <node id="27279326" lat="51.1848628" lon="4.4552722"/>
+  <node id="27279331" lat="51.1844372" lon="4.4559155"/>
+  <node id="27279335" lat="51.1840491" lon="4.4564953"/>
+  <node id="27279337" lat="51.1837330" lon="4.4568601"/>
+  <node id="27279340" lat="51.1855219" lon="4.4539526"/>
+  <node id="27279583" lat="51.1815608" lon="4.4564095"/>
+  <node id="27279584" lat="51.1817289" lon="4.4564095"/>
+  <node id="27279585" lat="51.1819445" lon="4.4564151"/>
+  <node id="27279587" lat="51.1821391" lon="4.4563344"/>
+  <node id="27279588" lat="51.1823611" lon="4.4562271"/>
+  <node id="27279589" lat="51.1827915" lon="4.4566884"/>
+  <node id="27279592" lat="51.1830740" lon="4.4569566"/>
+  <node id="27279594" lat="51.1833007" lon="4.4570983"/>
+  <node id="27279596" lat="51.1834287" lon="4.4571130"/>
+  <node id="27280148" lat="51.1808162" lon="4.4566932"/>
+  <node id="27280151" lat="51.1811936" lon="4.4565664"/>
+  <node id="27280152" lat="51.1813304" lon="4.4564987"/>
+  <node id="27406098" lat="51.1946828" lon="4.4821870"/>
+  <node id="27590296" lat="51.1990624" lon="4.4608875"/>
+  <node id="27590304" lat="51.1954479" lon="4.4630999"/>
+  <node id="27590305" lat="51.1954791" lon="4.4625317"/>
+  <node id="27590307" lat="51.1957109" lon="4.4617844"/>
+  <node id="27590309" lat="51.1959481" lon="4.4614318"/>
+  <node id="34912427" lat="51.1954845" lon="4.4605598"/>
+  <node id="178918537" lat="51.1931965" lon="4.4821661">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="05"/>
+  </node>
+  <node id="178918971" lat="51.1932573" lon="4.4822297"/>
+  <node id="205130651" lat="51.1761207" lon="4.4529150"/>
+  <node id="218589187" lat="51.1935162" lon="4.4823771"/>
+  <node id="218589188" lat="51.1933613" lon="4.4823312"/>
+  <node id="218589190" lat="51.1933123" lon="4.4822839"/>
+  <node id="218590445" lat="51.1936745" lon="4.4823025"/>
+  <node id="218590446" lat="51.1937618" lon="4.4822250"/>
+  <node id="218590447" lat="51.1939230" lon="4.4820785"/>
+  <node id="218590449" lat="51.1940925" lon="4.4819238"/>
+  <node id="218590450" lat="51.1942058" lon="4.4819020"/>
+  <node id="218590451" lat="51.1943224" lon="4.4819700"/>
+  <node id="218645392" lat="51.1955880" lon="4.4824809"/>
+  <node id="218646069" lat="51.1958668" lon="4.4810850"/>
+  <node id="218653297" lat="51.1959832" lon="4.4799971"/>
+  <node id="218653298" lat="51.1959296" lon="4.4803084"/>
+  <node id="218658575" lat="51.1958832" lon="4.4810344"/>
+  <node id="218672211" lat="51.1967135" lon="4.4727667"/>
+  <node id="218681043" lat="51.1976692" lon="4.4676011"/>
+  <node id="218683484" lat="51.1973239" lon="4.4656123"/>
+  <node id="218686647" lat="51.1986313" lon="4.4648394"/>
+  <node id="218687259" lat="51.1960966" lon="4.4646212"/>
+  <node id="218689615" lat="51.1955831" lon="4.4620769"/>
+  <node id="218696733" lat="51.2006791" lon="4.4649153"/>
+  <node id="218720410" lat="51.1921587" lon="4.4504922"/>
+  <node id="218742768" lat="51.1805832" lon="4.4566459"/>
+  <node id="218742771" lat="51.1801004" lon="4.4565555"/>
+  <node id="218742772" lat="51.1798815" lon="4.4565015"/>
+  <node id="218742774" lat="51.1797309" lon="4.4564523"/>
+  <node id="218742775" lat="51.1793533" lon="4.4561766"/>
+  <node id="218742776" lat="51.1786229" lon="4.4554373"/>
+  <node id="218742778" lat="51.1780724" lon="4.4549118">
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="218742780" lat="51.1779622" lon="4.4548895"/>
+  <node id="218742782" lat="51.1777984" lon="4.4547041">
+    <tag k="bus" v="yes"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="218742783" lat="51.1762446" lon="4.4530558"/>
+  <node id="313003898" lat="51.1895783" lon="4.4491446"/>
+  <node id="313004311" lat="51.1948663" lon="4.4516275"/>
+  <node id="322633494" lat="51.1958175" lon="4.4811060"/>
+  <node id="410945799" lat="51.1927976" lon="4.4507875"/>
+  <node id="568048986" lat="51.1892685" lon="4.4491169"/>
+  <node id="568048989" lat="51.1898907" lon="4.4491346"/>
+  <node id="568553660" lat="51.1951438" lon="4.4521468"/>
+  <node id="649600493" lat="51.1961370" lon="4.4595115"/>
+  <node id="649600594" lat="51.1963709" lon="4.4591855"/>
+  <node id="649600596" lat="51.1963166" lon="4.4595001"/>
+  <node id="834493133" lat="51.1882505" lon="4.4483470"/>
+  <node id="834493137" lat="51.1882448" lon="4.4483974"/>
+  <node id="834493144" lat="51.1883168" lon="4.4482436"/>
+  <node id="834493146" lat="51.1882884" lon="4.4482664"/>
+  <node id="834493155" lat="51.1885328" lon="4.4485066"/>
+  <node id="834493159" lat="51.1885889" lon="4.4485703"/>
+  <node id="834493164" lat="51.1884524" lon="4.4483844"/>
+  <node id="834493167" lat="51.1884150" lon="4.4482734"/>
+  <node id="1417577353" lat="51.1915457" lon="4.4500219"/>
+  <node id="1601212177" lat="51.1887009" lon="4.4487196"/>
+  <node id="1601212180" lat="51.1889826" lon="4.4490706"/>
+  <node id="1601212184" lat="51.1890048" lon="4.4490814"/>
+  <node id="1601212192" lat="51.1890908" lon="4.4490990"/>
+  <node id="1607666462" lat="51.1815127" lon="4.4564134"/>
+  <node id="1607666469" lat="51.1820093" lon="4.4564049"/>
+  <node id="1607666486" lat="51.1833646" lon="4.4571153"/>
+  <node id="1607666487" lat="51.1834794" lon="4.4570843"/>
+  <node id="1607666488" lat="51.1835660" lon="4.4570194"/>
+  <node id="1915678531" lat="51.1876069" lon="4.4494341"/>
+  <node id="2180607636" lat="51.1972418" lon="4.4703771"/>
+  <node id="2211552055" lat="51.1952803" lon="4.4539039">
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2213454911" lat="51.1963568" lon="4.4593458"/>
+  <node id="2213454914" lat="51.1964171" lon="4.4595191"/>
+  <node id="2213454915" lat="51.1968830" lon="4.4596072">
+    <tag k="bus" v="yes"/>
+    <tag k="public_transport" v="stop_position"/>
+  </node>
+  <node id="2239187728" lat="51.1904834" lon="4.4489568"/>
+  <node id="2523623519" lat="51.1946100" lon="4.4821310">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2523623526" lat="51.1947756" lon="4.4822539">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2523623527" lat="51.1956055" lon="4.4823654">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2693278503" lat="51.1760720" lon="4.4528675">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="08"/>
+  </node>
+  <node id="2812570241" lat="51.1958747" lon="4.4807412"/>
+  <node id="2812570242" lat="51.1959040" lon="4.4809091"/>
+  <node id="3886436160" lat="51.1954538" lon="4.4628107"/>
+  <node id="3904968356" lat="51.1941390" lon="4.4819025"/>
+  <node id="3904968655" lat="51.1949373" lon="4.4823085"/>
+  <node id="4229149197" lat="51.1906786" lon="4.4490659"/>
+  <node id="4281797217" lat="51.1933405" lon="4.4823111"/>
+  <node id="4281797253" lat="51.1938367" lon="4.4821497"/>
+  <node id="4335281151" lat="51.1760886" lon="4.4528839">
+    <tag k="direction" v="forward"/>
+    <tag k="highway" v="give_way"/>
+  </node>
+  <node id="4544962010" lat="51.2006912" lon="4.4647189"/>
+  <node id="4676982206" lat="51.1898094" lon="4.4491893"/>
+  <node id="4676982207" lat="51.1898109" lon="4.4491457"/>
+  <node id="4796390759" lat="51.1992965" lon="4.4623513"/>
+  <node id="4796390789" lat="51.2002937" lon="4.4622155"/>
+  <node id="4811277366" lat="51.1826128" lon="4.4564968"/>
+  <node id="4813636455" lat="51.1950498" lon="4.4517052"/>
+  <node id="4999216113" lat="51.1938344" lon="4.4512101"/>
+  <node id="4999216115" lat="51.1952799" lon="4.4541136"/>
+  <node id="5000390816" lat="51.1943772" lon="4.4565503"/>
+  <node id="5000390817" lat="51.1949539" lon="4.4549577"/>
+  <node id="5000390818" lat="51.1951064" lon="4.4523298"/>
+  <node id="5000390819" lat="51.1951818" lon="4.4519671"/>
+  <node id="5001828678" lat="51.1959854" lon="4.4597632"/>
+  <node id="5001828679" lat="51.1961097" lon="4.4595904"/>
+  <node id="5022011897" lat="51.1882489" lon="4.4484483"/>
+  <node id="5028163112" lat="51.1905462" lon="4.4493036"/>
+  <node id="5028163113" lat="51.1906128" lon="4.4492931"/>
+  <node id="5028163114" lat="51.1906786" lon="4.4491366"/>
+  <node id="5028163115" lat="51.1905877" lon="4.4489127"/>
+  <node id="5172756480" lat="51.1808926" lon="4.4567314"/>
+  <node id="5180007136" lat="51.1869079" lon="4.4508466"/>
+  <node id="5182058266" lat="51.1790309" lon="4.4558531"/>
+  <node id="5182097763" lat="51.1770231" lon="4.4538875"/>
+  <node id="5183781846" lat="51.1795883" lon="4.4563553"/>
+  <node id="5349474846" lat="51.1947441" lon="4.4822351"/>
+  <node id="5349474847" lat="51.1948696" lon="4.4822879"/>
+  <node id="5349474865" lat="51.1935765" lon="4.4823734"/>
+  <node id="5349474866" lat="51.1936247" lon="4.4823533"/>
+  <node id="5349474867" lat="51.1942223" lon="4.4819112"/>
+  <node id="5351284845" lat="51.1953480" lon="4.4824065"/>
+  <node id="5351401546" lat="51.1964332" lon="4.4739016"/>
+  <node id="5351401547" lat="51.1965531" lon="4.4734335"/>
+  <node id="5374882143" lat="51.1954952" lon="4.4590359"/>
+  <node id="5374958674" lat="51.1965042" lon="4.4595515"/>
+  <node id="5380993984" lat="51.1969612" lon="4.4648145"/>
+  <node id="5380993985" lat="51.1973198" lon="4.4657134"/>
+  <node id="5396007712" lat="51.1955272" lon="4.4622873"/>
+  <node id="5418732381" lat="51.2006369" lon="4.4645757"/>
+  <node id="5420738030" lat="51.1978126" lon="4.4676691"/>
+  <node id="5433898954" lat="51.2004284" lon="4.4651793"/>
+  <node id="5940117104" lat="51.1813816" lon="4.4564748"/>
+  <node id="5940117135" lat="51.1831892" lon="4.4570377"/>
+  <way id="4313960">
+    <tag k="cycleway:right" v="track"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Deurnestraat"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <nd ref="26151630"/>
+    <nd ref="834493164"/>
+    <nd ref="26152202"/>
+    <nd ref="834493167"/>
+    <nd ref="26151628"/>
+  </way>
+  <way id="4313971">
+    <tag k="cycleway:right" v="track"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Deurnestraat"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <nd ref="26151635"/>
+    <nd ref="26151693"/>
+    <nd ref="1915678531"/>
+    <nd ref="26151694"/>
+    <nd ref="26193084"/>
+  </way>
+  <way id="4317230">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <nd ref="25914761"/>
+    <nd ref="25914764"/>
+  </way>
+  <way id="4317244">
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="25914770"/>
+    <nd ref="4676982206"/>
+    <nd ref="27131592"/>
+  </way>
+  <way id="4317250">
+    <tag k="cycleway:right" v="track"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <nd ref="1601212180"/>
+    <nd ref="26151690"/>
+    <nd ref="1601212177"/>
+    <nd ref="834493159"/>
+    <nd ref="834493155"/>
+    <nd ref="26151630"/>
+  </way>
+  <way id="4352254">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Ruimtevaartlaan"/>
+    <nd ref="25914985"/>
+    <nd ref="4999216115"/>
+    <nd ref="5000390817"/>
+    <nd ref="26508074"/>
+    <nd ref="5000390816"/>
+    <nd ref="26508075"/>
+  </way>
+  <way id="4352308">
+    <tag k="cycleway:buffer" v="0.60"/>
+    <tag k="cycleway:right" v="track"/>
+    <tag k="cycleway:surface" v="paving_stones:20"/>
+    <tag k="cycleway:width" v="1.60"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Boekenberglei"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="26022289"/>
+    <nd ref="649600594"/>
+    <nd ref="26508283"/>
+    <nd ref="26508081"/>
+    <nd ref="26508079"/>
+    <nd ref="26508075"/>
+  </way>
+  <way id="4404300">
+    <tag k="cycleway" v="track"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Menegemlei"/>
+    <nd ref="26854481"/>
+    <nd ref="4544962010"/>
+    <nd ref="5418732381"/>
+    <nd ref="26854482"/>
+    <nd ref="26854485"/>
+  </way>
+  <way id="4437527">
+    <tag k="cycleway:right" v="track"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Boekenberglei"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="26022290"/>
+    <nd ref="649600596"/>
+    <nd ref="2213454914"/>
+  </way>
+  <way id="4437528">
+    <tag k="cycleway:buffer" v="0.60"/>
+    <tag k="cycleway:right" v="track"/>
+    <tag k="cycleway:surface" v="paving_stones:20"/>
+    <tag k="cycleway:width" v="1.60"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Boekenberglei"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="26508077"/>
+    <nd ref="26508078"/>
+    <nd ref="26508080"/>
+    <nd ref="5374882143"/>
+    <nd ref="26508282"/>
+    <nd ref="649600493"/>
+    <nd ref="26022290"/>
+  </way>
+  <way id="4442835">
+    <tag k="highway" v="unclassified"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Leemputtelaarbaan"/>
+    <nd ref="26193084"/>
+    <nd ref="26193081"/>
+    <nd ref="27279314"/>
+    <nd ref="5180007136"/>
+    <nd ref="27279320"/>
+    <nd ref="27279340"/>
+    <nd ref="27279326"/>
+    <nd ref="27279331"/>
+  </way>
+  <way id="4442849">
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="vehicle" v="no"/>
+    <nd ref="27279583"/>
+    <nd ref="1607666462"/>
+    <nd ref="5940117104"/>
+    <nd ref="27280152"/>
+  </way>
+  <way id="4442852">
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="layer" v="-1"/>
+    <tag k="tunnel" v="yes"/>
+    <tag k="vehicle" v="no"/>
+    <nd ref="27280152"/>
+    <nd ref="27280151"/>
+  </way>
+  <way id="4442853">
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="vehicle" v="no"/>
+    <nd ref="27280151"/>
+    <nd ref="5172756480"/>
+    <nd ref="27280148"/>
+  </way>
+  <way id="4498506">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Gouverneur Holvoetlaan"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <nd ref="26854485"/>
+    <nd ref="4796390789"/>
+    <nd ref="26879913"/>
+    <nd ref="4796390759"/>
+    <nd ref="26879904"/>
+    <nd ref="27590296"/>
+    <nd ref="26855556"/>
+  </way>
+  <way id="4498509">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Eduard Van Steenbergenlaan"/>
+    <nd ref="26880038"/>
+    <nd ref="27590304"/>
+    <nd ref="3886436160"/>
+    <nd ref="27590305"/>
+    <nd ref="5396007712"/>
+    <nd ref="218689615"/>
+    <nd ref="27590307"/>
+    <nd ref="27590309"/>
+  </way>
+  <way id="4498510">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Unitaslaan"/>
+    <nd ref="26854480"/>
+    <nd ref="5433898954"/>
+    <nd ref="26880073"/>
+    <nd ref="26879842"/>
+    <nd ref="218686647"/>
+    <nd ref="26879956"/>
+    <nd ref="26879952"/>
+  </way>
+  <way id="4542365">
+    <tag k="cycleway" v="track"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Eksterlaar"/>
+    <nd ref="26854481"/>
+    <nd ref="218696733"/>
+    <nd ref="26854480"/>
+  </way>
+  <way id="4542366">
+    <tag k="highway" v="track"/>
+    <tag k="name" v="Grensstraat"/>
+    <nd ref="26880039"/>
+    <nd ref="26879866"/>
+    <nd ref="2180607636"/>
+    <nd ref="26879999"/>
+    <nd ref="26879845"/>
+    <nd ref="218672211"/>
+  </way>
+  <way id="4543971">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Floralaan"/>
+    <nd ref="26879941"/>
+    <nd ref="26880025"/>
+  </way>
+  <way id="4543972">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Charles Philipslaan"/>
+    <nd ref="26879952"/>
+    <nd ref="218683484"/>
+    <nd ref="5380993985"/>
+    <nd ref="26879941"/>
+  </way>
+  <way id="4543974">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Posthoevestraat"/>
+    <tag k="postal_code" v="2150"/>
+    <nd ref="26880049"/>
+    <nd ref="26879979"/>
+  </way>
+  <way id="17268542">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Langbaan"/>
+    <tag k="sidewalk" v="no"/>
+    <tag k="surface" v="asphalt"/>
+    <nd ref="218589187"/>
+    <nd ref="218589188"/>
+    <nd ref="4281797217"/>
+    <nd ref="218589190"/>
+    <nd ref="178918971"/>
+    <nd ref="178918537"/>
+  </way>
+  <way id="19732000">
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="25914755"/>
+    <nd ref="5028163115"/>
+    <nd ref="2239187728"/>
+    <nd ref="25914756"/>
+  </way>
+  <way id="20458103">
+    <tag k="access" v="destination"/>
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Frans Theyslei"/>
+    <nd ref="218589187"/>
+    <nd ref="5349474865"/>
+    <nd ref="5349474866"/>
+    <nd ref="218590445"/>
+    <nd ref="218590446"/>
+    <nd ref="4281797253"/>
+    <nd ref="218590447"/>
+    <nd ref="218590449"/>
+    <nd ref="3904968356"/>
+    <nd ref="218590450"/>
+    <nd ref="5349474867"/>
+    <nd ref="218590451"/>
+    <nd ref="2523623519"/>
+    <nd ref="27406098"/>
+  </way>
+  <way id="20460590">
+    <tag k="cycleway:right" v="track"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="maxweight" v="5.5"/>
+    <tag k="maxweight:vehicle:conditional" v="none @ delivery"/>
+    <tag k="name" v="Georges De Grooflei"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <nd ref="218645392"/>
+    <nd ref="5351284845"/>
+    <nd ref="3904968655"/>
+    <nd ref="5349474847"/>
+    <nd ref="2523623526"/>
+    <nd ref="5349474846"/>
+    <nd ref="27406098"/>
+  </way>
+  <way id="20460623">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="maxweight" v="5.5"/>
+    <tag k="maxweight:vehicle:conditional" v="none @ delivery"/>
+    <tag k="name" v="Lindenboomstraat"/>
+    <nd ref="218645392"/>
+    <nd ref="2523623527"/>
+    <nd ref="322633494"/>
+  </way>
+  <way id="20460878">
+    <tag k="bicycle" v="yes"/>
+    <tag k="footway" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="layer" v="-1"/>
+    <tag k="moped" v="yes"/>
+    <tag k="tunnel" v="yes"/>
+    <tag k="vehicle" v="no"/>
+    <nd ref="218653297"/>
+    <nd ref="218653298"/>
+  </way>
+  <way id="20460881">
+    <tag k="bicycle" v="yes"/>
+    <tag k="footway" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="moped" v="yes"/>
+    <tag k="vehicle" v="no"/>
+    <nd ref="26880012"/>
+    <nd ref="218653297"/>
+  </way>
+  <way id="20460885">
+    <tag k="bicycle" v="yes"/>
+    <tag k="footway" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="moped" v="yes"/>
+    <tag k="vehicle" v="no"/>
+    <nd ref="218653298"/>
+    <nd ref="2812570241"/>
+    <nd ref="2812570242"/>
+  </way>
+  <way id="20461145">
+    <tag k="highway" v="cycleway"/>
+    <nd ref="218646069"/>
+    <nd ref="218658575"/>
+    <nd ref="2812570242"/>
+  </way>
+  <way id="20461703">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Grensstraat"/>
+    <tag k="postal_code" v="2100;2150"/>
+    <nd ref="218672211"/>
+    <nd ref="5351401547"/>
+    <nd ref="5351401546"/>
+    <nd ref="26879979"/>
+  </way>
+  <way id="20462059">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="August Van Putlei"/>
+    <nd ref="26880049"/>
+    <nd ref="26879938"/>
+  </way>
+  <way id="20462163">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Mortselsesteenweg"/>
+    <nd ref="26880039"/>
+    <nd ref="5420738030"/>
+    <nd ref="26879948"/>
+    <nd ref="218681043"/>
+    <nd ref="26880025"/>
+  </way>
+  <way id="20462382">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Unitaslaan"/>
+    <nd ref="26879952"/>
+    <nd ref="5380993984"/>
+    <nd ref="26879820"/>
+    <nd ref="218687259"/>
+    <nd ref="26880038"/>
+  </way>
+  <way id="20462579">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Eduard Van Steenbergenlaan"/>
+    <nd ref="27590309"/>
+    <nd ref="34912427"/>
+    <nd ref="26022292"/>
+  </way>
+  <way id="20462702">
+    <tag k="cycleway" v="track"/>
+    <tag k="cycleway:buffer" v="2"/>
+    <tag k="cycleway:width" v="1.52"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Drakenhoflaan"/>
+    <nd ref="26022290"/>
+    <nd ref="5001828679"/>
+    <nd ref="5001828678"/>
+    <nd ref="26022291"/>
+    <nd ref="26022292"/>
+  </way>
+  <way id="20462710">
+    <tag k="cycleway" v="track"/>
+    <tag k="cycleway:buffer" v="2"/>
+    <tag k="cycleway:width" v="1.52"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Drakenhoflaan"/>
+    <nd ref="26022289"/>
+    <nd ref="2213454911"/>
+  </way>
+  <way id="20463973">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <nd ref="26508075"/>
+    <nd ref="26508077"/>
+  </way>
+  <way id="20464002">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Luchtvaartstraat"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <nd ref="25914985"/>
+    <nd ref="2211552055"/>
+    <nd ref="25914984"/>
+  </way>
+  <way id="20464119">
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="25914761"/>
+    <nd ref="5028163114"/>
+    <nd ref="4229149197"/>
+    <nd ref="25914755"/>
+  </way>
+  <way id="20465172">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Dieseghemlei"/>
+    <nd ref="27280148"/>
+    <nd ref="218742768"/>
+    <nd ref="218742771"/>
+    <nd ref="218742772"/>
+    <nd ref="218742774"/>
+    <nd ref="5183781846"/>
+    <nd ref="218742775"/>
+    <nd ref="5182058266"/>
+    <nd ref="218742776"/>
+    <nd ref="218742778"/>
+    <nd ref="218742780"/>
+  </way>
+  <way id="20474784">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Alfred Oststraat"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <nd ref="25914984"/>
+    <nd ref="25914982"/>
+    <nd ref="5000390818"/>
+    <nd ref="568553660"/>
+    <nd ref="5000390819"/>
+    <nd ref="25914978"/>
+  </way>
+  <way id="22947405">
+    <tag k="cycleway:right" v="track"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Deurnestraat"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <nd ref="26151628"/>
+    <nd ref="26152209"/>
+    <nd ref="834493144"/>
+    <nd ref="834493146"/>
+    <nd ref="26151668"/>
+  </way>
+  <way id="22947406">
+    <tag k="cycleway:right" v="track"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="junction" v="roundabout"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Deurnestraat"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <nd ref="26151668"/>
+    <nd ref="834493133"/>
+    <nd ref="834493137"/>
+    <nd ref="5022011897"/>
+    <nd ref="26151635"/>
+  </way>
+  <way id="23917273">
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="25914756"/>
+    <nd ref="25914771"/>
+    <nd ref="568048989"/>
+    <nd ref="4676982207"/>
+    <nd ref="25914770"/>
+  </way>
+  <way id="23917312">
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="25914769"/>
+    <nd ref="5028163112"/>
+    <nd ref="5028163113"/>
+    <nd ref="25914761"/>
+  </way>
+  <way id="23917328">
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="27131592"/>
+    <nd ref="25914758"/>
+    <nd ref="25914769"/>
+  </way>
+  <way id="24311589">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Dieseghemlei"/>
+    <nd ref="205130651"/>
+    <nd ref="4335281151"/>
+    <nd ref="2693278503"/>
+  </way>
+  <way id="27466017">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Waesdonckstraat"/>
+    <nd ref="27279331"/>
+    <nd ref="27279335"/>
+    <nd ref="27279337"/>
+    <nd ref="1607666488"/>
+    <nd ref="1607666487"/>
+    <nd ref="27279596"/>
+    <nd ref="1607666486"/>
+    <nd ref="27279594"/>
+    <nd ref="5940117135"/>
+    <nd ref="27279592"/>
+    <nd ref="27279589"/>
+    <nd ref="4811277366"/>
+    <nd ref="27279588"/>
+  </way>
+  <way id="28390409">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <nd ref="25914766"/>
+    <nd ref="1417577353"/>
+  </way>
+  <way id="35409473">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <nd ref="25914764"/>
+    <nd ref="25914766"/>
+  </way>
+  <way id="35409758">
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="path"/>
+    <tag k="vehicle" v="no"/>
+    <nd ref="27279588"/>
+    <nd ref="27279587"/>
+    <nd ref="1607666469"/>
+    <nd ref="27279585"/>
+    <nd ref="27279584"/>
+    <nd ref="27279583"/>
+  </way>
+  <way id="41421316">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="Dieseghemlei"/>
+    <nd ref="218742780"/>
+    <nd ref="218742782"/>
+    <nd ref="5182097763"/>
+    <nd ref="218742783"/>
+    <nd ref="205130651"/>
+  </way>
+  <way id="71154181">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="maxspeed:zone" v="school"/>
+    <tag k="name" v="August Van Putlei"/>
+    <nd ref="26879938"/>
+    <nd ref="26879839"/>
+  </way>
+  <way id="71155239">
+    <tag k="access" v="destination"/>
+    <tag k="bicycle" v="yes"/>
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="moped" v="yes"/>
+    <tag k="name" v="August Van Putlei"/>
+    <nd ref="26879839"/>
+    <nd ref="26880012"/>
+  </way>
+  <way id="71155241">
+    <tag k="bicycle" v="yes"/>
+    <tag k="footway" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="moped" v="yes"/>
+    <tag k="vehicle" v="no"/>
+    <nd ref="218646069"/>
+    <nd ref="322633494"/>
+  </way>
+  <way id="141003829">
+    <tag k="highway" v="residential"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <nd ref="1417577353"/>
+    <nd ref="218720410"/>
+    <nd ref="25914767"/>
+    <nd ref="410945799"/>
+    <nd ref="4999216113"/>
+    <nd ref="313004311"/>
+    <nd ref="4813636455"/>
+    <nd ref="25914978"/>
+  </way>
+  <way id="211334427">
+    <tag k="cycleway:right" v="track"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Boekenberglei"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="2213454914"/>
+    <nd ref="5374958674"/>
+    <nd ref="2213454915"/>
+  </way>
+  <way id="211334428">
+    <tag k="cycleway:right" v="track"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Boekenberglei"/>
+    <tag k="oneway" v="yes"/>
+    <nd ref="2213454915"/>
+    <nd ref="26855553"/>
+    <nd ref="26855556"/>
+  </way>
+  <way id="211334434">
+    <tag k="cycleway" v="track"/>
+    <tag k="cycleway:buffer" v="2"/>
+    <tag k="cycleway:width" v="1.52"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Drakenhoflaan"/>
+    <nd ref="2213454911"/>
+    <nd ref="26022290"/>
+  </way>
+  <way id="473622572">
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="maxspeed:default" v="built-up_area"/>
+    <tag k="name" v="Vosstraat"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <nd ref="1601212180"/>
+    <nd ref="1601212184"/>
+    <nd ref="1601212192"/>
+    <nd ref="568048986"/>
+    <nd ref="313003898"/>
+    <nd ref="25914770"/>
+  </way>
+  <relation id="4271">
+    <member type="way" ref="17268542" role=""/>
+    <member type="way" ref="20458103" role=""/>
+    <member type="way" ref="20460590" role=""/>
+    <member type="way" ref="20460623" role=""/>
+    <member type="way" ref="71155241" role=""/>
+    <member type="way" ref="20461145" role=""/>
+    <member type="way" ref="20460885" role=""/>
+    <member type="way" ref="20460878" role=""/>
+    <member type="way" ref="20460881" role=""/>
+    <member type="way" ref="71155239" role=""/>
+    <member type="way" ref="71154181" role=""/>
+    <member type="way" ref="20462059" role=""/>
+    <member type="way" ref="4543974" role=""/>
+    <member type="way" ref="20461703" role=""/>
+    <member type="way" ref="4542366" role=""/>
+    <member type="way" ref="20462163" role=""/>
+    <member type="way" ref="4543971" role=""/>
+    <member type="way" ref="4543972" role=""/>
+    <member type="way" ref="20462382" role="forward"/>
+    <member type="way" ref="4498509" role="forward"/>
+    <member type="way" ref="20462579" role="forward"/>
+    <member type="way" ref="20462702" role="backward"/>
+    <member type="way" ref="4498510" role="forward"/>
+    <member type="way" ref="4542365" role="forward"/>
+    <member type="way" ref="4404300" role="backward"/>
+    <member type="way" ref="4498506" role="backward"/>
+    <member type="way" ref="211334428" role="forward"/>
+    <member type="way" ref="211334427" role="forward"/>
+    <member type="way" ref="4437527" role="forward"/>
+    <member type="way" ref="211334434" role="backward"/>
+    <member type="way" ref="20462710" role="backward"/>
+    <member type="way" ref="4352308" role="forward"/>
+    <member type="way" ref="4437528" role="forward"/>
+    <member type="way" ref="20463973" role="forward"/>
+    <member type="way" ref="4352254" role=""/>
+    <member type="way" ref="20464002" role=""/>
+    <member type="way" ref="20474784" role=""/>
+    <member type="way" ref="141003829" role=""/>
+    <member type="way" ref="28390409" role=""/>
+    <member type="way" ref="35409473" role=""/>
+    <member type="way" ref="4317230" role=""/>
+    <member type="way" ref="20464119" role="forward"/>
+    <member type="way" ref="19732000" role="forward"/>
+    <member type="way" ref="23917273" role="forward"/>
+    <member type="way" ref="23917312" role="forward"/>
+    <member type="way" ref="23917328" role="forward"/>
+    <member type="way" ref="4317244" role="forward"/>
+    <member type="way" ref="473622572" role=""/>
+    <member type="way" ref="4317250" role=""/>
+    <member type="way" ref="4313960" role=""/>
+    <member type="way" ref="22947405" role=""/>
+    <member type="way" ref="22947406" role=""/>
+    <member type="way" ref="4313971" role=""/>
+    <member type="way" ref="4442835" role=""/>
+    <member type="way" ref="27466017" role=""/>
+    <member type="way" ref="35409758" role=""/>
+    <member type="way" ref="4442849" role=""/>
+    <member type="way" ref="4442852" role=""/>
+    <member type="way" ref="4442853" role=""/>
+    <member type="way" ref="20465172" role=""/>
+    <member type="way" ref="41421316" role=""/>
+    <member type="way" ref="24311589" role=""/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="network" v="rcn"/>
+    <tag k="note" v="05-08"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

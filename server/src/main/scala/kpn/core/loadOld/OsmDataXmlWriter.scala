@@ -13,9 +13,9 @@ object OsmDataXmlWriter {
   }
 }
 
-class OsmDataXmlWriter(data: RawData, out: PrintWriter) {
+class OsmDataXmlWriter(data: RawData, out: PrintWriter, full: Boolean = true) {
 
-  private val writer = new OsmXmlWriter(out)
+  private val writer = new OsmXmlWriter(out, full)
 
   def print(): Unit = {
     writer.printHeader()

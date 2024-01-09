@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.59 e21c39fe">
-  <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-  <meta osm_base="2022-12-18T10:08:59Z"/>
-
-  <relation id="312993" version="479" timestamp="2022-03-13T16:43:27Z" changeset="118437453" uid="7103674" user="Peter Elderson">
+<osm version="0.6">
+  <relation id="312993">
     <member type="node" ref="3773786832" role="start"/>
     <member type="relation" ref="8831649" role=""/>
     <member type="relation" ref="8832176" role=""/>
@@ -33,7 +30,7 @@
     <tag k="website" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8831649" version="19" timestamp="2022-08-27T05:52:29Z" changeset="125430160" uid="353766" user="PeeWee32">
+  <relation id="8831649">
     <member type="way" ref="373960910" role=""/>
     <member type="way" ref="145813250" role=""/>
     <member type="way" ref="145813430" role=""/>
@@ -123,7 +120,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832176" version="44" timestamp="2022-11-03T09:31:38Z" changeset="128428367" uid="319572" user="martiensch">
+  <relation id="8832176">
     <member type="way" ref="128158396" role=""/>
     <member type="way" ref="80368394" role=""/>
     <member type="way" ref="243999517" role=""/>
@@ -264,7 +261,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832220" version="7" timestamp="2022-05-03T19:21:35Z" changeset="120513227" uid="146393" user="Sint E7">
+  <relation id="8832220">
     <member type="way" ref="146111197" role=""/>
     <member type="way" ref="123898728" role=""/>
     <member type="way" ref="405032279" role=""/>
@@ -330,7 +327,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832221" version="18" timestamp="2022-11-12T17:29:53Z" changeset="128821720" uid="2530858" user="Geim">
+  <relation id="8832221">
     <member type="way" ref="86574962" role=""/>
     <member type="way" ref="787371024" role=""/>
     <member type="way" ref="87083387" role=""/>
@@ -449,7 +446,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832222" version="30" timestamp="2022-11-12T17:29:53Z" changeset="128821720" uid="2530858" user="Geim">
+  <relation id="8832222">
     <member type="way" ref="78557057" role=""/>
     <member type="way" ref="75653461" role=""/>
     <member type="way" ref="808125437" role=""/>
@@ -600,7 +597,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832391" version="15" timestamp="2022-05-03T19:21:35Z" changeset="120513227" uid="146393" user="Sint E7">
+  <relation id="8832391">
     <member type="way" ref="6413686" role=""/>
     <member type="way" ref="6413689" role=""/>
     <member type="way" ref="6413692" role=""/>
@@ -709,7 +706,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832392" version="19" timestamp="2022-11-11T19:08:36Z" changeset="128789682" uid="334075" user="eggie">
+  <relation id="8832392">
     <member type="way" ref="80704569" role=""/>
     <member type="way" ref="80704486" role=""/>
     <member type="way" ref="39440183" role=""/>
@@ -813,7 +810,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832704" version="13" timestamp="2022-10-17T13:28:28Z" changeset="127673491" uid="927112" user="CartoKees">
+  <relation id="8832704">
     <member type="way" ref="72756333" role=""/>
     <member type="way" ref="148394436" role=""/>
     <member type="way" ref="1041725939" role=""/>
@@ -911,7 +908,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832705" version="18" timestamp="2022-10-10T13:27:01Z" changeset="127304191" uid="927112" user="CartoKees">
+  <relation id="8832705">
     <member type="way" ref="88379669" role=""/>
     <member type="way" ref="527050288" role=""/>
     <member type="way" ref="561035119" role=""/>
@@ -1009,7 +1006,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832706" version="17" timestamp="2022-01-11T16:33:32Z" changeset="116031304" uid="1256852" user="HJ Stoevenbelt">
+  <relation id="8832706">
     <member type="way" ref="6804715" role=""/>
     <member type="way" ref="6804705" role=""/>
     <member type="way" ref="6804501" role=""/>
@@ -1111,7 +1108,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832707" version="21" timestamp="2022-05-25T18:35:43Z" changeset="121488443" uid="2530858" user="Geim">
+  <relation id="8832707">
     <member type="way" ref="891555504" role=""/>
     <member type="way" ref="155571998" role=""/>
     <member type="way" ref="260668768" role=""/>
@@ -1240,7 +1237,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832708" version="24" timestamp="2022-03-18T15:41:05Z" changeset="118637943" uid="294028" user="dvdhoven">
+  <relation id="8832708">
     <member type="way" ref="289935722" role=""/>
     <member type="way" ref="6422413" role=""/>
     <member type="way" ref="6422479" role=""/>
@@ -1361,7 +1358,7 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-  <relation id="8832709" version="22" timestamp="2022-05-10T17:20:44Z" changeset="120803962" uid="67141" user="ligfietser">
+  <relation id="8832709">
     <member type="way" ref="6416332" role=""/>
     <member type="way" ref="6416303" role=""/>
     <member type="way" ref="6416302" role=""/>
@@ -1510,5 +1507,4 @@
     <tag k="url" v="https://nivon.nl/pieterpad-1-en-2/"/>
     <tag k="wikipedia" v="nl:Pieterpad"/>
   </relation>
-
 </osm>

@@ -24,7 +24,7 @@ object OverpassData {
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    val rawData = new Parser().parse(xml.head)
+    val rawData = new Parser(full = false).parse(xml.head)
     OverpassData(
       rawData.nodes,
       rawData.ways,

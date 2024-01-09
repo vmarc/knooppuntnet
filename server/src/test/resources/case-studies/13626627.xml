@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
-<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-<meta osm_base="2022-01-22T08:05:09Z"/>
-
-  <node id="899344186" lat="45.2265465" lon="6.2010406" version="1" timestamp="2010-09-06T17:44:26Z" changeset="5700446" uid="200426" user="gottferdom"/>
-  <node id="899344227" lat="45.2267081" lon="6.2009295" version="2" timestamp="2022-01-02T14:39:23Z" changeset="115672412" uid="10296811" user="Luc Gential"/>
-  <node id="899344335" lat="45.2267593" lon="6.2009995" version="1" timestamp="2010-09-06T17:44:29Z" changeset="5700446" uid="200426" user="gottferdom"/>
-  <node id="899344412" lat="45.2264742" lon="6.2010757" version="1" timestamp="2010-09-06T17:44:30Z" changeset="5700446" uid="200426" user="gottferdom"/>
-  <node id="899344458" lat="45.2266289" lon="6.2009422" version="2" timestamp="2022-01-02T14:39:23Z" changeset="115672412" uid="10296811" user="Luc Gential"/>
-  <node id="899344489" lat="45.2267676" lon="6.2010285" version="3" timestamp="2021-12-29T16:31:52Z" changeset="115528197" uid="10296811" user="Luc Gential">
+<osm version="0.6">
+  <node id="899344186" lat="45.2265465" lon="6.2010406"/>
+  <node id="899344227" lat="45.2267081" lon="6.2009295"/>
+  <node id="899344335" lat="45.2267593" lon="6.2009995"/>
+  <node id="899344412" lat="45.2264742" lon="6.2010757"/>
+  <node id="899344458" lat="45.2266289" lon="6.2009422"/>
+  <node id="899344489" lat="45.2267676" lon="6.2010285">
     <tag k="lwn_name" v="Col de la Croix de Fer - Ouest"/>
     <tag k="network:type" v="node_network"/>
   </node>
-  <node id="899344494" lat="45.2264036" lon="6.2011127" version="3" timestamp="2022-01-02T14:20:18Z" changeset="115671655" uid="10296811" user="Luc Gential">
+  <node id="899344494" lat="45.2264036" lon="6.2011127">
     <tag k="lwn_name" v="Col de la Croix de Fer - Ouest"/>
     <tag k="network:type" v="node_network"/>
   </node>
-  <way id="429816774" version="1" timestamp="2016-07-08T08:04:17Z" changeset="40562546" uid="107257" user="FrViPofm">
+  <way id="429816774">
+    <tag k="highway" v="track"/>
+    <tag k="motor_vehicle" v="no"/>
+    <tag k="smoothness" v="very_bad"/>
+    <tag k="source" v="© CNES 2004-2007 / Spot Image"/>
+    <tag k="surface" v="unpaved"/>
+    <tag k="tracktype" v="grade3"/>
     <nd ref="899344489"/>
     <nd ref="899344335"/>
     <nd ref="899344227"/>
@@ -24,22 +27,14 @@
     <nd ref="899344186"/>
     <nd ref="899344412"/>
     <nd ref="899344494"/>
-    <tag k="highway" v="track"/>
-    <tag k="motor_vehicle" v="no"/>
-    <tag k="smoothness" v="very_bad"/>
-    <tag k="source" v="© CNES 2004-2007 / Spot Image"/>
-    <tag k="surface" v="unpaved"/>
-    <tag k="tracktype" v="grade3"/>
   </way>
-  <relation id="13626627" version="1" timestamp="2022-01-02T14:39:23Z" changeset="115672412" uid="10296811" user="Luc Gential">
+  <relation id="13626627">
     <member type="way" ref="429816774" role=""/>
     <tag k="colour" v="yellow"/>
     <tag k="network" v="lwn"/>
     <tag k="network:type" v="node_network"/>
-<!--    <tag k="note" v="Col de la Croix de Fer - Ouest - Col de la Croix de Fer - Ouest"/>-->
     <tag k="osmc:symbol" v="yellow:none:yellow_bar"/>
     <tag k="route" v="hiking"/>
     <tag k="type" v="route"/>
   </relation>
-
 </osm>

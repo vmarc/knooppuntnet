@@ -1,138 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.57.1 74a55df1">
-    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-    <meta osm_base="2022-06-22T09:32:41Z"/>
-
-    <node id="792228511" lat="53.4136864" lon="7.9808214" version="1" timestamp="2010-06-27T06:47:20Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228516" lat="53.4082639" lon="7.9861998" version="1" timestamp="2010-06-27T06:47:20Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228521" lat="53.4125210" lon="7.9813355" version="1" timestamp="2010-06-27T06:47:20Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228524" lat="53.4064216" lon="7.9873575" version="1" timestamp="2010-06-27T06:47:20Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228550" lat="53.4144629" lon="7.9806645" version="11" timestamp="2021-08-10T07:16:55Z" changeset="109444495" uid="2302962" user="Pathumthani">
-        <tag k="direction_south" v="22"/>
-        <tag k="expected_rwn_route_relations" v="1"/>
-        <tag k="hiking" v="yes"/>
-        <tag k="information" v="guidepost"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="operator" v="Gemeinde Zetel"/>
-        <tag k="rwn_ref" v="25"/>
-        <tag k="source" v="survey"/>
-        <tag k="source:date" v="2021-08-09"/>
-        <tag k="tourism" v="information"/>
-    </node>
-    <node id="792228556" lat="53.4110415" lon="7.9843349" version="1" timestamp="2010-06-27T06:47:20Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228562" lat="53.4105482" lon="7.9829419" version="1" timestamp="2010-06-27T06:47:20Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228588" lat="53.4127399" lon="7.9816670" version="1" timestamp="2010-06-27T06:47:21Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228591" lat="53.4070266" lon="7.9870362" version="1" timestamp="2010-06-27T06:47:21Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228612" lat="53.4123508" lon="7.9810601" version="1" timestamp="2010-06-27T06:47:21Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228643" lat="53.4110313" lon="7.9841331" version="2" timestamp="2021-08-31T16:57:08Z" changeset="110524238" uid="2302962" user="Pathumthani"/>
-    <node id="792228650" lat="53.4122140" lon="7.9810958" version="1" timestamp="2010-06-27T06:47:21Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228656" lat="53.4140099" lon="7.9808500" version="1" timestamp="2010-06-27T06:47:21Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="792228660" lat="53.4093505" lon="7.9856815" version="1" timestamp="2010-06-27T06:47:21Z" changeset="5086796" uid="38735" user="GPS-Wolf"/>
-    <node id="880760914" lat="53.4062325" lon="7.9874263" version="7" timestamp="2021-08-31T16:52:52Z" changeset="110524082" uid="2302962" user="Pathumthani">
-        <tag k="direction_north" v="25"/>
-        <tag k="direction_south" v="20"/>
-        <tag k="direction_west" v="18"/>
-        <tag k="expected_rwn_route_relations" v="3"/>
-        <tag k="information" v="guidepost"/>
-        <tag k="map" v="yes"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rwn_ref" v="22"/>
-        <tag k="source" v="survey"/>
-        <tag k="source:date" v="2021-08-31"/>
-        <tag k="tourism" v="information"/>
-    </node>
-    <node id="1172308903" lat="53.4089833" lon="7.9858566" version="1" timestamp="2011-02-25T14:44:06Z" changeset="7390975" uid="60508" user="GomanGorson"/>
-    <node id="1172308912" lat="53.4088663" lon="7.9859125" version="1" timestamp="2011-02-25T14:44:06Z" changeset="7390975" uid="60508" user="GomanGorson"/>
-    <node id="9051416156" lat="53.4110564" lon="7.9842327" version="1" timestamp="2021-08-31T16:57:08Z" changeset="110524238" uid="2302962" user="Pathumthani"/>
-    <node id="9051416158" lat="53.4105194" lon="7.9829882" version="1" timestamp="2021-08-31T16:57:08Z" changeset="110524238" uid="2302962" user="Pathumthani">
-        <tag k="direction_northeast" v="22"/>
-        <tag k="direction_northwest" v="25"/>
-        <tag k="hiking" v="yes"/>
-        <tag k="information" v="guidepost"/>
-        <tag k="source" v="survey"/>
-        <tag k="source:date" v="2021-08-31"/>
-        <tag k="tourism" v="information"/>
-    </node>
-    <way id="64379684" version="4" timestamp="2021-07-04T20:22:45Z" changeset="107405687" uid="253212" user="jwu-chris">
-        <nd ref="792228550"/>
-        <nd ref="792228656"/>
-        <nd ref="792228511"/>
-        <nd ref="792228588"/>
-        <nd ref="792228521"/>
-        <nd ref="792228612"/>
-        <nd ref="792228650"/>
-        <nd ref="792228562"/>
-        <tag k="highway" v="track"/>
-        <tag k="motorcar" v="no"/>
-        <tag k="motorcycle" v="no"/>
-        <tag k="surface" v="gravel"/>
-        <tag k="tracktype" v="grade3"/>
-        <tag k="width" v="2"/>
-    </way>
-    <way id="64379685" version="4" timestamp="2021-08-31T16:57:08Z" changeset="110524238" uid="2302962" user="Pathumthani">
-        <nd ref="792228562"/>
-        <nd ref="792228643"/>
-        <nd ref="9051416156"/>
-        <nd ref="792228556"/>
-        <nd ref="792228660"/>
-        <nd ref="1172308903"/>
-        <tag k="highway" v="track"/>
-        <tag k="motorcar" v="no"/>
-        <tag k="motorcycle" v="no"/>
-        <tag k="surface" v="gravel"/>
-        <tag k="tracktype" v="grade2"/>
-        <tag k="width" v="2"/>
-    </way>
-    <way id="101521457" version="2" timestamp="2019-02-14T12:13:41Z" changeset="67191654" uid="323886" user="hermann51">
-        <nd ref="1172308903"/>
-        <nd ref="1172308912"/>
-        <tag k="bridge" v="yes"/>
-        <tag k="highway" v="track"/>
-        <tag k="layer" v="1"/>
-        <tag k="motorcar" v="no"/>
-        <tag k="motorcycle" v="no"/>
-        <tag k="surface" v="gravel"/>
-        <tag k="tracktype" v="grade2"/>
-        <tag k="width" v="2"/>
-    </way>
-    <way id="101521458" version="1" timestamp="2011-02-25T14:44:06Z" changeset="7390975" uid="60508" user="GomanGorson">
-        <nd ref="1172308912"/>
-        <nd ref="792228516"/>
-        <nd ref="792228591"/>
-        <nd ref="792228524"/>
-        <tag k="highway" v="track"/>
-        <tag k="motorcar" v="no"/>
-        <tag k="motorcycle" v="no"/>
-        <tag k="surface" v="gravel"/>
-        <tag k="tracktype" v="grade2"/>
-        <tag k="width" v="2"/>
-    </way>
-    <way id="791515814" version="1" timestamp="2020-04-13T19:08:46Z" changeset="83493568" uid="64409" user="AndreasArndt">
-        <nd ref="792228524"/>
-        <nd ref="880760914"/>
-        <tag k="highway" v="track"/>
-        <tag k="motorcar" v="no"/>
-        <tag k="motorcycle" v="no"/>
-        <tag k="surface" v="gravel"/>
-        <tag k="tracktype" v="grade2"/>
-        <tag k="width" v="3"/>
-    </way>
-    <relation id="10993501" version="8" timestamp="2021-09-14T11:38:03Z" changeset="111191951" uid="2302962" user="Pathumthani">
-        <member type="way" ref="64379684" role=""/>
-        <member type="way" ref="64379685" role=""/>
-        <member type="way" ref="101521457" role=""/>
-        <member type="way" ref="101521458" role=""/>
-        <member type="way" ref="791515814" role=""/>
-        <member type="node" ref="880760914" role="guidepost"/>
-        <member type="node" ref="9051416158" role="guidepost"/>
-        <member type="node" ref="792228550" role="guidepost"/>
-        <tag k="distance" v="1.2"/>
-        <tag k="name" v="22-25"/>
-        <tag k="network" v="lcn"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="ref" v="22-25"/>
-        <tag k="route" v="hiking"/>
-        <tag k="type" v="route"/>
-    </relation>
-
+<osm version="0.6">
+  <node id="792228511" lat="53.4136864" lon="7.9808214"/>
+  <node id="792228516" lat="53.4082639" lon="7.9861998"/>
+  <node id="792228521" lat="53.4125210" lon="7.9813355"/>
+  <node id="792228524" lat="53.4064216" lon="7.9873575"/>
+  <node id="792228550" lat="53.4144629" lon="7.9806645">
+    <tag k="direction_south" v="22"/>
+    <tag k="expected_rwn_route_relations" v="1"/>
+    <tag k="hiking" v="yes"/>
+    <tag k="information" v="guidepost"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="operator" v="Gemeinde Zetel"/>
+    <tag k="rwn_ref" v="25"/>
+    <tag k="source" v="survey"/>
+    <tag k="source:date" v="2021-08-09"/>
+    <tag k="tourism" v="information"/>
+  </node>
+  <node id="792228556" lat="53.4110415" lon="7.9843349"/>
+  <node id="792228562" lat="53.4105482" lon="7.9829419"/>
+  <node id="792228588" lat="53.4127399" lon="7.9816670"/>
+  <node id="792228591" lat="53.4070266" lon="7.9870362"/>
+  <node id="792228612" lat="53.4123508" lon="7.9810601"/>
+  <node id="792228643" lat="53.4110313" lon="7.9841331"/>
+  <node id="792228650" lat="53.4122140" lon="7.9810958"/>
+  <node id="792228656" lat="53.4140099" lon="7.9808500"/>
+  <node id="792228660" lat="53.4093505" lon="7.9856815"/>
+  <node id="880760914" lat="53.4062325" lon="7.9874263">
+    <tag k="direction_north" v="25"/>
+    <tag k="direction_south" v="20"/>
+    <tag k="direction_west" v="18"/>
+    <tag k="expected_rwn_route_relations" v="3"/>
+    <tag k="information" v="guidepost"/>
+    <tag k="map" v="yes"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="22"/>
+    <tag k="source" v="survey"/>
+    <tag k="source:date" v="2021-08-31"/>
+    <tag k="tourism" v="information"/>
+  </node>
+  <node id="1172308903" lat="53.4089833" lon="7.9858566"/>
+  <node id="1172308912" lat="53.4088663" lon="7.9859125"/>
+  <node id="9051416156" lat="53.4110564" lon="7.9842327"/>
+  <node id="9051416158" lat="53.4105194" lon="7.9829882">
+    <tag k="direction_northeast" v="22"/>
+    <tag k="direction_northwest" v="25"/>
+    <tag k="hiking" v="yes"/>
+    <tag k="information" v="guidepost"/>
+    <tag k="source" v="survey"/>
+    <tag k="source:date" v="2021-08-31"/>
+    <tag k="tourism" v="information"/>
+  </node>
+  <way id="64379684">
+    <tag k="highway" v="track"/>
+    <tag k="motorcar" v="no"/>
+    <tag k="motorcycle" v="no"/>
+    <tag k="surface" v="gravel"/>
+    <tag k="tracktype" v="grade3"/>
+    <tag k="width" v="2"/>
+    <nd ref="792228550"/>
+    <nd ref="792228656"/>
+    <nd ref="792228511"/>
+    <nd ref="792228588"/>
+    <nd ref="792228521"/>
+    <nd ref="792228612"/>
+    <nd ref="792228650"/>
+    <nd ref="792228562"/>
+  </way>
+  <way id="64379685">
+    <tag k="highway" v="track"/>
+    <tag k="motorcar" v="no"/>
+    <tag k="motorcycle" v="no"/>
+    <tag k="surface" v="gravel"/>
+    <tag k="tracktype" v="grade2"/>
+    <tag k="width" v="2"/>
+    <nd ref="792228562"/>
+    <nd ref="792228643"/>
+    <nd ref="9051416156"/>
+    <nd ref="792228556"/>
+    <nd ref="792228660"/>
+    <nd ref="1172308903"/>
+  </way>
+  <way id="101521457">
+    <tag k="bridge" v="yes"/>
+    <tag k="highway" v="track"/>
+    <tag k="layer" v="1"/>
+    <tag k="motorcar" v="no"/>
+    <tag k="motorcycle" v="no"/>
+    <tag k="surface" v="gravel"/>
+    <tag k="tracktype" v="grade2"/>
+    <tag k="width" v="2"/>
+    <nd ref="1172308903"/>
+    <nd ref="1172308912"/>
+  </way>
+  <way id="101521458">
+    <tag k="highway" v="track"/>
+    <tag k="motorcar" v="no"/>
+    <tag k="motorcycle" v="no"/>
+    <tag k="surface" v="gravel"/>
+    <tag k="tracktype" v="grade2"/>
+    <tag k="width" v="2"/>
+    <nd ref="1172308912"/>
+    <nd ref="792228516"/>
+    <nd ref="792228591"/>
+    <nd ref="792228524"/>
+  </way>
+  <way id="791515814">
+    <tag k="highway" v="track"/>
+    <tag k="motorcar" v="no"/>
+    <tag k="motorcycle" v="no"/>
+    <tag k="surface" v="gravel"/>
+    <tag k="tracktype" v="grade2"/>
+    <tag k="width" v="3"/>
+    <nd ref="792228524"/>
+    <nd ref="880760914"/>
+  </way>
+  <relation id="10993501">
+    <member type="way" ref="64379684" role=""/>
+    <member type="way" ref="64379685" role=""/>
+    <member type="way" ref="101521457" role=""/>
+    <member type="way" ref="101521458" role=""/>
+    <member type="way" ref="791515814" role=""/>
+    <member type="node" ref="880760914" role="guidepost"/>
+    <member type="node" ref="9051416158" role="guidepost"/>
+    <member type="node" ref="792228550" role="guidepost"/>
+    <tag k="distance" v="1.2"/>
+    <tag k="name" v="22-25"/>
+    <tag k="network" v="lcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="ref" v="22-25"/>
+    <tag k="route" v="hiking"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

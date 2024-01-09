@@ -48,7 +48,7 @@ class IssueRouteDistance extends UnitTest {
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
 
-    val rawData = new Parser().parse(xml)
+    val rawData = new Parser(full = false).parse(xml)
 
     val relation = new DataBuilder(rawData).data.relations(relationId)
     val length = relation.wayMembers.map(_.way.length).sum.toDouble / 1000f

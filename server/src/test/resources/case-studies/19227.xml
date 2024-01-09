@@ -1,76 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<osm version="0.6" generator="Overpass API 0.7.54.13 ff15392f">
-    <note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
-    <meta osm_base="2019-09-25T15:53:02Z"/>
-
-    <node id="42737313" lat="51.4783653" lon="4.4963920" version="6" timestamp="2019-09-13T06:46:43Z" changeset="74418912" uid="7103674" user="Peter Elderson">
-        <tag k="network:type" v="node_network"/>
-        <tag k="rwn_ref" v="13"/>
-    </node>
-    <node id="42747161" lat="51.4814126" lon="4.4942753" version="3" timestamp="2010-09-12T15:33:58Z" changeset="5760689" uid="6072" user="Eimai"/>
-    <node id="42747569" lat="51.4815900" lon="4.4850500" version="7" timestamp="2019-09-13T07:21:07Z" changeset="74420788" uid="7103674" user="Peter Elderson">
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="95"/>
-    </node>
-    <node id="42747714" lat="51.4816042" lon="4.4853881" version="3" timestamp="2010-09-12T15:46:51Z" changeset="5760815" uid="6072" user="Eimai"/>
-    <node id="42748353" lat="51.4817330" lon="4.4859951" version="3" timestamp="2010-09-12T15:46:51Z" changeset="5760815" uid="6072" user="Eimai"/>
-    <node id="42749011" lat="51.4820200" lon="4.4879700" version="2" timestamp="2009-12-23T17:05:02Z" changeset="3436018" uid="12946" user="AND"/>
-    <node id="42749414" lat="51.4821700" lon="4.4889600" version="2" timestamp="2009-12-23T17:05:03Z" changeset="3436018" uid="12946" user="AND"/>
-    <node id="42750810" lat="51.4825900" lon="4.4903300" version="2" timestamp="2009-12-23T17:05:03Z" changeset="3436018" uid="12946" user="AND"/>
-    <node id="42753249" lat="51.4833226" lon="4.4929753" version="6" timestamp="2019-09-12T11:44:07Z" changeset="74389589" uid="7103674" user="Peter Elderson">
-        <tag k="expected_rwn_route_relations" v="4"/>
-        <tag k="fixme" v="incomplete;routes naar wandelnetwerk knooppunten 76 en 98 ontbreken"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="rwn_ref" v="33"/>
-    </node>
-    <node id="275607775" lat="51.4760587" lon="4.4980144" version="4" timestamp="2019-09-15T19:56:25Z" changeset="74505334" uid="553736" user="A67-A67">
-        <tag k="network:type" v="node_network"/>
-        <tag k="rcn_ref" v="55"/>
-    </node>
-    <node id="2274059392" lat="51.4832524" lon="4.4927220" version="1" timestamp="2013-04-20T18:24:36Z" changeset="15801190" uid="709444" user="micheldejongh"/>
-    <way id="7242222" version="5" timestamp="2014-12-12T18:52:39Z" changeset="27427764" uid="2394881" user="It's so funny_mechanical">
-        <nd ref="42747714"/>
-        <nd ref="42748353"/>
-        <nd ref="42749011"/>
-        <nd ref="42749414"/>
-        <nd ref="42750810"/>
-        <nd ref="2274059392"/>
-        <nd ref="42753249"/>
-        <tag k="highway" v="unclassified"/>
-        <tag k="name" v="het Dreefje"/>
-    </way>
-    <way id="7242267" version="3" timestamp="2014-12-12T18:50:52Z" changeset="27427764" uid="2394881" user="It's so funny_mechanical">
-        <nd ref="42737313"/>
-        <nd ref="42747161"/>
-        <nd ref="42753249"/>
-        <tag k="highway" v="unclassified"/>
-        <tag k="name" v="Turfvaartsestraat"/>
-    </way>
-    <way id="7242321" version="5" timestamp="2014-12-12T18:52:39Z" changeset="27427764" uid="2394881" user="It's so funny_mechanical">
-        <nd ref="42747569"/>
-        <nd ref="42747714"/>
-        <tag k="highway" v="unclassified"/>
-        <tag k="maxspeed" v="60"/>
-        <tag k="maxspeed:zone" v="yes"/>
-        <tag k="name" v="het Dreefje"/>
-    </way>
-    <way id="25302448" version="2" timestamp="2012-11-16T21:15:46Z" changeset="13899248" uid="1058894" user="Henri Muijs">
-        <nd ref="42737313"/>
-        <nd ref="275607775"/>
-        <tag k="highway" v="unclassified"/>
-        <tag k="name" v="Heiblok"/>
-        <tag k="oneway" v="no"/>
-    </way>
-    <relation id="19227" version="4" timestamp="2019-09-13T07:21:07Z" changeset="74420788" uid="7103674" user="Peter Elderson">
-        <member type="way" ref="25302448" role=""/>
-        <member type="way" ref="7242267" role=""/>
-        <member type="way" ref="7242222" role=""/>
-        <member type="way" ref="7242321" role=""/>
-        <tag k="network" v="rcn"/>
-        <tag k="network:type" v="node_network"/>
-        <tag k="note" v="55-95"/>
-        <tag k="route" v="bicycle"/>
-        <tag k="type" v="route"/>
-    </relation>
-
+<osm version="0.6">
+  <node id="42737313" lat="51.4783653" lon="4.4963920">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="13"/>
+  </node>
+  <node id="42747161" lat="51.4814126" lon="4.4942753"/>
+  <node id="42747569" lat="51.4815900" lon="4.4850500">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="95"/>
+  </node>
+  <node id="42747714" lat="51.4816042" lon="4.4853881"/>
+  <node id="42748353" lat="51.4817330" lon="4.4859951"/>
+  <node id="42749011" lat="51.4820200" lon="4.4879700"/>
+  <node id="42749414" lat="51.4821700" lon="4.4889600"/>
+  <node id="42750810" lat="51.4825900" lon="4.4903300"/>
+  <node id="42753249" lat="51.4833226" lon="4.4929753">
+    <tag k="expected_rwn_route_relations" v="4"/>
+    <tag k="fixme" v="incomplete;routes naar wandelnetwerk knooppunten 76 en 98 ontbreken"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rwn_ref" v="33"/>
+  </node>
+  <node id="275607775" lat="51.4760587" lon="4.4980144">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="55"/>
+  </node>
+  <node id="2274059392" lat="51.4832524" lon="4.4927220"/>
+  <way id="7242222">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="het Dreefje"/>
+    <nd ref="42747714"/>
+    <nd ref="42748353"/>
+    <nd ref="42749011"/>
+    <nd ref="42749414"/>
+    <nd ref="42750810"/>
+    <nd ref="2274059392"/>
+    <nd ref="42753249"/>
+  </way>
+  <way id="7242267">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Turfvaartsestraat"/>
+    <nd ref="42737313"/>
+    <nd ref="42747161"/>
+    <nd ref="42753249"/>
+  </way>
+  <way id="7242321">
+    <tag k="highway" v="unclassified"/>
+    <tag k="maxspeed" v="60"/>
+    <tag k="maxspeed:zone" v="yes"/>
+    <tag k="name" v="het Dreefje"/>
+    <nd ref="42747569"/>
+    <nd ref="42747714"/>
+  </way>
+  <way id="25302448">
+    <tag k="highway" v="unclassified"/>
+    <tag k="name" v="Heiblok"/>
+    <tag k="oneway" v="no"/>
+    <nd ref="42737313"/>
+    <nd ref="275607775"/>
+  </way>
+  <relation id="19227">
+    <member type="way" ref="25302448" role=""/>
+    <member type="way" ref="7242267" role=""/>
+    <member type="way" ref="7242222" role=""/>
+    <member type="way" ref="7242321" role=""/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="note" v="55-95"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
 </osm>

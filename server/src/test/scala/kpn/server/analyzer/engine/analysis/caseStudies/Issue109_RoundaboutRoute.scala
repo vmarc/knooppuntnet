@@ -98,6 +98,6 @@ class Issue109_RoundaboutRoute extends UnitTest {
     val stream = getClass.getResourceAsStream(s"/case-studies/$routeId.xml")
     val inputSource = new InputSource(stream)
     val xml = XML.load(inputSource)
-    new Parser().parse(xml)
+    new Parser(full = false).parse(xml)
   }
 }
