@@ -5,4 +5,4 @@
   -Xmx4G \
   -cp /kpn/bin/server.jar \
   -Dloader.main=kpn.core.tools.support.ScriptTool \
-  org.springframework.boot.loader.PropertiesLauncher "$1" "$2"
+  org.springframework.boot.loader.launch.PropertiesLauncher "$1" "$2"

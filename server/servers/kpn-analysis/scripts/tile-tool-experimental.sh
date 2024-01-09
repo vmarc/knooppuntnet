@@ -8,7 +8,7 @@ nohup /kpn/java/bin/java \
   -Xms256M \
   -Xmx3G \
   -cp /kpn/bin/server-experimental.jar \
-  -Dloader.main=kpn.core.tools.tile.TileTool org.springframework.boot.loader.PropertiesLauncher \
+  -Dloader.main=kpn.core.tools.tile.TileTool org.springframework.boot.loader.launch.PropertiesLauncher \
   --tileDir /kpn/tiles-experimental \
   --host kpn-web \
   --database kpn-3 >> /kpn/logs/tile-tool-experimental-stdout.log 2>&1 &

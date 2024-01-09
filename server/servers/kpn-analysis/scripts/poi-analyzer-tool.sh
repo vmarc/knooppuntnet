@@ -8,6 +8,6 @@ nohup /kpn/java/bin/java \
   -Dcom.sun.management.jmxremote.authenticate=false \
   -Dcom.sun.management.jmxremote.ssl=false \
   -cp /kpn/bin/dist/server-4.0.14.jar \
-  -Dloader.main=kpn.core.tools.poi.PoiAnalyzerTool org.springframework.boot.loader.PropertiesLauncher \
+  -Dloader.main=kpn.core.tools.poi.PoiAnalyzerTool org.springframework.boot.loader.launch.PropertiesLauncher \
   --poi-database kpn-experimental \
   > /kpn/logs/poi-analyzer-tool-stdout.log 2>&1 &

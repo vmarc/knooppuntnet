@@ -5,5 +5,5 @@
   -Xmx4G \
   -cp /kpn/bin/server.jar \
   -Dloader.main=kpn.core.tools.operation.OperationTool \
-  org.springframework.boot.loader.PropertiesLauncher \
+  org.springframework.boot.loader.launch.PropertiesLauncher \
   --web=true

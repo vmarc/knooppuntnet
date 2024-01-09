@@ -8,6 +8,6 @@ nohup /kpn/java/bin/java \
   -Xms256M \
   -Xmx4G \
   -cp /kpn/bin/server-history.jar \
-  -Dloader.main=kpn.core.tools.analysis.AnalysisStartTool org.springframework.boot.loader.PropertiesLauncher \
+  -Dloader.main=kpn.core.tools.analysis.AnalysisStartTool org.springframework.boot.loader.launch.PropertiesLauncher \
   --database kpn-history \
   >> /kpn/logs/analysis-start-tool-stdout.log 2>&1 &

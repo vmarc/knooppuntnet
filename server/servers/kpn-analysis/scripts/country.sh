@@ -5,4 +5,4 @@
   -Xms512M \
   -Xmx4G \
   -cp /kpn/bin/dist/server-3.0.0-SNAPSHOT-alpha-43-a.jar \
-  -Dloader.main=kpn.core.tools.country.CountryBoundaryTool org.springframework.boot.loader.PropertiesLauncher
+  -Dloader.main=kpn.core.tools.country.CountryBoundaryTool org.springframework.boot.loader.launch.PropertiesLauncher

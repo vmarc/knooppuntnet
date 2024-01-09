@@ -8,7 +8,7 @@ nohup /kpn/java/bin/java \
   -Dcom.sun.management.jmxremote.authenticate=false \
   -Dcom.sun.management.jmxremote.ssl=false \
   -cp /kpn/bin/server-history.jar \
-  -Dloader.main=kpn.core.tools.poi.PoiTileTaskTool org.springframework.boot.loader.PropertiesLauncher \
+  -Dloader.main=kpn.core.tools.poi.PoiTileTaskTool org.springframework.boot.loader.launch.PropertiesLauncher \
   --host kpn-web \
   --poi-database kpn-prod \
   --task-database kpn-prod \

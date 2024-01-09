@@ -8,5 +8,5 @@ nohup /kpn/java/bin/java \
   -Xms128M \
   -Xmx512M \
   -cp /kpn/bin/server.jar \
-  -Dloader.main=kpn.core.tools.analysis.ChangeSetInfoTool org.springframework.boot.loader.PropertiesLauncher \
+  -Dloader.main=kpn.core.tools.analysis.ChangeSetInfoTool org.springframework.boot.loader.launch.PropertiesLauncher \
   -c changesets2 -t tasks > /kpn/logs/change-set-info-tool-stdout.log 2>&1 &

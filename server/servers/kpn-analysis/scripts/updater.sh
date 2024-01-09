@@ -8,6 +8,6 @@ nohup /kpn/java/bin/java \
   -Xms256M \
   -Xmx1G \
   -cp /kpn/bin/server.jar \
-  -Dloader.main=kpn.core.replicate.UpdaterTool org.springframework.boot.loader.PropertiesLauncher \
+  -Dloader.main=kpn.core.replicate.UpdaterTool org.springframework.boot.loader.launch.PropertiesLauncher \
   --actions-database backend-actions \
   --rootDir /kpn >> /kpn/logs/updater-stdout.log 2>&1 &
