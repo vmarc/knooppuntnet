@@ -100,7 +100,7 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
   }
 
   test("forward") {
-    analyze(
+    val result = analyze(
       new MonitorRouteTestData() {
         memberWay(10, "", 1, 2)
         memberWay(11, "forward", 2, 3)
@@ -111,8 +111,9 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
       }
     ).shouldMatchTo(
       Seq(
-        // forward path, backward path
-        Seq(1, 2, 3, 8, 7, 2),
+        Seq(1, 2),
+        Seq(2, 3, 8),
+        Seq(8, 7, 2),
         Seq(8, 9)
       )
     )

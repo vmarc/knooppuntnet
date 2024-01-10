@@ -17,6 +17,7 @@ class MonitorRouteStructureAnalyzer {
 
   val segments = mutable.Buffer[Seq[RouteWay]]()
   val currentSegment = mutable.Buffer[RouteWay]()
+  var loop: Option[Seq[RouteWay]] = None
   var endNodeId: Long = 0
 
   def analyzeRoute(relation: Relation): Seq[Seq[RouteWay]] = {
@@ -80,12 +81,31 @@ class MonitorRouteStructureAnalyzer {
   }
 
   private def processNextWayMember(wayMember: WayMember): Unit = {
+    loop match {
+      case Some(loopRouteWays) => processLoop(loopRouteWays, wayMember)
+      case None => processNextWayMemberAnalyze(wayMember)
+    }
+  }
+
+  private def processNextWayMemberAnalyze(wayMember: WayMember): Unit = {
     nextRouteAnalyzer.analyze(endNodeId, wayMember) match {
       case Some(routeWay) =>
-        currentSegment.addOne(routeWay)
         endNodeId = routeWay.endNode.id
+
+        currentSegment.addOne(routeWay)
+
+        val startNodeIds = currentSegment.map(_.startNode.id)
+
+        if (startNodeIds.contains(endNodeId)) {
+          // loop, split currentSegment
+          val index = currentSegment.lastIndexWhere(_.startNode.id == endNodeId)
+          val segmentBeforeLoop = currentSegment.take(index)
+          loop = Some(currentSegment.drop(index).toSeq)
+          segments.addOne(segmentBeforeLoop.toSeq)
+          currentSegment.clear()
+        }
+
       case None =>
-        // TODO check self intersection here
         if (currentSegment.nonEmpty) {
           segments.addOne(currentSegment.toSeq)
           currentSegment.clear()
@@ -93,6 +113,27 @@ class MonitorRouteStructureAnalyzer {
         startWayMember = Some(wayMember)
         processedStartWayMember = false
     }
+  }
+
+  private def processLoop(loopRouteWays: Seq[RouteWay], wayMember: WayMember): Unit = {
+    val startNodeId = wayMember.way.nodes.head.id
+    val endNodeId = wayMember.way.nodes.last.id
+
+    val index = loopRouteWays.indexWhere { routeWay =>
+      routeWay.endNode.id == startNodeId
+    }
+    if (index >= 0) {
+      val routeWays1 = loopRouteWays.take(index + 1)
+      val routeWays2 = loopRouteWays.drop(index + 1)
+      segments.addOne(routeWays1)
+      segments.addOne(routeWays2)
+    }
+    else {
+      segments.addOne(loopRouteWays)
+    }
+
+    startWayMember = Some(wayMember)
+    processedStartWayMember = false
   }
 
   private def debug(message: String): Unit = {
