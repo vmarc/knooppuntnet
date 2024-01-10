@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
+import kpn.api.common.data.RelationMember
 import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
@@ -9,160 +10,83 @@ import scala.collection.mutable
 
 class MonitorRouteStructureAnalyzer {
 
-  def analyzeRoute(relation: Relation) {
-    val mainSegments = analyzeMainSegments(relation)
-    val forwardSegments = analyzeForwardSegments(relation)
+  private var startWayMember: Option[WayMember] = None
+  private var processedStartWayMember = false
 
-    debug(s"main segments.size=${mainSegments.size}")
-    debug(s"forward segments.size=${forwardSegments.size}")
+  val segments = mutable.Buffer[Seq[RouteWay]]()
+  val currentSegment = mutable.Buffer[RouteWay]()
+  var endNodeId: Long = 0
 
-    forwardSegments.zipWithIndex.foreach { case (forwardSegment, forwardSegmentIndex) =>
-      debug(s"forward segment $forwardSegmentIndex")
-      val startNodeId = forwardSegment.head.startNode.id
-      val endNodeId = forwardSegment.last.endNode.id
-      mainSegments.zipWithIndex.foreach { case (mainSegment, mainSegmentIndex) =>
-        debug(s"  test main segment $mainSegmentIndex")
-        val mainSegmentNodeIds = mainSegment.flatMap(_.way.nodes).map(_.id)
-        if (mainSegmentNodeIds.contains(startNodeId) || mainSegmentNodeIds.contains(endNodeId)) {
-          debug(s"forward segment $forwardSegmentIndex matched $mainSegmentIndex")
-        }
+  def analyzeRoute(relation: Relation): Seq[Seq[RouteWay]] = {
+    relation.members.foreach { member =>
+      member match {
+        case wayMember: WayMember => processWayMember(wayMember)
+        case relationMember: RelationMember => processRelationMember(relationMember)
+        case _ => None
       }
     }
-  }
 
-  private def analyzeMainSegments(relation: Relation): Seq[Seq[RouteWay]] = {
-
-    val ways = relation
-      .members
-      .flatMap(member => member match {
-        case wayMember: WayMember => Some(wayMember)
-        case _ => None
-      })
-      .filter(wayMember => !wayMember.role.isDefined)
-      .map(_.way)
-
-    debug(s"main segments ways.size=${ways.size}")
-
-    val segments = analyzeWaySegments(ways)
-    debug(s"main segments segments.size=${segments.size}")
+    if (currentSegment.nonEmpty) {
+      segments.addOne(currentSegment.toSeq)
+    }
     segments.toSeq
   }
 
-  private def analyzeForwardSegments(relation: Relation): Seq[Seq[RouteWay]] = {
+  private def processRelationMember(relationMember: RelationMember): Unit = {
+    // TODO implement
+  }
 
-    val wayMembers = relation
-      .members
-      .flatMap(member => member match {
-        case wayMember: WayMember => Some(wayMember)
-        case _ => None
-      })
+  private def processWayMember(currentWayMember: WayMember): Unit = {
 
-    val segments = mutable.Buffer[Seq[RouteWay]]()
-    val wayMemberIterator = wayMembers.iterator
-
-    if (wayMembers.isEmpty) {
-      // done
-    }
-    else if (wayMembers.size == 1) {
-      val wayMember = wayMemberIterator.next()
-      if (wayMember.role.contains("forward")) {
-        segments.addOne(Seq(RouteWay(wayMember.way)))
+    if (!processedStartWayMember) {
+      startWayMember match {
+        case None =>
+          startWayMember = Some(currentWayMember)
+        case Some(wayMember) =>
+          processStart(wayMember, currentWayMember)
       }
     }
     else {
-      val currentSegment = mutable.Buffer[Way]()
-      var inForwardWays = false
-      val wayMember = wayMemberIterator.next()
-      if (wayMember.role.contains("forward")) {
-        currentSegment.addOne(wayMember.way)
-        inForwardWays = true
-      }
+      processNextWayMember(currentWayMember)
+    }
+  }
 
-      while (wayMemberIterator.hasNext) {
-        val wayMember = wayMemberIterator.next()
-        // debug(s"way ${wayMember.way.id} ${wayMember.role}")
-        if (wayMember.role.contains("forward")) {
-          if (inForwardWays) {
-            // debug("add way to existing current segment")
-            currentSegment.addOne(wayMember.way)
-          }
-          else {
-            // debug("add first way to new current segment")
-            currentSegment.addOne(wayMember.way)
-            inForwardWays = true
-          }
-        }
-        else {
-          if (inForwardWays) {
-            // debug("first way after forward segment, save to segments, and start new segment")
-            segments.addAll(analyzeWaySegments(currentSegment.toSeq))
-            currentSegment.clear()
-            inForwardWays = false
-          }
-        }
-      }
+  private def processStart(wayMember1: WayMember, wayMember2: WayMember): Unit = {
+    // TODO still have to look at role "forward" here
 
+    val routeWays = firstConnection(wayMember1.way, wayMember2.way)
+    if (routeWays.isEmpty) {
+      // false start, the first 2 ways do not connect
+      //   make way1 a separate segment
+      //   make way2 the first way
+      segments.addOne(Seq(RouteWay(wayMember1.way)))
+      startWayMember = Some(wayMember2)
+    }
+    else {
+      currentSegment.addAll(routeWays)
+      processedStartWayMember = true
+      // TODO endNodeId: handle way without nodes or only one node
+      endNodeId = routeWays.last.endNode.id
+    }
+  }
+
+  private def processNextWayMember(wayMember: WayMember): Unit = {
+    if (endNodeId == wayMember.way.nodes.head.id) {
+      currentSegment.addOne(RouteWay(wayMember.way))
+      endNodeId = wayMember.way.nodes.last.id
+    }
+    else if (endNodeId == wayMember.way.nodes.last.id) {
+      currentSegment.addOne(RouteWay(wayMember.way, reversed = true))
+      endNodeId = wayMember.way.nodes.head.id
+    }
+    else {
       if (currentSegment.nonEmpty) {
-        segments.addAll(analyzeWaySegments(currentSegment.toSeq))
+        segments.addOne(currentSegment.toSeq)
+        currentSegment.clear()
       }
+      startWayMember = Some(wayMember)
+      processedStartWayMember = false
     }
-    segments.toSeq
-  }
-
-
-  private def analyzeWaySegments(ways: Seq[Way]): Seq[Seq[RouteWay]] = {
-
-    val segments = mutable.Buffer[Seq[RouteWay]]()
-    val wayIterator = ways.iterator
-
-    if (ways.isEmpty) {
-      // done
-    }
-    else if (ways.size == 1) {
-      segments.addOne(Seq(RouteWay(ways.head)))
-    }
-    else {
-      val way1 = wayIterator.next()
-      val way2 = wayIterator.next()
-
-      val routeWays = firstConnection(way1, way2)
-      if (routeWays.isEmpty) {
-        segments.addOne(Seq(RouteWay(way1)))
-        segments.addOne(Seq(RouteWay(way2)))
-      }
-      else {
-        val currentSegment = mutable.Buffer[RouteWay]()
-        currentSegment.addAll(routeWays)
-
-        // endNodeId: handle way without nodes or only one node
-        var endNodeId = routeWays.last.endNode.id
-
-        while (wayIterator.hasNext) {
-          val way = wayIterator.next()
-          if (endNodeId == way.nodes.head.id) {
-            currentSegment.addOne(RouteWay(way))
-            endNodeId = way.nodes.last.id
-          }
-          else if (endNodeId == way.nodes.last.id) {
-            currentSegment.addOne(RouteWay(way, reversed = true))
-            endNodeId = way.nodes.head.id
-          }
-          else {
-            if (currentSegment.nonEmpty) {
-              segments.addOne(currentSegment.toSeq)
-              currentSegment.clear()
-            }
-          }
-        }
-
-        if (currentSegment.nonEmpty) {
-          segments.addOne(currentSegment.toSeq)
-        }
-      }
-    }
-
-    debug(s"way segments.size=${segments.size}")
-    segments.toSeq
   }
 
   private def firstConnection(way1: Way, way2: Way): Seq[RouteWay] = {

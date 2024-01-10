@@ -22,4 +22,17 @@ case class RouteWay(way: Way, reversed: Boolean = false) {
       way.nodes.last
     }
   }
+
+  def nodes: Seq[Node] = {
+    if (reversed) {
+      way.nodes.reverse
+    }
+    else {
+      way.nodes
+    }
+  }
+
+  def nodeIds: Seq[Long] = {
+    nodes.map(_.id)
+  }
 }
