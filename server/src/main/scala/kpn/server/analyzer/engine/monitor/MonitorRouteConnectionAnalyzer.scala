@@ -3,9 +3,7 @@ package kpn.server.analyzer.engine.monitor
 import kpn.api.common.data.WayMember
 import kpn.server.analyzer.engine.analysis.route.RouteWay
 
-case class Connection(nodeId1: Long, nodeId2: Long)
-
-class MonitorRouteConnecctionAnalyzer {
+class MonitorRouteConnectionAnalyzer {
 
   def analyze(wayMember1: WayMember, wayMember2: WayMember): Seq[RouteWay] = {
 

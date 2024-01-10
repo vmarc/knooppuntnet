@@ -1,11 +1,10 @@
 package kpn.server.analyzer.engine.monitor
 
-import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.core.util.UnitTest
 
-class MonitorRouteConnectionAnalyzerTest extends UnitTest with SharedTestObjects {
+class MonitorRouteConnectionAnalyzerTest extends UnitTest {
 
   test("ways sorted") {
     analyze(
@@ -173,7 +172,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest with SharedTestObjects
     val relation = data.relation
     val wayMember1 = relationWayMember(relation, 0)
     val wayMember2 = relationWayMember(relation, 1)
-    val routeWays = new MonitorRouteConnecctionAnalyzer().analyze(wayMember1, wayMember2)
+    val routeWays = new MonitorRouteConnectionAnalyzer().analyze(wayMember1, wayMember2)
     routeWays.zipWithIndex.flatMap { case (routeWay, index) =>
       if (index == 0) routeWay.nodeIds else routeWay.nodeIds.tail
     }

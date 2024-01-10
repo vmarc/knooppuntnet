@@ -9,7 +9,8 @@ import scala.collection.mutable
 
 class MonitorRouteStructureAnalyzer {
 
-  private val connectionAnalyzer = new MonitorRouteConnecctionAnalyzer
+  private val connectionAnalyzer = new MonitorRouteConnectionAnalyzer
+  private val nextRouteAnalyzer = new MonitorRouteNextRouteAnalyzer
 
   private var startWayMember: Option[WayMember] = None
   private var processedStartWayMember = false
@@ -79,21 +80,18 @@ class MonitorRouteStructureAnalyzer {
   }
 
   private def processNextWayMember(wayMember: WayMember): Unit = {
-    if (endNodeId == wayMember.way.nodes.head.id) {
-      currentSegment.addOne(RouteWay(wayMember.way))
-      endNodeId = wayMember.way.nodes.last.id
-    }
-    else if (endNodeId == wayMember.way.nodes.last.id) {
-      currentSegment.addOne(RouteWay(wayMember.way, reversed = true))
-      endNodeId = wayMember.way.nodes.head.id
-    }
-    else {
-      if (currentSegment.nonEmpty) {
-        segments.addOne(currentSegment.toSeq)
-        currentSegment.clear()
-      }
-      startWayMember = Some(wayMember)
-      processedStartWayMember = false
+    nextRouteAnalyzer.analyze(endNodeId, wayMember) match {
+      case Some(routeWay) =>
+        currentSegment.addOne(routeWay)
+        endNodeId = routeWay.endNode.id
+      case None =>
+        // TODO check self intersection here
+        if (currentSegment.nonEmpty) {
+          segments.addOne(currentSegment.toSeq)
+          currentSegment.clear()
+        }
+        startWayMember = Some(wayMember)
+        processedStartWayMember = false
     }
   }
 
