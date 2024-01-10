@@ -42,21 +42,22 @@ class MonitorRouteStructureAnalyzer {
   }
 
   private def processRelationMember(relationMember: RelationMember): Unit = {
-    // TODO implement
+    // still to be implemented
   }
 
   private def processWayMember(currentWayMember: WayMember): Unit = {
-
-    if (!processedStartWayMember) {
-      startWayMember match {
-        case None =>
-          startWayMember = Some(currentWayMember)
-        case Some(wayMember) =>
-          processStart(wayMember, currentWayMember)
+    if (currentWayMember.way.nodes.length >= 2) {
+      if (!processedStartWayMember) {
+        startWayMember match {
+          case None =>
+            startWayMember = Some(currentWayMember)
+          case Some(wayMember) =>
+            processStart(wayMember, currentWayMember)
+        }
       }
-    }
-    else {
-      processNextWayMember(currentWayMember)
+      else {
+        processNextWayMember(currentWayMember)
+      }
     }
   }
 
@@ -73,7 +74,6 @@ class MonitorRouteStructureAnalyzer {
       currentSegment.addAll(routeWays)
       startWayMember = None
       processedStartWayMember = true
-      // TODO endNodeId: handle way without nodes or only one node
       endNodeId = routeWays.last.endNode.id
     }
   }
