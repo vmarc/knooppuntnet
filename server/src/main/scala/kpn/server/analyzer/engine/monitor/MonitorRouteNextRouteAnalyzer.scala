@@ -1,16 +1,15 @@
 package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.data.WayMember
-import kpn.server.analyzer.engine.analysis.route.RouteWay
 
 class MonitorRouteNextRouteAnalyzer {
 
-  def analyze(nodeId: Long, wayMember: WayMember): Option[RouteWay] = {
+  def analyze(nodeId: Long, wayMember: WayMember): Option[MonitorRouteFragment] = {
 
-    val connectingNodeIds = if (wayMember.role.contains("forward")) {
+    val connectingNodeIds = if (wayMember.hasRoleForward) {
       Seq(wayMember.way.nodes.head.id)
     }
-    else if (wayMember.role.contains("backward")) {
+    else if (wayMember.hasRoleBackward) {
       Seq(wayMember.way.nodes.last.id)
     }
     else {
@@ -22,10 +21,10 @@ class MonitorRouteNextRouteAnalyzer {
 
     if (connectingNodeIds.contains(nodeId)) {
       if (nodeId == wayMember.way.nodes.head.id) {
-        Some(RouteWay(wayMember.way))
+        Some(MonitorRouteFragment.from(wayMember))
       }
       else if (nodeId == wayMember.way.nodes.last.id) {
-        Some(RouteWay(wayMember.way, reversed = true))
+        Some(MonitorRouteFragment.fromReversed(wayMember))
       }
       else {
         None

@@ -13,7 +13,10 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(11, "", 2, 3)
       }
     ).shouldMatchTo(
-      Seq(1, 2, 3)
+      Seq(
+        "1>2",
+        "2>3"
+      )
     )
   }
 
@@ -24,7 +27,10 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(11, "", 2, 3)
       }
     ).shouldMatchTo(
-      Seq(1, 2, 3)
+      Seq(
+        "1>2",
+        "2>3"
+      )
     )
   }
 
@@ -35,7 +41,10 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(11, "", 3, 2)
       }
     ).shouldMatchTo(
-      Seq(1, 2, 3)
+      Seq(
+        "1>2",
+        "2>3"
+      )
     )
   }
 
@@ -46,7 +55,10 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(11, "forward", 2, 3)
       }
     ).shouldMatchTo(
-      Seq(1, 2, 3)
+      Seq(
+        "1>2 (oneWay)",
+        "2>3 (oneWay)"
+      )
     )
   }
 
@@ -57,7 +69,10 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(11, "", 3, 2)
       }
     ).shouldMatchTo(
-      Seq(1, 2, 3)
+      Seq(
+        "1>2 (oneWay)",
+        "2>3"
+      )
     )
   }
 
@@ -68,7 +83,10 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(11, "forward", 2, 3)
       }
     ).shouldMatchTo(
-      Seq(1, 2, 3)
+      Seq(
+        "1>2",
+        "2>3 (oneWay)"
+      )
     )
   }
 
@@ -79,7 +97,10 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(11, "backward", 3, 2)
       }
     ).shouldMatchTo(
-      Seq(1, 2, 3)
+      Seq(
+        "1>2 (oneWay)",
+        "2>3 (oneWay)"
+      )
     )
   }
 
@@ -90,7 +111,10 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(11, "", 3, 2)
       }
     ).shouldMatchTo(
-      Seq(1, 2, 3)
+      Seq(
+        "1>2 (oneWay)",
+        "2>3"
+      )
     )
   }
 
@@ -101,7 +125,10 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(11, "backward", 3, 2)
       }
     ).shouldMatchTo(
-      Seq(1, 2, 3)
+      Seq(
+        "1>2",
+        "2>3 (oneWay)"
+      )
     )
   }
 
@@ -168,14 +195,12 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
     ) shouldBe empty
   }
 
-  private def analyze(data: MonitorRouteTestData): Seq[Long] = {
+  private def analyze(data: MonitorRouteTestData): Seq[String] = {
     val relation = data.relation
     val wayMember1 = relationWayMember(relation, 0)
     val wayMember2 = relationWayMember(relation, 1)
-    val routeWays = new MonitorRouteConnectionAnalyzer().analyze(wayMember1, wayMember2)
-    routeWays.zipWithIndex.flatMap { case (routeWay, index) =>
-      if (index == 0) routeWay.nodeIds else routeWay.nodeIds.tail
-    }
+    val monitorRouteFragments = new MonitorRouteConnectionAnalyzer().analyze(wayMember1, wayMember2)
+    monitorRouteFragments.map(_.string)
   }
 
   private def relationWayMember(relation: Relation, index: Int): WayMember = {

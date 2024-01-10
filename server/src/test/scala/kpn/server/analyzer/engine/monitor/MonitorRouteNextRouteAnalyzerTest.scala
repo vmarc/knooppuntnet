@@ -10,7 +10,7 @@ class MonitorRouteNextRouteAnalyzerTest extends UnitTest {
       new MonitorRouteTestData() {
         memberWay(10, "", 1, 2)
       }
-    ).shouldMatchTo(Some(false))
+    ).shouldMatchTo(Some("1>2"))
   }
 
   test("connection to way with forward role") {
@@ -18,7 +18,7 @@ class MonitorRouteNextRouteAnalyzerTest extends UnitTest {
       new MonitorRouteTestData() {
         memberWay(10, "forward", 1, 2)
       }
-    ).shouldMatchTo(Some(false))
+    ).shouldMatchTo(Some("1>2 (oneWay)"))
   }
 
   test("connection to way with backward role") {
@@ -26,7 +26,7 @@ class MonitorRouteNextRouteAnalyzerTest extends UnitTest {
       new MonitorRouteTestData() {
         memberWay(10, "backward", 2, 1)
       }
-    ).shouldMatchTo(Some(true))
+    ).shouldMatchTo(Some("1>2 (oneWay)"))
   }
 
   test("gap") {
@@ -53,13 +53,12 @@ class MonitorRouteNextRouteAnalyzerTest extends UnitTest {
     ).shouldMatchTo(None)
   }
 
-  private def analyze(data: MonitorRouteTestData): Option[Boolean] = {
+  private def analyze(data: MonitorRouteTestData): Option[String] = {
     val relation = data.relation
     val wayMember = relation.members.head match {
       case m: WayMember => m
       case _ => throw new IllegalStateException()
     }
-    val routeWayOption = new MonitorRouteNextRouteAnalyzer().analyze(1, wayMember)
-    routeWayOption.map(_.reversed)
+    new MonitorRouteNextRouteAnalyzer().analyze(1, wayMember).map(_.string)
   }
 }

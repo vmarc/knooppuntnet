@@ -1,26 +1,25 @@
 package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.data.WayMember
-import kpn.server.analyzer.engine.analysis.route.RouteWay
 
 class MonitorRouteConnectionAnalyzer {
 
-  def analyze(wayMember1: WayMember, wayMember2: WayMember): Seq[RouteWay] = {
+  def analyze(wayMember1: WayMember, wayMember2: WayMember): Seq[MonitorRouteFragment] = {
 
-    val connectingNodeIds1 = if (wayMember1.role.contains("forward")) {
+    val connectingNodeIds1 = if (wayMember1.hasRoleForward) {
       Seq(wayMember1.way.nodes.last.id)
     }
-    else if (wayMember1.role.contains("backward")) {
+    else if (wayMember1.hasRoleBackward) {
       Seq(wayMember1.way.nodes.head.id)
     }
     else {
       Seq(wayMember1.way.nodes.last.id, wayMember1.way.nodes.head.id)
     }
 
-    val connectingNodeIds2 = if (wayMember2.role.contains("forward")) {
+    val connectingNodeIds2 = if (wayMember2.hasRoleForward) {
       Seq(wayMember2.way.nodes.head.id)
     }
-    else if (wayMember2.role.contains("backward")) {
+    else if (wayMember2.hasRoleBackward) {
       Seq(wayMember2.way.nodes.last.id)
     }
     else {
@@ -40,16 +39,16 @@ class MonitorRouteConnectionAnalyzer {
       case None => Seq.empty
       case Some(nodeId) =>
         val routeWay1 = if (nodeId == wayMember1.way.nodes.last.id) {
-          RouteWay(wayMember1.way)
+          MonitorRouteFragment.from(wayMember1)
         }
         else {
-          RouteWay(wayMember1.way, reversed = true)
+          MonitorRouteFragment.fromReversed(wayMember1)
         }
         val routeWay2 = if (nodeId == wayMember2.way.nodes.head.id) {
-          RouteWay(wayMember2.way)
+          MonitorRouteFragment.from(wayMember2)
         }
         else {
-          RouteWay(wayMember2.way, reversed = true)
+          MonitorRouteFragment.fromReversed(wayMember2)
         }
         Seq(routeWay1, routeWay2)
     }

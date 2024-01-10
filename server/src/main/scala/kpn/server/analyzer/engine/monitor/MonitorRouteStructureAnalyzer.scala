@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.monitor
 import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
-import kpn.server.analyzer.engine.analysis.route.RouteWay
 
 import scala.collection.mutable
 
@@ -15,12 +14,12 @@ class MonitorRouteStructureAnalyzer {
   private var startWayMember: Option[WayMember] = None
   private var processedStartWayMember = false
 
-  val segments = mutable.Buffer[Seq[RouteWay]]()
-  val currentSegment = mutable.Buffer[RouteWay]()
-  var loop: Option[Seq[RouteWay]] = None
+  val elements = mutable.Buffer[MonitorRouteElement]()
+  val currentElementFragments = mutable.Buffer[MonitorRouteFragment]()
+  var loopFragments: Option[Seq[MonitorRouteFragment]] = None
   var endNodeId: Long = 0
 
-  def analyzeRoute(relation: Relation): Seq[Seq[RouteWay]] = {
+  def analyzeRoute(relation: Relation): Seq[MonitorRouteElement] = {
     relation.members.foreach { member =>
       member match {
         case wayMember: WayMember => processWayMember(wayMember)
@@ -33,14 +32,14 @@ class MonitorRouteStructureAnalyzer {
       case None => // nothing more to do here
       case Some(wayMember) =>
         if (processedStartWayMember == false) {
-          currentSegment.addOne(RouteWay(wayMember.way))
+          currentElementFragments.addOne(MonitorRouteFragment.from(wayMember))
         }
     }
 
-    if (currentSegment.nonEmpty) {
-      segments.addOne(currentSegment.toSeq)
+    if (currentElementFragments.nonEmpty) {
+      elements.addOne(MonitorRouteElement.from(currentElementFragments.toSeq))
     }
-    segments.toSeq
+    elements.toSeq
   }
 
   private def processRelationMember(relationMember: RelationMember): Unit = {
@@ -69,11 +68,11 @@ class MonitorRouteStructureAnalyzer {
       // false start, the first 2 ways do not connect
       //   make way1 a separate segment
       //   make way2 the first way
-      segments.addOne(Seq(RouteWay(wayMember1.way)))
+      elements.addOne(MonitorRouteElement.from(Seq(MonitorRouteFragment.from(wayMember1))))
       startWayMember = Some(wayMember2)
     }
     else {
-      currentSegment.addAll(routeWays)
+      currentElementFragments.addAll(routeWays)
       startWayMember = None
       processedStartWayMember = true
       endNodeId = routeWays.last.endNode.id
@@ -81,7 +80,7 @@ class MonitorRouteStructureAnalyzer {
   }
 
   private def processNextWayMember(wayMember: WayMember): Unit = {
-    loop match {
+    loopFragments match {
       case Some(loopRouteWays) => processLoop(loopRouteWays, wayMember)
       case None => processNextWayMemberAnalyze(wayMember)
     }
@@ -92,30 +91,30 @@ class MonitorRouteStructureAnalyzer {
       case Some(routeWay) =>
         endNodeId = routeWay.endNode.id
 
-        currentSegment.addOne(routeWay)
+        currentElementFragments.addOne(routeWay)
 
-        val startNodeIds = currentSegment.map(_.startNode.id)
+        val startNodeIds = currentElementFragments.map(_.startNode.id)
 
         if (startNodeIds.contains(endNodeId)) {
           // loop, split currentSegment
-          val index = currentSegment.lastIndexWhere(_.startNode.id == endNodeId)
-          val segmentBeforeLoop = currentSegment.take(index)
-          loop = Some(currentSegment.drop(index).toSeq)
-          segments.addOne(segmentBeforeLoop.toSeq)
-          currentSegment.clear()
+          val index = currentElementFragments.lastIndexWhere(_.startNode.id == endNodeId)
+          val segmentBeforeLoop = currentElementFragments.take(index)
+          loopFragments = Some(currentElementFragments.drop(index).toSeq)
+          elements.addOne(MonitorRouteElement.from(segmentBeforeLoop.toSeq))
+          currentElementFragments.clear()
         }
 
       case None =>
-        if (currentSegment.nonEmpty) {
-          segments.addOne(currentSegment.toSeq)
-          currentSegment.clear()
+        if (currentElementFragments.nonEmpty) {
+          elements.addOne(MonitorRouteElement.from(currentElementFragments.toSeq))
+          currentElementFragments.clear()
         }
         startWayMember = Some(wayMember)
         processedStartWayMember = false
     }
   }
 
-  private def processLoop(loopRouteWays: Seq[RouteWay], wayMember: WayMember): Unit = {
+  private def processLoop(loopRouteWays: Seq[MonitorRouteFragment], wayMember: WayMember): Unit = {
     val startNodeId = wayMember.way.nodes.head.id
     val endNodeId = wayMember.way.nodes.last.id
 
@@ -125,11 +124,11 @@ class MonitorRouteStructureAnalyzer {
     if (index >= 0) {
       val routeWays1 = loopRouteWays.take(index + 1)
       val routeWays2 = loopRouteWays.drop(index + 1)
-      segments.addOne(routeWays1)
-      segments.addOne(routeWays2)
+      elements.addOne(MonitorRouteElement.from(routeWays1))
+      elements.addOne(MonitorRouteElement.from(routeWays2))
     }
     else {
-      segments.addOne(loopRouteWays)
+      elements.addOne(MonitorRouteElement.from(loopRouteWays))
     }
 
     startWayMember = Some(wayMember)

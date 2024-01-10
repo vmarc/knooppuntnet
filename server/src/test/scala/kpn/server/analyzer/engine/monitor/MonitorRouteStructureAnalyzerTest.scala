@@ -21,7 +21,7 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
       }
     ).shouldMatchTo(
       Seq(
-        Seq(1, 2, 3, 4, 5, 6, 7)
+        "1>3>5>7"
       )
     )
   }
@@ -35,7 +35,7 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
       }
     ).shouldMatchTo(
       Seq(
-        Seq(1, 2, 3, 4, 5, 6, 7)
+        "1>3>5>7"
       )
     )
   }
@@ -49,7 +49,7 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
       }
     ).shouldMatchTo(
       Seq(
-        Seq(1, 2, 3, 4, 5, 6, 7)
+        "1>3>5>7"
       )
     )
   }
@@ -65,9 +65,9 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
       }
     ).shouldMatchTo(
       Seq(
-        Seq(1, 2),
-        Seq(3, 4, 5),
-        Seq(6, 7, 8),
+        "1>2",
+        "3>4>5",
+        "6>7>8"
       )
     )
   }
@@ -80,7 +80,7 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
       }
     ).shouldMatchTo(
       Seq(
-        Seq(1, 2, 3),
+        "1>2>3 (oneWay)"
       )
     )
   }
@@ -93,8 +93,8 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
       }
     ).shouldMatchTo(
       Seq(
-        Seq(2, 1),
-        Seq(3, 2),
+        "2>1 (oneWay)",
+        "3>2"
       )
     )
   }
@@ -111,26 +111,17 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
       }
     ).shouldMatchTo(
       Seq(
-        Seq(1, 2),
-        Seq(2, 3, 8),
-        Seq(8, 7, 2),
-        Seq(8, 9)
+        "1>2",
+        "2>3>8 (oneWay)",
+        "8>7>2 (oneWay)",
+        "8>9",
       )
     )
   }
 
-  private def analyze(data: MonitorRouteTestData): Seq[Seq[Long]] = {
+  private def analyze(data: MonitorRouteTestData): Seq[String] = {
     val relation = data.relation
-    val segments = new MonitorRouteStructureAnalyzer().analyzeRoute(relation)
-    segments.map { segment =>
-      segment.zipWithIndex.flatMap { case (routeWay, index) =>
-        if (index == 0) {
-          routeWay.nodeIds
-        }
-        else {
-          routeWay.nodeIds.tail
-        }
-      }
-    }
+    val elements = new MonitorRouteStructureAnalyzer().analyzeRoute(relation)
+    elements.map(_.string)
   }
 }
