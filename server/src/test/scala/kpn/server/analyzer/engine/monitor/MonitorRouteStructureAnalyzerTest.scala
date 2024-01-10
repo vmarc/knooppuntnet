@@ -13,7 +13,7 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
     new MonitorRouteStructureAnalyzer().analyzeRoute(relation)
   }
 
-  test("simple route 3 ways") {
+  test("continous") {
     val relation = new MonitorRouteTestData() {
       memberWay(10, "", 1, 2, 3)
       memberWay(11, "", 3, 4, 5)
@@ -27,7 +27,7 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
     )
   }
 
-  test("simple route 3 ways - first way reversed") {
+  test("continous - first way reversed") {
     val relation = new MonitorRouteTestData() {
       memberWay(10, "", 3, 2, 1)
       memberWay(11, "", 3, 4, 5)
@@ -41,7 +41,7 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
     )
   }
 
-  test("simple route 3 ways - second and third way reversed") {
+  test("continous - second and third way reversed") {
     val relation = new MonitorRouteTestData() {
       memberWay(10, "", 1, 2, 3)
       memberWay(11, "", 5, 4, 3)
@@ -55,7 +55,7 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
     )
   }
 
-  test("gaps") {
+  test("2 gaps - 3 segments") {
     val relation = new MonitorRouteTestData() {
       memberWay(10, "", 1, 2)
       memberWay(11, "", 3, 4)
@@ -72,6 +72,53 @@ class MonitorRouteStructureAnalyzerTest extends UnitTest with SharedTestObjects 
       )
     )
   }
+
+  test("start way has forward role") {
+    val relation = new MonitorRouteTestData() {
+      memberWay(10, "forward", 1, 2)
+      memberWay(11, "", 3, 2)
+    }.relation
+
+    analyze(relation).shouldMatchTo(
+      Seq(
+        Seq(1, 2, 3),
+      )
+    )
+  }
+
+  test("start way has forward role, no connection to second way") {
+    val relation = new MonitorRouteTestData() {
+      memberWay(10, "forward", 2, 1)
+      memberWay(11, "", 3, 2)
+    }.relation
+
+    analyze(relation).shouldMatchTo(
+      Seq(
+        Seq(2, 1),
+        Seq(3, 2),
+      )
+    )
+  }
+
+
+  //  test("forward") {
+  //    val relation = new MonitorRouteTestData() {
+  //      memberWay(10, "", 1, 2)
+  //      memberWay(11, "forward", 2, 3)
+  //      memberWay(12, "forward", 3, 8)
+  //      memberWay(13, "forward", 7, 2)
+  //      memberWay(14, "forward", 8, 7)
+  //      memberWay(15, "", 8, 9)
+  //    }.relation
+  //
+  //    analyze(relation).shouldMatchTo(
+  //      Seq(
+  //        // forward path, backward path
+  //        Seq(1, 2, 3, 8, 9),
+  //      )
+  //    )
+  //  }
+
 
   private def analyze(relation: Relation): Seq[Seq[Long]] = {
     val segments = new MonitorRouteStructureAnalyzer().analyzeRoute(relation)

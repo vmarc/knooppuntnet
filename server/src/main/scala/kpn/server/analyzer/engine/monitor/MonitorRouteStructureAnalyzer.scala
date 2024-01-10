@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.data.RelationMember
-import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.analysis.route.RouteWay
@@ -9,6 +8,8 @@ import kpn.server.analyzer.engine.analysis.route.RouteWay
 import scala.collection.mutable
 
 class MonitorRouteStructureAnalyzer {
+
+  private val connectionAnalyzer = new MonitorRouteConnecctionAnalyzer
 
   private var startWayMember: Option[WayMember] = None
   private var processedStartWayMember = false
@@ -24,6 +25,14 @@ class MonitorRouteStructureAnalyzer {
         case relationMember: RelationMember => processRelationMember(relationMember)
         case _ => None
       }
+    }
+
+    startWayMember match {
+      case None => // nothing more to do here
+      case Some(wayMember) =>
+        if (processedStartWayMember == false) {
+          currentSegment.addOne(RouteWay(wayMember.way))
+        }
     }
 
     if (currentSegment.nonEmpty) {
@@ -52,9 +61,7 @@ class MonitorRouteStructureAnalyzer {
   }
 
   private def processStart(wayMember1: WayMember, wayMember2: WayMember): Unit = {
-    // TODO still have to look at role "forward" here
-
-    val routeWays = firstConnection(wayMember1.way, wayMember2.way)
+    val routeWays = connectionAnalyzer.analyze(wayMember1, wayMember2)
     if (routeWays.isEmpty) {
       // false start, the first 2 ways do not connect
       //   make way1 a separate segment
@@ -64,6 +71,7 @@ class MonitorRouteStructureAnalyzer {
     }
     else {
       currentSegment.addAll(routeWays)
+      startWayMember = None
       processedStartWayMember = true
       // TODO endNodeId: handle way without nodes or only one node
       endNodeId = routeWays.last.endNode.id
@@ -86,36 +94,6 @@ class MonitorRouteStructureAnalyzer {
       }
       startWayMember = Some(wayMember)
       processedStartWayMember = false
-    }
-  }
-
-  private def firstConnection(way1: Way, way2: Way): Seq[RouteWay] = {
-    if (way1.nodes.last.id == way2.nodes.head.id) {
-      Seq(
-        RouteWay(way1),
-        RouteWay(way2)
-      )
-    }
-    else if (way1.nodes.last.id == way2.nodes.last.id) {
-      Seq(
-        RouteWay(way1),
-        RouteWay(way2, reversed = true)
-      )
-    }
-    else if (way1.nodes.head.id == way2.nodes.head.id) {
-      Seq(
-        RouteWay(way1, reversed = true),
-        RouteWay(way2)
-      )
-    }
-    else if (way1.nodes.head.id == way2.nodes.last.id) {
-      Seq(
-        RouteWay(way1, reversed = true),
-        RouteWay(way2, reversed = true)
-      )
-    }
-    else {
-      Seq.empty
     }
   }
 
