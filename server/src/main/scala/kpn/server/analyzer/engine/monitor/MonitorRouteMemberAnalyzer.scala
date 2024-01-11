@@ -37,7 +37,12 @@ class MonitorRouteMemberAnalyzer {
             currentMemberGroupOption match {
               case None =>
                 // first member with this role
-                currentMemberGroupOption = Some(MonitorRouteMemberGroup(Some(role), Seq(member)))
+                currentMemberGroupOption = Some(
+                  MonitorRouteMemberGroup(
+                    Some(role),
+                    Seq(member)
+                  )
+                )
 
               case Some(currentMemberGroup) =>
                 if (!currentMemberGroup.role.contains(role)) {

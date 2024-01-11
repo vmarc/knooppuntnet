@@ -4,7 +4,7 @@ import kpn.api.common.data.WayMember
 
 class MonitorRouteConnectionAnalyzer {
 
-  def analyze(wayMember1: WayMember, wayMember2: WayMember): Seq[MonitorRouteFragment] = {
+  def analyze(wayMember1: WayMember, wayMember2: WayMember): Option[MonitorRouteFragment] = {
 
     val connectingNodeIds1 = if (wayMember1.hasRoleForward) {
       Seq(wayMember1.way.nodes.last.id)
@@ -35,22 +35,13 @@ class MonitorRouteConnectionAnalyzer {
         .headOption
     }.headOption
 
-    connectingNodeId match {
-      case None => Seq.empty
-      case Some(nodeId) =>
-        val routeWay1 = if (nodeId == wayMember1.way.nodes.last.id) {
-          MonitorRouteFragment.from(wayMember1)
-        }
-        else {
-          MonitorRouteFragment.fromReversed(wayMember1)
-        }
-        val routeWay2 = if (nodeId == wayMember2.way.nodes.head.id) {
-          MonitorRouteFragment.from(wayMember2)
-        }
-        else {
-          MonitorRouteFragment.fromReversed(wayMember2)
-        }
-        Seq(routeWay1, routeWay2)
+    connectingNodeId.map { nodeId =>
+      if (nodeId == wayMember1.way.nodes.last.id) {
+        MonitorRouteFragment(wayMember1.way)
+      }
+      else {
+        MonitorRouteFragment(wayMember1.way, reversed = true)
+      }
     }
   }
 }

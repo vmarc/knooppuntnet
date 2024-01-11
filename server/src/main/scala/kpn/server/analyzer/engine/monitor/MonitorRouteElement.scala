@@ -1,13 +1,12 @@
 package kpn.server.analyzer.engine.monitor
 
 object MonitorRouteElement {
-  def from(fragments: Seq[MonitorRouteFragment]): MonitorRouteElement = {
-    val oneWay = fragments.exists(_.oneWay)
-    MonitorRouteElement(0, fragments, oneWay)
+  def from(fragments: Seq[MonitorRouteFragment], direction: Option[String]): MonitorRouteElement = {
+    MonitorRouteElement(0, fragments, direction)
   }
 }
 
-case class MonitorRouteElement(id: Long, fragments: Seq[MonitorRouteFragment], oneWay: Boolean) {
+case class MonitorRouteElement(id: Long, fragments: Seq[MonitorRouteFragment], direction: Option[String]) {
 
   def startNodeId: Long = {
     fragments.head.startNode.id
@@ -20,7 +19,10 @@ case class MonitorRouteElement(id: Long, fragments: Seq[MonitorRouteFragment], o
   def string: String = {
     val endNodeIds = fragments.map(_.endNode.id)
     val nodeString = startNodeId.toString + endNodeIds.mkString(">", ">", "")
-    val oneWayString = if (oneWay) " (oneWay)" else ""
-    nodeString + oneWayString
+    val directionString = direction match {
+      case None => ""
+      case Some(string) => s" ($string)"
+    }
+    nodeString + directionString
   }
 }

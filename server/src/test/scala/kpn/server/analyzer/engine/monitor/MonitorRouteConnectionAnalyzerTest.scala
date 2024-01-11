@@ -12,12 +12,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(10, "", 1, 2)
         memberWay(11, "", 2, 3)
       }
-    ).shouldMatchTo(
-      Seq(
-        "1>2",
-        "2>3"
-      )
-    )
+    ).shouldMatchTo(Some("1>2"))
   }
 
   test("way 1 reversed") {
@@ -26,12 +21,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(10, "", 2, 1)
         memberWay(11, "", 2, 3)
       }
-    ).shouldMatchTo(
-      Seq(
-        "1>2",
-        "2>3"
-      )
-    )
+    ).shouldMatchTo(Some("1>2"))
   }
 
   test("way 2 reversed") {
@@ -40,12 +30,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(10, "", 1, 2)
         memberWay(11, "", 3, 2)
       }
-    ).shouldMatchTo(
-      Seq(
-        "1>2",
-        "2>3"
-      )
-    )
+    ).shouldMatchTo(Some("1>2"))
   }
 
   test("both ways forward") {
@@ -54,12 +39,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(10, "forward", 1, 2)
         memberWay(11, "forward", 2, 3)
       }
-    ).shouldMatchTo(
-      Seq(
-        "1>2 (oneWay)",
-        "2>3 (oneWay)"
-      )
-    )
+    ).shouldMatchTo(Some("1>2 (oneWay)"))
   }
 
   test("way 1 forward") {
@@ -68,12 +48,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(10, "forward", 1, 2)
         memberWay(11, "", 3, 2)
       }
-    ).shouldMatchTo(
-      Seq(
-        "1>2 (oneWay)",
-        "2>3"
-      )
-    )
+    ).shouldMatchTo(Some("1>2 (oneWay)"))
   }
 
   test("way 2 forward") {
@@ -82,12 +57,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(10, "", 2, 1)
         memberWay(11, "forward", 2, 3)
       }
-    ).shouldMatchTo(
-      Seq(
-        "1>2",
-        "2>3 (oneWay)"
-      )
-    )
+    ).shouldMatchTo(Some("1>2"))
   }
 
   test("both ways backward") {
@@ -96,12 +66,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(10, "backward", 2, 1)
         memberWay(11, "backward", 3, 2)
       }
-    ).shouldMatchTo(
-      Seq(
-        "1>2 (oneWay)",
-        "2>3 (oneWay)"
-      )
-    )
+    ).shouldMatchTo(Some("1>2 (oneWay)"))
   }
 
   test("way 1 backward") {
@@ -110,12 +75,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(10, "backward", 2, 1)
         memberWay(11, "", 3, 2)
       }
-    ).shouldMatchTo(
-      Seq(
-        "1>2 (oneWay)",
-        "2>3"
-      )
-    )
+    ).shouldMatchTo(Some("1>2 (oneWay)"))
   }
 
   test("way 2 backward") {
@@ -124,12 +84,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
         memberWay(10, "", 2, 1)
         memberWay(11, "backward", 3, 2)
       }
-    ).shouldMatchTo(
-      Seq(
-        "1>2",
-        "2>3 (oneWay)"
-      )
-    )
+    ).shouldMatchTo(Some("1>2"))
   }
 
   test("gap") {
@@ -195,7 +150,7 @@ class MonitorRouteConnectionAnalyzerTest extends UnitTest {
     ) shouldBe empty
   }
 
-  private def analyze(data: MonitorRouteTestData): Seq[String] = {
+  private def analyze(data: MonitorRouteTestData): Option[String] = {
     val relation = data.relation
     val wayMember1 = relationWayMember(relation, 0)
     val wayMember2 = relationWayMember(relation, 1)

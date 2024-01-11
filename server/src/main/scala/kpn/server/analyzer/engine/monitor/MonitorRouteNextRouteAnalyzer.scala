@@ -6,25 +6,27 @@ class MonitorRouteNextRouteAnalyzer {
 
   def analyze(nodeId: Long, wayMember: WayMember): Option[MonitorRouteFragment] = {
 
+    val nodes = wayMember.way.nodes
+
     val connectingNodeIds = if (wayMember.hasRoleForward) {
-      Seq(wayMember.way.nodes.head.id)
+      Seq(nodes.head.id)
     }
     else if (wayMember.hasRoleBackward) {
-      Seq(wayMember.way.nodes.last.id)
+      Seq(nodes.last.id)
     }
     else {
       Seq(
-        wayMember.way.nodes.head.id,
-        wayMember.way.nodes.last.id
+        nodes.head.id,
+        nodes.last.id
       )
     }
 
     if (connectingNodeIds.contains(nodeId)) {
-      if (nodeId == wayMember.way.nodes.head.id) {
-        Some(MonitorRouteFragment.from(wayMember))
+      if (nodeId == nodes.head.id) {
+        Some(MonitorRouteFragment(wayMember.way))
       }
-      else if (nodeId == wayMember.way.nodes.last.id) {
-        Some(MonitorRouteFragment.fromReversed(wayMember))
+      else if (nodeId == nodes.last.id) {
+        Some(MonitorRouteFragment(wayMember.way, reversed = true))
       }
       else {
         None

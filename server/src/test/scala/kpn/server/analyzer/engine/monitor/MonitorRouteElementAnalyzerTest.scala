@@ -13,7 +13,9 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       }
     ).shouldMatchTo(
       Seq(
-        "1>3>5>7"
+        Seq(
+          "1>3>5>7"
+        )
       )
     )
   }
@@ -27,7 +29,9 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       }
     ).shouldMatchTo(
       Seq(
-        "1>3>5>7"
+        Seq(
+          "1>3>5>7"
+        )
       )
     )
   }
@@ -41,7 +45,9 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       }
     ).shouldMatchTo(
       Seq(
-        "1>3>5>7"
+        Seq(
+          "1>3>5>7"
+        )
       )
     )
   }
@@ -57,9 +63,15 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       }
     ).shouldMatchTo(
       Seq(
-        "1>2",
-        "3>4>5",
-        "6>7>8"
+        Seq(
+          "1>2",
+        ),
+        Seq(
+          "3>4>5",
+        ),
+        Seq(
+          "6>7>8"
+        )
       )
     )
   }
@@ -72,7 +84,9 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       }
     ).shouldMatchTo(
       Seq(
-        "1>2>3 (oneWay)"
+        Seq(
+          "1>2>3 (oneWay)"
+        )
       )
     )
   }
@@ -85,8 +99,12 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       }
     ).shouldMatchTo(
       Seq(
-        "2>1 (oneWay)",
-        "3>2"
+        Seq(
+          "2>1 (oneWay)",
+        ),
+        Seq(
+          "3>2"
+        )
       )
     )
   }
@@ -103,17 +121,48 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       }
     ).shouldMatchTo(
       Seq(
-        "1>2",
-        "2>3>8 (oneWay)",
-        "8>7>2 (oneWay)",
-        "8>9",
+        Seq(
+          "1>2",
+          "2>3>8 (oneWay)",
+          "8>7>2 (oneWay)",
+          "8>9",
+        )
       )
     )
   }
 
-  private def analyze(data: MonitorRouteTestData): Seq[String] = {
+  test("forward and gap") {
+    val result = analyze(
+      new MonitorRouteTestData() {
+        memberWay(10, "", 1, 2)
+        memberWay(11, "forward", 2, 3)
+        memberWay(12, "forward", 3, 8)
+        memberWay(13, "forward", 7, 2)
+        memberWay(14, "forward", 8, 7)
+        memberWay(15, "", 8, 9)
+        memberWay(16, "", 10, 11)
+        memberWay(17, "", 11, 12)
+      }
+    ).shouldMatchTo(
+      Seq(
+        Seq(
+          "1>2",
+          "2>3>8 (down)",
+          "8>7>2 (up)",
+          "8>9",
+        ),
+        Seq(
+          "10>11>12",
+        )
+      )
+    )
+  }
+
+  // TODO add test with first way 'forward'/'backward' role?
+
+  private def analyze(data: MonitorRouteTestData): Seq[Seq[String]] = {
     val relation = data.relation
-    val elements = new MonitorRouteElementAnalyzer().analyzeRoute(relation.members)
-    elements.map(_.string)
+    val elementGroups = MonitorRouteElementAnalyzer.analyze(relation.members)
+    elementGroups.map(_.elements.map(_.string))
   }
 }

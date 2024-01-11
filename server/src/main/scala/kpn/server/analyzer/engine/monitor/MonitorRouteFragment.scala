@@ -2,22 +2,9 @@ package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
-import kpn.api.common.data.WayMember
 
-object MonitorRouteFragment {
+case class MonitorRouteFragment(way: Way, reversed: Boolean = false) {
 
-  def from(wayMember: WayMember): MonitorRouteFragment = {
-    val oneWay = wayMember.hasRoleForward || wayMember.hasRoleBackward
-    MonitorRouteFragment(wayMember.way, reversed = false, oneWay = oneWay)
-  }
-
-  def fromReversed(wayMember: WayMember): MonitorRouteFragment = {
-    val oneWay = wayMember.hasRoleForward || wayMember.hasRoleBackward
-    MonitorRouteFragment(wayMember.way, reversed = true, oneWay = oneWay)
-  }
-}
-
-case class MonitorRouteFragment(way: Way, reversed: Boolean, oneWay: Boolean) {
   def startNode: Node = {
     if (reversed) {
       way.nodes.last
@@ -50,6 +37,6 @@ case class MonitorRouteFragment(way: Way, reversed: Boolean, oneWay: Boolean) {
   }
 
   def string: String = {
-    s"${startNode.id}>${endNode.id}${if (oneWay) " (oneWay)" else ""}"
+    s"(${way.id}) ${startNode.id}>${endNode.id}"
   }
 }
