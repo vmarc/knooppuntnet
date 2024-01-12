@@ -201,11 +201,16 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
     finalizeCurrentElement()
     elements.lastOption match {
       case None =>
-        // the first way in the route has a role
+
+        // the very first way member in the route is unidirectional
+        // TODO does the element direction really depend on the role? or always 'Down'?
         if (contextCurrentWayMember.hasRoleForward) {
           elementDirection = Some(ElementDirection.Down)
-        } else {
+        } else if (contextCurrentWayMember.hasRoleBackward) {
           elementDirection = Some(ElementDirection.Up)
+        }
+        else {
+          throw new IllegalStateException("a unidirectional wayMember should have role 'forward' or 'backward'")
         }
 
       case Some(previousElement) =>
