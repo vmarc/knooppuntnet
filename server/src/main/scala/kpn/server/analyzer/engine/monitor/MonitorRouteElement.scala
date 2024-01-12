@@ -1,12 +1,16 @@
 package kpn.server.analyzer.engine.monitor
 
 object MonitorRouteElement {
-  def from(fragments: Seq[MonitorRouteFragment], direction: Option[String]): MonitorRouteElement = {
+  def from(fragments: Seq[MonitorRouteFragment], direction: Option[ElementDirection.Value]): MonitorRouteElement = {
     MonitorRouteElement(0, fragments, direction)
   }
 }
 
-case class MonitorRouteElement(id: Long, fragments: Seq[MonitorRouteFragment], direction: Option[String]) {
+case class MonitorRouteElement(
+  id: Long,
+  fragments: Seq[MonitorRouteFragment],
+  direction: Option[ElementDirection.Value]
+) {
 
   def startNodeId: Long = {
     fragments.head.startNode.id
@@ -19,7 +23,7 @@ case class MonitorRouteElement(id: Long, fragments: Seq[MonitorRouteFragment], d
   def isLoop: Boolean = {
     startNodeId == endNodeId
   }
-  
+
   def string: String = {
     val endNodeIds = fragments.map(_.endNode.id)
     val nodeString = startNodeId.toString + endNodeIds.mkString(">", ">", "")

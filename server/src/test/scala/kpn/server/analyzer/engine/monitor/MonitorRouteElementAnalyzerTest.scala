@@ -85,7 +85,7 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
     ).shouldMatchTo(
       Seq(
         Seq(
-          "1>2 (down)",
+          "1>2 (Down)",
           "2>3"
         )
       )
@@ -101,7 +101,7 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
     ).shouldMatchTo(
       Seq(
         Seq(
-          "2>1 (down)",
+          "2>1 (Down)",
         ),
         Seq(
           "3>2"
@@ -124,8 +124,8 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       Seq(
         Seq(
           "1>2",
-          "2>3>8 (down)",
-          "8>7>2 (up)",
+          "2>3>8 (Down)",
+          "8>7>2 (Up)",
           "8>9",
         )
       )
@@ -148,8 +148,8 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       Seq(
         Seq(
           "1>2",
-          "2>3>8 (down)",
-          "8>7>2 (up)",
+          "2>3>8 (Down)",
+          "8>7>2 (Up)",
           "8>9",
         ),
         Seq(

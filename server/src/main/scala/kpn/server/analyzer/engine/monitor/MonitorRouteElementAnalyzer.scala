@@ -23,7 +23,7 @@ object MonitorRouteElementAnalyzer {
 
 class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
 
-  private var oneWayDirection: Option[String] = None // "up" or "down"
+  private var elementDirection: Option[ElementDirection.Value] = None
 
   private val elementGroups = mutable.Buffer[MonitorRouteElementGroup]()
   private val elements = mutable.Buffer[MonitorRouteElement]()
@@ -46,7 +46,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
   private def processWayMember(): Unit = {
     debug(s"way ${contextCurrentWayMember.way.id} role=${contextCurrentWayMember.role}")
     if (contextCurrentWayMember.isUnidirectional) {
-      if (oneWayDirection.isEmpty) {
+      if (elementDirection.isEmpty) {
         processFirstUnidirectionalWay()
       }
       else {
@@ -54,11 +54,11 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
       }
     }
     else {
-      if (oneWayDirection.nonEmpty) {
+      if (elementDirection.nonEmpty) {
         debug(s"  first way after unidirectional element")
 
-        oneWayDirection match {
-          case Some("up") => reverseFragments()
+        elementDirection match {
+          case Some(ElementDirection.Up) => reverseFragments()
           case _ =>
         }
 
@@ -86,12 +86,12 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
                   val fragments1 = element.fragments.takeWhile(fragment => fragment.startNode.id != splitNodeId)
                   val fragments2 = element.fragments.drop(fragments1.length)
 
-                  val oppositeDirection = oneWayDirection match {
-                    case Some("down") => Some("up")
-                    case Some("up") => Some("down")
+                  val oppositeDirection = elementDirection match {
+                    case Some(ElementDirection.Down) => Some(ElementDirection.Up)
+                    case Some(ElementDirection.Up) => Some(ElementDirection.Down)
                     case _ => None
                   }
-                  val element1 = MonitorRouteElement.from(fragments1, oneWayDirection)
+                  val element1 = MonitorRouteElement.from(fragments1, elementDirection)
                   val element2 = MonitorRouteElement.from(fragments2, oppositeDirection)
 
                   debug(s"    split element1: direction=${element1.direction}, fragments: ${element1.fragments.map(_.string).mkString(", ")}")
@@ -105,7 +105,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
             }
         }
 
-        oneWayDirection = None
+        elementDirection = None
         addBidirectionalFragmentByLookingAheadAtNextWayMember()
       }
       else {
@@ -203,21 +203,21 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
       case None =>
         // the first way in the route has a role
         if (contextCurrentWayMember.hasRoleForward) {
-          oneWayDirection = Some("down")
+          elementDirection = Some(ElementDirection.Down)
         } else {
-          oneWayDirection = Some("up")
+          elementDirection = Some(ElementDirection.Up)
         }
 
       case Some(previousElement) =>
         if (previousElement.endNodeId == contextCurrentWayMember.startNode.id) {
-          oneWayDirection = Some("down")
+          elementDirection = Some(ElementDirection.Down)
         }
         else if (previousElement.endNodeId == contextCurrentWayMember.startNode.id) {
-          oneWayDirection = Some("up")
+          elementDirection = Some(ElementDirection.Up)
         }
         else {
           finalizeCurrentGroup()
-          oneWayDirection = Some("down")
+          elementDirection = Some(ElementDirection.Down)
         }
     }
 
@@ -230,7 +230,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
   }
 
   private def processNextUnidirectionalWay(): Unit = {
-    if (oneWayDirection.contains("down")) {
+    if (elementDirection.contains(ElementDirection.Down)) {
       findPreviousFragment() match {
         case None =>
           throw new Exception("illegal state??")
@@ -246,7 +246,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
                 if (contextCurrentWayMember.endNode.id == firstFragmentInElement.startNode.id) {
                   // switch
                   finalizeCurrentElement()
-                  oneWayDirection = Some("up")
+                  elementDirection = Some(ElementDirection.Up)
                   addFragment(contextCurrentWayMember)
                 }
                 else {
@@ -273,7 +273,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
                 if (contextCurrentWayMember.endNode.id == firstFragmentInElement.startNode.id) {
                   // switch
                   finalizeCurrentElement()
-                  oneWayDirection = Some("down")
+                  elementDirection = Some(ElementDirection.Down)
                   addFragment(contextCurrentWayMember)
                 }
                 else {
@@ -307,8 +307,8 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
   }
 
   private def addElement(fragments: Seq[MonitorRouteFragment]): MonitorRouteElement = {
-    debug(s"  add element: direction=$oneWayDirection, fragments: ${fragments.map(_.string).mkString(", ")}")
-    val element = MonitorRouteElement.from(fragments, oneWayDirection)
+    debug(s"  add element: direction=$elementDirection, fragments: ${fragments.map(_.string).mkString(", ")}")
+    val element = MonitorRouteElement.from(fragments, elementDirection)
     elements.addOne(element)
     element
   }
