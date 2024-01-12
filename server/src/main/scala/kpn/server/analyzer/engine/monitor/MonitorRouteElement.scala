@@ -16,6 +16,10 @@ case class MonitorRouteElement(id: Long, fragments: Seq[MonitorRouteFragment], d
     fragments.last.endNode.id
   }
 
+  def isLoop: Boolean = {
+    startNodeId == endNodeId
+  }
+  
   def string: String = {
     val endNodeIds = fragments.map(_.endNode.id)
     val nodeString = startNodeId.toString + endNodeIds.mkString(">", ">", "")

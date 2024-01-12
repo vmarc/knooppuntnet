@@ -76,7 +76,7 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
     )
   }
 
-  test("start way has forward role") {
+  test("start way has forward role") { // no backward path
     analyze(
       new MonitorRouteTestData() {
         memberWay(10, "forward", 1, 2)
@@ -85,7 +85,8 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
     ).shouldMatchTo(
       Seq(
         Seq(
-          "1>2>3 (oneWay)"
+          "1>2 (down)",
+          "2>3"
         )
       )
     )
@@ -100,7 +101,7 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
     ).shouldMatchTo(
       Seq(
         Seq(
-          "2>1 (oneWay)",
+          "2>1 (down)",
         ),
         Seq(
           "3>2"
@@ -123,8 +124,8 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       Seq(
         Seq(
           "1>2",
-          "2>3>8 (oneWay)",
-          "8>7>2 (oneWay)",
+          "2>3>8 (down)",
+          "8>7>2 (up)",
           "8>9",
         )
       )
