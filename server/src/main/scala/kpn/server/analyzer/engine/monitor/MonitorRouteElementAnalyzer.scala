@@ -46,87 +46,95 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
   private def processWayMember(): Unit = {
     debug(s"way ${contextCurrentWayMember.way.id} role=${contextCurrentWayMember.role}")
     if (contextCurrentWayMember.isUnidirectional) {
-      if (elementDirection.isEmpty) {
-        processFirstUnidirectionalWay()
-      }
-      else {
-        processNextUnidirectionalWay()
-      }
+      processUnidirectionalWay()
     }
     else {
-      if (elementDirection.nonEmpty) {
-        debug(s"  first way after unidirectional element")
+      processBidirectionalWay()
+    }
+  }
 
-        elementDirection match {
-          case Some(ElementDirection.Up) => reverseFragments()
-          case _ =>
-        }
+  private def processUnidirectionalWay(): Unit = {
+    if (elementDirection.isEmpty) {
+      processFirstUnidirectionalWay()
+    }
+    else {
+      processNextUnidirectionalWay()
+    }
+  }
 
-        finalizeCurrentElement() match {
-          case None =>
-          case Some(element) =>
-            if (element.isLoop) {
-              val elementNodeIds = element.fragments.zipWithIndex.flatMap { case (fragment, index) =>
-                if (index == 0) {
-                  Seq(fragment.startNode.id, fragment.endNode.id)
-                }
-                else {
-                  Seq(fragment.endNode.id)
-                }
-              }
+  private def processBidirectionalWay(): Unit = {
+    if (elementDirection.nonEmpty) {
+      debug(s"  first way after unidirectional element")
 
-              val splitNodeIdOption = elementNodeIds.find { nodeId =>
-                nodeId == contextCurrentWayMember.startNode.id || nodeId == contextCurrentWayMember.endNode.id
-              }
-
-              splitNodeIdOption match {
-                case None => // no connection, leave the loop as-is
-                case Some(splitNodeId) =>
-                  // split
-                  val fragments1 = element.fragments.takeWhile(fragment => fragment.startNode.id != splitNodeId)
-                  val fragments2 = element.fragments.drop(fragments1.length)
-
-                  val oppositeDirection = elementDirection match {
-                    case Some(ElementDirection.Down) => Some(ElementDirection.Up)
-                    case Some(ElementDirection.Up) => Some(ElementDirection.Down)
-                    case _ => None
-                  }
-                  val element1 = MonitorRouteElement.from(fragments1, elementDirection)
-                  val element2 = MonitorRouteElement.from(fragments2, oppositeDirection)
-
-                  debug(s"    split element1: direction=${element1.direction}, fragments: ${element1.fragments.map(_.string).mkString(", ")}")
-                  debug(s"    split element2: direction=${element2.direction}, fragments: ${element2.fragments.map(_.string).mkString(", ")}")
-
-                  elements.remove(elements.length - 1)
-                  elements.addOne(element1)
-                  elements.addOne(element2)
-                  contextEndNodeId = Some(splitNodeId)
-              }
-            }
-        }
-
-        elementDirection = None
-        addBidirectionalFragmentByLookingAheadAtNextWayMember()
+      elementDirection match {
+        case Some(ElementDirection.Up) => reverseFragments()
+        case _ =>
       }
-      else {
-        contextEndNodeId match {
-          case Some(endNodeId) =>
-            if (endNodeId == contextCurrentWayMember.startNode.id) {
-              addFragment(contextCurrentWayMember)
-            }
-            else if (endNodeId == contextCurrentWayMember.endNode.id) {
-              addFragmentReversed(contextCurrentWayMember)
-            }
-            else {
-              // no connection
-              finalizeCurrentGroup()
-              addBidirectionalFragmentByLookingAheadAtNextWayMember()
+
+      finalizeCurrentElement() match {
+        case None =>
+        case Some(element) =>
+          if (element.isLoop) {
+            val elementNodeIds = element.fragments.zipWithIndex.flatMap { case (fragment, index) =>
+              if (index == 0) {
+                Seq(fragment.startNode.id, fragment.endNode.id)
+              }
+              else {
+                Seq(fragment.endNode.id)
+              }
             }
 
-          case None =>
-            // first fragment of this element, look at the next way for connection
+            val splitNodeIdOption = elementNodeIds.find { nodeId =>
+              nodeId == contextCurrentWayMember.startNode.id || nodeId == contextCurrentWayMember.endNode.id
+            }
+
+            splitNodeIdOption match {
+              case None => // no connection, leave the loop as-is
+              case Some(splitNodeId) =>
+                // split
+                val fragments1 = element.fragments.takeWhile(fragment => fragment.startNode.id != splitNodeId)
+                val fragments2 = element.fragments.drop(fragments1.length)
+
+                val oppositeDirection = elementDirection match {
+                  case Some(ElementDirection.Down) => Some(ElementDirection.Up)
+                  case Some(ElementDirection.Up) => Some(ElementDirection.Down)
+                  case _ => None
+                }
+                val element1 = MonitorRouteElement.from(fragments1, elementDirection)
+                val element2 = MonitorRouteElement.from(fragments2, oppositeDirection)
+
+                debug(s"    split element1: direction=${element1.direction}, fragments: ${element1.fragments.map(_.string).mkString(", ")}")
+                debug(s"    split element2: direction=${element2.direction}, fragments: ${element2.fragments.map(_.string).mkString(", ")}")
+
+                elements.remove(elements.length - 1)
+                elements.addOne(element1)
+                elements.addOne(element2)
+                contextEndNodeId = Some(splitNodeId)
+            }
+          }
+      }
+
+      elementDirection = None
+      addBidirectionalFragmentByLookingAheadAtNextWayMember()
+    }
+    else {
+      contextEndNodeId match {
+        case Some(endNodeId) =>
+          if (endNodeId == contextCurrentWayMember.startNode.id) {
+            addFragment(contextCurrentWayMember)
+          }
+          else if (endNodeId == contextCurrentWayMember.endNode.id) {
+            addFragmentReversed(contextCurrentWayMember)
+          }
+          else {
+            // no connection
+            finalizeCurrentGroup()
             addBidirectionalFragmentByLookingAheadAtNextWayMember()
-        }
+          }
+
+        case None =>
+          // first fragment of this element, look at the next way for connection
+          addBidirectionalFragmentByLookingAheadAtNextWayMember()
       }
     }
   }

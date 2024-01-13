@@ -37,6 +37,6 @@ case class MonitorRouteFragment(way: Way, reversed: Boolean = false) {
   }
 
   def string: String = {
-    s"(${way.id}) ${startNode.id}>${endNode.id}"
+    s"(${way.id}) ${startNode.id}>${endNode.id}${if (reversed) "*" else ""}"
   }
 }
