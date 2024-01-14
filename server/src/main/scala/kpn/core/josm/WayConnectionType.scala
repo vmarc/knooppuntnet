@@ -1,11 +1,11 @@
 package kpn.core.josm
 
-object Direction extends Enumeration {
+object OldDirection extends Enumeration {
   val FORWARD, BACKWARD, ROUNDABOUT, NONE = Value
 }
 
 object WayConnectionType {
-  def apply(linkPrev: Boolean, linkNext: Boolean, direction: Direction.Value): WayConnectionType = {
+  def apply(linkPrev: Boolean, linkNext: Boolean, direction: OldDirection.Value): WayConnectionType = {
     val wct = new WayConnectionType(false)
     wct.hasLinkPrev = linkPrev
     wct.hasLinkNext = linkNext
@@ -30,7 +30,7 @@ class WayConnectionType(val invalid: Boolean = true) {
    * If there is no connection to the previous or next member, then
    * direction has the value NONE.
    */
-  var direction: Direction.Value = Direction.NONE
+  var direction: OldDirection.Value = OldDirection.NONE
 
   /* True, if the element is part of a closed loop of ways. */
   var isLoop = false

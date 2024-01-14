@@ -4,7 +4,7 @@ import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.core.analysis.Link
 import kpn.core.analysis.LinkType
-import kpn.core.josm.Direction
+import kpn.core.josm.OldDirection
 import kpn.core.josm.RelationMember
 import kpn.core.josm.WayConnectionType
 
@@ -22,10 +22,10 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
 
     con.toSeq.zipWithIndex.map { case (c, index) =>
       val linkType = c.direction match {
-        case Direction.FORWARD => LinkType.FORWARD
-        case Direction.BACKWARD => LinkType.BACKWARD
-        case Direction.ROUNDABOUT => LinkType.ROUNDABOUT
-        case Direction.NONE => LinkType.NONE
+        case OldDirection.FORWARD => LinkType.FORWARD
+        case OldDirection.BACKWARD => LinkType.BACKWARD
+        case OldDirection.ROUNDABOUT => LinkType.ROUNDABOUT
+        case OldDirection.NONE => LinkType.NONE
       }
       // TODO for now first and last are considered always connected, later perhaps look at node definitions if included as route member
       Link(linkType, if (index == 0) true else c.hasLinkPrev, if (index == (con.size - 1)) true else c.hasLinkNext,
@@ -60,7 +60,7 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
 
       var wct = new WayConnectionType(false)
       wct.hasLinkPrev = i > 0 && con(i - 1) != null && con(i - 1).isValid // MV is there a previous that has a direction?
-      wct.direction = Direction.NONE
+      wct.direction = OldDirection.NONE
 
       if (m.isOneWay) {
         // MV member has role "forward" or "backward"
@@ -87,7 +87,7 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
         if (!m.isOneWay) {
           // MV member has role "forward" or "backward"
           wct.direction = determineDirection(i - 1, lastWct.direction, i)
-          wct.hasLinkPrev = wct.direction != Direction.NONE
+          wct.hasLinkPrev = wct.direction != OldDirection.NONE
         }
       }
 
@@ -124,7 +124,7 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
     var loop = false
     if (i == firstGroupIdx) {
       //is primitive loop
-      loop = determineDirection(i, Direction.FORWARD, i) == Direction.FORWARD
+      loop = determineDirection(i, OldDirection.FORWARD, i) == OldDirection.FORWARD
     } else {
       loop = determineDirection(i, con(i).direction, firstGroupIdx) == con(firstGroupIdx).direction
     }
@@ -136,32 +136,32 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
     }
   }
 
-  private def determineDirectionOfFirst(i: Int, m: RelationMember): Direction.Value = {
-    val result: Direction.Value = roundaboutType(m)
-    if (result != Direction.NONE)
+  private def determineDirectionOfFirst(i: Int, m: RelationMember): OldDirection.Value = {
+    val result: OldDirection.Value = roundaboutType(m)
+    if (result != OldDirection.NONE)
       return result
 
     if (m.isOneWay) {
       // MV member has role "forward" or "backward"
-      if (isBackward(m)) return Direction.BACKWARD
-      else return Direction.FORWARD
+      if (isBackward(m)) return OldDirection.BACKWARD
+      else return OldDirection.FORWARD
     } else {
       /* guess the direction and see if it fits with the next member */
-      if (determineDirection(i, Direction.FORWARD, i + 1) != Direction.NONE) return Direction.FORWARD
-      if (determineDirection(i, Direction.BACKWARD, i + 1) != Direction.NONE) return Direction.BACKWARD
+      if (determineDirection(i, OldDirection.FORWARD, i + 1) != OldDirection.NONE) return OldDirection.FORWARD
+      if (determineDirection(i, OldDirection.BACKWARD, i + 1) != OldDirection.NONE) return OldDirection.BACKWARD
     }
-    Direction.NONE
+    OldDirection.NONE
   }
 
-  private def roundaboutType(member: RelationMember): Direction.Value = {
+  private def roundaboutType(member: RelationMember): OldDirection.Value = {
     if (member == null || !member.isWay) {
-      Direction.NONE
+      OldDirection.NONE
     } else {
       if (member.way.tags.has("junction", "roundabout")) {
-        Direction.ROUNDABOUT
+        OldDirection.ROUNDABOUT
       }
       else {
-        Direction.NONE
+        OldDirection.NONE
       }
     }
   }
@@ -173,7 +173,7 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
   private def determineOnewayConnectionType(m: RelationMember, i: Int, wct: WayConnectionType): WayConnectionType = {
 
     var dirFW = determineDirection(lastForwardWay, con(lastForwardWay).direction, i)
-    var dirBW = Direction.NONE
+    var dirBW = OldDirection.NONE
 
     if (onewayBeginning) {
       if (lastBackwardWay < 0) {
@@ -182,7 +182,7 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
         dirBW = determineDirection(lastBackwardWay, con(lastBackwardWay).direction, i, reversed = true)
       }
 
-      if (dirBW != Direction.NONE) {
+      if (dirBW != OldDirection.NONE) {
         onewayBeginning = false
       }
     } else {
@@ -190,17 +190,17 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
     }
 
     if (m.isOneWay) {
-      if (dirBW != Direction.NONE) {
+      if (dirBW != OldDirection.NONE) {
         wct.direction = dirBW
         lastBackwardWay = i
         wct.isOnewayLoopBackwardPart = true
       }
-      if (dirFW != Direction.NONE) {
+      if (dirFW != OldDirection.NONE) {
         wct.direction = dirFW
         lastForwardWay = i
         wct.isOnewayLoopForwardPart = true
       }
-      if (dirFW == Direction.NONE && dirBW == Direction.NONE) {
+      if (dirFW == OldDirection.NONE && dirBW == OldDirection.NONE) {
         //Not connected to previous
         //                        unconnectPreviousLink(con, i, true)
         //                        unconnectPreviousLink(con, i, false)
@@ -216,15 +216,15 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
         onewayBeginning = true
       }
 
-      if (dirFW != Direction.NONE && dirBW != Direction.NONE) {
+      if (dirFW != OldDirection.NONE && dirBW != OldDirection.NONE) {
         //End of oneway loop
-        if (i + 1 < members.size && determineDirection(i, dirFW, i + 1) != Direction.NONE) {
+        if (i + 1 < members.size && determineDirection(i, dirFW, i + 1) != OldDirection.NONE) {
           wct.isOnewayLoopBackwardPart = false
-          dirBW = Direction.NONE
+          dirBW = OldDirection.NONE
           wct.direction = dirFW
         } else {
           wct.isOnewayLoopForwardPart = false
-          dirFW = Direction.NONE
+          dirFW = OldDirection.NONE
           wct.direction = dirBW
         }
 
@@ -234,20 +234,20 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
     } else {
       lastForwardWay = UNCONNECTED
       lastBackwardWay = UNCONNECTED
-      if (dirFW == Direction.NONE || dirBW == Direction.NONE) {
+      if (dirFW == OldDirection.NONE || dirBW == OldDirection.NONE) {
         wct.hasLinkPrev = false
       }
     }
     wct
   }
 
-  private def reverse(dir: Direction.Value): Direction.Value = {
-    if (dir == Direction.FORWARD) return Direction.BACKWARD
-    if (dir == Direction.BACKWARD) return Direction.FORWARD
+  private def reverse(dir: OldDirection.Value): OldDirection.Value = {
+    if (dir == OldDirection.FORWARD) return OldDirection.BACKWARD
+    if (dir == OldDirection.BACKWARD) return OldDirection.FORWARD
     dir
   }
 
-  private def determineDirection(ref_i: Int, ref_direction: Direction.Value, k: Int): Direction.Value = {
+  private def determineDirection(ref_i: Int, ref_direction: OldDirection.Value, k: Int): OldDirection.Value = {
     determineDirection(ref_i, ref_direction, k, reversed = false)
   }
 
@@ -262,14 +262,14 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
    * Let the relation be a route of oneway streets, and someone travels them in the given order.
    * Direction is FORWARD if it is legal and BACKWARD if it is illegal to do so for the given way.
    *
-   **/
-  private def determineDirection(ref_i: Int, ref_direction: Direction.Value, k: Int, reversed: Boolean): Direction.Value = {
+   * */
+  private def determineDirection(ref_i: Int, ref_direction: OldDirection.Value, k: Int, reversed: Boolean): OldDirection.Value = {
 
     if (ref_i < 0 || k < 0 || ref_i >= members.size || k >= members.size)
-      return Direction.NONE
+      return OldDirection.NONE
 
-    if (ref_direction == Direction.NONE)
-      return Direction.NONE
+    if (ref_direction == OldDirection.NONE)
+      return OldDirection.NONE
 
     val m_ref = members(ref_i)
     val m = members(k)
@@ -284,18 +284,18 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
     }
 
     if (way_ref == null || way == null)
-      return Direction.NONE
+      return OldDirection.NONE
 
     /* the list of nodes the way k can dock to */
 
     val refNodes = ref_direction match {
-      case Direction.FORWARD => Seq(way_ref.nodes.last)
-      case Direction.BACKWARD => Seq(way_ref.nodes.head)
-      case Direction.ROUNDABOUT => way_ref.nodes
+      case OldDirection.FORWARD => Seq(way_ref.nodes.last)
+      case OldDirection.BACKWARD => Seq(way_ref.nodes.head)
+      case OldDirection.ROUNDABOUT => way_ref.nodes
     }
 
     for (n <- refNodes) {
-      if (roundaboutType(members(k)) != Direction.NONE) {
+      if (roundaboutType(members(k)) != OldDirection.NONE) {
         for (nn <- way.nodes) {
           if (n == nn)
             return roundaboutType(members(k))
@@ -304,24 +304,24 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
         // MV member has role "forward" or "backward"
         if (n == firstOnewayNode(m) && !reversed) {
           if (isBackward(m))
-            return Direction.BACKWARD
+            return OldDirection.BACKWARD
           else
-            return Direction.FORWARD
+            return OldDirection.FORWARD
         }
         if (n == lastOnewayNode(m) && reversed) {
           if (isBackward(m))
-            return Direction.FORWARD
+            return OldDirection.FORWARD
           else
-            return Direction.BACKWARD
+            return OldDirection.BACKWARD
         }
       } else {
         if (n == way.nodes.head)
-          return Direction.FORWARD
+          return OldDirection.FORWARD
         if (n == way.nodes.last)
-          return Direction.BACKWARD
+          return OldDirection.BACKWARD
       }
     }
-    Direction.NONE
+    OldDirection.NONE
   }
 
   private def firstOnewayNode(m: RelationMember): Node = {
