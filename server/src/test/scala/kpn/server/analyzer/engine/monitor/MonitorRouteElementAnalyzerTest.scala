@@ -158,14 +158,14 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
     )
   }
 
-  test("forward") {
+  test("forward/backward") {
     val result = analyze(
       new MonitorRouteTestData() {
         memberWay(11, "", 1, 2)
         memberWay(12, "forward", 2, 3)
         memberWay(13, "forward", 3, 8)
-        memberWay(14, "forward", 8, 7)
-        memberWay(15, "forward", 7, 2)
+        memberWay(14, "backward", 2, 7)
+        memberWay(15, "backward", 7, 8)
         memberWay(16, "", 8, 9)
       }
     ).shouldMatchTo(
@@ -180,7 +180,51 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
     )
   }
 
-  test("forward and gap") {
+  test("forward/backward 2") { // TODO further investigate deviation from reference
+    val result = analyze(
+      new MonitorRouteTestData() {
+        memberWay(11, "", 1, 2)
+        memberWay(12, "forward", 2, 3)
+        memberWay(13, "forward", 3, 8)
+        memberWay(14, "backward", 2, 7)
+        memberWay(15, "forward", 8, 7)
+        memberWay(16, "", 8, 9)
+      }
+    ).shouldMatchTo(
+      Seq(
+        Seq(
+          "1>2",
+          "2>3>8 (Down)",
+          "8>7>2 (Up)",
+          "8>9",
+        )
+      )
+    )
+  }
+
+  test("forward") { // TODO further investigate deviation from reference
+    val result = analyze(
+      new MonitorRouteTestData() {
+        memberWay(11, "", 1, 2)
+        memberWay(12, "forward", 2, 3)
+        memberWay(13, "forward", 3, 8)
+        memberWay(14, "forward", 7, 2)
+        memberWay(15, "forward", 8, 7)
+        memberWay(16, "", 8, 9)
+      }
+    ).shouldMatchTo(
+      Seq(
+        Seq(
+          "1>2",
+          "2>3>8 (Down)",
+          "8>7>2 (Up)",
+          "8>9",
+        )
+      )
+    )
+  }
+
+  test("forward and gap") { // TODO further investigate deviation from reference
     val result = analyze(
       new MonitorRouteTestData() {
         memberWay(11, "", 1, 2)
