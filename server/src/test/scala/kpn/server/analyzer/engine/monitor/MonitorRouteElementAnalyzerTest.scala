@@ -506,8 +506,6 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
     )
   }
 
-  //////////////////
-
   test("forward/backward") {
     val result = analyze(
       new MonitorRouteTestData() {
@@ -531,17 +529,16 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       )
     )
 
-    // TODO further investigate deviation from reference
-    //    result.analysis.shouldMatchTo(
-    //      Seq(
-    //        Seq(
-    //          "1>2",
-    //          "2>3>8 (Down)",
-    //          "8>7>2 (Up)",
-    //          "8>9",
-    //        )
-    //      )
-    //    )
+    result.analysis.shouldMatchTo(
+      Seq(
+        Seq(
+          "1>2",
+          "2>3>8 (Down)",
+          "8>7>2 (Up)",
+          "8>9",
+        )
+      )
+    )
   }
 
   test("forward/backward 2") {
@@ -567,17 +564,16 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       )
     )
 
-    // TODO further investigate deviation from reference
-    //    result.analysis.shouldMatchTo(
-    //      Seq(
-    //        Seq(
-    //          "1>2",
-    //          "2>3>8 (Down)",
-    //          "8>7>2 (Up)",
-    //          "8>9",
-    //        )
-    //      )
-    //    )
+    result.analysis.shouldMatchTo(
+      Seq(
+        Seq(
+          "1>2",
+          "2>3>8 (Down)",
+          "8>7>2 (Up)",
+          "8>9",
+        )
+      )
+    )
   }
 
   test("forward") {
@@ -603,17 +599,16 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
       )
     )
 
-    // TODO further investigate deviation from reference
-    //    result.analysis.shouldMatchTo(
-    //      Seq(
-    //        Seq(
-    //          "1>2",
-    //          "2>3>8 (Down)",
-    //          "8>7>2 (Up)",
-    //          "8>9",
-    //        )
-    //      )
-    //    )
+    result.analysis.shouldMatchTo(
+      Seq(
+        Seq(
+          "1>2",
+          "2>3>8 (Down)",
+          "8>7>2 (Up)",
+          "8>9",
+        )
+      )
+    )
   }
 
   test("forward and gap") {
@@ -644,20 +639,20 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
         "8    p ■   n     loop     fp     bp     head     tail     d forward",
       )
     )
-    // TODO further investigate deviation from reference
-    //    result.analysis.shouldMatchTo(
-    //      Seq(
-    //        Seq(
-    //          "1>2",
-    //          "2>3>8 (Down)",
-    //          "8>7>2 (Up)",
-    //          "8>9",
-    //        ),
-    //        Seq(
-    //          "10>11>12",
-    //        )
-    //      )
-    //    )
+
+    result.analysis.shouldMatchTo(
+      Seq(
+        Seq(
+          "1>2",
+          "2>3>8 (Down)",
+          "8>7>2 (Up)",
+          "8>9",
+        ),
+        Seq(
+          "10>11>12",
+        )
+      )
+    )
   }
 
   // TODO add test with first way 'forward'/'backward' role?
