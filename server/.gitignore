@@ -29,6 +29,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-
-src/main/java/reference/**
