@@ -18,8 +18,12 @@ class MonitorRouteTestData extends SharedTestObjects {
   private val memberBuffer = ListBuffer[RawMember]()
 
   def memberWay(wayId: Long, role: String, nodeIds: Long*): RawMember = {
+    memberWayWithTags(wayId, role, Tags.from("highway" -> "road"), nodeIds: _*)
+  }
+
+  def memberWayWithTags(wayId: Long, role: String, tags: Tags, nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
-    memberWay(wayId, Tags.from("highway" -> "road"), role, nodeIds: _*)
+    memberWay(wayId, tags, role, nodeIds: _*)
   }
 
   private def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {

@@ -1,19 +1,18 @@
 package kpn.server.analyzer.engine.monitor.reference;
 
-import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toUnmodifiableList;
 
 public class Way extends Element {
 
     private final Long id;
     private final List<Node> nodes;
 
-    public Way(final Long id, final Collection<Node> nodes) {
+    public Way(final Long id, final Map<String, String> tags, final List<Node> nodes) {
+        super(tags);
         this.id = id;
-        this.nodes = nodes.stream().collect(toUnmodifiableList());
+        this.nodes = nodes;
     }
 
     public Long getId() {

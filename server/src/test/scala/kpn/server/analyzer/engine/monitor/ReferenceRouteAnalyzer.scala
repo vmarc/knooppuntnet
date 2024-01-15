@@ -1,9 +1,12 @@
 package kpn.server.analyzer.engine.monitor
 
+import kpn.api.common.data.Member
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.monitor.reference.WayInfo
 
+import java.util.Collections
+import java.util.stream.Collectors.toUnmodifiableList
 import scala.collection.mutable
 import scala.jdk.CollectionConverters.CollectionHasAsScala
 import scala.jdk.CollectionConverters.IterableHasAsJava
@@ -21,20 +24,41 @@ class ReferenceRouteAnalyzer {
     val referenceRelationMembers = relation.members.map { member =>
       member match {
         case wayMember: WayMember =>
-          val referenceRole = wayMember.role match {
-            case None => ""
-            case Some(role) => role
-          }
-          val referenceNodes = wayMember.way.nodes.map { node =>
-            nodeMap.getOrElseUpdate(node.id, new reference.Node(node.id))
-          }.asJavaCollection
-          val referenceWay = new reference.Way(wayMember.way.id, referenceNodes)
+          val referenceRole = buildReferenceRole(wayMember)
+          val referenceNodes = buildReferenceNodes(nodeMap, wayMember)
+          val referenceTags = buildReferenceTags(wayMember)
+          val referenceWay = new reference.Way(
+            wayMember.way.id,
+            referenceTags,
+            referenceNodes
+          )
           new reference.Member(referenceRole, referenceWay)
 
         case _ => throw new IllegalStateException("non way member types not implemented yet")
       }
-    }.asJavaCollection
+    }.asJavaCollection.stream.collect(toUnmodifiableList())
     new reference.Relation(referenceRelationMembers)
+  }
+
+  private def buildReferenceRole(member: Member): String = {
+    member.role match {
+      case None => ""
+      case Some(role) => role
+    }
+  }
+
+  private def buildReferenceNodes(nodeMap: mutable.Map[Long, reference.Node], wayMember: WayMember): java.util.List[reference.Node] = {
+    wayMember.way.nodes.map { node =>
+      nodeMap.getOrElseUpdate(node.id, new reference.Node(node.id))
+    }.asJavaCollection.stream.collect(toUnmodifiableList())
+  }
+
+  private def buildReferenceTags(wayMember: WayMember): java.util.Map[String, String] = {
+    val tags = new java.util.HashMap[String, String]()
+    wayMember.way.tags.tags.foreach { tag =>
+      tags.put(tag.key, tag.value)
+    }
+    Collections.unmodifiableMap(tags)
   }
 
   private def wayInfoString(wayInfo: WayInfo): String = {

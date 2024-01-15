@@ -401,9 +401,6 @@ public class WayInfoCalculator {
             log("reference way candidateNodeIds: [%s]", nodeIdsString);
 
             for (Node previousWayNode : previousWayConnectionCandiateNodes) {
-                if (previousWayNode == null) {
-                    continue;
-                }
                 if (Utils.determineRoundabout(members.get(memberIndex)) != NONE) {
                     log("current member is roundabout");
                     for (Node currentWayNode : currentWay.getNodes()) {
