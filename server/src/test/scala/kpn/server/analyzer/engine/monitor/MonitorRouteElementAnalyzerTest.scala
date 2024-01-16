@@ -655,7 +655,108 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
     )
   }
 
-  // TODO add test with first way 'forward'/'backward' role?
+  test("roundabout") {
+    val result = analyze(
+      new MonitorRouteTestData() {
+        memberWayWithTags(11, "", Tags.from("junction" -> "roundabout"), 1, 2, 3, 4, 1)
+      }
+    )
+
+    result.reference.shouldMatchTo(
+      Seq(
+        "1    p     n     loop     fp     bp     head     tail     d roundabout_right",
+      )
+    )
+
+    result.analysis.shouldMatchTo(
+      Seq(
+        Seq(
+          "1>1",
+        ),
+      )
+    )
+  }
+
+  test("2 roundabouts") {
+    val result = analyze(
+      new MonitorRouteTestData() {
+        memberWayWithTags(11, "", Tags.from("junction" -> "roundabout"), 1, 2, 3, 4, 1)
+        memberWayWithTags(12, "", Tags.from("junction" -> "roundabout"), 3, 4, 5, 6, 3)
+      }
+    )
+
+    result.reference.shouldMatchTo(
+      Seq(
+        "1    p     n ■   loop ■   fp     bp     head     tail     d roundabout_right",
+        "2    p ■   n     loop ■   fp     bp     head     tail     d roundabout_right"
+      )
+    )
+
+    result.analysis.shouldMatchTo(
+      Seq(
+        Seq(
+          "1>1", // TODO
+        ),
+        Seq(
+          "3>3",
+        ),
+      )
+    )
+  }
+
+  test("way - roundabout") {
+    val result = analyze(
+      new MonitorRouteTestData() {
+        memberWay(11, "", 1, 2, 3)
+        memberWayWithTags(12, "", Tags.from("junction" -> "roundabout"), 3, 4, 5, 6, 3)
+      }
+    )
+
+    result.reference.shouldMatchTo(
+      Seq(
+        "1    p     n ■   loop     fp     bp     head     tail     d forward",
+        "2    p ■   n     loop     fp     bp     head     tail     d roundabout_right"
+      )
+    )
+
+    result.analysis.shouldMatchTo(
+      Seq(
+        Seq(
+          "1>3>3", // TODO
+        ),
+      )
+    )
+  }
+
+  test("way - roundabout - way") {
+    val result = analyze(
+      new MonitorRouteTestData() {
+        memberWay(11, "", 1, 2, 3)
+        memberWayWithTags(12, "", Tags.from("junction" -> "roundabout"), 3, 4, 5, 6, 3)
+        memberWay(13, "", 5, 6, 7)
+      }
+    )
+
+    result.reference.shouldMatchTo(
+      Seq(
+        "1    p     n ■   loop     fp     bp     head     tail     d forward",
+        "2    p ■   n ■   loop     fp     bp     head     tail     d roundabout_right",
+        "3    p ■   n     loop     fp     bp     head     tail     d forward"
+      )
+    )
+
+    result.analysis.shouldMatchTo(
+      Seq(
+        Seq(
+          "1>3>3", // TODO
+        ),
+        Seq(
+          "5>7",
+        ),
+      )
+    )
+  }
+
 
   private def analyze(data: MonitorRouteTestData): RouteAnalysisResult = {
     val relation = data.relation
@@ -664,6 +765,9 @@ class MonitorRouteElementAnalyzerTest extends UnitTest {
     println
     reference.foreach(println)
     println
+    new MonitorRouteStructureAnalyzer().analyze(relation)
+    println
+
     RouteAnalysisResult(
       reference,
       elementGroups.map(_.elements.map(_.string))

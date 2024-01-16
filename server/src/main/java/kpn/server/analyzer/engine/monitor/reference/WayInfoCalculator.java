@@ -229,17 +229,31 @@ public class WayInfoCalculator {
     private void determineOnewayWayInfo(final Member member, final int memberIndex, final WayInfo wayInfo) {
         logFunctionStart("determineOnewayWayInfo(memberIndex=%d)", memberIndex);
         try {
-            Direction dirFW = determineDirectionBasedOnReference(lastForwardWayMemberIndex, wayInfos.get(lastForwardWayMemberIndex).direction, memberIndex);
+            Direction dirFW = determineDirectionBasedOnReference(
+                    lastForwardWayMemberIndex,
+                    wayInfos.get(lastForwardWayMemberIndex).direction,
+                    memberIndex
+            );
             log("dirFW=%s (with reference to lastForwardWayMemberIndex=%d)", dirFW.toString(), lastForwardWayMemberIndex);
             Direction dirBW;
             if (onewayBeginning) {
                 log("onewayBeginning was true");
                 if (lastBackwardWayMemberIndex < 0) {
                     log("lastBackwardWayMemberIndex not set");
-                    dirBW = determineDirectionBasedOnReference(firstGroupIdx, reverse(wayInfos.get(firstGroupIdx).direction), memberIndex, true /* MV !!!*/);
+                    dirBW = determineDirectionBasedOnReference(
+                            firstGroupIdx,
+                            reverse(wayInfos.get(firstGroupIdx).direction),
+                            memberIndex,
+                            true /* MV !!!*/
+                    );
                     log("dirBW=%s (with reference to firstGroupIdx=%d reversed)", dirFW.toString(), firstGroupIdx);
                 } else {
-                    dirBW = determineDirectionBasedOnReference(lastBackwardWayMemberIndex, wayInfos.get(lastBackwardWayMemberIndex).direction, memberIndex, true /* MV !!!*/);
+                    dirBW = determineDirectionBasedOnReference(
+                            lastBackwardWayMemberIndex,
+                            wayInfos.get(lastBackwardWayMemberIndex).direction,
+                            memberIndex,
+                            true /* MV !!!*/
+                    );
                     log("dirBW=%s (with reference to lastBackwardWayMemberIndex=%d  reversed)", dirFW.toString(), lastBackwardWayMemberIndex);
                 }
 
@@ -270,7 +284,12 @@ public class WayInfoCalculator {
                     onewayBeginning = false;
                 }
             } else {
-                dirBW = determineDirectionBasedOnReference(lastBackwardWayMemberIndex, wayInfos.get(lastBackwardWayMemberIndex).direction, memberIndex, true /* MV !!! */);
+                dirBW = determineDirectionBasedOnReference(
+                        lastBackwardWayMemberIndex,
+                        wayInfos.get(lastBackwardWayMemberIndex).direction,
+                        memberIndex,
+                        true /* MV !!! */
+                );
                 log("dirBW=%s (with reference to lastForwardWayMemberIndex=%d)", dirFW.toString(), lastForwardWayMemberIndex);
             }
 
@@ -354,12 +373,17 @@ public class WayInfoCalculator {
     private Direction determineDirectionBasedOnReference(final int referenceMemberIndex, final Direction referenceDirection, final int memberIndex, final boolean reversed) {
         logFunctionStart("determineDirectionBasedOnReference(referenceMemberIndex=%d, referenceDirection=%s, memberIndex=%d, reversed=%s)", referenceMemberIndex, referenceDirection.toString(), memberIndex, "" + reversed);
         try {
-            if (members == null || referenceMemberIndex < 0 // MV processing the first way
-                    || memberIndex < 0 // MV invalid state
+            if (referenceMemberIndex < 0 // MV processing the first way
                     || referenceMemberIndex >= members.size() // MV invalid state
-                    || memberIndex >= members.size() // MV invalid state
-                    || referenceDirection == NONE  // MV cannot determine direction relative to unknown direction
             ) {
+                log("result NONE (no reference member with index %d)", referenceMemberIndex);
+                return NONE;
+            }
+            if (memberIndex < 0 || memberIndex >= members.size()) {
+                log("result NONE (no member with index %d)", memberIndex);
+                return NONE;
+            }
+            if (referenceDirection == NONE) {
                 log("result NONE (cannot determine direction relative to unknown direction)");
                 return NONE;
             }
@@ -405,9 +429,11 @@ public class WayInfoCalculator {
                     log("current member is roundabout");
                     for (Node currentWayNode : currentWay.getNodes()) {
                         if (previousWayNode == currentWayNode) {
+                            log("matched nodeId %d", currentWayNode.getId());
                             return Utils.determineRoundabout(members.get(memberIndex));
                         }
                     }
+                    log("none of the nodes matched");
                 } else if (Utils.isUnidirectional(currentMember)) {
                     log("current member is unidirectional");
                     if (!reversed && previousWayNode == onewayStartNode(currentMember)) {
