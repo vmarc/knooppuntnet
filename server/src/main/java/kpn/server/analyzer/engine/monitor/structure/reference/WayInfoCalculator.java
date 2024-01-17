@@ -1,13 +1,13 @@
-package kpn.server.analyzer.engine.monitor.reference;
+package kpn.server.analyzer.engine.monitor.structure.reference;
 
-import kpn.server.analyzer.engine.monitor.reference.WayInfo.Direction;
+import kpn.server.analyzer.engine.monitor.structure.reference.WayInfo.Direction;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
-import static kpn.server.analyzer.engine.monitor.reference.WayInfo.Direction.*;
+import static kpn.server.analyzer.engine.monitor.structure.reference.WayInfo.Direction.*;
 
 public class WayInfoCalculator {
 

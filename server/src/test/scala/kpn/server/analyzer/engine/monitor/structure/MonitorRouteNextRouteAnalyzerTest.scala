@@ -1,7 +1,8 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.structure
 
 import kpn.api.common.data.WayMember
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.monitor.MonitorRouteTestData
 
 class MonitorRouteNextRouteAnalyzerTest extends UnitTest {
 

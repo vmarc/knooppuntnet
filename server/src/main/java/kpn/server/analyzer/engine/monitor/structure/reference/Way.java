@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor.reference;
+package kpn.server.analyzer.engine.monitor.structure.reference;
 
 import java.util.List;
 import java.util.Map;

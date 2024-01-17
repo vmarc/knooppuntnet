@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.structure
 
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way

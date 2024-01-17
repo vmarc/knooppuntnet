@@ -1,9 +1,9 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.structure
 
 import kpn.api.common.data.Member
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
-import kpn.server.analyzer.engine.monitor.reference.WayInfo
+import kpn.server.analyzer.engine.monitor.structure.reference.WayInfo
 
 import java.util.Collections
 import java.util.stream.Collectors.toUnmodifiableList
@@ -15,29 +15,29 @@ class ReferenceRouteAnalyzer {
 
   def analyze(relation: Relation): Seq[String] = {
     val referenceRelation = buildReferenceRelation(relation)
-    val calculator = new reference.WayInfoCalculator(referenceRelation, referenceRelation.getMembers())
+    val calculator = new kpn.server.analyzer.engine.monitor.structure.reference.WayInfoCalculator(referenceRelation, referenceRelation.getMembers())
     calculator.calculate().asScala.toSeq.zipWithIndex.map { case (wayInfo, index) => s"${index + 1} ${wayInfoString(wayInfo)}" }
   }
 
-  private def buildReferenceRelation(relation: Relation): reference.Relation = {
-    val nodeMap = mutable.Map[Long, reference.Node]()
+  private def buildReferenceRelation(relation: Relation): kpn.server.analyzer.engine.monitor.structure.reference.Relation = {
+    val nodeMap = mutable.Map[Long, kpn.server.analyzer.engine.monitor.structure.reference.Node]()
     val referenceRelationMembers = relation.members.map { member =>
       member match {
         case wayMember: WayMember =>
           val referenceRole = buildReferenceRole(wayMember)
           val referenceNodes = buildReferenceNodes(nodeMap, wayMember)
           val referenceTags = buildReferenceTags(wayMember)
-          val referenceWay = new reference.Way(
+          val referenceWay = new kpn.server.analyzer.engine.monitor.structure.reference.Way(
             wayMember.way.id,
             referenceTags,
             referenceNodes
           )
-          new reference.Member(referenceRole, referenceWay)
+          new kpn.server.analyzer.engine.monitor.structure.reference.Member(referenceRole, referenceWay)
 
         case _ => throw new IllegalStateException("non way member types not implemented yet")
       }
     }.asJavaCollection.stream.collect(toUnmodifiableList())
-    new reference.Relation(referenceRelationMembers)
+    new kpn.server.analyzer.engine.monitor.structure.reference.Relation(referenceRelationMembers)
   }
 
   private def buildReferenceRole(member: Member): String = {
@@ -47,9 +47,9 @@ class ReferenceRouteAnalyzer {
     }
   }
 
-  private def buildReferenceNodes(nodeMap: mutable.Map[Long, reference.Node], wayMember: WayMember): java.util.List[reference.Node] = {
+  private def buildReferenceNodes(nodeMap: mutable.Map[Long, kpn.server.analyzer.engine.monitor.structure.reference.Node], wayMember: WayMember): java.util.List[kpn.server.analyzer.engine.monitor.structure.reference.Node] = {
     wayMember.way.nodes.map { node =>
-      nodeMap.getOrElseUpdate(node.id, new reference.Node(node.id))
+      nodeMap.getOrElseUpdate(node.id, new kpn.server.analyzer.engine.monitor.structure.reference.Node(node.id))
     }.asJavaCollection.stream.collect(toUnmodifiableList())
   }
 

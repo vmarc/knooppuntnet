@@ -1,9 +1,9 @@
-package kpn.server.analyzer.engine.monitor.reference;
+package kpn.server.analyzer.engine.monitor.structure.reference;
 
-import kpn.server.analyzer.engine.monitor.reference.WayInfo.Direction;
+import kpn.server.analyzer.engine.monitor.structure.reference.WayInfo.Direction;
 
-import static kpn.server.analyzer.engine.monitor.reference.WayInfo.Direction.NONE;
-import static kpn.server.analyzer.engine.monitor.reference.WayInfo.Direction.ROUNDABOUT_RIGHT;
+import static kpn.server.analyzer.engine.monitor.structure.reference.WayInfo.Direction.NONE;
+import static kpn.server.analyzer.engine.monitor.structure.reference.WayInfo.Direction.ROUNDABOUT_RIGHT;
 
 public class Utils {
 
