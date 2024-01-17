@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.monitor
+package kpn.server.analyzer.engine.monitor.structure
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
@@ -11,7 +11,7 @@ import kpn.core.data.DataBuilder
 
 import scala.collection.mutable.ListBuffer
 
-class MonitorRouteTestData extends SharedTestObjects {
+class StructureTestSetup extends SharedTestObjects {
 
   private val nodeBuffer = ListBuffer[RawNode]()
   private val wayBuffer = ListBuffer[RawWay]()
@@ -67,5 +67,22 @@ class MonitorRouteTestData extends SharedTestObjects {
     val relation = newRawRelation(1, members = memberBuffer.toSeq)
     val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))
     new DataBuilder(rawData).data.relations(1)
+  }
+
+  def elementGroups(traceEnabled: Boolean = false): Seq[Seq[String]] = {
+    val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled)
+    elementGroups.map(_.elements.map(_.string))
+  }
+
+  def reference(traceEnabled: Boolean = false): Seq[String] = {
+    val reference = new ReferenceStructureAnalyzer(traceEnabled).analyze(relation)
+    println
+    reference.foreach(println)
+    println
+    reference
+  }
+
+  def structure(traceEnabled: Boolean = false): Unit = {
+    new StructureAnalyzer(traceEnabled).analyze(relation)
   }
 }

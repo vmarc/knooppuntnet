@@ -2,41 +2,41 @@ package kpn.server.analyzer.engine.monitor.structure
 
 import kpn.api.custom.Relation
 
-class MonitorRouteStructureAnalyzer {
-  private val memberAnalyzer = new MonitorRouteMemberAnalyzer
+class StructureAnalyzer(traceEnabled: Boolean = false) {
+  private val memberAnalyzer = new StructureMemberAnalyzer()
 
   def analyze(relation: Relation): Unit = {
     memberAnalyzer.analyzeRoute(relation).map { monitorRouteMemberGroup =>
-      val elementGroups = MonitorRouteElementAnalyzer.analyze(monitorRouteMemberGroup.members)
+      val elementGroups = StructureElementAnalyzer.analyze(monitorRouteMemberGroup.members)
       val forwardPathOption = analyzeForwardPath(elementGroups)
       val backwardPathOption = analyzeBackwardPath(elementGroups)
 
-      println("structure")
+      if (traceEnabled) println("structure")
       forwardPathOption match {
-        case None => println("  no forward path")
+        case None => if (traceEnabled) println("  no forward path")
         case Some(path) =>
-          println("  forward path")
+          if (traceEnabled) println("  forward path")
           path.elements.foreach { element =>
             element.fragments.foreach { fragment =>
-              println(s"    fragment nodeIds=${fragment.nodeIds}")
+              if (traceEnabled) println(s"    fragment nodeIds=${fragment.nodeIds}")
             }
           }
       }
 
       backwardPathOption match {
-        case None => println("  no backward path")
+        case None => if (traceEnabled) println("  no backward path")
         case Some(path) =>
-          println("  backward path")
+          if (traceEnabled) println("  backward path")
           path.elements.foreach { element =>
             element.fragments.foreach { fragment =>
-              println(s"    fragment nodeIds=${fragment.nodeIds}")
+              if (traceEnabled) println(s"    fragment nodeIds=${fragment.nodeIds}")
             }
           }
       }
     }
   }
 
-  private def analyzeForwardPath(elementGroups: Seq[MonitorRouteElementGroup]): Option[RoutePath] = {
+  private def analyzeForwardPath(elementGroups: Seq[StructureElementGroup]): Option[StructurePath] = {
     elementGroups.headOption.flatMap { firstElementGroup =>
       val elements = firstElementGroup.elements.filter { element =>
         element.direction match {
@@ -52,7 +52,7 @@ class MonitorRouteStructureAnalyzer {
             case None => None
             case Some(lastElement) =>
               Some(
-                RoutePath(
+                StructurePath(
                   firstElement.startNodeId,
                   lastElement.endNodeId,
                   elements
@@ -63,7 +63,7 @@ class MonitorRouteStructureAnalyzer {
     }
   }
 
-  private def analyzeBackwardPath(elementGroups: Seq[MonitorRouteElementGroup]): Option[RoutePath] = {
+  private def analyzeBackwardPath(elementGroups: Seq[StructureElementGroup]): Option[StructurePath] = {
     elementGroups.lastOption.flatMap { lastElementGroup =>
       val elements = lastElementGroup.elements.filter { element =>
         element.direction match {
@@ -79,7 +79,7 @@ class MonitorRouteStructureAnalyzer {
             case None => None
             case Some(lastElement) =>
               Some(
-                RoutePath(
+                StructurePath(
                   lastElement.endNodeId,
                   firstElement.startNodeId,
                   elements

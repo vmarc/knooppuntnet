@@ -6,8 +6,8 @@ import kpn.core.util.Triplet
 
 import scala.collection.mutable
 
-object MonitorRouteElementAnalyzer {
-  def analyze(members: Seq[Member]): Seq[MonitorRouteElementGroup] = {
+object StructureElementAnalyzer {
+  def analyze(members: Seq[Member], traceEnabled: Boolean = false): Seq[StructureElementGroup] = {
     val wayMembers = members.flatMap { member =>
       member match {
         case wayMember: WayMember => Some(wayMember)
@@ -17,25 +17,25 @@ object MonitorRouteElementAnalyzer {
     if (wayMembers.exists(_.way.nodes.length < 2)) {
       throw new IllegalStateException("ways with less that 2 nodes should have been filtered out at this point")
     }
-    new MonitorRouteElementAnalyzer(wayMembers).analyze()
+    new StructureElementAnalyzer(wayMembers, traceEnabled).analyze()
   }
 }
 
-class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
+class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean = false) {
 
   private var elementDirection: Option[ElementDirection.Value] = None
 
-  private val elementGroups = mutable.Buffer[MonitorRouteElementGroup]()
+  private val elementGroups = mutable.Buffer[StructureElementGroup]()
   private val elements = mutable.Buffer[MonitorRouteElement]()
-  private val currentElementFragments = mutable.Buffer[MonitorRouteFragment]()
+  private val currentElementFragments = mutable.Buffer[StructureFragment]()
 
   private var contextCurrentWayMember: WayMember = null
   private var contextNextWayMember: Option[WayMember] = None
 
-  private var lastForwardFragment: Option[MonitorRouteFragment] = None
-  private var lastBackwardFragment: Option[MonitorRouteFragment] = None
+  private var lastForwardFragment: Option[StructureFragment] = None
+  private var lastBackwardFragment: Option[StructureFragment] = None
 
-  def analyze(): Seq[MonitorRouteElementGroup] = {
+  def analyze(): Seq[StructureElementGroup] = {
     Triplet.slide(wayMembers).foreach { wayMemberCursor =>
       contextCurrentWayMember = wayMemberCursor.current
       contextNextWayMember = wayMemberCursor.next
@@ -46,7 +46,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
   }
 
   private def processWayMember(): Unit = {
-    debug(s"way ${contextCurrentWayMember.way.id} role=${contextCurrentWayMember.role}")
+    if (traceEnabled) trace(s"way ${contextCurrentWayMember.way.id} role=${contextCurrentWayMember.role}")
     if (contextCurrentWayMember.isUnidirectional) {
       processUnidirectionalWay()
     }
@@ -68,7 +68,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
 
   private def processBidirectionalWay(): Unit = {
     if (elementDirection.nonEmpty) {
-      debug(s"  first way after unidirectional element")
+      if (traceEnabled) trace(s"  first way after unidirectional element")
 
       elementDirection match {
         case Some(ElementDirection.Up) => reverseFragments()
@@ -89,13 +89,13 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
       calculatedEndNodeId match {
         case Some(endNodeId) =>
           if (endNodeId == contextCurrentWayMember.startNode.id) {
-            val fragment = MonitorRouteFragment(contextCurrentWayMember.way)
+            val fragment = StructureFragment(contextCurrentWayMember.way)
             lastForwardFragment = Some(fragment)
             lastBackwardFragment = Some(fragment)
             currentElementFragments.addOne(fragment)
           }
           else if (endNodeId == contextCurrentWayMember.endNode.id) {
-            val fragment = MonitorRouteFragment(contextCurrentWayMember.way, reversed = true)
+            val fragment = StructureFragment(contextCurrentWayMember.way, reversed = true)
             lastForwardFragment = Some(fragment)
             lastBackwardFragment = Some(fragment)
             currentElementFragments.addOne(fragment)
@@ -149,8 +149,8 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
 
     connectingNodeId match {
       case None =>
-        debug(s"  current way does not connect to next way")
-        val fragment = MonitorRouteFragment(contextCurrentWayMember.way)
+        if (traceEnabled) trace(s"  current way does not connect to next way")
+        val fragment = StructureFragment(contextCurrentWayMember.way)
         lastForwardFragment = Some(fragment)
         lastBackwardFragment = Some(fragment)
         currentElementFragments.addOne(fragment)
@@ -159,13 +159,13 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
 
       case Some(nodeId) =>
         if (nodeId == contextCurrentWayMember.way.nodes.last.id) {
-          val fragment = MonitorRouteFragment(contextCurrentWayMember.way)
+          val fragment = StructureFragment(contextCurrentWayMember.way)
           lastForwardFragment = Some(fragment)
           lastBackwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
         }
         else {
-          val fragment = MonitorRouteFragment(contextCurrentWayMember.way, reversed = true)
+          val fragment = StructureFragment(contextCurrentWayMember.way, reversed = true)
           lastForwardFragment = Some(fragment)
           lastBackwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
@@ -206,7 +206,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
 
     calculatedEndNodeId match {
       case None =>
-        val fragment = MonitorRouteFragment(contextCurrentWayMember.way)
+        val fragment = StructureFragment(contextCurrentWayMember.way)
         lastForwardFragment = Some(fragment)
         lastBackwardFragment = Some(fragment)
         currentElementFragments.addOne(fragment)
@@ -214,20 +214,20 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
       case Some(endNodeId) =>
 
         if (contextCurrentWayMember.startNode.id == endNodeId) {
-          val fragment = MonitorRouteFragment(contextCurrentWayMember.way)
+          val fragment = StructureFragment(contextCurrentWayMember.way)
           lastForwardFragment = Some(fragment)
           lastBackwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
         }
         else if (contextCurrentWayMember.endNode.id == endNodeId) {
-          val fragment = MonitorRouteFragment(contextCurrentWayMember.way, reversed = true)
+          val fragment = StructureFragment(contextCurrentWayMember.way, reversed = true)
           lastForwardFragment = Some(fragment)
           lastBackwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
         }
         else {
           finalizeCurrentGroup()
-          val fragment = MonitorRouteFragment(contextCurrentWayMember.way)
+          val fragment = StructureFragment(contextCurrentWayMember.way)
           lastForwardFragment = Some(fragment)
           lastBackwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
@@ -237,7 +237,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
 
 
   private def processFirstUnidirectionalWay(): Unit = {
-    debug(s"  first way in unidirectional element")
+    if (traceEnabled) trace(s"  first way in unidirectional element")
 
     finalizeCurrentElement()
     elements.lastOption match {
@@ -267,7 +267,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
         }
     }
 
-    val fragment = MonitorRouteFragment(
+    val fragment = StructureFragment(
       contextCurrentWayMember.way,
       // direction = Some(Direction.Backward),
       reversed = contextCurrentWayMember.hasRoleBackward
@@ -282,7 +282,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
 
       case Some(previousFragment) =>
         if (contextCurrentWayMember.startNode.id == previousFragment.endNode.id) {
-          val fragment = MonitorRouteFragment(contextCurrentWayMember.way)
+          val fragment = StructureFragment(contextCurrentWayMember.way)
           lastForwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
         }
@@ -295,7 +295,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
                 finalizeCurrentElement()
                 elementDirection = Some(ElementDirection.Up)
                 val reversed = contextCurrentWayMember.hasRoleBackward
-                val fragment = MonitorRouteFragment(contextCurrentWayMember.way, reversed)
+                val fragment = StructureFragment(contextCurrentWayMember.way, reversed)
                 currentElementFragments.addOne(fragment)
                 // addFragmentReversed(contextCurrentWayMember)
               }
@@ -313,7 +313,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
       case Some(previousFragment) =>
         if (contextCurrentWayMember.endNode.id == previousFragment.startNode.id) {
           val reversed = contextCurrentWayMember.hasRoleBackward
-          val fragment = MonitorRouteFragment(contextCurrentWayMember.way, reversed)
+          val fragment = StructureFragment(contextCurrentWayMember.way, reversed)
           currentElementFragments.addOne(fragment)
           // addFragmentReversed(contextCurrentWayMember)
         }
@@ -327,7 +327,7 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
                 // switch
                 finalizeCurrentElement()
                 elementDirection = Some(ElementDirection.Down)
-                val fragment = MonitorRouteFragment(contextCurrentWayMember.way)
+                val fragment = StructureFragment(contextCurrentWayMember.way)
                 lastBackwardFragment = Some(fragment)
                 currentElementFragments.addOne(fragment)
               }
@@ -354,20 +354,20 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
   private def finalizeCurrentGroup(): Unit = {
     finalizeCurrentElement()
     if (elements.nonEmpty) {
-      debug(s"  add group")
-      elementGroups.addOne(MonitorRouteElementGroup(elements.toSeq))
+      if (traceEnabled) trace(s"  add group")
+      elementGroups.addOne(StructureElementGroup(elements.toSeq))
       elements.clear()
     }
   }
 
-  private def addElement(fragments: Seq[MonitorRouteFragment]): MonitorRouteElement = {
-    debug(s"  add element: direction=$elementDirection, fragments: ${fragments.map(_.string).mkString(", ")}")
+  private def addElement(fragments: Seq[StructureFragment]): MonitorRouteElement = {
+    if (traceEnabled) trace(s"  add element: direction=$elementDirection, fragments: ${fragments.map(_.string).mkString(", ")}")
     val element = MonitorRouteElement.from(fragments, elementDirection)
     elements.addOne(element)
     element
   }
 
-  private def findPreviousFragment(): Option[MonitorRouteFragment] = {
+  private def findPreviousFragment(): Option[StructureFragment] = {
     currentElementFragments.lastOption match {
       case Some(fragment) => Some(fragment)
       case None =>
@@ -384,7 +384,9 @@ class MonitorRouteElementAnalyzer(wayMembers: Seq[WayMember]) {
     currentElementFragments.addAll(reversed)
   }
 
-  private def debug(message: String): Unit = {
-    println(message)
+  private def trace(message: String): Unit = {
+    if (traceEnabled) {
+      println(message)
+    }
   }
 }

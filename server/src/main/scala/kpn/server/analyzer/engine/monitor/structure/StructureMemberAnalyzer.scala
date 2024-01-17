@@ -5,7 +5,7 @@ import kpn.api.custom.Relation
 
 import scala.collection.mutable
 
-class MonitorRouteMemberAnalyzer {
+class StructureMemberAnalyzer {
 
   // see: MonitorFilter.ignoredRoles  Seq("place_of_worship", "guest_house", "outer", "inner")
   private val rolesIgnore = Seq(
@@ -24,11 +24,11 @@ class MonitorRouteMemberAnalyzer {
     "link",
   )
 
-  def analyzeRoute(relation: Relation): Seq[MonitorRouteMemberGroup] = {
+  def analyzeRoute(relation: Relation): Seq[StructureMemberGroup] = {
 
-    var currentMemberGroupOption: Option[MonitorRouteMemberGroup] = None
+    var currentMemberGroupOption: Option[StructureMemberGroup] = None
     val mainMembers = mutable.Buffer[Member]()
-    val memberGroups = mutable.Buffer[MonitorRouteMemberGroup]()
+    val memberGroups = mutable.Buffer[StructureMemberGroup]()
 
     relation.members.foreach { member =>
       if (isRelevant(member)) {
@@ -38,7 +38,7 @@ class MonitorRouteMemberAnalyzer {
               case None =>
                 // first member with this role
                 currentMemberGroupOption = Some(
-                  MonitorRouteMemberGroup(
+                  StructureMemberGroup(
                     Some(role),
                     Seq(member)
                   )
@@ -47,7 +47,7 @@ class MonitorRouteMemberAnalyzer {
               case Some(currentMemberGroup) =>
                 if (!currentMemberGroup.role.contains(role)) {
                   memberGroups.addOne(currentMemberGroup)
-                  currentMemberGroupOption = Some(MonitorRouteMemberGroup(Some(role), Seq(member)))
+                  currentMemberGroupOption = Some(StructureMemberGroup(Some(role), Seq(member)))
                 }
                 currentMemberGroupOption = Some(
                   currentMemberGroup.copy(
@@ -74,7 +74,7 @@ class MonitorRouteMemberAnalyzer {
         memberGroups.addOne(currentMemberGroup)
         currentMemberGroupOption = None
     }
-    memberGroups.addOne(MonitorRouteMemberGroup(None, mainMembers.toSeq))
+    memberGroups.addOne(StructureMemberGroup(None, mainMembers.toSeq))
     memberGroups.toSeq
   }
 

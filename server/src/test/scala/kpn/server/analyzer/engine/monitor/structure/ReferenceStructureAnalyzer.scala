@@ -11,11 +11,11 @@ import scala.collection.mutable
 import scala.jdk.CollectionConverters.CollectionHasAsScala
 import scala.jdk.CollectionConverters.IterableHasAsJava
 
-class ReferenceRouteAnalyzer {
+class ReferenceStructureAnalyzer(traceEnabled: Boolean = false) {
 
   def analyze(relation: Relation): Seq[String] = {
     val referenceRelation = buildReferenceRelation(relation)
-    val calculator = new kpn.server.analyzer.engine.monitor.structure.reference.WayInfoCalculator(referenceRelation, referenceRelation.getMembers())
+    val calculator = new kpn.server.analyzer.engine.monitor.structure.reference.WayInfoCalculator(referenceRelation, referenceRelation.getMembers(), traceEnabled)
     calculator.calculate().asScala.toSeq.zipWithIndex.map { case (wayInfo, index) => s"${index + 1} ${wayInfoString(wayInfo)}" }
   }
 

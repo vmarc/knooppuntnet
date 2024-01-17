@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.monitor.structure
 
 object MonitorRouteElement {
-  def from(fragments: Seq[MonitorRouteFragment], direction: Option[ElementDirection.Value]): MonitorRouteElement = {
+  def from(fragments: Seq[StructureFragment], direction: Option[ElementDirection.Value]): MonitorRouteElement = {
     MonitorRouteElement(0, fragments, direction)
   }
 }
 
 case class MonitorRouteElement(
   id: Long,
-  fragments: Seq[MonitorRouteFragment],
+  fragments: Seq[StructureFragment],
   direction: Option[ElementDirection.Value]
 ) {
 

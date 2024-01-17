@@ -1,5 +1,5 @@
 package kpn.server.analyzer.engine.monitor.structure
 
-case class MonitorRouteElementGroup(
+case class StructureElementGroup(
   elements: Seq[MonitorRouteElement]
 )

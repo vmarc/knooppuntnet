@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.monitor.structure
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 
-case class MonitorRouteFragment(way: Way, /*direction: Option[Direction.Value] = None,*/ reversed: Boolean = false) {
+case class StructureFragment(way: Way, /*direction: Option[Direction.Value] = None,*/ reversed: Boolean = false) {
 
   def startNode: Node = {
     if (reversed) {
