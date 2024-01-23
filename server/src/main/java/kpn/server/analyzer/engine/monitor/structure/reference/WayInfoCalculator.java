@@ -11,6 +11,7 @@ import static kpn.server.analyzer.engine.monitor.structure.reference.WayInfo.Dir
 
 public class WayInfoCalculator {
 
+    private final boolean traceEnabled;
     private final Relation relation;
     private final List<Member> members;
     private final List<WayInfo> wayInfos;
@@ -21,7 +22,8 @@ public class WayInfoCalculator {
     private int firstGroupIdx;
     private int logIndent;
 
-    public WayInfoCalculator(final Relation relation, final List<Member> members) {
+    public WayInfoCalculator(final Relation relation, final List<Member> members, final boolean traceEnabled) {
+        this.traceEnabled = traceEnabled;
         this.relation = relation;
         this.members = members;
         this.wayInfos = new ArrayList<>(Collections.nCopies(members.size(), null));
@@ -509,10 +511,12 @@ public class WayInfoCalculator {
     }
 
     private void log(final String format, final Object... args) {
-        for (int i = 0; i < logIndent; i++) {
-            System.out.print("  ");
+        if (traceEnabled) {
+            for (int i = 0; i < logIndent; i++) {
+                System.out.print("  ");
+            }
+            System.out.printf(format, args);
+            System.out.println();
         }
-        System.out.printf(format, args);
-        System.out.println();
     }
 }
