@@ -76,13 +76,13 @@ class StructureTestSetup extends SharedTestObjects {
 
   def reference(traceEnabled: Boolean = false): Seq[String] = {
     val reference = new ReferenceStructureAnalyzer(traceEnabled).analyze(relation)
-    println
-    reference.foreach(println)
-    println
+    if (traceEnabled) println()
+    if (traceEnabled) reference.foreach(println)
+    if (traceEnabled) println()
     reference
   }
 
-  def structure(traceEnabled: Boolean = false): Unit = {
-    new StructureAnalyzer(traceEnabled).analyze(relation)
+  def structure(traceEnabled: Boolean = false): TestStructure = {
+    TestStructure.from(new StructureAnalyzer(traceEnabled).analyze(relation))
   }
 }

@@ -27,7 +27,18 @@ class Structure_03_SingleWayBackwardTest extends UnitTest {
   }
 
   test("structure") {
-    pending
-    setup.structure()
+    val structure = setup.structure()
+    structure.shouldMatchTo(
+      TestStructure(
+        forwardPath = None,
+        backwardPath = Some(
+          TestStructurePath(
+            startNodeId = 3,
+            endNodeId = 1,
+            nodeIds = Seq(3, 2, 1)
+          )
+        )
+      )
+    )
   }
 }

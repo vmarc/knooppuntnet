@@ -29,7 +29,24 @@ class Structure_04_SingleWayRoundaboutLoopTest extends UnitTest {
   }
 
   test("structure") {
-    pending
-    setup.structure()
+    val structure = setup.structure()
+    structure.shouldMatchTo(
+      TestStructure(
+        forwardPath = Some(
+          TestStructurePath(
+            startNodeId = 1,
+            endNodeId = 1,
+            nodeIds = Seq(1, 2, 3, 4, 1)
+          )
+        ),
+        backwardPath = Some(
+          TestStructurePath(
+            startNodeId = 1,
+            endNodeId = 1,
+            nodeIds = Seq(1, 4, 3, 2, 1)
+          )
+        )
+      )
+    )
   }
 }

@@ -31,7 +31,24 @@ class Structure_14_DerivedDirectionBackwardTest extends UnitTest {
   }
 
   test("structure") {
-    pending
-    setup.structure()
+    val structure = setup.structure()
+    structure.shouldMatchTo(
+      TestStructure(
+        forwardPath = Some(
+          TestStructurePath(
+            startNodeId = 1,
+            endNodeId = 5,
+            nodeIds = Seq(1, 2, 3, 4, 5)
+          )
+        ),
+        backwardPath = Some(
+          TestStructurePath(
+            startNodeId = 5,
+            endNodeId = 1,
+            nodeIds = Seq(5, 4, 3, 2, 1)
+          )
+        ),
+      )
+    )
   }
 }

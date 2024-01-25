@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.monitor.structure
 
-class Structure {
-
-}
+case class Structure(
+  forwardPath: Option[StructurePath],
+  backwardPath: Option[StructurePath],
+  otherPaths: Seq[StructurePath]
+)

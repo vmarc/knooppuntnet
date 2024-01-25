@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.monitor.structure
 
-class StructurePathTestResult {
-
-}
+case class TestStructurePath(
+  startNodeId: Long,
+  endNodeId: Long,
+  nodeIds: Seq[Long]
+)

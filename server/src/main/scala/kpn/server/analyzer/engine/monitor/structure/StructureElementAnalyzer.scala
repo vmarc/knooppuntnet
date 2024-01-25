@@ -26,7 +26,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
   private var elementDirection: Option[ElementDirection.Value] = None
 
   private val elementGroups = mutable.Buffer[StructureElementGroup]()
-  private val elements = mutable.Buffer[MonitorRouteElement]()
+  private val elements = mutable.Buffer[StructureElement]()
   private val currentElementFragments = mutable.Buffer[StructureFragment]()
 
   private var contextCurrentWayMember: WayMember = null
@@ -175,19 +175,23 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
 
   private def addLastBidirectionalFragment(): Unit = {
 
-    println("---")
-    println(s"contextCurrentWayMember.startNode=${contextCurrentWayMember.startNode.id}")
-    println(s"contextCurrentWayMember.endNode=${contextCurrentWayMember.endNode.id}")
-    println(s"lastForwardFragment.endNode=${lastForwardFragment.map(_.endNode.id)}")
-    println(s"lastBackwardFragment.endNode=${lastBackwardFragment.map(_.endNode.id)}")
+    if (traceEnabled) {
+      println("---")
+      println(s"contextCurrentWayMember.startNode=${contextCurrentWayMember.startNode.id}")
+      println(s"contextCurrentWayMember.endNode=${contextCurrentWayMember.endNode.id}")
+      println(s"lastForwardFragment.endNode=${lastForwardFragment.map(_.endNode.id)}")
+      println(s"lastBackwardFragment.endNode=${lastBackwardFragment.map(_.endNode.id)}")
+    }
 
     val downEndNodeId = elements.findLast(_.direction.contains(ElementDirection.Down)).map(_.endNodeId)
     val upEndNodeId = elements.findLast(_.direction.contains(ElementDirection.Up)).map(_.startNodeId)
     val anyEndNodeId = elements.lastOption.map(_.endNodeId)
 
-    println(s"downEndNodeId=$downEndNodeId")
-    println(s"upEndNodeId=$upEndNodeId")
-    println(s"anyEndNodeId=$anyEndNodeId")
+    if (traceEnabled) {
+      println(s"downEndNodeId=$downEndNodeId")
+      println(s"upEndNodeId=$upEndNodeId")
+      println(s"anyEndNodeId=$anyEndNodeId")
+    }
 
     val calculatedEndNodeId = elements.lastOption.map { lastElement =>
       if (lastElement.direction.contains(ElementDirection.Down)) {
@@ -200,10 +204,10 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
         lastElement.endNodeId
       }
     }
-    println(s"calculatedEndNodeId=$calculatedEndNodeId")
-
-    println("---")
-
+    if (traceEnabled) {
+      println(s"calculatedEndNodeId=$calculatedEndNodeId")
+      println("---")
+    }
     calculatedEndNodeId match {
       case None =>
         val fragment = StructureFragment(contextCurrentWayMember.way)
@@ -340,7 +344,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     }
   }
 
-  private def finalizeCurrentElement(): Option[MonitorRouteElement] = {
+  private def finalizeCurrentElement(): Option[StructureElement] = {
     if (currentElementFragments.nonEmpty) {
       val element = addElement(currentElementFragments.toSeq)
       currentElementFragments.clear()
@@ -360,9 +364,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     }
   }
 
-  private def addElement(fragments: Seq[StructureFragment]): MonitorRouteElement = {
+  private def addElement(fragments: Seq[StructureFragment]): StructureElement = {
     if (traceEnabled) trace(s"  add element: direction=$elementDirection, fragments: ${fragments.map(_.string).mkString(", ")}")
-    val element = MonitorRouteElement.from(fragments, elementDirection)
+    val element = StructureElement.from(fragments, elementDirection)
     elements.addOne(element)
     element
   }

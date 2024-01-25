@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.monitor.structure
 
-object MonitorRouteElement {
-  def from(fragments: Seq[StructureFragment], direction: Option[ElementDirection.Value]): MonitorRouteElement = {
-    MonitorRouteElement(0, fragments, direction)
+object StructureElement {
+  def from(fragments: Seq[StructureFragment], direction: Option[ElementDirection.Value]): StructureElement = {
+    StructureElement(0, fragments, direction)
   }
 }
 
-case class MonitorRouteElement(
+case class StructureElement(
   id: Long,
   fragments: Seq[StructureFragment],
   direction: Option[ElementDirection.Value]
@@ -22,6 +22,26 @@ case class MonitorRouteElement(
 
   def isLoop: Boolean = {
     startNodeId == endNodeId
+  }
+
+  def nodeIds: Seq[Long] = {
+    if (direction.contains(ElementDirection.Up)) {
+      fragmentNodeIds.reverse
+    }
+    else {
+      fragmentNodeIds
+    }
+  }
+
+  private def fragmentNodeIds: Seq[Long] = {
+    fragments.zipWithIndex.flatMap { case (fragment, index) =>
+      if (index == 0) {
+        fragment.nodeIds
+      }
+      else {
+        fragment.nodeIds.tail
+      }
+    }
   }
 
   def string: String = {
