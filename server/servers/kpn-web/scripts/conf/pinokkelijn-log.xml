@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="warn" monitorInterval="30">
     <Appenders>
-        <RollingFile name="File" fileName="/kpn/logs/server-mail.log"
-                     filePattern="/kpn/logs/server-mail-%i.log.gz">
+        <RollingFile name="File" fileName="/kpn/logs/pinokkelijn.log"
+                     filePattern="/kpn/logs/pinokkelijn-%i.log.gz">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %20.20t %x %logger{1} - %msg%n"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="100 MB"/>
