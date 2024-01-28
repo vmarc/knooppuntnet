@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NetworkType } from '@api/custom';
 
@@ -10,8 +10,8 @@ import { NetworkType } from '@api/custom';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a
-      [routerLink]="'/analysis/route/' + routeId"
-      [state]="{ networkType, routeName }"
+      [routerLink]="'/analysis/route/' + routeId()"
+      [state]="{ networkType: networkType(), routeName: routeName() }"
       title="Open route page"
       i18n-title="@@link-route.title"
       >{{ linkTitle }}</a
@@ -21,14 +21,14 @@ import { NetworkType } from '@api/custom';
   imports: [RouterLink],
 })
 export class LinkRouteComponent implements OnInit {
-  @Input({ required: true }) routeId: number;
-  @Input({ required: true }) routeName: string;
-  @Input({ required: false }) networkType: NetworkType;
-  @Input({ required: false }) title: string;
+  routeId = input.required<number>();
+  routeName = input.required<string>();
+  networkType = input<NetworkType | undefined>();
+  title = input<string | undefined>();
 
   protected linkTitle = '';
 
   ngOnInit(): void {
-    this.linkTitle = this.title ? this.title : this.routeName;
+    this.linkTitle = this.title() ? this.title()! : this.routeName();
   }
 }

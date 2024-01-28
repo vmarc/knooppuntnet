@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Ref } from '@api/common/common';
 import { LinkNodeComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-route-node-diff',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
-    @switch (title) {
+    @switch (title()) {
       @case ('startNodes') {
         <span i18n="@@route-changes.node-diff.start-nodes">Start nodes</span>
       }
@@ -25,7 +26,7 @@ import { LinkNodeComponent } from '@app/components/shared/link';
 
     <span>&nbsp;</span>
 
-    @switch (action) {
+    @switch (action()) {
       @case ('added') {
         <span class="kpn-label" i18n="@@route-changes.node-diff.added">added</span>
       }
@@ -35,7 +36,7 @@ import { LinkNodeComponent } from '@app/components/shared/link';
     }
 
     <div class="kpn-comma-list">
-      @for (node of nodeRefs; track $index) {
+      @for (node of nodeRefs(); track $index) {
         <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
       }
     </div>
@@ -44,7 +45,7 @@ import { LinkNodeComponent } from '@app/components/shared/link';
   imports: [LinkNodeComponent],
 })
 export class RouteNodeDiffComponent {
-  @Input() title: string; // startNodes | endNodes | startTentacleNodes | endTentacleNodes
-  @Input() action: string; // added | removed
-  @Input() nodeRefs: Ref[];
+  title = input<string | undefined>(); // startNodes | endNodes | startTentacleNodes | endTentacleNodes
+  action = input<string | undefined>(); // added | removed
+  nodeRefs = input<Ref[] | undefined>();
 }

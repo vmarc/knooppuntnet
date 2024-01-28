@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Timestamp } from '@api/custom';
 import { TimestampComponent } from './timestamp.component';
 
@@ -9,11 +9,11 @@ import { TimestampComponent } from './timestamp.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ng-container class="kpn-label" i18n="@@situation-on"> Situation on </ng-container>
-    <kpn-timestamp [timestamp]="timestamp" />
+    <kpn-timestamp [timestamp]="timestamp()" />
   `,
   standalone: true,
   imports: [TimestampComponent],
 })
 export class SituationOnComponent {
-  @Input({ required: true }) timestamp: Timestamp;
+  timestamp = input.required<Timestamp>();
 }

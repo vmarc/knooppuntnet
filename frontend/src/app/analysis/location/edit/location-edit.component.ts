@@ -1,8 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -18,7 +18,7 @@ import { BehaviorSubject } from 'rxjs';
   template: `
     <p>
       <mat-checkbox [checked]="nodeSelection" (change)="nodeSelectionChanged($event)">
-        {{ page.summary.nodeCount }}
+        {{ page().summary.nodeCount }}
         <span i18n="@@location-edit.nodes">nodes (quick)</span>
       </mat-checkbox>
     </p>
@@ -27,13 +27,13 @@ import { BehaviorSubject } from 'rxjs';
         [checked]="routeRelationsSelection"
         (change)="routeRelationsSelectionChanged($event)"
       >
-        {{ page.summary.routeCount }}
+        {{ page().summary.routeCount }}
         <span i18n="@@location-edit.routes">routes relations (quick)</span>
       </mat-checkbox>
     </p>
     <p>
       <mat-checkbox [checked]="fullRouteSelection" (change)="fullRouteSelectionChanged($event)">
-        {{ page.summary.routeCount }}
+        {{ page().summary.routeCount }}
         <span i18n="@@location-edit.full-routes">routes with ways (takes more time)</span>
       </mat-checkbox>
     </p>
@@ -62,7 +62,7 @@ import { BehaviorSubject } from 'rxjs';
   imports: [MatCheckboxModule, MatButtonModule, AsyncPipe],
 })
 export class LocationEditComponent implements OnInit {
-  @Input() page: LocationEditPage;
+  page = input<LocationEditPage | undefined>();
 
   private readonly editService = inject(EditService);
 
@@ -108,20 +108,20 @@ export class LocationEditComponent implements OnInit {
 
   private buildEditParameters(): EditParameters {
     let editParameters: EditParameters = {
-      bounds: this.page.bounds,
+      bounds: this.page().bounds,
     };
 
     if (this.nodeSelection === true) {
       editParameters = {
         ...editParameters,
-        nodeIds: this.page.nodeIds,
+        nodeIds: this.page().nodeIds,
       };
     }
 
     if (this.routeRelationsSelection === true) {
       editParameters = {
         ...editParameters,
-        relationIds: this.page.routeIds,
+        relationIds: this.page().routeIds,
         fullRelation: this.fullRouteSelection,
       };
     }

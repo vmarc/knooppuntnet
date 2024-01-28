@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
@@ -9,19 +9,19 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   selector: 'kpn-node-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-header [pageTitle]="nodeName" subject="node-page">
+    <kpn-page-header [pageTitle]="nodeName()" subject="node-page">
       <span i18n="@@node.title">Node</span>
-      @if (nodeName) {
-        <span>&nbsp;{{ nodeName }}</span>
+      @if (nodeName()) {
+        <span>&nbsp;{{ nodeName() }}</span>
       } @else {
-        <span>&nbsp;{{ nodeId }}</span>
+        <span>&nbsp;{{ nodeId() }}</span>
       }
     </kpn-page-header>
 
     <kpn-page-menu>
       <kpn-page-menu-option
         [link]="linkNodeDetails()"
-        [active]="pageName === 'details'"
+        [active]="pageName() === 'details'"
         i18n="@@node.menu.details"
       >
         Details
@@ -29,7 +29,7 @@ import { PageHeaderComponent } from '@app/components/shared/page';
 
       <kpn-page-menu-option
         [link]="linkNodeMap()"
-        [active]="pageName === 'map'"
+        [active]="pageName() === 'map'"
         i18n="@@node.menu.map"
       >
         Map
@@ -37,8 +37,8 @@ import { PageHeaderComponent } from '@app/components/shared/page';
 
       <kpn-page-menu-option
         [link]="linkNodeChanges()"
-        [active]="pageName === 'changes'"
-        [elementCount]="changeCount"
+        [active]="pageName() === 'changes'"
+        [elementCount]="changeCount()"
         i18n="@@node.menu.changes"
       >
         Changes
@@ -49,10 +49,10 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   imports: [PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class NodePageHeaderComponent {
-  @Input() nodeId: string;
-  @Input() nodeName: string;
-  @Input() changeCount: number;
-  @Input() pageName: string;
+  nodeId = input<string | undefined>();
+  nodeName = input<string | undefined>();
+  changeCount = input<number | undefined>();
+  pageName = input<string | undefined>();
 
   linkNodeDetails(): string {
     return this.linkNode('');
@@ -67,6 +67,6 @@ export class NodePageHeaderComponent {
   }
 
   private linkNode(suffix: string): string {
-    return `/analysis/node/${this.nodeId}${suffix}`;
+    return `/analysis/node/${this.nodeId()}${suffix}`;
   }
 }

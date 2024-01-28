@@ -1,8 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource } from '@angular/material/table';
@@ -210,8 +210,8 @@ import { SymbolComponent } from '@app/symbol';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedHeaders(admin)"></tr>
-      <tr mat-row *matRowDef="let group; columns: displayedColumns(admin)"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedHeaders(admin())"></tr>
+      <tr mat-row *matRowDef="let group; columns: displayedColumns(admin())"></tr>
     </table>
   `,
   styles: `
@@ -272,9 +272,9 @@ import { SymbolComponent } from '@app/symbol';
   ],
 })
 export class MonitorGroupRouteTableComponent implements OnInit {
-  @Input({ required: true }) admin: boolean;
-  @Input({ required: true }) groupName: string;
-  @Input({ required: true }) routes: MonitorRouteDetail[];
+  admin = input.required<boolean>();
+  groupName = input.required<string>();
+  routes = input.required<MonitorRouteDetail[]>();
 
   readonly dataSource = new MatTableDataSource<MonitorRouteDetail>();
 
@@ -302,7 +302,7 @@ export class MonitorGroupRouteTableComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.dataSource.data = this.routes;
+    this.dataSource.data = this.routes();
   }
 
   displayedColumns(admin: boolean): string[] {
@@ -317,18 +317,18 @@ export class MonitorGroupRouteTableComponent implements OnInit {
   }
 
   routeLink(route: MonitorRouteDetail): string {
-    return `/monitor/groups/${this.groupName}/routes/${route.name}`;
+    return `/monitor/groups/${this.groupName()}/routes/${route.name}`;
   }
 
   routeMapLink(route: MonitorRouteDetail): string {
-    return `/monitor/groups/${this.groupName}/routes/${route.name}/map`;
+    return `/monitor/groups/${this.groupName()}/routes/${route.name}/map`;
   }
 
   routeUpdateLink(route: MonitorRouteDetail): string {
-    return `/monitor/admin/groups/${this.groupName}/routes/${route.name}`;
+    return `/monitor/admin/groups/${this.groupName()}/routes/${route.name}`;
   }
 
   routeDeleteLink(route: MonitorRouteDetail): string {
-    return `/monitor/admin/groups/${this.groupName}/routes/${route.name}/delete`;
+    return `/monitor/admin/groups/${this.groupName()}/routes/${route.name}/delete`;
   }
 }

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouteChangeDetailComponent } from '@app/analysis/components/changes/route';
 import { LinkRouteRefHeaderComponent } from '@app/components/shared/link';
 import { VersionChangeComponent } from '../version-change.component';
@@ -11,6 +11,7 @@ import { RouteDiffsData } from './route-diffs-data';
 @Component({
   selector: 'kpn-route-diffs-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     @if (refs.length > 0) {
       <div class="kpn-level-2">
@@ -22,7 +23,7 @@ import { RouteDiffsData } from './route-diffs-data';
           @for (ref of refs; track ref) {
             <div class="kpn-level-3">
               <div class="kpn-line kpn-level-3-header">
-                <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data.knownElements" />
+                <kpn-link-route-ref-header [ref]="ref.ref" [knownElements]="data().knownElements" />
               </div>
               @if (ref.routeChangeInfo) {
                 <div class="kpn-level-3-body">
@@ -43,13 +44,13 @@ import { RouteDiffsData } from './route-diffs-data';
   imports: [LinkRouteRefHeaderComponent, RouteChangeDetailComponent, VersionChangeComponent],
 })
 export class RouteDiffsUpdatedComponent implements OnInit {
-  @Input() data: RouteDiffsData;
+  data = input<RouteDiffsData | undefined>();
 
   refs: Array<RefRouteChangeInfo>;
 
   ngOnInit(): void {
-    this.refs = this.data.refDiffs.updated.map(
-      (ref) => new RefRouteChangeInfo(ref, this.data.findRouteChangeInfo(ref))
+    this.refs = this.data().refDiffs.updated.map(
+      (ref) => new RefRouteChangeInfo(ref, this.data().findRouteChangeInfo(ref))
     );
   }
 }

@@ -1,7 +1,7 @@
 import { forwardRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { LocationChangesTreeNode } from '@api/common';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { IconInvestigateComponent } from '@app/components/shared/icon';
@@ -11,11 +11,12 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-change-set-location-tree-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    @for (tree of trees; track tree) {
+    @for (tree of trees(); track tree) {
       <div>
         <div class="kpn-line location-block">
           <span>{{ tree.locationName }}</span>
@@ -171,5 +172,5 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   ],
 })
 export class ChangeSetLocationTreeNodeComponent {
-  @Input() trees: LocationChangesTreeNode[];
+  trees = input<LocationChangesTreeNode[] | undefined>();
 }

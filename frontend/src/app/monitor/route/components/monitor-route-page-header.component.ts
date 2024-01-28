@@ -4,7 +4,7 @@ import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteSubRelation } from '@api/common/monitor';
@@ -22,20 +22,20 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
       <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
       <li>
-        <a [routerLink]="groupLink()">{{ groupName }}</a>
+        <a [routerLink]="groupLink()">{{ groupName() }}</a>
       </li>
       <li i18n="@@breadcrumb.monitor.route">Route</li>
     </ul>
 
     <h1>
       <kpn-ellipsis>
-        {{ routeName + ': ' + routeDescription }}
+        {{ routeName() + ': ' + routeDescription() }}
       </kpn-ellipsis>
     </h1>
 
     <mat-menu #appMenu="matMenu" class="sub-relation-menu">
       <ng-template matMenuContent>
-        @for (subRelation of subRelations; track $index) {
+        @for (subRelation of subRelations(); track $index) {
           <button mat-menu-item (click)="select(subRelation)">
             {{ subRelation.name }}
           </button>
@@ -46,7 +46,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
     <kpn-page-menu>
       <kpn-page-menu-option
         [link]="routeDetailLink()"
-        [active]="pageName === 'details'"
+        [active]="pageName() === 'details'"
         [state]="routeLinkState()"
         i18n="@@monitor.route.menu.details"
       >
@@ -55,29 +55,29 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
 
       <kpn-page-menu-option
         [link]="routeMapLink()"
-        [active]="pageName === 'map'"
+        [active]="pageName() === 'map'"
         [state]="routeLinkState()"
         i18n="@@monitor.route.menu.map"
       >
         Map
       </kpn-page-menu-option>
 
-      @if (pageName === 'map') {
+      @if (pageName() === 'map') {
         <kpn-monitor-sub-relation-menu-option
-          [routeSubRelation]="previous"
+          [routeSubRelation]="previous()"
           (selectSubRelation)="select($event)"
           name="Previous"
           i18n-name="@@monitor.route.menu.previous"
         />
 
         <kpn-monitor-sub-relation-menu-option
-          [routeSubRelation]="next"
+          [routeSubRelation]="next()"
           (selectSubRelation)="select($event)"
           name="Next"
           i18n-name="@@monitor.route.menu.next"
         />
 
-        @if (pageName === 'map') {
+        @if (pageName() === 'map') {
           <a
             [ngClass]="{ disabled: subrelationsEmpty() }"
             [matMenuTriggerFor]="appMenu"
@@ -115,13 +115,13 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
   ],
 })
 export class MonitorRoutePageHeaderComponent {
-  @Input({ required: true }) pageName: string;
-  @Input({ required: true }) groupName: string;
-  @Input({ required: true }) routeName: string;
-  @Input({ required: true }) routeDescription: string;
-  @Input({ required: false }) subRelations: MonitorRouteSubRelation[] = [];
-  @Input({ required: false }) previous: MonitorRouteSubRelation;
-  @Input({ required: false }) next: MonitorRouteSubRelation;
+  pageName = input.required<string>();
+  groupName = input.required<string>();
+  routeName = input.required<string>();
+  routeDescription = input.required<string>();
+  subRelations = input<MonitorRouteSubRelation[]>([]);
+  previous = input<MonitorRouteSubRelation | undefined>();
+  next = input<MonitorRouteSubRelation | undefined>();
   @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
 
   select(subRelation: MonitorRouteSubRelation): void {
@@ -129,22 +129,22 @@ export class MonitorRoutePageHeaderComponent {
   }
 
   groupLink(): string {
-    return `/monitor/groups/${this.groupName}`;
+    return `/monitor/groups/${this.groupName()}`;
   }
 
   routeDetailLink() {
-    return `/monitor/groups/${this.groupName}/routes/${this.routeName}`;
+    return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}`;
   }
 
   routeMapLink() {
-    return `/monitor/groups/${this.groupName}/routes/${this.routeName}/map`;
+    return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/map`;
   }
 
   routeLinkState() {
-    return { description: this.routeDescription };
+    return { description: this.routeDescription() };
   }
 
   subrelationsEmpty() {
-    return !this.subRelations || this.subRelations.length === 0;
+    return !this.subRelations() || this.subRelations().length === 0;
   }
 }

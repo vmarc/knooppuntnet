@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { NetworkFact } from '@api/common';
 import { EditParameters } from '@app/analysis/components/edit';
 import { FactInfo } from '@app/analysis/fact';
@@ -17,12 +17,12 @@ import { EditService } from '@app/components/shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <span class="kpn-thick"><kpn-fact-name [fact]="fact.name" /></span>
+      <span class="kpn-thick"><kpn-fact-name [fact]="fact().name" /></span>
       <span class="kpn-brackets">{{ factCount() }}</span>
       <kpn-fact-level [factLevel]="factLevel()" class="level" />
       <a
         rel="nofollow"
-        (click)="edit(fact)"
+        (click)="edit(fact())"
         title="Open in editor (like JOSM)"
         i18n-title="@@edit.link.title"
         i18n="@@edit.link"
@@ -30,7 +30,7 @@ import { EditService } from '@app/components/shared';
       >
     </div>
     <div class="description">
-      <kpn-fact-description [factInfo]="factInfo(fact)" />
+      <kpn-fact-description [factInfo]="factInfo(fact())" />
     </div>
   `,
   styles: `
@@ -42,23 +42,23 @@ import { EditService } from '@app/components/shared';
   imports: [FactNameComponent, FactLevelComponent, FactDescriptionComponent],
 })
 export class NetworkFactHeaderComponent {
-  @Input() fact: NetworkFact;
+  fact = input<NetworkFact | undefined>();
 
   private readonly editService = inject(EditService);
 
   factLevel(): FactLevel {
-    return Facts.factLevels.get(this.fact.name);
+    return Facts.factLevels.get(this.fact().name);
   }
 
   factCount(): number {
-    if (this.fact.elements && this.fact.elements.length > 0) {
-      return this.fact.elements.length;
+    if (this.fact().elements && this.fact().elements.length > 0) {
+      return this.fact().elements.length;
     }
-    if (this.fact.elementIds && this.fact.elementIds.length > 0) {
-      return this.fact.elementIds.length;
+    if (this.fact().elementIds && this.fact().elementIds.length > 0) {
+      return this.fact().elementIds.length;
     }
-    if (this.fact.checks) {
-      return this.fact.checks.length;
+    if (this.fact().checks) {
+      return this.fact().checks.length;
     }
     return 0;
   }

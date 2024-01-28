@@ -3,10 +3,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { ElementRef } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { input } from '@angular/core';
 import { DocLinkComponent } from '../link/doc-link.component';
 import { PageService } from '../page.service';
 
@@ -18,8 +18,8 @@ import { PageService } from '../page.service';
       <h1 #title class="kpn-ellipsis">
         <ng-content></ng-content>
       </h1>
-      @if (subject) {
-        <kpn-doc-link [subject]="subject" />
+      @if (subject()) {
+        <kpn-doc-link [subject]="subject()" />
       }
     </div>
   `,
@@ -38,8 +38,8 @@ import { PageService } from '../page.service';
   imports: [DocLinkComponent],
 })
 export class PageHeaderComponent implements AfterViewInit, OnChanges {
-  @Input({ required: false }) subject: string;
-  @Input({ required: false }) pageTitle: string;
+  subject = input<string>();
+  pageTitle = input<string>();
 
   private readonly pageService = inject(PageService);
 
@@ -56,8 +56,8 @@ export class PageHeaderComponent implements AfterViewInit, OnChanges {
   }
 
   private updatePageTitle(): void {
-    if (this.pageTitle || this.pageTitle === null) {
-      this.pageService.setTitle(this.pageTitle);
+    if (this.pageTitle() || this.pageTitle() === null) {
+      this.pageService.setTitle(this.pageTitle());
     } else {
       const titleFromPage = this.renderedTitle.nativeElement.textContent.trim();
       this.pageService.setTitle(titleFromPage);

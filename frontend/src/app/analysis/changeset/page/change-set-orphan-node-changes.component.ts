@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { ChangeSetElementRef } from '@api/common';
 import { ChangeSetSubsetElementRefs } from '@api/common';
 import { ChangeSetPage } from '@api/common/changes';
@@ -14,8 +14,9 @@ import { NodeDiffsData } from './node-diffs/node-diffs-data';
 @Component({
   selector: 'kpn-change-set-orphan-node-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
-    @for (refs of page.orphanNodeChanges; track refs) {
+    @for (refs of page().orphanNodeChanges; track refs) {
       <div class="kpn-level-1">
         <div class="kpn-level-1-header kpn-line">
           <kpn-network-type-icon [networkType]="refs.subset.networkType" />
@@ -32,7 +33,7 @@ import { NodeDiffsData } from './node-diffs/node-diffs-data';
   imports: [NetworkTypeIconComponent, NodeDiffsComponent],
 })
 export class ChangeSetOrphanNodeChangesComponent {
-  @Input() page: ChangeSetPage;
+  page = input<ChangeSetPage | undefined>();
 
   nodeDiffs(refs: ChangeSetSubsetElementRefs): NodeDiffsData {
     const refDiffs: RefDiffs = {
@@ -43,9 +44,9 @@ export class ChangeSetOrphanNodeChangesComponent {
 
     return new NodeDiffsData(
       refDiffs,
-      this.page.summary.key.changeSetId,
-      this.page.knownElements,
-      List(this.page.nodeChanges)
+      this.page().summary.key.changeSetId,
+      this.page().knownElements,
+      List(this.page().nodeChanges)
     );
   }
 

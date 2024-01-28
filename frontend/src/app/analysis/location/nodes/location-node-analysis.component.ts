@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { LocationNodeInfo } from '@api/common/location';
 import { NetworkScope } from '@api/custom';
 import { NetworkType } from '@api/custom';
@@ -12,9 +12,10 @@ import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicat
 @Component({
   selector: 'kpn-location-node-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <div class="analysis">
-      <kpn-location-node-fact-indicator [node]="node" />
+      <kpn-location-node-fact-indicator [node]="node()" />
       <kpn-integrity-indicator [data]="integrityIndicatorData" />
     </div>
   `,
@@ -27,18 +28,18 @@ import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicat
   imports: [LocationNodeFactIndicatorComponent, IntegrityIndicatorComponent],
 })
 export class LocationNodeAnalysisComponent implements OnInit {
-  @Input() networkType: NetworkType;
-  @Input() networkScope: NetworkScope;
-  @Input() node: LocationNodeInfo;
+  networkType = input<NetworkType | undefined>();
+  networkScope = input<NetworkScope | undefined>();
+  node = input<LocationNodeInfo | undefined>();
 
   integrityIndicatorData: IntegrityIndicatorData;
 
   ngOnInit(): void {
     this.integrityIndicatorData = new IntegrityIndicatorData(
-      this.networkType,
-      this.networkScope,
-      this.node.routeReferences.length,
-      this.node.expectedRouteCount
+      this.networkType(),
+      this.networkScope(),
+      this.node().routeReferences.length,
+      this.node().expectedRouteCount
     );
   }
 }

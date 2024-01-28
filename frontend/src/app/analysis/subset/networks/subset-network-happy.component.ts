@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { input } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
@@ -24,10 +26,10 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
   imports: [IconHappyComponent],
 })
 export class SubsetNetworkHappyComponent implements OnInit {
-  @Input() network: NetworkAttributes;
+  network = input<NetworkAttributes | undefined>();
   interpretedNetwork: InterpretedNetworkAttributes;
 
   ngOnInit(): void {
-    this.interpretedNetwork = new InterpretedNetworkAttributes(this.network);
+    this.interpretedNetwork = new InterpretedNetworkAttributes(this.network());
   }
 }

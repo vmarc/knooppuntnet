@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { FilterOptions } from '@app/kpn/filter';
 import { FilterCheckboxGroupComponent } from './filter-checkbox-group.component';
 import { FilterRadioGroupComponent } from './filter-radio-group.component';
@@ -9,11 +9,12 @@ import { FilterTitleComponent } from './filter-title.component';
 @Component({
   selector: 'kpn-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
-    @if (!filterOptions.isEmpty()) {
+    @if (!filterOptions().isEmpty()) {
       <div class="filter">
-        <kpn-filter-title [filterOptions]="filterOptions" />
-        @for (group of filterOptions.groups; track $index) {
+        <kpn-filter-title [filterOptions]="filterOptions()" />
+        @for (group of filterOptions().groups; track $index) {
           <div>
             @if (group.name === 'role') {
               <kpn-filter-checkbox-group />
@@ -30,5 +31,5 @@ import { FilterTitleComponent } from './filter-title.component';
   imports: [FilterCheckboxGroupComponent, FilterRadioGroupComponent, FilterTitleComponent],
 })
 export class FilterComponent {
-  @Input() filterOptions: FilterOptions;
+  filterOptions = input<FilterOptions | undefined>();
 }

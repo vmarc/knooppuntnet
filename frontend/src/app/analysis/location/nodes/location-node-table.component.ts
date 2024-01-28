@@ -4,9 +4,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { TimeInfo } from '@api/common';
@@ -38,13 +38,13 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      editLinkTitle="Load the nodes in this page in the editor (like JOSM)"
+      editLinkTitle="Load the nodes() in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@location-nodes.edit.title"
       [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="nodeCount"
+      [length]="nodeCount()"
       [showFirstLastButtons]="false"
       [showPageSizeSelection]="true"
     />
@@ -97,14 +97,18 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       </ng-container>
 
       <ng-container matColumnDef="last-survey">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-survey">Survey</th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-survey">
+          Survey
+        </th>
         <td mat-cell *matCellDef="let node">
           {{ node.lastSurvey | day }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="lastEdit">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-edit">Last edit</th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-edit">
+          Last edit
+        </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
           <kpn-day [timestamp]="node.lastUpdated" />
           <kpn-josm-node [nodeId]="node.id" />
@@ -121,7 +125,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="nodeCount"
+      [length]="nodeCount()"
     />
   `,
   styles: `
@@ -148,9 +152,9 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   // TODO !!!
   networkScope: NetworkScope = NetworkScope.regional;
 
-  @Input() timeInfo: TimeInfo;
-  @Input() nodes: LocationNodeInfo[];
-  @Input() nodeCount: number;
+  timeInfo = input<TimeInfo | undefined>();
+  nodes = input<LocationNodeInfo[] | undefined>();
+  nodeCount = input<number | undefined>();
 
   @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
@@ -168,12 +172,12 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   );
 
   ngOnInit(): void {
-    this.dataSource.data = this.nodes;
+    this.dataSource.data = this.nodes();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['nodes']) {
-      this.dataSource.data = this.nodes;
+      this.dataSource.data = this.nodes();
     }
   }
 
@@ -188,7 +192,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
 
   edit(): void {
     const editParameters: EditParameters = {
-      nodeIds: this.nodes.map((node) => node.id),
+      nodeIds: this.nodes().map((node) => node.id),
     };
     this.editService.edit(editParameters);
   }

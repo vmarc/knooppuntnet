@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { NetworkFact } from '@api/common';
 import { NetworkType } from '@api/custom';
 import { NetworkFactChecksComponent } from './network-fact-checks.component';
@@ -15,31 +15,31 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
   selector: 'kpn-network-fact',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-network-fact-header [fact]="fact" />
+    <kpn-network-fact-header [fact]="fact()" />
 
-    @if (fact.elementIds) {
-      @switch (fact.elementType) {
+    @if (fact().elementIds) {
+      @switch (fact().elementType) {
         @case ('node') {
-          <kpn-network-fact-node-ids [elementIds]="fact.elementIds" />
+          <kpn-network-fact-node-ids [elementIds]="fact().elementIds" />
         }
         @case ('way') {
-          <kpn-network-fact-way-ids [elementIds]="fact.elementIds" />
+          <kpn-network-fact-way-ids [elementIds]="fact().elementIds" />
         }
         @case ('relation') {
-          <kpn-network-fact-relation-ids [elementIds]="fact.elementIds" />
+          <kpn-network-fact-relation-ids [elementIds]="fact().elementIds" />
         }
         @case ('route') {
-          <kpn-network-fact-routes [networkType]="networkType" [routes]="fact.elements" />
+          <kpn-network-fact-routes [networkType]="networkType()" [routes]="fact().elements" />
         }
       }
     }
 
-    @if (fact.elements && fact.elementType === 'node') {
-      <kpn-network-fact-nodes [nodes]="fact.elements" />
+    @if (fact().elements && fact().elementType === 'node') {
+      <kpn-network-fact-nodes [nodes]="fact().elements" />
     }
 
-    @if (fact.checks && fact.checks.length > 0) {
-      <kpn-network-fact-checks [checks]="fact.checks" />
+    @if (fact().checks && fact().checks.length > 0) {
+      <kpn-network-fact-checks [checks]="fact().checks" />
     }
   `,
   standalone: true,
@@ -54,6 +54,6 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
   ],
 })
 export class NetworkFactComponent {
-  @Input() networkType: NetworkType;
-  @Input() fact: NetworkFact;
+  networkType = input<NetworkType | undefined>();
+  fact = input<NetworkFact | undefined>();
 }

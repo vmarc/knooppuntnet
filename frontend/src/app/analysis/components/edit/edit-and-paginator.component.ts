@@ -1,27 +1,28 @@
 import { ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { input } from '@angular/core';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { EditLinkComponent } from './edit-link.component';
 
 @Component({
   selector: 'kpn-edit-and-paginator',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <div class="edit-and-paginator">
-      <kpn-edit-link (edit)="editClicked()" title="{{ editLinkTitle }}" />
+      <kpn-edit-link (edit)="editClicked()" title="{{ editLinkTitle() }}" />
       <div class="paginator">
         <kpn-paginator
-          [pageIndex]="pageIndex"
+          [pageIndex]="pageIndex()"
           (pageIndexChange)="onPageIndexChange($event)"
-          [pageSize]="pageSize"
+          [pageSize]="pageSize()"
           (pageSizeChange)="onPageSizeChange($event)"
-          [length]="length"
-          [showPageSizeSelection]="showPageSizeSelection"
-          [showFirstLastButtons]="showFirstLastButtons"
+          [length]="length()"
+          [showPageSizeSelection]="showPageSizeSelection()"
+          [showFirstLastButtons]="showFirstLastButtons()"
         />
       </div>
     </div>
@@ -40,12 +41,12 @@ import { EditLinkComponent } from './edit-link.component';
   imports: [EditLinkComponent, PaginatorComponent],
 })
 export class EditAndPaginatorComponent {
-  @Input() editLinkTitle: string;
-  @Input() pageSize: number;
-  @Input() pageIndex: number;
-  @Input() length: number;
-  @Input() showFirstLastButtons = false;
-  @Input() showPageSizeSelection = false;
+  editLinkTitle = input<string | undefined>();
+  pageSize = input<number | undefined>();
+  pageIndex = input<number | undefined>();
+  length = input<number | undefined>();
+  showFirstLastButtons = input(false);
+  showPageSizeSelection = input(false);
 
   @Output() pageSizeChange = new EventEmitter<number>();
   @Output() pageIndexChange = new EventEmitter<number>();

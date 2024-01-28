@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource } from '@angular/material/table';
@@ -63,21 +63,21 @@ import { MonitorGroupDetail } from '@api/common/monitor';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns(admin)"></tr>
-      <tr mat-row *matRowDef="let group; columns: displayedColumns(admin)"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns(admin())"></tr>
+      <tr mat-row *matRowDef="let group; columns: displayedColumns(admin())"></tr>
     </table>
   `,
   standalone: true,
   imports: [MatButtonModule, MatIconModule, MatTableModule, RouterLink],
 })
 export class MonitorGroupTableComponent implements OnInit {
-  @Input({ required: true }) admin: boolean;
-  @Input({ required: true }) groups: MonitorGroupDetail[];
+  admin = input.required<boolean>();
+  groups = input.required<MonitorGroupDetail[]>();
 
   readonly dataSource = new MatTableDataSource<MonitorGroupDetail>();
 
   ngOnInit(): void {
-    this.dataSource.data = this.groups;
+    this.dataSource.data = this.groups();
   }
 
   displayedColumns(admin: boolean) {

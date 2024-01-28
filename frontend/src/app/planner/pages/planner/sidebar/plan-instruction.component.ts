@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { PlanInstruction } from '../../../domain/plan/plan-instruction';
 import { PlannerTranslations } from '../../../util/planner-translations';
 import { PlanInstructionCommandComponent } from './plan-instruction-command.component';
@@ -9,61 +9,59 @@ import { PlanInstructionCommandComponent } from './plan-instruction-command.comp
   selector: 'kpn-plan-instruction',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (instruction.node) {
+    @if (instruction().node) {
       <div class="node">
-        @if (instruction.node.length <= 3) {
+        @if (instruction().node.length <= 3) {
           <div class="node-number">
-            {{ instruction.node }}
+            {{ instruction().node }}
           </div>
         }
-        @if (instruction.node.length > 3) {
+        @if (instruction().node.length > 3) {
           <div class="node-number-long">
-            {{ instruction.node }}
+            {{ instruction().node }}
           </div>
         }
       </div>
     }
-    @if (instruction.colour) {
+    @if (instruction().colour) {
       <div class="colour">
         {{ translate('follow-colour') }}
-        {{ colour(instruction.colour) }}
+        {{ colour(instruction().colour) }}
       </div>
     }
-    @if (!instruction.node && !instruction.colour) {
-      <div class="instruction">
-        <kpn-plan-instruction-command
-          [command]="instruction.command"
-        ></kpn-plan-instruction-command>
+    @if (!instruction().node && !instruction().colour) {
+      <div class="instruction()">
+        <kpn-plan-instruction-command [command]="instruction().command" />
         <div>
-          @if (instruction.heading) {
+          @if (instruction().heading) {
             <div>
-              <span class="kpn-label"
-                >{{ translate('head') }} {{ translate('heading-' + instruction.heading) }}</span
-              >
-              @if (instruction.street) {
+              <span class="kpn-label">
+                {{ translate('head') }} {{ translate('heading-' + instruction().heading) }}
+              </span>
+              @if (instruction().street) {
                 <span>
-                  {{ instruction.street }}
+                  {{ instruction().street }}
                 </span>
               }
             </div>
           }
-          @if (!instruction.heading) {
+          @if (!instruction().heading) {
             <div>
-              @if (instruction.street) {
-                <span class="kpn-label">{{ translate('command-' + instruction.command) }}</span>
+              @if (instruction().street) {
+                <span class="kpn-label">{{ translate('command-' + instruction().command) }}</span>
               }
               <span>
-                {{ instruction.street }}
+                {{ instruction().street }}
               </span>
-              @if (!instruction.street) {
+              @if (!instruction().street) {
                 <span>
-                  {{ translate('command-' + instruction.command) }}
+                  {{ translate('command-' + instruction().command) }}
                 </span>
               }
             </div>
           }
           <div class="kpn-meters">
-            {{ instruction.distance }}
+            {{ instruction().distance }}
           </div>
         </div>
       </div>
@@ -123,7 +121,7 @@ import { PlanInstructionCommandComponent } from './plan-instruction-command.comp
   imports: [PlanInstructionCommandComponent],
 })
 export class PlanInstructionComponent {
-  @Input() instruction: PlanInstruction;
+  instruction = input<PlanInstruction | undefined>();
 
   translate(key: string): string {
     return PlannerTranslations.translate(key);

@@ -1,7 +1,8 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
+import { input } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network';
 import { Util } from '@app/components/shared';
 import { MapLinkMenuComponent } from '@app/ol/components';
@@ -33,9 +34,9 @@ import { NetworkMapService } from './network-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent, NetworkControlComponent],
 })
 export class NetworkMapComponent implements AfterViewInit, OnDestroy {
-  @Input() networkId: number;
-  @Input() page: NetworkMapPage;
-  @Input() mapPositionFromUrl: NetworkMapPosition;
+  networkId = input<number | undefined>();
+  page = input<NetworkMapPage | undefined>();
+  mapPositionFromUrl = input<NetworkMapPosition | undefined>();
 
   protected readonly service = inject(NetworkMapService);
   private readonly store = inject(Store);
@@ -50,7 +51,7 @@ export class NetworkMapComponent implements AfterViewInit, OnDestroy {
   }
 
   zoomInToNetwork(): void {
-    const extent = Util.toExtent(this.page.bounds, 0.1);
+    const extent = Util.toExtent(this.page().bounds, 0.1);
     this.service.map.getView().fit(extent);
   }
 }

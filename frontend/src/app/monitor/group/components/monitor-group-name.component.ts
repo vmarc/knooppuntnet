@@ -1,5 +1,5 @@
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
@@ -11,24 +11,24 @@ import { MatInputModule } from '@angular/material/input';
   template: `
     <mat-form-field>
       <mat-label i18n="@@monitor.group.name.label">Name</mat-label>
-      <input matInput [formControl]="name" class="name" required />
+      <input matInput [formControl]="name()" class="name()" required />
     </mat-form-field>
 
-    @if (name.invalid && (name.dirty || name.touched || ngForm.submitted)) {
+    @if (name().invalid && (name().dirty || name().touched || ngForm().submitted)) {
       <div class="kpn-form-error">
-        @if (name.errors?.required) {
+        @if (name().errors?.required) {
           <div i18n="@@monitor.group.name.required">Name is required.</div>
         }
-        @if (name.errors?.maxlength) {
+        @if (name().errors?.maxlength) {
           <div i18n="@@monitor.group.name.maxlength">
-            Too long (max= {{ name.errors.maxlength.requiredLength }}, actual={{
-              name.errors.maxlength.actualLength
+            Too long (max= {{ name().errors.maxlength.requiredLength }}, actual={{
+              name().errors.maxlength.actualLength
             }}).
           </div>
         }
-        @if (name.errors?.groupNameNonUnique) {
+        @if (name().errors?.groupNameNonUnique) {
           <div i18n="@@monitor.group.name.unique">
-            Name should be unique. A group with this name already exists.
+            Name should be unique. A group with this name() already exists.
           </div>
         }
       </div>
@@ -46,6 +46,6 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
 })
 export class MonitorGroupNameComponent {
-  @Input({ required: true }) ngForm: FormGroupDirective;
-  @Input({ required: true }) name: FormControl<string>;
+  ngForm = input.required<FormGroupDirective>();
+  name = input.required<FormControl<string>>();
 }

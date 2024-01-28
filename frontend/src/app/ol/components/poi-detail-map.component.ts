@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { PoiDetail } from '@api/common';
 import { MAP_SERVICE_TOKEN } from '../services';
 import { LayerSwitcherComponent } from './layer-switcher.component';
@@ -30,12 +30,12 @@ import { PoiDetailMapService } from './poi-detail-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
-  @Input({ required: true }) poiDetail: PoiDetail;
+  poiDetail = input.required<PoiDetail>();
 
   protected readonly service = inject(PoiDetailMapService);
 
   ngAfterViewInit(): void {
-    this.service.init(this.poiDetail);
+    this.service.init(this.poiDetail());
   }
 
   ngOnDestroy(): void {

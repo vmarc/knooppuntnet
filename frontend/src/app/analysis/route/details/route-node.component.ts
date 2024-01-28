@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouteNetworkNodeInfo } from '@api/common/route';
 import { BracketsComponent } from '@app/components/shared/link';
 import { LinkNodeComponent } from '@app/components/shared/link';
@@ -11,10 +11,10 @@ import { OsmLinkNodeComponent } from '@app/components/shared/link';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p class="kpn-line">
-      <img [src]="'/assets/images/' + title" class="image" title="" alt="" />
-      <kpn-link-node [nodeId]="node.id" [nodeName]="node.alternateName" />
+      <img [src]="'/assets/images/' + title()" class="image" title="" alt="" />
+      <kpn-link-node [nodeId]="node().id" [nodeName]="node().alternateName" />
       <kpn-brackets>
-        <kpn-osm-link-node [nodeId]="node.id" />
+        <kpn-osm-link-node [nodeId]="node().id" />
       </kpn-brackets>
     </p>
   `,
@@ -22,6 +22,6 @@ import { OsmLinkNodeComponent } from '@app/components/shared/link';
   imports: [LinkNodeComponent, BracketsComponent, OsmLinkNodeComponent],
 })
 export class RouteNodeComponent {
-  @Input() title: string;
-  @Input() node: RouteNetworkNodeInfo;
+  title = input<string | undefined>();
+  node = input<RouteNetworkNodeInfo | undefined>();
 }

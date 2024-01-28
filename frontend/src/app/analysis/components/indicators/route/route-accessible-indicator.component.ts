@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NetworkType } from '@api/custom';
 import { IndicatorComponent } from '@app/components/shared/indicator';
@@ -12,6 +12,7 @@ import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indi
 @Component({
   selector: 'kpn-route-accessible-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <kpn-indicator
       letter="A"
@@ -24,8 +25,8 @@ import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indi
   imports: [IndicatorComponent],
 })
 export class RouteAccessibleIndicatorComponent implements OnInit {
-  @Input() accessible: boolean;
-  @Input() networkType: NetworkType;
+  accessible = input<boolean | undefined>();
+  networkType = input<NetworkType | undefined>();
 
   private readonly dialog = inject(MatDialog);
   color: string;
@@ -35,7 +36,7 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
   }
 
   onOpenDialog() {
-    const data = new RouteAccessibleData(this.networkType, this.accessible, this.color);
+    const data = new RouteAccessibleData(this.networkType(), this.accessible(), this.color);
     this.dialog.open(RouteAccessibleIndicatorDialogComponent, {
       data,
       autoFocus: false,
@@ -45,15 +46,15 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
 
   private determineColor() {
     let color = 'gray';
-    if ('horse-riding' === this.networkType || 'inline-skating' === this.networkType) {
+    if ('horse-riding' === this.networkType() || 'inline-skating' === this.networkType()) {
       color = 'gray';
     } else if (
-      'cycling' === this.networkType ||
-      'hiking' === this.networkType ||
-      'motorboat' === this.networkType ||
-      'canoe' === this.networkType
+      'cycling' === this.networkType() ||
+      'hiking' === this.networkType() ||
+      'motorboat' === this.networkType() ||
+      'canoe' === this.networkType()
     ) {
-      color = this.accessible ? 'green' : 'red';
+      color = this.accessible() ? 'green' : 'red';
     }
     return color;
   }

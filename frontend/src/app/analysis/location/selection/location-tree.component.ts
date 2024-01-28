@@ -4,10 +4,10 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Output } from '@angular/core';
+import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -111,9 +111,9 @@ import { LocationFlatNode } from './location-flat-node';
   imports: [MatButtonModule, MatIconModule, MatRadioModule, MatTreeModule, NgClass],
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {
-  @Input() networkType: NetworkType;
-  @Input() country: Country;
-  @Input() locationNode: LocalLocationNode;
+  networkType = input<NetworkType | undefined>();
+  country = input<Country | undefined>();
+  locationNode = input<LocalLocationNode | undefined>();
 
   @Output() selection = new EventEmitter<string>();
 
@@ -138,7 +138,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   hasChild = (_: number, node: LocationFlatNode) => node.expandable;
 
   ngOnInit() {
-    this.dataSource.data = [this.locationNode];
+    this.dataSource.data = [this.locationNode()];
     this.treeControl.expand(this.treeControl.dataNodes[0]);
   }
 
@@ -169,7 +169,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
 
   private transformer() {
     return (node: LocalLocationNode, level: number) => {
-      const maxLevel = this.country === Country.fr ? 2 : 99;
+      const maxLevel = this.country() === Country.fr ? 2 : 99;
       const hasChildren = !!node.children && node.children.length > 0;
       const expandable = hasChildren && level < maxLevel;
       return new LocationFlatNode(expandable, node.path, node.name, node.nodeCount, level);

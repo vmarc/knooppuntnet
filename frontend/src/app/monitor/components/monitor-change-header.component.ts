@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteChangeSummary } from '@api/common/monitor';
 import { PageWidthService } from '@app/components/shared';
@@ -15,30 +15,30 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <a [routerLink]="link()" class="kpn-thick">{{ changeSet.key.changeSetId }}</a>
+      <a [routerLink]="link()" class="kpn-thick">{{ changeSet().key.changeSetId }}</a>
 
       @if (timestampOnSameLine$ | async) {
-        <span class="kpn-thin">{{ changeSet.key.timestamp }}</span>
+        <span class="kpn-thin">{{ changeSet().key.timestamp }}</span>
       }
 
-      @if (changeSet.happy) {
+      @if (changeSet().happy) {
         <kpn-icon-happy />
       }
 
-      @if (changeSet.investigate) {
+      @if (changeSet().investigate) {
         <kpn-icon-investigate />
       }
     </div>
 
     @if (timestampOnSeparateLine$ | async) {
       <div>
-        <span class="kpn-thin">{{ changeSet.key.timestamp }}</span>
+        <span class="kpn-thin">{{ changeSet().key.timestamp }}</span>
       </div>
     }
 
-    @if (changeSet.comment) {
+    @if (changeSet().comment) {
       <div class="comment">
-        {{ changeSet.comment }}
+        {{ changeSet().comment }}
       </div>
     }
   `,
@@ -53,7 +53,7 @@ import { map } from 'rxjs/operators';
   imports: [AsyncPipe, IconHappyComponent, IconInvestigateComponent, RouterLink],
 })
 export class MonitorChangeHeaderComponent {
-  @Input({ required: true }) changeSet: MonitorRouteChangeSummary;
+  changeSet = input.required<MonitorRouteChangeSummary>();
 
   private readonly pageWidthService = inject(PageWidthService);
 
@@ -63,8 +63,8 @@ export class MonitorChangeHeaderComponent {
   readonly timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(map((value) => !value));
 
   link(): string {
-    const key = this.changeSet.key;
-    const groupName = this.changeSet.groupName;
+    const key = this.changeSet().key;
+    const groupName = this.changeSet().groupName;
     return `/monitor/groups/${groupName}/routes/${key.elementId}/changes/${key.changeSetId}/${key.replicationNumber}`;
   }
 

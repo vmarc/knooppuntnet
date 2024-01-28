@@ -1,6 +1,6 @@
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { FactInfo } from '../fact-info';
 
@@ -13,7 +13,7 @@ import { FactInfo } from '../fact-info';
         The route relation contains 1 or more unexpected nodes
       </span>
       <span class="kpn-comma-list">
-        @for (nodeId of factInfo.unexpectedNodeIds; track $index) {
+        @for (nodeId of factInfo().unexpectedNodeIds; track $index) {
           <kpn-osm-link-node [nodeId]="nodeId" [title]="nodeId.toString()" />
         }
       </span>
@@ -23,5 +23,5 @@ import { FactInfo } from '../fact-info';
   imports: [OsmLinkNodeComponent],
 })
 export class FactRouteUnexpectedNodeComponent {
-  @Input() factInfo: FactInfo;
+  factInfo = input<FactInfo | undefined>();
 }

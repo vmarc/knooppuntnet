@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Router } from '@angular/router';
 import { VersionService } from '@app/services';
 import { UserLinkLogoutComponent } from '../../../user';
@@ -26,7 +26,7 @@ import { UserStore } from '../../../user/user.store';
         {{ version() }}
       </p>
 
-      @if (loginEnabled) {
+      @if (loginEnabled()) {
         @if (loggedIn()) {
           <p>
             {{ user() }}
@@ -58,7 +58,7 @@ import { UserStore } from '../../../user/user.store';
   imports: [UserLinkLoginComponent, UserLinkLogoutComponent],
 })
 export class SidebarFooterComponent {
-  @Input({ required: false }) loginEnabled = true;
+  loginEnabled = input(true);
 
   private readonly router = inject(Router);
   private readonly versionService = inject(VersionService);

@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { LocationNodeInfo } from '@api/common/location';
 import { IndicatorComponent } from '@app/components/shared/indicator';
@@ -11,6 +11,7 @@ import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-i
 @Component({
   selector: 'kpn-location-node-fact-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <kpn-indicator
       letter="F"
@@ -23,7 +24,7 @@ import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-i
   imports: [IndicatorComponent],
 })
 export class LocationNodeFactIndicatorComponent implements OnInit {
-  @Input() node: LocationNodeInfo;
+  node = input<LocationNodeInfo | undefined>();
 
   private readonly dialog = inject(MatDialog);
   color: string;
@@ -42,7 +43,7 @@ export class LocationNodeFactIndicatorComponent implements OnInit {
 
   private determineColor() {
     let color;
-    if (this.node.facts.length > 0) {
+    if (this.node().facts.length > 0) {
       color = 'red';
     } else {
       color = 'green';

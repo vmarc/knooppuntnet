@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Ref } from '@api/common/common';
 import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node';
 import { MetaDataComponent } from '@app/components/shared';
@@ -11,6 +11,7 @@ import { NodeDiffsData } from './node-diffs-data';
 @Component({
   selector: 'kpn-node-diffs-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     @if (refs.length > 0) {
       <div class="kpn-level-2">
@@ -22,10 +23,10 @@ import { NodeDiffsData } from './node-diffs-data';
           @for (nodeRef of refs; track nodeRef.id) {
             <div class="kpn-level-3">
               <div class="kpn-line kpn-level-3-header">
-                <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data.knownElements" />
+                <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data().knownElements" />
               </div>
               <div class="kpn-level-3-body">
-                @for (nodeChangeInfo of data.findNodeChangeInfo(nodeRef); track $index) {
+                @for (nodeChangeInfo of data().findNodeChangeInfo(nodeRef); track $index) {
                   <div>
                     @if (nodeChangeInfo.before.version === nodeChangeInfo.after.version) {
                       <ng-container i18n="@@node-diffs-updated.existing-node">
@@ -52,11 +53,11 @@ import { NodeDiffsData } from './node-diffs-data';
   imports: [LinkNodeRefHeaderComponent, MetaDataComponent, NodeChangeDetailComponent],
 })
 export class NodeDiffsUpdatedComponent implements OnInit {
-  @Input() data: NodeDiffsData;
+  data = input<NodeDiffsData | undefined>();
 
   refs: Ref[];
 
   ngOnInit(): void {
-    this.refs = this.data.refDiffs.updated;
+    this.refs = this.data().refDiffs.updated;
   }
 }

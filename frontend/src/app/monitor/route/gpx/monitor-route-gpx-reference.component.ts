@@ -1,6 +1,6 @@
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -46,25 +46,25 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
         i18n="@@monitor.route.properties.reference-details.file.name"
         >File</span
       >
-      {{ referenceFilename.value }}
+      {{ referenceFilename().value }}
     </div>
 
-    @if (referenceFile.errors?.maxFileSizeExceeded) {
+    @if (referenceFile().errors?.maxFileSizeExceeded) {
       <div
         class="kpn-form-error"
         i18n="@@monitor.route.properties.reference-details.file.max-size-exceeded"
       >
         Cannot upload this file. It is too big (maximum file size is
-        {{ referenceFile.errors.maxFileSizeExceeded }}).
+        {{ referenceFile().errors.maxFileSizeExceeded }}).
       </div>
     }
 
     @if (
-      referenceFilename.invalid &&
-      (referenceFilename.dirty || referenceFilename.touched || ngForm.submitted)
+      referenceFilename().invalid &&
+      (referenceFilename().dirty || referenceFilename().touched || ngForm().submitted)
     ) {
       <div class="kpn-form-error">
-        @if (referenceFilename.errors?.required) {
+        @if (referenceFilename().errors?.required) {
           <div id="reference-filename.required" i18n="@@monitor.route.reference-filename.required">
             Reference filename is required
           </div>
@@ -77,14 +77,14 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
     </p>
     <kpn-day-input
       id="gpx-reference-date"
-      [date]="gpxReferenceDate"
+      [date]="gpxReferenceDate()"
       label="Reference day"
       i18n-label="@@monitor.route.properties.reference-details.day.label"
     />
 
-    @if (gpxReferenceDate.invalid && (gpxReferenceDate.touched || ngForm.submitted)) {
+    @if (gpxReferenceDate().invalid && (gpxReferenceDate().touched || ngForm().submitted)) {
       <div class="kpn-form-error">
-        @if (gpxReferenceDate.errors?.required) {
+        @if (gpxReferenceDate().errors?.required) {
           <div id="reference-day.required" i18n="@@monitor.route.reference-day.required">
             Please provide a valid reference day
           </div>
@@ -113,15 +113,15 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
   ],
 })
 export class MonitorRouteGpxReferenceComponent {
-  @Input({ required: true }) ngForm: FormGroupDirective;
-  @Input({ required: true }) gpxReferenceDate: FormControl<Date | null>;
-  @Input({ required: true }) referenceFilename: FormControl<string>;
-  @Input({ required: true }) referenceFile: FormControl<File>;
+  ngForm = input.required<FormGroupDirective>();
+  gpxReferenceDate = input.required<FormControl<Date | null>>();
+  referenceFilename = input.required<FormControl<string>>();
+  referenceFile = input.required<FormControl<File>>();
 
   selectFile(selectEvent: any) {
     if (selectEvent.target.files && selectEvent.target.files.length > 0) {
-      this.referenceFile.setValue(selectEvent.target.files[0]);
-      this.referenceFilename.setValue(selectEvent.target.files[0].name);
+      this.referenceFile().setValue(selectEvent.target.files[0]);
+      this.referenceFilename().setValue(selectEvent.target.files[0].name);
     }
   }
 }

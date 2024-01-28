@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NetworkRouteRow } from '@api/common/network';
 import { IndicatorComponent } from '@app/components/shared/indicator';
@@ -11,6 +11,7 @@ import { RouteConnectionIndicatorDialogComponent } from './route-connection-indi
 @Component({
   selector: 'kpn-route-connection-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <kpn-indicator
       letter="C"
@@ -23,13 +24,13 @@ import { RouteConnectionIndicatorDialogComponent } from './route-connection-indi
   imports: [IndicatorComponent],
 })
 export class RouteConnectionIndicatorComponent implements OnInit {
-  @Input() route: NetworkRouteRow;
+  route = input<NetworkRouteRow | undefined>();
 
   private readonly dialog = inject(MatDialog);
   color: string;
 
   ngOnInit(): void {
-    this.color = this.route.roleConnection ? 'blue' : 'gray';
+    this.color = this.route().roleConnection ? 'blue' : 'gray';
   }
 
   onOpenDialog() {

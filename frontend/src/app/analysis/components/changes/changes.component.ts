@@ -2,7 +2,7 @@ import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { PaginatorComponent } from '@app/components/shared/paginator';
@@ -11,24 +11,27 @@ import { PaginatorComponent } from '@app/components/shared/paginator';
   selector: 'kpn-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-slide-toggle [checked]="impact" (change)="onImpactChanged($event)" i18n="@@changes.impact"
-      >Impact
+    <mat-slide-toggle
+      [checked]="impact()"
+      (change)="onImpactChanged($event)"
+      i18n="@@changes.impact"
+    >Impact
     </mat-slide-toggle>
 
     <kpn-paginator
-      [pageIndex]="pageIndex"
+      [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="totalCount"
+      [length]="totalCount()"
       [showPageSizeSelection]="true"
     />
 
-    @if (totalCount === 0) {
+    @if (totalCount() === 0) {
       <div i18n="@@changes.no-changes">No changes</div>
     }
 
-    @if (changeCount > 0) {
+    @if (changeCount() > 0) {
       <div>
         <ng-content></ng-content>
       </div>
@@ -38,12 +41,12 @@ import { PaginatorComponent } from '@app/components/shared/paginator';
   imports: [MatSlideToggleModule, PaginatorComponent],
 })
 export class ChangesComponent {
-  @Input() changeCount: number;
-  @Input() totalCount: number;
+  changeCount = input<number | undefined>();
+  totalCount = input<number | undefined>();
 
-  @Input() impact: boolean;
-  @Input() pageSize: number;
-  @Input() pageIndex: number;
+  impact = input<boolean | undefined>();
+  pageSize = input<number | undefined>();
+  pageIndex = input<number | undefined>();
 
   @Output() impactChange = new EventEmitter<boolean>();
   @Output() pageSizeChange = new EventEmitter<number>();

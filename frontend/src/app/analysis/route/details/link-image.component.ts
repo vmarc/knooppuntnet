@@ -7,7 +7,7 @@ import { AfterViewChecked } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { fromEvent } from 'rxjs';
 
@@ -19,15 +19,15 @@ import { fromEvent } from 'rxjs';
       <img
         style="width: 40px;  display:block;"
         #image
-        [src]="'/assets/images/links/' + linkName + '.png'"
-        [alt]="linkName"
+        [src]="'/assets/images/links/' + linkName() + '.png'"
+        [alt]="linkName()"
       />
     </div>
   `,
   standalone: true,
 })
 export class LinkImageComponent implements OnInit, OnDestroy, AfterViewChecked {
-  @Input() linkName: string;
+  linkName = input<string | undefined>();
   @ViewChild('image', { static: false }) imageRef: ElementRef;
   @ViewChild('imageWrapper', { static: false }) divRef: ElementRef;
 

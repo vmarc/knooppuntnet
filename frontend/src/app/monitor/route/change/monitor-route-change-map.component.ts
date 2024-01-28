@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { MonitorRouteDeviation } from '@api/common/monitor';
 import { MonitorRouteSegment } from '@api/common/monitor';
 import { MapLinkMenuComponent } from '@app/ol/components';
@@ -33,12 +33,12 @@ import { MonitorRouteChangeMapService } from './monitor-route-change-map.service
 export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy {
   protected readonly service = inject(MonitorRouteChangeMapService);
 
-  @Input({ required: true }) referenceJson: string;
-  @Input({ required: true }) routeSegments: MonitorRouteSegment[];
-  @Input({ required: true }) deviation: MonitorRouteDeviation;
+  referenceJson = input.required<string>();
+  routeSegments = input.required<MonitorRouteSegment[]>();
+  deviation = input.required<MonitorRouteDeviation>();
 
   ngAfterViewInit(): void {
-    this.service.init(this.referenceJson, this.deviation, this.routeSegments);
+    this.service.init(this.referenceJson(), this.deviation(), this.routeSegments());
   }
 
   ngOnDestroy(): void {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouteInfoAnalysis } from '@api/common/route';
 import { RouteNodeComponent } from './route-node.component';
 
@@ -9,16 +9,16 @@ import { RouteNodeComponent } from './route-node.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    @if (analysis.map.endNodes.length === 0) {
+    @if (analysis().map.endNodes.length === 0) {
       <p>?</p>
     }
     <!-- eslint-enable @angular-eslint/template/i18n -->
-    @for (node of analysis.map.endNodes; track node) {
+    @for (node of analysis().map.endNodes; track node) {
       <p>
         <kpn-route-node [node]="node" title="marker-icon-red-small.png" />
       </p>
     }
-    @for (node of analysis.map.endTentacleNodes; track node) {
+    @for (node of analysis().map.endTentacleNodes; track node) {
       <p>
         <kpn-route-node [node]="node" title="marker-icon-purple-small.png" />
       </p>
@@ -28,5 +28,5 @@ import { RouteNodeComponent } from './route-node.component';
   imports: [RouteNodeComponent],
 })
 export class RouteEndNodesComponent {
-  @Input() analysis: RouteInfoAnalysis;
+  analysis = input<RouteInfoAnalysis | undefined>();
 }

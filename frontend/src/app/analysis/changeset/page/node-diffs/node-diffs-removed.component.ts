@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Ref } from '@api/common/common';
 import { MetaDataComponent } from '@app/components/shared';
 import { IconInvestigateComponent } from '@app/components/shared/icon';
@@ -11,6 +11,7 @@ import { NodeDiffsData } from './node-diffs-data';
 @Component({
   selector: 'kpn-node-diffs-removed',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     @if (refs.length > 0) {
       <div class="kpn-level-2">
@@ -23,9 +24,9 @@ import { NodeDiffsData } from './node-diffs-data';
           @for (nodeRef of refs; track nodeRef.id) {
             <div class="kpn-level-3">
               <div class="kpn-line kpn-level-3-header">
-                <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data.knownElements" />
+                <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data().knownElements" />
               </div>
-              @for (nodeChangeInfo of data.findNodeChangeInfo(nodeRef); track $index) {
+              @for (nodeChangeInfo of data().findNodeChangeInfo(nodeRef); track $index) {
                 <div class="kpn-level-3-body">
                   <kpn-meta-data [metaData]="nodeChangeInfo.before" />
                 </div>
@@ -40,11 +41,11 @@ import { NodeDiffsData } from './node-diffs-data';
   imports: [IconInvestigateComponent, LinkNodeRefHeaderComponent, MetaDataComponent],
 })
 export class NodeDiffsRemovedComponent implements OnInit {
-  @Input() data: NodeDiffsData;
+  data = input<NodeDiffsData | undefined>();
 
   refs: Ref[];
 
   ngOnInit(): void {
-    this.refs = this.data.refDiffs.removed;
+    this.refs = this.data().refDiffs.removed;
   }
 }

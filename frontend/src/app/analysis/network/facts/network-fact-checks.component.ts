@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Check } from '@api/common';
 import { LinkNodeComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-network-fact-checks',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <table
       title="node integrity check failures"
@@ -22,7 +23,7 @@ import { LinkNodeComponent } from '@app/components/shared/link';
         </tr>
       </thead>
       <tbody>
-        @for (check of checks; track $index) {
+        @for (check of checks(); track $index) {
           <tr>
             <td>
               <span class="kpn-thin">{{ $index + 1 }}</span>
@@ -50,5 +51,5 @@ import { LinkNodeComponent } from '@app/components/shared/link';
   imports: [LinkNodeComponent],
 })
 export class NetworkFactChecksComponent {
-  @Input() checks: Check[];
+  checks = input<Check[] | undefined>();
 }

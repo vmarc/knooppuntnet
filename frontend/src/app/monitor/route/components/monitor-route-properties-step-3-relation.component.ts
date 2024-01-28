@@ -1,9 +1,9 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
@@ -25,12 +25,12 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
       <p i18n="@@monitor.route.properties.relation.question">
         Do you know the OSM relation id for this route?
       </p>
-      <mat-radio-group [formControl]="relationIdKnown">
+      <mat-radio-group [formControl]="relationIdKnown()">
         <mat-radio-button
           id="relation-id-known-yes"
           class="answer"
           [value]="true"
-          [checked]="relationIdKnown.value === true"
+          [checked]="relationIdKnown().value === true"
         >
           <span i18n="@@monitor.route.properties.relation.question.yes"> Yes </span>
         </mat-radio-button>
@@ -38,14 +38,14 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
           id="relation-id-known-no"
           class="answer"
           [value]="false"
-          [checked]="relationIdKnown.value === false"
+          [checked]="relationIdKnown().value === false"
         >
           <span i18n="@@monitor.route.properties.relation.question.no">No</span>
         </mat-radio-button>
       </mat-radio-group>
     </div>
 
-    @if (relationIdKnown.value === false) {
+    @if (relationIdKnown().value === false) {
       <div id="relation-id-unknown-comment" class="comment">
         <p i18n="@@monitor.route.properties.relation.ok">
           OK, no problem: if you do not know the relation id right now, you can still add it at any
@@ -55,11 +55,11 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
       </div>
     }
 
-    @if (relationIdKnown.value === true) {
+    @if (relationIdKnown().value === true) {
       <div>
         <mat-form-field>
           <mat-label i18n="@@monitor.route.properties.relation.label">Route relation id </mat-label>
-          <input matInput type="number" id="relation-id" [formControl]="relationId" />
+          <input matInput type="number" id="relation-id" [formControl]="relationId()" />
         </mat-form-field>
         <div>
           <button
@@ -81,8 +81,8 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
       </div>
     }
 
-    @if (form.invalid && (form.dirty || form.touched || ngForm.submitted)) {
-      @if (form.errors.questionUnanswered) {
+    @if (form().invalid && (form().dirty || form().touched || ngForm().submitted)) {
+      @if (form().errors.questionUnanswered) {
         <p
           id="relation.question-unanswered"
           class="kpn-warning"
@@ -93,8 +93,8 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
       }
     }
 
-    @if (form.invalid && (relationId.dirty || relationId.touched || ngForm.submitted)) {
-      @if (form.errors?.relationIdMissing) {
+    @if (form().invalid && (relationId().dirty || relationId().touched || ngForm().submitted)) {
+      @if (form().errors?.relationIdMissing) {
         <p
           id="relation-id-missing-warning"
           class="kpn-error"
@@ -105,7 +105,7 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
       }
     }
 
-    <kpn-form-status formName="step3-form" [statusChanges]="ngForm.statusChanges"></kpn-form-status>
+    <kpn-form-status formName="step3-form()" [statusChanges]="ngForm().statusChanges" />
     <div class="kpn-button-group">
       <button id="step3-back" mat-stroked-button matStepperPrevious i18n="@@action.back">
         Back
@@ -143,10 +143,10 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
   ],
 })
 export class MonitorRoutePropertiesStep3RelationComponent implements OnInit, OnDestroy {
-  @Input({ required: true }) ngForm: FormGroupDirective;
-  @Input({ required: true }) form: FormGroup;
-  @Input({ required: true }) relationIdKnown: FormControl<boolean>;
-  @Input({ required: true }) relationId: FormControl<number | null>;
+  ngForm = input.required<FormGroupDirective>();
+  form = input.required<FormGroup>();
+  relationIdKnown = input.required<FormControl<boolean>>();
+  relationId = input.required<FormControl<number | null>>();
 
   private readonly service = inject(MonitorRoutePropertiesStep3RelationService);
 
@@ -155,7 +155,7 @@ export class MonitorRoutePropertiesStep3RelationComponent implements OnInit, OnD
 
   ngOnInit(): void {
     this.subscriptions.add(
-      this.relationId.valueChanges.subscribe(() => {
+      this.relationId().valueChanges.subscribe(() => {
         this.resetRouteInformation();
       })
     );
@@ -166,7 +166,7 @@ export class MonitorRoutePropertiesStep3RelationComponent implements OnInit, OnD
   }
 
   getRouteInformation(): void {
-    this.service.getRouteInformation(this.relationId.value);
+    this.service.getRouteInformation(this.relationId().value);
   }
 
   resetRouteInformation(): void {

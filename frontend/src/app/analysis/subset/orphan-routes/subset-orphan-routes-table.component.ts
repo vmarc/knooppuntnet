@@ -2,9 +2,9 @@ import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { OrphanRouteInfo } from '@api/common';
@@ -30,6 +30,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
 @Component({
   selector: 'kpn-subset-orphan-routes-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
@@ -53,7 +54,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
           Analysis
         </th>
         <td mat-cell *matCellDef="let route">
-          <kpn-subset-orphan-route-analysis [route]="route" [networkType]="networkType" />
+          <kpn-subset-orphan-route-analysis [route]="route" [networkType]="networkType()" />
         </td>
       </ng-container>
 
@@ -63,7 +64,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
           <kpn-link-route
             [routeId]="route.id"
             [routeName]="route.name"
-            [networkType]="networkType"
+            [networkType]="networkType()"
           />
         </td>
       </ng-container>
@@ -129,9 +130,9 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   ],
 })
 export class SubsetOrphanRoutesTableComponent implements OnInit {
-  @Input() timeInfo: TimeInfo;
-  @Input() networkType: NetworkType;
-  @Input() orphanRoutes: OrphanRouteInfo[];
+  timeInfo = input<TimeInfo | undefined>();
+  networkType = input<NetworkType | undefined>();
+  orphanRoutes = input<OrphanRouteInfo[] | undefined>();
 
   @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 
@@ -147,9 +148,9 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria$.subscribe((criteria) => {
-      const filter = new SubsetOrphanRouteFilter(this.timeInfo, criteria, this.filterCriteria$);
-      this.dataSource.data = filter.filter(this.orphanRoutes);
-      this.subsetOrphanRoutesService.filterOptions$.next(filter.filterOptions(this.orphanRoutes));
+      const filter = new SubsetOrphanRouteFilter(this.timeInfo(), criteria, this.filterCriteria$);
+      this.dataSource.data = filter.filter(this.orphanRoutes());
+      this.subsetOrphanRoutesService.filterOptions$.next(filter.filterOptions(this.orphanRoutes()));
     });
   }
 

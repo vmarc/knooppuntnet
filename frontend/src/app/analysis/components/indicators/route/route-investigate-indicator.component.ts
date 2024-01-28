@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IndicatorComponent } from '@app/components/shared/indicator';
 import { RouteInvestigateIndicatorDialogComponent } from './route-investigate-indicator-dialog.component';
@@ -10,6 +10,7 @@ import { RouteInvestigateIndicatorDialogComponent } from './route-investigate-in
 @Component({
   selector: 'kpn-route-investigate-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <kpn-indicator
       letter="F"
@@ -22,13 +23,13 @@ import { RouteInvestigateIndicatorDialogComponent } from './route-investigate-in
   imports: [IndicatorComponent],
 })
 export class RouteInvestigateIndicatorComponent implements OnInit {
-  @Input() investigate: boolean;
+  investigate = input<boolean | undefined>();
 
   private readonly dialog = inject(MatDialog);
   color: string;
 
   ngOnInit(): void {
-    this.color = this.investigate ? 'red' : 'green';
+    this.color = this.investigate() ? 'red' : 'green';
   }
 
   onOpenDialog() {

@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { I18nService } from '@app/i18n';
 
@@ -33,9 +33,9 @@ import { I18nService } from '@app/i18n';
           issues
         </a>
       </li>
-      @if (settings) {
+      @if (settings()) {
         <li>
-          <a routerLink="/settings" i18n="@@footer.settings"> settings </a>
+          <a routerLink="/settings()" i18n="@@footer.settings"> settings() </a>
         </li>
       }
     </ul>
@@ -53,7 +53,7 @@ import { I18nService } from '@app/i18n';
   imports: [RouterLink],
 })
 export class PageFooterComponent {
-  @Input({ required: false }) settings = false;
+  settings = input(false);
 
   private readonly i18nService = inject(I18nService);
 

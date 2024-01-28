@@ -1,5 +1,5 @@
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
@@ -9,22 +9,24 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'kpn-monitor-group-description',
   template: `
-    <mat-form-field class="description">
+    <mat-form-field class="description()">
       <mat-label i18n="@@monitor.group.description.label">Description </mat-label>
-      <input matInput [formControl]="description" required />
+      <input matInput [formControl]="description()" required />
     </mat-form-field>
 
-    @if (description.invalid && (description.dirty || description.touched || ngForm.submitted)) {
+    @if (
+      description().invalid && (description().dirty || description().touched || ngForm().submitted)
+    ) {
       <div class="kpn-form-error">
-        @if (description.errors?.required) {
+        @if (description().errors?.required) {
           <div i18n="@@monitor.group.description.required">Description is required.</div>
         }
 
-        @if (description.errors?.maxlength) {
+        @if (description().errors?.maxlength) {
           <div i18n="@@monitor.group.description.maxlength">
             Too long (max=
-            {{ description.errors.maxlength.requiredLength }}, actual={{
-              description.errors.maxlength.actualLength
+            {{ description().errors.maxlength.requiredLength }}, actual={{
+              description().errors.maxlength.actualLength
             }}).
           </div>
         }
@@ -43,6 +45,6 @@ import { MatInputModule } from '@angular/material/input';
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
 })
 export class MonitorGroupDescriptionComponent {
-  @Input({ required: true }) ngForm: FormGroupDirective;
-  @Input({ required: true }) description: FormControl<string>;
+  ngForm = input.required<FormGroupDirective>();
+  description = input.required<FormControl<string>>();
 }

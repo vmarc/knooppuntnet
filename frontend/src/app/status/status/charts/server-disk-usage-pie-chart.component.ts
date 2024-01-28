@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { NameValue } from '@api/common/status';
 import { PieChartModule } from '@swimlane/ngx-charts';
 
@@ -9,15 +9,15 @@ import { PieChartModule } from '@swimlane/ngx-charts';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="server">
-      <span>{{ title }}</span>
+      <span>{{ title() }}</span>
       <ngx-charts-pie-chart
         [animations]="false"
         [customColors]="customColors"
         [margins]="[0, 0, 0, 0]"
         [view]="view"
-        [results]="data"
+        [results]="data()"
       />
-      <span>{{ total }}</span>
+      <span>{{ total() }}</span>
     </div>
   `,
   styles: `
@@ -36,9 +36,9 @@ import { PieChartModule } from '@swimlane/ngx-charts';
   imports: [PieChartModule],
 })
 export class ServerDiskUsagePieChartComponent {
-  @Input() title: string;
-  @Input() data: NameValue[];
-  @Input() total: string;
+  title = input<string | undefined>();
+  data = input<NameValue[] | undefined>();
+  total = input<string | undefined>();
 
   view: [number, number] = [100, 100];
 

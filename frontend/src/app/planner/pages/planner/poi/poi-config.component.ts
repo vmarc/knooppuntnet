@@ -1,5 +1,8 @@
 import { inject } from '@angular/core';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { input } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { PoiService } from '@app/services';
@@ -16,7 +19,7 @@ import { Subscriptions } from '@app/util';
         }
       </div>
 
-      <div class="col-name">
+      <div class="col-name()">
         {{ poiName() }}
       </div>
 
@@ -73,8 +76,8 @@ import { Subscriptions } from '@app/util';
   imports: [MatRadioModule],
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {
-  @Input() poiId: string;
-  @Input() name: string;
+  poiId = input<string | undefined>();
+  name = input<string | undefined>();
 
   private readonly poiService = inject(PoiService);
 
@@ -86,12 +89,12 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.add(
       this.poiService.poiConfiguration.subscribe((poiConfiguration) => {
-        const definition = poiConfiguration.poiDefinitionWithName(this.poiId);
+        const definition = poiConfiguration.poiDefinitionWithName(this.poiId());
         if (definition != null) {
           this.icon = definition.icon;
           this.minLevel = definition.minLevel;
         } else {
-          console.log('DEBUG PoiConfigComponent definition not found name=' + this.poiId);
+          console.log('DEBUG PoiConfigComponent definition not found name=' + this.poiId());
         }
       })
     );
@@ -102,14 +105,14 @@ export class PoiConfigComponent implements OnInit, OnDestroy {
   }
 
   levelString(): string {
-    return this.poiService.poiLevel(this.poiId);
+    return this.poiService.poiLevel(this.poiId());
   }
 
   levelChanged(event: MatRadioChange) {
-    this.poiService.updatePoiLevel(this.poiId, +event.value);
+    this.poiService.updatePoiLevel(this.poiId(), +event.value);
   }
 
   poiName() {
-    return this.poiService.name(this.poiId);
+    return this.poiService.name(this.poiId());
   }
 }

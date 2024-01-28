@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -9,6 +9,8 @@ import { PoiService } from '@app/services';
 
 @Component({
   selector: 'kpn-poi-group',
+  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
+
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel>
@@ -19,7 +21,7 @@ import { PoiService } from '@app/services';
             [checked]="isEnabled()"
             (change)="groupEnabledChanged($event)"
           />
-          <span class="title">{{ title }}</span>
+          <span class="title()">{{ title() }}</span>
           <span class="kpn-thin">(10/10)</span>
         </mat-panel-title>
       </mat-expansion-panel-header>
@@ -63,28 +65,28 @@ import { PoiService } from '@app/services';
   imports: [MatExpansionModule, MatCheckboxModule, MatButtonModule],
 })
 export class PoiGroupComponent {
-  @Input() name: string;
-  @Input() title: string;
+  name = input<string | undefined>();
+  title = input<string | undefined>();
 
   private readonly poiService = inject(PoiService);
 
   isEnabled(): boolean {
-    return this.poiService.isGroupEnabled(this.name);
+    return this.poiService.isGroupEnabled(this.name());
   }
 
   groupEnabledChanged(event: MatCheckboxChange) {
-    this.poiService.updateGroupEnabled(this.name, event.checked);
+    this.poiService.updateGroupEnabled(this.name(), event.checked);
   }
 
   showAllClicked() {
-    this.poiService.updateGroupShowAll(this.name);
+    this.poiService.updateGroupShowAll(this.name());
   }
 
   hideAllClicked() {
-    this.poiService.updateGroupHideAll(this.name);
+    this.poiService.updateGroupHideAll(this.name());
   }
 
   defaultClicked() {
-    this.poiService.updateGroupDefault(this.name);
+    this.poiService.updateGroupDefault(this.name());
   }
 }

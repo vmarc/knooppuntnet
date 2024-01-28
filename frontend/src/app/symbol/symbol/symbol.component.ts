@@ -1,10 +1,10 @@
-import { Input } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { SymbolBuilder } from './symbol-builder';
 import { SymbolDescription } from './symbol-description';
 import { SymbolHikerComponent } from './symbol-hiker.component';
@@ -16,18 +16,18 @@ import { SymbolWheelComponent } from './symbol-wheel.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [style]="box" class="box">
-      <canvas #symbolCanvas [width]="width" [height]="height"></canvas>
+      <canvas #symbolCanvas [width]="width()" [height]="height()"></canvas>
       @if (isForegroundHiker()) {
-        <kpn-symbol-hiker [width]="width" [height]="height" [color]="foregroundColor()" />
+        <kpn-symbol-hiker [width]="width()" [height]="height()" [color]="foregroundColor()" />
       }
       @if (isForeground2Hiker()) {
-        <kpn-symbol-hiker [width]="width" [height]="height" [color]="foreground2Color()" />
+        <kpn-symbol-hiker [width]="width()" [height]="height()" [color]="foreground2Color()" />
       }
       @if (isForegroundWheel()) {
-        <kpn-symbol-wheel [width]="width" [height]="height" [color]="foregroundColor()" />
+        <kpn-symbol-wheel [width]="width()" [height]="height()" [color]="foregroundColor()" />
       }
       @if (isForeground2Wheel()) {
-        <kpn-symbol-wheel [width]="width" [height]="height" [color]="foreground2Color()" />
+        <kpn-symbol-wheel [width]="width()" [height]="height()" [color]="foreground2Color()" />
       }
     </div>
   `,
@@ -54,23 +54,23 @@ import { SymbolWheelComponent } from './symbol-wheel.component';
   imports: [SymbolHikerComponent, SymbolWheelComponent],
 })
 export class SymbolComponent implements OnInit, AfterViewInit {
-  @Input({ required: true }) description: string;
-  @Input({ required: false }) width = 50;
-  @Input({ required: false }) height = 50;
-  @Input({ required: false }) grid = false;
+  description = input.required<string>();
+  width = input(50);
+  height = input(50);
+  grid = input(false);
   @ViewChild('symbolCanvas') canvas!: ElementRef<HTMLCanvasElement>;
 
   box = '';
   symbolDescription: SymbolDescription;
 
   ngOnInit(): void {
-    this.box = `width: ${this.width}px; height: ${this.height}px;`;
-    this.symbolDescription = new SymbolParser().parse(this.description);
+    this.box = `width: ${this.width()}px; height: ${this.height()}px;`;
+    this.symbolDescription = new SymbolParser().parse(this.description());
   }
 
   ngAfterViewInit(): void {
     const sb = new SymbolBuilder(this.canvas);
-    if (this.grid) {
+    if (this.grid()) {
       sb.drawGrid();
     }
     sb.draw(this.symbolDescription);

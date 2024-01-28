@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { ChangeSetPage } from '@api/common/changes';
 import { Util } from '@app/components/shared';
 import { OsmLinkChangeSetComponent } from '@app/components/shared/link';
@@ -10,6 +10,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
 @Component({
   selector: 'kpn-change-set-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <table class="kpn-table">
       <tbody>
@@ -17,15 +18,15 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
           <td i18n="@@change-set.header.change-set">Changeset</td>
           <td>
             <div class="kpn-line">
-              <span>{{ page.summary.key.changeSetId }}</span>
-              <kpn-osm-link-change-set [changeSetId]="page.summary.key.changeSetId" />
+              <span>{{ page().summary.key.changeSetId }}</span>
+              <kpn-osm-link-change-set [changeSetId]="page().summary.key.changeSetId" />
               <span>
                 <a
                   class="external"
                   rel="nofollow noreferrer"
                   target="_blank"
                   [href]="
-                    'https://overpass-api.de/achavi/?changeset=' + page.summary.key.changeSetId
+                    'https://overpass-api.de/achavi/?changeset=' + page().summary.key.changeSetId
                   "
                   i18n="@@change-set.header.achavi"
                 >
@@ -37,7 +38,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
                   class="external"
                   rel="nofollow noreferrer"
                   target="_blank"
-                  [href]="'https://osmcha.org/changesets/' + page.summary.key.changeSetId"
+                  [href]="'https://osmcha.org/changesets/' + page().summary.key.changeSetId"
                   i18n="@@change-set.header.osmcha"
                 >
                   osmcha
@@ -49,7 +50,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
         <tr>
           <td i18n="@@change-set.header.timestamp">Timestamp</td>
           <td>
-            <kpn-timestamp [timestamp]="page.summary.key.timestamp" />
+            <kpn-timestamp [timestamp]="page().summary.key.timestamp" />
           </td>
         </tr>
         <tr>
@@ -69,7 +70,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
         <tr>
           <td i18n="@@change-set.header.analysis">Analysis</td>
           <td>
-            <kpn-change-set-analysis [page]="page" />
+            <kpn-change-set-analysis [page]="page()" />
           </td>
         </tr>
       </tbody>
@@ -79,20 +80,20 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
   imports: [ChangeSetAnalysisComponent, OsmLinkChangeSetComponent, TimestampComponent],
 })
 export class ChangeSetHeaderComponent {
-  @Input() page: ChangeSetPage;
+  page = input<ChangeSetPage | undefined>();
 
   replicationName() {
-    return Util.replicationName(this.page.summary.key.replicationNumber);
+    return Util.replicationName(this.page().summary.key.replicationNumber);
   }
 
   hasComment() {
     return (
-      this.page.changeSetInfo &&
-      this.page.changeSetInfo.tags.tags.filter((t) => t.key === 'comment').length > 0
+      this.page().changeSetInfo &&
+      this.page().changeSetInfo.tags.tags.filter((t) => t.key === 'comment').length > 0
     );
   }
 
   comment() {
-    return Util.tagWithKey(this.page.changeSetInfo.tags, 'comment');
+    return Util.tagWithKey(this.page().changeSetInfo.tags, 'comment');
   }
 }

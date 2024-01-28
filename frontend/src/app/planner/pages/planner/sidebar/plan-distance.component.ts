@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
+import { input } from '@angular/core';
 import { Plan } from '../../../domain/plan/plan';
 
 @Component({
@@ -30,12 +30,12 @@ import { Plan } from '../../../domain/plan/plan';
   imports: [],
 })
 export class PlanDistanceComponent implements OnChanges {
-  @Input() plan: Plan;
+  plan = input<Plan | undefined>();
 
   meters = 0;
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.meters = this.plan.meters();
+    this.meters = this.plan().meters();
   }
 
   distance(): string {
@@ -47,6 +47,6 @@ export class PlanDistanceComponent implements OnChanges {
   }
 
   unpaved(): string {
-    return this.plan.unpavedPercentage();
+    return this.plan().unpavedPercentage();
   }
 }

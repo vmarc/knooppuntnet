@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Tags } from '@api/custom';
 
 @Component({
   selector: 'kpn-tags-text',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (tags.tags.length === 0) {
-      <ng-container i18n="@@tags.no-tags" class="no-tags">No tags</ng-container>
+    @if (tags().tags.length === 0) {
+      <ng-container i18n="@@tags.no-tags" class="no-tags">No tags()</ng-container>
     } @else {
-      @for (tag of tags.tags; track tag) {
+      @for (tag of tags().tags; track tag) {
         <div>{{ tag.key }} = {{ tag.value }}</div>
       }
     }
@@ -25,5 +25,5 @@ import { Tags } from '@api/custom';
   imports: [],
 })
 export class TagsTextComponent {
-  @Input({ required: true }) tags: Tags;
+  tags = input.required<Tags>();
 }

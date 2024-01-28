@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { LocationFact } from '@api/common/location';
 import { Fact } from '@api/custom';
 import { FactInfo } from '@app/analysis/fact';
@@ -17,20 +17,19 @@ import { ItemsComponent } from '@app/components/shared/items';
 import { BracketsComponent } from '@app/components/shared/link';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'kpn-location-facts',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (locationFacts.length === 0) {
+    @if (locationFacts().length === 0) {
       <div class="kpn-line kpn-spacer-above">
         <span i18n="@@location-facts.none">No facts</span>
         <kpn-icon-happy />
       </div>
     } @else {
       <kpn-items>
-        @for (locationFact of locationFacts; track locationFact; let i = $index) {
+        @for (locationFact of locationFacts(); track locationFact; let i = $index) {
           <kpn-item [index]="i">
             <div class="kpn-line">
               <kpn-fact-name [fact]="locationFact.fact" />
@@ -93,7 +92,7 @@ import { Store } from '@ngrx/store';
   ],
 })
 export class LocationFactsComponent {
-  @Input() locationFacts: LocationFact[];
+  locationFacts = input<LocationFact[] | undefined>();
 
   private readonly editService = inject(EditService);
 

@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -15,7 +15,7 @@ import { MonitorRouteFormSaveStepComponent } from './monitor-route-form-save-ste
   selector: 'kpn-monitor-route-form-save',
   template: `
     <div>
-      @if (command) {
+      @if (command()) {
         <div class="kpn-spacer-below">Route: {{ routeName() }}</div>
       }
       @for (step of steps(); track trackByStep(step)) {
@@ -59,7 +59,7 @@ export class MonitorRouteFormSaveComponent {
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
   private readonly router = inject(Router);
 
-  @Input({ required: true }) command: MonitorRouteUpdate;
+  command = input.required<MonitorRouteUpdate>();
 
   readonly steps = this.monitorWebsocketService.steps;
   readonly errors = this.monitorWebsocketService.errors;
@@ -70,7 +70,7 @@ export class MonitorRouteFormSaveComponent {
   }
 
   backToGroup(): void {
-    const url = `/monitor/groups/${this.command.groupName}`;
+    const url = `/monitor/groups/${this.command().groupName}`;
     this.router.navigateByUrl(url);
   }
 
@@ -80,17 +80,17 @@ export class MonitorRouteFormSaveComponent {
   }
 
   groupName(): string {
-    let groupName = this.command.groupName;
-    if (this.command.newGroupName) {
-      groupName = this.command.newGroupName;
+    let groupName = this.command().groupName;
+    if (this.command().newGroupName) {
+      groupName = this.command().newGroupName;
     }
     return groupName;
   }
 
   routeName(): string {
-    let routeName = this.command.routeName;
-    if (this.command.newRouteName) {
-      routeName = this.command.newRouteName;
+    let routeName = this.command().routeName;
+    if (this.command().newRouteName) {
+      routeName = this.command().newRouteName;
     }
     return routeName;
   }

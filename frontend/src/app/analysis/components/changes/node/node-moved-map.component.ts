@@ -1,7 +1,9 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
+import { input } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
@@ -28,12 +30,12 @@ import { NodeMovedMapService } from './node-moved-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
-  @Input() nodeMoved: NodeMoved;
+  nodeMoved = input<NodeMoved | undefined>();
 
   protected readonly service = inject(NodeMovedMapService);
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.service.init(this.nodeMoved), 1);
+    setTimeout(() => this.service.init(this.nodeMoved()), 1);
   }
 
   ngOnDestroy(): void {

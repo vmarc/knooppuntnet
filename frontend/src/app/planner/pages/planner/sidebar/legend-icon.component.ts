@@ -1,6 +1,6 @@
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-legend-icon',
@@ -26,25 +26,25 @@ import { Component } from '@angular/core';
   standalone: true,
 })
 export class LegendIconComponent {
-  @Input() color: string;
-  @Input() circleColor: string;
-  @Input() proposed: boolean;
+  color = input<string | undefined>();
+  circleColor = input<string | undefined>();
+  proposed = input<boolean | undefined>();
 
   style(): string {
-    const standard = `stroke:${this.color};stroke-width:3;`;
-    if (this.proposed) {
+    const standard = `stroke:${this.color()};stroke-width:3;`;
+    if (this.proposed()) {
       return standard + 'stroke-dasharray:5;';
     }
     return standard;
   }
 
   circleStyle(): string {
-    let selectedColor = this.color;
-    if (this.circleColor) {
-      selectedColor = this.circleColor;
+    let selectedColor = this.color();
+    if (this.circleColor()) {
+      selectedColor = this.circleColor()!;
     }
     const standard = `stroke:${selectedColor};stroke-width:3;`;
-    if (this.proposed) {
+    if (this.proposed()) {
       return standard + 'stroke-dasharray:5;';
     }
     return standard;

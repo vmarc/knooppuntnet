@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { WayInfo } from '@api/common/diff';
 import { RouteChangeInfo } from '@api/common/route';
 import { MetaDataComponent } from '@app/components/shared';
@@ -11,18 +11,19 @@ import { TagsTableComponent } from '@app/components/shared/tags';
 @Component({
   selector: 'kpn-route-change-way-added',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">
         <span class="kpn-label" i18n="@@route-change.way-added.title">Added way</span>
-        <kpn-osm-link-way [wayId]="wayInfo.id" [title]="wayInfo.id.toString()" />
+        <kpn-osm-link-way [wayId]="wayInfo().id" [title]="wayInfo().id.toString()" />
       </div>
       <div class="kpn-level-4-body">
-        @if (isWayChangedInThisChangeset(wayInfo)) {
+        @if (isWayChangedInThisChangeset(wayInfo())) {
           <div class="kpn-detail">
             <!-- eslint-disable @angular-eslint/template/i18n -->
             <div class="kpn-thin">
-              [ v{{ wayInfo.version }}
+              [ v{{ wayInfo().version }}
               <i i18n="@@route-change.way-added.this-changeset">this changeset</i>
               ]
             </div>
@@ -31,12 +32,12 @@ import { TagsTableComponent } from '@app/components/shared/tags';
         } @else {
           <div class="kpn-detail">
             <div class="kpn-thin">
-              <kpn-meta-data [metaData]="wayInfo" />
+              <kpn-meta-data [metaData]="wayInfo()" />
             </div>
           </div>
         }
         <div class="kpn-detail">
-          <kpn-tags-table [tags]="wayTags(wayInfo)" />
+          <kpn-tags-table [tags]="wayTags(wayInfo())" />
         </div>
       </div>
     </div>
@@ -45,14 +46,14 @@ import { TagsTableComponent } from '@app/components/shared/tags';
   imports: [OsmLinkWayComponent, MetaDataComponent, TagsTableComponent],
 })
 export class RouteChangeWayAddedComponent {
-  @Input() wayInfo: WayInfo;
-  @Input() routeChangeInfo: RouteChangeInfo;
+  wayInfo = input<WayInfo | undefined>();
+  routeChangeInfo = input<RouteChangeInfo | undefined>();
 
   wayTags(wayInfo: WayInfo): InterpretedTags {
     return InterpretedTags.all(wayInfo.tags);
   }
 
   isWayChangedInThisChangeset(wayInfo: WayInfo): boolean {
-    return wayInfo.changeSetId === this.routeChangeInfo.changeKey.changeSetId;
+    return wayInfo.changeSetId === this.routeChangeInfo().changeKey.changeSetId;
   }
 }

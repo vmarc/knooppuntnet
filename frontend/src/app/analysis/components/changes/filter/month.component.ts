@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-month',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
-    @switch (month) {
+    @switch (month()) {
       @case (1) {
         <span i18n="@@filter.month.january">January</span>
       }
@@ -48,5 +49,5 @@ import { Input } from '@angular/core';
   standalone: true,
 })
 export class MonthComponent {
-  @Input() month: number;
+  month = input<number | undefined>();
 }

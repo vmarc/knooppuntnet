@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Ref } from '@api/common/common';
 import { NetworkType } from '@api/custom';
 import { LinkRouteComponent } from '@app/components/shared/link';
@@ -8,15 +8,20 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-network-fact-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
-    @if (routes.length === 1) {
+    @if (routes().length === 1) {
       <span i18n="@@network-facts.route" class="kpn-label">Route</span>
-    } @else if (routes.length > 1) {
+    } @else if (routes().length > 1) {
       <span i18n="@@network-facts.routes" class="kpn-label">Routes</span>
     }
     <div class="kpn-comma-list">
-      @for (route of routes; track route.id) {
-        <kpn-link-route [routeId]="route.id" [routeName]="route.name" [networkType]="networkType" />
+      @for (route of routes(); track route.id) {
+        <kpn-link-route
+          [routeId]="route.id"
+          [routeName]="route.name"
+          [networkType]="networkType()"
+        />
       }
     </div>
   `,
@@ -24,6 +29,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   imports: [LinkRouteComponent],
 })
 export class NetworkFactRoutesComponent {
-  @Input() networkType: NetworkType;
-  @Input() routes: Ref[];
+  networkType = input<NetworkType | undefined>();
+  routes = input<Ref[] | undefined>();
 }

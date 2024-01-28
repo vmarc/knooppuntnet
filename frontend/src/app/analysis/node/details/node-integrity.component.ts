@@ -1,6 +1,6 @@
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { input } from '@angular/core';
 import { NodeIntegrity } from '@api/common/node';
 import { NodeIntegrityDetail } from '@api/common/node';
 import { NetworkScopeNameComponent } from '@app/components/shared';
@@ -12,15 +12,15 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   selector: 'kpn-node-integrity',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (!integrity || integrity.details.length === 0) {
+    @if (!integrity() || integrity().details.length === 0) {
       <p i18n="@@node.integrity.none">
-        There is no integrity information for this node (no expected_??n_route_relations tag).
+        There is no integrity() information for this node (no expected_??n_route_relations tag).
       </p>
     }
 
-    @if (integrity) {
+    @if (integrity()) {
       <div>
-        @for (detail of integrity.details; track detail) {
+        @for (detail of integrity().details; track detail) {
           <div>
             <div class="kpn-line detail-header">
               <kpn-network-type-icon [networkType]="detail.networkType" />
@@ -38,7 +38,7 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
                   </span>
                   <kpn-icon-investigate />
                 }
-                @if (mixedNetworkScopes) {
+                @if (mixedNetworkScopes()) {
                   <span class="kpn-brackets kpn-thin">
                     <kpn-network-scope-name [networkScope]="detail.networkScope" />
                   </span>
@@ -83,8 +83,8 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   ],
 })
 export class NodeIntegrityComponent {
-  @Input() integrity: NodeIntegrity;
-  @Input() mixedNetworkScopes: boolean;
+  integrity = input<NodeIntegrity | undefined>();
+  mixedNetworkScopes = input<boolean | undefined>();
 
   happy(detail: NodeIntegrityDetail): boolean {
     return detail.expectedRouteCount === detail.routeRefs.length;

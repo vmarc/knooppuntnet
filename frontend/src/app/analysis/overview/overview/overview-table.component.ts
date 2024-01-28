@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { StatisticValues } from '@api/common/statistics';
 import { Stat } from '../domain/stat';
 import { OverviewConfigurationService } from './overview-configuration.service';
@@ -26,7 +26,7 @@ import { OverviewTableRowComponent } from './overview-table-row.component';
   imports: [OverviewTableHeaderComponent, OverviewTableRowComponent],
 })
 export class OverviewTableComponent implements OnInit {
-  @Input() statistics: StatisticValues[];
+  statistics = input<StatisticValues[] | undefined>();
 
   private readonly overviewService = inject(OverviewConfigurationService);
 
@@ -34,7 +34,7 @@ export class OverviewTableComponent implements OnInit {
 
   ngOnInit(): void {
     this.stats = this.overviewService.statisticConfigurations.toArray().map((configuration) => {
-      const statisticValues = this.statistics.find(
+      const statisticValues = this.statistics().find(
         (statisticValue) => statisticValue._id === configuration.id
       );
       return new Stat(statisticValues, configuration);

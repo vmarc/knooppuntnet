@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 
@@ -11,14 +11,14 @@ import { PageMenuComponent } from '@app/components/shared/menu';
     <kpn-page-menu>
       <kpn-page-menu-option
         link="/monitor"
-        [active]="pageName === 'groups'"
+        [active]="pageName() === 'groups'"
         i18n="@@monitor.menu.groups"
       >
         Groups
       </kpn-page-menu-option>
       <kpn-page-menu-option
         link="/monitor/about"
-        [active]="pageName === 'about'"
+        [active]="pageName() === 'about'"
         i18n="@@monitor.menu.about"
       >
         About
@@ -29,5 +29,5 @@ import { PageMenuComponent } from '@app/components/shared/menu';
   imports: [PageMenuComponent, PageMenuOptionComponent],
 })
 export class MonitorPageMenuComponent {
-  @Input({ required: true }) pageName: string;
+  pageName = input.required<string>();
 }

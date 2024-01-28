@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ChangeSetSummaryInfo } from '@api/common';
 import { NetworkType } from '@api/custom';
@@ -14,16 +14,17 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
 @Component({
   selector: 'kpn-change-location-analysis-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <div class="change-set">
       <kpn-change-header
-        [changeKey]="changeSet.key"
-        [happy]="changeSet.happy"
-        [investigate]="changeSet.investigate"
-        [comment]="changeSet.comment"
+        [changeKey]="changeSet().key"
+        [happy]="changeSet().happy"
+        [investigate]="changeSet().investigate"
+        [comment]="changeSet().comment"
       />
 
-      @for (locationChanges of changeSet.location.changes; track locationChanges) {
+      @for (locationChanges of changeSet().location.changes; track locationChanges) {
         <div>
           <div class="kpn-line">
             <kpn-network-type-icon [networkType]="locationChanges.networkType" />
@@ -83,7 +84,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
   ],
 })
 export class ChangeLocationAnalysisSummaryComponent {
-  @Input() changeSet: ChangeSetSummaryInfo;
+  changeSet = input<ChangeSetSummaryInfo | undefined>();
 
   private readonly i18nService = inject(I18nService);
 

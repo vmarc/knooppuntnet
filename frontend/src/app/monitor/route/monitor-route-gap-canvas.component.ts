@@ -3,6 +3,7 @@ import { Input } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { MonitorRouteGapBuilder } from './monitor-route-gap-builder';
 
 @Component({
@@ -17,8 +18,8 @@ import { MonitorRouteGapBuilder } from './monitor-route-gap-builder';
   standalone: true,
 })
 export class MonitorRouteGapCanvasComponent {
-  @Input({ required: true }) description: string;
-  @Input({ required: true }) osmSegmentCount: number;
+  description = input.required<string>();
+  osmSegmentCount = input.required<number>();
 
   private _height: number;
   get height(): number {
@@ -33,6 +34,6 @@ export class MonitorRouteGapCanvasComponent {
   @ViewChild('gapCanvas') canvas!: ElementRef<HTMLCanvasElement>;
 
   private draw(): void {
-    new MonitorRouteGapBuilder(this.canvas, this.description, this.osmSegmentCount).draw();
+    new MonitorRouteGapBuilder(this.canvas, this.description(), this.osmSegmentCount()).draw();
   }
 }

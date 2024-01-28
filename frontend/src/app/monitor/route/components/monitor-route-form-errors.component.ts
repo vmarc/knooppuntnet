@@ -1,10 +1,10 @@
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-monitor-route-form-errors',
   template: `
-    @for (error of errors; track $index) {
+    @for (error of errors(); track $index) {
       <p class="kpn-error error">
         @switch (error) {
           @case ('no-relation-id') {
@@ -43,5 +43,5 @@ import { Component } from '@angular/core';
   standalone: true,
 })
 export class MonitorRouteFormErrorsComponent {
-  @Input({ required: true }) errors: string[];
+  errors = input.required<string[]>();
 }

@@ -3,8 +3,8 @@ import { inject } from '@angular/core';
 import { Signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { LocationKey } from '@api/custom';
 import { NetworkTypeNameComponent } from '@app/components/shared';
@@ -22,6 +22,7 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
 @Component({
   selector: 'kpn-location-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     @if (locationKey(); as key) {
       <kpn-location-page-breadcrumb [locationKey]="key" />
@@ -36,7 +37,7 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
       <kpn-page-menu>
         <kpn-page-menu-option
           [link]="nodesLink()"
-          [active]="pageName === 'nodes'"
+          [active]="pageName() === 'nodes'"
           i18n="@@location-page.menu.nodes"
           [elementCount]="nodeCount()"
         >
@@ -44,7 +45,7 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         </kpn-page-menu-option>
         <kpn-page-menu-option
           [link]="routesLink()"
-          [active]="pageName === 'routes'"
+          [active]="pageName() === 'routes'"
           i18n="@@location-page.menu.routes"
           [elementCount]="routeCount()"
         >
@@ -52,7 +53,7 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         </kpn-page-menu-option>
         <kpn-page-menu-option
           [link]="factsLink()"
-          [active]="pageName === 'facts'"
+          [active]="pageName() === 'facts'"
           i18n="@@location-page.menu.facts"
           [elementCount]="factCount()"
         >
@@ -60,14 +61,14 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         </kpn-page-menu-option>
         <kpn-page-menu-option
           [link]="mapLink()"
-          [active]="pageName === 'map'"
+          [active]="pageName() === 'map'"
           i18n="@@location-page.menu.map"
         >
           Map
         </kpn-page-menu-option>
         <kpn-page-menu-option
           [link]="changesLink()"
-          [active]="pageName === 'changes'"
+          [active]="pageName() === 'changes'"
           i18n="@@location-page.menu.changes"
           [elementCount]="changeCount()"
         >
@@ -75,7 +76,7 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         </kpn-page-menu-option>
         <kpn-page-menu-option
           [link]="editLink()"
-          [active]="pageName === 'edit'"
+          [active]="pageName() === 'edit'"
           i18n="@@location-page.menu.edit"
         >
           Load in editor
@@ -95,8 +96,8 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
   ],
 })
 export class LocationPageHeaderComponent {
-  @Input() pageName: string;
-  @Input() pageTitle: string;
+  pageName = input<string | undefined>();
+  pageTitle = input<string | undefined>();
 
   private readonly store = inject(Store);
   readonly locationKey = this.store.selectSignal(selectLocationKey);
@@ -112,7 +113,7 @@ export class LocationPageHeaderComponent {
   readonly changesLink = this.link('changes');
   readonly editLink = this.link('edit');
 
-  readonly fullPageTitle = computed(() => `${this.locationKey().name} | ${this.pageTitle}`);
+  readonly fullPageTitle = computed(() => `${this.locationKey().name} | ${this.pageTitle()}`);
 
   locationName(locationKey: LocationKey): string {
     const nameParts = locationKey.name.split(':');

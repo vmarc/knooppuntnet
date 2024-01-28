@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { FactLevel } from './fact-level';
 
 @Component({
   selector: 'kpn-fact-level',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @switch (factLevel) {
+    @switch (factLevel()) {
       @case (FactLevel.info) {
         <div class="info circle"></div>
       }
@@ -42,7 +42,7 @@ import { FactLevel } from './fact-level';
   standalone: true,
 })
 export class FactLevelComponent {
-  @Input() factLevel: FactLevel;
+  factLevel = input<FactLevel | undefined>();
 
   protected readonly FactLevel = FactLevel;
 }

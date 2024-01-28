@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NodeInfo } from '@api/common';
 import { CountryNameComponent } from '@app/components/shared';
@@ -16,19 +16,19 @@ import { MarkdownModule } from 'ngx-markdown';
   template: `
     <div>
       <p>
-        <kpn-osm-link-node [nodeId]="nodeInfo.id" />
+        <kpn-osm-link-node [nodeId]="nodeInfo().id" />
         <span class="kpn-brackets-link">
-          <kpn-josm-node [nodeId]="nodeInfo.id" />
+          <kpn-josm-node [nodeId]="nodeInfo().id" />
         </span>
       </p>
 
-      @if (!nodeInfo.active) {
+      @if (!nodeInfo().active) {
         <p class="kpn-warning" i18n="@@node.inactive">This network node is not active anymore.</p>
       }
 
-      @if (nodeInfo.names.length > 1) {
+      @if (nodeInfo().names.length > 1) {
         <table>
-          @for (nodeName of nodeInfo.names; track nodeName) {
+          @for (nodeName of nodeInfo().names; track nodeName) {
             <tr>
               <td class="network-name">
                 {{ nodeName.name }}
@@ -48,9 +48,9 @@ import { MarkdownModule } from 'ngx-markdown';
         </table>
       }
 
-      @if (nodeInfo.names.length === 1) {
+      @if (nodeInfo().names.length === 1) {
         <div>
-          @for (nodeName of nodeInfo.names; track nodeName) {
+          @for (nodeName of nodeInfo().names; track nodeName) {
             <p>
               <kpn-network-type [networkType]="nodeName.networkType">
                 <span i18n="@@node.node" class="network-type">network node</span>
@@ -60,13 +60,13 @@ import { MarkdownModule } from 'ngx-markdown';
         </div>
       }
 
-      @if (nodeInfo.country) {
+      @if (nodeInfo().country) {
         <p>
-          <kpn-country-name [country]="nodeInfo.country" />
+          <kpn-country-name [country]="nodeInfo().country" />
         </p>
       }
 
-      @if (nodeInfo.active && nodeInfo.orphan) {
+      @if (nodeInfo().active && nodeInfo().orphan) {
         <p i18n="@@node.orphan">
           This network node does not belong to a known node network (orphan).
         </p>
@@ -104,9 +104,9 @@ import { MarkdownModule } from 'ngx-markdown';
   ],
 })
 export class NodeSummaryComponent {
-  @Input() nodeInfo: NodeInfo;
+  nodeInfo = input<NodeInfo | undefined>();
 
   isProposed(): boolean {
-    return this.nodeInfo.names.some((name) => name.proposed);
+    return this.nodeInfo().names.some((name) => name.proposed);
   }
 }

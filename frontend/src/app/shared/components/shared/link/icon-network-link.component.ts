@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Reference } from '@api/common/common';
 import { IconLinkComponent } from './icon-link.component';
 
@@ -9,8 +9,8 @@ import { IconLinkComponent } from './icon-link.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-icon-link
-      [reference]="reference"
-      [mixedNetworkScopes]="mixedNetworkScopes"
+      [reference]="reference()"
+      [mixedNetworkScopes]="mixedNetworkScopes()"
       elementType="network"
     />
   `,
@@ -18,6 +18,6 @@ import { IconLinkComponent } from './icon-link.component';
   imports: [IconLinkComponent],
 })
 export class IconNetworkLinkComponent {
-  @Input({ required: true }) reference: Reference;
-  @Input({ required: true }) mixedNetworkScopes: boolean;
+  reference = input.required<Reference>();
+  mixedNetworkScopes = input.required<boolean>();
 }

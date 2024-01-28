@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RouteLocationAnalysis } from '@api/common';
 import { Location } from '@api/common/location';
@@ -17,7 +17,7 @@ import { I18nService } from '@app/i18n';
     @if (!hasLocations()) {
       <p i18n="@@route.location.none">None</p>
     } @else {
-      @for (candidate of locationAnalysis.candidates; track candidate) {
+      @for (candidate of locationAnalysis().candidates; track candidate) {
         <div class="candidates">
           <div class="kpn-comma-list">
             @for (name of locationNames(candidate.location); track name; let i = $index) {
@@ -43,8 +43,8 @@ import { I18nService } from '@app/i18n';
   imports: [RouterLink],
 })
 export class RouteLocationComponent {
-  @Input() networkType: NetworkType;
-  @Input() locationAnalysis: RouteLocationAnalysis;
+  networkType = input<NetworkType | undefined>();
+  locationAnalysis = input<RouteLocationAnalysis | undefined>();
 
   private readonly i18nService = inject(I18nService);
 
@@ -56,9 +56,9 @@ export class RouteLocationComponent {
 
   hasLocations(): boolean {
     return (
-      this.locationAnalysis &&
-      this.locationAnalysis.candidates &&
-      this.locationAnalysis.candidates.length > 0
+      this.locationAnalysis() &&
+      this.locationAnalysis().candidates &&
+      this.locationAnalysis().candidates.length > 0
     );
   }
 
@@ -76,6 +76,6 @@ export class RouteLocationComponent {
       location.names.slice(1, location.names.length - index)
     );
     const locationString = locationParts.join(':');
-    return `/analysis/${this.networkType}/${country}/${locationString}/nodes`;
+    return `/analysis/${this.networkType()}/${country}/${locationString}/nodes`;
   }
 }

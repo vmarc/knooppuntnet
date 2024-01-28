@@ -2,8 +2,8 @@ import { AsyncPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -23,8 +23,8 @@ import { selectDemoEnabled } from '../store/demo.selectors';
         <div class="title">
           <ng-content />
         </div>
-        <div class="duration">
-          {{ duration }} <span i18n="@@demo.duration.seconds">seconds</span>
+        <div class="duration()">
+          {{ duration() }} <span i18n="@@demo.duration.seconds">seconds</span>
         </div>
       </div>
 
@@ -105,13 +105,13 @@ import { selectDemoEnabled } from '../store/demo.selectors';
   imports: [NgClass, MatIconModule, AsyncPipe],
 })
 export class DemoVideoControlComponent {
-  @Input({ required: true }) name: string;
-  @Input({ required: true }) duration: string;
+  name = input.required<string>();
+  duration = input.required<string>();
 
   private readonly store = inject(Store);
   protected readonly selected$: Observable<boolean> = this.store
     .select(selectDemoVideo)
-    .pipe(map((current) => current === this.name));
+    .pipe(map((current) => current === this.name()));
 
   protected readonly playing$: Observable<boolean> = combineLatest([
     this.selected$,
@@ -125,6 +125,6 @@ export class DemoVideoControlComponent {
   protected readonly enabled$: Observable<boolean> = this.store.select(selectDemoEnabled);
 
   play(): void {
-    this.store.dispatch(actionDemoControlPlay({ video: this.name }));
+    this.store.dispatch(actionDemoControlPlay({ video: this.name() }));
   }
 }

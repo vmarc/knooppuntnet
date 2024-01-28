@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { ChangeKey } from '@api/common/changes/details';
 import { PageWidthService } from '@app/components/shared';
 import { IconHappyComponent } from '@app/components/shared/icon';
@@ -15,37 +15,38 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'kpn-change-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <div class="kpn-line">
-      @if (changeKey.changeSetId === 0) {
+      @if (changeKey().changeSetId === 0) {
         <span i18n="@@change-header.start"> Start </span>
       }
-      @if (changeKey.changeSetId > 0) {
+      @if (changeKey().changeSetId > 0) {
         <kpn-link-changeset
-          [changeSetId]="changeKey.changeSetId"
-          [replicationNumber]="changeKey.replicationNumber"
+          [changeSetId]="changeKey().changeSetId"
+          [replicationNumber]="changeKey().replicationNumber"
           class="kpn-thick"
         />
       }
       @if (timestampOnSameLine$ | async) {
-        <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin" />
+        <kpn-timestamp [timestamp]="changeKey().timestamp" class="kpn-thin" />
       }
-      @if (happy) {
+      @if (happy()) {
         <kpn-icon-happy />
       }
-      @if (investigate) {
+      @if (investigate()) {
         <kpn-icon-investigate />
       }
     </div>
     @if (timestampOnSeparateLine$ | async) {
       <div>
-        <kpn-timestamp [timestamp]="changeKey.timestamp" class="kpn-thin" />
+        <kpn-timestamp [timestamp]="changeKey().timestamp" class="kpn-thin" />
       </div>
     }
 
-    @if (comment) {
-      <div class="comment">
-        {{ comment }}
+    @if (comment()) {
+      <div class="comment()">
+        {{ comment() }}
       </div>
     }
   `,
@@ -66,10 +67,10 @@ import { map } from 'rxjs/operators';
   ],
 })
 export class ChangeHeaderComponent {
-  @Input() changeKey: ChangeKey;
-  @Input() happy: boolean;
-  @Input() investigate: boolean;
-  @Input() comment: string;
+  changeKey = input<ChangeKey | undefined>();
+  happy = input<boolean | undefined>();
+  investigate = input<boolean | undefined>();
+  comment = input<string | undefined>();
 
   private readonly pageWidthService = inject(PageWidthService);
   protected timestampOnSameLine$: Observable<boolean>;

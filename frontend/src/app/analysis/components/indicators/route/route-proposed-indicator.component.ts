@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IndicatorComponent } from '@app/components/shared/indicator';
 import { RouteProposedIndicatorDialogComponent } from './route-proposed-indicator-dialog.component';
@@ -10,6 +10,7 @@ import { RouteProposedIndicatorDialogComponent } from './route-proposed-indicato
 @Component({
   selector: 'kpn-route-proposed-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <kpn-indicator
       letter="P"
@@ -22,13 +23,13 @@ import { RouteProposedIndicatorDialogComponent } from './route-proposed-indicato
   imports: [IndicatorComponent],
 })
 export class RouteProposedIndicatorComponent implements OnInit {
-  @Input() proposed: boolean;
+  proposed = input<boolean | undefined>();
 
   private readonly dialog = inject(MatDialog);
   color: string;
 
   ngOnInit(): void {
-    this.color = this.proposed ? 'blue' : 'gray';
+    this.color = this.proposed() ? 'blue' : 'gray';
   }
 
   onOpenDialog() {

@@ -1,6 +1,6 @@
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MonitorRouteInfoPage } from '@api/common/monitor';
 import { DataComponent } from '@app/components/shared/data';
@@ -9,8 +9,9 @@ import { SymbolComponent } from '@app/symbol';
 @Component({
   selector: 'kpn-monitor-route-info',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
-    @if (!routeInfo.active) {
+    @if (!routeInfo().active) {
       <div class="kpn-line kpn-error">
         <mat-icon svgIcon="warning" />
         <span i18n="@@monitor.relation.not-found">
@@ -19,7 +20,7 @@ import { SymbolComponent } from '@app/symbol';
       </div>
     }
 
-    @if (routeInfo.active && !routeInfo.hasRouteTags) {
+    @if (routeInfo().active && !routeInfo().hasRouteTags) {
       <div class="kpn-line kpn-error">
         <mat-icon svgIcon="warning" />
         <span i18n="@@monitor.relation.no-route-tags">
@@ -28,58 +29,58 @@ import { SymbolComponent } from '@app/symbol';
       </div>
     }
 
-    @if (routeInfo.active && routeInfo.hasRouteTags) {
+    @if (routeInfo().active && routeInfo().hasRouteTags) {
       <div>
         <div class="section-title" i18n="@@monitor.relation.title">Route information:</div>
 
         <div class="section-body">
-          @if (routeInfo.ref) {
+          @if (routeInfo().ref) {
             <kpn-data title="Ref" i18n-title="@@monitor.relation.ref">
-              {{ routeInfo.ref }}
+              {{ routeInfo().ref }}
             </kpn-data>
           }
 
-          @if (routeInfo.name) {
+          @if (routeInfo().name) {
             <kpn-data title="Name" i18n-title="@@monitor.relation.name">
-              {{ routeInfo.name }}
+              {{ routeInfo().name }}
             </kpn-data>
           }
 
-          @if (routeInfo.from) {
+          @if (routeInfo().from) {
             <kpn-data title="From" i18n-title="@@monitor.relation.from">
-              {{ routeInfo.from }}
+              {{ routeInfo().from }}
             </kpn-data>
           }
 
-          @if (routeInfo.to) {
+          @if (routeInfo().to) {
             <kpn-data title="To" i18n-title="@@monitor.relation.to">
-              {{ routeInfo.to }}
+              {{ routeInfo().to }}
             </kpn-data>
           }
 
-          @if (routeInfo.operator) {
+          @if (routeInfo().operator) {
             <kpn-data title="Operator" i18n-title="@@monitor.relation.operator">
-              {{ routeInfo.operator }}
+              {{ routeInfo().operator }}
             </kpn-data>
           }
 
-          @if (routeInfo.website) {
+          @if (routeInfo().website) {
             <kpn-data title="Website" i18n-title="@@monitor.relation.website">
               <a
                 class="external"
                 rel="nofollow noreferrer"
                 target="_blank"
-                [href]="routeInfo.website"
+                [href]="routeInfo().website"
               >
-                {{ routeInfo.website }}
+                {{ routeInfo().website }}
               </a>
             </kpn-data>
           }
 
-          @if (routeInfo.symbol) {
+          @if (routeInfo().symbol) {
             <kpn-data title="Symbol" i18n-title="@@monitor.relation.symbol">
-              <p>{{ routeInfo.symbol }}</p>
-              <kpn-symbol [description]="routeInfo.symbol" />
+              <p>{{ routeInfo().symbol }}</p>
+              <kpn-symbol [description]="routeInfo().symbol" />
             </kpn-data>
           }
         </div>
@@ -100,5 +101,5 @@ import { SymbolComponent } from '@app/symbol';
   imports: [DataComponent, SymbolComponent, MatIconModule],
 })
 export class MonitorRouteInfoComponent {
-  @Input({ required: true }) routeInfo: MonitorRouteInfoPage;
+  routeInfo = input.required<MonitorRouteInfoPage>();
 }

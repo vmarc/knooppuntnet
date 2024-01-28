@@ -3,13 +3,12 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Output } from '@angular/core';
+import { input } from '@angular/core';
 import { UntypedFormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UntypedFormControl } from '@angular/forms';
-import { UntypedFormGroup } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
@@ -98,9 +97,9 @@ import { LocationOption } from './location-option';
   ],
 })
 export class LocationSelectorComponent implements OnInit {
-  @Input() country: Country;
-  @Input() locationNode: LocationNode;
-  @Input() all = false;
+  country = input<Country | undefined>();
+  locationNode = input<LocationNode | undefined>();
+  all = input(false);
   @Output() selection = new EventEmitter<string>();
 
   private readonly fb = inject(UntypedFormBuilder);
@@ -115,7 +114,7 @@ export class LocationSelectorComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.options = this.toOptions('', this.locationNode);
+    this.options = this.toOptions('', this.locationNode());
     this.filteredOptions = this.locationInputControl.valueChanges.pipe(
       startWith(''),
       map((value) => (typeof value === 'string' ? value : value.locationName)),
@@ -168,7 +167,7 @@ export class LocationSelectorComponent implements OnInit {
 
   private toOptions(path: string, location: LocationNode): LocationOption[] {
     const locationOptions: LocationOption[] = [];
-    if (this.all || (location && location.nodeCount && location.nodeCount > 0)) {
+    if (this.all() || (location && location.nodeCount && location.nodeCount > 0)) {
       const normalizedLocationName = Util.normalize(location.name);
       locationOptions.push(
         new LocationOption(location.name, path, normalizedLocationName, location.nodeCount)

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouteDetailsPageData } from '@api/common/route';
 import { CountryNameComponent } from '@app/components/shared';
@@ -14,25 +14,25 @@ import { MarkdownModule } from 'ngx-markdown';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <p>{{ (route.summary.meters | integer) + ' m' }}</p>
+      <p>{{ (route().summary.meters | integer) + ' m' }}</p>
 
-      @if (route.summary.country) {
+      @if (route().summary.country) {
         <p>
-          <kpn-country-name [country]="route.summary.country" />
+          <kpn-country-name [country]="route().summary.country" />
         </p>
       }
 
       <p>
-        <kpn-osm-link-relation [relationId]="route.summary.id" />
+        <kpn-osm-link-relation [relationId]="route().summary.id" />
         <span class="kpn-brackets-link">
-          <kpn-josm-relation [relationId]="route.summary.id" />
+          <kpn-josm-relation [relationId]="route().summary.id" />
         </span>
       </p>
 
       @if (isRouteBroken()) {
         <p class="kpn-line">
           <mat-icon svgIcon="warning"></mat-icon>
-          <span i18n="@@route.broken">Something seems wrong with this route.</span>
+          <span i18n="@@route.broken">Something seems wrong with this route().</span>
         </p>
       }
 
@@ -45,16 +45,16 @@ import { MarkdownModule } from 'ngx-markdown';
         </p>
       }
 
-      @if (!route.active) {
-        <p class="kpn-warning" i18n="@@route.not-active">This route is not active anymore.</p>
+      @if (!route().active) {
+        <p class="kpn-warning" i18n="@@route.not-active">This route() is not active anymore.</p>
       }
 
       @if (isProposed()) {
         <p class="kpn-line">
           <mat-icon svgIcon="warning" style="min-width: 24px" />
           <markdown i18n="@@route.proposed">
-            Proposed: this route has a tag _"state=proposed"_. The route is assumed to still be in a
-            planning phase and likely not signposted in the field.
+            Proposed: this route() has a tag _"state=proposed"_. The route() is assumed to still be
+            in a planning phase and likely not signposted in the field.
           </markdown>
         </p>
       }
@@ -62,7 +62,7 @@ import { MarkdownModule } from 'ngx-markdown';
       @if (isRouteNameDerivedFromNodes()) {
         <p class="kpn-line">
           <span i18n="@@route.name-derived-from-nodes">
-            The route name is derived from the route nodes, rather than the tags in the route
+            The route() name is derived from the route() nodes, rather than the tags in the route()
             relation.
           </span>
         </p>
@@ -80,22 +80,22 @@ import { MarkdownModule } from 'ngx-markdown';
   ],
 })
 export class RouteSummaryComponent {
-  @Input() route: RouteDetailsPageData;
+  route = input<RouteDetailsPageData | undefined>();
 
   isRouteBroken() {
-    return this.route.facts.includes('RouteBroken');
+    return this.route().facts.includes('RouteBroken');
   }
 
   isRouteIncomplete() {
-    return this.route.facts.includes('RouteIncomplete');
+    return this.route().facts.includes('RouteIncomplete');
   }
 
   isProposed() {
-    const stateTag = this.route.tags.tags.find((t) => t.key === 'state');
+    const stateTag = this.route().tags.tags.find((t) => t.key === 'state');
     return stateTag && stateTag.value === 'proposed';
   }
 
   isRouteNameDerivedFromNodes(): boolean {
-    return this.route.analysis?.nameDerivedFromNodes === true;
+    return this.route().analysis?.nameDerivedFromNodes === true;
   }
 }

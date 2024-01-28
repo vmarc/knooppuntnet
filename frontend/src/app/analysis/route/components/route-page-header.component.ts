@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NetworkType } from '@api/custom';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
@@ -11,22 +11,22 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   selector: 'kpn-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-header [pageTitle]="routeName" subject="route-page">
+    <kpn-page-header [pageTitle]="routeName()" subject="route-page">
       <span class="header-network-type-icon">
-        <mat-icon [svgIcon]="networkType" />
+        <mat-icon [svgIcon]="networkType()" />
       </span>
       <span i18n="@@route.title">Route</span>
-      @if (routeName) {
-        <span>&nbsp;{{ routeName }}</span>
+      @if (routeName()) {
+        <span>&nbsp;{{ routeName() }}</span>
       } @else {
-        <span>&nbsp;{{ routeId }}</span>
+        <span>&nbsp;{{ routeId() }}</span>
       }
     </kpn-page-header>
 
     <kpn-page-menu>
       <kpn-page-menu-option
         [link]="linkRouteDetails()"
-        [active]="pageName === 'details'"
+        [active]="pageName() === 'details'"
         i18n="@@route.menu.details"
       >
         Details
@@ -34,7 +34,7 @@ import { PageHeaderComponent } from '@app/components/shared/page';
 
       <kpn-page-menu-option
         [link]="linkRouteMap()"
-        [active]="pageName === 'map'"
+        [active]="pageName() === 'map'"
         i18n="@@route.menu.map"
       >
         Map
@@ -42,8 +42,8 @@ import { PageHeaderComponent } from '@app/components/shared/page';
 
       <kpn-page-menu-option
         [link]="linkRouteChanges()"
-        [active]="pageName === 'changes'"
-        [elementCount]="changeCount"
+        [active]="pageName() === 'changes'"
+        [elementCount]="changeCount()"
         i18n="@@route.menu.changes"
       >
         Changes
@@ -54,11 +54,11 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   imports: [MatIconModule, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class RoutePageHeaderComponent {
-  @Input() routeId: string;
-  @Input() routeName: string;
-  @Input() pageName: string;
-  @Input() changeCount: number;
-  @Input() networkType: NetworkType;
+  routeId = input<string | undefined>();
+  routeName = input<string | undefined>();
+  pageName = input<string | undefined>();
+  changeCount = input<number | undefined>();
+  networkType = input<NetworkType | undefined>();
 
   linkRouteDetails(): string {
     return this.linkRoute('');
@@ -73,6 +73,6 @@ export class RoutePageHeaderComponent {
   }
 
   private linkRoute(suffix: string): string {
-    return `/analysis/route/${this.routeId}${suffix}`;
+    return `/analysis/route/${this.routeId()}${suffix}`;
   }
 }

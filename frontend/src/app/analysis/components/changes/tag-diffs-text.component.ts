@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { input } from '@angular/core';
 import { TagDetail } from '@api/common/diff';
 import { TagDiffs } from '@api/common/diff';
 
@@ -161,7 +161,7 @@ import { TagDiffs } from '@api/common/diff';
   standalone: true,
 })
 export class TagDiffsTextComponent implements OnInit {
-  @Input() tagDiffs: TagDiffs;
+  tagDiffs = input<TagDiffs | undefined>();
 
   deletedTagDetails: TagDetail[];
   addedTagDetails: TagDetail[];
@@ -169,7 +169,7 @@ export class TagDiffsTextComponent implements OnInit {
   sameTagDetails: TagDetail[];
 
   ngOnInit(): void {
-    const allTagDetails = this.tagDiffs.mainTags.concat(this.tagDiffs.extraTags);
+    const allTagDetails = this.tagDiffs().mainTags.concat(this.tagDiffs().extraTags);
     this.deletedTagDetails = allTagDetails.filter(
       (tagDetail) => tagDetail.action.name === 'Delete' /*TagDetailType.Delete*/
     );

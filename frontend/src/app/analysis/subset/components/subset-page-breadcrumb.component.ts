@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Subset } from '@api/custom';
 import { CountryNameComponent } from '@app/components/shared';
@@ -9,6 +9,7 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
 @Component({
   selector: 'kpn-subset-page-breadcrumb',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
@@ -17,16 +18,16 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
       </li>
       <li>
         <a [routerLink]="networkTypeLink()">
-          <kpn-network-type-name [networkType]="subset.networkType" />
+          <kpn-network-type-name [networkType]="subset().networkType" />
         </a>
       </li>
       <li>
         <a [routerLink]="countryLink()">
-          <kpn-country-name [country]="subset.country" />
+          <kpn-country-name [country]="subset().country" />
         </a>
       </li>
       <li>
-        @switch (pageName) {
+        @switch (pageName()) {
           @case ('networks') {
             <span i18n="@@subset-page.menu.networks">Networks</span>
           }
@@ -53,14 +54,14 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
   imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent],
 })
 export class SubsetPageBreadcrumbComponent {
-  @Input() subset: Subset;
-  @Input() pageName: string;
+  subset = input<Subset | undefined>();
+  pageName = input<string | undefined>();
 
   networkTypeLink() {
-    return `/analysis/${this.subset.networkType}`;
+    return `/analysis/${this.subset().networkType}`;
   }
 
   countryLink() {
-    return `/analysis/${this.subset.networkType}/${this.subset.country}`;
+    return `/analysis/${this.subset().networkType}/${this.subset().country}`;
   }
 }

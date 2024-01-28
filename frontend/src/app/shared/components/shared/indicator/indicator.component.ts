@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { Input } from '@angular/core';
 import { Output } from '@angular/core';
+import { input } from '@angular/core';
 import { IndicatorIconComponent } from './indicator-icon.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { IndicatorIconComponent } from './indicator-icon.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="indicator" (click)="onOpenDialog()">
-      <kpn-indicator-icon [letter]="letter" [color]="color" />
+      <kpn-indicator-icon [letter]="letter()" [color]="color()" />
     </div>
   `,
   styles: `
@@ -24,8 +24,8 @@ import { IndicatorIconComponent } from './indicator-icon.component';
   imports: [IndicatorIconComponent],
 })
 export class IndicatorComponent {
-  @Input({ required: true }) letter: string;
-  @Input() color: string;
+  letter = input.required<string>();
+  color = input<string | undefined>();
 
   @Output() openDialog = new EventEmitter<void>();
 

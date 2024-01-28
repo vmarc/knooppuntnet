@@ -1,15 +1,16 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { TagDiffs } from '@api/common/diff';
 import { TagDiffActionComponent } from './tag-diff-action.component';
 
 @Component({
   selector: 'kpn-tag-diffs-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
-    @if (tagDiffs) {
+    @if (tagDiffs()) {
       <div class="title"></div>
       <table class="kpn-table" title="Tag differences" i18n-title="@@tag-diffs.table">
         <thead>
@@ -21,7 +22,7 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
           </tr>
         </thead>
         <tbody>
-          @for (tagDetail of tagDiffs.mainTags; track $index) {
+          @for (tagDetail of tagDiffs().mainTags; track $index) {
             <tr [ngClass]="{ same: tagDetail.action.name === 'Same' }">
               <td>
                 <kpn-tag-diff-action [action]="tagDetail.action" />
@@ -38,7 +39,7 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
             </tr>
           }
 
-          @for (tagDetail of tagDiffs.extraTags; track $index) {
+          @for (tagDetail of tagDiffs().extraTags; track $index) {
             <tr [ngClass]="{ same: tagDetail.action.name === 'Same' }">
               <td>
                 <kpn-tag-diff-action [action]="tagDetail.action" />
@@ -66,9 +67,9 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
   imports: [NgClass, TagDiffActionComponent],
 })
 export class TagDiffsTableComponent {
-  @Input() tagDiffs: TagDiffs;
+  tagDiffs = input<TagDiffs | undefined>();
 
   hasSeparator(): boolean {
-    return this.tagDiffs.mainTags.length > 0 && this.tagDiffs.extraTags.length > 0;
+    return this.tagDiffs().mainTags.length > 0 && this.tagDiffs().extraTags.length > 0;
   }
 }

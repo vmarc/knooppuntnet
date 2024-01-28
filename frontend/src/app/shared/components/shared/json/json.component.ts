@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-json',
@@ -27,12 +27,12 @@ import { OnInit } from '@angular/core';
   imports: [],
 })
 export class JsonComponent implements OnInit {
-  @Input({ required: true }) object: any;
+  object = input.required<any>();
   contents = '';
   visible = false;
 
   ngOnInit(): void {
-    this.contents = JSON.stringify(this.object, null, 2);
+    this.contents = JSON.stringify(this.object(), null, 2);
   }
 
   toggleVisible(): void {

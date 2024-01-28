@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
+import { input } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatPaginator } from '@angular/material/paginator';
@@ -15,12 +15,12 @@ import { MatPaginator } from '@angular/material/paginator';
   template: `
     <mat-paginator
       (page)="pageChanged($event)"
-      [pageIndex]="pageIndex"
-      [pageSize]="pageSize"
+      [pageIndex]="pageIndex()"
+      [pageSize]="pageSize()"
       [pageSizeOptions]="[10, 25, 50, 100, 250, 500, 1000]"
-      [length]="length"
-      [showFirstLastButtons]="showFirstLastButtons"
-      [hidePageSize]="!showPageSizeSelection"
+      [length]="length()"
+      [showFirstLastButtons]="showFirstLastButtons()"
+      [hidePageSize]="!showPageSizeSelection()"
     />
   `,
   styles: `
@@ -32,11 +32,11 @@ import { MatPaginator } from '@angular/material/paginator';
   imports: [MatPaginatorModule],
 })
 export class PaginatorComponent implements AfterViewInit {
-  @Input({ required: true }) pageSize: number;
-  @Input({ required: true }) pageIndex: number;
-  @Input({ required: true }) length: number;
-  @Input({ required: false }) showFirstLastButtons = false;
-  @Input({ required: false }) showPageSizeSelection = false;
+  pageSize = input.required<number>();
+  pageIndex = input.required<number>();
+  length = input.required<number>();
+  showFirstLastButtons = input(false);
+  showPageSizeSelection = input(false);
 
   @Output() pageSizeChange = new EventEmitter<number>();
   @Output() pageIndexChange = new EventEmitter<number>();
@@ -52,7 +52,7 @@ export class PaginatorComponent implements AfterViewInit {
   }
 
   pageChanged(event: PageEvent): void {
-    if (event.pageSize !== this.pageSize) {
+    if (event.pageSize !== this.pageSize()) {
       this.pageSizeChange.emit(event.pageSize);
     } else if (event.pageIndex !== event.previousPageIndex) {
       this.pageIndexChange.emit(event.pageIndex);

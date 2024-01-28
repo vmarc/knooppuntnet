@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
@@ -30,7 +30,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       </thead>
 
       <tbody>
-        @for (network of networks; track network) {
+        @for (network of networks(); track network) {
           <tr>
             <td>
               <kpn-link-network-details
@@ -88,5 +88,5 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
   imports: [IntegerFormatPipe, LinkNetworkDetailsComponent, NgClass, SubsetNetworkHappyComponent],
 })
 export class SubsetNetworkTableComponent {
-  @Input() networks: NetworkAttributes[];
+  networks = input<NetworkAttributes[] | undefined>();
 }

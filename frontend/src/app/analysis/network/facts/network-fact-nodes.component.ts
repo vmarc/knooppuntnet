@@ -1,20 +1,21 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Ref } from '@api/common/common';
 import { LinkNodeComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-network-fact-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
-    @if (nodes.length === 1) {
+    @if (nodes().length === 1) {
       <span class="title kpn-label" i18n="@@network-facts.node">Node</span>
-    } @else if (nodes.length > 1) {
+    } @else if (nodes().length > 1) {
       <span class="title kpn-label" i18n="@@network-facts.nodes">Nodes</span>
     }
     <div class="kpn-comma-list">
-      @for (node of nodes; track node.id) {
+      @for (node of nodes(); track node.id) {
         <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
       }
     </div>
@@ -23,5 +24,5 @@ import { LinkNodeComponent } from '@app/components/shared/link';
   imports: [LinkNodeComponent],
 })
 export class NetworkFactNodesComponent {
-  @Input() nodes: Ref[];
+  nodes = input<Ref[] | undefined>();
 }

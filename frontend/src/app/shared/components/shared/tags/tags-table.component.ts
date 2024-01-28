@@ -1,16 +1,16 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { InterpretedTags } from './interpreted-tags';
 
 @Component({
   selector: 'kpn-tags-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (tags.isEmpty()) {
-      <ng-container i18n="@@tags.no-tags" class="no-tags">No tags</ng-container>
+    @if (tags().isEmpty()) {
+      <ng-container i18n="@@tags.no-tags" class="no-tags">No tags()</ng-container>
     } @else {
-      <table title="tags" class="kpn-table">
+      <table title="tags()" class="kpn-table">
         <thead>
           <tr>
             <th i18n="@@tags.key">Key</th>
@@ -18,18 +18,18 @@ import { InterpretedTags } from './interpreted-tags';
           </tr>
         </thead>
         <tbody>
-          @for (tag of tags.standardTags(); track tag) {
+          @for (tag of tags().standardTags(); track tag) {
             <tr>
               <td>{{ tag.key }}</td>
               <td>{{ tag.value }}</td>
             </tr>
           }
-          @if (tags.hasExtraTags() && tags.hasStandardTags()) {
+          @if (tags().hasExtraTags() && tags().hasStandardTags()) {
             <tr>
               <td colspan="2"></td>
             </tr>
           }
-          @for (tag of tags.extraTags(); track tag) {
+          @for (tag of tags().extraTags(); track tag) {
             <tr>
               <td>{{ tag.key }}</td>
               <td>{{ tag.value }}</td>
@@ -49,5 +49,5 @@ import { InterpretedTags } from './interpreted-tags';
   imports: [],
 })
 export class TagsTableComponent {
-  @Input({ required: true }) tags: InterpretedTags;
+  tags = input.required<InterpretedTags>();
 }

@@ -3,7 +3,7 @@ import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MonitorRouteSubRelation } from '@api/common/monitor';
 
 @Component({
@@ -12,10 +12,10 @@ import { MonitorRouteSubRelation } from '@api/common/monitor';
   template: `
     <a
       (click)="goto()"
-      [ngClass]="{ disabled: !routeSubRelation }"
-      [title]="routeSubRelation?.name"
+      [ngClass]="{ disabled: !routeSubRelation() }"
+      [title]="routeSubRelation()?.name"
     >
-      {{ name }}</a
+      {{ name() }}</a
     >
   `,
   styles: `
@@ -28,11 +28,11 @@ import { MonitorRouteSubRelation } from '@api/common/monitor';
   imports: [NgClass],
 })
 export class MonitorRouteSubRelationMenuOptionComponent {
-  @Input({ required: true }) routeSubRelation: MonitorRouteSubRelation;
-  @Input({ required: true }) name: string;
+  routeSubRelation = input.required<MonitorRouteSubRelation>();
+  name = input.required<string>();
   @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
 
   goto(): void {
-    this.selectSubRelation.emit(this.routeSubRelation);
+    this.selectSubRelation.emit(this.routeSubRelation());
   }
 }

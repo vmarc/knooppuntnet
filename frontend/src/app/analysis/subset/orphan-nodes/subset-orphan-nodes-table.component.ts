@@ -2,9 +2,9 @@ import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { OrphanNodeInfo } from '@api/common';
@@ -27,10 +27,11 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
 @Component({
   selector: 'kpn-subset-orphan-nodes-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      editLinkTitle="Load the nodes in this page in the editor (like JOSM)"
+      editLinkTitle="Load the nodes() in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@subset-orphan-nodes.edit.title"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
@@ -100,8 +101,8 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
   ],
 })
 export class SubsetOrphanNodesTableComponent implements OnInit {
-  @Input() timeInfo: TimeInfo;
-  @Input() nodes: OrphanNodeInfo[];
+  timeInfo = input<TimeInfo | undefined>();
+  nodes = input<OrphanNodeInfo[] | undefined>();
 
   @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 
@@ -120,9 +121,9 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource.paginator = this.paginator.paginator.matPaginator;
     this.filterCriteria$.subscribe((criteria) => {
-      const filter = new SubsetOrphanNodeFilter(this.timeInfo, criteria, this.filterCriteria$);
-      this.dataSource.data = filter.filter(this.nodes);
-      this.subsetOrphanNodesService.filterOptions$.next(filter.filterOptions(this.nodes));
+      const filter = new SubsetOrphanNodeFilter(this.timeInfo(), criteria, this.filterCriteria$);
+      this.dataSource.data = filter.filter(this.nodes());
+      this.subsetOrphanNodesService.filterOptions$.next(filter.filterOptions(this.nodes()));
     });
   }
 

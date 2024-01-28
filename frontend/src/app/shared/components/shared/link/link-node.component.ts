@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -8,18 +8,18 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <a
-      [routerLink]="'/analysis/node/' + nodeId"
-      [state]="{ nodeName }"
+      [routerLink]="'/analysis/node/' + nodeId()"
+      [state]="{ nodeName: nodeName() }"
       title="Open node page"
       i18n-title="@@link-node.title"
     >
-      {{ nodeName }}
+      {{ nodeName() }}
     </a>
   `,
   standalone: true,
   imports: [RouterLink],
 })
 export class LinkNodeComponent {
-  @Input({ required: true }) nodeId: number;
-  @Input({ required: true }) nodeName: string;
+  nodeId = input.required<number>();
+  nodeName = input.required<string>();
 }

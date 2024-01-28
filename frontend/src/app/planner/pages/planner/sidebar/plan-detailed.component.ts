@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { PlanRoute } from '@api/common/planner';
 import { Plan } from '../../../domain/plan/plan';
 import { PlannerService } from '../../../planner.service';
@@ -10,22 +10,22 @@ import { PlannerService } from '../../../planner.service';
   selector: 'kpn-plan-detailed',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (plan.sourceNode !== null) {
+    @if (plan().sourceNode !== null) {
       <div class="node user-selected">
-        @if (plan.sourceNode.nodeName.length <= 3) {
+        @if (plan().sourceNode.nodeName.length <= 3) {
           <div class="text">
-            {{ plan.sourceNode.nodeName }}
+            {{ plan().sourceNode.nodeName }}
           </div>
         }
-        @if (plan.sourceNode.nodeName.length > 3) {
+        @if (plan().sourceNode.nodeName.length > 3) {
           <div class="text-long">
-            {{ plan.sourceNode.nodeName }}
+            {{ plan().sourceNode.nodeName }}
           </div>
         }
       </div>
     }
 
-    @for (leg of plan.legs; track leg) {
+    @for (leg of plan().legs; track leg) {
       @if (leg.routes.isEmpty()) {
         <div class="leg" i18n="@@plan-detailed.calculating">Calculating...</div>
         <div class="node">
@@ -109,7 +109,7 @@ import { PlannerService } from '../../../planner.service';
   imports: [],
 })
 export class PlanDetailedComponent {
-  @Input() plan: Plan;
+  plan = input<Plan | undefined>();
 
   private readonly plannerService = inject(PlannerService);
 

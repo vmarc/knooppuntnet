@@ -1,5 +1,5 @@
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
@@ -13,10 +13,10 @@ import { MonitorRouteGroup } from '@api/common/monitor';
 @Component({
   selector: 'kpn-monitor-route-properties-step-1-group',
   template: `
-    <mat-form-field class="group">
+    <mat-form-field class="group()">
       <mat-label i18n="@@monitor.route.properties.group">Group</mat-label>
-      <mat-select id="group-selector" [formControl]="group">
-        @for (gr of routeGroups; track $index) {
+      <mat-select id="group-selector" [formControl]="group()">
+        @for (gr of routeGroups(); track $index) {
           <mat-option [value]="gr">
             {{ gr.groupName + ' - ' + gr.groupDescription }}
           </mat-option>
@@ -24,7 +24,7 @@ import { MonitorRouteGroup } from '@api/common/monitor';
       </mat-select>
     </mat-form-field>
 
-    <div class="kpn-button-group">
+    <div class="kpn-button-group()">
       <button id="step1-next" mat-stroked-button matStepperNext i18n="@@action.next">Next</button>
     </div>
   `,
@@ -44,7 +44,7 @@ import { MonitorRouteGroup } from '@api/common/monitor';
   ],
 })
 export class MonitorRoutePropertiesStep1GroupComponent {
-  @Input({ required: true }) ngForm: FormGroupDirective;
-  @Input({ required: true }) group: FormControl<MonitorRouteGroup | null>;
-  @Input({ required: true }) routeGroups: MonitorRouteGroup[];
+  ngForm = input.required<FormGroupDirective>();
+  group = input.required<FormControl<MonitorRouteGroup | null>>();
+  routeGroups = input.required<MonitorRouteGroup[]>();
 }

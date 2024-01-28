@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { BarChart2D } from '@api/common/status';
 import { ActionBarChartStackedComponent } from './action-bar-chart-stacked.component';
 
@@ -13,8 +13,8 @@ import { ActionBarChartStackedComponent } from './action-bar-chart-stacked.compo
     <h2>Average delay</h2>
     <div class="chart">
       <kpn-action-bar-chart-stacked
-        [barChart]="barChart"
-        [xAxisLabel]="xAxisLabel"
+        [barChart]="barChart()"
+        [xAxisLabel]="xAxisLabel()"
         yAxisLabel="Average delay"
       />
     </div>
@@ -23,6 +23,6 @@ import { ActionBarChartStackedComponent } from './action-bar-chart-stacked.compo
   imports: [ActionBarChartStackedComponent],
 })
 export class DelayChartComponent {
-  @Input({ required: true }) barChart: BarChart2D;
-  @Input({ required: true }) xAxisLabel: string;
+  barChart = input.required<BarChart2D>();
+  xAxisLabel = input.required<string>();
 }

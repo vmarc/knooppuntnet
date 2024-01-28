@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { NodeChangeInfo } from '@api/common/node';
 import { ChangeType } from '@api/custom';
 import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
@@ -12,10 +12,10 @@ import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-change-header
-      [changeKey]="nodeChangeInfo.changeKey"
-      [happy]="nodeChangeInfo.happy"
-      [investigate]="nodeChangeInfo.investigate"
-      [comment]="nodeChangeInfo.comment"
+      [changeKey]="nodeChangeInfo().changeKey"
+      [happy]="nodeChangeInfo().happy"
+      [investigate]="nodeChangeInfo().investigate"
+      [comment]="nodeChangeInfo().comment"
     />
 
     @if (isCreate()) {
@@ -29,41 +29,41 @@ import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node
       </div>
     }
 
-    @if (nodeChangeInfo.changeKey.changeSetId === 0) {
+    @if (nodeChangeInfo().changeKey.changeSetId === 0) {
       <div>
         <p i18n="@@node.initial-value">Oldest known state of the node.</p>
       </div>
     }
 
-    <kpn-change-set-tags [changeSetTags]="nodeChangeInfo.changeTags" />
+    <kpn-change-set-tags [changeSetTags]="nodeChangeInfo().changeTags" />
 
     <div class="kpn-detail">
       <span i18n="@@node.version">Version</span>
-      {{ nodeChangeInfo.version }}
+      {{ nodeChangeInfo().version }}
       @if (isVersionUnchanged()) {
         <span i18n="@@node.unchanged">(Unchanged)</span>
       }
     </div>
 
-    <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo" />
+    <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo()" />
   `,
   standalone: true,
   imports: [ChangeHeaderComponent, ChangeSetTagsComponent, NodeChangeDetailComponent],
 })
 export class NodeChangeComponent {
-  @Input() nodeChangeInfo: NodeChangeInfo;
+  nodeChangeInfo = input<NodeChangeInfo | undefined>();
 
   isVersionUnchanged(): boolean {
-    const before = this.nodeChangeInfo.before ? this.nodeChangeInfo.before.version : null;
-    const after = this.nodeChangeInfo.after ? this.nodeChangeInfo.after.version : null;
+    const before = this.nodeChangeInfo().before ? this.nodeChangeInfo().before.version : null;
+    const after = this.nodeChangeInfo().after ? this.nodeChangeInfo().after.version : null;
     return before && after && before === after;
   }
 
   isCreate(): boolean {
-    return this.nodeChangeInfo.changeType === ChangeType.create;
+    return this.nodeChangeInfo().changeType === ChangeType.create;
   }
 
   isDelete(): boolean {
-    return this.nodeChangeInfo.changeType === ChangeType.delete;
+    return this.nodeChangeInfo().changeType === ChangeType.delete;
   }
 }

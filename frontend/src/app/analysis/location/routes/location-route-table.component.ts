@@ -3,10 +3,10 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { input } from '@angular/core';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
@@ -24,10 +24,9 @@ import { JosmRelationComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { selectPreferencesPageSize } from '@app/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { SymbolComponent } from '@app/symbol';
+import { Store } from '@ngrx/store';
+import { map } from 'rxjs/operators';
 import { actionLocationRoutesPageSize } from '../store/location.actions';
 import { actionLocationRoutesPageIndex } from '../store/location.actions';
 import { selectLocationNetworkType } from '../store/location.selectors';
@@ -37,16 +36,17 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
 @Component({
   selector: 'kpn-location-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      editLinkTitle="Load the routes in this page in the editor (like JOSM)"
+      editLinkTitle="Load the routes() in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@location-routes.edit.title"
       [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="routeCount"
+      [length]="routeCount()"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
     />
@@ -58,7 +58,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       </ng-container>
 
       <ng-container matColumnDef="analysis">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.analysis">Analysis</th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.analysis">
+          Analysis
+        </th>
         <td mat-cell *matCellDef="let route">
           <kpn-location-route-analysis [route]="route" [networkType]="networkType()" />
         </td>
@@ -85,14 +87,18 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       </ng-container>
 
       <ng-container matColumnDef="distance">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.distance">Distance</th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.distance">
+          Distance
+        </th>
         <td mat-cell *matCellDef="let route">
           <div class="distance">{{ (route.meters | integer) + ' m' }}</div>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="last-survey">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.last-survey">Survey</th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.last-survey">
+          Survey
+        </th>
         <td mat-cell *matCellDef="let route">
           {{ route.lastSurvey | day }}
         </td>
@@ -118,7 +124,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="routeCount"
+      [length]="routeCount()"
     />
   `,
   styles: `
@@ -154,9 +160,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
   ],
 })
 export class LocationRouteTableComponent implements OnInit, OnChanges {
-  @Input() timeInfo: TimeInfo;
-  @Input() routes: LocationRouteInfo[];
-  @Input() routeCount: number;
+  timeInfo = input<TimeInfo | undefined>();
+  routes = input<LocationRouteInfo[] | undefined>();
+  routeCount = input<number | undefined>();
 
   @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
@@ -174,12 +180,12 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   );
 
   ngOnInit(): void {
-    this.dataSource.data = this.routes;
+    this.dataSource.data = this.routes();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['routes']) {
-      this.dataSource.data = this.routes;
+      this.dataSource.data = this.routes();
     }
   }
 
@@ -194,7 +200,7 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
 
   edit(): void {
     const editParameters: EditParameters = {
-      relationIds: this.routes.map((route) => route.id),
+      relationIds: this.routes().map((route) => route.id),
       fullRelation: true,
     };
     this.editService.edit(editParameters);

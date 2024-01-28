@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { JosmRelationComponent } from '@app/components/shared/link';
@@ -13,23 +13,24 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 @Component({
   selector: 'kpn-subset-network',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <div class="title">
       <kpn-link-network-details
-        [networkId]="network.id"
-        [networkType]="network.networkType"
-        [networkName]="network.name"
+        [networkId]="network().id"
+        [networkType]="network().networkType"
+        [networkName]="network().name"
       />
       <span class="percentage">{{ interpretedNetwork.percentageOk() }}</span>
-      <kpn-subset-network-happy [network]="network" class="happy" />
+      <kpn-subset-network-happy [network]="network()" class="happy" />
     </div>
     <div i18n="@@subset-network.summary">
-      {{ network.km | integer }} km, {{ network.nodeCount | integer }} nodes,
-      {{ network.routeCount | integer }} routes
+      {{ network().km | integer }} km, {{ network().nodeCount | integer }} nodes,
+      {{ network().routeCount | integer }} routes
     </div>
     <div class="kpn-line">
-      <kpn-osm-link-relation [relationId]="network.id" />
-      <kpn-josm-relation [relationId]="network.id" />
+      <kpn-osm-link-relation [relationId]="network().id" />
+      <kpn-josm-relation [relationId]="network().id" />
     </div>
   `,
   styles: `
@@ -58,11 +59,11 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
   ],
 })
 export class SubsetNetworkComponent implements OnInit {
-  @Input() network: NetworkAttributes;
+  network = input<NetworkAttributes | undefined>();
 
   interpretedNetwork: InterpretedNetworkAttributes;
 
   ngOnInit(): void {
-    this.interpretedNetwork = new InterpretedNetworkAttributes(this.network);
+    this.interpretedNetwork = new InterpretedNetworkAttributes(this.network());
   }
 }

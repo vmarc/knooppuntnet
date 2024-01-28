@@ -3,9 +3,9 @@ import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { SurveyDateInfo } from '@api/common';
@@ -39,14 +39,15 @@ import { NetworkNodesService } from './network-nodes.service';
 @Component({
   selector: 'kpn-network-node-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      editLinkTitle="Load the nodes in this page in the editor (like JOSM)"
+      editLinkTitle="Load the nodes() in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@network-nodes.edit.title"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="nodes?.length"
+      [length]="nodes()?.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
     />
@@ -70,15 +71,20 @@ import { NetworkNodesService } from './network-nodes.service';
         </th>
         <td mat-cell *matCellDef="let node">
           <kpn-network-node-analysis
-            [networkType]="networkType"
-            [networkScope]="networkScope"
+            [networkType]="networkType()"
+            [networkScope]="networkScope()"
             [node]="node"
           />
         </td>
       </ng-container>
 
       <ng-container matColumnDef="node">
-        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.node">
+        <th
+          [attr.rowspan]="2"
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@network-nodes.table.node"
+        >
           Node
         </th>
         <td mat-cell *matCellDef="let node">
@@ -87,7 +93,12 @@ import { NetworkNodesService } from './network-nodes.service';
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.name">
+        <th
+          [attr.rowspan]="2"
+          mat-header-cell
+          *matHeaderCellDef
+          i18n="@@network-nodes.table.name"
+        >
           Name
         </th>
         <td mat-cell *matCellDef="let node">
@@ -105,7 +116,9 @@ import { NetworkNodesService } from './network-nodes.service';
       </ng-container>
 
       <ng-container matColumnDef="routes-actual">
-        <th mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes.actual">Actual</th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes.actual">
+          Actual
+        </th>
         <td mat-cell *matCellDef="let node">
           <kpn-network-node-routes [node]="node" />
         </td>
@@ -158,7 +171,7 @@ import { NetworkNodesService } from './network-nodes.service';
     </table>
 
     <!--    <kpn-paginator-->
-    <!--      [length]="nodes?.size">-->
+    <!--      [length]="nodes()?.size">-->
     <!--    </kpn-paginator>-->
   `,
   styles: `
@@ -185,11 +198,11 @@ import { NetworkNodesService } from './network-nodes.service';
   ],
 })
 export class NetworkNodeTableComponent implements OnInit, OnDestroy {
-  @Input() networkType: NetworkType;
-  @Input() networkScope: NetworkScope;
-  @Input() timeInfo: TimeInfo;
-  @Input() surveyDateInfo: SurveyDateInfo;
-  @Input() nodes: NetworkNodeRow[];
+  networkType = input<NetworkType | undefined>();
+  networkScope = input<NetworkScope | undefined>();
+  timeInfo = input<TimeInfo | undefined>();
+  surveyDateInfo = input<SurveyDateInfo | undefined>();
+  nodes = input<NetworkNodeRow[] | undefined>();
 
   @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 
@@ -220,17 +233,17 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
         map(
           (criteria) =>
             new NetworkNodeFilter(
-              this.timeInfo,
-              this.surveyDateInfo,
+              this.timeInfo(),
+              this.surveyDateInfo(),
               criteria,
               this.filterCriteria$
             )
         ),
-        tap((filter) => (this.dataSource.data = filter.filter(this.nodes))),
+        tap((filter) => (this.dataSource.data = filter.filter(this.nodes()))),
         delay(0)
       )
       .subscribe((filter) => {
-        this.networkNodesService.setFilterOptions(filter.filterOptions(this.nodes));
+        this.networkNodesService.setFilterOptions(filter.filterOptions(this.nodes()));
       });
   }
 

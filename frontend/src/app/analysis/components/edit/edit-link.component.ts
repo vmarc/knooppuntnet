@@ -1,9 +1,9 @@
-import { Input } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { EditService } from './edit.service';
 
 @Component({
@@ -16,14 +16,14 @@ import { EditService } from './edit.service';
   standalone: true,
 })
 export class EditLinkComponent implements OnInit {
-  @Input() title;
+  title = input<string | undefined>();
   @Output() edit = new EventEmitter<void>();
 
   linkTitle: string;
 
   ngOnInit(): void {
-    if (this.title) {
-      this.linkTitle = this.title;
+    if (this.title()) {
+      this.linkTitle = this.title();
     } else {
       this.linkTitle = $localize`:@@edit.link.title:Open in editor (like JOSM)`;
     }

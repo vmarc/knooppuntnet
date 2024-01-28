@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { BarChart } from '@api/common/status';
 import { ActionBarChartComponent } from './action-bar-chart.component';
 
@@ -12,13 +12,17 @@ import { ActionBarChartComponent } from './action-bar-chart.component';
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <h2>Replication element count</h2>
     <div class="chart">
-      <kpn-action-bar-chart [barChart]="barChart" [xAxisLabel]="xAxisLabel" yAxisLabel="Elements" />
+      <kpn-action-bar-chart
+        [barChart]="barChart()"
+        [xAxisLabel]="xAxisLabel()"
+        yAxisLabel="Elements"
+      />
     </div>
   `,
   standalone: true,
   imports: [ActionBarChartComponent],
 })
 export class ReplicationElementsChartComponent {
-  @Input({ required: true }) barChart: BarChart;
-  @Input() xAxisLabel: string;
+  barChart = input.required<BarChart>();
+  xAxisLabel = input<string | undefined>();
 }

@@ -1,5 +1,5 @@
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-legend-line',
@@ -12,9 +12,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   standalone: true,
 })
 export class LegendLineComponent {
-  @Input() color: string;
+  color = input<string | undefined>();
 
   style(): string {
-    return `stroke:${this.color};stroke-width:3`;
+    return `stroke:${this.color()};stroke-width:3`;
   }
 }

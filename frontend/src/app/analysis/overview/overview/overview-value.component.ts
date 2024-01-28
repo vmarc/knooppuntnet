@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Subset } from '@api/custom';
 import { Stat } from '../domain/stat';
@@ -24,20 +24,21 @@ import { Stat } from '../domain/stat';
   imports: [RouterLink],
 })
 export class OverviewValueComponent {
-  @Input() stat: Stat;
-  @Input() subset: Subset;
+  stat = input<Stat | undefined>();
+  subset = input<Subset | undefined>();
 
   hasLink() {
-    return this.stat.configuration.linkFunction !== null;
+    return this.stat().configuration.linkFunction !== null;
   }
 
   value(): string {
-    return this.stat.value(this.subset);
+    return this.stat().value(this.subset());
   }
 
   link() {
     return (
-      '/analysis/' + this.stat.configuration.linkFunction(this.stat.configuration.fact, this.subset)
+      '/analysis/' +
+      this.stat().configuration.linkFunction(this.stat().configuration.fact, this.subset())
     );
   }
 }

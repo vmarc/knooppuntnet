@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { NetworkScope } from '@api/custom';
 import { I18nService } from '@app/i18n';
 
@@ -12,11 +12,11 @@ import { I18nService } from '@app/i18n';
   standalone: true,
 })
 export class NetworkScopeNameComponent {
-  @Input({ required: true }) networkScope: NetworkScope;
+  networkScope = input.required<NetworkScope>();
 
   private readonly i18nService = inject(I18nService);
 
   networkScopeName(): string {
-    return this.i18nService.translation('@@network-scope.' + this.networkScope);
+    return this.i18nService.translation('@@network-scope.' + this.networkScope());
   }
 }

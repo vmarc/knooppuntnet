@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Subsets } from '@app/kpn/common';
 import { MarkdownModule } from 'ngx-markdown';
 import { Stat } from '../domain/stat';
@@ -9,24 +9,25 @@ import { OverviewValueComponent } from './overview-value.component';
 @Component({
   selector: 'kpn-overview-table-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <td>
-      {{ stat.configuration.name }}
+      {{ stat().configuration.name }}
     </td>
     <td class="value-cell">
       {{ total() }}
     </td>
     @for (subset of subsets(); track subset) {
       <td class="value-cell">
-        <kpn-overview-value [stat]="stat" [subset]="subset" />
+        <kpn-overview-value [stat]="stat()" [subset]="subset" />
       </td>
     }
     <td class="comment-cell">
-      @if (stat.configuration.markdown) {
+      @if (stat().configuration.markdown) {
         <markdown [data]="comment()" />
       } @else {
         <p>
-          {{ stat.configuration.comment }}
+          {{ stat().configuration.comment }}
         </p>
       }
     </td>
@@ -57,17 +58,17 @@ import { OverviewValueComponent } from './overview-value.component';
   imports: [OverviewValueComponent, MarkdownModule],
 })
 export class OverviewTableRowComponent {
-  @Input() stat: Stat;
+  stat = input<Stat | undefined>();
 
   subsets() {
     return Subsets.all;
   }
 
   total() {
-    return this.stat.total();
+    return this.stat().total();
   }
 
   comment() {
-    return this.stat.configuration.comment.replace('\\', '\n\n');
+    return this.stat().configuration.comment.replace('\\', '\n\n');
   }
 }

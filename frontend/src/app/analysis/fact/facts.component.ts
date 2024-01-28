@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BracketsComponent } from '@app/components/shared/link';
 import { LinkNodeComponent } from '@app/components/shared/link';
@@ -96,10 +96,10 @@ import { Facts } from './facts';
   ],
 })
 export class FactsComponent {
-  @Input() factInfos: FactInfo[];
+  factInfos = input<FactInfo[] | undefined>();
 
   get filteredFactInfos(): FactInfo[] {
-    return this.factInfos.filter((factInfo) => factInfo.fact !== 'RouteBroken');
+    return this.factInfos().filter((factInfo) => factInfo.fact !== 'RouteBroken');
   }
 
   factLevel(factInfo: FactInfo): FactLevel {

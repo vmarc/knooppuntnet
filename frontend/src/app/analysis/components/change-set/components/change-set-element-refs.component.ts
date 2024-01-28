@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { input } from '@angular/core';
 import { ChangeSetElementRef } from '@api/common';
 import { ChangeSetElementRefs } from '@api/common';
 import { ChangeSetElement } from './change-set-element-ref.component';
@@ -21,13 +21,13 @@ import { ChangesSetElementRefComponent } from './change-set-element-ref.componen
   imports: [ChangesSetElementRefComponent],
 })
 export class ChangesSetElementRefsComponent implements OnInit {
-  @Input() elementType: string;
-  @Input() changeSetElementRefs: ChangeSetElementRefs;
+  elementType = input<string | undefined>();
+  changeSetElementRefs = input<ChangeSetElementRefs | undefined>();
 
   elements: ChangeSetElement[];
 
   ngOnInit(): void {
-    this.elements = this.refsToElements(this.changeSetElementRefs);
+    this.elements = this.refsToElements(this.changeSetElementRefs());
   }
 
   private refsToElements(refs: ChangeSetElementRefs): ChangeSetElement[] {
@@ -42,6 +42,6 @@ export class ChangesSetElementRefsComponent implements OnInit {
   }
 
   private buildElement(action: string, ref: ChangeSetElementRef): ChangeSetElement {
-    return new ChangeSetElement(action, this.elementType, ref);
+    return new ChangeSetElement(action, this.elementType(), ref);
   }
 }

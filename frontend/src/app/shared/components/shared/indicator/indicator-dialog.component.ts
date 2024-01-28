@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
 import { IndicatorIconComponent } from './indicator-icon.component';
@@ -11,7 +11,7 @@ import { IndicatorIconComponent } from './indicator-icon.component';
   template: `
     <kpn-dialog>
       <div mat-dialog-title class="title">
-        <kpn-indicator-icon [letter]="letter" [color]="color" />
+        <kpn-indicator-icon [letter]="letter()" [color]="color()" />
         <div class="title-text">
           <ng-content select="[dialog-title]" />
         </div>
@@ -38,6 +38,6 @@ import { IndicatorIconComponent } from './indicator-icon.component';
   imports: [DialogComponent, MatDialogModule, IndicatorIconComponent],
 })
 export class IndicatorDialogComponent {
-  @Input({ required: true }) letter: string;
-  @Input() color: string;
+  letter = input.required<string>();
+  color = input<string | undefined>();
 }

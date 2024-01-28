@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-item',
@@ -8,7 +8,7 @@ import { Input } from '@angular/core';
   template: `
     <div class="item">
       <div class="item-left">
-        {{ index + 1 }}
+        {{ index() + 1 }}
       </div>
       <div class="item-right">
         <ng-content />
@@ -57,5 +57,5 @@ import { Input } from '@angular/core';
   standalone: true,
 })
 export class ItemComponent {
-  @Input({ required: true }) index: number;
+  index = input.required<number>();
 }

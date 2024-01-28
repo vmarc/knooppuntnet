@@ -2,11 +2,11 @@ import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { signal } from '@angular/core';
-import { Input } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { Subscription } from 'rxjs';
 import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.component';
@@ -19,8 +19,8 @@ import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.compo
       @if (height() > 0) {
         <kpn-monitor-route-gap-canvas
           [height]="height()"
-          [description]="description"
-          [osmSegmentCount]="osmSegmentCount"
+          [description]="description()"
+          [osmSegmentCount]="osmSegmentCount()"
         />
       }
     </div>
@@ -35,8 +35,8 @@ import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.compo
   imports: [MonitorRouteGapCanvasComponent],
 })
 export class MonitorRouteGapComponent implements AfterViewInit, OnInit, OnDestroy {
-  @Input({ required: true }) description: string;
-  @Input({ required: true }) osmSegmentCount: number;
+  description = input.required<string>();
+  osmSegmentCount = input.required<number>();
   @ViewChild('canvasWrapper') canvasWrapper!: ElementRef<HTMLDivElement>;
 
   height = signal(0);

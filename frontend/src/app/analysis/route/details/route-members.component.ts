@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NetworkType } from '@api/custom';
 import { RouteMemberInfo } from '@api/custom';
@@ -15,9 +15,9 @@ import { LinkImageComponent } from './link-image.component';
   template: `
     <div>
       <h4 i18n="@@route.members.title">Route Members</h4>
-      @if (members.length === 0) {
+      @if (members().length === 0) {
         <div>
-          <span i18n="@@route.members.none">None</span>
+          <span i18n="@@route.membersnone">None</span>
         </div>
       } @else {
         <div>
@@ -33,13 +33,13 @@ import { LinkImageComponent } from './link-image.component';
                 <th i18n="@@route.members.table.node-count">#Nodes</th>
                 <th i18n="@@route.members.table.name">Name</th>
                 <th i18n="@@route.members.table.inaccessible">Inaccessible</th>
-                @if (networkType === 'cycling') {
+                @if (networkType() === 'cycling') {
                   <th colSpan="2" i18n="@@route.members.table.one-way">One Way</th>
                 }
               </tr>
             </thead>
             <tbody>
-              @for (member of members; track member) {
+              @for (member of members(); track member) {
                 <tr>
                   <td class="image-cell">
                     <kpn-link-image [linkName]="member.linkName" />
@@ -93,7 +93,7 @@ import { LinkImageComponent } from './link-image.component';
                       </div>
                     }
                   </td>
-                  @if (networkType === 'cycling') {
+                  @if (networkType() === 'cycling') {
                     <td>
                       @if (member.oneWay === 'Forward') {
                         <div i18n="@@route.members.table.one-way.yes">Yes</div>
@@ -103,7 +103,7 @@ import { LinkImageComponent } from './link-image.component';
                       }
                     </td>
                   }
-                  @if (networkType === 'cycling') {
+                  @if (networkType() === 'cycling') {
                     <td>
                       @if (member.oneWayTags.tags.length > 0) {
                         <kpn-tags-text [tags]="member.oneWayTags" />
@@ -139,6 +139,6 @@ import { LinkImageComponent } from './link-image.component';
   ],
 })
 export class RouteMembersComponent {
-  @Input() networkType: NetworkType;
-  @Input() members: RouteMemberInfo[];
+  networkType = input<NetworkType | undefined>();
+  members = input<RouteMemberInfo[] | undefined>();
 }

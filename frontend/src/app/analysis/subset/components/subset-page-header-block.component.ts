@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { I18nService } from '@app/i18n';
@@ -16,10 +16,11 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
 @Component({
   selector: 'kpn-subset-page-header-block',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <kpn-subset-page-breadcrumb [subset]="subset()" [pageName]="pageName" />
 
-    <kpn-page-header [pageTitle]="subsetPageTitle()" [subject]="'subset-' + pageName + '-page'">
+  template: `
+    <kpn-subset-page-breadcrumb [subset]="subset()" [pageName]="pageName()" />
+
+    <kpn-page-header [pageTitle]="subsetPageTitle()" [subject]="'subset-' + pageName() + '-page'">
       <span class="header-network-type-icon">
         <mat-icon [svgIcon]="networkType()" />
       </span>
@@ -28,7 +29,7 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
       </span>
     </kpn-page-header>
 
-    <kpn-subset-page-menu [subset]="subset()" [subsetInfo]="subsetInfo()" [pageName]="pageName" />
+    <kpn-subset-page-menu [subset]="subset()" [subsetInfo]="subsetInfo()" [pageName]="pageName()" />
   `,
   standalone: true,
   imports: [
@@ -40,8 +41,8 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
   ],
 })
 export class SubsetPageHeaderBlockComponent {
-  @Input() pageName: string;
-  @Input() pageTitle: string;
+  pageName = input<string | undefined>();
+  pageTitle = input<string | undefined>();
 
   private readonly store = inject(Store);
   private readonly i18nService = inject(I18nService);
@@ -58,5 +59,5 @@ export class SubsetPageHeaderBlockComponent {
     return `${networkType} ${inWord} ${country}`;
   });
 
-  protected readonly subsetPageTitle = computed(() => `${this.subsetName()} | ${this.pageTitle}`);
+  protected readonly subsetPageTitle = computed(() => `${this.subsetName()} | ${this.pageTitle()}`);
 }

@@ -1,8 +1,9 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { input } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'kpn-route-structure',
@@ -10,7 +11,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   template: `
     <table class="kpn-table">
       <tbody>
-        @for (structureString of structureStrings; track structureString) {
+        @for (structureString of structureStrings(); track structureString) {
           <tr>
             <td>
               <span [innerHTML]="formatted(structureString)"></span>
@@ -24,7 +25,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   imports: [],
 })
 export class RouteStructureComponent {
-  @Input() structureStrings: string[];
+  structureStrings = input<string[] | undefined>();
 
   private readonly sanitizer = inject(DomSanitizer);
 

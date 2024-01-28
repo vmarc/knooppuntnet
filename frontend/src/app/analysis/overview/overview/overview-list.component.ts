@@ -1,6 +1,8 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { input } from '@angular/core';
 import { StatisticValues } from '@api/common/statistics';
 import { Stat } from '../domain/stat';
 import { OverviewConfigurationService } from './overview-configuration.service';
@@ -18,7 +20,7 @@ import { OverviewListStatComponent } from './overview-list-stat.component';
   imports: [OverviewListStatComponent],
 })
 export class OverviewListComponent implements OnInit {
-  @Input() statistics: StatisticValues[];
+  statistics = input<StatisticValues[] | undefined>();
 
   private readonly overviewConfigurationService = inject(OverviewConfigurationService);
 
@@ -28,7 +30,7 @@ export class OverviewListComponent implements OnInit {
     this.stats = this.overviewConfigurationService.statisticConfigurations
       .toArray()
       .flatMap((configuration) => {
-        return this.statistics
+        return this.statistics()
           .filter((statisticValue) => {
             return statisticValue._id === configuration.id;
           })

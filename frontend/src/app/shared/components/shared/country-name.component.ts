@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Country } from '@api/custom';
 import { I18nService } from '@app/i18n';
 import { Util } from './util';
@@ -10,7 +10,7 @@ import { Util } from './util';
   selector: 'kpn-country-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (country) {
+    @if (country()) {
       {{ countryName() }}
     } @else {
       <ng-container i18n="@@country.unsupported">
@@ -22,11 +22,11 @@ import { Util } from './util';
   imports: [],
 })
 export class CountryNameComponent {
-  @Input({ required: true }) country: Country;
+  country = input.required<Country>();
 
   private readonly i18nService = inject(I18nService);
 
   countryName(): string {
-    return this.i18nService.translation('@@country.' + Util.safeGet(() => this.country));
+    return this.i18nService.translation('@@country.' + Util.safeGet(() => this.country()));
   }
 }

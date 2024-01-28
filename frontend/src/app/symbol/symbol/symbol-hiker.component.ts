@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-symbol-hiker',
@@ -17,30 +17,30 @@ import { Component } from '@angular/core';
         <g transform="translate(0 -1036.36)">
           <!-- head -->
           <ellipse
-            style="color-rendering:auto;color:#000000;isolation:auto;mix-blend-mode:normal;shape-rendering:auto;solid-color:#000000;image-rendering:auto"
+            style="color-rendering:auto;color():#000000;isolation:auto;mix-blend-mode:normal;shape-rendering:auto;solid-color():#000000;image-rendering:auto"
             fill-rule="evenodd"
             rx="1.6058"
             ry="1.31515"
             cy="1037.75"
             cx="8.52318"
-            [attr.fill]="color"
+            [attr.fill]="color()"
           />
 
           <!-- backpack -->
           <rect
             stroke-linejoin="round"
             height="4.02925"
-            [attr.stroke]="color"
+            [attr.stroke]="color()"
             stroke-width="1.10218"
-            [attr.fill]="color"
-            style="color-rendering:auto;color:#000000;isolation:auto;mix-blend-mode:normal;shape-rendering:auto;solid-color:#000000;image-rendering:auto"
+            [attr.fill]="color()"
+            style="color-rendering:auto;color():#000000;isolation:auto;mix-blend-mode:normal;shape-rendering:auto;solid-color():#000000;image-rendering:auto"
             fill-rule="evenodd"
             transform="matrix(.982526 .186127 -.253287 .967391 0 0)"
             width="1.94005"
             y="1022.33"
             x="266.895"
           />
-          <g [attr.stroke]="color" stroke-linecap="round" fill="none">
+          <g [attr.stroke]="color()" stroke-linecap="round" fill="none">
             <!-- stick -->
             <path d="m13.7698 1041.13-2.46386 10.7764" stroke-width=".611824" />
 
@@ -65,9 +65,9 @@ import { Component } from '@angular/core';
   standalone: true,
 })
 export class SymbolHikerComponent implements OnInit {
-  @Input({ required: false }) color = '#000000';
-  @Input({ required: false }) width = 50;
-  @Input({ required: false }) height = 50;
+  color = input('#000000');
+  width = input(50);
+  height = input(50);
 
   scaledWidth = 0;
   scaledHeight = 0;
@@ -75,10 +75,10 @@ export class SymbolHikerComponent implements OnInit {
   box = '';
 
   ngOnInit(): void {
-    this.scaledWidth = (this.width * 2) / 3;
-    this.scaledHeight = (this.height * 2) / 3;
-    const x = this.width / 6;
-    const y = this.height / 6;
+    this.scaledWidth = (this.width() * 2) / 3;
+    this.scaledHeight = (this.height() * 2) / 3;
+    const x = this.width() / 6;
+    const y = this.height() / 6;
     this.box = `padding-left: ${x}px; padding-top: ${y}px;`;
   }
 }

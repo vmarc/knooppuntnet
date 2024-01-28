@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MarkdownModule } from 'ngx-markdown';
 import { Stat } from '../domain/stat';
@@ -9,6 +9,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
 @Component({
   selector: 'kpn-overview-list-stat',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <div class="item">
       <div class="header">
@@ -21,26 +22,26 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
             }
           </span>
           <span class="name">
-            {{ stat.configuration.name }}
+            {{ stat().configuration.name }}
           </span>
         </div>
         <div class="total">
-          {{ stat.total() }}
+          {{ stat().total() }}
         </div>
       </div>
 
       @if (open) {
         <div class="body">
           <div class="comment">
-            @if (stat.configuration.markdown) {
-              <markdown [data]="comment(stat)"></markdown>
+            @if (stat().configuration.markdown) {
+              <markdown [data]="comment(stat())"></markdown>
             } @else {
               <p>
-                {{ stat.configuration.comment }}
+                {{ stat().configuration.comment }}
               </p>
             }
           </div>
-          <kpn-overview-list-stat-table [stat]="stat" />
+          <kpn-overview-list-stat-table [stat]="stat()" />
         </div>
       }
     </div>
@@ -99,7 +100,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
   imports: [MarkdownModule, MatIconModule, OverviewListStatTableComponent],
 })
 export class OverviewListStatComponent {
-  @Input() stat: Stat;
+  stat = input<Stat | undefined>();
 
   open = false;
 

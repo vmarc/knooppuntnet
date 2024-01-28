@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { inject } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { MonitorRouteGroup } from '@api/common/monitor';
 import { MonitorRouteProperties } from '@api/common/monitor';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
@@ -14,10 +14,10 @@ import { MonitorRoutePropertiesComponent } from './monitor-route-properties.comp
   template: `
     <div [ngClass]="{ hidden: saving }">
       <kpn-monitor-route-properties
-        [mode]="mode"
-        [groupName]="groupName"
-        [initialProperties]="initialProperties"
-        [routeGroups]="routeGroups"
+        [mode]="mode()"
+        [groupName]="groupName()"
+        [initialProperties]="initialProperties()"
+        [routeGroups]="routeGroups()"
         (update)="update($event)"
       ></kpn-monitor-route-properties>
     </div>
@@ -37,10 +37,10 @@ import { MonitorRoutePropertiesComponent } from './monitor-route-properties.comp
 export class MonitorRouteFormComponent {
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
-  @Input({ required: true }) mode: string;
-  @Input({ required: true }) groupName: string;
-  @Input({ required: true }) initialProperties: MonitorRouteProperties = null;
-  @Input({ required: false }) routeGroups: MonitorRouteGroup[];
+  mode = input.required<string>();
+  groupName = input.required<string>();
+  initialProperties = input.required<MonitorRouteProperties>();
+  routeGroups = input<MonitorRouteGroup[]>([]);
 
   saving = false;
   command: MonitorRouteUpdate;

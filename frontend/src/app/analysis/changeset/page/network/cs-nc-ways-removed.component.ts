@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { OsmLinkWayComponent } from '@app/components/shared/link';
@@ -29,11 +29,11 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
   imports: [IconHappyComponent, OsmLinkWayComponent],
 })
 export class CsNcWaysRemovedComponent implements OnInit {
-  @Input() networkChangeInfo: NetworkChangeInfo;
+  networkChangeInfo = input<NetworkChangeInfo | undefined>();
 
   wayIds: number[];
 
   ngOnInit(): void {
-    this.wayIds = this.networkChangeInfo.ways.removed;
+    this.wayIds = this.networkChangeInfo().ways.removed;
   }
 }

@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +13,7 @@ import { DayInputComponent } from '@app/components/shared/format';
 @Component({
   selector: 'kpn-monitor-route-properties-step-5-reference-details',
   template: `
-    <div [ngClass]="{ hidden: referenceType.value !== 'osm-now' }">
+    <div [ngClass]="{ hidden: referenceType().value !== 'osm-now' }">
       <p i18n="@@monitor.route.properties.reference-details.osm-now">
         The state of the OSM relation at this moment will be used as the reference for the monitor
         analysis.
@@ -23,15 +23,15 @@ import { DayInputComponent } from '@app/components/shared/format';
       </p>
     </div>
 
-    <div [ngClass]="{ hidden: referenceType.value !== 'osm-past' }">
-      @if (oldReferenceTimestamp) {
+    <div [ngClass]="{ hidden: referenceType().value !== 'osm-past' }">
+      @if (oldReferenceTimestamp()) {
         <p class="kpn-spacer-below">
           <span
             class="kpn-label"
             i18n="@@monitor.route.properties.reference-details.osm-now.timestamp"
             >Current reference timestamp</span
           >
-          {{ oldReferenceTimestamp | yyyymmddhhmm }}
+          {{ oldReferenceTimestamp() | yyyymmddhhmm }}
         </p>
       }
 
@@ -40,14 +40,14 @@ import { DayInputComponent } from '@app/components/shared/format';
       </p>
       <kpn-day-input
         id="osm-reference-date"
-        [date]="osmReferenceDate"
+        [date]="osmReferenceDate()"
         label="Reference day"
         i18n-label="@@monitor.route.properties.reference-details.day.label"
       />
 
-      @if (osmReferenceDate.invalid && (osmReferenceDate.touched || ngForm.submitted)) {
+      @if (osmReferenceDate().invalid && (osmReferenceDate().touched || ngForm().submitted)) {
         <div class="kpn-form-error">
-          @if (osmReferenceDate.errors?.required) {
+          @if (osmReferenceDate().errors?.required) {
             <div
               id="osm-reference-date-required-error"
               i18n="@@monitor.route.reference-day.required"
@@ -59,7 +59,7 @@ import { DayInputComponent } from '@app/components/shared/format';
       }
     </div>
 
-    <div [ngClass]="{ hidden: referenceType.value !== 'gpx' }">
+    <div [ngClass]="{ hidden: referenceType().value !== 'gpx' }">
       <p i18n="@@monitor.route.properties.reference-details.file">
         Select the file that contains the GPX trace:
       </p>
@@ -87,15 +87,15 @@ import { DayInputComponent } from '@app/components/shared/format';
           i18n="@@monitor.route.properties.reference-details.file.name"
           >File</span
         >
-        {{ referenceFilename.value }}
+        {{ referenceFilename().value }}
       </div>
 
       @if (
-        referenceFilename.invalid &&
-        (referenceFilename.dirty || referenceFilename.touched || ngForm.submitted)
+        referenceFilename().invalid &&
+        (referenceFilename().dirty || referenceFilename().touched || ngForm().submitted)
       ) {
         <div class="kpn-form-error">
-          @if (referenceFilename.errors?.required) {
+          @if (referenceFilename().errors?.required) {
             <div
               id="reference-filename.required"
               i18n="@@monitor.route.reference-filename.required"
@@ -111,14 +111,14 @@ import { DayInputComponent } from '@app/components/shared/format';
       </p>
       <kpn-day-input
         id="gpx-reference-date"
-        [date]="gpxReferenceDate"
+        [date]="gpxReferenceDate()"
         label="Reference day"
         i18n-label="@@monitor.route.properties.reference-details.day.label"
       />
 
-      @if (gpxReferenceDate.invalid && (gpxReferenceDate.touched || ngForm.submitted)) {
+      @if (gpxReferenceDate().invalid && (gpxReferenceDate().touched || ngForm().submitted)) {
         <div class="kpn-form-error">
-          @if (gpxReferenceDate.errors?.required) {
+          @if (gpxReferenceDate().errors?.required) {
             <div id="reference-day.required" i18n="@@monitor.route.reference-day.required">
               Please provide a valid reference day
             </div>
@@ -127,7 +127,7 @@ import { DayInputComponent } from '@app/components/shared/format';
       }
     </div>
 
-    <div id="multi-gpx.comment" [ngClass]="{ hidden: referenceType.value !== 'multi-gpx' }">
+    <div id="multi-gpx.comment" [ngClass]="{ hidden: referenceType().value !== 'multi-gpx' }">
       <p i18n="@@monitor.route.properties.reference-details.multi-gpx.comment.1">
         Further reference details can be provided later.
       </p>
@@ -140,7 +140,10 @@ import { DayInputComponent } from '@app/components/shared/format';
       </p>
     </div>
 
-    <kpn-form-status formName="step5-form" [statusChanges]="ngForm.statusChanges"></kpn-form-status>
+    <kpn-form-status
+      formName="step5-form"
+      [statusChanges]="ngForm().statusChanges"
+    ></kpn-form-status>
     <div class="kpn-button-group">
       <button id="step5-back" mat-stroked-button matStepperPrevious i18n="@@action.back">
         Back
@@ -164,18 +167,18 @@ import { DayInputComponent } from '@app/components/shared/format';
   ],
 })
 export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {
-  @Input({ required: true }) ngForm: FormGroupDirective;
-  @Input({ required: true }) referenceType: FormControl<string>;
-  @Input({ required: true }) osmReferenceDate: FormControl<Date | null>;
-  @Input({ required: true }) gpxReferenceDate: FormControl<Date | null>;
-  @Input({ required: true }) referenceFilename: FormControl<string>;
-  @Input({ required: true }) referenceFile: FormControl<File>;
-  @Input({ required: true }) oldReferenceTimestamp: Timestamp | null;
+  ngForm = input.required<FormGroupDirective>();
+  referenceType = input.required<FormControl<string>>();
+  osmReferenceDate = input.required<FormControl<Date | null>>();
+  gpxReferenceDate = input.required<FormControl<Date | null>>();
+  referenceFilename = input.required<FormControl<string>>();
+  referenceFile = input.required<FormControl<File>>();
+  oldReferenceTimestamp = input.required<Timestamp | null>();
 
   selectFile(selectEvent: any) {
     if (selectEvent.target.files && selectEvent.target.files.length > 0) {
-      this.referenceFile.setValue(selectEvent.target.files[0]);
-      this.referenceFilename.setValue(selectEvent.target.files[0].name);
+      this.referenceFile().setValue(selectEvent.target.files[0]);
+      this.referenceFilename().setValue(selectEvent.target.files[0].name);
     }
   }
 }

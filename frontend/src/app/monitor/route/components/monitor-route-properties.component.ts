@@ -2,8 +2,9 @@ import { inject } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { Input, OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ValidationErrors } from '@angular/forms';
 import { AsyncValidatorFn } from '@angular/forms';
@@ -38,8 +39,8 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
 @Component({
   selector: 'kpn-monitor-route-properties',
   template: `
-    <mat-stepper orientation="vertical" [linear]="initialProperties === null">
-      @if (mode === 'update') {
+    <mat-stepper orientation="vertical" [linear]="initialProperties() === null">
+      @if (mode() === 'update') {
         <mat-step
           label="Group"
           i18n-label="@@monitor.route.properties.step.group"
@@ -49,7 +50,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
             <kpn-monitor-route-properties-step-1-group
               [ngForm]="ngGroupForm"
               [group]="group"
-              [routeGroups]="routeGroups"
+              [routeGroups]="routeGroups()"
             />
           </form>
         </mat-step>
@@ -62,7 +63,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
       >
         <form [formGroup]="nameForm" #ngNameForm="ngForm">
           <kpn-monitor-route-properties-step-2-name
-            [mode]="mode"
+            [mode]="mode()"
             [ngForm]="ngNameForm"
             [name]="name"
             [description]="description"
@@ -162,10 +163,10 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   private readonly monitorService = inject(MonitorService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
-  @Input({ required: true }) mode: string;
-  @Input({ required: true }) groupName: string;
-  @Input({ required: true }) initialProperties: MonitorRouteProperties = null;
-  @Input({ required: true }) routeGroups: MonitorRouteGroup[];
+  mode = input.required<string>();
+  groupName = input.required<string>();
+  initialProperties = input.required<MonitorRouteProperties>();
+  routeGroups = input.required<MonitorRouteGroup[]>();
   @Output() update = new EventEmitter<MonitorRouteUpdate>();
 
   readonly group = new FormControl<MonitorRouteGroup>(null);
@@ -240,28 +241,28 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.monitorWebsocketService.reset();
-    if (this.mode === 'add') {
+    if (this.mode() === 'add') {
       this.groupForm.setValue({
-        group: { groupName: this.groupName, groupDescription: '' },
+        group: { groupName: this.groupName(), groupDescription: '' },
       });
       this.osmReferenceDate.setValue(new Date());
       this.gpxReferenceDate.setValue(new Date());
     } else {
-      const initialGroup = this.routeGroups.find(
-        (g) => g.groupName === this.initialProperties.groupName
+      const initialGroup = this.routeGroups().find(
+        (g) => g.groupName === this.initialProperties().groupName
       );
       this.groupForm.setValue({
         group: initialGroup,
       });
       this.nameForm.setValue({
-        name: this.initialProperties.name,
-        description: this.initialProperties.description,
+        name: this.initialProperties().name,
+        description: this.initialProperties().description,
       });
       this.relationIdForm.patchValue({
-        relationIdKnown: !!this.initialProperties.relationId,
-        relationId: this.initialProperties.relationId,
+        relationIdKnown: !!this.initialProperties().relationId,
+        relationId: this.initialProperties().relationId,
       });
-      let referenceType = this.initialProperties.referenceType;
+      let referenceType = this.initialProperties().referenceType;
       if (referenceType === 'osm') {
         referenceType = 'osm-past';
       }
@@ -269,15 +270,15 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
         referenceType: referenceType,
       });
       this.referenceDetailsForm.patchValue({
-        osmReferenceDate: DayUtil.toDate(this.initialProperties.referenceTimestamp),
-        gpxReferenceDate: DayUtil.toDate(this.initialProperties.referenceTimestamp),
-        referenceFilename: this.initialProperties.referenceFilename,
+        osmReferenceDate: DayUtil.toDate(this.initialProperties().referenceTimestamp),
+        gpxReferenceDate: DayUtil.toDate(this.initialProperties().referenceTimestamp),
+        referenceFilename: this.initialProperties().referenceFilename,
         referenceFile: null,
       });
       this.commentForm.patchValue({
-        comment: this.initialProperties.comment,
+        comment: this.initialProperties().comment,
       });
-      this.oldReferenceTimestamp = this.initialProperties.referenceTimestamp;
+      this.oldReferenceTimestamp = this.initialProperties().referenceTimestamp;
     }
 
     this.subscriptions.add(
@@ -294,7 +295,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   }
 
   groupLink(): string {
-    return `/monitor/groups/${this.groupName}`;
+    return `/monitor/groups/${this.groupName()}`;
   }
 
   save(): void {
@@ -334,19 +335,22 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
     let routeName = this.name.value;
     let newRouteName: string = undefined;
-    if (this.mode === 'update' && this.name.value !== this.initialProperties.name) {
-      routeName = this.initialProperties.name;
+    if (this.mode() === 'update' && this.name.value !== this.initialProperties().name) {
+      routeName = this.initialProperties().name;
       newRouteName = this.name.value;
     }
 
     let newGroupName: string = undefined;
-    if (this.mode === 'update' && this.group.value.groupName !== this.initialProperties.groupName) {
+    if (
+      this.mode() === 'update' &&
+      this.group.value.groupName !== this.initialProperties().groupName
+    ) {
       newGroupName = this.group.value.groupName;
     }
 
     const command: MonitorRouteUpdate = {
-      action: this.mode,
-      groupName: this.initialProperties.groupName,
+      action: this.mode(),
+      groupName: this.initialProperties().groupName,
       routeName,
       referenceType,
       description: this.description.value,
@@ -384,7 +388,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
   private asyncAddRouteNameUniqueValidator(): AsyncValidatorFn {
     return (): Observable<ValidationErrors | null> => {
-      if (this.mode === 'update') {
+      if (this.mode() === 'update') {
         return of(null);
       }
       return this.validateRouteNameUnique();
@@ -393,7 +397,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
 
   private asyncUpdateRouteNameUniqueValidator(): AsyncValidatorFn {
     return (): Observable<ValidationErrors | null> => {
-      if (this.mode === 'add') {
+      if (this.mode() === 'add') {
         return of(null);
       }
       return this.validateRouteNameUnique();
@@ -412,9 +416,9 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
     }
 
     if (
-      this.mode === 'update' &&
-      this.groupName === validationGroupName &&
-      this.initialProperties?.name === validationRouteName
+      this.mode() === 'update' &&
+      this.groupName() === validationGroupName &&
+      this.initialProperties()?.name === validationRouteName
     ) {
       this.previousValidationResult = null;
       return of(null);

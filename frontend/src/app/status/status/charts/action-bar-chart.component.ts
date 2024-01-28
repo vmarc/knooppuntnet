@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { BarChart } from '@api/common/status';
 import { BarChartModule } from '@swimlane/ngx-charts';
 
@@ -12,13 +12,13 @@ import { BarChartModule } from '@swimlane/ngx-charts';
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <ngx-charts-bar-vertical
       [view]="view"
-      [results]="barChart.data"
+      [results]="barChart().data"
       [xAxis]="true"
       [yAxis]="true"
       [showXAxisLabel]="true"
       [showYAxisLabel]="true"
-      [xAxisLabel]="xAxisLabel"
-      [yAxisLabel]="yAxisLabel"
+      [xAxisLabel]="xAxisLabel()"
+      [yAxisLabel]="yAxisLabel()"
       [legend]="false"
       [roundDomains]="false"
       [roundEdges]="false"
@@ -30,9 +30,9 @@ import { BarChartModule } from '@swimlane/ngx-charts';
   imports: [BarChartModule],
 })
 export class ActionBarChartComponent {
-  @Input({ required: true }) barChart: BarChart;
-  @Input() xAxisLabel: string;
-  @Input() yAxisLabel: string;
+  barChart = input.required<BarChart>();
+  xAxisLabel = input<string | undefined>();
+  yAxisLabel = input<string | undefined>();
 
   view: [number, number] = [700, 300];
 

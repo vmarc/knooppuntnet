@@ -1,5 +1,5 @@
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormControl } from '@angular/forms';
@@ -15,7 +15,7 @@ import { FormStatusComponent } from '@app/components/shared';
       <p i18n="@@monitor.route.properties.reference-type.question">
         What do you want to use as reference to compare the OSM relation to?
       </p>
-      <mat-radio-group [formControl]="referenceType">
+      <mat-radio-group [formControl]="referenceType()">
         <mat-radio-button id="reference-type.gpx" class="answer" value="gpx">
           <span i18n="@@monitor.route.properties.reference-type.gpx">
             A GPX trace that you will upload now
@@ -40,9 +40,10 @@ import { FormStatusComponent } from '@app/components/shared';
     </div>
 
     @if (
-      referenceType.invalid && (referenceType.dirty || referenceType.touched || ngForm.submitted)
+      referenceType().invalid &&
+      (referenceType().dirty || referenceType().touched || ngForm().submitted)
     ) {
-      @if (referenceType.errors.required) {
+      @if (referenceType().errors.required) {
         <p
           id="reference-type.required"
           class="kpn-warning"
@@ -53,7 +54,7 @@ import { FormStatusComponent } from '@app/components/shared';
       }
     }
 
-    <kpn-form-status formName="step4-form" [statusChanges]="ngForm.statusChanges" />
+    <kpn-form-status formName="step4-form" [statusChanges]="ngForm().statusChanges" />
     <div class="kpn-button-group">
       <button id="step4-back" mat-stroked-button matStepperPrevious i18n="@@action.back">
         Back
@@ -81,6 +82,6 @@ import { FormStatusComponent } from '@app/components/shared';
   ],
 })
 export class MonitorRoutePropertiesStep4ReferenceTypeComponent {
-  @Input({ required: true }) ngForm: FormGroupDirective;
-  @Input({ required: true }) referenceType: FormControl<string>;
+  ngForm = input.required<FormGroupDirective>();
+  referenceType = input.required<FormControl<string>>();
 }

@@ -1,8 +1,8 @@
 import { OnChanges } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
+import { input } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 import { List } from 'immutable';
 import { DirectionsAnalyzer } from '../../../domain/directions/directions-analyzer';
@@ -25,10 +25,10 @@ import { PlanInstructionComponent } from './plan-instruction.component';
   imports: [PlanInstructionComponent, MatDividerModule],
 })
 export class PlanInstructionsComponent implements OnChanges {
-  @Input() plan: Plan;
+  plan = input<Plan | undefined>();
   instructions: List<PlanInstruction>;
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.instructions = new DirectionsAnalyzer().analyze(this.plan);
+    this.instructions = new DirectionsAnalyzer().analyze(this.plan());
   }
 }

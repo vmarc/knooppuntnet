@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
 
@@ -27,11 +27,11 @@ import { OsmLinkNodeComponent } from '@app/components/shared/link';
   imports: [OsmLinkNodeComponent],
 })
 export class CsNcNodesUpdatedComponent implements OnInit {
-  @Input() networkChangeInfo: NetworkChangeInfo;
+  networkChangeInfo = input<NetworkChangeInfo | undefined>();
 
   nodeIds: number[];
 
   ngOnInit(): void {
-    this.nodeIds = this.networkChangeInfo.nodes.updated;
+    this.nodeIds = this.networkChangeInfo().nodes.updated;
   }
 }

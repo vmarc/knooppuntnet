@@ -1,18 +1,19 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { LocationNodeInfo } from '@api/common/location';
 import { LinkRouteComponent } from '@app/components/shared/link';
 
 @Component({
   selector: 'kpn-location-node-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     @if (!hasRouteReferences()) {
       <span class="no-routes" i18n="@@location-nodes.no-routes"> no routes </span>
     } @else {
       <div class="kpn-comma-list route-list">
-        @for (ref of node.routeReferences; track ref) {
+        @for (ref of node().routeReferences; track ref) {
           <span>
             <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
           </span>
@@ -33,9 +34,9 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   imports: [LinkRouteComponent],
 })
 export class LocationNodeRoutesComponent {
-  @Input() node: LocationNodeInfo;
+  node = input<LocationNodeInfo | undefined>();
 
   hasRouteReferences(): boolean {
-    return this.node.routeReferences && this.node.routeReferences.length > 0;
+    return this.node().routeReferences && this.node().routeReferences.length > 0;
   }
 }

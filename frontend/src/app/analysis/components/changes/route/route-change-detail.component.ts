@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouteChangeInfo } from '@api/common/route';
 import { RouteChangeMapComponent } from './route-change-map.component';
 import { RouteChangeWayAddedComponent } from './route-change-way-added.component';
@@ -11,30 +11,31 @@ import { RouteDiffComponent } from './route-diff.component';
 @Component({
   selector: 'kpn-route-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <kpn-route-diff [diffs]="routeChangeInfo.diffs" />
 
-    @if (!routeChangeInfo.geometryDiff) {
+  template: `
+    <kpn-route-diff [diffs]="routeChangeInfo().diffs" />
+
+    @if (!routeChangeInfo().geometryDiff) {
       <div class="kpn-detail" i18n="@@route-change.no-geometry-diff">No geometry change</div>
     } @else {
       <div class="kpn-detail">
         <kpn-route-change-map
-          [geometryDiff]="routeChangeInfo.geometryDiff"
-          [nodes]="routeChangeInfo.nodes"
-          [bounds]="routeChangeInfo.bounds"
+          [geometryDiff]="routeChangeInfo().geometryDiff"
+          [nodes]="routeChangeInfo().nodes"
+          [bounds]="routeChangeInfo().bounds"
         />
       </div>
     }
 
-    @for (removedWayInfo of routeChangeInfo.removedWays; track $index) {
+    @for (removedWayInfo of routeChangeInfo().removedWays; track $index) {
       <kpn-route-change-way-removed [wayInfo]="removedWayInfo" />
     }
 
-    @for (addedWayInfo of routeChangeInfo.addedWays; track $index) {
-      <kpn-route-change-way-added [routeChangeInfo]="routeChangeInfo" [wayInfo]="addedWayInfo" />
+    @for (addedWayInfo of routeChangeInfo().addedWays; track $index) {
+      <kpn-route-change-way-added [routeChangeInfo]="routeChangeInfo()" [wayInfo]="addedWayInfo" />
     }
 
-    @for (wayUpdate of routeChangeInfo.updatedWays; track $index) {
+    @for (wayUpdate of routeChangeInfo().updatedWays; track $index) {
       <kpn-route-change-way-updated [wayUpdate]="wayUpdate" />
     }
   `,
@@ -48,5 +49,5 @@ import { RouteDiffComponent } from './route-diff.component';
   ],
 })
 export class RouteChangeDetailComponent {
-  @Input() routeChangeInfo: RouteChangeInfo;
+  routeChangeInfo = input<RouteChangeInfo | undefined>();
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { DiskUsage } from '@api/common/status';
 import { ServerDiskUsageLegendComponent } from './server-disk-usage-legend.component';
 import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.component';
@@ -15,17 +15,17 @@ import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.
       <p>Servers disk usage</p>
       <div class="charts">
         <kpn-server-disk-usage-pie-chart
-          [data]="diskUsage.frontend.data"
+          [data]="diskUsage().frontend.data"
           title="frontend"
           total="180G"
         />
         <kpn-server-disk-usage-pie-chart
-          [data]="diskUsage.database.data"
+          [data]="diskUsage().database.data"
           title="database"
           total="180G"
         />
         <kpn-server-disk-usage-pie-chart
-          [data]="diskUsage.backend.data"
+          [data]="diskUsage().backend.data"
           title="backend"
           total="800G"
         />
@@ -49,5 +49,5 @@ import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.
   imports: [ServerDiskUsagePieChartComponent, ServerDiskUsageLegendComponent],
 })
 export class ServerDiskUsageComponent {
-  @Input({ required: true }) diskUsage: DiskUsage;
+  diskUsage = input.required<DiskUsage>();
 }

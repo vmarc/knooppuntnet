@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { BarChart } from '@api/common/status';
 import { LineChartModule } from '@swimlane/ngx-charts';
 import { ActionBarChartComponent } from '../action-bar-chart.component';
@@ -14,8 +14,8 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
     <h2>Document count</h2>
     <div class="chart">
       <kpn-action-bar-chart
-        [barChart]="barChart"
-        [xAxisLabel]="xAxisLabel"
+        [barChart]="barChart()"
+        [xAxisLabel]="xAxisLabel()"
         yAxisLabel="documents"
       />
     </div>
@@ -29,7 +29,7 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
         [yAxis]="true"
         [showXAxisLabel]="true"
         [showYAxisLabel]="true"
-        [xAxisLabel]="xAxisLabel"
+        [xAxisLabel]="xAxisLabel()"
         [yAxisLabel]="'documents'"
         [legend]="false"
         [roundDomains]="false"
@@ -41,8 +41,8 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
   imports: [ActionBarChartComponent, LineChartModule],
 })
 export class DocsChartComponent {
-  @Input() barChart: BarChart;
-  @Input() xAxisLabel: string;
+  barChart = input<BarChart | undefined>();
+  xAxisLabel = input<string | undefined>();
 
   view: [number, number] = [700, 300];
 
@@ -50,7 +50,7 @@ export class DocsChartComponent {
     return [
       {
         name: 'Lesotho',
-        series: this.barChart.data,
+        series: this.barChart().data,
       },
     ];
   }

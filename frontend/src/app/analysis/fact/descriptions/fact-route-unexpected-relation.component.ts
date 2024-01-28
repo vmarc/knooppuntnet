@@ -1,8 +1,9 @@
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { MarkdownModule } from 'ngx-markdown';
+import { FactInfo } from '../fact-info';
 
 @Component({
   selector: 'kpn-fact-route-unexpected-relation',
@@ -15,7 +16,7 @@ import { MarkdownModule } from 'ngx-markdown';
       </ng-container>
       <span class="kpn-sentence">
         <span class="kpn-comma-list">
-          @for (relationId of factInfo.unexpectedRelationIds; track $index) {
+          @for (relationId of factInfo().unexpectedRelationIds; track $index) {
             <kpn-osm-link-relation [relationId]="relationId" [title]="relationId.toString()" />
           }
         </span>
@@ -26,5 +27,5 @@ import { MarkdownModule } from 'ngx-markdown';
   imports: [MarkdownModule, OsmLinkRelationComponent],
 })
 export class FactRouteUnexpectedRelationComponent {
-  @Input() factInfo;
+  factInfo = input<FactInfo>();
 }

@@ -3,9 +3,9 @@ import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
+import { input } from '@angular/core';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
@@ -26,12 +26,12 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { FilterOptions } from '@app/kpn/filter';
+import { SymbolComponent } from '@app/symbol';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
-import { SymbolComponent } from '@app/symbol';
 import { NetworkRouteAnalysisComponent } from './network-route-analysis.component';
 import { NetworkRouteFilter } from './network-route-filter';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
@@ -40,14 +40,15 @@ import { NetworkRoutesService } from './network-routes.service';
 @Component({
   selector: 'kpn-network-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      editLinkTitle="Load the routes in this page in the editor (like JOSM)"
+      editLinkTitle="Load the routes() in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@network-routes.edit.title"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="routes?.length"
+      [length]="routes()?.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
     />
@@ -65,12 +66,17 @@ import { NetworkRoutesService } from './network-routes.service';
       <ng-container matColumnDef="analysis">
         <th mat-header-cell *matHeaderCellDef i18n="@@network-routes.table.analysis">Analysis</th>
         <td mat-cell *matCellDef="let route">
-          <kpn-network-route-analysis [route]="route" [networkType]="networkType" />
+          <kpn-network-route-analysis [route]="route" [networkType]="networkType()" />
         </td>
       </ng-container>
 
       <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.symbol">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          i18n="@@network-routes.table.symbol"
+        >
           Symbol
         </th>
         <td mat-cell *matCellDef="let route" class="symbol">
@@ -182,10 +188,10 @@ import { NetworkRoutesService } from './network-routes.service';
   ],
 })
 export class NetworkRouteTableComponent implements OnInit, OnDestroy {
-  @Input() timeInfo: TimeInfo;
-  @Input() surveyDateInfo: SurveyDateInfo;
-  @Input() networkType: NetworkType;
-  @Input() routes: NetworkRouteRow[];
+  timeInfo = input<TimeInfo | undefined>();
+  surveyDateInfo = input<SurveyDateInfo | undefined>();
+  networkType = input<NetworkType | undefined>();
+  routes = input<NetworkRouteRow[] | undefined>();
 
   @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 
@@ -211,17 +217,17 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
         map(
           (criteria) =>
             new NetworkRouteFilter(
-              this.timeInfo,
-              this.surveyDateInfo,
+              this.timeInfo(),
+              this.surveyDateInfo(),
               criteria,
               this.filterCriteria$
             )
         ),
-        tap((filter) => (this.dataSource.data = filter.filter(this.routes))),
+        tap((filter) => (this.dataSource.data = filter.filter(this.routes()))),
         delay(0)
       )
       .subscribe((filter) => {
-        this.networkRoutesService.setFilterOptions(filter.filterOptions(this.routes));
+        this.networkRoutesService.setFilterOptions(filter.filterOptions(this.routes()));
       });
   }
 

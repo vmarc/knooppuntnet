@@ -1,18 +1,18 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { OsmLinkComponent } from './osm-link.component';
 
 @Component({
   selector: 'kpn-osm-link-relation',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-osm-link kind="relation" [elementId]="relationId.toString()" [title]="title" />
+    <kpn-osm-link kind="relation" [elementId]="relationId().toString()" [title]="title()" />
   `,
   standalone: true,
   imports: [OsmLinkComponent],
 })
 export class OsmLinkRelationComponent {
-  @Input({ required: true }) relationId: number;
-  @Input({ required: false }) title = 'osm';
+  relationId = input.required<number>();
+  title = input('osm');
 }

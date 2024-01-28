@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { PoiAnalysis } from '@api/common';
 import { PoiService } from '@app/services';
 
@@ -9,63 +9,63 @@ import { PoiService } from '@app/services';
   selector: 'kpn-poi-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (poi.name) {
-      <h2>{{ poi.name }}</h2>
+    @if (poi().name) {
+      <h2>{{ poi().name }}</h2>
     } @else {
       <h2>{{ layerName() }}</h2>
     }
 
-    @if (poi.name) {
+    @if (poi().name) {
       <div class="item">{{ layerName() }}</div>
     }
 
-    @if (poi.subject) {
-      <div class="item">{{ poi.subject }}</div>
+    @if (poi().subject) {
+      <div class="item">{{ poi().subject }}</div>
     }
-    @if (poi.denomination) {
-      <div class="item">{{ poi.denomination }}</div>
+    @if (poi().denomination) {
+      <div class="item">{{ poi().denomination }}</div>
     }
-    @if (poi.cuisine) {
-      <div class="item">{{ poi.cuisine }}</div>
+    @if (poi().cuisine) {
+      <div class="item">{{ poi().cuisine }}</div>
     }
 
-    @if (poi.addressLine1 || poi.addressLine2) {
+    @if (poi().addressLine1 || poi().addressLine2) {
       <div class="item">
-        @if (poi.addressLine1) {
-          <span>{{ poi.addressLine1 }}</span>
+        @if (poi().addressLine1) {
+          <span>{{ poi().addressLine1 }}</span>
         }
         <br />
-        @if (poi.addressLine2) {
-          <span>{{ poi.addressLine2 }}</span>
+        @if (poi().addressLine2) {
+          <span>{{ poi().addressLine2 }}</span>
         }
       </div>
     }
 
-    @if (poi.phone) {
+    @if (poi().phone) {
       <div class="item">
         <span class="kpn-label" i18n="@@poi.detail.phone">Phone</span>
-        {{ poi.phone }}
+        {{ poi().phone }}
       </div>
     }
 
-    @if (poi.fax) {
+    @if (poi().fax) {
       <div class="item">
         <span class="kpn-label" i18n="@@poi.detail.fax">Fax</span>
-        {{ poi.fax }}
+        {{ poi().fax }}
       </div>
     }
 
-    @if (poi.email) {
+    @if (poi().email) {
       <div class="item">
         <span class="kpn-label" i18n="@@poi.detail.email">E-mail</span>
-        <a [href]="emailLink()">{{ poi.email }}</a>
+        <a [href]="emailLink()">{{ poi().email }}</a>
       </div>
     }
 
-    @if (poi.facebook || poi.twitter) {
+    @if (poi().facebook || poi().twitter) {
       <div class="item">
-        @if (poi.facebook) {
-          <a [href]="poi.facebook" target="_blank" rel="nofollow noreferrer">
+        @if (poi().facebook) {
+          <a [href]="poi().facebook" target="_blank" rel="nofollow noreferrer">
             <img
               src="/assets/images/icons/facebook.png"
               class="image"
@@ -74,8 +74,8 @@ import { PoiService } from '@app/services';
             />
           </a>
         }
-        @if (poi.twitter) {
-          <a [href]="poi.twitter" target="_blank" rel="nofollow noreferrer">
+        @if (poi().twitter) {
+          <a [href]="poi().twitter" target="_blank" rel="nofollow noreferrer">
             <img
               src="/assets/images/icons/twitter.png"
               class="image"
@@ -87,34 +87,34 @@ import { PoiService } from '@app/services';
       </div>
     }
 
-    @if (poi.description) {
-      <div class="item">{{ poi.description }}</div>
+    @if (poi().description) {
+      <div class="item">{{ poi().description }}</div>
     }
-    @if (poi.wheelchair) {
+    @if (poi().wheelchair) {
       <div class="item">
         <span class="kpn-label" i18n="@@poi.detail.wheelchair">Wheelchair</span>
-        {{ poi.wheelchair }}
+        {{ poi().wheelchair }}
       </div>
     }
 
-    @if (poi.openingHours) {
+    @if (poi().openingHours) {
       <div class="item">
         <span class="kpn-label" i18n="@@poi.detail.opengingHours">Opening hours</span>
-        {{ poi.openingHours }}
+        {{ poi().openingHours }}
       </div>
     }
-    @if (poi.serviceTimes) {
+    @if (poi().serviceTimes) {
       <div class="item">
         <span class="kpn-label" i18n="@@poi.detail.serviceHours">Service times</span>
-        {{ poi.serviceTimes }}
+        {{ poi().serviceTimes }}
       </div>
     }
 
-    @if (poi.image) {
+    @if (poi().image) {
       <div class="item">
-        <a [href]="poi.image" target="_blank" rel="nofollow noreferrer">
+        <a [href]="poi().image" target="_blank" rel="nofollow noreferrer">
           <img
-            [src]="poi.imageThumbnail"
+            [src]="poi().imageThumbnail"
             width="inherit"
             height="100px"
             alt="image"
@@ -124,10 +124,10 @@ import { PoiService } from '@app/services';
       </div>
     }
 
-    @if (poi.imageLink) {
+    @if (poi().imageLink) {
       <div class="item">
         <a
-          [href]="poi.imageLink"
+          [href]="poi().imageLink"
           class="external"
           target="_blank"
           rel="nofollow noreferrer"
@@ -138,10 +138,10 @@ import { PoiService } from '@app/services';
       </div>
     }
 
-    @if (poi.mapillary) {
+    @if (poi().mapillary) {
       <div class="item">
         <a
-          [href]="poi.mapillary"
+          [href]="poi().mapillary"
           class="external"
           target="_blank"
           rel="nofollow noreferrer"
@@ -152,10 +152,10 @@ import { PoiService } from '@app/services';
       </div>
     }
 
-    @if (poi.onroerendErfgoed) {
+    @if (poi().onroerendErfgoed) {
       <div class="item">
         <a
-          [href]="poi.onroerendErfgoed"
+          [href]="poi().onroerendErfgoed"
           i18n="@@poi.detail.onroerendErfgoed"
           class="external"
           target="_blank"
@@ -166,11 +166,11 @@ import { PoiService } from '@app/services';
       </div>
     }
 
-    @if (poi.website || poi.wikidata || poi.wikipedia) {
+    @if (poi().website || poi().wikidata || poi().wikipedia) {
       <div class="item">
-        @if (poi.website) {
+        @if (poi().website) {
           <a
-            [href]="poi.website"
+            [href]="poi().website"
             class="external"
             target="_blank"
             rel="nofollow noreferrer"
@@ -179,9 +179,9 @@ import { PoiService } from '@app/services';
             Website
           </a>
         }
-        @if (poi.wikidata) {
+        @if (poi().wikidata) {
           <a
-            [href]="poi.wikidata"
+            [href]="poi().wikidata"
             class="external"
             target="_blank"
             rel="nofollow noreferrer"
@@ -190,9 +190,9 @@ import { PoiService } from '@app/services';
             Wikidata
           </a>
         }
-        @if (poi.wikipedia) {
+        @if (poi().wikipedia) {
           <a
-            [href]="poi.wikipedia"
+            [href]="poi().wikipedia"
             class="external"
             target="_blank"
             rel="nofollow noreferrer"
@@ -204,10 +204,10 @@ import { PoiService } from '@app/services';
       </div>
     }
 
-    @if (poi.molenDatabase) {
+    @if (poi().molenDatabase) {
       <div class="item">
         <a
-          [href]="poi.molenDatabase"
+          [href]="poi().molenDatabase"
           class="external"
           target="_blank"
           rel="nofollow noreferrer"
@@ -218,10 +218,10 @@ import { PoiService } from '@app/services';
       </div>
     }
 
-    @if (poi.hollandscheMolenDatabase) {
+    @if (poi().hollandscheMolenDatabase) {
       <div class="item">
         <a
-          [href]="poi.hollandscheMolenDatabase"
+          [href]="poi().hollandscheMolenDatabase"
           class="external"
           target="_blank"
           rel="nofollow noreferrer"
@@ -247,16 +247,16 @@ import { PoiService } from '@app/services';
   imports: [],
 })
 export class PoiAnalysisComponent {
-  @Input({ required: true }) poi: PoiAnalysis;
+  poi = input.required<PoiAnalysis>();
 
   private readonly poiService = inject(PoiService);
 
   layerName(): string {
-    const layer = this.poi.layers[0];
+    const layer = this.poi().layers[0];
     return this.poiService.name(layer);
   }
 
   emailLink(): string {
-    return 'mailto:' + this.poi.email;
+    return 'mailto:' + this.poi().email;
   }
 }

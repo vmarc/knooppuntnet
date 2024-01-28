@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { PlanRoute } from '@api/common/planner';
 import { Plan } from '../../../domain/plan/plan';
 import { PlannerService } from '../../../planner.service';
@@ -10,12 +10,12 @@ import { PlannerService } from '../../../planner.service';
   selector: 'kpn-plan-compact',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (plan.sourceNode !== null) {
+    @if (plan().sourceNode !== null) {
       <span class="node">
-        {{ plan.sourceNode.nodeName }}
+        {{ plan().sourceNode.nodeName }}
       </span>
     }
-    @for (leg of plan.legs; track leg) {
+    @for (leg of plan().legs; track leg) {
       @for (legRoute of leg.routes; track legRoute; let i = $index) {
         @if (hasColour(legRoute)) {
           <span class="colour">
@@ -47,7 +47,7 @@ import { PlannerService } from '../../../planner.service';
   imports: [],
 })
 export class PlanCompactComponent {
-  @Input() plan: Plan;
+  plan = input<Plan | undefined>();
 
   private readonly plannerService = inject(PlannerService);
 

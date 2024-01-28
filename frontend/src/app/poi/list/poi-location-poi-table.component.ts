@@ -4,9 +4,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { ViewChild } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
@@ -15,7 +15,6 @@ import { PageWidthService } from '@app/components/shared';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { actionLocationPoisPageSize } from '../store/poi.actions';
 import { actionLocationPoisPageIndex } from '../store/poi.actions';
@@ -30,7 +29,7 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="poiCount"
+      [length]="poiCount()"
       [showFirstLastButtons]="false"
       [showPageSizeSelection]="true"
     />
@@ -98,7 +97,7 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="poiCount"
+      [length]="poiCount()"
     />
   `,
   styles: `
@@ -110,8 +109,8 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
   imports: [PaginatorComponent, MatTableModule, RouterLink, AsyncPipe],
 })
 export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
-  @Input({ required: true }) pois: LocationPoiInfo[];
-  @Input({ required: true }) poiCount: number;
+  pois = input.required<LocationPoiInfo[]>();
+  poiCount = input.required<number>();
 
   @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
@@ -127,12 +126,12 @@ export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   );
 
   ngOnInit(): void {
-    this.dataSource.data = this.pois;
+    this.dataSource.data = this.pois();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pois']) {
-      this.dataSource.data = this.pois;
+      this.dataSource.data = this.pois();
     }
   }
 

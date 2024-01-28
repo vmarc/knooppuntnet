@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NetworkNodeRow } from '@api/common/network';
 import { IndicatorComponent } from '@app/components/shared/indicator';
@@ -23,7 +23,7 @@ import { NetworkIndicatorDialogComponent } from './network-indicator-dialog.comp
   imports: [IndicatorComponent],
 })
 export class NetworkIndicatorComponent implements OnInit {
-  @Input() node: NetworkNodeRow;
+  node = input<NetworkNodeRow | undefined>();
 
   private readonly dialog = inject(MatDialog);
   color: string;
@@ -42,14 +42,14 @@ export class NetworkIndicatorComponent implements OnInit {
 
   private determineColor() {
     let color;
-    if (this.node.detail.definedInRelation) {
-      if (this.node.detail.connection && !this.node.detail.roleConnection) {
+    if (this.node().detail.definedInRelation) {
+      if (this.node().detail.connection && !this.node().detail.roleConnection) {
         color = 'orange';
       } else {
         color = 'green';
       }
     } else {
-      if (this.node.detail.connection) {
+      if (this.node().detail.connection) {
         color = 'gray';
       } else {
         color = 'red';

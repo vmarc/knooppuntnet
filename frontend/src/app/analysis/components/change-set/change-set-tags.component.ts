@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Tag } from '@api/custom';
 import { Tags } from '@api/custom';
 
@@ -35,11 +35,11 @@ import { Tags } from '@api/custom';
   imports: [],
 })
 export class ChangeSetTagsComponent {
-  @Input() changeSetTags: Tags;
+  changeSetTags = input<Tags | undefined>();
 
   tags(): Tag[] {
-    if (this.changeSetTags && this.changeSetTags.tags) {
-      return this.changeSetTags.tags.filter((tag) => tag.key !== 'comment');
+    if (this.changeSetTags() && this.changeSetTags().tags) {
+      return this.changeSetTags().tags.filter((tag) => tag.key !== 'comment');
     }
     return [];
   }

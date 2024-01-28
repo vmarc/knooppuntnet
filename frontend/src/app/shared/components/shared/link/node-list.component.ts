@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { OsmLinkNodeComponent } from './osm-link-node.component';
 
 @Component({
@@ -8,7 +8,7 @@ import { OsmLinkNodeComponent } from './osm-link-node.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-comma-list">
-      @for (nodeId of nodeIds; track nodeId) {
+      @for (nodeId of nodeIds(); track nodeId) {
         <span>
           <kpn-osm-link-node [nodeId]="nodeId" [title]="nodeId.toString()" />
         </span>
@@ -19,5 +19,5 @@ import { OsmLinkNodeComponent } from './osm-link-node.component';
   imports: [OsmLinkNodeComponent],
 })
 export class NodeListComponent {
-  @Input({ required: true }) nodeIds: number[];
+  nodeIds = input.required<number[]>();
 }

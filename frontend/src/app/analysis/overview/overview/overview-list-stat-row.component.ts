@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Country } from '@api/custom';
 import { NetworkType } from '@api/custom';
 import { Subset } from '@api/custom';
@@ -12,18 +12,19 @@ import { OverviewValueComponent } from './overview-value.component';
 @Component({
   selector: 'kpn-overview-list-stat-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <tr>
-      @if (rowspan) {
-        <td [rowSpan]="rowspan">
-          <kpn-country-name [country]="country" />
+      @if (rowspan()) {
+        <td [rowSpan]="rowspan()">
+          <kpn-country-name [country]="country()" />
         </td>
       }
       <td>
-        <kpn-network-type-icon [networkType]="networkType" />
+        <kpn-network-type-icon [networkType]="networkType()" />
       </td>
       <td class="value">
-        <kpn-overview-value [stat]="stat" [subset]="subset(country, networkType)" />
+        <kpn-overview-value [stat]="stat()" [subset]="subset(country(), networkType())" />
       </td>
     </tr>
   `,
@@ -42,10 +43,10 @@ import { OverviewValueComponent } from './overview-value.component';
   imports: [CountryNameComponent, NetworkTypeIconComponent, OverviewValueComponent],
 })
 export class OverviewListStatRowComponent {
-  @Input() rowspan: number = null;
-  @Input() country: Country;
-  @Input() networkType: NetworkType;
-  @Input() stat: Stat;
+  rowspan = input<number>(null);
+  country = input<Country | undefined>();
+  networkType = input<NetworkType | undefined>();
+  stat = input<Stat | undefined>();
 
   subset(country: Country, networkType: NetworkType): Subset {
     return { country, networkType };

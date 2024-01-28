@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
@@ -14,6 +14,7 @@ import { selectNetworkId } from '../store/network.selectors';
 @Component({
   selector: 'kpn-network-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <ul class="breadcrumb">
       <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
@@ -37,7 +38,7 @@ import { selectNetworkId } from '../store/network.selectors';
         <kpn-page-menu>
           <kpn-page-menu-option
             [link]="'/analysis/network/' + networkId"
-            [active]="pageName === 'details'"
+            [active]="pageName() === 'details'"
             i18n="@@network-page.menu.details"
           >
             Details
@@ -45,7 +46,7 @@ import { selectNetworkId } from '../store/network.selectors';
 
           <kpn-page-menu-option
             [link]="'/analysis/network/' + networkId + '/facts'"
-            [active]="pageName === 'facts'"
+            [active]="pageName() === 'facts'"
             [elementCount]="summary?.factCount"
             i18n="@@network-page.menu.facts"
           >
@@ -54,7 +55,7 @@ import { selectNetworkId } from '../store/network.selectors';
 
           <kpn-page-menu-option
             [link]="'/analysis/network/' + networkId + '/nodes'"
-            [active]="pageName === 'nodes'"
+            [active]="pageName() === 'nodes'"
             [elementCount]="summary?.nodeCount"
             i18n="@@network-page.menu.nodes"
           >
@@ -63,7 +64,7 @@ import { selectNetworkId } from '../store/network.selectors';
 
           <kpn-page-menu-option
             [link]="'/analysis/network/' + networkId + '/routes'"
-            [active]="pageName === 'routes'"
+            [active]="pageName() === 'routes'"
             [elementCount]="summary?.routeCount"
             i18n="@@network-page.menu.routes"
           >
@@ -72,7 +73,7 @@ import { selectNetworkId } from '../store/network.selectors';
 
           <kpn-page-menu-option
             [link]="'/analysis/network/' + networkId + '/map'"
-            [active]="pageName === 'map'"
+            [active]="pageName() === 'map'"
             i18n="@@network-page.menu.map"
           >
             Map
@@ -80,7 +81,7 @@ import { selectNetworkId } from '../store/network.selectors';
 
           <kpn-page-menu-option
             [link]="'/analysis/network/' + networkId + '/changes'"
-            [active]="pageName === 'changes'"
+            [active]="pageName() === 'changes'"
             [elementCount]="summary?.changeCount"
             i18n="@@network-page.menu.changes"
           >
@@ -100,8 +101,8 @@ import { selectNetworkId } from '../store/network.selectors';
   ],
 })
 export class NetworkPageHeaderComponent {
-  @Input() pageName: string;
-  @Input() pageTitle: string;
+  pageName = input<string | undefined>();
+  pageTitle = input<string | undefined>();
 
   private readonly store = inject(Store);
   protected readonly networkIdSignal = this.store.selectSignal(selectNetworkId);
@@ -109,7 +110,7 @@ export class NetworkPageHeaderComponent {
 
   networkPageTitle(networkName: string): string {
     if (networkName) {
-      return `${networkName} | ${this.pageTitle}`;
+      return `${networkName} | ${this.pageTitle()}`;
     }
     return null;
   }

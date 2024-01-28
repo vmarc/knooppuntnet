@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { FactAddedComponent } from './descriptions/fact-added.component';
 import { FactDeletedComponent } from './descriptions/fact-deleted.component';
 import { FactIntegrityCheckFailedComponent } from './descriptions/fact-integrity-check-failed.component';
@@ -51,7 +51,7 @@ import { FactInfo } from './fact-info';
   selector: 'kpn-fact-description',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @switch (factInfo.fact) {
+    @switch (factInfo().fact) {
       @case ('Added') {
         <kpn-fact-added />
       }
@@ -164,10 +164,10 @@ import { FactInfo } from './fact-info';
         <kpn-fact-route-inaccessible />
       }
       @case ('RouteUnexpectedNode') {
-        <kpn-fact-route-unexpected-node [factInfo]="factInfo" />
+        <kpn-fact-route-unexpected-node [factInfo]="factInfo()" />
       }
       @case ('RouteUnexpectedRelation') {
-        <kpn-fact-route-unexpected-relation [factInfo]="factInfo" />
+        <kpn-fact-route-unexpected-relation [factInfo]="factInfo()" />
       }
       @case ('RouteUnusedSegments') {
         <kpn-fact-route-unused-segments />
@@ -185,7 +185,7 @@ import { FactInfo } from './fact-info';
         <kpn-fact-route-invalid-survey-date />
       }
       @default {
-        <p i18n="@@fact.description-missing">{{ factInfo.fact }} description missing!!</p>
+        <p i18n="@@fact.description-missing">{{ factInfo().fact }} description missing!!</p>
       }
     }
   `,
@@ -238,5 +238,5 @@ import { FactInfo } from './fact-info';
   ],
 })
 export class FactDescriptionComponent {
-  @Input() factInfo: FactInfo;
+  factInfo = input<FactInfo | undefined>();
 }

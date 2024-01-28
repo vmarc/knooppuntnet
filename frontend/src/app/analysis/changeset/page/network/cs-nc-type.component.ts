@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
 import { ChangeType } from '@api/custom';
 
@@ -22,13 +22,13 @@ import { ChangeType } from '@api/custom';
   standalone: true,
 })
 export class CsNcTypeComponent {
-  @Input() networkChangeInfo: NetworkChangeInfo;
+  networkChangeInfo = input<NetworkChangeInfo | undefined>();
 
   isCreate(): boolean {
-    return this.networkChangeInfo.changeType === ChangeType.create;
+    return this.networkChangeInfo().changeType === ChangeType.create;
   }
 
   isDelete(): boolean {
-    return this.networkChangeInfo.changeType === ChangeType.delete;
+    return this.networkChangeInfo().changeType === ChangeType.delete;
   }
 }

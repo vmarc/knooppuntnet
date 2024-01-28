@@ -1,9 +1,9 @@
 import { NgClass } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { OnInit } from '@angular/core';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource } from '@angular/material/table';
@@ -258,8 +258,8 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedHeaders(admin)"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns(admin)"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedHeaders(admin())"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns(admin())"></tr>
     </table>
   `,
   styles: `
@@ -318,11 +318,11 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
   ],
 })
 export class MonitorRouteDetailsStructureComponent implements OnInit {
-  @Input({ required: true }) admin: boolean;
-  @Input({ required: true }) groupName: string;
-  @Input({ required: true }) routeName: string;
-  @Input({ required: true }) structureRows: MonitorRouteRelationStructureRow[];
-  @Input({ required: true }) referenceType: string;
+  admin = input.required<boolean>();
+  groupName = input.required<string>();
+  routeName = input.required<string>();
+  structureRows = input.required<MonitorRouteRelationStructureRow[]>();
+  referenceType = input.required<string>();
 
   readonly dataSource = new MatTableDataSource<MonitorRouteRelationStructureRow>();
 
@@ -350,12 +350,12 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.dataSource.data = this.structureRows;
+    this.dataSource.data = this.structureRows();
   }
 
   displayedColumns(admin: boolean) {
     let columns = [...this.mainColumns];
-    if (this.referenceType === 'multi-gpx') {
+    if (this.referenceType() === 'multi-gpx') {
       columns = columns.concat(this.referenceColumns);
     }
     columns = columns.concat(this.analysisColumns);
@@ -370,7 +370,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   }
 
   mapLink(): string {
-    return `/monitor/groups/${this.groupName}/routes/${this.routeName}/map`;
+    return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/map`;
   }
 
   subRelationQueryParams(row: MonitorRouteRelationStructureRow): Params {
@@ -381,18 +381,18 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
   }
 
   uploadGpx(): string {
-    return `/monitor/groups/${this.groupName}/routes/${this.routeName}/gpx`;
+    return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/gpx`;
   }
 
   deleteGpx(): string {
-    return `/monitor/groups/${this.groupName}/routes/${this.routeName}/gpx/delete`;
+    return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/gpx/delete`;
   }
 
   canUpload(): boolean {
-    return this.referenceType === 'multi-gpx';
+    return this.referenceType() === 'multi-gpx';
   }
 
   canDelete(row: MonitorRouteRelationStructureRow): boolean {
-    return this.referenceType === 'multi-gpx' && !!row.referenceFilename;
+    return this.referenceType() === 'multi-gpx' && !!row.referenceFilename;
   }
 }

@@ -1,6 +1,6 @@
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-network-map-legend-icon',
@@ -26,9 +26,9 @@ import { Component } from '@angular/core';
   standalone: true,
 })
 export class NetworkMapLegendIconComponent {
-  @Input() color: string;
+  color = input<string | undefined>();
 
   style(): string {
-    return `stroke:${this.color};stroke-width:3`;
+    return `stroke:${this.color()};stroke-width:3`;
   }
 }

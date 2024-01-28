@@ -11,7 +11,7 @@ export class PlanPrinter {
   plan(plan: Plan): Printer {
     this.out.println(`sourceNode=${this.node(plan.sourceNode)}`);
     this.out.println(`sourceFlag=${this.flag(plan.sourceFlag)}`);
-    this.out.println(`sinkFlag()=${this.flag(plan.sinkFlag())}`);
+    this.out.println(`sinkFlag=${this.flag(plan.sinkFlag())}`);
     plan.legs.forEach((leg) => {
       this.out.println(`  leg featureId=${leg.featureId}, key=${leg.key}`);
       this.out.println(`    sink=${this.sink(leg.sink)}`);

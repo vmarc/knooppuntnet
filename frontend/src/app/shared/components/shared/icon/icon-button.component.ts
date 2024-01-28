@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
@@ -8,12 +8,12 @@ import { RouterLink } from '@angular/router';
   selector: 'kpn-icon-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a [routerLink]="routerLink">
+    <a [routerLink]="routerLink()">
       <div class="wrapper">
-        <mat-icon [svgIcon]="icon" class="icon"></mat-icon>
+        <mat-icon [svgIcon]="icon()" class="icon()"></mat-icon>
       </div>
       <div class="text">
-        {{ title }}
+        {{ title() }}
       </div>
     </a>
   `,
@@ -58,7 +58,7 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink, MatIconModule],
 })
 export class IconButtonComponent {
-  @Input({ required: true }) title: string;
-  @Input({ required: true }) routerLink: string;
-  @Input({ required: true }) icon: string;
+  title = input.required<string>();
+  routerLink = input.required<string>();
+  icon = input.required<string>();
 }

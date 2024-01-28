@@ -1,6 +1,6 @@
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteChangeSummary } from '@api/common/monitor';
 import { IconHappyComponent } from '@app/components/shared/icon';
@@ -17,7 +17,7 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
     <kpn-items>
-      @for (change of changes; track $index) {
+      @for (change of changes(); track $index) {
         <kpn-item [index]="rowIndex($index)">
           <div class="change-set">
             <kpn-monitor-change-header [changeSet]="change" />
@@ -106,11 +106,11 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
   ],
 })
 export class MonitorChangesComponent {
-  @Input({ required: true }) pageSize: number;
-  @Input({ required: true }) pageIndex: number;
-  @Input({ required: true }) changes: MonitorRouteChangeSummary[];
+  pageSize = input.required<number>();
+  pageIndex = input.required<number>();
+  changes = input.required<MonitorRouteChangeSummary[]>();
 
   rowIndex(index: number): number {
-    return this.pageSize * this.pageIndex + index;
+    return this.pageSize() * this.pageIndex() + index;
   }
 }

@@ -1,7 +1,7 @@
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { Ref } from '@api/common/common';
 import { MetaData } from '@api/common/data';
 import { MetaDataComponent } from '@app/components/shared';
@@ -12,6 +12,7 @@ import { NodeDiffsData } from './node-diffs-data';
 @Component({
   selector: 'kpn-node-diffs-added',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     @if (refs.length > 0) {
       <div class="kpn-level-2">
@@ -24,10 +25,10 @@ import { NodeDiffsData } from './node-diffs-data';
           @for (nodeRef of refs; track nodeRef.id) {
             <div class="kpn-level-3">
               <div class="kpn-line kpn-level-3-header">
-                <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data.knownElements" />
+                <kpn-link-node-ref-header [ref]="nodeRef" [knownElements]="data().knownElements" />
               </div>
               <div class="kpn-level-3-body">
-                @for (nodeChangeInfo of data.findNodeChangeInfo(nodeRef); track $index) {
+                @for (nodeChangeInfo of data().findNodeChangeInfo(nodeRef); track $index) {
                   @if (nodeChangeInfo.after) {
                     @if (isCreated(nodeChangeInfo.after)) {
                       <ng-container i18n="@@node-diffs-added.change-set-created">
@@ -65,20 +66,20 @@ import { NodeDiffsData } from './node-diffs-data';
   imports: [IconHappyComponent, LinkNodeRefHeaderComponent, MetaDataComponent],
 })
 export class NodeDiffsAddedComponent implements OnInit {
-  @Input() data: NodeDiffsData;
+  data = input<NodeDiffsData | undefined>();
 
   refs: Ref[];
 
   ngOnInit(): void {
-    this.refs = this.data.refDiffs.added;
+    this.refs = this.data().refDiffs.added;
   }
 
   isCreated(metaData: MetaData): boolean {
-    return this.data.changeSetId === metaData.changeSetId && metaData.version === 1;
+    return this.data().changeSetId === metaData.changeSetId && metaData.version === 1;
   }
 
   isUpdated(metaData: MetaData): boolean {
-    return this.data.changeSetId === metaData.changeSetId && metaData.version !== 1;
+    return this.data().changeSetId === metaData.changeSetId && metaData.version !== 1;
   }
 
   isExisting(metaData: MetaData): boolean {

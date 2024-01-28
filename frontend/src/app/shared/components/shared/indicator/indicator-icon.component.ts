@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-indicator-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="indicator-icon {{ color }}">
-      {{ letter }}
+    <div class="indicator-icon {{ color() }}">
+      {{ letter() }}
     </div>
   `,
   styles: `
@@ -46,6 +46,6 @@ import { Input } from '@angular/core';
   standalone: true,
 })
 export class IndicatorIconComponent {
-  @Input({ required: true }) letter: string;
-  @Input({ required: true }) color: string;
+  letter = input.required<string>();
+  color = input.required<string>();
 }

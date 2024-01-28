@@ -1,5 +1,5 @@
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,11 +10,11 @@ import { MatStepperModule } from '@angular/material/stepper';
 @Component({
   selector: 'kpn-monitor-route-properties-step-6-comment',
   template: `
-    <mat-form-field appearance="fill" class="comment">
+    <mat-form-field appearance="fill" class="comment()">
       <mat-label i18n="@@monitor.route.properties.comment.label"
         >Additional information about the route (optional):
       </mat-label>
-      <textarea matInput rows="4" id="comment" [formControl]="comment"></textarea>
+      <textarea matInput rows="4" id="comment()" [formControl]="comment()"></textarea>
     </mat-form-field>
 
     <div class="kpn-button-group">
@@ -38,5 +38,5 @@ import { MatStepperModule } from '@angular/material/stepper';
   ],
 })
 export class MonitorRoutePropertiesStep6CommentComponent {
-  @Input({ required: true }) comment: FormControl<string>;
+  comment = input.required<FormControl<string>>();
 }

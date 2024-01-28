@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SubsetFactDetailsPage } from '@api/common/subset';
 import { EditParameters } from '@app/analysis/components/edit';
@@ -20,7 +20,7 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
   selector: 'kpn-subset-fact-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (page.networks.length === 0) {
+    @if (page().networks.length === 0) {
       <div class="kpn-line">
         <span i18n="@@subset-facts.no-facts">No facts</span>
         <kpn-icon-happy />
@@ -45,14 +45,14 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
             <span i18n="@@subset-facts.osm-relation-refs">{refCount, plural, one {relation} other {relations}}</span>
           }
           <span
-            i18n="@@subset-facts.in-networks">{page.networks.length, plural, one {in 1 network} other {in {{ page.networks.length }} networks}}</span>
+            i18n="@@subset-facts.in-networks">{page().networks.length, plural, one {in 1 network} other {in {{ page().networks.length }} networks}}</span>
           @if (factCount !== refCount) {
             <span
               i18n="@@subset-facts.fact-count">{factCount, plural, one {(1 fact)} other {({{ factCount }} facts)}}</span>
           }
         </div>
         <kpn-items>
-          @for (networkFactRefs of page.networks; track networkFactRefs; let i = $index) {
+          @for (networkFactRefs of page().networks; track networkFactRefs; let i = $index) {
             <kpn-item [index]="i">
               <div class="fact-detail">
                 @if (networkFactRefs.networkId === 0) {
@@ -97,7 +97,7 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
                       <kpn-link-route
                         [routeId]="ref.id"
                         [routeName]="ref.name"
-                        [networkType]="page.subsetInfo.networkType"
+                        [networkType]="page().subsetInfo.networkType"
                       />
                     }
                     @if (hasOsmNodeRefs()) {
@@ -142,7 +142,7 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
   ],
 })
 export class SubsetFactDetailsComponent implements OnInit {
-  @Input() page: SubsetFactDetailsPage;
+  page = input<SubsetFactDetailsPage | undefined>();
 
   private readonly editService = inject(EditService);
 
@@ -155,15 +155,15 @@ export class SubsetFactDetailsComponent implements OnInit {
   }
 
   factName(): string {
-    return this.page.fact;
+    return this.page().fact;
   }
 
   private calculateRefCount(): number {
-    return new Set(this.page.networks.flatMap((n) => n.factRefs.map((r) => r.id))).size;
+    return new Set(this.page().networks.flatMap((n) => n.factRefs.map((r) => r.id))).size;
   }
 
   private calculateFactCount(): number {
-    return this.page.networks.flatMap((n) => n.factRefs).length;
+    return this.page().networks.flatMap((n) => n.factRefs).length;
   }
 
   hasNodeRefs(): boolean {
@@ -196,7 +196,9 @@ export class SubsetFactDetailsComponent implements OnInit {
   }
 
   edit() {
-    const elementIds = this.page.networks.flatMap((n) => n.factRefs).map((ref) => ref.id);
+    const elementIds = this.page()
+      .networks.flatMap((n) => n.factRefs)
+      .map((ref) => ref.id);
 
     let editParameters: EditParameters = null;
 

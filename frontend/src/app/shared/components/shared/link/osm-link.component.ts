@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-osm-link',
@@ -10,17 +10,17 @@ import { Input } from '@angular/core';
       class="external"
       rel="nofollow noreferrer"
       target="_blank"
-      href="https://www.openstreetmap.org/{{ kind }}/{{ elementId }}"
+      href="https://www.openstreetmap.org/{{ kind() }}/{{ elementId() }}"
       title="Open in OpenStreetMap website"
       i18n-title="@@osm-link.title"
     >
-      {{ title }}
+      {{ title() }}
     </a>
   `,
   standalone: true,
 })
 export class OsmLinkComponent {
-  @Input({ required: true }) kind: string;
-  @Input({ required: true }) elementId: string;
-  @Input({ required: true }) title: string;
+  kind = input.required<string>();
+  elementId = input.required<string>();
+  title = input.required<string>();
 }

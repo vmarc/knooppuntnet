@@ -3,8 +3,8 @@ import { inject } from '@angular/core';
 import { Signal } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Input } from '@angular/core';
 import { Component } from '@angular/core';
+import { input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Store } from '@ngrx/store';
@@ -37,18 +37,18 @@ import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
   imports: [MatCheckboxModule, AsyncPipe],
 })
 export class PoiMenuOptionComponent implements OnInit {
-  @Input() groupName: string;
+  groupName = input<string | undefined>();
 
   private readonly store = inject(Store);
   protected readonly enabled = this.store.selectSignal(selectPlannerPoisVisible);
   protected visible: Signal<boolean>;
 
   ngOnInit(): void {
-    this.visible = this.store.selectSignal(selectPlannerPoiGroupVisible(this.groupName));
+    this.visible = this.store.selectSignal(selectPlannerPoiGroupVisible(this.groupName()));
   }
 
   enabledChanged(event: MatCheckboxChange): void {
-    const groupName = this.groupName;
+    const groupName = this.groupName();
     const visible = event.checked;
     this.store.dispatch(actionPlannerPoiGroupVisible({ groupName, visible }));
   }

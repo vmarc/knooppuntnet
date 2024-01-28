@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { OnInit } from '@angular/core';
+import { input } from '@angular/core';
 import { ChangeSetNetwork } from '@api/common';
 import { ChangeSetSummaryInfo } from '@api/common';
 import { ChangesSetOrphanRoutesComponent } from '@app/analysis/components/change-set/components';
@@ -11,24 +13,28 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
 @Component({
   selector: 'kpn-change-network-analysis-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
+
   template: `
     <div class="change-set">
       <kpn-change-header
-        [changeKey]="changeSet.key"
-        [happy]="changeSet.happy"
-        [investigate]="changeSet.investigate"
-        [comment]="changeSet.comment"
+        [changeKey]="changeSet().key"
+        [happy]="changeSet().happy"
+        [investigate]="changeSet().investigate"
+        [comment]="changeSet().comment"
       />
 
       @for (action of networkActions; track action) {
         <kpn-change-set-network [changeSetNetworkAction]="action" />
       }
 
-      @for (orphanNodeChanges of changeSet.network.orphanNodeChanges; track orphanNodeChanges) {
+      @for (orphanNodeChanges of changeSet().network.orphanNodeChanges; track orphanNodeChanges) {
         <kpn-change-set-orphan-nodes [subsetElementRefs]="orphanNodeChanges" />
       }
 
-      @for (orphanRouteChanges of changeSet.network.orphanRouteChanges; track orphanRouteChanges) {
+      @for (
+        orphanRouteChanges of changeSet().network.orphanRouteChanges;
+        track orphanRouteChanges
+      ) {
         <kpn-change-set-orphan-routes [subsetElementRefs]="orphanRouteChanges" />
       }
     </div>
@@ -48,7 +54,7 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
   ],
 })
 export class ChangeNetworkAnalysisSummaryComponent implements OnInit {
-  @Input() changeSet: ChangeSetSummaryInfo;
+  changeSet = input<ChangeSetSummaryInfo | undefined>();
   networkActions: ChangeSetNetworkAction[];
 
   ngOnInit(): void {
@@ -56,7 +62,7 @@ export class ChangeNetworkAnalysisSummaryComponent implements OnInit {
   }
 
   private buildNetworkActions(): ChangeSetNetworkAction[] {
-    const networkChanges = this.changeSet.network.networkChanges;
+    const networkChanges = this.changeSet().network.networkChanges;
     const creates = this.toNetworkActions('C', networkChanges.creates);
     const updates = this.toNetworkActions('U', networkChanges.updates);
     const deletes = this.toNetworkActions('D', networkChanges.deletes);
@@ -64,6 +70,6 @@ export class ChangeNetworkAnalysisSummaryComponent implements OnInit {
   }
 
   private toNetworkActions(action: string, networks: ChangeSetNetwork[]) {
-    return networks.map((nc) => new ChangeSetNetworkAction(this.changeSet.key, action, nc));
+    return networks.map((nc) => new ChangeSetNetworkAction(this.changeSet().key, action, nc));
   }
 }

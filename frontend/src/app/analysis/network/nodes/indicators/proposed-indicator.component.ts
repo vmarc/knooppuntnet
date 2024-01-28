@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NetworkNodeRow } from '@api/common/network';
 import { IndicatorComponent } from '@app/components/shared/indicator';
@@ -23,13 +23,13 @@ import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.co
   imports: [IndicatorComponent],
 })
 export class ProposedIndicatorComponent implements OnInit {
-  @Input() node: NetworkNodeRow;
+  node = input<NetworkNodeRow | undefined>();
 
   private readonly dialog = inject(MatDialog);
   color: string;
 
   ngOnInit(): void {
-    this.color = this.node.detail.proposed ? 'blue' : 'gray';
+    this.color = this.node().detail.proposed ? 'blue' : 'gray';
   }
 
   onOpenDialog() {
