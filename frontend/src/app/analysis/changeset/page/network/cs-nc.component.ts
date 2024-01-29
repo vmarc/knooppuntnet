@@ -69,8 +69,8 @@ import { CsNcWaysUpdatedComponent } from './cs-nc-ways-updated.component';
   ],
 })
 export class CsNcComponent {
-  page = input<ChangeSetPage | undefined>();
-  networkChangeInfo = input<NetworkChangeInfo | undefined>();
+  page = input.required<ChangeSetPage>();
+  networkChangeInfo = input.required<NetworkChangeInfo>();
 
   nodeDiffs(networkChangeInfo: NetworkChangeInfo): NodeDiffsData {
     return new NodeDiffsData(

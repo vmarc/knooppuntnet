@@ -21,7 +21,7 @@ import { PoiService } from '@app/services';
             [checked]="isEnabled()"
             (change)="groupEnabledChanged($event)"
           />
-          <span class="title()">{{ title() }}</span>
+          <span class="title">{{ title() }}</span>
           <span class="kpn-thin">(10/10)</span>
         </mat-panel-title>
       </mat-expansion-panel-header>

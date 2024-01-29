@@ -22,7 +22,7 @@ import { ChangeType } from '@api/custom';
   standalone: true,
 })
 export class CsNcTypeComponent {
-  networkChangeInfo = input<NetworkChangeInfo | undefined>();
+  networkChangeInfo = input.required<NetworkChangeInfo>();
 
   isCreate(): boolean {
     return this.networkChangeInfo().changeType === ChangeType.create;

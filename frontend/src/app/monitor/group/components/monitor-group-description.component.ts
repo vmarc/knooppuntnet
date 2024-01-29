@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'kpn-monitor-group-description',
   template: `
-    <mat-form-field class="description()">
+    <mat-form-field class="description">
       <mat-label i18n="@@monitor.group.description.label">Description </mat-label>
       <input matInput [formControl]="description()" required />
     </mat-form-field>

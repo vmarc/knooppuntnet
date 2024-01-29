@@ -18,7 +18,7 @@ import { map } from 'rxjs/operators';
     @if (showButtonText$ | async) {
       <button mat-stroked-button (click)="action.emit()" [disabled]="!enabled()" [title]="title()">
         <mat-icon [svgIcon]="icon()" />
-        <span class="button-text()">{{ text() }}</span>
+        <span class="button-text">{{ text() }}</span>
       </button>
     }
 

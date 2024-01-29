@@ -13,7 +13,7 @@ import { MonitorRouteGroup } from '@api/common/monitor';
 @Component({
   selector: 'kpn-monitor-route-properties-step-1-group',
   template: `
-    <mat-form-field class="group()">
+    <mat-form-field class="group">
       <mat-label i18n="@@monitor.route.properties.group">Group</mat-label>
       <mat-select id="group-selector" [formControl]="group()">
         @for (gr of routeGroups(); track $index) {
@@ -24,7 +24,7 @@ import { MonitorRouteGroup } from '@api/common/monitor';
       </mat-select>
     </mat-form-field>
 
-    <div class="kpn-button-group()">
+    <div class="kpn-button-group">
       <button id="step1-next" mat-stroked-button matStepperNext i18n="@@action.next">Next</button>
     </div>
   `,

@@ -30,7 +30,7 @@ import { PlanInstructionCommandComponent } from './plan-instruction-command.comp
       </div>
     }
     @if (!instruction().node && !instruction().colour) {
-      <div class="instruction()">
+      <div class="instruction">
         <kpn-plan-instruction-command [command]="instruction().command" />
         <div>
           @if (instruction().heading) {

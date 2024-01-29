@@ -45,7 +45,7 @@ import { map } from 'rxjs/operators';
     }
 
     @if (comment()) {
-      <div class="comment()">
+      <div class="comment">
         {{ comment() }}
       </div>
     }

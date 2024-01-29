@@ -10,9 +10,9 @@ import { MatInputModule } from '@angular/material/input';
   selector: 'kpn-monitor-route-description',
   template: `
     <div>
-      <mat-form-field class="description()">
+      <mat-form-field class="description">
         <mat-label i18n="@@monitor.route.description.label">Description </mat-label>
-        <input matInput id="description()" [formControl]="description()" required />
+        <input matInput id="description" [formControl]="description()" required />
       </mat-form-field>
 
       @if (

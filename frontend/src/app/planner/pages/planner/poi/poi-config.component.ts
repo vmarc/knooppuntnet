@@ -19,7 +19,7 @@ import { Subscriptions } from '@app/util';
         }
       </div>
 
-      <div class="col-name()">
+      <div class="col-name">
         {{ poiName() }}
       </div>
 

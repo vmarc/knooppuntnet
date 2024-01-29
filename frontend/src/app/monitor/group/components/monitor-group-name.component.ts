@@ -11,7 +11,7 @@ import { MatInputModule } from '@angular/material/input';
   template: `
     <mat-form-field>
       <mat-label i18n="@@monitor.group.name.label">Name</mat-label>
-      <input matInput [formControl]="name()" class="name()" required />
+      <input matInput [formControl]="name()" class="name" required />
     </mat-form-field>
 
     @if (name().invalid && (name().dirty || name().touched || ngForm().submitted)) {

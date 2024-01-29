@@ -7,7 +7,7 @@ import { input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="data">
-      <div class="title()">
+      <div class="title">
         {{ title() }}
       </div>
       <div class="body">
