@@ -11,7 +11,6 @@ import { FilterOptionGroup } from '@app/kpn/filter';
 @Component({
   selector: 'kpn-filter-checkbox-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div>
       <div class="group-name">{{ groupName() }}</div>
@@ -26,7 +25,7 @@ import { FilterOptionGroup } from '@app/kpn/filter';
   imports: [MatCheckboxModule],
 })
 export class FilterCheckboxGroupComponent {
-  group = input<FilterOptionGroup | undefined>();
+  group = input<FilterOptionGroup>();
 
   private readonly i18nService = inject(I18nService);
 

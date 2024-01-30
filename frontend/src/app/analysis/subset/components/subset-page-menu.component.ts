@@ -9,7 +9,6 @@ import { PageMenuComponent } from '@app/components/shared/menu';
 @Component({
   selector: 'kpn-subset-page-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-page-menu>
       <kpn-page-menu-option

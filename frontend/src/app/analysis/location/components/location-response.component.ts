@@ -7,7 +7,6 @@ import { SituationOnComponent } from '@app/components/shared/timestamp';
 @Component({
   selector: 'kpn-location-response',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (response()) {
       @if (situationOnEnabled()) {

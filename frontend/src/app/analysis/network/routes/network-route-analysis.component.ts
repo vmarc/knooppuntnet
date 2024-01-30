@@ -11,7 +11,6 @@ import { RouteProposedIndicatorComponent } from '@app/analysis/components/indica
 @Component({
   selector: 'kpn-network-route-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="analysis">
       <kpn-route-investigate-indicator [investigate]="route().investigate" />

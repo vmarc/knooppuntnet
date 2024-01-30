@@ -12,7 +12,6 @@ import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indi
 @Component({
   selector: 'kpn-route-accessible-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-indicator
       letter="A"

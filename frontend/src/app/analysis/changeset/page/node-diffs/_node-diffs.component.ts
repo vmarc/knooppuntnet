@@ -9,7 +9,6 @@ import { NodeDiffsUpdatedComponent } from './node-diffs-updated.component';
 @Component({
   selector: 'kpn-node-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-node-diffs-removed [data]="data()" />
     <kpn-node-diffs-added [data]="data()" />

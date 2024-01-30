@@ -9,7 +9,6 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
 @Component({
   selector: 'kpn-fact-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (factDiffs()) {
       @if (factDiffs().resolved.length > 0) {

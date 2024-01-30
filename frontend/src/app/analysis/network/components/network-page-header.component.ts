@@ -14,8 +14,7 @@ import { selectNetworkId } from '../store/network.selectors';
 @Component({
   selector: 'kpn-network-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
-  template: `
+ template: `
     <ul class="breadcrumb">
       <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
       <li>

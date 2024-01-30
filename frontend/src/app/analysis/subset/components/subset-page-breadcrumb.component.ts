@@ -9,7 +9,6 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
 @Component({
   selector: 'kpn-subset-page-breadcrumb',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <ul class="breadcrumb">
       <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>

@@ -27,8 +27,8 @@ import { input } from '@angular/core';
 })
 export class LegendIconComponent {
   color = input.required<string>();
-  circleColor = input<string | undefined>();
-  proposed = input<boolean | undefined>();
+  circleColor = input<string>();
+  proposed = input<boolean>();
 
   style(): string {
     const standard = `stroke:${this.color()};stroke-width:3;`;

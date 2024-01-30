@@ -40,7 +40,6 @@ import { NetworkRoutesService } from './network-routes.service';
 @Component({
   selector: 'kpn-network-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"

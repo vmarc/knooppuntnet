@@ -7,7 +7,6 @@ import { LinkNodeComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-route-node-diff',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @switch (title()) {
       @case ('startNodes') {

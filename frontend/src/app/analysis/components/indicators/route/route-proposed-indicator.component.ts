@@ -10,7 +10,6 @@ import { RouteProposedIndicatorDialogComponent } from './route-proposed-indicato
 @Component({
   selector: 'kpn-route-proposed-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-indicator
       letter="P"

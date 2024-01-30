@@ -18,7 +18,6 @@ export class ChangeSetNetworkAction {
 @Component({
   selector: 'kpn-change-set-network',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>

@@ -12,7 +12,6 @@ import { MarkdownModule } from 'ngx-markdown';
 @Component({
   selector: 'kpn-network-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (!page().active) {
       <p class="kpn-warning" i18n="@@network-details.not-active">

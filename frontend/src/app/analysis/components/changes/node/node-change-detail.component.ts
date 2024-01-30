@@ -18,7 +18,6 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
 @Component({
   selector: 'kpn-node-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @for (fact of nodeChangeInfo().facts; track $index) {
       <div class="kpn-detail">

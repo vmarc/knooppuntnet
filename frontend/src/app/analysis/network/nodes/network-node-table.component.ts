@@ -39,7 +39,6 @@ import { NetworkNodesService } from './network-nodes.service';
 @Component({
   selector: 'kpn-network-node-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"

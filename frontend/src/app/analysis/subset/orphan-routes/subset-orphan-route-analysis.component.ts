@@ -9,7 +9,6 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
 @Component({
   selector: 'kpn-subset-orphan-route-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="analysis">
       <kpn-route-investigate-indicator [investigate]="route().isBroken" />

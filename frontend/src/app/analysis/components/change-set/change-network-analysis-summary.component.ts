@@ -13,7 +13,6 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
 @Component({
   selector: 'kpn-change-network-analysis-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="change-set">
       <kpn-change-header

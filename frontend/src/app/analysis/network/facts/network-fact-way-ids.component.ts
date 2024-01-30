@@ -7,7 +7,6 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-network-fact-way-ids',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @for (elementId of elementIds(); track elementId) {
       <div>

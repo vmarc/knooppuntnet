@@ -10,7 +10,6 @@ import { RouteNodeDiffComponent } from './route-node-diff.component';
 @Component({
   selector: 'kpn-route-diff',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (diffs().nameDiff) {
       <div class="kpn-detail" i18n="@@route-changes.route-diff.name-diff">

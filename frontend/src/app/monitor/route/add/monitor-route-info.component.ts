@@ -9,7 +9,6 @@ import { SymbolComponent } from '@app/symbol';
 @Component({
   selector: 'kpn-monitor-route-info',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (!routeInfo().active) {
       <div class="kpn-line kpn-error">

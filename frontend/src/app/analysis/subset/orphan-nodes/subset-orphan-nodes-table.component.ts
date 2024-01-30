@@ -27,7 +27,6 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
 @Component({
   selector: 'kpn-subset-orphan-nodes-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"

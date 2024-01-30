@@ -12,7 +12,6 @@ import { OverviewValueComponent } from './overview-value.component';
 @Component({
   selector: 'kpn-overview-list-stat-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <tr>
       @if (rowspan()) {

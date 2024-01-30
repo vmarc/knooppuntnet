@@ -15,7 +15,6 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'kpn-change-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="kpn-line">
       @if (changeKey().changeSetId === 0) {

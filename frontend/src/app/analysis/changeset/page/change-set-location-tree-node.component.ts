@@ -11,7 +11,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-change-set-location-tree-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->

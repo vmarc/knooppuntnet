@@ -10,7 +10,6 @@ import { TagsTableComponent } from '@app/components/shared/tags';
 @Component({
   selector: 'kpn-route-change-way-removed',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">

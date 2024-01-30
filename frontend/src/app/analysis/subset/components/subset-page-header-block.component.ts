@@ -16,7 +16,6 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
 @Component({
   selector: 'kpn-subset-page-header-block',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-subset-page-breadcrumb [subset]="subset()" [pageName]="pageName()" />
 

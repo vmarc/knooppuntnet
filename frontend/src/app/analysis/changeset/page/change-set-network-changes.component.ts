@@ -15,7 +15,6 @@ import { CsNcComponent } from './network/cs-nc.component';
 @Component({
   selector: 'kpn-change-set-network-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @for (networkChangeInfo of page().networkChanges; track networkChangeInfo) {
       <div class="kpn-level-1">

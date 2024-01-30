@@ -7,7 +7,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-location-node-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (!hasRouteReferences()) {
       <span class="no-routes" i18n="@@location-nodes.no-routes"> no routes </span>

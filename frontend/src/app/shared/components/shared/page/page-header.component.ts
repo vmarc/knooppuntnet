@@ -38,8 +38,8 @@ import { PageService } from '../page.service';
   imports: [DocLinkComponent],
 })
 export class PageHeaderComponent implements AfterViewInit, OnChanges {
-  subject = input<string | undefined>();
-  pageTitle = input<string | undefined>();
+  subject = input<string>();
+  pageTitle = input<string>();
 
   private readonly pageService = inject(PageService);
 

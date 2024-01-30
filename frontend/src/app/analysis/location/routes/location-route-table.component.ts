@@ -36,7 +36,6 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
 @Component({
   selector: 'kpn-location-route-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"

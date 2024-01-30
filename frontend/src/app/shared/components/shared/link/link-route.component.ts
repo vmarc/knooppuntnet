@@ -23,8 +23,8 @@ import { NetworkType } from '@api/custom';
 export class LinkRouteComponent implements OnInit {
   routeId = input.required<number>();
   routeName = input.required<string>();
-  networkType = input<NetworkType | undefined>();
-  title = input<string | undefined>();
+  networkType = input<NetworkType>();
+  title = input<string>();
 
   protected linkTitle = '';
 

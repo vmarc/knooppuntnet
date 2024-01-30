@@ -13,7 +13,6 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 @Component({
   selector: 'kpn-subset-network',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="title">
       <kpn-link-network-details

@@ -10,7 +10,6 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
 @Component({
   selector: 'kpn-change-set-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <table class="kpn-table">
       <tbody>

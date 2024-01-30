@@ -8,7 +8,6 @@ import { IconHappyComponent } from '@app/components/shared/icon';
 @Component({
   selector: 'kpn-change-set-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="kpn-line">
       @if (page().summary.happy) {

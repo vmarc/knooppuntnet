@@ -6,7 +6,6 @@ import { FilterOptions } from '@app/kpn/filter';
 @Component({
   selector: 'kpn-filter-title',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="row">
       <div class="title" i18n="@@filter.title">Filter</div>

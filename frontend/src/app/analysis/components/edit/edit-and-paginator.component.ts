@@ -10,7 +10,6 @@ import { EditLinkComponent } from './edit-link.component';
 @Component({
   selector: 'kpn-edit-and-paginator',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="edit-and-paginator">
       <kpn-edit-link (edit)="editClicked()" title="{{ editLinkTitle() }}" />
@@ -43,7 +42,7 @@ import { EditLinkComponent } from './edit-link.component';
 export class EditAndPaginatorComponent {
   editLinkTitle = input.required<string>();
   pageSize = input.required<number>();
-  pageIndex = input<number | undefined>();
+  pageIndex = input<number>();
   length = input.required<number>();
   showFirstLastButtons = input(false);
   showPageSizeSelection = input(false);

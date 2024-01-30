@@ -9,8 +9,7 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
 @Component({
   selector: 'kpn-location-route-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
-  template: `
+ template: `
     <div class="analysis">
       <kpn-route-investigate-indicator [investigate]="route().broken" />
       <kpn-route-accessible-indicator

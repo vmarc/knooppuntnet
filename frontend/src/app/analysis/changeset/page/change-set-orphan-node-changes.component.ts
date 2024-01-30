@@ -14,7 +14,6 @@ import { NodeDiffsData } from './node-diffs/node-diffs-data';
 @Component({
   selector: 'kpn-change-set-orphan-node-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @for (refs of page().orphanNodeChanges; track refs) {
       <div class="kpn-level-1">

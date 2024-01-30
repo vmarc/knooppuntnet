@@ -11,7 +11,6 @@ import { FilterOptionGroup } from '@app/kpn/filter';
 @Component({
   selector: 'kpn-filter-radio-group',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div>
       <div class="group-name">{{ groupName() }}</div>

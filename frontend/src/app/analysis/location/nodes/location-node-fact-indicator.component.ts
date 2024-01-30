@@ -11,7 +11,6 @@ import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-i
 @Component({
   selector: 'kpn-location-node-fact-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-indicator
       letter="F"

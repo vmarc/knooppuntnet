@@ -9,7 +9,6 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
 @Component({
   selector: 'kpn-fact-comma-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (hasFacts()) {
       <div class="kpn-detail kpn-line">

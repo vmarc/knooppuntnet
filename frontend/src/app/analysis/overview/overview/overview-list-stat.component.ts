@@ -9,7 +9,6 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
 @Component({
   selector: 'kpn-overview-list-stat',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="item">
       <div class="header">

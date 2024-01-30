@@ -7,7 +7,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-network-node-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (node().routeReferences.length === 0) {
       <span class="warning" i18n="@@network-nodes.no-routes">no routes</span>

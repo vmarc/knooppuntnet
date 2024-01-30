@@ -15,7 +15,6 @@ import { RoleConnectionIndicatorComponent } from './indicators/role-connection-i
 @Component({
   selector: 'kpn-network-node-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="analysis">
       <kpn-network-indicator [node]="node()" />

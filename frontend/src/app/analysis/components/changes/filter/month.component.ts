@@ -5,7 +5,6 @@ import { input } from '@angular/core';
 @Component({
   selector: 'kpn-month',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @switch (month()) {
       @case (1) {

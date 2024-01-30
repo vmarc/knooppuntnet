@@ -7,7 +7,6 @@ import { LinkNodeComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-network-fact-nodes',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (nodes().length === 1) {
       <span class="title kpn-label" i18n="@@network-facts.node">Node</span>

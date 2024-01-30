@@ -11,7 +11,6 @@ import { RouteDiffsData } from './route-diffs-data';
 @Component({
   selector: 'kpn-route-diffs-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (refs.length > 0) {
       <div class="kpn-level-2">

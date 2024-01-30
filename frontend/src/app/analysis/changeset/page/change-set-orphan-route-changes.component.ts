@@ -14,7 +14,6 @@ import { RouteDiffsData } from './route-diffs/route-diffs-data';
 @Component({
   selector: 'kpn-change-set-orphan-route-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @for (refs of page().orphanRouteChanges; track refs) {
       <div class="kpn-level-1">

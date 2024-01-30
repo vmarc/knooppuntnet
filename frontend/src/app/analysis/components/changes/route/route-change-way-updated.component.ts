@@ -13,7 +13,6 @@ import { TagDiffsComponent } from '../tag-diffs.component';
 @Component({
   selector: 'kpn-route-change-way-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="kpn-level-4">
       <div class="kpn-level-4-header">

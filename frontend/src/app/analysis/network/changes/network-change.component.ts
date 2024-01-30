@@ -9,7 +9,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-network-change',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <!-- changeType -->
     @if (isCreate()) {

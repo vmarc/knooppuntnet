@@ -30,7 +30,6 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
 @Component({
   selector: 'kpn-subset-orphan-routes-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"

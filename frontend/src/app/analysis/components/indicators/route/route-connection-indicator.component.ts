@@ -11,7 +11,6 @@ import { RouteConnectionIndicatorDialogComponent } from './route-connection-indi
 @Component({
   selector: 'kpn-route-connection-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-indicator
       letter="C"

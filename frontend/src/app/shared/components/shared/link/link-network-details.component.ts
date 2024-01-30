@@ -21,5 +21,5 @@ import { NetworkType } from '@api/custom';
 export class LinkNetworkDetailsComponent {
   networkId = input.required<number>();
   networkName = input.required<string>();
-  networkType = input<NetworkType | undefined>();
+  networkType = input<NetworkType>();
 }

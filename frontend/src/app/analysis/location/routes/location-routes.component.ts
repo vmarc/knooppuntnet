@@ -7,7 +7,6 @@ import { LocationRouteTableComponent } from './location-route-table.component';
 @Component({
   selector: 'kpn-location-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (page().routes.length === 0) {
       <div class="kpn-spacer-above" i18n="@@location-routes.no-routes">No routes</div>

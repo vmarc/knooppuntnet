@@ -8,7 +8,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-network-fact-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (routes().length === 1) {
       <span i18n="@@network-facts.route" class="kpn-label">Route</span>

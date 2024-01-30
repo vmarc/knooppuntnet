@@ -9,7 +9,6 @@ import { SubsetNetworkComponent } from './subset-network.component';
 @Component({
   selector: 'kpn-subset-network-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-items>
       @for (network of networks(); track network; let i = $index) {

@@ -11,7 +11,6 @@ import { MonthComponent } from './month.component';
 @Component({
   selector: 'kpn-change-filter-period',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <div class="row">

@@ -7,7 +7,6 @@ import { TagDetailType } from '@api/common/diff';
 @Component({
   selector: 'kpn-tag-diff-action',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @switch (action().name) {
       @case ('Add') {

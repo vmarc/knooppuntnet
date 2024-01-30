@@ -9,7 +9,6 @@ import { RouteDiffsUpdatedComponent } from './route-diffs-updated.component';
 @Component({
   selector: 'kpn-route-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-route-diffs-removed [data]="data()" />
     <kpn-route-diffs-added [data]="data()" />

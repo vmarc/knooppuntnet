@@ -10,7 +10,6 @@ import { ChangeFilterPeriodComponent } from './change-filter-period.component';
 @Component({
   selector: 'kpn-change-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (filterOptions() && filterOptions().length > 0) {
       <div class="filter">

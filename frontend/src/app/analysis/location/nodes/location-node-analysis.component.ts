@@ -12,7 +12,6 @@ import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicat
 @Component({
   selector: 'kpn-location-node-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="analysis">
       <kpn-location-node-fact-indicator [node]="node()" />

@@ -13,7 +13,6 @@ import { NetworkSummaryComponent } from './network-summary.component';
 @Component({
   selector: 'kpn-network-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-data title="Summary" i18n-title="@@network-details.summary">
       <kpn-network-summary [page]="response().result" />

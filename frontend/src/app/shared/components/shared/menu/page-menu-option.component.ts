@@ -42,5 +42,5 @@ export class PageMenuOptionComponent {
       }
     | undefined
   >();
-  elementCount = input<number | undefined>();
+  elementCount = input<number>();
 }

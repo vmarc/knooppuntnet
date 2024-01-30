@@ -11,7 +11,6 @@ import { NodeDiffsData } from './node-diffs-data';
 @Component({
   selector: 'kpn-node-diffs-updated',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (refs.length > 0) {
       <div class="kpn-level-2">

@@ -22,7 +22,6 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
 @Component({
   selector: 'kpn-location-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (locationKey(); as key) {
       <kpn-location-page-breadcrumb [locationKey]="key" />

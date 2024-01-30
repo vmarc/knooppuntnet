@@ -11,7 +11,6 @@ import { RouteDiffComponent } from './route-diff.component';
 @Component({
   selector: 'kpn-route-change-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-route-diff [diffs]="routeChangeInfo().diffs" />
 

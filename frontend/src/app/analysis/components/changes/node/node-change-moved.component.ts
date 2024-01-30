@@ -8,7 +8,6 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
 @Component({
   selector: 'kpn-node-change-moved',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (nodeMoved) {
       @if (nodeMoved.distance > 0) {

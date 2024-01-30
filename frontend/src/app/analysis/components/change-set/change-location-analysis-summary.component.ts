@@ -14,7 +14,6 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
 @Component({
   selector: 'kpn-change-location-analysis-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="change-set">
       <kpn-change-header

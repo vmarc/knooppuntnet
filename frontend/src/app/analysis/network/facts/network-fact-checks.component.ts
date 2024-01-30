@@ -7,7 +7,6 @@ import { LinkNodeComponent } from '@app/components/shared/link';
 @Component({
   selector: 'kpn-network-fact-checks',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <table
       title="node integrity check failures"

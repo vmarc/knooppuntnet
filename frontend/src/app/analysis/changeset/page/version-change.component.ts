@@ -7,7 +7,6 @@ import { MetaDataComponent } from '@app/components/shared';
 @Component({
   selector: 'kpn-version-change',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="kpn-thin">
       @if (isNewVersion()) {

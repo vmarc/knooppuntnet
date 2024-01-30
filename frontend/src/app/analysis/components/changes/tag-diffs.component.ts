@@ -12,7 +12,6 @@ import { TagDiffsTextComponent } from './tag-diffs-text.component';
 @Component({
   selector: 'kpn-tag-diffs',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (small$ | async) {
       <kpn-tag-diffs-text [tagDiffs]="tagDiffs()" />

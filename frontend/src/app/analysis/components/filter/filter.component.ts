@@ -9,7 +9,6 @@ import { FilterTitleComponent } from './filter-title.component';
 @Component({
   selector: 'kpn-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (!filterOptions().isEmpty()) {
       <div class="filter">

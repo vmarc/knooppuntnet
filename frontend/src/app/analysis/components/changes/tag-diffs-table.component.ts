@@ -8,7 +8,6 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
 @Component({
   selector: 'kpn-tag-diffs-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     @if (tagDiffs()) {
       <div class="title"></div>

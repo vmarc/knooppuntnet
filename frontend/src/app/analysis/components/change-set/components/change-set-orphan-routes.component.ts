@@ -8,7 +8,6 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
 @Component({
   selector: 'kpn-change-set-orphan-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>

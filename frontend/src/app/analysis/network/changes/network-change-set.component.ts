@@ -8,7 +8,6 @@ import { NetworkChangeComponent } from './network-change.component';
 @Component({
   selector: 'kpn-network-change-set',
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   template: `
     <kpn-change-header
       [changeKey]="networkChangeInfo().key"
