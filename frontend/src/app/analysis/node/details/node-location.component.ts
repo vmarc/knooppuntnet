@@ -24,8 +24,8 @@ import { I18nService } from '@app/i18n';
   imports: [RouterLink],
 })
 export class NodeLocationComponent {
-  networkType = input<NetworkType | undefined>();
-  locations = input<string[] | undefined>();
+  networkType = input.required<NetworkType>();
+  locations = input.required<string[]>();
 
   private readonly i18nService = inject(I18nService);
 

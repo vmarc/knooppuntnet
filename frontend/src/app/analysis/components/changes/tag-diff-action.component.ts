@@ -25,5 +25,5 @@ import { TagDetailType } from '@api/common/diff';
   imports: [MatIconModule],
 })
 export class TagDiffActionComponent {
-  action = input<TagDetailType | undefined>();
+  action = input.required<TagDetailType>();
 }

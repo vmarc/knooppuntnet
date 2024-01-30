@@ -28,6 +28,6 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
   imports: [RouteAccessibleIndicatorComponent, RouteInvestigateIndicatorComponent],
 })
 export class LocationRouteAnalysisComponent {
-  route = input<LocationRouteInfo | undefined>();
-  networkType = input<NetworkType | undefined>();
+  route = input.required<LocationRouteInfo>();
+  networkType = input.required<NetworkType>();
 }

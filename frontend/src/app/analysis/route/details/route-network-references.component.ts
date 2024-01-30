@@ -28,5 +28,5 @@ import { NetworkTypeIconComponent } from '@app/components/shared';
   imports: [NetworkTypeIconComponent, RouterLink],
 })
 export class RouteNetworkReferencesComponent {
-  references = input<Reference[] | undefined>();
+  references = input.required<Reference[]>();
 }

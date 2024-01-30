@@ -11,7 +11,7 @@ import { Fact } from '@api/custom';
   standalone: true,
 })
 export class FactNameComponent implements OnInit {
-  fact = input<Fact | undefined>();
+  fact = input.required<Fact>();
   factName: string;
 
   ngOnInit(): void {

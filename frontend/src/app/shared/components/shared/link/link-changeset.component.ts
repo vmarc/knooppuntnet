@@ -16,5 +16,5 @@ import { RouterLink } from '@angular/router';
 })
 export class LinkChangesetComponent {
   changeSetId = input.required<number>();
-  replicationNumber = input<number | undefined>();
+  replicationNumber = input.required<number>();
 }

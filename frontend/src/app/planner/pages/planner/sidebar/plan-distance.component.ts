@@ -30,7 +30,7 @@ import { Plan } from '../../../domain/plan/plan';
   imports: [],
 })
 export class PlanDistanceComponent implements OnChanges {
-  plan = input<Plan | undefined>();
+  plan = input.required<Plan>();
 
   meters = 0;
 

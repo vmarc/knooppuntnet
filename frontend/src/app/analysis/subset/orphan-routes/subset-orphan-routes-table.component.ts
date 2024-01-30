@@ -130,9 +130,9 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   ],
 })
 export class SubsetOrphanRoutesTableComponent implements OnInit {
-  timeInfo = input<TimeInfo | undefined>();
-  networkType = input<NetworkType | undefined>();
-  orphanRoutes = input<OrphanRouteInfo[] | undefined>();
+  timeInfo = input.required<TimeInfo>();
+  networkType = input.required<NetworkType>();
+  orphanRoutes = input.required<OrphanRouteInfo[]>();
 
   @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 

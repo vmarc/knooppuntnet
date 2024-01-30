@@ -74,7 +74,7 @@ import { MarkdownModule } from 'ngx-markdown';
   ],
 })
 export class NetworkSummaryComponent {
-  page = input<NetworkDetailsPage | undefined>();
+  page = input.required<NetworkDetailsPage>();
 
   isProposed() {
     const stateTag = this.page().tags.tags.find((t) => t.key === 'state');

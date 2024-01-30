@@ -22,5 +22,5 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
   imports: [OsmLinkWayComponent, JosmWayComponent],
 })
 export class NetworkFactWayIdsComponent {
-  elementIds = input<number[] | undefined>();
+  elementIds = input.required<number[]>();
 }

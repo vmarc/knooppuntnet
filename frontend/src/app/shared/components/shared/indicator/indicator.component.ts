@@ -25,7 +25,7 @@ import { IndicatorIconComponent } from './indicator-icon.component';
 })
 export class IndicatorComponent {
   letter = input.required<string>();
-  color = input<string | undefined>();
+  color = input.required<string>();
 
   @Output() openDialog = new EventEmitter<void>();
 

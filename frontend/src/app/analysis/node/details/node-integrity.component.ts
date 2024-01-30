@@ -83,8 +83,8 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   ],
 })
 export class NodeIntegrityComponent {
-  integrity = input<NodeIntegrity | undefined>();
-  mixedNetworkScopes = input<boolean | undefined>();
+  integrity = input.required<NodeIntegrity>();
+  mixedNetworkScopes = input.required<boolean>();
 
   happy(detail: NodeIntegrityDetail): boolean {
     return detail.expectedRouteCount === detail.routeRefs.length;

@@ -27,5 +27,5 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   imports: [LinkRouteComponent],
 })
 export class NetworkNodeRoutesComponent {
-  node = input<NetworkNodeRow | undefined>();
+  node = input.required<NetworkNodeRow>();
 }

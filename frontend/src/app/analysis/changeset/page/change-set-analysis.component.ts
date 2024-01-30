@@ -32,5 +32,5 @@ import { IconHappyComponent } from '@app/components/shared/icon';
   imports: [IconHappyComponent, IconInvestigateComponent],
 })
 export class ChangeSetAnalysisComponent {
-  page = input<ChangeSetPage | undefined>();
+  page = input.required<ChangeSetPage>();
 }

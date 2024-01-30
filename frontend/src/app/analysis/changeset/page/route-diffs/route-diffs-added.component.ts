@@ -70,7 +70,7 @@ import { RouteDiffsData } from './route-diffs-data';
   imports: [FactDiffsComponent, IconHappyComponent, LinkRouteRefHeaderComponent, MetaDataComponent],
 })
 export class RouteDiffsAddedComponent implements OnInit {
-  data = input<RouteDiffsData | undefined>();
+  data = input.required<RouteDiffsData>();
 
   refs: Array<RefRouteChangeInfo>;
 

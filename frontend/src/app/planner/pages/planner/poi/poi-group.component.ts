@@ -65,8 +65,8 @@ import { PoiService } from '@app/services';
   imports: [MatExpansionModule, MatCheckboxModule, MatButtonModule],
 })
 export class PoiGroupComponent {
-  name = input<string | undefined>();
-  title = input<string | undefined>();
+  name = input.required<string>();
+  title = input.required<string>();
 
   private readonly poiService = inject(PoiService);
 

@@ -198,11 +198,11 @@ import { NetworkNodesService } from './network-nodes.service';
   ],
 })
 export class NetworkNodeTableComponent implements OnInit, OnDestroy {
-  networkType = input<NetworkType | undefined>();
-  networkScope = input<NetworkScope | undefined>();
-  timeInfo = input<TimeInfo | undefined>();
-  surveyDateInfo = input<SurveyDateInfo | undefined>();
-  nodes = input<NetworkNodeRow[] | undefined>();
+  networkType = input.required<NetworkType>();
+  networkScope = input.required<NetworkScope>();
+  timeInfo = input.required<TimeInfo>();
+  surveyDateInfo = input.required<SurveyDateInfo>();
+  nodes = input.required<NetworkNodeRow[]>();
 
   @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 

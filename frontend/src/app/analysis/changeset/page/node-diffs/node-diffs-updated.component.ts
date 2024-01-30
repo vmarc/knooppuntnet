@@ -53,7 +53,7 @@ import { NodeDiffsData } from './node-diffs-data';
   imports: [LinkNodeRefHeaderComponent, MetaDataComponent, NodeChangeDetailComponent],
 })
 export class NodeDiffsUpdatedComponent implements OnInit {
-  data = input<NodeDiffsData | undefined>();
+  data = input.required<NodeDiffsData>();
 
   refs: Ref[];
 

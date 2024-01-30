@@ -37,6 +37,6 @@ import { RouteProposedIndicatorComponent } from '@app/analysis/components/indica
   ],
 })
 export class NetworkRouteAnalysisComponent {
-  route = input<NetworkRouteRow | undefined>();
-  networkType = input<NetworkType | undefined>();
+  route = input.required<NetworkRouteRow>();
+  networkType = input.required<NetworkType>();
 }

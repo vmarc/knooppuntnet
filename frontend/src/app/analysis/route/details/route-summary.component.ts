@@ -80,7 +80,7 @@ import { MarkdownModule } from 'ngx-markdown';
   ],
 })
 export class RouteSummaryComponent {
-  route = input<RouteDetailsPageData | undefined>();
+  route = input.required<RouteDetailsPageData>();
 
   isRouteBroken() {
     return this.route().facts.includes('RouteBroken');

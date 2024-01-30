@@ -41,10 +41,10 @@ import { EditLinkComponent } from './edit-link.component';
   imports: [EditLinkComponent, PaginatorComponent],
 })
 export class EditAndPaginatorComponent {
-  editLinkTitle = input<string | undefined>();
-  pageSize = input<number | undefined>();
+  editLinkTitle = input.required<string>();
+  pageSize = input.required<number>();
   pageIndex = input<number | undefined>();
-  length = input<number | undefined>();
+  length = input.required<number>();
   showFirstLastButtons = input(false);
   showPageSizeSelection = input(false);
 

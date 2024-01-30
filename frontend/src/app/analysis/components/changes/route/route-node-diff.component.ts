@@ -45,7 +45,7 @@ import { LinkNodeComponent } from '@app/components/shared/link';
   imports: [LinkNodeComponent],
 })
 export class RouteNodeDiffComponent {
-  title = input<string | undefined>(); // startNodes | endNodes | startTentacleNodes | endTentacleNodes
-  action = input<string | undefined>(); // added | removed
-  nodeRefs = input<Ref[] | undefined>();
+  title = input.required<string>(); // startNodes | endNodes | startTentacleNodes | endTentacleNodes
+  action = input.required<string>(); // added | removed
+  nodeRefs = input.required<Ref[]>();
 }

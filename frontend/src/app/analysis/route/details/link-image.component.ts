@@ -27,7 +27,7 @@ import { fromEvent } from 'rxjs';
   standalone: true,
 })
 export class LinkImageComponent implements OnInit, OnDestroy, AfterViewChecked {
-  linkName = input<string | undefined>();
+  linkName = input.required<string>();
   @ViewChild('image', { static: false }) imageRef: ElementRef;
   @ViewChild('imageWrapper', { static: false }) divRef: ElementRef;
 

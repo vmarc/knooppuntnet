@@ -33,7 +33,7 @@ import { NodeDiffsData } from './node-diffs/node-diffs-data';
   imports: [NetworkTypeIconComponent, NodeDiffsComponent],
 })
 export class ChangeSetOrphanNodeChangesComponent {
-  page = input<ChangeSetPage | undefined>();
+  page = input.required<ChangeSetPage>();
 
   nodeDiffs(refs: ChangeSetSubsetElementRefs): NodeDiffsData {
     const refDiffs: RefDiffs = {

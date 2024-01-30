@@ -26,7 +26,7 @@ import { input } from '@angular/core';
   standalone: true,
 })
 export class LegendIconComponent {
-  color = input<string | undefined>();
+  color = input.required<string>();
   circleColor = input<string | undefined>();
   proposed = input<boolean | undefined>();
 

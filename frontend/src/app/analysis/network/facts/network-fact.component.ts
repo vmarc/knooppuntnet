@@ -54,6 +54,6 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
   ],
 })
 export class NetworkFactComponent {
-  networkType = input<NetworkType | undefined>();
-  fact = input<NetworkFact | undefined>();
+  networkType = input.required<NetworkType>();
+  fact = input.required<NetworkFact>();
 }

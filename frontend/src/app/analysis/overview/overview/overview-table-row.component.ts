@@ -58,7 +58,7 @@ import { OverviewValueComponent } from './overview-value.component';
   imports: [OverviewValueComponent, MarkdownModule],
 })
 export class OverviewTableRowComponent {
-  stat = input<Stat | undefined>();
+  stat = input.required<Stat>();
 
   subsets() {
     return Subsets.all;

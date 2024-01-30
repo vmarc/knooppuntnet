@@ -25,7 +25,7 @@ import { PlanInstructionComponent } from './plan-instruction.component';
   imports: [PlanInstructionComponent, MatDividerModule],
 })
 export class PlanInstructionsComponent implements OnChanges {
-  plan = input<Plan | undefined>();
+  plan = input.required<Plan>();
   instructions: List<PlanInstruction>;
 
   ngOnChanges(changes: SimpleChanges): void {

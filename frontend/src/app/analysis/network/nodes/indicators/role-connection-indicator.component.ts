@@ -23,7 +23,7 @@ import { RoleConnectionIndicatorDialogComponent } from './role-connection-indica
   imports: [IndicatorComponent],
 })
 export class RoleConnectionIndicatorComponent implements OnInit {
-  node = input<NetworkNodeRow | undefined>();
+  node = input.required<NetworkNodeRow>();
 
   private readonly dialog = inject(MatDialog);
   color: string;

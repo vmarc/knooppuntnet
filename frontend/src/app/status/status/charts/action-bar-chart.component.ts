@@ -31,8 +31,8 @@ import { BarChartModule } from '@swimlane/ngx-charts';
 })
 export class ActionBarChartComponent {
   barChart = input.required<BarChart>();
-  xAxisLabel = input<string | undefined>();
-  yAxisLabel = input<string | undefined>();
+  xAxisLabel = input.required<string>();
+  yAxisLabel = input.required<string>();
 
   view: [number, number] = [700, 300];
 

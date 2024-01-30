@@ -30,8 +30,8 @@ import { BarChartModule } from '@swimlane/ngx-charts';
 })
 export class ActionBarChartStackedComponent {
   barChart = input.required<BarChart2D>();
-  xAxisLabel = input<string | undefined>();
-  yAxisLabel = input<string | undefined>();
+  xAxisLabel = input.required<string>();
+  yAxisLabel = input.required<string>();
 
   view: [number, number] = [850, 300];
 

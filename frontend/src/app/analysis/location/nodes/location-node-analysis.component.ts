@@ -28,9 +28,9 @@ import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicat
   imports: [LocationNodeFactIndicatorComponent, IntegrityIndicatorComponent],
 })
 export class LocationNodeAnalysisComponent implements OnInit {
-  networkType = input<NetworkType | undefined>();
-  networkScope = input<NetworkScope | undefined>();
-  node = input<LocationNodeInfo | undefined>();
+  networkType = input.required<NetworkType>();
+  networkScope = input.required<NetworkScope>();
+  node = input.required<LocationNodeInfo>();
 
   integrityIndicatorData: IntegrityIndicatorData;
 

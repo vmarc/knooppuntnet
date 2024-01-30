@@ -62,7 +62,7 @@ import { BehaviorSubject } from 'rxjs';
   imports: [MatCheckboxModule, MatButtonModule, AsyncPipe],
 })
 export class LocationEditComponent implements OnInit {
-  page = input<LocationEditPage | undefined>();
+  page = input.required<LocationEditPage>();
 
   private readonly editService = inject(EditService);
 

@@ -49,10 +49,10 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   imports: [PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class NodePageHeaderComponent {
-  nodeId = input<string | undefined>();
-  nodeName = input<string | undefined>();
-  changeCount = input<number | undefined>();
-  pageName = input<string | undefined>();
+  nodeId = input.required<string>();
+  nodeName = input.required<string>();
+  changeCount = input.required<number>();
+  pageName = input.required<string>();
 
   linkNodeDetails(): string {
     return this.linkNode('');

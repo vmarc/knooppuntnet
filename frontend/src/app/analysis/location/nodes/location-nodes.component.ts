@@ -23,5 +23,5 @@ import { LocationNodeTableComponent } from './location-node-table.component';
   imports: [LocationNodeTableComponent],
 })
 export class LocationNodesComponent {
-  page = input<LocationNodesPage | undefined>();
+  page = input.required<LocationNodesPage>();
 }

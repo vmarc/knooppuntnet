@@ -47,7 +47,7 @@ import { PlannerService } from '../../../planner.service';
   imports: [],
 })
 export class PlanCompactComponent {
-  plan = input<Plan | undefined>();
+  plan = input.required<Plan>();
 
   private readonly plannerService = inject(PlannerService);
 

@@ -17,5 +17,5 @@ import { FilterOptions } from '@app/kpn/filter';
   standalone: true,
 })
 export class FilterTitleComponent {
-  filterOptions = input<FilterOptions | undefined>();
+  filterOptions = input.required<FilterOptions>();
 }

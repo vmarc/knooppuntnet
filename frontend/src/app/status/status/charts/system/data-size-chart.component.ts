@@ -23,6 +23,6 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
   imports: [ActionBarChartComponent],
 })
 export class DataSizeChartComponent {
-  barChart = input<BarChart | undefined>();
-  xAxisLabel = input<string | undefined>();
+  barChart = input.required<BarChart>();
+  xAxisLabel = input.required<string>();
 }

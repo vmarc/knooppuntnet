@@ -19,5 +19,5 @@ import { RouteDiffsUpdatedComponent } from './route-diffs-updated.component';
   imports: [RouteDiffsAddedComponent, RouteDiffsRemovedComponent, RouteDiffsUpdatedComponent],
 })
 export class RouteDiffsComponent {
-  data = input<RouteDiffsData | undefined>();
+  data = input.required<RouteDiffsData>();
 }

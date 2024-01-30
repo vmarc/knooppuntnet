@@ -25,7 +25,7 @@ import { TagDiffsTextComponent } from './tag-diffs-text.component';
   imports: [TagDiffsTextComponent, TagDiffsTableComponent, AsyncPipe],
 })
 export class TagDiffsComponent {
-  tagDiffs = input<TagDiffs | undefined>();
+  tagDiffs = input.required<TagDiffs>();
   private readonly pageWidthService = inject(PageWidthService);
   protected readonly small$ = this.pageWidthService.current$.pipe(map(() => this.small()));
 

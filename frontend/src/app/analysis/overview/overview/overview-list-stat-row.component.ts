@@ -44,9 +44,9 @@ import { OverviewValueComponent } from './overview-value.component';
 })
 export class OverviewListStatRowComponent {
   rowspan = input<number>(null);
-  country = input<Country | undefined>();
-  networkType = input<NetworkType | undefined>();
-  stat = input<Stat | undefined>();
+  country = input.required<Country>();
+  networkType = input.required<NetworkType>();
+  stat = input.required<Stat>();
 
   subset(country: Country, networkType: NetworkType): Subset {
     return { country, networkType };

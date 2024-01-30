@@ -32,9 +32,9 @@ import { RouteChangeMapService } from './route-change-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
-  geometryDiff = input<GeometryDiff | undefined>();
-  nodes = input<RawNode[] | undefined>();
-  bounds = input<Bounds | undefined>();
+  geometryDiff = input.required<GeometryDiff>();
+  nodes = input.required<RawNode[]>();
+  bounds = input.required<Bounds>();
 
   protected readonly service = inject(RouteChangeMapService);
 

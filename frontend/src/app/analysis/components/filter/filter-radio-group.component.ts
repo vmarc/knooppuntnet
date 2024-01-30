@@ -32,7 +32,7 @@ import { FilterOptionGroup } from '@app/kpn/filter';
   imports: [MatRadioModule],
 })
 export class FilterRadioGroupComponent {
-  group = input<FilterOptionGroup | undefined>();
+  group = input.required<FilterOptionGroup>();
 
   private readonly i18nService = inject(I18nService);
 

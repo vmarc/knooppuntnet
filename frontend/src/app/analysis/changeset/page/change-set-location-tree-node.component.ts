@@ -172,5 +172,5 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   ],
 })
 export class ChangeSetLocationTreeNodeComponent {
-  trees = input<LocationChangesTreeNode[] | undefined>();
+  trees = input.required<LocationChangesTreeNode[]>();
 }

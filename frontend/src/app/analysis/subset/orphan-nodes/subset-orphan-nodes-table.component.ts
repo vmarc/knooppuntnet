@@ -101,8 +101,8 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
   ],
 })
 export class SubsetOrphanNodesTableComponent implements OnInit {
-  timeInfo = input<TimeInfo | undefined>();
-  nodes = input<OrphanNodeInfo[] | undefined>();
+  timeInfo = input.required<TimeInfo>();
+  nodes = input.required<OrphanNodeInfo[]>();
 
   @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 

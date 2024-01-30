@@ -44,7 +44,7 @@ import { RouteDiffsData } from './route-diffs-data';
   imports: [LinkRouteRefHeaderComponent, RouteChangeDetailComponent, VersionChangeComponent],
 })
 export class RouteDiffsUpdatedComponent implements OnInit {
-  data = input<RouteDiffsData | undefined>();
+  data = input.required<RouteDiffsData>();
 
   refs: Array<RefRouteChangeInfo>;
 

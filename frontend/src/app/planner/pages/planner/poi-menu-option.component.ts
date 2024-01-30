@@ -37,7 +37,7 @@ import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
   imports: [MatCheckboxModule, AsyncPipe],
 })
 export class PoiMenuOptionComponent implements OnInit {
-  groupName = input<string | undefined>();
+  groupName = input.required<string>();
 
   private readonly store = inject(Store);
   protected readonly enabled = this.store.selectSignal(selectPlannerPoisVisible);

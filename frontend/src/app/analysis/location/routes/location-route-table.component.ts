@@ -160,9 +160,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
   ],
 })
 export class LocationRouteTableComponent implements OnInit, OnChanges {
-  timeInfo = input<TimeInfo | undefined>();
-  routes = input<LocationRouteInfo[] | undefined>();
-  routeCount = input<number | undefined>();
+  timeInfo = input.required<TimeInfo>();
+  routes = input.required<LocationRouteInfo[]>();
+  routeCount = input.required<number>();
 
   @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 

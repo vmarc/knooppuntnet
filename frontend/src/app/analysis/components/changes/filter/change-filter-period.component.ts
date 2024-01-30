@@ -40,7 +40,7 @@ import { MonthComponent } from './month.component';
   imports: [NgClass, MonthComponent],
 })
 export class ChangeFilterPeriodComponent {
-  option = input<ChangesFilterOption | undefined>();
+  option = input.required<ChangesFilterOption>();
   @Output() optionSelected = new EventEmitter<ChangeOption>();
 
   impactedCountClicked(): void {

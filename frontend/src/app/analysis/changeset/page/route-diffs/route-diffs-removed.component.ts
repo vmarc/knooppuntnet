@@ -41,7 +41,7 @@ import { RouteDiffsData } from './route-diffs-data';
   imports: [IconInvestigateComponent, LinkRouteRefHeaderComponent, MetaDataComponent],
 })
 export class RouteDiffsRemovedComponent implements OnInit {
-  data = input<RouteDiffsData | undefined>();
+  data = input.required<RouteDiffsData>();
 
   refs: Array<RefRouteChangeInfo>;
 

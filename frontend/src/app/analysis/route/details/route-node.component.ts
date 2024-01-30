@@ -22,6 +22,6 @@ import { OsmLinkNodeComponent } from '@app/components/shared/link';
   imports: [LinkNodeComponent, BracketsComponent, OsmLinkNodeComponent],
 })
 export class RouteNodeComponent {
-  title = input<string | undefined>();
-  node = input<RouteNetworkNodeInfo | undefined>();
+  title = input.required<string>();
+  node = input.required<RouteNetworkNodeInfo>();
 }

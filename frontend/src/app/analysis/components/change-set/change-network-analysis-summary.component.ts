@@ -54,7 +54,7 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
   ],
 })
 export class ChangeNetworkAnalysisSummaryComponent implements OnInit {
-  changeSet = input<ChangeSetSummaryInfo | undefined>();
+  changeSet = input.required<ChangeSetSummaryInfo>();
   networkActions: ChangeSetNetworkAction[];
 
   ngOnInit(): void {

@@ -100,7 +100,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
   imports: [MarkdownModule, MatIconModule, OverviewListStatTableComponent],
 })
 export class OverviewListStatComponent {
-  stat = input<Stat | undefined>();
+  stat = input.required<Stat>();
 
   open = false;
 

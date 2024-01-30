@@ -24,7 +24,7 @@ import { RouteConnectionIndicatorDialogComponent } from './route-connection-indi
   imports: [IndicatorComponent],
 })
 export class RouteConnectionIndicatorComponent implements OnInit {
-  route = input<NetworkRouteRow | undefined>();
+  route = input.required<NetworkRouteRow>();
 
   private readonly dialog = inject(MatDialog);
   color: string;

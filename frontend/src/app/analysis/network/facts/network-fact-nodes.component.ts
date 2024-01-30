@@ -24,5 +24,5 @@ import { LinkNodeComponent } from '@app/components/shared/link';
   imports: [LinkNodeComponent],
 })
 export class NetworkFactNodesComponent {
-  nodes = input<Ref[] | undefined>();
+  nodes = input.required<Ref[]>();
 }

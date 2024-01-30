@@ -121,7 +121,7 @@ import { PlanInstructionCommandComponent } from './plan-instruction-command.comp
   imports: [PlanInstructionCommandComponent],
 })
 export class PlanInstructionComponent {
-  instruction = input<PlanInstruction | undefined>();
+  instruction = input.required<PlanInstruction>();
 
   translate(key: string): string {
     return PlannerTranslations.translate(key);

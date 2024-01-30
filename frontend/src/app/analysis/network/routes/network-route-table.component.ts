@@ -188,10 +188,10 @@ import { NetworkRoutesService } from './network-routes.service';
   ],
 })
 export class NetworkRouteTableComponent implements OnInit, OnDestroy {
-  timeInfo = input<TimeInfo | undefined>();
-  surveyDateInfo = input<SurveyDateInfo | undefined>();
-  networkType = input<NetworkType | undefined>();
-  routes = input<NetworkRouteRow[] | undefined>();
+  timeInfo = input.required<TimeInfo>();
+  surveyDateInfo = input.required<SurveyDateInfo>();
+  networkType = input.required<NetworkType>();
+  routes = input.required<NetworkRouteRow[]>();
 
   @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
 

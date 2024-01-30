@@ -51,7 +51,7 @@ import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node
   imports: [ChangeHeaderComponent, ChangeSetTagsComponent, NodeChangeDetailComponent],
 })
 export class NodeChangeComponent {
-  nodeChangeInfo = input<NodeChangeInfo | undefined>();
+  nodeChangeInfo = input.required<NodeChangeInfo>();
 
   isVersionUnchanged(): boolean {
     const before = this.nodeChangeInfo().before ? this.nodeChangeInfo().before.version : null;

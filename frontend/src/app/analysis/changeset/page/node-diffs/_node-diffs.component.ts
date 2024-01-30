@@ -19,5 +19,5 @@ import { NodeDiffsUpdatedComponent } from './node-diffs-updated.component';
   imports: [NodeDiffsAddedComponent, NodeDiffsRemovedComponent, NodeDiffsUpdatedComponent],
 })
 export class NodeDiffsComponent {
-  data = input<NodeDiffsData | undefined>();
+  data = input.required<NodeDiffsData>();
 }

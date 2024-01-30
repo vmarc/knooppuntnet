@@ -41,8 +41,8 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
   ],
 })
 export class SubsetPageHeaderBlockComponent {
-  pageName = input<string | undefined>();
-  pageTitle = input<string | undefined>();
+  pageName = input.required<string>();
+  pageTitle = input.required<string>();
 
   private readonly store = inject(Store);
   private readonly i18nService = inject(I18nService);

@@ -33,7 +33,7 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
   imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent],
 })
 export class LocationPageBreadcrumbComponent {
-  locationKey = input<LocationKey | undefined>();
+  locationKey = input.required<LocationKey>();
 
   networkTypeLink(): string {
     return `/analysis/${this.locationKey().networkType}`;

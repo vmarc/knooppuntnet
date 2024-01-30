@@ -21,8 +21,8 @@ import { ChangesSetElementRefComponent } from './change-set-element-ref.componen
   imports: [ChangesSetElementRefComponent],
 })
 export class ChangesSetElementRefsComponent implements OnInit {
-  elementType = input<string | undefined>();
-  changeSetElementRefs = input<ChangeSetElementRefs | undefined>();
+  elementType = input.required<string>();
+  changeSetElementRefs = input.required<ChangeSetElementRefs>();
 
   elements: ChangeSetElement[];
 

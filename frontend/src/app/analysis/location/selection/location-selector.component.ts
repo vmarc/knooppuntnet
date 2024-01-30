@@ -97,8 +97,8 @@ import { LocationOption } from './location-option';
   ],
 })
 export class LocationSelectorComponent implements OnInit {
-  country = input<Country | undefined>();
-  locationNode = input<LocationNode | undefined>();
+  country = input.required<Country>();
+  locationNode = input.required<LocationNode>();
   all = input(false);
   @Output() selection = new EventEmitter<string>();
 

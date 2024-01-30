@@ -22,5 +22,5 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
   imports: [OsmLinkRelationComponent, JosmRelationComponent],
 })
 export class NetworkFactRelationIdsComponent {
-  elementIds = input<number[] | undefined>();
+  elementIds = input.required<number[]>();
 }

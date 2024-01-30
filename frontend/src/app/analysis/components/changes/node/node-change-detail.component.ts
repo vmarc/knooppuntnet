@@ -135,7 +135,7 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
   ],
 })
 export class NodeChangeDetailComponent implements OnInit {
-  nodeChangeInfo = input<NodeChangeInfo | undefined>();
+  nodeChangeInfo = input.required<NodeChangeInfo>();
   initialTags: InterpretedTags;
   nodeMoved: NodeMoved;
 

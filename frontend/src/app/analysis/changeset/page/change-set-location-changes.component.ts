@@ -132,7 +132,7 @@ import { map } from 'rxjs/operators';
   standalone: true,
 })
 export class ChangeSetLocationChangesComponent /*implements OnInit*/ {
-  changess = input<LocationChanges[] | undefined>();
+  changess = input.required<LocationChanges[]>();
 
   private readonly pageService = inject(PageService);
   protected readonly sidebarClass$: Observable<string> = this.pageService.sidebarOpen.pipe(

@@ -33,7 +33,7 @@ import { RouteDiffsData } from './route-diffs/route-diffs-data';
   imports: [NetworkTypeIconComponent, RouteDiffsComponent],
 })
 export class ChangeSetOrphanRouteChangesComponent {
-  page = input<ChangeSetPage | undefined>();
+  page = input.required<ChangeSetPage>();
 
   routeDiffs(refs: ChangeSetSubsetElementRefs): RouteDiffsData {
     const refDiffs: RefDiffs = {

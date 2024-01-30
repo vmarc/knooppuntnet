@@ -25,5 +25,5 @@ import { SituationOnComponent } from '@app/components/shared/timestamp';
 })
 export class LocationResponseComponent {
   situationOnEnabled = input(true);
-  response = input<ApiResponse<any> | undefined>();
+  response = input.required<ApiResponse<any>>();
 }

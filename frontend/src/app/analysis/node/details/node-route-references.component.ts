@@ -21,6 +21,6 @@ import { IconRouteLinkComponent } from '@app/components/shared/link';
   imports: [IconRouteLinkComponent],
 })
 export class NodeRouteReferencesComponent {
-  references = input<Reference[] | undefined>();
-  mixedNetworkScopes = input<boolean | undefined>();
+  references = input.required<Reference[]>();
+  mixedNetworkScopes = input.required<boolean>();
 }

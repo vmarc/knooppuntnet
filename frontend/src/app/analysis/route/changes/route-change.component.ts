@@ -49,7 +49,7 @@ import { RouteChangeDetailComponent } from '@app/analysis/components/changes/rou
   imports: [ChangeHeaderComponent, ChangeSetTagsComponent, RouteChangeDetailComponent],
 })
 export class RouteChangeComponent {
-  routeChangeInfo = input<RouteChangeInfo | undefined>();
+  routeChangeInfo = input.required<RouteChangeInfo>();
 
   isVersionUnchanged(): boolean {
     const before = this.routeChangeInfo().before ? this.routeChangeInfo().before.version : null;

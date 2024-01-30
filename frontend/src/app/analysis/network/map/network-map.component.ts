@@ -34,9 +34,9 @@ import { NetworkMapService } from './network-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent, NetworkControlComponent],
 })
 export class NetworkMapComponent implements AfterViewInit, OnDestroy {
-  networkId = input<number | undefined>();
-  page = input<NetworkMapPage | undefined>();
-  mapPositionFromUrl = input<NetworkMapPosition | undefined>();
+  networkId = input.required<number>();
+  page = input.required<NetworkMapPage>();
+  mapPositionFromUrl = input.required<NetworkMapPosition>();
 
   protected readonly service = inject(NetworkMapService);
   private readonly store = inject(Store);

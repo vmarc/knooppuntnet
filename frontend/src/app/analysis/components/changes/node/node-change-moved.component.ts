@@ -43,7 +43,7 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
   imports: [NodeMovedMapComponent, TimestampComponent],
 })
 export class NodeChangeMovedComponent {
-  nodeChangeInfo = input<NodeChangeInfo | undefined>();
+  nodeChangeInfo = input.required<NodeChangeInfo>();
 
   get nodeMoved() {
     return this.nodeChangeInfo().nodeMoved;

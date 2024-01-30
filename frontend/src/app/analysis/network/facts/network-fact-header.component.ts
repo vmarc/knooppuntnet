@@ -42,7 +42,7 @@ import { EditService } from '@app/components/shared';
   imports: [FactNameComponent, FactLevelComponent, FactDescriptionComponent],
 })
 export class NetworkFactHeaderComponent {
-  fact = input<NetworkFact | undefined>();
+  fact = input.required<NetworkFact>();
 
   private readonly editService = inject(EditService);
 

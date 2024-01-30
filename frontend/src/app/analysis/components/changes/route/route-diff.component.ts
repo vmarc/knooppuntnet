@@ -76,7 +76,7 @@ import { RouteNodeDiffComponent } from './route-node-diff.component';
   imports: [FactDiffsComponent, RouteNodeDiffComponent, TagDiffsComponent],
 })
 export class RouteDiffComponent {
-  diffs = input<RouteDiff | undefined>();
+  diffs = input.required<RouteDiff>();
 
   isRouteRoleAdded(): boolean {
     return this.diffs().roleDiff && !this.diffs().roleDiff.before && !!this.diffs().roleDiff.after;

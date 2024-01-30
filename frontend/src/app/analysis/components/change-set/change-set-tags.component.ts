@@ -35,7 +35,7 @@ import { Tags } from '@api/custom';
   imports: [],
 })
 export class ChangeSetTagsComponent {
-  changeSetTags = input<Tags | undefined>();
+  changeSetTags = input.required<Tags>();
 
   tags(): Tag[] {
     if (this.changeSetTags() && this.changeSetTags().tags) {

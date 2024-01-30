@@ -96,8 +96,8 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
   ],
 })
 export class LocationPageHeaderComponent {
-  pageName = input<string | undefined>();
-  pageTitle = input<string | undefined>();
+  pageName = input.required<string>();
+  pageTitle = input.required<string>();
 
   private readonly store = inject(Store);
   readonly locationKey = this.store.selectSignal(selectLocationKey);

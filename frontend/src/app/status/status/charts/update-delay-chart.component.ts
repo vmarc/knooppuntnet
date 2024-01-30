@@ -24,5 +24,5 @@ import { ActionBarChartComponent } from './action-bar-chart.component';
 })
 export class UpdateDelayChartComponent {
   barChart = input.required<BarChart>();
-  xAxisLabel = input<string | undefined>();
+  xAxisLabel = input.required<string>();
 }

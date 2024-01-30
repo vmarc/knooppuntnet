@@ -49,5 +49,5 @@ import { input } from '@angular/core';
   standalone: true,
 })
 export class MonthComponent {
-  month = input<number | undefined>();
+  month = input.required<number>();
 }

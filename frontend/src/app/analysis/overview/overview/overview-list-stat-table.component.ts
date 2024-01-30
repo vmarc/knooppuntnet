@@ -148,7 +148,7 @@ import { OverviewListStatRowComponent } from './overview-list-stat-row.component
   imports: [OverviewListStatRowComponent],
 })
 export class OverviewListStatTableComponent {
-  stat = input<Stat | undefined>();
+  stat = input.required<Stat>();
 
   country = Country;
   networkType = NetworkType;

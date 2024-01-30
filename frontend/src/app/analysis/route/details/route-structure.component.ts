@@ -25,7 +25,7 @@ import { SafeHtml } from '@angular/platform-browser';
   imports: [],
 })
 export class RouteStructureComponent {
-  structureStrings = input<string[] | undefined>();
+  structureStrings = input.required<string[]>();
 
   private readonly sanitizer = inject(DomSanitizer);
 

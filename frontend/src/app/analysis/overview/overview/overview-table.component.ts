@@ -26,7 +26,7 @@ import { OverviewTableRowComponent } from './overview-table-row.component';
   imports: [OverviewTableHeaderComponent, OverviewTableRowComponent],
 })
 export class OverviewTableComponent implements OnInit {
-  statistics = input<StatisticValues[] | undefined>();
+  statistics = input.required<StatisticValues[]>();
 
   private readonly overviewService = inject(OverviewConfigurationService);
 

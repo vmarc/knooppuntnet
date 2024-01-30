@@ -101,8 +101,8 @@ import { selectNetworkId } from '../store/network.selectors';
   ],
 })
 export class NetworkPageHeaderComponent {
-  pageName = input<string | undefined>();
-  pageTitle = input<string | undefined>();
+  pageName = input.required<string>();
+  pageTitle = input.required<string>();
 
   private readonly store = inject(Store);
   protected readonly networkIdSignal = this.store.selectSignal(selectNetworkId);

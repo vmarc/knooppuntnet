@@ -29,6 +29,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   imports: [LinkRouteComponent],
 })
 export class NetworkFactRoutesComponent {
-  networkType = input<NetworkType | undefined>();
-  routes = input<Ref[] | undefined>();
+  networkType = input.required<NetworkType>();
+  routes = input.required<Ref[]>();
 }

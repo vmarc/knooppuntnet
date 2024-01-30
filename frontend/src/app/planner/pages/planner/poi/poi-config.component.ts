@@ -76,8 +76,8 @@ import { Subscriptions } from '@app/util';
   imports: [MatRadioModule],
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {
-  poiId = input<string | undefined>();
-  name = input<string | undefined>();
+  poiId = input.required<string>();
+  name = input.required<string>();
 
   private readonly poiService = inject(PoiService);
 

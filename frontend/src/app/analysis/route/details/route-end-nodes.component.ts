@@ -28,5 +28,5 @@ import { RouteNodeComponent } from './route-node.component';
   imports: [RouteNodeComponent],
 })
 export class RouteEndNodesComponent {
-  analysis = input<RouteInfoAnalysis | undefined>();
+  analysis = input.required<RouteInfoAnalysis>();
 }

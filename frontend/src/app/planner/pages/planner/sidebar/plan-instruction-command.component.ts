@@ -24,5 +24,5 @@ import { MatIconModule } from '@angular/material/icon';
   imports: [MatIconModule],
 })
 export class PlanInstructionCommandComponent {
-  command = input<string | undefined>();
+  command = input.required<string>();
 }

@@ -66,7 +66,7 @@ import { NodeDiffsData } from './node-diffs-data';
   imports: [IconHappyComponent, LinkNodeRefHeaderComponent, MetaDataComponent],
 })
 export class NodeDiffsAddedComponent implements OnInit {
-  data = input<NodeDiffsData | undefined>();
+  data = input.required<NodeDiffsData>();
 
   refs: Ref[];
 

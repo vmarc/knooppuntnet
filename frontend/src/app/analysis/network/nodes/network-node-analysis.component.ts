@@ -40,9 +40,9 @@ import { RoleConnectionIndicatorComponent } from './indicators/role-connection-i
   ],
 })
 export class NetworkNodeAnalysisComponent implements OnInit {
-  networkType = input<NetworkType | undefined>();
-  networkScope = input<NetworkScope | undefined>();
-  node = input<NetworkNodeRow | undefined>();
+  networkType = input.required<NetworkType>();
+  networkScope = input.required<NetworkScope>();
+  node = input.required<NetworkNodeRow>();
 
   integrityIndicatorData: IntegrityIndicatorData;
 

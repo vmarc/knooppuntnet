@@ -238,5 +238,5 @@ import { FactInfo } from './fact-info';
   ],
 })
 export class FactDescriptionComponent {
-  factInfo = input<FactInfo | undefined>();
+  factInfo = input.required<FactInfo>();
 }

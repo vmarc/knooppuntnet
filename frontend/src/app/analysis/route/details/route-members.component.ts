@@ -139,6 +139,6 @@ import { LinkImageComponent } from './link-image.component';
   ],
 })
 export class RouteMembersComponent {
-  networkType = input<NetworkType | undefined>();
-  members = input<RouteMemberInfo[] | undefined>();
+  networkType = input.required<NetworkType>();
+  members = input.required<RouteMemberInfo[]>();
 }

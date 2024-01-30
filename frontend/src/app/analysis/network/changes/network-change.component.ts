@@ -185,7 +185,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   imports: [LinkNodeComponent, LinkRouteComponent],
 })
 export class NetworkChangeComponent {
-  networkChangeInfo = input<NetworkChangeInfo | undefined>();
+  networkChangeInfo = input.required<NetworkChangeInfo>();
 
   isCreate(): boolean {
     return this.isChangeType(ChangeType.create);

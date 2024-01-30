@@ -24,7 +24,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
   imports: [NetworkTypeIconComponent, ChangesSetElementRefsComponent],
 })
 export class ChangesSetOrphanNodesComponent {
-  subsetElementRefs = input<ChangeSetSubsetElementRefs | undefined>();
+  subsetElementRefs = input.required<ChangeSetSubsetElementRefs>();
 
   domain() {
     if (this.subsetElementRefs().subset.country) {

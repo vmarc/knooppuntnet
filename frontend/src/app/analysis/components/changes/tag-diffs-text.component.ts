@@ -161,7 +161,7 @@ import { TagDiffs } from '@api/common/diff';
   standalone: true,
 })
 export class TagDiffsTextComponent implements OnInit {
-  tagDiffs = input<TagDiffs | undefined>();
+  tagDiffs = input.required<TagDiffs>();
 
   deletedTagDetails: TagDetail[];
   addedTagDetails: TagDetail[];

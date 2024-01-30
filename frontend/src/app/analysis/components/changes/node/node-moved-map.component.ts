@@ -30,7 +30,7 @@ import { NodeMovedMapService } from './node-moved-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
-  nodeMoved = input<NodeMoved | undefined>();
+  nodeMoved = input.required<NodeMoved>();
 
   protected readonly service = inject(NodeMovedMapService);
 

@@ -34,6 +34,6 @@ import { ChangeFilterPeriodComponent } from './change-filter-period.component';
   imports: [ChangeFilterPeriodComponent],
 })
 export class ChangeFilterComponent {
-  filterOptions = input<ChangesFilterOption[] | undefined>();
+  filterOptions = input.required<ChangesFilterOption[]>();
   @Output() optionSelected = new EventEmitter<ChangeOption>();
 }

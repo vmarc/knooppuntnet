@@ -84,7 +84,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
   ],
 })
 export class ChangeLocationAnalysisSummaryComponent {
-  changeSet = input<ChangeSetSummaryInfo | undefined>();
+  changeSet = input.required<ChangeSetSummaryInfo>();
 
   private readonly i18nService = inject(I18nService);
 

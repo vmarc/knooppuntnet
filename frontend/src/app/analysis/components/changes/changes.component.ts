@@ -41,12 +41,12 @@ import { PaginatorComponent } from '@app/components/shared/paginator';
   imports: [MatSlideToggleModule, PaginatorComponent],
 })
 export class ChangesComponent {
-  changeCount = input<number | undefined>();
-  totalCount = input<number | undefined>();
+  changeCount = input.required<number>();
+  totalCount = input.required<number>();
 
-  impact = input<boolean | undefined>();
-  pageSize = input<number | undefined>();
-  pageIndex = input<number | undefined>();
+  impact = input.required<boolean>();
+  pageSize = input.required<number>();
+  pageIndex = input.required<number>();
 
   @Output() impactChange = new EventEmitter<boolean>();
   @Output() pageSizeChange = new EventEmitter<number>();

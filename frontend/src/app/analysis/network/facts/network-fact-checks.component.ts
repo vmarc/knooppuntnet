@@ -51,5 +51,5 @@ import { LinkNodeComponent } from '@app/components/shared/link';
   imports: [LinkNodeComponent],
 })
 export class NetworkFactChecksComponent {
-  checks = input<Check[] | undefined>();
+  checks = input.required<Check[]>();
 }

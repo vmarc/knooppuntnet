@@ -23,5 +23,5 @@ import { SubsetNetworkComponent } from './subset-network.component';
   imports: [ItemsComponent, ItemComponent, SubsetNetworkComponent],
 })
 export class SubsetNetworkListComponent {
-  networks = input<NetworkAttributes[] | undefined>();
+  networks = input.required<NetworkAttributes[]>();
 }

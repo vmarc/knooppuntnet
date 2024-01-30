@@ -142,7 +142,7 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
   ],
 })
 export class SubsetFactDetailsComponent implements OnInit {
-  page = input<SubsetFactDetailsPage | undefined>();
+  page = input.required<SubsetFactDetailsPage>();
 
   private readonly editService = inject(EditService);
 

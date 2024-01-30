@@ -104,7 +104,7 @@ import { MarkdownModule } from 'ngx-markdown';
   ],
 })
 export class NodeSummaryComponent {
-  nodeInfo = input<NodeInfo | undefined>();
+  nodeInfo = input.required<NodeInfo>();
 
   isProposed(): boolean {
     return this.nodeInfo().names.some((name) => name.proposed);

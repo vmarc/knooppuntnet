@@ -39,5 +39,5 @@ import { IndicatorIconComponent } from './indicator-icon.component';
 })
 export class IndicatorDialogComponent {
   letter = input.required<string>();
-  color = input<string | undefined>();
+  color = input.required<string>();
 }

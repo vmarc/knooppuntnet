@@ -54,11 +54,11 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   imports: [MatIconModule, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class RoutePageHeaderComponent {
-  routeId = input<string | undefined>();
-  routeName = input<string | undefined>();
-  pageName = input<string | undefined>();
-  changeCount = input<number | undefined>();
-  networkType = input<NetworkType | undefined>();
+  routeId = input.required<string>();
+  routeName = input.required<string>();
+  pageName = input.required<string>();
+  changeCount = input.required<number>();
+  networkType = input.required<NetworkType>();
 
   linkRouteDetails(): string {
     return this.linkRoute('');

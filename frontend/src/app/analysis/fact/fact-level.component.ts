@@ -42,7 +42,7 @@ import { FactLevel } from './fact-level';
   standalone: true,
 })
 export class FactLevelComponent {
-  factLevel = input<FactLevel | undefined>();
+  factLevel = input.required<FactLevel>();
 
   protected readonly FactLevel = FactLevel;
 }

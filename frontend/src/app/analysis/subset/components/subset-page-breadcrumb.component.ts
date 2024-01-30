@@ -54,8 +54,8 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
   imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent],
 })
 export class SubsetPageBreadcrumbComponent {
-  subset = input<Subset | undefined>();
-  pageName = input<string | undefined>();
+  subset = input.required<Subset>();
+  pageName = input.required<string>();
 
   networkTypeLink() {
     return `/analysis/${this.subset().networkType}`;

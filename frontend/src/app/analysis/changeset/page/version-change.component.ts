@@ -24,8 +24,8 @@ import { MetaDataComponent } from '@app/components/shared';
   imports: [MetaDataComponent],
 })
 export class VersionChangeComponent {
-  before = input<MetaData | undefined>();
-  after = input<MetaData | undefined>();
+  before = input.required<MetaData>();
+  after = input.required<MetaData>();
 
   isNewVersion(): boolean {
     if (this.before() && this.after()) {

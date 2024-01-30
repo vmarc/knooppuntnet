@@ -82,7 +82,7 @@ import { TagDiffsComponent } from '../tag-diffs.component';
   imports: [MetaDataComponent, NodeListComponent, OsmLinkWayComponent, TagDiffsComponent],
 })
 export class RouteChangeWayUpdatedComponent {
-  wayUpdate = input<WayUpdate | undefined>();
+  wayUpdate = input.required<WayUpdate>();
 
   nodeIds(nodes: RawNode[]): number[] {
     return nodes.map((node) => node.id);

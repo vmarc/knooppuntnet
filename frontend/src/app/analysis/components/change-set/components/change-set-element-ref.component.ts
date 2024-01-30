@@ -30,7 +30,7 @@ export class ChangeSetElement {
   imports: [NgClass],
 })
 export class ChangesSetElementRefComponent {
-  element = input<ChangeSetElement | undefined>();
+  element = input.required<ChangeSetElement>();
 
   borderStyle() {
     if (this.element().ref.investigate === true) {

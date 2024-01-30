@@ -88,5 +88,5 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   imports: [FactNameComponent, IconHappyComponent, IconInvestigateComponent],
 })
 export class FactDiffsComponent {
-  factDiffs = input<FactDiffs | undefined>();
+  factDiffs = input.required<FactDiffs>();
 }

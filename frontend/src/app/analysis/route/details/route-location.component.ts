@@ -43,8 +43,8 @@ import { I18nService } from '@app/i18n';
   imports: [RouterLink],
 })
 export class RouteLocationComponent {
-  networkType = input<NetworkType | undefined>();
-  locationAnalysis = input<RouteLocationAnalysis | undefined>();
+  networkType = input.required<NetworkType>();
+  locationAnalysis = input.required<RouteLocationAnalysis>();
 
   private readonly i18nService = inject(I18nService);
 

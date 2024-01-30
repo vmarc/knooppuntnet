@@ -88,5 +88,5 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
   imports: [IntegerFormatPipe, LinkNetworkDetailsComponent, NgClass, SubsetNetworkHappyComponent],
 })
 export class SubsetNetworkTableComponent {
-  networks = input<NetworkAttributes[] | undefined>();
+  networks = input.required<NetworkAttributes[]>();
 }

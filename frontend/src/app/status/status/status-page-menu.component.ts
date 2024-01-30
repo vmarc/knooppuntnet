@@ -34,5 +34,5 @@ import { StatusLinks } from './status-links';
 })
 export class StatusPageMenuComponent {
   periodType = input.required<string>();
-  links = input<StatusLinks | undefined>();
+  links = input.required<StatusLinks>();
 }

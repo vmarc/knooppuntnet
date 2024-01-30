@@ -49,5 +49,5 @@ import { RouteDiffComponent } from './route-diff.component';
   ],
 })
 export class RouteChangeDetailComponent {
-  routeChangeInfo = input<RouteChangeInfo | undefined>();
+  routeChangeInfo = input.required<RouteChangeInfo>();
 }

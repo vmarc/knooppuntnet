@@ -19,5 +19,5 @@ import { input } from '@angular/core';
   imports: [RouteNodeComponent],
 })
 export class RouteRedundantNodesComponent {
-  analysis = input<RouteInfoAnalysis | undefined>();
+  analysis = input.required<RouteInfoAnalysis>();
 }

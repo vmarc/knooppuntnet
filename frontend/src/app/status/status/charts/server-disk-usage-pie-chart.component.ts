@@ -36,9 +36,9 @@ import { PieChartModule } from '@swimlane/ngx-charts';
   imports: [PieChartModule],
 })
 export class ServerDiskUsagePieChartComponent {
-  title = input<string | undefined>();
-  data = input<NameValue[] | undefined>();
-  total = input<string | undefined>();
+  title = input.required<string>();
+  data = input.required<NameValue[]>();
+  total = input.required<string>();
 
   view: [number, number] = [100, 100];
 

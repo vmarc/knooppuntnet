@@ -23,5 +23,5 @@ import { LocationRouteTableComponent } from './location-route-table.component';
   imports: [LocationRouteTableComponent],
 })
 export class LocationRoutesComponent {
-  page = input<LocationRoutesPage | undefined>();
+  page = input.required<LocationRoutesPage>();
 }

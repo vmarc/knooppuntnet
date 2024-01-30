@@ -34,9 +34,9 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   imports: [FactNameComponent, IconHappyComponent, IconInvestigateComponent],
 })
 export class FactCommaListComponent {
-  title = input<string | undefined>();
-  facts = input<Fact[] | undefined>();
-  icon = input<string | undefined>();
+  title = input.required<string>();
+  facts = input.required<Fact[]>();
+  icon = input.required<string>();
 
   hasFacts(): boolean {
     return this.facts() && this.facts().length > 0;

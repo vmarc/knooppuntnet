@@ -35,7 +35,7 @@ export class ChangeSetNetworkAction {
   imports: [ChangesSetElementRefsComponent, NetworkTypeIconComponent, RouterLink],
 })
 export class ChangesSetNetworkComponent {
-  changeSetNetworkAction = input<ChangeSetNetworkAction | undefined>();
+  changeSetNetworkAction = input.required<ChangeSetNetworkAction>();
 
   domain() {
     if (this.changeSetNetworkAction().network.country) {

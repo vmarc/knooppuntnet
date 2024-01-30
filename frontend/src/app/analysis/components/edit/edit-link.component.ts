@@ -16,7 +16,7 @@ import { EditService } from './edit.service';
   standalone: true,
 })
 export class EditLinkComponent implements OnInit {
-  title = input<string | undefined>();
+  title = input.required<string>();
   @Output() edit = new EventEmitter<void>();
 
   linkTitle: string;

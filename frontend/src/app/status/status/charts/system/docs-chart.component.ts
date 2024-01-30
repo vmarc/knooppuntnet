@@ -41,8 +41,8 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
   imports: [ActionBarChartComponent, LineChartModule],
 })
 export class DocsChartComponent {
-  barChart = input<BarChart | undefined>();
-  xAxisLabel = input<string | undefined>();
+  barChart = input.required<BarChart>();
+  xAxisLabel = input.required<string>();
 
   view: [number, number] = [700, 300];
 

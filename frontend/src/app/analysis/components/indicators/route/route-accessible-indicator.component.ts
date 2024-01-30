@@ -25,8 +25,8 @@ import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indi
   imports: [IndicatorComponent],
 })
 export class RouteAccessibleIndicatorComponent implements OnInit {
-  accessible = input<boolean | undefined>();
-  networkType = input<NetworkType | undefined>();
+  accessible = input.required<boolean>();
+  networkType = input.required<NetworkType>();
 
   private readonly dialog = inject(MatDialog);
   color: string;

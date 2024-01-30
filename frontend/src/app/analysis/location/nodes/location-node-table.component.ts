@@ -152,9 +152,9 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   // TODO !!!
   networkScope: NetworkScope = NetworkScope.regional;
 
-  timeInfo = input<TimeInfo | undefined>();
-  nodes = input<LocationNodeInfo[] | undefined>();
-  nodeCount = input<number | undefined>();
+  timeInfo = input.required<TimeInfo>();
+  nodes = input.required<LocationNodeInfo[]>();
+  nodeCount = input.required<number>();
 
   @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 

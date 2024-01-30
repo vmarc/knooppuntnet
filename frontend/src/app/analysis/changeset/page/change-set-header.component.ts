@@ -80,7 +80,7 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
   imports: [ChangeSetAnalysisComponent, OsmLinkChangeSetComponent, TimestampComponent],
 })
 export class ChangeSetHeaderComponent {
-  page = input<ChangeSetPage | undefined>();
+  page = input.required<ChangeSetPage>();
 
   replicationName() {
     return Util.replicationName(this.page().summary.key.replicationNumber);

@@ -111,9 +111,9 @@ import { LocationFlatNode } from './location-flat-node';
   imports: [MatButtonModule, MatIconModule, MatRadioModule, MatTreeModule, NgClass],
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {
-  networkType = input<NetworkType | undefined>();
-  country = input<Country | undefined>();
-  locationNode = input<LocalLocationNode | undefined>();
+  networkType = input.required<NetworkType>();
+  country = input.required<Country>();
+  locationNode = input.required<LocalLocationNode>();
 
   @Output() selection = new EventEmitter<string>();
 

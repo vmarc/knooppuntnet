@@ -3,9 +3,6 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { input } from '@angular/core';
-import { Bounds } from '@api/common';
-import { NetworkType } from '@api/custom';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
@@ -32,10 +29,6 @@ import { LocationMapService } from './location-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class LocationMapComponent implements AfterViewInit, OnDestroy {
-  networkType = input<NetworkType | undefined>();
-  bounds = input<Bounds | undefined>();
-  geoJson = input<string | undefined>();
-
   protected readonly service = inject(LocationMapService);
   private readonly store = inject(Store);
 

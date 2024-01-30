@@ -67,10 +67,10 @@ import { map } from 'rxjs/operators';
   ],
 })
 export class ChangeHeaderComponent {
-  changeKey = input<ChangeKey | undefined>();
-  happy = input<boolean | undefined>();
-  investigate = input<boolean | undefined>();
-  comment = input<string | undefined>();
+  changeKey = input.required<ChangeKey>();
+  happy = input.required<boolean>();
+  investigate = input.required<boolean>();
+  comment = input.required<string>();
 
   private readonly pageWidthService = inject(PageWidthService);
   protected timestampOnSameLine$: Observable<boolean>;

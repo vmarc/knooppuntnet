@@ -92,7 +92,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   ],
 })
 export class LocationFactsComponent {
-  locationFacts = input<LocationFact[] | undefined>();
+  locationFacts = input.required<LocationFact[]>();
 
   private readonly editService = inject(EditService);
 

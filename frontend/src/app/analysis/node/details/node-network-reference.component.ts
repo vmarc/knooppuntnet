@@ -20,7 +20,7 @@ import { IconNetworkLinkComponent } from '@app/components/shared/link';
   imports: [IconNetworkLinkComponent],
 })
 export class NodeNetworkReferenceComponent {
-  nodeInfo = input<NodeInfo | undefined>();
-  reference = input<Reference | undefined>();
-  mixedNetworkScopes = input<boolean | undefined>();
+  nodeInfo = input.required<NodeInfo>();
+  reference = input.required<Reference>();
+  mixedNetworkScopes = input.required<boolean>();
 }
