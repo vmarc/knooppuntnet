@@ -70,12 +70,7 @@ import { NetworkRoutesService } from './network-routes.service';
       </ng-container>
 
       <ng-container matColumnDef="symbol">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          i18n="@@network-routes.table.symbol"
-        >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.symbol">
           Symbol
         </th>
         <td mat-cell *matCellDef="let route" class="symbol">

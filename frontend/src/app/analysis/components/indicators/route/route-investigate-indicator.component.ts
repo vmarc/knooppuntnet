@@ -10,7 +10,7 @@ import { RouteInvestigateIndicatorDialogComponent } from './route-investigate-in
 @Component({
   selector: 'kpn-route-investigate-indicator',
   changeDetection: ChangeDetectionStrategy.OnPush,
- template: `
+  template: `
     <kpn-indicator
       letter="F"
       i18n-letter="@@route-investigate-indicator.letter"

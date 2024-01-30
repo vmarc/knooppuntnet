@@ -78,12 +78,7 @@ import { NetworkNodesService } from './network-nodes.service';
       </ng-container>
 
       <ng-container matColumnDef="node">
-        <th
-          [attr.rowspan]="2"
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@network-nodes.table.node"
-        >
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.node">
           Node
         </th>
         <td mat-cell *matCellDef="let node">
@@ -92,12 +87,7 @@ import { NetworkNodesService } from './network-nodes.service';
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th
-          [attr.rowspan]="2"
-          mat-header-cell
-          *matHeaderCellDef
-          i18n="@@network-nodes.table.name"
-        >
+        <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.name">
           Name
         </th>
         <td mat-cell *matCellDef="let node">
@@ -115,9 +105,7 @@ import { NetworkNodesService } from './network-nodes.service';
       </ng-container>
 
       <ng-container matColumnDef="routes-actual">
-        <th mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes.actual">
-          Actual
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.routes.actual">Actual</th>
         <td mat-cell *matCellDef="let node">
           <kpn-network-node-routes [node]="node" />
         </td>

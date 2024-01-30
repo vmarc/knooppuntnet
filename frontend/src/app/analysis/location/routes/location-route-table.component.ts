@@ -57,9 +57,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       </ng-container>
 
       <ng-container matColumnDef="analysis">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.analysis">
-          Analysis
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.analysis">Analysis</th>
         <td mat-cell *matCellDef="let route">
           <kpn-location-route-analysis [route]="route" [networkType]="networkType()" />
         </td>
@@ -86,18 +84,14 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       </ng-container>
 
       <ng-container matColumnDef="distance">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.distance">
-          Distance
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.distance">Distance</th>
         <td mat-cell *matCellDef="let route">
           <div class="distance">{{ (route.meters | integer) + ' m' }}</div>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="last-survey">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.last-survey">
-          Survey
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.last-survey">Survey</th>
         <td mat-cell *matCellDef="let route">
           {{ route.lastSurvey | day }}
         </td>
