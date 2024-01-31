@@ -13,11 +13,11 @@ case class StructureElement(
 ) {
 
   def startNodeId: Long = {
-    fragments.head.startNode.id
+    fragments.head.startNodeId
   }
 
   def endNodeId: Long = {
-    fragments.last.endNode.id
+    fragments.last.endNodeId
   }
 
   def isLoop: Boolean = {
@@ -45,7 +45,7 @@ case class StructureElement(
   }
 
   def string: String = {
-    val endNodeIds = fragments.map(_.endNode.id)
+    val endNodeIds = fragments.map(_.endNodeId)
     val nodeString = startNodeId.toString + endNodeIds.mkString(">", ">", "")
     val directionString = direction match {
       case None => ""

@@ -80,7 +80,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
       addBidirectionalFragment()
     }
     else {
-      val calculatedEndNodeId = currentElementFragments.lastOption.map(_.endNode.id) match {
+      val calculatedEndNodeId = currentElementFragments.lastOption.map(_.endNodeId) match {
         case None => elements.lastOption.map(_.endNodeId)
         case Some(endNodeId) => Some(endNodeId)
       }
@@ -89,13 +89,13 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
       calculatedEndNodeId match {
         case Some(endNodeId) =>
           if (endNodeId == contextCurrentWayMember.startNode.id) {
-            val fragment = StructureFragment(contextCurrentWayMember.way)
+            val fragment = StructureFragment.from(contextCurrentWayMember.way)
             lastForwardFragment = Some(fragment)
             lastBackwardFragment = Some(fragment)
             currentElementFragments.addOne(fragment)
           }
           else if (endNodeId == contextCurrentWayMember.endNode.id) {
-            val fragment = StructureFragment(contextCurrentWayMember.way, reversed = true)
+            val fragment = StructureFragment.from(contextCurrentWayMember.way, reversed = true)
             lastForwardFragment = Some(fragment)
             lastBackwardFragment = Some(fragment)
             currentElementFragments.addOne(fragment)
@@ -150,7 +150,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     connectingNodeId match {
       case None =>
         if (traceEnabled) trace(s"  current way does not connect to next way")
-        val fragment = StructureFragment(contextCurrentWayMember.way)
+        val fragment = StructureFragment.from(contextCurrentWayMember.way)
         lastForwardFragment = Some(fragment)
         lastBackwardFragment = Some(fragment)
         currentElementFragments.addOne(fragment)
@@ -159,13 +159,13 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
 
       case Some(nodeId) =>
         if (nodeId == contextCurrentWayMember.way.nodes.last.id) {
-          val fragment = StructureFragment(contextCurrentWayMember.way)
+          val fragment = StructureFragment.from(contextCurrentWayMember.way)
           lastForwardFragment = Some(fragment)
           lastBackwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
         }
         else {
-          val fragment = StructureFragment(contextCurrentWayMember.way, reversed = true)
+          val fragment = StructureFragment.from(contextCurrentWayMember.way, reversed = true)
           lastForwardFragment = Some(fragment)
           lastBackwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
@@ -179,8 +179,8 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
       println("---")
       println(s"contextCurrentWayMember.startNode=${contextCurrentWayMember.startNode.id}")
       println(s"contextCurrentWayMember.endNode=${contextCurrentWayMember.endNode.id}")
-      println(s"lastForwardFragment.endNode=${lastForwardFragment.map(_.endNode.id)}")
-      println(s"lastBackwardFragment.endNode=${lastBackwardFragment.map(_.endNode.id)}")
+      println(s"lastForwardFragment.endNode=${lastForwardFragment.map(_.endNodeId)}")
+      println(s"lastBackwardFragment.endNode=${lastBackwardFragment.map(_.endNodeId)}")
     }
 
     val downEndNodeId = elements.findLast(_.direction.contains(ElementDirection.Down)).map(_.endNodeId)
@@ -210,7 +210,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     }
     calculatedEndNodeId match {
       case None =>
-        val fragment = StructureFragment(contextCurrentWayMember.way)
+        val fragment = StructureFragment.from(contextCurrentWayMember.way)
         lastForwardFragment = Some(fragment)
         lastBackwardFragment = Some(fragment)
         currentElementFragments.addOne(fragment)
@@ -218,20 +218,20 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
       case Some(endNodeId) =>
 
         if (contextCurrentWayMember.startNode.id == endNodeId) {
-          val fragment = StructureFragment(contextCurrentWayMember.way)
+          val fragment = StructureFragment.from(contextCurrentWayMember.way)
           lastForwardFragment = Some(fragment)
           lastBackwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
         }
         else if (contextCurrentWayMember.endNode.id == endNodeId) {
-          val fragment = StructureFragment(contextCurrentWayMember.way, reversed = true)
+          val fragment = StructureFragment.from(contextCurrentWayMember.way, reversed = true)
           lastForwardFragment = Some(fragment)
           lastBackwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
         }
         else {
           finalizeCurrentGroup()
-          val fragment = StructureFragment(contextCurrentWayMember.way)
+          val fragment = StructureFragment.from(contextCurrentWayMember.way)
           lastForwardFragment = Some(fragment)
           lastBackwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
@@ -271,7 +271,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
         }
     }
 
-    val fragment = StructureFragment(
+    val fragment = StructureFragment.from(
       contextCurrentWayMember.way,
       // direction = Some(Direction.Backward),
       reversed = contextCurrentWayMember.hasRoleBackward
@@ -285,8 +285,8 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
         throw new Exception("illegal state??")
 
       case Some(previousFragment) =>
-        if (contextCurrentWayMember.startNode.id == previousFragment.endNode.id) {
-          val fragment = StructureFragment(contextCurrentWayMember.way)
+        if (contextCurrentWayMember.startNode.id == previousFragment.endNodeId) {
+          val fragment = StructureFragment.from(contextCurrentWayMember.way)
           lastForwardFragment = Some(fragment)
           currentElementFragments.addOne(fragment)
         }
@@ -294,12 +294,12 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
           currentElementFragments.headOption match {
             case None => finalizeCurrentGroup()
             case Some(firstFragmentInElement) =>
-              if (contextCurrentWayMember.endNode.id == firstFragmentInElement.startNode.id) {
+              if (contextCurrentWayMember.endNode.id == firstFragmentInElement.startNodeId) {
                 // switch
                 finalizeCurrentElement()
                 elementDirection = Some(ElementDirection.Up)
                 val reversed = contextCurrentWayMember.hasRoleBackward
-                val fragment = StructureFragment(contextCurrentWayMember.way, reversed)
+                val fragment = StructureFragment.from(contextCurrentWayMember.way, reversed)
                 currentElementFragments.addOne(fragment)
                 // addFragmentReversed(contextCurrentWayMember)
               }
@@ -315,9 +315,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     findPreviousFragment() match {
       case None => throw new Exception("illegal state?")
       case Some(previousFragment) =>
-        if (contextCurrentWayMember.endNode.id == previousFragment.startNode.id) {
+        if (contextCurrentWayMember.endNode.id == previousFragment.startNodeId) {
           val reversed = contextCurrentWayMember.hasRoleBackward
-          val fragment = StructureFragment(contextCurrentWayMember.way, reversed)
+          val fragment = StructureFragment.from(contextCurrentWayMember.way, reversed)
           currentElementFragments.addOne(fragment)
           // addFragmentReversed(contextCurrentWayMember)
         }
@@ -327,11 +327,11 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
               finalizeCurrentGroup()
             case Some(firstFragmentInElement) =>
               // TODO following lines probably not ok
-              if (contextCurrentWayMember.endNode.id == firstFragmentInElement.startNode.id) {
+              if (contextCurrentWayMember.endNode.id == firstFragmentInElement.startNodeId) {
                 // switch
                 finalizeCurrentElement()
                 elementDirection = Some(ElementDirection.Down)
-                val fragment = StructureFragment(contextCurrentWayMember.way)
+                val fragment = StructureFragment.from(contextCurrentWayMember.way)
                 lastBackwardFragment = Some(fragment)
                 currentElementFragments.addOne(fragment)
               }
