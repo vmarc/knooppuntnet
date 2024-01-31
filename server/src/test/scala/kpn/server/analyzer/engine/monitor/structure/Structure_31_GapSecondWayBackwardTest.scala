@@ -33,7 +33,12 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
   }
 
   test("structure") {
-    pending
-    setup.structure()
+    val structure = setup.structure()
+    structure.shouldMatchTo(
+      TestStructure(
+        forwardPath = None,
+        backwardPath = None,
+      )
+    )
   }
 }

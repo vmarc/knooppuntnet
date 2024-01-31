@@ -31,7 +31,24 @@ class Structure_22_ContinuousSecondAndThirdWayReversedTest extends UnitTest {
   }
 
   test("structure") {
-    pending
-    setup.structure()
+    val structure = setup.structure()
+    structure.shouldMatchTo(
+      TestStructure(
+        forwardPath = Some(
+          TestStructurePath(
+            startNodeId = 1,
+            endNodeId = 7,
+            nodeIds = Seq(1, 2, 3, 4, 5, 6, 7)
+          )
+        ),
+        backwardPath = Some(
+          TestStructurePath(
+            startNodeId = 7,
+            endNodeId = 1,
+            nodeIds = Seq(7, 6, 5, 4, 3, 2, 1)
+          )
+        )
+      )
+    )
   }
 }

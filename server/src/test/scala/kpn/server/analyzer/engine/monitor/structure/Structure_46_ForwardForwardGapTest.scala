@@ -49,7 +49,12 @@ class Structure_46_ForwardForwardGapTest extends UnitTest {
   }
 
   test("structure") {
-    pending
-    setup.structure()
+    val structure = setup.structure()
+    structure.shouldMatchTo(
+      TestStructure(
+        forwardPath = None,
+        backwardPath = None
+      )
+    )
   }
 }

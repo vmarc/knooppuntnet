@@ -7,10 +7,10 @@ class Structure_44_ForwardBackwardTest extends UnitTest {
   private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2)
     memberWay(12, "forward", 2, 3)
-    memberWay(13, "forward", 3, 8)
-    memberWay(14, "backward", 2, 7)
-    memberWay(15, "forward", 8, 7)
-    memberWay(16, "", 8, 9)
+    memberWay(13, "forward", 3, 5)
+    memberWay(14, "backward", 2, 4)
+    memberWay(15, "forward", 5, 4)
+    memberWay(16, "", 5, 6)
   }.build
 
   test("reference") {
@@ -31,16 +31,33 @@ class Structure_44_ForwardBackwardTest extends UnitTest {
       Seq(
         Seq(
           "1>2",
-          "2>3>8 (Down)",
-          "8>7>2 (Up)",
-          "8>9",
+          "2>3>5 (Down)",
+          "5>4>2 (Up)",
+          "5>6"
         )
       )
     )
   }
 
   test("structure") {
-    pending
-    setup.structure()
+    val structure = setup.structure()
+    structure.shouldMatchTo(
+      TestStructure(
+        forwardPath = Some(
+          TestStructurePath(
+            startNodeId = 1,
+            endNodeId = 6,
+            nodeIds = Seq(1, 2, 3, 5, 6)
+          )
+        ),
+        backwardPath = Some(
+          TestStructurePath(
+            startNodeId = 6,
+            endNodeId = 1,
+            nodeIds = Seq(6, 5, 4, 2, 1)
+          )
+        )
+      )
+    )
   }
 }

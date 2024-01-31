@@ -6,14 +6,22 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
 
   def analyze(relation: Relation): Structure = {
     val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled)
-    val forwardPath = analyzeForwardPath(elementGroups)
-    val backwardPath = analyzeBackwardPath(elementGroups)
-
-    Structure(
-      forwardPath,
-      backwardPath,
-      Seq.empty
-    )
+    if (elementGroups.size != 1) {
+      Structure(
+        None,
+        None,
+        Seq.empty
+      )
+    }
+    else {
+      val forwardPath = analyzeForwardPath(elementGroups)
+      val backwardPath = analyzeBackwardPath(elementGroups)
+      Structure(
+        forwardPath,
+        backwardPath,
+        Seq.empty
+      )
+    }
   }
 
   private def analyzeForwardPath(elementGroups: Seq[StructureElementGroup]): Option[StructurePath] = {
