@@ -5,10 +5,10 @@ import kpn.core.util.UnitTest
 
 class Structure_52_RoundaboutRoundaboutTest extends UnitTest {
 
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWayWithTags(11, "", Tags.from("junction" -> "roundabout"), 1, 2, 3, 4, 1)
     memberWayWithTags(12, "", Tags.from("junction" -> "roundabout"), 3, 4, 5, 6, 3)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(

@@ -4,11 +4,11 @@ import kpn.core.util.UnitTest
 
 class Structure_22_ContinuousSecondAndThirdWayReversedTest extends UnitTest {
 
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2, 3)
     memberWay(12, "", 5, 4, 3)
     memberWay(13, "", 7, 6, 5)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(

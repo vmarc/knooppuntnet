@@ -4,14 +4,14 @@ import kpn.core.util.UnitTest
 
 class Structure_45_ForwardForwardTest extends UnitTest {
 
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2)
     memberWay(12, "forward", 2, 3)
     memberWay(13, "forward", 3, 8)
     memberWay(14, "forward", 7, 2)
     memberWay(15, "forward", 8, 7)
     memberWay(16, "", 8, 9)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(

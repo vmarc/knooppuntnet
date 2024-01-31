@@ -5,9 +5,9 @@ import kpn.core.util.UnitTest
 
 class Structure_05_SingleWayRoundaboutNotALoopTest extends UnitTest {
 
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWayWithTags(11, "", Tags.from("junction" -> "roundabout"), 1, 2, 3, 4)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(

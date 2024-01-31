@@ -5,10 +5,10 @@ import kpn.core.util.UnitTest
 class Structure_14_DerivedDirectionBackwardTest extends UnitTest {
 
   // direction of first way derived from second way - second way backward
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2, 3)
     memberWay(12, "backward", 5, 4, 3)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(
@@ -43,9 +43,9 @@ class Structure_14_DerivedDirectionBackwardTest extends UnitTest {
         ),
         backwardPath = Some(
           TestStructurePath(
-            startNodeId = 5,
+            startNodeId = 3,
             endNodeId = 1,
-            nodeIds = Seq(5, 4, 3, 2, 1)
+            nodeIds = Seq(3, 2, 1)
           )
         ),
       )

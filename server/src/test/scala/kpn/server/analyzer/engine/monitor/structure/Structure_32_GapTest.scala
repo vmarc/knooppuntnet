@@ -4,12 +4,12 @@ import kpn.core.util.UnitTest
 
 class Structure_32_GapTest extends UnitTest {
 
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2, 3)
     memberWay(12, "", 3, 4, 5)
     // gap
     memberWay(13, "", 6, 7, 8)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(

@@ -4,9 +4,9 @@ import kpn.core.util.UnitTest
 
 class Structure_01_SingleWayBidirectionalTest extends UnitTest {
 
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2, 3)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(

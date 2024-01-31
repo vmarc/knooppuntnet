@@ -5,10 +5,10 @@ import kpn.core.util.UnitTest
 class Structure_31_GapSecondWayBackwardTest extends UnitTest {
 
   // direction of first way derived from second way - second way backward - no connection
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2, 3)
     memberWay(12, "backward", 3, 4, 5)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(

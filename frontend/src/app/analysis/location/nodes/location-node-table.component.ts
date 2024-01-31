@@ -97,18 +97,14 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       </ng-container>
 
       <ng-container matColumnDef="last-survey">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-survey">
-          Survey
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-survey">Survey</th>
         <td mat-cell *matCellDef="let node">
           {{ node.lastSurvey | day }}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="lastEdit">
-        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-edit">
-          Last edit
-        </th>
+        <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-edit">Last edit</th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
           <kpn-day [timestamp]="node.lastUpdated" />
           <kpn-josm-node [nodeId]="node.id" />

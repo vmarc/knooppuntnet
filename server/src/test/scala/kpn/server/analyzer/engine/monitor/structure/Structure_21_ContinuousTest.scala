@@ -4,11 +4,11 @@ import kpn.core.util.UnitTest
 
 class Structure_21_ContinuousTest extends UnitTest {
 
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2, 3)
     memberWay(12, "", 3, 4, 5)
     memberWay(13, "", 5, 6, 7)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(

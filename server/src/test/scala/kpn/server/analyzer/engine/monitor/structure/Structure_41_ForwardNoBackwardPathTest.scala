@@ -4,10 +4,10 @@ import kpn.core.util.UnitTest
 
 class Structure_41_ForwardNoBackwardPathTest extends UnitTest {
 
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "forward", 1, 2)
     memberWay(12, "", 3, 2)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(

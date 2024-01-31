@@ -6,22 +6,20 @@ object TestStructure {
   def from(structure: Structure): TestStructure = {
     val forwardPath: Option[TestStructurePath] = {
       structure.forwardPath.map { path =>
-        val nodeIds = path.elements.flatMap(_.nodeIds)
         TestStructurePath(
           path.startNodeId,
           path.endNodeId,
-          nodeIds
+          path.nodeIds
         )
       }
     }
 
     val backwardPath: Option[TestStructurePath] = {
       structure.backwardPath.map { path =>
-        val nodeIds = path.elements.flatMap(_.nodeIds)
         TestStructurePath(
           path.startNodeId,
           path.endNodeId,
-          nodeIds
+          path.nodeIds
         )
       }
     }

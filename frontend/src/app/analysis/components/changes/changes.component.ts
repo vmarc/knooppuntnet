@@ -15,7 +15,7 @@ import { PaginatorComponent } from '@app/components/shared/paginator';
       [checked]="impact()"
       (change)="onImpactChanged($event)"
       i18n="@@changes.impact"
-    >Impact
+      >Impact
     </mat-slide-toggle>
 
     <kpn-paginator

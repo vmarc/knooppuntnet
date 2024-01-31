@@ -20,9 +20,9 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
     elementGroups.headOption.flatMap { firstElementGroup =>
       val elements = firstElementGroup.elements.filter { element =>
         element.direction match {
-          case None => true
           case Some(ElementDirection.Down) => true
           case Some(ElementDirection.Up) => false
+          case _ => true
         }
       }
       elements.headOption match {
@@ -31,11 +31,14 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
           elements.lastOption match {
             case None => None
             case Some(lastElement) =>
+              val structurePathElements = elements.map { element =>
+                StructurePathElement(element, reversed = false)
+              }
               Some(
                 StructurePath(
                   firstElement.startNodeId,
                   lastElement.endNodeId,
-                  elements
+                  structurePathElements
                 )
               )
           }
@@ -47,25 +50,27 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
     elementGroups.lastOption.flatMap { lastElementGroup =>
       val elements = lastElementGroup.elements.reverse.filter { element =>
         element.direction match {
-          case None => true
           case Some(ElementDirection.Up) => true
           case Some(ElementDirection.Down) => false
+          case _ => true
         }
       }
-      elements.lastOption match {
-        case None => None
-        case Some(firstElement) =>
-          elements.lastOption match {
-            case None => None
-            case Some(lastElement) =>
-              Some(
-                StructurePath(
-                  firstElement.endNodeId,
-                  lastElement.startNodeId,
-                  elements.reverse
-                )
-              )
-          }
+      if (elements.isEmpty) {
+        None
+      }
+      else {
+        val structurePathElements = elements.map { element =>
+          StructurePathElement(element, reversed = true)
+        }
+        val startNodeId = structurePathElements.head.nodeIds.head
+        val endNodeId = structurePathElements.last.nodeIds.last
+        Some(
+          StructurePath(
+            startNodeId,
+            endNodeId,
+            structurePathElements
+          )
+        )
       }
     }
   }

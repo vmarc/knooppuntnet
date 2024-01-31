@@ -4,7 +4,7 @@ import kpn.core.util.UnitTest
 
 class Structure_46_ForwardForwardGapTest extends UnitTest {
 
-  private def setup = new StructureTestSetup() {
+  private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2)
     memberWay(12, "forward", 2, 3)
     memberWay(13, "forward", 3, 8)
@@ -14,7 +14,7 @@ class Structure_46_ForwardForwardGapTest extends UnitTest {
     //
     memberWay(17, "", 10, 11)
     memberWay(18, "", 11, 12)
-  }
+  }.build
 
   test("reference") {
     setup.reference().shouldMatchTo(
