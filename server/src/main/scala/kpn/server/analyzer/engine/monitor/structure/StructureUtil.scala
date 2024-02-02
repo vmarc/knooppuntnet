@@ -12,7 +12,7 @@ object StructureUtil {
 
     val startIndex = reducedNodeIds.indexOf(startNodeId)
     if (startIndex >= 0) {
-      Some(reducedNodeIds.drop(startIndex) ++ reducedNodeIds.takeWhile(_ != startNodeId))
+      Some(reducedNodeIds.drop(startIndex) ++ reducedNodeIds.takeWhile(_ != startNodeId) :+ startNodeId)
     }
     else {
       None

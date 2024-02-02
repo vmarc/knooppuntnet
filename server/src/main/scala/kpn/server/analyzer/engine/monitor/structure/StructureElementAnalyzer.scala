@@ -118,21 +118,124 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
   }
 
   private def processRoundabout(): Unit = {
-    val calculatedStartNodeId = currentElementFragments.lastOption.map(_.endNodeId) match {
-      case None => elements.lastOption.map(_.endNodeId)
-      case Some(endNodeId) => Some(endNodeId)
-    }
+    val calculatedStartNodeId = lastForwardFragment.map(_.endNodeId)
 
     calculatedStartNodeId match {
       case None =>
-        throw new Exception("The roundabout is the first fragment of the current element: decide how to handle")
-      // TODO look ahead at the next way member for a connection
+        contextNextWayMember match {
+          case None =>
+            // The roundabout is the first fragment of the current element and there is no next element
+
+            val nodeIds = contextCurrentWayMember.way.nodes.map(_.id)
+
+            val forwardFragment = StructureFragment(contextCurrentWayMember.way, nodeIds)
+            lastForwardFragment = Some(forwardFragment)
+            val forwardElement = StructureElement.from(Seq(forwardFragment), Some(ElementDirection.Down))
+            elements.addOne(forwardElement)
+
+            val backwardFragment = StructureFragment(contextCurrentWayMember.way, nodeIds.reverse)
+            lastBackwardFragment = Some(backwardFragment)
+            val backwardElement = StructureElement.from(Seq(backwardFragment), Some(ElementDirection.Up))
+            elements.addOne(backwardElement)
+
+          case Some(nextWayMember) =>
+
+            // The roundabout is the first fragment of the current element
+
+            val connectingNodeIds1 = contextCurrentWayMember.way.nodes.map(_.id)
+
+            val connectingNodeIds2 = if (nextWayMember.way.tags.has("junction", "roundabout")) {
+              nextWayMember.way.nodes.map(_.id)
+            }
+            else {
+              if (nextWayMember.hasRoleForward) {
+                Seq(nextWayMember.way.nodes.head.id)
+              }
+              else if (nextWayMember.hasRoleBackward) {
+                Seq(nextWayMember.way.nodes.last.id)
+              }
+              else {
+                // bidirectional fragment
+                Seq(
+                  nextWayMember.way.nodes.head.id,
+                  nextWayMember.way.nodes.last.id
+                )
+              }
+            }
+
+            val connectingNodeId = connectingNodeIds1.flatMap { nodeId1 =>
+              connectingNodeIds2
+                .filter(nodeId2 => nodeId1 == nodeId2)
+                .headOption
+            }.headOption
+
+            connectingNodeId match {
+              case None =>
+
+                if (traceEnabled) {
+                  trace(s"  current roundabout way does not connect to next way")
+                }
+
+                finalizeCurrentElement()
+                val nodeIds = contextCurrentWayMember.way.nodes.map(_.id)
+
+                val forwardFragment = StructureFragment(contextCurrentWayMember.way, nodeIds)
+                lastForwardFragment = Some(forwardFragment)
+                val forwardElement = StructureElement.from(Seq(forwardFragment), Some(ElementDirection.Down))
+                elements.addOne(forwardElement)
+
+                val backwardFragment = StructureFragment(contextCurrentWayMember.way, nodeIds.reverse)
+                lastBackwardFragment = Some(backwardFragment)
+                val backwardElement = StructureElement.from(Seq(backwardFragment), Some(ElementDirection.Up))
+                elements.addOne(backwardElement)
+
+              case Some(nodeId) =>
+
+                finalizeCurrentElement()
+                val wayNodeIds = contextCurrentWayMember.way.nodes.map(_.id)
+                // TODO for walking routes, should choose shortest path here instead of adding both forward and backward element
+                StructureUtil.roundaboutNodeIds(wayNodeIds.head, nodeId, wayNodeIds) match {
+                  case None => throw new Exception("internal error TODO better message")
+                  case Some(nodeIds) =>
+                    val forwardFragment = StructureFragment(contextCurrentWayMember.way, nodeIds)
+                    lastForwardFragment = Some(forwardFragment)
+                    val element = StructureElement.from(Seq(forwardFragment), Some(ElementDirection.Down))
+                    elements.addOne(element)
+                }
+
+                StructureUtil.roundaboutNodeIds(nodeId, wayNodeIds.head, wayNodeIds) match {
+                  case None => throw new Exception("internal error TODO better message")
+                  case Some(nodeIds) =>
+                    val backwardFragment = StructureFragment(contextCurrentWayMember.way, nodeIds)
+                    lastBackwardFragment = Some(backwardFragment)
+                    val element = StructureElement.from(Seq(backwardFragment), Some(ElementDirection.Up))
+                    elements.addOne(element)
+                }
+            }
+        }
+
       case Some(startNodeId) =>
 
         contextNextWayMember match {
           case None =>
-            throw new Exception("The roundabout is the last element in the relation: decide how to handle")
-          // TODO create and add fragment from the entire roundabout?
+
+            val wayNodeIds = contextCurrentWayMember.way.nodes.map(_.id)
+            StructureUtil.roundaboutNodeIds(startNodeId, wayNodeIds) match {
+              case None =>
+                throw new Exception("internal error TODO better message")
+              case Some(nodeIds) =>
+
+                finalizeCurrentElement()
+                val forwardFragment = StructureFragment(contextCurrentWayMember.way, nodeIds)
+                lastForwardFragment = Some(forwardFragment)
+                val forwardElement = StructureElement.from(Seq(forwardFragment), Some(ElementDirection.Down))
+                elements.addOne(forwardElement)
+
+                val backwardFragment = StructureFragment(contextCurrentWayMember.way, nodeIds.reverse)
+                lastBackwardFragment = Some(backwardFragment)
+                val element = StructureElement.from(Seq(backwardFragment), Some(ElementDirection.Up))
+                elements.addOne(element)
+            }
 
           case Some(nextWayMember) =>
 

@@ -18,11 +18,11 @@ class Structure_04_SingleWayRoundaboutLoopTest extends UnitTest {
   }
 
   test("elements") {
-    pending
     setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
-          "1>1" // TODO correct?
+          "1>1 (Down)",
+          "1>1 (Up)",
         )
       )
     )

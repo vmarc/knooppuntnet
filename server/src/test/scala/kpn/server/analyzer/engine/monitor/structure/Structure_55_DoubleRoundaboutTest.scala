@@ -24,14 +24,15 @@ class Structure_55_DoubleRoundaboutTest extends UnitTest {
   }
 
   test("elements") {
-    pending
     setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
-          "1>3>3", // TODO
-        ),
-        Seq(
-          "5>7",
+          "1>3",
+          "3>5 (Down)",
+          "5>3 (Up)",
+          "5>9 (Down)",
+          "9>5 (Up)",
+          "9>11",
         ),
       )
     )
@@ -52,7 +53,7 @@ class Structure_55_DoubleRoundaboutTest extends UnitTest {
           TestStructurePath(
             startNodeId = 11,
             endNodeId = 1,
-            nodeIds = Seq(11, 10, 9, 8, 5, 3, 2, 1)
+            nodeIds = Seq(11, 10, 9, 8, 5, 6, 3, 2, 1)
           )
         )
       )

@@ -20,18 +20,36 @@ class Structure_53_WayRoundaboutTest extends UnitTest {
   }
 
   test("elements") {
-    pending
     setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
-          "1>3>3", // TODO
+          "1>3",
+          "3>3 (Down)",
+          "3>3 (Up)",
         ),
       )
     )
   }
 
   test("structure") {
-    pending
-    setup.structure()
+    val structure = setup.structure()
+    structure.shouldMatchTo(
+      TestStructure(
+        forwardPath = Some(
+          TestStructurePath(
+            startNodeId = 1,
+            endNodeId = 3,
+            nodeIds = Seq(1, 2, 3, 4, 5, 6, 3)
+          )
+        ),
+        backwardPath = Some(
+          TestStructurePath(
+            startNodeId = 3,
+            endNodeId = 1,
+            nodeIds = Seq(3, 6, 5, 4, 3, 2, 1)
+          )
+        )
+      )
+    )
   }
 }
