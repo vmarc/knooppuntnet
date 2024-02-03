@@ -5,7 +5,7 @@ import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 
 class StructureAnalyzerTest extends UnitTest {
 
-  ignore("case study") {
+  test("case study") {
     val relation = CaseStudy.load("/case-studies/monitor/4840541.xml")
     println(s"relation.members.size=${relation.members.size}")
     val elementGroups = StructureElementAnalyzer.analyze(relation.members)

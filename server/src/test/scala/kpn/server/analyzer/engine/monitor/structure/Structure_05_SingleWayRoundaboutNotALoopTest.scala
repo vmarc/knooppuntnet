@@ -22,7 +22,6 @@ class Structure_05_SingleWayRoundaboutNotALoopTest extends UnitTest {
       Seq(
         Seq(
           "1>4 (Down)",
-          "4>1 (Up)",
         )
       )
     )
@@ -39,13 +38,7 @@ class Structure_05_SingleWayRoundaboutNotALoopTest extends UnitTest {
             nodeIds = Seq(1, 2, 3, 4)
           )
         ),
-        backwardPath = Some(
-          TestStructurePath(
-            startNodeId = 4,
-            endNodeId = 1,
-            nodeIds = Seq(4, 3, 2, 1)
-          )
-        )
+        backwardPath = None
       )
     )
   }
