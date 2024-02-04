@@ -6,5 +6,5 @@ import org.locationtech.jts.geom.LineString
 case class MonitorRouteSegmentData(
   id: Int,
   segment: MonitorRouteSegment,
-  lineString: LineString
+  lineStrings: Seq[LineString]
 )

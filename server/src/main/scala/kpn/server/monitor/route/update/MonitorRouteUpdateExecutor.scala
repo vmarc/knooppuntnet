@@ -39,7 +39,6 @@ import org.springframework.context.annotation.Scope
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
 
-import scala.collection.immutable.Seq
 import scala.xml.XML
 
 @Component
@@ -665,7 +664,7 @@ class MonitorRouteUpdateExecutor(
           val analysis = monitorRouteOsmSegmentAnalyzer.analyze(wayMembers)
 
           val geomFactory = new GeometryFactory
-          val geometryCollection = new GeometryCollection(analysis.routeSegments.map(_.lineString).toArray, geomFactory)
+          val geometryCollection = new GeometryCollection(analysis.routeSegments.flatMap(_.lineStrings).toArray, geomFactory)
           val geoJsonWriter = new GeoJsonWriter()
           geoJsonWriter.setEncodeCRS(false)
           val geometry = geoJsonWriter.write(geometryCollection)

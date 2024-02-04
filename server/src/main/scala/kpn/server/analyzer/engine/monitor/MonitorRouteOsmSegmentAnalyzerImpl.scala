@@ -2,14 +2,12 @@ package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.data.WayMember
 import kpn.api.common.monitor.MonitorRouteSegment
-import kpn.api.custom.NetworkType
 import kpn.core.util.Haversine
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
-import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
-import kpn.server.analyzer.engine.analysis.route.segment.MonitorSegmentBuilder
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteOsmSegmentAnalysis
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
+import kpn.server.analyzer.engine.monitor.structure.ElementDirection
+import kpn.server.analyzer.engine.monitor.structure.StructureElementAnalyzer
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
@@ -22,40 +20,48 @@ class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyze
 
   def analyze(wayMembers: Seq[WayMember]): MonitorRouteOsmSegmentAnalysis = {
 
-    val fragmentMap = new FragmentAnalyzer(Seq.empty, wayMembers).fragmentMap
+    val nodes = wayMembers.flatMap(_.way.nodes).distinct
+    val nodeMap = nodes.map(node => node.id -> new Coordinate(node.lon, node.lat)).toMap
+    val elementGroups = StructureElementAnalyzer.analyze(wayMembers, traceEnabled = true)
 
-    val segments = log.infoElapsed {
-      ("segment builder", new MonitorSegmentBuilder(NetworkType.hiking, fragmentMap, pavedUnpavedSplittingEnabled = false).segments(fragmentMap.ids))
-    }
+    val routeSegments = elementGroups.zipWithIndex.map { case (elementGroup, index) =>
+      val lineStrings = elementGroup.elements.map { element =>
+        val coordinates = element.nodeIds.flatMap(nodeMap.get)
+        geometryFactory.createLineString(coordinates.toArray)
+      }
 
-    val filteredSegments = segments.filterNot { segment =>
-      segment.fragments.forall(segmentFragment => WayAnalyzer.isRoundabout(segmentFragment.fragment.way))
-    }.filterNot(_.nodes.size == 1) // TODO investigate why segment with one node in route P-GR128
+      val forwardElements = elementGroup.elements.filter { element =>
+        element.direction match {
+          case Some(ElementDirection.Up) => false
+          case _ => true
+        }
+      }
+      val startNodeId = forwardElements.head.startNodeId
+      val endNodeId = forwardElements.last.endNodeId
 
-    val routeSegments = filteredSegments.zipWithIndex.map { case (segment, index) =>
+      val meters = Math.round(lineStrings.map(lineString => Haversine.meters(lineString)).sum)
+      val allCoordinates = lineStrings.flatMap(lineString => lineString.getCoordinates.toSeq)
+      val bounds = MonitorRouteAnalysisSupport.toBounds(allCoordinates)
 
-      val lineString = geometryFactory.createLineString(segment.nodes.map(node => new Coordinate(node.lon, node.lat)).toArray)
-      val meters = Math.round(Haversine.meters(lineString))
-      val bounds = MonitorRouteAnalysisSupport.toBounds(lineString.getCoordinates.toSeq)
-      val geoJson = MonitorRouteAnalysisSupport.toGeoJson(lineString)
+      val geometryCollection = geometryFactory.createGeometryCollection(lineStrings.toArray)
 
-      val startNodeId = segment.fragments.headOption.map(_.startNode.id).getOrElse(0L)
-      val endNodeId = segment.fragments.lastOption.map(_.endNode.id).getOrElse(0L)
+      val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
+
+      val segment = MonitorRouteSegment(
+        id = index + 1,
+        startNodeId,
+        endNodeId,
+        meters,
+        bounds,
+        geoJson
+      )
 
       MonitorRouteSegmentData(
-        index + 1,
-        MonitorRouteSegment(
-          index + 1,
-          startNodeId,
-          endNodeId,
-          meters,
-          bounds,
-          geoJson
-        ),
-        lineString
+        id = index + 1,
+        segment,
+        lineStrings
       )
     }
-
     val osmDistance = routeSegments.map(_.segment.meters).sum
 
     MonitorRouteOsmSegmentAnalysis(
