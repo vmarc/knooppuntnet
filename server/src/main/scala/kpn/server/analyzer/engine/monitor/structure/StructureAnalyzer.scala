@@ -44,8 +44,8 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
               }
               Some(
                 StructurePath(
-                  firstElement.startNodeId,
-                  lastElement.endNodeId,
+                  firstElement.forwardStartNodeId,
+                  lastElement.forwardEndNodeId,
                   structurePathElements
                 )
               )

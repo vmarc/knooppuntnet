@@ -12,16 +12,24 @@ case class StructureElement(
   direction: Option[ElementDirection.Value]
 ) {
 
-  def startNodeId: Long = {
+  def forwardStartNodeId: Long = {
     fragments.head.forwardStartNodeId
   }
 
-  def endNodeId: Long = {
+  def forwardEndNodeId: Long = {
     fragments.last.forwardEndNodeId
   }
 
+  def backwardStartNodeId: Long = {
+    fragments.head.backwardStartNodeId
+  }
+
+  def backwardEndNodeId: Long = {
+    fragments.last.backwardEndNodeId
+  }
+
   def isLoop: Boolean = {
-    startNodeId == endNodeId
+    forwardStartNodeId == forwardEndNodeId
   }
 
   def nodeIds: Seq[Long] = {
@@ -36,12 +44,24 @@ case class StructureElement(
   }
 
   def string: String = {
-    val endNodeIds = fragments.map(_.forwardEndNodeId)
-    val nodeString = startNodeId.toString + endNodeIds.mkString(">", ">", "")
-    val directionString = direction match {
-      case None => ""
-      case Some(string) => s" ($string)"
+
+    direction match {
+      case Some(ElementDirection.Up) =>
+        val endNodeIds = fragments.map(_.backwardEndNodeId)
+        val nodeString = backwardStartNodeId.toString + endNodeIds.mkString(">", ">", "")
+        val directionString = direction match {
+          case None => ""
+          case Some(string) => s" ($string)"
+        }
+        nodeString + directionString
+      case _ =>
+        val endNodeIds = fragments.map(_.forwardEndNodeId)
+        val nodeString = forwardStartNodeId.toString + endNodeIds.mkString(">", ">", "")
+        val directionString = direction match {
+          case None => ""
+          case Some(string) => s" ($string)"
+        }
+        nodeString + directionString
     }
-    nodeString + directionString
   }
 }

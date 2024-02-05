@@ -36,8 +36,8 @@ class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyze
           case _ => true
         }
       }
-      val startNodeId = forwardElements.head.startNodeId
-      val endNodeId = forwardElements.last.endNodeId
+      val startNodeId = forwardElements.head.forwardStartNodeId
+      val endNodeId = forwardElements.last.forwardEndNodeId
 
       val meters = Math.round(lineStrings.map(lineString => Haversine.meters(lineString)).sum)
       val allCoordinates = lineStrings.flatMap(lineString => lineString.getCoordinates.toSeq)
