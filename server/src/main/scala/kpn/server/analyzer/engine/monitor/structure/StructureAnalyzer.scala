@@ -68,7 +68,8 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
       }
       else {
         val structurePathElements = elements.map { element =>
-          StructurePathElement(element, reversed = true)
+          val reversed = element.direction.isEmpty
+          StructurePathElement(element, reversed)
         }
         val startNodeId = structurePathElements.head.nodeIds.head
         val endNodeId = structurePathElements.last.nodeIds.last

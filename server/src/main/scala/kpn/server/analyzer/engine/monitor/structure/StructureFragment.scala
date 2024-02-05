@@ -2,25 +2,35 @@ package kpn.server.analyzer.engine.monitor.structure
 
 import kpn.api.common.data.Way
 
-object StructureFragment {
-  def from(way: Way, reversed: Boolean = false): StructureFragment = {
-    val nodes = if (reversed) way.nodes.reverse else way.nodes
-    val nodeIds = nodes.map(_.id)
-    StructureFragment(way, nodeIds)
-  }
-}
+case class StructureFragment(way: Way, bidirectional: Boolean, nodeIds: Seq[Long]) {
 
-case class StructureFragment(way: Way, nodeIds: Seq[Long]) {
-
-  def startNodeId: Long = {
+  def forwardStartNodeId: Long = {
     nodeIds.head
   }
 
-  def endNodeId: Long = {
+  def forwardEndNodeId: Long = {
     nodeIds.last
   }
 
+  def backwardStartNodeId: Long = {
+    if (bidirectional) {
+      nodeIds.last
+    }
+    else {
+      nodeIds.head
+    }
+  }
+
+  def backwardEndNodeId: Long = {
+    if (bidirectional) {
+      nodeIds.head
+    }
+    else {
+      nodeIds.last
+    }
+  }
+
   def string: String = {
-    s"(${way.id}) $startNodeId>$endNodeId"
+    s"(${way.id}) $forwardStartNodeId${if (bidirectional) "<>" else ">"}$forwardEndNodeId"
   }
 }

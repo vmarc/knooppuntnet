@@ -15,7 +15,7 @@ class StructurePathTest extends UnitTest {
       element = StructureElement(
         id = 1,
         fragments = Seq(
-          StructureFragment.from(way)
+          StructureFragment(way, bidirectional = true, way.nodes.map(_.id))
         ),
         direction = None,
       ),

@@ -13,11 +13,11 @@ case class StructureElement(
 ) {
 
   def startNodeId: Long = {
-    fragments.head.startNodeId
+    fragments.head.forwardStartNodeId
   }
 
   def endNodeId: Long = {
-    fragments.last.endNodeId
+    fragments.last.forwardEndNodeId
   }
 
   def isLoop: Boolean = {
@@ -25,15 +25,6 @@ case class StructureElement(
   }
 
   def nodeIds: Seq[Long] = {
-    if (direction.contains(ElementDirection.Up)) {
-      fragmentNodeIds.reverse
-    }
-    else {
-      fragmentNodeIds
-    }
-  }
-
-  private def fragmentNodeIds: Seq[Long] = {
     fragments.zipWithIndex.flatMap { case (fragment, index) =>
       if (index == 0) {
         fragment.nodeIds
@@ -45,7 +36,7 @@ case class StructureElement(
   }
 
   def string: String = {
-    val endNodeIds = fragments.map(_.endNodeId)
+    val endNodeIds = fragments.map(_.forwardEndNodeId)
     val nodeString = startNodeId.toString + endNodeIds.mkString(">", ">", "")
     val directionString = direction match {
       case None => ""

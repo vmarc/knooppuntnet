@@ -7,6 +7,14 @@ class StructureTestSetup(val data: Data) {
 
   def elementGroups(traceEnabled: Boolean = false): Seq[Seq[String]] = {
     val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled)
+    if (traceEnabled) {
+      println("\nResult:")
+      elementGroups.zipWithIndex.map { case (elementGroup, groupIndex) =>
+        elementGroup.elements.zipWithIndex.foreach { case (element, elementIndex) =>
+          println(s"  group=${groupIndex + 1}, element=${elementIndex + 1}: ${element.string}")
+        }
+      }
+    }
     elementGroups.map(_.elements.map(_.string))
   }
 

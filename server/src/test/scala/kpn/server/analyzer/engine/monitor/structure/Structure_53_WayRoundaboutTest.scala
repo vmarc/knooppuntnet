@@ -46,7 +46,7 @@ class Structure_53_WayRoundaboutTest extends UnitTest {
           TestStructurePath(
             startNodeId = 3,
             endNodeId = 1,
-            nodeIds = Seq(3, 6, 5, 4, 3, 2, 1)
+            nodeIds = Seq(3, 4, 5, 6, 3, 2, 1)
           )
         )
       )

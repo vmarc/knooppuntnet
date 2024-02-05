@@ -32,8 +32,8 @@ object MonitorUpdateTool {
                 }
               }
               val tool = new MonitorUpdateTool(database, overpassQueryExecutor)
-              // tool.testUpdate("NL-LAW", "LAW-3")
-              tool.update()
+              tool.testUpdate("A", "EV1")
+              // tool.update()
             }
             ("update completed", ())
           }
