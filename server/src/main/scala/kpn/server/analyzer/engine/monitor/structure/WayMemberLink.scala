@@ -15,7 +15,6 @@ object WayMemberLink {
   }
 }
 
-
 case class WayMemberLink(
   wayMember: WayMember,
   next: Option[WayMemberLink]
