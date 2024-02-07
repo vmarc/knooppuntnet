@@ -4,6 +4,7 @@ import kpn.api.common.data.Member
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.monitor.structure.reference.WayInfo
+import kpn.server.analyzer.engine.monitor.structure.reference.WayInfoAnalyzer
 
 import java.util.Collections
 import java.util.stream.Collectors.toUnmodifiableList
@@ -15,8 +16,8 @@ class ReferenceStructureAnalyzer(traceEnabled: Boolean = false) {
 
   def analyze(relation: Relation): Seq[String] = {
     val referenceRelation = buildReferenceRelation(relation)
-    val calculator = new kpn.server.analyzer.engine.monitor.structure.reference.WayInfoCalculator(referenceRelation, referenceRelation.getMembers(), traceEnabled)
-    calculator.calculate().asScala.toSeq.zipWithIndex.map { case (wayInfo, index) => s"${index + 1} ${wayInfoString(wayInfo)}" }
+    val analyzer = new WayInfoAnalyzer(referenceRelation, referenceRelation.getMembers(), traceEnabled)
+    analyzer.analyze().asScala.toSeq.zipWithIndex.map { case (wayInfo, index) => s"${index + 1} ${wayInfoString(wayInfo)}" }
   }
 
   private def buildReferenceRelation(relation: Relation): kpn.server.analyzer.engine.monitor.structure.reference.Relation = {

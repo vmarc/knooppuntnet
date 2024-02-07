@@ -9,7 +9,7 @@ import java.util.List;
 import static java.util.stream.Collectors.joining;
 import static kpn.server.analyzer.engine.monitor.structure.reference.WayInfo.Direction.*;
 
-public class WayInfoCalculator {
+public class WayInfoAnalyzer {
 
     private final boolean traceEnabled;
     private final Relation relation;
@@ -22,27 +22,27 @@ public class WayInfoCalculator {
     private int firstGroupIdx;
     private int logIndent;
 
-    public WayInfoCalculator(final Relation relation, final List<Member> members, final boolean traceEnabled) {
+    public WayInfoAnalyzer(final Relation relation, final List<Member> members, final boolean traceEnabled) {
         this.traceEnabled = traceEnabled;
         this.relation = relation;
         this.members = members;
         this.wayInfos = new ArrayList<>(Collections.nCopies(members.size(), null));
     }
 
-    public List<WayInfo> calculate() {
+    public List<WayInfo> analyze() {
         firstGroupIdx = 0;
         lastForwardWayMemberIndex = UNCONNECTED;
         lastBackwardWayMemberIndex = UNCONNECTED;
         onewayBeginning = false;
         WayInfo previousWayInfo = null;
         for (int memberIndex = 0; memberIndex < members.size(); memberIndex++) {
-            previousWayInfo = calculateMember(previousWayInfo, memberIndex);
+            previousWayInfo = processMember(previousWayInfo, memberIndex);
         }
         makeLoopIfNeeded(members.size() - 1);
         return wayInfos;
     }
 
-    private WayInfo calculateMember(
+    private WayInfo processMember(
             final WayInfo previousWayInfo,
             final int memberIndex
     ) {
@@ -51,9 +51,9 @@ public class WayInfoCalculator {
         if (member.isWay()) {
             memberInfo = member.getWay().toString();
         }
-        logFunctionStart("calculateMember(memberIndex=%d) role=\"%s\", %s", memberIndex, member.getRole(), memberInfo);
+        logFunctionStart("processMember(memberIndex=%d) role=\"%s\", %s", memberIndex, member.getRole(), memberInfo);
         try {
-            WayInfo wayInfo = calculateNextWayInfo(previousWayInfo, memberIndex, member);
+            final WayInfo wayInfo = processNextWayInfo(previousWayInfo, memberIndex, member);
             if (!wayInfo.linkedToPreviousMember) {
                 log("not linked to previous member");
                 if (memberIndex > 0) {
@@ -64,6 +64,7 @@ public class WayInfoCalculator {
             return wayInfo;
         } finally {
             logFunctionEnd();
+            log("---");
         }
     }
 
@@ -71,14 +72,14 @@ public class WayInfoCalculator {
         return !m.isWay() || m.getWay() == null;
     }
 
-    private WayInfo calculateNextWayInfo(
+    private WayInfo processNextWayInfo(
             final WayInfo previousWayInfo,
             final int currentMemberIndex,
             final Member currentMember
     ) {
-        logFunctionStart("calculateNextWayInfo(currentMemberIndex=%d)", currentMemberIndex);
+        logFunctionStart("processNextWayInfo(currentMemberIndex=%d)", currentMemberIndex);
         try {
-            WayInfo wayInfo = new WayInfo(false);
+            final WayInfo wayInfo = new WayInfo(false);
 
             // MV the value of linkedToPreviousMember is not necessarily correct after following statement
             //      will be true if there is a previous member even if there is no connection with that member!
