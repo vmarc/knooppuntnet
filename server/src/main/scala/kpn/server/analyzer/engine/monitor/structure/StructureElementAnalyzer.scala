@@ -33,41 +33,44 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
   private var lastUpFragment: Option[StructureFragment] = None
 
   def analyze(): Seq[StructureElementGroup] = {
-    Triplet.slide(wayMembers).zipWithIndex.foreach { case (triplet, index) =>
+
+    val links = WayMemberLink.from(wayMembers)
+
+    links.zipWithIndex.foreach { case (link, index) =>
       if (traceEnabled) {
-        trace(s"${index + 1} way ${triplet.current.way.id} role=${triplet.current.role}")
+        trace(s"${index + 1} way ${link.wayMember.way.id} role=${link.wayMember.role}")
       }
-      processWayMember(triplet)
+      processWayMember(link)
     }
     finalizeCurrentGroup()
     elementGroups.toSeq
   }
 
-  private def processWayMember(triplet: Triplet[WayMember]): Unit = {
+  private def processWayMember(link: WayMemberLink): Unit = {
 
-    if (isClosedLoop(triplet.current)) {
-      processClosedLoop(triplet)
+    if (isClosedLoop(link.wayMember)) {
+      processClosedLoop(link)
     }
-    else if (triplet.current.isUnidirectional || triplet.current.isRoundabout /* TODO different for hiking routes? */ ) {
-      processUnidirectionalWay(triplet)
+    else if (link.wayMember.isUnidirectional || link.wayMember.isRoundabout /* TODO different for hiking routes? */ ) {
+      processUnidirectionalWay(link)
     }
     else {
-      processBidirectionalWay(triplet)
+      processBidirectionalWay(link)
     }
   }
 
-  private def processUnidirectionalWay(triplet: Triplet[WayMember]): Unit = {
+  private def processUnidirectionalWay(link: WayMemberLink): Unit = {
     elementDirection match {
       case Some(ElementDirection.Down) =>
-        processNextUnidirectionalWayDown(triplet)
+        processNextUnidirectionalWayDown(link)
       case Some(ElementDirection.Up) =>
-        processNextUnidirectionalWayUp(triplet)
+        processNextUnidirectionalWayUp(link)
       case _ =>
-        processFirstUnidirectionalWay(triplet)
+        processFirstUnidirectionalWay(link)
     }
   }
 
-  private def processBidirectionalWay(triplet: Triplet[WayMember]): Unit = {
+  private def processBidirectionalWay(link: WayMemberLink): Unit = {
     if (elementDirection.nonEmpty) {
       if (traceEnabled) {
         trace(s"  first way after unidirectional element")
@@ -75,63 +78,63 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
 
       finalizeCurrentElement()
       elementDirection = None
-      addBidirectionalFragment(triplet)
+      addBidirectionalFragment(link)
     }
     else {
       val calculatedEndNodeId = lastDownFragment.map(_.forwardEndNodeId)
 
       calculatedEndNodeId match {
         case Some(endNodeId) =>
-          if (endNodeId == triplet.current.startNode.id) {
-            addBidirectionalFragment(triplet.current)
+          if (endNodeId == link.wayMember.startNode.id) {
+            addBidirectionalFragment(link.wayMember)
           }
-          else if (endNodeId == triplet.current.endNode.id) {
-            addBidirectionalFragment(triplet.current, reversed = true)
+          else if (endNodeId == link.wayMember.endNode.id) {
+            addBidirectionalFragment(link.wayMember, reversed = true)
           }
           else {
             // no connection
             finalizeCurrentGroup()
-            addBidirectionalFragment(triplet)
+            addBidirectionalFragment(link)
           }
 
         case None =>
           // first fragment of this element, look at the next way for connection
-          addBidirectionalFragment(triplet)
+          addBidirectionalFragment(link)
       }
     }
   }
 
-  private def processClosedLoop(triplet: Triplet[WayMember]): Unit = {
+  private def processClosedLoop(link: WayMemberLink): Unit = {
 
-    if (triplet.next.isEmpty) {
-      processClosedLoopAtEndOfRoute(triplet)
+    if (link.next.isEmpty) {
+      processClosedLoopAtEndOfRoute(link)
     }
     else {
 
       lastDownFragment.map(_.forwardEndNodeId) match {
         case None =>
 
-          triplet.next match {
+          link.next match {
             case None =>
               throw new Exception("illegal state")
 
-            case Some(nextWayMember) =>
-              val connectingNodeIds1 = triplet.current.way.nodes.map(_.id).dropRight(1)
-              val connectingNodeIds2 = if (isClosedLoop(nextWayMember)) {
-                nextWayMember.way.nodes.map(_.id).dropRight(1)
+            case Some(nextLink) =>
+              val connectingNodeIds1 = link.wayMember.way.nodes.map(_.id).dropRight(1)
+              val connectingNodeIds2 = if (isClosedLoop(nextLink.wayMember)) {
+                nextLink.wayMember.way.nodes.map(_.id).dropRight(1)
               }
               else {
-                if (nextWayMember.hasRoleForward) {
-                  Seq(nextWayMember.way.nodes.head.id)
+                if (nextLink.wayMember.hasRoleForward) {
+                  Seq(nextLink.wayMember.way.nodes.head.id)
                 }
-                else if (nextWayMember.hasRoleBackward) {
-                  Seq(nextWayMember.way.nodes.last.id)
+                else if (nextLink.wayMember.hasRoleBackward) {
+                  Seq(nextLink.wayMember.way.nodes.last.id)
                 }
                 else {
                   // bidirectional fragment
                   Seq(
-                    nextWayMember.way.nodes.head.id,
-                    nextWayMember.way.nodes.last.id
+                    nextLink.wayMember.way.nodes.head.id,
+                    nextLink.wayMember.way.nodes.last.id
                   )
                 }
               }
@@ -150,44 +153,44 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
                   }
 
                   finalizeCurrentElement()
-                  val nodeIds = triplet.current.way.nodes.map(_.id)
-                  addDownElement(triplet.current, nodeIds)
+                  val nodeIds = link.wayMember.way.nodes.map(_.id)
+                  addDownElement(link.wayMember, nodeIds)
 
                 case Some(endNodeId) =>
 
                   finalizeCurrentElement()
-                  val wayNodeIds = triplet.current.way.nodes.map(_.id)
+                  val wayNodeIds = link.wayMember.way.nodes.map(_.id)
                   // TODO for walking routes, should choose shortest path here instead of adding both forward and backward element
                   StructureUtil.closedLoopNodeIds(wayNodeIds.head, endNodeId, wayNodeIds) match {
                     case None => throw new Exception("internal error TODO better message")
                     case Some(nodeIds) =>
-                      addDownElement(triplet.current, nodeIds)
+                      addDownElement(link.wayMember, nodeIds)
                   }
               }
           }
         case Some(startNodeId) =>
 
-          triplet.next match {
+          link.next match {
             case None =>
-              processClosedLoopAtEndOfRoute(triplet)
+              processClosedLoopAtEndOfRoute(link)
 
-            case Some(nextWayMember) =>
-              val connectingNodeIds1 = triplet.current.way.nodes.map(_.id).dropRight(1)
-              val connectingNodeIds2 = if (isClosedLoop(nextWayMember)) {
-                nextWayMember.way.nodes.map(_.id)
+            case Some(nextLink) =>
+              val connectingNodeIds1 = link.wayMember.way.nodes.map(_.id).dropRight(1)
+              val connectingNodeIds2 = if (isClosedLoop(nextLink.wayMember)) {
+                nextLink.wayMember.way.nodes.map(_.id)
               }
               else {
-                if (nextWayMember.hasRoleForward) {
-                  Seq(nextWayMember.way.nodes.head.id)
+                if (nextLink.wayMember.hasRoleForward) {
+                  Seq(nextLink.wayMember.way.nodes.head.id)
                 }
-                else if (nextWayMember.hasRoleBackward) {
-                  Seq(nextWayMember.way.nodes.last.id)
+                else if (nextLink.wayMember.hasRoleBackward) {
+                  Seq(nextLink.wayMember.way.nodes.last.id)
                 }
                 else {
                   // bidirectional fragment
                   Seq(
-                    nextWayMember.way.nodes.head.id,
-                    nextWayMember.way.nodes.last.id
+                    nextLink.wayMember.way.nodes.head.id,
+                    nextLink.wayMember.way.nodes.last.id
                   )
                 }
               }
@@ -207,18 +210,18 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
                   }
 
                   finalizeCurrentElement()
-                  val nodeIds = triplet.current.way.nodes.map(_.id)
-                  addDownElement(triplet.current, nodeIds)
+                  val nodeIds = link.wayMember.way.nodes.map(_.id)
+                  addDownElement(link.wayMember, nodeIds)
 
                 case Some(endNodeId) =>
 
                   finalizeCurrentElement()
-                  val wayNodeIds = triplet.current.way.nodes.map(_.id)
+                  val wayNodeIds = link.wayMember.way.nodes.map(_.id)
                   // TODO for walking routes, should choose shortest path here instead of adding both forward and backward element
                   StructureUtil.closedLoopNodeIds(startNodeId, endNodeId, wayNodeIds) match {
                     case None => throw new Exception("internal error TODO better message")
                     case Some(nodeIds) =>
-                      addDownElement(triplet.current, nodeIds)
+                      addDownElement(link.wayMember, nodeIds)
                   }
               }
           }
@@ -227,27 +230,30 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
       lastUpFragment.map(_.backwardStartNodeId) match {
         case None =>
 
-          triplet.next match {
+
+
+
+          link.next match {
             case None =>
               throw new Exception("illegal state")
 
-            case Some(nextWayMember) =>
-              val connectingNodeIds1 = triplet.current.way.nodes.map(_.id).dropRight(1)
-              val connectingNodeIds2 = if (isClosedLoop(nextWayMember)) {
-                nextWayMember.way.nodes.map(_.id).dropRight(1)
+            case Some(nextLink) =>
+              val connectingNodeIds1 = link.wayMember.way.nodes.map(_.id).dropRight(1)
+              val connectingNodeIds2 = if (isClosedLoop(nextLink.wayMember)) {
+                nextLink.wayMember.way.nodes.map(_.id).dropRight(1)
               }
               else {
-                if (nextWayMember.hasRoleForward) {
-                  Seq(nextWayMember.way.nodes.head.id)
+                if (nextLink.wayMember.hasRoleForward) {
+                  Seq(nextLink.wayMember.way.nodes.head.id)
                 }
-                else if (nextWayMember.hasRoleBackward) {
-                  Seq(nextWayMember.way.nodes.last.id)
+                else if (nextLink.wayMember.hasRoleBackward) {
+                  Seq(nextLink.wayMember.way.nodes.last.id)
                 }
                 else {
                   // bidirectional fragment
                   Seq(
-                    nextWayMember.way.nodes.head.id,
-                    nextWayMember.way.nodes.last.id
+                    nextLink.wayMember.way.nodes.head.id,
+                    nextLink.wayMember.way.nodes.last.id
                   )
                 }
               }
@@ -264,45 +270,47 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
                     trace(s"  current closed loop way does not connect to next way")
                   }
                   finalizeCurrentElement()
-                  val nodeIds = triplet.current.way.nodes.map(_.id)
-                  addUpElement(triplet.current, nodeIds)
+                  val nodeIds = link.wayMember.way.nodes.map(_.id)
+                  addUpElement(link.wayMember, nodeIds)
 
                 case Some(startNodeId) =>
 
                   finalizeCurrentElement()
-                  val wayNodeIds = triplet.current.way.nodes.map(_.id)
+                  val wayNodeIds = link.wayMember.way.nodes.map(_.id)
                   // TODO for walking routes, should choose shortest path here instead of adding both forward and backward element
                   StructureUtil.closedLoopNodeIds(startNodeId, wayNodeIds.head, wayNodeIds) match {
                     case None => throw new Exception("internal error TODO better message")
                     case Some(nodeIds) =>
-                      addUpElement(triplet.current, nodeIds)
+                      addUpElement(link.wayMember, nodeIds)
                   }
               }
           }
+
+
         case Some(endNodeId) =>
 
-          triplet.next match {
+          link.next match {
             case None =>
-              processClosedLoopAtEndOfRoute(triplet)
+              processClosedLoopAtEndOfRoute(link)
 
-            case Some(nextWayMember) =>
-              val connectingNodeIds1 = triplet.current.way.nodes.map(_.id).dropRight(1)
+            case Some(nextLink) =>
+              val connectingNodeIds1 = link.wayMember.way.nodes.map(_.id).dropRight(1)
 
-              val connectingNodeIds2 = if (isClosedLoop(nextWayMember)) {
-                nextWayMember.way.nodes.map(_.id)
+              val connectingNodeIds2 = if (isClosedLoop(nextLink.wayMember)) {
+                nextLink.wayMember.way.nodes.map(_.id)
               }
               else {
-                if (nextWayMember.hasRoleForward) {
-                  Seq(nextWayMember.way.nodes.head.id)
+                if (nextLink.wayMember.hasRoleForward) {
+                  Seq(nextLink.wayMember.way.nodes.head.id)
                 }
-                else if (nextWayMember.hasRoleBackward) {
-                  Seq(nextWayMember.way.nodes.last.id)
+                else if (nextLink.wayMember.hasRoleBackward) {
+                  Seq(nextLink.wayMember.way.nodes.last.id)
                 }
                 else {
                   // bidirectional fragment
                   Seq(
-                    nextWayMember.way.nodes.head.id,
-                    nextWayMember.way.nodes.last.id
+                    nextLink.wayMember.way.nodes.head.id,
+                    nextLink.wayMember.way.nodes.last.id
                   )
                 }
               }
@@ -321,19 +329,19 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
                   }
 
                   finalizeCurrentElement()
-                  val nodeIds = triplet.current.way.nodes.map(_.id)
-                  addUpElement(triplet.current, nodeIds)
+                  val nodeIds = link.wayMember.way.nodes.map(_.id)
+                  addUpElement(link.wayMember, nodeIds)
 
                 case Some(startNodeId) =>
 
                   finalizeCurrentElement()
-                  val wayNodeIds = triplet.current.way.nodes.map(_.id)
+                  val wayNodeIds = link.wayMember.way.nodes.map(_.id)
                   // TODO for walking routes, should choose shortest path here instead of adding both forward and backward element
                   StructureUtil.closedLoopNodeIds(startNodeId, endNodeId, wayNodeIds) match {
                     case None =>
                       throw new Exception("internal error TODO better message")
                     case Some(nodeIds) =>
-                      addUpElement(triplet.current, nodeIds)
+                      addUpElement(link.wayMember, nodeIds)
                   }
               }
           }
@@ -341,75 +349,128 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     }
   }
 
-  private def processClosedLoopAtEndOfRoute(triplet: Triplet[WayMember]): Unit = {
+  private def lookRoundaboutAhead(currentWayMember: WayMember, aheadLink: WayMemberLink): Unit = {
+    aheadLink.next match {
+      case None =>
+      case Some(aheadWayMember) =>
+
+        val connectingNodeIds2 = if (isClosedLoop(aheadWayMember.wayMember)) {
+          aheadWayMember.wayMember.way.nodes.map(_.id).dropRight(1)
+        }
+        else {
+          if (aheadWayMember.wayMember.hasRoleForward) {
+            Seq(aheadWayMember.wayMember.way.nodes.head.id)
+          }
+          else if (aheadWayMember.wayMember.hasRoleBackward) {
+            Seq(aheadWayMember.wayMember.way.nodes.last.id)
+          }
+          else {
+            // bidirectional fragment
+            Seq(
+              aheadWayMember.wayMember.way.nodes.head.id,
+              aheadWayMember.wayMember.way.nodes.last.id
+            )
+          }
+        }
+
+        val connectingNodeIds1 = currentWayMember.way.nodes.map(_.id).dropRight(1)
+        val connectingNodeId = connectingNodeIds1.flatMap { nodeId1 =>
+          connectingNodeIds2
+            .filter(nodeId2 => nodeId1 == nodeId2)
+            .headOption
+        }.headOption
+
+        connectingNodeId match {
+          case None =>
+          //            lookRoundaboutAhead(currentWayMember, aheadTriplet.next)
+
+
+
+          case Some(startNodeId) =>
+
+          //            finalizeCurrentElement()
+          //            val wayNodeIds = triplet.current.way.nodes.map(_.id)
+          //            // TODO for walking routes, should choose shortest path here instead of adding both forward and backward element
+          //            StructureUtil.closedLoopNodeIds(startNodeId, wayNodeIds.head, wayNodeIds) match {
+          //              case None => throw new Exception("internal error TODO better message")
+          //              case Some(nodeIds) =>
+          //                addUpElement(triplet.current, nodeIds)
+          //            }
+        }
+
+
+    }
+  }
+
+  private def processClosedLoopAtEndOfRoute(link: WayMemberLink): Unit = {
 
     finalizeCurrentElement()
     lastDownFragment.map(_.forwardEndNodeId) match {
       case None =>
         // this closed loop is both the start and the end of the route in forward direction
-        val nodeIds = triplet.current.way.nodes.map(_.id)
-        addDownElement(triplet.current, nodeIds)
+        val nodeIds = link.wayMember.way.nodes.map(_.id)
+        addDownElement(link.wayMember, nodeIds)
 
       case Some(startNodeId) =>
 
-        val wayNodeIds = triplet.current.way.nodes.map(_.id)
+        val wayNodeIds = link.wayMember.way.nodes.map(_.id)
         StructureUtil.closedLoopNodeIds(startNodeId, wayNodeIds) match {
           case None =>
             finalizeCurrentGroup()
           case Some(nodeIds) =>
-            addDownElement(triplet.current, nodeIds)
+            addDownElement(link.wayMember, nodeIds)
         }
     }
 
     lastUpFragment.map(_.backwardStartNodeId) match {
       case None =>
         // this closed loop is both the start and the end of the route in forward direction
-        val nodeIds = triplet.current.way.nodes.map(_.id)
-        addUpElement(triplet.current, nodeIds)
+        val nodeIds = link.wayMember.way.nodes.map(_.id)
+        addUpElement(link.wayMember, nodeIds)
 
       case Some(startNodeId) =>
 
-        val wayNodeIds = triplet.current.way.nodes.map(_.id)
+        val wayNodeIds = link.wayMember.way.nodes.map(_.id)
         StructureUtil.closedLoopNodeIds(startNodeId, wayNodeIds) match {
           case None =>
             finalizeCurrentGroup()
           case Some(nodeIds) =>
-            addUpElement(triplet.current, nodeIds)
+            addUpElement(link.wayMember, nodeIds)
         }
     }
   }
 
-  private def addBidirectionalFragment(triplet: Triplet[WayMember]): Unit = {
-    triplet.next match {
-      case Some(nextWayMember) =>
-        addBidirectionalFragmentByLookingAheadAtNextWayMember(triplet, nextWayMember)
+  private def addBidirectionalFragment(link: WayMemberLink): Unit = {
+    link.next match {
+      case Some(nextLink) =>
+        addBidirectionalFragmentByLookingAheadAtNextWayMember(link, nextLink)
       case None =>
-        addLastBidirectionalFragment(triplet)
+        addLastBidirectionalFragment(link)
     }
   }
 
-  private def addBidirectionalFragmentByLookingAheadAtNextWayMember(triplet: Triplet[WayMember], nextWayMember: WayMember): Unit = {
+  private def addBidirectionalFragmentByLookingAheadAtNextWayMember(link: WayMemberLink, nextLink: WayMemberLink): Unit = {
 
     val connectingNodeIds1 = Seq(
-      triplet.current.way.nodes.last.id,
-      triplet.current.way.nodes.head.id
+      link.wayMember.way.nodes.last.id,
+      link.wayMember.way.nodes.head.id
     )
 
-    val connectingNodeIds2 = if (isClosedLoop(nextWayMember)) {
-      nextWayMember.way.nodes.map(_.id).dropRight(1)
+    val connectingNodeIds2 = if (isClosedLoop(nextLink.wayMember)) {
+      nextLink.wayMember.way.nodes.map(_.id).dropRight(1)
     }
     else {
-      if (nextWayMember.hasRoleForward) {
-        Seq(nextWayMember.way.nodes.head.id)
+      if (nextLink.wayMember.hasRoleForward) {
+        Seq(nextLink.wayMember.way.nodes.head.id)
       }
-      else if (nextWayMember.hasRoleBackward) {
-        Seq(nextWayMember.way.nodes.last.id)
+      else if (nextLink.wayMember.hasRoleBackward) {
+        Seq(nextLink.wayMember.way.nodes.last.id)
       }
       else {
         // bidirectional fragment
         Seq(
-          nextWayMember.way.nodes.head.id,
-          nextWayMember.way.nodes.last.id
+          nextLink.wayMember.way.nodes.head.id,
+          nextLink.wayMember.way.nodes.last.id
         )
       }
     }
@@ -425,15 +486,15 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
         if (traceEnabled) {
           trace(s"  current way does not connect to next way")
         }
-        addBidirectionalFragment(triplet.current)
+        addBidirectionalFragment(link.wayMember)
         finalizeCurrentGroup()
 
       case Some(nodeId) =>
-        if (nodeId == triplet.current.way.nodes.last.id) {
-          addBidirectionalFragment(triplet.current)
+        if (nodeId == link.wayMember.way.nodes.last.id) {
+          addBidirectionalFragment(link.wayMember)
         }
         else {
-          addBidirectionalFragment(triplet.current, reversed = true)
+          addBidirectionalFragment(link.wayMember, reversed = true)
         }
     }
   }
@@ -474,30 +535,30 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
   }
 
 
-  private def addLastBidirectionalFragment(triplet: Triplet[WayMember]): Unit = {
+  private def addLastBidirectionalFragment(link: WayMemberLink): Unit = {
 
     lastDownFragment match {
 
       case Some(previousForwardFragment) =>
 
-        if (triplet.current.startNode.id == previousForwardFragment.forwardEndNodeId) {
-          addBidirectionalFragment(triplet.current)
+        if (link.wayMember.startNode.id == previousForwardFragment.forwardEndNodeId) {
+          addBidirectionalFragment(link.wayMember)
         }
-        else if (triplet.current.endNode.id == previousForwardFragment.forwardEndNodeId) {
-          addBidirectionalFragment(triplet.current, reversed = true)
+        else if (link.wayMember.endNode.id == previousForwardFragment.forwardEndNodeId) {
+          addBidirectionalFragment(link.wayMember, reversed = true)
         }
         else {
           finalizeCurrentGroup()
-          addBidirectionalFragment(triplet.current)
+          addBidirectionalFragment(link.wayMember)
         }
 
       case None =>
         finalizeCurrentGroup()
-        addBidirectionalFragment(triplet.current)
+        addBidirectionalFragment(link.wayMember)
     }
   }
 
-  private def processFirstUnidirectionalWay(triplet: Triplet[WayMember]): Unit = {
+  private def processFirstUnidirectionalWay(link: WayMemberLink): Unit = {
     if (traceEnabled) {
       trace(s"  first way in unidirectional element")
     }
@@ -508,9 +569,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
 
         // the very first way member in the route is unidirectional
         // TODO does the element direction really depend on the role? or always 'Down'?
-        if (triplet.current.hasRoleForward || triplet.current.isRoundabout) {
+        if (link.wayMember.hasRoleForward || link.wayMember.isRoundabout) {
           elementDirection = Some(ElementDirection.Down)
-        } else if (triplet.current.hasRoleBackward) {
+        } else if (link.wayMember.hasRoleBackward) {
           elementDirection = Some(ElementDirection.Up)
         }
         else {
@@ -518,10 +579,10 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
         }
 
       case Some(previousElement) =>
-        if (previousElement.forwardEndNodeId == triplet.current.startNode.id) {
+        if (previousElement.forwardEndNodeId == link.wayMember.startNode.id) {
           elementDirection = Some(ElementDirection.Down)
         }
-        else if (previousElement.forwardEndNodeId == triplet.current.startNode.id) {
+        else if (previousElement.forwardEndNodeId == link.wayMember.startNode.id) {
           elementDirection = Some(ElementDirection.Up)
         }
         else {
@@ -530,14 +591,14 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
         }
     }
 
-    val nodeIds = if (triplet.current.hasRoleBackward) {
-      triplet.current.way.nodes.reverse.map(_.id)
+    val nodeIds = if (link.wayMember.hasRoleBackward) {
+      link.wayMember.way.nodes.reverse.map(_.id)
     }
     else {
-      triplet.current.way.nodes.map(_.id)
+      link.wayMember.way.nodes.map(_.id)
     }
     val fragment = StructureFragment(
-      triplet.current.way,
+      link.wayMember.way,
       bidirectional = false,
       nodeIds
     )
@@ -554,12 +615,12 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     }
   }
 
-  private def processNextUnidirectionalWayDown(triplet: Triplet[WayMember]): Unit = {
-    val nodeIds = if (triplet.current.hasRoleBackward) {
-      triplet.current.way.nodes.reverse.map(_.id)
+  private def processNextUnidirectionalWayDown(link: WayMemberLink): Unit = {
+    val nodeIds = if (link.wayMember.hasRoleBackward) {
+      link.wayMember.way.nodes.reverse.map(_.id)
     }
     else {
-      triplet.current.way.nodes.map(_.id)
+      link.wayMember.way.nodes.map(_.id)
     }
     lastDownFragment match {
       case None =>
@@ -568,7 +629,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
       case Some(previousFragment) =>
         if (nodeIds.head == previousFragment.forwardEndNodeId) {
           val fragment = StructureFragment(
-            triplet.current.way,
+            link.wayMember.way,
             bidirectional = false,
             nodeIds
           )
@@ -580,11 +641,11 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
             case None =>
               throw new Exception("what to do here?")
             case Some(previousFragment) =>
-              if (nodeIds.last == triplet.current.endNode.id) {
+              if (nodeIds.last == link.wayMember.endNode.id) {
                 finalizeCurrentElement()
                 elementDirection = Some(ElementDirection.Up)
                 val fragment = StructureFragment(
-                  triplet.current.way,
+                  link.wayMember.way,
                   bidirectional = false,
                   nodeIds
                 )
@@ -599,20 +660,20 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     }
   }
 
-  private def processNextUnidirectionalWayUp(triplet: Triplet[WayMember]): Unit = {
+  private def processNextUnidirectionalWayUp(link: WayMemberLink): Unit = {
 
-    val nodeIds = if (triplet.current.hasRoleBackward) {
-      triplet.current.way.nodes.reverse.map(_.id)
+    val nodeIds = if (link.wayMember.hasRoleBackward) {
+      link.wayMember.way.nodes.reverse.map(_.id)
     }
     else {
-      triplet.current.way.nodes.map(_.id)
+      link.wayMember.way.nodes.map(_.id)
     }
     lastUpFragment match {
       case None => throw new Exception("illegal state?")
       case Some(previousFragment) =>
         if (nodeIds.last == previousFragment.backwardStartNodeId) {
           val fragment = StructureFragment(
-            triplet.current.way,
+            link.wayMember.way,
             bidirectional = false,
             nodeIds
           )
@@ -626,7 +687,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
               if (nodeIds.head == previousFragment.forwardEndNodeId) {
                 // switch direction
                 val fragment = StructureFragment(
-                  triplet.current.way,
+                  link.wayMember.way,
                   bidirectional = false,
                   nodeIds
                 )
