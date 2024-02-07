@@ -4,7 +4,7 @@ import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
 // reproduces situation in route 5444896 (EV1 Roscoff — Morlaix)
-class Structure_72_RoundaboutParts_Test extends UnitTest {
+class Structure_72_SplitRoundabout_Test extends UnitTest {
 
   private def setup = new StructureTestSetupBuilder() {
     // before split:

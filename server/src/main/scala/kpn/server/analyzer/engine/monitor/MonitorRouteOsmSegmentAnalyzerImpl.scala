@@ -22,7 +22,15 @@ class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyze
 
     val nodes = wayMembers.flatMap(_.way.nodes).distinct
     val nodeMap = nodes.map(node => node.id -> new Coordinate(node.lon, node.lat)).toMap
-    val elementGroups = StructureElementAnalyzer.analyze(wayMembers, traceEnabled = true)
+
+    val elementGroups = try {
+      StructureElementAnalyzer.analyze(wayMembers)
+    }
+    catch {
+      case e: Exception =>
+        log.error("Could not analyze structure", e)
+        Seq.empty
+    }
 
     val routeSegments = elementGroups.zipWithIndex.map { case (elementGroup, index) =>
       val lineStrings = elementGroup.elements.map { element =>
