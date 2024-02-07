@@ -203,7 +203,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
 
   private def lookRoundaboutAhead(currentWayMember: WayMember, endNodeId: Long, aheadLink: WayMemberLink): Unit = {
     val connectingNodeIds1 = currentWayMember.way.nodes.map(_.id).dropRight(1)
-    val connectingNodeIds2 = connectableNodeIds(aheadLink.wayMember)
+    val connectingNodeIds2 = connectableNodeIdsUp(aheadLink.wayMember)
     connection(connectingNodeIds1, connectingNodeIds2) match {
       case None =>
         aheadLink.next match {
@@ -568,6 +568,27 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
       }
       else if (wayMember.hasRoleBackward) {
         Seq(wayMember.way.nodes.last.id)
+      }
+      else {
+        // bidirectional fragment
+        Seq(
+          wayMember.way.nodes.head.id,
+          wayMember.way.nodes.last.id
+        )
+      }
+    }
+  }
+
+  private def connectableNodeIdsUp(wayMember: WayMember): Seq[Long] = {
+    if (isClosedLoop(wayMember)) {
+      wayMember.way.nodes.map(_.id).dropRight(1)
+    }
+    else {
+      if (wayMember.hasRoleForward) {
+        Seq(wayMember.way.nodes.last.id)
+      }
+      else if (wayMember.hasRoleBackward) {
+        Seq(wayMember.way.nodes.head.id)
       }
       else {
         // bidirectional fragment

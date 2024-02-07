@@ -23,11 +23,11 @@ class Structure_72_RoundaboutParts_Test extends UnitTest {
     memberWay(18, "forward", 11, 7)
     memberWay(19, "forward", 10, 11)
     // continue:
-    memberWay(19, "", 10, 12)
+    memberWay(20, "", 10, 12)
   }.build
 
   test("reference") {
-    setup.reference(traceEnabled = true).shouldMatchTo(
+    setup.reference().shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
         "2    p ■   n ■   loop     fp ■   bp     head ■   tail     d forward",
@@ -37,14 +37,14 @@ class Structure_72_RoundaboutParts_Test extends UnitTest {
         "6    p ■   n ■   loop     fp ■   bp     head ■   tail     d forward",
         "7    p ■   n ■   loop     fp ■   bp     head     tail     d forward",
         "8    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
-        "9    p ■   n ■   loop     fp ■   bp     head     tail     d forward",
-        "10    p ■   n     loop     fp     bp     head     tail     d backward"
+        "9    p ■   n ■   loop     fp     bp ■   head     tail ■   d backward",
+        "10    p ■   n     loop     fp     bp     head     tail     d forward"
       )
     )
   }
 
   test("elements") {
-    setup.elementGroups(traceEnabled = true).shouldMatchTo(
+    setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
           "1>2",

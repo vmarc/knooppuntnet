@@ -16,10 +16,10 @@ class StructureAnalyzerTest extends UnitTest {
 
   test("case study 2") {
     val relation = CaseStudy.load("/case-studies/monitor/5444896.xml")
-    val wayInfos = new ReferenceStructureAnalyzer().analyze(relation)
-    wayInfos.foreach(println)
+    //  val wayInfos = new ReferenceStructureAnalyzer().analyze(relation)
+    //  wayInfos.foreach(println)
     // new StructureAnalyzer().analyze(relation)
-    val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled = true)
+    val elementGroups = StructureElementAnalyzer.analyze(relation.members)
     elementGroups.size should equal(1)
   }
 }
