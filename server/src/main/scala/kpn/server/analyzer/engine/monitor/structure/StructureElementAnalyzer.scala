@@ -128,7 +128,17 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
                 }
             }
 
-          case Some(startNodeId) =>
+          case Some(lastFragmentEndNodeId) =>
+
+            val startNodeId = if (closedLoopLink.nodeIds.contains(lastFragmentEndNodeId)) {
+              lastFragmentEndNodeId
+            }
+            else {
+              // no link to previous down fragment, start new group
+              finalizeCurrentGroup()
+              // assume first node is start node
+              closedLoopLink.nodeIds.head
+            }
 
             closedLoopLink.connection(nextLink) match {
               case None =>
@@ -155,7 +165,13 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
             val endNodeId = closedLoopLink.nodeIds.head
             lookRoundaboutAhead(closedLoopLink, endNodeId, nextLink)
 
-          case Some(endNodeId) =>
+          case Some(connectionNodeId) =>
+            val endNodeId = if (closedLoopLink.nodeIds.contains(connectionNodeId)) {
+              connectionNodeId
+            }
+            else {
+              closedLoopLink.nodeIds.head
+            }
             lookRoundaboutAhead(closedLoopLink, endNodeId, nextLink)
         }
     }
@@ -177,7 +193,8 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
         val wayNodeIds = closedLoopLink.nodeIds
         // TODO for walking routes, should choose shortest path here instead of adding both forward and backward element
         StructureUtil.closedLoopNodeIds(startNodeId, endNodeId, wayNodeIds) match {
-          case None => throw new Exception("internal error TODO better message")
+          case None =>
+            throw new Exception("internal error TODO better message")
           case Some(nodeIds) =>
             addUpElement(closedLoopLink.wayMember, nodeIds)
         }
@@ -339,7 +356,28 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
         else {
           lastUpFragment match {
             case None =>
-              throw new Exception("what to do here?")
+              // switching direction here? first time there could be an UP fragment
+              // look at start of current down element
+              currentElementFragments.headOption match {
+                case Some(firstDownFragment) =>
+                  if (firstDownFragment.forwardStartNodeId == link.endNode.id) {
+                    finalizeCurrentElement()
+                    elementDirection = Some(ElementDirection.Up)
+                    val fragment = StructureFragment(
+                      link.wayMember.way,
+                      bidirectional = false,
+                      nodeIds
+                    )
+                    currentElementFragments.addOne(fragment)
+                    lastUpFragment = Some(fragment)
+                  }
+                  else {
+                    finalizeCurrentGroup()
+                  }
+                case None =>
+                  finalizeCurrentGroup()
+              }
+
             case Some(previousFragment) =>
               if (nodeIds.last == link.endNode.id) {
                 finalizeCurrentElement()
@@ -377,7 +415,8 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
         }
         else {
           lastDownFragment match {
-            case None => throw new Exception("what to do here?")
+            case None =>
+              throw new Exception("what to do here?")
             case Some(previousFragment) =>
               if (nodeIds.head == previousFragment.forwardEndNodeId) {
                 // switch direction

@@ -2,23 +2,23 @@ package kpn.server.analyzer.engine.monitor.structure
 
 import kpn.core.util.UnitTest
 
-// reproduces situation in route 16786092 (EV1 Morlaix — Carhaix-Plouguer)
-class Structure_73_Split_Test extends UnitTest {
+// reproduces situation in route 16842517 (EV1 Mimizan Plage — Léon)
+class Structure_76_Split_Test extends UnitTest {
 
   private def setup = new StructureTestSetupBuilder() {
-    memberWay(11, "forward", 1, 2)
+    memberWay(11, "backward", 1, 2)
     memberWay(12, "forward", 2, 3)
-    memberWay(13, "backward", 1, 4)
-    memberWay(14, "backward", 4, 3)
+    memberWay(13, "forward", 4, 1)
+    memberWay(14, "forward", 3, 4)
   }.build
 
   test("reference") {
     setup.reference(traceEnabled = true).shouldMatchTo(
       Seq(
-        "1    p     n ■   loop     fp ■   bp     head ■   tail     d forward",
-        "2    p ■   n ■   loop     fp ■   bp     head     tail     d forward",
-        "3    p ■   n ■   loop     fp     bp ■   head     tail     d forward",
-        "4    p ■   n     loop     fp     bp ■   head     tail ■   d forward",
+        "1    p     n ■   loop     fp ■   bp     head     tail     d backward",
+        "2    p ■   n     loop     fp     bp ■   head     tail     d backward",
+        "3    p     n ■   loop     fp ■   bp     head     tail     d forward",
+        "4    p ■   n     loop     fp     bp ■   head     tail     d backward",
       )
     )
   }

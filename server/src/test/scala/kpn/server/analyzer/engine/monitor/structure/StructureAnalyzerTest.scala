@@ -22,7 +22,7 @@ class StructureAnalyzerTest extends UnitTest {
 
   test("case study 3") {
     val relation = CaseStudy.load("/case-studies/monitor/16786092.xml")
-    val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled = true)
+    val elementGroups = StructureElementAnalyzer.analyze(relation.members)
     elementGroups.size should equal(1)
   }
 
@@ -34,7 +34,7 @@ class StructureAnalyzerTest extends UnitTest {
 
   test("case study 5") {
     val relation = CaseStudy.load("/case-studies/monitor/16842517.xml")
-    val elementGroups = StructureElementAnalyzer.analyze(relation.members)
+    val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled = true)
     elementGroups.size should equal(1)
   }
 }
