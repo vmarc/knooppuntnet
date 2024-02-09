@@ -53,7 +53,7 @@ public class WayInfoAnalyzer {
         }
         logFunctionStart("processMember(memberIndex=%d) role=\"%s\", %s", memberIndex, member.getRole(), memberInfo);
         try {
-            final WayInfo wayInfo = processNextWayInfo(previousWayInfo, memberIndex, member);
+            final WayInfo wayInfo = processNextMember(previousWayInfo, memberIndex, member);
             if (!wayInfo.linkedToPreviousMember) {
                 log("not linked to previous member");
                 if (memberIndex > 0) {
@@ -72,12 +72,12 @@ public class WayInfoAnalyzer {
         return !m.isWay() || m.getWay() == null;
     }
 
-    private WayInfo processNextWayInfo(
+    private WayInfo processNextMember(
             final WayInfo previousWayInfo,
             final int currentMemberIndex,
             final Member currentMember
     ) {
-        logFunctionStart("processNextWayInfo(currentMemberIndex=%d)", currentMemberIndex);
+        logFunctionStart("processNextMember(currentMemberIndex=%d)", currentMemberIndex);
         try {
             final WayInfo wayInfo = new WayInfo(false);
 
@@ -94,7 +94,7 @@ public class WayInfoAnalyzer {
 
             if (wayInfo.linkedToPreviousMember) {
                 if (lastBackwardWayMemberIndex != UNCONNECTED && lastForwardWayMemberIndex != UNCONNECTED) {
-                    determineOnewayWayInfo(currentMember, currentMemberIndex, wayInfo);
+                    processOnewayMember(currentMember, currentMemberIndex, wayInfo);
                     if (!wayInfo.linkedToPreviousMember) {
                         firstGroupIdx = currentMemberIndex;
                         log("set firstGroupIndex=%d", firstGroupIdx);
@@ -102,15 +102,15 @@ public class WayInfoAnalyzer {
                 }
 
                 if (previousWayInfo != null && !Utils.isUnidirectional(currentMember)) {
-                    wayInfo.direction = determineDirectionBasedOnReference(currentMemberIndex - 1, previousWayInfo.direction, currentMemberIndex);
+                    wayInfo.direction = determineDirectionBasedOnReference(currentMemberIndex - 1, currentMemberIndex, previousWayInfo.direction);
                     // MV: here is linkedToPreviousMember corrected when it was wrongfully set to true before
                     wayInfo.linkedToPreviousMember = wayInfo.direction != NONE;
                 }
             }
 
             if (!wayInfo.linkedToPreviousMember) {
-                wayInfo.direction = determineDirectionOfFirst(currentMemberIndex, currentMember, false);
-                log("set direction=%S", wayInfo.direction.toString());
+                wayInfo.direction = determineFirstDirection(currentMemberIndex, currentMember, false);
+                log("set direction=%s", wayInfo.direction);
                 if (Utils.isUnidirectional(currentMember)) {
                     wayInfo.isOnewayLoopForwardPart = true;
                     lastForwardWayMemberIndex = currentMemberIndex;
@@ -160,9 +160,9 @@ public class WayInfoAnalyzer {
             boolean loop = false;
             if (memberIndex == firstGroupIdx) { //is primitive loop
                 log("primitive loop");
-                loop = determineDirectionBasedOnReference(memberIndex, FORWARD, memberIndex) == FORWARD;
+                loop = determineDirectionBasedOnReference(memberIndex, memberIndex, FORWARD) == FORWARD;
             } else if (memberIndex >= 0) {
-                loop = determineDirectionBasedOnReference(memberIndex, wayInfos.get(memberIndex).direction, firstGroupIdx) == wayInfos.get(firstGroupIdx).direction;
+                loop = determineDirectionBasedOnReference(memberIndex, firstGroupIdx, wayInfos.get(memberIndex).direction) == wayInfos.get(firstGroupIdx).direction;
             }
             if (loop) {
                 log("found loop");
@@ -177,87 +177,95 @@ public class WayInfoAnalyzer {
         }
     }
 
-    private Direction determineDirectionOfFirst(final int memberIndex, final Member member, final boolean reversed) {
-        logFunctionStart("determineDirectionOfFirst(memberIndex=%d, reversed=%s)", memberIndex, "" + reversed);
+    private Direction determineFirstDirection(final int memberIndex, final Member member, final boolean reversed) {
+        logFunctionStart("determineFirstDirection(memberIndex=%d, reversed=%s) there is no previous member to determine direction from", memberIndex, "" + reversed);
         try {
-            Direction result = Utils.determineRoundabout(member);
-            if (result == ROUNDABOUT_LEFT || result == ROUNDABOUT_RIGHT) {
-                log("result member is roundabout %s)", result.toString());
-                return result;
+            Direction roundaboutDirection = Utils.determineRoundabout(member);
+            if (roundaboutDirection == ROUNDABOUT_LEFT || roundaboutDirection == ROUNDABOUT_RIGHT) {
+                log("result: direction=%s)", roundaboutDirection);
+                return roundaboutDirection;
             }
 
             if (Utils.isUnidirectional(member)) {
                 if (Utils.hasRoleBackward(member) != reversed) {
-                    log("unidirectional with backward role (reversed=%s)", "" + reversed);
-                    log("result direction BACKWARD");
+                    log("result: direction=BACKWARD, oneway with backward role (reversed=%s)", "" + reversed);
                     return BACKWARD;
                 } else {
-                    log("unidirectional with forward role (reversed=%s)", "" + reversed);
-                    log("result direction FORWARD");
+                    log("result: direction FORWARD, unidirectional with forward role (reversed=%s)", "" + reversed);
                     return FORWARD;
                 }
             } else {
-                log("bidirectional way");
-                log("look ahead to next member (memberIndex=%d) to determine direction", memberIndex + 1);
-                logFunctionStart("assume direction FORWARD and see if it fits with the next member", memberIndex, "" + reversed);
+                logFunctionStart("bidirectional way, assume direction FORWARD and see if it fits with the next member", memberIndex, "" + reversed);
                 try {
-                    // MV make the current member the 'previousMember' in the next call:
-                    if (determineDirectionBasedOnReference(memberIndex, FORWARD, memberIndex + 1) != NONE) {
-                        // MV the direction of the next member could be determined if we assume this member is FORWARD, so we make this one FORWARD
-                        log("result direction FORWARD based on next member");
+                    if (determineDirectionBasedOnReference(memberIndex, memberIndex + 1, FORWARD) != NONE) {
+                        log("result: direction=FORWARD, we could make a connection to the next member");
                         return FORWARD;
                     }
                 } finally {
                     logFunctionEnd();
                 }
 
-                logFunctionStart("assume direction BACKWARD and see if it fits with the next member", memberIndex, "" + reversed);
+                logFunctionStart("bidirectional way, assume direction BACKWARD and see if it fits with the next member", memberIndex, "" + reversed);
                 try {
-                    if (determineDirectionBasedOnReference(memberIndex, BACKWARD, memberIndex + 1) != NONE) {
-                        // MV the direction of the next member could be determined if we assume this member is BACKWARD, so we make this one BACKWARD
-                        log("result direction BACKWARD based on next member");
+                    if (determineDirectionBasedOnReference(memberIndex, memberIndex + 1, BACKWARD) != NONE) {
+                        log("result: direction=BACKWARD, we could make a connection to the next member");
                         return BACKWARD;
                     }
                 } finally {
                     logFunctionEnd();
                 }
             }
-            log("result direction NONE");
+            log("result: direction=NONE");
             return NONE;
         } finally {
             logFunctionEnd();
         }
     }
 
-    private void determineOnewayWayInfo(final Member member, final int memberIndex, final WayInfo wayInfo) {
-        logFunctionStart("determineOnewayWayInfo(memberIndex=%d)", memberIndex);
+    private void processOnewayMember(final Member member, final int memberIndex, final WayInfo wayInfo) {
+        logFunctionStart("processOnewayMember(memberIndex=%d)", memberIndex);
         try {
-            Direction dirFW = determineDirectionBasedOnReference(
-                    lastForwardWayMemberIndex,
-                    wayInfos.get(lastForwardWayMemberIndex).direction,
-                    memberIndex
-            );
-            log("dirFW=%s (with reference to lastForwardWayMemberIndex=%d)", dirFW.toString(), lastForwardWayMemberIndex);
+            Direction dirFW;
+            final Direction referenceDirectionA = wayInfos.get(lastForwardWayMemberIndex).direction;
+            logFunctionStart("try direction from lastForwardWayMemberIndex=%d (direction=%s)", lastForwardWayMemberIndex, referenceDirectionA);
+            try {
+                dirFW = determineDirectionBasedOnReference(
+                        lastForwardWayMemberIndex,
+                        memberIndex,
+                        referenceDirectionA
+                );
+            } finally {
+                logFunctionEnd();
+            }
             Direction dirBW;
             if (onewayBeginning) {
                 log("onewayBeginning was true");
                 if (lastBackwardWayMemberIndex < 0) {
-                    log("lastBackwardWayMemberIndex not set");
-                    dirBW = determineDirectionBasedOnReference(
-                            firstGroupIdx,
-                            reverse(wayInfos.get(firstGroupIdx).direction),
-                            memberIndex,
-                            true /* MV !!!*/
-                    );
-                    log("dirBW=%s (with reference to firstGroupIdx=%d reversed)", dirFW.toString(), firstGroupIdx);
+                    final Direction referenceDirection = reverse(wayInfos.get(firstGroupIdx).direction);
+                    logFunctionStart("there was no previous backward way yet, try reference based on reverse direction of member at firstGroupIndex=%d (direction=%s)", firstGroupIdx, referenceDirection);
+                    try {
+                        dirBW = determineDirectionBasedOnReference(
+                                firstGroupIdx,
+                                memberIndex,
+                                referenceDirection,
+                                true /* MV !!!*/
+                        );
+                    } finally {
+                        logFunctionEnd();
+                    }
                 } else {
-                    dirBW = determineDirectionBasedOnReference(
-                            lastBackwardWayMemberIndex,
-                            wayInfos.get(lastBackwardWayMemberIndex).direction,
-                            memberIndex,
-                            true /* MV !!!*/
-                    );
-                    log("dirBW=%s (with reference to lastBackwardWayMemberIndex=%d  reversed)", dirFW.toString(), lastBackwardWayMemberIndex);
+                    final Direction referenceDirection = wayInfos.get(lastBackwardWayMemberIndex).direction;
+                    logFunctionStart("try reference based on direction of last backward member (lastBackwardWayMemberIndex=%d) (direction=%s)", lastBackwardWayMemberIndex, referenceDirection);
+                    try {
+                        dirBW = determineDirectionBasedOnReference(
+                                lastBackwardWayMemberIndex,
+                                memberIndex,
+                                referenceDirection,
+                                true /* MV !!!*/
+                        );
+                    } finally {
+                        logFunctionEnd();
+                    }
                 }
 
                 // Support split-start routes. When the current way does
@@ -278,7 +286,7 @@ public class WayInfoAnalyzer {
                     }
 
                     if (prevHead != null && !prevHead.linkedToPreviousMember) {
-                        dirBW = determineDirectionOfFirst(memberIndex, member, true);
+                        dirBW = determineFirstDirection(memberIndex, member, true);
                         prevHead.isOnewayHead = false;
                     }
                 }
@@ -287,32 +295,39 @@ public class WayInfoAnalyzer {
                     onewayBeginning = false;
                 }
             } else {
-                dirBW = determineDirectionBasedOnReference(
-                        lastBackwardWayMemberIndex,
-                        wayInfos.get(lastBackwardWayMemberIndex).direction,
-                        memberIndex,
-                        true /* MV !!! */
-                );
-                log("dirBW=%s (with reference to lastForwardWayMemberIndex=%d)", dirFW.toString(), lastForwardWayMemberIndex);
+                final Direction referenceDirection = wayInfos.get(lastBackwardWayMemberIndex).direction;
+                logFunctionStart("try reference based on direction of last backward member (lastBackwardWayMemberIndex=%d) (direction=%s)", lastBackwardWayMemberIndex, referenceDirection);
+                try {
+                    dirBW = determineDirectionBasedOnReference(
+                            lastBackwardWayMemberIndex,
+                            memberIndex,
+                            referenceDirection,
+                            true /* MV !!! */
+                    );
+                } finally {
+                    logFunctionEnd();
+                }
             }
 
             if (Utils.isUnidirectional(member)) {
                 log("unidirectional way");
                 if (dirBW != NONE) {
+                    log("update wayInfo based on dirBW");
                     wayInfo.direction = dirBW;
                     lastBackwardWayMemberIndex = memberIndex;
                     wayInfo.isOnewayLoopBackwardPart = true;
-                    log("set direction=%s", wayInfo.direction.toString());
-                    log("set lastBackwardWayMemberIndex=%d", lastBackwardWayMemberIndex);
-                    log("set isOnewayLoopBackwardPart=true");
+                    log("  set direction=%s", wayInfo.direction);
+                    log("  set lastBackwardWayMemberIndex=%d", lastBackwardWayMemberIndex);
+                    log("  set isOnewayLoopBackwardPart=true");
                 }
                 if (dirFW != NONE) {
+                    log("update wayInfo based on dirFW");
                     wayInfo.direction = dirFW;
                     lastForwardWayMemberIndex = memberIndex;
                     wayInfo.isOnewayLoopForwardPart = true;
-                    log("set direction=%s", wayInfo.direction.toString());
-                    log("set lastForwardWayMemberIndex=%d", lastForwardWayMemberIndex);
-                    log("set isOnewayLoopForwardPart=true");
+                    log("  set direction=%s", wayInfo.direction);
+                    log("  set lastForwardWayMemberIndex=%d", lastForwardWayMemberIndex);
+                    log("  set isOnewayLoopForwardPart=true");
                 }
                 // Not connected to previous
                 if (dirFW == NONE && dirBW == NONE) {
@@ -330,18 +345,35 @@ public class WayInfoAnalyzer {
 
                 if (dirFW != NONE && dirBW != NONE) { //End of oneway loop
                     log("end of oneway loop");
-                    if (memberIndex + 1 < members.size() && determineDirectionBasedOnReference(memberIndex, dirFW, memberIndex + 1) != NONE) {
-                        wayInfo.isOnewayLoopBackwardPart = false;
-                        wayInfo.direction = dirFW;
-                        log("after looking at next member:");
-                        log("  isOnewayLoopBackwardPart=false");
-                        log("  direction=%s", wayInfo.direction.toString());
+                    if (memberIndex + 1 < members.size()) {
+                        Direction dir;
+                        logFunctionStart("try connecting current member (%d) to next member (%d) based on previously determined dirFW=%s", memberIndex, memberIndex + 1, dirFW);
+                        try {
+                            dir = determineDirectionBasedOnReference(memberIndex, memberIndex + 1, dirFW);
+                        } finally {
+                            logFunctionEnd();
+                        }
+
+                        if (dir != NONE) {
+                            wayInfo.isOnewayLoopBackwardPart = false;
+                            wayInfo.direction = dirFW;
+                            log("found connection to next member:");
+                            log("  set isOnewayLoopBackwardPart=false");
+                            log("  set direction=%s", wayInfo.direction);
+                        } else {
+                            wayInfo.isOnewayLoopForwardPart = false;
+                            wayInfo.direction = dirBW;
+                            log("could not find connection to next member:");
+                            log("  set isOnewayLoopForwardPart=false");
+                            log("  set direction=%s", wayInfo.direction);
+                        }
                     } else {
+                        log("end of oneway loop, end of route (no more next members)");
                         wayInfo.isOnewayLoopForwardPart = false;
                         wayInfo.direction = dirBW;
                         log("could not derive from next member:");
-                        log("  isOnewayLoopForwardPart=false");
-                        log("  direction=%s", wayInfo.direction.toString());
+                        log("  set isOnewayLoopForwardPart=false");
+                        log("  set direction=%s", wayInfo.direction);
                     }
 
                     wayInfo.isOnewayTail = true;
@@ -369,109 +401,101 @@ public class WayInfoAnalyzer {
         return direction;
     }
 
-    private Direction determineDirectionBasedOnReference(final int referenceMemberIndex, final Direction referenceDirection, final int memberIndex) {
-        return determineDirectionBasedOnReference(referenceMemberIndex, referenceDirection, memberIndex, false);
+    private Direction determineDirectionBasedOnReference(final int memberIndex1, final int memberIndex2, final Direction referenceDirection) {
+        return determineDirectionBasedOnReference(memberIndex1, memberIndex2, referenceDirection, false);
     }
 
-    private Direction determineDirectionBasedOnReference(final int referenceMemberIndex, final Direction referenceDirection, final int memberIndex, final boolean reversed) {
-        logFunctionStart("determineDirectionBasedOnReference(referenceMemberIndex=%d, referenceDirection=%s, memberIndex=%d, reversed=%s)", referenceMemberIndex, referenceDirection.toString(), memberIndex, "" + reversed);
+    private Direction determineDirectionBasedOnReference(final int memberIndex1, final int memberIndex2, final Direction referenceDirection, final boolean reversed) {
+        logFunctionStart("determineDirectionBasedOnReference(memberIndex1=%d, memberIndex2=%d, referenceDirection=%s, reversed=%s)", memberIndex1, memberIndex2, referenceDirection, reversed);
         try {
-            if (referenceMemberIndex < 0 // MV processing the first way
-                    || referenceMemberIndex >= members.size() // MV invalid state
-            ) {
-                log("result NONE (no reference member with index %d)", referenceMemberIndex);
+            if (memberIndex1 < 0 || memberIndex1 >= members.size()) {
+                log("result: direction=NONE (invalid state: no member1 with index %d)", memberIndex1);
                 return NONE;
             }
-            if (memberIndex < 0 || memberIndex >= members.size()) {
-                log("result NONE (no member with index %d)", memberIndex);
+            if (memberIndex2 < 0 || memberIndex2 >= members.size()) {
+                log("result: direction=NONE (invalid state: no member with index %d)", memberIndex2);
                 return NONE;
             }
             if (referenceDirection == NONE) {
-                log("result NONE (cannot determine direction relative to unknown direction)");
+                log("result: direction=NONE (invalid state: cannot determine direction relative to unknown direction)");
                 return NONE;
             }
 
-            final Member referenceMember = members.get(referenceMemberIndex);
-            final Member currentMember = members.get(memberIndex);
-            Way previousWay = null;
-            Way currentWay = null;
+            final Member member1 = members.get(memberIndex1);
+            final Member member2 = members.get(memberIndex2);
+            Way way1 = null;
+            Way way2 = null;
 
-            if (referenceMember.isWay()) {
-                previousWay = referenceMember.getWay();
+            if (member1.isWay()) {
+                way1 = member1.getWay();
             }
-            if (currentMember.isWay()) {
-                currentWay = currentMember.getWay();
+            if (member2.isWay()) {
+                way2 = member2.getWay();
             }
 
-            if (previousWay == null || currentWay == null) {
-                log("result NONE (cannot determine direction if reference or current member is not way)");
+            if (way1 == null || way2 == null) {
+                log("result: direction=NONE (cannot determine direction if reference or current member is not way)");
                 return NONE;
             }
-            /* the list of nodes the way k can dock to */
-            List<Node> previousWayConnectionCandiateNodes = new ArrayList<>();
 
+            final List<Node> connectionCandidateNodes1 = new ArrayList<>();
             switch (referenceDirection) {
                 case FORWARD:
-                    previousWayConnectionCandiateNodes.add(previousWay.lastNode());
+                    connectionCandidateNodes1.add(way1.lastNode());
                     break;
                 case BACKWARD:
-                    previousWayConnectionCandiateNodes.add(previousWay.firstNode());
+                    connectionCandidateNodes1.add(way1.firstNode());
                     break;
                 case ROUNDABOUT_LEFT:
                 case ROUNDABOUT_RIGHT:
-                    previousWayConnectionCandiateNodes = previousWay.getNodes();
+                    connectionCandidateNodes1.addAll(way1.getNodes());
                     break;
                 default: // Do nothing
             }
 
-            String nodeIdsString = previousWayConnectionCandiateNodes.stream().map(node -> node.getId().toString()).collect(joining(","));
-            log("reference way candidateNodeIds: [%s]", nodeIdsString);
+            final String nodeIdsString = connectionCandidateNodes1.stream().map(node -> node.getId().toString()).collect(joining(","));
+            log("connectionCandidateNodes1: [%s]", nodeIdsString);
 
-            for (Node previousWayNode : previousWayConnectionCandiateNodes) {
-                if (Utils.determineRoundabout(members.get(memberIndex)) != NONE) {
-                    log("current member is roundabout");
-                    for (Node currentWayNode : currentWay.getNodes()) {
-                        if (previousWayNode == currentWayNode) {
-                            log("matched nodeId %d", currentWayNode.getId());
-                            return Utils.determineRoundabout(members.get(memberIndex));
+            for (Node node1 : connectionCandidateNodes1) {
+                if (Utils.determineRoundabout(members.get(memberIndex2)) != NONE) {
+                    for (Node node2 : way2.getNodes()) {
+                        if (node1 == node2) {
+                            Direction dir = Utils.determineRoundabout(members.get(memberIndex2));
+                            log("result: direction=%s, connecting node %d", dir, node2.getId());
+                            return dir;
                         }
                     }
-                    log("none of the nodes matched");
-                } else if (Utils.isUnidirectional(currentMember)) {
-                    log("current member is unidirectional");
-                    if (!reversed && previousWayNode == onewayStartNode(currentMember)) {
-                        log("previousWayNode %d matches oneway startnode", previousWayNode.getId());
-                        if (Utils.hasRoleBackward(currentMember)) {
-                            log("result BACKWARD because current member has role 'backward'");
+                } else if (Utils.isUnidirectional(member2)) {
+                    if (!reversed && node1 == onewayStartNode(member2)) {
+                        if (Utils.hasRoleBackward(member2)) {
+                            log("result: direction=BACKWARD, connecting node %d (oneway start node, backward role)", node1.getId());
                             return BACKWARD;
                         } else {
-                            log("result FORWARD because current member has role 'forward'");
+                            log("result: direction=FORWARD, connecting node %d (oneway start node, no backward role)", node1.getId());
                             return FORWARD;
                         }
                     }
-                    if (reversed && previousWayNode == onewayEndNode(currentMember)) {
-                        log("previousWayNode %d matches oneway endnode", previousWayNode.getId());
-                        if (Utils.hasRoleBackward(currentMember)) {
-                            log("result FORWARD because current member has role 'backward'");
+                    if (reversed && node1 == onewayEndNode(member2)) {
+                        if (Utils.hasRoleBackward(member2)) {
+                            log("result: direction=FORWARD, connecting node %d (oneway end node, backward role)", node1.getId());
                             return FORWARD;
                         } else {
-                            log("result BACKWARD because current member has role 'forward'");
+                            log("result: direction=BACKWARD, connecting node %d (oneway end node, no backward role)", node1.getId());
                             return BACKWARD;
                         }
                     }
                 } else {
-                    log("current member is bidirectional");
-                    if (previousWayNode == currentWay.firstNode()) {
-                        log("result FORWARD because previousWayNode %d matches currentWay first node", previousWayNode.getId());
+                    if (node1 == way2.firstNode()) {
+                        log("result: direction=FORWARD, connecting node %d (first node of bidirectional)", node1.getId());
                         return FORWARD;
                     }
-                    if (previousWayNode == currentWay.lastNode()) {
-                        log("result BACKWARD because previousWayNode %d matches currentWay last node", previousWayNode.getId());
+                    if (node1 == way2.lastNode()) {
+                        log("result: direction=FORWARD, connecting node %d (last node of bidirectional)", node1.getId());
                         return BACKWARD;
                     }
                 }
             }
-            log("result NONE because no connection found between member %d and member %d", referenceMemberIndex, memberIndex);
+            log("result: direction=NONE, no connecting node");
             return NONE;
         } finally {
             logFunctionEnd();

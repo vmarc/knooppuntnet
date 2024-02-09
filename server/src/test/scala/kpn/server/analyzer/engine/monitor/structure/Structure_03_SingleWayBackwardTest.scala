@@ -20,7 +20,7 @@ class Structure_03_SingleWayBackwardTest extends UnitTest {
     setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
-          "3>1 (Up)"
+          "3>1 (Down)"
         )
       )
     )
@@ -30,14 +30,14 @@ class Structure_03_SingleWayBackwardTest extends UnitTest {
     val structure = setup.structure()
     structure.shouldMatchTo(
       TestStructure(
-        forwardPath = None,
-        backwardPath = Some(
+        forwardPath = Some(
           TestStructurePath(
             startNodeId = 3,
             endNodeId = 1,
             nodeIds = Seq(3, 2, 1)
           )
-        )
+        ),
+        backwardPath = None
       )
     )
   }

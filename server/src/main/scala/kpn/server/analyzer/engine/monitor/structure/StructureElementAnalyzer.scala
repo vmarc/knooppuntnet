@@ -292,30 +292,28 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     }
 
     finalizeCurrentElement()
-    elements.lastOption match {
+
+    lastDownFragment match {
       case None =>
+        elementDirection = Some(ElementDirection.Down)
 
-        // the very first way member in the route is unidirectional
-        // TODO does the element direction really depend on the role? or always 'Down'?
-        if (link.hasRoleForward || link.isRoundabout) {
+      case Some(previousDownFragment) =>
+        if (previousDownFragment.forwardEndNodeId == link.startNode.id) {
           elementDirection = Some(ElementDirection.Down)
-        } else if (link.hasRoleBackward) {
-          elementDirection = Some(ElementDirection.Up)
         }
         else {
-          throw new IllegalStateException("a unidirectional wayMember should have role 'forward' or 'backward'")
-        }
-
-      case Some(previousElement) =>
-        if (previousElement.forwardEndNodeId == link.startNode.id) {
-          elementDirection = Some(ElementDirection.Down)
-        }
-        else if (previousElement.forwardEndNodeId == link.startNode.id) {
-          elementDirection = Some(ElementDirection.Up)
-        }
-        else {
-          finalizeCurrentGroup()
-          elementDirection = Some(ElementDirection.Down)
+          lastUpFragment match {
+            case None =>
+              elementDirection = Some(ElementDirection.Down)
+            case Some(previousUpFragment) =>
+              if (previousUpFragment.backwardEndNodeId == link.startNode.id) {
+                elementDirection = Some(ElementDirection.Up)
+              }
+              else {
+                finalizeCurrentGroup()
+                elementDirection = Some(ElementDirection.Down)
+              }
+          }
         }
     }
 
@@ -341,45 +339,19 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     val nodeIds = link.nodeIds
     lastDownFragment match {
       case None =>
-        throw new Exception("illegal state??")
+        throw new IllegalStateException("there should be a lastDownFragment at this point")
 
-      case Some(previousFragment) =>
-        if (nodeIds.head == previousFragment.forwardEndNodeId) {
-          val fragment = StructureFragment(
-            link.wayMember.way,
-            bidirectional = false,
-            nodeIds
-          )
-          currentElementFragments.addOne(fragment)
-          lastDownFragment = Some(fragment)
-        }
-        else {
+      case Some(previousDownFragment) =>
+
+        // look ahead at next member, if this way does not connect to the next way, then it is possibly an up fragment
+        if (!link.canConnectUpTo(link.next)) {
           lastUpFragment match {
             case None =>
-              // switching direction here? first time there could be an UP fragment
-              // look at start of current down element
-              currentElementFragments.headOption match {
-                case Some(firstDownFragment) =>
-                  if (firstDownFragment.forwardStartNodeId == link.endNode.id) {
-                    finalizeCurrentElement()
-                    elementDirection = Some(ElementDirection.Up)
-                    val fragment = StructureFragment(
-                      link.wayMember.way,
-                      bidirectional = false,
-                      nodeIds
-                    )
-                    currentElementFragments.addOne(fragment)
-                    lastUpFragment = Some(fragment)
-                  }
-                  else {
-                    finalizeCurrentGroup()
-                  }
-                case None =>
-                  finalizeCurrentGroup()
-              }
+              xxx(link, previousDownFragment)
 
-            case Some(previousFragment) =>
-              if (nodeIds.last == link.endNode.id) {
+            case Some(previousUpFragment) =>
+
+              if (previousUpFragment.backwardStartNodeId == link.endNode.id) {
                 finalizeCurrentElement()
                 elementDirection = Some(ElementDirection.Up)
                 val fragment = StructureFragment(
@@ -391,10 +363,67 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
                 lastUpFragment = Some(fragment)
               }
               else {
-                finalizeCurrentGroup()
+                xxx(link, previousDownFragment)
               }
           }
         }
+        else {
+          xxx(link, previousDownFragment)
+        }
+    }
+  }
+
+  private def xxx(link: WayMemberLink, previousDownFragment: StructureFragment) {
+    if (link.nodeIds.head == previousDownFragment.forwardEndNodeId) {
+      val fragment = StructureFragment(
+        link.wayMember.way,
+        bidirectional = false,
+        link.nodeIds
+      )
+      currentElementFragments.addOne(fragment)
+      lastDownFragment = Some(fragment)
+    }
+    else {
+      lastUpFragment match {
+        case None =>
+          // switching direction here? first time there could be an UP fragment
+          // look at start of current down element
+          currentElementFragments.headOption match {
+            case Some(firstDownFragment) =>
+              if (firstDownFragment.forwardStartNodeId == link.endNode.id) {
+                finalizeCurrentElement()
+                elementDirection = Some(ElementDirection.Up)
+                val fragment = StructureFragment(
+                  link.wayMember.way,
+                  bidirectional = false,
+                  link.nodeIds
+                )
+                currentElementFragments.addOne(fragment)
+                lastUpFragment = Some(fragment)
+              }
+              else {
+                finalizeCurrentGroup()
+              }
+            case None =>
+              finalizeCurrentGroup()
+          }
+
+        case Some(previousFragment) =>
+          if (link.nodeIds.last == link.endNode.id) {
+            finalizeCurrentElement()
+            elementDirection = Some(ElementDirection.Up)
+            val fragment = StructureFragment(
+              link.wayMember.way,
+              bidirectional = false,
+              link.nodeIds
+            )
+            currentElementFragments.addOne(fragment)
+            lastUpFragment = Some(fragment)
+          }
+          else {
+            finalizeCurrentGroup()
+          }
+      }
     }
   }
 

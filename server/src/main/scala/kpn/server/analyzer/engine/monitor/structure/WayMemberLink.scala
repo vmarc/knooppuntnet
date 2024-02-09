@@ -124,4 +124,16 @@ case class WayMemberLink(
         .headOption
     }.headOption
   }
+
+  def canConnectUpTo(otherLinkOption: Option[WayMemberLink]): Boolean = {
+    otherLinkOption match {
+      case None => false
+      case Some(otherLink) =>
+        connectableNodeIdsUp.flatMap { nodeId1 =>
+          otherLink.connectableNodeIdsUp
+            .filter(nodeId2 => nodeId1 == nodeId2)
+            .headOption
+        }.nonEmpty
+    }
+  }
 }

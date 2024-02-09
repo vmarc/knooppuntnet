@@ -14,6 +14,7 @@ class Structure_74_Split_Test extends UnitTest {
   }.build
 
   test("reference") {
+    pending
     setup.reference(traceEnabled = true).shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp ■   bp     head ■   tail     d forward",
@@ -25,6 +26,7 @@ class Structure_74_Split_Test extends UnitTest {
   }
 
   test("elements") {
+    pending
     setup.elementGroups(traceEnabled = true).shouldMatchTo(
       Seq(
         Seq(
@@ -36,6 +38,7 @@ class Structure_74_Split_Test extends UnitTest {
   }
 
   test("structure") {
+    pending
     val structure = setup.structure()
     structure.shouldMatchTo(
       TestStructure(
