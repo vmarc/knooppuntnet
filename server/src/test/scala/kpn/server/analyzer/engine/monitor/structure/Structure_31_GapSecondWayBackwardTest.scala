@@ -24,9 +24,7 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
       Seq(
         Seq(
           "1>3",
-        ),
-        Seq(
-          "5>3 (Forward)"
+          "5>3 (Backward)"
         )
       )
     )
@@ -36,8 +34,20 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
     val structure = setup.structure()
     structure.shouldMatchTo(
       TestStructure(
-        forwardPath = None,
-        backwardPath = None,
+        forwardPath = Some(
+          TestStructurePath(
+            startNodeId = 1,
+            endNodeId = 3,
+            nodeIds = Seq(1, 2, 3)
+          )
+        ),
+        backwardPath = Some(
+          TestStructurePath(
+            startNodeId = 5,
+            endNodeId = 1,
+            nodeIds = Seq(5, 4, 3, 2, 1)
+          )
+        )
       )
     )
   }

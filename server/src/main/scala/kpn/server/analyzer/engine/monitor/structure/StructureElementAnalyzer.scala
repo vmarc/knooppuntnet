@@ -305,7 +305,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
             case None =>
               elementDirection = Some(ElementDirection.Forward)
             case Some(previousBackwardFragment) =>
-              if (previousBackwardFragment.backwardEndNodeId == link.nodeIds.last) {
+              if (previousBackwardFragment.backwardStartNodeId == link.nodeIds.last) {
                 elementDirection = Some(ElementDirection.Backward)
               }
               else {

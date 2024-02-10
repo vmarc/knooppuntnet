@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.monitor.structure
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
-// reproduces situation in anaylsis route 6701558
+// reproduces situation in node network route 6701558
 class Structure_78_Split_Test extends UnitTest {
 
   private def setup = new StructureTestSetupBuilder() {
