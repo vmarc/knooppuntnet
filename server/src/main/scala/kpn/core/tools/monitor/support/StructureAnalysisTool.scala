@@ -22,7 +22,7 @@ class StructureAnalysisTool {
   private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
 
   def analyze(): Unit = {
-    val ids = FileUtils.readLines(new File("/kpn/cycling-ok-routes.txt")).asScala
+    val ids = FileUtils.readLines(new File("/kpn/cycling-nok-routes.txt")).asScala
     ids.zipWithIndex.foreach { case (id, index) =>
       val relationId = id.toLong
       val xmlString = overpassQueryExecutor.executeQuery(None, QueryRelation(relationId))

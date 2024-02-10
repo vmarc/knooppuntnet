@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="45456094" lat="52.1468029" lon="4.5227653">
+    <tag k="expected_rcn_route_relations" v="4"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="18"/>
+  </node>
+  <node id="45457859" lat="52.1474602" lon="4.5245799"/>
+  <node id="45458441" lat="52.1474841" lon="4.5247092">
+    <tag k="expected_rcn_route_relations" v="5"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="18"/>
+    <tag k="rwn_ref" v="23"/>
+  </node>
+  <node id="45461185" lat="52.1480599" lon="4.5244164"/>
+  <node id="45462071" lat="52.1485713" lon="4.5242037"/>
+  <node id="45466661" lat="52.1491096" lon="4.5239545"/>
+  <node id="45468892" lat="52.1496786" lon="4.5238600"/>
+  <node id="45472910" lat="52.1505126" lon="4.5233578"/>
+  <node id="45475181" lat="52.1510410" lon="4.5231143"/>
+  <node id="45478165" lat="52.1514648" lon="4.5229310"/>
+  <node id="45479384" lat="52.1520328" lon="4.5227730"/>
+  <node id="45481180" lat="52.1523289" lon="4.5224933"/>
+  <node id="45481641" lat="52.1524667" lon="4.5224843">
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="69"/>
+    <tag k="rwn_ref" v="11"/>
+  </node>
+  <node id="45482543" lat="52.1525679" lon="4.5224399"/>
+  <node id="45485946" lat="52.1534032" lon="4.5221555"/>
+  <node id="45486629" lat="52.1534997" lon="4.5221523">
+    <tag k="expected_rcn_route_relations" v="4"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="rcn_ref" v="69"/>
+  </node>
+  <node id="153496400" lat="52.1468590" lon="4.5229947"/>
+  <node id="385355221" lat="52.1495464" lon="4.5238130"/>
+  <node id="385355222" lat="52.1519361" lon="4.5227912"/>
+  <node id="1613597849" lat="52.1468534" lon="4.5231681"/>
+  <node id="1613598130" lat="52.1468370" lon="4.5229039"/>
+  <node id="1937229971" lat="52.1470964" lon="4.5245475"/>
+  <node id="1937229972" lat="52.1469919" lon="4.5240880"/>
+  <node id="2131093141" lat="52.1520549" lon="4.5226547"/>
+  <node id="3423750598" lat="52.1472279" lon="4.5246021"/>
+  <node id="3423750599" lat="52.1471923" lon="4.5246287"/>
+  <node id="3423750600" lat="52.1471320" lon="4.5246112"/>
+  <node id="3423750603" lat="52.1471555" lon="4.5246298"/>
+  <node id="3449422123" lat="52.1473523" lon="4.5244757"/>
+  <node id="3449422124" lat="52.1474009" lon="4.5244748"/>
+  <node id="3449422125" lat="52.1473766" lon="4.5244725"/>
+  <node id="3449422126" lat="52.1474453" lon="4.5245243"/>
+  <node id="3449422127" lat="52.1474167" lon="4.5244905"/>
+  <node id="3475361306" lat="52.1482806" lon="4.5243203"/>
+  <node id="3519892497" lat="52.1506841" lon="4.5232455"/>
+  <node id="3964391469" lat="52.1500282" lon="4.5236329"/>
+  <node id="3964391484" lat="52.1520170" lon="4.5227512"/>
+  <node id="4461463003" lat="52.1507314" lon="4.5232286"/>
+  <node id="4679789642" lat="52.1497592" lon="4.5237699"/>
+  <node id="4679789643" lat="52.1498475" lon="4.5237368"/>
+  <node id="4679789645" lat="52.1518955" lon="4.5227749"/>
+  <node id="4679789648" lat="52.1518537" lon="4.5227757"/>
+  <node id="4679789649" lat="52.1519555" lon="4.5227587"/>
+  <node id="4679789650" lat="52.1519930" lon="4.5227419"/>
+  <node id="4679789651" lat="52.1519682" lon="4.5227481"/>
+  <node id="4679789655" lat="52.1520775" lon="4.5225848"/>
+  <node id="4679789656" lat="52.1525192" lon="4.5224519"/>
+  <node id="4679789667" lat="52.1534622" lon="4.5221491"/>
+  <node id="4679982436" lat="52.1468755" lon="4.5231211"/>
+  <node id="4679982437" lat="52.1468730" lon="4.5230761"/>
+  <node id="4679982438" lat="52.1468325" lon="4.5232172"/>
+  <node id="4679982439" lat="52.1468225" lon="4.5232970"/>
+  <node id="4679982440" lat="52.1468294" lon="4.5233679"/>
+  <node id="4679982441" lat="52.1468723" lon="4.5235576"/>
+  <node id="4679987101" lat="52.1477626" lon="4.5245571"/>
+  <node id="5642184923" lat="52.1508634" lon="4.5231746"/>
+  <node id="5642184924" lat="52.1500785" lon="4.5236043"/>
+  <node id="5642184927" lat="52.1487488" lon="4.5241215"/>
+  <node id="5720748191" lat="52.1523693" lon="4.5224785"/>
+  <node id="5720748192" lat="52.1523996" lon="4.5224709"/>
+  <node id="6636538749" lat="52.1471121" lon="4.5245950"/>
+  <node id="10571314764" lat="52.1533925" lon="4.5221591"/>
+  <node id="10592388151" lat="52.1507402" lon="4.5232250"/>
+  <node id="10600214105" lat="52.1521617" lon="4.5225542"/>
+  <node id="10600214108" lat="52.1496078" lon="4.5238234"/>
+  <way id="7434884">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Ockenrode"/>
+    <nd ref="45481641"/>
+    <nd ref="4679789656"/>
+    <nd ref="45482543"/>
+    <nd ref="10571314764"/>
+    <nd ref="45485946"/>
+  </way>
+  <way id="7434981">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <nd ref="45475181"/>
+    <nd ref="5642184923"/>
+    <nd ref="10592388151"/>
+    <nd ref="4461463003"/>
+    <nd ref="3519892497"/>
+  </way>
+  <way id="7435123">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <nd ref="45478165"/>
+    <nd ref="45475181"/>
+  </way>
+  <way id="7435135">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <nd ref="45458441"/>
+    <nd ref="4679987101"/>
+    <nd ref="45461185"/>
+  </way>
+  <way id="7435141">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <nd ref="45472910"/>
+    <nd ref="5642184924"/>
+    <nd ref="3964391469"/>
+    <nd ref="4679789643"/>
+    <nd ref="4679789642"/>
+    <nd ref="45468892"/>
+  </way>
+  <way id="7435159">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <nd ref="385355222"/>
+    <nd ref="4679789649"/>
+    <nd ref="4679789651"/>
+    <nd ref="4679789650"/>
+    <nd ref="3964391484"/>
+    <nd ref="45479384"/>
+  </way>
+  <way id="7435166">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <nd ref="45466661"/>
+    <nd ref="385355221"/>
+    <nd ref="10600214108"/>
+    <nd ref="45468892"/>
+  </way>
+  <way id="7435167">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <nd ref="3475361306"/>
+    <nd ref="45462071"/>
+    <nd ref="5642184927"/>
+    <nd ref="45466661"/>
+  </way>
+  <way id="15577054">
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Graaf van Bylandtpad"/>
+    <tag k="oneway" v="no"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <nd ref="1937229972"/>
+    <nd ref="4679982441"/>
+    <nd ref="4679982440"/>
+    <nd ref="4679982439"/>
+    <nd ref="4679982438"/>
+    <nd ref="1613597849"/>
+    <nd ref="4679982436"/>
+    <nd ref="4679982437"/>
+    <nd ref="153496400"/>
+  </way>
+  <way id="183353174">
+    <tag k="bridge" v="yes"/>
+    <tag k="bridge:name" v="Rhijnvreugdbrug"/>
+    <tag k="emergency" v="yes"/>
+    <tag k="highway" v="cycleway"/>
+    <tag k="layer" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Graaf van Bylandtpad"/>
+    <tag k="oneway" v="no"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <nd ref="1937229971"/>
+    <nd ref="1937229972"/>
+  </way>
+  <way id="335260272">
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="name" v="Graaf van Bylandtpad"/>
+    <tag k="oneway" v="no"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <nd ref="45458441"/>
+    <nd ref="45457859"/>
+    <nd ref="3449422126"/>
+    <nd ref="3449422127"/>
+    <nd ref="3449422124"/>
+    <nd ref="3449422125"/>
+    <nd ref="3449422123"/>
+    <nd ref="3423750598"/>
+    <nd ref="3423750599"/>
+    <nd ref="3423750603"/>
+    <nd ref="3423750600"/>
+    <nd ref="6636538749"/>
+    <nd ref="1937229971"/>
+  </way>
+  <way id="473947919">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <nd ref="385355222"/>
+    <nd ref="4679789645"/>
+    <nd ref="4679789648"/>
+    <nd ref="45478165"/>
+  </way>
+  <way id="481663898">
+    <tag k="highway" v="cycleway"/>
+    <tag k="name" v="Ockenrode"/>
+    <nd ref="45481180"/>
+    <nd ref="5720748191"/>
+    <nd ref="5720748192"/>
+    <nd ref="45481641"/>
+  </way>
+  <way id="481663901">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="oneway:mofa" v="no"/>
+    <tag k="oneway:moped" v="no"/>
+    <nd ref="3519892497"/>
+    <nd ref="45472910"/>
+  </way>
+  <way id="481663902">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <nd ref="45461185"/>
+    <nd ref="3475361306"/>
+  </way>
+  <way id="602172272">
+    <tag k="highway" v="residential"/>
+    <tag k="name" v="Ockenrode"/>
+    <nd ref="45485946"/>
+    <nd ref="4679789667"/>
+    <nd ref="45486629"/>
+  </way>
+  <way id="664989505">
+    <tag k="highway" v="cycleway"/>
+    <tag k="name" v="Hoofdstraat"/>
+    <nd ref="45479384"/>
+    <nd ref="2131093141"/>
+    <nd ref="4679789655"/>
+    <nd ref="10600214105"/>
+  </way>
+  <way id="666412624">
+    <tag k="highway" v="cycleway"/>
+    <tag k="lit" v="yes"/>
+    <tag k="mofa" v="designated"/>
+    <tag k="moped" v="designated"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="sidewalk" v="right"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="traffic_sign" v="NL:G12a"/>
+    <nd ref="153496400"/>
+    <nd ref="1613598130"/>
+    <nd ref="45456094"/>
+  </way>
+  <way id="1137114725">
+    <tag k="highway" v="cycleway"/>
+    <tag k="name" v="Ockenrode"/>
+    <nd ref="10600214105"/>
+    <nd ref="45481180"/>
+  </way>
+  <relation id="6968141">
+    <member type="way" ref="666412624" role="backward"/>
+    <member type="way" ref="15577054" role="backward"/>
+    <member type="way" ref="183353174" role="backward"/>
+    <member type="way" ref="335260272" role="backward"/>
+    <member type="way" ref="7435135" role=""/>
+    <member type="way" ref="481663902" role=""/>
+    <member type="way" ref="7435167" role=""/>
+    <member type="way" ref="7435166" role=""/>
+    <member type="way" ref="7435141" role=""/>
+    <member type="way" ref="481663901" role=""/>
+    <member type="way" ref="7434981" role=""/>
+    <member type="way" ref="7435123" role=""/>
+    <member type="way" ref="473947919" role=""/>
+    <member type="way" ref="7435159" role=""/>
+    <member type="way" ref="664989505" role=""/>
+    <member type="way" ref="1137114725" role=""/>
+    <member type="way" ref="481663898" role=""/>
+    <member type="way" ref="7434884" role="backward"/>
+    <member type="way" ref="602172272" role="backward"/>
+    <tag k="network" v="rcn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="ref" v="18-69"/>
+    <tag k="route" v="bicycle"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>
