@@ -14,11 +14,24 @@ object WayMemberLink {
     }
     links.reverse
   }
+
+  def apply(wayMember: WayMember, next: Option[WayMemberLink]): WayMemberLink = {
+    val nodeIds: Seq[Long] = {
+      if (wayMember.role.contains("backward")) {
+        wayMember.way.nodes.reverse.map(_.id)
+      }
+      else {
+        wayMember.way.nodes.map(_.id)
+      }
+    }
+    WayMemberLink(wayMember, next, nodeIds)
+  }
 }
 
 case class WayMemberLink(
   wayMember: WayMember,
-  next: Option[WayMemberLink]
+  next: Option[WayMemberLink],
+  nodeIds: Seq[Long]
 ) {
 
   def wayId: Long = {
@@ -97,15 +110,6 @@ case class WayMemberLink(
     }
     else {
       wayMember.way.nodes.last
-    }
-  }
-
-  def nodeIds: Seq[Long] = {
-    if (hasRoleBackward) {
-      wayMember.way.nodes.reverse.map(_.id)
-    }
-    else {
-      wayMember.way.nodes.map(_.id)
     }
   }
 

@@ -247,12 +247,23 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
 
     link.connection(nextLink) match {
       case None =>
-        if (traceEnabled) {
-          trace(s"  current way does not connect to next way")
-        }
-        addBidirectionalFragment(link.wayMember)
-        finalizeCurrentGroup()
+        link.connectionUp(nextLink) match {
+          case None =>
 
+            if (traceEnabled) {
+              trace(s"  current way does not connect to next way")
+            }
+            addBidirectionalFragment(link.wayMember)
+            finalizeCurrentGroup()
+
+          case Some(nodeId) =>
+            if (nodeId == link.nodeIds.last) {
+              addBidirectionalFragment(link.wayMember)
+            }
+            else {
+              addBidirectionalFragment(link.wayMember, reversed = true)
+            }
+        }
       case Some(nodeId) =>
         if (nodeId == link.wayMember.way.nodes.last.id) {
           addBidirectionalFragment(link.wayMember)
@@ -306,7 +317,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
             case None =>
               elementDirection = Some(ElementDirection.Down)
             case Some(previousUpFragment) =>
-              if (previousUpFragment.backwardEndNodeId == link.startNode.id) {
+              if (previousUpFragment.backwardEndNodeId == link.nodeIds.last) {
                 elementDirection = Some(ElementDirection.Up)
               }
               else {

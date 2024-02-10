@@ -15,7 +15,7 @@ class Structure_77_Split_Test extends UnitTest {
   }.build
 
   test("reference") {
-    setup.reference(traceEnabled = true).shouldMatchTo(
+    setup.reference().shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
         "2    p ■   n ■   loop     fp     bp     head     tail     d roundabout_right",
@@ -27,7 +27,7 @@ class Structure_77_Split_Test extends UnitTest {
   }
 
   test("elements") {
-    setup.elementGroups(traceEnabled = true).shouldMatchTo(
+    setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
           "1>2",
