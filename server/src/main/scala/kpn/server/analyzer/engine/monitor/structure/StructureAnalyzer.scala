@@ -28,8 +28,8 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
     elementGroups.headOption.flatMap { firstElementGroup =>
       val elements = firstElementGroup.elements.filter { element =>
         element.direction match {
-          case Some(ElementDirection.Down) => true
-          case Some(ElementDirection.Up) => false
+          case Some(ElementDirection.Forward) => true
+          case Some(ElementDirection.Backward) => false
           case _ => true
         }
       }
@@ -58,8 +58,8 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
     elementGroups.lastOption.flatMap { lastElementGroup =>
       val elements = lastElementGroup.elements.reverse.filter { element =>
         element.direction match {
-          case Some(ElementDirection.Up) => true
-          case Some(ElementDirection.Down) => false
+          case Some(ElementDirection.Backward) => true
+          case Some(ElementDirection.Forward) => false
           case _ => true
         }
       }

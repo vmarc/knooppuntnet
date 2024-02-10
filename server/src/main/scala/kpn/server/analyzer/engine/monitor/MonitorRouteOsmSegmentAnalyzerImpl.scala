@@ -40,7 +40,7 @@ class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyze
 
       val forwardElements = elementGroup.elements.filter { element =>
         element.direction match {
-          case Some(ElementDirection.Up) => false
+          case Some(ElementDirection.Backward) => false
           case _ => true
         }
       }

@@ -21,7 +21,7 @@ class Structure_05_SingleWayRoundaboutNotALoopTest extends UnitTest {
     setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
-          "1>4 (Down)",
+          "1>4 (Forward)",
         )
       )
     )

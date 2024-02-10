@@ -24,7 +24,7 @@ class Structure_14_DerivedDirectionBackwardTest extends UnitTest {
       Seq(
         Seq(
           "1>3",
-          "3>5 (Down)",
+          "3>5 (Forward)",
         )
       )
     )

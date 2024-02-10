@@ -28,10 +28,10 @@ class Structure_55_DoubleRoundaboutTest extends UnitTest {
       Seq(
         Seq(
           "1>3",
-          "3>5 (Down)",
-          "5>3 (Up)",
-          "5>9 (Down)",
-          "9>5 (Up)",
+          "3>5 (Forward)",
+          "5>3 (Backward)",
+          "5>9 (Forward)",
+          "9>5 (Backward)",
           "9>11",
         ),
       )

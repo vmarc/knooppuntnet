@@ -46,7 +46,7 @@ case class StructureElement(
   def string: String = {
 
     direction match {
-      case Some(ElementDirection.Up) =>
+      case Some(ElementDirection.Backward) =>
         val endNodeIds = fragments.map(_.backwardEndNodeId)
         val nodeString = backwardStartNodeId.toString + endNodeIds.mkString(">", ">", "")
         val directionString = direction match {

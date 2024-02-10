@@ -26,7 +26,7 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
           "1>3",
         ),
         Seq(
-          "5>3 (Down)"
+          "5>3 (Forward)"
         )
       )
     )

@@ -26,7 +26,7 @@ class Structure_61_NonCircularRoundaboutTest extends UnitTest {
       Seq(
         Seq(
           "1>3",
-          "3>5 (Down)",
+          "3>5 (Forward)",
           "5>8",
         ),
       )

@@ -23,7 +23,7 @@ class Structure_42_ForwardGapTest extends UnitTest {
     setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
-          "2>1 (Down)",
+          "2>1 (Forward)",
         ),
         Seq(
           "3>2"

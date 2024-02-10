@@ -30,8 +30,8 @@ class Structure_74_Split_Test extends UnitTest {
     setup.elementGroups(traceEnabled = true).shouldMatchTo(
       Seq(
         Seq(
-          "1>3 (Down)",
-          "3>1 (Up)",
+          "1>3 (Forward)",
+          "3>1 (Backward)",
         ),
       )
     )

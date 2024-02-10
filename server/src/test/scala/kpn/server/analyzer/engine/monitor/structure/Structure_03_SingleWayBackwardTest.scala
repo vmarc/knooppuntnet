@@ -20,7 +20,7 @@ class Structure_03_SingleWayBackwardTest extends UnitTest {
     setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
-          "3>1 (Down)"
+          "3>1 (Forward)"
         )
       )
     )

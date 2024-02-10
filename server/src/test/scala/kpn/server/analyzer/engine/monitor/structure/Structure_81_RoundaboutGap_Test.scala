@@ -31,8 +31,8 @@ class Structure_81_RoundaboutGap_Test extends UnitTest {
           "1>2",
         ),
         Seq(
-          "3>5 (Down)",
-          "5>3 (Up)",
+          "3>5 (Forward)",
+          "5>3 (Backward)",
           "5>7",
         ),
         Seq(

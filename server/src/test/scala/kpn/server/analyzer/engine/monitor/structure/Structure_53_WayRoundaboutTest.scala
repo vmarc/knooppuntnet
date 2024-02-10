@@ -24,8 +24,8 @@ class Structure_53_WayRoundaboutTest extends UnitTest {
       Seq(
         Seq(
           "1>3",
-          "3>3 (Down)",
-          "3>3 (Up)",
+          "3>3 (Forward)",
+          "3>3 (Backward)",
         ),
       )
     )

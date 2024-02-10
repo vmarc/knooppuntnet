@@ -21,8 +21,8 @@ class Structure_51_RoundaboutTest extends UnitTest {
     setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
-          "1>1 (Down)",
-          "1>1 (Up)",
+          "1>1 (Forward)",
+          "1>1 (Backward)",
         )
       )
     )

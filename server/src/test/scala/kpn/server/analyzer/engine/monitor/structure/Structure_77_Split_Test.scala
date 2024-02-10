@@ -31,10 +31,10 @@ class Structure_77_Split_Test extends UnitTest {
       Seq(
         Seq(
           "1>2",
-          "2>4 (Down)",
-          "4>2 (Up)",
-          "4>6 (Down)",
-          "6>4 (Up)",
+          "2>4 (Forward)",
+          "4>2 (Backward)",
+          "4>6 (Forward)",
+          "6>4 (Backward)",
           "6>7",
         ),
       )

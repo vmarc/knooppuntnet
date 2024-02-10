@@ -23,10 +23,10 @@ class Structure_52_RoundaboutRoundaboutTest extends UnitTest {
     setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
-          "1>3 (Down)",
-          "3>1 (Up)",
-          "3>3 (Down)",
-          "3>3 (Up)",
+          "1>3 (Forward)",
+          "3>1 (Backward)",
+          "3>3 (Forward)",
+          "3>3 (Backward)",
         ),
       )
     )

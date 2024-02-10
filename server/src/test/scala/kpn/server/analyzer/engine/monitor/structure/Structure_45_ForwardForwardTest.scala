@@ -31,8 +31,8 @@ class Structure_45_ForwardForwardTest extends UnitTest {
       Seq(
         Seq(
           "1>2",
-          "2>3>5 (Down)",
-          "5>4>2 (Up)",
+          "2>3>5 (Forward)",
+          "5>4>2 (Backward)",
           "5>6"
         )
       )

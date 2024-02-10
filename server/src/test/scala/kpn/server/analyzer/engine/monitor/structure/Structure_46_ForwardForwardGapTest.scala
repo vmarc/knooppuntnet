@@ -37,8 +37,8 @@ class Structure_46_ForwardForwardGapTest extends UnitTest {
       Seq(
         Seq(
           "1>2",
-          "2>3>8 (Down)",
-          "8>7>2 (Up)",
+          "2>3>8 (Forward)",
+          "8>7>2 (Backward)",
           "8>9",
         ),
         Seq(

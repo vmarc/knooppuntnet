@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.monitor.structure
 
-import kpn.api.common.data.Node
 import kpn.api.common.data.WayMember
 
 object WayMemberLink {
@@ -43,101 +42,85 @@ case class WayMemberLink(
     way.nodes.size > 2 && way.nodes.head == way.nodes.last
   }
 
-  def connectableNodeIds: Seq[Long] = {
-    if (isClosedLoop) {
-      wayMember.way.nodes.map(_.id).dropRight(1)
-    }
-    else {
-      if (hasRoleForward) {
-        Seq(wayMember.way.nodes.head.id)
-      }
-      else if (hasRoleBackward) {
-        Seq(wayMember.way.nodes.last.id)
-      }
-      else {
-        // bidirectional fragment
-        Seq(
-          wayMember.way.nodes.head.id,
-          wayMember.way.nodes.last.id
-        )
-      }
-    }
-  }
-
-  def connectableNodeIdsUp: Seq[Long] = {
-    if (isClosedLoop) {
-      wayMember.way.nodes.map(_.id).dropRight(1)
-    }
-    else {
-      if (hasRoleForward) {
-        Seq(wayMember.way.nodes.last.id)
-      }
-      else if (hasRoleBackward) {
-        Seq(wayMember.way.nodes.head.id)
-      }
-      else {
-        // bidirectional fragment
-        Seq(
-          wayMember.way.nodes.head.id,
-          wayMember.way.nodes.last.id
-        )
-      }
-    }
-  }
-
-  def hasRoleForward: Boolean = wayMember.role.contains("forward")
-
-  def hasRoleBackward: Boolean = wayMember.role.contains("backward")
-
   def isRoundabout: Boolean = wayMember.way.tags.has("junction", "roundabout")
 
   def isUnidirectional: Boolean = {
-    hasRoleForward || hasRoleBackward
-  }
-
-  def startNode: Node = {
-    if (hasRoleBackward) {
-      wayMember.way.nodes.last
-    }
-    else {
-      wayMember.way.nodes.head
-    }
-  }
-
-  def endNode: Node = {
-    if (hasRoleBackward) {
-      wayMember.way.nodes.head
-    }
-    else {
-      wayMember.way.nodes.last
-    }
+    wayMember.role.contains("forward") || wayMember.role.contains("backward")
   }
 
   def connection(otherLink: WayMemberLink): Option[Long] = {
-    connectableNodeIds.flatMap { nodeId1 =>
-      otherLink.connectableNodeIds
+    forwardConnection(otherLink) match {
+      case None => None
+        backwardConnection(otherLink) match {
+          case None => None
+          case Some(nodeId) => Some(nodeId)
+
+        }
+      case Some(nodeId) => Some(nodeId)
+    }
+  }
+
+  def forwardConnection(otherLink: WayMemberLink): Option[Long] = {
+    forwardConnectableNodeIds.flatMap { nodeId1 =>
+      otherLink.forwardConnectableNodeIds
         .filter(nodeId2 => nodeId1 == nodeId2)
         .headOption
     }.headOption
   }
 
-  def connectionUp(otherLink: WayMemberLink): Option[Long] = {
-    connectableNodeIds.flatMap { nodeId1 =>
-      otherLink.connectableNodeIdsUp
+  def backwardConnection(otherLink: WayMemberLink): Option[Long] = {
+    forwardConnectableNodeIds.flatMap { nodeId1 =>
+      otherLink.backwardConnectableNodeIds
         .filter(nodeId2 => nodeId1 == nodeId2)
         .headOption
     }.headOption
   }
 
-  def canConnectUpTo(otherLinkOption: Option[WayMemberLink]): Boolean = {
+  def canBackwardConnectTo(otherLinkOption: Option[WayMemberLink]): Boolean = {
     otherLinkOption match {
       case None => false
       case Some(otherLink) =>
-        connectableNodeIdsUp.flatMap { nodeId1 =>
-          otherLink.connectableNodeIdsUp
+        backwardConnectableNodeIds.flatMap { nodeId1 =>
+          otherLink.backwardConnectableNodeIds
             .filter(nodeId2 => nodeId1 == nodeId2)
             .headOption
         }.nonEmpty
+    }
+  }
+
+  private def forwardConnectableNodeIds: Seq[Long] = {
+    if (isClosedLoop) {
+      nodeIds.dropRight(1)
+    }
+    else {
+      if (isUnidirectional) {
+        Seq(nodeIds.head)
+      }
+      else {
+        // bidirectional fragment
+        Seq(
+          nodeIds.head,
+          nodeIds.last
+        )
+      }
+    }
+  }
+
+  private def backwardConnectableNodeIds: Seq[Long] = {
+    if (isClosedLoop) {
+      nodeIds.dropRight(1)
+    }
+    else {
+      if (isUnidirectional) {
+        Seq(nodeIds.last)
+      }
+      else {
+        // bidirectional fragment
+        Seq(
+          nodeIds.head,
+          nodeIds.last
+        )
+      }
     }
   }
 }

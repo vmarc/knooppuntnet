@@ -42,8 +42,8 @@ class Structure_71_5444896_Test extends UnitTest {
       Seq(
         Seq(
           "1>2",
-          "2>3>4>5>8 (Down)",
-          "8>7>6>2 (Up)",
+          "2>3>4>5>8 (Forward)",
+          "8>7>6>2 (Backward)",
           "8>9",
         ),
       )

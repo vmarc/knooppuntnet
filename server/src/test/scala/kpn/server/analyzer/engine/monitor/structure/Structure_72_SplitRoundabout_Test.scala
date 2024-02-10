@@ -48,12 +48,12 @@ class Structure_72_SplitRoundabout_Test extends UnitTest {
       Seq(
         Seq(
           "1>2",
-          "2>5 (Down)",
-          "4>8>2 (Up)",
-          "5>6 (Down)",
-          "7>4 (Up)",
-          "6>9>10 (Down)",
-          "10>11>7 (Up)",
+          "2>5 (Forward)",
+          "4>8>2 (Backward)",
+          "5>6 (Forward)",
+          "7>4 (Backward)",
+          "6>9>10 (Forward)",
+          "10>11>7 (Backward)",
           "10>12",
         ),
       )

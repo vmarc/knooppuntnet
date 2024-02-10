@@ -22,7 +22,7 @@ class Structure_41_ForwardNoBackwardPathTest extends UnitTest {
     setup.elementGroups().shouldMatchTo(
       Seq(
         Seq(
-          "1>2 (Down)",
+          "1>2 (Forward)",
           "2>3"
         )
       )
