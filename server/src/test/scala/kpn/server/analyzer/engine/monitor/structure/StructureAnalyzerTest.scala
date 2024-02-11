@@ -51,4 +51,12 @@ class StructureAnalyzerTest extends UnitTest {
       )
     )
   }
+
+  test("case study 7") {
+    val relation = CaseStudy.load("/case-studies/monitor/11524393.xml")
+    val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled = true)
+    elementGroups.size should equal(2)
+    elementGroups.head.elements.map(_.direction).shouldMatchTo(Seq(Some(ElementDirection.Forward)))
+    elementGroups(1).elements.map(_.direction).shouldMatchTo(Seq(None))
+  }
 }

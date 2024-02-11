@@ -13,7 +13,7 @@ import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
 
 @Component
-class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyzer {
+class MonitorRouteOsmSegmentAnalyzerImpl extends MonitorRouteOsmSegmentAnalyzer {
 
   private val geometryFactory = new GeometryFactory
   private val log = Log(classOf[MonitorRouteOsmSegmentAnalyzerImpl])
@@ -32,7 +32,7 @@ class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyze
         Seq.empty
     }
 
-    val routeSegments = elementGroups.zipWithIndex.map { case (elementGroup, index) =>
+    val routeSegments = elementGroups.zipWithIndex.flatMap { case (elementGroup, index) =>
       val lineStrings = elementGroup.elements.map { element =>
         val coordinates = element.nodeIds.flatMap(nodeMap.get)
         geometryFactory.createLineString(coordinates.toArray)
@@ -44,31 +44,41 @@ class MonitorRouteOsmSegmentAnalyzerImpl() extends MonitorRouteOsmSegmentAnalyze
           case _ => true
         }
       }
-      val startNodeId = forwardElements.head.forwardStartNodeId
-      val endNodeId = forwardElements.last.forwardEndNodeId
 
-      val meters = Math.round(lineStrings.map(lineString => Haversine.meters(lineString)).sum)
-      val allCoordinates = lineStrings.flatMap(lineString => lineString.getCoordinates.toSeq)
-      val bounds = MonitorRouteAnalysisSupport.toBounds(allCoordinates)
+      if (forwardElements.isEmpty) {
+        // TODO should still look at backwardElements !!!
+        None
+      }
+      else {
 
-      val geometryCollection = geometryFactory.createGeometryCollection(lineStrings.toArray)
+        val startNodeId = forwardElements.head.forwardStartNodeId
+        val endNodeId = forwardElements.last.forwardEndNodeId
 
-      val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
+        val meters = Math.round(lineStrings.map(lineString => Haversine.meters(lineString)).sum)
+        val allCoordinates = lineStrings.flatMap(lineString => lineString.getCoordinates.toSeq)
+        val bounds = MonitorRouteAnalysisSupport.toBounds(allCoordinates)
 
-      val segment = MonitorRouteSegment(
-        id = index + 1,
-        startNodeId,
-        endNodeId,
-        meters,
-        bounds,
-        geoJson
-      )
+        val geometryCollection = geometryFactory.createGeometryCollection(lineStrings.toArray)
 
-      MonitorRouteSegmentData(
-        id = index + 1,
-        segment,
-        lineStrings
-      )
+        val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
+
+        val segment = MonitorRouteSegment(
+          id = index + 1,
+          startNodeId,
+          endNodeId,
+          meters,
+          bounds,
+          geoJson
+        )
+
+        Some(
+          MonitorRouteSegmentData(
+            id = index + 1,
+            segment,
+            lineStrings
+          )
+        )
+      }
     }
     val osmDistance = routeSegments.map(_.segment.meters).sum
 

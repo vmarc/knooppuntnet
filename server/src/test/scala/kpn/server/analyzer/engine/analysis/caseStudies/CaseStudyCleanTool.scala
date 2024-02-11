@@ -11,7 +11,7 @@ import scala.xml.XML
 
 object CaseStudyCleanTool {
   def main(args: Array[String]): Unit = {
-    new CaseStudyCleanTool().clean("monitor/6968141")
+    new CaseStudyCleanTool().clean("monitor/11524393")
   }
 }
 

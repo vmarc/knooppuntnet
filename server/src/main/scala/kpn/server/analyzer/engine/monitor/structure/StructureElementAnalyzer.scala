@@ -120,7 +120,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
 
                 finalizeCurrentElement()
                 val wayNodeIds = closedLoopLink.nodeIds
-                // TODO for walking routes, should choose shortest path here instead of adding both forward and backward element
+                // TODO for hiking routes, should choose shortest path here instead of adding both forward and backward element
                 StructureUtil.closedLoopNodeIds(wayNodeIds.head, endNodeId, wayNodeIds) match {
                   case None => throw new Exception("internal error TODO better message")
                   case Some(nodeIds) =>
@@ -151,7 +151,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
               case Some(endNodeId) =>
 
                 finalizeCurrentElement()
-                // TODO for walking routes, should choose shortest path here instead of adding both forward and backward element
+                // TODO for hiking routes, should choose shortest path here instead of adding both forward and backward element
                 StructureUtil.closedLoopNodeIds(startNodeId, endNodeId, closedLoopLink.nodeIds) match {
                   case None => throw new Exception("internal error TODO better message")
                   case Some(nodeIds) =>
@@ -191,7 +191,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
 
         finalizeCurrentElement()
         val wayNodeIds = closedLoopLink.nodeIds
-        // TODO for walking routes, should choose shortest path here instead of adding both forward and backward element
+        // TODO for hiking routes, should choose shortest path here instead of adding both forward and backward element
         StructureUtil.closedLoopNodeIds(startNodeId, endNodeId, wayNodeIds) match {
           case None =>
             throw new Exception("internal error TODO better message")
