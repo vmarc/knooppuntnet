@@ -4,12 +4,14 @@ import { inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
+import { Bounds } from '@api/common';
 import { PageService } from '@app/components/shared';
 import { UniqueId } from '@app/kpn/common';
 import { Subscriptions } from '@app/util';
 import { Coordinate } from 'ol/coordinate';
 import BaseLayer from 'ol/layer/Base';
 import Map from 'ol/Map';
+import { transformExtent } from 'ol/proj';
 import { toLonLat } from 'ol/proj';
 import { BehaviorSubject } from 'rxjs';
 import { fromEvent } from 'rxjs';
@@ -162,6 +164,20 @@ export abstract class OpenlayersMapService {
     //   .map((mapLayer) => mapLayer.id)
     //   .join(',');
     // console.log(`updateLayerVisibility: ${visibleLayers}`);
+  }
+
+  mapBounds(): Bounds {
+    if (this._map) {
+      const extent = this._map.getView().calculateExtent(this._map.getSize());
+      const transformedExtent = transformExtent(extent, 'EPSG:3857', 'EPSG:4326');
+      return {
+        minLat: transformedExtent[1],
+        minLon: transformedExtent[0],
+        maxLat: transformedExtent[3],
+        maxLon: transformedExtent[2],
+      };
+    }
+    return null;
   }
 
   private updateSize(): void {

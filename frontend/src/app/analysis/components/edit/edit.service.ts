@@ -60,7 +60,6 @@ export class EditService {
           this.error$.next(true);
           if (httpErrorResponse.status === 0) {
             this.errorCouldNotConnect$.next(true);
-            console.log(httpErrorResponse.message);
           } else {
             this.errorName$.next(httpErrorResponse.name);
             this.errorMessage$.next(httpErrorResponse.message);

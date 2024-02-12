@@ -77,16 +77,28 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
           i18n-name="@@monitor.route.menu.next"
         />
 
+        <a
+          [ngClass]="{ disabled: subrelationsEmpty() }"
+          [matMenuTriggerFor]="appMenu"
+          i18n="@@monitor.route.menu.select"
+        >
+          Select
+        </a>
+      }
+
+      <span menu-extra-item>
         @if (pageName() === 'map') {
           <a
-            [ngClass]="{ disabled: subrelationsEmpty() }"
-            [matMenuTriggerFor]="appMenu"
-            i18n="@@monitor.route.menu.select"
+            rel="nofollow"
+            (click)="josm()"
+            title="Go here in JOSM"
+            i18n-title="@@monitor.route.menu.josm.title"
+            i18n="@@monitor.route.menu.josm"
           >
-            Select
+            josm
           </a>
         }
-      }
+      </span>
     </kpn-page-menu>
 
     <kpn-error />
@@ -123,6 +135,7 @@ export class MonitorRoutePageHeaderComponent {
   previous = input<MonitorRouteSubRelation>();
   next = input<MonitorRouteSubRelation>();
   @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
+  @Output() goHereInJosm = new EventEmitter<void>();
 
   select(subRelation: MonitorRouteSubRelation): void {
     this.selectSubRelation.emit(subRelation);
@@ -132,11 +145,11 @@ export class MonitorRoutePageHeaderComponent {
     return `/monitor/groups/${this.groupName()}`;
   }
 
-  routeDetailLink() {
+  routeDetailLink(): string {
     return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}`;
   }
 
-  routeMapLink() {
+  routeMapLink(): string {
     return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/map`;
   }
 
@@ -144,7 +157,11 @@ export class MonitorRoutePageHeaderComponent {
     return { description: this.routeDescription() };
   }
 
-  subrelationsEmpty() {
+  subrelationsEmpty(): boolean {
     return !this.subRelations() || this.subRelations().length === 0;
+  }
+
+  josm(): void {
+    this.goHereInJosm.emit();
   }
 }

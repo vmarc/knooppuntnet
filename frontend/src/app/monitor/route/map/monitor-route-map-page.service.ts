@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { Bounds } from '@api/common';
 import { MonitorRouteSubRelation } from '@api/common/monitor';
 import { MonitorRouteMapPage } from '@api/common/monitor';
 import { Util } from '@app/components/shared';
@@ -103,5 +104,9 @@ export class MonitorRouteMapPageService {
           }
         });
     }
+  }
+
+  mapBounds(): Bounds {
+    return this.mapService.mapBounds();
   }
 }

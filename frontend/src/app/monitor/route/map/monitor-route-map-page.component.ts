@@ -6,6 +6,7 @@ import { MonitorRouteMapPage } from '@api/common/monitor';
 import { NavService } from '@app/components/shared';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { EditGotoService } from '../../../analysis/components/edit/edit-goto.service';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteMapPageService } from './monitor-route-map-page.service';
 import { MonitorRouteMapSidebarComponent } from './monitor-route-map-sidebar.component';
@@ -28,6 +29,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
           [previous]="previous()"
           [next]="next()"
           (selectSubRelation)="service.selectSubRelation($event)"
+          (goHereInJosm)="josm()"
         />
 
         @if (stateService.page(); as page) {
@@ -60,6 +62,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
 export class MonitorRouteMapPageComponent {
   protected readonly service = inject(MonitorRouteMapPageService);
   protected readonly stateService = inject(MonitorRouteMapStateService);
+  private readonly editGotoService = inject(EditGotoService);
 
   readonly subRelations = computed(() => {
     return this.stateService.page()?.subRelations ?? [];
@@ -80,5 +83,12 @@ export class MonitorRouteMapPageComponent {
         page.bounds.maxLat !== 0 ||
         page.bounds.maxLon !== 0)
     );
+  }
+
+  josm(): void {
+    const bounds = this.service.mapBounds();
+    if (bounds !== null) {
+      this.editGotoService.gotoBoundsInJosm(bounds);
+    }
   }
 }

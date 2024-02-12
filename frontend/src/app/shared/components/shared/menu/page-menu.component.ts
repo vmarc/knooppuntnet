@@ -11,7 +11,7 @@ import { MatDividerModule } from '@angular/material/divider';
         <ng-content />
       </div>
       <div class="menu-extra">
-        <ng-content select=".menu-extra-item" class="" />
+        <ng-content select="[menu-extra-item]" />
       </div>
     </div>
     <mat-divider />

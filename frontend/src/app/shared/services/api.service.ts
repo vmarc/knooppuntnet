@@ -1,3 +1,4 @@
+import { HttpContext } from '@angular/common/http';
 import { HttpParams } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
@@ -57,6 +58,7 @@ import { LocationKey } from '@api/custom';
 import { NetworkType } from '@api/custom';
 import { Subset } from '@api/custom';
 import { AnalysisStrategy } from '@app/core';
+import { LOCAL_ERROR_HANDLING } from '@app/spinner';
 import { MarkdownService } from 'ngx-markdown';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
@@ -73,7 +75,12 @@ export class ApiService {
   }
 
   edit(url: string): Observable<string> {
-    return this.http.get(url, { responseType: 'text' }).pipe(timeout(3000));
+    return this.http
+      .get(url, {
+        context: new HttpContext().set(LOCAL_ERROR_HANDLING, true),
+        responseType: 'text',
+      })
+      .pipe(timeout(3000));
   }
 
   overview(): Observable<ApiResponse<StatisticValues[]>> {
