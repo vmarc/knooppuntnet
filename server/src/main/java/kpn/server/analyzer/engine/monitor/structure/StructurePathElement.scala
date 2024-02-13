@@ -13,4 +13,22 @@ case class StructurePathElement(
       element.nodeIds
     }
   }
+
+  def startNodeId: Long = {
+    if (reversed) {
+      element.nodeIds.last
+    }
+    else {
+      element.nodeIds.head
+    }
+  }
+
+  def endNodeId: Long = {
+    if (reversed) {
+      element.nodeIds.head
+    }
+    else {
+      element.nodeIds.last
+    }
+  }
 }

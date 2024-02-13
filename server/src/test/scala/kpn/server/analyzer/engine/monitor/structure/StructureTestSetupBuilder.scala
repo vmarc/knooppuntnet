@@ -5,9 +5,7 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawWay
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Relation
 import kpn.api.custom.Tags
-import kpn.core.data.Data
 import kpn.core.data.DataBuilder
 
 import scala.collection.mutable.ListBuffer
@@ -25,6 +23,10 @@ class StructureTestSetupBuilder extends SharedTestObjects {
   def memberWayWithTags(wayId: Long, role: String, tags: Tags, nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
     memberWay(wayId, tags, role, nodeIds: _*)
+  }
+
+  def memberRoundabout(wayId: Long, role: String, nodeIds: Long*): RawMember = {
+    memberWayWithTags(wayId, role, Tags.from("junction" -> "roundabout"), nodeIds: _*)
   }
 
   private def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
@@ -69,5 +71,4 @@ class StructureTestSetupBuilder extends SharedTestObjects {
     val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))
     new StructureTestSetup(new DataBuilder(rawData).data)
   }
-
 }

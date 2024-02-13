@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.monitor.structure
 
-import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
 // reproduces situation in route 5444896 (EV1 Roscoff — Morlaix)
@@ -15,7 +14,7 @@ class Structure_72_SplitRoundabout_Test extends UnitTest {
     memberWay(13, "forward", 8, 2)
     memberWay(14, "forward", 4, 8)
     // roundabout:
-    memberWayWithTags(15, "forward", Tags.from("junction" -> "roundabout"), 3, 4, 5, 6, 7, 3)
+    memberRoundabout(15, "forward", 3, 4, 5, 6, 7, 3)
     // down until roundabout:
     memberWay(16, "forward", 6, 9)
     memberWay(17, "forward", 9, 10)

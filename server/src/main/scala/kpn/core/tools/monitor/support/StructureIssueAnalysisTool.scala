@@ -6,6 +6,7 @@ import kpn.server.repository.RouteRepositoryImpl
 import org.apache.commons.io.FileUtils
 
 import java.io.File
+import java.nio.charset.Charset
 import scala.jdk.CollectionConverters.CollectionHasAsScala
 
 object StructureIssueAnalysisTool {
@@ -21,7 +22,7 @@ class StructureIssueAnalysisTool(database: Database) {
   val routeRepository = new RouteRepositoryImpl(database)
 
   def analyze(): Unit = {
-    val routeIds = FileUtils.readLines(new File("/kpn/cycling-nok-routes.txt")).asScala.map(_.toLong)
+    val routeIds = FileUtils.readLines(new File("/kpn/cycling-nok-routes.txt"), Charset.forName("UTF-8")).asScala.map(_.toLong)
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       routeRepository.findById(routeId) match {
         case None => println(s"${index + 1}/${routeIds.size} $routeId not found")

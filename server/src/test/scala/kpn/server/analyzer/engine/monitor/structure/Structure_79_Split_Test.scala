@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.monitor.structure
 
-import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
 // reproduces situation in monitor route EV1 4840310 Saint-Brevin-les-Pins — Pornic
@@ -12,7 +11,7 @@ class Structure_79_Split_Test extends UnitTest {
     memberWay(13, "forward", 3, 4)
     memberWay(14, "forward", 6, 2)
     memberWay(15, "forward", 7, 6)
-    memberWayWithTags(16, "forward", Tags.from("junction" -> "roundabout"), 7, 8, 9, 10)
+    memberRoundabout(16, "forward", 7, 8, 9, 10, 7)
     memberWay(17, "forward", 11, 9)
     memberWay(18, "forward", 12, 11)
     memberWay(19, "backward", 12, 4)
@@ -42,7 +41,9 @@ class Structure_79_Split_Test extends UnitTest {
         Seq(
           "1>2",
           "2>3>4 (Forward)",
-          "4>12>11>9>7>6>2 (Backward)",
+          "7>6>2 (Backward)",
+          "9>7 (Backward)",
+          "4>12>11>9 (Backward)",
           "4>5",
         ),
       )

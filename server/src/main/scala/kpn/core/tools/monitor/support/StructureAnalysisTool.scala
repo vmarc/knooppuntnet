@@ -8,6 +8,7 @@ import kpn.server.analyzer.engine.monitor.structure.StructureElementAnalyzer
 import org.apache.commons.io.FileUtils
 
 import java.io.File
+import java.nio.charset.Charset
 import scala.jdk.CollectionConverters.CollectionHasAsScala
 import scala.xml.XML
 
@@ -22,7 +23,7 @@ class StructureAnalysisTool {
   private val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
 
   def analyze(): Unit = {
-    val ids = FileUtils.readLines(new File("/kpn/cycling-nok-routes.txt")).asScala
+    val ids = FileUtils.readLines(new File("/kpn/cycling-nok-routes.txt"), Charset.forName("UTF-8")).asScala
     ids.zipWithIndex.foreach { case (id, index) =>
       val relationId = id.toLong
       val xmlString = overpassQueryExecutor.executeQuery(None, QueryRelation(relationId))

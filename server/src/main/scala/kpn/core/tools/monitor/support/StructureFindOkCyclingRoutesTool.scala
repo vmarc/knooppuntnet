@@ -15,6 +15,7 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 
 import java.io.File
+import java.nio.charset.Charset
 
 object StructureFindOkCyclingRoutesTool {
   def main(args: Array[String]): Unit = {
@@ -43,6 +44,10 @@ class StructureFindOkCyclingRoutesTool(database: Database) {
     )
     val ids = database.routes.aggregate[Id](pipeline).map(_._id).sorted
     println(s"${ids.size} routes")
-    FileUtils.writeStringToFile(new File("/kpn/cycling-ok-routes.txt"), ids.map(_.toString).mkString("\n"))
+    FileUtils.writeStringToFile(
+      new File("/kpn/cycling-ok-routes.txt"),
+      ids.map(_.toString).mkString("\n"),
+      Charset.forName("UTF-8")
+    )
   }
 }

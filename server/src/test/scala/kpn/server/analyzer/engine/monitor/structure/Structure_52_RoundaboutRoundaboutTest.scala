@@ -1,13 +1,12 @@
 package kpn.server.analyzer.engine.monitor.structure
 
-import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
 class Structure_52_RoundaboutRoundaboutTest extends UnitTest {
 
   private def setup = new StructureTestSetupBuilder() {
-    memberWayWithTags(11, "", Tags.from("junction" -> "roundabout"), 1, 2, 3, 4, 1)
-    memberWayWithTags(12, "", Tags.from("junction" -> "roundabout"), 3, 5, 6, 7, 3)
+    memberRoundabout(11, "", 1, 2, 3, 4, 1)
+    memberRoundabout(12, "", 3, 5, 6, 7, 3)
   }.build
 
   test("reference") {

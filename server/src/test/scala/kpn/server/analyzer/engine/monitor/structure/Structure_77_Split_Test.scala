@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.monitor.structure
 
-import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
 // reproduces situation in route 16828788 (EV1 La Tranche-sur-Mer — Marans)
@@ -8,7 +7,7 @@ class Structure_77_Split_Test extends UnitTest {
 
   private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2)
-    memberWayWithTags(12, "", Tags.from("junction" -> "roundabout"), 2, 3, 4, 5, 2)
+    memberRoundabout(12, "", 2, 3, 4, 5, 2)
     memberWay(13, "forward", 4, 6)
     memberWay(14, "forward", 6, 4)
     memberWay(15, "", 6, 7)

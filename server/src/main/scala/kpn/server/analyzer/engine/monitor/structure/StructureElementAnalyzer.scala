@@ -130,12 +130,12 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
 
           case Some(lastFragmentEndNodeId) =>
 
-            val startNodeId = if (closedLoopLink.nodeIds.contains(lastFragmentEndNodeId)) {
+            val connectsToLastForwardFragment = closedLoopLink.nodeIds.contains(lastFragmentEndNodeId)
+            val startNodeId = if (connectsToLastForwardFragment) {
               lastFragmentEndNodeId
             }
             else {
               // no link to previous forward fragment, start new group
-              finalizeCurrentGroup()
               // assume first node is start node
               closedLoopLink.nodeIds.head
             }
@@ -145,8 +145,10 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
                 if (traceEnabled) {
                   trace(s"  current closed loop way does not connect to next way")
                 }
-                finalizeCurrentElement()
-                addForwardElement(closedLoopLink.wayMember, closedLoopLink.nodeIds)
+                if (connectsToLastForwardFragment) {
+                  finalizeCurrentElement()
+                  addForwardElement(closedLoopLink.wayMember, closedLoopLink.nodeIds)
+                }
 
               case Some(endNodeId) =>
 
@@ -372,7 +374,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     }
   }
 
-  private def xxx(link: WayMemberLink, previousForwardFragment: StructureFragment) {
+  private def xxx(link: WayMemberLink, previousForwardFragment: StructureFragment): Unit = {
     if (link.nodeIds.head == previousForwardFragment.forwardEndNodeId) {
       val fragment = StructureFragment(
         link.wayMember.way,

@@ -1,13 +1,12 @@
 package kpn.server.analyzer.engine.monitor.structure
 
-import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
 class Structure_61_NonCircularRoundaboutTest extends UnitTest {
 
   private def setup = new StructureTestSetupBuilder() {
     memberWay(11, "", 1, 2, 3)
-    memberWayWithTags(12, "", Tags.from("junction" -> "roundabout"), 3, 4, 5)
+    memberRoundabout(12, "", 3, 4, 5)
     memberWay(13, "", 5, 7, 8)
   }.build
 
@@ -34,7 +33,6 @@ class Structure_61_NonCircularRoundaboutTest extends UnitTest {
   }
 
   test("structure") {
-    pending
     val structure = setup.structure()
     structure.shouldMatchTo(
       TestStructure(
@@ -45,13 +43,7 @@ class Structure_61_NonCircularRoundaboutTest extends UnitTest {
             nodeIds = Seq(1, 2, 3, 4, 5, 7, 8)
           )
         ),
-        backwardPath = Some(
-          TestStructurePath(
-            startNodeId = 8,
-            endNodeId = 1,
-            nodeIds = Seq(8, 7, 5)
-          )
-        )
+        backwardPath = None
       )
     )
   }

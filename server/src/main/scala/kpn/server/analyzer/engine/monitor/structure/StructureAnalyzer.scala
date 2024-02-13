@@ -71,16 +71,29 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
           val reversed = element.direction.isEmpty
           StructurePathElement(element, reversed)
         }
-        val startNodeId = structurePathElements.head.nodeIds.head
-        val endNodeId = structurePathElements.last.nodeIds.last
-        Some(
-          StructurePath(
-            startNodeId,
-            endNodeId,
-            structurePathElements
+
+        val hasNoGaps = structurePathElements.size == 1 || allPathsConnected(structurePathElements)
+        if (hasNoGaps) {
+          val startNodeId = structurePathElements.head.nodeIds.head
+          val endNodeId = structurePathElements.last.nodeIds.last
+          Some(
+            StructurePath(
+              startNodeId,
+              endNodeId,
+              structurePathElements
+            )
           )
-        )
+        }
+        else {
+          None
+        }
       }
+    }
+  }
+
+  private def allPathsConnected(structurePathElements: Seq[StructurePathElement]): Boolean = {
+    structurePathElements.sliding(2).forall { case Seq(a, b) =>
+      a.endNodeId == b.startNodeId
     }
   }
 }
