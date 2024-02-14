@@ -684,7 +684,7 @@
         <source>Network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-network-changes.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.orphan-nodes.title">
@@ -877,7 +877,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="version-change.relation-changed-to">
-        <source>Relation changed to v<x equiv-text="{{ after.version }}" id="INTERPOLATION"/>.</source>
+        <source>Relation changed to v<x equiv-text="{{ after().version }}" id="INTERPOLATION"/>.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/version-change.component.ts</context>
           <context context-type="linenumber">13,15</context>
@@ -915,14 +915,14 @@
         <source>Impact</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/changes.component.ts</context>
-          <context context-type="linenumber">15,16</context>
+          <context context-type="linenumber">18,19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="changes.no-changes">
         <source>No changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/changes.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fact-diffs.resolved-fact">
@@ -1199,7 +1199,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-change.way-update.changed-to">
-        <source>Changed to v<x equiv-text="{{ wayUpdate.after.version }}" id="INTERPOLATION"/></source>
+        <source>Changed to v<x equiv-text="{{ wayUpdate().after.version }}" id="INTERPOLATION"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">27,29</context>
@@ -1241,28 +1241,28 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-changes.route-diff.name-diff">
-        <source>Route name changed from "<x equiv-text="{{ diffs.nameDiff.before }}" id="INTERPOLATION"/>" to "<x equiv-text="{{ diffs.nameDiff.after }}" id="INTERPOLATION_1"/>".</source>
+        <source>Route name changed from "<x equiv-text="{{ diffs().nameDiff.before }}" id="INTERPOLATION"/>" to "<x equiv-text="{{ diffs().nameDiff.after }}" id="INTERPOLATION_1"/>".</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">15,17</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-changes.route-diff.role-added">
-        <source>Route role "<x equiv-text="{{ diffs.roleDiff.after }}" id="INTERPOLATION"/>" added to networkrelation.</source>
+        <source>Route role "<x equiv-text="{{ diffs().roleDiff.after }}" id="INTERPOLATION"/>" added to networkrelation.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">21,23</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-changes.route-diff.role-deleted">
-        <source>Route role "<x equiv-text="{{ diffs.roleDiff.before }}" id="INTERPOLATION"/>" removed from networkrelation.</source>
+        <source>Route role "<x equiv-text="{{ diffs().roleDiff.before }}" id="INTERPOLATION"/>" removed from networkrelation.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">27,29</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route-changes.route-diff.role-updated">
-        <source>Route role in networkrelation changed from "<x equiv-text="{{ diffs.roleDiff.before }}" id="INTERPOLATION"/>" to "<x equiv-text="{{           diffs.roleDiff.after         }}" id="INTERPOLATION_1"/>".</source>
+        <source>Route role in networkrelation changed from "<x equiv-text="{{ diffs().roleDiff.before }}" id="INTERPOLATION"/>" to "<x equiv-text="{{           diffs().roleDiff.after         }}" id="INTERPOLATION_1"/>".</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">33,37</context>
@@ -1448,7 +1448,7 @@
         <source>Tag changes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="edit-dialog.title">
@@ -1506,7 +1506,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">145</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
@@ -1528,6 +1528,41 @@
           <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="edit-goto-error-dialog.title">
+        <source>JOSM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/edit/edit-goto-error-dialog.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="edit-goto-error-dialog.error">
+        <source>Sorry, could not pan/zoom to current location in JOSM.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/edit/edit-goto-error-dialog.component.ts</context>
+          <context context-type="linenumber">14,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="edit-goto-error-dialog.editor-not-started">
+        <source>JOSM not started?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/edit/edit-goto-error-dialog.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="edit-goto-error-dialog.remote-control-not-enabled">
+        <source>JOSM remote control not enabled?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/edit/edit-goto-error-dialog.component.ts</context>
+          <context context-type="linenumber">19,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="edit-goto-error-dialog.close">
+        <source>Close</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/edit/edit-goto-error-dialog.component.ts</context>
+          <context context-type="linenumber">26,28</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="edit.link">
         <source>edit</source>
         <context-group purpose="location">
@@ -1536,7 +1571,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/facts/network-fact-header.component.ts</context>
@@ -1563,7 +1598,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/facts/network-fact-header.component.ts</context>
@@ -2093,7 +2128,7 @@
         <source>The route relation contains one or more unexpected relation members. In route relations we expect only members of type *"way"* and *"node"*:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-unexpected-relation.component.ts</context>
-          <context context-type="linenumber">12,15</context>
+          <context context-type="linenumber">13,16</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-unused-segments">
@@ -2118,7 +2153,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description-missing">
-        <source><x equiv-text="{{ factInfo.fact }}" id="INTERPOLATION"/> description missing!!</source>
+        <source><x equiv-text="{{ factInfo().fact }}" id="INTERPOLATION"/> description missing!!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-description.component.ts</context>
           <context context-type="linenumber">188</context>
@@ -2573,7 +2608,7 @@
         <source>No facts</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-map.title">
@@ -2630,7 +2665,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-nodes.edit.title">
-        <source>Load the nodes in this page in the editor (like JOSM)</source>
+        <source>Load the nodes() in this page in the editor (like JOSM)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
           <context context-type="linenumber">41</context>
@@ -2742,59 +2777,59 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.edit.title">
-        <source>Load the routes in this page in the editor (like JOSM)</source>
+        <source>Load the routes() in this page in the editor (like JOSM)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.nr">
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.analysis">
         <source>Analysis</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.symbol">
         <source>Symbol</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.route">
         <source>Route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.distance">
         <source>Distance</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.last-survey">
         <source>Survey</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.last-edit">
         <source>Last edit</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">102,104</context>
+          <context context-type="linenumber">101,103</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.title">
@@ -2882,28 +2917,28 @@
         <source>municipality or other administrative boundary name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">33,34</context>
+          <context context-type="linenumber">32,33</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location.selector.warning-selection-mandatory">
         <source>Please make a selection in the field above</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">59,61</context>
+          <context context-type="linenumber">58,60</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location.selector.warning-selection-invalid">
         <source>Please select a value from the list</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">64,66</context>
+          <context context-type="linenumber">63,65</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location.selector.button">
         <source>Location overview</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">68,70</context>
+          <context context-type="linenumber">67,69</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location.tree.expand-all">
@@ -3182,35 +3217,35 @@
         <source>Summary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-details.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-details.situation-on">
         <source>Situation on</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-details.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-details.last-updated">
         <source>Last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-details.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-details.relation-last-updated">
         <source>Relation last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-details.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-details.tags">
         <source>Tags</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-details.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-details.not-active">
@@ -3580,7 +3615,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-nodes.edit.title">
-        <source>Load the nodes in this page in the editor (like JOSM)</source>
+        <source>Load the nodes() in this page in the editor (like JOSM)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
           <context context-type="linenumber">45</context>
@@ -3664,7 +3699,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="network-routes.edit.title">
-        <source>Load the routes in this page in the editor (like JOSM)</source>
+        <source>Load the routes() in this page in the editor (like JOSM)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/routes/network-route-table.component.ts</context>
           <context context-type="linenumber">46</context>
@@ -3896,7 +3931,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="node.integrity.none">
-        <source>There is no integrity information for this node (no expected_??n_route_relations tag).</source>
+        <source>There is no integrity() information for this node (no expected_??n_route_relations tag).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/node-integrity.component.ts</context>
           <context context-type="linenumber">16,18</context>
@@ -4860,7 +4895,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.broken">
-        <source>Something seems wrong with this route.</source>
+        <source>Something seems wrong with this route().</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -4874,21 +4909,21 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.not-active">
-        <source>This route is not active anymore.</source>
+        <source>This route() is not active anymore.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
           <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.proposed">
-        <source>Proposed: this route has a tag _"state=proposed"_. The route is assumed to still be in a planning phase and likely not signposted in the field.</source>
+        <source>Proposed: this route() has a tag _"state=proposed"_. The route() is assumed to still be in a planning phase and likely not signposted in the field.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
           <context context-type="linenumber">55,58</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="route.name-derived-from-nodes">
-        <source>The route name is derived from the route nodes, rather than the tags in the route relation.</source>
+        <source>The route() name is derived from the route() nodes, rather than the tags in the route() relation.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
           <context context-type="linenumber">64,67</context>
@@ -5214,7 +5249,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-network.summary">
-        <source><x equiv-text="{{ network.km | integer }}" id="INTERPOLATION"/> km, <x equiv-text="{{ network.nodeCount | integer }}" id="INTERPOLATION_1"/> nodes, <x equiv-text="{{ network.routeCount | integer }}" id="INTERPOLATION_2"/> routes</source>
+        <source><x equiv-text="{{ network().km | integer }}" id="INTERPOLATION"/> km, <x equiv-text="{{ network().nodeCount | integer }}" id="INTERPOLATION_1"/> nodes, <x equiv-text="{{ network().routeCount | integer }}" id="INTERPOLATION_2"/> routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/networks/subset-network.component.ts</context>
           <context context-type="linenumber">26,29</context>
@@ -5235,7 +5270,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-nodes.edit.title">
-        <source>Load the nodes in this page in the editor (like JOSM)</source>
+        <source>Load the nodes() in this page in the editor (like JOSM)</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-table.component.ts</context>
           <context context-type="linenumber">33</context>
@@ -5597,14 +5632,14 @@
         <source>Description is required.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-description.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.description.maxlength">
-        <source>Too long (max= <x equiv-text="{{ description.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               description.errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</source>
+        <source>Too long (max= <x equiv-text="{{ description().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               description().errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-description.component.ts</context>
-          <context context-type="linenumber">24,29</context>
+          <context context-type="linenumber">26,31</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.name.label">
@@ -5622,14 +5657,14 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.name.maxlength">
-        <source>Too long (max= <x equiv-text="{{ name.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               name.errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</source>
+        <source>Too long (max= <x equiv-text="{{ name().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               name().errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-name.component.ts</context>
           <context context-type="linenumber">23,27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.name.unique">
-        <source>Name should be unique. A group with this name already exists.</source>
+        <source>Name should be unique. A group with this name() already exists.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-name.component.ts</context>
           <context context-type="linenumber">30,32</context>
@@ -6050,14 +6085,14 @@
         <source>Description is required.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-description.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.description.maxlength">
-        <source>Too long (max= <x equiv-text="{{ description.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 description.errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</source>
+        <source>Too long (max= <x equiv-text="{{ description().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 description().errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-description.component.ts</context>
-          <context context-type="linenumber">25,30</context>
+          <context context-type="linenumber">28,33</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.save-dialog.no-relation-id">
@@ -6110,14 +6145,14 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.name.maxlength">
-        <source>Too long (max= <x equiv-text="{{ name.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 name.errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</source>
+        <source>Too long (max= <x equiv-text="{{ name().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 name().errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-name.component.ts</context>
           <context context-type="linenumber">25,29</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.name.unique">
-        <source>The route name should be unique within the group. A route with this name already exists within this group.</source>
+        <source>The route name() should be unique within the group. A route with this name() already exists within this group.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-name.component.ts</context>
           <context context-type="linenumber">33,36</context>
@@ -6155,7 +6190,21 @@
         <source>Select</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">85,87</context>
+          <context context-type="linenumber">84,86</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.route.menu.josm.title">
+        <source>Go here in JOSM</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.route.menu.josm">
+        <source>josm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
+          <context context-type="linenumber">97,99</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.properties.group">
@@ -6173,7 +6222,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-2-name.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-3-relation.component.ts</context>
@@ -6181,18 +6230,18 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">62</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">148</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="action.back">
         <source>Back</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-2-name.component.ts</context>
-          <context context-type="linenumber">20,22</context>
+          <context context-type="linenumber">23,25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-3-relation.component.ts</context>
@@ -6200,11 +6249,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">58,60</context>
+          <context context-type="linenumber">59,61</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">145,147</context>
+          <context context-type="linenumber">148,150</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-6-comment.component.ts</context>
@@ -6313,7 +6362,7 @@
         <source>Please answer the question</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">50,52</context>
+          <context context-type="linenumber">51,53</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.properties.reference-details.osm-now">
@@ -6461,56 +6510,56 @@
         <source>Group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.properties.step.name-description">
         <source>Route name and description</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.properties.step.osm-relation">
         <source>OSM relation</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.properties.step.reference-type">
         <source>Reference type</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.properties.step.reference-details">
         <source>Reference details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.properties.step.comment">
         <source>Comment</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.properties.name.unique">
         <source>The route name should be unique within its the group. A route with name "<x equiv-text="{{ name.value }}" id="INTERPOLATION"/>" already exists within group "<x equiv-text="{{ group.value.groupName }}" id="INTERPOLATION_1"/>".</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">127,130</context>
+          <context context-type="linenumber">128,131</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="action.save">
         <source>Save</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">141,143</context>
+          <context context-type="linenumber">142,144</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.delete.title">
@@ -6728,7 +6777,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.details.relations">
-        <source><x equiv-text="{{ page.relationCount }}" id="INTERPOLATION"/> relations in <x equiv-text="{{ page.relationLevels }}" id="INTERPOLATION_1"/> levels</source>
+        <source><x equiv-text="{{ page().relationCount }}" id="INTERPOLATION"/> relations in <x equiv-text="{{ page().relationLevels }}" id="INTERPOLATION_1"/> levels</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-summary.component.ts</context>
           <context context-type="linenumber">35,37</context>
@@ -6802,7 +6851,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.properties.reference-details.file.max-size-exceeded">
-        <source>Cannot upload this file. It is too big (maximum file size is <x equiv-text="{{ referenceFile.errors.maxFileSizeExceeded }}" id="INTERPOLATION"/>).</source>
+        <source>Cannot upload this file. It is too big (maximum file size is <x equiv-text="{{ referenceFile().errors.maxFileSizeExceeded }}" id="INTERPOLATION"/>).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx-reference.component.ts</context>
           <context context-type="linenumber">56,59</context>
@@ -7001,7 +7050,7 @@
         <source>No map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-page.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.update.title">
@@ -7239,56 +7288,56 @@
         <source>Node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.last-updated">
         <source>Last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.network">
         <source>Network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.networks">
         <source>Networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.no-networks">
         <source>None</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.routes">
         <source>Routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.routes.none">
         <source>None</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.more-details">
         <source>More details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">77,79</context>
+          <context context-type="linenumber">78,80</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.detail.none">
@@ -8051,49 +8100,49 @@
         <source>Nr</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-pois.table.layer">
         <source>Layer</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-pois.table.id">
         <source>Id</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-pois.table.description">
         <source>Description</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">63,65</context>
+          <context context-type="linenumber">62,64</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-pois.table.address">
         <source>Address</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-pois.table.link">
         <source>Link</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="location-pois.table.image">
         <source>Image</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.settings">
@@ -8514,7 +8563,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="footer.settings">
-        <source>settings</source>
+        <source>settings()</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-footer.component.ts</context>
           <context context-type="linenumber">38</context>
@@ -8570,7 +8619,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="tags.no-tags">
-        <source>No tags</source>
+        <source>No tags()</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/tags/tags-table.component.ts</context>
           <context context-type="linenumber">11</context>

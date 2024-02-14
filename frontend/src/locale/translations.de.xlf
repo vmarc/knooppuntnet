@@ -735,7 +735,7 @@
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description-missing" datatype="html">
-        <source><x equiv-text="{{ factInfo.fact }}" id="INTERPOLATION"/> description missing!!</source>
+        <source><x equiv-text="{{ factInfo().fact }}" id="INTERPOLATION"/> description missing!!</source>
         <target><x equiv-text="{{ factName }}" id="INTERPOLATION"/> Beschreibung fehlt !!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-description.component.ts</context>
@@ -838,7 +838,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Die Routenrelation enthält ein oder mehrere unerwartete Mitglieder. In Routenrelationen erwarten wir nur Mitglieder vom Typ *&quot;way&quot;* oder Mitglieder vom Typ *&quot;node&quot;* mit einem Tag *&quot;rwn_ref&quot;* oder *&quot;rcn_ref&quot;*.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-unexpected-relation.component.ts</context>
-          <context context-type="linenumber">12,15</context>
+          <context context-type="linenumber">13,16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.network-extra-member-node" datatype="html">
@@ -1419,7 +1419,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.route-diff.name-diff" datatype="html">
-        <source>Route name changed from &quot;<x equiv-text="{{ diffs.nameDiff.before }}" id="INTERPOLATION"/>&quot; to &quot;<x equiv-text="{{ diffs.nameDiff.after }}" id="INTERPOLATION_1"/>&quot;.</source>
+        <source>Route name changed from &quot;<x equiv-text="{{ diffs().nameDiff.before }}" id="INTERPOLATION"/>&quot; to &quot;<x equiv-text="{{ diffs().nameDiff.after }}" id="INTERPOLATION_1"/>&quot;.</source>
         <target>Der Routenname wurde von &quot;<x equiv-text="{{diffs.nameDiff.before}}" id="INTERPOLATION"/>&quot; in &quot;<x equiv-text="{{diffs.nameDiff.after}}" id="INTERPOLATION_1"/>&quot; geändert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
@@ -1427,7 +1427,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.route-diff.role-added" datatype="html">
-        <source>Route role &quot;<x equiv-text="{{ diffs.roleDiff.after }}" id="INTERPOLATION"/>&quot; added to networkrelation.</source>
+        <source>Route role &quot;<x equiv-text="{{ diffs().roleDiff.after }}" id="INTERPOLATION"/>&quot; added to networkrelation.</source>
         <target>Routenrolle &quot;<x equiv-text="{{diffs.roleDiff.after}}" id="INTERPOLATION"/>&quot; zur Netzwerkrelation hinzugefügt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
@@ -1435,7 +1435,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.route-diff.role-deleted" datatype="html">
-        <source>Route role &quot;<x equiv-text="{{ diffs.roleDiff.before }}" id="INTERPOLATION"/>&quot; removed from networkrelation.</source>
+        <source>Route role &quot;<x equiv-text="{{ diffs().roleDiff.before }}" id="INTERPOLATION"/>&quot; removed from networkrelation.</source>
         <target>Routenrolle &quot;<x equiv-text="{{diffs.roleDiff.before}}" id="INTERPOLATION"/>&quot; aus der Netzwerkrelation entfernt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
@@ -1443,7 +1443,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.route-diff.role-updated" datatype="html">
-        <source>Route role in networkrelation changed from &quot;<x equiv-text="{{ diffs.roleDiff.before }}" id="INTERPOLATION"/>&quot; to &quot;<x equiv-text="{{           diffs.roleDiff.after         }}" id="INTERPOLATION_1"/>&quot;.</source>
+        <source>Route role in networkrelation changed from &quot;<x equiv-text="{{ diffs().roleDiff.before }}" id="INTERPOLATION"/>&quot; to &quot;<x equiv-text="{{           diffs().roleDiff.after         }}" id="INTERPOLATION_1"/>&quot;.</source>
         <target>Die Routenrolle in der Netzwerkrelation wurde von &quot;<x equiv-text="{{diffs.roleDiff.before}}" id="INTERPOLATION"/>&quot; in &quot;<x equiv-text="{{diffs.roleDiff.after}}" id="INTERPOLATION_1"/>&quot; geändert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
@@ -1515,7 +1515,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route-change.way-update.changed-to" datatype="html">
-        <source>Changed to v<x equiv-text="{{ wayUpdate.after.version }}" id="INTERPOLATION"/></source>
+        <source>Changed to v<x equiv-text="{{ wayUpdate().after.version }}" id="INTERPOLATION"/></source>
         <target>Geändert zu v<x equiv-text="{{wayUpdate.after.version}}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
@@ -1787,7 +1787,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Keine Änderungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/changes.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-filter.title" datatype="html">
@@ -1811,7 +1811,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>betroffen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/changes.component.ts</context>
-          <context context-type="linenumber">15,16</context>
+          <context context-type="linenumber">18,19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-created" datatype="html">
@@ -2061,7 +2061,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Knoten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.network" datatype="html">
@@ -2069,7 +2069,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Netzwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.networks" datatype="html">
@@ -2077,7 +2077,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Netzwerke</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.no-networks" datatype="html">
@@ -2085,7 +2085,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Keine</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.routes" datatype="html">
@@ -2093,7 +2093,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.routes.none" datatype="html">
@@ -2101,7 +2101,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Keine</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.more-details" datatype="html">
@@ -2109,7 +2109,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Weitere Details</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">77,79</context>
+          <context context-type="linenumber">78,80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.route-popup.title" datatype="html">
@@ -4098,7 +4098,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Keine</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-facts.title" datatype="html">
@@ -4194,7 +4194,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.route" datatype="html">
@@ -4202,7 +4202,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Route</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">77</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.distance" datatype="html">
@@ -4210,7 +4210,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Entfernung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">88</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.last-edit" datatype="html">
@@ -4218,7 +4218,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Letzte Bearbeitung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">102,104</context>
+          <context context-type="linenumber">101,103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-changes.login-required" datatype="html">
@@ -4367,7 +4367,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route.broken" datatype="html">
-        <source>Something seems wrong with this route.</source>
+        <source>Something seems wrong with this route().</source>
         <target>Mit dieser Route scheint etwas nicht zu stimmen.</target>
         <note priority="1" from="description">... after lot of thinking why a route should be interrupted if there are additional ways in it... I decided to translate from the dutch, which is much more precise. (If this is really the counterpart for &quot;Er lijkt iets mis met deze route.&quot;)</note>
         <context-group purpose="location">
@@ -4384,7 +4384,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route.not-active" datatype="html">
-        <source>This route is not active anymore.</source>
+        <source>This route() is not active anymore.</source>
         <target>Diese Route ist nicht mehr aktiv.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
@@ -4905,7 +4905,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="subset-network.summary" datatype="html">
-        <source><x equiv-text="{{ network.km | integer }}" id="INTERPOLATION"/> km, <x equiv-text="{{ network.nodeCount | integer }}" id="INTERPOLATION_1"/> nodes, <x equiv-text="{{ network.routeCount | integer }}" id="INTERPOLATION_2"/> routes</source>
+        <source><x equiv-text="{{ network().km | integer }}" id="INTERPOLATION"/> km, <x equiv-text="{{ network().nodeCount | integer }}" id="INTERPOLATION_1"/> nodes, <x equiv-text="{{ network().routeCount | integer }}" id="INTERPOLATION_2"/> routes</source>
         <target><x equiv-text="{{network.km}}" id="INTERPOLATION"/> km, <x equiv-text="{{network.nodeCount}}" id="INTERPOLATION_1"/> Knoten, <x equiv-text="{{network.routeCount}}" id="INTERPOLATION_2"/> Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/networks/subset-network.component.ts</context>
@@ -5005,7 +5005,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Netzwerk</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/change-set-network-changes.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.network-diffs.network-created" datatype="html">
@@ -5233,7 +5233,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="version-change.relation-changed-to" datatype="html">
-        <source>Relation changed to v<x equiv-text="{{ after.version }}" id="INTERPOLATION"/>.</source>
+        <source>Relation changed to v<x equiv-text="{{ after().version }}" id="INTERPOLATION"/>.</source>
         <target>Die Relation wurde in v<x equiv-text="{{after.version}}" id="INTERPOLATION"/> geändert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/version-change.component.ts</context>
@@ -5735,7 +5735,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="tags.no-tags" datatype="html">
-        <source>No tags</source>
+        <source>No tags()</source>
         <target>Keine Tags</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/tags/tags-table.component.ts</context>
@@ -6095,7 +6095,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Standortübersicht</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">68,70</context>
+          <context context-type="linenumber">67,69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.expand-all" datatype="html">
@@ -6207,7 +6207,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Situation am</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-details.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.nodes" datatype="html">
@@ -6527,7 +6527,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Zusammenfassung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-details.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.last-updated" datatype="html">
@@ -6535,7 +6535,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Zuletzt aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-details.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.relation-last-updated" datatype="html">
@@ -6543,7 +6543,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Beziehung zuletzt aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-details.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.tags" datatype="html">
@@ -6551,7 +6551,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Tags</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/network-details.component.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-facts.checks-table.node" datatype="html">
@@ -7805,7 +7805,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="footer.settings" datatype="html">
-        <source>settings</source>
+        <source>settings()</source>
         <target>Einstellungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-footer.component.ts</context>
@@ -7817,7 +7817,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Attributsänderungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/tag-diffs.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.too-many-nodes.1" datatype="html">
@@ -8085,7 +8085,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Bitte treffen Sie eine Auswahl im obigen Feld.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">59,61</context>
+          <context context-type="linenumber">58,60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-edit.submit" datatype="html">
@@ -8249,7 +8249,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="node.integrity.none" datatype="html">
-        <source>There is no integrity information for this node (no expected_??n_route_relations tag).</source>
+        <source>There is no integrity() information for this node (no expected_??n_route_relations tag).</source>
         <target>Zu diesem Knoten gibt es keine Informationen zur Vollständigkeit (kein Attribut zum Schlüssel expected_??n_route_relations).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/node-integrity.component.ts</context>
@@ -8286,7 +8286,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Zuletzt aktualisiert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">37</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.analysis" datatype="html">
@@ -8294,7 +8294,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.table.last-survey" datatype="html">
@@ -8302,7 +8302,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Survey</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="linenumber">94</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.last-survey" datatype="html">
@@ -8630,7 +8630,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route.proposed" datatype="html">
-        <source>Proposed: this route has a tag _&quot;state=proposed&quot;_. The route is assumed to still be in a planning phase and likely not signposted in the field.</source>
+        <source>Proposed: this route() has a tag _&quot;state=proposed&quot;_. The route() is assumed to still be in a planning phase and likely not signposted in the field.</source>
         <target>Vorgeschlagen: Diese Route hat das Attribut _&quot;state=proposed&quot;_. Die Route befindet sich wahrscheinlich noch in der Planungsphase und ist noch nicht ausgeschildert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
@@ -8814,7 +8814,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route.name-derived-from-nodes" datatype="html">
-        <source>The route name is derived from the route nodes, rather than the tags in the route relation.</source>
+        <source>The route() name is derived from the route() nodes, rather than the tags in the route() relation.</source>
         <target>Der Routenname wird von den Knoten abgeleitet und nicht von den Attributen der Routenrelation.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
@@ -8946,7 +8946,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Bitte wählen Sie aus der Liste aus</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">64,66</context>
+          <context context-type="linenumber">63,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-nodes.list" datatype="html">
@@ -9103,7 +9103,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">44</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/facts/network-fact-header.component.ts</context>
@@ -9131,7 +9131,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/facts/location-facts.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">41</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/facts/network-fact-header.component.ts</context>
@@ -9151,7 +9151,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.edit.title" datatype="html">
-        <source>Load the nodes in this page in the editor (like JOSM)</source>
+        <source>Load the nodes() in this page in the editor (like JOSM)</source>
         <target>Knoten auf dieser Seite im Editor öffnen (wie JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/nodes/location-node-table.component.ts</context>
@@ -9159,15 +9159,15 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="location-routes.edit.title" datatype="html">
-        <source>Load the routes in this page in the editor (like JOSM)</source>
+        <source>Load the routes() in this page in the editor (like JOSM)</source>
         <target>Routen auf dieser Seite im Editor öffnen (wie JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-nodes.edit.title" datatype="html">
-        <source>Load the nodes in this page in the editor (like JOSM)</source>
+        <source>Load the nodes() in this page in the editor (like JOSM)</source>
         <target>Knoten auf dieser Seite im Editor öffnen (wie JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/network-node-table.component.ts</context>
@@ -9175,7 +9175,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.edit.title" datatype="html">
-        <source>Load the routes in this page in the editor (like JOSM)</source>
+        <source>Load the routes() in this page in the editor (like JOSM)</source>
         <target>Routen auf dieser Seite im Editor öffnen (wie JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/routes/network-route-table.component.ts</context>
@@ -9183,7 +9183,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-nodes.edit.title" datatype="html">
-        <source>Load the nodes in this page in the editor (like JOSM)</source>
+        <source>Load the nodes() in this page in the editor (like JOSM)</source>
         <target>Knoten auf dieser Seite im Editor öffnen (wie JOSM)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-table.component.ts</context>
@@ -9219,7 +9219,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">144</context>
+          <context context-type="linenumber">145</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
@@ -9619,15 +9619,15 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Eine Beschreibung ist erforderlich.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-description.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.description.maxlength" datatype="html">
-        <source>Too long (max= <x equiv-text="{{ description.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               description.errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</source>
-        <target>Too long (max= <x equiv-text="{{ description.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               description.errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</target>
+        <source>Too long (max= <x equiv-text="{{ description().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               description().errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</source>
+        <target>Too long (max= <x equiv-text="{{ description().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               description().errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-description.component.ts</context>
-          <context context-type="linenumber">24,29</context>
+          <context context-type="linenumber">26,31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.name.label" datatype="html">
@@ -9647,15 +9647,15 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.name.maxlength" datatype="html">
-        <source>Too long (max= <x equiv-text="{{ name.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               name.errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</source>
-        <target>Too long (max= <x equiv-text="{{ name.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               name.errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</target>
+        <source>Too long (max= <x equiv-text="{{ name().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               name().errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</source>
+        <target>Too long (max= <x equiv-text="{{ name().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{               name().errors.maxlength.actualLength             }}" id="INTERPOLATION_1"/>).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-name.component.ts</context>
           <context context-type="linenumber">23,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.name.unique" datatype="html">
-        <source>Name should be unique. A group with this name already exists.</source>
+        <source>Name should be unique. A group with this name() already exists.</source>
         <target>Der Name soll eindeutig sein. Es gibt schon eine Gruppe mit diesem Namen.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-name.component.ts</context>
@@ -9987,15 +9987,15 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Eine Beschreibung ist erforderlich.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-description.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.description.maxlength" datatype="html">
-        <source>Too long (max= <x equiv-text="{{ description.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 description.errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</source>
-        <target>Too long (max= <x equiv-text="{{ description.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 description.errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</target>
+        <source>Too long (max= <x equiv-text="{{ description().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 description().errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</source>
+        <target>Too long (max= <x equiv-text="{{ description().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 description().errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-description.component.ts</context>
-          <context context-type="linenumber">25,30</context>
+          <context context-type="linenumber">28,33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.name.label" datatype="html">
@@ -10015,15 +10015,15 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.name.maxlength" datatype="html">
-        <source>Too long (max= <x equiv-text="{{ name.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 name.errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</source>
-        <target>Too long (max= <x equiv-text="{{ name.errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 name.errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</target>
+        <source>Too long (max= <x equiv-text="{{ name().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 name().errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</source>
+        <target>Too long (max= <x equiv-text="{{ name().errors.maxlength.requiredLength }}" id="INTERPOLATION"/>, actual=<x equiv-text="{{                 name().errors.maxlength.actualLength               }}" id="INTERPOLATION_1"/>).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-name.component.ts</context>
           <context context-type="linenumber">25,29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.name.unique" datatype="html">
-        <source>The route name should be unique within the group. A route with this name already exists within this group.</source>
+        <source>The route name() should be unique within the group. A route with this name() already exists within this group.</source>
         <target>Der Routenname sollte innerhalb der Gruppe eindeutig sein. Es gibt schon eine Routen mit diesem Namen in dieser Gruppe.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-name.component.ts</context>
@@ -10063,7 +10063,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-2-name.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">28</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-3-relation.component.ts</context>
@@ -10071,11 +10071,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">62</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">148</context>
+          <context context-type="linenumber">151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.back" datatype="html">
@@ -10083,7 +10083,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Zurück</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-2-name.component.ts</context>
-          <context context-type="linenumber">20,22</context>
+          <context context-type="linenumber">23,25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-3-relation.component.ts</context>
@@ -10091,11 +10091,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">58,60</context>
+          <context context-type="linenumber">59,61</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-5-reference-details.component.ts</context>
-          <context context-type="linenumber">145,147</context>
+          <context context-type="linenumber">148,150</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-6-comment.component.ts</context>
@@ -10195,7 +10195,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Bitte beantworten Sie die Frage</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties-step-4-reference-type.component.ts</context>
-          <context context-type="linenumber">50,52</context>
+          <context context-type="linenumber">51,53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.file" datatype="html">
@@ -10239,7 +10239,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Speichern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">141,143</context>
+          <context context-type="linenumber">142,144</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.action.back" datatype="html">
@@ -10447,7 +10447,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Gruppe</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.name-description" datatype="html">
@@ -10455,7 +10455,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Routenname und -beschreibung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.osm-relation" datatype="html">
@@ -10463,7 +10463,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Relation von OSM</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">73</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.reference-type" datatype="html">
@@ -10471,7 +10471,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Reference type</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.step.reference-details" datatype="html">
@@ -10479,7 +10479,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Reference details</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.name.unique" datatype="html">
@@ -10487,7 +10487,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>The route name should be unique within its the group. A route with name &quot;<x equiv-text="{{ name.value }}" id="INTERPOLATION"/>&quot; already exists within group &quot;<x equiv-text="{{ group.value.groupName }}" id="INTERPOLATION_1"/>&quot;.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">127,130</context>
+          <context context-type="linenumber">128,131</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.save-dialog.no-relation-id" datatype="html">
@@ -10567,7 +10567,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Keine Karte</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-page.component.ts</context>
-          <context context-type="linenumber">35</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.surface-unknown" datatype="html">
@@ -10639,7 +10639,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Nr</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-pois.table.layer" datatype="html">
@@ -10647,7 +10647,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Layer</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">45</context>
+          <context context-type="linenumber">44</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-pois.table.id" datatype="html">
@@ -10655,7 +10655,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Id</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-pois.table.description" datatype="html">
@@ -10663,7 +10663,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Beschreibung</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">63,65</context>
+          <context context-type="linenumber">62,64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-pois.table.address" datatype="html">
@@ -10671,7 +10671,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Adresse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-pois.table.link" datatype="html">
@@ -10679,7 +10679,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Link</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-pois.table.image" datatype="html">
@@ -10687,7 +10687,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Bild</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/poi-location-poi-table.component.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.map.action.josm.zoom-to-osm-segment" datatype="html">
@@ -10703,7 +10703,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Geben Sie den Namen der Gemeinde oder einer anderen Verwaltungseinheit ein</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/location-selector.component.ts</context>
-          <context context-type="linenumber">33,34</context>
+          <context context-type="linenumber">32,33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.route-table.deviations" datatype="html">
@@ -10815,7 +10815,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Comment</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.relation-id-undefined" datatype="html">
@@ -10995,7 +10995,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Auswählen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">85,87</context>
+          <context context-type="linenumber">84,86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="action.upload" datatype="html">
@@ -11251,7 +11251,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Symbol</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/routes/location-route-table.component.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-routes.table.symbol" datatype="html">
@@ -11427,8 +11427,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.details.relations" datatype="html">
-        <source><x equiv-text="{{ page.relationCount }}" id="INTERPOLATION"/> relations in <x equiv-text="{{ page.relationLevels }}" id="INTERPOLATION_1"/> levels</source>
-        <target><x equiv-text="{{ page.relationCount }}" id="INTERPOLATION"/> relations in <x equiv-text="{{ page.relationLevels }}" id="INTERPOLATION_1"/> levels</target>
+        <source><x equiv-text="{{ page().relationCount }}" id="INTERPOLATION"/> relations in <x equiv-text="{{ page().relationLevels }}" id="INTERPOLATION_1"/> levels</source>
+        <target><x equiv-text="{{ page().relationCount }}" id="INTERPOLATION"/> relations in <x equiv-text="{{ page().relationLevels }}" id="INTERPOLATION_1"/> levels</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-summary.component.ts</context>
           <context context-type="linenumber">35,37</context>
@@ -11451,8 +11451,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.properties.reference-details.file.max-size-exceeded" datatype="html">
-        <source>Cannot upload this file. It is too big (maximum file size is <x equiv-text="{{ referenceFile.errors.maxFileSizeExceeded }}" id="INTERPOLATION"/>).</source>
-        <target>Cannot upload this file. It is too big (maximum file size is <x equiv-text="{{ referenceFile.errors.maxFileSizeExceeded }}" id="INTERPOLATION"/>).</target>
+        <source>Cannot upload this file. It is too big (maximum file size is <x equiv-text="{{ referenceFile().errors.maxFileSizeExceeded }}" id="INTERPOLATION"/>).</source>
+        <target>Cannot upload this file. It is too big (maximum file size is <x equiv-text="{{ referenceFile().errors.maxFileSizeExceeded }}" id="INTERPOLATION"/>).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx-reference.component.ts</context>
           <context context-type="linenumber">56,59</context>
@@ -11464,6 +11464,62 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
           <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit-goto-error-dialog.title" datatype="html">
+        <source>JOSM</source>
+        <target>JOSM</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/edit/edit-goto-error-dialog.component.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit-goto-error-dialog.error" datatype="html">
+        <source>Sorry, could not pan/zoom to current location in JOSM.</source>
+        <target>Sorry, could not pan/zoom to current location in JOSM.</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/edit/edit-goto-error-dialog.component.ts</context>
+          <context context-type="linenumber">14,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit-goto-error-dialog.editor-not-started" datatype="html">
+        <source>JOSM not started?</source>
+        <target>JOSM nicht gestartet?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/edit/edit-goto-error-dialog.component.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit-goto-error-dialog.remote-control-not-enabled" datatype="html">
+        <source>JOSM remote control not enabled?</source>
+        <target>JOSM-Fernbedienung nicht aktiviert?</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/edit/edit-goto-error-dialog.component.ts</context>
+          <context context-type="linenumber">19,21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="edit-goto-error-dialog.close" datatype="html">
+        <source>Close</source>
+        <target>Schließen</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/components/edit/edit-goto-error-dialog.component.ts</context>
+          <context context-type="linenumber">26,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.menu.josm.title" datatype="html">
+        <source>Go here in JOSM</source>
+        <target>Go here in JOSM</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
+          <context context-type="linenumber">94</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="monitor.route.menu.josm" datatype="html">
+        <source>josm</source>
+        <target>josm</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
+          <context context-type="linenumber">97,99</context>
         </context-group>
       </trans-unit>
     </body>

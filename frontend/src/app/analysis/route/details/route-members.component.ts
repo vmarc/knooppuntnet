@@ -17,7 +17,7 @@ import { LinkImageComponent } from './link-image.component';
       <h4 i18n="@@route.members.title">Route Members</h4>
       @if (members().length === 0) {
         <div>
-          <span i18n="@@route.membersnone">None</span>
+          <span i18n="@@route.members.none">None</span>
         </div>
       } @else {
         <div>
