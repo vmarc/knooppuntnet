@@ -12,7 +12,7 @@ object MonitorUtil {
     }
   }
 
-  private def findSubRelation(relation: MonitorRouteRelation, subRelationId: Long): Option[MonitorRouteRelation] = {
+  def findSubRelation(relation: MonitorRouteRelation, subRelationId: Long): Option[MonitorRouteRelation] = {
     if (relation.relationId == subRelationId) {
       Some(relation)
     }

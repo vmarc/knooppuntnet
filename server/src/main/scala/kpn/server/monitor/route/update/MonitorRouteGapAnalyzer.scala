@@ -35,7 +35,10 @@ class MonitorRouteGapAnalyzer {
         }
       }
 
-      val osmSegmentCount = monitorRouteSegmentInfos.count(_.relationId == relationId)
+      val osmSegmentCount = MonitorUtil.findSubRelation(monitorRouteRelation, relationId) match {
+        case None => 0
+        case Some(monitorRouteSubRelation) => monitorRouteSubRelation.osmSegmentCount
+      }
 
       if (osmSegmentCount > 1) {
         gaps = gaps :+ "middle"
