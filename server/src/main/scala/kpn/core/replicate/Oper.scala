@@ -10,7 +10,7 @@ object Oper {
   private val SLEEP_SHUTDOWN_POLL_INTERVAL = 250L
 }
 
-class Oper() extends OperMBean {
+class Oper extends OperMBean {
 
   private val log = Log(classOf[Oper])
 

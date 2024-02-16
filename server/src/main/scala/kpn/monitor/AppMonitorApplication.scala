@@ -20,5 +20,5 @@ object AppMonitorApplication {
   )
 )
 @EnableScheduling
-class AppMonitorApplication() {
+class AppMonitorApplication {
 }

@@ -21,7 +21,7 @@ object TileViewTool {
   }
 }
 
-class TileViewTool() {
+class TileViewTool {
 
   import TileViewTool.geometryFactory
 

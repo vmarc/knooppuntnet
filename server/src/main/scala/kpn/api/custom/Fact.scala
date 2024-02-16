@@ -14,7 +14,7 @@ case class Fact(name: String, level: FactLevel) {
 
 }
 
-class FactFactory() {
+class FactFactory {
 
   private val facts = ListBuffer[Fact]()
 

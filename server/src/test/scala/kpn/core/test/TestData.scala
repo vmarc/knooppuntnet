@@ -23,7 +23,7 @@ object TestData {
   }
 }
 
-class TestData() extends SharedTestObjects {
+class TestData extends SharedTestObjects {
 
   private val nodes = ListBuffer[RawNode]()
   private val ways = ListBuffer[RawWay]()

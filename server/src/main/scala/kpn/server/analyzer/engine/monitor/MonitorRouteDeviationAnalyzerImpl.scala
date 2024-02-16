@@ -20,7 +20,7 @@ case class ReferenceCoordinateSequence(
 )
 
 @Component
-class MonitorRouteDeviationAnalyzerImpl() extends MonitorRouteDeviationAnalyzer {
+class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
 
   private val geometryFactory = new GeometryFactory
   private val sampleDistanceMeters = 10

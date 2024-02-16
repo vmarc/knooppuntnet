@@ -28,7 +28,7 @@ import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
 import scala.concurrent.ExecutionContext
 
 @Configuration
-class ServerConfiguration() {
+class ServerConfiguration {
 
   @Bean
   @Primary

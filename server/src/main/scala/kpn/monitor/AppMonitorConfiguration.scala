@@ -7,7 +7,7 @@ import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.JavaMailSenderImpl
 
 @Configuration
-class AppMonitorConfiguration() {
+class AppMonitorConfiguration {
 
   @Bean
   def applicationName(@Value("${app.name:monitor}") value: String): String = {

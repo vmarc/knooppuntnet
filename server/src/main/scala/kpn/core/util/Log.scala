@@ -121,7 +121,7 @@ object Log {
   }
 }
 
-class MockLog() extends Log {
+class MockLog extends Log {
 
   private val messageBuffer = ListBuffer[String]()
 

@@ -14,7 +14,7 @@ import scala.collection.mutable.ListBuffer
  * running on the same machine as the Overpass database. The alternative is to use OverpassQueryExecutorImpl
  * which performs http requests to a remote Overpass database.
  */
-class OverpassQueryExecutorImpl() extends OverpassQueryExecutor {
+class OverpassQueryExecutorImpl extends OverpassQueryExecutor {
 
   private val log = Log(classOf[OverpassQueryExecutorImpl])
 

@@ -16,7 +16,7 @@ object LogoTool {
   }
 }
 
-class LogoTool() {
+class LogoTool {
 
   private val width = 300
   private val height = 300
@@ -39,9 +39,9 @@ class LogoTool() {
     val angle3 = -240d
 
     println(s"""<svg xmlns="http://www.w3.org/2000/svg" width="$width" height="$height">""")
-//    println(s"""<rect width="$width" height="$height" style="stroke-width:1;stroke:rgb(0,0,0)"  fill="white"/>""")
-//    println(s"""<line x1="0" y1="$centerY" x2="$width" y2="$centerY" style="stroke:rgb(255,0,0);stroke-width:1" />""")
-//    println(s"""<line x1="$centerX" y1="0" x2="$centerX" y2="$height" style="stroke:rgb(255,0,0);stroke-width:1" />""")
+    //    println(s"""<rect width="$width" height="$height" style="stroke-width:1;stroke:rgb(0,0,0)"  fill="white"/>""")
+    //    println(s"""<line x1="0" y1="$centerY" x2="$width" y2="$centerY" style="stroke:rgb(255,0,0);stroke-width:1" />""")
+    //    println(s"""<line x1="$centerX" y1="0" x2="$centerX" y2="$height" style="stroke:rgb(255,0,0);stroke-width:1" />""")
 
     circle(centerX, centerY)
     outerCircle(angle1)
@@ -60,9 +60,9 @@ class LogoTool() {
     circle(circleCenterX, circleCenterY)
 
     val x1 = Math.round(Math.cos(radians) * lineRadius1 + centerX)
-    val y1 = Math.round(Math.sin(radians) * lineRadius1  + centerY)
+    val y1 = Math.round(Math.sin(radians) * lineRadius1 + centerY)
     val x2 = Math.round(Math.cos(radians) * lineRadius2 + centerX)
-    val y2 = Math.round(Math.sin(radians) * lineRadius2  + centerY)
+    val y2 = Math.round(Math.sin(radians) * lineRadius2 + centerY)
 
     println(s"""  <line x1="$x1" y1="$y1" x2="$x2" y2="$y2" stroke="red" stroke-width="$strokeWidth"/>""")
   }

@@ -1,5 +1,5 @@
 package kpn.server.analyzer.engine.context
 
-class AnalysisContext() {
+class AnalysisContext {
   val watched: Watched = Watched()
 }

@@ -43,7 +43,7 @@ object Stop {
   }
 }
 
-class Stop() {
+class Stop {
   def stop(port: String): Unit = {
     val url = new JMXServiceURL(s"service:jmx:rmi:///jndi/rmi://:$port/jmxrmi")
     val connector = JMXConnectorFactory.connect(url)

@@ -76,7 +76,7 @@ class PoiRepositoryTestImpl(database: Database) extends PoiRepositoryImpl(databa
   }
 }
 
-class TaskRepositoryTestImpl() extends TaskRepository {
+class TaskRepositoryTestImpl extends TaskRepository {
 
   private val tasks = scala.collection.mutable.ListBuffer[String]()
 

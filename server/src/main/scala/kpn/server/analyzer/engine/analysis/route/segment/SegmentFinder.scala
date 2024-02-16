@@ -8,7 +8,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 
-class SegmentFinderAbort() extends RuntimeException
+class SegmentFinderAbort extends RuntimeException
 
 case class SegmentFinderContext(
   timer: Timer,

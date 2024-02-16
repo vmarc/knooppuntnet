@@ -14,7 +14,7 @@ import java.io.ByteArrayInputStream
 import java.util.zip.GZIPInputStream
 import scala.io.Source
 
-class ReplicationRequestExecutorImpl() extends ReplicationRequestExecutor {
+class ReplicationRequestExecutorImpl extends ReplicationRequestExecutor {
 
   private val URL = "https://planet.osm.org/replication/minute/"
   private val log = Log(classOf[ReplicationRequestExecutorImpl])

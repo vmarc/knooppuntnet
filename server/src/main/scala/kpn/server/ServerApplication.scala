@@ -23,5 +23,5 @@ object ServerApplication {
   )
 )
 @EnableScheduling
-class ServerApplication() {
+class ServerApplication {
 }

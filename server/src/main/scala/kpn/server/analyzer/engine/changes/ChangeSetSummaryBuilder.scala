@@ -18,7 +18,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.util.NaturalSorting
 
-class ChangeSetSummaryBuilder() {
+class ChangeSetSummaryBuilder {
 
   def build(context: ChangeSetContext): ChangeSetSummary = {
 

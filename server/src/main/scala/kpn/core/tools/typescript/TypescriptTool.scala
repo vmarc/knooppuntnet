@@ -28,7 +28,7 @@ object TypescriptTool {
   }
 }
 
-class TypescriptTool() {
+class TypescriptTool {
 
   val root = "/home/vmarc/wrk/projects/knooppuntnet/server/src/main/scala/kpn/api/common"
 

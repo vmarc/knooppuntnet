@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.tiles.domain.ZoomLevelRouteTileSegments
 import org.springframework.stereotype.Component
 
 @Component
-class RouteTileChangeAnalyzerImpl() extends RouteTileChangeAnalyzer {
+class RouteTileChangeAnalyzerImpl extends RouteTileChangeAnalyzer {
 
   def impactedTiles(before: RouteAnalysis, after: RouteAnalysis): Seq[String] = {
     if (tileRelatedRoutePropertiesChanged(before, after)) {

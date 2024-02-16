@@ -6,7 +6,7 @@ import kpn.api.common.data.Way
 
 import scala.collection.mutable.ListBuffer
 
-class GpxRoute() {
+class GpxRoute {
 
   def trackSegments(ways: Seq[Way]): Seq[GpxSegment] = {
     if (ways.isEmpty) {
