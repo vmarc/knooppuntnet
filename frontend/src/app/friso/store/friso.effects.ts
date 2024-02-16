@@ -38,7 +38,7 @@ export class FrisoEffects {
       concatLatestFrom(() => this.store.select(selectQueryParam('mode'))),
       mergeMap(([_, modeParam]) => {
         let mode = 'rename';
-        if (!!modeParam) {
+        if (modeParam) {
           mode = modeParam;
         }
         return this.navigate(mode).pipe(

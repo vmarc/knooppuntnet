@@ -12,7 +12,7 @@ export class IntegerFormatPipe implements PipeTransform {
   public locale: string = inject(LOCALE_ID);
 
   transform(value: number): string {
-    if (!!value) {
+    if (value) {
       let thousandsSeparator = '.';
       if (this.locale === 'fr') {
         thousandsSeparator = ' ';

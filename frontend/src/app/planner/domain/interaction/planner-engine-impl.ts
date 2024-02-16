@@ -95,7 +95,7 @@ export class PlannerEngineImpl implements PlannerEngine {
     }
 
     const flagFeature = Features.findFlag(features);
-    if (!!flagFeature) {
+    if (flagFeature) {
       this.context.cursor.setStyleGrab();
       return true;
     }

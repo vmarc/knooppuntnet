@@ -71,7 +71,7 @@ export class NetworkNodeFilter {
     'integrityCheckFailed',
     this.criteria.integrityCheckFailed,
     (row) =>
-      !!row.detail.expectedRouteCount
+      row.detail.expectedRouteCount
         ? +row.detail.expectedRouteCount !== row.routeReferences.length
         : false,
     this.update({ ...this.criteria, integrityCheckFailed: null }),

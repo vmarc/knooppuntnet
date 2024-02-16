@@ -5,6 +5,7 @@ import { Directive } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[matTooltip][showIfTruncated]',
   standalone: true,
 })

@@ -260,7 +260,6 @@ export class MonitorRouteChangePageComponent {
 
   timestamp(timestampString: string): Timestamp {
     // temporary hack until Timestamp is interface
-    // @ts-ignore
     return timestampString as Timestamp;
   }
 
