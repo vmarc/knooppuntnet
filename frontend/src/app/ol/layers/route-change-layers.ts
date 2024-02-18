@@ -1,7 +1,7 @@
 import { GeometryDiff } from '@api/common/route';
 import { PointSegment } from '@api/common/route';
 import { OlUtil } from '@app/ol';
-import { I18nService } from '@app/i18n';
+import { Translations } from '@app/i18n';
 import { List } from 'immutable';
 import { Color } from 'ol/color';
 import Feature from 'ol/Feature';
@@ -14,8 +14,6 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class RouteChangeLayers {
-  constructor(private i18nService: I18nService) {}
-
   build(geometryDiff: GeometryDiff): List<MapLayer> {
     const unchanged = this.segmentLayer(
       '@@map.layer.unchanged',
@@ -59,6 +57,6 @@ export class RouteChangeLayers {
       zIndex: Layers.zIndexNetworkLayer,
       source,
     });
-    return MapLayer.simpleLayer(this.i18nService.translation(name), layer);
+    return MapLayer.simpleLayer(Translations.get(name), layer);
   }
 }

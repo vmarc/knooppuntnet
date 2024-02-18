@@ -1,4 +1,3 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -8,7 +7,7 @@ import { Location } from '@api/common/location';
 import { LocationCandidate } from '@api/common/location';
 import { NetworkType } from '@api/custom';
 import { Util } from '@app/components/shared';
-import { I18nService } from '@app/i18n';
+import { Translations } from '@app/i18n';
 
 @Component({
   selector: 'kpn-route-location',
@@ -46,8 +45,6 @@ export class RouteLocationComponent {
   networkType = input.required<NetworkType>();
   locationAnalysis = input.required<RouteLocationAnalysis>();
 
-  private readonly i18nService = inject(I18nService);
-
   locationNames(location: Location): string[] {
     const country = location.names[0].toUpperCase();
     const names = [country].concat(location.names.slice(1));
@@ -71,7 +68,7 @@ export class RouteLocationComponent {
 
   locationLink(location: Location, index: number): string {
     const country = location.names[0].toLowerCase();
-    const countryName = this.i18nService.translation('@@country.' + Util.safeGet(() => country));
+    const countryName = Translations.get('@@country.' + Util.safeGet(() => country));
     const locationParts = [countryName].concat(
       location.names.slice(1, location.names.length - index)
     );

@@ -1,8 +1,8 @@
-import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
 import { RawNode } from '@api/common/data/raw';
 import { GeometryDiff } from '@api/common/route';
+import { Util } from '@app/components/shared';
 import { ZoomLevel } from '@app/ol/domain';
 import { BackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
@@ -11,15 +11,11 @@ import { OsmLayer } from '@app/ol/layers';
 import { RouteNodesLayer } from '@app/ol/layers';
 import { RouteChangeLayers } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
-import { Util } from '@app/components/shared';
-import { I18nService } from '@app/i18n';
 import Map from 'ol/Map';
 import View from 'ol/View';
 
 @Injectable()
 export class RouteChangeMapService extends OpenlayersMapService {
-  private readonly i18nService = inject(I18nService);
-
   init(geometryDiff: GeometryDiff, nodes: RawNode[], bounds: Bounds): void {
     this.registerLayers(geometryDiff, nodes);
 
@@ -46,7 +42,7 @@ export class RouteChangeMapService extends OpenlayersMapService {
     if (nodes && nodes.length > 0) {
       registry.register([], RouteNodesLayer.build(nodes), true);
     }
-    new RouteChangeLayers(this.i18nService)
+    new RouteChangeLayers()
       .build(geometryDiff)
       .forEach((mapLayer) => registry.register([], mapLayer, true));
     this.register(registry);

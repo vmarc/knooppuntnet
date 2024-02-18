@@ -1,8 +1,12 @@
+import { LOCALE_ID } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { IntegerFormatPipe } from './integer-format.pipe';
 
 describe('integer format pipe', () => {
   it('transform', () => {
-    const pipe = new IntegerFormatPipe('en');
+    const pipe = TestBed.configureTestingModule({
+      providers: [{ provide: LOCALE_ID, useValue: 'en' }],
+    }).inject(IntegerFormatPipe);
 
     expect(pipe.transform(1)).toEqual('1');
     expect(pipe.transform(12)).toEqual('12');
@@ -17,7 +21,9 @@ describe('integer format pipe', () => {
   });
 
   it('transform fr', () => {
-    const pipe = new IntegerFormatPipe('fr');
+    const pipe = TestBed.configureTestingModule({
+      providers: [{ provide: LOCALE_ID, useValue: 'fr' }],
+    }).inject(IntegerFormatPipe);
 
     expect(pipe.transform(1)).toEqual('1');
     expect(pipe.transform(12)).toEqual('12');

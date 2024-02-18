@@ -1,4 +1,3 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -7,7 +6,7 @@ import { ChangeSetSummaryInfo } from '@api/common';
 import { NetworkType } from '@api/custom';
 import { Util } from '@app/components/shared';
 import { NetworkTypeIconComponent } from '@app/components/shared';
-import { I18nService } from '@app/i18n';
+import { Translations } from '@app/i18n';
 import { ChangeHeaderComponent } from './change-header.component';
 import { ChangesSetElementRefsComponent } from './components/change-set-element-refs.component';
 
@@ -85,11 +84,9 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
 export class ChangeLocationAnalysisSummaryComponent {
   changeSet = input.required<ChangeSetSummaryInfo>();
 
-  private readonly i18nService = inject(I18nService);
-
   locationLink(networkType: NetworkType, locationNames: string[], index: number): string {
     const country = locationNames[0].toLowerCase();
-    const countryName = this.i18nService.translation('@@country.' + Util.safeGet(() => country));
+    const countryName = Translations.get('@@country.' + Util.safeGet(() => country));
     const locationParts = [countryName].concat(locationNames.slice(1, index + 1));
     const location = locationParts.join(':');
     return `/analysis/${networkType}/${country}/${location}/nodes`;

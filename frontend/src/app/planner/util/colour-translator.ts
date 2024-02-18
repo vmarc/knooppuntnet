@@ -1,19 +1,16 @@
-import { List } from 'immutable';
-import { Map as TranslationMap } from 'immutable';
-
 export class ColourTranslator {
-  constructor(private readonly translations: TranslationMap<string, string>) {}
+  constructor(private readonly translations: Map<string, string>) {}
 
   translate(colour: string): string {
-    const splitted = List<string>(colour.split(';'));
+    const splitted = colour.split(';');
     const translatedColours = splitted.map((colourKey) => {
-      const colourKeyElements = List<string>(colourKey.split('-'));
+      const colourKeyElements = colourKey.split('-');
       const translatedColourElements = colourKeyElements.map((colourKeyElement) =>
         this.translateColour(colourKeyElement)
       );
       return translatedColourElements.join('-');
     });
-    const or = this.translations.get('or', '/');
+    const or = this.translations.get('or');
     return translatedColours.join(` ${or} `);
   }
 

@@ -3,9 +3,9 @@ import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { Translations } from '@app/i18n';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapZoomService } from '@app/ol/services';
-import { I18nService } from '@app/i18n';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -81,7 +81,6 @@ import { PlannerService } from '../../../planner.service';
 export class PlanTipComponent implements OnInit {
   private readonly plannerService = inject(PlannerService);
   private readonly mapZoomService = inject(MapZoomService);
-  private readonly i18nService = inject(I18nService);
 
   protected planPhase$: Observable<PlanPhase>;
   protected planPhaseEnum = PlanPhase;
@@ -97,7 +96,7 @@ export class PlanTipComponent implements OnInit {
   }
 
   more(): string {
-    const languageSpecificSubject = this.i18nService.translation(`@@wiki.planner.edit`);
+    const languageSpecificSubject = Translations.get(`@@wiki.planner.edit`);
     return `https://wiki.openstreetmap.org/wiki/${languageSpecificSubject}`;
   }
 

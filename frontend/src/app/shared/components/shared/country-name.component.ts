@@ -1,9 +1,9 @@
-import { inject } from '@angular/core';
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Country } from '@api/custom';
-import { I18nService } from '@app/i18n';
+import { Translations } from '@app/i18n';
 import { Util } from './util';
 
 @Component({
@@ -23,10 +23,7 @@ import { Util } from './util';
 })
 export class CountryNameComponent {
   country = input.required<Country>();
-
-  private readonly i18nService = inject(I18nService);
-
-  countryName(): string {
-    return this.i18nService.translation('@@country.' + Util.safeGet(() => this.country()));
-  }
+  protected countryName = computed(() =>
+    Translations.get('@@country.' + Util.safeGet(() => this.country()))
+  );
 }

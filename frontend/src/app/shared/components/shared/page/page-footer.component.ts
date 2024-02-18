@@ -1,9 +1,8 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { I18nService } from '@app/i18n';
+import { Translations } from '@app/i18n';
 
 @Component({
   selector: 'kpn-page-footer',
@@ -55,10 +54,8 @@ import { I18nService } from '@app/i18n';
 export class PageFooterComponent {
   settings = input(false);
 
-  private readonly i18nService = inject(I18nService);
-
   issues(): string {
-    const languageSpecificSubject = this.i18nService.translation(`@@wiki.issues`);
+    const languageSpecificSubject = Translations.get(`@@wiki.issues`);
     return `https://wiki.openstreetmap.org/wiki/${languageSpecificSubject}`;
   }
 }

@@ -66,7 +66,7 @@ export class MonitorRouteUpdatePageComponent {
   protected readonly service = inject(MonitorRouteUpdatePageService);
   protected readonly pageTitle = computed(() => {
     const state = this.service.state();
-    const monitor = MonitorTranslations.translate('monitor');
+    const monitor = MonitorTranslations.get('monitor');
     return `${this.subtitle} | ${state.routeName} | ${state.groupName} | ${monitor}`;
   });
 }

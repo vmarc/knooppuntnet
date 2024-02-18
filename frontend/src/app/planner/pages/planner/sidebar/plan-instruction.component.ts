@@ -124,7 +124,7 @@ export class PlanInstructionComponent {
   instruction = input.required<PlanInstruction>();
 
   translate(key: string): string {
-    return PlannerTranslations.translate(key);
+    return PlannerTranslations.get(key);
   }
 
   colour(colour: string): string {

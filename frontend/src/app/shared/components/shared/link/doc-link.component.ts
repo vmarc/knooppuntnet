@@ -1,9 +1,8 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { I18nService } from '@app/i18n';
+import { Translations } from '@app/i18n';
 
 @Component({
   selector: 'kpn-doc-link',
@@ -30,10 +29,8 @@ import { I18nService } from '@app/i18n';
 export class DocLinkComponent {
   subject = input.required<string>();
 
-  private readonly i18nService = inject(I18nService);
-
   href(): string {
-    const languageSpecificSubject = this.i18nService.translation(`@@wiki.${this.subject()}`);
+    const languageSpecificSubject = Translations.get(`@@wiki.${this.subject()}`);
     return `https://wiki.openstreetmap.org/wiki/${languageSpecificSubject}`;
   }
 }

@@ -1,10 +1,9 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { I18nService } from '@app/i18n';
+import { Translations } from '@app/i18n';
 import { FilterOption } from '@app/kpn/filter';
 import { FilterOptionGroup } from '@app/kpn/filter';
 
@@ -33,8 +32,6 @@ import { FilterOptionGroup } from '@app/kpn/filter';
 export class FilterRadioGroupComponent {
   group = input.required<FilterOptionGroup>();
 
-  private readonly i18nService = inject(I18nService);
-
   selection() {
     const selectedOption = this.group().options.find((option) => option.selected);
     return selectedOption == null ? null : selectedOption.name;
@@ -48,10 +45,10 @@ export class FilterRadioGroupComponent {
   }
 
   groupName(): string {
-    return this.i18nService.translation(`@@filter.${this.group().name}`);
+    return Translations.get(`@@filter.${this.group().name}`);
   }
 
   optionName(option: FilterOption): string {
-    return this.i18nService.translation(`@@filter.${option.name}`);
+    return Translations.get(`@@filter.${option.name}`);
   }
 }

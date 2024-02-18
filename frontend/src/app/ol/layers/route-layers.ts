@@ -3,8 +3,8 @@ import { TrackPoint } from '@api/common/common';
 import { TrackSegment } from '@api/common/common';
 import { RouteMap } from '@api/common/route';
 import { RouteNetworkNodeInfo } from '@api/common/route';
+import { Translations } from '@app/i18n';
 import { OlUtil } from '@app/ol';
-import { I18nService } from '@app/i18n';
 import { List } from 'immutable';
 import { Color } from 'ol/color';
 import Feature from 'ol/Feature';
@@ -20,10 +20,7 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class RouteLayers {
-  constructor(
-    private i18nService: I18nService,
-    private routeMap: RouteMap
-  ) {}
+  constructor(private routeMap: RouteMap) {}
 
   build(): List<MapLayer> {
     let layers: MapLayer[] = [];
@@ -40,7 +37,7 @@ export class RouteLayers {
 
   private buildFreePathsLayers(): MapLayer[] {
     return this.routeMap.freePaths.map((path) => {
-      const translatedTitle = this.i18nService.translation('@@map.layer.free-path');
+      const translatedTitle = Translations.get('@@map.layer.free-path');
       const name = `${translatedTitle} ${path.pathId}`;
       const source = new VectorSource();
       const layer = new VectorLayer({ source });
@@ -52,7 +49,7 @@ export class RouteLayers {
   private buildForwardLayer(): MapLayer {
     const path = this.routeMap.forwardPath;
     if (path && path.segments.length > 0) {
-      const name = this.i18nService.translation('@@map.layer.forward-route');
+      const name = Translations.get('@@map.layer.forward-route');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
@@ -66,7 +63,7 @@ export class RouteLayers {
   private buildBackwardLayer(): MapLayer {
     const path = this.routeMap.backwardPath;
     if (path) {
-      const name = this.i18nService.translation('@@map.layer.backward-route');
+      const name = Translations.get('@@map.layer.backward-route');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
@@ -80,7 +77,7 @@ export class RouteLayers {
   private buildStartTentaclesLayer(): MapLayer {
     const paths = this.routeMap.startTentaclePaths;
     if (paths && paths.length > 0) {
-      const name = this.i18nService.translation('@@map.layer.start-tentacle');
+      const name = Translations.get('@@map.layer.start-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
@@ -96,7 +93,7 @@ export class RouteLayers {
   private buildEndTentaclesLayer(): MapLayer {
     const paths = this.routeMap.endTentaclePaths;
     if (paths && paths.length > 0) {
-      const name = this.i18nService.translation('@@map.layer.end-tentacle');
+      const name = Translations.get('@@map.layer.end-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
@@ -112,7 +109,7 @@ export class RouteLayers {
   private buildUnusedSegmentsLayer(): MapLayer {
     const segments = this.routeMap.unusedSegments;
     if (segments && segments.length > 0) {
-      const name = this.i18nService.translation('@@map.layer.unused');
+      const name = Translations.get('@@map.layer.unused');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
@@ -163,7 +160,7 @@ export class RouteLayers {
     });
 
     source.addFeatures(markers);
-    const layerName = this.i18nService.translation('@@map.layer.nodes');
+    const layerName = Translations.get('@@map.layer.nodes');
     return MapLayer.simpleLayer(layerName, layer);
   }
 
@@ -172,7 +169,7 @@ export class RouteLayers {
     color: string,
     nodeType: string
   ): Feature<Point>[] {
-    const translatedNodeType = this.i18nService.translation(nodeType);
+    const translatedNodeType = Translations.get(nodeType);
     return nodes.map((node) => {
       const coordinate = OlUtil.toCoordinate(node.lat, node.lon);
       const marker = Marker.create(color, coordinate);

@@ -1,11 +1,10 @@
-import { Map as TranslationMap } from 'immutable';
 import { ColourTranslator } from './colour-translator';
 
-describe('ColourTranslator', () => {
-  const translations = TranslationMap({
-    white: 'wit',
-    red: 'rood',
-  });
+fdescribe('ColourTranslator', () => {
+  const translations = new Map<string, string>([
+    ['white', 'wit'],
+    ['red', 'rood'],
+  ]);
 
   const expectTranslation = (source: string, expected: string) => {
     expect(new ColourTranslator(translations).translate(source)).toEqual(expected);

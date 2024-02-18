@@ -140,7 +140,7 @@ export class MonitorRoutePageHeaderComponent {
   @Output() goHereInJosm = new EventEmitter<void>();
 
   protected pageTitle = computed(() => {
-    const monitor = MonitorTranslations.translate('monitor');
+    const monitor = MonitorTranslations.get('monitor');
     return `${this.routeName()} | ${this.groupName()} | ${monitor}`;
   });
 

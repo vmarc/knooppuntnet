@@ -85,7 +85,7 @@ export class MonitorGroupPageComponent {
   protected readonly service = inject(MonitorGroupPageService);
   private groupName = computed(() => this.service.state().groupName);
   protected pageTitle = computed(() => {
-    const monitor = MonitorTranslations.translate('monitor');
+    const monitor = MonitorTranslations.get('monitor');
     return `${this.groupName()} | ${monitor}`;
   });
   protected addRouteLink = computed(() => {

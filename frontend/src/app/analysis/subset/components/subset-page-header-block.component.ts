@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { I18nService } from '@app/i18n';
+import { Translations } from '@app/i18n';
 import { Store } from '@ngrx/store';
 import { selectSubset } from '../store/subset.selectors';
 import { selectSubsetInfo } from '../store/subset.selectors';
@@ -44,7 +44,6 @@ export class SubsetPageHeaderBlockComponent {
   pageTitle = input.required<string>();
 
   private readonly store = inject(Store);
-  private readonly i18nService = inject(I18nService);
 
   protected readonly subset = this.store.selectSignal(selectSubset);
   protected readonly subsetInfo = this.store.selectSignal(selectSubsetInfo);
@@ -52,9 +51,9 @@ export class SubsetPageHeaderBlockComponent {
 
   protected readonly subsetName = computed(() => {
     const ss = this.subset();
-    const networkType = this.i18nService.translation('@@network-type.' + ss.networkType);
-    const country = this.i18nService.translation('@@country.' + ss.country);
-    const inWord = this.i18nService.translation('@@subset.in');
+    const networkType = Translations.get('@@network-type.' + ss.networkType);
+    const country = Translations.get('@@country.' + ss.country);
+    const inWord = Translations.get('@@subset.in');
     return `${networkType} ${inWord} ${country}`;
   });
 

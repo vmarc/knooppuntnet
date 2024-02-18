@@ -1,6 +1,5 @@
-import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { I18nService } from '@app/i18n';
+import { Translations } from '@app/i18n';
 import { BackgroundLayer } from '../layers';
 import { OsmLayer } from '../layers';
 import { MonitorLayer } from '../layers/monitor-layer';
@@ -10,8 +9,6 @@ import { MapLayerDefinition } from './map-layer-definition';
   providedIn: 'root',
 })
 export class MapLayerTranslationService {
-  private readonly i18nService = inject(I18nService);
-
   readonly mapLayerDefinitions: MapLayerDefinition[] = [
     { name: BackgroundLayer.id, translation: '@@map.layer.background' },
     { name: OsmLayer.id, translation: '@@map.layer.osm' },
@@ -22,7 +19,7 @@ export class MapLayerTranslationService {
     { name: 'motorboat', translation: '@@network-type.motorboat' },
     { name: 'canoe', translation: '@@network-type.canoe' },
     { name: 'inline-skating', translation: '@@network-type.inline-skating' },
-
+    //
     {
       name: 'network-nodes-cycling-layer',
       translation: '@@network-type.cycling',
@@ -44,13 +41,13 @@ export class MapLayerTranslationService {
       name: 'network-nodes-inline-skating-layer',
       translation: '@@network-type.inline-skating',
     },
-
+    //
     {
       name: 'netherlands-hiking',
-      translation: '@@map.layer.netherlands-hiking', //$localize`:@@map.layer.opendata.netherlands:Routedatabank Nederland`
+      translation: '@@map.layer.netherlands-hiking',
     },
-    { name: 'flanders-hiking', translation: '@@map.layer.flanders-hiking' }, // $localize`:@@map.layer.opendata.flanders:Toerisme Vlaanderen`
-    { name: 'flanders-cycling', translation: '@@map.layer.flanders-cycling' }, // $localize`:@@map.layer.opendata.flanders:Toerisme Vlaanderen`
+    { name: 'flanders-hiking', translation: '@@map.layer.flanders-hiking' },
+    { name: 'flanders-cycling', translation: '@@map.layer.flanders-cycling' },
     { name: 'debug-512', translation: '@@map.layer.tile-512-names' },
     { name: 'debug-256', translation: '@@map.layer.tile-256-names' },
     { name: 'location-boundary', translation: '@@map.layer.boundary' },
@@ -60,7 +57,6 @@ export class MapLayerTranslationService {
     { name: 'poi-areas-layer', translation: '@@map.layer.poi-areas' },
     { name: 'network-node-markers-layer', translation: '@@map.layer.nodes' },
     { name: 'network-marker-layer', translation: '@@map.layer.networks' },
-    // { name: '', translation: '' },
   ];
 
   translation(layerName: string): string {
@@ -68,7 +64,7 @@ export class MapLayerTranslationService {
       (definition) => definition.name === layerName
     );
     if (layerDefinition) {
-      const translation = this.i18nService.translation(layerDefinition.translation);
+      const translation = Translations.get(layerDefinition.translation);
       if (translation) {
         return translation;
       }

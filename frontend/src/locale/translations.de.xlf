@@ -38,8 +38,8 @@
           <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-type.cycling" datatype="html">
@@ -62,8 +62,8 @@
           <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-type.horse-riding" datatype="html">
@@ -86,8 +86,8 @@
           <context context-type="linenumber">42</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-type.motorboat" datatype="html">
@@ -110,8 +110,8 @@
           <context context-type="linenumber">48</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-type.canoe" datatype="html">
@@ -134,8 +134,8 @@
           <context context-type="linenumber">54</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">33</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-type.inline-skating" datatype="html">
@@ -158,8 +158,8 @@
           <context context-type="linenumber">60</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">36</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset.in" datatype="html">
@@ -170,224 +170,224 @@
           <context context-type="linenumber">62</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.start-node" datatype="html">
         <source>Start node</source>
         <target>Startknoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.end-node" datatype="html">
         <source>End node</source>
         <target>Endknoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.start-tentacle-node" datatype="html">
         <source>Start tentacle node</source>
         <target>Start Tentakelknoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.end-tentacle-node" datatype="html">
         <source>End tentacle node</source>
         <target>End Tentakelknoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.redundant-node" datatype="html">
         <source>Redundant node</source>
         <target>Redundanter Knoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.forward-route" datatype="html">
         <source>Forward route</source>
         <target>Vorwärtsroute</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.backward-route" datatype="html">
         <source>Backward route</source>
         <target>Rückwärtsroute</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">68</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.start-tentacle" datatype="html">
         <source>Start tentacle</source>
         <target>Start Tentakel</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">72</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.end-tentacle" datatype="html">
         <source>End tentacle</source>
         <target>End Tentakel</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.unused" datatype="html">
         <source>Unused</source>
         <target>Nicht verwendet</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.nodes" datatype="html">
         <source>Nodes</source>
         <target>Knoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">79</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.network" datatype="html">
         <source>Network</source>
         <target>Netzwerk</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">80</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.networks" datatype="html">
         <source>Networks</source>
         <target>Netzwerke</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">93</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.unchanged" datatype="html">
         <source>Unchanged</source>
         <target>Unverändert</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">95</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.added" datatype="html">
         <source>Added</source>
         <target>Hinzugefügt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">96</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.deleted" datatype="html">
         <source>Deleted</source>
         <target>Gelöscht</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">97</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">48</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.osm" datatype="html">
         <source>OpenStreetMap</source>
         <target>OpenStreetMap</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">99</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.other-routes" datatype="html">
         <source>Other routes</source>
         <target>Andere Routen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">113</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.cycling" datatype="html">
         <source>Cycling</source>
         <target>Radfahren</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">116</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.node" datatype="html">
         <source>Node</source>
         <target>Knoten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">115</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.hiking" datatype="html">
         <source>Hiking</source>
         <target>Wandern</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.horse-riding" datatype="html">
         <source>Horse riding</source>
         <target>Reiten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">120</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.motorboat" datatype="html">
         <source>Motorboat</source>
         <target>Motorboot</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">122</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.canoe" datatype="html">
         <source>Canoe</source>
         <target>Kanu</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">123</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">61</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.inline-skating" datatype="html">
         <source>Inline Skating</source>
         <target>Inline-Skaten</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">126</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.nodes-and-routes" datatype="html">
         <source>Nodes and routes</source>
         <target>Knoten und Routen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">130</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.boundary" datatype="html">
         <source>Boundary</source>
         <target>Grenze</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">132</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="paginator.items-per-page-label" datatype="html">
@@ -2696,7 +2696,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <note priority="1" from="description">Correct if followed by the compass direction (north south ...)</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.north" datatype="html">
@@ -2704,7 +2704,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Norden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.north-east" datatype="html">
@@ -2712,7 +2712,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Nordosten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.east" datatype="html">
@@ -2720,7 +2720,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Osten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south-east" datatype="html">
@@ -2728,7 +2728,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Südosten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south" datatype="html">
@@ -2736,7 +2736,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Süden</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.south-west" datatype="html">
@@ -2744,7 +2744,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Südwesten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.west" datatype="html">
@@ -2752,7 +2752,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Westen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">28</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.heading.north-west" datatype="html">
@@ -2760,7 +2760,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Nordwesten</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.continue" datatype="html">
@@ -2768,7 +2768,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Weiter</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-slight-left" datatype="html">
@@ -2776,7 +2776,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Leicht nach links</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-slight-right" datatype="html">
@@ -2784,7 +2784,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Leicht rechts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-left" datatype="html">
@@ -2792,7 +2792,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Biegen Sie links ab</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-right" datatype="html">
@@ -2800,7 +2800,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Biegen Sie rechts ab</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-sharp-left" datatype="html">
@@ -2808,7 +2808,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Scharf nach links</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.command.turn-sharp-right" datatype="html">
@@ -2816,7 +2816,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Scharf rechts</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.status" datatype="html">
@@ -4396,7 +4396,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Keine</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-location.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.no-network-references" datatype="html">
@@ -5567,7 +5567,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Keine</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/node-location.component.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.details-sidebar.tip" datatype="html">
@@ -5618,8 +5618,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">16</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
       <trans-unit id="country.at" datatype="html">
@@ -5634,8 +5634,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview-table.comment" datatype="html">
@@ -5678,8 +5678,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">13</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">15</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="country.be" datatype="html">
@@ -5702,8 +5702,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
       <trans-unit id="country.de" datatype="html">
@@ -5722,8 +5722,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
       <trans-unit id="situation-on" datatype="html">
@@ -5767,7 +5767,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Kontakt</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">20,22</context>
+          <context context-type="linenumber">19,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="footer.issues" datatype="html">
@@ -5775,7 +5775,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Probleme</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">32,34</context>
+          <context context-type="linenumber">31,33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.title" datatype="html">
@@ -5799,7 +5799,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Zur Dokumentation gehen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/link/doc-link.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="breadcrumb.home" datatype="html">
@@ -6867,144 +6867,144 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>all</source>
         <target>alle</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">135</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.yes" datatype="html">
         <source>yes</source>
         <target>ja</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">136</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.no" datatype="html">
         <source>no</source>
         <target>nein</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">137</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.unknown" datatype="html">
         <source>unknown</source>
         <target>unbekannt</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">138</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.definedInNetworkRelation" datatype="html">
         <source>Defined in network relation</source>
         <target>In Netzwerkrelation definiert</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">142</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.referencedInRoute" datatype="html">
         <source>Referenced in route</source>
         <target>In der Route angegeben</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">146</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.integrityCheck" datatype="html">
         <source>Integrity check</source>
         <target>Integritätsprüfung</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">150</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.integrityCheckFailed" datatype="html">
         <source>Integrity check failed</source>
         <target>Integritätsprüfung fehlgeschlagen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">154</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">80</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.connection" datatype="html">
         <source>Connection</source>
         <target>Verbindung</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastUpdated" datatype="html">
         <source>Last updated</source>
         <target>Zuletzt aktualisiert</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">159</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">85</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastSurvey" datatype="html">
         <source>Survey</source>
         <target>Letztes Survey</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">160</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">86</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastWeek" datatype="html">
         <source>last week</source>
         <target>letzte Woche</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">161</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastMonth" datatype="html">
         <source>last month</source>
         <target>letzten Monat</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">162</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">88</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastYear" datatype="html">
         <source>last year</source>
         <target>letztes Jahr</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">163</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastHalfYear" datatype="html">
         <source>last half year</source>
         <target>letztes halbes Jahr</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">164</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">90</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.lastTwoYears" datatype="html">
         <source>last two years</source>
         <target>letzte zwei Jahre</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">165</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">91</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.older" datatype="html">
         <source>older</source>
         <target>älter</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">166</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">92</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.roleConnection" datatype="html">
         <source>Role connection</source>
         <target>Rolle &quot;connection&quot;</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">169</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">93</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.side-bar.tip-zoom-in" datatype="html">
@@ -7051,16 +7051,16 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Investigate</source>
         <target>Untersuchen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">157</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.accessible" datatype="html">
         <source>Accessible</source>
         <target>Zugänglich</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">158</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.menu.pois" datatype="html">
@@ -7428,7 +7428,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Folgen Sie der Farbe</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">7</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.black" datatype="html">
@@ -7436,7 +7436,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>schwarz</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.blue" datatype="html">
@@ -7444,7 +7444,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>blau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.brown" datatype="html">
@@ -7452,7 +7452,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>braun</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.gray" datatype="html">
@@ -7460,7 +7460,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>grau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.green" datatype="html">
@@ -7468,7 +7468,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>grün</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.grey" datatype="html">
@@ -7476,7 +7476,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>grau</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.orange" datatype="html">
@@ -7484,7 +7484,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>orange</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">57</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.purple" datatype="html">
@@ -7493,7 +7493,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <note priority="1" from="description">or use &quot;pink&quot; depending on the colour you use. &quot;lila&quot; and &quot;violett&quot; are quite synonymic.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">58</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.red" datatype="html">
@@ -7501,7 +7501,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>rot</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.violet" datatype="html">
@@ -7509,7 +7509,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>violett</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.white" datatype="html">
@@ -7517,7 +7517,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>weiß</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.yellow" datatype="html">
@@ -7525,7 +7525,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>gelb</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="plan.output.route-name" datatype="html">
@@ -7548,8 +7548,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Your GPX trace</source>
         <target>Ihre GPX-Spur</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">102</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route.colour.or" datatype="html">
@@ -7557,135 +7557,135 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>oder</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/util/planner-translations.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.home" datatype="html">
         <source>Knooppuntnet</source>
         <target>DE:Knooppuntnet</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">172</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.planner" datatype="html">
         <source>Knooppuntnet_planner#What_do_you_see.3F</source>
         <target>Knooppuntnet_planner#What_do_you_see.3F</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">175</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.login-page" datatype="html">
         <source>Knooppuntnet_analysis#Login</source>
         <target>Knooppuntnet_analysis#Login</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">183</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">98</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.logout-page" datatype="html">
         <source>Knooppuntnet_analysis#Logout</source>
         <target>Knooppuntnet_analysis#Logout</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">187</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">99</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.node-page" datatype="html">
         <source>Knooppuntnet_analysis#Node</source>
         <target>Knooppuntnet_analysis#Node</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">191</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.route-page" datatype="html">
         <source>Knooppuntnet_analysis#Route</source>
         <target>Knooppuntnet_analysis#Route</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">195</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.network-page" datatype="html">
         <source>Knooppuntnet_analysis#Network</source>
         <target>Knooppuntnet_analysis#Network</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">199</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">102</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.changes-page" datatype="html">
         <source>Knooppuntnet_analysis#Changes</source>
         <target>Knooppuntnet_analysis#Changes</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">203</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.location-page" datatype="html">
         <source>Knooppuntnet_analysis#Location</source>
         <target>Knooppuntnet_analysis#Location</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">207</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">104</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.overview-in-numbers-page" datatype="html">
         <source>Knooppuntnet_analysis#Overview_in_numbers</source>
         <target>Knooppuntnet_analysis#Overview_in_numbers</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">211</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-networks-page" datatype="html">
         <source>Knooppuntnet_analysis#Subset_networks</source>
         <target>Knooppuntnet_analysis#Subset_networks</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">215</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">111</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-facts-page" datatype="html">
         <source>Knooppuntnet_analysis#Subset_facts</source>
         <target>Knooppuntnet_analysis#Subset_facts</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">219</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">115</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-nodes-page" datatype="html">
         <source>Knooppuntnet_analysis#Subset_orphan_nodes</source>
         <target>Knooppuntnet_analysis#Subset_orphan_nodes</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">223</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">119</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-orphan-routes-page" datatype="html">
         <source>Knooppuntnet_analysis#Subset_orphan_routes</source>
         <target>Knooppuntnet_analysis#Subset_orphan_routes</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">227</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-map-page" datatype="html">
         <source>Knooppuntnet_analysis#Subset_map</source>
         <target>Knooppuntnet_analysis#Subset_map</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">231</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">125</context>
         </context-group>
       </trans-unit>
       <trans-unit id="wiki.subset-changes-page" datatype="html">
         <source>Knooppuntnet_analysis#Subset_Changes</source>
         <target>Knooppuntnet_analysis#Subset_Changes</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">235</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">128</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner-tip.read-more" datatype="html">
@@ -7809,7 +7809,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Einstellungen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit id="tag-diffs.title" datatype="html">
@@ -7908,32 +7908,32 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Background</source>
         <target>Hintergrund</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">100</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-256-names" datatype="html">
         <source>Tilenames (256)</source>
         <target>Tilenames (256)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">105</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-512-names" datatype="html">
         <source>Tilenames (512)</source>
         <target>Tilenames (512)</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.poi-areas" datatype="html">
         <source>Poi areas</source>
         <target>Poi areas</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">133</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.paved" datatype="html">
@@ -8180,8 +8180,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">8</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settings.extra-layers" datatype="html">
@@ -8229,7 +8229,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>https://wiki.openstreetmap.org/wiki/DE:Knooppuntnet_Probleme</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-footer.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-nodes.table.expected-route-count" datatype="html">
@@ -8277,8 +8277,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Knooppuntnet_planner#Edit_route</source>
         <target>Knooppuntnet_planner#Edit_route</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">179</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">97</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.node-popup.last-updated" datatype="html">
@@ -8413,8 +8413,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Path</source>
         <target>Pfad</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="route-proposed-indicator.letter" datatype="html">
@@ -8737,40 +8737,40 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>local</source>
         <target>Lokal</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">39</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-scope.regional" datatype="html">
         <source>regional</source>
         <target>Regional</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-scope.national" datatype="html">
         <source>national</source>
         <target>National</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">41</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-scope.international" datatype="html">
         <source>international</source>
         <target>international</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="filter.proposed" datatype="html">
         <source>Proposed</source>
         <target>Vorgeschlagen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">139</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">71</context>
         </context-group>
       </trans-unit>
       <trans-unit id="planner.legend.proposed" datatype="html">
@@ -10631,7 +10631,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Land</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/poi/list/country-select.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-pois.table.nr" datatype="html">
@@ -11018,16 +11018,16 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Toerisme Vlaanderen</source>
         <target>Toerisme Vlaanderen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">83</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.netherlands-hiking" datatype="html">
         <source>Netherlands routedatabank</source>
         <target>Netherlands routedatabank</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">91</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="layer-switcher.title" datatype="html">
@@ -11074,8 +11074,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Toerisme Vlaanderen</source>
         <target>Toerisme Vlaanderen</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">87</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.prepare" datatype="html">
@@ -11386,8 +11386,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           <context context-type="linenumber">19</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.update-command.upload" datatype="html">
@@ -11462,8 +11462,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>All monitor routes</source>
         <target>All monitor routes</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/i18n.service.ts</context>
-          <context context-type="linenumber">101</context>
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">51</context>
         </context-group>
       </trans-unit>
       <trans-unit id="edit-goto-error-dialog.title" datatype="html">
@@ -11527,7 +11527,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <target>Monitor</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/components/monitor-translations.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
     </body>

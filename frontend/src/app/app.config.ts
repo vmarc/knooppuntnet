@@ -26,7 +26,6 @@ import { PageWidthService } from '@app/components/shared';
 import { reducers } from '@app/core';
 import { metaReducers } from '@app/core';
 import { SharedEffects } from '@app/core';
-import { I18nService } from '@app/i18n';
 import { VersionService } from '@app/services';
 import { ApiService } from '@app/services';
 import { IconService } from '@app/services';
@@ -83,7 +82,6 @@ export const appConfig: ApplicationConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     VersionService,
     ApiService,
-    I18nService,
     SpinnerService,
     PageService,
     PageWidthService,

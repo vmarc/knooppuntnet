@@ -104,16 +104,16 @@ export class PdfDirections {
   private instructionText(instruction: PlanInstruction): string {
     let texts = List<string>();
     if (instruction.heading) {
-      texts = texts.push(PlannerTranslations.translate('head'));
+      texts = texts.push(PlannerTranslations.get('head'));
       texts = texts.push(' ');
-      texts = texts.push(PlannerTranslations.translate('heading-' + instruction.heading));
+      texts = texts.push(PlannerTranslations.get('heading-' + instruction.heading));
       if (instruction.street) {
         texts = texts.push(': ');
         texts = texts.push(instruction.street);
       }
     } else {
       const key = 'command-' + instruction.command;
-      texts = texts.push(PlannerTranslations.translate(key));
+      texts = texts.push(PlannerTranslations.get(key));
       if (instruction.street) {
         texts = texts.push(': ');
         texts = texts.push(instruction.street);
@@ -146,7 +146,7 @@ export class PdfDirections {
       translatedColour = colour;
     }
     let texts = List<string>();
-    texts = texts.push(PlannerTranslations.translate('follow-colour'));
+    texts = texts.push(PlannerTranslations.get('follow-colour'));
     texts = texts.push(' ');
     texts = texts.push(translatedColour);
     const text = texts.join('');

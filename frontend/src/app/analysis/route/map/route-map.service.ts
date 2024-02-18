@@ -14,7 +14,6 @@ import { RouteLayers } from '@app/ol/layers';
 import { MapClickService } from '@app/ol/services';
 import { OpenlayersMapService } from '@app/ol/services';
 import { NodeMapStyle } from '@app/ol/style';
-import { I18nService } from '@app/i18n';
 import { Coordinate } from 'ol/coordinate';
 import { Extent } from 'ol/extent';
 import Map from 'ol/Map';
@@ -24,7 +23,6 @@ import View from 'ol/View';
 @Injectable()
 export class RouteMapService extends OpenlayersMapService {
   private readonly mapClickService = inject(MapClickService);
-  private readonly i18nService = inject(I18nService);
 
   init(routeMapInfo: RouteMapInfo, mapPositionFromUrl: MapPosition): void {
     this.registerLayers(routeMapInfo);
@@ -69,7 +67,7 @@ export class RouteMapService extends OpenlayersMapService {
       routeMapInfo.networkType,
       new NodeMapStyle().styleFunction()
     );
-    const routeLayers = new RouteLayers(this.i18nService, routeMapInfo.map).build();
+    const routeLayers = new RouteLayers(routeMapInfo.map).build();
     const registry = new MapLayerRegistry();
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);

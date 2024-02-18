@@ -1,4 +1,3 @@
-import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { EventEmitter } from '@angular/core';
@@ -10,7 +9,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Country } from '@api/custom';
-import { I18nService } from '@app/i18n';
+import { Translations } from '@app/i18n';
 import { Countries } from '@app/kpn/common';
 import { Subscriptions } from '@app/util';
 import { CountryName } from './country-name';
@@ -36,15 +35,13 @@ import { CountryName } from './country-name';
 export class CountrySelectComponent implements OnInit, OnDestroy {
   @Output() country = new EventEmitter<Country | null>();
 
-  private readonly i18nService = inject(I18nService);
-
   protected countryNames: CountryName[];
   private readonly subscriptions = new Subscriptions();
   readonly selectedCountry = new FormControl<Country>(null);
 
   constructor() {
     this.countryNames = Countries.all.map((country) => {
-      const name = this.i18nService.translation(`@@country.${country}`);
+      const name = Translations.get(`@@country.${country}`);
       return new CountryName(country, name);
     });
   }
