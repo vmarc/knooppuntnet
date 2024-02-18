@@ -38,8 +38,8 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      editLinkTitle="Load the nodes() in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@location-nodes.edit.title"
+      editLinkTitle="Load the nodes in this page in JOSM"
       [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"

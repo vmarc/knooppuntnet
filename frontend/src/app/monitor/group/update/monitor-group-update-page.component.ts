@@ -8,6 +8,7 @@ import { NavService } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { Translations } from '@app/i18n';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 import { MonitorGroupDescriptionComponent } from '../components/monitor-group-description.component';
 import { MonitorGroupNameComponent } from '../components/monitor-group-name.component';
@@ -50,7 +51,7 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
                     >
                       Update group
                     </button>
-                    <a routerLink="/monitor" i18n="@@action.cancel">Cancel</a>
+                    <a routerLink="/monitor">{{ cancelLinkText }}</a>
                   </div>
                 </form>
               </div>
@@ -77,4 +78,5 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
 })
 export class MonitorGroupUpdatePageComponent {
   protected readonly service = inject(MonitorGroupUpdatePageService);
+  protected readonly cancelLinkText = Translations.get('@@action.cancel');
 }

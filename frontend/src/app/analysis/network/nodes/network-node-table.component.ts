@@ -42,8 +42,8 @@ import { NetworkNodesService } from './network-nodes.service';
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      editLinkTitle="Load the nodes() in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@network-nodes.edit.title"
+      editLinkTitle="Load the nodes in this page in JOSM"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodes()?.length"

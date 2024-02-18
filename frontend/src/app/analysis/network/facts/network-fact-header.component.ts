@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkFact } from '@api/common';
+import { EditLinkComponent } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
 import { FactInfo } from '@app/analysis/fact';
 import { FactLevel } from '@app/analysis/fact';
@@ -20,14 +21,7 @@ import { EditService } from '@app/components/shared';
       <span class="kpn-thick"><kpn-fact-name [fact]="fact().name" /></span>
       <span class="kpn-brackets">{{ factCount() }}</span>
       <kpn-fact-level [factLevel]="factLevel()" class="level" />
-      <a
-        rel="nofollow"
-        (click)="edit(fact())"
-        title="Open in editor (like JOSM)"
-        i18n-title="@@edit.link.title"
-        i18n="@@edit.link"
-        >edit</a
-      >
+      <kpn-edit-link (edit)="edit(fact())" />
     </div>
     <div class="description">
       <kpn-fact-description [factInfo]="factInfo(fact())" />
@@ -39,7 +33,7 @@ import { EditService } from '@app/components/shared';
     }
   `,
   standalone: true,
-  imports: [FactNameComponent, FactLevelComponent, FactDescriptionComponent],
+  imports: [FactNameComponent, FactLevelComponent, FactDescriptionComponent, EditLinkComponent],
 })
 export class NetworkFactHeaderComponent {
   fact = input.required<NetworkFact>();

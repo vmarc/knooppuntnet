@@ -39,8 +39,8 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      editLinkTitle="Load the routes() in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@location-routes.edit.title"
+      editLinkTitle="Load the routes in this page in JOSM"
       [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"

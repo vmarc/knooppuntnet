@@ -8,6 +8,7 @@ import { FactCount } from '@api/common';
 import { SubsetFactsPage } from '@api/common/subset';
 import { ApiResponse } from '@api/custom';
 import { Fact } from '@api/custom';
+import { EditLinkComponent } from '@app/analysis/components/edit';
 import { FactInfo } from '@app/analysis/fact';
 import { FactLevel } from '@app/analysis/fact';
 import { Facts } from '@app/analysis/fact';
@@ -61,14 +62,7 @@ import { SubsetSidebarComponent } from '../subset-sidebar.component';
                       </a>
                       <span>({{ factCount.count }})</span>
                       <kpn-fact-level [factLevel]="factLevel(factCount.fact)" />
-                      <a
-                        rel="nofollow"
-                        (click)="edit(factCount.fact)"
-                        title="Open in editor (like JOSM)"
-                        i18n-title="@@edit.link.title"
-                        i18n="@@edit.link"
-                        >edit</a
-                      >
+                      <kpn-edit-link (edit)="edit(factCount.fact)" />
                     </div>
                     <kpn-fact-description [factInfo]="factInfo(factCount)" />
                   </kpn-item>
@@ -96,6 +90,7 @@ import { SubsetSidebarComponent } from '../subset-sidebar.component';
     SituationOnComponent,
     SubsetPageHeaderBlockComponent,
     SubsetSidebarComponent,
+    EditLinkComponent,
   ],
 })
 export class SubsetFactsPageComponent implements OnInit {

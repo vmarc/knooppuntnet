@@ -9,6 +9,7 @@ import { FormStatusComponent } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { Translations } from '@app/i18n';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 import { MonitorGroupDescriptionComponent } from '../components/monitor-group-description.component';
 import { MonitorGroupNameComponent } from '../components/monitor-group-name.component';
@@ -51,7 +52,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
           >
             Add group
           </button>
-          <a id="cancel" routerLink="/monitor" i18n="@@action.cancel">Cancel</a>
+          <a id="cancel" routerLink="/monitor">{{ cancelLinkText }}</a>
         </div>
       </form>
       <kpn-sidebar sidebar />
@@ -75,6 +76,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
 })
 export class MonitorGroupAddPageComponent {
   protected readonly service = inject(MonitorGroupAddPageService);
+  protected readonly cancelLinkText = Translations.get('@@action.cancel');
 
   add(): void {
     this.service.add();

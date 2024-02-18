@@ -21,6 +21,7 @@ import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
 import { Timestamp } from '@api/custom';
 import { TimestampUtil } from '@app/components/shared';
 import { DayUtil } from '@app/components/shared';
+import { Translations } from '@app/i18n';
 import { Subscriptions } from '@app/util';
 import { from } from 'rxjs';
 import { of } from 'rxjs';
@@ -142,7 +143,7 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
       >
         Save
       </button>
-      <a [routerLink]="groupLink()" id="cancel" i18n="@@action.cancel"> Cancel </a>
+      <a [routerLink]="groupLink()" id="cancel">{{ cancelLinkText }}</a>
     </div>
   `,
   standalone: true,
@@ -168,6 +169,8 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   initialProperties = input.required<MonitorRouteProperties>();
   routeGroups = input.required<MonitorRouteGroup[]>();
   @Output() update = new EventEmitter<MonitorRouteUpdate>();
+
+  protected readonly cancelLinkText = Translations.get('@@action.cancel');
 
   readonly group = new FormControl<MonitorRouteGroup>(null);
 

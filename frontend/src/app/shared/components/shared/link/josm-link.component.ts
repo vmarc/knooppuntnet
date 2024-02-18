@@ -3,23 +3,16 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { EditLinkComponent } from '@app/analysis/components/edit';
 import { ApiService } from '@app/services';
 import { TimeoutComponent } from './timeout.component';
 
 @Component({
   selector: 'kpn-josm-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <a
-      rel="nofollow"
-      (click)="edit()"
-      title="Open in editor (like JOSM)"
-      i18n-title="@@edit.link.title"
-      i18n="@@edit.link"
-      >edit</a
-    >
-  `,
+  template: ` <kpn-edit-link (edit)="edit()" /> `,
   standalone: true,
+  imports: [EditLinkComponent],
 })
 export class JosmLinkComponent {
   kind = input.required<string>();

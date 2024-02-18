@@ -128,6 +128,7 @@ export class Translations {
       $localize`:@@wiki.subset-changes-page:Knooppuntnet_analysis#Subset_Changes`,
     ],
     //
+    ['@@action.cancel', $localize`:@@action.cancel:Cancel`],
   ]);
 
   static get(key: string): string {

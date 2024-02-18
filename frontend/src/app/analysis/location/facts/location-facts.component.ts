@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { LocationFact } from '@api/common/location';
 import { Fact } from '@api/custom';
+import { EditLinkComponent } from '@app/analysis/components/edit';
 import { FactInfo } from '@app/analysis/fact';
 import { FactLevel } from '@app/analysis/fact';
 import { Facts } from '@app/analysis/fact';
@@ -35,14 +36,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
               <kpn-fact-name [fact]="locationFact.fact" />
               <kpn-brackets>{{ locationFact.refs.length }}</kpn-brackets>
               <kpn-fact-level [factLevel]="factLevel(locationFact.fact)" class="level" />
-              <a
-                rel="nofollow"
-                (click)="edit(locationFact)"
-                title="Open in editor (like JOSM)"
-                i18n-title="@@edit.link.title"
-                i18n="@@edit.link"
-                >edit</a
-              >
+              <kpn-edit-link (edit)="edit(locationFact)" />
             </div>
             <div class="description">
               <kpn-fact-description [factInfo]="factInfo(locationFact)" />
@@ -89,6 +83,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
     ItemsComponent,
     LinkNodeComponent,
     LinkRouteComponent,
+    EditLinkComponent,
   ],
 })
 export class LocationFactsComponent {

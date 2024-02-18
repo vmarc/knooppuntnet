@@ -8,6 +8,7 @@ import { NavService } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { Translations } from '@app/i18n';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 import { MonitorGroupDeletePageService } from './monitor-group-delete-page.service';
 
@@ -59,7 +60,7 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
                     Delete group
                   </span>
                 </button>
-                <a routerLink="/monitor" i18n="@@action.cancel">Cancel</a>
+                <a routerLink="/monitor">{{ cancelLinkText }}</a>
               </div>
             </div>
           }
@@ -82,4 +83,5 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
 })
 export class MonitorGroupDeletePageComponent {
   protected readonly service = inject(MonitorGroupDeletePageService);
+  protected readonly cancelLinkText = Translations.get('@@action.cancel');
 }

@@ -12,6 +12,7 @@ import { DayPipe } from '@app/components/shared/format';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { RouteSummaryComponent } from '@app/analysis/route';
+import { Translations } from '@app/i18n';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorRouteFormErrorsComponent } from '../components/monitor-route-form-errors.component';
 import { MonitorRouteFormSaveStepComponent } from '../components/monitor-route-form-save-step.component';
@@ -57,7 +58,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
                     Delete reference
                   </span>
                 </button>
-                <a [routerLink]="state.routeLink" id="cancel" i18n="@@action.cancel"> Cancel </a>
+                <a [routerLink]="state.routeLink" id="cancel">{{ cancelLinkText }}</a>
               </div>
             }
           }
@@ -118,6 +119,7 @@ export class MonitorRouteGpxDeleteComponent implements OnDestroy {
   private readonly service = inject(MonitorRouteGpxService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
+  protected readonly cancelLinkText = Translations.get('@@action.cancel');
   protected _state = this.service.state;
 
   protected readonly steps = this.monitorWebsocketService.steps;

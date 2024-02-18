@@ -9,6 +9,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { Translations } from '@app/i18n';
 import { Subscriptions } from '@app/util';
 import { EditParameters } from './edit-parameters';
 import { EditService } from './edit.service';
@@ -55,7 +56,7 @@ import { EditService } from './edit.service';
     <div mat-dialog-actions>
       @if (editService.showProgress$ | async) {
         <p>
-          <button mat-raised-button (click)="cancel()" i18n="@@action.cancel">Cancel</button>
+          <button mat-raised-button (click)="cancel()">{{ cancelButtonText }}</button>
         </p>
       }
       @if (editService.error$ | async) {
@@ -82,6 +83,7 @@ export class EditDialogComponent implements OnInit, OnDestroy {
   protected readonly parameters: EditParameters = inject(MAT_DIALOG_DATA);
   protected readonly editService = inject(EditService);
   private readonly dialogRef = inject(MatDialogRef<EditDialogComponent>);
+  protected readonly cancelButtonText = Translations.get('@@action.cancel');
   private readonly subscriptions = new Subscriptions();
 
   ngOnInit(): void {

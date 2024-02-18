@@ -14,6 +14,7 @@ import { TimestampUtil } from '@app/components/shared';
 import { NavService } from '@app/components/shared';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { Translations } from '@app/i18n';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorRouteFormErrorsComponent } from '../components/monitor-route-form-errors.component';
 import { MonitorRouteFormSaveStepComponent } from '../components/monitor-route-form-save-step.component';
@@ -66,7 +67,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
                 >
                   Upload
                 </button>
-                <a [routerLink]="state.routeLink" id="cancel" i18n="@@action.cancel"> Cancel </a>
+                <a [routerLink]="state.routeLink" id="cancel">{{ cancelLinkText }}</a>
               </div>
             }
           }
@@ -120,6 +121,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 export class MonitorRouteGpxComponent {
   private readonly service = inject(MonitorRouteGpxService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
+  protected readonly cancelLinkText = Translations.get('@@action.cancel');
 
   protected readonly _state = this.service.state;
 

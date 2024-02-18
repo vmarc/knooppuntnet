@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SubsetFactDetailsPage } from '@api/common/subset';
+import { EditLinkComponent } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
 import { EditService } from '@app/components/shared';
 import { IconHappyComponent } from '@app/components/shared/icon';
@@ -74,15 +75,7 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
                     class="kpn-label">{networkFactRefs.factRefs.length, plural, one {1 route} other
                     {{{ networkFactRefs.factRefs.length }} routes}}</span>
                 }
-                <a
-                  rel="nofollow"
-                  (click)="edit()"
-                  title="Open in editor (like JOSM)"
-                  i18n-title="@@edit.link.title"
-                  i18n="@@edit.link"
-                >
-                  edit
-                </a>
+                <kpn-edit-link (edit)="edit()" />
               </div>
               <div class="kpn-comma-list fact-detail">
                 @for (ref of networkFactRefs.factRefs; track ref) {
@@ -139,6 +132,7 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
     OsmLinkRelationComponent,
     OsmLinkWayComponent,
     RouterLink,
+    EditLinkComponent,
   ],
 })
 export class SubsetFactDetailsComponent implements OnInit {

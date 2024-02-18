@@ -33,8 +33,8 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   template: `
     <kpn-edit-and-paginator
       (edit)="edit()"
-      editLinkTitle="Load the routes in this page in the editor (like JOSM)"
       i18n-editLinkTitle="@@subset-orphan-routes.edit.title"
+      editLinkTitle="Load the routes in this page in JOSM"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"

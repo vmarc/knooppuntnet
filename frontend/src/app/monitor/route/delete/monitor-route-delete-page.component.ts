@@ -10,6 +10,7 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { Translations } from '@app/i18n';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteDeletePageService } from './monitor-route-delete-page.service';
 
@@ -51,7 +52,7 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
             <button mat-stroked-button (click)="service.delete()">
               <span class="kpn-warning" i18n="@@monitor.route.delete.action">Delete Route</span>
             </button>
-            <a [routerLink]="state.groupLink" i18n="@@action.cancel">Cancel</a>
+            <a [routerLink]="state.groupLink">{{ cancelLinkText }}</a>
           </div>
         </div>
         <kpn-sidebar sidebar />
@@ -73,6 +74,7 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
 export class MonitorRouteDeletePageComponent {
   protected readonly subtitle = $localize`:@@monitor.route.delete.title:Delete`;
   protected readonly service = inject(MonitorRouteDeletePageService);
+  protected readonly cancelLinkText = Translations.get('@@action.cancel');
   protected readonly pageTitle = computed(() => {
     const state = this.service.state();
     const monitor = MonitorTranslations.get('monitor');
