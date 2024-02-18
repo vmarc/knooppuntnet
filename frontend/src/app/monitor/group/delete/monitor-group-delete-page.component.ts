@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
@@ -17,7 +18,9 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
     <kpn-page>
       <kpn-monitor-group-breadcrumb />
 
-      <h1 i18n="@@monitor.group.delete.title">Monitor - delete group</h1>
+      <kpn-page-header>
+        <ng-container i18n="@@monitor.group.delete.title">Monitor - delete group</ng-container>
+      </kpn-page-header>
 
       @if (service.state(); as state) {
         @if (state.response; as response) {
@@ -74,6 +77,7 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
     PageComponent,
     RouterLink,
     SidebarComponent,
+    PageHeaderComponent,
   ],
 })
 export class MonitorGroupDeletePageComponent {

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
@@ -18,7 +19,9 @@ import { MonitorPageMenuComponent } from '../components/monitor-page-menu.compon
         <li i18n="@@breadcrumb.monitor.about">About</li>
       </ul>
 
-      <h1 i18n="@@monitor.about.title">Monitor</h1>
+      <kpn-page-header>
+        <ng-container i18n="@@monitor.about.title">Monitor</ng-container>
+      </kpn-page-header>
 
       <kpn-monitor-page-menu pageName="about" />
 
@@ -32,6 +35,12 @@ import { MonitorPageMenuComponent } from '../components/monitor-page-menu.compon
     </kpn-page>
   `,
   standalone: true,
-  imports: [MonitorPageMenuComponent, PageComponent, RouterLink, SidebarComponent],
+  imports: [
+    MonitorPageMenuComponent,
+    PageComponent,
+    RouterLink,
+    SidebarComponent,
+    PageHeaderComponent,
+  ],
 })
 export class MonitorAboutPageComponent {}

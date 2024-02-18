@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { SidebarComponent } from '@app/components/shared/sidebar';
@@ -28,9 +29,9 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
       </ul>
 
       @if (service.state(); as state) {
-        <h1>
+        <kpn-page-header>
           {{ state.groupDescription }}
-        </h1>
+        </kpn-page-header>
 
         <kpn-monitor-group-page-menu pageName="changes" [groupName]="state.groupName" />
 
@@ -78,6 +79,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
     PaginatorComponent,
     RouterLink,
     SidebarComponent,
+    PageHeaderComponent,
   ],
 })
 export class MonitorGroupChangesPageComponent {

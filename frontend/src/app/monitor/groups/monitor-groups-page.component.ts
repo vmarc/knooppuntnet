@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
@@ -22,7 +23,9 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
         <li i18n="@@breadcrumb.monitor">Monitor</li>
       </ul>
 
-      <h1 i18n="@@monitor.groups.title">Monitor</h1>
+      <kpn-page-header>
+        <ng-container i18n="@@monitor.groups.title">Monitor</ng-container>
+      </kpn-page-header>
 
       <kpn-monitor-page-menu pageName="groups" />
       <kpn-error />
@@ -82,6 +85,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
     PageComponent,
     RouterLink,
     SidebarComponent,
+    PageHeaderComponent,
   ],
 })
 export class MonitorGroupsPageComponent {

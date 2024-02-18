@@ -1,11 +1,14 @@
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteFormComponent } from '../components/monitor-route-form.component';
 import { MonitorRouteUpdatePageService } from './monitor-route-update-page.service';
 
@@ -26,12 +29,12 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
           <li i18n="@@breadcrumb.monitor.route">Route</li>
         </ul>
 
-        <h1>
+        <kpn-page-header [pageTitle]="pageTitle()">
           <span class="kpn-label">{{ state.routeName }}</span>
           <span>{{ state.routeDescription }}</span>
-        </h1>
+        </kpn-page-header>
 
-        <h2 i18n="@@monitor.route.update.title">Update route</h2>
+        <h2>{{ subtitle }}</h2>
 
         <kpn-error />
 
@@ -49,8 +52,21 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
   `,
   providers: [MonitorRouteUpdatePageService, NavService],
   standalone: true,
-  imports: [ErrorComponent, MonitorRouteFormComponent, PageComponent, RouterLink, SidebarComponent],
+  imports: [
+    ErrorComponent,
+    MonitorRouteFormComponent,
+    PageComponent,
+    RouterLink,
+    SidebarComponent,
+    PageHeaderComponent,
+  ],
 })
 export class MonitorRouteUpdatePageComponent {
+  protected readonly subtitle = $localize`:@@monitor.route.update.title:Update route`;
   protected readonly service = inject(MonitorRouteUpdatePageService);
+  protected readonly pageTitle = computed(() => {
+    const state = this.service.state();
+    const monitor = MonitorTranslations.translate('monitor');
+    return `${this.subtitle} | ${state.routeName} | ${state.groupName} | ${monitor}`;
+  });
 }

@@ -85,7 +85,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/about/monitor-about-page.component.ts</context>
-          <context context-type="linenumber">14</context>
+          <context context-type="linenumber">15</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/changes/monitor-changes-page.component.ts</context>
@@ -93,7 +93,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/changes/monitor-group-changes-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">24</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-breadcrumb.component.ts</context>
@@ -101,15 +101,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-page.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-groups-page.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/add/monitor-route-add-page.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/change/monitor-route-change-page.component.ts</context>
@@ -117,11 +117,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx-breadcrumb.component.ts</context>
@@ -129,7 +129,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/update/monitor-route-update-page.component.ts</context>
-          <context context-type="linenumber">19</context>
+          <context context-type="linenumber">22</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/selector/_map-page.component.ts</context>
@@ -1494,15 +1494,15 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/add/monitor-group-add-page.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">54</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/delete/monitor-group-delete-page.component.ts</context>
-          <context context-type="linenumber">59</context>
+          <context context-type="linenumber">62</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/update/monitor-group-update-page.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">53</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-properties.component.ts</context>
@@ -1510,7 +1510,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">54</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx-delete.component.ts</context>
@@ -5469,7 +5469,7 @@
         <source>Monitor</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/about/monitor-about-page.component.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="linenumber">17</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/changes/monitor-changes-page.component.ts</context>
@@ -5477,7 +5477,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/changes/monitor-group-changes-page.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">26</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-breadcrumb.component.ts</context>
@@ -5485,23 +5485,23 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-groups-page.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/add/monitor-route-add-page.component.ts</context>
-          <context context-type="linenumber">22</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/add/monitor-route-add-page.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">25</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/gpx/monitor-route-gpx-breadcrumb.component.ts</context>
@@ -5509,28 +5509,28 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/update/monitor-route-update-page.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.monitor.about">
         <source>About</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/about/monitor-about-page.component.ts</context>
-          <context context-type="linenumber">18</context>
+          <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.about.title">
         <source>Monitor</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/about/monitor-about-page.component.ts</context>
-          <context context-type="linenumber">21</context>
+          <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.about.text">
         <source>The route monitoring function allows you to compare a route geometry in OpenStreetMap against a given reference geometry.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/about/monitor-about-page.component.ts</context>
-          <context context-type="linenumber">26,29</context>
+          <context context-type="linenumber">29,32</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.monitor.changes">
@@ -5582,32 +5582,39 @@
           <context context-type="linenumber">23,25</context>
         </context-group>
       </trans-unit>
+      <trans-unit datatype="html" id="monitor">
+        <source>Monitor</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/components/monitor-translations.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
       <trans-unit datatype="html" id="monitor.group.add.title">
         <source>Monitor - add group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/add/monitor-group-add-page.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.add.comment.1">
         <source>Create a new group containing routes to be monitored.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/add/monitor-group-add-page.component.ts</context>
-          <context context-type="linenumber">26,28</context>
+          <context context-type="linenumber">29,31</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.add.comment.2">
         <source>Provide a short name (that will be used in the browser address), and a title for the group (probably describing who will be maintaining the route group).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/add/monitor-group-add-page.component.ts</context>
-          <context context-type="linenumber">29,32</context>
+          <context context-type="linenumber">32,35</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.add.action">
         <source>Add group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/add/monitor-group-add-page.component.ts</context>
-          <context context-type="linenumber">48,50</context>
+          <context context-type="linenumber">51,53</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.monitor.group">
@@ -5618,7 +5625,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-page.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.description.label">
@@ -5681,56 +5688,56 @@
         <source>Monitor - delete group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/delete/monitor-group-delete-page.component.ts</context>
-          <context context-type="linenumber">20</context>
+          <context context-type="linenumber">22</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.delete.group-not-found">
         <source>Group not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/delete/monitor-group-delete-page.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.delete.name">
         <source>Name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/delete/monitor-group-delete-page.component.ts</context>
-          <context context-type="linenumber">30</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.delete.description">
         <source>Description</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/delete/monitor-group-delete-page.component.ts</context>
-          <context context-type="linenumber">35,37</context>
+          <context context-type="linenumber">38,40</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.delete.warning">
         <source>The information of all routes (<x equiv-text="{{ routeCount }}" id="INTERPOLATION"/> route(s)) in the group will also be deleted!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/delete/monitor-group-delete-page.component.ts</context>
-          <context context-type="linenumber">45,48</context>
+          <context context-type="linenumber">48,51</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.delete.action">
         <source>Delete group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/delete/monitor-group-delete-page.component.ts</context>
-          <context context-type="linenumber">55,57</context>
+          <context context-type="linenumber">58,60</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.no-routes">
         <source>No routes in group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-page.component.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">49</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.action.add-route">
         <source>Add route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/details/monitor-group-page.component.ts</context>
-          <context context-type="linenumber">57,59</context>
+          <context context-type="linenumber">59,61</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.route-table.nr">
@@ -5856,21 +5863,21 @@
         <source>Monitor - update group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/update/monitor-group-update-page.component.ts</context>
-          <context context-type="linenumber">22</context>
+          <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.update.group-not-found">
         <source>Group not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/update/monitor-group-update-page.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">32</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.update.action">
         <source>Update group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/update/monitor-group-update-page.component.ts</context>
-          <context context-type="linenumber">47,49</context>
+          <context context-type="linenumber">50,52</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.group.table.name">
@@ -5905,28 +5912,28 @@
         <source>Monitor</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-groups-page.component.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.groups.routes-in-groups">
         <source><x equiv-text="{{ page.routeCount }}" id="INTERPOLATION"/> routes in <x equiv-text="{{ page.groups.length }}" id="INTERPOLATION_1"/> groups</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-groups-page.component.ts</context>
-          <context context-type="linenumber">34,36</context>
+          <context context-type="linenumber">37,39</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.groups.no-groups">
         <source>No route groups</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-groups-page.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.groups.action.add">
         <source>Add group</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/groups/monitor-groups-page.component.ts</context>
-          <context context-type="linenumber">51,53</context>
+          <context context-type="linenumber">54,56</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.update-command.prepare">
@@ -5982,26 +5989,26 @@
         <source>Route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/add/monitor-route-add-page.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
-          <context context-type="linenumber">27</context>
+          <context context-type="linenumber">30</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/update/monitor-route-update-page.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.add.title">
         <source>Add route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/add/monitor-route-add-page.component.ts</context>
-          <context context-type="linenumber">32</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.relation.not-found">
@@ -6162,49 +6169,49 @@
         <source>Details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">52,54</context>
+          <context context-type="linenumber">53,55</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.menu.map">
         <source>Map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">61,63</context>
+          <context context-type="linenumber">62,64</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.menu.previous">
         <source>Previous</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">69</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.menu.next">
         <source>Next</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">76</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.menu.select">
         <source>Select</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">84,86</context>
+          <context context-type="linenumber">85,87</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.menu.josm.title">
         <source>Go here in JOSM</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">94</context>
+          <context context-type="linenumber">95</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.menu.josm">
         <source>josm</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-page-header.component.ts</context>
-          <context context-type="linenumber">97,99</context>
+          <context context-type="linenumber">98,100</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.properties.group">
@@ -6562,32 +6569,32 @@
           <context context-type="linenumber">142,144</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="monitor.route.delete.title">
-        <source>Delete</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
-          <context context-type="linenumber">35</context>
-        </context-group>
-      </trans-unit>
       <trans-unit datatype="html" id="monitor.route.delete.comment">
         <source>Remove this route from the monitor.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
-          <context context-type="linenumber">40</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.delete.warning">
         <source>Attention: all history will be lost!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">47</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.delete.action">
         <source>Delete Route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="monitor.route.delete.title">
+        <source>Delete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/monitor/route/delete/monitor-route-delete-page.component.ts</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.details.analysis.ok">
@@ -7057,7 +7064,7 @@
         <source>Update route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/update/monitor-route-update-page.component.ts</context>
-          <context context-type="linenumber">34</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="layer-switcher.title">

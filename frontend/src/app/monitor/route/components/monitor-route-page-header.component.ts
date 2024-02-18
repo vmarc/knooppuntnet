@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
+import { computed } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -12,6 +13,8 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { EllipsisComponent } from '@app/components/shared/format';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
+import { PageHeaderComponent } from '@app/components/shared/page';
+import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-relation-menu-option.component';
 
 @Component({
@@ -27,11 +30,9 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
       <li i18n="@@breadcrumb.monitor.route">Route</li>
     </ul>
 
-    <h1>
-      <kpn-ellipsis>
-        {{ routeName() + ': ' + routeDescription() }}
-      </kpn-ellipsis>
-    </h1>
+    <kpn-page-header [pageTitle]="pageTitle()">
+      {{ routeName() + ': ' + routeDescription() }}
+    </kpn-page-header>
 
     <mat-menu #appMenu="matMenu" class="sub-relation-menu">
       <ng-template matMenuContent>
@@ -124,6 +125,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
     PageMenuComponent,
     PageMenuOptionComponent,
     RouterLink,
+    PageHeaderComponent,
   ],
 })
 export class MonitorRoutePageHeaderComponent {
@@ -136,6 +138,11 @@ export class MonitorRoutePageHeaderComponent {
   next = input<MonitorRouteSubRelation>();
   @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
   @Output() goHereInJosm = new EventEmitter<void>();
+
+  protected pageTitle = computed(() => {
+    const monitor = MonitorTranslations.translate('monitor');
+    return `${this.routeName()} | ${this.groupName()} | ${monitor}`;
+  });
 
   select(subRelation: MonitorRouteSubRelation): void {
     this.selectSubRelation.emit(subRelation);

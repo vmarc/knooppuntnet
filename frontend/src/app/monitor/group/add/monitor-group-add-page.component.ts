@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { FormStatusComponent } from '@app/components/shared';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
@@ -20,7 +21,9 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
     <kpn-page>
       <kpn-monitor-group-breadcrumb />
 
-      <h1 i18n="@@monitor.group.add.title">Monitor - add group</h1>
+      <kpn-page-header>
+        <ng-container i18n="@@monitor.group.add.title">Monitor - add group</ng-container>
+      </kpn-page-header>
 
       <div class="kpn-comment">
         <p i18n="@@monitor.group.add.comment.1">
@@ -67,6 +70,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
     ReactiveFormsModule,
     RouterLink,
     SidebarComponent,
+    PageHeaderComponent,
   ],
 })
 export class MonitorGroupAddPageComponent {

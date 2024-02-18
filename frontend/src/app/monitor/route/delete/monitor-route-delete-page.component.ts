@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -6,8 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
+import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteDeletePageService } from './monitor-route-delete-page.service';
 
 @Component({
@@ -27,12 +30,12 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
           <li i18n="@@breadcrumb.monitor.route">Route</li>
         </ul>
 
-        <h1>
+        <kpn-page-header [pageTitle]="pageTitle()">
           <span class="kpn-label">{{ state.routeName }}</span>
           <span>{{ state.routeDescription }}</span>
-        </h1>
+        </kpn-page-header>
 
-        <h2 i18n="@@monitor.route.delete.title">Delete</h2>
+        <h2>{{ subtitle }}</h2>
 
         <kpn-error />
 
@@ -64,8 +67,15 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
     PageComponent,
     RouterLink,
     SidebarComponent,
+    PageHeaderComponent,
   ],
 })
 export class MonitorRouteDeletePageComponent {
+  protected readonly subtitle = $localize`:@@monitor.route.delete.title:Delete`;
   protected readonly service = inject(MonitorRouteDeletePageService);
+  protected readonly pageTitle = computed(() => {
+    const state = this.service.state();
+    const monitor = MonitorTranslations.translate('monitor');
+    return `${this.subtitle} | ${state.routeName} | ${state.groupName} | ${monitor}`;
+  });
 }

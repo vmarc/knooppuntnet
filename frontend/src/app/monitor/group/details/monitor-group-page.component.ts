@@ -1,13 +1,15 @@
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { MonitorGroupPage } from '@api/common/monitor';
 import { NavService } from '@app/components/shared';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
+import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
 import { MonitorGroupPageService } from './monitor-group-page.service';
 import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.component';
@@ -25,10 +27,10 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
         <li i18n="@@breadcrumb.monitor.group">Group</li>
       </ul>
       @if (service.state(); as state) {
-        <h1 class="title">
+        <kpn-page-header [pageTitle]="pageTitle()">
           <span class="kpn-label">{{ state.groupName }}</span>
           <span>{{ state.groupDescription }}</span>
-        </h1>
+        </kpn-page-header>
 
         <kpn-monitor-group-page-menu pageName="routes" [groupName]="state.groupName" />
 
@@ -51,7 +53,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
                   <button
                     mat-stroked-button
                     id="add-route"
-                    [routerLink]="addRouteLink(page)"
+                    [routerLink]="addRouteLink()"
                     type="button"
                     i18n="@@monitor.group.action.add-route"
                   >
@@ -76,12 +78,17 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
     PageComponent,
     RouterLink,
     SidebarComponent,
+    PageHeaderComponent,
   ],
 })
 export class MonitorGroupPageComponent {
   protected readonly service = inject(MonitorGroupPageService);
-
-  addRouteLink(page: MonitorGroupPage): string {
-    return `/monitor/admin/groups/${page.groupName}/routes/add`;
-  }
+  private groupName = computed(() => this.service.state().groupName);
+  protected pageTitle = computed(() => {
+    const monitor = MonitorTranslations.translate('monitor');
+    return `${this.groupName()} | ${monitor}`;
+  });
+  protected addRouteLink = computed(() => {
+    return `/monitor/admin/groups/${this.groupName()}/routes/add`;
+  });
 }

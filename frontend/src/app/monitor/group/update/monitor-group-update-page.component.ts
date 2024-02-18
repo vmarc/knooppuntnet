@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
+import { PageHeaderComponent } from '@app/components/shared/page';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
@@ -19,7 +20,9 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
     <kpn-page>
       <kpn-monitor-group-breadcrumb />
 
-      <h1 i18n="@@monitor.group.update.title">Monitor - update group</h1>
+      <kpn-page-header>
+        <ng-container i18n="@@monitor.group.update.title">Monitor - update group</ng-container>
+      </kpn-page-header>
 
       @if (service.state(); as state) {
         @if (state.response; as response) {
@@ -69,6 +72,7 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
     ReactiveFormsModule,
     RouterLink,
     SidebarComponent,
+    PageHeaderComponent,
   ],
 })
 export class MonitorGroupUpdatePageComponent {
