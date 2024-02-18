@@ -41,7 +41,7 @@ export class NodeLocationComponent {
 
   locationLink(index: number): string {
     const country = this.locations()![0].toLowerCase();
-    const countryName = Translations.get('@@country.' + Util.safeGet(() => country));
+    const countryName = Translations.get('country.' + Util.safeGet(() => country));
     const locationParts = [countryName].concat(
       this.locations()!.slice(1, this.locations()!.length - index)
     );

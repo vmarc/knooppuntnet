@@ -78,5 +78,5 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
 })
 export class MonitorGroupUpdatePageComponent {
   protected readonly service = inject(MonitorGroupUpdatePageService);
-  protected readonly cancelLinkText = Translations.get('@@action.cancel');
+  protected readonly cancelLinkText = Translations.get('action.cancel');
 }

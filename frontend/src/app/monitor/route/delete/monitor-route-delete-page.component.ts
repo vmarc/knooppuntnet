@@ -74,7 +74,7 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
 export class MonitorRouteDeletePageComponent {
   protected readonly subtitle = $localize`:@@monitor.route.delete.title:Delete`;
   protected readonly service = inject(MonitorRouteDeletePageService);
-  protected readonly cancelLinkText = Translations.get('@@action.cancel');
+  protected readonly cancelLinkText = Translations.get('action.cancel');
   protected readonly pageTitle = computed(() => {
     const state = this.service.state();
     const monitor = MonitorTranslations.get('monitor');

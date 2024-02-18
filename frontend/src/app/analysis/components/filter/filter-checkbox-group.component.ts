@@ -33,10 +33,10 @@ export class FilterCheckboxGroupComponent {
   selectedChanged(event: MatCheckboxChange) {}
 
   groupName(): string {
-    return Translations.get(`@@filter.${this.group().name}`);
+    return Translations.get(`filter.${this.group().name}`);
   }
 
   optionName(option: FilterOption): string {
-    return Translations.get(`@@filter.${option.name}`);
+    return Translations.get(`filter.${option.name}`);
   }
 }

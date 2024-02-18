@@ -170,7 +170,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   routeGroups = input.required<MonitorRouteGroup[]>();
   @Output() update = new EventEmitter<MonitorRouteUpdate>();
 
-  protected readonly cancelLinkText = Translations.get('@@action.cancel');
+  protected readonly cancelLinkText = Translations.get('action.cancel');
 
   readonly group = new FormControl<MonitorRouteGroup>(null);
 

@@ -86,7 +86,7 @@ export class ChangeLocationAnalysisSummaryComponent {
 
   locationLink(networkType: NetworkType, locationNames: string[], index: number): string {
     const country = locationNames[0].toLowerCase();
-    const countryName = Translations.get('@@country.' + Util.safeGet(() => country));
+    const countryName = Translations.get('country.' + Util.safeGet(() => country));
     const locationParts = [countryName].concat(locationNames.slice(1, index + 1));
     const location = locationParts.join(':');
     return `/analysis/${networkType}/${country}/${location}/nodes`;

@@ -14,6 +14,6 @@ import { Translations } from '@app/i18n';
 export class NetworkScopeNameComponent {
   networkScope = input.required<NetworkScope>();
   protected networkScopeName = computed(() =>
-    Translations.get('@@network-scope.' + this.networkScope())
+    Translations.get('network-scope.' + this.networkScope())
   );
 }

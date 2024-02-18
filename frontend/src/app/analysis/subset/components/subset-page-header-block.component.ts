@@ -51,9 +51,9 @@ export class SubsetPageHeaderBlockComponent {
 
   protected readonly subsetName = computed(() => {
     const ss = this.subset();
-    const networkType = Translations.get('@@network-type.' + ss.networkType);
-    const country = Translations.get('@@country.' + ss.country);
-    const inWord = Translations.get('@@subset.in');
+    const networkType = Translations.get('network-type.' + ss.networkType);
+    const country = Translations.get('country.' + ss.country);
+    const inWord = Translations.get('subset.in');
     return `${networkType} ${inWord} ${country}`;
   });
 

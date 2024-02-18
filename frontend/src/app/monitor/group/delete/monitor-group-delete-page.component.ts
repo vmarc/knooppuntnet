@@ -83,5 +83,5 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
 })
 export class MonitorGroupDeletePageComponent {
   protected readonly service = inject(MonitorGroupDeletePageService);
-  protected readonly cancelLinkText = Translations.get('@@action.cancel');
+  protected readonly cancelLinkText = Translations.get('action.cancel');
 }

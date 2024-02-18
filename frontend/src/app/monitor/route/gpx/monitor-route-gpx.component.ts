@@ -121,7 +121,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 export class MonitorRouteGpxComponent {
   private readonly service = inject(MonitorRouteGpxService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
-  protected readonly cancelLinkText = Translations.get('@@action.cancel');
+  protected readonly cancelLinkText = Translations.get('action.cancel');
 
   protected readonly _state = this.service.state;
 

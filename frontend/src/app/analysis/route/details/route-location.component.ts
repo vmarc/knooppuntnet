@@ -68,7 +68,7 @@ export class RouteLocationComponent {
 
   locationLink(location: Location, index: number): string {
     const country = location.names[0].toLowerCase();
-    const countryName = Translations.get('@@country.' + Util.safeGet(() => country));
+    const countryName = Translations.get('country.' + Util.safeGet(() => country));
     const locationParts = [countryName].concat(
       location.names.slice(1, location.names.length - index)
     );

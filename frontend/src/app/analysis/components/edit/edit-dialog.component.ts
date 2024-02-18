@@ -83,7 +83,7 @@ export class EditDialogComponent implements OnInit, OnDestroy {
   protected readonly parameters: EditParameters = inject(MAT_DIALOG_DATA);
   protected readonly editService = inject(EditService);
   private readonly dialogRef = inject(MatDialogRef<EditDialogComponent>);
-  protected readonly cancelButtonText = Translations.get('@@action.cancel');
+  protected readonly cancelButtonText = Translations.get('action.cancel');
   private readonly subscriptions = new Subscriptions();
 
   ngOnInit(): void {

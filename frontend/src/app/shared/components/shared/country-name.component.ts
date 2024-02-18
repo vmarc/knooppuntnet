@@ -24,6 +24,6 @@ import { Util } from './util';
 export class CountryNameComponent {
   country = input.required<Country>();
   protected countryName = computed(() =>
-    Translations.get('@@country.' + Util.safeGet(() => this.country()))
+    Translations.get('country.' + Util.safeGet(() => this.country()))
   );
 }

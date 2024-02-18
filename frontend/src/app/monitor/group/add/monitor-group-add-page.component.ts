@@ -76,7 +76,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
 })
 export class MonitorGroupAddPageComponent {
   protected readonly service = inject(MonitorGroupAddPageService);
-  protected readonly cancelLinkText = Translations.get('@@action.cancel');
+  protected readonly cancelLinkText = Translations.get('action.cancel');
 
   add(): void {
     this.service.add();

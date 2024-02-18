@@ -119,7 +119,7 @@ export class MonitorRouteGpxDeleteComponent implements OnDestroy {
   private readonly service = inject(MonitorRouteGpxService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
-  protected readonly cancelLinkText = Translations.get('@@action.cancel');
+  protected readonly cancelLinkText = Translations.get('action.cancel');
   protected _state = this.service.state;
 
   protected readonly steps = this.monitorWebsocketService.steps;
