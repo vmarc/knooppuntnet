@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
+import { Coordinate } from 'ol/coordinate';
+import { GeolocationControlComponent } from '../../../planner/pages/planner/geolocation/geolocation-control.component';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
@@ -13,6 +15,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="mapId" class="kpn-map">
+      <kpn-geolocation-control (action)="geolocation($event)" />
       <kpn-layer-switcher />
       <kpn-map-link-menu />
     </div>
@@ -24,7 +27,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
     },
   ],
   standalone: true,
-  imports: [LayerSwitcherComponent, MapLinkMenuComponent],
+  imports: [LayerSwitcherComponent, MapLinkMenuComponent, GeolocationControlComponent],
 })
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
   private readonly service = inject(MonitorRouteMapService);
@@ -36,5 +39,10 @@ export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.service.destroy();
+  }
+
+  geolocation(coordinate: Coordinate): void {
+    this.service.map.getView().setCenter(coordinate);
+    this.service.map.getView().setZoom(15);
   }
 }

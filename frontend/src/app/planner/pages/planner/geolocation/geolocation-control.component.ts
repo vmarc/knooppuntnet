@@ -27,7 +27,7 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
   styles: `
     .geolocation-control {
       left: 8px;
-      top: 148px;
+      top: 110px;
     }
   `,
   standalone: true,

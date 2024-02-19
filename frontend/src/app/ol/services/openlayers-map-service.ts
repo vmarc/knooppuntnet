@@ -17,6 +17,7 @@ import { BehaviorSubject } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { distinct } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
+import { MapGeocoder } from '../domain';
 import { MapLayerState } from '../domain';
 import { MapPosition } from '../domain';
 import { MapLayer } from '../layers';
@@ -55,6 +56,7 @@ export abstract class OpenlayersMapService {
 
   protected initMap(map: Map): void {
     this._map = map;
+    MapGeocoder.install(map);
   }
 
   protected finalizeSetup(updateUrl?: boolean): void {

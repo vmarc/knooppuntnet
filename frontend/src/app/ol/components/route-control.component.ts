@@ -21,7 +21,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   styles: `
     .geolocation-control {
       left: 8px;
-      top: 110px;
+      top: 148px;
       z-index: 100;
     }
   `,
