@@ -39,7 +39,7 @@ trait MonitorFacade {
 
   def route(groupName: String, routeName: String): ApiResponse[MonitorRouteDetailsPage]
 
-  def routeMap(groupName: String, routeName: String, relationId: Option[Long]): ApiResponse[MonitorRouteMapPage]
+  def routeMap(groupName: String, routeName: String, subRelationIndex: Option[Int]): ApiResponse[MonitorRouteMapPage]
 
   def routeGpx(groupName: String, routeName: String, subRelationId: Long): ApiResponse[MonitorRouteGpxPage]
 

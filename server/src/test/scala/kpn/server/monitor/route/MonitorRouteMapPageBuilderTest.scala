@@ -57,38 +57,6 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  test("relationId parameter not matching relationId in MonitorRoute") {
-
-    withDatabase() { database =>
-
-      val groupRepository = new MonitorGroupRepositoryImpl(database)
-      val routeRepository = new MonitorRouteRepositoryImpl(database)
-      val pageBuilder = new MonitorRouteMapPageBuilder(groupRepository, routeRepository)
-
-      val group = newMonitorGroup("group", "group-description")
-      groupRepository.saveGroup(group)
-
-      val route = newMonitorRoute(
-        group._id,
-        name = "route",
-        description = "route-description",
-        relationId = Some(1),
-        referenceType = "osm",
-        referenceTimestamp = Some(Timestamp(2022, 8, 11)),
-        relation = Some(
-          newMonitorRouteRelation(
-            relationId = 1,
-          )
-        )
-      )
-      routeRepository.saveRoute(route)
-
-      intercept[IllegalStateException] {
-        pageBuilder.build("group", "route", Some(99))
-      }.getMessage should equal("""Requested relationId "99" does not match route relationId "1"""")
-    }
-  }
-
   test("route without state or reference") {
 
     withDatabase() { database =>
@@ -366,7 +334,8 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
       )
 
       pageBuilder.build("group", "route", None, log) shouldMatchTo expectedPage
-      pageBuilder.build("group", "route", Some(1), log) shouldMatchTo expectedPage
+      pageBuilder.build("group", "route", Some(0), log) shouldMatchTo expectedPage
+      pageBuilder.build("group", "route", Some(9), log) shouldMatchTo expectedPage
 
       log.messages should equal(Seq.empty)
     }
@@ -439,7 +408,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
       routeRepository.saveRouteReference(reference11)
       routeRepository.saveRouteReference(reference12)
 
-      pageBuilder.build("group", "route", Some(11), log) shouldMatchTo {
+      pageBuilder.build("group", "route", Some(0), log) shouldMatchTo {
         Some(
           MonitorRouteMapPage(
             relationId = None,
@@ -452,6 +421,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             analysisTimestamp = None,
             currentSubRelation = Some(
               MonitorRouteSubRelation(
+                Some(0),
                 11,
                 "sub-relation-11",
                 1
@@ -460,6 +430,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             previousSubRelation = None,
             nextSubRelation = Some(
               MonitorRouteSubRelation(
+                Some(1),
                 12,
                 "sub-relation-12",
                 1
@@ -483,11 +454,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             ),
             subRelations = Seq(
               MonitorRouteSubRelation(
+                Some(0),
                 11,
                 "sub-relation-11",
                 1
               ),
               MonitorRouteSubRelation(
+                Some(1),
                 12,
                 "sub-relation-12",
                 1
@@ -497,7 +470,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         )
       }
 
-      pageBuilder.build("group", "route", Some(12), log) shouldMatchTo {
+      pageBuilder.build("group", "route", Some(1), log) shouldMatchTo {
         Some(
           MonitorRouteMapPage(
             relationId = None,
@@ -510,6 +483,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             analysisTimestamp = None,
             currentSubRelation = Some(
               MonitorRouteSubRelation(
+                Some(1),
                 12,
                 "sub-relation-12",
                 1
@@ -517,6 +491,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             ),
             previousSubRelation = Some(
               MonitorRouteSubRelation(
+                Some(0),
                 11,
                 "sub-relation-11",
                 1
@@ -541,11 +516,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             ),
             subRelations = Seq(
               MonitorRouteSubRelation(
+                Some(0),
                 11,
                 "sub-relation-11",
                 1
               ),
               MonitorRouteSubRelation(
+                Some(1),
                 12,
                 "sub-relation-12",
                 1
@@ -701,6 +678,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           analysisTimestamp = None,
           currentSubRelation = Some(
             MonitorRouteSubRelation(
+              Some(0),
               11,
               "sub-relation-11",
               1
@@ -709,6 +687,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           previousSubRelation = None,
           nextSubRelation = Some(
             MonitorRouteSubRelation(
+              Some(1),
               12,
               "sub-relation-12",
               1
@@ -750,11 +729,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           ),
           subRelations = Seq(
             MonitorRouteSubRelation(
+              Some(0),
               11,
               "sub-relation-11",
               1
             ),
             MonitorRouteSubRelation(
+              Some(1),
               12,
               "sub-relation-12",
               1
@@ -775,6 +756,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           analysisTimestamp = None,
           currentSubRelation = Some(
             MonitorRouteSubRelation(
+              Some(1),
               12,
               "sub-relation-12",
               1
@@ -782,6 +764,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           ),
           previousSubRelation = Some(
             MonitorRouteSubRelation(
+              Some(0),
               11,
               "sub-relation-11",
               1
@@ -823,11 +806,13 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
           ),
           subRelations = Seq(
             MonitorRouteSubRelation(
+              Some(0),
               11,
               "sub-relation-11",
               1
             ),
             MonitorRouteSubRelation(
+              Some(1),
               12,
               "sub-relation-12",
               1
@@ -837,8 +822,8 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
       )
 
       pageBuilder.build("group", "route", None, log) shouldMatchTo expectedPage11
-      pageBuilder.build("group", "route", Some(11), log) shouldMatchTo expectedPage11
-      pageBuilder.build("group", "route", Some(12), log) shouldMatchTo expectedPage12
+      pageBuilder.build("group", "route", Some(0), log) shouldMatchTo expectedPage11
+      pageBuilder.build("group", "route", Some(1), log) shouldMatchTo expectedPage12
 
       log.messages should equal(Seq.empty)
     }

@@ -21,7 +21,19 @@ class MonitorRouteDetailsPageBuilder(
     val admin = monitorRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).flatMap { group =>
       monitorRouteRepository.routeByName(group._id, routeName).map { route =>
-        val structureRows = flattenRelationTree(route, route.relation)
+        val treeRows = flattenRelationTree(route, route.relation)
+        var subRelationIndex = -1L
+        val structureRows = treeRows.map { rows =>
+          rows.map { row =>
+            if (row.osmDistance > 0) {
+              subRelationIndex = subRelationIndex + 1
+              row.copy(subRelationIndex = Some(subRelationIndex))
+            }
+            else {
+              row
+            }
+          }
+        }
         val relationCount = structureRows match {
           case Some(rows) => rows.size
           case None => 0
@@ -106,6 +118,7 @@ class MonitorRouteDetailsPageBuilder(
       physical = physical,
       name = monitorRouteRelation.name,
       relationId = monitorRouteRelation.relationId,
+      subRelationIndex = None,
       role = monitorRouteRelation.role,
       survey = monitorRouteRelation.survey,
       symbol = monitorRouteRelation.symbol,

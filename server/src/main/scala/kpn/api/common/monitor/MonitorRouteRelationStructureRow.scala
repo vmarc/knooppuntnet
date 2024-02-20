@@ -8,6 +8,7 @@ case class MonitorRouteRelationStructureRow(
   physical: Boolean,
   name: String,
   relationId: Long,
+  subRelationIndex: Option[Long],
   role: Option[String],
   survey: Option[Day],
   symbol: Option[String],

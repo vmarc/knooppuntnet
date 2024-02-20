@@ -99,13 +99,13 @@ class MonitorController(facade: MonitorFacade) {
     facade.routeMap(groupName, routeName, None)
   }
 
-  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map/{relationId}"))
+  @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/map/{subRelationIndex}"))
   def routeRelationMap(
     @PathVariable groupName: String,
     @PathVariable routeName: String,
-    @PathVariable relationId: Long,
+    @PathVariable subRelationIndex: Long,
   ): ApiResponse[MonitorRouteMapPage] = {
-    facade.routeMap(groupName, routeName, Some(relationId))
+    facade.routeMap(groupName, routeName, Some(subRelationIndex.toInt))
   }
 
   @GetMapping(value = Array("groups/{groupName}/routes/{routeName}/gpx/{subRelationId}"))

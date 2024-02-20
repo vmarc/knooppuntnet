@@ -3,7 +3,6 @@ package kpn.server.monitor.route
 import kpn.api.common.Bounds
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteReferenceInfo
-import kpn.api.common.monitor.MonitorRouteSubRelation
 import kpn.core.util.Log
 import kpn.core.util.Triplet
 import kpn.core.util.Util
@@ -28,13 +27,13 @@ class MonitorRouteMapPageBuilder(
   def build(
     groupName: String,
     routeName: String,
-    relationId: Option[Long],
+    subRelationIndex: Option[Int],
     log: Log = MonitorRouteMapPageBuilder.log
   ): Option[MonitorRouteMapPage] = {
 
-    Log.context(s"$groupName/$routeName/${relationId.getOrElse("-")}") {
+    Log.context(s"$groupName/$routeName/${subRelationIndex.getOrElse("-")}") {
       monitorGroupRepository.groupByName(groupName) match {
-        case Some(group) => build(group, routeName, relationId, log)
+        case Some(group) => build(group, routeName, subRelationIndex, log)
         case None =>
           log.error(s"""Group "$groupName" does not exist""")
           None
@@ -45,14 +44,14 @@ class MonitorRouteMapPageBuilder(
   private def build(
     group: MonitorGroup,
     routeName: String,
-    relationId: Option[Long],
+    subRelationIndex: Option[Int],
     log: Log
   ): Option[MonitorRouteMapPage] = {
 
     monitorRouteRepository.routeByName(group._id, routeName) match {
       case Some(route) =>
         Some(
-          build(group, route, relationId)
+          build(group, route, subRelationIndex)
         )
 
       case None =>
@@ -61,32 +60,27 @@ class MonitorRouteMapPageBuilder(
     }
   }
 
-  private def build(group: MonitorGroup, route: MonitorRoute, relationId: Option[Long]): MonitorRouteMapPage = {
-    relationId match {
-      case Some(relId) => buildPageForRelationId(group, route, relId)
+  private def build(group: MonitorGroup, route: MonitorRoute, subRelationIndex: Option[Int]): MonitorRouteMapPage = {
+    subRelationIndex match {
+      case Some(index) => buildPageForSubRelationIndex(group, route, index)
       case None => buildPageWithoutRelationIdSpecified(group, route)
     }
   }
 
-  private def buildPageForRelationId(
+  private def buildPageForSubRelationIndex(
     group: MonitorGroup,
     route: MonitorRoute,
-    relationId: Long
+    subRelationIndex: Int
   ): MonitorRouteMapPage = {
 
     route.relation match {
       case None => throw new IllegalStateException("Mandatory route structure (route.relation) not found")
       case Some(relation) =>
         if (relation.relations.nonEmpty) {
-          buildSuperRoutePage(group, route, relationId)
+          buildSuperRoutePage(group, route, subRelationIndex)
         }
         else {
-          if (relationId != relation.relationId) {
-            throw new IllegalStateException(
-              s"""Requested relationId "$relationId" does not match route relationId "${relation.relationId}""""
-            )
-          }
-          buildSimpleRoutePage(group, route, relationId)
+          buildSimpleRoutePage(group, route, relation.relationId)
         }
     }
   }
@@ -116,7 +110,7 @@ class MonitorRouteMapPageBuilder(
             buildSimpleRoutePage(group, route, relation.relationId)
           }
           else {
-            buildSuperRoutePage(group, route, subRelationsWithWays.head.relationId)
+            buildSuperRoutePage(group, route, 0)
           }
         }
     }
@@ -239,21 +233,38 @@ class MonitorRouteMapPageBuilder(
   private def buildSuperRoutePage(
     group: MonitorGroup,
     route: MonitorRoute,
-    relationId: Long
+    subRelationIndex: Int
   ): MonitorRouteMapPage = {
 
     val subRelations = MonitorUtil.subRelationsIn(route).filter(_.wayCount > 0)
+      .zipWithIndex.map { case (subRelation, index) => subRelation.copy(subRelationIndex = Some(index.toLong)) }
 
-    val subRelationPages = Triplet.slide[MonitorRouteSubRelation](subRelations).find(_.current.relationId == relationId)
+    val triplet = {
+      val index = if (subRelationIndex < subRelations.size) {
+        subRelationIndex
+      }
+      else {
+        0
+      }
+      val current = subRelations(index)
+      val previous = if (index > 0) {
+        Some(subRelations(index - 1))
+      }
+      else {
+        None
+      }
+      val next = if (index < subRelations.size - 1) {
+        Some(subRelations(index + 1))
+      }
+      else {
+        None
+      }
+      Triplet(previous, current, next)
+    }
 
+    val routeDescription = s"(${subRelationIndex + 1}/${subRelations.size}) ${triplet.current.name}"
 
-    val routeDescription = subRelationPages.map(_.current).map {
-      subRelation =>
-        val index = subRelations.zipWithIndex.find { case (subRelation, index) =>
-          subRelation.relationId == relationId
-        }.map(_._2).getOrElse(0)
-        s"(${index + 1}/${subRelations.size}) ${subRelation.name}"
-    }.getOrElse("?")
+    val relationId = triplet.current.relationId
 
     monitorRouteRepository.routeReference(route._id, Some(relationId)) match {
       case None =>
@@ -283,9 +294,9 @@ class MonitorRouteMapPageBuilder(
           route.referenceType,
           bounds,
           route.analysisTimestamp,
-          subRelationPages.map(_.current),
-          subRelationPages.flatMap(_.previous),
-          subRelationPages.flatMap(_.next),
+          Some(triplet.current),
+          triplet.previous,
+          triplet.next,
           stateOption.toSeq.flatMap(_.osmSegments),
           stateOption.flatMap(_.matchesGeometry),
           stateOption.toSeq.flatMap(_.deviations),
@@ -327,9 +338,9 @@ class MonitorRouteMapPageBuilder(
           route.referenceType,
           Some(bounds),
           route.analysisTimestamp,
-          subRelationPages.map(_.current),
-          subRelationPages.flatMap(_.previous),
-          subRelationPages.flatMap(_.next),
+          Some(triplet.current),
+          triplet.previous,
+          triplet.next,
           stateOption.toSeq.flatMap(_.osmSegments),
           stateOption.flatMap(_.matchesGeometry),
           stateOption.toSeq.flatMap(_.deviations),

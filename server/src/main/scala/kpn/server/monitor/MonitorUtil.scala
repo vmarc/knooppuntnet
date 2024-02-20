@@ -37,6 +37,7 @@ object MonitorUtil {
 
   private def toMonitorSubRelation(monitorRouteRelation: MonitorRouteRelation): MonitorRouteSubRelation = {
     MonitorRouteSubRelation(
+      None,
       monitorRouteRelation.relationId,
       monitorRouteRelation.name,
       monitorRouteRelation.osmWayCount

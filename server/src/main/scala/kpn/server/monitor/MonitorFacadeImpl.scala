@@ -112,13 +112,13 @@ class MonitorFacadeImpl(
     }
   }
 
-  override def routeMap(groupName: String, routeName: String, relationId: Option[Long]): ApiResponse[MonitorRouteMapPage] = {
-    val args = relationId match {
-      case Some(relationId) => s"$groupName:$routeName:$relationId"
+  override def routeMap(groupName: String, routeName: String, subRelationIndex: Option[Int]): ApiResponse[MonitorRouteMapPage] = {
+    val args = subRelationIndex match {
+      case Some(index) => s"$groupName:$routeName:$index"
       case None => s"$groupName:$routeName"
     }
     api.execute("monitor-route-map", args) {
-      reply(monitorRouteMapPageBuilder.build(groupName, routeName, relationId))
+      reply(monitorRouteMapPageBuilder.build(groupName, routeName, subRelationIndex))
     }
   }
 
