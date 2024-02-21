@@ -3,17 +3,15 @@ import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { MonitorRouteMapPage } from '@api/common/monitor';
+import { NavService } from '@app/components/shared';
+import { Util } from '@app/components/shared';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
-import { TileDebug256Layer } from '@app/ol/layers';
-import { NetworkMarkerLayer } from '@app/ol/layers';
 import { BackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { MapLayerRegistry } from '@app/ol/layers';
 import { OsmLayer } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
-import { NavService } from '@app/components/shared';
-import { Util } from '@app/components/shared';
 import { MapBrowserEvent } from 'ol';
 import { Coordinate } from 'ol/coordinate';
 import { FeatureLike } from 'ol/Feature';
@@ -27,7 +25,6 @@ import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import View from 'ol/View';
-import { MonitorLayer } from '../../../ol/layers/monitor-layer';
 import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapState } from './monitor-route-map-state';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
@@ -286,7 +283,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
       'osm-relation': state.osmRelationVisible,
       'selected-deviation': state.selectedDeviation?.id,
       'selected-osm-segment': state.selectedOsmSegment?.id,
-      'sub-relation-id': state.page?.currentSubRelation?.relationId,
+      'sub-relation-index': state.page?.currentSubRelation?.subRelationIndex,
     };
     this.setQueryParams(queryParams);
   }

@@ -377,7 +377,7 @@ export class MonitorRouteDetailsStructureComponent implements OnInit {
     if (row.level === 1) {
       return {};
     }
-    return { 'sub-relation-id': row.relationId };
+    return { 'sub-relation-index': row.subRelationIndex };
   }
 
   uploadGpx(): string {

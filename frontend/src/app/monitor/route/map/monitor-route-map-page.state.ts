@@ -1,13 +1,13 @@
 export const initialState: MonitorRouteMapPageState = {
   groupName: '',
   routeName: '',
-  relationId: 0,
+  subRelationIndex: 0,
   routeDescription: '',
 };
 
 export interface MonitorRouteMapPageState {
   groupName: string;
   routeName: string;
-  relationId: number;
+  subRelationIndex: number;
   routeDescription: string;
 }

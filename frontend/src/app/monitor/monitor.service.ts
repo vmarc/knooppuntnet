@@ -113,11 +113,11 @@ export class MonitorService {
   routeMap(
     groupName: string,
     routeName: string,
-    relationId: number
+    subRelationIndex: number
   ): Observable<ApiResponse<MonitorRouteMapPage>> {
     let url = `/api/monitor/groups/${groupName}/routes/${routeName}/map`;
-    if (relationId !== 0) {
-      url = url + `/${relationId}`;
+    if (subRelationIndex !== 0) {
+      url = url + `/${subRelationIndex}`;
     }
     return this.http.get(url);
   }

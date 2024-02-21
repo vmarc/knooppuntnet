@@ -26,39 +26,37 @@ export class MonitorRouteMapPageService {
   constructor() {
     const groupName = this.navService.param('groupName');
     const routeName = this.navService.param('routeName');
-    const relationIdParameter = this.navService.queryParam('sub-relation-id');
-    let relationId = 0;
-    if (relationIdParameter) {
-      relationId = Util.toInteger(relationIdParameter);
+    const subRelationIndexParameter = this.navService.queryParam('sub-relation-index');
+    let subRelationIndex = 0;
+    if (subRelationIndexParameter) {
+      subRelationIndex = Util.toInteger(subRelationIndexParameter);
     }
     const routeDescription = this.navService.state('description');
     this._state.update((state) => ({
       ...state,
       groupName,
       routeName,
-      relationId,
+      subRelationIndex,
       routeDescription,
     }));
 
-    const routeMapPage = this.pages.get(relationId);
+    const routeMapPage = this.pages.get(subRelationIndex);
     if (routeMapPage) {
       this.mapService.pageChanged(routeMapPage);
     } else {
-      this.monitorService.routeMap(groupName, routeName, relationId).subscribe((response) => {
+      this.monitorService.routeMap(groupName, routeName, subRelationIndex).subscribe((response) => {
         if (response.result) {
           const page = response.result;
           if (page) {
-            let relationId = 0;
+            let subRelationIndex = 0;
             if (page.currentSubRelation) {
-              relationId = page.currentSubRelation.relationId;
-            } else if (page.relationId) {
-              relationId = page.relationId;
+              subRelationIndex = page.currentSubRelation.subRelationIndex;
             }
             this._state.update((state) => ({
               ...state,
               routeDescription: page.routeDescription,
             }));
-            this.pages.set(relationId, page);
+            this.pages.set(subRelationIndex, page);
             const queryParams = this.navService.queryParams();
             this.stateService.initialState(queryParams, page);
             this.mapService.pageChanged(page);
@@ -69,7 +67,7 @@ export class MonitorRouteMapPageService {
   }
 
   selectSubRelation(subRelation: MonitorRouteSubRelation): void {
-    const page = this.pages.get(subRelation.relationId);
+    const page = this.pages.get(subRelation.subRelationIndex);
     if (page) {
       this.stateService.pageChanged(page);
       this.mapService.pageChanged(page);
@@ -81,22 +79,20 @@ export class MonitorRouteMapPageService {
       this.stateService.resetSelections();
     } else {
       this.monitorService
-        .routeMap(this.state().groupName, this.state().routeName, subRelation.relationId)
+        .routeMap(this.state().groupName, this.state().routeName, subRelation.subRelationIndex)
         .subscribe((response) => {
           if (response.result) {
             const page = response.result;
             if (page) {
-              let relationId = 0;
+              let subRelationIndex = 0;
               if (page.currentSubRelation) {
-                relationId = page.currentSubRelation.relationId;
-              } else if (page.relationId) {
-                relationId = page.relationId;
+                subRelationIndex = page.currentSubRelation.subRelationIndex;
               }
               this._state.update((state) => ({
                 ...state,
                 routeDescription: page.routeDescription,
               }));
-              this.pages.set(relationId, page);
+              this.pages.set(subRelationIndex, page);
               this.stateService.pageChanged(page);
               this.mapService.pageChanged(page);
               this.stateService.focusChanged(page.bounds);

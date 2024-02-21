@@ -8,6 +8,7 @@ export interface MonitorRouteRelationStructureRow {
   readonly physical: boolean;
   readonly name: string;
   readonly relationId: number;
+  readonly subRelationIndex: number;
   readonly role: string;
   readonly survey: Day;
   readonly symbol: string;
