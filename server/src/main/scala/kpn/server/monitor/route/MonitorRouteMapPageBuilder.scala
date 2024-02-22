@@ -105,7 +105,7 @@ class MonitorRouteMapPageBuilder(
           buildSimpleRoutePage(group, route, relation.relationId)
         }
         else {
-          val subRelationsWithWays = MonitorUtil.subRelationsIn(route).filter(_.wayCount > 0)
+          val subRelationsWithWays = MonitorUtil.allRelationsIn(route).filter(_.wayCount > 0)
           if (subRelationsWithWays.isEmpty) {
             buildSimpleRoutePage(group, route, relation.relationId)
           }
@@ -236,7 +236,7 @@ class MonitorRouteMapPageBuilder(
     subRelationIndex: Int
   ): MonitorRouteMapPage = {
 
-    val subRelations = MonitorUtil.subRelationsIn(route).filter(_.wayCount > 0)
+    val subRelations = MonitorUtil.allRelationsIn(route).filter(_.wayCount > 0)
       .zipWithIndex.map { case (subRelation, index) => subRelation.copy(subRelationIndex = Some(index.toLong)) }
 
     val triplet = {
