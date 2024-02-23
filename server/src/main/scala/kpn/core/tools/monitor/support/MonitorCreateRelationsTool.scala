@@ -4,6 +4,7 @@ import kpn.core.data.Data
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelationTopLevel
+import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.context.ElementIds
@@ -41,21 +42,23 @@ object MonitorCreateRelationsTool {
 
 class MonitorCreateRelationsTool(config: MonitorCreateRelationsToolConfig) {
 
+  private val log = Log(classOf[MonitorCreateRelationsTool])
+
   def createMonitorRelations(): Unit = {
-    val relationIds = collectionRelationIds()
-    println(s"collected ${relationIds.size} relation ids")
+    val relationIds = collectRelationIds()
+    log.info(s"collected ${relationIds.size} relation ids")
     relationIds.zipWithIndex.foreach { case (relationId, index) =>
-      println(s"${index + 1}/${relationIds.size}")
+      log.info(s"${index + 1}/${relationIds.size}")
       val monitorRelation = createMonitorRelation(relationId)
       config.relationRepository.save(monitorRelation)
     }
   }
 
-  private def collectionRelationIds(): Seq[Long] = {
+  private def collectRelationIds(): Seq[Long] = {
     val ids = config.groupRepository.groups().sortBy(_.name).flatMap { group =>
-      println(s"group ${group.name}")
+      log.info(s"group ${group.name}")
       config.groupRepository.groupRoutes(group._id).sortBy(_.name).flatMap { route =>
-        println(s"  route ${route.name}")
+        log.info(s"  route ${route.name}")
         route.relation.toSeq.map(_.relationId) ++
           MonitorUtil.subRelationsIn(route).map(_.relationId)
       }
