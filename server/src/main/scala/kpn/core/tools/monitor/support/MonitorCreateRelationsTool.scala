@@ -2,7 +2,7 @@ package kpn.core.tools.monitor.support
 
 import kpn.core.data.Data
 import kpn.core.loadOld.Parser
-import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
+import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryRelationTopLevel
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -26,7 +26,7 @@ class MonitorCreateRelationsToolConfig(database: Database) {
   val groupRepository = new MonitorGroupRepositoryImpl(database)
   val routeRepository = new MonitorRouteRepositoryImpl(database)
   val relationRepository = new MonitorRelationRepositoryImpl(database)
-  val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+  val overpassQueryExecutor = new OverpassQueryExecutorImpl()
   val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(new TileCalculatorImpl())
 }
 

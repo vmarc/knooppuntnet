@@ -1,13 +1,13 @@
 package kpn.core.tools.monitor.support
 
 import kpn.core.overpass.OverpassQueryExecutor
-import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
+import kpn.core.overpass.OverpassQueryExecutorImpl
 
 import scala.xml.XML
 
 object MonitorExploreRelationsTool {
   def main(args: Array[String]): Unit = {
-    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+    val overpassQueryExecutor = new OverpassQueryExecutorImpl()
     val tool = new MonitorExploreRelationsTool(overpassQueryExecutor)
     tool.explore()
   }
