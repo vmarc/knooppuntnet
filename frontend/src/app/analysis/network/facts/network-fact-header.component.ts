@@ -69,6 +69,14 @@ export class NetworkFactHeaderComponent {
         nodeIds: networkFact.elementIds,
       };
     } else if (
+      networkFact.elementType === 'node' &&
+      networkFact.elements &&
+      networkFact.elements.length > 0
+    ) {
+      editParameters = {
+        nodeIds: networkFact.elements.map((ref) => ref.id),
+      };
+    } else if (
       networkFact.elementType === 'route' &&
       networkFact.elementIds &&
       networkFact.elementIds.length > 0
