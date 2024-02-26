@@ -18,7 +18,7 @@ object RelationTopLevelDataBuilder {
   private val log = Log(classOf[RelationTopLevelDataBuilder])
 }
 
-class RelationTopLevelDataBuilder(rawData: RawData, relationId: Long, log: Log = RelationTopLevelDataBuilder.log) {
+class RelationTopLevelDataBuilder(rawData: RawData, relationIds: Seq[Long], log: Log = RelationTopLevelDataBuilder.log) {
 
   private val relationsMap: scala.collection.mutable.Map[Long, Relation] = scala.collection.mutable.Map.empty
 
@@ -36,7 +36,7 @@ class RelationTopLevelDataBuilder(rawData: RawData, relationId: Long, log: Log =
   )
 
   private def buildRelations: Map[Long, Relation] = {
-    buildRelation(relationId)
+    relationIds.foreach(buildRelation)
     relationsMap.toMap
   }
 

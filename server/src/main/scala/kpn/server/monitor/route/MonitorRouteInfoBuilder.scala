@@ -17,7 +17,7 @@ class MonitorRouteInfoBuilder(overpassQueryExecutor: OverpassQueryExecutor) {
     val xmlString = overpassQueryExecutor.executeQuery(None, QueryRelationTopLevel(routeRelationId))
     val xml = XML.loadString(xmlString)
     val rawData = new Parser().parse(xml.head)
-    val data = new RelationTopLevelDataBuilder(rawData, routeRelationId).data
+    val data = new RelationTopLevelDataBuilder(rawData, Seq(routeRelationId)).data
     data.relations.get(routeRelationId) match {
       case None => MonitorRouteInfoPage(routeRelationId)
       case Some(relation) =>
