@@ -1,4 +1,4 @@
-package kpn.core.tools.monitor
+package kpn.core.tools.next.support
 
 import kpn.core.common.RelationUtil
 import kpn.core.data.DataBuilder

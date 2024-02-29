@@ -20,6 +20,7 @@ import kpn.api.custom.LocationNodesType
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -89,6 +90,8 @@ object Json {
     b.serializerByType(classOf[Geometry], new GeometryJsonSerializer())
 
     b.serializerByType(classOf[PlanCoordinate], new PlanCoordinateJsonSerializer())
+
+    b.deserializerByType(classOf[Relation], new RelationJsonDeserializer())
 
     val om: ObjectMapper = b.build()
     om.registerModule(DefaultScalaModule)
