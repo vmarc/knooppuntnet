@@ -78,7 +78,12 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
 
   private def routeNameFromNoteTag(): Option[RouteNameAnalysis] = {
     context.relation.tags("note").flatMap { note =>
-      routeNameFromTagValue(note)
+      if (withoutComment(note).contains("-")) {
+        routeNameFromTagValue(note)
+      }
+      else {
+        None
+      }
     }
   }
 

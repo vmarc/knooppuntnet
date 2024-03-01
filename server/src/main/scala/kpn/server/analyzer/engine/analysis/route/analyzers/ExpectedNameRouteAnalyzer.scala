@@ -17,7 +17,7 @@ class ExpectedNameRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
     if (canDetermineRouteNameFromNodeNames) {
-      val name = routeNameAnalysis.name.get
+      val name = routeNameAnalysis.name.get.replace("–", "-")
       val start = if (routeNodeAnalysis.freeNodes.isEmpty) {
         routeNodeAnalysis.startNodes.head.name
       }
@@ -45,9 +45,14 @@ class ExpectedNameRouteAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
+
   private def canDetermineRouteNameFromNodeNames: Boolean = {
-    routeNameAnalysis.name.isDefined &&
-      ((routeNodeAnalysis.startNodes.nonEmpty && routeNodeAnalysis.endNodes.nonEmpty) ||
-        routeNodeAnalysis.freeNodes.nonEmpty)
+    routeNameAnalysis.name match {
+      case None => false
+      case Some(name) =>
+        (name.contains("-") || name.contains("–")) &&
+          ((routeNodeAnalysis.startNodes.nonEmpty && routeNodeAnalysis.endNodes.nonEmpty) ||
+            routeNodeAnalysis.freeNodes.nonEmpty)
+    }
   }
 }

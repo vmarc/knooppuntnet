@@ -61,6 +61,18 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     newContext.facts shouldBe empty
   }
 
+  test("do not make check when no separator dash") {
+    val newContext = doTest(Some("bla"), Some("01"), Some("02"))
+    newContext.expectedName should equal(Some(""))
+    newContext.facts shouldBe empty
+  }
+
+  test("handle – character (not a dash) in route name") {
+    val newContext = doTest(Some("01–02"), Some("01"), Some("02"))
+    newContext.expectedName should equal(Some("01-02"))
+    newContext.facts shouldBe empty
+  }
+
   private def doTest(routeName: Option[String], startNodeName: Option[String], endNodeName: Option[String]): RouteAnalysisContext = {
     val routeNameAnalysis = RouteNameAnalysis(name = routeName)
     val routeNodeAnalysis = RouteNodeAnalysis(

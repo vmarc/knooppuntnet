@@ -90,6 +90,13 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
+  test("route name based on 'note' tag without dash") {
+    val routeNameAnalysis = analyzeRouteName(Tags.from("note" -> "bla"))
+    routeNameAnalysis.value.shouldMatchTo(
+      RouteNameAnalysis()
+    )
+  }
+
   test("route name based on 'from' and 'to' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("from" -> "01", "to" -> "02"))
     routeNameAnalysis.value.shouldMatchTo(
