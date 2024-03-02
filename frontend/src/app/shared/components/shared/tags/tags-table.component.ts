@@ -8,7 +8,7 @@ import { InterpretedTags } from './interpreted-tags';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (tags().isEmpty()) {
-      <ng-container i18n="@@tags.no-tags" class="no-tags">No tags()</ng-container>
+      <ng-container i18n="@@tags.no-tags" class="no-tags">No tags</ng-container>
     } @else {
       <table title="tags()" class="kpn-table">
         <thead>

@@ -32,7 +32,7 @@ import { MarkdownModule } from 'ngx-markdown';
       @if (isRouteBroken()) {
         <p class="kpn-line">
           <mat-icon svgIcon="warning"></mat-icon>
-          <span i18n="@@route.broken">Something seems wrong with this route().</span>
+          <span i18n="@@route.broken">Something seems wrong with this route.</span>
         </p>
       }
 
@@ -46,15 +46,15 @@ import { MarkdownModule } from 'ngx-markdown';
       }
 
       @if (!route().active) {
-        <p class="kpn-warning" i18n="@@route.not-active">This route() is not active anymore.</p>
+        <p class="kpn-warning" i18n="@@route.not-active">This route is not active anymore.</p>
       }
 
       @if (isProposed()) {
         <p class="kpn-line">
           <mat-icon svgIcon="warning" style="min-width: 24px" />
           <markdown i18n="@@route.proposed">
-            Proposed: this route() has a tag _"state=proposed"_. The route() is assumed to still be
-            in a planning phase and likely not signposted in the field.
+            Proposed: this route has a tag _"state=proposed"_. The route is assumed to still be in a
+            planning phase and likely not signposted in the field.
           </markdown>
         </p>
       }
@@ -62,7 +62,7 @@ import { MarkdownModule } from 'ngx-markdown';
       @if (isRouteNameDerivedFromNodes()) {
         <p class="kpn-line">
           <span i18n="@@route.name-derived-from-nodes">
-            The route() name is derived from the route() nodes, rather than the tags in the route()
+            The route name is derived from the route nodes, rather than the tags in the route
             relation.
           </span>
         </p>

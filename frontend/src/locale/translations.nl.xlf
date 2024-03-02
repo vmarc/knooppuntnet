@@ -4357,7 +4357,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route.broken" datatype="html">
-        <source>Something seems wrong with this route().</source>
+        <source>Something seems wrong with this route.</source>
         <target>Er lijkt iets mis met deze route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
@@ -4373,7 +4373,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route.not-active" datatype="html">
-        <source>This route() is not active anymore.</source>
+        <source>This route is not active anymore.</source>
         <target>Deze route is niet meer actief.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
@@ -5723,7 +5723,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="tags.no-tags" datatype="html">
-        <source>No tags()</source>
+        <source>No tags</source>
         <target>Geen tags</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/tags/tags-table.component.ts</context>
@@ -7793,7 +7793,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="footer.settings" datatype="html">
-        <source>settings()</source>
+        <source>settings</source>
         <target>instellingen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-footer.component.ts</context>
@@ -8237,7 +8237,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="node.integrity.none" datatype="html">
-        <source>There is no integrity() information for this node (no expected_??n_route_relations tag).</source>
+        <source>There is no integrity information for this node (no expected_??n_route_relations tag).</source>
         <target>Er is geen integriteitsinformatie voor dit knooppunt (geen expected-rXn_route_relations tag).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/node-integrity.component.ts</context>
@@ -8617,7 +8617,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route.proposed" datatype="html">
-        <source>Proposed: this route() has a tag _&quot;state=proposed&quot;_. The route() is assumed to still be in a planning phase and likely not signposted in the field.</source>
+        <source>Proposed: this route has a tag _&quot;state=proposed&quot;_. The route is assumed to still be in a planning phase and likely not signposted in the field.</source>
         <target>Toekomstig: deze route is nog in de planningfase en mogelijk nog niet aanwezig in het veld.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
@@ -8801,7 +8801,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="route.name-derived-from-nodes" datatype="html">
-        <source>The route() name is derived from the route() nodes, rather than the tags in the route() relation.</source>
+        <source>The route name is derived from the route nodes, rather than the tags in the route relation.</source>
         <target>De naam van de route is samengesteld op basis van de knooppuntnamen en niet van tags in de route relatie zelf.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
@@ -9565,7 +9565,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.group.name.unique" datatype="html">
-        <source>Name should be unique. A group with this name() already exists.</source>
+        <source>Name should be unique. A group with this name already exists.</source>
         <target>Naam moet uniek zijn. Er bestaat al een groep met deze naam.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/group/components/monitor-group-name.component.ts</context>
@@ -9933,7 +9933,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="monitor.route.name.unique" datatype="html">
-        <source>The route name() should be unique within the group. A route with this name() already exists within this group.</source>
+        <source>The route name should be unique within the group. A route with this name already exists within this group.</source>
         <target>De routenaam moet uniek zijn binnen de groep. Binnen deze groep bestaat al een route met deze naam.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/components/monitor-route-name.component.ts</context>

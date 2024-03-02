@@ -28,7 +28,7 @@ import { MatInputModule } from '@angular/material/input';
         }
         @if (name().errors?.groupNameNonUnique) {
           <div i18n="@@monitor.group.name.unique">
-            Name should be unique. A group with this name() already exists.
+            Name should be unique. A group with this name already exists.
           </div>
         }
       </div>

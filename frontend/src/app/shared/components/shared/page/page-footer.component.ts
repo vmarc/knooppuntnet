@@ -34,7 +34,7 @@ import { Translations } from '@app/i18n';
       </li>
       @if (settings()) {
         <li>
-          <a routerLink="/settings()" i18n="@@footer.settings"> settings() </a>
+          <a routerLink="/settings()" i18n="@@footer.settings">settings</a>
         </li>
       }
     </ul>

@@ -14,7 +14,7 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   template: `
     @if (!integrity() || integrity().details.length === 0) {
       <p i18n="@@node.integrity.none">
-        There is no integrity() information for this node (no expected_??n_route_relations tag).
+        There is no integrity information for this node (no expected_??n_route_relations tag).
       </p>
     }
 

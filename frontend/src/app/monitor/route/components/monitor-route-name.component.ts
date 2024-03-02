@@ -31,7 +31,7 @@ import { MatInputModule } from '@angular/material/input';
 
           @if (name().errors?.routeNameNonUnique) {
             <div i18n="@@monitor.route.name.unique">
-              The route name() should be unique within the group. A route with this name() already
+              The route name should be unique within the group. A route with this name already
               exists within this group.
             </div>
           }
