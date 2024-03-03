@@ -17,6 +17,7 @@ export class TileDebug512Layer {
       }),
     });
 
-    return MapLayer.simpleLayer('debug-512', layer);
+    const name = $localize`:@@map.layer.tile-512-names:Tilenames (512)`;
+    return MapLayer.build('debug-512', name, layer);
   }
 }

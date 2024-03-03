@@ -38,6 +38,7 @@ import View from 'ol/View';
 import { Observable } from 'rxjs';
 import { combineLatest } from 'rxjs';
 import { skip } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { filter } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
@@ -46,6 +47,7 @@ import { MapService } from '../../services/map.service';
 import { actionPlannerPosition } from '../../store/planner-actions';
 import { actionPlannerLayerStates } from '../../store/planner-actions';
 import { actionPlannerMapFinalized } from '../../store/planner-actions';
+import { selectPlannerNetworkType } from '../../store/planner-selectors';
 import { selectPlannerMapMode } from '../../store/planner-selectors';
 import { PlannerState } from '../../store/planner-state';
 
@@ -64,19 +66,22 @@ export class PlannerMapService extends OpenlayersMapService {
   private readonly plannerPositionKey = 'planner-position';
 
   private readonly defaultPoiLayerStates: MapLayerState[] = [
-    { layerName: 'hiking-biking', enabled: true, visible: true },
-    { layerName: 'landmarks', enabled: true, visible: true },
-    { layerName: 'restaurants', enabled: true, visible: true },
-    { layerName: 'places-to-stay', enabled: true, visible: true },
-    { layerName: 'tourism', enabled: true, visible: true },
-    { layerName: 'amenity', enabled: true, visible: false },
-    { layerName: 'shops', enabled: true, visible: false },
-    { layerName: 'foodshops', enabled: true, visible: false },
-    { layerName: 'sports', enabled: true, visible: false },
+    { id: 'hiking-biking', name: 'TODO TRANSLATION', enabled: true, visible: true },
+    { id: 'landmarks', name: 'TODO TRANSLATION', enabled: true, visible: true },
+    { id: 'restaurants', name: 'TODO TRANSLATION', enabled: true, visible: true },
+    { id: 'places-to-stay', name: 'TODO TRANSLATION', enabled: true, visible: true },
+    { id: 'tourism', name: 'TODO TRANSLATION', enabled: true, visible: true },
+    { id: 'amenity', name: 'TODO TRANSLATION', enabled: true, visible: false },
+    { id: 'shops', name: 'TODO TRANSLATION', enabled: true, visible: false },
+    { id: 'foodshops', name: 'TODO TRANSLATION', enabled: true, visible: false },
+    { id: 'sports', name: 'TODO TRANSLATION', enabled: true, visible: false },
   ];
 
   private overlay: Overlay;
   private readonly interaction = new PlannerInteraction(this.plannerService.engine);
+
+  private networkType: NetworkType;
+  private mapMode: MapMode;
 
   private parameters$: Observable<MainMapStyleParameters> = combineLatest([
     this.store.select(selectPlannerMapMode),
@@ -107,12 +112,12 @@ export class PlannerMapService extends OpenlayersMapService {
     const mode = state.mapMode;
     const result = state.resultMode;
     const layers = state.layerStates
-      .filter((ls) => ls.visible)
-      .map((ls) => ls.layerName)
+      .filter((layerState) => layerState.visible)
+      .map((layerState) => layerState.id)
       .join(',');
     const poiLayers = state.poiLayerStates
-      .filter((ls) => ls.visible)
-      .map((ls) => ls.layerName)
+      .filter((layerState) => layerState.visible)
+      .map((layerState) => layerState.id)
       .join(',');
 
     return {
@@ -130,12 +135,12 @@ export class PlannerMapService extends OpenlayersMapService {
     const mapMode = this.parseMapMode(queryParams);
     const resultMode = this.parseResultMode(queryParams);
 
-    let urlLayerNames: string[] = [];
+    let urlLayerIds: string[] = [];
     const layersParam = queryParams['layers'];
     if (layersParam) {
-      urlLayerNames = layersParam.split(',');
+      urlLayerIds = layersParam.split(',');
     }
-    const layerStates = this.registerLayers(networkType, urlLayerNames);
+    const layerStates = this.registerLayers(networkType, urlLayerIds);
     const poiLayerStates = this.parsePoiLayerStates(queryParams);
 
     return {
@@ -150,6 +155,20 @@ export class PlannerMapService extends OpenlayersMapService {
 
   init(state: PlannerState): void {
     this.subcriptions.unsubscribe();
+
+    this.subcriptions.add(
+      this.store
+        .select(selectPlannerMapMode)
+        .pipe(tap((mapMode: MapMode) => (this.mapMode = mapMode)))
+        .subscribe()
+    );
+    this.subcriptions.add(
+      this.store
+        .select(selectPlannerNetworkType)
+        .pipe(tap((networkType: NetworkType) => (this.networkType = networkType)))
+        .subscribe()
+    );
+
     this.overlay = this.buildOverlay();
     this.initMap(
       new Map({
@@ -204,65 +223,55 @@ export class PlannerMapService extends OpenlayersMapService {
     super.destroy();
   }
 
-  handleNetworkChange(networkType: NetworkType, mapMode: MapMode) {
+  networkTypeChanged(networkType: NetworkType) {
     let changed = false;
     const newLayerStates = this.layerStates.map((layerState) => {
       let enabled = layerState.enabled;
       const correspondingMapLayer = this.mapLayers.find(
-        (mapLayer) => mapLayer.name === layerState.layerName
+        (mapLayer) => mapLayer.id === layerState.id
       );
       if (correspondingMapLayer && correspondingMapLayer.networkType) {
         enabled = correspondingMapLayer.networkType === networkType;
       }
       if (enabled !== layerState.enabled) {
         changed = true;
-        const visible = layerState.layerName === networkType;
+        const visible = layerState.id === networkType;
         return { ...layerState, visible, enabled };
       }
       return layerState;
     });
     if (changed) {
       this.updateLayerStates(newLayerStates);
-      this.plannerUpdateLayerVisibility(networkType, mapMode);
+      this.updateLayerVisibility();
     }
   }
 
-  plannerUpdateLayerVisibility(networkType: NetworkType, mapMode: MapMode): void {
-    const layerStates: MapLayerState[] = this.layerStates;
-    const zoom = this.mapPosition.zoom;
+  networkTypeOrMapModeChanged(networkType: NetworkType, mapMode: MapMode) {
+    this.networkType = networkType;
+    this.mapMode = mapMode;
+    this.updateLayerVisibility();
+  }
 
-    this.mapLayers.forEach((mapLayer) => {
-      let visible: boolean;
-      if (!!mapLayer.networkType && mapLayer.networkType !== networkType) {
-        visible = false;
-      } else if (!!mapLayer.mapMode && mapLayer.mapMode !== mapMode) {
-        visible = false;
-      } else {
-        const mapLayerState = layerStates.find(
-          (layerState) => layerState.layerName === mapLayer.name
-        );
-        if (!mapLayerState) {
-          visible = false;
-        } else if (!mapLayerState.visible) {
-          visible = false;
-        } else {
-          visible = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
-          if (visible && mapLayer.id.includes('vector') && mapLayer.layer.getVisible()) {
-            mapLayer.layer.changed();
-          }
-        }
-      }
-      mapLayer.layer.setVisible(visible);
-    });
+  override updateLayerVisibility(): void {
+    console.log(`networkType=${this.networkType}, mapMode=${this.mapMode}`);
+    super.updateLayerVisibility();
+  }
+
+  protected override layerVisible(mapLayer: MapLayer): boolean {
+    if (!!mapLayer.networkType && mapLayer.networkType !== this.networkType) {
+      return false;
+    }
+    if (!!mapLayer.mapMode && mapLayer.mapMode !== this.mapMode) {
+      return false;
+    }
+    return super.layerVisible(mapLayer);
   }
 
   plannerUpdatePoiLayerVisibility(newLayerStates: MapLayerState[]): void {
     this.updateLayerStates(newLayerStates);
     this.mapLayers.forEach((mapLayer) => {
-      if (mapLayer.name === PoiTileLayerService.poiLayerName) {
-        const mapLayerState = this.layerStates.find(
-          (layerState) => layerState.layerName === mapLayer.name
-        );
+      if (mapLayer.name === PoiTileLayerService.poiLayerId) {
+        const mapLayerState = this.layerStates.find((layerState) => layerState.id === mapLayer.id);
         if (mapLayerState) {
           mapLayer.layer.setVisible(mapLayerState.visible);
         }
@@ -282,27 +291,27 @@ export class PlannerMapService extends OpenlayersMapService {
     });
   }
 
-  private registerLayers(networkType: NetworkType, urlLayerNames: string[]): MapLayerState[] {
+  private registerLayers(networkType: NetworkType, urlLayerIds: string[]): MapLayerState[] {
     const registry = new MapLayerRegistry();
-    registry.register(urlLayerNames, BackgroundLayer.build(), true);
-    registry.register(urlLayerNames, OsmLayer.build(), false);
+    registry.register(urlLayerIds, BackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OsmLayer.build(), false);
 
     registry.registerAll(
-      urlLayerNames,
+      urlLayerIds,
       this.flandersOpenDataHikingLayers(),
       false,
       networkType === NetworkType.hiking
     );
 
     registry.registerAll(
-      urlLayerNames,
+      urlLayerIds,
       this.flandersOpenDataCyclingLayers(),
       false,
       networkType === NetworkType.cycling
     );
 
     registry.registerAll(
-      urlLayerNames,
+      urlLayerIds,
       this.netherlandsHikingOpenDataLayers(),
       false,
       networkType === NetworkType.hiking
@@ -310,53 +319,60 @@ export class PlannerMapService extends OpenlayersMapService {
 
     NetworkTypes.all.forEach((layerNetworkType) => {
       registry.registerAll(
-        urlLayerNames,
+        urlLayerIds,
         this.networkLayers(layerNetworkType),
         layerNetworkType === networkType,
         layerNetworkType === networkType
       );
     });
 
-    registry.register(urlLayerNames, TileDebug256Layer.build(), false);
-    registry.register(urlLayerNames, TileDebug512Layer.build(), false);
-    registry.register(urlLayerNames, this.poiTileLayerService.buildLayer(), true, false);
+    registry.register(urlLayerIds, TileDebug256Layer.build(), false);
+    registry.register(urlLayerIds, TileDebug512Layer.build(), false);
+    registry.register(urlLayerIds, this.poiTileLayerService.buildLayer(), true, false);
 
     this.register(registry);
     return registry.layerStates;
   }
 
   private flandersOpenDataHikingLayers(): MapLayer[] {
+    const name = $localize`:@@map.layer.flanders-hiking:Toerisme Vlaanderen`;
     return [
-      new OpendataBitmapTileLayer().build(NetworkType.hiking, 'flanders-hiking', 'flanders/hiking'),
-      new OpendataVectorTileLayer().build(NetworkType.hiking, 'flanders-hiking', 'flanders/hiking'),
+      OpendataBitmapTileLayer.build(NetworkType.hiking, 'flanders-hiking', name, 'flanders/hiking'),
+      OpendataVectorTileLayer.build(NetworkType.hiking, 'flanders-hiking', name, 'flanders/hiking'),
     ];
   }
 
   private flandersOpenDataCyclingLayers(): MapLayer[] {
+    const name = $localize`:@@map.layer.flanders-cycling:Toerisme Vlaanderen`;
     return [
-      new OpendataBitmapTileLayer().build(
+      OpendataBitmapTileLayer.build(
         NetworkType.cycling,
         'flanders-cycling',
+        name,
         'flanders/cycling'
       ),
-      new OpendataVectorTileLayer().build(
+      OpendataVectorTileLayer.build(
         NetworkType.cycling,
         'flanders-cycling',
+        name,
         'flanders/cycling'
       ),
     ];
   }
 
   private netherlandsHikingOpenDataLayers(): MapLayer[] {
+    const name = $localize`:@@map.layer.netherlands-hiking:Netherlands routedatabank`;
     return [
-      new OpendataBitmapTileLayer().build(
+      OpendataBitmapTileLayer.build(
         NetworkType.hiking,
         'netherlands-hiking',
+        name,
         'netherlands/hiking'
       ),
-      new OpendataVectorTileLayer().build(
+      OpendataVectorTileLayer.build(
         NetworkType.hiking,
         'netherlands-hiking',
+        name,
         'netherlands/hiking'
       ),
     ];
@@ -427,7 +443,7 @@ export class PlannerMapService extends OpenlayersMapService {
     let poiLayerStates: MapLayerState[];
     if (poiLayersParam) {
       poiLayerStates = this.defaultPoiLayerStates.map((defaultLayerState) => {
-        const visible = poiLayersParam.includes(defaultLayerState.layerName);
+        const visible = poiLayersParam.includes(defaultLayerState.id);
         return {
           ...defaultLayerState,
           visible,

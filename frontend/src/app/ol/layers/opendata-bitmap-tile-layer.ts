@@ -5,7 +5,7 @@ import { ZoomLevel } from '../domain';
 import { MapLayer } from './map-layer';
 
 export class OpendataBitmapTileLayer {
-  build(networkType: NetworkType, layerName: string, dir: string): MapLayer {
+  static build(networkType: NetworkType, id: string, layerName: string, dir: string): MapLayer {
     const layer = new TileLayer<XYZ>({
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
@@ -15,10 +15,11 @@ export class OpendataBitmapTileLayer {
     });
 
     return new MapLayer(
+      id,
       layerName,
-      `${layerName}-bitmap-layer`,
       ZoomLevel.bitmapTileMinZoom,
       ZoomLevel.bitmapTileMaxZoom,
+      'bitmap',
       layer,
       networkType,
       null

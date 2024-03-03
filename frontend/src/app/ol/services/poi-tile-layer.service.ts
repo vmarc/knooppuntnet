@@ -13,7 +13,7 @@ import { PoiStyleMap } from '../style';
 export class PoiTileLayerService {
   private readonly poiService = inject(PoiService);
 
-  static poiLayerName = 'pois';
+  static poiLayerId = 'pois';
   poiStyleMap: PoiStyleMap;
 
   constructor() {
@@ -30,10 +30,11 @@ export class PoiTileLayerService {
     layer.setStyle(this.poiStyleFunction());
     this.poiService.changeCount.subscribe(() => layer.changed());
     return new MapLayer(
-      PoiTileLayerService.poiLayerName,
-      PoiTileLayerService.poiLayerName,
+      PoiTileLayerService.poiLayerId,
+      PoiTileLayerService.poiLayerId,
       ZoomLevel.poiTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
+      'vector',
       layer,
       null,
       null

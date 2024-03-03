@@ -16,18 +16,34 @@ import { MapLayer } from './map-layer';
 export class RouteChangeLayers {
   build(geometryDiff: GeometryDiff): List<MapLayer> {
     const unchanged = this.segmentLayer(
-      '@@map.layer.unchanged',
+      'map.layer.unchanged',
+      $localize`:@@map.layer.unchanged:Unchanged`,
       geometryDiff.common,
       5,
       [0, 0, 255]
     );
-    const added = this.segmentLayer('@@map.layer.added', geometryDiff.after, 12, [0, 255, 0]);
-    const deleted = this.segmentLayer('@@map.layer.deleted', geometryDiff.before, 3, [255, 0, 0]);
+
+    const added = this.segmentLayer(
+      'map.layer.added',
+      $localize`:@@map.layer.added:Added`,
+      geometryDiff.after,
+      12,
+      [0, 255, 0]
+    );
+
+    const deleted = this.segmentLayer(
+      'map.layer.deleted',
+      $localize`:@@map.layer.deleted:Deleted`,
+      geometryDiff.before,
+      3,
+      [255, 0, 0]
+    );
 
     return List([unchanged, added, deleted]).filter((layer) => layer !== null);
   }
 
   private segmentLayer(
+    id: string,
     name: string,
     segments: PointSegment[],
     width: number,
@@ -57,6 +73,6 @@ export class RouteChangeLayers {
       zIndex: Layers.zIndexNetworkLayer,
       source,
     });
-    return MapLayer.simpleLayer(Translations.get(name), layer);
+    return MapLayer.build(id, name, layer);
   }
 }

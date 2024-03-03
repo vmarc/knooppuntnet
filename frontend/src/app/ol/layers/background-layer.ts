@@ -2,7 +2,7 @@ import { MapboxVectorLayer } from 'ol-mapbox-style';
 import { MapLayer } from './map-layer';
 
 export class BackgroundLayer {
-  static id = 'background';
+  static readonly id = 'background';
 
   static build(): MapLayer {
     const osmAttribution =
@@ -15,7 +15,7 @@ export class BackgroundLayer {
     });
 
     layer.getSource().setAttributions([osmAttribution, openMapTilesAttribution]);
-
-    return new MapLayer(this.id, this.id, -Infinity, Infinity, layer);
+    const name = $localize`:@@map.layer.background:Background`;
+    return new MapLayer(this.id, name, -Infinity, Infinity, 'vector', layer);
   }
 }

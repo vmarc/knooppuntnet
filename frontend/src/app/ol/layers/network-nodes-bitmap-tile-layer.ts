@@ -1,4 +1,5 @@
 import { NetworkType } from '@api/custom';
+import { Translations } from '@app/i18n';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import { ZoomLevel } from '../domain';
@@ -13,11 +14,13 @@ export class NetworkNodesBitmapTileLayer {
         url: `/tiles-history/${networkType}/analysis/{z}/{x}/{y}.png`,
       }),
     });
+    const name = Translations.get(`network-type.${networkType}`);
     return new MapLayer(
       `network-nodes-${networkType}-layer`,
-      `network-nodes-${networkType}-layer`,
+      name,
       ZoomLevel.bitmapTileMinZoom,
       ZoomLevel.bitmapTileMaxZoom,
+      'bitmap',
       layer
     );
   }

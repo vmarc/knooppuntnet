@@ -19,6 +19,7 @@ export class NodeMarkerLayer {
 
     source.addFeature(marker);
 
-    return MapLayer.simpleLayer('node-marker-layer', layer);
+    const name = $localize`:@@map.layer.node:Node`;
+    return MapLayer.build('node-marker-layer', name, layer);
   }
 }

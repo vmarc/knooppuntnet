@@ -41,7 +41,7 @@ export const selectPlannerLayerStates = createSelector(
 export const selectPlannerPoisVisible = createSelector(selectPlannerState, (state) => {
   let visible = false;
   const poiLayerState = state.layerStates.find(
-    (ls) => ls.layerName == PoiTileLayerService.poiLayerName
+    (layerState) => layerState.id == PoiTileLayerService.poiLayerId
   );
   if (poiLayerState) {
     visible = poiLayerState.visible;
@@ -54,10 +54,8 @@ export const selectPlannerPoiLayerStates = createSelector(
   (state) => state.poiLayerStates
 );
 
-export const selectPlannerPoiGroupVisible = (layerName: string) =>
+export const selectPlannerPoiGroupVisible = (layerId: string) =>
   createSelector(selectPlannerState, (state) => {
-    const layerStates = state.poiLayerStates.filter(
-      (layerState) => layerState.layerName === layerName
-    );
+    const layerStates = state.poiLayerStates.filter((layerState) => layerState.id === layerId);
     return layerStates.length === 1 && layerStates[0].visible;
   });

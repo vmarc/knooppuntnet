@@ -17,6 +17,7 @@ export class TileDebug256Layer {
       }),
     });
 
-    return MapLayer.simpleLayer('debug-256', layer);
+    const name = $localize`:@@map.layer.tile-256-names:Tilenames (256)`;
+    return MapLayer.build('debug-256', name, layer);
   }
 }

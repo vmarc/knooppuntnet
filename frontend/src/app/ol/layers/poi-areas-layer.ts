@@ -24,9 +24,10 @@ export class PoiAreasLayer {
 
     const layer = new VectorLayer({
       source: vectorSource,
-      style: (feature) => lineStyle,
+      style: () => lineStyle,
     });
 
-    return MapLayer.simpleLayer('poi-areas-layer', layer);
+    const name = $localize`:@@map.layer.poi-areas:Poi areas`;
+    return MapLayer.build('poi-areas-layer', name, layer);
   }
 }

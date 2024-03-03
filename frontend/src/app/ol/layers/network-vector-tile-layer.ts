@@ -1,4 +1,5 @@
 import { NetworkType } from '@api/custom';
+import { Translations } from '@app/i18n';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
@@ -24,11 +25,13 @@ export class NetworkVectorTileLayer {
     });
 
     layer.setStyle(styleFunction);
+    const name = Translations.get(`network-type.${networkType}`);
     return new MapLayer(
       networkType,
-      `${networkType}-vector`,
+      name,
       ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
+      'vector',
       layer,
       networkType,
       null
@@ -46,18 +49,20 @@ export class NetworkVectorTileLayer {
 
     const layer = new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
-      className: `${networkType}-network`,
+      className: `${networkType} - network`,
       declutter: false,
       source,
       renderMode: 'vector',
       style: styleFunction,
     });
 
+    const name = Translations.get(`network-type.${networkType}`);
     return new MapLayer(
       networkType,
-      `${networkType}-vector`,
+      name,
       ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
+      'vector',
       layer,
       networkType,
       null

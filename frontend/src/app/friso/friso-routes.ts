@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { PoiDetailMapService } from '@app/ol/components';
-import { MapLayerTranslationService } from '@app/ol/services';
 import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 import { FrisoMapService } from './friso/friso-map.service';
@@ -13,7 +12,6 @@ export const frisoRoutes: Routes = [
   {
     path: '',
     providers: [
-      MapLayerTranslationService,
       PoiDetailMapService,
       FrisoMapService,
       provideState({

@@ -70,7 +70,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     });
 
     layer.set('name', 'GPX reference'); // TODO planner: set elsewhere?
-    return MapLayer.simpleLayer('gpx-reference-layer', layer);
+    return MapLayer.build('gpx-reference-layer', 'GPX reference', layer);
   }
 
   private buildNokSegmentLayer(deviation: MonitorRouteDeviation): MapLayer {
@@ -85,7 +85,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
       style: () => layerStyle,
     });
     layer.set('name', 'Not OK segment'); // TODO planner: set elsewhere?
-    return MapLayer.simpleLayer('not-ok-layer', layer);
+    return MapLayer.build('not-ok-layer', 'Not OK', layer);
   }
 
   private buildOsmRelationLayer(routeSegments: MonitorRouteSegment[]): MapLayer {
@@ -106,7 +106,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
       style: () => thickStyle,
     });
     layer.set('name', 'OSM Relation'); // TODO planner: set elsewhere?
-    return MapLayer.simpleLayer('osm-relation-layer', layer);
+    return MapLayer.build('osm-relation-layer', 'OSM relation', layer);
   }
 
   private fixedStyle(color: string, width: number): Style {

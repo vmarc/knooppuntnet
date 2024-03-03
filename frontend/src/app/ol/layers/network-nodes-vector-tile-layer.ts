@@ -1,4 +1,5 @@
 import { NetworkType } from '@api/custom';
+import { Translations } from '@app/i18n';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
@@ -27,11 +28,13 @@ export class NetworkNodesVectorTileLayer {
     const nodeMapStyle = new NetworkNodesMapStyle(nodeIds, routeIds).styleFunction();
     layer.setStyle(nodeMapStyle);
 
+    const name = Translations.get(`network-type.${networkType}`);
     return new MapLayer(
       `network-nodes-${networkType}-layer`,
-      `network-nodes-${networkType}-layer`,
+      name,
       ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
+      'vector',
       layer,
       networkType,
       null

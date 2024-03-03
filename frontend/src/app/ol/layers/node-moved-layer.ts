@@ -32,6 +32,7 @@ export class NodeMovedLayer {
       source,
     });
 
-    return MapLayer.simpleLayer('node-moved-layer', layer);
+    const name = $localize`:@@map.layer.node-moved:Node moved`;
+    return MapLayer.build('node-moved-layer', name, layer);
   }
 }

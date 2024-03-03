@@ -3,16 +3,15 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
-import { Inject } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { OsmLayer } from '@app/ol/layers';
 import { MapLayerState } from '../domain';
 import { MAP_SERVICE_TOKEN } from '../services';
 import { OpenlayersMapService } from '../services';
-import { MapLayerTranslationService } from '../services';
 
 @Component({
   selector: 'kpn-layer-switcher',
@@ -29,9 +28,9 @@ import { MapLayerTranslationService } from '../services';
                   [checked]="layerState.visible"
                   (change)="layerVisibleChanged(layerState, $event)"
                 >
-                  {{ layerNameTranslation(layerState) }}
+                  {{ layerState.name }}
                 </mat-checkbox>
-                @if (layerState.layerName === 'osm' && layerStates.length > 2) {
+                @if (layerState.id === osmLayerId && layerStates.length > 2) {
                   <mat-divider></mat-divider>
                 }
               </div>
@@ -63,10 +62,11 @@ import { MapLayerTranslationService } from '../services';
 })
 export class LayerSwitcherComponent {
   private readonly openlayersMapService: OpenlayersMapService = inject(MAP_SERVICE_TOKEN);
-  private readonly mapLayerTranslationService = inject(MapLayerTranslationService);
 
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   protected readonly layerStates$ = this.openlayersMapService.layerStates$;
+
+  protected readonly osmLayerId = OsmLayer.id;
 
   openPopupMenu(): void {
     this.trigger.openMenu();
@@ -80,7 +80,5 @@ export class LayerSwitcherComponent {
     this.openlayersMapService.layerStateChange(change);
   }
 
-  layerNameTranslation(layerstate: MapLayerState): string {
-    return this.mapLayerTranslationService.translation(layerstate.layerName);
-  }
+  protected readonly OsmLayer = OsmLayer;
 }

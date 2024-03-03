@@ -42,14 +42,14 @@ describe('PlannerStateService', () => {
       mapMode: 'survey',
       resultMode: 'detailed',
       layerStates: [
-        { layerName: 'layer-1', visible: true, enabled: true },
-        { layerName: 'layer-2', visible: true, enabled: true },
-        { layerName: 'layer-3', visible: false, enabled: true },
+        { id: 'layer-1', name: 'layer-1', visible: true, enabled: true },
+        { id: 'layer-2', name: 'layer-2', visible: true, enabled: true },
+        { id: 'layer-3', name: 'layer-3', visible: false, enabled: true },
       ],
       poiLayerStates: [
-        { layerName: 'poi-layer-1', visible: true, enabled: true },
-        { layerName: 'poi-layer-2', visible: true, enabled: true },
-        { layerName: 'poi-layer-3', visible: false, enabled: true },
+        { id: 'poi-layer-1', name: 'poi-layer-1', visible: true, enabled: true },
+        { id: 'poi-layer-2', name: 'poi-layer-2', visible: true, enabled: true },
+        { id: 'poi-layer-3', name: 'poi-layer-3', visible: false, enabled: true },
       ],
     };
 

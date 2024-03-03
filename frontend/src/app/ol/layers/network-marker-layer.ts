@@ -24,6 +24,7 @@ export class NetworkMarkerLayer {
       source,
     });
     markers.forEach((marker) => source.addFeature(marker));
-    return MapLayer.simpleLayer('network-marker-layer', layer);
+    const name = $localize`:@@map.layer.networks:Networks`;
+    return MapLayer.build('network-marker-layer', name, layer);
   }
 }

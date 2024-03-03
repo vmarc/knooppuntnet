@@ -52,7 +52,7 @@ export const plannerReducer = createReducer<PlannerState>(
   ),
   on(actionPlannerPoisVisible, (state, { visible }): PlannerState => {
     const layerStates = state.layerStates.map((layerState) => {
-      if (layerState.layerName === PoiTileLayerService.poiLayerName) {
+      if (layerState.id === PoiTileLayerService.poiLayerId) {
         return {
           ...layerState,
           visible,
@@ -74,7 +74,7 @@ export const plannerReducer = createReducer<PlannerState>(
   ),
   on(actionPlannerPoiGroupVisible, (state, { groupName, visible }): PlannerState => {
     const poiLayerStates = state.poiLayerStates.map((layerState) => {
-      if (layerState.layerName === groupName) {
+      if (layerState.id === groupName) {
         return {
           ...layerState,
           visible,

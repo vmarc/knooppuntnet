@@ -18,7 +18,7 @@ export class PoiMarkerLayer {
     });
 
     source.addFeature(marker);
-
-    return MapLayer.simpleLayer('poi-marker-layer', layer);
+    const name = $localize`:@@map.layer.poi-detail:Points of interest`;
+    return MapLayer.build('poi-marker-layer', name, layer);
   }
 }

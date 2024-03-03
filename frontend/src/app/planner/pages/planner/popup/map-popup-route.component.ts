@@ -22,35 +22,37 @@ import { MapService } from '../../../services/map.service';
   template: `
     @if (response$ | async; as response) {
       <div>
-        <h2>
-          <span i18n="@@map.route-popup.title">Route</span>
-          {{ response.result.name }}
-        </h2>
-        <div>
-          @if (response.result.networkReferences.length === 1) {
-            <span class="kpn-label" i18n="@@map.route-popup.network">Network</span>
-          }
-          @if (response.result.networkReferences.length !== 1) {
-            <span class="kpn-label" i18n="@@map.route-popup.networks">Networks</span>
-          }
-          @if (response.result.networkReferences.length === 0) {
-            <span i18n="@@map.route-popup.no-networks">None</span>
-          }
-          @for (ref of response.result.networkReferences; track ref) {
-            <div class="reference">
-              <a [routerLink]="'/analysis/network/' + ref.id">{{ ref.name }}</a>
-            </div>
-          }
-        </div>
-        <p class="more-details">
-          <kpn-link-route
-            [routeId]="response.result.id"
-            [routeName]="response.result.name"
-            [networkType]="networkType$ | async"
-            title="More details"
-            i18n-title="@@map.route-popup.more-details"
-          />
-        </p>
+        @if (!!response.result) {
+          <h2>
+            <span i18n="@@map.route-popup.title">Route</span>
+            {{ response.result.name }}
+          </h2>
+          <div>
+            @if (response.result.networkReferences.length === 1) {
+              <span class="kpn-label" i18n="@@map.route-popup.network">Network</span>
+            }
+            @if (response.result.networkReferences.length !== 1) {
+              <span class="kpn-label" i18n="@@map.route-popup.networks">Networks</span>
+            }
+            @if (response.result.networkReferences.length === 0) {
+              <span i18n="@@map.route-popup.no-networks">None</span>
+            }
+            @for (ref of response.result.networkReferences; track ref) {
+              <div class="reference">
+                <a [routerLink]="'/analysis/network/' + ref.id">{{ ref.name }}</a>
+              </div>
+            }
+          </div>
+          <p class="more-details">
+            <kpn-link-route
+              [routeId]="response.result.id"
+              [routeName]="response.result.name"
+              [networkType]="networkType$ | async"
+              title="More details"
+              i18n-title="@@map.route-popup.more-details"
+            />
+          </p>
+        }
       </div>
     }
   `,

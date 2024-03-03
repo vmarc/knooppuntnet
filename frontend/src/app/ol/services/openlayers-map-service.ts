@@ -111,23 +111,23 @@ export abstract class OpenlayersMapService {
   }
 
   layerStateChange(change: MapLayerState): void {
-    const layerName = change.layerName;
+    const layerId = change.id;
     const visible = change.visible;
 
     const mapLayerStates = this._layerStates$.value.map((layerState) => {
-      if (layerState.layerName == BackgroundLayer.id && layerName == OsmLayer.id && visible) {
+      if (layerState.id == BackgroundLayer.id && layerId == OsmLayer.id && visible) {
         return {
           ...layerState,
           visible: false,
         };
       }
-      if (layerState.layerName == OsmLayer.id && layerName == BackgroundLayer.id && visible) {
+      if (layerState.id == OsmLayer.id && layerId == BackgroundLayer.id && visible) {
         return {
           ...layerState,
           visible: false,
         };
       }
-      if (layerState.layerName === layerName) {
+      if (layerState.id === layerId) {
         return {
           ...layerState,
           visible,
@@ -142,30 +142,33 @@ export abstract class OpenlayersMapService {
   }
 
   updateLayerVisibility(): void {
-    const zoom = this._mapPosition$.value.zoom;
-    const layerStates = this._layerStates$.value;
     this.mapLayers.forEach((mapLayer) => {
-      const mapLayerState = layerStates.find(
-        (layerState) => layerState.layerName === mapLayer.name
-      );
-      if (mapLayerState) {
-        const zoomInRange = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
-        const visible =
-          zoomInRange &&
-          (mapLayerState.enabled || mapLayerState.layerName === mapLayer.name) &&
-          mapLayerState.visible;
-        if (visible && mapLayer.id.includes('vector') && mapLayer.layer.getVisible()) {
-          mapLayer.layer.changed();
-        }
-        mapLayer.layer.setVisible(visible);
-      }
+      const visible = this.layerVisible(mapLayer);
+      mapLayer.layer.setVisible(visible);
     });
 
     // const visibleLayers = this.mapLayers
     //   .filter((mapLayer) => mapLayer.layer.getVisible() === true)
     //   .map((mapLayer) => mapLayer.id)
     //   .join(',');
+    // console.log(['layerStates', this.layerStates]);
     // console.log(`updateLayerVisibility: ${visibleLayers}`);
+  }
+
+  protected layerVisible(mapLayer: MapLayer): boolean {
+    const mapLayerState = this.layerStates.find((layerState) => layerState.id === mapLayer.id);
+    if (mapLayerState) {
+      const zoom = this.mapPosition.zoom;
+      const zoomInRange = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
+      const visible =
+        zoomInRange &&
+        (mapLayerState.enabled || mapLayerState.id === mapLayer.id) &&
+        mapLayerState.visible;
+      if (visible && mapLayer.mapTile == 'vector' && mapLayer.layer.getVisible()) {
+        mapLayer.layer.changed();
+      }
+      return visible;
+    }
   }
 
   mapBounds(): Bounds {

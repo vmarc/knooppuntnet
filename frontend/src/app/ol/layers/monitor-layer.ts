@@ -9,8 +9,6 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class MonitorLayer {
-  static id = 'monitor';
-
   static build(): MapLayer {
     const source = new VectorTile({
       minZoom: 2,
@@ -28,7 +26,8 @@ export class MonitorLayer {
       style: this.styleFunction(),
     });
 
-    return new MapLayer(this.id, this.id, 2, 22, layer, null, null);
+    const name = $localize`:@@map.layer.monitor:All monitor routes`;
+    return new MapLayer('monitor', name, 2, 22, 'vector', layer, null, null);
   }
 
   static styleFunction(): StyleFunction {

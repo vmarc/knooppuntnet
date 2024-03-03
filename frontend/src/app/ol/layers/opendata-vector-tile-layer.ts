@@ -13,11 +13,11 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class OpendataVectorTileLayer {
-  private readonly largeMaxZoomResolution = /* zoomLevel 13 */ 19.109;
-  private readonly smallStyle = this.buildSmallStyle();
-  private readonly largeStyle = this.buildLargeStyle();
+  private static readonly largeMaxZoomResolution = /* zoomLevel 13 */ 19.109;
+  private static readonly smallStyle = this.buildSmallStyle();
+  private static readonly largeStyle = this.buildLargeStyle();
 
-  build(networkType: NetworkType, layerName: string, dir: string): MapLayer {
+  static build(networkType: NetworkType, id: string, name: string, dir: string): MapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -38,17 +38,18 @@ export class OpendataVectorTileLayer {
     layer.setStyle(this.styleFunction());
 
     return new MapLayer(
-      layerName,
-      `${layerName}-vector`,
+      id,
+      name,
       ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
+      'vector',
       layer,
       networkType,
       null
     );
   }
 
-  private styleFunction(): StyleFunction {
+  private static styleFunction(): StyleFunction {
     return (feature, resolution) => {
       const name = feature.get('name');
       const large = resolution < this.largeMaxZoomResolution;
@@ -61,7 +62,7 @@ export class OpendataVectorTileLayer {
     };
   }
 
-  private buildLargeStyle(): Style {
+  private static buildLargeStyle(): Style {
     const red: Color = [255, 0, 0];
     const white: Color = [255, 255, 255];
     return new Style({
@@ -92,7 +93,7 @@ export class OpendataVectorTileLayer {
     });
   }
 
-  private buildSmallStyle(): Style {
+  private static buildSmallStyle(): Style {
     const red: Color = [255, 0, 0];
     const white: Color = [255, 255, 255];
     const lineDash = null; //[5, 5];

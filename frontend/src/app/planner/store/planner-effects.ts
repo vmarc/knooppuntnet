@@ -83,10 +83,7 @@ export class PlannerEffects {
     () => {
       return this.actions$.pipe(
         ofType(actionPlannerNetworkType),
-        concatLatestFrom(() => [this.store.select(selectPlannerMapMode)]),
-        tap(([{ networkType }, mapMode]) =>
-          this.plannerMapService.handleNetworkChange(networkType, mapMode)
-        )
+        tap(({ networkType }) => this.plannerMapService.networkTypeChanged(networkType))
       );
     },
     { dispatch: false }

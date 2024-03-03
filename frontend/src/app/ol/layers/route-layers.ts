@@ -37,25 +37,26 @@ export class RouteLayers {
 
   private buildFreePathsLayers(): MapLayer[] {
     return this.routeMap.freePaths.map((path) => {
-      const translatedTitle = Translations.get('map.layer.free-path');
+      const id = `free-path-${path.pathId}`;
+      const translatedTitle = $localize`:@@map.layer.free-path:Path`;
       const name = `${translatedTitle} ${path.pathId}`;
       const source = new VectorSource();
       const layer = new VectorLayer({ source });
       source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
-      return MapLayer.simpleLayer(name, layer);
+      return MapLayer.build(id, name, layer);
     });
   }
 
   private buildForwardLayer(): MapLayer {
     const path = this.routeMap.forwardPath;
     if (path && path.segments.length > 0) {
-      const name = Translations.get('map.layer.forward-route');
+      const name = $localize`:@@map.layer.forward-route:Forward route`;
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
       });
       source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
-      return MapLayer.simpleLayer(name, layer);
+      return MapLayer.build('forward-route', name, layer);
     }
     return null;
   }
@@ -63,13 +64,13 @@ export class RouteLayers {
   private buildBackwardLayer(): MapLayer {
     const path = this.routeMap.backwardPath;
     if (path) {
-      const name = Translations.get('map.layer.backward-route');
+      const name = $localize`:@@map.layer.backward-route:Backward route`;
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
       });
       source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
-      return MapLayer.simpleLayer(name, layer);
+      return MapLayer.build('backward-route', name, layer);
     }
     return null;
   }
@@ -77,15 +78,15 @@ export class RouteLayers {
   private buildStartTentaclesLayer(): MapLayer {
     const paths = this.routeMap.startTentaclePaths;
     if (paths && paths.length > 0) {
-      const name = Translations.get('map.layer.start-tentacle');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
       });
       paths.forEach((path) => {
-        source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
+        source.addFeature(this.pathToFeature('start-tentacle', [0, 0, 255, 0.3], path));
       });
-      return MapLayer.simpleLayer(name, layer);
+      const name = $localize`:@@map.layer.start-tentacle:Start tentacle`;
+      return MapLayer.build('start-tentacle', name, layer);
     }
     return null;
   }
@@ -93,7 +94,7 @@ export class RouteLayers {
   private buildEndTentaclesLayer(): MapLayer {
     const paths = this.routeMap.endTentaclePaths;
     if (paths && paths.length > 0) {
-      const name = Translations.get('map.layer.end-tentacle');
+      const name = $localize`:@@map.layer.end-tentacle:End tentacle`;
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
@@ -101,7 +102,7 @@ export class RouteLayers {
       paths.forEach((path) => {
         source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
       });
-      return MapLayer.simpleLayer(name, layer);
+      return MapLayer.build('end-tentacle', name, layer);
     }
     return null;
   }
@@ -109,7 +110,6 @@ export class RouteLayers {
   private buildUnusedSegmentsLayer(): MapLayer {
     const segments = this.routeMap.unusedSegments;
     if (segments && segments.length > 0) {
-      const name = Translations.get('map.layer.unused');
       const source = new VectorSource();
       const layer = new VectorLayer({
         source,
@@ -117,7 +117,8 @@ export class RouteLayers {
       segments.forEach((segment) => {
         source.addFeature(this.segmentToFeature(name, [255, 0, 0, 0.3], segment));
       });
-      return MapLayer.simpleLayer(name, layer);
+      const name = $localize`:@@map.layer.unused:Unused`;
+      return MapLayer.build('unused', name, layer);
     }
     return null;
   }
@@ -160,8 +161,8 @@ export class RouteLayers {
     });
 
     source.addFeatures(markers);
-    const layerName = Translations.get('map.layer.nodes');
-    return MapLayer.simpleLayer(layerName, layer);
+    const name = $localize`:@@map.layer.route-nodes:Nodes`;
+    return MapLayer.build('nodes', name, layer);
   }
 
   private buildMarkers(

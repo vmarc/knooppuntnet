@@ -1,5 +1,6 @@
 export interface MapLayerState {
-  layerName: string;
+  id: string;
+  name: string;
   visible: boolean;
   enabled: boolean;
 }

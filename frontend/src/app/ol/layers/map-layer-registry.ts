@@ -6,14 +6,14 @@ export class MapLayerRegistry {
   layerStates: MapLayerState[] = [];
 
   register(
-    urlLayerNames: string[],
+    urlLayerIds: string[],
     mapLayer: MapLayer,
     defaultVisible: boolean,
     enabled?: boolean
   ): void {
     let visible = defaultVisible;
-    if (urlLayerNames.length > 0) {
-      visible = urlLayerNames.includes(mapLayer.name);
+    if (urlLayerIds.length > 0) {
+      visible = urlLayerIds.includes(mapLayer.id);
     }
     let layerEnabled = enabled;
     if (enabled === undefined || enabled === null) {
@@ -21,21 +21,22 @@ export class MapLayerRegistry {
     }
     this.layers.push(mapLayer);
     this.layerStates.push({
-      layerName: mapLayer.name,
+      id: mapLayer.id,
+      name: mapLayer.name,
       visible,
       enabled: layerEnabled,
     });
   }
 
   registerAll(
-    urlLayerNames: string[],
+    urlLayerIds: string[],
     mapLayers: MapLayer[],
     defaultVisible: boolean,
     enabled?: boolean
   ): void {
     let visible = defaultVisible;
-    if (urlLayerNames.length > 0) {
-      visible = urlLayerNames.includes(mapLayers[0].name);
+    if (urlLayerIds.length > 0) {
+      visible = urlLayerIds.includes(mapLayers[0].id);
     }
     let layerEnabled = enabled;
     if (enabled === undefined || enabled === null) {
@@ -43,7 +44,8 @@ export class MapLayerRegistry {
     }
     this.layers.push(...mapLayers);
     this.layerStates.push({
-      layerName: mapLayers[0].name,
+      id: mapLayers[0].id,
+      name: mapLayers[0].name,
       visible,
       enabled: layerEnabled,
     });

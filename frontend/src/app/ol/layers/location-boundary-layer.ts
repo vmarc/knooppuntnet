@@ -35,6 +35,7 @@ export class LocationBoundaryLayer {
       },
     });
 
-    return MapLayer.simpleLayer(this.id, layer);
+    const name = $localize`:@@map.layer.boundary:Boundary`;
+    return MapLayer.build('location-boundary', name, layer);
   }
 }

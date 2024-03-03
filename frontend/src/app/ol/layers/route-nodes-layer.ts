@@ -7,8 +7,6 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class RouteNodesLayer {
-  static id = 'route-nodes-layer';
-
   static build(nodes: RawNode[]): MapLayer {
     if (nodes.length === 0) {
       return null;
@@ -24,6 +22,7 @@ export class RouteNodesLayer {
       zIndex: Layers.zIndexNetworkNodesLayer,
       source,
     });
-    return MapLayer.simpleLayer(this.id, layer);
+    const name = $localize`:@@map.layer.route-nodes:Nodes`;
+    return MapLayer.build('route-nodes-layer', name, layer);
   }
 }

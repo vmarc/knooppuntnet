@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { MapLayerTranslationService } from '@app/ol/services';
 import { NewMapService } from '@app/ol/services';
 import { PoiTileLayerService } from '@app/ol/services';
 import { provideEffects } from '@ngrx/effects';
@@ -23,7 +22,6 @@ export const plannerRoutes: Routes = [
         reducer: plannerReducer,
       }),
       provideEffects([PlannerEffects]),
-      MapLayerTranslationService,
       MapService,
       NewMapService,
       PdfService,

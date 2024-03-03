@@ -11,6 +11,7 @@ export class OsmLayer {
         url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
       }),
     });
-    return MapLayer.simpleLayer(this.id, layer);
+    const name = $localize`:@@map.layer.osm:OpenStreetMap`;
+    return new MapLayer(OsmLayer.id, name, -Infinity, Infinity, 'bitmap', layer, null, null);
   }
 }
