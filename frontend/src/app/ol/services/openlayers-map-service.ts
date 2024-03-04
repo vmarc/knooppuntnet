@@ -105,9 +105,9 @@ export abstract class OpenlayersMapService {
     if (this.map) {
       this.map.getView().un('change:resolution', this.updatePositionHandler);
       this.map.getView().un('change:center', this.updatePositionHandler);
+      this.map.dispose();
+      this.map.setTarget(null);
     }
-    this._map.dispose();
-    this._map.setTarget(null);
   }
 
   layerStateChange(change: MapLayerState): void {
