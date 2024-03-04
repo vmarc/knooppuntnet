@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { NetworkType } from '@api/custom';
+import { Util } from '@app/components/shared';
 import { PageParams } from '@app/shared/base';
 import { MapPosition } from '@app/ol/domain';
 import { NetworkMapPosition } from '@app/ol/domain';
@@ -236,7 +237,8 @@ export class NetworkEffects {
         this.store.select(selectPreferencesPageSize),
       ]),
       map(([_, routeParams, queryParams, preferencesImpact, preferencesPageSize]) => {
-        const pageParams = new PageParams(routeParams, queryParams);
+        const uniqueQueryParams = Util.uniqueParams(queryParams);
+        const pageParams = new PageParams(routeParams, uniqueQueryParams);
         const networkId = pageParams.networkId();
         const changesParameters = pageParams.changesParameters(
           preferencesImpact,

@@ -4,6 +4,7 @@ import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
+import { Util } from '@app/components/shared';
 import { PageParams } from '@app/shared/base';
 import { selectQueryParams } from '@app/core';
 import { actionPreferencesAnalysisStrategy } from '@app/core';
@@ -52,7 +53,8 @@ export class ChangesEffects {
       ]),
       map(
         ([_, queryParams, preferencesAnalysisStrategy, preferencesImpact, preferencesPageSize]) => {
-          const pageParams = new PageParams(queryParams);
+          const uniqueQueryParams = Util.uniqueParams(queryParams);
+          const pageParams = new PageParams(uniqueQueryParams);
           const strategy = pageParams.strategy(preferencesAnalysisStrategy);
           const changesParameters = pageParams.changesParameters(
             preferencesImpact,

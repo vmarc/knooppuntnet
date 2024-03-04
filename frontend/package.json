@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "4.3.10",
+  "version": "4.3.11",
   "scripts": {
     "serve": "ng serve --proxy-config src/proxy-dev.conf.js",
     "serve:dev:nl": "ng serve --configuration=nl --proxy-config src/proxy-dev.conf.js",

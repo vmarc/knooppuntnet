@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Util } from '@app/components/shared';
 import { selectQueryParams, selectRouteParams } from '@app/core';
 import { actionSharedSurveyDateInfoInit } from '@app/core';
 import { PoiService } from '@app/services';
@@ -56,7 +57,8 @@ export class PlannerEffects {
       ]),
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       map(([_, routeParams, queryParams]) => {
-        const state = this.plannerMapService.toPlannerState(routeParams, queryParams);
+        const uniqueQueryParams = Util.uniqueParams(queryParams);
+        const state = this.plannerMapService.toPlannerState(routeParams, uniqueQueryParams);
         return actionPlannerLoad({ state });
       })
     );

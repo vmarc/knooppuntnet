@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
+import { Util } from '@app/components/shared';
 import { PageParams } from '@app/shared/base';
 import { MapPosition } from '@app/ol/domain';
 import { selectQueryParam } from '@app/core';
@@ -150,7 +151,8 @@ export class NodeEffects {
       ]),
       map(([_, routeParams, queryParams, preferencesImpact, preferencesPageSize]) => {
         const nodeId = routeParams['nodeId'];
-        const queryParamsWrapper = new PageParams(queryParams);
+        const uniqueQueryParams = Util.uniqueParams(queryParams);
+        const queryParamsWrapper = new PageParams(uniqueQueryParams);
         const changesParameters = queryParamsWrapper.changesParameters(
           preferencesImpact,
           preferencesPageSize

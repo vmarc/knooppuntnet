@@ -1,6 +1,7 @@
 import { signal } from '@angular/core';
 import { WritableSignal } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { Params } from '@angular/router';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Bounds } from '@api/common';
 import { TagDiffs } from '@api/common/diff';
@@ -113,6 +114,19 @@ export class Util {
       return +value;
     }
     return 0;
+  }
+
+  static uniqueParams(params: Params): Params {
+    const newParams: Params = {};
+    const keys = Object.keys(params);
+    keys.forEach((key: string) => {
+      if (Array.isArray(params[key])) {
+        newParams[key] = params[key][0];
+      } else {
+        newParams[key] = params[key];
+      }
+    });
+    return newParams;
   }
 
   private static format(level: number): string {

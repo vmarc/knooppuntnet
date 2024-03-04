@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { EditParameters } from '@app/analysis/components/edit';
+import { Util } from '@app/components/shared';
 import { PageParams } from '@app/shared/base';
 import { EditService } from '@app/components/shared';
 import { selectRouteParams } from '@app/core';
@@ -291,7 +292,8 @@ export class SubsetEffects {
         this.store.select(selectPreferencesPageSize),
       ]),
       map(([_, routeParams, queryParams, preferencesImpact, preferencesPageSize]) => {
-        const pageParams = new PageParams(routeParams, queryParams);
+        const uniqueQueryParams = Util.uniqueParams(queryParams);
+        const pageParams = new PageParams(routeParams, uniqueQueryParams);
         const subset = pageParams.subset();
         const changesParameters = pageParams.changesParameters(
           preferencesImpact,
