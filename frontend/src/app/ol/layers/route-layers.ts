@@ -42,7 +42,7 @@ export class RouteLayers {
       const name = `${translatedTitle} ${path.pathId}`;
       const source = new VectorSource();
       const layer = new VectorLayer({ source });
-      source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
+      source.addFeature(this.pathToFeature([0, 0, 255, 0.3], path));
       return MapLayer.build(id, name, layer);
     });
   }
@@ -55,7 +55,7 @@ export class RouteLayers {
       const layer = new VectorLayer({
         source,
       });
-      source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
+      source.addFeature(this.pathToFeature([0, 0, 255, 0.3], path));
       return MapLayer.build('forward-route', name, layer);
     }
     return null;
@@ -69,7 +69,7 @@ export class RouteLayers {
       const layer = new VectorLayer({
         source,
       });
-      source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
+      source.addFeature(this.pathToFeature([0, 0, 255, 0.3], path));
       return MapLayer.build('backward-route', name, layer);
     }
     return null;
@@ -83,7 +83,7 @@ export class RouteLayers {
         source,
       });
       paths.forEach((path) => {
-        source.addFeature(this.pathToFeature('start-tentacle', [0, 0, 255, 0.3], path));
+        source.addFeature(this.pathToFeature([0, 0, 255, 0.3], path));
       });
       const name = $localize`:@@map.layer.start-tentacle:Start tentacle`;
       return MapLayer.build('start-tentacle', name, layer);
@@ -100,7 +100,7 @@ export class RouteLayers {
         source,
       });
       paths.forEach((path) => {
-        source.addFeature(this.pathToFeature(name, [0, 0, 255, 0.3], path));
+        source.addFeature(this.pathToFeature([0, 0, 255, 0.3], path));
       });
       return MapLayer.build('end-tentacle', name, layer);
     }
@@ -115,7 +115,7 @@ export class RouteLayers {
         source,
       });
       segments.forEach((segment) => {
-        source.addFeature(this.segmentToFeature(name, [255, 0, 0, 0.3], segment));
+        source.addFeature(this.segmentToFeature([255, 0, 0, 0.3], segment));
       });
       const name = $localize`:@@map.layer.unused:Unused`;
       return MapLayer.build('unused', name, layer);
@@ -179,27 +179,23 @@ export class RouteLayers {
     });
   }
 
-  private pathToFeature(title: string, color: Color, path: TrackPath): Feature<Geometry> {
+  private pathToFeature(color: Color, path: TrackPath): Feature<Geometry> {
     const trackPointArray: Array<TrackPoint> = [];
     trackPointArray.push(path.segments[0].source);
     path.segments.forEach((segment) => {
       segment.fragments.forEach((fragment) => trackPointArray.push(fragment.trackPoint));
     });
     const trackPoints = List(trackPointArray);
-    return this.trackPointsToFeature(title, color, trackPoints);
+    return this.trackPointsToFeature(color, trackPoints);
   }
 
-  private segmentToFeature(title: string, color: Color, segment: TrackSegment): Feature<Geometry> {
+  private segmentToFeature(color: Color, segment: TrackSegment): Feature<Geometry> {
     let trackPoints = List<TrackPoint>([segment.source]);
     trackPoints = trackPoints.concat(segment.fragments.map((fragment) => fragment.trackPoint));
-    return this.trackPointsToFeature(title, color, trackPoints);
+    return this.trackPointsToFeature(color, trackPoints);
   }
 
-  private trackPointsToFeature(
-    title: string,
-    color: Color,
-    trackPoints: List<TrackPoint>
-  ): Feature<Geometry> {
+  private trackPointsToFeature(color: Color, trackPoints: List<TrackPoint>): Feature<Geometry> {
     const coordinates = trackPoints.map((trackPoint) =>
       OlUtil.toCoordinate(trackPoint.lat, trackPoint.lon)
     );
