@@ -18,7 +18,6 @@ import { provideRouter } from '@angular/router';
 import { withPreloading } from '@angular/router';
 import { PreloadAllModules } from '@angular/router';
 import { Router } from '@angular/router';
-import { ServiceWorkerModule } from '@angular/service-worker';
 import { appRoutes } from '@app/*';
 import { EditService } from '@app/components/shared';
 import { PageService } from '@app/components/shared';
@@ -31,7 +30,6 @@ import { ApiService } from '@app/services';
 import { IconService } from '@app/services';
 import { PoiService } from '@app/services';
 import { PoiNameService } from '@app/services';
-import { LogUpdateService } from '@app/services';
 import { SpinnerInterceptor } from '@app/spinner';
 import { SpinnerService } from '@app/spinner';
 import { provideEffects } from '@ngrx/effects';
@@ -41,7 +39,6 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import * as Sentry from '@sentry/angular-ivy';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { MarkdownModule } from 'ngx-markdown';
-import { environment } from '../environments/environment';
 import { UserService } from './shared/user';
 
 export const appConfig: ApplicationConfig = {
@@ -58,10 +55,7 @@ export const appConfig: ApplicationConfig = {
       MatIconModule,
       MatSidenavModule,
       MatButtonModule,
-      MatDialogModule,
-      ServiceWorkerModule.register('ngsw-worker.js', {
-        enabled: environment.production,
-      })
+      MatDialogModule
     ),
     {
       provide: ErrorHandler,
@@ -90,7 +84,6 @@ export const appConfig: ApplicationConfig = {
     PoiService,
     PoiNameService,
     EditService,
-    LogUpdateService,
     MatDialog,
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
