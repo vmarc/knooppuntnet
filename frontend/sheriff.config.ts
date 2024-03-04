@@ -14,25 +14,15 @@ export const sheriffConfig: SheriffConfig = {
     'libs/analysis/src/lib/analysis': ['analysis/analysis'],
     'libs/analysis/src/lib/subset': ['analysis/subset'],
     'libs/analysis/src/lib/strategy': ['analysis/strategy'],
-    'libs/analysis/src/lib/components/changes/route': [
-      'analysis/components/changes/route',
-    ],
-    'libs/analysis/src/lib/components/changes/node': [
-      'analysis/components/changes/node',
-    ],
-    'libs/analysis/src/lib/components/changes/filter': [
-      'analysis/components/changes/filter',
-    ],
+    'libs/analysis/src/lib/components/changes/route': ['analysis/components/changes/route'],
+    'libs/analysis/src/lib/components/changes/node': ['analysis/components/changes/node'],
+    'libs/analysis/src/lib/components/changes/filter': ['analysis/components/changes/filter'],
     'libs/analysis/src/lib/components/changes': ['analysis/components/changes'],
-    'libs/analysis/src/lib/components/indicators/route': [
-      'analysis/components/indicators/route',
-    ],
+    'libs/analysis/src/lib/components/indicators/route': ['analysis/components/indicators/route'],
     'libs/analysis/src/lib/components/change-set/components': [
       'analysis/components/change-set/components',
     ],
-    'libs/analysis/src/lib/components/change-set': [
-      'analysis/components/change-set',
-    ],
+    'libs/analysis/src/lib/components/change-set': ['analysis/components/change-set'],
     'libs/analysis/src/lib/components/filter': ['analysis/components/filter'],
     'libs/analysis/src/lib/components/edit': ['analysis/components/edit'],
     'libs/analysis/src/lib/components': ['analysis/components'],
@@ -54,31 +44,17 @@ export const sheriffConfig: SheriffConfig = {
     'libs/shared/src/lib/components/shared/link': ['components/shared/link'],
     'libs/shared/src/lib/components/shared/items': ['components/shared/items'],
     'libs/shared/src/lib/components/shared/day': ['components/shared/day'],
-    'libs/shared/src/lib/components/shared/dialog': [
-      'components/shared/dialog',
-    ],
-    'libs/shared/src/lib/components/shared/paginator': [
-      'components/shared/paginator',
-    ],
-    'libs/shared/src/lib/components/shared/toolbar': [
-      'components/shared/toolbar',
-    ],
+    'libs/shared/src/lib/components/shared/dialog': ['components/shared/dialog'],
+    'libs/shared/src/lib/components/shared/paginator': ['components/shared/paginator'],
+    'libs/shared/src/lib/components/shared/toolbar': ['components/shared/toolbar'],
     'libs/shared/src/lib/components/shared/icon': ['components/shared/icon'],
-    'libs/shared/src/lib/components/shared/indicator': [
-      'components/shared/indicator',
-    ],
+    'libs/shared/src/lib/components/shared/indicator': ['components/shared/indicator'],
     'libs/shared/src/lib/components/shared/error': ['components/shared/error'],
     'libs/shared/src/lib/components/shared/data': ['components/shared/data'],
     'libs/shared/src/lib/components/shared/page': ['components/shared/page'],
-    'libs/shared/src/lib/components/shared/format': [
-      'components/shared/format',
-    ],
-    'libs/shared/src/lib/components/shared/timestamp': [
-      'components/shared/timestamp',
-    ],
-    'libs/shared/src/lib/components/shared/sidebar': [
-      'components/shared/sidebar',
-    ],
+    'libs/shared/src/lib/components/shared/format': ['components/shared/format'],
+    'libs/shared/src/lib/components/shared/timestamp': ['components/shared/timestamp'],
+    'libs/shared/src/lib/components/shared/sidebar': ['components/shared/sidebar'],
     'libs/shared/src/lib/components/shared/menu': ['components/shared/menu'],
     'libs/shared/src/lib/components/shared': ['components/shared'],
     'libs/shared/src/lib/components/poi': ['components/poi'],
@@ -92,7 +68,6 @@ export const sheriffConfig: SheriffConfig = {
       lib: ['ol'],
     },
 
-    'libs/friso/src/lib': ['friso'],
     'libs/shared/src/lib/i18n': ['i18n'],
     'libs/monitor/src/lib': ['monitor'],
     'libs/shared/src/lib/kpn/common': ['kpn/common'],
@@ -203,12 +178,7 @@ export const sheriffConfig: SheriffConfig = {
       'components/shared/sidebar',
       'components/shared/tags',
     ],
-    'analysis/facts': [
-      'api',
-      'analysis/fact',
-      'components/shared',
-      'components/shared/sidebar',
-    ],
+    'analysis/facts': ['api', 'analysis/fact', 'components/shared', 'components/shared/sidebar'],
     'analysis/analysis': [
       'api',
       'base',
@@ -260,11 +230,7 @@ export const sheriffConfig: SheriffConfig = {
       'components/shared/tags',
     ],
     'analysis/components/changes': ['api', 'components/shared'],
-    'analysis/components/changes/filter': [
-      'api',
-      'kpn/common',
-      'components/shared',
-    ],
+    'analysis/components/changes/filter': ['api', 'kpn/common', 'components/shared'],
     'analysis/components/indicators/route': ['api'],
     'analysis/components': [
       'ol',
@@ -289,13 +255,7 @@ export const sheriffConfig: SheriffConfig = {
     ],
     'analysis/components/change-set/components': ['api'],
     'analysis/components/filter': ['i18n', 'kpn/filter'],
-    'analysis/components/edit': [
-      'api',
-      'core',
-      'util',
-      'services',
-      'components/shared/paginator',
-    ],
+    'analysis/components/edit': ['api', 'core', 'util', 'services', 'components/shared/paginator'],
     'analysis/fact': ['api', 'components/shared'],
     'analysis/changeset': [
       'api',
@@ -442,7 +402,6 @@ export const sheriffConfig: SheriffConfig = {
       'spinner',
       'components/shared',
     ],
-    friso: ['api', 'ol', 'core', 'components/shared'],
     i18n: [],
     monitor: [
       'api',

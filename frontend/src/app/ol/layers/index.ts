@@ -1,7 +1,6 @@
 export * from './layers';
 export * from './map-layer';
 export * from './osm-layer';
-export * from './friso-layer';
 export * from './map-controls';
 export * from './route-layers';
 export * from './poi-tile-layer';

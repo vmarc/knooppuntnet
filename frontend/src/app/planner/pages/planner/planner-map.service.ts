@@ -252,11 +252,6 @@ export class PlannerMapService extends OpenlayersMapService {
     this.updateLayerVisibility();
   }
 
-  override updateLayerVisibility(): void {
-    console.log(`networkType=${this.networkType}, mapMode=${this.mapMode}`);
-    super.updateLayerVisibility();
-  }
-
   protected override layerVisible(mapLayer: MapLayer): boolean {
     if (!!mapLayer.networkType && mapLayer.networkType !== this.networkType) {
       return false;

@@ -35,10 +35,6 @@ export const appRoutes: Routes = [
     loadChildren: () => import('@app/monitor').then((m) => m.monitorRoutes),
   },
   {
-    path: 'friso',
-    loadChildren: () => import('@app/friso').then((m) => m.frisoRoutes),
-  },
-  {
     path: 'symbols',
     loadChildren: () => import('@app/symbol').then((m) => m.symbolRoutes),
   },

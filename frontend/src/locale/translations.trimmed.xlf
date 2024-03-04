@@ -80,10 +80,6 @@
           <context context-type="linenumber">14</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/friso/friso/friso-page.component.ts</context>
-          <context context-type="linenumber">18</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/about/monitor-about-page.component.ts</context>
           <context context-type="linenumber">15</context>
         </context-group>
@@ -7259,21 +7255,21 @@
         <source>Toerisme Vlaanderen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/planner-map.service.ts</context>
-          <context context-type="linenumber">338</context>
+          <context context-type="linenumber">333</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.flanders-cycling">
         <source>Toerisme Vlaanderen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/planner-map.service.ts</context>
-          <context context-type="linenumber">346</context>
+          <context context-type="linenumber">341</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.netherlands-hiking">
         <source>Netherlands routedatabank</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/planner-map.service.ts</context>
-          <context context-type="linenumber">364</context>
+          <context context-type="linenumber">359</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.menu.pois">

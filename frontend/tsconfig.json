@@ -160,9 +160,6 @@
       "@app/demo": [
         "src/app/demo/index.ts"
       ],
-      "@app/friso": [
-        "src/app/friso/index.ts"
-      ],
       "@app/i18n": [
         "src/app/shared/i18n/index.ts"
       ],
