@@ -306,7 +306,7 @@ table.kpn-bordered-table {
   display: inline-block;
 
   :not(:last-child):after {
-    content: ', ';
+    content: ',\00a0';
   }
 }
 
@@ -314,7 +314,7 @@ table.kpn-bordered-table {
   display: inline-block;
 
   :not(:last-child):after {
-    content: ' ';
+    content: '\00a0';
   }
 }
 
@@ -339,19 +339,15 @@ table.kpn-bordered-table {
 }
 
 .kpn-label::after {
-  content: ': ';
+  content: ':\00a0';
 }
 
 .kpn-km::after {
-  content: ' km';
+  content: '\00a0km';
 }
 
 .kpn-meters::after {
   content: 'm';
-}
-
-.kpn-milliseconds::after {
-  content: ' ms';
 }
 
 .kpn-sentence::after {
