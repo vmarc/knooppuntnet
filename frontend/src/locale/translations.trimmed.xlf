@@ -1908,10 +1908,10 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-inaccessible">
-        <source>Part of the route does not seem [accessible](/en/docs/en.html#_accessible).</source>
+        <source>Part of the route does not seem [accessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-inaccessible.component.ts</context>
-          <context context-type="linenumber">9,11</context>
+          <context context-type="linenumber">9,12</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-incomplete-ok">
@@ -1932,6 +1932,13 @@
         <source>The route survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM). The survey date is defined in the *"survey:date"* tag, or the *"source:date"* tag if *"source=survey"*.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-invalid-survey-date.component.ts</context>
+          <context context-type="linenumber">9,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="fact.description.route-deprected-note-tag">
+        <source>The route name is defined in the _"note"_ tag. This is OK, but the use of the _"note"_ tag for route names is no longer recommended (deprecated). The idea is that the _"note"_ should be used for mapper notes only. The _"ref"_ and _"name"_ tags can be used for naming routes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-name-deprecated-note-tag.component.ts</context>
           <context context-type="linenumber">9,13</context>
         </context-group>
       </trans-unit>
@@ -2070,7 +2077,7 @@
         <source><x equiv-text="{{ factInfo().fact }}" id="INTERPOLATION"/> description missing!!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-description.component.ts</context>
-          <context context-type="linenumber">188</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="fact.name.added">
@@ -2358,6 +2365,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">99</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="fact.name.route-name-deprecated-note-tag">
+        <source>RouteNameDeprecatedNoteTag</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="facts.none">
@@ -4079,10 +4093,10 @@
       </trans-unit>
       <trans-unit datatype="html" id="stats.orphan-node-count.comment">
         <source>Number of network nodes that do not belong to a network.\
-          The [node](docs/en.html#glossary-node "node in glossary") was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation "relation in glossary")
+          The [node](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node "node in glossary") was not added as a member to a valid
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network "relation in glossary")
           and also not added as a member to a valid
-          [route relation](docs/en.html#glossary-route-relation "route relation in glossary")
+          [route relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#route "route relation in glossary")
           (that itself was added as a member to a valid network relation or is a free route).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
@@ -4099,7 +4113,7 @@
       <trans-unit datatype="html" id="stats.orphan-route-count.comment">
         <source>Number of network routes that do not belong to a network.\
           The route was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation "network relation in glossary").</source>
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network "network relation in glossary").</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">152,155</context>
@@ -4327,8 +4341,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="stats.network-extra-member-node.comment">
         <source>Number of network relation members of type *"node"* that are unexpected (expect only
-          [network nodes](docs/en.html#glossary-node "node in glossary")
-          or [information maps](docs/en.html#glossary-info-map "information maps in glossary") as members
+          [network nodes](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node "node in glossary")
+          or [information maps](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#information-map "information maps in glossary") as members
           in the network relation).</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
@@ -4401,7 +4415,7 @@
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-inaccessible.comment">
-        <source>Number of [inaccessible](docs/en.html#glossary-accessible "accessible in glossary") routes.</source>
+        <source>Number of [inaccessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible "accessible in glossary") routes.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">406,407</context>
@@ -4420,6 +4434,23 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">418,420</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-name-deprecated-note-tag.name">
+        <source>RouteNameDeprecatedNoteTag</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">430</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="stats.route-name-deprecated-note-tag.comment">
+        <source>Routes where the route name was defined in the *"note"* tag. This is OK, but the use
+          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
+          that the *"note"* should be used for mapper notes only. The *"ref"* and _"name"_ tags can 
+          be used for naming routes.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">431,435</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="overview.total">

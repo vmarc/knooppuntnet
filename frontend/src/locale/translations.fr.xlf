@@ -664,10 +664,10 @@
       </trans-unit>
       <trans-unit id="fact.description-missing" datatype="html">
         <source><x equiv-text="{{ factInfo().fact }}" id="INTERPOLATION"/> description missing!!</source>
-        <target><x equiv-text="{{factName}}" id="INTERPOLATION"/> description manquante !!</target>
+        <target><x equiv-text="{{ factInfo().fact}}" id="INTERPOLATION"/> description manquante !!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-description.component.ts</context>
-          <context context-type="linenumber">188</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-not-continious" datatype="html">
@@ -720,7 +720,7 @@
       </trans-unit>
       <trans-unit id="fact.description.route-name-missing" datatype="html">
         <source>Could not determine the route name. The route relation does not have a *&quot;ref&quot;*, *&quot;name&quot;* or *&quot;note&quot;* tag with the route name, and also no *&quot;from&quot;* and *&quot;to&quot;* tags from which the route name can be derived.</source>
-        <target>La relation de route n&apos;a pas de clé _&quot;note&quot;_ ou _&quot;ref&quot;_ avec le nom de la route.</target>
+        <target>La relation de route n&apos;a pas de clé _&quot;ref&quot;_ ou _&quot;name&quot;_ avec le nom de la route, et également aucune clé *&quot;from&quot;* et *&quot;to&quot;* à partir de laquelle le nom de la route peut être dérivé.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-name-missing.component.ts</context>
           <context context-type="linenumber">9,13</context>
@@ -745,7 +745,7 @@
 
 Une relation d&apos;itinéraire cyclable doit avoir la valeur _&quot;bicycle&quot;_ dans sa clé _&quot;route&quot;_. 
 
-Une relation d&apos;itinéraire pédestre doit avoir l&apos;une des valeurs suivantes dans sa clé _&quot;route&quot;_: _&quot;foot&quot;_, _&quot;hiking&quot;_ ou _&quot;walking&quot;_. Notez que _&quot;walking&quot;_ est une valeur qui est fréquemment trouvée, mais qui n&apos;est pas réellement documentée comme une valeur valide dans les pages wiki OSM.</target>
+Une relation d&apos;itinéraire pédestre doit avoir l&apos;une des valeurs suivantes dans sa clé _&quot;route&quot;_: _&quot;foot&quot;_, _&quot;hiking&quot;_ ou _&quot;walking&quot;_. Notez que _&quot;walking&quot;_ est une valeur qui est fréquemment trouvée, mais qui n&apos;est pas réellement documentée comme une valeur valide dans les pages wiki OSM. Les autres valeurs potentielles sont *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot;canoe&quot;* et *&quot;inline_skates&quot;*.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-tag-invalid.component.ts</context>
           <context context-type="linenumber">9,16</context>
@@ -761,7 +761,7 @@ Une relation d&apos;itinéraire pédestre doit avoir l&apos;une des valeurs suiv
       </trans-unit>
       <trans-unit id="fact.description.route-unexpected-relation" datatype="html">
         <source>The route relation contains one or more unexpected relation members. In route relations we expect only members of type *&quot;way&quot;* and *&quot;node&quot;*:</source>
-        <target>La relation d&apos;itinéraire contient un ou plusieurs membres de relation inattendus. Dans les relations d&apos;itinéraire, nous n&apos;attendons que des membres de type _&quot;way&quot;_, ou des membres de type _&quot;node&quot;_ avec une clé _&quot;rwn_ref&quot;_ ou _&quot;rcn_ref&quot;_.</target>
+        <target>La relation d&apos;itinéraire contient un ou plusieurs membres de relation inattendus. Dans les relations d&apos;itinéraire, nous n&apos;attendons que des membres de type _&quot;way&quot;_, ou des membres de type _&quot;node&quot;_.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-unexpected-relation.component.ts</context>
           <context context-type="linenumber">13,16</context>
@@ -835,7 +835,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="fact.description.route-node-name-mismatch" datatype="html">
         <source>The route name derived from the tags in the route relation does not match the expected name as derived from the start and end node of the route.</source>
-        <target>Le nom de l&apos;itinéraire dans la clé _note_ ou _ref_ dans la relation d&apos;itinéraire ne correspond pas au nom attendu dérivé du nœud de début et de fin de la route.</target>
+        <target>Le nom de la route dérivé des balises dans la relation d&apos;itinéraire ne correspond pas au nom attendu dérivé du nœud de début et de fin de la route.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-node-name-mismatch.component.ts</context>
           <context context-type="linenumber">9,12</context>
@@ -1175,7 +1175,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="role-connection-indicator.blue.text" datatype="html">
         <source>This node is a connection to another network. This node has role *&quot;connection&quot;* in the network relation.</source>
-        <target>Ce nœud est une connexion vers un autre réseau. Ce nœud ont le rôle _&quot;connecion&quot;_ dans la relation de réseau.</target>
+        <target>Ce nœud est une connexion vers un autre réseau. Ce nœud a le rôle _&quot;connecion&quot;_ dans la relation de réseau.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/nodes/indicators/role-connection-indicator-dialog.component.ts</context>
           <context context-type="linenumber">30,33</context>
@@ -1347,7 +1347,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-changes.route-diff.name-diff" datatype="html">
         <source>Route name changed from &quot;<x equiv-text="{{ diffs().nameDiff.before }}" id="INTERPOLATION"/>&quot; to &quot;<x equiv-text="{{ diffs().nameDiff.after }}" id="INTERPOLATION_1"/>&quot;.</source>
-        <target>Le nom de l&apos;itinéraire a changé de &quot;<x equiv-text="{{diffs.nameDiff.before}}" id="INTERPOLATION"/>&quot; à &quot;<x equiv-text="{{diffs.nameDiff.after}}" id="INTERPOLATION_1"/>&quot;.</target>
+        <target>Le nom de l&apos;itinéraire a changé de &quot;<x equiv-text="{{diffs().nameDiff.before}}" id="INTERPOLATION"/>&quot; à &quot;<x equiv-text="{{diffs().nameDiff.after}}" id="INTERPOLATION_1"/>&quot;.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">15,17</context>
@@ -1355,7 +1355,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-changes.route-diff.role-added" datatype="html">
         <source>Route role &quot;<x equiv-text="{{ diffs().roleDiff.after }}" id="INTERPOLATION"/>&quot; added to networkrelation.</source>
-        <target>Le rôle de l&apos;itinéraire &quot;<x equiv-text="{{diffs.roleDiff.after}}" id="INTERPOLATION"/>&quot; ajouté à la relation de réseau.</target>
+        <target>Le rôle de l&apos;itinéraire &quot;<x equiv-text="{{diffs().roleDiff.after}}" id="INTERPOLATION"/>&quot; ajouté à la relation de réseau.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">21,23</context>
@@ -1363,7 +1363,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-changes.route-diff.role-deleted" datatype="html">
         <source>Route role &quot;<x equiv-text="{{ diffs().roleDiff.before }}" id="INTERPOLATION"/>&quot; removed from networkrelation.</source>
-        <target>Le rôle de l&apos;itinéraire &quot;<x equiv-text="{{diffs.roleDiff.before}}" id="INTERPOLATION"/>&quot; supprimé de la relation de réseau.</target>
+        <target>Le rôle de l&apos;itinéraire &quot;<x equiv-text="{{diffs().roleDiff.before}}" id="INTERPOLATION"/>&quot; supprimé de la relation de réseau.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">27,29</context>
@@ -1371,7 +1371,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-changes.route-diff.role-updated" datatype="html">
         <source>Route role in networkrelation changed from &quot;<x equiv-text="{{ diffs().roleDiff.before }}" id="INTERPOLATION"/>&quot; to &quot;<x equiv-text="{{           diffs().roleDiff.after         }}" id="INTERPOLATION_1"/>&quot;.</source>
-        <target>Le rôle de l&apos;itinéraire de la relation de réseau a été modifié de &quot;<x equiv-text="{{diffs.roleDiff.before}}" id="INTERPOLATION"/>&quot; à &quot;<x equiv-text="{{diffs.roleDiff.after}}" id="INTERPOLATION_1"/>&quot;.</target>
+        <target>Le rôle de l&apos;itinéraire de la relation de réseau a été modifié de &quot;<x equiv-text="{{diffs().roleDiff.before}}" id="INTERPOLATION"/>&quot; à &quot;<x equiv-text="{{diffs().roleDiff.after}}" id="INTERPOLATION_1"/>&quot;.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">33,37</context>
@@ -1443,7 +1443,7 @@ Mais après analyse, l&apos;itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit id="route-change.way-update.changed-to" datatype="html">
         <source>Changed to v<x equiv-text="{{ wayUpdate().after.version }}" id="INTERPOLATION"/></source>
-        <target>Modifié vers v<x equiv-text="{{wayUpdate.after.version}}" id="INTERPOLATION"/></target>
+        <target>Modifié vers v<x equiv-text="{{wayUpdate().after.version}}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">27,29</context>
@@ -3603,9 +3603,9 @@ Un itinéraire est marqué comme étant incomplet en ajoutant une étiquette _&q
       <trans-unit id="stats.orphan-route-count.comment" datatype="html">
         <source>Number of network routes that do not belong to a network.\
           The route was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation &quot;network relation in glossary&quot;).</source>
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;network relation in glossary&quot;).</source>
         <target>Nombre d&apos;itinéraires qui ne font pas partie d&apos;un réseau.
-L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation de réseau](docs/en.html#glossary-network-relation &quot;network relation in glossary&quot;) valide.</target>
+L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation de réseau](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;network relation in glossary&quot;) valide.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">152,155</context>
@@ -3766,7 +3766,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="stats.route-name-missing.comment" datatype="html">
         <source>Routes without the required tags from which the route name can be derived.</source>
-        <target>Itinéraires sans étiquette _&quot;note&quot;_ ou _&quot;ref&quot;_ avec le nom de l&apos;itinéraire</target>
+        <target>Itinéraires sans les balises requises à partir desquelles le nom de l&apos;itinéraire peut être dérivé.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">283</context>
@@ -3833,7 +3833,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       <trans-unit id="stats.route-unexpected-relation.comment" datatype="html">
         <source>Number of routes with one or more unexpected members.\In route relations we expect
           only members of type *&quot;way&quot;* or *&quot;node&quot;*.</source>
-        <target>Nombre d&apos;itinéraires avec un ou plusieurs membres imprévus.\Dans les relations d&apos;itinéraires nous n&apos;attendons que des membres de type _&quot;way&quot;_, ou de type _&quot;node&quot;_ avec des balises qui en font un carrefour.</target>
+        <target>Nombre d&apos;itinéraires avec un ou plusieurs membres imprévus.\Dans les relations d&apos;itinéraires nous n&apos;attendons que des membres de type _&quot;way&quot;_, ou de type _&quot;node&quot;_.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">330,332</context>
@@ -3849,10 +3849,10 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="stats.network-extra-member-node.comment" datatype="html">
         <source>Number of network relation members of type *&quot;node&quot;* that are unexpected (expect only
-          [network nodes](docs/en.html#glossary-node &quot;node in glossary&quot;)
-          or [information maps](docs/en.html#glossary-info-map &quot;information maps in glossary&quot;) as members
+          [network nodes](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;node in glossary&quot;)
+          or [information maps](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#information-map &quot;information maps in glossary&quot;) as members
           in the network relation).</source>
-        <target>Nombre de membres de type *&quot;nœud&quot;* dans la relation de réseau qui sont inattendus (nous attendons seulement des [carrefours](docs/fr.html#glossary-carrefour &quot;carrefour dans le glossaire&quot;) ou des panneaux indicateurs dans la relation de réseau).</target>
+        <target>Nombre de membres de type *&quot;nœud&quot;* dans la relation de réseau qui sont inattendus (nous attendons seulement des [nœuds](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;nœud dans le glossaire&quot;) ou des [panneaux indicateurs](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#information-map &quot;panneaux indicateurs dans le glossaire&quot;)  dans la relation de réseau).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">343,347</context>
@@ -4287,7 +4287,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="route.broken" datatype="html">
         <source>Something seems wrong with this route.</source>
-        <target>Cet itinéraire est interrompu.</target>
+        <target>Quelque chose ne semble pas correct avec cet itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/route/details/route-summary.component.ts</context>
           <context context-type="linenumber">35</context>
@@ -4735,7 +4735,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="subset-orphan-routes.title" datatype="html">
         <source>Free routes</source>
-        <target>Itinéraire(s) orphelin(s)</target>
+        <target>Itinéraires orphelins</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
           <context context-type="linenumber">23</context>
@@ -4823,7 +4823,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="subset-network.summary" datatype="html">
         <source><x equiv-text="{{ network().km | integer }}" id="INTERPOLATION"/> km, <x equiv-text="{{ network().nodeCount | integer }}" id="INTERPOLATION_1"/> nodes, <x equiv-text="{{ network().routeCount | integer }}" id="INTERPOLATION_2"/> routes</source>
-        <target><x equiv-text="{{network.km}}" id="INTERPOLATION"/> km, <x equiv-text="{{network.nodeCount}}" id="INTERPOLATION_1"/> nœuds, <x equiv-text="{{network.routeCount}}" id="INTERPOLATION_2"/> itinéraires</target>
+        <target><x equiv-text="{{network().km}}" id="INTERPOLATION"/> km, <x equiv-text="{{network().nodeCount}}" id="INTERPOLATION_1"/> nœuds, <x equiv-text="{{network().routeCount}}" id="INTERPOLATION_2"/> itinéraires</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/networks/subset-network.component.ts</context>
           <context context-type="linenumber">26,29</context>
@@ -5151,7 +5151,7 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="version-change.relation-changed-to" datatype="html">
         <source>Relation changed to v<x equiv-text="{{ after().version }}" id="INTERPOLATION"/>.</source>
-        <target>Relation mise à jour vers v<x equiv-text="{{after.version}}" id="INTERPOLATION"/>.</target>
+        <target>Relation mise à jour vers v<x equiv-text="{{after().version}}" id="INTERPOLATION"/>.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/version-change.component.ts</context>
           <context context-type="linenumber">13,15</context>
@@ -5279,13 +5279,13 @@ L&apos;itinéraire n&apos;a pas été ajouté comme membre d&apos;une [relation 
       </trans-unit>
       <trans-unit id="stats.orphan-node-count.comment" datatype="html">
         <source>Number of network nodes that do not belong to a network.\
-          The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation &quot;relation in glossary&quot;)
+          The [node](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;node in glossary&quot;) was not added as a member to a valid
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;relation in glossary&quot;)
           and also not added as a member to a valid
-          [route relation](docs/en.html#glossary-route-relation &quot;route relation in glossary&quot;)
+          [route relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#route &quot;route relation in glossary&quot;)
           (that itself was added as a member to a valid network relation or is a free route).</source>
-        <target>Nombre de carrefours qui n&apos;appartiennent pas à un réseau. \
-Le [carrefour](docs/fr.html#glossaire-carrefour &quot;carrefour dans le glossaire&quot;) n&apos;a pas été ajouté comme membre d&apos;une [relation de réseau](docs/fr.html#glossaire-relation-reseau &quot;relation de réseau dans le glossaire&quot;) ni comme membre d&apos;une [relation d&apos;itinéraire](docs/fr.html#glossary-relation-itineraire &quot;relation d&apos;itinéraire dans le glossaire&quot;).</target>
+        <target>Nombre de nœuds qui n&apos;appartiennent pas à un réseau. \
+Le [nœud](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;nœud dans le glossaire&quot;) n&apos;a pas été ajouté comme membre d&apos;une [relation de réseau](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;relation de réseau dans le glossaire&quot;) ni comme membre d&apos;une [relation d&apos;itinéraire](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#route &quot;relation d&apos;itinéraire dans le glossaire&quot;).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">135,141</context>
@@ -8823,11 +8823,11 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-inaccessible" datatype="html">
-        <source>Part of the route does not seem [accessible](/en/docs/en.html#_accessible).</source>
-        <target>Une partie de l&apos;itinéraire ne semble pas [accessible](/en/docs/en.html#_accessible).</target>
+        <source>Part of the route does not seem [accessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible).</source>
+        <target>Une partie de l&apos;itinéraire ne semble pas [accessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-inaccessible.component.ts</context>
-          <context context-type="linenumber">9,11</context>
+          <context context-type="linenumber">9,12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.route-inaccessible" datatype="html">
@@ -8895,8 +8895,8 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-inaccessible.comment" datatype="html">
-        <source>Number of [inaccessible](docs/en.html#glossary-accessible &quot;accessible in glossary&quot;) routes.</source>
-        <target>Number of [inaccessible](docs/en.html#glossary-accessible &quot;accessible in glossary&quot;) routes.</target>
+        <source>Number of [inaccessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible &quot;accessible in glossary&quot;) routes.</source>
+        <target>Number of [inaccessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible &quot;accessible in glossary&quot;) routes.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">406,407</context>
@@ -11376,6 +11376,34 @@ Veuillez d&apos;abord planifier un itinéraire.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ol/layers/route-nodes-layer.ts</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-deprected-note-tag" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-name-deprecated-note-tag.component.ts</context>
+          <context context-type="linenumber">9,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-name-deprecated-note-tag" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-name-deprecated-note-tag.name" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">430</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-name-deprecated-note-tag.comment" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">431,435</context>
         </context-group>
       </trans-unit>
     </body>

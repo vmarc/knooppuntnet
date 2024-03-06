@@ -97,6 +97,8 @@ export class FactNameComponent implements OnInit {
       this.factName = $localize`:@@fact.name.node-invalid-survey-date:NodeInvalidSurveyDate`;
     } else if (this.fact() === 'RouteInvalidSurveyDate') {
       this.factName = $localize`:@@fact.name.route-invalid-survey-date:RouteInvalidSurveyDate`;
+    } else if (this.fact() === 'RouteNameDeprecatedNoteTag') {
+      this.factName = $localize`:@@fact.name.route-name-deprecated-note-tag:RouteNameDeprecatedNoteTag`;
     } else {
       this.factName = this.fact() + '?';
     }

@@ -27,6 +27,7 @@ import { FactRouteInaccessibleComponent } from './descriptions/fact-route-inacce
 import { FactRouteIncompleteOkComponent } from './descriptions/fact-route-incomplete-ok.component';
 import { FactRouteIncompleteComponent } from './descriptions/fact-route-incomplete.component';
 import { FactRouteInvalidSurveyDateComponent } from './descriptions/fact-route-invalid-survey-date.component';
+import { FactRouteNameDeprecatedNoteTagComponent } from './descriptions/fact-route-name-deprecated-note-tag.component';
 import { FactRouteNameMissingComponent } from './descriptions/fact-route-name-missing.component';
 import { FactRouteNodeMissingInWaysComponent } from './descriptions/fact-route-node-missing-in-ways.component';
 import { FactRouteNodeNameMismatchComponent } from './descriptions/fact-route-node-name-mismatch.component';
@@ -184,6 +185,9 @@ import { FactInfo } from './fact-info';
       @case ('RouteInvalidSurveyDate') {
         <kpn-fact-route-invalid-survey-date />
       }
+      @case ('RouteNameDeprecatedNoteTag') {
+        <kpn-fact-route-deprected-note-tag />
+      }
       @default {
         <p i18n="@@fact.description-missing">{{ factInfo().fact }} description missing!!</p>
       }
@@ -235,6 +239,7 @@ import { FactInfo } from './fact-info';
     FactRouteUnusedSegmentsComponent,
     FactRouteWithoutNodesComponent,
     FactRouteWithoutWaysComponent,
+    FactRouteNameDeprecatedNoteTagComponent,
   ],
 })
 export class FactDescriptionComponent {

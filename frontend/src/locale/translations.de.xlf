@@ -664,10 +664,10 @@
       </trans-unit>
       <trans-unit id="fact.description-missing" datatype="html">
         <source><x equiv-text="{{ factInfo().fact }}" id="INTERPOLATION"/> description missing!!</source>
-        <target><x equiv-text="{{ factName }}" id="INTERPOLATION"/> Beschreibung fehlt !!</target>
+        <target><x equiv-text="{{ factInfo().fact }}" id="INTERPOLATION"/> Beschreibung fehlt !!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-description.component.ts</context>
-          <context context-type="linenumber">188</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-not-continious" datatype="html">
@@ -763,7 +763,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="fact.description.route-unexpected-relation" datatype="html">
         <source>The route relation contains one or more unexpected relation members. In route relations we expect only members of type *&quot;way&quot;* and *&quot;node&quot;*:</source>
-        <target>Die Routenrelation enthält ein oder mehrere unerwartete Mitglieder. In Routenrelationen erwarten wir nur Mitglieder vom Typ *&quot;way&quot;* oder Mitglieder vom Typ *&quot;node&quot;* mit einem Tag *&quot;rwn_ref&quot;* oder *&quot;rcn_ref&quot;*.</target>
+        <target>Die Routenrelation enthält ein oder mehrere unerwartete Mitglieder. In Routenrelationen erwarten wir nur Mitglieder vom Typ *&quot;way&quot;* oder Mitglieder vom Typ *&quot;node&quot;*.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-unexpected-relation.component.ts</context>
           <context context-type="linenumber">13,16</context>
@@ -1348,7 +1348,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="route-changes.route-diff.name-diff" datatype="html">
         <source>Route name changed from &quot;<x equiv-text="{{ diffs().nameDiff.before }}" id="INTERPOLATION"/>&quot; to &quot;<x equiv-text="{{ diffs().nameDiff.after }}" id="INTERPOLATION_1"/>&quot;.</source>
-        <target>Der Routenname wurde von &quot;<x equiv-text="{{diffs.nameDiff.before}}" id="INTERPOLATION"/>&quot; in &quot;<x equiv-text="{{diffs.nameDiff.after}}" id="INTERPOLATION_1"/>&quot; geändert.</target>
+        <target>Der Routenname wurde von &quot;<x equiv-text="{{diffs().nameDiff.before}}" id="INTERPOLATION"/>&quot; in &quot;<x equiv-text="{{diffs().nameDiff.after}}" id="INTERPOLATION_1"/>&quot; geändert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">15,17</context>
@@ -1356,7 +1356,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="route-changes.route-diff.role-added" datatype="html">
         <source>Route role &quot;<x equiv-text="{{ diffs().roleDiff.after }}" id="INTERPOLATION"/>&quot; added to networkrelation.</source>
-        <target>Routenrolle &quot;<x equiv-text="{{diffs.roleDiff.after}}" id="INTERPOLATION"/>&quot; zur Netzwerkrelation hinzugefügt.</target>
+        <target>Routenrolle &quot;<x equiv-text="{{diffs().roleDiff.after}}" id="INTERPOLATION"/>&quot; zur Netzwerkrelation hinzugefügt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">21,23</context>
@@ -1364,7 +1364,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="route-changes.route-diff.role-deleted" datatype="html">
         <source>Route role &quot;<x equiv-text="{{ diffs().roleDiff.before }}" id="INTERPOLATION"/>&quot; removed from networkrelation.</source>
-        <target>Routenrolle &quot;<x equiv-text="{{diffs.roleDiff.before}}" id="INTERPOLATION"/>&quot; aus der Netzwerkrelation entfernt.</target>
+        <target>Routenrolle &quot;<x equiv-text="{{diffs().roleDiff.before}}" id="INTERPOLATION"/>&quot; aus der Netzwerkrelation entfernt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">27,29</context>
@@ -1372,7 +1372,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="route-changes.route-diff.role-updated" datatype="html">
         <source>Route role in networkrelation changed from &quot;<x equiv-text="{{ diffs().roleDiff.before }}" id="INTERPOLATION"/>&quot; to &quot;<x equiv-text="{{           diffs().roleDiff.after         }}" id="INTERPOLATION_1"/>&quot;.</source>
-        <target>Die Routenrolle in der Netzwerkrelation wurde von &quot;<x equiv-text="{{diffs.roleDiff.before}}" id="INTERPOLATION"/>&quot; in &quot;<x equiv-text="{{diffs.roleDiff.after}}" id="INTERPOLATION_1"/>&quot; geändert.</target>
+        <target>Die Routenrolle in der Netzwerkrelation wurde von &quot;<x equiv-text="{{diffs().roleDiff.before}}" id="INTERPOLATION"/>&quot; in &quot;<x equiv-text="{{diffs().roleDiff.after}}" id="INTERPOLATION_1"/>&quot; geändert.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-diff.component.ts</context>
           <context context-type="linenumber">33,37</context>
@@ -1444,7 +1444,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="route-change.way-update.changed-to" datatype="html">
         <source>Changed to v<x equiv-text="{{ wayUpdate().after.version }}" id="INTERPOLATION"/></source>
-        <target>Geändert zu v<x equiv-text="{{wayUpdate.after.version}}" id="INTERPOLATION"/></target>
+        <target>Geändert zu v<x equiv-text="{{wayUpdate().after.version}}" id="INTERPOLATION"/></target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/components/changes/route/route-change-way-updated.component.ts</context>
           <context context-type="linenumber">27,29</context>
@@ -3613,8 +3613,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       <trans-unit id="stats.orphan-route-count.comment" datatype="html">
         <source>Number of network routes that do not belong to a network.\
           The route was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation &quot;network relation in glossary&quot;).</source>
-        <target>Anzahl der Netzwerkrouten, die nicht zu einem Netzwerk gehören. \ Die Route wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](docs/en.html#glossary-network-relation &quot;Netzwerkrelation im Glossar&quot;) hinzugefügt.</target>
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;network relation in glossary&quot;).</source>
+        <target>Anzahl der Netzwerkrouten, die nicht zu einem Netzwerk gehören. \ Die Route wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;Netzwerkrelation im Glossar&quot;) hinzugefügt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">152,155</context>
@@ -3857,10 +3857,10 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="stats.network-extra-member-node.comment" datatype="html">
         <source>Number of network relation members of type *&quot;node&quot;* that are unexpected (expect only
-          [network nodes](docs/en.html#glossary-node &quot;node in glossary&quot;)
-          or [information maps](docs/en.html#glossary-info-map &quot;information maps in glossary&quot;) as members
+          [network nodes](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;node in glossary&quot;)
+          or [information maps](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#information-map &quot;information maps in glossary&quot;) as members
           in the network relation).</source>
-        <target>Anzahl der unerwarteten Netzwerkrelationsmitglieder vom Typ *&quot;node&quot;* (wir erwarten nur [Netzwerkknoten](docs/en.html#glossary-node &quot;Netzwerkknoten im Glossar&quot;) oder [Informationskarten](docs/en.html#glossary-info-map &quot;Informationskarten im Glossar&quot;) als Mitglieder).</target>
+        <target>Anzahl der unerwarteten Netzwerkrelationsmitglieder vom Typ *&quot;node&quot;* (wir erwarten nur [Netzwerkknoten](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;Netzwerkknoten im Glossar&quot;) oder [Informationskarten](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#information-map &quot;Informationskarten im Glossar&quot;) als Mitglieder).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">343,347</context>
@@ -4650,7 +4650,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="subset-facts.in-networks" datatype="html">
         <source>{VAR_PLURAL, plural, one {in 1 network} other {in <x id="INTERPOLATION"/> networks}}</source>
-        <target>{VAR_PLURAL, plural, one {in 1 Netwerk} other {in <x equiv-text="{{networkCount}}" id="INTERPOLATION"/> Netwerken} }</target>
+        <target>{VAR_PLURAL, plural, one {in 1 Netwerk} other {in <x id="INTERPOLATION"/> Netwerken} }</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/fact-details/subset-fact-details.component.ts</context>
           <context context-type="linenumber">49</context>
@@ -4834,7 +4834,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="subset-network.summary" datatype="html">
         <source><x equiv-text="{{ network().km | integer }}" id="INTERPOLATION"/> km, <x equiv-text="{{ network().nodeCount | integer }}" id="INTERPOLATION_1"/> nodes, <x equiv-text="{{ network().routeCount | integer }}" id="INTERPOLATION_2"/> routes</source>
-        <target><x equiv-text="{{network.km}}" id="INTERPOLATION"/> km, <x equiv-text="{{network.nodeCount}}" id="INTERPOLATION_1"/> Knoten, <x equiv-text="{{network.routeCount}}" id="INTERPOLATION_2"/> Routen</target>
+        <target><x equiv-text="{{network().km | integer}}" id="INTERPOLATION"/> km, <x equiv-text="{{network().nodeCount | integer}}" id="INTERPOLATION_1"/> Knoten, <x equiv-text="{{network().routeCount | integer}}" id="INTERPOLATION_2"/> Routen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/subset/networks/subset-network.component.ts</context>
           <context context-type="linenumber">26,29</context>
@@ -5162,7 +5162,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="version-change.relation-changed-to" datatype="html">
         <source>Relation changed to v<x equiv-text="{{ after().version }}" id="INTERPOLATION"/>.</source>
-        <target>Die Relation wurde in v<x equiv-text="{{after.version}}" id="INTERPOLATION"/> geändert</target>
+        <target>Die Relation wurde in v<x equiv-text="{{after().version}}" id="INTERPOLATION"/> geändert</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/page/version-change.component.ts</context>
           <context context-type="linenumber">13,15</context>
@@ -5291,12 +5291,12 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="stats.orphan-node-count.comment" datatype="html">
         <source>Number of network nodes that do not belong to a network.\
-          The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation &quot;relation in glossary&quot;)
+          The [node](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;node in glossary&quot;) was not added as a member to a valid
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;relation in glossary&quot;)
           and also not added as a member to a valid
-          [route relation](docs/en.html#glossary-route-relation &quot;route relation in glossary&quot;)
+          [route relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#route &quot;route relation in glossary&quot;)
           (that itself was added as a member to a valid network relation or is a free route).</source>
-        <target>Anzahl der Netzwerkknoten, die nicht zu einem Netzwerk gehören. \ Der [Knoten](docs/en.html#glossary-node &quot;Knoten im Glossar&quot;) wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](docs/en.html#glossary-network-relation &quot;Netzwerkrelation im Glossar&quot;) hinzugefügt und auch nicht als Mitglied zu einer gültigen [Routenrelation](docs/en.html#glossary-route-relation &quot;Routerelation im Glossar&quot;) hinzugefügt (das selbst als Mitglied zu einer gültigen Netzwerkrelation hinzugefügt wurde oder eine freie Route ist).</target>
+        <target>Anzahl der Netzwerkknoten, die nicht zu einem Netzwerk gehören. \ Der [Knoten](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node  &quot;Knoten im Glossar&quot;) wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;Netzwerkrelation im Glossar&quot;) hinzugefügt und auch nicht als Mitglied zu einer gültigen [Routenrelation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#route &quot;Routerelation im Glossar&quot;) hinzugefügt (das selbst als Mitglied zu einer gültigen Netzwerkrelation hinzugefügt wurde oder eine freie Route ist).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">135,141</context>
@@ -8834,11 +8834,11 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-inaccessible" datatype="html">
-        <source>Part of the route does not seem [accessible](/en/docs/en.html#_accessible).</source>
-        <target>Ein Teil der Route scheint nicht [zugänglich](/en/docs/en.html#_accessible) zu sein.</target>
+        <source>Part of the route does not seem [accessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible).</source>
+        <target>Ein Teil der Route scheint nicht [zugänglich](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible) zu sein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-inaccessible.component.ts</context>
-          <context context-type="linenumber">9,11</context>
+          <context context-type="linenumber">9,12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.route-inaccessible" datatype="html">
@@ -8906,8 +8906,8 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-inaccessible.comment" datatype="html">
-        <source>Number of [inaccessible](docs/en.html#glossary-accessible &quot;accessible in glossary&quot;) routes.</source>
-        <target>Anzahl von [unzugänglichen](docs/en.html#glossary-accessible &quot;accessible in glossary&quot;) Routen.</target>
+        <source>Number of [inaccessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible &quot;accessible in glossary&quot;) routes.</source>
+        <target>Anzahl von [unzugänglichen](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible &quot;accessible in glossary&quot;) Routen.</target>
         <note priority="1" from="description">Link might be wrong.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
@@ -10716,7 +10716,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="monitor.route.details.analysis" datatype="html">
         <source>Latest analysis</source>
-        <target>Analyse</target>
+        <target>Neueste Analyse</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/details/monitor-route-details-page.component.ts</context>
           <context context-type="linenumber">43</context>
@@ -11388,6 +11388,34 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ol/layers/route-nodes-layer.ts</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-deprected-note-tag" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-name-deprecated-note-tag.component.ts</context>
+          <context context-type="linenumber">9,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-name-deprecated-note-tag" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-name-deprecated-note-tag.name" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">430</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-name-deprecated-note-tag.comment" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">431,435</context>
         </context-group>
       </trans-unit>
     </body>

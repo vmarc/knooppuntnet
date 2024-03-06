@@ -56,6 +56,7 @@ export class Facts {
     new FactDefinition('RouteWithoutWays', FactLevel.error),
     new FactDefinition('NodeInvalidSurveyDate', FactLevel.error),
     new FactDefinition('RouteInvalidSurveyDate', FactLevel.error),
+    new FactDefinition('RouteNameDeprecatedNoteTag', FactLevel.info),
   ]);
 
   static readonly factLevels: Map<string, FactLevel> = Map(Facts.keyValues());

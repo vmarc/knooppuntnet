@@ -667,7 +667,7 @@
         <target><x equiv-text="{{ factInfo().fact }}" id="INTERPOLATION"/> description missing!!</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-description.component.ts</context>
-          <context context-type="linenumber">188</context>
+          <context context-type="linenumber">192</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-not-continious" datatype="html">
@@ -3605,10 +3605,10 @@
       <trans-unit id="stats.orphan-route-count.comment" datatype="html">
         <source>Number of network routes that do not belong to a network.\
           The route was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation &quot;network relation in glossary&quot;).</source>
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;network relation in glossary&quot;).</source>
         <target>Number of network routes that do not belong to a network.\
           The route was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation &quot;network relation in glossary&quot;).</target>
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;network relation in glossary&quot;).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">152,155</context>
@@ -3854,12 +3854,12 @@
       </trans-unit>
       <trans-unit id="stats.network-extra-member-node.comment" datatype="html">
         <source>Number of network relation members of type *&quot;node&quot;* that are unexpected (expect only
-          [network nodes](docs/en.html#glossary-node &quot;node in glossary&quot;)
-          or [information maps](docs/en.html#glossary-info-map &quot;information maps in glossary&quot;) as members
+          [network nodes](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;node in glossary&quot;)
+          or [information maps](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#information-map &quot;information maps in glossary&quot;) as members
           in the network relation).</source>
         <target>Number of network relation members of type *&quot;node&quot;* that are unexpected (expect only
-          [network nodes](docs/en.html#glossary-node &quot;node in glossary&quot;)
-          or [information maps](docs/en.html#glossary-info-map &quot;information maps in glossary&quot;) as members
+          [network nodes](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;node in glossary&quot;)
+          or [information maps](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#information-map &quot;information maps in glossary&quot;) as members
           in the network relation).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
@@ -5290,16 +5290,16 @@
       </trans-unit>
       <trans-unit id="stats.orphan-node-count.comment" datatype="html">
         <source>Number of network nodes that do not belong to a network.\
-          The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation &quot;relation in glossary&quot;)
+          The [node](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;node in glossary&quot;) was not added as a member to a valid
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;relation in glossary&quot;)
           and also not added as a member to a valid
-          [route relation](docs/en.html#glossary-route-relation &quot;route relation in glossary&quot;)
+          [route relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#route &quot;route relation in glossary&quot;)
           (that itself was added as a member to a valid network relation or is a free route).</source>
         <target>Number of network nodes that do not belong to a network.\
-          The [node](docs/en.html#glossary-node &quot;node in glossary&quot;) was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation &quot;relation in glossary&quot;)
+          The [node](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;node in glossary&quot;) was not added as a member to a valid
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;relation in glossary&quot;)
           and also not added as a member to a valid
-          [route relation](docs/en.html#glossary-route-relation &quot;route relation in glossary&quot;)
+          [route relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#route &quot;route relation in glossary&quot;)
           (that itself was added as a member to a valid network relation or is a free route).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
@@ -8835,11 +8835,11 @@
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-inaccessible" datatype="html">
-        <source>Part of the route does not seem [accessible](/en/docs/en.html#_accessible).</source>
-        <target>Part of the route does not seem [accessible](/en/docs/en.html#_accessible).</target>
+        <source>Part of the route does not seem [accessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible).</source>
+        <target>Part of the route does not seem [accessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-inaccessible.component.ts</context>
-          <context context-type="linenumber">9,11</context>
+          <context context-type="linenumber">9,12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.route-inaccessible" datatype="html">
@@ -8907,8 +8907,8 @@
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-inaccessible.comment" datatype="html">
-        <source>Number of [inaccessible](docs/en.html#glossary-accessible &quot;accessible in glossary&quot;) routes.</source>
-        <target>Number of [inaccessible](docs/en.html#glossary-accessible &quot;accessible in glossary&quot;) routes.</target>
+        <source>Number of [inaccessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible &quot;accessible in glossary&quot;) routes.</source>
+        <target>Number of [inaccessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible &quot;accessible in glossary&quot;) routes.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">406,407</context>
@@ -11388,6 +11388,34 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ol/layers/route-nodes-layer.ts</context>
           <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.description.route-deprected-note-tag" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-name-deprecated-note-tag.component.ts</context>
+          <context context-type="linenumber">9,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="fact.name.route-name-deprecated-note-tag" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
+          <context context-type="linenumber">101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-name-deprecated-note-tag.name" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">430</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="stats.route-name-deprecated-note-tag.comment" datatype="html">
+        <source/>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
+          <context context-type="linenumber">431,435</context>
         </context-group>
       </trans-unit>
     </body>

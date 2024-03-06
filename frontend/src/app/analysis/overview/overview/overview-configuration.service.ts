@@ -134,10 +134,10 @@ export class OverviewConfigurationService {
         $localize`:@@stats.orphan-node-count.name:Orphan nodes`,
         $localize`:@@stats.orphan-node-count.comment:
           Number of network nodes that do not belong to a network.\\
-          The [node](docs/en.html#glossary-node "node in glossary") was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation "relation in glossary")
+          The [node](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node "node in glossary") was not added as a member to a valid
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network "relation in glossary")
           and also not added as a member to a valid
-          [route relation](docs/en.html#glossary-route-relation "route relation in glossary")
+          [route relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#route "route relation in glossary")
           (that itself was added as a member to a valid network relation or is a free route).`
       )
     );
@@ -152,7 +152,7 @@ export class OverviewConfigurationService {
         $localize`:@@stats.orphan-route-count.comment:
           Number of network routes that do not belong to a network.\\
           The route was not added as a member to a valid
-          [network relation](docs/en.html#glossary-network-relation "network relation in glossary").`
+          [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network "network relation in glossary").`
       )
     );
 
@@ -342,8 +342,8 @@ export class OverviewConfigurationService {
         $localize`:@@stats.network-extra-member-node.name:NetworkExtraMemberNode`,
         $localize`:@@stats.network-extra-member-node.comment:
           Number of network relation members of type *"node"* that are unexpected (expect only
-          [network nodes](docs/en.html#glossary-node "node in glossary")
-          or [information maps](docs/en.html#glossary-info-map "information maps in glossary") as members
+          [network nodes](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node "node in glossary")
+          or [information maps](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#information-map "information maps in glossary") as members
           in the network relation).`
       )
     );
@@ -404,7 +404,7 @@ export class OverviewConfigurationService {
         factDetailCounts,
         $localize`:@@stats.route-inaccessible.name:RouteInaccessible`,
         $localize`:@@stats.route-inaccessible.comment:
-          Number of [inaccessible](docs/en.html#glossary-accessible "accessible in glossary") routes.`
+          Number of [inaccessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible "accessible in glossary") routes.`
       )
     );
 
@@ -418,6 +418,21 @@ export class OverviewConfigurationService {
         $localize`:@@stats.route-node-name-mismatch.comment:
           Routes where the route name does not match with the names of the start node and the end node. The
           route name is expected to contain the start node name and the end node name, separated by a dash.`
+      )
+    );
+
+    configurations.push(
+      new StatisticConfiguration(
+        'RouteNameDeprecatedNoteTag',
+        'RouteNameDeprecatedNoteTag',
+        false,
+        factDetailCounts,
+        $localize`:@@stats.route-name-deprecated-note-tag.name:RouteNameDeprecatedNoteTag`,
+        $localize`:@@stats.route-name-deprecated-note-tag.comment:
+          Routes where the route name was defined in the *"note"* tag. This is OK, but the use
+          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
+          that the *"note"* should be used for mapper notes only. The *"ref"* and _"name"_ tags can 
+          be used for naming routes.`
       )
     );
 
