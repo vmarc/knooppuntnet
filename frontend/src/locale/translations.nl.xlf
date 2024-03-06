@@ -11377,7 +11377,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-deprected-note-tag" datatype="html">
-        <source>De route naam is gedefinieerd in de _&quot;note&quot;_ tag. Dit is OK, maar het gebruik van de _&quot;note&quot;_ voor het geven van een naam aan een route is niet langer de aangewezen manier. De _&quot;note&quot;_ tag dient eigenlijk om informatie aan andere mappers door te geven. De _&quot;ref&quot;_ en _&quot;name&quot;_ tags kunnen gebruikt worden om de route een naam te geven.</source>
+        <source>The route name is defined in the _&quot;note&quot;_ tag. This is OK, but the use of the _&quot;note&quot;_ tag for route names is no longer recommended (deprecated). The idea is that the _&quot;note&quot;_ should be used for mapper notes only. The _&quot;ref&quot;_ and _&quot;name&quot;_ tags can be used for naming routes.</source>
         <target>De route naam is gedefinieerd in de _&quot;note&quot;_ tag. Dit is OK, maar het gebruik van de _&quot;note&quot;_ voor het geven van een naam aan een route is niet langer de aangewezen manier. De _&quot;note&quot;_ tag dient eigenlijk om informatie aan andere mappers door te geven. De _&quot;ref&quot;_ en _&quot;name&quot;_ tags kunnen gebruikt worden om de route een naam te geven.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-name-deprecated-note-tag.component.ts</context>
@@ -11385,7 +11385,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.route-name-deprecated-note-tag" datatype="html">
-        <source>RouteNaamVerouderdeNoteTag</source>
+        <source>RouteNameDeprecatedNoteTag</source>
         <target>RouteNaamVerouderdeNoteTag</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
@@ -11393,7 +11393,7 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-name-deprecated-note-tag.name" datatype="html">
-        <source>RouteNaamVerouderdeNoteTag</source>
+        <source>RouteNameDeprecatedNoteTag</source>
         <target>RouteNaamVerouderdeNoteTag</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
@@ -11401,7 +11401,10 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *&quot;horse&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-name-deprecated-note-tag.comment" datatype="html">
-        <source>Routes waarvan de naam is gedefinieerd in de _&quot;note&quot;_ tag. Dit is OK, maar het gebruik van de _&quot;note&quot;_ voor het geven van een naam aan een route is niet langer de aangewezen manier. De _&quot;note&quot;_ tag dient eigenlijk om informatie aan andere mappers door te geven. De _&quot;ref&quot;_ en _&quot;name&quot;_ tags kunnen gebruikt worden om de route een naam te geven.</source>
+        <source>Routes where the route name was defined in the *&quot;note&quot;* tag. This is OK, but the use
+          of the *&quot;note&quot;* tag for route names is no longer recommended (deprecated).  The idea is 
+          that the *&quot;note&quot;* should be used for mapper notes only. The *&quot;ref&quot;* and _&quot;name&quot;_ tags can 
+          be used for naming routes.</source>
         <target>Routes waarvan de naam is gedefinieerd in de _&quot;note&quot;_ tag. Dit is OK, maar het gebruik van de _&quot;note&quot;_ voor het geven van een naam aan een route is niet langer de aangewezen manier. De _&quot;note&quot;_ tag dient eigenlijk om informatie aan andere mappers door te geven. De _&quot;ref&quot;_ en _&quot;name&quot;_ tags kunnen gebruikt worden om de route een naam te geven.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>

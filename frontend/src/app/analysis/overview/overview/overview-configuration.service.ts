@@ -423,15 +423,15 @@ export class OverviewConfigurationService {
 
     configurations.push(
       new StatisticConfiguration(
+        'RouteNameDeprecatedNoteTagCount',
         'RouteNameDeprecatedNoteTag',
-        'RouteNameDeprecatedNoteTag',
-        false,
+        true,
         factDetailCounts,
         $localize`:@@stats.route-name-deprecated-note-tag.name:RouteNameDeprecatedNoteTag`,
         $localize`:@@stats.route-name-deprecated-note-tag.comment:
           Routes where the route name was defined in the *"note"* tag. This is OK, but the use
           of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
-          that the *"note"* should be used for mapper notes only. The *"ref"* and _"name"_ tags can 
+          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can 
           be used for naming routes.`
       )
     );

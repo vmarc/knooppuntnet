@@ -3614,7 +3614,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         <source>Number of network routes that do not belong to a network.\
           The route was not added as a member to a valid
           [network relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;network relation in glossary&quot;).</source>
-        <target>Anzahl der Netzwerkrouten, die nicht zu einem Netzwerk gehören. \ Die Route wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;Netzwerkrelation im Glossar&quot;) hinzugefügt.</target>
+        <target>Anzahl der Netzwerkrouten, die nicht zu einem Netzwerk gehören. \ Die Route wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](https://wiki.openstreetmap.org/wiki/DE:Knooppuntnet_analysis#network &quot;Netzwerkrelation im Glossar&quot;) hinzugefügt.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">152,155</context>
@@ -3860,7 +3860,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           [network nodes](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;node in glossary&quot;)
           or [information maps](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#information-map &quot;information maps in glossary&quot;) as members
           in the network relation).</source>
-        <target>Anzahl der unerwarteten Netzwerkrelationsmitglieder vom Typ *&quot;node&quot;* (wir erwarten nur [Netzwerkknoten](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node &quot;Netzwerkknoten im Glossar&quot;) oder [Informationskarten](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#information-map &quot;Informationskarten im Glossar&quot;) als Mitglieder).</target>
+        <target>Anzahl der unerwarteten Netzwerkrelationsmitglieder vom Typ *&quot;node&quot;* (wir erwarten nur [Netzwerkknoten](https://wiki.openstreetmap.org/wiki/DE:Knooppuntnet_analysis#node &quot;Netzwerkknoten im Glossar&quot;) oder [Informationskarten](https://wiki.openstreetmap.org/wiki/DE:Knooppuntnet_analysis#information-map &quot;Informationskarten im Glossar&quot;) als Mitglieder).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">343,347</context>
@@ -5296,7 +5296,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
           and also not added as a member to a valid
           [route relation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#route &quot;route relation in glossary&quot;)
           (that itself was added as a member to a valid network relation or is a free route).</source>
-        <target>Anzahl der Netzwerkknoten, die nicht zu einem Netzwerk gehören. \ Der [Knoten](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#node  &quot;Knoten im Glossar&quot;) wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#network &quot;Netzwerkrelation im Glossar&quot;) hinzugefügt und auch nicht als Mitglied zu einer gültigen [Routenrelation](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#route &quot;Routerelation im Glossar&quot;) hinzugefügt (das selbst als Mitglied zu einer gültigen Netzwerkrelation hinzugefügt wurde oder eine freie Route ist).</target>
+        <target>Anzahl der Netzwerkknoten, die nicht zu einem Netzwerk gehören. \ Der [Knoten](https://wiki.openstreetmap.org/wiki/DE:Knooppuntnet_analysis#node  &quot;Knoten im Glossar&quot;) wurde nicht als Mitglied zu einer gültigen [Netzwerkrelation](https://wiki.openstreetmap.org/wiki/DE:Knooppuntnet_analysis#network &quot;Netzwerkrelation im Glossar&quot;) hinzugefügt und auch nicht als Mitglied zu einer gültigen [Routenrelation](https://wiki.openstreetmap.org/wiki/DE:Knooppuntnet_analysis#route &quot;Routerelation im Glossar&quot;) hinzugefügt (das selbst als Mitglied zu einer gültigen Netzwerkrelation hinzugefügt wurde oder eine freie Route ist).</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">135,141</context>
@@ -8835,7 +8835,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="fact.description.route-inaccessible" datatype="html">
         <source>Part of the route does not seem [accessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible).</source>
-        <target>Ein Teil der Route scheint nicht [zugänglich](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible) zu sein.</target>
+        <target>Ein Teil der Route scheint nicht [zugänglich](https://wiki.openstreetmap.org/wiki/DE:Knooppuntnet_analysis#accessible) zu sein.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-inaccessible.component.ts</context>
           <context context-type="linenumber">9,12</context>
@@ -8907,7 +8907,7 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
       </trans-unit>
       <trans-unit id="stats.route-inaccessible.comment" datatype="html">
         <source>Number of [inaccessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible &quot;accessible in glossary&quot;) routes.</source>
-        <target>Anzahl von [unzugänglichen](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible &quot;accessible in glossary&quot;) Routen.</target>
+        <target>Anzahl von [unzugänglichen](https://wiki.openstreetmap.org/wiki/DE:Knooppuntnet_analysis#accessible &quot;accessible in glossary&quot;) Routen.</target>
         <note priority="1" from="description">Link might be wrong.</note>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
@@ -11391,28 +11391,38 @@ Andere mögliche Werte sind *&quot;horse&quot;*, *&quot;motorboat&quot;*, *&quot
         </context-group>
       </trans-unit>
       <trans-unit id="fact.description.route-deprected-note-tag" datatype="html">
-        <source/>
+        <source>The route name is defined in the _&quot;note&quot;_ tag. This is OK, but the use of the _&quot;note&quot;_ tag for route names is no longer recommended (deprecated). The idea is that the _&quot;note&quot;_ should be used for mapper notes only. The _&quot;ref&quot;_ and _&quot;name&quot;_ tags can be used for naming routes.</source>
+        <target>The route name is defined in the _&quot;note&quot;_ tag. This is OK, but the use of the _&quot;note&quot;_ tag for route names is no longer recommended (deprecated). The idea is that the _&quot;note&quot;_ should be used for mapper notes only. The _&quot;ref&quot;_ and _&quot;name&quot;_ tags can be used for naming routes.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/descriptions/fact-route-name-deprecated-note-tag.component.ts</context>
           <context context-type="linenumber">9,13</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fact.name.route-name-deprecated-note-tag" datatype="html">
-        <source/>
+        <source>RouteNameDeprecatedNoteTag</source>
+        <target>RouteNameDeprecatedNoteTag</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/fact/fact-name.component.ts</context>
           <context context-type="linenumber">101</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-name-deprecated-note-tag.name" datatype="html">
-        <source/>
+        <source>RouteNameDeprecatedNoteTag</source>
+        <target>RouteNameDeprecatedNoteTag</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">430</context>
         </context-group>
       </trans-unit>
       <trans-unit id="stats.route-name-deprecated-note-tag.comment" datatype="html">
-        <source/>
+        <source>Routes where the route name was defined in the *&quot;note&quot;* tag. This is OK, but the use
+          of the *&quot;note&quot;* tag for route names is no longer recommended (deprecated).  The idea is 
+          that the *&quot;note&quot;* should be used for mapper notes only. The *&quot;ref&quot;* and _&quot;name&quot;_ tags can 
+          be used for naming routes.</source>
+        <target>Routes where the route name was defined in the *&quot;note&quot;* tag. This is OK, but the use
+          of the *&quot;note&quot;* tag for route names is no longer recommended (deprecated).  The idea is 
+          that the *&quot;note&quot;* should be used for mapper notes only. The *&quot;ref&quot;* and _&quot;name&quot;_ tags can 
+          be used for naming routes.</target>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/overview-configuration.service.ts</context>
           <context context-type="linenumber">431,435</context>
