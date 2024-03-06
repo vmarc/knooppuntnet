@@ -183,7 +183,7 @@ trait SharedTestObjects extends MockFactory {
       "network" -> "rwn",
       "type" -> "route",
       "route" -> "foot",
-      "note" -> name,
+      "ref" -> name,
       "network:type" -> "node_network"
     )
   }

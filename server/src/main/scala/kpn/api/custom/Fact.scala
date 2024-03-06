@@ -87,6 +87,7 @@ object Fact {
   val RouteInvalidSortingOrder: Fact = f.info("RouteInvalidSortingOrder")
 
   val RouteNodeNameMismatch: Fact = f.info("RouteNodeNameMismatch")
+  val RouteNameDeprecatedNoteTag: Fact = f.info("RouteNameDeprecatedNoteTag")
   val RouteOneWay: Fact = f.info("RouteOneWay")
   val RouteNotOneWay: Fact = f.info("RouteNotOneWay")
   val RouteIncompleteOk: Fact = f.info("RouteIncompleteOk")
@@ -133,6 +134,7 @@ object Fact {
     RouteInaccessible,
     RouteInvalidSortingOrder, //
     RouteNodeNameMismatch,
+    RouteNameDeprecatedNoteTag,
     RouteOneWay,
     RouteNotOneWay,
     RouteIncompleteOk,

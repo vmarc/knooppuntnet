@@ -127,7 +127,7 @@
   </way>
   <relation id="13945193">
     <member type="way" ref="146134846" role=""/>
-    <tag k="note" v="?-?"/>
+    <tag k="ref" v="?-?"/>
     <tag k="colour" v="yellow"/>
     <tag k="network" v="lwn"/>
     <tag k="network:type" v="node_network"/>

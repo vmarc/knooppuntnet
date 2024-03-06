@@ -152,7 +152,7 @@ class NetworkCreateTest01 extends IntegrationTest {
               "network" -> "rwn",
               "type" -> "route",
               "route" -> "foot",
-              "note" -> "01-02",
+              "ref" -> "01-02",
               "network:type" -> "node_network"
             ),
             nodeRefs = Seq(

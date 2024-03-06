@@ -40,10 +40,11 @@
   <relation id="8473146">
     <member type="way" ref="610553223" role=""/>
     <tag k="colour" v="green"/>
-    <tag k="comment" v="Er wordt een doorvaarthoogte van 0,80 m gegarandeerd op deze route of anders een overdraagvoorziening."/>
+    <tag k="comment"
+         v="Er wordt een doorvaarthoogte van 0,80 m gegarandeerd op deze route of anders een overdraagvoorziening."/>
     <tag k="network:type" v="node_network"/>
     <tag k="network" v="rpn"/>
-    <tag k="note" v="8-39; canoe"/>
+    <tag k="ref" v="8-39"/>
     <tag k="route" v="canoe"/>
     <tag k="type" v="route"/>
   </relation>

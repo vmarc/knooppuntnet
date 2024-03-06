@@ -59,7 +59,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
       Some("type" -> "route"),
       Some("network" -> d.scopedNetworkType.key),
       Some("route" -> d.scopedNetworkType.networkType.routeTagValues.head),
-      if (d.routeName.nonEmpty) Some("note" -> d.routeName) else None
+      if (d.routeName.nonEmpty) Some("ref" -> d.routeName) else None
     ).flatten
 
     val tags = Tags.from(tagValues: _*) ++ d.routeTags

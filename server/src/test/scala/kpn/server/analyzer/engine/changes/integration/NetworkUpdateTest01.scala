@@ -183,7 +183,7 @@ class NetworkUpdateTest01 extends IntegrationTest {
               mainTags = Seq(
                 TagDetail(
                   action = TagDetailType.Update,
-                  key = "note",
+                  key = "ref",
                   valueBefore = Some("01-02"),
                   valueAfter = Some("01-03"),
                 ),

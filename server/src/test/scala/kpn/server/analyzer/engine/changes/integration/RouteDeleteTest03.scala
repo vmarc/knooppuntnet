@@ -91,7 +91,7 @@ class RouteDeleteTest03 extends IntegrationTest {
                 "network" -> "rwn",
                 "type" -> "route",
                 "route" -> "foot", // this is removed in 'after' situation
-                "note" -> "01-02",
+                "ref" -> "01-02",
                 "network:type" -> "node_network"
               )
             ),
@@ -118,7 +118,7 @@ class RouteDeleteTest03 extends IntegrationTest {
           tagDiffs = Some(
             TagDiffs(
               mainTags = Seq(
-                TagDetail(TagDetailType.Delete, "note", Some("01-02"), None),
+                TagDetail(TagDetailType.Delete, "ref", Some("01-02"), None),
                 TagDetail(TagDetailType.Delete, "network", Some("rwn"), None),
                 TagDetail(TagDetailType.Delete, "type", Some("route"), None),
                 TagDetail(TagDetailType.Delete, "route", Some("foot"), None),

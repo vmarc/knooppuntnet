@@ -74,7 +74,7 @@
   <relation id="13569497">
     <member type="way" ref="1013588387" role=""/>
     <member type="way" ref="416548255" role=""/>
-    <tag k="note" v="? - ?"/>
+    <tag k="ref" v="? - ?"/>
     <tag k="network" v="lwn"/>
     <tag k="network:type" v="node_network"/>
     <tag k="route" v="hiking"/>

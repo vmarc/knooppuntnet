@@ -81,7 +81,7 @@ class RouteUpdateTest01 extends IntegrationTest {
                 "network" -> "rwn",
                 "type" -> "route",
                 "route" -> "foot",
-                "note" -> "01-02",
+                "ref" -> "01-02",
                 "network:type" -> "node_network",
                 "key" -> "value1" // <--
               )
@@ -117,7 +117,7 @@ class RouteUpdateTest01 extends IntegrationTest {
                 "network" -> "rwn",
                 "type" -> "route",
                 "route" -> "foot",
-                "note" -> "01-02",
+                "ref" -> "01-02",
                 "network:type" -> "node_network",
                 "key" -> "value2" // <--
               )
@@ -144,7 +144,7 @@ class RouteUpdateTest01 extends IntegrationTest {
           tagDiffs = Some(
             TagDiffs(
               mainTags = Seq(
-                TagDetail(TagDetailType.Same, "note", Some("01-02"), Some("01-02")),
+                TagDetail(TagDetailType.Same, "ref", Some("01-02"), Some("01-02")),
                 TagDetail(TagDetailType.Same, "network", Some("rwn"), Some("rwn")),
                 TagDetail(TagDetailType.Same, "type", Some("route"), Some("route")),
                 TagDetail(TagDetailType.Same, "route", Some("foot"), Some("foot")),

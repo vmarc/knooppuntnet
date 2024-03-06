@@ -63,7 +63,8 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
-        Some("02")
+        Some("02"),
+        derivedFromDeprecatedNoteTag = true
       )
     )
   }
@@ -74,7 +75,8 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
-        Some("02")
+        Some("02"),
+        derivedFromDeprecatedNoteTag = true
       )
     )
   }
@@ -85,7 +87,8 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
-        Some("02")
+        Some("02"),
+        derivedFromDeprecatedNoteTag = true
       )
     )
   }
@@ -248,7 +251,8 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
-        Some("02")
+        Some("02"),
+        derivedFromDeprecatedNoteTag = true
       )
     )
   }

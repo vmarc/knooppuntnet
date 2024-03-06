@@ -12,7 +12,7 @@ class Issue247_RouteRedundantNodes extends UnitTest {
     route.summary.name should equal("?-?")
     route.tags.shouldMatchTo(
       Tags.from(
-        "note" -> "? - ?",
+        "ref" -> "? - ?",
         "network" -> "lwn",
         "network:type" -> "node_network",
         "route" -> "hiking",

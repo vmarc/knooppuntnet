@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.custom.Fact.RouteNameDeprecatedNoteTag
 import kpn.api.custom.Fact.RouteNameMissing
 import kpn.core.util.NaturalSorting
 import kpn.core.util.Util
@@ -45,6 +46,7 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     context
       .copy(routeNameAnalysis = Some(routeNameAnalysis))
       .withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
+      .withFact(routeNameAnalysis.derivedFromDeprecatedNoteTag, RouteNameDeprecatedNoteTag)
   }
 
   private def routeNameFromRefTag(): Option[RouteNameAnalysis] = {
@@ -80,7 +82,7 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     context.relation.tags("note").flatMap { note =>
       val value = pureValue(note)
       if (NoteTagAnalyzer.isDeprecatedNoteTag(value)) {
-        routeNameFromTagValue(value)
+        routeNameFromTagValue(value).map(_.copy(derivedFromDeprecatedNoteTag = true))
       }
       else {
         None
