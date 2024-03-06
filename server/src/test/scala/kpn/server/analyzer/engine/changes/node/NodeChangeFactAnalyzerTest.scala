@@ -14,7 +14,7 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
     val after = newRawNode()
 
     val analyzer = new NodeChangeFactAnalyzer(context)
-    analyzer.facts(before, after) shouldBe empty
+    analyzer.facts(before, after).shouldMatchTo(Seq.empty)
   }
 
   test("lost node tag") {
@@ -25,7 +25,7 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
       val after = newRawNode()
 
       val analyzer = new NodeChangeFactAnalyzer(context)
-      analyzer.facts(before, after) should equal(
+      analyzer.facts(before, after).shouldMatchTo(
         Seq(expectedFact)
       )
     }
@@ -56,7 +56,7 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
     val after = newRawNode(tags = Tags.from("network:type" -> "node_network", "lwn_name" -> "name"))
 
     val analyzer = new NodeChangeFactAnalyzer(context)
-    analyzer.facts(before, after) shouldBe empty
+    analyzer.facts(before, after).shouldMatchTo(Seq.empty)
   }
 
   test("Orphan node that remains orphan") {
@@ -66,6 +66,6 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
     val after = newRawNodeWithName(1001, "01")
 
     val analyzer = new NodeChangeFactAnalyzer(context)
-    analyzer.facts(before, after) shouldBe empty
+    analyzer.facts(before, after).shouldMatchTo(Seq.empty)
   }
 }

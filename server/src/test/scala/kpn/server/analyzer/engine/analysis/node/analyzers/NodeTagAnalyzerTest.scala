@@ -154,7 +154,7 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
         "rwn_ref" -> "01",
         "survey:date" -> "bla"
       )
-    ).get.facts should equal(Seq(Fact.NodeInvalidSurveyDate))
+    ).get.facts.shouldMatchTo(Seq(Fact.NodeInvalidSurveyDate))
   }
 
   test("multiple scopes and network types") {

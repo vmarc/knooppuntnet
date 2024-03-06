@@ -237,7 +237,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
   test("route name missing") {
     val context = analyze(Tags.empty)
     context.routeNameAnalysis should equal(Some(RouteNameAnalysis()))
-    context.facts should equal(Seq(RouteNameMissing))
+    context.facts.shouldMatchTo(Seq(RouteNameMissing))
   }
 
   test("route name based on 'note' tag if route name from 'name' tag is 'non-standard'") {

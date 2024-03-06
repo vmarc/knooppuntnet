@@ -16,49 +16,49 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
   test("happy path") {
     val newContext = doTest(Some("01-02"), Some("01"), Some("02"))
     newContext.expectedName should equal(Some("01-02"))
-    newContext.facts shouldBe empty
+    newContext.facts.shouldMatchTo(Seq.empty)
   }
 
   test("route name reversed") {
     val newContext = doTest(Some("02-01"), Some("01"), Some("02"))
     newContext.expectedName should equal(Some("01-02"))
-    newContext.facts shouldBe empty
+    newContext.facts.shouldMatchTo(Seq.empty)
   }
 
   test("unexpected route name - start node does not match") {
     val newContext = doTest(Some("04-05"), Some("04"), Some("06"))
     newContext.expectedName should equal(Some("04-06"))
-    newContext.facts should equal(Seq(Fact.RouteNodeNameMismatch))
+    newContext.facts.shouldMatchTo(Seq(Fact.RouteNodeNameMismatch))
   }
 
   test("unexpected route name - end node does not match") {
     val newContext = doTest(Some("04-05"), Some("04"), Some("07"))
     newContext.expectedName should equal(Some("04-07"))
-    newContext.facts should equal(Seq(Fact.RouteNodeNameMismatch))
+    newContext.facts.shouldMatchTo(Seq(Fact.RouteNodeNameMismatch))
   }
 
   test("no fact when route name unknown") {
     val newContext = doTest(None, Some("01"), Some("02"))
     newContext.expectedName should equal(Some(""))
-    newContext.facts shouldBe empty
+    newContext.facts.shouldMatchTo(Seq.empty)
   }
 
   test("no fact when start node unknown") {
     val newContext = doTest(Some("01-02"), None, Some("02"))
     newContext.expectedName should equal(Some(""))
-    newContext.facts shouldBe empty
+    newContext.facts.shouldMatchTo(Seq.empty)
   }
 
   test("no fact when end node unknown") {
     val newContext = doTest(Some("01-02"), Some("01"), None)
     newContext.expectedName should equal(Some(""))
-    newContext.facts shouldBe empty
+    newContext.facts.shouldMatchTo(Seq.empty)
   }
 
   test("preserve white space arround separator dash") {
     val newContext = doTest(Some("aaa - bbb-ccc"), Some("aaa"), Some("bbb-ccc"))
     newContext.expectedName should equal(Some("aaa - bbb-ccc"))
-    newContext.facts shouldBe empty
+    newContext.facts.shouldMatchTo(Seq.empty)
   }
 
   test("do not make check when no separator dash") {
