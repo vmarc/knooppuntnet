@@ -15,4 +15,9 @@ class Issue377_RouteNodeNameMismatch extends UnitTest {
       )
     )
   }
+
+  test("route with RouteNodeNameMismatch") {
+    val route = CaseStudy.routeAnalysis("12347801").route
+    route.facts should equal(Seq(Fact.RouteNodeNameMismatch))
+  }
 }

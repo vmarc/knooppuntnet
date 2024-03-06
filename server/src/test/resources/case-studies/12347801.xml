@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6">
+  <node id="1139813154" lat="45.2064172" lon="6.5444893"/>
+  <node id="1211049112" lat="45.2062959" lon="6.5445259">
+    <tag k="lwn_name" v="Pont de la Bronsonnière"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <node id="1211197383" lat="45.2073643" lon="6.5457803">
+    <tag k="lwn_name" v="Parking Télécabine"/>
+    <tag k="network:type" v="node_network"/>
+  </node>
+  <node id="3748612054" lat="45.2069445" lon="6.5443751"/>
+  <node id="7733778194" lat="45.2070940" lon="6.5445553"/>
+  <node id="7733778203" lat="45.2073012" lon="6.5453697"/>
+  <node id="7733778213" lat="45.2070140" lon="6.5445716"/>
+  <node id="8258658716" lat="45.2063722" lon="6.5445029"/>
+  <node id="8402635671" lat="45.2073113" lon="6.5455046"/>
+  <node id="9422548413" lat="45.2070817" lon="6.5453988"/>
+  <node id="11570535118" lat="45.2069978" lon="6.5443599"/>
+  <node id="11570535119" lat="45.2070246" lon="6.5443520"/>
+  <node id="11570535120" lat="45.2070393" lon="6.5444732"/>
+  <way id="98524910">
+    <tag k="highway" v="tertiary"/>
+    <tag k="hiking" v="mountain_hiking"/>
+    <tag k="name" v="Route de la Bronsonnière"/>
+    <tag k="osmc:symbol" v="green:yellow:green"/>
+    <tag k="trail_visibility" v="excellent"/>
+    <tag k="trailblazed" v="hiking"/>
+    <nd ref="1139813154"/>
+    <nd ref="8258658716"/>
+    <nd ref="1211049112"/>
+  </way>
+  <way id="98524922">
+    <tag k="bridge" v="yes"/>
+    <tag k="highway" v="tertiary"/>
+    <tag k="hiking" v="mountain_hiking"/>
+    <tag k="layer" v="1"/>
+    <tag k="name" v="Route de la Bronsonnière"/>
+    <tag k="osmc:symbol" v="green:yellow:green"/>
+    <tag k="trail_visibility" v="excellent"/>
+    <tag k="trailblazed" v="hiking"/>
+    <nd ref="3748612054"/>
+    <nd ref="1139813154"/>
+  </way>
+  <way id="828448262">
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Parking de la Télécabine II"/>
+    <nd ref="7733778213"/>
+    <nd ref="7733778194"/>
+  </way>
+  <way id="904785354">
+    <tag k="highway" v="service"/>
+    <tag k="name" v="Parking de la Télécabine II"/>
+    <tag k="service" v="alley"/>
+    <nd ref="1211197383"/>
+    <nd ref="8402635671"/>
+    <nd ref="7733778203"/>
+  </way>
+  <way id="1021642218">
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Parking de la Télécabine II"/>
+    <nd ref="9422548413"/>
+    <nd ref="7733778213"/>
+  </way>
+  <way id="1050393214">
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Parking de la Télécabine II"/>
+    <nd ref="7733778203"/>
+    <nd ref="9422548413"/>
+  </way>
+  <way id="1244695803">
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Parking de la Télécabine II"/>
+    <nd ref="11570535119"/>
+    <nd ref="11570535120"/>
+    <nd ref="7733778194"/>
+  </way>
+  <way id="1257791505">
+    <tag k="highway" v="tertiary"/>
+    <tag k="name" v="Route de la Bronsonnière"/>
+    <nd ref="11570535119"/>
+    <nd ref="11570535118"/>
+    <nd ref="3748612054"/>
+  </way>
+  <relation id="12347801">
+    <member type="way" ref="904785354" role=""/>
+    <member type="way" ref="1050393214" role=""/>
+    <member type="way" ref="1021642218" role=""/>
+    <member type="way" ref="828448262" role=""/>
+    <member type="way" ref="1244695803" role=""/>
+    <member type="way" ref="1257791505" role=""/>
+    <member type="way" ref="98524922" role=""/>
+    <member type="way" ref="98524910" role=""/>
+    <tag k="colour" v="yellow"/>
+    <tag k="name" v="toto"/>
+    <tag k="network" v="lwn"/>
+    <tag k="network:type" v="node_network"/>
+    <tag k="osmc:symbol" v="yellow:gray:yellow_bar"/>
+    <tag k="route" v="hiking"/>
+    <tag k="type" v="route"/>
+  </relation>
+</osm>

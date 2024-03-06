@@ -49,13 +49,13 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
 
   private def routeNameFromRefTag(): Option[RouteNameAnalysis] = {
     context.relation.tags("ref").flatMap { ref =>
-      routeNameFromTagValue(ref)
+      routeNameFromTagValue(pureValue(ref))
     }
   }
 
   private def routeNameFromNameTag(): Option[RouteNameAnalysis] = {
     context.relation.tags("name").flatMap { name =>
-      routeNameFromTagValue(name).map { routeNameAnalysis =>
+      routeNameFromTagValue(pureValue(name)).map { routeNameAnalysis =>
         if (routeNameAnalysis.hasStandardNodeNames) {
           routeNameAnalysis
         }
@@ -78,8 +78,9 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
 
   private def routeNameFromNoteTag(): Option[RouteNameAnalysis] = {
     context.relation.tags("note").flatMap { note =>
-      if (withoutComment(note).contains("-")) {
-        routeNameFromTagValue(note)
+      val value = pureValue(note)
+      if (NoteTagAnalyzer.isDeprecatedNoteTag(value)) {
+        routeNameFromTagValue(value)
       }
       else {
         None
@@ -87,15 +88,14 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def routeNameFromTagValue(fullRouteName: String): Option[RouteNameAnalysis] = {
-    val routeName = withoutComment(fullRouteName)
-    if (routeName.contains("-")) {
-      analyzeRouteNameNodes(routeName)
+  private def routeNameFromTagValue(tagValue: String): Option[RouteNameAnalysis] = {
+    if (tagValue.contains("-")) {
+      analyzeRouteNameNodes(tagValue)
     }
     else {
       Some(
         RouteNameAnalysis(
-          Some(routeName),
+          Some(tagValue),
           None,
           None
         )
@@ -276,5 +276,10 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     else {
       None
     }
+  }
+
+  private def pureValue(tagValue: String): String = {
+    val tagValueWithoutComment = withoutComment(tagValue)
+    tagValueWithoutComment.replaceAll("–", "-")
   }
 }
