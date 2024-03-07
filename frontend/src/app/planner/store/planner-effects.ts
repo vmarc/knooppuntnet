@@ -160,6 +160,7 @@ export class PlannerEffects {
     const queryParams = this.plannerMapService.toQueryParams(state);
     const promise = this.router.navigate(['map', state.networkType], {
       queryParams,
+      replaceUrl: true, // do not push a new entry to the browser history
     });
     return from(promise);
   }
