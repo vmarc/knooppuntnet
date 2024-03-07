@@ -82,6 +82,11 @@ export const selectLocationMapPage = createSelector(
   (state: LocationState) => state.mapPage
 );
 
+export const selectLocationMapPositionFromUrl = createSelector(
+  selectLocationState,
+  (state: LocationState) => state.mapPositionFromUrl
+);
+
 export const selectLocationChangesPageIndex = createSelector(
   selectLocationState,
   (state: LocationState) => state.changesPageIndex

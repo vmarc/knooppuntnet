@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { LocationChangesParameters } from '@api/common/location';
 import { LocationNodesParameters } from '@api/common/location';
 import { LocationRoutesParameters } from '@api/common/location';
+import { selectQueryParam } from '@app/core';
 import { selectRouteParam } from '@app/core';
 import { selectSharedSurveyDateInfo } from '@app/core';
 import { actionSharedSurveyDateInfoInit } from '@app/core';
@@ -11,6 +12,7 @@ import { AnalysisStrategy } from '@app/core';
 import { actionPreferencesAnalysisStrategy } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
+import { MapPosition } from '@app/ol/domain';
 import { ApiService } from '@app/services';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
@@ -44,6 +46,7 @@ import { actionLocationChangesPageLoaded } from './location.actions';
 import { actionLocationEditPageLoaded } from './location.actions';
 import { actionLocationNodesPageLoaded } from './location.actions';
 import { actionLocationMapViewInit } from './location.actions';
+import { selectLocationMapPositionFromUrl } from './location.selectors';
 import { selectLocationChangesPageIndex } from './location.selectors';
 import { selectLocationRoutesType } from './location.selectors';
 import { selectLocationRoutesPageIndex } from './location.selectors';
@@ -178,11 +181,15 @@ export class LocationEffects {
   locationMapPage = createEffect(() => {
     return this.actions$.pipe(
       ofType(actionLocationMapPageInit),
-      concatLatestFrom(() => this.store.select(selectLocationKey)),
-      mergeMap(([_, locationKey]) => {
+      concatLatestFrom(() => [
+        this.store.select(selectLocationKey),
+        this.store.select(selectQueryParam('position')),
+      ]),
+      mergeMap(([_, locationKey, mapPositionString]) => {
         return this.apiService.locationMap(locationKey).pipe(
           map((response) => {
-            return actionLocationMapPageLoaded({ response });
+            const mapPositionFromUrl = MapPosition.fromQueryParam(mapPositionString);
+            return actionLocationMapPageLoaded({ response, mapPositionFromUrl });
           })
         );
       })
@@ -197,16 +204,18 @@ export class LocationEffects {
         concatLatestFrom(() => [
           this.store.select(selectLocationKey),
           this.store.select(selectLocationMapPage),
+          this.store.select(selectLocationMapPositionFromUrl),
           this.store.select(selectSharedSurveyDateInfo).pipe(filter((x) => x !== null)), // make sure surveyDateInfo is loaded
         ]),
-        tap(([_, locationKey, response, surveyDateValues]) => {
+        tap(([_, locationKey, response, mapPositionFromUrl, surveyDateValues]) => {
           const geoJson = response.result.geoJson;
           const bounds = response.result.bounds;
           this.locationMapLayerService.init(
             locationKey.networkType,
             surveyDateValues,
             geoJson,
-            bounds
+            bounds,
+            mapPositionFromUrl
           );
         })
       );

@@ -88,6 +88,7 @@ export const actionLocationMapPageLoaded = createAction(
   '[LocationMapPage] Loaded',
   props<{
     response: ApiResponse<LocationMapPage>;
+    mapPositionFromUrl: MapPosition;
   }>()
 );
 

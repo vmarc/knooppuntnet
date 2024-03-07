@@ -9,6 +9,7 @@ import { ApiResponse } from '@api/custom';
 import { LocationKey } from '@api/custom';
 import { LocationNodesType } from '@api/custom';
 import { LocationRoutesType } from '@api/custom';
+import { MapPosition } from '@app/ol/domain';
 
 export const initialState: LocationState = {
   locationKey: null,
@@ -21,6 +22,7 @@ export const initialState: LocationState = {
   routesPage: undefined,
   factsPage: undefined,
   mapPage: undefined,
+  mapPositionFromUrl: null,
   changesPageIndex: undefined,
   changesPage: undefined,
   editPage: undefined,
@@ -37,6 +39,7 @@ export interface LocationState {
   routesPage: ApiResponse<LocationRoutesPage> | undefined;
   factsPage: ApiResponse<LocationFactsPage> | undefined;
   mapPage: ApiResponse<LocationMapPage> | undefined;
+  mapPositionFromUrl: MapPosition;
   changesPageIndex: number | undefined;
   changesPage: ApiResponse<LocationChangesPage> | undefined;
   editPage: ApiResponse<LocationEditPage> | undefined;

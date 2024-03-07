@@ -158,9 +158,10 @@ export const locationReducer = createReducer<LocationState>(
   ),
   on(
     actionLocationMapPageLoaded,
-    (state, { response: response }): LocationState => ({
+    (state, { response: response, mapPositionFromUrl }): LocationState => ({
       ...state,
       mapPage: response,
+      mapPositionFromUrl,
       locationSummary: response.result?.summary,
     })
   ),
