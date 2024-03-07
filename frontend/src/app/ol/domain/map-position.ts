@@ -59,4 +59,13 @@ export class MapPosition {
       rotation: mapPosition.rotation,
     };
   }
+
+  sameAs(other: MapPosition): boolean {
+    return (
+      this.zoom == other.zoom &&
+      this.x == other.x &&
+      this.y == other.y &&
+      this.rotation == other.rotation
+    );
+  }
 }

@@ -62,7 +62,7 @@ export abstract class OpenlayersMapService {
   protected finalizeSetup(updateUrl?: boolean): void {
     this.shouldUpdateUrl = updateUrl === true;
     const view = this.map.getView();
-    view.on('change:resolution', () => this.updatePositionHandler);
+    view.on('change:resolution', this.updatePositionHandler);
     view.on('change:center', this.updatePositionHandler);
     this.updatePositionHandler();
     this.updateLayerVisibility();
@@ -202,8 +202,12 @@ export abstract class OpenlayersMapService {
       let oldZoom = -1;
       if (this._mapPosition$.value) {
         oldZoom = this._mapPosition$.value.zoom;
+        if (!this._mapPosition$.value.sameAs(mapPosition)) {
+          this._mapPosition$.next(mapPosition);
+        }
+      } else {
+        this._mapPosition$.next(mapPosition);
       }
-      this._mapPosition$.next(mapPosition);
       if (oldZoom > 0 && oldZoom != z) {
         this.updateLayerVisibility();
       }
