@@ -122,7 +122,7 @@ class SurfaceAnalyzer(networkType: NetworkType, way: Way) {
             "paved"
           }
           else {
-            "unpaved"
+            "unknown"
           }
         }
         else if (way.tags.has("highway", "path")) {
