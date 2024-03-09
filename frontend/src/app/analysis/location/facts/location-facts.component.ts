@@ -92,7 +92,7 @@ export class LocationFactsComponent {
   private readonly editService = inject(EditService);
 
   factLevel(fact: Fact): FactLevel {
-    return Facts.factLevels.get(fact);
+    return Facts.factLevel(fact);
   }
 
   edit(locationFact: LocationFact): void {

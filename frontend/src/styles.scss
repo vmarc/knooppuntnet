@@ -171,6 +171,12 @@ table.kpn-bordered-table {
   }
 }
 
+.kpn-align-center {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .kpn-text-only-line {
   display: flex;
   justify-content: flex-start;
@@ -638,4 +644,12 @@ input[type=number] {
 
 .ol-geocoder .gcd-gl-control {
   background-color: rgba(0, 0, 0, 0);
+}
+
+.action-button-icon > svg {
+  width: 14px !important;
+  height: 14px !important;
+  vertical-align: top !important;
+  padding-top: 5px !important;
+  color: blue;
 }

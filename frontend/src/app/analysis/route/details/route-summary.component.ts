@@ -31,7 +31,7 @@ import { MarkdownModule } from 'ngx-markdown';
 
       @if (isRouteBroken()) {
         <p class="kpn-line">
-          <mat-icon svgIcon="warning"></mat-icon>
+          <mat-icon svgIcon="warning" />
           <span i18n="@@route.broken">Something seems wrong with this route.</span>
         </p>
       }

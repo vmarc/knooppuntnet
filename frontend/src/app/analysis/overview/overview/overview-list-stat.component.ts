@@ -15,9 +15,9 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
         <div (click)="toggleOpen()" class="title">
           <span class="expand-collapse-icon">
             @if (open) {
-              <mat-icon svgIcon="expand"></mat-icon>
+              <mat-icon svgIcon="expand" />
             } @else {
-              <mat-icon svgIcon="collapse"></mat-icon>
+              <mat-icon svgIcon="collapse" />
             }
           </span>
           <span class="name">

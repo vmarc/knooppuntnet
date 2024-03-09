@@ -27,7 +27,7 @@ import { selectNetworkId } from '../store/network.selectors';
       @if (summarySignal(); as summary) {
         <kpn-page-header [pageTitle]="networkPageTitle(summary.name)" subject="network-page">
           <span class="header-network-type-icon">
-            <mat-icon [svgIcon]="summary.networkType"></mat-icon>
+            <mat-icon [svgIcon]="summary.networkType" />
           </span>
           <span>
             {{ summary.name }}

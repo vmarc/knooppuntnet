@@ -26,7 +26,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 
       <kpn-page-header>
         <span class="header-network-type-icon">
-          <mat-icon svgIcon="motorboat"></mat-icon>
+          <mat-icon svgIcon="motorboat" />
         </span>
         <span i18n="@@network-type.motorboat">Motorboat</span>
       </kpn-page-header>

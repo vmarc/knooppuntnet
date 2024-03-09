@@ -29,12 +29,12 @@ import { map } from 'rxjs/operators';
     <!--              svgIcon="expand"-->
     <!--              *ngIf="treeControl.isExpanded(node)"-->
     <!--              class="expand-collapse-icon"-->
-    <!--            ></mat-icon>-->
+    <!--            />-->
     <!--            <mat-icon-->
     <!--              svgIcon="collapse"-->
     <!--              *ngIf="!treeControl.isExpanded(node)"-->
     <!--              class="expand-collapse-icon"-->
-    <!--            ></mat-icon>-->
+    <!--            />-->
 
     <!--            <a (click)="select(node)">{{ node.locationName }}</a-->
     <!--            ><span class="node-count">{{ node.nodeCount }}</span>-->

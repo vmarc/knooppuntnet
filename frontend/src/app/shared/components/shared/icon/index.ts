@@ -2,3 +2,8 @@ export * from './icon-happy.component';
 export * from './icon-button.component';
 export * from './icon-buttons.component';
 export * from './icon-investigate.component';
+export * from './icon-network.component';
+export * from './icon-node.component';
+export * from './icon-route.component';
+export * from './icon-relation.component';
+export * from './icon-way.component';

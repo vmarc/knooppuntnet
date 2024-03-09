@@ -152,6 +152,34 @@ export class IconService {
         require('!svg-inline-loader!src/assets/images/icons/menu-dots.svg')
       )
     );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'open-in-new',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/open-in-new.svg')
+      )
+    );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'node',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/node.svg')
+      )
+    );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'route',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/route.svg')
+      )
+    );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'network',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/network.svg')
+      )
+    );
   }
 
   private registerNetworkTypeIcons() {

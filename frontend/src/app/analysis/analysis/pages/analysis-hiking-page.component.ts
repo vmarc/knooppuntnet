@@ -26,7 +26,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 
       <kpn-page-header>
         <span class="header-network-type-icon">
-          <mat-icon svgIcon="hiking"></mat-icon>
+          <mat-icon svgIcon="hiking" />
         </span>
         <span i18n="@@network-type.hiking">Hiking</span>
       </kpn-page-header>

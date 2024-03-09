@@ -65,7 +65,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row">
           @if (row.happy) {
-            <mat-icon svgIcon="happy"></mat-icon>
+            <mat-icon svgIcon="happy" />
           }
         </td>
       </ng-container>

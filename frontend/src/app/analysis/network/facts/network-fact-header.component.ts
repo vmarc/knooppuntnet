@@ -41,7 +41,7 @@ export class NetworkFactHeaderComponent {
   private readonly editService = inject(EditService);
 
   factLevel(): FactLevel {
-    return Facts.factLevels.get(this.fact().name);
+    return Facts.factLevel(this.fact().name);
   }
 
   factCount(): number {

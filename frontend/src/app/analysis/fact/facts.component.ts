@@ -103,6 +103,6 @@ export class FactsComponent {
   }
 
   factLevel(factInfo: FactInfo): FactLevel {
-    return Facts.factLevels.get(factInfo.fact);
+    return Facts.factLevel(factInfo.fact);
   }
 }

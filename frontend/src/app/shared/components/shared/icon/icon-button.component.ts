@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <a [routerLink]="routerLink()">
       <div class="wrapper">
-        <mat-icon [svgIcon]="icon()" class="icon"></mat-icon>
+        <mat-icon [svgIcon]="icon()" class="icon" />
       </div>
       <div class="text">
         {{ title() }}

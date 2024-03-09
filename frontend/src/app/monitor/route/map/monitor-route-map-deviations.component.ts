@@ -98,7 +98,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
                     [matMenuTriggerData]="{ deviation: deviation }"
                     class="popup-menu"
                   >
-                    <mat-icon svgIcon="menu-dots"></mat-icon>
+                    <mat-icon svgIcon="menu-dots" />
                   </button>
                 </div>
               </mat-list-option>

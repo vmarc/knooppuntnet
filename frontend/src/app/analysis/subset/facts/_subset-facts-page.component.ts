@@ -106,7 +106,7 @@ export class SubsetFactsPageComponent implements OnInit {
   }
 
   factLevel(fact: Fact): FactLevel {
-    return Facts.factLevels.get(fact);
+    return Facts.factLevel(fact);
   }
 
   edit(fact: Fact): void {
