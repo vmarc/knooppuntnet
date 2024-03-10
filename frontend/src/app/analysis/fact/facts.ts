@@ -1,19 +1,40 @@
-import { List, Map } from 'immutable';
+import { FactElement } from './fact-element';
 import { FactLevel } from './fact-level';
 
 class FactDefinition {
   constructor(
     public name: string,
-    public level: FactLevel
+    public level: FactLevel,
+    public element?: FactElement
   ) {}
+
+  hasNodeRefs(): boolean {
+    return this.element === FactElement.node;
+  }
+
+  hasOsmNodeRefs(): boolean {
+    return this.element === FactElement.osmNode;
+  }
+
+  hasOsmWayRefs(): boolean {
+    return this.element === FactElement.way;
+  }
+
+  hasOsmRelationRefs(): boolean {
+    return this.element === FactElement.relation;
+  }
+
+  hasRouteRefs(): boolean {
+    return this.element === FactElement.route;
+  }
 }
 
 export class Facts {
-  static readonly facts = List<FactDefinition>([
-    new FactDefinition('Added', FactLevel.other),
+  static readonly factDefinitions: FactDefinition[] = [
+    new FactDefinition('Added', FactLevel.other, null),
     new FactDefinition('Deleted', FactLevel.other),
-    new FactDefinition('IntegrityCheck', FactLevel.other),
-    new FactDefinition('IntegrityCheckFailed', FactLevel.error),
+    new FactDefinition('IntegrityCheck', FactLevel.other, FactElement.node),
+    new FactDefinition('IntegrityCheckFailed', FactLevel.error, FactElement.node),
     new FactDefinition('LostBicycleNodeTag', FactLevel.other),
     new FactDefinition('LostCanoeNodeTag', FactLevel.other),
     new FactDefinition('LostHikingNodeTag', FactLevel.other),
@@ -22,51 +43,57 @@ export class Facts {
     new FactDefinition('LostMotorboatNodeTag', FactLevel.other),
     new FactDefinition('LostRouteTags', FactLevel.other),
     new FactDefinition('NameMissing', FactLevel.error),
-    new FactDefinition('NetworkExtraMemberNode', FactLevel.error),
-    new FactDefinition('NetworkExtraMemberRelation', FactLevel.error),
-    new FactDefinition('NetworkExtraMemberWay', FactLevel.error),
-    new FactDefinition('NodeMemberMissing', FactLevel.info),
+    new FactDefinition('NetworkExtraMemberNode', FactLevel.error, FactElement.osmNode),
+    new FactDefinition('NetworkExtraMemberRelation', FactLevel.error, FactElement.relation),
+    new FactDefinition('NetworkExtraMemberWay', FactLevel.error, FactElement.way),
+    new FactDefinition('NodeMemberMissing', FactLevel.info, FactElement.node),
     new FactDefinition('OrphanNode', FactLevel.error),
     new FactDefinition('OrphanRoute', FactLevel.error),
-    new FactDefinition('RouteAnalysisFailed', FactLevel.error),
-    new FactDefinition('RouteBroken', FactLevel.other),
-    new FactDefinition('RouteFixmetodo', FactLevel.error),
-    new FactDefinition('RouteIncomplete', FactLevel.info),
-    new FactDefinition('RouteIncompleteOk', FactLevel.info),
-    new FactDefinition('RouteInvalidSortingOrder', FactLevel.info),
-    new FactDefinition('RouteNameMissing', FactLevel.error),
-    new FactDefinition('RouteNodeMissingInWays', FactLevel.error),
-    new FactDefinition('RouteNodeNameMismatch', FactLevel.info),
-    new FactDefinition('RouteNotBackward', FactLevel.error),
-    new FactDefinition('RouteNotContinious', FactLevel.error),
-    new FactDefinition('RouteNotForward', FactLevel.error),
-    new FactDefinition('RouteNotOneWay', FactLevel.info),
-    new FactDefinition('RouteOneWay', FactLevel.info),
-    new FactDefinition('RouteOverlappingWays', FactLevel.error),
-    new FactDefinition('RouteRedundantNodes', FactLevel.error),
-    new FactDefinition('RouteReversed', FactLevel.info),
-    new FactDefinition('RouteSuspiciousWays', FactLevel.error),
-    new FactDefinition('RouteTagInvalid', FactLevel.error),
-    new FactDefinition('RouteTagMissing', FactLevel.error),
-    new FactDefinition('RouteInaccessible', FactLevel.info),
-    new FactDefinition('RouteUnexpectedNode', FactLevel.error),
-    new FactDefinition('RouteUnexpectedRelation', FactLevel.error),
-    new FactDefinition('RouteUnusedSegments', FactLevel.error),
-    new FactDefinition('RouteWithoutNodes', FactLevel.error),
-    new FactDefinition('RouteWithoutWays', FactLevel.error),
-    new FactDefinition('NodeInvalidSurveyDate', FactLevel.error),
-    new FactDefinition('RouteInvalidSurveyDate', FactLevel.error),
-    new FactDefinition('RouteNameDeprecatedNoteTag', FactLevel.info),
-  ]);
+    new FactDefinition('RouteAnalysisFailed', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteBroken', FactLevel.other, FactElement.route),
+    new FactDefinition('RouteFixmetodo', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteIncomplete', FactLevel.info, FactElement.route),
+    new FactDefinition('RouteIncompleteOk', FactLevel.info, FactElement.route),
+    new FactDefinition('RouteInvalidSortingOrder', FactLevel.info, FactElement.route),
+    new FactDefinition('RouteNameMissing', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteNodeMissingInWays', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteNodeNameMismatch', FactLevel.info, FactElement.route),
+    new FactDefinition('RouteNotBackward', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteNotContinious', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteNotForward', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteNotOneWay', FactLevel.info, FactElement.route),
+    new FactDefinition('RouteOneWay', FactLevel.info, FactElement.route),
+    new FactDefinition('RouteOverlappingWays', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteRedundantNodes', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteReversed', FactLevel.info, FactElement.route),
+    new FactDefinition('RouteSuspiciousWays', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteTagInvalid', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteTagMissing', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteInaccessible', FactLevel.info, FactElement.route),
+    new FactDefinition('RouteUnexpectedNode', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteUnexpectedRelation', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteUnusedSegments', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteWithoutNodes', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteWithoutWays', FactLevel.error, FactElement.route),
+    new FactDefinition('NodeInvalidSurveyDate', FactLevel.error, FactElement.node),
+    new FactDefinition('RouteInvalidSurveyDate', FactLevel.error, FactElement.route),
+    new FactDefinition('RouteNameDeprecatedNoteTag', FactLevel.info, FactElement.route),
+  ];
 
-  static readonly factLevels: Map<string, FactLevel> = Map(Facts.keyValues());
-
-  static readonly allFactNames = Facts.facts.map((f) => f.name);
-
-  private static keyValues(): List<[string, FactLevel]> {
-    return Facts.facts.map((f) => {
-      const row: [string, FactLevel] = [f.name, f.level];
+  static readonly facts: Map<string, FactDefinition> = new Map(
+    Facts.factDefinitions.map((f) => {
+      const row: [string, FactDefinition] = [f.name, f];
       return row;
-    });
+    })
+  );
+
+  static factLevel(factName: string): FactLevel {
+    return this.facts.get(factName).level;
+  }
+
+  static readonly allFactNames = Facts.facts.keys();
+
+  static factWithName() {
+    Facts.facts.get('');
   }
 }

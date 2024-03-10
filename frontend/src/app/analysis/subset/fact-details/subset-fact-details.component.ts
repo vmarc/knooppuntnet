@@ -1,192 +1,175 @@
+import { computed } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { inject } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatDivider } from '@angular/material/divider';
+import { MatAccordion } from '@angular/material/expansion';
+import { MatExpansionPanelHeader } from '@angular/material/expansion';
+import { MatExpansionPanelContent } from '@angular/material/expansion';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { RouterLink } from '@angular/router';
 import { SubsetFactDetailsPage } from '@api/common/subset';
-import { EditLinkComponent } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
+import { Facts } from '@app/analysis/fact';
 import { EditService } from '@app/components/shared';
-import { IconHappyComponent } from '@app/components/shared/icon';
-import { ItemComponent } from '@app/components/shared/items';
-import { ItemsComponent } from '@app/components/shared/items';
+import { IconNetworkComponent } from '@app/components/shared/icon';
+import { IconNodeComponent } from '@app/components/shared/icon';
+import { IconRelationComponent } from '@app/components/shared/icon';
+import { IconRouteComponent } from '@app/components/shared/icon';
+import { IconWayComponent } from '@app/components/shared/icon';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { OsmLinkWayComponent } from '@app/components/shared/link';
+import { ActionButtonComponent } from '../../components/action/action-button.component';
 
 @Component({
   selector: 'kpn-subset-fact-details',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (page().networks.length === 0) {
-      <div class="kpn-line">
-        <span i18n="@@subset-facts.no-facts">No facts</span>
-        <kpn-icon-happy />
+    @if (page().networks.length > 0) {
+      <div class=" kpn-button-group kpn-spacer-above kpn-spacer-below">
+        <button
+          mat-stroked-button
+          class="location-button"
+          (click)="expandAll()"
+          i18n="@@location.tree.expand-all"
+        >
+          Expand all
+        </button>
+        <button
+          mat-stroked-button
+          class="location-button"
+          (click)="collapseAll()"
+          i18n="@@location.tree.collapse-all"
+        >
+          Collapse all
+        </button>
+
       </div>
-    } @else {
-      <div>
-        <div class="kpn-space-separated kpn-label">
-          <span>{{ refCount }}</span>
-          @if (hasNodeRefs()) {
-            <span i18n="@@subset-facts.node-refs">{refCount, plural, one {node} other {nodes}}</span>
-          }
-          @if (hasRouteRefs()) {
-            <span i18n="@@subset-facts.route-refs">{refCount, plural, one {route} other {routes}}</span>
-          }
-          @if (hasOsmNodeRefs()) {
-            <span i18n="@@subset-facts.osm-node-refs">{refCount, plural, one {node} other {nodes}}</span>
-          }
-          @if (hasOsmWayRefs()) {
-            <span i18n="@@subset-facts.osm-way-refs">{refCount, plural, one {way} other {ways}}</span>
-          }
-          @if (hasOsmRelationRefs()) {
-            <span i18n="@@subset-facts.osm-relation-refs">{refCount, plural, one {relation} other {relations}}</span>
-          }
-          <span
-            i18n="@@subset-facts.in-networks">{page().networks.length, plural, one {in 1 network} other {in {{ page().networks.length }} networks}}</span>
-          @if (factCount !== refCount) {
-            <span
-              i18n="@@subset-facts.fact-count">{factCount, plural, one {(1 fact)} other {({{ factCount }} facts)}}</span>
-          }
-        </div>
-        <kpn-items>
-          @for (networkFactRefs of page().networks; track networkFactRefs; let i = $index) {
-            <kpn-item [index]="i">
-              <div class="fact-detail">
-                @if (networkFactRefs.networkId === 0) {
-                  <span i18n="@@subset-facts.orphan-routes">Free routes</span>
-                }
-                @if (networkFactRefs.networkId !== 0) {
-                  <a [routerLink]="'/analysis/network/' + networkFactRefs.networkId">
-                    {{ networkFactRefs.networkName }}
-                  </a>
-                }
-              </div>
-              <div class="fact-detail">
-                @if (hasNodeRefs()) {
-                  <span i18n="@@subset-facts.nodes"
-                    class="kpn-label">{networkFactRefs.factRefs.length, plural, one {1 node} other {{{ networkFactRefs.factRefs.length }} nodes}}</span>
-                }
-                @if (hasRouteRefs()) {
-                  <span i18n="@@subset-facts.routes"
-                    class="kpn-label">{networkFactRefs.factRefs.length, plural, one {1 route} other
-                    {{{ networkFactRefs.factRefs.length }} routes}}</span>
-                }
-                <kpn-edit-link (edit)="edit()" />
-              </div>
-              <div class="kpn-comma-list fact-detail">
+
+      @if (factDefinition(); as fact) {
+        <mat-accordion class="example-headers-align" multi>
+          @for (networkFactRefs of page().networks; track networkFactRefs) {
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <div class="kpn-align-center">
+                  <kpn-icon-network />
+                  <kpn-action-button />
+                  <div class="kpn-line">
+                    @if (networkFactRefs.networkId === 0) {
+                      <span i18n="@@subset-facts.orphan-routes">Free routes</span>
+                    }
+                    @if (networkFactRefs.networkId !== 0) {
+                      <a [routerLink]="'/analysis/network/' + networkFactRefs.networkId">
+                        {{ networkFactRefs.networkName }}
+                      </a>
+                    }
+                    @if (fact.hasNodeRefs()) {
+                      <span i18n="@@subset-facts.nodes">
+                        {networkFactRefs.factRefs.length, plural, one {1 node} other {{{ networkFactRefs.factRefs.length }} nodes}}
+                      </span>
+                    }
+                    @if (fact.hasRouteRefs()) {
+                      <span i18n="@@subset-facts.routes">
+                        {networkFactRefs.factRefs.length, plural, one {1 route} other
+                          {{{ networkFactRefs.factRefs.length }} routes}}
+                      </span>
+                    }
+                  </div>
+                </div>
+              </mat-expansion-panel-header>
+
+              <ng-template matExpansionPanelContent>
+                <mat-divider />
                 @for (ref of networkFactRefs.factRefs; track ref) {
-                  <span>
-                    @if (hasNodeRefs()) {
+                  <div class="kpn-align-center element-indent">
+                    @if (fact.hasNodeRefs()) {
+                      <kpn-icon-node />
+                      <kpn-action-button />
                       <kpn-link-node
                         [nodeId]="ref.id"
                         [nodeName]="ref.name"
                       />
                     }
-                    @if (hasRouteRefs()) {
+                    @if (fact.hasRouteRefs()) {
+                      <kpn-action-button />
                       <kpn-link-route
                         [routeId]="ref.id"
                         [routeName]="ref.name"
                         [networkType]="page().subsetInfo.networkType"
                       />
                     }
-                    @if (hasOsmNodeRefs()) {
+                    @if (fact.hasOsmNodeRefs()) {
+                      <kpn-icon-node />
+                      <kpn-action-button />
                       <kpn-osm-link-node
                         [nodeId]="ref.id"
                         [title]="ref.name"
                       />
                     }
-                    @if (hasOsmWayRefs()) {
+                    @if (fact.hasOsmWayRefs()) {
+                      <kpn-icon-way />
+                      <kpn-action-button />
                       <kpn-osm-link-way
                         [wayId]="ref.id"
                         [title]="ref.name"
                       />
                     }
-                    @if (hasOsmRelationRefs()) {
+                    @if (fact.hasOsmRelationRefs()) {
+                      <kpn-icon-relation />
+                      <kpn-action-button />
                       <kpn-osm-link-relation
                         [relationId]="ref.id"
                         [title]="ref.name"
                       />
                     }
-                  </span>
+                  </div>
                 }
-              </div>
-            </kpn-item>
+              </ng-template>
+            </mat-expansion-panel>
           }
-        </kpn-items>
-      </div>
+        </mat-accordion>
+      }
     }
   `,
   styleUrl: './_subset-fact-details-page.component.scss',
   standalone: true,
   imports: [
-    IconHappyComponent,
-    ItemComponent,
-    ItemsComponent,
+    ActionButtonComponent,
+    IconNetworkComponent,
+    IconNodeComponent,
+    IconRelationComponent,
+    IconRouteComponent,
+    IconWayComponent,
     LinkNodeComponent,
     LinkRouteComponent,
+    MatAccordion,
+    MatButton,
+    MatDivider,
+    MatExpansionPanel,
+    MatExpansionPanelContent,
+    MatExpansionPanelHeader,
     OsmLinkNodeComponent,
     OsmLinkRelationComponent,
     OsmLinkWayComponent,
     RouterLink,
-    EditLinkComponent,
   ],
 })
-export class SubsetFactDetailsComponent implements OnInit {
-  page = input.required<SubsetFactDetailsPage>();
-
+export class SubsetFactDetailsComponent {
   private readonly editService = inject(EditService);
 
-  protected refCount = 0;
-  protected factCount = 0;
+  page = input.required<SubsetFactDetailsPage>();
+  protected readonly factDefinition = computed(() => Facts.facts.get(this.page().fact));
 
-  ngOnInit(): void {
-    this.refCount = this.calculateRefCount();
-    this.factCount = this.calculateFactCount();
-  }
+  @ViewChild(MatAccordion) private accordion: MatAccordion;
 
   factName(): string {
     return this.page().fact;
-  }
-
-  private calculateRefCount(): number {
-    return new Set(this.page().networks.flatMap((n) => n.factRefs.map((r) => r.id))).size;
-  }
-
-  private calculateFactCount(): number {
-    return this.page().networks.flatMap((n) => n.factRefs).length;
-  }
-
-  hasNodeRefs(): boolean {
-    return (
-      'NodeMemberMissing' === this.factName() ||
-      'NodeInvalidSurveyDate' === this.factName() ||
-      'IntegrityCheckFailed' === this.factName()
-    );
-  }
-
-  hasOsmNodeRefs(): boolean {
-    return 'NetworkExtraMemberNode' === this.factName();
-  }
-
-  hasOsmWayRefs(): boolean {
-    return 'NetworkExtraMemberWay' === this.factName();
-  }
-
-  hasOsmRelationRefs(): boolean {
-    return 'NetworkExtraMemberRelation' === this.factName();
-  }
-
-  hasRouteRefs(): boolean {
-    return !(
-      this.hasNodeRefs() ||
-      this.hasOsmNodeRefs() ||
-      this.hasOsmWayRefs() ||
-      this.hasOsmRelationRefs()
-    );
   }
 
   edit() {
@@ -196,20 +179,28 @@ export class SubsetFactDetailsComponent implements OnInit {
 
     let editParameters: EditParameters = null;
 
-    if (this.hasNodeRefs() || this.hasOsmNodeRefs()) {
+    if (this.factDefinition().hasNodeRefs() || this.factDefinition().hasOsmNodeRefs()) {
       editParameters = {
         nodeIds: elementIds,
       };
-    } else if (this.hasOsmWayRefs()) {
+    } else if (this.factDefinition().hasOsmWayRefs()) {
       editParameters = {
         wayIds: elementIds,
       };
-    } else if (this.hasOsmRelationRefs() || this.hasRouteRefs()) {
+    } else if (this.factDefinition().hasOsmRelationRefs() || this.factDefinition().hasRouteRefs()) {
       editParameters = {
         relationIds: elementIds,
         fullRelation: true,
       };
     }
     this.editService.edit(editParameters);
+  }
+
+  expandAll() {
+    this.accordion.openAll();
+  }
+
+  collapseAll() {
+    this.accordion.closeAll();
   }
 }
