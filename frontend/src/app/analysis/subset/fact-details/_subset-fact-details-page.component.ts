@@ -7,12 +7,13 @@ import { MatCardTitle } from '@angular/material/card';
 import { MatCardHeader } from '@angular/material/card';
 import { MatCardContent } from '@angular/material/card';
 import { MatCard } from '@angular/material/card';
+import { FactLevelComponent } from '@app/analysis/fact';
+import { Facts } from '@app/analysis/fact';
 import { FactInfo } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
-import { SubsetFact } from '@app/kpn/common';
 import { Store } from '@ngrx/store';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetFactDetailsPageInit } from '../store/subset.actions';
@@ -27,35 +28,36 @@ import { SubsetFactDetailsComponent } from './subset-fact-details.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      @if (subsetFact(); as fact) {
-        <kpn-subset-page-header-block
-          pageName="facts"
-          pageTitle="Facts"
-          i18n-pageTitle="@@subset-facts.title"
-        />
-        <mat-card class="kpn-spacer-above">
-          <mat-card-header>
-            <mat-card-title>
-              <kpn-fact-name [fact]="fact.factName" />
-            </mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <kpn-fact-description [factInfo]="factInfo(fact)" />
-            @if (page()) {
-              <kpn-subset-fact-details-summary [page]="page()" />
-            }
-          </mat-card-content>
-        </mat-card>
-        <kpn-error />
-        @if (apiResponse(); as response) {
-          <div>
-            @if (response.result) {
-              <div>
-                <kpn-subset-fact-details [page]="response.result" />
-              </div>
-            }
-          </div>
-        }
+      <kpn-subset-page-header-block
+        pageName="facts"
+        pageTitle="Facts"
+        i18n-pageTitle="@@subset-facts.title"
+      />
+      <mat-card class="kpn-spacer-above">
+        <mat-card-header>
+          <mat-card-title>
+            <div class="kpn-line">
+              <kpn-fact-name [fact]="factDefinition().name" />
+              <kpn-fact-level [factLevel]="factDefinition().level"></kpn-fact-level>
+            </div>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <kpn-fact-description [factInfo]="factInfo()" />
+          @if (page()) {
+            <kpn-subset-fact-details-summary [page]="page()" />
+          }
+        </mat-card-content>
+      </mat-card>
+      <kpn-error />
+      @if (apiResponse(); as response) {
+        <div>
+          @if (response.result) {
+            <div>
+              <kpn-subset-fact-details [page]="response.result" />
+            </div>
+          }
+        </div>
       }
       <kpn-subset-sidebar sidebar />
     </kpn-page>
@@ -75,6 +77,7 @@ import { SubsetFactDetailsComponent } from './subset-fact-details.component';
     SubsetFactDetailsSummaryComponent,
     SubsetPageHeaderBlockComponent,
     SubsetSidebarComponent,
+    FactLevelComponent,
   ],
 })
 export class SubsetFactDetailsPageComponent implements OnInit {
@@ -82,12 +85,13 @@ export class SubsetFactDetailsPageComponent implements OnInit {
   protected readonly subsetFact = this.store.selectSignal(selectSubsetFact);
   protected readonly apiResponse = this.store.selectSignal(selectSubsetFactDetailsPage);
   protected readonly page = computed(() => this.apiResponse()?.result);
+  protected readonly factDefinition = computed(() => Facts.facts.get(this.subsetFact().factName));
 
   ngOnInit(): void {
     this.store.dispatch(actionSubsetFactDetailsPageInit());
   }
 
-  factInfo(subsetFact: SubsetFact): FactInfo {
-    return new FactInfo(subsetFact.factName);
+  factInfo(): FactInfo {
+    return new FactInfo(this.subsetFact().factName);
   }
 }

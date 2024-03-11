@@ -691,4 +691,7 @@ input[type=number] {
   content: '\00a0';
 }
 
+.menu-fit-width {
+  max-width: fit-content !important;
+}
 

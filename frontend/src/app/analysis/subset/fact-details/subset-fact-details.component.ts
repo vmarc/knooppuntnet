@@ -1,5 +1,5 @@
+import { viewChild } from '@angular/core';
 import { computed } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -25,7 +25,11 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { OsmLinkWayComponent } from '@app/components/shared/link';
-import { ActionButtonComponent } from '../../components/action/action-button.component';
+import { ActionButtonNetworkComponent } from '../../components/action/action-button-network.component';
+import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
+import { ActionButtonRelationComponent } from '../../components/action/action-button-relation.component';
+import { ActionButtonRouteComponent } from '../../components/action/action-button-route.component';
+import { ActionButtonWayComponent } from '../../components/action/action-button-way.component';
 
 @Component({
   selector: 'kpn-subset-fact-details',
@@ -52,18 +56,20 @@ import { ActionButtonComponent } from '../../components/action/action-button.com
 
       </div>
 
-      @if (factDefinition(); as fact) {
+      @if (fact(); as fact) {
         <mat-accordion class="example-headers-align" multi>
           @for (networkFactRefs of page().networks; track networkFactRefs) {
-            <mat-expansion-panel>
+            <mat-expansion-panel togglePosition="before">
               <mat-expansion-panel-header>
                 <div class="kpn-align-center">
                   <kpn-icon-network />
-                  <kpn-action-button />
+                  @if (networkFactRefs.networkId === 0) {
+                    <!-- TODO add button to load all routes -->
+                    <span i18n="@@subset-facts.orphan-routes" class="free-route-indent">Free routes</span>
+                  } @else {
+                    <kpn-action-button-network [relationId]="networkFactRefs.networkId" />
+                  }
                   <div class="kpn-line">
-                    @if (networkFactRefs.networkId === 0) {
-                      <span i18n="@@subset-facts.orphan-routes">Free routes</span>
-                    }
                     @if (networkFactRefs.networkId !== 0) {
                       <a [routerLink]="'/analysis/network/' + networkFactRefs.networkId">
                         {{ networkFactRefs.networkName }}
@@ -86,50 +92,53 @@ import { ActionButtonComponent } from '../../components/action/action-button.com
 
               <ng-template matExpansionPanelContent>
                 <mat-divider />
-                @for (ref of networkFactRefs.factRefs; track ref) {
-                  <div class="kpn-align-center element-indent">
-                    @if (fact.hasNodeRefs()) {
-                      <kpn-icon-node />
-                      <kpn-action-button />
-                      <kpn-link-node
-                        [nodeId]="ref.id"
-                        [nodeName]="ref.name"
-                      />
-                    }
-                    @if (fact.hasRouteRefs()) {
-                      <kpn-action-button />
-                      <kpn-link-route
-                        [routeId]="ref.id"
-                        [routeName]="ref.name"
-                        [networkType]="page().subsetInfo.networkType"
-                      />
-                    }
-                    @if (fact.hasOsmNodeRefs()) {
-                      <kpn-icon-node />
-                      <kpn-action-button />
-                      <kpn-osm-link-node
-                        [nodeId]="ref.id"
-                        [title]="ref.name"
-                      />
-                    }
-                    @if (fact.hasOsmWayRefs()) {
-                      <kpn-icon-way />
-                      <kpn-action-button />
-                      <kpn-osm-link-way
-                        [wayId]="ref.id"
-                        [title]="ref.name"
-                      />
-                    }
-                    @if (fact.hasOsmRelationRefs()) {
-                      <kpn-icon-relation />
-                      <kpn-action-button />
-                      <kpn-osm-link-relation
-                        [relationId]="ref.id"
-                        [title]="ref.name"
-                      />
-                    }
-                  </div>
-                }
+                <div class="sideline">
+                  @for (ref of networkFactRefs.factRefs; track ref) {
+                    <div class="kpn-align-center">
+                      @if (fact.hasNodeRefs()) {
+                        <kpn-icon-node />
+                        <kpn-action-button-node [nodeId]="ref.id" />
+                        <kpn-link-node
+                          [nodeId]="ref.id"
+                          [nodeName]="ref.name"
+                        />
+                      }
+                      @if (fact.hasRouteRefs()) {
+                        <kpn-icon-route />
+                        <kpn-action-button-route [relationId]="ref.id" />
+                        <kpn-link-route
+                          [routeId]="ref.id"
+                          [routeName]="ref.name"
+                          [networkType]="page().subsetInfo.networkType"
+                        />
+                      }
+                      @if (fact.hasOsmNodeRefs()) {
+                        <kpn-icon-node />
+                        <kpn-action-button-node [nodeId]="ref.id" />
+                        <kpn-osm-link-node
+                          [nodeId]="ref.id"
+                          [title]="ref.name"
+                        />
+                      }
+                      @if (fact.hasOsmWayRefs()) {
+                        <kpn-icon-way />
+                        <kpn-action-button-way [wayId]="ref.id" />
+                        <kpn-osm-link-way
+                          [wayId]="ref.id"
+                          [title]="ref.name"
+                        />
+                      }
+                      @if (fact.hasOsmRelationRefs()) {
+                        <kpn-icon-relation />
+                        <kpn-action-button-relation [relationId]="ref.id" />
+                        <kpn-osm-link-relation
+                          [relationId]="ref.id"
+                          [title]="ref.name"
+                        />
+                      }
+                    </div>
+                  }
+                </div>
               </ng-template>
             </mat-expansion-panel>
           }
@@ -140,7 +149,6 @@ import { ActionButtonComponent } from '../../components/action/action-button.com
   styleUrl: './_subset-fact-details-page.component.scss',
   standalone: true,
   imports: [
-    ActionButtonComponent,
     IconNetworkComponent,
     IconNodeComponent,
     IconRelationComponent,
@@ -158,36 +166,38 @@ import { ActionButtonComponent } from '../../components/action/action-button.com
     OsmLinkRelationComponent,
     OsmLinkWayComponent,
     RouterLink,
+    ActionButtonNodeComponent,
+    ActionButtonNetworkComponent,
+    ActionButtonRouteComponent,
+    ActionButtonNodeComponent,
+    ActionButtonWayComponent,
+    ActionButtonRelationComponent,
   ],
 })
 export class SubsetFactDetailsComponent {
   private readonly editService = inject(EditService);
 
   page = input.required<SubsetFactDetailsPage>();
-  protected readonly factDefinition = computed(() => Facts.facts.get(this.page().fact));
+  protected readonly fact = computed(() => Facts.facts.get(this.page().fact));
 
-  @ViewChild(MatAccordion) private accordion: MatAccordion;
+  private readonly accordion = viewChild(MatAccordion);
 
-  factName(): string {
-    return this.page().fact;
-  }
-
-  edit() {
+  edit(): void {
     const elementIds = this.page()
       .networks.flatMap((n) => n.factRefs)
       .map((ref) => ref.id);
 
     let editParameters: EditParameters = null;
 
-    if (this.factDefinition().hasNodeRefs() || this.factDefinition().hasOsmNodeRefs()) {
+    if (this.fact().hasNodeRefs() || this.fact().hasOsmNodeRefs()) {
       editParameters = {
         nodeIds: elementIds,
       };
-    } else if (this.factDefinition().hasOsmWayRefs()) {
+    } else if (this.fact().hasOsmWayRefs()) {
       editParameters = {
         wayIds: elementIds,
       };
-    } else if (this.factDefinition().hasOsmRelationRefs() || this.factDefinition().hasRouteRefs()) {
+    } else if (this.fact().hasOsmRelationRefs() || this.fact().hasRouteRefs()) {
       editParameters = {
         relationIds: elementIds,
         fullRelation: true,
@@ -196,11 +206,11 @@ export class SubsetFactDetailsComponent {
     this.editService.edit(editParameters);
   }
 
-  expandAll() {
-    this.accordion.openAll();
+  expandAll(): void {
+    this.accordion().openAll();
   }
 
-  collapseAll() {
-    this.accordion.closeAll();
+  collapseAll(): void {
+    this.accordion().closeAll();
   }
 }

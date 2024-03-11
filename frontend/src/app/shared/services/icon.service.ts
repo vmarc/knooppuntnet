@@ -168,6 +168,20 @@ export class IconService {
     );
 
     this.iconRegistry.addSvgIconLiteral(
+      'way',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/way.svg')
+      )
+    );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'relation',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/relation.svg')
+      )
+    );
+
+    this.iconRegistry.addSvgIconLiteral(
       'route',
       this.domSanitizer.bypassSecurityTrustHtml(
         require('!svg-inline-loader!src/assets/images/icons/route.svg')
