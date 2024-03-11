@@ -180,6 +180,13 @@ export class IconService {
         require('!svg-inline-loader!src/assets/images/icons/network.svg')
       )
     );
+
+    this.iconRegistry.addSvgIconLiteral(
+      'menu-down-arrow',
+      this.domSanitizer.bypassSecurityTrustHtml(
+        require('!svg-inline-loader!src/assets/images/icons/menu-down-arrow.svg')
+      )
+    );
   }
 
   private registerNetworkTypeIcons() {
