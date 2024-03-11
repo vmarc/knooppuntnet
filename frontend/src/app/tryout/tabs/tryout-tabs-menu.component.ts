@@ -22,14 +22,36 @@ import { TryoutTabsDropDownComponent } from './tryout-tabs-drop-down.component';
         <mat-tab>
           <ng-template mat-tab-label>
             <span class="tryout-tabs-main-menu-option">Nodes</span>
-            <span>(123)</span>
+            <span class="kpn-brackets">123</span>
           </ng-template>
-          Content 1
+          <div class="kpn-small-spacer-above kpn-small-spacer-below">Node page content</div>
         </mat-tab>
-        <mat-tab label="Routes (45)"> Content 2</mat-tab>
-        <mat-tab label="Facts (222)"> Content 3</mat-tab>
-        <mat-tab label="Map"> Content 3</mat-tab>
-        <mat-tab label="Changes"> Content 3</mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span class="tryout-tabs-main-menu-option">Routes</span>
+            <span class="kpn-brackets">77</span>
+          </ng-template>
+          <div class="kpn-small-spacer-above kpn-small-spacer-below">Route page content</div>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span class="tryout-tabs-main-menu-option">Facts</span>
+            <span class="kpn-brackets">222</span>
+          </ng-template>
+          <div class="kpn-small-spacer-above kpn-small-spacer-below">Fact page content</div>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span>Map</span>
+          </ng-template>
+          <div class="kpn-small-spacer-above kpn-small-spacer-below">Map page content</div>
+        </mat-tab>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span>Changes</span>
+          </ng-template>
+          <div class="kpn-small-spacer-above kpn-small-spacer-below">Changes page content</div>
+        </mat-tab>
       </mat-tab-group>
     </div>
   `,
