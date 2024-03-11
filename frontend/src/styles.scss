@@ -653,3 +653,42 @@ input[type=number] {
   padding-top: 5px !important;
   color: blue;
 }
+
+.tryout-tabs .mat-mdc-tab-labels {
+   flex-wrap: wrap;
+  border-bottom: 1px solid lightgray;
+}
+
+.tryout-tabs .mat-mdc-tab-labels .mdc-tab:not(:last-child):after {
+  content: '\00a0\00a0|\00a0\00a0';
+}
+
+.tryout-tabs .mat-mdc-tab.mdc-tab {
+  height: 36px;
+  padding-left: 0;
+  padding-right: 0;
+  min-width: 10px;
+  letter-spacing: normal;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+.tryout-tabs .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  font-weight: bold;
+  color: black;
+}
+
+.tryout-tabs .mat-mdc-tab.mdc-tab--active:focus .mdc-tab__text-label {
+  font-weight: bold;
+  color: black;
+}
+
+.tryout-tabs .mat-mdc-tab .mdc-tab__text-label {
+  color: blue;
+}
+
+.tryout-tabs-main-menu-option:after {
+  content: '\00a0';
+}
+
+

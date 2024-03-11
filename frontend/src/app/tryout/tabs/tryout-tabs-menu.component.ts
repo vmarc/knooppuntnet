@@ -11,30 +11,27 @@ import { TryoutTabsDropDownComponent } from './tryout-tabs-drop-down.component';
   selector: 'kpn-tryout-tabs-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-      <mat-tab>
-        <ng-template mat-tab-label>
-          <span class="menu-link">Nodes</span>&nbsp;<span class="menu-count">(123)</span>
-        </ng-template>
-
-        Content 1
-      </mat-tab>
-      <mat-tab label="Routes (45)"> Content 2</mat-tab>
-      <mat-tab label="Facts (222)"> Content 3</mat-tab>
-      <mat-tab label="Map"> Content 3</mat-tab>
-      <mat-tab label="Changes"> Content 3</mat-tab>
-    </mat-tab-group>
-  `,
-  styles: `
-    .menu-link {
-      color: blue;
-      font-size: 16px;
-      font-family: Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    .menu-count {
-      color: rgb(128, 128, 128);
-    }
+    <div class="tryout-tabs">
+      <mat-tab-group
+        mat-stretch-tabs="false"
+        mat-align-tabs="start"
+        fitInkBarToContent="true"
+        disablePagination="true"
+        class="tryout-tabs"
+      >
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <span class="tryout-tabs-main-menu-option">Nodes</span>
+            <span>(123)</span>
+          </ng-template>
+          Content 1
+        </mat-tab>
+        <mat-tab label="Routes (45)"> Content 2</mat-tab>
+        <mat-tab label="Facts (222)"> Content 3</mat-tab>
+        <mat-tab label="Map"> Content 3</mat-tab>
+        <mat-tab label="Changes"> Content 3</mat-tab>
+      </mat-tab-group>
+    </div>
   `,
   standalone: true,
   imports: [
