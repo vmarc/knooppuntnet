@@ -51,6 +51,11 @@ export class ActionService {
     this.josmLoad(`node${nodeId}`);
   }
 
+  josmLoadNodes(nodeIds: Array<number>): void {
+    const objectString = nodeIds.map((nodeId) => `node${nodeId}`).join(',');
+    this.josmLoad(objectString);
+  }
+
   josmLoadWay(wayId: number): void {
     this.josmLoad(`way${wayId}`);
   }
@@ -59,8 +64,18 @@ export class ActionService {
     this.josmLoad(`relation${relationId}`);
   }
 
+  josmLoadRelations(relationIds: Array<number>): void {
+    const objectString = relationIds.map((relationId) => `relation${relationId}`).join(',');
+    this.josmLoad(objectString);
+  }
+
   josmLoadRelationAndMembers(relationId: number): void {
     this.josmLoad(`relation${relationId}&relation_members=true`);
+  }
+
+  josmLoadRelationsAndMembers(relationIds: Array<number>): void {
+    const relationIdsString = relationIds.map((relationId) => `relation${relationId}`).join(',');
+    this.josmLoad(`${relationIdsString}&relation_members=true`);
   }
 
   josmZoomNode(nodeId: number): void {

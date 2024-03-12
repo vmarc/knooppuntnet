@@ -1,6 +1,5 @@
 import { viewChild } from '@angular/core';
 import { computed } from '@angular/core';
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -12,9 +11,7 @@ import { MatExpansionPanelContent } from '@angular/material/expansion';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { RouterLink } from '@angular/router';
 import { SubsetFactDetailsPage } from '@api/common/subset';
-import { EditParameters } from '@app/analysis/components/edit';
 import { Facts } from '@app/analysis/fact';
-import { EditService } from '@app/components/shared';
 import { IconNetworkComponent } from '@app/components/shared/icon';
 import { IconNodeComponent } from '@app/components/shared/icon';
 import { IconRelationComponent } from '@app/components/shared/icon';
@@ -25,6 +22,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { OsmLinkWayComponent } from '@app/components/shared/link';
+import { SubsetExpandCollapseComponent } from '../../../shared/components/shared/button/expand-collapse.component';
 import { ActionButtonNetworkComponent } from '../../components/action/action-button-network.component';
 import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
 import { ActionButtonRelationComponent } from '../../components/action/action-button-relation.component';
@@ -36,26 +34,7 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (page().networks.length > 0) {
-      <div class=" kpn-button-group kpn-spacer-above kpn-spacer-below">
-        <button
-          mat-stroked-button
-          class="location-button"
-          (click)="expandAll()"
-          i18n="@@location.tree.expand-all"
-        >
-          Expand all
-        </button>
-        <button
-          mat-stroked-button
-          class="location-button"
-          (click)="collapseAll()"
-          i18n="@@location.tree.collapse-all"
-        >
-          Collapse all
-        </button>
-
-      </div>
-
+      <kpn-expand-collapse [accordion]="accordion()"/>
       @if (fact(); as fact) {
         <mat-accordion class="example-headers-align" multi>
           @for (networkFactRefs of page().networks; track networkFactRefs) {
@@ -149,6 +128,12 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
   styleUrl: './_subset-fact-details-page.component.scss',
   standalone: true,
   imports: [
+    ActionButtonNetworkComponent,
+    ActionButtonNodeComponent,
+    ActionButtonNodeComponent,
+    ActionButtonRelationComponent,
+    ActionButtonRouteComponent,
+    ActionButtonWayComponent,
     IconNetworkComponent,
     IconNodeComponent,
     IconRelationComponent,
@@ -166,51 +151,11 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
     OsmLinkRelationComponent,
     OsmLinkWayComponent,
     RouterLink,
-    ActionButtonNodeComponent,
-    ActionButtonNetworkComponent,
-    ActionButtonRouteComponent,
-    ActionButtonNodeComponent,
-    ActionButtonWayComponent,
-    ActionButtonRelationComponent,
+    SubsetExpandCollapseComponent,
   ],
 })
 export class SubsetFactDetailsComponent {
-  private readonly editService = inject(EditService);
-
   page = input.required<SubsetFactDetailsPage>();
   protected readonly fact = computed(() => Facts.facts.get(this.page().fact));
-
-  private readonly accordion = viewChild(MatAccordion);
-
-  edit(): void {
-    const elementIds = this.page()
-      .networks.flatMap((n) => n.factRefs)
-      .map((ref) => ref.id);
-
-    let editParameters: EditParameters = null;
-
-    if (this.fact().hasNodeRefs() || this.fact().hasOsmNodeRefs()) {
-      editParameters = {
-        nodeIds: elementIds,
-      };
-    } else if (this.fact().hasOsmWayRefs()) {
-      editParameters = {
-        wayIds: elementIds,
-      };
-    } else if (this.fact().hasOsmRelationRefs() || this.fact().hasRouteRefs()) {
-      editParameters = {
-        relationIds: elementIds,
-        fullRelation: true,
-      };
-    }
-    this.editService.edit(editParameters);
-  }
-
-  expandAll(): void {
-    this.accordion().openAll();
-  }
-
-  collapseAll(): void {
-    this.accordion().closeAll();
-  }
+  protected readonly accordion = viewChild(MatAccordion);
 }
