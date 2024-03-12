@@ -29,7 +29,7 @@ import { LinkNodeComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { selectFragment } from '@app/core';
 import { Store } from '@ngrx/store';
-import { SubsetExpandCollapseComponent } from '../../../shared/components/shared/button/expand-collapse.component';
+import { ExpandCollapseComponent } from '../../../shared/components/shared/button/expand-collapse.component';
 import { ActionButtonLocationFactNodesComponent } from '../../components/action/action-button-location-fact-nodes.component';
 import { ActionButtonLocationFactRoutesComponent } from '../../components/action/action-button-location-fact-routes.component';
 import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
@@ -49,7 +49,7 @@ import { ActionButtonRouteComponent } from '../../components/action/action-butto
         [accordion]="accordion()"
         (active)="expandCollapseActiveChanged($event)"
       />
-      <mat-accordion class="example-headers-align" multi>
+      <mat-accordion multi>
         @for (locationFact of locationFacts(); track locationFact.fact) {
           <mat-expansion-panel
             togglePosition="before"
@@ -134,7 +134,7 @@ import { ActionButtonRouteComponent } from '../../components/action/action-butto
     MatExpansionPanel,
     MatExpansionPanelContent,
     MatExpansionPanelHeader,
-    SubsetExpandCollapseComponent,
+    ExpandCollapseComponent,
   ],
 })
 export class LocationFactsComponent implements AfterViewInit {

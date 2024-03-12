@@ -32,7 +32,7 @@ import { MatAccordion } from '@angular/material/expansion';
   standalone: true,
   imports: [MatButton],
 })
-export class SubsetExpandCollapseComponent {
+export class ExpandCollapseComponent {
   accordion = input.required<MatAccordion>();
   @Output() active = new EventEmitter<boolean>();
 

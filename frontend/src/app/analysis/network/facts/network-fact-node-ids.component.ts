@@ -1,25 +1,37 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { IconNodeComponent } from '@app/components/shared/icon';
+import { IconRouteComponent } from '@app/components/shared/icon';
+import { LinkRouteComponent } from '@app/components/shared/link';
 import { JosmNodeComponent } from '@app/components/shared/link';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
+import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
+import { ActionButtonRouteComponent } from '../../components/action/action-button-route.component';
 
 @Component({
   selector: 'kpn-network-fact-node-ids',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @for (elementId of elementIds(); track elementId) {
-      <div>
-        <kpn-osm-link-node [nodeId]="elementId" [title]="elementId.toString()" />
-        <span class="kpn-brackets-link">
-          <kpn-josm-node [nodeId]="elementId" />
-        </span>
+    @for (nodeId of nodeIds(); track nodeId) {
+      <div class="kpn-align-center">
+        <kpn-icon-node />
+        <kpn-action-button-node [nodeId]="nodeId" />
+        {{ nodeId }}
       </div>
     }
   `,
   standalone: true,
-  imports: [OsmLinkNodeComponent, JosmNodeComponent],
+  imports: [
+    OsmLinkNodeComponent,
+    JosmNodeComponent,
+    IconRouteComponent,
+    ActionButtonRouteComponent,
+    LinkRouteComponent,
+    ActionButtonNodeComponent,
+    IconNodeComponent,
+  ],
 })
 export class NetworkFactNodeIdsComponent {
-  elementIds = input.required<number[]>();
+  nodeIds = input.required<number[]>();
 }

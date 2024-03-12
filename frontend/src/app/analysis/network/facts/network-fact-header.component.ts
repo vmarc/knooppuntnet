@@ -21,19 +21,10 @@ import { EditService } from '@app/components/shared';
       <span class="kpn-thick"><kpn-fact-name [fact]="fact().name" /></span>
       <span class="kpn-brackets">{{ factCount() }}</span>
       <kpn-fact-level [factLevel]="factLevel()" class="level" />
-      <kpn-edit-link (edit)="edit(fact())" />
     </div>
-    <div class="description">
-      <kpn-fact-description [factInfo]="factInfo(fact())" />
-    </div>
-  `,
-  styles: `
-    .description {
-      max-width: 60em;
-    }
   `,
   standalone: true,
-  imports: [FactNameComponent, FactLevelComponent, FactDescriptionComponent, EditLinkComponent],
+  imports: [FactNameComponent, FactLevelComponent],
 })
 export class NetworkFactHeaderComponent {
   fact = input.required<NetworkFact>();

@@ -22,7 +22,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { OsmLinkWayComponent } from '@app/components/shared/link';
-import { SubsetExpandCollapseComponent } from '../../../shared/components/shared/button/expand-collapse.component';
+import { ExpandCollapseComponent } from '../../../shared/components/shared/button/expand-collapse.component';
 import { ActionButtonNetworkComponent } from '../../components/action/action-button-network.component';
 import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
 import { ActionButtonRelationComponent } from '../../components/action/action-button-relation.component';
@@ -36,7 +36,7 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
     @if (page().networks.length > 0) {
       <kpn-expand-collapse [accordion]="accordion()"/>
       @if (fact(); as fact) {
-        <mat-accordion class="example-headers-align" multi>
+        <mat-accordion multi>
           @for (networkFactRefs of page().networks; track networkFactRefs) {
             <mat-expansion-panel togglePosition="before">
               <mat-expansion-panel-header>
@@ -151,7 +151,7 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
     OsmLinkRelationComponent,
     OsmLinkWayComponent,
     RouterLink,
-    SubsetExpandCollapseComponent,
+    ExpandCollapseComponent,
   ],
 })
 export class SubsetFactDetailsComponent {

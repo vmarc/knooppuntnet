@@ -60,6 +60,11 @@ export class ActionService {
     this.josmLoad(`way${wayId}`);
   }
 
+  josmLoadWays(wayIds: Array<number>): void {
+    const objectString = wayIds.map((wayId) => `way${wayId}`).join(',');
+    this.josmLoad(objectString);
+  }
+
   josmLoadRelation(relationId: number): void {
     this.josmLoad(`relation${relationId}`);
   }
@@ -114,8 +119,8 @@ export class ActionService {
 
   private josmCommand(url: string): void {
     this.apiService.edit(url).subscribe({
-      next: (result) => {},
-      error: (err) => {
+      next: () => {},
+      error: () => {
         this.dialog.open(TimeoutComponent, { autoFocus: false, maxWidth: 500 });
       },
     });
