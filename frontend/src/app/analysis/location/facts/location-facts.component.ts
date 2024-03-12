@@ -155,7 +155,7 @@ export class LocationFactsComponent implements AfterViewInit {
       const fact = this.fragment();
       const facts: LocationFact[] = this.locationFacts();
       const panelIndex = facts.findIndex((locationFact) => locationFact.fact === fact);
-      if (panelIndex > 0 && panelIndex < this.panels().length) {
+      if (panelIndex >= 0 && panelIndex < this.panels().length) {
         const panel = this.panels().at(panelIndex);
         panel.open();
         this.panelElementRefs().at(panelIndex).nativeElement.scrollIntoView({

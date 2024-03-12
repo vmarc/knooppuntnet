@@ -186,7 +186,7 @@ export class NetworkFactsComponent implements AfterViewInit {
       console.log('fact=' + fact);
       console.log('panelIndex=' + panelIndex);
 
-      if (panelIndex > 0 && panelIndex < this.panels().length) {
+      if (panelIndex >= 0 && panelIndex < this.panels().length) {
         const panel = this.panels().at(panelIndex);
         panel.open();
         this.panelElementRefs().at(panelIndex).nativeElement.scrollIntoView({
