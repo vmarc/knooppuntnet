@@ -8,7 +8,6 @@ import { FactCount } from '@api/common';
 import { SubsetFactsPage } from '@api/common/subset';
 import { ApiResponse } from '@api/custom';
 import { Fact } from '@api/custom';
-import { EditLinkComponent } from '@app/analysis/components/edit';
 import { FactInfo } from '@app/analysis/fact';
 import { FactLevel } from '@app/analysis/fact';
 import { Facts } from '@app/analysis/fact';
@@ -23,7 +22,6 @@ import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { Store } from '@ngrx/store';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { actionSubsetFactRefsLoad } from '../store/subset.actions';
 import { actionSubsetFactsPageInit } from '../store/subset.actions';
 import { selectSubsetFactsPage } from '../store/subset.selectors';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
@@ -62,7 +60,6 @@ import { SubsetSidebarComponent } from '../subset-sidebar.component';
                       </a>
                       <span>({{ factCount.count }})</span>
                       <kpn-fact-level [factLevel]="factLevel(factCount.fact)" />
-                      <kpn-edit-link (edit)="edit(factCount.fact)" />
                     </div>
                     <kpn-fact-description [factInfo]="factInfo(factCount)" />
                   </kpn-item>
@@ -90,7 +87,6 @@ import { SubsetSidebarComponent } from '../subset-sidebar.component';
     SituationOnComponent,
     SubsetPageHeaderBlockComponent,
     SubsetSidebarComponent,
-    EditLinkComponent,
   ],
 })
 export class SubsetFactsPageComponent implements OnInit {
@@ -107,10 +103,6 @@ export class SubsetFactsPageComponent implements OnInit {
 
   factLevel(fact: Fact): FactLevel {
     return Facts.factLevel(fact);
-  }
-
-  edit(fact: Fact): void {
-    this.store.dispatch(actionSubsetFactRefsLoad({ fact }));
   }
 
   factInfo(factCount: FactCount): FactInfo {

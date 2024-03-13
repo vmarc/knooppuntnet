@@ -98,11 +98,6 @@ export class ApiService {
     return this.http.get(url);
   }
 
-  subsetFactRefs(subset: Subset, factName: string): Observable<ApiResponse<SubsetFactRefs>> {
-    const url = this.subsetUrl(subset, factName) + '/refs';
-    return this.http.get(url);
-  }
-
   subsetFactDetails(
     subset: Subset,
     factName: string

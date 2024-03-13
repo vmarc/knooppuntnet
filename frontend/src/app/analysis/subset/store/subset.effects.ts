@@ -5,10 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
-import { EditParameters } from '@app/analysis/components/edit';
 import { Util } from '@app/components/shared';
-import { PageParams } from '@app/shared/base';
-import { EditService } from '@app/components/shared';
 import { selectRouteParams } from '@app/core';
 import { selectQueryParams } from '@app/core';
 import { actionPreferencesPageSize } from '@app/core';
@@ -16,6 +13,7 @@ import { actionPreferencesImpact } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { selectPreferencesImpact } from '@app/core';
 import { ApiService } from '@app/services';
+import { PageParams } from '@app/shared/base';
 import { concatLatestFrom } from '@ngrx/effects';
 import { Actions } from '@ngrx/effects';
 import { createEffect } from '@ngrx/effects';
@@ -27,8 +25,6 @@ import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { SubsetMapNetworkDialogComponent } from '../map/subset-map-network-dialog.component';
 import { SubsetMapService } from '../map/subset-map.service';
-import { actionSubsetFactRefsLoaded } from './subset.actions';
-import { actionSubsetFactRefsLoad } from './subset.actions';
 import { actionSubsetOrphanNodesPageInit } from './subset.actions';
 import { actionSubsetMapPageLoad } from './subset.actions';
 import { actionSubsetOrphanRoutesPageInit } from './subset.actions';
@@ -65,7 +61,6 @@ export class SubsetEffects {
   private readonly actions$ = inject(Actions);
   private readonly store = inject(Store);
   private readonly apiService = inject(ApiService);
-  private readonly editService = inject(EditService);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly subsetMapService = inject(SubsetMapService);
@@ -112,49 +107,6 @@ export class SubsetEffects {
       map((response) => actionSubsetFactsPageLoaded(response))
     );
   });
-
-  // noinspection JSUnusedGlobalSymbols
-  editFactRefsLoad = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionSubsetFactRefsLoad),
-      concatLatestFrom(() => this.store.select(selectSubset)),
-      mergeMap(([action, subset]) => this.apiService.subsetFactRefs(subset, action.fact)),
-      map((response) => actionSubsetFactRefsLoaded(response))
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
-  editDialog = createEffect(
-    () => {
-      return this.actions$.pipe(
-        ofType(actionSubsetFactRefsLoaded),
-        map((response) => {
-          const subsetFactRefs = response.result;
-          let editParameters: EditParameters = null;
-          if (subsetFactRefs.elementType === 'node') {
-            editParameters = {
-              nodeIds: subsetFactRefs.elementIds,
-            };
-          }
-          if (subsetFactRefs.elementType === 'way') {
-            editParameters = {
-              wayIds: subsetFactRefs.elementIds,
-            };
-          }
-          if (subsetFactRefs.elementType === 'relation') {
-            editParameters = {
-              relationIds: subsetFactRefs.elementIds,
-              fullRelation: true,
-            };
-          }
-          this.editService.edit(editParameters);
-        })
-      );
-    },
-    {
-      dispatch: false,
-    }
-  );
 
   // noinspection JSUnusedGlobalSymbols
   factDetailsPageInit = createEffect(() => {

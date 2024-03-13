@@ -39,16 +39,6 @@ export const actionSubsetFactsPageLoaded = createAction(
   props<ApiResponse<SubsetFactsPage>>()
 );
 
-export const actionSubsetFactRefsLoad = createAction(
-  '[SubsetFactRefs] Load',
-  props<{ fact: Fact }>()
-);
-
-export const actionSubsetFactRefsLoaded = createAction(
-  '[SubsetFactRefs] Loaded',
-  props<ApiResponse<SubsetFactRefs>>()
-);
-
 export const actionSubsetFactDetailsPageInit = createAction('[SubsetFactDetailsPage] Init');
 
 export const actionSubsetFactDetailsPageLoad = createAction(
