@@ -54,7 +54,7 @@ class TranslationFileReader {
     }.toMap
 
     val sourceFile = contexts("sourcefile")
-    val lineNumber = contexts("linenumber").toInt
+    val lineNumber = contexts("linenumber")
     TranslationLocation(sourceFile, lineNumber)
   }
 }

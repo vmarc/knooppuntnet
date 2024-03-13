@@ -10,7 +10,7 @@ object TranslationReportToolOptions {
     new scopt.OptionParser[TranslationReportToolOptions]("TranslationReportTool") {
       opt[String]('f', "file").required() valueName "<filename>" action { (x, c) =>
         c.copy(filename = x)
-      } text "knooppuntnet client source root directory name"
+      } text "knooppuntnet translations filename"
     }
   }
 }

@@ -15,9 +15,9 @@ class TranslationReportTool(filename: String) {
 
   def translations(): Unit = {
     val translationFile = new TranslationFileReader().read(filename)
-    val missingTranslations = translationFile.translationUnits.sortBy(_.id)
-    missingTranslations.foreach { translationUnit =>
-      println(s"[${translationUnit.id.toUpperCase}] ${Trim.trim(translationUnit.target)}")
+    val translations = translationFile.translationUnits.sortBy(_.id)
+    translations.foreach { translationUnit =>
+      println(s"[${translationUnit.id}] ${Trim.trim(translationUnit.target)}")
     }
   }
 }
