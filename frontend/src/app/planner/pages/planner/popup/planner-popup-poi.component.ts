@@ -8,14 +8,15 @@ import { PoiPage } from '@api/common';
 import { ApiResponse } from '@api/custom';
 import { Tags } from '@api/custom';
 import { PoiAnalysisComponent } from '@app/components/poi';
-import { JosmLinkComponent } from '@app/components/shared/link';
-import { OsmLinkComponent } from '@app/components/shared/link';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { ApiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { Observable } from 'rxjs';
 import { filter, mergeMap, tap } from 'rxjs/operators';
+import { ActionButtonNodeComponent } from '../../../../analysis/components/action/action-button-node.component';
+import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
+import { ActionButtonWayComponent } from '../../../../analysis/components/action/action-button-way.component';
 import { PoiClick } from '../../../domain/interaction/actions/poi-click';
 import { PlannerService } from '../../../planner.service';
 import { MapService } from '../../../services/map.service';
@@ -40,18 +41,13 @@ import { MapService } from '../../../services/map.service';
               <kpn-tags-table [tags]="extraTags()" />
             </div>
           }
-          <div class="item">
-            <kpn-osm-link
-              [kind]="poiClick.poiId.elementType"
-              [elementId]="poiClick.poiId.elementId.toString()"
-              title="osm"
-            />
-            <kpn-josm-link
-              [kind]="poiClick.poiId.elementType"
-              [elementId]="poiClick.poiId.elementId"
-              title="edit"
-            />
-          </div>
+          @if (poiClick.poiId.elementType === 'node') {
+            <kpn-action-button-node [nodeId]="poiClick.poiId.elementId" />
+          } @else if (poiClick.poiId.elementType === 'way') {
+            <kpn-action-button-way [wayId]="poiClick.poiId.elementId" />
+          } @else if (poiClick.poiId.elementType === 'relation') {
+            <kpn-action-button-relation [relationId]="poiClick.poiId.elementId" />
+          }
         </div>
       }
     }
@@ -69,9 +65,10 @@ import { MapService } from '../../../services/map.service';
   `,
   standalone: true,
   imports: [
+    ActionButtonNodeComponent,
+    ActionButtonRelationComponent,
+    ActionButtonWayComponent,
     AsyncPipe,
-    JosmLinkComponent,
-    OsmLinkComponent,
     PoiAnalysisComponent,
     TagsTableComponent,
   ],

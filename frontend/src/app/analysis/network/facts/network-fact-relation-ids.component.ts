@@ -3,8 +3,6 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { IconRouteComponent } from '@app/components/shared/icon';
 import { LinkRouteComponent } from '@app/components/shared/link';
-import { JosmRelationComponent } from '@app/components/shared/link';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { ActionButtonRouteComponent } from '../../components/action/action-button-route.component';
 
 @Component({
@@ -20,13 +18,7 @@ import { ActionButtonRouteComponent } from '../../components/action/action-butto
     }
   `,
   standalone: true,
-  imports: [
-    OsmLinkRelationComponent,
-    JosmRelationComponent,
-    ActionButtonRouteComponent,
-    IconRouteComponent,
-    LinkRouteComponent,
-  ],
+  imports: [ActionButtonRouteComponent, IconRouteComponent, LinkRouteComponent],
 })
 export class NetworkFactRelationIdsComponent {
   elementIds = input.required<number[]>();

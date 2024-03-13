@@ -13,13 +13,12 @@ import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
-import { JosmNodeComponent } from '@app/components/shared/link';
 import { LinkNodeComponent } from '@app/components/shared/link';
-import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
+import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
 import { SubsetOrphanNodeFilter } from './subset-orphan-node-filter';
 import { SubsetOrphanNodeFilterCriteria } from './subset-orphan-node-filter-criteria';
 import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
@@ -47,7 +46,8 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
 
       <ng-container matColumnDef="node">
         <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-nodes.table.node">Node</th>
-        <td mat-cell *matCellDef="let node">
+        <td mat-cell *matCellDef="let node" class="kpn-align-center action-button-table-cell">
+          <kpn-action-button-node [nodeId]="node.id" />
           <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
         </td>
       </ng-container>
@@ -74,8 +74,6 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
           <kpn-day [timestamp]="node.lastUpdated" />
-          <kpn-josm-node [nodeId]="node.id" />
-          <kpn-osm-link-node [nodeId]="node.id" />
         </td>
       </ng-container>
 
@@ -90,13 +88,12 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
   `,
   standalone: true,
   imports: [
+    ActionButtonNodeComponent,
     AsyncPipe,
     DayComponent,
     EditAndPaginatorComponent,
-    JosmNodeComponent,
     LinkNodeComponent,
     MatTableModule,
-    OsmLinkNodeComponent,
   ],
 })
 export class SubsetOrphanNodesTableComponent implements OnInit {

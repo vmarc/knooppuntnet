@@ -3,9 +3,8 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
 import { DistancePipe } from '@app/components/shared/format';
-import { JosmRelationComponent } from '@app/components/shared/link';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { SymbolComponent } from '@app/symbol';
+import { ActionButtonRelationComponent } from '../../../analysis/components/action/action-button-relation.component';
 
 @Component({
   selector: 'kpn-monitor-route-details-summary',
@@ -16,14 +15,6 @@ import { SymbolComponent } from '@app/symbol';
         Route relation has not been defined yet
       </p>
     } @else {
-      <p class="kpn-separated">
-        <kpn-osm-link-relation
-          [title]="page().relationId.toString()"
-          [relationId]="page().relationId"
-        />
-        <kpn-josm-relation [relationId]="page().relationId" />
-      </p>
-
       <p class="kpn-space-separated">
         <span>{{ page().wayCount }}</span>
         <span i18n="@@monitor.route.details.ways">ways</span>
@@ -37,6 +28,11 @@ import { SymbolComponent } from '@app/symbol';
         </p>
       }
 
+      <div class="kpn-align-center">
+        <span>{{ page().relationId }}</span>
+        <kpn-action-button-relation [relationId]="page().relationId" />
+      </div>
+
       @if (page().symbol) {
         <div class="kpn-small-spacer-above">
           <kpn-symbol [description]="page().symbol" />
@@ -45,7 +41,7 @@ import { SymbolComponent } from '@app/symbol';
     }
   `,
   standalone: true,
-  imports: [DistancePipe, JosmRelationComponent, OsmLinkRelationComponent, SymbolComponent],
+  imports: [ActionButtonRelationComponent, DistancePipe, SymbolComponent],
 })
 export class MonitorRouteDetailsSummaryComponent {
   page = input.required<MonitorRouteDetailsPage>();

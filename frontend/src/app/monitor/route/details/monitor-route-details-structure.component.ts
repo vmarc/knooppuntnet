@@ -17,6 +17,7 @@ import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { SymbolComponent } from '@app/symbol';
+import { ActionButtonRelationComponent } from '../../../analysis/components/action/action-button-relation.component';
 import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
 
 @Component({
@@ -89,9 +90,11 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
         <th mat-header-cell *matHeaderCellDef i18n="@@monitor.route.relation-table.relation">
           Relation
         </th>
-        <td mat-cell *matCellDef="let row">
-          <kpn-osm-link-relation [relationId]="row.relationId" [title]="row.relationId.toString()">
-          </kpn-osm-link-relation>
+        <td mat-cell *matCellDef="let row" class="action-button-table-cell">
+          <div class="kpn-align-center">
+            <kpn-action-button-relation [relationId]="row.relationId" />
+            {{ row.relationId }}
+          </div>
         </td>
       </ng-container>
 
@@ -315,6 +318,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
     TimestampDayPipe,
     SymbolComponent,
     NgClass,
+    ActionButtonRelationComponent,
   ],
 })
 export class MonitorRouteDetailsStructureComponent implements OnInit {

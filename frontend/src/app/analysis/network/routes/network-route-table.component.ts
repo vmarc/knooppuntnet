@@ -20,9 +20,7 @@ import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
 import { IntegerFormatPipe } from '@app/components/shared/format';
-import { JosmRelationComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { FilterOptions } from '@app/kpn/filter';
@@ -32,6 +30,7 @@ import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
+import { ActionButtonRouteComponent } from '../../components/action/action-button-route.component';
 import { NetworkRouteAnalysisComponent } from './network-route-analysis.component';
 import { NetworkRouteFilter } from './network-route-filter';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
@@ -84,7 +83,8 @@ import { NetworkRoutesService } from './network-routes.service';
         <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.node">
           Route
         </th>
-        <td mat-cell *matCellDef="let route">
+        <td mat-cell *matCellDef="let route" class="kpn-align-center route-column">
+          <kpn-action-button-route [relationId]="route.id" />
           <kpn-link-route
             [routeId]="route.id"
             [routeName]="route.name"
@@ -141,8 +141,6 @@ import { NetworkRoutesService } from './network-routes.service';
         </th>
         <td mat-cell *matCellDef="let route" class="kpn-separated">
           <kpn-day [timestamp]="route.lastUpdated" />
-          <kpn-josm-relation [relationId]="route.id" />
-          <kpn-osm-link-relation [relationId]="route.id" />
         </td>
       </ng-container>
 
@@ -164,6 +162,11 @@ import { NetworkRoutesService } from './network-routes.service';
       text-align: right;
       width: 100%;
     }
+
+    .route-column {
+      padding-left: 0 !important;
+      padding-right: 1rem !important;
+    }
   `,
   standalone: true,
   imports: [
@@ -172,13 +175,12 @@ import { NetworkRoutesService } from './network-routes.service';
     DayPipe,
     EditAndPaginatorComponent,
     IntegerFormatPipe,
-    JosmRelationComponent,
     LinkRouteComponent,
     MatSortModule,
     MatTableModule,
     NetworkRouteAnalysisComponent,
-    OsmLinkRelationComponent,
     SymbolComponent,
+    ActionButtonRouteComponent,
   ],
 })
 export class NetworkRouteTableComponent implements OnInit, OnDestroy {

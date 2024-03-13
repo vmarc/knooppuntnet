@@ -16,6 +16,7 @@ import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
 import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { SymbolComponent } from '@app/symbol';
+import { ActionButtonRelationComponent } from '../../../analysis/components/action/action-button-relation.component';
 
 @Component({
   selector: 'kpn-monitor-group-route-table',
@@ -41,8 +42,11 @@ import { SymbolComponent } from '@app/symbol';
         >
           Name
         </th>
-        <td mat-cell *matCellDef="let route">
-          <a [routerLink]="routeLink(route)" [state]="route">{{ route.name }}</a>
+        <td mat-cell *matCellDef="let route" class="action-button-table-cell">
+          <div class="kpn-align-center">
+            <kpn-action-button-relation [relationId]="route.relationId" />
+            <a [routerLink]="routeLink(route)" [state]="route">{{ route.name }}</a>
+          </div>
         </td>
       </ng-container>
 
@@ -74,10 +78,7 @@ import { SymbolComponent } from '@app/symbol';
         </th>
         <td mat-cell *matCellDef="let route">
           @if (route.relationId) {
-            <kpn-osm-link-relation
-              [relationId]="route.relationId"
-              [title]="route.relationId.toString()"
-            />
+            {{ route.relationId }}
           }
         </td>
       </ng-container>
@@ -269,6 +270,7 @@ import { SymbolComponent } from '@app/symbol';
     SymbolComponent,
     TimestampDayPipe,
     TimestampPipe,
+    ActionButtonRelationComponent,
   ],
 })
 export class MonitorGroupRouteTableComponent implements OnInit {

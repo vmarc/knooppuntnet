@@ -6,22 +6,14 @@ import { NodeInfo } from '@api/common';
 import { CountryNameComponent } from '@app/components/shared';
 import { NetworkScopeNameComponent } from '@app/components/shared';
 import { NetworkTypeComponent } from '@app/components/shared';
-import { JosmNodeComponent } from '@app/components/shared/link';
-import { OsmLinkNodeComponent } from '@app/components/shared/link';
 import { MarkdownModule } from 'ngx-markdown';
+import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
 
 @Component({
   selector: 'kpn-node-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <p>
-        <kpn-osm-link-node [nodeId]="nodeInfo().id" />
-        <span class="kpn-brackets-link">
-          <kpn-josm-node [nodeId]="nodeInfo().id" />
-        </span>
-      </p>
-
       @if (!nodeInfo().active) {
         <p class="kpn-warning" i18n="@@node.inactive">This network node is not active anymore.</p>
       }
@@ -81,6 +73,11 @@ import { MarkdownModule } from 'ngx-markdown';
           </markdown>
         </p>
       }
+
+      <div class="kpn-align-center">
+        <span>{{ nodeInfo().id }}</span>
+        <kpn-action-button-node [nodeId]="nodeInfo().id" />
+      </div>
     </div>
   `,
   styles: `
@@ -95,12 +92,11 @@ import { MarkdownModule } from 'ngx-markdown';
   standalone: true,
   imports: [
     CountryNameComponent,
-    JosmNodeComponent,
     MarkdownModule,
     MatIconModule,
     NetworkScopeNameComponent,
     NetworkTypeComponent,
-    OsmLinkNodeComponent,
+    ActionButtonNodeComponent,
   ],
 })
 export class NodeSummaryComponent {

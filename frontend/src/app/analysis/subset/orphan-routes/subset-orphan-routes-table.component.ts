@@ -15,13 +15,12 @@ import { EditService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { IntegerFormatPipe } from '@app/components/shared/format';
-import { JosmRelationComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
+import { ActionButtonRouteComponent } from '../../components/action/action-button-route.component';
 import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analysis.component';
 import { SubsetOrphanRouteFilter } from './subset-orphan-route-filter';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
@@ -59,7 +58,8 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
 
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-routes.table.name">Route</th>
-        <td mat-cell *matCellDef="let route">
+        <td mat-cell *matCellDef="let route" class="kpn-align-center action-button-table-cell">
+          <kpn-action-button-route [relationId]="route.id" />
           <kpn-link-route
             [routeId]="route.id"
             [routeName]="route.name"
@@ -90,10 +90,8 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
         <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-routes.table.last-edit">
           Last edit
         </th>
-        <td mat-cell *matCellDef="let route" class="kpn-separated">
+        <td mat-cell *matCellDef="let route">
           <kpn-day [timestamp]="route.lastUpdated" />
-          <kpn-josm-relation [relationId]="route.id" />
-          <kpn-osm-link-relation [relationId]="route.id" />
         </td>
       </ng-container>
 
@@ -121,11 +119,10 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
     DayComponent,
     EditAndPaginatorComponent,
     IntegerFormatPipe,
-    JosmRelationComponent,
     LinkRouteComponent,
     MatTableModule,
-    OsmLinkRelationComponent,
     SubsetOrphanRouteAnalysisComponent,
+    ActionButtonRouteComponent,
   ],
 })
 export class SubsetOrphanRoutesTableComponent implements OnInit {

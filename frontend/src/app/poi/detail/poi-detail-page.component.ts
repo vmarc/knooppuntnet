@@ -8,23 +8,20 @@ import { ActivatedRoute } from '@angular/router';
 import { PoiDetail } from '@api/common';
 import { ApiResponse } from '@api/custom';
 import { Tags } from '@api/custom';
-import { BaseSidebarComponent } from '@app/shared/base';
-import { PoiDetailMapComponent } from '@app/ol/components';
 import { PoiAnalysisComponent } from '@app/components/poi';
 import { DataComponent } from '@app/components/shared/data';
-import { JosmNodeComponent } from '@app/components/shared/link';
-import { JosmRelationComponent } from '@app/components/shared/link';
-import { JosmWayComponent } from '@app/components/shared/link';
-import { OsmLinkNodeComponent } from '@app/components/shared/link';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
-import { OsmLinkWayComponent } from '@app/components/shared/link';
 import { PageComponent } from '@app/components/shared/page';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
+import { PoiDetailMapComponent } from '@app/ol/components';
 import { ApiService } from '@app/services';
+import { BaseSidebarComponent } from '@app/shared/base';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
+import { ActionButtonNodeComponent } from '../../analysis/components/action/action-button-node.component';
+import { ActionButtonRelationComponent } from '../../analysis/components/action/action-button-relation.component';
+import { ActionButtonWayComponent } from '../../analysis/components/action/action-button-way.component';
 
 @Component({
   selector: 'kpn-poi-detail-page',
@@ -48,22 +45,13 @@ import { mergeMap } from 'rxjs/operators';
             <span class="kpn-line">
               <span>{{ response.result.poi._id }}</span>
               @if (response.result.poi.elementType === 'node') {
-                <kpn-osm-link-node [nodeId]="response.result.poi.elementId" />
+                <kpn-action-button-node [nodeId]="response.result.poi.elementId" />
               }
               @if (response.result.poi.elementType === 'way') {
-                <kpn-osm-link-way [wayId]="response.result.poi.elementId" />
+                <kpn-action-button-way [wayId]="response.result.poi.elementId" />
               }
               @if (response.result.poi.elementType === 'relation') {
-                <kpn-osm-link-relation [relationId]="response.result.poi.elementId" />
-              }
-              @if (response.result.poi.elementType === 'node') {
-                <kpn-josm-node [nodeId]="response.result.poi.elementId" />
-              }
-              @if (response.result.poi.elementType === 'way') {
-                <kpn-josm-way [wayId]="response.result.poi.elementId" />
-              }
-              @if (response.result.poi.elementType === 'relation') {
-                <kpn-josm-relation [relationId]="response.result.poi.elementId" />
+                <kpn-action-button-relation [relationId]="response.result.poi.elementId" />
               }
             </span>
           </kpn-data>
@@ -140,18 +128,15 @@ import { mergeMap } from 'rxjs/operators';
     AsyncPipe,
     BaseSidebarComponent,
     DataComponent,
-    JosmNodeComponent,
-    JosmRelationComponent,
-    JosmWayComponent,
     MatDividerModule,
-    OsmLinkNodeComponent,
-    OsmLinkRelationComponent,
-    OsmLinkWayComponent,
     PageComponent,
     PoiAnalysisComponent,
     PoiDetailMapComponent,
     TagsTableComponent,
     TimestampComponent,
+    ActionButtonWayComponent,
+    ActionButtonNodeComponent,
+    ActionButtonRelationComponent,
   ],
 })
 export class PoiDetailPageComponent implements OnInit {

@@ -17,13 +17,12 @@ import { EditService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
-import { OsmLinkNodeComponent } from '@app/components/shared/link';
-import { JosmNodeComponent } from '@app/components/shared/link';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { selectPreferencesPageSize } from '@app/core';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
 import { EditParameters } from '../../components/edit';
 import { actionLocationNodesPageSize } from '../store/location.actions';
 import { actionLocationNodesPageIndex } from '../store/location.actions';
@@ -68,7 +67,8 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
 
       <ng-container matColumnDef="node">
         <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.node">Node</th>
-        <td mat-cell *matCellDef="let node">
+        <td mat-cell *matCellDef="let node" class="kpn-align-center action-button-table-cell">
+          <kpn-action-button-node [nodeId]="node.id" />
           <kpn-link-node [nodeId]="node.id" [nodeName]="node.name" />
         </td>
       </ng-container>
@@ -107,8 +107,6 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
         <th mat-header-cell *matHeaderCellDef i18n="@@location-nodes.table.last-edit">Last edit</th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
           <kpn-day [timestamp]="node.lastUpdated" />
-          <kpn-josm-node [nodeId]="node.id" />
-          <kpn-osm-link-node [nodeId]="node.id" />
         </td>
       </ng-container>
 
@@ -131,16 +129,15 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
   `,
   standalone: true,
   imports: [
+    ActionButtonNodeComponent,
     AsyncPipe,
     DayComponent,
     DayPipe,
     EditAndPaginatorComponent,
-    JosmNodeComponent,
     LinkNodeComponent,
     LocationNodeAnalysisComponent,
     LocationNodeRoutesComponent,
     MatTableModule,
-    OsmLinkNodeComponent,
     PaginatorComponent,
   ],
 })

@@ -19,8 +19,6 @@ import { PageWidthService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
-import { OsmLinkNodeComponent } from '@app/components/shared/link';
-import { JosmNodeComponent } from '@app/components/shared/link';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { actionPreferencesPageSize } from '@app/core';
 import { selectPreferencesPageSize } from '@app/core';
@@ -30,6 +28,7 @@ import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
+import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
 import { NetworkNodeAnalysisComponent } from './network-node-analysis.component';
 import { NetworkNodeFilter } from './network-node-filter';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
@@ -81,7 +80,8 @@ import { NetworkNodesService } from './network-nodes.service';
         <th [attr.rowspan]="2" mat-header-cell *matHeaderCellDef i18n="@@network-nodes.table.node">
           Node
         </th>
-        <td mat-cell *matCellDef="let node">
+        <td mat-cell *matCellDef="let node" class="kpn-align-center node-column">
+          <kpn-action-button-node [nodeId]="node.detail.id" />
           <kpn-link-node [nodeId]="node.detail.id" [nodeName]="node.detail.name" />
         </td>
       </ng-container>
@@ -147,8 +147,6 @@ import { NetworkNodesService } from './network-nodes.service';
         </th>
         <td mat-cell *matCellDef="let node" class="kpn-separated">
           <kpn-day [timestamp]="node.detail.timestamp" />
-          <kpn-josm-node [nodeId]="node.detail.id" />
-          <kpn-osm-link-node [nodeId]="node.detail.id" />
         </td>
       </ng-container>
 
@@ -169,6 +167,11 @@ import { NetworkNodesService } from './network-nodes.service';
     .mat-column-routes-actual {
       width: 12rem;
     }
+
+    .node-column {
+      padding-left: 0 !important;
+      padding-right: 1rem !important;
+    }
   `,
   standalone: true,
   imports: [
@@ -176,12 +179,11 @@ import { NetworkNodesService } from './network-nodes.service';
     DayComponent,
     DayPipe,
     EditAndPaginatorComponent,
-    JosmNodeComponent,
     LinkNodeComponent,
     MatTableModule,
     NetworkNodeAnalysisComponent,
     NetworkNodeRoutesComponent,
-    OsmLinkNodeComponent,
+    ActionButtonNodeComponent,
   ],
 })
 export class NetworkNodeTableComponent implements OnInit, OnDestroy {

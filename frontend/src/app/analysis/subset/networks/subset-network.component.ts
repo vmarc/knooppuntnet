@@ -4,9 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
 import { IntegerFormatPipe } from '@app/components/shared/format';
-import { JosmRelationComponent } from '@app/components/shared/link';
 import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
 import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 
@@ -14,7 +12,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
   selector: 'kpn-subset-network',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="title">
+    <div class="kpn-align-center">
       <kpn-link-network-details
         [networkId]="network().id"
         [networkType]="network().networkType"
@@ -27,17 +25,8 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       {{ network().km | integer }} km, {{ network().nodeCount | integer }} nodes,
       {{ network().routeCount | integer }} routes
     </div>
-    <div class="kpn-line">
-      <kpn-osm-link-relation [relationId]="network().id" />
-      <kpn-josm-relation [relationId]="network().id" />
-    </div>
   `,
   styles: `
-    .title {
-      display: flex;
-      align-items: center;
-    }
-
     .percentage {
       padding-left: 10px;
     }
@@ -49,13 +38,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
     }
   `,
   standalone: true,
-  imports: [
-    IntegerFormatPipe,
-    JosmRelationComponent,
-    LinkNetworkDetailsComponent,
-    OsmLinkRelationComponent,
-    SubsetNetworkHappyComponent,
-  ],
+  imports: [IntegerFormatPipe, LinkNetworkDetailsComponent, SubsetNetworkHappyComponent],
 })
 export class SubsetNetworkComponent implements OnInit {
   network = input.required<NetworkAttributes>();

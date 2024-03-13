@@ -5,9 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { NetworkDetailsPage } from '@api/common/network';
 import { CountryNameComponent } from '@app/components/shared';
 import { IntegerFormatPipe } from '@app/components/shared/format';
-import { JosmRelationComponent } from '@app/components/shared/link';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { MarkdownModule } from 'ngx-markdown';
+import { ActionButtonRelationComponent } from '../../components/action/action-button-relation.component';
 
 @Component({
   selector: 'kpn-network-summary',
@@ -38,11 +37,6 @@ import { MarkdownModule } from 'ngx-markdown';
       <kpn-country-name [country]="page().attributes.country" />
     </p>
 
-    <p class="kpn-line">
-      <kpn-osm-link-relation [relationId]="page().attributes.id" />
-      <kpn-josm-relation [relationId]="page().attributes.id" />
-    </p>
-
     @if (page().active && page().attributes.brokenRouteCount > 0) {
       <p class="kpn-line">
         <mat-icon svgIcon="warning" />
@@ -61,15 +55,19 @@ import { MarkdownModule } from 'ngx-markdown';
         </markdown>
       </p>
     }
+
+    <div class="kpn-line">
+      {{ page().attributes.id }}
+      <kpn-action-button-relation [relationId]="page().attributes.id" />
+    </div>
   `,
   standalone: true,
   imports: [
     CountryNameComponent,
     IntegerFormatPipe,
-    JosmRelationComponent,
     MarkdownModule,
     MatIconModule,
-    OsmLinkRelationComponent,
+    ActionButtonRelationComponent,
   ],
 })
 export class NetworkSummaryComponent {

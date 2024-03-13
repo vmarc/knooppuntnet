@@ -19,14 +19,13 @@ import { PageWidthService } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
 import { IntegerFormatPipe } from '@app/components/shared/format';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
-import { JosmRelationComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { selectPreferencesPageSize } from '@app/core';
 import { SymbolComponent } from '@app/symbol';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
+import { ActionButtonRouteComponent } from '../../components/action/action-button-route.component';
 import { actionLocationRoutesPageSize } from '../store/location.actions';
 import { actionLocationRoutesPageIndex } from '../store/location.actions';
 import { selectLocationNetworkType } from '../store/location.selectors';
@@ -74,7 +73,8 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
 
       <ng-container matColumnDef="route">
         <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.route">Route</th>
-        <td mat-cell *matCellDef="let route">
+        <td mat-cell *matCellDef="let route" class="kpn-align-center action-button-table-cell">
+          <kpn-action-button-route [relationId]="route.id" />
           <kpn-link-route
             [routeId]="route.id"
             [routeName]="route.name"
@@ -103,8 +103,6 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
         </th>
         <td mat-cell *matCellDef="let route" class="kpn-separated">
           <kpn-day [timestamp]="route.lastUpdated" />
-          <kpn-josm-relation [relationId]="route.id" />
-          <kpn-osm-link-relation [relationId]="route.id" />
         </td>
       </ng-container>
 
@@ -137,17 +135,16 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
   `,
   standalone: true,
   imports: [
+    ActionButtonRouteComponent,
     AsyncPipe,
     DayComponent,
     DayPipe,
     EditAndPaginatorComponent,
     IntegerFormatPipe,
-    JosmRelationComponent,
     LinkRouteComponent,
     LocationRouteAnalysisComponent,
     MatSortModule,
     MatTableModule,
-    OsmLinkRelationComponent,
     PaginatorComponent,
     SymbolComponent,
   ],
