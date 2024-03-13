@@ -34,7 +34,7 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (page().networks.length > 0) {
-      <kpn-expand-collapse [accordion]="accordion()"/>
+      <kpn-expand-collapse [accordion]="accordion()" />
       @if (fact(); as fact) {
         <mat-accordion multi>
           @for (networkFactRefs of page().networks; track networkFactRefs) {
@@ -44,7 +44,9 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
                   <kpn-icon-network />
                   @if (networkFactRefs.networkId === 0) {
                     <!-- TODO add button to load all routes -->
-                    <span i18n="@@subset-facts.orphan-routes" class="free-route-indent">Free routes</span>
+                    <span i18n="@@subset-facts.orphan-routes" class="free-route-indent"
+                      >Free routes</span
+                    >
                   } @else {
                     <kpn-action-button-network [relationId]="networkFactRefs.networkId" />
                   }
@@ -55,15 +57,12 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
                       </a>
                     }
                     @if (fact.hasNodeRefs()) {
-                      <span i18n="@@subset-facts.nodes">
-                        {networkFactRefs.factRefs.length, plural, one {1 node} other {{{ networkFactRefs.factRefs.length }} nodes}}
-                      </span>
+                      <span>{{ networkFactRefs.factRefs.length }}</span>
+                      <span i18n="@@subset-facts.nodes"> node(s) </span>
                     }
                     @if (fact.hasRouteRefs()) {
-                      <span i18n="@@subset-facts.routes">
-                        {networkFactRefs.factRefs.length, plural, one {1 route} other
-                          {{{ networkFactRefs.factRefs.length }} routes}}
-                      </span>
+                      <span>{{ networkFactRefs.factRefs.length }}</span>
+                      <span i18n="@@subset-facts.routes">route(s)</span>
                     }
                   </div>
                 </div>
@@ -77,10 +76,7 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
                       @if (fact.hasNodeRefs()) {
                         <kpn-icon-node />
                         <kpn-action-button-node [nodeId]="ref.id" />
-                        <kpn-link-node
-                          [nodeId]="ref.id"
-                          [nodeName]="ref.name"
-                        />
+                        <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
                       }
                       @if (fact.hasRouteRefs()) {
                         <kpn-icon-route />
@@ -94,26 +90,17 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
                       @if (fact.hasOsmNodeRefs()) {
                         <kpn-icon-node />
                         <kpn-action-button-node [nodeId]="ref.id" />
-                        <kpn-osm-link-node
-                          [nodeId]="ref.id"
-                          [title]="ref.name"
-                        />
+                        <kpn-osm-link-node [nodeId]="ref.id" [title]="ref.name" />
                       }
                       @if (fact.hasOsmWayRefs()) {
                         <kpn-icon-way />
                         <kpn-action-button-way [wayId]="ref.id" />
-                        <kpn-osm-link-way
-                          [wayId]="ref.id"
-                          [title]="ref.name"
-                        />
+                        <kpn-osm-link-way [wayId]="ref.id" [title]="ref.name" />
                       }
                       @if (fact.hasOsmRelationRefs()) {
                         <kpn-icon-relation />
                         <kpn-action-button-relation [relationId]="ref.id" />
-                        <kpn-osm-link-relation
-                          [relationId]="ref.id"
-                          [title]="ref.name"
-                        />
+                        <kpn-osm-link-relation [relationId]="ref.id" [title]="ref.name" />
                       }
                     </div>
                   }
