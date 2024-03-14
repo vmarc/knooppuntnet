@@ -13,6 +13,7 @@ import { Translations } from '@app/i18n';
 })
 export class NetworkTypeNameComponent {
   networkType = input.required<NetworkType>();
+
   protected networkTypeName = computed(() =>
     Translations.get('network-type.' + this.networkType())
   );

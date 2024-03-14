@@ -142,12 +142,12 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
   ],
 })
 export class LocationNodeTableComponent implements OnInit, OnChanges {
-  // TODO !!!
-  networkScope: NetworkScope = NetworkScope.regional;
-
   timeInfo = input.required<TimeInfo>();
   nodes = input.required<LocationNodeInfo[]>();
   nodeCount = input.required<number>();
+
+  // TODO !!!
+  networkScope: NetworkScope = NetworkScope.regional;
 
   @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 

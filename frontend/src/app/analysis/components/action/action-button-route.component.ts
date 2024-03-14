@@ -45,9 +45,9 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonRouteComponent {
-  private readonly actionService = inject(ActionService);
-
   relationId = input.required<number>();
+
+  private readonly actionService = inject(ActionService);
 
   josmLoad(): void {
     this.actionService.josmLoadRelation(this.relationId());

@@ -56,10 +56,10 @@ import { MonitorRouteFormSaveStepComponent } from './monitor-route-form-save-ste
   ],
 })
 export class MonitorRouteFormSaveComponent {
+  command = input.required<MonitorRouteUpdate>();
+
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
   private readonly router = inject(Router);
-
-  command = input.required<MonitorRouteUpdate>();
 
   readonly steps = this.monitorWebsocketService.steps;
   readonly errors = this.monitorWebsocketService.errors;

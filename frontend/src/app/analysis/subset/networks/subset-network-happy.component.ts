@@ -27,6 +27,7 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
 })
 export class SubsetNetworkHappyComponent implements OnInit {
   network = input.required<NetworkAttributes>();
+
   interpretedNetwork: InterpretedNetworkAttributes;
 
   ngOnInit(): void {

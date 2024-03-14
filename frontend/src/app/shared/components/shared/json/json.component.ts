@@ -28,6 +28,7 @@ import { input } from '@angular/core';
 })
 export class JsonComponent implements OnInit {
   object = input.required<any>();
+
   contents = '';
   visible = false;
 

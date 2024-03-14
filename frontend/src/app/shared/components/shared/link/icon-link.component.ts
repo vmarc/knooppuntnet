@@ -28,6 +28,7 @@ export class IconLinkComponent implements OnInit {
   reference = input.required<Reference>();
   mixedNetworkScopes = input.required<boolean>();
   elementType = input.required<string>();
+
   protected state = {};
   protected link: string;
 

@@ -14,6 +14,7 @@ import { input } from '@angular/core';
 export class EditLinkComponent implements OnInit {
   title = input<string>();
   @Output() edit = new EventEmitter<void>();
+
   linkTitle: string;
 
   ngOnInit(): void {

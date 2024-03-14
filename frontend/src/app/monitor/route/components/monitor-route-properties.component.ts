@@ -161,14 +161,14 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
   ],
 })
 export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
-  private readonly monitorService = inject(MonitorService);
-  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
-
   mode = input.required<string>();
   groupName = input.required<string>();
   initialProperties = input.required<MonitorRouteProperties>();
   routeGroups = input.required<MonitorRouteGroup[]>();
   @Output() update = new EventEmitter<MonitorRouteUpdate>();
+
+  private readonly monitorService = inject(MonitorService);
+  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
   protected readonly cancelLinkText = Translations.get('action.cancel');
 

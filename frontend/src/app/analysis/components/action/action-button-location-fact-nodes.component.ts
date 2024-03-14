@@ -40,8 +40,9 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonLocationFactNodesComponent {
-  private readonly actionService = inject(ActionService);
   locationFact = input.required<LocationFact>();
+
+  private readonly actionService = inject(ActionService);
 
   josmLoad(): void {
     const nodeIds = this.locationFact().refs.map((ref) => ref.id);

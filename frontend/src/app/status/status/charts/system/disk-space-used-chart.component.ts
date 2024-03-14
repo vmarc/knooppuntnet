@@ -41,6 +41,7 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
 export class DiskSpaceUsedChartComponent {
   barChart = input.required<BarChart>();
   xAxisLabel = input.required<string>();
+
   view: [number, number] = [700, 300];
 
   data() {

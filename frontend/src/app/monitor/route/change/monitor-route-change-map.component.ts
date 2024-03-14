@@ -31,11 +31,11 @@ import { MonitorRouteChangeMapService } from './monitor-route-change-map.service
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy {
-  protected readonly service = inject(MonitorRouteChangeMapService);
-
   referenceJson = input.required<string>();
   routeSegments = input.required<MonitorRouteSegment[]>();
   deviation = input.required<MonitorRouteDeviation>();
+
+  protected readonly service = inject(MonitorRouteChangeMapService);
 
   ngAfterViewInit(): void {
     this.service.init(this.referenceJson(), this.deviation(), this.routeSegments());

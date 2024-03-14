@@ -143,6 +143,7 @@ import { ActionButtonWayComponent } from '../../components/action/action-button-
 })
 export class SubsetFactDetailsComponent {
   page = input.required<SubsetFactDetailsPage>();
+
   protected readonly fact = computed(() => Facts.facts.get(this.page().fact));
   protected readonly accordion = viewChild(MatAccordion);
 }

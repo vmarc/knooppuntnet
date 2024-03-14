@@ -44,9 +44,9 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonNodeComponent {
-  private readonly actionService = inject(ActionService);
-
   nodeId = input.required<number>();
+
+  private readonly actionService = inject(ActionService);
 
   josmLoad(): void {
     this.actionService.josmLoadNode(this.nodeId());

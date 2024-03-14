@@ -35,12 +35,12 @@ import { MonitorRoutePropertiesComponent } from './monitor-route-properties.comp
   imports: [MonitorRouteFormSaveComponent, MonitorRoutePropertiesComponent, NgClass],
 })
 export class MonitorRouteFormComponent {
-  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
-
   mode = input.required<string>();
   groupName = input.required<string>();
   initialProperties = input.required<MonitorRouteProperties>();
   routeGroups = input<MonitorRouteGroup[]>([]);
+
+  private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
   saving = false;
   command: MonitorRouteUpdate;

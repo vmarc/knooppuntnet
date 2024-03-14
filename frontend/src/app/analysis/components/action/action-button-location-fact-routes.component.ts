@@ -43,8 +43,9 @@ import { ActionService } from './action.service';
   ],
 })
 export class ActionButtonLocationFactRoutesComponent {
-  private readonly actionService = inject(ActionService);
   locationFact = input.required<LocationFact>();
+
+  private readonly actionService = inject(ActionService);
 
   josmLoadRelations(): void {
     this.actionService.josmLoadRelations(this.relationIds());

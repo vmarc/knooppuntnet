@@ -138,15 +138,15 @@ import { ActionButtonRouteComponent } from '../../components/action/action-butto
   ],
 })
 export class LocationFactsComponent implements AfterViewInit {
+  locationFacts = input.required<LocationFact[]>();
+  accordion = viewChild(MatAccordion);
+
   private readonly store = inject(Store);
   private readonly router = inject(Router);
 
   private readonly fragment = this.store.selectSignal(selectFragment);
   private readonly panels = viewChildren(MatExpansionPanel);
   private readonly panelElementRefs = viewChildren(MatExpansionPanel, { read: ElementRef });
-
-  locationFacts = input.required<LocationFact[]>();
-  accordion = viewChild(MatAccordion);
 
   private readonly expandCollapseActive = signal(false);
 

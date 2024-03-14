@@ -43,7 +43,6 @@ import { PaginatorComponent } from '@app/components/shared/paginator';
 export class ChangesComponent {
   changeCount = input.required<number>();
   totalCount = input.required<number>();
-
   impact = input.required<boolean>();
   pageSize = input.required<number>();
   pageIndex = input.required<number>();
