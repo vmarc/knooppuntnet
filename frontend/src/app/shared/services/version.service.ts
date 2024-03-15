@@ -2,6 +2,6 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class VersionService {
-  version = '4.3.24';
+  version = '4.3.25';
   experimental = false;
 }

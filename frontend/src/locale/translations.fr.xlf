@@ -259,11 +259,11 @@
       </trans-unit>
       <trans-unit datatype="html" id="fact.name.route-tag-invalid">
         <source>RouteTagInvalid</source>
-        <target>Balises invalides dans l'itinéraire</target>
+        <target>Attributs invalides dans l'itinéraire</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.name.route-tag-missing">
         <source>RouteTagMissing</source>
-        <target>Balises manquantes dans l'itinéraire</target>
+        <target>Attributs manquantes dans l'itinéraire</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.name.route-unexpected-node">
         <source>RouteUnexpectedNode</source>
@@ -291,7 +291,7 @@
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-unused-segments">
         <source>The route contains ways or part of ways that are not used in the connection between the end nodes.</source>
-        <target>L'itinéraire contient des chemins ou une partie de chemin qui ne sont pas utilisées dans la connexion entre les carrefours d'extrémité.</target>
+        <target>L'itinéraire contient des chemins ou des segments de chemins qui ne sont pas utiles pour relier les carrefours situés à ses extrémités</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-node-missing-in-ways">
         <source>One or more of the nodes is not found in any of the ways of this route.</source>
@@ -307,15 +307,15 @@
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-fixmetodo">
         <source>Route definition needs work (has tag *"fixmetodo"*).</source>
-        <target>La définition de l'itinéraire a besoin de travail (a la clé _"fixmetodo"_).</target>
+        <target>La définition de l'itinéraire a besoin de travail (a l'attribut _"fixmetodo"_).</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-name-missing">
         <source>Could not determine the route name. The route relation does not have a *"ref"*, *"name"* or *"note"* tag with the route name, and also no *"from"* and *"to"* tags from which the route name can be derived.</source>
-        <target>La relation de route n'a pas de clé _"ref"_ ou _"name"_ avec le nom de la route, et également aucune clé *"from"* et *"to"* à partir de laquelle le nom de la route peut être dérivé.</target>
+        <target>La relation d'itinéraire n'a pas d'attribut _"ref"_ ou _"name"_ avec le nom de l'itinéraire, et également aucun attribut *"from"* et *"to"* à partir duquel le nom de l'itinéraire peut être dérivé.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-tag-missing">
         <source>Routerelation does not contain the required _route_ tag.</source>
-        <target>La relation de route ne contient pas la clé _route_ requise.</target>
+        <target>La relation d'itinéraire ne contient pas l'attribut _route_ requise.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-tag-invalid">
         <source>Invalid value in required tag *"route"* in route relation. A bicycle route relation needs to
@@ -324,9 +324,9 @@
       *"walking"* is a value that is frequently found, but not actually documented as a valid value
       in the OSM wiki pages. Other potential values are *"horse"*, *"motorboat"*, *"canoe"* and
       *"inline_skates"*.</source>
-        <target>Valeur invalide dans la balise requise _"route"_ dans la relation d'itinéraire. 
-Une relation d'itinéraire cyclable doit avoir la valeur _"bicycle"_ dans sa clé _"route"_. 
-Une relation d'itinéraire pédestre doit avoir l'une des valeurs suivantes dans sa clé _"route"_: _"foot"_, _"hiking"_ ou _"walking"_. Notez que _"walking"_ est une valeur qui est fréquemment trouvée, mais qui n'est pas réellement documentée comme une valeur valide dans les pages wiki OSM. Les autres valeurs potentielles sont *"horse"*, *"motorboat"*, *"canoe"* et *"inline_skates"*.</target>
+        <target>Valeur invalide dans l'attribut requis _"route"_ dans la relation d'itinéraire. 
+Une relation d'itinéraire cyclable doit avoir la valeur _"bicycle"_ dans son attribut _"route"_. 
+Une relation d'itinéraire pédestre doit avoir l'une des valeurs suivantes dans son attribut _"route"_: _"foot"_, _"hiking"_ ou _"walking"_. Notez que _"walking"_ est une valeur qui est fréquemment trouvée, mais qui n'est pas réellement documentée comme une valeur valide dans les pages wiki OSM. Les autres valeurs potentielles sont *"horse"*, *"motorboat"*, *"canoe"* et *"inline_skates"*.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-unexpected-node">
         <source>The route relation contains 1 or more unexpected nodes</source>
@@ -362,16 +362,16 @@ Une relation d'itinéraire pédestre doit avoir l'une des valeurs suivantes dans
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-incomplete">
         <source>The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag *"fixme"* with value *"incomplete"* in the route relation.</source>
-        <target>L'itinéraire est marqué comme ayant une définition incomplète. Une définition d'itinéraire est explicitement marquée comme incomplète en ajoutant une clé _"fixme"_ avec la valeur _"incomplète"_ dans la relation d'itinéraire.</target>
+        <target>L'itinéraire est marqué comme ayant une définition incomplète. Une définition d'itinéraire est explicitement marquée comme incomplète en ajoutant un attribut _"fixme"_ avec la valeur _"incomplete"_ dans la relation d'itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-incomplete-ok">
         <source>The route is marked as having an incomplete definition. A route definition is explicitely marked incomplete by adding a tag *"fixme"* with value *"incomplete"* in the route relation. But after analysis, the route seems to be ok.</source>
-        <target>L'itinéraire est marqué comme ayant une définition incomplète. Une définition d'itinéraire est explicitement marquée comme incomplète en ajoutant une clé _"fixme"_ avec la valeur _"incomplète"_ dans la relation d'itinéraire. 
+        <target>L'itinéraire est marqué comme ayant une définition incomplète. Une définition d'itinéraire est explicitement marquée comme incomplète en ajoutant un attribut _"fixme"_ avec la valeur _"incomplete"_ dans la relation d'itinéraire. 
 Mais après analyse, l'itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-node-name-mismatch">
         <source>The route name derived from the tags in the route relation does not match the expected name as derived from the start and end node of the route.</source>
-        <target>Le nom d'itinéraire est défini dans le tag "note". C'est OK mais plus recommandé. L'idée est de réserver le tag "notes" pour les notes des cartographes, et que les tags "ref" et "name" soient utilisables (optionnellement) pour nommer les itinéraires.
+        <target>Le nom d'itinéraire est défini dans l'attribut "note". C'est OK mais plus recommandé. L'idée est de réserver l'attribut "notes" pour les notes des cartographes, et que les attributs "ref" et "name" soient utilisables (optionnellement) pour nommer les itinéraires.
 </target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-not-forward">
@@ -404,11 +404,11 @@ Mais après analyse, l'itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-not-one-way">
         <source>The route is tagged as useable in one direction only, but the analysis logic does find ways in both directions.</source>
-        <target>L'itinéraire est marqué comme utilisable dans une seule direction, mais la logique d'analyse trouve des moyens dans les deux directions.</target>
+        <target>L'itinéraire est marqué comme utilisable dans une seule direction, mais la logique d'analyse trouve des chemins pour les deux directions.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.name-missing">
         <source>The network relation does not contain the mandatory tag with key "name".</source>
-        <target>La relation de réseau ne contient pas la balise "name" obligatoire.</target>
+        <target>La relation de réseau ne contient pas l'attribut "name" obligatoire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.added">
         <source>Added to the analysis.</source>
@@ -420,35 +420,35 @@ Mais après analyse, l'itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.integrity-check">
         <source>This network node has a tag that indicates the expected number of routes that arrive/depart in this node.</source>
-        <target>Ce carrefour a une balise qui indique le nombre attendu d'itinéraires qui arrivent / partent dans ce carrefour.</target>
+        <target>Ce carrefour a un attribut qui indique le nombre attendu d'itinéraires qui arrivent / partent dans ce carrefour.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.lost-bicycle-node-tag">
         <source>This node is no longer a valid bicylenetwork node because the rcn_ref tag has been removed.</source>
-        <target>Ce nœud n'est plus un carrefour valide de réseau cyclable car la clé rcn_ref a été supprimée.</target>
+        <target>Ce nœud n'est plus un carrefour valide de réseau cyclable car l'attribut rcn_ref a été supprimé.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.lost-hiking-node-tag">
         <source>This node is no longer a valid hikingnetwork node because the rwn_ref tag has been removed.</source>
-        <target>Ce nœud n'est plus un carrefour valide de réseau pédestre car la clé rwn_ref a été supprimée.</target>
+        <target>Ce nœud n'est plus un carrefour valide de réseau pédestre car l'attribut rwn_ref a été supprimé.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.lost-horse-riding-node-tag">
         <source>This node is no longer a valid horse riding network node because the rhn_ref tag has been removed.</source>
-        <target>Ce nœud n'est plus un carrefour valide de réseau équestre car la clé rhn_ref a été supprimée.</target>
+        <target>Ce nœud n'est plus un carrefour valide de réseau équestre car l'attribut rhn_ref a été supprimé.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.lost-motorboat-node-tag">
         <source>This node is no longer a valid motorboatnetwork node because the rmn_ref tag has been removed.</source>
-        <target>Ce nœud n'est plus un carrefour valide de réseau pour bateaux à moteur car la clé rmn_ref a été supprimée.</target>
+        <target>Ce nœud n'est plus un carrefour valide de réseau pour bateaux à moteur car l'attribut rmn_ref a été supprimé.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.lost-canoe-node-tag">
         <source>This node is no longer a valid canoenetwork node because the rpn_ref tag has been removed.</source>
-        <target>Ce nœud n'est plus un carrefour valide de réseau de canoë car la clé rpn_ref a été supprimée.</target>
+        <target>Ce nœud n'est plus un carrefour valide de réseau de canoë car l'attribut rpn_ref a été supprimé.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.lost-route-tags">
         <source>This relation is no longer a valid network route because a required tag has been removed.</source>
-        <target>Cette relation n'est plus un itinéraire de réseau valide car une clé requise a été supprimée.</target>
+        <target>Cette relation n'est plus un itinéraire de réseau valide car un attribut requis a été supprimé.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.lost-inline-skate-node-tag">
         <source>This node is no longer a valid inline skating network node because the rin_ref tag has been removed.</source>
-        <target>Ce nœud n'est plus un carrefour valide de réseau de rollers car la clé rin_ref a été supprimée.</target>
+        <target>Ce nœud n'est plus un carrefour valide de réseau de rollers car l'attribut rin_ref a été supprimé.</target>
       </trans-unit>
       <trans-unit datatype="html" id="network-indicator.orange.title">
         <source>Unexpected - Defined in network relation</source>
@@ -512,7 +512,7 @@ Mais après analyse, l'itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit datatype="html" id="integrity-indicator.gray.text">
         <source>This network node does not have an *"<x equiv-text="{{ tag }}" id="INTERPOLATION"/>"* tag. This is OK because the use of this tag is optional.</source>
-        <target>Ce carrefour n'a pas de balise _"<x equiv-text="{{tag}}" id="INTERPOLATION"/>"_. C'est OK car l'utilisation de cette balise est facultative.</target>
+        <target>Ce carrefour n'a pas d'attribut _"<x equiv-text="{{tag}}" id="INTERPOLATION"/>"_. C'est OK car l'utilisation de cet attribut est facultative.</target>
       </trans-unit>
       <trans-unit datatype="html" id="integrity-indicator.green.title">
         <source>OK - expected route count</source>
@@ -524,7 +524,7 @@ Mais après analyse, l'itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit datatype="html" id="integrity-indicator.red.text">
         <source>The number of routes found in this network node (<x equiv-text="{{ actual }}" id="INTERPOLATION"/>) does not match the expected number of routes (<x equiv-text="{{ expected }}" id="INTERPOLATION_1"/>) as defined in the *"<x equiv-text="{{ tag }}" id="INTERPOLATION_2"/>"* tag on this node.</source>
-        <target>Le nombre d'itinéraires trouvés dans ce carrefour (<x equiv-text="{{actual}}" id="INTERPOLATION"/>) ne correspond pas au nombre attendu d'itinéraires (<x equiv-text="{{ expected }}" id="INTERPOLATION_1"/>) tel que défini dans la balise _"<x equiv-text="{{ tag }}" id="INTERPOLATION_2"/>"_ sur ce nœud.</target>
+        <target>Le nombre d'itinéraires trouvés sur ce carrefour (<x equiv-text="{{actual}}" id="INTERPOLATION"/>) ne correspond pas au nombre attendu d'itinéraires (<x equiv-text="{{ expected }}" id="INTERPOLATION_1"/>) tel que défini dans l'attribut  _"<x equiv-text="{{ tag }}" id="INTERPOLATION_2"/>"_ sur ce nœud.</target>
       </trans-unit>
       <trans-unit datatype="html" id="integrity-indicator.letter">
         <source>E</source>
@@ -704,15 +704,15 @@ Mais après analyse, l'itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.table">
         <source>Tag differences</source>
-        <target>Différences dans les balises</target>
+        <target>Différences dans les attributs</target>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.deleted-tag">
         <source>Deleted tag</source>
-        <target>Balise supprimée</target>
+        <target>Attribut supprimé</target>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.deleted-tags">
         <source>Deleted tags</source>
-        <target>Balises supprimées</target>
+        <target>Attributs supprimés</target>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.value">
         <source>Value</source>
@@ -720,27 +720,27 @@ Mais après analyse, l'itinéraire semble correct.</target>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.added-tag">
         <source>Added tag</source>
-        <target>Balise ajoutée</target>
+        <target>Attribut ajouté</target>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.added-tags">
         <source>Added tags</source>
-        <target>Balises ajoutées</target>
+        <target>Attribut ajoutés</target>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.updated-tag">
         <source>Updated tag</source>
-        <target>Balise mise à jour</target>
+        <target>Attribut mis à jour</target>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.updated-tags">
         <source>Updated tags</source>
-        <target>Balises mises à jour</target>
+        <target>Attributs mise à jour</target>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.same-tag">
         <source>Same tag</source>
-        <target>Balise identique</target>
+        <target>Attribut identique</target>
       </trans-unit>
       <trans-unit datatype="html" id="tag-diffs.same-tags">
         <source>Same tags</source>
-        <target>Balises identiques</target>
+        <target>Attributs identiques</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact-diffs.resolved-fact">
         <source>Resolved fact</source>
@@ -1683,7 +1683,7 @@ Mais après analyse, l'itinéraire semble correct.</target>
           A route definition is explicitely marked incomplete by adding a tag *"fixme"* with
           value *"incomplete"* in the route relation.</source>
         <target>Nombre d'itinéraires marqués comme étant incomplets.
-Un itinéraire est marqué comme étant incomplet en ajoutant une étiquette _"fixme"_ avec la valeur _"incomplete"_ dans la relation d'itinéraire.</target>
+Un itinéraire est marqué comme étant incomplet en ajoutant un attribut _"fixme"_ avec la valeur _"incomplete"_ dans la relation d'itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-incomplete.name">
         <source>RouteIncomplete</source>
@@ -1695,7 +1695,7 @@ Un itinéraire est marqué comme étant incomplet en ajoutant une étiquette _"f
           A route definition is explicitely marked incomplete by adding a tag *"fixme"* with
           value *"incomplete"* in the route relation.</source>
         <target>Nombre d'itinéraires marqués comme étant incomplets mais qui semblent corrects après analyse.
-Un itinéraire est marqué comme étant incomplet en ajoutant une étiquette _"fixme"_ avec la valeur _"incomplete"_ dans la relation d'itinéraire.</target>
+Un itinéraire est marqué comme étant incomplet en ajoutant un attribut _"fixme"_ avec la valeur _"incomplete"_ dans la relation d'itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-incomplete-ok.name">
         <source>RouteIncompleteOk</source>
@@ -1799,7 +1799,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-name-missing.comment">
         <source>Routes without the required tags from which the route name can be derived.</source>
-        <target>Itinéraires sans les balises requises à partir desquelles le nom de l'itinéraire peut être dérivé.</target>
+        <target>Itinéraires sans les attributs requis à partir desquels le nom de l'itinéraire peut être dérivé.</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-name-missing.name">
         <source>RouteNameMissing</source>
@@ -1807,7 +1807,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-tag-missing.comment">
         <source>The route relation does not contain a *"route"* tag.</source>
-        <target>La relation d'itinéraire ne contient pas d'étiquette _"route"_.</target>
+        <target>La relation d'itinéraire ne contient pas d'attribut _"route"_.</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-tag-missing.name">
         <source>RouteTagMissing</source>
@@ -1815,7 +1815,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-tag-invalid.comment">
         <source>The value in the *"route"* tag in the route relation is unexpected.</source>
-        <target>La valeur de l'étiquette _"route"_ dans la relation de réseau est inattendue.</target>
+        <target>La valeur de l'attribut _"route"_ dans la relation de réseau est inattendue.</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-tag-invalid.name">
         <source>RouteTagInvalid</source>
@@ -1825,7 +1825,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
         <source>Number of routes with one or more unexpected node members.\
           In route relations we expect only nodes with tags that make it a valid network node.</source>
         <target>Nombre d'itinéraires avec un ou plusieurs nœuds inattendus.\
-          Dans les relations d'itinéraires nous attendons des nœuds avec des balises qui en font des carrefours.</target>
+          Dans les relations d'itinéraires nous attendons des nœuds avec des attributs qui en font des carrefours.</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-unexpected-node.name">
         <source>RouteUnexpectedNode</source>
@@ -1834,7 +1834,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       <trans-unit datatype="html" id="stats.route-unexpected-relation.comment">
         <source>Number of routes with one or more unexpected members.\In route relations we expect
           only members of type *"way"* or *"node"*.</source>
-        <target>Nombre d'itinéraires avec un ou plusieurs membres imprévus.\Dans les relations d'itinéraires nous n'attendons que des membres de type _"way"_, ou de type _"node"_ avec des balises qui en font un carrefour.</target>
+        <target>Nombre d'itinéraires avec un ou plusieurs membres imprévus.\Dans les relations d'itinéraires nous n'attendons que des membres de type _"way"_, ou de type _"node"_ avec des attributs qui en font un carrefour.</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-unexpected-relation.name">
         <source>RouteUnexpectedRelation</source>
@@ -1879,7 +1879,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       </trans-unit>
       <trans-unit datatype="html" id="stats.name-missing.comment">
         <source>Number of networks without *"name"* tag in the network relation.</source>
-        <target>Number of networks without *"name"* tag in the network relation.</target>
+        <target>Nombre de réseaux dans l'attribut *"name"* dans la relation de réseau.</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.name-missing.name">
         <source>NameMissing</source>
@@ -2068,7 +2068,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       </trans-unit>
       <trans-unit datatype="html" id="route.incomplete">
         <source>Route definition is incomplete (has tag *"fixme=incomplete"*).</source>
-        <target>Itinéraire incomplet (étiquette _"fixme=incomplete"_).</target>
+        <target>Itinéraire incomplet (attribut _"fixme=incomplete"_).</target>
       </trans-unit>
       <trans-unit datatype="html" id="route.not-active">
         <source>This route is not active anymore.</source>
@@ -2184,7 +2184,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       </trans-unit>
       <trans-unit datatype="html" id="route.tags">
         <source>Tags</source>
-        <target>Étiquettes</target>
+        <target>Attributs</target>
       </trans-unit>
       <trans-unit datatype="html" id="route.location">
         <source>Location</source>
@@ -2564,7 +2564,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       </trans-unit>
       <trans-unit datatype="html" id="node.tags">
         <source>Tags</source>
-        <target>Étiquettes</target>
+        <target>Attributs</target>
       </trans-unit>
       <trans-unit datatype="html" id="node.location">
         <source>Location</source>
@@ -2684,7 +2684,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       </trans-unit>
       <trans-unit datatype="html" id="tags.no-tags">
         <source>No tags</source>
-        <target>Pas d'étiquette</target>
+        <target>Pas d'attributs</target>
       </trans-unit>
       <trans-unit datatype="html" id="tags.key">
         <source>Key</source>
@@ -2976,7 +2976,7 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       </trans-unit>
       <trans-unit datatype="html" id="network-details.tags">
         <source>Tags</source>
-        <target>Étiquettes</target>
+        <target>Attributs</target>
       </trans-unit>
       <trans-unit datatype="html" id="network-facts.checks-table.node">
         <source>Node</source>
@@ -3044,11 +3044,11 @@ L'itinéraire n'a pas été ajouté comme membre d'une [relation de réseau](htt
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.node-invalid-survey-date">
         <source>The node survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM). The survey date is defined in the *"survey:date"* tag, or the *"source:date"* tag if *"source=survey"*.</source>
-        <target>La date du relevé du carrefour a un format inattendu (format valide: AAAA-MM-JJ ou AAAA-MM). Elle est définie dans la clé _"survey:date"_, ou la clé _"source:date"_ if _"source=survey"_.</target>
+        <target>La date du relevé du carrefour a un format inattendu (format valide: AAAA-MM-JJ ou AAAA-MM). Elle est définie dans l'attribut _"survey:date"_, ou l'attribut _"source:date"_ if _"source=survey"_.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-invalid-survey-date">
         <source>The route survey date has an unexpected format (valid format: YYYY-MM-DD or YYYY-MM). The survey date is defined in the *"survey:date"* tag, or the *"source:date"* tag if *"source=survey"*.</source>
-        <target>La date du relevé de l'itinéraire a un format inattendu (format valide: YYYY-MM-DD ou YYYY-MM). Elle est définie dans la clé _"survey: date"_, ou la clé _"source: date"_ if _"source = survey"_.</target>
+        <target>La date du relevé de l'itinéraire a un format inattendu (format valide: YYYY-MM-DD ou YYYY-MM). Elle est définie dans l'attribut _"survey: date"_, ou l'attribut _"source: date"_ if _"source = survey"_.</target>
       </trans-unit>
       <trans-unit datatype="html" id="network-nodes.table.name">
         <source>Name</source>
@@ -3781,7 +3781,7 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="node.integrity.none">
         <source>There is no integrity information for this node (no expected_??n_route_relations tag).</source>
-        <target>Pas d'information d'intégrité pour ce carrefour (pas de tag expected_??_route_relations).</target>
+        <target>Pas d'information d'intégrité pour ce carrefour (pas d'attribut expected_??_route_relations).</target>
       </trans-unit>
       <trans-unit datatype="html" id="node.integrity.ok">
         <source>The expected number of routes (<x equiv-text="{{ detail.expectedRouteCount }}" id="INTERPOLATION"/>) matches the number of routes found.</source>
@@ -3825,11 +3825,11 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.name.route-without-nodes">
         <source>RouteWithoutNodes</source>
-        <target>ItinéraireSansCarrefours</target>
+        <target>Itinéraire sans carrefours</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-without-nodes.name">
         <source>RouteWithoutNodes</source>
-        <target>ItinéraireSansCarrefours</target>
+        <target>Itinéraire sans carrefours</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-without-nodes.comment">
         <source>Routes without network nodes.</source>
@@ -3873,11 +3873,11 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="route-proposed-indicator.gray.text">
         <source>This route does not have _"state=proposed"_. This is an active route.</source>
-        <target>This route does not have _"state=proposed"_. This is an active route.</target>
+        <target>Cet itinéraire n'a pas _"state=proposed"_. C'est un itinéraire actif.</target>
       </trans-unit>
       <trans-unit datatype="html" id="route-proposed-indicator.gray.title">
         <source>OK - Active route</source>
-        <target>OK - Active route</target>
+        <target>OK - itinéraire actif</target>
       </trans-unit>
       <trans-unit datatype="html" id="location-node-fact-indicator.letter">
         <source>F</source>
@@ -3885,7 +3885,7 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="location-node-fact-indicator.green.title">
         <source>OK - No facts</source>
-        <target>OK - No facts</target>
+        <target>OK - Pas de faits</target>
       </trans-unit>
       <trans-unit datatype="html" id="location-node-fact-indicator.green.text">
         <source>No particular facts were found during the analysis of this node.</source>
@@ -3937,19 +3937,19 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="proposed-indicator.blue.title">
         <source>OK - Proposed route</source>
-        <target>OK - Proposed route</target>
+        <target>OK - Itinéraire proposé</target>
       </trans-unit>
       <trans-unit datatype="html" id="proposed-indicator.blue.text">
         <source>This node is _"proposed"_. The node has lifecycle prefix "proposed:" in the tag that makes it a network node, or has has tag _"state=proposed"_. The node is assumed to still be in a planning phase and likely not signposted in the field.</source>
-        <target>This node is _"proposed"_. The node has lifecycle prefix "proposed:" in the tag that makes it a network node, or has has tag _"state=proposed"_. The node is assumed to still be in a planning phase and likely not signposted in the field.</target>
+        <target>Ce carrefour est _"proposé"_. Il a un préfixe de cycle de vie "proposed:" dans l'attribut qui en fait un carrefour, ou a un attribut _"state=proposed"_. Le carrefour est réputé être encore en phase de planification, et probablement pas encore balisé sur le terrain.</target>
       </trans-unit>
       <trans-unit datatype="html" id="proposed-indicator.gray.title">
         <source>OK - Active node</source>
-        <target>OK - Active node</target>
+        <target>OK - Carrefour actif</target>
       </trans-unit>
       <trans-unit datatype="html" id="proposed-indicator.gray.text">
         <source>This network node is not _"proposed"_. It is an active node.</source>
-        <target>This network node is not _"proposed"_. It is an active node.</target>
+        <target>Ce carrefour n'est pas _"proposé"_. C'est un carrefour actif.</target>
       </trans-unit>
       <trans-unit datatype="html" id="node.routes">
         <source>Routes</source>
@@ -3965,7 +3965,7 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="route.proposed">
         <source>Proposed: this route has a tag _"state=proposed"_. The route is assumed to still be in a planning phase and likely not signposted in the field.</source>
-        <target>Proposed: this route has a tag _"state=proposed"_. The route is assumed to still be in a planning phase and likely not signposted in the field.</target>
+        <target>Proposé : cet itinéraire a un attribut _"state=proposed"_. L'itinéraire est réputé être encore en phase de planification, et probablement pas encore balisé sur le terrain.</target>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.nodes">
         <source>node(s)</source>
@@ -4054,11 +4054,11 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="network.proposed">
         <source>Proposed: this network has tag _"state=proposed"_. The network is assumed to still be in a planning phase and likely not signposted in the field.</source>
-        <target>Proposed: this network has tag _"state=proposed"_. The network is assumed to still be in a planning phase and likely not signposted in the field.</target>
+        <target>Proposé : cet réseau a un attribut _"state=proposed"_. Le réseau est réputé être encore en phase de planification, et probablement pas encore balisé sur le terrain.</target>
       </trans-unit>
       <trans-unit datatype="html" id="route.name-derived-from-nodes">
         <source>The route name is derived from the route nodes, rather than the tags in the route relation.</source>
-        <target>Le nom de l'itinéraire est déterminé à partir des noms des carrefours, plutôt que des tags dans la relation d'itinéraire.</target>
+        <target>Le nom de l'itinéraire est déterminé à partir des noms des carrefours, plutôt que des attributs dans la relation d'itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="overview.sidebar.display-options">
         <source>Display options</source>
@@ -4270,7 +4270,7 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="integrity-indicator.green.text">
         <source>The number of routes found in this network node (<x equiv-text="{{ actual }}" id="INTERPOLATION"/>) does match the expected number of routes (<x equiv-text="{{ expected }}" id="INTERPOLATION_1"/>) as defined in the *"<x equiv-text="{{ tag }}" id="INTERPOLATION_2"/>"* tag on this node. This is what we expect.</source>
-        <target>Le nombre de routes trouvées dans ce carrefour de réseau (<x equiv-text="{{ actual }}" id="INTERPOLATION"/>) correspond au nombre attendu de routes (<x equiv-text="{{ expected }}" id="INTERPOLATION_1"/>) tel que défini dans la clé *"<x equiv-text="{{ tag }}" id="INTERPOLATION_2"/>"* sur ce carrefour. C'est ce que nous attendons. </target>
+        <target>Le nombre d'itinéraires trouvés sur ce carrefour (<x equiv-text="{{ actual }}" id="INTERPOLATION"/>) correspond au nombre attendu d'itinéraires (<x equiv-text="{{ expected }}" id="INTERPOLATION_1"/>) tel que défini dans l'attribut *"<x equiv-text="{{ tag }}" id="INTERPOLATION_2"/>"* sur ce carrefour. C'est ce que nous attendons. </target>
       </trans-unit>
       <trans-unit datatype="html" id="demo.disabled.text-1">
         <source>Sorry.</source>
@@ -4846,7 +4846,7 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="poi-detail.tags">
         <source>Tags</source>
-        <target>Tags</target>
+        <target>Attributs</target>
       </trans-unit>
       <trans-unit datatype="html" id="poi-detail.location">
         <source>Location</source>
@@ -5214,7 +5214,7 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.relation.no-route-tags">
         <source>This OSM relation does not seem to have the required tags for a route.</source>
-        <target>This OSM relation does not seem to have the required tags for a route.</target>
+        <target>Cette relation ne semble pas avoir les attributs requis pour être un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="country.dk">
         <source>Denmark</source>
@@ -5298,25 +5298,22 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.description.route-deprected-note-tag">
         <source>The route name is defined in the _"note"_ tag. This is OK, but the use of the _"note"_ tag for route names is no longer recommended (deprecated). The idea is that the _"note"_ should be used for mapper notes only. The _"ref"_ and _"name"_ tags can be used for naming routes.</source>
-        <target>The route name is defined in the _"note"_ tag. This is OK, but the use of the _"note"_ tag for route names is no longer recommended (deprecated). The idea is that the _"note"_ should be used for mapper notes only. The _"ref"_ and _"name"_ tags can be used for naming routes.</target>
+        <target>Le nom de cet itinéraire est défini dans l'attribut _"note"_. C'est OK, mais l'attribut _"note"_ n'est plus recommandé. L'idée est que _"note"_ soit réservé aux notes des cartoraphes. Les itinéraires peuvent être nommés avec les attributs _"ref"_ et _"name"_</target>
       </trans-unit>
       <trans-unit datatype="html" id="fact.name.route-name-deprecated-note-tag">
         <source>RouteNameDeprecatedNoteTag</source>
-        <target>RouteNameDeprecatedNoteTag</target>
+        <target>Nom d'itinéraire dans "note"</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-name-deprecated-note-tag.name">
         <source>RouteNameDeprecatedNoteTag</source>
-        <target>RouteNameDeprecatedNoteTag</target>
+        <target>Nom d'itinéraire dans "note"</target>
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-name-deprecated-note-tag.comment">
         <source>Routes where the route name was defined in the *"note"* tag. This is OK, but the use
           of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
           that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can 
           be used for naming routes.</source>
-        <target>Routes where the route name was defined in the *"note"* tag. This is OK, but the use
-          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
-          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can 
-          be used for naming routes.</target>
+        <target>Le nom de cet itinéraire est défini dans l'attribut _"note"_. C'est OK, mais l'attribut _"note"_ n'est plus recommandé. L'idée est que _"note"_ soit réservé aux notes des cartoraphes. Les itinéraires peuvent être nommés avec les attributs _"ref"_ et _"name"_</target>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.node-ref">
         <source>node</source>
