@@ -1,13 +1,8 @@
 import { Routes } from '@angular/router';
-import { JosmComponent } from './josm.component';
 import { TryoutFilterPageComponent } from './tryout/filter/tryout-filter-page.component';
 import { TryoutTabsPageComponent } from './tryout/tabs/tryout-tabs-page.component';
 
 export const appRoutes: Routes = [
-  {
-    path: 'josm',
-    component: JosmComponent,
-  },
   {
     path: 'tryout-filter',
     component: TryoutFilterPageComponent,
