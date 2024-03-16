@@ -118,11 +118,15 @@ export class ActionService {
   }
 
   private josmCommand(url: string): void {
-    this.apiService.edit(url).subscribe({
-      next: () => {},
-      error: () => {
-        this.dialog.open(TimeoutComponent, { autoFocus: false, maxWidth: 500 });
-      },
-    });
+    if (window['safari']) {
+      window.open(url, 'josm');
+    } else {
+      this.apiService.edit(url).subscribe({
+        next: () => {},
+        error: () => {
+          this.dialog.open(TimeoutComponent, { autoFocus: false, maxWidth: 500 });
+        },
+      });
+    }
   }
 }
