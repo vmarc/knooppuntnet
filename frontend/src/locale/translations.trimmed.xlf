@@ -5148,21 +5148,21 @@
       <trans-unit datatype="html" id="subset-networks.title">
         <source>Networks</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/networks/_subset-networks-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/networks/subset-networks-page.component.ts</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-networks.no-networks">
         <source>No networks</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/networks/_subset-networks-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/networks/subset-networks-page.component.ts</context>
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-networks.summary">
         <source>_There are __<x equiv-text="{{ response.result.networkCount | integer }}" id="INTERPOLATION"/>__ networks, with a total of __<x equiv-text="{{ response.result.nodeCount | integer }}" id="INTERPOLATION_1"/>__ nodes and __<x equiv-text="{{                   response.result.routeCount | integer                 }}" id="INTERPOLATION_2"/>__ routes with an overall length of __<x equiv-text="{{ response.result.km | integer }}" id="INTERPOLATION_3"/>__ km._</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/networks/_subset-networks-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/networks/subset-networks-page.component.ts</context>
           <context context-type="linenumber">43,48</context>
         </context-group>
       </trans-unit>
@@ -5239,14 +5239,14 @@
       <trans-unit datatype="html" id="subset-orphan-nodes.title">
         <source>Orphan nodes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-page.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-nodes.no-routes">
         <source>No orphan nodes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-page.component.ts</context>
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
@@ -5295,14 +5295,14 @@
       <trans-unit datatype="html" id="subset-orphan-routes.title">
         <source>Free routes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/subset-orphan-routes-page.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-routes.no-routes">
         <source>No free routes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/subset-orphan-routes-page.component.ts</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>

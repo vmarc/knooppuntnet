@@ -28,7 +28,7 @@ import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { NetworkMapService } from '../map/network-map.service';
+import { NetworkMapService } from '../map/components/network-map.service';
 import { actionNetworkMapPageLoad } from './network.actions';
 import { actionNetworkRoutesPageLoad } from './network.actions';
 import { actionNetworkNodesPageLoad } from './network.actions';

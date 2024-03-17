@@ -5176,14 +5176,14 @@
       <trans-unit id="subset-networks.title" datatype="html">
         <source>Networks</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/networks/_subset-networks-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/networks/subset-networks-page.component.ts</context>
           <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-networks.no-networks" datatype="html">
         <source>No networks</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/networks/_subset-networks-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/networks/subset-networks-page.component.ts</context>
           <context context-type="linenumber">37</context>
         </context-group>
       </trans-unit>
@@ -5192,7 +5192,7 @@
                   response.result.routeCount | integer
                 }}"/>__ routes with an overall length of __<x id="INTERPOLATION_3" equiv-text="{{ response.result.km | integer }}"/>__ km._ </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/networks/_subset-networks-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/networks/subset-networks-page.component.ts</context>
           <context context-type="linenumber">43,48</context>
         </context-group>
       </trans-unit>
@@ -5269,14 +5269,14 @@
       <trans-unit id="subset-orphan-nodes.title" datatype="html">
         <source>Orphan nodes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-page.component.ts</context>
           <context context-type="linenumber">24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-nodes.no-routes" datatype="html">
         <source>No orphan nodes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/_subset-orphan-nodes-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-nodes/subset-orphan-nodes-page.component.ts</context>
           <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
@@ -5325,14 +5325,14 @@
       <trans-unit id="subset-orphan-routes.title" datatype="html">
         <source>Free routes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/subset-orphan-routes-page.component.ts</context>
           <context context-type="linenumber">23</context>
         </context-group>
       </trans-unit>
       <trans-unit id="subset-orphan-routes.no-routes" datatype="html">
         <source>No free routes</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/_subset-orphan-routes-page.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/subset/orphan-routes/subset-orphan-routes-page.component.ts</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>

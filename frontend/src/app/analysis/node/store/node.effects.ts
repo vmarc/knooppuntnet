@@ -28,7 +28,7 @@ import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { NodeMapService } from '../map/node-map.service';
+import { NodeMapService } from '../map/components/node-map.service';
 import { actionNodeMapPageLoad } from './node.actions';
 import { actionNodeDetailsPageLoad } from './node.actions';
 import { actionNodeChangesPageIndex } from './node.actions';

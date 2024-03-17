@@ -27,7 +27,7 @@ import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
-import { RouteMapService } from '../map/route-map.service';
+import { RouteMapService } from '../map/components/route-map.service';
 import { actionRouteMapPageLoad } from './route.actions';
 import { actionRouteDetailsPageLoad } from './route.actions';
 import { actionRouteChangesPageLoaded } from './route.actions';

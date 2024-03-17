@@ -23,7 +23,7 @@ import { from } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { SubsetMapNetworkDialogComponent } from '../map/subset-map-network-dialog.component';
+import { SubsetMapNetworkDialogComponent } from '../map/components/subset-map-network-dialog.component';
 import { SubsetMapService } from '../map/subset-map.service';
 import { actionSubsetOrphanNodesPageInit } from './subset.actions';
 import { actionSubsetMapPageLoad } from './subset.actions';

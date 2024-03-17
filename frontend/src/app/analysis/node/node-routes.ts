@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
-import { NodeChangesPageComponent } from './changes/_node-changes-page.component';
-import { NodeDetailsPageComponent } from './details/_node-details-page.component';
-import { NodeMapPageComponent } from './map/_node-map-page.component';
-import { NodeMapService } from './map/node-map.service';
+import { NodeChangesPageComponent } from './changes/node-changes-page.component';
+import { NodeDetailsPageComponent } from './details/node-details-page.component';
+import { NodeMapPageComponent } from './map/node-map-page.component';
+import { NodeMapService } from './map/components/node-map.service';
 import { NodeEffects } from './store/node.effects';
 import { nodeReducer } from './store/node.reducer';
 import { nodeFeatureKey } from './store/node.state';
