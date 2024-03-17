@@ -1,19 +1,14 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationSidebarComponent } from '../location-sidebar.component';
-import { actionLocationChangesPageDestroy } from '../store/location.actions';
-import { actionLocationChangesPageInit } from '../store/location.actions';
-import { selectLocationChangesPage } from '../store/location.selectors';
-import { LocationChangesComponent } from './location-changes.component';
+import { LocationChangesComponent } from './components/location-changes.component';
+import { LocationChangesStore } from './location-changes.store';
 
 @Component({
   selector: 'kpn-location-changes-page',
@@ -28,7 +23,7 @@ import { LocationChangesComponent } from './location-changes.component';
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           <kpn-location-response [response]="response">
             <kpn-location-changes />
@@ -38,9 +33,9 @@ import { LocationChangesComponent } from './location-changes.component';
       <kpn-location-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [LocationChangesStore, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ErrorComponent,
     LocationChangesComponent,
     LocationPageHeaderComponent,
@@ -49,15 +44,6 @@ import { LocationChangesComponent } from './location-changes.component';
     PageComponent,
   ],
 })
-export class LocationChangesPageComponent implements OnInit, OnDestroy {
-  private readonly store = inject(Store);
-  protected readonly apiResponse = this.store.selectSignal(selectLocationChangesPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionLocationChangesPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionLocationChangesPageDestroy());
-  }
+export class LocationChangesPageComponent {
+  protected readonly store = inject(LocationChangesStore);
 }

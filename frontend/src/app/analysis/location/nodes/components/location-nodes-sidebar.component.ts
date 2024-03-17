@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -6,16 +5,14 @@ import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { LocationNodesType } from '@api/custom';
 import { SidebarComponent } from '@app/components/shared/sidebar';
-import { Store } from '@ngrx/store';
-import { actionLocationNodesType } from '../store/location.actions';
-import { selectLocationNodesPage } from '../store/location.selectors';
+import { LocationNodesStore } from '../location-nodes.store';
 
 @Component({
   selector: 'kpn-location-nodes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="filter">
           <div class="title" i18n="@@location-nodes-sidebar.filter.title">Filter</div>
           <mat-radio-group
@@ -64,15 +61,14 @@ import { selectLocationNodesPage } from '../store/location.selectors';
     }
   `,
   standalone: true,
-  imports: [SidebarComponent, MatRadioModule, AsyncPipe],
+  imports: [SidebarComponent, MatRadioModule],
 })
 export class LocationNodesSidebarComponent {
-  private readonly store = inject(Store);
-  readonly locationNodesType = LocationNodesType;
-  readonly apiResponse = this.store.selectSignal(selectLocationNodesPage);
+  protected readonly store = inject(LocationNodesStore);
+  protected readonly locationNodesType = LocationNodesType;
 
   locationNodesTypeChanged(change: MatRadioChange): void {
     const locationNodesType = change.value as LocationNodesType;
-    this.store.dispatch(actionLocationNodesType({ locationNodesType }));
+    this.store.updatePageType(locationNodesType);
   }
 }

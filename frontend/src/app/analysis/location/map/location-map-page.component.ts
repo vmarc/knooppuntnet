@@ -1,21 +1,15 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationSidebarComponent } from '../location-sidebar.component';
-import { actionLocationMapPageDestroy } from '../store/location.actions';
-import { actionLocationMapPageInit } from '../store/location.actions';
-import { selectLocationMapPage } from '../store/location.selectors';
-import { selectLocationNetworkType } from '../store/location.selectors';
 import { LocationMapComponent } from './location-map.component';
-import { LocationMapService } from './location-map.service';
+import { LocationMapStore } from './location-map.store';
 
 @Component({
   selector: 'kpn-location-map-page',
@@ -30,7 +24,7 @@ import { LocationMapService } from './location-map.service';
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <kpn-location-response [response]="response">
           <kpn-location-map />
         </kpn-location-response>
@@ -38,6 +32,7 @@ import { LocationMapService } from './location-map.service';
       <kpn-location-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [LocationMapStore, RouterService],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -49,17 +44,6 @@ import { LocationMapService } from './location-map.service';
     PageComponent,
   ],
 })
-export class LocationMapPageComponent implements OnInit, OnDestroy {
-  private readonly store = inject(Store);
-
-  protected readonly apiResponse = this.store.selectSignal(selectLocationMapPage);
-  protected readonly networkType = this.store.selectSignal(selectLocationNetworkType);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionLocationMapPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionLocationMapPageDestroy());
-  }
+export class LocationMapPageComponent {
+  protected readonly store = inject(LocationMapStore);
 }

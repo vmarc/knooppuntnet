@@ -21,15 +21,10 @@ import { DayPipe } from '@app/components/shared/format';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
-import { selectPreferencesPageSize } from '@app/core';
 import { SymbolComponent } from '@app/symbol';
-import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { ActionButtonRouteComponent } from '../../components/action/action-button-route.component';
-import { actionLocationRoutesPageSize } from '../store/location.actions';
-import { actionLocationRoutesPageIndex } from '../store/location.actions';
-import { selectLocationNetworkType } from '../store/location.selectors';
-import { selectLocationRoutesPageIndex } from '../store/location.selectors';
+import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
+import { LocationRoutesStore } from '../location-routes.store';
 import { LocationRouteAnalysisComponent } from './location-route-analysis';
 
 @Component({
@@ -40,7 +35,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       (edit)="edit()"
       i18n-editLinkTitle="@@location-routes.edit.title"
       editLinkTitle="Load the routes in this page in JOSM"
-      [pageIndex]="pageIndex()"
+      [pageIndex]="store.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
@@ -111,7 +106,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
     </table>
 
     <kpn-paginator
-      [pageIndex]="pageIndex()"
+      [pageIndex]="store.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
@@ -158,11 +153,10 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
 
   private readonly pageWidthService = inject(PageWidthService);
   private readonly editService = inject(EditService);
-  private readonly store = inject(Store);
 
-  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
-  protected readonly pageIndex = this.store.selectSignal(selectLocationRoutesPageIndex);
-  protected readonly networkType = this.store.selectSignal(selectLocationNetworkType);
+  protected readonly store = inject(LocationRoutesStore);
+  protected readonly pageSize = this.store.pageSize();
+  protected readonly networkType = this.store.networkType();
 
   protected readonly dataSource = new MatTableDataSource<LocationRouteInfo>();
   protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
@@ -180,12 +174,12 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.dispatch(actionLocationRoutesPageSize({ pageSize }));
+    this.store.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
-    this.store.dispatch(actionLocationRoutesPageIndex({ pageIndex }));
+    this.store.updatePageIndex(pageIndex);
   }
 
   edit(): void {

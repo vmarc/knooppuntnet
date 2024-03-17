@@ -5,11 +5,11 @@ import { withComputed } from '@ngrx/signals';
 import { withState } from '@ngrx/signals';
 import { signalStore } from '@ngrx/signals';
 
-export interface UserState {
+export type UserState = {
   user: string | null;
   error: string | null;
   errorDetail: string | null;
-}
+};
 
 const initialState: UserState = {
   user: null,
@@ -19,23 +19,23 @@ const initialState: UserState = {
 
 export const UserStore = signalStore(
   { providedIn: 'root' },
-  withState<UserState>(initialState),
+  withState(initialState),
   withComputed(({ user }) => ({
     loggedIn: computed(() => user() !== null),
   })),
-  withMethods((state) => {
+  withMethods((store) => {
     return {
       updateUser: (user: string | null) => {
-        patchState(state, { user });
+        patchState(store, { user });
       },
       updateError: (error: string | null) => {
-        patchState(state, { error });
+        patchState(store, { error });
       },
       updateErrorDetail: (errorDetail: string | null) => {
-        patchState(state, { errorDetail });
+        patchState(store, { errorDetail });
       },
       resetError: () => {
-        patchState(state, { error: null, errorDetail: null });
+        patchState(store, { error: null, errorDetail: null });
       },
     };
   })

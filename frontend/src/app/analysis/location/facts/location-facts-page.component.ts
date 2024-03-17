@@ -1,19 +1,14 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationSidebarComponent } from '../location-sidebar.component';
-import { actionLocationFactsPageDestroy } from '../store/location.actions';
-import { actionLocationFactsPageInit } from '../store/location.actions';
-import { selectLocationFactsPage } from '../store/location.selectors';
-import { LocationFactsComponent } from './location-facts.component';
+import { LocationFactsComponent } from './components/location-facts.component';
+import { LocationFactsStore } from './location-facts.store';
 
 @Component({
   selector: 'kpn-location-facts-page',
@@ -28,7 +23,7 @@ import { LocationFactsComponent } from './location-facts.component';
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           <kpn-location-response [response]="response">
             <kpn-location-facts [locationFacts]="response.result.locationFacts" />
@@ -38,9 +33,9 @@ import { LocationFactsComponent } from './location-facts.component';
       <kpn-location-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [LocationFactsStore, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ErrorComponent,
     LocationFactsComponent,
     LocationPageHeaderComponent,
@@ -49,15 +44,6 @@ import { LocationFactsComponent } from './location-facts.component';
     PageComponent,
   ],
 })
-export class LocationFactsPageComponent implements OnInit, OnDestroy {
-  private readonly store = inject(Store);
-  readonly apiResponse = this.store.selectSignal(selectLocationFactsPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionLocationFactsPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionLocationFactsPageDestroy());
-  }
+export class LocationFactsPageComponent {
+  protected readonly store = inject(LocationFactsStore);
 }

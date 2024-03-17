@@ -1,19 +1,14 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
-import { actionLocationNodesPageDestroy } from '../store/location.actions';
-import { actionLocationNodesPageInit } from '../store/location.actions';
-import { selectLocationNodesPage } from '../store/location.selectors';
-import { LocationNodesSidebarComponent } from './location-nodes-sidebar.component';
-import { LocationNodesComponent } from './location-nodes.component';
+import { LocationNodesSidebarComponent } from './components/location-nodes-sidebar.component';
+import { LocationNodesComponent } from './components/location-nodes.component';
+import { LocationNodesStore } from './location-nodes.store';
 
 @Component({
   selector: 'kpn-location-nodes-page',
@@ -27,7 +22,7 @@ import { LocationNodesComponent } from './location-nodes.component';
       />
 
       <kpn-error />
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           <kpn-location-response [response]="response">
             <kpn-location-nodes [page]="response.result" />
@@ -37,9 +32,9 @@ import { LocationNodesComponent } from './location-nodes.component';
       <kpn-location-nodes-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [LocationNodesStore, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ErrorComponent,
     LocationNodesComponent,
     LocationNodesSidebarComponent,
@@ -48,15 +43,6 @@ import { LocationNodesComponent } from './location-nodes.component';
     PageComponent,
   ],
 })
-export class LocationNodesPageComponent implements OnInit, OnDestroy {
-  private readonly store = inject(Store);
-  readonly apiResponse = this.store.selectSignal(selectLocationNodesPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionLocationNodesPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionLocationNodesPageDestroy());
-  }
+export class LocationNodesPageComponent {
+  protected readonly store = inject(LocationNodesStore);
 }

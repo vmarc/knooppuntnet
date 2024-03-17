@@ -29,11 +29,11 @@ import { LinkNodeComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { selectFragment } from '@app/core';
 import { Store } from '@ngrx/store';
-import { ExpandCollapseComponent } from '../../../shared/components/shared/button/expand-collapse.component';
-import { ActionButtonLocationFactNodesComponent } from '../../components/action/action-button-location-fact-nodes.component';
-import { ActionButtonLocationFactRoutesComponent } from '../../components/action/action-button-location-fact-routes.component';
-import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
-import { ActionButtonRouteComponent } from '../../components/action/action-button-route.component';
+import { ExpandCollapseComponent } from '../../../../shared/components/shared/button/expand-collapse.component';
+import { ActionButtonLocationFactNodesComponent } from '../../../components/action/action-button-location-fact-nodes.component';
+import { ActionButtonLocationFactRoutesComponent } from '../../../components/action/action-button-location-fact-routes.component';
+import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
+import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
 
 @Component({
   selector: 'kpn-location-facts',

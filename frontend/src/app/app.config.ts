@@ -39,6 +39,8 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import * as Sentry from '@sentry/angular-ivy';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { MarkdownModule } from 'ngx-markdown';
+import { PreferencesStore } from './shared/core/preferences/preferences.store';
+import { RouterService } from './shared/services/router.service';
 import { UserService } from './shared/user';
 
 export const appConfig: ApplicationConfig = {
@@ -74,6 +76,7 @@ export const appConfig: ApplicationConfig = {
       multi: true,
     },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+    PreferencesStore,
     VersionService,
     ApiService,
     SpinnerService,

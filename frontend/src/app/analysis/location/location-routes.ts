@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { provideEffects } from '@ngrx/effects';
-import { provideState } from '@ngrx/store';
 import { LocationChangesPageComponent } from './changes/location-changes-page.component';
 import { LocationEditPageComponent } from './edit/location-edit-page.component';
 import { LocationFactsPageComponent } from './facts/location-facts-page.component';
@@ -13,19 +11,11 @@ import { LocationRoutesPageComponent } from './routes/location-routes-page.compo
 import { LocationModeService } from './selection/location-mode.service';
 import { LocationSelectionPageComponent } from './selection/location-selection-page.component';
 import { LocationSelectionService } from './selection/location-selection.service';
-import { LocationEffects } from './store/location.effects';
-import { locationReducer } from './store/location.reducer';
-import { locationFeatureKey } from './store/location.state';
 
 export const locationRoutes: Routes = [
   {
     path: '',
     providers: [
-      provideState({
-        name: locationFeatureKey,
-        reducer: locationReducer,
-      }),
-      provideEffects([LocationEffects]),
       AnalysisStrategyService,
       LocationMapService,
       LocationModeService,

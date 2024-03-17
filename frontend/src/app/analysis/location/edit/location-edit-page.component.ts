@@ -1,19 +1,14 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
-import { selectSharedHttpError } from '@app/core';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationSidebarComponent } from '../location-sidebar.component';
-import { actionLocationEditPageDestroy } from '../store/location.actions';
-import { actionLocationEditPageInit } from '../store/location.actions';
-import { selectLocationEditPage } from '../store/location.selectors';
 import { LocationEditComponent } from './location-edit.component';
+import { LocationEditStore } from './location-edit.store';
 
 @Component({
   selector: 'kpn-location-edit-page',
@@ -28,7 +23,7 @@ import { LocationEditComponent } from './location-edit.component';
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           <kpn-location-response [situationOnEnabled]="false" [response]="response">
             @if (response.result.tooManyNodes) {
@@ -50,18 +45,18 @@ import { LocationEditComponent } from './location-edit.component';
           </kpn-location-response>
         </div>
       } @else {
-        @if (noHttpError$ | async) {
-          <p class="analyzing" i18n="@@location-edit.analyzing">
-            Analyzing location nodes and routes, please wait...
-          </p>
-        }
+        <!-- TODO       @if (noHttpError$ | async) {-->
+        <p class="analyzing" i18n="@@location-edit.analyzing">
+          Analyzing location nodes and routes, please wait...
+        </p>
+        <!--        }-->
       }
       <ng-template #analyzing>
-        @if (noHttpError$ | async) {
-          <p class="analyzing" i18n="@@location-edit.analyzing">
-            Analyzing location nodes and routes, please wait...
-          </p>
-        }
+        <!-- TODO      @if (noHttpError$ | async) {-->
+        <p class="analyzing" i18n="@@location-edit.analyzing">
+          Analyzing location nodes and routes, please wait...
+        </p>
+        <!--        }-->
       </ng-template>
       <kpn-location-sidebar sidebar />
     </kpn-page>
@@ -76,6 +71,7 @@ import { LocationEditComponent } from './location-edit.component';
       font-style: italic;
     }
   `,
+  providers: [LocationEditStore, RouterService],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -87,18 +83,20 @@ import { LocationEditComponent } from './location-edit.component';
     PageComponent,
   ],
 })
-export class LocationEditPageComponent implements OnInit, OnDestroy {
-  private readonly store = inject(Store);
-  readonly apiResponse = this.store.selectSignal(selectLocationEditPage);
-  readonly noHttpError$ = this.store
-    .select(selectSharedHttpError)
-    .pipe(map((error) => error == null));
-
-  ngOnInit(): void {
-    this.store.dispatch(actionLocationEditPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionLocationEditPageDestroy());
-  }
+export class LocationEditPageComponent {
+  protected readonly store = inject(LocationEditStore);
+  // TODO !!!
+  // private readonly store = inject(Store);
+  // readonly apiResponse = this.store.selectSignal(selectLocationEditPage);
+  // readonly noHttpError$ = this.store
+  //   .select(selectSharedHttpError)
+  //   .pipe(map((error) => error == null));
+  //
+  // ngOnInit(): void {
+  //   this.store.dispatch(actionLocationEditPageInit());
+  // }
+  //
+  // ngOnDestroy(): void {
+  //   this.store.dispatch(actionLocationEditPageDestroy());
+  // }
 }

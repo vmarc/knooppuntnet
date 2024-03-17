@@ -1,14 +1,12 @@
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
-import { Store } from '@ngrx/store';
-import { actionLocationMapViewInit } from '../store/location.actions';
 import { LocationMapService } from './location-map.service';
+import { LocationMapStore } from './location-map.store';
 
 @Component({
   selector: 'kpn-location-map',
@@ -28,15 +26,11 @@ import { LocationMapService } from './location-map.service';
   standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
-export class LocationMapComponent implements AfterViewInit, OnDestroy {
+export class LocationMapComponent implements AfterViewInit {
+  private readonly store = inject(LocationMapStore);
   protected readonly service = inject(LocationMapService);
-  private readonly store = inject(Store);
 
   ngAfterViewInit(): void {
-    this.store.dispatch(actionLocationMapViewInit());
-  }
-
-  ngOnDestroy(): void {
-    this.service.destroy();
+    this.store.afterViewInit();
   }
 }

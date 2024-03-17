@@ -13,21 +13,16 @@ import { TimeInfo } from '@api/common';
 import { LocationNodeInfo } from '@api/common/location';
 import { NetworkScope } from '@api/custom';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
+import { EditParameters } from '@app/analysis/components/edit';
 import { EditService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
-import { selectPreferencesPageSize } from '@app/core';
-import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { ActionButtonNodeComponent } from '../../components/action/action-button-node.component';
-import { EditParameters } from '../../components/edit';
-import { actionLocationNodesPageSize } from '../store/location.actions';
-import { actionLocationNodesPageIndex } from '../store/location.actions';
-import { selectLocationNetworkType } from '../store/location.selectors';
-import { selectLocationNodesPageIndex } from '../store/location.selectors';
+import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
+import { LocationNodesStore } from '../location-nodes.store';
 import { LocationNodeAnalysisComponent } from './location-node-analysis.component';
 import { LocationNodeRoutesComponent } from './location-node-routes.component';
 
@@ -39,7 +34,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       (edit)="edit()"
       i18n-editLinkTitle="@@location-nodes.edit.title"
       editLinkTitle="Load the nodes in this page in JOSM"
-      [pageIndex]="pageIndex()"
+      [pageIndex]="store.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
@@ -115,7 +110,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
     </table>
 
     <kpn-paginator
-      [pageIndex]="pageIndex()"
+      [pageIndex]="store.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
@@ -146,6 +141,10 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   nodes = input.required<LocationNodeInfo[]>();
   nodeCount = input.required<number>();
 
+  protected readonly store = inject(LocationNodesStore);
+  protected readonly networkType = this.store.networkType();
+  protected readonly pageSize = this.store.pageSize();
+
   // TODO !!!
   networkScope: NetworkScope = NetworkScope.regional;
 
@@ -153,11 +152,6 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
 
   private readonly pageWidthService = inject(PageWidthService);
   private readonly editService = inject(EditService);
-  private readonly store = inject(Store);
-
-  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
-  protected readonly pageIndex = this.store.selectSignal(selectLocationNodesPageIndex);
-  protected readonly networkType = this.store.selectSignal(selectLocationNetworkType);
 
   protected readonly dataSource = new MatTableDataSource<LocationNodeInfo>();
   protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
@@ -175,12 +169,12 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.dispatch(actionLocationNodesPageSize({ pageSize }));
+    this.store.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
-    this.store.dispatch(actionLocationNodesPageIndex({ pageIndex }));
+    this.store.updatePageIndex(pageIndex);
   }
 
   edit(): void {
