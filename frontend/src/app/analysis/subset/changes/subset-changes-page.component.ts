@@ -1,7 +1,5 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangesComponent } from '@app/analysis/components/changes';
@@ -10,19 +8,12 @@ import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
 import { UserStore } from '../../../shared/user/user.store';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { actionSubsetChangesPageSize } from '../store/subset.actions';
-import { actionSubsetChangesPageImpact } from '../store/subset.actions';
-import { actionSubsetChangesPageIndex } from '../store/subset.actions';
-import { actionSubsetChangesPageInit } from '../store/subset.actions';
-import { selectSubsetChangesPageImpact } from '../store/subset.selectors';
-import { selectSubsetChangesPageSize } from '../store/subset.selectors';
-import { selectSubsetChangesPageIndex } from '../store/subset.selectors';
-import { selectSubsetChangesPage } from '../store/subset.selectors';
 import { SubsetChangesSidebarComponent } from './components/subset-changes-sidebar.component';
+import { SubsetChangesStore } from './subset-changes.store';
 
 @Component({
   selector: 'kpn-subset-changes-page',
@@ -36,7 +27,7 @@ import { SubsetChangesSidebarComponent } from './components/subset-changes-sideb
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           @if (loggedIn() === false) {
             <p i18n="@@subset-changes.login-required">
@@ -79,9 +70,9 @@ import { SubsetChangesSidebarComponent } from './components/subset-changes-sideb
       <kpn-subset-changes-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [SubsetChangesStore, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ChangeLocationAnalysisSummaryComponent,
     ChangeNetworkAnalysisSummaryComponent,
     ChangesComponent,
@@ -95,29 +86,24 @@ import { SubsetChangesSidebarComponent } from './components/subset-changes-sideb
     UserLinkLoginComponent,
   ],
 })
-export class SubsetChangesPageComponent implements OnInit {
+export class SubsetChangesPageComponent {
   private readonly userStore = inject(UserStore);
-  readonly loggedIn = this.userStore.loggedIn;
+  protected readonly loggedIn = this.userStore.loggedIn;
 
-  private readonly store = inject(Store);
-  readonly impact = this.store.selectSignal(selectSubsetChangesPageImpact);
-  readonly pageSize = this.store.selectSignal(selectSubsetChangesPageSize);
-  readonly pageIndex = this.store.selectSignal(selectSubsetChangesPageIndex);
-  readonly apiResponse = this.store.selectSignal(selectSubsetChangesPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionSubsetChangesPageInit());
-  }
+  protected readonly store = inject(SubsetChangesStore);
+  protected readonly impact = this.store.impact;
+  protected readonly pageSize = this.store.pageSize;
+  protected readonly pageIndex = this.store.pageIndex;
 
   onImpactChange(impact: boolean): void {
-    this.store.dispatch(actionSubsetChangesPageImpact({ impact }));
+    this.store.updateImpact(impact);
   }
 
   onPageSizeChange(pageSize: number): void {
-    this.store.dispatch(actionSubsetChangesPageSize({ pageSize }));
+    this.store.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {
-    this.store.dispatch(actionSubsetChangesPageIndex({ pageIndex }));
+    this.store.updatePageIndex(pageIndex);
   }
 }

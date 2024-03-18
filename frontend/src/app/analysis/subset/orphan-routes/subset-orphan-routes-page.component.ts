@@ -1,17 +1,14 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { actionSubsetOrphanRoutesPageInit } from '../store/subset.actions';
-import { selectSubsetOrphanRoutesPage } from '../store/subset.selectors';
 import { SubsetOrphanRoutesSidebarComponent } from './components/subset-orphan-routes-sidebar.component';
 import { SubsetOrphanRoutesTableComponent } from './components/subset-orphan-routes-table.component';
+import { SubsetOrphanRoutesStore } from './subset-orphan-routes.store';
 
 @Component({
   selector: 'kpn-subset-orphan-routes-page',
@@ -26,7 +23,7 @@ import { SubsetOrphanRoutesTableComponent } from './components/subset-orphan-rou
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           <p>
             <kpn-situation-on [timestamp]="response.situationOn" />
@@ -47,9 +44,9 @@ import { SubsetOrphanRoutesTableComponent } from './components/subset-orphan-rou
       <kpn-subset-orphan-routes-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [SubsetOrphanRoutesStore, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ErrorComponent,
     PageComponent,
     SituationOnComponent,
@@ -58,11 +55,6 @@ import { SubsetOrphanRoutesTableComponent } from './components/subset-orphan-rou
     SubsetPageHeaderBlockComponent,
   ],
 })
-export class SubsetOrphanRoutesPageComponent implements OnInit {
-  private readonly store = inject(Store);
-  protected readonly apiResponse = this.store.selectSignal(selectSubsetOrphanRoutesPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionSubsetOrphanRoutesPageInit());
-  }
+export class SubsetOrphanRoutesPageComponent {
+  protected readonly store = inject(SubsetOrphanRoutesStore);
 }

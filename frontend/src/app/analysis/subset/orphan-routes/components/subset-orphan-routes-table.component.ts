@@ -16,11 +16,9 @@ import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LinkRouteComponent } from '@app/components/shared/link';
-import { actionPreferencesPageSize } from '@app/core';
-import { selectPreferencesPageSize } from '@app/core';
-import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
+import { SubsetOrphanRoutesStore } from '../subset-orphan-routes.store';
 import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analysis.component';
 import { SubsetOrphanRouteFilter } from './subset-orphan-route-filter';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
@@ -134,11 +132,11 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   private readonly subsetOrphanRoutesService = inject(SubsetOrphanRoutesService);
   private readonly editService = inject(EditService);
-  private readonly store = inject(Store);
+  private readonly store = inject(SubsetOrphanRoutesStore);
 
   protected dataSource = new MatTableDataSource<OrphanRouteInfo>();
   protected displayedColumns = ['nr', 'analysis', 'name', 'distance', 'last-survey', 'last-edit'];
-  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  protected readonly pageSize = this.store.pageSize();
   private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanRouteFilterCriteria());
 
   ngOnInit(): void {
@@ -155,7 +153,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.dispatch(actionPreferencesPageSize({ pageSize }));
+    this.store.updatePageSize(pageSize);
   }
 
   edit(): void {

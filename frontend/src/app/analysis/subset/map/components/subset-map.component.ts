@@ -1,14 +1,12 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
-import { Store } from '@ngrx/store';
-import { actionSubsetMapViewInit } from '../../store/subset.actions';
 import { SubsetMapService } from '../subset-map.service';
+import { SubsetMapStore } from '../subset-map.store';
 
 @Component({
   selector: 'kpn-subset-map',
@@ -28,15 +26,11 @@ import { SubsetMapService } from '../subset-map.service';
   standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
-export class SubsetMapComponent implements AfterViewInit, OnDestroy {
+export class SubsetMapComponent implements AfterViewInit {
   protected readonly service = inject(SubsetMapService);
-  private readonly store = inject(Store);
+  private readonly store = inject(SubsetMapStore);
 
   ngAfterViewInit(): void {
-    this.store.dispatch(actionSubsetMapViewInit());
-  }
-
-  ngOnDestroy(): void {
-    this.service.destroy();
+    this.store.afterViewInit();
   }
 }

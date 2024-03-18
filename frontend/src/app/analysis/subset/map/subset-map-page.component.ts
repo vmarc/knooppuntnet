@@ -1,16 +1,13 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { actionSubsetMapPageInit } from '../store/subset.actions';
-import { selectSubsetMapPage } from '../store/subset.selectors';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
 import { SubsetMapComponent } from './components/subset-map.component';
+import { SubsetMapStore } from './subset-map.store';
 
 @Component({
   selector: 'kpn-subset-map-page',
@@ -25,15 +22,15 @@ import { SubsetMapComponent } from './components/subset-map.component';
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <kpn-subset-map />
       }
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [SubsetMapStore, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ErrorComponent,
     PageComponent,
     SubsetMapComponent,
@@ -41,11 +38,6 @@ import { SubsetMapComponent } from './components/subset-map.component';
     SubsetSidebarComponent,
   ],
 })
-export class SubsetMapPageComponent implements OnInit {
-  private readonly store = inject(Store);
-  protected readonly apiResponse = this.store.selectSignal(selectSubsetMapPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionSubsetMapPageInit());
-  }
+export class SubsetMapPageComponent {
+  protected readonly store = inject(SubsetMapStore);
 }

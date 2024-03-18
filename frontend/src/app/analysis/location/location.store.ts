@@ -2,6 +2,7 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { LocationSummary } from '@api/common/location';
 import { LocationKey } from '@api/custom';
+import { withHooks } from '@ngrx/signals';
 import { withComputed } from '@ngrx/signals';
 import { patchState } from '@ngrx/signals';
 import { withMethods } from '@ngrx/signals';
@@ -22,6 +23,10 @@ const initialState: LocationState = {
 export const LocationStore = signalStore(
   { providedIn: 'root' }, // provided in root: all location pages share this state
   withState(initialState),
+  withComputed((state) => ({
+    key: computed(() => state.locationKey()),
+    summary: computed(() => state.locationSummary()),
+  })),
   withMethods((store) => {
     function shouldUpdate(oldKey: LocationKey, newKey: LocationKey): boolean {
       return (
@@ -53,9 +58,5 @@ export const LocationStore = signalStore(
         });
       },
     };
-  }),
-  withComputed((state) => ({
-    key: computed(() => state.locationKey()),
-    summary: computed(() => state.locationSummary()),
-  }))
+  })
 );

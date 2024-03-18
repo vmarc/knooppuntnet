@@ -63,7 +63,7 @@ export const LocationNodesStore = signalStore(
         return computed(() => locationStore.key().networkType);
       },
       pageSize: (): Signal<number> => {
-        return computed(() => preferencesStore.pageSize());
+        return preferencesStore.pageSize;
       },
       updatePageSize: (pageSize: number): void => {
         preferencesStore.updatePageSize(pageSize);

@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -7,9 +6,7 @@ import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { Translations } from '@app/i18n';
-import { Store } from '@ngrx/store';
-import { selectSubset } from '../store/subset.selectors';
-import { selectSubsetInfo } from '../store/subset.selectors';
+import { SubsetStore } from '../subset.store';
 import { SubsetPageBreadcrumbComponent } from './subset-page-breadcrumb.component';
 import { SubsetPageMenuComponent } from './subset-page-menu.component';
 
@@ -32,7 +29,6 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     MatIconModule,
     PageHeaderComponent,
     SubsetPageBreadcrumbComponent,
@@ -43,10 +39,10 @@ export class SubsetPageHeaderBlockComponent {
   pageName = input.required<string>();
   pageTitle = input.required<string>();
 
-  private readonly store = inject(Store);
+  private readonly store = inject(SubsetStore);
 
-  protected readonly subset = this.store.selectSignal(selectSubset);
-  protected readonly subsetInfo = this.store.selectSignal(selectSubsetInfo);
+  protected readonly subset = this.store.subset;
+  protected readonly subsetInfo = this.store.subsetInfo;
   protected readonly networkType = computed(() => this.subset().networkType);
 
   protected readonly subsetName = computed(() => {

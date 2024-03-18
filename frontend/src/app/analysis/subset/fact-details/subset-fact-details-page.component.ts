@@ -15,6 +15,7 @@ import { FactNameComponent } from '@app/analysis/fact';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
 import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { actionSubsetFactDetailsPageInit } from '../store/subset.actions';
 import { selectSubsetFact } from '../store/subset.selectors';
@@ -63,6 +64,7 @@ import { SubsetFactDetailsComponent } from './components/subset-fact-details.com
     </kpn-page>
   `,
   styleUrl: './subset-fact-details-page.component.scss',
+  providers: [/*SubsetFactDetailsStore,*/ RouterService],
   standalone: true,
   imports: [
     ErrorComponent,

@@ -1,8 +1,6 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FactCount } from '@api/common';
 import { SubsetFactsPage } from '@api/common/subset';
@@ -20,11 +18,10 @@ import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { actionSubsetFactsPageInit } from '../store/subset.actions';
-import { selectSubsetFactsPage } from '../store/subset.selectors';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
+import { SubsetFactsStore } from './subset-facts.store';
 
 @Component({
   selector: 'kpn-subset-facts-page',
@@ -39,7 +36,7 @@ import { SubsetSidebarComponent } from '../subset-sidebar.component';
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           <p>
             <kpn-situation-on [timestamp]="response.situationOn" />
@@ -72,9 +69,9 @@ import { SubsetSidebarComponent } from '../subset-sidebar.component';
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [SubsetFactsStore, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ErrorComponent,
     FactDescriptionComponent,
     FactLevelComponent,
@@ -89,13 +86,8 @@ import { SubsetSidebarComponent } from '../subset-sidebar.component';
     SubsetSidebarComponent,
   ],
 })
-export class SubsetFactsPageComponent implements OnInit {
-  private readonly store = inject(Store);
-  protected readonly apiResponse = this.store.selectSignal(selectSubsetFactsPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionSubsetFactsPageInit());
-  }
+export class SubsetFactsPageComponent {
+  protected readonly store = inject(SubsetFactsStore);
 
   hasFacts(response: ApiResponse<SubsetFactsPage>): boolean {
     return response.result && response.result.subsetInfo.factCount > 0;

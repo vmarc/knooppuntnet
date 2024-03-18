@@ -5,10 +5,12 @@ import { signalStore } from '@ngrx/signals';
 
 type NewPreferencesState = {
   pageSize: number | null;
+  impact: boolean;
 };
 
 const initialState: NewPreferencesState = {
   pageSize: 25,
+  impact: true,
 };
 
 export const PreferencesStore = signalStore(
@@ -18,6 +20,11 @@ export const PreferencesStore = signalStore(
       updatePageSize: (pageSize: number): void => {
         patchState(store, {
           pageSize,
+        });
+      },
+      updateImpact: (impact: boolean): void => {
+        patchState(store, {
+          impact,
         });
       },
     };

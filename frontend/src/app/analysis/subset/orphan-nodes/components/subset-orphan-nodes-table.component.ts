@@ -14,11 +14,9 @@ import { EditService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { LinkNodeComponent } from '@app/components/shared/link';
-import { actionPreferencesPageSize } from '@app/core';
-import { selectPreferencesPageSize } from '@app/core';
-import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
+import { SubsetOrphanNodesStore } from '../subset-orphan-nodes.store';
 import { SubsetOrphanNodeFilter } from './subset-orphan-node-filter';
 import { SubsetOrphanNodeFilterCriteria } from './subset-orphan-node-filter-criteria';
 import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
@@ -104,13 +102,13 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   private readonly subsetOrphanNodesService = inject(SubsetOrphanNodesService);
   private readonly editService = inject(EditService);
-  private readonly store = inject(Store);
+  private readonly store = inject(SubsetOrphanNodesStore);
 
   protected readonly dataSource = new MatTableDataSource<OrphanNodeInfo>();
 
   protected displayedColumns = ['nr', 'node', 'name', 'last-survey', 'last-edit'];
 
-  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  protected readonly pageSize = this.store.pageSize();
 
   private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanNodeFilterCriteria());
 
@@ -128,7 +126,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.dispatch(actionPreferencesPageSize({ pageSize }));
+    this.store.updatePageSize(pageSize);
   }
 
   edit(): void {

@@ -1,18 +1,15 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { actionSubsetOrphanNodesPageInit } from '../store/subset.actions';
-import { selectSubsetOrphanNodesPage } from '../store/subset.selectors';
 import { SubsetOrphanNodesSidebarComponent } from './components/subset-orphan-nodes-sidebar.component';
 import { SubsetOrphanNodesTableComponent } from './components/subset-orphan-nodes-table.component';
+import { SubsetOrphanNodesStore } from './subset-orphan-nodes.store';
 
 @Component({
   selector: 'kpn-subset-orphan-nodes-page',
@@ -27,7 +24,7 @@ import { SubsetOrphanNodesTableComponent } from './components/subset-orphan-node
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           <p>
             <kpn-situation-on [timestamp]="response.situationOn" />
@@ -48,9 +45,9 @@ import { SubsetOrphanNodesTableComponent } from './components/subset-orphan-node
       <kpn-subset-orphan-nodes-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [SubsetOrphanNodesStore, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ErrorComponent,
     IconHappyComponent,
     PageComponent,
@@ -60,11 +57,6 @@ import { SubsetOrphanNodesTableComponent } from './components/subset-orphan-node
     SubsetPageHeaderBlockComponent,
   ],
 })
-export class SubsetOrphanNodesPageComponent implements OnInit {
-  private readonly store = inject(Store);
-  protected readonly apiResponse = this.store.selectSignal(selectSubsetOrphanNodesPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionSubsetOrphanNodesPageInit());
-  }
+export class SubsetOrphanNodesPageComponent {
+  protected readonly store = inject(SubsetOrphanNodesStore);
 }

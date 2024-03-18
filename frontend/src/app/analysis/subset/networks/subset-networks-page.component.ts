@@ -2,21 +2,19 @@ import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { PageWidthService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
 import { MarkdownModule } from 'ngx-markdown';
 import { map } from 'rxjs/operators';
+import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { actionSubsetNetworksPageInit } from '../store/subset.actions';
-import { selectSubsetNetworksPage } from '../store/subset.selectors';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
 import { SubsetNetworkListComponent } from './components/subset-network-list.component';
 import { SubsetNetworkTableComponent } from './components/subset-network-table.component';
+import { SubsetNetworksStore } from './subset-networks.store';
 
 @Component({
   selector: 'kpn-subset-networks-page',
@@ -31,7 +29,7 @@ import { SubsetNetworkTableComponent } from './components/subset-network-table.c
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           @if (response.result.networks.length === 0) {
             <div i18n="@@subset-networks.no-networks">No networks</div>
@@ -58,6 +56,7 @@ import { SubsetNetworkTableComponent } from './components/subset-network-table.c
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [SubsetNetworksStore, RouterService],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -72,16 +71,11 @@ import { SubsetNetworkTableComponent } from './components/subset-network-table.c
     SubsetSidebarComponent,
   ],
 })
-export class SubsetNetworksPageComponent implements OnInit {
-  private readonly store = inject(Store);
+export class SubsetNetworksPageComponent {
+  protected readonly store = inject(SubsetNetworksStore);
   private readonly pageWidthService = inject(PageWidthService);
 
-  protected readonly apiResponse = this.store.selectSignal(selectSubsetNetworksPage);
   protected readonly large$ = this.pageWidthService.current$.pipe(
     map(() => this.pageWidthService.isVeryLarge())
   );
-
-  ngOnInit(): void {
-    this.store.dispatch(actionSubsetNetworksPageInit());
-  }
 }
