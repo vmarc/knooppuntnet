@@ -1,4 +1,5 @@
 import { inject } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { SubsetMapPage } from '@api/common/subset';
 import { ApiResponse } from '@api/custom';
 import { ApiService } from '@app/services';
@@ -8,6 +9,7 @@ import { withMethods } from '@ngrx/signals';
 import { withState } from '@ngrx/signals';
 import { signalStore } from '@ngrx/signals';
 import { SubsetStore } from '../subset.store';
+import { SubsetMapNetworkDialogComponent } from './components/subset-map-network-dialog.component';
 import { SubsetMapService } from './subset-map.service';
 
 export type SubsetMapState = {

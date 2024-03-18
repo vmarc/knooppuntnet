@@ -20,15 +20,13 @@ import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
 import { LinkNodeComponent } from '@app/components/shared/link';
-import { actionPreferencesPageSize } from '@app/core';
-import { selectPreferencesPageSize } from '@app/core';
 import { FilterOptions } from '@app/kpn/filter';
-import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
+import { NetworkNodesStore } from '../network-nodes.store';
 import { NetworkNodeAnalysisComponent } from './network-node-analysis.component';
 import { NetworkNodeFilter } from './network-node-filter';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
@@ -198,8 +196,8 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   private readonly pageWidthService = inject(PageWidthService);
   private readonly networkNodesService = inject(NetworkNodesService);
   private readonly editService = inject(EditService);
-  private readonly store = inject(Store);
-  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  private readonly store = inject(NetworkNodesStore);
+  protected readonly pageSize = this.store.pageSize();
 
   protected readonly dataSource = new MatTableDataSource<NetworkNodeRow>();
   protected readonly headerColumns1$ = this.pageWidthService.current$.pipe(
@@ -249,7 +247,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.dispatch(actionPreferencesPageSize({ pageSize }));
+    this.store.updatePageSize(pageSize);
   }
 
   edit(): void {

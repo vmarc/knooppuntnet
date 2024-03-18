@@ -1,18 +1,13 @@
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { PageComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
-import { actionNetworkMapPageDestroy } from '../store/network.actions';
-import { actionNetworkMapPageInit } from '../store/network.actions';
-import { selectNetworkMapPositionFromUrl } from '../store/network.selectors';
-import { selectNetworkId } from '../store/network.selectors';
-import { selectNetworkMapPage } from '../store/network.selectors';
 import { NetworkMapSidebarComponent } from './components/network-map-sidebar.component';
 import { NetworkMapComponent } from './components/network-map.component';
+import { NetworkMapService } from './components/network-map.service';
+import { NetworkMapStore } from './network-map.store';
 
 @Component({
   selector: 'kpn-network-map-page',
@@ -25,7 +20,7 @@ import { NetworkMapComponent } from './components/network-map.component';
         i18n-pageTitle="@@network-map.title"
       />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div>
           @if (!response.result) {
             <p class="kpn-spacer-above" i18n="@@network-page.network-not-found">
@@ -43,6 +38,7 @@ import { NetworkMapComponent } from './components/network-map.component';
       <kpn-network-map-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [NetworkMapService, NetworkMapStore, RouterService],
   standalone: true,
   imports: [
     NetworkMapComponent,
@@ -51,17 +47,8 @@ import { NetworkMapComponent } from './components/network-map.component';
     PageComponent,
   ],
 })
-export class NetworkMapPageComponent implements OnInit, OnDestroy {
-  private readonly store = inject(Store);
-  protected readonly networkId = this.store.selectSignal(selectNetworkId);
-  protected readonly apiResponse = this.store.selectSignal(selectNetworkMapPage);
-  protected readonly mapPositionFromUrl = this.store.selectSignal(selectNetworkMapPositionFromUrl);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionNetworkMapPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionNetworkMapPageDestroy());
-  }
+export class NetworkMapPageComponent {
+  protected readonly store = inject(NetworkMapStore);
+  protected readonly networkId = this.store.networkId();
+  protected readonly mapPositionFromUrl = this.store.mapPositionFromUrl;
 }

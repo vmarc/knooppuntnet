@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network';
@@ -9,8 +8,7 @@ import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { NetworkMapPosition } from '@app/ol/domain';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
-import { Store } from '@ngrx/store';
-import { actionNetworkMapViewInit } from '../../store/network.actions';
+import { NetworkMapStore } from '../network-map.store';
 import { NetworkControlComponent } from './network-control.component';
 import { NetworkMapService } from './network-map.service';
 
@@ -33,21 +31,16 @@ import { NetworkMapService } from './network-map.service';
   standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent, NetworkControlComponent],
 })
-export class NetworkMapComponent implements AfterViewInit, OnDestroy {
+export class NetworkMapComponent implements AfterViewInit {
   networkId = input.required<number>();
   page = input.required<NetworkMapPage>();
   mapPositionFromUrl = input.required<NetworkMapPosition>();
 
   protected readonly service = inject(NetworkMapService);
-  private readonly store = inject(Store);
+  private readonly store = inject(NetworkMapStore);
 
   ngAfterViewInit(): void {
-    this.store.dispatch(actionNetworkMapViewInit());
-    // TODO   () => this.mapLayerService.restoreMapLayerStates(this.layers),
-  }
-
-  ngOnDestroy(): void {
-    this.service.destroy();
+    this.store.afterViewInit();
   }
 
   zoomInToNetwork(): void {

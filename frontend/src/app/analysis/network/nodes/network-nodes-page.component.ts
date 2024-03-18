@@ -1,17 +1,13 @@
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
-import { actionNetworkNodesPageDestroy } from '../store/network.actions';
-import { actionNetworkNodesPageInit } from '../store/network.actions';
-import { selectNetworkNodesPage } from '../store/network.selectors';
 import { NetworkNodeTableComponent } from './components/network-node-table.component';
 import { NetworkNodesSidebarComponent } from './components/network-nodes-sidebar.component';
+import { NetworkNodesStore } from './network-nodes.store';
 
 @Component({
   selector: 'kpn-network-nodes-page',
@@ -24,7 +20,7 @@ import { NetworkNodesSidebarComponent } from './components/network-nodes-sidebar
         i18n-pageTitle="@@network-nodes.title"
       />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         @if (!response.result) {
           <p i18n="@@network-page.network-not-found">Network not found</p>
         } @else {
@@ -49,6 +45,7 @@ import { NetworkNodesSidebarComponent } from './components/network-nodes-sidebar
       <kpn-network-nodes-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [NetworkNodesStore, RouterService],
   standalone: true,
   imports: [
     NetworkNodeTableComponent,
@@ -58,15 +55,6 @@ import { NetworkNodesSidebarComponent } from './components/network-nodes-sidebar
     SituationOnComponent,
   ],
 })
-export class NetworkNodesPageComponent implements OnInit, OnDestroy {
-  private readonly store = inject(Store);
-  protected readonly apiResponse = this.store.selectSignal(selectNetworkNodesPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionNetworkNodesPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionNetworkNodesPageDestroy());
-  }
+export class NetworkNodesPageComponent {
+  protected readonly store = inject(NetworkNodesStore);
 }

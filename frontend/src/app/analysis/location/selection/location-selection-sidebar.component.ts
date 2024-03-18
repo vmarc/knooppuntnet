@@ -5,7 +5,6 @@ import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { AnalysisStrategy } from '@app/core';
 import { Store } from '@ngrx/store';
-import { actionLocationSelectionPageStrategy } from '../store/location.actions';
 import { LocationModeComponent } from './location-mode.component';
 
 @Component({
@@ -24,6 +23,6 @@ export class LocationSelectionSidebarComponent {
   private readonly store = inject(Store);
 
   onStrategyChange(strategy: AnalysisStrategy) {
-    this.store.dispatch(actionLocationSelectionPageStrategy({ strategy }));
+    // TODO this.store.dispatch(actionLocationSelectionPageStrategy({ strategy }));
   }
 }

@@ -7,6 +7,7 @@ import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
 import { SubsetMapComponent } from './components/subset-map.component';
+import { SubsetMapService } from './subset-map.service';
 import { SubsetMapStore } from './subset-map.store';
 
 @Component({
@@ -28,7 +29,7 @@ import { SubsetMapStore } from './subset-map.store';
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [SubsetMapStore, RouterService],
+  providers: [SubsetMapService, SubsetMapStore, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,

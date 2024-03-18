@@ -2,7 +2,6 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { MatCardTitle } from '@angular/material/card';
 import { MatCardHeader } from '@angular/material/card';
 import { MatCardContent } from '@angular/material/card';
@@ -14,15 +13,12 @@ import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { actionSubsetFactDetailsPageInit } from '../store/subset.actions';
-import { selectSubsetFact } from '../store/subset.selectors';
-import { selectSubsetFactDetailsPage } from '../store/subset.selectors';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
 import { SubsetFactDetailsSummaryComponent } from './components/subset-fact-details-summary.component';
 import { SubsetFactDetailsComponent } from './components/subset-fact-details.component';
+import { SubsetFactDetailsStore } from './subset-fact-details.store';
 
 @Component({
   selector: 'kpn-subset-fact-details-page',
@@ -51,7 +47,7 @@ import { SubsetFactDetailsComponent } from './components/subset-fact-details.com
         </mat-card-content>
       </mat-card>
       <kpn-error />
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div>
           @if (response.result) {
             <div>
@@ -82,16 +78,11 @@ import { SubsetFactDetailsComponent } from './components/subset-fact-details.com
     FactLevelComponent,
   ],
 })
-export class SubsetFactDetailsPageComponent implements OnInit {
-  private readonly store = inject(Store);
-  protected readonly subsetFact = this.store.selectSignal(selectSubsetFact);
-  protected readonly apiResponse = this.store.selectSignal(selectSubsetFactDetailsPage);
-  protected readonly page = computed(() => this.apiResponse()?.result);
+export class SubsetFactDetailsPageComponent {
+  protected readonly store = inject(SubsetFactDetailsStore);
+  protected readonly subsetFact = this.store.subsetFact;
+  protected readonly page = computed(() => this.store.response()?.result);
   protected readonly factDefinition = computed(() => Facts.facts.get(this.subsetFact().factName));
-
-  ngOnInit(): void {
-    this.store.dispatch(actionSubsetFactDetailsPageInit());
-  }
 
   factInfo(): FactInfo {
     return new FactInfo(this.subsetFact().factName);

@@ -1,16 +1,12 @@
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { PageComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
-import { actionNetworkFactsPageDestroy } from '../store/network.actions';
-import { actionNetworkFactsPageInit } from '../store/network.actions';
-import { selectNetworkFactsPage } from '../store/network.selectors';
 import { NetworkFactsComponent } from './components/network-facts.component';
+import { NetworkFactsStore } from './network-facts.store';
 
 @Component({
   selector: 'kpn-network-facts-page',
@@ -22,7 +18,7 @@ import { NetworkFactsComponent } from './components/network-facts.component';
         pageTitle="Facts"
         i18n-pageTitle="@@network-facts.title"
       />
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
             <p i18n="@@network-page.network-not-found">Network not found</p>
@@ -34,6 +30,7 @@ import { NetworkFactsComponent } from './components/network-facts.component';
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [NetworkFactsStore, RouterService],
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
@@ -42,15 +39,6 @@ import { NetworkFactsComponent } from './components/network-facts.component';
     NetworkFactsComponent,
   ],
 })
-export class NetworkFactsPageComponent implements OnInit, OnDestroy {
-  private readonly store = inject(Store);
-  protected readonly apiResponse = this.store.selectSignal(selectNetworkFactsPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionNetworkFactsPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionNetworkFactsPageDestroy());
-  }
+export class NetworkFactsPageComponent {
+  protected readonly store = inject(NetworkFactsStore);
 }

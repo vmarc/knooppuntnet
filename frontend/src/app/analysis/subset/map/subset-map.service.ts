@@ -1,7 +1,9 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Bounds } from '@api/common';
 import { SubsetMapNetwork } from '@api/common/subset';
+import { Util } from '@app/components/shared';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapLayerRegistry } from '@app/ol/layers';
 import { BackgroundLayer } from '@app/ol/layers';
@@ -9,21 +11,21 @@ import { OsmLayer } from '@app/ol/layers';
 import { NetworkMarkerLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
-import { Util } from '@app/components/shared';
-import { Store } from '@ngrx/store';
 import { MapBrowserEvent } from 'ol';
 import { FeatureLike } from 'ol/Feature';
 import Interaction from 'ol/interaction/Interaction';
 import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
 import View from 'ol/View';
-import { actionSubsetMapPageNetworkClicked } from '../store/subset.actions';
+import { SubsetMapNetworkDialogComponent } from './components/subset-map-network-dialog.component';
 
 @Injectable()
 export class SubsetMapService extends OpenlayersMapService {
-  private readonly store = inject(Store);
+  private readonly dialog = inject(MatDialog);
+  private networks: SubsetMapNetwork[] = [];
 
   init(networks: SubsetMapNetwork[], bounds: Bounds): void {
+    this.networks = networks;
     this.registerLayers(networks);
     this.initMap(
       new Map({
@@ -76,7 +78,15 @@ export class SubsetMapService extends OpenlayersMapService {
       );
       if (index >= 0) {
         const networkId = +features[index].get(NetworkMarkerLayer.networkId);
-        this.store.dispatch(actionSubsetMapPageNetworkClicked({ networkId }));
+        const network = this.networks.find((n) => n.id === networkId);
+        if (network) {
+          this.dialog.open(SubsetMapNetworkDialogComponent, {
+            data: network,
+            autoFocus: false,
+            maxWidth: 600,
+          });
+        }
+
         return false; // do not propagate event
       }
     }

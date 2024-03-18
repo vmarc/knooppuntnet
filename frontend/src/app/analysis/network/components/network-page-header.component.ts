@@ -7,9 +7,7 @@ import { RouterLink } from '@angular/router';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
-import { selectNetworkSummary } from '../store/network.selectors';
-import { selectNetworkId } from '../store/network.selectors';
+import { NetworkStore } from '../network.store';
 
 @Component({
   selector: 'kpn-network-page-header',
@@ -103,9 +101,9 @@ export class NetworkPageHeaderComponent {
   pageName = input.required<string>();
   pageTitle = input.required<string>();
 
-  private readonly store = inject(Store);
-  protected readonly networkIdSignal = this.store.selectSignal(selectNetworkId);
-  protected readonly summarySignal = this.store.selectSignal(selectNetworkSummary);
+  private readonly store = inject(NetworkStore);
+  protected readonly networkIdSignal = this.store.networkId;
+  protected readonly summarySignal = this.store.summary;
 
   networkPageTitle(networkName: string): string {
     if (networkName) {

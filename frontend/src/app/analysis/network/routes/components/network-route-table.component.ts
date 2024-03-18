@@ -21,16 +21,14 @@ import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LinkRouteComponent } from '@app/components/shared/link';
-import { actionPreferencesPageSize } from '@app/core';
-import { selectPreferencesPageSize } from '@app/core';
 import { FilterOptions } from '@app/kpn/filter';
 import { SymbolComponent } from '@app/symbol';
-import { Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
+import { NetworkRoutesStore } from '../network-routes.store';
 import { NetworkRouteAnalysisComponent } from './network-route-analysis.component';
 import { NetworkRouteFilter } from './network-route-filter';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
@@ -194,9 +192,9 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   private readonly pageWidthService = inject(PageWidthService);
   private readonly networkRoutesService = inject(NetworkRoutesService);
   private readonly editService = inject(EditService);
-  private readonly store = inject(Store);
+  private readonly store = inject(NetworkRoutesStore);
 
-  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
+  protected readonly pageSize = this.store.pageSize();
   protected readonly dataSource = new MatTableDataSource<NetworkRouteRow>();
   protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
     map(() => this.displayedColumns())
@@ -236,7 +234,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.dispatch(actionPreferencesPageSize({ pageSize }));
+    this.store.updatePageSize(pageSize);
   }
 
   edit(): void {

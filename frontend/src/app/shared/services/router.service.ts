@@ -23,6 +23,10 @@ export class RouterService {
     return this.activatedRoute.snapshot.paramMap.get(name);
   }
 
+  queryParam(name: string): string {
+    return this.activatedRoute.snapshot.queryParamMap.get(name);
+  }
+
   paramNetworkType(): NetworkType {
     return NetworkTypes.withName(this.param('networkType'));
   }

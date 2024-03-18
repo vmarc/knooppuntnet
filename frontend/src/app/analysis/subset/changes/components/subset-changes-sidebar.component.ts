@@ -4,17 +4,14 @@ import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ChangeOption } from '@app/kpn/common';
-import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
-import { actionSubsetChangesFilterOption } from '../../store/subset.actions';
-import { selectSubsetChangesFilterOptions } from '../../store/subset.selectors';
+import { SubsetChangesStore } from '../subset-changes.store';
 
 @Component({
   selector: 'kpn-subset-changes-sidebar',
   template: `
     <kpn-sidebar>
       <kpn-change-filter
-        [filterOptions]="filterOptions$ | async"
+        [filterOptions]="filterOptions()"
         (optionSelected)="onOptionSelected($event)"
       />
     </kpn-sidebar>
@@ -23,12 +20,10 @@ import { selectSubsetChangesFilterOptions } from '../../store/subset.selectors';
   imports: [SidebarComponent, ChangeFilterComponent, AsyncPipe],
 })
 export class SubsetChangesSidebarComponent {
-  private readonly store = inject(Store);
-  protected readonly filterOptions$ = this.store
-    .select(selectSubsetChangesFilterOptions)
-    .pipe(filter((filterOptions) => !!filterOptions));
+  private readonly store = inject(SubsetChangesStore);
+  protected readonly filterOptions = this.store.filterOptions;
 
   onOptionSelected(option: ChangeOption): void {
-    this.store.dispatch(actionSubsetChangesFilterOption({ option }));
+    this.store.updateFilterOption(option);
   }
 }

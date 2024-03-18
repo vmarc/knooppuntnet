@@ -1,7 +1,8 @@
 import { computed } from '@angular/core';
+import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter';
-import { SubsetChangesPage } from '@api/common/subset';
+import { NetworkChangesPage } from '@api/common/network';
 import { ApiResponse } from '@api/custom';
 import { Util } from '@app/components/shared';
 import { ChangeOption } from '@app/kpn/common';
@@ -15,19 +16,19 @@ import { withState } from '@ngrx/signals';
 import { signalStore } from '@ngrx/signals';
 import { PreferencesStore } from '../../../shared/core/preferences/preferences.store';
 import { RouterService } from '../../../shared/services/router.service';
-import { SubsetStore } from '../subset.store';
+import { NetworkStore } from '../network.store';
 
-export type SubsetChangesState = {
-  changesParameters: ChangesParameters | null;
-  response: ApiResponse<SubsetChangesPage> | null;
+export type NetworkChangesState = {
+  response: ApiResponse<NetworkChangesPage>;
+  changesParameters: ChangesParameters;
 };
 
-const initialState: SubsetChangesState = {
-  changesParameters: null,
+export const initialState: NetworkChangesState = {
   response: null,
+  changesParameters: null,
 };
 
-export const SubsetChangesStore = signalStore(
+export const NetworkChangesStore = signalStore(
   withState(initialState),
   withComputed((state) => ({
     impact: computed(() => state.changesParameters().impact),
@@ -37,43 +38,50 @@ export const SubsetChangesStore = signalStore(
   })),
   withMethods((store) => {
     const apiService = inject(ApiService);
-    const subsetStore = inject(SubsetStore);
+    const networkStore = inject(NetworkStore);
     const preferencesStore = inject(PreferencesStore);
     const routerService = inject(RouterService);
-
     const load = (): void => {
-      apiService
-        .subsetChanges(subsetStore.subset(), store.changesParameters())
-        .subscribe((response) => {
-          if (response.result) {
-            subsetStore.updateSubsetInfo(response.result.subsetInfo);
-          }
-          patchState(store, {
-            response,
-          });
+      const params = routerService.params();
+      const queryParams = routerService.queryParams();
+      const uniqueQueryParams = Util.uniqueParams(queryParams);
+      const pageParams = new PageParams(params, uniqueQueryParams);
+
+      const preferencesImpact = preferencesStore.impact();
+      const preferencesPageSize = preferencesStore.pageSize();
+
+      const parameters = pageParams.changesParameters(preferencesImpact, preferencesPageSize);
+
+      apiService.networkChanges(networkStore.networkId(), parameters).subscribe((response) => {
+        if (response.result) {
+          networkStore.updateSummary(response.result.network);
+        }
+        patchState(store, {
+          response,
         });
+      });
     };
 
     return {
       init: (): void => {
-        subsetStore.initPage();
+        networkStore.initPage();
         const params = routerService.params();
         const queryParams = routerService.queryParams();
         const uniqueQueryParams = Util.uniqueParams(queryParams);
         const pageParams = new PageParams(params, uniqueQueryParams);
-
         const preferencesImpact = preferencesStore.impact();
         const preferencesPageSize = preferencesStore.pageSize();
-
         const changesParameters = pageParams.changesParameters(
           preferencesImpact,
           preferencesPageSize
         );
-
         patchState(store, {
           changesParameters,
         });
         load();
+      },
+      pageSize: (): Signal<number> => {
+        return preferencesStore.pageSize;
       },
       updatePageSize: (pageSize: number): void => {
         preferencesStore.updatePageSize(pageSize);

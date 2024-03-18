@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -18,12 +17,9 @@ import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { Countries } from '@app/kpn/common';
 import { NetworkTypes } from '@app/kpn/common';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
-import { actionLocationSelectionPageDestroy } from '../store/location.actions';
-import { actionLocationSelectionPageInit } from '../store/location.actions';
 import { LocalLocationNode } from './local-location-node';
 import { LocationModeService } from './location-mode.service';
 import { LocationSelectionSidebarComponent } from './location-selection-sidebar.component';
@@ -110,12 +106,11 @@ import { LocationTreeComponent } from './location-tree.component';
     RouterLink,
   ],
 })
-export class LocationSelectionPageComponent implements OnInit, OnDestroy {
+export class LocationSelectionPageComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly locationModeService = inject(LocationModeService);
   private readonly locationSelectionService = inject(LocationSelectionService);
   private readonly router = inject(Router);
-  private readonly store = inject(Store);
 
   protected locationNode$: Observable<LocalLocationNode>;
   protected networkType: NetworkType;
@@ -135,7 +130,7 @@ export class LocationSelectionPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.store.dispatch(actionLocationSelectionPageInit());
+    // TODO this.store.dispatch(actionLocationSelectionPageInit());
 
     this.locationNode$ = this.activatedRoute.params.pipe(
       map((params) => {
@@ -150,9 +145,9 @@ export class LocationSelectionPageComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
-    this.store.dispatch(actionLocationSelectionPageDestroy());
-  }
+  // ngOnDestroy(): void {
+  //   this.store.dispatch(actionLocationSelectionPageDestroy());
+  // }
 
   private toLocalLocationNode(
     parents: LocationNode[],

@@ -1,28 +1,18 @@
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangesComponent } from '@app/analysis/components/changes';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
 import { UserStore } from '../../../shared/user/user.store';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
-import { actionNetworkChangesImpact } from '../store/network.actions';
-import { actionNetworkChangesPageDestroy } from '../store/network.actions';
-import { actionNetworkChangesPageSize } from '../store/network.actions';
-import { actionNetworkChangesPageIndex } from '../store/network.actions';
-import { actionNetworkChangesPageInit } from '../store/network.actions';
-import { selectNetworkChangesPageSize } from '../store/network.selectors';
-import { selectNetworkChangesImpact } from '../store/network.selectors';
-import { selectNetworkChangesPageIndex } from '../store/network.selectors';
-import { selectNetworkChangesPage } from '../store/network.selectors';
 import { NetworkChangeSetComponent } from './components/network-change-set.component';
 import { NetworkChangesSidebarComponent } from './components/network-changes-sidebar.component';
+import { NetworkChangesStore } from './network-changes.store';
 
 @Component({
   selector: 'kpn-network-changes-page',
@@ -35,7 +25,7 @@ import { NetworkChangesSidebarComponent } from './components/network-changes-sid
         i18n-pageTitle="@@network-changes.title"
       />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
             <p i18n="@@network-page.network-not-found">Network not found</p>
@@ -53,9 +43,9 @@ import { NetworkChangesSidebarComponent } from './components/network-changes-sid
                 <kpn-situation-on [timestamp]="response.situationOn" />
               </p>
               <kpn-changes
-                [impact]="impact()"
+                [impact]="store.impact()"
                 [pageSize]="pageSize()"
-                [pageIndex]="pageIndex()"
+                [pageIndex]="store.pageIndex()"
                 (impactChange)="onImpactChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
                 (pageIndexChange)="onPageIndexChange($event)"
@@ -80,6 +70,7 @@ import { NetworkChangesSidebarComponent } from './components/network-changes-sid
       <kpn-network-changes-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [NetworkChangesStore, RouterService],
   standalone: true,
   imports: [
     ChangesComponent,
@@ -93,33 +84,22 @@ import { NetworkChangesSidebarComponent } from './components/network-changes-sid
     UserLinkLoginComponent,
   ],
 })
-export class NetworkChangesPageComponent implements OnInit, OnDestroy {
+export class NetworkChangesPageComponent {
   private readonly userStore = inject(UserStore);
   readonly loggedIn = this.userStore.loggedIn;
 
-  private readonly store = inject(Store);
-  readonly apiResponse = this.store.selectSignal(selectNetworkChangesPage);
-  readonly impact = this.store.selectSignal(selectNetworkChangesImpact);
-  readonly pageSize = this.store.selectSignal(selectNetworkChangesPageSize);
-  readonly pageIndex = this.store.selectSignal(selectNetworkChangesPageIndex);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionNetworkChangesPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionNetworkChangesPageDestroy());
-  }
+  protected readonly store = inject(NetworkChangesStore);
+  protected readonly pageSize = this.store.pageSize();
 
   onImpactChange(impact: boolean): void {
-    this.store.dispatch(actionNetworkChangesImpact({ impact }));
+    this.store.updateImpact(impact);
   }
 
   onPageSizeChange(pageSize: number): void {
-    this.store.dispatch(actionNetworkChangesPageSize({ pageSize }));
+    this.store.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {
-    this.store.dispatch(actionNetworkChangesPageIndex({ pageIndex }));
+    this.store.updatePageIndex(pageIndex);
   }
 }
