@@ -1,9 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ChangesComponent } from '@app/analysis/components/changes';
 import { ErrorComponent } from '@app/components/shared/error';
@@ -11,24 +9,14 @@ import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
 import { UserStore } from '../../../shared/user/user.store';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
-import { actionNodeChangesPageDestroy } from '../store/node.actions';
-import { actionNodeChangesPageSize } from '../store/node.actions';
-import { actionNodeChangesPageImpact } from '../store/node.actions';
-import { actionNodeChangesPageIndex } from '../store/node.actions';
-import { actionNodeChangesPageInit } from '../store/node.actions';
-import { selectNodeChangesPageSize } from '../store/node.selectors';
-import { selectNodeChangesPageImpact } from '../store/node.selectors';
-import { selectNodeChangesPageIndex } from '../store/node.selectors';
-import { selectNodeChangesPage } from '../store/node.selectors';
-import { selectNodeChangeCount } from '../store/node.selectors';
-import { selectNodeName } from '../store/node.selectors';
-import { selectNodeId } from '../store/node.selectors';
+import { NodeStore } from '../node.store';
 import { NodeChangeComponent } from './components/node-change.component';
 import { NodeChangesSidebarComponent } from './components/node-changes-sidebar.component';
+import { NodeChangesStore } from './node-changes.store';
 
 @Component({
   selector: 'kpn-node-changes-page',
@@ -52,7 +40,7 @@ import { NodeChangesSidebarComponent } from './components/node-changes-sidebar.c
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
             <p i18n="@@node.node-not-found">Node not found</p>
@@ -127,6 +115,7 @@ import { NodeChangesSidebarComponent } from './components/node-changes-sidebar.c
       <kpn-node-changes-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [NodeChangesStore, RouterService],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -143,36 +132,28 @@ import { NodeChangesSidebarComponent } from './components/node-changes-sidebar.c
     UserLinkLoginComponent,
   ],
 })
-export class NodeChangesPageComponent implements OnInit, OnDestroy {
+export class NodeChangesPageComponent {
   private readonly userStore = inject(UserStore);
-  readonly loggedIn = this.userStore.loggedIn;
+  protected readonly loggedIn = this.userStore.loggedIn;
 
-  private readonly store = inject(Store);
-  readonly nodeId = this.store.selectSignal(selectNodeId);
-  readonly nodeName = this.store.selectSignal(selectNodeName);
-  readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
-  readonly impact = this.store.selectSignal(selectNodeChangesPageImpact);
-  readonly pageSize = this.store.selectSignal(selectNodeChangesPageSize);
-  readonly pageIndex = this.store.selectSignal(selectNodeChangesPageIndex);
-  readonly apiResponse = this.store.selectSignal(selectNodeChangesPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionNodeChangesPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionNodeChangesPageDestroy());
-  }
+  protected readonly store = inject(NodeChangesStore);
+  protected readonly nodeStore = inject(NodeStore);
+  protected readonly nodeId = this.nodeStore.nodeId;
+  protected readonly nodeName = this.nodeStore.nodeName;
+  protected readonly changeCount = this.nodeStore.changeCount;
+  protected readonly impact = this.store.impact();
+  protected readonly pageSize = this.store.pageSize();
+  protected readonly pageIndex = this.store.pageIndex;
 
   onImpactChange(impact: boolean): void {
-    this.store.dispatch(actionNodeChangesPageImpact({ impact }));
+    this.store.updateImpact(impact);
   }
 
   onPageSizeChange(pageSize: number): void {
-    this.store.dispatch(actionNodeChangesPageSize({ pageSize }));
+    this.store.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {
-    this.store.dispatch(actionNodeChangesPageIndex({ pageIndex }));
+    this.store.updatePageIndex(pageIndex);
   }
 }

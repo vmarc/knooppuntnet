@@ -1,52 +1,50 @@
-import { computed } from '@angular/core';
+import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
+import { computed } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter';
-import { SubsetChangesPage } from '@api/common/subset';
+import { NodeChangesPage } from '@api/common/node';
 import { ApiResponse } from '@api/custom';
 import { Util } from '@app/components/shared';
 import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';
-import { withComputed } from '@ngrx/signals';
 import { withHooks } from '@ngrx/signals';
 import { patchState } from '@ngrx/signals';
 import { withMethods } from '@ngrx/signals';
+import { withComputed } from '@ngrx/signals';
 import { withState } from '@ngrx/signals';
 import { signalStore } from '@ngrx/signals';
 import { PreferencesStore } from '../../../shared/core/preferences/preferences.store';
 import { RouterService } from '../../../shared/services/router.service';
-import { SubsetStore } from '../subset.store';
+import { NodeStore } from '../node.store';
 
-export type SubsetChangesState = {
-  changesParameters: ChangesParameters | null;
-  response: ApiResponse<SubsetChangesPage> | null;
+export type NodeChangesState = {
+  response: ApiResponse<NodeChangesPage>;
+  changesParameters: ChangesParameters;
 };
 
-const initialState: SubsetChangesState = {
-  changesParameters: null,
+export const initialState: NodeChangesState = {
   response: null,
+  changesParameters: null,
 };
 
-export const SubsetChangesStore = signalStore(
+export const NodeChangesStore = signalStore(
   withState(initialState),
   withComputed((state) => ({
-    impact: computed(() => state.changesParameters().impact),
-    pageSize: computed(() => state.changesParameters().pageSize),
-    pageIndex: computed(() => state.changesParameters().pageIndex),
+    pageIndex: computed(() => state.changesParameters()?.pageIndex),
     filterOptions: computed(() => state.response()?.result?.filterOptions),
   })),
   withMethods((store) => {
     const apiService = inject(ApiService);
-    const subsetStore = inject(SubsetStore);
-    const preferencesStore = inject(PreferencesStore);
     const routerService = inject(RouterService);
-
+    const preferencesStore = inject(PreferencesStore);
+    const nodeStore = inject(NodeStore);
     const load = (): void => {
       apiService
-        .subsetChanges(subsetStore.subset(), store.changesParameters())
+        .nodeChanges(nodeStore.nodeId(), store.changesParameters())
         .subscribe((response) => {
           if (response.result) {
-            subsetStore.updateSubsetInfo(response.result.subsetInfo);
+            nodeStore.updateNode(response.result.nodeName, response.result.changeCount);
           }
           patchState(store, {
             response,
@@ -56,7 +54,7 @@ export const SubsetChangesStore = signalStore(
 
     return {
       init: (): void => {
-        subsetStore.initPage();
+        nodeStore.initPage();
         const params = routerService.params();
         const queryParams = routerService.queryParams();
         const uniqueQueryParams = Util.uniqueParams(queryParams);
@@ -67,11 +65,16 @@ export const SubsetChangesStore = signalStore(
           preferencesImpact,
           preferencesPageSize
         );
-
         patchState(store, {
           changesParameters,
         });
         load();
+      },
+      impact: (): Signal<boolean> => {
+        return preferencesStore.impact;
+      },
+      pageSize: (): Signal<number> => {
+        return preferencesStore.pageSize;
       },
       updatePageSize: (pageSize: number): void => {
         preferencesStore.updatePageSize(pageSize);
@@ -115,7 +118,6 @@ export const SubsetChangesStore = signalStore(
             pageIndex: 0,
           },
         });
-        load();
       },
     };
   }),

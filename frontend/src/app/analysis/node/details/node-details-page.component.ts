@@ -1,8 +1,5 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NodeDetailsPage } from '@api/common/node';
@@ -15,21 +12,16 @@ import { PageComponent } from '@app/components/shared/page';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
-import { actionNodeDetailsPageDestroy } from '../store/node.actions';
-import { actionNodeDetailsPageInit } from '../store/node.actions';
-import { selectNodeNetworkTypes } from '../store/node.selectors';
-import { selectNodeDetailsPage } from '../store/node.selectors';
-import { selectNodeName } from '../store/node.selectors';
-import { selectNodeId } from '../store/node.selectors';
-import { selectNodeChangeCount } from '../store/node.selectors';
+import { NodeStore } from '../node.store';
 import { NodeIntegrityComponent } from './components/node-integrity.component';
 import { NodeLocationComponent } from './components/node-location.component';
 import { NodeNetworkReferencesComponent } from './components/node-network-references.component';
 import { NodeRouteReferencesComponent } from './components/node-route-references.component';
 import { NodeSummaryComponent } from './components/node-summary.component';
+import { NodeDetailsStore } from './node-details.store';
 
 @Component({
   selector: 'kpn-node-details-page',
@@ -53,7 +45,7 @@ import { NodeSummaryComponent } from './components/node-summary.component';
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (store.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
             <div i18n="@@node.node-not-found">Node not found</div>
@@ -138,10 +130,10 @@ import { NodeSummaryComponent } from './components/node-summary.component';
     </kpn-page>
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
+  providers: [NodeDetailsStore, RouterService],
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
-    AsyncPipe,
     DataComponent,
     ErrorComponent,
     FactsComponent,
@@ -158,21 +150,13 @@ import { NodeSummaryComponent } from './components/node-summary.component';
     TimestampComponent,
   ],
 })
-export class NodeDetailsPageComponent implements OnInit, OnDestroy {
-  private readonly store = inject(Store);
-  protected readonly nodeId = this.store.selectSignal(selectNodeId);
-  protected readonly nodeName = this.store.selectSignal(selectNodeName);
-  protected readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
-  protected readonly networkTypes = this.store.selectSignal(selectNodeNetworkTypes);
-  protected readonly apiResponse = this.store.selectSignal(selectNodeDetailsPage);
-
-  ngOnInit(): void {
-    this.store.dispatch(actionNodeDetailsPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionNodeDetailsPageDestroy());
-  }
+export class NodeDetailsPageComponent {
+  protected readonly nodeStore = inject(NodeStore);
+  protected readonly store = inject(NodeDetailsStore);
+  protected readonly nodeId = this.nodeStore.nodeId;
+  protected readonly nodeName = this.nodeStore.nodeName;
+  protected readonly changeCount = this.nodeStore.changeCount;
+  protected readonly networkTypes = this.store.networkTypes;
 
   buildTags(page: NodeDetailsPage) {
     return InterpretedTags.nodeTags(page.nodeInfo.tags);

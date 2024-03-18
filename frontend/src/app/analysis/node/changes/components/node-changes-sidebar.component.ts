@@ -1,14 +1,11 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ChangeOption } from '@app/kpn/common';
-import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
-import { actionNodeChangesFilterOption } from '../../store/node.actions';
-import { selectNodeChangesFilterOptions } from '../../store/node.selectors';
+import { RouterService } from '../../../../shared/services/router.service';
+import { NodeChangesStore } from '../node-changes.store';
 
 @Component({
   selector: 'kpn-node-changes-sidebar',
@@ -16,21 +13,20 @@ import { selectNodeChangesFilterOptions } from '../../store/node.selectors';
   template: `
     <kpn-sidebar>
       <kpn-change-filter
-        [filterOptions]="filterOptions$ | async"
+        [filterOptions]="filterOptions()"
         (optionSelected)="onOptionSelected($event)"
       />
     </kpn-sidebar>
   `,
+  providers: [NodeChangesStore, RouterService],
   standalone: true,
-  imports: [SidebarComponent, ChangeFilterComponent, AsyncPipe],
+  imports: [SidebarComponent, ChangeFilterComponent],
 })
 export class NodeChangesSidebarComponent {
-  private readonly store = inject(Store);
-  protected readonly filterOptions$ = this.store
-    .select(selectNodeChangesFilterOptions)
-    .pipe(filter((filterOptions) => !!filterOptions));
+  private readonly store = inject(NodeChangesStore);
+  protected readonly filterOptions = this.store.filterOptions;
 
   onOptionSelected(option: ChangeOption): void {
-    this.store.dispatch(actionNodeChangesFilterOption({ option }));
+    this.store.updateFilterOption(option);
   }
 }

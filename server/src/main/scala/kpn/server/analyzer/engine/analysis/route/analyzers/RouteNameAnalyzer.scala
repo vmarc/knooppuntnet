@@ -20,7 +20,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
  * </ol>
  *
  * If none of the above results in a route name, we try to make up a route name
- * from the nodes that are found in the route ways (requires less that 3 different
+ * from the nodes that are found in the route ways (requires less than 3 different
  * node names).
  */
 object RouteNameAnalyzer extends RouteAnalyzer {
