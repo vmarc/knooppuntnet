@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -15,13 +16,12 @@ import { TimestampComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
-import { NodeStore } from '../node.store';
 import { NodeIntegrityComponent } from './components/node-integrity.component';
 import { NodeLocationComponent } from './components/node-location.component';
 import { NodeNetworkReferencesComponent } from './components/node-network-references.component';
 import { NodeRouteReferencesComponent } from './components/node-route-references.component';
 import { NodeSummaryComponent } from './components/node-summary.component';
-import { NodeDetailsStore } from './node-details.store';
+import { NodeDetailsPageService } from './node-details-page.service';
 
 @Component({
   selector: 'kpn-node-details-page',
@@ -36,16 +36,11 @@ import { NodeDetailsStore } from './node-details.store';
         <li i18n="@@breadcrumb.node">Node</li>
       </ul>
 
-      <kpn-node-page-header
-        pageName="details"
-        [nodeId]="nodeId()"
-        [nodeName]="nodeName()"
-        [changeCount]="changeCount()"
-      />
+      <kpn-node-page-header pageName="details" />
 
       <kpn-error />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
             <div i18n="@@node.node-not-found">Node not found</div>
@@ -130,7 +125,7 @@ import { NodeDetailsStore } from './node-details.store';
     </kpn-page>
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
-  providers: [NodeDetailsStore, RouterService],
+  providers: [NodeDetailsPageService, RouterService],
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
@@ -150,13 +145,13 @@ import { NodeDetailsStore } from './node-details.store';
     TimestampComponent,
   ],
 })
-export class NodeDetailsPageComponent {
-  protected readonly nodeStore = inject(NodeStore);
-  protected readonly store = inject(NodeDetailsStore);
-  protected readonly nodeId = this.nodeStore.nodeId;
-  protected readonly nodeName = this.nodeStore.nodeName;
-  protected readonly changeCount = this.nodeStore.changeCount;
-  protected readonly networkTypes = this.store.networkTypes;
+export class NodeDetailsPageComponent implements OnInit {
+  protected readonly service = inject(NodeDetailsPageService);
+  protected readonly networkTypes = this.service.networkTypes;
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 
   buildTags(page: NodeDetailsPage) {
     return InterpretedTags.nodeTags(page.nodeInfo.tags);

@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -11,12 +11,10 @@ import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
-import { UserStore } from '../../../shared/user/user.store';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
-import { NodeStore } from '../node.store';
 import { NodeChangeComponent } from './components/node-change.component';
 import { NodeChangesSidebarComponent } from './components/node-changes-sidebar.component';
-import { NodeChangesStore } from './node-changes.store';
+import { NodeChangesPageService } from './node-changes-page.service';
 
 @Component({
   selector: 'kpn-node-changes-page',
@@ -31,21 +29,16 @@ import { NodeChangesStore } from './node-changes.store';
         <li i18n="@@breadcrumb.node-changes">Node changes</li>
       </ul>
 
-      <kpn-node-page-header
-        pageName="changes"
-        [nodeId]="nodeId()"
-        [nodeName]="nodeName()"
-        [changeCount]="changeCount()"
-      />
+      <kpn-node-page-header pageName="changes" />
 
       <kpn-error />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
             <p i18n="@@node.node-not-found">Node not found</p>
           } @else {
-            @if (loggedIn() === false) {
+            @if (service.loggedIn() === false) {
               <div>
                 <p i18n="@@node.login-required">
                   The details of the node changes history is available to logged in OpenStreetMap
@@ -62,9 +55,9 @@ import { NodeChangesStore } from './node-changes.store';
                     <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
                   </p>
                   <kpn-changes
-                    [impact]="impact()"
-                    [pageSize]="pageSize()"
-                    [pageIndex]="pageIndex()"
+                    [impact]="service.impact()"
+                    [pageSize]="service.pageSize()"
+                    [pageIndex]="service.pageIndex()"
                     (impactChange)="onImpactChange($event)"
                     (pageSizeChange)="onPageSizeChange($event)"
                     (pageIndexChange)="onPageIndexChange($event)"
@@ -89,9 +82,9 @@ import { NodeChangesStore } from './node-changes.store';
                     <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
                   </p>
                   <kpn-changes
-                    [impact]="impact()"
-                    [pageSize]="pageSize()"
-                    [pageIndex]="pageIndex()"
+                    [impact]="service.impact()"
+                    [pageSize]="service.pageSize()"
+                    [pageIndex]="service.pageIndex()"
                     (impactChange)="onImpactChange($event)"
                     (pageSizeChange)="onPageSizeChange($event)"
                     (pageIndexChange)="onPageIndexChange($event)"
@@ -115,10 +108,9 @@ import { NodeChangesStore } from './node-changes.store';
       <kpn-node-changes-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [NodeChangesStore, RouterService],
+  providers: [NodeChangesPageService, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ChangesComponent,
     ErrorComponent,
     ItemComponent,
@@ -132,28 +124,22 @@ import { NodeChangesStore } from './node-changes.store';
     UserLinkLoginComponent,
   ],
 })
-export class NodeChangesPageComponent {
-  private readonly userStore = inject(UserStore);
-  protected readonly loggedIn = this.userStore.loggedIn;
+export class NodeChangesPageComponent implements OnInit {
+  protected readonly service = inject(NodeChangesPageService);
 
-  protected readonly store = inject(NodeChangesStore);
-  protected readonly nodeStore = inject(NodeStore);
-  protected readonly nodeId = this.nodeStore.nodeId;
-  protected readonly nodeName = this.nodeStore.nodeName;
-  protected readonly changeCount = this.nodeStore.changeCount;
-  protected readonly impact = this.store.impact();
-  protected readonly pageSize = this.store.pageSize();
-  protected readonly pageIndex = this.store.pageIndex;
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 
   onImpactChange(impact: boolean): void {
-    this.store.updateImpact(impact);
+    this.service.updateImpact(impact);
   }
 
   onPageSizeChange(pageSize: number): void {
-    this.store.updatePageSize(pageSize);
+    this.service.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {
-    this.store.updatePageIndex(pageIndex);
+    this.service.updatePageIndex(pageIndex);
   }
 }

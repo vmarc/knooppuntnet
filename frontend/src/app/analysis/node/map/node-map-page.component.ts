@@ -1,22 +1,17 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { NodeDetailsSidebarComponent } from '../details/components/node-details-sidebar.component';
-import { actionNodeMapPageDestroy } from '../store/node.actions';
-import { actionNodeMapPageInit } from '../store/node.actions';
-import { selectNodeId } from '../store/node.selectors';
-import { selectNodeName } from '../store/node.selectors';
-import { selectNodeChangeCount } from '../store/node.selectors';
-import { selectNodeMapPage } from '../store/node.selectors';
 import { NodeMapComponent } from './components/node-map.component';
+import { NodeMapService } from './components/node-map.service';
+import { NodeMapPageService } from './node-map-page.service';
 
 @Component({
   selector: 'kpn-node-map-page',
@@ -31,16 +26,11 @@ import { NodeMapComponent } from './components/node-map.component';
         <li i18n="@@breadcrumb.node-map">Node map</li>
       </ul>
 
-      <kpn-node-page-header
-        pageName="map"
-        [nodeId]="nodeId()"
-        [nodeName]="nodeName()"
-        [changeCount]="changeCount()"
-      />
+      <kpn-node-page-header pageName="map" />
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (service.response(); as response) {
         <div>
           @if (!response.result) {
             <div class="kpn-spacer-above" i18n="@@node.node-not-found">Node not found</div>
@@ -52,6 +42,7 @@ import { NodeMapComponent } from './components/node-map.component';
       <kpn-node-details-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [NodeMapPageService, NodeMapService, RouterService],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -63,18 +54,10 @@ import { NodeMapComponent } from './components/node-map.component';
     RouterLink,
   ],
 })
-export class NodeMapPageComponent implements OnInit, OnDestroy {
-  private readonly store = inject(Store);
-  protected readonly nodeId = this.store.selectSignal(selectNodeId);
-  protected readonly nodeName = this.store.selectSignal(selectNodeName);
-  protected readonly changeCount = this.store.selectSignal(selectNodeChangeCount);
-  protected readonly apiResponse = this.store.selectSignal(selectNodeMapPage);
+export class NodeMapPageComponent implements OnInit {
+  protected readonly service = inject(NodeMapPageService);
 
   ngOnInit(): void {
-    this.store.dispatch(actionNodeMapPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionNodeMapPageDestroy());
+    this.service.onInit();
   }
 }

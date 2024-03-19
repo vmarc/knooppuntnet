@@ -5,8 +5,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
-import { Store } from '@ngrx/store';
-import { actionNodeMapViewInit } from '../../store/node.actions';
+import { NodeMapPageService } from '../node-map-page.service';
 import { NodeMapService } from './node-map.service';
 
 @Component({
@@ -28,11 +27,11 @@ import { NodeMapService } from './node-map.service';
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class NodeMapComponent implements AfterViewInit, OnDestroy {
-  private readonly store = inject(Store);
+  private readonly pageService = inject(NodeMapPageService);
   protected readonly service = inject(NodeMapService);
 
   ngAfterViewInit(): void {
-    this.store.dispatch(actionNodeMapViewInit());
+    this.pageService.onAfterViewInit();
   }
 
   ngOnDestroy(): void {
