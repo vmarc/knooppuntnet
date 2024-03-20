@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -6,7 +7,7 @@ import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkDetailsComponent } from './components/network-details.component';
-import { NetworkDetailsStore } from './network-details.store';
+import { NetworkDetailsPageService } from './network-details-page.service';
 
 @Component({
   selector: 'kpn-network-details-page',
@@ -19,7 +20,7 @@ import { NetworkDetailsStore } from './network-details.store';
         i18n-pageTitle="@@network-details.title"
       />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
             <p i18n="@@network-page.network-not-found">Network not found</p>
@@ -31,7 +32,7 @@ import { NetworkDetailsStore } from './network-details.store';
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [NetworkDetailsStore, RouterService],
+  providers: [NetworkDetailsPageService, RouterService],
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
@@ -40,6 +41,10 @@ import { NetworkDetailsStore } from './network-details.store';
     PageComponent,
   ],
 })
-export class NetworkDetailsPageComponent {
-  protected readonly store = inject(NetworkDetailsStore);
+export class NetworkDetailsPageComponent implements OnInit {
+  protected readonly service = inject(NetworkDetailsPageService);
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 }

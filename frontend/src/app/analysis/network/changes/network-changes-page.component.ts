@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -8,11 +9,10 @@ import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
-import { UserStore } from '../../../shared/user/user.store';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkChangeSetComponent } from './components/network-change-set.component';
 import { NetworkChangesSidebarComponent } from './components/network-changes-sidebar.component';
-import { NetworkChangesStore } from './network-changes.store';
+import { NetworkChangesPageService } from './network-changes-page.service';
 
 @Component({
   selector: 'kpn-network-changes-page',
@@ -25,12 +25,12 @@ import { NetworkChangesStore } from './network-changes.store';
         i18n-pageTitle="@@network-changes.title"
       />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
             <p i18n="@@network-page.network-not-found">Network not found</p>
           } @else {
-            @if (loggedIn() === false) {
+            @if (service.loggedIn() === false) {
               <p i18n="@@network-changes.login-required">
                 The details of network history are available to logged in OpenStreetMap contributors
                 only.
@@ -43,9 +43,9 @@ import { NetworkChangesStore } from './network-changes.store';
                 <kpn-situation-on [timestamp]="response.situationOn" />
               </p>
               <kpn-changes
-                [impact]="store.impact()"
-                [pageSize]="pageSize()"
-                [pageIndex]="store.pageIndex()"
+                [impact]="service.impact()"
+                [pageSize]="service.pageSize()"
+                [pageIndex]="service.pageIndex()"
                 (impactChange)="onImpactChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
                 (pageIndexChange)="onPageIndexChange($event)"
@@ -70,7 +70,7 @@ import { NetworkChangesStore } from './network-changes.store';
       <kpn-network-changes-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [NetworkChangesStore, RouterService],
+  providers: [NetworkChangesPageService, RouterService],
   standalone: true,
   imports: [
     ChangesComponent,
@@ -84,22 +84,22 @@ import { NetworkChangesStore } from './network-changes.store';
     UserLinkLoginComponent,
   ],
 })
-export class NetworkChangesPageComponent {
-  private readonly userStore = inject(UserStore);
-  readonly loggedIn = this.userStore.loggedIn;
+export class NetworkChangesPageComponent implements OnInit {
+  protected readonly service = inject(NetworkChangesPageService);
 
-  protected readonly store = inject(NetworkChangesStore);
-  protected readonly pageSize = this.store.pageSize();
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 
   onImpactChange(impact: boolean): void {
-    this.store.updateImpact(impact);
+    this.service.setImpact(impact);
   }
 
   onPageSizeChange(pageSize: number): void {
-    this.store.updatePageSize(pageSize);
+    this.service.setPageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {
-    this.store.updatePageIndex(pageIndex);
+    this.service.setPageIndex(pageIndex);
   }
 }

@@ -26,7 +26,7 @@ import { tap } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
-import { NetworkNodesStore } from '../network-nodes.store';
+import { NetworkNodesPageService } from '../network-nodes-page.service';
 import { NetworkNodeAnalysisComponent } from './network-node-analysis.component';
 import { NetworkNodeFilter } from './network-node-filter';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
@@ -41,7 +41,7 @@ import { NetworkNodesService } from './network-nodes.service';
       (edit)="edit()"
       i18n-editLinkTitle="@@network-nodes.edit.title"
       editLinkTitle="Load the nodes in this page in JOSM"
-      [pageSize]="pageSize()"
+      [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodes()?.length"
       [showPageSizeSelection]="true"
@@ -196,8 +196,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   private readonly pageWidthService = inject(PageWidthService);
   private readonly networkNodesService = inject(NetworkNodesService);
   private readonly editService = inject(EditService);
-  private readonly store = inject(NetworkNodesStore);
-  protected readonly pageSize = this.store.pageSize();
+  protected readonly service = inject(NetworkNodesPageService);
 
   protected readonly dataSource = new MatTableDataSource<NetworkNodeRow>();
   protected readonly headerColumns1$ = this.pageWidthService.current$.pipe(
@@ -247,7 +246,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.updatePageSize(pageSize);
+    this.service.setPageSize(pageSize);
   }
 
   edit(): void {

@@ -28,7 +28,7 @@ import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { delay } from 'rxjs/operators';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
-import { NetworkRoutesStore } from '../network-routes.store';
+import { NetworkRoutesPageService } from '../network-routes-page.service';
 import { NetworkRouteAnalysisComponent } from './network-route-analysis.component';
 import { NetworkRouteFilter } from './network-route-filter';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
@@ -42,7 +42,7 @@ import { NetworkRoutesService } from './network-routes.service';
       (edit)="edit()"
       i18n-editLinkTitle="@@network-routes.edit.title"
       editLinkTitle="Load the routes in this page in JOSM"
-      [pageSize]="pageSize()"
+      [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="routes()?.length"
       [showPageSizeSelection]="true"
@@ -192,9 +192,8 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   private readonly pageWidthService = inject(PageWidthService);
   private readonly networkRoutesService = inject(NetworkRoutesService);
   private readonly editService = inject(EditService);
-  private readonly store = inject(NetworkRoutesStore);
+  protected readonly service = inject(NetworkRoutesPageService);
 
-  protected readonly pageSize = this.store.pageSize();
   protected readonly dataSource = new MatTableDataSource<NetworkRouteRow>();
   protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
     map(() => this.displayedColumns())
@@ -234,7 +233,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.updatePageSize(pageSize);
+    this.service.setPageSize(pageSize);
   }
 
   edit(): void {

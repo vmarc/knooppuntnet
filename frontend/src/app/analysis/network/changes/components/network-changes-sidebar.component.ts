@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ChangeOption } from '@app/kpn/common';
-import { NetworkChangesStore } from '../network-changes.store';
+import { NetworkChangesPageService } from '../network-changes-page.service';
 
 @Component({
   selector: 'kpn-network-changes-sidebar',
@@ -21,10 +21,10 @@ import { NetworkChangesStore } from '../network-changes.store';
   imports: [ChangeFilterComponent, SidebarComponent],
 })
 export class NetworkChangesSidebarComponent {
-  private readonly store = inject(NetworkChangesStore);
-  protected readonly filterOptions = this.store.filterOptions;
+  private readonly service = inject(NetworkChangesPageService);
+  protected readonly filterOptions = this.service.filterOptions;
 
   onOptionSelected(option: ChangeOption): void {
-    this.store.updateFilterOption(option);
+    this.service.setFilterOption(option);
   }
 }

@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -7,7 +8,7 @@ import { NetworkPageHeaderComponent } from '../components/network-page-header.co
 import { NetworkMapSidebarComponent } from './components/network-map-sidebar.component';
 import { NetworkMapComponent } from './components/network-map.component';
 import { NetworkMapService } from './components/network-map.service';
-import { NetworkMapStore } from './network-map.store';
+import { NetworkMapPageService } from './network-map-page.service';
 
 @Component({
   selector: 'kpn-network-map-page',
@@ -20,7 +21,7 @@ import { NetworkMapStore } from './network-map.store';
         i18n-pageTitle="@@network-map.title"
       />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div>
           @if (!response.result) {
             <p class="kpn-spacer-above" i18n="@@network-page.network-not-found">
@@ -28,7 +29,7 @@ import { NetworkMapStore } from './network-map.store';
             </p>
           } @else {
             <kpn-network-map
-              [networkId]="networkId()"
+              [networkId]="service.networkId()"
               [page]="response.result"
               [mapPositionFromUrl]="mapPositionFromUrl()"
             />
@@ -38,7 +39,7 @@ import { NetworkMapStore } from './network-map.store';
       <kpn-network-map-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [NetworkMapService, NetworkMapStore, RouterService],
+  providers: [NetworkMapService, NetworkMapPageService, RouterService],
   standalone: true,
   imports: [
     NetworkMapComponent,
@@ -47,8 +48,11 @@ import { NetworkMapStore } from './network-map.store';
     PageComponent,
   ],
 })
-export class NetworkMapPageComponent {
-  protected readonly store = inject(NetworkMapStore);
-  protected readonly networkId = this.store.networkId();
-  protected readonly mapPositionFromUrl = this.store.mapPositionFromUrl;
+export class NetworkMapPageComponent implements OnInit {
+  protected readonly service = inject(NetworkMapPageService);
+  protected readonly mapPositionFromUrl = this.service.mapPositionFromUrl;
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 }

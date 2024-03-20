@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -7,7 +8,7 @@ import { RouterService } from '../../../shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkNodeTableComponent } from './components/network-node-table.component';
 import { NetworkNodesSidebarComponent } from './components/network-nodes-sidebar.component';
-import { NetworkNodesStore } from './network-nodes.store';
+import { NetworkNodesPageService } from './network-nodes-page.service';
 
 @Component({
   selector: 'kpn-network-nodes-page',
@@ -20,7 +21,7 @@ import { NetworkNodesStore } from './network-nodes.store';
         i18n-pageTitle="@@network-nodes.title"
       />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         @if (!response.result) {
           <p i18n="@@network-page.network-not-found">Network not found</p>
         } @else {
@@ -45,7 +46,7 @@ import { NetworkNodesStore } from './network-nodes.store';
       <kpn-network-nodes-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [NetworkNodesStore, RouterService],
+  providers: [NetworkNodesPageService, RouterService],
   standalone: true,
   imports: [
     NetworkNodeTableComponent,
@@ -55,6 +56,10 @@ import { NetworkNodesStore } from './network-nodes.store';
     SituationOnComponent,
   ],
 })
-export class NetworkNodesPageComponent {
-  protected readonly store = inject(NetworkNodesStore);
+export class NetworkNodesPageComponent implements OnInit {
+  protected readonly service = inject(NetworkNodesPageService);
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 }

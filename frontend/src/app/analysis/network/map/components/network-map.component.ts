@@ -8,7 +8,7 @@ import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { NetworkMapPosition } from '@app/ol/domain';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
-import { NetworkMapStore } from '../network-map.store';
+import { NetworkMapPageService } from '../network-map-page.service';
 import { NetworkControlComponent } from './network-control.component';
 import { NetworkMapService } from './network-map.service';
 
@@ -16,7 +16,7 @@ import { NetworkMapService } from './network-map.service';
   selector: 'kpn-network-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div [id]="service.mapId" class="kpn-map">
+    <div [id]="networkMapService.mapId" class="kpn-map">
       <kpn-network-control (action)="zoomInToNetwork()" />
       <kpn-layer-switcher />
       <kpn-map-link-menu />
@@ -36,15 +36,15 @@ export class NetworkMapComponent implements AfterViewInit {
   page = input.required<NetworkMapPage>();
   mapPositionFromUrl = input.required<NetworkMapPosition>();
 
-  protected readonly service = inject(NetworkMapService);
-  private readonly store = inject(NetworkMapStore);
+  protected readonly networkMapService = inject(NetworkMapService);
+  private readonly networkMapPageService = inject(NetworkMapPageService);
 
   ngAfterViewInit(): void {
-    this.store.afterViewInit();
+    this.networkMapPageService.afterViewInit();
   }
 
   zoomInToNetwork(): void {
     const extent = Util.toExtent(this.page().bounds, 0.1);
-    this.service.map.getView().fit(extent);
+    this.networkMapService.map.getView().fit(extent);
   }
 }
