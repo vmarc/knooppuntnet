@@ -5,10 +5,7 @@ import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ChangeOption } from '@app/kpn/common';
-import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
-import { actionRouteChangesFilterOption } from '../../store/route.actions';
-import { selectRouteChangesFilterOptions } from '../../store/route.selectors';
+import { RouteChangesPageService } from '../route-changes-page.service';
 
 @Component({
   selector: 'kpn-route-changes-sidebar',
@@ -16,7 +13,7 @@ import { selectRouteChangesFilterOptions } from '../../store/route.selectors';
   template: `
     <kpn-sidebar>
       <kpn-change-filter
-        [filterOptions]="filterOptions$ | async"
+        [filterOptions]="service.filterOptions()"
         (optionSelected)="onOptionSelected($event)"
       />
     </kpn-sidebar>
@@ -25,12 +22,9 @@ import { selectRouteChangesFilterOptions } from '../../store/route.selectors';
   imports: [SidebarComponent, ChangeFilterComponent, AsyncPipe],
 })
 export class RouteChangesSidebarComponent {
-  private readonly store = inject(Store);
-  protected readonly filterOptions$ = this.store
-    .select(selectRouteChangesFilterOptions)
-    .pipe(filter((filterOptions) => !!filterOptions));
+  protected readonly service = inject(RouteChangesPageService);
 
   onOptionSelected(option: ChangeOption): void {
-    this.store.dispatch(actionRouteChangesFilterOption({ option }));
+    this.service.updateFilterOption(option);
   }
 }

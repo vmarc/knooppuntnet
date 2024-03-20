@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -18,17 +17,10 @@ import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { SymbolComponent } from '@app/symbol';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { RouterService } from '../../../shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
-import { actionRouteDetailsPageDestroy } from '../store/route.actions';
-import { actionRouteDetailsPageInit } from '../store/route.actions';
-import { selectRouteNetworkType } from '../store/route.selectors';
-import { selectRouteDetailsPage } from '../store/route.selectors';
-import { selectRouteChangeCount } from '../store/route.selectors';
-import { selectRouteName } from '../store/route.selectors';
-import { selectRouteId } from '../store/route.selectors';
 import { RouteEndNodesComponent } from './components/route-end-nodes.component';
 import { RouteFreeNodesComponent } from './components/route-free-nodes.component';
 import { RouteLocationComponent } from './components/route-location.component';
@@ -38,9 +30,10 @@ import { RouteRedundantNodesComponent } from './components/route-redundant-nodes
 import { RouteStartNodesComponent } from './components/route-start-nodes.component';
 import { RouteStructureComponent } from './components/route-structure.component';
 import { RouteSummaryComponent } from './components/route-summary.component';
+import { RouteDetailsPageService } from './route-details-page.service';
 
 @Component({
-  selector: 'kpn-route-page',
+  selector: 'kpn-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
@@ -52,15 +45,9 @@ import { RouteSummaryComponent } from './components/route-summary.component';
         <li i18n="@@breadcrumb.route-details">Route details</li>
       </ul>
 
-      <kpn-route-page-header
-        pageName="details"
-        [routeId]="routeId()"
-        [routeName]="routeName()"
-        [changeCount]="changeCount()"
-        [networkType]="networkType()"
-      />
+      <kpn-route-page-header pageName="details" />
 
-      @if (apiResponse(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
             <div i18n="@@route.route-not-found">Route not found</div>
@@ -128,7 +115,7 @@ import { RouteSummaryComponent } from './components/route-summary.component';
               </kpn-data>
               <kpn-data title="Location" i18n-title="@@route.location">
                 <kpn-route-location
-                  [networkType]="networkType()"
+                  [networkType]="page.route.summary.networkType"
                   [locationAnalysis]="page.route.analysis.locationAnalysis"
                 />
               </kpn-data>
@@ -160,6 +147,7 @@ import { RouteSummaryComponent } from './components/route-summary.component';
     </kpn-page>
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
+  providers: [RouteDetailsPageService, RouterService],
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
@@ -183,20 +171,14 @@ import { RouteSummaryComponent } from './components/route-summary.component';
     SymbolComponent,
   ],
 })
-export class RoutePageComponent implements OnInit, OnDestroy {
+export class RouteDetailsPageComponent implements OnInit {
+  protected readonly service = inject(RouteDetailsPageService);
   private readonly pageWidthService = inject(PageWidthService);
-  private readonly store = inject(Store);
-
-  protected readonly routeId = this.store.selectSignal(selectRouteId);
-  protected readonly routeName = this.store.selectSignal(selectRouteName);
-  protected readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
-  protected readonly apiResponse = this.store.selectSignal(selectRouteDetailsPage);
-  protected readonly networkType = this.store.selectSignal(selectRouteNetworkType);
 
   showRouteDetails$: Observable<boolean>;
 
   ngOnInit(): void {
-    this.store.dispatch(actionRouteDetailsPageInit());
+    this.service.onInit();
     this.showRouteDetails$ = this.pageWidthService.current$.pipe(
       map(
         (pageWidth) =>
@@ -205,10 +187,6 @@ export class RoutePageComponent implements OnInit, OnDestroy {
           pageWidth !== PageWidth.veryVerySmall
       )
     );
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionRouteDetailsPageDestroy());
   }
 
   routeTags(page: RouteDetailsPage) {

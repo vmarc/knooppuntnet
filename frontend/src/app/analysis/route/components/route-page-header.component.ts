@@ -1,25 +1,26 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { NetworkType } from '@api/custom';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { RouteService } from '../route.service';
 
 @Component({
   selector: 'kpn-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-header [pageTitle]="routeName()" subject="route-page">
+    <kpn-page-header [pageTitle]="service.routeName()" subject="route-page">
       <span class="header-network-type-icon">
-        <mat-icon [svgIcon]="networkType()" />
+        <mat-icon [svgIcon]="service.networkType()" />
       </span>
       <span i18n="@@route.title">Route</span>
-      @if (routeName()) {
-        <span>&nbsp;{{ routeName() }}</span>
+      @if (service.routeName()) {
+        <span>&nbsp;{{ service.routeName() }}</span>
       } @else {
-        <span>&nbsp;{{ routeId() }}</span>
+        <span>&nbsp;{{ service.routeId() }}</span>
       }
     </kpn-page-header>
 
@@ -43,7 +44,7 @@ import { PageHeaderComponent } from '@app/components/shared/page';
       <kpn-page-menu-option
         [link]="linkRouteChanges()"
         [active]="pageName() === 'changes'"
-        [elementCount]="changeCount()"
+        [elementCount]="service.changeCount()"
         i18n="@@route.menu.changes"
       >
         Changes
@@ -54,11 +55,9 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   imports: [MatIconModule, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class RoutePageHeaderComponent {
-  routeId = input.required<string>();
-  routeName = input.required<string>();
   pageName = input.required<string>();
-  changeCount = input.required<number>();
-  networkType = input.required<NetworkType>();
+
+  protected readonly service = inject(RouteService);
 
   linkRouteDetails(): string {
     return this.linkRoute('');
@@ -73,6 +72,6 @@ export class RoutePageHeaderComponent {
   }
 
   private linkRoute(suffix: string): string {
-    return `/analysis/route/${this.routeId()}${suffix}`;
+    return `/analysis/route/${this.service.routeId()}${suffix}`;
   }
 }

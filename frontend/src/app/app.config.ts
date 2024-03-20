@@ -22,6 +22,7 @@ import { appRoutes } from '@app/*';
 import { EditService } from '@app/components/shared';
 import { PageService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
+import { PreferencesService } from '@app/core';
 import { reducers } from '@app/core';
 import { metaReducers } from '@app/core';
 import { SharedEffects } from '@app/core';
@@ -76,6 +77,7 @@ export const appConfig: ApplicationConfig = {
       multi: true,
     },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+    PreferencesService,
     PreferencesStore,
     VersionService,
     ApiService,

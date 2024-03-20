@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -10,25 +9,12 @@ import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
-import { UserStore } from '../../../shared/user/user.store';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
-import { actionRouteChangesPageDestroy } from '../store/route.actions';
-import { actionRouteChangesPageSize } from '../store/route.actions';
-import { actionRouteChangesPageImpact } from '../store/route.actions';
-import { actionRouteChangesPageIndex } from '../store/route.actions';
-import { actionRouteChangesPageInit } from '../store/route.actions';
-import { selectRouteChangesPageSize } from '../store/route.selectors';
-import { selectRouteChangesPageImpact } from '../store/route.selectors';
-import { selectRouteChangesPage } from '../store/route.selectors';
-import { selectRouteNetworkType } from '../store/route.selectors';
-import { selectRouteChangesPageIndex } from '../store/route.selectors';
-import { selectRouteChangeCount } from '../store/route.selectors';
-import { selectRouteName } from '../store/route.selectors';
-import { selectRouteId } from '../store/route.selectors';
 import { RouteChangeComponent } from './components/route-change.component';
 import { RouteChangesSidebarComponent } from './components/route-changes-sidebar.component';
+import { RouteChangesPageService } from './route-changes-page.service';
 
 @Component({
   selector: 'kpn-route-changes-page',
@@ -43,20 +29,14 @@ import { RouteChangesSidebarComponent } from './components/route-changes-sidebar
         <li i18n="@@breadcrumb.route-changes">Route changes</li>
       </ul>
 
-      <kpn-route-page-header
-        pageName="changes"
-        [routeId]="routeId()"
-        [routeName]="routeName()"
-        [changeCount]="changeCount()"
-        [networkType]="networkType()"
-      />
+      <kpn-route-page-header pageName="changes" />
 
-      @if (apiResponse(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
             <div i18n="@@route.route-not-found">Route not found</div>
           } @else {
-            @if (loggedIn() === false) {
+            @if (service.loggedIn() === false) {
               <div>
                 <p i18n="@@route-changes.login-required">
                   The details of the route history is available to logged in OpenStreetMap
@@ -73,9 +53,9 @@ import { RouteChangesSidebarComponent } from './components/route-changes-sidebar
                     <kpn-situation-on [timestamp]="response.situationOn" />
                   </p>
                   <kpn-changes
-                    [impact]="impact()"
-                    [pageSize]="pageSize()"
-                    [pageIndex]="pageIndex()"
+                    [impact]="service.impact()"
+                    [pageSize]="service.pageSize()"
+                    [pageIndex]="service.pageIndex()"
                     (impactChange)="onImpactChange($event)"
                     (pageSizeChange)="onPageSizeChange($event)"
                     (pageIndexChange)="onPageIndexChange($event)"
@@ -100,9 +80,9 @@ import { RouteChangesSidebarComponent } from './components/route-changes-sidebar
                     <kpn-situation-on [timestamp]="response.situationOn" />
                   </p>
                   <kpn-changes
-                    [impact]="impact()"
-                    [pageSize]="pageSize()"
-                    [pageIndex]="pageIndex()"
+                    [impact]="service.impact()"
+                    [pageSize]="service.pageSize()"
+                    [pageIndex]="service.pageIndex()"
                     (impactChange)="onImpactChange($event)"
                     (pageSizeChange)="onPageSizeChange($event)"
                     (pageIndexChange)="onPageIndexChange($event)"
@@ -126,6 +106,7 @@ import { RouteChangesSidebarComponent } from './components/route-changes-sidebar
       <kpn-route-changes-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [RouteChangesPageService, RouterService],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -141,37 +122,22 @@ import { RouteChangesSidebarComponent } from './components/route-changes-sidebar
     UserLinkLoginComponent,
   ],
 })
-export class RouteChangesPageComponent implements OnInit, OnDestroy {
-  private readonly userStore = inject(UserStore);
-  readonly loggedIn = this.userStore.loggedIn;
-
-  private readonly store = inject(Store);
-  readonly routeId = this.store.selectSignal(selectRouteId);
-  readonly routeName = this.store.selectSignal(selectRouteName);
-  readonly networkType = this.store.selectSignal(selectRouteNetworkType);
-  readonly changeCount = this.store.selectSignal(selectRouteChangeCount);
-  readonly impact = this.store.selectSignal(selectRouteChangesPageImpact);
-  readonly pageSize = this.store.selectSignal(selectRouteChangesPageSize);
-  readonly pageIndex = this.store.selectSignal(selectRouteChangesPageIndex);
-  readonly apiResponse = this.store.selectSignal(selectRouteChangesPage);
+export class RouteChangesPageComponent implements OnInit {
+  protected readonly service = inject(RouteChangesPageService);
 
   ngOnInit(): void {
-    this.store.dispatch(actionRouteChangesPageInit());
-  }
-
-  ngOnDestroy(): void {
-    this.store.dispatch(actionRouteChangesPageDestroy());
+    this.service.onInit();
   }
 
   onImpactChange(impact: boolean): void {
-    this.store.dispatch(actionRouteChangesPageImpact({ impact }));
+    this.service.updateImpact(impact);
   }
 
   onPageSizeChange(pageSize: number): void {
-    this.store.dispatch(actionRouteChangesPageSize({ pageSize }));
+    this.service.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {
-    this.store.dispatch(actionRouteChangesPageIndex({ pageIndex }));
+    this.service.updatePageIndex(pageIndex);
   }
 }
