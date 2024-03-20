@@ -24,7 +24,7 @@ import { filter } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
-import { LocationMapService } from '../map/location-map.service';
+import { LocationMapService } from '../map/components/location-map.service';
 import { actionLocationSelectionPageInit } from './location.actions';
 import { actionLocationRoutesPageSize } from './location.actions';
 import { actionLocationNodesPageSize } from './location.actions';

@@ -22,7 +22,7 @@ import { LinkNodeComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { map } from 'rxjs/operators';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
-import { LocationNodesStore } from '../location-nodes.store';
+import { LocationNodesPageService } from '../location-nodes-page.service';
 import { LocationNodeAnalysisComponent } from './location-node-analysis.component';
 import { LocationNodeRoutesComponent } from './location-node-routes.component';
 
@@ -34,9 +34,9 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       (edit)="edit()"
       i18n-editLinkTitle="@@location-nodes.edit.title"
       editLinkTitle="Load the nodes in this page in JOSM"
-      [pageIndex]="store.pageIndex()"
+      [pageIndex]="service.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize()"
+      [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount()"
       [showFirstLastButtons]="false"
@@ -54,7 +54,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
         <td mat-cell *matCellDef="let node">
           <kpn-location-node-analysis
             [node]="node"
-            [networkType]="networkType()"
+            [networkType]="service.networkType()"
             [networkScope]="networkScope"
           />
         </td>
@@ -110,9 +110,9 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
     </table>
 
     <kpn-paginator
-      [pageIndex]="store.pageIndex()"
+      [pageIndex]="service.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize()"
+      [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount()"
     />
@@ -141,9 +141,7 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   nodes = input.required<LocationNodeInfo[]>();
   nodeCount = input.required<number>();
 
-  protected readonly store = inject(LocationNodesStore);
-  protected readonly networkType = this.store.networkType();
-  protected readonly pageSize = this.store.pageSize();
+  protected readonly service = inject(LocationNodesPageService);
 
   // TODO !!!
   networkScope: NetworkScope = NetworkScope.regional;
@@ -169,12 +167,12 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.updatePageSize(pageSize);
+    this.service.setPageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
-    this.store.updatePageIndex(pageIndex);
+    this.service.setPageIndex(pageIndex);
   }
 
   edit(): void {

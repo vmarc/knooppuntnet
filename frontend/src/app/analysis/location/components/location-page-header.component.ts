@@ -9,15 +9,15 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { LocationStore } from '../location.store';
+import { LocationService } from '../location.service';
 import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.component';
 
 @Component({
   selector: 'kpn-location-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (store.key(); as key) {
-      @if (store.summary(); as summary) {
+    @if (service.key(); as key) {
+      @if (service.summary(); as summary) {
         <kpn-location-page-breadcrumb [locationKey]="key" />
         <kpn-page-header [pageTitle]="fullPageTitle()" subject="location-page">
           <span class="header-network-type-icon">
@@ -92,9 +92,9 @@ export class LocationPageHeaderComponent {
   pageName = input.required<string>();
   pageTitle = input.required<string>();
 
-  protected readonly store = inject(LocationStore);
+  protected readonly service = inject(LocationService);
 
-  readonly fullPageTitle = computed(() => `${this.store.locationKey().name} | ${this.pageTitle()}`);
+  readonly fullPageTitle = computed(() => `${this.service.key().name} | ${this.pageTitle()}`);
 
   locationName(locationKey: LocationKey): string {
     const nameParts = locationKey.name.split(':');

@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -8,7 +9,7 @@ import { LocationPageHeaderComponent } from '../components/location-page-header.
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationNodesSidebarComponent } from './components/location-nodes-sidebar.component';
 import { LocationNodesComponent } from './components/location-nodes.component';
-import { LocationNodesStore } from './location-nodes.store';
+import { LocationNodesPageService } from './location-nodes-page.service';
 
 @Component({
   selector: 'kpn-location-nodes-page',
@@ -22,7 +23,7 @@ import { LocationNodesStore } from './location-nodes.store';
       />
 
       <kpn-error />
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           <kpn-location-response [response]="response">
             <kpn-location-nodes [page]="response.result" />
@@ -32,7 +33,7 @@ import { LocationNodesStore } from './location-nodes.store';
       <kpn-location-nodes-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [LocationNodesStore, RouterService],
+  providers: [LocationNodesPageService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
@@ -43,6 +44,10 @@ import { LocationNodesStore } from './location-nodes.store';
     PageComponent,
   ],
 })
-export class LocationNodesPageComponent {
-  protected readonly store = inject(LocationNodesStore);
+export class LocationNodesPageComponent implements OnInit {
+  protected readonly service = inject(LocationNodesPageService);
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 }

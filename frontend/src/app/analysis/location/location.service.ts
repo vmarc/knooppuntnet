@@ -1,67 +1,41 @@
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { Params } from '@angular/router';
 import { LocationSummary } from '@api/common/location';
 import { LocationKey } from '@api/custom';
-import { NetworkType } from '@api/custom';
-import { Map } from 'immutable';
-import { ReplaySubject } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs';
-import { LocationParams } from './components/location-params';
+import { RouterService } from '../../shared/services/router.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class LocationService {
-  readonly summary$: Observable<LocationSummary>;
-  readonly locationKey$: Observable<LocationKey>;
+  private readonly _key = signal<LocationKey | null>(null);
+  private readonly _summary = signal<LocationSummary | null>(null);
 
-  private readonly _locationKey$: BehaviorSubject<LocationKey>;
-  private readonly _summary$: ReplaySubject<LocationSummary>;
+  readonly key = this._key.asReadonly();
+  readonly summary = this._summary.asReadonly();
 
-  private locationSummaries = Map<string, LocationSummary>();
-
-  constructor() {
-    this._locationKey$ = new BehaviorSubject<LocationKey>(null);
-    this.locationKey$ = this._locationKey$.asObservable();
-    this._summary$ = new ReplaySubject<LocationSummary>(1);
-    this.summary$ = this._summary$.asObservable();
-    this.locationKey$.subscribe((locationKey) => {
-      if (locationKey !== null) {
-        const locationSummary = this.locationSummaries.get(this._locationKey$.getValue().name);
-        if (locationSummary) {
-          this._summary$.next(locationSummary);
-        }
-      }
-    });
-  }
-
-  get name(): string {
-    if (this._locationKey$.getValue()) {
-      return this._locationKey$.getValue().name;
+  initPage(routerService: RouterService) {
+    const locationKey: LocationKey = {
+      networkType: routerService.paramNetworkType(),
+      country: routerService.paramCountry(),
+      name: routerService.param('location'),
+    };
+    if (this.shouldUpdate(this.key(), locationKey)) {
+      this._key.set(locationKey);
+      this._summary.set(null);
     }
-    return null;
   }
 
-  get key(): string {
-    if (this._locationKey$.getValue()) {
-      const key = this._locationKey$.getValue();
-      return `${key.networkType}/${key.country}/${key.name}`;
-    }
-    return null;
+  setSummary(summary: LocationSummary): void {
+    this._summary.set(summary);
   }
 
-  get networkType(): NetworkType {
-    if (this._locationKey$.getValue()) {
-      return this._locationKey$.getValue().networkType;
-    }
-    return null;
-  }
-
-  nextSummary(locationName: string, locationSummary: LocationSummary) {
-    this.locationSummaries = this.locationSummaries.set(locationName, locationSummary);
-    this._summary$.next(locationSummary);
-  }
-
-  location(params: Params): void {
-    this._locationKey$.next(LocationParams.toKey(params));
+  private shouldUpdate(oldKey: LocationKey, newKey: LocationKey): boolean {
+    return (
+      !oldKey ||
+      oldKey.networkType !== newKey.networkType ||
+      oldKey.country !== newKey.country ||
+      oldKey.name !== newKey.name
+    );
   }
 }

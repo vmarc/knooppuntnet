@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -8,8 +9,8 @@ import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationSidebarComponent } from '../location-sidebar.component';
-import { LocationMapComponent } from './location-map.component';
-import { LocationMapStore } from './location-map.store';
+import { LocationMapComponent } from './components/location-map.component';
+import { LocationMapPageService } from './location-map-page.service';
 
 @Component({
   selector: 'kpn-location-map-page',
@@ -24,7 +25,7 @@ import { LocationMapStore } from './location-map.store';
 
       <kpn-error />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <kpn-location-response [response]="response">
           <kpn-location-map />
         </kpn-location-response>
@@ -32,7 +33,7 @@ import { LocationMapStore } from './location-map.store';
       <kpn-location-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [LocationMapStore, RouterService],
+  providers: [LocationMapPageService, RouterService],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -44,6 +45,10 @@ import { LocationMapStore } from './location-map.store';
     PageComponent,
   ],
 })
-export class LocationMapPageComponent {
-  protected readonly store = inject(LocationMapStore);
+export class LocationMapPageComponent implements OnInit {
+  protected readonly service = inject(LocationMapPageService);
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 }

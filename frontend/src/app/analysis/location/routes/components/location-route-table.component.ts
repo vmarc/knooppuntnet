@@ -24,7 +24,7 @@ import { PaginatorComponent } from '@app/components/shared/paginator';
 import { SymbolComponent } from '@app/symbol';
 import { map } from 'rxjs/operators';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
-import { LocationRoutesStore } from '../location-routes.store';
+import { LocationRoutesPageService } from '../location-routes-page.service';
 import { LocationRouteAnalysisComponent } from './location-route-analysis';
 
 @Component({
@@ -35,9 +35,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       (edit)="edit()"
       i18n-editLinkTitle="@@location-routes.edit.title"
       editLinkTitle="Load the routes in this page in JOSM"
-      [pageIndex]="store.pageIndex()"
+      [pageIndex]="service.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize()"
+      [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="routeCount()"
       [showPageSizeSelection]="true"
@@ -53,7 +53,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       <ng-container matColumnDef="analysis">
         <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.analysis">Analysis</th>
         <td mat-cell *matCellDef="let route">
-          <kpn-location-route-analysis [route]="route" [networkType]="networkType()" />
+          <kpn-location-route-analysis [route]="route" [networkType]="service.networkType()" />
         </td>
       </ng-container>
 
@@ -73,7 +73,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
           <kpn-link-route
             [routeId]="route.id"
             [routeName]="route.name"
-            [networkType]="networkType()"
+            [networkType]="service.networkType()"
           />
         </td>
       </ng-container>
@@ -106,9 +106,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
     </table>
 
     <kpn-paginator
-      [pageIndex]="store.pageIndex()"
+      [pageIndex]="service.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize()"
+      [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="routeCount()"
     />
@@ -154,9 +154,7 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   private readonly pageWidthService = inject(PageWidthService);
   private readonly editService = inject(EditService);
 
-  protected readonly store = inject(LocationRoutesStore);
-  protected readonly pageSize = this.store.pageSize();
-  protected readonly networkType = this.store.networkType();
+  protected readonly service = inject(LocationRoutesPageService);
 
   protected readonly dataSource = new MatTableDataSource<LocationRouteInfo>();
   protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
@@ -174,12 +172,12 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.updatePageSize(pageSize);
+    this.service.setPageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
-    this.store.updatePageIndex(pageIndex);
+    this.service.setPageIndex(pageIndex);
   }
 
   edit(): void {

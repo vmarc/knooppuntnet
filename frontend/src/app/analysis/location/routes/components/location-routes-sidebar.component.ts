@@ -5,7 +5,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { LocationRoutesType } from '@api/custom';
 import { SidebarComponent } from '@app/components/shared/sidebar';
-import { LocationRoutesStore } from '../location-routes.store';
+import { LocationRoutesPageService } from '../location-routes-page.service';
 
 @Component({
   selector: 'kpn-location-routes-sidebar',
@@ -61,11 +61,11 @@ import { LocationRoutesStore } from '../location-routes.store';
   imports: [SidebarComponent, MatRadioModule],
 })
 export class LocationRoutesSidebarComponent {
-  protected readonly store = inject(LocationRoutesStore);
+  protected readonly store = inject(LocationRoutesPageService);
   protected readonly locationRoutesType = LocationRoutesType;
 
   locationRoutesTypeChanged(change: MatRadioChange): void {
     const locationRoutesType = change.value as LocationRoutesType;
-    this.store.updatePageType(locationRoutesType);
+    this.store.setPageType(locationRoutesType);
   }
 }

@@ -1,4 +1,5 @@
 import { AsyncPipe } from '@angular/common';
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
@@ -7,8 +8,8 @@ import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationSidebarComponent } from '../location-sidebar.component';
-import { LocationEditComponent } from './location-edit.component';
-import { LocationEditStore } from './location-edit.store';
+import { LocationEditComponent } from './components/location-edit.component';
+import { LocationEditPageService } from './location-edit-page.service';
 
 @Component({
   selector: 'kpn-location-edit-page',
@@ -23,7 +24,7 @@ import { LocationEditStore } from './location-edit.store';
 
       <kpn-error />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           <kpn-location-response [situationOnEnabled]="false" [response]="response">
             @if (response.result.tooManyNodes) {
@@ -71,7 +72,7 @@ import { LocationEditStore } from './location-edit.store';
       font-style: italic;
     }
   `,
-  providers: [LocationEditStore, RouterService],
+  providers: [LocationEditPageService, RouterService],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -83,9 +84,14 @@ import { LocationEditStore } from './location-edit.store';
     PageComponent,
   ],
 })
-export class LocationEditPageComponent {
-  protected readonly store = inject(LocationEditStore);
-  // TODO !!!
+export class LocationEditPageComponent implements OnInit {
+  protected readonly service = inject(LocationEditPageService);
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
+
+  // TODO SIGNAL!!!
   // private readonly store = inject(Store);
   // readonly apiResponse = this.store.selectSignal(selectLocationEditPage);
   // readonly noHttpError$ = this.store
