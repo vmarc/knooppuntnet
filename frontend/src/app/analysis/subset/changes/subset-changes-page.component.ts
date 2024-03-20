@@ -1,19 +1,19 @@
 import { inject } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set';
+import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangesComponent } from '@app/analysis/components/changes';
 import { ErrorComponent } from '@app/components/shared/error';
-import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
+import { ItemComponent } from '@app/components/shared/items';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
-import { UserStore } from '../../../shared/user/user.store';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetChangesSidebarComponent } from './components/subset-changes-sidebar.component';
-import { SubsetChangesStore } from './subset-changes.store';
+import { SubsetChangesPageService } from './subset-changes-page.service';
 
 @Component({
   selector: 'kpn-subset-changes-page',
@@ -27,9 +27,9 @@ import { SubsetChangesStore } from './subset-changes.store';
 
       <kpn-error />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
-          @if (loggedIn() === false) {
+          @if (service.loggedIn() === false) {
             <p i18n="@@subset-changes.login-required">
               This details of the changes history are available to logged in OpenStreetMap
               contributors only.
@@ -42,9 +42,9 @@ import { SubsetChangesStore } from './subset-changes.store';
               <kpn-situation-on [timestamp]="response.situationOn" />
             </p>
             <kpn-changes
-              [impact]="impact()"
-              [pageSize]="pageSize()"
-              [pageIndex]="pageIndex()"
+              [impact]="service.impact()"
+              [pageSize]="service.pageSize()"
+              [pageIndex]="service.pageIndex()"
               (impactChange)="onImpactChange($event)"
               (pageSizeChange)="onPageSizeChange($event)"
               (pageIndexChange)="onPageIndexChange($event)"
@@ -70,7 +70,7 @@ import { SubsetChangesStore } from './subset-changes.store';
       <kpn-subset-changes-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [SubsetChangesStore, RouterService],
+  providers: [SubsetChangesPageService, RouterService],
   standalone: true,
   imports: [
     ChangeLocationAnalysisSummaryComponent,
@@ -86,24 +86,22 @@ import { SubsetChangesStore } from './subset-changes.store';
     UserLinkLoginComponent,
   ],
 })
-export class SubsetChangesPageComponent {
-  private readonly userStore = inject(UserStore);
-  protected readonly loggedIn = this.userStore.loggedIn;
+export class SubsetChangesPageComponent implements OnInit {
+  protected readonly service = inject(SubsetChangesPageService);
 
-  protected readonly store = inject(SubsetChangesStore);
-  protected readonly impact = this.store.impact;
-  protected readonly pageSize = this.store.pageSize;
-  protected readonly pageIndex = this.store.pageIndex;
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 
   onImpactChange(impact: boolean): void {
-    this.store.updateImpact(impact);
+    this.service.setImpact(impact);
   }
 
   onPageSizeChange(pageSize: number): void {
-    this.store.updatePageSize(pageSize);
+    this.service.setPageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {
-    this.store.updatePageIndex(pageIndex);
+    this.service.setPageIndex(pageIndex);
   }
 }

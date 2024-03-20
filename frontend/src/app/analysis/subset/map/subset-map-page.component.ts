@@ -1,3 +1,5 @@
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -7,8 +9,8 @@ import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
 import { SubsetMapComponent } from './components/subset-map.component';
+import { SubsetMapPageService } from './subset-map-page.service';
 import { SubsetMapService } from './subset-map.service';
-import { SubsetMapStore } from './subset-map.store';
 
 @Component({
   selector: 'kpn-subset-map-page',
@@ -23,13 +25,13 @@ import { SubsetMapStore } from './subset-map.store';
 
       <kpn-error />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <kpn-subset-map />
       }
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [SubsetMapService, SubsetMapStore, RouterService],
+  providers: [SubsetMapService, SubsetMapPageService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
@@ -39,6 +41,14 @@ import { SubsetMapStore } from './subset-map.store';
     SubsetSidebarComponent,
   ],
 })
-export class SubsetMapPageComponent {
-  protected readonly store = inject(SubsetMapStore);
+export class SubsetMapPageComponent implements OnInit, OnDestroy {
+  protected readonly service = inject(SubsetMapPageService);
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
+
+  ngOnDestroy(): void {
+    this.service.onDestroy();
+  }
 }

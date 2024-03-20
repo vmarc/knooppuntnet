@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -8,7 +9,7 @@ import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetOrphanRoutesSidebarComponent } from './components/subset-orphan-routes-sidebar.component';
 import { SubsetOrphanRoutesTableComponent } from './components/subset-orphan-routes-table.component';
-import { SubsetOrphanRoutesStore } from './subset-orphan-routes.store';
+import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.service';
 
 @Component({
   selector: 'kpn-subset-orphan-routes-page',
@@ -23,7 +24,7 @@ import { SubsetOrphanRoutesStore } from './subset-orphan-routes.store';
 
       <kpn-error />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           <p>
             <kpn-situation-on [timestamp]="response.situationOn" />
@@ -44,7 +45,7 @@ import { SubsetOrphanRoutesStore } from './subset-orphan-routes.store';
       <kpn-subset-orphan-routes-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [SubsetOrphanRoutesStore, RouterService],
+  providers: [SubsetOrphanRoutesPageService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
@@ -55,6 +56,10 @@ import { SubsetOrphanRoutesStore } from './subset-orphan-routes.store';
     SubsetPageHeaderBlockComponent,
   ],
 })
-export class SubsetOrphanRoutesPageComponent {
-  protected readonly store = inject(SubsetOrphanRoutesStore);
+export class SubsetOrphanRoutesPageComponent implements OnInit {
+  protected readonly service = inject(SubsetOrphanRoutesPageService);
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 }

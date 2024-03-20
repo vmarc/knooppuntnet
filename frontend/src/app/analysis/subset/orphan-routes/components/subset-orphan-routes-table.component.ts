@@ -18,7 +18,7 @@ import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { BehaviorSubject } from 'rxjs';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
-import { SubsetOrphanRoutesStore } from '../subset-orphan-routes.store';
+import { SubsetOrphanRoutesPageService } from '../subset-orphan-routes-page.service';
 import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analysis.component';
 import { SubsetOrphanRouteFilter } from './subset-orphan-route-filter';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
@@ -32,7 +32,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
       (edit)="edit()"
       i18n-editLinkTitle="@@subset-orphan-routes.edit.title"
       editLinkTitle="Load the routes in this page in JOSM"
-      [pageSize]="pageSize()"
+      [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
@@ -132,11 +132,10 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
 
   private readonly subsetOrphanRoutesService = inject(SubsetOrphanRoutesService);
   private readonly editService = inject(EditService);
-  private readonly store = inject(SubsetOrphanRoutesStore);
+  protected readonly service = inject(SubsetOrphanRoutesPageService);
 
   protected dataSource = new MatTableDataSource<OrphanRouteInfo>();
   protected displayedColumns = ['nr', 'analysis', 'name', 'distance', 'last-survey', 'last-edit'];
-  protected readonly pageSize = this.store.pageSize();
   private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanRouteFilterCriteria());
 
   ngOnInit(): void {
@@ -153,7 +152,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.updatePageSize(pageSize);
+    this.service.setPageSize(pageSize);
   }
 
   edit(): void {

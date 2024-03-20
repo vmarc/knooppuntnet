@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -21,7 +22,7 @@ import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
-import { SubsetFactsStore } from './subset-facts.store';
+import { SubsetFactsPageService } from './subset-facts-page.service';
 
 @Component({
   selector: 'kpn-subset-facts-page',
@@ -36,7 +37,7 @@ import { SubsetFactsStore } from './subset-facts.store';
 
       <kpn-error />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           <p>
             <kpn-situation-on [timestamp]="response.situationOn" />
@@ -69,7 +70,7 @@ import { SubsetFactsStore } from './subset-facts.store';
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [SubsetFactsStore, RouterService],
+  providers: [SubsetFactsPageService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
@@ -86,8 +87,12 @@ import { SubsetFactsStore } from './subset-facts.store';
     SubsetSidebarComponent,
   ],
 })
-export class SubsetFactsPageComponent {
-  protected readonly store = inject(SubsetFactsStore);
+export class SubsetFactsPageComponent implements OnInit {
+  protected readonly service = inject(SubsetFactsPageService);
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 
   hasFacts(response: ApiResponse<SubsetFactsPage>): boolean {
     return response.result && response.result.subsetInfo.factCount > 0;

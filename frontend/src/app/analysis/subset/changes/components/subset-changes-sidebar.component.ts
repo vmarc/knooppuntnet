@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ChangeOption } from '@app/kpn/common';
-import { SubsetChangesStore } from '../subset-changes.store';
+import { SubsetChangesPageService } from '../subset-changes-page.service';
 
 @Component({
   selector: 'kpn-subset-changes-sidebar',
@@ -20,10 +20,10 @@ import { SubsetChangesStore } from '../subset-changes.store';
   imports: [SidebarComponent, ChangeFilterComponent, AsyncPipe],
 })
 export class SubsetChangesSidebarComponent {
-  private readonly store = inject(SubsetChangesStore);
+  private readonly store = inject(SubsetChangesPageService);
   protected readonly filterOptions = this.store.filterOptions;
 
   onOptionSelected(option: ChangeOption): void {
-    this.store.updateFilterOption(option);
+    this.store.setFilterOption(option);
   }
 }

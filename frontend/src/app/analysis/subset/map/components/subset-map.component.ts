@@ -6,7 +6,7 @@ import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { SubsetMapService } from '../subset-map.service';
-import { SubsetMapStore } from '../subset-map.store';
+import { SubsetMapPageService } from '../subset-map-page.service';
 
 @Component({
   selector: 'kpn-subset-map',
@@ -28,9 +28,9 @@ import { SubsetMapStore } from '../subset-map.store';
 })
 export class SubsetMapComponent implements AfterViewInit {
   protected readonly service = inject(SubsetMapService);
-  private readonly store = inject(SubsetMapStore);
+  private readonly mapPageService = inject(SubsetMapPageService);
 
   ngAfterViewInit(): void {
-    this.store.afterViewInit();
+    this.mapPageService.afterViewInit();
   }
 }

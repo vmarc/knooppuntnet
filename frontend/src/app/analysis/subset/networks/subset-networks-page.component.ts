@@ -14,7 +14,7 @@ import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
 import { SubsetNetworkListComponent } from './components/subset-network-list.component';
 import { SubsetNetworkTableComponent } from './components/subset-network-table.component';
-import { SubsetNetworksStore } from './subset-networks.store';
+import { SubsetNetworksPageService } from './subset-networks-page.service';
 
 @Component({
   selector: 'kpn-subset-networks-page',
@@ -29,7 +29,7 @@ import { SubsetNetworksStore } from './subset-networks.store';
 
       <kpn-error />
 
-      @if (store.response(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (response.result.networks.length === 0) {
             <div i18n="@@subset-networks.no-networks">No networks</div>
@@ -56,7 +56,7 @@ import { SubsetNetworksStore } from './subset-networks.store';
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [SubsetNetworksStore, RouterService],
+  providers: [SubsetNetworksPageService, RouterService],
   standalone: true,
   imports: [
     AsyncPipe,
@@ -72,7 +72,7 @@ import { SubsetNetworksStore } from './subset-networks.store';
   ],
 })
 export class SubsetNetworksPageComponent {
-  protected readonly store = inject(SubsetNetworksStore);
+  protected readonly service = inject(SubsetNetworksPageService);
   private readonly pageWidthService = inject(PageWidthService);
 
   protected readonly large$ = this.pageWidthService.current$.pipe(

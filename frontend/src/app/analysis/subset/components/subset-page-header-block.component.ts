@@ -6,7 +6,7 @@ import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { Translations } from '@app/i18n';
-import { SubsetStore } from '../subset.store';
+import { SubsetService } from '../subset.service';
 import { SubsetPageBreadcrumbComponent } from './subset-page-breadcrumb.component';
 import { SubsetPageMenuComponent } from './subset-page-menu.component';
 
@@ -39,7 +39,7 @@ export class SubsetPageHeaderBlockComponent {
   pageName = input.required<string>();
   pageTitle = input.required<string>();
 
-  private readonly store = inject(SubsetStore);
+  private readonly store = inject(SubsetService);
 
   protected readonly subset = this.store.subset;
   protected readonly subsetInfo = this.store.subsetInfo;

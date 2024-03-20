@@ -16,7 +16,7 @@ import { DayComponent } from '@app/components/shared/day';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { BehaviorSubject } from 'rxjs';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
-import { SubsetOrphanNodesStore } from '../subset-orphan-nodes.store';
+import { SubsetOrphanNodesPageService } from '../subset-orphan-nodes-page.service';
 import { SubsetOrphanNodeFilter } from './subset-orphan-node-filter';
 import { SubsetOrphanNodeFilterCriteria } from './subset-orphan-node-filter-criteria';
 import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
@@ -29,7 +29,7 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
       (edit)="edit()"
       i18n-editLinkTitle="@@subset-orphan-nodes.edit.title"
       editLinkTitle="Load the nodes in this page in JOSM"
-      [pageSize]="pageSize()"
+      [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
@@ -102,13 +102,11 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   private readonly subsetOrphanNodesService = inject(SubsetOrphanNodesService);
   private readonly editService = inject(EditService);
-  private readonly store = inject(SubsetOrphanNodesStore);
+  protected readonly service = inject(SubsetOrphanNodesPageService);
 
   protected readonly dataSource = new MatTableDataSource<OrphanNodeInfo>();
 
   protected displayedColumns = ['nr', 'node', 'name', 'last-survey', 'last-edit'];
-
-  protected readonly pageSize = this.store.pageSize();
 
   private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanNodeFilterCriteria());
 
@@ -126,7 +124,7 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.updatePageSize(pageSize);
+    this.service.setPageSize(pageSize);
   }
 
   edit(): void {
