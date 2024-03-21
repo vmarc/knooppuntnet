@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -7,11 +6,7 @@ import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { AnalysisStrategy } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
-import { Store } from '@ngrx/store';
-import { filter } from 'rxjs/operators';
-import { actionChangesAnalysisStrategy } from '../store/changes.actions';
-import { actionChangesFilterOption } from '../store/changes.actions';
-import { selectChangesFilterOptions } from '../store/changes.selectors';
+import { ChangesPageService } from '../changes-page.service';
 
 @Component({
   selector: 'kpn-changes-sidebar',
@@ -20,26 +15,22 @@ import { selectChangesFilterOptions } from '../store/changes.selectors';
     <kpn-sidebar>
       <kpn-analysis-strategy (strategyChange)="onStrategyChange($event)" />
       <kpn-change-filter
-        [filterOptions]="filterOptions$ | async"
+        [filterOptions]="service.filterOptions()"
         (optionSelected)="onOptionSelected($event)"
       />
     </kpn-sidebar>
   `,
   standalone: true,
-  imports: [AnalysisStrategyComponent, AsyncPipe, ChangeFilterComponent, SidebarComponent],
+  imports: [AnalysisStrategyComponent, ChangeFilterComponent, SidebarComponent],
 })
 export class ChangesSidebarComponent {
-  private readonly store = inject(Store);
-
-  filterOptions$ = this.store
-    .select(selectChangesFilterOptions)
-    .pipe(filter((filterOptions) => !!filterOptions));
+  protected readonly service = inject(ChangesPageService);
 
   onOptionSelected(option: ChangeOption): void {
-    this.store.dispatch(actionChangesFilterOption({ option }));
+    this.service.setFilterOption(option);
   }
 
   onStrategyChange(strategy: AnalysisStrategy): void {
-    this.store.dispatch(actionChangesAnalysisStrategy({ strategy }));
+    this.service.setStrategy(strategy);
   }
 }

@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { PageWidthService } from '@app/components/shared';
@@ -71,11 +72,15 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
     SubsetSidebarComponent,
   ],
 })
-export class SubsetNetworksPageComponent {
+export class SubsetNetworksPageComponent implements OnInit {
   protected readonly service = inject(SubsetNetworksPageService);
   private readonly pageWidthService = inject(PageWidthService);
 
   protected readonly large$ = this.pageWidthService.current$.pipe(
     map(() => this.pageWidthService.isVeryLarge())
   );
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
 }

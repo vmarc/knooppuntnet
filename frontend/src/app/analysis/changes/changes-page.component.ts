@@ -11,18 +11,10 @@ import { ItemsComponent } from '@app/components/shared/items';
 import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { Store } from '@ngrx/store';
+import { RouterService } from '../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../shared/user';
-import { UserStore } from '../../shared/user/user.store';
+import { ChangesPageService } from './changes-page.service';
 import { ChangesSidebarComponent } from './components/changes-sidebar.component';
-import { actionChangesPageSize } from './store/changes.actions';
-import { actionChangesImpact } from './store/changes.actions';
-import { actionChangesPageIndex } from './store/changes.actions';
-import { actionChangesPageInit } from './store/changes.actions';
-import { selectChangesImpact } from './store/changes.selectors';
-import { selectChangesPageSize } from './store/changes.selectors';
-import { selectChangesPageIndex } from './store/changes.selectors';
-import { selectChangesPage } from './store/changes.selectors';
 
 @Component({
   selector: 'kpn-changes-page',
@@ -42,9 +34,9 @@ import { selectChangesPage } from './store/changes.selectors';
 
       <kpn-error />
 
-      @if (apiResponse(); as response) {
+      @if (service.response(); as response) {
         <div class="kpn-spacer-above">
-          @if (!loggedIn()) {
+          @if (!service.loggedIn()) {
             <p i18n="@@changes-page.login-required">
               The details of the changes history are available to logged in OpenStreetMap
               contributors only.
@@ -58,9 +50,9 @@ import { selectChangesPage } from './store/changes.selectors';
                 <kpn-situation-on [timestamp]="response.situationOn" />
               </p>
               <kpn-changes
-                [impact]="impact()"
-                [pageSize]="pageSize()"
-                [pageIndex]="pageIndex()"
+                [impact]="service.impact()"
+                [pageSize]="service.pageSize()"
+                [pageIndex]="service.pageIndex()"
                 (impactChange)="onImpactChange($event)"
                 (pageSizeChange)="onPageSizeChange($event)"
                 (pageIndexChange)="onPageIndexChange($event)"
@@ -87,6 +79,7 @@ import { selectChangesPage } from './store/changes.selectors';
       <kpn-changes-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [ChangesPageService, RouterService],
   standalone: true,
   imports: [
     ChangeLocationAnalysisSummaryComponent,
@@ -104,28 +97,21 @@ import { selectChangesPage } from './store/changes.selectors';
   ],
 })
 export class ChangesPageComponent implements OnInit {
-  private readonly userStore = inject(UserStore);
-  readonly loggedIn = this.userStore.loggedIn;
-
-  private readonly store = inject(Store);
-  readonly apiResponse = this.store.selectSignal(selectChangesPage);
-  readonly impact = this.store.selectSignal(selectChangesImpact);
-  readonly pageSize = this.store.selectSignal(selectChangesPageSize);
-  readonly pageIndex = this.store.selectSignal(selectChangesPageIndex);
+  protected readonly service = inject(ChangesPageService);
 
   ngOnInit(): void {
-    this.store.dispatch(actionChangesPageInit());
+    this.service.onInit();
   }
 
   onImpactChange(impact: boolean): void {
-    this.store.dispatch(actionChangesImpact({ impact }));
+    this.service.setImpact(impact);
   }
 
   onPageSizeChange(pageSize: number): void {
-    this.store.dispatch(actionChangesPageSize({ pageSize }));
+    this.service.setPageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {
-    this.store.dispatch(actionChangesPageIndex({ pageIndex }));
+    this.service.setPageIndex(pageIndex);
   }
 }

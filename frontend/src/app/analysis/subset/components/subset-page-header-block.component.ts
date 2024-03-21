@@ -39,11 +39,11 @@ export class SubsetPageHeaderBlockComponent {
   pageName = input.required<string>();
   pageTitle = input.required<string>();
 
-  private readonly store = inject(SubsetService);
+  private readonly service = inject(SubsetService);
 
-  protected readonly subset = this.store.subset;
-  protected readonly subsetInfo = this.store.subsetInfo;
-  protected readonly networkType = computed(() => this.subset().networkType);
+  protected readonly subset = this.service.subset;
+  protected readonly subsetInfo = this.service.subsetInfo;
+  protected readonly networkType = computed(() => this.subset()?.networkType);
 
   protected readonly subsetName = computed(() => {
     const ss = this.subset();
