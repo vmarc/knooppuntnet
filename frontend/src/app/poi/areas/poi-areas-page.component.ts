@@ -1,15 +1,12 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { BaseSidebarComponent } from '@app/shared/base';
 import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
-import { actionPoiAreasPageInit } from '../store/poi.actions';
-import { selectPoiAreasPage } from '../store/poi.selectors';
-import { PoiMapComponent } from './poi-map.component';
+import { BaseSidebarComponent } from '@app/shared/base';
+import { PoiMapComponent } from './components/poi-map.component';
+import { PoiAreasPageService } from './poi-areas-page.service';
 
 @Component({
   selector: 'kpn-poi-areas-page',
@@ -24,20 +21,20 @@ import { PoiMapComponent } from './poi-map.component';
         interest information.
       </p>
 
-      @if (apiResponse(); as response) {
+      @if (service.response(); as response) {
         <kpn-poi-map />
       }
       <kpn-base-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [PoiAreasPageService],
   standalone: true,
-  imports: [AsyncPipe, BaseSidebarComponent, PageComponent, PageHeaderComponent, PoiMapComponent],
+  imports: [BaseSidebarComponent, PageComponent, PageHeaderComponent, PoiMapComponent],
 })
 export class PoiAreasPageComponent implements OnInit {
-  private readonly store = inject(Store);
-  protected readonly apiResponse = this.store.selectSignal(selectPoiAreasPage);
+  protected readonly service = inject(PoiAreasPageService);
 
   ngOnInit(): void {
-    this.store.dispatch(actionPoiAreasPageInit());
+    this.service.onInit();
   }
 }

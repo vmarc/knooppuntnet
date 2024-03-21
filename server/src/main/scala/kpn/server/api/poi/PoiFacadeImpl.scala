@@ -66,9 +66,15 @@ class PoiFacadeImpl(
     language: Language,
     location: String,
     parameters: LocationPoiParameters,
-    layers: String
+    layersString: String
   ): ApiResponse[LocationPoisPage] = {
-    val page = locationPoisPageBuilder.build(language, location, parameters, layers.split(",").toSeq)
+    val layers = if (layersString.isEmpty) {
+      Seq.empty
+    }
+    else {
+      layersString.split(",").toSeq
+    }
+    val page = locationPoisPageBuilder.build(language, location, parameters, layers)
     ApiResponse(null, 1, Some(page))
   }
 

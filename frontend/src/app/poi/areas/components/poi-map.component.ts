@@ -1,11 +1,11 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
-import { Store } from '@ngrx/store';
-import { actionPoiAreasPageMapViewInit } from '../store/poi.actions';
+import { PoiAreasPageService } from '../poi-areas-page.service';
 import { PoiMapService } from './poi-map.service';
 
 @Component({
@@ -27,10 +27,10 @@ import { PoiMapService } from './poi-map.service';
 })
 export class PoiMapComponent implements AfterViewInit, OnDestroy {
   protected readonly service = inject(PoiMapService);
-  private readonly store = inject(Store);
+  private readonly pageService = inject(PoiAreasPageService);
 
   ngAfterViewInit(): void {
-    this.store.dispatch(actionPoiAreasPageMapViewInit());
+    this.pageService.afterViewInit();
   }
 
   ngOnDestroy(): void {

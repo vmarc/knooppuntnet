@@ -22,6 +22,11 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
           </li>
           <li>
             <p>
+              <a routerLink="/poi/location">Points of interest by location</a>
+            </p>
+          </li>
+          <li>
+            <p>
               <a routerLink="/status">Status</a>
             </p>
           </li>

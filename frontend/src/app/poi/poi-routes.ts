@@ -1,27 +1,14 @@
 import { Routes } from '@angular/router';
-import { provideEffects } from '@ngrx/effects';
-import { provideState } from '@ngrx/store';
+import { PoiMapService } from './areas/components/poi-map.service';
 import { PoiAreasPageComponent } from './areas/poi-areas-page.component';
-import { PoiMapService } from './areas/poi-map.service';
 import { PoiDetailPageComponent } from './detail/poi-detail-page.component';
 import { PoiLocationPoisPageComponent } from './list/poi-location-pois-page.component';
 import { PoiService } from './poi.service';
-import { PoiEffects } from './store/poi.effects';
-import { poiReducer } from './store/poi.reducer';
-import { poiFeatureKey } from './store/poi.state';
 
 export const poiRoutes: Routes = [
   {
     path: '',
-    providers: [
-      provideState({
-        name: poiFeatureKey,
-        reducer: poiReducer,
-      }),
-      provideEffects([PoiEffects]),
-      PoiMapService,
-      PoiService,
-    ],
+    providers: [PoiMapService, PoiService],
     children: [
       {
         path: 'areas',
@@ -32,7 +19,7 @@ export const poiRoutes: Routes = [
         component: PoiDetailPageComponent,
       },
       {
-        path: 'location/:location/pois',
+        path: 'location',
         component: PoiLocationPoisPageComponent,
       },
     ],

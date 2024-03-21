@@ -1,17 +1,13 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MatButton } from '@angular/material/button';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Country } from '@api/custom';
-import { SidebarComponent } from '@app/components/shared/sidebar';
-import { Store } from '@ngrx/store';
 import { LocationSelectorComponent } from '@app/analysis/location';
-import { actionLocationPoiSummaryCountryChanged } from '../store/poi.actions';
-import { actionLocationPoiSummaryPageInit } from '../store/poi.actions';
-import { selectLocationPoiSummaryLocationNode } from '../store/poi.selectors';
-import { selectLocationPoiSummaryPage } from '../store/poi.selectors';
+import { SidebarComponent } from '@app/components/shared/sidebar';
+import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 import { CountrySelectComponent } from './country-select.component';
 
 @Component({
@@ -20,12 +16,12 @@ import { CountrySelectComponent } from './country-select.component';
   template: `
     <kpn-sidebar>
       <div class="location-selector">
-        <kpn-country-select (country)="countryChanged($event)" />
+        <kpn-country-select />
 
-        @if (locationNode(); as locationNode) {
+        @if (service.locationNode(); as locationNode) {
           <div>
             <kpn-location-selector
-              [country]="country"
+              [country]="service.country()"
               [locationNode]="locationNode"
               [all]="true"
               (selection)="locationSelectionChanged($event)"
@@ -34,7 +30,9 @@ import { CountrySelectComponent } from './country-select.component';
         }
       </div>
 
-      @if (apiResponse(); as response) {
+      @if (service.summaryResponse(); as response) {
+        <button mat-stroked-button (click)="listPois()">List pois</button>
+
         <div class="filter">
           @if (response.result; as page) {
             @for (group of page.groups; track group) {
@@ -46,7 +44,7 @@ import { CountrySelectComponent } from './country-select.component';
               <div class="poi-group-body">
                 @for (poiCount of group.poiCounts; track poiCount) {
                   <div>
-                    <mat-checkbox>
+                    <mat-checkbox (change)="poiSelectionChanged(poiCount.name, $event)">
                       <span class="poi-name">{{ poiCount.name }}</span>
                       <span class="poi-count">{{ poiCount.count }}</span>
                     </mat-checkbox>
@@ -99,27 +97,25 @@ import { CountrySelectComponent } from './country-select.component';
     LocationSelectorComponent,
     MatCheckboxModule,
     SidebarComponent,
+    MatButton,
   ],
 })
-export class LocationPoisSidebarComponent implements OnInit {
-  private readonly store = inject(Store);
-  protected readonly apiResponse = this.store.selectSignal(selectLocationPoiSummaryPage);
-  protected readonly locationNode = this.store.selectSignal(selectLocationPoiSummaryLocationNode);
-
-  country = Country.be;
-
-  ngOnInit(): void {
-    this.store.dispatch(actionLocationPoiSummaryPageInit());
-  }
-
-  countryChanged(country: Country): void {
-    console.log('country changed: ' + country);
-    if (country) {
-      this.store.dispatch(actionLocationPoiSummaryCountryChanged({ country }));
-    }
-  }
+export class LocationPoisSidebarComponent {
+  protected readonly service = inject(PoiLocationPoisPageService);
 
   locationSelectionChanged(location: string): void {
-    console.log('locationSelectionChanged: ' + location);
+    this.service.setLocation(location);
+  }
+
+  listPois(): void {
+    this.service.listPois();
+  }
+
+  poiSelectionChanged(poiName: string, event: MatCheckboxChange): void {
+    if (event.checked) {
+      this.service.setLayers(poiName);
+    } else {
+      this.service.setLayers('');
+    }
   }
 }

@@ -1,17 +1,15 @@
-import { OnInit } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectChange } from '@angular/material/select';
 import { MatSelectModule } from '@angular/material/select';
 import { Country } from '@api/custom';
 import { Translations } from '@app/i18n';
 import { Countries } from '@app/kpn/common';
-import { Subscriptions } from '@app/util';
+import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 import { CountryName } from './country-name';
 
 @Component({
@@ -20,7 +18,10 @@ import { CountryName } from './country-name';
   template: `
     <mat-form-field class="group">
       <mat-label i18n="@@country.selector.label">Country</mat-label>
-      <mat-select [formControl]="selectedCountry">
+      <mat-select
+        [formControl]="countryControl"
+        (selectionChange)="countrySelectionChanged($event)"
+      >
         @for (countryName of countryNames; track countryName) {
           <mat-option [value]="countryName.country">
             {{ countryName.name }}
@@ -32,27 +33,15 @@ import { CountryName } from './country-name';
   standalone: true,
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule, ReactiveFormsModule],
 })
-export class CountrySelectComponent implements OnInit, OnDestroy {
-  @Output() country = new EventEmitter<Country | null>();
+export class CountrySelectComponent {
+  protected readonly service = inject(PoiLocationPoisPageService);
+  protected readonly countryControl = new FormControl<Country>(null);
+  protected readonly countryNames = Countries.all.map((country) => {
+    const name = Translations.get(`country.${country}`);
+    return new CountryName(country, name);
+  });
 
-  protected countryNames: CountryName[];
-  private readonly subscriptions = new Subscriptions();
-  readonly selectedCountry = new FormControl<Country>(null);
-
-  constructor() {
-    this.countryNames = Countries.all.map((country) => {
-      const name = Translations.get(`@@country.${country}`);
-      return new CountryName(country, name);
-    });
-  }
-
-  ngOnInit(): void {
-    this.subscriptions.add(
-      this.selectedCountry.valueChanges.subscribe((country) => this.country.emit(country))
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+  countrySelectionChanged(event: MatSelectChange) {
+    this.service.setCountry(event.value);
   }
 }

@@ -1,12 +1,8 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
-import { ActivatedRoute } from '@angular/router';
-import { PoiDetail } from '@api/common';
-import { ApiResponse } from '@api/custom';
 import { Tags } from '@api/custom';
 import { PoiAnalysisComponent } from '@app/components/poi';
 import { DataComponent } from '@app/components/shared/data';
@@ -15,13 +11,12 @@ import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { PoiDetailMapComponent } from '@app/ol/components';
-import { ApiService } from '@app/services';
 import { BaseSidebarComponent } from '@app/shared/base';
-import { Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
 import { ActionButtonNodeComponent } from '../../analysis/components/action/action-button-node.component';
 import { ActionButtonRelationComponent } from '../../analysis/components/action/action-button-relation.component';
 import { ActionButtonWayComponent } from '../../analysis/components/action/action-button-way.component';
+import { RouterService } from '../../shared/services/router.service';
+import { PoiDetailPageService } from './poi-detail-page.service';
 
 @Component({
   selector: 'kpn-poi-detail-page',
@@ -35,7 +30,7 @@ import { ActionButtonWayComponent } from '../../analysis/components/action/actio
       <!--      <span i18n="@@poi-areas.title">Poi</span>-->
       <!--    </kpn-page-header>-->
 
-      @if (response$ | async; as response) {
+      @if (service.response(); as response) {
         @if (response.result) {
           <kpn-poi-analysis [poi]="response.result.poiAnalysis" />
           <mat-divider class="map-divider" />
@@ -123,9 +118,9 @@ import { ActionButtonWayComponent } from '../../analysis/components/action/actio
       margin-bottom: 1em;
     }
   `,
+  providers: [PoiDetailPageService, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     BaseSidebarComponent,
     DataComponent,
     MatDividerModule,
@@ -140,19 +135,10 @@ import { ActionButtonWayComponent } from '../../analysis/components/action/actio
   ],
 })
 export class PoiDetailPageComponent implements OnInit {
-  private readonly activatedRoute = inject(ActivatedRoute);
-  private readonly apiService = inject(ApiService);
-
-  protected response$: Observable<ApiResponse<PoiDetail>>;
+  protected readonly service = inject(PoiDetailPageService);
 
   ngOnInit(): void {
-    this.response$ = this.activatedRoute.params.pipe(
-      mergeMap((params) => {
-        const elementType = params['elementType'];
-        const elementId = +params['elementId'];
-        return this.apiService.poiDetail(elementType, elementId);
-      })
-    );
+    this.service.onInit();
   }
 
   tags(tags: Tags): InterpretedTags {

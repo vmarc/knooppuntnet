@@ -1,21 +1,19 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { PageComponent } from '@app/components/shared/page';
-import { Store } from '@ngrx/store';
-import { actionLocationPoisPageInit } from '../store/poi.actions';
-import { selectLocationPoisPage } from '../store/poi.selectors';
-import { PoiLocationPoiTableComponent } from './poi-location-poi-table.component';
-import { LocationPoisSidebarComponent } from './poi-location-pois-sidebar.component';
+import { RouterService } from '../../shared/services/router.service';
+import { PoiLocationPoiTableComponent } from './components/poi-location-poi-table.component';
+import { LocationPoisSidebarComponent } from './components/poi-location-pois-sidebar.component';
+import { PoiLocationPoisPageService } from './poi-location-pois-page.service';
 
 @Component({
   selector: 'kpn-poi-location-pois-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      @if (apiResponse(); as response) {
+      @if (service.poisResponse(); as response) {
         @if (response.result; as page) {
           <kpn-poi-location-poi-table [pois]="page.pois" [poiCount]="page.poiCount" />
         }
@@ -23,14 +21,14 @@ import { LocationPoisSidebarComponent } from './poi-location-pois-sidebar.compon
       <kpn-location-pois-sidebar sidebar />
     </kpn-page>
   `,
+  providers: [PoiLocationPoisPageService, RouterService],
   standalone: true,
-  imports: [AsyncPipe, LocationPoisSidebarComponent, PageComponent, PoiLocationPoiTableComponent],
+  imports: [LocationPoisSidebarComponent, PageComponent, PoiLocationPoiTableComponent],
 })
 export class PoiLocationPoisPageComponent implements OnInit {
-  private readonly store = inject(Store);
-  protected readonly apiResponse = this.store.selectSignal(selectLocationPoisPage);
+  protected readonly service = inject(PoiLocationPoisPageService);
 
   ngOnInit(): void {
-    this.store.dispatch(actionLocationPoisPageInit());
+    this.service.onInit();
   }
 }

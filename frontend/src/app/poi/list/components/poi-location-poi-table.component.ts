@@ -13,21 +13,17 @@ import { RouterLink } from '@angular/router';
 import { LocationPoiInfo } from '@api/common/poi';
 import { PageWidthService } from '@app/components/shared';
 import { PaginatorComponent } from '@app/components/shared/paginator';
-import { selectPreferencesPageSize } from '@app/core';
-import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { actionLocationPoisPageSize } from '../store/poi.actions';
-import { actionLocationPoisPageIndex } from '../store/poi.actions';
-import { selectLocationPoisPageIndex } from '../store/poi.selectors';
+import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 
 @Component({
   selector: 'kpn-poi-location-poi-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-paginator
-      [pageIndex]="pageIndex()"
+      [pageIndex]="service.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize()"
+      [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="poiCount()"
       [showFirstLastButtons]="false"
@@ -93,9 +89,9 @@ import { selectLocationPoisPageIndex } from '../store/poi.selectors';
     </table>
 
     <kpn-paginator
-      [pageIndex]="pageIndex()"
+      [pageIndex]="service.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="pageSize()"
+      [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="poiCount()"
     />
@@ -115,10 +111,7 @@ export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
   private readonly pageWidthService = inject(PageWidthService);
-  private readonly store = inject(Store);
-
-  protected readonly pageSize = this.store.selectSignal(selectPreferencesPageSize);
-  protected readonly pageIndex = this.store.selectSignal(selectLocationPoisPageIndex);
+  protected readonly service = inject(PoiLocationPoisPageService);
 
   protected readonly dataSource = new MatTableDataSource<LocationPoiInfo>();
   protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
@@ -136,12 +129,12 @@ export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.store.dispatch(actionLocationPoisPageSize({ pageSize }));
+    this.service.setPageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
-    this.store.dispatch(actionLocationPoisPageIndex({ pageIndex }));
+    this.service.setPageIndex(pageIndex);
   }
 
   private displayedColumns() {
