@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, inject } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
@@ -23,6 +23,11 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
           <li>
             <p>
               <a routerLink="/poi/location">Points of interest by location</a>
+            </p>
+          </li>
+          <li>
+            <p>
+              <a routerLink="/settings">Settings</a>
             </p>
           </li>
           <li>

@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
@@ -6,11 +5,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { actionPreferencesInstructions } from '@app/core';
-import { actionPreferencesExtraLayers } from '@app/core';
-import { selectPreferencesInstructions } from '@app/core';
-import { selectPreferencesExtraLayers } from '@app/core';
-import { Store } from '@ngrx/store';
+import { PreferencesService } from '@app/core';
 import { SettingsSidebarComponent } from './settings-sidebar.component';
 
 @Component({
@@ -27,7 +22,7 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
 
       <div class="setting">
         <mat-slide-toggle
-          [checked]="instructions()"
+          [checked]="service.instructions()"
           (change)="instructionsChanged($event)"
           i18n="@@settings.directions"
         >
@@ -45,7 +40,7 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
 
       <div class="setting">
         <mat-slide-toggle
-          [checked]="extraLayers()"
+          [checked]="service.extraLayers()"
           (change)="extraLayersChanged($event)"
           i18n="@@settings.extra-layers"
         >
@@ -74,14 +69,9 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
       max-width: 40em;
       font-style: italic;
     }
-
-    .spacer {
-      margin-top: 50px;
-    }
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     MatSlideToggleModule,
     PageComponent,
     PageHeaderComponent,
@@ -90,15 +80,13 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
   ],
 })
 export class SettingsPageComponent {
-  private readonly store = inject(Store);
-  protected readonly instructions = this.store.selectSignal(selectPreferencesInstructions);
-  protected readonly extraLayers = this.store.selectSignal(selectPreferencesExtraLayers);
+  protected readonly service = inject(PreferencesService);
 
   instructionsChanged(event: MatSlideToggleChange): void {
-    this.store.dispatch(actionPreferencesInstructions({ instructions: event.checked }));
+    this.service.setInstructions(event.checked);
   }
 
   extraLayersChanged(event: MatSlideToggleChange): void {
-    this.store.dispatch(actionPreferencesExtraLayers({ extraLayers: event.checked }));
+    this.service.setExtraLayers(event.checked);
   }
 }
