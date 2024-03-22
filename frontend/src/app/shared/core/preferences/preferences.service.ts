@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { Signal } from '@angular/core';
 import { WritableSignal } from '@angular/core';
 import { inject } from '@angular/core';
@@ -12,17 +13,7 @@ import { AnalysisStrategy } from './preferences.state';
 export class PreferencesService {
   private readonly browserStorageService = inject(BrowserStorageService);
 
-  private readonly _strategy: WritableSignal<AnalysisStrategy>;
-  private readonly _networkType: WritableSignal<string>;
-  private readonly _instructions: WritableSignal<boolean>;
-  private readonly _extraLayers: WritableSignal<boolean>;
-  private readonly _pageSize: WritableSignal<number>;
-  private readonly _impact: WritableSignal<boolean>;
-  private readonly _showAppearanceOptions: WritableSignal<boolean>;
-  private readonly _showLegend: WritableSignal<boolean>;
-  private readonly _showOptions: WritableSignal<boolean>;
-  private readonly _showProposed: WritableSignal<boolean>;
-  private readonly _planProposed: WritableSignal<boolean>;
+  private readonly preferences: WritableSignal<PreferencesState>;
 
   readonly strategy: Signal<AnalysisStrategy>;
   readonly networkType: Signal<string>;
@@ -43,101 +34,101 @@ export class PreferencesService {
     if (preferencesString) {
       preferences = JSON.parse(preferencesString);
     }
-    this._strategy = signal<AnalysisStrategy>(preferences.strategy);
-    this._networkType = signal<string>(preferences.networkType);
-    this._instructions = signal<boolean>(preferences.instructions);
-    this._extraLayers = signal<boolean>(preferences.extraLayers);
-    this._pageSize = signal<number>(preferences.pageSize);
-    this._impact = signal<boolean>(preferences.impact);
-    this._showAppearanceOptions = signal<boolean>(preferences.showAppearanceOptions);
-    this._showLegend = signal<boolean>(preferences.showLegend);
-    this._showOptions = signal<boolean>(preferences.showOptions);
-    this._showProposed = signal<boolean>(preferences.showProposed);
-    this._planProposed = signal<boolean>(preferences.planProposed);
+    this.preferences = signal<PreferencesState>(preferences);
 
-    this.strategy = this._strategy.asReadonly();
-    this.networkType = this._networkType.asReadonly();
-    this.instructions = this._instructions.asReadonly();
+    this.strategy = computed(() => this.preferences().strategy);
+    this.networkType = computed(() => this.preferences().networkType);
+    this.instructions = computed(() => this.preferences().instructions);
     // TODO SIGNAL not used anymore? re-introduce?
-    this.extraLayers = this._extraLayers.asReadonly();
-    this.pageSize = this._pageSize.asReadonly();
-    this.impact = this._impact.asReadonly();
-    this.showAppearanceOptions = this._showAppearanceOptions.asReadonly();
-    this.showLegend = this._showLegend.asReadonly();
-    this.showOptions = this._showOptions.asReadonly();
-    this.showProposed = this._showProposed.asReadonly();
-    this.planProposed = this._planProposed.asReadonly();
+    this.extraLayers = computed(() => this.preferences().extraLayers);
+    this.pageSize = computed(() => this.preferences().pageSize);
+    this.impact = computed(() => this.preferences().impact);
+    this.showAppearanceOptions = computed(() => this.preferences().showAppearanceOptions);
+    this.showLegend = computed(() => this.preferences().showLegend);
+    this.showOptions = computed(() => this.preferences().showOptions);
+    this.showProposed = computed(() => this.preferences().showProposed);
+    this.planProposed = computed(() => this.preferences().planProposed);
   }
 
   setStrategy(strategy: AnalysisStrategy): void {
-    this._strategy.set(strategy);
-    this.updateLocalStorage();
+    this.update({
+      ...this.preferences(),
+      strategy,
+    });
   }
 
   setNetworkType(networkType: string): void {
-    this._networkType.set(networkType);
-    this.updateLocalStorage();
+    this.update({
+      ...this.preferences(),
+      networkType,
+    });
   }
 
   setInstructions(instructions: boolean): void {
-    this._instructions.set(instructions);
-    this.updateLocalStorage();
+    this.update({
+      ...this.preferences(),
+      instructions,
+    });
   }
 
   setExtraLayers(extraLayers: boolean): void {
-    this._extraLayers.set(extraLayers);
-    this.updateLocalStorage();
+    this.update({
+      ...this.preferences(),
+      extraLayers,
+    });
   }
 
   setPageSize(pageSize: number): void {
-    this._pageSize.set(pageSize);
-    this.updateLocalStorage();
+    this.update({
+      ...this.preferences(),
+      pageSize,
+    });
   }
 
   setImpact(impact: boolean): void {
-    this._impact.set(impact);
-    this.updateLocalStorage();
+    this.update({
+      ...this.preferences(),
+      impact,
+    });
   }
 
-  setShowAppearanceOptions(value: boolean) {
-    this._showAppearanceOptions.set(value);
-    this.updateLocalStorage();
+  setShowAppearanceOptions(showAppearanceOptions: boolean) {
+    this.update({
+      ...this.preferences(),
+      showAppearanceOptions,
+    });
   }
 
-  setShowLegend(value: boolean) {
-    this._showLegend.set(value);
-    this.updateLocalStorage();
+  setShowLegend(showLegend: boolean) {
+    this.update({
+      ...this.preferences(),
+      showLegend,
+    });
   }
 
-  setShowOptions(value: boolean) {
-    this._showOptions.set(value);
-    this.updateLocalStorage();
+  setShowOptions(showOptions: boolean) {
+    this.update({
+      ...this.preferences(),
+      showOptions,
+    });
   }
 
-  setShowProposed(value: boolean) {
-    this._showProposed.set(value);
-    this.updateLocalStorage();
+  setShowProposed(showProposed: boolean) {
+    this.update({
+      ...this.preferences(),
+      showProposed,
+    });
   }
 
-  setPlanProposed(value: boolean) {
-    this._planProposed.set(value);
-    this.updateLocalStorage();
+  setPlanProposed(planProposed: boolean) {
+    this.update({
+      ...this.preferences(),
+      planProposed,
+    });
   }
 
-  private updateLocalStorage(): void {
-    const preferences: PreferencesState = {
-      strategy: this.strategy(),
-      networkType: this.networkType(),
-      instructions: this.instructions(),
-      extraLayers: this.extraLayers(),
-      pageSize: this.pageSize(),
-      impact: this.impact(),
-      showAppearanceOptions: this.showAppearanceOptions(),
-      showLegend: this.showLegend(),
-      showOptions: this.showOptions(),
-      showProposed: this.showProposed(),
-      planProposed: this.planProposed(),
-    };
+  private update(preferences: PreferencesState): void {
+    this.preferences.set(preferences);
     const json = JSON.stringify(preferences);
     this.browserStorageService.set('preferences', json);
   }
