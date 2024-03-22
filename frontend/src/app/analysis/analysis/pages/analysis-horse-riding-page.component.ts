@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -33,19 +32,19 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 
       <kpn-icon-buttons>
         <kpn-icon-button
-          [routerLink]="nlLink | async"
+          [routerLink]="nlLink()"
           icon="netherlands"
           i18n-title="@@country.nl"
           title="The Netherlands"
         />
         <kpn-icon-button
-          [routerLink]="beLink | async"
+          [routerLink]="beLink()"
           icon="belgium"
           i18n-title="@@country.be"
           title="Belgium"
         />
         <kpn-icon-button
-          [routerLink]="frLink | async"
+          [routerLink]="frLink()"
           icon="france"
           i18n-title="@@country.fr"
           title="France"
@@ -57,7 +56,6 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
-    AsyncPipe,
     IconButtonComponent,
     IconButtonsComponent,
     MatIconModule,

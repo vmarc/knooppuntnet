@@ -24,7 +24,6 @@ import { PageService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { PreferencesService } from '@app/core';
 import { reducers } from '@app/core';
-import { metaReducers } from '@app/core';
 import { SharedEffects } from '@app/core';
 import { VersionService } from '@app/services';
 import { ApiService } from '@app/services';
@@ -40,8 +39,6 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import * as Sentry from '@sentry/angular-ivy';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { MarkdownModule } from 'ngx-markdown';
-import { PreferencesStore } from './shared/core/preferences/preferences.store';
-import { RouterService } from './shared/services/router.service';
 import { UserService } from './shared/user';
 
 export const appConfig: ApplicationConfig = {
@@ -78,7 +75,6 @@ export const appConfig: ApplicationConfig = {
     },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     PreferencesService,
-    PreferencesStore,
     VersionService,
     ApiService,
     SpinnerService,
@@ -95,7 +91,6 @@ export const appConfig: ApplicationConfig = {
     provideOAuthClient(),
     { provide: UserService },
     provideStore(reducers, {
-      metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,

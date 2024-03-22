@@ -1,29 +1,22 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { actionPreferencesShowOptions } from '@app/core';
-import { actionPreferencesPlanProposed } from '@app/core';
-import { actionPreferencesShowProposed } from '@app/core';
-import { selectPreferencesShowOptions } from '@app/core';
-import { selectPreferencesPlanProposed } from '@app/core';
-import { selectPreferencesShowProposed } from '@app/core';
-import { Store } from '@ngrx/store';
+import { PreferencesService } from '@app/core';
 
 @Component({
   selector: 'kpn-planner-sidebar-options',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-expansion-panel [expanded]="expanded$ | async" (expandedChange)="expandedChanged($event)">
+    <mat-expansion-panel [expanded]="expanded()" (expandedChange)="expandedChanged($event)">
       <mat-expansion-panel-header i18n="@@planner.options"> Options </mat-expansion-panel-header>
       <p>
-        <mat-checkbox [checked]="showProposed$ | async" (change)="showProposedChanged($event)">
+        <mat-checkbox [checked]="showProposed()" (change)="showProposedChanged($event)">
           <span i18n="@@planner.options.show-proposed">Show proposed routes</span>
         </mat-checkbox>
-        <mat-checkbox [checked]="planProposed$ | async" (change)="planProposedChanged($event)">
+        <mat-checkbox [checked]="planProposed()" (change)="planProposedChanged($event)">
           <span i18n="@@planner.options.plan-proposed">Allow planning proposed routes</span>
         </mat-checkbox>
       </p>
@@ -36,23 +29,24 @@ import { Store } from '@ngrx/store';
     }
   `,
   standalone: true,
-  imports: [MatExpansionModule, MatCheckboxModule, AsyncPipe],
+  imports: [MatExpansionModule, MatCheckboxModule],
 })
 export class PlannerSideBarOptionsComponent {
-  private readonly store = inject(Store);
-  protected readonly expanded$ = this.store.select(selectPreferencesShowOptions);
-  protected readonly showProposed$ = this.store.select(selectPreferencesShowProposed);
-  protected readonly planProposed$ = this.store.select(selectPreferencesPlanProposed);
+  private preferencesService = inject(PreferencesService);
+
+  protected readonly expanded = this.preferencesService.showOptions;
+  protected readonly showProposed = this.preferencesService.showProposed;
+  protected readonly planProposed = this.preferencesService.planProposed;
 
   expandedChanged(expanded: boolean): void {
-    this.store.dispatch(actionPreferencesShowOptions({ value: expanded }));
+    this.preferencesService.setShowOptions(expanded);
   }
 
   showProposedChanged(event: MatCheckboxChange) {
-    this.store.dispatch(actionPreferencesShowProposed({ value: event.checked }));
+    this.preferencesService.setShowProposed(event.checked);
   }
 
   planProposedChanged(event: MatCheckboxChange) {
-    this.store.dispatch(actionPreferencesPlanProposed({ value: event.checked }));
+    this.preferencesService.setPlanProposed(event.checked);
   }
 }

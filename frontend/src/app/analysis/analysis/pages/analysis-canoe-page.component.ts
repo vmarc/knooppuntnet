@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -35,13 +34,13 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
         <!-- icon attribute does not need translation -->
         <!-- eslint-disable @angular-eslint/template/i18n -->
         <kpn-icon-button
-          [routerLink]="nlLink$ | async"
+          [routerLink]="nlLink()"
           icon="netherlands"
           i18n-title="@@country.nl"
           title="The Netherlands"
         />
         <kpn-icon-button
-          [routerLink]="frLink$ | async"
+          [routerLink]="frLink()"
           icon="france"
           i18n-title="@@country.fr"
           title="France"
@@ -54,7 +53,6 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
-    AsyncPipe,
     IconButtonComponent,
     IconButtonsComponent,
     MatIconModule,
@@ -65,6 +63,6 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 })
 export class AnalysisCanoePageComponent {
   private readonly analysisStrategyService = inject(AnalysisStrategyService);
-  protected readonly nlLink$ = this.analysisStrategyService.link('canoe', 'nl');
-  protected readonly frLink$ = this.analysisStrategyService.link('canoe', 'fr');
+  protected readonly nlLink = this.analysisStrategyService.link('canoe', 'nl');
+  protected readonly frLink = this.analysisStrategyService.link('canoe', 'fr');
 }

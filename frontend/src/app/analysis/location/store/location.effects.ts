@@ -4,14 +4,13 @@ import { Router } from '@angular/router';
 import { LocationChangesParameters } from '@api/common/location';
 import { LocationNodesParameters } from '@api/common/location';
 import { LocationRoutesParameters } from '@api/common/location';
+import { PreferencesService } from '@app/core';
 import { selectQueryParam } from '@app/core';
 import { selectRouteParam } from '@app/core';
 import { selectSharedSurveyDateInfo } from '@app/core';
 import { actionSharedSurveyDateInfoInit } from '@app/core';
 import { AnalysisStrategy } from '@app/core';
 import { actionPreferencesAnalysisStrategy } from '@app/core';
-import { actionPreferencesPageSize } from '@app/core';
-import { selectPreferencesPageSize } from '@app/core';
 import { MapPosition } from '@app/ol/domain';
 import { ApiService } from '@app/services';
 import { concatLatestFrom } from '@ngrx/effects';
@@ -62,6 +61,7 @@ export class LocationEffects {
   private readonly router = inject(Router);
   private readonly apiService = inject(ApiService);
   private readonly locationMapLayerService = inject(LocationMapService);
+  private readonly preferencesService = inject(PreferencesService);
 
   // noinspection JSUnusedGlobalSymbols
   analysisStrategy = createEffect(() => {
@@ -92,16 +92,6 @@ export class LocationEffects {
   });
 
   // noinspection JSUnusedGlobalSymbols
-  pageSize = createEffect(() => {
-    return this.actions$.pipe(
-      ofType(actionLocationNodesPageSize, actionLocationRoutesPageSize),
-      map(({ pageSize }) => {
-        return actionPreferencesPageSize({ pageSize });
-      })
-    );
-  });
-
-  // noinspection JSUnusedGlobalSymbols
   locationNodesPage = createEffect(() => {
     return this.actions$.pipe(
       ofType(
@@ -113,12 +103,13 @@ export class LocationEffects {
       concatLatestFrom(() => [
         this.store.select(selectLocationKey),
         this.store.select(selectLocationNodesType),
-        this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationNodesPageIndex),
       ]),
-      mergeMap(([action, locationKey, locationNodesType, pageSize, pageIndex]) => {
+      mergeMap(([action, locationKey, locationNodesType, pageIndex]) => {
         const actionPageSize = action['pageSize'];
-        const requestPageSize = actionPageSize ? actionPageSize : pageSize;
+        const requestPageSize = actionPageSize
+          ? actionPageSize
+          : this.preferencesService.pageSize();
         const parameters: LocationNodesParameters = {
           locationNodesType,
           pageSize: requestPageSize,
@@ -142,12 +133,13 @@ export class LocationEffects {
       concatLatestFrom(() => [
         this.store.select(selectLocationKey),
         this.store.select(selectLocationRoutesType),
-        this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationRoutesPageIndex),
       ]),
-      mergeMap(([action, locationKey, locationRoutesType, pageSize, pageIndex]) => {
+      mergeMap(([action, locationKey, locationRoutesType, pageIndex]) => {
         const actionPageSize = action['pageSize'];
-        const requestPageSize = actionPageSize ? actionPageSize : pageSize;
+        const requestPageSize = actionPageSize
+          ? actionPageSize
+          : this.preferencesService.pageSize();
         const parameters: LocationRoutesParameters = {
           locationRoutesType,
           pageSize: requestPageSize,
@@ -231,10 +223,10 @@ export class LocationEffects {
       ofType(actionLocationChangesPageInit),
       concatLatestFrom(() => [
         this.store.select(selectLocationKey),
-        this.store.select(selectPreferencesPageSize),
         this.store.select(selectLocationChangesPageIndex),
       ]),
-      mergeMap(([_, locationKey, pageSize, pageIndex]) => {
+      mergeMap(([_, locationKey, pageIndex]) => {
+        const pageSize = this.preferencesService.pageSize();
         const parameters: LocationChangesParameters = {
           pageSize,
           pageIndex,

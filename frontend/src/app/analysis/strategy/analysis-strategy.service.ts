@@ -1,24 +1,20 @@
+import { computed } from '@angular/core';
+import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { selectPreferencesAnalysisStrategy } from '@app/core';
+import { PreferencesService } from '@app/core';
 import { AnalysisStrategy } from '@app/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AnalysisStrategyService {
-  private readonly store = inject(Store);
+  private readonly preverencesService = inject(PreferencesService);
 
-  link(networkType: string, country: string): Observable<string> {
-    return this.store
-      .select(selectPreferencesAnalysisStrategy)
-      .pipe(
-        map(
-          (strategy) =>
-            `/analysis/${networkType}/${country}` +
-            (strategy === AnalysisStrategy.network ? '/networks' : '')
-        )
+  link(networkType: string, country: string): Signal<string> {
+    return computed(() => {
+      return (
+        `/analysis/${networkType}/${country}` +
+        (this.preverencesService.strategy() === AnalysisStrategy.network ? '/networks' : '')
       );
+    });
   }
 }

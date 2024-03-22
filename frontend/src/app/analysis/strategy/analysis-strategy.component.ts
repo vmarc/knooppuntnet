@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { Output } from '@angular/core';
@@ -6,9 +5,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { selectPreferencesAnalysisStrategy } from '@app/core';
+import { PreferencesService } from '@app/core';
 import { AnalysisStrategy } from '@app/core';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'kpn-analysis-strategy',
@@ -33,13 +31,13 @@ import { Store } from '@ngrx/store';
   `,
   styleUrl: '../../shared/components/shared/sidebar/sidebar.scss',
   standalone: true,
-  imports: [MatRadioModule, AsyncPipe],
+  imports: [MatRadioModule],
 })
 export class AnalysisStrategyComponent {
   @Output() strategyChange = new EventEmitter<AnalysisStrategy>();
 
-  private readonly store = inject(Store);
-  protected readonly strategy = this.store.selectSignal(selectPreferencesAnalysisStrategy);
+  private readonly service = inject(PreferencesService);
+  protected readonly strategy = this.service.strategy;
 
   onStrategyChange(event: MatRadioChange) {
     this.strategyChange.emit(event.value);

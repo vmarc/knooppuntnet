@@ -1,7 +1,8 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { PlanRoute } from '@api/common/planner';
-import { selectPreferencesPlanProposed } from '@app/core';
+import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
 import { Store } from '@ngrx/store';
 import { List } from 'immutable';
@@ -29,6 +30,7 @@ export class PlannerService {
   private readonly apiService = inject(ApiService);
   private readonly mapService = inject(MapService);
   private readonly store = inject(Store);
+  private readonly preferencesService = inject(PreferencesService);
 
   engine: PlannerEngine;
 
@@ -48,7 +50,7 @@ export class PlannerService {
     this.highlighter,
     this.legRepository,
     this.overlay,
-    this.store.select(selectPreferencesPlanProposed),
+    toObservable(this.preferencesService.planProposed),
     this.store.select(selectPlannerNetworkType)
   );
 

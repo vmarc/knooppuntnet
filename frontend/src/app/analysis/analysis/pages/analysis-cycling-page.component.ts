@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -33,43 +32,43 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 
       <kpn-icon-buttons>
         <kpn-icon-button
-          [routerLink]="nlLink | async"
+          [routerLink]="nlLink()"
           icon="netherlands"
           i18n-title="@@country.nl"
           title="The Netherlands"
         />
         <kpn-icon-button
-          [routerLink]="beLink | async"
+          [routerLink]="beLink()"
           icon="belgium"
           i18n-title="@@country.be"
           title="Belgium"
         />
         <kpn-icon-button
-          [routerLink]="deLink | async"
+          [routerLink]="deLink()"
           icon="germany"
           i18n-title="@@country.de"
           title="Germany"
         />
         <kpn-icon-button
-          [routerLink]="frLink | async"
+          [routerLink]="frLink()"
           icon="france"
           i18n-title="@@country.fr"
           title="France"
         />
         <kpn-icon-button
-          [routerLink]="atLink | async"
+          [routerLink]="atLink()"
           icon="austria"
           i18n-title="@@country.at"
           title="Austria"
         />
         <kpn-icon-button
-          [routerLink]="esLink | async"
+          [routerLink]="esLink()"
           icon="spain"
           i18n-title="@@country.es"
           title="Spain"
         />
         <kpn-icon-button
-          [routerLink]="dkLink | async"
+          [routerLink]="dkLink()"
           icon="denmark"
           i18n-title="@@country.dk"
           title="Denmark"
@@ -81,7 +80,6 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
-    AsyncPipe,
     IconButtonComponent,
     IconButtonsComponent,
     MatIconModule,

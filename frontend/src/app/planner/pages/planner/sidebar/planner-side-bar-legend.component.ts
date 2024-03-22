@@ -3,8 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { actionPreferencesShowLegend } from '@app/core';
-import { selectPreferencesShowLegend } from '@app/core';
+import { PreferencesService } from '@app/core';
 import { Store } from '@ngrx/store';
 import { selectPlannerMapMode } from '../../../store/planner-selectors';
 import { LegendIconComponent } from './legend-icon.component';
@@ -13,7 +12,7 @@ import { LegendIconComponent } from './legend-icon.component';
   selector: 'kpn-planner-sidebar-legend',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-expansion-panel [expanded]="expanded$ | async" (expandedChange)="expandedChanged($event)">
+    <mat-expansion-panel [expanded]="expanded()" (expandedChange)="expandedChanged($event)">
       <mat-expansion-panel-header i18n="@@planner.legend">Legend</mat-expansion-panel-header>
 
       @if (plannerMapMode(); as mapMode) {
@@ -142,10 +141,11 @@ import { LegendIconComponent } from './legend-icon.component';
 })
 export class PlannerSideBarLegendComponent {
   private readonly store = inject(Store);
-  protected readonly expanded$ = this.store.select(selectPreferencesShowLegend);
+  private readonly preferencesService = inject(PreferencesService);
+  protected readonly expanded = this.preferencesService.showLegend;
   protected readonly plannerMapMode = this.store.selectSignal(selectPlannerMapMode);
 
   expandedChanged(expanded: boolean): void {
-    this.store.dispatch(actionPreferencesShowLegend({ value: expanded }));
+    this.preferencesService.setShowLegend(expanded);
   }
 }

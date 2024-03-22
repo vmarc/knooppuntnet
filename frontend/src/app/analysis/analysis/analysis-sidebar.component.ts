@@ -3,9 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { SidebarComponent } from '@app/components/shared/sidebar';
-import { actionPreferencesAnalysisStrategy } from '@app/core';
+import { PreferencesService } from '@app/core';
 import { AnalysisStrategy } from '@app/core';
-import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'kpn-analysis-sidebar',
@@ -19,9 +18,9 @@ import { Store } from '@ngrx/store';
   imports: [AnalysisStrategyComponent, SidebarComponent],
 })
 export class AnalysisSidebarComponent {
-  private readonly store = inject(Store);
+  private readonly preferencesService = inject(PreferencesService);
 
   onStrategyChange(strategy: AnalysisStrategy) {
-    this.store.dispatch(actionPreferencesAnalysisStrategy({ strategy }));
+    this.preferencesService.setStrategy(strategy);
   }
 }

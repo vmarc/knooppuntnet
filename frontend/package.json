@@ -47,7 +47,6 @@
     "immutable": "^5.0.0-beta.4",
     "jspdf": "^2.5.1",
     "marked": "^9.0.0",
-    "ngrx-store-localstorage": "^16.1.0",
     "ngx-clipboard": "^16.0.0",
     "ngx-cookie-service": "^17.0.1",
     "ngx-markdown": "17.1.1",

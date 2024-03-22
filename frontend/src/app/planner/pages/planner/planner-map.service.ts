@@ -2,6 +2,9 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
 import { NetworkType } from '@api/custom';
+import { PreferencesService } from '@app/core';
+import { selectSharedSurveyDateInfo } from '@app/core';
+import { NetworkTypes } from '@app/kpn/common';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapGeocoder } from '@app/ol/domain';
@@ -23,9 +26,6 @@ import { PoiTileLayerService } from '@app/ol/services';
 import { MapMode } from '@app/ol/services';
 import { MainMapStyleParameters } from '@app/ol/style';
 import { MainMapStyle } from '@app/ol/style';
-import { selectSharedSurveyDateInfo } from '@app/core';
-import { selectPreferencesShowProposed } from '@app/core';
-import { NetworkTypes } from '@app/kpn/common';
 import { BrowserStorageService } from '@app/services';
 import { PoiService } from '@app/services';
 import { Subscriptions } from '@app/util';
@@ -62,6 +62,7 @@ export class PlannerMapService extends OpenlayersMapService {
   private readonly mapService = inject(MapService);
   private readonly browserStorageService = inject(BrowserStorageService);
   private readonly store = inject(Store);
+  private readonly preferencesService = inject(PreferencesService);
 
   private readonly plannerPositionKey = 'planner-position';
 
@@ -85,13 +86,13 @@ export class PlannerMapService extends OpenlayersMapService {
 
   private parameters$: Observable<MainMapStyleParameters> = combineLatest([
     this.store.select(selectPlannerMapMode),
-    this.store.select(selectPreferencesShowProposed),
     this.mapService.highlightedRouteId$,
     this.store.select(selectSharedSurveyDateInfo).pipe(filter((x) => x !== null)),
   ]).pipe(
-    map(([mapMode, showProposed, highlightedRouteId, surveyDateValues]) => {
+    map(([mapMode, highlightedRouteId, surveyDateValues]) => {
       const selectedRouteId = '';
       const selectedNodeId = '';
+      const showProposed = this.preferencesService.showProposed();
       return new MainMapStyleParameters(
         mapMode,
         showProposed,

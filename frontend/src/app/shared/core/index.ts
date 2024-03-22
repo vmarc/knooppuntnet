@@ -8,8 +8,6 @@ export { PreferencesService } from './preferences/preferences.service';
 export { PreferencesState } from './preferences/preferences.state';
 export { AnalysisStrategy } from './preferences/preferences.state';
 export * from './preferences/preferences.actions';
-export * from './preferences/preferences.reducer';
-export * from './preferences/preferences.selectors';
 
 export { SharedState } from './shared/shared.state';
 export * from './shared/shared.actions';

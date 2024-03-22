@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { selectPreferencesInstructions } from '@app/core';
+import { PreferencesService } from '@app/core';
 import { Store } from '@ngrx/store';
 import { actionPlannerResultMode } from '../../../store/planner-actions';
 import { selectPlannerResultMode } from '../../../store/planner-selectors';
@@ -66,9 +66,10 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
 })
 export class PlanResultMenuComponent {
   private readonly store = inject(Store);
+  private readonly preferencesService = inject(PreferencesService);
 
   readonly plannerResultMode = this.store.selectSignal(selectPlannerResultMode);
-  readonly instructions = this.store.selectSignal(selectPreferencesInstructions);
+  readonly instructions = this.preferencesService.instructions;
 
   resultModeCompact(event) {
     this.handleResultMode(event, 'compact');

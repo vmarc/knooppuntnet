@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Util } from '@app/components/shared';
 import { DialogComponent } from '@app/components/shared/dialog';
-import { selectPreferencesInstructions } from '@app/core';
+import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
 import { Store } from '@ngrx/store';
 import { ClipboardModule } from 'ngx-clipboard';
@@ -153,13 +153,14 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   private readonly plannerService = inject(PlannerService);
   private readonly store = inject(Store);
   private readonly apiService = inject(ApiService);
+  private readonly preferencesService = inject(PreferencesService);
 
   protected name = '';
   protected planUrl = '';
 
   protected qrCode: string | ArrayBuffer = '';
 
-  readonly instructions = this.store.selectSignal(selectPreferencesInstructions);
+  readonly instructions = this.preferencesService.instructions;
 
   ngOnInit(): void {
     this.name = this.defaultName();

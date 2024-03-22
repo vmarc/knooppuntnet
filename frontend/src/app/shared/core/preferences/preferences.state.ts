@@ -3,7 +3,7 @@ export enum AnalysisStrategy {
   network = 'network',
 }
 
-export interface PreferencesState {
+export type PreferencesState = {
   strategy: AnalysisStrategy;
   networkType: string;
   instructions: boolean;
@@ -15,9 +15,9 @@ export interface PreferencesState {
   showOptions: boolean;
   showProposed: boolean;
   planProposed: boolean;
-}
+};
 
-export const initialState: PreferencesState = {
+export const initialPreferencesState: PreferencesState = {
   strategy: AnalysisStrategy.location,
   networkType: null,
   instructions: false,
