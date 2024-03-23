@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -8,7 +8,6 @@ import { MonitorRouteChangeSummary } from '@api/common/monitor';
 import { PageWidthService } from '@app/components/shared';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { IconInvestigateComponent } from '@app/components/shared/icon';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'kpn-monitor-change-header',
@@ -17,7 +16,7 @@ import { map } from 'rxjs/operators';
     <div class="kpn-line">
       <a [routerLink]="link()" class="kpn-thick">{{ changeSet().key.changeSetId }}</a>
 
-      @if (timestampOnSameLine$ | async) {
+      @if (timestampOnSameLine()) {
         <span class="kpn-thin">{{ changeSet().key.timestamp }}</span>
       }
 
@@ -30,7 +29,7 @@ import { map } from 'rxjs/operators';
       }
     </div>
 
-    @if (timestampOnSeparateLine$ | async) {
+    @if (timestampOnSeparateLine()) {
       <div>
         <span class="kpn-thin">{{ changeSet().key.timestamp }}</span>
       </div>
@@ -50,29 +49,19 @@ import { map } from 'rxjs/operators';
     }
   `,
   standalone: true,
-  imports: [AsyncPipe, IconHappyComponent, IconInvestigateComponent, RouterLink],
+  imports: [IconHappyComponent, IconInvestigateComponent, RouterLink],
 })
 export class MonitorChangeHeaderComponent {
   changeSet = input.required<MonitorRouteChangeSummary>();
 
   private readonly pageWidthService = inject(PageWidthService);
 
-  readonly timestampOnSeparateLine$ = this.pageWidthService.current$.pipe(
-    map(() => this.timestampOnSeparateLine())
-  );
-  readonly timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(map((value) => !value));
+  protected readonly timestampOnSeparateLine = computed(() => this.pageWidthService.isAllSmall());
+  protected readonly timestampOnSameLine = computed(() => !this.timestampOnSeparateLine());
 
   link(): string {
     const key = this.changeSet().key;
     const groupName = this.changeSet().groupName;
     return `/monitor/groups/${groupName}/routes/${key.elementId}/changes/${key.changeSetId}/${key.replicationNumber}`;
-  }
-
-  private timestampOnSeparateLine() {
-    return (
-      this.pageWidthService.isSmall() ||
-      this.pageWidthService.isVerySmall() ||
-      this.pageWidthService.isVeryVerySmall()
-    );
   }
 }

@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
@@ -13,7 +13,6 @@ import { RouterLink } from '@angular/router';
 import { LocationPoiInfo } from '@api/common/poi';
 import { PageWidthService } from '@app/components/shared';
 import { PaginatorComponent } from '@app/components/shared/paginator';
-import { map } from 'rxjs/operators';
 import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 
 @Component({
@@ -84,8 +83,8 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr mat-row *matRowDef="let node; columns: displayedColumns$ | async"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let node; columns: displayedColumns()"></tr>
     </table>
 
     <kpn-paginator
@@ -102,7 +101,7 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
     }
   `,
   standalone: true,
-  imports: [PaginatorComponent, MatTableModule, RouterLink, AsyncPipe],
+  imports: [PaginatorComponent, MatTableModule, RouterLink],
 })
 export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   pois = input.required<LocationPoiInfo[]>();
@@ -114,9 +113,17 @@ export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   protected readonly service = inject(PoiLocationPoisPageService);
 
   protected readonly dataSource = new MatTableDataSource<LocationPoiInfo>();
-  protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
-    map(() => this.displayedColumns())
-  );
+  protected readonly displayedColumns = computed(() => {
+    if (this.pageWidthService.isVeryLarge()) {
+      return ['nr', 'layer', 'id', 'description', 'address', 'link', 'image'];
+    }
+
+    if (this.pageWidthService.isLarge()) {
+      return ['nr', 'layer', 'id', 'description', 'address', 'link', 'image'];
+    }
+
+    return ['nr', 'layer', 'id', 'description', 'address', 'link', 'image'];
+  });
 
   ngOnInit(): void {
     this.dataSource.data = this.pois();
@@ -135,17 +142,5 @@ export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
     this.service.setPageIndex(pageIndex);
-  }
-
-  private displayedColumns() {
-    if (this.pageWidthService.isVeryLarge()) {
-      return ['nr', 'layer', 'id', 'description', 'address', 'link', 'image'];
-    }
-
-    if (this.pageWidthService.isLarge()) {
-      return ['nr', 'layer', 'id', 'description', 'address', 'link', 'image'];
-    }
-
-    return ['nr', 'layer', 'id', 'description', 'address', 'link', 'image'];
   }
 }

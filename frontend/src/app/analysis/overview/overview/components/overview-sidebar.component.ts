@@ -14,7 +14,7 @@ import { OverviewService } from '../../overview.service';
     <kpn-sidebar>
       <div class="options">
         <div i18n="@@overview.sidebar.display-options" class="options-title">Display options</div>
-        <mat-radio-group [value]="formatPreference$ | async" (change)="optionChanged($event)">
+        <mat-radio-group [value]="formatPreference()" (change)="optionChanged($event)">
           <div>
             <mat-radio-button
               [value]="optionAutomatic"
@@ -70,7 +70,7 @@ export class OverviewSidebarComponent {
   protected readonly optionList = this.overviewService.list;
   protected readonly optionTable = this.overviewService.table;
   protected readonly optionAutomatic = this.overviewService.automatic;
-  protected readonly formatPreference$ = this.overviewService.formatPreference$;
+  protected readonly formatPreference = this.overviewService.formatPreference;
 
   optionChanged(event: MatRadioChange) {
     this.overviewService.preferFormat(event.value);

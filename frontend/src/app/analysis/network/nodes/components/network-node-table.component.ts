@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -148,9 +148,9 @@ import { NetworkNodesService } from './network-nodes.service';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="headerColumns1$ | async"></tr>
-      <tr mat-header-row *matHeaderRowDef="headerColumns2$ | async"></tr>
-      <tr mat-row *matRowDef="let node; columns: displayedColumns$ | async"></tr>
+      <tr mat-header-row *matHeaderRowDef="headerColumns1()"></tr>
+      <tr mat-header-row *matHeaderRowDef="headerColumns2()"></tr>
+      <tr mat-row *matRowDef="let node; columns: displayedColumns()"></tr>
     </table>
 
     <!--    <kpn-paginator-->
@@ -173,7 +173,6 @@ import { NetworkNodesService } from './network-nodes.service';
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     DayComponent,
     DayPipe,
     EditAndPaginatorComponent,
@@ -199,15 +198,45 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   protected readonly service = inject(NetworkNodesPageService);
 
   protected readonly dataSource = new MatTableDataSource<NetworkNodeRow>();
-  protected readonly headerColumns1$ = this.pageWidthService.current$.pipe(
-    map(() => this.headerColumns1())
-  );
-  protected readonly headerColumns2$ = this.pageWidthService.current$.pipe(
-    map(() => this.headerColumns2())
-  );
-  protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
-    map(() => this.displayedColumns())
-  );
+  protected readonly headerColumns1 = computed(() => {
+    if (this.pageWidthService.isVeryLarge()) {
+      return ['nr', 'analysis', 'node', 'name', 'routes', 'last-survey', 'last-edit'];
+    }
+
+    if (this.pageWidthService.isLarge()) {
+      return ['nr', 'analysis', 'node', 'routes'];
+    }
+
+    return ['nr', 'analysis', 'node'];
+  });
+
+  protected readonly headerColumns2 = computed(() => {
+    if (this.pageWidthService.isVeryLarge() || this.pageWidthService.isLarge()) {
+      return ['routes-expected', 'routes-actual'];
+    }
+    return [];
+  });
+
+  protected readonly displayedColumns = computed(() => {
+    if (this.pageWidthService.isVeryLarge()) {
+      return [
+        'nr',
+        'analysis',
+        'node',
+        'name',
+        'routes-expected',
+        'routes-actual',
+        'last-survey',
+        'last-edit',
+      ];
+    }
+
+    if (this.pageWidthService.isLarge()) {
+      return ['nr', 'analysis', 'node', 'routes-expected', 'routes-actual'];
+    }
+
+    return ['nr', 'analysis', 'node'];
+  });
 
   private readonly filterCriteria$: BehaviorSubject<NetworkNodeFilterCriteria> =
     new BehaviorSubject(new NetworkNodeFilterCriteria());
@@ -254,45 +283,5 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     this.editService.edit({
       nodeIds,
     });
-  }
-
-  private displayedColumns() {
-    if (this.pageWidthService.isVeryLarge()) {
-      return [
-        'nr',
-        'analysis',
-        'node',
-        'name',
-        'routes-expected',
-        'routes-actual',
-        'last-survey',
-        'last-edit',
-      ];
-    }
-
-    if (this.pageWidthService.isLarge()) {
-      return ['nr', 'analysis', 'node', 'routes-expected', 'routes-actual'];
-    }
-
-    return ['nr', 'analysis', 'node'];
-  }
-
-  private headerColumns1() {
-    if (this.pageWidthService.isVeryLarge()) {
-      return ['nr', 'analysis', 'node', 'name', 'routes', 'last-survey', 'last-edit'];
-    }
-
-    if (this.pageWidthService.isLarge()) {
-      return ['nr', 'analysis', 'node', 'routes'];
-    }
-
-    return ['nr', 'analysis', 'node'];
-  }
-
-  private headerColumns2() {
-    if (this.pageWidthService.isVeryLarge() || this.pageWidthService.isLarge()) {
-      return ['routes-expected', 'routes-actual'];
-    }
-    return [];
   }
 }

@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -9,7 +8,6 @@ import { IntegerFormatPipe } from '@app/components/shared/format';
 import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { MarkdownModule } from 'ngx-markdown';
-import { map } from 'rxjs/operators';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
@@ -45,7 +43,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
                   response.result.routeCount | integer
                 }}__ routes with an overall length of __{{ response.result.km | integer }}__ km._
               </markdown>
-              @if (large$ | async) {
+              @if (large()) {
                 <kpn-subset-network-table [networks]="response.result.networks" />
               } @else {
                 <kpn-subset-network-list [networks]="response.result.networks" />
@@ -60,7 +58,6 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
   providers: [SubsetNetworksPageService, RouterService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ErrorComponent,
     IntegerFormatPipe,
     MarkdownModule,
@@ -75,10 +72,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
 export class SubsetNetworksPageComponent implements OnInit {
   protected readonly service = inject(SubsetNetworksPageService);
   private readonly pageWidthService = inject(PageWidthService);
-
-  protected readonly large$ = this.pageWidthService.current$.pipe(
-    map(() => this.pageWidthService.isVeryLarge())
-  );
+  protected readonly large = this.pageWidthService.isVeryLarge;
 
   ngOnInit(): void {
     this.service.onInit();

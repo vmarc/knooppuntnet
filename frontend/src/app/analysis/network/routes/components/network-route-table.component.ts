@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -142,8 +142,8 @@ import { NetworkRoutesService } from './network-routes.service';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr mat-row *matRowDef="let route; columns: displayedColumns$ | async"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let route; columns: displayedColumns()"></tr>
     </table>
   `,
   styles: `
@@ -168,7 +168,6 @@ import { NetworkRoutesService } from './network-routes.service';
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     DayComponent,
     DayPipe,
     EditAndPaginatorComponent,
@@ -195,9 +194,17 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   protected readonly service = inject(NetworkRoutesPageService);
 
   protected readonly dataSource = new MatTableDataSource<NetworkRouteRow>();
-  protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
-    map(() => this.displayedColumns())
-  );
+  protected readonly displayedColumns = computed(() => {
+    if (this.pageWidthService.isVeryLarge()) {
+      return ['nr', 'analysis', 'symbol', 'route', 'distance', 'role', 'last-survey', 'last-edit'];
+    }
+
+    if (this.pageWidthService.isLarge()) {
+      return ['nr', 'analysis', 'route', 'distance', 'role'];
+    }
+
+    return ['nr', 'analysis', 'route'];
+  });
 
   private readonly filterCriteria$ = new BehaviorSubject<NetworkRouteFilterCriteria>(
     new NetworkRouteFilterCriteria()
@@ -242,17 +249,5 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
       relationIds,
       fullRelation: true,
     });
-  }
-
-  private displayedColumns() {
-    if (this.pageWidthService.isVeryLarge()) {
-      return ['nr', 'analysis', 'symbol', 'route', 'distance', 'role', 'last-survey', 'last-edit'];
-    }
-
-    if (this.pageWidthService.isLarge()) {
-      return ['nr', 'analysis', 'route', 'distance', 'role'];
-    }
-
-    return ['nr', 'analysis', 'route'];
   }
 }

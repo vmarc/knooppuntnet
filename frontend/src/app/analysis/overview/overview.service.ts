@@ -1,12 +1,9 @@
+import { computed } from '@angular/core';
+import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { BrowserStorageService } from '@app/services';
-import { Observable } from 'rxjs';
-import { combineLatest } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -18,27 +15,18 @@ export class OverviewService {
   readonly list = 'list';
   readonly table = 'table';
   readonly automatic = 'automatic';
-  readonly tableFormat$: Observable<boolean>;
-  readonly formatPreference$: BehaviorSubject<string>;
+  private readonly _formatPreference = signal<string>(this.determineInitialPreference());
+  readonly formatPreference = this._formatPreference.asReadonly();
+  readonly tableFormat = computed(() => {
+    if (this.formatPreference() === this.automatic) {
+      return this.pageWidthService.isVeryLarge();
+    }
+    return this.formatPreference() === this.table;
+  });
   private readonly localStorageKey = 'overview-format';
 
-  constructor() {
-    this.formatPreference$ = new BehaviorSubject(this.determineInitialPreference());
-    this.tableFormat$ = combineLatest([
-      this.formatPreference$,
-      this.pageWidthService.current$,
-    ]).pipe(
-      map(([formatPreference, pageWidth]) => {
-        if (formatPreference === this.automatic) {
-          return pageWidth === PageWidth.veryLarge;
-        }
-        return formatPreference === this.table;
-      })
-    );
-  }
-
   preferFormat(formatPreference: string): void {
-    this.formatPreference$.next(formatPreference);
+    this._formatPreference.set(formatPreference);
     this.browserStorageService.set(this.localStorageKey, formatPreference);
   }
 

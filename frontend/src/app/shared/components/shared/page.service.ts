@@ -1,9 +1,10 @@
+import { computed } from '@angular/core';
+import { signal } from '@angular/core';
+import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { BrowserStorageService } from '@app/services';
-import { Observable } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
 import { PageWidthService } from './page-width.service';
 
 @Injectable({
@@ -14,31 +15,40 @@ export class PageService {
   private readonly titleService = inject(Title);
   private readonly browserStorageService = inject(BrowserStorageService);
 
+  private readonly defaultTitle = 'knooppuntnet';
   private readonly sideBarOpenLocalStorageKey = 'sidebar-open';
-  readonly toolbarBackgroundColor$: Observable<string>;
-  readonly defaultTitle = 'knooppuntnet';
-  readonly sidebarOpen: BehaviorSubject<boolean> = new BehaviorSubject(
-    this.sidebarOpenInitialState()
-  );
-  private _toolbarBackgroundColor$: BehaviorSubject<string>;
+
+  private readonly _toolbarBackgroundColor = signal<string>(null);
+  private readonly _manualSidebarOpen = signal<boolean | null>(null);
 
   private initializing = true;
 
+  readonly toolbarBackgroundColor = this._toolbarBackgroundColor.asReadonly();
+  readonly sidebarOpen = computed(() => {
+    const manualSidebarOpen = this._manualSidebarOpen();
+    const large = !this.pageWidthService.isAllSmall();
+    if (this.initializing) {
+      this.initializing = false;
+      const lastKnownSidebarOpen = this.browserStorageService.get(this.sideBarOpenLocalStorageKey);
+      if (lastKnownSidebarOpen === null) {
+        return large;
+      }
+      return lastKnownSidebarOpen === 'true';
+    }
+    if (manualSidebarOpen !== null) {
+      return manualSidebarOpen;
+    }
+    return large;
+  });
+
   constructor() {
-    this.pageWidthService.current$.subscribe(() => this.pageWidthChanged());
-    this._toolbarBackgroundColor$ = new BehaviorSubject<string>(null);
-    this.toolbarBackgroundColor$ = this._toolbarBackgroundColor$.asObservable();
-    this.initializing = false;
+    effect(() => {
+      this.rememberSidebarOpen(this.sidebarOpen());
+    });
   }
 
   toggleSidebarOpen(): void {
-    const sidebarOpen = !this.sidebarOpen.value;
-    this.sidebarOpen.next(sidebarOpen);
-    this.remember(sidebarOpen);
-  }
-
-  isSidebarOpen(): boolean {
-    return this.sidebarOpen.value;
+    this._manualSidebarOpen.set(!this.sidebarOpen());
   }
 
   setTitle(prefix: string): void {
@@ -47,36 +57,10 @@ export class PageService {
   }
 
   nextToolbarBackgroundColor(color: string): void {
-    this._toolbarBackgroundColor$.next(color);
+    this._toolbarBackgroundColor.set(color);
   }
 
-  private pageWidthChanged(): void {
-    if (this.initializing === false) {
-      const sidebarOpen = this.sidebarOpenBasedOnPageWidth();
-      if (this.sidebarOpen.value !== sidebarOpen) {
-        this.sidebarOpen.next(sidebarOpen);
-        this.remember(sidebarOpen);
-      }
-    }
-  }
-
-  private sidebarOpenInitialState(): boolean {
-    const lastKnownSidebarOpen = this.browserStorageService.get(this.sideBarOpenLocalStorageKey);
-    if (lastKnownSidebarOpen === null) {
-      return this.sidebarOpenBasedOnPageWidth();
-    }
-    return lastKnownSidebarOpen === 'true';
-  }
-
-  private sidebarOpenBasedOnPageWidth(): boolean {
-    return !(
-      this.pageWidthService.isSmall() ||
-      this.pageWidthService.isVerySmall() ||
-      this.pageWidthService.isVeryVerySmall()
-    );
-  }
-
-  private remember(sidebarOpen: boolean): void {
+  private rememberSidebarOpen(sidebarOpen: boolean): void {
     const sidebarOpenOpenString = sidebarOpen === true ? 'true' : 'false';
     this.browserStorageService.set(this.sideBarOpenLocalStorageKey, sidebarOpenOpenString);
   }

@@ -1,3 +1,4 @@
+import { effect } from '@angular/core';
 import { PageService } from '@app/components/shared';
 import { Subscriptions } from '@app/util';
 import { MapOptions } from 'ol/Map';
@@ -8,12 +9,12 @@ export class OpenLayersMap {
   public readonly map: Map;
   private readonly subscriptions = new Subscriptions();
 
-  constructor(mapOptions: MapOptions) {
+  constructor(mapOptions: MapOptions, pageService: PageService) {
     this.map = new Map(mapOptions);
-  }
-
-  init(pageService: PageService): void {
-    this.subscriptions.add(pageService.sidebarOpen.subscribe(() => this.updateSize()));
+    effect(() => {
+      pageService.sidebarOpen();
+      this.updateSize();
+    });
     this.subscriptions.add(
       fromEvent(window, 'webkitfullscreenchange').subscribe(() => this.updateSize())
     );

@@ -1,3 +1,4 @@
+import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { InjectionToken } from '@angular/core';
 import { inject } from '@angular/core';
@@ -48,7 +49,10 @@ export abstract class OpenlayersMapService {
   private readonly updatePositionHandler = () => this.updateMapPosition();
 
   constructor() {
-    this.subscriptions.add(this.pageService.sidebarOpen.subscribe(() => this.updateSize()));
+    effect(() => {
+      this.pageService.sidebarOpen();
+      this.updateSize();
+    });
     this.subscriptions.add(
       fromEvent(window, 'webkitfullscreenchange').subscribe(() => this.updateSize())
     );

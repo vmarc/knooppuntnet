@@ -42,7 +42,7 @@ import { OverviewTableComponent } from './components/overview-table.component';
             <div class="situation-on">
               <kpn-situation-on [timestamp]="response.situationOn" />
             </div>
-            @if (tableFormat$ | async) {
+            @if (tableFormat()) {
               <kpn-overview-table [statistics]="response.result" />
             } @else {
               <kpn-overview-list [statistics]="response.result" />
@@ -75,7 +75,7 @@ export class OverviewPageComponent implements OnInit {
   private readonly apiService = inject(ApiService);
   private readonly overviewService = inject(OverviewService);
 
-  protected readonly tableFormat$ = this.overviewService.tableFormat$;
+  protected readonly tableFormat = this.overviewService.tableFormat;
   protected response$: Observable<ApiResponse<StatisticValues[]>>;
 
   ngOnInit(): void {

@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -9,8 +9,6 @@ import { IconHappyComponent } from '@app/components/shared/icon';
 import { IconInvestigateComponent } from '@app/components/shared/icon';
 import { LinkChangesetComponent } from '@app/components/shared/link';
 import { TimestampComponent } from '@app/components/shared/timestamp';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'kpn-change-header',
@@ -27,7 +25,7 @@ import { map } from 'rxjs/operators';
           class="kpn-thick"
         />
       }
-      @if (timestampOnSameLine$ | async) {
+      @if (timestampOnSameLine()) {
         <kpn-timestamp [timestamp]="changeKey().timestamp" class="kpn-thin" />
       }
       @if (happy()) {
@@ -37,7 +35,7 @@ import { map } from 'rxjs/operators';
         <kpn-icon-investigate />
       }
     </div>
-    @if (timestampOnSeparateLine$ | async) {
+    @if (timestampOnSeparateLine()) {
       <div>
         <kpn-timestamp [timestamp]="changeKey().timestamp" class="kpn-thin" />
       </div>
@@ -58,7 +56,6 @@ import { map } from 'rxjs/operators';
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     IconHappyComponent,
     IconInvestigateComponent,
     LinkChangesetComponent,
@@ -72,21 +69,6 @@ export class ChangeHeaderComponent {
   comment = input.required<string>();
 
   private readonly pageWidthService = inject(PageWidthService);
-  protected timestampOnSameLine$: Observable<boolean>;
-  protected timestampOnSeparateLine$: Observable<boolean>;
-
-  constructor() {
-    this.timestampOnSeparateLine$ = this.pageWidthService.current$.pipe(
-      map(() => this.timestampOnSeparateLine())
-    );
-    this.timestampOnSameLine$ = this.timestampOnSeparateLine$.pipe(map((value) => !value));
-  }
-
-  private timestampOnSeparateLine() {
-    return (
-      this.pageWidthService.isSmall() ||
-      this.pageWidthService.isVerySmall() ||
-      this.pageWidthService.isVeryVerySmall()
-    );
-  }
+  protected timestampOnSeparateLine = computed(() => this.pageWidthService.isAllSmall());
+  protected timestampOnSameLine = computed(() => !this.timestampOnSeparateLine());
 }

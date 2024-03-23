@@ -11,8 +11,6 @@ export class NewMapService {
   private readonly pageService = inject(PageService);
 
   build(mapOptions: MapOptions): OpenLayersMap {
-    const openLayersMap = new OpenLayersMap(mapOptions);
-    openLayersMap.init(this.pageService);
-    return openLayersMap;
+    return new OpenLayersMap(mapOptions, this.pageService);
   }
 }

@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
@@ -20,7 +20,6 @@ import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
-import { map } from 'rxjs/operators';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
 import { LocationNodesPageService } from '../location-nodes-page.service';
 import { LocationNodeAnalysisComponent } from './location-node-analysis.component';
@@ -105,8 +104,8 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr mat-row *matRowDef="let node; columns: displayedColumns$ | async"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let node; columns: displayedColumns()"></tr>
     </table>
 
     <kpn-paginator
@@ -125,7 +124,6 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
   standalone: true,
   imports: [
     ActionButtonNodeComponent,
-    AsyncPipe,
     DayComponent,
     DayPipe,
     EditAndPaginatorComponent,
@@ -152,9 +150,26 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
   private readonly editService = inject(EditService);
 
   protected readonly dataSource = new MatTableDataSource<LocationNodeInfo>();
-  protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
-    map(() => this.displayedColumns())
-  );
+  protected readonly displayedColumns = computed(() => {
+    if (this.pageWidthService.isVeryLarge()) {
+      return [
+        'nr',
+        'analysis',
+        'node',
+        'name',
+        'expectedRouteCount',
+        'routes',
+        'last-survey',
+        'lastEdit',
+      ];
+    }
+
+    if (this.pageWidthService.isLarge()) {
+      return ['nr', 'analysis', 'node', 'name', 'expectedRouteCount', 'routes'];
+    }
+
+    return ['nr', 'node', 'expectedRouteCount', 'routes'];
+  });
 
   ngOnInit(): void {
     this.dataSource.data = this.nodes();
@@ -180,26 +195,5 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
       nodeIds: this.nodes().map((node) => node.id),
     };
     this.editService.edit(editParameters);
-  }
-
-  private displayedColumns() {
-    if (this.pageWidthService.isVeryLarge()) {
-      return [
-        'nr',
-        'analysis',
-        'node',
-        'name',
-        'expectedRouteCount',
-        'routes',
-        'last-survey',
-        'lastEdit',
-      ];
-    }
-
-    if (this.pageWidthService.isLarge()) {
-      return ['nr', 'analysis', 'node', 'name', 'expectedRouteCount', 'routes'];
-    }
-
-    return ['nr', 'node', 'expectedRouteCount', 'routes'];
   }
 }

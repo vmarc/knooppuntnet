@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -49,7 +50,7 @@ import { map } from 'rxjs/operators';
 
     <!--          <div-->
     <!--            *ngIf="!node.expandable && treeControl.isExpanded(node)"-->
-    <!--            [ngClass]="(sidebarClass$ | async) + contentsClass(node)"-->
+    <!--            [ngClass]="(sidebarClass()) + contentsClass(node)"-->
     <!--          >-->
     <!--            <p>abcdefghijklmnopqrstuvwxyz</p>-->
     <!--            <p>bcdefghijklmnopqrstuvwxyza</p>-->
@@ -135,8 +136,9 @@ export class ChangeSetLocationChangesComponent /*implements OnInit*/ {
   changess = input.required<LocationChanges[]>();
 
   private readonly pageService = inject(PageService);
-  protected readonly sidebarClass$: Observable<string> = this.pageService.sidebarOpen.pipe(
-    map((open) => (open ? 'sidebar-open' : 'sidebar-closed'))
+
+  protected readonly sidebarClass = computed(() =>
+    this.pageService.sidebarOpen() ? 'sidebar-open' : 'sidebar-closed'
   );
 
   // treeControl = new FlatTreeControl<LocationTreeItem>(

@@ -1,14 +1,11 @@
 import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injector } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { PlannerCommandReset } from '../../../domain/commands/planner-command-reset';
 import { PlannerCommandReverse } from '../../../domain/commands/planner-command-reverse';
 import { Plan } from '../../../domain/plan/plan';
@@ -23,7 +20,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
   template: `
     @if (plan$ | async; as plan) {
       <div class="buttons">
-        @if (showUndoButton$ | async) {
+        @if (showUndoButton()) {
           <kpn-plan-action-button
             (action)="undo()"
             [enabled]="undoEnabled()"
@@ -34,7 +31,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
             i18n-title="@@planner.action.undo.title"
           />
         }
-        @if (showRedoButton$ | async) {
+        @if (showRedoButton()) {
           <kpn-plan-action-button
             (action)="redo()"
             [enabled]="redoEnabled()"
@@ -45,7 +42,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
             i18n-title="@@planner.action.redo.title"
           />
         }
-        @if (showResetButton$ | async) {
+        @if (showResetButton()) {
           <kpn-plan-action-button
             (action)="reset()"
             [enabled]="hasStartNode(plan)"
@@ -56,7 +53,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
             i18n-title="@@planner.action.reset.title"
           />
         }
-        @if (showReverseButton$ | async) {
+        @if (showReverseButton()) {
           <kpn-plan-action-button
             (action)="reverse()"
             [enabled]="hasRoute(plan)"
@@ -96,14 +93,12 @@ export class PlanActionsComponent {
   private readonly injector = inject(Injector);
 
   protected readonly plan$ = this.plannerService.context.plan$;
-  protected readonly showUndoButton$ = this.pageWidthService.current$.pipe(
-    map((pageWidth) => pageWidth !== PageWidth.veryVerySmall)
+  protected readonly showUndoButton = computed(() => !this.pageWidthService.isVeryVerySmall());
+  protected readonly showRedoButton = this.showUndoButton;
+  protected readonly showResetButton = computed(
+    () => !(this.pageWidthService.isVerySmall || this.pageWidthService.isVeryVerySmall)
   );
-  protected readonly showRedoButton$ = this.showUndoButton$;
-  protected readonly showResetButton$ = this.pageWidthService.current$.pipe(
-    map((pageWidth) => pageWidth !== PageWidth.verySmall && pageWidth !== PageWidth.veryVerySmall)
-  );
-  protected readonly showReverseButton$ = this.showResetButton$;
+  protected readonly showReverseButton = this.showResetButton;
 
   undo(): void {
     this.plannerService.context.undo();

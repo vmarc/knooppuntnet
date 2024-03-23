@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
@@ -22,7 +22,6 @@ import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { SymbolComponent } from '@app/symbol';
-import { map } from 'rxjs/operators';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
 import { LocationRoutesPageService } from '../location-routes-page.service';
 import { LocationRouteAnalysisComponent } from './location-route-analysis';
@@ -101,8 +100,8 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
         </td>
       </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns$ | async"></tr>
-      <tr mat-row *matRowDef="let route; columns: displayedColumns$ | async"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
+      <tr mat-row *matRowDef="let route; columns: displayedColumns()"></tr>
     </table>
 
     <kpn-paginator
@@ -131,7 +130,6 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
   standalone: true,
   imports: [
     ActionButtonRouteComponent,
-    AsyncPipe,
     DayComponent,
     DayPipe,
     EditAndPaginatorComponent,
@@ -157,9 +155,17 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   protected readonly service = inject(LocationRoutesPageService);
 
   protected readonly dataSource = new MatTableDataSource<LocationRouteInfo>();
-  protected readonly displayedColumns$ = this.pageWidthService.current$.pipe(
-    map(() => this.displayedColumns())
-  );
+  protected readonly displayedColumns = computed(() => {
+    if (this.pageWidthService.isVeryLarge()) {
+      return ['nr', 'analysis', 'symbol', 'route', 'distance', 'last-survey', 'lastEdit'];
+    }
+
+    if (this.pageWidthService.isLarge()) {
+      return ['nr', 'analysis', 'route', 'distance', 'last-survey', 'lastEdit'];
+    }
+
+    return ['nr', 'analysis', 'route', 'distance'];
+  });
 
   ngOnInit(): void {
     this.dataSource.data = this.routes();
@@ -186,17 +192,5 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
       fullRelation: true,
     };
     this.editService.edit(editParameters);
-  }
-
-  private displayedColumns() {
-    if (this.pageWidthService.isVeryLarge()) {
-      return ['nr', 'analysis', 'symbol', 'route', 'distance', 'last-survey', 'lastEdit'];
-    }
-
-    if (this.pageWidthService.isLarge()) {
-      return ['nr', 'analysis', 'route', 'distance', 'last-survey', 'lastEdit'];
-    }
-
-    return ['nr', 'analysis', 'route', 'distance'];
   }
 }

@@ -1,9 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
-import { map } from 'rxjs/operators';
 import { NetworkTypeSelectorComponent } from './network-type-selector.component';
 import { PlanActionsComponent } from './plan-actions.component';
 
@@ -13,7 +11,7 @@ import { PlanActionsComponent } from './plan-actions.component';
   template: `
     <div class="toolbar">
       <kpn-plan-actions />
-      @if (showNetworkTypeSelector$ | async) {
+      @if (showNetworkTypeSelector()) {
         <kpn-network-type-selector />
       }
     </div>
@@ -29,8 +27,5 @@ import { PlanActionsComponent } from './plan-actions.component';
 })
 export class PlannerToolbarComponent {
   private readonly pageWidthService = inject(PageWidthService);
-
-  protected showNetworkTypeSelector$ = this.pageWidthService.current$.pipe(
-    map((pageWidth) => pageWidth === PageWidth.veryLarge)
-  );
+  protected showNetworkTypeSelector = this.pageWidthService.isVeryLarge;
 }

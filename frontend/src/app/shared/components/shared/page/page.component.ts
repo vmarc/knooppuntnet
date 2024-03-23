@@ -1,8 +1,5 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
 /*
  Note: the [@.disabled]="true" in mat-sidenav-container is to disable the
  animation when opening/closing the sidebar. We disable the animation because
@@ -15,30 +12,23 @@ import { RouterOutlet } from '@angular/router';
 import { SidebarBackComponent } from '@app/components/shared/sidebar';
 import { ToolbarComponent } from '@app/components/shared/toolbar';
 import { selectPageShowFooter } from '@app/core';
-import { Subscriptions } from '@app/util';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
-import { PageWidth } from '../page-width';
 import { PageWidthService } from '../page-width.service';
 import { PageService } from '../page.service';
 import { PageExperimentalComponent } from './page-experimental.component';
 import { PageFooterComponent } from './page-footer.component';
 
-/*
- Note: the [@.disabled]="true" in mat-sidenav-container is to disable the
- animation when opening/closing the sidebar.
-*/
 @Component({
   selector: 'kpn-page',
   template: `
-    <mat-sidenav-container [@.disabled]="true">
+    <mat-sidenav-container>
       <mat-sidenav
-        [mode]="smallPage ? 'over' : 'side'"
-        [fixedInViewport]="!smallPage"
+        [mode]="smallPage() ? 'over' : 'side'"
+        [fixedInViewport]="!smallPage()"
         fixedTopGap="48"
-        [opened]="isSidebarOpen()"
+        [opened]="sidebarOpen()"
       >
-        @if (smallPage) {
+        @if (smallPage()) {
           <kpn-sidebar-back />
         }
         <kpn-page-experimental />
@@ -93,7 +83,6 @@ import { PageFooterComponent } from './page-footer.component';
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     MatSidenavModule,
     PageExperimentalComponent,
     PageFooterComponent,
@@ -102,36 +91,12 @@ import { PageFooterComponent } from './page-footer.component';
     ToolbarComponent,
   ],
 })
-export class PageComponent implements OnInit, OnDestroy {
+export class PageComponent {
   private readonly store = inject(Store);
   private readonly pageService = inject(PageService);
   private readonly pageWidthService = inject(PageWidthService);
 
+  protected readonly sidebarOpen = this.pageService.sidebarOpen;
   protected readonly showFooter = this.store.selectSignal(selectPageShowFooter);
-  protected smallPage = false;
-  private readonly subscriptions = new Subscriptions();
-
-  ngOnInit(): void {
-    this.subscriptions.add(
-      this.pageWidthService.current$
-        .pipe(map((pageWidth) => this.isSmallPage(pageWidth)))
-        .subscribe((smallPage) => (this.smallPage = smallPage))
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
-  isSidebarOpen(): boolean {
-    return this.pageService.isSidebarOpen();
-  }
-
-  private isSmallPage(pageWidth: PageWidth): boolean {
-    return (
-      PageWidth.small === pageWidth ||
-      PageWidth.verySmall === pageWidth ||
-      PageWidth.veryVerySmall === pageWidth
-    );
-  }
+  protected smallPage = computed(() => this.pageWidthService.isAllSmall());
 }

@@ -1,7 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { computed } from '@angular/core';
+import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
 import { merge } from 'rxjs';
 import { PageWidth } from './page-width';
 
@@ -11,7 +12,23 @@ import { PageWidth } from './page-width';
 export class PageWidthService {
   private readonly breakpointObserver = inject(BreakpointObserver);
 
-  public current$ = new ReplaySubject<PageWidth>();
+  private readonly current = signal<PageWidth>(this.determineCurrentPageWidth());
+
+  readonly isVeryVerySmall = computed(() => this.current() === PageWidth.veryVerySmall);
+
+  readonly isVerySmall = computed(() => this.current() === PageWidth.verySmall);
+
+  readonly isSmall = computed(() => this.current() === PageWidth.small);
+
+  readonly isAllSmall = computed(
+    () => this.isSmall() || this.isVerySmall() || this.isVeryVerySmall()
+  );
+
+  readonly isMedium = computed(() => this.current() === PageWidth.medium);
+
+  readonly isLarge = computed(() => this.current() === PageWidth.large);
+
+  readonly isVeryLarge = computed(() => this.current() === PageWidth.veryLarge);
 
   private readonly veryVerySmallMaxWidth = 400;
   private readonly verySmallMaxWidth = 500;
@@ -34,10 +51,10 @@ export class PageWidthService {
       this.breakpointObserver.observe(largeMediaQuery)
     );
 
-    breakpointState$.subscribe(() => this.current$.next(this.currentPageWidth()));
+    breakpointState$.subscribe(() => this.current.set(this.determineCurrentPageWidth()));
   }
 
-  currentPageWidth(): PageWidth {
+  private determineCurrentPageWidth(): PageWidth {
     const width = window.innerWidth;
     if (width <= this.veryVerySmallMaxWidth) {
       return PageWidth.veryVerySmall;
@@ -55,29 +72,5 @@ export class PageWidthService {
       return PageWidth.large;
     }
     return PageWidth.veryLarge;
-  }
-
-  isVeryVerySmall(): boolean {
-    return this.currentPageWidth() === PageWidth.veryVerySmall;
-  }
-
-  isVerySmall(): boolean {
-    return this.currentPageWidth() === PageWidth.verySmall;
-  }
-
-  isSmall(): boolean {
-    return this.currentPageWidth() === PageWidth.small;
-  }
-
-  isMedium(): boolean {
-    return this.currentPageWidth() === PageWidth.medium;
-  }
-
-  isLarge(): boolean {
-    return this.currentPageWidth() === PageWidth.large;
-  }
-
-  isVeryLarge(): boolean {
-    return this.currentPageWidth() === PageWidth.veryLarge;
   }
 }

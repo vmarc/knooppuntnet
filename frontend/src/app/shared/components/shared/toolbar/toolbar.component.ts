@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -13,7 +12,7 @@ import { PageService } from '..';
   selector: 'kpn-toolbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-toolbar [class]="toolbarBackgroundColor$ | async">
+    <mat-toolbar [class]="toolbarBackgroundColor()">
       <button mat-icon-button (click)="toggleSidebarOpen()">
         <mat-icon svgIcon="menu" />
       </button>
@@ -73,7 +72,6 @@ import { PageService } from '..';
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     MatButtonModule,
     MatIconModule,
     MatToolbarModule,
@@ -84,7 +82,7 @@ import { PageService } from '..';
 })
 export class ToolbarComponent {
   private readonly pageService = inject(PageService);
-  protected readonly toolbarBackgroundColor$ = this.pageService.toolbarBackgroundColor$;
+  protected readonly toolbarBackgroundColor = this.pageService.toolbarBackgroundColor;
 
   toggleSidebarOpen() {
     this.pageService.toggleSidebarOpen();

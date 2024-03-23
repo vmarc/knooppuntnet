@@ -1,4 +1,4 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -17,8 +17,6 @@ import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { SymbolComponent } from '@app/symbol';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { RouterService } from '../../../shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { RouteEndNodesComponent } from './components/route-end-nodes.component';
@@ -119,7 +117,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
                   [locationAnalysis]="page.route.analysis.locationAnalysis"
                 />
               </kpn-data>
-              @if (page.route.analysis && showRouteDetails$ | async) {
+              @if (page.route.analysis && showRouteDetails()) {
                 <div>
                   <kpn-data title="Structure" i18n-title="@@route.structure">
                     <kpn-route-structure
@@ -131,7 +129,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
               <kpn-data title="Facts" i18n-title="@@route.facts">
                 <kpn-facts [factInfos]="factInfos(page)" />
               </kpn-data>
-              @if (showRouteDetails$ | async) {
+              @if (showRouteDetails()) {
                 <div>
                   <kpn-route-members
                     [networkType]="page.route.summary.networkType"
@@ -151,7 +149,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
-    AsyncPipe,
     DataComponent,
     FactsComponent,
     PageComponent,
@@ -175,18 +172,10 @@ export class RouteDetailsPageComponent implements OnInit {
   protected readonly service = inject(RouteDetailsPageService);
   private readonly pageWidthService = inject(PageWidthService);
 
-  showRouteDetails$: Observable<boolean>;
+  readonly showRouteDetails = computed(() => !this.pageWidthService.isAllSmall());
 
   ngOnInit(): void {
     this.service.onInit();
-    this.showRouteDetails$ = this.pageWidthService.current$.pipe(
-      map(
-        (pageWidth) =>
-          pageWidth !== PageWidth.small &&
-          pageWidth !== PageWidth.verySmall &&
-          pageWidth !== PageWidth.veryVerySmall
-      )
-    );
   }
 
   routeTags(page: RouteDetailsPage) {
