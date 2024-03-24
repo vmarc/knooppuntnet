@@ -1,15 +1,12 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BaseSidebarComponent } from '@app/shared/base';
 import { IconButtonComponent } from '@app/components/shared/icon';
 import { IconButtonsComponent } from '@app/components/shared/icon';
 import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
-import { MapService } from '../../services/map.service';
+import { BaseSidebarComponent } from '@app/shared/base';
 
 @Component({
   selector: 'kpn-map-page',
@@ -21,7 +18,7 @@ import { MapService } from '../../services/map.service';
         <li i18n="@@breadcrumb.map">Map</li>
       </ul>
 
-      <kpn-page-header subject="planner" i18n="@@planner.map"> Map</kpn-page-header>
+      <kpn-page-header subject="planner" i18n="@@planner.map">Map</kpn-page-header>
       <kpn-icon-buttons>
         <kpn-icon-button
           routerLink="/map/cycling"
@@ -74,10 +71,4 @@ import { MapService } from '../../services/map.service';
     SidebarComponent,
   ],
 })
-export class MapPageComponent implements OnInit {
-  private readonly mapService = inject(MapService);
-
-  ngOnInit(): void {
-    this.mapService.nextNetworkType(null);
-  }
-}
+export class MapPageComponent {}

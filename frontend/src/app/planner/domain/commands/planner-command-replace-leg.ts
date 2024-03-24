@@ -27,10 +27,10 @@ export class PlannerCommandReplaceLeg implements PlannerCommand {
     context.markerLayer.addFlag(toLeg.sinkFlag);
     context.routeLayer.addPlanLeg(toLeg);
 
-    const newLegs = context.plan.legs.map((leg) =>
-      leg.featureId === fromLeg.featureId ? toLeg : leg
-    );
-    const newPlan = context.plan.withLegs(newLegs);
+    const newLegs = context
+      .plan()
+      .legs.map((leg) => (leg.featureId === fromLeg.featureId ? toLeg : leg));
+    const newPlan = context.plan().withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 }

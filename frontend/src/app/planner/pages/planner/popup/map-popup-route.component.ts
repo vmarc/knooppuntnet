@@ -1,6 +1,6 @@
-import { AsyncPipe } from '@angular/common';
+import { signal } from '@angular/core';
+import { effect } from '@angular/core';
 import { inject } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
@@ -9,10 +9,7 @@ import { ApiResponse } from '@api/custom';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { ApiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { filter } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
+import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 import { PlannerService } from '../../../planner.service';
 import { MapService } from '../../../services/map.service';
 
@@ -20,7 +17,7 @@ import { MapService } from '../../../services/map.service';
   selector: 'kpn-planner-popup-route',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (response$ | async; as response) {
+    @if (response(); as response) {
       <div>
         @if (!!response.result) {
           <h2>
@@ -47,7 +44,7 @@ import { MapService } from '../../../services/map.service';
             <kpn-link-route
               [routeId]="response.result.id"
               [routeName]="response.result.name"
-              [networkType]="networkType$ | async"
+              [networkType]="networkType()"
               title="More details"
               i18n-title="@@map.route-popup.more-details"
             />
@@ -66,32 +63,32 @@ import { MapService } from '../../../services/map.service';
     }
   `,
   standalone: true,
-  imports: [RouterLink, LinkRouteComponent, AsyncPipe],
+  imports: [RouterLink, LinkRouteComponent],
 })
-export class MapPopupRouteComponent implements OnInit {
+export class MapPopupRouteComponent {
+  private readonly service = inject(PlannerPopupService);
   private readonly apiService = inject(ApiService);
   private readonly mapService = inject(MapService);
   private readonly plannerService = inject(PlannerService);
 
-  protected response$: Observable<ApiResponse<MapRouteDetail>>;
-  protected networkType$ = this.mapService.networkType$;
+  protected response = signal<ApiResponse<MapRouteDetail>>(null);
+  protected networkType = this.mapService.networkType;
 
-  ngOnInit(): void {
-    this.response$ = this.mapService.routeClicked$.pipe(
-      filter((routeClick) => routeClick !== null),
-      switchMap((routeClick) =>
-        this.apiService.mapRouteDetail(routeClick.route.routeId).pipe(
-          tap((response) => {
-            if (response.result) {
-              this.openPopup(routeClick.coordinate);
-            }
-          })
-        )
-      )
-    );
+  constructor() {
+    effect(() => {
+      const routeClick = this.service.routeClick();
+      if (routeClick !== null) {
+        this.apiService.mapRouteDetail(routeClick.route.routeId).subscribe((response) => {
+          if (response.result) {
+            this.response.set(response);
+            this.openPopup(routeClick.coordinate);
+          }
+        });
+      }
+    });
   }
 
   private openPopup(coordinate: Coordinate): void {
-    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, -12), 0);
+    setTimeout(() => this.plannerService.context.plannerPopup.setPosition(coordinate, -12), 0);
   }
 }

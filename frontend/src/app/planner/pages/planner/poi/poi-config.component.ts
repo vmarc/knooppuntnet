@@ -77,7 +77,6 @@ import { Subscriptions } from '@app/util';
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {
   poiId = input.required<string>();
-  name = input.required<string>();
 
   private readonly poiService = inject(PoiService);
 

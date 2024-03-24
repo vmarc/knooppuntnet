@@ -16,7 +16,7 @@ export class AddViaRouteLeg {
 
   add(routes: List<RouteFeature>, coordinate: Coordinate): void {
     // current sink is source for new leg
-    const sourceNode = PlanUtil.planSinkNode(this.context.plan);
+    const sourceNode = PlanUtil.planSinkNode(this.context.plan());
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
 
     const trackPathKeys = routes.flatMap((routeFeature) => {

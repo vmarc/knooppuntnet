@@ -25,10 +25,11 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
     context.markerLayer.addFlag(this.newLeg.sinkFlag);
     context.routeLayer.addPlanLeg(this.newLeg);
 
-    const newLegs = context.plan.legs
-      .map((leg) => (leg.featureId === this.oldLeg1.featureId ? this.newLeg : leg))
+    const newLegs = context
+      .plan()
+      .legs.map((leg) => (leg.featureId === this.oldLeg1.featureId ? this.newLeg : leg))
       .filterNot((leg) => leg.featureId === this.oldLeg2.featureId);
-    const newPlan = context.plan.withLegs(newLegs);
+    const newPlan = context.plan().withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 
@@ -46,13 +47,13 @@ export class PlannerCommandRemoveViaPoint implements PlannerCommand {
     context.markerLayer.addFlag(this.oldLeg2.sinkFlag);
     context.routeLayer.addPlanLeg(this.oldLeg2);
 
-    const newLegs = context.plan.legs.flatMap((leg) => {
+    const newLegs = context.plan().legs.flatMap((leg) => {
       if (leg.featureId === this.newLeg.featureId) {
         return List([this.oldLeg1, this.oldLeg2]);
       }
       return List([leg]);
     });
-    const newPlan = context.plan.withLegs(newLegs);
+    const newPlan = context.plan().withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 }

@@ -7,7 +7,7 @@ export class PlannerCommandReset implements PlannerCommand {
 
   public do(context: PlannerContext) {
     context.debug('PlannerCommandReset');
-    this.oldPlan = context.plan;
+    this.oldPlan = context.plan();
     context.routeLayer.removePlan(this.oldPlan);
     context.markerLayer.removePlan(this.oldPlan);
     context.updatePlan(Plan.empty);

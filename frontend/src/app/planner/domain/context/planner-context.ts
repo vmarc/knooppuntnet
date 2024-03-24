@@ -1,9 +1,9 @@
+import { signal } from '@angular/core';
+import { Signal } from '@angular/core';
 import { LegEnd } from '@api/common/planner';
 import { NetworkType } from '@api/custom';
 import { Subscriptions } from '@app/util';
-import { first } from 'rxjs';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { PlannerCommand } from '../commands/planner-command';
 import { PlannerCommandStack } from '../commands/planner-command-stack';
@@ -16,7 +16,7 @@ import { PlannerElasticBand } from './planner-elastic-band';
 import { PlannerHighlighter } from './planner-highlighter';
 import { PlannerLegRepository } from './planner-leg-repository';
 import { PlannerMarkerLayer } from './planner-marker-layer';
-import { PlannerOverlay } from './planner-overlay';
+import { PlannerPopup } from './planner-popup';
 import { PlannerRouteLayer } from './planner-route-layer';
 
 export class NetworkTypeData {
@@ -27,17 +27,18 @@ export class NetworkTypeData {
 }
 
 export class PlannerContext {
-  plan$: Observable<Plan>;
-  error$: Observable<Error>;
-  planProposed: boolean;
-
-  private _plan$: BehaviorSubject<Plan>;
-  private _error$ = new Subject<Error>();
-  private _commandStack$: BehaviorSubject<PlannerCommandStack>;
-  private currentNetworkType: NetworkType;
+  private readonly _plan = signal<Plan>(Plan.empty);
+  private readonly _error = signal<Error | null>(null);
+  private readonly _commandStack = signal<PlannerCommandStack>(new PlannerCommandStack());
   private networkTypeMap: Map<NetworkType, NetworkTypeData> = new Map();
 
   private subscriptions = new Subscriptions();
+
+  readonly plan = this._plan.asReadonly();
+  readonly error = this._error.asReadonly();
+  readonly commandStack = this._commandStack.asReadonly();
+
+  private networkType: NetworkType;
 
   constructor(
     readonly routeLayer: PlannerRouteLayer,
@@ -46,42 +47,20 @@ export class PlannerContext {
     readonly elasticBand: PlannerElasticBand,
     readonly highlighter: PlannerHighlighter,
     readonly legRepository: PlannerLegRepository,
-    readonly overlay: PlannerOverlay,
-    readonly planProposed$: Observable<boolean>,
-    readonly networkType$: Observable<NetworkType>
-  ) {
-    this._plan$ = new BehaviorSubject<Plan>(Plan.empty);
-    this.plan$ = this._plan$.asObservable();
-    this.error$ = this._error$.asObservable();
-    this._commandStack$ = new BehaviorSubject<PlannerCommandStack>(new PlannerCommandStack());
-    this.subscriptions.add(
-      planProposed$.subscribe((planProposed) => (this.planProposed = planProposed))
-    );
-
-    networkType$.pipe(first()).subscribe((networkType) => (this.currentNetworkType = networkType));
-
-    this.subscriptions.add(
-      networkType$.subscribe((networkType) => this.networkTypeChanged(networkType))
-    );
-  }
+    readonly plannerPopup: PlannerPopup,
+    readonly planProposed: Signal<boolean>
+  ) {}
 
   destroy(): void {
     this.subscriptions.unsubscribe();
   }
 
-  get plan(): Plan {
-    return this._plan$.value;
-  }
-
-  get commandStack(): PlannerCommandStack {
-    return this._commandStack$.value;
-  }
-
-  private networkTypeChanged(networkType: NetworkType): void {
-    const oldNetworkType = this.currentNetworkType;
+  setNetworkType(networkType: NetworkType): void {
+    const oldNetworkType = this.networkType;
+    this.networkType = networkType;
     if (oldNetworkType) {
-      const oldPlan = this._plan$.value;
-      const oldCommandStack = this._commandStack$.value;
+      const oldPlan = this.plan();
+      const oldCommandStack = this.commandStack();
       this.routeLayer.removePlan(oldPlan);
       this.markerLayer.removePlan(oldPlan);
       const data = new NetworkTypeData(oldPlan, oldCommandStack);
@@ -91,57 +70,54 @@ export class PlannerContext {
     if (existingData) {
       this.routeLayer.addPlan(existingData.plan);
       this.markerLayer.addPlan(existingData.plan);
-      this._plan$.next(existingData.plan);
-      this._commandStack$.next(existingData.commandStack);
+      this._plan.set(existingData.plan);
+      this._commandStack.set(existingData.commandStack);
     } else {
-      this._plan$.next(Plan.empty);
-      this._commandStack$.next(new PlannerCommandStack());
+      this._plan.set(Plan.empty);
+      this._commandStack.set(new PlannerCommandStack());
     }
-    this.currentNetworkType = networkType;
   }
 
   execute(command: PlannerCommand): void {
-    this.commandStack.push(command);
+    this.commandStack().push(command);
     command.do(this);
   }
 
   undo(): void {
-    const command = this.commandStack.undo();
+    const command = this.commandStack().undo();
     command.undo(this);
   }
 
   redo(): void {
-    const command = this.commandStack.redo();
+    const command = this.commandStack().redo();
     command.do(this);
   }
 
   updatePlan(plan: Plan) {
-    this._plan$.next(plan);
+    this._plan.set(plan);
   }
 
   updatePlanLeg(newLeg: PlanLeg) {
-    const newLegs = this.plan.legs.map((leg) =>
+    const newLegs = this.plan().legs.map((leg) =>
       leg.featureId === newLeg.featureId ? newLeg : leg
     );
-    const newPlan = new Plan(this.plan.sourceNode, this.plan.sourceFlag, newLegs);
+    const newPlan = new Plan(this.plan().sourceNode, this.plan().sourceFlag, newLegs);
     this.updatePlan(newPlan);
     this.routeLayer.addPlanLeg(newLeg);
   }
 
   closeOverlay(): void {
-    this.overlay.setPosition(undefined, 0);
+    this.plannerPopup.reset();
   }
 
   fetchLeg(source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
     this.cursor.setStyleWait();
-    return this.legRepository
-      .planLeg(this.currentNetworkType, source, sink, this.planProposed)
-      .pipe(
-        tap(() => {
-          this.cursor.setStyleDefault();
-          this.highlighter.reset();
-        })
-      );
+    return this.legRepository.planLeg(this.networkType, source, sink, this.planProposed()).pipe(
+      tap(() => {
+        this.cursor.setStyleDefault();
+        this.highlighter.reset();
+      })
+    );
   }
 
   debug(message: string): void {
@@ -149,7 +125,7 @@ export class PlannerContext {
   }
 
   errorDialog(error: Error): void {
-    this._error$.next(error);
+    this._error.set(error);
   }
 
   resetDragFlag(dragFlag: PlannerDragFlag): void {

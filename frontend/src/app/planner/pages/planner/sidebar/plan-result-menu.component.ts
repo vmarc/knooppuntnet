@@ -1,17 +1,15 @@
 import { NgClass } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PreferencesService } from '@app/core';
-import { Store } from '@ngrx/store';
-import { actionPlannerResultMode } from '../../../store/planner-actions';
-import { selectPlannerResultMode } from '../../../store/planner-selectors';
+import { MapResultMode } from '../../../../ol/services/map-result-mode';
+import { PlannerStateService } from '../../../planner-state.service';
 
 @Component({
   selector: 'kpn-plan-result-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (plannerResultMode(); as resultMode) {
+    @if (resultMode(); as resultMode) {
       <div class="menu">
         <span>
           <a
@@ -62,13 +60,13 @@ import { selectPlannerResultMode } from '../../../store/planner-selectors';
     }
   `,
   standalone: true,
-  imports: [NgClass, AsyncPipe],
+  imports: [NgClass],
 })
 export class PlanResultMenuComponent {
-  private readonly store = inject(Store);
+  private readonly plannerStateService = inject(PlannerStateService);
   private readonly preferencesService = inject(PreferencesService);
 
-  readonly plannerResultMode = this.store.selectSignal(selectPlannerResultMode);
+  readonly resultMode = this.plannerStateService.resultMode;
   readonly instructions = this.preferencesService.instructions;
 
   resultModeCompact(event) {
@@ -83,8 +81,8 @@ export class PlanResultMenuComponent {
     this.handleResultMode(event, 'instructions');
   }
 
-  private handleResultMode(event, resultMode: string) {
-    this.store.dispatch(actionPlannerResultMode({ resultMode }));
+  private handleResultMode(event, resultMode: MapResultMode) {
+    this.plannerStateService.setResultMode(resultMode);
     event.stopPropagation();
   }
 }

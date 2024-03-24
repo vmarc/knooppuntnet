@@ -1,62 +1,20 @@
+import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NetworkType } from '@api/custom';
-import { ReplaySubject } from 'rxjs';
-import { BehaviorSubject } from 'rxjs';
-import { Observable } from 'rxjs';
-import { NodeClick } from '../domain/interaction/actions/node-click';
-import { PoiClick } from '../domain/interaction/actions/poi-click';
-import { RouteClick } from '../domain/interaction/actions/route-click';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MapService {
-  highlightedNodeId$: Observable<string>;
-  highlightedRouteId$: Observable<string>;
-  networkType$: Observable<NetworkType>;
-  popupType$: Observable<string>;
-  poiClicked$: Observable<PoiClick>;
-  nodeClicked$: Observable<NodeClick>;
-  routeClicked$: Observable<RouteClick>;
+  private readonly _highlightedNodeId = signal<string>(null);
+  private readonly _highlightedRouteId = signal<string>(null);
+  private readonly _networkType = signal<NetworkType | null>(null);
 
-  private _highlightedNodeId$ = new BehaviorSubject<string>(null);
-  private _highlightedRouteId$ = new BehaviorSubject<string>(null);
-  private _networkType$ = new BehaviorSubject<NetworkType | null>(null);
-  private _popupType$ = new BehaviorSubject<string>('');
-  private _poiClicked$ = new ReplaySubject<PoiClick>(1);
-  private _nodeClicked$ = new ReplaySubject<NodeClick>(1);
-  private _routeClicked$ = new ReplaySubject<RouteClick>(1);
+  readonly highlightedNodeId = this._highlightedNodeId.asReadonly();
+  readonly highlightedRouteId = this._highlightedRouteId.asReadonly();
+  readonly networkType = this._networkType.asReadonly();
 
-  constructor() {
-    this.highlightedNodeId$ = this._highlightedNodeId$;
-    this.highlightedRouteId$ = this._highlightedRouteId$;
-    this.networkType$ = this._networkType$.asObservable();
-    this.popupType$ = this._popupType$.asObservable();
-    this.poiClicked$ = this._poiClicked$.asObservable();
-    this.nodeClicked$ = this._nodeClicked$.asObservable();
-    this.routeClicked$ = this._routeClicked$.asObservable();
-  }
-
-  networkType(): NetworkType {
-    return this._networkType$.value;
-  }
-
-  nextNetworkType(networkType: NetworkType): void {
-    return this._networkType$.next(networkType);
-  }
-
-  nextPoiClick(poiClick: PoiClick) {
-    this._popupType$.next('poi');
-    this._poiClicked$.next(poiClick);
-  }
-
-  nextNodeClick(nodeClick: NodeClick) {
-    this._popupType$.next('node');
-    this._nodeClicked$.next(nodeClick);
-  }
-
-  nextRouteClick(routeClick: RouteClick) {
-    this._popupType$.next('route');
-    this._routeClicked$.next(routeClick);
+  setNetworkType(networkType: NetworkType): void {
+    return this._networkType.set(networkType);
   }
 }

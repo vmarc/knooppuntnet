@@ -5,16 +5,13 @@ import { Component } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { NetworkType } from '@api/custom';
-import { Store } from '@ngrx/store';
-import { actionPlannerNetworkType } from '../../../store/planner-actions';
-import { selectPlannerNetworkType } from '../../../store/planner-selectors';
+import { PlannerPageService } from '../planner-page.service';
 
 @Component({
   selector: 'kpn-network-type-selector',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-button-toggle-group [value]="networkType()" (change)="networkTypeChanged($event)">
+    <mat-button-toggle-group [value]="service.networkType()" (change)="networkTypeChanged($event)">
       <mat-button-toggle value="cycling">
         <mat-icon svgIcon="cycling" />
       </mat-button-toggle>
@@ -55,11 +52,9 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
   imports: [MatButtonToggleModule, MatIconModule, AsyncPipe],
 })
 export class NetworkTypeSelectorComponent {
-  private readonly store = inject(Store);
-  protected readonly networkType = this.store.selectSignal(selectPlannerNetworkType);
+  protected readonly service = inject(PlannerPageService);
 
-  networkTypeChanged(event: MatButtonToggleChange) {
-    const networkType: NetworkType = event.value;
-    this.store.dispatch(actionPlannerNetworkType({ networkType }));
+  networkTypeChanged(event: MatButtonToggleChange): void {
+    this.service.setNetworkType(event.value);
   }
 }

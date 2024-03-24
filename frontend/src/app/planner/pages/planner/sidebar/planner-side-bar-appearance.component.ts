@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -6,9 +5,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { PreferencesService } from '@app/core';
-import { Store } from '@ngrx/store';
-import { actionPlannerMapMode } from '../../../store/planner-actions';
-import { selectPlannerMapMode } from '../../../store/planner-selectors';
+import { PlannerStateService } from '../../../planner-state.service';
+import { PlannerPageService } from '../planner-page.service';
 
 @Component({
   selector: 'kpn-planner-sidebar-appearance',
@@ -19,7 +17,7 @@ import { selectPlannerMapMode } from '../../../store/planner-selectors';
         Map appearance options
       </mat-expansion-panel-header>
       <ng-template matExpansionPanelContent>
-        <mat-radio-group [value]="mapMode$ | async" (change)="modeChanged($event)">
+        <mat-radio-group [value]="mapMode()" (change)="modeChanged($event)">
           <div>
             <mat-radio-button value="surface" class="mode-radio-button" i18n="@@planner.surface">
               Surface
@@ -40,12 +38,13 @@ import { selectPlannerMapMode } from '../../../store/planner-selectors';
     </mat-expansion-panel>
   `,
   standalone: true,
-  imports: [MatExpansionModule, MatRadioModule, AsyncPipe],
+  imports: [MatExpansionModule, MatRadioModule],
 })
 export class PlannerSideBarAppearanceComponent {
-  private readonly store = inject(Store);
+  private readonly plannerStateService = inject(PlannerStateService);
+  private readonly plannerPageService = inject(PlannerPageService);
   private readonly preferencesService = inject(PreferencesService);
-  protected readonly mapMode$ = this.store.select(selectPlannerMapMode);
+  protected readonly mapMode = this.plannerStateService.mapMode;
   protected readonly expanded = this.preferencesService.showAppearanceOptions;
 
   expandedChanged(expanded: boolean): void {
@@ -53,6 +52,6 @@ export class PlannerSideBarAppearanceComponent {
   }
 
   modeChanged(event: MatRadioChange): void {
-    this.store.dispatch(actionPlannerMapMode({ mapMode: event.value }));
+    this.plannerPageService.setMapMode(event.value);
   }
 }

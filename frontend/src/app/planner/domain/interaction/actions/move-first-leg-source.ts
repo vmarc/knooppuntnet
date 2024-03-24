@@ -11,13 +11,13 @@ export class MoveFirstLegSource {
   constructor(private readonly context: PlannerContext) {}
 
   move(dragFlag: PlannerDragFlag, newSourceNode: PlanNode): void {
-    const oldLeg = this.context.plan.legs.first(null);
+    const oldLeg = this.context.plan().legs.first(null);
     if (oldLeg) {
       this.buildNewLeg(newSourceNode, oldLeg).subscribe({
         next: (newLeg) => {
           if (newLeg) {
-            const oldSourceNode = this.context.plan.sourceNode;
-            const oldSourceFlag = this.context.plan.sourceFlag;
+            const oldSourceNode = this.context.plan().sourceNode;
+            const oldSourceFlag = this.context.plan().sourceFlag;
             const newSourceFlag = oldSourceFlag.withCoordinate(newSourceNode.coordinate);
             const command = new PlannerCommandMoveFirstLegSource(
               oldLeg,

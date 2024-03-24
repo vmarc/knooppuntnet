@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapZoomService } from '@app/ol/services';
-import { delay } from 'rxjs/operators';
 import { NetworkMapLegendIconComponent } from './network-map-legend-icon.component';
 
 @Component({
@@ -12,7 +11,7 @@ import { NetworkMapLegendIconComponent } from './network-map-legend-icon.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      @if (zoomLevel$ | async; as zoomLevel) {
+      @if (zoomLevel(); as zoomLevel) {
         <div class="kpn-tip">
           @if (zoomLevel < minZoom) {
             <p i18n="@@network-map.side-bar.tip-zoom-in">Zoom in for node or route details.</p>
@@ -52,6 +51,6 @@ import { NetworkMapLegendIconComponent } from './network-map-legend-icon.compone
 })
 export class NetworkMapSidebarComponent {
   private readonly mapZoomService = inject(MapZoomService);
-  protected readonly zoomLevel$ = this.mapZoomService.zoomLevel$.pipe(delay(0));
+  protected readonly zoomLevel = this.mapZoomService.zoomLevel;
   protected readonly minZoom = ZoomLevel.vectorTileMinZoom;
 }

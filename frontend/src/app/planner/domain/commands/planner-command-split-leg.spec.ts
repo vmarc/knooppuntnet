@@ -35,10 +35,10 @@ describe('PlannerCommandSplitLeg', () => {
     setup.routeLayer.expectRouteLegExists('13', newLeg1);
     setup.routeLayer.expectRouteLegExists('32', newLeg2);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
+    expect(setup.context.plan().sourceNode.nodeId).toEqual('1001');
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);
@@ -59,10 +59,10 @@ describe('PlannerCommandSplitLeg', () => {
     setup.routeLayer.expectRouteLegCount(1);
     setup.routeLayer.expectRouteLegExists('12', oldLeg);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
+    expect(setup.context.plan().sourceNode.nodeId).toEqual('1001');
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(1);
 
       const leg = legs.get(0);

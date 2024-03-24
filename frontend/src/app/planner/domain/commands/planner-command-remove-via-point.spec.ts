@@ -38,7 +38,7 @@ describe('PlannerCommandRemoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('23', oldLeg2);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);
@@ -64,7 +64,7 @@ describe('PlannerCommandRemoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('13', newLeg);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(1);
 
       const leg = legs.get(0);
@@ -85,7 +85,7 @@ describe('PlannerCommandRemoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('23', oldLeg2);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);
@@ -133,7 +133,7 @@ describe('PlannerCommandRemoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('23', oldLeg2);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);
@@ -160,7 +160,7 @@ describe('PlannerCommandRemoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('13', newLeg);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(1);
 
       const leg = legs.get(0);
@@ -182,7 +182,7 @@ describe('PlannerCommandRemoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('23', oldLeg2);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);

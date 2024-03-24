@@ -1,11 +1,9 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PreferencesService } from '@app/core';
-import { Store } from '@ngrx/store';
-import { selectPlannerMapMode } from '../../../store/planner-selectors';
+import { PlannerStateService } from '../../../planner-state.service';
 import { LegendIconComponent } from './legend-icon.component';
 
 @Component({
@@ -15,7 +13,7 @@ import { LegendIconComponent } from './legend-icon.component';
     <mat-expansion-panel [expanded]="expanded()" (expandedChange)="expandedChanged($event)">
       <mat-expansion-panel-header i18n="@@planner.legend">Legend</mat-expansion-panel-header>
 
-      @if (plannerMapMode(); as mapMode) {
+      @if (mapMode(); as mapMode) {
         @if (mapMode === 'surface') {
           <div class="legend">
             <div>
@@ -137,13 +135,13 @@ import { LegendIconComponent } from './legend-icon.component';
     }
   `,
   standalone: true,
-  imports: [MatExpansionModule, LegendIconComponent, AsyncPipe],
+  imports: [MatExpansionModule, LegendIconComponent],
 })
 export class PlannerSideBarLegendComponent {
-  private readonly store = inject(Store);
+  private readonly plannerStateService = inject(PlannerStateService);
   private readonly preferencesService = inject(PreferencesService);
   protected readonly expanded = this.preferencesService.showLegend;
-  protected readonly plannerMapMode = this.store.selectSignal(selectPlannerMapMode);
+  protected readonly mapMode = this.plannerStateService.mapMode;
 
   expandedChanged(expanded: boolean): void {
     this.preferencesService.setShowLegend(expanded);

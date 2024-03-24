@@ -18,19 +18,19 @@ describe('PlannerCommandMoveStartPoint', () => {
     const command = new PlannerCommandMoveStartPoint(setup.node1, setup.node2);
     setup.context.execute(command);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1002');
+    expect(setup.context.plan().sourceNode.nodeId).toEqual('1002');
     setup.markerLayer.expectFlagCount(1);
     setup.markerLayer.expectStartFlagExists('sourceFlag', [2, 2]);
 
     command.undo(setup.context);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
+    expect(setup.context.plan().sourceNode.nodeId).toEqual('1001');
     setup.markerLayer.expectFlagCount(1);
     setup.markerLayer.expectStartFlagExists('sourceFlag', [1, 1]);
 
     command.do(setup.context);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1002');
+    expect(setup.context.plan().sourceNode.nodeId).toEqual('1002');
     setup.markerLayer.expectFlagCount(1);
     setup.markerLayer.expectStartFlagExists('sourceFlag', [2, 2]);
   });

@@ -7,7 +7,6 @@ import { LocationRoutesParameters } from '@api/common/location';
 import { PreferencesService } from '@app/core';
 import { selectQueryParam } from '@app/core';
 import { selectRouteParam } from '@app/core';
-import { selectSharedSurveyDateInfo } from '@app/core';
 import { actionSharedSurveyDateInfoInit } from '@app/core';
 import { AnalysisStrategy } from '@app/core';
 import { actionPreferencesAnalysisStrategy } from '@app/core';
@@ -19,10 +18,10 @@ import { createEffect } from '@ngrx/effects';
 import { ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { from } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
 import { map } from 'rxjs/operators';
 import { mergeMap } from 'rxjs/operators';
+import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
 import { LocationMapService } from '../map/components/location-map.service';
 import { actionLocationSelectionPageInit } from './location.actions';
 import { actionLocationRoutesPageSize } from './location.actions';
@@ -62,6 +61,7 @@ export class LocationEffects {
   private readonly apiService = inject(ApiService);
   private readonly locationMapLayerService = inject(LocationMapService);
   private readonly preferencesService = inject(PreferencesService);
+  private readonly sharedStateService = inject(SharedStateService);
 
   // noinspection JSUnusedGlobalSymbols
   analysisStrategy = createEffect(() => {
@@ -197,14 +197,13 @@ export class LocationEffects {
           this.store.select(selectLocationKey),
           this.store.select(selectLocationMapPage),
           this.store.select(selectLocationMapPositionFromUrl),
-          this.store.select(selectSharedSurveyDateInfo).pipe(filter((x) => x !== null)), // make sure surveyDateInfo is loaded
         ]),
-        tap(([_, locationKey, response, mapPositionFromUrl, surveyDateValues]) => {
+        tap(([_, locationKey, response, mapPositionFromUrl]) => {
           const geoJson = response.result.geoJson;
           const bounds = response.result.bounds;
           this.locationMapLayerService.init(
             locationKey.networkType,
-            surveyDateValues,
+            this.sharedStateService.surveyDateValues(),
             geoJson,
             bounds,
             mapPositionFromUrl

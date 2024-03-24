@@ -10,8 +10,6 @@ import { PoiService } from '@app/services';
 @Component({
   selector: 'kpn-poi-group',
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
-
-  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel>
       <mat-expansion-panel-header>

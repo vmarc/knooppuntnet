@@ -33,13 +33,14 @@ describe('PlannerEngine', () => {
       // assert
       expect(eventIsFurtherPropagated).toBeFalsy();
 
-      expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
-      expect(setup.context.plan.legs.size).toEqual(0);
+      const plan = setup.context.plan();
+      expect(plan.sourceNode.nodeId).toEqual('1001');
+      expect(plan.legs.size).toEqual(0);
 
       setup.markerLayer.expectFlagCount(1);
-      setup.markerLayer.expectStartFlagExists(setup.context.plan.sourceFlag.featureId, [1, 1]);
+      setup.markerLayer.expectStartFlagExists(plan.sourceFlag.featureId, [1, 1]);
 
-      expect(setup.context.commandStack.commandCount).toEqual(1);
+      expect(setup.context.commandStack().commandCount).toEqual(1);
     });
   });
 
@@ -64,10 +65,12 @@ describe('PlannerEngine', () => {
       // assert
       expect(eventIsFurtherPropagated).toBeFalsy();
 
-      expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
+      const plan = setup.context.plan();
+
+      expect(plan.sourceNode.nodeId).toEqual('1001');
 
       {
-        const legs = setup.context.plan.legs;
+        const legs = plan.legs;
         expect(legs.size).toEqual(1);
 
         const leg = legs.get(0);
@@ -78,12 +81,9 @@ describe('PlannerEngine', () => {
       }
 
       setup.markerLayer.expectFlagCount(1);
-      setup.markerLayer.expectEndFlagExists(
-        setup.context.plan.legs.get(0).sinkFlag.featureId,
-        [2, 2]
-      );
+      setup.markerLayer.expectEndFlagExists(plan.legs.get(0).sinkFlag.featureId, [2, 2]);
 
-      expect(setup.context.commandStack.commandCount).toEqual(1);
+      expect(setup.context.commandStack().commandCount).toEqual(1);
     });
   });
 
@@ -138,16 +138,19 @@ describe('PlannerEngine', () => {
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
 
-      expect(setup.context.plan.sourceNode.nodeId).toEqual('1002');
-      expect(setup.context.plan.legs.size).toEqual(0);
+      const plan = setup.context.plan();
+
+      expect(plan.sourceNode.nodeId).toEqual('1002');
+      expect(plan.legs.size).toEqual(0);
 
       setup.markerLayer.expectFlagCount(1);
       setup.markerLayer.expectStartFlagExists('sourceFlag', [2, 2]);
 
       setup.elasticBand.expectVisible(false);
 
-      expect(setup.context.commandStack.commandCount).toEqual(1);
-      const command = setup.context.commandStack.last();
+      const commandStack = setup.context.commandStack();
+      expect(commandStack.commandCount).toEqual(1);
+      const command = commandStack.last();
       expect(command).toEqual(jasmine.any(PlannerCommandMoveStartPoint));
     });
 
@@ -180,15 +183,17 @@ describe('PlannerEngine', () => {
       // assert - drag cancelled
       expect(eventIsFurtherPropagated3).toBeFalsy();
 
-      expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
-      expect(setup.context.plan.legs.size).toEqual(0);
+      const plan = setup.context.plan();
+
+      expect(plan.sourceNode.nodeId).toEqual('1001');
+      expect(plan.legs.size).toEqual(0);
 
       setup.markerLayer.expectFlagCount(1);
       setup.markerLayer.expectStartFlagExists('sourceFlag', [1, 1]);
 
       setup.elasticBand.expectVisible(false);
 
-      expect(setup.context.commandStack.commandCount).toEqual(0);
+      expect(setup.context.commandStack().commandCount).toEqual(0);
     });
 
     it('should handle start node drag, while legs in plan', () => {
@@ -243,7 +248,7 @@ describe('PlannerEngine', () => {
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
 
-      const newPlan = setup.context.plan;
+      const newPlan = setup.context.plan();
       expect(newPlan.sourceNode.nodeId).toEqual('1003');
       expect(newPlan.legs.size).toEqual(1);
 
@@ -253,8 +258,8 @@ describe('PlannerEngine', () => {
 
       setup.elasticBand.expectVisible(false);
 
-      expect(setup.context.commandStack.commandCount).toEqual(1);
-      expect(setup.context.commandStack.last()).toEqual(
+      expect(setup.context.commandStack().commandCount).toEqual(1);
+      expect(setup.context.commandStack().last()).toEqual(
         jasmine.any(PlannerCommandMoveFirstLegSource)
       );
     });
@@ -291,7 +296,7 @@ describe('PlannerEngine', () => {
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
 
-      const newPlan = setup.context.plan;
+      const newPlan = setup.context.plan();
       expect(newPlan.sourceNode.nodeId).toEqual('1001');
       expect(newPlan.legs.size).toEqual(1);
       const newLeg = newPlan.legs.get(0);
@@ -304,7 +309,7 @@ describe('PlannerEngine', () => {
 
       setup.elasticBand.expectVisible(false);
 
-      expect(setup.context.commandStack.commandCount).toEqual(0);
+      expect(setup.context.commandStack().commandCount).toEqual(0);
     });
   });
 
@@ -358,7 +363,7 @@ describe('PlannerEngine', () => {
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
 
-      const newPlan = setup.context.plan;
+      const newPlan = setup.context.plan();
       expect(newPlan.legs.size).toEqual(1);
       const newLeg = newPlan.legs.get(0);
       expect(newLeg.source.node.nodeId).toEqual(1001);
@@ -370,8 +375,8 @@ describe('PlannerEngine', () => {
 
       setup.elasticBand.expectVisible(false);
 
-      expect(setup.context.commandStack.commandCount).toEqual(1);
-      expect(setup.context.commandStack.last()).toEqual(jasmine.any(PlannerCommandReplaceLeg));
+      expect(setup.context.commandStack().commandCount).toEqual(1);
+      expect(setup.context.commandStack().last()).toEqual(jasmine.any(PlannerCommandReplaceLeg));
     });
 
     it('should cancel "move end-node" upon mouse up, while not hoovering over network node', () => {
@@ -405,7 +410,7 @@ describe('PlannerEngine', () => {
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
 
-      const newPlan = setup.context.plan;
+      const newPlan = setup.context.plan();
       expect(PlanUtil.planSinkNode(newPlan).nodeId).toEqual('1002');
       expect(newPlan.legs.size).toEqual(1);
       const newLeg = newPlan.legs.get(0);
@@ -419,7 +424,7 @@ describe('PlannerEngine', () => {
 
       setup.elasticBand.expectVisible(false);
 
-      expect(setup.context.commandStack.commandCount).toEqual(0);
+      expect(setup.context.commandStack().commandCount).toEqual(0);
     });
   });
 
@@ -476,7 +481,7 @@ describe('PlannerEngine', () => {
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
 
-      const newPlan = setup.context.plan;
+      const newPlan = setup.context.plan();
       expect(newPlan.legs.size).toEqual(2);
       expect(newPlan.sourceNode.nodeId).toEqual('1001');
       expectStartFlag(newPlan.sourceFlag, 'sourceFlag', [1, 1]);
@@ -488,8 +493,8 @@ describe('PlannerEngine', () => {
 
       setup.elasticBand.expectVisible(false);
 
-      expect(setup.context.commandStack.commandCount).toEqual(1);
-      expect(setup.context.commandStack.last()).toEqual(jasmine.any(PlannerCommandMoveViaPoint));
+      expect(setup.context.commandStack().commandCount).toEqual(1);
+      expect(setup.context.commandStack().last()).toEqual(jasmine.any(PlannerCommandMoveViaPoint));
     });
 
     it('should cancel "move via-node" upon mouse up, when not hoovering over network node', () => {
@@ -525,7 +530,7 @@ describe('PlannerEngine', () => {
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
 
-      const newPlan = setup.context.plan;
+      const newPlan = setup.context.plan();
       expect(newPlan.legs.size).toEqual(2);
       expect(newPlan.sourceNode.nodeId).toEqual('1001');
       expectStartFlag(newPlan.sourceFlag, 'sourceFlag', [1, 1]);
@@ -537,7 +542,7 @@ describe('PlannerEngine', () => {
 
       setup.elasticBand.expectVisible(false);
 
-      expect(setup.context.commandStack.commandCount).toEqual(0);
+      expect(setup.context.commandStack().commandCount).toEqual(0);
     });
   });
 
@@ -589,7 +594,7 @@ describe('PlannerEngine', () => {
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
 
-      const newPlan = setup.context.plan;
+      const newPlan = setup.context.plan();
       expect(newPlan.legs.size).toEqual(2);
       expect(newPlan.sourceNode.nodeId).toEqual('1001');
 
@@ -600,8 +605,8 @@ describe('PlannerEngine', () => {
 
       setup.elasticBand.expectVisible(false);
 
-      expect(setup.context.commandStack.commandCount).toEqual(1);
-      const command = setup.context.commandStack.last();
+      expect(setup.context.commandStack().commandCount).toEqual(1);
+      const command = setup.context.commandStack().last();
       expect(command).toEqual(jasmine.any(PlannerCommandSplitLeg));
     });
 
@@ -634,7 +639,7 @@ describe('PlannerEngine', () => {
       // assert - drag end
       expect(eventIsFurtherPropagated3).toBeFalsy();
 
-      const newPlan = setup.context.plan;
+      const newPlan = setup.context.plan();
       expect(newPlan.legs.size).toEqual(1);
 
       setup.markerLayer.expectFlagCount(2);
@@ -643,7 +648,7 @@ describe('PlannerEngine', () => {
 
       setup.elasticBand.expectVisible(false);
 
-      expect(setup.context.commandStack.commandCount).toEqual(0);
+      expect(setup.context.commandStack().commandCount).toEqual(0);
     });
   });
 });

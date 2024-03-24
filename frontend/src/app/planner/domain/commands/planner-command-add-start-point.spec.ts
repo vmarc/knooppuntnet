@@ -6,6 +6,7 @@ import { PlannerCommandAddStartPoint } from './planner-command-add-start-point';
 describe('PlannerCommandAddStartPoint', () => {
   it('add start point - do and undo', () => {
     const setup = new PlannerTestSetup();
+    const plan = setup.context.plan;
 
     const startFlag = PlanFlag.start('startFlag', setup.node1.coordinate);
 
@@ -15,23 +16,23 @@ describe('PlannerCommandAddStartPoint', () => {
     setup.markerLayer.expectFlagCount(1);
     setup.markerLayer.expectStartFlagExists('startFlag', [1, 1]);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
-    expectStartFlag(setup.context.plan.sourceFlag, 'startFlag', [1, 1]);
-    expect(setup.context.plan.legs.size).toEqual(0);
+    expect(plan().sourceNode.nodeId).toEqual('1001');
+    expectStartFlag(plan().sourceFlag, 'startFlag', [1, 1]);
+    expect(plan().legs.size).toEqual(0);
 
     command.undo(setup.context);
 
     setup.markerLayer.expectFlagCount(0);
-    expect(setup.context.plan.sourceNode).toEqual(null);
-    expect(setup.context.plan.legs.size).toEqual(0);
+    expect(plan().sourceNode).toEqual(null);
+    expect(plan().legs.size).toEqual(0);
 
     command.do(setup.context);
 
     setup.markerLayer.expectFlagCount(1);
     setup.markerLayer.expectStartFlagExists('startFlag', [1, 1]);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
-    expectStartFlag(setup.context.plan.sourceFlag, 'startFlag', [1, 1]);
-    expect(setup.context.plan.legs.size).toEqual(0);
+    expect(plan().sourceNode.nodeId).toEqual('1001');
+    expectStartFlag(plan().sourceFlag, 'startFlag', [1, 1]);
+    expect(plan().legs.size).toEqual(0);
   });
 });

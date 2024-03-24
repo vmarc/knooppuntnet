@@ -25,14 +25,14 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     context.markerLayer.addFlag(this.newLeg2.sinkFlag);
     context.routeLayer.addPlanLeg(this.newLeg2);
 
-    const newLegs = context.plan.legs.flatMap((leg) => {
+    const newLegs = context.plan().legs.flatMap((leg) => {
       if (leg.featureId === this.oldLeg.featureId) {
         return List([this.newLeg1, this.newLeg2]);
       }
       return List([leg]);
     });
 
-    const newPlan = context.plan.withLegs(newLegs);
+    const newPlan = context.plan().withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 
@@ -51,7 +51,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
     context.markerLayer.addFlag(this.oldLeg.sinkFlag);
     context.routeLayer.addPlanLeg(this.oldLeg);
 
-    const newLegs: List<PlanLeg> = context.plan.legs.flatMap((leg) => {
+    const newLegs: List<PlanLeg> = context.plan().legs.flatMap((leg) => {
       if (leg.featureId === this.newLeg1.featureId) {
         return List([this.oldLeg]);
       }
@@ -61,7 +61,7 @@ export class PlannerCommandSplitLeg implements PlannerCommand {
       return List([leg]);
     });
 
-    const newPlan = context.plan.withLegs(newLegs);
+    const newPlan = context.plan().withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 }

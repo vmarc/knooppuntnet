@@ -18,7 +18,7 @@ export class DropViaNodeOnRoute {
   constructor(private readonly context: PlannerContext) {}
 
   drop(dragFlag: PlannerDragFlag, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
-    const legs = this.context.plan.legs;
+    const legs = this.context.plan().legs;
     const legIndex2 = legs.findIndex(
       (leg) => leg.sourceNode.featureId === dragFlag.oldNode.featureId
     );

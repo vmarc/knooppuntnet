@@ -34,10 +34,10 @@ describe('PlannerCommandMoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('14', newLeg1);
     setup.routeLayer.expectRouteLegExists('43', newLeg2);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
-    expect(setup.context.plan.legs.size).toEqual(2);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual('14');
-    expect(setup.context.plan.legs.get(1).featureId).toEqual('43');
+    expect(setup.context.plan().sourceNode.nodeId).toEqual('1001');
+    expect(setup.context.plan().legs.size).toEqual(2);
+    expect(setup.context.plan().legs.get(0).featureId).toEqual('14');
+    expect(setup.context.plan().legs.get(1).featureId).toEqual('43');
 
     command.undo(setup.context);
 
@@ -49,10 +49,10 @@ describe('PlannerCommandMoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('12', oldLeg1);
     setup.routeLayer.expectRouteLegExists('23', oldLeg2);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
-    expect(setup.context.plan.legs.size).toEqual(2);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual('12');
-    expect(setup.context.plan.legs.get(1).featureId).toEqual('23');
+    expect(setup.context.plan().sourceNode.nodeId).toEqual('1001');
+    expect(setup.context.plan().legs.size).toEqual(2);
+    expect(setup.context.plan().legs.get(0).featureId).toEqual('12');
+    expect(setup.context.plan().legs.get(1).featureId).toEqual('23');
 
     command.do(setup.context);
 
@@ -64,9 +64,9 @@ describe('PlannerCommandMoveViaPoint', () => {
     setup.routeLayer.expectRouteLegExists('14', newLeg1);
     setup.routeLayer.expectRouteLegExists('43', newLeg2);
 
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
-    expect(setup.context.plan.legs.size).toEqual(2);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual('14');
-    expect(setup.context.plan.legs.get(1).featureId).toEqual('43');
+    expect(setup.context.plan().sourceNode.nodeId).toEqual('1001');
+    expect(setup.context.plan().legs.size).toEqual(2);
+    expect(setup.context.plan().legs.get(0).featureId).toEqual('14');
+    expect(setup.context.plan().legs.get(1).featureId).toEqual('43');
   });
 });

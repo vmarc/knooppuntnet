@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
@@ -136,7 +135,6 @@ import { PlannerService } from '../../../planner.service';
   providers: [PdfService],
   standalone: true,
   imports: [
-    AsyncPipe,
     ClipboardModule,
     DialogComponent,
     MatButtonModule,
@@ -161,6 +159,7 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   protected qrCode: string | ArrayBuffer = '';
 
   readonly instructions = this.preferencesService.instructions;
+  private readonly plan = this.plannerService.context.plan;
 
   ngOnInit(): void {
     this.name = this.defaultName();
@@ -179,29 +178,24 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   }
 
   printDocument(): void {
-    this.pdfService.printDocument(
-      this.plannerService.context.plan,
-      this.planUrl,
-      this.routeName(),
-      this.qrCode
-    );
+    this.pdfService.printDocument(this.plan(), this.planUrl, this.routeName(), this.qrCode);
   }
 
   printStripDocument(): void {
-    this.pdfService.printStripDocument(this.plannerService.context.plan, this.routeName());
+    this.pdfService.printStripDocument(this.plan(), this.routeName());
   }
 
   printTextDocument(): void {
-    this.pdfService.printTextDocument(this.plannerService.context.plan, this.routeName());
+    this.pdfService.printTextDocument(this.plan(), this.routeName());
   }
 
   printInstructions(): void {
-    const instructions = new DirectionsAnalyzer().analyze(this.plannerService.context.plan);
+    const instructions = new DirectionsAnalyzer().analyze(this.plan());
     this.pdfService.printInstructions(instructions, this.routeName());
   }
 
   gpx(): void {
-    this.pdfService.writeGpx(this.plannerService.context.plan, this.routeName());
+    this.pdfService.writeGpx(this.plan(), this.routeName());
   }
 
   nameChanged(event): void {
@@ -216,8 +210,8 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   }
 
   private defaultName(): string {
-    const source = this.plannerService.context.plan.sourceNode.nodeName;
-    const sink = PlanUtil.planSinkNode(this.plannerService.context.plan).nodeName;
+    const source = this.plan().sourceNode.nodeName;
+    const sink = PlanUtil.planSinkNode(this.plan()).nodeName;
     return Util.today() + ' route ' + source + ' ' + sink;
   }
 
@@ -227,6 +221,6 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
     if (fragmentIndex > 0) {
       root = root.substring(0, fragmentIndex);
     }
-    return root + '?plan=' + PlanUtil.toUrlString(this.plannerService.context.plan);
+    return root + '?plan=' + PlanUtil.toUrlString(this.plan());
   }
 }

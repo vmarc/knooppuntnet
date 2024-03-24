@@ -1,34 +1,26 @@
-import { AsyncPipe } from '@angular/common';
+import { signal } from '@angular/core';
+import { effect } from '@angular/core';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MapNodeDetail } from '@api/common/node';
 import { ApiResponse } from '@api/custom';
-import { OlUtil } from '@app/ol';
-import { MapZoomService } from '@app/ol/services';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { TimestampComponent } from '@app/components/shared/timestamp';
+import { OlUtil } from '@app/ol';
+import { MapZoomService } from '@app/ol/services';
 import { ApiService } from '@app/services';
-import { Subscriptions } from '@app/util';
-import { Store } from '@ngrx/store';
 import { Coordinate } from 'ol/coordinate';
-import { combineLatestWith } from 'rxjs';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { tap } from 'rxjs/operators';
-import { filter } from 'rxjs/operators';
+import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 import { PlannerService } from '../../../planner.service';
 import { MapService } from '../../../services/map.service';
-import { selectPlannerNetworkType } from '../../../store/planner-selectors';
 
 @Component({
   selector: 'kpn-planner-popup-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (response$ | async; as response) {
+    @if (response(); as response) {
       @if (response.result) {
         <h2>
           <ng-container i18n="@@map.node-popup.title">Node</ng-container>
@@ -92,54 +84,41 @@ import { selectPlannerNetworkType } from '../../../store/planner-selectors';
     }
   `,
   standalone: true,
-  imports: [AsyncPipe, LinkRouteComponent, RouterLink, TimestampComponent],
+  imports: [LinkRouteComponent, RouterLink, TimestampComponent],
 })
-export class PlannerPopupNodeComponent implements OnInit, OnDestroy {
+export class PlannerPopupNodeComponent {
+  private readonly service = inject(PlannerPopupService);
   private readonly apiService = inject(ApiService);
   private readonly mapService = inject(MapService);
   private readonly mapZoomService = inject(MapZoomService);
   private readonly plannerService = inject(PlannerService);
-  private readonly store = inject(Store);
 
-  protected response$: Observable<ApiResponse<MapNodeDetail>>;
-  private zoomLevel = 0;
-  private readonly subscriptions = new Subscriptions();
+  protected response = signal<ApiResponse<MapNodeDetail>>(null);
 
-  ngOnInit(): void {
-    this.response$ = this.mapService.nodeClicked$.pipe(
-      filter((nodeClick) => nodeClick !== null),
-      combineLatestWith(this.store.select(selectPlannerNetworkType)),
-      switchMap(([nodeClick, networkType]) => {
+  constructor() {
+    effect(() => {
+      const nodeClick = this.service.nodeClick();
+      if (nodeClick !== null) {
+        const networkType = this.mapService.networkType();
         const nodeId = +nodeClick.node.node.nodeId;
-        return this.apiService.mapNodeDetail(networkType, nodeId).pipe(
-          tap((response) => {
-            if (response.result) {
-              const coordinate = OlUtil.toCoordinate(
-                response.result.latitude,
-                response.result.longitude
-              );
-              this.openPopup(coordinate);
-            }
-          })
-        );
-      })
-    );
-
-    this.subscriptions.add(
-      this.mapZoomService.zoomLevel$.subscribe((z) => {
-        this.zoomLevel = z;
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
+        return this.apiService.mapNodeDetail(networkType, nodeId).subscribe((response) => {
+          this.response.set(response);
+          if (response.result) {
+            const coordinate = OlUtil.toCoordinate(
+              response.result.latitude,
+              response.result.longitude
+            );
+            this.openPopup(coordinate);
+          }
+        });
+      }
+    });
   }
 
   private openPopup(coordinate: Coordinate): void {
-    const verticalOffset = this.zoomLevel <= 13 ? -13 : -24;
+    const verticalOffset = this.mapZoomService.zoomLevel() <= 13 ? -13 : -24;
     setTimeout(
-      () => this.plannerService.context.overlay.setPosition(coordinate, verticalOffset),
+      () => this.plannerService.context.plannerPopup.setPosition(coordinate, verticalOffset),
       0
     );
   }

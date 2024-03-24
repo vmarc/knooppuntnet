@@ -1,7 +1,10 @@
+import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
 import { NetworkType } from '@api/custom';
+import { Util } from '@app/components/shared';
+import { SurveyDateValues } from '@app/core';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { BackgroundLayer } from '@app/ol/layers';
@@ -15,13 +18,9 @@ import { OpenlayersMapService } from '@app/ol/services';
 import { MapClickService } from '@app/ol/services';
 import { MainMapStyleParameters } from '@app/ol/style';
 import { MainMapStyle } from '@app/ol/style';
-import { Util } from '@app/components/shared';
-import { SurveyDateValues } from '@app/core';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import View from 'ol/View';
-import { Observable } from 'rxjs';
-import { of } from 'rxjs';
 
 @Injectable()
 export class LocationMapService extends OpenlayersMapService {
@@ -64,10 +63,10 @@ export class LocationMapService extends OpenlayersMapService {
     surveyDateValues: SurveyDateValues,
     geoJson: string
   ): void {
-    const parameters$: Observable<MainMapStyleParameters> = of(
+    const parameters = signal<MainMapStyleParameters>(
       new MainMapStyleParameters('analysis', true, surveyDateValues, null, null, null)
     );
-    const mainMapStyle = new MainMapStyle(parameters$);
+    const mainMapStyle = new MainMapStyle(parameters);
     const networkLayers = [
       NetworkVectorTileLayer.build(networkType, mainMapStyle.styleFunction()),
       NetworkBitmapTileLayer.build(networkType, 'analysis'),

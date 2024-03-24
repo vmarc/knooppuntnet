@@ -15,7 +15,7 @@ export class DropLegOnNode {
   constructor(private readonly context: PlannerContext) {}
 
   drop(legDrag: PlannerDragLeg, connection: PlanNode): void {
-    const oldLeg = this.context.plan.legs.find((leg) => leg.featureId === legDrag.oldLegId);
+    const oldLeg = this.context.plan().legs.find((leg) => leg.featureId === legDrag.oldLegId);
     if (oldLeg) {
       this.buildLeg1(oldLeg.sourceNode, connection)
         .pipe(
@@ -45,7 +45,7 @@ export class DropLegOnNode {
   private buildLeg2(sourceNode: PlanNode, sinkNode: PlanNode): Observable<PlanLeg> {
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
-    const isLastLeg = sinkNode.featureId === this.context.plan.sinkNode().featureId;
+    const isLastLeg = sinkNode.featureId === this.context.plan().sinkNode().featureId;
     const sinkFlagType = isLastLeg ? PlanFlagType.end : PlanFlagType.via;
     const sinkFlag = new PlanFlag(sinkFlagType, FeatureId.next(), sinkNode.coordinate);
 

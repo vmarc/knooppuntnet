@@ -17,7 +17,7 @@ export class DropEndNodeOnRoute {
   constructor(private readonly context: PlannerContext) {}
 
   drop(dragFlag: PlannerDragFlag, routeFeatures: List<RouteFeature>, coordinate: Coordinate): void {
-    const oldLeg = this.context.plan.legs.last(null);
+    const oldLeg = this.context.plan().legs.last(null);
     if (oldLeg) {
       this.buildNewLeg(oldLeg.sourceNode, routeFeatures, coordinate).subscribe({
         next: (newLeg) => {

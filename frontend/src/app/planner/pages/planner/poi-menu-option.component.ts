@@ -1,16 +1,12 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-import { Signal } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Store } from '@ngrx/store';
-import { actionPlannerPoiGroupVisible } from '../../store/planner-actions';
-import { selectPlannerPoisVisible } from '../../store/planner-selectors';
-import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
+import { PoiService } from '@app/services';
+import { PlannerStateService } from '../../planner-state.service';
 
 @Component({
   selector: 'kpn-poi-menu-option',
@@ -34,22 +30,18 @@ import { selectPlannerPoiGroupVisible } from '../../store/planner-selectors';
     }
   `,
   standalone: true,
-  imports: [MatCheckboxModule, AsyncPipe],
+  imports: [MatCheckboxModule],
 })
-export class PoiMenuOptionComponent implements OnInit {
+export class PoiMenuOptionComponent {
   groupName = input.required<string>();
 
-  private readonly store = inject(Store);
-  protected readonly enabled = this.store.selectSignal(selectPlannerPoisVisible);
-  protected visible: Signal<boolean>;
-
-  ngOnInit(): void {
-    this.visible = this.store.selectSignal(selectPlannerPoiGroupVisible(this.groupName()));
-  }
+  private readonly plannerStateService = inject(PlannerStateService);
+  private readonly poiService = inject(PoiService);
+  protected readonly enabled = this.plannerStateService.poisVisible;
+  protected visible = computed(() => this.plannerStateService.poiGroupVisible(this.groupName()));
 
   enabledChanged(event: MatCheckboxChange): void {
-    const groupName = this.groupName();
-    const visible = event.checked;
-    this.store.dispatch(actionPlannerPoiGroupVisible({ groupName, visible }));
+    this.plannerStateService.setPoiGroupVisible(this.groupName(), event.checked);
+    this.poiService.updateGroupEnabled(this.groupName(), event.checked);
   }
 }

@@ -11,9 +11,9 @@ export class RemoveViaLegRouteViaPoint {
   constructor(private readonly context: PlannerContext) {}
 
   remove(oldLeg1: PlanLeg): void {
-    const oldLeg2 = this.context.plan.legs.find(
-      (leg) => leg.sourceNode.nodeId === oldLeg1.sinkNode.nodeId
-    );
+    const oldLeg2 = this.context
+      .plan()
+      .legs.find((leg) => leg.sourceNode.nodeId === oldLeg1.sinkNode.nodeId);
 
     if (oldLeg2 != null) {
       this.buildNewLeg(oldLeg1.sourceNode, oldLeg2.sinkNode, oldLeg2.sinkFlag).subscribe({

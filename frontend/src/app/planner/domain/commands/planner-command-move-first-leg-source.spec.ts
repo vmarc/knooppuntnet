@@ -9,6 +9,7 @@ import { PlannerCommandMoveFirstLegSource } from './planner-command-move-first-l
 describe('PlannerCommandMoveFirstLegSource', () => {
   it('move start point - do and undo', () => {
     const setup = new PlannerTestSetup();
+    const plan = setup.context.plan;
 
     const oldSinkFlag = PlanFlag.end('oldSinkFlag', [2, 2]);
     const newSinkFlag = PlanFlag.end('newSinkFlag', [2, 2]);
@@ -19,8 +20,8 @@ describe('PlannerCommandMoveFirstLegSource', () => {
     const oldSourceFlag = PlanFlag.start('oldStartFlag', [1, 1]);
     const newSourceFlag = PlanFlag.start('newStartFlag', [3, 3]);
 
-    const plan = new Plan(setup.node1, oldSourceFlag, List([oldLeg]));
-    setup.context.updatePlan(plan);
+    const newPlan = new Plan(setup.node1, oldSourceFlag, List([oldLeg]));
+    setup.context.updatePlan(newPlan);
 
     const command = new PlannerCommandMoveFirstLegSource(
       oldLeg,
@@ -33,10 +34,10 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     setup.context.execute(command);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual('32');
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1003');
-    expectStartFlag(setup.context.plan.sourceFlag, 'newStartFlag', [3, 3]);
+    expect(plan().legs.size).toEqual(1);
+    expect(plan().legs.get(0).featureId).toEqual('32');
+    expect(plan().sourceNode.nodeId).toEqual('1003');
+    expectStartFlag(plan().sourceFlag, 'newStartFlag', [3, 3]);
 
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists('newStartFlag', [3, 3]);
@@ -46,10 +47,10 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     command.undo(setup.context);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual('12');
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
-    expectStartFlag(setup.context.plan.sourceFlag, 'oldStartFlag', [1, 1]);
+    expect(plan().legs.size).toEqual(1);
+    expect(plan().legs.get(0).featureId).toEqual('12');
+    expect(plan().sourceNode.nodeId).toEqual('1001');
+    expectStartFlag(plan().sourceFlag, 'oldStartFlag', [1, 1]);
 
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists('oldStartFlag', [1, 1]);
@@ -59,10 +60,10 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     command.do(setup.context);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual('32');
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1003');
-    expectStartFlag(setup.context.plan.sourceFlag, 'newStartFlag', [3, 3]);
+    expect(plan().legs.size).toEqual(1);
+    expect(plan().legs.get(0).featureId).toEqual('32');
+    expect(plan().sourceNode.nodeId).toEqual('1003');
+    expectStartFlag(plan().sourceFlag, 'newStartFlag', [3, 3]);
 
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists('newStartFlag', [3, 3]);
@@ -73,6 +74,7 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
   it('move start point (first leg is via-route) - do and undo', () => {
     const setup = new PlannerTestSetup();
+    const plan = setup.context.plan;
 
     const oldViaFlag = PlanFlag.via('oldViaFlag', [2.5, 2.5]);
     const oldSinkFlag = PlanFlag.end('oldSinkFlag', [2, 2]);
@@ -90,8 +92,8 @@ describe('PlannerCommandMoveFirstLegSource', () => {
     const oldSourceFlag = PlanFlag.start('oldStartFlag', [1, 1]);
     const newSourceFlag = PlanFlag.start('newStartFlag', [3, 3]);
 
-    const plan = new Plan(setup.node1, oldSourceFlag, List([oldLeg]));
-    setup.context.updatePlan(plan);
+    const newPlan = new Plan(setup.node1, oldSourceFlag, List([oldLeg]));
+    setup.context.updatePlan(newPlan);
 
     const command = new PlannerCommandMoveFirstLegSource(
       oldLeg,
@@ -104,10 +106,10 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     setup.context.execute(command);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual('32');
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1003');
-    expectStartFlag(setup.context.plan.sourceFlag, 'newStartFlag', [3, 3]);
+    expect(plan().legs.size).toEqual(1);
+    expect(plan().legs.get(0).featureId).toEqual('32');
+    expect(plan().sourceNode.nodeId).toEqual('1003');
+    expectStartFlag(plan().sourceFlag, 'newStartFlag', [3, 3]);
 
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists('newStartFlag', [3, 3]);
@@ -117,10 +119,10 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     command.undo(setup.context);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual('12');
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1001');
-    expectStartFlag(setup.context.plan.sourceFlag, 'oldStartFlag', [1, 1]);
+    expect(plan().legs.size).toEqual(1);
+    expect(plan().legs.get(0).featureId).toEqual('12');
+    expect(plan().sourceNode.nodeId).toEqual('1001');
+    expectStartFlag(plan().sourceFlag, 'oldStartFlag', [1, 1]);
 
     setup.markerLayer.expectFlagCount(3);
     setup.markerLayer.expectStartFlagExists('oldStartFlag', [1, 1]);
@@ -131,10 +133,10 @@ describe('PlannerCommandMoveFirstLegSource', () => {
 
     command.do(setup.context);
 
-    expect(setup.context.plan.legs.size).toEqual(1);
-    expect(setup.context.plan.legs.get(0).featureId).toEqual('32');
-    expect(setup.context.plan.sourceNode.nodeId).toEqual('1003');
-    expectStartFlag(setup.context.plan.sourceFlag, 'newStartFlag', [3, 3]);
+    expect(plan().legs.size).toEqual(1);
+    expect(plan().legs.get(0).featureId).toEqual('32');
+    expect(plan().sourceNode.nodeId).toEqual('1003');
+    expectStartFlag(plan().sourceFlag, 'newStartFlag', [3, 3]);
 
     setup.markerLayer.expectFlagCount(2);
     setup.markerLayer.expectStartFlagExists('newStartFlag', [3, 3]);

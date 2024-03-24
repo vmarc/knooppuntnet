@@ -18,7 +18,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
   selector: 'kpn-plan-actions',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (plan$ | async; as plan) {
+    @if (plan(); as plan) {
       <div class="buttons">
         @if (showUndoButton()) {
           <kpn-plan-action-button
@@ -92,7 +92,7 @@ export class PlanActionsComponent {
   private readonly dialog = inject(MatDialog);
   private readonly injector = inject(Injector);
 
-  protected readonly plan$ = this.plannerService.context.plan$;
+  protected readonly plan = this.plannerService.context.plan;
   protected readonly showUndoButton = computed(() => !this.pageWidthService.isVeryVerySmall());
   protected readonly showRedoButton = this.showUndoButton;
   protected readonly showResetButton = computed(
@@ -114,7 +114,7 @@ export class PlanActionsComponent {
   }
 
   reverse(): void {
-    const oldPlan = this.plannerService.context.plan;
+    const oldPlan = this.plannerService.context.plan();
     new PlanReverser(this.plannerService.context).reverse(oldPlan).subscribe({
       next: (newPlan) => {
         const command = new PlannerCommandReverse(oldPlan, newPlan);
@@ -138,11 +138,11 @@ export class PlanActionsComponent {
   }
 
   undoEnabled(): boolean {
-    return this.plannerService.context.commandStack.canUndo;
+    return this.plannerService.context.commandStack().canUndo;
   }
 
   redoEnabled(): boolean {
-    return this.plannerService.context.commandStack.canRedo;
+    return this.plannerService.context.commandStack().canRedo;
   }
 
   hasStartNode(plan: Plan): boolean {

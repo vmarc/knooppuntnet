@@ -8,7 +8,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
   public do(context: PlannerContext) {
     context.debug('PlannerCommandAddLeg');
 
-    let newLegs = context.plan.legs;
+    let newLegs = context.plan().legs;
     const lastLeg = newLegs.last(null);
     if (lastLeg !== null) {
       const updatedLastLegSinkFlag =
@@ -24,7 +24,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     context.markerLayer.addFlag(this.leg.sinkFlag);
     context.routeLayer.addPlanLeg(this.leg);
 
-    const newPlan = context.plan.withLegs(newLegs);
+    const newPlan = context.plan().withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 
@@ -35,7 +35,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
     context.markerLayer.removeFlag(this.leg.viaFlag);
     context.markerLayer.removeFlag(this.leg.sinkFlag);
 
-    let newLegs = context.plan.legs.slice(0, -1);
+    let newLegs = context.plan().legs.slice(0, -1);
 
     const lastLeg = newLegs.last(null);
     if (lastLeg !== null) {
@@ -44,7 +44,7 @@ export class PlannerCommandAddLeg implements PlannerCommand {
       context.markerLayer.updateFlag(updatedLastLeg.sinkFlag);
     }
 
-    const newPlan = context.plan.withLegs(newLegs);
+    const newPlan = context.plan().withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 }

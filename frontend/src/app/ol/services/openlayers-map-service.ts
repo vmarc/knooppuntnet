@@ -30,7 +30,7 @@ export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>('MAP_S
 
 @Injectable()
 export abstract class OpenlayersMapService {
-  public mapId: string = UniqueId.get();
+  readonly mapId: string = UniqueId.get();
   private _map: Map;
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
@@ -39,8 +39,6 @@ export abstract class OpenlayersMapService {
   protected mapLayers: MapLayer[] = [];
   public layerStates$ = this._layerStates$.asObservable();
 
-  // TODO private readonly _mapPosition = signal<MapPosition | null>(null);
-  // TODO readonly mapPosition = this._mapPosition.asReadonly();
   private _mapPosition$ = new BehaviorSubject<MapPosition | null>(null);
   public mapPosition$ = this._mapPosition$.pipe(distinct(), debounceTime(50));
 

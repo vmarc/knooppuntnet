@@ -75,7 +75,7 @@ export class PlannerPopupComponent implements AfterViewInit {
   protected offset = false;
 
   closePopup() {
-    this.plannerService.context.overlay.setPosition(undefined, 0);
+    this.plannerService.context.plannerPopup.reset();
     return false;
   }
 

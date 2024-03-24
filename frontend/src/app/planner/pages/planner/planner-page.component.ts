@@ -1,35 +1,18 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { PlanParams } from '@api/common/planner';
-import { LegHttpErrorDialogComponent } from '@app/ol/components';
-import { LegNotFoundDialogComponent } from '@app/ol/components';
-import { NoRouteDialogComponent } from '@app/ol/components';
+import { PageComponent } from '@app/components/shared/page';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { RouteControlComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
-import { PageService } from '@app/components/shared';
-import { Util } from '@app/components/shared';
-import { PageComponent } from '@app/components/shared/page';
-import { selectFragment } from '@app/core';
-import { selectQueryParam } from '@app/core';
-import { ApiService } from '@app/services';
-import { Subscriptions } from '@app/util';
-import { Store } from '@ngrx/store';
-import { Coordinate } from 'ol/coordinate';
-import { combineLatest } from 'rxjs';
-import { PlannerCommandAddPlan } from '../../domain/commands/planner-command-add-plan';
-import { PlanBuilder } from '../../domain/plan/plan-builder';
-import { PlanUtil } from '../../domain/plan/plan-util';
+import { RouterService } from '../../../shared/services/router.service';
+import { PlannerPopupService } from '../../domain/context/planner-popup-service';
+import { PlannerStateService } from '../../planner-state.service';
 import { PlannerService } from '../../planner.service';
-import { MapService } from '../../services/map.service';
-import { actionPlannerMapViewInit } from '../../store/planner-actions';
-import { actionPlannerInit } from '../../store/planner-actions';
-import { selectPlannerNetworkType } from '../../store/planner-selectors';
+import { PlannerMapLayerService } from '../planner-map-layer.service';
 import { GeolocationControlComponent } from './geolocation/geolocation-control.component';
 import { PlannerMapService } from './planner-map.service';
+import { PlannerPageService } from './planner-page.service';
 import { PoiMenuComponent } from './poi-menu.component';
 import { PlannerPopupComponent } from './popup/planner-popup.component';
 import { PlannerSidebarComponent } from './sidebar/planner-sidebar.component';
@@ -40,10 +23,10 @@ import { PlannerToolbarComponent } from './sidebar/planner-toolbar.component';
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <kpn-planner-popup></kpn-planner-popup>
-      <div [id]="service.mapId" class="map" (mouseleave)="mouseleave()">
-        <kpn-route-control (action)="zoomInToRoute()" />
-        <kpn-geolocation-control (action)="geolocation($event)" />
+      <kpn-planner-popup />
+      <div [id]="service.mapId" class="map" (mouseleave)="service.mouseleave()">
+        <kpn-route-control (action)="service.zoomInToRoute()" />
+        <kpn-geolocation-control (action)="service.geolocation($event)" />
         <kpn-layer-switcher>
           <kpn-poi-menu />
         </kpn-layer-switcher>
@@ -69,6 +52,13 @@ import { PlannerToolbarComponent } from './sidebar/planner-toolbar.component';
     }
   `,
   providers: [
+    PlannerPageService,
+    PlannerStateService,
+    RouterService,
+    PlannerMapService,
+    PlannerService,
+    PlannerMapLayerService,
+    PlannerPopupService,
     {
       provide: MAP_SERVICE_TOKEN,
       useExisting: PlannerMapService,
@@ -88,108 +78,17 @@ import { PlannerToolbarComponent } from './sidebar/planner-toolbar.component';
   ],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
-  protected readonly service = inject(PlannerMapService);
-  private readonly pageService = inject(PageService);
-  private readonly mapService = inject(MapService);
-  private readonly plannerService = inject(PlannerService);
-  private readonly dialog = inject(MatDialog);
-  private readonly apiService = inject(ApiService);
-  private readonly store = inject(Store);
-
-  private readonly subscriptions = new Subscriptions();
-  private planLoaded = false;
-
-  constructor() {
-    this.store.dispatch(actionPlannerInit());
-    this.plannerService.context.error$.subscribe((error) => {
-      if (error instanceof HttpErrorResponse) {
-        this.dialog.open(LegHttpErrorDialogComponent, {
-          autoFocus: false,
-          maxWidth: 600,
-        });
-      } else if ('leg-not-found' === error.message) {
-        this.dialog.open(LegNotFoundDialogComponent, {
-          autoFocus: false,
-          maxWidth: 600,
-        });
-      }
-    });
-  }
+  protected readonly service = inject(PlannerPageService);
 
   ngOnInit(): void {
-    this.subscriptions.add(
-      this.store.select(selectPlannerNetworkType).subscribe((networkType) => {
-        this.pageService.nextToolbarBackgroundColor('toolbar-style-' + networkType);
-      })
-    );
-    this.subscriptions.add(
-      combineLatest([
-        this.store.select(selectPlannerNetworkType),
-        this.store.select(selectQueryParam('plan')),
-        this.store.select(selectFragment),
-      ]).subscribe(([networkType, planQueryParam, fragment]) => {
-        let planString: string = null;
-        if (fragment) {
-          // support old QR-codes
-          planString = fragment;
-        } else {
-          planString = planQueryParam;
-        }
-        if (planString) {
-          const planParams: PlanParams = {
-            networkType,
-            planString,
-          };
-          this.apiService.plan(planParams).subscribe((response) => {
-            const plan = PlanBuilder.build(response.result, planString);
-            const command = new PlannerCommandAddPlan(plan);
-            this.plannerService.context.execute(command);
-            this.planLoaded = true;
-            if (this.service.map) {
-              this.zoomInToRoute();
-            }
-          });
-        }
-      })
-    );
-  }
-
-  mouseleave() {
-    this.plannerService.engine.handleMouseLeave();
-  }
-
-  ngAfterViewInit(): void {
-    this.store.dispatch(actionPlannerMapViewInit());
+    this.service.onInit();
   }
 
   ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-    this.pageService.nextToolbarBackgroundColor(null);
-    this.plannerService.context.destroy();
-    this.service.destroy();
+    this.service.onDestroy();
   }
 
-  zoomInToRoute(): void {
-    if (this.plannerService.context.plan.legs.isEmpty()) {
-      this.dialog.open(NoRouteDialogComponent, {
-        autoFocus: false,
-        maxWidth: 600,
-      });
-    } else {
-      const bounds = PlanUtil.planBounds(this.plannerService.context.plan);
-      if (bounds !== null) {
-        const extent = Util.toExtent(bounds, 0.1);
-        this.service.map.getView().fit(extent);
-      }
-    }
-  }
-
-  geolocation(coordinate: Coordinate): void {
-    this.service.map.getView().setCenter(coordinate);
-    let zoomLevel = 15;
-    if ('cycling' === this.mapService.networkType()) {
-      zoomLevel = 13;
-    }
-    this.service.map.getView().setZoom(zoomLevel);
+  ngAfterViewInit(): void {
+    this.service.afterViewInit();
   }
 }

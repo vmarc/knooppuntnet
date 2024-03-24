@@ -42,7 +42,7 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
     context.routeLayer.addPlanLeg(toLeg1);
     context.routeLayer.addPlanLeg(toLeg2);
 
-    const newLegs: List<PlanLeg> = context.plan.legs.map((leg) => {
+    const newLegs: List<PlanLeg> = context.plan().legs.map((leg) => {
       if (leg.featureId === fromLeg1.featureId) {
         return toLeg1;
       }
@@ -51,7 +51,7 @@ export class PlannerCommandMoveViaPointToViaRoute implements PlannerCommand {
       }
       return leg;
     });
-    const newPlan = context.plan.withLegs(newLegs);
+    const newPlan = context.plan().withLegs(newLegs);
     context.updatePlan(newPlan);
   }
 }

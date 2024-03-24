@@ -1,11 +1,8 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { PlannerStateService } from '../../../planner-state.service';
 import { PlannerService } from '../../../planner.service';
-import { selectPlannerResultModeInstructions } from '../../../store/planner-selectors';
-import { selectPlannerResultModeDetailed } from '../../../store/planner-selectors';
-import { selectPlannerResultModeCompact } from '../../../store/planner-selectors';
 import { PlanCompactComponent } from './plan-compact.component';
 import { PlanDetailedComponent } from './plan-detailed.component';
 import { PlanDistanceComponent } from './plan-distance.component';
@@ -15,7 +12,7 @@ import { PlanInstructionsComponent } from './plan-instructions.component';
   selector: 'kpn-plan-result',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (plan$ | async; as plan) {
+    @if (plan(); as plan) {
       <kpn-plan-distance [plan]="plan" />
       @if (compact()) {
         <kpn-plan-compact [plan]="plan" />
@@ -30,7 +27,6 @@ import { PlanInstructionsComponent } from './plan-instructions.component';
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     PlanCompactComponent,
     PlanDetailedComponent,
     PlanDistanceComponent,
@@ -39,10 +35,10 @@ import { PlanInstructionsComponent } from './plan-instructions.component';
 })
 export class PlanResultComponent {
   private readonly plannerService = inject(PlannerService);
-  private readonly store = inject(Store);
+  private readonly plannerStateService = inject(PlannerStateService);
 
-  protected readonly compact = this.store.selectSignal(selectPlannerResultModeCompact);
-  protected readonly detailed = this.store.selectSignal(selectPlannerResultModeDetailed);
-  protected readonly instructions = this.store.selectSignal(selectPlannerResultModeInstructions);
-  protected readonly plan$ = this.plannerService.context.plan$;
+  protected readonly compact = this.plannerStateService.resultModeCompact;
+  protected readonly detailed = this.plannerStateService.resultModeDetailed;
+  protected readonly instructions = this.plannerStateService.resultModeInstructions;
+  protected readonly plan = this.plannerService.context.plan;
 }

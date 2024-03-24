@@ -15,7 +15,7 @@ export class MoveNodeViaPointToNode {
   constructor(private readonly context: PlannerContext) {}
 
   move(dragFlag: PlannerDragFlag, viaNode: PlanNode, legIndex1: number): void {
-    const legs = this.context.plan.legs;
+    const legs = this.context.plan().legs;
 
     const oldLeg1 = legs.get(legIndex1);
     const oldLeg2 = legs.get(legIndex1 + 1);

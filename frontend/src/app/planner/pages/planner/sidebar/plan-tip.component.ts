@@ -1,15 +1,10 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Translations } from '@app/i18n';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapZoomService } from '@app/ol/services';
-import { Observable } from 'rxjs';
-import { combineLatest } from 'rxjs';
-import { delay } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
 import { Plan } from '../../../domain/plan/plan';
 import { PlanPhase } from '../../../domain/plan/plan-phase';
 import { PlannerService } from '../../../planner.service';
@@ -18,7 +13,7 @@ import { PlannerService } from '../../../planner.service';
   selector: 'kpn-plan-tip',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (planPhase$ | async; as planPhase) {
+    @if (planPhase(); as planPhase) {
       <div class="tip">
         @if (planPhaseEnum.zoomInClickStartNode === planPhase) {
           <p i18n="@@planner-tip.zoom-in-click-start-node">
@@ -76,24 +71,17 @@ import { PlannerService } from '../../../planner.service';
     }
   `,
   standalone: true,
-  imports: [AsyncPipe],
 })
-export class PlanTipComponent implements OnInit {
+export class PlanTipComponent {
   private readonly plannerService = inject(PlannerService);
   private readonly mapZoomService = inject(MapZoomService);
 
-  protected planPhase$: Observable<PlanPhase>;
+  protected planPhase = computed(() => {
+    const zoomLevel = this.mapZoomService.zoomLevel();
+    const plan = this.plannerService.context.plan();
+    return this.determinePlanPhase(zoomLevel, plan);
+  });
   protected planPhaseEnum = PlanPhase;
-
-  ngOnInit(): void {
-    this.planPhase$ = combineLatest([
-      this.mapZoomService.zoomLevel$,
-      this.plannerService.context.plan$,
-    ]).pipe(
-      map(([zoomLevel, plan]) => this.determinePlanPhase(zoomLevel, plan)),
-      delay(0)
-    );
-  }
 
   more(): string {
     const languageSpecificSubject = Translations.get(`@@wiki.planner.edit`);

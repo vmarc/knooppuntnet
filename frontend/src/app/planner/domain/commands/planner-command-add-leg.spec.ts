@@ -28,7 +28,7 @@ describe('PlannerCommandAddLeg', () => {
     setup.routeLayer.expectRouteLegExists('12', leg);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(1);
 
       const leg1 = legs.get(0);
@@ -41,7 +41,7 @@ describe('PlannerCommandAddLeg', () => {
 
     setup.markerLayer.expectFlagCount(1);
     setup.routeLayer.expectRouteLegCount(0);
-    expect(setup.context.plan.legs.size).toEqual(0);
+    expect(setup.context.plan().legs.size).toEqual(0);
 
     command.do(setup.context);
 
@@ -52,7 +52,7 @@ describe('PlannerCommandAddLeg', () => {
     setup.routeLayer.expectRouteLegExists('12', leg);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(1);
 
       const leg1 = legs.get(0);
@@ -88,7 +88,7 @@ describe('PlannerCommandAddLeg', () => {
     setup.routeLayer.expectRouteLegExists('12', leg12);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(1);
 
       const leg = legs.get(0);
@@ -107,7 +107,7 @@ describe('PlannerCommandAddLeg', () => {
     setup.routeLayer.expectRouteLegExists('23', leg23);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);
@@ -134,7 +134,7 @@ describe('PlannerCommandAddLeg', () => {
     setup.routeLayer.expectRouteLegExists('34', leg34);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(3);
 
       const leg1 = legs.get(0);
@@ -163,7 +163,7 @@ describe('PlannerCommandAddLeg', () => {
     setup.routeLayer.expectRouteLegExists('23', leg23);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);
@@ -185,7 +185,7 @@ describe('PlannerCommandAddLeg', () => {
     setup.routeLayer.expectRouteLegExists('12', leg12);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(1);
 
       const leg = legs.get(0);
@@ -208,7 +208,7 @@ describe('PlannerCommandAddLeg', () => {
     setup.routeLayer.expectRouteLegExists('12', leg12);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(1);
 
       const leg = legs.get(0);

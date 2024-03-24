@@ -1,9 +1,8 @@
 import { NgClass } from '@angular/common';
-import { AsyncPipe } from '@angular/common';
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { MapService } from '../../../services/map.service';
+import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 import { MapPopupRouteComponent } from './map-popup-route.component';
 import { PlannerPopupNodeComponent } from './planner-popup-node.component';
 import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
@@ -12,32 +11,21 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
   selector: 'kpn-planner-popup-contents',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (mapService.popupType$ | async; as popupType) {
-      <div [ngClass]="{ hidden: popupType !== 'poi' }">
+    @if (service.popupType(); as popupType) {
+      @if (popupType === 'poi') {
         <kpn-planner-popup-poi />
-      </div>
-      <div [ngClass]="{ hidden: popupType !== 'node' }">
+      }
+      @if (popupType === 'node') {
         <kpn-planner-popup-node />
-      </div>
-      <div [ngClass]="{ hidden: popupType !== 'route' }">
+      }
+      @if (popupType === 'route') {
         <kpn-planner-popup-route />
-      </div>
-    }
-  `,
-  styles: `
-    .hidden {
-      display: none;
+      }
     }
   `,
   standalone: true,
-  imports: [
-    AsyncPipe,
-    MapPopupRouteComponent,
-    NgClass,
-    PlannerPopupNodeComponent,
-    PlannerPopupPoiComponent,
-  ],
+  imports: [MapPopupRouteComponent, NgClass, PlannerPopupNodeComponent, PlannerPopupPoiComponent],
 })
 export class PlannerPopupContentsComponent {
-  protected readonly mapService = inject(MapService);
+  protected readonly service = inject(PlannerPopupService);
 }

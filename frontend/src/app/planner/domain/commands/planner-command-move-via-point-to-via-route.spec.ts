@@ -39,7 +39,7 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
     setup.routeLayer.expectRouteLegExists('23', oldLeg2);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);
@@ -66,7 +66,7 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
     setup.routeLayer.expectRouteLegExists('43', newLeg2);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);
@@ -90,7 +90,7 @@ describe('PlannerCommandMoveViaPointToViaRoute', () => {
     setup.routeLayer.expectRouteLegExists('23', oldLeg2);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
       expect(legs.get(0).featureId).toEqual('12');
       expect(legs.get(1).featureId).toEqual('23');

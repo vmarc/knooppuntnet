@@ -12,7 +12,7 @@ export class MoveEndPoint {
   constructor(private readonly context: PlannerContext) {}
 
   move(dragFlag: PlannerDragFlag, sinkNode: PlanNode): void {
-    const oldLeg = this.context.plan.legs.last(null);
+    const oldLeg = this.context.plan().legs.last(null);
     if (oldLeg) {
       const sourceNode = oldLeg.sourceNode;
       const source = PlanUtil.legEndNode(+sourceNode.nodeId);

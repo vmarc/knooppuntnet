@@ -13,7 +13,7 @@ export class RemoveViaPoint {
   constructor(private readonly context: PlannerContext) {}
 
   remove(nodeDrag: PlannerDragFlag): void {
-    const legs = this.context.plan.legs;
+    const legs = this.context.plan().legs;
     const nextLegIndex = legs.findIndex((leg) => {
       if (nodeDrag.oldNode !== null) {
         return leg.sourceNode.featureId === nodeDrag.oldNode.featureId;

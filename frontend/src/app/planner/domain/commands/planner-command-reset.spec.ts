@@ -28,7 +28,7 @@ describe('PlannerCommandReset', () => {
     setup.routeLayer.expectRouteLegExists('23', leg23);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);
@@ -45,9 +45,9 @@ describe('PlannerCommandReset', () => {
     const resetCommand = new PlannerCommandReset();
     setup.context.execute(resetCommand);
 
-    expect(setup.context.plan.sourceNode).toEqual(null);
-    expect(setup.context.plan.sourceFlag).toEqual(null);
-    expect(setup.context.plan.legs.size).toEqual(0);
+    expect(setup.context.plan().sourceNode).toEqual(null);
+    expect(setup.context.plan().sourceFlag).toEqual(null);
+    expect(setup.context.plan().legs.size).toEqual(0);
 
     resetCommand.undo(setup.context);
 
@@ -59,7 +59,7 @@ describe('PlannerCommandReset', () => {
     setup.routeLayer.expectRouteLegExists('23', leg23);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(2);
 
       const leg1 = legs.get(0);

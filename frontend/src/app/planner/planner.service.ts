@@ -1,10 +1,8 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { toObservable } from '@angular/core/rxjs-interop';
 import { PlanRoute } from '@api/common/planner';
 import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
-import { Store } from '@ngrx/store';
 import { List } from 'immutable';
 import Map from 'ol/Map';
 import { PlannerContext } from './domain/context/planner-context';
@@ -14,13 +12,11 @@ import { PlannerHighlightLayer } from './domain/context/planner-highlight-layer'
 import { PlannerHighlighterImpl } from './domain/context/planner-highlighter-impl';
 import { PlannerLegRepositoryImpl } from './domain/context/planner-leg-repository-impl';
 import { PlannerMarkerLayerImpl } from './domain/context/planner-marker-layer-impl';
-import { PlannerOverlayImpl } from './domain/context/planner-overlay-impl';
+import { PlannerPopupService } from './domain/context/planner-popup-service';
 import { PlannerRouteLayerImpl } from './domain/context/planner-route-layer-impl';
 import { PlannerEngine } from './domain/interaction/planner-engine';
 import { PlannerEngineImpl } from './domain/interaction/planner-engine-impl';
 import { PlanUtil } from './domain/plan/plan-util';
-import { MapService } from './services/map.service';
-import { selectPlannerNetworkType } from './store/planner-selectors';
 import { PlannerTranslations } from './util/planner-translations';
 
 @Injectable({
@@ -28,9 +24,8 @@ import { PlannerTranslations } from './util/planner-translations';
 })
 export class PlannerService {
   private readonly apiService = inject(ApiService);
-  private readonly mapService = inject(MapService);
-  private readonly store = inject(Store);
   private readonly preferencesService = inject(PreferencesService);
+  private readonly plannerPopupService = inject(PlannerPopupService);
 
   engine: PlannerEngine;
 
@@ -41,7 +36,6 @@ export class PlannerService {
   private readonly highlightLayer = new PlannerHighlightLayer();
   private readonly highlighter = new PlannerHighlighterImpl(this.highlightLayer);
   private readonly legRepository = new PlannerLegRepositoryImpl(this.apiService);
-  private readonly overlay = new PlannerOverlayImpl(this.mapService);
   readonly context: PlannerContext = new PlannerContext(
     this.routeLayer,
     this.markerLayer,
@@ -49,9 +43,8 @@ export class PlannerService {
     this.elasticBand,
     this.highlighter,
     this.legRepository,
-    this.overlay,
-    toObservable(this.preferencesService.planProposed),
-    this.store.select(selectPlannerNetworkType)
+    this.plannerPopupService,
+    this.preferencesService.planProposed
   );
 
   constructor() {
@@ -64,7 +57,7 @@ export class PlannerService {
     this.markerLayer.addToMap(map);
     this.elasticBand.addToMap(map);
     this.highlightLayer.addToMap(map);
-    this.overlay.addToMap(map);
+    this.plannerPopupService.addToMap(map);
   }
 
   hasColour(planRoute: PlanRoute): boolean {

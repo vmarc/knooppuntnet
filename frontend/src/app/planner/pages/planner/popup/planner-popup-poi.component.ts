@@ -1,23 +1,19 @@
-import { AsyncPipe } from '@angular/common';
+import { effect } from '@angular/core';
+import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { PoiAnalysis } from '@api/common';
 import { PoiPage } from '@api/common';
 import { ApiResponse } from '@api/custom';
-import { Tags } from '@api/custom';
 import { PoiAnalysisComponent } from '@app/components/poi';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { ApiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
-import { Observable } from 'rxjs';
-import { filter, mergeMap, tap } from 'rxjs/operators';
 import { ActionButtonNodeComponent } from '../../../../analysis/components/action/action-button-node.component';
 import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
 import { ActionButtonWayComponent } from '../../../../analysis/components/action/action-button-way.component';
-import { PoiClick } from '../../../domain/interaction/actions/poi-click';
+import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 import { PlannerService } from '../../../planner.service';
 import { MapService } from '../../../services/map.service';
 
@@ -25,30 +21,32 @@ import { MapService } from '../../../services/map.service';
   selector: 'kpn-planner-popup-poi',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (response$ | async) {
-      @if (!poi) {
+    @if (response(); as response) {
+      @if (!response.result) {
         <div class="item" i18n="@@poi.detail.none">No details available</div>
       } @else {
-        <div>
-          <kpn-poi-analysis [poi]="poi" />
-          @if (poi.mainTags && poi.mainTags.tags.length > 0) {
-            <div class="item">
-              <kpn-tags-table [tags]="mainTags()" />
-            </div>
-          }
-          @if (poi.extraTags && poi.extraTags.tags.length > 0) {
-            <div class="item">
-              <kpn-tags-table [tags]="extraTags()" />
-            </div>
-          }
-          @if (poiClick.poiId.elementType === 'node') {
-            <kpn-action-button-node [nodeId]="poiClick.poiId.elementId" />
-          } @else if (poiClick.poiId.elementType === 'way') {
-            <kpn-action-button-way [wayId]="poiClick.poiId.elementId" />
-          } @else if (poiClick.poiId.elementType === 'relation') {
-            <kpn-action-button-relation [relationId]="poiClick.poiId.elementId" />
-          }
-        </div>
+        @if (response.result.analysis; as poi) {
+          <div>
+            <kpn-poi-analysis [poi]="poi" />
+            @if (poi.mainTags && poi.mainTags.tags.length > 0) {
+              <div class="item">
+                <kpn-tags-table [tags]="mainTags()" />
+              </div>
+            }
+            @if (poi.extraTags && poi.extraTags.tags.length > 0) {
+              <div class="item">
+                <kpn-tags-table [tags]="extraTags()" />
+              </div>
+            }
+            @if (poiClick().poiId.elementType === 'node') {
+              <kpn-action-button-node [nodeId]="poiClick().poiId.elementId" />
+            } @else if (poiClick().poiId.elementType === 'way') {
+              <kpn-action-button-way [wayId]="poiClick().poiId.elementId" />
+            } @else if (poiClick().poiId.elementType === 'relation') {
+              <kpn-action-button-relation [relationId]="poiClick().poiId.elementId" />
+            }
+          </div>
+        }
       }
     }
   `,
@@ -68,59 +66,45 @@ import { MapService } from '../../../services/map.service';
     ActionButtonNodeComponent,
     ActionButtonRelationComponent,
     ActionButtonWayComponent,
-    AsyncPipe,
     PoiAnalysisComponent,
     TagsTableComponent,
   ],
 })
-export class PlannerPopupPoiComponent implements OnInit {
-  private readonly mapService = inject(MapService);
+export class PlannerPopupPoiComponent {
+  private readonly service = inject(PlannerPopupService);
   private readonly apiService = inject(ApiService);
   private readonly plannerService = inject(PlannerService);
+  private readonly mapService = inject(MapService);
+  protected readonly poiClick = this.service.poiClick;
 
-  protected response$: Observable<ApiResponse<PoiPage>>;
+  protected response = signal<ApiResponse<PoiPage>>(null);
 
-  protected poiClick: PoiClick;
-  protected poiPage: PoiPage;
-  protected poi: PoiAnalysis;
-  protected tags: Tags;
-
-  ngOnInit(): void {
-    this.response$ = this.mapService.poiClicked$.pipe(
-      filter((poiClick) => poiClick !== null),
-      tap((poiClick) => {
+  constructor() {
+    effect(() => {
+      const poiClick = this.poiClick();
+      if (poiClick !== null) {
         this.plannerService.context.cursor.setStyleWait();
-        this.poiClick = poiClick;
-      }),
-      mergeMap((poiClick) =>
-        this.apiService.poi(poiClick.poiId.elementType, poiClick.poiId.elementId)
-      ),
-      tap((response) => {
-        if (response.result) {
-          this.poiPage = response.result;
-          this.poi = response.result.analysis;
-          this.tags = response.result.analysis.mainTags;
-        } else {
-          this.poiPage = null;
-          this.poi = null;
-          this.tags = null;
-        }
-        this.openPopup(this.poiClick.coordinate);
-        this.plannerService.context.cursor.setStyleDefault();
-        this.plannerService.context.highlighter.reset();
-      })
-    );
+        this.apiService
+          .poi(poiClick.poiId.elementType, poiClick.poiId.elementId)
+          .subscribe((response) => {
+            this.response.set(response);
+            this.openPopup(poiClick.coordinate);
+            this.plannerService.context.cursor.setStyleDefault();
+            this.plannerService.context.highlighter.reset();
+          });
+      }
+    });
   }
 
   mainTags(): InterpretedTags {
-    return InterpretedTags.all(this.poi.mainTags);
+    return InterpretedTags.all(this.response().result.analysis.mainTags);
   }
 
   extraTags(): InterpretedTags {
-    return InterpretedTags.all(this.poi.extraTags);
+    return InterpretedTags.all(this.response().result.analysis.extraTags);
   }
 
   private openPopup(coordinate: Coordinate): void {
-    setTimeout(() => this.plannerService.context.overlay.setPosition(coordinate, -45), 0);
+    setTimeout(() => this.plannerService.context.plannerPopup.setPosition(coordinate, -45), 0);
   }
 }

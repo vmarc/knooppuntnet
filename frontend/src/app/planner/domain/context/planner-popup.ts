@@ -3,7 +3,7 @@ import { NodeClick } from '../interaction/actions/node-click';
 import { PoiClick } from '../interaction/actions/poi-click';
 import { RouteClick } from '../interaction/actions/route-click';
 
-export interface PlannerOverlay {
+export interface PlannerPopup {
   poiClicked(poiClick: PoiClick): void;
 
   nodeClicked(nodeClick: NodeClick): void;
@@ -11,4 +11,6 @@ export interface PlannerOverlay {
   routeClicked(routeClick: RouteClick): void;
 
   setPosition(coordinate: Coordinate, verticalOffset: number): void;
+
+  reset(): void;
 }

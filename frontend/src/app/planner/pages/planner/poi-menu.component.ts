@@ -1,12 +1,11 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
-import { Store } from '@ngrx/store';
-import { actionPlannerPoisVisible } from '../../store/planner-actions';
-import { selectPlannerPoisVisible } from '../../store/planner-selectors';
+import { PoiService } from '@app/services';
+import { PlannerStateService } from '../../planner-state.service';
+import { PlannerMapService } from './planner-map.service';
 import { PoiMenuOptionComponent } from './poi-menu-option.component';
 
 @Component({
@@ -43,7 +42,7 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
       <kpn-poi-menu-option groupName="amenity" i18n="@@poi.group.amenity">
         Amenity
       </kpn-poi-menu-option>
-      <kpn-poi-menu-option groupName="shops" i18n="@@poi.group.shops"> Shops </kpn-poi-menu-option>
+      <kpn-poi-menu-option groupName="shops" i18n="@@poi.group.shops">Shops</kpn-poi-menu-option>
       <kpn-poi-menu-option groupName="foodshops" i18n="@@poi.group.foodshops">
         Foodshops
       </kpn-poi-menu-option>
@@ -63,13 +62,18 @@ import { PoiMenuOptionComponent } from './poi-menu-option.component';
     }
   `,
   standalone: true,
-  imports: [AsyncPipe, MatCheckboxModule, MatDividerModule, PoiMenuOptionComponent],
+  imports: [MatCheckboxModule, MatDividerModule, PoiMenuOptionComponent],
 })
 export class PoiMenuComponent {
-  private readonly store = inject(Store);
-  protected readonly visible = this.store.selectSignal(selectPlannerPoisVisible);
+  private readonly plannerStateService = inject(PlannerStateService);
+  private readonly poiService = inject(PoiService);
+  private readonly plannerMapService = inject(PlannerMapService);
+  protected readonly visible = this.plannerStateService.poisVisible;
 
   visibleChanged(event: MatCheckboxChange): void {
-    this.store.dispatch(actionPlannerPoisVisible({ visible: event.checked }));
+    const visible = event.checked;
+    this.plannerStateService.setPoisVisible(visible);
+    this.poiService.updateEnabled(visible);
+    this.plannerMapService.plannerUpdatePoiLayerVisibility(this.plannerStateService.layerStates());
   }
 }

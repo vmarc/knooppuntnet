@@ -41,6 +41,7 @@ describe('PlannerStateService', () => {
       position: new MapPosition(12, 1, 2, 0),
       mapMode: 'survey',
       resultMode: 'detailed',
+      urlLayerIds: ['layer-1', 'layer-2', 'layer-3'],
       layerStates: [
         { id: 'layer-1', name: 'layer-1', visible: true, enabled: true },
         { id: 'layer-2', name: 'layer-2', visible: true, enabled: true },

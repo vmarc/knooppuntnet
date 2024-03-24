@@ -19,7 +19,7 @@ export class AddLeg {
   }
 
   private buildLeg(sinkNode: PlanNode): Observable<PlanLeg> {
-    const sourceNode = this.context.plan.sinkNode();
+    const sourceNode = this.context.plan().sinkNode();
     const source = PlanUtil.legEndNode(+sourceNode.nodeId);
     const sink = PlanUtil.legEndNode(+sinkNode.nodeId);
     const sinkFlag = PlanUtil.endFlag(sinkNode.coordinate);

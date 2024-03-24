@@ -27,7 +27,7 @@ describe('PlannerCommandAddPlan', () => {
     setup.routeLayer.expectRouteLegExists('12', leg);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(1);
 
       const leg1 = legs.get(0);
@@ -40,7 +40,7 @@ describe('PlannerCommandAddPlan', () => {
 
     setup.markerLayer.expectFlagCount(0);
     setup.routeLayer.expectRouteLegCount(0);
-    expect(setup.context.plan.legs.size).toEqual(0);
+    expect(setup.context.plan().legs.size).toEqual(0);
 
     command.do(setup.context);
 
@@ -51,7 +51,7 @@ describe('PlannerCommandAddPlan', () => {
     setup.routeLayer.expectRouteLegExists('12', leg);
 
     {
-      const legs = setup.context.plan.legs;
+      const legs = setup.context.plan().legs;
       expect(legs.size).toEqual(1);
 
       const leg1 = legs.get(0);

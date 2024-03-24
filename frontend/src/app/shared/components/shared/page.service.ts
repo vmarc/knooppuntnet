@@ -56,7 +56,7 @@ export class PageService {
     this.titleService.setTitle(title);
   }
 
-  nextToolbarBackgroundColor(color: string): void {
+  setToolbarBackgroundColor(color: string): void {
     this._toolbarBackgroundColor.set(color);
   }
 

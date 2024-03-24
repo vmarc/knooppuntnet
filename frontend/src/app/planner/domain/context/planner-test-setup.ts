@@ -1,9 +1,8 @@
+import { signal } from '@angular/core';
 import { PlanNode } from '@api/common/planner';
 import { PlanRoute } from '@api/common/planner';
 import { NetworkType } from '@api/custom';
 import { List } from 'immutable';
-import { BehaviorSubject } from 'rxjs';
-import { Subject } from 'rxjs';
 import { FeatureId } from '../features/feature-id';
 import { Plan } from '../plan/plan';
 import { PlanFlag } from '../plan/plan-flag';
@@ -24,8 +23,7 @@ export class PlannerTestSetup {
   readonly elasticBand = new PlannerElasticBandMock();
   readonly highlighter = new PlannerHighlighterMock();
   readonly legRepository = new PlannerLegRepositoryMock();
-  readonly planProposed$ = new Subject<boolean>();
-  readonly networkType$ = new BehaviorSubject<NetworkType>(NetworkType.hiking);
+  readonly planProposed = signal<boolean>(false);
   readonly context = new PlannerContext(
     this.routeLayer,
     this.markerLayer,
@@ -34,14 +32,17 @@ export class PlannerTestSetup {
     this.highlighter,
     this.legRepository,
     null,
-    this.planProposed$,
-    this.networkType$
+    this.planProposed
   );
 
   readonly node1 = PlanUtil.planNodeWithCoordinate('1001', '01', null, [1, 1]);
   readonly node2 = PlanUtil.planNodeWithCoordinate('1002', '02', null, [2, 2]);
   readonly node3 = PlanUtil.planNodeWithCoordinate('1003', '03', null, [3, 3]);
   readonly node4 = PlanUtil.planNodeWithCoordinate('1004', '04', null, [4, 4]);
+
+  constructor() {
+    this.context.setNetworkType(NetworkType.hiking);
+  }
 
   createPlanWithStartPointOnly(): Plan {
     const sourceFlag = PlanFlag.start('sourceFlag', this.node1.coordinate);
