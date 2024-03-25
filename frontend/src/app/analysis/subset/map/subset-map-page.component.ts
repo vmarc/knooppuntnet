@@ -16,7 +16,7 @@ import { SubsetMapService } from './subset-map.service';
   selector: 'kpn-subset-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page [showFooter]="false">
       <kpn-subset-page-header-block
         pageName="map"
         pageTitle="Map"

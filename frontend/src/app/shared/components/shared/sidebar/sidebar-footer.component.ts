@@ -4,9 +4,9 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Router } from '@angular/router';
 import { VersionService } from '@app/services';
+import { UserService } from '../../../user';
 import { UserLinkLogoutComponent } from '../../../user';
 import { UserLinkLoginComponent } from '../../../user';
-import { UserStore } from '../../../user/user.store';
 
 @Component({
   selector: 'kpn-sidebar-footer',
@@ -63,9 +63,9 @@ export class SidebarFooterComponent {
   private readonly router = inject(Router);
   private readonly versionService = inject(VersionService);
 
-  private readonly userStore = inject(UserStore);
-  protected readonly loggedIn = this.userStore.loggedIn;
-  protected readonly user = this.userStore.user;
+  private readonly userService = inject(UserService);
+  protected readonly loggedIn = this.userService.loggedIn;
+  protected readonly user = this.userService.user;
 
   version(): string {
     return this.versionService.version;

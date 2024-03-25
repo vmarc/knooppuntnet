@@ -14,41 +14,11 @@ import { IconService } from '@app/services';
 import { VersionService } from '@app/services';
 import { SpinnerService } from '@app/spinner';
 import { Subscriptions } from '@app/util';
-import { Store } from '@ngrx/store';
 import { setTag } from '@sentry/angular-ivy';
 
 @Component({
   selector: 'kpn-root',
-  template: `
-    <router-outlet />
-
-    <!--    <mat-sidenav-container [@.disabled]="true">-->
-    <!--      <mat-sidenav-->
-    <!--        [mode]="smallPage ? 'over' : 'side'"-->
-    <!--        [fixedInViewport]="!smallPage"-->
-    <!--        fixedTopGap="48"-->
-    <!--        [opened]="isSidebarOpen()"-->
-    <!--      >-->
-    <!--        <kpn-sidebar-back *ngIf="smallPage" />-->
-    <!--        <kpn-page-experimental />-->
-    <!--        <router-outlet name="sidebar" />-->
-    <!--      </mat-sidenav>-->
-
-    <!--      <mat-sidenav-content>-->
-    <!--        <header>-->
-    <!--          <kpn-toolbar />-->
-    <!--        </header>-->
-    <!--        <div class="page-contents">-->
-    <!--          <main>-->
-    <!--            <router-outlet />-->
-    <!--          </main>-->
-    <!--          <footer *ngIf="showFooter()">-->
-    <!--            <kpn-page-footer />-->
-    <!--          </footer>-->
-    <!--        </div>-->
-    <!--      </mat-sidenav-content>-->
-    <!--    </mat-sidenav-container>-->
-  `,
+  template: ` <router-outlet /> `,
   styles: `
     header {
       position: fixed;
@@ -57,13 +27,6 @@ import { setTag } from '@sentry/angular-ivy';
       width: 100%;
       height: 48px;
       z-index: 1001;
-    }
-
-    .page-contents {
-      margin-top: 48px;
-      display: flex;
-      min-height: calc(100vh - 48px);
-      flex-direction: column;
     }
 
     main {
@@ -87,7 +50,6 @@ import { setTag } from '@sentry/angular-ivy';
   ],
 })
 export class AppComponent implements OnDestroy {
-  private readonly store = inject(Store);
   private readonly iconService = inject(IconService);
   private readonly spinnerService = inject(SpinnerService);
   private readonly versionService = inject(VersionService);

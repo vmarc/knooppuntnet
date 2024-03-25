@@ -25,7 +25,7 @@ import { LocationFlatNode } from './location-flat-node';
   selector: 'kpn-location-tree',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="buttons">
+    <div class="kpn-small-spacer-above kpn-small-spacer-below">
       <button
         mat-stroked-button
         class="location-button"
@@ -62,8 +62,8 @@ import { LocationFlatNode } from './location-flat-node';
         matTreeNodePadding
         [ngClass]="{ hidden: !all && leafNode.nodeCount === 0 }"
       >
-        <a (click)="select(leafNode)">{{ leafNode.name }}</a
-        ><span class="node-count">{{ leafNode.nodeCount }}</span>
+        <a (click)="select(leafNode)">{{ leafNode.name }}</a>
+        <span class="node-count">{{ leafNode.nodeCount }}</span>
       </mat-tree-node>
       <mat-tree-node
         *matTreeNodeDef="let expandableNode; when: hasChild"
@@ -95,16 +95,16 @@ import { LocationFlatNode } from './location-flat-node';
       color: grey;
     }
 
-    .buttons {
-      margin-top: 20px;
-    }
-
     .location-button {
       margin-right: 10px;
     }
 
     .hidden {
       display: none;
+    }
+    
+    mat-tree {
+      padding-left: 1em;
     }
   `,
   standalone: true,

@@ -11,7 +11,7 @@ import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';
 import { RouterService } from '../../../shared/services/router.service';
-import { UserStore } from '../../../shared/user/user.store';
+import { UserService } from '../../../shared/user';
 import { RouteService } from '../route.service';
 
 @Injectable()
@@ -20,9 +20,9 @@ export class RouteChangesPageService {
   private readonly routeService = inject(RouteService);
   private readonly routerService = inject(RouterService);
   private readonly preferencesService = inject(PreferencesService);
-  private readonly userStore = inject(UserStore);
+  private readonly userService = inject(UserService);
 
-  readonly loggedIn = this.userStore.loggedIn;
+  readonly loggedIn = this.userService.loggedIn;
 
   private readonly _response = signal<ApiResponse<RouteChangesPage>>(null);
   readonly response = this._response.asReadonly();

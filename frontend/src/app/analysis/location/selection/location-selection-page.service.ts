@@ -24,6 +24,7 @@ export class LocationSelectionPageService {
   private readonly _locationNode = signal<LocalLocationNode | null>(null);
   readonly locationNode = this._locationNode.asReadonly();
 
+  readonly key = this.locationService.key;
   readonly networkType = computed(() => this.locationService.key().networkType);
   readonly country = computed(() => this.locationService.key().country);
   readonly isModeName = this.locationModeService.isModeName;

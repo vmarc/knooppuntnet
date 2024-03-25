@@ -1,15 +1,19 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { computed } from '@angular/core';
+import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { UserStore } from './user.store';
 import * as Sentry from '@sentry/angular-ivy';
 
 @Injectable()
 export class UserService {
   private readonly http = inject(HttpClient);
-  private readonly userStore = inject(UserStore);
   private readonly document = inject(DOCUMENT);
+
+  private readonly _user = signal<string>(null);
+  readonly user = this._user.asReadonly();
+  readonly loggedIn = computed(() => this.user() !== null);
 
   constructor() {
     this.http.get('/api/oauth2/user', { responseType: 'text' }).subscribe((user) => {
@@ -38,6 +42,6 @@ export class UserService {
     } else {
       Sentry.setUser(null);
     }
-    this.userStore.updateUser(user);
+    this._user.set(user);
   }
 }

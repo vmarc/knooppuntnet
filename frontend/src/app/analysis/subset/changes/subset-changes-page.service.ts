@@ -10,7 +10,7 @@ import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';
 import { RouterService } from '../../../shared/services/router.service';
-import { UserStore } from '../../../shared/user/user.store';
+import { UserService } from '../../../shared/user';
 import { SubsetService } from '../subset.service';
 
 export class SubsetChangesPageService {
@@ -18,12 +18,12 @@ export class SubsetChangesPageService {
   private readonly subsetService = inject(SubsetService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
-  private readonly userStore = inject(UserStore);
+  private readonly userService = inject(UserService);
 
   private readonly _changesParameters = signal<ChangesParameters | null>(null);
   private readonly _response = signal<ApiResponse<SubsetChangesPage> | null>(null);
 
-  readonly loggedIn = this.userStore.loggedIn;
+  readonly loggedIn = this.userService.loggedIn;
   readonly changesParameters = this._changesParameters.asReadonly();
   readonly response = this._response.asReadonly();
   readonly impact = computed(() => this.changesParameters().impact);

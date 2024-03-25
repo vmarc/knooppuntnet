@@ -46,7 +46,7 @@ import { LocationEditPageService } from './location-edit-page.service';
           </kpn-location-response>
         </div>
       } @else {
-        <!-- TODO       @if (noHttpError$ | async) {-->
+        <!-- TODO SIGNAL      @if (noHttpError$ | async) {-->
         <p class="analyzing" i18n="@@location-edit.analyzing">
           Analyzing location nodes and routes, please wait...
         </p>

@@ -6,7 +6,6 @@ import { ApplicationConfig } from '@angular/core';
 import { importProvidersFrom } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
 import { APP_INITIALIZER } from '@angular/core';
-import { isDevMode } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
@@ -23,8 +22,6 @@ import { EditService } from '@app/components/shared';
 import { PageService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { PreferencesService } from '@app/core';
-import { reducers } from '@app/core';
-import { SharedEffects } from '@app/core';
 import { VersionService } from '@app/services';
 import { ApiService } from '@app/services';
 import { IconService } from '@app/services';
@@ -32,10 +29,6 @@ import { PoiService } from '@app/services';
 import { PoiNameService } from '@app/services';
 import { SpinnerInterceptor } from '@app/spinner';
 import { SpinnerService } from '@app/spinner';
-import { provideEffects } from '@ngrx/effects';
-import { provideRouterStore } from '@ngrx/router-store';
-import { provideStore } from '@ngrx/store';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
 import * as Sentry from '@sentry/angular-ivy';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { MarkdownModule } from 'ngx-markdown';
@@ -90,30 +83,5 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptorsFromDi()),
     provideOAuthClient(),
     { provide: UserService },
-    provideStore(reducers, {
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-        strictStateSerializability: false,
-        strictActionSerializability: false,
-        strictActionWithinNgZone: true,
-        strictActionTypeUniqueness: true,
-      },
-    }),
-    provideEffects([SharedEffects]),
-    provideRouterStore(),
-    provideStoreDevtools({
-      name: 'Knooppuntnet',
-      maxAge: 25,
-      logOnly: !isDevMode(),
-      autoPause: true,
-      trace: false,
-      traceLimit: 75,
-      serialize: {
-        options: {
-          map: true,
-        },
-      },
-    }),
   ],
 };

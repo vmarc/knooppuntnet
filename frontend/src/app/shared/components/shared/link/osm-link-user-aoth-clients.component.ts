@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { UserStore } from '../../../user/user.store';
+import { UserService } from '../../../user';
 
 @Component({
   selector: 'kpn-osm-link-user-oath-clients',
@@ -23,8 +23,8 @@ import { UserStore } from '../../../user/user.store';
   imports: [AsyncPipe],
 })
 export class OsmLinkUserAothClientsComponent {
-  private readonly userStore = inject(UserStore);
+  private readonly userService = inject(UserService);
   readonly link = computed(
-    () => `https://www.openstreetmap.org/user/${this.userStore.user()}/oauth_clients`
+    () => `https://www.openstreetmap.org/user/${this.userService.user()}/oauth_clients`
   );
 }

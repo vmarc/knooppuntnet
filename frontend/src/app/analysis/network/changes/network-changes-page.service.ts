@@ -10,7 +10,7 @@ import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';
 import { RouterService } from '../../../shared/services/router.service';
-import { UserStore } from '../../../shared/user/user.store';
+import { UserService } from '../../../shared/user';
 import { NetworkService } from '../network.service';
 
 export class NetworkChangesPageService {
@@ -18,12 +18,12 @@ export class NetworkChangesPageService {
   private readonly networkService = inject(NetworkService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
-  private readonly userStore = inject(UserStore);
+  private readonly userService = inject(UserService);
 
   private readonly _response = signal<ApiResponse<NetworkChangesPage>>(null);
   private readonly _changesParameters = signal<ChangesParameters>(null);
 
-  readonly loggedIn = this.userStore.loggedIn;
+  readonly loggedIn = this.userService.loggedIn;
   readonly response = this._response.asReadonly();
   readonly changesParameters = this._changesParameters.asReadonly();
   readonly impact = computed(() => this.changesParameters().impact);

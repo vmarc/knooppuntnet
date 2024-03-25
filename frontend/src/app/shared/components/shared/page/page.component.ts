@@ -1,18 +1,11 @@
+import { input } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-/*
- Note: the [@.disabled]="true" in mat-sidenav-container is to disable the
- animation when opening/closing the sidebar. We disable the animation because
- this animation caused a problem with the display of tiles in the MapLibre
- layers.
-*/
 import { Component } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
 import { SidebarBackComponent } from '@app/components/shared/sidebar';
 import { ToolbarComponent } from '@app/components/shared/toolbar';
-import { selectPageShowFooter } from '@app/core';
-import { Store } from '@ngrx/store';
 import { PageWidthService } from '../page-width.service';
 import { PageService } from '../page.service';
 import { PageExperimentalComponent } from './page-experimental.component';
@@ -92,11 +85,11 @@ import { PageFooterComponent } from './page-footer.component';
   ],
 })
 export class PageComponent {
-  private readonly store = inject(Store);
+  showFooter = input<boolean>(true);
+
   private readonly pageService = inject(PageService);
   private readonly pageWidthService = inject(PageWidthService);
 
   protected readonly sidebarOpen = this.pageService.sidebarOpen;
-  protected readonly showFooter = this.store.selectSignal(selectPageShowFooter);
-  protected smallPage = computed(() => this.pageWidthService.isAllSmall());
+  protected readonly smallPage = computed(() => this.pageWidthService.isAllSmall());
 }

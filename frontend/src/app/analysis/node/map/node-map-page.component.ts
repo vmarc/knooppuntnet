@@ -17,7 +17,7 @@ import { NodeMapPageService } from './node-map-page.service';
   selector: 'kpn-node-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page [showFooter]="false">
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>

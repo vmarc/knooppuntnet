@@ -14,7 +14,7 @@ import { NetworkMapPageService } from './network-map-page.service';
   selector: 'kpn-network-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page [showFooter]="false">
       <kpn-network-page-header
         pageName="map"
         pageTitle="Map"

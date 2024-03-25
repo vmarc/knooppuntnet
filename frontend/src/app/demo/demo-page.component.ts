@@ -20,7 +20,7 @@ import { DemoPageService } from './demo-page.service';
   selector: 'kpn-page-video',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page [showFooter]="false">
       <div class="video-page">
         @if (enabled()) {
           @if (!canPlayReceived()) {

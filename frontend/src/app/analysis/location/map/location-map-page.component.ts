@@ -16,7 +16,7 @@ import { LocationMapPageService } from './location-map-page.service';
   selector: 'kpn-location-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page [showFooter]="false">
       <kpn-location-page-header
         pageName="map"
         pageTitle="Map"

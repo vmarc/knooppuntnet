@@ -12,7 +12,7 @@ import { PoiAreasPageService } from './poi-areas-page.service';
   selector: 'kpn-poi-areas-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page [showFooter]="false">
       <kpn-page-header>
         <span i18n="@@poi-areas.title">Point of interest areas</span>
       </kpn-page-header>

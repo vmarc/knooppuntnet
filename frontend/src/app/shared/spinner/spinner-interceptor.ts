@@ -6,12 +6,11 @@ import { HttpInterceptor } from '@angular/common/http';
 import { HttpRequest } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { actionSharedHttpError } from '@app/core';
-import { Store } from '@ngrx/store';
 import { throwError } from 'rxjs';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { SharedStateService } from '../core/shared/shared-state.service';
 import { SpinnerService } from './spinner.service';
 
 export const LOCAL_ERROR_HANDLING = new HttpContextToken(() => false);
@@ -19,7 +18,7 @@ export const LOCAL_ERROR_HANDLING = new HttpContextToken(() => false);
 @Injectable()
 export class SpinnerInterceptor implements HttpInterceptor {
   private readonly spinnerService = inject(SpinnerService);
-  private readonly store = inject(Store);
+  private readonly sharedStateService = inject(SharedStateService);
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let result$: Observable<HttpEvent<any>>;
@@ -39,7 +38,7 @@ export class SpinnerInterceptor implements HttpInterceptor {
           if (request.url.includes('import?url=https://api.openstreetmap.org/api/0.6')) {
             return throwError(error);
           }
-          this.store.dispatch(actionSharedHttpError({ httpError }));
+          this.sharedStateService.setHttpError(httpError);
           return of(null);
         })
       );

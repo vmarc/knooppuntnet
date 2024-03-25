@@ -1,9 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { actionSharedHttpError } from '@app/core';
 import { ApiService } from '@app/services';
-import { Store } from '@ngrx/store';
 import { Range } from 'immutable';
 import { Subscription } from 'rxjs';
 import { TimeoutError } from 'rxjs';
@@ -12,13 +10,14 @@ import { concat } from 'rxjs';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
+import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
 import { EditConfiguration } from './edit-configuration';
 import { EditParameters } from './edit-parameters';
 
 @Injectable()
 export class EditService {
   private readonly apiService = inject(ApiService);
-  private readonly store = inject(Store);
+  private readonly sharedStateService = inject(SharedStateService);
 
   private progressCount = 0;
   private progressSteps = 0;
@@ -37,7 +36,7 @@ export class EditService {
   private readonly configuration = new EditConfiguration();
 
   edit(parameters: EditParameters): void {
-    this.store.dispatch(actionSharedHttpError({ httpError: null }));
+    this.sharedStateService.setHttpError(null);
 
     const nodeEdits = this.buildNodeEdits(parameters);
     const wayEdits = this.buildWayEdits(parameters);

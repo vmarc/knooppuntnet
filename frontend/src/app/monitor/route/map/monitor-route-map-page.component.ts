@@ -19,7 +19,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.state(); as state) {
-      <kpn-page>
+      <kpn-page [showFooter]="false">
         <kpn-monitor-route-page-header
           pageName="map"
           [groupName]="state.groupName"

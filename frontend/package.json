@@ -32,12 +32,6 @@
     "@angular/platform-browser": "^17.3.0",
     "@angular/platform-browser-dynamic": "^17.3.0",
     "@angular/router": "^17.3.0",
-    "@ngrx/effects": "17.1.1",
-    "@ngrx/eslint-plugin": "17.1.1",
-    "@ngrx/router-store": "17.1.1",
-    "@ngrx/signals": "^17.1.1",
-    "@ngrx/store": "17.1.1",
-    "@ngrx/store-devtools": "17.1.1",
     "@sentry/angular-ivy": "^7.91.0",
     "@swimlane/ngx-charts": "^20.5.0",
     "@types/file-saver": "^2.0.5",
@@ -91,12 +85,5 @@
     "svg-inline-loader": "^0.8.2",
     "ts-node": "~10.9.1",
     "typescript": "5.2.2"
-  },
-  "overrides": {
-    "ngrx-store-localstorage": {
-      "@angular/common": "$@angular/common",
-      "@angular/core": "$@angular/core",
-      "@ngrx/store": "$@ngrx/store"
-    }
   }
 }
