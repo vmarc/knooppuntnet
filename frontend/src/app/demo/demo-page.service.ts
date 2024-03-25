@@ -1,4 +1,3 @@
-import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
@@ -35,6 +34,7 @@ export class DemoPageService {
     if (video) {
       this._video.set(video);
       this.setSource(`/videos/en/${video}.mp4`);
+      this.play();
     }
   }
 
@@ -51,51 +51,35 @@ export class DemoPageService {
   }
 
   onDestroy(): void {
-    if (this.videoElement && this.sourceElement) {
-      this.videoElement.pause();
-      this.sourceElement.src = '';
-      this.videoElement.load();
-      this.sourceElement = null;
-      this.videoElement = null;
-    }
+    this.videoElement.pause();
+    this.sourceElement.src = '';
+    this.videoElement.load();
+    this.sourceElement = null;
+    this.videoElement = null;
   }
 
   play(): void {
-    if (this.videoElement) {
-      const promise = this.videoElement.play();
-      if (promise !== undefined) {
-        promise
-          .then((_) => {
-            // Autoplay started
-          })
-          .catch((error) => {
-            // Autoplay was prevented
-          });
-      }
+    const promise = this.videoElement.play();
+    if (promise !== undefined) {
+      promise
+        .then((_) => {
+          // Autoplay started
+        })
+        .catch((error) => {
+          // Autoplay was prevented
+        });
     }
   }
 
   pause(): void {
-    if (this.videoElement) {
-      this.videoElement.pause();
-    }
-  }
-
-  get videoElementDuration(): number {
-    if (this.videoElement) {
-      return this.videoElement.duration;
-    }
-    return 0;
+    this.videoElement.pause();
   }
 
   timeChanged(): void {
-    if (this.videoElement) {
-      this._time.set(this.videoElement.currentTime);
-    }
+    this._time.set(this.videoElement.currentTime);
   }
 
   playVideo(video: string) {
-    console.log(`playVideo() video=${video}`);
     if (this.video() === video) {
       if (this.playing()) {
         this.pause();
