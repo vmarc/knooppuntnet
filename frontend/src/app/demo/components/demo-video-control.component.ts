@@ -1,24 +1,17 @@
-import { AsyncPipe } from '@angular/common';
 import { NgClass } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { actionDemoControlPlay } from '../store/demo.actions';
-import { selectDemoVideo } from '../store/demo.selectors';
-import { selectDemoPlaying } from '../store/demo.selectors';
-import { selectDemoEnabled } from '../store/demo.selectors';
+import { DemoPageService } from '../demo-page.service';
 
 @Component({
   selector: 'kpn-demo-video-control',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="video-control" [ngClass]="{ selected: selected$ | async }">
+    <div class="video-control" [ngClass]="{ selected: selected() }">
       <div class="control-text">
         <div class="title">
           <ng-content />
@@ -28,17 +21,13 @@ import { selectDemoEnabled } from '../store/demo.selectors';
         </div>
       </div>
 
-      @if (enabled$ | async) {
-        <a
-          (click)="play()"
-          class="play-pause-button"
-          [ngClass]="{ buttonSelected: selected$ | async }"
-        >
-          <mat-icon [svgIcon]="icon$ | async" />
+      @if (service.enabled()) {
+        <a (click)="play()" class="play-pause-button" [ngClass]="{ buttonSelected: selected() }">
+          <mat-icon [svgIcon]="icon()" />
         </a>
       } @else {
         <span class="play-pause-button-disabled">
-          <mat-icon [svgIcon]="icon$ | async" />
+          <mat-icon [svgIcon]="icon()" />
         </span>
       }
     </div>
@@ -102,29 +91,19 @@ import { selectDemoEnabled } from '../store/demo.selectors';
     }
   `,
   standalone: true,
-  imports: [NgClass, MatIconModule, AsyncPipe],
+  imports: [NgClass, MatIconModule],
 })
 export class DemoVideoControlComponent {
   name = input.required<string>();
   duration = input.required<string>();
 
-  private readonly store = inject(Store);
-  protected readonly selected$: Observable<boolean> = this.store
-    .select(selectDemoVideo)
-    .pipe(map((current) => current === this.name()));
+  protected readonly service = inject(DemoPageService);
 
-  protected readonly playing$: Observable<boolean> = combineLatest([
-    this.selected$,
-    this.store.select(selectDemoPlaying),
-  ]).pipe(map(([selected, playing]) => selected && playing));
-
-  protected readonly icon$: Observable<string> = this.playing$.pipe(
-    map((playing) => (playing ? 'pause' : 'play'))
-  );
-
-  protected readonly enabled$: Observable<boolean> = this.store.select(selectDemoEnabled);
+  protected readonly selected = computed(() => this.service.video() === this.name());
+  protected readonly playing = computed(() => this.selected() && this.service.playing());
+  protected readonly icon = computed(() => (this.playing() ? 'pause' : 'play'));
 
   play(): void {
-    this.store.dispatch(actionDemoControlPlay({ video: this.name() }));
+    this.service.playVideo(this.name());
   }
 }

@@ -1,11 +1,9 @@
-import { AsyncPipe } from '@angular/common';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
-import { Store } from '@ngrx/store';
-import { actionDemoUpdateProgress } from '../store/demo.actions';
-import { selectDemoProgress } from '../store/demo.selectors';
+import { DemoPageService } from '../demo-page.service';
 
 @Component({
   selector: 'kpn-demo-video-progress',
@@ -40,13 +38,20 @@ import { selectDemoProgress } from '../store/demo.selectors';
     }
   `,
   standalone: true,
-  imports: [MatSliderModule, AsyncPipe],
+  imports: [MatSliderModule],
 })
 export class DemoVideoProgressComponent {
-  private readonly store = inject(Store);
-  protected readonly progress = this.store.selectSignal(selectDemoProgress);
+  private readonly service = inject(DemoPageService);
+  readonly progress = computed(() => {
+    const time = this.service.time();
+    const duration = this.service.duration();
+    if (duration > 0) {
+      return time / duration;
+    }
+    return 0;
+  });
 
   updateProgress(event) {
-    this.store.dispatch(actionDemoUpdateProgress({ progress: event.value }));
+    this.service.setProgress(event.value);
   }
 }
