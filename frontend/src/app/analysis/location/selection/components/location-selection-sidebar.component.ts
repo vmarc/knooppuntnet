@@ -1,10 +1,11 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { AnalysisStrategy } from '@app/core';
-import { Store } from '@ngrx/store';
+import { LocationService } from '../../location.service';
 import { LocationModeComponent } from './location-mode.component';
 
 @Component({
@@ -20,9 +21,12 @@ import { LocationModeComponent } from './location-mode.component';
   imports: [SidebarComponent, AnalysisStrategyComponent, LocationModeComponent],
 })
 export class LocationSelectionSidebarComponent {
-  private readonly store = inject(Store);
+  private readonly locationService = inject(LocationService);
+  private readonly router = inject(Router);
 
   onStrategyChange(strategy: AnalysisStrategy) {
-    // TODO this.store.dispatch(actionLocationSelectionPageStrategy({ strategy }));
+    const key = this.locationService.key();
+    const url = `/analysis/${key.networkType}/${key.country}/networks`;
+    this.router.navigate([url]);
   }
 }

@@ -40,6 +40,7 @@ export class AnalysisStrategyComponent {
   protected readonly strategy = this.service.strategy;
 
   onStrategyChange(event: MatRadioChange) {
+    this.service.setStrategy(event.value);
     this.strategyChange.emit(event.value);
   }
 }

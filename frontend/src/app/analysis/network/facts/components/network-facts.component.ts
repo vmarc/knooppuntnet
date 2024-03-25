@@ -21,9 +21,8 @@ import { FactInfo } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { selectFragment } from '@app/core';
-import { Store } from '@ngrx/store';
 import { ExpandCollapseComponent } from '../../../../shared/components/shared/button/expand-collapse.component';
+import { RouterService } from '../../../../shared/services/router.service';
 import { ActionButtonNodesComponent } from '../../../components/action/action-button-nodes.component';
 import { ActionButtonRelationsComponent } from '../../../components/action/action-button-relations.component';
 import { ActionButtonRoutesComponent } from '../../../components/action/action-button-routes.component';
@@ -166,9 +165,8 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
 export class NetworkFactsComponent implements AfterViewInit {
   apiResponse = input.required<ApiResponse<NetworkFactsPage>>();
 
-  private readonly store = inject(Store);
+  private readonly routerService = inject(RouterService);
   private readonly router = inject(Router);
-  private readonly fragment = this.store.selectSignal(selectFragment);
   private readonly panels = viewChildren(MatExpansionPanel);
   private readonly panelElementRefs = viewChildren(MatExpansionPanel, { read: ElementRef });
 
@@ -177,14 +175,10 @@ export class NetworkFactsComponent implements AfterViewInit {
   private readonly expandCollapseActive = signal(false);
 
   ngAfterViewInit(): void {
-    console.log('ngAfterViewInit()');
-    if (this.apiResponse() && this.fragment()) {
-      const fact = this.fragment();
+    if (this.apiResponse() && this.routerService.fragment()) {
+      const fact = this.routerService.fragment();
       const networkFacts: NetworkFact[] = this.apiResponse().result.facts;
       const panelIndex = networkFacts.findIndex((networkFact) => networkFact.name === fact);
-
-      console.log('fact=' + fact);
-      console.log('panelIndex=' + panelIndex);
 
       if (panelIndex >= 0 && panelIndex < this.panels().length) {
         const panel = this.panels().at(panelIndex);

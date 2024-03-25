@@ -14,7 +14,6 @@ import { Util } from '@app/components/shared';
 import { DialogComponent } from '@app/components/shared/dialog';
 import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
-import { Store } from '@ngrx/store';
 import { ClipboardModule } from 'ngx-clipboard';
 import { DirectionsAnalyzer } from '../../../domain/directions/directions-analyzer';
 import { PlanUtil } from '../../../domain/plan/plan-util';
@@ -149,7 +148,6 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   private readonly pdfService = inject(PdfService);
   private readonly plannerService = inject(PlannerService);
-  private readonly store = inject(Store);
   private readonly apiService = inject(ApiService);
   private readonly preferencesService = inject(PreferencesService);
 

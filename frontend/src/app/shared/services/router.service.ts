@@ -11,6 +11,10 @@ import { NetworkTypes } from '@app/kpn/common';
 export class RouterService {
   private activatedRoute = inject(ActivatedRoute);
 
+  fragment(): string {
+    return this.activatedRoute.snapshot.fragment;
+  }
+
   params(): Params {
     return this.activatedRoute.snapshot.params;
   }

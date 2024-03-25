@@ -26,16 +26,13 @@ import { LocationModeService } from './location-mode.service';
       </mat-radio-group>
     </div>
   `,
-  styleUrl: '../../../shared/components/shared/sidebar/sidebar.scss',
+  styleUrl: '../../../../shared/components/shared/sidebar/sidebar.scss',
   standalone: true,
   imports: [MatRadioModule],
 })
 export class LocationModeComponent {
   private readonly locationModeService = inject(LocationModeService);
-
-  mode() {
-    return this.locationModeService.currentMode();
-  }
+  readonly mode = this.locationModeService.mode;
 
   modeChanged(event: MatRadioChange) {
     this.locationModeService.setMode(event.value);

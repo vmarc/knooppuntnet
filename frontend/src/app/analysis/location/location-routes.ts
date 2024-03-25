@@ -7,7 +7,7 @@ import { LocationMapPageComponent } from './map/location-map-page.component';
 import { LocationMapService } from './map/components/location-map.service';
 import { LocationNodesPageComponent } from './nodes/location-nodes-page.component';
 import { LocationRoutesPageComponent } from './routes/location-routes-page.component';
-import { LocationModeService } from './selection/location-mode.service';
+import { LocationModeService } from './selection/components/location-mode.service';
 import { LocationSelectionPageComponent } from './selection/location-selection-page.component';
 import { LocationSelectionService } from './selection/location-selection.service';
 
