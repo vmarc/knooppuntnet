@@ -14,6 +14,7 @@ import { OsmLayer } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
 import { MapBrowserEvent } from 'ol';
 import { Coordinate } from 'ol/coordinate';
+import Feature from 'ol/Feature';
 import { FeatureLike } from 'ol/Feature';
 import { GeoJSON } from 'ol/format';
 import { Geometry } from 'ol/geom';
@@ -58,10 +59,10 @@ export class MonitorRouteMapService extends OpenlayersMapService {
 
   private readonly osmSegmentStyles = this.colors.map((color) => this.fixedStyle(color, 4));
 
-  private readonly referenceLayer: VectorLayer<VectorSource<Geometry>>;
-  private readonly matchesLayer: VectorLayer<VectorSource<Geometry>>;
-  private readonly deviationsLayer: VectorLayer<VectorSource<Geometry>>;
-  private readonly osmRelationLayer: VectorLayer<VectorSource<Geometry>>;
+  private readonly referenceLayer: VectorLayer<VectorSource<Feature<Geometry>>>;
+  private readonly matchesLayer: VectorLayer<VectorSource<Feature<Geometry>>>;
+  private readonly deviationsLayer: VectorLayer<VectorSource<Feature<Geometry>>>;
+  private readonly osmRelationLayer: VectorLayer<VectorSource<Feature<Geometry>>>;
 
   constructor() {
     super();
@@ -216,7 +217,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     );
   }
 
-  private buildReferencesLayer(): VectorLayer<VectorSource<Geometry>> {
+  private buildReferencesLayer(): VectorLayer<VectorSource<Feature<Geometry>>> {
     const layerStyle = this.fixedStyle('blue', 4);
     return new VectorLayer({
       zIndex: 50,
@@ -225,7 +226,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     });
   }
 
-  private buildMatchesLayer(): VectorLayer<VectorSource<Geometry>> {
+  private buildMatchesLayer(): VectorLayer<VectorSource<Feature<Geometry>>> {
     const layerStyle = this.fixedStyle('green', 4);
     return new VectorLayer({
       zIndex: 60,
@@ -234,7 +235,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     });
   }
 
-  private buildDeviationsLayer(): VectorLayer<VectorSource<Geometry>> {
+  private buildDeviationsLayer(): VectorLayer<VectorSource<Feature<Geometry>>> {
     const layerStyle = this.fixedStyle('red', 4);
     return new VectorLayer({
       zIndex: 70,
@@ -243,7 +244,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     });
   }
 
-  private buildOsmRelationLayer(): VectorLayer<VectorSource<Geometry>> {
+  private buildOsmRelationLayer(): VectorLayer<VectorSource<Feature<Geometry>>> {
     const thinStyle = this.fixedStyle('gold', 4);
     const thickStyle = this.fixedStyle('gold', 10);
 
