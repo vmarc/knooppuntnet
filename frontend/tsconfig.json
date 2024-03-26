@@ -4,12 +4,10 @@
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    // "strict": true, TODO re-enable?
+    "strict": false, // TODO re-enable?
     "noImplicitOverride": true,
-    // TODO re-enable noPropertyAccessFromIndexSignature?
-    "noPropertyAccessFromIndexSignature": false,
-    // TODO re-enable noImplicitReturns?
-    "noImplicitReturns": false,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,

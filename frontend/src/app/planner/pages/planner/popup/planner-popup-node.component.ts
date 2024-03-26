@@ -101,7 +101,7 @@ export class PlannerPopupNodeComponent {
       if (nodeClick !== null) {
         const networkType = this.mapService.networkType();
         const nodeId = +nodeClick.node.node.nodeId;
-        return this.apiService.mapNodeDetail(networkType, nodeId).subscribe((response) => {
+        this.apiService.mapNodeDetail(networkType, nodeId).subscribe((response) => {
           this.response.set(response);
           if (response.result) {
             const coordinate = OlUtil.toCoordinate(

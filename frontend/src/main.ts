@@ -16,7 +16,7 @@ import { environment } from './environments/environment';
 if (environment.production) {
   const beforeBreadcrumb = (breadcrumb: Breadcrumb, hint: BreadcrumbHint | undefined) => {
     if (breadcrumb.category === 'ui.click') {
-      const { target }: { target: HTMLElement } = hint.event;
+      const { target }: { target: HTMLElement } = hint['event'];
       const id = target.getAttribute('id');
       if (id) {
         breadcrumb.message = '#' + id;

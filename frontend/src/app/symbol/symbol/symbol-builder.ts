@@ -7,7 +7,7 @@ export class SymbolBuilder {
   private context: CanvasRenderingContext2D;
 
   constructor(canvas: ElementRef<HTMLCanvasElement>) {
-    this.context = canvas.nativeElement.getContext('2d');
+    this.context = canvas.nativeElement.getContext('2d') as CanvasRenderingContext2D;
     this.context.scale(canvas.nativeElement.width, canvas.nativeElement.height);
   }
 
@@ -56,7 +56,7 @@ export class SymbolBuilder {
     }
   }
 
-  private drawImage(image: SymbolImage): void {
+  private drawImage(image: SymbolImage | undefined): void {
     if (image) {
       this.context.beginPath();
       let foregroundColor = 'white';

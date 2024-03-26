@@ -171,6 +171,7 @@ export abstract class OpenlayersMapService {
       }
       return visible;
     }
+    return false;
   }
 
   mapBounds(): Bounds {

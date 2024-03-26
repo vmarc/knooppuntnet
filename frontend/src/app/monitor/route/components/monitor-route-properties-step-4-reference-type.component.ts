@@ -41,9 +41,10 @@ import { FormStatusComponent } from '@app/components/shared';
 
     @if (
       referenceType().invalid &&
+      referenceType().errors &&
       (referenceType().dirty || referenceType().touched || ngForm().submitted)
     ) {
-      @if (referenceType().errors.required) {
+      @if (referenceType().errors['required']) {
         <p
           id="reference-type.required"
           class="kpn-warning"

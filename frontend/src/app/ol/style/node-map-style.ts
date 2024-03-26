@@ -44,6 +44,7 @@ export class NodeMapStyle {
 
         return this.routeStyle.style(green, resolution, false, proposed);
       }
+      return null;
     };
   }
 }

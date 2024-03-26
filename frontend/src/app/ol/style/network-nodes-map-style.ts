@@ -28,6 +28,7 @@ export class NetworkNodesMapStyle {
         }
         return this.buildRouteStyle(feature, resolution);
       }
+      return null;
     };
   }
 

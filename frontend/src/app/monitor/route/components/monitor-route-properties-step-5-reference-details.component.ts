@@ -45,9 +45,13 @@ import { DayInputComponent } from '@app/components/shared/format';
         i18n-label="@@monitor.route.properties.reference-details.day.label"
       />
 
-      @if (osmReferenceDate().invalid && (osmReferenceDate().touched || ngForm().submitted)) {
+      @if (
+        osmReferenceDate().invalid &&
+        osmReferenceDate().errors &&
+        (osmReferenceDate().touched || ngForm().submitted)
+      ) {
         <div class="kpn-form-error">
-          @if (osmReferenceDate().errors?.required) {
+          @if (osmReferenceDate().errors['required']) {
             <div
               id="osm-reference-date-required-error"
               i18n="@@monitor.route.reference-day.required"
@@ -92,10 +96,11 @@ import { DayInputComponent } from '@app/components/shared/format';
 
       @if (
         referenceFilename().invalid &&
+        referenceFilename().errors &&
         (referenceFilename().dirty || referenceFilename().touched || ngForm().submitted)
       ) {
         <div class="kpn-form-error">
-          @if (referenceFilename().errors?.required) {
+          @if (referenceFilename().errors['required']) {
             <div
               id="reference-filename.required"
               i18n="@@monitor.route.reference-filename.required"
@@ -116,9 +121,13 @@ import { DayInputComponent } from '@app/components/shared/format';
         i18n-label="@@monitor.route.properties.reference-details.day.label"
       />
 
-      @if (gpxReferenceDate().invalid && (gpxReferenceDate().touched || ngForm().submitted)) {
+      @if (
+        gpxReferenceDate().invalid &&
+        gpxReferenceDate().errors &&
+        (gpxReferenceDate().touched || ngForm().submitted)
+      ) {
         <div class="kpn-form-error">
-          @if (gpxReferenceDate().errors?.required) {
+          @if (gpxReferenceDate().errors['required']) {
             <div id="reference-day.required" i18n="@@monitor.route.reference-day.required">
               Please provide a valid reference day
             </div>

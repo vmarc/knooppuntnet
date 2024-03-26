@@ -81,8 +81,10 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
       </div>
     }
 
-    @if (form().invalid && (form().dirty || form().touched || ngForm().submitted)) {
-      @if (form().errors.questionUnanswered) {
+    @if (
+      form().invalid && form().errors && (form().dirty || form().touched || ngForm().submitted)
+    ) {
+      @if (form().errors['questionUnanswered']) {
         <p
           id="relation.question-unanswered"
           class="kpn-warning"
@@ -93,8 +95,12 @@ import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-prop
       }
     }
 
-    @if (form().invalid && (relationId().dirty || relationId().touched || ngForm().submitted)) {
-      @if (form().errors?.relationIdMissing) {
+    @if (
+      form().invalid &&
+      form().errors &&
+      (relationId().dirty || relationId().touched || ngForm().submitted)
+    ) {
+      @if (form().errors['relationIdMissing']) {
         <p
           id="relation-id-missing-warning"
           class="kpn-error"

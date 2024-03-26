@@ -17,18 +17,19 @@ import { MatInputModule } from '@angular/material/input';
 
       @if (
         description().invalid &&
+        description().errors &&
         (description().dirty || description().touched || ngForm().submitted)
       ) {
         <div class="kpn-form-error">
-          @if (description().errors?.required) {
+          @if (description().errors['required']) {
             <div i18n="@@monitor.route.description.required">Description is required.</div>
           }
 
-          @if (description().errors?.maxlength) {
+          @if (description().errors['maxlength']) {
             <div i18n="@@monitor.route.description.maxlength">
               Too long (max=
-              {{ description().errors.maxlength.requiredLength }}, actual={{
-                description().errors.maxlength.actualLength
+              {{ description().errors['maxlength'].requiredLength }}, actual={{
+                description().errors['maxlength'].actualLength
               }}).
             </div>
           }

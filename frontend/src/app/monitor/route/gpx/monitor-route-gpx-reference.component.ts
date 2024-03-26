@@ -49,22 +49,23 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
       {{ referenceFilename().value }}
     </div>
 
-    @if (referenceFile().errors?.maxFileSizeExceeded) {
+    @if (referenceFile().errors && referenceFile().errors['maxFileSizeExceeded']) {
       <div
         class="kpn-form-error"
         i18n="@@monitor.route.properties.reference-details.file.max-size-exceeded"
       >
         Cannot upload this file. It is too big (maximum file size is
-        {{ referenceFile().errors.maxFileSizeExceeded }}).
+        {{ referenceFile().errors['maxFileSizeExceeded'] }}).
       </div>
     }
 
     @if (
       referenceFilename().invalid &&
+      referenceFilename().errors &&
       (referenceFilename().dirty || referenceFilename().touched || ngForm().submitted)
     ) {
       <div class="kpn-form-error">
-        @if (referenceFilename().errors?.required) {
+        @if (referenceFilename().errors['required']) {
           <div id="reference-filename.required" i18n="@@monitor.route.reference-filename.required">
             Reference filename is required
           </div>
@@ -82,9 +83,13 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
       i18n-label="@@monitor.route.properties.reference-details.day.label"
     />
 
-    @if (gpxReferenceDate().invalid && (gpxReferenceDate().touched || ngForm().submitted)) {
+    @if (
+      gpxReferenceDate().invalid &&
+      gpxReferenceDate().errors &&
+      (gpxReferenceDate().touched || ngForm().submitted)
+    ) {
       <div class="kpn-form-error">
-        @if (gpxReferenceDate().errors?.required) {
+        @if (gpxReferenceDate().errors['required']) {
           <div id="reference-day.required" i18n="@@monitor.route.reference-day.required">
             Please provide a valid reference day
           </div>
