@@ -36,10 +36,7 @@ import { SubsetOrphanNodesPageService } from './subset-orphan-nodes-page.service
               <span i18n="@@subset-orphan-nodes.no-routes">No orphan nodes</span>
             </p>
           } @else {
-            <kpn-subset-orphan-nodes-table
-              [timeInfo]="response.result.timeInfo"
-              [nodes]="response.result.nodes"
-            />
+            <kpn-subset-orphan-nodes-table />
           }
         </div>
       }

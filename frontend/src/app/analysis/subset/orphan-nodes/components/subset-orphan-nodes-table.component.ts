@@ -1,25 +1,20 @@
 import { AsyncPipe } from '@angular/common';
+import { effect } from '@angular/core';
 import { viewChild } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { OrphanNodeInfo } from '@api/common';
-import { TimeInfo } from '@api/common';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { LinkNodeComponent } from '@app/components/shared/link';
-import { BehaviorSubject } from 'rxjs';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
 import { SubsetOrphanNodesPageService } from '../subset-orphan-nodes-page.service';
-import { SubsetOrphanNodeFilter } from './subset-orphan-node-filter';
-import { SubsetOrphanNodeFilterCriteria } from './subset-orphan-node-filter-criteria';
-import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
 
 @Component({
   selector: 'kpn-subset-orphan-nodes-table',
@@ -31,6 +26,7 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
       editLinkTitle="Load the nodes in this page in JOSM"
       [pageSize]="service.pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
+      [pageIndex]="service.pageIndex()"
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
@@ -95,12 +91,8 @@ import { SubsetOrphanNodesService } from './subset-orphan-nodes.service';
   ],
 })
 export class SubsetOrphanNodesTableComponent implements OnInit {
-  timeInfo = input.required<TimeInfo>();
-  nodes = input.required<OrphanNodeInfo[]>();
-
   private readonly editAndPaginator = viewChild(EditAndPaginatorComponent);
 
-  private readonly subsetOrphanNodesService = inject(SubsetOrphanNodesService);
   private readonly editService = inject(EditService);
   protected readonly service = inject(SubsetOrphanNodesPageService);
 
@@ -108,15 +100,14 @@ export class SubsetOrphanNodesTableComponent implements OnInit {
 
   protected displayedColumns = ['nr', 'node', 'name', 'last-survey', 'last-edit'];
 
-  private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanNodeFilterCriteria());
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.service.filteredNodes();
+    });
+  }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.editAndPaginator().paginator().matPaginator();
-    this.filterCriteria$.subscribe((criteria) => {
-      const filter = new SubsetOrphanNodeFilter(this.timeInfo(), criteria, this.filterCriteria$);
-      this.dataSource.data = filter.filter(this.nodes());
-      this.subsetOrphanNodesService.filterOptions$.next(filter.filterOptions(this.nodes()));
-    });
   }
 
   rowNumber(index: number): number {

@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { SubsetOrphanNodesPage } from '@api/common/subset';
@@ -6,6 +7,8 @@ import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetService } from '../subset.service';
+import { SubsetOrphanNodeFilter } from './components/subset-orphan-node-filter';
+import { SubsetOrphanNodeFilterCriteria } from './components/subset-orphan-node-filter-criteria';
 
 export class SubsetOrphanNodesPageService {
   private readonly apiService = inject(ApiService);
@@ -20,6 +23,22 @@ export class SubsetOrphanNodesPageService {
   readonly pageIndex = this._pageIndex.asReadonly();
   readonly pageSize = this.preferencesService.pageSize;
 
+  private readonly filterCriteria = signal(new SubsetOrphanNodeFilterCriteria());
+  private readonly timeInfo = computed(() => this.response()?.result?.timeInfo);
+  private readonly nodes = computed(() => this.response()?.result?.nodes ?? []);
+
+  private readonly filter = computed(() => {
+    return new SubsetOrphanNodeFilter(this.filterCriteria, this.timeInfo());
+  });
+
+  readonly filteredNodes = computed(() => {
+    return this.filter().filter(this.nodes());
+  });
+
+  readonly filterOptions = computed(() => {
+    return this.filter().filterOptions(this.nodes());
+  });
+
   onInit(): void {
     this.subsetService.initPage(this.routerService);
     this.load();
@@ -27,12 +46,6 @@ export class SubsetOrphanNodesPageService {
 
   setPageSize(pageSize: number): void {
     this.preferencesService.setPageSize(pageSize);
-    this.load();
-  }
-
-  setPageIndex(pageIndex: number): void {
-    this._pageIndex.set(pageIndex);
-    this.load();
   }
 
   private load(): void {
