@@ -1,3 +1,4 @@
+import { WritableSignal } from '@angular/core';
 import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkRouteRow } from '@api/common/network';
@@ -8,95 +9,70 @@ import { SurveyDateFilter } from '@app/kpn/filter';
 import { SurveyDateFilterKind } from '@app/kpn/filter';
 import { TimestampFilter } from '@app/kpn/filter';
 import { TimestampFilterKind } from '@app/kpn/filter';
-import { BehaviorSubject } from 'rxjs';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
 
 export class NetworkRouteFilter {
   private readonly proposedFilter = new BooleanFilter<NetworkRouteRow>(
     'proposed',
-    this.criteria.proposed,
+    this.criteria().proposed,
     (row) => row.proposed,
-    this.update({ ...this.criteria, proposed: null }),
-    this.update({ ...this.criteria, proposed: true }),
-    this.update({ ...this.criteria, proposed: false })
+    () => this.criteria.update((c) => ({ ...c, proposed: null })),
+    () => this.criteria.update((c) => ({ ...c, proposed: true })),
+    () => this.criteria.update((c) => ({ ...c, proposed: false }))
   );
 
   private readonly investigateFilter = new BooleanFilter<NetworkRouteRow>(
     'investigate',
-    this.criteria.investigate,
+    this.criteria().investigate,
     (row) => row.investigate,
-    this.update({ ...this.criteria, investigate: null }),
-    this.update({ ...this.criteria, investigate: true }),
-    this.update({ ...this.criteria, investigate: false })
+    () => this.criteria.update((c) => ({ ...c, investigate: null })),
+    () => this.criteria.update((c) => ({ ...c, investigate: true })),
+    () => this.criteria.update((c) => ({ ...c, investigate: false }))
   );
 
   private readonly accessibleFilter = new BooleanFilter<NetworkRouteRow>(
     'accessible',
-    this.criteria.accessible,
+    this.criteria().accessible,
     (row) => row.accessible,
-    this.update({ ...this.criteria, accessible: null }),
-    this.update({ ...this.criteria, accessible: true }),
-    this.update({ ...this.criteria, accessible: false })
+    () => this.criteria.update((c) => ({ ...c, accessible: null })),
+    () => this.criteria.update((c) => ({ ...c, accessible: true })),
+    () => this.criteria.update((c) => ({ ...c, accessible: false }))
   );
 
   private readonly roleConnectionFilter = new BooleanFilter<NetworkRouteRow>(
     'connection',
-    this.criteria.roleConnection,
+    this.criteria().roleConnection,
     (row) => row.roleConnection,
-    this.update({ ...this.criteria, roleConnection: null }),
-    this.update({ ...this.criteria, roleConnection: true }),
-    this.update({ ...this.criteria, roleConnection: false })
+    () => this.criteria.update((c) => ({ ...c, roleConnection: null })),
+    () => this.criteria.update((c) => ({ ...c, roleConnection: true })),
+    () => this.criteria.update((c) => ({ ...c, roleConnection: false }))
   );
 
   private readonly lastSurveyFilter = new SurveyDateFilter<NetworkRouteRow>(
-    this.criteria.lastSurvey,
+    this.criteria().lastSurvey,
     (row) => row.lastSurvey,
     this.surveyDateInfo,
-    this.update({ ...this.criteria, lastSurvey: SurveyDateFilterKind.all }),
-    this.update({ ...this.criteria, lastSurvey: SurveyDateFilterKind.unknown }),
-    this.update({
-      ...this.criteria,
-      lastSurvey: SurveyDateFilterKind.lastMonth,
-    }),
-    this.update({
-      ...this.criteria,
-      lastSurvey: SurveyDateFilterKind.lastHalfYear,
-    }),
-    this.update({
-      ...this.criteria,
-      lastSurvey: SurveyDateFilterKind.lastYear,
-    }),
-    this.update({
-      ...this.criteria,
-      lastSurvey: SurveyDateFilterKind.lastTwoYears,
-    }),
-    this.update({ ...this.criteria, lastSurvey: SurveyDateFilterKind.older })
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.all })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.unknown })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.lastMonth })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.lastHalfYear })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.lastYear })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.lastTwoYears })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.older }))
   );
 
   private readonly lastUpdatedFilter = new TimestampFilter<NetworkRouteRow>(
-    this.criteria.relationLastUpdated,
+    this.criteria().relationLastUpdated,
     (row) => row.lastUpdated,
     this.timeInfo,
-    this.update({
-      ...this.criteria,
-      relationLastUpdated: TimestampFilterKind.all,
-    }),
-    this.update({
-      ...this.criteria,
-      relationLastUpdated: TimestampFilterKind.lastWeek,
-    }),
-    this.update({
-      ...this.criteria,
-      relationLastUpdated: TimestampFilterKind.lastMonth,
-    }),
-    this.update({
-      ...this.criteria,
-      relationLastUpdated: TimestampFilterKind.lastYear,
-    }),
-    this.update({
-      ...this.criteria,
-      relationLastUpdated: TimestampFilterKind.older,
-    })
+    () => this.criteria.update((c) => ({ ...c, relationLastUpdated: TimestampFilterKind.all })),
+    () =>
+      this.criteria.update((c) => ({ ...c, relationLastUpdated: TimestampFilterKind.lastWeek })),
+    () =>
+      this.criteria.update((c) => ({ ...c, relationLastUpdated: TimestampFilterKind.lastMonth })),
+    () =>
+      this.criteria.update((c) => ({ ...c, relationLastUpdated: TimestampFilterKind.lastYear })),
+    () => this.criteria.update((c) => ({ ...c, relationLastUpdated: TimestampFilterKind.older }))
   );
 
   private readonly allFilters = new Filters<NetworkRouteRow>(
@@ -109,10 +85,9 @@ export class NetworkRouteFilter {
   );
 
   constructor(
+    private criteria: WritableSignal<NetworkRouteFilterCriteria>,
     private timeInfo: TimeInfo,
-    private surveyDateInfo: SurveyDateInfo,
-    private criteria: NetworkRouteFilterCriteria,
-    private filterCriteria: BehaviorSubject<NetworkRouteFilterCriteria>
+    private surveyDateInfo: SurveyDateInfo
   ) {}
 
   filter(routes: NetworkRouteRow[]): NetworkRouteRow[] {
@@ -141,9 +116,5 @@ export class NetworkRouteFilter {
     ].filter((g) => g !== null);
 
     return new FilterOptions(filteredCount, totalCount, groups);
-  }
-
-  private update(criteria: NetworkRouteFilterCriteria) {
-    return () => this.filterCriteria.next(criteria);
   }
 }

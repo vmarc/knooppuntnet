@@ -1,7 +1,7 @@
+import { effect } from '@angular/core';
 import { viewChild } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -21,18 +21,12 @@ import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LinkRouteComponent } from '@app/components/shared/link';
-import { FilterOptions } from '@app/kpn/filter';
 import { SymbolComponent } from '@app/symbol';
 import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
-import { delay } from 'rxjs/operators';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
 import { NetworkRoutesPageService } from '../network-routes-page.service';
 import { NetworkRouteAnalysisComponent } from './network-route-analysis.component';
-import { NetworkRouteFilter } from './network-route-filter';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
-import { NetworkRoutesService } from './network-routes.service';
 
 @Component({
   selector: 'kpn-network-route-table',
@@ -180,7 +174,7 @@ import { NetworkRoutesService } from './network-routes.service';
     ActionButtonRouteComponent,
   ],
 })
-export class NetworkRouteTableComponent implements OnInit, OnDestroy {
+export class NetworkRouteTableComponent implements OnInit {
   timeInfo = input.required<TimeInfo>();
   surveyDateInfo = input.required<SurveyDateInfo>();
   networkType = input.required<NetworkType>();
@@ -189,7 +183,6 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   private readonly editAndPaginator = viewChild(EditAndPaginatorComponent);
 
   private readonly pageWidthService = inject(PageWidthService);
-  private readonly networkRoutesService = inject(NetworkRoutesService);
   private readonly editService = inject(EditService);
   protected readonly service = inject(NetworkRoutesPageService);
 
@@ -210,29 +203,14 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
     new NetworkRouteFilterCriteria()
   );
 
-  ngOnInit(): void {
-    this.dataSource.paginator = this.editAndPaginator().paginator().matPaginator();
-    this.filterCriteria$
-      .pipe(
-        map(
-          (criteria) =>
-            new NetworkRouteFilter(
-              this.timeInfo(),
-              this.surveyDateInfo(),
-              criteria,
-              this.filterCriteria$
-            )
-        ),
-        tap((filter) => (this.dataSource.data = filter.filter(this.routes()))),
-        delay(0)
-      )
-      .subscribe((filter) => {
-        this.networkRoutesService.setFilterOptions(filter.filterOptions(this.routes()));
-      });
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.service.filteredRoutes();
+    });
   }
 
-  ngOnDestroy() {
-    this.networkRoutesService.setFilterOptions(FilterOptions.empty());
+  ngOnInit(): void {
+    this.dataSource.paginator = this.editAndPaginator().paginator().matPaginator();
   }
 
   rowNumber(index: number): number {
