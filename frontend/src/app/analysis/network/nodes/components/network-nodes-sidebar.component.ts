@@ -1,22 +1,21 @@
-import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FilterComponent } from '@app/analysis/components/filter';
 import { SidebarComponent } from '@app/components/shared/sidebar';
-import { NetworkNodesService } from './network-nodes.service';
+import { NetworkNodesPageService } from '../network-nodes-page.service';
 
 @Component({
   selector: 'kpn-network-nodes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-filter [filterOptions]="networkNodesService.filterOptions$ | async" />
+      <kpn-filter [filterOptions]="service.filterOptions()" />
     </kpn-sidebar>
   `,
   standalone: true,
-  imports: [SidebarComponent, FilterComponent, AsyncPipe],
+  imports: [SidebarComponent, FilterComponent],
 })
 export class NetworkNodesSidebarComponent {
-  protected readonly networkNodesService = inject(NetworkNodesService);
+  protected readonly service = inject(NetworkNodesPageService);
 }

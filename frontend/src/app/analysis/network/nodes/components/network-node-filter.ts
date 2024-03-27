@@ -1,3 +1,4 @@
+import { WritableSignal } from '@angular/core';
 import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkNodeRow } from '@api/common/network';
@@ -8,119 +9,97 @@ import { SurveyDateFilter } from '@app/kpn/filter';
 import { SurveyDateFilterKind } from '@app/kpn/filter';
 import { TimestampFilter } from '@app/kpn/filter';
 import { TimestampFilterKind } from '@app/kpn/filter';
-import { BehaviorSubject } from 'rxjs';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
 
 export class NetworkNodeFilter {
   private readonly proposedFilter = new BooleanFilter<NetworkNodeRow>(
     'proposed',
-    this.criteria.proposed,
+    this.criteria().proposed,
     (row) => row.detail.proposed,
-    this.update({ ...this.criteria, proposed: null }),
-    this.update({ ...this.criteria, proposed: true }),
-    this.update({ ...this.criteria, proposed: false })
+    () => this.criteria.update((c) => ({ ...c, proposed: null })),
+    () => this.criteria.update((c) => ({ ...c, proposed: true })),
+    () => this.criteria.update((c) => ({ ...c, proposed: false }))
   );
 
   private readonly definedInNetworkRelationFilter = new BooleanFilter<NetworkNodeRow>(
     'definedInNetworkRelation',
-    this.criteria.definedInNetworkRelation,
+    this.criteria().definedInNetworkRelation,
     (row) => row.detail.definedInRelation,
-    this.update({ ...this.criteria, definedInNetworkRelation: null }),
-    this.update({ ...this.criteria, definedInNetworkRelation: true }),
-    this.update({ ...this.criteria, definedInNetworkRelation: false })
+    () => this.criteria.update((c) => ({ ...c, definedInNetworkRelation: null })),
+    () => this.criteria.update((c) => ({ ...c, definedInNetworkRelation: true })),
+    () => this.criteria.update((c) => ({ ...c, definedInNetworkRelation: false }))
   );
 
   private readonly referencedInRouteFilter = new BooleanFilter<NetworkNodeRow>(
     'referencedInRoute',
-    this.criteria.referencedInRoute,
+    this.criteria().referencedInRoute,
     (row) => row.routeReferences.length > 0,
-    this.update({ ...this.criteria, referencedInRoute: null }),
-    this.update({ ...this.criteria, referencedInRoute: true }),
-    this.update({ ...this.criteria, referencedInRoute: false })
+    () => this.criteria.update((c) => ({ ...c, referencedInRoute: null })),
+    () => this.criteria.update((c) => ({ ...c, referencedInRoute: true })),
+    () => this.criteria.update((c) => ({ ...c, referencedInRoute: false }))
   );
 
   private readonly connectionFilter = new BooleanFilter<NetworkNodeRow>(
     'connection',
-    this.criteria.connection,
+    this.criteria().connection,
     (row) => row.detail.connection,
-    this.update({ ...this.criteria, connection: null }),
-    this.update({ ...this.criteria, connection: true }),
-    this.update({ ...this.criteria, connection: false })
+    () => this.criteria.update((c) => ({ ...c, connection: null })),
+    () => this.criteria.update((c) => ({ ...c, connection: true })),
+    () => this.criteria.update((c) => ({ ...c, connection: false }))
   );
 
   private readonly roleConnectionFilter = new BooleanFilter<NetworkNodeRow>(
     'roleConnection',
-    this.criteria.roleConnection,
+    this.criteria().roleConnection,
     (row) => row.detail.roleConnection,
-    this.update({ ...this.criteria, roleConnection: null }),
-    this.update({ ...this.criteria, roleConnection: true }),
-    this.update({ ...this.criteria, roleConnection: false })
+    () => this.criteria.update((c) => ({ ...c, roleConnection: null })),
+    () => this.criteria.update((c) => ({ ...c, roleConnection: true })),
+    () => this.criteria.update((c) => ({ ...c, roleConnection: false }))
   );
 
   private readonly integrityCheckFilter = new BooleanFilter<NetworkNodeRow>(
     'integrityCheck',
-    this.criteria.integrityCheck,
+    this.criteria().integrityCheck,
     (row) => !!row.detail.expectedRouteCount,
-    this.update({ ...this.criteria, integrityCheck: null }),
-    this.update({ ...this.criteria, integrityCheck: true }),
-    this.update({ ...this.criteria, integrityCheck: false })
+    () => this.criteria.update((c) => ({ ...c, integrityCheck: null })),
+    () => this.criteria.update((c) => ({ ...c, integrityCheck: true })),
+    () => this.criteria.update((c) => ({ ...c, integrityCheck: false }))
   );
 
   private readonly integrityCheckFailedFilter = new BooleanFilter<NetworkNodeRow>(
     'integrityCheckFailed',
-    this.criteria.integrityCheckFailed,
+    this.criteria().integrityCheckFailed,
     (row) =>
       row.detail.expectedRouteCount
         ? +row.detail.expectedRouteCount !== row.routeReferences.length
         : false,
-    this.update({ ...this.criteria, integrityCheckFailed: null }),
-    this.update({ ...this.criteria, integrityCheckFailed: true }),
-    this.update({ ...this.criteria, integrityCheckFailed: false })
+    () => this.criteria.update((c) => ({ ...c, integrityCheckFailed: null })),
+    () => this.criteria.update((c) => ({ ...c, integrityCheckFailed: true })),
+    () => this.criteria.update((c) => ({ ...c, integrityCheckFailed: false }))
   );
 
   private readonly lastUpdatedFilter = new TimestampFilter<NetworkNodeRow>(
-    this.criteria.lastUpdated,
+    this.criteria().lastUpdated,
     (row) => row.detail.timestamp,
     this.timeInfo,
-    this.update({ ...this.criteria, lastUpdated: TimestampFilterKind.all }),
-    this.update({
-      ...this.criteria,
-      lastUpdated: TimestampFilterKind.lastWeek,
-    }),
-    this.update({
-      ...this.criteria,
-      lastUpdated: TimestampFilterKind.lastMonth,
-    }),
-    this.update({
-      ...this.criteria,
-      lastUpdated: TimestampFilterKind.lastYear,
-    }),
-    this.update({ ...this.criteria, lastUpdated: TimestampFilterKind.older })
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.all })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.lastWeek })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.lastMonth })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.lastYear })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.older }))
   );
 
   private readonly lastSurveyFilter = new SurveyDateFilter<NetworkNodeRow>(
-    this.criteria.lastSurvey,
+    this.criteria().lastSurvey,
     (row) => row.detail.lastSurvey,
     this.surveyDateInfo,
-    this.update({ ...this.criteria, lastSurvey: SurveyDateFilterKind.all }),
-    this.update({ ...this.criteria, lastSurvey: SurveyDateFilterKind.unknown }),
-    this.update({
-      ...this.criteria,
-      lastSurvey: SurveyDateFilterKind.lastMonth,
-    }),
-    this.update({
-      ...this.criteria,
-      lastSurvey: SurveyDateFilterKind.lastHalfYear,
-    }),
-    this.update({
-      ...this.criteria,
-      lastSurvey: SurveyDateFilterKind.lastYear,
-    }),
-    this.update({
-      ...this.criteria,
-      lastSurvey: SurveyDateFilterKind.lastTwoYears,
-    }),
-    this.update({ ...this.criteria, lastSurvey: SurveyDateFilterKind.older })
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.all })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.unknown })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.lastMonth })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.lastHalfYear })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.lastYear })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.lastTwoYears })),
+    () => this.criteria.update((c) => ({ ...c, lastSurvey: SurveyDateFilterKind.older }))
   );
 
   private readonly allFilters = new Filters<NetworkNodeRow>(
@@ -136,10 +115,9 @@ export class NetworkNodeFilter {
   );
 
   constructor(
-    private readonly timeInfo: TimeInfo,
+    private readonly criteria: WritableSignal<NetworkNodeFilterCriteria>,
     private readonly surveyDateInfo: SurveyDateInfo,
-    private readonly criteria: NetworkNodeFilterCriteria,
-    private readonly filterCriteria: BehaviorSubject<NetworkNodeFilterCriteria>
+    private readonly timeInfo: TimeInfo
   ) {}
 
   filter(nodes: NetworkNodeRow[]): NetworkNodeRow[] {
@@ -151,7 +129,6 @@ export class NetworkNodeFilter {
     const filteredCount = nodes.filter((node) => this.allFilters.passes(node)).length;
 
     const proposed = this.proposedFilter.filterOptions(this.allFilters, nodes);
-
     const definedInNetworkRelation = this.definedInNetworkRelationFilter.filterOptions(
       this.allFilters,
       nodes
@@ -180,9 +157,5 @@ export class NetworkNodeFilter {
     ].filter((g) => g !== null);
 
     return new FilterOptions(filteredCount, totalCount, groups);
-  }
-
-  private update(criteria: NetworkNodeFilterCriteria) {
-    return () => this.filterCriteria.next(criteria);
   }
 }

@@ -13,28 +13,19 @@ export class SubsetOrphanRouteFilter {
     'investigate',
     this.criteria().broken,
     (row) => row.isBroken,
-    this.update({ ...this.criteria(), broken: null }),
-    this.update({ ...this.criteria(), broken: true }),
-    this.update({ ...this.criteria(), broken: false })
+    () => this.criteria.update((c) => ({ ...c, broken: null })),
+    () => this.criteria.update((c) => ({ ...c, broken: true })),
+    () => this.criteria.update((c) => ({ ...c, broken: false }))
   );
   private readonly lastUpdatedFilter = new TimestampFilter<OrphanRouteInfo>(
     this.criteria().lastUpdated,
     (row) => row.lastUpdated,
     this.timeInfo,
-    this.update({ ...this.criteria(), lastUpdated: TimestampFilterKind.all }),
-    this.update({
-      ...this.criteria(),
-      lastUpdated: TimestampFilterKind.lastWeek,
-    }),
-    this.update({
-      ...this.criteria(),
-      lastUpdated: TimestampFilterKind.lastMonth,
-    }),
-    this.update({
-      ...this.criteria(),
-      lastUpdated: TimestampFilterKind.lastYear,
-    }),
-    this.update({ ...this.criteria(), lastUpdated: TimestampFilterKind.older })
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.all })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.lastWeek })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.lastMonth })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.lastYear })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.older }))
   );
   private readonly allFilters = new Filters<OrphanRouteInfo>(
     this.brokenFilter,
@@ -60,9 +51,5 @@ export class SubsetOrphanRouteFilter {
     const groups = [broken, lastUpdated].filter((g) => g !== null);
 
     return new FilterOptions(filteredCount, totalCount, groups);
-  }
-
-  private update(updatedCriteria: SubsetOrphanRouteFilterCriteria) {
-    return () => this.criteria.set(updatedCriteria);
   }
 }

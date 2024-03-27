@@ -12,20 +12,11 @@ export class SubsetOrphanNodeFilter {
     this.criteria().lastUpdated,
     (row) => row.lastUpdated,
     this.timeInfo,
-    this.update({ ...this.criteria(), lastUpdated: TimestampFilterKind.all }),
-    this.update({
-      ...this.criteria(),
-      lastUpdated: TimestampFilterKind.lastWeek,
-    }),
-    this.update({
-      ...this.criteria(),
-      lastUpdated: TimestampFilterKind.lastMonth,
-    }),
-    this.update({
-      ...this.criteria(),
-      lastUpdated: TimestampFilterKind.lastYear,
-    }),
-    this.update({ ...this.criteria(), lastUpdated: TimestampFilterKind.older })
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.all })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.lastWeek })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.lastMonth })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.lastYear })),
+    () => this.criteria.update((c) => ({ ...c, lastUpdated: TimestampFilterKind.older }))
   );
 
   private readonly allFilters = new Filters<OrphanNodeInfo>(this.lastUpdatedFilter);
@@ -45,9 +36,5 @@ export class SubsetOrphanNodeFilter {
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, nodes);
     const groups = [lastUpdated].filter((g) => g !== null);
     return new FilterOptions(filteredCount, totalCount, groups);
-  }
-
-  private update(updatedCriteria: SubsetOrphanNodeFilterCriteria) {
-    return () => this.criteria.set(updatedCriteria);
   }
 }

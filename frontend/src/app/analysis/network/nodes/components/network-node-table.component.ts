@@ -1,7 +1,7 @@
+import { effect } from '@angular/core';
 import { viewChild } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -20,18 +20,10 @@ import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
 import { LinkNodeComponent } from '@app/components/shared/link';
-import { FilterOptions } from '@app/kpn/filter';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { delay } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
 import { NetworkNodesPageService } from '../network-nodes-page.service';
 import { NetworkNodeAnalysisComponent } from './network-node-analysis.component';
-import { NetworkNodeFilter } from './network-node-filter';
-import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
 import { NetworkNodeRoutesComponent } from './network-node-routes.component';
-import { NetworkNodesService } from './network-nodes.service';
 
 @Component({
   selector: 'kpn-network-node-table',
@@ -183,7 +175,7 @@ import { NetworkNodesService } from './network-nodes.service';
     ActionButtonNodeComponent,
   ],
 })
-export class NetworkNodeTableComponent implements OnInit, OnDestroy {
+export class NetworkNodeTableComponent implements OnInit {
   networkType = input.required<NetworkType>();
   networkScope = input.required<NetworkScope>();
   timeInfo = input.required<TimeInfo>();
@@ -193,7 +185,6 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   private readonly editAndPaginator = viewChild(EditAndPaginatorComponent);
 
   private readonly pageWidthService = inject(PageWidthService);
-  private readonly networkNodesService = inject(NetworkNodesService);
   private readonly editService = inject(EditService);
   protected readonly service = inject(NetworkNodesPageService);
 
@@ -238,32 +229,14 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     return ['nr', 'analysis', 'node'];
   });
 
-  private readonly filterCriteria$: BehaviorSubject<NetworkNodeFilterCriteria> =
-    new BehaviorSubject(new NetworkNodeFilterCriteria());
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.service.filteredNodes();
+    });
+  }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.editAndPaginator().paginator().matPaginator();
-    this.filterCriteria$
-      .pipe(
-        map(
-          (criteria) =>
-            new NetworkNodeFilter(
-              this.timeInfo(),
-              this.surveyDateInfo(),
-              criteria,
-              this.filterCriteria$
-            )
-        ),
-        tap((filter) => (this.dataSource.data = filter.filter(this.nodes()))),
-        delay(0)
-      )
-      .subscribe((filter) => {
-        this.networkNodesService.setFilterOptions(filter.filterOptions(this.nodes()));
-      });
-  }
-
-  ngOnDestroy() {
-    this.networkNodesService.setFilterOptions(FilterOptions.empty());
   }
 
   rowNumber(index: number): number {

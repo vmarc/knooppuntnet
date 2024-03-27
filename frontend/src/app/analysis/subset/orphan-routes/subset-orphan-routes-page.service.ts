@@ -31,17 +31,13 @@ export class SubsetOrphanRoutesPageService {
     new SubsetOrphanRouteFilterCriteria()
   );
 
-  private readonly filter = computed(() => {
-    return new SubsetOrphanRouteFilter(this.filterCriteria, this.timeInfo());
-  });
+  private readonly filter = computed(
+    () => new SubsetOrphanRouteFilter(this.filterCriteria, this.timeInfo())
+  );
 
-  readonly filteredRoutes = computed(() => {
-    return this.filter().filter(this.routes());
-  });
+  readonly filteredRoutes = computed(() => this.filter().filter(this.routes()));
 
-  readonly filterOptions = computed(() => {
-    return this.filter().filterOptions(this.routes());
-  });
+  readonly filterOptions = computed(() => this.filter().filterOptions(this.routes()));
 
   onInit(): void {
     this.subsetService.initPage(this.routerService);
