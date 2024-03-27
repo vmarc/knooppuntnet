@@ -1,28 +1,21 @@
-import { AsyncPipe } from '@angular/common';
+import { effect } from '@angular/core';
 import { viewChild } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { OrphanRouteInfo } from '@api/common';
-import { TimeInfo } from '@api/common';
-import { NetworkType } from '@api/custom';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LinkRouteComponent } from '@app/components/shared/link';
-import { BehaviorSubject } from 'rxjs';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
 import { SubsetOrphanRoutesPageService } from '../subset-orphan-routes-page.service';
 import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analysis.component';
-import { SubsetOrphanRouteFilter } from './subset-orphan-route-filter';
-import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
-import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
 
 @Component({
   selector: 'kpn-subset-orphan-routes-table',
@@ -32,7 +25,7 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
       (edit)="edit()"
       i18n-editLinkTitle="@@subset-orphan-routes.edit.title"
       editLinkTitle="Load the routes in this page in JOSM"
-      [pageSize]="service.pageSize()"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="dataSource.data.length"
       [showPageSizeSelection]="true"
@@ -113,7 +106,6 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   `,
   standalone: true,
   imports: [
-    AsyncPipe,
     DayComponent,
     EditAndPaginatorComponent,
     IntegerFormatPipe,
@@ -124,27 +116,26 @@ import { SubsetOrphanRoutesService } from './subset-orphan-routes.service';
   ],
 })
 export class SubsetOrphanRoutesTableComponent implements OnInit {
-  timeInfo = input.required<TimeInfo>();
-  networkType = input.required<NetworkType>();
-  orphanRoutes = input.required<OrphanRouteInfo[]>();
+  private readonly service = inject(SubsetOrphanRoutesPageService);
+  protected readonly pageSize = this.service.pageSize;
+  protected readonly networkType = this.service.networkType;
+  protected readonly routes = this.service.filteredRoutes;
 
   private readonly editAndPaginator = viewChild.required(EditAndPaginatorComponent);
 
-  private readonly subsetOrphanRoutesService = inject(SubsetOrphanRoutesService);
   private readonly editService = inject(EditService);
-  protected readonly service = inject(SubsetOrphanRoutesPageService);
 
   protected dataSource = new MatTableDataSource<OrphanRouteInfo>();
   protected displayedColumns = ['nr', 'analysis', 'name', 'distance', 'last-survey', 'last-edit'];
-  private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanRouteFilterCriteria());
+
+  constructor() {
+    effect(() => {
+      this.dataSource.data = this.routes();
+    });
+  }
 
   ngOnInit(): void {
     this.dataSource.paginator = this.editAndPaginator().paginator().matPaginator();
-    this.filterCriteria$.subscribe((criteria) => {
-      const filter = new SubsetOrphanRouteFilter(this.timeInfo(), criteria, this.filterCriteria$);
-      this.dataSource.data = filter.filter(this.orphanRoutes());
-      this.subsetOrphanRoutesService.filterOptions$.next(filter.filterOptions(this.orphanRoutes()));
-    });
   }
 
   rowNumber(index: number): number {

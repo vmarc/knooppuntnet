@@ -4,7 +4,6 @@ import { FilterOptions } from '@app/kpn/filter';
 import { Filters } from '@app/kpn/filter';
 import { TimestampFilter } from '@app/kpn/filter';
 import { TimestampFilterKind } from '@app/kpn/filter';
-import { List } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
 import { SubsetOrphanNodeFilterCriteria } from './subset-orphan-node-filter-criteria';
 
@@ -47,7 +46,7 @@ export class SubsetOrphanNodeFilter {
 
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, nodes);
 
-    const groups = List([lastUpdated]).filter((g) => g !== null);
+    const groups = [lastUpdated].filter((g) => g !== null);
 
     return new FilterOptions(filteredCount, totalCount, groups);
   }

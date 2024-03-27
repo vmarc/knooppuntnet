@@ -34,11 +34,7 @@ import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.servi
               <span i18n="@@subset-orphan-routes.no-routes">No free routes</span>
             </p>
           } @else {
-            <kpn-subset-orphan-routes-table
-              [timeInfo]="response.result.timeInfo"
-              [networkType]="response.result.subsetInfo.networkType"
-              [orphanRoutes]="response.result.routes"
-            />
+            <kpn-subset-orphan-routes-table />
           }
         </div>
       }

@@ -1,3 +1,4 @@
+import { WritableSignal } from '@angular/core';
 import { OrphanRouteInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { BooleanFilter } from '@app/kpn/filter';
@@ -5,37 +6,35 @@ import { FilterOptions } from '@app/kpn/filter';
 import { Filters } from '@app/kpn/filter';
 import { TimestampFilter } from '@app/kpn/filter';
 import { TimestampFilterKind } from '@app/kpn/filter';
-import { List } from 'immutable';
-import { BehaviorSubject } from 'rxjs';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
 
 export class SubsetOrphanRouteFilter {
   private readonly brokenFilter = new BooleanFilter<OrphanRouteInfo>(
     'investigate',
-    this.criteria.broken,
+    this.criteria().broken,
     (row) => row.isBroken,
-    this.update({ ...this.criteria, broken: null }),
-    this.update({ ...this.criteria, broken: true }),
-    this.update({ ...this.criteria, broken: false })
+    this.update({ ...this.criteria(), broken: null }),
+    this.update({ ...this.criteria(), broken: true }),
+    this.update({ ...this.criteria(), broken: false })
   );
   private readonly lastUpdatedFilter = new TimestampFilter<OrphanRouteInfo>(
-    this.criteria.lastUpdated,
+    this.criteria().lastUpdated,
     (row) => row.lastUpdated,
     this.timeInfo,
-    this.update({ ...this.criteria, lastUpdated: TimestampFilterKind.all }),
+    this.update({ ...this.criteria(), lastUpdated: TimestampFilterKind.all }),
     this.update({
-      ...this.criteria,
+      ...this.criteria(),
       lastUpdated: TimestampFilterKind.lastWeek,
     }),
     this.update({
-      ...this.criteria,
+      ...this.criteria(),
       lastUpdated: TimestampFilterKind.lastMonth,
     }),
     this.update({
-      ...this.criteria,
+      ...this.criteria(),
       lastUpdated: TimestampFilterKind.lastYear,
     }),
-    this.update({ ...this.criteria, lastUpdated: TimestampFilterKind.older })
+    this.update({ ...this.criteria(), lastUpdated: TimestampFilterKind.older })
   );
   private readonly allFilters = new Filters<OrphanRouteInfo>(
     this.brokenFilter,
@@ -43,9 +42,8 @@ export class SubsetOrphanRouteFilter {
   );
 
   constructor(
-    private readonly timeInfo: TimeInfo,
-    private readonly criteria: SubsetOrphanRouteFilterCriteria,
-    private readonly filterCriteria$: BehaviorSubject<SubsetOrphanRouteFilterCriteria>
+    private readonly criteria: WritableSignal<SubsetOrphanRouteFilterCriteria>,
+    private readonly timeInfo: TimeInfo
   ) {}
 
   filter(routes: OrphanRouteInfo[]): OrphanRouteInfo[] {
@@ -59,12 +57,12 @@ export class SubsetOrphanRouteFilter {
     const broken = this.brokenFilter.filterOptions(this.allFilters, routes);
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, routes);
 
-    const groups = List([broken, lastUpdated]).filter((g) => g !== null);
+    const groups = [broken, lastUpdated].filter((g) => g !== null);
 
     return new FilterOptions(filteredCount, totalCount, groups);
   }
 
-  private update(criteria: SubsetOrphanRouteFilterCriteria) {
-    return () => this.filterCriteria$.next(criteria);
+  private update(updatedCriteria: SubsetOrphanRouteFilterCriteria) {
+    return () => this.criteria.set(updatedCriteria);
   }
 }

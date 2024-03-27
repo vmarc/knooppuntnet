@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { SubsetOrphanRoutesPage } from '@api/common/subset';
@@ -6,6 +7,8 @@ import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetService } from '../subset.service';
+import { SubsetOrphanRouteFilter } from './components/subset-orphan-route-filter';
+import { SubsetOrphanRouteFilterCriteria } from './components/subset-orphan-route-filter-criteria';
 
 export class SubsetOrphanRoutesPageService {
   private readonly apiService = inject(ApiService);
@@ -19,6 +22,26 @@ export class SubsetOrphanRoutesPageService {
   readonly response = this._response.asReadonly();
   readonly pageIndex = this._pageIndex.asReadonly();
   readonly pageSize = this.preferencesService.pageSize;
+  readonly networkType = computed(() => this.response().result.subsetInfo.networkType);
+
+  private readonly timeInfo = computed(() => this.response()?.result?.timeInfo);
+  private readonly routes = computed(() => this.response()?.result?.routes ?? []);
+
+  private readonly filterCriteria = signal<SubsetOrphanRouteFilterCriteria>(
+    new SubsetOrphanRouteFilterCriteria()
+  );
+
+  private readonly filter = computed(() => {
+    return new SubsetOrphanRouteFilter(this.filterCriteria, this.timeInfo());
+  });
+
+  readonly filteredRoutes = computed(() => {
+    return this.filter().filter(this.routes());
+  });
+
+  readonly filterOptions = computed(() => {
+    return this.filter().filterOptions(this.routes());
+  });
 
   onInit(): void {
     this.subsetService.initPage(this.routerService);
@@ -27,12 +50,6 @@ export class SubsetOrphanRoutesPageService {
 
   setPageSize(pageSize: number): void {
     this.preferencesService.setPageSize(pageSize);
-    this.load();
-  }
-
-  setPageIndex(pageIndex: number): void {
-    this._pageIndex.set(pageIndex);
-    this.load();
   }
 
   private load(): void {

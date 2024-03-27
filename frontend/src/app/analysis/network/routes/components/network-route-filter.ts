@@ -8,7 +8,6 @@ import { SurveyDateFilter } from '@app/kpn/filter';
 import { SurveyDateFilterKind } from '@app/kpn/filter';
 import { TimestampFilter } from '@app/kpn/filter';
 import { TimestampFilterKind } from '@app/kpn/filter';
-import { List } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
 import { NetworkRouteFilterCriteria } from './network-route-filter-criteria';
 
@@ -132,14 +131,14 @@ export class NetworkRouteFilter {
     const lastSurvey = this.lastSurveyFilter.filterOptions(this.allFilters, routes);
     const lastUpdated = this.lastUpdatedFilter.filterOptions(this.allFilters, routes);
 
-    const groups = List([
+    const groups = [
       proposed,
       investigate,
       accessible,
       roleConnection,
       lastSurvey,
       lastUpdated,
-    ]).filter((g) => g !== null);
+    ].filter((g) => g !== null);
 
     return new FilterOptions(filteredCount, totalCount, groups);
   }
