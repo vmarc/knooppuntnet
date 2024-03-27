@@ -2,7 +2,6 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -146,8 +145,6 @@ export class LocationRouteTableComponent implements OnInit, OnChanges {
   timeInfo = input.required<TimeInfo>();
   routes = input.required<LocationRouteInfo[]>();
   routeCount = input.required<number>();
-
-  @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
   private readonly pageWidthService = inject(PageWidthService);
   private readonly editService = inject(EditService);

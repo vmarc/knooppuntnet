@@ -1,3 +1,4 @@
+import { viewChild } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
@@ -5,7 +6,6 @@ import { Component } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { input } from '@angular/core';
 import { DocLinkComponent } from '../link/doc-link.component';
 import { PageService } from '../page.service';
@@ -43,7 +43,7 @@ export class PageHeaderComponent implements AfterViewInit, OnChanges {
 
   private readonly pageService = inject(PageService);
 
-  @ViewChild('title', { read: ElementRef, static: true }) renderedTitle: ElementRef;
+  private readonly renderedTitle = viewChild<ElementRef>('title');
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['pageTitle']) {
@@ -59,7 +59,7 @@ export class PageHeaderComponent implements AfterViewInit, OnChanges {
     if (this.pageTitle() || this.pageTitle() === null) {
       this.pageService.setTitle(this.pageTitle());
     } else {
-      const titleFromPage = this.renderedTitle.nativeElement.textContent.trim();
+      const titleFromPage = this.renderedTitle().nativeElement.textContent.trim();
       this.pageService.setTitle(titleFromPage);
     }
   }

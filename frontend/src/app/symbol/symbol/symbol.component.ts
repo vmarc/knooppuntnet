@@ -1,7 +1,7 @@
+import { viewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -58,7 +58,7 @@ export class SymbolComponent implements OnInit, AfterViewInit {
   width = input(50);
   height = input(50);
   grid = input(false);
-  @ViewChild('symbolCanvas') canvas!: ElementRef<HTMLCanvasElement>;
+  private readonly canvas = viewChild<ElementRef<HTMLCanvasElement>>('symbolCanvas');
 
   box = '';
   symbolDescription: SymbolDescription;
@@ -69,7 +69,7 @@ export class SymbolComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const sb = new SymbolBuilder(this.canvas);
+    const sb = new SymbolBuilder(this.canvas());
     if (this.grid()) {
       sb.drawGrid();
     }

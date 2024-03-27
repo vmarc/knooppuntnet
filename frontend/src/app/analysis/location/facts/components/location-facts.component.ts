@@ -62,7 +62,7 @@ import { LocationFactPanelHeaderComponent } from './location-fact-panel-header.c
 })
 export class LocationFactsComponent implements AfterViewInit {
   locationFacts = input.required<LocationFact[]>();
-  accordion = viewChild(MatAccordion);
+  protected readonly accordion = viewChild(MatAccordion);
 
   private readonly routerService = inject(RouterService);
   private readonly router = inject(Router);

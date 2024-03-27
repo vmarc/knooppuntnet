@@ -1,7 +1,7 @@
+import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Input } from '@angular/core';
 import { ElementRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MonitorRouteGapBuilder } from './monitor-route-gap-builder';
@@ -9,7 +9,7 @@ import { MonitorRouteGapBuilder } from './monitor-route-gap-builder';
 @Component({
   selector: 'kpn-monitor-route-gap-canvas',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <canvas #gapCanvas [height]="height" width="40"></canvas> `,
+  template: '<canvas #gapCanvas [height]="height" width="40"></canvas>',
   styles: `
     canvas {
       display: block;
@@ -31,9 +31,9 @@ export class MonitorRouteGapCanvasComponent {
     setTimeout(() => this.draw(), 0);
   }
 
-  @ViewChild('gapCanvas') canvas!: ElementRef<HTMLCanvasElement>;
+  private readonly canvas = viewChild<ElementRef<HTMLCanvasElement>>('gapCanvas');
 
   private draw(): void {
-    new MonitorRouteGapBuilder(this.canvas, this.description(), this.osmSegmentCount()).draw();
+    new MonitorRouteGapBuilder(this.canvas(), this.description(), this.osmSegmentCount()).draw();
   }
 }

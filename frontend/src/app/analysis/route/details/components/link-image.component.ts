@@ -1,3 +1,4 @@
+import { viewChild } from '@angular/core';
 import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
@@ -5,7 +6,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Renderer2 } from '@angular/core';
 import { AfterViewChecked } from '@angular/core';
 import { ElementRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Subscription } from 'rxjs';
@@ -28,8 +28,8 @@ import { fromEvent } from 'rxjs';
 })
 export class LinkImageComponent implements OnInit, OnDestroy, AfterViewChecked {
   linkName = input.required<string>();
-  @ViewChild('image', { static: false }) imageRef: ElementRef;
-  @ViewChild('imageWrapper', { static: false }) divRef: ElementRef;
+  private readonly imageRef = viewChild<ElementRef>('image');
+  private readonly divRef = viewChild<ElementRef>('imageWrapper');
 
   private readonly renderer = inject(Renderer2);
 
@@ -51,8 +51,8 @@ export class LinkImageComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private adjustImageHeight(): void {
     if (this.imageRef && this.divRef) {
-      const height = this.divRef.nativeElement.parentElement.parentElement.offsetHeight - 1;
-      this.renderer.setStyle(this.imageRef.nativeElement, 'height', `${height}px`);
+      const height = this.divRef().nativeElement.parentElement.parentElement.offsetHeight - 1;
+      this.renderer.setStyle(this.imageRef().nativeElement, 'height', `${height}px`);
     }
   }
 }

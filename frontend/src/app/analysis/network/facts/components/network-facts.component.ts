@@ -170,7 +170,7 @@ export class NetworkFactsComponent implements AfterViewInit {
   private readonly panels = viewChildren(MatExpansionPanel);
   private readonly panelElementRefs = viewChildren(MatExpansionPanel, { read: ElementRef });
 
-  accordion = viewChild(MatAccordion);
+  protected readonly accordion = viewChild(MatAccordion);
 
   private readonly expandCollapseActive = signal(false);
 

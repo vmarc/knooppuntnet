@@ -5,7 +5,6 @@ import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
@@ -141,10 +140,8 @@ export class LocationNodeTableComponent implements OnInit, OnChanges {
 
   protected readonly service = inject(LocationNodesPageService);
 
-  // TODO !!!
+  // TODO SIGNAL
   networkScope: NetworkScope = NetworkScope.regional;
-
-  @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
   private readonly pageWidthService = inject(PageWidthService);
   private readonly editService = inject(EditService);

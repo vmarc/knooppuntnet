@@ -1,7 +1,7 @@
+import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -16,10 +16,10 @@ import { MatDividerModule } from '@angular/material/divider';
   imports: [MatDividerModule],
 })
 export class ElevationProfileComponent implements AfterViewInit {
-  @ViewChild('profile', { static: true }) canvas: ElementRef;
+  private readonly canvas = viewChild<ElementRef>('profile');
 
   ngAfterViewInit(): void {
-    const ctx = this.canvas.nativeElement.getContext('2d');
+    const ctx = this.canvas().nativeElement.getContext('2d');
     ctx.fillStyle = '#FF0000';
     ctx.fillRect(0, 0, 20, 20);
     ctx.moveTo(0, 0);

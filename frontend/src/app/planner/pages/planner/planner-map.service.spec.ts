@@ -1,7 +1,6 @@
 import { Params } from '@angular/router';
 import { NetworkType } from '@api/custom';
 import { MapPosition } from '@app/ol/domain';
-import { BrowserStorageService } from '@app/services';
 import { PlannerState } from '../../store/planner-state';
 
 describe('PlannerStateService', () => {

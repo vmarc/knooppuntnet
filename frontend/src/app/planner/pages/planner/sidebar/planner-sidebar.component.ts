@@ -15,8 +15,8 @@ import { PlannerSideBarPlannerComponent } from './planner-side-bar-planner.compo
     <kpn-planner-sidebar-legend />
     <kpn-planner-sidebar-options />
     <!--
-      <kpn-elevation-profile></kpn-elevation-profile>
-      <kpn-planner-sidebar-poi-configuration></kpn-map-sidebar-poi-configuration>
+      <kpn-elevation-profile />
+      <kpn-planner-sidebar-poi-configuration />
     -->
     <kpn-sidebar-footer [loginEnabled]="false" />
     <kpn-page-footer [settings]="false" />

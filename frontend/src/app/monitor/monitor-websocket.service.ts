@@ -2,7 +2,6 @@ import { DOCUMENT } from '@angular/common';
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { Inject } from '@angular/core';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
 import { MonitorRouteUpdateStatusMessage } from '@api/common/monitor/monitor-route-update-status-message';
 import { WebSocketSubject } from 'rxjs/webSocket';

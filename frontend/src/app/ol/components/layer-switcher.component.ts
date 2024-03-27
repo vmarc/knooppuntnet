@@ -1,13 +1,12 @@
 import { AsyncPipe } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule, MatMenuTrigger } from '@angular/material/menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { OsmLayer } from '@app/ol/layers';
 import { MapLayerState } from '../domain';
 import { MAP_SERVICE_TOKEN } from '../services';
@@ -41,7 +40,7 @@ import { OpenlayersMapService } from '../services';
       </ng-template>
     </mat-menu>
 
-    <div class="ol-control map-control map-layers-control" (click)="openPopupMenu()">
+    <div class="ol-control map-control map-layers-control">
       <button
         [matMenuTriggerFor]="mapMenu"
         title="select the layers displayed in the map"
@@ -63,14 +62,8 @@ import { OpenlayersMapService } from '../services';
 export class LayerSwitcherComponent {
   private readonly openlayersMapService: OpenlayersMapService = inject(MAP_SERVICE_TOKEN);
 
-  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   protected readonly layerStates$ = this.openlayersMapService.layerStates$;
-
   protected readonly osmLayerId = OsmLayer.id;
-
-  openPopupMenu(): void {
-    this.trigger.openMenu();
-  }
 
   layerVisibleChanged(layerState: MapLayerState, event: MatCheckboxChange): void {
     const change: MapLayerState = {

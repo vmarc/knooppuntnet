@@ -6,8 +6,6 @@ import { input } from '@angular/core';
 import { LocationChanges } from '@api/common';
 import { LocationTreeItem } from '@api/common';
 import { PageService } from '@app/components/shared';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'kpn-change-set-location-changes',

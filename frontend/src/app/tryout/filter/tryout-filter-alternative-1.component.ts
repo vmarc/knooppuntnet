@@ -17,7 +17,6 @@ import { MatSelect } from '@angular/material/select';
 import { MatTabLabel } from '@angular/material/tabs';
 import { MatTabGroup } from '@angular/material/tabs';
 import { MatTab } from '@angular/material/tabs';
-import { PageComponent } from '@app/components/shared/page';
 
 @Component({
   selector: 'kpn-tryout-filter-alternative-1',

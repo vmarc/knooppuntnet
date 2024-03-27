@@ -1,8 +1,8 @@
+import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { input } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
@@ -41,14 +41,14 @@ export class PaginatorComponent implements AfterViewInit {
   @Output() pageSizeChange = new EventEmitter<number>();
   @Output() pageIndexChange = new EventEmitter<number>();
 
-  @ViewChild(MatPaginator, { static: true }) matPaginator: MatPaginator;
+  readonly matPaginator = viewChild(MatPaginator);
 
   ngAfterViewInit(): void {
     this.initTranslations();
   }
 
   rowNumber(index: number): number {
-    return this.matPaginator.pageSize * this.matPaginator.pageIndex + index + 1;
+    return this.matPaginator().pageSize * this.matPaginator().pageIndex + index + 1;
   }
 
   pageChanged(event: PageEvent): void {
@@ -60,14 +60,14 @@ export class PaginatorComponent implements AfterViewInit {
   }
 
   private initTranslations(): void {
-    this.matPaginator._intl.itemsPerPageLabel = $localize`:@@paginator.items-per-page-label:Items per page`;
-    this.matPaginator._intl.nextPageLabel = $localize`:@@paginator.next-page-label:Next page`;
-    this.matPaginator._intl.previousPageLabel = $localize`:@@paginator.previous-page-label:Previous page`;
-    this.matPaginator._intl.firstPageLabel = $localize`:@@paginator.first-page-label:First page`;
-    this.matPaginator._intl.lastPageLabel = $localize`:@@paginator.last-page-label:Last page`;
+    this.matPaginator()._intl.itemsPerPageLabel = $localize`:@@paginator.items-per-page-label:Items per page`;
+    this.matPaginator()._intl.nextPageLabel = $localize`:@@paginator.next-page-label:Next page`;
+    this.matPaginator()._intl.previousPageLabel = $localize`:@@paginator.previous-page-label:Previous page`;
+    this.matPaginator()._intl.firstPageLabel = $localize`:@@paginator.first-page-label:First page`;
+    this.matPaginator()._intl.lastPageLabel = $localize`:@@paginator.last-page-label:Last page`;
 
     const of = $localize`:@@paginator.from:of`;
-    this.matPaginator._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+    this.matPaginator()._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
       if (length === 0 || pageSize === 0) {
         return `0 ${of} ${length}`;
       }

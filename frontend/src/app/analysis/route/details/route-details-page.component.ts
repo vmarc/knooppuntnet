@@ -8,7 +8,6 @@ import { RouteDetailsPage } from '@api/common/route';
 import { RouteInfoAnalysis } from '@api/common/route';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
-import { PageWidth } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
 import { PageComponent } from '@app/components/shared/page';

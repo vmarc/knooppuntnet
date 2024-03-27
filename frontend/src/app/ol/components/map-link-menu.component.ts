@@ -1,9 +1,7 @@
 import { inject } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenuModule } from '@angular/material/menu';
 import { toLonLat } from 'ol/proj';
 import { OpenlayersMapService } from '../services';
@@ -16,17 +14,15 @@ import { MAP_SERVICE_TOKEN } from '../services';
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <mat-menu #mapMenu="matMenu">
       <ng-template matMenuContent>
-        <div (mouseleave)="mouseLeavesMenu()">
-          <button mat-menu-item (click)="goto('iD')">iD</button>
-          <button mat-menu-item (click)="goto('openstreetmap')">OpenStreetMap</button>
-          <button mat-menu-item (click)="goto('mapillary')">Mapillary</button>
-          <button mat-menu-item (click)="goto('google')">Google</button>
-          <button mat-menu-item (click)="goto('google-satellite')">Google Satellite</button>
-        </div>
+        <button mat-menu-item (click)="goto('iD')">iD</button>
+        <button mat-menu-item (click)="goto('openstreetmap')">OpenStreetMap</button>
+        <button mat-menu-item (click)="goto('mapillary')">Mapillary</button>
+        <button mat-menu-item (click)="goto('google')">Google</button>
+        <button mat-menu-item (click)="goto('google-satellite')">Google Satellite</button>
       </ng-template>
     </mat-menu>
 
-    <div class="ol-control map-links-control" (click)="openPopupMenu()">
+    <div class="ol-control map-links-control">
       <button
         class="map-control-button"
         [matMenuTriggerFor]="mapMenu"
@@ -54,15 +50,6 @@ import { MAP_SERVICE_TOKEN } from '../services';
 })
 export class MapLinkMenuComponent {
   private readonly openlayersMapService: OpenlayersMapService = inject(MAP_SERVICE_TOKEN);
-  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
-
-  openPopupMenu(): void {
-    this.trigger.openMenu();
-  }
-
-  mouseLeavesMenu(): void {
-    this.trigger.closeMenu();
-  }
 
   goto(target: string): void {
     const zoom = Math.round(this.openlayersMapService.map.getView().getZoom());

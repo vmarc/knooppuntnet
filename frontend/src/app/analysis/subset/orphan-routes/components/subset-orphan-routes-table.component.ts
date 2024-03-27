@@ -1,9 +1,9 @@
 import { AsyncPipe } from '@angular/common';
+import { viewChild } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
@@ -128,7 +128,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   networkType = input.required<NetworkType>();
   orphanRoutes = input.required<OrphanRouteInfo[]>();
 
-  @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
+  private readonly editAndPaginator = viewChild.required(EditAndPaginatorComponent);
 
   private readonly subsetOrphanRoutesService = inject(SubsetOrphanRoutesService);
   private readonly editService = inject(EditService);
@@ -139,7 +139,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   private readonly filterCriteria$ = new BehaviorSubject(new SubsetOrphanRouteFilterCriteria());
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator.paginator.matPaginator;
+    this.dataSource.paginator = this.editAndPaginator().paginator().matPaginator();
     this.filterCriteria$.subscribe((criteria) => {
       const filter = new SubsetOrphanRouteFilter(this.timeInfo(), criteria, this.filterCriteria$);
       this.dataSource.data = filter.filter(this.orphanRoutes());
@@ -148,7 +148,7 @@ export class SubsetOrphanRoutesTableComponent implements OnInit {
   }
 
   rowNumber(index: number): number {
-    return this.paginator.paginator.rowNumber(index);
+    return this.editAndPaginator().paginator().rowNumber(index);
   }
 
   onPageSizeChange(pageSize: number) {

@@ -1,7 +1,7 @@
+import { viewChild } from '@angular/core';
 import { inject } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -144,7 +144,7 @@ import { PlannerService } from '../../../planner.service';
   ],
 })
 export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
-  @ViewChild('routename') input: ElementRef;
+  private readonly input = viewChild<ElementRef>('routename');
 
   private readonly pdfService = inject(PdfService);
   private readonly plannerService = inject(PlannerService);
@@ -172,7 +172,7 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.input.nativeElement.focus(), 250);
+    setTimeout(() => this.input().nativeElement.focus(), 250);
   }
 
   printDocument(): void {

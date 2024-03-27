@@ -1,4 +1,4 @@
-import { ViewChild } from '@angular/core';
+import { viewChild } from '@angular/core';
 import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { computed } from '@angular/core';
@@ -164,12 +164,12 @@ export class MonitorRouteMapDeviationsComponent {
     return this.service.page()?.deviations ?? [];
   });
 
-  @ViewChild('deviationSelectionList', { static: false }) selectionList: MatSelectionList;
+  private readonly selectionList = viewChild<MatSelectionList>('deviationSelectionList');
 
   constructor() {
     effect(() => {
       this.deviations();
-      this.selectionList?.deselectAll();
+      this.selectionList()?.deselectAll();
     });
   }
 

@@ -3,7 +3,6 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnChanges } from '@angular/core';
 import { SimpleChanges } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
@@ -106,8 +105,6 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 export class PoiLocationPoiTableComponent implements OnInit, OnChanges {
   pois = input.required<LocationPoiInfo[]>();
   poiCount = input.required<number>();
-
-  @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
 
   private readonly pageWidthService = inject(PageWidthService);
   protected readonly service = inject(PoiLocationPoisPageService);

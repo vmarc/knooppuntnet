@@ -1,10 +1,10 @@
+import { viewChild } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { input } from '@angular/core';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -186,7 +186,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   networkType = input.required<NetworkType>();
   routes = input.required<NetworkRouteRow[]>();
 
-  @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
+  private readonly editAndPaginator = viewChild(EditAndPaginatorComponent);
 
   private readonly pageWidthService = inject(PageWidthService);
   private readonly networkRoutesService = inject(NetworkRoutesService);
@@ -211,7 +211,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   );
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator.paginator.matPaginator;
+    this.dataSource.paginator = this.editAndPaginator().paginator().matPaginator();
     this.filterCriteria$
       .pipe(
         map(
@@ -236,7 +236,7 @@ export class NetworkRouteTableComponent implements OnInit, OnDestroy {
   }
 
   rowNumber(index: number): number {
-    return this.paginator.paginator.rowNumber(index);
+    return this.editAndPaginator().paginator().rowNumber(index);
   }
 
   onPageSizeChange(pageSize: number) {

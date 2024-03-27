@@ -1,6 +1,6 @@
+import { viewChild } from '@angular/core';
 import { AfterViewChecked } from '@angular/core';
 import { ElementRef } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -48,11 +48,11 @@ import { MonitorRouteSaveStep } from '../monitor-route-save-step';
 })
 export class MonitorRouteFormSaveStepComponent implements AfterViewChecked {
   step = input.required<MonitorRouteSaveStep>();
-  @ViewChild('stepDiv') stepDiv!: ElementRef<HTMLDivElement>;
+  private readonly stepDiv = viewChild.required<ElementRef<HTMLDivElement>>('stepDiv');
 
   ngAfterViewChecked() {
     if (this.step().status === 'busy') {
-      this.stepDiv.nativeElement.scrollIntoView({
+      this.stepDiv().nativeElement.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
       });

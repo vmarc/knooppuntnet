@@ -1,10 +1,10 @@
+import { viewChild } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
@@ -190,7 +190,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   surveyDateInfo = input.required<SurveyDateInfo>();
   nodes = input.required<NetworkNodeRow[]>();
 
-  @ViewChild(EditAndPaginatorComponent, { static: true }) paginator: EditAndPaginatorComponent;
+  private readonly editAndPaginator = viewChild(EditAndPaginatorComponent);
 
   private readonly pageWidthService = inject(PageWidthService);
   private readonly networkNodesService = inject(NetworkNodesService);
@@ -242,7 +242,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
     new BehaviorSubject(new NetworkNodeFilterCriteria());
 
   ngOnInit(): void {
-    this.dataSource.paginator = this.paginator.paginator.matPaginator;
+    this.dataSource.paginator = this.editAndPaginator().paginator().matPaginator();
     this.filterCriteria$
       .pipe(
         map(
@@ -267,7 +267,7 @@ export class NetworkNodeTableComponent implements OnInit, OnDestroy {
   }
 
   rowNumber(index: number): number {
-    return this.paginator.paginator.rowNumber(index);
+    return this.editAndPaginator().paginator().rowNumber(index);
   }
 
   expectedRouteCount(node: NetworkNodeRow): string {

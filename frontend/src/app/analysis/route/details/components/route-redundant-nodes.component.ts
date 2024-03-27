@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Input } from '@angular/core';
+import { input } from '@angular/core';
 import { RouteInfoAnalysis } from '@api/common/route';
 import { RouteNodeComponent } from './route-node.component';
-import { input } from '@angular/core';
 
 @Component({
   selector: 'kpn-route-redundant-nodes',

@@ -1,4 +1,4 @@
-import { ViewChild } from '@angular/core';
+import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Output } from '@angular/core';
@@ -51,7 +51,7 @@ export class EditAndPaginatorComponent {
   @Output() pageIndexChange = new EventEmitter<number>();
   @Output() edit = new EventEmitter<void>();
 
-  @ViewChild(PaginatorComponent, { static: true }) paginator: PaginatorComponent;
+  readonly paginator = viewChild(PaginatorComponent);
 
   editClicked() {
     this.edit.emit();
