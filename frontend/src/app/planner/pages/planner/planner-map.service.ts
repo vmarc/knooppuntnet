@@ -1,3 +1,4 @@
+import { effect } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
@@ -18,14 +19,13 @@ import { Subscriptions } from '@app/util';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
 import View from 'ol/View';
-import { skip } from 'rxjs';
 import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
 import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
-import { PlannerStateService } from '../../planner-state.service';
-import { PlannerService } from '../../planner.service';
-import { MapService } from '../../services/map.service';
-import { PlannerState } from '../../store/planner-state';
-import { PlannerMapLayerService } from '../planner-map-layer.service';
+import { PlannerStateService } from './planner-state.service';
+import { PlannerService } from './planner.service';
+import { MapService } from './map.service';
+import { PlannerState } from './planner-state';
+import { PlannerMapLayerService } from './planner-map-layer.service';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +64,13 @@ export class PlannerMapService extends OpenlayersMapService {
   });
 
   private subcriptions = new Subscriptions();
+
+  // constructor() {
+  //   super();
+  //   effect(() => {
+  //     this.plannerStateService.setLayerStates(this.layerStates());
+  //   });
+  // }
 
   init(state: PlannerState): void {
     const registry = this.plannerMapLayerService.registerLayers(
@@ -115,11 +122,6 @@ export class PlannerMapService extends OpenlayersMapService {
     //     .pipe(skip(1))
     //     .subscribe((mapPosition) => this.plannerStateService.setMapPosition(mapPosition))
     // );
-    this.subcriptions.add(
-      this.layerStates$
-        .pipe(skip(1))
-        .subscribe((layerStates) => this.plannerStateService.setLayerStates(layerStates))
-    );
   }
 
   setNetworkType(networkType: NetworkType): void {
@@ -139,7 +141,7 @@ export class PlannerMapService extends OpenlayersMapService {
 
   networkTypeChanged(networkType: NetworkType) {
     let changed = false;
-    const newLayerStates = this.layerStates.map((layerState) => {
+    const newLayerStates = this.layerStates().map((layerState) => {
       let enabled = layerState.enabled;
       const correspondingMapLayer = this.mapLayers.find(
         (mapLayer) => mapLayer.id === layerState.id
@@ -180,7 +182,9 @@ export class PlannerMapService extends OpenlayersMapService {
     this.updateLayerStates(newLayerStates);
     this.mapLayers.forEach((mapLayer) => {
       if (mapLayer.name === PoiTileLayerService.poiLayerId) {
-        const mapLayerState = this.layerStates.find((layerState) => layerState.id === mapLayer.id);
+        const mapLayerState = this.layerStates().find(
+          (layerState) => layerState.id === mapLayer.id
+        );
         if (mapLayerState) {
           mapLayer.layer.setVisible(mapLayerState.visible);
         }

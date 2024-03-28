@@ -19,9 +19,9 @@ import { RouterService } from '../../../shared/services/router.service';
 import { PlannerCommandAddPlan } from '../../domain/commands/planner-command-add-plan';
 import { PlanBuilder } from '../../domain/plan/plan-builder';
 import { PlanUtil } from '../../domain/plan/plan-util';
-import { PlannerStateService } from '../../planner-state.service';
-import { PlannerService } from '../../planner.service';
-import { MapService } from '../../services/map.service';
+import { PlannerStateService } from './planner-state.service';
+import { PlannerService } from './planner.service';
+import { MapService } from './map.service';
 import { PlannerMapService } from './planner-map.service';
 
 @Injectable()

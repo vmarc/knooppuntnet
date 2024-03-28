@@ -5,19 +5,19 @@ import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
 import { List } from 'immutable';
 import Map from 'ol/Map';
-import { PlannerContext } from './domain/context/planner-context';
-import { PlannerCursorImpl } from './domain/context/planner-cursor-impl';
-import { PlannerElasticBandImpl } from './domain/context/planner-elastic-band-impl';
-import { PlannerHighlightLayer } from './domain/context/planner-highlight-layer';
-import { PlannerHighlighterImpl } from './domain/context/planner-highlighter-impl';
-import { PlannerLegRepositoryImpl } from './domain/context/planner-leg-repository-impl';
-import { PlannerMarkerLayerImpl } from './domain/context/planner-marker-layer-impl';
-import { PlannerPopupService } from './domain/context/planner-popup-service';
-import { PlannerRouteLayerImpl } from './domain/context/planner-route-layer-impl';
-import { PlannerEngine } from './domain/interaction/planner-engine';
-import { PlannerEngineImpl } from './domain/interaction/planner-engine-impl';
-import { PlanUtil } from './domain/plan/plan-util';
-import { PlannerTranslations } from './util/planner-translations';
+import { PlannerContext } from '../../domain/context/planner-context';
+import { PlannerCursorImpl } from '../../domain/context/planner-cursor-impl';
+import { PlannerElasticBandImpl } from '../../domain/context/planner-elastic-band-impl';
+import { PlannerHighlightLayer } from '../../domain/context/planner-highlight-layer';
+import { PlannerHighlighterImpl } from '../../domain/context/planner-highlighter-impl';
+import { PlannerLegRepositoryImpl } from '../../domain/context/planner-leg-repository-impl';
+import { PlannerMarkerLayerImpl } from '../../domain/context/planner-marker-layer-impl';
+import { PlannerPopupService } from '../../domain/context/planner-popup-service';
+import { PlannerRouteLayerImpl } from '../../domain/context/planner-route-layer-impl';
+import { PlannerEngine } from '../../domain/interaction/planner-engine';
+import { PlannerEngineImpl } from '../../domain/interaction/planner-engine-impl';
+import { PlanUtil } from '../../domain/plan/plan-util';
+import { PlannerTranslations } from '../../util/planner-translations';
 
 @Injectable({
   providedIn: 'root',
@@ -26,8 +26,6 @@ export class PlannerService {
   private readonly apiService = inject(ApiService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly plannerPopupService = inject(PlannerPopupService);
-
-  engine: PlannerEngine;
 
   private readonly routeLayer = new PlannerRouteLayerImpl();
   private readonly markerLayer = new PlannerMarkerLayerImpl();
@@ -47,9 +45,7 @@ export class PlannerService {
     this.preferencesService.planProposed
   );
 
-  constructor() {
-    this.engine = new PlannerEngineImpl(this.context);
-  }
+  readonly engine: PlannerEngine = new PlannerEngineImpl(this.context);
 
   init(map: Map): void {
     this.cursor.addToMap(map);

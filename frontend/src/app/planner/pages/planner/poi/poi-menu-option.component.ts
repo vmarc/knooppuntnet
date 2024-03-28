@@ -6,7 +6,7 @@ import { input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PoiService } from '@app/services';
-import { PlannerStateService } from '../../planner-state.service';
+import { PlannerStateService } from '../planner-state.service';
 
 @Component({
   selector: 'kpn-poi-menu-option',

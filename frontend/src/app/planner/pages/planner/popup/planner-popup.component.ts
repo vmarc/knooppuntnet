@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PlannerService } from '../../../planner.service';
+import { PlannerService } from '../planner.service';
 import { PlannerPopupContentsComponent } from './planner-popup-contents.component';
 
 @Component({

@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PreferencesService } from '@app/core';
 import { MapResultMode } from '../../../../ol/services/map-result-mode';
-import { PlannerStateService } from '../../../planner-state.service';
+import { PlannerStateService } from '../planner-state.service';
 
 @Component({
   selector: 'kpn-plan-result-menu',

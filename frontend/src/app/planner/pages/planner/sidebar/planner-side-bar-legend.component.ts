@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PreferencesService } from '@app/core';
-import { PlannerStateService } from '../../../planner-state.service';
+import { PlannerStateService } from '../planner-state.service';
 import { LegendIconComponent } from './legend-icon.component';
 
 @Component({

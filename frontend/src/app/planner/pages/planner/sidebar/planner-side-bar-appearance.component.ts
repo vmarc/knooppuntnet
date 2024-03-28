@@ -5,7 +5,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { PreferencesService } from '@app/core';
-import { PlannerStateService } from '../../../planner-state.service';
+import { PlannerStateService } from '../planner-state.service';
 import { PlannerPageService } from '../planner-page.service';
 
 @Component({

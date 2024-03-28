@@ -16,10 +16,10 @@ import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
 import { from } from 'rxjs';
 import { Observable } from 'rxjs';
-import { MapResultMode } from '../ol/services/map-result-mode';
-import { RouterService } from '../shared/services/router.service';
-import { initialPlannerState } from './store/planner-state';
-import { PlannerState } from './store/planner-state';
+import { MapResultMode } from '../../../ol/services/map-result-mode';
+import { RouterService } from '../../../shared/services/router.service';
+import { initialPlannerState } from './planner-state';
+import { PlannerState } from './planner-state';
 
 @Injectable()
 export class PlannerStateService {

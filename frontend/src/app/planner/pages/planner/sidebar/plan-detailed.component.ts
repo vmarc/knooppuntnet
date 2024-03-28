@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { PlanRoute } from '@api/common/planner';
 import { Plan } from '../../../domain/plan/plan';
-import { PlannerService } from '../../../planner.service';
+import { PlannerService } from '../planner.service';
 
 @Component({
   selector: 'kpn-plan-detailed',

@@ -14,8 +14,8 @@ import { ActionButtonNodeComponent } from '../../../../analysis/components/actio
 import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
 import { ActionButtonWayComponent } from '../../../../analysis/components/action/action-button-way.component';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
-import { PlannerService } from '../../../planner.service';
-import { MapService } from '../../../services/map.service';
+import { PlannerService } from '../planner.service';
+import { MapService } from '../map.service';
 
 @Component({
   selector: 'kpn-planner-popup-poi',

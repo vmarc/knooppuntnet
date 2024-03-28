@@ -13,8 +13,8 @@ import { MapZoomService } from '@app/ol/services';
 import { ApiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
-import { PlannerService } from '../../../planner.service';
-import { MapService } from '../../../services/map.service';
+import { PlannerService } from '../planner.service';
+import { MapService } from '../map.service';
 
 @Component({
   selector: 'kpn-planner-popup-node',

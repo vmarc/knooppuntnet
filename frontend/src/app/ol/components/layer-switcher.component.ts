@@ -18,7 +18,7 @@ import { OpenlayersMapService } from '../services';
   template: `
     <mat-menu #mapMenu="matMenu" class="map-control-menu">
       <ng-template matMenuContent>
-        @if (layerStates$ | async; as layerStates) {
+        @if (layerStates(); as layerStates) {
           <div (click)="$event.stopPropagation()">
             @for (layerState of layerStates; track layerState) {
               <div [hidden]="!layerState.enabled">
@@ -62,7 +62,7 @@ import { OpenlayersMapService } from '../services';
 export class LayerSwitcherComponent {
   private readonly openlayersMapService: OpenlayersMapService = inject(MAP_SERVICE_TOKEN);
 
-  protected readonly layerStates$ = this.openlayersMapService.layerStates$;
+  protected readonly layerStates = this.openlayersMapService.layerStates;
   protected readonly osmLayerId = OsmLayer.id;
 
   layerVisibleChanged(layerState: MapLayerState, event: MatCheckboxChange): void {

@@ -7,7 +7,7 @@ import { ZoomLevel } from '@app/ol/domain';
 import { MapZoomService } from '@app/ol/services';
 import { Plan } from '../../../domain/plan/plan';
 import { PlanPhase } from '../../../domain/plan/plan-phase';
-import { PlannerService } from '../../../planner.service';
+import { PlannerService } from '../planner.service';
 
 @Component({
   selector: 'kpn-plan-tip',

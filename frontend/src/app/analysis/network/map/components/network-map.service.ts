@@ -1,3 +1,4 @@
+import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network';
@@ -28,7 +29,27 @@ export class NetworkMapService extends OpenlayersMapService {
 
   private networkMapPositionKey = 'network-map-position';
 
+  networkId: number | null = null;
+
+  constructor() {
+    super();
+    effect(() => {
+      const mapPosition = this.mapPosition();
+      if (mapPosition && this.networkId) {
+        const networkMapPosition: NetworkMapPosition = {
+          networkId: this.networkId,
+          zoom: mapPosition.zoom,
+          x: mapPosition.x,
+          y: mapPosition.y,
+          rotation: mapPosition.rotation,
+        };
+        this.storage.set(this.networkMapPositionKey, JSON.stringify(networkMapPosition));
+      }
+    });
+  }
+
   init(networkId: number, page: NetworkMapPage, mapPositionFromUrl: NetworkMapPosition): void {
+    this.networkId = networkId;
     this.registerLayers(page);
 
     this.initMap(
@@ -60,19 +81,6 @@ export class NetworkMapService extends OpenlayersMapService {
         }
       }
     }
-
-    this.mapPosition$.subscribe((mapPosition) => {
-      if (mapPosition) {
-        const networkMapPosition: NetworkMapPosition = {
-          networkId: networkId,
-          zoom: mapPosition.zoom,
-          x: mapPosition.x,
-          y: mapPosition.y,
-          rotation: mapPosition.rotation,
-        };
-        this.storage.set(this.networkMapPositionKey, JSON.stringify(networkMapPosition));
-      }
-    });
 
     this.mapZoomService.install(view);
     this.mapClickService.installOn(this.map);

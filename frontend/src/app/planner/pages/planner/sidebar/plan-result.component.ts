@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { PlannerStateService } from '../../../planner-state.service';
-import { PlannerService } from '../../../planner.service';
+import { PlannerStateService } from '../planner-state.service';
+import { PlannerService } from '../planner.service';
 import { PlanCompactComponent } from './plan-compact.component';
 import { PlanDetailedComponent } from './plan-detailed.component';
 import { PlanDistanceComponent } from './plan-distance.component';

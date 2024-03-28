@@ -4,8 +4,8 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { PoiService } from '@app/services';
-import { PlannerStateService } from '../../planner-state.service';
-import { PlannerMapService } from './planner-map.service';
+import { PlannerStateService } from '../planner-state.service';
+import { PlannerMapService } from '../planner-map.service';
 import { PoiMenuOptionComponent } from './poi-menu-option.component';
 
 @Component({

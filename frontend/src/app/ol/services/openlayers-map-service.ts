@@ -1,7 +1,9 @@
+import { signal } from '@angular/core';
 import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { InjectionToken } from '@angular/core';
 import { inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
@@ -35,12 +37,15 @@ export abstract class OpenlayersMapService {
   private router = inject(Router);
   private activatedRoute = inject(ActivatedRoute);
   private shouldUpdateUrl = false;
-  private _layerStates$ = new BehaviorSubject<MapLayerState[]>([]);
+
+  private readonly _layerStates = signal<MapLayerState[]>([]);
+
   protected mapLayers: MapLayer[] = [];
-  public layerStates$ = this._layerStates$.asObservable();
+
+  readonly layerStates = this._layerStates.asReadonly();
 
   private _mapPosition$ = new BehaviorSubject<MapPosition | null>(null);
-  public mapPosition$ = this._mapPosition$.pipe(distinct(), debounceTime(50));
+  public mapPosition = toSignal(this._mapPosition$.pipe(distinct(), debounceTime(50)));
 
   private readonly pageService = inject(PageService);
   private readonly subscriptions = new Subscriptions();
@@ -54,6 +59,12 @@ export abstract class OpenlayersMapService {
     this.subscriptions.add(
       fromEvent(window, 'webkitfullscreenchange').subscribe(() => this.updateSize())
     );
+    effect(() => {
+      const mapPosition = this.mapPosition();
+      if (this.shouldUpdateUrl) {
+        this.updateUrl(mapPosition);
+      }
+    });
   }
 
   protected initMap(map: Map): void {
@@ -68,29 +79,14 @@ export abstract class OpenlayersMapService {
     view.on('change:center', this.updatePositionHandler);
     this.updatePositionHandler();
     this.updateLayerVisibility();
-    if (this.shouldUpdateUrl) {
-      this.subscriptions.add(
-        this.mapPosition$.subscribe((mapPosition) => {
-          this.updateUrl(mapPosition);
-        })
-      );
-    }
   }
 
   get map(): Map {
     return this._map;
   }
 
-  protected get layerStates(): MapLayerState[] {
-    return this._layerStates$.value;
-  }
-
   protected updateLayerStates(layerStates: MapLayerState[]) {
-    this._layerStates$.next(layerStates);
-  }
-
-  get mapPosition(): MapPosition {
-    return this._mapPosition$.value;
+    this._layerStates.set(layerStates);
   }
 
   protected get layers(): BaseLayer[] {
@@ -99,7 +95,7 @@ export abstract class OpenlayersMapService {
 
   protected register(registry: MapLayerRegistry): void {
     this.mapLayers = registry.layers;
-    this._layerStates$.next(registry.layerStates);
+    this._layerStates.set(registry.layerStates);
   }
 
   destroy(): void {
@@ -116,7 +112,7 @@ export abstract class OpenlayersMapService {
     const layerId = change.id;
     const visible = change.visible;
 
-    const mapLayerStates = this._layerStates$.value.map((layerState) => {
+    const mapLayerStates = this._layerStates().map((layerState) => {
       if (layerState.id == BackgroundLayer.id && layerId == OsmLayer.id && visible) {
         return {
           ...layerState,
@@ -138,7 +134,7 @@ export abstract class OpenlayersMapService {
       return layerState;
     });
 
-    this._layerStates$.next(mapLayerStates);
+    this._layerStates.set(mapLayerStates);
 
     this.updateLayerVisibility();
   }
@@ -158,9 +154,9 @@ export abstract class OpenlayersMapService {
   }
 
   protected layerVisible(mapLayer: MapLayer): boolean {
-    const mapLayerState = this.layerStates.find((layerState) => layerState.id === mapLayer.id);
+    const mapLayerState = this.layerStates().find((layerState) => layerState.id === mapLayer.id);
     if (mapLayerState) {
-      const zoom = this.mapPosition.zoom;
+      const zoom = this._mapPosition$.value.zoom;
       const zoomInRange = zoom >= mapLayer.minZoom && zoom <= mapLayer.maxZoom;
       const visible =
         zoomInRange &&

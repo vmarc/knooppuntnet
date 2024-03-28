@@ -6,7 +6,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PoiService } from '@app/services';
-import { MapPoiConfigComponent } from '../poi/map-poi-config.component';
+import { MapPoiConfigComponent } from './poi/map-poi-config.component';
 
 @Component({
   selector: 'kpn-planner-sidebar-poi-configuration',

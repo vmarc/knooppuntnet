@@ -10,7 +10,7 @@ import { PlannerCommandReset } from '../../../domain/commands/planner-command-re
 import { PlannerCommandReverse } from '../../../domain/commands/planner-command-reverse';
 import { Plan } from '../../../domain/plan/plan';
 import { PlanReverser } from '../../../domain/plan/plan-reverser';
-import { PlannerService } from '../../../planner.service';
+import { PlannerService } from '../planner.service';
 import { PlanActionButtonComponent } from './plan-action-button.component';
 import { PlanOutputDialogComponent } from './plan-output-dialog.component';
 

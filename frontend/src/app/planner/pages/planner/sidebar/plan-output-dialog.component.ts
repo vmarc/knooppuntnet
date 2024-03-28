@@ -18,7 +18,7 @@ import { ClipboardModule } from 'ngx-clipboard';
 import { DirectionsAnalyzer } from '../../../domain/directions/directions-analyzer';
 import { PlanUtil } from '../../../domain/plan/plan-util';
 import { PdfService } from '../../../pdf/pdf.service';
-import { PlannerService } from '../../../planner.service';
+import { PlannerService } from '../planner.service';
 
 @Component({
   selector: 'kpn-plan-output-dialog',
