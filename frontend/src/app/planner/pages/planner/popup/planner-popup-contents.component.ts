@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
-import { MapPopupRouteComponent } from './map-popup-route.component';
+import { PlannerPopupRouteComponent } from './planner-popup-route.component';
 import { PlannerPopupNodeComponent } from './planner-popup-node.component';
 import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
 
@@ -24,7 +24,12 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
     }
   `,
   standalone: true,
-  imports: [MapPopupRouteComponent, NgClass, PlannerPopupNodeComponent, PlannerPopupPoiComponent],
+  imports: [
+    PlannerPopupRouteComponent,
+    NgClass,
+    PlannerPopupNodeComponent,
+    PlannerPopupPoiComponent,
+  ],
 })
 export class PlannerPopupContentsComponent {
   protected readonly service = inject(PlannerPopupService);

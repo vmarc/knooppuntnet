@@ -10,8 +10,8 @@ import { LinkRouteComponent } from '@app/components/shared/link';
 import { ApiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
+import { PlannerStateService } from '../planner-state.service';
 import { PlannerService } from '../planner.service';
-import { MapService } from '../map.service';
 
 @Component({
   selector: 'kpn-planner-popup-route',
@@ -65,14 +65,14 @@ import { MapService } from '../map.service';
   standalone: true,
   imports: [RouterLink, LinkRouteComponent],
 })
-export class MapPopupRouteComponent {
+export class PlannerPopupRouteComponent {
   private readonly service = inject(PlannerPopupService);
+  private readonly plannerStateService = inject(PlannerStateService);
   private readonly apiService = inject(ApiService);
-  private readonly mapService = inject(MapService);
   private readonly plannerService = inject(PlannerService);
 
   protected response = signal<ApiResponse<MapRouteDetail>>(null);
-  protected networkType = this.mapService.networkType;
+  protected networkType = this.plannerStateService.networkType;
 
   constructor() {
     effect(() => {

@@ -13,8 +13,8 @@ import { MapZoomService } from '@app/ol/services';
 import { ApiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
+import { PlannerStateService } from '../planner-state.service';
 import { PlannerService } from '../planner.service';
-import { MapService } from '../map.service';
 
 @Component({
   selector: 'kpn-planner-popup-node',
@@ -89,7 +89,7 @@ import { MapService } from '../map.service';
 export class PlannerPopupNodeComponent {
   private readonly service = inject(PlannerPopupService);
   private readonly apiService = inject(ApiService);
-  private readonly mapService = inject(MapService);
+  private readonly plannerStateService = inject(PlannerStateService);
   private readonly mapZoomService = inject(MapZoomService);
   private readonly plannerService = inject(PlannerService);
 
@@ -99,7 +99,7 @@ export class PlannerPopupNodeComponent {
     effect(() => {
       const nodeClick = this.service.nodeClick();
       if (nodeClick !== null) {
-        const networkType = this.mapService.networkType();
+        const networkType = this.plannerStateService.networkType();
         const nodeId = +nodeClick.node.node.nodeId;
         this.apiService.mapNodeDetail(networkType, nodeId).subscribe((response) => {
           this.response.set(response);

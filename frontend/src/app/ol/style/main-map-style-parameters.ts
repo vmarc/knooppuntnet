@@ -7,7 +7,6 @@ export class MainMapStyleParameters {
     public showProposed: boolean,
     public surveyDateValues: SurveyDateValues,
     public selectedRouteId: string,
-    public selectedNodeId: string,
-    public highlightedRouteId: string
+    public selectedNodeId: string
   ) {}
 }

@@ -19,10 +19,9 @@ import { RouterService } from '../../../shared/services/router.service';
 import { PlannerCommandAddPlan } from '../../domain/commands/planner-command-add-plan';
 import { PlanBuilder } from '../../domain/plan/plan-builder';
 import { PlanUtil } from '../../domain/plan/plan-util';
+import { PlannerMapService } from './planner-map.service';
 import { PlannerStateService } from './planner-state.service';
 import { PlannerService } from './planner.service';
-import { MapService } from './map.service';
-import { PlannerMapService } from './planner-map.service';
 
 @Injectable()
 export class PlannerPageService {
@@ -30,7 +29,6 @@ export class PlannerPageService {
   private readonly plannerService = inject(PlannerService);
   private readonly plannerMapService = inject(PlannerMapService);
   private readonly pageService = inject(PageService);
-  private readonly mapService = inject(MapService);
   private readonly dialog = inject(MatDialog);
   private readonly apiService = inject(ApiService);
   private readonly sharedStateService = inject(SharedStateService);
@@ -130,7 +128,7 @@ export class PlannerPageService {
   geolocation(coordinate: Coordinate): void {
     this.plannerMapService.map.getView().setCenter(coordinate);
     let zoomLevel = 15;
-    if ('cycling' === this.mapService.networkType()) {
+    if ('cycling' === this.plannerStateService.networkType()) {
       zoomLevel = 13;
     }
     this.plannerMapService.map.getView().setZoom(zoomLevel);

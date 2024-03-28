@@ -15,7 +15,6 @@ import { ActionButtonRelationComponent } from '../../../../analysis/components/a
 import { ActionButtonWayComponent } from '../../../../analysis/components/action/action-button-way.component';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 import { PlannerService } from '../planner.service';
-import { MapService } from '../map.service';
 
 @Component({
   selector: 'kpn-planner-popup-poi',
@@ -74,7 +73,6 @@ export class PlannerPopupPoiComponent {
   private readonly service = inject(PlannerPopupService);
   private readonly apiService = inject(ApiService);
   private readonly plannerService = inject(PlannerService);
-  private readonly mapService = inject(MapService);
   protected readonly poiClick = this.service.poiClick;
 
   protected response = signal<ApiResponse<PoiPage>>(null);

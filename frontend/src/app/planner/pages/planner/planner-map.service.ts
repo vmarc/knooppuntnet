@@ -1,4 +1,3 @@
-import { effect } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
@@ -21,18 +20,15 @@ import Overlay from 'ol/Overlay';
 import View from 'ol/View';
 import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
 import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
+import { PlannerMapLayerService } from './planner-map-layer.service';
+import { PlannerState } from './planner-state';
 import { PlannerStateService } from './planner-state.service';
 import { PlannerService } from './planner.service';
-import { MapService } from './map.service';
-import { PlannerState } from './planner-state';
-import { PlannerMapLayerService } from './planner-map-layer.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlannerMapService extends OpenlayersMapService {
-  private readonly mapService = inject(MapService);
-
   private readonly plannerService = inject(PlannerService);
   private readonly poiService = inject(PoiService);
   private readonly mapZoomService = inject(MapZoomService);
@@ -58,8 +54,7 @@ export class PlannerMapService extends OpenlayersMapService {
       showProposed,
       surveyDateValues,
       selectedRouteId,
-      selectedNodeId,
-      this.mapService.highlightedRouteId()
+      selectedNodeId
     );
   });
 

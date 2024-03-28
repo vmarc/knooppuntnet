@@ -64,7 +64,7 @@ export class LocationMapService extends OpenlayersMapService {
     geoJson: string
   ): void {
     const parameters = signal<MainMapStyleParameters>(
-      new MainMapStyleParameters('analysis', true, surveyDateValues, null, null, null)
+      new MainMapStyleParameters('analysis', true, surveyDateValues, null, null)
     );
     const mainMapStyle = new MainMapStyle(parameters);
     const networkLayers = [

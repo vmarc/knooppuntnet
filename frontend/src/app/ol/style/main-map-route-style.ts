@@ -51,10 +51,8 @@ export class MainMapRouteStyle {
     resolution: number
   ): Style {
     const color = this.routeColor(parameters, feature);
-    const highligthed =
-      parameters.highlightedRouteId && feature.get('id').startsWith(parameters.highlightedRouteId);
     const proposed = feature.get('state') === 'proposed';
-    return this.routeStyleBuilder.style(color, resolution, highligthed, proposed);
+    return this.routeStyleBuilder.style(color, resolution, proposed);
   }
 
   private initRouteSelectedStyle(): Style {

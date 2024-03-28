@@ -1,10 +1,9 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { PlanRoute } from '@api/common/planner';
 import { Plan } from '../../../domain/plan/plan';
-import { PlannerService } from '../planner.service';
+import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
 
 @Component({
   selector: 'kpn-plan-detailed',
@@ -111,13 +110,11 @@ import { PlannerService } from '../planner.service';
 export class PlanDetailedComponent {
   plan = input.required<Plan>();
 
-  private readonly plannerService = inject(PlannerService);
-
   hasColour(planRoute: PlanRoute): boolean {
-    return this.plannerService.hasColour(planRoute);
+    return PlanRouteColourUtil.hasColour(planRoute);
   }
 
   colours(planRoute: PlanRoute): string {
-    return this.plannerService.colours(planRoute);
+    return PlanRouteColourUtil.colours(planRoute);
   }
 }

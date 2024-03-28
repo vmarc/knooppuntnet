@@ -6,18 +6,14 @@ import { green } from './main-style-colors';
 export class RouteStyle {
   private defaultRouteStyle = this.initRouteStyle();
 
-  style(color: Color, resolution: number, highlighted: boolean, proposed: boolean): Style {
+  style(color: Color, resolution: number, proposed: boolean): Style {
     let width: number;
     if (resolution > /* zoomLevel 9 */ 305.75) {
       width = 1;
     } else if (resolution > /* zoomLevel 12 */ 38.219) {
       width = 2;
     } else {
-      if (highlighted) {
-        width = 8;
-      } else {
-        width = 4;
-      }
+      width = 4;
     }
 
     const stroke = this.defaultRouteStyle.getStroke();

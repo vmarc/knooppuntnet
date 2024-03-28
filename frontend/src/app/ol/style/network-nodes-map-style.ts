@@ -75,6 +75,6 @@ export class NetworkNodesMapStyle {
     const routeId = +featureId.substring(0, featureId.indexOf('-'));
     const routeColor = this.networkRouteIds.includes(routeId) ? green : gray;
     const proposed = feature.get('state') === 'proposed';
-    return this.routeStyle.style(routeColor, resolution, false, proposed);
+    return this.routeStyle.style(routeColor, resolution, proposed);
   }
 }

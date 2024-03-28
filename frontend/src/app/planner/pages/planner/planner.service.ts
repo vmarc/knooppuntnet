@@ -1,9 +1,7 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { PlanRoute } from '@api/common/planner';
 import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
-import { List } from 'immutable';
 import Map from 'ol/Map';
 import { PlannerContext } from '../../domain/context/planner-context';
 import { PlannerCursorImpl } from '../../domain/context/planner-cursor-impl';
@@ -16,8 +14,6 @@ import { PlannerPopupService } from '../../domain/context/planner-popup-service'
 import { PlannerRouteLayerImpl } from '../../domain/context/planner-route-layer-impl';
 import { PlannerEngine } from '../../domain/interaction/planner-engine';
 import { PlannerEngineImpl } from '../../domain/interaction/planner-engine-impl';
-import { PlanUtil } from '../../domain/plan/plan-util';
-import { PlannerTranslations } from '../../util/planner-translations';
 
 @Injectable({
   providedIn: 'root',
@@ -54,18 +50,5 @@ export class PlannerService {
     this.elasticBand.addToMap(map);
     this.highlightLayer.addToMap(map);
     this.plannerPopupService.addToMap(map);
-  }
-
-  hasColour(planRoute: PlanRoute): boolean {
-    return planRoute.segments.filter((segment) => !!segment.colour).length > 0;
-  }
-
-  colours(planRoute: PlanRoute): string {
-    const colourValues = planRoute.segments
-      .filter((segment) => !!segment.colour)
-      .map((segment) => segment.colour);
-    const distinctColours = PlanUtil.distinctColours(List(colourValues));
-    const colourGroups = distinctColours.map((colour) => PlannerTranslations.colour(colour));
-    return colourGroups.join(' > ');
   }
 }

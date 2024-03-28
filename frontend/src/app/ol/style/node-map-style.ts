@@ -42,7 +42,7 @@ export class NodeMapStyle {
           return this.smallNodeStyle;
         }
 
-        return this.routeStyle.style(green, resolution, false, proposed);
+        return this.routeStyle.style(green, resolution, proposed);
       }
       return null;
     };
