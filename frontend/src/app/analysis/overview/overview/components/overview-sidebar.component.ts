@@ -5,7 +5,8 @@ import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { SidebarComponent } from '@app/components/shared/sidebar';
-import { OverviewService } from '../../overview.service';
+import { OverviewPageService } from '../overview-page.service';
+import { OverviewFormat } from './overview-format';
 
 @Component({
   selector: 'kpn-overview-sidebar',
@@ -14,7 +15,7 @@ import { OverviewService } from '../../overview.service';
     <kpn-sidebar>
       <div class="options">
         <div i18n="@@overview.sidebar.display-options" class="options-title">Display options</div>
-        <mat-radio-group [value]="formatPreference()" (change)="optionChanged($event)">
+        <mat-radio-group [value]="preferredFormat()" (change)="formatChanged($event)">
           <div>
             <mat-radio-button
               [value]="optionAutomatic"
@@ -65,14 +66,14 @@ import { OverviewService } from '../../overview.service';
   imports: [SidebarComponent, MatRadioModule, AsyncPipe],
 })
 export class OverviewSidebarComponent {
-  private readonly overviewService = inject(OverviewService);
+  private readonly overviewService = inject(OverviewPageService);
 
-  protected readonly optionList = this.overviewService.list;
-  protected readonly optionTable = this.overviewService.table;
-  protected readonly optionAutomatic = this.overviewService.automatic;
-  protected readonly formatPreference = this.overviewService.formatPreference;
+  protected readonly optionList: OverviewFormat = 'list';
+  protected readonly optionTable: OverviewFormat = 'table';
+  protected readonly optionAutomatic: OverviewFormat = 'automatic';
+  protected readonly preferredFormat = this.overviewService.preferredFormat;
 
-  optionChanged(event: MatRadioChange) {
+  formatChanged(event: MatRadioChange) {
     this.overviewService.preferFormat(event.value);
   }
 }
