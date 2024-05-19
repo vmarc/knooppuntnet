@@ -39,11 +39,11 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     "Skateroute-netwerk ",
     " (Walcheren)",
     "Réseau Pédestre - ",
-    "Réseau pédestre de ",
     "Réseau pédestre du ",
     "Réseau pédestre des ",
     "Réseau pédestre d'",
     "Réseau pédestre de la ",
+    "Réseau pédestre de ",
     "Réseau pédestre ",
   )
 
