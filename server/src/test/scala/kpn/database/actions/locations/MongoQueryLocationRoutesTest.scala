@@ -4,7 +4,10 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
 import kpn.api.common.location.LocationRouteInfo
+import kpn.api.common.location.LocationRoutesParameters
+import kpn.api.custom.Country
 import kpn.api.custom.Day
+import kpn.api.custom.LocationKey
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
@@ -102,7 +105,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       )
 
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
-      val locationRouteInfos = query.find(NetworkType.hiking, "essen", LocationRoutesType.all, 10, 0)
+      val locationRouteInfos = query.find(LocationKey(NetworkType.hiking, Country.be, "essen"), LocationRoutesParameters(pageSize = 10))
 
       locationRouteInfos.shouldMatchTo(
         Seq(
@@ -185,7 +188,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val pipeline = new MongoQueryLocationRoutes(database, setup.surveyDateInfo).optionGroupFactsPipeline()
+      val pipeline = new MongoQueryLocationRoutes(database, setup.surveyDateInfo).optionGroupFactsPipeline(LocationKey(NetworkType.hiking, Country.be, "essen"), LocationRoutesParameters())
 
       val groups = database.routes.aggregate[ServerFilterGroup](pipeline)
 
@@ -237,7 +240,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       // unknown
       setup.buildSurveyRoute(160, None)
 
-      val pipeline = new MongoQueryLocationRoutes(database, setup.surveyDateInfo).exploreSurvey()
+      val pipeline = new MongoQueryLocationRoutes(database, setup.surveyDateInfo).exploreSurvey(LocationKey(NetworkType.hiking, Country.be, "essen"))
 
       println(Mongo.pipelineString(pipeline))
 
@@ -271,7 +274,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       setup.buildPropsedRoute(20, proposed = false)
       setup.buildPropsedRoute(30, proposed = true)
 
-      val pipeline = new MongoQueryLocationRoutes(database, setup.surveyDateInfo).optionGroupProposedPipeline()
+      val pipeline = new MongoQueryLocationRoutes(database, setup.surveyDateInfo).optionGroupProposedPipeline(LocationKey(NetworkType.hiking, Country.be, "essen"), LocationRoutesParameters())
       val groups = database.routes.aggregate[ServerFilterGroup](pipeline)
 
       groups.filter(_.name == "proposed").shouldMatchTo(
@@ -303,6 +306,6 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
   }
 
   private def countDocuments(query: MongoQueryLocationRoutes, locationRoutesType: LocationRoutesType): Long = {
-    query.countDocuments(NetworkType.hiking, "essen", locationRoutesType)
+    query.countDocuments(LocationKey(NetworkType.hiking, Country.be, "essen"), LocationRoutesParameters())
   }
 }

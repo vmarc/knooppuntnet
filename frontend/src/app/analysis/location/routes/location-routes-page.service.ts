@@ -51,7 +51,10 @@ export class LocationRoutesPageService {
 
   private load(): void {
     const parameters: LocationRoutesParameters = {
-      locationRoutesType: this.pageType(),
+      fact: undefined,
+      survey: undefined,
+      lastUpdated: undefined,
+      proposed: undefined,
       pageSize: this.preferencesService.pageSize(),
       pageIndex: this.pageIndex(),
     };

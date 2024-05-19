@@ -2,10 +2,14 @@ package kpn.database.actions.locations
 
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.filter.ServerFilterGroup
+import kpn.api.common.location.BooleanParameter
+import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.LocationRouteInfo
+import kpn.api.common.location.LocationRoutesParameters
+import kpn.api.common.location.SurveyParameter
+import kpn.api.custom.Country
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
-import kpn.api.custom.LocationRoutesType
+import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -29,6 +33,9 @@ import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Filters.gte
+import org.mongodb.scala.model.Filters.lt
+import org.mongodb.scala.model.Filters.not
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
@@ -52,7 +59,8 @@ object MongoQueryLocationRoutes {
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-laptop") { database =>
-      new MongoQueryLocationRoutes(database, SurveyDateInfoBuilder.dateInfo).exploreSurvey()
+      val query = new MongoQueryLocationRoutes(database, SurveyDateInfoBuilder.dateInfo)
+      query.exploreSurvey(LocationKey(NetworkType.hiking, Country.fr, "fr"))
     }
   }
 }
@@ -69,7 +77,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     Seq.empty
   }
 
-  def exploreSurvey(): Seq[Bson] = {
+  def exploreSurvey(locationKey: LocationKey): Seq[Bson] = {
     val surveyValue =
       s"""
          |{
@@ -104,7 +112,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
          |""".stripMargin
 
     Seq(
-      filter(buildFilter(NetworkType.hiking, "be", LocationRoutesType.survey /* !!! */)),
+      filter(buildFilter(locationKey, LocationRoutesParameters() /* !!! */)),
       project(
         BsonDocument(surveyValue),
       ),
@@ -123,9 +131,9 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     ) ++ optionGroupPipeline("survey")
   }
 
-  def optionGroupProposedPipeline(): Seq[Bson] = {
+  def optionGroupProposedPipeline(locationKey: LocationKey, parameters: LocationRoutesParameters): Seq[Bson] = {
     Seq(
-      filter(buildFilter(NetworkType.hiking, "be", LocationRoutesType.all)),
+      filter(buildFilter(locationKey, parameters)),
       project(
         fields(
           excludeId(),
@@ -139,9 +147,9 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     ) ++ optionGroupPipeline("proposed")
   }
 
-  def optionGroupFactsPipeline(): Seq[Bson] = {
+  def optionGroupFactsPipeline(locationKey: LocationKey, parameters: LocationRoutesParameters): Seq[Bson] = {
     Seq(
-      filter(buildFilter(NetworkType.hiking, "be", LocationRoutesType.all)),
+      filter(buildFilter(locationKey, parameters)),
       unwind("$labels"),
       filter(
         BsonDocument("""{labels: {$regex: "fact-.*"}}""")
@@ -187,24 +195,21 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     )
   }
 
-  def countDocuments(networkType: NetworkType, location: String, locationRoutesType: LocationRoutesType): Long = {
-    val filter = buildFilter(networkType, location, locationRoutesType)
+  def countDocuments(locationKey: LocationKey, parameters: LocationRoutesParameters): Long = {
+    val filter = buildFilter(locationKey, parameters)
     database.routes.countDocuments(filter, log)
   }
 
   def find(
-    networkType: NetworkType,
-    location: String,
-    locationRoutesType: LocationRoutesType,
-    pageSize: Int,
-    pageIndex: Int
+    locationKey: LocationKey,
+    parameters: LocationRoutesParameters
   ): Seq[LocationRouteInfo] = {
 
     val pipeline = Seq(
-      filter(buildFilter(networkType, location, locationRoutesType)),
+      filter(buildFilter(locationKey, parameters)),
       sort(orderBy(ascending("summary.name", "summary.id"))),
-      skip(pageSize * pageIndex),
-      limit(pageSize),
+      skip((parameters.pageSize * parameters.pageIndex).toInt),
+      limit(parameters.pageSize.toInt),
       project(
         fields(
           excludeId(),
@@ -222,7 +227,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
 
     log.debugElapsed {
       val docs = database.routes.aggregate[LocationRouteInfoData](pipeline).zipWithIndex.map { case (doc, index) =>
-        val rowIndex = pageSize * pageIndex + index
+        val rowIndex = parameters.pageSize * parameters.pageIndex + index
         val symbol = RouteSymbol.from(doc.tags)
         LocationRouteInfo(
           rowIndex = rowIndex,
@@ -240,17 +245,60 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     }
   }
 
-  private def buildFilter(networkType: NetworkType, location: String, locationRoutesType: LocationRoutesType): Bson = {
-    val filters = Seq(
+  private def buildFilter(locationKey: LocationKey, parameters: LocationRoutesParameters): Bson = {
+    val filters: Seq[Bson] = Seq(
       Some(equal("labels", Label.active)),
-      Some(equal("labels", Label.networkType(networkType))),
-      Some(equal("labels", Label.location(location))),
-      locationRoutesType match {
-        case LocationRoutesType.inaccessible => Some(equal("labels", Label.fact(Fact.RouteInaccessible)))
-        case LocationRoutesType.facts => Some(equal("labels", Label.facts))
-        case LocationRoutesType.survey => Some(equal("labels", Label.survey))
-        case _ => None
-      }
+      Some(equal("labels", Label.networkType(locationKey.networkType))),
+      Some(equal("labels", Label.location(locationKey.name))),
+      parameters.fact.map { fact =>
+        equal("labels", Label.fact(fact))
+      },
+      parameters.survey.map {
+        case SurveyParameter.unknown => not(equal("labels", "survey"))
+        case SurveyParameter.lastMonth =>
+          and(
+            equal("labels", "survey"),
+            gte("lastSurvey", surveyDateInfo.lastMonthStart.yyyymmdd)
+          )
+        case SurveyParameter.lastHalfYear =>
+          and(
+            equal("labels", "survey"),
+            lt("lastSurvey", surveyDateInfo.lastMonthStart.yyyymmdd),
+            gte("lastSurvey", surveyDateInfo.lastHalfYearStart.yyyymmdd)
+          )
+        case SurveyParameter.lastYear =>
+          and(
+            equal("labels", "survey"),
+            lt("lastSurvey", surveyDateInfo.lastHalfYearStart.yyyymmdd),
+            gte("lastSurvey", surveyDateInfo.lastYearStart.yyyymmdd)
+          )
+        case SurveyParameter.lastTwoYears =>
+          and(
+            equal("labels", "survey"),
+            lt("lastSurvey", surveyDateInfo.lastYearStart.yyyymmdd),
+            gte("lastSurvey", surveyDateInfo.lastTwoYearsStart.yyyymmdd)
+          )
+        case SurveyParameter.older =>
+          and(
+            equal("labels", "survey"),
+            lt("lastSurvey", surveyDateInfo.lastTwoYearsStart.yyyymmdd)
+          )
+      },
+      parameters.lastUpdated.map {
+        case LastUpdatedParameter.lastWeek =>
+          gte("lastUpdated", surveyDateInfo.lastWeekStart.yyyymmdd)
+        case LastUpdatedParameter.lastYear =>
+          and(
+            lt("lastUpdated", surveyDateInfo.lastWeekStart.yyyymmdd),
+            gte("lastUpdated", surveyDateInfo.lastYearStart.yyyymmdd)
+          )
+        case LastUpdatedParameter.older =>
+          lt("lastUpdated", surveyDateInfo.lastYearStart.yyyymmdd)
+      },
+      parameters.proposed.map {
+        case BooleanParameter.yes => equal("proposed", true)
+        case BooleanParameter.no => equal("proposed", false)
+      },
     ).flatten
     and(filters: _*)
   }

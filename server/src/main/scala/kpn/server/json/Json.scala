@@ -10,6 +10,9 @@ import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import kpn.api.base.ObjectId
 import kpn.api.common.Language
 import kpn.api.common.NodeName
+import kpn.api.common.location.BooleanParameter
+import kpn.api.common.location.LastUpdatedParameter
+import kpn.api.common.location.SurveyParameter
 import kpn.api.common.planner.PlanCoordinate
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.ChangeType
@@ -92,6 +95,15 @@ object Json {
     b.serializerByType(classOf[PlanCoordinate], new PlanCoordinateJsonSerializer())
 
     b.deserializerByType(classOf[Relation], new RelationJsonDeserializer())
+
+    b.deserializerByType(classOf[SurveyParameter], new SurveyParameterJsonDeserializer())
+    b.serializerByType(classOf[SurveyParameter], new SurveyParameterJsonSerializer())
+
+    b.deserializerByType(classOf[BooleanParameter], new BooleanParameterJsonDeserializer())
+    b.serializerByType(classOf[BooleanParameter], new BooleanParameterJsonSerializer())
+
+    b.deserializerByType(classOf[LastUpdatedParameter], new LastUpdatedParameterJsonDeserializer())
+    b.serializerByType(classOf[LastUpdatedParameter], new LastUpdatedParameterJsonSerializer())
 
     val om: ObjectMapper = b.build()
     om.registerModule(DefaultScalaModule)

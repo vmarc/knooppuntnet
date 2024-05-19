@@ -22,6 +22,15 @@ object SurveyDateInfoBuilder {
       Some(local.getDayOfMonth)
     )
 
+    val lastWeekStart: Day = {
+      val x = local.toLocalDate.atStartOfDay().minusWeeks(1L)
+      Day(
+        x.getYear,
+        x.getMonthValue,
+        Some(x.getDayOfMonth)
+      )
+    }
+
     val lastMonthStart: Day = {
       val x = local.toLocalDate.atStartOfDay().minusMonths(1L)
       Day(
@@ -60,6 +69,7 @@ object SurveyDateInfoBuilder {
 
     SurveyDateInfo(
       now,
+      lastWeekStart,
       lastMonthStart,
       lastHalfYearStart,
       lastYearStart,

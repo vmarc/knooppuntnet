@@ -4,6 +4,7 @@ import { Day } from '@api/custom';
 
 export interface SurveyDateInfo {
   readonly now: Day;
+  readonly lastWeekStart: Day;
   readonly lastMonthStart: Day;
   readonly lastHalfYearStart: Day;
   readonly lastYearStart: Day;
