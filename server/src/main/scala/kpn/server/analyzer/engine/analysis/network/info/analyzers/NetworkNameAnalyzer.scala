@@ -42,6 +42,7 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     "Réseau pédestre du ",
     "Réseau pédestre des ",
     "Réseau pédestre d'",
+    "Réseau pédestre de l'",
     "Réseau pédestre de la ",
     "Réseau pédestre de ",
     "Réseau pédestre ",
