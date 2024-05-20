@@ -72,6 +72,13 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
     )
   }
 
+  override def routeFilteredCount(locationKey: LocationKey, parameters: LocationRoutesParameters): Long = {
+    new MongoQueryLocationRoutes(database, SurveyDateInfoBuilder.dateInfo).countDocuments(
+      locationKey,
+      parameters
+    )
+  }
+
   override def countryLocations(networkType: NetworkType, country: Country): Seq[LocationNodeCount] = {
     new MongoQueryLocationNodeCounts(database).find(
       networkType,

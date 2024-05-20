@@ -30,7 +30,7 @@ class LocationRoutesPageBuilderImpl(
     val locationKey = locationService.toIdBased(language, locationKeyParam)
     val summary = locationRepository.summary(locationKey)
     val routes = locationRepository.routes(locationKey, parameters)
-    val routeCount = locationRepository.routeCount(locationKey)
+    val routeCount = locationRepository.routeFilteredCount(locationKey, parameters)
     val filter = locationRepository.filterOptions(locationKey, parameters)
     Some(
       LocationRoutesPage(

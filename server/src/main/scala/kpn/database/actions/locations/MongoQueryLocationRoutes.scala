@@ -66,12 +66,12 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
 
   def filterOptions(locationKey: LocationKey, parameters: LocationRoutesParameters): LocationRouteOptions = {
     val pipeline = Seq(
-      filter(buildFilter(locationKey, parameters)),
+      filter(and(mainFilters(locationKey): _*)),
       facet(
-        Facet("facts", factsPipeline(): _*),
-        Facet("proposed", proposedPipeline(): _*),
-        Facet("survey", surveyPipeline(locationKey): _*),
-        Facet("lastUpdated", lastUpdatedPipeline(): _*),
+        Facet("facts", factsPipeline(parameters): _*),
+        Facet("proposed", proposedPipeline(parameters): _*),
+        Facet("survey", surveyPipeline(parameters): _*),
+        Facet("lastUpdated", lastUpdatedPipeline(parameters): _*),
       )
     )
 
@@ -117,7 +117,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     val survey = {
       val surveyOptions = groups.flatMap(_.survey).flatMap(_.options)
       val options = if (surveyOptions.size != 1) {
-        Seq(ServerFilterOption("all", totalCount)) ++ surveyOptions
+        Seq(ServerFilterOption("all", surveyOptions.map(_.count).sum)) ++ surveyOptions
       }
       else {
         surveyOptions
@@ -142,7 +142,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     val lastUpdated = {
       val lastUpdatedOptions = groups.flatMap(_.lastUpdated).flatMap(_.options).sortBy(_.name)
       val options = if (lastUpdatedOptions.size != 1) {
-        Seq(ServerFilterOption("all", totalCount)) ++ lastUpdatedOptions
+        Seq(ServerFilterOption("all", lastUpdatedOptions.map(_.count).sum)) ++ lastUpdatedOptions
       }
       else {
         lastUpdatedOptions
@@ -172,7 +172,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     )
   }
 
-  private def surveyPipeline(locationKey: LocationKey): Seq[Bson] = {
+  private def surveyPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
     val surveyValue =
       s"""
          |{
@@ -206,7 +206,27 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
          |}
          |""".stripMargin
 
-    Seq(
+    val parameterFilters = Seq(
+      factFilter(parameters),
+      lastUpdatedFilter(parameters),
+      proposedFilter(parameters),
+    ).flatten
+
+    val xx = if (parameterFilters.isEmpty) {
+      Seq.empty
+    }
+    else if (parameterFilters.size == 1) {
+      Seq(
+        filter(parameterFilters.head)
+      )
+    }
+    else {
+      Seq(
+        filter(and(parameterFilters: _*))
+      )
+    }
+
+    xx ++ Seq(
       project(
         BsonDocument(surveyValue),
       ),
@@ -225,7 +245,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     ) ++ optionGroupPipeline("survey")
   }
 
-  private def lastUpdatedPipeline(): Seq[Bson] = {
+  private def lastUpdatedPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
     val lastUpdatedValue =
       s"""
          |{
@@ -247,7 +267,27 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
          |}
          |""".stripMargin
 
-    Seq(
+    val parameterFilters = Seq(
+      factFilter(parameters),
+      surveyFilter(parameters),
+      proposedFilter(parameters),
+    ).flatten
+
+    val xx = if (parameterFilters.isEmpty) {
+      Seq.empty
+    }
+    else if (parameterFilters.size == 1) {
+      Seq(
+        filter(parameterFilters.head)
+      )
+    }
+    else {
+      Seq(
+        filter(and(parameterFilters: _*))
+      )
+    }
+
+    xx ++ Seq(
       project(
         BsonDocument(lastUpdatedValue),
       ),
@@ -266,8 +306,28 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     ) ++ optionGroupPipeline("lastUpdatedValue")
   }
 
-  private def proposedPipeline(): Seq[Bson] = {
-    Seq(
+  private def proposedPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
+    val parameterFilters = Seq(
+      factFilter(parameters),
+      surveyFilter(parameters),
+      lastUpdatedFilter(parameters),
+    ).flatten
+
+    val xx = if (parameterFilters.isEmpty) {
+      Seq.empty
+    }
+    else if (parameterFilters.size == 1) {
+      Seq(
+        filter(parameterFilters.head)
+      )
+    }
+    else {
+      Seq(
+        filter(and(parameterFilters: _*))
+      )
+    }
+
+    xx ++ Seq(
       project(
         fields(
           excludeId(),
@@ -281,8 +341,29 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     ) ++ optionGroupPipeline("proposed")
   }
 
-  private def factsPipeline(): Seq[Bson] = {
-    Seq(
+  private def factsPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
+
+    val parameterFilters = Seq(
+      surveyFilter(parameters),
+      lastUpdatedFilter(parameters),
+      proposedFilter(parameters),
+    ).flatten
+
+    val xx = if (parameterFilters.isEmpty) {
+      Seq.empty
+    }
+    else if (parameterFilters.size == 1) {
+      Seq(
+        filter(parameterFilters.head)
+      )
+    }
+    else {
+      Seq(
+        filter(and(parameterFilters: _*))
+      )
+    }
+
+    xx ++ Seq(
       unwind("$labels"),
       filter(
         BsonDocument("""{labels: {$regex: "fact-.*"}}""")
@@ -340,6 +421,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
 
     val pipeline = Seq(
       filter(buildFilter(locationKey, parameters)),
+
       sort(orderBy(ascending("summary.name", "summary.id"))),
       skip(parameters.pageSize.toInt * parameters.pageIndex.toInt),
       limit(parameters.pageSize.toInt),
@@ -378,61 +460,83 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     }
   }
 
+  private def mainFilters(locationKey: LocationKey): Seq[Bson] = {
+    Seq(
+      equal("labels", Label.active),
+      equal("labels", Label.networkType(locationKey.networkType)),
+      equal("labels", Label.location(locationKey.name)),
+    )
+  }
+
   private def buildFilter(locationKey: LocationKey, parameters: LocationRoutesParameters): Bson = {
-    val filters: Seq[Bson] = Seq(
-      Some(equal("labels", Label.active)),
-      Some(equal("labels", Label.networkType(locationKey.networkType))),
-      Some(equal("labels", Label.location(locationKey.name))),
-      parameters.fact.map { fact =>
-        equal("labels", Label.fact(fact))
-      },
-      parameters.survey.map {
-        case SurveyParameter.unknown => not(equal("labels", "survey"))
-        case SurveyParameter.lastMonth =>
-          and(
-            equal("labels", "survey"),
-            gte("lastSurvey", surveyDateInfo.lastMonthStart.yyyymmdd)
-          )
-        case SurveyParameter.lastHalfYear =>
-          and(
-            equal("labels", "survey"),
-            lt("lastSurvey", surveyDateInfo.lastMonthStart.yyyymmdd),
-            gte("lastSurvey", surveyDateInfo.lastHalfYearStart.yyyymmdd)
-          )
-        case SurveyParameter.lastYear =>
-          and(
-            equal("labels", "survey"),
-            lt("lastSurvey", surveyDateInfo.lastHalfYearStart.yyyymmdd),
-            gte("lastSurvey", surveyDateInfo.lastYearStart.yyyymmdd)
-          )
-        case SurveyParameter.lastTwoYears =>
-          and(
-            equal("labels", "survey"),
-            lt("lastSurvey", surveyDateInfo.lastYearStart.yyyymmdd),
-            gte("lastSurvey", surveyDateInfo.lastTwoYearsStart.yyyymmdd)
-          )
-        case SurveyParameter.older =>
-          and(
-            equal("labels", "survey"),
-            lt("lastSurvey", surveyDateInfo.lastTwoYearsStart.yyyymmdd)
-          )
-      },
-      parameters.lastUpdated.map {
-        case LastUpdatedParameter.lastWeek =>
-          gte("lastUpdated", surveyDateInfo.lastWeekStart.yyyymmdd)
-        case LastUpdatedParameter.lastYear =>
-          and(
-            lt("lastUpdated", surveyDateInfo.lastWeekStart.yyyymmdd),
-            gte("lastUpdated", surveyDateInfo.lastYearStart.yyyymmdd)
-          )
-        case LastUpdatedParameter.older =>
-          lt("lastUpdated", surveyDateInfo.lastYearStart.yyyymmdd)
-      },
-      parameters.proposed.map {
-        case BooleanParameter.yes => equal("proposed", true)
-        case BooleanParameter.no => equal("proposed", false)
-      },
+    val filters: Seq[Bson] = mainFilters(locationKey) ++ Seq(
+      factFilter(parameters),
+      surveyFilter(parameters),
+      lastUpdatedFilter(parameters),
+      proposedFilter(parameters)
     ).flatten
     and(filters: _*)
+  }
+
+  private def factFilter(parameters: LocationRoutesParameters): Option[Bson] = {
+    parameters.fact.map { fact =>
+      equal("labels", Label.fact(fact))
+    }
+  }
+
+  private def surveyFilter(parameters: LocationRoutesParameters): Option[Bson] = {
+    parameters.survey.map {
+      case SurveyParameter.unknown => not(equal("labels", "survey"))
+      case SurveyParameter.lastMonth =>
+        and(
+          equal("labels", "survey"),
+          gte("lastSurvey", surveyDateInfo.lastMonthStart.yyyymmdd)
+        )
+      case SurveyParameter.lastHalfYear =>
+        and(
+          equal("labels", "survey"),
+          lt("lastSurvey", surveyDateInfo.lastMonthStart.yyyymmdd),
+          gte("lastSurvey", surveyDateInfo.lastHalfYearStart.yyyymmdd)
+        )
+      case SurveyParameter.lastYear =>
+        and(
+          equal("labels", "survey"),
+          lt("lastSurvey", surveyDateInfo.lastHalfYearStart.yyyymmdd),
+          gte("lastSurvey", surveyDateInfo.lastYearStart.yyyymmdd)
+        )
+      case SurveyParameter.lastTwoYears =>
+        and(
+          equal("labels", "survey"),
+          lt("lastSurvey", surveyDateInfo.lastYearStart.yyyymmdd),
+          gte("lastSurvey", surveyDateInfo.lastTwoYearsStart.yyyymmdd)
+        )
+      case SurveyParameter.older =>
+        and(
+          equal("labels", "survey"),
+          lt("lastSurvey", surveyDateInfo.lastTwoYearsStart.yyyymmdd)
+        )
+    }
+  }
+
+  private def lastUpdatedFilter(parameters: LocationRoutesParameters): Option[Bson] = {
+
+    parameters.lastUpdated.map {
+      case LastUpdatedParameter.lastWeek =>
+        gte("lastUpdated", surveyDateInfo.lastWeekStart.yyyymmdd)
+      case LastUpdatedParameter.lastYear =>
+        and(
+          lt("lastUpdated", surveyDateInfo.lastWeekStart.yyyymmdd),
+          gte("lastUpdated", surveyDateInfo.lastYearStart.yyyymmdd)
+        )
+      case LastUpdatedParameter.older =>
+        lt("lastUpdated", surveyDateInfo.lastYearStart.yyyymmdd)
+    }
+  }
+
+  private def proposedFilter(parameters: LocationRoutesParameters): Option[Bson] = {
+    parameters.proposed.map {
+      case BooleanParameter.yes => equal("proposed", true)
+      case BooleanParameter.no => equal("proposed", false)
+    }
   }
 }

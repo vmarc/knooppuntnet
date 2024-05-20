@@ -17,7 +17,7 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
     <kpn-sidebar>
       @if (store.response(); as response) {
         <div class="filter">
-          <div class="title" i18n="@@location-routes-sidebar.filter.TODO">Facts</div>
+          <div class="title">Facts</div>
           <mat-radio-group
             [value]="response.result.filter.fact.selected"
             (change)="factChanged($event)"
@@ -25,7 +25,7 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
             @for (option of response.result.filter.fact.options; track option.name) {
               <div>
                 <mat-radio-button [value]="option.name">
-                  <span i18n="@@location-routes-sidebar.filter.all">{{ option.name }}</span
+                  <span>{{ option.name }}</span
                   ><span class="kpn-brackets">{{ option.count }}</span>
                 </mat-radio-button>
               </div>
@@ -34,7 +34,7 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
         </div>
 
         <div class="filter">
-          <div class="title" i18n="@@location-routes-sidebar.filter.TODO">Survey</div>
+          <div class="title">Survey</div>
           <mat-radio-group
             [value]="response.result.filter.survey.selected"
             (change)="surveyChanged($event)"
@@ -42,7 +42,7 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
             @for (option of response.result.filter.survey.options; track option.name) {
               <div>
                 <mat-radio-button [value]="option.name">
-                  <span i18n="@@location-routes-sidebar.filter.all">{{ option.name }}</span
+                  <span>{{ option.name }}</span
                   ><span class="kpn-brackets">{{ option.count }}</span>
                 </mat-radio-button>
               </div>
@@ -51,7 +51,7 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
         </div>
 
         <div class="filter">
-          <div class="title" i18n="@@location-routes-sidebar.filter.TODO">Last Updated</div>
+          <div class="title">Last Updated</div>
           <mat-radio-group
             [value]="response.result.filter.lastUpdated.selected"
             (change)="lastUpdatedChanged($event)"
@@ -59,7 +59,7 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
             @for (option of response.result.filter.lastUpdated.options; track option.name) {
               <div>
                 <mat-radio-button [value]="option.name">
-                  <span i18n="@@location-routes-sidebar.filter.all">{{ option.name }}</span
+                  <span>{{ option.name }}</span
                   ><span class="kpn-brackets">{{ option.count }}</span>
                 </mat-radio-button>
               </div>
@@ -68,7 +68,7 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
         </div>
 
         <div class="filter">
-          <div class="title" i18n="@@location-routes-sidebar.filter.TODO">Proposed</div>
+          <div class="title">Proposed</div>
           <mat-radio-group
             [value]="response.result.filter.proposed.selected"
             (change)="proposedChanged($event)"
@@ -76,7 +76,7 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
             @for (option of response.result.filter.proposed.options; track option.name) {
               <div>
                 <mat-radio-button [value]="option.name">
-                  <span i18n="@@location-routes-sidebar.filter.all">{{ option.name }}</span
+                  <span>{{ option.name }}</span
                   ><span class="kpn-brackets">{{ option.count }}</span>
                 </mat-radio-button>
               </div>

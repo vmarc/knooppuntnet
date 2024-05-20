@@ -1,6 +1,9 @@
 import { signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { Params } from '@angular/router';
 import { LocationRoutesParameters } from '@api/common/location';
 import { LocationRoutesPage } from '@api/common/location';
 import { BooleanParameter } from '@api/common/location/boolean-parameter';
@@ -8,6 +11,7 @@ import { LastUpdatedParameter } from '@api/common/location/last-updated-paramete
 import { SurveyParameter } from '@api/common/location/survey-parameter';
 import { LocationRoutesType } from '@api/custom';
 import { ApiResponse } from '@api/custom';
+import { Util } from '@app/components/shared';
 import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
 import { RouterService } from '../../../shared/services/router.service';
@@ -18,6 +22,8 @@ export class LocationRoutesPageService {
   private readonly locationService = inject(LocationService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   private readonly _fact = signal<string | null>(null);
   private readonly _survey = signal<SurveyParameter | null>(null);
@@ -28,7 +34,6 @@ export class LocationRoutesPageService {
   private readonly _pageIndex = signal<number>(0);
   private readonly _response = signal<ApiResponse<LocationRoutesPage> | null>(null);
 
-  readonly pageType = this._pageType.asReadonly();
   readonly pageIndex = this._pageIndex.asReadonly();
   readonly response = this._response.asReadonly();
   readonly networkType = computed(() => this.locationService.key().networkType);
@@ -36,7 +41,19 @@ export class LocationRoutesPageService {
 
   onInit(): void {
     this.locationService.initPage(this.routerService);
-    this._pageType.set(LocationRoutesType.all); // TODO SIGNAL derive from query params?
+
+    const uniqueQueryParams = Util.uniqueParams(this.routerService.queryParams());
+
+    const fact = uniqueQueryParams['fact'];
+    const survey = uniqueQueryParams['survey'];
+    const lastUpdated = uniqueQueryParams['lastUpdated'];
+    const proposed = uniqueQueryParams['proposed'];
+
+    this._fact.set(fact);
+    this._survey.set(survey);
+    this._lastUpdated.set(lastUpdated);
+    this._proposed.set(proposed);
+
     this.load();
   }
 
@@ -86,11 +103,27 @@ export class LocationRoutesPageService {
       pageSize: this.preferencesService.pageSize(),
       pageIndex: this.pageIndex(),
     };
-    this.apiService.locationRoutes(this.locationService.key(), parameters).subscribe((response) => {
-      if (response.result) {
-        this.locationService.setSummary(response.result.summary);
-      }
-      this._response.set(response);
+
+    const promise = this.navigate(parameters);
+    promise.then(() => {
+      this.apiService
+        .locationRoutes(this.locationService.key(), parameters)
+        .subscribe((response) => {
+          if (response.result) {
+            this.locationService.setSummary(response.result.summary);
+          }
+          this._response.set(response);
+        });
+    });
+  }
+
+  private navigate(parameters: LocationRoutesParameters): Promise<boolean> {
+    const queryParams: Params = {
+      ...parameters,
+    };
+    return this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams,
     });
   }
 }

@@ -30,6 +30,8 @@ trait LocationRepository {
 
   def routeCount(locationKey: LocationKey): Long
 
+  def routeFilteredCount(locationKey: LocationKey, parameters: LocationRoutesParameters): Long
+
   def countryLocations(networkType: NetworkType, country: Country): Seq[LocationNodeCount]
 
   def facts(networkType: NetworkType, locationName: String): Seq[LocationFact]
