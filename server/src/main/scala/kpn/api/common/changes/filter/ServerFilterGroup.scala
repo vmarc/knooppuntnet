@@ -1,6 +1,6 @@
 package kpn.api.common.changes.filter
 
 case class ServerFilterGroup(
-  name: String,
+  selected: String,
   options: Seq[ServerFilterOption]
 )

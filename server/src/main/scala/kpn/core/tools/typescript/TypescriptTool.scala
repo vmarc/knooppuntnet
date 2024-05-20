@@ -30,11 +30,11 @@ object TypescriptTool {
 
 class TypescriptTool {
 
-  val root = "/Users/marc/wrk/projects/knooppuntnet/server/src/main/scala/kpn/api/common"
+  private val root = "/Users/marc/wrk/projects/knooppuntnet/server/src/main/scala/kpn/api/common"
 
-  val targetDir = "/Users/marc/wrk/projects/knooppuntnet/frontend/src/app/api"
+  private val targetDir = "/Users/marc/wrk/projects/knooppuntnet/frontend/src/app/api"
 
-  val ignoredClasses: Seq[String] = Seq(
+  private val ignoredClasses: Seq[String] = Seq(
     // following classes have been manually changed in Typescript after changing List to Array, enable again when switching to interfaces
   )
 

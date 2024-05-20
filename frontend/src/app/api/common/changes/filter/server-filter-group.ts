@@ -3,6 +3,6 @@
 import { ServerFilterOption } from './server-filter-option';
 
 export interface ServerFilterGroup {
-  readonly name: string;
+  readonly selected: string;
   readonly options: ServerFilterOption[];
 }

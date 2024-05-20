@@ -30,22 +30,14 @@ class LocationRoutesPageBuilderImpl(
     val locationKey = locationService.toIdBased(language, locationKeyParam)
     val summary = locationRepository.summary(locationKey)
     val routes = locationRepository.routes(locationKey, parameters)
-
-    val allRouteCount = locationRepository.routeCount(locationKey)
-    val factsRouteCount = allRouteCount
-    val inaccessibleRouteCount = allRouteCount
-    val surveyRouteCount = allRouteCount
-    val routeCount = allRouteCount
-
+    val routeCount = locationRepository.routeCount(locationKey)
+    val filter = locationRepository.filterOptions(locationKey, parameters)
     Some(
       LocationRoutesPage(
         TimeInfoBuilder.timeInfo,
         summary,
         routeCount,
-        allRouteCount,
-        factsRouteCount,
-        inaccessibleRouteCount,
-        surveyRouteCount,
+        filter,
         routes
       )
     )

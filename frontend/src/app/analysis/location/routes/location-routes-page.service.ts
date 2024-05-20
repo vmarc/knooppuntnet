@@ -3,6 +3,9 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { LocationRoutesParameters } from '@api/common/location';
 import { LocationRoutesPage } from '@api/common/location';
+import { BooleanParameter } from '@api/common/location/boolean-parameter';
+import { LastUpdatedParameter } from '@api/common/location/last-updated-parameter';
+import { SurveyParameter } from '@api/common/location/survey-parameter';
 import { LocationRoutesType } from '@api/custom';
 import { ApiResponse } from '@api/custom';
 import { PreferencesService } from '@app/core';
@@ -15,6 +18,11 @@ export class LocationRoutesPageService {
   private readonly locationService = inject(LocationService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
+
+  private readonly _fact = signal<string | null>(null);
+  private readonly _survey = signal<SurveyParameter | null>(null);
+  private readonly _lastUpdated = signal<LastUpdatedParameter | null>(null);
+  private readonly _proposed = signal<BooleanParameter | null>(null);
 
   private readonly _pageType = signal<LocationRoutesType | null>(null);
   private readonly _pageIndex = signal<number>(0);
@@ -49,12 +57,32 @@ export class LocationRoutesPageService {
     this.load();
   }
 
+  setFact(value: string): void {
+    this._fact.set(value);
+    this.load();
+  }
+
+  setSurvey(value: SurveyParameter): void {
+    this._survey.set(value);
+    this.load();
+  }
+
+  setLastUpdated(value: LastUpdatedParameter): void {
+    this._lastUpdated.set(value);
+    this.load();
+  }
+
+  setProposed(value: BooleanParameter): void {
+    this._proposed.set(value);
+    this.load();
+  }
+
   private load(): void {
     const parameters: LocationRoutesParameters = {
-      fact: undefined,
-      survey: undefined,
-      lastUpdated: undefined,
-      proposed: undefined,
+      fact: this._fact(),
+      survey: this._survey(),
+      lastUpdated: this._lastUpdated(),
+      proposed: this._proposed(),
       pageSize: this.preferencesService.pageSize(),
       pageIndex: this.pageIndex(),
     };

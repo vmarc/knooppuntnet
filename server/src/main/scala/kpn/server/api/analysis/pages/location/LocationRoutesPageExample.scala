@@ -1,6 +1,8 @@
 package kpn.server.api.analysis.pages.location
 
+import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.location.LocationRouteInfo
+import kpn.api.common.location.LocationRouteOptions
 import kpn.api.common.location.LocationRoutesPage
 import kpn.api.common.location.LocationSummary
 import kpn.api.custom.Day
@@ -14,10 +16,12 @@ object LocationRoutesPageExample {
       TimeInfoBuilder.timeInfo,
       LocationSummary(10, 20, 30, 40),
       40,
-      40,
-      30,
-      20,
-      10,
+      LocationRouteOptions(
+        ServerFilterGroup("", Seq.empty),
+        ServerFilterGroup("", Seq.empty),
+        ServerFilterGroup("", Seq.empty),
+        ServerFilterGroup("", Seq.empty),
+      ),
       Seq(
         LocationRouteInfo(
           0L,

@@ -6,9 +6,6 @@ case class LocationRoutesPage(
   timeInfo: TimeInfo,
   summary: LocationSummary,
   routeCount: Long,
-  allRouteCount: Long,
-  factsRouteCount: Long,
-  inaccessibleRouteCount: Long,
-  surveyRouteCount: Long,
+  filter: LocationRouteOptions,
   routes: Seq[LocationRouteInfo]
 )

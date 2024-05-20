@@ -7,6 +7,7 @@ import kpn.api.common.location.LocationFact
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRouteInfo
+import kpn.api.common.location.LocationRouteOptions
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.common.location.LocationSummary
 import kpn.api.custom.Country
@@ -52,6 +53,13 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
 
   override def routes(locationKey: LocationKey, parameters: LocationRoutesParameters): Seq[LocationRouteInfo] = {
     new MongoQueryLocationRoutes(database, SurveyDateInfoBuilder.dateInfo).find(
+      locationKey,
+      parameters
+    )
+  }
+
+  override def filterOptions(locationKey: LocationKey, parameters: LocationRoutesParameters): LocationRouteOptions = {
+    new MongoQueryLocationRoutes(database, SurveyDateInfoBuilder.dateInfo).filterOptions(
       locationKey,
       parameters
     )

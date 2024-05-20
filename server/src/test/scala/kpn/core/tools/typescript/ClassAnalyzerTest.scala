@@ -31,7 +31,6 @@ class ClassAnalyzerTest extends UnitTest {
     classInfo.displayString should equal(
       ClassInfo(
         "TestClass",
-        "kpn/core/tools/typescript/test-class.ts",
         Seq(
           ClassField(
             "id",
@@ -97,5 +96,4 @@ class ClassAnalyzerTest extends UnitTest {
       ).displayString
     )
   }
-
 }

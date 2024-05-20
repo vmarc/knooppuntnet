@@ -3,7 +3,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { LocationRoutesType } from '@api/custom';
+import { BooleanParameter } from '@api/common/location/boolean-parameter';
+import { LastUpdatedParameter } from '@api/common/location/last-updated-parameter';
+import { SurveyParameter } from '@api/common/location/survey-parameter';
+import { Fact } from '@api/custom';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { LocationRoutesPageService } from '../location-routes-page.service';
 
@@ -14,35 +17,70 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
     <kpn-sidebar>
       @if (store.response(); as response) {
         <div class="filter">
-          <div class="title" i18n="@@location-routes-sidebar.filter.title">Filter</div>
+          <div class="title" i18n="@@location-routes-sidebar.filter.TODO">Facts</div>
           <mat-radio-group
-            [value]="locationRoutesType.all"
-            (change)="locationRoutesTypeChanged($event)"
+            [value]="response.result.filter.fact.selected"
+            (change)="factChanged($event)"
           >
-            <div>
-              <mat-radio-button [value]="locationRoutesType.all">
-                <span i18n="@@location-routes-sidebar.filter.all">All</span
-                ><span class="kpn-brackets">{{ response.result.allRouteCount }}</span>
-              </mat-radio-button>
-            </div>
-            <div>
-              <mat-radio-button [value]="locationRoutesType.facts">
-                <span i18n="@@location-routes-sidebar.filter.facts">Facts</span
-                ><span class="kpn-brackets">{{ response.result.factsRouteCount }}</span>
-              </mat-radio-button>
-            </div>
-            <div>
-              <mat-radio-button [value]="locationRoutesType.inaccessible">
-                <span i18n="@@location-routes-sidebar.filter.inaccessible">Inaccessible</span
-                ><span class="kpn-brackets">{{ response.result.inaccessibleRouteCount }}</span>
-              </mat-radio-button>
-            </div>
-            <div>
-              <mat-radio-button [value]="locationRoutesType.survey">
-                <span i18n="@@location-routes-sidebar.filter.survey">Survey</span
-                ><span class="kpn-brackets">{{ response.result.surveyRouteCount }}</span>
-              </mat-radio-button>
-            </div>
+            @for (option of response.result.filter.fact.options; track option.name) {
+              <div>
+                <mat-radio-button [value]="option.name">
+                  <span i18n="@@location-routes-sidebar.filter.all">{{ option.name }}</span
+                  ><span class="kpn-brackets">{{ option.count }}</span>
+                </mat-radio-button>
+              </div>
+            }
+          </mat-radio-group>
+        </div>
+
+        <div class="filter">
+          <div class="title" i18n="@@location-routes-sidebar.filter.TODO">Survey</div>
+          <mat-radio-group
+            [value]="response.result.filter.survey.selected"
+            (change)="surveyChanged($event)"
+          >
+            @for (option of response.result.filter.survey.options; track option.name) {
+              <div>
+                <mat-radio-button [value]="option.name">
+                  <span i18n="@@location-routes-sidebar.filter.all">{{ option.name }}</span
+                  ><span class="kpn-brackets">{{ option.count }}</span>
+                </mat-radio-button>
+              </div>
+            }
+          </mat-radio-group>
+        </div>
+
+        <div class="filter">
+          <div class="title" i18n="@@location-routes-sidebar.filter.TODO">Last Updated</div>
+          <mat-radio-group
+            [value]="response.result.filter.lastUpdated.selected"
+            (change)="lastUpdatedChanged($event)"
+          >
+            @for (option of response.result.filter.lastUpdated.options; track option.name) {
+              <div>
+                <mat-radio-button [value]="option.name">
+                  <span i18n="@@location-routes-sidebar.filter.all">{{ option.name }}</span
+                  ><span class="kpn-brackets">{{ option.count }}</span>
+                </mat-radio-button>
+              </div>
+            }
+          </mat-radio-group>
+        </div>
+
+        <div class="filter">
+          <div class="title" i18n="@@location-routes-sidebar.filter.TODO">Proposed</div>
+          <mat-radio-group
+            [value]="response.result.filter.proposed.selected"
+            (change)="proposedChanged($event)"
+          >
+            @for (option of response.result.filter.proposed.options; track option.name) {
+              <div>
+                <mat-radio-button [value]="option.name">
+                  <span i18n="@@location-routes-sidebar.filter.all">{{ option.name }}</span
+                  ><span class="kpn-brackets">{{ option.count }}</span>
+                </mat-radio-button>
+              </div>
+            }
           </mat-radio-group>
         </div>
       }
@@ -62,10 +100,40 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
 })
 export class LocationRoutesSidebarComponent {
   protected readonly store = inject(LocationRoutesPageService);
-  protected readonly locationRoutesType = LocationRoutesType;
 
-  locationRoutesTypeChanged(change: MatRadioChange): void {
-    const locationRoutesType = change.value as LocationRoutesType;
-    this.store.setPageType(locationRoutesType);
+  factChanged(change: MatRadioChange): void {
+    if (change.value == 'all') {
+      this.store.setFact(null);
+    } else {
+      const value = change.value as Fact;
+      this.store.setFact(value);
+    }
+  }
+
+  surveyChanged(change: MatRadioChange): void {
+    if (change.value == 'all') {
+      this.store.setSurvey(null);
+    } else {
+      const value = change.value as SurveyParameter;
+      this.store.setSurvey(value);
+    }
+  }
+
+  lastUpdatedChanged(change: MatRadioChange): void {
+    if (change.value == 'all') {
+      this.store.setLastUpdated(null);
+    } else {
+      const value = change.value as LastUpdatedParameter;
+      this.store.setLastUpdated(value);
+    }
+  }
+
+  proposedChanged(change: MatRadioChange): void {
+    if (change.value == 'all') {
+      this.store.setProposed(null);
+    } else {
+      const value = change.value as BooleanParameter;
+      this.store.setProposed(value);
+    }
   }
 }
