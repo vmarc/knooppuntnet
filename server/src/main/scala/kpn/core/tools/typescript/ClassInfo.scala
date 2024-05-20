@@ -2,7 +2,6 @@ package kpn.core.tools.typescript
 
 case class ClassInfo(
   className: String,
-  fileName: String,
   fields: Seq[ClassField],
   dependencies: Seq[ClassDependency],
   formClass: Boolean
@@ -20,7 +19,6 @@ case class ClassInfo(
 
     Seq(
       className,
-      s"  fileName=$fileName",
       s"  fields",
       fieldsString,
       s"  dependencies",

@@ -40,18 +40,13 @@ class TypescriptTool {
 
   def generate(): Unit = {
 
-    val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
-    val scalaTypes: Seq[Type] = scalaClassNames().map(className => mirror.staticClass(className).typeSignature)
-    val caseClasses: Seq[Type] = scalaTypes.filter(isCaseClass)
-
-    caseClasses.foreach { caseClass =>
-      val classInfo = new ClassAnalyzer().analyze(caseClass)
-      val file = new File(targetDir + "/" + classInfo.fileName)
-      file.getParentFile.mkdirs()
-      val out = new PrintStream(file)
-      new TypescriptWriter(out, classInfo).write()
-      out.close()
+    val scalaClasses = {
+      val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
+      scalaClassNames().map(className => mirror.staticClass(className))
     }
+
+    scalaClasses.filter(isCaseClass).foreach(generateCaseClass)
+    scalaClasses.filter(isEnumeration).foreach(generateEnumeration)
 
     println("end")
   }
@@ -69,8 +64,40 @@ class TypescriptTool {
     }
   }
 
-  private def isCaseClass(scalaType: Type): Boolean = {
-    scalaType.typeSymbol.toString.contains("NetworkNameMissing") ||
-      scalaType.members.collect({ case m: MethodSymbol if m.isCaseAccessor => m }).nonEmpty
+  private def isCaseClass(classSymbol: ClassSymbol): Boolean = {
+    classSymbol.typeSignature.typeSymbol.toString.contains("NetworkNameMissing") ||
+      classSymbol.typeSignature.members.collect({ case m: MethodSymbol if m.isCaseAccessor => m }).nonEmpty
+  }
+
+  private def isEnumeration(classSymbol: ClassSymbol): Boolean = {
+    classSymbol.baseClasses.exists(_.name.toString.contains("EnumEntry"))
+  }
+
+  private def generateCaseClass(caseClass: ClassSymbol): Unit = {
+    val classInfo = new ClassAnalyzer().analyze(caseClass.typeSignature)
+    val out = fileStream(caseClass)
+    new TypescriptWriter(out, classInfo).write()
+    out.close()
+  }
+
+  private def generateEnumeration(enumeration: ClassSymbol): Unit = {
+    val out = fileStream(enumeration)
+    val values = enumeration.knownDirectSubclasses.map { sub =>
+      s"'${sub.name}'"
+    }.mkString(" | ")
+    out.println("// this file is generated, please do not modify")
+    out.println()
+    out.println(s"export type ${enumeration.name.toString} = $values;")
+    out.close()
+  }
+
+  private def fileStream(classSymbol: ClassSymbol): PrintStream = {
+    val className = classSymbol.name.toString
+    val packageName = classSymbol.fullName.dropRight(className.length + 1)
+    val dirName = packageName.replaceAll("kpn.api.", "").replaceAll("\\.", "/")
+    val fileName = dirName + "/" + CamelCaseUtil.toDashed(className) + ".ts"
+    val file = new File(targetDir + "/" + fileName)
+    file.getParentFile.mkdirs()
+    new PrintStream(file)
   }
 }

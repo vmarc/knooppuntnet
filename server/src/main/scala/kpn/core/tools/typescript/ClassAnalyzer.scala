@@ -28,8 +28,6 @@ class ClassAnalyzer {
 
     val className = caseClass.typeSymbol.name.toString
     val packageName = caseClass.typeSymbol.fullName.dropRight(className.length + 1)
-    val dirName = packageName.replaceAll("kpn.api.", "").replaceAll("\\.", "/")
-    val fileName = dirName + "/" + CamelCaseUtil.toDashed(className) + ".ts"
 
     val fields = caseClass.decls.toSeq.flatMap {
       case m: MethodSymbol if m.isCaseAccessor =>
@@ -120,7 +118,6 @@ class ClassAnalyzer {
 
     ClassInfo(
       className,
-      fileName,
       fields,
       sortedDependencies,
       formClass
@@ -233,5 +230,4 @@ class ClassAnalyzer {
       case _ => Some(fieldType)
     }
   }
-
 }
