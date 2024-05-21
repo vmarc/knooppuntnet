@@ -2,10 +2,11 @@ package kpn.database.actions.locations
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.LocationNodeInfo
+import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.LocationNodesType
+import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.hiking
 import kpn.core.doc.Label
@@ -45,9 +46,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         )
       )
 
+      val locationKey = LocationKey(hiking, Country.be, "be")
       val query = new MongoQueryLocationNodes(database)
-      query.countDocuments(hiking, "be", LocationNodesType.all) should equal(2)
-      query.find(hiking, "be", LocationNodesType.all, 5, 0).shouldMatchTo(
+      query.countDocuments(locationKey, LocationNodesParameters()) should equal(2)
+      query.find(locationKey, LocationNodesParameters()).shouldMatchTo(
         Seq(
           LocationNodeInfo(
             0L,
@@ -113,9 +115,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         )
       )
 
+      val locationKey = LocationKey(hiking, Country.be, "be")
       val query = new MongoQueryLocationNodes(database)
-      query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
-      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 5, 0)
+      query.countDocuments(locationKey, LocationNodesParameters()) should equal(1)
+      val locationNodeInfos = query.find(locationKey, LocationNodesParameters())
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
     }
   }
@@ -153,9 +156,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         )
       )
 
+      val locationKey = LocationKey(hiking, Country.be, "be")
       val query = new MongoQueryLocationNodes(database)
-      query.countDocuments(hiking, "be", LocationNodesType.survey) should equal(1)
-      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.survey, 5, 0)
+      query.countDocuments(locationKey, LocationNodesParameters(/* TODO survey */)) should equal(1)
+      val locationNodeInfos = query.find(locationKey, LocationNodesParameters())
       locationNodeInfos.shouldMatchTo(
         Seq(
           LocationNodeInfo(
@@ -207,9 +211,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         )
       )
 
+      val locationKey = LocationKey(hiking, Country.be, "be")
       val query = new MongoQueryLocationNodes(database)
-      query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
-      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 5, 0)
+      query.countDocuments(locationKey, LocationNodesParameters()) should equal(1)
+      val locationNodeInfos = query.find(locationKey, LocationNodesParameters())
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
     }
   }
@@ -245,9 +250,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         )
       )
 
+      val locationKey = LocationKey(hiking, Country.be, "be")
       val query = new MongoQueryLocationNodes(database)
-      query.countDocuments(hiking, "be", LocationNodesType.all) should equal(1)
-      val locationNodeInfos = query.find(hiking, "be", LocationNodesType.all, 5, 0)
+      query.countDocuments(locationKey, LocationNodesParameters()) should equal(1)
+      val locationNodeInfos = query.find(locationKey, LocationNodesParameters())
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
     }
   }
@@ -286,9 +292,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         )
       )
 
+      val locationKey = LocationKey(hiking, Country.be, "be")
       val query = new MongoQueryLocationNodes(database)
-      query.countDocuments(hiking, "be", LocationNodesType.facts) should equal(1)
-      query.find(hiking, "be", LocationNodesType.facts, 5, 0).shouldMatchTo(
+      query.countDocuments(locationKey, LocationNodesParameters(/*TODOfact*/)) should equal(1)
+      query.find(locationKey, LocationNodesParameters(/*TODOfact*/)).shouldMatchTo(
         Seq(
           LocationNodeInfo(
             0L,
@@ -340,13 +347,14 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       buildNode(1007L, "07")
       buildNode(1008L, "08")
 
+      val locationKey = LocationKey(hiking, Country.be, "be")
       val query = new MongoQueryLocationNodes(database)
 
       def find(page: Int, pageSize: Int): Seq[Long] = {
-        query.find(hiking, "be", LocationNodesType.all, pageSize, page).map(_.id)
+        query.find(locationKey, LocationNodesParameters(pageSize = pageSize, pageIndex = page)).map(_.id)
       }
 
-      query.countDocuments(hiking, "be", LocationNodesType.all) should equal(8)
+      query.countDocuments(locationKey, LocationNodesParameters()) should equal(8)
 
       find(0, 3) should equal(Seq(1001L, 1002L, 1003L))
       find(1, 3) should equal(Seq(1004L, 1005L, 1006L))

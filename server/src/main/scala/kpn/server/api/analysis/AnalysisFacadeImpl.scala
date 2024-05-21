@@ -268,14 +268,14 @@ class AnalysisFacadeImpl(
 
   override def locationNodes(language: Language, key: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
     val locationKey = s"${key.networkType.name}, ${key.country.domain}, ${key.name}, "
-    val locationParameters = s"${parameters.locationNodesType.name}, ${parameters.pageSize}, ${parameters.pageIndex}"
+    val locationParameters = s"TODO ${parameters.pageSize}, ${parameters.pageIndex}"
     api.execute("location-nodes", locationKey + locationParameters) {
       reply(locationNodesPageBuilder.build(language, key, parameters))
     }
   }
 
   override def locationRoutes(language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage] = {
-    val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
+    val args = s"TODO ${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
     api.execute("location-routes", args) {
       reply(locationRoutesPageBuilder.build(language, locationKey, parameters))
     }

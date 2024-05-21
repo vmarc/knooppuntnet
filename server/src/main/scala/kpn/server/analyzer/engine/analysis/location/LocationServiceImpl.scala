@@ -19,6 +19,10 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
     all.map(l => l.id -> l).toMap
   }
 
+  def xx(locationName: String): Option[LocationDefinition] = {
+    locationMap.values.find(_.name == locationName)
+  }
+
   override def locationDefinition(locationId: String): Option[LocationDefinition] = {
     locationMap.get(locationId)
   }

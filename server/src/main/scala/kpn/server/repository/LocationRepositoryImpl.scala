@@ -12,7 +12,6 @@ import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.common.location.LocationSummary
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
-import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType
 import kpn.core.doc.LocationNodeCount
 import kpn.database.actions.locations.MongoQueryLocationChanges
@@ -31,7 +30,7 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
   override def summary(locationKey: LocationKey): LocationSummary = {
     LocationSummary(
       factCount(locationKey.networkType, locationKey.name),
-      nodeCount(locationKey, LocationNodesType.all),
+      nodeCount(locationKey, LocationNodesParameters()),
       routeCount(locationKey),
       changesCount(locationKey, ChangesParameters())
     )
@@ -39,16 +38,13 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
 
   override def nodes(locationKey: LocationKey, parameters: LocationNodesParameters): Seq[LocationNodeInfo] = {
     new MongoQueryLocationNodes(database).find(
-      locationKey.networkType,
-      locationKey.name,
-      parameters.locationNodesType,
-      parameters.pageSize.toInt,
-      parameters.pageIndex.toInt
+      locationKey,
+      parameters
     )
   }
 
-  override def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType): Long = {
-    new MongoQueryLocationNodes(database).countDocuments(locationKey.networkType, locationKey.name, locationNodesType)
+  override def nodeCount(locationKey: LocationKey, parameters: LocationNodesParameters): Long = {
+    new MongoQueryLocationNodes(database).countDocuments(locationKey, parameters)
   }
 
   override def routes(locationKey: LocationKey, parameters: LocationRoutesParameters): Seq[LocationRouteInfo] = {

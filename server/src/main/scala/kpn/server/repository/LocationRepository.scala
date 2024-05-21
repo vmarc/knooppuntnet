@@ -12,7 +12,6 @@ import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.common.location.LocationSummary
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
-import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType
 import kpn.core.doc.LocationNodeCount
 
@@ -22,7 +21,7 @@ trait LocationRepository {
 
   def nodes(locationKey: LocationKey, parameters: LocationNodesParameters): Seq[LocationNodeInfo]
 
-  def nodeCount(locationKey: LocationKey, locationNodesType: LocationNodesType): Long
+  def nodeCount(locationKey: LocationKey, parameters: LocationNodesParameters): Long
 
   def routes(locationKey: LocationKey, parameters: LocationRoutesParameters): Seq[LocationRouteInfo]
 

@@ -2,10 +2,12 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.NodeName
 import kpn.api.common.location.LocationNodeInfo
+import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Country
-import kpn.api.custom.LocationNodesType
+import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.NetworkType.hiking
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -58,7 +60,8 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         )
       )
 
-      new MongoQueryLocationNodes(database).find(NetworkType.hiking, "fr", LocationNodesType.all, 10, 0).shouldMatchTo(
+      val locationKey = LocationKey(hiking, Country.fr, "fr")
+      new MongoQueryLocationNodes(database).find(locationKey, LocationNodesParameters()).shouldMatchTo(
         Seq(
           LocationNodeInfo(
             rowIndex = 0,

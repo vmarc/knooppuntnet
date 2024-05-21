@@ -6,7 +6,6 @@ import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.LocationKey
-import kpn.api.custom.LocationNodesType
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.LocationRepository
@@ -39,7 +38,7 @@ class LocationEditPageBuilderImpl(
       )
     }
     else {
-      val nodes = locationRepository.nodes(locationKey, LocationNodesParameters(LocationNodesType.all, pageSize = 99999))
+      val nodes = locationRepository.nodes(locationKey, LocationNodesParameters(pageSize = 99999))
       val routes = locationRepository.routes(locationKey, LocationRoutesParameters(pageSize = 99999))
 
       val bounds = Bounds.from(nodes, 0.15)

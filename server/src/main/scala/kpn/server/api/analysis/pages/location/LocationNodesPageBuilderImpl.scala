@@ -5,7 +5,6 @@ import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
-import kpn.api.custom.LocationNodesType
 import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.api.analysis.pages.TimeInfoBuilder
@@ -32,18 +31,12 @@ class LocationNodesPageBuilderImpl(
     val summary = locationRepository.summary(locationKey)
     val nodes = locationRepository.nodes(locationKey, parameters)
 
-    val allNodeCount = locationRepository.nodeCount(locationKey, LocationNodesType.all)
-    val factsNodeCount = locationRepository.nodeCount(locationKey, LocationNodesType.facts)
-    val surveyNodeCount = locationRepository.nodeCount(locationKey, LocationNodesType.survey)
-    val integrityCheckFailedNodeCount = locationRepository.nodeCount(locationKey, LocationNodesType.integrityCheckFailed)
+    val allNodeCount = 0
+    val factsNodeCount = 0
+    val surveyNodeCount = 0
+    val integrityCheckFailedNodeCount = 0
 
-    val nodeCount = parameters.locationNodesType match {
-      case LocationNodesType.all => allNodeCount
-      case LocationNodesType.facts => factsNodeCount
-      case LocationNodesType.survey => surveyNodeCount
-      case LocationNodesType.integrityCheckFailed => integrityCheckFailedNodeCount
-      case _ => 0
-    }
+    val nodeCount = 0
 
     Some(
       LocationNodesPage(
