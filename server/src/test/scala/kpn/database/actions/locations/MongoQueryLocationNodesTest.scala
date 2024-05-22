@@ -17,7 +17,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
   test("nodes") {
     withDatabase { database =>
-
+      val setup = new MongoQueryLocationNodesTestSetup(database)
       database.nodes.save(
         newNodeDoc(
           1001L,
@@ -47,7 +47,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       )
 
       val subset = LocationSubset(hiking, Seq("be"))
-      val query = new MongoQueryLocationNodes(database)
+      val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
       query.countDocuments(subset, LocationNodesParameters()) should equal(2)
       query.find(subset, LocationNodesParameters()).shouldMatchTo(
         Seq(
@@ -84,6 +84,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
   test("include active nodes only") {
     withDatabase { database =>
+      val setup = new MongoQueryLocationNodesTestSetup(database)
 
       // active
       database.nodes.save(
@@ -116,7 +117,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       )
 
       val subset = LocationSubset(hiking, Seq("be"))
-      val query = new MongoQueryLocationNodes(database)
+      val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
       query.countDocuments(subset, LocationNodesParameters()) should equal(1)
       val locationNodeInfos = query.find(subset, LocationNodesParameters())
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
@@ -125,6 +126,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
   test("include nodes with lastSurvey values only") {
     withDatabase { database =>
+      val setup = new MongoQueryLocationNodesTestSetup(database)
 
       database.nodes.save(
         newNodeDoc(
@@ -157,7 +159,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       )
 
       val subset = LocationSubset(hiking, Seq("be"))
-      val query = new MongoQueryLocationNodes(database)
+      val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
       query.countDocuments(subset, LocationNodesParameters(/* TODO survey */)) should equal(1)
       val locationNodeInfos = query.find(subset, LocationNodesParameters())
       locationNodeInfos.shouldMatchTo(
@@ -182,6 +184,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
   test("include values with given location only") {
     withDatabase { database =>
+      val setup = new MongoQueryLocationNodesTestSetup(database)
 
       database.nodes.save(
         newNodeDoc(
@@ -212,7 +215,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       )
 
       val subset = LocationSubset(hiking, Seq("be"))
-      val query = new MongoQueryLocationNodes(database)
+      val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
       query.countDocuments(subset, LocationNodesParameters()) should equal(1)
       val locationNodeInfos = query.find(subset, LocationNodesParameters())
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
@@ -221,6 +224,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
   test("include values with given network type only") {
     withDatabase { database =>
+      val setup = new MongoQueryLocationNodesTestSetup(database)
 
       database.nodes.save(
         newNodeDoc(
@@ -251,7 +255,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       )
 
       val subset = LocationSubset(hiking, Seq("be"))
-      val query = new MongoQueryLocationNodes(database)
+      val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
       query.countDocuments(subset, LocationNodesParameters()) should equal(1)
       val locationNodeInfos = query.find(subset, LocationNodesParameters())
       locationNodeInfos.map(_.id) should equal(Seq(1001L))
@@ -260,6 +264,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
   test("only include nodes with facts") {
     withDatabase { database =>
+      val setup = new MongoQueryLocationNodesTestSetup(database)
 
       database.nodes.save(
         newNodeDoc(
@@ -293,7 +298,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       )
 
       val subset = LocationSubset(hiking, Seq("be"))
-      val query = new MongoQueryLocationNodes(database)
+      val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
       query.countDocuments(subset, LocationNodesParameters(/*TODOfact*/)) should equal(1)
       query.find(subset, LocationNodesParameters(/*TODOfact*/)).shouldMatchTo(
         Seq(
@@ -321,6 +326,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
 
   test("paging") {
     withDatabase { database =>
+      val setup = new MongoQueryLocationNodesTestSetup(database)
 
       def buildNode(nodeId: Long, name: String): Unit = {
         database.nodes.save(
@@ -348,7 +354,7 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       buildNode(1008L, "08")
 
       val subset = LocationSubset(hiking, Seq("be"))
-      val query = new MongoQueryLocationNodes(database)
+      val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
 
       def find(page: Int, pageSize: Int): Seq[Long] = {
         query.find(subset, LocationNodesParameters(pageSize = pageSize, pageIndex = page)).map(_.id)

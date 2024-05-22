@@ -1,0 +1,10 @@
+package kpn.api.common.location
+
+import kpn.api.common.changes.filter.ServerFilterGroup
+
+case class LocationNodeOptions(
+  fact: ServerFilterGroup,
+  survey: ServerFilterGroup,
+  lastUpdated: ServerFilterGroup,
+  proposed: ServerFilterGroup,
+)

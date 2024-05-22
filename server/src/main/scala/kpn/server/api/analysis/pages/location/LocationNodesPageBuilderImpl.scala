@@ -38,15 +38,16 @@ class LocationNodesPageBuilderImpl(
 
     val nodeCount = 0
 
+    val filter = locationRepository.nodeFilterOptions(subset, parameters)
+
     Some(
       LocationNodesPage(
         TimeInfoBuilder.timeInfo,
         summary,
         nodeCount,
         allNodeCount,
-        factsNodeCount,
-        surveyNodeCount,
         integrityCheckFailedNodeCount,
+        filter,
         nodes
       )
     )

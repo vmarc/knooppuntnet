@@ -5,6 +5,7 @@ import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationFact
 import kpn.api.common.location.LocationNodeInfo
+import kpn.api.common.location.LocationNodeOptions
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRouteOptions
@@ -21,11 +22,13 @@ trait LocationRepository {
 
   def nodes(subset: LocationSubset, parameters: LocationNodesParameters): Seq[LocationNodeInfo]
 
+  def nodeFilterOptions(subset: LocationSubset, parameters: LocationNodesParameters): LocationNodeOptions
+
   def nodeCount(subset: LocationSubset, parameters: LocationNodesParameters): Long
 
   def routes(subset: LocationSubset, parameters: LocationRoutesParameters): Seq[LocationRouteInfo]
 
-  def filterOptions(subset: LocationSubset, parameters: LocationRoutesParameters): LocationRouteOptions
+  def routeFilterOptions(subset: LocationSubset, parameters: LocationRoutesParameters): LocationRouteOptions
 
   def routeCount(subset: LocationSubset): Long
 

@@ -1,7 +1,9 @@
 package kpn.server.api.analysis.pages.location
 
+import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.common.Reference
 import kpn.api.common.location.LocationNodeInfo
+import kpn.api.common.location.LocationNodeOptions
 import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationSummary
 import kpn.api.custom.Fact
@@ -18,9 +20,13 @@ object LocationNodesPageExample {
       LocationSummary(10, 20, 30, 40),
       30,
       30,
-      20,
-      10,
       5,
+      LocationNodeOptions(
+        ServerFilterGroup("", Seq.empty),
+        ServerFilterGroup("", Seq.empty),
+        ServerFilterGroup("", Seq.empty),
+        ServerFilterGroup("", Seq.empty),
+      ),
       Seq(
         LocationNodeInfo(
           rowIndex = 0,

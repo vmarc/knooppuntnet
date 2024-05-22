@@ -1,8 +1,12 @@
 package kpn.database.actions.locations
 
 import kpn.api.common.NodeName
+import kpn.api.common.SurveyDateInfo
+import kpn.api.common.changes.filter.ServerFilterGroup
+import kpn.api.common.changes.filter.ServerFilterOption
 import kpn.api.common.common.Reference
 import kpn.api.common.location.LocationNodeInfo
+import kpn.api.common.location.LocationNodeOptions
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -14,13 +18,16 @@ import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
+import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.skip
 import org.mongodb.scala.model.Aggregates.sort
+import org.mongodb.scala.model.Facet
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
@@ -58,8 +65,118 @@ case class LocationNodeInfoDoc(
   }
 }
 
-class MongoQueryLocationNodes(database: Database) {
+class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo) {
   private val log = Log(classOf[MongoQueryLocationNodes])
+
+  def filterOptions(subset: LocationSubset, parameters: LocationNodesParameters): LocationNodeOptions = {
+    val pipeline = Seq(
+      filter(and(mainFilters(subset): _*)),
+      facet(
+        Facet("factsTotalRouteCount", factsTotalRouteCountPipeline(parameters): _*),
+        Facet("facts", factsPipeline(parameters): _*),
+        Facet("proposed", proposedPipeline(parameters): _*),
+        Facet("survey", surveyPipeline(parameters): _*),
+        Facet("lastUpdated", lastUpdatedPipeline(parameters): _*),
+      )
+    )
+
+    println(Mongo.pipelineString(pipeline))
+
+    val groups = database.nodes.aggregate[Groups](pipeline)
+
+    val proposed = {
+      val options = groups.flatMap(_.proposed).flatMap(_.options)
+      val oo = if (options.size != 1) {
+        Seq(ServerFilterOption("all", options.map(_.count).sum)) ++ options
+      }
+      else {
+        options
+      }
+
+      val selected = if (oo.size == 1) {
+        oo.head.name
+      }
+      else {
+        parameters.proposed match {
+          case None => "all"
+          case Some(proposed) =>
+            oo.find(_.name == proposed.entryName) match {
+              case None => "all"
+              case Some(value) => value.name
+            }
+        }
+      }
+      ServerFilterGroup(selected, oo)
+    }
+
+    val fact = {
+      val totalCount = groups.flatMap(_.factsTotalRouteCount).map(_.count).sum
+      val factOptions = groups.flatMap(_.facts).flatMap(_.options).sortBy(_.name)
+      val options = Seq(ServerFilterOption("all", totalCount)) ++ factOptions
+      val selected = parameters.fact match {
+        case None => "all"
+        case Some(f) => f.name
+      }
+      ServerFilterGroup(selected, options)
+    }
+
+    val survey = {
+      val surveyOptions = groups.flatMap(_.survey).flatMap(_.options)
+      val options = if (surveyOptions.size != 1) {
+        Seq(ServerFilterOption("all", surveyOptions.map(_.count).sum)) ++ surveyOptions
+      }
+      else {
+        surveyOptions
+      }
+
+      val selected = if (options.size == 1) {
+        options.head.name
+      }
+      else {
+        parameters.survey match {
+          case None => "all"
+          case Some(value) =>
+            surveyOptions.find(_.name == value.entryName) match {
+              case None => "all"
+              case Some(value) => value.name
+            }
+        }
+      }
+      ServerFilterGroup(selected, options)
+    }
+
+    val lastUpdated = {
+      val lastUpdatedOptions = groups.flatMap(_.lastUpdated).flatMap(_.options).sortBy(_.name)
+      val options = if (lastUpdatedOptions.size != 1) {
+        Seq(ServerFilterOption("all", lastUpdatedOptions.map(_.count).sum)) ++ lastUpdatedOptions
+      }
+      else {
+        lastUpdatedOptions
+      }
+
+      val selected = if (options.size == 1) {
+        options.head.name
+      }
+      else {
+        parameters.lastUpdated match {
+          case None => "all"
+          case Some(value) =>
+            options.find(_.name == value.entryName) match {
+              case None => "all"
+              case Some(value) => value.name
+            }
+        }
+      }
+      ServerFilterGroup(selected, options)
+    }
+
+    LocationNodeOptions(
+      fact,
+      survey,
+      lastUpdated,
+      proposed
+    )
+  }
 
   def countDocuments(subset: LocationSubset, parameters: LocationNodesParameters): Long = {
     val filter = buildFilter(subset, parameters)
@@ -119,19 +236,73 @@ class MongoQueryLocationNodes(database: Database) {
     }
   }
 
+  private def mainFilters(subset: LocationSubset): Seq[Bson] = {
+    Seq(
+      equal("labels", Label.active),
+      equal("labels", Label.networkType(subset.networkType)),
+      LocationQuery.locationFilter("labels", subset),
+    )
+  }
+
   private def buildFilter(subset: LocationSubset, parameters: LocationNodesParameters): Bson = {
-    val filters = Seq(
-      Some(equal("labels", Label.active)),
-      Some(equal("labels", Label.networkType(subset.networkType))),
-      Some(LocationQuery.locationFilter("labels", subset)),
-      //      locationNodesType match {
-      //        case LocationNodesType.facts => Some(equal("labels", Label.facts))
-      //        case LocationNodesType.survey => Some(equal("labels", Label.survey))
-      //        case LocationNodesType.integrityCheck => Some(equal("labels", s"integrity-check-${networkType.name}"))
-      //        case LocationNodesType.integrityCheckFailed => Some(equal("labels", s"integrity-check-failed-${networkType.name}"))
-      //        case _ => None
-      //      }
+    val filters: Seq[Bson] = mainFilters(subset) ++ Seq(
+      LocationQuery.factFilter(parameters.fact),
+      LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+      LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+      LocationQuery.proposedFilter(parameters.proposed)
     ).flatten
     and(filters: _*)
+  }
+
+  private def surveyPipeline(parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.surveyPipeline(
+      surveyDateInfo,
+      Seq(
+        LocationQuery.factFilter(parameters.fact),
+        LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.proposedFilter(parameters.proposed)
+      )
+    )
+  }
+
+  private def lastUpdatedPipeline(parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.lastUpdatedPipeline(
+      surveyDateInfo,
+      Seq(
+        LocationQuery.factFilter(parameters.fact),
+        LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+        LocationQuery.proposedFilter(parameters.proposed)
+      )
+    )
+  }
+
+  private def proposedPipeline(parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.proposedPipeline(
+      Seq(
+        LocationQuery.factFilter(parameters.fact),
+        LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+        LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+      )
+    )
+  }
+
+  private def factsPipeline(parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.factsPipeline(
+      Seq(
+        LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+        LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.proposedFilter(parameters.proposed)
+      )
+    )
+  }
+
+  private def factsTotalRouteCountPipeline(parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.factsPipelineRouteCount(
+      Seq(
+        LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+        LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.proposedFilter(parameters.proposed)
+      )
+    )
   }
 }

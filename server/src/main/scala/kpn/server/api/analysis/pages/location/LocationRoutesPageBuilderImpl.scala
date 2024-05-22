@@ -31,7 +31,7 @@ class LocationRoutesPageBuilderImpl(
     val summary = locationRepository.summary(subset)
     val routes = locationRepository.routes(subset, parameters)
     val routeCount = locationRepository.routeFilteredCount(subset, parameters)
-    val filter = locationRepository.filterOptions(subset, parameters)
+    val filter = locationRepository.routeFilterOptions(subset, parameters)
     Some(
       LocationRoutesPage(
         TimeInfoBuilder.timeInfo,

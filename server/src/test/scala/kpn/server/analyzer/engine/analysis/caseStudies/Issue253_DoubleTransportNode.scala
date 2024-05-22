@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.NodeName
+import kpn.api.common.SurveyDateInfo
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Country
@@ -19,6 +20,10 @@ import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeNameAnalyzer
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
+import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
+
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 class Issue253_DoubleTransportNode extends IntegrationTest {
 
@@ -61,7 +66,12 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
       )
 
       val subset = LocationSubset(hiking, Seq("fr"))
-      new MongoQueryLocationNodes(database).find(subset, LocationNodesParameters()).shouldMatchTo(
+      val surveyDateInfo: SurveyDateInfo = {
+        val local = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Europe/Brussels"))
+        SurveyDateInfoBuilder.dateInfoAt(local)
+      }
+
+      new MongoQueryLocationNodes(database, surveyDateInfo).find(subset, LocationNodesParameters()).shouldMatchTo(
         Seq(
           LocationNodeInfo(
             rowIndex = 0,

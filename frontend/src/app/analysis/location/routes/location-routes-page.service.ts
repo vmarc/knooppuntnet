@@ -9,7 +9,6 @@ import { LocationRoutesPage } from '@api/common/location';
 import { BooleanParameter } from '@api/common/location/boolean-parameter';
 import { LastUpdatedParameter } from '@api/common/location/last-updated-parameter';
 import { SurveyParameter } from '@api/common/location/survey-parameter';
-import { LocationRoutesType } from '@api/custom';
 import { ApiResponse } from '@api/custom';
 import { Util } from '@app/components/shared';
 import { PreferencesService } from '@app/core';
@@ -30,7 +29,6 @@ export class LocationRoutesPageService {
   private readonly _lastUpdated = signal<LastUpdatedParameter | null>(null);
   private readonly _proposed = signal<BooleanParameter | null>(null);
 
-  private readonly _pageType = signal<LocationRoutesType | null>(null);
   private readonly _pageIndex = signal<number>(0);
   private readonly _response = signal<ApiResponse<LocationRoutesPage> | null>(null);
 
@@ -65,12 +63,6 @@ export class LocationRoutesPageService {
 
   setPageIndex(pageIndex: number): void {
     this._pageIndex.set(pageIndex);
-    this.load();
-  }
-
-  setPageType(pageType: LocationRoutesType): void {
-    this._pageType.set(pageType);
-    this._pageIndex.set(0);
     this.load();
   }
 

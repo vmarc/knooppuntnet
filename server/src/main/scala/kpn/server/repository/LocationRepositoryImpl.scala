@@ -5,6 +5,7 @@ import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationFact
 import kpn.api.common.location.LocationNodeInfo
+import kpn.api.common.location.LocationNodeOptions
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRouteOptions
@@ -37,14 +38,21 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
   }
 
   override def nodes(subset: LocationSubset, parameters: LocationNodesParameters): Seq[LocationNodeInfo] = {
-    new MongoQueryLocationNodes(database).find(
+    new MongoQueryLocationNodes(database, SurveyDateInfoBuilder.dateInfo).find(
+      subset,
+      parameters
+    )
+  }
+
+  override def nodeFilterOptions(subset: LocationSubset, parameters: LocationNodesParameters): LocationNodeOptions = {
+    new MongoQueryLocationNodes(database, SurveyDateInfoBuilder.dateInfo).filterOptions(
       subset,
       parameters
     )
   }
 
   override def nodeCount(subset: LocationSubset, parameters: LocationNodesParameters): Long = {
-    new MongoQueryLocationNodes(database).countDocuments(subset, parameters)
+    new MongoQueryLocationNodes(database, SurveyDateInfoBuilder.dateInfo).countDocuments(subset, parameters)
   }
 
   override def routes(subset: LocationSubset, parameters: LocationRoutesParameters): Seq[LocationRouteInfo] = {
@@ -54,7 +62,7 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
     )
   }
 
-  override def filterOptions(subset: LocationSubset, parameters: LocationRoutesParameters): LocationRouteOptions = {
+  override def routeFilterOptions(subset: LocationSubset, parameters: LocationRoutesParameters): LocationRouteOptions = {
     new MongoQueryLocationRoutes(database, SurveyDateInfoBuilder.dateInfo).filterOptions(
       subset,
       parameters
