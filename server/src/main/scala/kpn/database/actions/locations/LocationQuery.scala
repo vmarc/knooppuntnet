@@ -11,6 +11,7 @@ import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.push
 import org.mongodb.scala.model.Accumulators.sum
+import org.mongodb.scala.model.Aggregates.count
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.project
@@ -229,6 +230,12 @@ object LocationQuery {
         sum("count", 1)
       ),
     ) ++ optionGroupPipeline("facts")
+  }
+
+  def factsPipelineRouteCount(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+    prefilter(otherFilters) ++ Seq(
+      count()
+    )
   }
 
   private def optionGroupPipeline(groupName: String): Seq[Bson] = {

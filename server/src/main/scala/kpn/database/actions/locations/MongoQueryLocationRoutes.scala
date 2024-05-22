@@ -12,6 +12,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.core.util.RouteSymbol
+import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
@@ -32,6 +33,7 @@ import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 
 case class Groups(
+  factsTotalRouteCount: Seq[CountResult],
   facts: Seq[ServerFilterGroup],
   proposed: Seq[ServerFilterGroup],
   survey: Seq[ServerFilterGroup],
@@ -57,6 +59,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     val pipeline = Seq(
       filter(and(mainFilters(subset): _*)),
       facet(
+        Facet("factsTotalRouteCount", factsTotalRouteCountPipeline(parameters): _*),
         Facet("facts", factsPipeline(parameters): _*),
         Facet("proposed", proposedPipeline(parameters): _*),
         Facet("survey", surveyPipeline(parameters): _*),
@@ -91,9 +94,8 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       ServerFilterGroup(selected, oo)
     }
 
-    val totalCount = proposed.options.map(_.count).sum
-
     val fact = {
+      val totalCount = groups.flatMap(_.factsTotalRouteCount).map(_.count).sum
       val factOptions = groups.flatMap(_.facts).flatMap(_.options).sortBy(_.name)
       val options = Seq(ServerFilterOption("all", totalCount)) ++ factOptions
       val selected = parameters.fact match {
@@ -195,6 +197,16 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
 
   private def factsPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
     LocationQuery.factsPipeline(
+      Seq(
+        LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+        LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.proposedFilter(parameters.proposed)
+      )
+    )
+  }
+
+  private def factsTotalRouteCountPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
+    LocationQuery.factsPipelineRouteCount(
       Seq(
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
