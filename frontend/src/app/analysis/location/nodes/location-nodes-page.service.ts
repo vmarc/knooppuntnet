@@ -25,6 +25,8 @@ export class LocationNodesPageService {
   private readonly router = inject(Router);
   private readonly activatedRoute = inject(ActivatedRoute);
 
+  private readonly _integrityCheck = signal<BooleanParameter | null>(null);
+  private readonly _integrityCheckFailed = signal<BooleanParameter | null>(null);
   private readonly _fact = signal<string | null>(null);
   private readonly _survey = signal<SurveyParameter | null>(null);
   private readonly _lastUpdated = signal<LastUpdatedParameter | null>(null);
@@ -42,11 +44,15 @@ export class LocationNodesPageService {
     this.locationService.initPage(this.routerService);
     const uniqueQueryParams = Util.uniqueParams(this.routerService.queryParams());
 
+    const integrityCheck = uniqueQueryParams['integrityCheck'];
+    const integrityCheckFailed = uniqueQueryParams['integrityCheckFailed'];
     const fact = uniqueQueryParams['fact'];
     const survey = uniqueQueryParams['survey'];
     const lastUpdated = uniqueQueryParams['lastUpdated'];
     const proposed = uniqueQueryParams['proposed'];
 
+    this._integrityCheck.set(integrityCheck);
+    this._integrityCheckFailed.set(integrityCheckFailed);
     this._fact.set(fact);
     this._survey.set(survey);
     this._lastUpdated.set(lastUpdated);
@@ -62,6 +68,16 @@ export class LocationNodesPageService {
 
   setPageIndex(pageIndex: number): void {
     this._pageIndex.set(pageIndex);
+    this.load();
+  }
+
+  setIntegrityCheck(value: BooleanParameter): void {
+    this._integrityCheck.set(value);
+    this.load();
+  }
+
+  setIntegrityCheckFailed(value: BooleanParameter): void {
+    this._integrityCheckFailed.set(value);
     this.load();
   }
 
@@ -87,6 +103,8 @@ export class LocationNodesPageService {
 
   private load(): void {
     const parameters: LocationNodesParameters = {
+      integrityCheck: this._integrityCheck(),
+      integrityCheckFailed: this._integrityCheckFailed(),
       fact: this._fact(),
       survey: this._survey(),
       lastUpdated: this._lastUpdated(),

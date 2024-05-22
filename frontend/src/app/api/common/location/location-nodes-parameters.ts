@@ -6,6 +6,8 @@ import { LastUpdatedParameter } from './last-updated-parameter';
 import { SurveyParameter } from './survey-parameter';
 
 export interface LocationNodesParameters {
+  readonly integrityCheck: BooleanParameter;
+  readonly integrityCheckFailed: BooleanParameter;
   readonly fact: Fact;
   readonly survey: SurveyParameter;
   readonly lastUpdated: LastUpdatedParameter;

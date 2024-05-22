@@ -3,6 +3,8 @@
 import { ServerFilterGroup } from '@api/common/changes/filter';
 
 export interface LocationNodeOptions {
+  readonly integrityCheck: ServerFilterGroup;
+  readonly integrityCheckFailed: ServerFilterGroup;
   readonly fact: ServerFilterGroup;
   readonly survey: ServerFilterGroup;
   readonly lastUpdated: ServerFilterGroup;

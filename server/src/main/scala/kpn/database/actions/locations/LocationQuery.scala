@@ -105,6 +105,21 @@ object LocationQuery {
     }
   }
 
+  def integrityCheckFilter(subset: LocationSubset, integrityCheck: Option[BooleanParameter]): Option[Bson] = {
+    integrityCheck.map {
+      case BooleanParameter.yes => equal("labels", s"integrity-check-${subset.networkType.name}")
+      case BooleanParameter.no => not(equal("labels", s"integrity-check-${subset.networkType.name}"))
+    }
+  }
+
+  def integrityCheckFailedFilter(subset: LocationSubset, integrityCheckFailed: Option[BooleanParameter]): Option[Bson] = {
+    val condition = equal("labels", s"integrity-check-failed-${subset.networkType.name}")
+    integrityCheckFailed.map {
+      case BooleanParameter.yes => condition
+      case BooleanParameter.no => not(condition)
+    }
+  }
+
   def proposedPipeline(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
     prefilter(otherFilters) ++ Seq(
       project(
@@ -232,8 +247,26 @@ object LocationQuery {
     ) ++ optionGroupPipeline("facts")
   }
 
-  def factsPipelineRouteCount(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  def routeCountPipeline(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
     prefilter(otherFilters) ++ Seq(
+      count()
+    )
+  }
+
+  def integrityCheckPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+    prefilter(otherFilters) ++ Seq(
+      filter(
+        equal("labels", s"integrity-check-${subset.networkType.name}")
+      ),
+      count()
+    )
+  }
+
+  def integrityCheckFailedPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+    prefilter(otherFilters) ++ Seq(
+      filter(
+        equal("labels", s"integrity-check-failed-${subset.networkType.name}")
+      ),
       count()
     )
   }

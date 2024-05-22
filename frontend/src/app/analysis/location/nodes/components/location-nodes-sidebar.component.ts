@@ -17,6 +17,43 @@ import { LocationNodesPageService } from '../location-nodes-page.service';
     <kpn-sidebar>
       @if (store.response(); as response) {
         <div class="filter">
+          <div class="title">IntegrityCheck</div>
+          <mat-radio-group
+            [value]="response.result.filter.integrityCheck.selected"
+            (change)="integrityCheckChanged($event)"
+          >
+            @for (option of response.result.filter.integrityCheck.options; track option.name) {
+              <div>
+                <mat-radio-button [value]="option.name">
+                  <span>{{ option.name }}</span
+                  ><span class="kpn-brackets">{{ option.count }}</span>
+                </mat-radio-button>
+              </div>
+            }
+          </mat-radio-group>
+        </div>
+
+        <div class="filter">
+          <div class="title">IntegrityCheckFailed</div>
+          <mat-radio-group
+            [value]="response.result.filter.integrityCheckFailed.selected"
+            (change)="integrityCheckFailedChanged($event)"
+          >
+            @for (
+              option of response.result.filter.integrityCheckFailed.options;
+              track option.name
+            ) {
+              <div>
+                <mat-radio-button [value]="option.name">
+                  <span>{{ option.name }}</span
+                  ><span class="kpn-brackets">{{ option.count }}</span>
+                </mat-radio-button>
+              </div>
+            }
+          </mat-radio-group>
+        </div>
+
+        <div class="filter">
           <div class="title">Facts</div>
           <mat-radio-group
             [value]="response.result.filter.fact.selected"
@@ -100,6 +137,24 @@ import { LocationNodesPageService } from '../location-nodes-page.service';
 })
 export class LocationNodesSidebarComponent {
   protected readonly store = inject(LocationNodesPageService);
+
+  integrityCheckChanged(change: MatRadioChange): void {
+    if (change.value == 'all') {
+      this.store.setIntegrityCheck(null);
+    } else {
+      const value = change.value as BooleanParameter;
+      this.store.setIntegrityCheck(value);
+    }
+  }
+
+  integrityCheckFailedChanged(change: MatRadioChange): void {
+    if (change.value == 'all') {
+      this.store.setIntegrityCheckFailed(null);
+    } else {
+      const value = change.value as BooleanParameter;
+      this.store.setIntegrityCheckFailed(value);
+    }
+  }
 
   factChanged(change: MatRadioChange): void {
     if (change.value == 'all') {

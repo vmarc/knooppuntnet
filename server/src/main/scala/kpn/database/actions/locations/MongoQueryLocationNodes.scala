@@ -5,6 +5,7 @@ import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
 import kpn.api.common.common.Reference
+import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodeOptions
 import kpn.api.common.location.LocationNodesParameters
@@ -72,11 +73,15 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     val pipeline = Seq(
       filter(and(mainFilters(subset): _*)),
       facet(
-        Facet("factsTotalRouteCount", factsTotalRouteCountPipeline(parameters): _*),
-        Facet("facts", factsPipeline(parameters): _*),
-        Facet("proposed", proposedPipeline(parameters): _*),
-        Facet("survey", surveyPipeline(parameters): _*),
-        Facet("lastUpdated", lastUpdatedPipeline(parameters): _*),
+        Facet("factsTotalRouteCount", factsTotalRouteCountPipeline(subset, parameters): _*),
+        Facet("facts", factsPipeline(subset, parameters): _*),
+        Facet("proposed", proposedPipeline(subset, parameters): _*),
+        Facet("survey", surveyPipeline(subset, parameters): _*),
+        Facet("lastUpdated", lastUpdatedPipeline(subset, parameters): _*),
+        Facet("integrityCheckCount", integrityCheckPipeline(subset, parameters): _*),
+        Facet("integrityCheckTotalRouteCount", integrityCheckTotalRouteCountPipeline(subset, parameters): _*),
+        Facet("integrityCheckFailedCount", integrityCheckFailedPipeline(subset, parameters): _*),
+        Facet("integrityCheckFailedTotalRouteCount", integrityCheckFailedTotalRouteCountPipeline(subset, parameters): _*),
       )
     )
 
@@ -170,7 +175,71 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       ServerFilterGroup(selected, options)
     }
 
+    val integrityCheck = {
+      val all = groups.flatMap(_.integrityCheckTotalRouteCount).map(_.count).sum
+      val yes = groups.flatMap(_.integrityCheckCount).map(_.count).sum
+      val options = if (yes == 0 || yes == all) {
+        Seq(ServerFilterOption("all", all))
+      }
+      else {
+        val no = all - yes
+        Seq(
+          ServerFilterOption("all", all),
+          ServerFilterOption(BooleanParameter.yes.entryName, yes),
+          ServerFilterOption(BooleanParameter.no.entryName, no),
+        )
+      }
+
+      val selected = if (options.size == 1) {
+        options.head.name
+      }
+      else {
+        parameters.proposed match {
+          case None => "all"
+          case Some(proposed) =>
+            options.find(_.name == proposed.entryName) match {
+              case None => "all"
+              case Some(value) => value.name
+            }
+        }
+      }
+      ServerFilterGroup(selected, options)
+    }
+
+    val integrityCheckFailed = {
+      val all = groups.flatMap(_.integrityCheckFailedTotalRouteCount).map(_.count).sum
+      val yes = groups.flatMap(_.integrityCheckFailedCount).map(_.count).sum
+
+      val options = if (yes == 0 || yes == all) {
+        Seq(ServerFilterOption("all", all))
+      }
+      else {
+        Seq(
+          ServerFilterOption("all", all),
+          ServerFilterOption(BooleanParameter.yes.entryName, yes),
+          ServerFilterOption(BooleanParameter.no.entryName, all - yes),
+        )
+      }
+
+      val selected = if (options.size == 1) {
+        options.head.name
+      }
+      else {
+        parameters.proposed match {
+          case None => "all"
+          case Some(proposed) =>
+            options.find(_.name == proposed.entryName) match {
+              case None => "all"
+              case Some(value) => value.name
+            }
+        }
+      }
+      ServerFilterGroup(selected, options)
+    }
+
     LocationNodeOptions(
+      integrityCheck,
+      integrityCheckFailed,
       fact,
       survey,
       lastUpdated,
@@ -246,6 +315,9 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
 
   private def buildFilter(subset: LocationSubset, parameters: LocationNodesParameters): Bson = {
     val filters: Seq[Bson] = mainFilters(subset) ++ Seq(
+      LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
+      LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
+      LocationQuery.factFilter(parameters.fact),
       LocationQuery.factFilter(parameters.fact),
       LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
       LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
@@ -254,10 +326,12 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     and(filters: _*)
   }
 
-  private def surveyPipeline(parameters: LocationNodesParameters): Seq[Bson] = {
+  private def surveyPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
     LocationQuery.surveyPipeline(
       surveyDateInfo,
       Seq(
+        LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
+        LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
         LocationQuery.factFilter(parameters.fact),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
         LocationQuery.proposedFilter(parameters.proposed)
@@ -265,10 +339,12 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def lastUpdatedPipeline(parameters: LocationNodesParameters): Seq[Bson] = {
+  private def lastUpdatedPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
     LocationQuery.lastUpdatedPipeline(
       surveyDateInfo,
       Seq(
+        LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
+        LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
         LocationQuery.factFilter(parameters.fact),
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
         LocationQuery.proposedFilter(parameters.proposed)
@@ -276,9 +352,11 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def proposedPipeline(parameters: LocationNodesParameters): Seq[Bson] = {
+  private def proposedPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
     LocationQuery.proposedPipeline(
       Seq(
+        LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
+        LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
         LocationQuery.factFilter(parameters.fact),
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
@@ -286,9 +364,11 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def factsPipeline(parameters: LocationNodesParameters): Seq[Bson] = {
+  private def factsPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
     LocationQuery.factsPipeline(
       Seq(
+        LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
+        LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
         LocationQuery.proposedFilter(parameters.proposed)
@@ -296,13 +376,51 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def factsTotalRouteCountPipeline(parameters: LocationNodesParameters): Seq[Bson] = {
-    LocationQuery.factsPipelineRouteCount(
+  private def factsTotalRouteCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.routeCountPipeline(
       Seq(
+        LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
+        LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
         LocationQuery.proposedFilter(parameters.proposed)
       )
+    )
+  }
+
+  private def integrityCheckPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.integrityCheckPipeline(subset, integrityCheckOtherFilters(subset, parameters))
+  }
+
+  private def integrityCheckTotalRouteCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.routeCountPipeline(integrityCheckOtherFilters(subset, parameters))
+  }
+
+  private def integrityCheckOtherFilters(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Option[Bson]] = {
+    Seq(
+      LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
+      LocationQuery.factFilter(parameters.fact),
+      LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+      LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+      LocationQuery.proposedFilter(parameters.proposed)
+    )
+  }
+
+  private def integrityCheckFailedPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.integrityCheckFailedPipeline(subset, integrityCheckFailedOtherFilters(subset, parameters))
+  }
+
+  private def integrityCheckFailedTotalRouteCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.routeCountPipeline(integrityCheckFailedOtherFilters(subset, parameters))
+  }
+
+  private def integrityCheckFailedOtherFilters(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Option[Bson]] = {
+    Seq(
+      LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
+      LocationQuery.factFilter(parameters.fact),
+      LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+      LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+      LocationQuery.proposedFilter(parameters.proposed)
     )
   }
 }

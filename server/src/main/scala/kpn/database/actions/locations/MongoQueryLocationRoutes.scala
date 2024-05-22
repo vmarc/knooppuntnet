@@ -38,6 +38,10 @@ case class Groups(
   proposed: Seq[ServerFilterGroup],
   survey: Seq[ServerFilterGroup],
   lastUpdated: Seq[ServerFilterGroup],
+  integrityCheckCount: Seq[CountResult],
+  integrityCheckTotalRouteCount: Seq[CountResult],
+  integrityCheckFailedCount: Seq[CountResult],
+  integrityCheckFailedTotalRouteCount: Seq[CountResult],
 )
 
 case class LocationRouteInfoData(
@@ -206,7 +210,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
   }
 
   private def factsTotalRouteCountPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
-    LocationQuery.factsPipelineRouteCount(
+    LocationQuery.routeCountPipeline(
       Seq(
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
