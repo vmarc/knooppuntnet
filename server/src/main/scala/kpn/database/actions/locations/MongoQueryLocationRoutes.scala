@@ -13,7 +13,7 @@ import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.core.util.RouteSymbol
 import kpn.database.base.Database
-import kpn.server.analyzer.engine.analysis.location.LocationFilter
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Aggregates.filter
@@ -53,9 +53,9 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
 
   private val log = Log(classOf[MongoQueryLocationRoutes])
 
-  def filterOptions(locationFilter: LocationFilter, parameters: LocationRoutesParameters): LocationRouteOptions = {
+  def filterOptions(subset: LocationSubset, parameters: LocationRoutesParameters): LocationRouteOptions = {
     val pipeline = Seq(
-      filter(and(mainFilters(locationFilter): _*)),
+      filter(and(mainFilters(subset): _*)),
       facet(
         Facet("facts", factsPipeline(parameters): _*),
         Facet("proposed", proposedPipeline(parameters): _*),
@@ -162,59 +162,59 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
   }
 
   private def surveyPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
-    FilterPipeline.surveyPipeline(
+    LocationQuery.surveyPipeline(
       surveyDateInfo,
       Seq(
-        FilterPipeline.factFilter(parameters.fact),
-        FilterPipeline.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
-        FilterPipeline.proposedFilter(parameters.proposed)
+        LocationQuery.factFilter(parameters.fact),
+        LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.proposedFilter(parameters.proposed)
       )
     )
   }
 
   private def lastUpdatedPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
-    FilterPipeline.lastUpdatedPipeline(
+    LocationQuery.lastUpdatedPipeline(
       surveyDateInfo,
       Seq(
-        FilterPipeline.factFilter(parameters.fact),
-        FilterPipeline.surveyFilter(surveyDateInfo, parameters.survey),
-        FilterPipeline.proposedFilter(parameters.proposed)
+        LocationQuery.factFilter(parameters.fact),
+        LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+        LocationQuery.proposedFilter(parameters.proposed)
       )
     )
   }
 
   private def proposedPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
-    FilterPipeline.proposedPipeline(
+    LocationQuery.proposedPipeline(
       Seq(
-        FilterPipeline.factFilter(parameters.fact),
-        FilterPipeline.surveyFilter(surveyDateInfo, parameters.survey),
-        FilterPipeline.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.factFilter(parameters.fact),
+        LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+        LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
       )
     )
   }
 
   private def factsPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
-    FilterPipeline.factsPipeline(
+    LocationQuery.factsPipeline(
       Seq(
-        FilterPipeline.surveyFilter(surveyDateInfo, parameters.survey),
-        FilterPipeline.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
-        FilterPipeline.proposedFilter(parameters.proposed)
+        LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+        LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.proposedFilter(parameters.proposed)
       )
     )
   }
 
-  def countDocuments(locationFilter: LocationFilter, parameters: LocationRoutesParameters): Long = {
-    val filter = buildFilter(locationFilter, parameters)
+  def countDocuments(subset: LocationSubset, parameters: LocationRoutesParameters): Long = {
+    val filter = buildFilter(subset, parameters)
     database.routes.countDocuments(filter, log)
   }
 
   def find(
-    locationFilter: LocationFilter,
+    subset: LocationSubset,
     parameters: LocationRoutesParameters
   ): Seq[LocationRouteInfo] = {
 
     val pipeline = Seq(
-      filter(buildFilter(locationFilter, parameters)),
+      filter(buildFilter(subset, parameters)),
       sort(orderBy(ascending("summary.name", "summary.id"))),
       skip(parameters.pageSize.toInt * parameters.pageIndex.toInt),
       limit(parameters.pageSize.toInt),
@@ -253,20 +253,20 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     }
   }
 
-  private def mainFilters(locationFilter: LocationFilter): Seq[Bson] = {
+  private def mainFilters(subset: LocationSubset): Seq[Bson] = {
     Seq(
       equal("labels", Label.active),
-      equal("labels", Label.networkType(locationFilter.networkType)),
-      FilterPipeline.locationFieldFilter("labels", locationFilter),
+      equal("labels", Label.networkType(subset.networkType)),
+      LocationQuery.locationFilter("labels", subset),
     )
   }
 
-  private def buildFilter(locationFilter: LocationFilter, parameters: LocationRoutesParameters): Bson = {
-    val filters: Seq[Bson] = mainFilters(locationFilter) ++ Seq(
-      FilterPipeline.factFilter(parameters.fact),
-      FilterPipeline.surveyFilter(surveyDateInfo, parameters.survey),
-      FilterPipeline.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
-      FilterPipeline.proposedFilter(parameters.proposed)
+  private def buildFilter(subset: LocationSubset, parameters: LocationRoutesParameters): Bson = {
+    val filters: Seq[Bson] = mainFilters(subset) ++ Seq(
+      LocationQuery.factFilter(parameters.fact),
+      LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+      LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+      LocationQuery.proposedFilter(parameters.proposed)
     ).flatten
     and(filters: _*)
   }

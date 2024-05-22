@@ -55,15 +55,15 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
     )
   }
 
-  override def toFilter(language: Language, locationKey: LocationKey): LocationFilter = {
+  override def toSubset(language: Language, locationKey: LocationKey): LocationSubset = {
     if (locationKey.name == "Parc du Vercors") {
-      LocationFilter(
+      LocationSubset(
         locationKey.networkType,
         parcDuVercorsLocationIds
       )
     }
     else {
-      LocationFilter(
+      LocationSubset(
         locationKey.networkType,
         Seq(toId(language, locationKey.name))
       )

@@ -31,10 +31,10 @@ class LocationMapPageBuilderImpl(
   }
 
   private def buildPage(language: Language, locationKeyParam: LocationKey): Option[LocationMapPage] = {
-    val locationFilter = locationService.toFilter(language, locationKeyParam)
-    val summary = locationRepository.summary(locationFilter)
+    val subset = locationService.toSubset(language, locationKeyParam)
+    val summary = locationRepository.summary(subset)
     // TODO try first: ${locationKey.name}-minimized.geojson"
-    val filename = s"${Dirs.root}/locations/${locationKeyParam.country.domain}/geometries/${locationFilter.locationIds.head}.json"
+    val filename = s"${Dirs.root}/locations/${locationKeyParam.country.domain}/geometries/${subset.locationIds.head}.json"
     var geoJson = FileUtils.readFileToString(new File(filename), "UTF-8")
     geoJson = geoJson.replace("EPSG:0", "EPSG:4326")
     val geometry = new GeoJsonReader().read(geoJson)

@@ -20,57 +20,57 @@ import kpn.database.actions.locations.MongoQueryLocationNodeCounts
 import kpn.database.actions.locations.MongoQueryLocationNodes
 import kpn.database.actions.locations.MongoQueryLocationRoutes
 import kpn.database.base.Database
-import kpn.server.analyzer.engine.analysis.location.LocationFilter
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import org.springframework.stereotype.Component
 
 @Component
 class LocationRepositoryImpl(database: Database) extends LocationRepository {
 
-  override def summary(locationFilter: LocationFilter): LocationSummary = {
+  override def summary(subset: LocationSubset): LocationSummary = {
     LocationSummary(
-      factCount(locationFilter),
-      nodeCount(locationFilter, LocationNodesParameters()),
-      routeCount(locationFilter),
-      changesCount(locationFilter, ChangesParameters())
+      factCount(subset),
+      nodeCount(subset, LocationNodesParameters()),
+      routeCount(subset),
+      changesCount(subset, ChangesParameters())
     )
   }
 
-  override def nodes(locationFilter: LocationFilter, parameters: LocationNodesParameters): Seq[LocationNodeInfo] = {
+  override def nodes(subset: LocationSubset, parameters: LocationNodesParameters): Seq[LocationNodeInfo] = {
     new MongoQueryLocationNodes(database).find(
-      locationFilter,
+      subset,
       parameters
     )
   }
 
-  override def nodeCount(locationFilter: LocationFilter, parameters: LocationNodesParameters): Long = {
-    new MongoQueryLocationNodes(database).countDocuments(locationFilter, parameters)
+  override def nodeCount(subset: LocationSubset, parameters: LocationNodesParameters): Long = {
+    new MongoQueryLocationNodes(database).countDocuments(subset, parameters)
   }
 
-  override def routes(locationFilter: LocationFilter, parameters: LocationRoutesParameters): Seq[LocationRouteInfo] = {
+  override def routes(subset: LocationSubset, parameters: LocationRoutesParameters): Seq[LocationRouteInfo] = {
     new MongoQueryLocationRoutes(database, SurveyDateInfoBuilder.dateInfo).find(
-      locationFilter,
+      subset,
       parameters
     )
   }
 
-  override def filterOptions(locationFilter: LocationFilter, parameters: LocationRoutesParameters): LocationRouteOptions = {
+  override def filterOptions(subset: LocationSubset, parameters: LocationRoutesParameters): LocationRouteOptions = {
     new MongoQueryLocationRoutes(database, SurveyDateInfoBuilder.dateInfo).filterOptions(
-      locationFilter,
+      subset,
       parameters
     )
   }
 
-  override def routeCount(locationFilter: LocationFilter): Long = {
+  override def routeCount(subset: LocationSubset): Long = {
     new MongoQueryLocationRoutes(database, SurveyDateInfoBuilder.dateInfo).countDocuments(
-      locationFilter,
+      subset,
       LocationRoutesParameters()
     )
   }
 
-  override def routeFilteredCount(locationFilter: LocationFilter, parameters: LocationRoutesParameters): Long = {
+  override def routeFilteredCount(subset: LocationSubset, parameters: LocationRoutesParameters): Long = {
     new MongoQueryLocationRoutes(database, SurveyDateInfoBuilder.dateInfo).countDocuments(
-      locationFilter,
+      subset,
       parameters
     )
   }
@@ -82,24 +82,24 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
     )
   }
 
-  override def facts(locationFilter: LocationFilter): Seq[LocationFact] = {
-    new MongoQueryLocationFacts(database).execute(locationFilter)
+  override def facts(subset: LocationSubset): Seq[LocationFact] = {
+    new MongoQueryLocationFacts(database).execute(subset)
   }
 
-  override def factCount(locationFilter: LocationFilter): Long = {
-    new MongoQueryLocationFactCount(database).execute(locationFilter)
+  override def factCount(subset: LocationSubset): Long = {
+    new MongoQueryLocationFactCount(database).execute(subset)
   }
 
-  override def changes(locationFilter: LocationFilter, parameters: ChangesParameters): Seq[LocationChangeSet] = {
-    new MongoQueryLocationChanges(database).execute(locationFilter, parameters)
+  override def changes(subset: LocationSubset, parameters: ChangesParameters): Seq[LocationChangeSet] = {
+    new MongoQueryLocationChanges(database).execute(subset, parameters)
   }
 
-  override def changesFilter(locationFilter: LocationFilter, parameters: ChangesParameters): Seq[ChangesFilterOption] = {
-    val changeSetCounts = new MongoQueryLocationChanges(database).executeFilterOptions(locationFilter, parameters)
+  override def changesFilter(subset: LocationSubset, parameters: ChangesParameters): Seq[ChangesFilterOption] = {
+    val changeSetCounts = new MongoQueryLocationChanges(database).executeFilterOptions(subset, parameters)
     changeSetCounts.toFilterOptions(parameters.year, parameters.month, parameters.day)
   }
 
-  override def changesCount(locationFilter: LocationFilter, parameters: ChangesParameters): Long = {
-    new MongoQueryLocationChanges(database).executeCount(locationFilter, parameters)
+  override def changesCount(subset: LocationSubset, parameters: ChangesParameters): Long = {
+    new MongoQueryLocationChanges(database).executeCount(subset, parameters)
   }
 }

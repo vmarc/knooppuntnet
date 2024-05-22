@@ -9,6 +9,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
 class MongoQueryLocationChangesTestSetup(database: Database) extends SharedTestObjects {
 
@@ -100,7 +101,8 @@ class MongoQueryLocationChangesTestSetup(database: Database) extends SharedTestO
     locationName: String = "be-1-a",
     parameters: ChangesParameters = ChangesParameters()
   ): Long = {
-    new MongoQueryLocationChanges(database).executeCount(networkType, locationName, parameters)
+    val subset = LocationSubset(networkType, Seq(locationName))
+    new MongoQueryLocationChanges(database).executeCount(subset, parameters)
   }
 
   def changes(
@@ -108,6 +110,7 @@ class MongoQueryLocationChangesTestSetup(database: Database) extends SharedTestO
     locationName: String = "be-1-a",
     parameters: ChangesParameters = ChangesParameters()
   ): Seq[LocationChangeSet] = {
-    new MongoQueryLocationChanges(database).execute(networkType, locationName, parameters)
+    val subset = LocationSubset(networkType, Seq(locationName))
+    new MongoQueryLocationChanges(database).execute(subset, parameters)
   }
 }

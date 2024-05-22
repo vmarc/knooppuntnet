@@ -7,7 +7,7 @@ import kpn.database.actions.locations.MongoQueryLocationFactCount.log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.analysis.location.LocationFilter
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
@@ -30,22 +30,22 @@ object MongoQueryLocationFactCount {
     Mongo.executeIn("kpn-test") { database =>
       database.networks.findById(0)
       val query = new MongoQueryLocationFactCount(database)
-      val locationFilter = LocationFilter(NetworkType.hiking, Seq("de"))
-      query.execute(locationFilter)
+      val subset = LocationSubset(NetworkType.hiking, Seq("de"))
+      query.execute(subset)
     }
   }
 }
 
 class MongoQueryLocationFactCount(database: Database) {
 
-  def execute(locationFilter: LocationFilter): Long = {
+  def execute(subset: LocationSubset): Long = {
 
     val nodeFactsPipeline = Seq(
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(locationFilter.networkType)),
-          FilterPipeline.locationFieldFilter("labels", locationFilter),
+          equal("labels", Label.networkType(subset.networkType)),
+          LocationQuery.locationFilter("labels", subset),
           equal("labels", Label.facts)
         )
       ),
@@ -70,8 +70,8 @@ class MongoQueryLocationFactCount(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(locationFilter.networkType)),
-          FilterPipeline.locationFieldFilter("labels", locationFilter),
+          equal("labels", Label.networkType(subset.networkType)),
+          LocationQuery.locationFilter("labels", subset),
           equal("labels", Label.facts)
         )
       ),

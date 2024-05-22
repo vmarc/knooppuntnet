@@ -25,9 +25,9 @@ class LocationFactsPageBuilderImpl(
   }
 
   private def buildPage(language: Language, locationKeyParam: LocationKey): Option[LocationFactsPage] = {
-    val locationFilter = locationService.toFilter(language, locationKeyParam)
-    val summary = locationRepository.summary(locationFilter)
-    val locationFacts = locationRepository.facts(locationFilter)
+    val subset = locationService.toSubset(language, locationKeyParam)
+    val summary = locationRepository.summary(subset)
+    val locationFacts = locationRepository.facts(subset)
     Some(
       LocationFactsPage(summary, locationFacts)
     )

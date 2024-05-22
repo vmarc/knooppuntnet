@@ -5,14 +5,13 @@ import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesParameters
-import kpn.api.custom.Country
 import kpn.api.custom.Day
-import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
 class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
 
@@ -99,9 +98,9 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val locationKey = LocationKey(NetworkType.hiking, Country.be, "essen")
+      val subset = LocationSubset(NetworkType.hiking, Seq("essen"))
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
-      val locationRouteInfos = query.find(locationKey, LocationRoutesParameters(pageSize = 10))
+      val locationRouteInfos = query.find(subset, LocationRoutesParameters(pageSize = 10))
 
       locationRouteInfos.shouldMatchTo(
         Seq(
@@ -184,9 +183,9 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val locationKey = LocationKey(NetworkType.hiking, Country.be, "be")
+      val subset = LocationSubset(NetworkType.hiking, Seq("be"))
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
-      val options = query.filterOptions(locationKey, LocationRoutesParameters())
+      val options = query.filterOptions(subset, LocationRoutesParameters())
 
       options.fact.shouldMatchTo(
         ServerFilterGroup(
@@ -236,8 +235,8 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       setup.buildSurveyRoute(160, None)
 
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
-      val locationKey = LocationKey(NetworkType.hiking, Country.be, "be")
-      val options = query.filterOptions(locationKey, LocationRoutesParameters())
+      val subset = LocationSubset(NetworkType.hiking, Seq("be"))
+      val options = query.filterOptions(subset, LocationRoutesParameters())
 
       options.survey.shouldMatchTo(
         ServerFilterGroup(
@@ -266,7 +265,9 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       setup.buildPropsedRoute(20, proposed = false)
       setup.buildPropsedRoute(30, proposed = true)
 
-      val options = new MongoQueryLocationRoutes(database, setup.surveyDateInfo).filterOptions(LocationKey(NetworkType.hiking, Country.be, "be"), LocationRoutesParameters())
+      val subset = LocationSubset(NetworkType.hiking, Seq("be"))
+      val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
+      val options = query.filterOptions(subset, LocationRoutesParameters())
 
       options.proposed.shouldMatchTo(
         ServerFilterGroup(
@@ -296,6 +297,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
   }
 
   private def countDocuments(query: MongoQueryLocationRoutes): Long = {
-    query.countDocuments(LocationKey(NetworkType.hiking, Country.be, "essen"), LocationRoutesParameters())
+    val subset = LocationSubset(NetworkType.hiking, Seq("essen"))
+    query.countDocuments(subset, LocationRoutesParameters())
   }
 }

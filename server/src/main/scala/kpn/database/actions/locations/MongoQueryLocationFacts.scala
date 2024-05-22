@@ -7,7 +7,7 @@ import kpn.core.util.Log
 import kpn.database.actions.locations.MongoQueryLocationFacts.log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.analysis.location.LocationFilter
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.model.Accumulators.push
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
@@ -31,8 +31,8 @@ object MongoQueryLocationFacts {
     Mongo.executeIn("kpn-test") { database =>
       database.networks.findById(0)
       val query = new MongoQueryLocationFacts(database)
-      val locationFilter = LocationFilter(NetworkType.cycling, Seq("de"))
-      val locationFacts = query.execute(locationFilter)
+      val subset = LocationSubset(NetworkType.cycling, Seq("de"))
+      val locationFacts = query.execute(subset)
       locationFacts.foreach { locationFact =>
         println(s"${locationFact.elementType} ${locationFact.fact.name}: ${locationFact.refs.map(_.name).mkString(", ")}")
       }
@@ -42,13 +42,13 @@ object MongoQueryLocationFacts {
 
 class MongoQueryLocationFacts(database: Database) {
 
-  def execute(locationFilter: LocationFilter): Seq[LocationFact] = {
+  def execute(subset: LocationSubset): Seq[LocationFact] = {
 
     val mainFilter = filter(
       and(
         equal("labels", Label.active),
-        equal("labels", Label.networkType(locationFilter.networkType)),
-        FilterPipeline.locationFieldFilter("labels", locationFilter),
+        equal("labels", Label.networkType(subset.networkType)),
+        LocationQuery.locationFilter("labels", subset),
         equal("labels", Label.facts)
       )
     )
@@ -57,7 +57,7 @@ class MongoQueryLocationFacts(database: Database) {
       mainFilter,
       unwind("$names"),
       filter(
-        equal("names.networkType", locationFilter.networkType.name)
+        equal("names.networkType", subset.networkType.name)
       ),
       unwind("$facts"),
       project(

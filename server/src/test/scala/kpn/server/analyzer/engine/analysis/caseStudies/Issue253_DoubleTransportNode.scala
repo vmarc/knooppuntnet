@@ -4,7 +4,6 @@ import kpn.api.common.NodeName
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Country
-import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.hiking
@@ -16,6 +15,7 @@ import kpn.core.doc.OrphanNodeDoc
 import kpn.core.test.OverpassData
 import kpn.database.actions.locations.MongoQueryLocationNodes
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeNameAnalyzer
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
@@ -60,8 +60,8 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         )
       )
 
-      val locationKey = LocationKey(hiking, Country.fr, "fr")
-      new MongoQueryLocationNodes(database).find(locationKey, LocationNodesParameters()).shouldMatchTo(
+      val subset = LocationSubset(hiking, Seq("fr"))
+      new MongoQueryLocationNodes(database).find(subset, LocationNodesParameters()).shouldMatchTo(
         Seq(
           LocationNodeInfo(
             rowIndex = 0,

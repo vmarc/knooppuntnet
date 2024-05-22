@@ -6,7 +6,7 @@ import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.SurveyParameter
 import kpn.api.custom.Fact
 import kpn.core.doc.Label
-import kpn.server.analyzer.engine.analysis.location.LocationFilter
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.push
@@ -29,14 +29,14 @@ import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 
-object FilterPipeline {
+object LocationQuery {
 
-  def locationFieldFilter(fieldName: String, locationFilter: LocationFilter): Bson = {
-    if (locationFilter.locationIds.size == 1) {
-      equal(fieldName, Label.location(locationFilter.locationIds.head))
+  def locationFilter(fieldName: String, subset: LocationSubset): Bson = {
+    if (subset.locationIds.size == 1) {
+      equal(fieldName, Label.location(subset.locationIds.head))
     }
     else {
-      val locationComparisons = locationFilter.locationIds.map { locationId =>
+      val locationComparisons = subset.locationIds.map { locationId =>
         equal(fieldName, Label.location(locationId))
       }
       or(locationComparisons: _*)
@@ -105,7 +105,6 @@ object FilterPipeline {
   }
 
   def proposedPipeline(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
-
     prefilter(otherFilters) ++ Seq(
       project(
         fields(

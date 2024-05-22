@@ -29,20 +29,20 @@ class LocationChangesPageBuilderImpl(
   }
 
   private def buildPage(language: Language, locationKeyParam: LocationKey, parameters: ChangesParameters): Option[LocationChangesPage] = {
-    val locationFilter = locationService.toFilter(language, locationKeyParam)
-    val summary = locationRepository.summary(locationFilter)
-    val filterOptions = locationRepository.changesFilter(locationFilter, parameters)
-    val changeSets = locationRepository.changes(locationFilter, parameters)
-    val changesCount = locationRepository.changesCount(locationFilter, parameters)
+    val subset = locationService.toSubset(language, locationKeyParam)
+    val summary = locationRepository.summary(subset)
+    val filterOptions = locationRepository.changesFilter(subset, parameters)
+    val changeSets = locationRepository.changes(subset, parameters)
+    val changesCount = locationRepository.changesCount(subset, parameters)
     val changeSetIds = changeSets.map(_.key.changeSetId)
     val changeSetInfos = changeSetInfoRepository.all(changeSetIds)
     val locationChangeSetInfos = changeSets.zipWithIndex.map { case (changeSet, index) =>
       val rowIndex = parameters.pageSize * parameters.pageIndex + index
       val comment = changeSetInfos.find(s => s.id == changeSet.key.changeSetId).flatMap(_.tags("comment"))
       val locationChangeInfos = changeSet.locationChanges.map { change =>
-        val locationNames = change.locationNames.dropWhile(_ != locationFilter.locationIds.head /* TODO supports multiple locationIds !!! */).drop(1)
+        val locationNames = change.locationNames.dropWhile(_ != subset.locationIds.head /* TODO supports multiple locationIds !!! */).drop(1)
         val locationInfos = locationService.toInfos(language, change.locationNames, locationNames).map { locationInfo =>
-          locationInfo.copy(link = locationFilter.networkType + "/" + locationInfo.link)
+          locationInfo.copy(link = subset.networkType + "/" + locationInfo.link)
         }
         LocationChangesInfo(
           change.networkType,

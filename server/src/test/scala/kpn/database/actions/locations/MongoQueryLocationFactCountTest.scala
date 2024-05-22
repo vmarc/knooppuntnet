@@ -7,6 +7,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
 class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
 
@@ -59,9 +60,9 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
       )
 
       val query = new MongoQueryLocationFactCount(database)
-      query.execute(NetworkType.hiking, "be") should equal(1L)
-      query.execute(NetworkType.hiking, "nl") should equal(0L)
-      query.execute(NetworkType.cycling, "be") should equal(0L)
+      query.execute(LocationSubset(NetworkType.hiking, Seq("be"))) should equal(1L)
+      query.execute(LocationSubset(NetworkType.hiking, Seq("nl"))) should equal(0L)
+      query.execute(LocationSubset(NetworkType.cycling, Seq("be"))) should equal(0L)
     }
   }
 
@@ -107,9 +108,9 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
       )
 
       val query = new MongoQueryLocationFactCount(database)
-      query.execute(NetworkType.hiking, "be") should equal(1L)
-      query.execute(NetworkType.hiking, "nl") should equal(0L)
-      query.execute(NetworkType.cycling, "be") should equal(0L)
+      query.execute(LocationSubset(NetworkType.hiking, Seq("be"))) should equal(1L)
+      query.execute(LocationSubset(NetworkType.hiking, Seq("nl"))) should equal(0L)
+      query.execute(LocationSubset(NetworkType.cycling, Seq("be"))) should equal(0L)
     }
   }
 }

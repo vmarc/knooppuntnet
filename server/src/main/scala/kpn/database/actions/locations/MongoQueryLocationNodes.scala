@@ -14,7 +14,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
-import kpn.server.analyzer.engine.analysis.location.LocationFilter
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -61,18 +61,18 @@ case class LocationNodeInfoDoc(
 class MongoQueryLocationNodes(database: Database) {
   private val log = Log(classOf[MongoQueryLocationNodes])
 
-  def countDocuments(locationFilter: LocationFilter, parameters: LocationNodesParameters): Long = {
-    val filter = buildFilter(locationFilter, parameters)
+  def countDocuments(subset: LocationSubset, parameters: LocationNodesParameters): Long = {
+    val filter = buildFilter(subset, parameters)
     database.nodes.countDocuments(filter, log)
   }
 
   def find(
-    locationFilter: LocationFilter,
+    subset: LocationSubset,
     parameters: LocationNodesParameters,
   ): Seq[LocationNodeInfo] = {
 
     val pipeline = Seq(
-      filter(buildFilter(locationFilter, parameters)),
+      filter(buildFilter(subset, parameters)),
       sort(orderBy(ascending("names.name", "_id"))),
       skip(parameters.pageSize.toInt * parameters.pageIndex.toInt),
       limit(parameters.pageSize.toInt),
@@ -96,7 +96,7 @@ class MongoQueryLocationNodes(database: Database) {
     log.debugElapsed {
       val locationNodeInfoDocs = database.nodes.aggregate[LocationNodeInfoDoc](pipeline)
       val locationNodeInfos = locationNodeInfoDocs.zipWithIndex.map { case (doc, index) =>
-        val tagValues = NetworkScope.all.map(scope => ScopedNetworkType(scope, locationFilter.networkType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
+        val tagValues = NetworkScope.all.map(scope => ScopedNetworkType(scope, subset.networkType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
           doc.tags(tagKey)
         }
         val expectedRouteCount = tagValues.headOption.getOrElse("-")
@@ -104,26 +104,26 @@ class MongoQueryLocationNodes(database: Database) {
         LocationNodeInfo(
           rowIndex,
           doc.id,
-          doc.networkTypeName(locationFilter.networkType),
-          doc.networkTypeLongName(locationFilter.networkType).getOrElse("-"),
+          doc.networkTypeName(subset.networkType),
+          doc.networkTypeLongName(subset.networkType).getOrElse("-"),
           doc.latitude,
           doc.longitude,
           doc.lastUpdated,
           doc.lastSurvey,
           doc.facts,
           expectedRouteCount,
-          doc.routeReferences.filter(_.networkType == locationFilter.networkType)
+          doc.routeReferences.filter(_.networkType == subset.networkType)
         )
       }
       (s"location nodes: ${locationNodeInfos.size}", locationNodeInfos)
     }
   }
 
-  private def buildFilter(locationFilter: LocationFilter, parameters: LocationNodesParameters): Bson = {
+  private def buildFilter(subset: LocationSubset, parameters: LocationNodesParameters): Bson = {
     val filters = Seq(
       Some(equal("labels", Label.active)),
-      Some(equal("labels", Label.networkType(locationFilter.networkType))),
-      Some(FilterPipeline.locationFieldFilter("labels", locationFilter)),
+      Some(equal("labels", Label.networkType(subset.networkType))),
+      Some(LocationQuery.locationFilter("labels", subset)),
       //      locationNodesType match {
       //        case LocationNodesType.facts => Some(equal("labels", Label.facts))
       //        case LocationNodesType.survey => Some(equal("labels", Label.survey))

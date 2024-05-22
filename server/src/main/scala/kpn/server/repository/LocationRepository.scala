@@ -13,33 +13,33 @@ import kpn.api.common.location.LocationSummary
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.core.doc.LocationNodeCount
-import kpn.server.analyzer.engine.analysis.location.LocationFilter
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
 trait LocationRepository {
 
-  def summary(locationFilter: LocationFilter): LocationSummary
+  def summary(subset: LocationSubset): LocationSummary
 
-  def nodes(locationFilter: LocationFilter, parameters: LocationNodesParameters): Seq[LocationNodeInfo]
+  def nodes(subset: LocationSubset, parameters: LocationNodesParameters): Seq[LocationNodeInfo]
 
-  def nodeCount(locationFilter: LocationFilter, parameters: LocationNodesParameters): Long
+  def nodeCount(subset: LocationSubset, parameters: LocationNodesParameters): Long
 
-  def routes(locationFilter: LocationFilter, parameters: LocationRoutesParameters): Seq[LocationRouteInfo]
+  def routes(subset: LocationSubset, parameters: LocationRoutesParameters): Seq[LocationRouteInfo]
 
-  def filterOptions(locationFilter: LocationFilter, parameters: LocationRoutesParameters): LocationRouteOptions
+  def filterOptions(subset: LocationSubset, parameters: LocationRoutesParameters): LocationRouteOptions
 
-  def routeCount(locationFilter: LocationFilter): Long
+  def routeCount(subset: LocationSubset): Long
 
-  def routeFilteredCount(locationFilter: LocationFilter, parameters: LocationRoutesParameters): Long
+  def routeFilteredCount(subset: LocationSubset, parameters: LocationRoutesParameters): Long
 
   def countryLocations(networkType: NetworkType, country: Country): Seq[LocationNodeCount]
 
-  def facts(locationFilter: LocationFilter): Seq[LocationFact]
+  def facts(subset: LocationSubset): Seq[LocationFact]
 
-  def factCount(locationFilter: LocationFilter): Long
+  def factCount(subset: LocationSubset): Long
 
-  def changes(locationFilter: LocationFilter, parameters: ChangesParameters): Seq[LocationChangeSet]
+  def changes(subset: LocationSubset, parameters: ChangesParameters): Seq[LocationChangeSet]
 
-  def changesFilter(locationFilter: LocationFilter, parameters: ChangesParameters): Seq[ChangesFilterOption]
+  def changesFilter(subset: LocationSubset, parameters: ChangesParameters): Seq[ChangesFilterOption]
 
-  def changesCount(locationFilter: LocationFilter, parameters: ChangesParameters): Long
+  def changesCount(subset: LocationSubset, parameters: ChangesParameters): Long
 }

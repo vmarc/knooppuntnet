@@ -11,7 +11,7 @@ import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.analysis.location.LocationFilter
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.bson.conversions.Bson
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.BsonDocument
@@ -41,13 +41,13 @@ object MongoQueryLocationChanges {
     Mongo.executeIn("kpn-laptop") { database =>
       val parameters = ChangesParameters(
         pageSize = 6,
-        impact = false,
         year = None,
         month = None,
         day = None
       )
       val query = new MongoQueryLocationChanges(database)
-      val changes = query.execute(LocationFilter(NetworkType.hiking, Seq("nl-1-gd")), parameters)
+      val subset = LocationSubset(NetworkType.hiking, Seq("nl-1-gd"))
+      val changes = query.execute(subset, parameters)
       println("---")
       changes.foreach { change =>
         val timestamp = change.key.timestamp.yyyymmddhhmmss
@@ -79,8 +79,7 @@ object MongoQueryLocationChanges {
         }
       }
       println("---")
-      val locationFilter = LocationFilter(NetworkType.hiking, Seq("nl-1-gd"))
-      val count = query.executeCount(locationFilter, parameters)
+      val count = query.executeCount(subset, parameters)
       println(s"--- total count=$count")
     }
   }
@@ -88,9 +87,9 @@ object MongoQueryLocationChanges {
 
 class MongoQueryLocationChanges(database: Database) {
 
-  def execute(locationFilter: LocationFilter, parameters: ChangesParameters): Seq[LocationChangeSet] = {
+  def execute(subset: LocationSubset, parameters: ChangesParameters): Seq[LocationChangeSet] = {
 
-    val pipeline = new PipelineBuilder(locationFilter, parameters).build()
+    val pipeline = new PipelineBuilder(subset, parameters).build()
 
     if (log.isTraceEnabled) {
       log.trace(Mongo.pipelineString(pipeline))
@@ -102,9 +101,9 @@ class MongoQueryLocationChanges(database: Database) {
     }
   }
 
-  def executeCount(locationFilter: LocationFilter, parameters: ChangesParameters): Long = {
+  def executeCount(subset: LocationSubset, parameters: ChangesParameters): Long = {
 
-    val pipeline = new PipelineBuilder(locationFilter, parameters).buildCountPipeline()
+    val pipeline = new PipelineBuilder(subset, parameters).buildCountPipeline()
 
     if (log.isTraceEnabled) {
       log.trace(Mongo.pipelineString(pipeline))
@@ -117,9 +116,9 @@ class MongoQueryLocationChanges(database: Database) {
     }
   }
 
-  def executeFilterOptions(locationFilter: LocationFilter, parameters: ChangesParameters): ChangeSetCounts = {
+  def executeFilterOptions(subset: LocationSubset, parameters: ChangesParameters): ChangeSetCounts = {
 
-    val pipeline = new PipelineBuilder(locationFilter, ChangesParameters()).buildFilterOptionsPipeline()
+    val pipeline = new PipelineBuilder(subset, ChangesParameters()).buildFilterOptionsPipeline()
 
     val yearInt = parameters.year match {
       case None => Time.now.year
@@ -137,7 +136,7 @@ class MongoQueryLocationChanges(database: Database) {
     )
   }
 
-  private class PipelineBuilder(locationFilter: LocationFilter, parameters: ChangesParameters) {
+  private class PipelineBuilder(subset: LocationSubset, parameters: ChangesParameters) {
 
     def build(): Seq[Bson] = {
       commonStages() ++
@@ -202,7 +201,7 @@ class MongoQueryLocationChanges(database: Database) {
         and(
           Seq(
             Some(
-              FilterPipeline.locationFieldFilter("locations", locationFilter)
+              LocationQuery.locationFilter("locations", subset)
             ),
             if (parameters.impact) {
               Some(equal("impact", true))
@@ -222,9 +221,9 @@ class MongoQueryLocationChanges(database: Database) {
       filter(
         and(
           Seq(
-            Some(equal("locationChanges.networkType", locationFilter.networkType.name)),
+            Some(equal("locationChanges.networkType", subset.networkType.name)),
             Some(
-              FilterPipeline.locationFieldFilter("locationChanges.locationNames", locationFilter)
+              LocationQuery.locationFilter("locationChanges.locationNames", subset)
             ),
             if (parameters.impact) {
               Some(
