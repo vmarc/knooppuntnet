@@ -11,35 +11,35 @@ import kpn.api.common.location.LocationRouteOptions
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.common.location.LocationSummary
 import kpn.api.custom.Country
-import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.core.doc.LocationNodeCount
+import kpn.server.analyzer.engine.analysis.location.LocationFilter
 
 trait LocationRepository {
 
-  def summary(locationKey: LocationKey): LocationSummary
+  def summary(locationFilter: LocationFilter): LocationSummary
 
-  def nodes(locationKey: LocationKey, parameters: LocationNodesParameters): Seq[LocationNodeInfo]
+  def nodes(locationFilter: LocationFilter, parameters: LocationNodesParameters): Seq[LocationNodeInfo]
 
-  def nodeCount(locationKey: LocationKey, parameters: LocationNodesParameters): Long
+  def nodeCount(locationFilter: LocationFilter, parameters: LocationNodesParameters): Long
 
-  def routes(locationKey: LocationKey, parameters: LocationRoutesParameters): Seq[LocationRouteInfo]
+  def routes(locationFilter: LocationFilter, parameters: LocationRoutesParameters): Seq[LocationRouteInfo]
 
-  def filterOptions(locationKey: LocationKey, parameters: LocationRoutesParameters): LocationRouteOptions
+  def filterOptions(locationFilter: LocationFilter, parameters: LocationRoutesParameters): LocationRouteOptions
 
-  def routeCount(locationKey: LocationKey): Long
+  def routeCount(locationFilter: LocationFilter): Long
 
-  def routeFilteredCount(locationKey: LocationKey, parameters: LocationRoutesParameters): Long
+  def routeFilteredCount(locationFilter: LocationFilter, parameters: LocationRoutesParameters): Long
 
   def countryLocations(networkType: NetworkType, country: Country): Seq[LocationNodeCount]
 
-  def facts(networkType: NetworkType, locationName: String): Seq[LocationFact]
+  def facts(locationFilter: LocationFilter): Seq[LocationFact]
 
-  def factCount(networkType: NetworkType, locationName: String): Long
+  def factCount(locationFilter: LocationFilter): Long
 
-  def changes(locationKey: LocationKey, parameters: ChangesParameters): Seq[LocationChangeSet]
+  def changes(locationFilter: LocationFilter, parameters: ChangesParameters): Seq[LocationChangeSet]
 
-  def changesFilter(locationKey: LocationKey, parameters: ChangesParameters): Seq[ChangesFilterOption]
+  def changesFilter(locationFilter: LocationFilter, parameters: ChangesParameters): Seq[ChangesFilterOption]
 
-  def changesCount(locationKey: LocationKey, parameters: ChangesParameters): Long
+  def changesCount(locationFilter: LocationFilter, parameters: ChangesParameters): Long
 }

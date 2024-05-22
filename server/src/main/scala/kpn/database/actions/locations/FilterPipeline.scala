@@ -6,6 +6,7 @@ import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.SurveyParameter
 import kpn.api.custom.Fact
 import kpn.core.doc.Label
+import kpn.server.analyzer.engine.analysis.location.LocationFilter
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.push
@@ -20,6 +21,7 @@ import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.gte
 import org.mongodb.scala.model.Filters.lt
 import org.mongodb.scala.model.Filters.not
+import org.mongodb.scala.model.Filters.or
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
@@ -28,6 +30,18 @@ import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 
 object FilterPipeline {
+
+  def locationFieldFilter(fieldName: String, locationFilter: LocationFilter): Bson = {
+    if (locationFilter.locationIds.size == 1) {
+      equal(fieldName, Label.location(locationFilter.locationIds.head))
+    }
+    else {
+      val locationComparisons = locationFilter.locationIds.map { locationId =>
+        equal(fieldName, Label.location(locationId))
+      }
+      or(locationComparisons: _*)
+    }
+  }
 
   def surveyFilter(surveyDateInfo: SurveyDateInfo, survey: Option[SurveyParameter]): Option[Bson] = {
     survey.map {

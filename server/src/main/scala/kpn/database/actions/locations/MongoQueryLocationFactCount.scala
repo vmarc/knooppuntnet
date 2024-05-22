@@ -7,6 +7,7 @@ import kpn.database.actions.locations.MongoQueryLocationFactCount.log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.analysis.location.LocationFilter
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
@@ -29,21 +30,22 @@ object MongoQueryLocationFactCount {
     Mongo.executeIn("kpn-test") { database =>
       database.networks.findById(0)
       val query = new MongoQueryLocationFactCount(database)
-      query.execute(NetworkType.hiking, "de")
+      val locationFilter = LocationFilter(NetworkType.hiking, Seq("de"))
+      query.execute(locationFilter)
     }
   }
 }
 
 class MongoQueryLocationFactCount(database: Database) {
 
-  def execute(networkType: NetworkType, locationName: String): Long = {
+  def execute(locationFilter: LocationFilter): Long = {
 
     val nodeFactsPipeline = Seq(
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(networkType)),
-          equal("labels", Label.location(locationName)),
+          equal("labels", Label.networkType(locationFilter.networkType)),
+          FilterPipeline.locationFieldFilter("labels", locationFilter),
           equal("labels", Label.facts)
         )
       ),
@@ -68,8 +70,8 @@ class MongoQueryLocationFactCount(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(networkType)),
-          equal("labels", Label.location(locationName)),
+          equal("labels", Label.networkType(locationFilter.networkType)),
+          FilterPipeline.locationFieldFilter("labels", locationFilter),
           equal("labels", Label.facts)
         )
       ),
@@ -106,7 +108,7 @@ class MongoQueryLocationFactCount(database: Database) {
     log.debugElapsed {
       val countResults = database.nodes.aggregate[CountResult](pipeline, log)
       val factCount = countResults.map(_.count).sum
-      (s"location '$locationName' fact count: $factCount", factCount)
+      (s"fact count: $factCount", factCount)
     }
   }
 }

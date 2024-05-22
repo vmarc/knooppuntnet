@@ -21,8 +21,8 @@ class LocationEditPageBuilderImpl(
 
   override def build(language: Language, locationKeyParam: LocationKey): Option[LocationEditPage] = {
 
-    val locationKey = locationService.toIdBased(language, locationKeyParam)
-    val summary = locationRepository.summary(locationKey)
+    val locationFilter = locationService.toFilter(language, locationKeyParam)
+    val summary = locationRepository.summary(locationFilter)
 
     if (summary.nodeCount > maxNodes) {
       Some(
@@ -38,8 +38,8 @@ class LocationEditPageBuilderImpl(
       )
     }
     else {
-      val nodes = locationRepository.nodes(locationKey, LocationNodesParameters(pageSize = 99999))
-      val routes = locationRepository.routes(locationKey, LocationRoutesParameters(pageSize = 99999))
+      val nodes = locationRepository.nodes(locationFilter, LocationNodesParameters(pageSize = 99999))
+      val routes = locationRepository.routes(locationFilter, LocationRoutesParameters(pageSize = 99999))
 
       val bounds = Bounds.from(nodes, 0.15)
 

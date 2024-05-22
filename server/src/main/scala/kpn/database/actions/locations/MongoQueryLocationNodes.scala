@@ -6,7 +6,6 @@ import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
@@ -15,6 +14,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.location.LocationFilter
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -61,18 +61,18 @@ case class LocationNodeInfoDoc(
 class MongoQueryLocationNodes(database: Database) {
   private val log = Log(classOf[MongoQueryLocationNodes])
 
-  def countDocuments(locationKey: LocationKey, parameters: LocationNodesParameters): Long = {
-    val filter = buildFilter(locationKey, parameters)
+  def countDocuments(locationFilter: LocationFilter, parameters: LocationNodesParameters): Long = {
+    val filter = buildFilter(locationFilter, parameters)
     database.nodes.countDocuments(filter, log)
   }
 
   def find(
-    locationKey: LocationKey,
+    locationFilter: LocationFilter,
     parameters: LocationNodesParameters,
   ): Seq[LocationNodeInfo] = {
 
     val pipeline = Seq(
-      filter(buildFilter(locationKey, parameters)),
+      filter(buildFilter(locationFilter, parameters)),
       sort(orderBy(ascending("names.name", "_id"))),
       skip(parameters.pageSize.toInt * parameters.pageIndex.toInt),
       limit(parameters.pageSize.toInt),
@@ -96,7 +96,7 @@ class MongoQueryLocationNodes(database: Database) {
     log.debugElapsed {
       val locationNodeInfoDocs = database.nodes.aggregate[LocationNodeInfoDoc](pipeline)
       val locationNodeInfos = locationNodeInfoDocs.zipWithIndex.map { case (doc, index) =>
-        val tagValues = NetworkScope.all.map(scope => ScopedNetworkType(scope, locationKey.networkType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
+        val tagValues = NetworkScope.all.map(scope => ScopedNetworkType(scope, locationFilter.networkType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
           doc.tags(tagKey)
         }
         val expectedRouteCount = tagValues.headOption.getOrElse("-")
@@ -104,26 +104,26 @@ class MongoQueryLocationNodes(database: Database) {
         LocationNodeInfo(
           rowIndex,
           doc.id,
-          doc.networkTypeName(locationKey.networkType),
-          doc.networkTypeLongName(locationKey.networkType).getOrElse("-"),
+          doc.networkTypeName(locationFilter.networkType),
+          doc.networkTypeLongName(locationFilter.networkType).getOrElse("-"),
           doc.latitude,
           doc.longitude,
           doc.lastUpdated,
           doc.lastSurvey,
           doc.facts,
           expectedRouteCount,
-          doc.routeReferences.filter(_.networkType == locationKey.networkType)
+          doc.routeReferences.filter(_.networkType == locationFilter.networkType)
         )
       }
       (s"location nodes: ${locationNodeInfos.size}", locationNodeInfos)
     }
   }
 
-  private def buildFilter(locationKey: LocationKey, parameters: LocationNodesParameters): Bson = {
+  private def buildFilter(locationFilter: LocationFilter, parameters: LocationNodesParameters): Bson = {
     val filters = Seq(
       Some(equal("labels", Label.active)),
-      Some(equal("labels", Label.networkType(locationKey.networkType))),
-      Some(equal("labels", Label.location(locationKey.name))),
+      Some(equal("labels", Label.networkType(locationFilter.networkType))),
+      Some(FilterPipeline.locationFieldFilter("labels", locationFilter)),
       //      locationNodesType match {
       //        case LocationNodesType.facts => Some(equal("labels", Label.facts))
       //        case LocationNodesType.survey => Some(equal("labels", Label.survey))

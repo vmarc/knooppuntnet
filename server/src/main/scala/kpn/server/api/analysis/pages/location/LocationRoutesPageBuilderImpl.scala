@@ -27,11 +27,11 @@ class LocationRoutesPageBuilderImpl(
   }
 
   private def buildPage(language: Language, locationKeyParam: LocationKey, parameters: LocationRoutesParameters): Option[LocationRoutesPage] = {
-    val locationKey = locationService.toIdBased(language, locationKeyParam)
-    val summary = locationRepository.summary(locationKey)
-    val routes = locationRepository.routes(locationKey, parameters)
-    val routeCount = locationRepository.routeFilteredCount(locationKey, parameters)
-    val filter = locationRepository.filterOptions(locationKey, parameters)
+    val locationFilter = locationService.toFilter(language, locationKeyParam)
+    val summary = locationRepository.summary(locationFilter)
+    val routes = locationRepository.routes(locationFilter, parameters)
+    val routeCount = locationRepository.routeFilteredCount(locationFilter, parameters)
+    val filter = locationRepository.filterOptions(locationFilter, parameters)
     Some(
       LocationRoutesPage(
         TimeInfoBuilder.timeInfo,

@@ -7,13 +7,13 @@ import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRouteOptions
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Day
-import kpn.api.custom.LocationKey
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.core.util.RouteSymbol
 import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.location.LocationFilter
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Aggregates.filter
@@ -53,9 +53,9 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
 
   private val log = Log(classOf[MongoQueryLocationRoutes])
 
-  def filterOptions(locationKey: LocationKey, parameters: LocationRoutesParameters): LocationRouteOptions = {
+  def filterOptions(locationFilter: LocationFilter, parameters: LocationRoutesParameters): LocationRouteOptions = {
     val pipeline = Seq(
-      filter(and(mainFilters(locationKey): _*)),
+      filter(and(mainFilters(locationFilter): _*)),
       facet(
         Facet("facts", factsPipeline(parameters): _*),
         Facet("proposed", proposedPipeline(parameters): _*),
@@ -203,18 +203,18 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     )
   }
 
-  def countDocuments(locationKey: LocationKey, parameters: LocationRoutesParameters): Long = {
-    val filter = buildFilter(locationKey, parameters)
+  def countDocuments(locationFilter: LocationFilter, parameters: LocationRoutesParameters): Long = {
+    val filter = buildFilter(locationFilter, parameters)
     database.routes.countDocuments(filter, log)
   }
 
   def find(
-    locationKey: LocationKey,
+    locationFilter: LocationFilter,
     parameters: LocationRoutesParameters
   ): Seq[LocationRouteInfo] = {
 
     val pipeline = Seq(
-      filter(buildFilter(locationKey, parameters)),
+      filter(buildFilter(locationFilter, parameters)),
       sort(orderBy(ascending("summary.name", "summary.id"))),
       skip(parameters.pageSize.toInt * parameters.pageIndex.toInt),
       limit(parameters.pageSize.toInt),
@@ -253,16 +253,16 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     }
   }
 
-  private def mainFilters(locationKey: LocationKey): Seq[Bson] = {
+  private def mainFilters(locationFilter: LocationFilter): Seq[Bson] = {
     Seq(
       equal("labels", Label.active),
-      equal("labels", Label.networkType(locationKey.networkType)),
-      equal("labels", Label.location(locationKey.name)),
+      equal("labels", Label.networkType(locationFilter.networkType)),
+      FilterPipeline.locationFieldFilter("labels", locationFilter),
     )
   }
 
-  private def buildFilter(locationKey: LocationKey, parameters: LocationRoutesParameters): Bson = {
-    val filters: Seq[Bson] = mainFilters(locationKey) ++ Seq(
+  private def buildFilter(locationFilter: LocationFilter, parameters: LocationRoutesParameters): Bson = {
+    val filters: Seq[Bson] = mainFilters(locationFilter) ++ Seq(
       FilterPipeline.factFilter(parameters.fact),
       FilterPipeline.surveyFilter(surveyDateInfo, parameters.survey),
       FilterPipeline.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),

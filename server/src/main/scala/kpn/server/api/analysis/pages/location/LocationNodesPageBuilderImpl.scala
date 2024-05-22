@@ -27,9 +27,9 @@ class LocationNodesPageBuilderImpl(
   }
 
   private def buildPage(language: Language, locationKeyParam: LocationKey, parameters: LocationNodesParameters): Option[LocationNodesPage] = {
-    val locationKey = locationService.toIdBased(language, locationKeyParam)
-    val summary = locationRepository.summary(locationKey)
-    val nodes = locationRepository.nodes(locationKey, parameters)
+    val locationFilter = locationService.toFilter(language, locationKeyParam)
+    val summary = locationRepository.summary(locationFilter)
+    val nodes = locationRepository.nodes(locationFilter, parameters)
 
     val allNodeCount = 0
     val factsNodeCount = 0

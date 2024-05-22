@@ -11,6 +11,7 @@ import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.analysis.location.LocationFilter
 import org.bson.conversions.Bson
 import org.mongodb.scala.Document
 import org.mongodb.scala.bson.BsonDocument
@@ -46,7 +47,7 @@ object MongoQueryLocationChanges {
         day = None
       )
       val query = new MongoQueryLocationChanges(database)
-      val changes = query.execute(NetworkType.hiking, "nl-1-gd", parameters)
+      val changes = query.execute(LocationFilter(NetworkType.hiking, Seq("nl-1-gd")), parameters)
       println("---")
       changes.foreach { change =>
         val timestamp = change.key.timestamp.yyyymmddhhmmss
@@ -78,7 +79,8 @@ object MongoQueryLocationChanges {
         }
       }
       println("---")
-      val count = query.executeCount(NetworkType.hiking, "nl-1-gd", parameters)
+      val locationFilter = LocationFilter(NetworkType.hiking, Seq("nl-1-gd"))
+      val count = query.executeCount(locationFilter, parameters)
       println(s"--- total count=$count")
     }
   }
@@ -86,9 +88,9 @@ object MongoQueryLocationChanges {
 
 class MongoQueryLocationChanges(database: Database) {
 
-  def execute(networkType: NetworkType, locationName: String, parameters: ChangesParameters): Seq[LocationChangeSet] = {
+  def execute(locationFilter: LocationFilter, parameters: ChangesParameters): Seq[LocationChangeSet] = {
 
-    val pipeline = new PipelineBuilder(networkType, locationName, parameters).build()
+    val pipeline = new PipelineBuilder(locationFilter, parameters).build()
 
     if (log.isTraceEnabled) {
       log.trace(Mongo.pipelineString(pipeline))
@@ -100,9 +102,9 @@ class MongoQueryLocationChanges(database: Database) {
     }
   }
 
-  def executeCount(networkType: NetworkType, locationName: String, parameters: ChangesParameters): Long = {
+  def executeCount(locationFilter: LocationFilter, parameters: ChangesParameters): Long = {
 
-    val pipeline = new PipelineBuilder(networkType, locationName, parameters).buildCountPipeline()
+    val pipeline = new PipelineBuilder(locationFilter, parameters).buildCountPipeline()
 
     if (log.isTraceEnabled) {
       log.trace(Mongo.pipelineString(pipeline))
@@ -115,9 +117,9 @@ class MongoQueryLocationChanges(database: Database) {
     }
   }
 
-  def executeFilterOptions(networkType: NetworkType, locationName: String, parameters: ChangesParameters): ChangeSetCounts = {
+  def executeFilterOptions(locationFilter: LocationFilter, parameters: ChangesParameters): ChangeSetCounts = {
 
-    val pipeline = new PipelineBuilder(networkType, locationName, ChangesParameters()).buildFilterOptionsPipeline()
+    val pipeline = new PipelineBuilder(locationFilter, ChangesParameters()).buildFilterOptionsPipeline()
 
     val yearInt = parameters.year match {
       case None => Time.now.year
@@ -135,7 +137,7 @@ class MongoQueryLocationChanges(database: Database) {
     )
   }
 
-  private class PipelineBuilder(networkType: NetworkType, locationName: String, parameters: ChangesParameters) {
+  private class PipelineBuilder(locationFilter: LocationFilter, parameters: ChangesParameters) {
 
     def build(): Seq[Bson] = {
       commonStages() ++
@@ -200,7 +202,7 @@ class MongoQueryLocationChanges(database: Database) {
         and(
           Seq(
             Some(
-              equal("locations", locationName)
+              FilterPipeline.locationFieldFilter("locations", locationFilter)
             ),
             if (parameters.impact) {
               Some(equal("impact", true))
@@ -220,8 +222,10 @@ class MongoQueryLocationChanges(database: Database) {
       filter(
         and(
           Seq(
-            Some(equal("locationChanges.networkType", networkType.name)),
-            Some(equal("locationChanges.locationNames", locationName)),
+            Some(equal("locationChanges.networkType", locationFilter.networkType.name)),
+            Some(
+              FilterPipeline.locationFieldFilter("locationChanges.locationNames", locationFilter)
+            ),
             if (parameters.impact) {
               Some(
                 or(

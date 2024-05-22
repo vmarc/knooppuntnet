@@ -1,13 +1,13 @@
 package kpn.database.actions.locations
 
-import kpn.api.common.NodeName
 import kpn.api.common.location.LocationFact
 import kpn.api.custom.NetworkType
+import kpn.core.doc.Label
+import kpn.core.util.Log
 import kpn.database.actions.locations.MongoQueryLocationFacts.log
 import kpn.database.base.Database
-import kpn.core.doc.Label
 import kpn.database.util.Mongo
-import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.location.LocationFilter
 import org.mongodb.scala.model.Accumulators.push
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
@@ -22,11 +22,6 @@ import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 
-case class LocationNodeFactDoc(
-  factName: String,
-  names: Seq[NodeName]
-)
-
 object MongoQueryLocationFacts {
 
   private val log = Log(classOf[MongoQueryLocationFacts])
@@ -36,7 +31,8 @@ object MongoQueryLocationFacts {
     Mongo.executeIn("kpn-test") { database =>
       database.networks.findById(0)
       val query = new MongoQueryLocationFacts(database)
-      val locationFacts = query.execute(NetworkType.cycling, "de")
+      val locationFilter = LocationFilter(NetworkType.cycling, Seq("de"))
+      val locationFacts = query.execute(locationFilter)
       locationFacts.foreach { locationFact =>
         println(s"${locationFact.elementType} ${locationFact.fact.name}: ${locationFact.refs.map(_.name).mkString(", ")}")
       }
@@ -46,13 +42,13 @@ object MongoQueryLocationFacts {
 
 class MongoQueryLocationFacts(database: Database) {
 
-  def execute(networkType: NetworkType, locationName: String): Seq[LocationFact] = {
+  def execute(locationFilter: LocationFilter): Seq[LocationFact] = {
 
     val mainFilter = filter(
       and(
         equal("labels", Label.active),
-        equal("labels", Label.networkType(networkType)),
-        equal("labels", Label.location(locationName)),
+        equal("labels", Label.networkType(locationFilter.networkType)),
+        FilterPipeline.locationFieldFilter("labels", locationFilter),
         equal("labels", Label.facts)
       )
     )
@@ -61,7 +57,7 @@ class MongoQueryLocationFacts(database: Database) {
       mainFilter,
       unwind("$names"),
       filter(
-        equal("names.networkType", networkType.name)
+        equal("names.networkType", locationFilter.networkType.name)
       ),
       unwind("$facts"),
       project(
@@ -129,7 +125,7 @@ class MongoQueryLocationFacts(database: Database) {
         val sortedRefs = locationFacts.refs.sortBy(ref => (ref.name, ref.id))
         locationFacts.copy(refs = sortedRefs)
       }
-      (s"location '$locationName' facts: ${facts.size}", facts)
+      (s"facts: ${facts.size}", facts)
     }
   }
 }

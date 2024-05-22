@@ -14,7 +14,7 @@ trait LocationService {
 
   def toId(language: Language, location: String): String
 
-  def toIdBased(language: Language, locationKey: LocationKey): LocationKey
+  def toFilter(language: Language, locationKey: LocationKey): LocationFilter
 
   def toInfos(language: Language, all: Seq[String], locations: Seq[String]): Seq[LocationInfo]
 }
