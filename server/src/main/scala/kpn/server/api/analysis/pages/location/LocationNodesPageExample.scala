@@ -28,6 +28,7 @@ object LocationNodesPageExample {
         ServerFilterGroup("", Seq.empty),
         ServerFilterGroup("", Seq.empty),
         ServerFilterGroup("", Seq.empty),
+        ServerFilterGroup("", Seq.empty),
       ),
       Seq(
         LocationNodeInfo(

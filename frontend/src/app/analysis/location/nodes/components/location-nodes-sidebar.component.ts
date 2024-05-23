@@ -71,6 +71,23 @@ import { LocationNodesPageService } from '../location-nodes-page.service';
         </div>
 
         <div class="filter">
+          <div class="title">Referenced in routes</div>
+          <mat-radio-group
+            [value]="response.result.filter.referencedInRoutes.selected"
+            (change)="referencedInRoutesChanged($event)"
+          >
+            @for (option of response.result.filter.referencedInRoutes.options; track option.name) {
+              <div>
+                <mat-radio-button [value]="option.name">
+                  <span>{{ option.name }}</span
+                  ><span class="kpn-brackets">{{ option.count }}</span>
+                </mat-radio-button>
+              </div>
+            }
+          </mat-radio-group>
+        </div>
+
+        <div class="filter">
           <div class="title">Survey</div>
           <mat-radio-group
             [value]="response.result.filter.survey.selected"
@@ -189,6 +206,15 @@ export class LocationNodesSidebarComponent {
     } else {
       const value = change.value as BooleanParameter;
       this.store.setProposed(value);
+    }
+  }
+
+  referencedInRoutesChanged(change: MatRadioChange): void {
+    if (change.value == 'all') {
+      this.store.setReferencedInRoutes(null);
+    } else {
+      const value = change.value as BooleanParameter;
+      this.store.setReferencedInRoutes(value);
     }
   }
 }

@@ -18,6 +18,7 @@ import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
+import org.mongodb.scala.model.Filters.elemMatch
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.gte
 import org.mongodb.scala.model.Filters.lt
@@ -118,15 +119,25 @@ object LocationQuery {
   }
 
   def integrityCheckFilter(subset: LocationSubset, integrityCheck: Option[BooleanParameter]): Option[Bson] = {
-    integrityCheck.map {
-      case BooleanParameter.yes => equal("labels", s"integrity-check-${subset.networkType.name}")
-      case BooleanParameter.no => not(equal("labels", s"integrity-check-${subset.networkType.name}"))
-    }
+    val condition = equal("labels", s"integrity-check-${subset.networkType.name}")
+    booleanFilter(integrityCheck, condition)
   }
 
   def integrityCheckFailedFilter(subset: LocationSubset, integrityCheckFailed: Option[BooleanParameter]): Option[Bson] = {
     val condition = equal("labels", s"integrity-check-failed-${subset.networkType.name}")
-    integrityCheckFailed.map {
+    booleanFilter(integrityCheckFailed, condition)
+  }
+
+  def referencedInRoutesFilter(subset: LocationSubset, referencedInRoutes: Option[BooleanParameter]): Option[Bson] = {
+    booleanFilter(referencedInRoutes, referencedInRoutesCondition(subset))
+  }
+
+  private def referencedInRoutesCondition(subset: LocationSubset): Bson = {
+    elemMatch("routeReferences", equal("networkType", subset.networkType.name))
+  }
+
+  private def booleanFilter(booleanParameter: Option[BooleanParameter], condition: Bson): Option[Bson] = {
+    booleanParameter.map {
       case BooleanParameter.yes => condition
       case BooleanParameter.no => not(condition)
     }
@@ -279,6 +290,13 @@ object LocationQuery {
       filter(
         equal("labels", s"integrity-check-failed-${subset.networkType.name}")
       ),
+      count()
+    )
+  }
+
+  def referencedInRoutesPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+    prefilter(otherFilters) ++ Seq(
+      filter(referencedInRoutesCondition(subset)),
       count()
     )
   }

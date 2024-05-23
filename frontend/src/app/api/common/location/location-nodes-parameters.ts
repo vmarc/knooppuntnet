@@ -12,6 +12,7 @@ export interface LocationNodesParameters {
   readonly survey: SurveyParameter;
   readonly lastUpdated: LastUpdatedParameter;
   readonly proposed: BooleanParameter;
+  readonly referencedInRoutes: BooleanParameter;
   readonly pageSize: number;
   readonly pageIndex: number;
 }

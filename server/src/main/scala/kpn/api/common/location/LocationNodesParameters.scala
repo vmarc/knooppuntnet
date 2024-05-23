@@ -9,6 +9,7 @@ case class LocationNodesParameters(
   survey: Option[SurveyParameter] = None,
   lastUpdated: Option[LastUpdatedParameter] = None,
   proposed: Option[BooleanParameter] = None,
+  referencedInRoutes: Option[BooleanParameter] = None,
   pageSize: Long = 5,
   pageIndex: Long = 0
 )

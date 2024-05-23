@@ -31,7 +31,7 @@ export class LocationNodesPageService {
   private readonly _survey = signal<SurveyParameter | null>(null);
   private readonly _lastUpdated = signal<LastUpdatedParameter | null>(null);
   private readonly _proposed = signal<BooleanParameter | null>(null);
-
+  private readonly _referencedInRoutes = signal<BooleanParameter | null>(null);
   private readonly _response = signal<ApiResponse<LocationNodesPage> | null>(null);
   private readonly _pageIndex = signal<number>(0);
 
@@ -50,6 +50,7 @@ export class LocationNodesPageService {
     const survey = uniqueQueryParams['survey'];
     const lastUpdated = uniqueQueryParams['lastUpdated'];
     const proposed = uniqueQueryParams['proposed'];
+    const referencedInRoutes = uniqueQueryParams['referencedInRoutes'];
 
     this._integrityCheck.set(integrityCheck);
     this._integrityCheckFailed.set(integrityCheckFailed);
@@ -57,6 +58,7 @@ export class LocationNodesPageService {
     this._survey.set(survey);
     this._lastUpdated.set(lastUpdated);
     this._proposed.set(proposed);
+    this._referencedInRoutes.set(referencedInRoutes);
 
     this.load();
   }
@@ -101,6 +103,11 @@ export class LocationNodesPageService {
     this.load();
   }
 
+  setReferencedInRoutes(value: BooleanParameter): void {
+    this._referencedInRoutes.set(value);
+    this.load();
+  }
+
   private load(): void {
     const parameters: LocationNodesParameters = {
       integrityCheck: this._integrityCheck(),
@@ -109,6 +116,7 @@ export class LocationNodesPageService {
       survey: this._survey(),
       lastUpdated: this._lastUpdated(),
       proposed: this._proposed(),
+      referencedInRoutes: this._referencedInRoutes(),
       pageSize: this.preferencesService.pageSize(),
       pageIndex: this.pageIndex(),
     };

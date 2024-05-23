@@ -32,16 +32,12 @@ import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 
-case class Groups(
+case class RouteFilterOptionQueryResult(
   factsTotalRouteCount: Seq[CountResult],
   facts: Seq[ServerFilterGroup],
   proposed: Seq[ServerFilterGroup],
   survey: Seq[ServerFilterGroup],
   lastUpdated: Seq[ServerFilterGroup],
-  integrityCheckCount: Seq[CountResult],
-  integrityCheckTotalRouteCount: Seq[CountResult],
-  integrityCheckFailedCount: Seq[CountResult],
-  integrityCheckFailedTotalRouteCount: Seq[CountResult],
 )
 
 case class LocationRouteInfoData(
@@ -71,7 +67,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       )
     )
 
-    val groups = database.routes.aggregate[Groups](pipeline)
+    val groups = database.routes.aggregate[RouteFilterOptionQueryResult](pipeline)
 
     val proposed = {
       val options = groups.flatMap(_.proposed).flatMap(_.options)

@@ -9,4 +9,5 @@ export interface LocationNodeOptions {
   readonly survey: ServerFilterGroup;
   readonly lastUpdated: ServerFilterGroup;
   readonly proposed: ServerFilterGroup;
+  readonly referencedInRoutes: ServerFilterGroup;
 }

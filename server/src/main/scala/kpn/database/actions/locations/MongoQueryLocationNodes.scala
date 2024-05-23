@@ -11,8 +11,8 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.doc.Label
 import kpn.core.util.Log
+import kpn.database.base.CountResult
 import kpn.database.base.Database
-import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.facet
@@ -31,6 +31,20 @@ import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 
+case class NodeFilterOptionQueryResult(
+  factsTotalRouteCount: Seq[CountResult],
+  facts: Seq[ServerFilterGroup],
+  proposed: Seq[ServerFilterGroup],
+  survey: Seq[ServerFilterGroup],
+  lastUpdated: Seq[ServerFilterGroup],
+  integrityCheckCount: Seq[CountResult],
+  integrityCheckTotalRouteCount: Seq[CountResult],
+  integrityCheckFailedCount: Seq[CountResult],
+  integrityCheckFailedTotalRouteCount: Seq[CountResult],
+  referencedInRoutesCount: Seq[CountResult],
+  referencedInRoutesTotalRouteCount: Seq[CountResult],
+)
+
 class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo) {
   private val log = Log(classOf[MongoQueryLocationNodes])
 
@@ -47,12 +61,12 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         Facet("integrityCheckTotalRouteCount", integrityCheckTotalRouteCountPipeline(subset, parameters): _*),
         Facet("integrityCheckFailedCount", integrityCheckFailedPipeline(subset, parameters): _*),
         Facet("integrityCheckFailedTotalRouteCount", integrityCheckFailedTotalRouteCountPipeline(subset, parameters): _*),
+        Facet("referencedInRoutesCount", referencedInRoutesCountPipeline(subset, parameters): _*),
+        Facet("referencedInRoutesTotalRouteCount", referencedInRoutesTotalRouteCountPipeline(subset, parameters): _*),
       )
     )
 
-    println(Mongo.pipelineString(pipeline))
-
-    val groups = database.nodes.aggregate[Groups](pipeline)
+    val groups = database.nodes.aggregate[NodeFilterOptionQueryResult](pipeline)
 
     val proposed = {
       val options = groups.flatMap(_.proposed).flatMap(_.options)
@@ -202,13 +216,45 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       ServerFilterGroup(selected, options)
     }
 
+    val referencedInRoutes = {
+      val all = groups.flatMap(_.referencedInRoutesTotalRouteCount).map(_.count).sum
+      val yes = groups.flatMap(_.referencedInRoutesCount).map(_.count).sum
+
+      val options = if (yes == 0 || yes == all) {
+        Seq(ServerFilterOption("all", all))
+      }
+      else {
+        Seq(
+          ServerFilterOption("all", all),
+          ServerFilterOption(BooleanParameter.yes.entryName, yes),
+          ServerFilterOption(BooleanParameter.no.entryName, all - yes),
+        )
+      }
+
+      val selected = if (options.size == 1) {
+        options.head.name
+      }
+      else {
+        parameters.proposed match {
+          case None => "all"
+          case Some(proposed) =>
+            options.find(_.name == proposed.entryName) match {
+              case None => "all"
+              case Some(value) => value.name
+            }
+        }
+      }
+      ServerFilterGroup(selected, options)
+    }
+
     LocationNodeOptions(
       integrityCheck,
       integrityCheckFailed,
       fact,
       survey,
       lastUpdated,
-      proposed
+      proposed,
+      referencedInRoutes
     )
   }
 
@@ -286,7 +332,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       LocationQuery.factFilter(parameters.fact),
       LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
       LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
-      LocationQuery.proposedFilter(parameters.proposed)
+      LocationQuery.proposedFilter(parameters.proposed),
+      LocationQuery.referencedInRoutesFilter(subset, parameters.referencedInRoutes),
     ).flatten
     and(filters: _*)
   }
@@ -299,7 +346,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
         LocationQuery.factFilter(parameters.fact),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
-        LocationQuery.proposedFilter(parameters.proposed)
+        LocationQuery.proposedFilter(parameters.proposed),
+        LocationQuery.referencedInRoutesFilter(subset, parameters.referencedInRoutes),
       )
     )
   }
@@ -312,7 +360,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
         LocationQuery.factFilter(parameters.fact),
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
-        LocationQuery.proposedFilter(parameters.proposed)
+        LocationQuery.proposedFilter(parameters.proposed),
+        LocationQuery.referencedInRoutesFilter(subset, parameters.referencedInRoutes),
       )
     )
   }
@@ -325,6 +374,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         LocationQuery.factFilter(parameters.fact),
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+        LocationQuery.referencedInRoutesFilter(subset, parameters.referencedInRoutes),
       )
     )
   }
@@ -336,7 +386,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
-        LocationQuery.proposedFilter(parameters.proposed)
+        LocationQuery.proposedFilter(parameters.proposed),
+        LocationQuery.referencedInRoutesFilter(subset, parameters.referencedInRoutes),
       )
     )
   }
@@ -348,7 +399,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
-        LocationQuery.proposedFilter(parameters.proposed)
+        LocationQuery.proposedFilter(parameters.proposed),
+        LocationQuery.referencedInRoutesFilter(subset, parameters.referencedInRoutes),
       )
     )
   }
@@ -361,13 +413,33 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     LocationQuery.routeCountPipeline(integrityCheckOtherFilters(subset, parameters))
   }
 
+  private def referencedInRoutesCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.referencedInRoutesPipeline(subset, referencedInRoutesOtherFilters(subset, parameters))
+  }
+
+  private def referencedInRoutesTotalRouteCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.routeCountPipeline(referencedInRoutesOtherFilters(subset, parameters))
+  }
+
+  private def referencedInRoutesOtherFilters(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Option[Bson]] = {
+    Seq(
+      LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
+      LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
+      LocationQuery.factFilter(parameters.fact),
+      LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
+      LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
+      LocationQuery.proposedFilter(parameters.proposed)
+    )
+  }
+
   private def integrityCheckOtherFilters(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Option[Bson]] = {
     Seq(
       LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
       LocationQuery.factFilter(parameters.fact),
       LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
       LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
-      LocationQuery.proposedFilter(parameters.proposed)
+      LocationQuery.proposedFilter(parameters.proposed),
+      LocationQuery.referencedInRoutesFilter(subset, parameters.referencedInRoutes),
     )
   }
 
@@ -385,7 +457,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       LocationQuery.factFilter(parameters.fact),
       LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
       LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
-      LocationQuery.proposedFilter(parameters.proposed)
+      LocationQuery.proposedFilter(parameters.proposed),
+      LocationQuery.referencedInRoutesFilter(subset, parameters.referencedInRoutes),
     )
   }
 }
