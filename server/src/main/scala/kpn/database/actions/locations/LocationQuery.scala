@@ -44,6 +44,18 @@ object LocationQuery {
     }
   }
 
+  def changesLocationFilter(fieldName: String, subset: LocationSubset): Bson = {
+    if (subset.locationIds.size == 1) {
+      equal(fieldName, subset.locationIds.head)
+    }
+    else {
+      val locationComparisons = subset.locationIds.map { locationId =>
+        equal(fieldName, locationId)
+      }
+      or(locationComparisons: _*)
+    }
+  }
+
   def surveyFilter(surveyDateInfo: SurveyDateInfo, survey: Option[SurveyParameter]): Option[Bson] = {
     survey.map {
       case SurveyParameter.unknown => not(equal("labels", "survey"))

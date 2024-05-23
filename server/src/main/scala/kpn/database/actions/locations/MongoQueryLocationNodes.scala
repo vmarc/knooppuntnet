@@ -1,21 +1,14 @@
 package kpn.database.actions.locations
 
-import kpn.api.common.NodeName
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
-import kpn.api.common.common.Reference
 import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodeOptions
 import kpn.api.common.location.LocationNodesParameters
-import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -37,34 +30,6 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
-
-case class LocationNodeInfoDoc(
-  id: Long,
-  name: String,
-  names: Seq[NodeName],
-  latitude: String,
-  longitude: String,
-  lastUpdated: Timestamp,
-  lastSurvey: Option[Day],
-  tags: Tags,
-  facts: Seq[Fact],
-  routeReferences: Seq[Reference]
-) {
-
-  def networkTypeName(networkType: NetworkType): String = {
-    names.filter(_.networkType == networkType).map(_.name).mkString(" / ")
-  }
-
-  def networkTypeLongName(networkType: NetworkType): Option[String] = {
-    val longNames = names.filter(_.networkType == networkType).flatMap(_.longName)
-    if (longNames.nonEmpty) {
-      Some(longNames.mkString(" / "))
-    }
-    else {
-      None
-    }
-  }
-}
 
 class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo) {
   private val log = Log(classOf[MongoQueryLocationNodes])

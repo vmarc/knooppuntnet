@@ -201,7 +201,7 @@ class MongoQueryLocationChanges(database: Database) {
         and(
           Seq(
             Some(
-              LocationQuery.locationFilter("locations", subset)
+              LocationQuery.changesLocationFilter("locations", subset)
             ),
             if (parameters.impact) {
               Some(equal("impact", true))
@@ -223,7 +223,7 @@ class MongoQueryLocationChanges(database: Database) {
           Seq(
             Some(equal("locationChanges.networkType", subset.networkType.name)),
             Some(
-              LocationQuery.locationFilter("locationChanges.locationNames", subset)
+              LocationQuery.changesLocationFilter("locationChanges.locationNames", subset)
             ),
             if (parameters.impact) {
               Some(
