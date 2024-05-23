@@ -30,23 +30,12 @@ class LocationNodesPageBuilderImpl(
     val subset = locationService.toSubset(language, locationKeyParam)
     val summary = locationRepository.summary(subset)
     val nodes = locationRepository.nodes(subset, parameters)
-
-    val allNodeCount = 0
-    val factsNodeCount = 0
-    val surveyNodeCount = 0
-    val integrityCheckFailedNodeCount = 0
-
-    val nodeCount = 0
-
     val filter = locationRepository.nodeFilterOptions(subset, parameters)
-
     Some(
       LocationNodesPage(
         TimeInfoBuilder.timeInfo,
         summary,
-        nodeCount,
-        allNodeCount,
-        integrityCheckFailedNodeCount,
+        filter.totalNodeCount,
         filter,
         nodes
       )

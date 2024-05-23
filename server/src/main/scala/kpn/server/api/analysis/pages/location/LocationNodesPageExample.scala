@@ -18,8 +18,6 @@ object LocationNodesPageExample {
     LocationNodesPage(
       TimeInfoBuilder.timeInfo,
       LocationSummary(10, 20, 30, 40),
-      30,
-      30,
       5,
       LocationNodeOptions(
         ServerFilterGroup("", Seq.empty),
@@ -29,6 +27,7 @@ object LocationNodesPageExample {
         ServerFilterGroup("", Seq.empty),
         ServerFilterGroup("", Seq.empty),
         ServerFilterGroup("", Seq.empty),
+        0
       ),
       Seq(
         LocationNodeInfo(

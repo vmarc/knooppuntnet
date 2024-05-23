@@ -43,6 +43,8 @@ export class Translations {
       'filter.integrityCheckFailed',
       $localize`:@@filter.integrityCheckFailed:Integrity check failed`,
     ],
+    ['filter.survey', $localize`:@@filter.survey:Last survey`],
+    ['filter.fact', $localize`:@@filter.facts:Facts`],
     ['filter.connection', $localize`:@@filter.connection:Connection`],
     ['filter.investigate', $localize`:@@filter.investigate:Investigate`],
     ['filter.accessible', $localize`:@@filter.accessible:Accessible`],
@@ -96,6 +98,10 @@ export class Translations {
   ]);
 
   static get(key: string): string {
-    return this.translations.get(key);
+    const translated = this.translations.get(key);
+    if (translated) {
+      return translated;
+    }
+    return '?' + key + '?';
   }
 }

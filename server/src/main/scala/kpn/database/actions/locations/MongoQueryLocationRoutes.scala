@@ -206,7 +206,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
   }
 
   private def factsTotalRouteCountPipeline(parameters: LocationRoutesParameters): Seq[Bson] = {
-    LocationQuery.routeCountPipeline(
+    LocationQuery.countPipeline(
       Seq(
         LocationQuery.surveyFilter(surveyDateInfo, parameters.survey),
         LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),

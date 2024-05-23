@@ -270,7 +270,7 @@ object LocationQuery {
     ) ++ optionGroupPipeline("facts")
   }
 
-  def routeCountPipeline(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
+  def countPipeline(otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
     prefilter(otherFilters) ++ Seq(
       count()
     )

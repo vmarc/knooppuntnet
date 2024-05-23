@@ -9,8 +9,6 @@ export interface LocationNodesPage {
   readonly timeInfo: TimeInfo;
   readonly summary: LocationSummary;
   readonly nodeCount: number;
-  readonly allNodeCount: number;
-  readonly integrityCheckFailedNodeCount: number;
   readonly filter: LocationNodeOptions;
   readonly nodes: LocationNodeInfo[];
 }

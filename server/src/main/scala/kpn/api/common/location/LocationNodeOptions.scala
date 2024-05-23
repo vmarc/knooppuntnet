@@ -9,5 +9,6 @@ case class LocationNodeOptions(
   survey: ServerFilterGroup,
   lastUpdated: ServerFilterGroup,
   proposed: ServerFilterGroup,
-  referencedInRoutes: ServerFilterGroup
+  referencedInRoutes: ServerFilterGroup,
+  totalNodeCount: Long
 )

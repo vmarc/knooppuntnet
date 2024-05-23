@@ -32,17 +32,18 @@ import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
 
 case class NodeFilterOptionQueryResult(
-  factsTotalRouteCount: Seq[CountResult],
+  factsTotalNodeCount: Seq[CountResult],
   facts: Seq[ServerFilterGroup],
   proposed: Seq[ServerFilterGroup],
   survey: Seq[ServerFilterGroup],
   lastUpdated: Seq[ServerFilterGroup],
   integrityCheckCount: Seq[CountResult],
-  integrityCheckTotalRouteCount: Seq[CountResult],
+  integrityCheckTotalNodeCount: Seq[CountResult],
   integrityCheckFailedCount: Seq[CountResult],
-  integrityCheckFailedTotalRouteCount: Seq[CountResult],
+  integrityCheckFailedTotalNodeCount: Seq[CountResult],
   referencedInRoutesCount: Seq[CountResult],
-  referencedInRoutesTotalRouteCount: Seq[CountResult],
+  referencedInRoutesTotalNodeCount: Seq[CountResult],
+  totalNodeCount: Seq[CountResult],
 )
 
 class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo) {
@@ -52,17 +53,18 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     val pipeline = Seq(
       filter(and(mainFilters(subset): _*)),
       facet(
-        Facet("factsTotalRouteCount", factsTotalRouteCountPipeline(subset, parameters): _*),
+        Facet("factsTotalNodeCount", factsTotalNodeCountPipeline(subset, parameters): _*),
         Facet("facts", factsPipeline(subset, parameters): _*),
         Facet("proposed", proposedPipeline(subset, parameters): _*),
         Facet("survey", surveyPipeline(subset, parameters): _*),
         Facet("lastUpdated", lastUpdatedPipeline(subset, parameters): _*),
         Facet("integrityCheckCount", integrityCheckPipeline(subset, parameters): _*),
-        Facet("integrityCheckTotalRouteCount", integrityCheckTotalRouteCountPipeline(subset, parameters): _*),
+        Facet("integrityCheckTotalNodeCount", integrityCheckTotalNodeCountPipeline(subset, parameters): _*),
         Facet("integrityCheckFailedCount", integrityCheckFailedPipeline(subset, parameters): _*),
-        Facet("integrityCheckFailedTotalRouteCount", integrityCheckFailedTotalRouteCountPipeline(subset, parameters): _*),
+        Facet("integrityCheckFailedTotalNodeCount", integrityCheckFailedTotalNodeCountPipeline(subset, parameters): _*),
         Facet("referencedInRoutesCount", referencedInRoutesCountPipeline(subset, parameters): _*),
-        Facet("referencedInRoutesTotalRouteCount", referencedInRoutesTotalRouteCountPipeline(subset, parameters): _*),
+        Facet("referencedInRoutesTotalNodeCount", referencedInRoutesTotalNodeCountPipeline(subset, parameters): _*),
+        Facet("totalNodeCount", totalNodeCountPipeline(subset, parameters): _*),
       )
     )
 
@@ -94,7 +96,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     }
 
     val fact = {
-      val totalCount = groups.flatMap(_.factsTotalRouteCount).map(_.count).sum
+      val totalCount = groups.flatMap(_.factsTotalNodeCount).map(_.count).sum
       val factOptions = groups.flatMap(_.facts).flatMap(_.options).sortBy(_.name)
       val options = Seq(ServerFilterOption("all", totalCount)) ++ factOptions
       val selected = parameters.fact match {
@@ -155,7 +157,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     }
 
     val integrityCheck = {
-      val all = groups.flatMap(_.integrityCheckTotalRouteCount).map(_.count).sum
+      val all = groups.flatMap(_.integrityCheckTotalNodeCount).map(_.count).sum
       val yes = groups.flatMap(_.integrityCheckCount).map(_.count).sum
       val options = if (yes == 0 || yes == all) {
         Seq(ServerFilterOption("all", all))
@@ -186,7 +188,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     }
 
     val integrityCheckFailed = {
-      val all = groups.flatMap(_.integrityCheckFailedTotalRouteCount).map(_.count).sum
+      val all = groups.flatMap(_.integrityCheckFailedTotalNodeCount).map(_.count).sum
       val yes = groups.flatMap(_.integrityCheckFailedCount).map(_.count).sum
 
       val options = if (yes == 0 || yes == all) {
@@ -217,7 +219,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     }
 
     val referencedInRoutes = {
-      val all = groups.flatMap(_.referencedInRoutesTotalRouteCount).map(_.count).sum
+      val all = groups.flatMap(_.referencedInRoutesTotalNodeCount).map(_.count).sum
       val yes = groups.flatMap(_.referencedInRoutesCount).map(_.count).sum
 
       val options = if (yes == 0 || yes == all) {
@@ -247,6 +249,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       ServerFilterGroup(selected, options)
     }
 
+    val totalNodeCount = groups.flatMap(_.totalNodeCount).map(_.count).sum
+
     LocationNodeOptions(
       integrityCheck,
       integrityCheckFailed,
@@ -254,7 +258,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       survey,
       lastUpdated,
       proposed,
-      referencedInRoutes
+      referencedInRoutes,
+      totalNodeCount
     )
   }
 
@@ -296,7 +301,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         val tagValues = NetworkScope.all.map(scope => ScopedNetworkType(scope, subset.networkType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
           doc.tags(tagKey)
         }
-        val expectedRouteCount = tagValues.headOption.getOrElse("-")
+        val expectedNodeCount = tagValues.headOption.getOrElse("-")
         val rowIndex = parameters.pageSize * parameters.pageIndex + index
         LocationNodeInfo(
           rowIndex,
@@ -308,7 +313,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
           doc.lastUpdated,
           doc.lastSurvey,
           doc.facts,
-          expectedRouteCount,
+          expectedNodeCount,
           doc.routeReferences.filter(_.networkType == subset.networkType)
         )
       }
@@ -325,7 +330,12 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   }
 
   private def buildFilter(subset: LocationSubset, parameters: LocationNodesParameters): Bson = {
-    val filters: Seq[Bson] = mainFilters(subset) ++ Seq(
+    val filters: Seq[Bson] = mainFilters(subset) ++ allFilters(subset, parameters).flatten
+    and(filters: _*)
+  }
+
+  private def allFilters(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Option[Bson]] = {
+    Seq(
       LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
       LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
       LocationQuery.factFilter(parameters.fact),
@@ -334,8 +344,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       LocationQuery.lastUpdatedFilter(surveyDateInfo, parameters.lastUpdated),
       LocationQuery.proposedFilter(parameters.proposed),
       LocationQuery.referencedInRoutesFilter(subset, parameters.referencedInRoutes),
-    ).flatten
-    and(filters: _*)
+    )
   }
 
   private def surveyPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
@@ -392,8 +401,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def factsTotalRouteCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
-    LocationQuery.routeCountPipeline(
+  private def factsTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.countPipeline(
       Seq(
         LocationQuery.integrityCheckFilter(subset, parameters.integrityCheck),
         LocationQuery.integrityCheckFailedFilter(subset, parameters.integrityCheckFailed),
@@ -409,16 +418,20 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     LocationQuery.integrityCheckPipeline(subset, integrityCheckOtherFilters(subset, parameters))
   }
 
-  private def integrityCheckTotalRouteCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
-    LocationQuery.routeCountPipeline(integrityCheckOtherFilters(subset, parameters))
+  private def integrityCheckTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.countPipeline(integrityCheckOtherFilters(subset, parameters))
   }
 
   private def referencedInRoutesCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
     LocationQuery.referencedInRoutesPipeline(subset, referencedInRoutesOtherFilters(subset, parameters))
   }
 
-  private def referencedInRoutesTotalRouteCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
-    LocationQuery.routeCountPipeline(referencedInRoutesOtherFilters(subset, parameters))
+  private def referencedInRoutesTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.countPipeline(referencedInRoutesOtherFilters(subset, parameters))
+  }
+
+  private def totalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.countPipeline(allFilters(subset, parameters))
   }
 
   private def referencedInRoutesOtherFilters(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Option[Bson]] = {
@@ -447,8 +460,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     LocationQuery.integrityCheckFailedPipeline(subset, integrityCheckFailedOtherFilters(subset, parameters))
   }
 
-  private def integrityCheckFailedTotalRouteCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
-    LocationQuery.routeCountPipeline(integrityCheckFailedOtherFilters(subset, parameters))
+  private def integrityCheckFailedTotalNodeCountPipeline(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    LocationQuery.countPipeline(integrityCheckFailedOtherFilters(subset, parameters))
   }
 
   private def integrityCheckFailedOtherFilters(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Option[Bson]] = {

@@ -10,4 +10,5 @@ export interface LocationNodeOptions {
   readonly lastUpdated: ServerFilterGroup;
   readonly proposed: ServerFilterGroup;
   readonly referencedInRoutes: ServerFilterGroup;
+  readonly totalNodeCount: number;
 }
