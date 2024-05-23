@@ -15,6 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatTreeFlatDataSource } from '@angular/material/tree';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatTreeFlattener } from '@angular/material/tree';
+import { RouterLink } from '@angular/router';
 import { Country } from '@api/custom';
 import { NetworkType } from '@api/custom';
 import { Subscriptions } from '@app/util';
@@ -56,6 +57,12 @@ import { LocationFlatNode } from './location-flat-node';
         </mat-radio-button>
       </mat-radio-group>
     </div>
+
+    @if (networkType() === 'hiking' && country() === 'fr') {
+      <div class="kpn-small-spacer-below">
+        <a routerLink="/analysis/hiking/fr/Parc du Vercors/nodes">Parc du Vercors</a>
+      </div>
+    }
 
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
       <mat-tree-node
@@ -109,7 +116,15 @@ import { LocationFlatNode } from './location-flat-node';
     }
   `,
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatRadioModule, MatTreeModule, NgClass, LocationPipe],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatRadioModule,
+    MatTreeModule,
+    NgClass,
+    LocationPipe,
+    RouterLink,
+  ],
 })
 export class LocationTreeComponent implements OnInit, OnDestroy {
   networkType = input.required<NetworkType>();

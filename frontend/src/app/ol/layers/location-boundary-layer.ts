@@ -1,7 +1,6 @@
 import { GeoJSON } from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Fill } from 'ol/style';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import { MapLayer } from './map-layer';
@@ -14,6 +13,8 @@ export class LocationBoundaryLayer {
       featureProjection: 'EPSG:3857',
     });
 
+    console.log(['all features', features]);
+
     const vectorSource = new VectorSource({
       features,
     });
@@ -22,9 +23,6 @@ export class LocationBoundaryLayer {
       stroke: new Stroke({
         color: 'rgba(255, 0, 0, 0.9)',
         width: 3,
-      }),
-      fill: new Fill({
-        color: 'rgba(255, 0, 0, 0.05)',
       }),
     });
 

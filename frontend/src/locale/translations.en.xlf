@@ -5399,6 +5399,14 @@
         <source>UnexpectedIntegrityCheck</source>
         <target>UnexpectedIntegrityCheck</target>
       </trans-unit>
+      <trans-unit datatype="html" id="filter.survey">
+        <source>Last survey</source>
+        <target>Last survey</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.facts">
+        <source>Facts</source>
+        <target>Facts</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

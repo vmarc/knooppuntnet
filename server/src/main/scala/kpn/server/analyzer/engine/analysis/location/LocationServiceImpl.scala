@@ -19,12 +19,6 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
     all.map(l => l.id -> l).toMap
   }
 
-  private val parcDuVercorsLocationIds = ParcDuVercors.communes.flatMap(locationDefinitionWithName).map(_.id)
-
-  def locationDefinitionWithName(locationName: String): Option[LocationDefinition] = {
-    locationMap.values.find(_.name == locationName)
-  }
-
   override def locationDefinition(locationId: String): Option[LocationDefinition] = {
     locationMap.get(locationId)
   }
@@ -59,7 +53,7 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
     if (locationKey.name == "Parc du Vercors") {
       LocationSubset(
         locationKey.networkType,
-        parcDuVercorsLocationIds
+        ParcDuVercors.communes
       )
     }
     else {

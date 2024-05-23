@@ -5379,6 +5379,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
         <source>UnexpectedIntegrityCheck</source>
         <target>OnverwachteRouteAantalTag</target>
       </trans-unit>
+      <trans-unit datatype="html" id="filter.survey">
+        <source>Last survey</source>
+        <target>Recentste controle</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.facts">
+        <source>Facts</source>
+        <target>Feiten</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

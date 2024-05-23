@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
@@ -51,6 +52,7 @@ import { LocationSelectionPageService } from './location-selection-page.service'
     PageComponent,
     LocationSelectionPageBreadcrumbComponent,
     LocationSelectionPageHeaderComponent,
+    RouterLink,
   ],
 })
 export class LocationSelectionPageComponent implements OnInit {

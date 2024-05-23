@@ -5002,7 +5002,7 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.survey">
         <source>Survey</source>
-        <target>Survey</target>
+        <target>Relevé de terrain</target>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.map-deviations.relation-empty">
         <source>OSM relation empty, so no analysis results.</source>
@@ -5353,7 +5353,7 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.facts">
         <source>facts</source>
-        <target>facts</target>
+        <target>faits</target>
       </trans-unit>
       <trans-unit datatype="html" id="icon.network.tooltip">
         <source>node network</source>
@@ -5382,6 +5382,14 @@ Veuillez d'abord planifier un itinéraire.</target>
       <trans-unit datatype="html" id="fact.name.unexpected-integrity-check">
         <source>UnexpectedIntegrityCheck</source>
         <target>UnexpectedIntegrityCheck</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.survey">
+        <source>Last survey</source>
+        <target>Relevé de terrain</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.facts">
+        <source>Facts</source>
+        <target>Faits</target>
       </trans-unit>
     </body>
   </file>

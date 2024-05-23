@@ -3815,11 +3815,11 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
       </trans-unit>
       <trans-unit datatype="html" id="location-routes.table.last-survey">
         <source>Survey</source>
-        <target>Survey</target>
+        <target>Letztes Survey</target>
       </trans-unit>
       <trans-unit datatype="html" id="location-nodes.table.last-survey">
         <source>Survey</source>
-        <target>Survey</target>
+        <target>Letztes Survey</target>
       </trans-unit>
       <trans-unit datatype="html" id="planner.legend.survey.ok-orphan">
         <source>OK Orphan</source>
@@ -3923,7 +3923,7 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
       </trans-unit>
       <trans-unit datatype="html" id="location-nodes-sidebar.filter.survey">
         <source>Survey</source>
-        <target>Survey</target>
+        <target>Letztes Survey</target>
       </trans-unit>
       <trans-unit datatype="html" id="location-routes-sidebar.filter.all">
         <source>All</source>
@@ -3939,7 +3939,7 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
       </trans-unit>
       <trans-unit datatype="html" id="location-routes-sidebar.filter.survey">
         <source>Survey</source>
-        <target>Survey</target>
+        <target>Letztes Survey</target>
       </trans-unit>
       <trans-unit datatype="html" id="proposed-indicator.letter">
         <source>P</source>
@@ -3995,7 +3995,7 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-nodes.table.last-survey">
         <source>Survey</source>
-        <target>Survey</target>
+        <target>Letztes Survey</target>
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-nodes.table.last-edit">
         <source>Last edit</source>
@@ -4019,7 +4019,7 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-routes.table.last-survey">
         <source>Survey</source>
-        <target>Survey</target>
+        <target>Letztes Survey</target>
       </trans-unit>
       <trans-unit datatype="html" id="subset-orphan-routes.table.last-edit">
         <source>Last edit</source>
@@ -5012,7 +5012,7 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.relation-table.survey">
         <source>Survey</source>
-        <target>Survey</target>
+        <target>Letztes Survey</target>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.map-deviations.relation-empty">
         <source>OSM relation empty, so no analysis results.</source>
@@ -5366,7 +5366,7 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
       </trans-unit>
       <trans-unit datatype="html" id="subset-facts.facts">
         <source>facts</source>
-        <target>facts</target>
+        <target>Fakten</target>
       </trans-unit>
       <trans-unit datatype="html" id="icon.network.tooltip">
         <source>node network</source>
@@ -5395,6 +5395,14 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
       <trans-unit datatype="html" id="fact.name.unexpected-integrity-check">
         <source>UnexpectedIntegrityCheck</source>
         <target>UnexpectedIntegrityCheck</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.survey">
+        <source>Last survey</source>
+        <target>Letztes Survey</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="filter.facts">
+        <source>Facts</source>
+        <target>Fakten</target>
       </trans-unit>
     </body>
   </file>
