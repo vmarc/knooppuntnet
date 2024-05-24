@@ -1,5 +1,15 @@
 package kpn.server.analyzer.engine.analysis.location
 
+import kpn.core.data.DataBuilder
+import kpn.core.loadOld.Parser
+import kpn.core.tools.location.RelationPolygonBuilder
+import org.locationtech.jts.geom.Geometry
+import org.locationtech.jts.geom.GeometryCollection
+import org.locationtech.jts.geom.GeometryFactory
+
+import scala.xml.InputSource
+import scala.xml.XML
+
 // 83 communes https://www.parc-du-vercors.fr/le-perimetre-et-les-chiffres-cles
 object ParcDuVercors {
 
@@ -15,7 +25,7 @@ object ParcDuVercors {
     "fr-3-26086", // Châtillon-en-Diois
     "fr-3-38103", // Chichilianne
     "fr-3-38108", // Choranche
-    "fr-3-38111", // Claix
+    "fr-3-38111", // Claix  *
     "fr-3-38113", // Clelles
     "fr-3-38117", // Cognin-les-Gorges
     "fr-3-26100", // Combovin
@@ -23,7 +33,7 @@ object ParcDuVercors {
     "fr-3-26113", // Die
     "fr-3-26117", // Échevis
     "fr-3-38153", // Engins
-    "fr-3-38169", // Fontaine
+    "fr-3-38169", // Fontaine  *
     "fr-3-26141", // Gigors-et-Lozeron
     "fr-3-26142", // Glandage
     "fr-3-38186", // Gresse-en-Vercors
@@ -43,7 +53,7 @@ object ParcDuVercors {
     "fr-3-38243", // Le Monestier-du-Percy
     "fr-3-38301", // Percy
     "fr-3-38248", // Montaud
-    "fr-3-38281", // Noyarey
+    "fr-3-38281", // Noyarey  *
     "fr-3-26221", // Omblèze
     "fr-3-26223", // Oriol-en-Royans
     "fr-3-26240", // Plan-de-Baix
@@ -54,9 +64,9 @@ object ParcDuVercors {
     "fr-3-26270", // Rochechinard
     "fr-3-26282", // Romeyer
     "fr-3-38345", // Rovon
-    "fr-3-38474", // Sassenage
-    "fr-3-38485", // Seyssinet-Pariset
-    "fr-3-38486", // Seyssins
+    "fr-3-38474", // Sassenage  *
+    "fr-3-38485", // Seyssinet-Pariset  *
+    "fr-3-38486", // Seyssins  *
     "fr-3-26290", // Saint-Agnan-en-Vercors
     "fr-3-38355", // Saint-Andéol   Isère
     "fr-3-26291", // Saint-Andéol   Drôme
@@ -76,16 +86,46 @@ object ParcDuVercors {
     "fr-3-38433", // Saint-Nizier-du-Moucherotte
     "fr-3-38438", // Saint-Paul-lès-Monestier
     "fr-3-38443", // Saint-Pierre-de-Chérennes
-    "fr-3-38450", // Saint-Quentin-sur-Isère
+    "fr-3-38450", // Saint-Quentin-sur-Isère  *
     "fr-3-38453", // Saint-Romans
     "fr-3-26331", // Saint-Thomas-en-Royans
     "fr-3-38436", // Saint-Paul-de-Varces
     "fr-3-26299", // Sainte-Croix
     "fr-3-26302", // Sainte-Eulalie-en-Royans
     "fr-3-26359", // Vachères-en-Quint
-    "fr-3-38524", // Varces-Allières-et-Risset
+    "fr-3-38524", // Varces-Allières-et-Risset  *
     "fr-3-26364", // Vassieux-en-Vercors
-    "fr-3-38540", // Veurey-Voroize
+    "fr-3-38540", // Veurey-Voroize  *
     "fr-3-38548", // Villard-de-Lans
   )
+
+  val partialCommunes: Seq[String] = Seq(
+    "fr-3-38111", // Claix  *
+    "fr-3-38169", // Fontaine  *
+    "fr-3-38281", // Noyarey  *
+    "fr-3-38474", // Sassenage  *
+    "fr-3-38485", // Seyssinet-Pariset  *
+    "fr-3-38486", // Seyssins  *
+    "fr-3-38450", // Saint-Quentin-sur-Isère  *
+    "fr-3-38524", // Varces-Allières-et-Risset  *
+    "fr-3-38540", // Veurey-Voroize  *
+  )
+
+  val boundary: Geometry = {
+    val filename = s"/kpn/locations/parc-du-vercors.xml"
+    val stream = getClass.getResourceAsStream(filename)
+    val inputSource = new InputSource(stream)
+    val xml = XML.load(inputSource)
+    val rawData = new Parser(full = false).parse(xml.head)
+    val data = new DataBuilder(rawData).data
+    val relation = data.relations(5555268)
+    val polygons = RelationPolygonBuilder.toPolygons(data, relation)
+    if (polygons.size != 1) {
+      polygons.head
+    }
+    else {
+      val geometryFactory = new GeometryFactory
+      new GeometryCollection(polygons.toArray, geometryFactory)
+    }
+  }
 }
