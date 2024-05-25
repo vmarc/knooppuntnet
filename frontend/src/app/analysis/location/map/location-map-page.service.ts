@@ -27,7 +27,11 @@ export class LocationMapPageService {
   afterViewInit() {
     const geoJson = this.response().result.geoJson;
     const bounds = this.response().result.bounds;
-    const mapPositionFromUrl: MapPosition = undefined; // TODO SIGNAL routerService.queryParamMapPosition();
+    let mapPositionFromUrl: MapPosition = undefined;
+    const mapPositionString = this.routerService.queryParam('position');
+    if (mapPositionString) {
+      mapPositionFromUrl = MapPosition.fromQueryParam(mapPositionString);
+    }
     this.locationMapService.init(
       this.locationService.key().networkType,
       this.sharedStateService.surveyDateValues(),
