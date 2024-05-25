@@ -1,8 +1,9 @@
 import { GeoJSON } from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
+import Fill from 'ol/style/Fill';
+import Stroke from 'ol/style/Stroke';
 import { MapLayer } from './map-layer';
 
 export class LocationBoundaryLayer {
@@ -21,8 +22,11 @@ export class LocationBoundaryLayer {
 
     const locationStyle = new Style({
       stroke: new Stroke({
-        color: 'rgba(255, 0, 0, 0.9)',
-        width: 3,
+        color: 'rgba(0, 0, 255, 0.5)',
+        width: 1,
+      }),
+      fill: new Fill({
+        color: 'rgba(0, 0, 255, 0.1)',
       }),
     });
 
