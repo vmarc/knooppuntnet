@@ -20,9 +20,33 @@ class RoutedatabankRouteParser {
     features.map { feature =>
       feature.getDefaultGeometry match {
         case lineString: LineString =>
-          val _id = feature.getAttribute("lijnid").toString
-          val regio = feature.getAttribute("regio").toString
-          val provincie = feature.getAttribute("provincie").toString
+          val _id = {
+            val value = feature.getAttribute("lijnid")
+            if (value == null) {
+              feature.getAttribute("ogc_fid").toString
+            }
+            else {
+              value.toString
+            }
+          }
+          val regio = {
+            val value = feature.getAttribute("regio")
+            if (value != null) {
+              value.toString
+            }
+            else {
+              ""
+            }
+          }
+          val provincie = {
+            val value = feature.getAttribute("provincie")
+            if (value != null) {
+              value.toString
+            }
+            else {
+              ""
+            }
+          }
           val lastEditedDate = feature.getAttribute("last_edited_date")
 
           val updated = if (lastEditedDate == "null") {

@@ -173,4 +173,4 @@ nohup rsync -av  --human-readable --progress --delete /kpn/tiles-install/osm/ ma
 
 Opendata sync:
 
-    rsync -av  --human-readable --progress --delete /kpn/tiles/opendata marcv@kpn-analysis:/kpn/tiles
+    rsync -av  --human-readable --progress --delete /Users/marc/kpn/tiles/opendata marcv@kpn-analysis:/kpn/tiles

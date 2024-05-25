@@ -2822,7 +2822,7 @@
         <source> Expand all </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-tree.component.ts</context>
-          <context context-type="linenumber">35,37</context>
+          <context context-type="linenumber">36,38</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/button/expand-collapse.component.ts</context>
@@ -2833,7 +2833,7 @@
         <source> Collapse all </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-tree.component.ts</context>
-          <context context-type="linenumber">43,45</context>
+          <context context-type="linenumber">44,46</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/button/expand-collapse.component.ts</context>
@@ -2844,14 +2844,14 @@
         <source> All </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-tree.component.ts</context>
-          <context context-type="linenumber">47,49</context>
+          <context context-type="linenumber">48,50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.in-use-only" datatype="html">
         <source> In use only </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-tree.component.ts</context>
-          <context context-type="linenumber">54,56</context>
+          <context context-type="linenumber">55,57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-created" datatype="html">
@@ -7100,7 +7100,7 @@
         <source>Boundary</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ol/layers/location-boundary-layer.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.networks" datatype="html">
@@ -7293,21 +7293,35 @@
         <source>Toerisme Vlaanderen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/planner-map-layer.service.ts</context>
-          <context context-type="linenumber">78</context>
+          <context context-type="linenumber">92</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.flanders-cycling" datatype="html">
         <source>Toerisme Vlaanderen</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/planner-map-layer.service.ts</context>
-          <context context-type="linenumber">86</context>
+          <context context-type="linenumber">100</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.netherlands-hiking" datatype="html">
         <source>Netherlands routedatabank</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/planner-map-layer.service.ts</context>
-          <context context-type="linenumber">104</context>
+          <context context-type="linenumber">118</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.layer.netherlands-cycling" datatype="html">
+        <source>Netherlands routedatabank</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/planner/pages/planner/planner-map-layer.service.ts</context>
+          <context context-type="linenumber">136</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="map.layer.france-hiking" datatype="html">
+        <source>Parc du Vercors</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/planner/pages/planner/planner-map-layer.service.ts</context>
+          <context context-type="linenumber">154</context>
         </context-group>
       </trans-unit>
       <trans-unit id="poi.menu.pois" datatype="html">

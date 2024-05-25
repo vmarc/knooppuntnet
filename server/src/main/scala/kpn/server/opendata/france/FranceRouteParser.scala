@@ -16,7 +16,8 @@ class FranceRouteParser {
 
   private def read(geopackageFile: File): Seq[OpenDataRoute] = {
     val rows = readRows(geopackageFile)
-    rows.filterNot(horsReseau).flatMap { row =>
+    val networkRows = rows.filterNot(horsReseau)
+    networkRows.flatMap { row =>
       val fid = row.getValue("fid")
       val geometry = row.getGeometry.getGeometry
       if (geometry != null && geometry.getGeometryType == GeometryType.LINESTRING) {
@@ -39,13 +40,14 @@ class FranceRouteParser {
     val featureDao = geoPackage.getFeatureDao(featureTable)
     val featureResultSet = featureDao.query(Array("fid", "iti_nom", "geom"))
     try {
-      featureResultSet.asScala.toSeq
+      val rows = featureResultSet.asScala.toSeq
+      rows
     } finally {
       featureResultSet.close()
     }
   }
 
   private def horsReseau(row: FeatureRow): Boolean = {
-    FranceUtil.routeNames(row) != Seq("hr")
+    FranceUtil.routeNames(row) == Seq("hr")
   }
 }

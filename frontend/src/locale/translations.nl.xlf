@@ -5387,6 +5387,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
         <source>Facts</source>
         <target>Feiten</target>
       </trans-unit>
+      <trans-unit datatype="html" id="map.layer.netherlands-cycling">
+        <source>Netherlands routedatabank</source>
+        <target>Nederland routedatabank</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="map.layer.france-hiking">
+        <source>Parc du Vercors</source>
+        <target>Parc du Vercors</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

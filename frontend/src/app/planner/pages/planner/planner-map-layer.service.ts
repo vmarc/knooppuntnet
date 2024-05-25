@@ -53,6 +53,20 @@ export class PlannerMapLayerService {
       networkType === NetworkType.hiking
     );
 
+    registry.registerAll(
+      urlLayerIds,
+      this.netherlandsCyclingOpenDataLayers(),
+      false,
+      networkType === NetworkType.cycling
+    );
+
+    registry.registerAll(
+      urlLayerIds,
+      this.franceHikingOpenDataLayers(),
+      false,
+      networkType === NetworkType.hiking
+    );
+
     NetworkTypes.all.forEach((layerNetworkType) => {
       registry.registerAll(
         urlLayerIds,
@@ -115,6 +129,32 @@ export class PlannerMapLayerService {
         name,
         'netherlands/hiking'
       ),
+    ];
+  }
+
+  private netherlandsCyclingOpenDataLayers(): MapLayer[] {
+    const name = $localize`:@@map.layer.netherlands-cycling:Netherlands routedatabank`;
+    return [
+      OpendataBitmapTileLayer.build(
+        NetworkType.cycling,
+        'netherlands-cycling',
+        name,
+        'netherlands/cycling'
+      ),
+      OpendataVectorTileLayer.build(
+        NetworkType.cycling,
+        'netherlands-cycling',
+        name,
+        'netherlands/cycling'
+      ),
+    ];
+  }
+
+  private franceHikingOpenDataLayers(): MapLayer[] {
+    const name = $localize`:@@map.layer.france-hiking:Parc du Vercors`;
+    return [
+      OpendataBitmapTileLayer.build(NetworkType.hiking, 'france-hiking', name, 'france/hiking'),
+      OpendataVectorTileLayer.build(NetworkType.hiking, 'france-hiking', name, 'france/hiking'),
     ];
   }
 

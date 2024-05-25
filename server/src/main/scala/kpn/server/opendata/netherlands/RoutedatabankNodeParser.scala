@@ -20,14 +20,44 @@ class RoutedatabankNodeParser {
       feature.getDefaultGeometry match {
         case point: Point =>
           val _id = feature.getAttribute("puntid").toString
-          val name = feature.getAttribute("knooppuntnummer").toString
+          val name = {
+            val value = feature.getAttribute("knooppuntnummer")
+            if (value == null) {
+              val attribute = feature.getAttribute("knooppuntnr")
+              if (attribute != null) {
+                attribute.toString
+              }
+              else {
+                ""
+              }
+            }
+            else {
+              value.toString
+            }
+          }
           val latitude = point.getY.toString
           val longitude = point.getX.toString
           val provincie = feature.getAttribute("provincie").toString
           val lastEditedDate = feature.getAttribute("last_edited_date")
           val ogcFid = feature.getAttribute("ogc_fid").toString
-          val nodeType = feature.getAttribute("soort_knooppunt").toString
-          val regio = feature.getAttribute("regio").toString
+          val nodeType = {
+            val value = feature.getAttribute("soort_knooppunt")
+            if (value != null) {
+              value.toString
+            }
+            else {
+              ""
+            }
+          }
+          val regio = {
+            val value = feature.getAttribute("regio")
+            if (value != null) {
+              value.toString
+            }
+            else {
+              ""
+            }
+          }
 
           val updated = if (lastEditedDate == "null") {
             None
@@ -48,7 +78,8 @@ class RoutedatabankNodeParser {
             regio
           )
 
-        case _ => throw new RuntimeException("unexpected node geometry type")
+        case _ =>
+          throw new RuntimeException("unexpected node geometry type")
       }
     }
   }

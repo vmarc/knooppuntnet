@@ -5407,6 +5407,14 @@
         <source>Facts</source>
         <target>Facts</target>
       </trans-unit>
+      <trans-unit datatype="html" id="map.layer.netherlands-cycling">
+        <source>Netherlands routedatabank</source>
+        <target>Netherlands routedatabank</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="map.layer.france-hiking">
+        <source>Parc du Vercors</source>
+        <target>Parc du Vercors</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

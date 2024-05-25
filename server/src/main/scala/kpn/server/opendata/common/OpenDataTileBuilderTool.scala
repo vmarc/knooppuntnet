@@ -28,8 +28,8 @@ class OpenDataTileBuilderTool {
   private val log = Log(classOf[OpenDataTileBuilderTool])
 
   def build(): Unit = {
-    //buildFlanders()
-    // buildNetherlands()
+    buildFlanders()
+    buildNetherlands()
     buildFrance()
     log.info("Done")
   }
@@ -80,23 +80,36 @@ class OpenDataTileBuilderTool {
   }
 
   private def buildNetherlands(): Unit = {
+    buildNetherlandsHiking()
+    buildNetherlandsCycling()
+  }
+
+  private def buildNetherlandsHiking(): Unit = {
     Log.context("Netherlands") {
-      val nodes = readNetherlandsNodes().map(_.toOpenDataNode)
-      val routes = readNetherlandsRoutes().map(_.toOpenDataRoute)
+      val nodes = readNetherlandsNodes("wandelknooppunten").map(_.toOpenDataNode)
+      val routes = readNetherlandsRoutes("wandelnetwerken").map(_.toOpenDataRoute)
       new OpenDataTileBuilder().build(nodes, routes, "opendata/netherlands/hiking")
     }
   }
 
-  private def readNetherlandsNodes(): Seq[RoutedatabankNode] = {
+  private def buildNetherlandsCycling(): Unit = {
+    Log.context("Netherlands") {
+      val nodes = readNetherlandsNodes("fietsknooppunten").map(_.toOpenDataNode).toVector
+      val routes = readNetherlandsRoutes("fietsnetwerken").map(_.toOpenDataRoute).toVector
+      new OpenDataTileBuilder().build(nodes, routes, "opendata/netherlands/cycling")
+    }
+  }
+
+  private def readNetherlandsNodes(name: String): Seq[RoutedatabankNode] = {
     log.info("Read nodes")
-    val filename = s"${Dirs.root}/opendata/netherlands/Wandelknooppunten (wgs84).json"
+    val filename = s"${Dirs.root}/opendata/netherlands/$name.json"
     val inputStream = new FileInputStream(filename)
     new RoutedatabankNodeReader().read(inputStream)
   }
 
-  private def readNetherlandsRoutes(): Seq[RoutedatabankRoute] = {
+  private def readNetherlandsRoutes(name: String): Seq[RoutedatabankRoute] = {
     log.info("Read routes")
-    val filename = s"${Dirs.root}/opendata/netherlands/Wandelnetwerken (wgs84).json"
+    val filename = s"${Dirs.root}/opendata/netherlands/$name.json"
     val inputStream = new FileInputStream(filename)
     new RoutedatabankRouteReader().read(inputStream)
   }
