@@ -50,11 +50,12 @@
       "prefix": "kpn",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/frontend",
+            "outputPath": {
+              "base": "dist/frontend"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -73,7 +74,8 @@
             "scripts": [
               "node_modules/marked/marked.min.js"
             ],
-            "allowedCommonJsDependencies": []
+            "allowedCommonJsDependencies": [],
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -96,9 +98,7 @@
             },
             "development": {
               "localize": false,
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,

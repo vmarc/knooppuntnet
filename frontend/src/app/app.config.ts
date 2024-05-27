@@ -15,7 +15,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
-import { appRoutes } from '@app/*';
 import { EditService } from '@app/components/shared';
 import { PageService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
@@ -29,6 +28,7 @@ import { SpinnerInterceptor } from '@app/spinner';
 import { SpinnerService } from '@app/spinner';
 import * as Sentry from '@sentry/angular-ivy';
 import { MarkdownModule } from 'ngx-markdown';
+import { appRoutes } from './app-routes';
 import { UserService } from './shared/user';
 
 export const appConfig: ApplicationConfig = {
