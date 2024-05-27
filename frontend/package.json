@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "4.3.33",
+  "version": "4.3.34",
   "scripts": {
     "serve": "ng serve --proxy-config src/proxy-dev.conf.mjs",
     "serve:vmarc": "ng serve --proxy-config src/proxy-vmarc.conf.mjs",
@@ -17,7 +17,7 @@
     "build": "ng build",
     "test": "ng test",
     "bundle-report": "ng build --configuration production --source-map && source-map-explorer dist/frontend/en/*.js",
-    "build-prod": "rm -rf ./dist/*; ng run frontend:build:production --build-optimizer --progress --source-map --output-path ./dist/${npm_package_name}-${npm_package_version};cd dist/${npm_package_name}-${npm_package_version}; gzip --keep */*.js */*.json */*.css",
+    "build-prod": "rm -rf ./dist/*; ng run frontend:build:production --progress --source-map --output-path ./dist/${npm_package_name}-${npm_package_version};cd dist/${npm_package_name}-${npm_package_version}; gzip --keep */*/*.js */*/*.json */*/*.css",
     "zip": "cd dist; tar -czf ../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
     "dist": "run-s build-prod zip"
   },
