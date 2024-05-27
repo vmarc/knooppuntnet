@@ -19,13 +19,19 @@ import { MarkdownModule } from 'ngx-markdown';
           <span dialog-title i18n="@@route-proposed-indicator.blue.title">
             OK - Proposed route
           </span>
+        }
+        @case ('gray') {
+          <span dialog-title i18n="@@route-proposed-indicator.gray.title"> OK - Active route </span>
+        }
+      }
+      @switch (color) {
+        @case ('blue') {
           <markdown dialog-body i18n="@@route-proposed-indicator.blue.text">
             This route has _"state=proposed"_. The route is assumed to still be in a planning phase
             and likely not signposted in the field.
           </markdown>
         }
         @case ('gray') {
-          <span dialog-title i18n="@@route-proposed-indicator.gray.title"> OK - Active route </span>
           <markdown dialog-body i18n="@@route-proposed-indicator.gray.text">
             This route does not have _"state=proposed"_. This is an active route.
           </markdown>

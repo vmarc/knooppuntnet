@@ -16,14 +16,20 @@ import { IndicatorDialogComponent } from '@app/components/shared/indicator';
       @switch (color) {
         @case ('blue') {
           <span dialog-title i18n="@@route-connection-indicator.blue.title"> OK - Connection </span>
-          <div dialog-body i18n="@@route-connection-indicator.blue.text">
-            This route is a connection to another network.
-          </div>
         }
         @case ('gray') {
           <span dialog-title i18n="@@route-connection-indicator.gray.title">
             OK - No connection
           </span>
+        }
+      }
+      @switch (color) {
+        @case ('blue') {
+          <div dialog-body i18n="@@route-connection-indicator.blue.text">
+            This route is a connection to another network.
+          </div>
+        }
+        @case ('gray') {
           <div dialog-body i18n="@@route-connection-indicator.gray.text">
             This route is not a connection to another network.
           </div>

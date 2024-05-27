@@ -16,14 +16,20 @@ import { IndicatorDialogComponent } from '@app/components/shared/indicator';
       @switch (color) {
         @case ('green') {
           <span dialog-title i18n="@@route-investigate-indicator.green.title"> OK - No facts </span>
-          <div dialog-body i18n="@@route-investigate-indicator.green.text">
-            No issues found during route analysis.
-          </div>
         }
         @case ('red') {
           <span dialog-title i18n="@@route-investigate-indicator.red.title">
             Not OK - Investigate facts
           </span>
+        }
+      }
+      @switch (color) {
+        @case ('green') {
+          <div dialog-body i18n="@@route-investigate-indicator.green.text">
+            No issues found during route analysis.
+          </div>
+        }
+        @case ('red') {
           <div dialog-body i18n="@@route-investigate-indicator.red.text">
             Something is wrong with this route.
           </div>
