@@ -10,6 +10,7 @@ describe('SurveyDateFilter', () => {
   const buildFilter = (kind: SurveyDateFilterKind): SurveyDateFilter<Day> => {
     const surveyDateInfo: SurveyDateInfo = {
       now: '2020-05-07',
+      lastWeekStart: '2020-04-30',
       lastMonthStart: '2020-04-07',
       lastHalfYearStart: '2019-11-07',
       lastYearStart: '2019-05-07',

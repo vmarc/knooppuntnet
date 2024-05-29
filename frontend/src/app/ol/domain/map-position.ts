@@ -1,7 +1,7 @@
 import { Coordinate } from 'ol/coordinate';
 import { toLonLat } from 'ol/proj';
 import { fromLonLat } from 'ol/proj';
-import { NetworkMapPosition } from './network-map-position';
+import { CachedMapPosition } from './cached-map-position';
 
 export class MapPosition {
   constructor(
@@ -10,6 +10,18 @@ export class MapPosition {
     readonly y: number,
     readonly rotation: number
   ) {}
+
+  static fromCachedMapPosition(cachedMapPosition: CachedMapPosition): MapPosition {
+    if (!cachedMapPosition) {
+      return undefined;
+    }
+    return new MapPosition(
+      cachedMapPosition.zoom,
+      cachedMapPosition.x,
+      cachedMapPosition.y,
+      cachedMapPosition.rotation
+    );
+  }
 
   static fromJSON(jsonObject: any): MapPosition {
     if (!jsonObject) {
@@ -50,13 +62,13 @@ export class MapPosition {
     return `${lat},${lng},${z}`;
   }
 
-  toNetworkMapPosition(mapPosition: MapPosition, networkId: number): NetworkMapPosition {
+  toCachedMapPosition(id: string): CachedMapPosition {
     return {
-      networkId,
-      zoom: mapPosition.zoom,
-      x: mapPosition.x,
-      y: mapPosition.y,
-      rotation: mapPosition.rotation,
+      id: id,
+      zoom: this.zoom,
+      x: this.x,
+      y: this.y,
+      rotation: this.rotation,
     };
   }
 

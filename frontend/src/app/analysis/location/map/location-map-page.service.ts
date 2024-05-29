@@ -1,3 +1,4 @@
+import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { LocationMapPage } from '@api/common/location';
@@ -18,6 +19,7 @@ export class LocationMapPageService {
 
   private readonly _response = signal<ApiResponse<LocationMapPage> | null>(null);
   readonly response = this._response.asReadonly();
+  readonly bounds = computed(() => this.response()?.result?.bounds);
 
   onInit() {
     this.locationService.initPage(this.routerService);
@@ -33,7 +35,7 @@ export class LocationMapPageService {
       mapPositionFromUrl = MapPosition.fromQueryParam(mapPositionString);
     }
     this.locationMapService.init(
-      this.locationService.key().networkType,
+      this.locationService.key(),
       this.sharedStateService.surveyDateValues(),
       geoJson,
       bounds,

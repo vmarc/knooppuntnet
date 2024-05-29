@@ -3917,34 +3917,6 @@
         <source>Name</source>
         <target>Name</target>
       </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.all">
-        <source>All</source>
-        <target>All</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.facts">
-        <source>Facts</source>
-        <target>Facts</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.survey">
-        <source>Survey</source>
-        <target>Survey</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.all">
-        <source>All</source>
-        <target>All</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.facts">
-        <source>Facts</source>
-        <target>Facts</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.inaccessible">
-        <source>Inaccessible</source>
-        <target>Inaccessible</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.survey">
-        <source>Survey</source>
-        <target>Survey</target>
-      </trans-unit>
       <trans-unit datatype="html" id="proposed-indicator.letter">
         <source>P</source>
         <target>P</target>
@@ -4129,10 +4101,6 @@
         <source>RouteInaccessible</source>
         <target>RouteInaccessible</target>
       </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.integrity-check-failed">
-        <source>Unexpected route count</source>
-        <target>Unexpected route count</target>
-      </trans-unit>
       <trans-unit datatype="html" id="location.selector.warning-selection-invalid">
         <source>Please select a value from the list</source>
         <target>Please select a value from the list</target>
@@ -4237,14 +4205,6 @@
         <source>Cancel</source>
         <target>Cancel</target>
       </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.title">
-        <source>Filter</source>
-        <target>Filter</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.title">
-        <source>Filter</source>
-        <target>Filter</target>
-      </trans-unit>
       <trans-unit datatype="html" id="analysis.location-side-bar.title">
         <source>Location</source>
         <target>Location</target>
@@ -4328,10 +4288,6 @@
       <trans-unit datatype="html" id="video-cover.text">
         <source>knooppuntnet demo video</source>
         <target>knooppuntnet demo video</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.select-video">
-        <source>Select a video on the left by clicking its play button.</source>
-        <target>Select a video on the left by clicking its play button.</target>
       </trans-unit>
       <trans-unit datatype="html" id="plan-detailed.calculating">
         <source>Calculating...</source>
@@ -5414,6 +5370,14 @@
       <trans-unit datatype="html" id="map.layer.france-hiking">
         <source>Parc du Vercors</source>
         <target>Parc du Vercors</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-map-control.title">
+        <source>zoom to fit entire location</source>
+        <target>zoom to fit entire location</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-map-control.letter">
+        <source>L</source>
+        <target>L</target>
       </trans-unit>
     </body>
   </file>

@@ -6,7 +6,6 @@ import { NetworkMapPage } from '@api/common/network';
 import { Util } from '@app/components/shared';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
-import { NetworkMapPosition } from '@app/ol/domain';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { NetworkMapPageService } from '../network-map-page.service';
 import { NetworkControlComponent } from './network-control.component';
@@ -34,7 +33,6 @@ import { NetworkMapService } from './network-map.service';
 export class NetworkMapComponent implements AfterViewInit {
   networkId = input.required<number>();
   page = input.required<NetworkMapPage>();
-  mapPositionFromUrl = input.required<NetworkMapPosition>();
 
   protected readonly networkMapService = inject(NetworkMapService);
   private readonly networkMapPageService = inject(NetworkMapPageService);

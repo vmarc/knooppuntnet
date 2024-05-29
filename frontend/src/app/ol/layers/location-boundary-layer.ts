@@ -13,9 +13,6 @@ export class LocationBoundaryLayer {
     const features = new GeoJSON().readFeatures(geoJson, {
       featureProjection: 'EPSG:3857',
     });
-
-    console.log(['all features', features]);
-
     const vectorSource = new VectorSource({
       features,
     });

@@ -2,7 +2,8 @@ import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network';
-import { NetworkMapPosition } from '@app/ol/domain';
+import { Util } from '@app/components/shared';
+import { CachedMapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { BackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
@@ -15,7 +16,6 @@ import { TileDebug256Layer } from '@app/ol/layers';
 import { MapClickService } from '@app/ol/services';
 import { MapZoomService } from '@app/ol/services';
 import { OpenlayersMapService } from '@app/ol/services';
-import { Util } from '@app/components/shared';
 import { BrowserStorageService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
@@ -36,19 +36,13 @@ export class NetworkMapService extends OpenlayersMapService {
     effect(() => {
       const mapPosition = this.mapPosition();
       if (mapPosition && this.networkId) {
-        const networkMapPosition: NetworkMapPosition = {
-          networkId: this.networkId,
-          zoom: mapPosition.zoom,
-          x: mapPosition.x,
-          y: mapPosition.y,
-          rotation: mapPosition.rotation,
-        };
+        const networkMapPosition = mapPosition.toCachedMapPosition(this.networkId.toString());
         this.storage.set(this.networkMapPositionKey, JSON.stringify(networkMapPosition));
       }
     });
   }
 
-  init(networkId: number, page: NetworkMapPage, mapPositionFromUrl: NetworkMapPosition): void {
+  init(networkId: number, page: NetworkMapPage, mapPositionFromUrl: CachedMapPosition): void {
     this.networkId = networkId;
     this.registerLayers(page);
 
@@ -73,8 +67,8 @@ export class NetworkMapService extends OpenlayersMapService {
       if (mapPositionString == null) {
         view.fit(Util.toExtent(page.bounds, 0.1));
       } else {
-        const mapPosition: NetworkMapPosition = JSON.parse(mapPositionString);
-        if (networkId === mapPosition.networkId) {
+        const mapPosition: CachedMapPosition = JSON.parse(mapPositionString);
+        if (networkId.toString() === mapPosition.id) {
           this.gotoLastKnownPosition(mapPosition);
         } else {
           view.fit(Util.toExtent(page.bounds, 0.1));
@@ -102,7 +96,7 @@ export class NetworkMapService extends OpenlayersMapService {
     this.register(registry);
   }
 
-  private gotoLastKnownPosition(mapPosition: NetworkMapPosition): void {
+  private gotoLastKnownPosition(mapPosition: CachedMapPosition): void {
     this.map.getView().setZoom(mapPosition.zoom);
     this.map.getView().setRotation(mapPosition.rotation);
     const center: Coordinate = [mapPosition.x, mapPosition.y];

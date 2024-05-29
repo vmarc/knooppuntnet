@@ -28,11 +28,7 @@ import { NetworkMapPageService } from './network-map-page.service';
               Network not found
             </p>
           } @else {
-            <kpn-network-map
-              [networkId]="service.networkId()"
-              [page]="response.result"
-              [mapPositionFromUrl]="mapPositionFromUrl()"
-            />
+            <kpn-network-map [networkId]="service.networkId()" [page]="response.result" />
           }
         </div>
       }
@@ -50,7 +46,6 @@ import { NetworkMapPageService } from './network-map-page.service';
 })
 export class NetworkMapPageComponent implements OnInit {
   protected readonly service = inject(NetworkMapPageService);
-  protected readonly mapPositionFromUrl = this.service.mapPositionFromUrl;
 
   ngOnInit(): void {
     this.service.onInit();

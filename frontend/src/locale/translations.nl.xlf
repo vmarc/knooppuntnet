@@ -3900,34 +3900,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
         <source>Name</source>
         <target>Naam</target>
       </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.all">
-        <source>All</source>
-        <target>Alle</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.facts">
-        <source>Facts</source>
-        <target>Feiten</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.survey">
-        <source>Survey</source>
-        <target>Recentste controle</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.all">
-        <source>All</source>
-        <target>Alle</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.facts">
-        <source>Facts</source>
-        <target>Feiten</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.inaccessible">
-        <source>Inaccessible</source>
-        <target>Ontoegankelijk</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.survey">
-        <source>Survey</source>
-        <target>Recentste controle</target>
-      </trans-unit>
       <trans-unit datatype="html" id="proposed-indicator.letter">
         <source>P</source>
         <target>T</target>
@@ -4112,10 +4084,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
         <source>RouteInaccessible</source>
         <target>RouteOntoegankelijk</target>
       </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.integrity-check-failed">
-        <source>Unexpected route count</source>
-        <target>Overwacht route aantal</target>
-      </trans-unit>
       <trans-unit datatype="html" id="location.selector.warning-selection-invalid">
         <source>Please select a value from the list</source>
         <target>Selecteer een waarde uit de lijst</target>
@@ -4220,14 +4188,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
         <source>Cancel</source>
         <target>Afbreken</target>
       </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.title">
-        <source>Filter</source>
-        <target>Filter</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.title">
-        <source>Filter</source>
-        <target>Filter</target>
-      </trans-unit>
       <trans-unit datatype="html" id="analysis.location-side-bar.title">
         <source>Location</source>
         <target>Plaats</target>
@@ -4311,10 +4271,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
       <trans-unit datatype="html" id="video-cover.text">
         <source>knooppuntnet demo video</source>
         <target>knooppuntnet demo video</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.select-video">
-        <source>Select a video on the left by clicking its play button.</source>
-        <target>Selecteer een video aan de linkerkant door op de afspeelknop te klikken.</target>
       </trans-unit>
       <trans-unit datatype="html" id="plan-detailed.calculating">
         <source>Calculating...</source>
@@ -5394,6 +5350,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
       <trans-unit datatype="html" id="map.layer.france-hiking">
         <source>Parc du Vercors</source>
         <target>Parc du Vercors</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-map-control.title">
+        <source>zoom to fit entire location</source>
+        <target>Zoom naar volledige locatie</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-map-control.letter">
+        <source>L</source>
+        <target>L</target>
       </trans-unit>
     </body>
   </file>

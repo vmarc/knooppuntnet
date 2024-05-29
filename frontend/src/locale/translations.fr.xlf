@@ -3903,34 +3903,6 @@ Veuillez d'abord planifier un itinéraire.</target>
         <source>Name</source>
         <target>Nom</target>
       </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.all">
-        <source>All</source>
-        <target>Tous</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.facts">
-        <source>Facts</source>
-        <target>Faits</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.survey">
-        <source>Survey</source>
-        <target>Relevé de terrain</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.all">
-        <source>All</source>
-        <target>All</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.facts">
-        <source>Facts</source>
-        <target>Faits</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.inaccessible">
-        <source>Inaccessible</source>
-        <target>Inaccessible</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.survey">
-        <source>Survey</source>
-        <target>Relevé de terrain</target>
-      </trans-unit>
       <trans-unit datatype="html" id="proposed-indicator.letter">
         <source>P</source>
         <target>P</target>
@@ -4116,10 +4088,6 @@ Veuillez d'abord planifier un itinéraire.</target>
         <source>RouteInaccessible</source>
         <target>RouteInaccessible</target>
       </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.integrity-check-failed">
-        <source>Unexpected route count</source>
-        <target>Nombre de routes inattendu</target>
-      </trans-unit>
       <trans-unit datatype="html" id="location.selector.warning-selection-invalid">
         <source>Please select a value from the list</source>
         <target>Please select a value from the list</target>
@@ -4224,14 +4192,6 @@ Veuillez d'abord planifier un itinéraire.</target>
         <source>Cancel</source>
         <target>Annuler</target>
       </trans-unit>
-      <trans-unit datatype="html" id="location-nodes-sidebar.filter.title">
-        <source>Filter</source>
-        <target>Filtrer</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="location-routes-sidebar.filter.title">
-        <source>Filter</source>
-        <target>Filtrer</target>
-      </trans-unit>
       <trans-unit datatype="html" id="analysis.location-side-bar.title">
         <source>Location</source>
         <target>Location</target>
@@ -4315,10 +4275,6 @@ Veuillez d'abord planifier un itinéraire.</target>
       <trans-unit datatype="html" id="video-cover.text">
         <source>knooppuntnet demo video</source>
         <target>knooppuntnet demo video</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.select-video">
-        <source>Select a video on the left by clicking its play button.</source>
-        <target>Select a video on the left by clicking its play button.</target>
       </trans-unit>
       <trans-unit datatype="html" id="plan-detailed.calculating">
         <source>Calculating...</source>
@@ -5398,6 +5354,14 @@ Veuillez d'abord planifier un itinéraire.</target>
       <trans-unit datatype="html" id="map.layer.france-hiking">
         <source>Parc du Vercors</source>
         <target>Parc du Vercors</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-map-control.title">
+        <source>zoom to fit entire location</source>
+        <target>zoom to fit entire location</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-map-control.letter">
+        <source>L</source>
+        <target>L</target>
       </trans-unit>
     </body>
   </file>
