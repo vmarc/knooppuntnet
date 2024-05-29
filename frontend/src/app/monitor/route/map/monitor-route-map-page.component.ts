@@ -7,6 +7,7 @@ import { NavService } from '@app/components/shared';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { EditGotoService } from '../../../analysis/components/edit/edit-goto.service';
+import { RouterService } from '../../../shared/services/router.service';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteMapPageService } from './monitor-route-map-page.service';
 import { MonitorRouteMapSidebarComponent } from './monitor-route-map-sidebar.component';
@@ -49,6 +50,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
     MonitorRouteMapService,
     MonitorRouteMapStateService,
     NavService,
+    RouterService,
   ],
   standalone: true,
   imports: [

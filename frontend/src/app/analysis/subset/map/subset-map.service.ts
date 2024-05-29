@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Bounds } from '@api/common';
 import { SubsetMapNetwork } from '@api/common/subset';
 import { Util } from '@app/components/shared';
+import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapLayerRegistry } from '@app/ol/layers';
 import { BackgroundLayer } from '@app/ol/layers';
@@ -12,10 +13,12 @@ import { NetworkMarkerLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
 import { MapBrowserEvent } from 'ol';
+import { Coordinate } from 'ol/coordinate';
 import { FeatureLike } from 'ol/Feature';
 import Interaction from 'ol/interaction/Interaction';
 import Map from 'ol/Map';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
+import { ViewOptions } from 'ol/View';
 import View from 'ol/View';
 import { SubsetMapNetworkDialogComponent } from './components/subset-map-network-dialog.component';
 
@@ -24,33 +27,51 @@ export class SubsetMapService extends OpenlayersMapService {
   private readonly dialog = inject(MatDialog);
   private networks: SubsetMapNetwork[] = [];
 
-  init(networks: SubsetMapNetwork[], bounds: Bounds): void {
+  init(
+    networks: SubsetMapNetwork[],
+    bounds: Bounds,
+    mapPositionFromUrl: MapPosition,
+    urlLayerIds: string[]
+  ): void {
     this.networks = networks;
-    this.registerLayers(networks);
+    this.registerLayers(networks, urlLayerIds);
+    let viewOptions: ViewOptions = {
+      minZoom: ZoomLevel.minZoom,
+      maxZoom: ZoomLevel.maxZoom,
+    };
+
+    if (mapPositionFromUrl) {
+      const center: Coordinate = [mapPositionFromUrl.x, mapPositionFromUrl.y];
+      const zoom = mapPositionFromUrl.zoom;
+      viewOptions = {
+        ...viewOptions,
+        center,
+        zoom,
+      };
+    }
     this.initMap(
       new Map({
         target: this.mapId,
         layers: this.layers,
         controls: MapControls.build(),
-        view: new View({
-          minZoom: ZoomLevel.minZoom,
-          maxZoom: ZoomLevel.maxZoom,
-        }),
+        view: new View(viewOptions),
       })
     );
 
-    this.map.getView().fit(Util.toExtent(bounds, 0.1));
+    if (!mapPositionFromUrl) {
+      this.map.getView().fit(Util.toExtent(bounds, 0.1));
+    }
 
     this.map.addInteraction(this.buildInteraction());
 
-    this.finalizeSetup();
+    this.finalizeSetup(true);
   }
 
-  private registerLayers(networks: SubsetMapNetwork[]): void {
+  private registerLayers(networks: SubsetMapNetwork[], urlLayerIds: string[]): void {
     const registry = new MapLayerRegistry();
-    registry.register([], BackgroundLayer.build(), true);
-    registry.register([], OsmLayer.build(), false);
-    registry.register([], new NetworkMarkerLayer().build(networks), true);
+    registry.register(urlLayerIds, BackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OsmLayer.build(), false);
+    registry.register(urlLayerIds, new NetworkMarkerLayer().build(networks), true);
     this.register(registry);
   }
 

@@ -30,7 +30,6 @@ import View from 'ol/View';
 export class LocationMapService extends OpenlayersMapService {
   private readonly mapClickService = inject(MapClickService);
   private readonly storage = inject(BrowserStorageService);
-
   private locationMapPositionKey = 'location-map-position';
 
   locationId: string | null = null;
@@ -51,10 +50,11 @@ export class LocationMapService extends OpenlayersMapService {
     surveyDateValues: SurveyDateValues,
     geoJson: string,
     bounds: Bounds,
-    mapPositionFromUrl: MapPosition
+    mapPositionFromUrl: MapPosition,
+    urlLayerIds: string[]
   ): void {
     this.locationId = locationKey.name;
-    this.registerLayers(locationKey.networkType, surveyDateValues, geoJson);
+    this.registerLayers(locationKey.networkType, surveyDateValues, geoJson, urlLayerIds);
 
     this.initMap(
       new Map({
@@ -90,7 +90,8 @@ export class LocationMapService extends OpenlayersMapService {
   private registerLayers(
     networkType: NetworkType,
     surveyDateValues: SurveyDateValues,
-    geoJson: string
+    geoJson: string,
+    urlLayerIds: string[]
   ): void {
     const parameters = signal<MainMapStyleParameters>(
       new MainMapStyleParameters('analysis', true, surveyDateValues, null, null)
@@ -102,10 +103,10 @@ export class LocationMapService extends OpenlayersMapService {
     ];
 
     const registry = new MapLayerRegistry();
-    registry.register([], BackgroundLayer.build(), true);
-    registry.register([], OsmLayer.build(), false);
-    registry.registerAll([], networkLayers, true);
-    registry.register([], LocationBoundaryLayer.build(geoJson), true);
+    registry.register(urlLayerIds, BackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OsmLayer.build(), false);
+    registry.registerAll(urlLayerIds, networkLayers, true);
+    registry.register(urlLayerIds, LocationBoundaryLayer.build(geoJson), true);
     this.register(registry);
   }
 

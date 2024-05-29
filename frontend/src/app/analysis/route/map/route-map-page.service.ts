@@ -27,7 +27,11 @@ export class RouteMapPageService {
   onAfterViewInit(): void {
     const mapPositionString = this.routerService.queryParam('position');
     const mapPositionFromUrl = MapPosition.fromQueryParam(mapPositionString);
-    this.routeMapService.init(this.response().result.routeMapInfo, mapPositionFromUrl);
+    this.routeMapService.init(
+      this.response().result.routeMapInfo,
+      mapPositionFromUrl,
+      this.routerService.urlLayerIds()
+    );
   }
 
   private load(): void {

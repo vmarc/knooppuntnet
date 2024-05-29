@@ -27,9 +27,10 @@ export class NodeMapService extends OpenlayersMapService {
   init(
     nodeMapInfo: NodeMapInfo,
     defaultNetworkType: NetworkType,
-    mapPositionFromUrl: MapPosition
+    mapPositionFromUrl: MapPosition,
+    urlLayerIds: string[]
   ): void {
-    this.registerLayers(nodeMapInfo, defaultNetworkType);
+    this.registerLayers(nodeMapInfo, defaultNetworkType, urlLayerIds);
 
     let viewOptions: ViewOptions = {
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -67,23 +68,27 @@ export class NodeMapService extends OpenlayersMapService {
     this.finalizeSetup(true);
   }
 
-  private registerLayers(nodeMapInfo: NodeMapInfo, defaultNetworkType: NetworkType): void {
+  private registerLayers(
+    nodeMapInfo: NodeMapInfo,
+    defaultNetworkType: NetworkType,
+    urlLayerIds: string[]
+  ): void {
     const registry = new MapLayerRegistry();
-    registry.register([], BackgroundLayer.build(), true);
-    registry.register([], OsmLayer.build(), false);
+    registry.register(urlLayerIds, BackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OsmLayer.build(), false);
 
     nodeMapInfo.networkTypes.forEach((networkType) => {
       const visible =
         nodeMapInfo.networkTypes.length > 1 ? networkType == defaultNetworkType : true;
       registry.register(
-        [],
+        urlLayerIds,
         NetworkVectorTileLayer.build(networkType, new NodeMapStyle().styleFunction()),
         visible
       );
     });
 
-    registry.register([], NodeMarkerLayer.build(nodeMapInfo), true);
-    registry.register([], TileDebug256Layer.build(), false);
+    registry.register(urlLayerIds, NodeMarkerLayer.build(nodeMapInfo), true);
+    registry.register(urlLayerIds, TileDebug256Layer.build(), false);
 
     this.register(registry);
   }

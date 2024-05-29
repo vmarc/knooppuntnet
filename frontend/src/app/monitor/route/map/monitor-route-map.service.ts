@@ -73,11 +73,11 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     this.initEffects();
   }
 
-  init(): void {
+  init(urlLayerIds: string[]): void {
     const param = this.navService.queryParam('position');
     const mapPositionFromUrl = MapPosition.fromQueryParam(param);
 
-    this.registerLayers();
+    this.registerLayers(urlLayerIds);
     this.initMap(
       new Map({
         target: this.mapId,
@@ -162,12 +162,12 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     return this.osmSegmentStyles[index];
   }
 
-  private registerLayers(): void {
+  private registerLayers(urlLayerIds: string[]): void {
     const registry = new MapLayerRegistry();
-    registry.register([], BackgroundLayer.build(), true);
-    registry.register([], OsmLayer.build(), false);
-    // registry.register([], MonitorLayer.build(), true);
-    // registry.register([], TileDebug256Layer.build(), false);
+    registry.register(urlLayerIds, BackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OsmLayer.build(), false);
+    // registry.register(urlLayerIds, MonitorLayer.build(), true);
+    // registry.register(urlLayerIds, TileDebug256Layer.build(), false);
     this.register(registry);
   }
 

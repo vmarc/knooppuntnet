@@ -2,6 +2,7 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { SubsetMapPage } from '@api/common/subset';
 import { ApiResponse } from '@api/custom';
+import { MapPosition } from '@app/ol/domain';
 import { ApiService } from '@app/services';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetService } from '../subset.service';
@@ -23,8 +24,15 @@ export class SubsetMapPageService {
   }
 
   afterViewInit(): void {
+    const mapPositionString = this.routerService.queryParam('position');
+    const mapPositionFromUrl = MapPosition.fromQueryParam(mapPositionString);
     const response = this.response();
-    this.subsetMapService.init(response.result.networks, response.result.bounds);
+    this.subsetMapService.init(
+      response.result.networks,
+      response.result.bounds,
+      mapPositionFromUrl,
+      this.routerService.urlLayerIds()
+    );
   }
 
   onDestroy(): void {

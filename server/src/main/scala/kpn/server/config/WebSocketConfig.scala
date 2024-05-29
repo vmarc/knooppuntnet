@@ -1,6 +1,5 @@
 package kpn.server.config
 
-import kpn.core.util.Log
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.socket.config.annotation.EnableWebSocket
@@ -11,7 +10,6 @@ import org.springframework.web.socket.server.standard.ServletServerContainerFact
 @Configuration
 @EnableWebSocket
 class WebSocketConfig(webSocketHandler: ServerWebSocketHandler) extends WebSocketConfigurer {
-  private val log = Log(classOf[WebSocketConfig])
 
   def registerWebSocketHandlers(registry: WebSocketHandlerRegistry): Unit = {
     registry.addHandler(webSocketHandler, "/websocket").setAllowedOrigins(
@@ -19,7 +17,7 @@ class WebSocketConfig(webSocketHandler: ServerWebSocketHandler) extends WebSocke
       "https://knooppuntnet.be",
       "https://experimental.knooppuntnet.nl",
       "https://experimental.knooppuntnet.be",
-    );
+    )
   }
 
   @Bean

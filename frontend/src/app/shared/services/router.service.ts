@@ -42,4 +42,12 @@ export class RouterService {
   paramSubset(): Subset {
     return { country: this.paramCountry(), networkType: this.paramNetworkType() };
   }
+
+  urlLayerIds(): string[] {
+    const layersParam = this.queryParam('layers');
+    if (layersParam) {
+      return layersParam.split(',');
+    }
+    return [];
+  }
 }

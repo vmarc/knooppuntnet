@@ -39,7 +39,8 @@ export class LocationMapPageService {
       this.sharedStateService.surveyDateValues(),
       geoJson,
       bounds,
-      mapPositionFromUrl
+      mapPositionFromUrl,
+      this.routerService.urlLayerIds()
     );
   }
 

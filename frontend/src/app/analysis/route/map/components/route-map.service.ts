@@ -24,8 +24,8 @@ import View from 'ol/View';
 export class RouteMapService extends OpenlayersMapService {
   private readonly mapClickService = inject(MapClickService);
 
-  init(routeMapInfo: RouteMapInfo, mapPositionFromUrl: MapPosition): void {
-    this.registerLayers(routeMapInfo);
+  init(routeMapInfo: RouteMapInfo, mapPositionFromUrl: MapPosition, urlLayerIds: string[]): void {
+    this.registerLayers(routeMapInfo, urlLayerIds);
 
     let viewOptions: ViewOptions = {
       minZoom: ZoomLevel.minZoom,
@@ -62,18 +62,18 @@ export class RouteMapService extends OpenlayersMapService {
     this.finalizeSetup(true);
   }
 
-  private registerLayers(routeMapInfo: RouteMapInfo): void {
+  private registerLayers(routeMapInfo: RouteMapInfo, urlLayerIds: string[]): void {
     const networkVectorTileLayer = NetworkVectorTileLayer.build(
       routeMapInfo.networkType,
       new NodeMapStyle().styleFunction()
     );
     const routeLayers = new RouteLayers(routeMapInfo.map).build();
     const registry = new MapLayerRegistry();
-    registry.register([], BackgroundLayer.build(), true);
-    registry.register([], OsmLayer.build(), false);
-    registry.register([], networkVectorTileLayer, true);
-    routeLayers.forEach((mapLayer) => registry.register([], mapLayer, true));
-    registry.register([], TileDebug256Layer.build(), false);
+    registry.register(urlLayerIds, BackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OsmLayer.build(), false);
+    registry.register(urlLayerIds, networkVectorTileLayer, true);
+    routeLayers.forEach((mapLayer) => registry.register(urlLayerIds, mapLayer, true));
+    registry.register(urlLayerIds, TileDebug256Layer.build(), false);
 
     this.register(registry);
   }

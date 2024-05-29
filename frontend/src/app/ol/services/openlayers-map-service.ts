@@ -145,12 +145,16 @@ export abstract class OpenlayersMapService {
       mapLayer.layer.setVisible(visible);
     });
 
-    // const visibleLayers = this.mapLayers
-    //   .filter((mapLayer) => mapLayer.layer.getVisible() === true)
-    //   .map((mapLayer) => mapLayer.id)
-    //   .join(',');
-    // console.log(['layerStates', this.layerStates()]);
-    // console.log(`updateLayerVisibility: ${visibleLayers}`);
+    const visibleLayers = this.mapLayers
+      .filter((mapLayer) => mapLayer.layer.getVisible() === true)
+      .map((mapLayer) => mapLayer.id)
+      .join(',');
+    if (this.shouldUpdateUrl) {
+      const params: Params = {
+        layers: visibleLayers,
+      };
+      this.setQueryParams(params);
+    }
   }
 
   protected layerVisible(mapLayer: MapLayer): boolean {

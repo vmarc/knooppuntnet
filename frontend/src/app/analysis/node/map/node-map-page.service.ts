@@ -31,7 +31,8 @@ export class NodeMapPageService {
     this.nodeMapService.init(
       this.response().result.nodeMapInfo,
       NetworkType.hiking, // TODO SIGNAL get preferred networkType from preferencesStore
-      mapPositionFromUrl
+      mapPositionFromUrl,
+      this.routerService.urlLayerIds()
     );
   }
 

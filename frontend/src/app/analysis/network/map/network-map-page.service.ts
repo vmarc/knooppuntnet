@@ -44,7 +44,8 @@ export class NetworkMapPageService {
     this.networkMapService.init(
       this.networkService.networkId(),
       this.response().result,
-      mapPositionFromUrl
+      mapPositionFromUrl,
+      this.routerService.urlLayerIds()
     );
   }
 

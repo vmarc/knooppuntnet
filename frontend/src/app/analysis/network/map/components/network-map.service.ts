@@ -42,9 +42,14 @@ export class NetworkMapService extends OpenlayersMapService {
     });
   }
 
-  init(networkId: number, page: NetworkMapPage, mapPositionFromUrl: CachedMapPosition): void {
+  init(
+    networkId: number,
+    page: NetworkMapPage,
+    mapPositionFromUrl: CachedMapPosition,
+    urlLayerIds: string[]
+  ): void {
     this.networkId = networkId;
-    this.registerLayers(page);
+    this.registerLayers(page, urlLayerIds);
 
     this.initMap(
       new Map({
@@ -82,17 +87,17 @@ export class NetworkMapService extends OpenlayersMapService {
     this.finalizeSetup(true);
   }
 
-  private registerLayers(page: NetworkMapPage): void {
+  private registerLayers(page: NetworkMapPage, urlLayerIds: string[]): void {
     const registry = new MapLayerRegistry();
-    registry.register([], BackgroundLayer.build(), true);
-    registry.register([], OsmLayer.build(), false);
+    registry.register(urlLayerIds, BackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OsmLayer.build(), false);
     const networkNodesLayers = [
       NetworkNodesBitmapTileLayer.build(page.summary.networkType),
       NetworkNodesVectorTileLayer.build(page.summary.networkType, page.nodeIds, page.routeIds),
     ];
-    registry.registerAll([], networkNodesLayers, true);
-    registry.register([], NetworkNodesMarkerLayer.build(page.nodes), true);
-    registry.register([], TileDebug256Layer.build(), false);
+    registry.registerAll(urlLayerIds, networkNodesLayers, true);
+    registry.register(urlLayerIds, NetworkNodesMarkerLayer.build(page.nodes), true);
+    registry.register(urlLayerIds, TileDebug256Layer.build(), false);
     this.register(registry);
   }
 

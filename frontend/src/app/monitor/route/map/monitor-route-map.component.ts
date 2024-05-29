@@ -8,6 +8,7 @@ import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { Coordinate } from 'ol/coordinate';
 import { GeolocationControlComponent } from '../../../planner/pages/planner/geolocation/geolocation-control.component';
+import { RouterService } from '../../../shared/services/router.service';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 
 @Component({
@@ -31,10 +32,11 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
 })
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
   private readonly service = inject(MonitorRouteMapService);
+  private readonly routerService = inject(RouterService);
   protected readonly mapId = this.service.mapId;
 
   ngAfterViewInit(): void {
-    this.service.init();
+    this.service.init(this.routerService.urlLayerIds());
   }
 
   ngOnDestroy(): void {
