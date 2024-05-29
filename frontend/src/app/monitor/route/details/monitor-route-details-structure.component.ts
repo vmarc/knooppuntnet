@@ -74,7 +74,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
           @if (row.showMap) {
             <a
               [routerLink]="mapLink()"
-              [queryParams]="subRelationQueryParams(row)"
+              [queryParams]="subRelationIndexQueryParams(row)"
               i18n="@@monitor.group.route-table.map-link"
             >
               map
@@ -232,7 +232,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
             <button
               mat-icon-button
               [routerLink]="uploadGpx()"
-              [queryParams]="subRelationQueryParams(row)"
+              [queryParams]="subRelationIdQueryParams(row)"
               [disabled]="!canUpload()"
               title="Upload GPX trace for this sub-relation"
               i18n-title="@@action.gpx.upload"
@@ -244,7 +244,7 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
             <button
               mat-icon-button
               [routerLink]="deleteGpx()"
-              [queryParams]="subRelationQueryParams(row)"
+              [queryParams]="subRelationIdQueryParams(row)"
               [disabled]="!canDelete(row)"
               title="Remove GPX trace for this sub-relation"
               i18n-title="@@action.gpx.delete"
@@ -367,11 +367,18 @@ export class MonitorRouteDetailsStructureComponent {
     return `/monitor/groups/${this.groupName()}/routes/${this.routeName()}/map`;
   }
 
-  subRelationQueryParams(row: MonitorRouteRelationStructureRow): Params {
+  subRelationIndexQueryParams(row: MonitorRouteRelationStructureRow): Params {
     if (row.level === 1) {
       return {};
     }
     return { 'sub-relation-index': row.subRelationIndex };
+  }
+
+  subRelationIdQueryParams(row: MonitorRouteRelationStructureRow): Params {
+    if (row.level === 1) {
+      return {};
+    }
+    return { 'sub-relation-id': row.relationId };
   }
 
   uploadGpx(): string {
