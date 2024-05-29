@@ -84,7 +84,7 @@ class MonitorUpdateTool(
 
   def update(): Unit = {
     val groups = configuration.monitorGroupRepository.groups().sortBy(_.name)
-    val groupRoutes = groups.foreach { group =>
+    groups.foreach { group =>
       configuration.monitorGroupRepository.groupRoutes(group._id).sortBy(_.name).foreach { route =>
         updateAnalysis(group, route)
       }

@@ -19,6 +19,7 @@ object MonitorRouteRelation {
       "name:nl",
       "name:fr",
       "name:en",
+      "ref",
     )
 
     val names = nameTagKeys.flatMap(nameTagKey => relation.tags(nameTagKey))
