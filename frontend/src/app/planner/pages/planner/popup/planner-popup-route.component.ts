@@ -1,17 +1,10 @@
-import { signal } from '@angular/core';
-import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MapRouteDetail } from '@api/common/route';
-import { ApiResponse } from '@api/custom';
 import { LinkRouteComponent } from '@app/components/shared/link';
-import { ApiService } from '@app/services';
-import { Coordinate } from 'ol/coordinate';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 import { PlannerStateService } from '../planner-state.service';
-import { PlannerService } from '../planner.service';
 
 @Component({
   selector: 'kpn-planner-popup-route',
@@ -67,27 +60,6 @@ import { PlannerService } from '../planner.service';
 export class PlannerPopupRouteComponent {
   private readonly service = inject(PlannerPopupService);
   private readonly plannerStateService = inject(PlannerStateService);
-  private readonly apiService = inject(ApiService);
-  private readonly plannerService = inject(PlannerService);
-
-  protected response = signal<ApiResponse<MapRouteDetail>>(null);
-  protected networkType = this.plannerStateService.networkType;
-
-  constructor() {
-    effect(() => {
-      const routeClick = this.service.routeClick();
-      if (routeClick !== null) {
-        this.apiService.mapRouteDetail(routeClick.route.routeId).subscribe((response) => {
-          if (response.result) {
-            this.response.set(response);
-            this.openPopup(routeClick.coordinate);
-          }
-        });
-      }
-    });
-  }
-
-  private openPopup(coordinate: Coordinate): void {
-    setTimeout(() => this.plannerService.context.plannerPopup.setPosition(coordinate, -12), 0);
-  }
+  protected readonly response = this.service.routeDetailResponse;
+  protected readonly networkType = this.plannerStateService.networkType;
 }

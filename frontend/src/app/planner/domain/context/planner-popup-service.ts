@@ -1,8 +1,17 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { signal } from '@angular/core';
+import { PoiPage } from '@api/common';
+import { MapNodeDetail } from '@api/common/node';
+import { MapRouteDetail } from '@api/common/route';
+import { ApiResponse } from '@api/custom';
+import { OlUtil } from '@app/ol';
+import { MapZoomService } from '@app/ol/services';
+import { ApiService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
+import { PlannerStateService } from '../../pages/planner/planner-state.service';
 import { NodeClick } from '../interaction/actions/node-click';
 import { PoiClick } from '../interaction/actions/poi-click';
 import { RouteClick } from '../interaction/actions/route-click';
@@ -10,17 +19,23 @@ import { PlannerPopup } from './planner-popup';
 
 @Injectable()
 export class PlannerPopupService implements PlannerPopup {
-  private overlay: Overlay;
+  private readonly apiService = inject(ApiService);
+  private readonly plannerStateService = inject(PlannerStateService);
+  private readonly mapZoomService = inject(MapZoomService);
+
+  private readonly _routeDetailResponse = signal<ApiResponse<MapRouteDetail>>(null);
+  readonly routeDetailResponse = this._routeDetailResponse.asReadonly();
+
+  private readonly _nodeDetailResponse = signal<ApiResponse<MapNodeDetail>>(null);
+  readonly nodeDetailResponse = this._nodeDetailResponse.asReadonly();
+
+  private readonly _poiResponse = signal<ApiResponse<PoiPage>>(null);
+  readonly poiResponse = this._poiResponse.asReadonly();
 
   private readonly _popupType = signal<string>('');
-  private readonly _poiClick = signal<PoiClick>(null);
-  private readonly _nodeClick = signal<NodeClick>(null);
-  private readonly _routeClick = signal<RouteClick>(null);
-
   readonly popupType = this._popupType.asReadonly();
-  readonly poiClick = this._poiClick.asReadonly();
-  readonly nodeClick = this._nodeClick.asReadonly();
-  readonly routeClick = this._routeClick.asReadonly();
+
+  private overlay: Overlay;
 
   addToMap(map: Map) {
     this.overlay = map.getOverlayById('popup');
@@ -28,17 +43,37 @@ export class PlannerPopupService implements PlannerPopup {
 
   poiClicked(poiClick: PoiClick): void {
     this._popupType.set('poi');
-    this._poiClick.set(poiClick);
+    this.apiService
+      .poi(poiClick.poiId.elementType, poiClick.poiId.elementId)
+      .subscribe((response) => {
+        this._poiResponse.set(response);
+        setTimeout(() => this.setPosition(poiClick.coordinate, -45), 0);
+      });
   }
 
   nodeClicked(nodeClick: NodeClick): void {
     this._popupType.set('node');
-    this._nodeClick.set(nodeClick);
+    const networkType = this.plannerStateService.networkType();
+    const nodeId = +nodeClick.node.node.nodeId;
+    this.apiService.mapNodeDetail(networkType, nodeId).subscribe((response) => {
+      this._nodeDetailResponse.set(response);
+      if (response.result) {
+        const coordinate = OlUtil.toCoordinate(response.result.latitude, response.result.longitude);
+        const verticalOffset = this.mapZoomService.zoomLevel() <= 13 ? -13 : -24;
+        setTimeout(() => this.setPosition(coordinate, verticalOffset), 0);
+      }
+    });
   }
 
   routeClicked(routeClick: RouteClick): void {
+    this.apiService.mapRouteDetail(routeClick.route.routeId).subscribe((response) => {
+      if (response.result) {
+        this._routeDetailResponse.set(response);
+        setTimeout(() => this.setPosition(routeClick.coordinate, -12), 0);
+      }
+    });
+
     this._popupType.set('route');
-    this._routeClick.set(routeClick);
   }
 
   setPosition(coordinate: Coordinate, verticalOffset: number): void {

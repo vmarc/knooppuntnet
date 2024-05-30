@@ -1,20 +1,14 @@
-import { effect } from '@angular/core';
-import { signal } from '@angular/core';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PoiPage } from '@api/common';
-import { ApiResponse } from '@api/custom';
 import { PoiAnalysisComponent } from '@app/components/poi';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
-import { ApiService } from '@app/services';
-import { Coordinate } from 'ol/coordinate';
 import { ActionButtonNodeComponent } from '../../../../analysis/components/action/action-button-node.component';
 import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
 import { ActionButtonWayComponent } from '../../../../analysis/components/action/action-button-way.component';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
-import { PlannerService } from '../planner.service';
 
 @Component({
   selector: 'kpn-planner-popup-poi',
@@ -37,12 +31,12 @@ import { PlannerService } from '../planner.service';
                 <kpn-tags-table [tags]="extraTags()" />
               </div>
             }
-            @if (poiClick().poiId.elementType === 'node') {
-              <kpn-action-button-node [nodeId]="poiClick().poiId.elementId" />
-            } @else if (poiClick().poiId.elementType === 'way') {
-              <kpn-action-button-way [wayId]="poiClick().poiId.elementId" />
-            } @else if (poiClick().poiId.elementType === 'relation') {
-              <kpn-action-button-relation [relationId]="poiClick().poiId.elementId" />
+            @if (response.result.elementType === 'node') {
+              <kpn-action-button-node [nodeId]="response.result.elementId" />
+            } @else if (response.result.elementType === 'way') {
+              <kpn-action-button-way [wayId]="response.result.elementId" />
+            } @else if (response.result.elementType === 'relation') {
+              <kpn-action-button-relation [relationId]="response.result.elementId" />
             }
           </div>
         }
@@ -71,43 +65,11 @@ import { PlannerService } from '../planner.service';
 })
 export class PlannerPopupPoiComponent {
   private readonly service = inject(PlannerPopupService);
-  private readonly apiService = inject(ApiService);
-  private readonly plannerService = inject(PlannerService);
-  protected readonly poiClick = this.service.poiClick;
-
-  protected response = signal<ApiResponse<PoiPage>>(null);
-
-  constructor() {
-    effect(
-      () => {
-        const poiClick = this.poiClick();
-        if (poiClick !== null) {
-          this.plannerService.context.cursor.setStyleWait();
-          this.apiService
-            .poi(poiClick.poiId.elementType, poiClick.poiId.elementId)
-            .subscribe((response) => {
-              this.response.set(response);
-              this.openPopup(poiClick.coordinate);
-              this.plannerService.context.cursor.setStyleDefault();
-              this.plannerService.context.highlighter.reset();
-            });
-        }
-      },
-      {
-        allowSignalWrites: true,
-      }
-    );
-  }
-
-  mainTags(): InterpretedTags {
-    return InterpretedTags.all(this.response().result.analysis.mainTags);
-  }
-
-  extraTags(): InterpretedTags {
-    return InterpretedTags.all(this.response().result.analysis.extraTags);
-  }
-
-  private openPopup(coordinate: Coordinate): void {
-    setTimeout(() => this.plannerService.context.plannerPopup.setPosition(coordinate, -45), 0);
-  }
+  protected readonly response = this.service.poiResponse;
+  protected readonly mainTags = computed(() =>
+    InterpretedTags.all(this.response().result.analysis.mainTags)
+  );
+  protected readonly extraTags = computed(() =>
+    InterpretedTags.all(this.response().result.analysis.extraTags)
+  );
 }

@@ -1,20 +1,10 @@
-import { signal } from '@angular/core';
-import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MapNodeDetail } from '@api/common/node';
-import { ApiResponse } from '@api/custom';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { TimestampComponent } from '@app/components/shared/timestamp';
-import { OlUtil } from '@app/ol';
-import { MapZoomService } from '@app/ol/services';
-import { ApiService } from '@app/services';
-import { Coordinate } from 'ol/coordinate';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
-import { PlannerStateService } from '../planner-state.service';
-import { PlannerService } from '../planner.service';
 
 @Component({
   selector: 'kpn-planner-popup-node',
@@ -86,38 +76,5 @@ import { PlannerService } from '../planner.service';
 })
 export class PlannerPopupNodeComponent {
   private readonly service = inject(PlannerPopupService);
-  private readonly apiService = inject(ApiService);
-  private readonly plannerStateService = inject(PlannerStateService);
-  private readonly mapZoomService = inject(MapZoomService);
-  private readonly plannerService = inject(PlannerService);
-
-  protected response = signal<ApiResponse<MapNodeDetail>>(null);
-
-  constructor() {
-    effect(() => {
-      const nodeClick = this.service.nodeClick();
-      if (nodeClick !== null) {
-        const networkType = this.plannerStateService.networkType();
-        const nodeId = +nodeClick.node.node.nodeId;
-        this.apiService.mapNodeDetail(networkType, nodeId).subscribe((response) => {
-          this.response.set(response);
-          if (response.result) {
-            const coordinate = OlUtil.toCoordinate(
-              response.result.latitude,
-              response.result.longitude
-            );
-            this.openPopup(coordinate);
-          }
-        });
-      }
-    });
-  }
-
-  private openPopup(coordinate: Coordinate): void {
-    const verticalOffset = this.mapZoomService.zoomLevel() <= 13 ? -13 : -24;
-    setTimeout(
-      () => this.plannerService.context.plannerPopup.setPosition(coordinate, verticalOffset),
-      0
-    );
-  }
+  protected readonly response = this.service.nodeDetailResponse;
 }
