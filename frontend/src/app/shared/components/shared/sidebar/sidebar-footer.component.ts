@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Router } from '@angular/router';
-import { VersionService } from '@app/services';
+import { Version } from '@app/services';
 import { UserService } from '../../../user';
 import { UserLinkLogoutComponent } from '../../../user';
 import { UserLinkLoginComponent } from '../../../user';
@@ -61,14 +61,13 @@ export class SidebarFooterComponent {
   loginEnabled = input(true);
 
   private readonly router = inject(Router);
-  private readonly versionService = inject(VersionService);
 
   private readonly userService = inject(UserService);
   protected readonly loggedIn = this.userService.loggedIn;
   protected readonly user = this.userService.user;
 
   version(): string {
-    return this.versionService.version;
+    return Version.id;
   }
 
   link(language: string): string {

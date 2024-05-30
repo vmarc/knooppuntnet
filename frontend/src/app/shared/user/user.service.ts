@@ -4,7 +4,7 @@ import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import * as Sentry from '@sentry/angular-ivy';
+import * as Sentry from '@sentry/angular';
 
 @Injectable()
 export class UserService {

@@ -1,7 +1,7 @@
 import { PlanNode } from '@api/common/planner';
 import { OlUtil } from '@app/ol';
 import { PoiId } from '@app/ol/domain';
-import * as Sentry from '@sentry/angular-ivy';
+import * as Sentry from '@sentry/angular';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { PlannerCommandAddStartPoint } from '../commands/planner-command-add-start-point';

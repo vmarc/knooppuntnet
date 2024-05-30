@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { RouteConfigLoadEnd } from '@angular/router';
 import { RouteConfigLoadStart } from '@angular/router';
@@ -11,11 +12,10 @@ import { PageExperimentalComponent } from '@app/components/shared/page';
 import { SidebarBackComponent } from '@app/components/shared/sidebar';
 import { ToolbarComponent } from '@app/components/shared/toolbar';
 import { IconService } from '@app/services';
-import { VersionService } from '@app/services';
+import { Version } from '@app/services';
 import { SpinnerService } from '@app/spinner';
 import { Subscriptions } from '@app/util';
-import { setTag } from '@sentry/angular-ivy';
-import { ChangeDetectionStrategy } from '@angular/core';
+import { setTag } from '@sentry/angular';
 
 @Component({
   selector: 'kpn-root',
@@ -54,13 +54,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
 export class AppComponent implements OnDestroy {
   private readonly iconService = inject(IconService);
   private readonly spinnerService = inject(SpinnerService);
-  private readonly versionService = inject(VersionService);
   private readonly router = inject(Router);
 
   private readonly subscriptions = new Subscriptions();
 
   constructor() {
-    setTag('knooppuntnet-version', this.versionService.version);
+    setTag('knooppuntnet-version', Version.id);
 
     this.subscriptions.add(
       this.router.events.subscribe({

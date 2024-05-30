@@ -1,8 +1,7 @@
 import { NgClass } from '@angular/common';
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { VersionService } from '@app/services';
+import { Version } from '@app/services';
 
 @Component({
   selector: 'kpn-page-experimental',
@@ -43,12 +42,10 @@ import { VersionService } from '@app/services';
   imports: [NgClass],
 })
 export class PageExperimentalComponent {
-  private readonly versionService = inject(VersionService);
-
   protected moreDetailOpen = false;
 
   isExperimental(): boolean {
-    return this.versionService.experimental;
+    return Version.experimental;
   }
 
   more(): void {

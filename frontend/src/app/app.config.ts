@@ -19,14 +19,13 @@ import { EditService } from '@app/components/shared';
 import { PageService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { PreferencesService } from '@app/core';
-import { VersionService } from '@app/services';
 import { ApiService } from '@app/services';
 import { IconService } from '@app/services';
 import { PoiService } from '@app/services';
 import { PoiNameService } from '@app/services';
 import { SpinnerInterceptor } from '@app/spinner';
 import { SpinnerService } from '@app/spinner';
-import * as Sentry from '@sentry/angular-ivy';
+import * as Sentry from '@sentry/angular';
 import { MarkdownModule } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
 import { UserService } from './shared/user';
@@ -65,7 +64,6 @@ export const appConfig: ApplicationConfig = {
     },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     PreferencesService,
-    VersionService,
     ApiService,
     SpinnerService,
     PageService,

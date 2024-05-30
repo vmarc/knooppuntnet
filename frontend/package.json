@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "4.3.38",
+  "version": "4.3.42",
   "scripts": {
     "serve": "ng serve --proxy-config src/proxy-dev.conf.mjs",
     "serve:vmarc": "ng serve --proxy-config src/proxy-vmarc.conf.mjs",
@@ -17,9 +17,11 @@
     "build": "ng build",
     "test": "ng test",
     "bundle-report": "ng build --configuration production --source-map && source-map-explorer dist/frontend/en/*.js",
-    "build-prod": "rm -rf ./dist/*; ng run frontend:build:production --progress --source-map --output-path ./dist/${npm_package_name}-${npm_package_version};cd dist/${npm_package_name}-${npm_package_version}; gzip --keep */*/*.js */*/*.json */*/*.css",
+    "build-prod": "rm -rf ./dist/*; ng run frontend:build:production --progress --source-map --output-path ./dist/${npm_package_name}-${npm_package_version}",
+    "sentry:release": "sentry-cli releases --org knooppuntnet --project knooppuntnet new \"${npm_package_version}\"",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org knooppuntnet --project knooppuntnet ./dist/${npm_package_name}-${npm_package_version}/browser && sentry-cli sourcemaps upload --org knooppuntnet --project knooppuntnet  --release ${npm_package_version} ./dist/${npm_package_name}-${npm_package_version}/browser",
     "zip": "cd dist; tar -czf ../../dist/${npm_package_name}-${npm_package_version}.tar.gz .",
-    "dist": "run-s build-prod zip"
+    "dist": "run-s build-prod sentry:release sentry:sourcemaps zip"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +37,7 @@
     "@angular/platform-browser-dynamic": "^18.0.1",
     "@angular/router": "^18.0.1",
     "@sentry/angular": "8.7.0",
+    "@sentry/cli": "^2.32.1",
     "@swimlane/ngx-charts": "^20.5.0",
     "@types/file-saver": "^2.0.7",
     "canvg": "^4.0.2",
