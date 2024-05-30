@@ -30,7 +30,7 @@ object MongoQueryLocationFactCount {
     Mongo.executeIn("kpn-test") { database =>
       database.networks.findById(0)
       val query = new MongoQueryLocationFactCount(database)
-      val subset = LocationSubset(NetworkType.hiking, Seq("de"))
+      val subset = LocationSubset("", NetworkType.hiking, Seq("de"))
       query.execute(subset)
     }
   }

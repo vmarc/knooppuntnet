@@ -3,15 +3,20 @@ package kpn.server.analyzer.engine.analysis.location
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.tools.location.RelationPolygonBuilder
+import org.bson.RawBsonDocument
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.io.geojson.GeoJsonWriter
+import org.mongodb.scala.bson.conversions.Bson
 
 import scala.xml.InputSource
 import scala.xml.XML
 
 // 83 communes https://www.parc-du-vercors.fr/le-perimetre-et-les-chiffres-cles
 object ParcDuVercors {
+
+  val name: String = "Parc du Vercors"
 
   val communes: Seq[String] = Seq(
     "fr-3-38018", // Auberives-en-Royans
@@ -111,7 +116,7 @@ object ParcDuVercors {
     "fr-3-38540", // Veurey-Voroize  *
   )
 
-  val boundary: Geometry = {
+  val boundaryGeometry: Geometry = {
     val filename = s"/kpn/locations/parc-du-vercors.xml"
     val stream = getClass.getResourceAsStream(filename)
     val inputSource = new InputSource(stream)
@@ -127,5 +132,12 @@ object ParcDuVercors {
       val geometryFactory = new GeometryFactory
       new GeometryCollection(polygons.toArray, geometryFactory)
     }
+  }
+
+  val boundaryBson: Bson = {
+    val geoJsonWriter = new GeoJsonWriter()
+    geoJsonWriter.setEncodeCRS(false)
+    val s = geoJsonWriter.write(boundaryGeometry)
+    RawBsonDocument.parse(s)
   }
 }

@@ -50,14 +50,16 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
   }
 
   override def toSubset(language: Language, locationKey: LocationKey): LocationSubset = {
-    if (locationKey.name == "Parc du Vercors") {
+    if (locationKey.name == ParcDuVercors.name) {
       LocationSubset(
+        locationKey.name,
         locationKey.networkType,
         ParcDuVercors.communes
       )
     }
     else {
       LocationSubset(
+        locationKey.name,
         locationKey.networkType,
         Seq(toId(language, locationKey.name))
       )

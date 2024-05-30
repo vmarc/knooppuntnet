@@ -28,6 +28,7 @@ export class LocationMapPageService {
 
   afterViewInit() {
     const geoJson = this.response().result.geoJson;
+    const geoJson2 = this.response().result.geoJson2;
     const bounds = this.response().result.bounds;
     let mapPositionFromUrl: MapPosition = undefined;
     const mapPositionString = this.routerService.queryParam('position');
@@ -38,6 +39,7 @@ export class LocationMapPageService {
       this.locationService.key(),
       this.sharedStateService.surveyDateValues(),
       geoJson,
+      geoJson2,
       bounds,
       mapPositionFromUrl,
       this.routerService.urlLayerIds()

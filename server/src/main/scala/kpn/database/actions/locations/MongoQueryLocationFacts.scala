@@ -31,7 +31,7 @@ object MongoQueryLocationFacts {
     Mongo.executeIn("kpn-test") { database =>
       database.networks.findById(0)
       val query = new MongoQueryLocationFacts(database)
-      val subset = LocationSubset(NetworkType.cycling, Seq("de"))
+      val subset = LocationSubset("", NetworkType.cycling, Seq("de"))
       val locationFacts = query.execute(subset)
       locationFacts.foreach { locationFact =>
         println(s"${locationFact.elementType} ${locationFact.fact.name}: ${locationFact.refs.map(_.name).mkString(", ")}")

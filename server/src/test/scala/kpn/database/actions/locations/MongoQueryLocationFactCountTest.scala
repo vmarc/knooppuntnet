@@ -60,9 +60,9 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
       )
 
       val query = new MongoQueryLocationFactCount(database)
-      query.execute(LocationSubset(NetworkType.hiking, Seq("be"))) should equal(1L)
-      query.execute(LocationSubset(NetworkType.hiking, Seq("nl"))) should equal(0L)
-      query.execute(LocationSubset(NetworkType.cycling, Seq("be"))) should equal(0L)
+      query.execute(LocationSubset("", NetworkType.hiking, Seq("be"))) should equal(1L)
+      query.execute(LocationSubset("", NetworkType.hiking, Seq("nl"))) should equal(0L)
+      query.execute(LocationSubset("", NetworkType.cycling, Seq("be"))) should equal(0L)
     }
   }
 
@@ -108,9 +108,9 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
       )
 
       val query = new MongoQueryLocationFactCount(database)
-      query.execute(LocationSubset(NetworkType.hiking, Seq("be"))) should equal(1L)
-      query.execute(LocationSubset(NetworkType.hiking, Seq("nl"))) should equal(0L)
-      query.execute(LocationSubset(NetworkType.cycling, Seq("be"))) should equal(0L)
+      query.execute(LocationSubset("", NetworkType.hiking, Seq("be"))) should equal(1L)
+      query.execute(LocationSubset("", NetworkType.hiking, Seq("nl"))) should equal(0L)
+      query.execute(LocationSubset("", NetworkType.cycling, Seq("be"))) should equal(0L)
     }
   }
 }

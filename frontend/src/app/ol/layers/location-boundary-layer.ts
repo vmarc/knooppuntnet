@@ -37,4 +37,30 @@ export class LocationBoundaryLayer {
     const name = $localize`:@@map.layer.boundary:Boundary`;
     return MapLayer.build('location-boundary', name, layer);
   }
+
+  static build2(geoJson: string): MapLayer {
+    const features = new GeoJSON().readFeatures(geoJson, {
+      featureProjection: 'EPSG:3857',
+    });
+    const vectorSource = new VectorSource({
+      features,
+    });
+
+    const locationStyle = new Style({
+      stroke: new Stroke({
+        color: 'rgba(255, 0, 255, 0.8)',
+        width: 3,
+      }),
+    });
+
+    const layer = new VectorLayer({
+      source: vectorSource,
+      style: (feature) => {
+        return locationStyle;
+      },
+    });
+
+    const name = $localize`:@@map.layer.boundary:Boundary`;
+    return MapLayer.build('location-boundary-2', name, layer);
+  }
 }

@@ -9,7 +9,7 @@ import java.io.File
 
 object FindParcDuVercorsPartialCommunes {
   def main(args: Array[String]): Unit = {
-    val vercorsBoundary = ParcDuVercors.boundary
+    val vercorsBoundary = ParcDuVercors.boundaryGeometry
     ParcDuVercors.communes.foreach { commune =>
       val file = new File(s"${Dirs.root}/locations/fr/geometries/$commune.json")
       val geoJson = FileUtils.readFileToString(file, "UTF-8")

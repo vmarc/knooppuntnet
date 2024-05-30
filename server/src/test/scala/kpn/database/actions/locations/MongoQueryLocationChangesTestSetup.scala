@@ -101,7 +101,7 @@ class MongoQueryLocationChangesTestSetup(database: Database) extends SharedTestO
     locationName: String = "be-1-a",
     parameters: ChangesParameters = ChangesParameters()
   ): Long = {
-    val subset = LocationSubset(networkType, Seq(locationName))
+    val subset = LocationSubset("", networkType, Seq(locationName))
     new MongoQueryLocationChanges(database).executeCount(subset, parameters)
   }
 
@@ -110,7 +110,7 @@ class MongoQueryLocationChangesTestSetup(database: Database) extends SharedTestO
     locationName: String = "be-1-a",
     parameters: ChangesParameters = ChangesParameters()
   ): Seq[LocationChangeSet] = {
-    val subset = LocationSubset(networkType, Seq(locationName))
+    val subset = LocationSubset("", networkType, Seq(locationName))
     new MongoQueryLocationChanges(database).execute(subset, parameters)
   }
 }

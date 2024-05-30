@@ -46,7 +46,7 @@ object MongoQueryLocationChanges {
         day = None
       )
       val query = new MongoQueryLocationChanges(database)
-      val subset = LocationSubset(NetworkType.hiking, Seq("nl-1-gd"))
+      val subset = LocationSubset("", NetworkType.hiking, Seq("nl-1-gd"))
       val changes = query.execute(subset, parameters)
       println("---")
       changes.foreach { change =>

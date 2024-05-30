@@ -37,7 +37,7 @@ class LocationMapPageBuilderImpl(
     val subset = locationService.toSubset(language, locationKeyParam)
     val summary = locationRepository.summary(subset)
 
-    if (locationKeyParam.name == "Parc du Vercors") {
+    if (locationKeyParam.name == ParcDuVercors.name) {
       val geometries = ParcDuVercors.communes.map { locationId =>
         val filename = s"${Dirs.root}/locations/${locationKeyParam.country.domain}/geometries/$locationId.json"
         var geoJson = FileUtils.readFileToString(new File(filename), "UTF-8")
@@ -49,11 +49,14 @@ class LocationMapPageBuilderImpl(
       geoJsonWriter.setEncodeCRS(false)
       val geoJson = geoJsonWriter.write(geometryCollection)
       val bounds = GeometryUtil.bounds(geometryCollection)
+      val geoJson2 = ParcDuVercors.boundaryBson.toString
+
       Some(
         LocationMapPage(
           summary,
           bounds,
-          geoJson
+          geoJson,
+          geoJson2
         )
       )
     }
@@ -67,7 +70,8 @@ class LocationMapPageBuilderImpl(
         LocationMapPage(
           summary,
           bounds,
-          geoJson
+          geoJson,
+          ""
         )
       )
     }

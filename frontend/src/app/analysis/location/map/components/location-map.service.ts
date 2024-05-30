@@ -49,12 +49,13 @@ export class LocationMapService extends OpenlayersMapService {
     locationKey: LocationKey,
     surveyDateValues: SurveyDateValues,
     geoJson: string,
+    geoJson2: string,
     bounds: Bounds,
     mapPositionFromUrl: MapPosition,
     urlLayerIds: string[]
   ): void {
     this.locationId = locationKey.name;
-    this.registerLayers(locationKey.networkType, surveyDateValues, geoJson, urlLayerIds);
+    this.registerLayers(locationKey.networkType, surveyDateValues, geoJson, geoJson2, urlLayerIds);
 
     this.initMap(
       new Map({
@@ -91,6 +92,7 @@ export class LocationMapService extends OpenlayersMapService {
     networkType: NetworkType,
     surveyDateValues: SurveyDateValues,
     geoJson: string,
+    geoJson2: string,
     urlLayerIds: string[]
   ): void {
     const parameters = signal<MainMapStyleParameters>(
@@ -107,6 +109,7 @@ export class LocationMapService extends OpenlayersMapService {
     registry.register(urlLayerIds, OsmLayer.build(), false);
     registry.registerAll(urlLayerIds, networkLayers, true);
     registry.register(urlLayerIds, LocationBoundaryLayer.build(geoJson), true);
+    registry.register(urlLayerIds, LocationBoundaryLayer.build2(geoJson2), true);
     this.register(registry);
   }
 

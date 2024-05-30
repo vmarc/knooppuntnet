@@ -65,7 +65,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         )
       )
 
-      val subset = LocationSubset(hiking, Seq("fr"))
+      val subset = LocationSubset("", hiking, Seq("fr"))
       val surveyDateInfo: SurveyDateInfo = {
         val local = ZonedDateTime.of(2024, 1, 1, 0, 0, 0, 0, ZoneId.of("Europe/Brussels"))
         SurveyDateInfoBuilder.dateInfoAt(local)

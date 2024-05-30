@@ -10,6 +10,7 @@ object LocationMapPageExample {
     LocationMapPage(
       LocationSummary(10, 20, 30, 40),
       Bounds(),
+      "",
       ""
     )
   }

@@ -7,4 +7,5 @@ export interface LocationMapPage {
   readonly summary: LocationSummary;
   readonly bounds: Bounds;
   readonly geoJson: string;
+  readonly geoJson2: string;
 }

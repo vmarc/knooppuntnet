@@ -267,15 +267,39 @@ class AnalysisFacadeImpl(
   }
 
   override def locationNodes(language: Language, key: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
-    val locationKey = s"${key.networkType.name}, ${key.country.domain}, ${key.name}, "
-    val locationParameters = s"TODO ${parameters.pageSize}, ${parameters.pageIndex}"
-    api.execute("location-nodes", locationKey + locationParameters) {
+    val args = Seq(
+      Some(key.networkType.name),
+      Some(key.country.domain),
+      Some(key.name),
+      Some(s"pageSize=${parameters.pageSize}"),
+      Some(s"pageIndex=${parameters.pageIndex}"),
+      parameters.integrityCheck.map(v => s"integrityCheck=${v.toString}"),
+      parameters.integrityCheckFailed.map(v => s"integrityCheckFailed=${v.toString}"),
+      parameters.fact.map(v => s"fact=${v.toString}"),
+      parameters.survey.map(v => s"survey=${v.toString}"),
+      parameters.lastUpdated.map(v => s"lastUpdated=${v.toString}"),
+      parameters.proposed.map(v => s"proposed=${v.toString}"),
+      parameters.referencedInRoutes.map(v => s"referencedInRoutes=${v.toString}"),
+    ).flatten.mkString(", ")
+
+    api.execute("location-nodes", args) {
       reply(locationNodesPageBuilder.build(language, key, parameters))
     }
   }
 
   override def locationRoutes(language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage] = {
-    val args = s"TODO ${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
+    val args = Seq(
+      Some(locationKey.networkType.name),
+      Some(locationKey.country.domain),
+      Some(locationKey.name),
+      Some(s"pageSize=${parameters.pageSize}"),
+      Some(s"pageIndex=${parameters.pageIndex}"),
+      parameters.fact.map(v => s"fact=${v.toString}"),
+      parameters.survey.map(v => s"survey=${v.toString}"),
+      parameters.lastUpdated.map(v => s"lastUpdated=${v.toString}"),
+      parameters.proposed.map(v => s"proposed=${v.toString}"),
+    ).flatten.mkString(", ")
+
     api.execute("location-routes", args) {
       reply(locationRoutesPageBuilder.build(language, locationKey, parameters))
     }

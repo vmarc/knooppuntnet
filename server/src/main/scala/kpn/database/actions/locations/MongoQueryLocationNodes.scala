@@ -14,7 +14,9 @@ import kpn.core.util.Log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
+import kpn.server.analyzer.engine.analysis.location.ParcDuVercors
 import org.mongodb.scala.bson.conversions.Bson
+import org.mongodb.scala.model.Aggregates.count
 import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
@@ -24,6 +26,10 @@ import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Facet
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Filters.geoIntersects
+import org.mongodb.scala.model.Filters.in
+import org.mongodb.scala.model.Filters.not
+import org.mongodb.scala.model.Filters.or
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
@@ -50,8 +56,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   private val log = Log(classOf[MongoQueryLocationNodes])
 
   def filterOptions(subset: LocationSubset, parameters: LocationNodesParameters): LocationNodeOptions = {
-    val pipeline = Seq(
-      filter(and(mainFilters(subset): _*)),
+    val pipeline = Seq(filter(and(subsetFilter(subset): _*))) ++ boundaryFilter(subset, parameters) ++ Seq(
       facet(
         Facet("factsTotalNodeCount", factsTotalNodeCountPipeline(subset, parameters): _*),
         Facet("facts", factsPipeline(subset, parameters): _*),
@@ -264,8 +269,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   }
 
   def countDocuments(subset: LocationSubset, parameters: LocationNodesParameters): Long = {
-    val filter = buildFilter(subset, parameters)
-    database.nodes.countDocuments(filter, log)
+    val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ boundaryFilter(subset, parameters) ++ Seq(count())
+    database.nodes.aggregate[CountResult](pipeline, log).map(_.count).sum
   }
 
   def find(
@@ -273,8 +278,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     parameters: LocationNodesParameters,
   ): Seq[LocationNodeInfo] = {
 
-    val pipeline = Seq(
-      filter(buildFilter(subset, parameters)),
+    val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ boundaryFilter(subset, parameters) ++ Seq(
       sort(orderBy(ascending("names.name", "_id"))),
       skip(parameters.pageSize.toInt * parameters.pageIndex.toInt),
       limit(parameters.pageSize.toInt),
@@ -321,7 +325,25 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     }
   }
 
-  private def mainFilters(subset: LocationSubset): Seq[Bson] = {
+  private def boundaryFilter(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+    if (subset.name == ParcDuVercors.name) {
+      Seq(
+        filter(
+          or(
+            not(in("labels", ParcDuVercors.partialCommunes.map(l => Label.location(l)): _*)),
+            and(
+              in("labels", ParcDuVercors.partialCommunes.map(l => Label.location(l)): _*),
+              geoIntersects("position", ParcDuVercors.boundaryBson)
+            )
+          )
+        )
+      )
+    } else {
+      Seq.empty
+    }
+  }
+
+  private def subsetFilter(subset: LocationSubset): Seq[Bson] = {
     Seq(
       equal("labels", Label.active),
       equal("labels", Label.networkType(subset.networkType)),
@@ -329,8 +351,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     )
   }
 
-  private def buildFilter(subset: LocationSubset, parameters: LocationNodesParameters): Bson = {
-    val filters: Seq[Bson] = mainFilters(subset) ++ allFilters(subset, parameters).flatten
+  private def nodeFilter(subset: LocationSubset, parameters: LocationNodesParameters): Bson = {
+    val filters: Seq[Bson] = subsetFilter(subset) ++ allFilters(subset, parameters).flatten
     and(filters: _*)
   }
 

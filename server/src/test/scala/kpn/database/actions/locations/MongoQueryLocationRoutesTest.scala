@@ -98,7 +98,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val subset = LocationSubset(NetworkType.hiking, Seq("essen"))
+      val subset = LocationSubset("", NetworkType.hiking, Seq("essen"))
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
       val locationRouteInfos = query.find(subset, LocationRoutesParameters(pageSize = 10))
 
@@ -183,7 +183,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      val subset = LocationSubset(NetworkType.hiking, Seq("be"))
+      val subset = LocationSubset("", NetworkType.hiking, Seq("be"))
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
       val options = query.filterOptions(subset, LocationRoutesParameters())
 
@@ -235,7 +235,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       setup.buildSurveyRoute(160, None)
 
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
-      val subset = LocationSubset(NetworkType.hiking, Seq("be"))
+      val subset = LocationSubset("", NetworkType.hiking, Seq("be"))
       val options = query.filterOptions(subset, LocationRoutesParameters())
 
       options.survey.shouldMatchTo(
@@ -265,7 +265,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       setup.buildPropsedRoute(20, proposed = false)
       setup.buildPropsedRoute(30, proposed = true)
 
-      val subset = LocationSubset(NetworkType.hiking, Seq("be"))
+      val subset = LocationSubset("", NetworkType.hiking, Seq("be"))
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
       val options = query.filterOptions(subset, LocationRoutesParameters())
 
@@ -297,7 +297,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
   }
 
   private def countDocuments(query: MongoQueryLocationRoutes): Long = {
-    val subset = LocationSubset(NetworkType.hiking, Seq("essen"))
+    val subset = LocationSubset("", NetworkType.hiking, Seq("essen"))
     query.countDocuments(subset, LocationRoutesParameters())
   }
 }
