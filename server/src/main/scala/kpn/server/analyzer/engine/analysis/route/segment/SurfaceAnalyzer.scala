@@ -57,13 +57,8 @@ object SurfaceAnalyzer {
     "bad",
     "clay",
     "cob",
-    "compact",
-    "erde",
-    "gr",
     "loam",
-    "peb",
     "soil",
-    "shotter",
     "rock",
     "turf"
   )
