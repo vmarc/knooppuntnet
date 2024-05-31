@@ -109,7 +109,9 @@ export class LocationMapService extends OpenlayersMapService {
     registry.register(urlLayerIds, OsmLayer.build(), false);
     registry.registerAll(urlLayerIds, networkLayers, true);
     registry.register(urlLayerIds, LocationBoundaryLayer.build(geoJson), true);
-    registry.register(urlLayerIds, LocationBoundaryLayer.build2(geoJson2), true);
+    if (geoJson2) {
+      registry.register(urlLayerIds, LocationBoundaryLayer.build2(geoJson2), true);
+    }
     this.register(registry);
   }
 
