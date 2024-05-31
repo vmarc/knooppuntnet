@@ -37,6 +37,10 @@ if (environment.production) {
       window.location.reload();
       return null;
     }
+    if (error && error.toString().includes("'text/html' is not a valid JavaScript MIME type.")) {
+      console.log("Do not report error: 'text/html' is not a valid JavaScript MIME type.");
+      return null;
+    }
     return event;
   };
 
