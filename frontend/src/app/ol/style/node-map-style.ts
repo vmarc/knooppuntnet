@@ -1,11 +1,10 @@
 import { StyleFunction } from 'ol/style/Style';
-import { green } from './main-style-colors';
 import { NodeStyle } from './node-style';
 import { nameStyle } from './node-style-builder';
 import { RouteStyle } from './route-style';
+import { StyleColor } from './style-color';
 
 export class NodeMapStyle {
-  private readonly smallNodeStyle = NodeStyle.smallGreen;
   private readonly nameStyle = nameStyle();
   private readonly routeStyle = new RouteStyle();
 
@@ -29,7 +28,7 @@ export class NodeMapStyle {
               title = name;
             }
 
-            const style = proposed ? NodeStyle.proposedLargeGreen : NodeStyle.largeGreen;
+            const style = proposed ? NodeStyle.defaultProposedLarge : NodeStyle.defaultLarge;
 
             style.getText().setText(title);
 
@@ -39,10 +38,10 @@ export class NodeMapStyle {
             }
             return style;
           }
-          return this.smallNodeStyle;
+          return NodeStyle.defaultSmall;
         }
 
-        return this.routeStyle.style(green, resolution, proposed);
+        return this.routeStyle.style(StyleColor.defaultColor, resolution, proposed);
       }
       return null;
     };

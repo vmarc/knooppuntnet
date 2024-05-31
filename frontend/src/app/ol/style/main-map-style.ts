@@ -6,6 +6,9 @@ import { MainMapRouteStyle } from './main-map-route-style';
 import { MainMapStyleParameters } from './main-map-style-parameters';
 
 export class MainMapStyle {
+  static readonly zIndexNode = 11;
+  static readonly zIndexRoute = 10;
+
   private readonly invisible = new Style({});
   private readonly mainMapNodeStyle: MainMapNodeStyle;
   private readonly mainMapRouteStyle: MainMapRouteStyle;

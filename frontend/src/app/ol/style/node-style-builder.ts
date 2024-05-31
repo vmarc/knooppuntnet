@@ -4,11 +4,13 @@ import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import Text from 'ol/style/Text';
-import { proposedWhite } from './main-style-colors';
-import { white } from './main-style-colors';
+import { MainMapStyle } from './main-map-style';
+import { proposedWhite } from './style-color';
+import { white } from './style-color';
 
 export const nameStyle = (): Style =>
   new Style({
+    zIndex: MainMapStyle.zIndexNode,
     text: new Text({
       text: '',
       textAlign: 'center',
@@ -27,6 +29,7 @@ export const nameStyle = (): Style =>
 
 export const small = (color: Color): Style => {
   return new Style({
+    zIndex: MainMapStyle.zIndexNode,
     image: new Circle({
       radius: 3,
       fill: new Fill({
@@ -53,6 +56,7 @@ const buildLarge = (color: Color, proposed: boolean): Style => {
   const lineDash = proposed ? [3, 6] : null;
 
   return new Style({
+    zIndex: MainMapStyle.zIndexNode,
     image: new Circle({
       radius: 14,
       fill: new Fill({

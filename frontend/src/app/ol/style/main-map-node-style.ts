@@ -3,9 +3,9 @@ import Circle from 'ol/style/Circle';
 import Fill from 'ol/style/Fill';
 import Style from 'ol/style/Style';
 import { MainMapStyleParameters } from './main-map-style-parameters';
-import { yellow } from './main-style-colors';
 import { NodeStyle } from './node-style';
 import { nameStyle } from './node-style-builder';
+import { StyleColor } from './style-color';
 import { SurveyDateStyle } from './survey-date-style';
 
 export class MainMapNodeStyle {
@@ -95,59 +95,25 @@ export class MainMapNodeStyle {
 
     if (parameters.mapMode === 'surface') {
       if (proposed) {
-        style = NodeStyle.proposedLargeGreen;
+        style = NodeStyle.surfaceProposedLarge;
       } else {
-        style = NodeStyle.largeGreen;
+        style = NodeStyle.surfaceLarge;
       }
     } else if (parameters.mapMode === 'survey') {
-      style = NodeStyle.largeSurveyUnknown;
-      const survey = feature.get('survey');
-      if (survey) {
-        if (survey > parameters.surveyDateValues.lastMonthStart) {
-          if (proposed) {
-            style = NodeStyle.proposedLargeLightGreen;
-          } else {
-            style = NodeStyle.largeSurveyLastMonth;
-          }
-        } else if (survey > parameters.surveyDateValues.lastHalfYearStart) {
-          if (proposed) {
-            style = NodeStyle.proposedLargeGreen;
-          } else {
-            style = NodeStyle.largeSurveyLastHalfYearStart;
-          }
-        } else if (survey > parameters.surveyDateValues.lastYearStart) {
-          if (proposed) {
-            style = NodeStyle.proposedLargeDarkGreen;
-          } else {
-            style = NodeStyle.largeSurveyLastYearStart;
-          }
-        } else if (survey > parameters.surveyDateValues.lastTwoYearsStart) {
-          if (proposed) {
-            style = NodeStyle.proposedLargeVeryDarkGreen;
-          } else {
-            style = NodeStyle.largeSurveyLastTwoYearsStart;
-          }
-        } else {
-          if (proposed) {
-            style = NodeStyle.proposedLargeDarkRed;
-          } else {
-            style = NodeStyle.largeSurveyOlder;
-          }
-        }
-      }
+      style = SurveyDateStyle.largeNodeStyle(feature, parameters, proposed);
     } else if (parameters.mapMode === 'analysis') {
       const layer = feature.get('layer');
       if ('error-node' === layer) {
         if (proposed) {
-          style = NodeStyle.proposedLargeBlue;
+          style = NodeStyle.analysisErrorProposedLarge;
         } else {
-          style = NodeStyle.largeBlue;
+          style = NodeStyle.analysisErrorLarge;
         }
       } else {
         if (proposed) {
-          style = NodeStyle.proposedLargeGreen;
+          style = NodeStyle.analysisOkProposedLarge;
         } else {
-          style = NodeStyle.largeGreen;
+          style = NodeStyle.analysisOkLarge;
         }
       }
     }
@@ -159,9 +125,9 @@ export class MainMapNodeStyle {
   private determineSmallNodeStyle(parameters: MainMapStyleParameters, feature: FeatureLike): Style {
     let style = NodeStyle.smallGray;
     if (parameters.mapMode === 'surface') {
-      style = NodeStyle.smallGreen;
+      style = NodeStyle.surfaceSmall;
     } else if (parameters.mapMode === 'survey') {
-      style = SurveyDateStyle.smallNodeStyle(parameters.surveyDateValues, feature);
+      style = SurveyDateStyle.smallNodeStyle(feature, parameters);
     } else if (parameters.mapMode === 'analysis') {
       style = this.smallNodeStyleAnalysis(feature);
     }
@@ -173,7 +139,7 @@ export class MainMapNodeStyle {
       image: new Circle({
         radius,
         fill: new Fill({
-          color: yellow,
+          color: StyleColor.selected,
         }),
       }),
     });
@@ -183,9 +149,9 @@ export class MainMapNodeStyle {
     const layer = feature.get('layer');
     let style: Style;
     if ('error-node' === layer) {
-      style = NodeStyle.smallRed;
+      style = NodeStyle.analysisErrorSmall;
     } else {
-      style = NodeStyle.smallGreen;
+      style = NodeStyle.analysisOkSmall;
     }
     return style;
   }

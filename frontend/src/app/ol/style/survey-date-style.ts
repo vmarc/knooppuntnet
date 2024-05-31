@@ -2,48 +2,90 @@ import { SurveyDateValues } from '@app/core';
 import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import { Style } from 'ol/style';
-import { surveyOlder } from './main-style-colors';
-import { surveyLastTwoYearsStart } from './main-style-colors';
-import { surveyLastYearStart } from './main-style-colors';
-import { surveyLastMonth } from './main-style-colors';
-import { surveyLastHalfYearStart } from './main-style-colors';
-import { surveyUnknown } from './main-style-colors';
+import { MainMapStyleParameters } from './main-map-style-parameters';
 import { NodeStyle } from './node-style';
+import { StyleColor } from './style-color';
 
 export class SurveyDateStyle {
   static surveyColor(surveyDateValues: SurveyDateValues, feature: FeatureLike): Color {
-    let color = surveyUnknown; // survey date unknown
+    let color = StyleColor.surveyUnknown;
     const survey = feature.get('survey');
     if (survey) {
       if (survey > surveyDateValues.lastMonthStart) {
-        color = surveyLastMonth;
+        color = StyleColor.surveyLastMonth;
       } else if (survey > surveyDateValues.lastHalfYearStart) {
-        color = surveyLastHalfYearStart;
+        color = StyleColor.surveyLastHalfYearStart;
       } else if (survey > surveyDateValues.lastYearStart) {
-        color = surveyLastYearStart;
+        color = StyleColor.surveyLastYearStart;
       } else if (survey > surveyDateValues.lastTwoYearsStart) {
-        color = surveyLastTwoYearsStart;
+        color = StyleColor.surveyLastTwoYearsStart;
       } else {
-        color = surveyOlder;
+        color = StyleColor.surveyOlder;
       }
     }
     return color;
   }
 
-  static smallNodeStyle(surveyDateValues: SurveyDateValues, feature: FeatureLike): Style {
-    let style = NodeStyle.smallSurveyUnknown; // survey date unknown
+  static largeNodeStyle(
+    feature: FeatureLike,
+    parameters: MainMapStyleParameters,
+    proposed: boolean
+  ): Style {
+    let style = NodeStyle.surveyUnknownLarge;
+    if (proposed) {
+      style = NodeStyle.surveyUnknownProposedLarge;
+    }
     const survey = feature.get('survey');
     if (survey) {
-      if (survey > surveyDateValues.lastMonthStart) {
-        style = NodeStyle.smallSurveyLastMonth;
-      } else if (survey > surveyDateValues.lastHalfYearStart) {
-        style = NodeStyle.smallSurveyLastHalfYearStart;
-      } else if (survey > surveyDateValues.lastYearStart) {
-        style = NodeStyle.smallSurveyLastYearStart;
-      } else if (survey > surveyDateValues.lastTwoYearsStart) {
-        style = NodeStyle.smallSurveyLastTwoYearsStart;
+      if (survey > parameters.surveyDateValues.lastMonthStart) {
+        if (proposed) {
+          style = NodeStyle.surveyLastMonthProposedLarge;
+        } else {
+          style = NodeStyle.surveyLastMonthLarge;
+        }
+      } else if (survey > parameters.surveyDateValues.lastHalfYearStart) {
+        if (proposed) {
+          style = NodeStyle.surveyLastHalfYearStartProposedLarge;
+        } else {
+          style = NodeStyle.surveyLastHalfYearStartLarge;
+        }
+      } else if (survey > parameters.surveyDateValues.lastYearStart) {
+        if (proposed) {
+          style = NodeStyle.surveyLastYearStartProposedLarge;
+        } else {
+          style = NodeStyle.surveyLastYearStartLarge;
+        }
+      } else if (survey > parameters.surveyDateValues.lastTwoYearsStart) {
+        if (proposed) {
+          style = NodeStyle.surveyLastTwoYearsStartProposedLarge;
+        } else {
+          style = NodeStyle.surveyLastTwoYearsStartLarge;
+        }
       } else {
-        style = NodeStyle.smallSurveyOlder;
+        if (proposed) {
+          style = NodeStyle.surveyOlderProposedLarge;
+        } else {
+          style = NodeStyle.surveyOlderLarge;
+        }
+      }
+    }
+    return style;
+  }
+
+  static smallNodeStyle(feature: FeatureLike, parameters: MainMapStyleParameters): Style {
+    let style = NodeStyle.surveyUnknownSmall; // survey date unknown
+    const survey = feature.get('survey');
+    if (survey) {
+      if (survey > parameters.surveyDateValues.lastMonthStart) {
+        style = NodeStyle.surveyLastMonthSmall;
+      } else if (survey > parameters.surveyDateValues.lastHalfYearStart) {
+        style = NodeStyle.surveyLastHalfYearStartSmall;
+      } else if (survey > parameters.surveyDateValues.lastYearStart) {
+        style = NodeStyle.surveyLastYearStartSmall;
+      } else if (survey > parameters.surveyDateValues.lastTwoYearsStart) {
+        style = NodeStyle.surveyLastTwoYearsStartSmall;
+      } else {
+        style = NodeStyle.surveyOlderSmall;
       }
     }
     return style;

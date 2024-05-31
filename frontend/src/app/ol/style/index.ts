@@ -3,7 +3,7 @@ export * from './route-style';
 export * from './poi-style-map';
 export * from './main-map-style';
 export * from './node-map-style';
-export * from './main-style-colors';
+export * from './style-color';
 export * from './osm-liberty-style';
 export * from './survey-date-style';
 export * from './node-style-builder';

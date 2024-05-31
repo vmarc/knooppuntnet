@@ -17,19 +17,19 @@ import { LegendIconComponent } from './legend-icon.component';
         @if (mapMode === 'surface') {
           <div class="legend">
             <div>
-              <kpn-legend-icon color="rgb(0, 200, 0)" />
+              <kpn-legend-icon color="rgba(0, 96, 255)" />
               <span i18n="@@planner.legend.paved">Paved</span>
             </div>
             <div>
-              <kpn-legend-icon color="rgb(255, 165, 0)" />
+              <kpn-legend-icon color="rgb(0, 240, 0)" />
               <span i18n="@@planner.legend.unpaved">Unpaved</span>
             </div>
             <div>
-              <kpn-legend-icon color="rgb(0, 0, 200)" />
+              <kpn-legend-icon color="rgb(255, 176, 0)" />
               <span i18n="@@planner.legend.surface-unknown">Surface unknown</span>
             </div>
             <div>
-              <kpn-legend-icon color="rgb(0, 200, 0)" [proposed]="true" />
+              <kpn-legend-icon color="rgb(0, 96, 255)" [proposed]="true" />
               <span i18n="@@planner.legend.proposed">Proposed</span>
             </div>
           </div>

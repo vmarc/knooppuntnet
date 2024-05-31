@@ -1,7 +1,6 @@
 import { Color } from 'ol/color';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import { green } from './main-style-colors';
 
 export class RouteStyle {
   private defaultRouteStyle = this.initRouteStyle();
@@ -30,7 +29,7 @@ export class RouteStyle {
   private initRouteStyle() {
     return new Style({
       stroke: new Stroke({
-        color: green,
+        color: [0, 0, 0],
         width: 1,
       }),
     });

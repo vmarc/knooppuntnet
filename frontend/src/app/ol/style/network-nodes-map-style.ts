@@ -1,15 +1,12 @@
 import { FeatureLike } from 'ol/Feature';
 import { Style } from 'ol/style';
 import { StyleFunction } from 'ol/style/Style';
-import { gray } from './main-style-colors';
-import { green } from './main-style-colors';
 import { NodeStyle } from './node-style';
 import { nameStyle } from './node-style-builder';
 import { RouteStyle } from './route-style';
+import { StyleColor } from './style-color';
 
 export class NetworkNodesMapStyle {
-  private readonly smallNodeStyle = NodeStyle.smallGreen;
-  private readonly smallNodeStyleGray = NodeStyle.smallGray;
   private readonly nameStyle = nameStyle();
 
   private readonly routeStyle = new RouteStyle();
@@ -44,15 +41,15 @@ export class NetworkNodesMapStyle {
       let style: Style;
       if (this.networkNodeIds.includes(nodeId)) {
         if (proposed) {
-          style = NodeStyle.proposedLargeGreen;
+          style = NodeStyle.networkInProposedLarge;
         } else {
-          style = NodeStyle.largeGreen;
+          style = NodeStyle.networkInLarge;
         }
       } else {
         if (proposed) {
-          style = NodeStyle.proposedLargeGray;
+          style = NodeStyle.networkOutProposedLarge;
         } else {
-          style = NodeStyle.largeGray;
+          style = NodeStyle.networkOutLarge;
         }
       }
       style.getText().setText(ref);
@@ -67,13 +64,17 @@ export class NetworkNodesMapStyle {
       }
       return style;
     }
-    return this.networkNodeIds.includes(nodeId) ? this.smallNodeStyle : this.smallNodeStyleGray;
+    return this.networkNodeIds.includes(nodeId)
+      ? NodeStyle.networkInSmall
+      : NodeStyle.networkOutSmall;
   }
 
   private buildRouteStyle(feature: FeatureLike, resolution: number): Style {
     const featureId = feature.get('id');
     const routeId = +featureId.substring(0, featureId.indexOf('-'));
-    const routeColor = this.networkRouteIds.includes(routeId) ? green : gray;
+    const routeColor = this.networkRouteIds.includes(routeId)
+      ? StyleColor.networkIn
+      : StyleColor.networkOut;
     const proposed = feature.get('state') === 'proposed';
     return this.routeStyle.style(routeColor, resolution, proposed);
   }

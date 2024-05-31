@@ -1,62 +1,57 @@
-import { surveyUnknownNode } from './main-style-colors';
-import { surveyOlder } from './main-style-colors';
-import { surveyLastTwoYearsStart } from './main-style-colors';
-import { surveyLastYearStart } from './main-style-colors';
-import { surveyLastHalfYearStart } from './main-style-colors';
-import { surveyLastMonth } from './main-style-colors';
-import { darkBlue } from './main-style-colors';
-import { blue } from './main-style-colors';
-import { gray } from './main-style-colors';
-import { darkRed } from './main-style-colors';
-import { red } from './main-style-colors';
-import { veryDarkGreen } from './main-style-colors';
-import { darkGreen } from './main-style-colors';
-import { green } from './main-style-colors';
-import { lightGreen } from './main-style-colors';
 import { proposedLarge } from './node-style-builder';
 import { large } from './node-style-builder';
 import { small } from './node-style-builder';
+import { StyleColor } from './style-color';
 
 export class NodeStyle {
-  static readonly smallLightGreen = small(lightGreen);
-  static readonly smallGreen = small(green);
-  static readonly smallDarkGreen = small(darkGreen);
-  static readonly smallVeryDarkGreen = small(veryDarkGreen);
-  static readonly smallRed = small(red);
-  static readonly smallDarkRed = small(darkRed);
-  static readonly smallGray = small(gray);
-  static readonly smallBlue = small(blue);
-  static readonly smallDarkBlue = small(darkBlue);
+  static readonly defaultSmall = small(StyleColor.defaultColor);
+  static readonly defaultLarge = large(StyleColor.defaultColor);
+  static readonly defaultProposedLarge = proposedLarge(StyleColor.defaultColor);
 
-  static readonly largeGreen = large(green);
-  static readonly largeGray = large(gray);
-  static readonly largeLightGreen = large(lightGreen);
-  static readonly largeDarkGreen = large(darkGreen);
-  static readonly largeVeryDarkGreen = large(veryDarkGreen);
-  static readonly largeDarkRed = large(darkRed);
-  static readonly largeBlue = large(blue);
-  static readonly largeDarkBlue = large(darkBlue);
+  static readonly surfaceLarge = large(StyleColor.surfacePaved);
+  static readonly surfaceSmall = small(StyleColor.surfacePaved);
+  static readonly surfaceProposedLarge = proposedLarge(StyleColor.surfacePaved);
 
-  static readonly proposedLargeGreen = proposedLarge(green);
-  static readonly proposedLargeGray = proposedLarge(gray);
-  static readonly proposedLargeLightGreen = proposedLarge(lightGreen);
-  static readonly proposedLargeDarkGreen = proposedLarge(darkGreen);
-  static readonly proposedLargeVeryDarkGreen = proposedLarge(veryDarkGreen);
-  static readonly proposedLargeDarkRed = proposedLarge(darkRed);
-  static readonly proposedLargeBlue = proposedLarge(blue);
-  static readonly proposedLargeDarkBlue = proposedLarge(darkBlue);
+  static readonly surveyUnknownSmall = small(StyleColor.surveyUnknownNode);
+  static readonly surveyLastMonthSmall = small(StyleColor.surveyLastMonth);
+  static readonly surveyLastHalfYearStartSmall = small(StyleColor.surveyLastHalfYearStart);
+  static readonly surveyLastYearStartSmall = small(StyleColor.surveyLastYearStart);
+  static readonly surveyLastTwoYearsStartSmall = small(StyleColor.surveyLastTwoYearsStart);
+  static readonly surveyOlderSmall = small(StyleColor.surveyOlder);
 
-  static readonly smallSurveyUnknown = small(surveyUnknownNode);
-  static readonly smallSurveyLastMonth = small(surveyLastMonth);
-  static readonly smallSurveyLastHalfYearStart = small(surveyLastHalfYearStart);
-  static readonly smallSurveyLastYearStart = small(surveyLastYearStart);
-  static readonly smallSurveyLastTwoYearsStart = small(surveyLastTwoYearsStart);
-  static readonly smallSurveyOlder = small(surveyOlder);
+  static readonly surveyUnknownLarge = large(StyleColor.surveyUnknownNode);
+  static readonly surveyLastMonthLarge = large(StyleColor.surveyLastMonth);
+  static readonly surveyLastHalfYearStartLarge = large(StyleColor.surveyLastHalfYearStart);
+  static readonly surveyLastYearStartLarge = large(StyleColor.surveyLastYearStart);
+  static readonly surveyLastTwoYearsStartLarge = large(StyleColor.surveyLastTwoYearsStart);
+  static readonly surveyOlderLarge = large(StyleColor.surveyOlder);
 
-  static readonly largeSurveyUnknown = large(surveyUnknownNode);
-  static readonly largeSurveyLastMonth = large(surveyLastMonth);
-  static readonly largeSurveyLastHalfYearStart = large(surveyLastHalfYearStart);
-  static readonly largeSurveyLastYearStart = large(surveyLastYearStart);
-  static readonly largeSurveyLastTwoYearsStart = large(surveyLastTwoYearsStart);
-  static readonly largeSurveyOlder = large(surveyOlder);
+  static readonly surveyUnknownProposedLarge = proposedLarge(StyleColor.surveyUnknownNode);
+  static readonly surveyLastMonthProposedLarge = proposedLarge(StyleColor.surveyLastMonth);
+  static readonly surveyLastHalfYearStartProposedLarge = proposedLarge(
+    StyleColor.surveyLastHalfYearStart
+  );
+  static readonly surveyLastYearStartProposedLarge = proposedLarge(StyleColor.surveyLastYearStart);
+  static readonly surveyLastTwoYearsStartProposedLarge = proposedLarge(
+    StyleColor.surveyLastTwoYearsStart
+  );
+  static readonly surveyOlderProposedLarge = proposedLarge(StyleColor.surveyOlder);
+
+  static readonly analysisOkSmall = small(StyleColor.analysisOk);
+  static readonly analysisErrorSmall = small(StyleColor.analysisError);
+  static readonly analysisOkLarge = large(StyleColor.analysisOk);
+  static readonly analysisErrorLarge = large(StyleColor.analysisError);
+  static readonly analysisOkProposedLarge = proposedLarge(StyleColor.analysisOk);
+  static readonly analysisErrorProposedLarge = proposedLarge(StyleColor.analysisError);
+
+  static readonly networkInSmall = small(StyleColor.networkIn);
+  static readonly networkOutSmall = small(StyleColor.networkOut);
+  static readonly networkInLarge = large(StyleColor.networkIn);
+  static readonly networkInProposedLarge = proposedLarge(StyleColor.networkIn);
+  static readonly networkOutLarge = large(StyleColor.networkOut);
+  static readonly networkOutProposedLarge = proposedLarge(StyleColor.networkOut);
+
+  static readonly smallGray = small(StyleColor.gray);
+  static readonly largeGray = large(StyleColor.gray);
+  static readonly proposedLargeGray = proposedLarge(StyleColor.gray);
 }

@@ -2,17 +2,10 @@ import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
+import { MainMapStyle } from './main-map-style';
 import { MainMapStyleParameters } from './main-map-style-parameters';
-import { surfaceUnknownColor } from './main-style-colors';
-import { proposedSurfaceUnknownColor } from './main-style-colors';
-import { proposedUnpavedColor } from './main-style-colors';
-import { proposedColor } from './main-style-colors';
-import { red } from './main-style-colors';
-import { orange } from './main-style-colors';
-import { gray } from './main-style-colors';
-import { yellow } from './main-style-colors';
-import { green } from './main-style-colors';
 import { RouteStyle } from './route-style';
+import { StyleColor } from './style-color';
 import { SurveyDateStyle } from './survey-date-style';
 
 export class MainMapRouteStyle {
@@ -57,15 +50,16 @@ export class MainMapRouteStyle {
 
   private initRouteSelectedStyle(): Style {
     return new Style({
+      zIndex: MainMapStyle.zIndexRoute,
       stroke: new Stroke({
-        color: yellow,
+        color: StyleColor.selected,
         width: 14,
       }),
     });
   }
 
   private routeColor(parameters: MainMapStyleParameters, feature: FeatureLike): Color {
-    let color = gray;
+    let color = StyleColor.gray;
     if (parameters.mapMode === 'surface') {
       color = this.routeColorSurface(feature);
     } else if (parameters.mapMode === 'survey') {
@@ -77,25 +71,12 @@ export class MainMapRouteStyle {
   }
 
   private routeColorSurface(feature: FeatureLike): Color {
-    const proposed = feature.get('state') === 'proposed';
     const surface = feature.get('surface');
-    let color = green;
+    let color = StyleColor.surfacePaved;
     if ('unpaved' === surface) {
-      if (proposed) {
-        color = proposedUnpavedColor;
-      } else {
-        color = orange;
-      }
+      color = StyleColor.surfaceUnpaved;
     } else if ('unknown' === surface) {
-      if (proposed) {
-        color = proposedSurfaceUnknownColor;
-      } else {
-        color = surfaceUnknownColor;
-      }
-    } else {
-      if (proposed) {
-        color = proposedColor;
-      }
+      color = StyleColor.surfaceUnknown;
     }
     return color;
   }
@@ -106,13 +87,13 @@ export class MainMapRouteStyle {
 
   private routeColorAnalysis(feature: FeatureLike): Color {
     const layer = feature.get('layer');
-    let color = gray;
+    let color = StyleColor.gray;
     if ('route' === layer) {
-      color = green;
+      color = StyleColor.analysisOk;
     } else if ('incomplete-route' === layer) {
-      color = red;
+      color = StyleColor.analysisError;
     } else if ('error-route' === layer) {
-      color = red;
+      color = StyleColor.analysisError;
     }
     return color;
   }
