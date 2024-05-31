@@ -6,6 +6,8 @@ import { Version } from '@app/services';
 
 import { Breadcrumb } from '@sentry/angular';
 import { BreadcrumbHint } from '@sentry/angular';
+import { ErrorEvent } from '@sentry/angular';
+import { EventHint } from '@sentry/angular';
 import * as Sentry from '@sentry/angular';
 import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
@@ -23,18 +25,20 @@ if (environment.production) {
     return breadcrumb;
   };
 
-  // const beforeSend = (event: ErrorEvent, hint: EventHint): ErrorEvent | PromiseLike<ErrorEvent> => {
-  //   const headersString = JSON.stringify(event?.request?.headers);
-  //   if (headersString.includes('PetalBot')) {
-  //     return null;
-  //   }
-  //   const error = hint.originalException;
-  //   if (error && error.toString().includes('ChunkLoadError')) {
-  //     window.location.reload();
-  //     return null;
-  //   }
-  //   return event;
-  // };
+  const beforeSend = (event: ErrorEvent, hint: EventHint): ErrorEvent | PromiseLike<ErrorEvent> => {
+    // Failed to fetch dynamically imported module
+    const headersString = JSON.stringify(event?.request?.headers);
+    if (headersString.includes('PetalBot')) {
+      return null;
+    }
+    const error = hint.originalException;
+    if (error && error.toString().includes('Failed to fetch dynamically imported module')) {
+      console.log('reloading after failing to fetch dynamically imported module');
+      window.location.reload();
+      return null;
+    }
+    return event;
+  };
 
   Sentry.init({
     dsn: 'https://7c2405aac72d47e9b5e5d3fd2ca97a66@o458355.ingest.sentry.io/5455899',
@@ -42,7 +46,7 @@ if (environment.production) {
     maxValueLength: 500,
     release: Version.id,
     beforeBreadcrumb,
-    // beforeSend,
+    beforeSend,
   });
   enableProdMode();
 }
