@@ -62,11 +62,8 @@ export class PlannerPageService {
   }
 
   onInit(): void {
-    this.pageService.setToolbarBackgroundColor(
-      'toolbar-style-' + this.plannerStateService.networkType()
-    );
-
     const networkType = this.plannerStateService.networkType();
+    this.pageService.setNetworkType(networkType);
     const planString = this.routerService.queryParam('plan');
     if (planString) {
       const planParams: PlanParams = {
@@ -88,6 +85,7 @@ export class PlannerPageService {
     this.plannerStateService.setNetworkType(networkType);
     this.plannerService.context.setNetworkType(networkType);
     this.plannerMapService.networkTypeChanged(networkType);
+    this.pageService.setNetworkType(networkType);
   }
 
   setMapMode(mapMode: MapMode): void {
@@ -105,7 +103,7 @@ export class PlannerPageService {
 
   onDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.pageService.setToolbarBackgroundColor(null);
+    this.pageService.setNetworkType(null);
     this.plannerService.context.destroy();
     this.plannerMapService.destroy();
   }
