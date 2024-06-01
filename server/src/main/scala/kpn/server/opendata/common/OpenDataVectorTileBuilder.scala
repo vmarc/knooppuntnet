@@ -22,7 +22,7 @@ class OpenDataVectorTileBuilder {
         "name" -> node.name,
       ).toMap
 
-      encoder.addPointFeature("node", userData, point)
+      encoder.addPointFeature("opendata-node", userData, point)
     }
 
     routes.foreach { route =>
@@ -33,7 +33,7 @@ class OpenDataVectorTileBuilder {
       val userData = Seq(
         "id" -> route._id,
       ).toMap
-      encoder.addLineStringFeature("route", userData, lineString)
+      encoder.addLineStringFeature("opendata-route", userData, lineString)
     }
 
     encoder.encode

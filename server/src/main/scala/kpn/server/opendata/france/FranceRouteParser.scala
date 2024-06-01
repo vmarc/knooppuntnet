@@ -16,7 +16,7 @@ class FranceRouteParser {
 
   private def read(geopackageFile: File): Seq[OpenDataRoute] = {
     val rows = readRows(geopackageFile)
-    val networkRows = rows.filterNot(horsReseau)
+    val networkRows = rows.filterNot(exclude)
     networkRows.flatMap { row =>
       val fid = row.getValue("fid")
       val geometry = row.getGeometry.getGeometry
@@ -47,7 +47,8 @@ class FranceRouteParser {
     }
   }
 
-  private def horsReseau(row: FeatureRow): Boolean = {
-    FranceUtil.routeNames(row) == Seq("hr")
+  private def exclude(row: FeatureRow): Boolean = {
+    val routeNames = FranceUtil.routeNames(row)
+    routeNames == Seq("hr") || routeNames == Seq("via_smv") || routeNames.forall(name => name.startsWith("_pjt_"))
   }
 }

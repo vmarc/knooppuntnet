@@ -129,11 +129,15 @@ export class MapClickService {
 
   private isNode(feature: FeatureLike): boolean {
     const layer = feature.get('layer');
-    return layer && (layer.endsWith('node') || layer === 'node-marker');
+    return (
+      layer &&
+      (layer.endsWith('node') || layer === 'node-marker') &&
+      !layer.endsWith('opendata-node')
+    );
   }
 
   private isRoute(feature: FeatureLike): boolean {
     const layer = feature.get('layer');
-    return layer && layer.endsWith('route');
+    return layer && layer.endsWith('route') && !layer.endsWith('opendata-route');
   }
 }

@@ -61,7 +61,7 @@ export class Features {
         const flagType = feature.get('flag-type');
         return new FlagFeature(flagType, id);
       }
-      if (layer.endsWith('node')) {
+      if (layer.endsWith('node') && !layer.endsWith('opendata-node')) {
         const nodeId = feature.get('id');
         const proposed = feature.get('state') === 'proposed';
         let nodeRef = feature.get('ref');
@@ -94,7 +94,7 @@ export class Features {
         return new PoiFeature(poiId, layerType, layer, coordinate);
       }
 
-      if (layer.endsWith('route')) {
+      if (layer.endsWith('route') && !layer.endsWith('opendata-route')) {
         const segmentId = feature.get('id');
         const routeName = feature.get('name');
         const oneWay = feature.get('oneway') === 'true';
