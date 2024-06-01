@@ -22,5 +22,6 @@ export * from './network-vector-tile-layer';
 export * from './network-nodes-marker-layer';
 export * from './opendata-bitmap-tile-layer';
 export * from './opendata-vector-tile-layer';
+export * from './open-data-layers';
 export * from './network-nodes-bitmap-tile-layer';
 export * from './network-nodes-vector-tile-layer';

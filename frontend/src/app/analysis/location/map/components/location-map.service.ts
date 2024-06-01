@@ -3,13 +3,14 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
-import { LocationKey } from '@api/custom';
 import { NetworkType } from '@api/custom';
+import { LocationKey } from '@api/custom';
 import { Util } from '@app/components/shared';
 import { SurveyDateValues } from '@app/core';
 import { CachedMapPosition } from '@app/ol/domain';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
+import { OpenDataLayers } from '@app/ol/layers';
 import { BackgroundLayer } from '@app/ol/layers';
 import { OsmLayer } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
@@ -112,6 +113,7 @@ export class LocationMapService extends OpenlayersMapService {
     if (geoJson2) {
       registry.register(urlLayerIds, LocationBoundaryLayer.build2(geoJson2), true);
     }
+    OpenDataLayers.register(registry, networkType, urlLayerIds);
     this.register(registry);
   }
 

@@ -4,6 +4,7 @@ import { RouteMapInfo } from '@api/common/route';
 import { OlUtil } from '@app/ol';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
+import { OpenDataLayers } from '@app/ol/layers';
 import { BackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { MapLayerRegistry } from '@app/ol/layers';
@@ -73,6 +74,7 @@ export class RouteMapService extends OpenlayersMapService {
     registry.register(urlLayerIds, OsmLayer.build(), false);
     registry.register(urlLayerIds, networkVectorTileLayer, true);
     routeLayers.forEach((mapLayer) => registry.register(urlLayerIds, mapLayer, true));
+    OpenDataLayers.register(registry, routeMapInfo.networkType, urlLayerIds);
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);
 
     this.register(registry);

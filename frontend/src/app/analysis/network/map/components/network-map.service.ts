@@ -5,6 +5,7 @@ import { NetworkMapPage } from '@api/common/network';
 import { Util } from '@app/components/shared';
 import { CachedMapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
+import { OpenDataLayers } from '@app/ol/layers';
 import { BackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { MapLayerRegistry } from '@app/ol/layers';
@@ -97,6 +98,7 @@ export class NetworkMapService extends OpenlayersMapService {
     ];
     registry.registerAll(urlLayerIds, networkNodesLayers, true);
     registry.register(urlLayerIds, NetworkNodesMarkerLayer.build(page.nodes), true);
+    OpenDataLayers.register(registry, page.summary.networkType, urlLayerIds);
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);
     this.register(registry);
   }

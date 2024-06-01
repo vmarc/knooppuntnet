@@ -3,10 +3,9 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NetworkType } from '@api/custom';
 import { NetworkTypes } from '@app/kpn/common';
+import { OpenDataLayers } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
 import { NetworkBitmapTileLayer } from '@app/ol/layers';
-import { OpendataVectorTileLayer } from '@app/ol/layers';
-import { OpendataBitmapTileLayer } from '@app/ol/layers';
 import { MapLayer } from '@app/ol/layers';
 import { TileDebug512Layer } from '@app/ol/layers';
 import { TileDebug256Layer } from '@app/ol/layers';
@@ -34,35 +33,35 @@ export class PlannerMapLayerService {
 
     registry.registerAll(
       urlLayerIds,
-      this.flandersOpenDataHikingLayers(),
+      OpenDataLayers.flandersHiking(),
       false,
       networkType === NetworkType.hiking
     );
 
     registry.registerAll(
       urlLayerIds,
-      this.flandersOpenDataCyclingLayers(),
+      OpenDataLayers.flandersCycling(),
       false,
       networkType === NetworkType.cycling
     );
 
     registry.registerAll(
       urlLayerIds,
-      this.netherlandsHikingOpenDataLayers(),
+      OpenDataLayers.netherlandsHiking(),
       false,
       networkType === NetworkType.hiking
     );
 
     registry.registerAll(
       urlLayerIds,
-      this.netherlandsCyclingOpenDataLayers(),
+      OpenDataLayers.netherlandsCycling(),
       false,
       networkType === NetworkType.cycling
     );
 
     registry.registerAll(
       urlLayerIds,
-      this.franceHikingOpenDataLayers(),
+      OpenDataLayers.franceHiking(),
       false,
       networkType === NetworkType.hiking
     );
@@ -86,76 +85,6 @@ export class PlannerMapLayerService {
     registry.register(urlLayerIds, this.poiTileLayerService.buildLayer(), poiDefaultVisible, true);
 
     return registry;
-  }
-
-  private flandersOpenDataHikingLayers(): MapLayer[] {
-    const name = $localize`:@@map.layer.flanders-hiking:Toerisme Vlaanderen`;
-    return [
-      OpendataBitmapTileLayer.build(NetworkType.hiking, 'flanders-hiking', name, 'flanders/hiking'),
-      OpendataVectorTileLayer.build(NetworkType.hiking, 'flanders-hiking', name, 'flanders/hiking'),
-    ];
-  }
-
-  private flandersOpenDataCyclingLayers(): MapLayer[] {
-    const name = $localize`:@@map.layer.flanders-cycling:Toerisme Vlaanderen`;
-    return [
-      OpendataBitmapTileLayer.build(
-        NetworkType.cycling,
-        'flanders-cycling',
-        name,
-        'flanders/cycling'
-      ),
-      OpendataVectorTileLayer.build(
-        NetworkType.cycling,
-        'flanders-cycling',
-        name,
-        'flanders/cycling'
-      ),
-    ];
-  }
-
-  private netherlandsHikingOpenDataLayers(): MapLayer[] {
-    const name = $localize`:@@map.layer.netherlands-hiking:Netherlands routedatabank`;
-    return [
-      OpendataBitmapTileLayer.build(
-        NetworkType.hiking,
-        'netherlands-hiking',
-        name,
-        'netherlands/hiking'
-      ),
-      OpendataVectorTileLayer.build(
-        NetworkType.hiking,
-        'netherlands-hiking',
-        name,
-        'netherlands/hiking'
-      ),
-    ];
-  }
-
-  private netherlandsCyclingOpenDataLayers(): MapLayer[] {
-    const name = $localize`:@@map.layer.netherlands-cycling:Netherlands routedatabank`;
-    return [
-      OpendataBitmapTileLayer.build(
-        NetworkType.cycling,
-        'netherlands-cycling',
-        name,
-        'netherlands/cycling'
-      ),
-      OpendataVectorTileLayer.build(
-        NetworkType.cycling,
-        'netherlands-cycling',
-        name,
-        'netherlands/cycling'
-      ),
-    ];
-  }
-
-  private franceHikingOpenDataLayers(): MapLayer[] {
-    const name = $localize`:@@map.layer.france-hiking:Parc du Vercors`;
-    return [
-      OpendataBitmapTileLayer.build(NetworkType.hiking, 'france-hiking', name, 'france/hiking'),
-      OpendataVectorTileLayer.build(NetworkType.hiking, 'france-hiking', name, 'france/hiking'),
-    ];
   }
 
   private networkLayers(

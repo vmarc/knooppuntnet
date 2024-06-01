@@ -6985,7 +6985,7 @@
         <source>No map</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/monitor/route/map/monitor-route-map-page.component.ts</context>
-          <context context-type="linenumber">37,39</context>
+          <context context-type="linenumber">38,40</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.update.title">
@@ -7078,6 +7078,10 @@
           <context context-type="sourcefile">src/app/ol/layers/location-boundary-layer.ts</context>
           <context context-type="linenumber">37</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ol/layers/location-boundary-layer.ts</context>
+          <context context-type="linenumber">63</context>
+        </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.networks">
         <source>Networks</source>
@@ -7105,6 +7109,41 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ol/layers/node-moved-layer.ts</context>
           <context context-type="linenumber">35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="map.layer.flanders-hiking">
+        <source>Toerisme Vlaanderen (hiking)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ol/layers/open-data-layers.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="map.layer.flanders-cycling">
+        <source>Toerisme Vlaanderen (cycling)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ol/layers/open-data-layers.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="map.layer.netherlands-hiking">
+        <source>NL routedatabank (hiking)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ol/layers/open-data-layers.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="map.layer.netherlands-cycling">
+        <source>NL routedatabank (cycling)</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ol/layers/open-data-layers.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit datatype="html" id="map.layer.france-hiking">
+        <source>Parc du Vercors</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/ol/layers/open-data-layers.ts</context>
+          <context context-type="linenumber">12</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.osm">
@@ -7265,41 +7304,6 @@
           <context context-type="linenumber">13,18</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="map.layer.flanders-hiking">
-        <source>Toerisme Vlaanderen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/planner/pages/planner/planner-map-layer.service.ts</context>
-          <context context-type="linenumber">92</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="map.layer.flanders-cycling">
-        <source>Toerisme Vlaanderen</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/planner/pages/planner/planner-map-layer.service.ts</context>
-          <context context-type="linenumber">100</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="map.layer.netherlands-hiking">
-        <source>Netherlands routedatabank</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/planner/pages/planner/planner-map-layer.service.ts</context>
-          <context context-type="linenumber">118</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="map.layer.netherlands-cycling">
-        <source>Netherlands routedatabank</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/planner/pages/planner/planner-map-layer.service.ts</context>
-          <context context-type="linenumber">136</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="map.layer.france-hiking">
-        <source>Parc du Vercors</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/planner/pages/planner/planner-map-layer.service.ts</context>
-          <context context-type="linenumber">154</context>
-        </context-group>
-      </trans-unit>
       <trans-unit datatype="html" id="poi.menu.pois">
         <source>Points of interest</source>
         <context-group purpose="location">
@@ -7374,98 +7378,98 @@
         <source>Node</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">26,27</context>
+          <context context-type="linenumber">16,17</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.last-updated">
         <source>Last updated</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">30,31</context>
+          <context context-type="linenumber">20,21</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.network">
         <source>Network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">35,37</context>
+          <context context-type="linenumber">25,27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.networks">
         <source>Networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">38,40</context>
+          <context context-type="linenumber">28,30</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.no-networks">
         <source>None</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">45,48</context>
+          <context context-type="linenumber">35,38</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.routes">
         <source>Routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">50,51</context>
+          <context context-type="linenumber">40,41</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.routes.none">
         <source>None</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">60,63</context>
+          <context context-type="linenumber">50,53</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.node-popup.more-details">
         <source>More details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-node.component.ts</context>
-          <context context-type="linenumber">69,72</context>
+          <context context-type="linenumber">59,62</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="poi.detail.none">
         <source>No details available</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-poi.component.ts</context>
-          <context context-type="linenumber">25,27</context>
+          <context context-type="linenumber">19,21</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.route-popup.title">
         <source>Route</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-route.component.ts</context>
-          <context context-type="linenumber">24,25</context>
+          <context context-type="linenumber">17,18</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.route-popup.network">
         <source>Network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-route.component.ts</context>
-          <context context-type="linenumber">29,31</context>
+          <context context-type="linenumber">22,24</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.route-popup.networks">
         <source>Networks</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-route.component.ts</context>
-          <context context-type="linenumber">32,34</context>
+          <context context-type="linenumber">25,27</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.route-popup.no-networks">
         <source>None</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-route.component.ts</context>
-          <context context-type="linenumber">39,42</context>
+          <context context-type="linenumber">32,35</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="map.route-popup.more-details">
         <source>More details</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/planner/popup/planner-popup-route.component.ts</context>
-          <context context-type="linenumber">47,48</context>
+          <context context-type="linenumber">40,41</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="planner.action.undo">
@@ -8666,35 +8670,35 @@
         <source>Warning: experimental !</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-experimental.component.ts</context>
-          <context context-type="linenumber">12,13</context>
+          <context context-type="linenumber">11,12</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="experimental.more">
         <source>more</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-experimental.component.ts</context>
-          <context context-type="linenumber">16,17</context>
+          <context context-type="linenumber">15,16</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="experimental.message-1">
         <source>This is an experimental version of the knooppuntnet website.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-experimental.component.ts</context>
-          <context context-type="linenumber">20,22</context>
+          <context context-type="linenumber">19,21</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="experimental.message-2">
         <source>The data may not be completely correct, and some functions may not work as expected. Unless you are here for trying out new functionality, you may be better off using the <x ctype="x-a" equiv-text="&lt;a [href]=&quot;link()&quot;&gt;" id="START_LINK"/>stable version<x ctype="x-a" equiv-text="&lt;/a&gt;" id="CLOSE_LINK"/> of knooppuntnet instead.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-experimental.component.ts</context>
-          <context context-type="linenumber">23,26</context>
+          <context context-type="linenumber">22,25</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="experimental.less">
         <source>less</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/page/page-experimental.component.ts</context>
-          <context context-type="linenumber">28,30</context>
+          <context context-type="linenumber">27,29</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="footer.contact">

@@ -5,6 +5,7 @@ import { NetworkType } from '@api/custom';
 import { OlUtil } from '@app/ol';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
+import { OpenDataLayers } from '@app/ol/layers';
 import { BackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { MapLayerRegistry } from '@app/ol/layers';
@@ -88,6 +89,11 @@ export class NodeMapService extends OpenlayersMapService {
     });
 
     registry.register(urlLayerIds, NodeMarkerLayer.build(nodeMapInfo), true);
+
+    nodeMapInfo.networkTypes.forEach((networkType) =>
+      OpenDataLayers.register(registry, networkType, urlLayerIds)
+    );
+
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);
 
     this.register(registry);
