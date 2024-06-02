@@ -3,9 +3,9 @@ package kpn.server.api.analysis.pages
 import kpn.api.common.Language
 import kpn.api.common.location.LocationNode
 import kpn.api.common.location.LocationsPage
-import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
+import kpn.api.custom.Subset
 import kpn.core.util.Log
+import kpn.database.actions.locations.LocationQueryResult
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationDefinition
 import kpn.server.repository.LocationRepository
@@ -22,12 +22,12 @@ class LocationsPageBuilderImpl(
 
   private val log = Log(classOf[LocationsPageBuilderImpl])
 
-  override def build(language: Language, networkType: NetworkType, country: Country): Option[LocationsPage] = {
-    val locationNode = locationConfiguration.locations.find(_.id == country.domain) match {
+  override def build(language: Language, subset: Subset): Option[LocationsPage] = {
+    val locationNode = locationConfiguration.locations.find(_.id == subset.country.domain) match {
       case Some(locationDefinition) =>
         val nodeCounts = log.infoElapsed {
-          val result = locationRepository.countryLocations(networkType, country).map(l => l.name -> l.count).toMap
-          (s"nodeCounts.size=${result.size}", result)
+          val result = locationRepository.countryLocations(subset).map(l => l.name -> l).toMap
+          (s"location counts size=${result.size}", result)
         }
         log.infoElapsed {
           val result = Some(toLocationNode(language, nodeCounts, locationDefinition))
@@ -35,7 +35,7 @@ class LocationsPageBuilderImpl(
         }
 
       case None =>
-        log.error(s"No locations found for country ${country.domain}")
+        log.error(s"No locations found for subset ${subset.name}")
         None
     }
     Some(
@@ -43,16 +43,22 @@ class LocationsPageBuilderImpl(
     )
   }
 
-  private def toLocationNode(language: Language, nodeCounts: Map[String, Long], locationDefinition: LocationDefinition): LocationNode = {
+  private def toLocationNode(language: Language, nodeCounts: Map[String, LocationQueryResult], locationDefinition: LocationDefinition): LocationNode = {
     val name = locationDefinition.locationNames.get(language) match {
       case None => locationDefinition.name
       case Some(localLocationName) => localLocationName
     }
-    val count = nodeCounts.getOrElse(locationDefinition.id, 0L)
+    val count = nodeCounts.getOrElse(locationDefinition.id, LocationQueryResult(locationDefinition.id, 0, 0, 0))
     val children = locationDefinition.children.map(ld => toLocationNode(language, nodeCounts, ld)).map { locationNode =>
       LocationNodeItem(StringUtils.stripAccents(locationNode.name).toLowerCase, locationNode)
     }.sortWith(byNormalizedName).map(_.locationNode)
-    LocationNode(name, Some(count), if (children.isEmpty) None else Some(children))
+    LocationNode(
+      name,
+      count.nodeCount,
+      count.routeCount,
+      count.factCount,
+      if (children.isEmpty) None else Some(children)
+    )
   }
 
   private def byNormalizedName(a: LocationNodeItem, b: LocationNodeItem): Boolean = {

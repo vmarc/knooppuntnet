@@ -23,7 +23,6 @@ class PoiLocationsPageBuilder(
       case None =>
         log.error(s"No locations found for country ${country.domain}")
         None
-
     }
     PoiLocationsPage(locationNode)
   }
@@ -36,7 +35,7 @@ class PoiLocationsPageBuilder(
     val children = locationDefinition.children.map(ld => toLocationNode(language, ld)).map { locationNode =>
       LocationNodeItem(StringUtils.stripAccents(locationNode.name).toLowerCase, locationNode)
     }.sortWith(byNormalizedName).map(_.locationNode)
-    LocationNode(name, None, if (children.isEmpty) None else Some(children))
+    LocationNode(name, 0, 0, 0, if (children.isEmpty) None else Some(children))
   }
 
   // TODO share with LocationsPageBuilderImpl?

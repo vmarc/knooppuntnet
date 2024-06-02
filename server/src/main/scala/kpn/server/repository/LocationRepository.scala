@@ -11,9 +11,8 @@ import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRouteOptions
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.common.location.LocationSummary
-import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
-import kpn.core.doc.LocationNodeCount
+import kpn.api.custom.Subset
+import kpn.database.actions.locations.LocationQueryResult
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
 trait LocationRepository {
@@ -34,7 +33,7 @@ trait LocationRepository {
 
   def routeFilteredCount(subset: LocationSubset, parameters: LocationRoutesParameters): Long
 
-  def countryLocations(networkType: NetworkType, country: Country): Seq[LocationNodeCount]
+  def countryLocations(subset: Subset): Seq[LocationQueryResult]
 
   def facts(subset: LocationSubset): Seq[LocationFact]
 

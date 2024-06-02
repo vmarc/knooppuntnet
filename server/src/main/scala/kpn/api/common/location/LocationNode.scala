@@ -2,6 +2,8 @@ package kpn.api.common.location
 
 case class LocationNode(
   name: String,
-  nodeCount: Option[Long],
+  nodeCount: Long,
+  routeCount: Long,
+  factCount: Long,
   children: Option[Seq[LocationNode]]
 )

@@ -11,15 +11,14 @@ import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRouteOptions
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.common.location.LocationSummary
-import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
-import kpn.core.doc.LocationNodeCount
+import kpn.api.custom.Subset
+import kpn.database.actions.locations.LocationQueryResult
 import kpn.database.actions.locations.MongoQueryLocationChanges
 import kpn.database.actions.locations.MongoQueryLocationFactCount
 import kpn.database.actions.locations.MongoQueryLocationFacts
-import kpn.database.actions.locations.MongoQueryLocationNodeCounts
 import kpn.database.actions.locations.MongoQueryLocationNodes
 import kpn.database.actions.locations.MongoQueryLocationRoutes
+import kpn.database.actions.locations.MongoQueryLocations
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
@@ -83,11 +82,8 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
     )
   }
 
-  override def countryLocations(networkType: NetworkType, country: Country): Seq[LocationNodeCount] = {
-    new MongoQueryLocationNodeCounts(database).find(
-      networkType,
-      country
-    )
+  override def countryLocations(subset: Subset): Seq[LocationQueryResult] = {
+    new MongoQueryLocations(database).execute(subset)
   }
 
   override def facts(subset: LocationSubset): Seq[LocationFact] = {

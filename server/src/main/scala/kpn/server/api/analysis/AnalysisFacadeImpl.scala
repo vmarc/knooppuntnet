@@ -260,8 +260,9 @@ class AnalysisFacadeImpl(
   }
 
   override def locations(language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage] = {
+    val subset = Subset.of(country, networkType).get
     api.execute("location", networkType.name) {
-      reply(locationsPageBuilder.build(language, networkType, country))
+      reply(locationsPageBuilder.build(language, subset))
     }
   }
 

@@ -1,5 +1,6 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { NgClass } from '@angular/common';
+import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -19,9 +20,9 @@ import { RouterLink } from '@angular/router';
 import { Country } from '@api/custom';
 import { NetworkType } from '@api/custom';
 import { Subscriptions } from '@app/util';
-import { LocationPipe } from '../../../../shared/components/shared/format/location.pipe';
 import { LocalLocationNode } from './local-location-node';
 import { LocationFlatNode } from './location-flat-node';
+import { LocationTreeNodeComponent } from './location-tree-node.component';
 
 @Component({
   selector: 'kpn-location-tree',
@@ -44,7 +45,7 @@ import { LocationFlatNode } from './location-flat-node';
       >
         Collapse all
       </button>
-      <mat-radio-group [value]="all" (change)="allChanged()">
+      <mat-radio-group [value]="all()" (change)="allChanged()">
         <mat-radio-button [value]="true" class="location-button" i18n="@@location.tree.all">
           All
         </mat-radio-button>
@@ -63,30 +64,33 @@ import { LocationFlatNode } from './location-flat-node';
         <a routerLink="/analysis/hiking/fr/Parc du Vercors/nodes">Parc du Vercors</a>
       </div>
     }
-
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
       <mat-tree-node
         *matTreeNodeDef="let leafNode"
         matTreeNodePadding
-        [ngClass]="{ hidden: !all && leafNode.nodeCount === 0 }"
+        [ngClass]="{ hidden: !(all() || leafNode.isUsed()) }"
       >
-        <a (click)="select(leafNode)">{{ leafNode.name | location }}</a>
-        <span class="node-count">{{ leafNode.nodeCount }}</span>
+        <kpn-location-tree-node [node]="leafNode" (selection)="selection.emit($event)" />
       </mat-tree-node>
       <mat-tree-node
         *matTreeNodeDef="let expandableNode; when: hasChild"
         matTreeNodePadding
-        [ngClass]="{ hidden: !all && expandableNode.nodeCount === 0 }"
+        [ngClass]="{ hidden: !(all() || expandableNode.isUsed()) }"
       >
-        <div mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + expandableNode.name">
-          @if (treeControl.isExpanded(expandableNode)) {
-            <mat-icon svgIcon="expand" class="expand-collapse-icon" />
-          } @else {
-            <mat-icon svgIcon="collapse" class="expand-collapse-icon" />
-          }
+        <div class="expandable">
+          <div
+            mat-icon-button
+            matTreeNodeToggle
+            [attr.aria-label]="'toggle ' + expandableNode.name"
+          >
+            @if (treeControl.isExpanded(expandableNode)) {
+              <mat-icon svgIcon="expand" class="expand-collapse-icon" />
+            } @else {
+              <mat-icon svgIcon="collapse" class="expand-collapse-icon" />
+            }
+          </div>
+          <kpn-location-tree-node [node]="expandableNode" (selection)="selection.emit($event)" />
         </div>
-        <a (click)="select(expandableNode)">{{ expandableNode.name | location }}</a
-        ><span class="node-count">{{ expandableNode.nodeCount }}</span>
       </mat-tree-node>
     </mat-tree>
   `,
@@ -96,11 +100,6 @@ import { LocationFlatNode } from './location-flat-node';
       height: 12px;
       vertical-align: top;
       padding-top: 7px;
-    }
-
-    .node-count {
-      padding-left: 20px;
-      color: grey;
     }
 
     .location-button {
@@ -114,15 +113,20 @@ import { LocationFlatNode } from './location-flat-node';
     mat-tree {
       padding-left: 1em;
     }
+
+    .expandable {
+      display: flex;
+      align-items: flex-start;
+    }
   `,
   standalone: true,
   imports: [
+    LocationTreeNodeComponent,
     MatButtonModule,
     MatIconModule,
     MatRadioModule,
     MatTreeModule,
     NgClass,
-    LocationPipe,
     RouterLink,
   ],
 })
@@ -135,7 +139,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
 
   private readonly dialog = inject(MatDialog);
 
-  all = false;
+  readonly all = signal<boolean>(false);
 
   treeControl = new FlatTreeControl<LocationFlatNode>(
     (node) => node.level,
@@ -162,15 +166,6 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  select(expandableNode: LocationFlatNode): void {
-    const locationName =
-      expandableNode.path.length > 0
-        ? expandableNode.path + ':' + expandableNode.name
-        : expandableNode.name;
-
-    this.selection.emit(locationName);
-  }
-
   expandAll(): void {
     this.treeControl.expandAll();
   }
@@ -180,7 +175,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   }
 
   allChanged(): void {
-    this.all = !this.all;
+    this.all.set(!this.all());
   }
 
   private transformer() {
@@ -188,7 +183,15 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
       const maxLevel = this.country() === Country.fr ? 2 : 99;
       const hasChildren = !!node.children && node.children.length > 0;
       const expandable = hasChildren && level < maxLevel;
-      return new LocationFlatNode(expandable, node.path, node.name, node.nodeCount, level);
+      return new LocationFlatNode(
+        expandable,
+        node.path,
+        node.name,
+        node.nodeCount,
+        node.routeCount,
+        node.factCount,
+        level
+      );
     };
   }
 }

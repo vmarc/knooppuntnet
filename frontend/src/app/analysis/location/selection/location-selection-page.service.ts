@@ -65,6 +65,8 @@ export class LocationSelectionPageService {
       path: localPath,
       name: locationNode.name,
       nodeCount: locationNode.nodeCount,
+      routeCount: locationNode.routeCount,
+      factCount: locationNode.factCount,
       children: localChildren,
     };
   }
