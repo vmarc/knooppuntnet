@@ -34,7 +34,18 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
 object Json {
 
-  val objectMapper: ObjectMapper = {
+  val objectMapper: ObjectMapper = buildObjectMapper(false)
+  val mongoObjectMapper: ObjectMapper = buildObjectMapper(true)
+
+  def string(o: Object): String = {
+    objectMapper.writeValueAsString(o)
+  }
+
+  def value[T](string: String, valueType: Class[T]): T = {
+    objectMapper.readValue(string, valueType)
+  }
+
+  private def buildObjectMapper(mongo: Boolean): ObjectMapper = {
 
     val b = Jackson2ObjectMapperBuilder.json()
     b.featuresToEnable(DeserializationFeature.USE_LONG_FOR_INTS)
@@ -75,7 +86,7 @@ object Json {
     b.deserializerByType(classOf[Tags], new TagsJsonDeserializer())
     b.serializerByType(classOf[Tags], new TagsJsonSerializer())
 
-    b.deserializerByType(classOf[Timestamp], new TimestampJsonDeserializer())
+    b.deserializerByType(classOf[Timestamp], new TimestampJsonDeserializer(mongo))
     b.serializerByType(classOf[Timestamp], new TimestampJsonSerializer())
 
     b.serializerByType(classOf[Timestamp2], new Timestamp2JsonSerializer())
@@ -109,13 +120,5 @@ object Json {
     om.registerModule(DefaultScalaModule)
     om.setVisibility(PropertyAccessor.IS_GETTER, JsonAutoDetect.Visibility.NONE)
     om
-  }
-
-  def string(o: Object): String = {
-    objectMapper.writeValueAsString(o)
-  }
-
-  def value[T](string: String, valueType: Class[T]): T = {
-    objectMapper.readValue(string, valueType)
   }
 }

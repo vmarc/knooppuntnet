@@ -6,18 +6,17 @@ import kpn.api.common.PoiDetail
 import kpn.api.common.PoiState
 import kpn.api.common.location.Location
 import kpn.api.common.poi.LocationPoiParameters
-import kpn.api.common.poi.LocationPoisPage
 import kpn.api.common.poi.LocationPoiSummaryPage
+import kpn.api.common.poi.LocationPoisPage
 import kpn.api.common.poi.PoiLocationsPage
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
-import kpn.core.common.TimestampLocal
 import kpn.core.poi.PoiLocationGeoJson
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.analyzer.engine.poi.PoiRef
-import kpn.server.api.analysis.pages.LocationPoisPageBuilder
 import kpn.server.api.analysis.pages.LocationPoiSummaryPageBuilder
+import kpn.server.api.analysis.pages.LocationPoisPageBuilder
 import kpn.server.api.analysis.pages.PoiLocationsPageBuilder
 import kpn.server.api.analysis.pages.PoiPageBuilder
 import org.springframework.stereotype.Component
@@ -34,9 +33,7 @@ class PoiFacadeImpl(
 
   override def areas(): ApiResponse[String] = {
     val geoJson = new PoiLocationGeoJson().geoJsonString()
-    val response = ApiResponse(null, 1, Some(geoJson))
-    TimestampLocal.localize(response)
-    response
+    ApiResponse(null, 1, Some(geoJson))
   }
 
   override def getPoiDetail(language: Language, poiRef: PoiRef): ApiResponse[PoiDetail] = {

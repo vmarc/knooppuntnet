@@ -17,21 +17,20 @@ object JacksonCodec {
 
 class JacksonCodec[T](clazz: Class[T]) extends Codec[T] {
 
-
   override def getEncoderClass: Class[T] = clazz
 
   override def decode(reader: BsonReader, decoderContext: DecoderContext): T = {
     JacksonCodec.log.debugElapsed {
       val document = JacksonCodec.rawBsonDocumentCodec.decode(reader, decoderContext)
       val json = document.toJson()
-      val decoded = Json.objectMapper.readValue(json, clazz)
+      val decoded = Json.mongoObjectMapper.readValue(json, clazz)
       (s"decode ${clazz.getName}", decoded)
     }
   }
 
   override def encode(writer: BsonWriter, value: T, encoderContext: EncoderContext): Unit = {
     JacksonCodec.log.debugElapsed {
-      val json = Json.objectMapper.writeValueAsString(value)
+      val json = Json.mongoObjectMapper.writeValueAsString(value)
       val doc = RawBsonDocument.parse(json)
       JacksonCodec.rawBsonDocumentCodec.encode(writer, doc, encoderContext)
       (s"encode ${clazz.getName}", ())

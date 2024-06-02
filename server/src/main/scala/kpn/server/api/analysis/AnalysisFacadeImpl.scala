@@ -42,7 +42,6 @@ import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
-import kpn.core.common.TimestampLocal
 import kpn.server.api.Api
 import kpn.server.api.analysis.pages.ChangeSetPageBuilder
 import kpn.server.api.analysis.pages.ChangesPageBuilder
@@ -334,8 +333,6 @@ class AnalysisFacadeImpl(
   }
 
   private def reply[T](result: Option[T]): ApiResponse[T] = {
-    val response = ApiResponse(analysisRepository.lastUpdated(), 1, result)
-    TimestampLocal.localize(response)
-    response
+    ApiResponse(analysisRepository.lastUpdated(), 1, result)
   }
 }

@@ -7,9 +7,15 @@ import com.fasterxml.jackson.databind.JsonNode
 import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
 
-class TimestampJsonDeserializer extends JsonDeserializer[Timestamp] {
+class TimestampJsonDeserializer(mongo: Boolean) extends JsonDeserializer[Timestamp] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Timestamp = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    TimestampUtil.parseIso(node.asText)
+    val timestamp = TimestampUtil.parseIso(node.asText)
+    if (mongo) {
+      TimestampUtil.toLocal(timestamp)
+    }
+    else {
+      timestamp
+    }
   }
 }

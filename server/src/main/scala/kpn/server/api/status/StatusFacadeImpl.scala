@@ -12,7 +12,6 @@ import kpn.api.common.status.ReplicationStatusPage
 import kpn.api.common.status.Status
 import kpn.api.common.status.SystemStatusPage
 import kpn.api.custom.ApiResponse
-import kpn.core.common.TimestampLocal
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.MetricsRepository
 import org.springframework.stereotype.Component
@@ -72,9 +71,7 @@ class StatusFacadeImpl(
       )
     )
 
-    val response = ApiResponse(analysisRepository.lastUpdated(), 1, Some(status))
-    TimestampLocal.localize(response)
-    response
+    ApiResponse(analysisRepository.lastUpdated(), 1, Some(status))
   }
 
   override def statusOk(): ApiResponse[String] = {

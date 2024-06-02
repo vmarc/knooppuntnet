@@ -25,8 +25,15 @@ class LocationsPageBuilderImpl(
   override def build(language: Language, networkType: NetworkType, country: Country): Option[LocationsPage] = {
     val locationNode = locationConfiguration.locations.find(_.id == country.domain) match {
       case Some(locationDefinition) =>
-        val nodeCounts = locationRepository.countryLocations(networkType, country).map(l => l.name -> l.count).toMap
-        Some(toLocationNode(language, nodeCounts, locationDefinition))
+        val nodeCounts = log.infoElapsed {
+          val result = locationRepository.countryLocations(networkType, country).map(l => l.name -> l.count).toMap
+          (s"nodeCounts.size=${result.size}", result)
+        }
+        log.infoElapsed {
+          val result = Some(toLocationNode(language, nodeCounts, locationDefinition))
+          ("toLocationNode", result)
+        }
+
       case None =>
         log.error(s"No locations found for country ${country.domain}")
         None

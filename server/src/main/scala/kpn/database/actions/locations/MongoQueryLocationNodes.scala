@@ -56,7 +56,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   private val log = Log(classOf[MongoQueryLocationNodes])
 
   def filterOptions(subset: LocationSubset, parameters: LocationNodesParameters): LocationNodeOptions = {
-    val pipeline = Seq(filter(and(subsetFilter(subset): _*))) ++ boundaryFilter(subset, parameters) ++ Seq(
+    val pipeline = Seq(filter(and(subsetFilter(subset): _*))) ++ boundaryFilter(subset) ++ Seq(
       facet(
         Facet("factsTotalNodeCount", factsTotalNodeCountPipeline(subset, parameters): _*),
         Facet("facts", factsPipeline(subset, parameters): _*),
@@ -269,7 +269,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   }
 
   def countDocuments(subset: LocationSubset, parameters: LocationNodesParameters): Long = {
-    val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ boundaryFilter(subset, parameters) ++ Seq(count())
+    val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ boundaryFilter(subset) ++ Seq(count())
     database.nodes.aggregate[CountResult](pipeline, log).map(_.count).sum
   }
 
@@ -278,7 +278,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     parameters: LocationNodesParameters,
   ): Seq[LocationNodeInfo] = {
 
-    val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ boundaryFilter(subset, parameters) ++ Seq(
+    val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ boundaryFilter(subset) ++ Seq(
       sort(orderBy(ascending("names.name", "_id"))),
       skip(parameters.pageSize.toInt * parameters.pageIndex.toInt),
       limit(parameters.pageSize.toInt),
@@ -325,7 +325,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     }
   }
 
-  private def boundaryFilter(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Bson] = {
+  private def boundaryFilter(subset: LocationSubset): Seq[Bson] = {
     if (subset.name == ParcDuVercors.name) {
       Seq(
         filter(

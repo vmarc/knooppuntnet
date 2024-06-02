@@ -16,7 +16,6 @@ import kpn.api.common.monitor.MonitorRouteInfoPage
 import kpn.api.common.monitor.MonitorRouteMapPage
 import kpn.api.common.monitor.MonitorRouteUpdatePage
 import kpn.api.custom.ApiResponse
-import kpn.core.common.TimestampLocal
 import kpn.server.api.Api
 import kpn.server.config.RequestContext
 import kpn.server.monitor.domain.MonitorGroup
@@ -204,8 +203,6 @@ class MonitorFacadeImpl(
   }
 
   private def reply[T](result: Option[T]): ApiResponse[T] = {
-    val response = ApiResponse(null, 1, result)
-    TimestampLocal.localize(response)
-    response
+    ApiResponse(null, 1, result)
   }
 }

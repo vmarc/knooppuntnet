@@ -1,11 +1,8 @@
 package kpn.monitor
 
-import java.net.InetAddress
-
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
-import kpn.core.common.TimestampLocal
 import kpn.core.common.TimestampUtil
 import kpn.core.util.Log
 import kpn.server.json.Json
@@ -18,6 +15,8 @@ import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
+
+import java.net.InetAddress
 
 @Component
 class AppMonitor(
@@ -46,8 +45,8 @@ class AppMonitor(
         val apiResponse = Json.value(response.getBody, classOf[ApiResponse[String]])
         apiResponse.situationOn match {
           case Some(timestamp) =>
-            val now = TimestampLocal.toLocal(Time.system())
-            val localTimestamp = TimestampLocal.toLocal(timestamp)
+            val now = TimestampUtil.toLocal(Time.system())
+            val localTimestamp = TimestampUtil.toLocal(timestamp)
             val alertTimestamp = TimestampUtil.relativeSeconds(localTimestamp, alertMinutes * 60)
             if (now > alertTimestamp) {
               throttledSend("alert", localTimestamp.yyyymmddhhmmss)
