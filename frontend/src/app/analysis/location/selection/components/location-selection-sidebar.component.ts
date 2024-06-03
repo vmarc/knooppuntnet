@@ -25,8 +25,10 @@ export class LocationSelectionSidebarComponent {
   private readonly router = inject(Router);
 
   onStrategyChange(strategy: AnalysisStrategy) {
-    const key = this.locationService.key();
-    const url = `/analysis/${key.networkType}/${key.country}/networks`;
-    this.router.navigate([url]);
+    if (strategy === AnalysisStrategy.network) {
+      const key = this.locationService.key();
+      const url = `/analysis/${key.networkType}/${key.country}/networks`;
+      this.router.navigate([url]);
+    }
   }
 }

@@ -1,9 +1,13 @@
+import { OnInit } from '@angular/core';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { IconButtonComponent } from '@app/components/shared/icon';
 import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 
 @Component({
@@ -81,6 +85,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
     }
   `,
   standalone: true,
+  providers: [AnalysisStrategyService, RouterService],
   imports: [
     AnalysisSidebarComponent,
     IconButtonComponent,
@@ -89,4 +94,10 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
     RouterLink,
   ],
 })
-export class AnalysisPageComponent {}
+export class AnalysisPageComponent implements OnInit {
+  private analysisStrategyService = inject(AnalysisStrategyService);
+
+  ngOnInit(): void {
+    this.analysisStrategyService.init();
+  }
+}

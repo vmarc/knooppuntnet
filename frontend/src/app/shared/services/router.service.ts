@@ -56,6 +56,7 @@ export class RouterService {
   updateQueryParams(queryParams: Params): Promise<boolean> {
     return this.router.navigate([], {
       relativeTo: this.activatedRoute,
+      queryParamsHandling: 'merge',
       queryParams,
     });
   }

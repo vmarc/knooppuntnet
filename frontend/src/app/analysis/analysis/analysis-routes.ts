@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { AnalysisCanoePageComponent } from './pages/analysis-canoe-page.component';
 import { AnalysisCyclingPageComponent } from './pages/analysis-cycling-page.component';
 import { AnalysisHikingPageComponent } from './pages/analysis-hiking-page.component';
@@ -12,7 +11,6 @@ import { LocationUrlMatcher } from './pages/location-url-matcher';
 export const analysisRoutes: Routes = [
   {
     path: '',
-    providers: [AnalysisStrategyService],
     children: [
       { path: '', component: AnalysisPageComponent },
       {

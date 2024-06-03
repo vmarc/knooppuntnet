@@ -13,6 +13,7 @@ import { Facts } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactLevelComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
+import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { ItemComponent } from '@app/components/shared/items';
@@ -70,7 +71,7 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [SubsetFactsPageService, RouterService],
+  providers: [SubsetFactsPageService, AnalysisStrategyService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,

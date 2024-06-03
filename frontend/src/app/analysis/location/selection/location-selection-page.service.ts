@@ -4,8 +4,6 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationNode } from '@api/common/location';
-import { AnalysisStrategy } from '@app/core';
-import { PreferencesService } from '@app/core';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationService } from '../location.service';
 import { LocalLocationNode } from './components/local-location-node';
@@ -19,7 +17,6 @@ export class LocationSelectionPageService {
   private readonly locationSelectionService = inject(LocationSelectionService);
   private readonly locationModeService = inject(LocationModeService);
   private readonly router = inject(Router);
-  private readonly preferencesService = inject(PreferencesService);
 
   private readonly _locationNode = signal<LocalLocationNode | null>(null);
   readonly locationNode = this._locationNode.asReadonly();
@@ -31,7 +28,6 @@ export class LocationSelectionPageService {
   readonly isModeTree = this.locationModeService.isModeTree;
 
   onInit() {
-    this.preferencesService.setStrategy(AnalysisStrategy.location);
     this.locationService.initPage(this.routerService);
     this.locationSelectionService
       .locations(this.networkType(), this.country())

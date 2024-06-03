@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { PageWidthService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { IntegerFormatPipe } from '@app/components/shared/format';
@@ -55,7 +56,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [SubsetNetworksPageService, RouterService],
+  providers: [SubsetNetworksPageService, AnalysisStrategyService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,

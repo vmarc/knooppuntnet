@@ -5,8 +5,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { PreferencesService } from '@app/core';
 import { AnalysisStrategy } from '@app/core';
+import { AnalysisStrategyService } from './analysis-strategy.service';
 
 @Component({
   selector: 'kpn-analysis-strategy',
@@ -36,7 +36,7 @@ import { AnalysisStrategy } from '@app/core';
 export class AnalysisStrategyComponent {
   @Output() strategyChange = new EventEmitter<AnalysisStrategy>();
 
-  private readonly service = inject(PreferencesService);
+  private readonly service = inject(AnalysisStrategyService);
   protected readonly strategy = this.service.strategy;
 
   onStrategyChange(event: MatRadioChange) {

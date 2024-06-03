@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -7,6 +8,7 @@ import { IconButtonComponent } from '@app/components/shared/icon';
 import { IconButtonsComponent } from '@app/components/shared/icon';
 import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisStrategyService } from '../../strategy';
 import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 
@@ -51,6 +53,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
     </kpn-page>
   `,
   standalone: true,
+  providers: [AnalysisStrategyService, RouterService],
   imports: [
     AnalysisSidebarComponent,
     IconButtonComponent,
@@ -61,8 +64,12 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
     RouterLink,
   ],
 })
-export class AnalysisCanoePageComponent {
+export class AnalysisCanoePageComponent implements OnInit {
   private readonly analysisStrategyService = inject(AnalysisStrategyService);
   protected readonly nlLink = this.analysisStrategyService.link('canoe', 'nl');
   protected readonly frLink = this.analysisStrategyService.link('canoe', 'fr');
+
+  ngOnInit(): void {
+    this.analysisStrategyService.init();
+  }
 }

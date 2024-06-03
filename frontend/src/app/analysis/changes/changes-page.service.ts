@@ -4,8 +4,8 @@ import { signal } from '@angular/core';
 import { ChangesPage } from '@api/common';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { ApiResponse } from '@api/custom';
+import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { Util } from '@app/components/shared';
-import { AnalysisStrategy } from '@app/core';
 import { PreferencesService } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
@@ -16,6 +16,7 @@ import { UserService } from '../../shared/user';
 export class ChangesPageService {
   private readonly apiService = inject(ApiService);
   private readonly routerService = inject(RouterService);
+  private readonly analysisStrategyService = inject(AnalysisStrategyService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly userService = inject(UserService);
 
@@ -32,9 +33,9 @@ export class ChangesPageService {
   readonly response = this._response.asReadonly();
 
   onInit(): void {
+    this.analysisStrategyService.init();
     const uniqueQueryParams = Util.uniqueParams(this.routerService.queryParams());
     const pageParams = new PageParams(this.routerService.params(), uniqueQueryParams);
-    const strategy = pageParams.strategy(this.preferencesService.strategy());
     const changesParameters = pageParams.changesParameters(
       this.preferencesService.impact(),
       this.preferencesService.pageSize()
@@ -78,8 +79,7 @@ export class ChangesPageService {
     });
   }
 
-  setStrategy(strategy: AnalysisStrategy) {
-    this.preferencesService.setStrategy(strategy);
+  strategyUpdated() {
     this.load();
   }
 

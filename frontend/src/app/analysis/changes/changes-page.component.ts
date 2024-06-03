@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangesComponent } from '@app/analysis/components/changes';
+import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
@@ -81,7 +82,7 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
       <kpn-changes-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [ChangesPageService, RouterService],
+  providers: [ChangesPageService, AnalysisStrategyService, RouterService],
   standalone: true,
   imports: [
     ChangeLocationAnalysisSummaryComponent,

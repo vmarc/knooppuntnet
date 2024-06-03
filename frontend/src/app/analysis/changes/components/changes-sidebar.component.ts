@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { SidebarComponent } from '@app/components/shared/sidebar';
-import { AnalysisStrategy } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
 import { ChangesPageService } from '../changes-page.service';
 
@@ -13,7 +12,7 @@ import { ChangesPageService } from '../changes-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-sidebar>
-      <kpn-analysis-strategy (strategyChange)="onStrategyChange($event)" />
+      <kpn-analysis-strategy (strategyChange)="onStrategyChange()" />
       <kpn-change-filter
         [filterOptions]="service.filterOptions()"
         (optionSelected)="onOptionSelected($event)"
@@ -30,7 +29,7 @@ export class ChangesSidebarComponent {
     this.service.setFilterOption(option);
   }
 
-  onStrategyChange(strategy: AnalysisStrategy): void {
-    this.service.setStrategy(strategy);
+  onStrategyChange(): void {
+    this.service.strategyUpdated();
   }
 }

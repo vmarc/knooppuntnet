@@ -3,6 +3,7 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
@@ -31,7 +32,7 @@ import { SubsetMapService } from './subset-map.service';
       <kpn-subset-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [SubsetMapService, SubsetMapPageService, RouterService],
+  providers: [SubsetMapService, SubsetMapPageService, AnalysisStrategyService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
