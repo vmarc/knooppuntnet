@@ -5,7 +5,9 @@ import kpn.api.common.Bounds
 case class NetworkMapPage(
   summary: NetworkSummary,
   nodes: Seq[NetworkMapNode],
-  nodeIds: Seq[Long],
-  routeIds: Seq[Long],
+  networkNodeIds: Seq[Long],
+  connectionNodeIds: Seq[Long],
+  networkRouteIds: Seq[Long],
+  connectionRouteIds: Seq[Long],
   bounds: Bounds
 )

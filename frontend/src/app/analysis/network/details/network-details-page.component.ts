@@ -2,6 +2,7 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { PageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
@@ -32,7 +33,7 @@ import { NetworkDetailsPageService } from './network-details-page.service';
       <kpn-analysis-sidebar sidebar />
     </kpn-page>
   `,
-  providers: [NetworkDetailsPageService, RouterService],
+  providers: [NetworkDetailsPageService, AnalysisStrategyService, RouterService],
   standalone: true,
   imports: [
     AnalysisSidebarComponent,

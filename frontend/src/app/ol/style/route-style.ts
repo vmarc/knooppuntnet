@@ -5,7 +5,7 @@ import Style from 'ol/style/Style';
 export class RouteStyle {
   private defaultRouteStyle = this.initRouteStyle();
 
-  style(color: Color, resolution: number, proposed: boolean): Style {
+  style(color: Color, resolution: number, dashed: boolean): Style {
     let width: number;
     if (resolution > /* zoomLevel 9 */ 305.75) {
       width = 1;
@@ -18,7 +18,7 @@ export class RouteStyle {
     const stroke = this.defaultRouteStyle.getStroke();
     stroke.setWidth(width);
     stroke.setColor(color);
-    if (proposed) {
+    if (dashed) {
       stroke.setLineDash([6, 10]);
     } else {
       stroke.setLineDash(null);

@@ -9,5 +9,5 @@ export * from './survey-date-style';
 export * from './node-style-builder';
 export * from './main-map-node-style';
 export * from './main-map-route-style';
-export * from './network-nodes-map-style';
+export * from './network-map-style';
 export * from './main-map-style-parameters';

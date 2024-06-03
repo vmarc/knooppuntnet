@@ -7,7 +7,9 @@ import { NetworkSummary } from './network-summary';
 export interface NetworkMapPage {
   readonly summary: NetworkSummary;
   readonly nodes: NetworkMapNode[];
-  readonly nodeIds: number[];
-  readonly routeIds: number[];
+  readonly networkNodeIds: number[];
+  readonly connectionNodeIds: number[];
+  readonly networkRouteIds: number[];
+  readonly connectionRouteIds: number[];
   readonly bounds: Bounds;
 }

@@ -9,7 +9,7 @@ import { MapLayer } from './map-layer';
 export class NetworkNodesMarkerLayer {
   static build(nodes: NetworkMapNode[]): MapLayer {
     const markers = nodes.map((node) => {
-      const color = node.roleConnection ? 'green' : 'blue';
+      const color = node.roleConnection ? 'orange' : 'blue';
       const coordinate = OlUtil.toCoordinate(node.latitude, node.longitude);
       const marker = Marker.create(color, coordinate);
       marker.set('id', node.id.toString());

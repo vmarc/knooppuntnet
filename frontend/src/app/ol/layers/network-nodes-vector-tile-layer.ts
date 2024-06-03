@@ -4,12 +4,18 @@ import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { ZoomLevel } from '../domain';
-import { NetworkNodesMapStyle } from '../style';
+import { NetworkMapStyle } from '../style';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class NetworkNodesVectorTileLayer {
-  static build(networkType: NetworkType, nodeIds: number[], routeIds: number[]): MapLayer {
+  static build(
+    networkType: NetworkType,
+    networkNodeIds: number[],
+    connectionNodeIds: number[],
+    networkRouteIds: number[],
+    connectionRouteIds: number[]
+  ): MapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -25,7 +31,12 @@ export class NetworkNodesVectorTileLayer {
       renderMode: 'vector',
     });
 
-    const nodeMapStyle = new NetworkNodesMapStyle(nodeIds, routeIds).styleFunction();
+    const nodeMapStyle = new NetworkMapStyle(
+      networkNodeIds,
+      connectionNodeIds,
+      networkRouteIds,
+      connectionRouteIds
+    ).styleFunction();
     layer.setStyle(nodeMapStyle);
 
     const name = Translations.get(`network-type.${networkType}`);

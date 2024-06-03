@@ -18,6 +18,7 @@ export class StyleColor {
 
   static readonly networkIn: Color = [0, 200, 0]; // green
   static readonly networkOut: Color = [200, 200, 200]; // gray
+  static readonly networkConnection: Color = [255, 150, 0]; // orange/brown
 
   static readonly gray: Color = [200, 200, 200]; // gray
   static readonly selected: Color = [255, 255, 0]; // yellow

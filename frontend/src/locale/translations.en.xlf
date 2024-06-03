@@ -5391,6 +5391,10 @@
         <source>facts</source>
         <target>facts</target>
       </trans-unit>
+      <trans-unit datatype="html" id="network-map.side-bar.connection">
+        <source>Connection</source>
+        <target>Connection</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

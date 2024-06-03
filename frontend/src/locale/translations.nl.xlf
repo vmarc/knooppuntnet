@@ -5371,6 +5371,10 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
         <source>facts</source>
         <target>feiten</target>
       </trans-unit>
+      <trans-unit datatype="html" id="network-map.side-bar.connection">
+        <source>Connection</source>
+        <target>Verbinding</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

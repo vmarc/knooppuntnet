@@ -5375,6 +5375,10 @@ Veuillez d'abord planifier un itinéraire.</target>
         <source>facts</source>
         <target>faits</target>
       </trans-unit>
+      <trans-unit datatype="html" id="network-map.side-bar.connection">
+        <source>Connection</source>
+        <target>Connexion</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

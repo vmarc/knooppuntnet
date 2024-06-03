@@ -94,7 +94,13 @@ export class NetworkMapService extends OpenlayersMapService {
     registry.register(urlLayerIds, OsmLayer.build(), false);
     const networkNodesLayers = [
       NetworkNodesBitmapTileLayer.build(page.summary.networkType),
-      NetworkNodesVectorTileLayer.build(page.summary.networkType, page.nodeIds, page.routeIds),
+      NetworkNodesVectorTileLayer.build(
+        page.summary.networkType,
+        page.networkNodeIds,
+        page.connectionNodeIds,
+        page.networkRouteIds,
+        page.connectionRouteIds
+      ),
     ];
     registry.registerAll(urlLayerIds, networkNodesLayers, true);
     registry.register(urlLayerIds, NetworkNodesMarkerLayer.build(page.nodes), true);

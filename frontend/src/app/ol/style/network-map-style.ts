@@ -6,14 +6,16 @@ import { nameStyle } from './node-style-builder';
 import { RouteStyle } from './route-style';
 import { StyleColor } from './style-color';
 
-export class NetworkNodesMapStyle {
+export class NetworkMapStyle {
   private readonly nameStyle = nameStyle();
 
   private readonly routeStyle = new RouteStyle();
 
   constructor(
     private networkNodeIds: number[],
-    private networkRouteIds: number[]
+    private connectionNodeIds: number[],
+    private networkRouteIds: number[],
+    private connectionRouteIds: number[]
   ) {}
 
   public styleFunction(): StyleFunction {
@@ -45,6 +47,12 @@ export class NetworkNodesMapStyle {
         } else {
           style = NodeStyle.networkInLarge;
         }
+      } else if (this.connectionNodeIds.includes(nodeId)) {
+        if (proposed) {
+          style = NodeStyle.networkConnectionProposedLarge;
+        } else {
+          style = NodeStyle.networkConnectionLarge;
+        }
       } else {
         if (proposed) {
           style = NodeStyle.networkOutProposedLarge;
@@ -64,18 +72,26 @@ export class NetworkNodesMapStyle {
       }
       return style;
     }
-    return this.networkNodeIds.includes(nodeId)
-      ? NodeStyle.networkInSmall
-      : NodeStyle.networkOutSmall;
+
+    let style = NodeStyle.networkOutSmall;
+    if (this.networkNodeIds.includes(nodeId)) {
+      style = NodeStyle.networkInSmall;
+    } else if (this.connectionNodeIds.includes(nodeId)) {
+      style = NodeStyle.networkConnectionSmall;
+    }
+    return style;
   }
 
   private buildRouteStyle(feature: FeatureLike, resolution: number): Style {
     const featureId = feature.get('id');
     const routeId = +featureId.substring(0, featureId.indexOf('-'));
-    const routeColor = this.networkRouteIds.includes(routeId)
-      ? StyleColor.networkIn
-      : StyleColor.networkOut;
-    const proposed = feature.get('state') === 'proposed';
-    return this.routeStyle.style(routeColor, resolution, proposed);
+    const dashed = feature.get('state') === 'proposed';
+    let routeColor = StyleColor.networkOut;
+    if (this.networkRouteIds.includes(routeId)) {
+      routeColor = StyleColor.networkIn;
+    } else if (this.connectionRouteIds.includes(routeId)) {
+      routeColor = StyleColor.networkConnection;
+    }
+    return this.routeStyle.style(routeColor, resolution, dashed);
   }
 }

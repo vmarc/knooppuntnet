@@ -25,6 +25,10 @@ import { NetworkMapLegendIconComponent } from './network-map-legend-icon.compone
                 <kpn-network-map-legend-icon color="rgb(150,150,150)" />
                 <span i18n="@@network-map.side-bar.not-part-of-network">Not part of network</span>
               </div>
+              <div>
+                <kpn-network-map-legend-icon color="rgb(255,150,0)" />
+                <span i18n="@@network-map.side-bar.connection">Connection</span>
+              </div>
             </div>
             <p i18n="@@network-map.side-bar.tip1">Click on node or route to go to detail page.</p>
             <p i18n="@@network-map.side-bar.tip2">

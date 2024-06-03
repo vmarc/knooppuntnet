@@ -5388,6 +5388,10 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
         <source>facts</source>
         <target>Fakten</target>
       </trans-unit>
+      <trans-unit datatype="html" id="network-map.side-bar.connection">
+        <source>Connection</source>
+        <target>Verbindung</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

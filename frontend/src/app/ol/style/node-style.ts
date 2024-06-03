@@ -46,10 +46,13 @@ export class NodeStyle {
 
   static readonly networkInSmall = small(StyleColor.networkIn);
   static readonly networkOutSmall = small(StyleColor.networkOut);
+  static readonly networkConnectionSmall = small(StyleColor.networkConnection);
   static readonly networkInLarge = large(StyleColor.networkIn);
   static readonly networkInProposedLarge = proposedLarge(StyleColor.networkIn);
   static readonly networkOutLarge = large(StyleColor.networkOut);
   static readonly networkOutProposedLarge = proposedLarge(StyleColor.networkOut);
+  static readonly networkConnectionLarge = large(StyleColor.networkConnection);
+  static readonly networkConnectionProposedLarge = proposedLarge(StyleColor.networkConnection);
 
   static readonly smallGray = small(StyleColor.gray);
   static readonly largeGray = large(StyleColor.gray);

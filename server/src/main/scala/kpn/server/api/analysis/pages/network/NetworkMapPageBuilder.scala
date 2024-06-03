@@ -4,6 +4,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.network.NetworkMapNode
 import kpn.api.common.network.NetworkMapPage
 import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.server.repository.NetworkInfoRepository
 import org.springframework.stereotype.Component
 
@@ -27,7 +28,7 @@ class NetworkMapPageBuilder(
 
   private def buildPageContents(networkInfo: NetworkInfoDoc): NetworkMapPage = {
 
-    val networkNodeInfos = networkInfo.nodes
+    val networkNodeInfos = networkInfo.nodes.filter(node => node.definedInRelation)
     val bounds = Bounds.from(networkNodeInfos)
 
     val nodes = networkNodeInfos.map { networkNodeInfo =>
@@ -40,12 +41,23 @@ class NetworkMapPageBuilder(
       )
     }
 
+    val networkNodeIds = networkNodeInfos.filterNot(isConnection).map(_.id)
+    val connectionNodeIds = networkNodeInfos.filter(isConnection).map(_.id)
+    val networkRouteIds = networkInfo.routes.filterNot(_.roleConnection).map(_.id)
+    val connectionRouteIds = networkInfo.routes.filter(_.roleConnection).map(_.id)
+
     NetworkMapPage(
       networkInfo.summary,
       nodes,
-      networkInfo.nodes.map(_.id),
-      networkInfo.routes.map(_.id),
+      networkNodeIds,
+      connectionNodeIds,
+      networkRouteIds,
+      connectionRouteIds,
       bounds
     )
+  }
+
+  private def isConnection(node: NetworkInfoNodeDetail): Boolean = {
+    node.roleConnection || node.connection
   }
 }

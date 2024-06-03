@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { NodeDetailsPage } from '@api/common/node';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
+import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { NetworkTypeIconComponent } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
 import { ErrorComponent } from '@app/components/shared/error';
@@ -125,7 +126,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
     </kpn-page>
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
-  providers: [NodeDetailsPageService, RouterService],
+  providers: [NodeDetailsPageService, AnalysisStrategyService, RouterService],
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
