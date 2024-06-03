@@ -1,5 +1,6 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Subset } from '@api/custom';
@@ -9,7 +10,8 @@ import { NetworkTypes } from '@app/kpn/common';
 
 @Injectable()
 export class RouterService {
-  private activatedRoute = inject(ActivatedRoute);
+  private readonly router = inject(Router);
+  private readonly activatedRoute = inject(ActivatedRoute);
 
   fragment(): string {
     return this.activatedRoute.snapshot.fragment;
@@ -49,5 +51,12 @@ export class RouterService {
       return layersParam.split(',');
     }
     return [];
+  }
+
+  updateQueryParams(queryParams: Params): Promise<boolean> {
+    return this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams,
+    });
   }
 }

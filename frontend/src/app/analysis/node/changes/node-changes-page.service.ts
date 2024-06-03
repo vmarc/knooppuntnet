@@ -2,9 +2,6 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { computed } from '@angular/core';
-import { Params } from '@angular/router';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { NodeChangesPage } from '@api/common/node';
 import { ApiResponse } from '@api/custom';
@@ -24,8 +21,6 @@ export class NodeChangesPageService {
   private readonly routerService = inject(RouterService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly userService = inject(UserService);
-  private readonly router = inject(Router);
-  private readonly activatedRoute = inject(ActivatedRoute);
 
   readonly loggedIn = this.userService.loggedIn;
 
@@ -94,8 +89,7 @@ export class NodeChangesPageService {
   }
 
   private load(): void {
-    const promise = this.navigate(this.changesParameters());
-    promise.then(() => {
+    this.routerService.updateQueryParams(this.changesParameters()).then(() => {
       this.apiService
         .nodeChanges(this.nodeService.nodeId(), this.changesParameters())
         .subscribe((response) => {
@@ -104,16 +98,6 @@ export class NodeChangesPageService {
           }
           this._response.set(response);
         });
-    });
-  }
-
-  private navigate(changesParameters: ChangesParameters): Promise<boolean> {
-    const queryParams: Params = {
-      ...changesParameters,
-    };
-    return this.router.navigate([], {
-      relativeTo: this.activatedRoute,
-      queryParams,
     });
   }
 }

@@ -1,9 +1,6 @@
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-import { Params } from '@angular/router';
 import { ChangesPage } from '@api/common';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { ApiResponse } from '@api/custom';
@@ -19,9 +16,6 @@ import { UserService } from '../../shared/user';
 export class ChangesPageService {
   private readonly apiService = inject(ApiService);
   private readonly routerService = inject(RouterService);
-
-  private readonly router = inject(Router);
-  private readonly activatedRoute = inject(ActivatedRoute);
   private readonly preferencesService = inject(PreferencesService);
   private readonly userService = inject(UserService);
 
@@ -95,25 +89,15 @@ export class ChangesPageService {
   }
 
   private load(): void {
-    const promise = this.navigate(this.preferencesService.strategy(), this.changesParameters());
-    promise.then(() => {
-      this.apiService
-        .changes(this.preferencesService.strategy(), this.changesParameters())
-        .subscribe((response) => this._response.set(response));
-    });
-  }
-
-  private navigate(
-    strategy: AnalysisStrategy,
-    changesParameters: ChangesParameters
-  ): Promise<boolean> {
-    const queryParams: Params = {
-      strategy,
-      ...changesParameters,
-    };
-    return this.router.navigate([], {
-      relativeTo: this.activatedRoute,
-      queryParams,
-    });
+    this.routerService
+      .updateQueryParams({
+        strategy: this.preferencesService.strategy(),
+        ...this.changesParameters(),
+      })
+      .then(() => {
+        this.apiService
+          .changes(this.preferencesService.strategy(), this.changesParameters())
+          .subscribe((response) => this._response.set(response));
+      });
   }
 }

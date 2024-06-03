@@ -1,14 +1,10 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { LocationChangesPage } from '@api/common/location';
 import { ApiResponse } from '@api/custom';
 import { Util } from '@app/components/shared';
-import { AnalysisStrategy } from '@app/core';
 import { PreferencesService } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
@@ -23,8 +19,6 @@ export class LocationChangesPageService {
   private readonly routerService = inject(RouterService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly userService = inject(UserService);
-  private readonly router = inject(Router);
-  private readonly activatedRoute = inject(ActivatedRoute);
 
   private readonly _response = signal<ApiResponse<LocationChangesPage> | null>(null);
   private readonly _changesParameters = signal<ChangesParameters>(null);
@@ -92,30 +86,20 @@ export class LocationChangesPageService {
   }
 
   private load() {
-    const promise = this.navigate(this.preferencesService.strategy(), this.changesParameters());
-    promise.then(() => {
-      this.apiService
-        .locationChanges(this.locationService.key(), this.changesParameters())
-        .subscribe((response) => {
-          if (response.result) {
-            this.locationService.setSummary(response.result.summary);
-          }
-          this._response.set(response);
-        });
-    });
-  }
-
-  private navigate(
-    strategy: AnalysisStrategy,
-    changesParameters: ChangesParameters
-  ): Promise<boolean> {
-    const queryParams: Params = {
-      strategy,
-      ...changesParameters,
-    };
-    return this.router.navigate([], {
-      relativeTo: this.activatedRoute,
-      queryParams,
-    });
+    this.routerService
+      .updateQueryParams({
+        strategy: this.preferencesService.strategy(),
+        ...this.changesParameters(),
+      })
+      .then(() => {
+        this.apiService
+          .locationChanges(this.locationService.key(), this.changesParameters())
+          .subscribe((response) => {
+            if (response.result) {
+              this.locationService.setSummary(response.result.summary);
+            }
+            this._response.set(response);
+          });
+      });
   }
 }

@@ -1,10 +1,6 @@
 import { signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
-import { Params } from '@angular/router';
-import { LocationRoutesParameters } from '@api/common/location';
 import { SurveyParameter } from '@api/common/location';
 import { LocationNodesParameters } from '@api/common/location';
 import { LocationNodesPage } from '@api/common/location';
@@ -22,8 +18,6 @@ export class LocationNodesPageService {
   private readonly locationService = inject(LocationService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
-  private readonly router = inject(Router);
-  private readonly activatedRoute = inject(ActivatedRoute);
 
   private readonly _integrityCheck = signal<BooleanParameter | null>(null);
   private readonly _integrityCheckFailed = signal<BooleanParameter | null>(null);
@@ -120,8 +114,7 @@ export class LocationNodesPageService {
       pageSize: this.preferencesService.pageSize(),
       pageIndex: this.pageIndex(),
     };
-    const promise = this.navigate(parameters);
-    promise.then(() => {
+    this.routerService.updateQueryParams(parameters).then(() => {
       this.apiService
         .locationNodes(this.locationService.key(), parameters)
         .subscribe((response) => {
@@ -130,16 +123,6 @@ export class LocationNodesPageService {
           }
           this._response.set(response);
         });
-    });
-  }
-
-  private navigate(parameters: LocationRoutesParameters): Promise<boolean> {
-    const queryParams: Params = {
-      ...parameters,
-    };
-    return this.router.navigate([], {
-      relativeTo: this.activatedRoute,
-      queryParams,
     });
   }
 }
