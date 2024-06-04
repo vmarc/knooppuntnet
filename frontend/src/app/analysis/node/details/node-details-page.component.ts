@@ -6,16 +6,15 @@ import { RouterLink } from '@angular/router';
 import { NodeDetailsPage } from '@api/common/node';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
-import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { NetworkTypeIconComponent } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
+import { SidebarComponent } from '@app/components/shared/sidebar';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagsTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
-import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { NodeIntegrityComponent } from './components/node-integrity.component';
 import { NodeLocationComponent } from './components/node-location.component';
@@ -122,14 +121,13 @@ import { NodeDetailsPageService } from './node-details-page.service';
           }
         </div>
       }
-      <kpn-analysis-sidebar sidebar />
+      <kpn-sidebar sidebar />
     </kpn-page>
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
-  providers: [NodeDetailsPageService, AnalysisStrategyService, RouterService],
+  providers: [NodeDetailsPageService, RouterService],
   standalone: true,
   imports: [
-    AnalysisSidebarComponent,
     DataComponent,
     ErrorComponent,
     FactsComponent,
@@ -144,6 +142,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
     RouterLink,
     TagsTableComponent,
     TimestampComponent,
+    SidebarComponent,
   ],
 })
 export class NodeDetailsPageComponent implements OnInit {

@@ -10,6 +10,7 @@ import { FactLevelComponent } from '@app/analysis/fact';
 import { FactInfo } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
+import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
@@ -59,7 +60,7 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
     </kpn-page>
   `,
   styleUrl: './subset-fact-details-page.component.scss',
-  providers: [SubsetFactDetailsPageService, RouterService],
+  providers: [SubsetFactDetailsPageService, AnalysisStrategyService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,

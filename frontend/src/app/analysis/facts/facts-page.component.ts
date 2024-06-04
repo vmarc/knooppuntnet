@@ -2,9 +2,11 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
+import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { PageComponent } from '@app/components/shared/page';
+import { RouterService } from '../../shared/services/router.service';
 import { AnalysisSidebarComponent } from '../analysis/analysis-sidebar.component';
 import { FactInfo } from '../fact';
 import { Facts } from '../fact';
@@ -30,6 +32,7 @@ import { Facts } from '../fact';
     </kpn-page>
   `,
   standalone: true,
+  providers: [AnalysisStrategyService, RouterService],
   imports: [
     AnalysisSidebarComponent,
     FactDescriptionComponent,
