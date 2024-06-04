@@ -1,7 +1,7 @@
 {
   "data_format": 1,
   "data_url": "https://raw.githubusercontent.com/vmarc/knooppuntnet/develop/docs/taginfo.json",
-  "data_updated": "20220929T235419Z",
+  "data_updated": "20240604T135828Z",
   "project": {
     "name": "knooppuntnet",
     "description": "Route planner and quality analysis for walking and cycling networks",
@@ -1377,30 +1377,6 @@
     },
     {
       "key": "surface",
-      "value": "compact",
-      "description": "surface analysis",
-      "object_types": [
-        "way"
-      ]
-    },
-    {
-      "key": "surface",
-      "value": "erde",
-      "description": "surface analysis",
-      "object_types": [
-        "way"
-      ]
-    },
-    {
-      "key": "surface",
-      "value": "gr",
-      "description": "surface analysis",
-      "object_types": [
-        "way"
-      ]
-    },
-    {
-      "key": "surface",
       "value": "loam",
       "description": "surface analysis",
       "object_types": [
@@ -1409,23 +1385,7 @@
     },
     {
       "key": "surface",
-      "value": "peb",
-      "description": "surface analysis",
-      "object_types": [
-        "way"
-      ]
-    },
-    {
-      "key": "surface",
       "value": "soil",
-      "description": "surface analysis",
-      "object_types": [
-        "way"
-      ]
-    },
-    {
-      "key": "surface",
-      "value": "shotter",
       "description": "surface analysis",
       "object_types": [
         "way"
