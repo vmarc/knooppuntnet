@@ -91,6 +91,6 @@ export class ChangeLocationAnalysisSummaryComponent {
     const countryName = Translations.get('country.' + Util.safeGet(() => country));
     const locationParts = [countryName].concat(locationNames.slice(1, index + 1));
     const location = locationParts.join(':');
-    return `/analysis/${networkType}/${country}/${location}/nodes`;
+    return `/analysis/${networkType}/${country}/${location}/details`;
   }
 }

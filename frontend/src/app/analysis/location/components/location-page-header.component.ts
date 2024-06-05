@@ -30,6 +30,13 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
         </kpn-page-header>
         <kpn-page-menu>
           <kpn-page-menu-option
+            [link]="link(key, 'details')"
+            [active]="pageName() === 'details'"
+            i18n="@@location-page.menu.details"
+          >
+            Details
+          </kpn-page-menu-option>
+          <kpn-page-menu-option
             [link]="link(key, 'nodes')"
             [active]="pageName() === 'nodes'"
             i18n="@@location-page.menu.nodes"
@@ -82,12 +89,12 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
   standalone: true,
   imports: [
     LocationPageBreadcrumbComponent,
+    LocationPipe,
     MatIconModule,
     NetworkTypeNameComponent,
     PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
-    LocationPipe,
   ],
 })
 export class LocationPageHeaderComponent {

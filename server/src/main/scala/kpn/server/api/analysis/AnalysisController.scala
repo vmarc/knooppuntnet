@@ -11,6 +11,7 @@ import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
+import kpn.api.common.location.LocationDetailsPage
 import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
@@ -282,6 +283,17 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable country: Country
   ): ApiResponse[LocationsPage] = {
     analysisFacade.locations(toLanguage(language), networkType, country)
+  }
+
+  @PostMapping(value = Array("/api/{networkType}/{country}/{location}/details"))
+  def locationDetails(
+    @RequestParam language: String,
+    @PathVariable networkType: NetworkType,
+    @PathVariable country: Country,
+    @PathVariable location: String
+  ): ApiResponse[LocationDetailsPage] = {
+    val locationKey = LocationKey(networkType, country, location)
+    analysisFacade.locationDetails(toLanguage(language), locationKey)
   }
 
   @PostMapping(value = Array("/api/{networkType}/{country}/{location}/nodes"))

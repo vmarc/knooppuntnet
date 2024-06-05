@@ -19,6 +19,7 @@ import { LocationNodesParameters } from '@api/common/location';
 import { LocationRoutesPage } from '@api/common/location';
 import { LocationRoutesParameters } from '@api/common/location';
 import { LocationsPage } from '@api/common/location';
+import { LocationDetailsPage } from '@api/common/location/location-details-page';
 import { NetworkChangesPage } from '@api/common/network';
 import { NetworkDetailsPage } from '@api/common/network';
 import { NetworkFactsPage } from '@api/common/network';
@@ -256,6 +257,11 @@ export class ApiService {
   ): Observable<ApiResponse<LocationsPage>> {
     const url = `/api/locations/${this.locale}/${networkType}/${country}`;
     return this.http.get(url);
+  }
+
+  public locationDetails(locationKey: LocationKey): Observable<ApiResponse<LocationDetailsPage>> {
+    const url = this.locationUrl(locationKey, 'details');
+    return this.http.post(url, {}, { params: this.languageParams() });
   }
 
   public locationNodes(

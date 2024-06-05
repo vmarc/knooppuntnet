@@ -7,6 +7,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
+import kpn.api.common.location.LocationDetailsPage
 import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
@@ -48,6 +49,7 @@ import kpn.server.api.analysis.pages.ChangesPageBuilder
 import kpn.server.api.analysis.pages.LocationsPageBuilder
 import kpn.server.api.analysis.pages.OverviewPageBuilder
 import kpn.server.api.analysis.pages.location.LocationChangesPageBuilder
+import kpn.server.api.analysis.pages.location.LocationDetailsPageBuilder
 import kpn.server.api.analysis.pages.location.LocationEditPageBuilder
 import kpn.server.api.analysis.pages.location.LocationFactsPageBuilder
 import kpn.server.api.analysis.pages.location.LocationMapPageBuilder
@@ -106,6 +108,7 @@ class AnalysisFacadeImpl(
   networkChangesPageBuilder: NetworkChangesPageBuilder,
   locationsPageBuilder: LocationsPageBuilder,
   locationEditPageBuilder: LocationEditPageBuilder,
+  locationDetailsPageBuilder: LocationDetailsPageBuilder,
   locationNodesPageBuilder: LocationNodesPageBuilder,
   locationRoutesPageBuilder: LocationRoutesPageBuilder,
   locationFactsPageBuilder: LocationFactsPageBuilder,
@@ -263,6 +266,13 @@ class AnalysisFacadeImpl(
     val subset = Subset.of(country, networkType).get
     api.execute("location", networkType.name) {
       reply(locationsPageBuilder.build(language, subset))
+    }
+  }
+
+  override def locationDetails(language: Language, locationKey: LocationKey): ApiResponse[LocationDetailsPage] = {
+    val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
+    api.execute("location-details", args) {
+      reply(locationDetailsPageBuilder.build(language, locationKey))
     }
   }
 

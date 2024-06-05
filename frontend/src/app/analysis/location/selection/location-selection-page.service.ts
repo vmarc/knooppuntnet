@@ -37,7 +37,7 @@ export class LocationSelectionPageService {
   }
 
   locationSelected(locationName: string): void {
-    const url = `/analysis/${this.networkType()}/${this.country()}/${locationName}/nodes`;
+    const url = `/analysis/${this.networkType()}/${this.country()}/${locationName}/details`;
     this.router.navigateByUrl(url);
   }
 

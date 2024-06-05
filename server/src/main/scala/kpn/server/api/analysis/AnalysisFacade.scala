@@ -7,6 +7,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
+import kpn.api.common.location.LocationDetailsPage
 import kpn.api.common.location.LocationEditPage
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationMapPage
@@ -95,6 +96,8 @@ trait AnalysisFacade {
 
   def locations(language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
 
+  def locationDetails(language: Language, locationKey: LocationKey): ApiResponse[LocationDetailsPage]
+
   def locationNodes(language: Language, locationKey: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage]
 
   def locationRoutes(language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage]
@@ -106,5 +109,4 @@ trait AnalysisFacade {
   def locationChanges(language: Language, locationKey: LocationKey, parameters: ChangesParameters): ApiResponse[LocationChangesPage]
 
   def locationEdit(language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage]
-
 }

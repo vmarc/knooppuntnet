@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NetworkType } from '@api/custom';
-import { LocationCandidateInfo } from '@api/common/location/location-candidate-info';
 import { LocationInfo } from '@api/common';
+import { LocationCandidateInfo } from '@api/common/location/location-candidate-info';
+import { NetworkType } from '@api/custom';
 
 @Component({
   selector: 'kpn-route-location',
@@ -47,7 +47,7 @@ export class RouteLocationComponent {
   locationCandidateInfos = input.required<LocationCandidateInfo[]>();
 
   link(locationInfo: LocationInfo) {
-    return `/analysis/${this.networkType()}/${locationInfo.link}/nodes`;
+    return `/analysis/${this.networkType()}/${locationInfo.link}/details`;
   }
 
   percentage(locationCandidateInfo: LocationCandidateInfo): string {

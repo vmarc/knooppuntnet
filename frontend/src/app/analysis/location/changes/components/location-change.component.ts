@@ -82,6 +82,6 @@ export class LocationChangeComponent {
   changeSet = input.required<LocationChangeSetInfo>();
 
   locationLink(link: string): string {
-    return `/analysis/${link}/nodes`;
+    return `/analysis/${link}/details`;
   }
 }

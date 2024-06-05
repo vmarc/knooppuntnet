@@ -1,10 +1,11 @@
 import { Routes } from '@angular/router';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { LocationChangesPageComponent } from './changes/location-changes-page.component';
+import { LocationDetailsPageComponent } from './details/location-details-page.component';
 import { LocationEditPageComponent } from './edit/location-edit-page.component';
 import { LocationFactsPageComponent } from './facts/location-facts-page.component';
-import { LocationMapPageComponent } from './map/location-map-page.component';
 import { LocationMapService } from './map/components/location-map.service';
+import { LocationMapPageComponent } from './map/location-map-page.component';
 import { LocationNodesPageComponent } from './nodes/location-nodes-page.component';
 import { LocationRoutesPageComponent } from './routes/location-routes-page.component';
 import { LocationModeService } from './selection/components/location-mode.service';
@@ -24,6 +25,10 @@ export const locationRoutes: Routes = [
       {
         path: ':networkType/:country',
         component: LocationSelectionPageComponent,
+      },
+      {
+        path: ':networkType/:country/:location/details',
+        component: LocationDetailsPageComponent,
       },
       {
         path: ':networkType/:country/:location/nodes',

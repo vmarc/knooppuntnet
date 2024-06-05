@@ -61,7 +61,7 @@ import { LocationTreeNodeComponent } from './location-tree-node.component';
 
     @if (networkType() === 'hiking' && country() === 'fr') {
       <div class="kpn-small-spacer-below">
-        <a routerLink="/analysis/hiking/fr/Parc du Vercors/nodes">Parc du Vercors</a>
+        <a routerLink="/analysis/hiking/fr/Parc du Vercors/details">Parc du Vercors</a>
       </div>
     }
     <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">

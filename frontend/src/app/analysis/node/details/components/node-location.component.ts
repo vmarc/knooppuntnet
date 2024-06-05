@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NetworkType } from '@api/custom';
 import { LocationInfo } from '@api/common/location-info';
+import { NetworkType } from '@api/custom';
 
 @Component({
   selector: 'kpn-node-location',
@@ -30,6 +30,6 @@ export class NodeLocationComponent {
   }
 
   link(locationInfo: LocationInfo): string {
-    return `/analysis/${this.networkType()}/${locationInfo.link}/nodes`;
+    return `/analysis/${this.networkType()}/${locationInfo.link}/details`;
   }
 }
