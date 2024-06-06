@@ -18,16 +18,16 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.key(); as key) {
+      <kpn-location-page-breadcrumb [locationKey]="key" />
+      <kpn-page-header [pageTitle]="fullPageTitle()" subject="location-page">
+        <span class="header-network-type-icon">
+          <mat-icon [svgIcon]="key.networkType" />
+        </span>
+        <kpn-network-type-name [networkType]="key.networkType" />&nbsp;
+        <span i18n="@@location-page.header.in">in</span>
+        {{ locationName(key) | location }}
+      </kpn-page-header>
       @if (service.summary(); as summary) {
-        <kpn-location-page-breadcrumb [locationKey]="key" />
-        <kpn-page-header [pageTitle]="fullPageTitle()" subject="location-page">
-          <span class="header-network-type-icon">
-            <mat-icon [svgIcon]="key.networkType" />
-          </span>
-          <kpn-network-type-name [networkType]="key.networkType" />&nbsp;
-          <span i18n="@@location-page.header.in">in</span>
-          {{ locationName(key) | location }}
-        </kpn-page-header>
         <kpn-page-menu>
           <kpn-page-menu-option
             [link]="link(key, 'details')"
