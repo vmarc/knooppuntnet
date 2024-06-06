@@ -14,7 +14,7 @@ export class IntegerFormatPipe implements PipeTransform {
     if (value) {
       let thousandsSeparator = '.';
       if (this.locale === 'fr') {
-        thousandsSeparator = ' ';
+        thousandsSeparator = '\u2009'; // thin space
       }
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator);
     }

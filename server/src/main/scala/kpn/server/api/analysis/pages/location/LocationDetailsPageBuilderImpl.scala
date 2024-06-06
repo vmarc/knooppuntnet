@@ -25,15 +25,14 @@ class LocationDetailsPageBuilderImpl(
     }
   }
 
-  private def buildPage(language: Language, locationKeyParam: LocationKey): Option[LocationDetailsPage] = {
-    val subset = locationService.toSubset(language, locationKeyParam)
+  private def buildPage(language: Language, locationKey: LocationKey): Option[LocationDetailsPage] = {
+    val subset = locationService.toSubset(language, locationKey)
     val summary = locationRepository.summary(subset)
-
-    val nameParts = locationKeyParam.name.split(":")
-
+    val distance = locationRepository.distance(subset)
+    val nameParts = locationKey.name.split(":")
     val locationInfos = nameParts.zipWithIndex.map { case (namePart, index) =>
       val names = nameParts.take(index + 1)
-      val link = s"${locationKeyParam.networkType.name}/${locationKeyParam.country.domain}/${names.mkString(":")}"
+      val link = s"${locationKey.networkType.name}/${locationKey.country.domain}/${names.mkString(":")}"
       LocationInfo(
         namePart,
         link
@@ -43,6 +42,7 @@ class LocationDetailsPageBuilderImpl(
     Some(
       LocationDetailsPage(
         summary,
+        distance,
         locationInfos
       )
     )

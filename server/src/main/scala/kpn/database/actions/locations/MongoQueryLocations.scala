@@ -3,8 +3,9 @@ package kpn.database.actions.locations
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.util.Log
+import kpn.database.base.CountResult
 import kpn.database.base.Database
-import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Accumulators.sum
@@ -24,6 +25,27 @@ import org.mongodb.scala.model.Projections.include
 
 class MongoQueryLocations(database: Database) {
   private val log = Log(classOf[MongoQueryLocations])
+
+  def distance(subset: LocationSubset): Long = {
+    val pipeline = Seq(
+      filter(
+        and(
+          equal("labels", Label.active),
+          equal("labels", Label.networkType(subset.networkType)),
+          LocationQuery.locationFilter("labels", subset),
+        )
+      ),
+      group(
+        "meters",
+        sum("count", "$summary.meters")
+      )
+    )
+
+    log.debugElapsed {
+      val meters = database.routes.aggregate[CountResult](pipeline, log).map(_.count).sum
+      (s"distance: $meters", meters)
+    }
+  }
 
   def execute(subset: Subset): Seq[LocationQueryResult] = {
 

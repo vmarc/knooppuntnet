@@ -8,6 +8,7 @@ object LocationDetailsPageExample {
   def page: LocationDetailsPage = {
     LocationDetailsPage(
       LocationSummary(10, 20, 30, 40),
+      0,
       Seq.empty
     )
   }

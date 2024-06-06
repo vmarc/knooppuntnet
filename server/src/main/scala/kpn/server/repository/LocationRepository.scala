@@ -19,6 +19,8 @@ trait LocationRepository {
 
   def summary(subset: LocationSubset): LocationSummary
 
+  def distance(subset: LocationSubset): Long
+
   def nodes(subset: LocationSubset, parameters: LocationNodesParameters): Seq[LocationNodeInfo]
 
   def nodeFilterOptions(subset: LocationSubset, parameters: LocationNodesParameters): LocationNodeOptions

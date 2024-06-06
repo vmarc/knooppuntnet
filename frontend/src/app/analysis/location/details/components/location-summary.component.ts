@@ -4,6 +4,7 @@ import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { LocationDetailsPage } from '@api/common/location/location-details-page';
 import { CountryNameComponent } from '@app/components/shared';
+import { DistancePipe } from '@app/components/shared/format';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActionButtonRelationComponent } from '../../../components/action/action-button-relation.component';
@@ -13,6 +14,9 @@ import { ActionButtonRelationComponent } from '../../../components/action/action
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span class="kpn-comma-list">
+      <span>
+        {{ page().distance | distance }}
+      </span>
       <span>
         {{ page().summary.nodeCount | integer }}
         <ng-container i18n="@@network-details.nodes">nodes</ng-container>
@@ -30,6 +34,7 @@ import { ActionButtonRelationComponent } from '../../../components/action/action
     MarkdownModule,
     MatIconModule,
     ActionButtonRelationComponent,
+    DistancePipe,
   ],
 })
 export class LocationSummaryComponent {

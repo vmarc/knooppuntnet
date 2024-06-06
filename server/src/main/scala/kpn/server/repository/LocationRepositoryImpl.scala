@@ -36,6 +36,10 @@ class LocationRepositoryImpl(database: Database) extends LocationRepository {
     )
   }
 
+  override def distance(subset: LocationSubset): Long = {
+    new MongoQueryLocations(database).distance(subset)
+  }
+
   override def nodes(subset: LocationSubset, parameters: LocationNodesParameters): Seq[LocationNodeInfo] = {
     new MongoQueryLocationNodes(database, SurveyDateInfoBuilder.dateInfo).find(
       subset,
