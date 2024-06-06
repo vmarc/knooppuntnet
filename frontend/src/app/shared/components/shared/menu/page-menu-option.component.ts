@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { IntegerFormatPipe } from '@app/components/shared/format';
 
 @Component({
   selector: 'kpn-page-menu-option',
@@ -11,7 +12,7 @@ import { RouterLink } from '@angular/router';
     <a [routerLink]="link()" [ngClass]="{ active: active() }" [state]="state()" class="link">
       <ng-content />
       @if (!!elementCount()) {
-        <span class="element-count"> ({{ elementCount() }}) </span>
+        <span class="element-count"> ({{ elementCount() | integer }}) </span>
       }
     </a>
   `,
@@ -31,7 +32,7 @@ import { RouterLink } from '@angular/router';
     }
   `,
   standalone: true,
-  imports: [RouterLink, NgClass],
+  imports: [RouterLink, NgClass, IntegerFormatPipe],
 })
 export class PageMenuOptionComponent {
   link = input.required<string>();

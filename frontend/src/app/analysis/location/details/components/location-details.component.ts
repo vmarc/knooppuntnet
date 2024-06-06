@@ -19,11 +19,7 @@ import { LocationSummaryComponent } from './location-summary.component';
       <p class="location-names">
         @for (locationInfo of response().result.locationInfos; track locationInfo.link) {
           <div class="location-name">
-            <a
-              [routerLink]="locationLink(locationInfo.link)"
-              [skipLocationChange]="true"
-              [replaceUrl]=""
-            >
+            <a [routerLink]="locationLink(locationInfo.link)">
               {{ locationInfo.name | location }}</a
             >
           </div>

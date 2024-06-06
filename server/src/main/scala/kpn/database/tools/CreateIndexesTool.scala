@@ -279,6 +279,19 @@ class CreateIndexesTool(database: Database) {
         "key.changeSetId"
       ),
       Index(
+        database.changes,
+        "changes-location",
+        Indexes.compoundIndex(
+          Indexes.ascending(
+            "locations",
+            "impact",
+          ),
+          Indexes.descending(
+            "key.time"
+          )
+        )
+      ),
+      Index(
         database.routeChanges,
         "routeId-time-impact",
         Indexes.descending(

@@ -217,7 +217,10 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
 
   def countDocuments(subset: LocationSubset, parameters: LocationRoutesParameters): Long = {
     val filter = buildFilter(subset, parameters)
-    database.routes.countDocuments(filter, log)
+    val routeCount = database.routes.countDocuments(filter, log)
+    log.debugElapsed {
+      ("route count", routeCount)
+    }
   }
 
   def find(

@@ -270,7 +270,10 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
 
   def countDocuments(subset: LocationSubset, parameters: LocationNodesParameters): Long = {
     val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ boundaryFilter(subset) ++ Seq(count())
-    database.nodes.aggregate[CountResult](pipeline, log).map(_.count).sum
+    log.debugElapsed {
+      val result = database.nodes.aggregate[CountResult](pipeline, log).map(_.count).sum
+      ("node count", result)
+    }
   }
 
   def find(
