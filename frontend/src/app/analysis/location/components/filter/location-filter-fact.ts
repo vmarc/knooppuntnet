@@ -1,5 +1,4 @@
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
+import { output } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -48,7 +47,7 @@ import { Translations } from '@app/i18n';
 export class LocationFilterFactComponent {
   title = input.required<string>();
   filterGroup = input.required<ServerFilterGroup>();
-  @Output() changed = new EventEmitter<Fact | null>();
+  changed = output<Fact | null>();
 
   translate(option: string): string {
     return Translations.get(`filter.${option}`);

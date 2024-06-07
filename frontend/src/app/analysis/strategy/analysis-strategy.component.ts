@@ -1,6 +1,5 @@
+import { output } from '@angular/core';
 import { inject } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
@@ -34,7 +33,7 @@ import { AnalysisStrategyService } from './analysis-strategy.service';
   imports: [MatRadioModule],
 })
 export class AnalysisStrategyComponent {
-  @Output() strategyChange = new EventEmitter<AnalysisStrategy>();
+  strategyChange = output<AnalysisStrategy>();
 
   private readonly service = inject(AnalysisStrategyService);
   protected readonly strategy = this.service.strategy;

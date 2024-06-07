@@ -1,6 +1,5 @@
+import { output } from '@angular/core';
 import { inject } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,7 +33,7 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
   imports: [MatIconModule],
 })
 export class GeolocationControlComponent {
-  @Output() action = new EventEmitter<Coordinate>();
+  action = output<Coordinate>();
 
   private readonly dialog = inject(MatDialog);
 

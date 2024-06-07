@@ -1,6 +1,5 @@
 import { NgClass } from '@angular/common';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
+import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -30,7 +29,7 @@ import { MonitorRouteSubRelation } from '@api/common/monitor';
 export class MonitorRouteSubRelationMenuOptionComponent {
   routeSubRelation = input.required<MonitorRouteSubRelation>();
   name = input.required<string>();
-  @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
+  selectSubRelation = output<MonitorRouteSubRelation>();
 
   goto(): void {
     this.selectSubRelation.emit(this.routeSubRelation());

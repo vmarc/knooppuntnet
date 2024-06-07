@@ -1,7 +1,6 @@
+import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { input } from '@angular/core';
 import { IndicatorIconComponent } from './indicator-icon.component';
 
@@ -27,7 +26,7 @@ export class IndicatorComponent {
   letter = input.required<string>();
   color = input.required<string>();
 
-  @Output() openDialog = new EventEmitter<void>();
+  openDialog = output<void>();
 
   onOpenDialog() {
     this.openDialog.emit();

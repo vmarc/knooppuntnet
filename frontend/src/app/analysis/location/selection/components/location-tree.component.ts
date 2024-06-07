@@ -1,13 +1,12 @@
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { NgClass } from '@angular/common';
+import { output } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { EventEmitter } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Output } from '@angular/core';
 import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -135,7 +134,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
   country = input.required<Country>();
   locationNode = input.required<LocalLocationNode>();
 
-  @Output() selection = new EventEmitter<string>();
+  selection = output<string>();
 
   private readonly dialog = inject(MatDialog);
 

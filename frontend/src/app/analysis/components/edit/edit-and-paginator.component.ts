@@ -1,7 +1,7 @@
+import { output } from '@angular/core';
 import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { input } from '@angular/core';
 import { PaginatorComponent } from '@app/components/shared/paginator';
@@ -47,9 +47,9 @@ export class EditAndPaginatorComponent {
   showFirstLastButtons = input(false);
   showPageSizeSelection = input(false);
 
-  @Output() pageSizeChange = new EventEmitter<number>();
-  @Output() pageIndexChange = new EventEmitter<number>();
-  @Output() edit = new EventEmitter<void>();
+  pageSizeChange = output<number>();
+  pageIndexChange = output<number>();
+  edit = new EventEmitter<void>();
 
   readonly paginator = viewChild(PaginatorComponent);
 

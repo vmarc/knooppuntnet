@@ -1,7 +1,6 @@
 import { NgClass } from '@angular/common';
+import { output } from '@angular/core';
 import { computed } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -134,8 +133,8 @@ export class MonitorRoutePageHeaderComponent {
   subRelations = input<MonitorRouteSubRelation[]>([]);
   previous = input<MonitorRouteSubRelation>();
   next = input<MonitorRouteSubRelation>();
-  @Output() selectSubRelation = new EventEmitter<MonitorRouteSubRelation>();
-  @Output() goHereInJosm = new EventEmitter<void>();
+  selectSubRelation = output<MonitorRouteSubRelation>();
+  goHereInJosm = output<void>();
 
   protected pageTitle = computed(() => {
     const monitor = MonitorTranslations.get('monitor');

@@ -1,5 +1,4 @@
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
+import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -47,9 +46,9 @@ export class ChangesComponent {
   pageSize = input.required<number>();
   pageIndex = input.required<number>();
 
-  @Output() impactChange = new EventEmitter<boolean>();
-  @Output() pageSizeChange = new EventEmitter<number>();
-  @Output() pageIndexChange = new EventEmitter<number>();
+  impactChange = output<boolean>();
+  pageSizeChange = output<number>();
+  pageIndexChange = output<number>();
 
   onImpactChanged(event: MatSlideToggleChange) {
     this.impactChange.emit(event.checked);

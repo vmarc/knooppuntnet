@@ -1,6 +1,5 @@
 import { NgClass } from '@angular/common';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
+import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -40,7 +39,7 @@ import { MonthComponent } from './month.component';
 })
 export class ChangeFilterPeriodComponent {
   option = input.required<ChangesFilterOption>();
-  @Output() optionSelected = new EventEmitter<ChangeOption>();
+  optionSelected = output<ChangeOption>();
 
   impactedCountClicked(): void {
     this.countClicked(true);

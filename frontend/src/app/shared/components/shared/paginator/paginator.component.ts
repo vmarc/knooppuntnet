@@ -1,8 +1,7 @@
+import { output } from '@angular/core';
 import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { input } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
@@ -38,8 +37,8 @@ export class PaginatorComponent implements AfterViewInit {
   showFirstLastButtons = input(false);
   showPageSizeSelection = input(false);
 
-  @Output() pageSizeChange = new EventEmitter<number>();
-  @Output() pageIndexChange = new EventEmitter<number>();
+  pageSizeChange = output<number>();
+  pageIndexChange = output<number>();
 
   readonly matPaginator = viewChild(MatPaginator);
 

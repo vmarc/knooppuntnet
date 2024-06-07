@@ -1,10 +1,10 @@
+import { output } from '@angular/core';
 import { inject } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ValidationErrors } from '@angular/forms';
 import { AsyncValidatorFn } from '@angular/forms';
@@ -36,7 +36,6 @@ import { MonitorRoutePropertiesStep3RelationComponent } from './monitor-route-pr
 import { MonitorRoutePropertiesStep4ReferenceTypeComponent } from './monitor-route-properties-step-4-reference-type.component';
 import { MonitorRoutePropertiesStep5ReferenceDetailsComponent } from './monitor-route-properties-step-5-reference-details.component';
 import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-properties-step-6-comment.component';
-import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'kpn-monitor-route-properties',
@@ -167,7 +166,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   groupName = input.required<string>();
   initialProperties = input.required<MonitorRouteProperties>();
   routeGroups = input.required<MonitorRouteGroup[]>();
-  @Output() update = new EventEmitter<MonitorRouteUpdate>();
+  update = output<MonitorRouteUpdate>();
 
   private readonly monitorService = inject(MonitorService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);

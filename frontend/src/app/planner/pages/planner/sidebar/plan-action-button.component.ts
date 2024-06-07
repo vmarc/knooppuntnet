@@ -1,7 +1,6 @@
+import { output } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -52,7 +51,7 @@ export class PlanActionButtonComponent {
   icon = input('');
   text = input('');
   title = input('');
-  @Output() action = new EventEmitter<any>();
+  action = output<void>();
 
   private readonly pageWidthService = inject(PageWidthService);
   protected showButtonText = computed(

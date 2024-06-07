@@ -1,9 +1,8 @@
+import { output } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { UntypedFormBuilder } from '@angular/forms';
@@ -96,7 +95,7 @@ export class LocationSelectorComponent /* implements OnInit*/ {
   country = input.required<Country>();
   locationNode = input.required<LocationNode>();
   all = input(false);
-  @Output() selection = new EventEmitter<string>();
+  selection = output<string>();
 
   private readonly fb = inject(UntypedFormBuilder);
 

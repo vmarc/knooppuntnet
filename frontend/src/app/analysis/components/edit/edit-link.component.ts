@@ -1,5 +1,4 @@
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
+import { output } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -13,7 +12,7 @@ import { input } from '@angular/core';
 })
 export class EditLinkComponent implements OnInit {
   title = input<string>();
-  @Output() edit = new EventEmitter<void>();
+  edit = output<void>();
 
   linkTitle: string;
 

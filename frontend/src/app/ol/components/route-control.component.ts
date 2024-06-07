@@ -1,5 +1,4 @@
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
+import { output } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 
@@ -28,5 +27,5 @@ import { ChangeDetectionStrategy } from '@angular/core';
   standalone: true,
 })
 export class RouteControlComponent {
-  @Output() action = new EventEmitter<void>();
+  action = output<void>();
 }

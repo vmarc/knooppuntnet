@@ -1,5 +1,4 @@
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
+import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -34,7 +33,7 @@ import { MatAccordion } from '@angular/material/expansion';
 })
 export class ExpandCollapseComponent {
   accordion = input.required<MatAccordion>();
-  @Output() active = new EventEmitter<boolean>();
+  active = output<boolean>();
 
   expandAll(): void {
     this.active.emit(true);

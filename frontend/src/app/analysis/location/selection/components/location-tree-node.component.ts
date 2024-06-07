@@ -1,8 +1,7 @@
 import { DecimalPipe } from '@angular/common';
+import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { EventEmitter } from '@angular/core';
-import { Output } from '@angular/core';
 import { input } from '@angular/core';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LocationPipe } from '../../../../shared/components/shared/format/location.pipe';
@@ -65,7 +64,7 @@ import { LocationFlatNode } from './location-flat-node';
 export class LocationTreeNodeComponent {
   node = input.required<LocationFlatNode>();
 
-  @Output() selection = new EventEmitter<string>();
+  selection = output<string>();
 
   select(expandableNode: LocationFlatNode): void {
     const locationName =
