@@ -10,6 +10,7 @@ import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.model.Accumulators.sum
+import org.mongodb.scala.model.Aggregates.count
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.project
@@ -66,6 +67,28 @@ class MongoQueryLocationFactCount(database: Database) {
       )
     )
 
+    val nodePipeline2 = Seq(
+      filter(
+        and(
+          equal("labels", Label.active),
+          equal("labels", Label.networkType(subset.networkType)),
+          LocationQuery.locationFilter("labels", subset),
+        )
+      ),
+      unwind("$names"),
+      filter(
+        equal("names.networkType", subset.networkType.name)
+      ),
+      unwind("$integrity.details"),
+      filter(
+        and(
+          equal("integrity.details.networkType", subset.networkType.name),
+          BsonDocument("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
+        )
+      ),
+      count()
+    )
+
     val routeFactPipeline = Seq(
       filter(
         and(
@@ -102,6 +125,7 @@ class MongoQueryLocationFactCount(database: Database) {
 
     val pipeline = Seq(
       nodeFactsPipeline,
+      Seq(unionWith("nodes", nodePipeline2: _*)),
       Seq(unionWith("routes", routeFactPipeline: _*))
     ).flatten
 

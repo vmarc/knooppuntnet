@@ -8,6 +8,7 @@ import kpn.database.actions.locations.MongoQueryLocationFacts.log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
+import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.model.Accumulators.push
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
@@ -28,10 +29,10 @@ object MongoQueryLocationFacts {
 
   def main(args: Array[String]): Unit = {
     println("MongoQueryLocationFacts")
-    Mongo.executeIn("kpn-test") { database =>
+    Mongo.executeIn("kpn-prod") { database =>
       database.networks.findById(0)
       val query = new MongoQueryLocationFacts(database)
-      val subset = LocationSubset("", NetworkType.cycling, Seq("de"))
+      val subset = LocationSubset("", NetworkType.hiking, Seq("fr"))
       val locationFacts = query.execute(subset)
       locationFacts.foreach { locationFact =>
         println(s"${locationFact.elementType} ${locationFact.fact.name}: ${locationFact.refs.map(_.name).mkString(", ")}")
@@ -82,6 +83,48 @@ class MongoQueryLocationFacts(database: Database) {
       )
     )
 
+    val nodePipeline2 = Seq(
+      filter(
+        and(
+          equal("labels", Label.active),
+          equal("labels", Label.networkType(subset.networkType)),
+          LocationQuery.locationFilter("labels", subset),
+        )
+      ),
+      unwind("$names"),
+      filter(
+        equal("names.networkType", subset.networkType.name)
+      ),
+      unwind("$integrity.details"),
+      filter(
+        and(
+          equal("integrity.details.networkType", subset.networkType.name),
+          BsonDocument("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
+        )
+      ),
+      project(
+        fields(
+          excludeId(),
+          computed("elementType", "node"),
+          computed("fact", "IntegrityCheckFailed"),
+          computed("ref.id", "$_id"),
+          computed("ref.name", "$names.name")
+        )
+      ),
+      group(
+        "$fact",
+        push("refs", "$ref")
+      ),
+      project(
+        fields(
+          excludeId(),
+          computed("elementType", "node"),
+          computed("fact", "$_id"),
+          include("refs")
+        )
+      )
+    )
+
     val routePipeline = Seq(
       mainFilter,
       unwind("$facts"),
@@ -116,6 +159,7 @@ class MongoQueryLocationFacts(database: Database) {
 
     val pipeline = Seq(
       nodePipeline, // node facts
+      Seq(unionWith("nodes", nodePipeline2: _*)),
       Seq(unionWith("routes", routePipeline: _*))
     ).flatten
 
