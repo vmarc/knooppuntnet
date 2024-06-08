@@ -13,7 +13,7 @@ import { DataComponent } from '@app/components/shared/data';
 import { PageComponent } from '@app/components/shared/page';
 import { AnalysisSidebarComponent } from '@app/components/shared/sidebar';
 import { InterpretedTags } from '@app/components/shared/tags';
-import { TagsTableComponent } from '@app/components/shared/tags';
+import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { SymbolComponent } from '@app/symbol';
 import { RouterService } from '../../../shared/services/router.service';
@@ -108,7 +108,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
                 </div>
               }
               <kpn-data title="Tags" i18n-title="@@route.tags">
-                <kpn-tags-table [tags]="routeTags(page)" />
+                <kpn-tag-table [tags]="routeTags(page)" />
               </kpn-data>
               <kpn-data title="Location" i18n-title="@@route.location">
                 <kpn-route-location
@@ -162,7 +162,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
     RouteStructureComponent,
     RouteSummaryComponent,
     RouterLink,
-    TagsTableComponent,
+    TagTableComponent,
     TimestampComponent,
     SymbolComponent,
   ],

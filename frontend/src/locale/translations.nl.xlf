@@ -5375,6 +5375,30 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
         <source>Connection</source>
         <target>Verbinding</target>
       </trans-unit>
+      <trans-unit datatype="html" id="location-page.menu.details">
+        <source>Details</source>
+        <target>Details</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.summary">
+        <source>Summary</source>
+        <target>Samenvatting</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.situation-on">
+        <source>Situation on</source>
+        <target>Situatie op</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.tags">
+        <source>Tags</source>
+        <target>Tags</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.title">
+        <source>Details</source>
+        <target>Details</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-page.location-not-found">
+        <source>Location not found</source>
+        <target>Locatie niet gevonden</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

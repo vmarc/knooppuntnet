@@ -1,5 +1,6 @@
 package kpn.core.tools.location
 
+import kpn.api.custom.Tags
 import kpn.core.util.Log
 
 class LocationBuilderAustria(dir: String) {
@@ -26,8 +27,10 @@ class LocationBuilderAustria(dir: String) {
       locationDatas.add(
         LocationData(
           "at",
+          locationJson.relationId,
           locationJson.name,
           locationJson.names,
+          Tags.from(locationJson.tags),
           LocationGeometry(locationJson.geometry)
         )
       )
@@ -43,9 +46,11 @@ class LocationBuilderAustria(dir: String) {
         locationDatas.add(
           LocationData.from(
             id,
+            federalState.relationId,
             Seq("at"),
             federalState.name,
             federalState.names,
+            Tags.from(federalState.tags),
             LocationGeometry(federalState.geometry)
           )
         )
@@ -68,9 +73,11 @@ class LocationBuilderAustria(dir: String) {
               locationDatas.add(
                 LocationData.from(
                   id,
+                  federalState.relationId,
                   Seq("at", federalState.id),
                   district.name,
                   district.names,
+                  federalState.tags,
                   LocationGeometry(district.geometry)
                 )
               )

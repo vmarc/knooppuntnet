@@ -6,7 +6,7 @@ import { NetworkDetailsPage } from '@api/common/network';
 import { ApiResponse } from '@api/custom';
 import { DataComponent } from '@app/components/shared/data';
 import { InterpretedTags } from '@app/components/shared/tags';
-import { TagsTableComponent } from '@app/components/shared/tags';
+import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { NetworkSummaryComponent } from './network-summary.component';
 
@@ -41,12 +41,12 @@ import { NetworkSummaryComponent } from './network-summary.component';
     </kpn-data>
 
     <kpn-data title="Tags" i18n-title="@@network-details.tags">
-      <kpn-tags-table [tags]="tags" />
+      <kpn-tag-table [tags]="tags" />
     </kpn-data>
   `,
   styleUrl: '../../../../shared/components/shared/data/data.component.scss',
   standalone: true,
-  imports: [DataComponent, NetworkSummaryComponent, TagsTableComponent, TimestampComponent],
+  imports: [DataComponent, NetworkSummaryComponent, TagTableComponent, TimestampComponent],
 })
 export class NetworkDetailsComponent implements OnInit {
   response = input.required<ApiResponse<NetworkDetailsPage>>();

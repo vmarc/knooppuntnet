@@ -5,7 +5,7 @@ import { WayInfo } from '@api/common/diff';
 import { MetaDataComponent } from '@app/components/shared';
 import { OsmLinkWayComponent } from '@app/components/shared/link';
 import { InterpretedTags } from '@app/components/shared/tags';
-import { TagsTableComponent } from '@app/components/shared/tags';
+import { TagTableComponent } from '@app/components/shared/tags';
 
 @Component({
   selector: 'kpn-route-change-way-removed',
@@ -23,13 +23,13 @@ import { TagsTableComponent } from '@app/components/shared/tags';
           </div>
         </div>
         <div class="kpn-detail">
-          <kpn-tags-table [tags]="wayTags(wayInfo())" />
+          <kpn-tag-table [tags]="wayTags(wayInfo())" />
         </div>
       </div>
     </div>
   `,
   standalone: true,
-  imports: [OsmLinkWayComponent, MetaDataComponent, TagsTableComponent],
+  imports: [OsmLinkWayComponent, MetaDataComponent, TagTableComponent],
 })
 export class RouteChangeWayRemovedComponent {
   wayInfo = input.required<WayInfo>();

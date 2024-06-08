@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.Language
+import kpn.api.custom.Tags
 
 object LocationDefinition {
 
@@ -26,8 +27,10 @@ object LocationDefinition {
 
 case class LocationDefinition(
   id: String,
+  relationId: Long,
   name: String,
   locationNames: Map[Language, String],
+  tags: Tags,
   children: Seq[LocationDefinition] = Seq.empty
 ) {
 

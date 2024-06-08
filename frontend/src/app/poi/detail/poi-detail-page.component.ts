@@ -8,7 +8,7 @@ import { PoiAnalysisComponent } from '@app/components/poi';
 import { DataComponent } from '@app/components/shared/data';
 import { PageComponent } from '@app/components/shared/page';
 import { InterpretedTags } from '@app/components/shared/tags';
-import { TagsTableComponent } from '@app/components/shared/tags';
+import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { PoiDetailMapComponent } from '@app/ol/components';
 import { BaseSidebarComponent } from '@app/shared/base';
@@ -58,7 +58,7 @@ import { PoiDetailPageService } from './poi-detail-page.service';
             }
           </kpn-data>
           <kpn-data title="Tags" i18n-title="@@poi-detail.tags">
-            <kpn-tags-table [tags]="tags(response.result.poi.tags)" />
+            <kpn-tag-table [tags]="tags(response.result.poi.tags)" />
           </kpn-data>
           <kpn-data title="Location" i18n-title="@@poi-detail.location">
             @for (locationName of response.result.poi.location.names; track locationName) {
@@ -127,7 +127,7 @@ import { PoiDetailPageService } from './poi-detail-page.service';
     PageComponent,
     PoiAnalysisComponent,
     PoiDetailMapComponent,
-    TagsTableComponent,
+    TagTableComponent,
     TimestampComponent,
     ActionButtonWayComponent,
     ActionButtonNodeComponent,

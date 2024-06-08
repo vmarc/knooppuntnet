@@ -1,5 +1,6 @@
 package kpn.core.tools.location
 
+import kpn.api.custom.Tags
 import kpn.core.util.Log
 
 import java.util.concurrent.atomic.AtomicInteger
@@ -31,8 +32,10 @@ class LocationBuilderGermany(dir: String) {
       locationDatas.add(
         LocationData(
           "de",
+          locationJson.relationId,
           locationJson.name,
           locationJson.names,
+          Tags.from(locationJson.tags),
           LocationGeometry(locationJson.geometry)
         )
       )
@@ -51,9 +54,11 @@ class LocationBuilderGermany(dir: String) {
             locationDatas.add(
               LocationData.from(
                 id,
+                federalState.relationId,
                 Seq("de"),
                 federalState.name,
                 federalState.names,
+                Tags.from(federalState.tags),
                 LocationGeometry(federalState.geometry)
               )
             )
@@ -81,9 +86,11 @@ class LocationBuilderGermany(dir: String) {
               locationDatas.add(
                 LocationData.from(
                   id,
+                  district.relationId,
                   parents,
                   district.name,
                   district.names,
+                  Tags.from(district.tags),
                   LocationGeometry(district.geometry)
                 )
               )
@@ -129,9 +136,11 @@ class LocationBuilderGermany(dir: String) {
                   locationDatas.add(
                     LocationData.from(
                       id,
+                      county.relationId,
                       parents,
                       county.name,
                       county.names,
+                      Tags.from(county.tags),
                       LocationGeometry(county.geometry)
                     )
                   )
@@ -144,9 +153,11 @@ class LocationBuilderGermany(dir: String) {
                       locationDatas.add(
                         LocationData.from(
                           id,
+                          county.relationId,
                           parents,
                           county.name,
                           county.names,
+                          Tags.from(county.tags),
                           LocationGeometry(county.geometry)
                         )
                       )

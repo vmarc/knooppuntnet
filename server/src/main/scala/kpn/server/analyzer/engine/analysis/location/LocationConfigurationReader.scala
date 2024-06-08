@@ -53,8 +53,10 @@ class LocationConfigurationReader {
         }
         LocationDefinition(
           locationNameDefinition.id,
+          locationNameDefinition.relationId,
           locationNameDefinition.name,
           names,
+          locationNameDefinition.tags,
           children
         )
     }

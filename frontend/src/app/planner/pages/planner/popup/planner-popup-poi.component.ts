@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { PoiAnalysisComponent } from '@app/components/poi';
 import { InterpretedTags } from '@app/components/shared/tags';
-import { TagsTableComponent } from '@app/components/shared/tags';
+import { TagTableComponent } from '@app/components/shared/tags';
 import { ActionButtonNodeComponent } from '../../../../analysis/components/action/action-button-node.component';
 import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
 import { ActionButtonWayComponent } from '../../../../analysis/components/action/action-button-way.component';
@@ -23,12 +23,12 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
             <kpn-poi-analysis [poi]="poi" />
             @if (poi.mainTags && poi.mainTags.tags.length > 0) {
               <div class="item">
-                <kpn-tags-table [tags]="mainTags()" />
+                <kpn-tag-table [tags]="mainTags()" />
               </div>
             }
             @if (poi.extraTags && poi.extraTags.tags.length > 0) {
               <div class="item">
-                <kpn-tags-table [tags]="extraTags()" />
+                <kpn-tag-table [tags]="extraTags()" />
               </div>
             }
             @if (response.result.elementType === 'node') {
@@ -60,7 +60,7 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
     ActionButtonRelationComponent,
     ActionButtonWayComponent,
     PoiAnalysisComponent,
-    TagsTableComponent,
+    TagTableComponent,
   ],
 })
 export class PlannerPopupPoiComponent {

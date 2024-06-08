@@ -40,6 +40,33 @@ export class InterpretedTags {
     return new InterpretedTags(standardTagKeys, tags);
   }
 
+  static locationTags(tags: Tags): InterpretedTags {
+    const standardTagKeys = [
+      'admin_level',
+      'boundary',
+      'name',
+      'name:en',
+      'name:nl',
+      'name:fr',
+      'name:de',
+      'ref',
+      'ref:INS',
+      'ref:nuts',
+      'ref:at:gkz',
+      'ref:INSEE',
+      'de:regionalschluessel',
+      'de:amtlicher_gemeindeschluessel',
+      'ref:gemeentecode',
+      'ine:provincia',
+      'local_authority:FR',
+      'ref:FR:SIREN',
+      'website',
+      'wikidata',
+      'wikipedia',
+    ];
+    return new InterpretedTags(standardTagKeys, tags);
+  }
+
   static all(tags: Tags): InterpretedTags {
     const standardTagKeys = [];
     return new InterpretedTags(standardTagKeys, tags);

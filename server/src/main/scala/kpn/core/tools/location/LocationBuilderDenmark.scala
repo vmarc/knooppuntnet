@@ -1,5 +1,6 @@
 package kpn.core.tools.location
 
+import kpn.api.custom.Tags
 import kpn.core.util.Log
 
 import java.util.concurrent.atomic.AtomicInteger
@@ -29,8 +30,10 @@ class LocationBuilderDenmark(dir: String) {
       locationDatas.add(
         LocationData(
           "dk",
+          locationJson.relationId,
           locationJson.name,
           locationJson.names,
+          Tags.from(locationJson.tags),
           LocationGeometry(locationJson.geometry)
         )
       )
@@ -46,9 +49,11 @@ class LocationBuilderDenmark(dir: String) {
         locationDatas.add(
           LocationData.from(
             id,
+            region.relationId,
             Seq("dk"),
             region.name,
             region.names,
+            Tags.from(region.tags),
             LocationGeometry(region.geometry)
           )
         )
@@ -75,9 +80,11 @@ class LocationBuilderDenmark(dir: String) {
                 locationDatas.add(
                   LocationData.from(
                     id,
+                    municipality.relationId,
                     Seq("dk", region.id),
                     municipality.name,
                     municipality.names,
+                    Tags.from(municipality.tags),
                     LocationGeometry(municipality.geometry)
                   )
                 )

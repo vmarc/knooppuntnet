@@ -33,9 +33,11 @@ class FranceIntermunicipalityReader(intermunicipalitiesDir: String, locationId: 
       val names = LocationNames.from(relation.tags, name)
       LocationData(
         id,
+        relation.id,
         Seq.empty,
         name,
         names,
+        relation.tags,
         LocationGeometry(geometry)
       )
     }

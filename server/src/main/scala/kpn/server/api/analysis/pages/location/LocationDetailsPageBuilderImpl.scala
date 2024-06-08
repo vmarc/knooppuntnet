@@ -6,6 +6,7 @@ import kpn.api.common.location.LocationDetailsPage
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
+import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.LocationRepository
 import org.springframework.stereotype.Component
@@ -26,6 +27,8 @@ class LocationDetailsPageBuilderImpl(
   }
 
   private def buildPage(language: Language, locationKey: LocationKey): Option[LocationDetailsPage] = {
+    val locationId = locationService.toId(language, locationKey.name)
+    val locationDefinition = locationService.locationDefinition(locationId)
     val subset = locationService.toSubset(language, locationKey)
     val summary = locationRepository.summary(subset)
     val distance = locationRepository.distance(subset)
@@ -42,8 +45,10 @@ class LocationDetailsPageBuilderImpl(
     Some(
       LocationDetailsPage(
         summary,
+        locationDefinition.map(_.relationId).getOrElse(0),
         distance,
-        locationInfos
+        locationInfos,
+        locationDefinition.map(_.tags).getOrElse(Tags.empty)
       )
     )
   }

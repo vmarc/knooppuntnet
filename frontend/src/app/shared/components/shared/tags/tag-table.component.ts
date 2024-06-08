@@ -2,9 +2,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { InterpretedTags } from './interpreted-tags';
+import { TagValueComponent } from './tag-value.component';
 
 @Component({
-  selector: 'kpn-tags-table',
+  selector: 'kpn-tag-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (tags().isEmpty()) {
@@ -21,7 +22,9 @@ import { InterpretedTags } from './interpreted-tags';
           @for (tag of tags().standardTags(); track tag) {
             <tr>
               <td>{{ tag.key }}</td>
-              <td>{{ tag.value }}</td>
+              <td>
+                <kpn-tag-value [tag]="tag" />
+              </td>
             </tr>
           }
           @if (tags().hasExtraTags() && tags().hasStandardTags()) {
@@ -32,7 +35,9 @@ import { InterpretedTags } from './interpreted-tags';
           @for (tag of tags().extraTags(); track tag) {
             <tr>
               <td>{{ tag.key }}</td>
-              <td>{{ tag.value }}</td>
+              <td>
+                <kpn-tag-value [tag]="tag" />
+              </td>
             </tr>
           }
         </tbody>
@@ -46,8 +51,8 @@ import { InterpretedTags } from './interpreted-tags';
     }
   `,
   standalone: true,
-  imports: [],
+  imports: [TagValueComponent],
 })
-export class TagsTableComponent {
+export class TagTableComponent {
   tags = input.required<InterpretedTags>();
 }

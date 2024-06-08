@@ -2,6 +2,7 @@ package kpn.core.tools.location
 
 import kpn.api.common.DE
 import kpn.api.common.NL
+import kpn.api.custom.Tags
 import kpn.core.doc.LocationName
 import kpn.core.doc.LocationPath
 import kpn.core.util.Log
@@ -44,11 +45,13 @@ class LocationBuilderFrance(dir: String) {
       val countryLocationJson = regions.filter(_.locationJson.properties.name == "Metropolitan France").head
       val country = LocationData(
         "fr",
+        countryLocationJson.relationId,
         "France",
         Seq(
           LocationName(NL, "Frankrijk"),
           LocationName(DE, "Frankreich")
         ),
+        Tags.from(countryLocationJson.tags),
         LocationGeometry(countryLocationJson.geometry)
       )
       FranceContext(country)
@@ -65,9 +68,11 @@ class LocationBuilderFrance(dir: String) {
         val names = department.names
         LocationData.from(
           id,
+          department.relationId,
           Seq("fr"),
           name,
           names,
+          Tags.from(department.tags),
           LocationGeometry(department.geometry)
         )
       }
@@ -143,9 +148,11 @@ class LocationBuilderFrance(dir: String) {
                 Some(
                   LocationData.from(
                     id,
+                    municipality.relationId,
                     parents,
                     name,
                     names,
+                    Tags.from(municipality.tags),
                     LocationGeometry(municipality.geometry)
                   )
                 )
@@ -176,7 +183,6 @@ class LocationBuilderFrance(dir: String) {
       .filter(_.tags.contains("ref:INSEE"))
       .sortBy(_.tags("ref:INSEE"))
   }
-
 
   private def franceIntermunicipalityIds(intermunicipalityType: String): Seq[Long] = {
     val filename = s"$intermunicipalitiesDir/fr-${

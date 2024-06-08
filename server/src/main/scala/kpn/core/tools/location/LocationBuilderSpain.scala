@@ -1,5 +1,6 @@
 package kpn.core.tools.location
 
+import kpn.api.custom.Tags
 import kpn.core.util.GeometryUtil
 import kpn.core.util.Log
 import org.locationtech.jts.geom.Geometry
@@ -27,8 +28,10 @@ class LocationBuilderSpain(dir: String) {
       locationDatas.add(
         LocationData(
           "es",
+          country.relationId,
           country.name,
           country.names,
+          Tags.from(country.tags),
           LocationGeometry(geometry)
         )
       )
@@ -44,9 +47,11 @@ class LocationBuilderSpain(dir: String) {
         locationDatas.add(
           LocationData.from(
             id,
+            province.relationId,
             Seq("es"),
             province.name,
             province.names,
+            Tags.from(province.tags),
             LocationGeometry(province.geometry)
           )
         )

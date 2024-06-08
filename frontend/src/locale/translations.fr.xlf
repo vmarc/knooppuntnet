@@ -4918,7 +4918,7 @@ Veuillez d'abord planifier un itinéraire.</target>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.details.summary">
         <source>Summary</source>
-        <target>Summary</target>
+        <target>Résumé</target>
       </trans-unit>
       <trans-unit datatype="html" id="monitor.route.details.reference">
         <source>Reference</source>
@@ -5378,6 +5378,30 @@ Veuillez d'abord planifier un itinéraire.</target>
       <trans-unit datatype="html" id="network-map.side-bar.connection">
         <source>Connection</source>
         <target>Connexion</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-page.menu.details">
+        <source>Details</source>
+        <target>Détails</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.summary">
+        <source>Summary</source>
+        <target>Résumé</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.situation-on">
+        <source>Situation on</source>
+        <target>Situation au</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.tags">
+        <source>Tags</source>
+        <target>Attributs</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.title">
+        <source>Details</source>
+        <target>Détails</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-page.location-not-found">
+        <source>Location not found</source>
+        <target>Lieu introuvable</target>
       </trans-unit>
     </body>
   </file>

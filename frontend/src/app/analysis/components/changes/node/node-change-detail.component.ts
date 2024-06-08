@@ -9,7 +9,7 @@ import { Util } from '@app/components/shared';
 import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { InterpretedTags } from '@app/components/shared/tags';
-import { TagsTableComponent } from '@app/components/shared/tags';
+import { TagTableComponent } from '@app/components/shared/tags';
 import { FactDiffsComponent } from '../fact-diffs.component';
 import { TagDiffsComponent } from '../tag-diffs.component';
 import { NodeChangeMovedComponent } from './node-change-moved.component';
@@ -111,7 +111,7 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
 
     @if (nodeChangeInfo().initialTags) {
       <div class="kpn-detail">
-        <kpn-tags-table [tags]="initialTags" />
+        <kpn-tag-table [tags]="initialTags" />
       </div>
     }
 
@@ -130,7 +130,7 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
     NodeChangeMovedComponent,
     NodeMovedMapComponent,
     TagDiffsComponent,
-    TagsTableComponent,
+    TagTableComponent,
   ],
 })
 export class NodeChangeDetailComponent implements OnInit {

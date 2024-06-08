@@ -1,5 +1,6 @@
 package kpn.core.tools.location
 
+import kpn.api.custom.Tags
 import kpn.core.poi.PoiLocation.belgiumAndNetherlands
 import kpn.core.util.Log
 import org.geotools.geometry.jts.JTS
@@ -40,8 +41,10 @@ class LocationBuilderNetherlands(dir: String) {
       locationDatas.add(
         LocationData(
           "nl",
+          country.relationId,
           name,
           names,
+          Tags.from(country.tags),
           LocationGeometry(geometry)
         )
       )
@@ -58,9 +61,11 @@ class LocationBuilderNetherlands(dir: String) {
         locationDatas.add(
           LocationData.from(
             id,
+            province.relationId,
             Seq("nl"),
             name,
             province.names,
+            Tags.from(province.tags),
             LocationGeometry(province.geometry)
           )
         )
@@ -89,9 +94,11 @@ class LocationBuilderNetherlands(dir: String) {
               locationDatas.add(
                 LocationData.from(
                   id,
+                  municipality.relationId,
                   parents,
                   name,
                   names,
+                  Tags.from(municipality.tags),
                   LocationGeometry(municipality.geometry)
                 )
               )

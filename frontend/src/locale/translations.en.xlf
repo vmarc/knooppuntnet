@@ -5395,6 +5395,30 @@
         <source>Connection</source>
         <target>Connection</target>
       </trans-unit>
+      <trans-unit datatype="html" id="location-page.menu.details">
+        <source>Details</source>
+        <target>Details</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.summary">
+        <source>Summary</source>
+        <target>Summary</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.situation-on">
+        <source>Situation on</source>
+        <target>Situation on</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.tags">
+        <source>Tags</source>
+        <target>Tags</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-details.title">
+        <source>Details</source>
+        <target>Details</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="location-page.location-not-found">
+        <source>Location not found</source>
+        <target>Location not found</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

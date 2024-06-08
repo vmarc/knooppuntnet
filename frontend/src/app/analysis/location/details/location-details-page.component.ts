@@ -24,7 +24,7 @@ import { LocationDetailsPageService } from './location-details-page.service';
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
           @if (!response.result) {
-            <p i18n="@@location-page.network-not-found">Location not found</p>
+            <p i18n="@@location-page.location-not-found">Location not found</p>
           } @else {
             <kpn-location-details [response]="response" />
           }

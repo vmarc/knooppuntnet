@@ -2,6 +2,7 @@ package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.location.LocationDetailsPage
 import kpn.api.common.location.LocationSummary
+import kpn.api.custom.Tags
 
 object LocationDetailsPageExample {
 
@@ -9,7 +10,9 @@ object LocationDetailsPageExample {
     LocationDetailsPage(
       LocationSummary(10, 20, 30, 40),
       0,
-      Seq.empty
+      0,
+      Seq.empty,
+      Tags.empty
     )
   }
 }

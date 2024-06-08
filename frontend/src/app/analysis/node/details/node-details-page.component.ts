@@ -12,7 +12,7 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { InterpretedTags } from '@app/components/shared/tags';
-import { TagsTableComponent } from '@app/components/shared/tags';
+import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
@@ -62,7 +62,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
                 <kpn-timestamp [timestamp]="page.nodeInfo.lastUpdated" />
               </kpn-data>
               <kpn-data title="Tags" i18n-title="@@node.tags">
-                <kpn-tags-table [tags]="buildTags(page)" />
+                <kpn-tag-table [tags]="buildTags(page)" />
               </kpn-data>
               <kpn-data title="Location" i18n-title="@@node.location">
                 @if (networkTypes(); as networkTypes) {
@@ -140,7 +140,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
     NodeSummaryComponent,
     PageComponent,
     RouterLink,
-    TagsTableComponent,
+    TagTableComponent,
     TimestampComponent,
     SidebarComponent,
   ],

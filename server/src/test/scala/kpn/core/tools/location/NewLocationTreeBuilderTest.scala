@@ -1,5 +1,6 @@
 package kpn.core.tools.location
 
+import kpn.api.custom.Tags
 import kpn.core.doc.LocationPath
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationTree
@@ -52,9 +53,11 @@ class NewLocationTreeBuilderTest extends UnitTest {
   private def location(id: String, paths: Seq[LocationPath]): LocationData = {
     LocationData(
       id,
+      0,
       paths,
       "",
       Seq.empty,
+      Tags.empty,
       null
     )
   }
