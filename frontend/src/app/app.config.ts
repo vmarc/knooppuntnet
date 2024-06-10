@@ -13,7 +13,6 @@ import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { BrowserModule } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { RouteReuseStrategy } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
 import { EditService } from '@app/components/shared';
@@ -29,7 +28,6 @@ import { SpinnerService } from '@app/spinner';
 import * as Sentry from '@sentry/angular';
 import { MarkdownModule } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
-import { KpnRouteReuseStrategy } from './kpn-route-reuse-strategy';
 import { UserService } from './shared/user';
 
 export const appConfig: ApplicationConfig = {
@@ -42,7 +40,7 @@ export const appConfig: ApplicationConfig = {
       // withPreloading(PreloadAllModules)
       // withDebugTracing()
     ),
-    { provide: RouteReuseStrategy, useClass: KpnRouteReuseStrategy },
+    // { provide: RouteReuseStrategy, useClass: KpnRouteReuseStrategy },
     importProvidersFrom(
       MarkdownModule.forRoot(),
       BrowserModule,
