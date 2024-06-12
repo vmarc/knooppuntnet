@@ -24,6 +24,7 @@ case class RouteChangeInfo(
   updatedWays: Seq[WayUpdate],
   diffs: RouteDiff,
   nodes: Seq[RawNode],
+  nodeChanges: Seq[RouteNodeChange],
   changeSetInfo: Option[ChangeSetInfo],
   geometryDiff: Option[GeometryDiff],
   bounds: Bounds,

@@ -2,7 +2,6 @@ package kpn.server.api.analysis.pages.route
 
 import kpn.api.common.Bounds
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.changes.filter.ChangesFilter
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawNode
@@ -65,6 +64,7 @@ object RouteChangesPageExample {
         diffs = routeDiff(),
         nodes = Seq[RawNode](
         ),
+        Seq.empty,
         changeSetInfo = None, //Some(ChangeSetInfo()),  TODO do we actually show this???
         geometryDiff = None,
         bounds = Bounds(

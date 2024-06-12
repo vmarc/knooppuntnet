@@ -1,4 +1,4 @@
-import { RawNode } from '@api/common/data/raw';
+import { RouteNodeChange } from '@api/common/route/route-node-change';
 import { OlUtil } from '@app/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -7,15 +7,24 @@ import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 
 export class RouteNodesLayer {
-  static build(nodes: RawNode[]): MapLayer {
-    if (nodes.length === 0) {
+  static build(nodeChanges: RouteNodeChange[]): MapLayer {
+    if (nodeChanges.length === 0) {
       return null;
     }
 
     const source = new VectorSource();
-    nodes.forEach((node) => {
-      const after = OlUtil.latLonToCoordinate(node);
-      const nodeMarker = Marker.create('blue', after);
+    nodeChanges.forEach((nodeChange) => {
+      const coordinate = OlUtil.latLonToCoordinate(nodeChange);
+      let color = 'blue';
+      if (nodeChange.changeType === 'Added') {
+        color = 'green';
+      } else if (nodeChange.changeType === 'Removed') {
+        color = 'red';
+      } else if (nodeChange.changeType === 'Changed') {
+        color = 'orange';
+      }
+
+      const nodeMarker = Marker.create(color, coordinate);
       source.addFeature(nodeMarker);
     });
     const layer = new VectorLayer({

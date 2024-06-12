@@ -1,12 +1,14 @@
 package kpn.server.analyzer.engine.changes.builder
 
 import kpn.api.common.Bounds
+import kpn.api.common.ElementChangeType
 import kpn.api.common.LatLon
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.route.GeometryDiffAnalyzer
 import kpn.api.common.route.RouteChangeInfo
+import kpn.api.common.route.RouteNodeChange
 import kpn.api.common.route.WayGeometry
 
 class RouteChangeInfoBuilder {
@@ -24,6 +26,50 @@ class RouteChangeInfoBuilder {
       val waysAfter = WayGeometry.from(after)
       val geometryDiff = new GeometryDiffAnalyzer().analysis(waysBefore, waysAfter)
       val comment = changeSetInfo.flatMap(_.tags("comment"))
+
+      val allNodes = before.networkNodes ++ after.networkNodes
+      val allNodeIds = allNodes.map(_.id).distinct
+
+      val nodeIdsAdded = routeChange.diffs.nodeDiffs.flatMap(_.added.map(_.id))
+      val nodeIdsRemoved = routeChange.diffs.nodeDiffs.flatMap(_.removed.map(_.id))
+
+      val nodeChanges = allNodeIds.flatMap { nodeId =>
+        val changeType = if (nodeIdsAdded.contains(nodeId)) {
+          ElementChangeType.Added
+        } else if (nodeIdsRemoved.contains(nodeId)) {
+          ElementChangeType.Removed
+        } else {
+          before.networkNodes.find(_.id == nodeId) match {
+            case None => ElementChangeType.Unchanged
+            case Some(nodeBefore) =>
+              after.networkNodes.find(_.id == nodeId) match {
+                case None => ElementChangeType.Unchanged
+                case Some(nodeAfter) =>
+                  if (nodeBefore.latitude == nodeAfter.latitude && nodeBefore.longitude == nodeAfter.longitude) {
+                    ElementChangeType.Unchanged
+                  }
+                  else {
+                    ElementChangeType.Changed
+                  }
+              }
+          }
+        }
+        val node = if (changeType == ElementChangeType.Removed) {
+          before.networkNodes.find(_.id == nodeId)
+        }
+        else {
+          after.networkNodes.find(_.id == nodeId)
+        }
+
+        node.map { node =>
+          RouteNodeChange(
+            nodeId,
+            node.latitude,
+            node.longitude,
+            changeType
+          )
+        }
+      }
 
       val bounds = {
         val latLons = geometryDiff match {
@@ -57,6 +103,7 @@ class RouteChangeInfoBuilder {
         routeChange.updatedWays,
         routeChange.diffs,
         after.networkNodes,
+        nodeChanges,
         changeSetInfo,
         geometryDiff = geometryDiff,
         bounds = bounds,
@@ -78,6 +125,15 @@ class RouteChangeInfoBuilder {
         Bounds.from(latLons)
       }
 
+      val nodeChanges = routeData.networkNodes.map { node =>
+        RouteNodeChange(
+          node.id,
+          node.latitude,
+          node.longitude,
+          ElementChangeType.Removed
+        )
+      }
+
       RouteChangeInfo(
         index,
         routeData.id,
@@ -94,6 +150,7 @@ class RouteChangeInfoBuilder {
 
         routeChange.diffs,
         routeData.networkNodes,
+        nodeChanges,
         changeSetInfo,
         geometryDiff = geometryDiff,
         bounds = bounds,
@@ -115,6 +172,15 @@ class RouteChangeInfoBuilder {
         Bounds.from(latLons)
       }
 
+      val nodeChanges = routeData.networkNodes.map { node =>
+        RouteNodeChange(
+          node.id,
+          node.latitude,
+          node.longitude,
+          ElementChangeType.Added
+        )
+      }
+
       RouteChangeInfo(
         index,
         routeData.id,
@@ -129,6 +195,7 @@ class RouteChangeInfoBuilder {
         routeChange.updatedWays,
         routeChange.diffs,
         routeData.networkNodes,
+        nodeChanges,
         changeSetInfo,
         geometryDiff = geometryDiff,
         bounds = bounds,

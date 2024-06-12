@@ -5,8 +5,8 @@ import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { input } from '@angular/core';
 import { Bounds } from '@api/common';
-import { RawNode } from '@api/common/data/raw';
 import { GeometryDiff } from '@api/common/route';
+import { RouteNodeChange } from '@api/common/route/route-node-change';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
@@ -33,13 +33,13 @@ import { RouteChangeMapService } from './route-change-map.service';
 })
 export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   geometryDiff = input.required<GeometryDiff>();
-  nodes = input.required<RawNode[]>();
   bounds = input.required<Bounds>();
+  nodeChanges = input.required<RouteNodeChange[]>();
 
   protected readonly service = inject(RouteChangeMapService);
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.service.init(this.geometryDiff(), this.nodes(), this.bounds()), 1);
+    setTimeout(() => this.service.init(this.geometryDiff(), this.nodeChanges(), this.bounds()), 1);
   }
 
   ngOnDestroy(): void {

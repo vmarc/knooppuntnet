@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import kpn.api.base.ObjectId
+import kpn.api.common.ElementChangeType
 import kpn.api.common.Language
 import kpn.api.common.NodeName
 import kpn.api.common.location.BooleanParameter
@@ -115,6 +116,9 @@ object Json {
 
     b.deserializerByType(classOf[LastUpdatedParameter], new LastUpdatedParameterJsonDeserializer())
     b.serializerByType(classOf[LastUpdatedParameter], new LastUpdatedParameterJsonSerializer())
+
+    b.deserializerByType(classOf[ElementChangeType], new ElementChangeTypeJsonDeserializer())
+    b.serializerByType(classOf[ElementChangeType], new ElementChangeTypeJsonSerializer())
 
     val om: ObjectMapper = b.build()
     om.registerModule(DefaultScalaModule)

@@ -10,6 +10,7 @@ import { WayUpdate } from '@api/common/diff';
 import { RouteDiff } from '@api/common/diff/route';
 import { ChangeType } from '@api/custom';
 import { GeometryDiff } from './geometry-diff';
+import { RouteNodeChange } from './route-node-change';
 
 export interface RouteChangeInfo {
   readonly rowIndex: number;
@@ -25,6 +26,7 @@ export interface RouteChangeInfo {
   readonly updatedWays: WayUpdate[];
   readonly diffs: RouteDiff;
   readonly nodes: RawNode[];
+  readonly nodeChanges: RouteNodeChange[];
   readonly changeSetInfo: ChangeSetInfo;
   readonly geometryDiff: GeometryDiff;
   readonly bounds: Bounds;

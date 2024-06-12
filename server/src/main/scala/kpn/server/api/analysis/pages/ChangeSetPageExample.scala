@@ -603,6 +603,7 @@ object ChangeSetPageExample {
         nodes = Seq(
           // RawNode()
         ),
+        Seq.empty,
         changeSetInfo = None, // no need to populate, already provided above
         geometryDiff = Some(
           GeometryDiff(

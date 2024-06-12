@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
-import { RawNode } from '@api/common/data/raw';
 import { GeometryDiff } from '@api/common/route';
+import { RouteNodeChange } from '@api/common/route/route-node-change';
 import { Util } from '@app/components/shared';
 import { ZoomLevel } from '@app/ol/domain';
 import { BackgroundLayer } from '@app/ol/layers';
@@ -16,8 +16,8 @@ import View from 'ol/View';
 
 @Injectable()
 export class RouteChangeMapService extends OpenlayersMapService {
-  init(geometryDiff: GeometryDiff, nodes: RawNode[], bounds: Bounds): void {
-    this.registerLayers(geometryDiff, nodes);
+  init(geometryDiff: GeometryDiff, nodeChanges: RouteNodeChange[], bounds: Bounds): void {
+    this.registerLayers(geometryDiff, nodeChanges);
 
     this.initMap(
       new Map({
@@ -35,12 +35,12 @@ export class RouteChangeMapService extends OpenlayersMapService {
     this.finalizeSetup();
   }
 
-  private registerLayers(geometryDiff: GeometryDiff, nodes: RawNode[]): void {
+  private registerLayers(geometryDiff: GeometryDiff, nodeChanges: RouteNodeChange[]): void {
     const registry = new MapLayerRegistry();
     registry.register([], BackgroundLayer.build(), true);
     registry.register([], OsmLayer.build(), false);
-    if (nodes && nodes.length > 0) {
-      registry.register([], RouteNodesLayer.build(nodes), true);
+    if (nodeChanges && nodeChanges.length > 0) {
+      registry.register([], RouteNodesLayer.build(nodeChanges), true);
     }
     new RouteChangeLayers()
       .build(geometryDiff)

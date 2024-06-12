@@ -20,7 +20,7 @@ import { RouteDiffComponent } from './route-diff.component';
       <div class="kpn-detail">
         <kpn-route-change-map
           [geometryDiff]="routeChangeInfo().geometryDiff"
-          [nodes]="routeChangeInfo().nodes"
+          [nodeChanges]="routeChangeInfo().nodeChanges"
           [bounds]="routeChangeInfo().bounds"
         />
       </div>

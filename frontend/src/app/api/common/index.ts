@@ -11,6 +11,7 @@ export * from './change-set-summary-location-info';
 export * from './change-set-summary-network-info';
 export * from './changes-page';
 export * from './check';
+export * from './element-change-type';
 export * from './fact-count';
 export * from './lat-lon-impl';
 export * from './location-change-set';
