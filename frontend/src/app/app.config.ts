@@ -1,4 +1,6 @@
 import { LayoutModule } from '@angular/cdk/layout';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { FullscreenOverlayContainer } from '@angular/cdk/overlay';
 import { provideHttpClient } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { withInterceptorsFromDi } from '@angular/common/http';
@@ -67,6 +69,7 @@ export const appConfig: ApplicationConfig = {
       multi: true,
     },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
+    { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
     PreferencesService,
     ApiService,
     SpinnerService,
