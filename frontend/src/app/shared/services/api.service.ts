@@ -58,7 +58,6 @@ import { NetworkType } from '@api/custom';
 import { Subset } from '@api/custom';
 import { AnalysisStrategy } from '@app/core';
 import { LOCAL_ERROR_HANDLING } from '@app/spinner';
-import { MarkdownService } from 'ngx-markdown';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 
@@ -66,12 +65,6 @@ import { timeout } from 'rxjs/operators';
 export class ApiService {
   public readonly locale: string = inject(LOCALE_ID);
   private readonly http = inject(HttpClient);
-  private readonly markdownService = inject(MarkdownService);
-
-  constructor() {
-    this.markdownService.renderer.link = (href: string, title: string, text: string) =>
-      `<a href="${href}" title="${title}" target="_blank" rel="nofollow noreferrer">${text}</a>`;
-  }
 
   edit(url: string): Observable<string> {
     return this.http
