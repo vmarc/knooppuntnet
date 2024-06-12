@@ -5416,6 +5416,14 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
         <source>Location not found</source>
         <target>Ort nicht gefunden</target>
       </trans-unit>
+      <trans-unit datatype="html" id="network-map.side-bar.tip2.mac">
+        <source>Use cmd-click to open the detail page in another browser tab.</source>
+        <target>Verwenden Sie Cmd-Klick, um die Detailseite in einer anderen Browser-Registerkarte zu öffnen.</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="node.details-sidebar.tip.mac">
+        <source>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes. Use cmd-click to open to open these details in another window.</source>
+        <target>TIPP: Klicken Sie auf andere Knoten oder Routen in der Karte, um zu den Details dieser Knoten oder Routen zu gelangen. Verwenden Sie Cmd-Klick zum Öffnen, um diese Details in einem anderen Fenster zu öffnen.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

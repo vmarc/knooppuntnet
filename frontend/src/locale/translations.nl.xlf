@@ -5399,6 +5399,14 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
         <source>Location not found</source>
         <target>Locatie niet gevonden</target>
       </trans-unit>
+      <trans-unit datatype="html" id="network-map.side-bar.tip2.mac">
+        <source>Use cmd-click to open the detail page in another browser tab.</source>
+        <target>Gebruik cmd-klik om de detailpagina in een andere browser tab te openen.</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="node.details-sidebar.tip.mac">
+        <source>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes. Use cmd-click to open to open these details in another window.</source>
+        <target>TIP: klik op de knooppunten en routes op de kaart om naar hun detailpagina te gaan. Gebruik cmd-klik om de detailpagina in een nieuwe browser tab te openen.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

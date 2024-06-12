@@ -3313,42 +3313,49 @@
         <source>Zoom in for node or route details.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/map/components/network-map-sidebar.component.ts</context>
-          <context context-type="linenumber">16,18</context>
+          <context context-type="linenumber">17,19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.side-bar.part-of-network" datatype="html">
         <source>Part of network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/map/components/network-map-sidebar.component.ts</context>
-          <context context-type="linenumber">22,25</context>
+          <context context-type="linenumber">23,26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.side-bar.not-part-of-network" datatype="html">
         <source>Not part of network</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/map/components/network-map-sidebar.component.ts</context>
-          <context context-type="linenumber">26,29</context>
+          <context context-type="linenumber">27,30</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.side-bar.connection" datatype="html">
         <source>Connection</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/map/components/network-map-sidebar.component.ts</context>
-          <context context-type="linenumber">30,32</context>
+          <context context-type="linenumber">31,33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.side-bar.tip1" datatype="html">
         <source>Click on node or route to go to detail page.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/map/components/network-map-sidebar.component.ts</context>
-          <context context-type="linenumber">33,34</context>
+          <context context-type="linenumber">34,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-map.side-bar.tip2.mac" datatype="html">
+        <source> Use cmd-click to open the detail page in another browser tab. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/network/map/components/network-map-sidebar.component.ts</context>
+          <context context-type="linenumber">37,39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.side-bar.tip2" datatype="html">
         <source> Use ctrl-click to open the detail page in another browser tab. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/map/components/network-map-sidebar.component.ts</context>
-          <context context-type="linenumber">35,37</context>
+          <context context-type="linenumber">41,43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-map.title" datatype="html">
@@ -3802,11 +3809,18 @@
           <context context-type="linenumber">46,47</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="node.details-sidebar.tip.mac" datatype="html">
+        <source> TIP: click on other nodes or routes in the map to go to the details of these nodes or routes. Use cmd-click to open to open these details in another window. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/node/details/components/node-details-sidebar.component.ts</context>
+          <context context-type="linenumber">16,19</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="node.details-sidebar.tip" datatype="html">
         <source> TIP: click on other nodes or routes in the map to go to the details of these nodes or routes. Use ctrl-click to open to open these details in another window. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/node/details/components/node-details-sidebar.component.ts</context>
-          <context context-type="linenumber">13,16</context>
+          <context context-type="linenumber">21,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="node.integrity.none" datatype="html">

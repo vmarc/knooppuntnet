@@ -5403,6 +5403,14 @@ Veuillez d'abord planifier un itinéraire.</target>
         <source>Location not found</source>
         <target>Lieu introuvable</target>
       </trans-unit>
+      <trans-unit datatype="html" id="network-map.side-bar.tip2.mac">
+        <source>Use cmd-click to open the detail page in another browser tab.</source>
+        <target>Utilisez cmd-clic pour ouvrir la page de détails dans un nouvel onglet.</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="node.details-sidebar.tip.mac">
+        <source>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes. Use cmd-click to open to open these details in another window.</source>
+        <target>Conseil: cliquez sur un autre carrefour ou itinéraire dans la carte pour avoir le détail de ces carrefour ou itinéraires.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

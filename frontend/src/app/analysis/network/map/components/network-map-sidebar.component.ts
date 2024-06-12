@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapZoomService } from '@app/ol/services';
+import { DeviceDetectorService } from 'ngx-device-detector';
 import { NetworkMapLegendIconComponent } from './network-map-legend-icon.component';
 
 @Component({
@@ -31,9 +32,15 @@ import { NetworkMapLegendIconComponent } from './network-map-legend-icon.compone
               </div>
             </div>
             <p i18n="@@network-map.side-bar.tip1">Click on node or route to go to detail page.</p>
-            <p i18n="@@network-map.side-bar.tip2">
-              Use ctrl-click to open the detail page in another browser tab.
-            </p>
+            @if (isMac()) {
+              <p i18n="@@network-map.side-bar.tip2.mac">
+                Use cmd-click to open the detail page in another browser tab.
+              </p>
+            } @else {
+              <p i18n="@@network-map.side-bar.tip2">
+                Use ctrl-click to open the detail page in another browser tab.
+              </p>
+            }
           }
         </div>
       }
@@ -54,6 +61,11 @@ import { NetworkMapLegendIconComponent } from './network-map-legend-icon.compone
 })
 export class NetworkMapSidebarComponent {
   private readonly mapZoomService = inject(MapZoomService);
+  private readonly deviceService = inject(DeviceDetectorService);
   protected readonly zoomLevel = this.mapZoomService.zoomLevel;
   protected readonly minZoom = ZoomLevel.vectorTileMinZoom;
+
+  isMac(): boolean {
+    return this.deviceService.os === 'Mac';
+  }
 }

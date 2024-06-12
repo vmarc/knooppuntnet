@@ -1,6 +1,8 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { SidebarFooterComponent } from '@app/components/shared/sidebar';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'kpn-node-details-sidebar',
@@ -9,10 +11,17 @@ import { SidebarFooterComponent } from '@app/components/shared/sidebar';
     <div class="sidebar-body sidebar-logo"></div>
     <div class="sidebar-footer">
       <div class="tips">
-        <p i18n="@@node.details-sidebar.tip">
-          TIP: click on other nodes or routes in the map to go to the details of these nodes or
-          routes. Use ctrl-click to open to open these details in another window.
-        </p>
+        @if (isMac()) {
+          <p i18n="@@node.details-sidebar.tip.mac">
+            TIP: click on other nodes or routes in the map to go to the details of these nodes or
+            routes. Use cmd-click to open to open these details in another window.
+          </p>
+        } @else {
+          <p i18n="@@node.details-sidebar.tip">
+            TIP: click on other nodes or routes in the map to go to the details of these nodes or
+            routes. Use ctrl-click to open to open these details in another window.
+          </p>
+        }
       </div>
       <kpn-sidebar-footer />
     </div>
@@ -41,4 +50,10 @@ import { SidebarFooterComponent } from '@app/components/shared/sidebar';
   standalone: true,
   imports: [SidebarFooterComponent],
 })
-export class NodeDetailsSidebarComponent {}
+export class NodeDetailsSidebarComponent {
+  private readonly deviceService = inject(DeviceDetectorService);
+
+  isMac(): boolean {
+    return this.deviceService.os === 'Mac';
+  }
+}
