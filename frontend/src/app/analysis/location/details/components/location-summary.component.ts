@@ -7,6 +7,7 @@ import { CountryNameComponent } from '@app/components/shared';
 import { DistancePipe } from '@app/components/shared/format';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { MarkdownModule } from 'ngx-markdown';
+import { ZeroIntegerFormatPipe } from '../../../../shared/components/shared/format/zero-integer-format.pipe';
 import { ActionButtonRelationComponent } from '../../../components/action/action-button-relation.component';
 
 @Component({
@@ -14,15 +15,17 @@ import { ActionButtonRelationComponent } from '../../../components/action/action
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span class="kpn-comma-list">
+      @if (page().distance > 0) {
+        <span>
+          {{ page().distance | distance }}
+        </span>
+      }
       <span>
-        {{ page().distance | distance }}
-      </span>
-      <span>
-        {{ page().summary.nodeCount | integer }}
+        {{ page().summary.nodeCount | zeroInteger }}
         <ng-container i18n="@@network-details.nodes">nodes</ng-container>
       </span>
       <span>
-        {{ page().summary.routeCount | integer }}
+        {{ page().summary.routeCount | zeroInteger }}
         <ng-container i18n="@@network-details.routes">routes</ng-container>
       </span>
     </span>
@@ -35,6 +38,7 @@ import { ActionButtonRelationComponent } from '../../../components/action/action
     MatIconModule,
     ActionButtonRelationComponent,
     DistancePipe,
+    ZeroIntegerFormatPipe,
   ],
 })
 export class LocationSummaryComponent {

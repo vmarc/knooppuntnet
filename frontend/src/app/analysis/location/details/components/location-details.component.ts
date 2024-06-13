@@ -20,11 +20,19 @@ import { LocationSummaryComponent } from './location-summary.component';
     <kpn-data title="Summary" i18n-title="@@location-details.summary">
       <kpn-location-summary [page]="response().result" />
       <p class="location-names">
-        @for (locationInfo of response().result.locationInfos; track locationInfo.link) {
+        @for (
+          locationInfo of response().result.locationInfos;
+          track locationInfo.link;
+          let last = $last
+        ) {
           <div class="location-name">
-            <a [routerLink]="locationLink(locationInfo.link)">
-              {{ locationInfo.name | location }}</a
-            >
+            @if (last) {
+              {{ locationInfo.name | location }}
+            } @else {
+              <a [routerLink]="locationLink(locationInfo.link)">
+                {{ locationInfo.name | location }}</a
+              >
+            }
           </div>
         }
       </p>

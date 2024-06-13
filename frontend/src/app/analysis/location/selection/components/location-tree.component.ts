@@ -28,22 +28,24 @@ import { LocationTreeNodeComponent } from './location-tree-node.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-small-spacer-above kpn-small-spacer-below">
-      <button
-        mat-stroked-button
-        class="location-button"
-        (click)="expandAll()"
-        i18n="@@location.tree.expand-all"
-      >
-        Expand all
-      </button>
-      <button
-        mat-stroked-button
-        class="location-button"
-        (click)="collapseAll()"
-        i18n="@@location.tree.collapse-all"
-      >
-        Collapse all
-      </button>
+      @if (country() !== 'fr') {
+        <button
+          mat-stroked-button
+          class="location-button"
+          (click)="expandAll()"
+          i18n="@@location.tree.expand-all"
+        >
+          Expand all
+        </button>
+        <button
+          mat-stroked-button
+          class="location-button"
+          (click)="collapseAll()"
+          i18n="@@location.tree.collapse-all"
+        >
+          Collapse all
+        </button>
+      }
       <mat-radio-group [value]="all()" (change)="allChanged()">
         <mat-radio-button [value]="true" class="location-button" i18n="@@location.tree.all">
           All
@@ -179,9 +181,7 @@ export class LocationTreeComponent implements OnInit, OnDestroy {
 
   private transformer() {
     return (node: LocalLocationNode, level: number) => {
-      const maxLevel = this.country() === Country.fr ? 2 : 99;
-      const hasChildren = !!node.children && node.children.length > 0;
-      const expandable = hasChildren && level < maxLevel;
+      const expandable = !!node.children && node.children.length > 0;
       return new LocationFlatNode(
         expandable,
         node.path,

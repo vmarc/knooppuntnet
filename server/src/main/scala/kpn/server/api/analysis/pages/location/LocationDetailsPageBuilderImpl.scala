@@ -8,6 +8,7 @@ import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.location.LocationService
+import kpn.server.analyzer.engine.analysis.location.ParcDuVercors
 import kpn.server.repository.LocationRepository
 import org.springframework.stereotype.Component
 
@@ -42,10 +43,17 @@ class LocationDetailsPageBuilderImpl(
       )
     }
 
+    val relationId = if (locationId == ParcDuVercors.name) {
+      ParcDuVercors.relationId
+    }
+    else {
+      locationDefinition.map(_.relationId).getOrElse(0L)
+    }
+
     Some(
       LocationDetailsPage(
         summary,
-        locationDefinition.map(_.relationId).getOrElse(0),
+        relationId,
         distance,
         locationInfos,
         locationDefinition.map(_.tags).getOrElse(Tags.empty)

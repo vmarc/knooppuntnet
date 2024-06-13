@@ -18,6 +18,8 @@ object ParcDuVercors {
 
   val name: String = "Parc du Vercors"
 
+  val relationId = 5555268L
+
   val communes: Seq[String] = Seq(
     "fr-3-38018", // Auberives-en-Royans
     "fr-3-38225", // Autrans-Méaudre en Vercors
@@ -123,7 +125,7 @@ object ParcDuVercors {
     val xml = XML.load(inputSource)
     val rawData = new Parser(full = false).parse(xml.head)
     val data = new DataBuilder(rawData).data
-    val relation = data.relations(5555268)
+    val relation = data.relations(relationId)
     val polygons = RelationPolygonBuilder.toPolygons(data, relation)
     if (polygons.size != 1) {
       polygons.head
