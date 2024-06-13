@@ -22,48 +22,50 @@ import { LocationOption } from './location-option';
   selector: 'kpn-location-selector',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <form class="selector-form" [formGroup]="formGroup" (submit)="select()">
-      <mat-form-field class="selector-full-width">
-        <mat-label i18n="@@location.selector.input.label"
-          >municipality or other administrative boundary name
-        </mat-label>
-        <input
-          type="text"
-          placeholder=""
-          matInput
-          [formControl]="locationInputControl"
-          [matAutocomplete]="auto"
-        />
-        <mat-autocomplete
-          autoActiveFirstOption
-          #auto="matAutocomplete"
-          [displayWith]="displayName"
-          (opened)="resetWarning()"
-        >
-          @for (option of filteredOptions(); track option) {
-            <mat-option [value]="option">
-              {{ option.name }}
-              @if (nodeCount(option) > 0) {
-                <span class="node-count">({{ nodeCount(option) }})</span>
-              }
-            </mat-option>
-          }
-        </mat-autocomplete>
-      </mat-form-field>
-      @if (warningSelectionMandatory) {
-        <p class="kpn-warning" i18n="@@location.selector.warning-selection-mandatory">
-          Please make a selection in the field above
-        </p>
-      }
-      @if (warningSelectionInvalid) {
-        <p class="kpn-warning" i18n="@@location.selector.warning-selection-invalid">
-          Please select a value from the list
-        </p>
-      }
-      <button mat-stroked-button (submit)="select()" i18n="@@location.selector.button">
-        Location overview
-      </button>
-    </form>
+    @if (options()) {
+      <form class="selector-form" [formGroup]="formGroup" (submit)="select()">
+        <mat-form-field class="selector-full-width">
+          <mat-label i18n="@@location.selector.input.label"
+            >municipality or other administrative boundary name
+          </mat-label>
+          <input
+            type="text"
+            placeholder=""
+            matInput
+            [formControl]="locationInputControl"
+            [matAutocomplete]="auto"
+          />
+          <mat-autocomplete
+            autoActiveFirstOption
+            #auto="matAutocomplete"
+            [displayWith]="displayName"
+            (opened)="resetWarning()"
+          >
+            @for (option of filteredOptions(); track option) {
+              <mat-option [value]="option">
+                {{ option.name }}
+                @if (nodeCount(option) > 0) {
+                  <span class="node-count">({{ nodeCount(option) }})</span>
+                }
+              </mat-option>
+            }
+          </mat-autocomplete>
+        </mat-form-field>
+        @if (warningSelectionMandatory) {
+          <p class="kpn-warning" i18n="@@location.selector.warning-selection-mandatory">
+            Please make a selection in the field above
+          </p>
+        }
+        @if (warningSelectionInvalid) {
+          <p class="kpn-warning" i18n="@@location.selector.warning-selection-invalid">
+            Please select a value from the list
+          </p>
+        }
+        <button mat-stroked-button (submit)="select()" i18n="@@location.selector.button">
+          Location overview
+        </button>
+      </form>
+    }
   `,
   styles: `
     .selector-form {
@@ -96,12 +98,12 @@ export class LocationSelectorComponent /* implements OnInit*/ {
   locationNode = input.required<LocationNode>();
   all = input(false);
   selection = output<string>();
-
+  private readonly maxOptions = 20;
   private readonly fb = inject(UntypedFormBuilder);
 
   protected warningSelectionMandatory = false;
   protected warningSelectionInvalid = false;
-  protected readonly options = computed(() => this.toOptions('', this.locationNode()));
+  protected readonly options = computed(() => this.initOptions(this.locationNode()));
   protected locationInputControl = new UntypedFormControl();
   protected readonly formGroup = this.fb.group({
     locationInputControl: this.locationInputControl,
@@ -109,6 +111,7 @@ export class LocationSelectorComponent /* implements OnInit*/ {
 
   private readonly inputControlValue = toSignal(this.locationInputControl.valueChanges);
   protected readonly filteredOptions = computed(() => {
+    const options = this.options();
     const value = this.inputControlValue();
     if (typeof value === 'string') {
       return this._filter(value);
@@ -116,7 +119,7 @@ export class LocationSelectorComponent /* implements OnInit*/ {
     if (value instanceof LocationOption) {
       return this._filter(value.name);
     }
-    return this.options();
+    return options.slice(0, this.maxOptions);
   });
 
   select(): void {
@@ -157,9 +160,21 @@ export class LocationSelectorComponent /* implements OnInit*/ {
 
   private _filter(filterValue: string): LocationOption[] {
     const normalizedFilterValue = Util.normalize(filterValue);
-    return this.options().filter(
-      (option) => option.normalizedLocationName.indexOf(normalizedFilterValue) >= 0
+    return this.options()
+      .filter((option) => option.normalizedLocationName.startsWith(normalizedFilterValue))
+      .slice(0, this.maxOptions);
+  }
+
+  private initOptions(location: LocationNode): LocationOption[] {
+    const result = this.toOptions('', location);
+    result.sort((a, b) =>
+      a.normalizedLocationName > b.normalizedLocationName
+        ? 1
+        : a.normalizedLocationName < b.normalizedLocationName
+          ? -1
+          : 0
     );
+    return result;
   }
 
   private toOptions(path: string, location: LocationNode): LocationOption[] {

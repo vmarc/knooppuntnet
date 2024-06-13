@@ -28,6 +28,7 @@ import { LocationSelectionPageService } from './location-selection-page.service'
           <kpn-location-selector
             [country]="service.country()"
             [locationNode]="locationNode"
+            [all]="true"
             (selection)="selected($event)"
           />
         }
