@@ -86,7 +86,12 @@ class RouteChangeProcessorImpl(
         data.after match {
           case None => None // TODO message ?
           case Some(after) =>
-            processCreate(context, after, data.routeId)
+            if (TagInterpreter.isRouteRelation(after.tags)) {
+              processCreate(context, after, data.routeId)
+            }
+            else {
+              None
+            }
         }
       case Some(before) =>
         data.after match {

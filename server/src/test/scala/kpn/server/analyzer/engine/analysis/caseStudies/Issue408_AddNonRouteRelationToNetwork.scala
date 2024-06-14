@@ -1,0 +1,52 @@
+package kpn.server.analyzer.engine.analysis.caseStudies
+
+import kpn.api.common.changes.ChangeAction
+import kpn.api.custom.Tags
+import kpn.core.test.OverpassData
+import kpn.server.analyzer.engine.changes.integration.IntegrationTest
+
+class Issue408_AddNonRouteRelationToNetwork extends IntegrationTest {
+
+  test("relation without 'network:type=node_network' should not be considered a route") {
+
+    val dataBefore = OverpassData()
+      .networkRelation(
+        1,
+        "name"
+      )
+
+    val dataAfter = OverpassData()
+      .networkNode(1001, "01") // it was this node that made the relation to be considered a route
+      .way(101, 1001, 1002)
+      .relation(
+        11,
+        Seq(
+          newMember("way", 101)
+        ),
+        Tags.from( // no network:type=node_network tag
+          "network" -> "rwn",
+          "route" -> "hiking",
+          "type" -> "route",
+        )
+      )
+      .networkRelation(
+        1,
+        "name",
+        Seq(
+          newMember("relation", 11)
+        )
+      )
+
+    testIntegration(dataBefore, dataAfter) {
+
+      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+
+      val networkInfoDoc = findNetworkInfoById(1)
+
+      networkInfoDoc.routes.size should equal(0)
+      networkInfoDoc.facts.map(_.name) should equal(Seq("NetworkExtraMemberRelation"))
+      networkInfoDoc.extraRelationIds should equal(Seq(11))
+      database.routes.findById(11) should equal(None)
+    }
+  }
+}
