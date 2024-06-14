@@ -244,10 +244,10 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
           Seq(
             ServerFilterOption("all", 16),
             ServerFilterOption("unknown", 1),
-            ServerFilterOption("last-month", 1),
-            ServerFilterOption("last-half-year", 2),
-            ServerFilterOption("last-year", 3),
-            ServerFilterOption("last-two-years", 4),
+            ServerFilterOption("lastMonth", 1),
+            ServerFilterOption("lastHalfYear", 2),
+            ServerFilterOption("lastYear", 3),
+            ServerFilterOption("lastTwoYears", 4),
             ServerFilterOption("older", 5),
           )
         )
@@ -274,8 +274,8 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
           "all",
           Seq(
             ServerFilterOption("all", 3),
-            ServerFilterOption("yes", 1),
             ServerFilterOption("no", 2),
+            ServerFilterOption("yes", 1),
           )
         )
       )

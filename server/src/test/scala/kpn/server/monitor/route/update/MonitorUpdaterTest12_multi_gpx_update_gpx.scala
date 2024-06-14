@@ -1,10 +1,10 @@
 package kpn.server.monitor.route.update
 
-import kpn.api.common.SharedTestObjects
-import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.Bounds
+import kpn.api.common.SharedTestObjects
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -166,7 +166,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
               endNodeId = 1002,
               meters = 181,
               bounds = Bounds(51.4618272, 4.4553911, 51.4633666, 4.4562458),
-              geoJson = """{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
+              geoJson = """{"type":"GeometryCollection","geometries":[{"type":"LineString","coordinates":[[4.4553911,51.4633666],[4.4562458,51.4618272]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""
             ),
           ),
           matchesGeometry = None,
