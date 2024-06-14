@@ -261,9 +261,9 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
 
       val setup = new MongoQueryLocationRoutesTestSetup(database)
 
-      setup.buildPropsedRoute(10, proposed = false)
-      setup.buildPropsedRoute(20, proposed = false)
-      setup.buildPropsedRoute(30, proposed = true)
+      setup.buildProposedRoute(10, proposed = false)
+      setup.buildProposedRoute(20, proposed = false)
+      setup.buildProposedRoute(30, proposed = true)
 
       val subset = LocationSubset("", NetworkType.hiking, Seq("be"))
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)

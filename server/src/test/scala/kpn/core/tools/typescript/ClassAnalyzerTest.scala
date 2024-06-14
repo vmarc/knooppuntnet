@@ -89,7 +89,7 @@ class ClassAnalyzerTest extends UnitTest {
         Seq(
           ClassDependency(
             "Timestamp",
-            "../../../api/custom/timestamp"
+            "@api/custom"
           )
         ),
         formClass = false

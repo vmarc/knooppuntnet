@@ -31,7 +31,7 @@ class MongoQueryLocationRoutesTestSetup(database: Database) extends SharedTestOb
     )
   }
 
-  def buildPropsedRoute(routeId: Long, proposed: Boolean): Unit = {
+  def buildProposedRoute(routeId: Long, proposed: Boolean): Unit = {
     database.routes.save(
       newRouteDoc(
         newRouteSummary(routeId),

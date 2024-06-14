@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.MapBounds
@@ -106,6 +105,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         ),
         labels = Seq(
           Label.active,
+          Label.country(Country.nl),
           Label.networkType(NetworkType.hiking)
         ),
         tags = newRouteTags("01-02"),

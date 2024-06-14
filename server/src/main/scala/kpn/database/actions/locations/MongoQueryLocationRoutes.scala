@@ -72,7 +72,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     val proposed = {
       val options = groups.flatMap(_.proposed).flatMap(_.options)
       val oo = if (options.size != 1) {
-        Seq(ServerFilterOption("all", options.map(_.count).sum)) ++ options
+        Seq(ServerFilterOption("all", options.map(_.count).sum)) ++ options.sortBy(_.name)
       }
       else {
         options

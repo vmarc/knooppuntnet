@@ -5,7 +5,6 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.custom.ChangeType
-import kpn.api.custom.Tags
 import kpn.core.analysis.TagInterpreter
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
@@ -58,7 +57,6 @@ class NetworkChangeProcessorImpl(
     val beforeRelations = overpassRepository.relations(context.timestampBefore, networkIds)
     val afterRelations = overpassRepository.relations(context.timestampAfter, networkIds)
     networkIds.flatMap { networkId =>
-      val changeAction = networkChanges.action(networkId)
       val relationBeforeOption = beforeRelations.find(_.id == networkId)
       val relationAfterOption = afterRelations.find(_.id == networkId)
 
