@@ -11,6 +11,7 @@ import kpn.api.common.poi.LocationPoisPage
 import kpn.api.common.poi.PoiLocationsPage
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
+import kpn.core.common.TimestampLocal
 import kpn.core.poi.PoiLocationGeoJson
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationService
@@ -33,7 +34,9 @@ class PoiFacadeImpl(
 
   override def areas(): ApiResponse[String] = {
     val geoJson = new PoiLocationGeoJson().geoJsonString()
-    ApiResponse(null, 1, Some(geoJson))
+    val response = ApiResponse(null, 1, Some(geoJson))
+    TimestampLocal.localize(response)
+    response
   }
 
   override def getPoiDetail(language: Language, poiRef: PoiRef): ApiResponse[PoiDetail] = {

@@ -9,6 +9,7 @@ import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.NetworkType
+import kpn.core.common.TimestampLocal
 import kpn.core.poi.PoiConfiguration
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.Api
@@ -95,6 +96,8 @@ class PlannerFacadeImpl(
 
   // TODO share with AnalysisFacadeImpl ?
   private def reply[T](result: Option[T]): ApiResponse[T] = {
-    ApiResponse(analysisRepository.lastUpdated(), 1, result)
+    val response = ApiResponse(analysisRepository.lastUpdated(), 1, result)
+    TimestampLocal.localize(response)
+    response
   }
 }
