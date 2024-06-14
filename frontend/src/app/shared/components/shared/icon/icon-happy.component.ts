@@ -8,13 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
   template: ` <mat-icon svgIcon="happy" /> `,
   styles: `
     :host {
-      width: 18px;
-      height: 18px;
+      width: 25px;
+      height: 25px;
     }
 
     mat-icon {
-      width: 18px;
-      height: 18px;
+      width: 25px;
+      height: 25px;
     }
   `,
   standalone: true,
