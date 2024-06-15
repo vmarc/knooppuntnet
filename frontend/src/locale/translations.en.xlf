@@ -5427,6 +5427,10 @@
         <source>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes. Use cmd-click to open to open these details in another window.</source>
         <target>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes. Use cmd-click to open to open these details in another window.</target>
       </trans-unit>
+      <trans-unit datatype="html" id="changeset.split">
+        <source>This changeset is split over multiple minute diffs</source>
+        <target>This changeset is split over multiple minute diffs</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

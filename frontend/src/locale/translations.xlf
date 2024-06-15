@@ -565,14 +565,21 @@
         <source>Changeset</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/change-set-page.component.ts</context>
-          <context context-type="linenumber">21,22</context>
+          <context context-type="linenumber">23,24</context>
         </context-group>
       </trans-unit>
       <trans-unit id="changeset.not-found" datatype="html">
         <source>Changeset not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/change-set-page.component.ts</context>
-          <context context-type="linenumber">27,29</context>
+          <context context-type="linenumber">29,31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="changeset.split" datatype="html">
+        <source> This changeset is split over multiple minute diffs </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/analysis/changeset/change-set-page.component.ts</context>
+          <context context-type="linenumber">33,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="change-set.header.analysis.happy" datatype="html">
@@ -2490,21 +2497,21 @@
         <source>Situation on</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/details/components/location-details.component.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">46</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location-details.tags" datatype="html">
         <source>Tags</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/details/components/location-details.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">50</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-details.nodes" datatype="html">
         <source>nodes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/details/components/location-summary.component.ts</context>
-          <context context-type="linenumber">22,24</context>
+          <context context-type="linenumber">25,27</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/components/network-summary.component.ts</context>
@@ -2515,7 +2522,7 @@
         <source>routes</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/details/components/location-summary.component.ts</context>
-          <context context-type="linenumber">26,28</context>
+          <context context-type="linenumber">29,31</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/network/details/components/network-summary.component.ts</context>
@@ -2872,28 +2879,28 @@
         <source>municipality or other administrative boundary name </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-selector.component.ts</context>
-          <context context-type="linenumber">28,31</context>
+          <context context-type="linenumber">29,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.selector.warning-selection-mandatory" datatype="html">
         <source> Please make a selection in the field above </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-selector.component.ts</context>
-          <context context-type="linenumber">55,58</context>
+          <context context-type="linenumber">56,59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.selector.warning-selection-invalid" datatype="html">
         <source> Please select a value from the list </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-selector.component.ts</context>
-          <context context-type="linenumber">60,63</context>
+          <context context-type="linenumber">61,64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.selector.button" datatype="html">
         <source> Location overview </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-selector.component.ts</context>
-          <context context-type="linenumber">64,67</context>
+          <context context-type="linenumber">65,67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.nodes" datatype="html">
@@ -2921,7 +2928,7 @@
         <source> Expand all </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-tree.component.ts</context>
-          <context context-type="linenumber">37,40</context>
+          <context context-type="linenumber">38,40</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/button/expand-collapse.component.ts</context>
@@ -2932,7 +2939,7 @@
         <source> Collapse all </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-tree.component.ts</context>
-          <context context-type="linenumber">45,47</context>
+          <context context-type="linenumber">46,49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/button/expand-collapse.component.ts</context>
@@ -2943,14 +2950,14 @@
         <source> All </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-tree.component.ts</context>
-          <context context-type="linenumber">49,50</context>
+          <context context-type="linenumber">51,52</context>
         </context-group>
       </trans-unit>
       <trans-unit id="location.tree.in-use-only" datatype="html">
         <source> In use only </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/location/selection/components/location-tree.component.ts</context>
-          <context context-type="linenumber">56,58</context>
+          <context context-type="linenumber">58,60</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-changes.network-created" datatype="html">
@@ -7368,7 +7375,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/ol/layers/route-nodes-layer.ts</context>
-          <context context-type="linenumber">25</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="map.layer.tile-256-names" datatype="html">

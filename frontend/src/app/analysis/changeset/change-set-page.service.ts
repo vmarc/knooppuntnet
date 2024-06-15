@@ -17,7 +17,7 @@ class ChangeSetKey {
 export class ChangeSetPageService {
   private readonly apiService = inject(ApiService);
   private readonly routerService = inject(RouterService);
-  private readonly key = this.interpretParams(this.routerService.params());
+  readonly key = this.interpretParams(this.routerService.params());
   private _response = signal<ApiResponse<ChangeSetPage>>(null);
   readonly response = this._response.asReadonly();
   readonly changeSetTitle = this.initChangeSetTitle();
@@ -32,10 +32,13 @@ export class ChangeSetPageService {
   private interpretParams(params: Params): ChangeSetKey {
     const changeSetId = params['changeSetId'];
     const replicationNumber = params['replicationNumber'];
-    return new ChangeSetKey(changeSetId, replicationNumber);
+    return new ChangeSetKey(changeSetId, replicationNumber ?? 0);
   }
 
   private initChangeSetTitle(): string {
-    return this.key.changeSetId + ' ' + Util.replicationName(+this.key.replicationNumber);
+    if (+this.key.replicationNumber > 0) {
+      return this.key.changeSetId + ' ' + Util.replicationName(+this.key.replicationNumber);
+    }
+    return this.key.changeSetId;
   }
 }

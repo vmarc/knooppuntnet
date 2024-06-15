@@ -24,7 +24,9 @@ trait ChangeSetRepository {
 
   def saveNodeChange(nodeChange: NodeChange): Unit
 
-  def changeSet(changeSetId: Long, replicationId: Option[ReplicationId]): Seq[ChangeSetData]
+  def changeSetReplicationNumbers(changeSetId: Long): Seq[Long]
+
+  def changeSet(changeSetId: Long, replicationId: ReplicationId): Option[ChangeSetData]
 
   def changes(changesParameters: ChangesParameters): Seq[ChangeSetSummary]
 
@@ -49,5 +51,4 @@ trait ChangeSetRepository {
   def nodeChangesFilter(nodeId: Long, year: Option[Long], month: Option[Long], day: Option[Long]): Seq[ChangesFilterOption]
 
   def nodeChangesCount(nodeId: Long): Long
-
 }

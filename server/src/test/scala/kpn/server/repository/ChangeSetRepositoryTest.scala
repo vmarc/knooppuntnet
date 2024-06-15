@@ -27,8 +27,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("change set not found") {
     withChangeSetRepository { repository =>
-      repository.changeSet(0L, None) shouldBe empty
-      repository.changeSet(0L, Some(ReplicationId(1, 2, 3))) shouldBe empty
+      repository.changeSet(0L, ReplicationId(1, 2, 3)) shouldBe empty
     }
   }
 
@@ -60,8 +59,8 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       repository.saveRouteChange(routeChange2)
       repository.saveNodeChange(nodeChange2)
 
-      repository.changeSet(changeSetId, Some(ReplicationId(replicationNumber1))) should equal(
-        Seq(
+      repository.changeSet(changeSetId, ReplicationId(replicationNumber1)) should equal(
+        Some(
           ChangeSetData(
             changeSetSummary1,
             Seq(networkChange1),
@@ -71,8 +70,8 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.changeSet(changeSetId, Some(ReplicationId(replicationNumber2))) should equal(
-        Seq(
+      repository.changeSet(changeSetId, ReplicationId(replicationNumber2)) should equal(
+        Some(
           ChangeSetData(
             changeSetSummary2,
             Seq(networkChange2),
@@ -82,20 +81,10 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      repository.changeSet(changeSetId, None) should equal (
+      repository.changeSetReplicationNumbers(changeSetId) should equal(
         Seq(
-          ChangeSetData(
-            changeSetSummary1,
-            Seq(networkChange1),
-            Seq(routeChange1),
-            Seq(nodeChange1)
-          ),
-          ChangeSetData(
-            changeSetSummary2,
-            Seq(networkChange2),
-            Seq(routeChange2),
-            Seq(nodeChange2)
-          )
+          changeSetSummary1.key.replicationNumber,
+          changeSetSummary2.key.replicationNumber,
         )
       )
     }
@@ -234,7 +223,6 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       )
     }
   }
-
 
   test("nodeChangesCount") {
 

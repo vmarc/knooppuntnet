@@ -7,6 +7,7 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
+import kpn.api.common.changes.ChangeSetDetail
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.details.ChangeKey
@@ -48,16 +49,21 @@ object ChangeSetPageExample {
 
   val page: ChangeSetPage = {
     ChangeSetPage(
-      summary = changeSetSummary(),
-      changeSetInfo = Some(changeSetInfo()),
-      networkChanges = networkChanges(),
-      orphanRouteChanges = Seq.empty, // TODO add meaningful values here
-      orphanNodeChanges = Seq.empty, // TODO add meaningful values here
-      routeChanges = routeChanges(),
-      nodeChanges = nodeChanges(),
-      knownElements = KnownElements(
-        nodeIds = Set(nodeId1, nodeId2), // no link in page for any other node
-        routeIds = Set(routeId1, routeId2) // no link in page for any other route
+      Seq(1),
+      Some(
+        ChangeSetDetail(
+          summary = changeSetSummary(),
+          changeSetInfo = Some(changeSetInfo()),
+          networkChanges = networkChanges(),
+          orphanRouteChanges = Seq.empty, // TODO add meaningful values here
+          orphanNodeChanges = Seq.empty, // TODO add meaningful values here
+          routeChanges = routeChanges(),
+          nodeChanges = nodeChanges(),
+          knownElements = KnownElements(
+            nodeIds = Set(nodeId1, nodeId2), // no link in page for any other node
+            routeIds = Set(routeId1, routeId2) // no link in page for any other route
+          )
+        )
       )
     )
   }

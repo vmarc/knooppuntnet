@@ -3,19 +3,19 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeSetElementRef } from '@api/common';
 import { ChangeSetSubsetElementRefs } from '@api/common';
-import { ChangeSetPage } from '@api/common/changes';
+import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
 import { Ref } from '@api/common/common';
 import { RefDiffs } from '@api/common/diff';
 import { NetworkTypeIconComponent } from '@app/components/shared';
 import { List } from 'immutable';
-import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
 import { RouteDiffsData } from './route-diffs/route-diffs-data';
+import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
 
 @Component({
   selector: 'kpn-change-set-orphan-route-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @for (refs of page().orphanRouteChanges; track refs) {
+    @for (refs of detail().orphanRouteChanges; track refs) {
       <div class="kpn-level-1">
         <div class="kpn-level-1-header kpn-line">
           <kpn-network-type-icon [networkType]="refs.subset.networkType" />
@@ -32,7 +32,7 @@ import { RouteDiffsData } from './route-diffs/route-diffs-data';
   imports: [NetworkTypeIconComponent, RouteDiffsComponent],
 })
 export class ChangeSetOrphanRouteChangesComponent {
-  page = input.required<ChangeSetPage>();
+  detail = input.required<ChangeSetDetail>();
 
   routeDiffs(refs: ChangeSetSubsetElementRefs): RouteDiffsData {
     const refDiffs: RefDiffs = {
@@ -42,9 +42,9 @@ export class ChangeSetOrphanRouteChangesComponent {
     };
     return new RouteDiffsData(
       refDiffs,
-      this.page().summary.key.changeSetId,
-      this.page().knownElements,
-      List(this.page().routeChanges)
+      this.detail().summary.key.changeSetId,
+      this.detail().knownElements,
+      List(this.detail().routeChanges)
     );
   }
 

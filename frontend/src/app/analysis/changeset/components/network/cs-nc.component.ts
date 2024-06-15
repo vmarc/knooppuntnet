@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { ChangeSetPage } from '@api/common/changes';
+import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
 import { NetworkChangeInfo } from '@api/common/changes/details';
 import { List } from 'immutable';
-import { NodeDiffsComponent } from '../node-diffs/node-diffs.component';
 import { NodeDiffsData } from '../node-diffs/node-diffs-data';
-import { RouteDiffsComponent } from '../route-diffs/route-diffs.component';
+import { NodeDiffsComponent } from '../node-diffs/node-diffs.component';
 import { RouteDiffsData } from '../route-diffs/route-diffs-data';
+import { RouteDiffsComponent } from '../route-diffs/route-diffs.component';
 import { VersionChangeComponent } from '../version-change.component';
 import { CsNcNodesAddedComponent } from './cs-nc-nodes-added.component';
 import { CsNcNodesRemovedComponent } from './cs-nc-nodes-removed.component';
@@ -69,24 +69,24 @@ import { CsNcWaysUpdatedComponent } from './cs-nc-ways-updated.component';
   ],
 })
 export class CsNcComponent {
-  page = input.required<ChangeSetPage>();
+  detail = input.required<ChangeSetDetail>();
   networkChangeInfo = input.required<NetworkChangeInfo>();
 
   nodeDiffs(networkChangeInfo: NetworkChangeInfo): NodeDiffsData {
     return new NodeDiffsData(
       networkChangeInfo.networkNodes,
-      this.page().summary.key.changeSetId,
-      this.page().knownElements,
-      List(this.page().nodeChanges)
+      this.detail().summary.key.changeSetId,
+      this.detail().knownElements,
+      List(this.detail().nodeChanges)
     );
   }
 
   routeDiffs(networkChangeInfo: NetworkChangeInfo): RouteDiffsData {
     return new RouteDiffsData(
       networkChangeInfo.routes,
-      this.page().summary.key.changeSetId,
-      this.page().knownElements,
-      List(this.page().routeChanges)
+      this.detail().summary.key.changeSetId,
+      this.detail().knownElements,
+      List(this.detail().routeChanges)
     );
   }
 }

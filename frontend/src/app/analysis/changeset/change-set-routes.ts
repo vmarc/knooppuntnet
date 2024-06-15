@@ -6,4 +6,8 @@ export const changeSetRoutes: Routes = [
     path: ':changeSetId/:replicationNumber',
     component: ChangeSetPageComponent,
   },
+  {
+    path: ':changeSetId',
+    component: ChangeSetPageComponent,
+  },
 ];

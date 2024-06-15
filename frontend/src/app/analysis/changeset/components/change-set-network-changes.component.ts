@@ -6,7 +6,7 @@ import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ChangeSetPage } from '@api/common/changes';
+import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
 import { NetworkTypeIconComponent } from '@app/components/shared';
 import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
 import { Subscriptions } from '@app/util';
@@ -16,7 +16,7 @@ import { CsNcComponent } from './network/cs-nc.component';
   selector: 'kpn-change-set-network-changes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @for (networkChangeInfo of page().networkChanges; track networkChangeInfo) {
+    @for (networkChangeInfo of detail().networkChanges; track networkChangeInfo) {
       <div class="kpn-level-1">
         <a [id]="networkChangeInfo.networkId"></a>
         <div class="kpn-level-1-header">
@@ -31,7 +31,7 @@ import { CsNcComponent } from './network/cs-nc.component';
           </div>
         </div>
         <div class="kpn-level-1-body">
-          <kpn-cs-nc-component [page]="page()" [networkChangeInfo]="networkChangeInfo" />
+          <kpn-cs-nc-component [detail]="detail()" [networkChangeInfo]="networkChangeInfo" />
         </div>
       </div>
     }
@@ -40,7 +40,7 @@ import { CsNcComponent } from './network/cs-nc.component';
   imports: [CsNcComponent, LinkNetworkDetailsComponent, NetworkTypeIconComponent],
 })
 export class ChangeSetNetworkChangesComponent implements OnDestroy, AfterViewInit {
-  page = input.required<ChangeSetPage>();
+  detail = input.required<ChangeSetDetail>();
 
   private readonly route = inject(ActivatedRoute);
   private readonly document = inject(DOCUMENT);

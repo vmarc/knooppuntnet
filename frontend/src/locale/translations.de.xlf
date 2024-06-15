@@ -5424,6 +5424,10 @@ Andere mögliche Werte sind *"horse"*, *"motorboat"*, *"canoe"* und *"inline_ska
         <source>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes. Use cmd-click to open to open these details in another window.</source>
         <target>TIPP: Klicken Sie auf andere Knoten oder Routen in der Karte, um zu den Details dieser Knoten oder Routen zu gelangen. Verwenden Sie Cmd-Klick zum Öffnen, um diese Details in einem anderen Fenster zu öffnen.</target>
       </trans-unit>
+      <trans-unit datatype="html" id="changeset.split">
+        <source>This changeset is split over multiple minute diffs</source>
+        <target>This changeset is split over multiple minute diffs</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

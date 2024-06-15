@@ -250,13 +250,6 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def replication(language: Language, changeSetId: Long): ApiResponse[Long] = {
-    val args = s"changeSetId=$changeSetId}"
-    api.execute("change-set", args) {
-      reply(changeSetPageBuilder.build(language, changeSetId, None).map(_.summary.key.replicationNumber))
-    }
-  }
-
   override def changes(language: Language, strategy: AnalysisStrategy, parameters: ChangesParameters): ApiResponse[ChangesPage] = {
     api.execute("changes", parameters.toDisplayString) {
       reply(Some(changesPageBuilder.build(language, strategy, parameters)))

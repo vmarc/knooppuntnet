@@ -2,6 +2,8 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { Util } from '@app/components/shared';
 import { PageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { RouterService } from '../../shared/services/router.service';
@@ -26,11 +28,29 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
         @if (!response.result) {
           <div i18n="@@changeset.not-found">Changeset not found</div>
         } @else {
-          <kpn-change-set-header [page]="response.result" />
-          <kpn-change-set-location-changes [changess]="response.result.summary.locationChanges" />
-          <kpn-change-set-network-changes [page]="response.result" />
-          <kpn-change-set-orphan-node-changes [page]="response.result" />
-          <kpn-change-set-orphan-route-changes [page]="response.result" />
+          @if (response.result.replicationNumbers.length > 1) {
+            <p i18n="@@changeset.split" class="kpn-label">
+              This changeset is split over multiple minute diffs
+            </p>
+            <ul>
+              @for (
+                replicationNumber of response.result.replicationNumbers;
+                track replicationNumber
+              ) {
+                <li>
+                  <a [routerLink]="link(replicationNumber)">{{ format(replicationNumber) }}</a>
+                </li>
+              }
+            </ul>
+          } @else {
+            <kpn-change-set-header [detail]="response.result.detail" />
+            <kpn-change-set-location-changes
+              [changess]="response.result.detail.summary.locationChanges"
+            />
+            <kpn-change-set-network-changes [detail]="response.result.detail" />
+            <kpn-change-set-orphan-node-changes [detail]="response.result.detail" />
+            <kpn-change-set-orphan-route-changes [detail]="response.result.detail" />
+          }
         }
       }
       <kpn-sidebar sidebar />
@@ -46,6 +66,7 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
     ChangeSetOrphanRouteChangesComponent,
     PageComponent,
     SidebarComponent,
+    RouterLink,
   ],
 })
 export class ChangeSetPageComponent implements OnInit {
@@ -53,5 +74,13 @@ export class ChangeSetPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.onInit();
+  }
+
+  format(replicationNumber: number): string {
+    return Util.replicationName(replicationNumber);
+  }
+
+  link(replicationNumber: number): string {
+    return `/analysis/changeset/${this.service.key.changeSetId}/${replicationNumber}`;
   }
 }
