@@ -49,8 +49,7 @@ object ChangeSetPageExample {
 
   val page: ChangeSetPage = {
     ChangeSetPage(
-      Seq(1),
-      Some(
+      Seq(
         ChangeSetDetail(
           summary = changeSetSummary(),
           changeSetInfo = Some(changeSetInfo()),

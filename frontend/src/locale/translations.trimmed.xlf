@@ -564,21 +564,14 @@
         <source>Changeset</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/change-set-page.component.ts</context>
-          <context context-type="linenumber">23,24</context>
+          <context context-type="linenumber">24,25</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="changeset.not-found">
         <source>Changeset not found</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/changeset/change-set-page.component.ts</context>
-          <context context-type="linenumber">29,31</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit datatype="html" id="changeset.split">
-        <source>This changeset is split over multiple minute diffs</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/changeset/change-set-page.component.ts</context>
-          <context context-type="linenumber">33,34</context>
+          <context context-type="linenumber">30,32</context>
         </context-group>
       </trans-unit>
       <trans-unit datatype="html" id="change-set.header.analysis.happy">

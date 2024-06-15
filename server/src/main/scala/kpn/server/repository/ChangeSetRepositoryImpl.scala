@@ -54,11 +54,7 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
     database.nodeChanges.save(nodeChange, log)
   }
 
-  override def changeSetReplicationNumbers(changeSetId: Long): Seq[Long] = {
-    new MongoQueryChangeSet(database).findReplicationIds(changeSetId)
-  }
-
-  override def changeSet(changeSetId: Long, replicationId: ReplicationId): Option[ChangeSetData] = {
+  override def changeSet(changeSetId: Long, replicationId: Option[ReplicationId]): Seq[ChangeSetData] = {
     new MongoQueryChangeSet(database).execute(changeSetId, replicationId)
   }
 

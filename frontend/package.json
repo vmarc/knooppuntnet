@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "version": "4.3.61",
+  "version": "4.3.62",
   "scripts": {
     "serve": "ng serve --proxy-config src/proxy-dev.conf.mjs",
     "serve:vmarc": "ng serve --proxy-config src/proxy-vmarc.conf.mjs",

@@ -9,15 +9,11 @@ import kpn.api.common.changes.details.RouteChange
 import kpn.core.util.Log
 import kpn.database.actions.changes.MongoQueryChangeSet.log
 import kpn.database.base.Database
-import kpn.database.base.LongResult
 import kpn.database.util.Mongo
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
 
 object MongoQueryChangeSet {
   private val log = Log(classOf[MongoQueryChangeSet])
@@ -25,27 +21,7 @@ object MongoQueryChangeSet {
 
 class MongoQueryChangeSet(database: Database) {
 
-  def findReplicationIds(changeSetId: Long): Seq[Long] = {
-    val pipeline = Seq(
-      filter(equal("key.changeSetId", changeSetId)),
-      project(
-        fields(
-          computed("value", "$key.replicationNumber")
-        )
-      )
-    )
-
-    if (log.isTraceEnabled) {
-      log.trace(Mongo.pipelineString(pipeline))
-    }
-
-    log.debugElapsed {
-      val replicationNumbers = database.changes.aggregate[LongResult](pipeline).map(_.value)
-      (s"${replicationNumbers.size} changeset replicationNumbers", replicationNumbers)
-    }
-  }
-
-  def execute(changeSetId: Long, replicationId: ReplicationId): Option[ChangeSetData] = {
+  def execute(changeSetId: Long, replicationId: Option[ReplicationId]): Seq[ChangeSetData] = {
     findSummaries(changeSetId, replicationId).map { changeSetSummary =>
       val replicationNumber = changeSetSummary.key.replicationNumber
       val networkChanges = findNetworkChanges(changeSetId, replicationNumber)
@@ -61,14 +37,18 @@ class MongoQueryChangeSet(database: Database) {
     }
   }
 
-  private def findSummaries(changeSetId: Long, replicationId: ReplicationId): Option[ChangeSetSummary] = {
+  private def findSummaries(changeSetId: Long, replicationId: Option[ReplicationId]): Seq[ChangeSetSummary] = {
+
+    val conditions = Seq(
+      Some(equal("key.changeSetId", changeSetId)),
+      replicationId.map { rid =>
+        equal("key.replicationNumber", rid.number)
+      }
+    ).flatten
 
     val pipeline = Seq(
       filter(
-        and(
-          equal("key.changeSetId", changeSetId),
-          equal("key.replicationNumber", replicationId.number)
-        )
+        and(conditions: _*)
       )
     )
 
@@ -77,7 +57,7 @@ class MongoQueryChangeSet(database: Database) {
     }
 
     log.debugElapsed {
-      val summary = database.changes.optionAggregate[ChangeSetSummary](pipeline)
+      val summary = database.changes.aggregate[ChangeSetSummary](pipeline)
       (s"changeset summary", summary)
     }
   }

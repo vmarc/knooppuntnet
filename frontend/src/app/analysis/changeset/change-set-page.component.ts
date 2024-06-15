@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
 import { Util } from '@app/components/shared';
 import { PageComponent } from '@app/components/shared/page';
@@ -28,28 +29,19 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
         @if (!response.result) {
           <div i18n="@@changeset.not-found">Changeset not found</div>
         } @else {
-          @if (response.result.replicationNumbers.length > 1) {
-            <p i18n="@@changeset.split" class="kpn-label">
-              This changeset is split over multiple minute diffs
-            </p>
-            <ul>
-              @for (
-                replicationNumber of response.result.replicationNumbers;
-                track replicationNumber
-              ) {
-                <li>
-                  <a [routerLink]="link(replicationNumber)">{{ format(replicationNumber) }}</a>
-                </li>
-              }
-            </ul>
-          } @else {
-            <kpn-change-set-header [detail]="response.result.detail" />
-            <kpn-change-set-location-changes
-              [changess]="response.result.detail.summary.locationChanges"
-            />
-            <kpn-change-set-network-changes [detail]="response.result.detail" />
-            <kpn-change-set-orphan-node-changes [detail]="response.result.detail" />
-            <kpn-change-set-orphan-route-changes [detail]="response.result.detail" />
+          @for (
+            detail of response.result.details;
+            track detail.changeSetInfo._id;
+            let first = $first
+          ) {
+            @if (!first) {
+              <mat-divider />
+            }
+            <kpn-change-set-header [detail]="detail" />
+            <kpn-change-set-location-changes [changess]="detail.summary.locationChanges" />
+            <kpn-change-set-network-changes [detail]="detail" />
+            <kpn-change-set-orphan-node-changes [detail]="detail" />
+            <kpn-change-set-orphan-route-changes [detail]="detail" />
           }
         }
       }
@@ -67,6 +59,7 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
     PageComponent,
     SidebarComponent,
     RouterLink,
+    MatDivider,
   ],
 })
 export class ChangeSetPageComponent implements OnInit {

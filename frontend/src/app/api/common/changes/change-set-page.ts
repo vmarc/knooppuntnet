@@ -3,6 +3,5 @@
 import { ChangeSetDetail } from './change-set-detail';
 
 export interface ChangeSetPage {
-  readonly replicationNumbers: number[];
-  readonly detail: ChangeSetDetail;
+  readonly details: ChangeSetDetail[];
 }

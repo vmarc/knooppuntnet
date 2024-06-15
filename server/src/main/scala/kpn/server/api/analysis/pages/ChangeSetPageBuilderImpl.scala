@@ -38,24 +38,14 @@ class ChangeSetPageBuilderImpl(
   locationService: LocationService
 ) extends ChangeSetPageBuilder {
 
-  def build(language: Language, changeSetId: Long, replicationIdOption: Option[ReplicationId]): Option[ChangeSetPage] = {
+  def build(language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): Option[ChangeSetPage] = {
 
     if (changeSetId == 1L) {
       Some(ChangeSetPageExample.page)
     }
     else {
       if (RequestContext.isLoggedIn) {
-        replicationIdOption match {
-          case Some(replicationId) => buildPage(language, changeSetId, replicationId)
-          case None =>
-            val replicationNumbers = changeSetRepository.changeSetReplicationNumbers(changeSetId)
-            if (replicationNumbers.size == 1) {
-              buildPage(language, changeSetId, ReplicationId(replicationNumbers.head))
-            }
-            else {
-              Some(ChangeSetPage(replicationNumbers, None))
-            }
-        }
+        buildPage(language, changeSetId, replicationId)
       }
       else {
         None
@@ -63,48 +53,53 @@ class ChangeSetPageBuilderImpl(
     }
   }
 
-  private def buildPage(language: Language, changeSetId: Long, replicationId: ReplicationId): Option[ChangeSetPage] = {
-
-    changeSetRepository.changeSet(changeSetId, replicationId).map { changeSetData =>
-
-      val changeSetInfo = changeSetInfoRepository.get(changeSetId)
-      val knownElements = findKnownElements(changeSetData.referencedElements)
-      val networkChanges = changeSetData.networkChanges.map(toNetworkChangeInfo)
-      val routeChanges = changeSetData.routeChanges.zipWithIndex.map { case (routeChange, index) =>
-        toRouteChangeInfo(index, routeChange)
-      }
-      val nodeChanges = changeSetData.nodeChanges.map(toNodeChangeInfo)
-      val orphanRouteChanges = buildOrphanRouteChanges(changeSetData)
-      val orphanNodeChanges = buildOrphanNodeChanges(changeSetData)
-
-      val locationChanges = changeSetData.summary.locationChanges.map { change =>
-        change.copy(
-          locationNames = change.locationNames.map(locationName => locationService.name(language, locationName))
-        )
-      }
-      val locations = changeSetData.summary.locations.map(loc => locationService.name(language, loc))
-
-      val summary = changeSetData.summary.copy(
-        locationChanges = locationChanges,
-        locations = locations
-      )
-
-      ChangeSetPage(
-        Seq(replicationId.number),
-        Some(
-          ChangeSetDetail(
-            summary,
-            changeSetInfo,
-            networkChanges,
-            orphanRouteChanges,
-            orphanNodeChanges,
-            routeChanges,
-            nodeChanges,
-            knownElements
-          )
-        )
+  private def buildPage(language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): Option[ChangeSetPage] = {
+    val changeSetDatas = changeSetRepository.changeSet(changeSetId, replicationId)
+    if (changeSetDatas.isEmpty) {
+      None
+    }
+    else {
+      val details = changeSetDatas.map(changeSetData => toDetail(language, changeSetId, changeSetData))
+      Some(
+        ChangeSetPage(details)
       )
     }
+  }
+
+  private def toDetail(language: Language, changeSetId: Long, changeSetData: ChangeSetData): ChangeSetDetail = {
+
+    val changeSetInfo = changeSetInfoRepository.get(changeSetId)
+    val knownElements = findKnownElements(changeSetData.referencedElements)
+    val networkChanges = changeSetData.networkChanges.map(toNetworkChangeInfo)
+    val routeChanges = changeSetData.routeChanges.zipWithIndex.map { case (routeChange, index) =>
+      toRouteChangeInfo(index, routeChange)
+    }
+    val nodeChanges = changeSetData.nodeChanges.map(toNodeChangeInfo)
+    val orphanRouteChanges = buildOrphanRouteChanges(changeSetData)
+    val orphanNodeChanges = buildOrphanNodeChanges(changeSetData)
+
+    val locationChanges = changeSetData.summary.locationChanges.map { change =>
+      change.copy(
+        locationNames = change.locationNames.map(locationName => locationService.name(language, locationName))
+      )
+    }
+    val locations = changeSetData.summary.locations.map(loc => locationService.name(language, loc))
+
+    val summary = changeSetData.summary.copy(
+      locationChanges = locationChanges,
+      locations = locations
+    )
+
+    ChangeSetDetail(
+      summary,
+      changeSetInfo,
+      networkChanges,
+      orphanRouteChanges,
+      orphanNodeChanges,
+      routeChanges,
+      nodeChanges,
+      knownElements
+    )
   }
 
   private def findKnownElements(elements: ReferencedElements): KnownElements = {
