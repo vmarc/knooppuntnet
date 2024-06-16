@@ -76,7 +76,8 @@ class RouteTileAnalyzer(routeTileCalculator: RouteTileCalculator) extends RouteA
       routeMap.forwardPath,
       routeMap.backwardPath,
       routeMap.startTentaclePaths,
-      routeMap.endTentaclePaths
+      routeMap.endTentaclePaths,
+      routeMap.unusedSegments,
     )
   }
 }

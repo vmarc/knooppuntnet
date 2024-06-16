@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.tiles.domain
 
 import kpn.api.common.common.TrackPath
+import kpn.api.common.common.TrackSegment
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Tags
@@ -19,5 +20,6 @@ case class RouteTileInfo(
   forwardPath: Option[TrackPath],
   backwardPath: Option[TrackPath],
   startTentaclePaths: Seq[TrackPath],
-  endTentaclePaths: Seq[TrackPath]
+  endTentaclePaths: Seq[TrackPath],
+  unusedSegments: Seq[TrackSegment],
 )

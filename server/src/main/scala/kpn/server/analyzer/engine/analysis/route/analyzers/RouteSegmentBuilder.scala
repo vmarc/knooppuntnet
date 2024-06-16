@@ -4,10 +4,10 @@ import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.tiles.domain.Line
+import kpn.server.analyzer.engine.tiles.domain.OldTile
 import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
-import kpn.server.analyzer.engine.tiles.domain.OldTile
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
@@ -38,7 +38,13 @@ class RouteSegmentBuilder(zoomLevel: Int) {
     val freePathSegments = route.freePaths.flatMap(toTileRouteSegments)
     val startTentacleSegments = route.startTentaclePaths.flatMap(toTileRouteSegments)
     val endTentacleSegments = route.endTentaclePaths.flatMap(toTileRouteSegments)
-    freePathSegments ++ mainTileRouteSegments ++ startTentacleSegments ++ endTentacleSegments
+    val unusedSegments = route.unusedSegments.flatMap(toTileRouteUnusedSegment)
+
+    freePathSegments ++ mainTileRouteSegments ++ startTentacleSegments ++ endTentacleSegments ++ unusedSegments
+  }
+
+  private def toTileRouteUnusedSegment(trackSegment: TrackSegment): Option[RouteTileSegment] = {
+    toTileRouteSegment(0, oneWay = false, trackSegment)
   }
 
   private def toTileRouteSegments(trackPath: TrackPath): Seq[RouteTileSegment] = {

@@ -1,11 +1,11 @@
 package kpn.database.actions.routes
 
 import kpn.api.custom.NetworkType
+import kpn.core.doc.Label
+import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryRouteTileInfo.log
 import kpn.database.actions.routes.MongoQueryRouteTileInfo.projectRouteTileInfo
 import kpn.database.base.Database
-import kpn.core.doc.Label
-import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
@@ -34,6 +34,7 @@ object MongoQueryRouteTileInfo {
         computed("backwardPath", "$analysis.map.backwardPath"),
         computed("startTentaclePaths", "$analysis.map.startTentaclePaths"),
         computed("endTentaclePaths", "$analysis.map.endTentaclePaths"),
+        computed("unusedSegments", "$analysis.map.unusedSegments"),
       )
     )
   }

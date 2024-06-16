@@ -70,7 +70,8 @@ case class RouteAnalysis(
       forwardPath = route.analysis.map.forwardPath,
       backwardPath = route.analysis.map.backwardPath,
       startTentaclePaths = route.analysis.map.startTentaclePaths,
-      endTentaclePaths = route.analysis.map.endTentaclePaths
+      endTentaclePaths = route.analysis.map.endTentaclePaths,
+      unusedSegments = route.analysis.map.unusedSegments,
     )
   }
 }
