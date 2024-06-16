@@ -6,7 +6,6 @@ import { MainMapStyle } from './main-map-style';
 import { MainMapStyleParameters } from './main-map-style-parameters';
 import { RouteStyle } from './route-style';
 import { StyleColor } from './style-color';
-import { SurveyDateStyle } from './survey-date-style';
 
 export class MainMapRouteStyle {
   private readonly routeStyleBuilder = new RouteStyle();
@@ -61,39 +60,11 @@ export class MainMapRouteStyle {
   private routeColor(parameters: MainMapStyleParameters, feature: FeatureLike): Color {
     let color = StyleColor.gray;
     if (parameters.mapMode === 'surface') {
-      color = this.routeColorSurface(feature);
+      color = StyleColor.routeColorSurface(feature);
     } else if (parameters.mapMode === 'survey') {
-      color = this.routeColorSurvey(parameters, feature);
+      color = StyleColor.routeColorSurvey(parameters, feature);
     } else if (parameters.mapMode === 'analysis') {
-      color = this.routeColorAnalysis(feature);
-    }
-    return color;
-  }
-
-  private routeColorSurface(feature: FeatureLike): Color {
-    const surface = feature.get('surface');
-    let color = StyleColor.surfacePaved;
-    if ('unpaved' === surface) {
-      color = StyleColor.surfaceUnpaved;
-    } else if ('unknown' === surface) {
-      color = StyleColor.surfaceUnknown;
-    }
-    return color;
-  }
-
-  private routeColorSurvey(parameters: MainMapStyleParameters, feature: FeatureLike): Color {
-    return SurveyDateStyle.surveyColor(parameters.surveyDateValues, feature);
-  }
-
-  private routeColorAnalysis(feature: FeatureLike): Color {
-    const layer = feature.get('layer');
-    let color = StyleColor.gray;
-    if ('route' === layer) {
-      color = StyleColor.analysisOk;
-    } else if ('incomplete-route' === layer) {
-      color = StyleColor.analysisError;
-    } else if ('error-route' === layer) {
-      color = StyleColor.analysisError;
+      color = StyleColor.routeColorAnalysis(feature);
     }
     return color;
   }

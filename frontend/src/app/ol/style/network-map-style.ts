@@ -84,11 +84,15 @@ export class NetworkMapStyle {
 
   private buildRouteStyle(feature: FeatureLike, resolution: number): Style {
     const featureId = feature.get('id');
+    const layer = feature.get('layer');
     const routeId = +featureId.substring(0, featureId.indexOf('-'));
     const dashed = feature.get('state') === 'proposed';
     let routeColor = StyleColor.networkOut;
     if (this.networkRouteIds.includes(routeId)) {
       routeColor = StyleColor.networkIn;
+      if ('incomplete-route' === layer || 'error-route' === layer) {
+        routeColor = StyleColor.analysisError;
+      }
     } else if (this.connectionRouteIds.includes(routeId)) {
       routeColor = StyleColor.networkConnection;
     }

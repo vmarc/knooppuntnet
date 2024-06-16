@@ -1,4 +1,7 @@
 import { Color } from 'ol/color';
+import { FeatureLike } from 'ol/Feature';
+import { MainMapStyleParameters } from './main-map-style-parameters';
+import { SurveyDateStyle } from './survey-date-style';
 
 export class StyleColor {
   static readonly surfacePaved: Color = [0, 96, 255]; // light blue
@@ -24,6 +27,34 @@ export class StyleColor {
   static readonly selected: Color = [255, 255, 0]; // yellow
 
   static readonly defaultColor: Color = [0, 200, 0]; // green
+
+  static routeColorAnalysis(feature: FeatureLike): Color {
+    const layer = feature.get('layer');
+    let color = StyleColor.gray;
+    if ('route' === layer) {
+      color = StyleColor.analysisOk;
+    } else if ('incomplete-route' === layer) {
+      color = StyleColor.analysisError;
+    } else if ('error-route' === layer) {
+      color = StyleColor.analysisError;
+    }
+    return color;
+  }
+
+  static routeColorSurface(feature: FeatureLike): Color {
+    const surface = feature.get('surface');
+    let color = StyleColor.surfacePaved;
+    if ('unpaved' === surface) {
+      color = StyleColor.surfaceUnpaved;
+    } else if ('unknown' === surface) {
+      color = StyleColor.surfaceUnknown;
+    }
+    return color;
+  }
+
+  static routeColorSurvey(parameters: MainMapStyleParameters, feature: FeatureLike): Color {
+    return SurveyDateStyle.surveyColor(parameters.surveyDateValues, feature);
+  }
 }
 
 export const green: Color = [0, 255, 0]; //regular nodes and routes
