@@ -4,7 +4,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
-import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.Node
 import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
@@ -62,8 +62,7 @@ object RouteChangesPageExample {
         addedWays = addedWays(),
         updatedWays = updatedWays(),
         diffs = routeDiff(),
-        nodes = Seq[RawNode](
-        ),
+        nodes = Seq.empty,
         Seq.empty,
         changeSetInfo = None, //Some(ChangeSetInfo()),  TODO do we actually show this???
         geometryDiff = None,
@@ -195,7 +194,7 @@ object RouteChangesPageExample {
           changeSetId = 1
         ),
         removedNodes = Seq(
-          RawNode(
+          Node(
             id = 1001,
             latitude = "",
             longitude = "",
@@ -206,7 +205,7 @@ object RouteChangesPageExample {
           )
         ),
         addedNodes = Seq(
-          RawNode(
+          Node(
             id = 1001,
             latitude = "",
             longitude = "",
@@ -218,7 +217,7 @@ object RouteChangesPageExample {
         ),
         updatedNodes = Seq(
           NodeUpdate(
-            before = RawNode(
+            before = Node(
               id = 1001,
               latitude = "",
               longitude = "",
@@ -227,7 +226,7 @@ object RouteChangesPageExample {
               changeSetId = 2,
               tags = Tags.empty
             ),
-            after = RawNode(
+            after = Node(
               id = 1001,
               latitude = "",
               longitude = "",

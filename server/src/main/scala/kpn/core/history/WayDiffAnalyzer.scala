@@ -31,17 +31,17 @@ class WayDiffAnalyzer(wayBefore: Way, wayAfter: Way) {
 
     val directionReversed = analyzeDirectionReversed
 
-    val tagDiffs = new TagDiffAnalyzer(wayBefore.raw, wayAfter.raw).diffs
+    val tagDiffs = new TagDiffAnalyzer(wayBefore, wayAfter).diffs
 
-    if (wayBefore.raw != wayAfter.raw || removedNodeIds.nonEmpty || addedNodeIds.nonEmpty || updatedNodeIds.nonEmpty || tagDiffs.isDefined || directionReversed) {
+    if (wayBefore.toRaw != wayAfter.toRaw || removedNodeIds.nonEmpty || addedNodeIds.nonEmpty || updatedNodeIds.nonEmpty || tagDiffs.isDefined || directionReversed) {
       Some(
         WayUpdate(
           wayAfter.id,
           wayBefore.toMeta,
           wayAfter.toMeta,
-          removedNodeIds.map(nodeId => nodeMapBefore(nodeId)).map(_.raw),
-          addedNodeIds.map(nodeId => nodeMapAfter(nodeId)).map(_.raw),
-          updatedNodeIds.map(nodeId => NodeUpdate(nodeMapBefore(nodeId).raw, nodeMapAfter(nodeId).raw, None, None)),
+          removedNodeIds.map(nodeId => nodeMapBefore(nodeId)),
+          addedNodeIds.map(nodeId => nodeMapAfter(nodeId)),
+          updatedNodeIds.map(nodeId => NodeUpdate(nodeMapBefore(nodeId), nodeMapAfter(nodeId), None, None)),
           directionReversed,
           tagDiffs
         )
@@ -52,6 +52,5 @@ class WayDiffAnalyzer(wayBefore: Way, wayAfter: Way) {
     }
   }
 
-  private def analyzeDirectionReversed: Boolean = wayBefore.raw.nodeIds == wayAfter.raw.nodeIds.reverse
-
+  private def analyzeDirectionReversed: Boolean = wayBefore.nodeIds == wayAfter.nodeIds.reverse
 }

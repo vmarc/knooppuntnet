@@ -15,6 +15,7 @@ import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackPathKey
 import kpn.api.common.common.TrackPoint
 import kpn.api.common.common.TrackSegment
+import kpn.api.common.data.Member
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
@@ -61,6 +62,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.Relation
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -122,8 +124,8 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newRawNodeWithName(nodeId: Long, name: String, extraTags: Tags = Tags.empty): RawNode = {
-    newRawNode(nodeId, tags = newNodeTags(name) ++ extraTags)
+  def newNodeWithName(nodeId: Long, name: String, extraTags: Tags = Tags.empty): Node = {
+    newNode(nodeId, tags = newNodeTags(name) ++ extraTags)
   }
 
   def newForeignRawNode(nodeId: Long, name: String): RawNode = {
@@ -145,6 +147,24 @@ trait SharedTestObjects extends MockFactory {
       changeSetId,
       nodeIds,
       tags
+    )
+  }
+
+  def newRelation(
+    id: Long = 0,
+    version: Long = 0,
+    timestamp: Timestamp = defaultTimestamp,
+    changeSetId: Long = 1,
+    members: Seq[Member] = Seq.empty,
+    tags: Tags = Tags.empty
+  ): Relation = {
+    Relation(
+      id,
+      version,
+      timestamp,
+      changeSetId,
+      tags,
+      members
     )
   }
 
@@ -277,8 +297,8 @@ trait SharedTestObjects extends MockFactory {
     networkScope: NetworkScope = NetworkScope.regional,
     relation: RawRelation = newRawRelation(),
     name: String = "",
-    networkNodes: Seq[RawNode] = Seq.empty,
-    nodes: Seq[RawNode] = Seq.empty,
+    networkNodes: Seq[Node] = Seq.empty,
+    nodes: Seq[Node] = Seq.empty,
     ways: Seq[RawWay] = Seq.empty,
     relations: Seq[RawRelation] = Seq.empty,
     facts: Seq[Fact] = Seq.empty
@@ -298,7 +318,7 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newNode(
-    id: Long,
+    id: Long = 1001,
     latitude: String = "0",
     longitude: String = "0",
     version: Int = 0,
@@ -307,15 +327,13 @@ trait SharedTestObjects extends MockFactory {
     tags: Tags = Tags.empty
   ): Node = {
     Node(
-      RawNode(
-        id,
-        latitude,
-        longitude,
-        version,
-        timestamp,
-        changeSetId,
-        tags
-      )
+      id,
+      latitude,
+      longitude,
+      version,
+      timestamp,
+      changeSetId,
+      tags
     )
   }
 
@@ -328,9 +346,7 @@ trait SharedTestObjects extends MockFactory {
     tags: Tags = Tags.empty,
     length: Int = 0
   ): Way = {
-    val nodeIds = nodes.map(_.id)
-    val way = RawWay(id, version, timestamp, changeSetId, nodeIds, tags)
-    Way(way, nodes, length)
+    Way(id, version, timestamp, changeSetId, tags, nodes, length)
   }
 
   def newNodeDoc(

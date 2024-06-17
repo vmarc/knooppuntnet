@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 import kpn.api.common.LatLonImpl
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.data.raw.RawData
-import kpn.api.custom.Relation
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
@@ -65,13 +64,9 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
 
     val routeTags = routeRelation1.tags.without("ref") ++ Tags.from("ref" -> routeName)
 
-    val rawRouteRelation = routeRelation1.raw.copy(
+    val routeRelation = routeRelation1.copy(
       tags = routeTags,
-      members = routeRelation1.raw.members ++ routeRelation2.raw.members.reverse
-    )
-    val routeRelation = Relation(
-      rawRouteRelation,
-      routeRelation1.members ++ routeRelation2.members
+      members = routeRelation1.members ++ routeRelation2.members
     )
 
     val analysisContext = new AnalysisContext()

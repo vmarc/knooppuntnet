@@ -1,7 +1,7 @@
 package kpn.api.common.diff
 
 import kpn.api.common.common.Ref
-import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Country
@@ -16,8 +16,8 @@ case class RouteData(
   networkScope: NetworkScope,
   relation: RawRelation,
   name: String,
-  networkNodes: Seq[RawNode],
-  nodes: Seq[RawNode], // all nodes  in hierarchy
+  networkNodes: Seq[Node],
+  nodes: Seq[Node], // all nodes  in hierarchy
   ways: Seq[RawWay], // all ways  in hierarchy
   relations: Seq[RawRelation], // all relations in hierarchy
   facts: Seq[Fact]
@@ -30,5 +30,4 @@ case class RouteData(
   def investigate: Boolean = facts.exists(_.isError)
 
   def subset: Option[Subset] = country.flatMap(c => Subset.of(c, networkType))
-
 }

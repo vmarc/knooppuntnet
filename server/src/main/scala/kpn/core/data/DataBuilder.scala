@@ -50,7 +50,14 @@ class DataBuilder(rawData: RawData, log: Log = DataBuilder.log) {
         inconsistant(s"relation $id not found")
         None
       case Some(rawRelation) =>
-        val memberRelation = Relation(rawRelation, buildMembers(parentRelations ++ Set(id), rawRelation))
+        val memberRelation = Relation(
+          rawRelation.id,
+          rawRelation.version,
+          rawRelation.timestamp,
+          rawRelation.changeSetId,
+          rawRelation.tags,
+          buildMembers(parentRelations ++ Set(id), rawRelation)
+        )
         relationsMap.put(memberRelation.id, memberRelation)
         Some(memberRelation)
     }
@@ -94,15 +101,31 @@ class DataBuilder(rawData: RawData, log: Log = DataBuilder.log) {
 
   private def buildNodes: Map[Long, Node] = {
     rawData.nodes.map { raw =>
-      raw.id -> Node(raw)
+      raw.id -> Node(
+        raw.id,
+        raw.latitude,
+        raw.longitude,
+        raw.version,
+        raw.timestamp,
+        raw.changeSetId,
+        raw.tags
+      )
     }.toMap
   }
 
   private def buildWays: Map[Long, Way] = {
     rawData.ways.map { raw =>
       val wayNodes = buildWayNodes(raw)
-      val length = Haversine.meters(wayNodes.map(_.raw))
-      val way: Way = Way(raw, wayNodes, length)
+      val length = Haversine.meters(wayNodes)
+      val way: Way = Way(
+        raw.id,
+        raw.version,
+        raw.timestamp,
+        raw.changeSetId,
+        raw.tags,
+        wayNodes,
+        length
+      )
       raw.id -> way
     }.toMap
   }

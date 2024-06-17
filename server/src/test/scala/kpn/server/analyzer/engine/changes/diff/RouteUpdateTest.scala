@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.changes.diff
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
@@ -22,15 +21,12 @@ class RouteUpdateTest extends UnitTest with SharedTestObjects {
   private def routeAnalysis(country: Option[Country], networkType: NetworkType): RouteAnalysis = {
     RouteAnalysis(
       relation = Relation(
-        RawRelation(
-          id = 1,
-          version = 1,
-          timestamp = Timestamp(2015, 8, 11),
-          changeSetId = 1,
-          members = Seq.empty,
-          tags = Tags.empty
-        ),
-        Seq.empty
+        id = 1,
+        version = 1,
+        timestamp = Timestamp(2015, 8, 11),
+        changeSetId = 1,
+        tags = Tags.empty,
+        members = Seq.empty,
       ),
       route = newRouteDoc(
         summary = newRouteSummary(

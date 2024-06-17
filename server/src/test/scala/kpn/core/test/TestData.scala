@@ -30,7 +30,7 @@ class TestData extends SharedTestObjects {
   private val relations = ListBuffer[RawRelation]()
 
   def networkNode(id: Long, name: String = "", extraTags: Tags = Tags.empty): RawNode = {
-    val n = newRawNodeWithName(id, name, extraTags)
+    val n = newNodeWithName(id, name, extraTags).toRaw
     nodes += n
     n
   }

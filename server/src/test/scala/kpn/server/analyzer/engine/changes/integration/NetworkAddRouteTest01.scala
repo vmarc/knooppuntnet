@@ -176,12 +176,12 @@ class NetworkAddRouteTest01 extends IntegrationTest {
       ),
       name = "01-02",
       networkNodes = Seq(
-        newRawNodeWithName(1001, "01"),
-        newRawNodeWithName(1002, "02")
+        newNodeWithName(1001, "01"),
+        newNodeWithName(1002, "02")
       ),
       nodes = Seq(
-        newRawNodeWithName(1001, "01"),
-        newRawNodeWithName(1002, "02")
+        newNodeWithName(1001, "01"),
+        newNodeWithName(1002, "02")
       ),
       ways = Seq(
         newRawWay(

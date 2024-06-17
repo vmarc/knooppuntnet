@@ -10,8 +10,8 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no facts") {
     val context = new AnalysisContext()
-    val before = newRawNode()
-    val after = newRawNode()
+    val before = newNode()
+    val after = newNode()
 
     val analyzer = new NodeChangeFactAnalyzer(context)
     analyzer.facts(before, after).shouldMatchTo(Seq.empty)
@@ -21,8 +21,8 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
 
     def doTestLostNodeTag(tagKey: String, expectedFact: Fact): Unit = {
       val context = new AnalysisContext()
-      val before = newRawNode(tags = Tags.from("network:type" -> "node_network", tagKey -> "01"))
-      val after = newRawNode()
+      val before = newNode(tags = Tags.from("network:type" -> "node_network", tagKey -> "01"))
+      val after = newNode()
 
       val analyzer = new NodeChangeFactAnalyzer(context)
       analyzer.facts(before, after).shouldMatchTo(
@@ -52,8 +52,8 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
   test("no lost node tag fact when switching network scope only") {
 
     val context = new AnalysisContext()
-    val before = newRawNode(tags = Tags.from("network:type" -> "node_network", "rwn_name" -> "name"))
-    val after = newRawNode(tags = Tags.from("network:type" -> "node_network", "lwn_name" -> "name"))
+    val before = newNode(tags = Tags.from("network:type" -> "node_network", "rwn_name" -> "name"))
+    val after = newNode(tags = Tags.from("network:type" -> "node_network", "lwn_name" -> "name"))
 
     val analyzer = new NodeChangeFactAnalyzer(context)
     analyzer.facts(before, after).shouldMatchTo(Seq.empty)
@@ -62,8 +62,8 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
   test("Orphan node that remains orphan") {
     val context = new AnalysisContext()
     context.watched.nodes.add(1001)
-    val before = newRawNodeWithName(1001, "01")
-    val after = newRawNodeWithName(1001, "01")
+    val before = newNodeWithName(1001, "01")
+    val after = newNodeWithName(1001, "01")
 
     val analyzer = new NodeChangeFactAnalyzer(context)
     analyzer.facts(before, after).shouldMatchTo(Seq.empty)

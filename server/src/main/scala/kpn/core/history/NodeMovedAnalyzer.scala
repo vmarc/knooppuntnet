@@ -1,11 +1,11 @@
 package kpn.core.history
 
 import kpn.api.common.LatLonImpl
-import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.Node
 import kpn.api.common.diff.node.NodeMoved
 import kpn.core.util.Haversine
 
-class NodeMovedAnalyzer(before: RawNode, after: RawNode) {
+class NodeMovedAnalyzer(before: Node, after: Node) {
   def analysis: Option[NodeMoved] = {
     if (before.latitude != after.latitude || before.longitude != after.longitude) {
       val latLonBefore = LatLonImpl(before.latitude, before.longitude)

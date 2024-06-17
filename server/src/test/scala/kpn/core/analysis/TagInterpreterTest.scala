@@ -13,7 +13,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
   test("isReferencedNetworkNode rwn") {
 
     def isReferencedNetworkNode(tags: Tags): Boolean = {
-      val node = newRawNode(tags = tags)
+      val node = newNode(tags = tags)
       TagInterpreter.isReferencedNetworkNode(ScopedNetworkType.rwn, node)
     }
 
@@ -34,7 +34,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
   test("isReferencedNetworkNode lwn") {
 
     def isReferencedNetworkNode(tags: Tags): Boolean = {
-      val node = newRawNode(tags = tags)
+      val node = newNode(tags = tags)
       TagInterpreter.isReferencedNetworkNode(ScopedNetworkType(NetworkScope.local, NetworkType.hiking), node)
     }
 
@@ -56,7 +56,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
   test("isValidNetworkNode") {
 
     def isValidNetworkNode(tags: Tags): Boolean = {
-      val node = newRawNode(tags = tags)
+      val node = newNode(tags = tags)
       TagInterpreter.isValidNetworkNode(NetworkType.hiking, node)
     }
 

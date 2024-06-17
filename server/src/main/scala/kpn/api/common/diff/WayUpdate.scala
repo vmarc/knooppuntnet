@@ -1,19 +1,15 @@
 package kpn.api.common.diff
 
 import kpn.api.common.data.MetaData
-import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.Node
 
 case class WayUpdate(
   id: Long,
   before: MetaData,
   after: MetaData,
-  removedNodes: Seq[RawNode] = Seq.empty,
-  addedNodes: Seq[RawNode] = Seq.empty,
+  removedNodes: Seq[Node] = Seq.empty,
+  addedNodes: Seq[Node] = Seq.empty,
   updatedNodes: Seq[NodeUpdate] = Seq.empty,
   directionReversed: Boolean = false,
   tagDiffs: Option[TagDiffs] = None
-) {
-
-  def isNewVersion: Boolean = before.version != after.version
-
-}
+)

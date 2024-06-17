@@ -88,10 +88,8 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
     val routeRelation1 = data.relations(11512870L)
     val routeRelation2 = data.relations(11512871L)
 
-    val rawRouteRelation = routeRelation1.raw.copy(members = routeRelation1.raw.members ++ routeRelation2.raw.members)
-    val routeRelation = Relation(
-      rawRouteRelation,
-      routeRelation1.members ++ routeRelation2.members
+    val routeRelation = routeRelation1.copy(
+      members = routeRelation1.members ++ routeRelation2.members
     )
 
     routeRelation

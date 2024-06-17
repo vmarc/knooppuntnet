@@ -1,14 +1,15 @@
 package kpn.server.analyzer.engine.changes.node
 
-import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.Node
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.context.AnalysisContext
 
+// TODO redesign - cleanup if not used anymore
 class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
 
-  def facts(before: RawNode, after: RawNode): Seq[Fact] = {
+  def facts(before: Node, after: Node): Seq[Fact] = {
     Seq(
       test(Fact.LostHikingNodeTag, hasLostNodeTag(NetworkType.hiking, before, after)),
       test(Fact.LostBicycleNodeTag, hasLostNodeTag(NetworkType.cycling, before, after)),
@@ -19,7 +20,7 @@ class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
     ).flatten
   }
 
-  private def hasLostNodeTag(networkType: NetworkType, before: RawNode, after: RawNode): Boolean = {
+  private def hasLostNodeTag(networkType: NetworkType, before: Node, after: Node): Boolean = {
     val nodeTagBefore: Boolean = TagInterpreter.isValidNetworkNode(networkType, before)
     val nodeTagAfter: Boolean = TagInterpreter.isValidNetworkNode(networkType, after)
     nodeTagBefore && !nodeTagAfter

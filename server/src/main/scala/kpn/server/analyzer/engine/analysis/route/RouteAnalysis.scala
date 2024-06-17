@@ -48,11 +48,11 @@ case class RouteAnalysis(
       route.summary.country,
       route.summary.networkType,
       route.summary.networkScope,
-      relation.raw,
+      relation.toRaw,
       route.summary.name,
-      routeNodeAnalysis.routeNodes.map(_.node.raw),
-      allWayNodes.map(_.raw),
-      ways.map(_.raw),
+      routeNodeAnalysis.routeNodes.map(_.node),
+      allWayNodes,
+      ways.map(_.toRaw),
       Seq[RawRelation](), // TODO CHANGE add unexpected relations
       route.facts
     )

@@ -57,12 +57,11 @@ class NodeDataDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     changeSetId: Long,
     tags: Tags
   ): NodeData = {
-    val rawNode = newNode(id, latitude, longitude, version, timestamp, changeSetId, tags).raw
+    val node = newNode(id, latitude, longitude, version, timestamp, changeSetId, tags)
     NodeData(
       Seq.empty,
       "name",
-      rawNode
+      node
     )
   }
-
 }

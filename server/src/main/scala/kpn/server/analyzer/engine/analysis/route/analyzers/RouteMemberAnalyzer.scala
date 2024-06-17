@@ -87,7 +87,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
         // relationMember.isWay)
         val link = linkIterator.next()
         val way = wayMember.way
-        val wayNetworkNodes = way.nodes.filter(n => TagInterpreter.isReferencedNetworkNode(context.scopedNetworkType, n.raw)).flatMap(n => routeNodeAnalysis.routeNodes.find(_
+        val wayNetworkNodes = way.nodes.filter(n => TagInterpreter.isReferencedNetworkNode(context.scopedNetworkType, n)).flatMap(n => routeNodeAnalysis.routeNodes.find(_
           .id == n.id))
         val name = way.tags("name").getOrElse("")
 
@@ -121,5 +121,4 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
         RouteMemberWay(name, link, wayMember.role, way, fromNode, toNode, from.toString, to.toString, accessible, wayNetworkNodes)
     }
   }
-
 }

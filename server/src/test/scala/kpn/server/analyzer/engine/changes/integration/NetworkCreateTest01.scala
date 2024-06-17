@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
@@ -270,12 +269,12 @@ class NetworkCreateTest01 extends IntegrationTest {
             ),
             name = "01-02",
             networkNodes = Seq(
-              newRawNodeWithName(1001, "01"),
-              newRawNodeWithName(1002, "02")
+              newNodeWithName(1001, "01"),
+              newNodeWithName(1002, "02")
             ),
             nodes = Seq(
-              newRawNodeWithName(1001, "01"),
-              newRawNodeWithName(1002, "02")
+              newNodeWithName(1001, "01"),
+              newNodeWithName(1002, "02")
             ),
             ways = Seq(
               newRawWay(
@@ -299,12 +298,12 @@ class NetworkCreateTest01 extends IntegrationTest {
             ),
             name = "01-02",
             networkNodes = Seq(
-              newRawNodeWithName(1001, "01"),
-              newRawNodeWithName(1002, "02")
+              newNodeWithName(1001, "01"),
+              newNodeWithName(1002, "02")
             ),
             nodes = Seq(
-              newRawNodeWithName(1001, "01"),
-              newRawNodeWithName(1002, "02")
+              newNodeWithName(1001, "01"),
+              newNodeWithName(1002, "02")
             ),
             ways = Seq(
               newRawWay(

@@ -91,26 +91,26 @@ object RelationAnalyzer {
   }
 
   def referencedNetworkNodes(relation: Relation): Set[Node] = {
-    RelationAnalyzer.scopedNetworkType(relation.raw) match {
+    RelationAnalyzer.scopedNetworkType(relation) match {
       case Some(scopedNetworkType) =>
-        RelationAnalyzerHelper.referencedNodes(relation).filter(n => TagInterpreter.isReferencedNetworkNode(scopedNetworkType, n.raw))
+        RelationAnalyzerHelper.referencedNodes(relation).filter(n => TagInterpreter.isReferencedNetworkNode(scopedNetworkType, n))
       case None => Set()
     }
   }
 
   def referencedRoutes(relation: Relation): Set[Relation] = {
-    RelationAnalyzer.scopedNetworkType(relation.raw) match {
+    RelationAnalyzer.scopedNetworkType(relation) match {
       case None => Set()
       case Some(scopedNetworkType) =>
-        referencedRelations(relation).filter(r => TagInterpreter.isReferencedRouteRelation(scopedNetworkType, r.raw))
+        referencedRelations(relation).filter(r => TagInterpreter.isReferencedRouteRelation(scopedNetworkType, r))
     }
   }
 
   def referencedNetworks(relation: Relation): Set[Relation] = {
-    RelationAnalyzer.networkType(relation.raw) match {
+    RelationAnalyzer.networkType(relation) match {
       case None => Set()
       case Some(networkType) =>
-        referencedRelations(relation).filter(r => r.id != relation.id && TagInterpreter.isNetworkRelation(networkType, r.raw))
+        referencedRelations(relation).filter(r => r.id != relation.id && TagInterpreter.isNetworkRelation(networkType, r))
     }
   }
 
@@ -171,13 +171,13 @@ object RelationAnalyzer {
     // referencedWays(relation).map(_.length).sum
   }
 
-  def networkType(relation: RawRelation): Option[NetworkType] = {
+  def networkType(relation: Relation): Option[NetworkType] = {
     relation.tags("network").flatMap { tagValue =>
       ScopedNetworkType.all.find(_.key == tagValue).map(_.networkType)
     }
   }
 
-  def scopedNetworkType(relation: RawRelation): Option[ScopedNetworkType] = {
+  def scopedNetworkType(relation: Relation): Option[ScopedNetworkType] = {
     relation.tags("network").flatMap { tagValue =>
       ScopedNetworkType.all.find(_.key == tagValue)
     }

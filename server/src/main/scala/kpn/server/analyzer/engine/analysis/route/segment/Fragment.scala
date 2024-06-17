@@ -14,7 +14,7 @@ object Fragment {
     role: Option[String] = None
   ): Fragment = {
     val nodes = if (nodeSubset.isEmpty) way.nodes else nodeSubset
-    val meters = if (nodeSubset.isEmpty) way.length else Haversine.meters(nodeSubset.map(_.raw))
+    val meters = if (nodeSubset.isEmpty) way.length else Haversine.meters(nodeSubset)
     val startNodeId = nodes.head.id
     val endNodeId = nodes.last.id
     Fragment(-1, start, end, way, nodeSubset, role, startNodeId, endNodeId, nodes, meters)

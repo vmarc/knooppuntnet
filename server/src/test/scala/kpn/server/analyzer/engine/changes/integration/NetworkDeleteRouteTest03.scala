@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
@@ -125,12 +124,12 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
       ),
       name = "01-02",
       networkNodes = Seq(
-        newRawNodeWithName(1001, "01"),
-        newRawNodeWithName(1002, "02")
+        newNodeWithName(1001, "01"),
+        newNodeWithName(1002, "02")
       ),
       nodes = Seq(
-        newRawNodeWithName(1001, "01"),
-        newRawNodeWithName(1002, "02")
+        newNodeWithName(1001, "01"),
+        newNodeWithName(1002, "02")
       ),
       ways = Seq(
         newRawWay(
@@ -170,12 +169,12 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
       ),
       name = "01-03",
       networkNodes = Seq(
-        newRawNodeWithName(1001, "01"),
-        newRawNodeWithName(1003, "03")
+        newNodeWithName(1001, "01"),
+        newNodeWithName(1003, "03")
       ),
       nodes = Seq(
-        newRawNodeWithName(1001, "01"),
-        newRawNodeWithName(1003, "03")
+        newNodeWithName(1001, "01"),
+        newNodeWithName(1003, "03")
       ),
       ways = Seq(
         newRawWay(

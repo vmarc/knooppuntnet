@@ -51,10 +51,10 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
 
   override def nodes(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[RawNode] = {
     if (timestamp == timestampBeforeValue) {
-      nodeIds.flatMap(beforeData.nodes.get).map(_.raw).sortBy(_.id)
+      nodeIds.flatMap(beforeData.nodes.get).map(_.toRaw).sortBy(_.id)
     }
     else if (timestamp == timestampAfterValue) {
-      nodeIds.flatMap(afterData.nodes.get).map(_.raw).sortBy(_.id)
+      nodeIds.flatMap(afterData.nodes.get).map(_.toRaw).sortBy(_.id)
     }
     else {
       throw new IllegalArgumentException(s"unknown timestamp: ${timestamp.yyyymmddhhmmss}")
@@ -63,10 +63,10 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
 
   override def relations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[RawRelation] = {
     if (timestamp == timestampBeforeValue) {
-      relationIds.flatMap(beforeData.relations.get).map(_.raw).sortBy(_.id)
+      relationIds.flatMap(beforeData.relations.get).map(_.toRaw).sortBy(_.id)
     }
     else if (timestamp == timestampAfterValue) {
-      relationIds.flatMap(afterData.relations.get).map(_.raw).sortBy(_.id)
+      relationIds.flatMap(afterData.relations.get).map(_.toRaw).sortBy(_.id)
     }
     else {
       throw new IllegalArgumentException(s"unknown timestamp: ${timestamp.yyyymmddhhmmss}")
@@ -84,7 +84,6 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
       throw new IllegalArgumentException(s"unknown timestamp: ${timestamp.yyyymmddhhmmss}")
     }
   }
-
 
   private def nodeIdsIn(data: Data): Seq[Long] = {
     data.nodes.values.filter(isNetworkNode).map(_.id).toSeq.sorted

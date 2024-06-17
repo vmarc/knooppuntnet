@@ -89,7 +89,6 @@ class AnalysisTestData extends SharedTestObjects {
 
     networkNode(newOrphanNode)
     networkNode(watchedOrphanNode)
-
   }.data
 
   // setup analysisData
@@ -99,22 +98,21 @@ class AnalysisTestData extends SharedTestObjects {
   analysisContext.watched.routes.add(watchedOrphanRoute, RelationAnalyzer.toElementIds(d.relations(watchedOrphanRoute)))
   analysisContext.watched.nodes.add(watchedOrphanNode)
 
-  def createNode(nodeId: Long): Change = Change(Create, Seq(d.nodes(nodeId).raw))
+  def createNode(nodeId: Long): Change = Change(Create, Seq(d.nodes(nodeId).toRaw))
 
-  def modifyNode(nodeId: Long): Change = Change(Modify, Seq(d.nodes(nodeId).raw))
+  def modifyNode(nodeId: Long): Change = Change(Modify, Seq(d.nodes(nodeId).toRaw))
 
   def deleteNode(nodeId: Long): Change = Change(Delete, Seq(newRawNode(nodeId)))
 
-  def createWay(wayId: Long): Change = Change(Create, Seq(d.ways(wayId).raw))
+  def createWay(wayId: Long): Change = Change(Create, Seq(d.ways(wayId).toRaw))
 
-  def modifyWay(wayId: Long): Change = Change(Modify, Seq(d.ways(wayId).raw))
+  def modifyWay(wayId: Long): Change = Change(Modify, Seq(d.ways(wayId).toRaw))
 
   def deleteWay(wayId: Long): Change = Change(Delete, Seq(newRawWay(wayId)))
 
-  def createRelation(relationId: Long): Change = Change(Create, Seq(d.relations(relationId).raw))
+  def createRelation(relationId: Long): Change = Change(Create, Seq(d.relations(relationId).toRaw))
 
-  def modifyRelation(relationId: Long): Change = Change(Modify, Seq(d.relations(relationId).raw))
+  def modifyRelation(relationId: Long): Change = Change(Modify, Seq(d.relations(relationId).toRaw))
 
   def deleteRelation(relationId: Long): Change = Change(Delete, Seq(newRawRelation(relationId)))
-
 }

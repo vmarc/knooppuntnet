@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
@@ -106,12 +105,12 @@ class NetworkCreateTest06 extends IntegrationTest {
             ),
             name = "01-02",
             networkNodes = Seq(
-              newRawNodeWithName(1001, "01"),
-              newRawNodeWithName(1002, "02", Tags.from("tag" -> "after"))
+              newNodeWithName(1001, "01"),
+              newNodeWithName(1002, "02", Tags.from("tag" -> "after"))
             ),
             nodes = Seq(
-              newRawNodeWithName(1001, "01"),
-              newRawNodeWithName(1002, "02", Tags.from("tag" -> "after"))
+              newNodeWithName(1001, "01"),
+              newNodeWithName(1002, "02", Tags.from("tag" -> "after"))
             ),
             ways = Seq(
               newRawWay(

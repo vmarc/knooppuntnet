@@ -1,5 +1,7 @@
 package kpn.api.common.data
 
+import kpn.api.common.data.raw.RawMember
+
 trait Member {
 
   def role: Option[String]
@@ -10,4 +12,5 @@ trait Member {
 
   def isRelation: Boolean = false
 
+  def toRaw: RawMember
 }

@@ -7,17 +7,14 @@ import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
 import kpn.api.common.data.raw.RawRelation
 
-case class Relation(raw: RawRelation, members: Seq[Member]) extends Element {
-
-  def id: Long = raw.id
-
-  def version: Long = raw.version
-
-  def timestamp: Timestamp = raw.timestamp
-
-  def changeSetId: Long = raw.changeSetId
-
-  def tags: Tags = raw.tags
+case class Relation(
+  id: Long,
+  version: Long,
+  timestamp: Timestamp,
+  changeSetId: Long,
+  tags: Tags,
+  members: Seq[Member]
+) extends Element {
 
   override def isRelation: Boolean = true
 
@@ -44,5 +41,16 @@ case class Relation(raw: RawRelation, members: Seq[Member]) extends Element {
 
   def relationMember(id: Long): RelationMember = {
     relationMembers.find(m => m.relation.id == id).get
+  }
+
+  def toRaw: RawRelation = {
+    RawRelation(
+      id,
+      version,
+      timestamp,
+      changeSetId,
+      members.map(_.toRaw),
+      tags
+    )
   }
 }

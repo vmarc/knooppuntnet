@@ -5,22 +5,26 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
-case class Node(raw: RawNode) extends Element with LatLon {
-
-  def id: Long = raw.id
-
-  def latitude: String = raw.latitude
-
-  def longitude: String = raw.longitude
-
-  def version: Long = raw.version
-
-  def timestamp: Timestamp = raw.timestamp
-
-  def changeSetId: Long = raw.changeSetId
-
-  def tags: Tags = raw.tags
-
+case class Node(
+  id: Long,
+  latitude: String,
+  longitude: String,
+  version: Long,
+  timestamp: Timestamp,
+  changeSetId: Long,
+  tags: Tags
+) extends Element with LatLon {
   override def isNode: Boolean = true
 
+  def toRaw: RawNode = {
+    RawNode(
+      id,
+      latitude,
+      longitude,
+      version,
+      timestamp,
+      changeSetId,
+      tags
+    )
+  }
 }

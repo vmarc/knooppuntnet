@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
-import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.NetworkChanges
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
@@ -109,12 +108,12 @@ class NetworkUpdateTest01 extends IntegrationTest {
             ),
             name = "01-02",
             networkNodes = Seq(
-              newRawNodeWithName(1001, "01"),
-              newRawNodeWithName(1002, "02")
+              newNodeWithName(1001, "01"),
+              newNodeWithName(1002, "02")
             ),
             nodes = Seq(
-              newRawNodeWithName(1001, "01"),
-              newRawNodeWithName(1002, "02")
+              newNodeWithName(1001, "01"),
+              newNodeWithName(1002, "02")
             ),
             ways = Seq(
               newRawWay(
@@ -138,12 +137,12 @@ class NetworkUpdateTest01 extends IntegrationTest {
             ),
             name = "01-03",
             networkNodes = Seq(
-              newRawNodeWithName(1001, "01"),
-              newRawNodeWithName(1002, "03")
+              newNodeWithName(1001, "01"),
+              newNodeWithName(1002, "03")
             ),
             nodes = Seq(
-              newRawNodeWithName(1001, "01"),
-              newRawNodeWithName(1002, "03")
+              newNodeWithName(1001, "01"),
+              newNodeWithName(1002, "03")
             ),
             ways = Seq(
               newRawWay(
@@ -163,8 +162,8 @@ class NetworkUpdateTest01 extends IntegrationTest {
             Seq.empty,
             Seq(
               NodeUpdate(
-                newRawNodeWithName(1002, "02"),
-                newRawNodeWithName(1002, "03"),
+                newNodeWithName(1002, "02"),
+                newNodeWithName(1002, "03"),
                 None,
                 None
               )

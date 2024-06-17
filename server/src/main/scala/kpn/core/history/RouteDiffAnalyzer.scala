@@ -44,7 +44,16 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
   private def removedWays: Seq[RawWay] = {
     (wayIdsBefore -- wayIdsAfter).toSeq.flatMap { wayId =>
       before.ways.find(_.id == wayId) match {
-        case Some(way) => Some(way.raw)
+        case Some(way) => Some(
+          RawWay(
+            way.id,
+            way.version,
+            way.timestamp,
+            way.changeSetId,
+            way.nodes.map(_.id),
+            way.tags
+          )
+        )
         case None =>
           //noinspection SideEffectsInMonadicTransformation
           log.warn(s"inconsistant data: could not find removed way $wayId in before data")
@@ -56,7 +65,16 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
   private def addedWays: Seq[RawWay] = {
     (wayIdsAfter -- wayIdsBefore).toSeq.flatMap { wayId =>
       after.ways.find(_.id == wayId) match {
-        case Some(way) => Some(way.raw)
+        case Some(way) => Some(
+          RawWay(
+            way.id,
+            way.version,
+            way.timestamp,
+            way.changeSetId,
+            way.nodes.map(_.id),
+            way.tags
+          )
+        )
         case None =>
           //noinspection SideEffectsInMonadicTransformation
           log.warn(s"inconsistant data: could not find added way $wayId in after data")
@@ -116,7 +134,6 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
           introducedFacts,
           remainingFacts
         ))
-
     }
     else {
       None
@@ -187,5 +204,4 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
   private def wayIdsAfter: Set[Long] = after.ways.map(_.id).toSet
 
   private def wayIdsCommon: Set[Long] = wayIdsBefore intersect wayIdsAfter
-
 }

@@ -1,13 +1,13 @@
 package kpn.api.common.diff
 
 import kpn.api.common.common.Ref
-import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.Node
 import kpn.api.custom.Subset
 
 case class NodeData(
   subsets: Seq[Subset],
   name: String,
-  node: RawNode
+  node: Node
 ) {
 
   def id: Long = node.id

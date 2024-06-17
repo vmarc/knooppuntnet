@@ -22,7 +22,7 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
         before.toMeta,
         after.toMeta,
         removedNodes = Seq(
-          newNode(1002).raw
+          newNode(1002)
         )
       )
     )
@@ -37,7 +37,7 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
         before.toMeta,
         after.toMeta,
         addedNodes = Seq(
-          newNode(1002).raw
+          newNode(1002)
         )
       )
     )
@@ -55,8 +55,8 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
         after.toMeta,
         updatedNodes = Seq(
           NodeUpdate(
-            nodeBefore.raw,
-            nodeAfter.raw
+            nodeBefore,
+            nodeAfter
           )
         )
       )
