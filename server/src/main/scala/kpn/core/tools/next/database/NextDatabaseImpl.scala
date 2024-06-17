@@ -3,6 +3,7 @@ package kpn.core.tools.next.database
 import kpn.core.tools.next.domain.NextRoute
 import kpn.core.tools.next.domain.NextRouteRelation
 import kpn.core.tools.next.domain.NextRouteState
+import kpn.core.tools.next.domain.OldNextRouteRelation
 import kpn.database.base.DatabaseCollection
 import kpn.database.base.DatabaseCollectionImpl
 import org.mongodb.scala.MongoCollection
@@ -18,6 +19,10 @@ class NextDatabaseImpl(val database: MongoDatabase) extends NextDatabase {
 
   override def routes: DatabaseCollection[NextRoute] = {
     new DatabaseCollectionImpl(database.getCollection[NextRoute]("routes"))
+  }
+
+  override def oldRouteRelations: DatabaseCollection[OldNextRouteRelation] = {
+    new DatabaseCollectionImpl(database.getCollection[OldNextRouteRelation]("old-route-relations"))
   }
 
   override def routeRelations: DatabaseCollection[NextRouteRelation] = {

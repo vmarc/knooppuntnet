@@ -58,7 +58,16 @@ class NextCreateRouteRelationsTool(database: NextDatabase, overpassQueryExecutor
     routeRelationIds.foreach { routeRelationId =>
       data.relations.get(routeRelationId) match {
         case Some(relation) =>
-          database.routeRelations.save(NextRouteRelation(routeRelationId, relation))
+          database.routeRelations.save(
+            NextRouteRelation(
+              relation.id,
+              relation.version,
+              relation.timestamp,
+              relation.changeSetId,
+              relation.tags,
+              relation.members
+            )
+          )
 
         case None =>
           log.error(s"could note read routeId $routeRelationId")

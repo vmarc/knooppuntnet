@@ -3,6 +3,7 @@ package kpn.core.tools.next.database
 import kpn.core.tools.next.domain.NextRoute
 import kpn.core.tools.next.domain.NextRouteRelation
 import kpn.core.tools.next.domain.NextRouteState
+import kpn.core.tools.next.domain.OldNextRouteRelation
 import kpn.database.base.DatabaseCollection
 import org.mongodb.scala.MongoCollection
 
@@ -13,6 +14,8 @@ trait NextDatabase {
   def getCollection[T: ClassTag](collectionName: String): MongoCollection[T]
 
   def routes: DatabaseCollection[NextRoute]
+
+  def oldRouteRelations: DatabaseCollection[OldNextRouteRelation]
 
   def routeRelations: DatabaseCollection[NextRouteRelation]
 
