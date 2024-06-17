@@ -9,13 +9,13 @@ import org.apache.commons.io.IOUtils
 import java.nio.charset.StandardCharsets
 import java.util.zip.GZIPInputStream
 
-object MonitorReadReplicateTool {
+object TryoutReadReplicateTool {
   def main(args: Array[String]): Unit = {
-    new MonitorReadReplicateTool().tryout()
+    new TryoutReadReplicateTool().tryout()
   }
 }
 
-class MonitorReadReplicateTool {
+class TryoutReadReplicateTool {
   def tryout(): Unit = {
     val session = openSession()
     try {

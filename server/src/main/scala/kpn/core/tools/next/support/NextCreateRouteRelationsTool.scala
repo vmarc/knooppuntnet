@@ -25,7 +25,7 @@ object NextCreateRouteRelationsTool {
       val database = new NextDatabaseImpl(mongoDatabase)
       val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
       val tool = new NextCreateRouteRelationsTool(database, overpassQueryExecutor)
-      tool.createMonitorRelations()
+      tool.createRouteRelations()
     } finally {
       client.close()
     }
@@ -37,24 +37,24 @@ class NextCreateRouteRelationsTool(database: NextDatabase, overpassQueryExecutor
   private val log = Log(classOf[NextCreateRouteRelationsTool])
   private val batchSize = 100
 
-  def createMonitorRelations(): Unit = {
+  def createRouteRelations(): Unit = {
     val routeIds = collectRouteIds()
     log.info(s"collected ${routeIds.size} route ids")
     routeIds.sliding(batchSize, batchSize).zipWithIndex.foreach { case (batchRouteIds, index) =>
       log.info(s"${index * batchSize}/${routeIds.size}")
-      createMonitorRelations(batchRouteIds)
+      createRouteRelationBatch(batchRouteIds)
     }
   }
 
   private def collectRouteIds(): Seq[Long] = {
     val file = new File(Dirs.root, "next/route-ids.txt")
     val allRouteIds = FileUtils.readFileToString(file, "UTF-8").split("\n").map(_.toLong)
-    val loadedRouteIds = database.routeRelations.stringIds().map(_.toLong)
+    val loadedRouteIds = database.routeRelations.ids()
     (allRouteIds.toSet -- loadedRouteIds.toSet).toSeq.sorted
   }
 
-  private def createMonitorRelations(routeRelationIds: Seq[Long]): Unit = {
-    val data = monitorRelationData(routeRelationIds)
+  private def createRouteRelationBatch(routeRelationIds: Seq[Long]): Unit = {
+    val data = overpassRelationData(routeRelationIds)
     routeRelationIds.foreach { routeRelationId =>
       data.relations.get(routeRelationId) match {
         case Some(relation) =>
@@ -76,7 +76,7 @@ class NextCreateRouteRelationsTool(database: NextDatabase, overpassQueryExecutor
     }
   }
 
-  private def monitorRelationData(relationIds: Seq[Long]): Data = {
+  private def overpassRelationData(relationIds: Seq[Long]): Data = {
     val relations = relationIds.map(id => s"relation($id);").mkString
     val query = s"($relations);(._;>;);out meta;"
     val xmlString = overpassQueryExecutor.execute(query)

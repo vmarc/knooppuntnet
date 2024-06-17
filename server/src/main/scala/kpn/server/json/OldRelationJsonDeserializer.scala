@@ -5,14 +5,13 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.api.common.data.Node
-import kpn.api.common.data.NodeMember
-import kpn.api.common.data.RelationMember
-import kpn.api.common.data.Way
-import kpn.api.common.data.WayMember
 import kpn.api.common.data.raw.RawRelation
-import kpn.api.custom.Relation
+import kpn.core.tools.next.domain.OldNode
+import kpn.core.tools.next.domain.OldNodeMember
 import kpn.core.tools.next.domain.OldRelation
+import kpn.core.tools.next.domain.OldRelationMember
+import kpn.core.tools.next.domain.OldWay
+import kpn.core.tools.next.domain.OldWayMember
 
 import scala.jdk.CollectionConverters.IteratorHasAsScala
 
@@ -24,16 +23,16 @@ class OldRelationJsonDeserializer extends JsonDeserializer[OldRelation] {
     val members = node.get("members").iterator().asScala.toSeq.map { member =>
       val role = Json.objectMapper.treeToValue(member.get("role"), classOf[Option[String]])
       if (member.has("way")) {
-        val way = Json.objectMapper.treeToValue(member.get("way"), classOf[Way])
-        WayMember(way, role)
+        val way = Json.objectMapper.treeToValue(member.get("way"), classOf[OldWay])
+        OldWayMember(way, role)
       }
       else if (member.has("node")) {
-        val node = Json.objectMapper.treeToValue(member.get("node"), classOf[Node])
-        NodeMember(node, role)
+        val node = Json.objectMapper.treeToValue(member.get("node"), classOf[OldNode])
+        OldNodeMember(node, role)
       }
       else if (member.has("relation")) {
-        val memberRelation = Json.objectMapper.treeToValue(member.get("relation"), classOf[Relation])
-        RelationMember(memberRelation, role)
+        val memberRelation = Json.objectMapper.treeToValue(member.get("relation"), classOf[OldRelation])
+        OldRelationMember(memberRelation, role)
       }
       else {
         throw JsonMappingException.from(

@@ -10,7 +10,8 @@ case class Way(
   timestamp: Timestamp,
   changeSetId: Long,
   tags: Tags,
-  nodes: Vector[Node], length: Long /* meters */
+  nodes: Vector[Node],
+  length: Long /* meters */
 ) extends Element {
   override def isWay: Boolean = true
 

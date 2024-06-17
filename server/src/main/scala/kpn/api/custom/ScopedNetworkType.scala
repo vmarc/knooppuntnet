@@ -24,14 +24,9 @@ object ScopedNetworkType {
     all.find(_.key == key)
   }
 
-  def withNetworkType(networkType: NetworkType): Seq[ScopedNetworkType] = {
-    all.filter(_.networkType == networkType)
-  }
-
   def from(networkScope: NetworkScope, networkType: NetworkType): ScopedNetworkType = {
     all.find(ns => ns.networkType == networkType && ns.networkScope == networkScope).get
   }
-
 }
 
 case class ScopedNetworkType(networkScope: NetworkScope, networkType: NetworkType, key: String) {
@@ -47,5 +42,4 @@ case class ScopedNetworkType(networkScope: NetworkScope, networkType: NetworkTyp
   def proposedNodeNameTagKey: String = s"proposed:${key}_name"
 
   def expectedRouteRelationsTag: String = "expected_" + key + "_route_relations"
-
 }

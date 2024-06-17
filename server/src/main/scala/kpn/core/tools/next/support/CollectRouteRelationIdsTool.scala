@@ -8,11 +8,11 @@ import org.apache.commons.io.FileUtils
 import java.io.File
 import scala.xml.XML
 
-object MonitorExploreRelationsTool {
+object CollectRouteRelationIdsTool {
   def main(args: Array[String]): Unit = {
     val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
-    val tool = new MonitorExploreRelationsTool(overpassQueryExecutor)
-    tool.explore()
+    val tool = new CollectRouteRelationIdsTool(overpassQueryExecutor)
+    tool.collect()
   }
 }
 
@@ -25,8 +25,8 @@ case class RouteInfo(
   def routeIds: Seq[Long] = nodeNetworkRouteIds ++ noneNodeNetworkRouteIds
 }
 
-class MonitorExploreRelationsTool(overpassQueryExecutor: OverpassQueryExecutor) {
-  def explore(): Unit = {
+class CollectRouteRelationIdsTool(overpassQueryExecutor: OverpassQueryExecutor) {
+  def collect(): Unit = {
     val routeInfos = queryRouteInfos()
     report(routeInfos)
     saveRouteIds(routeInfos)
@@ -80,11 +80,11 @@ class MonitorExploreRelationsTool(overpassQueryExecutor: OverpassQueryExecutor) 
     val queryStart = s"[date:'2024-03-01T00:00:00Z'];relation['type'='$typeTagValue']['route'='$routeTagValue']"
     val nodeNetworkRouteIds = {
       val query = s"$queryStart['network:type'='node_network'];out ids;"
-      queryRouteIds(typeTagValue, routeTagValue, query)
+      queryRouteIds(query)
     }
     val noneNodeNetworkRouteIds = {
       val query = s"$queryStart['network:type'!='node_network'];out ids;"
-      queryRouteIds(typeTagValue, routeTagValue, query)
+      queryRouteIds(query)
     }
     RouteInfo(
       typeTagValue,
@@ -94,7 +94,7 @@ class MonitorExploreRelationsTool(overpassQueryExecutor: OverpassQueryExecutor) 
     )
   }
 
-  private def queryRouteIds(typeTagValue: String, routeTagValue: String, query: String): Seq[Long] = {
+  private def queryRouteIds(query: String): Seq[Long] = {
     val xmlString = overpassQueryExecutor.execute(query)
     val xml = XML.loadString(xmlString)
     (xml.head \ "relation").map(r => (r \ "@id").text).map(_.toLong)
