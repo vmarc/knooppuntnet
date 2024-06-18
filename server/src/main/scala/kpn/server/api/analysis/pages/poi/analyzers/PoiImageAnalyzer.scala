@@ -28,7 +28,7 @@ class PoiImageAnalyzer(context: PoiAnalysisContext) {
 
   def analyze: PoiAnalysisContext = {
 
-    context.poi.tags("image") match {
+    context.poi.tagValue("image") match {
       case None => context
       case Some(tagValue) =>
 

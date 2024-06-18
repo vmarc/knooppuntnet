@@ -73,7 +73,7 @@ class NodeChangeAnalyzerImpl(
 
   private def networkNodeIds(nodesById: Map[Long, RawNode]): Set[Long] = {
     nodesById.values.
-      filter(n => TagInterpreter.isNetworkNode(n.tags)).
+      filter(TagInterpreter.isNetworkNode).
       map(_.id).
       toSet
   }

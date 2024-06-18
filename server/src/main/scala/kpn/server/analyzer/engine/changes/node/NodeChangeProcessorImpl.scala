@@ -167,7 +167,7 @@ class NodeChangeProcessorImpl(
       lostNodeTag(NetworkType.inlineSkating, nodeDocBefore, nodeDocAfter, Fact.LostInlineSkateNodeTag)
     ).flatten
 
-    val allNodeTagsLost = !TagInterpreter.isNetworkNode(nodeDocAfter.tags)
+    val allNodeTagsLost = !TagInterpreter.isNetworkNode(nodeDocAfter)
 
     val changeType = if (allNodeTagsLost) {
       analysisContext.watched.nodes.delete(nodeId)
@@ -189,8 +189,8 @@ class NodeChangeProcessorImpl(
   }
 
   private def lostNodeTag(networkType: NetworkType, nodeDocBefore: NodeDoc, nodeDocAfter: NodeDoc, fact: Fact): Option[Fact] = {
-    if (TagInterpreter.isNetworkNode(nodeDocBefore.tags, networkType) &&
-      !TagInterpreter.isNetworkNode(nodeDocAfter.tags, networkType)) {
+    if (TagInterpreter.isNetworkNode(nodeDocBefore, networkType) &&
+      !TagInterpreter.isNetworkNode(nodeDocAfter, networkType)) {
       Some(fact)
     }
     else {

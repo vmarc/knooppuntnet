@@ -1,9 +1,10 @@
 package kpn.api.common.poi
 
 import kpn.api.base.WithStringId
-import kpn.api.common.location.Location
 import kpn.api.common.LatLon
-import kpn.api.custom.Tags
+import kpn.api.common.data.Tagable
+import kpn.api.common.location.Location
+import kpn.api.custom.Tag
 
 case class Poi(
   _id: String,
@@ -12,11 +13,11 @@ case class Poi(
   latitude: String,
   longitude: String,
   layers: Seq[String],
-  tags: Tags,
+  tags: Seq[Tag],
   location: Location,
   tiles: Seq[String],
   description: Option[String],
   address: Option[String],
   link: Boolean,
   image: Boolean
-) extends LatLon with WithStringId
+) extends LatLon with WithStringId with Tagable

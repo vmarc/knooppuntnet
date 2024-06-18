@@ -42,7 +42,7 @@ case class WayMemberLink(
     way.nodes.size > 2 && way.nodes.head == way.nodes.last
   }
 
-  def isRoundabout: Boolean = wayMember.way.tags.has("junction", "roundabout")
+  def isRoundabout: Boolean = wayMember.way.hasTag("junction", "roundabout")
 
   def isUnidirectional: Boolean = {
     wayMember.role.contains("forward") || wayMember.role.contains("backward")
@@ -50,29 +50,20 @@ case class WayMemberLink(
 
   def connection(otherLink: WayMemberLink): Option[Long] = {
     forwardConnection(otherLink) match {
-      case None => None
-        backwardConnection(otherLink) match {
-          case None => None
-          case Some(nodeId) => Some(nodeId)
-
-        }
+      case None => backwardConnection(otherLink)
       case Some(nodeId) => Some(nodeId)
     }
   }
 
   def forwardConnection(otherLink: WayMemberLink): Option[Long] = {
     forwardConnectableNodeIds.flatMap { nodeId1 =>
-      otherLink.forwardConnectableNodeIds
-        .filter(nodeId2 => nodeId1 == nodeId2)
-        .headOption
+      otherLink.forwardConnectableNodeIds.find(nodeId2 => nodeId1 == nodeId2)
     }.headOption
   }
 
   def backwardConnection(otherLink: WayMemberLink): Option[Long] = {
     forwardConnectableNodeIds.flatMap { nodeId1 =>
-      otherLink.backwardConnectableNodeIds
-        .filter(nodeId2 => nodeId1 == nodeId2)
-        .headOption
+      otherLink.backwardConnectableNodeIds.find(nodeId2 => nodeId1 == nodeId2)
     }.headOption
   }
 
@@ -81,9 +72,7 @@ case class WayMemberLink(
       case None => false
       case Some(otherLink) =>
         backwardConnectableNodeIds.flatMap { nodeId1 =>
-          otherLink.backwardConnectableNodeIds
-            .filter(nodeId2 => nodeId1 == nodeId2)
-            .headOption
+          otherLink.backwardConnectableNodeIds.find(nodeId2 => nodeId1 == nodeId2)
         }.nonEmpty
     }
   }

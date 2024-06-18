@@ -393,13 +393,13 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     val oneWayTags = OneWayAnalyzer.oneWayTags(newWay(1, tags = tags))
-    assert(oneWayTags.has("oneway", "yes"))
-    assert(oneWayTags.has("oneway:bicycle", "no"))
-    assert(oneWayTags.has("bicycle:oneway", "no"))
-    assert(oneWayTags.has("junction", "roundabout"))
-    assert(oneWayTags.has("cycleway:right", "lane"))
+    assert(Tags.has(oneWayTags, "oneway", "yes"))
+    assert(Tags.has(oneWayTags, "oneway:bicycle", "no"))
+    assert(Tags.has(oneWayTags, "bicycle:oneway", "no"))
+    assert(Tags.has(oneWayTags, "junction", "roundabout"))
+    assert(Tags.has(oneWayTags, "cycleway:right", "lane"))
 
-    assert(!oneWayTags.has("othertag"))
+    assert(!Tags.has(oneWayTags, "othertag"))
   }
 
   private def oneway(tags: (String, String)*): WayDirection = {

@@ -15,7 +15,7 @@ object NetworkSurveyAnalyzer extends NetworkInfoAnalyzer {
 
 class NetworkSurveyAnalyzer(context: NetworkInfoAnalysisContext) {
   def analyze: NetworkInfoAnalysisContext = {
-    SurveyDateAnalyzer.analyze(context.networkDoc.tags) match {
+    SurveyDateAnalyzer.analyze(context.networkDoc) match {
       case Success(surveyDate) => context.copy(lastSurvey = surveyDate)
       case Failure(_) => context.withFact(Fact.RouteInvalidSurveyDate)
     }

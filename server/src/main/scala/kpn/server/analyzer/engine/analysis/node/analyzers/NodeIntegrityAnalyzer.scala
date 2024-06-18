@@ -19,7 +19,7 @@ class NodeIntegrityAnalyzer(analysis: NodeAnalysis) {
     var unexpectedExpectedRouteRelationsTag: Boolean = false
 
     val nodeIntegrityDetails = ScopedNetworkType.all.flatMap { scopedNetworkType =>
-      analysis.node.tags(scopedNetworkType.expectedRouteRelationsTag) match {
+      analysis.node.tagValue(scopedNetworkType.expectedRouteRelationsTag) match {
         case None => None
         case Some(expectedRouteRelationsValue) =>
           if (expectedRouteRelationsValue.forall(Character.isDigit)) {

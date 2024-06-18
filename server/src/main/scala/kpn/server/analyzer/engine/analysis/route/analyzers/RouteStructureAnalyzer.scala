@@ -84,10 +84,10 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
           }
           else {
 
-            val oneWayRouteForward = context.relation.tags.has("direction", "forward")
-            val oneWayRouteBackward = context.relation.tags.has("direction", "backward")
+            val oneWayRouteForward = context.relation.hasTag("direction", "forward")
+            val oneWayRouteBackward = context.relation.hasTag("direction", "backward")
 
-            val oneWayRoute = context.relation.tags.tags.exists { tag =>
+            val oneWayRoute = context.relation.tags.exists { tag =>
               (tag.key == "comment" && tag.value.contains("to be used in one direction")) ||
                 (tag.key == "oneway" && tag.value == "yes") ||
                 (tag.key == "signed_direction" && tag.value == "yes")

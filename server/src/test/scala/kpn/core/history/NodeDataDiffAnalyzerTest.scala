@@ -8,6 +8,7 @@ import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.node.NodeMoved
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.util.UnitTest
@@ -55,7 +56,7 @@ class NodeDataDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     version: Int = 0,
     timestamp: Timestamp,
     changeSetId: Long,
-    tags: Tags
+    tags: Seq[Tag]
   ): NodeData = {
     val node = newNode(id, latitude, longitude, version, timestamp, changeSetId, tags)
     NodeData(

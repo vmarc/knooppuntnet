@@ -2,7 +2,7 @@ package kpn.api.common.diff
 
 import kpn.api.common.data.Meta
 import kpn.api.common.data.Tagable
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class WayInfo(
@@ -10,5 +10,5 @@ case class WayInfo(
   version: Long,
   changeSetId: Long,
   timestamp: Timestamp,
-  tags: Tags
+  tags: Seq[Tag]
 ) extends Meta with Tagable

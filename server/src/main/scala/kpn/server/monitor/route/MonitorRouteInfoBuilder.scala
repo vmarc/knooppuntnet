@@ -21,26 +21,26 @@ class MonitorRouteInfoBuilder(overpassQueryExecutor: OverpassQueryExecutor) {
     data.relations.get(routeRelationId) match {
       case None => MonitorRouteInfoPage(routeRelationId)
       case Some(relation) =>
-        val route = relation.tags("route")
-        val name = relation.tags("name")
-        val ref = relation.tags("ref")
-        val from = relation.tags("from")
-        val to = relation.tags("to")
-        val operator = relation.tags("operator")
-        val website = relation.tags("website")
-        val symbol = RouteSymbol.from(relation.tags)
-        val hasRouteRelationTags = route.nonEmpty && Seq(name, ref, from, to, operator, symbol).flatten.nonEmpty
+        val route = relation.tagValue("route")
+        val name = relation.tagValue("name")
+        val ref = relation.tagValue("ref")
+        val from = relation.tagValue("from")
+        val to = relation.tagValue("to")
+        val operator = relation.tagValue("operator")
+        val website = relation.tagValue("website")
+        val symbol = RouteSymbol.from(relation)
+        val hasRouteTags = route.nonEmpty && Seq(name, ref, from, to, operator, symbol).flatten.nonEmpty
         MonitorRouteInfoPage(
           routeRelationId,
           active = true,
-          hasRouteTags = hasRouteRelationTags,
-          name = relation.tags("name"),
-          ref = relation.tags("ref"),
-          from = relation.tags("from"),
-          to = relation.tags("to"),
-          operator = relation.tags("operator"),
-          website = relation.tags("website"),
-          symbol = RouteSymbol.from(relation.tags),
+          hasRouteTags,
+          name,
+          ref,
+          from,
+          to,
+          operator,
+          website,
+          symbol
         )
     }
   }

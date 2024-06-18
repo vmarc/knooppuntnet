@@ -2,7 +2,7 @@ package kpn.api.common.changes
 
 import kpn.api.base.WithId
 import kpn.api.common.data.Tagable
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 /*
@@ -23,5 +23,5 @@ case class ChangeSetInfo(
   closedAt: Option[Timestamp],
   open: Boolean,
   commentsCount: Long,
-  tags: Tags
+  tags: Seq[Tag]
 ) extends Tagable with WithId

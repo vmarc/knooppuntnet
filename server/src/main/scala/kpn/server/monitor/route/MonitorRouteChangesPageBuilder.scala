@@ -88,7 +88,7 @@ class MonitorRouteChangesPageBuilder(
     changes.map { change =>
 
       val comment: Option[String] = changeSetInfoRepository.get(change.key.changeSetId).flatMap { changeSetInfo =>
-        changeSetInfo.tags("comment")
+        changeSetInfo.tagValue("comment")
       }
 
       MonitorRouteChangeSummary(

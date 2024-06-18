@@ -25,7 +25,7 @@ class RouteUpdateTest extends UnitTest with SharedTestObjects {
         version = 1,
         timestamp = Timestamp(2015, 8, 11),
         changeSetId = 1,
-        tags = Tags.empty,
+        tags = Seq.empty,
         members = Seq.empty,
       ),
       route = newRouteDoc(
@@ -35,7 +35,7 @@ class RouteUpdateTest extends UnitTest with SharedTestObjects {
           networkType = networkType,
           timestamp = Timestamp(2015, 8, 11),
           nodeNames = Seq.empty,
-          tags = Tags.empty
+          tags = Seq.empty
         ),
         lastUpdated = Timestamp(2015, 8, 11)
       )

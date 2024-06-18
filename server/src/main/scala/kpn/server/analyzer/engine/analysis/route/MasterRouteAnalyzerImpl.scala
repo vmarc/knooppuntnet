@@ -4,12 +4,12 @@ import kpn.api.common.route.Both
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Relation
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.EdgeRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
@@ -129,10 +129,10 @@ object RouteAnalyzerFunctions {
     }
   }
 
-  def oneWayTags(member: RouteMember): Tags = {
+  def oneWayTags(member: RouteMember): Seq[Tag] = {
     member match {
       case routeMemberWay: RouteMemberWay => OneWayAnalyzer.oneWayTags(routeMemberWay.way)
-      case _ => Tags.empty
+      case _ => Seq.empty
     }
   }
 }

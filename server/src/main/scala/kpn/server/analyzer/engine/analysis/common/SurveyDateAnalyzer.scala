@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.common
 
+import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
-import kpn.api.custom.Tags
 
 import scala.util.Failure
 import scala.util.Success
@@ -13,12 +13,12 @@ object SurveyDateAnalyzer {
   private val monthPattern: Regex = """(20\d\d)-(0[1-9]|1[0-2])""".r
   private val dayPattern: Regex = """(20\d\d)-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])""".r
 
-  def analyze(tags: Tags): Try[Option[Day]] = {
-    new SurveyDateAnalyzer(tags).analyze()
+  def analyze(tagable: Tagable): Try[Option[Day]] = {
+    new SurveyDateAnalyzer(tagable).analyze()
   }
 }
 
-class SurveyDateAnalyzer(tags: Tags) {
+class SurveyDateAnalyzer(tagable: Tagable) {
 
   def analyze(): Try[Option[Day]] = {
     surveyDate match {
@@ -50,11 +50,11 @@ class SurveyDateAnalyzer(tags: Tags) {
   }
 
   private def surveyDate: Option[String] = {
-    tags("survey:date") match {
+    tagable.tagValue("survey:date") match {
       case Some(string) => Some(string)
       case None =>
-        if (tags.has("source", "survey")) {
-          tags("source:date")
+        if (tagable.hasTag("source", "survey")) {
+          tagable.tagValue("source:date")
         }
         else {
           None

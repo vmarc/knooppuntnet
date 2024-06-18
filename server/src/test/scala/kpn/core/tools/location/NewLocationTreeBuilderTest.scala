@@ -57,7 +57,7 @@ class NewLocationTreeBuilderTest extends UnitTest {
       paths,
       "",
       Seq.empty,
-      Tags.empty,
+      Seq.empty,
       null
     )
   }

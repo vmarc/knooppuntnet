@@ -6,11 +6,10 @@ import kpn.api.common.route.Both
 import kpn.api.common.route.Forward
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Tag
-import kpn.api.custom.Tags
 
 object OneWayAnalyzer {
-  def oneWayTags(way: Way): Tags = {
-    val tags = way.tags.tags.filter { case Tag(key, value) =>
+  def oneWayTags(way: Way): Seq[Tag] = {
+    way.tags.filter { case Tag(key, value) =>
       Seq("oneway", "oneway:bicycle", "bicycle:oneway").contains(key) ||
         (key == "junction" && value == "roundabout") ||
         (key == "cycleway" && value == "opposite") ||
@@ -25,7 +24,6 @@ object OneWayAnalyzer {
         (key == "cycleway:right" && value == "opposite_lane") ||
         (key == "cycleway:right" && value == "opposite_track")
     }
-    Tags(tags)
   }
 }
 
@@ -78,62 +76,61 @@ class OneWayAnalyzer(way: Way) {
   }
 
   private def isOneWayBicycleNo: Boolean = {
-    way.tags.has("oneway:bicycle", "no", "0", "false") ||
-      way.tags.has("bicycle:oneway", "no", "0", "false")
+    way.hasTag("oneway:bicycle", "no", "0", "false") ||
+      way.hasTag("bicycle:oneway", "no", "0", "false")
   }
 
   private def isOneWayBicycleNoCycleWay: Boolean = {
-    way.tags.has("cycleway", "opposite") ||
-      way.tags.has("cycleway:left") ||
-      way.tags.has("cycleway:right")
+    way.hasTag("cycleway", "opposite") ||
+      way.hasTag("cycleway:left") ||
+      way.hasTag("cycleway:right")
   }
 
   private def isOneWayBicycleYes: Boolean = {
-    way.tags.has("oneway:bicycle", "yes", "1", "true") ||
-      way.tags.has("bicycle:oneway", "yes", "1", "true")
+    way.hasTag("oneway:bicycle", "yes", "1", "true") ||
+      way.hasTag("bicycle:oneway", "yes", "1", "true")
   }
 
   private def isOneWayBicycleReverse: Boolean = {
-    way.tags.has("oneway:bicycle", "-1", "reverse") ||
-      way.tags.has("bicycle:oneway", "-1", "reverse")
+    way.hasTag("oneway:bicycle", "-1", "reverse") ||
+      way.hasTag("bicycle:oneway", "-1", "reverse")
   }
 
   private def isOneWayYes: Boolean = {
-    way.tags.has("oneway", "yes", "1", "true")
+    way.hasTag("oneway", "yes", "1", "true")
   }
 
   private def isOneWayReverse: Boolean = {
-    way.tags.has("oneway", "-1", "reverse")
+    way.hasTag("oneway", "-1", "reverse")
   }
 
   private def isOppositeLane: Boolean = {
-    way.tags.has("cycleway", "opposite") ||
-      way.tags.has("cycleway", "opposite_lane") ||
-      way.tags.has("cycleway:left", "opposite_lane") ||
-      way.tags.has("cycleway:right", "opposite_lane")
+    way.hasTag("cycleway", "opposite") ||
+      way.hasTag("cycleway", "opposite_lane") ||
+      way.hasTag("cycleway:left", "opposite_lane") ||
+      way.hasTag("cycleway:right", "opposite_lane")
   }
 
   private def isOppositeTrack: Boolean = {
-    way.tags.has("cycleway", "opposite_track") ||
-      way.tags.has("cycleway:left", "opposite_track") ||
-      way.tags.has("cycleway:right", "opposite_track")
+    way.hasTag("cycleway", "opposite_track") ||
+      way.hasTag("cycleway:left", "opposite_track") ||
+      way.hasTag("cycleway:right", "opposite_track")
   }
 
   private def isCycleLaneLeftAndRight: Boolean = {
-    way.tags.has("cycleway:left", "lane", "track") &&
-      way.tags.has("cycleway:right", "lane", "track")
+    way.hasTag("cycleway:left", "lane", "track") &&
+      way.hasTag("cycleway:right", "lane", "track")
   }
 
   private def cycleWayLeft: Boolean = {
-    way.tags.has("cycleway:left", "lane", "track")
+    way.hasTag("cycleway:left", "lane", "track")
   }
 
   private def cycleWayRight: Boolean = {
-    way.tags.has("cycleway:right", "lane", "track")
+    way.hasTag("cycleway:right", "lane", "track")
   }
 
   private def isRoundabout: Boolean = {
-    way.tags.has("junction", "roundabout")
+    way.hasTag("junction", "roundabout")
   }
-
 }

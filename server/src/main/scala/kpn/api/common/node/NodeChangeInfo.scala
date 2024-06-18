@@ -10,7 +10,7 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 
 case class NodeChangeInfo(
   rowIndex: Long,
@@ -18,7 +18,7 @@ case class NodeChangeInfo(
   version: Option[Long],
   changeKey: ChangeKey,
   changeType: ChangeType,
-  changeTags: Tags,
+  changeTags: Seq[Tag],
   comment: Option[String],
   before: Option[MetaData],
   after: Option[MetaData],
@@ -33,7 +33,7 @@ case class NodeChangeInfo(
   removedFromNetwork: Seq[Ref],
   factDiffs: Option[FactDiffs],
   facts: Seq[Fact],
-  initialTags: Option[Tags],
+  initialTags: Option[Seq[Tag]],
   initialLatLon: Option[LatLonImpl],
   happy: Boolean,
   investigate: Boolean

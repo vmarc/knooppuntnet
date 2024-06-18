@@ -14,12 +14,11 @@ case class RelationMember(role: String, element: Element) {
 
   def node: Node = element.asInstanceOf[Node]
 
-  def isRoundabout: Boolean = isWay && way.tags.has("junction", "roundabout")
+  def isRoundabout: Boolean = isWay && way.hasTag("junction", "roundabout")
 
   def isOneWay: Boolean = isBackward || isForward
 
   def isBackward: Boolean = "backward".equals(role)
 
   def isForward: Boolean = "forward".equals(role)
-
 }

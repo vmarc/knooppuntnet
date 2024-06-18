@@ -157,7 +157,7 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
     if (member == null || !member.isWay) {
       OldDirection.NONE
     } else {
-      if (member.way.tags.has("junction", "roundabout")) {
+      if (member.way.hasTag("junction", "roundabout")) {
         OldDirection.ROUNDABOUT
       }
       else {
@@ -230,7 +230,6 @@ class OldLinkBuilder(members: Seq[RelationMember]) {
 
         wct.isOnewayTail = true
       }
-
     } else {
       lastForwardWay = UNCONNECTED
       lastBackwardWay = UNCONNECTED

@@ -13,7 +13,7 @@ class PoiMolenDatabaseAnalyzer(context: PoiAnalysisContext) {
 
   def analyze: PoiAnalysisContext = {
 
-    val molenDatabase = context.poi.tags("mdb_id").map { id =>
+    val molenDatabase = context.poi.tagValue("mdb_id").map { id =>
       s"http://www.molendatabase.nl/nederland/molen.php?nummer=$id"
     }
 

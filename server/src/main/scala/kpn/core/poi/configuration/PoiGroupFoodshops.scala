@@ -6,77 +6,77 @@ object PoiGroupFoodshops {
 
     poi("alcohol", "liquor.png", 14, 15,
       Seq("shop" -> "alcohol"),
-      tags => tags.has("shop", "alcohol")
+      tagable => tagable.hasTag("shop", "alcohol")
     )
 
     poi("bakery", "bread.png", 14, 15,
       Seq("shop" -> "bakery"),
-      tags => tags.has("shop", "bakery")
+      tagable => tagable.hasTag("shop", "bakery")
     )
 
     poi("beverages", "bar_coktail.png", 14, 15,
       Seq("shop" -> "beverages"),
-      tags => tags.has("shop", "beverages")
+      tagable => tagable.hasTag("shop", "beverages")
     )
 
     poi("butcher", "butcher-2.png", 14, 15,
       Seq("shop" -> "butcher"),
-      tags => tags.has("shop", "butcher")
+      tagable => tagable.hasTag("shop", "butcher")
     )
 
     poi("cheese", "cheese.png", 14, 15,
       Seq("shop" -> "cheese"),
-      tags => tags.has("shop", "cheese")
+      tagable => tagable.hasTag("shop", "cheese")
     )
 
     poi("chocolate", "candy.png", 14, 15,
       Seq("shop" -> "chocolate"),
-      tags => tags.has("shop", "chocolate")
+      tagable => tagable.hasTag("shop", "chocolate")
     )
 
     poi("confectionery", "candy.png", 14, 15,
       Seq("shop" -> "confectionery"),
-      tags => tags.has("shop", "confectionery")
+      tagable => tagable.hasTag("shop", "confectionery")
     )
 
     poi("coffee", "coffee.png", 11, 11,
       Seq("shop" -> "coffee"),
-      tags => tags.has("shop", "coffee")
+      tagable => tagable.hasTag("shop", "coffee")
     )
 
     poi("dairy", "milk_and_cookies.png", 14, 15,
       Seq("shop" -> "dairy"),
-      tags => tags.has("shop", "dairy")
+      tagable => tagable.hasTag("shop", "dairy")
     )
 
     poi("deli", "patisserie.png", 14, 15,
       Seq("shop" -> "deli"),
-      tags => tags.has("shop", "deli")
+      tagable => tagable.hasTag("shop", "deli")
     )
 
     poi("grocery", "grocery.png", 14, 15,
       Seq("shop" -> "grocery"),
-      tags => tags.has("shop", "grocery")
+      tagable => tagable.hasTag("shop", "grocery")
     )
 
     poi("organic", "restaurant_vegetarian.png", 14, 15,
       Seq("shop" -> "organic"),
-      tags => tags.has("shop", "organic")
+      tagable => tagable.hasTag("shop", "organic")
     )
 
     poi("seafood", "restaurant_fish.png", 14, 15,
       Seq("shop" -> "seafood"),
-      tags => tags.has("shop", "seafood")
+      tagable => tagable.hasTag("shop", "seafood")
     )
 
     poi("supermarket", "supermarket.png", 14, 15,
       Seq("shop" -> "supermarket"),
-      tags => tags.has("shop", "supermarket")
+      tagable => tagable.hasTag("shop", "supermarket")
     )
 
     poi("wine", "winebar.png", 14, 15,
       Seq("shop" -> "wine"),
-      tags => tags.has("shop", "wine")
+      tagable => tagable.hasTag("shop", "wine")
     )
   }
 }

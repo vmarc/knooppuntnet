@@ -22,21 +22,19 @@ class ReferenceStructureAnalyzer(traceEnabled: Boolean = false) {
 
   private def buildReferenceRelation(relation: Relation): kpn.server.analyzer.engine.monitor.structure.reference.Relation = {
     val nodeMap = mutable.Map[Long, kpn.server.analyzer.engine.monitor.structure.reference.Node]()
-    val referenceRelationMembers = relation.members.map { member =>
-      member match {
-        case wayMember: WayMember =>
-          val referenceRole = buildReferenceRole(wayMember)
-          val referenceNodes = buildReferenceNodes(nodeMap, wayMember)
-          val referenceTags = buildReferenceTags(wayMember)
-          val referenceWay = new kpn.server.analyzer.engine.monitor.structure.reference.Way(
-            wayMember.way.id,
-            referenceTags,
-            referenceNodes
-          )
-          new kpn.server.analyzer.engine.monitor.structure.reference.Member(referenceRole, referenceWay)
+    val referenceRelationMembers = relation.members.map {
+      case wayMember: WayMember =>
+        val referenceRole = buildReferenceRole(wayMember)
+        val referenceNodes = buildReferenceNodes(nodeMap, wayMember)
+        val referenceTags = buildReferenceTags(wayMember)
+        val referenceWay = new kpn.server.analyzer.engine.monitor.structure.reference.Way(
+          wayMember.way.id,
+          referenceTags,
+          referenceNodes
+        )
+        new kpn.server.analyzer.engine.monitor.structure.reference.Member(referenceRole, referenceWay)
 
-        case _ => throw new IllegalStateException("non way member types not implemented yet")
-      }
+      case _ => throw new IllegalStateException("non way member types not implemented yet")
     }.asJavaCollection.stream.collect(toUnmodifiableList())
     new kpn.server.analyzer.engine.monitor.structure.reference.Relation(referenceRelationMembers)
   }
@@ -56,7 +54,7 @@ class ReferenceStructureAnalyzer(traceEnabled: Boolean = false) {
 
   private def buildReferenceTags(wayMember: WayMember): java.util.Map[String, String] = {
     val tags = new java.util.HashMap[String, String]()
-    wayMember.way.tags.tags.foreach { tag =>
+    wayMember.way.tags.foreach { tag =>
       tags.put(tag.key, tag.value)
     }
     Collections.unmodifiableMap(tags)

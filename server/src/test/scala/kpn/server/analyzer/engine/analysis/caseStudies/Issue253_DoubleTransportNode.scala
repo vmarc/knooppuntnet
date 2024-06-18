@@ -9,6 +9,7 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkType.hiking
 import kpn.api.custom.Subset
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
@@ -211,7 +212,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
     nodeAnalysis.nodeNames should equal(Seq.empty)
   }
 
-  private def analyze(tags: Tags): NodeAnalysis = {
+  private def analyze(tags: Seq[Tag]): NodeAnalysis = {
     val nodeAnalysis = NodeAnalysis(newRawNode(tags = tags))
     NodeNameAnalyzer.analyze(nodeAnalysis)
   }

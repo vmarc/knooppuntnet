@@ -2,10 +2,11 @@ package kpn.database.actions.locations
 
 import kpn.api.common.NodeName
 import kpn.api.common.common.Reference
+import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class LocationNodeInfoDoc(
@@ -16,10 +17,10 @@ case class LocationNodeInfoDoc(
   longitude: String,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
-  tags: Tags,
+  tags: Seq[Tag],
   facts: Seq[Fact],
   routeReferences: Seq[Reference]
-) {
+) extends Tagable {
 
   def networkTypeName(networkType: NetworkType): String = {
     names.filter(_.networkType == networkType).map(_.name).mkString(" / ")

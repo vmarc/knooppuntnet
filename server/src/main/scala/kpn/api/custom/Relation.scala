@@ -12,7 +12,7 @@ case class Relation(
   version: Long,
   timestamp: Timestamp,
   changeSetId: Long,
-  tags: Tags,
+  tags: Seq[Tag],
   members: Seq[Member]
 ) extends Element {
 

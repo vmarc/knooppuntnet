@@ -17,8 +17,7 @@ class RouteStreetsAnalyzer(context: RouteAnalysisContext) {
       case w: RouteMemberWay => Some(w.way)
       case _ => None
     }
-    val sortedStreets = ways.flatMap(_.tags("name")).distinct.sorted
+    val sortedStreets = ways.flatMap(_.tagValue("name")).distinct.sorted
     context.copy(streets = Some(sortedStreets))
   }
-
 }

@@ -40,7 +40,7 @@ class NodeChangesPageBuilderImpl(
             change.after.map(_.version),
             change.key,
             change.changeType,
-            Tags.empty,
+            Seq.empty,
             change.comment,
             change.before,
             change.after,

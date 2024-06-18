@@ -10,7 +10,7 @@ import kpn.api.common.diff.node.NodeMoved
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 
 /*
   Describes the changes made to a given network node in a given changeset.
@@ -35,7 +35,7 @@ case class NodeChange(
   removedFromNetwork: Seq[Ref], // removed from network relation (not included when only removed to route within network)
   factDiffs: Option[FactDiffs],
   facts: Seq[Fact],
-  initialTags: Option[Tags],
+  initialTags: Option[Seq[Tag]],
   initialLatLon: Option[LatLonImpl],
   tiles: Seq[String],
   // following values are filled in by NodeChangeAnalyzer.analyzed

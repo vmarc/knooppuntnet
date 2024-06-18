@@ -14,7 +14,7 @@ object PoiExplorerTool {
         if (index % 1000 == 0) {
           println(s"$index/${poiRefs.size}")
         }
-        repo.get(poiRef).flatMap { poi => poi.tags("cuisine") }
+        repo.get(poiRef).flatMap { poi => poi.tagValue("cuisine") }
       }
 
       val frequencies = tagValues.foldLeft(Map.empty[String, Int]) {

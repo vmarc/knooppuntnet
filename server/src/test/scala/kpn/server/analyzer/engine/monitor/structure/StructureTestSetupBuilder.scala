@@ -1,10 +1,11 @@
 package kpn.server.analyzer.engine.monitor.structure
 
+import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawWay
-import kpn.api.common.SharedTestObjects
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 
@@ -20,7 +21,7 @@ class StructureTestSetupBuilder extends SharedTestObjects {
     memberWayWithTags(wayId, role, Tags.from("highway" -> "road"), nodeIds: _*)
   }
 
-  def memberWayWithTags(wayId: Long, role: String, tags: Tags, nodeIds: Long*): RawMember = {
+  def memberWayWithTags(wayId: Long, role: String, tags: Seq[Tag], nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
     memberWay(wayId, tags, role, nodeIds: _*)
   }
@@ -30,7 +31,7 @@ class StructureTestSetupBuilder extends SharedTestObjects {
   }
 
   private def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
-    rawNode(newRawNode(id, lattitude.toString, longitude.toString, tags = Tags.empty))
+    rawNode(newRawNode(id, lattitude.toString, longitude.toString, tags = Seq.empty))
   }
 
   private def rawNode(rawNode: RawNode): RawNode = {
@@ -39,17 +40,17 @@ class StructureTestSetupBuilder extends SharedTestObjects {
   }
 
   private def way(wayId: Long, nodeIds: Long*): RawWay = {
-    way(wayId, Tags.empty, nodeIds: _*)
+    way(wayId, Seq.empty, nodeIds: _*)
   }
 
-  private def way(wayId: Long, tags: Tags, nodeIds: Long*): RawWay = {
+  private def way(wayId: Long, tags: Seq[Tag], nodeIds: Long*): RawWay = {
     addNodesIfMissing(nodeIds)
     val w = newRawWay(wayId, nodeIds = nodeIds.toVector, tags = tags)
     wayBuffer += w
     w
   }
 
-  private def memberWay(wayId: Long, tags: Tags, role: String, nodeIds: Long*): RawMember = {
+  private def memberWay(wayId: Long, tags: Seq[Tag], role: String, nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
     way(wayId, tags, nodeIds: _*)
     member("way", wayId, role)

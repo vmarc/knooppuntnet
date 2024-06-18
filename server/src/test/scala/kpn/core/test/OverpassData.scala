@@ -6,6 +6,7 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
@@ -39,14 +40,14 @@ case class OverpassData(
   relations: Seq[RawRelation] = Seq.empty
 ) extends SharedTestObjects {
 
-  def networkNode(id: Long, name: String = "", extraTags: Tags = Tags.empty, version: Long = 0): OverpassData = {
+  def networkNode(id: Long, name: String = "", extraTags: Seq[Tag] = Seq.empty, version: Long = 0): OverpassData = {
     val n = newRawNode(id, tags = newNodeTags(name) ++ extraTags, version = version)
     copy(nodes = nodes :+ n)
   }
 
   def node(
     id: Long,
-    tags: Tags = Tags.empty,
+    tags: Seq[Tag] = Seq.empty,
     latitude: String = "0",
     longitude: String = "0",
     version: Long = 0,
@@ -68,12 +69,12 @@ case class OverpassData(
     copy(ways = ways :+ w)
   }
 
-  def relation(id: Long, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty, version: Long = 0): OverpassData = {
+  def relation(id: Long, members: Seq[RawMember] = Seq.empty, tags: Seq[Tag] = Seq.empty, version: Long = 0): OverpassData = {
     val relation = newRawRelation(id, members = members, tags = tags, version = version)
     copy(relations = relations :+ relation)
   }
 
-  def route(id: Long, name: String, members: Seq[RawMember] = Seq.empty, tags: Tags = Tags.empty, version: Long = 0): OverpassData = {
+  def route(id: Long, name: String, members: Seq[RawMember] = Seq.empty, tags: Seq[Tag] = Seq.empty, version: Long = 0): OverpassData = {
     relation(id, members, newRouteTags(name) ++ tags, version)
   }
 

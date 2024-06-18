@@ -2,9 +2,10 @@ package kpn.server.analyzer.engine.tiles.domain
 
 import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackSegment
+import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 
 /*
   Information about route that is needed to create tiles.
@@ -14,7 +15,7 @@ case class RouteTileInfo(
   name: String,
   proposed: Boolean,
   lastSurvey: Option[Day],
-  tags: Tags,
+  tags: Seq[Tag],
   facts: Seq[Fact],
   freePaths: Seq[TrackPath],
   forwardPath: Option[TrackPath],
@@ -22,4 +23,4 @@ case class RouteTileInfo(
   startTentaclePaths: Seq[TrackPath],
   endTentaclePaths: Seq[TrackPath],
   unusedSegments: Seq[TrackSegment],
-)
+) extends Tagable

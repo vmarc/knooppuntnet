@@ -11,7 +11,7 @@ class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysi
 
   def analysis: Option[NodeIntegrityCheck] = {
     if (referencedInNetworkRelation) {
-      TagInterpreter.expectedRouteRelationCount(scopedNetworkType, networkNode.node.tags) match {
+      TagInterpreter.expectedRouteRelationCount(scopedNetworkType, networkNode.node) match {
         case None => None
         case Some(expectedRouteRelationCount) =>
           val failed = routesWithNodeReference.size != expectedRouteRelationCount
@@ -40,8 +40,8 @@ class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysi
   }
 
   private def hasSpecialState(memberRoute: NetworkMemberRoute): Boolean = {
-    val tags = memberRoute.routeAnalysis.route.tags
-    tags.has("state", "connection") || tags.has("state", "alternate")
+    val route = memberRoute.routeAnalysis.route
+    route.hasTag("state", "connection") || route.hasTag("state", "alternate")
   }
 
   private def hasNodeReference(memberRoute: NetworkMemberRoute): Boolean = {

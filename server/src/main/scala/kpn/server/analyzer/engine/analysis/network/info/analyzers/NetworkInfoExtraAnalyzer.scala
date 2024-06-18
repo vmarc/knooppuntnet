@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
 import kpn.api.common.NetworkFact
+import kpn.api.common.data.Tagable
 import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Fact
-import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import kpn.server.overpass.OverpassRepository
 import org.springframework.stereotype.Component
@@ -35,7 +35,7 @@ class NetworkInfoExtraAnalyzer(
 
       val filteredExtraNodeIds = extraNodeIds.filter { nodeId =>
         extraNodes.find(_.id == nodeId) match {
-          case Some(nodeDetail) => !isNodeAllowedInNetworkRelation(nodeDetail.tags)
+          case Some(nodeDetail) => !isNodeAllowedInNetworkRelation(nodeDetail)
           case None => true
         }
       }
@@ -75,9 +75,9 @@ class NetworkInfoExtraAnalyzer(
     }
   }
 
-  private def isNodeAllowedInNetworkRelation(tags: Tags): Boolean = {
-    tags.has("tourism", "information") &&
-      tags.has("information", "map", "guidepost", "board", "route_marker")
+  private def isNodeAllowedInNetworkRelation(tagable: Tagable): Boolean = {
+    tagable.hasTag("tourism", "information") &&
+      tagable.hasTag("information", "map", "guidepost", "board", "route_marker")
   }
 
   private def networkFact(fact: Fact, elementType: String, ids: Seq[Long]): Option[NetworkFact] = {

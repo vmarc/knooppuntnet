@@ -17,7 +17,7 @@ class NetworkInfoTagAnalyzer(context: NetworkInfoAnalysisContext) {
 
     val facts = ListBuffer[Fact]()
 
-    if (!context.networkDoc.tags.has("name")) {
+    if (!context.networkDoc.hasTag("name")) {
       facts += Fact.NameMissing
     }
 

@@ -3,7 +3,7 @@ package kpn.api.common.network
 import kpn.api.common.LatLonImpl
 import kpn.api.common.data.MetaData
 import kpn.api.custom.Day
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class NetworkDetail(
@@ -14,7 +14,7 @@ case class NetworkDetail(
   lastUpdated: Timestamp,
   relationLastUpdated: Timestamp,
   lastSurvey: Option[Day],
-  tags: Tags,
+  tags: Seq[Tag],
   brokenRouteCount: Long,
   brokenRoutePercentage: String,
   integrity: Integrity,

@@ -9,7 +9,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class NodeInfo(
@@ -23,7 +23,7 @@ case class NodeInfo(
   longitude: String,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
-  tags: Tags,
+  tags: Seq[Tag],
   facts: Seq[Fact],
   locations: Seq[LocationInfo],
   tiles: Seq[String],

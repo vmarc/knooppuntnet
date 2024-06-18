@@ -91,7 +91,7 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
 
   private def isNetworkNode(node: Node): Boolean = {
     // matches the conditions in QueryNodeIds()
-    node.tags.has("network:type", "node_network")
+    node.hasTag("network:type", "node_network")
   }
 
   private def routeRelationIdsIn(data: Data): Seq[Long] = {
@@ -100,9 +100,9 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
 
   private def isRouteRelation(relation: Relation): Boolean = {
     // matches the conditions in QueryRouteIds()
-    relation.tags.has("network:type", "node_network") &&
-      relation.tags.has("type", "route") &&
-      relation.tags.has("network")
+    relation.hasTag("network:type", "node_network") &&
+      relation.hasTag("type", "route") &&
+      relation.hasTag("network")
   }
 
   private def networkRelationIdsIn(data: Data): Seq[Long] = {
@@ -111,8 +111,8 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
 
   private def isNetworkRelation(relation: Relation): Boolean = {
     // matches the conditions in QueryNetworkIds()
-    relation.tags.has("network:type", "node_network") &&
-      relation.tags.has("type", "network") &&
-      relation.tags.has("network")
+    relation.hasTag("network:type", "node_network") &&
+      relation.hasTag("type", "network") &&
+      relation.hasTag("network")
   }
 }

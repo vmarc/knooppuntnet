@@ -103,27 +103,27 @@ class SurfaceAnalyzer(networkType: NetworkType, way: Way) {
     surfaceBasedOnSurfaceTag() match {
       case Some(surface) => surface
       case None =>
-        if (way.tags.has("tracktype", wikiTracktypePaved: _*)) {
+        if (way.hasTag("tracktype", wikiTracktypePaved: _*)) {
           "paved"
         }
-        else if (way.tags.has("tracktype", wikiTracktypeUnpaved: _*)) {
+        else if (way.hasTag("tracktype", wikiTracktypeUnpaved: _*)) {
           "unpaved"
         }
-        else if (way.tags.has("smoothness", wikiUnpavedSmoothness: _*)) {
+        else if (way.hasTag("smoothness", wikiUnpavedSmoothness: _*)) {
           "unpaved"
         }
-        else if (way.tags.has("highway", "footway")) {
-          if (way.tags.has("footway", footwayPaved: _*)) {
+        else if (way.hasTag("highway", "footway")) {
+          if (way.hasTag("footway", footwayPaved: _*)) {
             "paved"
           }
           else {
             "unknown"
           }
         }
-        else if (way.tags.has("highway", "path")) {
+        else if (way.hasTag("highway", "path")) {
           "unknown"
         }
-        else if (way.tags.has("highway", highwayUnpaved: _*)) {
+        else if (way.hasTag("highway", highwayUnpaved: _*)) {
           "unpaved"
         }
         else {
@@ -134,10 +134,10 @@ class SurfaceAnalyzer(networkType: NetworkType, way: Way) {
 
   private def surfaceBasedOnSurfaceTag(): Option[String] = {
     val tagKey = preferredSurfaceTagKey()
-    if (way.tags.has(tagKey, wikiSurfacePaved: _*)) {
+    if (way.hasTag(tagKey, wikiSurfacePaved: _*)) {
       Some("paved")
     }
-    else if (way.tags.has(tagKey, wikiSurfaceUnpaved: _*)) {
+    else if (way.hasTag(tagKey, wikiSurfaceUnpaved: _*)) {
       Some("unpaved")
     }
     else {
@@ -147,10 +147,10 @@ class SurfaceAnalyzer(networkType: NetworkType, way: Way) {
 
   private def preferredSurfaceTagKey(): String = {
     if (networkType == NetworkType.hiking) {
-      if (way.tags.has("footway:surface")) {
+      if (way.hasTag("footway:surface")) {
         "footway:surface"
       }
-      else if (way.tags.has("cycleway:surface")) {
+      else if (way.hasTag("cycleway:surface")) {
         "cycleway:surface"
       }
       else {
@@ -158,7 +158,7 @@ class SurfaceAnalyzer(networkType: NetworkType, way: Way) {
       }
     }
     else if (networkType == NetworkType.cycling) {
-      if (way.tags.has("cycleway:surface")) {
+      if (way.hasTag("cycleway:surface")) {
         "cycleway:surface"
       }
       else {

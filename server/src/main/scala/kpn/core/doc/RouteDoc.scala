@@ -8,7 +8,7 @@ import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.context.ElementIds
 
@@ -21,7 +21,7 @@ case class RouteDoc(
   changeSetId: Long,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
-  tags: Tags,
+  tags: Seq[Tag],
   facts: Seq[Fact],
   analysis: RouteInfoAnalysis,
   tiles: Seq[String],

@@ -15,10 +15,10 @@ class PoiTagAnalyzer(context: PoiAnalysisContext) {
 
     context.copy(
       analysis = context.analysis.copy(
-        openingHours = context.poi.tags("opening_hours"),
-        serviceTimes = context.poi.tags("service_times"),
-        cuisine = context.poi.tags("cuisine"),
-        denomination = context.poi.tags("denomination"),
+        openingHours = context.poi.tagValue("opening_hours"),
+        serviceTimes = context.poi.tagValue("service_times"),
+        cuisine = context.poi.tagValue("cuisine"),
+        denomination = context.poi.tagValue("denomination"),
       ),
       processedTagKeys = context.processedTagKeys ++ Seq(
         "opening_hours",

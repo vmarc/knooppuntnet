@@ -50,7 +50,7 @@ class LocationDefinitionTest extends UnitTest {
       name = name,
       locationNames = Map.empty,
       children = children,
-      tags = Tags.empty
+      tags = Seq.empty
     )
   }
 }

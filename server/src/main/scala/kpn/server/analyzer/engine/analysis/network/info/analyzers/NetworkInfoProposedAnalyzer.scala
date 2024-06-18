@@ -11,7 +11,7 @@ object NetworkInfoProposedAnalyzer extends NetworkInfoAnalyzer {
 class NetworkInfoProposedAnalyzer(context: NetworkInfoAnalysisContext) {
   def analyze(): NetworkInfoAnalysisContext = {
     context.copy(
-      proposed = context.networkDoc.tags.has("state", "proposed")
+      proposed = context.networkDoc.hasTag("state", "proposed")
     )
   }
 }

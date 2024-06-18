@@ -15,9 +15,9 @@ class PoiWebsiteAnalyzer(context: PoiAnalysisContext) {
 
     val website: Option[String] = {
       Seq(
-        context.poi.tags("website"),
-        context.poi.tags("contact:website"),
-        context.poi.tags("url")
+        context.poi.tagValue("website"),
+        context.poi.tagValue("contact:website"),
+        context.poi.tagValue("url")
       ).flatten.headOption.map { url =>
         if (url.startsWith("http://") || url.startsWith("https://")) {
           url
@@ -39,5 +39,4 @@ class PoiWebsiteAnalyzer(context: PoiAnalysisContext) {
       )
     )
   }
-
 }

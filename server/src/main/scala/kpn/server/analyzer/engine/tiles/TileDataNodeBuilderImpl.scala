@@ -6,8 +6,8 @@ import kpn.api.custom.FactLevel
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
-import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
+import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import org.springframework.stereotype.Component
 
 import scala.util.Failure
@@ -51,14 +51,14 @@ class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
           }
       }
 
-      val surveyDateTry = SurveyDateAnalyzer.analyze(node.tags)
+      val surveyDateTry = SurveyDateAnalyzer.analyze(node)
       val surveyDate = surveyDateTry match {
         case Success(surveyDate) => surveyDate
         case Failure(_) => None
       }
 
       val proposed = nodeNameOption.exists(_.proposed) ||
-        node.tags.has("state", "proposed")
+        node.hasTag("state", "proposed")
 
       TileDataNode(
         node._id,

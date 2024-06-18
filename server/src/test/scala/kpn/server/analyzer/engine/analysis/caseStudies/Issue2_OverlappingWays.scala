@@ -62,7 +62,7 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
     val routeRelation1 = data.relations(routeId1)
     val routeRelation2 = data.relations(routeId2)
 
-    val routeTags = routeRelation1.tags.without("ref") ++ Tags.from("ref" -> routeName)
+    val routeTags = routeRelation1.tags.filterNot(_.key == "ref") ++ Tags.from("ref" -> routeName)
 
     val routeRelation = routeRelation1.copy(
       tags = routeTags,
@@ -98,8 +98,8 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
   private def withoutConnectionNode(rawData: RawData, connectingNodeName: String): RawData = {
     rawData.copy(
       nodes = rawData.nodes.map(node =>
-        if (node.tags.has("rwn_ref", connectingNodeName)) {
-          node.copy(tags = node.tags.without("rwn_ref").without("network:type"))
+        if (node.hasTag("rwn_ref", connectingNodeName)) {
+          node.copy(tags = node.tags.filterNot(_.key == "rwn_ref").filterNot(_.key == "network:type"))
         }
         else {
           node

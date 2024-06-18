@@ -31,10 +31,10 @@ object MonitorFilter {
   }
 
   private def filterWayBuildings(wayMembers: Seq[WayMember]): Seq[WayMember] = {
-    wayMembers.filterNot(_.way.tags.has("building"))
+    wayMembers.filterNot(_.way.hasTag("building"))
   }
 
   private def filterRelationBuildings(relationMembers: Seq[RelationMember]): Seq[RelationMember] = {
-    relationMembers.filterNot(_.relation.tags.has("building"))
+    relationMembers.filterNot(_.relation.hasTag("building"))
   }
 }

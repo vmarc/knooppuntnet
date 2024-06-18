@@ -178,7 +178,6 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     //      )
     //    }
 
-
     val analysisTimestamp: Timestamp = Timestamp(2020, 11, 8)
     val networkDoc: NetworkDoc = newNetwork(
       1,
@@ -267,7 +266,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
 
     val d = new TestData() {
       relation(10, Seq.empty, newRouteTags("01-02")) // valid route relation
-      relation(20, Seq.empty, Tags.empty) // not a route relation
+      relation(20, Seq.empty, Seq.empty) // not a route relation
       relation(
         1,
         Seq(

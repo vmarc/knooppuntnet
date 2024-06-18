@@ -2,7 +2,7 @@ package kpn.api.common.network
 
 import kpn.api.base.WithId
 import kpn.api.custom.Fact
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 
 case class NetworkInfo(
   _id: Long,
@@ -12,7 +12,7 @@ case class NetworkInfo(
   routeRefs: Seq[Long],
   networkRefs: Seq[Long],
   facts: Seq[Fact] = Seq.empty,
-  tags: Tags,
+  tags: Seq[Tag],
   detail: Option[NetworkInfoDetail] = None
 ) extends WithId {
 

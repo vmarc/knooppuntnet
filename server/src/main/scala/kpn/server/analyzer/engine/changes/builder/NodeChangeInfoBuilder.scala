@@ -3,15 +3,14 @@ package kpn.server.analyzer.engine.changes.builder
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.node.NodeChangeInfo
-import kpn.api.custom.Tags
 
 class NodeChangeInfoBuilder {
 
   def build(change: NodeChange, changeSetInfos: Seq[ChangeSetInfo]): NodeChangeInfo = {
 
     val changeSetInfo = changeSetInfos.find(_.id == change.key.changeSetId)
-    val changeTags = changeSetInfo.map(_.tags.without("comment")).getOrElse(Tags.empty)
-    val comment = changeSetInfo.flatMap(_.tags("comment"))
+    val changeTags = changeSetInfo.map(_.tags.filterNot(_.value == "comment")).getOrElse(Seq.empty)
+    val comment = changeSetInfo.flatMap(_.tagValue("comment"))
 
     NodeChangeInfo(
       0,

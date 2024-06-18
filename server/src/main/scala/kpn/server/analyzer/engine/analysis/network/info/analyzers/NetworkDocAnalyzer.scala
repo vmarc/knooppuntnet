@@ -19,7 +19,7 @@ class NetworkDocAnalyzer(context: NetworkInfoAnalysisContext, nodeDoc: NodeDoc) 
   }
 
   def expectedRouteCount: Option[Long] = {
-    TagInterpreter.expectedRouteRelationCount(context.scopedNetworkType, nodeDoc.tags)
+    TagInterpreter.expectedRouteRelationCount(context.scopedNetworkType, nodeDoc)
   }
 
   def connection: Boolean = {
@@ -31,7 +31,7 @@ class NetworkDocAnalyzer(context: NetworkInfoAnalysisContext, nodeDoc: NodeDoc) 
   }
 
   def proposed: Boolean = {
-    TagInterpreter.isProposedNode(context.scopedNetworkType, nodeDoc.tags)
+    TagInterpreter.isProposedNode(context.scopedNetworkType, nodeDoc)
   }
 
   def definedInRelation: Boolean = {

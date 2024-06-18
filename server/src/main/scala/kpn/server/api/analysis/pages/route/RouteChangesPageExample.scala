@@ -201,7 +201,7 @@ object RouteChangesPageExample {
             version = 1,
             timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
             changeSetId = 2,
-            tags = Tags.empty
+            tags = Seq.empty
           )
         ),
         addedNodes = Seq(
@@ -212,7 +212,7 @@ object RouteChangesPageExample {
             version = 1,
             timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
             changeSetId = 2,
-            tags = Tags.empty
+            tags = Seq.empty
           )
         ),
         updatedNodes = Seq(
@@ -224,7 +224,7 @@ object RouteChangesPageExample {
               version = 1,
               timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
               changeSetId = 2,
-              tags = Tags.empty
+              tags = Seq.empty
             ),
             after = Node(
               id = 1001,
@@ -233,7 +233,7 @@ object RouteChangesPageExample {
               version = 1,
               timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
               changeSetId = 2,
-              tags = Tags.empty
+              tags = Seq.empty
             ),
             tagDiffs = None, //  Option[TagDiffs]
             nodeMoved = None // Option[NodeMoved]

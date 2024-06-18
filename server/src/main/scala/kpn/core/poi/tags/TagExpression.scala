@@ -1,10 +1,10 @@
 package kpn.core.poi.tags
 
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 
 trait TagExpression {
 
-  def evaluate(tags: Tags): Boolean
+  def evaluate(tags: Seq[Tag]): Boolean
 
   def and(other: TagExpression): TagExpression = And(this, other)
 

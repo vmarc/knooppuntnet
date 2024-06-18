@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.node.analyzers
 
 import kpn.api.common.NodeName
+import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
-import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.node.domain.NodeTagAnalysis
@@ -15,24 +15,24 @@ import scala.util.Success
 
 object NodeTagAnalyzer {
 
-  def analyze(tags: Tags): Option[NodeTagAnalysis] = {
-    if (tags.has("network:type", "node_network")) {
-      analyzeTags(tags)
+  def analyze(tagable: Tagable): Option[NodeTagAnalysis] = {
+    if (tagable.hasTag("network:type", "node_network")) {
+      analyzeTags(tagable)
     }
     else {
       None
     }
   }
 
-  private def analyzeTags(tags: Tags): Option[NodeTagAnalysis] = {
+  private def analyzeTags(tagable: Tagable): Option[NodeTagAnalysis] = {
     val facts = ListBuffer[Fact]()
-    val nodeNames = findNodeNames(tags)
+    val nodeNames = findNodeNames(tagable)
     if (nodeNames.isEmpty) {
       None
     }
     else {
       val name = nodeNames.map(_.name).mkString(" / ")
-      val lastSurvey = analyzeSurvey(tags, facts)
+      val lastSurvey = analyzeSurvey(tagable, facts)
       Some(
         NodeTagAnalysis(
           name,
@@ -44,8 +44,8 @@ object NodeTagAnalyzer {
     }
   }
 
-  private def analyzeSurvey(tags: Tags, facts: ListBuffer[Fact]): Option[Day] = {
-    val surveyDateTry = SurveyDateAnalyzer.analyze(tags)
+  private def analyzeSurvey(tagable: Tagable, facts: ListBuffer[Fact]): Option[Day] = {
+    val surveyDateTry = SurveyDateAnalyzer.analyze(tagable)
     surveyDateTry match {
       case Success(v) => v
       case Failure(_) =>
@@ -54,10 +54,10 @@ object NodeTagAnalyzer {
     }
   }
 
-  private def findNodeNames(tags: Tags): Seq[NodeName] = {
+  private def findNodeNames(tagable: Tagable): Seq[NodeName] = {
     ScopedNetworkType.all.flatMap { scopedNetworkType =>
-      determineScopedName(scopedNetworkType, tags).map { name =>
-        val longName = determineScopedLongName(scopedNetworkType, tags)
+      determineScopedName(scopedNetworkType, tagable).map { name =>
+        val longName = determineScopedLongName(scopedNetworkType, tagable)
         NodeName(
           scopedNetworkType.networkType,
           scopedNetworkType.networkScope,
@@ -69,19 +69,19 @@ object NodeTagAnalyzer {
     }.sortBy(_.name)
   }
 
-  private def determineScopedName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[Name] = {
-    val nameOption = tags(scopedNetworkType.nodeRefTagKey) match {
-      case Some(name) => Some(Name(name, proposed = stateProposed(tags)))
+  private def determineScopedName(scopedNetworkType: ScopedNetworkType, tagable: Tagable): Option[Name] = {
+    val nameOption = tagable.tagValue(scopedNetworkType.nodeRefTagKey) match {
+      case Some(name) => Some(Name(name, proposed = stateProposed(tagable)))
       case None =>
-        tags(scopedNetworkType.proposedNodeRefTagKey) match {
+        tagable.tagValue(scopedNetworkType.proposedNodeRefTagKey) match {
           case Some(name) => Some(Name(name, proposed = true))
-          case None => determineScopedLongName(scopedNetworkType, tags)
+          case None => determineScopedLongName(scopedNetworkType, tagable)
         }
     }
     nameOption.map(n => n.copy(name = NodeUtil.normalize(n.name)))
   }
 
-  private def determineScopedLongName(scopedNetworkType: ScopedNetworkType, tags: Tags): Option[Name] = {
+  private def determineScopedLongName(scopedNetworkType: ScopedNetworkType, tagable: Tagable): Option[Name] = {
     val prefix = scopedNetworkType.key
     val nameTagKeys = Seq(
       s"${prefix}_name",
@@ -93,16 +93,16 @@ object NodeTagAnalyzer {
       s"proposed:$prefix:name",
       s"proposed:name:${prefix}_ref"
     )
-    tags.tags.find(tag => nameTagKeys.contains(tag.key)).map(_.value) match {
-      case Some(name) => Some(Name(name, stateProposed(tags)))
+    tagable.tags.find(tag => nameTagKeys.contains(tag.key)).map(_.value) match {
+      case Some(name) => Some(Name(name, stateProposed(tagable)))
       case None =>
-        tags.tags.find(tag => proposedNameTagKeys.contains(tag.key)).map(_.value).map { name =>
+        tagable.tags.find(tag => proposedNameTagKeys.contains(tag.key)).map(_.value).map { name =>
           Name(name, proposed = true)
         }
     }
   }
 
-  private def stateProposed(tags: Tags): Boolean = {
-    tags.has("state", "proposed")
+  private def stateProposed(tagable: Tagable): Boolean = {
+    tagable.hasTag("state", "proposed")
   }
 }

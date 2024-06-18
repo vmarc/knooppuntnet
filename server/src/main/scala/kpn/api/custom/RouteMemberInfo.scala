@@ -20,5 +20,5 @@ case class RouteMemberInfo(
   nodeCount: String,
   description: String,
   oneWay: WayDirection,
-  oneWayTags: Tags
+  oneWayTags: Seq[Tag]
 )

@@ -4,7 +4,7 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Country
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 
 case class NetworkNode(
@@ -19,7 +19,7 @@ case class NetworkNode(
 
   def number: Option[Int] = NodeUtil.toNumber(name)
 
-  def tags: Tags = node.tags
+  def tags: Seq[Tag] = node.tags
 
   def toMeta: MetaData = {
     MetaData(

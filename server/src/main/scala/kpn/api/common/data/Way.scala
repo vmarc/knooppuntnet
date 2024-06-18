@@ -1,7 +1,7 @@
 package kpn.api.common.data
 
 import kpn.api.common.data.raw.RawWay
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class Way(
@@ -9,7 +9,7 @@ case class Way(
   version: Long,
   timestamp: Timestamp,
   changeSetId: Long,
-  tags: Tags,
+  tags: Seq[Tag],
   nodes: Vector[Node],
   length: Long /* meters */
 ) extends Element {

@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.monitor.structure
 import kpn.api.common.data.Member
 import kpn.api.common.data.WayMember
 
+import scala.annotation.tailrec
 import scala.collection.mutable
 
 object StructureElementAnalyzer {
@@ -179,6 +180,7 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     }
   }
 
+  @tailrec
   private def lookRoundaboutAhead(closedLoopLink: WayMemberLink, endNodeId: Long, aheadLink: WayMemberLink): Unit = {
     closedLoopLink.backwardConnection(aheadLink) match {
       case None =>

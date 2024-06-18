@@ -12,10 +12,10 @@ object OnroerendErfgoedAnalyzer extends PoiAnalyzer {
 class OnroerendErfgoedAnalyzer(context: PoiAnalysisContext) {
 
   def analyze: PoiAnalysisContext = {
-    context.poi.tags("ref:OnroerendErfgoed") match {
+    context.poi.tagValue("ref:OnroerendErfgoed") match {
       case Some(ref) => processRef(ref)
       case _ =>
-        context.poi.tags("heritage:website") match {
+        context.poi.tagValue("heritage:website") match {
           case Some(website) if website.contains("inventaris.onroerenderfgoed.be") => processWebsite(website)
           case _ => context
         }

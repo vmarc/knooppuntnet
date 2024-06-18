@@ -12,7 +12,7 @@ object PoiHollandscheModelDatabaseAnalyzer extends PoiAnalyzer {
 class PoiHollandscheModelDatabaseAnalyzer(context: PoiAnalysisContext) {
 
   def analyze: PoiAnalysisContext = {
-    val hollandscheMolenDatabase = context.poi.tags("dhm_id").map { id =>
+    val hollandscheMolenDatabase = context.poi.tagValue("dhm_id").map { id =>
       s"https://www.molens.nl/molen/zoek-een-molen/molendetail/?molenid=$id"
     }
     context.copy(
@@ -20,5 +20,4 @@ class PoiHollandscheModelDatabaseAnalyzer(context: PoiAnalysisContext) {
       processedTagKeys = context.processedTagKeys :+ "dhm_id"
     )
   }
-
 }

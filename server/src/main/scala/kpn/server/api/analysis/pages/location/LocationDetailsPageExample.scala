@@ -12,7 +12,7 @@ object LocationDetailsPageExample {
       0,
       0,
       Seq.empty,
-      Tags.empty
+      Seq.empty
     )
   }
 }

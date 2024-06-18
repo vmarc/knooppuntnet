@@ -14,8 +14,8 @@ class PoiTitleAnalyzer(context: PoiAnalysisContext) {
   def analyze: PoiAnalysisContext = {
 
     val layers = context.poi.layers
-    val name = context.poi.tags("name")
-    val description = context.poi.tags("description")
+    val name = context.poi.tagValue("name")
+    val description = context.poi.tagValue("description")
 
     context.copy(
       analysis = context.analysis.copy(

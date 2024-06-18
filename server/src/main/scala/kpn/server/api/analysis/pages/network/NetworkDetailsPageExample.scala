@@ -16,6 +16,7 @@ import kpn.api.common.network.NetworkSummary
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
@@ -77,7 +78,7 @@ object NetworkDetailsPageExample {
     )
   }
 
-  private def tags(): Tags = {
+  private def tags(): Seq[Tag] = {
     Tags.from(
       "one" -> "een",
       "two" -> "twee",
@@ -141,5 +142,4 @@ object NetworkDetailsPageExample {
       )
     )
   }
-
 }

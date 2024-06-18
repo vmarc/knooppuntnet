@@ -14,28 +14,28 @@ class PoiContactAnalyzer(context: PoiAnalysisContext) {
   def analyze: PoiAnalysisContext = {
 
     val email = Seq(
-      context.poi.tags("contact:email"),
-      context.poi.tags("email")
+      context.poi.tagValue("contact:email"),
+      context.poi.tagValue("email")
     ).flatten.headOption
 
     val phone = Seq(
-      context.poi.tags("contact:phone"),
-      context.poi.tags("phone")
+      context.poi.tagValue("contact:phone"),
+      context.poi.tagValue("phone")
     ).flatten.headOption
 
     val fax = Seq(
-      context.poi.tags("contact:fax"),
-      context.poi.tags("fax")
+      context.poi.tagValue("contact:fax"),
+      context.poi.tagValue("fax")
     ).flatten.headOption
 
     val facebook = Seq(
-      context.poi.tags("contact:facebook"),
-        context.poi.tags("facebook")
+      context.poi.tagValue("contact:facebook"),
+      context.poi.tagValue("facebook")
     ).flatten.headOption
 
     val twitter = Seq(
-      context.poi.tags("contact:twitter"),
-      context.poi.tags("twitter")
+      context.poi.tagValue("contact:twitter"),
+      context.poi.tagValue("twitter")
     ).flatten.headOption
 
     context.copy(
@@ -60,5 +60,4 @@ class PoiContactAnalyzer(context: PoiAnalysisContext) {
       )
     )
   }
-
 }

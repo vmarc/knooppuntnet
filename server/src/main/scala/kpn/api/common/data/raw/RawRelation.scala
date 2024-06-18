@@ -1,6 +1,6 @@
 package kpn.api.common.data.raw
 
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class RawRelation(
@@ -9,7 +9,7 @@ case class RawRelation(
   timestamp: Timestamp,
   changeSetId: Long,
   members: Seq[RawMember],
-  tags: Tags
+  tags: Seq[Tag]
 ) extends RawElement {
 
   override def isRelation: Boolean = true

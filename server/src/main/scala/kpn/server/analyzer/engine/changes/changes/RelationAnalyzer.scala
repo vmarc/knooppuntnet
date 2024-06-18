@@ -5,7 +5,6 @@ import kpn.api.common.data.NodeMember
 import kpn.api.common.data.RelationMember
 import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
-import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
@@ -81,7 +80,6 @@ object RelationAnalyzerHelper {
     }
     refs.toSet
   }
-
 }
 
 object RelationAnalyzer {
@@ -144,7 +142,6 @@ object RelationAnalyzer {
               }
           }
       }
-
     }.toSet
   }
 
@@ -165,22 +162,15 @@ object RelationAnalyzer {
     elements.max
   }
 
-  def waysLength(relation: Relation): Long = {
-    relation.wayMembers.map(_.way.length).sum
-    // TODO ROUTE use the logic below for a more accurate result --> need to use the above to avoid MISMATCH between new and old
-    // referencedWays(relation).map(_.length).sum
-  }
-
   def networkType(relation: Relation): Option[NetworkType] = {
-    relation.tags("network").flatMap { tagValue =>
+    relation.tagValue("network").flatMap { tagValue =>
       ScopedNetworkType.all.find(_.key == tagValue).map(_.networkType)
     }
   }
 
   def scopedNetworkType(relation: Relation): Option[ScopedNetworkType] = {
-    relation.tags("network").flatMap { tagValue =>
+    relation.tagValue("network").flatMap { tagValue =>
       ScopedNetworkType.all.find(_.key == tagValue)
     }
   }
-
 }

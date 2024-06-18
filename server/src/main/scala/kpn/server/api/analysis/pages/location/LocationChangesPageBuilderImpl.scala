@@ -38,7 +38,7 @@ class LocationChangesPageBuilderImpl(
     val changeSetInfos = changeSetInfoRepository.all(changeSetIds)
     val locationChangeSetInfos = changeSets.zipWithIndex.map { case (changeSet, index) =>
       val rowIndex = parameters.pageSize * parameters.pageIndex + index
-      val comment = changeSetInfos.find(s => s.id == changeSet.key.changeSetId).flatMap(_.tags("comment"))
+      val comment = changeSetInfos.find(s => s.id == changeSet.key.changeSetId).flatMap(_.tagValue("comment"))
       val locationChangeInfos = changeSet.locationChanges.map { change =>
         val locationNames = change.locationNames.dropWhile(_ != subset.locationIds.head /* TODO supports multiple locationIds !!! */).drop(1)
         val locationInfos = locationService.toInfos(language, change.locationNames, locationNames).map { locationInfo =>

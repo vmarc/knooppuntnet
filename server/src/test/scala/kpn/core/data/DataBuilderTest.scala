@@ -54,12 +54,12 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
 
     log.messages.size should equal(0)
 
-    data.nodes(101).tags("name") should equal(Some("01"))
-    data.nodes(102).tags("name") should equal(Some("02"))
-    data.nodes(103).tags("name") should equal(Some("03"))
-    data.nodes(104).tags("name") should equal(Some("04"))
-    data.nodes(105).tags("name") should equal(Some("05"))
-    data.nodes(106).tags("name") should equal(Some("06"))
+    data.nodes(101).tagValue("name") should equal(Some("01"))
+    data.nodes(102).tagValue("name") should equal(Some("02"))
+    data.nodes(103).tagValue("name") should equal(Some("03"))
+    data.nodes(104).tagValue("name") should equal(Some("04"))
+    data.nodes(105).tagValue("name") should equal(Some("05"))
+    data.nodes(106).tagValue("name") should equal(Some("06"))
 
     data.ways(11).nodes.map(_.id) should equal(Seq(103, 104))
     data.ways(12).nodes.map(_.id) should equal(Seq(105, 106))

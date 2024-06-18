@@ -1,9 +1,9 @@
 package kpn.core.tools.support
 
 import kpn.api.common.ReplicationId
+import kpn.api.common.data.Tagable
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Tag
-import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
 import kpn.core.tools.config.Dirs
@@ -41,8 +41,8 @@ object FindDeletedNodesHistoryTool {
       visible: Boolean,
       timestamp: Timestamp,
       changeSetId: Long,
-      tags: Tags
-    )
+      tags: Seq[Tag]
+    ) extends Tagable
 
     case class HistoryAnalysis(
       nodeId: Long,
@@ -61,13 +61,11 @@ object FindDeletedNodesHistoryTool {
         val visible = false // (n \ "@visible").text.toBoolean
         val timestamp = TimestampUtil.parseIso((n \ "@timestamp").text)
         val changeSetId = (n \ "@changeset").text.toLong
-        val tags = Tags(
-          (n \ "tag").map { t =>
-            val key = (t \ "@k").text
-            val value = (t \ "@v").text
-            Tag(key, value)
-          }
-        )
+        val tags = (n \ "tag").map { t =>
+          val key = (t \ "@k").text
+          val value = (t \ "@v").text
+          Tag(key, value)
+        }
         HistoryEntry(
           visible,
           timestamp,
@@ -79,10 +77,10 @@ object FindDeletedNodesHistoryTool {
       val createdTimestamp = historyEntries.head.timestamp
       val deletedTimestamp = historyEntries.last.timestamp
       val deletedChangeSetId = historyEntries.last.changeSetId
-      val tagsBeforeDelete = historyEntries.dropRight(1).last.tags
-      val tags = tagsBeforeDelete.has("rwn_ref") ||
-        tagsBeforeDelete.has("rcn_ref") ||
-        tagsBeforeDelete.has("rpn_ref")
+      val historyEntryBeforeDelete = historyEntries.dropRight(1).last
+      val tags = historyEntryBeforeDelete.hasTag("rwn_ref") ||
+        historyEntryBeforeDelete.hasTag("rcn_ref") ||
+        historyEntryBeforeDelete.hasTag("rpn_ref")
 
       val replicationId = changeSetReplicationNumber(deletedChangeSetId)
 

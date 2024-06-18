@@ -89,7 +89,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
         val way = wayMember.way
         val wayNetworkNodes = way.nodes.filter(n => TagInterpreter.isReferencedNetworkNode(context.scopedNetworkType, n)).flatMap(n => routeNodeAnalysis.routeNodes.find(_
           .id == n.id))
-        val name = way.tags("name").getOrElse("")
+        val name = way.tagValue("name").getOrElse("")
 
         val fromNode = if (link.linkType == LinkType.FORWARD) way.nodes.head else way.nodes.last
         val toNode = if (link.linkType == LinkType.FORWARD) way.nodes.last else way.nodes.head

@@ -4,7 +4,7 @@ import kpn.api.common.data.Tagable
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class RouteSummary(
@@ -19,5 +19,5 @@ case class RouteSummary(
   wayCount: Long,
   timestamp: Timestamp,
   nodeNames: Seq[String],
-  tags: Tags
+  tags: Seq[Tag]
 ) extends Tagable

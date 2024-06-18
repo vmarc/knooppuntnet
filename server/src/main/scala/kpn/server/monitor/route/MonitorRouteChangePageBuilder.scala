@@ -24,7 +24,7 @@ class MonitorRouteChangePageBuilder(
 
   def build(routeId: Long, changeSetId: Long, replicationNumber: Long): Option[MonitorRouteChangePage] = {
 
-    val comment = changeSetInfoRepository.get(changeSetId).flatMap(_.tags("comment"))
+    val comment = changeSetInfoRepository.get(changeSetId).flatMap(_.tagValue("comment"))
 
     monitorRouteRepository.routeChange("TODO KEY" + routeId, changeSetId, replicationNumber) match {
       case None =>

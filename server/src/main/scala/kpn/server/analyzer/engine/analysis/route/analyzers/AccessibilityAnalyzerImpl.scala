@@ -18,48 +18,47 @@ class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
   }
 
   private def bicycleAccessible(way: Way): Boolean = {
-    (way.tags.has("highway") ||
-      way.tags.has("highway:virtual") ||
-      way.tags.has("route", "ferry") ||
-      way.tags.has("bicycle", "yes")) &&
-      !way.tags.has("bicycle", "no")
+    (way.hasTag("highway") ||
+      way.hasTag("highway:virtual") ||
+      way.hasTag("route", "ferry") ||
+      way.hasTag("bicycle", "yes")) &&
+      !way.hasTag("bicycle", "no")
   }
 
   private def hikingAccessible(way: Way): Boolean = {
-    (way.tags.has("highway") ||
-      way.tags.has("highway:virtual") ||
-      way.tags.has("route", "ferry") ||
-      way.tags.has("foot", "yes")) &&
-      !way.tags.has("foot", "no")
+    (way.hasTag("highway") ||
+      way.hasTag("highway:virtual") ||
+      way.hasTag("route", "ferry") ||
+      way.hasTag("foot", "yes")) &&
+      !way.hasTag("foot", "no")
   }
 
   private def horseAccessible(way: Way): Boolean = {
-    (way.tags.has("highway") ||
-      way.tags.has("highway:virtual") ||
-      way.tags.has("route", "ferry") ||
-      way.tags.has("horse", "yes")) &&
-      !way.tags.has("horse", "no")
+    (way.hasTag("highway") ||
+      way.hasTag("highway:virtual") ||
+      way.hasTag("route", "ferry") ||
+      way.hasTag("horse", "yes")) &&
+      !way.hasTag("horse", "no")
   }
 
   private def motorboatAccessible(way: Way): Boolean = {
-    way.tags.has("waterway") ||
-      way.tags.has("waterway:virtual")
+    way.hasTag("waterway") ||
+      way.hasTag("waterway:virtual")
   }
 
   private def canoeAccessible(way: Way): Boolean = {
-    (way.tags.has("waterway") ||
-      way.tags.has("waterway:virtual") ||
-      way.tags.has("canoe", "portage") || // used for places where canoe has to be carried over a dam
-      way.tags.has("canoe", "yes")) &&
-      !way.tags.has("canoe", "no")
+    (way.hasTag("waterway") ||
+      way.hasTag("waterway:virtual") ||
+      way.hasTag("canoe", "portage") || // used for places where canoe has to be carried over a dam
+      way.hasTag("canoe", "yes")) &&
+      !way.hasTag("canoe", "no")
   }
 
   private def inlineSkatesAccessible(way: Way): Boolean = {
-    (way.tags.has("highway") ||
-      way.tags.has("highway:virtual") ||
-      way.tags.has("route", "ferry") ||
-      way.tags.has("inline_skates", "yes")) &&
-      !way.tags.has("inline_skates", "no")
+    (way.hasTag("highway") ||
+      way.hasTag("highway:virtual") ||
+      way.hasTag("route", "ferry") ||
+      way.hasTag("inline_skates", "yes")) &&
+      !way.hasTag("inline_skates", "no")
   }
-
 }

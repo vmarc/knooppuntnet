@@ -21,7 +21,6 @@ class IncompleteRouteAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def hasFixmeIncompleteTag: Boolean = {
-    context.relation.tags.has("fixme", "incomplete")
+    context.relation.hasTag("fixme", "incomplete")
   }
-
 }

@@ -29,7 +29,7 @@ class ChangeSetInfoParserTest extends UnitTest {
     changeSetInfo.closedAt should equal(Some(Timestamp(2015, 6, 16, 20, 51, 58)))
     assert(!changeSetInfo.open)
     changeSetInfo.commentsCount should equal(0)
-    changeSetInfo.tags("comment") should equal(Some("rcn 41-49 volgorde bijgewerkt"))
+    changeSetInfo.tagValue("comment") should equal(Some("rcn 41-49 volgorde bijgewerkt"))
   }
 
   test("parse open changeset") {
@@ -54,7 +54,6 @@ class ChangeSetInfoParserTest extends UnitTest {
     changeSetInfo.closedAt should equal(None)
     assert(changeSetInfo.open)
     changeSetInfo.commentsCount should equal(0)
-    changeSetInfo.tags("comment") should equal(Some("issues with POI's in Landsmeer"))
+    changeSetInfo.tagValue("comment") should equal(Some("issues with POI's in Landsmeer"))
   }
-
 }

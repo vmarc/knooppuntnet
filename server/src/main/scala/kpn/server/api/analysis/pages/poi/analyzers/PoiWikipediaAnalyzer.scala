@@ -3,7 +3,6 @@ package kpn.server.api.analysis.pages.poi.analyzers
 import kpn.server.api.analysis.pages.poi.PoiAnalysisContext
 import kpn.server.api.analysis.pages.poi.PoiAnalyzer
 
-
 object PoiWikipediaAnalyzer extends PoiAnalyzer {
   def analyze(context: PoiAnalysisContext): PoiAnalysisContext = {
     new PoiWikipediaAnalyzer(context).analyze
@@ -14,7 +13,7 @@ class PoiWikipediaAnalyzer(context: PoiAnalysisContext) {
 
   def analyze: PoiAnalysisContext = {
 
-    val wikipedia = context.poi.tags("wikipedia").map { tagValue =>
+    val wikipedia = context.poi.tagValue("wikipedia").map { tagValue =>
       if (tagValue.startsWith("nl:")) {
         val id = tagValue.substring(3)
         "https://nl.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
@@ -43,5 +42,4 @@ class PoiWikipediaAnalyzer(context: PoiAnalysisContext) {
       )
     )
   }
-
 }

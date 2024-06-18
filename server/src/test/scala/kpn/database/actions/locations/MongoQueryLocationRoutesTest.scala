@@ -7,6 +7,7 @@ import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Day
 import kpn.api.custom.NetworkType
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -283,10 +284,10 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
   }
 
   private def route(database: Database, id: Long, labels: String*): Unit = {
-    routeWithTags(database, id, Tags.empty, labels: _*)
+    routeWithTags(database, id, Seq.empty, labels: _*)
   }
 
-  private def routeWithTags(database: Database, id: Long, tags: Tags, labels: String*): Unit = {
+  private def routeWithTags(database: Database, id: Long, tags: Seq[Tag], labels: String*): Unit = {
     database.routes.save(
       newRouteDoc(
         newRouteSummary(id),

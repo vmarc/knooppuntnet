@@ -5,7 +5,7 @@ import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.common.Ref
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class NetworkInfoNode(
@@ -24,5 +24,5 @@ case class NetworkInfoNode(
   routeReferences: Seq[Ref],
   integrityCheck: Option[NodeIntegrityCheck],
   facts: Seq[Fact],
-  tags: Tags
+  tags: Seq[Tag]
 ) extends LatLon

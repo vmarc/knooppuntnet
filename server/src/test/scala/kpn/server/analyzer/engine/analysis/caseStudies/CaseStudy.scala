@@ -59,7 +59,7 @@ object CaseStudy extends MockFactory {
 
     val rawRouteRelation = rawData.relations.head
 
-    if (!rawRouteRelation.tags.has("type", "route")) {
+    if (!rawRouteRelation.hasTag("type", "route")) {
       throw new IllegalArgumentException(s"Relation does not have expected tag type=route in file $filename")
     }
 

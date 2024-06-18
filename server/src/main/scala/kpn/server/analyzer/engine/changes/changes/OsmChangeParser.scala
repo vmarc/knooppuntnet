@@ -7,7 +7,6 @@ import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Change
 import kpn.api.custom.Tag
-import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
 
@@ -40,7 +39,7 @@ class OsmChangeParser {
   }
 
   def way(node: scala.xml.Node): RawWay = {
-    val wayNodeIds = (node \ "nd").map { t => (t \ "@ref").text.toLong}
+    val wayNodeIds = (node \ "nd").map { t => (t \ "@ref").text.toLong }
     RawWay(id(node), version(node), timestamp(node), changeSetId(node), wayNodeIds.toVector, tags(node))
   }
 
@@ -55,14 +54,12 @@ class OsmChangeParser {
     RawRelation(id(node), version(node), timestamp(node), changeSetId(node), members, tags(node))
   }
 
-  private def tags(node: scala.xml.Node): Tags = {
-    Tags(
-      (node \ "tag").map { tag =>
-        val key = (tag \ "@k").text
-        val value = (tag \ "@v").text
-        Tag(key, value)
-      }
-    )
+  private def tags(node: scala.xml.Node): Seq[Tag] = {
+    (node \ "tag").map { tag =>
+      val key = (tag \ "@k").text
+      val value = (tag \ "@v").text
+      Tag(key, value)
+    }
   }
 
   private def id(node: scala.xml.Node): Long = (node \ "@id").text.toLong

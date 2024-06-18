@@ -16,7 +16,7 @@ object NetworkTypeAnalyzer extends NetworkInfoAnalyzer {
 class NetworkTypeAnalyzer(context: NetworkInfoAnalysisContext) {
 
   def analyze: NetworkInfoAnalysisContext = {
-    context.networkDoc.tags("network") match {
+    context.networkDoc.tagValue("network") match {
       case None =>
         log.info(s"Network ${context.networkDoc._id} does not have 'network' type")
         context.copy(abort = true)

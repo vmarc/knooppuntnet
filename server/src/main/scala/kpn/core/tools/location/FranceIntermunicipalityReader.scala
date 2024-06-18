@@ -15,13 +15,13 @@ class FranceIntermunicipalityReader(intermunicipalitiesDir: String, locationId: 
       val geometryFactory = new GeometryFactory
       val rawData = OsmDataXmlReader.read(s"$intermunicipalitiesDir/$locationId.xml")
       val data = new DataBuilder(rawData).data
-      val locationRelations = data.relations.values.filter(_.tags.has("local_authority:FR", intermunicipalityType))
+      val locationRelations = data.relations.values.filter(_.hasTag("local_authority:FR", intermunicipalityType))
       if (locationRelations.size != 1) {
         throw new RuntimeException(error(s"unexpected number of location relations: ${locationRelations.size}"))
       }
       val relation = loadIntermunicipalityRelation(locationId, intermunicipalityType)
-      val name = relation.tags("name").getOrElse(throw new RuntimeException(error("name not found")))
-      val sirenCode = relation.tags("ref:FR:SIREN").getOrElse(throw new RuntimeException(error("SIREN code not found")))
+      val name = relation.tagValue("name").getOrElse(throw new RuntimeException(error("name not found")))
+      val sirenCode = relation.tagValue("ref:FR:SIREN").getOrElse(throw new RuntimeException(error("SIREN code not found")))
       val id = s"fr-2-$sirenCode"
       val polygons = RelationPolygonBuilder.toPolygons(data, relation)
       val geometry = if (polygons.size != 1) {
@@ -46,7 +46,7 @@ class FranceIntermunicipalityReader(intermunicipalitiesDir: String, locationId: 
   private def loadIntermunicipalityRelation(locationId: Long, intermunicipalityType: String): Relation = {
     val rawData = OsmDataXmlReader.read(s"$intermunicipalitiesDir/$locationId.xml")
     val data = new DataBuilder(rawData).data
-    val locationRelations = data.relations.values.filter(_.tags.has("local_authority:FR", intermunicipalityType))
+    val locationRelations = data.relations.values.filter(_.hasTag("local_authority:FR", intermunicipalityType))
     if (locationRelations.size != 1) {
       throw new RuntimeException(error(s"unexpected number of location relations: ${locationRelations.size}"))
     }

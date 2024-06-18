@@ -21,7 +21,7 @@ class RouteTagAnalyzer(context: RouteAnalysisContext) {
 
     val facts = ListBuffer[Fact]()
 
-    val scopedNetworkTypeOption = context.relation.tags("network") match {
+    val scopedNetworkTypeOption = context.relation.tagValue("network") match {
       case None => None
       case Some(key) =>
         ScopedNetworkType.withKey(key) match {
@@ -30,10 +30,10 @@ class RouteTagAnalyzer(context: RouteAnalysisContext) {
             None
 
           case Some(scopedNetworkType) =>
-            context.relation.tags("route") match {
+            context.relation.tagValue("route") match {
               case None => facts += RouteTagMissing
               case Some(routeTagValue) =>
-                if(!context.relation.tags.has("route", scopedNetworkType.networkType.routeTagValues:_*)) {
+                if (!context.relation.hasTag("route", scopedNetworkType.networkType.routeTagValues: _*)) {
                   facts += RouteTagInvalid
                 }
             }

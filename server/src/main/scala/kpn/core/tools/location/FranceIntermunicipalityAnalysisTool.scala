@@ -81,15 +81,15 @@ class FranceIntermunicipalityAnalysisTool {
       ids.zipWithIndex.foreach { case (relationId, index) =>
         val rawData = OsmDataXmlReader.read(s"$intermunicipalitiesDir/$relationId.xml")
         val data = new DataBuilder(rawData).data
-        val locationRelations = data.relations.values.filter(_.tags.has("local_authority:FR", intermunicipalityType))
+        val locationRelations = data.relations.values.filter(_.hasTag("local_authority:FR", intermunicipalityType))
         if (locationRelations.size != 1) {
           throw new RuntimeException(s"Unexpected number of location relations in $relationId.xml: ${locationRelations.size}")
         }
         val relation = locationRelations.head
-        relation.tags("name") match {
+        relation.tagValue("name") match {
           case None => println(s"$relationId: name not found")
           case Some(name) =>
-            relation.tags("ref:FR:SIREN") match {
+            relation.tagValue("ref:FR:SIREN") match {
               case None => println(s"$relationId: SIREN code not found")
               case Some(sirenCode) =>
                 println(s"${index + 1}/${ids.size} relation=$relationId, id=$sirenCode, name=$name")
@@ -145,7 +145,7 @@ class FranceIntermunicipalityAnalysisTool {
   private def loadIntermunicipality(intermunicipalityType: String, relationId: Long): IntermunicipalityGeometry = {
     val rawData = OsmDataXmlReader.read(s"$intermunicipalitiesDir/$relationId.xml")
     val data = new DataBuilder(rawData).data
-    val locationRelations = data.relations.values.filter(_.tags.has("local_authority:FR", intermunicipalityType))
+    val locationRelations = data.relations.values.filter(_.hasTag("local_authority:FR", intermunicipalityType))
     if (locationRelations.size != 1) {
       throw new RuntimeException(s"Unexpected number of location relations in $relationId.xml: ${locationRelations.size}")
     }

@@ -12,11 +12,10 @@ object PoiWheelchairAnalyzer extends PoiAnalyzer {
 class PoiWheelchairAnalyzer(context: PoiAnalysisContext) {
 
   def analyze: PoiAnalysisContext = {
-    val wheelchair = context.poi.tags("wheelchair")
+    val wheelchair = context.poi.tagValue("wheelchair")
     context.copy(
       analysis = context.analysis.copy(wheelchair = wheelchair),
       processedTagKeys = context.processedTagKeys :+ "wheelchair"
     )
   }
-
 }

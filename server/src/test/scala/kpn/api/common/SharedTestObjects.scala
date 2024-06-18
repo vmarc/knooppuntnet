@@ -65,6 +65,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
@@ -111,7 +112,7 @@ trait SharedTestObjects extends MockFactory {
     version: Long = 0,
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 0,
-    tags: Tags = Tags.empty
+    tags: Seq[Tag] = Seq.empty
   ): RawNode = {
     RawNode(
       id,
@@ -124,7 +125,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newNodeWithName(nodeId: Long, name: String, extraTags: Tags = Tags.empty): Node = {
+  def newNodeWithName(nodeId: Long, name: String, extraTags: Seq[Tag] = Seq.empty): Node = {
     newNode(nodeId, tags = newNodeTags(name) ++ extraTags)
   }
 
@@ -138,7 +139,7 @@ trait SharedTestObjects extends MockFactory {
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 0,
     nodeIds: Vector[Long] = Vector.empty,
-    tags: Tags = Tags.empty
+    tags: Seq[Tag] = Seq.empty
   ): RawWay = {
     RawWay(
       id,
@@ -156,7 +157,7 @@ trait SharedTestObjects extends MockFactory {
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 1,
     members: Seq[Member] = Seq.empty,
-    tags: Tags = Tags.empty
+    tags: Seq[Tag] = Seq.empty
   ): Relation = {
     Relation(
       id,
@@ -174,7 +175,7 @@ trait SharedTestObjects extends MockFactory {
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 1,
     members: Seq[RawMember] = Seq.empty,
-    tags: Tags = Tags.empty
+    tags: Seq[Tag] = Seq.empty
   ): RawRelation = {
     RawRelation(
       id,
@@ -190,7 +191,7 @@ trait SharedTestObjects extends MockFactory {
     RawMember(memberType, ref, if (role.nonEmpty) Some(role) else None)
   }
 
-  def newNetworkTags(name: String = "name"): Tags = {
+  def newNetworkTags(name: String = "name"): Seq[Tag] = {
     Tags.from(
       "network:type" -> "node_network",
       "type" -> "network",
@@ -199,7 +200,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newRouteTags(name: String = ""): Tags = {
+  def newRouteTags(name: String = ""): Seq[Tag] = {
     Tags.from(
       "network" -> "rwn",
       "type" -> "route",
@@ -209,7 +210,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newNodeTags(name: String = ""): Tags = {
+  def newNodeTags(name: String = ""): Seq[Tag] = {
     Tags.from(
       "rwn_ref" -> name,
       "network:type" -> "node_network"
@@ -324,7 +325,7 @@ trait SharedTestObjects extends MockFactory {
     version: Int = 0,
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 0,
-    tags: Tags = Tags.empty
+    tags: Seq[Tag] = Seq.empty
   ): Node = {
     Node(
       id,
@@ -343,7 +344,7 @@ trait SharedTestObjects extends MockFactory {
     timestamp: Timestamp = defaultTimestamp,
     changeSetId: Long = 0,
     nodes: Vector[Node] = Vector.empty,
-    tags: Tags = Tags.empty,
+    tags: Seq[Tag] = Seq.empty,
     length: Int = 0
   ): Way = {
     Way(id, version, timestamp, changeSetId, tags, nodes, length)
@@ -361,7 +362,7 @@ trait SharedTestObjects extends MockFactory {
     longitude: String = "0",
     lastUpdated: Timestamp = defaultTimestamp,
     lastSurvey: Option[Day] = None,
-    tags: Tags = Tags.empty,
+    tags: Seq[Tag] = Seq.empty,
     facts: Seq[Fact] = Seq.empty,
     locations: Seq[String] = Seq.empty,
     tiles: Seq[String] = Seq.empty,
@@ -427,7 +428,7 @@ trait SharedTestObjects extends MockFactory {
       wayCount,
       relationLastUpdated,
       nodeNames = Seq.empty,
-      tags = Tags.empty
+      tags = Seq.empty
     )
 
     RouteDoc(
@@ -439,7 +440,7 @@ trait SharedTestObjects extends MockFactory {
       changeSetId = 0,
       lastUpdated,
       lastSurvey,
-      Tags.empty,
+      Seq.empty,
       facts,
       analysis,
       tiles,
@@ -540,7 +541,7 @@ trait SharedTestObjects extends MockFactory {
     routeReferences: Seq[Ref] = Seq.empty,
     integrityCheck: Option[NodeIntegrityCheck] = None,
     facts: Seq[Fact] = Seq.empty,
-    tags: Tags = Tags.empty
+    tags: Seq[Tag] = Seq.empty
   ): NetworkInfoNode = {
     NetworkInfoNode(
       id,
@@ -634,7 +635,7 @@ trait SharedTestObjects extends MockFactory {
     wayCount: Int = 0,
     timestamp: Timestamp = defaultTimestamp,
     nodeNames: Seq[String] = Seq.empty,
-    tags: Tags = Tags.empty
+    tags: Seq[Tag] = Seq.empty
   ): RouteSummary = {
     RouteSummary(
       id,
@@ -747,7 +748,7 @@ trait SharedTestObjects extends MockFactory {
     removedFromNetwork: Seq[Ref] = Seq.empty,
     factDiffs: Option[FactDiffs] = None,
     facts: Seq[Fact] = Seq.empty,
-    initialTags: Option[Tags] = None,
+    initialTags: Option[Seq[Tag]] = None,
     initialLatLon: Option[LatLonImpl] = None,
     tiles: Seq[String] = Seq.empty,
     happy: Boolean = false,
@@ -950,7 +951,7 @@ trait SharedTestObjects extends MockFactory {
     routeRefs: Seq[Long] = Seq.empty,
     networkRefs: Seq[Long] = Seq.empty,
     facts: Seq[Fact] = Seq.empty,
-    tags: Tags = Tags.empty,
+    tags: Seq[Tag] = Seq.empty,
     detail: Option[NetworkInfoDetail] = None
   ): NetworkInfo = {
     NetworkInfo(
@@ -974,7 +975,7 @@ trait SharedTestObjects extends MockFactory {
     changeSetId: Long = 1,
     lastUpdated: Timestamp = defaultTimestamp,
     lastSurvey: Option[Day] = None,
-    tags: Tags = Tags.empty,
+    tags: Seq[Tag] = Seq.empty,
     facts: Seq[Fact] = Seq.empty,
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     tiles: Seq[String] = Seq.empty,
@@ -1019,7 +1020,7 @@ trait SharedTestObjects extends MockFactory {
     latitude: String = "",
     longitude: String = "",
     layers: Seq[String] = Seq.empty,
-    tags: Tags = Tags.empty,
+    tags: Seq[Tag] = Seq.empty,
     location: Location = Location.empty,
     tiles: Seq[String] = Seq.empty
   ): Poi = {
@@ -1269,7 +1270,7 @@ trait SharedTestObjects extends MockFactory {
     nodeMembers: Seq[NetworkNodeMember] = Seq.empty,
     wayMembers: Seq[NetworkWayMember] = Seq.empty,
     relationMembers: Seq[NetworkRelationMember] = Seq.empty,
-    tags: Tags = Tags.empty
+    tags: Seq[Tag] = Seq.empty
   ): NetworkDoc = {
     NetworkDoc(
       _id,
@@ -1376,7 +1377,7 @@ trait SharedTestObjects extends MockFactory {
     lastSurvey: Option[Day] = None,
     proposed: Boolean = false,
     facts: Seq[Fact] = Seq.empty,
-    tags: Tags = Tags.empty,
+    tags: Seq[Tag] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty
   ): NetworkInfoRouteDetail = {
     NetworkInfoRouteDetail(
@@ -1404,7 +1405,7 @@ trait SharedTestObjects extends MockFactory {
     lastUpdated: Timestamp = defaultTimestamp,
     relationLastUpdated: Timestamp = defaultTimestamp,
     lastSurvey: Option[Day] = None,
-    tags: Tags = Tags.empty,
+    tags: Seq[Tag] = Seq.empty,
     brokenRouteCount: Long = 0,
     brokenRoutePercentage: String = "-",
     integrity: Integrity = Integrity(),

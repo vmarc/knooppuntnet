@@ -4,6 +4,7 @@ import kpn.api.common.NodeName
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
@@ -62,7 +63,6 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
   }
-
 
   test("node name not normalized") {
     val nodeAnalysis = analyze(Tags.from("rwn_ref" -> "1")) // node leading zero in tag
@@ -229,7 +229,7 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("name - empty string when no name") {
-    val nodeAnalysis = analyze(Tags.empty)
+    val nodeAnalysis = analyze(Seq.empty)
     nodeAnalysis.name should equal("")
     nodeAnalysis.nodeNames should equal(Seq.empty)
   }
@@ -274,7 +274,6 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-
   test("names - name:rwn_ref") {
     val nodeAnalysis = analyze(
       Tags.from(
@@ -297,10 +296,10 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("analysis is aborted when the node name cannot be determined") {
-    analyze(Tags.empty).abort should equal(true)
+    analyze(Seq.empty).abort should equal(true)
   }
 
-  private def analyze(tags: Tags): NodeAnalysis = {
+  private def analyze(tags: Seq[Tag]): NodeAnalysis = {
     val nodeAnalysis = NodeAnalysis(newRawNode(tags = tags))
     NodeNameAnalyzer.analyze(nodeAnalysis)
   }

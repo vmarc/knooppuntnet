@@ -6,6 +6,7 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
@@ -15,7 +16,7 @@ import scala.collection.mutable.ListBuffer
 class RouteTestData(
   val routeName: String,
   val scopedNetworkType: ScopedNetworkType = ScopedNetworkType.rwn,
-  val routeTags: Tags = Tags.empty
+  val routeTags: Seq[Tag] = Seq.empty
 ) extends SharedTestObjects {
 
   private val nodeBuffer = ListBuffer[RawNode]()
@@ -25,7 +26,7 @@ class RouteTestData(
   def routeRelationId = 1L
 
   def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
-    val tags = if (name == "") Tags.empty else Tags.from(scopedNetworkType.nodeRefTagKey -> name, "network:type" -> "node_network")
+    val tags = if (name == "") Seq.empty else Tags.from(scopedNetworkType.nodeRefTagKey -> name, "network:type" -> "node_network")
     rawNode(newRawNode(id, lattitude.toString, longitude.toString, tags = tags))
   }
 
@@ -36,10 +37,10 @@ class RouteTestData(
 
   def way(wayId: Long, nodeIds: Long*): RawWay = {
     addNodesIfMissing(nodeIds)
-    way(wayId, Tags.empty, nodeIds: _*)
+    way(wayId, Seq.empty, nodeIds: _*)
   }
 
-  def way(wayId: Long, tags: Tags, nodeIds: Long*): RawWay = {
+  def way(wayId: Long, tags: Seq[Tag], nodeIds: Long*): RawWay = {
     addNodesIfMissing(nodeIds)
     val w = newRawWay(wayId, nodeIds = nodeIds.toVector, tags = tags)
     wayBuffer += w
@@ -53,7 +54,7 @@ class RouteTestData(
     memberWay(wayId, Tags.from("highway" -> "road"), role, nodeIds: _*)
   }
 
-  def memberWay(wayId: Long, tags: Tags, role: String, nodeIds: Long*): RawMember = {
+  def memberWay(wayId: Long, tags: Seq[Tag], role: String, nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
     way(wayId, tags, nodeIds: _*)
     member("way", wayId, role)
@@ -82,7 +83,7 @@ class RouteTestData(
       Tags.from("ref" -> routeName)
     }
     else {
-      Tags.empty
+      Seq.empty
     }
 
     val standardRouteTags = Tags.from(
@@ -91,7 +92,7 @@ class RouteTestData(
       "route" -> "foot",
       "network:type" -> "node_network"
     )
-    val allRouteTags = Tags(routeNameTags.tags ++ routeTags.tags ++ standardRouteTags.tags)
+    val allRouteTags = routeNameTags ++ routeTags ++ standardRouteTags
     val relation = newRawRelation(routeRelationId, members = memberBuffer.toSeq, tags = allRouteTags)
     val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))
     new DataBuilder(rawData).data

@@ -11,7 +11,7 @@ object NodeNetworkTagAnalyzer extends NodeAspectAnalyzer {
 class NodeNetworkTagAnalyzer(analysis: NodeAnalysis) {
 
   def analyze: NodeAnalysis = {
-    if (!analysis.node.tags.has("network:type", "node_network")) {
+    if (!analysis.node.hasTag("network:type", "node_network")) {
       analysis.copy(abort = true)
     }
     else {

@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
@@ -11,7 +12,7 @@ import kpn.server.analyzer.engine.context.AnalysisContext
 class RouteLastSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no survey:date") {
-    analyze(Tags.empty)
+    analyze(Seq.empty)
   }
 
   test("survey date") {
@@ -35,7 +36,7 @@ class RouteLastSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def testSurveyDate(surveyDate: Option[String]): Option[Day] = {
     val routeTags = surveyDate match {
-      case None => Tags.empty
+      case None => Seq.empty
       case Some(date) => Tags.from("survey:date" -> date)
     }
     analyze(routeTags)
@@ -44,12 +45,12 @@ class RouteLastSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
   private def testSourceDate(surveyDate: Option[String]): Option[Day] = {
     val routeTags = surveyDate match {
       case Some(date) => Tags.from("source" -> "survey", "source:date" -> date)
-      case None => Tags.empty
+      case None => Seq.empty
     }
     analyze(routeTags)
   }
 
-  private def analyze(routeTags: Tags): Option[Day] = {
+  private def analyze(routeTags: Seq[Tag]): Option[Day] = {
 
     val relation = new RouteTestData("01-02", routeTags = routeTags).data.relations(1L)
     val analysisContext = new AnalysisContext()

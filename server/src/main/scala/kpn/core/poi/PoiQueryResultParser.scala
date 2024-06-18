@@ -3,7 +3,6 @@ package kpn.core.poi
 import kpn.api.common.location.Location
 import kpn.api.common.poi.Poi
 import kpn.api.custom.Tag
-import kpn.api.custom.Tags
 
 class PoiQueryResultParser {
 
@@ -83,16 +82,13 @@ class PoiQueryResultParser {
     )
   }
 
-  private def tags(node: scala.xml.Node): Tags = {
-    Tags(
-      (node \ "tag").map { tag =>
-        val key = (tag \ "@k").text
-        val value = (tag \ "@v").text
-        Tag(key, value)
-      }
-    )
+  private def tags(node: scala.xml.Node): Seq[Tag] = {
+    (node \ "tag").map { tag =>
+      val key = (tag \ "@k").text
+      val value = (tag \ "@v").text
+      Tag(key, value)
+    }
   }
 
   private def id(node: scala.xml.Node): Long = (node \ "@id").text.toLong
-
 }

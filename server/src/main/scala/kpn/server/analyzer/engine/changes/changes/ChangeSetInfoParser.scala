@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.changes.changes
 
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.custom.Tag
-import kpn.api.custom.Tags
 import kpn.core.common.TimestampUtil
 
 class ChangeSetInfoParser {
@@ -15,13 +14,11 @@ class ChangeSetInfoParser {
     val closedAt = if (closedAtAttribute.isEmpty) None else Some(TimestampUtil.parseIso(closedAtAttribute.text))
     val open = (changeSet \ "@open").text == "true"
     val commentsCount = (changeSet \ "@comments_count").text
-    val tags = Tags(
-      (changeSet \ "tag").map { tag =>
-        val key = (tag \ "@k").text
-        val value = (tag \ "@v").text
-        Tag(key, value)
-      }
-    )
+    val tags = (changeSet \ "tag").map { tag =>
+      val key = (tag \ "@k").text
+      val value = (tag \ "@v").text
+      Tag(key, value)
+    }
     ChangeSetInfo(
       id.toLong,
       id.toLong,

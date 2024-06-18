@@ -6,76 +6,76 @@ object PoiGroupHikingBiking {
 
     poi("ebike-charging", "e-bike-charging.png", 11, 11,
       Seq("amenity" -> "charging_station"),
-      tags => tags.has("amenity", "charging_station")
-        && tags.has("bicycle", "yes")
+      tagable => tagable.hasTag("amenity", "charging_station")
+        && tagable.hasTag("bicycle", "yes")
     )
 
     poi("bicycle", "bicycle_shop.png", 13, 13,
       Seq("shop" -> "bicycle"),
-      tags => tags.has("shop", "bicyle")
+      tagable => tagable.hasTag("shop", "bicyle")
     )
 
     poi("bicycle-rental", "cycling.png", 11, 11,
       Seq("amenity" -> "bicycle_rental"),
-      tags => tags.has("amenity", "bicycle_rental")
+      tagable => tagable.hasTag("amenity", "bicycle_rental")
     )
 
     poi("bicycle-rental-2", "bicycle_parking.png", 15, 15,
       Seq("amenity" -> "bicycle_rental"),
-      tags => tags.has("amenity", "bicycle_rental")
-      && tags.has("network", "Velo", "Villo!")
+      tagable => tagable.hasTag("amenity", "bicycle_rental")
+        && tagable.hasTag("network", "Velo", "Villo!")
     )
 
     poi("bicycle-parking", "parking_bicycle-2.png", 13, 14,
       Seq("amenity" -> "bicycle_parking"),
-      tags => tags.has("amenity", "bicycle_parking")
+      tagable => tagable.hasTag("amenity", "bicycle_parking")
     )
 
     poi("picnic", "picnic-2.png", 13, 14,
       Seq("tourism" -> "picnic_site", "leisure" -> "picnic_table"),
-      tags => tags.has("tourism", "picnic_site")
-        || tags.has("leisure", "picnic_table")
+      tagable => tagable.hasTag("tourism", "picnic_site")
+        || tagable.hasTag("leisure", "picnic_table")
     )
 
     poi("bench", "bench.png", 13, 14,
       Seq("amenity" -> "bench"),
-      tags => tags.has("amenity", "bench")
+      tagable => tagable.hasTag("amenity", "bench")
     )
 
     poi("toilets", "toilets.png", 13, 14,
       Seq("amenity" -> "toilets"),
-      tags => tags.has("amenity", "toilets")
+      tagable => tagable.hasTag("amenity", "toilets")
     )
 
     poi("drinking-water", "drinkingwater.png", 13, 14,
       Seq("amenity" -> "drinking_water"),
-      tags => tags.has("amenity", "drinking_water")
+      tagable => tagable.hasTag("amenity", "drinking_water")
     )
 
     poi("information", "information.png", 13, 13,
       Seq("tourism" -> "information"),
-      tags => tags.has("tourism", "information")
+      tagable => tagable.hasTag("tourism", "information")
     )
 
     poi("themepark", "themepark.png", 11, 11,
       Seq("tourism" -> "theme_park"),
-      tags => tags.has("tourism", "theme_park")
+      tagable => tagable.hasTag("tourism", "theme_park")
     )
 
     poi("viewpoint", "viewpoint.png", 11, 11,
       Seq("tourism" -> "viewpoint"),
-      tags => tags.has("tourism", "viewpoint")
+      tagable => tagable.hasTag("tourism", "viewpoint")
     )
 
     poi("attraction", "star.png", 11, 11,
       Seq("tourism" -> "attraction"),
-      tags => tags.has("tourism", "attraction")
-        && !tags.has("building", "windmill")
+      tagable => tagable.hasTag("tourism", "attraction")
+        && !tagable.hasTag("building", "windmill")
     )
 
     poi("defibrillator", "aed-2.png", 13, 14,
       Seq("emergency" -> "defibrillator"),
-      tags => tags.has("emergency", "defibrillator")
+      tagable => tagable.hasTag("emergency", "defibrillator")
     )
   }
 }

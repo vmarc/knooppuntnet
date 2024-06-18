@@ -1,6 +1,6 @@
 package kpn.core.tools.location
 
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.core.doc.LocationName
 import kpn.core.doc.LocationPath
 
@@ -11,7 +11,7 @@ object LocationData {
     relationId: Long,
     name: String,
     names: Seq[LocationName],
-    tags: Tags,
+    tags: Seq[Tag],
     geometry: LocationGeometry
   ): LocationData = {
     val paths: Seq[LocationPath] = Seq.empty
@@ -32,7 +32,7 @@ object LocationData {
     paths: Seq[String],
     name: String,
     names: Seq[LocationName],
-    tags: Tags,
+    tags: Seq[Tag],
     geometry: LocationGeometry
   ): LocationData = {
     LocationData(
@@ -53,7 +53,7 @@ case class LocationData(
   paths: Seq[LocationPath],
   name: String,
   names: Seq[LocationName],
-  tags: Tags,
+  tags: Seq[Tag],
   geometry: LocationGeometry
 ) {
 

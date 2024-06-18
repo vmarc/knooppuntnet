@@ -52,7 +52,7 @@ object RouteDetailsPageExample {
           nodeCount = "",
           description = "",
           oneWay = Both,
-          oneWayTags = Tags.empty
+          oneWayTags = Seq.empty
         ),
         RouteMemberInfo(
           id = 1L,

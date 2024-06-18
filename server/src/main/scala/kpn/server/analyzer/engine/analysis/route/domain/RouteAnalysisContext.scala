@@ -103,6 +103,5 @@ case class RouteAnalysisContext(
     expectedFacts.exists(f => facts.contains(f))
   }
 
-  def connection: Boolean = relation.tags.has("state", "connection")
-
+  def connection: Boolean = relation.hasTag("state", "connection")
 }

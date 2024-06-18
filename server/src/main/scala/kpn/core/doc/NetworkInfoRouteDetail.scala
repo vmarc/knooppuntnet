@@ -1,9 +1,10 @@
 package kpn.core.doc
 
 import kpn.api.common.common.Ref
+import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class NetworkInfoRouteDetail(
@@ -18,9 +19,9 @@ case class NetworkInfoRouteDetail(
   lastSurvey: Option[Day],
   proposed: Boolean,
   facts: Seq[Fact],
-  tags: Tags,
+  tags: Seq[Tag],
   nodeRefs: Seq[Long]
-) {
+) extends Tagable {
 
   def toRef: Ref = {
     Ref(id, name)

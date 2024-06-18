@@ -25,7 +25,7 @@ class TileDataRouteBuilder(zoomLevel: Int) {
   }
 
   private def surveyDate(route: RouteTileInfo): Option[Day] = {
-    SurveyDateAnalyzer.analyze(route.tags) match {
+    SurveyDateAnalyzer.analyze(route) match {
       case Success(surveyDate) => surveyDate
       case Failure(_) => None
     }
@@ -45,6 +45,6 @@ class TileDataRouteBuilder(zoomLevel: Int) {
 
   private def state(route: RouteTileInfo): Option[String] = {
     val supportedStates = Seq("proposed")
-    route.tags("state").filter(supportedStates.contains)
+    route.tagValue("state").filter(supportedStates.contains)
   }
 }

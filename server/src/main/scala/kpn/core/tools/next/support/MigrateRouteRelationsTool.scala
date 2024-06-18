@@ -104,11 +104,11 @@ class MigrateRouteRelationsTool(database: NextDatabase) {
     }
 
     Relation(
-      oldRelation.raw.id: Long,
-      oldRelation.raw.version: Long,
-      oldRelation.raw.timestamp: Timestamp,
-      oldRelation.raw.changeSetId: Long,
-      oldRelation.raw.tags: Tags,
+      oldRelation.raw.id,
+      oldRelation.raw.version,
+      oldRelation.raw.timestamp,
+      oldRelation.raw.changeSetId,
+      oldRelation.raw.tags,
       newMembers
     )
   }

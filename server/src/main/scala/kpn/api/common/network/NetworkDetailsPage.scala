@@ -1,12 +1,12 @@
 package kpn.api.common.network
 
 import kpn.api.common.NetworkFacts
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 
 case class NetworkDetailsPage(
   summary: NetworkSummary,
   active: Boolean,
   attributes: NetworkAttributes,
-  tags: Tags = Tags.empty,
+  tags: Seq[Tag] = Seq.empty,
   facts: NetworkFacts = NetworkFacts()
 )

@@ -16,7 +16,7 @@ object NodeSurveyAnalyzer extends NodeAspectAnalyzer {
 class NodeSurveyAnalyzer(analysis: NodeAnalysis) {
 
   def analyze: NodeAnalysis = {
-    val surveyDateTry = SurveyDateAnalyzer.analyze(analysis.node.tags)
+    val surveyDateTry = SurveyDateAnalyzer.analyze(analysis.node)
     val surveyDate = surveyDateTry match {
       case Success(v) => v
       case Failure(_) => None

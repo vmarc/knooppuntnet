@@ -1,8 +1,9 @@
 package kpn.core.doc
 
 import kpn.api.base.WithId
+import kpn.api.common.data.Tagable
 import kpn.api.common.data.raw.RawRelation
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 object NetworkDoc {
@@ -40,5 +41,5 @@ case class NetworkDoc(
   nodeMembers: Seq[NetworkNodeMember],
   wayMembers: Seq[NetworkWayMember],
   relationMembers: Seq[NetworkRelationMember],
-  tags: Tags
-) extends WithId
+  tags: Seq[Tag]
+) extends WithId with Tagable

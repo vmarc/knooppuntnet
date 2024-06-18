@@ -11,7 +11,7 @@ import kpn.api.common.data.RelationMember
 import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 import scala.jdk.CollectionConverters.IteratorHasAsScala
@@ -47,7 +47,7 @@ class RelationJsonDeserializer extends JsonDeserializer[Relation] {
       node.get("version").asLong(),
       Json.objectMapper.treeToValue(node.get("timestamp"), classOf[Timestamp]),
       node.get("changeSetId").asLong(),
-      Json.objectMapper.treeToValue(node.get("tags"), classOf[Tags]),
+      Json.objectMapper.treeToValue(node.get("tags"), classOf[Seq[Tag]]),
       members
     )
   }

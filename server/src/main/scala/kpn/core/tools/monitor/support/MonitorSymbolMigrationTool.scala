@@ -28,7 +28,7 @@ class MonitorSymbolMigrationTool(database: Database) {
       database.monitorRoutes.findByObjectId(routeId).foreach { monitorRoute =>
         monitorRoute.relationId.foreach { relationId =>
           monitorRouteRelationRepository.loadTopLevel(None, relationId).foreach { relation =>
-            RouteSymbol.from(relation.tags) match {
+            RouteSymbol.from(relation) match {
               case None =>
                 if (monitorRoute.symbol.isDefined) {
                   val updatedMonitorRoute = monitorRoute.copy(symbol = None)

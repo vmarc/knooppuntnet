@@ -50,13 +50,13 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def routeNameFromRefTag(): Option[RouteNameAnalysis] = {
-    context.relation.tags("ref").flatMap { ref =>
+    context.relation.tagValue("ref").flatMap { ref =>
       routeNameFromTagValue(pureValue(ref))
     }
   }
 
   private def routeNameFromNameTag(): Option[RouteNameAnalysis] = {
-    context.relation.tags("name").flatMap { name =>
+    context.relation.tagValue("name").flatMap { name =>
       routeNameFromTagValue(pureValue(name)).map { routeNameAnalysis =>
         if (routeNameAnalysis.hasStandardNodeNames) {
           routeNameAnalysis
@@ -79,7 +79,7 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def routeNameFromNoteTag(): Option[RouteNameAnalysis] = {
-    context.relation.tags("note").flatMap { note =>
+    context.relation.tagValue("note").flatMap { note =>
       val value = pureValue(note)
       if (NoteTagAnalyzer.isDeprecatedNoteTag(value)) {
         routeNameFromTagValue(value).map(_.copy(derivedFromDeprecatedNoteTag = true))
@@ -149,9 +149,9 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def routeNameFromToAndFromTags(): Option[RouteNameAnalysis] = {
-    context.relation.tags("from") match {
+    context.relation.tagValue("from") match {
       case None =>
-        context.relation.tags("to").flatMap { toNodeName =>
+        context.relation.tagValue("to").flatMap { toNodeName =>
           val to = NodeUtil.normalize(toNodeName)
           Some(
             RouteNameAnalysis(
@@ -163,7 +163,7 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
         }
 
       case Some(fromNodeName) =>
-        context.relation.tags("to") match {
+        context.relation.tagValue("to") match {
           case None =>
             val from = NodeUtil.normalize(fromNodeName)
             Some(
@@ -238,7 +238,6 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
     else {
       s"$startNodeName-$endNodeName"
     }
-
   }
 
   private def useDashSpaces(routeName: String, startNodeName: String, endNodeName: String): Boolean = {

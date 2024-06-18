@@ -4,6 +4,7 @@ import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
 import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
@@ -82,7 +83,7 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no integrity check when no integrity check tag on node") {
 
-    val node = newNetworkNodeWithTags(Tags.empty)
+    val node = newNetworkNodeWithTags(Seq.empty)
 
     val networkAnalysis = NetworkAnalysis(
       networkNodesInRelation = Set(node),
@@ -128,7 +129,7 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
     analysis(networkAnalysis, node) should equal(Some(NodeIntegrityCheck("01", 1001, 3, 0, failed = true)))
   }
 
-  private def networkMemberRoute(networkNode: NetworkNode, routeId: Long, role: Option[String] = None, routeTags: Tags = Tags.empty): NetworkMemberRoute = {
+  private def networkMemberRoute(networkNode: NetworkNode, routeId: Long, role: Option[String] = None, routeTags: Seq[Tag] = Seq.empty): NetworkMemberRoute = {
 
     NetworkMemberRoute(
       routeAnalysis = RouteAnalysis(
@@ -158,7 +159,7 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
     newNetworkNodeWithTags(Tags.from("expected_rwn_route_relations" -> "3"))
   }
 
-  private def newNetworkNodeWithTags(tags: Tags): NetworkNode = {
+  private def newNetworkNodeWithTags(tags: Seq[Tag]): NetworkNode = {
     val node = newNode(1001, tags = tags)
     NetworkNode(
       node = node,

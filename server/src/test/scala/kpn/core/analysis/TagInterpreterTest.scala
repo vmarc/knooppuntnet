@@ -4,6 +4,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -12,7 +13,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
 
   test("isReferencedNetworkNode rwn") {
 
-    def isReferencedNetworkNode(tags: Tags): Boolean = {
+    def isReferencedNetworkNode(tags: Seq[Tag]): Boolean = {
       val node = newNode(tags = tags)
       TagInterpreter.isReferencedNetworkNode(ScopedNetworkType.rwn, node)
     }
@@ -33,7 +34,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
 
   test("isReferencedNetworkNode lwn") {
 
-    def isReferencedNetworkNode(tags: Tags): Boolean = {
+    def isReferencedNetworkNode(tags: Seq[Tag]): Boolean = {
       val node = newNode(tags = tags)
       TagInterpreter.isReferencedNetworkNode(ScopedNetworkType(NetworkScope.local, NetworkType.hiking), node)
     }
@@ -55,7 +56,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
 
   test("isValidNetworkNode") {
 
-    def isValidNetworkNode(tags: Tags): Boolean = {
+    def isValidNetworkNode(tags: Seq[Tag]): Boolean = {
       val node = newNode(tags = tags)
       TagInterpreter.isValidNetworkNode(NetworkType.hiking, node)
     }
@@ -78,7 +79,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
 
   test("unexpectedNode") {
 
-    def isUnexpectedNode(tags: Tags): Boolean = {
+    def isUnexpectedNode(tags: Seq[Tag]): Boolean = {
       val context = new AnalysisContext()
       val node = newNode(1L, tags = tags)
       TagInterpreter.isUnexpectedNode(ScopedNetworkType.rwn, node)
@@ -93,20 +94,22 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
     assert(!isUnexpectedNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
 
     // unexpected
-    assert(isUnexpectedNode(Tags.empty))
+    assert(isUnexpectedNode(Seq.empty))
   }
 
   test("expected") {
-    val tags = Tags.from(
-      "expected_rwn_route_relations" -> "3",
-      "expected_rcn_route_relations" -> "4",
-      "expected_lwn_route_relations" -> "5",
-      "expected_lpn_route_relations" -> "bla",
+    val node = newNode(
+      tags = Tags.from(
+        "expected_rwn_route_relations" -> "3",
+        "expected_rcn_route_relations" -> "4",
+        "expected_lwn_route_relations" -> "5",
+        "expected_lpn_route_relations" -> "bla",
+      )
     )
-    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.rwn, tags) should equal(Some(3))
-    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.rcn, tags) should equal(Some(4))
-    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lwn, tags) should equal(Some(5))
-    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lcn, tags) should equal(None)
-    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lpn, tags) should equal(Some(0))
+    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.rwn, node) should equal(Some(3))
+    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.rcn, node) should equal(Some(4))
+    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lwn, node) should equal(Some(5))
+    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lcn, node) should equal(None)
+    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lpn, node) should equal(Some(0))
   }
 }

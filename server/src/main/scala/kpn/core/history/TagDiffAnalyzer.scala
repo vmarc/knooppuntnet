@@ -49,16 +49,16 @@ class TagDiffAnalyzer(before: Tagable, after: Tagable, mainTagKeys: Seq[String] 
 
   def diffs: Option[TagDiffs] = {
 
-    val beforeKeys = before.tags.keys.toSet
-    val afterKeys = after.tags.keys.toSet
+    val beforeKeys = before.tags.map(_.key).toSet
+    val afterKeys = after.tags.map(_.key).toSet
 
     val allKeys = (beforeKeys ++ afterKeys).toSeq.sorted
     val removedKeys = beforeKeys -- afterKeys
     val addedKeys = afterKeys -- beforeKeys
 
     val tagDetails = allKeys.map { key =>
-      val beforeValue = before.tags(key)
-      val afterValue = after.tags(key)
+      val beforeValue = before.tagValue(key)
+      val afterValue = after.tagValue(key)
 
       val action = if (removedKeys.contains(key)) {
         TagDetailType.Delete

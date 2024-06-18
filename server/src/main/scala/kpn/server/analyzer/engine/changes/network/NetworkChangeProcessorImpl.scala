@@ -70,7 +70,7 @@ class NetworkChangeProcessorImpl(
           relationAfterOption match {
             case None => Some(processDelete(context, before))
             case Some(after) =>
-              if (TagInterpreter.isNetworkRelation(after.tags)) {
+              if (TagInterpreter.isNetworkRelation(after)) {
                 Some(processUpdate(context, before, after))
               }
               else {
@@ -87,7 +87,7 @@ class NetworkChangeProcessorImpl(
     database.networks.save(NetworkDoc.from(after))
 
     val key = context.buildChangeKey(after.id)
-    val networkNameAfter = NetworkNameAnalyzer.name(after.tags)
+    val networkNameAfter = NetworkNameAnalyzer.name(after)
     val networkDataUpdate = NetworkDataUpdate(
       None,
       Some(
@@ -129,7 +129,7 @@ class NetworkChangeProcessorImpl(
     )
 
     val key = context.buildChangeKey(before.id)
-    val networkNameBefore = NetworkNameAnalyzer.name(before.tags)
+    val networkNameBefore = NetworkNameAnalyzer.name(before)
     val networkDataUpdate = NetworkDataUpdate(
       Some(
         NetworkData(
@@ -164,8 +164,8 @@ class NetworkChangeProcessorImpl(
 
     val relationDiffAnalyzer = new NetworkRelationDiffAnalyzer(before, after)
 
-    val networkNameBefore = NetworkNameAnalyzer.name(before.tags)
-    val networkNameAfter = NetworkNameAnalyzer.name(after.tags)
+    val networkNameBefore = NetworkNameAnalyzer.name(before)
+    val networkNameAfter = NetworkNameAnalyzer.name(after)
     val metaBefore = before.toMeta
     val metaAfter = before.toMeta
 

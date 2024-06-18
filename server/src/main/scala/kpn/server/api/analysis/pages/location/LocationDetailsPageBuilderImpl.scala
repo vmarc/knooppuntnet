@@ -56,7 +56,7 @@ class LocationDetailsPageBuilderImpl(
         relationId,
         distance,
         locationInfos,
-        locationDefinition.map(_.tags).getOrElse(Tags.empty)
+        locationDefinition.map(_.tags).getOrElse(Seq.empty)
       )
     )
   }

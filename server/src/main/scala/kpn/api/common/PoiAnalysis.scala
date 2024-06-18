@@ -1,11 +1,11 @@
 package kpn.api.common
 
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 
 case class PoiAnalysis(
   layers: Seq[String] = Seq.empty,
-  mainTags: Tags = Tags.empty,
-  extraTags: Tags = Tags.empty,
+  mainTags: Seq[Tag] = Seq.empty,
+  extraTags: Seq[Tag] = Seq.empty,
   name: Option[String] = None,
   subject: Option[String] = None,
   description: Option[String] = None,

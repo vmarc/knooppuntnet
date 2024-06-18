@@ -13,7 +13,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class NodeDoc(
@@ -29,7 +29,7 @@ case class NodeDoc(
   position: Option[GeoPoint],
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
-  tags: Tags,
+  tags: Seq[Tag],
   facts: Seq[Fact],
   locations: Seq[String],
   tiles: Seq[String],

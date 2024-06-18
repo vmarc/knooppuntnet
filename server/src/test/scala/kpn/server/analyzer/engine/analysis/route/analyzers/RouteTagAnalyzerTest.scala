@@ -15,6 +15,7 @@ import kpn.api.custom.NetworkType.horseRiding
 import kpn.api.custom.NetworkType.inlineSkating
 import kpn.api.custom.NetworkType.motorboat
 import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
@@ -72,7 +73,7 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
     context.facts shouldBe empty
   }
 
-  private def analyze(tags: Tags): RouteAnalysisContext = {
+  private def analyze(tags: Seq[Tag]): RouteAnalysisContext = {
     val relation = newRelation(1L, tags = tags)
     val context = RouteAnalysisContext(
       new AnalysisContext(),

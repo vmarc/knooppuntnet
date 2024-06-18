@@ -65,7 +65,7 @@ class RouteChangeAnalyzer(
 
   private def findRouteRelationIds(relationsById: Map[Long, RawRelation]): Set[Long] = {
     relationsById.values.
-      filter(r => TagInterpreter.isRouteRelation(r.tags)).
+      filter(TagInterpreter.isRouteRelation).
       filterNot(r => isBlackListed(r.id)).
       map(_.id).
       toSet

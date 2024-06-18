@@ -131,7 +131,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
               "2",
               "",
               Both,
-              Tags.empty
+              Seq.empty
             )
           ),
           expectedName = "01-02",

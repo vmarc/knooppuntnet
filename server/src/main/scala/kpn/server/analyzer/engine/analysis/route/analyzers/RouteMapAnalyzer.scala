@@ -89,7 +89,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
   private def toTrackSegment(segment: Segment): TrackSegment = {
 
     val fragments: Seq[TrackSegmentFragment] = segment.fragments.flatMap { fragment =>
-      val streetIndex: Option[Long] = fragment.fragment.way.tags("name") match {
+      val streetIndex: Option[Long] = fragment.fragment.way.tagValue("name") match {
         case None => None
         case Some(street) =>
           context.streets match {
@@ -122,5 +122,4 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
   private def toTrackPoint(node: Node): TrackPoint = {
     TrackPoint(node.latitude, node.longitude)
   }
-
 }

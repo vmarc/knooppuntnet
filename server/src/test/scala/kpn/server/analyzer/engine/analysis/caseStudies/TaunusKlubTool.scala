@@ -190,7 +190,7 @@ class TaunusKlubTool(configuration: MonitorUpdaterConfiguration) {
     val xml = XML.load(inputSource)
     val rawData = new Parser(full = false).parse(xml)
     val infos: Seq[Seq[String]] = rawData.relations.map { relation =>
-      Seq(relation.tags("name").get, relation.id.toString, relation.tags("ref").toString)
+      Seq(relation.tagValue("name").get, relation.id.toString, relation.tagValue("ref").toString)
     }
     infos.sortBy(_.head).foreach { info =>
       println(s"""TaunusKlubRoute(${info(1)}, "${info(2)}", "${info.head}"),""")

@@ -1,8 +1,8 @@
 package kpn.core.tools.support
 
+import kpn.api.common.data.Tagable
 import kpn.api.custom.Country
 import kpn.api.custom.ScopedNetworkType
-import kpn.api.custom.Tags
 import kpn.core.doc.NodeDoc
 import kpn.database.base.Database
 import kpn.database.util.Mongo
@@ -34,8 +34,8 @@ class FindSuspiciousExpectedRouteRelationsTags(database: Database) {
   }
 
   private def isSuspicious(node: NodeDoc): Boolean = {
-    val a = networkTypesInNodeNames(node.tags)
-    val b = networkTypesInExpectedTags(node.tags)
+    val a = networkTypesInNodeNames(node)
+    val b = networkTypesInExpectedTags(node)
     (b -- a).nonEmpty
   }
 
@@ -54,24 +54,24 @@ class FindSuspiciousExpectedRouteRelationsTags(database: Database) {
     println()
     println("|key|value|")
     println("|---|-----|")
-    node.tags.tags.foreach { tag =>
+    node.tags.foreach { tag =>
       println(s"|${tag.key}|${tag.value}|")
     }
     println()
   }
 
-  private def networkTypesInNodeNames(tags: Tags): Set[String] = {
+  private def networkTypesInNodeNames(tagable: Tagable): Set[String] = {
     val from = "proposed:".length
-    (networkTypesInTags(nodeNameTags, 0, 3, tags) ++
-      networkTypesInTags(proposedNameTags, from, from + 3, tags)).toSet
+    (networkTypesInTags(nodeNameTags, 0, 3, tagable) ++
+      networkTypesInTags(proposedNameTags, from, from + 3, tagable)).toSet
   }
 
-  private def networkTypesInExpectedTags(tags: Tags): Set[String] = {
+  private def networkTypesInExpectedTags(tagable: Tagable): Set[String] = {
     val from = "expected_".length
-    networkTypesInTags(expectedTags, from, from + 3, tags).toSet
+    networkTypesInTags(expectedTags, from, from + 3, tagable).toSet
   }
 
-  private def networkTypesInTags(tagKeys: Seq[String], from: Int, until: Int, tags: Tags) = {
-    tagKeys.filter(tag => tags.has(tag)).map(tag => tag.slice(from, until))
+  private def networkTypesInTags(tagKeys: Seq[String], from: Int, until: Int, tagable: Tagable) = {
+    tagKeys.filter(tag => tagable.hasTag(tag)).map(tag => tag.slice(from, until))
   }
 }

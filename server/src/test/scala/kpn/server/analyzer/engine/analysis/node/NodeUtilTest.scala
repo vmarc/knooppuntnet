@@ -67,7 +67,6 @@ class NodeUtilTest extends UnitTest with SharedTestObjects {
   }
 
   private def toName(node: Node): String = {
-    node.tags("rwn_ref").getOrElse("")
+    node.tagValue("rwn_ref").getOrElse("")
   }
-
 }

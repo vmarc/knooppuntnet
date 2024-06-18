@@ -14,7 +14,7 @@ class PoiMapillaryAnalyzer(context: PoiAnalysisContext) {
 
   def analyze: PoiAnalysisContext = {
 
-    context.poi.tags("mapillary") match {
+    context.poi.tagValue("mapillary") match {
       case None => context
       case Some(tagValue) =>
 

@@ -31,7 +31,7 @@ class NetworkRoutesPageBuilder(database: Database) {
           networkType = data.summary.networkType,
           summary = data.summary,
           routes = data.routes.map { route =>
-            val symbol = RouteSymbol.from(route.tags)
+            val symbol = RouteSymbol.from(route)
             NetworkRouteRow(
               route.id,
               route.name,

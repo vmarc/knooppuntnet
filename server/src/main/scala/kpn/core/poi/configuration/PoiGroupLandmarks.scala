@@ -6,91 +6,91 @@ object PoiGroupLandmarks {
 
     poi("place-of-worship", "church-2.png", 12, 13,
       Seq("amenity" -> "place_of_worship"),
-      tags => tags.has("amenity", "place_of_worship")
-        && !tags.has("religion", "christian", "muslim", "buddhist", "hindu", "jewish")
+      tagable => tagable.hasTag("amenity", "place_of_worship")
+        && !tagable.hasTag("religion", "christian", "muslim", "buddhist", "hindu", "jewish")
     )
 
     poi("church", "chapel-2.png", 12, 13,
       Seq("amenity" -> "place_of_worship"),
-      tags => tags.has("amenity", "place_of_worship")
-        && tags.has("religion", "christian")
-        && !tags.has("historic", "wayside_shrine")
+      tagable => tagable.hasTag("amenity", "place_of_worship")
+        && tagable.hasTag("religion", "christian")
+        && !tagable.hasTag("historic", "wayside_shrine")
     )
 
     poi("mosque", "mosquee.png", 12, 13,
       Seq("amenity" -> "place_of_worship"),
-      tags => tags.has("amenity", "place_of_worship")
-        && tags.has("religion", "muslim")
+      tagable => tagable.hasTag("amenity", "place_of_worship")
+        && tagable.hasTag("religion", "muslim")
     )
 
     poi("buddhist-temple", "bouddha.png", 12, 13,
       Seq("amenity" -> "place_of_worship"),
-      tags => tags.has("amenity", "place_of_worship")
-        && tags.has("religion", "buddhist")
+      tagable => tagable.hasTag("amenity", "place_of_worship")
+        && tagable.hasTag("religion", "buddhist")
     )
 
     poi("hindu-temple", "templehindu.png", 12, 13,
       Seq("amenity" -> "place_of_worship"),
-      tags => tags.has("amenity", "place_of_worship")
-        && tags.has("religion", "hindu")
+      tagable => tagable.hasTag("amenity", "place_of_worship")
+        && tagable.hasTag("religion", "hindu")
     )
 
     poi("synagogue", "synagogue-2.png", 12, 13,
       Seq("amenity" -> "place_of_worship"),
-      tags => tags.has("amenity", "place_of_worship")
-        && tags.has("religion", "jewish")
+      tagable => tagable.hasTag("amenity", "place_of_worship")
+        && tagable.hasTag("religion", "jewish")
     )
 
     poi("wayside-shrine", "cross-2.png", 15, 15,
       Seq("historic" -> "wayside_shrine"),
-      tags => tags.has("historic", "wayside_shrine")
+      tagable => tagable.hasTag("historic", "wayside_shrine")
     )
 
     poi("heritage", "worldheritagesite.png", 12, 14,
       Seq("heritage" -> ""),
-      tags => tags.has("heritage")
+      tagable => tagable.hasTag("heritage")
     )
 
     poi("historic", "star-3.png", 11, 11,
       Seq("historic" -> ""),
-      tags => tags.has("historic")
-        && !tags.has("historic", "memorial", "monument", "statue", "castle",	"boundary_stone")
+      tagable => tagable.hasTag("historic")
+        && !tagable.hasTag("historic", "memorial", "monument", "statue", "castle", "boundary_stone")
     )
 
     poi("boundary-stone", "modernmonument.png", 15, 15,
       Seq("historic" -> ""),
-      tags => tags.has("historic",	"boundary_stone")
+      tagable => tagable.hasTag("historic", "boundary_stone")
     )
 
     poi("castle", "castle-2.png", 11, 11,
       Seq("historic" -> "castle"),
-      tags => tags.has("historic", "castle")
+      tagable => tagable.hasTag("historic", "castle")
     )
 
     poi("monument-memorial", "memorial.png", 11, 11,
       Seq("historic" -> ""),
-      tags => tags.has("historic", "monument", "memorial")
+      tagable => tagable.hasTag("historic", "monument", "memorial")
     )
 
     poi("statue", "statue-2.png", 11, 11,
       Seq("historic" -> "statue"),
-      tags => tags.has("historic", "statue")
+      tagable => tagable.hasTag("historic", "statue")
     )
 
     poi("windmill", "windmill-2.png", 11, 11,
       Seq("man_made" -> "windmill", "building" -> "windmill"),
-      tags => tags.has("man_made", "windmill")
-        || tags.has("building", "windmill")
+      tagable => tagable.hasTag("man_made", "windmill")
+        || tagable.hasTag("building", "windmill")
     )
 
     poi("watermill", "watermill-2.png", 11, 11,
       Seq("man_made" -> "watermill"),
-      tags => tags.has("man_made", "watermill")
+      tagable => tagable.hasTag("man_made", "watermill")
     )
 
     poi("zoo", "zoo.png", 11, 11,
       Seq("tourism" -> "zoo"),
-      tags => tags.has("tourism", "zoo")
+      tagable => tagable.hasTag("tourism", "zoo")
     )
   }
 }

@@ -4,7 +4,7 @@ import kpn.api.common.RouteSummary
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class RouteDetailsPageData(
@@ -16,7 +16,7 @@ case class RouteDetailsPageData(
   changeSetId: Long,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
-  tags: Tags,
+  tags: Seq[Tag],
   facts: Seq[Fact],
   locationCandidateInfos: Seq[LocationCandidateInfo],
   analysis: RouteInfoAnalysis,

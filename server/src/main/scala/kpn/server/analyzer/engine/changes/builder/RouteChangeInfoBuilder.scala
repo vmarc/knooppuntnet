@@ -25,7 +25,7 @@ class RouteChangeInfoBuilder {
       val waysBefore = WayGeometry.from(before)
       val waysAfter = WayGeometry.from(after)
       val geometryDiff = new GeometryDiffAnalyzer().analysis(waysBefore, waysAfter)
-      val comment = changeSetInfo.flatMap(_.tags("comment"))
+      val comment = changeSetInfo.flatMap(_.tagValue("comment"))
 
       val allNodes = before.networkNodes ++ after.networkNodes
       val allNodeIds = allNodes.map(_.id).distinct
@@ -116,7 +116,7 @@ class RouteChangeInfoBuilder {
       val routeData = routeChange.before.get
       val ways = WayGeometry.from(routeData)
       val geometryDiff = new GeometryDiffAnalyzer().analysis(Seq.empty, ways)
-      val comment = changeSetInfo.flatMap(_.tags("comment"))
+      val comment = changeSetInfo.flatMap(_.tagValue("comment"))
 
       val bounds = {
         val nodeLatLons: Seq[LatLon] = routeData.networkNodes
@@ -163,7 +163,7 @@ class RouteChangeInfoBuilder {
       val routeData = routeChange.after.get
       val ways = WayGeometry.from(routeData)
       val geometryDiff = new GeometryDiffAnalyzer().analysis(Seq.empty, ways)
-      val comment = changeSetInfo.flatMap(_.tags("comment"))
+      val comment = changeSetInfo.flatMap(_.tagValue("comment"))
 
       val bounds = {
         val nodeLatLons: Seq[LatLon] = routeData.nodes

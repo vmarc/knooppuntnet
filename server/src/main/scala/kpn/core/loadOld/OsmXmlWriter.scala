@@ -1,14 +1,13 @@
 package kpn.core.loadOld
 
-import java.io.PrintWriter
-
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Tag
-import kpn.api.custom.Tags
 import kpn.core.util.Xml
+
+import java.io.PrintWriter
 
 class OsmXmlWriter(out: PrintWriter, full: Boolean = true) {
 
@@ -93,8 +92,8 @@ class OsmXmlWriter(out: PrintWriter, full: Boolean = true) {
     }
   }
 
-  private def printTags(tags: Tags): Unit = {
-    tags.tags.foreach { case Tag(key, value) =>
+  private def printTags(tags: Seq[Tag]): Unit = {
+    tags.foreach { case Tag(key, value) =>
       out.println(s"""    <tag k="$key" v="${Xml.escape(value)}"/>""")
     }
   }

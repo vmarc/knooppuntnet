@@ -3,11 +3,12 @@ package kpn.database.actions.locations
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
+import kpn.api.common.data.Tagable
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRouteOptions
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Day
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
 import kpn.core.util.Log
@@ -46,10 +47,10 @@ case class LocationRouteInfoData(
   meters: Long,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
-  tags: Tags,
+  tags: Seq[Tag],
   broken: Boolean,
   inaccessible: Boolean
-)
+) extends Tagable
 
 class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInfo) {
 
@@ -251,7 +252,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
     log.debugElapsed {
       val docs = database.routes.aggregate[LocationRouteInfoData](pipeline).zipWithIndex.map { case (doc, index) =>
         val rowIndex = parameters.pageSize * parameters.pageIndex + index
-        val symbol = RouteSymbol.from(doc.tags)
+        val symbol = RouteSymbol.from(doc)
         LocationRouteInfo(
           rowIndex = rowIndex,
           id = doc.id,

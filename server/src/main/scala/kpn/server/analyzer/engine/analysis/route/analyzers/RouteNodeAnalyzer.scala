@@ -297,6 +297,6 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def isProposed(routeNodeInfo: RouteNodeInfo): Boolean = {
-    TagInterpreter.isProposedNode(context.scopedNetworkType, routeNodeInfo.node.tags)
+    TagInterpreter.isProposedNode(context.scopedNetworkType, routeNodeInfo.node)
   }
 }

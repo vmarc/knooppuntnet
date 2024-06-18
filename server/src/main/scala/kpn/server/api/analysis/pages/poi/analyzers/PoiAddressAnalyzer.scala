@@ -13,10 +13,10 @@ class PoiAddressAnalyzer(context: PoiAnalysisContext) {
 
   def analyze: PoiAnalysisContext = {
 
-    val city = context.poi.tags("addr:city")
-    val postcode = context.poi.tags("addr:postcode")
-    val street = context.poi.tags("addr:street")
-    val housenumber = context.poi.tags("addr:housenumber")
+    val city = context.poi.tagValue("addr:city")
+    val postcode = context.poi.tagValue("addr:postcode")
+    val street = context.poi.tagValue("addr:street")
+    val housenumber = context.poi.tagValue("addr:housenumber")
 
     val addressLine1: Option[String] = street match {
       case Some(s) =>

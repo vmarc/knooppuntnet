@@ -27,7 +27,6 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
-import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.api.custom.Timestamp2
 import kpn.core.tools.next.domain.OldRelation
@@ -84,9 +83,6 @@ object Json {
     b.deserializerByType(classOf[NodeName], new NodeNameJsonDeserializer())
 
     b.deserializerByType(classOf[Subset], new SubsetJsonDeserializer())
-
-    b.deserializerByType(classOf[Tags], new TagsJsonDeserializer())
-    b.serializerByType(classOf[Tags], new TagsJsonSerializer())
 
     b.deserializerByType(classOf[Timestamp], new TimestampJsonDeserializer(mongo))
     b.serializerByType(classOf[Timestamp], new TimestampJsonSerializer())

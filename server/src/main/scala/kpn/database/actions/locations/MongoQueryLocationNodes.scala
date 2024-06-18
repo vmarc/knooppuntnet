@@ -306,7 +306,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       val locationNodeInfoDocs = database.nodes.aggregate[LocationNodeInfoDoc](pipeline)
       val locationNodeInfos = locationNodeInfoDocs.zipWithIndex.map { case (doc, index) =>
         val tagValues = NetworkScope.all.map(scope => ScopedNetworkType(scope, subset.networkType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
-          doc.tags(tagKey)
+          doc.tagValue(tagKey)
         }
         val expectedNodeCount = tagValues.headOption.getOrElse("-")
         val rowIndex = parameters.pageSize * parameters.pageIndex + index

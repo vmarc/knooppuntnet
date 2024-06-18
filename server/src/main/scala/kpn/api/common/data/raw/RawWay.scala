@@ -1,6 +1,6 @@
 package kpn.api.common.data.raw
 
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class RawWay(
@@ -9,9 +9,8 @@ case class RawWay(
   timestamp: Timestamp,
   changeSetId: Long,
   nodeIds: Vector[Long],
-  tags: Tags
+  tags: Seq[Tag]
 ) extends RawElement {
 
   override def isWay: Boolean = true
-
 }

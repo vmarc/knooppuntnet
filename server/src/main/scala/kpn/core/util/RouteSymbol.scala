@@ -1,15 +1,13 @@
 package kpn.core.util
 
-import kpn.api.custom.Tags
+import kpn.api.common.data.Tagable
 
 object RouteSymbol {
 
-  private val empty = ".[^:]]:$".r
-
-  def from(tags: Tags): Option[String] = {
-    tags("osmc:symbol").flatMap { value =>
+  def from(tagable: Tagable): Option[String] = {
+    tagable.tagValue("osmc:symbol").flatMap { value =>
       val trimmed = value.trim
-      if (trimmed.filter(_ == ':').size == 1 && trimmed.endsWith(":")) {
+      if (trimmed.count(_ == ':') == 1 && trimmed.endsWith(":")) {
         None
       }
       else {

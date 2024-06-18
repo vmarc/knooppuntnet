@@ -14,24 +14,20 @@ import kpn.server.analyzer.engine.analysis.node.domain.NodeTagAnalysis
 class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no tags") {
-    NodeTagAnalyzer.analyze(Tags.empty) should equal(None)
+    analyze() should equal(None)
   }
 
   test("no name") {
-    NodeTagAnalyzer.analyze(
-      Tags.from(
-        "network:type" -> "node_network"
-      )
+    analyze(
+      "network:type" -> "node_network"
     ) should equal(None)
   }
 
   test("??n_ref") {
     ScopedNetworkType.all.foreach { scopedNetworkType =>
-      NodeTagAnalyzer.analyze(
-        Tags.from(
-          "network:type" -> "node_network",
-          scopedNetworkType.nodeRefTagKey -> "01"
-        )
+      analyze(
+        "network:type" -> "node_network",
+        scopedNetworkType.nodeRefTagKey -> "01"
       ) should equal(
         Some(
           NodeTagAnalysis(
@@ -55,11 +51,9 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("??n_name") {
     ScopedNetworkType.all.foreach { scopedNetworkType =>
-      NodeTagAnalyzer.analyze(
-        Tags.from(
-          "network:type" -> "node_network",
-          scopedNetworkType.nodeNameTagKey -> "01"
-        )
+      analyze(
+        "network:type" -> "node_network",
+        scopedNetworkType.nodeNameTagKey -> "01"
       ) should equal(
         Some(
           NodeTagAnalysis(
@@ -83,11 +77,9 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("proposed:??n_ref") {
     ScopedNetworkType.all.foreach { scopedNetworkType =>
-      NodeTagAnalyzer.analyze(
-        Tags.from(
-          "network:type" -> "node_network",
-          scopedNetworkType.proposedNodeRefTagKey -> "01"
-        )
+      analyze(
+        "network:type" -> "node_network",
+        scopedNetworkType.proposedNodeRefTagKey -> "01"
       ) should equal(
         Some(
           NodeTagAnalysis(
@@ -111,11 +103,9 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("propsed:??n_name") {
     ScopedNetworkType.all.foreach { scopedNetworkType =>
-      NodeTagAnalyzer.analyze(
-        Tags.from(
-          "network:type" -> "node_network",
-          scopedNetworkType.proposedNodeNameTagKey -> "01"
-        )
+      analyze(
+        "network:type" -> "node_network",
+        scopedNetworkType.proposedNodeNameTagKey -> "01"
       ) should equal(
         Some(
           NodeTagAnalysis(
@@ -138,33 +128,27 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("survey date") {
-    NodeTagAnalyzer.analyze(
-      Tags.from(
-        "network:type" -> "node_network",
-        "rwn_ref" -> "01",
-        "survey:date" -> "2020-08"
-      )
+    analyze(
+      "network:type" -> "node_network",
+      "rwn_ref" -> "01",
+      "survey:date" -> "2020-08"
     ).get.lastSurvey should equal(Some(Day(2020, 8)))
   }
 
   test("survey date invalid format") {
-    NodeTagAnalyzer.analyze(
-      Tags.from(
-        "network:type" -> "node_network",
-        "rwn_ref" -> "01",
-        "survey:date" -> "bla"
-      )
+    analyze(
+      "network:type" -> "node_network",
+      "rwn_ref" -> "01",
+      "survey:date" -> "bla"
     ).get.facts.shouldMatchTo(Seq(Fact.NodeInvalidSurveyDate))
   }
 
   test("multiple scopes and network types") {
-    NodeTagAnalyzer.analyze(
-      Tags.from(
-        "network:type" -> "node_network",
-        "rwn_ref" -> "01",
-        "lwn_ref" -> "02",
-        "rcn_ref" -> "03"
-      )
+    analyze(
+      "network:type" -> "node_network",
+      "rwn_ref" -> "01",
+      "lwn_ref" -> "02",
+      "rcn_ref" -> "03"
     ) should equal(
       Some(
         NodeTagAnalysis(
@@ -200,12 +184,10 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("state=proposed") {
-    NodeTagAnalyzer.analyze(
-      Tags.from(
-        "network:type" -> "node_network",
-        "rwn_ref" -> "01",
-        "state" -> "proposed"
-      )
+    analyze(
+      "network:type" -> "node_network",
+      "rwn_ref" -> "01",
+      "state" -> "proposed"
     ) should equal(
       Some(
         NodeTagAnalysis(
@@ -221,6 +203,16 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
           ),
           lastSurvey = None,
           facts = Seq.empty
+        )
+      )
+    )
+  }
+
+  private def analyze(tags: (String, String)*): Option[NodeTagAnalysis] = {
+    NodeTagAnalyzer.analyze(
+      newNode(
+        tags = Tags.from(
+          tags: _*
         )
       )
     )

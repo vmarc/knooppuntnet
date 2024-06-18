@@ -8,7 +8,7 @@ import kpn.api.common.data.raw.RawElement
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.location.Location
 import kpn.api.common.poi.Poi
-import kpn.api.custom.Tags
+import kpn.api.custom.Tag
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition
 import kpn.core.util.Log
@@ -138,7 +138,7 @@ class PoiChangeAnalyzerImpl(
     }
   }
 
-  private def savePoi(poiRef: PoiRef, center: LatLon, tags: Tags, poiDefinitions: Seq[PoiDefinition]): Unit = {
+  private def savePoi(poiRef: PoiRef, center: LatLon, tags: Seq[Tag], poiDefinitions: Seq[PoiDefinition]): Unit = {
 
     val location = Location(locationAnalyzer.findLocations(center.latitude, center.longitude))
 
@@ -205,7 +205,7 @@ class PoiChangeAnalyzerImpl(
     logPoi(poi, "add/update")
   }
 
-  private def findMatchingPoiDefinitions(tags: Tags): Seq[PoiDefinition] = {
+  private def findMatchingPoiDefinitions(tags: Seq[Tag]): Seq[PoiDefinition] = {
     PoiConfiguration.instance.groupDefinitions.flatMap(_.definitions).filter { poiDefinition =>
       poiDefinition.expression.evaluate(tags)
     }

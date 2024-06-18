@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.custom.Fact.RouteNameMissing
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.util.UnitTest
@@ -235,7 +236,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("route name missing") {
-    val context = analyze(Tags.empty)
+    val context = analyze(Seq.empty)
     context.routeNameAnalysis should equal(Some(RouteNameAnalysis()))
     context.facts.shouldMatchTo(Seq(RouteNameMissing))
   }
@@ -303,7 +304,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
         None
       )
     )
-    val routeNameAnalysis = analyzeRouteName(Tags.empty, routeNodeInfos)
+    val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodeInfos)
     routeNameAnalysis.value.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-01"),
@@ -322,7 +323,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
         None
       )
     )
-    val routeNameAnalysis = analyzeRouteName(Tags.empty, routeNodeInfos)
+    val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodeInfos)
     routeNameAnalysis.value.shouldMatchTo(
       RouteNameAnalysis(
         Some("node-name - node-name"),
@@ -346,7 +347,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
         None
       )
     )
-    val routeNameAnalysis = analyzeRouteName(Tags.empty, routeNodeInfos)
+    val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodeInfos)
     routeNameAnalysis.value.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
@@ -357,12 +358,12 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def analyzeRouteName(tags: Tags, routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): Option[RouteNameAnalysis] = {
+  private def analyzeRouteName(tags: Seq[Tag], routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): Option[RouteNameAnalysis] = {
     val newContext = analyze(tags, routeNodeInfos)
     newContext.routeNameAnalysis
   }
 
-  private def analyze(tags: Tags, routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): RouteAnalysisContext = {
+  private def analyze(tags: Seq[Tag], routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): RouteAnalysisContext = {
 
     val standardRouteTags = Tags.from(
       "network" -> "rwn",
@@ -384,5 +385,4 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
     RouteNameAnalyzer.analyze(context)
   }
-
 }

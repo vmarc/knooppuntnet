@@ -6,7 +6,6 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.Tag
-import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.common.Time
 import kpn.core.common.TimestampUtil
@@ -78,14 +77,12 @@ class Parser(full: Boolean = true) {
     TimestampUtil.parseIso((xml \ "@timestamp").text)
   }
 
-  private def tagsIn(xml: scala.xml.Node): Tags = {
-    Tags(
-      (xml \ "tag").map { t =>
-        val key = (t \ "@k").text
-        val value = (t \ "@v").text
-        Tag(key, value)
-      }
-    )
+  private def tagsIn(xml: scala.xml.Node): Seq[Tag] = {
+    (xml \ "tag").map { t =>
+      val key = (t \ "@k").text
+      val value = (t \ "@v").text
+      Tag(key, value)
+    }
   }
 
   private def idIn(xml: scala.xml.Node): Long = (xml \ "@id").text.toLong

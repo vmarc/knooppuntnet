@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.data.Node
+import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
@@ -12,10 +12,10 @@ class FragmentFilterTest extends UnitTest with SharedTestObjects {
   }
 
   test("non-roundabout duplicate fragments with different roles should not be filtered out") {
-    filteredSize(Tags.empty) should equal(2)
+    filteredSize(Seq.empty) should equal(2)
   }
 
-  private def filteredSize(tags: Tags): Int = {
+  private def filteredSize(tags: Seq[Tag]): Int = {
 
     val nodes = Vector(
       newNode(1001),

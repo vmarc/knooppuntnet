@@ -22,26 +22,26 @@ object MonitorRouteRelation {
       "ref",
     )
 
-    val names = nameTagKeys.flatMap(nameTagKey => relation.tags(nameTagKey))
+    val names = nameTagKeys.flatMap(nameTagKey => relation.tagValue(nameTagKey))
 
     val name = names.headOption match {
       case Some(name) => name
       case None =>
-        relation.tags("from") match {
+        relation.tagValue("from") match {
           case None => "?" // TODO get  name from 'name:fr', 'name:nl', etc.
           case Some(from) =>
-            relation.tags("to") match {
+            relation.tagValue("to") match {
               case None => "?"
               case Some(to) => s"$from — $to"
             }
         }
     }
 
-    val survey = SurveyDateAnalyzer.analyze(relation.tags) match {
+    val survey = SurveyDateAnalyzer.analyze(relation) match {
       case Success(surveyDate) => surveyDate
       case Failure(_) => None
     }
-    val symbol = RouteSymbol.from(relation.tags)
+    val symbol = RouteSymbol.from(relation)
 
     val relations = relation.relationMembers.filterNot(_.role.contains("place_of_worship")).map { member =>
       MonitorRouteRelation.from(member.relation, member.role)

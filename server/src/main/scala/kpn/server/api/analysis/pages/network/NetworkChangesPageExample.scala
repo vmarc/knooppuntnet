@@ -24,7 +24,7 @@ object NetworkChangesPageExample {
       routeRefs = Seq.empty,
       networkRefs = Seq.empty,
       facts = Seq.empty,
-      tags = Tags.empty,
+      tags = Seq.empty,
       detail = Some(
         NetworkInfoDetail(
           nodes = Seq.empty,

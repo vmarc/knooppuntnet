@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.api.custom.Tags
+import kpn.api.common.data.Tagable
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
 object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
@@ -48,8 +48,8 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     "Réseau pédestre ",
   )
 
-  def name(tags: Tags): String = {
-    val nameTagValue = tags("name").getOrElse("no-name")
+  def name(tagable: Tagable): String = {
+    val nameTagValue = tagable.tagValue("name").getOrElse("no-name")
     val prefixOption = NetworkNameAnalyzer.ignoredSubstrings.find(n => nameTagValue.contains(n))
     prefixOption match {
       case Some(substring) =>
@@ -65,7 +65,7 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
 
 class NetworkNameAnalyzer(context: NetworkInfoAnalysisContext) {
   def analyze: NetworkInfoAnalysisContext = {
-    val nameTagValue = context.networkDoc.tags("name").getOrElse("no-name")
+    val nameTagValue = context.networkDoc.tagValue("name").getOrElse("no-name")
     val prefixOption = NetworkNameAnalyzer.ignoredSubstrings.find(n => nameTagValue.contains(n))
     val name = prefixOption match {
       case Some(substring) => nameTagValue.replace(substring, "").trim

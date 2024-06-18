@@ -8,7 +8,7 @@ class NetworkChangeInfoBuilder {
 
   def build(index: Long, change: NetworkInfoChange, changeSetInfos: Seq[ChangeSetInfo]): NetworkChangeInfo = {
 
-    val comment = changeSetInfos.find(s => s.id == change.key.changeSetId).flatMap(_.tags("comment"))
+    val comment = changeSetInfos.find(s => s.id == change.key.changeSetId).flatMap(_.tagValue("comment"))
 
     NetworkChangeInfo(
       index,

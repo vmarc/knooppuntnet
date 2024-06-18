@@ -86,7 +86,7 @@ class RouteChangeProcessorImpl(
         data.after match {
           case None => None // TODO message ?
           case Some(after) =>
-            if (TagInterpreter.isRouteRelation(after.tags)) {
+            if (TagInterpreter.isRouteRelation(after)) {
               processCreate(context, after, data.routeId)
             }
             else {
@@ -97,7 +97,7 @@ class RouteChangeProcessorImpl(
         data.after match {
           case None => processDelete(context, before, data.routeId)
           case Some(after) =>
-            if (TagInterpreter.isRouteRelation(before.tags)) {
+            if (TagInterpreter.isRouteRelation(before)) {
               processUpdate(context, before, after, data.routeId)
             }
             else {
@@ -226,8 +226,8 @@ class RouteChangeProcessorImpl(
 
   def processUpdate(context: ChangeSetContext, relationBefore: Relation, relationAfter: Relation, routeId: Long): Option[RouteChange] = {
 
-    val lostRouteTags = TagInterpreter.isRouteRelation(relationBefore.tags) &&
-      !TagInterpreter.isRouteRelation(relationAfter.tags)
+    val lostRouteTags = TagInterpreter.isRouteRelation(relationBefore) &&
+      !TagInterpreter.isRouteRelation(relationAfter)
 
     masterRouteAnalyzer.analyze(relationBefore) match {
       case None => None
