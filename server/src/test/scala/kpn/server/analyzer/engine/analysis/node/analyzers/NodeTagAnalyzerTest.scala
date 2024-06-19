@@ -212,7 +212,7 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
     NodeTagAnalyzer.analyze(
       newNode(
         tags = Tags.from(
-          tags: _*
+          tags *
         )
       )
     )

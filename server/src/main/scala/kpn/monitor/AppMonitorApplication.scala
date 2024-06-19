@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling
 
 object AppMonitorApplication {
   def main(args: Array[String]): Unit = {
-    val app: Array[Class[_]] = Array(classOf[AppMonitorApplication])
+    val app: Array[Class[?]] = Array(classOf[AppMonitorApplication])
     SpringApplication.run(app, args)
   }
 }

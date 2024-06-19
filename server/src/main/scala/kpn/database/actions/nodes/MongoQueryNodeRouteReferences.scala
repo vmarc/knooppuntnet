@@ -26,13 +26,13 @@ class MongoQueryNodeRouteReferences(database: Database) {
         filter(
           and(
             equal("labels", Label.active),
-            in("nodeRefs", nodeIds: _*),
+            in("nodeRefs", nodeIds *),
           )
         ),
         unwind("$nodeRefs"),
         filter(
           and(
-            in("nodeRefs", nodeIds: _*),
+            in("nodeRefs", nodeIds *),
           )
         ),
         project(

@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.tiles.domain.OldTile
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.filefilter.TrueFileFilter.TRUE
 
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRepository {
 
@@ -70,5 +70,4 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
   private def toFileName(tileType: String, tile: OldTile) = {
     s"$root/$tileType/${tile.z}/${tile.x}/${tile.y}.$extension"
   }
-
 }

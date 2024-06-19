@@ -33,7 +33,7 @@ class RouteTagAnalyzer(context: RouteAnalysisContext) {
             context.relation.tagValue("route") match {
               case None => facts += RouteTagMissing
               case Some(routeTagValue) =>
-                if (!context.relation.hasTag("route", scopedNetworkType.networkType.routeTagValues: _*)) {
+                if (!context.relation.hasTag("route", scopedNetworkType.networkType.routeTagValues *)) {
                   facts += RouteTagInvalid
                 }
             }
@@ -44,6 +44,6 @@ class RouteTagAnalyzer(context: RouteAnalysisContext) {
     context.copy(
       abort = scopedNetworkTypeOption.isEmpty,
       scopedNetworkTypeOption = scopedNetworkTypeOption
-    ).withFacts(facts.toSeq: _*)
+    ).withFacts(facts.toSeq *)
   }
 }

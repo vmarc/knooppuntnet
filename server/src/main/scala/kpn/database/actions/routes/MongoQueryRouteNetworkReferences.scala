@@ -47,7 +47,7 @@ class MongoQueryRouteNetworkReferences(database: Database) {
         val pipeline = Seq(
           filter(equal("active", true)),
           unwind("$relationMembers"),
-          filter(in("relationMembers.relationId", routeIds: _*)),
+          filter(in("relationMembers.relationId", routeIds *)),
           project(
             fields(
               include("_id")

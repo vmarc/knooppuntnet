@@ -1,6 +1,9 @@
 package kpn.core.files
 
-import java.io._
+import java.io.BufferedInputStream
+import java.io.BufferedOutputStream
+import java.io.InputStream
+import java.io.OutputStream
 
 object FsUtils {
 
@@ -52,5 +55,4 @@ object FsUtils {
       }
     }
   }
-
 }

@@ -27,13 +27,12 @@ class PoiImageRetrieverImpl(
 ) {
 
   private val restTemplate = {
-//    val httpRequestFactory = new HttpComponentsClientHttpRequestFactory()
-//    httpRequestFactory.setConnectionRequestTimeout(15 * 1000)
-//    httpRequestFactory.setConnectTimeout(15 * 1000)
-//    httpRequestFactory.setReadTimeout(15 * 1000)
-//    httpRequestFactory.messageConverters(converters)
-//    new RestTemplate(httpRequestFactory);
-
+    //    val httpRequestFactory = new HttpComponentsClientHttpRequestFactory()
+    //    httpRequestFactory.setConnectionRequestTimeout(15 * 1000)
+    //    httpRequestFactory.setConnectTimeout(15 * 1000)
+    //    httpRequestFactory.setReadTimeout(15 * 1000)
+    //    httpRequestFactory.messageConverters(converters)
+    //    new RestTemplate(httpRequestFactory);
 
     val b = new RestTemplateBuilder()
     b.setConnectTimeout(Duration.ofSeconds(15))
@@ -137,7 +136,7 @@ class PoiImageRetrieverImpl(
     }
   }
 
-  private def converters: java.util.List[HttpMessageConverter[_]] = {
+  private def converters: java.util.List[HttpMessageConverter[?]] = {
     java.util.Arrays.asList(
       new ByteArrayHttpMessageConverter(),
       new StringHttpMessageConverter(Charset.forName("UTF-8"))

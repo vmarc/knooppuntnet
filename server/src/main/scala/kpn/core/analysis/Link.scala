@@ -1,5 +1,10 @@
 package kpn.core.analysis
 
+import kpn.core.analysis.LinkType.BACKWARD
+import kpn.core.analysis.LinkType.FORWARD
+import kpn.core.analysis.LinkType.NONE
+import kpn.core.analysis.LinkType.ROUNDABOUT
+
 import scala.collection.mutable
 
 case class Link(
@@ -39,8 +44,6 @@ case class Link(
       "n"
     }
     else {
-
-      import kpn.core.analysis.LinkType._
 
       val linkTypeLetter = linkType match {
         case FORWARD => "f"

@@ -61,7 +61,7 @@ class MongoQuerySubsetChanges(database: Database) {
 
     val pipeline = Seq(
       filter(
-        and(filterElements: _*)
+        and(filterElements *)
       ),
       sort(orderBy(descending("key.time"))),
       skip((parameters.pageSize * parameters.pageIndex).toInt),

@@ -87,7 +87,7 @@ private case class ReplicationResult(
   changeSetCount: Long = 0
 )
 
-import kpn.core.replicate.ReplicationResultCode._
+import kpn.core.replicate.ReplicationResultCode.*
 
 class ReplicatorTool(
   replicateDir: File,

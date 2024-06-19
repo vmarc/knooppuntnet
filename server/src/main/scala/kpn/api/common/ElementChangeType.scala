@@ -1,6 +1,7 @@
 package kpn.api.common
 
-import enumeratum._
+import enumeratum.Enum
+import enumeratum.EnumEntry
 
 sealed trait ElementChangeType extends EnumEntry
 

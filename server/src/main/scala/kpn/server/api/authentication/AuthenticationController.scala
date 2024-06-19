@@ -27,7 +27,7 @@ class AuthenticationController(api: Api) {
 
   @PostMapping(value = Array("/api/oauth2/logout"))
   @ResponseBody
-  def logout(response: HttpServletResponse): ResponseEntity[_] = {
+  def logout(response: HttpServletResponse): ResponseEntity[?] = {
     api.execute("logout") {
       response.addCookie(knooppuntnetResetCookie())
       new ResponseEntity[String]("", HttpStatus.OK)

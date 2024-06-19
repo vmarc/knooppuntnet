@@ -43,8 +43,8 @@ class MongoQueryChangeSetStatsCounts(database: Database) {
       case None =>
         Seq(
           facet(
-            Facet("years", pipelineYears: _*),
-            Facet("months", pipelineMonths: _*),
+            Facet("years", pipelineYears *),
+            Facet("months", pipelineMonths *),
           )
         )
 
@@ -55,9 +55,9 @@ class MongoQueryChangeSetStatsCounts(database: Database) {
         }
         Seq(
           facet(
-            Facet("years", pipelineYears: _*),
-            Facet("months", pipelineMonths: _*),
-            Facet("days", pipelineDays: _*),
+            Facet("years", pipelineYears *),
+            Facet("months", pipelineMonths *),
+            Facet("days", pipelineDays *),
           )
         )
     }

@@ -41,7 +41,7 @@ object OldLinkImageBuilder {
 
 class OldLinkImageBuilder(g: Graphics2D, link: Link) {
 
-  import kpn.core.obsolete.OldLinkImageBuilder._
+  import kpn.core.obsolete.OldLinkImageBuilder.*
 
   def paint(): Unit = {
 

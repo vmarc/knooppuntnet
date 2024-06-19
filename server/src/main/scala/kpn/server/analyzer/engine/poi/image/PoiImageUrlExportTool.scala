@@ -56,7 +56,7 @@ class PoiImageUrlExportTool(database: Database) {
   private def exportBatch(poiIds: Seq[String]): Unit = {
     val pipeline = Seq(
       filter(
-        in("_id", poiIds: _*)
+        in("_id", poiIds *)
       )
     )
     val pois = database.pois.aggregate[Poi](pipeline, log)

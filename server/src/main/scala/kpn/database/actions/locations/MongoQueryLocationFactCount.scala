@@ -125,8 +125,8 @@ class MongoQueryLocationFactCount(database: Database) {
 
     val pipeline = Seq(
       nodeFactsPipeline,
-      Seq(unionWith("nodes", nodePipeline2: _*)),
-      Seq(unionWith("routes", routeFactPipeline: _*))
+      Seq(unionWith("nodes", nodePipeline2 *)),
+      Seq(unionWith("routes", routeFactPipeline *))
     ).flatten
 
     log.debugElapsed {

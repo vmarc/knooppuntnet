@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.ThreadContext
 
 import scala.collection.mutable.ListBuffer
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 trait Log {
 
@@ -47,14 +47,13 @@ trait Log {
     val elapsed = Elapsed((t2 - t1) / 1000000)
     (s"$message ($elapsed)", result)
   }
-
 }
 
 object Log {
 
   def apply(name: String): Log = new Log4j(name)
 
-  def apply(clazz: Class[_]): Log = new Log4j(clazz.getName)
+  def apply(clazz: Class[?]): Log = new Log4j(clazz.getName)
 
   def mock: MockLog = new MockLog()
 
@@ -117,7 +116,6 @@ object Log {
     def error(message: String, throwable: Throwable): Unit = log.error(message, throwable)
 
     def fatal(message: String, throwable: Throwable): Unit = log.fatal(message, throwable)
-
   }
 }
 
@@ -179,5 +177,4 @@ class MockLog extends Log {
   def error(message: String, throwable: Throwable): Unit = messageBuffer.append("ERROR " + message)
 
   def fatal(message: String, throwable: Throwable): Unit = messageBuffer.append("FATAL " + message)
-
 }

@@ -24,7 +24,7 @@ class MongoQueryKnownRouteIds(database: Database) {
         filter(
           and(
             equal("labels", Label.active),
-            in("_id", routeIds: _*)
+            in("_id", routeIds *)
           )
         ),
         project(

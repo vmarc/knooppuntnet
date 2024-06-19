@@ -127,7 +127,7 @@ class CustomLocationTool(database: Database) {
         case _ => None
       }
     ).flatten
-    and(filters: _*)
+    and(filters *)
   }
 
   private def geoQueryRouteIds(): Seq[Long] = {
@@ -157,7 +157,7 @@ class CustomLocationTool(database: Database) {
   private def buildRouteFilter(networkType: NetworkType, location: String, routeIds: Seq[Long]): Bson = {
 
     and(
-      in("_id", routeIds: _*),
+      in("_id", routeIds *),
       equal("labels", Label.active),
       equal("labels", Label.networkType(networkType)),
       //equal("labels", Label.location(location)),

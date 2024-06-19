@@ -114,7 +114,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def findByIds(ids: Seq[Long], log: Log): Seq[T] = {
     if (ids.nonEmpty) {
       log.debugElapsed {
-        val filter = in("_id", ids: _*)
+        val filter = in("_id", ids *)
         val future = collection.find[T](filter).toFuture()
         val docs = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
         (s"findByIds - collection: '$collectionName', ids: ${ids.mkString(", ")}", docs)

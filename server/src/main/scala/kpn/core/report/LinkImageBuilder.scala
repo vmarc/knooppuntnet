@@ -42,7 +42,7 @@ object LinkImageBuilder {
 
 class LinkImageBuilder(g: Graphics2D, link: Link) {
 
-  import kpn.core.report.LinkImageBuilder._
+  import kpn.core.report.LinkImageBuilder.*
 
   def paint(): Unit = {
 

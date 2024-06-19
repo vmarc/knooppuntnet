@@ -12,6 +12,6 @@ trait Tagable {
   }
 
   def hasTag(key: String, allowedValues: String*): Boolean = {
-    Tags.has(tags, key, allowedValues: _*)
+    Tags.has(tags, key, allowedValues *)
   }
 }

@@ -47,7 +47,7 @@ class MongoQueryNodeNetworkReferences(database: Database) {
         val pipeline = Seq(
           filter(equal("active", true)),
           unwind("$relationMembers"),
-          filter(in("relationMembers.nodeId", nodeIds: _*)),
+          filter(in("relationMembers.nodeId", nodeIds *)),
           project(
             fields(
               include("_id")

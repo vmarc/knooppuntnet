@@ -1,28 +1,28 @@
 package kpn.core.tools.support
 
-import java.io.File
-import java.io.PrintWriter
-
 import kpn.core.analysis.Link
 import kpn.core.analysis.LinkType
+import kpn.core.analysis.LinkType.BACKWARD
+import kpn.core.analysis.LinkType.FORWARD
+import kpn.core.analysis.LinkType.NONE
+import kpn.core.analysis.LinkType.ROUNDABOUT
 import kpn.core.obsolete.OldLinkImageBuilder
 import kpn.core.report.LinkImageBuilder
 import kpn.core.util.Xml
+
+import java.io.File
+import java.io.PrintWriter
 
 object ImageGenerationTool {
 
   def main(args: Array[String]): Unit = {
     new ImageGenerationTool().generate()
   }
-
 }
 
 class ImageGenerationTool {
 
   def generate(): Unit = {
-
-    import kpn.core.analysis.LinkType._
-
     val links = Seq(FORWARD, BACKWARD, ROUNDABOUT, NONE) flatMap { linkType =>
       Seq(false, true) flatMap { isLoop =>
         Seq(false, true) flatMap { isOnewayLoopForwardPart =>
@@ -63,24 +63,24 @@ class ImageGenerationTool {
     out.println("<html>")
 
     out.println("<head>")
-    out.println( """  <meta http-equiv="content-type" content="text/html; charset=UTF-8">""")
-    out.println( """  <link href="styles.css" rel="stylesheet" type="text/css">""")
+    out.println("""  <meta http-equiv="content-type" content="text/html; charset=UTF-8">""")
+    out.println("""  <link href="styles.css" rel="stylesheet" type="text/css">""")
     out.println("  <title>Test Images</title>")
     out.println("</head>")
 
     out.println("<body>")
-    out.println( """<table style="margin: 30">""")
+    out.println("""<table style="margin: 30">""")
 
     allLinks.foreach { link =>
       LinkImageBuilder.build("%s/images/%s.png".format(dir, link.name), link)
       OldLinkImageBuilder.build("%s/old-images/%s.png".format(dir, link.name), link)
 
       out.println("<tr>")
-      out.println( """<td style="padding:0">""")
-      out.println( """<img src="images/%s.png"/>""".format(link.name))
+      out.println("""<td style="padding:0">""")
+      out.println("""<img src="images/%s.png"/>""".format(link.name))
       out.println("</td>")
-      out.println( """<td style="padding:0">""")
-      out.println( """<img src="old-images/%s.png"/>""".format(link.name))
+      out.println("""<td style="padding:0">""")
+      out.println("""<img src="old-images/%s.png"/>""".format(link.name))
       out.println("</td>")
       out.println("<td>")
       out.println(link.name)

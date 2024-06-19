@@ -1,9 +1,9 @@
 package kpn.core.loadOld
 
-import java.io.File
-
 import org.xml.sax.SAXParseException
 
+import java.io.File
+import scala.jdk.CollectionConverters.*
 import scala.xml.XML
 
 object XmlFile {
@@ -15,7 +15,6 @@ object XmlFile {
       }
       else if (fileName.endsWith(".zip")) {
         val rootzip = new java.util.zip.ZipFile(fileName)
-        import scala.jdk.CollectionConverters._
         rootzip.entries.asScala.filter(_.getName.endsWith(".xml")).toSeq.map { e =>
           XML.load(rootzip.getInputStream(e))
         }
@@ -23,7 +22,6 @@ object XmlFile {
       else {
         throw new RuntimeException("Unexpected file extension")
       }
-
     }
     catch {
       case e: SAXParseException =>

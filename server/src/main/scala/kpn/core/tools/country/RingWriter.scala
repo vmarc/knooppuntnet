@@ -1,6 +1,7 @@
 package kpn.core.tools.country
 
-import java.io._
+import java.io.PrintWriter
+import java.io.FileWriter
 
 import org.locationtech.jts.geom.LinearRing
 

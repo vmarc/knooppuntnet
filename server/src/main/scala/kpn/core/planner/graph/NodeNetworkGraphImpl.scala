@@ -7,6 +7,8 @@ import org.jgrapht.alg.shortestpath.DijkstraShortestPath
 import org.jgrapht.graph.AsWeightedGraph
 import org.jgrapht.graph.DefaultDirectedWeightedGraph
 
+import scala.jdk.CollectionConverters.*
+
 class NodeNetworkGraphImpl extends NodeNetworkGraph {
 
   private val log = Log(classOf[NodeNetworkGraphImpl])
@@ -86,7 +88,6 @@ class NodeNetworkGraphImpl extends NodeNetworkGraph {
         None
       }
       else {
-        import scala.jdk.CollectionConverters._
         val vertexList = path.getVertexList.asScala.toList
         val edgeList = path.getEdgeList.asScala.toList
 

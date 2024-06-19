@@ -88,7 +88,7 @@ class UpdaterTool(
   replicationStateRepository: ReplicationStateRepository
 ) {
 
-  import kpn.core.replicate.UpdaterTool._
+  import kpn.core.replicate.UpdaterTool.*
 
   private val oper = new Oper()
 

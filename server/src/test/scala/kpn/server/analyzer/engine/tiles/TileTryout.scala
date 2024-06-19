@@ -13,6 +13,7 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
+import scala.jdk.CollectionConverters.*
 
 object TileTryout {
 
@@ -27,7 +28,6 @@ object TileTryout {
       loadPbf(s"${Dirs.root}/tiles/osm-old/13/4197/2725.pbf")
     )
 
-    import scala.jdk.CollectionConverters._
     val layers = tiles.flatMap(_.getLayers.asScala)
 
     val all = new JtsMvt(layers.asJava)

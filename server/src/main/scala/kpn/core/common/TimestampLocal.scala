@@ -4,7 +4,7 @@ import kpn.api.custom.Timestamp
 
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import scala.reflect.runtime.universe._
+import scala.reflect.runtime.universe.*
 
 object TimestampLocal {
 
@@ -54,7 +54,7 @@ object TimestampLocal {
     }
   }
 
-  private def accessorsOfClass(clazz: Class[_]): Iterable[MethodSymbol] = {
+  private def accessorsOfClass(clazz: Class[?]): Iterable[MethodSymbol] = {
     val rootType = rm.classSymbol(clazz).toType
     rootType.members.collect {
       case m: MethodSymbol if m.isCaseAccessor => m

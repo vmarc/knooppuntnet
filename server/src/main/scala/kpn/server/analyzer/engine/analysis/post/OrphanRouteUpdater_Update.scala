@@ -16,7 +16,7 @@ class OrphanRouteUpdater_Update(database: Database, log: Log) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          in("_id", allOrphanRouteIds: _*)
+          in("_id", allOrphanRouteIds *)
         ),
         project(
           fields(

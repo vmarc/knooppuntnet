@@ -63,7 +63,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
       if (d.routeName.nonEmpty) Some("ref" -> d.routeName) else None
     ).flatten
 
-    val tags = Tags.from(tagValues: _*) ++ d.routeTags
+    val tags = Tags.from(tagValues *) ++ d.routeTags
 
     val rr: RawRelation = newRawRelation(10, members = d.members, tags = tags)
     val rawData = RawData(None, d.nodes, d.ways, Seq(rr))

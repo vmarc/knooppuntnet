@@ -18,13 +18,13 @@ object CreateIndexesTool {
 
   object Index {
     def apply(
-      collection: DatabaseCollection[_],
+      collection: DatabaseCollection[?],
       indexName: String,
       fieldNames: String*
     ): Index = {
-      val index = Indexes.ascending(fieldNames: _*)
+      val index = Indexes.ascending(fieldNames *)
       Index(
-        collection: DatabaseCollection[_],
+        collection: DatabaseCollection[?],
         indexName: String,
         index
       )
@@ -32,7 +32,7 @@ object CreateIndexesTool {
   }
 
   case class Index(
-    collection: DatabaseCollection[_],
+    collection: DatabaseCollection[?],
     indexName: String,
     index: Bson
   )

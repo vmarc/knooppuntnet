@@ -15,6 +15,8 @@ import org.locationtech.jts.index.strtree.STRtree
 import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.springframework.stereotype.Component
 
+import scala.jdk.CollectionConverters.*
+
 case class ReferenceCoordinateSequence(
   indexes: Seq[Int]
 )
@@ -138,7 +140,6 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
     val envelope = new Envelope(coordinate)
     envelope.expandBy(.04, .02 /* distance in degrees */)
     val nearLineStrings = tree.query(envelope)
-    import scala.jdk.CollectionConverters._
     nearLineStrings.asScala.map(_.asInstanceOf[LineString]).toSeq
   }
 }

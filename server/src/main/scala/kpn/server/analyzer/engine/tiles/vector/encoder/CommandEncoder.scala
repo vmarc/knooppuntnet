@@ -9,6 +9,7 @@ import org.locationtech.jts.geom.MultiPoint
 import org.locationtech.jts.geom.Polygon
 
 import java.util
+import scala.jdk.CollectionConverters.*
 
 class CommandEncoder {
 
@@ -49,7 +50,6 @@ class CommandEncoder {
     val LineTo = 2 // LineTo: 2. (2 parameters follow)
     val ClosePath = 7 // ClosePath: 7. (no parameters follow)
 
-
     if (cs.isEmpty) throw new IllegalArgumentException("empty geometry")
     val r = new util.ArrayList[Integer]
     var lineToIndex = 0
@@ -88,7 +88,6 @@ class CommandEncoder {
             lineToLength = cs.length - 1
             r.add(commandAndLength(LineTo, lineToLength))
           }
-
         }
       }
       {
@@ -104,7 +103,6 @@ class CommandEncoder {
       r.set(lineToIndex, commandAndLength(LineTo, lineToLength))
     }
     if (closePathAtEnd) r.add(commandAndLength(ClosePath, 1))
-    import scala.jdk.CollectionConverters._
     r.asScala.toSeq.map(_.toInt)
   }
 
@@ -151,5 +149,4 @@ class CommandEncoder {
     }
     commands.toSeq
   }
-
 }

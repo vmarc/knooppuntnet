@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.changes.changes
 
-import kpn.api.common.changes.ChangeAction._
+import kpn.api.common.changes.ChangeAction.Create
+import kpn.api.common.changes.ChangeAction.Delete
+import kpn.api.common.changes.ChangeAction.Modify
 import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp

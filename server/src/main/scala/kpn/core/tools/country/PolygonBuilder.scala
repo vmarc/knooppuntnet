@@ -2,7 +2,11 @@ package kpn.core.tools.country
 
 import kpn.core.tools.config.Dirs
 import org.locationtech.jts.algorithm.locate.IndexedPointInAreaLocator
-import org.locationtech.jts.geom._
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.LinearRing
+import org.locationtech.jts.geom.Location
+import org.locationtech.jts.geom.Polygon
 import org.locationtech.jts.geom.impl.CoordinateArraySequence
 
 // https://wiki.openstreetmap.org/wiki/Relation:multipolygon

@@ -49,21 +49,21 @@ class StatisticsUpdater(database: Database) {
     log.debugElapsed {
       val pipeline = Seq(
         pipelineNodeCount(),
-        Seq(unionWith(database.orphanNodes.name, pipelineOrphanNodeCount(): _*)),
-        Seq(unionWith(database.routes.name, pipelineRouteCount(): _*)),
-        Seq(unionWith(database.orphanRoutes.name, pipelineOrphanRouteCount(): _*)),
-        Seq(unionWith(database.nodes.name, pipelineNodeFacts(): _*)),
-        Seq(unionWith(database.nodes.name, pipelineNodeIntegrityCheckCount(): _*)),
-        Seq(unionWith(database.nodes.name, pipelineNodeIntegrityCheckFailedCount(): _*)),
-        Seq(unionWith(database.routes.name, pipelineRouteFacts(): _*)),
-        Seq(unionWith(database.routes.name, pipelineRouteDistance(): _*)),
-        Seq(unionWith(database.networkInfos.name, pipelineNetworkCount(): _*)),
-        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts(): _*)),
-        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts2(): _*)),
-        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts3(): _*)),
-        Seq(unionWith(database.networkInfos.name, factCountPipeline(): _*)),
-        Seq(unionWith(database.networkInfos.name, pipelineIntegrityCheckNetworkCount(): _*)),
-        Seq(unionWith(database.changes.name, pipelineChangeCount(): _*)),
+        Seq(unionWith(database.orphanNodes.name, pipelineOrphanNodeCount() *)),
+        Seq(unionWith(database.routes.name, pipelineRouteCount() *)),
+        Seq(unionWith(database.orphanRoutes.name, pipelineOrphanRouteCount() *)),
+        Seq(unionWith(database.nodes.name, pipelineNodeFacts() *)),
+        Seq(unionWith(database.nodes.name, pipelineNodeIntegrityCheckCount() *)),
+        Seq(unionWith(database.nodes.name, pipelineNodeIntegrityCheckFailedCount() *)),
+        Seq(unionWith(database.routes.name, pipelineRouteFacts() *)),
+        Seq(unionWith(database.routes.name, pipelineRouteDistance() *)),
+        Seq(unionWith(database.networkInfos.name, pipelineNetworkCount() *)),
+        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts() *)),
+        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts2() *)),
+        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts3() *)),
+        Seq(unionWith(database.networkInfos.name, factCountPipeline() *)),
+        Seq(unionWith(database.networkInfos.name, pipelineIntegrityCheckNetworkCount() *)),
+        Seq(unionWith(database.changes.name, pipelineChangeCount() *)),
         Seq(out(database.statistics.name))
       ).flatten
 
@@ -451,8 +451,8 @@ class StatisticsUpdater(database: Database) {
   private def factCountPipeline(): Seq[Bson] = {
     Seq(
       networkFactCountPipeline(),
-      Seq(unionWith(database.nodes.name, nodeFactCountPipeline(): _*)),
-      Seq(unionWith(database.routes.name, routeFactCountPipeline(): _*)),
+      Seq(unionWith(database.nodes.name, nodeFactCountPipeline() *)),
+      Seq(unionWith(database.routes.name, routeFactCountPipeline() *)),
       combineFactCounts()
     ).flatten
   }

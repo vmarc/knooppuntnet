@@ -8,8 +8,8 @@ import org.apache.commons.io.FileUtils
 
 import java.io.File
 import java.io.PrintStream
-import scala.jdk.CollectionConverters._
-import scala.reflect.runtime.universe._
+import scala.jdk.CollectionConverters.*
+import scala.reflect.runtime.universe.*
 
 object TypescriptTool {
 

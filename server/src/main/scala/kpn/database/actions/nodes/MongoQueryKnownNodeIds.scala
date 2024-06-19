@@ -19,7 +19,7 @@ class MongoQueryKnownNodeIds(database: Database) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          in("_id", nodeIds: _*),
+          in("_id", nodeIds *),
         ),
         project(
           fields(

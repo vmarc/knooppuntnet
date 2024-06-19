@@ -4,7 +4,7 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.custom.Timestamp
 import kpn.core.util.UnitTest
 
-import scala.reflect.runtime.universe._
+import scala.reflect.runtime.universe.runtimeMirror
 
 case class TestClass(
   id: Long,

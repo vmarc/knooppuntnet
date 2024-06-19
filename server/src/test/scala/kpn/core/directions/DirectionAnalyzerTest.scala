@@ -1,6 +1,10 @@
 package kpn.core.directions
 
-import kpn.core.directions.DirectionAnalyzer._
+import kpn.core.directions.DirectionAnalyzer.calculateCompassHeadingText
+import kpn.core.directions.DirectionAnalyzer.calculateHeading
+import kpn.core.directions.DirectionAnalyzer.calculateOrientation
+import kpn.core.directions.DirectionAnalyzer.calculateTurnText
+import kpn.core.directions.DirectionAnalyzer.turn
 import kpn.core.util.UnitTest
 
 class DirectionAnalyzerTest extends UnitTest {
@@ -49,7 +53,6 @@ class DirectionAnalyzerTest extends UnitTest {
 
     turn(south, center, southEast) should equal((Math.PI * 3 / 4) +- .05)
     calculateTurnText(turn(south, center, southEast)) should equal("turn-sharp-right")
-
   }
 
   test("calculateHeading") {
@@ -79,7 +82,6 @@ class DirectionAnalyzerTest extends UnitTest {
     calculateTurnText(0.9) should equal("turn-right")
     calculateTurnText(1.7) should equal("turn-right")
     calculateTurnText(1.9) should equal("turn-sharp-right")
-
   }
 
   test("calculate compass heading text") {
@@ -93,5 +95,4 @@ class DirectionAnalyzerTest extends UnitTest {
     calculateCompassHeadingText(360 * 7 / 8) should equal("north-west")
     calculateCompassHeadingText(360 * 8 / 8) should equal("north")
   }
-
 }

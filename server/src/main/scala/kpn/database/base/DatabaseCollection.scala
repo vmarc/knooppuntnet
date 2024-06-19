@@ -13,7 +13,7 @@ import scala.concurrent.duration.Duration
 import scala.reflect.ClassTag
 
 object DatabaseCollection {
-  private val collectionLog = Log(classOf[DatabaseCollection[_]])
+  private val collectionLog = Log(classOf[DatabaseCollection[?]])
 }
 
 trait DatabaseCollection[T] {

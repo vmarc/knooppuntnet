@@ -52,9 +52,9 @@ class MongoQueryLocations(database: Database) {
     val pipeline = Seq(
       nodeCountPipeline(subset),
       Seq(
-        unionWith("nodes", nodeFactCountsPipeline(subset): _*),
-        unionWith("routes", routeCountPipeline(subset): _*),
-        unionWith("routes", routeFactCountPipeline(subset): _*),
+        unionWith("nodes", nodeFactCountsPipeline(subset) *),
+        unionWith("routes", routeCountPipeline(subset) *),
+        unionWith("routes", routeFactCountPipeline(subset) *),
       ),
       Seq(
         group(

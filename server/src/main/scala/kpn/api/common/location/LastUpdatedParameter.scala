@@ -1,6 +1,7 @@
 package kpn.api.common.location
 
-import enumeratum._
+import enumeratum.Enum
+import enumeratum.EnumEntry
 
 sealed trait LastUpdatedParameter extends EnumEntry
 
