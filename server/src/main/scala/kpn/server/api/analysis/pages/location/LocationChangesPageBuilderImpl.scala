@@ -42,7 +42,7 @@ class LocationChangesPageBuilderImpl(
       val locationChangeInfos = changeSet.locationChanges.map { change =>
         val locationNames = change.locationNames.dropWhile(_ != subset.locationIds.head /* TODO supports multiple locationIds !!! */).drop(1)
         val locationInfos = locationService.toInfos(language, change.locationNames, locationNames).map { locationInfo =>
-          locationInfo.copy(link = subset.networkType + "/" + locationInfo.link)
+          locationInfo.copy(link = subset.networkType.name + "/" + locationInfo.link)
         }
         LocationChangesInfo(
           change.networkType,

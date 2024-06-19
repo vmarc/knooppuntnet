@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public abstract class Element {
 
-    private Map<String, String> tags = new HashMap();
+    private Map<String, String> tags = new HashMap<>();
 
     public Element(final Map<String, String> tags) {
         this.tags = tags;

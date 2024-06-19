@@ -6,7 +6,6 @@ import kpn.api.common.location.LocationDetailsPage
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
 import kpn.api.custom.NetworkType
-import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.analyzer.engine.analysis.location.ParcDuVercors
 import kpn.server.repository.LocationRepository
@@ -33,7 +32,7 @@ class LocationDetailsPageBuilderImpl(
     val subset = locationService.toSubset(language, locationKey)
     val summary = locationRepository.summary(subset)
     val distance = locationRepository.distance(subset)
-    val nameParts = locationKey.name.split(":")
+    val nameParts = locationKey.name.split(":").toSeq
     val locationInfos = nameParts.zipWithIndex.map { case (namePart, index) =>
       val names = nameParts.take(index + 1)
       val link = s"${locationKey.networkType.name}/${locationKey.country.domain}/${names.mkString(":")}"
