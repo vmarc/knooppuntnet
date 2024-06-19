@@ -6,6 +6,7 @@ import kpn.api.base.WithObjectId
 import kpn.api.base.WithStringId
 import kpn.core.util.Log
 import kpn.database.util.Mongo
+import org.mongodb.scala.*
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.project

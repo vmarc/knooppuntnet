@@ -1,8 +1,9 @@
 package kpn.database.tools
 
-import kpn.database.base.Database
 import kpn.core.doc.RouteDoc
+import kpn.database.base.Database
 import kpn.database.util.Mongo
+import org.mongodb.scala.*
 import org.mongodb.scala.model.Filters.exists
 
 import java.util.concurrent.TimeUnit

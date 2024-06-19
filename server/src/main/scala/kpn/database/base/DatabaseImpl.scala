@@ -30,6 +30,7 @@ import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.domain.MonitorTask
+import org.mongodb.scala.*
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase
 
@@ -171,5 +172,4 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
   override def users: DatabaseCollection[User] = {
     new DatabaseCollectionImpl(database.getCollection[User]("users"))
   }
-
 }

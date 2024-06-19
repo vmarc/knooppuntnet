@@ -5,6 +5,7 @@ import kpn.database.base.Database
 import kpn.database.base.DatabaseCollection
 import kpn.database.tools.CreateIndexesTool.Index
 import kpn.database.util.Mongo
+import org.mongodb.scala.*
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.IndexOptions
 import org.mongodb.scala.model.Indexes

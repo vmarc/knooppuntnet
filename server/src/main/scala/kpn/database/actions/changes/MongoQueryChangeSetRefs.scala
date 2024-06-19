@@ -1,11 +1,12 @@
 package kpn.database.actions.changes
 
+import kpn.core.util.Log
 import kpn.database.actions.changes.MongoQueryChangeSetRefs.log
 import kpn.database.actions.changes.MongoQueryChangeSetRefs.pipeline
 import kpn.database.actions.statistics.ChangeSetRef
 import kpn.database.base.Database
 import kpn.database.base.MongoQuery
-import kpn.core.util.Log
+import org.mongodb.scala.*
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await

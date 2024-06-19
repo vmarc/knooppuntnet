@@ -1,5 +1,6 @@
 package kpn.database.actions.changes
 
+import kpn.core.util.Log
 import kpn.database.actions.changes.MongoQueryChangeSetStatsCounts.log
 import kpn.database.actions.changes.MongoQueryChangeSetStatsCounts.pipelineAll
 import kpn.database.actions.changes.MongoQueryChangeSetStatsCounts.pipelineDaysString
@@ -9,7 +10,7 @@ import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.Database
 import kpn.database.base.MongoQuery
 import kpn.database.util.Mongo
-import kpn.core.util.Log
+import org.mongodb.scala.*
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Facet

@@ -1,12 +1,13 @@
 package kpn.database.actions.statistics
 
 import kpn.api.common.statistics.StatisticValue
+import kpn.core.util.Log
 import kpn.database.actions.statistics.ChangeStatisticsUpdater.changesetSummaries
 import kpn.database.base.Database
 import kpn.database.base.MongoQuery
 import kpn.database.base.Pipeline
 import kpn.database.util.Mongo
-import kpn.core.util.Log
+import org.mongodb.scala.*
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await

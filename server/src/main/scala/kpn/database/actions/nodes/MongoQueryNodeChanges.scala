@@ -2,11 +2,12 @@ package kpn.database.actions.nodes
 
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.filter.ChangesParameters
+import kpn.core.util.Log
 import kpn.database.actions.base.ChangesPipeline
 import kpn.database.actions.nodes.MongoQueryNodeChanges.log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.core.util.Log
+import org.mongodb.scala.*
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
