@@ -118,12 +118,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.scala-lang</groupId>
-      <artifactId>scala-reflect</artifactId>
-      <version>2.13.12</version>
-    </dependency>
-
-    <dependency>
       <groupId>org.scala-lang.modules</groupId>
       <artifactId>scala-xml_2.13</artifactId>
       <version>2.2.0</version>
