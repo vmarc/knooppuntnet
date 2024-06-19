@@ -23,7 +23,7 @@ class MigrateNodePositionTool(database: Database) {
       database.nodes.save(
         nodeDoc.copy(
           position = Some(
-            Geo.point(nodeDoc.longitude.toDouble, nodeDoc.latitude.toDouble)
+            Geo.point(nodeDoc.lon, nodeDoc.lat)
           )
         )
       )

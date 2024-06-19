@@ -52,7 +52,7 @@ class RouteLocatorImpl(locationAnalyzer: LocationAnalyzer) extends RouteLocator 
   }
 
   private def toGeometries(routeMap: RouteMap): Seq[Geometry] = {
-    toSegments(routeMap).flatMap { segment: TrackSegment =>
+    toSegments(routeMap).flatMap { segment =>
       val coordinates = (segment.source +: segment.fragments.map(_.trackPoint)).map { trackPoint =>
         val lat = trackPoint.lat.toDouble
         val lon = trackPoint.lon.toDouble

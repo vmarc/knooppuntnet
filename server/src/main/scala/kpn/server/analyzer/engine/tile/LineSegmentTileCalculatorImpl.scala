@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.tile
 
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileUtil
-import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.LineSegment
 import org.springframework.stereotype.Component
 
@@ -14,7 +13,7 @@ class LineSegmentTileCalculatorImpl(tileCalculator: TileCalculator) extends Line
     val tileQueue = scala.collection.mutable.Queue[Tile]()
     val foundTiles = scala.collection.mutable.Set[Tile]()
 
-    val tiles = lineSegments.flatMap(ls => Seq(ls.p0, ls.p1)).map { p: Coordinate =>
+    val tiles = lineSegments.flatMap(ls => Seq(ls.p0, ls.p1)).map { p =>
       tileCalculator.tileContainingWorldCoordinate(z, p.x, p.y)
     }.toSet
 

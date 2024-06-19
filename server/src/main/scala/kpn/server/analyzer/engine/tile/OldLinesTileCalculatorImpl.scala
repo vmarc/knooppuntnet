@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.server.analyzer.engine.tiles.domain.Line
-import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.OldTile
 import org.springframework.stereotype.Component
 
@@ -13,7 +12,7 @@ class OldLinesTileCalculatorImpl(tileCalculator: OldTileCalculator) extends OldL
     val tileQueue = scala.collection.mutable.Queue[OldTile]()
     val foundTiles = scala.collection.mutable.Set[OldTile]()
 
-    val tiles = lines.flatMap(_.points).map { p: Point =>
+    val tiles = lines.flatMap(_.points).map { p =>
       tileCalculator.tileLonLat(z, p.x, p.y)
     }.toSet
 

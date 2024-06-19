@@ -441,6 +441,7 @@
           </jvmArgs>
           <args>
             <arg>-deprecation</arg>
+            <arg>-Xsource:3</arg>
           </args>
         </configuration>
       </plugin>

@@ -51,7 +51,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     (t.poiRepository.save _).verify(
-      where { poi: Poi =>
+      where { (poi: Poi) =>
         poi.elementType should equal("node")
         poi.elementId should equal(123)
         poi.latitude should equal("1")
@@ -64,7 +64,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     ).once()
 
     (t.knownPoiCache.add _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -104,7 +104,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     (t.poiRepository.delete _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -112,7 +112,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     ).once()
 
     (t.knownPoiCache.delete _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -157,7 +157,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     (t.poiRepository.save _).verify(
-      where { poi: Poi =>
+      where { (poi: Poi) =>
         poi.elementType should equal("node")
         poi.elementId should equal(123)
         poi.latitude should equal("1")
@@ -170,7 +170,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     ).once()
 
     (t.knownPoiCache.add _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -216,7 +216,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     (t.poiRepository.save _).verify(
-      where { poi: Poi =>
+      where { (poi: Poi) =>
         poi.elementType should equal("node")
         poi.elementId should equal(123)
         poi.latitude should equal("1")
@@ -229,7 +229,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     ).once()
 
     (t.knownPoiCache.add _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -271,7 +271,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     (t.poiRepository.delete _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -279,7 +279,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     ).once()
 
     (t.knownPoiCache.delete _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -314,7 +314,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     (t.poiRepository.delete _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -322,7 +322,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     ).once()
 
     (t.knownPoiCache.delete _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -359,7 +359,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     (t.poiRepository.delete _).verify(*).never()
 
     (t.knownPoiCache.delete _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -396,7 +396,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     (t.poiRepository.delete _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -404,7 +404,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     ).once()
 
     (t.knownPoiCache.delete _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("node")
         poiRef.elementId should equal(123)
         true
@@ -480,7 +480,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     (t.poiRepository.save _).verify(
-      where { poi: Poi =>
+      where { (poi: Poi) =>
         poi.elementType should equal("way")
         poi.elementId should equal(123)
         poi.latitude should equal("1")
@@ -493,7 +493,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     ).once()
 
     (t.knownPoiCache.add _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("way")
         poiRef.elementId should equal(123)
         true
@@ -533,7 +533,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     (t.knownPoiCache.delete _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("way")
         poiRef.elementId should equal(123)
         true
@@ -579,7 +579,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     (t.poiRepository.save _).verify(
-      where { poi: Poi =>
+      where { (poi: Poi) =>
         poi.elementType should equal("relation")
         poi.elementId should equal(123)
         poi.latitude should equal("1")
@@ -592,7 +592,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     ).once()
 
     (t.knownPoiCache.add _).verify(
-      where { poiRef: PoiRef =>
+      where { (poiRef: PoiRef) =>
         poiRef.elementType should equal("relation")
         poiRef.elementId should equal(123)
         true

@@ -62,8 +62,8 @@ case class NodeAnalysis(
       node.longitude,
       Some(
         Geo.point(
-          node.longitude.toDouble,
-          node.latitude.toDouble
+          node.lon,
+          node.lat
         )
       ),
       node.timestamp,

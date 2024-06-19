@@ -36,8 +36,8 @@ class NetworkShapeAnalyzer(networkRelation: Relation) {
 
   private def toGeometryCollection(nodes: Iterable[Node]): GeometryCollection = {
     val geometryFactory = new GeometryFactory()
-    val points = nodes.map { node: Node =>
-      val c = new Coordinate(node.latitude.toDouble, node.longitude.toDouble)
+    val points = nodes.map { node =>
+      val c = new Coordinate(node.lat, node.lon)
       geometryFactory.createPoint(c)
     }
     new GeometryCollection(points.toArray, geometryFactory)

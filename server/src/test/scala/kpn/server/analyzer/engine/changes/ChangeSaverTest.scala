@@ -61,14 +61,14 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     (changeSetRepository.saveNodeChange _).verify(*).never()
 
     (changeSetRepository.saveNetworkInfoChange _).verify(
-      where { savedNetworkChange: NetworkInfoChange =>
+      where { (savedNetworkChange: NetworkInfoChange) =>
         savedNetworkChange.shouldMatchTo(networkChange)
         true
       }
     ).once()
 
     (changeSetRepository.saveChangeSetSummary _).verify(
-      where { changeSetSummary: ChangeSetSummary =>
+      where { (changeSetSummary: ChangeSetSummary) =>
         changeSetSummary.shouldMatchTo(
           newChangeSetSummary(
             networkChanges = NetworkChanges(
@@ -83,7 +83,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     ).once()
 
     (networkInfoRepository.updateNetworkChangeCount _).verify(
-      where { networkId: Long =>
+      where { (networkId: Long) =>
         networkId should equal(1)
         true
       }
@@ -117,14 +117,14 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     (networkInfoRepository.updateNetworkChangeCount _).verify(*).never()
 
     (changeSetRepository.saveRouteChange _).verify(
-      where { savedRouteChange: RouteChange =>
+      where { (savedRouteChange: RouteChange) =>
         savedRouteChange.shouldMatchTo(routeChange)
         true
       }
     ).once()
 
     (changeSetRepository.saveChangeSetSummary _).verify(
-      where { changeSetSummary: ChangeSetSummary =>
+      where { (changeSetSummary: ChangeSetSummary) =>
         changeSetSummary.shouldMatchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
@@ -171,14 +171,14 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     (networkInfoRepository.updateNetworkChangeCount _).verify(*).never()
 
     (changeSetRepository.saveNodeChange _).verify(
-      where { savedNodeChange: NodeChange =>
+      where { (savedNodeChange: NodeChange) =>
         savedNodeChange.shouldMatchTo(nodeChange)
         true
       }
     ).once()
 
     (changeSetRepository.saveChangeSetSummary _).verify(
-      where { changeSetSummary: ChangeSetSummary =>
+      where { (changeSetSummary: ChangeSetSummary) =>
         changeSetSummary.shouldMatchTo(
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
