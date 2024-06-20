@@ -2,7 +2,9 @@ package kpn.server.analyzer.engine.changes.changes
 
 import kpn.api.common.data.Node
 import kpn.api.common.data.NodeMember
+import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.RelationMember
+import kpn.api.common.data.Tagable
 import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
 import kpn.api.custom.NetworkType
@@ -15,10 +17,20 @@ import kpn.server.analyzer.engine.context.ElementIds
 object RelationAnalyzerHelper {
 
   def toElementIds(relation: Relation): ElementIds = {
+    val nodeIds = referencedNodes(relation).map(_.id)
+    val wayIds = referencedWays(relation).map(_.id)
+    val relationIds = referencedRelations(relation).map(_.id)
+    val relationIds2 = relation.members.flatMap { member =>
+      member match {
+        case relationIdMember: RelationIdMember => Some(relationIdMember.relationId)
+        case _ => None
+      }
+    }
+
     ElementIds(
-      referencedNodes(relation).map(_.id),
-      referencedWays(relation).map(_.id),
-      referencedRelations(relation).map(_.id)
+      nodeIds,
+      wayIds,
+      relationIds ++ relationIds2
     )
   }
 
@@ -31,6 +43,7 @@ object RelationAnalyzerHelper {
       member match {
         case nodeMember: NodeMember => Set(nodeMember.node)
         case wayMember: WayMember => wayMember.way.nodes
+        case relationIdMember: RelationIdMember => Seq.empty
         case relationMember: RelationMember =>
           val referencedRelation = relationMember.relation
           if (visitedRelationIds.contains(referencedRelation.id)) {
@@ -168,7 +181,7 @@ object RelationAnalyzer {
     }
   }
 
-  def scopedNetworkType(relation: Relation): Option[ScopedNetworkType] = {
+  def scopedNetworkType(relation: Tagable): Option[ScopedNetworkType] = {
     relation.tagValue("network").flatMap { tagValue =>
       ScopedNetworkType.all.find(_.key == tagValue)
     }

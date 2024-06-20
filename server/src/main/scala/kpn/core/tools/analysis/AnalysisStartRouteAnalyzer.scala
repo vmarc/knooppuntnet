@@ -56,10 +56,13 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
 
   private def analyzeRouteBatch(routeIds: Seq[Long]): Seq[Long] = {
     log.infoElapsed {
-      val relations = config.overpassRepository.fullRelations(config.timestamp, routeIds)
-      relations.foreach(analyzeRoute)
-      val ids = relations.map(_.id)
-      (s"processed ${ids.size} routes: ${ids.mkString(", ")}", ids)
+      routeIds.foreach { routeId =>
+        config.overpassRepository.baseRelation(config.timestamp, routeId) match {
+          case Some(relation) => analyzeRoute(relation)
+          case None =>
+        }
+      }
+      (s"processed ${routeIds.size} routes: ${routeIds.mkString(", ")}", routeIds)
     }
   }
 

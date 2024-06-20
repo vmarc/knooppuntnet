@@ -3,6 +3,7 @@ package kpn.core.tools.analysis
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
+import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.tools.config.Dirs
 import kpn.database.util.Mongo
@@ -97,10 +98,8 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     new RouteTileAnalyzer(routeTileCalculator)
   }
 
-  val overpassRepository: OverpassRepository = {
-    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
-    new OverpassRepositoryImpl(overpassQueryExecutor)
-  }
+  val overpassQueryExecutor: OverpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+  val overpassRepository: OverpassRepository = new OverpassRepositoryImpl(overpassQueryExecutor)
 
   val changeSetRepository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
 

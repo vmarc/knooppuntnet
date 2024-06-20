@@ -19,4 +19,5 @@ trait OverpassRepository {
 
   def fullRelations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[Relation]
 
+  def baseRelation(timestamp: Timestamp, relationId: Long): Option[Relation]
 }

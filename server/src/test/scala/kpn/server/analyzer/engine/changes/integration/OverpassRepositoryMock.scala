@@ -85,6 +85,8 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
     }
   }
 
+  override def baseRelation(timestamp: Timestamp, relationId: Long): Option[Relation] = ???
+
   private def nodeIdsIn(data: Data): Seq[Long] = {
     data.nodes.values.filter(isNetworkNode).map(_.id).toSeq.sorted
   }

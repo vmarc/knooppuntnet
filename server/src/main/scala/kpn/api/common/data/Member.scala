@@ -12,5 +12,7 @@ trait Member {
 
   def isRelation: Boolean = false
 
+  def isRelationId: Boolean = false
+
   def toRaw: RawMember
 }

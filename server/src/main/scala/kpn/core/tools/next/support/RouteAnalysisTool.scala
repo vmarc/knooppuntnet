@@ -25,9 +25,11 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   }
 
   private def analyzeRoutes(routeIds: Seq[Long]): Unit = {
-    val relations = config.overpassRepository.fullRelations(config.timestamp, routeIds)
-    relations.foreach { relation =>
-      analyzeRoute(relation)
+    routeIds.foreach { routeId =>
+      val relation = config.overpassRepository.baseRelation(config.timestamp, routeId)
+      relation.foreach { baseRelation =>
+        analyzeRoute(baseRelation)
+      }
     }
   }
 
@@ -49,7 +51,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   }
 
   private def buildTiles(): Unit = {
-    /* NetworkType.all */ Seq(NetworkType.hiking).foreach { networkType =>
+    /* TODO NetworkType.all */ Seq(NetworkType.hiking).foreach { networkType =>
       Log.context(networkType.name) {
         log.info("Start tile analysis")
         val tileAnalysis = config.tileAnalyzer.analysis(networkType)

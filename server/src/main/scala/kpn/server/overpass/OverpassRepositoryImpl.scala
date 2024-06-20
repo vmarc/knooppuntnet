@@ -13,6 +13,7 @@ import kpn.core.overpass.QueryFullRelations
 import kpn.core.overpass.QueryNetworkIds
 import kpn.core.overpass.QueryNodeIds
 import kpn.core.overpass.QueryNodes
+import kpn.core.overpass.QueryRelationTopLevel
 import kpn.core.overpass.QueryRelations
 import kpn.core.overpass.QueryRouteIds
 import kpn.core.util.Log
@@ -79,6 +80,14 @@ class OverpassRepositoryImpl(
     relationIds.flatMap { routeId =>
       data.relations.get(routeId)
     }
+  }
+
+  def baseRelation(timestamp: Timestamp, relationId: Long): Option[Relation] = {
+    val query = QueryRelationTopLevel(relationId)
+    val xmlString = overpassQueryExecutor.executeQuery(Some(timestamp), query)
+    val xml = XML.loadString(xmlString)
+    val rawData = new Parser().parse(xml.head)
+    new BaseRelationBuilder(rawData, log).build(relationId)
   }
 
   private def ids(timestamp: Timestamp, elementTag: String, query: OverpassQuery): Seq[Long] = {

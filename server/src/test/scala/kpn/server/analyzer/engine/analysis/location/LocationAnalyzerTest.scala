@@ -11,7 +11,7 @@ object LocationAnalyzerTest {
 
   def locationAnalyzer: LocationAnalyzer = {
     if (locationAnalyzerOption.isEmpty) {
-      locationAnalyzerOption = Some(new LocationAnalyzerImpl(true))
+      locationAnalyzerOption = Some(new LocationAnalyzerImpl(true, false))
     }
     locationAnalyzerOption.get
   }
