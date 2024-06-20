@@ -15,14 +15,21 @@ import org.locationtech.jts.geom.Polygon
 
 import java.io.File
 
-class LocationStoreReader {
+class LocationStoreReader(development: Boolean) {
 
   private val log = Log(classOf[LocationStoreReader])
 
   private val root = s"${Dirs.root}/locations"
 
   def read(): LocationStore = {
-    val countries: Seq[LocationStoreCountry] = Country.all.map { country =>
+    val locationCounties = if (development) {
+      log.warn("!!! Loading NL and BE locations only!!!")
+      Seq(Country.nl, Country.be)
+    }
+    else {
+      Country.all
+    }
+    val countries: Seq[LocationStoreCountry] = locationCounties.map { country =>
       val locationStoreCountry = loadCountry(country)
       val filename = s"$root/${country.domain}/tree.json"
       val string = FileUtils.readFileToString(new File(filename), "UTF-8")

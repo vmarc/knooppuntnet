@@ -4,6 +4,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
+import kpn.core.tools.config.Dirs
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
@@ -40,6 +41,11 @@ import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldNodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
+import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
+import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
+import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
+import kpn.server.analyzer.engine.tiles.TilesBuilder
 import kpn.server.overpass.OverpassRepository
 import kpn.server.overpass.OverpassRepositoryImpl
 import kpn.server.repository.AnalysisRepository
@@ -67,7 +73,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(database)
 
-  private val locationAnalyzer = new LocationAnalyzerImpl(true)
+  private val locationAnalyzer = new LocationAnalyzerImpl(true, true)
 
   private val tileCalculator = new OldTileCalculatorImpl()
 
@@ -155,4 +161,34 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     ),
     ElementIds()
   )
+
+  private val tileDir = Dirs.root.getAbsolutePath + "/tiles"
+  private val tileDataNodeBuilder = new TileDataNodeBuilderImpl()
+
+  val tileAnalyzer = {
+    val nodeRepository = new NodeRepositoryImpl(database)
+    val routeRepository = new RouteRepositoryImpl(database)
+    new TileAnalyzerImpl(
+      nodeRepository,
+      routeRepository,
+      tileDataNodeBuilder
+    )
+  }
+
+  val tilesBuilder: TilesBuilder = {
+    val tileCalculator = new OldTileCalculatorImpl()
+    val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
+    val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
+    val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
+    val nodeTileCalculator = new OldNodeTileCalculatorImpl(tileCalculator)
+    val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
+    val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
+    new TilesBuilder(
+      bitmapTileFileRepository,
+      vectorTileFileRepository,
+      tileFileBuilder,
+      nodeTileCalculator,
+      routeTileCalculator
+    )
+  }
 }

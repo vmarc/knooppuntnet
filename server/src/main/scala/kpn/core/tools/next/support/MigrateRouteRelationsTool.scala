@@ -6,8 +6,6 @@ import kpn.api.common.data.RelationMember
 import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
-import kpn.api.custom.Tags
-import kpn.api.custom.Timestamp
 import kpn.core.tools.next.database.NextDatabase
 import kpn.core.tools.next.database.NextDatabaseImpl
 import kpn.core.tools.next.domain.NextRouteRelation

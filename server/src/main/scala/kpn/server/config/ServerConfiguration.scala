@@ -78,6 +78,11 @@ class ServerConfiguration {
   }
 
   @Bean
+  def development(@Value("${app.development:false}") value: Boolean): Boolean = {
+    value
+  }
+
+  @Bean
   def changeSetInfoEngineEnabled(@Value("${app.change-set-info-engine-enabled:false}") value: Boolean): Boolean = {
     value
   }

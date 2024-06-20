@@ -7,12 +7,12 @@ import org.locationtech.jts.geom.Geometry
 import org.springframework.stereotype.Component
 
 @Component
-class LocationAnalyzerImpl(analyzerEnabled: Boolean) extends LocationAnalyzerAbstract {
+class LocationAnalyzerImpl(analyzerEnabled: Boolean, development: Boolean) extends LocationAnalyzerAbstract {
 
   private val log = Log(classOf[LocationAnalyzerImpl])
 
   private val locationStore = if (analyzerEnabled) {
-    new LocationStoreReader().read()
+    new LocationStoreReader(development).read()
   }
   else {
     LocationStore(Seq.empty)
