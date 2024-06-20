@@ -39,7 +39,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.reflect.ClassTag
 
-class DatabaseImpl(val database: MongoDatabase) extends Database {
+class OldDatabaseImpl(val database: MongoDatabase) extends OldDatabase {
 
   override def getCollection[T: ClassTag](collectionName: String): MongoCollection[T] = {
     database.getCollection[T](collectionName)
@@ -50,71 +50,71 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
   }
 
   override def networks: DatabaseCollection[NetworkDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[NetworkDoc]("networks"))
+    new DatabaseCollectionImpl(database.getCollection[NetworkDoc]("old-networks"))
   }
 
   override def networkInfos: DatabaseCollection[NetworkInfoDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[NetworkInfoDoc]("network-infos"))
+    new DatabaseCollectionImpl(database.getCollection[NetworkInfoDoc]("old-network-infos"))
   }
 
   override def nodes: DatabaseCollection[NodeDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[NodeDoc]("nodes"))
+    new DatabaseCollectionImpl(database.getCollection[NodeDoc]("old-nodes"))
   }
 
   override def orphanNodes: DatabaseCollection[OrphanNodeDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[OrphanNodeDoc]("orphan-nodes"))
+    new DatabaseCollectionImpl(database.getCollection[OrphanNodeDoc]("old-orphan-nodes"))
   }
 
   override def routes: DatabaseCollection[RouteDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[RouteDoc]("routes"))
+    new DatabaseCollectionImpl(database.getCollection[RouteDoc]("old-routes"))
   }
 
   override def orphanRoutes: DatabaseCollection[OrphanRouteDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[OrphanRouteDoc]("orphan-routes"))
+    new DatabaseCollectionImpl(database.getCollection[OrphanRouteDoc]("old-orphan-routes"))
   }
 
   override def networkChanges: DatabaseCollection[NetworkChange] = {
-    new DatabaseCollectionImpl(database.getCollection[NetworkChange]("network-changes"))
+    new DatabaseCollectionImpl(database.getCollection[NetworkChange]("old-network-changes"))
   }
 
   override def networkInfoChanges: DatabaseCollection[NetworkInfoChange] = {
-    new DatabaseCollectionImpl(database.getCollection[NetworkInfoChange]("network-info-changes"))
+    new DatabaseCollectionImpl(database.getCollection[NetworkInfoChange]("old-network-info-changes"))
   }
 
   override def routeChanges: DatabaseCollection[RouteChange] = {
-    new DatabaseCollectionImpl(database.getCollection[RouteChange]("route-changes"))
+    new DatabaseCollectionImpl(database.getCollection[RouteChange]("old-route-changes"))
   }
 
   override def nodeChanges: DatabaseCollection[NodeChange] = {
-    new DatabaseCollectionImpl(database.getCollection[NodeChange]("node-changes"))
+    new DatabaseCollectionImpl(database.getCollection[NodeChange]("old-node-changes"))
   }
 
   override def changeSetComments: DatabaseCollection[ChangeSetComment] = {
-    new DatabaseCollectionImpl(database.getCollection[ChangeSetComment]("changeset-comments"))
+    new DatabaseCollectionImpl(database.getCollection[ChangeSetComment]("old-changeset-comments"))
   }
 
   override def changes: DatabaseCollection[ChangeSetSummary] = {
-    new DatabaseCollectionImpl(database.getCollection[ChangeSetSummary]("changes"))
+    new DatabaseCollectionImpl(database.getCollection[ChangeSetSummary]("old-changes"))
   }
 
   override def nodeNetworkRefs: DatabaseCollection[NodeNetworkRef] = {
-    new DatabaseCollectionImpl(database.getCollection[NodeNetworkRef]("node-network-refs"))
+    new DatabaseCollectionImpl(database.getCollection[NodeNetworkRef]("old-node-network-refs"))
   }
 
   override def routeNetworkRefs: DatabaseCollection[RouteNetworkRef] = {
-    new DatabaseCollectionImpl(database.getCollection[RouteNetworkRef]("route-network-refs"))
+    new DatabaseCollectionImpl(database.getCollection[RouteNetworkRef]("old-route-network-refs"))
   }
 
   override def changeSets: DatabaseCollection[ChangeSetInfo] = {
-    new DatabaseCollectionImpl(database.getCollection[ChangeSetInfo]("changesets"))
+    new DatabaseCollectionImpl(database.getCollection[ChangeSetInfo]("old-changesets"))
   }
 
   override def pois: DatabaseCollection[Poi] = {
-    new DatabaseCollectionImpl(database.getCollection[Poi]("pois"))
+    new DatabaseCollectionImpl(database.getCollection[Poi]("old-pois"))
   }
 
   override def poiStates: DatabaseCollection[PoiState] = {
-    new DatabaseCollectionImpl(database.getCollection[PoiState]("poi-states"))
+    new DatabaseCollectionImpl(database.getCollection[PoiState]("old-poi-states"))
   }
 
   override def tasks: DatabaseCollection[Task] = {
@@ -122,31 +122,31 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
   }
 
   override def monitorGroups: DatabaseCollection[MonitorGroup] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorGroup]("monitor-groups"))
+    new DatabaseCollectionImpl(database.getCollection[MonitorGroup]("old-monitor-groups"))
   }
 
   override def monitorRoutes: DatabaseCollection[MonitorRoute] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorRoute]("monitor-routes"))
+    new DatabaseCollectionImpl(database.getCollection[MonitorRoute]("old-monitor-routes"))
   }
 
   override def monitorRouteReferences: DatabaseCollection[MonitorRouteReference] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorRouteReference]("monitor-route-references"))
+    new DatabaseCollectionImpl(database.getCollection[MonitorRouteReference]("old-monitor-route-references"))
   }
 
   override def monitorRouteStates: DatabaseCollection[MonitorRouteState] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorRouteState]("monitor-route-states"))
+    new DatabaseCollectionImpl(database.getCollection[MonitorRouteState]("old-monitor-route-states"))
   }
 
   override def monitorRouteChanges: DatabaseCollection[MonitorRouteChange] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorRouteChange]("monitor-route-changes"))
+    new DatabaseCollectionImpl(database.getCollection[MonitorRouteChange]("old-monitor-route-changes"))
   }
 
   override def monitorRouteChangeGeometries: DatabaseCollection[MonitorRouteChangeGeometry] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorRouteChangeGeometry]("monitor-route-change-geometries"))
+    new DatabaseCollectionImpl(database.getCollection[MonitorRouteChangeGeometry]("old-monitor-route-change-geometries"))
   }
 
   override def monitorRelations: DatabaseCollection[MonitorRelation] = {
-    new DatabaseCollectionImpl(database.getCollection[MonitorRelation]("monitor-relations"))
+    new DatabaseCollectionImpl(database.getCollection[MonitorRelation]("old-monitor-relations"))
   }
 
   override def monitorTasks: DatabaseCollection[MonitorTask] = {
@@ -154,7 +154,7 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
   }
 
   override def statistics: DatabaseCollection[StatisticLongValues] = {
-    new DatabaseCollectionImpl(database.getCollection[StatisticLongValues]("statistics"))
+    new DatabaseCollectionImpl(database.getCollection[StatisticLongValues]("old-statistics"))
   }
 
   override def status: DatabaseCollection[WithStringId] = {
