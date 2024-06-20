@@ -9,7 +9,7 @@ import { NodeMoved } from '@api/common/diff/node';
 import { ChangeType } from '@api/custom';
 import { Fact } from '@api/custom';
 import { Subset } from '@api/custom';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { ChangeKey } from './change-key';
 import { RefBooleanChange } from './ref-boolean-change';
 
@@ -33,7 +33,7 @@ export interface NodeChange {
   readonly removedFromNetwork: Ref[];
   readonly factDiffs: FactDiffs;
   readonly facts: Fact[];
-  readonly initialTags: Tags;
+  readonly initialTags: Tag[] | undefined;
   readonly initialLatLon: LatLonImpl;
   readonly tiles: string[];
   readonly happy: boolean;

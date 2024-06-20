@@ -1,12 +1,12 @@
 // this file is generated, please do not modify
 
-import { RawNode } from '@api/common/data/raw';
+import { Node } from '@api/common/data';
 import { NodeMoved } from '@api/common/diff/node';
 import { TagDiffs } from './tag-diffs';
 
 export interface NodeUpdate {
-  readonly before: RawNode;
-  readonly after: RawNode;
+  readonly before: Node;
+  readonly after: Node;
   readonly tagDiffs: TagDiffs;
   readonly nodeMoved: NodeMoved;
 }

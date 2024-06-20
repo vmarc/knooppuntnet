@@ -4,7 +4,7 @@ import { RouteSummary } from '@api/common';
 import { LocationCandidateInfo } from '@api/common/location';
 import { Day } from '@api/custom';
 import { Fact } from '@api/custom';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { RouteInfoAnalysis } from './route-info-analysis';
 
@@ -17,7 +17,7 @@ export interface RouteDetailsPageData {
   readonly changeSetId: number;
   readonly lastUpdated: Timestamp;
   readonly lastSurvey: Day;
-  readonly tags: Tags;
+  readonly tags: Tag[];
   readonly facts: Fact[];
   readonly locationCandidateInfos: LocationCandidateInfo[];
   readonly analysis: RouteInfoAnalysis;

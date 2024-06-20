@@ -1,10 +1,15 @@
 // this file is generated, please do not modify
 
-import { RawWay } from '@api/common/data/raw';
+import { Tag } from '@api/custom';
+import { Timestamp } from '@api/custom';
 import { Node } from './node';
 
 export interface Way {
-  readonly raw: RawWay;
+  readonly id: number;
+  readonly version: number;
+  readonly timestamp: Timestamp;
+  readonly changeSetId: number;
+  readonly tags: Tag[];
   readonly nodes: Node[];
   readonly length: number;
 }

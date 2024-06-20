@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
 import { Location } from '@api/common/location';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 
 export interface Poi {
   readonly _id: string;
@@ -10,7 +10,7 @@ export interface Poi {
   readonly latitude: string;
   readonly longitude: string;
   readonly layers: string[];
-  readonly tags: Tags;
+  readonly tags: Tag[];
   readonly location: Location;
   readonly tiles: string[];
   readonly description: string;

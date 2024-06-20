@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { MatDividerModule } from '@angular/material/divider';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { PoiAnalysisComponent } from '@app/components/poi';
 import { DataComponent } from '@app/components/shared/data';
 import { PageComponent } from '@app/components/shared/page';
@@ -141,7 +141,7 @@ export class PoiDetailPageComponent implements OnInit {
     this.service.onInit();
   }
 
-  tags(tags: Tags): InterpretedTags {
+  tags(tags: Tag[]): InterpretedTags {
     return InterpretedTags.all(tags);
   }
 }

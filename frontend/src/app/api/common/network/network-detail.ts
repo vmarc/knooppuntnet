@@ -2,7 +2,7 @@
 
 import { LatLonImpl } from '@api/common';
 import { Day } from '@api/custom';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { Integrity } from './integrity';
 
@@ -14,7 +14,7 @@ export interface NetworkDetail {
   readonly lastUpdated: Timestamp;
   readonly relationLastUpdated: Timestamp;
   readonly lastSurvey: Day;
-  readonly tags: Tags;
+  readonly tags: Tag[];
   readonly brokenRouteCount: number;
   readonly brokenRoutePercentage: string;
   readonly integrity: Integrity;

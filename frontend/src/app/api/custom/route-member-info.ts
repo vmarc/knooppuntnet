@@ -1,5 +1,5 @@
+import { Tag } from '@api/custom/tag';
 import { RouteNetworkNodeInfo } from '../common/route';
-import { Tags } from './tags';
 import { Timestamp } from './timestamp';
 
 export interface RouteMemberInfo {
@@ -19,5 +19,5 @@ export interface RouteMemberInfo {
   readonly nodeCount: string;
   readonly description: string;
   readonly oneWay: string;
-  readonly oneWayTags: Tags;
+  readonly oneWayTags: Tag[];
 }

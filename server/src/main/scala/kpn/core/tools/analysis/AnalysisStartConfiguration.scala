@@ -3,7 +3,7 @@ package kpn.core.tools.analysis
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.custom.Timestamp
-import kpn.core.overpass.OverpassQueryExecutorImpl
+import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
@@ -92,7 +92,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   val overpassRepository: OverpassRepository = {
-    val overpassQueryExecutor = new OverpassQueryExecutorImpl()
+    val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
     new OverpassRepositoryImpl(overpassQueryExecutor)
   }
 

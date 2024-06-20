@@ -88,7 +88,7 @@ export class ChangeSetHeaderComponent {
   hasComment() {
     return (
       this.detail().changeSetInfo &&
-      this.detail().changeSetInfo.tags.tags.filter((t) => t.key === 'comment').length > 0
+      this.detail().changeSetInfo.tags.filter((t) => t.key === 'comment').length > 0
     );
   }
 

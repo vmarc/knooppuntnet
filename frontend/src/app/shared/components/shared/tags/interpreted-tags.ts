@@ -1,11 +1,10 @@
 import { Tag } from '@api/custom';
-import { Tags } from '@api/custom';
 import { NetworkScopes } from '@app/kpn/common';
 import { NetworkTypes } from '@app/kpn/common';
 import { List } from 'immutable';
 
 export class InterpretedTags {
-  static nodeTags(tags: Tags): InterpretedTags {
+  static nodeTags(tags: Tag[]): InterpretedTags {
     const prefixes: string[] = [];
     NetworkScopes.all.forEach((networkScope) => {
       NetworkTypes.all.forEach((networkType) => {
@@ -30,17 +29,17 @@ export class InterpretedTags {
     return new InterpretedTags(standardTagKeys, tags);
   }
 
-  static routeTags(tags: Tags): InterpretedTags {
+  static routeTags(tags: Tag[]): InterpretedTags {
     const standardTagKeys = ['ref', 'note', 'network', 'type', 'route', 'network:type'];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
-  static networkTags(tags: Tags): InterpretedTags {
+  static networkTags(tags: Tag[]): InterpretedTags {
     const standardTagKeys = ['network', 'type', 'name', 'network:type'];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
-  static locationTags(tags: Tags): InterpretedTags {
+  static locationTags(tags: Tag[]): InterpretedTags {
     const standardTagKeys = [
       'admin_level',
       'boundary',
@@ -67,40 +66,40 @@ export class InterpretedTags {
     return new InterpretedTags(standardTagKeys, tags);
   }
 
-  static all(tags: Tags): InterpretedTags {
+  static all(tags: Tag[]): InterpretedTags {
     const standardTagKeys = [];
     return new InterpretedTags(standardTagKeys, tags);
   }
 
   private constructor(
     private standardTagKeys: string[],
-    private tags: Tags
+    private tags: Tag[]
   ) {}
 
   isEmpty(): boolean {
-    return this.tags.tags.length === 0;
+    return this.tags.length === 0;
   }
 
   standardTags(): Tag[] {
     const tagArray: Array<Tag> = [];
     this.standardTagKeys.forEach((key) => {
-      this.tags.tags.filter((t) => t.key === key).forEach((x) => tagArray.push(x));
+      this.tags.filter((t) => t.key === key).forEach((x) => tagArray.push(x));
     });
     return tagArray;
   }
 
   extraTags(): Tag[] {
-    const tags = this.tags.tags.filter((tag) => !this.standardTagKeys.includes(tag.key));
+    const tags = this.tags.filter((tag) => !this.standardTagKeys.includes(tag.key));
     return List(tags)
       .sortBy((tag) => tag.key)
       .toArray();
   }
 
   hasStandardTags(): boolean {
-    return this.tags.tags.find((tag) => this.standardTagKeys.includes(tag.key)) !== undefined;
+    return this.tags.find((tag) => this.standardTagKeys.includes(tag.key)) !== undefined;
   }
 
   hasExtraTags(): boolean {
-    return this.tags.tags.find((tag) => !this.standardTagKeys.includes(tag.key)) !== undefined;
+    return this.tags.find((tag) => !this.standardTagKeys.includes(tag.key)) !== undefined;
   }
 }

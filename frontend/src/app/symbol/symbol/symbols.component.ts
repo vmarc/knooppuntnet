@@ -129,7 +129,7 @@ export class SymbolsComponent {
   //   },
   //   {
   //     $match: {
-  //       "tags.tags.key": "osmc:symbol",
+  //       "tags.key": "osmc:symbol",
   //     },
   //   },
   //   {

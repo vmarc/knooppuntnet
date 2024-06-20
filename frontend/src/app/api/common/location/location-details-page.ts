@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
 import { LocationInfo } from '@api/common';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { LocationSummary } from './location-summary';
 
 export interface LocationDetailsPage {
@@ -9,5 +9,5 @@ export interface LocationDetailsPage {
   readonly relationId: number;
   readonly distance: number;
   readonly locationInfos: LocationInfo[];
-  readonly tags: Tags;
+  readonly tags: Tag[];
 }

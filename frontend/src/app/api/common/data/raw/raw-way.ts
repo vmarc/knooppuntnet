@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 
 export interface RawWay {
@@ -9,5 +9,5 @@ export interface RawWay {
   readonly timestamp: Timestamp;
   readonly changeSetId: number;
   readonly nodeIds: number[];
-  readonly tags: Tags;
+  readonly tags: Tag[];
 }

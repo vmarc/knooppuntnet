@@ -3,7 +3,8 @@ package kpn.api.custom
 object Timestamp {
 
   val redaction: Timestamp = Timestamp(2012, 9, 12, 6, 55, 0)
-  val analysisStart: Timestamp = Timestamp(2019, 11, 1, 0, 0, 0) // 003/739/602
+  // val analysisStart: Timestamp = Timestamp(2019, 11, 1, 0, 0, 0) // 003/739/602
+  val analysisStart: Timestamp = Timestamp(2024, 6, 15, 0, 0, 0) // state of the initial server-1 database download
 
   implicit def timestampOrdering: Ordering[Timestamp] = (x: Timestamp, y: Timestamp) => {
     x.compareTo(y)

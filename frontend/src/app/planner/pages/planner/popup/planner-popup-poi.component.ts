@@ -21,12 +21,12 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
         @if (response.result.analysis; as poi) {
           <div>
             <kpn-poi-analysis [poi]="poi" />
-            @if (poi.mainTags && poi.mainTags.tags.length > 0) {
+            @if (poi.mainTags && poi.mainTags.length > 0) {
               <div class="item">
                 <kpn-tag-table [tags]="mainTags()" />
               </div>
             }
-            @if (poi.extraTags && poi.extraTags.tags.length > 0) {
+            @if (poi.extraTags && poi.extraTags.length > 0) {
               <div class="item">
                 <kpn-tag-table [tags]="extraTags()" />
               </div>

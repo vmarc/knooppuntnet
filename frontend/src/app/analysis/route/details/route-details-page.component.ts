@@ -211,7 +211,7 @@ export class RouteDetailsPageComponent implements OnInit {
   }
 
   symbolDescription(page: RouteDetailsPage): string {
-    const symbolTag = page.route.tags.tags.find((tag) => tag.key === 'osmc:symbol');
+    const symbolTag = page.route.tags.find((tag) => tag.key === 'osmc:symbol');
     if (symbolTag) {
       return symbolTag.value;
     }

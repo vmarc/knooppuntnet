@@ -74,7 +74,7 @@ export class NetworkSummaryComponent {
   page = input.required<NetworkDetailsPage>();
 
   isProposed() {
-    const stateTag = this.page().tags.tags.find((t) => t.key === 'state');
+    const stateTag = this.page().tags.find((t) => t.key === 'state');
     return stateTag && stateTag.value === 'proposed';
   }
 }

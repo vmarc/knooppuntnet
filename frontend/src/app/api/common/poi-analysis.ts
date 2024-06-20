@@ -1,11 +1,11 @@
 // this file is generated, please do not modify
 
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 
 export interface PoiAnalysis {
   readonly layers: string[];
-  readonly mainTags: Tags;
-  readonly extraTags: Tags;
+  readonly mainTags: Tag[];
+  readonly extraTags: Tag[];
   readonly name: string;
   readonly subject: string;
   readonly description: string;

@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 
 export interface RawNode {
@@ -10,5 +10,5 @@ export interface RawNode {
   readonly version: number;
   readonly timestamp: Timestamp;
   readonly changeSetId: number;
-  readonly tags: Tags;
+  readonly tags: Tag[];
 }

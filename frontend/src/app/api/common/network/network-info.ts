@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
 import { Fact } from '@api/custom';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { NetworkAttributes } from './network-attributes';
 import { NetworkInfoDetail } from './network-info-detail';
 
@@ -13,6 +13,6 @@ export interface NetworkInfo {
   readonly routeRefs: number[];
   readonly networkRefs: number[];
   readonly facts: Fact[];
-  readonly tags: Tags;
+  readonly tags: Tag[];
   readonly detail: NetworkInfoDetail;
 }

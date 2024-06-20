@@ -1,7 +1,6 @@
 export * from './day';
 export * from './tag';
 export * from './fact';
-export * from './tags';
 export * from './change';
 export * from './subset';
 export * from './country';

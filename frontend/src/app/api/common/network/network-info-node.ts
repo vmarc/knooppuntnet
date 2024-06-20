@@ -4,7 +4,7 @@ import { NodeIntegrityCheck } from '@api/common';
 import { Ref } from '@api/common/common';
 import { Day } from '@api/custom';
 import { Fact } from '@api/custom';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 
 export interface NetworkInfoNode {
@@ -23,5 +23,5 @@ export interface NetworkInfoNode {
   readonly routeReferences: Ref[];
   readonly integrityCheck: NodeIntegrityCheck;
   readonly facts: Fact[];
-  readonly tags: Tags;
+  readonly tags: Tag[];
 }

@@ -3,7 +3,7 @@
 import { Country } from '@api/custom';
 import { NetworkScope } from '@api/custom';
 import { NetworkType } from '@api/custom';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 
 export interface RouteSummary {
@@ -18,5 +18,5 @@ export interface RouteSummary {
   readonly wayCount: number;
   readonly timestamp: Timestamp;
   readonly nodeNames: string[];
-  readonly tags: Tags;
+  readonly tags: Tag[];
 }

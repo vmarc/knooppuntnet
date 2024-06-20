@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 
 export interface WayInfo {
@@ -8,5 +8,5 @@ export interface WayInfo {
   readonly version: number;
   readonly changeSetId: number;
   readonly timestamp: Timestamp;
-  readonly tags: Tags;
+  readonly tags: Tag[];
 }

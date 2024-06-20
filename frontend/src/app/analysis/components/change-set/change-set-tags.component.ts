@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Tag } from '@api/custom';
-import { Tags } from '@api/custom';
 
 @Component({
   selector: 'kpn-change-set-tags',
@@ -32,14 +31,13 @@ import { Tags } from '@api/custom';
     }
   `,
   standalone: true,
-  imports: [],
 })
 export class ChangeSetTagsComponent {
-  changeSetTags = input.required<Tags>();
+  changeSetTags = input.required<Tag[]>();
 
   tags(): Tag[] {
-    if (this.changeSetTags() && this.changeSetTags().tags) {
-      return this.changeSetTags().tags.filter((tag) => tag.key !== 'comment');
+    if (this.changeSetTags()) {
+      return this.changeSetTags().filter((tag) => tag.key !== 'comment');
     }
     return [];
   }

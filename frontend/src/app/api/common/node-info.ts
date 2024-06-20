@@ -5,7 +5,7 @@ import { NodeIntegrity } from '@api/common/node';
 import { Country } from '@api/custom';
 import { Day } from '@api/custom';
 import { Fact } from '@api/custom';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { LocationInfo } from './location-info';
 import { NodeName } from './node-name';
@@ -21,7 +21,7 @@ export interface NodeInfo {
   readonly longitude: string;
   readonly lastUpdated: Timestamp;
   readonly lastSurvey: Day;
-  readonly tags: Tags;
+  readonly tags: Tag[];
   readonly facts: Fact[];
   readonly locations: LocationInfo[];
   readonly tiles: string[];

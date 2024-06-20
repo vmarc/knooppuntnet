@@ -10,7 +10,7 @@ import { FactDiffs } from '@api/common/diff/common';
 import { NodeMoved } from '@api/common/diff/node';
 import { ChangeType } from '@api/custom';
 import { Fact } from '@api/custom';
-import { Tags } from '@api/custom';
+import { Tag } from '@api/custom';
 
 export interface NodeChangeInfo {
   readonly rowIndex: number;
@@ -18,7 +18,7 @@ export interface NodeChangeInfo {
   readonly version: number;
   readonly changeKey: ChangeKey;
   readonly changeType: ChangeType;
-  readonly changeTags: Tags;
+  readonly changeTags: Tag[];
   readonly comment: string;
   readonly before: MetaData;
   readonly after: MetaData;
@@ -33,7 +33,7 @@ export interface NodeChangeInfo {
   readonly removedFromNetwork: Ref[];
   readonly factDiffs: FactDiffs;
   readonly facts: Fact[];
-  readonly initialTags: Tags;
+  readonly initialTags: Tag[] | undefined;
   readonly initialLatLon: LatLonImpl;
   readonly happy: boolean;
   readonly investigate: boolean;

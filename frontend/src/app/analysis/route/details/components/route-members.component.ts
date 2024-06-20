@@ -105,7 +105,7 @@ import { LinkImageComponent } from './link-image.component';
                   }
                   @if (networkType() === 'cycling') {
                     <td>
-                      @if (member.oneWayTags.tags.length > 0) {
+                      @if (member.oneWayTags.length > 0) {
                         <kpn-tags-text [tags]="member.oneWayTags" />
                       }
                     </td>

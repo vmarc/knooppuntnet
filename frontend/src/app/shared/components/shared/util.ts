@@ -5,8 +5,8 @@ import { Params } from '@angular/router';
 import { ActivatedRouteSnapshot } from '@angular/router';
 import { Bounds } from '@api/common';
 import { TagDiffs } from '@api/common/diff';
+import { Tag } from '@api/custom';
 import { ApiResponse } from '@api/custom';
-import { Tags } from '@api/custom';
 import { List } from 'immutable';
 import { Map } from 'immutable';
 import { boundingExtent } from 'ol/extent';
@@ -85,8 +85,8 @@ export class Util {
     return JSON.stringify(object, null, 2);
   }
 
-  static tagWithKey(tags: Tags, key: string): string {
-    const values = tags.tags.filter((t) => t.key === key).map((x) => x.value);
+  static tagWithKey(tags: Tag[], key: string): string {
+    const values = tags.filter((t) => t.key === key).map((x) => x.value);
     if (values.length > 0) {
       return values[0];
     }

@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { RawNode } from '@api/common/data/raw';
+import { Node } from '@api/common/data';
 import { RawRelation } from '@api/common/data/raw';
 import { RawWay } from '@api/common/data/raw';
 import { Country } from '@api/custom';
@@ -14,8 +14,8 @@ export interface RouteData {
   readonly networkScope: NetworkScope;
   readonly relation: RawRelation;
   readonly name: string;
-  readonly networkNodes: RawNode[];
-  readonly nodes: RawNode[];
+  readonly networkNodes: Node[];
+  readonly nodes: Node[];
   readonly ways: RawWay[];
   readonly relations: RawRelation[];
   readonly facts: Fact[];
