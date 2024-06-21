@@ -4,6 +4,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteTagInvalid
 import kpn.api.custom.Fact.RouteTagMissing
 import kpn.api.custom.Fact.RouteUnsupportedNetworkType
+import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
@@ -18,32 +19,39 @@ object RouteTagAnalyzer extends RouteAnalyzer {
 class RouteTagAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-
-    val facts = ListBuffer[Fact]()
-
-    val scopedNetworkTypeOption = context.relation.tagValue("network") match {
-      case None => None
-      case Some(key) =>
-        ScopedNetworkType.withKey(key) match {
-          case None =>
-            facts += RouteUnsupportedNetworkType
-            None
-
-          case Some(scopedNetworkType) =>
-            context.relation.tagValue("route") match {
-              case None => facts += RouteTagMissing
-              case Some(routeTagValue) =>
-                if (!context.relation.hasTag("route", scopedNetworkType.networkType.routeTagValues *)) {
-                  facts += RouteTagInvalid
-                }
-            }
-            Some(scopedNetworkType)
-        }
+    if (!context.relation.hasTag("type", "route", "superroute")) {
+      context.copy(abort = true).withFacts(RouteTagMissing)
     }
-
-    context.copy(
-      abort = scopedNetworkTypeOption.isEmpty,
-      scopedNetworkTypeOption = scopedNetworkTypeOption
-    ).withFacts(facts.toSeq *)
+    else {
+      context.relation.tagValue("route") match {
+        case None => context.copy(abort = true).withFacts(RouteTagMissing)
+        case Some(routeTagValue) =>
+          NetworkType.all.find(_.routeTagValues.contains(routeTagValue)) match {
+            case None => context.copy(abort = true).withFacts(RouteUnsupportedNetworkType)
+            case Some(networkType) =>
+              val superRoute = context.relation.hasTag("type", "superroute")
+              val nodeNetwork = context.relation.hasTag("network:type", "node_network")
+              val facts = ListBuffer[Fact]()
+              val scopedNetworkTypeOption = context.relation.tagValue("network") match {
+                case None => None
+                case Some(key) =>
+                  ScopedNetworkType.withKey(key) match {
+                    case None => None
+                    case Some(scopedNetworkType) =>
+                      if (!context.relation.hasTag("route", scopedNetworkType.networkType.routeTagValues *)) {
+                        facts += RouteTagInvalid
+                      }
+                      Some(scopedNetworkType)
+                  }
+              }
+              context.copy(
+                superRoute = superRoute,
+                nodeNetwork = nodeNetwork,
+                networkType = Some(networkType),
+                scopedNetworkTypeOption = scopedNetworkTypeOption
+              ).withFacts(facts.toSeq *)
+          }
+      }
+    }
   }
 }

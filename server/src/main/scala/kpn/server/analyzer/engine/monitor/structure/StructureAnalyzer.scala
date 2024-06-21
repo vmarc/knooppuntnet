@@ -6,6 +6,10 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
 
   def analyze(relation: Relation): Structure = {
     val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled)
+    analyze(elementGroups)
+  }
+
+  def analyze(elementGroups: Seq[StructureElementGroup]): Structure = {
     if (elementGroups.size != 1) {
       Structure(
         None,

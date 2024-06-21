@@ -21,7 +21,12 @@ import scala.collection.mutable.ListBuffer
  */
 object RouteNodeAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    new RouteNodeAnalyzer(context).analyze
+    if (context.nodeNetwork) {
+      new RouteNodeAnalyzer(context).analyze
+    }
+    else {
+      context.copy(routeNodeAnalysis = Some(RouteNodeAnalysis()))
+    }
   }
 }
 

@@ -6,7 +6,12 @@ import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 object ExpectedNameRouteAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    new ExpectedNameRouteAnalyzer(context).analyze
+    if (context.nodeNetwork) {
+      new ExpectedNameRouteAnalyzer(context).analyze
+    }
+    else {
+      context
+    }
   }
 }
 

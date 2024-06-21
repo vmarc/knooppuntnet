@@ -48,9 +48,11 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
 
   private def analyzeStructure(routeNodeAnalysis: RouteNodeAnalysis): RouteStructure = {
 
+    val networkType = context.networkType.getOrElse(throw new PreconditionMissingException)
+
     if (isAnalysisImpossible(routeNodeAnalysis)) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder(context.networkType, fragmentMap).segments(fragmentMap.ids)
+        unusedSegments = new SegmentBuilder(networkType, fragmentMap).segments(fragmentMap.ids)
       )
     }
     else {

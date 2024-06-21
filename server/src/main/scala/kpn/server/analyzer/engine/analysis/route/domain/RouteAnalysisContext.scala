@@ -25,12 +25,15 @@ case class RouteAnalysisContext(
   analysisContext: AnalysisContext,
   relation: Relation,
   // analysis results start here...
-  segmentAnalysis: Option[RouteSegmentAnalysis] = None,
-  routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
+  active: Boolean = true,
+  superRoute: Boolean = false,
+  nodeNetwork: Boolean = false,
+  proposed: Boolean = false,
+  networkType: Option[NetworkType] = None,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
   country: Option[Country] = None,
-  active: Boolean = true,
-  proposed: Boolean = false,
+  segmentAnalysis: Option[RouteSegmentAnalysis] = None,
+  routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   facts: Seq[Fact] = Seq.empty,
   unexpectedNodeIds: Option[Seq[Long]] = None,
   unexpectedRelationIds: Option[Seq[Long]] = None,
@@ -60,10 +63,6 @@ case class RouteAnalysisContext(
     scopedNetworkTypeOption.getOrElse {
       throw new IllegalArgumentException("trying to use scopedNetworkType before definition")
     }
-  }
-
-  def networkType: NetworkType = {
-    scopedNetworkType.networkType
   }
 
   def withFact(fact: Fact): RouteAnalysisContext = {

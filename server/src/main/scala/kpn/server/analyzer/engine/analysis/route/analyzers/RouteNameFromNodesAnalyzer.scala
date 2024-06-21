@@ -2,13 +2,18 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact
 import kpn.core.util.Util.isDigits
+import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.{RouteNameAnalysis, RouteNodeAnalysis}
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 object RouteNameFromNodesAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    new RouteNameFromNodesAnalyzer(context).analyze
+    if (context.nodeNetwork) {
+      new RouteNameFromNodesAnalyzer(context).analyze
+    }
+    else {
+      context
+    }
   }
 }
 

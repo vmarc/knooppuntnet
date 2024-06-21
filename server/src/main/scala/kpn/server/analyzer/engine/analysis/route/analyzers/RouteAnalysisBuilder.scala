@@ -43,7 +43,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.routeMap.get,
       context.unexpectedNodeIds.get,
       context.unexpectedRelationIds.get,
-      context.expectedName.get,
+      context.expectedName.getOrElse(""),
       context.structure.get,
       context.routeNodeAnalysis.get
     )
