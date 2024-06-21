@@ -6,8 +6,8 @@ import kpn.core.util.Haversine
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteOsmSegmentAnalysis
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
-import kpn.server.analyzer.engine.monitor.structure.ElementDirection
-import kpn.server.analyzer.engine.monitor.structure.StructureElementAnalyzer
+import kpn.server.analyzer.engine.analysis.route.structure.ElementDirection
+import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component

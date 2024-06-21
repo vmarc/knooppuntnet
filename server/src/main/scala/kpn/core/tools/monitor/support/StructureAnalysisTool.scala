@@ -5,7 +5,7 @@ import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.tools.config.Dirs
-import kpn.server.analyzer.engine.monitor.structure.StructureElementAnalyzer
+import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import org.apache.commons.io.FileUtils
 
 import java.io.File

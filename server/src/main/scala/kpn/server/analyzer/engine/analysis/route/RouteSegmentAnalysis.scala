@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.server.analyzer.engine.monitor.structure.Structure
+import kpn.server.analyzer.engine.analysis.route.structure.Structure
 
 case class RouteSegmentAnalysis(
   osmDistance: Long,
