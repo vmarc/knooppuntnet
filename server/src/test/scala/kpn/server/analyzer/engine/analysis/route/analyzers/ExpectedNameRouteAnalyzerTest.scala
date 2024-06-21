@@ -96,6 +96,6 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val relation = data.relations(1L)
     val analysisContext = new AnalysisContext()
-    RouteAnalysisContext(analysisContext, relation)
+    RouteAnalysisContext(analysisContext, relation, nodeNetwork = true)
   }
 }

@@ -11,10 +11,28 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
 
   def analyze(elementGroups: Seq[StructureElementGroup]): Structure = {
     if (elementGroups.size != 1) {
+      val otherPaths: Seq[StructurePath] = {
+        elementGroups.map { elementGroup =>
+          val pathElements = elementGroup.elements.map { element =>
+            StructurePathElement(
+              element,
+              reversed = false
+            )
+          }
+          val startNodeId = pathElements.head.nodeIds.head
+          val endNodeId = pathElements.last.nodeIds.last
+          StructurePath(
+            startNodeId,
+            endNodeId,
+            pathElements
+          )
+        }
+      }
+
       Structure(
         None,
         None,
-        Seq.empty
+        otherPaths
       )
     }
     else {

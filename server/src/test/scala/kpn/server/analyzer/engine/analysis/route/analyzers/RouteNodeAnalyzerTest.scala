@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
@@ -475,6 +476,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
     val context = RouteAnalysisContext(
       analysisContext,
       relation,
+      nodeNetwork = true,
+      networkType = Some(NetworkType.hiking),
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
       proposed = proposed,
     )

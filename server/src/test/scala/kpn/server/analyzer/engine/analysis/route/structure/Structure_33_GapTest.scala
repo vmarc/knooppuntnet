@@ -49,7 +49,12 @@ class Structure_33_GapTest extends UnitTest {
     structure.shouldMatchTo(
       TestStructure(
         forwardPath = None,
-        backwardPath = None
+        backwardPath = None,
+        Seq(
+          TestStructurePath(1, 2, Seq(1, 2)),
+          TestStructurePath(3, 5, Seq(3, 4, 5)),
+          TestStructurePath(6, 8, Seq(6, 7, 8))
+        )
       )
     )
   }

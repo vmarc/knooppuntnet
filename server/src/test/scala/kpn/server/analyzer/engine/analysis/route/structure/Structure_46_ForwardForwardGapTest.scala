@@ -53,7 +53,11 @@ class Structure_46_ForwardForwardGapTest extends UnitTest {
     structure.shouldMatchTo(
       TestStructure(
         forwardPath = None,
-        backwardPath = None
+        backwardPath = None,
+        Seq(
+          TestStructurePath(1, 9, Seq(1, 2, 2, 3, 8, 8, 7, 2, 8, 9)),
+          TestStructurePath(10, 12, Seq(10, 11, 12))
+        )
       )
     )
   }

@@ -59,9 +59,9 @@ class MainRouteAnalyzerImpl(
       val context = RouteAnalysisContext(analysisContext, relation)
 
       val analyzers: List[RouteAnalyzer] = List(
+        RouteTagAnalyzer,
         RouteSegmentAnalyzer,
         routeCountryAnalyzer,
-        RouteTagAnalyzer,
         ProposedAnalyzer,
         WithoutWaysRouteAnalyzer,
         IncompleteRouteAnalyzer,
@@ -74,8 +74,10 @@ class MainRouteAnalyzerImpl(
         RouteNameFromNodesAnalyzer,
         ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK
+
         RouteFragmentAnalyzer,
         RouteStructureAnalyzer,
+
         RouteMemberAnalyzer,
         RouteStreetsAnalyzer,
         RouteMapAnalyzer,

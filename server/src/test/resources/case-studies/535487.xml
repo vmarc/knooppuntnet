@@ -328,5 +328,6 @@
     <tag k="note" v="02-40"/>
     <tag k="route" v="bicycle"/>
     <tag k="type" v="route"/>
+    <tag k="network:type" v="node_network"/>
   </relation>
 </osm>

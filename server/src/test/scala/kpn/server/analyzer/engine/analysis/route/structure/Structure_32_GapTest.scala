@@ -40,6 +40,10 @@ class Structure_32_GapTest extends UnitTest {
       TestStructure(
         forwardPath = None,
         backwardPath = None,
+        Seq(
+          TestStructurePath(1, 5, Seq(1, 2, 3, 4, 5)),
+          TestStructurePath(6, 8, List(6, 7, 8))
+        )
       )
     )
   }

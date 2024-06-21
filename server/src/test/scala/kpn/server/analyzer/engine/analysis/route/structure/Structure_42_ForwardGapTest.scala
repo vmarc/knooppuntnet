@@ -37,7 +37,11 @@ class Structure_42_ForwardGapTest extends UnitTest {
     structure.shouldMatchTo(
       TestStructure(
         forwardPath = None,
-        backwardPath = None
+        backwardPath = None,
+        Seq(
+          TestStructurePath(2, 1, Seq(2, 1)),
+          TestStructurePath(3, 2, Seq(3, 2))
+        )
       )
     )
   }

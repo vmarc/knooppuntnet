@@ -46,7 +46,12 @@ class Structure_81_RoundaboutGap_Test extends UnitTest {
     structure.shouldMatchTo(
       TestStructure(
         forwardPath = None,
-        backwardPath = None
+        backwardPath = None,
+        Seq(
+          TestStructurePath(1, 2, Seq(1, 2)),
+          TestStructurePath(3, 7, Seq(3, 4, 5, 5, 6, 3, 5, 7 /* TODO redesign - this does not look good*/)),
+          TestStructurePath(8, 9, Seq(8, 9))
+        )
       )
     )
   }

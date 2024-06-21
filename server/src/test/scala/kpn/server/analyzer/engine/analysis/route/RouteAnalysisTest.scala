@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotContinious
@@ -16,7 +15,7 @@ class RouteAnalysisTest extends UnitTest {
 
   test("route without ref tag") {
 
-    val d = new RouteTestData("", routeTags=Tags.from("from" -> "01", "to" -> "02")) {
+    val d = new RouteTestData("", routeTags = Tags.from("from" -> "01", "to" -> "02")) {
       node(1, "01")
       node(4, "02")
       memberWay(10, "", 1, 2, 3, 4)
@@ -32,7 +31,6 @@ class RouteAnalysisTest extends UnitTest {
 
       structure("forward=(01-02 via +<01-02 10>)")
       structure("backward=(02-01 via -<01-02 10>)")
-
     }.analyze(d)
   }
 
@@ -56,7 +54,6 @@ class RouteAnalysisTest extends UnitTest {
 
       structure("forward=(01-02 via +<01-02 10>)")
       structure("backward=(02-01 via -<01-02 10>)")
-
     }.analyze(d)
   }
 
@@ -84,7 +81,6 @@ class RouteAnalysisTest extends UnitTest {
 
       structure("forward=(01-02 via +<01- 10>+<11>+<-02 12>)")
       structure("backward=(02-01 via -<-02 12>-<11>-<01- 10>)")
-
     }.analyze(d)
   }
 
@@ -131,7 +127,6 @@ class RouteAnalysisTest extends UnitTest {
       structure("forward=(01.a-02 via +<01.a- 11>+<-02 12>)")
       structure("backward=(02-01.a via -<-02 12>-<01.a- 11>)")
       structure("startTentacles=(01.a-01.b via -<01.b-01.a 10>)")
-
     }.analyze(d)
   }
 
@@ -161,7 +156,6 @@ class RouteAnalysisTest extends UnitTest {
       structure("forward=(01.a-02 via +<01.a- 12>+<-02 13>)")
       structure("backward=(02-01.a via -<-02 13>-<01.a- 12>)")
       structure("startTentacles=(01.a-01.b via -<-01.a 11>-<01.b- 10>)")
-
     }.analyze(d)
   }
 
@@ -193,7 +187,6 @@ class RouteAnalysisTest extends UnitTest {
       structure("forward=(01-02.a via +<01- 10>+<11>+<12>+<-02.a 13>)")
       structure("backward=(02.a-01 via -<-02.a 13>-<12>-<11>-<01- 10>)")
       structure("endTentacles=(02.a-02.b via +<02.a- 14>+<-02.b 15>)")
-
     }.analyze(d)
   }
 
@@ -231,9 +224,7 @@ class RouteAnalysisTest extends UnitTest {
       structure("forward=(01-02.a via +<01- 10>+<11>+<12>+<-02.a 13>)")
       structure("backward=(02.a-01 via -<-02.a 13>-<12>-<11>-<01- 10>)")
       structure("endTentacles=(02.a-02.b via +<02.a- 14>+<-02.b 15>,02.b-02.c via +<02.b- 16>+<-02.c 17>)")
-
     }.analyze(d)
-
   }
 
   test("multiple forked tentacles at end") {
@@ -269,7 +260,6 @@ class RouteAnalysisTest extends UnitTest {
       structure("forward=(01-02.a via +<01- 10>+<11>+<12>+<-02.a 13>)")
       structure("backward=(02.a-01 via -<-02.a 13>-<12>-<11>-<01- 10>)")
       structure("endTentacles=(02.a-02.b via +>02.a- 14>+>-02.b 15>,02.c-02.a via -<-02.c 17<-<02.a- 16<)")
-
     }.analyze(d)
   }
 
@@ -302,7 +292,6 @@ class RouteAnalysisTest extends UnitTest {
 
       structure("forward=(01-02 via +<01- 101>+<102>+>103>+>104>+>105>+<109>+<-02 110>)")
       structure("backward=(02-01 via -<-02 110>-<109>-<108<-<107<-<106<-<102>-<01- 101>)")
-
     }.analyze(d)
   }
 
@@ -335,9 +324,7 @@ class RouteAnalysisTest extends UnitTest {
 
       structure("forward=(01-02 via +<01- 101>+<102>+>103>+>104>+>105>+<109>+<-02 110>)")
       structure("backward=(02-01 via -<-02 110>-<109>+>108>+>107>+>106>-<102>-<01- 101>)")
-
     }.analyze(d)
-
   }
 
   ignore("roundabout") {
@@ -362,7 +349,6 @@ class RouteAnalysisTest extends UnitTest {
 
       structure("forward=(01-02 via +<01- 10>+<11(4-5-6-7)>+<-02 12>)")
       structure("backward=(02-01 via -<-02 12>+<11(7-8-3)>+<11(3-4)>-<01- 10>)")
-
     }.analyze(d)
   }
 
@@ -395,7 +381,6 @@ class RouteAnalysisTest extends UnitTest {
 
       structure("forward=(01-None [broken] via +<01- 10>)")
       structure("backward=(02-None [broken] via -<-02 12>-<11>)")
-
     }.analyze(d)
   }
 
@@ -428,7 +413,6 @@ class RouteAnalysisTest extends UnitTest {
       structure("forward=(01-02 via +<01- 10>+<11(2-3)>+<-02 12>)")
       structure("backward=(02-01 via -<-02 12>-<11(2-3)>-<01- 10>)")
       structure("unused=(+<11(3-4-5)>)")
-
     }.analyze(d)
   }
 
@@ -466,7 +450,6 @@ class RouteAnalysisTest extends UnitTest {
       structure("forward=(01-None [broken] via +<01- 101>+<102>+>103>+>104>)")
       structure("backward=(02-01 via -<-02 110>-<109>-<108<-<107<-<106<-<102>-<01- 101>)")
       structure("unused=(+>105>)")
-
     }.analyze(d)
   }
 
@@ -504,7 +487,6 @@ class RouteAnalysisTest extends UnitTest {
       structure("forward=(01-02 via +<01- 101>+<102>+>103>+>104>+>105>+<109>+<-02 110>)")
       structure("backward=(02-None [broken] via -<-02 110>-<109>-<108<)")
       structure("unused=(+<106<+<107<)")
-
     }.analyze(d)
   }
 
@@ -538,7 +520,6 @@ class RouteAnalysisTest extends UnitTest {
 
       // TODO analysis.forwardBreakPoint should equal(Some(10 -> 2))
       // TODO analysis.backwardBreakPoint should equal(Some(10 -> 2))
-
     }.analyze(d)
   }
 
@@ -572,7 +553,6 @@ class RouteAnalysisTest extends UnitTest {
 
       structure("forward=(01-None [broken] via +<01- 10>+<11(4-5-6-7-8)>)")
       structure("backward=(02-None [broken] via -<-02 12>)")
-
     }.analyze(d)
   }
 
@@ -596,7 +576,6 @@ class RouteAnalysisTest extends UnitTest {
       backward()
 
       structure("forward=(01-02 via +<01-02 10>)")
-
     }.analyze(d)
   }
 
@@ -620,7 +599,6 @@ class RouteAnalysisTest extends UnitTest {
       backward()
 
       structure("forward=(01-02 via +<01-02 10>)")
-
     }.analyze(d)
   }
 
@@ -644,7 +622,6 @@ class RouteAnalysisTest extends UnitTest {
       backward()
 
       structure("forward=(01-02 via +<01-02 10>)")
-
     }.analyze(d)
   }
 
@@ -668,7 +645,6 @@ class RouteAnalysisTest extends UnitTest {
       backward(3, 2, 1)
 
       structure("backward=(02-01 via +<02-01 10>)")
-
     }.analyze(d)
   }
 
@@ -693,7 +669,6 @@ class RouteAnalysisTest extends UnitTest {
 
       structure("forward=(01-02 via +<01-02 10>)")
       structure("backward=(02-01 via -<01-02 10>)")
-
     }.analyze(d)
   }
 
@@ -719,7 +694,6 @@ class RouteAnalysisTest extends UnitTest {
       backward(3, 2, 1)
 
       structure("backward=(02-01 via +<02-01 10>)")
-
     }.analyze(d)
   }
 
@@ -745,7 +719,6 @@ class RouteAnalysisTest extends UnitTest {
       backward()
 
       structure("forward=(01-02 via +<01-02 10>)")
-
     }.analyze(d)
   }
 
@@ -791,7 +764,6 @@ class RouteAnalysisTest extends UnitTest {
 
       structure("forward=(01-02 via +<01-02 10>)")
       structure("backward=(02-01 via -<01-02 10>)")
-
     }.analyze(d)
   }
 

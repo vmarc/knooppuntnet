@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Fact.RouteTagInvalid
 import kpn.api.custom.Fact.RouteTagMissing
+import kpn.api.custom.Fact.RouteUnsupportedNetworkType
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkScope.local
 import kpn.api.custom.NetworkScope.national
@@ -43,7 +43,7 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
         "route" -> "invalid"
       )
     )
-    context.facts.shouldMatchTo(Seq(RouteTagInvalid))
+    context.facts.shouldMatchTo(Seq(RouteUnsupportedNetworkType))
   }
 
   test("route tag valid") {
