@@ -15,7 +15,7 @@ object StructureElementAnalyzer {
       }
     }
     if (wayMembers.exists(_.way.nodes.length < 2)) {
-      throw new IllegalStateException("ways with less that 2 nodes should have been filtered out at this point")
+      throw new IllegalStateException("ways with less than 2 nodes should have been filtered out at this point")
     }
     new StructureElementAnalyzer(wayMembers, traceEnabled).analyze()
   }

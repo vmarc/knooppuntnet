@@ -2,7 +2,7 @@ package kpn.server.analyzer.full.route
 
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzer
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.overpass.OverpassRepository
 import kpn.server.repository.RouteRepository
@@ -18,7 +18,7 @@ import scala.concurrent.duration.Duration
 class FullRouteAnalyzerImpl(
   overpassRepository: OverpassRepository,
   routeRepository: RouteRepository,
-  masterRouteAnalyzer: MasterRouteAnalyzer,
+  mainRouteAnalyzer: MainRouteAnalyzer,
   implicit val analysisExecutionContext: ExecutionContext
 ) extends FullRouteAnalyzer {
 
@@ -76,7 +76,7 @@ class FullRouteAnalyzerImpl(
       val routeDocs = relations.flatMap { relation =>
         Log.context(s"route=${relation.id}") {
           try {
-            masterRouteAnalyzer.analyze(relation).map(_.route)
+            mainRouteAnalyzer.analyze(relation).map(_.route)
           } catch {
             case e: Exception =>
               log.error(s"Error processing route ${relation.id}", e)
@@ -100,5 +100,4 @@ class FullRouteAnalyzerImpl(
       }
     }
   }
-
 }

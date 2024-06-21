@@ -34,7 +34,7 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest with MockFactory {
     val routeRepository = stub[RouteRepository]
     val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-    val routeAnalyzer = new MasterRouteAnalyzerImpl(
+    val routeAnalyzer = new MainRouteAnalyzerImpl(
       analysisContext,
       routeCountryAnalyzer,
       routeLocationAnalyzer,

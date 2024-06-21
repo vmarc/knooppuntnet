@@ -2,6 +2,6 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.custom.Relation
 
-trait MasterRouteAnalyzer {
+trait MainRouteAnalyzer {
   def analyze(relation: Relation): Option[RouteAnalysis]
 }

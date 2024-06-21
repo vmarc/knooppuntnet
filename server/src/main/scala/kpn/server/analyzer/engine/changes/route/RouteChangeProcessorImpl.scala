@@ -11,7 +11,7 @@ import kpn.core.doc.Label
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.history.RouteTagDiffAnalyzer
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.MasterRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
@@ -28,7 +28,7 @@ class RouteChangeProcessorImpl(
   analysisContext: AnalysisContext,
   changeAnalyzer: RouteChangeAnalyzer,
   overpassRepository: OverpassRepository,
-  masterRouteAnalyzer: MasterRouteAnalyzer,
+  masterRouteAnalyzer: MainRouteAnalyzer,
   tileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeRepository: RouteRepository,
   implicit val analysisExecutionContext: ExecutionContext

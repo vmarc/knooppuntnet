@@ -14,6 +14,7 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -24,6 +25,7 @@ case class RouteAnalysisContext(
   analysisContext: AnalysisContext,
   relation: Relation,
   // analysis results start here...
+  segmentAnalysis: Option[RouteSegmentAnalysis] = None,
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
   country: Option[Country] = None,

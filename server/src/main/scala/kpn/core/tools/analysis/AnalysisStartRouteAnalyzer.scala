@@ -69,7 +69,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def analyzeRoute(relation: Relation): Unit = {
     Log.context(s"route=${relation.id}") {
       try {
-        config.masterRouteAnalyzer.analyze(relation) match {
+        config.mainRouteAnalyzer.analyze(relation) match {
           case None =>
           case Some(routeAnalysis) =>
             config.routeRepository.save(routeAnalysis.route)

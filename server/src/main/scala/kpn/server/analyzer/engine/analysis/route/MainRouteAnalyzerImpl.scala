@@ -30,6 +30,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameFromNodesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeTagAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
@@ -45,12 +46,12 @@ import org.springframework.stereotype.Component
 import scala.annotation.tailrec
 
 @Component
-class MasterRouteAnalyzerImpl(
+class MainRouteAnalyzerImpl(
   analysisContext: AnalysisContext,
   routeCountryAnalyzer: RouteCountryAnalyzer,
   routeLocationAnalyzer: RouteLocationAnalyzer,
   routeTileAnalyzer: RouteTileAnalyzer
-) extends MasterRouteAnalyzer {
+) extends MainRouteAnalyzer {
 
   override def analyze(relation: Relation): Option[RouteAnalysis] = {
     Log.context("route=%07d".format(relation.id)) {
@@ -58,6 +59,7 @@ class MasterRouteAnalyzerImpl(
       val context = RouteAnalysisContext(analysisContext, relation)
 
       val analyzers: List[RouteAnalyzer] = List(
+        RouteSegmentAnalyzer,
         routeCountryAnalyzer,
         RouteTagAnalyzer,
         ProposedAnalyzer,
