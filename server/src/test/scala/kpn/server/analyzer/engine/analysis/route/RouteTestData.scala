@@ -4,6 +4,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
+import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tag
@@ -21,6 +22,7 @@ class RouteTestData(
 
   private val nodeBuffer = ListBuffer[RawNode]()
   private val wayBuffer = ListBuffer[RawWay]()
+  private val relationBuffer = ListBuffer[RawRelation]()
   private val memberBuffer = ListBuffer[RawMember]()
 
   def routeRelationId = 1L
@@ -45,6 +47,12 @@ class RouteTestData(
     val w = newRawWay(wayId, nodeIds = nodeIds.toVector, tags = tags)
     wayBuffer += w
     w
+  }
+
+  def relation(relationId: Long): RawRelation = {
+    val r = newRawRelation(relationId)
+    relationBuffer += r
+    r
   }
 
   def memberNode(nodeId: Long, role: String = ""): RawMember = member("node", nodeId, role)
@@ -94,7 +102,7 @@ class RouteTestData(
     )
     val allRouteTags = routeNameTags ++ routeTags ++ standardRouteTags
     val relation = newRawRelation(routeRelationId, members = memberBuffer.toSeq, tags = allRouteTags)
-    val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))
+    val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation) ++ relationBuffer)
     new DataBuilder(rawData).data
   }
 }

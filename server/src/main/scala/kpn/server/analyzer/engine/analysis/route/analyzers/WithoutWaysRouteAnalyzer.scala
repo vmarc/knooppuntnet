@@ -12,7 +12,13 @@ object WithoutWaysRouteAnalyzer extends RouteAnalyzer {
 class WithoutWaysRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    if (!routeHasWays) {
+    if (context.relation.hasTag("type", "superroute")) {
+      context
+    }
+    else if (context.relation.relationMembers.nonEmpty) {
+      context
+    }
+    else if (!routeHasWays) {
       context.withFact(RouteWithoutWays)
     }
     else {
@@ -23,5 +29,4 @@ class WithoutWaysRouteAnalyzer(context: RouteAnalysisContext) {
   private def routeHasWays: Boolean = {
     context.relation.members.exists(_.isWay)
   }
-
 }
