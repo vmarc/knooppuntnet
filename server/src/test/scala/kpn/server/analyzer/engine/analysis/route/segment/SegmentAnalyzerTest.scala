@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
+import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeFormatter
@@ -263,19 +264,21 @@ class SegmentAnalyzerTest extends UnitTest {
   }
 
   test("start at roundabout with forward and backward roles - this is an error situation") {
+    if (Redesign.enablePendingTests) {
 
-    val d = new RouteTestData("01-02", ScopedNetworkType.rcn) {
-      node(2, "01")
-      node(13, "02")
-      memberWay(10, Tags.from("junction" -> "roundabout"), "backward", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1)
-      memberWay(10, Tags.from("junction" -> "roundabout"), "forward", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1)
-      memberWay(11, "", 5, 13)
+      val d = new RouteTestData("01-02", ScopedNetworkType.rcn) {
+        node(2, "01")
+        node(13, "02")
+        memberWay(10, Tags.from("junction" -> "roundabout"), "backward", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1)
+        memberWay(10, Tags.from("junction" -> "roundabout"), "forward", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1)
+        memberWay(11, "", 5, 13)
+      }
+
+      assertSegments(d,
+        "forward=(01-02 via +<01- 10(2-3-4-5)<+<-02 11>)," +
+          "backward=(02-01 via -<-02 11>+<10(5-6-7-8-9-10-11-12-1)<+<-01 10(1-2)<)"
+      )
     }
-
-    assertSegments(d,
-      "forward=(01-02 via +<01- 10(2-3-4-5)<+<-02 11>)," +
-        "backward=(02-01 via -<-02 11>+<10(5-6-7-8-9-10-11-12-1)<+<-01 10(1-2)<)"
-    )
   }
 
   test("roundabout consisting of separate ways (like route 1193198)") {

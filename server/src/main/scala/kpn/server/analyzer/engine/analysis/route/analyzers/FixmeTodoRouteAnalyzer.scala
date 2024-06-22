@@ -13,7 +13,7 @@ class FixmeTodoRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
     if (hasFixmeTodoTag) {
-      context.withFact(RouteFixmetodo)
+      context.withFact(RouteFixmetodo).withOldFact(RouteFixmetodo)
     }
     else {
       context

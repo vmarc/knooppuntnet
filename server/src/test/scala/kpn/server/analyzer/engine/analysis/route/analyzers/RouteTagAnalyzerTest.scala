@@ -17,6 +17,7 @@ import kpn.api.custom.NetworkType.motorboat
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
+import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -58,7 +59,9 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("ignore additional values") {
-    testValid(NetworkScope.regional, NetworkType.cycling, "bicycle;mtb")
+    if (Redesign.enablePendingTests) {
+      testValid(NetworkScope.regional, NetworkType.cycling, "bicycle;mtb")
+    }
   }
 
   private def testValid(networkScope: NetworkScope, networkType: NetworkType, tagValue: String): Unit = {

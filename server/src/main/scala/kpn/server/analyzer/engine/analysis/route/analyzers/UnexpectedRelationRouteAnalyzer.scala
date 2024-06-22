@@ -9,15 +9,17 @@ object UnexpectedRelationRouteAnalyzer extends RouteAnalyzer {
   }
 }
 
+// TODO redesign - move to pass 2?
 class UnexpectedRelationRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
     val relationIds = findUnexpectedRelationIds
-    context.copy(unexpectedRelationIds = Some(relationIds)).withFact(relationIds.nonEmpty, RouteUnexpectedRelation)
+    context.copy(
+      unexpectedRelationIds = Some(relationIds)
+    ).withOldFact(relationIds.nonEmpty, RouteUnexpectedRelation)
   }
 
   private def findUnexpectedRelationIds: Seq[Long] = {
     context.relation.relationMembers.map(_.relation.id)
   }
-
 }

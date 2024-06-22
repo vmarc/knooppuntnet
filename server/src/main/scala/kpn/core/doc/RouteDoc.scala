@@ -23,6 +23,7 @@ case class RouteDoc(
   lastSurvey: Option[Day],
   tags: Seq[Tag],
   facts: Seq[Fact],
+  oldFacts: Seq[Fact],
   analysis: RouteInfoAnalysis,
   tiles: Seq[String],
   nodeRefs: Seq[Long],

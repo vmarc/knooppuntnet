@@ -13,7 +13,7 @@ class IncompleteRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
     if (hasFixmeIncompleteTag) {
-      context.withFact(RouteIncomplete)
+      context.withFact(RouteIncomplete).withOldFact(RouteIncomplete)
     }
     else {
       context

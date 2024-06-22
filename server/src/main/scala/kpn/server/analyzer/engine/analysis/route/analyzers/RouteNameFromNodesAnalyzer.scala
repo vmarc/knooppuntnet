@@ -57,6 +57,7 @@ class RouteNameFromNodesAnalyzer(context: RouteAnalysisContext) {
     )
     context.copy(
       facts = context.facts.filterNot(_ == Fact.RouteNameMissing),
+      oldFacts = context.oldFacts.filterNot(_ == Fact.RouteNameMissing),
       routeNameAnalysis = Some(newRouteNameAnalysis)
     )
   }

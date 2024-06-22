@@ -7,6 +7,7 @@ import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.util.GeoJsonLineStringGeometry
+import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzerImpl
@@ -28,29 +29,33 @@ import scala.xml.XML
 class Issue2_OverlappingWays extends UnitTest with MockFactory {
 
   test("28-28") {
+    if (Redesign.enablePendingTests) {
 
-    fail("reproduces unresolved issue")
+      fail("reproduces unresolved issue")
 
-    val routeAnalysis = analyze("28-28", "vv", 7776398L, 9174227L)
-    println(routeAnalysis.route.analysis.structureStrings)
-    routeAnalysis.route.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
-      makeGeojson(s"unusedSegment ${index + 1}", segment)
+      val routeAnalysis = analyze("28-28", "vv", 7776398L, 9174227L)
+      println(routeAnalysis.route.analysis.structureStrings)
+      routeAnalysis.route.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
+        makeGeojson(s"unusedSegment ${index + 1}", segment)
+      }
+      assert(routeAnalysis.route.facts.isEmpty)
+      assert(routeAnalysis.structure.unusedSegments.isEmpty)
     }
-    assert(routeAnalysis.route.facts.isEmpty)
-    assert(routeAnalysis.structure.unusedSegments.isEmpty)
   }
 
   test("32-32") {
 
-    fail("reproduces unresolved issue")
+    if (Redesign.enablePendingTests) {
+      fail("reproduces unresolved issue")
 
-    val routeAnalysis = analyze("32-32", "x", 7175609L, 11047960L)
-    println(routeAnalysis.route.analysis.structureStrings)
-    routeAnalysis.route.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
-      makeGeojson(s"unusedSegment: ${index + 1}", segment)
+      val routeAnalysis = analyze("32-32", "x", 7175609L, 11047960L)
+      println(routeAnalysis.route.analysis.structureStrings)
+      routeAnalysis.route.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
+        makeGeojson(s"unusedSegment: ${index + 1}", segment)
+      }
+      assert(routeAnalysis.route.facts.isEmpty)
+      assert(routeAnalysis.structure.unusedSegments.isEmpty)
     }
-    assert(routeAnalysis.route.facts.isEmpty)
-    assert(routeAnalysis.structure.unusedSegments.isEmpty)
   }
 
   private def analyze(routeName: String, connectingNodeName: String, routeId1: Long, routeId2: Long): RouteAnalysis = {

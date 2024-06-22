@@ -35,6 +35,7 @@ case class RouteAnalysisContext(
   segmentAnalysis: Option[RouteSegmentAnalysis] = None,
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   facts: Seq[Fact] = Seq.empty,
+  oldFacts: Seq[Fact] = Seq.empty,
   unexpectedNodeIds: Option[Seq[Long]] = None,
   unexpectedRelationIds: Option[Seq[Long]] = None,
   routeNameAnalysis: Option[RouteNameAnalysis] = None,
@@ -69,13 +70,29 @@ case class RouteAnalysisContext(
     copy(facts = facts :+ fact)
   }
 
+  def withOldFact(fact: Fact): RouteAnalysisContext = {
+    copy(oldFacts = oldFacts :+ fact)
+  }
+
   def replaceAllFactsWith(fact: Fact): RouteAnalysisContext = {
-    copy(facts = Seq(fact))
+    copy(
+      facts = Seq(fact),
+      oldFacts = Seq(fact)
+    )
   }
 
   def withFact(condition: Boolean, fact: Fact): RouteAnalysisContext = {
     if (condition) {
       withFact(fact)
+    }
+    else {
+      this
+    }
+  }
+
+  def withOldFact(condition: Boolean, fact: Fact): RouteAnalysisContext = {
+    if (condition) {
+      withOldFact(fact)
     }
     else {
       this
@@ -91,9 +108,27 @@ case class RouteAnalysisContext(
     }
   }
 
+  def withOldFacts(newFacts: Fact*): RouteAnalysisContext = {
+    if (newFacts.nonEmpty) {
+      copy(oldFacts = oldFacts ++ newFacts)
+    }
+    else {
+      this
+    }
+  }
+
   def withoutFacts(excludedFacts: Fact*): RouteAnalysisContext = {
     if (excludedFacts.nonEmpty) {
       copy(facts = facts.filterNot(excludedFacts.contains))
+    }
+    else {
+      this
+    }
+  }
+
+  def withoutOldFacts(excludedFacts: Fact*): RouteAnalysisContext = {
+    if (excludedFacts.nonEmpty) {
+      copy(oldFacts = oldFacts.filterNot(excludedFacts.contains))
     }
     else {
       this

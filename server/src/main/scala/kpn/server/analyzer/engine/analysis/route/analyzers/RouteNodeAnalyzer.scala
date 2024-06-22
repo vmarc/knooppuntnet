@@ -44,19 +44,24 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
   def analyze: RouteAnalysisContext = {
 
     val facts = ListBuffer[Fact]()
+    val oldFacts = ListBuffer[Fact]()
 
     val routeNodeAnalysis = if (nodes.isEmpty) {
       facts += RouteWithoutNodes
+      oldFacts += RouteWithoutNodes
       RouteNodeAnalysis()
     }
     else {
-      doAnalyze(facts)
+      doAnalyze(facts, oldFacts)
     }
 
-    context.copy(routeNodeAnalysis = Some(routeNodeAnalysis)).withFacts(facts.toSeq *)
+    context.copy(
+        routeNodeAnalysis = Some(routeNodeAnalysis)
+      ).withFacts(facts.toSeq *)
+      .withOldFacts(oldFacts.toSeq *)
   }
 
-  private def doAnalyze(facts: ListBuffer[Fact]): RouteNodeAnalysis = {
+  private def doAnalyze(facts: ListBuffer[Fact], oldFacts: ListBuffer[Fact]): RouteNodeAnalysis = {
 
     val routeNodeAnalysis = context.routeNameAnalysis match {
       case Some(routeNameAnalysis) => analyzeRouteWithName(facts, routeNameAnalysis)
@@ -65,13 +70,16 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
     if (routeNodeAnalysis.nodesInWays.isEmpty) {
       facts += RouteNodeMissingInWays
+      oldFacts += RouteNodeMissingInWays
     }
     else if (routeNodeAnalysis.usedNodes.exists(_.missingInWays)) {
       facts += RouteNodeMissingInWays
+      oldFacts += RouteNodeMissingInWays
     }
 
     if (routeNodeAnalysis.redundantNodes.nonEmpty) {
       facts += RouteRedundantNodes
+      oldFacts += RouteRedundantNodes
     }
 
     routeNodeAnalysis

@@ -29,6 +29,12 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     facts += RouteBroken
   }
 
+  val oldFacts: ListBuffer[Fact] = ListBuffer[Fact]()
+  oldFacts ++= context.oldFacts
+  if (oldFacts.exists(_.isError)) {
+    oldFacts += RouteBroken
+  }
+
   def build: RouteAnalysis = {
 
     val title: String = context.routeNameAnalysis.get.name match {
@@ -173,6 +179,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.lastSurvey,
       context.relation.tags,
       facts.toSeq,
+      oldFacts.toSeq,
       routeAnalysis,
       context.tiles,
       routeAnalysis.map.nodeIds,

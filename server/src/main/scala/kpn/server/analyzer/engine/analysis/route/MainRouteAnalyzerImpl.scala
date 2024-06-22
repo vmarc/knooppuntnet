@@ -15,9 +15,11 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyze
 import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteContextAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteElementsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteFragmentAnalyzer
@@ -32,7 +34,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.SuspiciousWaysRouteAnalyzer
@@ -60,7 +61,6 @@ class MainRouteAnalyzerImpl(
 
       val analyzers: List[RouteAnalyzer] = List(
         RouteTagAnalyzer,
-        RouteSegmentAnalyzer,
         routeCountryAnalyzer,
         ProposedAnalyzer,
         WithoutWaysRouteAnalyzer,
@@ -70,13 +70,17 @@ class MainRouteAnalyzerImpl(
         UnexpectedRelationRouteAnalyzer,
         RouteNodeTagAnalyzer,
         RouteNameAnalyzer,
+
         RouteNodeAnalyzer, // has ProposedAnalyzer as prerequisite
         RouteNameFromNodesAnalyzer,
         ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK
 
+        RouteSegmentAnalyzer,
+
         RouteFragmentAnalyzer,
-        RouteStructureAnalyzer,
+        OldRouteStructureAnalyzer,
+        // RouteStructureAnalyzer,
 
         RouteMemberAnalyzer,
         RouteStreetsAnalyzer,
@@ -89,7 +93,8 @@ class MainRouteAnalyzerImpl(
         RouteElementsAnalyzer,
         routeTileAnalyzer,
         EdgeRouteAnalyzer,
-        RouteLabelsAnalyzer // this always should be the last analyzer
+        RouteLabelsAnalyzer, // this always should be the last analyzer
+        RouteContextAnalyzer // helper to be used during development only
       )
 
       doAnalyze(analyzers, context)

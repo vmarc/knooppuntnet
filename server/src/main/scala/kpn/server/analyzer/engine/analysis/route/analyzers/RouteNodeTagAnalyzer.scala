@@ -9,7 +9,12 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 
 object RouteNodeTagAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    new RouteNodeTagAnalyzer(context).analyze
+    if (context.nodeNetwork) {
+      new RouteNodeTagAnalyzer(context).analyze
+    }
+    else {
+      context
+    }
   }
 }
 

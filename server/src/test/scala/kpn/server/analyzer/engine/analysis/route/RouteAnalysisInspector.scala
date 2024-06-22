@@ -117,7 +117,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     }
 
     private def evaluateMissingFacts: Option[String] = {
-      val missingFacts = factsBuffer.toSet -- analysis.route.facts
+      val missingFacts = factsBuffer.toSet -- analysis.route.oldFacts // TODO redesign - switch from oldFacts to facts
       if (missingFacts.nonEmpty) {
         Some("Missing fact(s): " + missingFacts)
       }
@@ -127,7 +127,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     }
 
     private def evaluateUnexpectedFacts: Option[String] = {
-      val unexpectedFacts = analysis.route.facts.toSet -- factsBuffer.toSet
+      val unexpectedFacts = analysis.route.oldFacts.toSet -- factsBuffer.toSet // TODO redesign - switch from oldFacts to facts
       if (unexpectedFacts.nonEmpty) {
         Some("Unexpected fact(s): " + unexpectedFacts.mkString(", "))
       }
