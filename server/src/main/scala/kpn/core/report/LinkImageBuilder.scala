@@ -170,10 +170,7 @@ class LinkImageBuilder(g: Graphics2D, link: Link) {
     g.drawLine(xoff + xowloop, y1, xoff + xowloop, y2)
 
     /* special icons */
-
-    // TODO calculate correct x and y
-    drawRoundabout(xoff - 6, 1)
-
+    drawRoundabout(xoff - 6, (height / 2) - 6)
     drawArrow(xoff, xoff + xowloop, (y1 + y2) / 2 - 2)
   }
 

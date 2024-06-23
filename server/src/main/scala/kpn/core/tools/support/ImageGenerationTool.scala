@@ -63,7 +63,7 @@ class ImageGenerationTool {
 
     val dir = "/Users/marc/tmp/node-network-analysis"
     new File(dir).mkdirs
-    new File(dir + "/new-images").mkdirs
+    new File(dir + "/images").mkdirs
 
     val out = new PrintWriter("%s/index.html".format(dir))
     out.println("<html>")

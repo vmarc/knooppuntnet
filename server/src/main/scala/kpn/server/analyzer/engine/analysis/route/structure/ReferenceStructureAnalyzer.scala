@@ -33,7 +33,7 @@ class ReferenceStructureAnalyzer(traceEnabled: Boolean = false) {
 
   private def toJavaRelation(relation: Relation): reference.Relation = {
     val nodeMap = mutable.Map[Long, reference.Node]()
-    val referenceRelationMembers = relation.members.map {
+    val referenceRelationMembers = relation.members.filter(_.isWay /*TODO redesign allow all member types */).map {
       case wayMember: WayMember =>
         val referenceRole = toJavaRole(wayMember)
         val referenceNodes = toJavaNodes(nodeMap, wayMember)
@@ -44,6 +44,9 @@ class ReferenceStructureAnalyzer(traceEnabled: Boolean = false) {
           referenceNodes
         )
         new reference.Member(referenceRole, referenceWay)
+
+      //      case nodeMember: NodeMember =>
+      //      case relationMember: RelationMember =>
 
       case _ => throw new IllegalStateException("non way member types not implemented yet")
     }.asJavaCollection.stream.collect(toUnmodifiableList())

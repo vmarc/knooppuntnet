@@ -134,7 +134,18 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
 
         // some ways have <tag k="route" v="bicycle"/>; Is this enough to decide that this is ok ???
 
-        RouteMemberWay(name, link, wayMember.role, way, fromNode, toNode, from.toString, to.toString, accessible, wayNetworkNodes)
+        RouteMemberWay(
+          name,
+          link,
+          wayMember.role,
+          way,
+          fromNode,
+          toNode,
+          from.toString,
+          to.toString,
+          accessible,
+          wayNetworkNodes
+        )
     }
   }
 }

@@ -24,6 +24,31 @@ case class ReferenceWayInfo(
     sb.toString
   }
 
+  def name: String = {
+    //    if (!isValid) {
+    //      "n"
+    //    }
+    //    else {
+
+    val linkTypeLetter = direction match {
+      case ReferenceDirection.Forward => "f"
+      case ReferenceDirection.Backward => "b"
+      case ReferenceDirection.RoundaboutLeft => "r"
+      case ReferenceDirection.RoundaboutRight => "r"
+      case ReferenceDirection.Unknown => "n"
+    }
+
+    val code = (if (isLinkedToPreviousMember) 1 else 0) +
+      (if (isLinkedToNextMember) 2 else 0) +
+      (if (isLoop) 4 else 0) +
+      (if (isOnewayLoopForwardPart) 8 else 0) +
+      (if (isOnewayLoopBackwardPart) 16 else 0) +
+      (if (isOnewayHead) 32 else 0) +
+      (if (isOnewayTail) 64 else 0)
+
+    "w%s%03d".format(linkTypeLetter, code)
+  }
+
   private def bool(value: Boolean): String = {
     if (value) "■" else " "
   }
