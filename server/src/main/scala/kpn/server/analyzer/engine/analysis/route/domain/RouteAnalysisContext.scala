@@ -17,6 +17,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
+import kpn.server.analyzer.engine.analysis.route.structure.ReferenceStructure
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
@@ -32,6 +33,7 @@ case class RouteAnalysisContext(
   networkType: Option[NetworkType] = None,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
   country: Option[Country] = None,
+  referenceStructure: Option[ReferenceStructure] = None,
   segmentAnalysis: Option[RouteSegmentAnalysis] = None,
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   facts: Seq[Fact] = Seq.empty,

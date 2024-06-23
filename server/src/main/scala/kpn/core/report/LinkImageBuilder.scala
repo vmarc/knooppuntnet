@@ -1,5 +1,8 @@
 package kpn.core.report
 
+import kpn.core.analysis.Link
+import kpn.core.analysis.LinkType
+
 import java.awt.BasicStroke
 import java.awt.Color
 import java.awt.Graphics2D
@@ -8,20 +11,17 @@ import java.awt.RenderingHints
 import java.awt.image.BufferedImage
 import java.io.File
 import java.io.FileOutputStream
-
 import javax.imageio.ImageIO
-import kpn.core.analysis.Link
-import kpn.core.analysis.LinkType
 
 object LinkImageBuilder {
 
   val size = 40
 
   val corners: Image = readImage("roundedcorners.png")
-  val roundabout: Image = readImage("roundabout_right.png")
+  val roundabout: Image = readImage("roundabout-right.png")
 
   private def readImage(name: String): Image = {
-    val file = new File("/home/marcv/git/projects/gps/images/" + name)
+    val file = new File("/Users/marc/wrk/projects/knooppuntnet/server/src/main/resources/kpn/images/" + name)
     ImageIO.read(file)
   }
 
@@ -171,7 +171,9 @@ class LinkImageBuilder(g: Graphics2D, link: Link) {
 
     /* special icons */
 
-    drawRoundabout(xoff - 10, 10)
+    // TODO calculate correct x and y
+    drawRoundabout(xoff - 6, 1)
+
     drawArrow(xoff, xoff + xowloop, (y1 + y2) / 2 - 2)
   }
 

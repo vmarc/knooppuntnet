@@ -6,7 +6,6 @@ import kpn.core.analysis.LinkType.BACKWARD
 import kpn.core.analysis.LinkType.FORWARD
 import kpn.core.analysis.LinkType.NONE
 import kpn.core.analysis.LinkType.ROUNDABOUT
-import kpn.core.obsolete.OldLinkImageBuilder
 import kpn.core.report.LinkImageBuilder
 import kpn.core.util.Xml
 
@@ -31,8 +30,16 @@ class ImageGenerationTool {
               Seq(false, true) flatMap { isOnewayTail =>
                 Seq(false, true) flatMap { hasPrev =>
                   Seq(false, true) map { hasNext =>
-                    Link(linkType, hasPrev, hasNext, isLoop, isOnewayLoopForwardPart,
-                      isOnewayLoopBackwardPart, isOnewayHead, isOnewayTail, invalid = false
+                    Link(
+                      linkType,
+                      hasPrev,
+                      hasNext,
+                      isLoop,
+                      isOnewayLoopForwardPart,
+                      isOnewayLoopBackwardPart,
+                      isOnewayHead,
+                      isOnewayTail,
+                      invalid = false
                     )
                   }
                 }
@@ -54,10 +61,9 @@ class ImageGenerationTool {
       invalid = true
     )
 
-    val dir = "/tmp/node-network-analysis"
+    val dir = "/Users/marc/tmp/node-network-analysis"
     new File(dir).mkdirs
-    new File(dir + "/images").mkdirs
-    new File(dir + "/old-images").mkdirs
+    new File(dir + "/new-images").mkdirs
 
     val out = new PrintWriter("%s/index.html".format(dir))
     out.println("<html>")
@@ -66,6 +72,13 @@ class ImageGenerationTool {
     out.println("""  <meta http-equiv="content-type" content="text/html; charset=UTF-8">""")
     out.println("""  <link href="styles.css" rel="stylesheet" type="text/css">""")
     out.println("  <title>Test Images</title>")
+    out.println("  <style>")
+    out.println("  table, th, td {")
+    out.println("    border: 1px solid gray;")
+    out.println("    border-collapse: collapse;")
+    out.println("  }")
+    out.println("  ")
+    out.println("  </style>")
     out.println("</head>")
 
     out.println("<body>")
@@ -73,14 +86,9 @@ class ImageGenerationTool {
 
     allLinks.foreach { link =>
       LinkImageBuilder.build("%s/images/%s.png".format(dir, link.name), link)
-      OldLinkImageBuilder.build("%s/old-images/%s.png".format(dir, link.name), link)
-
       out.println("<tr>")
       out.println("""<td style="padding:0">""")
       out.println("""<img src="images/%s.png"/>""".format(link.name))
-      out.println("</td>")
-      out.println("""<td style="padding:0">""")
-      out.println("""<img src="old-images/%s.png"/>""".format(link.name))
       out.println("</td>")
       out.println("<td>")
       out.println(link.name)

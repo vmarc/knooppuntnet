@@ -21,24 +21,6 @@ case class Link(
 
   def isValid: Boolean = !invalid
 
-  def toolTip: String = {
-    if (!isValid) {
-      ""
-    }
-    else if (hasPrev && hasNext) {
-      "way is connected"
-    }
-    else if (hasPrev) {
-      "way is connected to previous relation member"
-    }
-    else if (hasNext) {
-      "way is connected to next relation member"
-    }
-    else {
-      "way is not connected to previous or next relation member"
-    }
-  }
-
   def name: String = {
     if (!isValid) {
       "n"

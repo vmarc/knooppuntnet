@@ -1,11 +1,11 @@
 package kpn.core.tools.next.support
 
 import kpn.api.common.tiles.ZoomLevel
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.core.tools.analysis.AnalysisStartConfiguration
 import kpn.core.tools.analysis.AnalysisStartToolOptions
 import kpn.core.util.Log
+import kpn.core.util.Redesign
 
 object RouteAnalysisTool {
   def main(args: Array[String]): Unit = {
@@ -20,9 +20,10 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   def analyze(): Unit = {
     log.info("Start")
     // analyzeRoutes(Seq(13844575)) // ok route
-    analyzeRoutes(Seq(8831649)) // LAW-9 deel 1 - 01
+    // analyzeRoutes(Seq(8831649)) // LAW-9 deel 1 - 01
     // analyzeRoutes(Seq(3952592)) // broken route
     // analyzeRoutes(Seq(7973533)) // LAW-9 super route containing other super routes
+    analyzeRoutes(Seq(3963819)) // route with roundabout
     buildTiles()
     log.info(s"Done")
   }
@@ -54,7 +55,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   }
 
   private def buildTiles(): Unit = {
-    /* TODO NetworkType.all */ Seq(NetworkType.hiking).foreach { networkType =>
+    Redesign.tileGenerationNetworkTypes.foreach { networkType =>
       Log.context(networkType.name) {
         log.info("Start tile analysis")
         val tileAnalysis = config.tileAnalyzer.analysis(networkType)

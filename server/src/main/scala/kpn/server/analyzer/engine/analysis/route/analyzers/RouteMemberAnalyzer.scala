@@ -4,14 +4,16 @@ import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Fact.RouteInaccessible
+import kpn.core.analysis.Link
 import kpn.core.analysis.LinkType
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.analysis.TagInterpreter
-import kpn.core.obsolete.OldLinkBuilder
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.structure.ReferenceDirection
+import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -39,16 +41,30 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
       TagInterpreter.isValidNetworkMember(context.scopedNetworkType, member)
     }
 
-    val wayRelationMembers = validRouteMembers.flatMap {
-      case member: WayMember => Some(kpn.core.josm.RelationMember(member.role.getOrElse(""), member.way))
-      case _ => None
+    val links = context.referenceStructure.getOrElse(throw new PreconditionMissingException).wayInfos.map { wayInfo =>
+      val linkType = wayInfo.direction match {
+        case ReferenceDirection.Forward => LinkType.FORWARD
+        case ReferenceDirection.Backward => LinkType.BACKWARD
+        case ReferenceDirection.RoundaboutLeft => LinkType.ROUNDABOUT
+        case ReferenceDirection.RoundaboutRight => LinkType.ROUNDABOUT
+        case ReferenceDirection.Unknown => LinkType.NONE
+      }
+      Link(
+        linkType,
+        wayInfo.isLinkedToPreviousMember,
+        wayInfo.isLinkedToNextMember,
+        wayInfo.isLoop,
+        wayInfo.isOnewayLoopForwardPart,
+        wayInfo.isOnewayLoopBackwardPart,
+        wayInfo.isOnewayHead,
+        wayInfo.isOnewayTail,
+        false
+      )
     }
-
-    val oldLinks = new OldLinkBuilder(wayRelationMembers).links
 
     //links.zip(relationMembers).toSeq.map { case(link, w) => LinkInfo(link, w)}
 
-    val linkIterator = oldLinks.iterator
+    val linkIterator = links.iterator
     //    val wayMemberIterator = validRouteMembers.filter(_.isWay).iterator
     //    val nodeMemberIterator = validRouteMembers.filter(_.isNode).iterator
     validRouteMembers.map {

@@ -19,11 +19,12 @@ class StructureTestSetup(val data: Data) {
   }
 
   def reference(traceEnabled: Boolean = false): Seq[String] = {
-    val reference = new ReferenceStructureAnalyzer(traceEnabled).analyze(relation)
+    val referenceStructure = new ReferenceStructureAnalyzer(traceEnabled).analyze(relation)
+    val strings = referenceStructure.reportStrings
     if (traceEnabled) println()
-    if (traceEnabled) reference.foreach(println)
+    if (traceEnabled) strings.foreach(println)
     if (traceEnabled) println()
-    reference
+    strings
   }
 
   def structure(traceEnabled: Boolean = false): TestStructure = {

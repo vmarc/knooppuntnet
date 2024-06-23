@@ -18,12 +18,22 @@ class RouteContextAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: Unit = {
     if (Redesign.enableDebugPrinting) {
+      printReferenceStructure()
       context.segmentAnalysis.foreach { segmentAnalysis =>
         printElementGroups(segmentAnalysis.elementGroups)
         printRouteSegments(segmentAnalysis.routeSegments)
         printStructure(segmentAnalysis.structure)
       }
       printFacts()
+    }
+  }
+
+  private def printReferenceStructure(): Unit = {
+    context.referenceStructure match {
+      case Some(referenceStructure) =>
+        println("ReferenceStructure")
+        referenceStructure.reportStrings.foreach(s => println(s"  $s"))
+        println("---")
     }
   }
 
