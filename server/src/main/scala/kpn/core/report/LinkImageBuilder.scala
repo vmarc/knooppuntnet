@@ -27,13 +27,28 @@ object LinkImageBuilder {
 
   def build(fileName: String, link: Link): Unit = {
     val image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB)
-    val g2 = image.createGraphics()
-    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
-    g2.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
+    val g = buildGraphicsContext(image)
+    new LinkImageBuilder(g, link).paint()
+    write(fileName, image)
+  }
 
-    g2.setColor(Color.white)
-    g2.fillRect(0, 0, size, size)
-    new LinkImageBuilder(g2, link).paint()
+  def buildNode(fileName: String): Unit = {
+    val image = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB)
+    val g2 = buildGraphicsContext(image)
+    new LinkImageBuilder(g2, null).paintNode()
+    write(fileName, image)
+  }
+
+  private def buildGraphicsContext(image: BufferedImage): Graphics2D = {
+    val g = image.createGraphics()
+    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
+    g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY)
+    g.setColor(Color.white)
+    g.fillRect(0, 0, size, size)
+    g
+  }
+
+  private def write(fileName: String, image: BufferedImage): Unit = {
     val out = new FileOutputStream(fileName)
     ImageIO.write(image, "png", out)
     out.close()
@@ -45,16 +60,6 @@ class LinkImageBuilder(g: Graphics2D, link: Link) {
   import kpn.core.report.LinkImageBuilder.*
 
   def paint(): Unit = {
-
-    if (link == null || !link.isValid) {
-      paintNode()
-    }
-    else {
-      paintWay()
-    }
-  }
-
-  private def paintWay(): Unit = {
     val width = size
     val height = size
 
@@ -183,7 +188,7 @@ class LinkImageBuilder(g: Graphics2D, link: Link) {
     g.setStroke(new BasicStroke())
   }
 
-  private def paintNode(): Unit = {
+  def paintNode(): Unit = {
     val w = size / 4
     val x1 = (size / 2) - (w / 2)
     g.setColor(Color.blue)
@@ -193,7 +198,8 @@ class LinkImageBuilder(g: Graphics2D, link: Link) {
 
   private def drawRoundabout(x: Int, y: Int): Unit = {
     val image = link.linkType match {
-      case LinkType.ROUNDABOUT => Some(roundabout)
+      case LinkType.RoundaboutLeft => Some(roundabout)
+      case LinkType.RoundaboutRight => Some(roundabout)
       case _ => None
     }
     image.foreach(i => g.drawImage(i, x, y, null))
@@ -201,8 +207,8 @@ class LinkImageBuilder(g: Graphics2D, link: Link) {
 
   private def drawArrow(xLeft: Int, xRight: Int, y: Int): Unit = {
     val down = link.linkType match {
-      case LinkType.FORWARD => Some(true)
-      case LinkType.BACKWARD => Some(false)
+      case LinkType.Forward => Some(true)
+      case LinkType.Backward => Some(false)
       case _ => None
     }
 

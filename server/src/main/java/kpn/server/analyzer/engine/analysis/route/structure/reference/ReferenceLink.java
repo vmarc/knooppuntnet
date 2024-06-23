@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.structure.reference;
 
-public class WayInfo {
+// equivalent of Josm WayConnectionType
+public class ReferenceLink {
 
     private final boolean nodeOrRelationMember; // member does not contain a way
     public boolean linkedToPreviousMember;
@@ -25,7 +26,7 @@ public class WayInfo {
     public boolean isOnewayHead;
     public boolean isOnewayTail;
 
-    public WayInfo(
+    public ReferenceLink(
             final boolean linkedToPreviousMember,
             final boolean linkedToNextMember,
             final Direction direction
@@ -37,7 +38,7 @@ public class WayInfo {
         nodeOrRelationMember = false;
     }
 
-    public WayInfo(final boolean nodeOrRelationMember) {
+    public ReferenceLink(final boolean nodeOrRelationMember) {
         this.linkedToPreviousMember = false;
         this.linkedToNextMember = false;
         this.isLoop = false;
@@ -45,7 +46,7 @@ public class WayInfo {
         this.nodeOrRelationMember = nodeOrRelationMember;
     }
 
-    public WayInfo() {
+    public ReferenceLink() {
         this(true);
     }
 

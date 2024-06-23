@@ -19,8 +19,8 @@ class StructureTestSetup(val data: Data) {
   }
 
   def reference(traceEnabled: Boolean = false): Seq[String] = {
-    val referenceStructure = new ReferenceStructureAnalyzer(traceEnabled).analyze(relation)
-    val strings = referenceStructure.reportStrings
+    val referenceStructure = new RouteLinkAnalyzer(traceEnabled).analyze(relation)
+    val strings = referenceStructure.links.zipWithIndex.map { case (wayInfo, index) => s"${index + 1} ${wayInfo.reportString}" }
     if (traceEnabled) println()
     if (traceEnabled) strings.foreach(println)
     if (traceEnabled) println()

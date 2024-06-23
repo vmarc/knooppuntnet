@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.core.analysis.RouteMember
+import kpn.core.tools.config.Dirs
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.Structure
@@ -19,16 +20,15 @@ object RouteAnalysisContextReport {
 class RouteAnalysisContextReport(context: RouteAnalysisContext) {
 
   private val out = {
-    val dir = "/Users/marc/tmp/node-network-analysis"
-    new File(dir).mkdirs
-    new PrintWriter(s"$dir/${context.relation.id}.html")
+    val dir = new File(Dirs.root, "routes")
+    dir.mkdirs
+    new PrintWriter(new File(dir, s"/${context.relation.id}.html"))
   }
 
   def report(): Unit = {
     reportStart()
     printSummary()
     printFacts()
-    printReferenceStructure()
     reportRouteMembers()
     context.segmentAnalysis.foreach { segmentAnalysis =>
       printElementGroups(segmentAnalysis.elementGroups)
@@ -49,7 +49,7 @@ class RouteAnalysisContextReport(context: RouteAnalysisContext) {
     out.println("  body {")
     out.println("    font-family: monospace;")
     out.println("  }")
-    out.println("  table, pre {")
+    out.println("  table {")
     out.println("    margin: 30;")
     out.println("  }")
     out.println("  table, th, td {")
@@ -74,17 +74,24 @@ class RouteAnalysisContextReport(context: RouteAnalysisContext) {
 
   private def printSummary(): Unit = {
     out.println("<table>")
-    row("superRoute", yes(context.superRoute))
+    row("name", context.routeNameAnalysis.flatMap(_.name).getOrElse("?"))
     row("nodeNetwork", yes(context.nodeNetwork))
+    row("superRoute", yes(context.superRoute))
     row("proposed", yes(context.proposed))
     row("networkType", s"""${context.networkType.map(_.name).getOrElse("")}""")
     row("scopedNetworkType", s"""${context.scopedNetworkTypeOption.map(_.key).getOrElse("")}""")
     row("country", s"""${context.country.map(_.domain).getOrElse("")}""")
-    out.println("")
-    out.println("")
-    out.println("")
-    out.println("")
+    row("unexpectedNodeIds", context.unexpectedNodeIds.toSeq.flatten.mkString(", "))
+    row("unexpectedRelationIds", context.unexpectedRelationIds.toSeq.flatten.mkString(", "))
     out.println("</table>")
+
+    context.routeNodeInfos.foreach { routeNodeInfo =>
+      /*
+        node: Node,
+        name: String,
+        longName: Option[String]
+       */
+    }
   }
 
   private def row(key: String, value: String): Unit = {
@@ -94,15 +101,17 @@ class RouteAnalysisContextReport(context: RouteAnalysisContext) {
   private def reportRouteMembers(): Unit = {
     out.println("""<table>""")
     reportRouteMembersHeader()
-    context.routeMembers.get.foreach { routeMember =>
-      reportRouteMember(routeMember)
+    context.routeMembers.get.zipWithIndex.foreach { case (routeMember, index) =>
+      reportRouteMember(routeMember, index)
     }
     out.println("</table>")
   }
 
   private def reportRouteMembersHeader(): Unit = {
     out.println("<tr>")
+    out.println("<td>nr</td>")
     out.println("<td></td>")
+    out.println("<td>link</td>")
     out.println("<td>id</td>")
     out.println("<td>name</td>")
     out.println("<td>role</td>")
@@ -110,10 +119,16 @@ class RouteAnalysisContextReport(context: RouteAnalysisContext) {
     out.println("</tr>")
   }
 
-  private def reportRouteMember(routeMember: RouteMember): Unit = {
+  private def reportRouteMember(routeMember: RouteMember, index: Int): Unit = {
     out.println("<tr>")
+    out.println("<td>")
+    out.println(s"""${index + 1}""")
+    out.println("</td>")
     out.println("""<td style="padding:0">""")
     out.println(s"""<img src="images/${routeMember.linkName}.png"/>""")
+    out.println("</td>")
+    out.println("<td>")
+    out.println("<pre>" + routeMember.link.map(_.reportString).getOrElse("") + "</pre>")
     out.println("</td>")
     out.println("<td>")
     out.println(s"""<a href="https://www.openstreetmap.org/${routeMember.memberType}/${routeMember.id}">${routeMember.id}</a>""")
@@ -128,17 +143,6 @@ class RouteAnalysisContextReport(context: RouteAnalysisContext) {
     out.println(if (routeMember.accessible) "" else "no")
     out.println("</td>")
     out.println("</tr>")
-  }
-
-  private def printReferenceStructure(): Unit = {
-    context.referenceStructure match {
-      case Some(referenceStructure) =>
-        out.println("<pre>")
-        out.println("ReferenceStructure")
-        referenceStructure.reportStrings.foreach(s => out.println(s"  $s"))
-        out.println("---")
-        out.println("</pre>")
-    }
   }
 
   private def printElementGroups(groups: Seq[StructureElementGroup]): Unit = {

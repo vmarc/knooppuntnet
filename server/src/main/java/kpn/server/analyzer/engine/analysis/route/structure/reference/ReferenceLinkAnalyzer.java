@@ -1,20 +1,21 @@
 package kpn.server.analyzer.engine.analysis.route.structure.reference;
 
-import kpn.server.analyzer.engine.analysis.route.structure.reference.WayInfo.Direction;
+import kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLink.Direction;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static java.util.stream.Collectors.joining;
-import static kpn.server.analyzer.engine.analysis.route.structure.reference.WayInfo.Direction.*;
+import static kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLink.Direction.*;
 
-public class WayInfoAnalyzer {
+// equivalent of Josm WayConnectionTypeCalculator
+public class ReferenceLinkAnalyzer {
 
     private final boolean traceEnabled;
     private final Relation relation;
     private final List<Member> members;
-    private final List<WayInfo> wayInfos;
+    private final List<ReferenceLink> links;
     private static final int UNCONNECTED = Integer.MIN_VALUE;
     private int lastForwardWayMemberIndex;
     private int lastBackwardWayMemberIndex;
@@ -22,28 +23,28 @@ public class WayInfoAnalyzer {
     private int firstGroupIdx;
     private int logIndent;
 
-    public WayInfoAnalyzer(final Relation relation, final List<Member> members, final boolean traceEnabled) {
+    public ReferenceLinkAnalyzer(final Relation relation, final List<Member> members, final boolean traceEnabled) {
         this.traceEnabled = traceEnabled;
         this.relation = relation;
         this.members = members;
-        this.wayInfos = new ArrayList<>(Collections.nCopies(members.size(), null));
+        this.links = new ArrayList<>(Collections.nCopies(members.size(), null));
     }
 
-    public List<WayInfo> analyze() {
+    public List<ReferenceLink> analyze() {
         firstGroupIdx = 0;
         lastForwardWayMemberIndex = UNCONNECTED;
         lastBackwardWayMemberIndex = UNCONNECTED;
         onewayBeginning = false;
-        WayInfo previousWayInfo = null;
+        ReferenceLink previousLink = null;
         for (int memberIndex = 0; memberIndex < members.size(); memberIndex++) {
-            previousWayInfo = processMember(previousWayInfo, memberIndex);
+            previousLink = processMember(previousLink, memberIndex);
         }
         makeLoopIfNeeded(members.size() - 1);
-        return wayInfos;
+        return links;
     }
 
-    private WayInfo processMember(
-            final WayInfo previousWayInfo,
+    private ReferenceLink processMember(
+            final ReferenceLink previousLink,
             final int memberIndex
     ) {
         final Member member = members.get(memberIndex);
@@ -53,15 +54,15 @@ public class WayInfoAnalyzer {
         }
         logFunctionStart("processMember(memberIndex=%d) role=\"%s\", %s", memberIndex, member.getRole(), memberInfo);
         try {
-            final WayInfo wayInfo = processNextMember(previousWayInfo, memberIndex, member);
-            if (!wayInfo.linkedToPreviousMember) {
+            final ReferenceLink link = processNextMember(previousLink, memberIndex, member);
+            if (!link.linkedToPreviousMember) {
                 log("not linked to previous member");
                 if (memberIndex > 0) {
                     makeLoopIfNeeded(memberIndex - 1);
                 }
                 firstGroupIdx = memberIndex;
             }
-            return wayInfo;
+            return link;
         } finally {
             logFunctionEnd();
             log("---");
@@ -72,73 +73,73 @@ public class WayInfoAnalyzer {
         return !m.isWay() || m.getWay() == null;
     }
 
-    private WayInfo processNextMember(
-            final WayInfo previousWayInfo,
+    private ReferenceLink processNextMember(
+            final ReferenceLink previousLink,
             final int currentMemberIndex,
             final Member currentMember
     ) {
         logFunctionStart("processNextMember(currentMemberIndex=%d)", currentMemberIndex);
         try {
-            final WayInfo wayInfo = new WayInfo(false);
+            final ReferenceLink link = new ReferenceLink(false);
 
             // MV the value of linkedToPreviousMember is not necessarily correct after following statement
             //      will be true if there is a previous member even if there is no connection with that member!
-            wayInfo.linkedToPreviousMember = currentMemberIndex > 0 // MV not linked to previous member if current member is the first member
-                    && wayInfos.get(currentMemberIndex - 1) != null
-                    && wayInfos.get(currentMemberIndex - 1).isNodeOrRelationMember(); // MV not linked to previous member if previous is not way
-            wayInfo.direction = NONE;
+            link.linkedToPreviousMember = currentMemberIndex > 0 // MV not linked to previous member if current member is the first member
+                    && links.get(currentMemberIndex - 1) != null
+                    && links.get(currentMemberIndex - 1).isNodeOrRelationMember(); // MV not linked to previous member if previous is not way
+            link.direction = NONE;
 
             if (Utils.isUnidirectional(currentMember)) {
-                handleOneway(previousWayInfo, currentMemberIndex, wayInfo);
+                handleOneway(previousLink, currentMemberIndex, link);
             }
 
-            if (wayInfo.linkedToPreviousMember) {
+            if (link.linkedToPreviousMember) {
                 if (lastBackwardWayMemberIndex != UNCONNECTED && lastForwardWayMemberIndex != UNCONNECTED) {
-                    processOnewayMember(currentMember, currentMemberIndex, wayInfo);
-                    if (!wayInfo.linkedToPreviousMember) {
+                    processOnewayMember(currentMember, currentMemberIndex, link);
+                    if (!link.linkedToPreviousMember) {
                         firstGroupIdx = currentMemberIndex;
                         log("set firstGroupIndex=%d", firstGroupIdx);
                     }
                 }
 
-                if (previousWayInfo != null && !Utils.isUnidirectional(currentMember)) {
-                    wayInfo.direction = determineDirectionBasedOnReference(currentMemberIndex - 1, currentMemberIndex, previousWayInfo.direction);
+                if (previousLink != null && !Utils.isUnidirectional(currentMember)) {
+                    link.direction = determineDirectionBasedOnReference(currentMemberIndex - 1, currentMemberIndex, previousLink.direction);
                     // MV: here is linkedToPreviousMember corrected when it was wrongfully set to true before
-                    wayInfo.linkedToPreviousMember = wayInfo.direction != NONE;
+                    link.linkedToPreviousMember = link.direction != NONE;
                 }
             }
 
-            if (!wayInfo.linkedToPreviousMember) {
-                wayInfo.direction = determineFirstDirection(currentMemberIndex, currentMember, false);
-                log("set direction=%s", wayInfo.direction);
+            if (!link.linkedToPreviousMember) {
+                link.direction = determineFirstDirection(currentMemberIndex, currentMember, false);
+                log("set direction=%s", link.direction);
                 if (Utils.isUnidirectional(currentMember)) {
-                    wayInfo.isOnewayLoopForwardPart = true;
+                    link.isOnewayLoopForwardPart = true;
                     lastForwardWayMemberIndex = currentMemberIndex;
                     log("set isOnewayLoopForwardPart=true");
                     log("set lastForwardWayMemberIndex=%d", lastForwardWayMemberIndex);
                 }
             }
 
-            wayInfo.linkedToNextMember = false;
-            if (previousWayInfo != null) {
-                previousWayInfo.linkedToNextMember = wayInfo.linkedToPreviousMember;
+            link.linkedToNextMember = false;
+            if (previousLink != null) {
+                previousLink.linkedToNextMember = link.linkedToPreviousMember;
             }
 
-            wayInfos.set(currentMemberIndex, wayInfo);
-            return wayInfo;
+            links.set(currentMemberIndex, link);
+            return link;
         } finally {
             logFunctionEnd();
         }
     }
 
-    private void handleOneway(final WayInfo previousWayInfo, final int memberIndex, final WayInfo wayInfo) {
+    private void handleOneway(final ReferenceLink previousLink, final int memberIndex, final ReferenceLink link) {
         logFunctionStart("handleOneway(memberIndex=%d)", memberIndex);
         try {
-            if (previousWayInfo != null && previousWayInfo.isOnewayTail) {
-                wayInfo.isOnewayHead = true;
+            if (previousLink != null && previousLink.isOnewayTail) {
+                link.isOnewayHead = true;
             }
             if (lastBackwardWayMemberIndex == UNCONNECTED && lastForwardWayMemberIndex == UNCONNECTED) {
-                wayInfo.isOnewayHead = true;
+                link.isOnewayHead = true;
                 lastForwardWayMemberIndex = memberIndex - 1;
                 lastBackwardWayMemberIndex = memberIndex - 1;
                 onewayBeginning = true;
@@ -162,12 +163,12 @@ public class WayInfoAnalyzer {
                 log("primitive loop");
                 loop = determineDirectionBasedOnReference(memberIndex, memberIndex, FORWARD) == FORWARD;
             } else if (memberIndex >= 0) {
-                loop = determineDirectionBasedOnReference(memberIndex, firstGroupIdx, wayInfos.get(memberIndex).direction) == wayInfos.get(firstGroupIdx).direction;
+                loop = determineDirectionBasedOnReference(memberIndex, firstGroupIdx, links.get(memberIndex).direction) == links.get(firstGroupIdx).direction;
             }
             if (loop) {
                 log("found loop");
                 for (int j = firstGroupIdx; j <= memberIndex; ++j) {
-                    wayInfos.get(j).isLoop = true;
+                    links.get(j).isLoop = true;
                 }
             } else {
                 log("not a loop");
@@ -222,11 +223,11 @@ public class WayInfoAnalyzer {
         }
     }
 
-    private void processOnewayMember(final Member member, final int memberIndex, final WayInfo wayInfo) {
+    private void processOnewayMember(final Member member, final int memberIndex, final ReferenceLink link) {
         logFunctionStart("processOnewayMember(memberIndex=%d)", memberIndex);
         try {
             Direction dirFW;
-            final Direction referenceDirectionA = wayInfos.get(lastForwardWayMemberIndex).direction;
+            final Direction referenceDirectionA = links.get(lastForwardWayMemberIndex).direction;
             logFunctionStart("try direction from lastForwardWayMemberIndex=%d (direction=%s)", lastForwardWayMemberIndex, referenceDirectionA);
             try {
                 dirFW = determineDirectionBasedOnReference(
@@ -241,7 +242,7 @@ public class WayInfoAnalyzer {
             if (onewayBeginning) {
                 log("onewayBeginning was true");
                 if (lastBackwardWayMemberIndex < 0) {
-                    final Direction referenceDirection = reverse(wayInfos.get(firstGroupIdx).direction);
+                    final Direction referenceDirection = reverse(links.get(firstGroupIdx).direction);
                     logFunctionStart("there was no previous backward way yet, try reference based on reverse direction of member at firstGroupIndex=%d (direction=%s)", firstGroupIdx, referenceDirection);
                     try {
                         dirBW = determineDirectionBasedOnReference(
@@ -254,7 +255,7 @@ public class WayInfoAnalyzer {
                         logFunctionEnd();
                     }
                 } else {
-                    final Direction referenceDirection = wayInfos.get(lastBackwardWayMemberIndex).direction;
+                    final Direction referenceDirection = links.get(lastBackwardWayMemberIndex).direction;
                     logFunctionStart("try reference based on direction of last backward member (lastBackwardWayMemberIndex=%d) (direction=%s)", lastBackwardWayMemberIndex, referenceDirection);
                     try {
                         dirBW = determineDirectionBasedOnReference(
@@ -276,11 +277,11 @@ public class WayInfoAnalyzer {
                 // backward route. To render properly, unset isOnewayHead on
                 // the most recent head (since the current backward way does
                 // no longer start there).
-                if (dirFW == NONE && dirBW == NONE && Utils.isUnidirectional(member) && !wayInfo.isOnewayHead) {
-                    WayInfo prevHead = null;
+                if (dirFW == NONE && dirBW == NONE && Utils.isUnidirectional(member) && !link.isOnewayHead) {
+                    ReferenceLink prevHead = null;
                     for (int j = memberIndex - 1; j >= 0; --j) { // go back to find the last onewayHead
-                        if (wayInfos.get(j).isOnewayHead) {
-                            prevHead = wayInfos.get(j);
+                        if (links.get(j).isOnewayHead) {
+                            prevHead = links.get(j);
                             break;
                         }
                     }
@@ -295,7 +296,7 @@ public class WayInfoAnalyzer {
                     onewayBeginning = false;
                 }
             } else {
-                final Direction referenceDirection = wayInfos.get(lastBackwardWayMemberIndex).direction;
+                final Direction referenceDirection = links.get(lastBackwardWayMemberIndex).direction;
                 logFunctionStart("try reference based on direction of last backward member (lastBackwardWayMemberIndex=%d) (direction=%s)", lastBackwardWayMemberIndex, referenceDirection);
                 try {
                     dirBW = determineDirectionBasedOnReference(
@@ -312,27 +313,27 @@ public class WayInfoAnalyzer {
             if (Utils.isUnidirectional(member)) {
                 log("unidirectional way");
                 if (dirBW != NONE) {
-                    log("update wayInfo based on dirBW");
-                    wayInfo.direction = dirBW;
+                    log("update link based on dirBW");
+                    link.direction = dirBW;
                     lastBackwardWayMemberIndex = memberIndex;
-                    wayInfo.isOnewayLoopBackwardPart = true;
-                    log("  set direction=%s", wayInfo.direction);
+                    link.isOnewayLoopBackwardPart = true;
+                    log("  set direction=%s", link.direction);
                     log("  set lastBackwardWayMemberIndex=%d", lastBackwardWayMemberIndex);
                     log("  set isOnewayLoopBackwardPart=true");
                 }
                 if (dirFW != NONE) {
-                    log("update wayInfo based on dirFW");
-                    wayInfo.direction = dirFW;
+                    log("update link based on dirFW");
+                    link.direction = dirFW;
                     lastForwardWayMemberIndex = memberIndex;
-                    wayInfo.isOnewayLoopForwardPart = true;
-                    log("  set direction=%s", wayInfo.direction);
+                    link.isOnewayLoopForwardPart = true;
+                    log("  set direction=%s", link.direction);
                     log("  set lastForwardWayMemberIndex=%d", lastForwardWayMemberIndex);
                     log("  set isOnewayLoopForwardPart=true");
                 }
                 // Not connected to previous
                 if (dirFW == NONE && dirBW == NONE) {
-                    wayInfo.linkedToPreviousMember = false;
-                    wayInfo.isOnewayHead = true;
+                    link.linkedToPreviousMember = false;
+                    link.isOnewayHead = true;
                     lastForwardWayMemberIndex = memberIndex - 1;
                     lastBackwardWayMemberIndex = memberIndex - 1;
                     onewayBeginning = true;
@@ -355,28 +356,28 @@ public class WayInfoAnalyzer {
                         }
 
                         if (dir != NONE) {
-                            wayInfo.isOnewayLoopBackwardPart = false;
-                            wayInfo.direction = dirFW;
+                            link.isOnewayLoopBackwardPart = false;
+                            link.direction = dirFW;
                             log("found connection to next member:");
                             log("  set isOnewayLoopBackwardPart=false");
-                            log("  set direction=%s", wayInfo.direction);
+                            log("  set direction=%s", link.direction);
                         } else {
-                            wayInfo.isOnewayLoopForwardPart = false;
-                            wayInfo.direction = dirBW;
+                            link.isOnewayLoopForwardPart = false;
+                            link.direction = dirBW;
                             log("could not find connection to next member:");
                             log("  set isOnewayLoopForwardPart=false");
-                            log("  set direction=%s", wayInfo.direction);
+                            log("  set direction=%s", link.direction);
                         }
                     } else {
                         log("end of oneway loop, end of route (no more next members)");
-                        wayInfo.isOnewayLoopForwardPart = false;
-                        wayInfo.direction = dirBW;
+                        link.isOnewayLoopForwardPart = false;
+                        link.direction = dirBW;
                         log("could not derive from next member:");
                         log("  set isOnewayLoopForwardPart=false");
-                        log("  set direction=%s", wayInfo.direction);
+                        log("  set direction=%s", link.direction);
                     }
 
-                    wayInfo.isOnewayTail = true;
+                    link.isOnewayTail = true;
                     log("set isOnewayTail=true");
                 }
 
@@ -387,7 +388,7 @@ public class WayInfoAnalyzer {
                 log("  set lastForwardWayMemberIndex=UNCONNECTED");
                 log("  set lastBackwardWayMemberIndex=UNCONNECTED");
                 if (dirFW == NONE || dirBW == NONE) {
-                    wayInfo.linkedToPreviousMember = false;
+                    link.linkedToPreviousMember = false;
                 }
             }
         } finally {

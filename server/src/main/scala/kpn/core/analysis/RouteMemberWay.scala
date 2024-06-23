@@ -9,13 +9,13 @@ import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 
 case class RouteMemberWay(
   name: String,
-  link: Link,
+  link: Option[Link],
   role: Option[String],
   way: Way,
   fromNode: Node,
   toNode: Node,
   from: String,
-  to:String,
+  to: String,
   accessible: Boolean,
   routeNodes: Seq[RouteNode]
 ) extends RouteMember {
@@ -34,7 +34,8 @@ case class RouteMemberWay(
     }
   }
 
-  def linkName: String = link.name
+  def linkName: String = link.map(_.name).getOrElse("")
+
   def nodes: Seq[RouteNetworkNodeInfo] = routeNodes.map { rn =>
     RouteNetworkNodeInfo(
       rn.id,
@@ -45,10 +46,16 @@ case class RouteMemberWay(
       rn.node.longitude
     )
   }
+
   def id: Long = way.id
+
   def element: Element = way
-  def linkDescription: String = link.description
+
+  def linkDescription: String = link.map(_.description).getOrElse("")
+
   def length: String = way.length.toString + " m"
+
   def nodeCount: String = way.nodes.size.toString
+
   def description: String = name
 }

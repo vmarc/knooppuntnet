@@ -4,7 +4,6 @@ import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Fact.RouteInaccessible
-import kpn.core.analysis.Link
 import kpn.core.analysis.LinkType
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
@@ -12,7 +11,6 @@ import kpn.core.analysis.RouteMemberWay
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.structure.ReferenceDirection
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
@@ -41,26 +39,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
       TagInterpreter.isValidNetworkMember(context.scopedNetworkType, member)
     }
 
-    val links = context.referenceStructure.getOrElse(throw new PreconditionMissingException).wayInfos.map { wayInfo =>
-      val linkType = wayInfo.direction match {
-        case ReferenceDirection.Forward => LinkType.FORWARD
-        case ReferenceDirection.Backward => LinkType.BACKWARD
-        case ReferenceDirection.RoundaboutLeft => LinkType.ROUNDABOUT
-        case ReferenceDirection.RoundaboutRight => LinkType.ROUNDABOUT
-        case ReferenceDirection.Unknown => LinkType.NONE
-      }
-      Link(
-        linkType,
-        wayInfo.isLinkedToPreviousMember,
-        wayInfo.isLinkedToNextMember,
-        wayInfo.isLoop,
-        wayInfo.isOnewayLoopForwardPart,
-        wayInfo.isOnewayLoopBackwardPart,
-        wayInfo.isOnewayHead,
-        wayInfo.isOnewayTail,
-        false
-      )
-    }
+    val links = context.referenceStructure.getOrElse(throw new PreconditionMissingException).links
 
     //links.zip(relationMembers).toSeq.map { case(link, w) => LinkInfo(link, w)}
 
@@ -107,8 +86,8 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
           .id == n.id))
         val name = way.tagValue("name").getOrElse("")
 
-        val fromNode = if (link.linkType == LinkType.FORWARD) way.nodes.head else way.nodes.last
-        val toNode = if (link.linkType == LinkType.FORWARD) way.nodes.last else way.nodes.head
+        val fromNode = if (link.linkType == LinkType.Forward) way.nodes.head else way.nodes.last
+        val toNode = if (link.linkType == LinkType.Backward) way.nodes.last else way.nodes.head
 
         val from = if (nodeMap.isDefinedAt(fromNode.id)) {
           nodeMap(fromNode.id)
@@ -136,7 +115,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
 
         RouteMemberWay(
           name,
-          link,
+          Some(link),
           wayMember.role,
           way,
           fromNode,

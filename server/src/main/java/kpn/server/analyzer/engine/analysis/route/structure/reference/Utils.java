@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.structure.reference;
 
-import kpn.server.analyzer.engine.analysis.route.structure.reference.WayInfo.Direction;
+import kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLink.Direction;
 
-import static kpn.server.analyzer.engine.analysis.route.structure.reference.WayInfo.Direction.NONE;
-import static kpn.server.analyzer.engine.analysis.route.structure.reference.WayInfo.Direction.ROUNDABOUT_RIGHT;
+import static kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLink.Direction.NONE;
+import static kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLink.Direction.ROUNDABOUT_RIGHT;
 
 public class Utils {
 

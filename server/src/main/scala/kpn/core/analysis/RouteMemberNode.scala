@@ -9,7 +9,9 @@ case class RouteMemberNode(name: String, alternateName: String, longName: Option
 
   def memberType: String = "node"
 
-  def linkType: LinkType.Value = LinkType.NONE
+  def link: Option[Link] = None
+
+  def linkType: LinkType = LinkType.Unknown
 
   def linkName: String = "n"
 

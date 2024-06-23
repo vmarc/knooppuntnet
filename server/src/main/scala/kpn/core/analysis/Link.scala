@@ -1,14 +1,9 @@
 package kpn.core.analysis
 
-import kpn.core.analysis.LinkType.BACKWARD
-import kpn.core.analysis.LinkType.FORWARD
-import kpn.core.analysis.LinkType.NONE
-import kpn.core.analysis.LinkType.ROUNDABOUT
-
 import scala.collection.mutable
 
 case class Link(
-  linkType: LinkType.Value,
+  linkType: LinkType,
   hasPrev: Boolean,
   hasNext: Boolean,
   isLoop: Boolean,
@@ -16,60 +11,64 @@ case class Link(
   isOnewayLoopBackwardPart: Boolean,
   isOnewayHead: Boolean,
   isOnewayTail: Boolean,
-  invalid: Boolean
 ) {
 
-  def isValid: Boolean = !invalid
-
   def name: String = {
-    if (!isValid) {
-      "n"
+    val linkTypeLetter = linkType match {
+      case LinkType.Forward => "f"
+      case LinkType.Backward => "b"
+      case LinkType.RoundaboutLeft => "r"
+      case LinkType.RoundaboutRight => "r"
+      case LinkType.Unknown => "n"
     }
-    else {
 
-      val linkTypeLetter = linkType match {
-        case FORWARD => "f"
-        case BACKWARD => "b"
-        case ROUNDABOUT => "r"
-        case NONE => "n"
-      }
+    val code = (if (hasPrev) 1 else 0) +
+      (if (hasNext) 2 else 0) +
+      (if (isLoop) 4 else 0) +
+      (if (isOnewayLoopForwardPart) 8 else 0) +
+      (if (isOnewayLoopBackwardPart) 16 else 0) +
+      (if (isOnewayHead) 32 else 0) +
+      (if (isOnewayTail) 64 else 0)
 
-      val code = (if (hasPrev) 1 else 0) +
-        (if (hasNext) 2 else 0) +
-        (if (isLoop) 4 else 0) +
-        (if (isOnewayLoopForwardPart) 8 else 0) +
-        (if (isOnewayLoopBackwardPart) 16 else 0) +
-        (if (isOnewayHead) 32 else 0) +
-        (if (isOnewayTail) 64 else 0)
-
-      "w%s%03d".format(linkTypeLetter, code)
-    }
+    "w%s%03d".format(linkTypeLetter, code)
   }
 
   def description: String = {
-    if (!isValid) {
-      "I"
+    val sb = new mutable.StringBuilder
+
+    if (!hasPrev) {
+      sb.append("*")
     }
-    else {
-      val sb = new mutable.StringBuilder
 
-      if (!hasPrev) {
-        sb.append("*")
-      }
+    val elements = (if (isLoop) Seq("loop") else Seq.empty) ++
+      (if (isOnewayLoopForwardPart) Seq("fp") else Seq.empty) ++
+      (if (isOnewayLoopBackwardPart) Seq("bp") else Seq.empty) ++
+      (if (isOnewayHead) Seq("head") else Seq.empty) ++
+      (if (isOnewayTail) Seq("tail") else Seq.empty) ++
+      Seq(linkType.toString.toLowerCase)
 
-      val elements = (if (isLoop) Seq("loop") else Seq.empty) ++
-        (if (isOnewayLoopForwardPart) Seq("fp") else Seq.empty) ++
-        (if (isOnewayLoopBackwardPart) Seq("bp") else Seq.empty) ++
-        (if (isOnewayHead) Seq("head") else Seq.empty) ++
-        (if (isOnewayTail) Seq("tail") else Seq.empty) ++
-        Seq(linkType.toString.toLowerCase)
+    sb.append(elements.mkString("-"))
 
-      sb.append(elements.mkString("-"))
-
-      if (!hasNext) {
-        sb.append("*")
-      }
-      sb.toString()
+    if (!hasNext) {
+      sb.append("*")
     }
+    sb.toString()
+  }
+
+  def reportString: String = {
+    val sb = new StringBuilder
+    sb.append("p " + bool(hasPrev))
+    sb.append("   n " + bool(hasNext))
+    sb.append("   loop " + bool(isLoop))
+    sb.append("   fp " + bool(isOnewayLoopForwardPart))
+    sb.append("   bp " + bool(isOnewayLoopBackwardPart))
+    sb.append("   head " + bool(isOnewayHead))
+    sb.append("   tail " + bool(isOnewayTail))
+    sb.append(String.format("   d %s", linkType.entryName.toLowerCase))
+    sb.toString
+  }
+
+  private def bool(value: Boolean): String = {
+    if (value) "■" else " "
   }
 }

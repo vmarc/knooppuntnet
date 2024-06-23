@@ -2,11 +2,8 @@ package kpn.core.tools.support
 
 import kpn.core.analysis.Link
 import kpn.core.analysis.LinkType
-import kpn.core.analysis.LinkType.BACKWARD
-import kpn.core.analysis.LinkType.FORWARD
-import kpn.core.analysis.LinkType.NONE
-import kpn.core.analysis.LinkType.ROUNDABOUT
 import kpn.core.report.LinkImageBuilder
+import kpn.core.tools.config.Dirs
 import kpn.core.util.Xml
 
 import java.io.File
@@ -21,51 +18,16 @@ object ImageGenerationTool {
 
 class ImageGenerationTool {
 
+  private val dir = new File(Dirs.root, "routes")
+  private val out = {
+    dir.mkdirs
+    new File(dir, "images").mkdirs
+    new PrintWriter(new File(dir, "index.html"))
+  }
+
   def generate(): Unit = {
-    val links = Seq(FORWARD, BACKWARD, ROUNDABOUT, NONE) flatMap { linkType =>
-      Seq(false, true) flatMap { isLoop =>
-        Seq(false, true) flatMap { isOnewayLoopForwardPart =>
-          Seq(false, true) flatMap { isOnewayLoopBackwardPart =>
-            Seq(false, true) flatMap { isOnewayHead =>
-              Seq(false, true) flatMap { isOnewayTail =>
-                Seq(false, true) flatMap { hasPrev =>
-                  Seq(false, true) map { hasNext =>
-                    Link(
-                      linkType,
-                      hasPrev,
-                      hasNext,
-                      isLoop,
-                      isOnewayLoopForwardPart,
-                      isOnewayLoopBackwardPart,
-                      isOnewayHead,
-                      isOnewayTail,
-                      invalid = false
-                    )
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-    val allLinks = links :+ Link(
-      LinkType.NONE,
-      hasPrev = false,
-      hasNext = false,
-      isLoop = false,
-      isOnewayLoopForwardPart = false,
-      isOnewayLoopBackwardPart = false,
-      isOnewayHead = false,
-      isOnewayTail = false,
-      invalid = true
-    )
+    val allLinks = buildAllLinks()
 
-    val dir = "/Users/marc/tmp/node-network-analysis"
-    new File(dir).mkdirs
-    new File(dir + "/images").mkdirs
-
-    val out = new PrintWriter("%s/index.html".format(dir))
     out.println("<html>")
 
     out.println("<head>")
@@ -85,19 +47,11 @@ class ImageGenerationTool {
     out.println("""<table style="margin: 30">""")
 
     allLinks.foreach { link =>
-      LinkImageBuilder.build("%s/images/%s.png".format(dir, link.name), link)
-      out.println("<tr>")
-      out.println("""<td style="padding:0">""")
-      out.println("""<img src="images/%s.png"/>""".format(link.name))
-      out.println("</td>")
-      out.println("<td>")
-      out.println(link.name)
-      out.println("</td>")
-      out.println("<td>")
-      out.println(Xml.escape(link.description))
-      out.println("</td>")
-      out.println("</tr>")
+      LinkImageBuilder.build(s"${dir.getAbsolutePath}/images/${link.name}.png", link)
+      processLink(link.name, link.description)
     }
+    LinkImageBuilder.buildNode(s"${dir.getAbsolutePath}/images/n.png")
+    processLink("n", "node")
 
     out.println("</table>")
     out.println("</body>")
@@ -105,5 +59,48 @@ class ImageGenerationTool {
     out.close()
 
     println("ready")
+  }
+
+  private def processLink(name: String, description: String): Unit = {
+    out.println("<tr>")
+    out.println("""<td style="padding:0">""")
+    out.println("""<img src="images/%s.png"/>""".format(name))
+    out.println("</td>")
+    out.println("<td>")
+    out.println(name)
+    out.println("</td>")
+    out.println("<td>")
+    out.println(Xml.escape(description))
+    out.println("</td>")
+    out.println("</tr>")
+  }
+
+  private def buildAllLinks(): Seq[Link] = {
+    Seq(LinkType.Forward, LinkType.Backward, LinkType.RoundaboutRight, LinkType.Unknown) flatMap { linkType =>
+      Seq(false, true) flatMap { isLoop =>
+        Seq(false, true) flatMap { isOnewayLoopForwardPart =>
+          Seq(false, true) flatMap { isOnewayLoopBackwardPart =>
+            Seq(false, true) flatMap { isOnewayHead =>
+              Seq(false, true) flatMap { isOnewayTail =>
+                Seq(false, true) flatMap { hasPrev =>
+                  Seq(false, true) map { hasNext =>
+                    Link(
+                      linkType,
+                      hasPrev,
+                      hasNext,
+                      isLoop,
+                      isOnewayLoopForwardPart,
+                      isOnewayLoopBackwardPart,
+                      isOnewayHead,
+                      isOnewayTail
+                    )
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
