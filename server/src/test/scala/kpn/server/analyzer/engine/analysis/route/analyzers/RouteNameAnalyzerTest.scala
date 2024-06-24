@@ -16,7 +16,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'ref' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "01-02"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -27,7 +27,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'ref' tag - not normalized") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "1-2"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -38,7 +38,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'name' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("name" -> "01-02"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -49,7 +49,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'name' tag - not normalized") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("name" -> "1-2"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -60,7 +60,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'note' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("note" -> "01-02"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -72,7 +72,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'note' tag - not normalized") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("note" -> "1-2"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -84,7 +84,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'note' tag with ignored comment") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("note" -> "01-02;ignored comment"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -96,14 +96,14 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'note' tag without dash") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("note" -> "bla"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis()
     )
   }
 
   test("route name based on 'from' and 'to' tag") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("from" -> "01", "to" -> "02"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -114,7 +114,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'from' and 'to' tag - not normalized") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("from" -> "1", "to" -> "2"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -125,7 +125,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'from' tag only") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("from" -> "01"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-"),
         Some("01"),
@@ -136,7 +136,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'from' tag only - not normalized") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("from" -> "1"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-"),
         Some("01"),
@@ -147,7 +147,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'to' tag only") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("to" -> "02"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("-02"),
         None,
@@ -158,7 +158,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based on 'to' tag only - not normalized") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("to" -> "2"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("-02"),
         None,
@@ -169,7 +169,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name with non-numeric start- and end-node names") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "A2-A1"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("A2-A1"),
         Some("A1"),
@@ -181,7 +181,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name with start- and end-node names reversed") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "02-01"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("02-01"),
         Some("01"),
@@ -193,7 +193,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name without dash to separate start- and end-node names") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "01/02"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01/02"),
         None,
@@ -204,7 +204,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name containing spaces") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> " 01 - 02 "))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -215,7 +215,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name with start node name only") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "01-"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-"),
         Some("01"),
@@ -226,7 +226,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name with end node name only") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("ref" -> "-02"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("-02"),
         None,
@@ -237,7 +237,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name missing") {
     val context = analyze(Seq.empty)
-    context.routeNameAnalysis should equal(Some(RouteNameAnalysis()))
+    context._routeNameAnalysis should equal(Some(RouteNameAnalysis()))
     context.facts.shouldMatchTo(Seq(RouteNameMissing))
   }
 
@@ -248,7 +248,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
         "note" -> "01-02",
       )
     )
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -265,7 +265,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
         "note" -> "three-four",
       )
     )
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("one-two"),
         Some("one"),
@@ -276,7 +276,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based with node name containing dash") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("name" -> "start - end-node"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("start - end-node"),
         Some("start"),
@@ -287,7 +287,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route name based nodes in ways and/or relation") {
     val routeNameAnalysis = analyzeRouteName(Tags.from("name" -> "start - end-node"))
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("start - end-node"),
         Some("start"),
@@ -305,7 +305,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
     val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodeInfos)
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-01"),
         Some("01"),
@@ -324,7 +324,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
     val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodeInfos)
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("node-name - node-name"),
         Some("node-name"),
@@ -348,7 +348,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
     val routeNameAnalysis = analyzeRouteName(Seq.empty, routeNodeInfos)
-    routeNameAnalysis.value.shouldMatchTo(
+    routeNameAnalysis.shouldMatchTo(
       RouteNameAnalysis(
         Some("01-02"),
         Some("01"),
@@ -358,7 +358,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def analyzeRouteName(tags: Seq[Tag], routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): Option[RouteNameAnalysis] = {
+  private def analyzeRouteName(tags: Seq[Tag], routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): RouteNameAnalysis = {
     val newContext = analyze(tags, routeNodeInfos)
     newContext.routeNameAnalysis
   }

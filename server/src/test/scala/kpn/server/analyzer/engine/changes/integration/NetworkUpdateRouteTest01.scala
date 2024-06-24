@@ -119,7 +119,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                 RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
                 RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
               ),
-              "wn003",
+              "wn000",
               "1",
               1002,
               "2",

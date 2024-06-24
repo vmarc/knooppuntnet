@@ -14,18 +14,15 @@ class EdgeRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
 
-    context.routeMap match {
-      case None => context
-      case Some(routeMap) =>
-        val edges = Seq(
-          toEdges(routeMap.forwardPath),
-          toEdges(routeMap.backwardPath),
-          routeMap.freePaths.map(toEdge),
-          routeMap.startTentaclePaths.map(toEdge),
-          routeMap.endTentaclePaths.map(toEdge),
-        ).flatten
-        context.copy(edges = edges)
-    }
+    val routeMap = context.routeMap
+    val edges = Seq(
+      toEdges(routeMap.forwardPath),
+      toEdges(routeMap.backwardPath),
+      routeMap.freePaths.map(toEdge),
+      routeMap.startTentaclePaths.map(toEdge),
+      routeMap.endTentaclePaths.map(toEdge),
+    ).flatten
+    context.copy(edges = edges)
   }
 
   private def toEdges(trackPathOption: Option[TrackPath]): Seq[RouteEdge] = {

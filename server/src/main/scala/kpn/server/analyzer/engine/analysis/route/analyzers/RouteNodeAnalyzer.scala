@@ -63,9 +63,13 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   private def doAnalyze(facts: ListBuffer[Fact], oldFacts: ListBuffer[Fact]): RouteNodeAnalysis = {
 
-    val routeNodeAnalysis = context.routeNameAnalysis match {
-      case Some(routeNameAnalysis) => analyzeRouteWithName(facts, routeNameAnalysis)
-      case None => analyzeRouteWithoutStartAndEndNodeFromName(facts)
+    val routeNodeAnalysis = context._routeNameAnalysis match {
+      case Some(routeNameAnalysis) =>
+        analyzeRouteWithName(facts, routeNameAnalysis)
+      case None =>
+        // TODO redesign - cannot reach this code???
+        throw new IllegalStateException("xxx")
+        analyzeRouteWithoutStartAndEndNodeFromName(facts)
     }
 
     if (routeNodeAnalysis.nodesInWays.isEmpty) {

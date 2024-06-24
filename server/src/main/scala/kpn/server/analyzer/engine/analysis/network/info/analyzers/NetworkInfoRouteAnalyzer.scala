@@ -68,6 +68,7 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
             computed("name", "$summary.name"),
             computed("length", "$summary.meters"),
             include("facts"),
+            include("oldFacts"),
             include("proposed"),
             include("lastUpdated"),
             include("lastSurvey"),

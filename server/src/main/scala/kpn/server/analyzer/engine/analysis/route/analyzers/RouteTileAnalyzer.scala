@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.PreconditionMissingException
 import kpn.server.analyzer.engine.tile.RouteTileCalculator
 import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
@@ -53,18 +52,14 @@ class RouteTileAnalyzer(routeTileCalculator: RouteTileCalculator) extends RouteA
   }
 
   private def routeName(context: RouteAnalysisContext): String = {
-    context.routeNameAnalysis match {
+    context.routeNameAnalysis.name match {
       case None => "no-name"
-      case Some(routeNameAnalysis) =>
-        routeNameAnalysis.name match {
-          case None => "no-name"
-          case Some(name) => name
-        }
+      case Some(name) => name
     }
   }
 
   private def toRouteTileInfo(context: RouteAnalysisContext): RouteTileInfo = {
-    val routeMap = context.routeMap.getOrElse(throw new PreconditionMissingException)
+    val routeMap = context.routeMap
     RouteTileInfo(
       context.relation.id,
       routeName(context),

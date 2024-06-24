@@ -198,8 +198,8 @@ class LinkImageBuilder(g: Graphics2D, link: Link) {
 
   private def drawRoundabout(x: Int, y: Int): Unit = {
     val image = link.linkType match {
-      case LinkType.RoundaboutLeft => Some(roundabout)
-      case LinkType.RoundaboutRight => Some(roundabout)
+      case LinkType.Roundabout_Left => Some(roundabout)
+      case LinkType.Roundabout_Right => Some(roundabout)
       case _ => None
     }
     image.foreach(i => g.drawImage(i, x, y, null))

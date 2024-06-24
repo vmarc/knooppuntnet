@@ -17,9 +17,9 @@ case class Link(
     val linkTypeLetter = linkType match {
       case LinkType.Forward => "f"
       case LinkType.Backward => "b"
-      case LinkType.RoundaboutLeft => "r"
-      case LinkType.RoundaboutRight => "r"
-      case LinkType.Unknown => "n"
+      case LinkType.Roundabout_Left => "r"
+      case LinkType.Roundabout_Right => "r"
+      case LinkType.`none` => "n"
     }
 
     val code = (if (hasPrev) 1 else 0) +

@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.location.Location
-import kpn.api.common.route.RouteMap
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteRepository
@@ -20,27 +19,23 @@ class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: 
     context.geometryDigest match {
       case None => throw new IllegalStateException("geometryDigest not known (route analyzers in wrong order?)")
       case Some(geometryDigest) =>
-        context.routeMap match {
-          case None => throw new IllegalStateException("routeMap not known (route analyzers in wrong order?)")
-          case Some(routeMap) =>
-            routeRepository.findById(context.relation.id) match {
-              case Some(route) =>
-                if (route.analysis.geometryDigest == geometryDigest) {
-                  context.copy(locationAnalysis = Some(route.analysis.locationAnalysis))
-                }
-                else {
-                  locate(context, routeMap)
-                }
-
-              case None =>
-                locate(context, routeMap)
+        routeRepository.findById(context.relation.id) match {
+          case Some(route) =>
+            if (route.analysis.geometryDigest == geometryDigest) {
+              context.copy(locationAnalysis = Some(route.analysis.locationAnalysis))
             }
+            else {
+              locate(context)
+            }
+
+          case None =>
+            locate(context)
         }
     }
   }
 
-  private def locate(context: RouteAnalysisContext, routeMap: RouteMap): RouteAnalysisContext = {
-    val routeLocationAnalysis = routeLocator.locate(routeMap)
+  private def locate(context: RouteAnalysisContext): RouteAnalysisContext = {
+    val routeLocationAnalysis = routeLocator.locate(context.routeMap)
     if (routeLocationAnalysis.location.isEmpty && context.country.nonEmpty) {
       val country = context.country.get.domain
       context.copy(

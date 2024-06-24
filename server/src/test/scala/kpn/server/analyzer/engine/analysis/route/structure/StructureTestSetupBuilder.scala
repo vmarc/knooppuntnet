@@ -68,7 +68,14 @@ class StructureTestSetupBuilder extends SharedTestObjects {
   }
 
   def build: StructureTestSetup = {
-    val relation = newRawRelation(1, members = memberBuffer.toSeq)
+    val relation = newRawRelation(
+      1,
+      members = memberBuffer.toSeq,
+      tags = Tags.from(
+        "type" -> "route",
+        "route" -> "hiking"
+      )
+    )
     val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))
     new StructureTestSetup(new DataBuilder(rawData).data)
   }

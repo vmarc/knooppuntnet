@@ -20,6 +20,7 @@ import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.structure.ReferenceStructure
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
+import kpn.server.analyzer.engine.context.PreconditionMissingException
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 
 case class RouteAnalysisContext(
@@ -40,14 +41,14 @@ case class RouteAnalysisContext(
   oldFacts: Seq[Fact] = Seq.empty,
   unexpectedNodeIds: Option[Seq[Long]] = None,
   unexpectedRelationIds: Option[Seq[Long]] = None,
-  routeNameAnalysis: Option[RouteNameAnalysis] = None,
+  _routeNameAnalysis: Option[RouteNameAnalysis] = None,
   routeNodeAnalysis: Option[RouteNodeAnalysis] = None,
   expectedName: Option[String] = None,
   suspiciousWayIds: Option[Seq[Long]] = None,
   fragmentMap: Option[FragmentMap] = None,
   structure: Option[RouteStructure] = None,
   routeMembers: Option[Seq[RouteMember]] = None,
-  routeMap: Option[RouteMap] = None,
+  _routeMap: Option[RouteMap] = None,
   ways: Option[Seq[Way]] = None,
   allWayNodes: Option[Seq[Node]] = None,
   streets: Option[Seq[String]] = None,
@@ -141,5 +142,13 @@ case class RouteAnalysisContext(
     expectedFacts.exists(f => facts.contains(f))
   }
 
+  def hasOldFact(expectedFacts: Fact*): Boolean = {
+    expectedFacts.exists(f => oldFacts.contains(f))
+  }
+
   def connection: Boolean = relation.hasTag("state", "connection")
+
+  def routeMap: RouteMap = _routeMap.getOrElse(throw new PreconditionMissingException)
+
+  def routeNameAnalysis: RouteNameAnalysis = _routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
 }

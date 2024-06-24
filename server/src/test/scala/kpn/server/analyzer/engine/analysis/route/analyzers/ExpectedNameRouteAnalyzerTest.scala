@@ -75,7 +75,7 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     val context = buildContext().
-      copy(routeNameAnalysis = Some(routeNameAnalysis)).
+      copy(_routeNameAnalysis = Some(routeNameAnalysis)).
       copy(routeNodeAnalysis = Some(routeNodeAnalysis))
 
     ExpectedNameRouteAnalyzer.analyze(context)

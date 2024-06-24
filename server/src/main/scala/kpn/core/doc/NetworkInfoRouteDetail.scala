@@ -19,6 +19,7 @@ case class NetworkInfoRouteDetail(
   lastSurvey: Option[Day],
   proposed: Boolean,
   facts: Seq[Fact],
+  oldFacts: Seq[Fact],
   tags: Seq[Tag],
   nodeRefs: Seq[Long]
 ) extends Tagable {

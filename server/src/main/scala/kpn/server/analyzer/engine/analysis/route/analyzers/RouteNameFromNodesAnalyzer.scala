@@ -19,11 +19,10 @@ object RouteNameFromNodesAnalyzer extends RouteAnalyzer {
 
 class RouteNameFromNodesAnalyzer(context: RouteAnalysisContext) {
 
-  private val routeNameAnalysis = context.routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
   private val routeNodeAnalysis = context.routeNodeAnalysis.getOrElse(throw new PreconditionMissingException)
 
   def analyze: RouteAnalysisContext = {
-    if (routeNameAnalysis.name.isDefined) {
+    if (context.routeNameAnalysis.name.isDefined) {
       context // we already have a route name, no need to try to derive from node names
     }
     else {
@@ -58,7 +57,7 @@ class RouteNameFromNodesAnalyzer(context: RouteAnalysisContext) {
     context.copy(
       facts = context.facts.filterNot(_ == Fact.RouteNameMissing),
       oldFacts = context.oldFacts.filterNot(_ == Fact.RouteNameMissing),
-      routeNameAnalysis = Some(newRouteNameAnalysis)
+      _routeNameAnalysis = Some(newRouteNameAnalysis)
     )
   }
 }

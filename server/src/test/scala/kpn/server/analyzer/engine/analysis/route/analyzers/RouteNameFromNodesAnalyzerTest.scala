@@ -13,7 +13,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       null,
       null,
       nodeNetwork = true,
-      routeNameAnalysis = Some(RouteNameAnalysis()),
+      _routeNameAnalysis = Some(RouteNameAnalysis()),
       routeNodeAnalysis = Some(
         RouteNodeAnalysis(
           startNodes = Seq(
@@ -26,7 +26,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       )
     )
     val newContext = RouteNameFromNodesAnalyzer.analyze(context)
-    newContext.routeNameAnalysis.get.name should equal(Some("01-02"))
+    newContext.routeNameAnalysis.name should equal(Some("01-02"))
   }
 
   test("derive route name from non-digit node names (use separator with spaces)") {
@@ -34,7 +34,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       null,
       null,
       nodeNetwork = true,
-      routeNameAnalysis = Some(RouteNameAnalysis()),
+      _routeNameAnalysis = Some(RouteNameAnalysis()),
       routeNodeAnalysis = Some(
         RouteNodeAnalysis(
           startNodes = Seq(
@@ -47,14 +47,14 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       )
     )
     val newContext = RouteNameFromNodesAnalyzer.analyze(context)
-    newContext.routeNameAnalysis.get.name should equal(Some("a - b"))
+    newContext.routeNameAnalysis.name should equal(Some("a - b"))
   }
 
   test("do not derive route name from node names if route name already known") {
     val context = RouteAnalysisContext(
       null,
       null,
-      routeNameAnalysis = Some(
+      _routeNameAnalysis = Some(
         RouteNameAnalysis(name = Some("route-name"))
       ),
       routeNodeAnalysis = Some(
@@ -69,14 +69,14 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       )
     )
     val newContext = RouteNameFromNodesAnalyzer.analyze(context)
-    newContext.routeNameAnalysis.get.name should equal(Some("route-name"))
+    newContext.routeNameAnalysis.name should equal(Some("route-name"))
   }
 
   test("do not derive route name from node names if start node name unknown") {
     val context = RouteAnalysisContext(
       null,
       null,
-      routeNameAnalysis = Some(
+      _routeNameAnalysis = Some(
         RouteNameAnalysis()
       ),
       routeNodeAnalysis = Some(
@@ -91,14 +91,14 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       )
     )
     val newContext = RouteNameFromNodesAnalyzer.analyze(context)
-    newContext.routeNameAnalysis.get.name should equal(None)
+    newContext.routeNameAnalysis.name should equal(None)
   }
 
   test("do not derive route name from node names if end node name unknown") {
     val context = RouteAnalysisContext(
       null,
       null,
-      routeNameAnalysis = Some(
+      _routeNameAnalysis = Some(
         RouteNameAnalysis()
       ),
       routeNodeAnalysis = Some(
@@ -113,6 +113,6 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       )
     )
     val newContext = RouteNameFromNodesAnalyzer.analyze(context)
-    newContext.routeNameAnalysis.get.name should equal(None)
+    newContext.routeNameAnalysis.name should equal(None)
   }
 }

@@ -2,8 +2,20 @@ package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.custom.Relation
 import kpn.core.data.Data
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
+import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
+import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
+import kpn.server.repository.RouteRepository
+import org.scalamock.scalatest.MockFactory
 
-class StructureTestSetup(val data: Data) {
+class StructureTestSetup(val data: Data) extends MockFactory {
 
   def elementGroups(traceEnabled: Boolean = false): Seq[Seq[String]] = {
     val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled)
@@ -20,7 +32,7 @@ class StructureTestSetup(val data: Data) {
 
   def reference(traceEnabled: Boolean = false): Seq[String] = {
     val referenceStructure = new RouteLinkAnalyzer(traceEnabled).analyze(relation)
-    val strings = referenceStructure.links.zipWithIndex.map { case (wayInfo, index) => s"${index + 1} ${wayInfo.reportString}" }
+    val strings = referenceStructure.links.zipWithIndex.map { case (wayInfo, index) => s"${index + 1}    ${wayInfo.reportString}" }
     if (traceEnabled) println()
     if (traceEnabled) strings.foreach(println)
     if (traceEnabled) println()
@@ -29,6 +41,27 @@ class StructureTestSetup(val data: Data) {
 
   def structure(traceEnabled: Boolean = false): TestStructure = {
     TestStructure.from(new StructureAnalyzer(traceEnabled).analyze(relation))
+  }
+
+  def analyze(): RouteAnalysis = {
+
+    val analysisContext = new AnalysisContext()
+
+    val tileCalculator = new OldTileCalculatorImpl()
+    val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
+    val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
+    val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
+    val locationAnalyzer = LocationAnalyzerTest.locationAnalyzer
+    val routeRepository = stub[RouteRepository]
+    val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
+    val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
+    val routeAnalyzer = new MainRouteAnalyzerImpl(
+      analysisContext,
+      routeCountryAnalyzer,
+      routeLocationAnalyzer,
+      routeTileAnalyzer
+    )
+    routeAnalyzer.analyze(relation).get
   }
 
   private def relation: Relation = {

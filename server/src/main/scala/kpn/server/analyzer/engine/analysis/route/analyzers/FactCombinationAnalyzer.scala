@@ -31,12 +31,12 @@ class FactCombinationAnalyzer(context: RouteAnalysisContext) {
     }
 
     val oldExcludedFacts = context.oldFacts.filter {
-      case RouteUnusedSegments => context.hasFact(RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
-      case RouteNotContinious => context.hasFact(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete)
-      case RouteNotForward => context.hasFact(RouteWithoutWays)
-      case RouteNotBackward => context.hasFact(RouteWithoutWays)
-      case RouteNodeMissingInWays => context.hasFact(RouteWithoutWays, RouteIncomplete)
-      case RouteRedundantNodes => context.hasFact(RouteWithoutWays, RouteIncomplete)
+      case RouteUnusedSegments => context.hasOldFact(RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)
+      case RouteNotContinious => context.hasOldFact(RouteNodeMissingInWays, RouteWithoutWays, RouteIncomplete)
+      case RouteNotForward => context.hasOldFact(RouteWithoutWays)
+      case RouteNotBackward => context.hasOldFact(RouteWithoutWays)
+      case RouteNodeMissingInWays => context.hasOldFact(RouteWithoutWays, RouteIncomplete)
+      case RouteRedundantNodes => context.hasOldFact(RouteWithoutWays, RouteIncomplete)
       case _ => false
     }
 

@@ -13,9 +13,9 @@ object LinkType extends Enum[LinkType] {
 
   case object Backward extends LinkType
 
-  case object RoundaboutLeft extends LinkType // tagged as roundabout and connected to the previous/next member
+  case object Roundabout_Left extends LinkType // tagged as roundabout and connected to the previous/next member
 
-  case object RoundaboutRight extends LinkType
+  case object Roundabout_Right extends LinkType
 
-  case object Unknown extends LinkType
+  case object none extends LinkType
 }

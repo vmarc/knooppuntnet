@@ -37,7 +37,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
 
   def build: RouteAnalysis = {
 
-    val title: String = context.routeNameAnalysis.get.name match {
+    val title: String = context.routeNameAnalysis.name match {
       case Some(routeName) => routeName
       case _ => "no-name"
     }
@@ -46,7 +46,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       title,
       context.routeMembers.get,
       context.ways.get,
-      context.routeMap.get,
+      context.routeMap,
       context.unexpectedNodeIds.get,
       context.unexpectedRelationIds.get,
       context.expectedName.getOrElse(""),
@@ -61,12 +61,12 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       routeNodeAnalysis = context.routeNodeAnalysis.get,
       routeMembers = context.routeMembers.get,
       ways = context.ways.get,
-      startNodes = context.routeMap.get.startNodes,
-      endNodes = context.routeMap.get.endNodes,
-      startTentacleNodes = context.routeMap.get.startTentacleNodes,
-      endTentacleNodes = context.routeMap.get.endTentacleNodes,
+      startNodes = context.routeMap.startNodes,
+      endNodes = context.routeMap.endNodes,
+      startTentacleNodes = context.routeMap.startTentacleNodes,
+      endTentacleNodes = context.routeMap.endTentacleNodes,
       allWayNodes = context.allWayNodes.get,
-      bounds = context.routeMap.get.bounds,
+      bounds = context.routeMap.bounds,
       geometryDigest = context.geometryDigest.get,
       tileAnalysis = context.tileAnalysis.get
     )
@@ -125,10 +125,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
 
     val accessible: Boolean = ways.size == routeMemberWays.count(_.accessible)
 
-    val nameDerivedFromNodes = context.routeNameAnalysis match {
-      case Some(routeNameAnalysis) => routeNameAnalysis.derivedFromNodes
-      case None => false
-    }
+    val nameDerivedFromNodes = context.routeNameAnalysis.derivedFromNodes
 
     val routeAnalysis = RouteInfoAnalysis(
       unexpectedNodeIds,

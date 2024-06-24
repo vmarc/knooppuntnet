@@ -23,7 +23,7 @@ class SebastianTest01 extends UnitTest {
 
   test("route 44-53 adapted") {
     val analysis = CaseStudy.routeAnalysis("11721562-adapted")
-    assert(analysis.route.facts.isEmpty)
+    assert(analysis.route.oldFacts.isEmpty)
     GeoJsonUtil.printMap(analysis.route.analysis.map)
   }
 }

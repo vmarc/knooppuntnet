@@ -17,12 +17,11 @@ object ExpectedNameRouteAnalyzer extends RouteAnalyzer {
 
 class ExpectedNameRouteAnalyzer(context: RouteAnalysisContext) {
 
-  private val routeNameAnalysis = context.routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
   private val routeNodeAnalysis = context.routeNodeAnalysis.getOrElse(throw new PreconditionMissingException)
 
   def analyze: RouteAnalysisContext = {
     if (canDetermineRouteNameFromNodeNames) {
-      val name = routeNameAnalysis.name.get
+      val name = context.routeNameAnalysis.name.get
       val start = if (routeNodeAnalysis.freeNodes.isEmpty) {
         routeNodeAnalysis.startNodes.head.name
       }
@@ -51,7 +50,7 @@ class ExpectedNameRouteAnalyzer(context: RouteAnalysisContext) {
   }
 
   private def canDetermineRouteNameFromNodeNames: Boolean = {
-    routeNameAnalysis.name.isDefined &&
+    context.routeNameAnalysis.name.isDefined &&
       ((routeNodeAnalysis.startNodes.nonEmpty && routeNodeAnalysis.endNodes.nonEmpty) ||
         routeNodeAnalysis.freeNodes.nonEmpty)
   }

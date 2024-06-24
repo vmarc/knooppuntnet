@@ -5,7 +5,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 object RouteSummaryReport {
 
   def report(context: RouteAnalysisContext): String = {
-    val name = context.routeNameAnalysis.flatMap(_.name).getOrElse("?")
+    val name = context.routeNameAnalysis.name
     val nodeNetwork = yes(context.nodeNetwork)
     val superRoute = yes(context.superRoute)
     val proposed = yes(context.proposed)

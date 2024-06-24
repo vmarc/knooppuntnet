@@ -44,7 +44,7 @@ class RouteNameAnalyzer(context: RouteAnalysisContext) {
       }
     }
     context
-      .copy(routeNameAnalysis = Some(routeNameAnalysis))
+      .copy(_routeNameAnalysis = Some(routeNameAnalysis))
       .withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
       .withFact(routeNameAnalysis.derivedFromDeprecatedNoteTag, RouteNameDeprecatedNoteTag)
       .withOldFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
