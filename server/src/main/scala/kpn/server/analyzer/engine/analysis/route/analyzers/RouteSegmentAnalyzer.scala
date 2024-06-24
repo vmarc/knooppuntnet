@@ -35,9 +35,6 @@ class RouteSegmentAnalyzer {
 
   def analyze(wayMembers: Seq[WayMember]): RouteSegmentAnalysis = {
 
-    val nodes = wayMembers.flatMap(_.way.nodes).distinct
-    val nodeMap = nodes.map(node => node.id -> new Coordinate(node.lon, node.lat)).toMap
-
     val elementGroups = try {
       StructureElementAnalyzer.analyze(wayMembers)
     }
@@ -48,6 +45,11 @@ class RouteSegmentAnalyzer {
     }
 
     val structure = new StructureAnalyzer().analyze(elementGroups)
+
+    val nodeMap = {
+      val nodes = wayMembers.flatMap(_.way.nodes).distinct
+      nodes.map(node => node.id -> new Coordinate(node.lon, node.lat)).toMap
+    }
 
     val routeSegments = elementGroups.zipWithIndex.flatMap { case (elementGroup, index) =>
       val lineStrings = elementGroup.elements.map { element =>

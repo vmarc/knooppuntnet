@@ -1,0 +1,36 @@
+package kpn.server.analyzer.engine.analysis.route.report
+
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+
+object RouteSummaryReport {
+
+  def report(context: RouteAnalysisContext): String = {
+    val name = context.routeNameAnalysis.flatMap(_.name).getOrElse("?")
+    val nodeNetwork = yes(context.nodeNetwork)
+    val superRoute = yes(context.superRoute)
+    val proposed = yes(context.proposed)
+    val networkType = context.networkType.map(_.name).getOrElse("")
+    val scopedNetworkType = context.scopedNetworkTypeOption.map(_.key).getOrElse("")
+    val country = context.country.map(_.domain).getOrElse("")
+    val unexpectedNodeIds = context.unexpectedNodeIds.toSeq.flatten.mkString(", ")
+    val unexpectedRelationIds = context.unexpectedRelationIds.toSeq.flatten.mkString(", ")
+
+    s"""
+       |<table>
+       |  <tr><td>name</td><td>$name</td></tr>
+       |  <tr><td>nodeNetwork</td><td>$nodeNetwork</td></tr>
+       |  <tr><td>superRoute</td><td>$superRoute</td></tr>
+       |  <tr><td>proposed</td><td>$proposed</td></tr>
+       |  <tr><td>networkType</td><td>$networkType</td></tr>
+       |  <tr><td>scopedNetworkType</td><td>$scopedNetworkType</td></tr>
+       |  <tr><td>country</td><td>$country</td></tr>
+       |  <tr><td>unexpectedNodeIds</td><td>$unexpectedNodeIds</td></tr>
+       |  <tr><td>unexpectedRelationIds</td><td>$unexpectedRelationIds</td></tr>
+       |</table>
+       |""".stripMargin
+  }
+
+  private def yes(value: Boolean): String = {
+    if (value) "yes" else ""
+  }
+}
