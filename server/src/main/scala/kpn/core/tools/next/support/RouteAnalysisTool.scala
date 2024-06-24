@@ -22,7 +22,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     analyzeRoutes(Seq(13844575)) // ok route
     analyzeRoutes(Seq(8831649)) // LAW-9 deel 1 - 01
     analyzeRoutes(Seq(3952592)) // broken route
-    //analyzeRoutes(Seq(7973533)) // LAW-9 super route containing other super routes
+    analyzeRoutes(Seq(7973533)) // LAW-9 super route containing other super routes
     analyzeRoutes(Seq(3963819)) // route with roundabout
     buildTiles()
     log.info(s"Done")

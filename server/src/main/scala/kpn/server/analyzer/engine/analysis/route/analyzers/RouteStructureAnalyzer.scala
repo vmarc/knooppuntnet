@@ -8,6 +8,7 @@ import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Fact.RouteNotOneWay
 import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteUnusedSegments
+import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 
@@ -25,8 +26,11 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   facts ++= context.facts
 
   def analyze: RouteAnalysisContext = {
-
     val segmentAnalysis = context.segmentAnalysis.getOrElse(throw new PreconditionMissingException)
+    analyzeSegmentAnalysis(segmentAnalysis)
+  }
+
+  private def analyzeSegmentAnalysis(segmentAnalysis: RouteSegmentAnalysis): RouteAnalysisContext = {
 
     val oneWayRouteForward = context.relation.hasTag("direction", "forward")
     val oneWayRouteBackward = context.relation.hasTag("direction", "backward")

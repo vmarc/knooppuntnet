@@ -5,14 +5,30 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 object RouteSegmentsReport {
   def report(context: RouteAnalysisContext): String = {
-    s"""<pre>
-       |routeSegments
-       |${context.segmentAnalysis.get.routeSegments.map(segmentReport).mkString("\n")}
-       |</pre>
+    s"""<table>
+       |<tr class="header">
+       |  <td></td>
+       |  <td>id</td>
+       |  <td>id</td>
+       |  <td>startNodeId</td>
+       |  <td>endNodeId</td>
+       |  <td>meters</td>
+       |</tr>
+       |${context.segmentAnalysis.get.routeSegments.map(segmentRow).mkString("\n")}
+       |</table>
        |""".stripMargin
   }
 
-  private def segmentReport(routeSegment: RouteSegmentData): String = {
-    s"  id=${routeSegment.id}, id=${routeSegment.segment.id}, startNodeId=${routeSegment.segment.startNodeId}, endNodeId=${routeSegment.segment.endNodeId}"
+  private def segmentRow(routeSegment: RouteSegmentData): String = {
+    s"""<tr>
+       |
+       |  <td>RouteSegmentData</td>
+       |  <td>${routeSegment.id}</td>
+       |  <td>${routeSegment.segment.id}</td>
+       |  <td>${routeSegment.segment.startNodeId}</td>
+       |  <td>${routeSegment.segment.endNodeId}</td>
+       |  <td>${routeSegment.segment.meters}</td>
+       |</tr>
+       |""".stripMargin
   }
 }

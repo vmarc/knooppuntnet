@@ -34,6 +34,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.SuspiciousWaysRouteAnalyzer
@@ -80,10 +81,10 @@ class MainRouteAnalyzerImpl(
         RouteLinkAnalyzer,
 
         RouteSegmentAnalyzer,
+        RouteStructureAnalyzer,
 
         RouteFragmentAnalyzer,
         OldRouteStructureAnalyzer,
-        // RouteStructureAnalyzer,
 
         RouteMemberAnalyzer,
         RouteStreetsAnalyzer,

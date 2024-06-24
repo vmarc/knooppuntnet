@@ -4,6 +4,8 @@ import kpn.core.tools.config.Dirs
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.report.RouteFactsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteMembersReport
+import kpn.server.analyzer.engine.analysis.route.report.RouteNameAnalysisReport
+import kpn.server.analyzer.engine.analysis.route.report.RouteNodeAnalysisReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteSegmentsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteSummaryReport
 import kpn.server.analyzer.engine.analysis.route.report.StructureElementGroupsReport
@@ -32,6 +34,8 @@ class RouteAnalysisContextReport(context: RouteAnalysisContext) {
        |<body>
        |${RouteSummaryReport.report(context)}
        |${RouteFactsReport.report(context)}
+       |${RouteNodeAnalysisReport.report(context)}
+       |${RouteNameAnalysisReport.report(context)}
        |${RouteMembersReport.report(context)}
        |${RouteSegmentsReport.report(context)}
        |${StructureElementGroupsReport.report(context.segmentAnalysis.get.elementGroups)}
