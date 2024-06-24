@@ -18,44 +18,34 @@ import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinderAbort
-import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 import scala.collection.mutable.ListBuffer
 
 object OldRouteStructureAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    if (context.structure.isEmpty) {
-      new OldRouteStructureAnalyzer(context).analyze
-    }
-    else {
-      context
-    }
+    new OldRouteStructureAnalyzer(context).analyze
   }
 }
 
 class OldRouteStructureAnalyzer(context: RouteAnalysisContext) {
 
-  private val fragmentMap = context.fragmentMap.getOrElse(throw new PreconditionMissingException)
-
   private val oldFacts: ListBuffer[Fact] = ListBuffer[Fact]()
   oldFacts ++= context.oldFacts
 
   def analyze: RouteAnalysisContext = {
-    val structure = analyzeStructure(context.routeNodeAnalysis.get)
-    analyzeStructure2(context.routeNodeAnalysis.get, structure, fragmentMap.all)
+    val structure = analyzeStructure(context.routeNodeAnalysis)
+    analyzeStructure2(context.routeNodeAnalysis, structure, context.fragmentMap.all)
     context.copy(
-      structure = Some(structure),
+      _structure = Some(structure),
       oldFacts = oldFacts.toSeq,
     )
   }
 
   private def analyzeStructure(routeNodeAnalysis: RouteNodeAnalysis): RouteStructure = {
 
-    val networkType = context.networkType.getOrElse(throw new PreconditionMissingException)
-
     if (isAnalysisImpossible(routeNodeAnalysis)) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder(networkType, fragmentMap).segments(fragmentMap.ids)
+        unusedSegments = new SegmentBuilder(context.networkType, context.fragmentMap).segments(context.fragmentMap.ids)
       )
     }
     else {
@@ -64,7 +54,7 @@ class OldRouteStructureAnalyzer(context: RouteAnalysisContext) {
           context.scopedNetworkType.networkType,
           context.relation.id,
           context.routeNameAnalysis.isStartNodeNameSameAsEndNodeName,
-          fragmentMap,
+          context.fragmentMap,
           routeNodeAnalysis
         ).structure
       }

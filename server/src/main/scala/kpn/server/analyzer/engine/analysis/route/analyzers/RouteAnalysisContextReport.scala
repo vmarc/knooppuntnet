@@ -38,8 +38,8 @@ class RouteAnalysisContextReport(context: RouteAnalysisContext) {
        |${RouteNameAnalysisReport.report(context)}
        |${RouteMembersReport.report(context)}
        |${RouteSegmentsReport.report(context)}
-       |${StructureElementGroupsReport.report(context.segmentAnalysis.get.elementGroups)}
-       |${StructureReport.report(context.segmentAnalysis.get.structure)}
+       |${StructureElementGroupsReport.report(context.segmentAnalysis.elementGroups)}
+       |${StructureReport.report(context.segmentAnalysis.structure)}
        |</body>
        |</html>
        |""".stripMargin

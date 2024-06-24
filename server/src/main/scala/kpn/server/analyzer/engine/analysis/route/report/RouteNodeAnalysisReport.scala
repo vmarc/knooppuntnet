@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 object RouteNodeAnalysisReport {
 
   def report(context: RouteAnalysisContext): String = {
-    val routeNodeAnalysis = context.routeNodeAnalysis.get
+    val routeNodeAnalysis = context.routeNodeAnalysis
     if (routeNodeAnalysis.routeNodes.nonEmpty) {
       s"""
          |<table>

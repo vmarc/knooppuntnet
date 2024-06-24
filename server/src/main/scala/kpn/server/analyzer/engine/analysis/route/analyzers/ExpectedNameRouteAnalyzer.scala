@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 object ExpectedNameRouteAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -17,7 +16,7 @@ object ExpectedNameRouteAnalyzer extends RouteAnalyzer {
 
 class ExpectedNameRouteAnalyzer(context: RouteAnalysisContext) {
 
-  private val routeNodeAnalysis = context.routeNodeAnalysis.getOrElse(throw new PreconditionMissingException)
+  private val routeNodeAnalysis = context.routeNodeAnalysis
 
   def analyze: RouteAnalysisContext = {
     if (canDetermineRouteNameFromNodeNames) {

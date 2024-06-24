@@ -47,7 +47,7 @@ class RouteTagAnalyzer(context: RouteAnalysisContext) {
               context.copy(
                 superRoute = superRoute,
                 nodeNetwork = nodeNetwork,
-                networkType = Some(networkType),
+                _networkType = Some(networkType),
                 scopedNetworkTypeOption = scopedNetworkTypeOption
               ).withFacts(facts.toSeq *)
           }

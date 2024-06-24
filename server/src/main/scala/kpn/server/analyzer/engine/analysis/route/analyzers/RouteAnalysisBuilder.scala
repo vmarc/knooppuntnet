@@ -50,15 +50,15 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.unexpectedNodeIds.get,
       context.unexpectedRelationIds.get,
       context.expectedName.getOrElse(""),
-      context.structure.get,
-      context.routeNodeAnalysis.get
+      context.structure,
+      context.routeNodeAnalysis
     )
 
     RouteAnalysis(
       context.relation,
       route = route,
-      structure = context.structure.get,
-      routeNodeAnalysis = context.routeNodeAnalysis.get,
+      structure = context.structure,
+      routeNodeAnalysis = context.routeNodeAnalysis,
       routeMembers = context.routeMembers.get,
       ways = context.ways.get,
       startNodes = context.routeMap.startNodes,

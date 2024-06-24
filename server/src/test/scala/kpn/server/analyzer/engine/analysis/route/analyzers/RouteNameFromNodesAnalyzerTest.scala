@@ -14,7 +14,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       null,
       nodeNetwork = true,
       _routeNameAnalysis = Some(RouteNameAnalysis()),
-      routeNodeAnalysis = Some(
+      _routeNodeAnalysis = Some(
         RouteNodeAnalysis(
           startNodes = Seq(
             RouteNode(name = "01")
@@ -35,7 +35,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       null,
       nodeNetwork = true,
       _routeNameAnalysis = Some(RouteNameAnalysis()),
-      routeNodeAnalysis = Some(
+      _routeNodeAnalysis = Some(
         RouteNodeAnalysis(
           startNodes = Seq(
             RouteNode(name = "a")
@@ -57,7 +57,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _routeNameAnalysis = Some(
         RouteNameAnalysis(name = Some("route-name"))
       ),
-      routeNodeAnalysis = Some(
+      _routeNodeAnalysis = Some(
         RouteNodeAnalysis(
           startNodes = Seq(
             RouteNode(name = "01")
@@ -79,7 +79,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _routeNameAnalysis = Some(
         RouteNameAnalysis()
       ),
-      routeNodeAnalysis = Some(
+      _routeNodeAnalysis = Some(
         RouteNodeAnalysis(
           startNodes = Seq(
             RouteNode()
@@ -101,7 +101,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _routeNameAnalysis = Some(
         RouteNameAnalysis()
       ),
-      routeNodeAnalysis = Some(
+      _routeNodeAnalysis = Some(
         RouteNodeAnalysis(
           startNodes = Seq(
             RouteNode(name = "01")

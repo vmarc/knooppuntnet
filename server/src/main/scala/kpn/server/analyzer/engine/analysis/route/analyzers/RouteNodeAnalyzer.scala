@@ -25,7 +25,7 @@ object RouteNodeAnalyzer extends RouteAnalyzer {
       new RouteNodeAnalyzer(context).analyze
     }
     else {
-      context.copy(routeNodeAnalysis = Some(RouteNodeAnalysis()))
+      context.copy(_routeNodeAnalysis = Some(RouteNodeAnalysis()))
     }
   }
 }
@@ -56,7 +56,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     }
 
     context.copy(
-        routeNodeAnalysis = Some(routeNodeAnalysis)
+        _routeNodeAnalysis = Some(routeNodeAnalysis)
       ).withFacts(facts.toSeq *)
       .withOldFacts(oldFacts.toSeq *)
   }

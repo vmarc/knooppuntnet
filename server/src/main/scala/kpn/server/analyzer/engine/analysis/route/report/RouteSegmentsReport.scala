@@ -14,7 +14,7 @@ object RouteSegmentsReport {
        |  <td>endNodeId</td>
        |  <td>meters</td>
        |</tr>
-       |${context.segmentAnalysis.get.routeSegments.map(segmentRow).mkString("\n")}
+       |${context.segmentAnalysis.routeSegments.map(segmentRow).mkString("\n")}
        |</table>
        |""".stripMargin
   }

@@ -477,7 +477,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
       analysisContext,
       relation,
       nodeNetwork = true,
-      networkType = Some(NetworkType.hiking),
+      _networkType = Some(NetworkType.hiking),
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
       proposed = proposed,
     )
@@ -489,7 +489,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
         )
       )
     )
-    val nodeString = new RouteNodeAnalysisFormatter(newContext.routeNodeAnalysis.get).string
+    val nodeString = new RouteNodeAnalysisFormatter(newContext.routeNodeAnalysis).string
     val factsString = newContext.facts.map(_.name).mkString(",")
     if (factsString.nonEmpty) {
       nodeString + ";" + factsString

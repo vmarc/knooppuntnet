@@ -31,22 +31,22 @@ case class RouteAnalysisContext(
   superRoute: Boolean = false,
   nodeNetwork: Boolean = false,
   proposed: Boolean = false,
-  networkType: Option[NetworkType] = None,
+  _networkType: Option[NetworkType] = None,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
   country: Option[Country] = None,
-  referenceStructure: Option[ReferenceStructure] = None,
-  segmentAnalysis: Option[RouteSegmentAnalysis] = None,
+  _referenceStructure: Option[ReferenceStructure] = None,
+  _segmentAnalysis: Option[RouteSegmentAnalysis] = None,
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   facts: Seq[Fact] = Seq.empty,
   oldFacts: Seq[Fact] = Seq.empty,
   unexpectedNodeIds: Option[Seq[Long]] = None,
   unexpectedRelationIds: Option[Seq[Long]] = None,
   _routeNameAnalysis: Option[RouteNameAnalysis] = None,
-  routeNodeAnalysis: Option[RouteNodeAnalysis] = None,
+  _routeNodeAnalysis: Option[RouteNodeAnalysis] = None,
   expectedName: Option[String] = None,
   suspiciousWayIds: Option[Seq[Long]] = None,
-  fragmentMap: Option[FragmentMap] = None,
-  structure: Option[RouteStructure] = None,
+  _fragmentMap: Option[FragmentMap] = None,
+  _structure: Option[RouteStructure] = None,
   routeMembers: Option[Seq[RouteMember]] = None,
   _routeMap: Option[RouteMap] = None,
   ways: Option[Seq[Way]] = None,
@@ -148,7 +148,21 @@ case class RouteAnalysisContext(
 
   def connection: Boolean = relation.hasTag("state", "connection")
 
+  // prerequisite checking accessors
+
+  def networkType: NetworkType = _networkType.getOrElse(throw new PreconditionMissingException)
+
   def routeMap: RouteMap = _routeMap.getOrElse(throw new PreconditionMissingException)
 
+  def referenceStructure: ReferenceStructure = _referenceStructure.getOrElse(throw new PreconditionMissingException)
+
+  def segmentAnalysis: RouteSegmentAnalysis = _segmentAnalysis.getOrElse(throw new PreconditionMissingException)
+
   def routeNameAnalysis: RouteNameAnalysis = _routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
+
+  def routeNodeAnalysis: RouteNodeAnalysis = _routeNodeAnalysis.getOrElse(throw new PreconditionMissingException)
+
+  def fragmentMap: FragmentMap = _fragmentMap.getOrElse(throw new PreconditionMissingException)
+
+  def structure: RouteStructure = _structure.getOrElse(throw new PreconditionMissingException)
 }

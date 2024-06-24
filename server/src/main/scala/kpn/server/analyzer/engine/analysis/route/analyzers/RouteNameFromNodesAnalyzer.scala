@@ -4,7 +4,6 @@ import kpn.api.custom.Fact
 import kpn.core.util.Util.isDigits
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 object RouteNameFromNodesAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -19,7 +18,7 @@ object RouteNameFromNodesAnalyzer extends RouteAnalyzer {
 
 class RouteNameFromNodesAnalyzer(context: RouteAnalysisContext) {
 
-  private val routeNodeAnalysis = context.routeNodeAnalysis.getOrElse(throw new PreconditionMissingException)
+  private val routeNodeAnalysis = context.routeNodeAnalysis
 
   def analyze: RouteAnalysisContext = {
     if (context.routeNameAnalysis.name.isDefined) {

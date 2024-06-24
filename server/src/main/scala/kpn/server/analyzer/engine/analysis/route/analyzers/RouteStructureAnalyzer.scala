@@ -10,7 +10,6 @@ import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 import scala.collection.mutable.ListBuffer
 
@@ -26,8 +25,7 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   facts ++= context.facts
 
   def analyze: RouteAnalysisContext = {
-    val segmentAnalysis = context.segmentAnalysis.getOrElse(throw new PreconditionMissingException)
-    analyzeSegmentAnalysis(segmentAnalysis)
+    analyzeSegmentAnalysis(context.segmentAnalysis)
   }
 
   private def analyzeSegmentAnalysis(segmentAnalysis: RouteSegmentAnalysis): RouteAnalysisContext = {

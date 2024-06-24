@@ -11,7 +11,6 @@ import kpn.core.analysis.RouteMemberWay
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -22,7 +21,7 @@ object RouteMemberAnalyzer extends RouteAnalyzer {
 class RouteMemberAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    val routeMembers = analyzeRouteMembers(context.routeNodeAnalysis.get)
+    val routeMembers = analyzeRouteMembers(context.routeNodeAnalysis)
     if (routeMembers.exists(!_.accessible)) {
       context.copy(routeMembers = Some(routeMembers)).withFact(RouteInaccessible)
     }
@@ -39,7 +38,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
       TagInterpreter.isValidNetworkMember(context.scopedNetworkType, member)
     }
 
-    val links = context.referenceStructure.getOrElse(throw new PreconditionMissingException).links
+    val links = context.referenceStructure.links
 
     //links.zip(relationMembers).toSeq.map { case(link, w) => LinkInfo(link, w)}
 

@@ -20,7 +20,7 @@ object RouteLinkAnalyzer extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val referenceStructure = new RouteLinkAnalyzer().analyze(context.relation)
     context.copy(
-      referenceStructure = Some(referenceStructure)
+      _referenceStructure = Some(referenceStructure)
     )
   }
 }

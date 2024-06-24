@@ -59,7 +59,6 @@ class FragmentAnalyzerTest extends UnitTest {
     fragments(d) should equal("<01.b- 10><-01.a 11(3-4)><01.a- 11(4-5)><-02 12>")
   }
 
-
   test("roundabout") {
 
     val d = new RouteTestData("01-02") {
@@ -159,7 +158,7 @@ class FragmentAnalyzerTest extends UnitTest {
     val context3 = new RouteNameAnalyzer(context2).analyze
     val context4 = new RouteNodeTagAnalyzer(context3).analyze
     val context5 = new RouteNodeAnalyzer(context4).analyze
-    val fragmentMap = new FragmentAnalyzer(context5.routeNodeAnalysis.get.usedNodes, relation.wayMembers).fragmentMap
+    val fragmentMap = new FragmentAnalyzer(context5.routeNodeAnalysis.usedNodes, relation.wayMembers).fragmentMap
     fragmentMap.all.map(fragment => new FragmentFormatter(fragment).string).mkString
   }
 }

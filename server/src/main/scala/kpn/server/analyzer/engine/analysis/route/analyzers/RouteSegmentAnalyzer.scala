@@ -19,7 +19,7 @@ object RouteSegmentAnalyzer extends RouteAnalyzer {
     val wayMembers = context.relation.wayMembers
     val segmentAnalysis = new RouteSegmentAnalyzer().analyze(wayMembers)
     context.copy(
-      segmentAnalysis = Some(segmentAnalysis)
+      _segmentAnalysis = Some(segmentAnalysis)
     )
   }
 
