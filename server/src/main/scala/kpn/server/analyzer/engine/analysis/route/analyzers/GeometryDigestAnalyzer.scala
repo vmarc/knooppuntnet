@@ -15,6 +15,6 @@ class GeometryDigestAnalyzer(context: RouteAnalysisContext) {
     val wayNodes = context.allWayNodes.toSeq.flatten
     val string = wayNodes.flatMap(node => Seq(node.latitude, node.longitude)).mkString
     val digest = DigestUtils.sha1Hex(string)
-    context.copy(geometryDigest = Some(digest))
+    context.copy(_geometryDigest = Some(digest))
   }
 }

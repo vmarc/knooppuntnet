@@ -3,7 +3,7 @@ package kpn.core.analysis
 import scala.collection.mutable
 
 case class Link(
-  linkType: LinkType,
+  direction: LinkDirection,
   hasPrev: Boolean,
   hasNext: Boolean,
   isLoop: Boolean,
@@ -14,12 +14,12 @@ case class Link(
 ) {
 
   def name: String = {
-    val linkTypeLetter = linkType match {
-      case LinkType.Forward => "f"
-      case LinkType.Backward => "b"
-      case LinkType.RoundaboutLeft => "r"
-      case LinkType.RoundaboutRight => "r"
-      case LinkType.All => "n"
+    val directionLetter = direction match {
+      case LinkDirection.Forward => "f"
+      case LinkDirection.Backward => "b"
+      case LinkDirection.RoundaboutLeft => "r"
+      case LinkDirection.RoundaboutRight => "r"
+      case LinkDirection.Unconnected => "n"
     }
 
     val code = (if (hasPrev) 1 else 0) +
@@ -30,7 +30,7 @@ case class Link(
       (if (isOnewayHead) 32 else 0) +
       (if (isOnewayTail) 64 else 0)
 
-    "w%s%03d".format(linkTypeLetter, code)
+    "w%s%03d".format(directionLetter, code)
   }
 
   def description: String = {
@@ -45,7 +45,7 @@ case class Link(
       (if (isOnewayLoopBackwardPart) Seq("bp") else Seq.empty) ++
       (if (isOnewayHead) Seq("head") else Seq.empty) ++
       (if (isOnewayTail) Seq("tail") else Seq.empty) ++
-      Seq(linkType.toString.toLowerCase)
+      Seq(direction.toString.toLowerCase)
 
     sb.append(elements.mkString("-"))
 
@@ -64,7 +64,7 @@ case class Link(
     sb.append("   bp " + bool(isOnewayLoopBackwardPart))
     sb.append("   head " + bool(isOnewayHead))
     sb.append("   tail " + bool(isOnewayTail))
-    sb.append(String.format("   d %s", linkType.entryName.toLowerCase))
+    sb.append(String.format("   d %s", direction.entryName.toLowerCase))
     sb.toString
   }
 

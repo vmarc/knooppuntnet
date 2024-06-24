@@ -11,7 +11,7 @@ case class RouteMemberNode(name: String, alternateName: String, longName: Option
 
   def link: Option[Link] = None
 
-  def linkType: LinkType = LinkType.All
+  def linkDirection: LinkDirection = LinkDirection.Unconnected
 
   def linkName: String = "n"
 

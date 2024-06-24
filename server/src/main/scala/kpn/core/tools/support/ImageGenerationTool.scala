@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
 import kpn.core.analysis.Link
-import kpn.core.analysis.LinkType
+import kpn.core.analysis.LinkDirection
 import kpn.core.report.LinkImageBuilder
 import kpn.core.tools.config.Dirs
 import kpn.core.util.Xml
@@ -76,7 +76,7 @@ class ImageGenerationTool {
   }
 
   private def buildAllLinks(): Seq[Link] = {
-    Seq(LinkType.Forward, LinkType.Backward, LinkType.RoundaboutRight, LinkType.All) flatMap { linkType =>
+    Seq(LinkDirection.Forward, LinkDirection.Backward, LinkDirection.RoundaboutRight, LinkDirection.Unconnected) flatMap { linkDirection =>
       Seq(false, true) flatMap { isLoop =>
         Seq(false, true) flatMap { isOnewayLoopForwardPart =>
           Seq(false, true) flatMap { isOnewayLoopBackwardPart =>
@@ -85,7 +85,7 @@ class ImageGenerationTool {
                 Seq(false, true) flatMap { hasPrev =>
                   Seq(false, true) map { hasNext =>
                     Link(
-                      linkType,
+                      linkDirection,
                       hasPrev,
                       hasNext,
                       isLoop,

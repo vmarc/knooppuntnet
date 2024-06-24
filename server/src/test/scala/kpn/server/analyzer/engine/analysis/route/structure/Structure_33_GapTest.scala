@@ -17,7 +17,7 @@ class Structure_33_GapTest extends UnitTest {
   test("reference") {
     setup.reference().shouldMatchTo(
       Seq(
-        "1    p     n     loop     fp     bp     head     tail     d all",
+        "1    p     n     loop     fp     bp     head     tail     d unconnected",
         //
         "2    p     n ■   loop     fp     bp     head     tail     d forward",
         "3    p ■   n     loop     fp     bp     head     tail     d forward",

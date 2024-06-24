@@ -15,22 +15,17 @@ import org.springframework.stereotype.Component
 class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: RouteLocator) extends RouteLocationAnalyzer {
 
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-
-    context.geometryDigest match {
-      case None => throw new IllegalStateException("geometryDigest not known (route analyzers in wrong order?)")
-      case Some(geometryDigest) =>
-        routeRepository.findById(context.relation.id) match {
-          case Some(route) =>
-            if (route.analysis.geometryDigest == geometryDigest) {
-              context.copy(locationAnalysis = Some(route.analysis.locationAnalysis))
-            }
-            else {
-              locate(context)
-            }
-
-          case None =>
-            locate(context)
+    routeRepository.findById(context.relation.id) match {
+      case Some(route) =>
+        if (route.analysis.geometryDigest == context.geometryDigest) {
+          context.copy(locationAnalysis = Some(route.analysis.locationAnalysis))
         }
+        else {
+          locate(context)
+        }
+
+      case None =>
+        locate(context)
     }
   }
 

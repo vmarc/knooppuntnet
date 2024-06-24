@@ -4,7 +4,7 @@ import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Fact.RouteInaccessible
-import kpn.core.analysis.LinkType
+import kpn.core.analysis.LinkDirection
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
 import kpn.core.analysis.RouteMemberWay
@@ -85,8 +85,8 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
           .id == n.id))
         val name = way.tagValue("name").getOrElse("")
 
-        val fromNode = if (link.linkType == LinkType.Forward) way.nodes.head else way.nodes.last
-        val toNode = if (link.linkType == LinkType.Backward) way.nodes.last else way.nodes.head
+        val fromNode = if (link.direction == LinkDirection.Forward) way.nodes.head else way.nodes.last
+        val toNode = if (link.direction == LinkDirection.Backward) way.nodes.last else way.nodes.head
 
         val from = if (nodeMap.isDefinedAt(fromNode.id)) {
           nodeMap(fromNode.id)

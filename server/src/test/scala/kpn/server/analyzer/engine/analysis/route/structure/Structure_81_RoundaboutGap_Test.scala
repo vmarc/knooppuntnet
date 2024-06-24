@@ -15,10 +15,10 @@ class Structure_81_RoundaboutGap_Test extends UnitTest {
   test("reference") {
     setup.reference(traceEnabled = true).shouldMatchTo(
       Seq(
-        "1    p     n     loop     fp     bp     head     tail     d all",
+        "1    p     n     loop     fp     bp     head     tail     d unconnected",
         "2    p     n ■   loop     fp     bp     head     tail     d roundaboutright",
         "3    p ■   n     loop     fp     bp     head     tail     d forward",
-        "4    p     n     loop     fp     bp     head     tail     d all",
+        "4    p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
   }

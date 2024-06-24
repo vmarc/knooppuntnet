@@ -11,11 +11,11 @@ class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val context = testContext(newNode1, newNode2a)
 
-    GeometryDigestAnalyzer.analyze(context).geometryDigest should equal(
+    GeometryDigestAnalyzer.analyze(context)._geometryDigest should equal(
       Some("35f0bbdd870ed7fbe390b69b7dbd24b6b4b5a89e")
     )
 
-    GeometryDigestAnalyzer.analyze(context).geometryDigest should equal(
+    GeometryDigestAnalyzer.analyze(context)._geometryDigest should equal(
       Some("35f0bbdd870ed7fbe390b69b7dbd24b6b4b5a89e")
     )
   }
@@ -24,7 +24,7 @@ class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val context = testContext(newNode1, newNode2b)
 
-    GeometryDigestAnalyzer.analyze(context).geometryDigest should equal(
+    GeometryDigestAnalyzer.analyze(context)._geometryDigest should equal(
       Some("0fe7cb4490c063ba839199aa955f645ce32e8650")
     )
   }
@@ -47,5 +47,4 @@ class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
   private def newNode2a = newNode(1002, "12.0", "22.0")
 
   private def newNode2b = newNode(1002, "12.0", "22.1")
-
 }

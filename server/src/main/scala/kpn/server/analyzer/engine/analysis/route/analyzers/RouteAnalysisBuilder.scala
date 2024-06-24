@@ -67,7 +67,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       endTentacleNodes = context.routeMap.endTentacleNodes,
       allWayNodes = context.allWayNodes.get,
       bounds = context.routeMap.bounds,
-      geometryDigest = context.geometryDigest.get,
+      geometryDigest = context.geometryDigest,
       tileAnalysis = context.tileAnalysis.get
     )
   }
@@ -135,7 +135,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       nameDerivedFromNodes,
       routeMap,
       new RouteStructureFormatter(structure).strings,
-      context.geometryDigest.get,
+      context.geometryDigest,
       context.locationAnalysis.get
     )
 

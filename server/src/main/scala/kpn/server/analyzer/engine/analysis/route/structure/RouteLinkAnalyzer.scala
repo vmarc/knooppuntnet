@@ -4,7 +4,7 @@ import kpn.api.common.data.Member
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.core.analysis.Link
-import kpn.core.analysis.LinkType
+import kpn.core.analysis.LinkDirection
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLink
@@ -87,21 +87,21 @@ class RouteLinkAnalyzer(traceEnabled: Boolean = false) {
     )
   }
 
-  private def toScalaDirection(direction: ReferenceLink.Direction): LinkType = {
+  private def toScalaDirection(direction: ReferenceLink.Direction): LinkDirection = {
     if (direction == reference.ReferenceLink.Direction.FORWARD) {
-      LinkType.Forward
+      LinkDirection.Forward
     }
     else if (direction == reference.ReferenceLink.Direction.BACKWARD) {
-      LinkType.Backward
+      LinkDirection.Backward
     }
     else if (direction == reference.ReferenceLink.Direction.ROUNDABOUT_LEFT) {
-      LinkType.RoundaboutLeft
+      LinkDirection.RoundaboutLeft
     }
     else if (direction == reference.ReferenceLink.Direction.ROUNDABOUT_RIGHT) {
-      LinkType.RoundaboutRight
+      LinkDirection.RoundaboutRight
     }
     else if (direction == reference.ReferenceLink.Direction.NONE) {
-      LinkType.All
+      LinkDirection.Unconnected
     }
     else {
       throw new IllegalArgumentException(s"Unknown reference direction ${direction.toString}")

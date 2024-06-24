@@ -52,7 +52,7 @@ case class RouteAnalysisContext(
   ways: Option[Seq[Way]] = None,
   allWayNodes: Option[Seq[Node]] = None,
   streets: Option[Seq[String]] = None,
-  geometryDigest: Option[String] = None,
+  _geometryDigest: Option[String] = None,
   locationAnalysis: Option[RouteLocationAnalysis] = None,
   lastSurvey: Option[Day] = None,
   labels: Seq[String] = Seq.empty,
@@ -165,4 +165,6 @@ case class RouteAnalysisContext(
   def fragmentMap: FragmentMap = _fragmentMap.getOrElse(throw new PreconditionMissingException)
 
   def structure: RouteStructure = _structure.getOrElse(throw new PreconditionMissingException)
+
+  def geometryDigest: String = _geometryDigest.getOrElse(throw new PreconditionMissingException)
 }

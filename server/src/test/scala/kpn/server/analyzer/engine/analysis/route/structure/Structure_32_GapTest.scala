@@ -16,7 +16,7 @@ class Structure_32_GapTest extends UnitTest {
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
         "2    p ■   n     loop     fp     bp     head     tail     d forward",
-        "3    p     n     loop     fp     bp     head     tail     d all",
+        "3    p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
   }

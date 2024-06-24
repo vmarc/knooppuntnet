@@ -1,7 +1,7 @@
 package kpn.core.report
 
 import kpn.core.analysis.Link
-import kpn.core.analysis.LinkType
+import kpn.core.analysis.LinkDirection
 
 import java.awt.BasicStroke
 import java.awt.Color
@@ -197,18 +197,18 @@ class LinkImageBuilder(g: Graphics2D, link: Link) {
   }
 
   private def drawRoundabout(x: Int, y: Int): Unit = {
-    val image = link.linkType match {
-      case LinkType.RoundaboutLeft => Some(roundabout)
-      case LinkType.RoundaboutRight => Some(roundabout)
+    val image = link.direction match {
+      case LinkDirection.RoundaboutLeft => Some(roundabout)
+      case LinkDirection.RoundaboutRight => Some(roundabout)
       case _ => None
     }
     image.foreach(i => g.drawImage(i, x, y, null))
   }
 
   private def drawArrow(xLeft: Int, xRight: Int, y: Int): Unit = {
-    val down = link.linkType match {
-      case LinkType.Forward => Some(true)
-      case LinkType.Backward => Some(false)
+    val down = link.direction match {
+      case LinkDirection.Forward => Some(true)
+      case LinkDirection.Backward => Some(false)
       case _ => None
     }
 
