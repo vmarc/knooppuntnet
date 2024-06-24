@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
-import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
 // reproduces situation in node network route 6701558
@@ -19,7 +18,7 @@ class Structure_78_Split_Test extends UnitTest {
   test("reference") {
     setup.reference(traceEnabled = true).shouldMatchTo(
       Seq(
-        "1    p     n     loop     fp     bp     head     tail     d none",
+        "1    p     n     loop     fp     bp     head     tail     d all",
         "2    p     n ■   loop     fp ■   bp     head     tail     d forward",
         "3    p ■   n ■   loop     fp     bp ■   head     tail     d forward",
         "4    p ■   n ■   loop     fp     bp ■   head     tail     d backward",

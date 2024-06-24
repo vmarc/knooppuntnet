@@ -95,13 +95,13 @@ class RouteLinkAnalyzer(traceEnabled: Boolean = false) {
       LinkType.Backward
     }
     else if (direction == reference.ReferenceLink.Direction.ROUNDABOUT_LEFT) {
-      LinkType.Roundabout_Left
+      LinkType.RoundaboutLeft
     }
     else if (direction == reference.ReferenceLink.Direction.ROUNDABOUT_RIGHT) {
-      LinkType.Roundabout_Right
+      LinkType.RoundaboutRight
     }
     else if (direction == reference.ReferenceLink.Direction.NONE) {
-      LinkType.none
+      LinkType.All
     }
     else {
       throw new IllegalArgumentException(s"Unknown reference direction ${direction.toString}")

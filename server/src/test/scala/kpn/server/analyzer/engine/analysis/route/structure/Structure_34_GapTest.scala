@@ -23,7 +23,7 @@ class Structure_34_GapTest extends UnitTest {
         "3    p     n ■   loop     fp     bp     head     tail     d forward",
         "4    p ■   n     loop     fp     bp     head     tail     d forward",
         //
-        "5    p     n     loop     fp     bp     head     tail     d none",
+        "5    p     n     loop     fp     bp     head     tail     d all",
       )
     )
   }

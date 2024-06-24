@@ -26,7 +26,7 @@ class Structure_79_Split_Test extends UnitTest {
         "3    p ■   n ■   loop     fp ■   bp     head     tail     d forward",
         "4    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
         "5    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
-        "6    p ■   n ■   loop     fp     bp ■   head     tail     d roundabout_right",
+        "6    p ■   n ■   loop     fp     bp ■   head     tail     d roundaboutright",
         "7    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
         "8    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
         "9    p ■   n ■   loop     fp     bp ■   head     tail ■   d forward",

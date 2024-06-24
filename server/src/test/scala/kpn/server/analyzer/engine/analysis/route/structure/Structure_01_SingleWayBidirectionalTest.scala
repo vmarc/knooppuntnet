@@ -11,7 +11,7 @@ class Structure_01_SingleWayBidirectionalTest extends UnitTest {
   test("reference") {
     setup.reference().shouldMatchTo(
       Seq(
-        "1    p     n     loop     fp     bp     head     tail     d none",
+        "1    p     n     loop     fp     bp     head     tail     d all",
       )
     )
   }

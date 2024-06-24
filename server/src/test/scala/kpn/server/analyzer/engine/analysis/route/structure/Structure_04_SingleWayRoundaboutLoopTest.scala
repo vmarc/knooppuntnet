@@ -11,7 +11,7 @@ class Structure_04_SingleWayRoundaboutLoopTest extends UnitTest {
   test("reference") {
     setup.reference().shouldMatchTo(
       Seq(
-        "1    p     n     loop     fp     bp     head     tail     d roundabout_right",
+        "1    p     n     loop     fp     bp     head     tail     d roundaboutright",
       )
     )
   }

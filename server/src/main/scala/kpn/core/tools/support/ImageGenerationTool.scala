@@ -76,7 +76,7 @@ class ImageGenerationTool {
   }
 
   private def buildAllLinks(): Seq[Link] = {
-    Seq(LinkType.Forward, LinkType.Backward, LinkType.Roundabout_Right, LinkType.none) flatMap { linkType =>
+    Seq(LinkType.Forward, LinkType.Backward, LinkType.RoundaboutRight, LinkType.All) flatMap { linkType =>
       Seq(false, true) flatMap { isLoop =>
         Seq(false, true) flatMap { isOnewayLoopForwardPart =>
           Seq(false, true) flatMap { isOnewayLoopBackwardPart =>

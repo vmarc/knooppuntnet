@@ -32,7 +32,7 @@ class Structure_72_SplitRoundabout_Test extends UnitTest {
         "2    p ■   n ■   loop     fp ■   bp     head ■   tail     d forward",
         "3    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
         "4    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
-        "5    p ■   n ■   loop     fp ■   bp     head     tail ■   d roundabout_right",
+        "5    p ■   n ■   loop     fp ■   bp     head     tail ■   d roundaboutright",
         "6    p ■   n ■   loop     fp ■   bp     head ■   tail     d forward",
         "7    p ■   n ■   loop     fp ■   bp     head     tail     d forward",
         "8    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
