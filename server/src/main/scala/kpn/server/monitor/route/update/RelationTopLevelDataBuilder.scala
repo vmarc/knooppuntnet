@@ -3,6 +3,7 @@ package kpn.server.monitor.route.update
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
 import kpn.api.common.data.NodeMember
+import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
 import kpn.api.common.data.raw.RawData
@@ -65,7 +66,7 @@ class RelationTopLevelDataBuilder(rawData: RawData, relationIds: Seq[Long], log:
         buildWayMember(rawRelation.id, rawMember)
       }
       else if (rawMember.isRelation) {
-        None
+        Some(RelationIdMember(rawMember.ref, rawMember.role))
       }
       else {
         //noinspection SideEffectsInMonadicTransformation

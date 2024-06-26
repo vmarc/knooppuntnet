@@ -58,15 +58,7 @@ class NextCreateRouteStatesTool(
     database.routeRelations.findById(routeRelationId) match {
       case None => log.error(s"could find routeId $routeRelationId")
       case Some(doc) =>
-        val relation = Relation(
-          doc._id,
-          doc.version,
-          doc.timestamp,
-          doc.changeSetId,
-          doc.tags,
-          doc.members
-        )
-
+        val relation = doc.relation
         val elementIds = determineElementIds(relation)
         val tiles = determineTiles(relation)
         database.routeStates.save(

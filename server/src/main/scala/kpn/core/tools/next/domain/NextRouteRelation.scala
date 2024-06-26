@@ -1,15 +1,10 @@
 package kpn.core.tools.next.domain
 
 import kpn.api.base.WithId
-import kpn.api.common.data.Member
-import kpn.api.custom.Tag
-import kpn.api.custom.Timestamp
+import kpn.api.custom.Relation
 
 case class NextRouteRelation(
   _id: Long,
-  version: Long,
-  timestamp: Timestamp,
-  changeSetId: Long,
-  tags: Seq[Tag],
-  members: Seq[Member]
+  relation: Relation,
+  structure: Option[RouteRelation]
 ) extends WithId

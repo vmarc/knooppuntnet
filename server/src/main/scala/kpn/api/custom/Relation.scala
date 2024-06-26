@@ -3,6 +3,7 @@ package kpn.api.custom
 import kpn.api.common.data.Element
 import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
+import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
 import kpn.api.common.data.raw.RawRelation
@@ -35,6 +36,13 @@ case class Relation(
   def relationMembers: Seq[RelationMember] = {
     members.flatMap {
       case relationMember: RelationMember => Some(relationMember)
+      case _ => None
+    }
+  }
+
+  def relationIdMembers: Seq[RelationIdMember] = {
+    members.flatMap {
+      case relationMember: RelationIdMember => Some(relationMember)
       case _ => None
     }
   }

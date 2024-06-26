@@ -29,7 +29,6 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.api.custom.Timestamp2
-import kpn.core.tools.next.domain.OldRelation
 import org.locationtech.jts.geom.Geometry
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
@@ -104,7 +103,6 @@ object Json {
     b.serializerByType(classOf[PlanCoordinate], new PlanCoordinateJsonSerializer())
 
     b.deserializerByType(classOf[Relation], new RelationJsonDeserializer())
-    b.deserializerByType(classOf[OldRelation], new OldRelationJsonDeserializer())
 
     b.deserializerByType(classOf[SurveyParameter], new SurveyParameterJsonDeserializer())
     b.serializerByType(classOf[SurveyParameter], new SurveyParameterJsonSerializer())
