@@ -8,10 +8,10 @@ import org.apache.commons.io.FileUtils
 import java.io.File
 import scala.xml.XML
 
-object CollectRouteRelationIdsTool {
+object NextCollectRouteRelationIdsTool {
   def main(args: Array[String]): Unit = {
     val overpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
-    val tool = new CollectRouteRelationIdsTool(overpassQueryExecutor)
+    val tool = new NextCollectRouteRelationIdsTool(overpassQueryExecutor)
     tool.collect()
   }
 }
@@ -25,7 +25,7 @@ case class RouteInfo(
   def routeIds: Seq[Long] = nodeNetworkRouteIds ++ noneNodeNetworkRouteIds
 }
 
-class CollectRouteRelationIdsTool(overpassQueryExecutor: OverpassQueryExecutor) {
+class NextCollectRouteRelationIdsTool(overpassQueryExecutor: OverpassQueryExecutor) {
   def collect(): Unit = {
     val routeInfos = queryRouteInfos()
     report(routeInfos)
