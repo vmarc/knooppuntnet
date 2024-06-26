@@ -7,6 +7,7 @@ import kpn.api.custom.Relation
 import kpn.api.custom.Tag
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
+import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.analyzers.EdgeRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
@@ -57,10 +58,10 @@ class MainRouteAnalyzerImpl(
   routeTileAnalyzer: RouteTileAnalyzer
 ) extends MainRouteAnalyzer {
 
-  override def analyze(relation: Relation): Option[RouteAnalysis] = {
+  override def analyze(relation: Relation, hierarchy: Option[RouteRelation]): Option[RouteAnalysis] = {
     Log.context("route=%07d".format(relation.id)) {
 
-      val context = RouteAnalysisContext(analysisContext, relation)
+      val context = RouteAnalysisContext(analysisContext, relation, hierarchy)
 
       val analyzers: List[RouteAnalyzer] = List(
         RouteTagAnalyzer,

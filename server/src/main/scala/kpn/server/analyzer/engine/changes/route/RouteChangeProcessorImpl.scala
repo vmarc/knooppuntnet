@@ -109,7 +109,7 @@ class RouteChangeProcessorImpl(
 
   private def processCreate(context: ChangeSetContext, relationAfter: Relation, routeId: Long): Option[RouteChange] = {
 
-    masterRouteAnalyzer.analyze(relationAfter).map { after =>
+    masterRouteAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */).map { after =>
       routeRepository.save(after.route)
       analysisContext.watched.routes.add(routeId, after.route.elementIds)
 
@@ -175,7 +175,7 @@ class RouteChangeProcessorImpl(
 
     analysisContext.watched.routes.delete(routeId)
 
-    masterRouteAnalyzer.analyze(relationBefore).map { before =>
+    masterRouteAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */).map { before =>
 
       routeRepository.save(before.route.deactivated)
 
@@ -229,14 +229,14 @@ class RouteChangeProcessorImpl(
     val lostRouteTags = TagInterpreter.isRouteRelation(relationBefore) &&
       !TagInterpreter.isRouteRelation(relationAfter)
 
-    masterRouteAnalyzer.analyze(relationBefore) match {
+    masterRouteAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */) match {
       case None => None
       case Some(before) =>
         if (lostRouteTags) {
           processLostRouteTags(context, before, relationAfter, routeId)
         }
         else {
-          masterRouteAnalyzer.analyze(relationAfter) match {
+          masterRouteAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */) match {
             case None => None
             case Some(after) =>
 

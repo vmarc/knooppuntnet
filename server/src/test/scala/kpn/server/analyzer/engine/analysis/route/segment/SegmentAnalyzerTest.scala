@@ -511,7 +511,7 @@ class SegmentAnalyzerTest extends UnitTest {
     val data = d.data
     val relation = data.relations(1)
     val analysisContext = new AnalysisContext()
-    val context1 = RouteAnalysisContext(analysisContext, relation)
+    val context1 = RouteAnalysisContext(analysisContext, relation, None)
     val context2 = new RouteTagAnalyzer(context1).analyze
     val context3 = new RouteNameAnalyzer(context2).analyze
     val context4 = new RouteNodeTagAnalyzer(context3).analyze

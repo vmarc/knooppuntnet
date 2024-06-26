@@ -67,7 +67,8 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
     val relation = newRelation(1L, tags = tags)
     val context = RouteAnalysisContext(
       new AnalysisContext(),
-      relation
+      relation,
+      None
     )
     RouteTagAnalyzer.analyze(context)
   }

@@ -380,6 +380,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     val context = RouteAnalysisContext(
       analysisContext,
       relation,
+      None,
       routeNodeInfos = routeNodeInfos
     )
 

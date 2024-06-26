@@ -13,9 +13,11 @@ import kpn.core.overpass.QueryFullRelations
 import kpn.core.overpass.QueryNetworkIds
 import kpn.core.overpass.QueryNodeIds
 import kpn.core.overpass.QueryNodes
+import kpn.core.overpass.QueryRelationStructure
 import kpn.core.overpass.QueryRelationTopLevel
 import kpn.core.overpass.QueryRelations
 import kpn.core.overpass.QueryRouteIds
+import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException
@@ -82,12 +84,25 @@ class OverpassRepositoryImpl(
     }
   }
 
-  def baseRelation(timestamp: Timestamp, relationId: Long): Option[Relation] = {
+  def relationTopLevel(timestamp: Timestamp, relationId: Long): Option[Relation] = {
     val query = QueryRelationTopLevel(relationId)
     val xmlString = overpassQueryExecutor.executeQuery(Some(timestamp), query)
     val xml = XML.loadString(xmlString)
     val rawData = new Parser().parse(xml.head)
     new BaseRelationBuilder(rawData, log).build(relationId)
+  }
+
+  def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = {
+    val xmlString = overpassQueryExecutor.executeQuery(Some(timestamp), QueryRelationStructure(relationId))
+    val filteredXmlString = xmlString.linesIterator.filter { line =>
+      !(line.contains("<node id") || line.contains("<way id") || line.contains("<member type=\"node\"") || line.contains("<member type=\"way\""))
+    }.mkString("\n")
+    val xml = XML.loadString(filteredXmlString)
+    val rawData = new Parser().parse(xml.head)
+    val data = new DataBuilder(rawData).data
+    data.relations.get(relationId).map { relation =>
+      RouteRelation.from(relation, None)
+    }
   }
 
   private def ids(timestamp: Timestamp, elementTag: String, query: OverpassQuery): Seq[Long] = {

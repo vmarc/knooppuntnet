@@ -33,6 +33,7 @@ class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
     RouteAnalysisContext(
       null,
       null,
+      None,
       allWayNodes = Some(
         Seq(
           node1,

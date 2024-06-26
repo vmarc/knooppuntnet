@@ -82,6 +82,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
     RouteAnalysisContext(
       analysisContext = analysisContext,
       relation,
+      None,
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
       country = Some(Country.be),
       lastSurvey = Some(Day(2020, 8)),

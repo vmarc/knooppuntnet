@@ -4,6 +4,7 @@ import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
+import kpn.core.tools.next.domain.RouteRelation
 
 trait OverpassRepository {
 
@@ -19,5 +20,7 @@ trait OverpassRepository {
 
   def fullRelations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[Relation]
 
-  def baseRelation(timestamp: Timestamp, relationId: Long): Option[Relation]
+  def relationTopLevel(timestamp: Timestamp, relationId: Long): Option[Relation]
+
+  def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation]
 }

@@ -12,6 +12,7 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
+import kpn.core.tools.next.domain.RouteRelation
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
@@ -26,6 +27,7 @@ import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 case class RouteAnalysisContext(
   analysisContext: AnalysisContext,
   relation: Relation,
+  hierarchy: Option[RouteRelation],
   // analysis results start here...
   active: Boolean = true,
   superRoute: Boolean = false,

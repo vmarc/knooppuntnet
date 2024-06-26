@@ -6,6 +6,7 @@ import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
+import kpn.core.tools.next.domain.RouteRelation
 import kpn.server.overpass.OverpassRepository
 
 class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends OverpassRepository {
@@ -85,7 +86,9 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
     }
   }
 
-  override def baseRelation(timestamp: Timestamp, relationId: Long): Option[Relation] = ???
+  override def relationTopLevel(timestamp: Timestamp, relationId: Long): Option[Relation] = ???
+
+  override def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = ???
 
   private def nodeIdsIn(data: Data): Seq[Long] = {
     data.nodes.values.filter(isNetworkNode).map(_.id).toSeq.sorted

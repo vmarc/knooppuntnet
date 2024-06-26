@@ -153,6 +153,7 @@ class FragmentAnalyzerTest extends UnitTest {
     val context1 = RouteAnalysisContext(
       analysisContext,
       relation,
+      None,
     )
     val context2 = new RouteTagAnalyzer(context1).analyze
     val context3 = new RouteNameAnalyzer(context2).analyze

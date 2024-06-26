@@ -12,6 +12,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
     val context = RouteAnalysisContext(
       null,
       null,
+      None,
       nodeNetwork = true,
       _routeNameAnalysis = Some(RouteNameAnalysis()),
       _routeNodeAnalysis = Some(
@@ -33,6 +34,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
     val context = RouteAnalysisContext(
       null,
       null,
+      None,
       nodeNetwork = true,
       _routeNameAnalysis = Some(RouteNameAnalysis()),
       _routeNodeAnalysis = Some(
@@ -54,6 +56,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
     val context = RouteAnalysisContext(
       null,
       null,
+      None,
       _routeNameAnalysis = Some(
         RouteNameAnalysis(name = Some("route-name"))
       ),
@@ -76,6 +79,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
     val context = RouteAnalysisContext(
       null,
       null,
+      None,
       _routeNameAnalysis = Some(
         RouteNameAnalysis()
       ),
@@ -98,6 +102,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
     val context = RouteAnalysisContext(
       null,
       null,
+      None,
       _routeNameAnalysis = Some(
         RouteNameAnalysis()
       ),

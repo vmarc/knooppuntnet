@@ -4,6 +4,7 @@ import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Relation
 import kpn.core.tools.analysis.AnalysisStartConfiguration
 import kpn.core.tools.analysis.AnalysisStartToolOptions
+import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
 import kpn.core.util.Redesign
 
@@ -30,17 +31,18 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
 
   private def analyzeRoutes(routeIds: Seq[Long]): Unit = {
     routeIds.foreach { routeId =>
-      val relation = config.overpassRepository.baseRelation(config.timestamp, routeId)
-      relation.foreach { baseRelation =>
-        analyzeRoute(baseRelation)
+      config.nextRepository.nextRouteRelation(routeId) match {
+        case None => log.error(s"route $routeId not found in route-relations")
+        case Some(nextRouteRelation) =>
+          analyzeRoute(nextRouteRelation.relation, nextRouteRelation.structure)
       }
     }
   }
 
-  private def analyzeRoute(relation: Relation): Unit = {
+  private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
     Log.context(s"route=${relation.id}") {
       try {
-        config.mainRouteAnalyzer.analyze(relation) match {
+        config.mainRouteAnalyzer.analyze(relation, hierarchy) match {
           case None =>
           case Some(routeAnalysis) =>
             config.routeRepository.save(routeAnalysis.route)

@@ -61,7 +61,7 @@ class StructureTestSetup(val data: Data) extends MockFactory {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(relation).get
+    routeAnalyzer.analyze(relation, None).get
   }
 
   private def relation: Relation = {

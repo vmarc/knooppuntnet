@@ -21,7 +21,8 @@ class ProposedAnalyzerTest extends UnitTest with SharedTestObjects {
     val analysisContext = new AnalysisContext()
     val context = RouteAnalysisContext(
       analysisContext,
-      relation
+      relation,
+      None
     )
 
     ProposedAnalyzer.analyze(context).proposed

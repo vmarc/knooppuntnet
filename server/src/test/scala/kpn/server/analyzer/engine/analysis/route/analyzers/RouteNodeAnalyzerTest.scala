@@ -476,6 +476,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
     val context = RouteAnalysisContext(
       analysisContext,
       relation,
+      None,
       nodeNetwork = true,
       _networkTypes = Some(Seq(NetworkType.hiking)),
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),

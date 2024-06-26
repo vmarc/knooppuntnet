@@ -76,7 +76,7 @@ class FullRouteAnalyzerImpl(
       val routeDocs = relations.flatMap { relation =>
         Log.context(s"route=${relation.id}") {
           try {
-            mainRouteAnalyzer.analyze(relation).map(_.route)
+            mainRouteAnalyzer.analyze(relation, None /* TODO redesign - hierarchy */).map(_.route)
           } catch {
             case e: Exception =>
               log.error(s"Error processing route ${relation.id}", e)

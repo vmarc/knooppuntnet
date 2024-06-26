@@ -25,9 +25,9 @@ class IncompleteRouteAnalyzerTest extends UnitTest {
     val relation = routeTestData.data.relations(1L)
     val context = RouteAnalysisContext(
       new AnalysisContext(),
-      relation
+      relation,
+      None
     )
     IncompleteRouteAnalyzer.analyze(context)
   }
-
 }

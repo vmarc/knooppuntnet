@@ -26,11 +26,11 @@ class RouteStreetsAnalyzerTest extends UnitTest {
     val context = RouteAnalysisContext(
       analysisContext,
       relation = null,
+      None,
       ways = Some(ways)
     )
 
     val newContext = RouteStreetsAnalyzer.analyze(context)
     newContext.streets should equal(Some(Seq("street-1", "street-2")))
   }
-
 }

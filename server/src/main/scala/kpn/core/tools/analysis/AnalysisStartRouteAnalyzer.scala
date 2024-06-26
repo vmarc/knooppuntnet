@@ -6,6 +6,7 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Relation
+import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 
@@ -57,8 +58,15 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def analyzeRouteBatch(routeIds: Seq[Long]): Seq[Long] = {
     log.infoElapsed {
       routeIds.foreach { routeId =>
-        config.overpassRepository.baseRelation(config.timestamp, routeId) match {
-          case Some(relation) => analyzeRoute(relation)
+        config.overpassRepository.relationTopLevel(config.timestamp, routeId) match {
+          case Some(relation) =>
+            val hierarchy = if (relation.relationIdMembers.nonEmpty) {
+              config.overpassRepository.relationHierarchy(config.timestamp, routeId)
+            }
+            else {
+              None
+            }
+            analyzeRoute(relation, hierarchy)
           case None =>
         }
       }
@@ -66,10 +74,10 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
     }
   }
 
-  private def analyzeRoute(relation: Relation): Unit = {
+  private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
     Log.context(s"route=${relation.id}") {
       try {
-        config.mainRouteAnalyzer.analyze(relation) match {
+        config.mainRouteAnalyzer.analyze(relation, hierarchy) match {
           case None =>
           case Some(routeAnalysis) =>
             config.routeRepository.save(routeAnalysis.route)

@@ -86,7 +86,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val analysis = routeAnalyzer.analyze(relation).get
+    val analysis = routeAnalyzer.analyze(relation, None).get
 
     val report = new RouteAnalysisReport(analysis).report
     if (report.nonEmpty) {

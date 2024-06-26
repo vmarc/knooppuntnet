@@ -71,7 +71,6 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
     context.unexpectedNodeIds.shouldMatchTo(Some(Seq.empty))
   }
 
-
   private def analyze(routeTestData: RouteTestData): RouteAnalysisContext = {
 
     val data = routeTestData.data
@@ -80,10 +79,10 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
     val context = RouteAnalysisContext(
       new AnalysisContext(),
       relation,
+      None,
       scopedNetworkTypeOption = Some(routeTestData.scopedNetworkType)
     )
 
     UnexpectedNodeRouteAnalyzer.analyze(context)
   }
-
 }

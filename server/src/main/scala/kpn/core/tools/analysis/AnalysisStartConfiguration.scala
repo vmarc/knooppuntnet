@@ -6,6 +6,8 @@ import kpn.api.custom.Timestamp
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.tools.config.Dirs
+import kpn.core.tools.next.database.NextRepository
+import kpn.core.tools.next.database.NextRepositoryImpl
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
@@ -68,11 +70,13 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   private val analysisContext = new AnalysisContext()
   private val database = Mongo.database(Mongo.client, options.databaseName)
+  private val nextDatabase = Mongo.nextDatabase(Mongo.client, options.databaseName)
 
   val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
   val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
   val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(database)
+  val nextRepository: NextRepository = new NextRepositoryImpl(nextDatabase)
 
   private val locationAnalyzer = new LocationAnalyzerImpl(true, true)
 
