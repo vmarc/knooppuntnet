@@ -9,7 +9,6 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeType
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -95,7 +94,6 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     }.data
 
     val relation = data.relations(1L)
-    val analysisContext = new AnalysisContext()
-    RouteAnalysisContext(analysisContext, relation, None, nodeNetwork = true)
+    RouteAnalysisContext(relation, None, nodeNetwork = true)
   }
 }

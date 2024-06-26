@@ -38,7 +38,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldNodeTileCalculatorImpl
@@ -68,7 +67,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val timestamp: Timestamp = Timestamp.analysisStart
 
-  private val analysisContext = new AnalysisContext()
   private val database = Mongo.database(Mongo.client, options.databaseName)
   private val nextDatabase = Mongo.nextDatabase(Mongo.client, options.databaseName)
 
@@ -112,7 +110,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)
     val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
     new MainRouteAnalyzerImpl(
-      analysisContext,
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer

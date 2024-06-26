@@ -15,7 +15,6 @@ import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
@@ -74,8 +73,6 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
       members = routeRelation1.members ++ routeRelation2.members
     )
 
-    val analysisContext = new AnalysisContext()
-
     val tileCalculator = new OldTileCalculatorImpl()
     val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
     val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
@@ -85,7 +82,6 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
     val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new MainRouteAnalyzerImpl(
-      analysisContext,
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer

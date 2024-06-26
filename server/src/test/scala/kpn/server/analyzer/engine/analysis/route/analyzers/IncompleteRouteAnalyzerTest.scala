@@ -5,7 +5,6 @@ import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class IncompleteRouteAnalyzerTest extends UnitTest {
 
@@ -24,7 +23,6 @@ class IncompleteRouteAnalyzerTest extends UnitTest {
   private def analyze(routeTestData: RouteTestData): RouteAnalysisContext = {
     val relation = routeTestData.data.relations(1L)
     val context = RouteAnalysisContext(
-      new AnalysisContext(),
       relation,
       None
     )

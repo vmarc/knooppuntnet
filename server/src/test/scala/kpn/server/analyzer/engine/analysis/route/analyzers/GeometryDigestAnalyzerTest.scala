@@ -32,7 +32,6 @@ class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
   private def testContext(node1: Node, node2: Node): RouteAnalysisContext = {
     RouteAnalysisContext(
       null,
-      null,
       None,
       allWayNodes = Some(
         Seq(

@@ -11,7 +11,6 @@ import kpn.core.doc.Label
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -76,11 +75,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
   private def buildContext(): RouteAnalysisContext = {
     val data = new RouteTestData("01-02").data
     val relation = data.relations(1L)
-
-    val analysisContext = new AnalysisContext()
-
     RouteAnalysisContext(
-      analysisContext = analysisContext,
       relation,
       None,
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),

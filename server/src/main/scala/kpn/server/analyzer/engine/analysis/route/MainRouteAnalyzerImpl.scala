@@ -45,14 +45,12 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRou
 import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkAnalyzer
-import kpn.server.analyzer.engine.context.AnalysisContext
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
 @Component
 class MainRouteAnalyzerImpl(
-  analysisContext: AnalysisContext,
   routeCountryAnalyzer: RouteCountryAnalyzer,
   routeLocationAnalyzer: RouteLocationAnalyzer,
   routeTileAnalyzer: RouteTileAnalyzer
@@ -61,7 +59,7 @@ class MainRouteAnalyzerImpl(
   override def analyze(relation: Relation, hierarchy: Option[RouteRelation]): Option[RouteAnalysis] = {
     Log.context("route=%07d".format(relation.id)) {
 
-      val context = RouteAnalysisContext(analysisContext, relation, hierarchy)
+      val context = RouteAnalysisContext(relation, hierarchy)
 
       val analyzers: List[RouteAnalyzer] = List(
         RouteTagAnalyzer,

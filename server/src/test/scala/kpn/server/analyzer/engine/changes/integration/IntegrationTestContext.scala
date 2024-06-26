@@ -99,7 +99,6 @@ class IntegrationTestContext(
   private val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
   private val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
   private val masterRouteAnalyzer = new MainRouteAnalyzerImpl(
-    analysisContext,
     routeCountryAnalyzer,
     routeLocationAnalyzer,
     routeTileAnalyzer

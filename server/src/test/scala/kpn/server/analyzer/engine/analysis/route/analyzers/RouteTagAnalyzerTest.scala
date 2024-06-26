@@ -19,7 +19,6 @@ import kpn.api.custom.Tags
 import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -66,7 +65,6 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
   private def analyze(tags: Seq[Tag]): RouteAnalysisContext = {
     val relation = newRelation(1L, tags = tags)
     val context = RouteAnalysisContext(
-      new AnalysisContext(),
       relation,
       None
     )

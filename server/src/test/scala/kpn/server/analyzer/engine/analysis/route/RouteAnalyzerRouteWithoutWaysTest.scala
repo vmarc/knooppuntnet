@@ -7,7 +7,6 @@ import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
@@ -25,7 +24,6 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest with MockFactory {
       memberNode(2)
     }.data.relations(1L)
 
-    val analysisContext = new AnalysisContext()
     val locationAnalyzer = new LocationAnalyzerFixed()
     val tileCalculator = new OldTileCalculatorImpl()
     val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
@@ -35,7 +33,6 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest with MockFactory {
     val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new MainRouteAnalyzerImpl(
-      analysisContext,
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer

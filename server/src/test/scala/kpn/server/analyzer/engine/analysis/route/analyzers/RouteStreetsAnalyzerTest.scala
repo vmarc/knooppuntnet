@@ -5,7 +5,6 @@ import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class RouteStreetsAnalyzerTest extends UnitTest {
 
@@ -22,9 +21,7 @@ class RouteStreetsAnalyzerTest extends UnitTest {
 
     val ways: Seq[Way] = d.data.ways.values.toSeq
 
-    val analysisContext = new AnalysisContext()
     val context = RouteAnalysisContext(
-      analysisContext,
       relation = null,
       None,
       ways = Some(ways)

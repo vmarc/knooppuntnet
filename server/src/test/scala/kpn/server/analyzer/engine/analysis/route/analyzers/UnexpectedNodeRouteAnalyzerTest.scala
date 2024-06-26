@@ -5,7 +5,6 @@ import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
 
@@ -77,7 +76,6 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
     val relation = data.relations(1L)
 
     val context = RouteAnalysisContext(
-      new AnalysisContext(),
       relation,
       None,
       scopedNetworkTypeOption = Some(routeTestData.scopedNetworkType)

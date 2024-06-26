@@ -10,7 +10,6 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -376,9 +375,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
     val rawRelation = newRawRelation(11L, members = Seq.empty, tags = allTags)
     val rawData = RawData(None, Seq.empty, Seq.empty, Seq(rawRelation))
     val relation = new DataBuilder(rawData).data.relations(11L)
-    val analysisContext = new AnalysisContext()
     val context = RouteAnalysisContext(
-      analysisContext,
       relation,
       None,
       routeNodeInfos = routeNodeInfos

@@ -19,13 +19,11 @@ import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.structure.ReferenceStructure
-import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 
 case class RouteAnalysisContext(
-  analysisContext: AnalysisContext,
   relation: Relation,
   hierarchy: Option[RouteRelation],
   // analysis results start here...
