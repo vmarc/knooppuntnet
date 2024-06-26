@@ -15,7 +15,7 @@ import kpn.server.analyzer.engine.analysis.route.segment.SegmentDirection.Forwar
 import scala.collection.mutable
 
 class SegmentAnalyzer(
-  networkType: NetworkType,
+  networkTypes: Seq[NetworkType],
   routeId: Long,
   loop: Boolean,
   fragmentMap: FragmentMap,
@@ -27,8 +27,8 @@ class SegmentAnalyzer(
   private val allRouteNodes: Set[RouteNode] = routeNodeAnalysis.usedNodes.toSet
   private val allNodes: Set[Node] = allRouteNodes.map(_.node)
 
-  private val segmentFinder = new SegmentFinder(fragmentMap, networkType, allRouteNodes, allNodes, loop)
-  private val asIsLoopPathBuilder = new AsIsLoopPathBuilder(networkType, fragmentMap, allRouteNodes)
+  private val segmentFinder = new SegmentFinder(fragmentMap, networkTypes, allRouteNodes, allNodes, loop)
+  private val asIsLoopPathBuilder = new AsIsLoopPathBuilder(networkTypes, fragmentMap, allRouteNodes)
   private val allFragmentIds = fragmentMap.ids.toSet
 
   def structure: RouteStructure = {
@@ -98,7 +98,7 @@ class SegmentAnalyzer(
   }
 
   private def findUnusedSegments(usedSegments: Iterable[Segment]): Seq[Segment] = {
-    new UnusedSegmentAnalyzer(networkType, usedSegments, fragmentMap).find
+    new UnusedSegmentAnalyzer(networkTypes, usedSegments, fragmentMap).find
   }
 
   private def logStart(): Unit = {

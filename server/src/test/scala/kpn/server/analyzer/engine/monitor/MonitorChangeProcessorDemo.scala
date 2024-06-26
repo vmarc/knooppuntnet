@@ -33,13 +33,13 @@ class MonitorChangeProcessorDemo {
     val fragmentMap = new FragmentAnalyzer(Seq.empty, relation.wayMembers).fragmentMap
 
     log.infoElapsed {
-      ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap).segments(fragmentMap.ids))
+      ("segment builder", new SegmentBuilder(Seq(NetworkType.hiking), fragmentMap).segments(fragmentMap.ids))
     }
     log.infoElapsed {
-      ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap).segments(fragmentMap.ids))
+      ("segment builder", new SegmentBuilder(Seq(NetworkType.hiking), fragmentMap).segments(fragmentMap.ids))
     }
     val segments = log.infoElapsed {
-      ("segment builder", new SegmentBuilder(NetworkType.hiking, fragmentMap).segments(fragmentMap.ids))
+      ("segment builder", new SegmentBuilder(Seq(NetworkType.hiking), fragmentMap).segments(fragmentMap.ids))
     }
 
     log.info("segments.size=" + segments.size)

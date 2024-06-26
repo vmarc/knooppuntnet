@@ -78,7 +78,7 @@ class UnusedSegmentAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def analyze(usedSegments: Seq[Segment], fragments: Seq[Fragment]): Set[Seq[Long]] = {
     val fragmentMap = FragmentMap(fragments)
-    val segments: Seq[Segment] = new UnusedSegmentAnalyzer(NetworkType.hiking, usedSegments, fragmentMap).find
+    val segments: Seq[Segment] = new UnusedSegmentAnalyzer(Seq(NetworkType.hiking), usedSegments, fragmentMap).find
     Segment.toNodeIds(segments)
   }
 }

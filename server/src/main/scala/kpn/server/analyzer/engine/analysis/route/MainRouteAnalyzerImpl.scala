@@ -30,6 +30,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMapAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameFromNodesAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNetworkTypeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteSegmentAnalyzer
@@ -63,13 +64,14 @@ class MainRouteAnalyzerImpl(
 
       val analyzers: List[RouteAnalyzer] = List(
         RouteTagAnalyzer,
+        RouteNetworkTypeAnalyzer,
         routeCountryAnalyzer,
         ProposedAnalyzer,
         WithoutWaysRouteAnalyzer,
         IncompleteRouteAnalyzer,
         FixmeTodoRouteAnalyzer,
         UnexpectedNodeRouteAnalyzer,
-        UnexpectedRelationRouteAnalyzer,
+        UnexpectedRelationRouteAnalyzer, // TODO redesign - move to pass 2?
         RouteNodeTagAnalyzer,
         RouteNameAnalyzer,
 

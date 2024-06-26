@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Fact.RouteTagMissing
-import kpn.api.custom.Fact.RouteUnsupportedNetworkType
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkScope.local
 import kpn.api.custom.NetworkScope.national
@@ -33,18 +32,6 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
     context.facts.shouldMatchTo(Seq(RouteTagMissing))
-  }
-
-  test("route tag invalid") {
-    val context = analyze(
-      Tags.from(
-        "type" -> "route",
-        "network:type" -> "node_network",
-        "network" -> "rwn",
-        "route" -> "invalid"
-      )
-    )
-    context.facts.shouldMatchTo(Seq(RouteUnsupportedNetworkType))
   }
 
   test("route tag valid") {

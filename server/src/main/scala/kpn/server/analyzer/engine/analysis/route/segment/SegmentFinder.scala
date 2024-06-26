@@ -25,7 +25,7 @@ case class SegmentFinderContext(
 
 class SegmentFinder(
   fragmentMap: FragmentMap,
-  networkType: NetworkType,
+  networkTypes: Seq[NetworkType],
   allRouteNodes: Set[RouteNode],
   allNodes: Set[Node],
   loop: Boolean
@@ -190,7 +190,7 @@ class SegmentFinder(
 
   private def canConnect(indent: Int, direction: SegmentDirection.Value, node: Node, fragmentId: Int): Boolean = {
     val fragment = fragmentMap(fragmentId)
-    val connect = new NodeFragmentConnectionAnalyzer(networkType, direction, node, fragment).canConnect
+    val connect = new NodeFragmentConnectionAnalyzer(networkTypes, direction, node, fragment).canConnect
     val startNode = fragment.nodes.head
     val endNode = fragment.nodes.last
     debug(indent, direction, node, fragment, startNode, endNode, connect)
@@ -198,7 +198,7 @@ class SegmentFinder(
   }
 
   private def buildPath(segmentFragments: Seq[SegmentFragment], broken: Boolean = false): Option[Path] = {
-    new PathBuilder(allRouteNodes).buildPath(networkType, segmentFragments, broken)
+    new PathBuilder(allRouteNodes).buildPath(networkTypes, segmentFragments, broken)
   }
 
   private def oneWay(segments: Seq[Segment]): Boolean = {

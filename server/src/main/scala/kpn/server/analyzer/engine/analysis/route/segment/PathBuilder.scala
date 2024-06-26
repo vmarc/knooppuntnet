@@ -7,7 +7,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNode
 
 class PathBuilder(allRouteNodes: Set[RouteNode]) {
 
-  def buildPath(networkType: NetworkType, segmentFragments: Seq[SegmentFragment], broken: Boolean = false): Option[Path] = {
+  def buildPath(networkTypes: Seq[NetworkType], segmentFragments: Seq[SegmentFragment], broken: Boolean = false): Option[Path] = {
     if (segmentFragments.isEmpty) {
       None
     }
@@ -16,7 +16,7 @@ class PathBuilder(allRouteNodes: Set[RouteNode]) {
       val endNodeId = segmentFragments.last.endNode.id
       val start = allRouteNodes.find(routeNode => routeNode.node.id == startNodeId)
       val end = allRouteNodes.find(routeNode => routeNode.node.id == endNodeId)
-      val segments = PavedUnpavedSplitter.split(networkType, segmentFragments)
+      val segments = PavedUnpavedSplitter.split(networkTypes, segmentFragments)
       Some(
         Path(
           start,

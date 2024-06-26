@@ -8,11 +8,11 @@ object PavedUnpavedSplitter {
 
   case class SurfaceSegmentFragment(surface: String, fragment: SegmentFragment)
 
-  def split(networkType: NetworkType, segmentFragments: Seq[SegmentFragment]): Seq[Segment] = {
+  def split(networkTypes: Seq[NetworkType], segmentFragments: Seq[SegmentFragment]): Seq[Segment] = {
 
     val surfaceSegmentFragments = segmentFragments.map { segmentFragment =>
       SurfaceSegmentFragment(
-        new SurfaceAnalyzer(networkType, segmentFragment.fragment.way).surface(),
+        new SurfaceAnalyzer(networkTypes, segmentFragment.fragment.way).surface(),
         segmentFragment
       )
     }
@@ -47,5 +47,4 @@ object PavedUnpavedSplitter {
       }
     }
   }
-
 }

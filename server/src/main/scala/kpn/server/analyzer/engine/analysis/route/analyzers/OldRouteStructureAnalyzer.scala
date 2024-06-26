@@ -45,13 +45,13 @@ class OldRouteStructureAnalyzer(context: RouteAnalysisContext) {
 
     if (isAnalysisImpossible(routeNodeAnalysis)) {
       RouteStructure(
-        unusedSegments = new SegmentBuilder(context.networkType, context.fragmentMap).segments(context.fragmentMap.ids)
+        unusedSegments = new SegmentBuilder(context.networkTypes, context.fragmentMap).segments(context.fragmentMap.ids)
       )
     }
     else {
       try {
         new SegmentAnalyzer(
-          context.scopedNetworkType.networkType,
+          context.networkTypes,
           context.relation.id,
           context.routeNameAnalysis.isStartNodeNameSameAsEndNodeName,
           context.fragmentMap,

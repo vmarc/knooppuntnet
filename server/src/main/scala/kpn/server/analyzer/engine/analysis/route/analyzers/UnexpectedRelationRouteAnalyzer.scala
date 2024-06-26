@@ -9,7 +9,6 @@ object UnexpectedRelationRouteAnalyzer extends RouteAnalyzer {
   }
 }
 
-// TODO redesign - move to pass 2?
 class UnexpectedRelationRouteAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {

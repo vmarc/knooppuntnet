@@ -43,7 +43,7 @@ class SurfaceAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   private def surface(networkType: NetworkType, way: Way): String = {
-    new SurfaceAnalyzer(networkType, way).surface()
+    new SurfaceAnalyzer(Seq(networkType), way).surface()
   }
 
   private def wayWithTags(tags: (String, String)*): Way = {

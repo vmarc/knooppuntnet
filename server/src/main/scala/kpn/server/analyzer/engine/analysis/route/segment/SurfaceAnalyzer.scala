@@ -97,7 +97,7 @@ object SurfaceAnalyzer {
   )
 }
 
-class SurfaceAnalyzer(networkType: NetworkType, way: Way) {
+class SurfaceAnalyzer(networkTypes: Seq[NetworkType], way: Way) {
 
   def surface(): String = {
     surfaceBasedOnSurfaceTag() match {
@@ -146,7 +146,7 @@ class SurfaceAnalyzer(networkType: NetworkType, way: Way) {
   }
 
   private def preferredSurfaceTagKey(): String = {
-    if (networkType == NetworkType.hiking) {
+    if (networkTypes.contains(NetworkType.hiking)) {
       if (way.hasTag("footway:surface")) {
         "footway:surface"
       }
@@ -157,7 +157,7 @@ class SurfaceAnalyzer(networkType: NetworkType, way: Way) {
         "surface"
       }
     }
-    else if (networkType == NetworkType.cycling) {
+    else if (networkTypes.contains(NetworkType.cycling)) {
       if (way.hasTag("cycleway:surface")) {
         "cycleway:surface"
       }

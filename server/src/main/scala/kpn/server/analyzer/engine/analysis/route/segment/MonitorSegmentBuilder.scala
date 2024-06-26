@@ -10,7 +10,7 @@ import scala.annotation.tailrec
  * Builds segments consisting of adjacent fragments.
  */
 class MonitorSegmentBuilder(
-  networkType: NetworkType,
+  networkTypes: Seq[NetworkType],
   fragmentMap: FragmentMap,
   pavedUnpavedSplittingEnabled: Boolean = true
 ) {
@@ -58,7 +58,7 @@ class MonitorSegmentBuilder(
 
       val segments = {
         if (pavedUnpavedSplittingEnabled) {
-          PavedUnpavedSplitter.split(networkType, sfs)
+          PavedUnpavedSplitter.split(networkTypes, sfs)
         }
         else {
           Seq(Segment("", sfs))

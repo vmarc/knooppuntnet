@@ -23,7 +23,6 @@ class PavedUnpavedSplitterTest extends UnitTest {
       way(1003, Tags.from("surface" -> "unpaved"), 10004, 10005)
       way(1004, Tags.from("surface" -> "unpaved"), 10005, 10006)
       way(1005, Tags.from("surface" -> "paved"), 10006, 10007)
-
     }.data
 
     val way1 = d.ways(1001)
@@ -46,18 +45,17 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(NetworkType.hiking, segmentFragments).shouldMatchTo(
+    PavedUnpavedSplitter.split(Seq(NetworkType.hiking), segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1, fragment2)),
         Segment("unpaved", Seq(fragment3, fragment4)),
         Segment("paved", Seq(fragment5))
       )
     )
-
   }
 
   test("nothing to split") {
-    PavedUnpavedSplitter.split(NetworkType.hiking, Seq.empty) shouldBe empty
+    PavedUnpavedSplitter.split(Seq(NetworkType.hiking), Seq.empty) shouldBe empty
   }
 
   test("single fragment") {
@@ -66,7 +64,6 @@ class PavedUnpavedSplitterTest extends UnitTest {
       node(10001)
       node(10002)
       way(1001, Tags.from("surface" -> "paved"), 10001, 10002)
-
     }.data
 
     val way1 = d.ways(1001)
@@ -77,12 +74,11 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment1
     )
 
-    PavedUnpavedSplitter.split(NetworkType.hiking, segmentFragments).shouldMatchTo(
+    PavedUnpavedSplitter.split(Seq(NetworkType.hiking), segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1))
       )
     )
-
   }
 
   test("all paved") {
@@ -101,7 +97,6 @@ class PavedUnpavedSplitterTest extends UnitTest {
       way(1003, Tags.from("surface" -> "paved"), 10004, 10005)
       way(1004, Tags.from("surface" -> "paved"), 10005, 10006)
       way(1005, Tags.from("surface" -> "paved"), 10006, 10007)
-
     }.data
 
     val way1 = d.ways(1001)
@@ -124,12 +119,11 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(NetworkType.hiking, segmentFragments).shouldMatchTo(
+    PavedUnpavedSplitter.split(Seq(NetworkType.hiking), segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1, fragment2, fragment3, fragment4, fragment5))
       )
     )
-
   }
 
   test("alternating") {
@@ -148,7 +142,6 @@ class PavedUnpavedSplitterTest extends UnitTest {
       way(1003, Tags.from("surface" -> "paved"), 10004, 10005)
       way(1004, Tags.from("surface" -> "unpaved"), 10005, 10006)
       way(1005, Tags.from("surface" -> "paved"), 10006, 10007)
-
     }.data
 
     val way1 = d.ways(1001)
@@ -171,7 +164,7 @@ class PavedUnpavedSplitterTest extends UnitTest {
       fragment5
     )
 
-    PavedUnpavedSplitter.split(NetworkType.hiking, segmentFragments).shouldMatchTo(
+    PavedUnpavedSplitter.split(Seq(NetworkType.hiking), segmentFragments).shouldMatchTo(
       Seq(
         Segment("paved", Seq(fragment1)),
         Segment("unpaved", Seq(fragment2)),
@@ -180,7 +173,5 @@ class PavedUnpavedSplitterTest extends UnitTest {
         Segment("paved", Seq(fragment5))
       )
     )
-
   }
-
 }

@@ -521,7 +521,7 @@ class SegmentAnalyzerTest extends UnitTest {
     val fragmentMap = new FragmentAnalyzer(context5.routeNodeAnalysis.usedNodes, relation.wayMembers).fragmentMap
 
     val structure: RouteStructure = new SegmentAnalyzer(
-      d.scopedNetworkType.networkType,
+      Seq(d.scopedNetworkType.networkType),
       1,
       false,
       FragmentMap(FragmentFilter.filter(fragmentMap.all)),

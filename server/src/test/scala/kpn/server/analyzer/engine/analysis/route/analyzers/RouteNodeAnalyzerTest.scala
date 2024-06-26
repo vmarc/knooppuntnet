@@ -477,7 +477,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
       analysisContext,
       relation,
       nodeNetwork = true,
-      _networkType = Some(NetworkType.hiking),
+      _networkTypes = Some(Seq(NetworkType.hiking)),
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
       proposed = proposed,
     )
