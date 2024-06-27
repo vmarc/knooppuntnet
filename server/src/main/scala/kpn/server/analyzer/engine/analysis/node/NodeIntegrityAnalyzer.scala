@@ -41,7 +41,7 @@ class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysi
 
   private def hasSpecialState(memberRoute: NetworkMemberRoute): Boolean = {
     val route = memberRoute.routeAnalysis.route
-    route.hasTag("state", "connection") || route.hasTag("state", "alternate")
+    route.summary.hasTag("state", "connection") || route.summary.hasTag("state", "alternate")
   }
 
   private def hasNodeReference(memberRoute: NetworkMemberRoute): Boolean = {

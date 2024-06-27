@@ -108,7 +108,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           Label.country(Country.nl),
           Label.networkType(NetworkType.hiking)
         ),
-        tags = newRouteTags("01-02"),
         analysis = newRouteInfoAnalysis(
           members = Seq(
             kpn.api.custom.RouteMemberInfo(

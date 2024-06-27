@@ -10,7 +10,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.context.ElementIds
 
-case class RouteDoc(
+case class OldRouteDoc(
   _id: Long, // routeId
   labels: Seq[String],
   summary: RouteSummary,
@@ -32,7 +32,7 @@ case class RouteDoc(
 
   def toRef: Ref = Ref(summary.id, summary.name)
 
-  def deactivated: RouteDoc = {
+  def deactivated: OldRouteDoc = {
     copy(
       labels = labels.filterNot(label =>
         label == Label.active || label.startsWith("fact")

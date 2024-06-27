@@ -45,7 +45,6 @@ class RouteDetailsPageBuilderImpl(
         route.changeSetId,
         route.lastUpdated,
         route.lastSurvey,
-        route.tags,
         route.facts,
         locationCandidateInfos,
         route.analysis,

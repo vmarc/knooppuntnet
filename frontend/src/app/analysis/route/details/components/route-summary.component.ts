@@ -87,7 +87,7 @@ export class RouteSummaryComponent {
   }
 
   isProposed() {
-    const stateTag = this.route().tags.find((t) => t.key === 'state');
+    const stateTag = this.route().summary.tags.find((t) => t.key === 'state');
     return stateTag && stateTag.value === 'proposed';
   }
 

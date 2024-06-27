@@ -14,9 +14,9 @@ import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
+import kpn.core.doc.OldRouteDoc
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
-import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
 import kpn.database.actions.statistics.StatisticLongValues
@@ -65,8 +65,8 @@ class OldDatabaseImpl(val database: MongoDatabase) extends OldDatabase {
     new DatabaseCollectionImpl(database.getCollection[OrphanNodeDoc]("old-orphan-nodes"))
   }
 
-  override def routes: DatabaseCollection[RouteDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[RouteDoc]("old-routes"))
+  override def oldRoutes: DatabaseCollection[OldRouteDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[OldRouteDoc]("old-routes"))
   }
 
   override def orphanRoutes: DatabaseCollection[OrphanRouteDoc] = {

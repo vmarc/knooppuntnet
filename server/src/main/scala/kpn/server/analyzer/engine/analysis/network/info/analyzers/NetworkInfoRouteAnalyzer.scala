@@ -72,7 +72,7 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
             include("proposed"),
             include("lastUpdated"),
             include("lastSurvey"),
-            include("tags"),
+            computed("tags", "$summary.tags"),
             include("nodeRefs")
           )
         )

@@ -14,9 +14,9 @@ import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
+import kpn.core.doc.OldRouteDoc
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
-import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
 import kpn.database.actions.statistics.StatisticLongValues
@@ -48,7 +48,7 @@ trait OldDatabase {
 
   def orphanNodes: DatabaseCollection[OrphanNodeDoc]
 
-  def routes: DatabaseCollection[RouteDoc]
+  def oldRoutes: DatabaseCollection[OldRouteDoc]
 
   def orphanRoutes: DatabaseCollection[OrphanRouteDoc]
 

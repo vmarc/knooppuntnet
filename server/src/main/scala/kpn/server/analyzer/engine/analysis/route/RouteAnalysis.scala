@@ -64,7 +64,7 @@ case class RouteAnalysis(
       name = route.summary.name,
       proposed = route.proposed,
       lastSurvey = route.lastSurvey,
-      tags = route.tags,
+      tags = route.summary.tags,
       facts = route.facts,
       freePaths = route.analysis.map.freePaths,
       forwardPath = route.analysis.map.forwardPath,

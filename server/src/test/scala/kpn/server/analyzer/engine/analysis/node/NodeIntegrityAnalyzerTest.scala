@@ -136,9 +136,9 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
         relation = null,
         route = newRouteDoc(
           newRouteSummary(
-            routeId
+            routeId,
+            tags = routeTags
           ),
-          tags = routeTags
         ),
         routeNodeAnalysis = RouteNodeAnalysis(
           startNodes = Seq(

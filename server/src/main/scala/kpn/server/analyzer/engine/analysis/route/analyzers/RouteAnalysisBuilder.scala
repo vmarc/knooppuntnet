@@ -174,7 +174,6 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.relation.changeSetId,
       lastUpdated,
       context.lastSurvey,
-      context.relation.tags,
       facts.toSeq,
       oldFacts.toSeq,
       routeAnalysis,

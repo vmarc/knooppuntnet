@@ -177,7 +177,7 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
   }
 
   private def tagDiffs: Option[TagDiffs] = {
-    new RouteTagDiffAnalyzer(before.route, after.route).diffs
+    new RouteTagDiffAnalyzer(before.route.summary, after.route.summary).diffs
   }
 
   private def nodeChanged(title: String, before: Seq[RouteNetworkNodeInfo], after: Seq[RouteNetworkNodeInfo]): Option[RouteNodeDiff] = {

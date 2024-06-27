@@ -22,13 +22,13 @@ class IsNoteTagStillUsedForRouteNameTool(database: Database) {
       }
       database.routes.findById(routeId) foreach { route =>
         if (route.isActive) {
-          if (!route.hasTag("ref") && !route.hasTag("name")) {
-            route.tagValue("note") match {
+          if (!route.summary.hasTag("ref") && !route.summary.hasTag("name")) {
+            route.summary.tagValue("note") match {
               case None =>
               case Some(note) =>
                 if (!NoteTagAnalyzer.isDeprecatedNoteTag(note)) {
-                  println(s"route=$routeId: [${route.tagValue("note").get}]")
-                  println(s"    tags: ${route.tags}")
+                  println(s"route=$routeId: [${route.summary.tagValue("note").get}]")
+                  println(s"    tags: ${route.summary.tags}")
                 }
             }
           }

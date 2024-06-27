@@ -178,7 +178,7 @@ export class RouteDetailsPageComponent implements OnInit {
   }
 
   routeTags(page: RouteDetailsPage) {
-    return InterpretedTags.routeTags(page.route.tags);
+    return InterpretedTags.routeTags(page.route.summary.tags);
   }
 
   factInfos(page: RouteDetailsPage): FactInfo[] {
@@ -211,7 +211,7 @@ export class RouteDetailsPageComponent implements OnInit {
   }
 
   symbolDescription(page: RouteDetailsPage): string {
-    const symbolTag = page.route.tags.find((tag) => tag.key === 'osmc:symbol');
+    const symbolTag = page.route.summary.tags.find((tag) => tag.key === 'osmc:symbol');
     if (symbolTag) {
       return symbolTag.value;
     }

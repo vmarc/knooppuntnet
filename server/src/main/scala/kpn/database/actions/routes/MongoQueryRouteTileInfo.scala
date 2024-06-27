@@ -26,7 +26,7 @@ object MongoQueryRouteTileInfo {
         computed("name", "$summary.name"),
         include("proposed"),
         include("lastSurvey"),
-        include("tags"),
+        computed("tags", "$summary.tags"),
         include("facts"),
         computed("freePaths", "$analysis.map.freePaths"),
         computed("forwardPath", "$analysis.map.forwardPath"),

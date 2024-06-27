@@ -19,7 +19,7 @@ object FindUnsupportedColours {
       val pipeline = Seq(
         unwind("$tags.tags"),
         filter(
-          equal("tags.tags.key", "colour")
+          equal("summary.tags.tags.key", "colour")
         ),
         project(
           fields(

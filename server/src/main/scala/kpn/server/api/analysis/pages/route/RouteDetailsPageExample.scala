@@ -207,13 +207,6 @@ object RouteDetailsPageExample {
       changeSetId = 1,
       lastUpdated = Timestamp(2020, 10, 11, 12, 34, 56),
       lastSurvey = Some(Day(2020, 11, 8)),
-      tags = Tags.from(
-        "key1" -> "value1",
-        "key2" -> "value2",
-        "key3" -> "value3",
-        "key4" -> "value4",
-        "key5" -> "value5"
-      ),
       facts = Seq(
         Fact.RouteNotContinious,
         Fact.RouteNotForward,

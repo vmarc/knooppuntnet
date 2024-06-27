@@ -20,7 +20,7 @@ class RouteFactAnalyzer(
   }
 
   private def hasRouteTags(routeAnalysis: RouteAnalysis): Boolean = {
-    RouteTagDiffAnalyzer.mainTagKeys.forall(key => routeAnalysis.route.hasTag(key))
+    RouteTagDiffAnalyzer.mainTagKeys.forall(key => routeAnalysis.relation.hasTag(key))
   }
 
   private def test(fact: Fact, exists: Boolean): Seq[Fact] = {

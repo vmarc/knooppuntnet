@@ -290,9 +290,8 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
   private def routeWithTags(database: Database, id: Long, tags: Seq[Tag], labels: String*): Unit = {
     database.routes.save(
       newRouteDoc(
-        newRouteSummary(id),
+        newRouteSummary(id, tags = tags),
         labels = labels,
-        tags = tags
       )
     )
   }
