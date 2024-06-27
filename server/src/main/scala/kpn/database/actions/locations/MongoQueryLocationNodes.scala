@@ -14,7 +14,6 @@ import kpn.core.util.Log
 import kpn.database.base.CountResult
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
-import kpn.server.analyzer.engine.analysis.location.ParcDuVercors
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.count
 import org.mongodb.scala.model.Aggregates.facet
@@ -26,10 +25,6 @@ import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Facet
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.geoIntersects
-import org.mongodb.scala.model.Filters.in
-import org.mongodb.scala.model.Filters.not
-import org.mongodb.scala.model.Filters.or
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
@@ -56,7 +51,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   private val log = Log(classOf[MongoQueryLocationNodes])
 
   def filterOptions(subset: LocationSubset, parameters: LocationNodesParameters): LocationNodeOptions = {
-    val pipeline = Seq(filter(and(subsetFilter(subset) *))) ++ boundaryFilter(subset) ++ Seq(
+    val pipeline = Seq(filter(and(subsetFilter(subset) *))) ++ Seq(
       facet(
         Facet("factsTotalNodeCount", factsTotalNodeCountPipeline(subset, parameters) *),
         Facet("facts", factsPipeline(subset, parameters) *),
@@ -269,7 +264,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   }
 
   def countDocuments(subset: LocationSubset, parameters: LocationNodesParameters): Long = {
-    val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ boundaryFilter(subset) ++ Seq(count())
+    val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ Seq(count())
     log.debugElapsed {
       val result = database.nodes.aggregate[CountResult](pipeline, log).map(_.count).sum
       ("node count", result)
@@ -281,7 +276,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     parameters: LocationNodesParameters,
   ): Seq[LocationNodeInfo] = {
 
-    val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ boundaryFilter(subset) ++ Seq(
+    val pipeline = Seq(filter(nodeFilter(subset, parameters))) ++ Seq(
       sort(orderBy(ascending("names.name", "_id"))),
       skip(parameters.pageSize.toInt * parameters.pageIndex.toInt),
       limit(parameters.pageSize.toInt),
@@ -325,24 +320,6 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         )
       }
       (s"location nodes: ${locationNodeInfos.size}", locationNodeInfos)
-    }
-  }
-
-  private def boundaryFilter(subset: LocationSubset): Seq[Bson] = {
-    if (subset.name == ParcDuVercors.name) {
-      Seq(
-        filter(
-          or(
-            not(in("labels", ParcDuVercors.partialCommunes.map(l => Label.location(l)) *)),
-            and(
-              in("labels", ParcDuVercors.partialCommunes.map(l => Label.location(l)) *),
-              geoIntersects("position", ParcDuVercors.boundaryBson)
-            )
-          )
-        )
-      )
-    } else {
-      Seq.empty
     }
   }
 

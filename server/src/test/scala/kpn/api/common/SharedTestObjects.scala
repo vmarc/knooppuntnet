@@ -83,7 +83,6 @@ import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.test.OverpassData
-import kpn.core.util.Geo
 import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.ElementIds
@@ -380,12 +379,6 @@ trait SharedTestObjects extends MockFactory {
       changeSetId,
       latitude,
       longitude,
-      Some(
-        Geo.point(
-          longitude.toDouble,
-          latitude.toDouble
-        )
-      ),
       lastUpdated,
       lastSurvey,
       tags,
