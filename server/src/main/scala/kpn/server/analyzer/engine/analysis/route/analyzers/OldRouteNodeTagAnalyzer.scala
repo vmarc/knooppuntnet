@@ -7,10 +7,10 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 
-object RouteNodeTagAnalyzer extends RouteAnalyzer {
+object OldRouteNodeTagAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     if (context.nodeNetwork) {
-      new RouteNodeTagAnalyzer(context).analyze
+      new OldRouteNodeTagAnalyzer(context).analyze
     }
     else {
       context
@@ -18,7 +18,7 @@ object RouteNodeTagAnalyzer extends RouteAnalyzer {
   }
 }
 
-class RouteNodeTagAnalyzer(context: RouteAnalysisContext) {
+class OldRouteNodeTagAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
     val nodes = findReferencedNodes()

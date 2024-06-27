@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysisFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
-class RouteNodeAnalyzerTest extends UnitTest {
+class OldRouteNodeAnalyzerTest extends UnitTest {
 
   test("no nodes") {
 
@@ -480,15 +480,15 @@ class RouteNodeAnalyzerTest extends UnitTest {
       proposed = proposed,
     )
 
-    val newContext = RouteNodeAnalyzer.analyze(
-      RouteNameAnalyzer.analyze( // TODO redesign - the RouteNameAnalyzer should not be a prerequisite
+    val newContext = OldRouteNodeAnalyzer.analyze(
+      RouteNameAnalyzer.analyze(
         OldRouteNodeTagAnalyzer.analyze(
           context
         )
       )
     )
     val nodeString = new RouteNodeAnalysisFormatter(newContext.routeNodeAnalysis).string
-    val factsString = newContext.facts.map(_.name).mkString(",")
+    val factsString = newContext.oldFacts.map(_.name).mkString(",")
     if (factsString.nonEmpty) {
       nodeString + ";" + factsString
     }

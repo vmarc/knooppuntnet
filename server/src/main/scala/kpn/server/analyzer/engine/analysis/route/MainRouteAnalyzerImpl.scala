@@ -32,8 +32,9 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameFromNodesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNetworkTypeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
@@ -64,21 +65,22 @@ class MainRouteAnalyzerImpl(
       val analyzers: List[RouteAnalyzer] = List(
         RouteTagAnalyzer,
         RouteNetworkTypeAnalyzer,
-        routeCountryAnalyzer,
+        routeCountryAnalyzer, // TODO redesign - support multiple countries?
         ProposedAnalyzer,
         WithoutWaysRouteAnalyzer,
         IncompleteRouteAnalyzer,
         FixmeTodoRouteAnalyzer,
         UnexpectedNodeRouteAnalyzer,
         UnexpectedRelationRouteAnalyzer, // TODO redesign - move to pass 2?
-        RouteNodeTagAnalyzer,
+        OldRouteNodeTagAnalyzer,
         RouteNameAnalyzer,
 
-        RouteNodeAnalyzer, // has ProposedAnalyzer as prerequisite
+        OldRouteNodeAnalyzer,
         RouteNameFromNodesAnalyzer,
         ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK
 
+        RouteNodeAnalyzer,
         RouteLinkAnalyzer,
 
         RouteSegmentAnalyzer,

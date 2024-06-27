@@ -9,9 +9,9 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.RouteStructureFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
@@ -512,8 +512,8 @@ class SegmentAnalyzerTest extends UnitTest {
     val context1 = RouteAnalysisContext(relation, None)
     val context2 = new RouteTagAnalyzer(context1).analyze
     val context3 = new RouteNameAnalyzer(context2).analyze
-    val context4 = new RouteNodeTagAnalyzer(context3).analyze
-    val context5 = new RouteNodeAnalyzer(context4).analyze
+    val context4 = new OldRouteNodeTagAnalyzer(context3).analyze
+    val context5 = new OldRouteNodeAnalyzer(context4).analyze
     if (context5.routeNodeAnalysis.startNodes.isEmpty) fail("expected start node, but found none")
     if (context5.routeNodeAnalysis.endNodes.isEmpty) fail("expected end node, but found none")
     val fragmentMap = new FragmentAnalyzer(context5.routeNodeAnalysis.usedNodes, relation.wayMembers).fragmentMap

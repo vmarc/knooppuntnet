@@ -19,10 +19,10 @@ import scala.collection.mutable.ListBuffer
  * are starting nodes and which nodes are end nodes. Nodes that are not start or end nodes
  * are considered nodes of type redundant.
  */
-object RouteNodeAnalyzer extends RouteAnalyzer {
+object OldRouteNodeAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     if (context.nodeNetwork) {
-      new RouteNodeAnalyzer(context).analyze
+      new OldRouteNodeAnalyzer(context).analyze
     }
     else {
       context.copy(_routeNodeAnalysis = Some(RouteNodeAnalysis()))
@@ -30,7 +30,7 @@ object RouteNodeAnalyzer extends RouteAnalyzer {
   }
 }
 
-class RouteNodeAnalyzer(context: RouteAnalysisContext) {
+class OldRouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   private val nodes = findNodes()
   private val nodesInWays = findNodesInWays(nodes)
@@ -41,14 +41,11 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     context.routeNodeInfos.get(nodeId)
   }
 
-  val facts = ListBuffer[Fact]()
+  val oldFacts = ListBuffer[Fact]()
 
   def analyze: RouteAnalysisContext = {
-
-    val oldFacts = ListBuffer[Fact]()
-
     val routeNodeAnalysis = if (nodes.isEmpty) {
-      facts += RouteWithoutNodes
+      oldFacts += RouteWithoutNodes
       RouteNodeAnalysis()
     }
     else {
@@ -57,7 +54,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
 
     context.copy(
       _routeNodeAnalysis = Some(routeNodeAnalysis)
-    ).withFacts(facts.toSeq *)
+    ).withOldFacts(oldFacts.toSeq *)
   }
 
   private def doAnalyze(): RouteNodeAnalysis = {
@@ -72,14 +69,14 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     }
 
     if (routeNodeAnalysis.nodesInWays.isEmpty) {
-      facts += RouteNodeMissingInWays
+      oldFacts += RouteNodeMissingInWays
     }
     else if (routeNodeAnalysis.usedNodes.exists(_.missingInWays)) {
-      facts += RouteNodeMissingInWays
+      oldFacts += RouteNodeMissingInWays
     }
 
     if (routeNodeAnalysis.redundantNodes.nonEmpty) {
-      facts += RouteRedundantNodes
+      oldFacts += RouteRedundantNodes
     }
 
     routeNodeAnalysis
@@ -130,7 +127,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
           }
         }
 
-        val alternateNameMap = nodeUtil.alternateNames(facts, freeRouteNodeInfos)
+        val alternateNameMap = nodeUtil.alternateNames(oldFacts, freeRouteNodeInfos)
 
         RouteNodeAnalysis(
           freeNodes = toRouteNodes(alternateNameMap, freeRouteNodeInfos),
@@ -153,7 +150,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
         all.filterNot(isProposed)
       }
     }
-    val alternateNameMap = nodeUtil.alternateNames(facts, startNodes)
+    val alternateNameMap = nodeUtil.alternateNames(oldFacts, startNodes)
     RouteNodeAnalysis(
       startNodes = toRouteNodes(alternateNameMap, startNodes),
       redundantNodes = toRouteNodes(alternateNameMap, redundantRouteNodeInfos)
@@ -174,7 +171,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
         all.filterNot(isProposed)
       }
     }
-    val alternateNameMap = nodeUtil.alternateNames(facts, endNodes)
+    val alternateNameMap = nodeUtil.alternateNames(oldFacts, endNodes)
     RouteNodeAnalysis(
       endNodes = toRouteNodes(alternateNameMap, endNodes),
       redundantNodes = toRouteNodes(alternateNameMap, redundantRouteNodeInfos)
@@ -260,8 +257,8 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     }
 
     val alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
-      nodeUtil.alternateNames(facts, startNodes) ++
-        nodeUtil.alternateNames(facts, endNodes)
+      nodeUtil.alternateNames(oldFacts, startNodes) ++
+        nodeUtil.alternateNames(oldFacts, endNodes)
     }
 
     RouteNodeAnalysis(

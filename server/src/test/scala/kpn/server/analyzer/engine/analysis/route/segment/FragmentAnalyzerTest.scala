@@ -3,9 +3,9 @@ package kpn.server.analyzer.engine.analysis.route.segment
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
@@ -154,8 +154,8 @@ class FragmentAnalyzerTest extends UnitTest {
     )
     val context2 = new RouteTagAnalyzer(context1).analyze
     val context3 = new RouteNameAnalyzer(context2).analyze
-    val context4 = new RouteNodeTagAnalyzer(context3).analyze
-    val context5 = new RouteNodeAnalyzer(context4).analyze
+    val context4 = new OldRouteNodeTagAnalyzer(context3).analyze
+    val context5 = new OldRouteNodeAnalyzer(context4).analyze
     val fragmentMap = new FragmentAnalyzer(context5.routeNodeAnalysis.usedNodes, relation.wayMembers).fragmentMap
     fragmentMap.all.map(fragment => new FragmentFormatter(fragment).string).mkString
   }
