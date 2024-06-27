@@ -83,6 +83,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
       assert(watched.routes.contains(11))
 
       assertRoute()
+      assertRouteDetail()
       assertOrphanRoute()
       assertNetworkInfoChange()
       assertRouteChange()
@@ -95,6 +96,105 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
   private def assertRoute(): Unit = {
     findRouteById(11).shouldMatchTo(
       newRouteDoc(
+        newRouteSummary(
+          11,
+          name = "01-02",
+          country = Some(Country.nl),
+          wayCount = 1,
+          nodeNames = Seq("01", "02"),
+          tags = newRouteTags("01-02")
+        ),
+        labels = Seq(
+          Label.active,
+          Label.country(Country.nl),
+          Label.networkType(NetworkType.hiking)
+        ),
+        analysis = newRouteInfoAnalysis(
+          members = Seq(
+            kpn.api.custom.RouteMemberInfo(
+              101,
+              "way",
+              isWay = true,
+              Seq(
+                RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
+                RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
+              ),
+              "wn000",
+              "1",
+              1002,
+              "2",
+              1001,
+              "",
+              Timestamp(2015, 8, 11, 0, 0, 0),
+              accessible = true,
+              "0 m",
+              "2",
+              "",
+              Both,
+              Seq.empty
+            )
+          ),
+          expectedName = "01-02",
+          map = newRouteMap(
+            bounds = MapBounds("0.0", "0.0", "0.0", "0.0"),
+            forwardPath = Some(
+              TrackPath(
+                pathId = 1,
+                startNodeId = 1001,
+                endNodeId = 1002,
+                meters = 0,
+                oneWay = false,
+                segments = Seq(
+                  TrackSegment(
+                    "paved",
+                    TrackPoint("0", "0"),
+                    Seq(TrackSegmentFragment(TrackPoint("0", "0"),
+                      0,
+                      90,
+                      None)
+                    )
+                  )
+                )
+              )
+            ),
+            backwardPath = Some(
+              TrackPath(
+                pathId = 2,
+                startNodeId = 1002,
+                endNodeId = 1001,
+                meters = 0,
+                oneWay = false,
+                segments = Seq(
+                  TrackSegment(
+                    "paved",
+                    TrackPoint("0", "0"),
+                    Seq(
+                      TrackSegmentFragment(TrackPoint("0", "0"), 0, 90, None)
+                    )
+                  )
+                )
+              )
+            ),
+            startNodes = Seq(
+              RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0")
+            ),
+            endNodes = Seq(
+              RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
+            )
+          ),
+          structureStrings = Seq(
+            "forward=(01-02 via +<01-02 101>)",
+            "backward=(02-01 via -<01-02 101>)"
+          ),
+          geometryDigest = "39dfa55283318d31afe5a3ff4a0e3253e2045e43"
+        )
+      )
+    )
+  }
+
+  private def assertRouteDetail(): Unit = {
+    findRouteDetailById(11).shouldMatchTo(
+      newRouteDetailDoc(
         newRouteSummary(
           11,
           name = "01-02",

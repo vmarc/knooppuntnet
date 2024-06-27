@@ -10,7 +10,7 @@ import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeType
@@ -132,9 +132,9 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
   private def networkMemberRoute(networkNode: NetworkNode, routeId: Long, role: Option[String] = None, routeTags: Seq[Tag] = Seq.empty): NetworkMemberRoute = {
 
     NetworkMemberRoute(
-      routeAnalysis = RouteAnalysis(
+      routeAnalysis = RouteDetailAnalysis(
         relation = null,
-        route = newRouteDoc(
+        routeDetail = newRouteDetailDoc(
           newRouteSummary(
             routeId,
             tags = routeTags

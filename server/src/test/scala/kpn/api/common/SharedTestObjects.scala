@@ -81,6 +81,7 @@ import kpn.core.doc.NetworkWayMember
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
+import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.test.OverpassData
 import kpn.database.actions.statistics.ChangeSetCount2
@@ -390,7 +391,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newRoute(
+  def newRouteDetail(
     id: Long = 0,
     labels: Seq[String] = Seq(Label.active),
     proposed: Boolean = false,
@@ -407,7 +408,7 @@ trait SharedTestObjects extends MockFactory {
     facts: Seq[Fact] = Seq.empty,
     tiles: Seq[String] = Seq.empty,
     elementIds: ElementIds = ElementIds()
-  ): RouteDoc = {
+  ): RouteDetailDoc = {
 
     val summary = RouteSummary(
       id,
@@ -424,7 +425,7 @@ trait SharedTestObjects extends MockFactory {
       tags = Seq.empty
     )
 
-    RouteDoc(
+    RouteDetailDoc(
       summary.id,
       labels,
       summary,
@@ -970,12 +971,38 @@ trait SharedTestObjects extends MockFactory {
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty,
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
+  ): RouteDoc = {
+    RouteDoc(
+      summary.id,
+      labels,
+      summary,
+      proposed,
+      version,
+      changeSetId,
+      lastUpdated,
+      lastSurvey,
+      facts,
+      facts,
+      analysis
+    )
+  }
+
+  def newRouteDetailDoc(
+    summary: RouteSummary,
+    labels: Seq[String] = Seq(Label.active),
+    proposed: Boolean = false,
+    version: Int = 0,
+    changeSetId: Long = 1,
+    lastUpdated: Timestamp = defaultTimestamp,
+    lastSurvey: Option[Day] = None,
+    facts: Seq[Fact] = Seq.empty,
+    analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     tiles: Seq[String] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty,
     elementIds: ElementIds = ElementIds(),
     edges: Seq[RouteEdge] = Seq.empty
-  ): RouteDoc = {
-    RouteDoc(
+  ): RouteDetailDoc = {
+    RouteDetailDoc(
       summary.id,
       labels,
       summary,

@@ -11,10 +11,10 @@ import kpn.api.common.diff.route.RouteNodeDiff
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Fact
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.changes.diff.RouteUpdate
 
-class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
+class RouteDiffAnalyzer(before: RouteDetailAnalysis, after: RouteDetailAnalysis) {
 
   private val log = Log(classOf[RouteDiffAnalyzer])
 
@@ -22,8 +22,8 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
 
     val diffs = findDiffs
 
-    val facts = if ((after.route.facts.contains(Fact.RouteTagMissing) && !before.route.facts.contains(Fact.RouteTagMissing)) ||
-      (after.route.facts.contains(Fact.RouteTagInvalid) && !before.route.facts.contains(Fact.RouteTagInvalid))) {
+    val facts = if ((after.routeDetail.facts.contains(Fact.RouteTagMissing) && !before.routeDetail.facts.contains(Fact.RouteTagMissing)) ||
+      (after.routeDetail.facts.contains(Fact.RouteTagInvalid) && !before.routeDetail.facts.contains(Fact.RouteTagInvalid))) {
       Seq(Fact.LostRouteTags)
     }
     else {
@@ -120,8 +120,8 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
 
   private def factDiffs: Option[FactDiffs] = {
 
-    val beforeFacts = before.route.facts.toSet
-    val afterFacts = after.route.facts.toSet
+    val beforeFacts = before.routeDetail.facts.toSet
+    val afterFacts = after.routeDetail.facts.toSet
 
     val resolvedFacts = (beforeFacts -- afterFacts).toSeq
     val introducedFacts = (afterFacts -- beforeFacts).toSeq
@@ -142,8 +142,8 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
 
   private def nameDiff: Option[RouteNameDiff] = {
 
-    val nameBefore = before.route.summary.name
-    val nameAfter = after.route.summary.name
+    val nameBefore = before.routeDetail.summary.name
+    val nameAfter = after.routeDetail.summary.name
 
     if (nameBefore != nameAfter) {
       Some(RouteNameDiff(nameBefore, nameAfter))
@@ -177,7 +177,7 @@ class RouteDiffAnalyzer(before: RouteAnalysis, after: RouteAnalysis) {
   }
 
   private def tagDiffs: Option[TagDiffs] = {
-    new RouteTagDiffAnalyzer(before.route.summary, after.route.summary).diffs
+    new RouteTagDiffAnalyzer(before.routeDetail.summary, after.routeDetail.summary).diffs
   }
 
   private def nodeChanged(title: String, before: Seq[RouteNetworkNodeInfo], after: Seq[RouteNetworkNodeInfo]): Option[RouteNodeDiff] = {

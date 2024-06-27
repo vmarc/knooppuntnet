@@ -1,17 +1,17 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.tiles.ZoomLevel
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.tiles.domain.ZoomLevelRouteTileSegments
 import org.springframework.stereotype.Component
 
 @Component
 class RouteTileChangeAnalyzerImpl extends RouteTileChangeAnalyzer {
 
-  def impactedTiles(before: RouteAnalysis, after: RouteAnalysis): Seq[String] = {
+  def impactedTiles(before: RouteDetailAnalysis, after: RouteDetailAnalysis): Seq[String] = {
     if (tileRelatedRoutePropertiesChanged(before, after)) {
       // all tiles before and after are impacted
-      (before.route.tiles ++ after.route.tiles).distinct.sorted
+      (before.routeDetail.tiles ++ after.routeDetail.tiles).distinct.sorted
     }
     else {
       ZoomLevel.all.flatMap { zoomLevel =>
@@ -25,17 +25,17 @@ class RouteTileChangeAnalyzerImpl extends RouteTileChangeAnalyzer {
     }
   }
 
-  private def tileRelatedRoutePropertiesChanged(before: RouteAnalysis, after: RouteAnalysis): Boolean = {
-    val networkTypeBefore = before.route.summary.networkType
-    val networkTypeAfter = after.route.summary.networkType
+  private def tileRelatedRoutePropertiesChanged(before: RouteDetailAnalysis, after: RouteDetailAnalysis): Boolean = {
+    val networkTypeBefore = before.routeDetail.summary.networkType
+    val networkTypeAfter = after.routeDetail.summary.networkType
     !(networkTypeBefore == networkTypeAfter && before.tileAnalysis.sameProperties(after.tileAnalysis))
   }
 
-  private def segmentsIn(routeAnalysis: RouteAnalysis, zoomLevel: Int): Seq[ZoomLevelRouteTileSegments] = {
+  private def segmentsIn(routeAnalysis: RouteDetailAnalysis, zoomLevel: Int): Seq[ZoomLevelRouteTileSegments] = {
     routeAnalysis.tileAnalysis.zoomLevelSegments.filter(_.zoomLevel == zoomLevel)
   }
 
-  private def tiles(routeAnalysis: RouteAnalysis, zoomLevel: Int): Seq[String] = {
-    routeAnalysis.route.tiles.filter(z => TileName.tileZoomLevel(z) == zoomLevel)
+  private def tiles(routeAnalysis: RouteDetailAnalysis, zoomLevel: Int): Seq[String] = {
+    routeAnalysis.routeDetail.tiles.filter(z => TileName.tileZoomLevel(z) == zoomLevel)
   }
 }

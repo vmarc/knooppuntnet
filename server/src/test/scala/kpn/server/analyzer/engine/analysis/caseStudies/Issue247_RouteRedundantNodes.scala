@@ -7,7 +7,7 @@ class Issue247_RouteRedundantNodes extends UnitTest {
 
   test("redundant nodes") {
     // status 2021-12-20T21:00:00Z
-    val route = CaseStudy.routeAnalysis("13569497").route
+    val route = CaseStudy.routeAnalysis("13569497").routeDetail
     route.facts shouldBe empty
     route.summary.name should equal("?-?")
     route.summary.tags.shouldMatchTo(

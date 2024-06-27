@@ -1,10 +1,10 @@
 package kpn.database.actions.tiles
 
+import kpn.core.doc.Label
+import kpn.core.util.Log
 import kpn.database.actions.tiles.MongoQueryTiles.log
 import kpn.database.base.Database
 import kpn.database.base.Id
-import kpn.core.doc.Label
-import kpn.core.util.Log
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -28,7 +28,7 @@ class MongoQueryTiles(database: Database) {
 
   def routeIds(tileName: String): Seq[Long] = {
     log.debugElapsed {
-      val ids = database.routes.aggregate[Id](pipeline(tileName))
+      val ids = database.routeDetails.aggregate[Id](pipeline(tileName))
       (s"tile '$tileName', route ids: ${ids.size}", ids.map(_._id))
     }
   }

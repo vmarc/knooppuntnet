@@ -55,6 +55,6 @@ class Structure_21_ContinuousTest extends UnitTest {
   test("analyze") {
     pending
     val analysis = setup.analyze()
-    println(analysis.route.facts)
+    println(analysis.routeDetail.facts)
   }
 }

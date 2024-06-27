@@ -26,32 +26,34 @@ class RouteDetailsPageBuilderImpl(
   }
 
   private def doBuildDetailsPage(language: Language, routeId: Long): Option[RouteDetailsPage] = {
-    routeRepository.findById(routeId).map { route =>
-      val changeCount = changeSetRepository.routeChangesCount(routeId)
-      val networkReferences = routeRepository.networkReferences(routeId)
-      val locationCandidateInfos = {
-        route.analysis.locationAnalysis.candidates.map { candidate =>
-          val locationNames = candidate.location.names
-          val locationInfos = locationService.toInfos(language, locationNames, locationNames)
-          LocationCandidateInfo(locationInfos, candidate.percentage)
+    routeRepository.findRouteById(routeId).flatMap { routeDoc =>
+      routeRepository.findRouteDetailById(routeId).map { routeDetailDoc =>
+        val changeCount = changeSetRepository.routeChangesCount(routeId)
+        val networkReferences = routeRepository.networkReferences(routeId)
+        val locationCandidateInfos = {
+          routeDoc.analysis.locationAnalysis.candidates.map { candidate =>
+            val locationNames = candidate.location.names
+            val locationInfos = locationService.toInfos(language, locationNames, locationNames)
+            LocationCandidateInfo(locationInfos, candidate.percentage)
+          }
         }
+        val data = RouteDetailsPageData(
+          routeDoc._id,
+          routeDoc.labels.contains(Label.active),
+          routeDoc.summary,
+          routeDoc.proposed,
+          routeDoc.version,
+          routeDoc.changeSetId,
+          routeDoc.lastUpdated,
+          routeDoc.lastSurvey,
+          routeDoc.facts,
+          locationCandidateInfos,
+          routeDoc.analysis,
+          routeDetailDoc.tiles,
+          routeDetailDoc.nodeRefs
+        )
+        RouteDetailsPage(data, networkReferences, changeCount)
       }
-      val data = RouteDetailsPageData(
-        route._id,
-        route.labels.contains(Label.active),
-        route.summary,
-        route.proposed,
-        route.version,
-        route.changeSetId,
-        route.lastUpdated,
-        route.lastSurvey,
-        route.facts,
-        locationCandidateInfos,
-        route.analysis,
-        route.tiles,
-        route.nodeRefs
-      )
-      RouteDetailsPage(data, networkReferences, changeCount)
     }
   }
 }

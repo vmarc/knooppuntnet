@@ -30,7 +30,7 @@ class FindCircularRoutesTool(database: Database) {
       if ((index + 1) % 500 == 0) {
         println(s"${index + 1}/${routeIds.size}")
       }
-      routeRepository.findById(routeId) match {
+      routeRepository.findRouteById(routeId) match {
         case None =>
         case Some(routeDoc) =>
           if (routeDoc.isActive) {

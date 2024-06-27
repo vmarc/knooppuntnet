@@ -12,7 +12,7 @@ import kpn.api.common.planner.PlanNode
 import kpn.api.common.planner.PlanRoute
 import kpn.api.common.planner.PlanSegment
 import kpn.api.custom.NetworkType
-import kpn.core.doc.RouteDoc
+import kpn.core.doc.RouteDetailDoc
 import kpn.core.planner.graph.GraphPath
 import kpn.core.planner.graph.GraphPathSegment
 import kpn.core.planner.graph.NodeNetworkGraph
@@ -119,7 +119,7 @@ class LegBuilderImpl(
 
     val routeIds = params.routeIds
     val routeDocs = routeIds.flatMap { routeId =>
-      routeRepository.findById(routeId) match {
+      routeRepository.findRouteDetailById(routeId) match {
         case Some(routeDoc) => Some(routeDoc.id -> routeDoc)
         case None =>
           log.error(s"via-route $routeId not found")
@@ -197,7 +197,7 @@ class LegBuilderImpl(
 
     segments.flatMap { graphPathSegment =>
       val routeId = graphPathSegment.pathKey.routeId
-      routeRepository.findById(routeId) match {
+      routeRepository.findRouteDetailById(routeId) match {
         case Some(route) =>
           val pathId = if (graphPathSegment.pathKey.pathId < 100) graphPathSegment.pathKey.pathId else graphPathSegment.pathKey.pathId - 100
           val colour = route.summary.tagValue("colour")
@@ -221,11 +221,11 @@ class LegBuilderImpl(
     }
   }
 
-  private def trackPathToPlanRoute(routeDoc: RouteDoc, trackPath: TrackPath, colour: Option[String]): Option[PlanRoute] = {
+  private def trackPathToPlanRoute(routeDetailDoc: RouteDetailDoc, trackPath: TrackPath, colour: Option[String]): Option[PlanRoute] = {
 
     val routeLegSegments = trackPath.segments.map(s => toPlanSegment(s, colour))
 
-    routeDoc.analysis.map.nodeWithId(trackPath.startNodeId) match {
+    routeDetailDoc.analysis.map.nodeWithId(trackPath.startNodeId) match {
       case Some(sourceRouteNetworkNodeInfo) =>
         val sourceNodeId = sourceRouteNetworkNodeInfo.id.toString
         val sourceNodeName = sourceRouteNetworkNodeInfo.name
@@ -243,7 +243,7 @@ class LegBuilderImpl(
           sourceLatLon
         )
 
-        routeDoc.analysis.map.nodeWithId(trackPath.endNodeId) match {
+        routeDetailDoc.analysis.map.nodeWithId(trackPath.endNodeId) match {
 
           case Some(sinkRouteNetworkNodeInfo) =>
             val sinkNodeId = sinkRouteNetworkNodeInfo.id.toString
@@ -269,17 +269,17 @@ class LegBuilderImpl(
                 sinkNode,
                 meters,
                 routeLegSegments,
-                routeDoc.analysis.map.streets
+                routeDetailDoc.analysis.map.streets
               )
             )
 
           case None =>
-            log.error(s"route ${routeDoc.id} source node ${trackPath.startNodeId} not found")
+            log.error(s"route ${routeDetailDoc.id} source node ${trackPath.startNodeId} not found")
             None
         }
 
       case None =>
-        log.error(s"route ${routeDoc.id} sink node ${trackPath.endNodeId} not found")
+        log.error(s"route ${routeDetailDoc.id} sink node ${trackPath.endNodeId} not found")
         None
     }
   }

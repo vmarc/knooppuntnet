@@ -8,7 +8,7 @@ class Issue126_CircularRoute extends UnitTest {
   test("route 75-75") {
 
     // [date:"2020-11-30T00:00:00Z"];relation(11858847);(>>;);out meta;
-    val route = CaseStudy.routeAnalysis("11858847").route
+    val route = CaseStudy.routeAnalysis("11858847").routeDetail
 
     route.facts shouldBe empty
 

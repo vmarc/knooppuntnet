@@ -9,10 +9,10 @@ class SebastianTest01 extends UnitTest {
 
   test("route 44-53") {
     val analysis = CaseStudy.routeAnalysis("11721562")
-    analysis.route.analysis.map.unusedSegments.size should equal(2)
-    analysis.route.oldFacts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
+    analysis.routeDetail.analysis.map.unusedSegments.size should equal(2)
+    analysis.routeDetail.oldFacts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
     if (Redesign.enableNewFactTests) {
-      analysis.route.facts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
+      analysis.routeDetail.facts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
     }
 
     analysis.structure.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
@@ -23,7 +23,7 @@ class SebastianTest01 extends UnitTest {
 
   test("route 44-53 adapted") {
     val analysis = CaseStudy.routeAnalysis("11721562-adapted")
-    assert(analysis.route.oldFacts.isEmpty)
-    GeoJsonUtil.printMap(analysis.route.analysis.map)
+    assert(analysis.routeDetail.oldFacts.isEmpty)
+    GeoJsonUtil.printMap(analysis.routeDetail.analysis.map)
   }
 }

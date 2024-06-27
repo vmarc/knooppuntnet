@@ -9,7 +9,7 @@ import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.NetworkType
-import kpn.core.doc.RouteDoc
+import kpn.core.doc.RouteDetailDoc
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.server.repository.GraphRepository
@@ -51,15 +51,15 @@ class GraphTestData extends SharedTestObjects with MockFactory {
 
   val routeRepository: RouteRepository = {
     val routeRepository = stub[RouteRepository]
-    (routeRepository.findById _).when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute1, node1, node2)))
-    (routeRepository.findById _).when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute2, node2, node3)))
-    (routeRepository.findById _).when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute3, node3, node4)))
-    (routeRepository.findById _).when(legEndRoute4.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute4, node1, node3)))
+    (routeRepository.findRouteDetailById _).when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute1, node1, node2)))
+    (routeRepository.findRouteDetailById _).when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute2, node2, node3)))
+    (routeRepository.findRouteDetailById _).when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute3, node3, node4)))
+    (routeRepository.findRouteDetailById _).when(legEndRoute4.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute4, node1, node3)))
     routeRepository
   }
 
-  private def routeDoc(legEndRoute: LegEndRoute, startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): RouteDoc = {
-    newRouteDoc(
+  private def routeDoc(legEndRoute: LegEndRoute, startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): RouteDetailDoc = {
+    newRouteDetailDoc(
       summary = newRouteSummary(
         id = legEndRoute.trackPathKeys.head.routeId
       ),

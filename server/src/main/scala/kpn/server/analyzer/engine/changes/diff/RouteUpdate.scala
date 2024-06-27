@@ -7,11 +7,11 @@ import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 
 case class RouteUpdate(
-  before: RouteAnalysis,
-  after: RouteAnalysis,
+  before: RouteDetailAnalysis,
+  after: RouteDetailAnalysis,
   removedWays: Seq[RawWay] = Seq.empty,
   addedWays: Seq[RawWay] = Seq.empty,
   updatedWays: Seq[WayUpdate] = Seq.empty,
@@ -23,7 +23,7 @@ case class RouteUpdate(
 
   def id: Long = after.id
 
-  def name: String = after.route.summary.name
+  def name: String = after.routeDetail.summary.name
 
   def toRef: Ref = Ref(id, name)
 

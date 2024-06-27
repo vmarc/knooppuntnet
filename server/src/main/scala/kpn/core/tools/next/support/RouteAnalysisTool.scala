@@ -42,10 +42,15 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
     Log.context(s"route=${relation.id}") {
       try {
-        config.mainRouteAnalyzer.analyze(relation, hierarchy) match {
+        config.routeDetailMainAnalyzer.analyze(relation, hierarchy) match {
           case None =>
           case Some(routeAnalysis) =>
-            config.routeRepository.save(routeAnalysis.route)
+            config.routeRepository.saveRouteDetail(routeAnalysis.routeDetail)
+            // next analysis should go in second pass
+            config.routeMainAnalyzer.analyze(routeAnalysis.routeDetail) match {
+              case Some(routeDoc) => config.routeRepository.saveRoute(routeDoc)
+              case None =>
+            }
           // TODO saveRouteChange(routeAnalysis)
         }
       } catch {

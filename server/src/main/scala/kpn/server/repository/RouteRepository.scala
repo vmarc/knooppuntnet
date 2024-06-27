@@ -5,6 +5,7 @@ import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
+import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
@@ -17,11 +18,17 @@ trait RouteRepository {
 
   def activeRouteElementIds(): Seq[ReferencedElementIds]
 
-  def save(route: RouteDoc): Unit
+  def saveRoute(route: RouteDoc): Unit
 
-  def bulkSave(routes: Seq[RouteDoc]): Unit
+  def saveRouteDetail(routeDetail: RouteDetailDoc): Unit
 
-  def findById(routeId: Long): Option[RouteDoc]
+  def bulkSaveRouteDetails(routeDetails: Seq[RouteDetailDoc]): Unit
+
+  def bulkSaveRoutes(routes: Seq[RouteDoc]): Unit
+
+  def findRouteById(routeId: Long): Option[RouteDoc]
+
+  def findRouteDetailById(routeId: Long): Option[RouteDetailDoc]
 
   def mapInfo(routeId: Long): Option[RouteMapInfo]
 

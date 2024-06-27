@@ -6,7 +6,7 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
-import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -30,7 +30,7 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
     val routeRepository = stub[RouteRepository]
     val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-    val routeAnalyzer = new MainRouteAnalyzerImpl(
+    val routeAnalyzer = new RouteDetailMainAnalyzerImpl(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer
@@ -38,10 +38,10 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
     val relation = readRoute()
     val routeAnalysis = routeAnalyzer.analyze(relation, None).get
 
-    assert(routeAnalysis.route.facts.isEmpty)
+    assert(routeAnalysis.routeDetail.facts.isEmpty)
     assert(routeAnalysis.structure.unusedSegments.isEmpty)
 
-    routeAnalysis.route.analysis.map.freeNodes.map(_.id).toSet should equal(
+    routeAnalysis.routeDetail.analysis.map.freeNodes.map(_.id).toSet should equal(
       Set(
         1015045148L,
         302102477L,
@@ -54,7 +54,7 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
       )
     )
 
-    routeAnalysis.route.analysis.map.freePaths.map(path => path.startNodeId -> path.endNodeId).toSet should equal(
+    routeAnalysis.routeDetail.analysis.map.freePaths.map(path => path.startNodeId -> path.endNodeId).toSet should equal(
       Set(
         1015045148L -> 302941691L,
         302941691L -> 1015045148L,

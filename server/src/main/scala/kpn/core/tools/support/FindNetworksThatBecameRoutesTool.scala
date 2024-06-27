@@ -48,7 +48,7 @@ class FindNetworksThatBecameRoutesTool(database: Database) {
       case None => false
       case Some(network) =>
         if (network.active) {
-          routeRepository.findById(id) match {
+          routeRepository.findRouteById(id) match {
             case Some(route) => route.isActive
             case None => false
           }

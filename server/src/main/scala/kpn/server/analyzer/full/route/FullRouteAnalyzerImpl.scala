@@ -2,7 +2,8 @@ package kpn.server.analyzer.full.route
 
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.overpass.OverpassRepository
 import kpn.server.repository.RouteRepository
@@ -18,7 +19,8 @@ import scala.concurrent.duration.Duration
 class FullRouteAnalyzerImpl(
   overpassRepository: OverpassRepository,
   routeRepository: RouteRepository,
-  mainRouteAnalyzer: MainRouteAnalyzer,
+  routeDetailMainAnalyzer: RouteDetailMainAnalyzer,
+  routeMainAnalyzer: RouteMainAnalyzer,
   implicit val analysisExecutionContext: ExecutionContext
 ) extends FullRouteAnalyzer {
 
@@ -73,10 +75,10 @@ class FullRouteAnalyzerImpl(
   private def analyzeRouteBatch(timestamp: Timestamp, routeIds: Seq[Long]): Seq[Long] = {
     log.infoElapsed {
       val relations = overpassRepository.fullRelations(timestamp, routeIds)
-      val routeDocs = relations.flatMap { relation =>
+      val routeDetailDocs = relations.flatMap { relation =>
         Log.context(s"route=${relation.id}") {
           try {
-            mainRouteAnalyzer.analyze(relation, None /* TODO redesign - hierarchy */).map(_.route)
+            routeDetailMainAnalyzer.analyze(relation, None /* TODO redesign - hierarchy */).map(_.routeDetail)
           } catch {
             case e: Exception =>
               log.error(s"Error processing route ${relation.id}", e)
@@ -84,8 +86,15 @@ class FullRouteAnalyzerImpl(
           }
         }
       }
-      routeRepository.bulkSave(routeDocs)
-      val ids = routeDocs.map(_.id)
+
+      val routeDocs = routeDetailDocs.flatMap { routeDetailDoc =>
+        routeMainAnalyzer.analyze(routeDetailDoc)
+      }
+
+      routeRepository.bulkSaveRouteDetails(routeDetailDocs)
+      routeRepository.bulkSaveRoutes(routeDocs)
+
+      val ids = routeDetailDocs.map(_.id)
       (s"processed ${ids.size} routes: ${ids.mkString(", ")}", ids)
     }
   }
@@ -93,9 +102,13 @@ class FullRouteAnalyzerImpl(
   private def deactivateObsoleteRoutes(routeIds: Seq[Long]): Unit = {
     if (routeIds.nonEmpty) {
       routeIds.foreach { routeId =>
-        routeRepository.findById(routeId).map { routeDoc =>
+        routeRepository.findRouteById(routeId).map { routeDoc =>
           log.warn(s"de-activating route ${routeDoc._id}")
-          routeRepository.save(routeDoc.deactivated)
+          routeRepository.saveRoute(routeDoc.deactivated)
+        }
+        routeRepository.findRouteDetailById(routeId).map { routeDetailDoc =>
+          log.warn(s"de-activating route ${routeDetailDoc._id}")
+          routeRepository.saveRouteDetail(routeDetailDoc.deactivated)
         }
       }
     }

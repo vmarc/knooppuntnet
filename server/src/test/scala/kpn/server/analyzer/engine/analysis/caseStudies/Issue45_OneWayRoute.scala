@@ -7,7 +7,7 @@ import kpn.core.util.UnitTest
 class Issue45_OneWayRoute extends UnitTest {
 
   test("route 60-61") {
-    val route = CaseStudy.routeAnalysis("7328339").route
+    val route = CaseStudy.routeAnalysis("7328339").routeDetail
     route.oldFacts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteOneWay))
     if (Redesign.enableNewFactTests) {
       route.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteOneWay))
@@ -15,7 +15,7 @@ class Issue45_OneWayRoute extends UnitTest {
   }
 
   test("route 63-64") {
-    val route = CaseStudy.routeAnalysis("9515132").route
+    val route = CaseStudy.routeAnalysis("9515132").routeDetail
     route.oldFacts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteOneWay))
     if (Redesign.enableNewFactTests) {
       route.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteOneWay))
@@ -23,7 +23,7 @@ class Issue45_OneWayRoute extends UnitTest {
   }
 
   test("route 84-86") {
-    val route = CaseStudy.routeAnalysis("6635664").route
+    val route = CaseStudy.routeAnalysis("6635664").routeDetail
     route.oldFacts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteOneWay))
     if (Redesign.enableNewFactTests) {
       route.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteOneWay))
@@ -31,7 +31,7 @@ class Issue45_OneWayRoute extends UnitTest {
   }
 
   test("route 74-86") {
-    val route = CaseStudy.routeAnalysis("6635670").route
+    val route = CaseStudy.routeAnalysis("6635670").routeDetail
     route.oldFacts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteOneWay))
     if (Redesign.enableNewFactTests) {
       route.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteOneWay))

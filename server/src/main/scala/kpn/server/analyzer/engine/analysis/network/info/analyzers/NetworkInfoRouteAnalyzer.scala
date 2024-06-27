@@ -77,7 +77,7 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
           )
         )
       )
-      val routeDetails = database.routes.aggregate[NetworkInfoRouteDetail](pipeline, log)
+      val routeDetails = database.routeDetails.aggregate[NetworkInfoRouteDetail](pipeline, log)
       (s"routeDetails: ${routeDetails.size}", routeDetails)
     }
   }

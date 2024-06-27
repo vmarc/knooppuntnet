@@ -16,6 +16,7 @@ import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
+import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
@@ -49,6 +50,8 @@ trait Database {
   def orphanNodes: DatabaseCollection[OrphanNodeDoc]
 
   def routes: DatabaseCollection[RouteDoc]
+
+  def routeDetails: DatabaseCollection[RouteDetailDoc]
 
   def orphanRoutes: DatabaseCollection[OrphanRouteDoc]
 
@@ -101,5 +104,4 @@ trait Database {
   def dropDatabase(): Unit
 
   def users: DatabaseCollection[User]
-
 }

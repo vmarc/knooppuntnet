@@ -4,7 +4,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.NetworkType
 import kpn.core.TestObjects
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
 import kpn.server.analyzer.engine.tiles.domain.ZoomLevelRouteTileSegments
@@ -21,8 +21,8 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   test("impact when networkType changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
-      route = before.route.copy(
-        summary = before.route.summary.copy(
+      routeDetail = before.routeDetail.copy(
+        summary = before.routeDetail.summary.copy(
           networkType = NetworkType.cycling
         ),
         tiles = Seq("cycling-tile-1")
@@ -34,7 +34,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   test("impact when routeName changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
-      route = before.route.copy(
+      routeDetail = before.routeDetail.copy(
         tiles = Seq("hiking-tile-2")
       ),
       tileAnalysis = before.tileAnalysis.copy(
@@ -47,7 +47,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   test("impact when layer changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
-      route = before.route.copy(
+      routeDetail = before.routeDetail.copy(
         tiles = Seq("hiking-tile-2")
       ),
       tileAnalysis = before.tileAnalysis.copy(
@@ -60,7 +60,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   test("impact when surveyDate changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
-      route = before.route.copy(
+      routeDetail = before.routeDetail.copy(
         tiles = Seq("hiking-tile-2")
       ),
       tileAnalysis = before.tileAnalysis.copy(
@@ -73,7 +73,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   test("impact when state changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
-      route = before.route.copy(
+      routeDetail = before.routeDetail.copy(
         tiles = Seq("hiking-tile-2")
       ),
       tileAnalysis = before.tileAnalysis.copy(
@@ -83,10 +83,10 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
     impactedTiles(before, after) should equal(Seq("hiking-tile-1", "hiking-tile-2"))
   }
 
-  private def buildRouteAnalysis(): RouteAnalysis = {
-    RouteAnalysis(
+  private def buildRouteAnalysis(): RouteDetailAnalysis = {
+    RouteDetailAnalysis(
       relation = null,
-      route = newRouteDoc(
+      routeDetail = newRouteDetailDoc(
         newRouteSummary(
           id = 10,
           networkType = NetworkType.hiking
@@ -115,7 +115,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
     )
   }
 
-  private def impactedTiles(before: RouteAnalysis, after: RouteAnalysis): Seq[String] = {
+  private def impactedTiles(before: RouteDetailAnalysis, after: RouteDetailAnalysis): Seq[String] = {
     val tileChangeAnalyzer = new RouteTileChangeAnalyzerImpl()
     tileChangeAnalyzer.impactedTiles(before, after)
   }

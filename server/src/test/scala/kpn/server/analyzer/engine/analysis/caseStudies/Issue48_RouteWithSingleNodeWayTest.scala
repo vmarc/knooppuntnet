@@ -7,7 +7,7 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
-import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -32,13 +32,13 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest with MockFactory {
     val routeRepository = stub[RouteRepository]
     val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-    val routeAnalyzer = new MainRouteAnalyzerImpl(
+    val routeAnalyzer = new RouteDetailMainAnalyzerImpl(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
     val routeAnalysis = routeAnalyzer.analyze(routeRelation, None).get
-    assert(routeAnalysis.route.facts.contains(Fact.RouteSuspiciousWays))
+    assert(routeAnalysis.routeDetail.facts.contains(Fact.RouteSuspiciousWays))
   }
 
   private def readRoute(): Relation = {

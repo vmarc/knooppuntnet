@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component
 class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: RouteLocator) extends RouteLocationAnalyzer {
 
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    routeRepository.findById(context.relation.id) match {
+    routeRepository.findRouteById(context.relation.id) match {
       case Some(route) =>
         if (route.analysis.geometryDigest == context.geometryDigest) {
           context.copy(locationAnalysis = Some(route.analysis.locationAnalysis))

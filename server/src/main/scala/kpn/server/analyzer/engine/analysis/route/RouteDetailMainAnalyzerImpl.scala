@@ -16,6 +16,8 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyze
 import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
@@ -32,8 +34,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameFromNodesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNetworkTypeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
@@ -51,13 +51,13 @@ import org.springframework.stereotype.Component
 import scala.annotation.tailrec
 
 @Component
-class MainRouteAnalyzerImpl(
+class RouteDetailMainAnalyzerImpl(
   routeCountryAnalyzer: RouteCountryAnalyzer,
   routeLocationAnalyzer: RouteLocationAnalyzer,
   routeTileAnalyzer: RouteTileAnalyzer
-) extends MainRouteAnalyzer {
+) extends RouteDetailMainAnalyzer {
 
-  override def analyze(relation: Relation, hierarchy: Option[RouteRelation]): Option[RouteAnalysis] = {
+  override def analyze(relation: Relation, hierarchy: Option[RouteRelation]): Option[RouteDetailAnalysis] = {
     Log.context("route=%07d".format(relation.id)) {
 
       val context = RouteAnalysisContext(relation, hierarchy)
@@ -109,7 +109,7 @@ class MainRouteAnalyzerImpl(
   }
 
   @tailrec
-  private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): Option[RouteAnalysis] = {
+  private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): Option[RouteDetailAnalysis] = {
     if (context.abort) {
       None
     }

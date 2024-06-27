@@ -3,15 +3,15 @@ package kpn.server.analyzer.engine.changes.diff
 import kpn.api.common.common.ReferencedElements
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 
 object RouteDiffs {
   def empty: RouteDiffs = RouteDiffs()
 }
 
 case class RouteDiffs(
-  removed: Seq[RouteAnalysis] = Seq.empty,
-  added: Seq[RouteAnalysis] = Seq.empty,
+  removed: Seq[RouteDetailAnalysis] = Seq.empty,
+  added: Seq[RouteDetailAnalysis] = Seq.empty,
   updated: Seq[RouteUpdate] = Seq.empty
 ) {
 

@@ -1,9 +1,9 @@
 package kpn.database.actions.routes
 
-import kpn.database.actions.routes.MongoQueryRouteElementIds.log
-import kpn.database.base.Database
 import kpn.core.doc.Label
 import kpn.core.util.Log
+import kpn.database.actions.routes.MongoQueryRouteElementIds.log
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -32,9 +32,8 @@ class MongoQueryRouteElementIds(database: Database) {
           )
         )
       )
-      val routeElementIdss = database.routes.aggregate[ReferencedElementIds](pipeline, log, duration = Duration(5, TimeUnit.MINUTES))
+      val routeElementIdss = database.routeDetails.aggregate[ReferencedElementIds](pipeline, log, duration = Duration(5, TimeUnit.MINUTES))
       (s"elementIds for active routes: ${routeElementIdss.size}", routeElementIdss)
     }
   }
-
 }

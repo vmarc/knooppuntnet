@@ -5,7 +5,7 @@ import kpn.core.util.UnitTest
 class LongRouteTest extends UnitTest {
 
   test("process large route") {
-    val route = CaseStudy.routeAnalysis("11109600").route
+    val route = CaseStudy.routeAnalysis("11109600").routeDetail
     route.facts.shouldMatchTo(Seq.empty)
   }
 }

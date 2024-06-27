@@ -16,6 +16,7 @@ import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
+import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
@@ -67,6 +68,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def routes: DatabaseCollection[RouteDoc] = {
     new DatabaseCollectionImpl(database.getCollection[RouteDoc]("routes"))
+  }
+
+  override def routeDetails: DatabaseCollection[RouteDetailDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[RouteDetailDoc]("route-details"))
   }
 
   override def orphanRoutes: DatabaseCollection[OrphanRouteDoc] = {

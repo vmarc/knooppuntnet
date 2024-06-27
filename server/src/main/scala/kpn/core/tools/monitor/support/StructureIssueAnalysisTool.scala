@@ -26,7 +26,7 @@ class StructureIssueAnalysisTool(database: Database) {
     val filename = s"${Dirs.root}/cycling-nok-routes.txt"
     val routeIds = FileUtils.readLines(new File(filename), Charset.forName("UTF-8")).asScala.map(_.toLong)
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
-      routeRepository.findById(routeId) match {
+      routeRepository.findRouteById(routeId) match {
         case None => println(s"${index + 1}/${routeIds.size} $routeId not found")
         case Some(route) =>
           val hasIssueLink = route.analysis.members.exists { member =>

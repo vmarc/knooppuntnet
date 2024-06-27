@@ -33,7 +33,7 @@ class MongoQueryKnownRouteIds(database: Database) {
           )
         )
       )
-      val ids = database.routes.aggregate[Id](pipeline, log)
+      val ids = database.routeDetails.aggregate[Id](pipeline, log)
       (s"known route ids: ${ids.size}", ids.map(_._id))
     }
   }

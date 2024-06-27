@@ -8,7 +8,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Relation
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -77,10 +77,15 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
     Log.context(s"route=${relation.id}") {
       try {
-        config.mainRouteAnalyzer.analyze(relation, hierarchy) match {
+        config.routeDetailMainAnalyzer.analyze(relation, hierarchy) match {
           case None =>
           case Some(routeAnalysis) =>
-            config.routeRepository.save(routeAnalysis.route)
+            config.routeRepository.saveRouteDetail(routeAnalysis.routeDetail)
+            // TODO redesign - move to phase 2
+            config.routeMainAnalyzer.analyze(routeAnalysis.routeDetail) match {
+              case Some(routeDoc) => config.routeRepository.saveRoute(routeDoc)
+              case None =>
+            }
             saveRouteChange(routeAnalysis)
         }
       } catch {
@@ -91,10 +96,10 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
     }
   }
 
-  private def saveRouteChange(routeAnalysis: RouteAnalysis): Unit = {
+  private def saveRouteChange(routeAnalysis: RouteDetailAnalysis): Unit = {
 
-    val key = config.changeSetContext.buildChangeKey(routeAnalysis.route.id)
-    val facts = routeAnalysis.route.facts
+    val key = config.changeSetContext.buildChangeKey(routeAnalysis.routeDetail.id)
+    val facts = routeAnalysis.routeDetail.facts
     val locationFacts = facts.filter(Fact.locationFacts.contains)
 
     config.changeSetRepository.saveRouteChange(
@@ -102,8 +107,8 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
         _id = key.toId,
         key = key,
         changeType = ChangeType.InitialValue,
-        name = routeAnalysis.route.summary.name,
-        locationAnalysis = routeAnalysis.route.analysis.locationAnalysis,
+        name = routeAnalysis.routeDetail.summary.name,
+        locationAnalysis = routeAnalysis.routeDetail.analysis.locationAnalysis,
         addedToNetwork = Seq.empty,
         removedFromNetwork = Seq.empty,
         before = None,
@@ -112,7 +117,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
         addedWays = Seq.empty,
         updatedWays = Seq.empty,
         diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = facts))),
-        facts = routeAnalysis.route.facts,
+        facts = routeAnalysis.routeDetail.facts,
         Seq.empty,
         Seq.empty,
         investigate = facts.nonEmpty,

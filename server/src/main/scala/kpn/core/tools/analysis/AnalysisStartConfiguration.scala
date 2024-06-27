@@ -32,8 +32,10 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
-import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -105,15 +107,19 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val changeSetRepository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
 
-  val mainRouteAnalyzer: MainRouteAnalyzer = {
+  val routeDetailMainAnalyzer: RouteDetailMainAnalyzer = {
     val routeLocator = new RouteLocatorImpl(locationAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)
     val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
-    new MainRouteAnalyzerImpl(
+    new RouteDetailMainAnalyzerImpl(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
+  }
+
+  val routeMainAnalyzer: RouteMainAnalyzer = {
+    new RouteMainAnalyzerImpl()
   }
 
   val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzerImpl(

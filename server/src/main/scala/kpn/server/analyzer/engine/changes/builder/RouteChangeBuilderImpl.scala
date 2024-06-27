@@ -10,7 +10,8 @@ import kpn.api.custom.Fact
 import kpn.core.analysis.Network
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
@@ -24,7 +25,8 @@ import org.springframework.stereotype.Component
 class RouteChangeBuilderImpl(
   analysisContext: AnalysisContext,
   routeRepository: RouteRepository,
-  tileChangeAnalyzer: RouteTileChangeAnalyzer
+  tileChangeAnalyzer: RouteTileChangeAnalyzer,
+  routeMainAnalyzer: RouteMainAnalyzer
 ) extends RouteChangeBuilder {
 
   private val log = Log(classOf[RouteChangeBuilderImpl])
@@ -71,7 +73,7 @@ class RouteChangeBuilderImpl(
               key = key,
               changeType = ChangeType.Create,
               name = analysisAfter.name,
-              locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
+              locationAnalysis = analysisAfter.routeDetail.analysis.locationAnalysis,
               addedToNetwork = context.networkAfter.map(_.toRef).toSeq,
               removedFromNetwork = Seq.empty,
               before = None,
@@ -82,7 +84,7 @@ class RouteChangeBuilderImpl(
               diffs = RouteDiff(),
               facts = Seq.empty,
               impactedNodeIds,
-              analysisAfter.route.tiles
+              analysisAfter.routeDetail.tiles
             )
           )
 
@@ -102,7 +104,7 @@ class RouteChangeBuilderImpl(
               key = key,
               changeType = ChangeType.Update,
               name = analysisAfter.name,
-              locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
+              locationAnalysis = analysisAfter.routeDetail.analysis.locationAnalysis,
               addedToNetwork = context.networkAfter.map(_.toRef).toSeq,
               removedFromNetwork = Seq.empty,
               before = Some(analysisBefore.toRouteData),
@@ -141,7 +143,7 @@ class RouteChangeBuilderImpl(
           //noinspection SideEffectsInMonadicTransformation
           log.debug(s"OK: route '$routeId' has been deleted from the database.")
 
-          val routeDoc = analysisBefore.route.deactivated.copy(
+          val routeDetailDoc = analysisBefore.routeDetail.deactivated.copy(
             analysis = RouteInfoAnalysis(
               unexpectedNodeIds = Seq.empty,
               unexpectedRelationIds = Seq.empty,
@@ -156,8 +158,11 @@ class RouteChangeBuilderImpl(
             lastUpdated = context.changeSetContext.changeSet.timestamp
           )
 
-          routeRepository.save(routeDoc)
-
+          routeRepository.saveRouteDetail(routeDetailDoc)
+          routeMainAnalyzer.analyze(routeDetailDoc) match {
+            case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
+            case None =>
+          }
           val impactedNodeIds: Seq[Long] = analysisBefore.routeNodeAnalysis.routeNodes.map(_.node.id).distinct.sorted
 
           val key = context.changeSetContext.buildChangeKey(routeId)
@@ -168,7 +173,7 @@ class RouteChangeBuilderImpl(
                 key = key,
                 changeType = ChangeType.Delete,
                 name = analysisBefore.name,
-                locationAnalysis = analysisBefore.route.analysis.locationAnalysis,
+                locationAnalysis = analysisBefore.routeDetail.analysis.locationAnalysis,
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
                 before = Some(analysisBefore.toRouteData),
@@ -179,7 +184,7 @@ class RouteChangeBuilderImpl(
                 diffs = RouteDiff(),
                 facts = Seq(Fact.Deleted),
                 impactedNodeIds,
-                analysisBefore.route.tiles
+                analysisBefore.routeDetail.tiles
               )
             )
           )
@@ -190,7 +195,7 @@ class RouteChangeBuilderImpl(
     }
   }
 
-  private def processRemovedRoute(context: ChangeBuilderContext, analysisBefore: RouteAnalysis, analysisAfter: RouteAnalysis): Option[RouteChange] = {
+  private def processRemovedRoute(context: ChangeBuilderContext, analysisBefore: RouteDetailAnalysis, analysisAfter: RouteDetailAnalysis): Option[RouteChange] = {
 
     val routeId = analysisBefore.id
     val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
@@ -200,8 +205,12 @@ class RouteChangeBuilderImpl(
     val elementIds = RelationAnalyzer.toElementIds(analysisAfter.relation)
     analysisContext.watched.routes.add(routeId, elementIds)
 
-    routeRepository.save(analysisAfter.route.copy(/*orphan = true*/))
-
+    routeRepository.saveRouteDetail(analysisAfter.routeDetail.copy(/*orphan = true*/))
+    // TODO redesign - move to phase 2
+    routeMainAnalyzer.analyze(analysisAfter.routeDetail.copy(/*orphan = true*/)) match {
+      case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
+      case None =>
+    }
     //        analysisAfter.routeNodes.routeNodes.foreach { routeNode =>
     //          val country = countryAnalyzer.country(Seq(routeNode.node))
     //          val loadedNode = LoadedNode.from(country, routeNode.node.raw)
@@ -222,7 +231,7 @@ class RouteChangeBuilderImpl(
           key = key,
           changeType = ChangeType.Update,
           name = analysisAfter.name,
-          locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
+          locationAnalysis = analysisAfter.routeDetail.analysis.locationAnalysis,
           addedToNetwork = Seq.empty,
           removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
           before = Some(analysisBefore.toRouteData),
@@ -267,7 +276,7 @@ class RouteChangeBuilderImpl(
                 key = key,
                 changeType = ChangeType.Update,
                 name = analysisAfter.name,
-                locationAnalysis = analysisAfter.route.analysis.locationAnalysis,
+                locationAnalysis = analysisAfter.routeDetail.analysis.locationAnalysis,
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = Seq.empty,
                 before = Some(analysisBefore.toRouteData),
@@ -294,7 +303,7 @@ class RouteChangeBuilderImpl(
     network.toSeq.flatMap(_.routes.map(_.id)).toSet
   }
 
-  private def routeAnalysesIn(network: Option[Network], routeIds: Set[Long]): Seq[RouteAnalysis] = {
+  private def routeAnalysesIn(network: Option[Network], routeIds: Set[Long]): Seq[RouteDetailAnalysis] = {
     network.toSeq.flatMap(_.routes.filter(route => routeIds.contains(route.id))).map(_.routeAnalysis)
   }
 }

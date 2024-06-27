@@ -6,8 +6,7 @@ import kpn.core.util.UnitTest
 class RouteTagInvalid extends UnitTest {
 
   test("mismatch between route=hiking and network=lcn (cycling)") {
-    val route = CaseStudy.routeAnalysis("10993501").route
+    val route = CaseStudy.routeAnalysis("10993501").routeDetail
     route.facts should equal(Seq(Fact.RouteTagInvalid, Fact.RouteWithoutNodes, Fact.RouteBroken))
   }
-
 }

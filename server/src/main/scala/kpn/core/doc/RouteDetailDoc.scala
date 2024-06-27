@@ -3,12 +3,10 @@ package kpn.core.doc
 import kpn.api.base.WithId
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Ref
-import kpn.api.common.data.Tagable
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.context.ElementIds
 
@@ -21,14 +19,14 @@ case class RouteDetailDoc(
   changeSetId: Long,
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
-  tags: Seq[Tag], // duplicates summary.tags ???
   facts: Seq[Fact],
+  oldFacts: Seq[Fact],
   analysis: RouteInfoAnalysis,
   tiles: Seq[String],
   nodeRefs: Seq[Long], // networkNodeIds
   elementIds: ElementIds,
   edges: Seq[RouteEdge],
-) extends Tagable with WithId {
+) extends WithId {
 
   def id: Long = summary.id
 

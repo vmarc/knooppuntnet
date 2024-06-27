@@ -23,8 +23,8 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       val routeAnalysis1 = CaseStudy.routeAnalysis("12410463")
       val routeAnalysis2 = CaseStudy.routeAnalysis("1029893")
 
-      routeRepository.save(routeAnalysis1.route)
-      routeRepository.save(routeAnalysis2.route)
+      routeRepository.saveRouteDetail(routeAnalysis1.routeDetail)
+      routeRepository.saveRouteDetail(routeAnalysis2.routeDetail)
 
       pending // GraphRepositoryImpl not fully ported to mongodb yet
       val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)
@@ -76,8 +76,8 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       val routeAnalysis1 = CaseStudy.routeAnalysis("12410463")
       val routeAnalysis2 = CaseStudy.routeAnalysis("1029893")
 
-      routeRepository.save(routeAnalysis1.route)
-      routeRepository.save(routeAnalysis2.route)
+      routeRepository.saveRouteDetail(routeAnalysis1.routeDetail)
+      routeRepository.saveRouteDetail(routeAnalysis2.routeDetail)
 
       pending // GraphRepositoryImpl not fully ported to mongodb yet
       val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)
@@ -91,9 +91,9 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
       graphPath.source should equal(startNode)
 
-      val route1forwardPath = routeAnalysis1.route.analysis.map.forwardPath.get
-      val route2forwardPath = routeAnalysis2.route.analysis.map.forwardPath.get
-      val route2startTentablePath1 = routeAnalysis2.route.analysis.map.startTentaclePaths.head
+      val route1forwardPath = routeAnalysis1.routeDetail.analysis.map.forwardPath.get
+      val route2forwardPath = routeAnalysis2.routeDetail.analysis.map.forwardPath.get
+      val route2startTentablePath1 = routeAnalysis2.routeDetail.analysis.map.startTentaclePaths.head
 
       val Seq(segment1a, segment1b, segment2a, segment2b, segment3a, segment3b) = graphPath.segments
 
@@ -109,7 +109,6 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       route1forwardPath.startNodeId should equal(7741672259L) // node 09-57_09.a 09-53_09.b  (node on the right)
       route1forwardPath.endNodeId should equal(7741683309L) // node 57
 
-
       segment2a.sink should equal("1029893.3")
       segment2a.pathKey.routeId should equal(routeAnalysis2.id)
       segment2a.pathKey.pathId should equal(route2startTentablePath1.pathId) // 3
@@ -121,7 +120,6 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       route2startTentablePath1.startNodeId should equal(7741672259L) // node 09-53_09.b  (node on the right)
       route2startTentablePath1.endNodeId should equal(7751484678L) // node 09-53_09.a  (node on the left)
       val xx = route2startTentablePath1.segments
-
 
       segment3a.sink should equal("1029893.1")
       segment3a.pathKey.routeId should equal(routeAnalysis2.id)

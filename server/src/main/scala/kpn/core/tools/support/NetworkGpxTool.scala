@@ -36,7 +36,7 @@ class NetworkGpxTool(database: Database) {
           if ((index + 1) % 500 == 0) {
             println(s"${index + 1}/${routeIds.size}")
           }
-          routeRepository.findById(routeId)
+          routeRepository.findRouteById(routeId)
         }
 
         val trackSegments = routeDocs.flatMap { routeDoc =>

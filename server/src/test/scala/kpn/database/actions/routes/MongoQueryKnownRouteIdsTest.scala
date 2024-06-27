@@ -10,14 +10,14 @@ class MongoQueryKnownRouteIdsTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      database.routes.save(
-        newRouteDoc(
+      database.routeDetails.save(
+        newRouteDetailDoc(
           newRouteSummary(11L)
         )
       )
 
-      database.routes.save(
-        newRouteDoc(
+      database.routeDetails.save(
+        newRouteDetailDoc(
           newRouteSummary(12L),
           labels = Seq.empty // non-active routes are not included
         )

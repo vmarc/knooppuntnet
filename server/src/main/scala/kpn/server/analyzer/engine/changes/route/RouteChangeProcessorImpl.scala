@@ -11,8 +11,9 @@ import kpn.core.doc.Label
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.history.RouteTagDiffAnalyzer
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -28,7 +29,8 @@ class RouteChangeProcessorImpl(
   analysisContext: AnalysisContext,
   changeAnalyzer: RouteChangeAnalyzer,
   overpassRepository: OverpassRepository,
-  masterRouteAnalyzer: MainRouteAnalyzer,
+  routeDetailMainAnalyzer: RouteDetailMainAnalyzer,
+  routeMainAnalyzer: RouteMainAnalyzer,
   tileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeRepository: RouteRepository,
   implicit val analysisExecutionContext: ExecutionContext
@@ -109,14 +111,20 @@ class RouteChangeProcessorImpl(
 
   private def processCreate(context: ChangeSetContext, relationAfter: Relation, routeId: Long): Option[RouteChange] = {
 
-    masterRouteAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */).map { after =>
-      routeRepository.save(after.route)
-      analysisContext.watched.routes.add(routeId, after.route.elementIds)
+    routeDetailMainAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */).map { after =>
+      routeRepository.saveRouteDetail(after.routeDetail)
+      // TODO redesign - move to phase 2
+      routeMainAnalyzer.analyze(after.routeDetail) match {
+        case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
+        case None =>
+      }
 
-      val factDiffs = if (after.route.facts.nonEmpty) {
+      analysisContext.watched.routes.add(routeId, after.routeDetail.elementIds)
+
+      val factDiffs = if (after.routeDetail.facts.nonEmpty) {
         Some(
           FactDiffs(
-            introduced = after.route.facts
+            introduced = after.routeDetail.facts
           )
         )
       }
@@ -152,7 +160,7 @@ class RouteChangeProcessorImpl(
           key = key,
           changeType = ChangeType.Create,
           name = after.name,
-          locationAnalysis = after.route.analysis.locationAnalysis,
+          locationAnalysis = after.routeDetail.analysis.locationAnalysis,
           addedToNetwork = addedToNetwork,
           removedFromNetwork = removedFromNetwork,
           before = None,
@@ -165,7 +173,7 @@ class RouteChangeProcessorImpl(
           ),
           facts = Seq.empty,
           impactedNodeIds = impactedNodeIds,
-          after.route.tiles
+          after.routeDetail.tiles
         )
       )
     }
@@ -175,10 +183,14 @@ class RouteChangeProcessorImpl(
 
     analysisContext.watched.routes.delete(routeId)
 
-    masterRouteAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */).map { before =>
+    routeDetailMainAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */).map { before =>
 
-      routeRepository.save(before.route.deactivated)
-
+      routeRepository.saveRouteDetail(before.routeDetail.deactivated)
+      // TODO redesign - move to phase 2
+      routeMainAnalyzer.analyze(before.routeDetail.deactivated) match {
+        case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
+        case None =>
+      }
       val impactedNodeIds: Seq[Long] = before.routeNodeAnalysis.routeNodes.map(_.node.id).distinct.sorted
 
       val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
@@ -206,8 +218,8 @@ class RouteChangeProcessorImpl(
           _id = key.toId,
           key = key,
           changeType = ChangeType.Delete,
-          name = before.route.summary.name,
-          locationAnalysis = before.route.analysis.locationAnalysis,
+          name = before.routeDetail.summary.name,
+          locationAnalysis = before.routeDetail.analysis.locationAnalysis,
           addedToNetwork = addedToNetwork,
           removedFromNetwork = removedFromNetwork,
           before = Some(before.toRouteData),
@@ -218,7 +230,7 @@ class RouteChangeProcessorImpl(
           diffs = RouteDiff(),
           facts = Seq(Fact.Deleted),
           impactedNodeIds = impactedNodeIds,
-          before.route.tiles
+          before.routeDetail.tiles
         )
       )
     }
@@ -229,14 +241,14 @@ class RouteChangeProcessorImpl(
     val lostRouteTags = TagInterpreter.isRouteRelation(relationBefore) &&
       !TagInterpreter.isRouteRelation(relationAfter)
 
-    masterRouteAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */) match {
+    routeDetailMainAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */) match {
       case None => None
       case Some(before) =>
         if (lostRouteTags) {
           processLostRouteTags(context, before, relationAfter, routeId)
         }
         else {
-          masterRouteAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */) match {
+          routeDetailMainAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */) match {
             case None => None
             case Some(after) =>
 
@@ -248,12 +260,18 @@ class RouteChangeProcessorImpl(
                 analysisContext.watched.routes.delete(routeUpdate.id)
               }
               else {
-                analysisContext.watched.routes.add(after.id, after.route.elementIds)
+                analysisContext.watched.routes.add(after.id, after.routeDetail.elementIds)
               }
 
               val facts = routeUpdate.facts
 
-              routeRepository.save(after.route)
+              routeRepository.saveRouteDetail(after.routeDetail)
+              // TODO redesign - move to phase 2
+              routeMainAnalyzer.analyze(after.routeDetail) match {
+                case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
+                case None =>
+              }
+
               val impactedNodeIds: Seq[Long] = Seq(before, after).flatMap { routeAnalysis =>
                 routeAnalysis.routeNodeAnalysis.routeNodes.map(_.node.id)
               }.distinct.sorted
@@ -285,7 +303,7 @@ class RouteChangeProcessorImpl(
                     key = key,
                     changeType = ChangeType.Update,
                     name = routeUpdate.after.name,
-                    locationAnalysis = after.route.analysis.locationAnalysis,
+                    locationAnalysis = after.routeDetail.analysis.locationAnalysis,
                     addedToNetwork = addedToNetwork,
                     removedFromNetwork = removedFromNetwork,
                     before = Some(routeUpdate.before.toRouteData),
@@ -305,16 +323,22 @@ class RouteChangeProcessorImpl(
     }
   }
 
-  private def processLostRouteTags(context: ChangeSetContext, routeAnalysisBefore: RouteAnalysis, relationAfter: Relation, routeId: Long): Option[RouteChange] = {
+  private def processLostRouteTags(context: ChangeSetContext, routeAnalysisBefore: RouteDetailAnalysis, relationAfter: Relation, routeId: Long): Option[RouteChange] = {
 
     analysisContext.watched.routes.delete(routeId)
 
-    val updatedRoute = routeAnalysisBefore.route.copy(
-      labels = routeAnalysisBefore.route.labels.filterNot(_ == Label.active),
+    val updatedRoute = routeAnalysisBefore.routeDetail.copy(
+      labels = routeAnalysisBefore.routeDetail.labels.filterNot(_ == Label.active),
       facts = Seq(Fact.LostRouteTags)
     )
 
-    routeRepository.save(updatedRoute)
+    routeRepository.saveRouteDetail(updatedRoute)
+    // TODO redesign - move to phase 2
+    routeMainAnalyzer.analyze(updatedRoute) match {
+      case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
+      case None =>
+    }
+
     val impactedNodeIds = routeAnalysisBefore.routeNodeAnalysis.routeNodes.map(_.node.id).distinct.sorted
 
     val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
@@ -337,7 +361,7 @@ class RouteChangeProcessorImpl(
           key = key,
           changeType = ChangeType.Delete,
           name = routeAnalysisBefore.name,
-          locationAnalysis = routeAnalysisBefore.route.analysis.locationAnalysis,
+          locationAnalysis = routeAnalysisBefore.routeDetail.analysis.locationAnalysis,
           addedToNetwork = Seq.empty,
           removedFromNetwork = removedFromNetwork,
           before = Some(routeAnalysisBefore.toRouteData),
@@ -350,7 +374,7 @@ class RouteChangeProcessorImpl(
           ),
           facts = Seq(Fact.LostRouteTags),
           impactedNodeIds = impactedNodeIds,
-          routeAnalysisBefore.route.tiles
+          routeAnalysisBefore.routeDetail.tiles
         )
       )
     )

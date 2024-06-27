@@ -11,9 +11,9 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
-import kpn.core.doc.RouteDoc
-import kpn.server.analyzer.engine.analysis.route.RouteAnalysis
+import kpn.core.doc.RouteDetailDoc
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.RouteStructureFormatter
@@ -35,14 +35,14 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     oldFacts += RouteBroken
   }
 
-  def build: RouteAnalysis = {
+  def build: RouteDetailAnalysis = {
 
     val title: String = context.routeNameAnalysis.name match {
       case Some(routeName) => routeName
       case _ => "no-name"
     }
 
-    val route = buildRoute(
+    val route = buildRouteDetailDoc(
       title,
       context.routeMembers.get,
       context.ways.get,
@@ -54,9 +54,9 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.routeNodeAnalysis
     )
 
-    RouteAnalysis(
+    RouteDetailAnalysis(
       context.relation,
-      route = route,
+      routeDetail = route,
       structure = context.structure,
       routeNodeAnalysis = context.routeNodeAnalysis,
       routeMembers = context.routeMembers.get,
@@ -72,7 +72,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     )
   }
 
-  private def buildRoute(
+  private def buildRouteDetailDoc(
     title: String,
     routeMembers: Seq[RouteMember],
     ways: Seq[Way],
@@ -82,7 +82,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     expectedName: String,
     structure: RouteStructure,
     routeNodeAnalysis: RouteNodeAnalysis
-  ): RouteDoc = {
+  ): RouteDetailDoc = {
 
     val members: Seq[RouteMemberInfo] = routeMembers.map { member =>
 
@@ -165,7 +165,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.relation.tags
     )
 
-    RouteDoc(
+    RouteDetailDoc(
       summary.id,
       context.labels,
       summary,

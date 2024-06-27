@@ -7,7 +7,7 @@ class Issue214_MultipleNetworkTypes extends UnitTest {
 
   test("route=hiking;mtb") {
     if (Redesign.enablePendingTests) {
-      val route = CaseStudy.routeAnalysis("13328443").route
+      val route = CaseStudy.routeAnalysis("13328443").routeDetail
       route.facts should equal(Seq.empty)
     }
   }

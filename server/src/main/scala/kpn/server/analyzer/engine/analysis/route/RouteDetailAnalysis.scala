@@ -10,13 +10,13 @@ import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.core.analysis.RouteMember
-import kpn.core.doc.RouteDoc
+import kpn.core.doc.RouteDetailDoc
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
-case class RouteAnalysis(
+case class RouteDetailAnalysis(
   relation: Relation,
-  route: RouteDoc,
+  routeDetail: RouteDetailDoc,
   structure: RouteStructure = RouteStructure(),
   routeNodeAnalysis: RouteNodeAnalysis = RouteNodeAnalysis(),
   routeMembers: Seq[RouteMember] = Seq.empty,
@@ -33,9 +33,9 @@ case class RouteAnalysis(
 
   def id: Long = relation.id
 
-  def name: String = route.summary.name
+  def name: String = routeDetail.summary.name
 
-  def subset: Option[Subset] = route.summary.country.flatMap(c => Subset.of(c, route.summary.networkType))
+  def subset: Option[Subset] = routeDetail.summary.country.flatMap(c => Subset.of(c, routeDetail.summary.networkType))
 
   def toRef: Ref = Ref(id, name)
 
@@ -45,33 +45,33 @@ case class RouteAnalysis(
 
   def toRouteData: RouteData = {
     RouteData(
-      route.summary.country,
-      route.summary.networkType,
-      route.summary.networkScope,
+      routeDetail.summary.country,
+      routeDetail.summary.networkType,
+      routeDetail.summary.networkScope,
       relation.toRaw,
-      route.summary.name,
+      routeDetail.summary.name,
       routeNodeAnalysis.routeNodes.map(_.node),
       allWayNodes,
       ways.map(_.toRaw),
       Seq[RawRelation](), // TODO CHANGE add unexpected relations
-      route.facts
+      routeDetail.facts
     )
   }
 
   def toRouteTileInfo: RouteTileInfo = {
     RouteTileInfo(
       _id = id,
-      name = route.summary.name,
-      proposed = route.proposed,
-      lastSurvey = route.lastSurvey,
-      tags = route.summary.tags,
-      facts = route.facts,
-      freePaths = route.analysis.map.freePaths,
-      forwardPath = route.analysis.map.forwardPath,
-      backwardPath = route.analysis.map.backwardPath,
-      startTentaclePaths = route.analysis.map.startTentaclePaths,
-      endTentaclePaths = route.analysis.map.endTentaclePaths,
-      unusedSegments = route.analysis.map.unusedSegments,
+      name = routeDetail.summary.name,
+      proposed = routeDetail.proposed,
+      lastSurvey = routeDetail.lastSurvey,
+      tags = routeDetail.summary.tags,
+      facts = routeDetail.facts,
+      freePaths = routeDetail.analysis.map.freePaths,
+      forwardPath = routeDetail.analysis.map.forwardPath,
+      backwardPath = routeDetail.analysis.map.backwardPath,
+      startTentaclePaths = routeDetail.analysis.map.startTentaclePaths,
+      endTentaclePaths = routeDetail.analysis.map.endTentaclePaths,
+      unusedSegments = routeDetail.analysis.map.unusedSegments,
     )
   }
 }

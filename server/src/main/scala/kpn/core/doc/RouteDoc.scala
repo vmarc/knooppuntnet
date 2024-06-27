@@ -3,12 +3,10 @@ package kpn.core.doc
 import kpn.api.base.WithId
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Ref
-import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.context.ElementIds
 
 case class RouteDoc(
   _id: Long, // routeId
@@ -22,10 +20,6 @@ case class RouteDoc(
   facts: Seq[Fact],
   oldFacts: Seq[Fact],
   analysis: RouteInfoAnalysis,
-  tiles: Seq[String],
-  nodeRefs: Seq[Long],
-  elementIds: ElementIds,
-  edges: Seq[RouteEdge],
 ) extends WithId {
 
   def id: Long = summary.id

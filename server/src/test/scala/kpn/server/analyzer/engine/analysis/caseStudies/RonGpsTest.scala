@@ -17,17 +17,17 @@ import kpn.core.util.UnitTest
 class RonGpsTest extends UnitTest {
 
   test("RonGps original definition is reported to be broken") {
-    val route = CaseStudy.routeAnalysis("RonGpsOriginal").route
+    val route = CaseStudy.routeAnalysis("RonGpsOriginal").routeDetail
     route.facts.shouldMatchTo(Seq(Fact.RouteNameDeprecatedNoteTag))
   }
 
   test("ways for lower to higher branch moved to front, before ways for higher to lower branch") {
-    val route = CaseStudy.routeAnalysis("RonGpsFixed").route
+    val route = CaseStudy.routeAnalysis("RonGpsFixed").routeDetail
     route.facts.shouldMatchTo(Seq(Fact.RouteNameDeprecatedNoteTag))
   }
 
   test("all forward roles changed to backward - oneway ways are followed in the wrong direction") {
-    val route = CaseStudy.routeAnalysis("RonGpsBackward").route
+    val route = CaseStudy.routeAnalysis("RonGpsBackward").routeDetail
     route.facts.shouldMatchTo(Seq(Fact.RouteNameDeprecatedNoteTag))
   }
 }

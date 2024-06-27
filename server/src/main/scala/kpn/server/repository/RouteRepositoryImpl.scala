@@ -5,6 +5,7 @@ import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
+import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryKnownRouteIds
@@ -37,16 +38,28 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteElementIds(database).execute()
   }
 
-  override def save(routeDoc: RouteDoc): Unit = {
+  override def saveRoute(routeDoc: RouteDoc): Unit = {
     database.routes.save(routeDoc, log)
   }
 
-  override def bulkSave(routeDocs: Seq[RouteDoc]): Unit = {
+  override def saveRouteDetail(routeDetailDoc: RouteDetailDoc): Unit = {
+    database.routeDetails.save(routeDetailDoc, log)
+  }
+
+  override def bulkSaveRouteDetails(routeDetailDocs: Seq[RouteDetailDoc]): Unit = {
+    database.routeDetails.bulkSave(routeDetailDocs, log)
+  }
+
+  override def bulkSaveRoutes(routeDocs: Seq[RouteDoc]): Unit = {
     database.routes.bulkSave(routeDocs, log)
   }
 
-  override def findById(routeId: Long): Option[RouteDoc] = {
+  override def findRouteById(routeId: Long): Option[RouteDoc] = {
     database.routes.findById(routeId, log)
+  }
+
+  override def findRouteDetailById(routeId: Long): Option[RouteDetailDoc] = {
+    database.routeDetails.findById(routeId, log)
   }
 
   override def mapInfo(routeId: Long): Option[RouteMapInfo] = {

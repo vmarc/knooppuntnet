@@ -22,7 +22,8 @@ import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.PostProcessor
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
-import kpn.server.analyzer.engine.analysis.route.MainRouteAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -98,11 +99,12 @@ class IntegrationTestContext(
   private val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
   private val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
   private val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-  private val masterRouteAnalyzer = new MainRouteAnalyzerImpl(
+  private val routeDetailMainAnalyzer = new RouteDetailMainAnalyzerImpl(
     routeCountryAnalyzer,
     routeLocationAnalyzer,
     routeTileAnalyzer
   )
+  private val routeMainAnalyzer = new RouteMainAnalyzerImpl()
 
   private val elementIdAnalyzer = new ElementIdAnalyzerImpl
 
@@ -152,7 +154,8 @@ class IntegrationTestContext(
       analysisContext,
       routeChangeAnalyzer,
       overpassRepository,
-      masterRouteAnalyzer,
+      routeDetailMainAnalyzer,
+      routeMainAnalyzer,
       routeTileChangeAnalyzer,
       routeRepository,
       analysisExecutionContext
@@ -219,7 +222,8 @@ class IntegrationTestContext(
   private val fullRouteAnalyzer = new FullRouteAnalyzerImpl(
     overpassRepository,
     routeRepository,
-    masterRouteAnalyzer,
+    routeDetailMainAnalyzer,
+    routeMainAnalyzer,
     analysisExecutionContext: ExecutionContext
   )
 
