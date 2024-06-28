@@ -4,6 +4,12 @@ import kpn.core.util.UnitTest
 
 class JsonTest extends UnitTest {
 
+  test("lots of fields") {
+    val example = JsonLargeExample()
+    val json = Json.string(example)
+    Json.value(json, classOf[JsonLargeExample]) should equal(example)
+  }
+
   test("case class json") {
     val example = JsonExample("John Doe", 123)
     val json = Json.string(example)
