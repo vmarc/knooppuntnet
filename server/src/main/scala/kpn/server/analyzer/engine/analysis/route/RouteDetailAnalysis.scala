@@ -18,7 +18,7 @@ case class RouteDetailAnalysis(
   relation: Relation,
   routeDetail: RouteDetailDoc,
   structure: RouteStructure = RouteStructure(),
-  routeNodeAnalysis: RouteNodeAnalysis = RouteNodeAnalysis(),
+  routeNodeAnalysis: OldRouteNodeAnalysis = OldRouteNodeAnalysis(),
   routeMembers: Seq[RouteMember] = Seq.empty,
   ways: Seq[Way] = Seq.empty,
   startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,

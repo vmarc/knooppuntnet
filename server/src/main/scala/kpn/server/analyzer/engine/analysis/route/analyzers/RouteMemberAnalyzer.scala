@@ -9,7 +9,7 @@ import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.analysis.TagInterpreter
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
+import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
@@ -21,7 +21,7 @@ object RouteMemberAnalyzer extends RouteAnalyzer {
 class RouteMemberAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    val routeMembers = analyzeRouteMembers(context.routeNodeAnalysis)
+    val routeMembers = analyzeRouteMembers(context.oldRouteNodeAnalysis)
     if (routeMembers.exists(!_.accessible)) {
       context.copy(routeMembers = Some(routeMembers)).withFact(RouteInaccessible)
     }
@@ -30,7 +30,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def analyzeRouteMembers(routeNodeAnalysis: RouteNodeAnalysis): Seq[RouteMember] = {
+  private def analyzeRouteMembers(routeNodeAnalysis: OldRouteNodeAnalysis): Seq[RouteMember] = {
     // map with key Node.id and value node number
     val nodeMap: scala.collection.mutable.Map[Long, Int] = scala.collection.mutable.Map.empty
     val nodeNumberIterator = (1 to 10000).iterator

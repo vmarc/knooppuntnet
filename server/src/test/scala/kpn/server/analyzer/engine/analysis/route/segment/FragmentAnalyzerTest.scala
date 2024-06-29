@@ -156,7 +156,7 @@ class FragmentAnalyzerTest extends UnitTest {
     val context3 = new RouteNameAnalyzer(context2).analyze
     val context4 = new OldRouteNodeTagAnalyzer(context3).analyze
     val context5 = new OldRouteNodeAnalyzer(context4).analyze
-    val fragmentMap = new FragmentAnalyzer(context5.routeNodeAnalysis.usedNodes, relation.wayMembers).fragmentMap
+    val fragmentMap = new FragmentAnalyzer(context5.oldRouteNodeAnalysis.usedNodes, relation.wayMembers).fragmentMap
     fragmentMap.all.map(fragment => new FragmentFormatter(fragment).string).mkString
   }
 }

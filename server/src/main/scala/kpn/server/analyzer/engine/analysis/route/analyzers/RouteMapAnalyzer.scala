@@ -12,8 +12,8 @@ import kpn.core.analysis.RouteMemberWay
 import kpn.core.directions.DirectionAnalyzer
 import kpn.core.directions.Latlon
 import kpn.core.util.Haversine
+import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.Path
@@ -35,8 +35,8 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
     }
 
     val allWayNodes = ways.flatMap(w => w.nodes)
-    val bounds = MapBounds(allWayNodes ++ context.routeNodeAnalysis.routeNodes.map(_.node))
-    val routeMap = buildRouteMap(context.routeNodeAnalysis, context.structure, bounds)
+    val bounds = MapBounds(allWayNodes ++ context.oldRouteNodeAnalysis.routeNodes.map(_.node))
+    val routeMap = buildRouteMap(context.oldRouteNodeAnalysis, context.structure, bounds)
     context.copy(
       ways = Some(ways),
       allWayNodes = Some(allWayNodes),
@@ -44,7 +44,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
     )
   }
 
-  private def buildRouteMap(routeNodeAnalysis: RouteNodeAnalysis, structure: RouteStructure, bounds: MapBounds): RouteMap = {
+  private def buildRouteMap(routeNodeAnalysis: OldRouteNodeAnalysis, structure: RouteStructure, bounds: MapBounds): RouteMap = {
     val forwardBreakPoint = {
       structure.forwardPath match {
         case Some(path) if path.broken => Some(toTrackPoint(path.segments.last.nodes.last))

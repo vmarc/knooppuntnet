@@ -11,7 +11,7 @@ import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.api.custom.Fact.RouteWithoutNodes
 import kpn.api.custom.Fact.RouteWithoutWays
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
+import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
@@ -33,15 +33,15 @@ class OldRouteStructureAnalyzer(context: RouteAnalysisContext) {
   oldFacts ++= context.oldFacts
 
   def analyze: RouteAnalysisContext = {
-    val structure = analyzeStructure(context.routeNodeAnalysis)
-    analyzeStructure2(context.routeNodeAnalysis, structure, context.fragmentMap.all)
+    val structure = analyzeStructure(context.oldRouteNodeAnalysis)
+    analyzeStructure2(context.oldRouteNodeAnalysis, structure, context.fragmentMap.all)
     context.copy(
       _structure = Some(structure),
       oldFacts = oldFacts.toSeq,
     )
   }
 
-  private def analyzeStructure(routeNodeAnalysis: RouteNodeAnalysis): RouteStructure = {
+  private def analyzeStructure(routeNodeAnalysis: OldRouteNodeAnalysis): RouteStructure = {
 
     if (isAnalysisImpossible(routeNodeAnalysis)) {
       RouteStructure(
@@ -66,7 +66,7 @@ class OldRouteStructureAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def analyzeStructure2(routeNodeAnalysis: RouteNodeAnalysis, structure: RouteStructure, fragments: Seq[Fragment]): Unit = {
+  private def analyzeStructure2(routeNodeAnalysis: OldRouteNodeAnalysis, structure: RouteStructure, fragments: Seq[Fragment]): Unit = {
     if (!Seq(RouteAnalysisFailed, RouteWithoutNodes, RouteNodeMissingInWays).exists(oldFacts.contains)) {
       if (!context.connection || routeNodeAnalysis.hasStartAndEndNode) {
         if (!oldFacts.contains(RouteWithoutWays)) {
@@ -140,7 +140,7 @@ class OldRouteStructureAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def isAnalysisImpossible(routeNodeAnalysis: RouteNodeAnalysis): Boolean = {
+  private def isAnalysisImpossible(routeNodeAnalysis: OldRouteNodeAnalysis): Boolean = {
     if (context.connection && !routeNodeAnalysis.hasStartAndEndNode) {
       return true
     }

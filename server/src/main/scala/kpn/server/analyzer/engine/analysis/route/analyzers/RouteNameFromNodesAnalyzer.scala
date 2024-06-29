@@ -18,7 +18,7 @@ object RouteNameFromNodesAnalyzer extends RouteAnalyzer {
 
 class RouteNameFromNodesAnalyzer(context: RouteAnalysisContext) {
 
-  private val routeNodeAnalysis = context.routeNodeAnalysis
+  private val routeNodeAnalysis = context.oldRouteNodeAnalysis
 
   def analyze: RouteAnalysisContext = {
     if (context.routeNameAnalysis.name.isDefined) {

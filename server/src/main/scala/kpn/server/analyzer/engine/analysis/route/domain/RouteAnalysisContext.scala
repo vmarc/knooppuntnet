@@ -13,6 +13,7 @@ import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
 import kpn.core.tools.next.domain.RouteRelation
+import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
@@ -42,6 +43,7 @@ case class RouteAnalysisContext(
   unexpectedNodeIds: Option[Seq[Long]] = None,
   unexpectedRelationIds: Option[Seq[Long]] = None,
   _routeNameAnalysis: Option[RouteNameAnalysis] = None,
+  _oldRouteNodeAnalysis: Option[OldRouteNodeAnalysis] = None,
   _routeNodeAnalysis: Option[RouteNodeAnalysis] = None,
   expectedName: Option[String] = None,
   suspiciousWayIds: Option[Seq[Long]] = None,
@@ -159,6 +161,8 @@ case class RouteAnalysisContext(
   def segmentAnalysis: RouteSegmentAnalysis = _segmentAnalysis.getOrElse(throw new PreconditionMissingException)
 
   def routeNameAnalysis: RouteNameAnalysis = _routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
+
+  def oldRouteNodeAnalysis: OldRouteNodeAnalysis = _oldRouteNodeAnalysis.getOrElse(throw new PreconditionMissingException)
 
   def routeNodeAnalysis: RouteNodeAnalysis = _routeNodeAnalysis.getOrElse(throw new PreconditionMissingException)
 

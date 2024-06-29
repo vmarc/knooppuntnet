@@ -12,7 +12,7 @@ object RouteFragmentAnalyzer extends RouteAnalyzer {
 class RouteFragmentAnalyzer(context: RouteAnalysisContext) {
 
   def analyze: RouteAnalysisContext = {
-    val usedNodes = context.routeNodeAnalysis.usedNodes
+    val usedNodes = context.oldRouteNodeAnalysis.usedNodes
     val wayMembers = context.relation.wayMembers
     val fragmentMap = new FragmentAnalyzer(usedNodes, wayMembers).fragmentMap
     context.copy(_fragmentMap = Some(fragmentMap))

@@ -4,9 +4,8 @@ import kpn.api.common.data.Node
 import kpn.api.custom.NetworkType
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.FreePathAnalyzer
+import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysisFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.TentacleAnalyzer
 import kpn.server.analyzer.engine.analysis.route.UnusedSegmentAnalyzer
@@ -19,7 +18,7 @@ class SegmentAnalyzer(
   routeId: Long,
   loop: Boolean,
   fragmentMap: FragmentMap,
-  routeNodeAnalysis: RouteNodeAnalysis
+  routeNodeAnalysis: OldRouteNodeAnalysis
 ) {
 
   private val log = Log(classOf[SegmentAnalyzer])
@@ -108,7 +107,7 @@ class SegmentAnalyzer(
     fragmentMap.all.foreach { f =>
       b.append(s"    ${new FragmentFormatter(f).string}\n")
     }
-    b.append(s"  nodes=${new RouteNodeAnalysisFormatter(routeNodeAnalysis).string}\n")
+    // TODO redesign - b.append(s"  nodes=${new RouteNodeAnalysisFormatter(routeNodeAnalysis).nodeStrings}\n")
     val message = b.toString()
     log.debug(message)
   }

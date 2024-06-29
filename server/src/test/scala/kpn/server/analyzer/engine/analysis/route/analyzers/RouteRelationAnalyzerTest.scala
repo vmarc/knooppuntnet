@@ -38,8 +38,6 @@ class RouteRelationAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def analyze(d: RouteTestData): Seq[Long] = {
     val relation = d.data.relations(1L)
-    val analyzer = new RouteRelationAnalyzer()
-    analyzer.orderedNodeIds(relation)
+    RouteRelationAnalyzer.orderedNodeIds(relation)
   }
-
 }

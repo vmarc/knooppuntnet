@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 class RouteNameFromNodesAnalyzerTest extends UnitTest {
@@ -14,8 +14,8 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       None,
       nodeNetwork = true,
       _routeNameAnalysis = Some(RouteNameAnalysis()),
-      _routeNodeAnalysis = Some(
-        RouteNodeAnalysis(
+      _oldRouteNodeAnalysis = Some(
+        OldRouteNodeAnalysis(
           startNodes = Seq(
             RouteNode(name = "01")
           ),
@@ -35,8 +35,8 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       None,
       nodeNetwork = true,
       _routeNameAnalysis = Some(RouteNameAnalysis()),
-      _routeNodeAnalysis = Some(
-        RouteNodeAnalysis(
+      _oldRouteNodeAnalysis = Some(
+        OldRouteNodeAnalysis(
           startNodes = Seq(
             RouteNode(name = "a")
           ),
@@ -57,8 +57,8 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _routeNameAnalysis = Some(
         RouteNameAnalysis(name = Some("route-name"))
       ),
-      _routeNodeAnalysis = Some(
-        RouteNodeAnalysis(
+      _oldRouteNodeAnalysis = Some(
+        OldRouteNodeAnalysis(
           startNodes = Seq(
             RouteNode(name = "01")
           ),
@@ -79,8 +79,8 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _routeNameAnalysis = Some(
         RouteNameAnalysis()
       ),
-      _routeNodeAnalysis = Some(
-        RouteNodeAnalysis(
+      _oldRouteNodeAnalysis = Some(
+        OldRouteNodeAnalysis(
           startNodes = Seq(
             RouteNode()
           ),
@@ -101,8 +101,8 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _routeNameAnalysis = Some(
         RouteNameAnalysis()
       ),
-      _routeNodeAnalysis = Some(
-        RouteNodeAnalysis(
+      _oldRouteNodeAnalysis = Some(
+        OldRouteNodeAnalysis(
           startNodes = Seq(
             RouteNode(name = "01")
           ),

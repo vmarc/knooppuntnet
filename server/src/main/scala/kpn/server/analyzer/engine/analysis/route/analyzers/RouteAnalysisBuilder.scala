@@ -12,9 +12,9 @@ import kpn.api.custom.Timestamp
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.doc.RouteDetailDoc
+import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.RouteStructureFormatter
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
@@ -51,14 +51,14 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
       context.unexpectedRelationIds.get,
       context.expectedName.getOrElse(""),
       context.structure,
-      context.routeNodeAnalysis
+      context.oldRouteNodeAnalysis
     )
 
     RouteDetailAnalysis(
       context.relation,
       routeDetail = route,
       structure = context.structure,
-      routeNodeAnalysis = context.routeNodeAnalysis,
+      routeNodeAnalysis = context.oldRouteNodeAnalysis,
       routeMembers = context.routeMembers.get,
       ways = context.ways.get,
       startNodes = context.routeMap.startNodes,
@@ -81,7 +81,7 @@ class RouteAnalysisBuilder(context: RouteAnalysisContext) {
     unexpectedRelationIds: Seq[Long],
     expectedName: String,
     structure: RouteStructure,
-    routeNodeAnalysis: RouteNodeAnalysis
+    routeNodeAnalysis: OldRouteNodeAnalysis
   ): RouteDetailDoc = {
 
     val members: Seq[RouteMemberInfo] = routeMembers.map { member =>

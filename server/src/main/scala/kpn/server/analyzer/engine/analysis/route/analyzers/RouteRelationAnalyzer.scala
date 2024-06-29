@@ -4,7 +4,7 @@ import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 
-class RouteRelationAnalyzer {
+object RouteRelationAnalyzer {
 
   def orderedNodeIds(relation: Relation): Seq[Long] = {
     val wayNodeIds = relation.wayMembers.flatMap(member => member.way.nodes).map(_.id).toSet
@@ -21,5 +21,4 @@ class RouteRelationAnalyzer {
       case _ => Seq.empty
     }
   }
-
 }

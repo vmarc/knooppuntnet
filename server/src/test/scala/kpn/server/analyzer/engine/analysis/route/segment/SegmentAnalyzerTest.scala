@@ -514,16 +514,16 @@ class SegmentAnalyzerTest extends UnitTest {
     val context3 = new RouteNameAnalyzer(context2).analyze
     val context4 = new OldRouteNodeTagAnalyzer(context3).analyze
     val context5 = new OldRouteNodeAnalyzer(context4).analyze
-    if (context5.routeNodeAnalysis.startNodes.isEmpty) fail("expected start node, but found none")
-    if (context5.routeNodeAnalysis.endNodes.isEmpty) fail("expected end node, but found none")
-    val fragmentMap = new FragmentAnalyzer(context5.routeNodeAnalysis.usedNodes, relation.wayMembers).fragmentMap
+    if (context5.oldRouteNodeAnalysis.startNodes.isEmpty) fail("expected start node, but found none")
+    if (context5.oldRouteNodeAnalysis.endNodes.isEmpty) fail("expected end node, but found none")
+    val fragmentMap = new FragmentAnalyzer(context5.oldRouteNodeAnalysis.usedNodes, relation.wayMembers).fragmentMap
 
     val structure: RouteStructure = new SegmentAnalyzer(
       Seq(d.scopedNetworkType.networkType),
       1,
       false,
       FragmentMap(FragmentFilter.filter(fragmentMap.all)),
-      context5._routeNodeAnalysis.get
+      context5._oldRouteNodeAnalysis.get
     ).structure
 
     val actual = new RouteStructureFormatter(structure).string
