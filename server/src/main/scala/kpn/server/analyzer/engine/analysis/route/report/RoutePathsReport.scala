@@ -8,6 +8,7 @@ import kpn.server.analyzer.engine.analysis.route.structure.RouteLink
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkNode
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkRelationId
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkWay
+import kpn.server.analyzer.engine.analysis.route.structure.RoutePath
 
 object RoutePathsReport {
   def report(context: RouteAnalysisContext): String = {
@@ -48,18 +49,38 @@ class RoutePathsReport(context: RouteAnalysisContext) {
          |  <td>
          |  </td>
          |</tr>
-         |${segmentLinks(segment)}
+         |${paths(segment)}
          |""".stripMargin
     }.mkString
   }
 
-  private def segmentLinks(segment: NewSegment): String = {
-    segment.links.zipWithIndex.map { case (routeLink, index) =>
-      routeMemberRow(routeLink, index)
+  private def paths(segment: NewSegment): String = {
+    segment.paths.map { path =>
+      s"""<tr>
+         |  <td colspan="5">
+         |    Path ${path.id} ${path.direction.toString.toLowerCase}
+         |  </td>
+         |  <td>
+         |    ${ReportUtil.osmNodeLink(path.fromNodeId)}
+         |  </td>
+         |  <td>
+         |    ${ReportUtil.osmNodeLink(path.toNodeId)}
+         |  </td>
+         |  <td>
+         |  </td>
+         |</tr>
+         |${pathLinks(path)}
+         |""".stripMargin
     }.mkString
   }
 
-  private def routeMemberRow(routeLink: RouteLink, index: Int): String = {
+  private def pathLinks(path: RoutePath): String = {
+    path.links.map { routeLink =>
+      routeMemberRow(routeLink)
+    }.mkString
+  }
+
+  private def routeMemberRow(routeLink: RouteLink): String = {
 
     val (elementType, elementId, name, from, to, networkNodes) = routeLink match {
       case routeLinkNode: RouteLinkNode =>
@@ -80,7 +101,7 @@ class RoutePathsReport(context: RouteAnalysisContext) {
 
     s"""<tr>
        |  <td>
-       |    ${index + 1}
+       |    ${routeLink.idString}
        |  </td>
        |  <td style="padding:0">
        |    <img src="images/${routeLink.linkName}.png"/>

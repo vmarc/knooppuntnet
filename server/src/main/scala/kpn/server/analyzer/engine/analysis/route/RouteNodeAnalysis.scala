@@ -6,4 +6,6 @@ case class RouteNodeAnalysis(
   startNodes: Seq[RouteNodeData] = Seq.empty,
   endNodes: Seq[RouteNodeData] = Seq.empty,
   redundantNodes: Seq[RouteNodeData] = Seq.empty
-)
+) {
+  def nodes: Seq[RouteNodeData] = freeNodes ++ startNodes ++ endNodes ++ redundantNodes
+}

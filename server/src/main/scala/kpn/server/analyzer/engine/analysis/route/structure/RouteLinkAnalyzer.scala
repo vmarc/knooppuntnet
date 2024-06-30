@@ -34,6 +34,8 @@ class RouteLinkAnalyzer(traceEnabled: Boolean = false) {
     val analyzer = new ReferenceLinkAnalyzer(referenceRelation, referenceRelation.getMembers(), traceEnabled)
     val javaWayLinks = analyzer.analyze().asScala.iterator
 
+    val linkIds = (1L to 10000L).iterator
+
     val links = relation.members.flatMap { member =>
       member match {
         case nodeMember: NodeMember =>
@@ -46,6 +48,7 @@ class RouteLinkAnalyzer(traceEnabled: Boolean = false) {
         case wayMember: WayMember =>
           Some(
             RouteLinkWay(
+              linkIds.next(),
               toScalaLink(javaWayLinks.next()),
               wayMember.role,
               wayMember.way
