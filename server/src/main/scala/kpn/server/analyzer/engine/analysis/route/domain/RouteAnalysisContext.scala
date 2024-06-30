@@ -19,7 +19,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
-import kpn.server.analyzer.engine.analysis.route.structure.ReferenceStructure
+import kpn.server.analyzer.engine.analysis.route.structure.RouteLinks
 import kpn.server.analyzer.engine.analysis.route.structure.Structure
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.context.PreconditionMissingException
@@ -36,7 +36,7 @@ case class RouteAnalysisContext(
   _networkTypes: Option[Seq[NetworkType]] = None,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
   country: Option[Country] = None,
-  _referenceStructure: Option[ReferenceStructure] = None,
+  _links: Option[RouteLinks] = None,
   _segmentAnalysis: Option[RouteSegmentAnalysis] = None,
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   facts: Seq[Fact] = Seq.empty,
@@ -158,7 +158,7 @@ case class RouteAnalysisContext(
 
   def routeMap: RouteMap = _routeMap.getOrElse(throw new PreconditionMissingException)
 
-  def referenceStructure: ReferenceStructure = _referenceStructure.getOrElse(throw new PreconditionMissingException)
+  def links: RouteLinks = _links.getOrElse(throw new PreconditionMissingException)
 
   def segmentAnalysis: RouteSegmentAnalysis = _segmentAnalysis.getOrElse(throw new PreconditionMissingException)
 

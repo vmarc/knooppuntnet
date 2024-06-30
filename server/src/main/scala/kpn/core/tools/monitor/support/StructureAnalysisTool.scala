@@ -5,6 +5,7 @@ import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.overpass.QueryRelation
 import kpn.core.tools.config.Dirs
+import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import org.apache.commons.io.FileUtils
 
@@ -32,7 +33,7 @@ class StructureAnalysisTool {
       val xml = XML.loadString(xmlString)
       val rawData = new Parser().parse(xml)
       val relation = new DataBuilder(rawData).data.relations(relationId)
-      val elementGroups = StructureElementAnalyzer.analyze(relation.members)
+      val elementGroups = StructureElementAnalyzer.analyze(RouteNodeAnalysis(), relation.members)
       println(s"${index + 1}/${ids.size} $relationId ${if (elementGroups.size > 1) "ISSUE" else "OK"}")
     }
   }

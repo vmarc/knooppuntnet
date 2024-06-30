@@ -2,12 +2,13 @@ package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.common.data.Member
 import kpn.api.common.data.WayMember
+import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 
 import scala.annotation.tailrec
 import scala.collection.mutable
 
 object StructureElementAnalyzer {
-  def analyze(members: Seq[Member], traceEnabled: Boolean = false): Seq[StructureElementGroup] = {
+  def analyze(routeNodeAnalysis: RouteNodeAnalysis, members: Seq[Member], traceEnabled: Boolean = false): Seq[StructureElementGroup] = {
     val wayMembers = members.flatMap { member =>
       member match {
         case wayMember: WayMember => Some(wayMember)
@@ -17,11 +18,11 @@ object StructureElementAnalyzer {
     if (wayMembers.exists(_.way.nodes.length < 2)) {
       throw new IllegalStateException("ways with less than 2 nodes should have been filtered out at this point")
     }
-    new StructureElementAnalyzer(wayMembers, traceEnabled).analyze()
+    new StructureElementAnalyzer(routeNodeAnalysis, wayMembers, traceEnabled).analyze()
   }
 }
 
-class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean = false) {
+class StructureElementAnalyzer(routeNodeAnalysis: RouteNodeAnalysis, wayMembers: Seq[WayMember], traceEnabled: Boolean = false) {
 
   private var elementDirection: Option[ElementDirection.Value] = None
 
@@ -325,6 +326,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
       bidirectional = false,
       link.nodeIds
     )
+
+    // TODO redesign - split if needed
+
     currentElementFragments.addOne(fragment)
 
     elementDirection match {
@@ -362,6 +366,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
                   bidirectional = false,
                   nodeIds
                 )
+
+                // TODO redesign - split if needed
+
                 currentElementFragments.addOne(fragment)
                 lastBackwardFragment = Some(fragment)
               }
@@ -383,6 +390,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
         bidirectional = false,
         link.nodeIds
       )
+
+      // TODO redesign - split if needed
+
       currentElementFragments.addOne(fragment)
       lastForwardFragment = Some(fragment)
     }
@@ -401,6 +411,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
                   bidirectional = false,
                   link.nodeIds
                 )
+
+                // TODO redesign - split if needed
+
                 currentElementFragments.addOne(fragment)
                 lastBackwardFragment = Some(fragment)
               }
@@ -420,6 +433,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
               bidirectional = false,
               link.nodeIds
             )
+
+            // TODO redesign - split if needed
+
             currentElementFragments.addOne(fragment)
             lastBackwardFragment = Some(fragment)
           }
@@ -442,6 +458,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
             bidirectional = false,
             nodeIds
           )
+
+          // TODO redesign - split if needed
+
           currentElementFragments.addOne(fragment)
           lastBackwardFragment = Some(fragment)
         }
@@ -459,6 +478,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
                 )
                 finalizeCurrentElement()
                 elementDirection = Some(ElementDirection.Forward)
+
+                // TODO redesign - split if needed
+
                 currentElementFragments.addOne(fragment)
                 lastForwardFragment = Some(fragment)
               }
@@ -512,6 +534,9 @@ class StructureElementAnalyzer(wayMembers: Seq[WayMember], traceEnabled: Boolean
     val nodes = if (reversed) wayMember.way.nodes.reverse else wayMember.way.nodes
     val nodeIds = nodes.map(_.id)
     val fragment = StructureFragment(wayMember.way, bidirectional = true, nodeIds)
+
+    // TODO redesign - split if needed
+
     currentElementFragments.addOne(fragment)
     lastForwardFragment = Some(fragment)
     lastBackwardFragment = Some(fragment)

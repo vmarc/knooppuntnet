@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.common.data.Member
+import kpn.api.common.data.NodeMember
+import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.core.analysis.Link
@@ -18,21 +20,50 @@ import scala.jdk.CollectionConverters.IterableHasAsJava
 
 object RouteLinkAnalyzer extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    val referenceStructure = new RouteLinkAnalyzer().analyze(context.relation)
+    val links = new RouteLinkAnalyzer().analyze(context.relation)
     context.copy(
-      _referenceStructure = Some(referenceStructure)
+      _links = Some(links)
     )
   }
 }
 
 class RouteLinkAnalyzer(traceEnabled: Boolean = false) {
 
-  def analyze(relation: Relation): ReferenceStructure = {
+  def analyze(relation: Relation): RouteLinks = {
     val referenceRelation = toJavaRelation(relation)
     val analyzer = new ReferenceLinkAnalyzer(referenceRelation, referenceRelation.getMembers(), traceEnabled)
-    val javaReferenceLinks = analyzer.analyze().asScala.toSeq
-    val links = javaReferenceLinks.map(toScalaLink)
-    ReferenceStructure(links)
+    val javaWayLinks = analyzer.analyze().asScala.iterator
+
+    val links = relation.members.flatMap { member =>
+      member match {
+        case nodeMember: NodeMember =>
+          Some(
+            RouteLinkNode(
+              nodeMember.role,
+              nodeMember.node
+            )
+          )
+        case wayMember: WayMember =>
+          Some(
+            RouteLinkWay(
+              toScalaLink(javaWayLinks.next()),
+              wayMember.role,
+              wayMember.way
+            )
+          )
+
+        case relationIdMember: RelationIdMember =>
+          Some(
+            RouteLinkRelationId(
+              relationIdMember.role,
+              relationIdMember.relationId
+            )
+          )
+        case _ => None
+      }
+    }
+
+    RouteLinks(links)
   }
 
   private def toJavaRelation(relation: Relation): reference.Relation = {

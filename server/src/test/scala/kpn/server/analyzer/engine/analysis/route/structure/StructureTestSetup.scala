@@ -18,7 +18,7 @@ import org.scalamock.scalatest.MockFactory
 class StructureTestSetup(val data: Data) extends MockFactory {
 
   def elementGroups(traceEnabled: Boolean = false): Seq[Seq[String]] = {
-    val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled)
+    val elementGroups = StructureElementAnalyzer.analyze(RouteNodeAnalysis(), relation.members, traceEnabled)
     if (traceEnabled) {
       println("\nResult:")
       elementGroups.zipWithIndex.map { case (elementGroup, groupIndex) =>
@@ -40,7 +40,7 @@ class StructureTestSetup(val data: Data) extends MockFactory {
   }
 
   def structure(traceEnabled: Boolean = false): TestStructure = {
-    val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled)
+    val elementGroups = StructureElementAnalyzer.analyze(RouteNodeAnalysis(), relation.members, traceEnabled)
     TestStructure.from(new StructureAnalyzer(traceEnabled).analyze(RouteNodeAnalysis(), elementGroups))
   }
 

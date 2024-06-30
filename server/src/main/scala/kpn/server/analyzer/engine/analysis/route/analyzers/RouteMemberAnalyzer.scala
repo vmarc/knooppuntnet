@@ -11,6 +11,7 @@ import kpn.core.analysis.RouteMemberWay
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkWay
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
@@ -38,7 +39,10 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
       TagInterpreter.isValidNetworkMember(context.scopedNetworkType, member)
     }
 
-    val links = context.referenceStructure.links
+    val links = context.links.links.flatMap {
+      case routeWayLink: RouteLinkWay => Some(routeWayLink)
+      case _ => None
+    }
 
     //links.zip(relationMembers).toSeq.map { case(link, w) => LinkInfo(link, w)}
 
@@ -85,8 +89,8 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
           .id == n.id))
         val name = way.tagValue("name").getOrElse("")
 
-        val fromNode = if (link.direction == LinkDirection.Forward) way.nodes.head else way.nodes.last
-        val toNode = if (link.direction == LinkDirection.Backward) way.nodes.last else way.nodes.head
+        val fromNode = if (link.link.direction == LinkDirection.Forward) way.nodes.head else way.nodes.last
+        val toNode = if (link.link.direction == LinkDirection.Backward) way.nodes.last else way.nodes.head
 
         val from = if (nodeMap.isDefinedAt(fromNode.id)) {
           nodeMap(fromNode.id)
@@ -114,7 +118,7 @@ class RouteMemberAnalyzer(context: RouteAnalysisContext) {
 
         RouteMemberWay(
           name,
-          Some(link),
+          Some(link.link),
           wayMember.role,
           way,
           fromNode,

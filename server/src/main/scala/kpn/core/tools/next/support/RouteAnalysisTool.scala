@@ -22,11 +22,11 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     log.info("Start")
     analyzeRoutes(Seq(8618)) // ok route with start tenticle
     analyzeRoutes(Seq(5491)) // ok route with 2 start tenticles
-    // analyzeRoutes(Seq(13844575)) // ok route
-    //    analyzeRoutes(Seq(8831649)) // LAW-9 deel 1 - 01
-    //    analyzeRoutes(Seq(3952592)) // broken route
-    //    analyzeRoutes(Seq(7973533)) // LAW-9 super route containing other super routes
-    //    analyzeRoutes(Seq(3963819)) // route with roundabout
+    analyzeRoutes(Seq(13844575)) // ok route
+    analyzeRoutes(Seq(8831649)) // LAW-9 deel 1 - 01
+    analyzeRoutes(Seq(3952592)) // broken route
+    analyzeRoutes(Seq(7973533)) // LAW-9 super route containing other super routes
+    analyzeRoutes(Seq(3963819)) // route with roundabout
     //    buildTiles()
     log.info(s"Done")
   }

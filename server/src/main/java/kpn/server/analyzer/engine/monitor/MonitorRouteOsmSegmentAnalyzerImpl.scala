@@ -4,10 +4,11 @@ import kpn.api.common.data.WayMember
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.core.util.Haversine
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.monitor.domain.MonitorRouteOsmSegmentAnalysis
-import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
+import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.structure.ElementDirection
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteOsmSegmentAnalysis
+import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.stereotype.Component
@@ -24,7 +25,7 @@ class MonitorRouteOsmSegmentAnalyzerImpl extends MonitorRouteOsmSegmentAnalyzer 
     val nodeMap = nodes.map(node => node.id -> new Coordinate(node.lon, node.lat)).toMap
 
     val elementGroups = try {
-      StructureElementAnalyzer.analyze(wayMembers)
+      StructureElementAnalyzer.analyze(RouteNodeAnalysis(), wayMembers)
     }
     catch {
       case e: Exception =>

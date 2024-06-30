@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.common.data.WayMember
 import kpn.core.util.Haversine
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegment
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentData
@@ -16,18 +17,14 @@ import org.locationtech.jts.geom.GeometryFactory
 object RouteSegmentAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val wayMembers = context.relation.wayMembers
-    val segmentAnalysis = new RouteSegmentAnalyzer().analyze(wayMembers)
+    val segmentAnalysis = new RouteSegmentAnalyzer(context.routeNodeAnalysis).analyze(wayMembers)
     context.copy(
       _segmentAnalysis = Some(segmentAnalysis)
     )
   }
-
-  def analyze(wayMembers: Seq[WayMember]): RouteSegmentAnalysis = {
-    new RouteSegmentAnalyzer().analyze(wayMembers)
-  }
 }
 
-class RouteSegmentAnalyzer {
+class RouteSegmentAnalyzer(routeNodeAnalysis: RouteNodeAnalysis) {
 
   private val geometryFactory = new GeometryFactory
   private val log = Log(classOf[RouteSegmentAnalyzer])
@@ -35,7 +32,7 @@ class RouteSegmentAnalyzer {
   def analyze(wayMembers: Seq[WayMember]): RouteSegmentAnalysis = {
 
     val elementGroups = try {
-      StructureElementAnalyzer.analyze(wayMembers)
+      StructureElementAnalyzer.analyze(routeNodeAnalysis, wayMembers)
     }
     catch {
       case e: Exception =>
