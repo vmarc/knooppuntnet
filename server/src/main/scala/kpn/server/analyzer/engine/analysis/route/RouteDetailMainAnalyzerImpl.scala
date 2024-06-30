@@ -46,6 +46,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRou
 import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkAnalyzer
+import kpn.server.analyzer.engine.analysis.route.structure.RoutePathAnalyzer
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
@@ -82,6 +83,7 @@ class RouteDetailMainAnalyzerImpl(
 
         RouteNodeAnalyzer,
         RouteLinkAnalyzer,
+        RoutePathAnalyzer,
 
         RouteSegmentAnalyzer,
         RouteStructureAnalyzer,
