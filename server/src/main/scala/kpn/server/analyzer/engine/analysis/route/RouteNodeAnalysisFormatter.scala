@@ -2,35 +2,25 @@ package kpn.server.analyzer.engine.analysis.route
 
 class RouteNodeAnalysisFormatter(analysis: RouteNodeAnalysis) {
 
-  def string: String = {
-    List(freeNodes, startNodes, endNodes, redundantNodes, reversed).flatten.mkString(",")
+  def nodeStrings: Seq[String] = {
+    List(
+      nodeStrings("Free", analysis.freeNodes),
+      nodeStrings("Start", analysis.startNodes),
+      nodeStrings("End", analysis.endNodes),
+      nodeStrings("Redundant", analysis.redundantNodes),
+      if (analysis.reversed) Seq("(reversed)") else Seq.empty
+    ).flatten
   }
 
-  private def freeNodes: Option[String] = formatNodes("Free", analysis.freeNodes)
-
-  private def startNodes: Option[String] = formatNodes("Start", analysis.startNodes)
-
-  private def endNodes: Option[String] = formatNodes("End", analysis.endNodes)
-
-  private def redundantNodes: Option[String] = formatNodes("Redundant", analysis.redundantNodes)
-
-  private def reversed: Option[String] = if (analysis.reversed) Some("(reversed)") else None
-
-  private def formatNodes(title: String, nodes: Seq[RouteNode]): Option[String] = {
-    if (nodes.nonEmpty) {
-      val nodeString = nodes.map(formatRouteNode).mkString(",")
-      Some(s"$title=($nodeString)")
-    }
-    else {
-      None
-    }
+  private def nodeStrings(title: String, routeNodeDatas: Seq[RouteNodeData]): Seq[String] = {
+    routeNodeDatas.map(n => s"$title=(${nodeString(n)})")
   }
 
-  private def formatRouteNode(routeNode: RouteNode): String = "%s/%s/%s/%s%s".format(
-    routeNode.node.id,
-    routeNode.name,
-    routeNode.alternateName,
-    if (routeNode.definedInRelation) "R" else "",
-    if (routeNode.definedInWay) "W" else ""
-  )
+  private def nodeString(routeNodeData: RouteNodeData): String = {
+    "%s/%s/%s".format(
+      routeNodeData.node.id,
+      routeNodeData.name,
+      if (routeNodeData.isInWay) "W" else "R",
+    )
+  }
 }

@@ -5,6 +5,7 @@ import kpn.core.data.Data
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -39,7 +40,8 @@ class StructureTestSetup(val data: Data) extends MockFactory {
   }
 
   def structure(traceEnabled: Boolean = false): TestStructure = {
-    TestStructure.from(new StructureAnalyzer(traceEnabled).analyze(relation))
+    val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled)
+    TestStructure.from(new StructureAnalyzer(traceEnabled).analyze(RouteNodeAnalysis(), elementGroups))
   }
 
   def analyze(): RouteDetailAnalysis = {

@@ -8,8 +8,10 @@ import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Fact.RouteNotOneWay
 import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteUnusedSegments
+import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.structure.StructureAnalyzer
 
 import scala.collection.mutable.ListBuffer
 
@@ -25,10 +27,15 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
   facts ++= context.facts
 
   def analyze: RouteAnalysisContext = {
-    analyzeSegmentAnalysis(context.segmentAnalysis)
+    analyzeStructure(context.routeNodeAnalysis, context.segmentAnalysis)
   }
 
-  private def analyzeSegmentAnalysis(segmentAnalysis: RouteSegmentAnalysis): RouteAnalysisContext = {
+  private def analyzeStructure(
+    routeNodeAnalysis: RouteNodeAnalysis,
+    segmentAnalysis: RouteSegmentAnalysis
+  ): RouteAnalysisContext = {
+
+    val structure = new StructureAnalyzer().analyze(routeNodeAnalysis, segmentAnalysis.elementGroups)
 
     val oneWayRouteForward = context.relation.hasTag("direction", "forward")
     val oneWayRouteBackward = context.relation.hasTag("direction", "backward")
@@ -39,8 +46,8 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
         (tag.key == "signed_direction" && tag.value == "yes")
     }
 
-    val hasValidForwardPath = segmentAnalysis.structure.forwardPath.isDefined // TODO redesign && !structure.forwardPath.exists(_.broken)
-    val hasValidBackwardPath = segmentAnalysis.structure.backwardPath.isDefined // TODO redesign && !structure.backwardPath.exists(_.broken)
+    val hasValidForwardPath = structure.forwardPath.isDefined // TODO redesign && !structure.forwardPath.exists(_.broken)
+    val hasValidBackwardPath = structure.backwardPath.isDefined // TODO redesign && !structure.backwardPath.exists(_.broken)
 
     if (hasValidForwardPath) {
       if (hasValidBackwardPath) {
@@ -74,19 +81,20 @@ class RouteStructureAnalyzer(context: RouteAnalysisContext) {
     }
 
     if (!Seq(RouteNodeMissingInWays, RouteOneWay).exists(facts.contains)) {
-      if (segmentAnalysis.structure.forwardPath.isEmpty || /* segmentAnalysis.structure.forwardPath.get.broken ||*/
-        segmentAnalysis.structure.backwardPath.isEmpty /*|| segmentAnalysis.structure.backwardPath.get.broken*/ ) {
+      if (structure.forwardPath.isEmpty || /* segmentAnalysis.structure.forwardPath.get.broken ||*/
+        structure.backwardPath.isEmpty /*|| segmentAnalysis.structure.backwardPath.get.broken*/ ) {
         facts += RouteNotContinious
       }
     }
 
     if (!Seq(RouteNotForward, RouteNotBackward).exists(facts.contains)) {
-      if (segmentAnalysis.structure.otherPaths.nonEmpty) {
+      if (structure.otherPaths.nonEmpty) {
         facts += RouteUnusedSegments
       }
     }
 
     context.copy(
+      _newStructure = Some(structure),
       facts = facts.toSeq,
     )
   }

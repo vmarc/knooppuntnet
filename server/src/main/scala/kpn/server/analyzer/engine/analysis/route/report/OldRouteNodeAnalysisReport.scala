@@ -1,29 +1,32 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
-import kpn.server.analyzer.engine.analysis.route.RouteNodeData
+import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
-object RouteNodeAnalysisReport {
+object OldRouteNodeAnalysisReport {
 
   def report(context: RouteAnalysisContext): String = {
-    val routeNodeAnalysis = context.routeNodeAnalysis
-    if (routeNodeAnalysis.startNodes.nonEmpty || routeNodeAnalysis.endNodes.nonEmpty || routeNodeAnalysis.freeNodes.nonEmpty || routeNodeAnalysis.redundantNodes.nonEmpty) {
+    val routeNodeAnalysis = context.oldRouteNodeAnalysis
+    if (routeNodeAnalysis.routeNodes.nonEmpty) {
       s"""
          |<table>
          |  <tr class="header">
-         |    <td colspan="4">RouteNodeAnalysis</td>
+         |    <td colspan="8">OldRouteNodeAnalysis</td>
          |  </tr>
          |  <tr class="header">
-         |    <td>type</td>
+         |    <td colspan="2">type</td>
          |    <td>node</td>
          |    <td>name</td>
-         |    <td>isInWay</td>
+         |    <td>alternateName</td>
+         |    <td>longName</td>
+         |    <td>definedInRelation</td>
+         |    <td>definedInWay</td>
          |  </tr>
+         |  ${routeNodeAnalysis.freeNodes.map(n => routeNodeReport("freeNode", n)).mkString}
          |  ${routeNodeAnalysis.startNodes.map(n => routeNodeReport("startNode", n)).mkString}
          |  ${routeNodeAnalysis.endNodes.map(n => routeNodeReport("endNode", n)).mkString}
-         |  ${routeNodeAnalysis.freeNodes.map(n => routeNodeReport("freeNode", n)).mkString}
          |  ${routeNodeAnalysis.redundantNodes.map(n => routeNodeReport("redundantNode", n)).mkString}
-         |  <tr><td colspan="4">reversed: ${routeNodeAnalysis.reversed}</td></tr>
+         |  <tr><td colspan="8">reversed: ${routeNodeAnalysis.reversed}</td></tr>
          |</table>
          |""".stripMargin
     }
@@ -38,12 +41,16 @@ object RouteNodeAnalysisReport {
     }
   }
 
-  private def routeNodeReport(nodeType: String, routeNode: RouteNodeData): String = {
+  private def routeNodeReport(nodeType: String, routeNode: RouteNode): String = {
     s"""<tr>
        |  <td>$nodeType</td>
+       |  <td>${"" + routeNode.nodeType}</td>
        |  <td>${routeNode.node.id}</td>
        |  <td>${routeNode.name}</td>
-       |  <td>${yes(routeNode.isInWay)}</td>
+       |  <td>${routeNode.alternateName}</td>
+       |  <td>${routeNode.longName.getOrElse("")}</td>
+       |  <td>${yes(routeNode.definedInRelation)}</td>
+       |  <td>${yes(routeNode.definedInWay)}</td>
        |</tr>
        |""".stripMargin
   }

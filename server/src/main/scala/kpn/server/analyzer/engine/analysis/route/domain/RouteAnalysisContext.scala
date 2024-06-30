@@ -20,6 +20,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.structure.ReferenceStructure
+import kpn.server.analyzer.engine.analysis.route.structure.Structure
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
@@ -49,6 +50,7 @@ case class RouteAnalysisContext(
   suspiciousWayIds: Option[Seq[Long]] = None,
   _fragmentMap: Option[FragmentMap] = None,
   _structure: Option[RouteStructure] = None,
+  _newStructure: Option[Structure] = None,
   routeMembers: Option[Seq[RouteMember]] = None,
   _routeMap: Option[RouteMap] = None,
   ways: Option[Seq[Way]] = None,
@@ -169,6 +171,8 @@ case class RouteAnalysisContext(
   def fragmentMap: FragmentMap = _fragmentMap.getOrElse(throw new PreconditionMissingException)
 
   def structure: RouteStructure = _structure.getOrElse(throw new PreconditionMissingException)
+
+  def newStructure: Structure = _newStructure.getOrElse(throw new PreconditionMissingException)
 
   def geometryDigest: String = _geometryDigest.getOrElse(throw new PreconditionMissingException)
 }

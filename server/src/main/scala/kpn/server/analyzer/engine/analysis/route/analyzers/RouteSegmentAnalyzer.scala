@@ -8,7 +8,6 @@ import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.ElementDirection
-import kpn.server.analyzer.engine.analysis.route.structure.StructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import org.locationtech.jts.geom.Coordinate
@@ -43,8 +42,6 @@ class RouteSegmentAnalyzer {
         log.error("Could not analyze structure", e)
         Seq.empty
     }
-
-    val structure = new StructureAnalyzer().analyze(elementGroups)
 
     val nodeMap = {
       val nodes = wayMembers.flatMap(_.way.nodes).distinct
@@ -104,8 +101,7 @@ class RouteSegmentAnalyzer {
     RouteSegmentAnalysis(
       osmDistance,
       elementGroups,
-      routeSegments,
-      structure
+      routeSegments
     )
   }
 }

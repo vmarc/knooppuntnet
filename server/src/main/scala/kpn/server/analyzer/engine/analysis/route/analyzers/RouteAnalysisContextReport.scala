@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.core.tools.config.Dirs
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.report.OldRouteNodeAnalysisReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteFactsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteMembersReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteNameAnalysisReport
@@ -35,11 +36,12 @@ class RouteAnalysisContextReport(context: RouteAnalysisContext) {
        |${RouteSummaryReport.report(context)}
        |${RouteFactsReport.report(context)}
        |${RouteNodeAnalysisReport.report(context)}
+       |${OldRouteNodeAnalysisReport.report(context)}
        |${RouteNameAnalysisReport.report(context)}
        |${RouteMembersReport.report(context)}
        |${RouteSegmentsReport.report(context)}
-       |${StructureElementGroupsReport.report(context.segmentAnalysis.elementGroups)}
-       |${StructureReport.report(context.segmentAnalysis.structure)}
+       |${new StructureElementGroupsReport(context).report}
+       |${StructureReport.report(context.newStructure)}
        |</body>
        |</html>
        |""".stripMargin

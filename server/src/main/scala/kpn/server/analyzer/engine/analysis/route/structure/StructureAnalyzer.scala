@@ -1,15 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
-import kpn.api.custom.Relation
+import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 
 class StructureAnalyzer(traceEnabled: Boolean = false) {
 
-  def analyze(relation: Relation): Structure = {
-    val elementGroups = StructureElementAnalyzer.analyze(relation.members, traceEnabled)
-    analyze(elementGroups)
-  }
+  def analyze(routeNodeAnalysis: RouteNodeAnalysis, elementGroups: Seq[StructureElementGroup]): Structure = {
 
-  def analyze(elementGroups: Seq[StructureElementGroup]): Structure = {
+    val mainStartNode = routeNodeAnalysis.startNodes.lastOption
+    val mainEndNode = routeNodeAnalysis.endNodes.headOption
+
     if (elementGroups.size != 1) {
       val otherPaths: Seq[StructurePath] = {
         elementGroups.map { elementGroup =>
