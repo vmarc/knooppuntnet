@@ -3,12 +3,12 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.core.tools.config.Dirs
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.report.OldRouteNodeAnalysisReport
+import kpn.server.analyzer.engine.analysis.route.report.OldRouteSegmentsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteFactsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteLinksReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteNameAnalysisReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteNodeAnalysisReport
-import kpn.server.analyzer.engine.analysis.route.report.RoutePathsReport
-import kpn.server.analyzer.engine.analysis.route.report.RouteSegmentsReport
+import kpn.server.analyzer.engine.analysis.route.report.RouteSegmentReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteSummaryReport
 import kpn.server.analyzer.engine.analysis.route.report.StructureElementGroupsReport
 import kpn.server.analyzer.engine.analysis.route.report.StructureReport
@@ -40,8 +40,8 @@ class RouteAnalysisContextReport(context: RouteAnalysisContext) {
        |${OldRouteNodeAnalysisReport.report(context)}
        |${RouteNameAnalysisReport.report(context)}
        |${RouteLinksReport.report(context)}
-       |${RoutePathsReport.report(context)}
-       |${RouteSegmentsReport.report(context)}
+       |${RouteSegmentReport.report(context)}
+       |${OldRouteSegmentsReport.report(context)}
        |${new StructureElementGroupsReport(context).report}
        |${StructureReport.report(context.newStructure)}
        |</body>

@@ -3,20 +3,20 @@ package kpn.server.analyzer.engine.analysis.route.report
 import kpn.core.analysis.LinkDirection
 import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.structure.NewSegment
+import kpn.server.analyzer.engine.analysis.route.structure.NewRouteSegment
+import kpn.server.analyzer.engine.analysis.route.structure.NewRouteSegmentElement
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLink
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkNode
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkRelationId
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkWay
-import kpn.server.analyzer.engine.analysis.route.structure.RoutePath
 
-object RoutePathsReport {
+object RouteSegmentReport {
   def report(context: RouteAnalysisContext): String = {
-    new RoutePathsReport(context).report()
+    new RouteSegmentReport(context).report()
   }
 }
 
-class RoutePathsReport(context: RouteAnalysisContext) {
+class RouteSegmentReport(context: RouteAnalysisContext) {
   def report(): String = {
     s"""<table>
        |  <tr class="header">
@@ -35,7 +35,7 @@ class RoutePathsReport(context: RouteAnalysisContext) {
   }
 
   private def segments(): String = {
-    context.path.segments.map { segment =>
+    context.segments.map { segment =>
       s"""<tr>
          |  <td colspan="5">
          |    Segment ${segment.id}
@@ -54,35 +54,33 @@ class RoutePathsReport(context: RouteAnalysisContext) {
     }.mkString
   }
 
-  private def paths(segment: NewSegment): String = {
-    segment.paths.map { path =>
+  private def paths(segment: NewRouteSegment): String = {
+    segment.elements.map { element =>
       s"""<tr>
          |  <td colspan="5">
-         |    Path ${path.id} ${path.direction.toString.toLowerCase}
+         |    Segment element ${element.id} ${element.direction.toString.toLowerCase}
          |  </td>
          |  <td>
-         |    ${ReportUtil.osmNodeLink(path.fromNodeId)}
+         |    ${ReportUtil.osmNodeLink(element.fromNodeId)}
          |  </td>
          |  <td>
-         |    ${ReportUtil.osmNodeLink(path.toNodeId)}
+         |    ${ReportUtil.osmNodeLink(element.toNodeId)}
          |  </td>
          |  <td>
          |  </td>
          |</tr>
-         |${pathLinks(path)}
+         |${elementLinks(element)}
          |""".stripMargin
     }.mkString
   }
 
-  private def pathLinks(path: RoutePath): String = {
-    path.links.map { routeLink =>
-      routeMemberRow(routeLink)
-    }.mkString
+  private def elementLinks(element: NewRouteSegmentElement): String = {
+    element.links.map(elementLink).mkString
   }
 
-  private def routeMemberRow(routeLink: RouteLink): String = {
+  private def elementLink(link: RouteLink): String = {
 
-    val (elementType, elementId, name, from, to, networkNodes) = routeLink match {
+    val (elementType, elementId, name, from, to, networkNodes) = link match {
       case routeLinkNode: RouteLinkNode =>
         ("node", routeLinkNode.node.id, "TODO", "", "", "")
       case routeLinkWay: RouteLinkWay =>
@@ -101,19 +99,19 @@ class RoutePathsReport(context: RouteAnalysisContext) {
 
     s"""<tr>
        |  <td>
-       |    ${routeLink.idString}
+       |    ${link.idString}
        |  </td>
        |  <td style="padding:0">
-       |    <img src="images/${routeLink.linkName}.png"/>
+       |    <img src="images/${link.linkName}.png"/>
        |  </td>
        |  <td>
-       |    <pre>${routeLink.linkDetail}</pre>
+       |    <pre>${link.linkDetail}</pre>
        |  </td>
        |  <td>
-       |    <a href="https://www.openstreetmap.org/$elementType/$elementId">$elementId</a>
+       |    ${ReportUtil.osmLink(elementType, elementId)}
        |  </td>
        |  <td>
-       |    ${routeLink.role.getOrElse("")}
+       |    ${link.role.getOrElse("")}
        |  </td>
        |  <td>
        |    $from

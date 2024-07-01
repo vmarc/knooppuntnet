@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.report
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
-object RouteSegmentsReport {
+object OldRouteSegmentsReport {
   def report(context: RouteAnalysisContext): String = {
     s"""<table>
        |<tr class="header">

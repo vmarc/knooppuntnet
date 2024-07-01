@@ -18,6 +18,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteOkRouteAnal
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
@@ -35,7 +36,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameFromNodesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNetworkTypeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
@@ -46,7 +46,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRou
 import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkAnalyzer
-import kpn.server.analyzer.engine.analysis.route.structure.RoutePathAnalyzer
+import kpn.server.analyzer.engine.analysis.route.structure.RouteSegmentAnalyzer
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
@@ -83,9 +83,9 @@ class RouteDetailMainAnalyzerImpl(
 
         RouteNodeAnalyzer,
         RouteLinkAnalyzer,
-        RoutePathAnalyzer,
-
         RouteSegmentAnalyzer,
+
+        OldRouteSegmentAnalyzer,
         RouteStructureAnalyzer,
 
         RouteFragmentAnalyzer,

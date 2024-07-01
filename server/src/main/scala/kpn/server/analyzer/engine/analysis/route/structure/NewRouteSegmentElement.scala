@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
-case class RoutePath(
+case class NewRouteSegmentElement(
   id: Long,
   direction: RoutePathDirection,
   fromNodeId: Long,

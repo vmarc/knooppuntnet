@@ -7,6 +7,8 @@ import scala.annotation.tailrec
 
 object Util {
 
+  def ids: Iterator[Long] = (1L to Int.MaxValue).iterator
+
   def isDigits(string: String): Boolean = string.nonEmpty && string.forall(_.isDigit)
 
   def hasDigits(string: String): Boolean = string.nonEmpty && string.exists(_.isDigit)

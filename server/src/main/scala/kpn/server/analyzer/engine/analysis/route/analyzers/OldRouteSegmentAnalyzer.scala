@@ -14,20 +14,20 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 
-object RouteSegmentAnalyzer extends RouteAnalyzer {
+object OldRouteSegmentAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val wayMembers = context.relation.wayMembers
-    val segmentAnalysis = new RouteSegmentAnalyzer(context.routeNodeAnalysis).analyze(wayMembers)
+    val segmentAnalysis = new OldRouteSegmentAnalyzer(context.routeNodeAnalysis).analyze(wayMembers)
     context.copy(
       _segmentAnalysis = Some(segmentAnalysis)
     )
   }
 }
 
-class RouteSegmentAnalyzer(routeNodeAnalysis: RouteNodeAnalysis) {
+class OldRouteSegmentAnalyzer(routeNodeAnalysis: RouteNodeAnalysis) {
 
   private val geometryFactory = new GeometryFactory
-  private val log = Log(classOf[RouteSegmentAnalyzer])
+  private val log = Log(classOf[OldRouteSegmentAnalyzer])
 
   def analyze(wayMembers: Seq[WayMember]): RouteSegmentAnalysis = {
 
