@@ -10,24 +10,24 @@ import kpn.core.analysis.RouteMemberNode
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkWay
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteMemberAnalyzer(context).analyze
   }
 }
 
-class RouteMemberAnalyzer(context: RouteAnalysisContext) {
+class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     val routeMembers = analyzeRouteMembers(context.oldRouteNodeAnalysis)
     if (routeMembers.exists(!_.accessible)) {
-      context.copy(routeMembers = Some(routeMembers)).withFact(RouteInaccessible)
+      context.copy(_routeMembers = Some(routeMembers)).withFact(RouteInaccessible)
     }
     else {
-      context.copy(routeMembers = Some(routeMembers))
+      context.copy(_routeMembers = Some(routeMembers))
     }
   }
 

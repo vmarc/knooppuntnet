@@ -7,7 +7,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegment
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.ElementDirection
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import kpn.server.analyzer.engine.monitor.MonitorRouteAnalysisSupport
@@ -15,7 +15,7 @@ import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 
 object OldRouteSegmentAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     val wayMembers = context.relation.wayMembers
     val segmentAnalysis = new OldRouteSegmentAnalyzer(context.routeNodeAnalysis).analyze(wayMembers)
     context.copy(

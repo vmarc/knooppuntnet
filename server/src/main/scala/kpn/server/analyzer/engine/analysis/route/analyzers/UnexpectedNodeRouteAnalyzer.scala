@@ -3,17 +3,17 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.common.data.Node
 import kpn.api.custom.Fact.RouteUnexpectedNode
 import kpn.core.analysis.TagInterpreter
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object UnexpectedNodeRouteAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new UnexpectedNodeRouteAnalyzer(context).analyze
   }
 }
 
-class UnexpectedNodeRouteAnalyzer(context: RouteAnalysisContext) {
+class UnexpectedNodeRouteAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     val unexpectedNodeIds = findUnexpectedNodeIds
     context.copy(
         unexpectedNodeIds = Some(unexpectedNodeIds)

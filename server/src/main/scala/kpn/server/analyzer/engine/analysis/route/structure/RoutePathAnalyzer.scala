@@ -2,10 +2,10 @@ package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object RoutePathAnalyzer extends RouteAnalyzer {
-  override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  override def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     val paths = new RoutePathAnalyzer(context).analyze()
     val updatedSegments = context.segments.map { segment =>
       segment.copy(
@@ -34,7 +34,7 @@ object RoutePathAnalyzer extends RouteAnalyzer {
   }
 }
 
-class RoutePathAnalyzer(context: RouteAnalysisContext) {
+class RoutePathAnalyzer(context: RouteDetailAnalysisContext) {
 
   private val pathIds = Util.ids
 

@@ -3,10 +3,10 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.custom.Fact
 import kpn.core.util.Util.isDigits
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object RouteNameFromNodesAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     if (context.nodeNetwork) {
       new RouteNameFromNodesAnalyzer(context).analyze
     }
@@ -16,11 +16,11 @@ object RouteNameFromNodesAnalyzer extends RouteAnalyzer {
   }
 }
 
-class RouteNameFromNodesAnalyzer(context: RouteAnalysisContext) {
+class RouteNameFromNodesAnalyzer(context: RouteDetailAnalysisContext) {
 
   private val routeNodeAnalysis = context.oldRouteNodeAnalysis
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     if (context.routeNameAnalysis.name.isDefined) {
       context // we already have a route name, no need to try to derive from node names
     }
@@ -42,7 +42,7 @@ class RouteNameFromNodesAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def routeNameFromNodeNames(startNodeName: String, endNodeName: String): RouteAnalysisContext = {
+  private def routeNameFromNodeNames(startNodeName: String, endNodeName: String): RouteDetailAnalysisContext = {
     val separator = if (isDigits(startNodeName) && isDigits(endNodeName)) {
       "-"
     }

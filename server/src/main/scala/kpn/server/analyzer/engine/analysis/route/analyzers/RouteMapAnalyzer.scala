@@ -15,21 +15,21 @@ import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.Path
 import kpn.server.analyzer.engine.analysis.route.segment.Segment
 
 object RouteMapAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteMapAnalyzer(context).analyze
   }
 }
 
-class RouteMapAnalyzer(context: RouteAnalysisContext) {
+class RouteMapAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
 
-    val ways: Seq[Way] = context.routeMembers.get.flatMap {
+    val ways: Seq[Way] = context._routeMembers.get.flatMap {
       case w: RouteMemberWay => Some(w.way)
       case _ => None
     }
@@ -38,7 +38,7 @@ class RouteMapAnalyzer(context: RouteAnalysisContext) {
     val bounds = MapBounds(allWayNodes ++ context.oldRouteNodeAnalysis.routeNodes.map(_.node))
     val routeMap = buildRouteMap(context.oldRouteNodeAnalysis, context.structure, bounds)
     context.copy(
-      ways = Some(ways),
+      _ways = Some(ways),
       allWayNodes = Some(allWayNodes),
       _routeMap = Some(routeMap)
     )

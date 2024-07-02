@@ -13,7 +13,7 @@ import kpn.api.custom.Fact.RouteWithoutNodes
 import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.Fragment
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.segment.SegmentBuilder
@@ -22,17 +22,17 @@ import kpn.server.analyzer.engine.analysis.route.segment.SegmentFinderAbort
 import scala.collection.mutable.ListBuffer
 
 object OldRouteStructureAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new OldRouteStructureAnalyzer(context).analyze
   }
 }
 
-class OldRouteStructureAnalyzer(context: RouteAnalysisContext) {
+class OldRouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
 
   private val oldFacts: ListBuffer[Fact] = ListBuffer[Fact]()
   oldFacts ++= context.oldFacts
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     val structure = analyzeStructure(context.oldRouteNodeAnalysis)
     analyzeStructure2(context.oldRouteNodeAnalysis, structure, context.fragmentMap.all)
     context.copy(

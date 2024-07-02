@@ -36,7 +36,7 @@ object CaseStudy extends MockFactory {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(routeRelation, None /* TODO redesign - hierarchy */).get
+    routeAnalyzer.analyze(routeRelation, None /* TODO redesign - hierarchy */).get.oldRouteDetailAnalysis
   }
 
   def load(filename: String): Relation = {

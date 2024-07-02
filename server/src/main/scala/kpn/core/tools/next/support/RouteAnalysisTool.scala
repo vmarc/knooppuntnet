@@ -7,6 +7,7 @@ import kpn.core.tools.analysis.AnalysisStartToolOptions
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
 import kpn.core.util.Redesign
+import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
 
 object RouteAnalysisTool {
   def main(args: Array[String]): Unit = {
@@ -46,10 +47,11 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
       try {
         config.routeDetailMainAnalyzer.analyze(relation, hierarchy) match {
           case None =>
-          case Some(routeAnalysis) =>
-            config.routeRepository.saveRouteDetail(routeAnalysis.routeDetail)
+          case Some(context) =>
+            val routeDetailDoc = new RouteDetailDocBuilder(context).build()
+            config.routeRepository.saveRouteDetail(routeDetailDoc)
             // next analysis should go in second pass
-            config.routeMainAnalyzer.analyze(routeAnalysis.routeDetail) match {
+            config.routeMainAnalyzer.analyze(routeDetailDoc) match {
               case Some(routeDoc) => config.routeRepository.saveRoute(routeDoc)
               case None =>
             }

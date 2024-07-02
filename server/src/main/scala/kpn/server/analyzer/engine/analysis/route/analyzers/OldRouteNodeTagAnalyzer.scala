@@ -4,11 +4,11 @@ import kpn.api.common.data.Node
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTagAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 
 object OldRouteNodeTagAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     if (context.nodeNetwork) {
       new OldRouteNodeTagAnalyzer(context).analyze
     }
@@ -18,9 +18,9 @@ object OldRouteNodeTagAnalyzer extends RouteAnalyzer {
   }
 }
 
-class OldRouteNodeTagAnalyzer(context: RouteAnalysisContext) {
+class OldRouteNodeTagAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     val nodes = findReferencedNodes()
     val routeNodeInfos = nodes.flatMap { node =>
       NodeTagAnalyzer.analyze(node).flatMap { analysis =>

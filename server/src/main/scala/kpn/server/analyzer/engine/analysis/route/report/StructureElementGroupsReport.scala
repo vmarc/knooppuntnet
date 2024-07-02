@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
 import kpn.server.analyzer.engine.analysis.route.RouteNodeData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElement
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementGroup
 import kpn.server.analyzer.engine.analysis.route.structure.StructureFragment
 
-class StructureElementGroupsReport(context: RouteAnalysisContext) {
+class StructureElementGroupsReport(context: RouteDetailAnalysisContext) {
 
   def report: String = {
 

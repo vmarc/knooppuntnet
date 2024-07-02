@@ -37,7 +37,7 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest with MockFactory {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val routeAnalysis = routeAnalyzer.analyze(relation, None).get
-    routeAnalysis.routeDetail.facts.shouldMatchTo(Seq(RouteWithoutWays, RouteBroken))
+    val context = routeAnalyzer.analyze(relation, None).get
+    context.facts.shouldMatchTo(Seq(RouteWithoutWays, RouteBroken))
   }
 }

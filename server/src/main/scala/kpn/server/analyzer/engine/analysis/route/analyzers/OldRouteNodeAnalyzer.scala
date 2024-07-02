@@ -9,7 +9,7 @@ import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 
 import scala.collection.mutable.ListBuffer
@@ -20,7 +20,7 @@ import scala.collection.mutable.ListBuffer
  * are considered nodes of type redundant.
  */
 object OldRouteNodeAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     if (context.nodeNetwork) {
       new OldRouteNodeAnalyzer(context).analyze
     }
@@ -30,7 +30,7 @@ object OldRouteNodeAnalyzer extends RouteAnalyzer {
   }
 }
 
-class OldRouteNodeAnalyzer(context: RouteAnalysisContext) {
+class OldRouteNodeAnalyzer(context: RouteDetailAnalysisContext) {
 
   private val nodes = findNodes()
   private val nodesInWays = findNodesInWays(nodes)
@@ -43,7 +43,7 @@ class OldRouteNodeAnalyzer(context: RouteAnalysisContext) {
 
   val oldFacts = ListBuffer[Fact]()
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     val routeNodeAnalysis = if (nodes.isEmpty) {
       oldFacts += RouteWithoutNodes
       OldRouteNodeAnalysis()

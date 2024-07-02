@@ -5,7 +5,7 @@ import kpn.api.custom.Fact.RouteWithoutWays
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class WithoutWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -30,7 +30,7 @@ class WithoutWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no RouteWithoutWays fact in a superroute") {
     val relation = newRelation(tags = Tags.from("type" -> "superroute"))
-    val context = RouteAnalysisContext(relation, None)
+    val context = RouteDetailAnalysisContext(relation, None)
     WithoutWaysRouteAnalyzer.analyze(context).facts.shouldMatchTo(Seq.empty)
   }
 
@@ -43,9 +43,9 @@ class WithoutWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     context.facts.shouldMatchTo(Seq.empty)
   }
 
-  private def analyze(routeTestData: RouteTestData): RouteAnalysisContext = {
+  private def analyze(routeTestData: RouteTestData): RouteDetailAnalysisContext = {
     val relation = routeTestData.data.relations(1L)
-    val context = RouteAnalysisContext(relation, None)
+    val context = RouteDetailAnalysisContext(relation, None)
     WithoutWaysRouteAnalyzer.analyze(context)
   }
 }

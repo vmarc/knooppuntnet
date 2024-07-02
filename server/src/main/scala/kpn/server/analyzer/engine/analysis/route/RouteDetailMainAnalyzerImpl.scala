@@ -3,6 +3,8 @@ package kpn.server.analyzer.engine.analysis.route
 import kpn.api.common.route.Both
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.WayDirection
+import kpn.api.custom.Fact
+import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Relation
 import kpn.api.custom.Tag
 import kpn.core.analysis.RouteMember
@@ -21,7 +23,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyz
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteContextAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
@@ -44,13 +45,14 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.SuspiciousWaysRouteAn
 import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedNodeRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkAnalyzer
 import kpn.server.analyzer.engine.analysis.route.structure.RoutePathAnalyzer
 import kpn.server.analyzer.engine.analysis.route.structure.RouteSegmentAnalyzer
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
+import scala.collection.mutable.ListBuffer
 
 @Component
 class RouteDetailMainAnalyzerImpl(
@@ -59,10 +61,10 @@ class RouteDetailMainAnalyzerImpl(
   routeTileAnalyzer: RouteTileAnalyzer
 ) extends RouteDetailMainAnalyzer {
 
-  override def analyze(relation: Relation, hierarchy: Option[RouteRelation]): Option[RouteDetailAnalysis] = {
+  override def analyze(relation: Relation, hierarchy: Option[RouteRelation]): Option[RouteDetailAnalysisContext] = {
     Log.context("route=%07d".format(relation.id)) {
 
-      val context = RouteAnalysisContext(relation, hierarchy)
+      val context = RouteDetailAnalysisContext(relation, hierarchy)
 
       val analyzers: List[RouteAnalyzer] = List(
         RouteTagAnalyzer,
@@ -113,12 +115,35 @@ class RouteDetailMainAnalyzerImpl(
   }
 
   @tailrec
-  private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): Option[RouteDetailAnalysis] = {
+  private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteDetailAnalysisContext): Option[RouteDetailAnalysisContext] = {
     if (context.abort) {
       None
     }
     else if (analyzers.isEmpty) {
-      Some(new RouteAnalysisBuilder(context).build)
+
+      val facts: ListBuffer[Fact] = ListBuffer[Fact]()
+      facts ++= context.facts
+      if (facts.exists(_.isError)) {
+        if (!facts.contains(RouteBroken)) {
+          facts += RouteBroken
+        }
+      }
+
+      val oldFacts: ListBuffer[Fact] = ListBuffer[Fact]()
+      oldFacts ++= context.oldFacts
+      if (oldFacts.exists(_.isError)) {
+        oldFacts += RouteBroken
+        if (!oldFacts.contains(RouteBroken)) {
+          oldFacts += RouteBroken
+        }
+      }
+
+      Some(
+        context.copy(
+          facts = facts.toSeq,
+          oldFacts = oldFacts.toSeq,
+        )
+      )
     }
     else {
       val newContext = analyzers.head.analyze(context)

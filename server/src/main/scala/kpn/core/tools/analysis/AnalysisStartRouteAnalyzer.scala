@@ -1,14 +1,17 @@
 package kpn.core.tools.analysis
 
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Relation
+import kpn.core.doc.RouteDoc
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -79,14 +82,16 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
       try {
         config.routeDetailMainAnalyzer.analyze(relation, hierarchy) match {
           case None =>
-          case Some(routeAnalysis) =>
-            config.routeRepository.saveRouteDetail(routeAnalysis.routeDetail)
+          case Some(context) =>
+            val routeDetailDoc = new RouteDetailDocBuilder(context).build()
+            config.routeRepository.saveRouteDetail(routeDetailDoc)
             // TODO redesign - move to phase 2
-            config.routeMainAnalyzer.analyze(routeAnalysis.routeDetail) match {
-              case Some(routeDoc) => config.routeRepository.saveRoute(routeDoc)
+            config.routeMainAnalyzer.analyze(routeDetailDoc) match {
               case None =>
+              case Some(routeDoc) =>
+                config.routeRepository.saveRoute(routeDoc)
+                saveRouteChange(routeDoc)
             }
-            saveRouteChange(routeAnalysis)
         }
       } catch {
         case e: Exception =>
@@ -96,28 +101,40 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
     }
   }
 
-  private def saveRouteChange(routeAnalysis: RouteDetailAnalysis): Unit = {
+  private def saveRouteChange(routeDoc: RouteDoc): Unit = {
 
-    val key = config.changeSetContext.buildChangeKey(routeAnalysis.routeDetail.id)
-    val facts = routeAnalysis.routeDetail.facts
+    val key = config.changeSetContext.buildChangeKey(routeDoc.id)
+    val facts = routeDoc.facts
     val locationFacts = facts.filter(Fact.locationFacts.contains)
+    val routeData = RouteData(
+      routeDoc.summary.country,
+      routeDoc.summary.networkType,
+      routeDoc.summary.networkScope,
+      null, // TODO redesign - relation: RawRelation,
+      routeDoc.summary.name: String,
+      null, //
+      null, // TODO redesign - routeDoc.analysis.nodes: Seq[Node], // all nodes  in hierarchy
+      null, // TODO redesign - routeDoc.analysis.ways: Seq[RawWay], // all ways  in hierarchy
+      Seq[RawRelation](), // TODO redesign - relations: Seq[RawRelation], // all relations in hierarchy
+      facts
+    )
 
     config.changeSetRepository.saveRouteChange(
       RouteChange(
         _id = key.toId,
         key = key,
         changeType = ChangeType.InitialValue,
-        name = routeAnalysis.routeDetail.summary.name,
-        locationAnalysis = routeAnalysis.routeDetail.analysis.locationAnalysis,
+        name = routeDoc.summary.name,
+        locationAnalysis = routeDoc.analysis.locationAnalysis,
         addedToNetwork = Seq.empty,
         removedFromNetwork = Seq.empty,
         before = None,
-        after = Some(routeAnalysis.toRouteData),
+        after = Some(routeData),
         removedWays = Seq.empty,
         addedWays = Seq.empty,
         updatedWays = Seq.empty,
         diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = facts))),
-        facts = routeAnalysis.routeDetail.facts,
+        facts = routeDoc.facts,
         Seq.empty,
         Seq.empty,
         investigate = facts.nonEmpty,

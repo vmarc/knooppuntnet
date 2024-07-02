@@ -3,6 +3,8 @@ package kpn.server.analyzer.engine.analysis.route.domain
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
+import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.diff.RouteData
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteMap
 import kpn.api.custom.Country
@@ -14,10 +16,12 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.structure.NewRouteSegment
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinks
@@ -27,7 +31,7 @@ import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 
-case class RouteAnalysisContext(
+case class RouteDetailAnalysisContext(
   relation: Relation,
   hierarchy: Option[RouteRelation],
   // analysis results start here...
@@ -55,16 +59,16 @@ case class RouteAnalysisContext(
   _fragmentMap: Option[FragmentMap] = None,
   _structure: Option[RouteStructure] = None,
   _newStructure: Option[Structure] = None,
-  routeMembers: Option[Seq[RouteMember]] = None,
+  _routeMembers: Option[Seq[RouteMember]] = None,
   _routeMap: Option[RouteMap] = None,
-  ways: Option[Seq[Way]] = None,
+  _ways: Option[Seq[Way]] = None,
   allWayNodes: Option[Seq[Node]] = None,
   streets: Option[Seq[String]] = None,
   _geometryDigest: Option[String] = None,
   locationAnalysis: Option[RouteLocationAnalysis] = None,
   lastSurvey: Option[Day] = None,
   labels: Seq[String] = Seq.empty,
-  tileAnalysis: Option[RouteTileAnalysis] = None,
+  _tileAnalysis: Option[RouteTileAnalysis] = None,
   tiles: Seq[String] = Seq.empty,
   elementIds: ElementIds = ElementIds(),
   edges: Seq[RouteEdge] = Seq.empty,
@@ -77,22 +81,22 @@ case class RouteAnalysisContext(
     }
   }
 
-  def withFact(fact: Fact): RouteAnalysisContext = {
+  def withFact(fact: Fact): RouteDetailAnalysisContext = {
     copy(facts = facts :+ fact)
   }
 
-  def withOldFact(fact: Fact): RouteAnalysisContext = {
+  def withOldFact(fact: Fact): RouteDetailAnalysisContext = {
     copy(oldFacts = oldFacts :+ fact)
   }
 
-  def replaceAllFactsWith(fact: Fact): RouteAnalysisContext = {
+  def replaceAllFactsWith(fact: Fact): RouteDetailAnalysisContext = {
     copy(
       facts = Seq(fact),
       oldFacts = Seq(fact)
     )
   }
 
-  def withFact(condition: Boolean, fact: Fact): RouteAnalysisContext = {
+  def withFact(condition: Boolean, fact: Fact): RouteDetailAnalysisContext = {
     if (condition) {
       withFact(fact)
     }
@@ -101,7 +105,7 @@ case class RouteAnalysisContext(
     }
   }
 
-  def withOldFact(condition: Boolean, fact: Fact): RouteAnalysisContext = {
+  def withOldFact(condition: Boolean, fact: Fact): RouteDetailAnalysisContext = {
     if (condition) {
       withOldFact(fact)
     }
@@ -110,7 +114,7 @@ case class RouteAnalysisContext(
     }
   }
 
-  def withFacts(newFacts: Fact*): RouteAnalysisContext = {
+  def withFacts(newFacts: Fact*): RouteDetailAnalysisContext = {
     if (newFacts.nonEmpty) {
       copy(facts = facts ++ newFacts)
     }
@@ -119,7 +123,7 @@ case class RouteAnalysisContext(
     }
   }
 
-  def withOldFacts(newFacts: Fact*): RouteAnalysisContext = {
+  def withOldFacts(newFacts: Fact*): RouteDetailAnalysisContext = {
     if (newFacts.nonEmpty) {
       copy(oldFacts = oldFacts ++ newFacts)
     }
@@ -128,7 +132,7 @@ case class RouteAnalysisContext(
     }
   }
 
-  def withoutFacts(excludedFacts: Fact*): RouteAnalysisContext = {
+  def withoutFacts(excludedFacts: Fact*): RouteDetailAnalysisContext = {
     if (excludedFacts.nonEmpty) {
       copy(facts = facts.filterNot(excludedFacts.contains))
     }
@@ -137,7 +141,7 @@ case class RouteAnalysisContext(
     }
   }
 
-  def withoutOldFacts(excludedFacts: Fact*): RouteAnalysisContext = {
+  def withoutOldFacts(excludedFacts: Fact*): RouteDetailAnalysisContext = {
     if (excludedFacts.nonEmpty) {
       copy(oldFacts = oldFacts.filterNot(excludedFacts.contains))
     }
@@ -162,6 +166,8 @@ case class RouteAnalysisContext(
 
   def routeMap: RouteMap = _routeMap.getOrElse(throw new PreconditionMissingException)
 
+  def ways: Seq[Way] = _ways.getOrElse(throw new PreconditionMissingException)
+
   def links: RouteLinks = _links.getOrElse(throw new PreconditionMissingException)
 
   def segments: Seq[NewRouteSegment] = _segments.getOrElse(throw new PreconditionMissingException)
@@ -182,5 +188,28 @@ case class RouteAnalysisContext(
 
   def newStructure: Structure = _newStructure.getOrElse(throw new PreconditionMissingException)
 
+  def routeMembers: Seq[RouteMember] = _routeMembers.getOrElse(throw new PreconditionMissingException)
+
   def geometryDigest: String = _geometryDigest.getOrElse(throw new PreconditionMissingException)
+
+  def tileAnalysis: RouteTileAnalysis = _tileAnalysis.getOrElse(throw new PreconditionMissingException)
+
+  def oldRouteDetailAnalysis: RouteDetailAnalysis = {
+    new RouteAnalysisBuilder(this).build
+  }
+
+  def oldToRouteData: RouteData = {
+    RouteData(
+      country,
+      networkTypes.head,
+      scopedNetworkType.networkScope,
+      relation.toRaw,
+      routeNameAnalysis.name.get,
+      oldRouteNodeAnalysis.routeNodes.map(_.node),
+      allWayNodes.get,
+      ways.map(_.toRaw),
+      Seq[RawRelation](), // TODO CHANGE add unexpected relations
+      facts
+    )
+  }
 }

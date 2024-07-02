@@ -8,7 +8,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeType
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -66,7 +66,7 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     newContext.facts.shouldMatchTo(Seq(Fact.RouteNodeNameMismatch))
   }
 
-  private def doTest(routeName: Option[String], startNodeName: Option[String], endNodeName: Option[String]): RouteAnalysisContext = {
+  private def doTest(routeName: Option[String], startNodeName: Option[String], endNodeName: Option[String]): RouteDetailAnalysisContext = {
     val routeNameAnalysis = RouteNameAnalysis(name = routeName)
     val routeNodeAnalysis = OldRouteNodeAnalysis(
       startNodes = startNodeName.toSeq.map(name => RouteNode(RouteNodeType.Start, name = name)),
@@ -80,7 +80,7 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     ExpectedNameRouteAnalyzer.analyze(context)
   }
 
-  private def buildContext(): RouteAnalysisContext = {
+  private def buildContext(): RouteDetailAnalysisContext = {
     val data = new RouteTestData("01-02") {
       node(1001)
       node(1002)
@@ -94,6 +94,6 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     }.data
 
     val relation = data.relations(1L)
-    RouteAnalysisContext(relation, None, nodeNetwork = true)
+    RouteDetailAnalysisContext(relation, None, nodeNetwork = true)
   }
 }

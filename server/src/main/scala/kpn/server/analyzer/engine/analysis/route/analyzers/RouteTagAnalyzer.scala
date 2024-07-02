@@ -4,19 +4,19 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteTagInvalid
 import kpn.api.custom.Fact.RouteTagMissing
 import kpn.api.custom.ScopedNetworkType
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 import scala.collection.mutable.ListBuffer
 
 object RouteTagAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteTagAnalyzer(context).analyze
   }
 }
 
-class RouteTagAnalyzer(context: RouteAnalysisContext) {
+class RouteTagAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     if (!context.relation.hasTag("type", "route", "superroute")) {
       context.copy(abort = true).withFacts(RouteTagMissing)
     }

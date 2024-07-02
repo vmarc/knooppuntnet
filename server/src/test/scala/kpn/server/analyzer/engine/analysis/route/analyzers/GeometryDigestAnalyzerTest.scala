@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -29,8 +29,8 @@ class GeometryDigestAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def testContext(node1: Node, node2: Node): RouteAnalysisContext = {
-    RouteAnalysisContext(
+  private def testContext(node1: Node, node2: Node): RouteDetailAnalysisContext = {
+    RouteDetailAnalysisContext(
       null,
       None,
       allWayNodes = Some(

@@ -13,7 +13,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class SegmentAnalyzerTest extends UnitTest {
 
@@ -509,7 +509,7 @@ class SegmentAnalyzerTest extends UnitTest {
   private def assertSegments(d: RouteTestData, expected: String): Unit = {
     val data = d.data
     val relation = data.relations(1)
-    val context1 = RouteAnalysisContext(relation, None)
+    val context1 = RouteDetailAnalysisContext(relation, None)
     val context2 = new RouteTagAnalyzer(context1).analyze
     val context3 = new RouteNameAnalyzer(context2).analyze
     val context4 = new OldRouteNodeTagAnalyzer(context3).analyze

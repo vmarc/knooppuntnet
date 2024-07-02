@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.tiles.ZoomLevel
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileCalculator
 import kpn.server.analyzer.engine.tiles.TileDataRouteBuilder
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 @Component
 class RouteTileAnalyzer(routeTileCalculator: RouteTileCalculator) extends RouteAnalyzer {
 
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
 
     val routeTileInfo = toRouteTileInfo(context)
     val zoomLevelAndTileDataRoutes = ZoomLevel.all.map { zoomLevel =>
@@ -46,19 +46,19 @@ class RouteTileAnalyzer(routeTileCalculator: RouteTileCalculator) extends RouteA
     }
 
     context.copy(
-      tileAnalysis = tileAnalysis,
+      _tileAnalysis = tileAnalysis,
       tiles = tiles
     )
   }
 
-  private def routeName(context: RouteAnalysisContext): String = {
+  private def routeName(context: RouteDetailAnalysisContext): String = {
     context.routeNameAnalysis.name match {
       case None => "no-name"
       case Some(name) => name
     }
   }
 
-  private def toRouteTileInfo(context: RouteAnalysisContext): RouteTileInfo = {
+  private def toRouteTileInfo(context: RouteDetailAnalysisContext): RouteTileInfo = {
     val routeMap = context.routeMap
     RouteTileInfo(
       context.relation.id,

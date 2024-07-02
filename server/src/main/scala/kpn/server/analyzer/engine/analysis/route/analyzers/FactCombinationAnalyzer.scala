@@ -8,17 +8,17 @@ import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Fact.RouteRedundantNodes
 import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.api.custom.Fact.RouteWithoutWays
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object FactCombinationAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new FactCombinationAnalyzer(context).analyze
   }
 }
 
-class FactCombinationAnalyzer(context: RouteAnalysisContext) {
+class FactCombinationAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
 
     val excludedFacts = context.facts.filter {
       case RouteUnusedSegments => context.hasFact(RouteWithoutWays, RouteIncomplete, RouteNotForward, RouteNotBackward)

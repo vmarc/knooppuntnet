@@ -4,12 +4,12 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNode
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class RouteNameFromNodesAnalyzerTest extends UnitTest {
 
   test("derive route name from node names") {
-    val context = RouteAnalysisContext(
+    val context = RouteDetailAnalysisContext(
       null,
       None,
       nodeNetwork = true,
@@ -30,7 +30,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
   }
 
   test("derive route name from non-digit node names (use separator with spaces)") {
-    val context = RouteAnalysisContext(
+    val context = RouteDetailAnalysisContext(
       null,
       None,
       nodeNetwork = true,
@@ -51,7 +51,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
   }
 
   test("do not derive route name from node names if route name already known") {
-    val context = RouteAnalysisContext(
+    val context = RouteDetailAnalysisContext(
       null,
       None,
       _routeNameAnalysis = Some(
@@ -73,7 +73,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
   }
 
   test("do not derive route name from node names if start node name unknown") {
-    val context = RouteAnalysisContext(
+    val context = RouteDetailAnalysisContext(
       null,
       None,
       _routeNameAnalysis = Some(
@@ -95,7 +95,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
   }
 
   test("do not derive route name from node names if end node name unknown") {
-    val context = RouteAnalysisContext(
+    val context = RouteDetailAnalysisContext(
       null,
       None,
       _routeNameAnalysis = Some(

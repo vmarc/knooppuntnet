@@ -10,7 +10,7 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.core.doc.Label
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -72,10 +72,10 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def buildContext(): RouteAnalysisContext = {
+  private def buildContext(): RouteDetailAnalysisContext = {
     val data = new RouteTestData("01-02").data
     val relation = data.relations(1L)
-    RouteAnalysisContext(
+    RouteDetailAnalysisContext(
       relation,
       None,
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),

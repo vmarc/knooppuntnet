@@ -1,17 +1,17 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact.RouteWithoutWays
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object WithoutWaysRouteAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new WithoutWaysRouteAnalyzer(context).analyze
   }
 }
 
-class WithoutWaysRouteAnalyzer(context: RouteAnalysisContext) {
+class WithoutWaysRouteAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     if (hasWays || isSuperRoute || hasRelationMembers) {
       context
     }

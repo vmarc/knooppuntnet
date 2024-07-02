@@ -7,7 +7,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class FragmentAnalyzerTest extends UnitTest {
 
@@ -148,7 +148,7 @@ class FragmentAnalyzerTest extends UnitTest {
 
   private def fragments(d: RouteTestData): String = {
     val relation = d.data.relations(d.routeRelationId)
-    val context1 = RouteAnalysisContext(
+    val context1 = RouteDetailAnalysisContext(
       relation,
       None,
     )

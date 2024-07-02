@@ -92,7 +92,7 @@ class RouteChangeBuilderImpl(
 
           val routeUpdate = new RouteDiffAnalyzer(analysisBefore, analysisAfter).analysis
 
-          val impactedTiles = tileChangeAnalyzer.impactedTiles(analysisBefore, analysisAfter)
+          val impactedTiles: Seq[String] = Seq.empty // TODO redesign - tileChangeAnalyzer.impactedTiles(analysisBefore, analysisAfter)
 
           val impactedNodeIds: Seq[Long] = (analysisBefore.routeNodeAnalysis.routeNodes.map(_.node.id) ++
             analysisAfter.routeNodeAnalysis.routeNodes.map(_.node.id)).distinct.sorted
@@ -218,7 +218,7 @@ class RouteChangeBuilderImpl(
     //          analysisRepository.saveNode(nodeInfo)
     //        }
 
-    val impactedTiles = tileChangeAnalyzer.impactedTiles(analysisBefore, analysisAfter)
+    val impactedTiles: Seq[String] = Seq.empty // TODO redesign - tileChangeAnalyzer.impactedTiles(analysisBefore, analysisAfter)
 
     val impactedNodeIds: Seq[Long] = (analysisBefore.routeNodeAnalysis.routeNodes.map(_.node.id) ++
       analysisAfter.routeNodeAnalysis.routeNodes.map(_.node.id)).distinct.sorted
@@ -266,7 +266,7 @@ class RouteChangeBuilderImpl(
 
         if (routeUpdate.nonEmpty) {
 
-          val impactedTiles = tileChangeAnalyzer.impactedTiles(analysisBefore, analysisAfter)
+          val impactedTiles: Seq[String] = Seq.empty // TODO redesign - tileChangeAnalyzer.impactedTiles(analysisBefore, analysisAfter)
 
           val key = context.changeSetContext.buildChangeKey(routeId)
           Some(

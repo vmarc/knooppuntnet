@@ -8,7 +8,7 @@ import kpn.api.custom.Relation
 import kpn.core.analysis.Link
 import kpn.core.analysis.LinkDirection
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLink
 import kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLinkAnalyzer
 
@@ -19,7 +19,7 @@ import scala.jdk.CollectionConverters.CollectionHasAsScala
 import scala.jdk.CollectionConverters.IterableHasAsJava
 
 object RouteLinkAnalyzer extends RouteAnalyzer {
-  override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  override def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     val links = new RouteLinkAnalyzer().analyze(context.relation)
     context.copy(
       _links = Some(links)

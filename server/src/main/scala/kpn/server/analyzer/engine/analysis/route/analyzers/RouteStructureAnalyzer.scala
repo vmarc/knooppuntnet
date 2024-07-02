@@ -10,30 +10,30 @@ import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.StructureAnalyzer
 
 import scala.collection.mutable.ListBuffer
 
 object RouteStructureAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteStructureAnalyzer(context).analyze
   }
 }
 
-class RouteStructureAnalyzer(context: RouteAnalysisContext) {
+class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
 
   private val facts: ListBuffer[Fact] = ListBuffer[Fact]()
   facts ++= context.facts
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     analyzeStructure(context.routeNodeAnalysis, context.segmentAnalysis)
   }
 
   private def analyzeStructure(
     routeNodeAnalysis: RouteNodeAnalysis,
     segmentAnalysis: RouteSegmentAnalysis
-  ): RouteAnalysisContext = {
+  ): RouteDetailAnalysisContext = {
 
     val structure = new StructureAnalyzer().analyze(routeNodeAnalysis, segmentAnalysis.elementGroups)
 

@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.location.Location
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 @Component
 class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: RouteLocator) extends RouteLocationAnalyzer {
 
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     routeRepository.findRouteById(context.relation.id) match {
       case Some(route) =>
         if (route.analysis.geometryDigest == context.geometryDigest) {
@@ -29,7 +29,7 @@ class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: 
     }
   }
 
-  private def locate(context: RouteAnalysisContext): RouteAnalysisContext = {
+  private def locate(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     val routeLocationAnalysis = routeLocator.locate(context.routeMap)
     if (routeLocationAnalysis.location.isEmpty && context.country.nonEmpty) {
       val country = context.country.get.domain

@@ -6,7 +6,7 @@ import kpn.core.util.NaturalSorting
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 /**
  * Analyzes the route name.
@@ -24,14 +24,14 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
  * node names).
  */
 object RouteNameAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteNameAnalyzer(context).analyze
   }
 }
 
-class RouteNameAnalyzer(context: RouteAnalysisContext) {
+class RouteNameAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     val routeNameAnalysis = routeNameFromRefTag().getOrElse {
       routeNameFromNameTag().getOrElse {
         routeNameFromNoteTag().getOrElse {

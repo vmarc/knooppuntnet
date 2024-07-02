@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.core.tools.config.Dirs
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.report.OldRouteNodeAnalysisReport
 import kpn.server.analyzer.engine.analysis.route.report.OldRouteSegmentsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteFactsReport
@@ -18,7 +18,7 @@ import java.io.File
 import java.io.PrintWriter
 
 object RouteAnalysisContextReport {
-  def report(context: RouteAnalysisContext): Unit = {
+  def report(context: RouteDetailAnalysisContext): Unit = {
     val out = {
       val dir = new File(Dirs.root, "routes")
       dir.mkdirs
@@ -29,7 +29,7 @@ object RouteAnalysisContextReport {
   }
 }
 
-class RouteAnalysisContextReport(context: RouteAnalysisContext) {
+class RouteAnalysisContextReport(context: RouteDetailAnalysisContext) {
 
   def report(): String = {
     s"""<html>

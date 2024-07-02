@@ -4,10 +4,10 @@ import kpn.api.custom.Fact.RouteUnsupportedNetworkType
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object RouteNetworkTypeAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     val networkTypes = new RouteNetworkTypeAnalyzer(context.relation.tags).analyze()
     if (networkTypes.isEmpty) {
       context.copy(

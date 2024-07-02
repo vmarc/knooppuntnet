@@ -4,7 +4,7 @@ import kpn.api.custom.Fact.RouteIncomplete
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class IncompleteRouteAnalyzerTest extends UnitTest {
 
@@ -20,9 +20,9 @@ class IncompleteRouteAnalyzerTest extends UnitTest {
     context.facts.shouldMatchTo(Seq(RouteIncomplete))
   }
 
-  private def analyze(routeTestData: RouteTestData): RouteAnalysisContext = {
+  private def analyze(routeTestData: RouteTestData): RouteDetailAnalysisContext = {
     val relation = routeTestData.data.relations(1L)
-    val context = RouteAnalysisContext(
+    val context = RouteDetailAnalysisContext(
       relation,
       None
     )

@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
 import kpn.server.analyzer.engine.analysis.route.RouteNode
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object OldRouteNodeAnalysisReport {
 
-  def report(context: RouteAnalysisContext): String = {
+  def report(context: RouteDetailAnalysisContext): String = {
     val routeNodeAnalysis = context.oldRouteNodeAnalysis
     if (routeNodeAnalysis.routeNodes.nonEmpty) {
       s"""

@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object ExpectedNameRouteAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     if (context.nodeNetwork) {
       new ExpectedNameRouteAnalyzer(context).analyze
     }
@@ -14,11 +14,11 @@ object ExpectedNameRouteAnalyzer extends RouteAnalyzer {
   }
 }
 
-class ExpectedNameRouteAnalyzer(context: RouteAnalysisContext) {
+class ExpectedNameRouteAnalyzer(context: RouteDetailAnalysisContext) {
 
   private val routeNodeAnalysis = context.oldRouteNodeAnalysis
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     if (canDetermineRouteNameFromNodeNames) {
       val name = context.routeNameAnalysis.name.get
       val start = if (routeNodeAnalysis.freeNodes.isEmpty) {

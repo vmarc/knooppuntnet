@@ -3,12 +3,12 @@ package kpn.server.analyzer.engine.analysis.route.structure
 import kpn.core.util.Triplet
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 import scala.collection.mutable.ListBuffer
 
 object RouteSegmentAnalyzer extends RouteAnalyzer {
-  override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  override def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     val segments = new RouteSegmentAnalyzer(context).analyze()
     context.copy(
       _segments = Some(segments)
@@ -16,7 +16,7 @@ object RouteSegmentAnalyzer extends RouteAnalyzer {
   }
 }
 
-class RouteSegmentAnalyzer(context: RouteAnalysisContext) {
+class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
 
   private val segmentElementIds = Util.ids
 

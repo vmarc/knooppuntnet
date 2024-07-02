@@ -2,17 +2,17 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact
 import kpn.core.doc.Label
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object RouteLabelsAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteLabelsAnalyzer(context).analyze
   }
 }
 
-class RouteLabelsAnalyzer(context: RouteAnalysisContext) {
+class RouteLabelsAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     val basicLabels = buildBasicLabels()
     val factLabels = context.facts.map(fact => Label.fact(fact))
     val networkTypeLabels = Seq(Label.networkType(context.scopedNetworkType.networkType))

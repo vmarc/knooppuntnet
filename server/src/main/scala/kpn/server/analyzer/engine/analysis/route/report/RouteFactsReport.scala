@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object RouteFactsReport {
 
-  def report(context: RouteAnalysisContext): String = {
+  def report(context: RouteDetailAnalysisContext): String = {
     if (context.facts != context.oldFacts) {
       s"""<table>
          |  <tr class="header">

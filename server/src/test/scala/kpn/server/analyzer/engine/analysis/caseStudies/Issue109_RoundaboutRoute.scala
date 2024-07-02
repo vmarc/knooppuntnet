@@ -36,12 +36,12 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
       routeTileAnalyzer
     )
     val relation = readRoute()
-    val routeAnalysis = routeAnalyzer.analyze(relation, None).get
+    val context = routeAnalyzer.analyze(relation, None).get
 
-    assert(routeAnalysis.routeDetail.facts.isEmpty)
-    assert(routeAnalysis.structure.unusedSegments.isEmpty)
+    assert(context.facts.isEmpty)
+    assert(context.structure.unusedSegments.isEmpty)
 
-    routeAnalysis.routeDetail.analysis.map.freeNodes.map(_.id).toSet should equal(
+    context.routeMap.freeNodes.map(_.id).toSet should equal(
       Set(
         1015045148L,
         302102477L,
@@ -54,7 +54,7 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
       )
     )
 
-    routeAnalysis.routeDetail.analysis.map.freePaths.map(path => path.startNodeId -> path.endNodeId).toSet should equal(
+    context.routeMap.freePaths.map(path => path.startNodeId -> path.endNodeId).toSet should equal(
       Set(
         1015045148L -> 302941691L,
         302941691L -> 1015045148L,

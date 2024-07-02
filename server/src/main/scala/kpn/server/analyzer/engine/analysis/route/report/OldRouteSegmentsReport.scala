@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object OldRouteSegmentsReport {
-  def report(context: RouteAnalysisContext): String = {
+  def report(context: RouteDetailAnalysisContext): String = {
     s"""<table>
        |<tr class="header">
        |  <td></td>

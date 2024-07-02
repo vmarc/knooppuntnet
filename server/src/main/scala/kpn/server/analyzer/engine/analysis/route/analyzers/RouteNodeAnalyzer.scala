@@ -13,12 +13,12 @@ import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeData
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 import scala.collection.mutable.ListBuffer
 
 object RouteNodeAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     if (context.nodeNetwork) {
       new RouteNodeAnalyzer(context).analyze
     }
@@ -28,11 +28,11 @@ object RouteNodeAnalyzer extends RouteAnalyzer {
   }
 }
 
-class RouteNodeAnalyzer(context: RouteAnalysisContext) {
+class RouteNodeAnalyzer(context: RouteDetailAnalysisContext) {
 
   private val facts = ListBuffer[Fact]()
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
 
     if (context.networkTypes.size > 1) {
       // TODO redesign - should only contain nodes with no NetworkType
@@ -47,7 +47,7 @@ class RouteNodeAnalyzer(context: RouteAnalysisContext) {
     }
   }
 
-  private def analyzeRouteWithSingleNetworkType(networkType: NetworkType): RouteAnalysisContext = {
+  private def analyzeRouteWithSingleNetworkType(networkType: NetworkType): RouteDetailAnalysisContext = {
     val routeNodeDatas = findRouteNodes(networkType)
     val routeNodeAnalysis = if (routeNodeDatas.isEmpty) {
       facts += RouteWithoutNodes

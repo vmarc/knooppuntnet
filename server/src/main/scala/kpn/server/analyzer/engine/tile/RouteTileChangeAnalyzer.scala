@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 trait RouteTileChangeAnalyzer {
 
-  def impactedTiles(routeAnalysisBefore: RouteDetailAnalysis, routeAnalysisAfter: RouteDetailAnalysis): Seq[String]
+  def impactedTiles(before: RouteDetailAnalysisContext, after: RouteDetailAnalysisContext): Seq[String]
 }

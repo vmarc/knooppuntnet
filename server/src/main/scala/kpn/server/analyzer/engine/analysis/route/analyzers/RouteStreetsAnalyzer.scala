@@ -2,18 +2,18 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.data.Way
 import kpn.core.analysis.RouteMemberWay
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object RouteStreetsAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteStreetsAnalyzer(context).analyze
   }
 }
 
-class RouteStreetsAnalyzer(context: RouteAnalysisContext) {
+class RouteStreetsAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
-    val ways: Seq[Way] = context.routeMembers.get.flatMap {
+  def analyze: RouteDetailAnalysisContext = {
+    val ways: Seq[Way] = context._routeMembers.get.flatMap {
       case w: RouteMemberWay => Some(w.way)
       case _ => None
     }

@@ -1,17 +1,17 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentAnalyzer
 
 object RouteFragmentAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteFragmentAnalyzer(context).analyze
   }
 }
 
-class RouteFragmentAnalyzer(context: RouteAnalysisContext) {
+class RouteFragmentAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
     val usedNodes = context.oldRouteNodeAnalysis.usedNodes
     val wayMembers = context.relation.wayMembers
     val fragmentMap = new FragmentAnalyzer(usedNodes, wayMembers).fragmentMap

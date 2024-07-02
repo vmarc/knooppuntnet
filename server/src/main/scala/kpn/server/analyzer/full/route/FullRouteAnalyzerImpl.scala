@@ -2,6 +2,7 @@ package kpn.server.analyzer.full.route
 
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
 import kpn.server.analyzer.full.FullAnalysisContext
@@ -78,7 +79,9 @@ class FullRouteAnalyzerImpl(
       val routeDetailDocs = relations.flatMap { relation =>
         Log.context(s"route=${relation.id}") {
           try {
-            routeDetailMainAnalyzer.analyze(relation, None /* TODO redesign - hierarchy */).map(_.routeDetail)
+            routeDetailMainAnalyzer.analyze(relation, None /* TODO redesign - hierarchy */).map { context =>
+              new RouteDetailDocBuilder(context).build()
+            }
           } catch {
             case e: Exception =>
               log.error(s"Error processing route ${relation.id}", e)

@@ -2,17 +2,17 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.common.TrackPath
 import kpn.api.common.route.RouteEdge
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object EdgeRouteAnalyzer extends RouteAnalyzer {
-  def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
+  def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new EdgeRouteAnalyzer(context).analyze
   }
 }
 
-class EdgeRouteAnalyzer(context: RouteAnalysisContext) {
+class EdgeRouteAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: RouteAnalysisContext = {
+  def analyze: RouteDetailAnalysisContext = {
 
     val routeMap = context.routeMap
     val edges = Seq(

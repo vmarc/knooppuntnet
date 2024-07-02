@@ -86,7 +86,7 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(routeRelation, None).get
+    routeAnalyzer.analyze(routeRelation, None).get.oldRouteDetailAnalysis
   }
 
   private def readData(routeId: Long): RawData = {

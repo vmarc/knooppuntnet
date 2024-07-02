@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object RouteNameAnalysisReport {
 
-  def report(context: RouteAnalysisContext): String = {
+  def report(context: RouteDetailAnalysisContext): String = {
     val routeNameAnalysis = context.routeNameAnalysis
     val name = routeNameAnalysis.name.getOrElse("")
     val startNodeName = routeNameAnalysis.startNodeName.getOrElse("")
