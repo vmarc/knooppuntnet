@@ -6,7 +6,7 @@ import kpn.core.loadOld.Parser
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
 import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
@@ -29,7 +29,7 @@ object CaseStudy extends MockFactory {
     val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val routeRepository = stub[RouteRepository]
-    val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
+    val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new RouteDetailMainAnalyzerImpl(
       routeCountryAnalyzer,

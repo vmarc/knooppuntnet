@@ -10,8 +10,9 @@ class Structure_22_ContinuousSecondAndThirdWayReversedTest extends UnitTest {
     memberWay(13, "", 7, 6, 5)
   }.build
 
-  test("reference") {
-    setup.reference().shouldMatchTo(
+  test("analyze") {
+    val context = setup.analyze()
+    context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
         "2    p ■   n ■   loop     fp     bp     head     tail     d backward",

@@ -7,7 +7,7 @@ import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -76,7 +76,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
     val locationAnalyzer = new LocationAnalyzerFixed()
     val routeRepository = stub[RouteRepository]
-    val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
+    val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
     val routeLocationAnalyzer: RouteLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new RouteDetailMainAnalyzerImpl(
       routeCountryAnalyzer,

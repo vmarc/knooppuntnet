@@ -9,8 +9,9 @@ class Structure_42_ForwardGapTest extends UnitTest {
     memberWay(12, "", 3, 2)
   }.build
 
-  test("reference") {
-    setup.reference().shouldMatchTo(
+  test("analyze") {
+    val context = setup.analyze()
+    context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp ■   bp     head ■   tail     d forward",
         //

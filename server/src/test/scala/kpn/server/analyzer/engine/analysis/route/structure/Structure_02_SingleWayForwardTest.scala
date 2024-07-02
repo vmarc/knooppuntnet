@@ -8,8 +8,9 @@ class Structure_02_SingleWayForwardTest extends UnitTest {
     memberWay(11, "forward", 1, 2, 3)
   }.build
 
-  test("reference") {
-    setup.reference().shouldMatchTo(
+  test("analyze") {
+    val context = setup.analyze()
+    context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp ■   bp     head ■   tail     d forward",
       )

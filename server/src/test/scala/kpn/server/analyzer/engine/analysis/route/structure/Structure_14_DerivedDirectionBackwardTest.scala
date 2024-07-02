@@ -10,8 +10,9 @@ class Structure_14_DerivedDirectionBackwardTest extends UnitTest {
     memberWay(12, "backward", 5, 4, 3)
   }.build
 
-  test("reference") {
-    setup.reference().shouldMatchTo(
+  test("analyze") {
+    val context = setup.analyze()
+    context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
         "2    p ■   n     loop     fp ■   bp     head ■   tail     d backward",

@@ -36,7 +36,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -110,7 +110,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val routeDetailMainAnalyzer: RouteDetailMainAnalyzer = {
     val routeLocator = new RouteLocatorImpl(locationAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)
-    val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
+    val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
     new RouteDetailMainAnalyzerImpl(
       routeCountryAnalyzer,
       routeLocationAnalyzer,

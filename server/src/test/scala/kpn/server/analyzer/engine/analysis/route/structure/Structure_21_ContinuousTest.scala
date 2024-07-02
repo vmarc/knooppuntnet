@@ -10,8 +10,9 @@ class Structure_21_ContinuousTest extends UnitTest {
     memberWay(13, "", 5, 6, 7)
   }.build
 
-  test("reference") {
-    setup.reference().shouldMatchTo(
+  test("analyze") {
+    val context = setup.analyze()
+    context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
         "2    p ■   n ■   loop     fp     bp     head     tail     d forward",
@@ -50,11 +51,5 @@ class Structure_21_ContinuousTest extends UnitTest {
         ),
       )
     )
-  }
-
-  test("analyze") {
-    pending
-    val analysis = setup.analyze()
-    println(analysis.routeDetail.facts)
   }
 }

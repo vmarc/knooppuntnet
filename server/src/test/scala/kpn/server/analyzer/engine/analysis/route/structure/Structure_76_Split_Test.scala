@@ -12,8 +12,9 @@ class Structure_76_Split_Test extends UnitTest {
     memberWay(14, "forward", 3, 4)
   }.build
 
-  test("reference") {
-    setup.reference(traceEnabled = true).shouldMatchTo(
+  test("analyze") {
+    val context = setup.analyze()
+    context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp ■   bp     head ■   tail     d backward",
         "2    p ■   n ■   loop     fp ■   bp     head     tail     d forward",

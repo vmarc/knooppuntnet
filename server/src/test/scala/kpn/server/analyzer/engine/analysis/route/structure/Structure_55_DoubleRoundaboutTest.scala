@@ -11,8 +11,9 @@ class Structure_55_DoubleRoundaboutTest extends UnitTest {
     memberWay(14, "", 9, 10, 11)
   }.build
 
-  test("reference") {
-    setup.reference().shouldMatchTo(
+  test("analyze") {
+    val context = setup.analyze()
+    context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
         "2    p ■   n ■   loop     fp     bp     head     tail     d roundaboutright",

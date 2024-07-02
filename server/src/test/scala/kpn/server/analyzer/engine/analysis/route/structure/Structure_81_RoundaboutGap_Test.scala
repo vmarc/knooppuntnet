@@ -12,8 +12,9 @@ class Structure_81_RoundaboutGap_Test extends UnitTest {
     memberWay(14, "", 8, 9)
   }.build
 
-  test("reference") {
-    setup.reference(traceEnabled = true).shouldMatchTo(
+  test("analyze") {
+    val context = setup.analyze()
+    context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
         "2    p     n ■   loop     fp     bp     head     tail     d roundaboutright",

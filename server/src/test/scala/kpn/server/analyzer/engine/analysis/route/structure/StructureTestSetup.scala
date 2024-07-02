@@ -2,11 +2,10 @@ package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.custom.Relation
 import kpn.core.data.Data
-import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
+import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
@@ -44,21 +43,23 @@ class StructureTestSetup(val data: Data) extends MockFactory {
     TestStructure.from(new StructureAnalyzer(traceEnabled).analyze(RouteNodeAnalysis(), elementGroups))
   }
 
-  def analyze(): RouteDetailAnalysis = {
+  def analyze(): RouteDetailAnalysisTestContext = {
     val tileCalculator = new OldTileCalculatorImpl()
     val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
     val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
-    val locationAnalyzer = LocationAnalyzerTest.locationAnalyzer
+    val locationAnalyzer = stub[LocationAnalyzer]
     val routeRepository = stub[RouteRepository]
-    val routeCountryAnalyzer = new RouteCountryAnalyzer(locationAnalyzer, routeRepository)
+    val routeCountryAnalyzer = new RouteCountryAnalyzerMock()
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
     val routeAnalyzer = new RouteDetailMainAnalyzerImpl(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(relation, None).get.oldRouteDetailAnalysis
+    RouteDetailAnalysisTestContext(
+      routeAnalyzer.analyze(relation, None).get
+    )
   }
 
   private def relation: Relation = {

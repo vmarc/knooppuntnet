@@ -9,8 +9,9 @@ class Structure_52_RoundaboutRoundaboutTest extends UnitTest {
     memberRoundabout(12, "", 3, 5, 6, 7, 3)
   }.build
 
-  test("reference") {
-    setup.reference().shouldMatchTo(
+  test("analyze") {
+    val context = setup.analyze()
+    context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop ■   fp     bp     head     tail     d roundaboutright",
         "2    p ■   n     loop ■   fp     bp     head     tail     d roundaboutright"
