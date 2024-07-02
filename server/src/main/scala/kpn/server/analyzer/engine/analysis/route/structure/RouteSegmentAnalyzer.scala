@@ -9,9 +9,9 @@ import scala.collection.mutable.ListBuffer
 
 object RouteSegmentAnalyzer extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    val paths = new RouteSegmentAnalyzer(context).analyze()
+    val segments = new RouteSegmentAnalyzer(context).analyze()
     context.copy(
-      _segments = Some(paths)
+      _segments = Some(segments)
     )
   }
 }
@@ -41,7 +41,12 @@ class RouteSegmentAnalyzer(context: RouteAnalysisContext) {
     val fromNodeId = links.head.fromNodeId
     val toNodeId = links.last.toNodeId
     val elements = analyzeSegmentLinks(links)
-    NewRouteSegment(id, fromNodeId, toNodeId, elements)
+    NewRouteSegment(
+      id,
+      fromNodeId,
+      toNodeId,
+      elements
+    )
   }
 
   private def analyzeSegmentLinks(links: Seq[RouteLinkWay]): Seq[NewRouteSegmentElement] = {
@@ -84,9 +89,14 @@ class RouteSegmentAnalyzer(context: RouteAnalysisContext) {
       RoutePathDirection.Bidirectional
     }
 
+    val fromNetworkNode = context.routeNodeAnalysis.nodes.find(_.node.id == fromNodeId)
+    val toNetworkNode = context.routeNodeAnalysis.nodes.find(_.node.id == toNodeId)
+
     NewRouteSegmentElement(
       segmentElementIds.next(),
       direction,
+      fromNetworkNode,
+      toNetworkNode,
       fromNodeId,
       toNodeId,
       links

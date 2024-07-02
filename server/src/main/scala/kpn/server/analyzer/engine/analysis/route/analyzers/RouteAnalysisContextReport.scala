@@ -8,6 +8,7 @@ import kpn.server.analyzer.engine.analysis.route.report.RouteFactsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteLinksReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteNameAnalysisReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteNodeAnalysisReport
+import kpn.server.analyzer.engine.analysis.route.report.RoutePathReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteSegmentReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteSummaryReport
 import kpn.server.analyzer.engine.analysis.route.report.StructureElementGroupsReport
@@ -41,6 +42,7 @@ class RouteAnalysisContextReport(context: RouteAnalysisContext) {
        |${RouteNameAnalysisReport.report(context)}
        |${RouteLinksReport.report(context)}
        |${RouteSegmentReport.report(context)}
+       |${RoutePathReport.report(context)}
        |${OldRouteSegmentsReport.report(context)}
        |${new StructureElementGroupsReport(context).report}
        |${StructureReport.report(context.newStructure)}

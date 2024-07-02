@@ -49,16 +49,18 @@ class RouteSegmentReport(context: RouteAnalysisContext) {
          |  <td>
          |  </td>
          |</tr>
-         |${paths(segment)}
+         |${segmentElements(segment)}
          |""".stripMargin
     }.mkString
   }
 
-  private def paths(segment: NewRouteSegment): String = {
+  private def segmentElements(segment: NewRouteSegment): String = {
     segment.elements.map { element =>
+      val from = element.fromNetworkNode.map(node => s"from=${node.name}(${ReportUtil.osmNodeLink(node.node.id)})").getOrElse("")
+      val to = element.toNetworkNode.map(node => s"to=${node.name}(${ReportUtil.osmNodeLink(node.node.id)})").getOrElse("")
       s"""<tr>
          |  <td colspan="5">
-         |    Segment element ${element.id} ${element.direction.toString.toLowerCase}
+         |    Segment element ${element.id} ${element.direction.toString.toLowerCase} $from $to
          |  </td>
          |  <td>
          |    ${ReportUtil.osmNodeLink(element.fromNodeId)}
