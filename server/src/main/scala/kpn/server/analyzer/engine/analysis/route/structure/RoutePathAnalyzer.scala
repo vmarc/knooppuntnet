@@ -7,8 +7,29 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 object RoutePathAnalyzer extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val paths = new RoutePathAnalyzer(context).analyze()
+    val updatedSegments = context.segments.map { segment =>
+      segment.copy(
+        elements = segment.elements.map { element =>
+          element.copy(
+            links = element.links.map { link =>
+              val pathIds = paths.filter { path =>
+                path.elements.exists { element =>
+                  element.links.exists { elementLink =>
+                    elementLink.id == link.id
+                  }
+                }
+              }.map(_.id)
+              link.copy(
+                pathIds = pathIds
+              )
+            }
+          )
+        }
+      )
+    }
     context.copy(
-      _paths = Some(paths)
+      _segments = Some(updatedSegments),
+      _paths = Some(paths),
     )
   }
 }

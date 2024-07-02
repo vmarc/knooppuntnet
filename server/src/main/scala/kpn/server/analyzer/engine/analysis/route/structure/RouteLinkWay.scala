@@ -8,7 +8,8 @@ case class RouteLinkWay(
   id: Long,
   link: Link,
   role: Option[String],
-  way: Way
+  way: Way,
+  pathIds: Seq[Long]
 ) extends RouteLink {
 
   override def idString: String = id.toString

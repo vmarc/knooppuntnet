@@ -5,4 +5,6 @@ case class RouteLinkRelationId(role: Option[String], relationId: Long) extends R
   def linkName: String = "n"
 
   def linkDetail: String = ""
+
+  def pathIds: Seq[Long] = Seq.empty
 }

@@ -7,4 +7,6 @@ case class RouteLinkNode(role: Option[String], node: Node) extends RouteLink {
   def linkName: String = "n"
 
   def linkDetail: String = ""
+
+  def pathIds: Seq[Long] = Seq.empty
 }

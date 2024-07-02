@@ -28,6 +28,7 @@ class RouteSegmentReport(context: RouteAnalysisContext) {
        |    <td>from</td>
        |    <td>to</td>
        |    <td>network nodes</td>
+       |    <td>paths</td>
        |  </tr>
        |${segments()}
        |</table>
@@ -45,6 +46,8 @@ class RouteSegmentReport(context: RouteAnalysisContext) {
          |  </td>
          |  <td>
          |    ${ReportUtil.osmNodeLink(segment.toNodeId)}
+         |  </td>
+         |  <td>
          |  </td>
          |  <td>
          |  </td>
@@ -67,6 +70,8 @@ class RouteSegmentReport(context: RouteAnalysisContext) {
          |  </td>
          |  <td>
          |    ${ReportUtil.osmNodeLink(element.toNodeId)}
+         |  </td>
+         |  <td>
          |  </td>
          |  <td>
          |  </td>
@@ -122,6 +127,9 @@ class RouteSegmentReport(context: RouteAnalysisContext) {
        |    $to
        |  </td>
        |  <td>$networkNodes</td>
+       |  <td>
+       |    ${link.pathIds.mkString(", ")}
+       |  </td>
        |</tr>
        |""".stripMargin
   }
