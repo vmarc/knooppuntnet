@@ -12,7 +12,6 @@ import kpn.server.analyzer.engine.analysis.route.report.RoutePathReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteSegmentReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteSummaryReport
 import kpn.server.analyzer.engine.analysis.route.report.StructureElementGroupsReport
-import kpn.server.analyzer.engine.analysis.route.report.StructureReport
 
 import java.io.File
 import java.io.PrintWriter
@@ -45,7 +44,6 @@ class RouteAnalysisContextReport(context: RouteDetailAnalysisContext) {
        |${RoutePathReport.report(context)}
        |${OldRouteSegmentsReport.report(context)}
        |${new StructureElementGroupsReport(context).report}
-       |${StructureReport.report(context.newStructure)}
        |</body>
        |</html>
        |""".stripMargin

@@ -11,7 +11,7 @@ class StructurePathTest extends UnitTest {
     }.build
     val way = setup.data.ways(11)
 
-    val element = StructurePathElement(
+    val element = OldStructurePathElement(
       element = StructureElement(
         id = 1,
         fragments = Seq(
@@ -22,7 +22,7 @@ class StructurePathTest extends UnitTest {
       reversed = false
     )
 
-    val path = StructurePath(
+    val path = OldStructurePath(
       startNodeId = 1,
       endNodeId = 3,
       elements = Seq(element)

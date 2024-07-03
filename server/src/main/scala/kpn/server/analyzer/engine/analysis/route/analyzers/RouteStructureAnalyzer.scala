@@ -8,8 +8,6 @@ import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Fact.RouteNotOneWay
 import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteUnusedSegments
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.StructureAnalyzer
 
@@ -27,15 +25,8 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
   facts ++= context.facts
 
   def analyze: RouteDetailAnalysisContext = {
-    analyzeStructure(context.routeNodeAnalysis, context.segmentAnalysis)
-  }
 
-  private def analyzeStructure(
-    routeNodeAnalysis: RouteNodeAnalysis,
-    segmentAnalysis: RouteSegmentAnalysis
-  ): RouteDetailAnalysisContext = {
-
-    val structure = new StructureAnalyzer().analyze(routeNodeAnalysis, segmentAnalysis.elementGroups)
+    val structure = new StructureAnalyzer().analyze(context.routeNodeAnalysis, context.paths)
 
     val oneWayRouteForward = context.relation.hasTag("direction", "forward")
     val oneWayRouteBackward = context.relation.hasTag("direction", "backward")

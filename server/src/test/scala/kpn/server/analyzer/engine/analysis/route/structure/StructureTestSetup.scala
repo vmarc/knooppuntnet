@@ -29,18 +29,9 @@ class StructureTestSetup(val data: Data) extends MockFactory {
     elementGroups.map(_.elements.map(_.string))
   }
 
-  def reference(traceEnabled: Boolean = false): Seq[String] = {
-    val referenceStructure = new RouteLinkAnalyzer(traceEnabled).analyze(relation)
-    val strings = referenceStructure.links.zipWithIndex.map { case (wayInfo, index) => s"${index + 1}    ${wayInfo.linkDetail}" }
-    if (traceEnabled) println()
-    if (traceEnabled) strings.foreach(println)
-    if (traceEnabled) println()
-    strings
-  }
-
   def structure(traceEnabled: Boolean = false): TestStructure = {
     val elementGroups = StructureElementAnalyzer.analyze(RouteNodeAnalysis(), relation.members, traceEnabled)
-    TestStructure.from(new StructureAnalyzer(traceEnabled).analyze(RouteNodeAnalysis(), elementGroups))
+    TestStructure.from(new OldStructureAnalyzer(traceEnabled).analyze(RouteNodeAnalysis(), elementGroups))
   }
 
   def analyze(): RouteDetailAnalysisTestContext = {

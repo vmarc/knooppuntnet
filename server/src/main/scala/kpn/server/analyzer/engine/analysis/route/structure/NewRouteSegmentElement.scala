@@ -10,4 +10,17 @@ case class NewRouteSegmentElement(
   fromNodeId: Long,
   toNodeId: Long,
   links: Seq[RouteLinkWay]
-)
+) {
+  def nodeIds: Seq[Long] = {
+    val ids = links.headOption match {
+      case Some(firstLink) => firstLink.nodeIds ++ links.tail.flatMap(link => link.nodeIds.tail)
+      case None => Seq.empty
+    }
+    if (direction == RoutePathDirection.Backward) {
+      ids.reverse
+    }
+    else {
+      ids
+    }
+  }
+}

@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.structure
 
 object TestStructure {
 
-  def from(structure: Structure): TestStructure = {
+  def from(structure: OldStructure): TestStructure = {
     val forwardPath: Option[TestStructurePath] = {
       structure.forwardPath.map { path =>
         TestStructurePath(

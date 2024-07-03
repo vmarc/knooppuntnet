@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
-import kpn.server.analyzer.engine.analysis.route.structure.Structure
+import kpn.server.analyzer.engine.analysis.route.structure.OldStructure
+import kpn.server.analyzer.engine.analysis.route.structure.OldStructurePath
+import kpn.server.analyzer.engine.analysis.route.structure.OldStructurePathElement
 import kpn.server.analyzer.engine.analysis.route.structure.StructureFragment
-import kpn.server.analyzer.engine.analysis.route.structure.StructurePath
-import kpn.server.analyzer.engine.analysis.route.structure.StructurePathElement
 
 object StructureReport {
 
-  def report(structure: Structure): String = {
+  def report(structure: OldStructure): String = {
     s"""<table>
        |  <tr class="header">
        |    <td class="spacer"></td>
@@ -24,7 +24,7 @@ object StructureReport {
        |""".stripMargin
   }
 
-  private def structurePath(name: String, path: StructurePath): String = {
+  private def structurePath(name: String, path: OldStructurePath): String = {
     s"""<tr>
        |  <td colspan="6">StructurePath $name startNodeId=${path.startNodeId}, endNodeId=${path.endNodeId}</td>
        |</tr>
@@ -32,7 +32,7 @@ object StructureReport {
        |""".stripMargin
   }
 
-  private def structurePathElement(element: StructurePathElement): String = {
+  private def structurePathElement(element: OldStructurePathElement): String = {
     s"""<tr>
        |  <td></td>
        |  <td colspan="4">StructurePathElement reversed=${element.reversed}</td>

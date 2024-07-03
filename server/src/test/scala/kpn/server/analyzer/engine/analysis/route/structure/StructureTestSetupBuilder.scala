@@ -27,7 +27,7 @@ class StructureTestSetupBuilder extends SharedTestObjects {
   }
 
   def memberRoundabout(wayId: Long, role: String, nodeIds: Long*): RawMember = {
-    memberWayWithTags(wayId, role, Tags.from("junction" -> "roundabout"), nodeIds *)
+    memberWayWithTags(wayId, role, Tags.from("highway" -> "road", "junction" -> "roundabout"), nodeIds *)
   }
 
   private def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
@@ -72,6 +72,7 @@ class StructureTestSetupBuilder extends SharedTestObjects {
       1,
       members = memberBuffer.toSeq,
       tags = Tags.from(
+        "name" -> "name",
         "type" -> "route",
         "route" -> "hiking"
       )

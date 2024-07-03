@@ -4,4 +4,17 @@ case class RoutePath(
   id: Long,
   direction: RoutePathDirection,
   elements: Seq[NewRouteSegmentElement]
-)
+) {
+  def nodeIds: Seq[Long] = {
+    val ids: Seq[Long] = elements.headOption match {
+      case Some(firstElement) => firstElement.nodeIds ++ elements.tail.flatMap(_.nodeIds)
+      case None => Seq.empty
+    }
+    if (direction == RoutePathDirection.Backward) {
+      ids.reverse
+    }
+    else {
+      ids
+    }
+  }
+}

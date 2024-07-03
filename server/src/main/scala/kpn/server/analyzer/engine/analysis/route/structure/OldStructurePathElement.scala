@@ -1,34 +1,34 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
-case class StructurePathElement(
-  path: RoutePath,
+case class OldStructurePathElement(
+  element: StructureElement,
   reversed: Boolean
 ) {
 
   def nodeIds: Seq[Long] = {
     if (reversed) {
-      path.nodeIds.reverse
+      element.nodeIds.reverse
     }
     else {
-      path.nodeIds
+      element.nodeIds
     }
   }
 
   def startNodeId: Long = {
     if (reversed) {
-      path.nodeIds.last
+      element.nodeIds.last
     }
     else {
-      path.nodeIds.head
+      element.nodeIds.head
     }
   }
 
   def endNodeId: Long = {
     if (reversed) {
-      path.nodeIds.head
+      element.nodeIds.head
     }
     else {
-      path.nodeIds.last
+      element.nodeIds.last
     }
   }
 }

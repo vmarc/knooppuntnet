@@ -35,4 +35,13 @@ case class RouteLinkWay(
       way.nodeIds.last
     }
   }
+
+  def nodeIds: Seq[Long] = {
+    if (link.direction == LinkDirection.Backward) {
+      way.nodeIds.reverse
+    }
+    else {
+      way.nodeIds
+    }
+  }
 }
