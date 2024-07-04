@@ -39,8 +39,8 @@ class Structure_05_SingleWayRoundaboutNotALoopTest extends UnitTest {
 
     context.pathDetails.shouldMatchTo(
       Seq(
-        "forward=1>1 nodes=1, 2, 3, 4", // TODO redesign - correct? no backward path?
-        "backward=1>1 nodes=1, 2, 3, 4",
+        "forward=1>4 nodes=1, 2, 3, 4",
+        "backward=4>1 nodes=4, 3, 2, 1",
       )
     )
   }

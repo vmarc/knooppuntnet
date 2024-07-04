@@ -17,4 +17,22 @@ case class RoutePath(
       ids
     }
   }
+
+  def fromNodeId: Long = {
+    if (direction == RoutePathDirection.Backward) {
+      elements.last.toNodeId
+    }
+    else {
+      elements.head.fromNodeId
+    }
+  }
+
+  def toNodeId: Long = {
+    if (direction == RoutePathDirection.Backward) {
+      elements.head.fromNodeId
+    }
+    else {
+      elements.last.toNodeId
+    }
+  }
 }

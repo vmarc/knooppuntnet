@@ -7,7 +7,15 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisConte
 object RoutePathAnalyzer extends RouteAnalyzer {
   override def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     val paths = new RoutePathAnalyzer(context).analyze()
-    val updatedSegments = context.segments.map { segment =>
+    val updatedSegments = updateSegmentPaths(context.segments, paths)
+    context.copy(
+      _segments = Some(updatedSegments),
+      _paths = Some(paths),
+    )
+  }
+
+  private def updateSegmentPaths(segments: Seq[NewRouteSegment], paths: Seq[RoutePath]): Seq[NewRouteSegment] = {
+    segments.map { segment =>
       segment.copy(
         elements = segment.elements.map { element =>
           element.copy(
@@ -27,10 +35,6 @@ object RoutePathAnalyzer extends RouteAnalyzer {
         }
       )
     }
-    context.copy(
-      _segments = Some(updatedSegments),
-      _paths = Some(paths),
-    )
   }
 }
 
@@ -39,16 +43,16 @@ class RoutePathAnalyzer(context: RouteDetailAnalysisContext) {
   private val pathIds = Util.ids
 
   def analyze(): Seq[RoutePath] = {
-    val nodeNetworkPaths = context.segments.flatMap { segment =>
+    val paths = context.segments.flatMap { segment =>
       findPaths(segment.elements)
     }
-    val nodeNetworksSegmentElementIds = nodeNetworkPaths.flatMap(_.elements.map(_.id))
-    val otherSegmentElements = context.segments.flatMap(_.elements).filterNot(el => nodeNetworksSegmentElementIds.contains(el.id))
+    val pathSegmentElementIds = paths.flatMap(_.elements.map(_.id))
+    val otherSegmentElements = context.segments.flatMap(_.elements).filterNot(el => pathSegmentElementIds.contains(el.id))
     val otherPaths = otherSegmentElements.map { element =>
       RoutePath(pathIds.next(), element.direction, Seq(element))
     }
 
-    nodeNetworkPaths ++ otherPaths
+    paths ++ otherPaths
   }
 
   private def findPaths(remainingElements: Seq[NewRouteSegmentElement]): Seq[RoutePath] = {

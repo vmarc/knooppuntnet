@@ -11,4 +11,8 @@ case class StructurePath(
       case None => Seq.empty
     }
   }
+
+  def pathIds: Seq[Long] = {
+    elements.map(_.path.id)
+  }
 }
