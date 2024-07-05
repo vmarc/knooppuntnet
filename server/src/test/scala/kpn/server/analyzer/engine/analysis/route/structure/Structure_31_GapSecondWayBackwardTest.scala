@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
+import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.core.util.UnitTest
 
 class Structure_31_GapSecondWayBackwardTest extends UnitTest {
@@ -11,11 +13,44 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
   }.build
 
   test("analyze") {
-    val context = setup.analyze()
+    val context = setup.analyze(traceEnabled = true)
+    context.facts.shouldMatchTo(Seq(RouteUnusedSegments, RouteBroken)) // TODO redesign - incorrect?
     context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
-        "2    p     n     loop     fp ■   bp     head ■   tail     d backward",
+        "2    p     n     loop     fp ■   bp     head ■   tail     d backward", // TODO redesign - incorrect? should be "bp" instead of "fp" ? role is taken into account?
+      )
+    )
+
+    context.segments.shouldMatchTo(
+      Seq(
+        "segment-1 1>3",
+        "  element-1 bidirectional 1>3",
+        "    way-11  p     n     loop     fp     bp     head     tail     d unconnected  paths=1",
+        "segment-2 5>3",
+        "  element-2 forward 5>3",
+        "    way-12  p     n     loop     fp ■   bp     head ■   tail     d backward  paths=2",
+      )
+    )
+
+    context.paths.shouldMatchTo(
+      Seq(
+        "path-1, bidirectional, elements=1",
+        "path-2, backward, elements=2",
+      )
+    )
+
+    context.pathNodes.shouldMatchTo(
+      Seq(
+        TestPathNodes(1, Seq(1, 2, 3)),
+        TestPathNodes(2, Seq(5, 4, 3)),
+      )
+    )
+
+    context.pathDetails.shouldMatchTo(
+      Seq(
+        "forward=1>3 nodes=1, 2, 3",
+        "backward=5>1 nodes=5, 4, 3, 2, 1",
       )
     )
   }

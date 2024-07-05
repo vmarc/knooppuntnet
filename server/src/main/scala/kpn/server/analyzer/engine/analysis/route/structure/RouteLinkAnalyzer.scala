@@ -20,7 +20,7 @@ import scala.jdk.CollectionConverters.IterableHasAsJava
 
 object RouteLinkAnalyzer extends RouteAnalyzer {
   override def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
-    val links = new RouteLinkAnalyzer().analyze(context.relation)
+    val links = new RouteLinkAnalyzer(context.traceEnabled).analyze(context.relation)
     context.copy(
       _links = Some(links)
     )

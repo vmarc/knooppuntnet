@@ -61,10 +61,10 @@ class RouteDetailMainAnalyzerImpl(
   routeTileAnalyzer: RouteTileAnalyzer
 ) extends RouteDetailMainAnalyzer {
 
-  override def analyze(relation: Relation, hierarchy: Option[RouteRelation]): Option[RouteDetailAnalysisContext] = {
+  override def analyze(relation: Relation, hierarchy: Option[RouteRelation], traceEnabled: Boolean): Option[RouteDetailAnalysisContext] = {
     Log.context("route=%07d".format(relation.id)) {
 
-      val context = RouteDetailAnalysisContext(relation, hierarchy)
+      val context = RouteDetailAnalysisContext(relation, hierarchy, traceEnabled = traceEnabled)
 
       val analyzers: List[RouteAnalyzer] = List(
         RouteTagAnalyzer,

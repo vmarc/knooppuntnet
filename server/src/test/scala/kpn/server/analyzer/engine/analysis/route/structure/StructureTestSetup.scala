@@ -34,7 +34,7 @@ class StructureTestSetup(val data: Data) extends MockFactory {
     TestStructure.from(new OldStructureAnalyzer(traceEnabled).analyze(RouteNodeAnalysis(), elementGroups))
   }
 
-  def analyze(): RouteDetailAnalysisTestContext = {
+  def analyze(traceEnabled: Boolean = false): RouteDetailAnalysisTestContext = {
     val tileCalculator = new OldTileCalculatorImpl()
     val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
     val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
@@ -49,7 +49,7 @@ class StructureTestSetup(val data: Data) extends MockFactory {
       routeTileAnalyzer
     )
     RouteDetailAnalysisTestContext(
-      routeAnalyzer.analyze(relation, None).get
+      routeAnalyzer.analyze(relation, None, traceEnabled).get
     )
   }
 

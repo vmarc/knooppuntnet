@@ -5,5 +5,5 @@ import kpn.core.tools.next.domain.RouteRelation
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 trait RouteDetailMainAnalyzer {
-  def analyze(relation: Relation, hierarchy: Option[RouteRelation]): Option[RouteDetailAnalysisContext]
+  def analyze(relation: Relation, hierarchy: Option[RouteRelation], traceEnabled: Boolean = false): Option[RouteDetailAnalysisContext]
 }

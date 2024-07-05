@@ -72,6 +72,7 @@ case class RouteDetailAnalysisContext(
   tiles: Seq[String] = Seq.empty,
   elementIds: ElementIds = ElementIds(),
   edges: Seq[RouteEdge] = Seq.empty,
+  traceEnabled: Boolean = false,
   abort: Boolean = false
 ) {
 
