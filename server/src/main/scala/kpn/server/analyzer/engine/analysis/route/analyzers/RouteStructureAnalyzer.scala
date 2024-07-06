@@ -26,7 +26,11 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
 
-    val structure = new StructureAnalyzer().analyze(context.routeNodeAnalysis, context.paths)
+    val structure = new StructureAnalyzer().analyze(
+      context.segments,
+      context.routeNodeAnalysis,
+      context.paths
+    )
 
     val oneWayRouteForward = context.relation.hasTag("direction", "forward")
     val oneWayRouteBackward = context.relation.hasTag("direction", "backward")

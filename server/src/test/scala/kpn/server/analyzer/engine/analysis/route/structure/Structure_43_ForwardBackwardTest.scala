@@ -15,6 +15,7 @@ class Structure_43_ForwardBackwardTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
+    // TODO context.facts.shouldMatchTo(Seq.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
@@ -23,6 +24,47 @@ class Structure_43_ForwardBackwardTest extends UnitTest {
         "4    p ■   n ■   loop     fp     bp ■   head     tail     d forward",
         "5    p ■   n ■   loop     fp     bp ■   head     tail ■   d forward",
         "6    p ■   n     loop     fp     bp     head     tail     d forward",
+      )
+    )
+
+    context.segments.shouldMatchTo(
+      Seq(
+        "segment-1 1>6",
+        "  element-1 bidirectional 1>2",
+        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
+        "  element-2 forward 2>5",
+        "    way-12  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=2",
+        "    way-13  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=2",
+        "  element-3 backward 2>5",
+        "    way-14  p ■   n ■   loop     fp     bp ■   head     tail     d forward  paths=3",
+        "    way-15  p ■   n ■   loop     fp     bp ■   head     tail ■   d forward  paths=3",
+        "  element-4 bidirectional 5>6",
+        "    way-16  p ■   n     loop     fp     bp     head     tail     d forward  paths=4",
+      )
+    )
+
+    context.paths.shouldMatchTo(
+      Seq(
+        "path-1, bidirectional, elements=1",
+        "path-2, forward, elements=2",
+        "path-3, backward, elements=3",
+        "path-4, bidirectional, elements=4",
+      )
+    )
+
+    context.pathNodes.shouldMatchTo(
+      Seq(
+        TestPathNodes(1, Seq(1, 2)),
+        TestPathNodes(2, Seq(2, 3, 5)),
+        TestPathNodes(3, Seq(2, 4, 5)),
+        TestPathNodes(4, Seq(5, 6)),
+      )
+    )
+
+    context.pathDetails.shouldMatchTo(
+      Seq(
+        "forward=1>6 nodes=1, 2, 3, 5, 6",
+        "backward=6>1 nodes=6, 5, 4, 2, 1",
       )
     )
   }

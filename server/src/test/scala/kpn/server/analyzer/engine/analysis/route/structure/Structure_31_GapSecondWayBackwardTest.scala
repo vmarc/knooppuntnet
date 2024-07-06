@@ -1,7 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.custom.Fact.RouteBroken
-import kpn.api.custom.Fact.RouteUnusedSegments
+import kpn.api.custom.Fact.RouteNotBackward
+import kpn.api.custom.Fact.RouteNotContinious
+import kpn.api.custom.Fact.RouteNotForward
 import kpn.core.util.UnitTest
 
 class Structure_31_GapSecondWayBackwardTest extends UnitTest {
@@ -13,12 +15,12 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
   }.build
 
   test("analyze") {
-    val context = setup.analyze(traceEnabled = true)
-    context.facts.shouldMatchTo(Seq(RouteUnusedSegments, RouteBroken)) // TODO redesign - incorrect?
+    val context = setup.analyze()
+    context.facts.shouldMatchTo(Seq(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken))
     context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
-        "2    p     n     loop     fp ■   bp     head ■   tail     d backward", // TODO redesign - incorrect? should be "bp" instead of "fp" ? role is taken into account?
+        "2    p     n     loop     fp ■   bp     head ■   tail     d backward",
       )
     )
 
@@ -36,7 +38,7 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
     context.paths.shouldMatchTo(
       Seq(
         "path-1, bidirectional, elements=1",
-        "path-2, backward, elements=2",
+        "path-2, forward, elements=2",
       )
     )
 
@@ -49,8 +51,8 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
 
     context.pathDetails.shouldMatchTo(
       Seq(
-        "forward=1>3 nodes=1, 2, 3",
-        "backward=5>1 nodes=5, 4, 3, 2, 1",
+        "other=1>3 nodes=1, 2, 3",
+        "other=5>3 nodes=5, 4, 3",
       )
     )
   }
@@ -81,7 +83,7 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
           TestStructurePath(
             startNodeId = 5,
             endNodeId = 1,
-            nodeIds = Seq(5, 4, 3, 2, 1)
+            nodeIds = Seq(5, 4, 3, 2, 1) // !!! this is wrong !!!
           )
         )
       )
