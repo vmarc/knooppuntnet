@@ -10,9 +10,37 @@ class Structure_51_RoundaboutTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
+    context.facts.shouldMatchTo(Seq.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d roundaboutright",
+      )
+    )
+
+    context.segments.shouldMatchTo(
+      Seq(
+        "segment-1 1>1",
+        "  element-1 bidirectional 1>1",
+        "    way-11  p     n     loop     fp     bp     head     tail     d roundaboutright  paths=1",
+      )
+    )
+
+    context.paths.shouldMatchTo(
+      Seq(
+        "path-1, bidirectional, elements=1",
+      )
+    )
+
+    context.pathNodes.shouldMatchTo(
+      Seq(
+        TestPathNodes(1, Seq(1, 2, 3, 4, 1)),
+      )
+    )
+
+    context.pathDetails.shouldMatchTo(
+      Seq(
+        "forward=1>1 nodes=1, 2, 3, 4, 1",
+        "backward=1>1 nodes=1, 4, 3, 2, 1",
       )
     )
   }
