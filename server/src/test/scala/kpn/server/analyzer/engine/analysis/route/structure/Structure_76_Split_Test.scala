@@ -14,12 +14,51 @@ class Structure_76_Split_Test extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
+    context.facts.shouldMatchTo(Seq.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp ■   bp     head ■   tail     d backward",
         "2    p ■   n ■   loop     fp ■   bp     head     tail     d forward",
         "3    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
         "4    p ■   n     loop     fp     bp ■   head     tail ■   d backward",
+      )
+    )
+
+    context.segments.foreach(a => println(s""""$a","""))
+    context.paths.foreach(a => println(s""""$a","""))
+    context.pathNodes.foreach(a => println(s"""$a,"""))
+    context.pathDetails.foreach(a => println(s""""$a","""))
+
+    context.segments.shouldMatchTo(
+      Seq(
+        "segment-1 1>3",
+        "  element-1 forward 1>3",
+        "    way-11  p     n ■   loop     fp ■   bp     head ■   tail     d backward  paths=1",
+        "    way-12  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=1",
+        "  element-2 backward 1>3",
+        "    way-13  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=2",
+        "    way-14  p ■   n     loop     fp     bp ■   head     tail ■   d backward  paths=2",
+      )
+    )
+
+    context.paths.shouldMatchTo(
+      Seq(
+        "path-1, forward, elements=1",
+        "path-2, backward, elements=2",
+      )
+    )
+
+    context.pathNodes.shouldMatchTo(
+      Seq(
+        TestPathNodes(1, Vector(1, 2, 3)),
+        TestPathNodes(2, Vector(1, 4, 3)),
+      )
+    )
+
+    context.pathDetails.shouldMatchTo(
+      Seq(
+        "forward=1>3 nodes=1, 2, 3",
+        "backward=3>1 nodes=3, 4, 1",
       )
     )
   }

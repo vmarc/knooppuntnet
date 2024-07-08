@@ -13,12 +13,44 @@ class Structure_55_DoubleRoundaboutTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
+    context.facts.shouldMatchTo(Seq.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
         "2    p ■   n ■   loop     fp     bp     head     tail     d roundaboutright",
         "3    p ■   n ■   loop     fp     bp     head     tail     d roundaboutright",
         "4    p ■   n     loop     fp     bp     head     tail     d forward"
+      )
+    )
+
+    context.segments.shouldMatchTo(
+      Seq(
+        "segment-1 1>11",
+        "  element-1 bidirectional 1>11",
+        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
+        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright  paths=1",
+        "    way-13  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright  paths=1",
+        "    way-14  p ■   n     loop     fp     bp     head     tail     d forward  paths=1",
+      )
+    )
+
+    context.paths.shouldMatchTo(
+      Seq(
+        "path-1, bidirectional, elements=1",
+      )
+    )
+
+    pending
+    context.pathNodes.shouldMatchTo(
+      Seq(
+        TestPathNodes(1, Seq(1, 2, 3, 4, 5, 6, 3, 7, 9, 8, 5, 10, 11)), // TODO redesign - this is NOK?
+      )
+    )
+
+    context.pathDetails.shouldMatchTo(
+      Seq(
+        "forward=1>11 nodes=1, 2, 3, 4, 5, 6, 3, 7, 9, 8, 5, 10, 11", // TODO redesign - this is NOK?
+        "backward=11>1 nodes=11, 10, 5, 8, 9, 7, 3, 6, 5, 4, 3, 2, 1", // TODO redesign - this is NOK?
       )
     )
   }

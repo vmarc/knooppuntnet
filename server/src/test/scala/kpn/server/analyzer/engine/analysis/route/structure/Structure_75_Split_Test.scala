@@ -17,6 +17,7 @@ class Structure_75_Split_Test extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
+    context.facts.shouldMatchTo(Seq.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp ■   bp     head ■   tail     d forward",
@@ -26,6 +27,45 @@ class Structure_75_Split_Test extends UnitTest {
         "5    p ■   n ■   loop     fp     bp ■   head     tail     d forward",
         "6    p ■   n ■   loop     fp     bp ■   head     tail ■   d forward",
         "7    p ■   n     loop     fp     bp     head     tail     d forward",
+      )
+    )
+
+    context.segments.shouldMatchTo(
+      Seq(
+        "segment-1 1>7",
+        "  element-1 forward 1>4",
+        "    way-11  p     n ■   loop     fp ■   bp     head ■   tail     d forward  paths=1",
+        "    way-12  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=1",
+        "    way-13  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=1",
+        "  element-2 backward 1>4",
+        "    way-14  p ■   n ■   loop     fp     bp ■   head     tail     d forward  paths=2",
+        "    way-15  p ■   n ■   loop     fp     bp ■   head     tail     d forward  paths=2",
+        "    way-16  p ■   n ■   loop     fp     bp ■   head     tail ■   d forward  paths=2",
+        "  element-3 bidirectional 4>7",
+        "    way-17  p ■   n     loop     fp     bp     head     tail     d forward  paths=3",
+      )
+    )
+
+    context.paths.shouldMatchTo(
+      Seq(
+        "path-1, forward, elements=1",
+        "path-2, backward, elements=2",
+        "path-3, bidirectional, elements=3",
+      )
+    )
+
+    context.pathNodes.shouldMatchTo(
+      Seq(
+        TestPathNodes(1, Vector(1, 2, 3, 4)),
+        TestPathNodes(2, Vector(1, 5, 6, 4)),
+        TestPathNodes(3, Vector(4, 7)),
+      )
+    )
+
+    context.pathDetails.shouldMatchTo(
+      Seq(
+        "forward=1>7 nodes=1, 2, 3, 4, 7",
+        "backward=7>1 nodes=7, 4, 6, 5, 1",
       )
     )
   }

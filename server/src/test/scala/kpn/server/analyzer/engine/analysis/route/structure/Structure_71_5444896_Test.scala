@@ -22,6 +22,7 @@ class Structure_71_5444896_Test extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
+    context.facts.shouldMatchTo(Seq.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d backward",
@@ -29,11 +30,54 @@ class Structure_71_5444896_Test extends UnitTest {
         "3    p ■   n ■   loop     fp ■   bp     head     tail     d forward",
         "4    p ■   n ■   loop     fp ■   bp     head     tail     d backward",
         "5    p ■   n ■   loop     fp ■   bp     head     tail     d backward",
-
         "6    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
         "7    p ■   n ■   loop     fp     bp ■   head     tail     d backward",
         "8    p ■   n ■   loop     fp     bp ■   head     tail ■   d forward",
         "9    p ■   n     loop     fp     bp     head     tail     d backward"
+      )
+    )
+
+    context.segments.shouldMatchTo(
+      Seq(
+        "segment-1 1>9",
+        "  element-1 bidirectional 1>2",
+        "    way-11  p     n ■   loop     fp     bp     head     tail     d backward  paths=1",
+        "  element-2 forward 2>8",
+        "    way-12  p ■   n ■   loop     fp ■   bp     head ■   tail     d backward  paths=2",
+        "    way-13  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=2",
+        "    way-14  p ■   n ■   loop     fp ■   bp     head     tail     d backward  paths=2",
+        "    way-15  p ■   n ■   loop     fp ■   bp     head     tail     d backward  paths=2",
+        "  element-3 backward 2>8",
+        "    way-16  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=3",
+        "    way-17  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=3",
+        "    way-18  p ■   n ■   loop     fp     bp ■   head     tail ■   d forward  paths=3",
+        "  element-4 bidirectional 8>9",
+        "    way-19  p ■   n     loop     fp     bp     head     tail     d backward  paths=4",
+      )
+    )
+
+    context.paths.shouldMatchTo(
+      Seq(
+        "path-1, bidirectional, elements=1",
+        "path-2, forward, elements=2",
+        "path-3, backward, elements=3",
+        "path-4, bidirectional, elements=4",
+      )
+    )
+
+    context.pathNodes.shouldMatchTo(
+      Seq(
+        TestPathNodes(1, Seq(1, 2)),
+        TestPathNodes(2, Seq(2, 3, 4, 5, 8)),
+        TestPathNodes(3, Seq(2, 6, 7, 8)),
+        TestPathNodes(4, Seq(8, 9)),
+      )
+    )
+
+    context.pathDetails.shouldMatchTo(
+      Seq(
+        "forward=1>9 nodes=1, 2, 3, 4, 5, 8, 9",
+        "backward=9>1 nodes=9, 8, 7, 6, 2, 1",
       )
     )
   }

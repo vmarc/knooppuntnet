@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
+import kpn.core.analysis.LinkDirection
 import kpn.core.util.Triplet
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
@@ -24,6 +25,16 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     val currentSegmentLinks = ListBuffer[RouteLinkWay]()
     val segments = ListBuffer[NewRouteSegment]()
     context.links.routeLinkWays.foreach { link =>
+      if (link.link.direction == LinkDirection.RoundaboutRight && link.isClosedLoop) {
+        // TODO finalize current segment, if any
+
+        // look ahead to next link to see if it connects to this roundabout and at which point
+
+        // create new segment forward
+        // create new segment backward
+        // clear current segmentLinks to start new segment
+      }
+
       currentSegmentLinks += link
       if (!link.link.hasNext) {
         segments += buildSegment(segments.size + 1, currentSegmentLinks.toSeq)

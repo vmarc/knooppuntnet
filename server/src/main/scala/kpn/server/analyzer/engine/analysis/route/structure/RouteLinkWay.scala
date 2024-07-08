@@ -44,4 +44,8 @@ case class RouteLinkWay(
       way.nodeIds
     }
   }
+
+  def isClosedLoop: Boolean = {
+    way.nodes.size > 2 && way.nodeIds.head == way.nodeIds.last
+  }
 }
