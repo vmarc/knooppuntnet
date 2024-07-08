@@ -5,10 +5,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.NewRouteSegment
 import kpn.server.analyzer.engine.analysis.route.structure.NewRouteSegmentElement
-import kpn.server.analyzer.engine.analysis.route.structure.RouteLink
-import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkNode
-import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkRelationId
-import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkWay
+import kpn.server.analyzer.engine.analysis.route.structure.NewRouteSegmentElementFragment
 
 object RouteSegmentReport {
   def report(context: RouteDetailAnalysisContext): String = {
@@ -76,49 +73,40 @@ class RouteSegmentReport(context: RouteDetailAnalysisContext) {
          |  <td>
          |  </td>
          |</tr>
-         |${elementLinks(element)}
+         |${elementFragments(element)}
          |""".stripMargin
     }.mkString
   }
 
-  private def elementLinks(element: NewRouteSegmentElement): String = {
-    element.links.map(elementLink).mkString
+  private def elementFragments(element: NewRouteSegmentElement): String = {
+    element.fragments.map(elementFragment).mkString
   }
 
-  private def elementLink(link: RouteLink): String = {
+  private def elementFragment(fragment: NewRouteSegmentElementFragment): String = {
 
-    val (elementType, elementId, name, from, to, networkNodes) = link match {
-      case routeLinkNode: RouteLinkNode =>
-        ("node", routeLinkNode.node.id, "TODO", "", "", "")
-      case routeLinkWay: RouteLinkWay =>
-        val head = ReportUtil.osmNodeLink(routeLinkWay.way.nodes.head.id)
-        val last = ReportUtil.osmNodeLink(routeLinkWay.way.nodes.last.id)
-        val (from, to) = if (routeLinkWay.link.direction == LinkDirection.Backward) {
-          (last, head)
-        }
-        else {
-          (head, last)
-        }
-        ("node", routeLinkWay.way.id, "TODO", from, to, networkNodeString(routeLinkWay.way.nodeIds))
-      case routeLinkRelationId: RouteLinkRelationId =>
-        ("node", routeLinkRelationId.relationId, "TODO", "", "", "")
+    val head = ReportUtil.osmNodeLink(fragment.nodeIds.head)
+    val last = ReportUtil.osmNodeLink(fragment.nodeIds.last)
+    val (from, to) = if (fragment.link.direction == LinkDirection.Backward) {
+      (last, head)
     }
-
+    else {
+      (head, last)
+    }
     s"""<tr>
        |  <td>
-       |    ${link.idString}
+       |    ${fragment.id}
        |  </td>
        |  <td style="padding:0">
-       |    <img src="images/${link.linkName}.png"/>
+       |    <img src="images/${fragment.link.name}.png"/>
        |  </td>
        |  <td>
-       |    <pre>${link.linkDetail}</pre>
+       |    <pre>${fragment.link.reportString}</pre>
        |  </td>
        |  <td>
-       |    ${ReportUtil.osmLink(elementType, elementId)}
+       |    ${ReportUtil.osmLink("way", fragment.wayId)}
        |  </td>
        |  <td>
-       |    ${link.role.getOrElse("")}
+       |    ${fragment.role.getOrElse("")}
        |  </td>
        |  <td>
        |    $from
@@ -126,9 +114,9 @@ class RouteSegmentReport(context: RouteDetailAnalysisContext) {
        |  <td>
        |    $to
        |  </td>
-       |  <td>$networkNodes</td>
+       |  <td>${networkNodeString(fragment.nodeIds)}</td>
        |  <td>
-       |    ${link.pathIds.mkString(", ")}
+       |    ${fragment.pathIds.mkString(", ")}
        |  </td>
        |</tr>
        |""".stripMargin

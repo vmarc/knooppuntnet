@@ -38,7 +38,7 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
   def segments: Seq[String] = {
     context.segments.flatMap { segment =>
       val elements = segment.elements.flatMap { element =>
-        elementToString(element) +: element.links.map(linkToString)
+        elementToString(element) +: element.fragments.map(fragmentToString)
       }
       segmentToString(segment) +: elements
     }
@@ -55,8 +55,8 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
     s"""  element-${element.id} $direction ${element.fromNodeId}>${element.toNodeId}$from$to"""
   }
 
-  private def linkToString(link: RouteLinkWay): String = {
-    s"""    way-${link.way.id}  ${link.linkDetail}  paths=${link.pathIds.mkString(", ")}"""
+  private def fragmentToString(link: NewRouteSegmentElementFragment): String = {
+    s"""    way-${link.wayId}  ${link.link.reportString}  paths=${link.pathIds.mkString(", ")}"""
   }
 
   private def pathToString(path: StructurePath): String = {

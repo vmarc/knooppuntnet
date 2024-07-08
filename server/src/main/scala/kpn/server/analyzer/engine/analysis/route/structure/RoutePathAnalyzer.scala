@@ -19,15 +19,15 @@ object RoutePathAnalyzer extends RouteAnalyzer {
       segment.copy(
         elements = segment.elements.map { element =>
           element.copy(
-            links = element.links.map { link =>
+            fragments = element.fragments.map { fragment =>
               val pathIds = paths.filter { path =>
                 path.elements.exists { element =>
-                  element.links.exists { elementLink =>
-                    elementLink.id == link.id
+                  element.fragments.exists { elementFragment =>
+                    elementFragment.id == fragment.id
                   }
                 }
               }.map(_.id)
-              link.copy(
+              fragment.copy(
                 pathIds = pathIds
               )
             }

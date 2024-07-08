@@ -20,9 +20,10 @@ object RouteSegmentAnalyzer extends RouteAnalyzer {
 class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
 
   private val segmentElementIds = Util.ids
+  private val segmentElementFragmentIds = Util.ids
 
   def analyze(): Seq[NewRouteSegment] = {
-    val currentSegmentLinks = ListBuffer[RouteLinkWay]()
+    val currentSegmentFragments = ListBuffer[NewRouteSegmentElementFragment]()
     val segments = ListBuffer[NewRouteSegment]()
     context.links.routeLinkWays.foreach { link =>
       if (link.link.direction == LinkDirection.RoundaboutRight && link.isClosedLoop) {
@@ -35,23 +36,32 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
         // clear current segmentLinks to start new segment
       }
 
-      currentSegmentLinks += link
+      val fragment = NewRouteSegmentElementFragment(
+        segmentElementFragmentIds.next(),
+        link.way.id,
+        link.link,
+        link.role,
+        link.nodeIds,
+        Seq.empty // filled in later during path analysis
+      )
+
+      currentSegmentFragments += fragment
       if (!link.link.hasNext) {
-        segments += buildSegment(segments.size + 1, currentSegmentLinks.toSeq)
-        currentSegmentLinks.clear()
+        segments += buildSegment(segments.size + 1, currentSegmentFragments.toSeq)
+        currentSegmentFragments.clear()
       }
     }
-    if (currentSegmentLinks.nonEmpty) {
-      segments += buildSegment(segments.size + 1, currentSegmentLinks.toSeq)
-      currentSegmentLinks.clear()
+    if (currentSegmentFragments.nonEmpty) {
+      segments += buildSegment(segments.size + 1, currentSegmentFragments.toSeq)
+      currentSegmentFragments.clear()
     }
     segments.toSeq
   }
 
-  private def buildSegment(id: Long, links: Seq[RouteLinkWay]): NewRouteSegment = {
-    val fromNodeId = links.head.fromNodeId
-    val toNodeId = links.last.toNodeId
-    val elements = analyzeSegmentLinks(links)
+  private def buildSegment(id: Long, fragments: Seq[NewRouteSegmentElementFragment]): NewRouteSegment = {
+    val fromNodeId = fragments.head.nodeIds.head
+    val toNodeId = fragments.last.nodeIds.last
+    val elements = analyzeSegmentLinks(fragments)
     NewRouteSegment(
       id,
       fromNodeId,
@@ -60,40 +70,40 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     )
   }
 
-  private def analyzeSegmentLinks(links: Seq[RouteLinkWay]): Seq[NewRouteSegmentElement] = {
+  private def analyzeSegmentLinks(fragments: Seq[NewRouteSegmentElementFragment]): Seq[NewRouteSegmentElement] = {
     // TODO redesign - for now assuming that network nodes are at way start or end node (later allow way splitting, and roundabout handling)
     val elements = ListBuffer[NewRouteSegmentElement]()
-    val currentElementLinks = ListBuffer[RouteLinkWay]()
+    val currentElementFragments = ListBuffer[NewRouteSegmentElementFragment]()
 
-    Triplet.slide(links).foreach { case Triplet(_, currentLink, nextLinkOption) =>
-      currentElementLinks += currentLink
+    Triplet.slide(fragments).foreach { case Triplet(_, currentLink, nextLinkOption) =>
+      currentElementFragments += currentLink
       val change = isDirectionChange(currentLink, nextLinkOption)
-      if (change || linkEndContainsNetworkNode(currentLink)) {
-        elements += buildRoutePath(currentElementLinks.toSeq)
-        currentElementLinks.clear()
+      if (change || fragmentEndContainsNetworkNode(currentLink)) {
+        elements += buildRoutePath(currentElementFragments.toSeq)
+        currentElementFragments.clear()
       }
     }
 
-    if (currentElementLinks.nonEmpty) {
-      elements += buildRoutePath(currentElementLinks.toSeq)
-      currentElementLinks.clear()
+    if (currentElementFragments.nonEmpty) {
+      elements += buildRoutePath(currentElementFragments.toSeq)
+      currentElementFragments.clear()
     }
 
     elements.toSeq
   }
 
-  private def linkEndContainsNetworkNode(link: RouteLinkWay): Boolean = {
-    context.routeNodeAnalysis.nodeIds.contains(link.toNodeId)
+  private def fragmentEndContainsNetworkNode(fragment: NewRouteSegmentElementFragment): Boolean = {
+    context.routeNodeAnalysis.nodeIds.contains(fragment.nodeIds.last) // TODO redesign - not sure if this is ok
   }
 
-  private def buildRoutePath(links: Seq[RouteLinkWay]): NewRouteSegmentElement = {
-    val fromNodeId = links.head.fromNodeId
-    val toNodeId = links.last.toNodeId
+  private def buildRoutePath(fragments: Seq[NewRouteSegmentElementFragment]): NewRouteSegmentElement = {
+    val fromNodeId = fragments.head.nodeIds.head // TODO redesign - not sure if this is ok
+    val toNodeId = fragments.last.nodeIds.last // TODO redesign - not sure if this is ok
 
-    val direction: RoutePathDirection = if (links.head.link.isOnewayLoopForwardPart) {
+    val direction: RoutePathDirection = if (fragments.head.link.isOnewayLoopForwardPart) {
       RoutePathDirection.Forward
     }
-    else if (links.head.link.isOnewayLoopBackwardPart) {
+    else if (fragments.head.link.isOnewayLoopBackwardPart) {
       RoutePathDirection.Backward
     }
     else {
@@ -110,16 +120,16 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       toNetworkNode,
       fromNodeId,
       toNodeId,
-      links
+      fragments
     )
   }
 
-  private def isDirectionChange(currentRouteLink: RouteLinkWay, nextRouteLink: Option[RouteLinkWay]): Boolean = {
-    nextRouteLink match {
+  private def isDirectionChange(currentFragment: NewRouteSegmentElementFragment, nextFragment: Option[NewRouteSegmentElementFragment]): Boolean = {
+    nextFragment match {
       case None => false
       case Some(next) =>
-        next.link.isOnewayLoopBackwardPart != currentRouteLink.link.isOnewayLoopBackwardPart ||
-          next.link.isOnewayLoopForwardPart != currentRouteLink.link.isOnewayLoopForwardPart
+        next.link.isOnewayLoopBackwardPart != currentFragment.link.isOnewayLoopBackwardPart ||
+          next.link.isOnewayLoopForwardPart != currentFragment.link.isOnewayLoopForwardPart
     }
   }
 }

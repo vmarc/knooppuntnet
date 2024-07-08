@@ -9,6 +9,4 @@ trait RouteLink {
   def linkDetail: String
 
   def role: Option[String]
-
-  def pathIds: Seq[Long]
 }

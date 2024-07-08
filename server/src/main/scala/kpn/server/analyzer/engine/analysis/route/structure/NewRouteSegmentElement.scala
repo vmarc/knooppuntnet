@@ -9,11 +9,11 @@ case class NewRouteSegmentElement(
   toNetworkNode: Option[RouteNodeData],
   fromNodeId: Long,
   toNodeId: Long,
-  links: Seq[RouteLinkWay]
+  fragments: Seq[NewRouteSegmentElementFragment]
 ) {
   def nodeIds: Seq[Long] = {
-    val ids = links.headOption match {
-      case Some(firstLink) => firstLink.nodeIds ++ links.tail.flatMap(link => link.nodeIds.tail)
+    val ids = fragments.headOption match {
+      case Some(firstLink) => firstLink.nodeIds ++ fragments.tail.flatMap(link => link.nodeIds.tail)
       case None => Seq.empty
     }
     if (direction == RoutePathDirection.Backward) {
