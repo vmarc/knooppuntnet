@@ -10,4 +10,7 @@ case class NewRouteSegmentElementFragment(
   nodeIds: Seq[Long],
   pathIds: Seq[Long]
 ) {
+  def fromNodeId: Long = nodeIds.head
+
+  def toNodeId: Long = nodeIds.last
 }

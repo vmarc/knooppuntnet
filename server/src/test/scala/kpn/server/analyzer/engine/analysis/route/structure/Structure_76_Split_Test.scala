@@ -24,11 +24,6 @@ class Structure_76_Split_Test extends UnitTest {
       )
     )
 
-    context.segments.foreach(a => println(s""""$a","""))
-    context.paths.foreach(a => println(s""""$a","""))
-    context.pathNodes.foreach(a => println(s"""$a,"""))
-    context.pathDetails.foreach(a => println(s""""$a","""))
-
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>3",

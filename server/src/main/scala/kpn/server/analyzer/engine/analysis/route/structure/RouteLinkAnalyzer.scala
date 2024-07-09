@@ -51,8 +51,7 @@ class RouteLinkAnalyzer(traceEnabled: Boolean = false) {
               linkIds.next(),
               toScalaLink(javaWayLinks.next()),
               wayMember.role,
-              wayMember.way,
-              Seq.empty
+              wayMember.way
             )
           )
 

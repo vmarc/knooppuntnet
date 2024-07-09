@@ -24,30 +24,39 @@ class Structure_54_WayRoundaboutWayTest extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>8",
-        "  element-1 bidirectional 1>8",
+        "  element-1 bidirectional 1>3",
         "    way-11  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright  paths=1",
-        "    way-13  p ■   n     loop     fp     bp     head     tail     d forward  paths=1",
+        "  element-2 forward 3>5",
+        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright  paths=2",
+        "  element-3 backward 3>5",
+        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright  paths=3",
+        "  element-4 bidirectional 5>8",
+        "    way-13  p ■   n     loop     fp     bp     head     tail     d forward  paths=4",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
         "path-1, bidirectional, elements=1",
+        "path-2, forward, elements=2",
+        "path-3, backward, elements=3",
+        "path-4, bidirectional, elements=4",
       )
     )
 
-    pending
     context.pathNodes.shouldMatchTo(
       Seq(
-        TestPathNodes(1, Seq(1, 2, 3, 4, 5, 6, 3, 7, 8)), // TODO redesign - this is NOK?
+        TestPathNodes(1, Vector(1, 2, 3)),
+        TestPathNodes(2, Vector(3, 4, 5)),
+        TestPathNodes(3, Vector(3, 6, 5)),
+        TestPathNodes(4, Vector(5, 7, 8)),
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
-        "forward=1>8 nodes=1, 2, 3, 4, 5, 6, 3, 7, 8", // TODO redesign - this is NOK?
-        "backward=8>1 nodes=8, 7, 3, 6, 5, 4, 3, 2, 1", // TODO redesign - this is NOK?
+        "forward=1>8 nodes=1, 2, 3, 4, 5, 7, 8",
+        "backward=8>1 nodes=8, 7, 5, 6, 3, 2, 1",
       )
     )
   }

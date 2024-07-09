@@ -22,29 +22,35 @@ class Structure_52_RoundaboutRoundaboutTest extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>3",
-        "  element-1 bidirectional 1>3",
+        "  element-1 forward 1>3",
         "    way-11  p     n ■   loop ■   fp     bp     head     tail     d roundaboutright  paths=1",
-        "    way-12  p ■   n     loop ■   fp     bp     head     tail     d roundaboutright  paths=1",
+        "  element-2 backward 1>3",
+        "    way-11  p     n ■   loop ■   fp     bp     head     tail     d roundaboutright  paths=2",
+        "  element-3 bidirectional 3>3",
+        "    way-12  p ■   n     loop ■   fp     bp     head     tail     d roundaboutright  paths=3",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
+        "path-1, forward, elements=1",
+        "path-2, backward, elements=2",
+        "path-3, bidirectional, elements=3",
       )
     )
 
-    pending
     context.pathNodes.shouldMatchTo(
       Seq(
-        TestPathNodes(1, Seq(1, 2, 3, 4, 1, 5, 6, 7, 3)), // TODO redesign - this is NOK?
+        TestPathNodes(1, Vector(1, 2, 3)),
+        TestPathNodes(2, Vector(1, 4, 3)),
+        TestPathNodes(3, Vector(3, 5, 6, 7, 3)),
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
-        "forward=1>3 nodes=1, 2, 3, 4, 1, 5, 6, 7, 3", // TODO redesign - this is NOK?
-        "backward=3>1 nodes=3, 7, 6, 5, 1, 4, 3, 2, 1", // TODO redesign - this is NOK?
+        "forward=1>3 nodes=1, 2, 3, 5, 6, 7, 3",
+        "backward=3>1 nodes=3, 7, 6, 5, 3, 4, 1",
       )
     )
   }

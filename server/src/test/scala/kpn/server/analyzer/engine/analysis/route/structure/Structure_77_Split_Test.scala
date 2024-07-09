@@ -15,7 +15,7 @@ class Structure_77_Split_Test extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    // context.facts.shouldMatchTo(Seq.empty)
+    context.facts.shouldMatchTo(Seq.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
@@ -26,23 +26,21 @@ class Structure_77_Split_Test extends UnitTest {
       )
     )
 
-    context.segments.foreach(a => println(s""""$a","""))
-    context.paths.foreach(a => println(s""""$a","""))
-    context.pathNodes.foreach(a => println(s"""$a,"""))
-    context.pathDetails.foreach(a => println(s""""$a","""))
-
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>7",
         "  element-1 bidirectional 1>2",
         "    way-11  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright  paths=1",
-        "  element-2 forward 4>6",
-        "    way-13  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=2",
-        "  element-3 backward 4>6",
-        "    way-14  p ■   n ■   loop     fp     bp ■   head     tail ■   d backward  paths=3",
-        "  element-4 bidirectional 6>7",
-        "    way-15  p ■   n     loop     fp     bp     head     tail     d forward  paths=4",
+        "  element-2 forward 2>4",
+        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright  paths=2",
+        "  element-3 backward 2>4",
+        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright  paths=3",
+        "  element-4 forward 4>6",
+        "    way-13  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=4",
+        "  element-5 backward 4>6",
+        "    way-14  p ■   n ■   loop     fp     bp ■   head     tail ■   d backward  paths=5",
+        "  element-6 bidirectional 6>7",
+        "    way-15  p ■   n     loop     fp     bp     head     tail     d forward  paths=6",
       )
     )
 
@@ -51,16 +49,20 @@ class Structure_77_Split_Test extends UnitTest {
         "path-1, bidirectional, elements=1",
         "path-2, forward, elements=2",
         "path-3, backward, elements=3",
-        "path-4, bidirectional, elements=4",
+        "path-4, forward, elements=4",
+        "path-5, backward, elements=5",
+        "path-6, bidirectional, elements=6",
       )
     )
 
     context.pathNodes.shouldMatchTo(
       Seq(
-        TestPathNodes(1, Vector(1, 2, 3, 4, 5, 2)),
-        TestPathNodes(2, Vector(4, 6)),
-        TestPathNodes(3, Vector(4, 6)),
-        TestPathNodes(4, Vector(6, 7)),
+        TestPathNodes(1, Vector(1, 2)),
+        TestPathNodes(2, Vector(2, 3, 4)),
+        TestPathNodes(3, Vector(2, 5, 4)),
+        TestPathNodes(4, Vector(4, 6)),
+        TestPathNodes(5, Vector(4, 6)),
+        TestPathNodes(6, Vector(6, 7)),
       )
     )
 
