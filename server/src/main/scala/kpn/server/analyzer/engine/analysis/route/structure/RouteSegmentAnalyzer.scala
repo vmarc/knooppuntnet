@@ -27,7 +27,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   private val segments = ListBuffer[NewRouteSegment]()
 
   def analyze(): Seq[NewRouteSegment] = {
-    Triplet.slide(context.links.routeLinkWays).foreach { case Triplet(_, currentRouteLinkWay, nextRouteLinkWayOption) =>
+    Triplet.slide(context.links.routeLinkWays).foreach { case Triplet(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption) =>
       //      val change = isDirectionChange(currentLink, nextLinkOption)
       //      if (change || fragmentEndContainsNetworkNode(currentLink)) {
       //        elements += buildSegmentElement(currentElementFragments.toSeq)
@@ -35,7 +35,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       //      }
 
       if (currentRouteLinkWay.link.direction == LinkDirection.RoundaboutRight && currentRouteLinkWay.isClosedLoop && currentRouteLinkWay.link.hasNext) {
-        handleRoundabout(currentRouteLinkWay, nextRouteLinkWayOption)
+        handleRoundabout(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption)
       }
       else {
         //        if (currentRouteLinkWay.link.direction == LinkDirection.RoundaboutRight) { // roundabout that is not a closed loop
@@ -85,7 +85,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     segments.toSeq
   }
 
-  private def handleRoundabout(currentRouteLinkWay: RouteLinkWay, nextRouteLinkWayOption: Option[RouteLinkWay]) = {
+  private def handleRoundabout(previousRouteLinkWayOption: Option[RouteLinkWay], currentRouteLinkWay: RouteLinkWay, nextRouteLinkWayOption: Option[RouteLinkWay]) = {
     // finalize current element, if any
     if (fragments.nonEmpty) {
       elements += buildSegmentElement(fragments.toSeq)
@@ -101,18 +101,120 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
 
       case Some(nextRouteLinkWay) =>
 
-        val nodeIds = currentRouteLinkWay.way.nodeIds
-        val toNodeIdIndex = nodeIds.indexOf(nextRouteLinkWay.fromNodeId)
-        if (toNodeIdIndex == -1) {
-          // gap between current and next RouteLinkWay
-          // should also not be possible to get to this point in the code, because of following condition above???
-          //     currentRouteLinkWay.link.hasNext
+        elements.filter(e => e.direction == RoutePathDirection.Forward || e.direction == RoutePathDirection.Bidirectional).lastOption match {
+          case Some(lastForwardElement) =>
+
+            StructureUtil.closedLoopNodeIds(lastForwardElement.toNodeId, nextRouteLinkWay.fromNodeId, currentRouteLinkWay.way.nodeIds) match {
+              case Some(nodeIds) =>
+                elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, nodeIds)
+              case None =>
+
+
+                ???
+            }
+
+          case None =>
+
+            val connectingNodeId = if (nextRouteLinkWay.isClosedLoop) {
+              currentRouteLinkWay.nodeIds.find(nextRouteLinkWay.nodeIds.contains).get // TODO redesign - make more safe?
+            }
+            else {
+              nextRouteLinkWay.fromNodeId
+            }
+
+            StructureUtil.closedLoopNodeIds(currentRouteLinkWay.fromNodeId, connectingNodeId, currentRouteLinkWay.way.nodeIds) match {
+              case Some(nodeIds) =>
+                elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, nodeIds)
+              case None => ???
+            }
         }
-        else {
-          elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, nodeIds.slice(0, toNodeIdIndex + 1))
-          elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.slice(toNodeIdIndex, nodeIds.size).reverse)
+
+        elements.filter(e => e.direction == RoutePathDirection.Backward || e.direction == RoutePathDirection.Bidirectional).lastOption match {
+          case None =>
+
+            val connectingNodeId = if (nextRouteLinkWay.isClosedLoop) {
+              currentRouteLinkWay.nodeIds.find(nextRouteLinkWay.nodeIds.contains).get // TODO redesign - make more safe?
+            }
+            else {
+              nextRouteLinkWay.fromNodeId
+            }
+
+            val nextLinkOption = context.links.routeLinkWays.find(link => link.id > currentRouteLinkWay.id && link.link.isOnewayLoopBackwardPart)
+            nextLinkOption match {
+              case None =>
+
+                StructureUtil.closedLoopNodeIds(connectingNodeId, currentRouteLinkWay.fromNodeId, currentRouteLinkWay.way.nodeIds) match {
+                  case Some(nodeIds) =>
+                    elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
+                  case None => ???
+                }
+
+              case Some(link) =>
+                val fromConnectingNodeId = link.fromNodeId
+                StructureUtil.closedLoopNodeIds(fromConnectingNodeId, connectingNodeId, currentRouteLinkWay.way.nodeIds) match {
+                  case Some(nodeIds) =>
+                    elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
+                  case None => ???
+                }
+            }
+
+          case Some(lastBackwardElement) =>
+            val toConnectingNodeId = if (lastBackwardElement.direction == RoutePathDirection.Bidirectional || lastBackwardElement.direction == RoutePathDirection.Backward) {
+              lastBackwardElement.toNodeId
+            } else {
+              lastBackwardElement.fromNodeId
+            }
+
+            val nextLinkOption = context.links.routeLinkWays.find(link => link.id > currentRouteLinkWay.id && link.link.isOnewayLoopBackwardPart)
+            nextLinkOption match {
+              case None =>
+
+                val fromConnectingNodeId = nextRouteLinkWay.fromNodeId
+                StructureUtil.closedLoopNodeIds(fromConnectingNodeId, toConnectingNodeId, currentRouteLinkWay.way.nodeIds) match {
+                  case Some(nodeIds) =>
+                    elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
+                  case None => ???
+                }
+
+              case Some(link) =>
+                val fromConnectingNodeId = link.fromNodeId
+                StructureUtil.closedLoopNodeIds(fromConnectingNodeId, toConnectingNodeId, currentRouteLinkWay.way.nodeIds) match {
+                  case Some(nodeIds) =>
+                    elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
+                  case None => ???
+                }
+            }
         }
     }
+
+
+    /*
+
+
+            val toConnectingNodeId = if (lastBackwardElement.direction == RoutePathDirection.Backward) {
+              lastBackwardElement.toNodeId
+            } else {
+              lastBackwardElement.fromNodeId
+            }
+
+            val fromConnectingNodeId = 0 // TODO look ahead to element going backward to this roundabout (not simply the next routeLinkWay)
+
+            StructureUtil.closedLoopNodeIds(fromConnectingNodeId, toConnectingNodeId, currentRouteLinkWay.way.nodeIds) match {
+              case Some(nodeIds) =>
+                elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds)
+              case None => ???
+            }
+
+          case None =>
+            StructureUtil.closedLoopNodeIds(currentRouteLinkWay.fromNodeId, nextRouteLinkWay.fromNodeId, currentRouteLinkWay.way.nodeIds) match {
+              case Some(nodeIds) =>
+                elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds)
+              case None => ???
+            }
+        }
+
+
+     */
   }
 
   private def buildSegment(id: Long, elements: Seq[NewRouteSegmentElement]): NewRouteSegment = {

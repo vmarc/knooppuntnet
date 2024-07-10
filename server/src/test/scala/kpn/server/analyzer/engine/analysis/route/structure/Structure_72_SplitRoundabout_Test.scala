@@ -27,8 +27,7 @@ class Structure_72_SplitRoundabout_Test extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    pending
-    context.facts.shouldMatchTo(Seq.empty)
+    // context.facts.shouldMatchTo(Seq.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
@@ -54,15 +53,18 @@ class Structure_72_SplitRoundabout_Test extends UnitTest {
         "  element-3 backward 2>4",
         "    way-13  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=3",
         "    way-14  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=3",
-        "  element-4 forward 3>10",
+        "  element-4 forward 5>6",
         "    way-15  p ■   n ■   loop     fp ■   bp     head     tail ■   d roundaboutright  paths=4",
-        "    way-16  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=4",
-        "    way-17  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=4",
-        "  element-5 backward 7>10",
-        "    way-18  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=5",
-        "    way-19  p ■   n ■   loop     fp     bp ■   head     tail ■   d backward  paths=5",
-        "  element-6 bidirectional 10>12",
-        "    way-20  p ■   n     loop     fp     bp     head     tail     d forward  paths=6",
+        "  element-5 backward 4>7",
+        "    way-15  p ■   n ■   loop     fp ■   bp     head     tail ■   d roundaboutright  paths=5",
+        "  element-6 forward 6>10",
+        "    way-16  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=6",
+        "    way-17  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=6",
+        "  element-7 backward 7>10",
+        "    way-18  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=7",
+        "    way-19  p ■   n ■   loop     fp     bp ■   head     tail ■   d backward  paths=7",
+        "  element-8 bidirectional 10>12",
+        "    way-20  p ■   n     loop     fp     bp     head     tail     d forward  paths=8",
       )
     )
 
@@ -73,29 +75,29 @@ class Structure_72_SplitRoundabout_Test extends UnitTest {
         "path-3, backward, elements=3",
         "path-4, forward, elements=4",
         "path-5, backward, elements=5",
-        "path-6, bidirectional, elements=6",
+        "path-6, forward, elements=6",
+        "path-7, backward, elements=7",
+        "path-8, bidirectional, elements=8",
       )
     )
 
     context.pathNodes.shouldMatchTo(
       Seq(
-        TestPathNodes(1, Seq(1, 2)),
-        TestPathNodes(2, Seq(2, 5)),
-        TestPathNodes(3, Seq(2, 8, 4)),
-        TestPathNodes(4, Seq(3, 4, 5, 6, 7, 3, 9, 10)),
-        TestPathNodes(5, Seq(7, 11, 10)),
-        TestPathNodes(6, Seq(10, 12)),
+        TestPathNodes(1, Vector(1, 2)),
+        TestPathNodes(2, Vector(2, 5)),
+        TestPathNodes(3, Vector(2, 8, 4)),
+        TestPathNodes(4, Vector(5, 6)),
+        TestPathNodes(5, Vector(4, 3, 7)),
+        TestPathNodes(6, Vector(6, 9, 10)),
+        TestPathNodes(7, Vector(7, 11, 10)),
+        TestPathNodes(8, Vector(10, 12)),
       )
     )
 
-    context.pathDetails.foreach(a => println(s""""$a","""))
-
     context.pathDetails.shouldMatchTo(
       Seq(
-        "forward=1>5 nodes=1, 2, 5",
-        "backward=12>7 nodes=12, 10, 11, 7",
-        "other=4>2 nodes=2, 8, 4", // TODO redesign - this is not correct
-        "other=3>10 nodes=3, 4, 5, 6, 7, 3, 9, 10",
+        "forward=1>12 nodes=1, 2, 5, 6, 9, 10, 12",
+        "backward=12>1 nodes=12, 10, 11, 7, 3, 4, 8, 2, 1",
       )
     )
   }

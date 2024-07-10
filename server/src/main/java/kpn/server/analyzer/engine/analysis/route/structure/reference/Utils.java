@@ -27,7 +27,7 @@ public class Utils {
     static Direction determineRoundabout(Way way) {
         if (way != null && way.hasTag("junction", "circular", "roundabout")) {
             int nodesCount = way.getNodesCount();
-            if (nodesCount > 2) {
+            if (nodesCount > 2 && way.getNode(0).getId() == way.getNode(way.getNodesCount() - 1).getId()) {
                 return ROUNDABOUT_RIGHT;
             }
         }

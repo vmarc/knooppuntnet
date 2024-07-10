@@ -13,7 +13,7 @@ class Structure_05_SingleWayRoundaboutNotALoopTest extends UnitTest {
     context.facts.shouldMatchTo(Seq.empty)
     context.links.shouldMatchTo(
       Seq(
-        "1    p     n     loop     fp     bp     head     tail     d roundaboutright",
+        "1    p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
@@ -21,7 +21,7 @@ class Structure_05_SingleWayRoundaboutNotALoopTest extends UnitTest {
       Seq(
         "segment-1 1>4",
         "  element-1 bidirectional 1>4",
-        "    way-11  p     n     loop     fp     bp     head     tail     d roundaboutright  paths=1",
+        "    way-11  p     n     loop     fp     bp     head     tail     d unconnected  paths=1",
       )
     )
 

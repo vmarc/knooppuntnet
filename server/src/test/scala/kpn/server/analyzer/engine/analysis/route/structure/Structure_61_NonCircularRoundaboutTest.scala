@@ -16,7 +16,7 @@ class Structure_61_NonCircularRoundaboutTest extends UnitTest {
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
-        "2    p ■   n ■   loop     fp     bp     head     tail     d roundaboutright",
+        "2    p ■   n ■   loop     fp     bp     head     tail     d forward",
         "3    p ■   n     loop     fp     bp     head     tail     d forward"
       )
     )
@@ -26,7 +26,7 @@ class Structure_61_NonCircularRoundaboutTest extends UnitTest {
         "segment-1 1>8",
         "  element-1 bidirectional 1>8",
         "    way-11  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright  paths=1",
+        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d forward  paths=1",
         "    way-13  p ■   n     loop     fp     bp     head     tail     d forward  paths=1",
       )
     )
