@@ -11,6 +11,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerI
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
@@ -83,38 +84,52 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val analysis = routeAnalyzer.analyze(relation, None).get
+    val context = routeAnalyzer.analyze(relation, None).get
 
-    val report = new RouteAnalysisReport(analysis.oldRouteDetailAnalysis).report
+    val report = new RouteAnalysisReport(context).report
     if (report.nonEmpty) {
       Assertions.fail("Route analysis failed!\n" + report)
     }
   }
 
-  private class RouteAnalysisReport(analysis: RouteDetailAnalysis) {
+  private class RouteAnalysisReport(context: RouteDetailAnalysisContext) {
 
     def report: String = {
-      val ra = analysis.routeDetail.analysis
+      val ra = context.oldRouteDetailAnalysis.routeDetail.analysis
 
       Seq(
         evaluateMissingFacts,
         evaluateUnexpectedFacts,
-        evaluate("Start node", startNodeIdBuffer.toSeq, ra.map.startNodes.map(_.id)),
-        evaluate("End node", endNodeIdBuffer.toSeq, analysis.routeDetail.analysis.map.endNodes.map(_.id)),
-        evaluate("Start tentacle node", startTentacleNodeIdBuffer.toSeq, analysis.routeDetail.analysis.map.startTentacleNodes.map(_.id)),
-        evaluate("End tentacle node", endTentacleNodeIdBuffer.toSeq, analysis.routeDetail.analysis.map.endTentacleNodes.map(_.id)),
-        evaluate("Unexpected node", unexpectedNodeIdBuffer.toSeq, analysis.routeDetail.analysis.unexpectedNodeIds),
-        evaluate("Forward nodes", forwardNodeIdBuffer.toSeq, analysis.structure.forwardNodeIds),
-        evaluate("Backward nodes", backwardNodeIdBuffer.toSeq, analysis.structure.backwardNodeIds),
+
+        evaluate("Old start node", startNodeIdBuffer.toSeq, ra.map.startNodes.map(_.id)),
+        evaluate("New start node", startNodeIdBuffer.toSeq, context.routeNodeAnalysis.startNodes.map(_.node.id).lastOption.toSeq),
+
+        evaluate("Old end node", endNodeIdBuffer.toSeq, context.oldRouteDetailAnalysis.routeDetail.analysis.map.endNodes.map(_.id)),
+        evaluate("New end node", endNodeIdBuffer.toSeq, context.routeNodeAnalysis.endNodes.map(_.node.id).headOption.toSeq),
+
+        evaluate("Old start tentacle node", startTentacleNodeIdBuffer.toSeq, context.oldRouteDetailAnalysis.routeDetail.analysis.map.startTentacleNodes.map(_.id)),
+        evaluate("New start tentacle node", startTentacleNodeIdBuffer.toSeq, context.routeNodeAnalysis.startNodes.map(_.node.id).dropRight(1)),
+
+        evaluate("Old end tentacle node", endTentacleNodeIdBuffer.toSeq, context.oldRouteDetailAnalysis.routeDetail.analysis.map.endTentacleNodes.map(_.id)),
+        evaluate("New end tentacle node", endTentacleNodeIdBuffer.toSeq, context.routeNodeAnalysis.endNodes.map(_.node.id).drop(1)),
+
+        evaluate("Unexpected node", unexpectedNodeIdBuffer.toSeq, context.oldRouteDetailAnalysis.routeDetail.analysis.unexpectedNodeIds),
+
+        evaluate("Old forward nodes", forwardNodeIdBuffer.toSeq, context.structure.forwardNodeIds),
+        evaluate("New forward nodes", forwardNodeIdBuffer.toSeq, context.newStructure.forwardPath.toSeq.flatMap(_.nodeIds)),
+
+        evaluate("Old backward nodes", backwardNodeIdBuffer.toSeq, context.oldRouteDetailAnalysis.structure.backwardNodeIds),
+        evaluate("New backward nodes", backwardNodeIdBuffer.toSeq, context.newStructure.backwardPath.toSeq.flatMap(_.nodeIds)),
+
         evaluateTentacles,
-        evaluateLong("Structure", structureBuffer.toSeq, analysis.routeDetail.analysis.structureStrings)
+        evaluateLong("Structure", structureBuffer.toSeq, context.oldRouteDetailAnalysis.routeDetail.analysis.structureStrings)
         // TODO add tests for breakpoints (forward and backward) ?
 
       ).flatten.map(s => "  - " + s).mkString("\n")
     }
 
     private def evaluateMissingFacts: Option[String] = {
-      val missingFacts = factsBuffer.toSet -- analysis.routeDetail.oldFacts // TODO redesign - switch from oldFacts to facts
+      val missingFacts = factsBuffer.toSet -- context.oldRouteDetailAnalysis.routeDetail.oldFacts // TODO redesign - switch from oldFacts to facts
       if (missingFacts.nonEmpty) {
         Some("Missing fact(s): " + missingFacts)
       }
@@ -124,7 +139,7 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     }
 
     private def evaluateUnexpectedFacts: Option[String] = {
-      val unexpectedFacts = analysis.routeDetail.oldFacts.toSet -- factsBuffer.toSet // TODO redesign - switch from oldFacts to facts
+      val unexpectedFacts = context.oldRouteDetailAnalysis.routeDetail.oldFacts.toSet -- factsBuffer.toSet // TODO redesign - switch from oldFacts to facts
       if (unexpectedFacts.nonEmpty) {
         Some("Unexpected fact(s): " + unexpectedFacts.mkString(", "))
       }
@@ -161,8 +176,8 @@ class RouteAnalysisInspector extends MockFactory with SharedTestObjects {
     }
 
     private def evaluateTentacles: Option[String] = {
-      val startTentacleNodeIds = analysis.structure.startTentaclePaths.flatMap(_.segments).map(_.nodes.map(_.id))
-      val endTentacleNodeIds = analysis.structure.endTentaclePaths.flatMap(_.segments).map(_.nodes.map(_.id))
+      val startTentacleNodeIds = context.oldRouteDetailAnalysis.structure.startTentaclePaths.flatMap(_.segments).map(_.nodes.map(_.id))
+      val endTentacleNodeIds = context.oldRouteDetailAnalysis.structure.endTentaclePaths.flatMap(_.segments).map(_.nodes.map(_.id))
       val tentacleNodeIds = startTentacleNodeIds ++ endTentacleNodeIds
       if (tentacleBuffer != tentacleNodeIds) {
         Some("Tentacle mismatch, found: " + tentacleNodeIds.mkString("+") + ", but expected: " + tentacleBuffer.mkString("+") + ".\n")

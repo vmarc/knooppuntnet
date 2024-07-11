@@ -30,8 +30,18 @@ class StructureTestSetupBuilder extends SharedTestObjects {
     memberWayWithTags(wayId, role, Tags.from("highway" -> "road", "junction" -> "roundabout"), nodeIds *)
   }
 
-  private def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
-    rawNode(newRawNode(id, lattitude.toString, longitude.toString, tags = Seq.empty))
+  def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
+    rawNode(
+      newRawNode(
+        id,
+        lattitude.toString,
+        longitude.toString,
+        tags = Tags.from(
+          "network:type" -> "node_network",
+          "rwn_ref" -> name,
+        )
+      )
+    )
   }
 
   private def rawNode(rawNode: RawNode): RawNode = {
@@ -56,6 +66,10 @@ class StructureTestSetupBuilder extends SharedTestObjects {
     member("way", wayId, role)
   }
 
+  def memberNode(nodeId: Long, role: String = ""): RawMember = {
+    member("node", nodeId, role)
+  }
+
   private def member(memberType: String, ref: Long, role: String = ""): RawMember = {
     val m = RawMember(memberType, ref, if (role.nonEmpty) Some(role) else None)
     memberBuffer += m
@@ -64,7 +78,9 @@ class StructureTestSetupBuilder extends SharedTestObjects {
 
   private def addNodesIfMissing(nodeIds: Seq[Long]): Unit = {
     val missingNodeIds = nodeIds.toSet -- nodeBuffer.map(_.id).toSet
-    missingNodeIds.foreach(id => node(id))
+    missingNodeIds.foreach { id =>
+      rawNode(newRawNode(id))
+    }
   }
 
   def build: StructureTestSetup = {
@@ -74,7 +90,24 @@ class StructureTestSetupBuilder extends SharedTestObjects {
       tags = Tags.from(
         "name" -> "name",
         "type" -> "route",
-        "route" -> "hiking"
+        "route" -> "hiking",
+      )
+    )
+    val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))
+    new StructureTestSetup(new DataBuilder(rawData).data)
+  }
+
+  def build(from: String, to: String): StructureTestSetup = {
+    val relation = newRawRelation(
+      1,
+      members = memberBuffer.toSeq,
+      tags = Tags.from(
+        "from" -> from,
+        "to" -> to,
+        "type" -> "route",
+        "route" -> "hiking",
+        "network:type" -> "node_network",
+        "network" -> "rwn"
       )
     )
     val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))

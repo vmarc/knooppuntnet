@@ -13,77 +13,6 @@ import kpn.core.util.UnitTest
 
 class RouteAnalysisTest extends UnitTest {
 
-  test("route without ref tag") {
-
-    val d = new RouteTestData("", routeTags = Tags.from("from" -> "01", "to" -> "02")) {
-      node(1, "01")
-      node(4, "02")
-      memberWay(10, "", 1, 2, 3, 4)
-    }
-
-    new RouteAnalysisInspector() {
-
-      startNode(1)
-      endNode(4)
-
-      forward(1, 2, 3, 4)
-      backward(4, 3, 2, 1)
-
-      structure("forward=(01-02 via +<01-02 10>)")
-      structure("backward=(02-01 via -<01-02 10>)")
-    }.analyze(d)
-  }
-
-  test("single way route") {
-
-    val d = new RouteTestData("01-02") {
-      node(1, "01")
-      node(4, "02")
-      memberNode(1)
-      memberWay(10, "", 1, 2, 3, 4)
-      memberNode(4)
-    }
-
-    new RouteAnalysisInspector() {
-
-      startNode(1)
-      endNode(4)
-
-      forward(1, 2, 3, 4)
-      backward(4, 3, 2, 1)
-
-      structure("forward=(01-02 via +<01-02 10>)")
-      structure("backward=(02-01 via -<01-02 10>)")
-    }.analyze(d)
-  }
-
-  test("simple route") {
-
-    val d = new RouteTestData("01-02") {
-
-      node(1, "01")
-      node(6, "02")
-
-      memberNode(1)
-      memberWay(10, "", 1, 2, 3)
-      memberWay(11, "", 3, 4, 5)
-      memberWay(12, "", 5, 6)
-      memberNode(6)
-    }
-
-    new RouteAnalysisInspector() {
-
-      startNode(1)
-      endNode(6)
-
-      forward(1, 2, 3, 4, 5, 6)
-      backward(6, 5, 4, 3, 2, 1)
-
-      structure("forward=(01-02 via +<01- 10>+<11>+<-02 12>)")
-      structure("backward=(02-01 via -<-02 12>-<11>-<01- 10>)")
-    }.analyze(d)
-  }
-
   /*
    * TODO:
    *
@@ -102,7 +31,7 @@ class RouteAnalysisTest extends UnitTest {
    *
    */
 
-  test("tentacle at start with network node at start and end of first way (similar to 3095938)") {
+  test("04 tentacle at start with network node at start and end of first way (similar to 3095938)") {
 
     val d = new RouteTestData("01-02") {
       node(1, "01")
@@ -130,7 +59,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("tentacle at start") {
+  test("05 tentacle at start") {
 
     val d = new RouteTestData("01-02") {
       node(1, "01")
@@ -159,7 +88,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("tentacle at end") {
+  test("06 tentacle at end") {
 
     val d = new RouteTestData("01-02") {
       node(1, "01")
@@ -190,7 +119,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("multiple tentacles stacked at end") {
+  test("07 multiple tentacles stacked at end") {
 
     val d = new RouteTestData("01-02") {
       node(1, "01")
@@ -227,7 +156,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("multiple forked tentacles at end") {
+  test("08 multiple forked tentacles at end") {
 
     val d = new RouteTestData("01-02") {
       node(1, "01")
@@ -263,7 +192,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("split way with forward and backward roles") {
+  test("09 split way with forward and backward roles") {
 
     val d = new RouteTestData("01-02") {
 
@@ -295,7 +224,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("split way with forward and forward roles") {
+  test("10 split way with forward and forward roles") {
 
     val d = new RouteTestData("01-02") {
 
@@ -327,7 +256,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  ignore("roundabout") {
+  ignore("11 roundabout") {
 
     val d = new RouteTestData("01-02") {
 
@@ -352,7 +281,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("broken in simple route") {
+  test("12 broken in simple route") {
 
     val d = new RouteTestData("01-02") {
 
@@ -384,7 +313,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("broken in way that 'overshoots'") {
+  test("13 broken in way that 'overshoots'") {
 
     val d = new RouteTestData("01-02") {
 
@@ -416,7 +345,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("broken in split way forward segment") {
+  test("14 broken in split way forward segment") {
 
     val d = new RouteTestData("01-02") {
 
@@ -453,7 +382,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("broken in split way backward segment") {
+  test("15 broken in split way backward segment") {
 
     val d = new RouteTestData("01-02") {
 
@@ -490,7 +419,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("broken at roundabout") {
+  test("16 broken at roundabout") {
 
     val d = new RouteTestData("01-02") {
 
@@ -523,7 +452,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("broken after roundabout") {
+  test("17 broken after roundabout") {
 
     val d = new RouteTestData("01-02") {
 
@@ -556,7 +485,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("oneway route -> oneway=yes") {
+  test("18 oneway route -> oneway=yes") {
     val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("oneway" -> "yes")) {
 
       node(1, "01")
@@ -579,7 +508,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("oneway route -> comment indicates oneway") {
+  test("19 oneway route -> comment indicates oneway") {
     val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("comment" -> "to be used in one direction")) {
 
       node(1, "01")
@@ -602,7 +531,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("oneway route -> direction=forward") {
+  test("20 oneway route -> direction=forward") {
     val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("direction" -> "forward")) {
 
       node(1, "01")
@@ -625,7 +554,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("oneway route -> direction=backward") {
+  test("21 oneway route -> direction=backward") {
     val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("direction" -> "backward")) {
 
       node(1, "01")
@@ -648,7 +577,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("not a oneway route if both directions ok") {
+  test("22 not a oneway route if both directions ok") {
     val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("oneway" -> "yes")) {
 
       node(1, "01")
@@ -672,7 +601,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("route with direction=forward, but forward not ok") {
+  test("23 route with direction=forward, but forward not ok") {
     val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("direction" -> "forward")) {
 
       node(1, "01")
@@ -697,7 +626,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("route with direction=backward, but backward not ok") {
+  test("24 route with direction=backward, but backward not ok") {
     val d = new RouteTestData("01-02", ScopedNetworkType.rcn, Tags.from("direction" -> "backward")) {
 
       node(1, "01")
@@ -722,7 +651,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  ignore("route without nodes, but with state=connection") {
+  ignore("25 route without nodes, but with state=connection") {
 
     val d = new RouteTestData("01-02", routeTags = Tags.from("state" -> "connection")) {
       memberWay(10, "", 1, 2)
@@ -734,7 +663,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  ignore("route without nodes, but with state=connection, with wrong sorting order") {
+  ignore("26 route without nodes, but with state=connection, with wrong sorting order") {
 
     val d = new RouteTestData("01-02", routeTags = Tags.from("state" -> "connection")) {
       memberWay(10, "", 1, 2)
@@ -746,7 +675,7 @@ class RouteAnalysisTest extends UnitTest {
     }.analyze(d)
   }
 
-  test("derive routename from start- and end-nodes") {
+  test("27 derive routename from start- and end-nodes") {
     val d = new RouteTestData("") {
 
       node(1, "01")

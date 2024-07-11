@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 
 class StructureAnalyzer(traceEnabled: Boolean = false) {
 
@@ -14,20 +15,109 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
       analyzeNonNodeNetworkRoute(segments, paths)
     }
     else {
-      analyzeNodeNetworkRoute()
+      analyzeNodeNetworkRoute(routeNodeAnalysis, segments, paths)
     }
   }
 
-  def analyzeNodeNetworkRoute(): Structure = {
-    Structure(
-      forwardPath = None,
-      backwardPath = None,
-      otherPaths = Seq.empty
+  def analyzeNodeNetworkRoute(
+    routeNodeAnalysis: RouteNodeAnalysis,
+    segments: Seq[NewRouteSegment],
+    paths: Seq[RoutePath]
+  ): Structure = {
 
+    if (segments.size > 1) {
+      Structure(
+        forwardPath = None,
+        backwardPath = None,
+        otherPaths = Seq.empty
+      )
+    }
+    else {
+      val mainStartNodeOption = routeNodeAnalysis.startNodes.lastOption
+      val mainEndNodeOption = routeNodeAnalysis.endNodes.headOption
+
+      val structureOption = mainStartNodeOption match {
+        case None => None
+        case Some(mainStartNode) =>
+          mainEndNodeOption match {
+            case None => None
+            case Some(mainEndNode) =>
+              doAnalyzeNodeNetworkRoute(
+                routeNodeAnalysis: RouteNodeAnalysis,
+                mainStartNode: RouteNodeData,
+                mainEndNode: RouteNodeData,
+                segments: Seq[NewRouteSegment],
+                paths: Seq[RoutePath]
+              )
+          }
+      }
+
+      structureOption.get
+
+      //      Structure(
+      //        forwardPath = None,
+      //        backwardPath = None,
+      //        otherPaths = Seq.empty
+      //      )
+    }
+  }
+
+  private def doAnalyzeNodeNetworkRoute(
+    routeNodeAnalysis: RouteNodeAnalysis,
+    mainStartNode: RouteNodeData,
+    mainEndNode: RouteNodeData,
+    segments: Seq[NewRouteSegment],
+    paths: Seq[RoutePath]
+  ): Option[Structure] = {
+
+    val forwardPath: Option[StructurePath] = {
+      paths.find(_.fromNodeId == mainStartNode.node.id) match {
+        case None => None
+        case Some(firstForwardPath) =>
+          Some(
+            StructurePath(
+              mainStartNode.node.id,
+              mainEndNode.node.id,
+              Seq(
+                StructurePathElement(
+                  firstForwardPath,
+                  reversed = false
+                )
+              )
+            )
+          )
+      }
+    }
+
+    val backwardPath: Option[StructurePath] = {
+      paths.reverse.find(_.toNodeId == mainEndNode.node.id) match {
+        case None => None
+        case Some(lastBackwardPath) =>
+          Some(
+            StructurePath(
+              mainStartNode.node.id,
+              mainEndNode.node.id,
+              Seq(
+                StructurePathElement(
+                  lastBackwardPath,
+                  reversed = true
+                )
+              )
+            )
+          )
+      }
+    }
+
+    Some(
+      Structure(
+        forwardPath,
+        backwardPath,
+        otherPaths = Seq.empty
+      )
     )
   }
 
-  def analyzeNonNodeNetworkRoute(segments: Seq[NewRouteSegment], paths: Seq[RoutePath]): Structure = {
+  private def analyzeNonNodeNetworkRoute(segments: Seq[NewRouteSegment], paths: Seq[RoutePath]): Structure = {
 
     if (segments.size > 1) {
       val otherPaths = paths.map { routePath =>
