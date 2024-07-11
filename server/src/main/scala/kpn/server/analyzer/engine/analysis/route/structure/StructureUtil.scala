@@ -48,4 +48,29 @@ object StructureUtil {
       None
     }
   }
+
+  def split(nodeIds: Seq[Long], nodeNetworkNodeIds: Seq[Long]): Seq[Seq[Long]] = {
+    val splitNodeIdIndexes = {
+      if (nodeIds.size > 2) {
+        (1 until nodeIds.size - 1).filter { index =>
+          val nodeId = nodeIds(index)
+          nodeNetworkNodeIds.contains(nodeId)
+        }
+      }
+      else {
+        Seq.empty
+      }
+    }
+    if (splitNodeIdIndexes.nonEmpty) {
+      val splits = 0 +: splitNodeIdIndexes :+ nodeIds.size
+      splits.sliding(2).map { case Seq(from, to) =>
+        nodeIds.slice(from, to + 1)
+      }.toSeq
+    }
+    else {
+      Seq(
+        nodeIds
+      )
+    }
+  }
 }

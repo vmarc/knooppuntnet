@@ -31,63 +31,6 @@ class RouteAnalysisTest extends UnitTest {
    *
    */
 
-  test("04 tentacle at start with network node at start and end of first way (similar to 3095938)") {
-
-    val d = new RouteTestData("01-02") {
-      node(1, "01")
-      node(4, "01")
-      node(6, "02")
-
-      memberWay(10, "", 1, 2, 3, 4)
-      memberWay(11, "", 4, 5)
-      memberWay(12, "", 5, 6)
-    }
-
-    new RouteAnalysisInspector() {
-
-      startTentacleNode(1)
-      startNode(4)
-      endNode(6)
-
-      tentacle(4, 3, 2, 1)
-      forward(4, 5, 6)
-      backward(6, 5, 4)
-
-      structure("forward=(01.a-02 via +<01.a- 11>+<-02 12>)")
-      structure("backward=(02-01.a via -<-02 12>-<01.a- 11>)")
-      structure("startTentacles=(01.a-01.b via -<01.b-01.a 10>)")
-    }.analyze(d)
-  }
-
-  test("05 tentacle at start") {
-
-    val d = new RouteTestData("01-02") {
-      node(1, "01")
-      node(4, "01")
-      node(6, "02")
-
-      memberWay(10, "", 1, 2, 3)
-      memberWay(11, "", 3, 4)
-      memberWay(12, "", 4, 5)
-      memberWay(13, "", 5, 6)
-    }
-
-    new RouteAnalysisInspector() {
-
-      startTentacleNode(1)
-      startNode(4)
-      endNode(6)
-
-      tentacle(4, 3, 2, 1)
-      forward(4, 5, 6)
-      backward(6, 5, 4)
-
-      structure("forward=(01.a-02 via +<01.a- 12>+<-02 13>)")
-      structure("backward=(02-01.a via -<-02 13>-<01.a- 12>)")
-      structure("startTentacles=(01.a-01.b via -<-01.a 11>-<01.b- 10>)")
-    }.analyze(d)
-  }
-
   test("06 tentacle at end") {
 
     val d = new RouteTestData("01-02") {

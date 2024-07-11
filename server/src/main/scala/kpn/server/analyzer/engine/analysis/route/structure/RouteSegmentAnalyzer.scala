@@ -28,44 +28,43 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze(): Seq[NewRouteSegment] = {
     Triplet.slide(context.links.routeLinkWays).foreach { case Triplet(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption) =>
-      //      val change = isDirectionChange(currentLink, nextLinkOption)
-      //      if (change || fragmentEndContainsNetworkNode(currentLink)) {
-      //        elements += buildSegmentElement(currentElementFragments.toSeq)
-      //        currentElementFragments.clear()
-      //      }
-
       if (currentRouteLinkWay.link.direction == LinkDirection.RoundaboutRight && currentRouteLinkWay.isClosedLoop && currentRouteLinkWay.link.hasNext) {
         handleRoundabout(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption)
       }
       else {
-        //        if (currentRouteLinkWay.link.direction == LinkDirection.RoundaboutRight) { // roundabout that is not a closed loop
-        //          // finalize current element, if any
-        //          if (fragments.nonEmpty) {
-        //            elements += buildSegmentElement(fragments.toSeq)
-        //            fragments.clear()
-        //          }
-        //        }
+        val linkFragments = StructureUtil.split(currentRouteLinkWay.nodeIds, context.routeNodeAnalysis.nodeIds).map { nodeIds =>
+          toFragment(currentRouteLinkWay, nodeIds)
+        }
 
-        val fragment = NewRouteSegmentElementFragment(
-          fragmentIds.next(),
-          currentRouteLinkWay.way.id,
-          currentRouteLinkWay.link,
-          currentRouteLinkWay.role,
-          currentRouteLinkWay.nodeIds,
-          Seq.empty // filled in later during path analysis
-        )
-        fragments += fragment
+        if (context.routeNodeAnalysis.nodeIds.contains(linkFragments.head.fromNodeId)) {
+          if (fragments.nonEmpty) {
+            elements += buildSegmentElement(fragments.toSeq)
+            fragments.clear()
+          }
+        }
+
+        linkFragments.foreach { fragment =>
+          if (context.routeNodeAnalysis.nodeIds.contains(fragment.nodeIds.last)) {
+            fragments += fragment
+            elements += buildSegmentElement(fragments.toSeq)
+            fragments.clear()
+          }
+          else {
+            fragments += fragment
+          }
+        }
 
         if (!currentRouteLinkWay.link.hasNext) {
-          elements += buildSegmentElement(fragments.toSeq)
-          fragments.clear()
+          if (fragments.nonEmpty) {
+            elements += buildSegmentElement(fragments.toSeq)
+            fragments.clear()
+          }
           segments += buildSegment(segments.size + 1, elements.toSeq)
           elements.clear()
         }
         else {
-
           val change = isDirectionChange(currentRouteLinkWay, nextRouteLinkWayOption)
-          if (change || fragmentEndContainsNetworkNode(fragment)) {
+          if (change) {
             elements += buildSegmentElement(fragments.toSeq)
             fragments.clear()
           }
@@ -186,35 +185,6 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
             }
         }
     }
-
-
-    /*
-
-
-            val toConnectingNodeId = if (lastBackwardElement.direction == RoutePathDirection.Backward) {
-              lastBackwardElement.toNodeId
-            } else {
-              lastBackwardElement.fromNodeId
-            }
-
-            val fromConnectingNodeId = 0 // TODO look ahead to element going backward to this roundabout (not simply the next routeLinkWay)
-
-            StructureUtil.closedLoopNodeIds(fromConnectingNodeId, toConnectingNodeId, currentRouteLinkWay.way.nodeIds) match {
-              case Some(nodeIds) =>
-                elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds)
-              case None => ???
-            }
-
-          case None =>
-            StructureUtil.closedLoopNodeIds(currentRouteLinkWay.fromNodeId, nextRouteLinkWay.fromNodeId, currentRouteLinkWay.way.nodeIds) match {
-              case Some(nodeIds) =>
-                elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds)
-              case None => ???
-            }
-        }
-
-
-     */
   }
 
   private def buildSegment(id: Long, elements: Seq[NewRouteSegmentElement]): NewRouteSegment = {
@@ -227,28 +197,6 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       elements.toSeq
     )
   }
-
-  //  private def buildSegmentElements(fragments: Seq[NewRouteSegmentElementFragment]): Seq[NewRouteSegmentElement] = {
-  //    // TODO redesign - for now assuming that network nodes are at way start or end node (later allow way splitting, and roundabout handling)
-  //    val elements = ListBuffer[NewRouteSegmentElement]()
-  //    val currentElementFragments = ListBuffer[NewRouteSegmentElementFragment]()
-  //
-  //    Triplet.slide(fragments).foreach { case Triplet(_, currentLink, nextLinkOption) =>
-  //      currentElementFragments += currentLink
-  //      val change = isDirectionChange(currentLink, nextLinkOption)
-  //      if (change || fragmentEndContainsNetworkNode(currentLink)) {
-  //        elements += buildSegmentElement(currentElementFragments.toSeq)
-  //        currentElementFragments.clear()
-  //      }
-  //    }
-  //
-  //    if (currentElementFragments.nonEmpty) {
-  //      elements += buildSegmentElement(currentElementFragments.toSeq)
-  //      currentElementFragments.clear()
-  //    }
-  //
-  //    elements.toSeq
-  //  }
 
   private def fragmentEndContainsNetworkNode(fragment: NewRouteSegmentElementFragment): Boolean = {
     context.routeNodeAnalysis.nodeIds.contains(fragment.nodeIds.last) // TODO redesign - not sure if this is ok
@@ -313,6 +261,17 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       fragment.fromNodeId,
       fragment.toNodeId,
       Seq(fragment)
+    )
+  }
+
+  private def toFragment(routeLinkWay: RouteLinkWay, nodeIds: Seq[Long]): NewRouteSegmentElementFragment = {
+    NewRouteSegmentElementFragment(
+      fragmentIds.next(),
+      routeLinkWay.way.id,
+      routeLinkWay.link,
+      routeLinkWay.role,
+      nodeIds,
+      Seq.empty // filled in later during path analysis
     )
   }
 }

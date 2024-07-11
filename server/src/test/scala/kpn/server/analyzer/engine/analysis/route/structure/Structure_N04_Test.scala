@@ -12,19 +12,11 @@ class Structure_N04_Test extends UnitTest {
     memberWay(10, "", 1, 2, 3, 4)
     memberWay(11, "", 4, 5)
     memberWay(12, "", 5, 6)
-  }.build
+  }.build("01", "02")
 
   test("analyze") {
 
     val context = setup.analyze()
-
-    context.facts.foreach(a => println(s""""$a","""))
-    context.links.foreach(a => println(s""""$a","""))
-    context.segments.foreach(a => println(s""""$a","""))
-    context.paths.foreach(a => println(s""""$a","""))
-    context.pathNodes.foreach(a => println(s"""$a,"""))
-    context.pathDetails.foreach(a => println(s""""$a","""))
-
     context.facts.shouldMatchTo(Seq.empty)
     context.links.shouldMatchTo(
       Seq(
@@ -37,29 +29,33 @@ class Structure_N04_Test extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>6",
-        "  element-1 bidirectional 1>6",
+        "  element-1 bidirectional 1>4  01(1)  01(4)",
         "    way-10  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-11  p ■   n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-12  p ■   n     loop     fp     bp     head     tail     d forward  paths=1",
+        "  element-2 bidirectional 4>6  01(4)  02(6)",
+        "    way-11  p ■   n ■   loop     fp     bp     head     tail     d forward  paths=2",
+        "    way-12  p ■   n     loop     fp     bp     head     tail     d forward  paths=2",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
         "path-1, bidirectional, elements=1",
+        "path-2, bidirectional, elements=2",
       )
     )
 
     context.pathNodes.shouldMatchTo(
       Seq(
-        TestPathNodes(1, Vector(1, 2, 3, 4, 5, 6)),
+        TestPathNodes(1, Vector(1, 2, 3, 4)),
+        TestPathNodes(2, Vector(4, 5, 6)),
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
-        "forward=1>6 nodes=1, 2, 3, 4, 5, 6",
-        "backward=6>1 nodes=6, 5, 4, 3, 2, 1",
+        "forward=4>6 nodes=4, 5, 6",
+        "backward=4>6 nodes=6, 5, 4",
+        "startTentacle=1>4 nodes=1, 2, 3, 4",
       )
     )
   }

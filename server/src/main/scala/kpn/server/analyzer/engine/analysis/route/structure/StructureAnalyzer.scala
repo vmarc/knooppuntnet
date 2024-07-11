@@ -29,7 +29,9 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
       Structure(
         forwardPath = None,
         backwardPath = None,
-        otherPaths = Seq.empty
+        startTentaclePaths = Seq.empty,
+        endTentaclePaths = Seq.empty,
+        otherPaths = Seq.empty,
       )
     }
     else {
@@ -108,11 +110,74 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
       }
     }
 
+    val usedPathIds = forwardPath.toSeq.flatMap(_.pathIds) ++ backwardPath.toSeq.flatMap(_.pathIds)
+    val remainingPaths = paths.filterNot(path => usedPathIds.contains(path.id))
+
+    val startTentacleFromNodes = routeNodeAnalysis.startNodes.dropRight(1)
+    val startTentaclePaths = startTentacleFromNodes.flatMap { fromNode =>
+      remainingPaths.find(_.fromNodeId == fromNode.node.id) match {
+        case None => None
+        case Some(firstPath) =>
+          Some(
+            StructurePath(
+              firstPath.fromNodeId,
+              firstPath.toNodeId,
+              Seq(
+                StructurePathElement(
+                  firstPath,
+                  reversed = false
+                )
+              )
+            )
+          )
+      }
+    }
+
+    val endTentacleToNodes = routeNodeAnalysis.endNodes.drop(1)
+    val endTentaclePaths = endTentacleToNodes.flatMap { toNode =>
+      remainingPaths.find(_.toNodeId == toNode.node.id) match {
+        case None => None
+        case Some(firstPath) =>
+          Some(
+            StructurePath(
+              firstPath.fromNodeId,
+              firstPath.toNodeId,
+              Seq(
+                StructurePathElement(
+                  firstPath,
+                  reversed = false
+                )
+              )
+            )
+          )
+      }
+    }
+
+    val otherPaths = {
+      val usedPathIds = forwardPath.toSeq.flatMap(_.pathIds) ++ backwardPath.toSeq.flatMap(_.pathIds) ++
+        startTentaclePaths.flatMap(_.pathIds) ++ endTentaclePaths.flatMap(_.pathIds)
+      val remainingPaths = paths.filterNot(path => usedPathIds.contains(path.id))
+      remainingPaths.map { path =>
+        StructurePath(
+          path.fromNodeId,
+          path.toNodeId,
+          Seq(
+            StructurePathElement(
+              path,
+              reversed = false
+            )
+          )
+        )
+      }
+    }
+
     Some(
       Structure(
         forwardPath,
         backwardPath,
-        otherPaths = Seq.empty
+        startTentaclePaths,
+        endTentaclePaths,
+        otherPaths
       )
     )
   }
@@ -130,6 +195,8 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
       Structure(
         None,
         None,
+        Seq.empty,
+        Seq.empty,
         otherPaths
       )
     }
@@ -173,6 +240,8 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
       Structure(
         forwardPath,
         backwardPath,
+        Seq.empty,
+        Seq.empty,
         otherPaths
       )
     }
