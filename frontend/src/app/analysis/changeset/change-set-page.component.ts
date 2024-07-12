@@ -29,11 +29,7 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
         @if (!response.result) {
           <div i18n="@@changeset.not-found">Changeset not found</div>
         } @else {
-          @for (
-            detail of response.result.details;
-            track detail.changeSetInfo._id;
-            let first = $first
-          ) {
+          @for (detail of response.result.details; track detail.summary._id; let first = $first) {
             @if (!first) {
               <mat-divider />
             }
