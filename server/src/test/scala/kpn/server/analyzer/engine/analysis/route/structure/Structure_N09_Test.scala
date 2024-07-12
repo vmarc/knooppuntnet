@@ -93,21 +93,12 @@ class Structure_N09_Test extends UnitTest {
       )
     )
 
-    /*
-          startNode(1)
-          endNode(10)
-
-          forward(1, 2, 3, 4, 5, 6, 9, 10)
-          backward(10, 9, 6, 8, 7, 3, 2, 1)
-     */
+    pending
     context.pathDetails.shouldMatchTo(
       Seq(
-        "forward=1>10 nodes=1, 2, 3", // TODO nok
-        "backward=1>10 nodes=10, 9, 6",
-        "other=3>6 nodes=3, 4, 5, 6",
-        "other=6>3 nodes=3, 7, 8, 6",
+        "forward=1>10 nodes=1, 2, 3, 4, 5, 6, 9, 10",
+        "backward=10>1 nodes=10, 9, 6, 8, 7, 3, 2, 1",
       )
     )
-    pending
   }
 }

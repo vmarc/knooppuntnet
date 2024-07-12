@@ -27,8 +27,8 @@ class RoutePathReport(context: RouteDetailAnalysisContext) {
     context.paths.map { path =>
       val fromNode = path.elements.head.fromNetworkNode
       val toNode = path.elements.last.toNetworkNode
-      val from = fromNode.map(n => s"${n.name}(${ReportUtil.osmNodeLink(n.node.id)})").getOrElse("")
-      val to = toNode.map(n => s"${n.name}(${ReportUtil.osmNodeLink(n.node.id)})").getOrElse("")
+      val from = fromNode.map(n => s"${ReportUtil.osmNodeLink(n.node.id)}(${n.name})").getOrElse("")
+      val to = toNode.map(n => s"${ReportUtil.osmNodeLink(n.node.id)}(${n.name})").getOrElse("")
       val elementIds = path.elements.map(element => element.id).mkString(", ")
 
       s"""<tr>

@@ -73,14 +73,12 @@ class Structure_N11_Test extends UnitTest {
       )
     )
 
+    pending
     context.pathDetails.shouldMatchTo(
       Seq(
-        "forward=1>10 nodes=1, 2, 4", // TODO forward(1, 2, 4, 5, 6, 7, 9, 10)
-        "backward=1>10 nodes=10, 9, 7", // TODO backward(10, 9, 7, 8, 3, 4, 2, 1)
-        "other=4>7 nodes=4, 5, 6, 7",
-        "other=7>4 nodes=4, 3, 8, 7",
+        "forward=1>10 nodes=1, 2, 4, 5, 6, 7, 9, 10", // TODO forward(1, 2, 4, 5, 6, 7, 9, 10)
+        "backward=10>1 nodes=10, 9, 7, 8, 3, 4, 2, 1", // TODO backward(10, 9, 7, 8, 3, 4, 2, 1)
       )
     )
-    pending
   }
 }

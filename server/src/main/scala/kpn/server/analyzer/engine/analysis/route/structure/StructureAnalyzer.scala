@@ -3,6 +3,8 @@ package kpn.server.analyzer.engine.analysis.route.structure
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 
+import scala.annotation.tailrec
+
 class StructureAnalyzer(traceEnabled: Boolean = false) {
 
   def analyze(
@@ -70,40 +72,59 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
   ): Option[Structure] = {
 
     val forwardPath: Option[StructurePath] = {
-      paths.find(_.fromNodeId == mainStartNode.node.id) match {
-        case None => None
-        case Some(firstForwardPath) =>
+      val index = paths.indexWhere(_.fromNodeId == mainStartNode.node.id)
+      if (index < 0) {
+        None
+      }
+      else {
+        val firstForwardPath = paths(index)
+        val element = StructurePathElement(
+          firstForwardPath,
+          reversed = false
+        )
+        val remainingPaths = paths.drop(index + 1)
+        val elements = findForwardPath(Seq(element), remainingPaths, mainEndNode.node.id)
+        if (elements.nonEmpty) {
           Some(
             StructurePath(
               mainStartNode.node.id,
               mainEndNode.node.id,
-              Seq(
-                StructurePathElement(
-                  firstForwardPath,
-                  reversed = false
-                )
-              )
+              elements
             )
           )
+        }
+        else {
+          None
+        }
       }
     }
 
     val backwardPath: Option[StructurePath] = {
-      paths.find(_.toNodeId == mainEndNode.node.id) match {
-        case None => None
-        case Some(lastBackwardPath) =>
+      val index = paths.indexWhere(_.toNodeId == mainEndNode.node.id)
+      if (index < 0) {
+        None
+      }
+      else {
+        val lastBackwardPath = paths(index)
+        val remainingPaths = paths.take(index).reverse
+        val reversed = lastBackwardPath.direction == RoutePathDirection.Bidirectional
+        val element = StructurePathElement(
+          lastBackwardPath,
+          reversed
+        )
+        val elements = findBackwardPath(Seq(element), remainingPaths, mainStartNode.node.id)
+        if (elements.nonEmpty) {
           Some(
             StructurePath(
               mainStartNode.node.id,
               mainEndNode.node.id,
-              Seq(
-                StructurePathElement(
-                  lastBackwardPath,
-                  reversed = true
-                )
-              )
+              elements.reverse
             )
           )
+        }
+        else {
+          None
+        }
       }
     }
 
@@ -419,4 +440,63 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
   //      a.endNodeId == b.startNodeId
   //    }
   //  }
+
+  @tailrec
+  private def findForwardPath(pathElements: Seq[StructurePathElement], paths: Seq[RoutePath], endNodeId: Long): Seq[StructurePathElement] = {
+    val lastEndNodeId = pathElements.last.endNodeId
+    if (lastEndNodeId == endNodeId) {
+      pathElements // found end of forward path
+    }
+    else if (paths.isEmpty) {
+      Seq.empty // could not find forward path to end node
+    }
+    else {
+      paths.find { path =>
+        (path.direction == RoutePathDirection.Bidirectional || path.direction == RoutePathDirection.Forward) &&
+          path.fromNodeId == lastEndNodeId
+      } match {
+        case None => Seq.empty // could not find forward path to end node
+        case Some(nextForwardPath) =>
+          val remainingPaths = paths.filterNot(p => p.id == nextForwardPath.id)
+          val element = StructurePathElement(
+            nextForwardPath,
+            reversed = false
+          )
+          findForwardPath(pathElements :+ element, remainingPaths, endNodeId)
+      }
+    }
+  }
+
+  @tailrec
+  private def findBackwardPath(pathElements: Seq[StructurePathElement], paths: Seq[RoutePath], startNodeId: Long): Seq[StructurePathElement] = {
+    val lastStartNodeId = pathElements.last.endNodeId
+    if (lastStartNodeId == startNodeId) {
+      pathElements // found start of backward path
+    }
+    else if (paths.isEmpty) {
+      Seq.empty // could not find backward path to start node
+    }
+    else {
+      paths.find { path =>
+        if (path.direction == RoutePathDirection.Bidirectional) {
+          path.toNodeId == lastStartNodeId
+        } else if (path.direction == RoutePathDirection.Backward) {
+          path.fromNodeId == lastStartNodeId
+        }
+        else {
+          false
+        }
+      } match {
+        case None => Seq.empty // could not find forward path to end node
+        case Some(nextBackwardPath) =>
+          val remainingPaths = paths.filterNot(p => p.id == nextBackwardPath.id)
+          val reversed = nextBackwardPath.direction == RoutePathDirection.Bidirectional
+          val element = StructurePathElement(
+            nextBackwardPath,
+            reversed = reversed
+          )
+          findBackwardPath(pathElements :+ element, remainingPaths, startNodeId)
+      }
+    }
+  }
 }
