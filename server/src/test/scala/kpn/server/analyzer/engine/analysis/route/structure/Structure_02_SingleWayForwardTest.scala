@@ -13,7 +13,7 @@ class Structure_02_SingleWayForwardTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Seq(RouteNotBackward, RouteNotContinious, RouteBroken))
+    context.facts.shouldMatchTo(Set(RouteNotBackward, RouteNotContinious, RouteBroken))
     context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp ■   bp     head ■   tail     d forward",

@@ -23,7 +23,7 @@ class Structure_46_ForwardForwardGapTest extends UnitTest {
   test("analyze") {
     val context = setup.analyze()
     context.facts.shouldMatchTo(
-      Seq(RouteNotForward,
+      Set(RouteNotForward,
         RouteNotBackward,
         RouteNotContinious,
         RouteBroken

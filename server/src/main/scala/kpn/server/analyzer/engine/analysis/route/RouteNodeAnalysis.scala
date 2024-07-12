@@ -3,11 +3,13 @@ package kpn.server.analyzer.engine.analysis.route
 case class RouteNodeAnalysis(
   reversed: Boolean = false, // TODO redesign - obsolete?
   freeNodes: Seq[RouteNodeData] = Seq.empty, // TODO redesign - obsolete?
-  startNodes: Seq[RouteNodeData] = Seq.empty,
-  endNodes: Seq[RouteNodeData] = Seq.empty,
+  startNode: Option[RouteNodeData] = None,
+  endNode: Option[RouteNodeData] = None,
+  startTentacleFromNodes: Seq[RouteNodeData] = Seq.empty,
+  endTentacleToNodes: Seq[RouteNodeData] = Seq.empty,
   redundantNodes: Seq[RouteNodeData] = Seq.empty
 ) {
-  def nodes: Seq[RouteNodeData] = freeNodes ++ startNodes ++ endNodes ++ redundantNodes
+  def nodes: Seq[RouteNodeData] = startNode.toSeq ++ endNode.toSeq ++ startTentacleFromNodes ++ endTentacleToNodes
 
-  def nodeIds: Seq[Long] = (startNodes ++ endNodes).map(_.node.id)
+  def nodeIds: Seq[Long] = nodes.map(_.node.id)
 }

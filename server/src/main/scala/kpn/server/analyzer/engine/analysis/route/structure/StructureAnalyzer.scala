@@ -35,21 +35,18 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
       )
     }
     else {
-      val mainStartNodeOption = routeNodeAnalysis.startNodes.lastOption
-      val mainEndNodeOption = routeNodeAnalysis.endNodes.headOption
-
-      val structureOption = mainStartNodeOption match {
+      val structureOption = routeNodeAnalysis.startNode match {
         case None => None
         case Some(mainStartNode) =>
-          mainEndNodeOption match {
+          routeNodeAnalysis.endNode match {
             case None => None
             case Some(mainEndNode) =>
               doAnalyzeNodeNetworkRoute(
-                routeNodeAnalysis: RouteNodeAnalysis,
-                mainStartNode: RouteNodeData,
-                mainEndNode: RouteNodeData,
-                segments: Seq[NewRouteSegment],
-                paths: Seq[RoutePath]
+                routeNodeAnalysis,
+                mainStartNode,
+                mainEndNode,
+                segments,
+                paths
               )
           }
       }
@@ -92,7 +89,7 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
     }
 
     val backwardPath: Option[StructurePath] = {
-      paths.reverse.find(_.toNodeId == mainEndNode.node.id) match {
+      paths.find(_.toNodeId == mainEndNode.node.id) match {
         case None => None
         case Some(lastBackwardPath) =>
           Some(
@@ -110,32 +107,40 @@ class StructureAnalyzer(traceEnabled: Boolean = false) {
       }
     }
 
-    val usedPathIds = forwardPath.toSeq.flatMap(_.pathIds) ++ backwardPath.toSeq.flatMap(_.pathIds)
-    val remainingPaths = paths.filterNot(path => usedPathIds.contains(path.id))
-
-    val startTentacleFromNodes = routeNodeAnalysis.startNodes.dropRight(1)
-    val startTentaclePaths = startTentacleFromNodes.flatMap { fromNode =>
-      remainingPaths.find(_.fromNodeId == fromNode.node.id) match {
-        case None => None
-        case Some(firstPath) =>
-          Some(
-            StructurePath(
-              firstPath.fromNodeId,
-              firstPath.toNodeId,
-              Seq(
-                StructurePathElement(
-                  firstPath,
-                  reversed = false
+    val startTentaclePaths = {
+      val usedPathIds = forwardPath.toSeq.flatMap(_.pathIds) ++ backwardPath.toSeq.flatMap(_.pathIds)
+      val remainingPaths = paths.filterNot(path => usedPathIds.contains(path.id))
+      routeNodeAnalysis.startTentacleFromNodes.flatMap { fromNode =>
+        remainingPaths.find(_.fromNodeId == fromNode.node.id) match {
+          case None => None
+          case Some(firstPath) =>
+            Some(
+              StructurePath(
+                firstPath.fromNodeId,
+                firstPath.toNodeId,
+                Seq(
+                  StructurePathElement(
+                    firstPath,
+                    reversed = false
+                  )
                 )
               )
             )
-          )
+        }
       }
     }
 
-    val endTentacleToNodes = routeNodeAnalysis.endNodes.drop(1)
-    val endTentaclePaths = endTentacleToNodes.flatMap { toNode =>
-      remainingPaths.find(_.toNodeId == toNode.node.id) match {
+    val endTentaclePaths = routeNodeAnalysis.endTentacleToNodes.flatMap { toNode =>
+      val usedPathIds = forwardPath.toSeq.flatMap(_.pathIds) ++ backwardPath.toSeq.flatMap(_.pathIds) ++ startTentaclePaths.flatMap(_.pathIds)
+      val remainingPaths = paths.filterNot(path => usedPathIds.contains(path.id))
+      remainingPaths.find { path =>
+        if (path.direction == RoutePathDirection.Backward) {
+          path.fromNodeId == toNode.node.id
+        }
+        else {
+          path.toNodeId == toNode.node.id
+        }
+      } match {
         case None => None
         case Some(firstPath) =>
           Some(

@@ -13,7 +13,7 @@ class Structure_62_NonCircularRoundaboutTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Seq.empty)
+    context.facts.shouldMatchTo(Set.empty)
 
     context.links.shouldMatchTo(
       Seq(

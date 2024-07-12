@@ -17,7 +17,7 @@ class Structure_N04_Test extends UnitTest {
   test("analyze") {
 
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Seq.empty)
+    context.facts.shouldMatchTo(Set.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
@@ -26,12 +26,20 @@ class Structure_N04_Test extends UnitTest {
       )
     )
 
+    context.nodes.shouldMatchTo(
+      Seq(
+        "start=4(01)",
+        "end=6(02)",
+        "start-tentacle=1(01)",
+      )
+    )
+
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>6",
-        "  element-1 bidirectional 1>4  01(1)  01(4)",
+        "  element-1 bidirectional 1>4  1(01)  4(01)",
         "    way-10  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "  element-2 bidirectional 4>6  01(4)  02(6)",
+        "  element-2 bidirectional 4>6  4(01)  6(02)",
         "    way-11  p ■   n ■   loop     fp     bp     head     tail     d forward  paths=2",
         "    way-12  p ■   n     loop     fp     bp     head     tail     d forward  paths=2",
       )
@@ -55,7 +63,7 @@ class Structure_N04_Test extends UnitTest {
       Seq(
         "forward=4>6 nodes=4, 5, 6",
         "backward=4>6 nodes=6, 5, 4",
-        "startTentacle=1>4 nodes=1, 2, 3, 4",
+        "start-tentacle=1>4 nodes=1, 2, 3, 4",
       )
     )
   }

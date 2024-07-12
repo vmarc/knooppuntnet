@@ -5,8 +5,10 @@ class RouteNodeAnalysisFormatter(analysis: RouteNodeAnalysis) {
   def nodeStrings: Seq[String] = {
     List(
       nodeStrings("Free", analysis.freeNodes),
-      nodeStrings("Start", analysis.startNodes),
-      nodeStrings("End", analysis.endNodes),
+      nodeStrings("Start", analysis.startNode.toSeq),
+      nodeStrings("End", analysis.endNode.toSeq),
+      nodeStrings("Start tentacle from", analysis.startTentacleFromNodes),
+      nodeStrings("End tentacle to", analysis.endTentacleToNodes),
       nodeStrings("Redundant", analysis.redundantNodes),
       if (analysis.reversed) Seq("(reversed)") else Seq.empty
     ).flatten

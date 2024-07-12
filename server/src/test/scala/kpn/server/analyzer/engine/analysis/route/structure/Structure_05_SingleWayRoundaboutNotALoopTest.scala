@@ -10,7 +10,7 @@ class Structure_05_SingleWayRoundaboutNotALoopTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Seq.empty)
+    context.facts.shouldMatchTo(Set.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",

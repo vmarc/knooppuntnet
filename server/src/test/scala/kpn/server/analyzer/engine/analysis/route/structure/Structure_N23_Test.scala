@@ -4,14 +4,14 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
-// oneway route -> oneway=yes
-class Structure_N18_Test extends UnitTest {
+// route with direction=forward, but forward not ok
+class Structure_N23_Test extends UnitTest {
 
   private def setup = new StructureTestSetupBuilder() {
     node(1, "01")
     node(3, "02")
-    memberWayWithTags(10, "", Tags.from("highway" -> "road", "oneway" -> "yes"), 1, 2, 3)
-  }.build("01", "02", ScopedNetworkType.rcn, Tags.from("oneway" -> "yes"))
+    memberWayWithTags(10, "", Tags.from("highway" -> "road", "oneway" -> "yes"), 3, 2, 1)
+  }.build("01", "02", ScopedNetworkType.rcn, Tags.from("direction" -> "forward"))
 
   test("analyze") {
 
@@ -25,7 +25,7 @@ class Structure_N18_Test extends UnitTest {
     context.pathNodes.foreach(a => println(s"""$a,"""))
     context.pathDetails.foreach(a => println(s""""$a","""))
 
-    // TODO context.facts.shouldMatchTo(Set(RouteOneWay))
+    // TODO context.facts.shouldMatchTo(Set(RouteNotForward, RouteNotContinious, RouteBroken))
     context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
@@ -34,15 +34,15 @@ class Structure_N18_Test extends UnitTest {
 
     context.nodes.shouldMatchTo(
       Seq(
-        "start=1(01)",
-        "end=3(02)",
+        "start=3(02)",
+        "end=1(01)",
       )
     )
 
     context.segments.shouldMatchTo(
       Seq(
-        "segment-1 1>3",
-        "  element-1 bidirectional 1>3  1(01)  3(02)",
+        "segment-1 3>1",
+        "  element-1 bidirectional 3>1  3(02)  1(01)",
         "    way-10  p     n     loop     fp     bp     head     tail     d unconnected  paths=1",
       )
     )
@@ -55,14 +55,14 @@ class Structure_N18_Test extends UnitTest {
 
     context.pathNodes.shouldMatchTo(
       Seq(
-        TestPathNodes(1, Vector(1, 2, 3)),
+        TestPathNodes(1, Vector(3, 2, 1)),
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
-        "forward=1>3 nodes=1, 2, 3",
-        "backward=1>3 nodes=3, 2, 1", // TODO there should be no backward path
+        "forward=3>1 nodes=3, 2, 1",
+        "backward=3>1 nodes=1, 2, 3", // TODO there should be only forward or backward
       )
     )
     pending

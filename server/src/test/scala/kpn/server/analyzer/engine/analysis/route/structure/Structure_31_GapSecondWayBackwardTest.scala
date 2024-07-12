@@ -16,7 +16,7 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Seq(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken))
+    context.facts.shouldMatchTo(Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken))
     context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",

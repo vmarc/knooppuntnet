@@ -4,14 +4,14 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
-// oneway route -> oneway=yes
-class Structure_N18_Test extends UnitTest {
+// route with direction=backward, but backward not ok
+class Structure_N24_Test extends UnitTest {
 
   private def setup = new StructureTestSetupBuilder() {
     node(1, "01")
     node(3, "02")
     memberWayWithTags(10, "", Tags.from("highway" -> "road", "oneway" -> "yes"), 1, 2, 3)
-  }.build("01", "02", ScopedNetworkType.rcn, Tags.from("oneway" -> "yes"))
+  }.build("01", "02", ScopedNetworkType.rcn, Tags.from("direction" -> "backward"))
 
   test("analyze") {
 
@@ -25,7 +25,7 @@ class Structure_N18_Test extends UnitTest {
     context.pathNodes.foreach(a => println(s"""$a,"""))
     context.pathDetails.foreach(a => println(s""""$a","""))
 
-    // TODO context.facts.shouldMatchTo(Set(RouteOneWay))
+    // TODO context.facts.shouldMatchTo(Set(RouteNotBackward, RouteNotContinious, RouteBroken))
     context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",

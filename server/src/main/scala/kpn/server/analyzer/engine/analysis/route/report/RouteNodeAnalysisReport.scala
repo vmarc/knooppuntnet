@@ -7,7 +7,7 @@ object RouteNodeAnalysisReport {
 
   def report(context: RouteDetailAnalysisContext): String = {
     val routeNodeAnalysis = context.routeNodeAnalysis
-    if (routeNodeAnalysis.startNodes.nonEmpty || routeNodeAnalysis.endNodes.nonEmpty || routeNodeAnalysis.freeNodes.nonEmpty || routeNodeAnalysis.redundantNodes.nonEmpty) {
+    if (routeNodeAnalysis.startNode.nonEmpty || routeNodeAnalysis.endNode.nonEmpty || routeNodeAnalysis.freeNodes.nonEmpty || routeNodeAnalysis.redundantNodes.nonEmpty) {
       s"""
          |<table>
          |  <tr class="header">
@@ -19,8 +19,8 @@ object RouteNodeAnalysisReport {
          |    <td>name</td>
          |    <td>isInWay</td>
          |  </tr>
-         |  ${routeNodeAnalysis.startNodes.map(n => routeNodeReport("startNode", n)).mkString}
-         |  ${routeNodeAnalysis.endNodes.map(n => routeNodeReport("endNode", n)).mkString}
+         |  ${routeNodeAnalysis.startNode.map(n => routeNodeReport("startNode", n)).mkString}
+         |  ${routeNodeAnalysis.endNode.map(n => routeNodeReport("endNode", n)).mkString}
          |  ${routeNodeAnalysis.freeNodes.map(n => routeNodeReport("freeNode", n)).mkString}
          |  ${routeNodeAnalysis.redundantNodes.map(n => routeNodeReport("redundantNode", n)).mkString}
          |  <tr><td colspan="4">reversed: ${routeNodeAnalysis.reversed}</td></tr>

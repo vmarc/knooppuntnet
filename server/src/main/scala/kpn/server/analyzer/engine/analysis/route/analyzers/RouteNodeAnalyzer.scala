@@ -92,15 +92,17 @@ class RouteNodeAnalyzer(context: RouteDetailAnalysisContext) {
         val routeNodeAnalysis = RouteNodeAnalysis(
           reversed = false,
           freeNodes = Seq.empty,
-          startNodes = startNodes,
-          endNodes = endNodes,
+          startNode = startNodes.lastOption,
+          endNode = endNodes.headOption,
+          startTentacleFromNodes = startNodes.dropRight(1),
+          endTentacleToNodes = endNodes.drop(1),
           redundantNodes = redundantNodes
         )
 
-        if (routeNodeAnalysis.startNodes.nonEmpty && !routeNodeAnalysis.startNodes.exists(_.isInWay)) {
+        if (routeNodeAnalysis.startNode.nonEmpty && !routeNodeAnalysis.startNode.exists(_.isInWay)) {
           facts += RouteNodeMissingInWays
         }
-        else if (routeNodeAnalysis.endNodes.nonEmpty && !routeNodeAnalysis.endNodes.exists(_.isInWay)) {
+        else if (routeNodeAnalysis.endNode.nonEmpty && !routeNodeAnalysis.endNode.exists(_.isInWay)) {
           facts += RouteNodeMissingInWays
         }
 

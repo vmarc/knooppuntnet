@@ -86,8 +86,10 @@ class RouteLinksReport(context: RouteDetailAnalysisContext) {
 
   private def networkNodeString(nodeIds: Seq[Long]): String = {
     Seq(
-      networkNodeStrings(nodeIds, "start", context.routeNodeAnalysis.startNodes),
-      networkNodeStrings(nodeIds, "end", context.routeNodeAnalysis.endNodes),
+      networkNodeStrings(nodeIds, "start", context.routeNodeAnalysis.startNode.toSeq),
+      networkNodeStrings(nodeIds, "end", context.routeNodeAnalysis.endNode.toSeq),
+      networkNodeStrings(nodeIds, "start tentacle", context.routeNodeAnalysis.startTentacleFromNodes),
+      networkNodeStrings(nodeIds, "end tentacle", context.routeNodeAnalysis.endTentacleToNodes),
       networkNodeStrings(nodeIds, "free", context.routeNodeAnalysis.freeNodes),
       networkNodeStrings(nodeIds, "redundant", context.routeNodeAnalysis.redundantNodes)
     ).flatten.mkString(", ")

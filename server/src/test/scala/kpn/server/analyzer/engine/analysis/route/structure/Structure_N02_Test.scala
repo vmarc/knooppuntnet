@@ -16,7 +16,7 @@ class Structure_N02_Test extends UnitTest {
   test("analyze") {
 
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Seq.empty)
+    context.facts.shouldMatchTo(Set.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    ",
@@ -25,10 +25,17 @@ class Structure_N02_Test extends UnitTest {
       )
     )
 
+    context.nodes.shouldMatchTo(
+      Seq(
+        "start=1(01)",
+        "end=4(02)",
+      )
+    )
+
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>4",
-        "  element-1 bidirectional 1>4  01(1)  02(4)",
+        "  element-1 bidirectional 1>4  1(01)  4(02)",
         "    way-10  p     n     loop     fp     bp     head     tail     d unconnected  paths=1",
       )
     )

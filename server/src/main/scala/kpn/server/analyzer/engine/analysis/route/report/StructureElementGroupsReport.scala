@@ -84,8 +84,10 @@ class StructureElementGroupsReport(context: RouteDetailAnalysisContext) {
 
   private def networkNodes(fragment: StructureFragment): String = {
     Seq(
-      fragmentNodes(fragment, "start", context.routeNodeAnalysis.startNodes),
-      fragmentNodes(fragment, "end", context.routeNodeAnalysis.endNodes),
+      fragmentNodes(fragment, "start", context.routeNodeAnalysis.startNode.toSeq),
+      fragmentNodes(fragment, "end", context.routeNodeAnalysis.endNode.toSeq),
+      fragmentNodes(fragment, "start tentacle", context.routeNodeAnalysis.startTentacleFromNodes),
+      fragmentNodes(fragment, "end tentacle", context.routeNodeAnalysis.endTentacleToNodes),
       fragmentNodes(fragment, "free", context.routeNodeAnalysis.freeNodes),
       fragmentNodes(fragment, "redundant", context.routeNodeAnalysis.redundantNodes)
     ).flatten.mkString(", ")

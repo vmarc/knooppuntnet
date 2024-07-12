@@ -17,7 +17,7 @@ class IncompleteRouteAnalyzerTest extends UnitTest {
   test("route relation with fixme=incomplete tag") {
     val d = new RouteTestData("01-02", routeTags = Tags.from("fixme" -> "incomplete"))
     val context = analyze(d)
-    context.facts.shouldMatchTo(Seq(RouteIncomplete))
+    context.facts.toSet.shouldMatchTo(Set(RouteIncomplete))
   }
 
   private def analyze(routeTestData: RouteTestData): RouteDetailAnalysisContext = {

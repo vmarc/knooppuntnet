@@ -37,17 +37,13 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
         }
 
         if (context.routeNodeAnalysis.nodeIds.contains(linkFragments.head.fromNodeId)) {
-          if (fragments.nonEmpty) {
-            elements += buildSegmentElement(fragments.toSeq)
-            fragments.clear()
-          }
+          finalizeSegmentElement()
         }
 
         linkFragments.foreach { fragment =>
           if (context.routeNodeAnalysis.nodeIds.contains(fragment.nodeIds.last)) {
             fragments += fragment
-            elements += buildSegmentElement(fragments.toSeq)
-            fragments.clear()
+            finalizeSegmentElement()
           }
           else {
             fragments += fragment
@@ -55,27 +51,20 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
         }
 
         if (!currentRouteLinkWay.link.hasNext) {
-          if (fragments.nonEmpty) {
-            elements += buildSegmentElement(fragments.toSeq)
-            fragments.clear()
-          }
+          finalizeSegmentElement()
           segments += buildSegment(segments.size + 1, elements.toSeq)
           elements.clear()
         }
         else {
           val change = isDirectionChange(currentRouteLinkWay, nextRouteLinkWayOption)
           if (change) {
-            elements += buildSegmentElement(fragments.toSeq)
-            fragments.clear()
+            finalizeSegmentElement()
           }
         }
       }
     }
 
-    if (fragments.nonEmpty) { // TODO redesign - do we ever get here?
-      elements += buildSegmentElement(fragments.toSeq)
-      fragments.clear()
-    }
+    finalizeSegmentElement()
 
     if (elements.nonEmpty) { // TODO redesign - do we ever get here?
       segments += buildSegment(segments.size + 1, elements.toSeq)
@@ -85,11 +74,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   }
 
   private def handleRoundabout(previousRouteLinkWayOption: Option[RouteLinkWay], currentRouteLinkWay: RouteLinkWay, nextRouteLinkWayOption: Option[RouteLinkWay]) = {
-    // finalize current element, if any
-    if (fragments.nonEmpty) {
-      elements += buildSegmentElement(fragments.toSeq)
-      fragments.clear()
-    }
+    finalizeSegmentElement()
 
     nextRouteLinkWayOption match {
       case None =>
@@ -239,7 +224,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     }
   }
 
-  def buildFragmentElement(routeLinkWay: RouteLinkWay, direction: RoutePathDirection, nodeIds: Seq[Long]): NewRouteSegmentElement = {
+  private def buildFragmentElement(routeLinkWay: RouteLinkWay, direction: RoutePathDirection, nodeIds: Seq[Long]): NewRouteSegmentElement = {
     // this is a closed loop at the end of the route
     val fragment = NewRouteSegmentElementFragment(
       fragmentIds.next(),
@@ -273,5 +258,12 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       nodeIds,
       Seq.empty // filled in later during path analysis
     )
+  }
+
+  private def finalizeSegmentElement(): Unit = {
+    if (fragments.nonEmpty) {
+      elements += buildSegmentElement(fragments.toSeq)
+      fragments.clear()
+    }
   }
 }

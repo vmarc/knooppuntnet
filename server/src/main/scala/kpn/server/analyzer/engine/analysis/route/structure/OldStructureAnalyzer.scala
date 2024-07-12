@@ -6,8 +6,8 @@ class OldStructureAnalyzer(traceEnabled: Boolean = false) {
 
   def analyze(routeNodeAnalysis: RouteNodeAnalysis, elementGroups: Seq[StructureElementGroup]): OldStructure = {
 
-    val mainStartNode = routeNodeAnalysis.startNodes.lastOption
-    val mainEndNode = routeNodeAnalysis.endNodes.headOption
+    val mainStartNode = routeNodeAnalysis.startNode.lastOption
+    val mainEndNode = routeNodeAnalysis.endNode.headOption
 
     if (elementGroups.size != 1) {
       val otherPaths: Seq[OldStructurePath] = {

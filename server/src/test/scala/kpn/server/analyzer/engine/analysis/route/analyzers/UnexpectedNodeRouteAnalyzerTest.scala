@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.Fact
+import kpn.api.custom.Fact.RouteUnexpectedNode
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
@@ -32,7 +32,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
 
     val context = analyze(d)
 
-    context.facts.shouldMatchTo(Seq(Fact.RouteUnexpectedNode))
+    context.facts.shouldMatchTo(Seq(RouteUnexpectedNode))
     context.unexpectedNodeIds.shouldMatchTo(Some(Seq(1003)))
   }
 
@@ -47,7 +47,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
 
     val context = analyze(d)
 
-    context.facts.shouldMatchTo(Seq(Fact.RouteUnexpectedNode))
+    context.facts.shouldMatchTo(Seq(RouteUnexpectedNode))
     context.unexpectedNodeIds.shouldMatchTo(Some(Seq(1003)))
   }
 

@@ -27,13 +27,13 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
   test("unexpected route name - start node does not match") {
     val newContext = doTest(Some("04-05"), Some("04"), Some("06"))
     newContext.expectedName should equal(Some("04-06"))
-    newContext.facts.shouldMatchTo(Seq(Fact.RouteNodeNameMismatch))
+    newContext.facts.toSet.shouldMatchTo(Set(Fact.RouteNodeNameMismatch))
   }
 
   test("unexpected route name - end node does not match") {
     val newContext = doTest(Some("04-05"), Some("04"), Some("07"))
     newContext.expectedName should equal(Some("04-07"))
-    newContext.facts.shouldMatchTo(Seq(Fact.RouteNodeNameMismatch))
+    newContext.facts.toSet.shouldMatchTo(Set(Fact.RouteNodeNameMismatch))
   }
 
   test("no fact when route name unknown") {
@@ -63,7 +63,7 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
   test("do not make check when no separator dash") {
     val newContext = doTest(Some("bla"), Some("01"), Some("02"))
     newContext.expectedName should equal(Some("01-02"))
-    newContext.facts.shouldMatchTo(Seq(Fact.RouteNodeNameMismatch))
+    newContext.facts.toSet.shouldMatchTo(Set(Fact.RouteNodeNameMismatch))
   }
 
   private def doTest(routeName: Option[String], startNodeName: Option[String], endNodeName: Option[String]): RouteDetailAnalysisContext = {

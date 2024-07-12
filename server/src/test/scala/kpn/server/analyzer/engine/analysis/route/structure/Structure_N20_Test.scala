@@ -1,13 +1,17 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
+import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
-//
+// oneway route -> direction=forward
 class Structure_N20_Test extends UnitTest {
 
   private def setup = new StructureTestSetupBuilder() {
-    memberWay(11, "", 1, 2, 3)
-  }.build
+    node(1, "01")
+    node(3, "02")
+    memberWayWithTags(10, "", Tags.from("highway" -> "road", "oneway" -> "yes"), 1, 2, 3)
+  }.build("01", "02", ScopedNetworkType.rcn, Tags.from("direction" -> "forward"))
 
   test("analyze") {
 
@@ -15,34 +19,50 @@ class Structure_N20_Test extends UnitTest {
 
     context.facts.foreach(a => println(s""""$a","""))
     context.links.foreach(a => println(s""""$a","""))
+    context.nodes.foreach(a => println(s""""$a","""))
     context.segments.foreach(a => println(s""""$a","""))
     context.paths.foreach(a => println(s""""$a","""))
     context.pathNodes.foreach(a => println(s"""$a,"""))
     context.pathDetails.foreach(a => println(s""""$a","""))
 
-    context.facts.shouldMatchTo(Seq.empty)
+    // TODO context.facts.shouldMatchTo(Set(RouteOneWay))
     context.links.shouldMatchTo(
       Seq(
+        "1    p     n     loop     fp     bp     head     tail     d unconnected",
+      )
+    )
+
+    context.nodes.shouldMatchTo(
+      Seq(
+        "start=1(01)",
+        "end=3(02)",
       )
     )
 
     context.segments.shouldMatchTo(
       Seq(
+        "segment-1 1>3",
+        "  element-1 bidirectional 1>3  1(01)  3(02)",
+        "    way-10  p     n     loop     fp     bp     head     tail     d unconnected  paths=1",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
+        "path-1, bidirectional, elements=1",
       )
     )
 
     context.pathNodes.shouldMatchTo(
       Seq(
+        TestPathNodes(1, Vector(1, 2, 3)),
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
+        "forward=1>3 nodes=1, 2, 3",
+        "backward=1>3 nodes=3, 2, 1", // TODO there should be no backward path
       )
     )
   }

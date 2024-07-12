@@ -5,6 +5,7 @@ import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawWay
+import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
@@ -70,6 +71,8 @@ class StructureTestSetupBuilder extends SharedTestObjects {
     member("node", nodeId, role)
   }
 
+  def roundAboutTags = Tags.from("highway" -> "road", "junction" -> "roundabout")
+
   private def member(memberType: String, ref: Long, role: String = ""): RawMember = {
     val m = RawMember(memberType, ref, if (role.nonEmpty) Some(role) else None)
     memberBuffer += m
@@ -97,7 +100,12 @@ class StructureTestSetupBuilder extends SharedTestObjects {
     new StructureTestSetup(new DataBuilder(rawData).data)
   }
 
-  def build(from: String, to: String): StructureTestSetup = {
+  def build(
+    from: String,
+    to: String,
+    scopedNetworkType: ScopedNetworkType = ScopedNetworkType.rwn,
+    routeTags: Seq[Tag] = Seq.empty
+  ): StructureTestSetup = {
     val relation = newRawRelation(
       1,
       members = memberBuffer.toSeq,
@@ -107,8 +115,8 @@ class StructureTestSetupBuilder extends SharedTestObjects {
         "type" -> "route",
         "route" -> "hiking",
         "network:type" -> "node_network",
-        "network" -> "rwn"
-      )
+        "network" -> scopedNetworkType.key
+      ) ++ routeTags
     )
     val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))
     new StructureTestSetup(new DataBuilder(rawData).data)
