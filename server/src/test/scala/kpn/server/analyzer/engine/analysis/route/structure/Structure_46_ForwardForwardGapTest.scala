@@ -46,70 +46,30 @@ class Structure_46_ForwardForwardGapTest extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>9",
-        "  element-1 bidirectional 1>2",
-        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "  element-2 forward 2>8",
-        "    way-12  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=2",
-        "    way-13  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=2",
-        "  element-3 backward 2>8",
-        "    way-14  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=3",
-        "    way-15  p ■   n ■   loop     fp     bp ■   head     tail ■   d backward  paths=3",
-        "  element-4 bidirectional 8>9",
-        "    way-16  p ■   n     loop     fp     bp     head     tail     d forward  paths=4",
+        "  element-1 1>2  ↔  nodes=1, 2",
+        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward",
+        "  element-2 2>8  →  nodes=2, 3, 8",
+        "    way-12  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward",
+        "    way-13  p ■   n ■   loop     fp ■   bp     head     tail     d forward",
+        "  element-3 2>8  ←  nodes=2, 7, 8",
+        "    way-14  p ■   n ■   loop     fp     bp ■   head     tail     d backward",
+        "    way-15  p ■   n ■   loop     fp     bp ■   head     tail ■   d backward",
+        "  element-4 8>9  ↔  nodes=8, 9",
+        "    way-16  p ■   n     loop     fp     bp     head     tail     d forward",
         "segment-2 10>12",
-        "  element-5 bidirectional 10>12",
-        "    way-17  p     n ■   loop     fp     bp     head     tail     d forward  paths=5",
-        "    way-18  p ■   n     loop     fp     bp     head     tail     d forward  paths=5",
+        "  element-5 10>12  ↔  nodes=10, 11, 12",
+        "    way-17  p     n ■   loop     fp     bp     head     tail     d forward",
+        "    way-18  p ■   n     loop     fp     bp     head     tail     d forward",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1 ↔ elements=1, nodes=1, 2",
-        "path-2 → elements=2, nodes=2, 3, 8",
-        "path-3 ← elements=3, nodes=8, 7, 2",
-        "path-4 ↔ elements=4, nodes=8, 9",
-        "path-5 ↔ elements=5, nodes=10, 11, 12",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
-      Seq(
         "other=1>2 nodes=1, 2",
         "other=2>8 nodes=2, 3, 8",
-        "other=8>2 nodes=8, 7, 2",
+        "other=2>8 nodes=2, 7, 8",
         "other=8>9 nodes=8, 9",
         "other=10>12 nodes=10, 11, 12",
-      )
-    )
-  }
-
-  test("elements") {
-    setup.elementGroups().shouldMatchTo(
-      Seq(
-        Seq(
-          "1>2",
-          "2>3>8 (Forward)",
-          "8>7>2 (Backward)",
-          "8>9",
-        ),
-        Seq(
-          "10>11>12",
-        )
-      )
-    )
-  }
-
-  test("structure") {
-    val structure = setup.structure()
-    structure.shouldMatchTo(
-      TestStructure(
-        forwardPath = None,
-        backwardPath = None,
-        Seq(
-          TestStructurePath(1, 9, Seq(1, 2, 2, 3, 8, 8, 7, 2, 8, 9)),
-          TestStructurePath(10, 12, Seq(10, 11, 12))
-        )
       )
     )
   }

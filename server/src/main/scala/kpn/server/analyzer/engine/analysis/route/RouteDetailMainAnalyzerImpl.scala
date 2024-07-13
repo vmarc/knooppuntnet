@@ -47,7 +47,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRou
 import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkAnalyzer
-import kpn.server.analyzer.engine.analysis.route.structure.RoutePathAnalyzer
 import kpn.server.analyzer.engine.analysis.route.structure.RouteSegmentAnalyzer
 import org.springframework.stereotype.Component
 
@@ -92,7 +91,6 @@ class RouteDetailMainAnalyzerImpl(
         RouteNodeAnalyzer,
         RouteLinkAnalyzer,
         RouteSegmentAnalyzer,
-        RoutePathAnalyzer,
 
         OldRouteSegmentAnalyzer,
         RouteStructureAnalyzer,

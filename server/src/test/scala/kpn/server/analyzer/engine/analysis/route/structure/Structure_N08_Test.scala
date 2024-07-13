@@ -50,29 +50,21 @@ class Structure_N08_Test extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>9",
-        "  element-1 bidirectional 1>5  1(01)  5(02)",
-        "    way-10  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-11  p ■   n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-13  p ■   n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "  element-2 forward 5>7  5(02)  7(02)",
-        "    way-14  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=2",
-        "    way-15  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=2",
-        "  element-3 backward 5>9  5(02)  9(02)",
-        "    way-16  p ■   n ■   loop     fp     bp ■   head     tail     d forward  paths=3",
-        "    way-17  p ■   n     loop     fp     bp ■   head     tail     d forward  paths=3",
+        "  element-1 1>5  1(01)  5(02)  ↔  nodes=1, 2, 3, 4, 5",
+        "    way-10  p     n ■   loop     fp     bp     head     tail     d forward",
+        "    way-11  p ■   n ■   loop     fp     bp     head     tail     d forward",
+        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d forward",
+        "    way-13  p ■   n ■   loop     fp     bp     head     tail     d forward",
+        "  element-2 5>7  5(02)  7(02)  →  nodes=5, 6, 7",
+        "    way-14  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward",
+        "    way-15  p ■   n ■   loop     fp ■   bp     head     tail     d forward",
+        "  element-3 5>9  5(02)  9(02)  ←  nodes=5, 8, 9",
+        "    way-16  p ■   n ■   loop     fp     bp ■   head     tail     d forward",
+        "    way-17  p ■   n     loop     fp     bp ■   head     tail     d forward",
       )
     )
 
     context.paths.shouldMatchTo(
-      Seq(
-        "path-1 ↔ elements=1, nodes=1, 2, 3, 4, 5",
-        "path-2 → elements=2, nodes=5, 6, 7",
-        "path-3 ← elements=3, nodes=9, 8, 5",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
       Seq(
         "forward=1>5 nodes=1, 2, 3, 4, 5",
         "backward=5>1 nodes=5, 4, 3, 2, 1",

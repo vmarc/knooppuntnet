@@ -22,58 +22,18 @@ class Structure_53_WayRoundaboutTest extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>3",
-        "  element-1 bidirectional 1>3",
-        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-12  p ■   n     loop     fp     bp     head     tail     d roundaboutright  paths=1"
+        "  element-1 1>3  ↔  nodes=1, 2, 3, 4, 5, 6, 3",
+        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward",
+        "    way-12  p ■   n     loop     fp     bp     head     tail     d roundaboutright"
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1 ↔ elements=1, nodes=1, 2, 3, 4, 5, 6, 3",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
-      Seq(
         "forward=1>3 nodes=1, 2, 3, 4, 5, 6, 3",
-        "backward=3>1 nodes=3, 6, 5, 4, 3, 2, 1", // TODO redesign - this is NOK?
+        "backward=3>1 nodes=3, 6, 5, 4, 3, 2, 1", // TODO redesign - this is NOK? nodeIds = Seq(3, 4, 5, 6, 3, 2, 1)
       )
     )
     pending
-  }
-
-  test("elements") {
-    setup.elementGroups().shouldMatchTo(
-      Seq(
-        Seq(
-          "1>3",
-          "3>3 (Forward)",
-          "3>3 (Backward)",
-        ),
-      )
-    )
-  }
-
-  test("structure") {
-    val structure = setup.structure()
-    structure.shouldMatchTo(
-      TestStructure(
-        forwardPath = Some(
-          TestStructurePath(
-            startNodeId = 1,
-            endNodeId = 3,
-            nodeIds = Seq(1, 2, 3, 4, 5, 6, 3)
-          )
-        ),
-        backwardPath = Some(
-          TestStructurePath(
-            startNodeId = 3,
-            endNodeId = 1,
-            nodeIds = Seq(3, 4, 5, 6, 3, 2, 1)
-          )
-        )
-      )
-    )
   }
 }

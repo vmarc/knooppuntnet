@@ -22,7 +22,6 @@ class Structure_N23_Test extends UnitTest {
     context.nodes.foreach(a => println(s""""$a","""))
     context.segments.foreach(a => println(s""""$a","""))
     context.paths.foreach(a => println(s""""$a","""))
-    context.pathDetails.foreach(a => println(s""""$a","""))
 
     pending
 
@@ -43,19 +42,13 @@ class Structure_N23_Test extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 3>1",
-        "  element-1 bidirectional 3>1  3(02)  1(01)",
-        "    way-10  p     n     loop     fp     bp     head     tail     d unconnected  paths=1",
-      )
-    )
-
-    context.paths.shouldMatchTo(
-      Seq(
-        "path-1 ↔ elements=1, nodes=3, 2, 1",
+        "  element-1 3>1  3(02)  1(01)  ↔  nodes=3, 2, 1",
+        "    way-10  p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
     pending
-    context.pathDetails.shouldMatchTo(
+    context.paths.shouldMatchTo(
       Seq(
         "forward=3>1 nodes=3, 2, 1",
         "backward=3>1 nodes=1, 2, 3", // TODO there should be only forward or backward

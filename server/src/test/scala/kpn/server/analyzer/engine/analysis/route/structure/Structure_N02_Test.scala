@@ -35,18 +35,12 @@ class Structure_N02_Test extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>4",
-        "  element-1 bidirectional 1>4  1(01)  4(02)",
-        "    way-10  p     n     loop     fp     bp     head     tail     d unconnected  paths=1",
+        "  element-1 1>4  1(01)  4(02)  ↔  nodes=1, 2, 3, 4",
+        "    way-10  p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
     context.paths.shouldMatchTo(
-      Seq(
-        "path-1 ↔ elements=1, nodes=1, 2, 3, 4",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
       Seq(
         "forward=1>4 nodes=1, 2, 3, 4",
         "backward=4>1 nodes=4, 3, 2, 1",

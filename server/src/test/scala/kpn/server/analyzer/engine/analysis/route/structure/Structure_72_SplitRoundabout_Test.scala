@@ -46,84 +46,32 @@ class Structure_72_SplitRoundabout_Test extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>12",
-        "  element-1 bidirectional 1>2",
-        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "  element-2 forward 2>5",
-        "    way-12  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=2",
-        "  element-3 backward 2>4",
-        "    way-13  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=3",
-        "    way-14  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=3",
-        "  element-4 forward 5>6",
-        "    way-15  p ■   n ■   loop     fp ■   bp     head     tail ■   d roundaboutright  paths=4",
-        "  element-5 backward 4>7",
-        "    way-15  p ■   n ■   loop     fp ■   bp     head     tail ■   d roundaboutright  paths=5",
-        "  element-6 forward 6>10",
-        "    way-16  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=6",
-        "    way-17  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=6",
-        "  element-7 backward 7>10",
-        "    way-18  p ■   n ■   loop     fp     bp ■   head     tail     d backward  paths=7",
-        "    way-19  p ■   n ■   loop     fp     bp ■   head     tail ■   d backward  paths=7",
-        "  element-8 bidirectional 10>12",
-        "    way-20  p ■   n     loop     fp     bp     head     tail     d forward  paths=8",
+        "  element-1 1>2  ↔  nodes=1, 2",
+        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward",
+        "  element-2 2>5  →  nodes=2, 5",
+        "    way-12  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward",
+        "  element-3 2>4  ←  nodes=2, 8, 4",
+        "    way-13  p ■   n ■   loop     fp     bp ■   head     tail     d backward",
+        "    way-14  p ■   n ■   loop     fp     bp ■   head     tail     d backward",
+        "  element-4 5>6  →  nodes=5, 6",
+        "    way-15  p ■   n ■   loop     fp ■   bp     head     tail ■   d roundaboutright",
+        "  element-5 4>7  ←  nodes=4, 3, 7",
+        "    way-15  p ■   n ■   loop     fp ■   bp     head     tail ■   d roundaboutright",
+        "  element-6 6>10  →  nodes=6, 9, 10",
+        "    way-16  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward",
+        "    way-17  p ■   n ■   loop     fp ■   bp     head     tail     d forward",
+        "  element-7 7>10  ←  nodes=7, 11, 10",
+        "    way-18  p ■   n ■   loop     fp     bp ■   head     tail     d backward",
+        "    way-19  p ■   n ■   loop     fp     bp ■   head     tail ■   d backward",
+        "  element-8 10>12  ↔  nodes=10, 12",
+        "    way-20  p ■   n     loop     fp     bp     head     tail     d forward",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1 ↔ elements=1, nodes=1, 2",
-        "path-2 → elements=2, nodes=2, 5",
-        "path-3 ← elements=3, nodes=4, 8, 2",
-        "path-4 → elements=4, nodes=5, 6",
-        "path-5 ← elements=5, nodes=7, 3, 4",
-        "path-6 → elements=6, nodes=6, 9, 10",
-        "path-7 ← elements=7, nodes=10, 11, 7",
-        "path-8 ↔ elements=8, nodes=10, 12",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
-      Seq(
         "forward=1>12 nodes=1, 2, 5, 6, 9, 10, 12",
         "backward=12>1 nodes=12, 10, 11, 7, 3, 4, 8, 2, 1",
-      )
-    )
-  }
-
-  test("elements") {
-    setup.elementGroups().shouldMatchTo(
-      Seq(
-        Seq(
-          "1>2",
-          "2>5 (Forward)",
-          "4>8>2 (Backward)",
-          "5>6 (Forward)",
-          "7>4 (Backward)",
-          "6>9>10 (Forward)",
-          "10>11>7 (Backward)",
-          "10>12",
-        ),
-      )
-    )
-  }
-
-  test("structure") {
-    val structure = setup.structure()
-    structure.shouldMatchTo(
-      TestStructure(
-        forwardPath = Some(
-          TestStructurePath(
-            startNodeId = 1,
-            endNodeId = 12,
-            nodeIds = Seq(1, 2, 5, 6, 9, 10, 12)
-          )
-        ),
-        backwardPath = Some(
-          TestStructurePath(
-            startNodeId = 12,
-            endNodeId = 1,
-            nodeIds = Seq(12, 10, 11, 7, 3, 4, 8, 2, 1)
-          )
-        )
       )
     )
   }

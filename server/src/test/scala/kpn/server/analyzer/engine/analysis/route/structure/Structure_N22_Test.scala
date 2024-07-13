@@ -22,7 +22,6 @@ class Structure_N22_Test extends UnitTest {
     context.nodes.foreach(a => println(s""""$a","""))
     context.segments.foreach(a => println(s""""$a","""))
     context.paths.foreach(a => println(s""""$a","""))
-    context.pathDetails.foreach(a => println(s""""$a","""))
 
     pending
 
@@ -43,19 +42,13 @@ class Structure_N22_Test extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>2",
-        "  element-1 bidirectional 1>2  1(01)  2(02)",
-        "    way-10  p     n     loop     fp     bp     head     tail     d unconnected  paths=1",
-      )
-    )
-
-    context.paths.shouldMatchTo(
-      Seq(
-        "path-1 ↔ elements=1, nodes=1, 2",
+        "  element-1 1>2  1(01)  2(02)  ↔  nodes=1, 2",
+        "    way-10  p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
     pending
-    context.pathDetails.shouldMatchTo(
+    context.paths.shouldMatchTo(
       Seq(
         "forward=1>2 nodes=1, 2",
         "backward=1>2 nodes=2, 1",

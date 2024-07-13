@@ -53,41 +53,31 @@ class Structure_N14_Test extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>11",
-        "  element-1 bidirectional 1>3  1(01)",
-        "    way-101  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-102  p ■   n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "  element-2 forward 3>11",
-        "    way-103  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=2",
-        "    way-104  p ■   n     loop     fp ■   bp     head     tail     d forward  paths=2",
+        "  element-1 1>3  1(01)  ↔  nodes=1, 2, 3",
+        "    way-101  p     n ■   loop     fp     bp     head     tail     d forward",
+        "    way-102  p ■   n ■   loop     fp     bp     head     tail     d forward",
+        "  element-2 3>11  →  nodes=3, 4, 11",
+        "    way-103  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward",
+        "    way-104  p ■   n     loop     fp ■   bp     head     tail     d forward",
         "segment-2 5>10",
-        "  element-3 forward 5>6",
-        "    way-105  p     n ■   loop     fp ■   bp     head     tail     d forward  paths=3",
-        "  element-4 backward 3>6",
-        "    way-106  p ■   n ■   loop     fp     bp ■   head     tail     d forward  paths=4",
-        "    way-107  p ■   n ■   loop     fp     bp ■   head     tail     d forward  paths=4",
-        "    way-108  p ■   n ■   loop     fp     bp ■   head     tail ■   d forward  paths=4",
-        "  element-5 bidirectional 6>10  10(02)",
-        "    way-109  p ■   n ■   loop     fp     bp     head     tail     d forward  paths=5",
-        "    way-110  p ■   n     loop     fp     bp     head     tail     d forward  paths=5",
+        "  element-3 5>6  →  nodes=5, 6",
+        "    way-105  p     n ■   loop     fp ■   bp     head     tail     d forward",
+        "  element-4 3>6  ←  nodes=3, 7, 8, 6",
+        "    way-106  p ■   n ■   loop     fp     bp ■   head     tail     d forward",
+        "    way-107  p ■   n ■   loop     fp     bp ■   head     tail     d forward",
+        "    way-108  p ■   n ■   loop     fp     bp ■   head     tail ■   d forward",
+        "  element-5 6>10  10(02)  ↔  nodes=6, 9, 10",
+        "    way-109  p ■   n ■   loop     fp     bp     head     tail     d forward",
+        "    way-110  p ■   n     loop     fp     bp     head     tail     d forward",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1 ↔ elements=1, nodes=1, 2, 3",
-        "path-2 → elements=2, nodes=3, 4, 11",
-        "path-3 → elements=3, nodes=5, 6",
-        "path-4 ← elements=4, nodes=6, 8, 7, 3",
-        "path-5 ↔ elements=5, nodes=6, 9, 10",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
-      Seq(
         "other=1>3 nodes=1, 2, 3",
         "other=3>11 nodes=3, 4, 11",
         "other=5>6 nodes=5, 6",
-        "other=6>3 nodes=6, 8, 7, 3",
+        "other=3>6 nodes=3, 7, 8, 6",
         "other=6>10 nodes=6, 9, 10",
       )
     )

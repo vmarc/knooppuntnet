@@ -30,67 +30,23 @@ class Structure_44_ForwardBackwardTest extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>6",
-        "  element-1 bidirectional 1>2",
-        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "  element-2 forward 2>5",
-        "    way-12  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward  paths=2",
-        "    way-13  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=2",
-        "  element-3 backward 2>5",
-        "    way-14  p ■   n ■   loop     fp     bp ■   head     tail     d forward  paths=3",
-        "    way-15  p ■   n ■   loop     fp     bp ■   head     tail ■   d backward  paths=3",
-        "  element-4 bidirectional 5>6",
-        "    way-16  p ■   n     loop     fp     bp     head     tail     d forward  paths=4",
+        "  element-1 1>2  ↔  nodes=1, 2",
+        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward",
+        "  element-2 2>5  →  nodes=2, 3, 5",
+        "    way-12  p ■   n ■   loop     fp ■   bp     head ■   tail     d forward",
+        "    way-13  p ■   n ■   loop     fp ■   bp     head     tail     d forward",
+        "  element-3 2>5  ←  nodes=2, 4, 5",
+        "    way-14  p ■   n ■   loop     fp     bp ■   head     tail     d forward",
+        "    way-15  p ■   n ■   loop     fp     bp ■   head     tail ■   d backward",
+        "  element-4 5>6  ↔  nodes=5, 6",
+        "    way-16  p ■   n     loop     fp     bp     head     tail     d forward",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1 ↔ elements=1, nodes=1, 2",
-        "path-2 → elements=2, nodes=2, 3, 5",
-        "path-3 ← elements=3, nodes=5, 4, 2",
-        "path-4 ↔ elements=4, nodes=5, 6",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
-      Seq(
         "forward=1>6 nodes=1, 2, 3, 5, 6",
         "backward=6>1 nodes=6, 5, 4, 2, 1",
-      )
-    )
-  }
-
-  test("elements") {
-    setup.elementGroups().shouldMatchTo(
-      Seq(
-        Seq(
-          "1>2",
-          "2>3>5 (Forward)",
-          "5>4>2 (Backward)",
-          "5>6"
-        )
-      )
-    )
-  }
-
-  test("structure") {
-    val structure = setup.structure()
-    structure.shouldMatchTo(
-      TestStructure(
-        forwardPath = Some(
-          TestStructurePath(
-            startNodeId = 1,
-            endNodeId = 6,
-            nodeIds = Seq(1, 2, 3, 5, 6)
-          )
-        ),
-        backwardPath = Some(
-          TestStructurePath(
-            startNodeId = 6,
-            endNodeId = 1,
-            nodeIds = Seq(6, 5, 4, 2, 1)
-          )
-        )
       )
     )
   }

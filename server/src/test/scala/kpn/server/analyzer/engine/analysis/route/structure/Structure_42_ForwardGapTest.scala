@@ -27,52 +27,18 @@ class Structure_42_ForwardGapTest extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 2>1",
-        "  element-1 forward 2>1",
-        "    way-11  p     n     loop     fp ■   bp     head ■   tail     d forward  paths=1",
+        "  element-1 2>1  →  nodes=2, 1",
+        "    way-11  p     n     loop     fp ■   bp     head ■   tail     d forward",
         "segment-2 3>2",
-        "  element-2 bidirectional 3>2",
-        "    way-12  p     n     loop     fp     bp     head     tail     d unconnected  paths=2",
+        "  element-2 3>2  ↔  nodes=3, 2",
+        "    way-12  p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1 → elements=1, nodes=2, 1",
-        "path-2 ↔ elements=2, nodes=3, 2",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
-      Seq(
         "other=2>1 nodes=2, 1",
         "other=3>2 nodes=3, 2",
-      )
-    )
-  }
-
-  test("elements") {
-    setup.elementGroups().shouldMatchTo(
-      Seq(
-        Seq(
-          "2>1 (Forward)",
-        ),
-        Seq(
-          "3>2"
-        )
-      )
-    )
-  }
-
-  test("structure") {
-    val structure = setup.structure()
-    structure.shouldMatchTo(
-      TestStructure(
-        forwardPath = None,
-        backwardPath = None,
-        Seq(
-          TestStructurePath(2, 1, Seq(2, 1)),
-          TestStructurePath(3, 2, Seq(3, 2))
-        )
       )
     )
   }

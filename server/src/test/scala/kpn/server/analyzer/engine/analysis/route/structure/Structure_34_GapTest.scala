@@ -36,63 +36,24 @@ class Structure_34_GapTest extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>3",
-        "  element-1 bidirectional 1>3",
-        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-12  p ■   n     loop     fp     bp     head     tail     d forward  paths=1",
+        "  element-1 1>3  ↔  nodes=1, 2, 3",
+        "    way-11  p     n ■   loop     fp     bp     head     tail     d forward",
+        "    way-12  p ■   n     loop     fp     bp     head     tail     d forward",
         "segment-2 4>6",
-        "  element-2 bidirectional 4>6",
-        "    way-13  p     n ■   loop     fp     bp     head     tail     d forward  paths=2",
-        "    way-14  p ■   n     loop     fp     bp     head     tail     d forward  paths=2",
+        "  element-2 4>6  ↔  nodes=4, 5, 6",
+        "    way-13  p     n ■   loop     fp     bp     head     tail     d forward",
+        "    way-14  p ■   n     loop     fp     bp     head     tail     d forward",
         "segment-3 7>8",
-        "  element-3 bidirectional 7>8",
-        "    way-15  p     n     loop     fp     bp     head     tail     d unconnected  paths=3",
+        "  element-3 7>8  ↔  nodes=7, 8",
+        "    way-15  p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1 ↔ elements=1, nodes=1, 2, 3",
-        "path-2 ↔ elements=2, nodes=4, 5, 6",
-        "path-3 ↔ elements=3, nodes=7, 8",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
-      Seq(
         "other=1>3 nodes=1, 2, 3",
         "other=4>6 nodes=4, 5, 6",
         "other=7>8 nodes=7, 8",
-      )
-    )
-  }
-
-  test("elements") {
-    setup.elementGroups().shouldMatchTo(
-      Seq(
-        Seq(
-          "1>2>3",
-        ),
-        Seq(
-          "4>5>6",
-        ),
-        Seq(
-          "7>8"
-        )
-      )
-    )
-  }
-
-  test("structure") {
-    val structure = setup.structure()
-    structure.shouldMatchTo(
-      TestStructure(
-        forwardPath = None,
-        backwardPath = None,
-        Seq(
-          TestStructurePath(1, 3, Seq(1, 2, 3)),
-          TestStructurePath(4, 6, Seq(4, 5, 6)),
-          TestStructurePath(7, 8, Seq(7, 8))
-        )
       )
     )
   }

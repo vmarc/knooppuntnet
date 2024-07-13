@@ -27,58 +27,18 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>3",
-        "  element-1 bidirectional 1>3",
-        "    way-11  p     n     loop     fp     bp     head     tail     d unconnected  paths=1",
+        "  element-1 1>3  ↔  nodes=1, 2, 3",
+        "    way-11  p     n     loop     fp     bp     head     tail     d unconnected",
         "segment-2 5>3",
-        "  element-2 forward 5>3",
-        "    way-12  p     n     loop     fp ■   bp     head ■   tail     d backward  paths=2",
+        "  element-2 5>3  →  nodes=5, 4, 3",
+        "    way-12  p     n     loop     fp ■   bp     head ■   tail     d backward",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1 ↔ elements=1, nodes=1, 2, 3",
-        "path-2 → elements=2, nodes=5, 4, 3",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
-      Seq(
         "other=1>3 nodes=1, 2, 3",
         "other=5>3 nodes=5, 4, 3",
-      )
-    )
-  }
-
-  test("elements") {
-    setup.elementGroups().shouldMatchTo(
-      Seq(
-        Seq(
-          "1>3",
-          "5>3 (Backward)"
-        )
-      )
-    )
-  }
-
-  test("structure") {
-    val structure = setup.structure()
-    structure.shouldMatchTo(
-      TestStructure(
-        forwardPath = Some(
-          TestStructurePath(
-            startNodeId = 1,
-            endNodeId = 3,
-            nodeIds = Seq(1, 2, 3)
-          )
-        ),
-        backwardPath = Some(
-          TestStructurePath(
-            startNodeId = 5,
-            endNodeId = 1,
-            nodeIds = Seq(5, 4, 3, 2, 1) // !!! this is wrong !!!
-          )
-        )
       )
     )
   }

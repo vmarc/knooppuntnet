@@ -22,63 +22,21 @@ class Structure_52_RoundaboutRoundaboutTest extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>3",
-        "  element-1 forward 1>3",
-        "    way-11  p     n ■   loop ■   fp     bp     head     tail     d roundaboutright  paths=1",
-        "  element-2 backward 1>3",
-        "    way-11  p     n ■   loop ■   fp     bp     head     tail     d roundaboutright  paths=2",
-        "  element-3 bidirectional 3>3",
-        "    way-12  p ■   n     loop ■   fp     bp     head     tail     d roundaboutright  paths=3",
+        "  element-1 1>3  →  nodes=1, 2, 3",
+        "    way-11  p     n ■   loop ■   fp     bp     head     tail     d roundaboutright",
+        "  element-2 1>3  ←  nodes=1, 4, 3",
+        "    way-11  p     n ■   loop ■   fp     bp     head     tail     d roundaboutright",
+        "  element-3 3>3  ↔  nodes=3, 5, 6, 7, 3",
+        "    way-12  p ■   n     loop ■   fp     bp     head     tail     d roundaboutright",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1 → elements=1, nodes=1, 2, 3",
-        "path-2 ← elements=2, nodes=3, 4, 1",
-        "path-3 ↔ elements=3, nodes=3, 5, 6, 7, 3",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
-      Seq(
         "forward=1>3 nodes=1, 2, 3, 5, 6, 7, 3",
-        "backward=3>1 nodes=3, 7, 6, 5, 3, 4, 1",
+        "backward=3>1 nodes=3, 7, 6, 5, 3, 4, 1", // TODO redesign nodeIds = Seq(3, 5, 6, 7, 3, 4, 1)
       )
     )
-  }
-
-  test("elements") {
-    setup.elementGroups().shouldMatchTo(
-      Seq(
-        Seq(
-          "1>3 (Forward)",
-          "3>1 (Backward)",
-          "3>3 (Forward)",
-          "3>3 (Backward)",
-        ),
-      )
-    )
-  }
-
-  test("structure") {
-    val structure = setup.structure()
-    structure.shouldMatchTo(
-      TestStructure(
-        forwardPath = Some(
-          TestStructurePath(
-            startNodeId = 1,
-            endNodeId = 3,
-            nodeIds = Seq(1, 2, 3, 5, 6, 7, 3)
-          )
-        ),
-        backwardPath = Some(
-          TestStructurePath(
-            startNodeId = 3,
-            endNodeId = 1,
-            nodeIds = Seq(3, 5, 6, 7, 3, 4, 1)
-          )
-        )
-      )
-    )
+    pending
   }
 }

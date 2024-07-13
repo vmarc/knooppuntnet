@@ -27,59 +27,19 @@ class Structure_73_Split_Test extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>3",
-        "  element-1 forward 1>3",
-        "    way-11  p     n ■   loop     fp ■   bp     head ■   tail     d forward  paths=1",
-        "    way-12  p ■   n ■   loop     fp ■   bp     head     tail     d forward  paths=1",
-        "  element-2 backward 1>3",
-        "    way-13  p ■   n ■   loop     fp     bp ■   head     tail     d forward  paths=2",
-        "    way-14  p ■   n     loop     fp     bp ■   head     tail ■   d forward  paths=2",
+        "  element-1 1>3  →  nodes=1, 2, 3",
+        "    way-11  p     n ■   loop     fp ■   bp     head ■   tail     d forward",
+        "    way-12  p ■   n ■   loop     fp ■   bp     head     tail     d forward",
+        "  element-2 1>3  ←  nodes=1, 4, 3",
+        "    way-13  p ■   n ■   loop     fp     bp ■   head     tail     d forward",
+        "    way-14  p ■   n     loop     fp     bp ■   head     tail ■   d forward",
       )
     )
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1 → elements=1, nodes=1, 2, 3",
-        "path-2 ← elements=2, nodes=3, 4, 1",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
-      Seq(
         "forward=1>3 nodes=1, 2, 3",
         "backward=3>1 nodes=3, 4, 1",
-      )
-    )
-  }
-
-  test("elements") {
-    setup.elementGroups(traceEnabled = true).shouldMatchTo(
-      Seq(
-        Seq(
-          "1>2>3 (Forward)",
-          "3>4>1 (Backward)",
-        ),
-      )
-    )
-  }
-
-  test("structure") {
-    val structure = setup.structure()
-    structure.shouldMatchTo(
-      TestStructure(
-        forwardPath = Some(
-          TestStructurePath(
-            startNodeId = 1,
-            endNodeId = 3,
-            nodeIds = Seq(1, 2, 3)
-          )
-        ),
-        backwardPath = Some(
-          TestStructurePath(
-            startNodeId = 3,
-            endNodeId = 1,
-            nodeIds = Seq(3, 4, 1)
-          )
-        )
       )
     )
   }

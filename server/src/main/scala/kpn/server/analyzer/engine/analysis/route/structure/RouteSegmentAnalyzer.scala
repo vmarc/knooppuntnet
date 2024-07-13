@@ -231,8 +231,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       routeLinkWay.way.id,
       routeLinkWay.link,
       routeLinkWay.role,
-      nodeIds,
-      Seq.empty // filled in later during path analysis
+      nodeIds
     )
 
     val fromNetworkNode = context.routeNodeAnalysis.nodes.find(_.node.id == fragment.fromNodeId)
@@ -255,8 +254,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       routeLinkWay.way.id,
       routeLinkWay.link,
       routeLinkWay.role,
-      nodeIds,
-      Seq.empty // filled in later during path analysis
+      nodeIds
     )
   }
 

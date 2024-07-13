@@ -22,26 +22,9 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
     ).flatten
   }
 
-  def paths: Seq[String] = {
-    context.paths.map { path =>
-      val id = s"path-${path.id}"
-      val direction = if (path.direction == RoutePathDirection.Bidirectional) {
-        "↔"
-      } else if (path.direction == RoutePathDirection.Forward) {
-        "→"
-      }
-      else {
-        "←"
-      }
-      val elements = path.elements.map(_.id).mkString(", ")
-      val nodes = path.nodeIds.mkString(", ")
-      s"$id $direction elements=$elements, nodes=$nodes"
-    }
-  }
-
   def facts: Set[Fact] = context.facts.toSet
 
-  def pathDetails: Seq[String] = {
+  def paths: Seq[String] = {
     Seq(
       context.newStructure.forwardPath.map(path => "forward=" + pathToString(path)).toSeq,
       context.newStructure.backwardPath.map(path => "backward=" + pathToString(path)).toSeq,
@@ -65,14 +48,22 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
   }
 
   private def elementToString(element: NewRouteSegmentElement): String = {
-    val direction = element.direction.entryName.toLowerCase
+    val direction = if (element.direction == RoutePathDirection.Bidirectional) {
+      "↔"
+    } else if (element.direction == RoutePathDirection.Forward) {
+      "→"
+    }
+    else {
+      "←"
+    }
     val from = element.fromNetworkNode.map(n => s"  ${n.node.id}(${n.name})").getOrElse("")
     val to = element.toNetworkNode.map(n => s"  ${n.node.id}(${n.name})").getOrElse("")
-    s"""  element-${element.id} $direction ${element.fromNodeId}>${element.toNodeId}$from$to"""
+    val nodes = element.nodeIds.mkString(", ")
+    s"""  element-${element.id} ${element.fromNodeId}>${element.toNodeId}$from$to  $direction  nodes=$nodes"""
   }
 
   private def fragmentToString(link: NewRouteSegmentElementFragment): String = {
-    s"""    way-${link.wayId}  ${link.link.reportString}  paths=${link.pathIds.mkString(", ")}"""
+    s"""    way-${link.wayId}  ${link.link.reportString}"""
   }
 
   private def pathToString(path: StructurePath): String = {

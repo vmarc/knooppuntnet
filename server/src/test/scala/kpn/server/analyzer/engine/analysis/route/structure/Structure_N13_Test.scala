@@ -39,23 +39,16 @@ class Structure_N13_Test extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>5",
-        "  element-1 bidirectional 1>5  1(01)",
-        "    way-10  p     n ■   loop     fp     bp     head     tail     d forward  paths=1",
-        "    way-11  p ■   n     loop     fp     bp     head     tail     d forward  paths=1",
+        "  element-1 1>5  1(01)  ↔  nodes=1, 2, 3, 4, 5",
+        "    way-10  p     n ■   loop     fp     bp     head     tail     d forward",
+        "    way-11  p ■   n     loop     fp     bp     head     tail     d forward",
         "segment-2 3>6",
-        "  element-2 bidirectional 3>6  6(02)",
-        "    way-12  p     n     loop     fp     bp     head     tail     d unconnected  paths=2",
+        "  element-2 3>6  6(02)  ↔  nodes=3, 6",
+        "    way-12  p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
     context.paths.shouldMatchTo(
-      Seq(
-        "path-1 ↔ elements=1, nodes=1, 2, 3, 4, 5",
-        "path-2 ↔ elements=2, nodes=3, 6",
-      )
-    )
-
-    context.pathDetails.shouldMatchTo(
       Seq(
         "other=1>5 nodes=1, 2, 3, 4, 5",
         "other=3>6 nodes=3, 6",

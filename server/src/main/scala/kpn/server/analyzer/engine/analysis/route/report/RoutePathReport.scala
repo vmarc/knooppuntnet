@@ -24,19 +24,19 @@ class RoutePathReport(context: RouteDetailAnalysisContext) {
   }
 
   private def paths(): String = {
-    context.paths.map { path =>
-      val fromNode = path.elements.head.fromNetworkNode
-      val toNode = path.elements.last.toNetworkNode
+    context.segments.flatMap(_.elements).map { element =>
+      val fromNode = element.fromNetworkNode
+      val toNode = element.toNetworkNode
       val from = fromNode.map(n => s"${ReportUtil.osmNodeLink(n.node.id)}(${n.name})").getOrElse("")
       val to = toNode.map(n => s"${ReportUtil.osmNodeLink(n.node.id)}(${n.name})").getOrElse("")
-      val elementIds = path.elements.map(element => element.id).mkString(", ")
+      val elementIds = "" + element.id
 
       s"""<tr>
          |  <td>
-         |    Path ${path.id}
+         |    Path ${element.id}
          |  </td>
          |  <td>
-         |    ${path.direction.toString.toLowerCase}
+         |    ${element.direction.toString.toLowerCase}
          |  </td>
          |  <td>
          |    $from
