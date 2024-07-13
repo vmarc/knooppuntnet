@@ -5,6 +5,11 @@ case class RoutePath(
   direction: RoutePathDirection,
   elements: Seq[NewRouteSegmentElement]
 ) {
+
+  if (elements.isEmpty || elements.size > 1) {
+    throw new RuntimeException("UNEXPECTED !!!")
+  }
+
   def nodeIds: Seq[Long] = {
     val ids: Seq[Long] = elements.headOption match {
       case Some(firstElement) => firstElement.nodeIds ++ elements.tail.flatMap(_.nodeIds)

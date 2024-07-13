@@ -1,5 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
+import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.Fact.RouteNotBackward
+import kpn.api.custom.Fact.RouteNotContinious
+import kpn.api.custom.Fact.RouteNotForward
 import kpn.core.util.UnitTest
 
 // broken in split way backward segment
@@ -23,16 +27,7 @@ class Structure_N15_Test extends UnitTest {
   test("analyze") {
 
     val context = setup.analyze()
-
-    context.facts.foreach(a => println(s""""$a","""))
-    context.links.foreach(a => println(s""""$a","""))
-    context.nodes.foreach(a => println(s""""$a","""))
-    context.segments.foreach(a => println(s""""$a","""))
-    context.paths.foreach(a => println(s""""$a","""))
-    context.pathNodes.foreach(a => println(s"""$a,"""))
-    context.pathDetails.foreach(a => println(s""""$a","""))
-
-    // TODO context.facts.shouldMatchTo(Set(RouteNotBackward, RouteNotContinious, RouteBroken))
+    context.facts.shouldMatchTo(Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken))
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
@@ -79,33 +74,22 @@ class Structure_N15_Test extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-        "path-2, forward, elements=2",
-        "path-3, backward, elements=3",
-        "path-4, forward, elements=4",
-        "path-5, bidirectional, elements=5",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(1, 2, 3)),
-        TestPathNodes(2, Vector(3, 4, 5, 6)),
-        TestPathNodes(3, Vector(3, 7, 11)),
-        TestPathNodes(4, Vector(6, 8)),
-        TestPathNodes(5, Vector(6, 9, 10)),
+        "path-1 ↔ elements=1, nodes=1, 2, 3",
+        "path-2 → elements=2, nodes=3, 4, 5, 6",
+        "path-3 ← elements=3, nodes=11, 7, 3",
+        "path-4 → elements=4, nodes=6, 8",
+        "path-5 ↔ elements=5, nodes=6, 9, 10",
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
-        // TODO forward(1, 2, 3, 4, 5, 6, 9, 10)
-        // TODO backward(10, 9, 6, 8)
-        // structure("forward=(01-02 via +<01- 101>+<102>+>103>+>104>+>105>+<109>+<-02 110>)")
-        // structure("backward=(02-None [broken] via -<-02 110>-<109>-<108<)")
-        // structure("unused=(+<106<+<107<)")
+        "other=1>3 nodes=1, 2, 3",
+        "other=3>6 nodes=3, 4, 5, 6",
+        "other=11>3 nodes=11, 7, 3",
+        "other=6>8 nodes=6, 8",
+        "other=6>10 nodes=6, 9, 10",
       )
     )
-    pending
   }
 }

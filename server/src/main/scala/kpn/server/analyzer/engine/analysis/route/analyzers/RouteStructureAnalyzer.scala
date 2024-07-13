@@ -26,20 +26,12 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
 
-    val structure = new StructureAnalyzer().analyze(
-      context.segments,
-      context.routeNodeAnalysis,
-      context.paths
-    )
+    val structure = new StructureAnalyzer(context).analyze()
 
     val oneWayRouteForward = context.relation.hasTag("direction", "forward")
     val oneWayRouteBackward = context.relation.hasTag("direction", "backward")
 
-    val oneWayRoute = context.relation.tags.exists { tag =>
-      (tag.key == "comment" && tag.value.contains("to be used in one direction")) ||
-        (tag.key == "oneway" && tag.value == "yes") ||
-        (tag.key == "signed_direction" && tag.value == "yes")
-    }
+    val oneWayRoute = context.relation.hasTag("oneway", "yes") || context.relation.hasTag("signed_direction", "yes")
 
     val hasValidForwardPath = structure.forwardPath.isDefined // TODO redesign && !structure.forwardPath.exists(_.broken)
     val hasValidBackwardPath = structure.backwardPath.isDefined // TODO redesign && !structure.backwardPath.exists(_.broken)

@@ -65,21 +65,11 @@ class Structure_46_ForwardForwardGapTest extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-        "path-2, forward, elements=2",
-        "path-3, backward, elements=3",
-        "path-4, bidirectional, elements=4",
-        "path-5, bidirectional, elements=5",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Seq(1, 2)),
-        TestPathNodes(2, Seq(2, 3, 8)),
-        TestPathNodes(3, Seq(2, 7, 8)),
-        TestPathNodes(4, Seq(8, 9)),
-        TestPathNodes(5, Seq(10, 11, 12)),
+        "path-1 ↔ elements=1, nodes=1, 2",
+        "path-2 → elements=2, nodes=2, 3, 8",
+        "path-3 ← elements=3, nodes=8, 7, 2",
+        "path-4 ↔ elements=4, nodes=8, 9",
+        "path-5 ↔ elements=5, nodes=10, 11, 12",
       )
     )
 
@@ -87,7 +77,7 @@ class Structure_46_ForwardForwardGapTest extends UnitTest {
       Seq(
         "other=1>2 nodes=1, 2",
         "other=2>8 nodes=2, 3, 8",
-        "other=8>2 nodes=2, 7, 8",
+        "other=8>2 nodes=8, 7, 2",
         "other=8>9 nodes=8, 9",
         "other=10>12 nodes=10, 11, 12",
       )

@@ -43,23 +43,12 @@ class Structure_55_DoubleRoundaboutTest extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-        "path-2, forward, elements=2",
-        "path-3, backward, elements=3",
-        "path-4, forward, elements=4",
-        "path-5, backward, elements=5",
-        "path-6, bidirectional, elements=6",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(1, 2, 3)),
-        TestPathNodes(2, Vector(3, 4, 5)),
-        TestPathNodes(3, Vector(3, 6, 5)),
-        TestPathNodes(4, Vector(5, 7, 9)),
-        TestPathNodes(5, Vector(5, 8, 9)),
-        TestPathNodes(6, Vector(9, 10, 11)),
+        "path-1 ↔ elements=1, nodes=1, 2, 3",
+        "path-2 → elements=2, nodes=3, 4, 5",
+        "path-3 ← elements=3, nodes=5, 6, 3",
+        "path-4 → elements=4, nodes=5, 7, 9",
+        "path-5 ← elements=5, nodes=9, 8, 5",
+        "path-6 ↔ elements=6, nodes=9, 10, 11",
       )
     )
 

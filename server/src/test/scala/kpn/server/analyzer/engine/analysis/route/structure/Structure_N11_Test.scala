@@ -16,16 +16,7 @@ class Structure_N11_Test extends UnitTest {
   test("analyze") {
 
     val context = setup.analyze()
-
-    context.facts.foreach(a => println(s""""$a","""))
-    context.links.foreach(a => println(s""""$a","""))
-    context.nodes.foreach(a => println(s""""$a","""))
-    context.segments.foreach(a => println(s""""$a","""))
-    context.paths.foreach(a => println(s""""$a","""))
-    context.pathNodes.foreach(a => println(s"""$a,"""))
-    context.pathDetails.foreach(a => println(s""""$a","""))
-
-    // TODO context.facts.shouldMatchTo(Set.empty)
+    context.facts.shouldMatchTo(Set.empty)
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
@@ -57,27 +48,17 @@ class Structure_N11_Test extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-        "path-2, forward, elements=2",
-        "path-3, backward, elements=3",
-        "path-4, bidirectional, elements=4",
+        "path-1 ↔ elements=1, nodes=1, 2, 4",
+        "path-2 → elements=2, nodes=4, 5, 6, 7",
+        "path-3 ← elements=3, nodes=7, 8, 3, 4",
+        "path-4 ↔ elements=4, nodes=7, 9, 10",
       )
     )
 
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(1, 2, 4)),
-        TestPathNodes(2, Vector(4, 5, 6, 7)),
-        TestPathNodes(3, Vector(4, 3, 8, 7)),
-        TestPathNodes(4, Vector(7, 9, 10)),
-      )
-    )
-
-    pending
     context.pathDetails.shouldMatchTo(
       Seq(
-        "forward=1>10 nodes=1, 2, 4, 5, 6, 7, 9, 10", // TODO forward(1, 2, 4, 5, 6, 7, 9, 10)
-        "backward=10>1 nodes=10, 9, 7, 8, 3, 4, 2, 1", // TODO backward(10, 9, 7, 8, 3, 4, 2, 1)
+        "forward=1>10 nodes=1, 2, 4, 5, 6, 7, 9, 10",
+        "backward=10>1 nodes=10, 9, 7, 8, 3, 4, 2, 1",
       )
     )
   }

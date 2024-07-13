@@ -33,13 +33,7 @@ class Structure_22_ContinuousFirstWayReversedTest extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Seq(1, 2, 3, 4, 5, 6, 7)),
+        "path-1 ↔ elements=1, nodes=1, 2, 3, 4, 5, 6, 7",
       )
     )
 

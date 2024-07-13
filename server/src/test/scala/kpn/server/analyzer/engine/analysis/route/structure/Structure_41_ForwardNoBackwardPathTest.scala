@@ -31,15 +31,8 @@ class Structure_41_ForwardNoBackwardPathTest extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, forward, elements=1",
-        "path-2, bidirectional, elements=2",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Seq(1, 2)),
-        TestPathNodes(2, Seq(2, 3)),
+        "path-1 → elements=1, nodes=1, 2",
+        "path-2 ↔ elements=2, nodes=2, 3",
       )
     )
 

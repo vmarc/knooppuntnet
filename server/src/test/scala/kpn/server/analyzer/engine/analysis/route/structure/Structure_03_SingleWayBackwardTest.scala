@@ -30,13 +30,7 @@ class Structure_03_SingleWayBackwardTest extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, forward, elements=1",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Seq(3, 2, 1))
+        "path-1 → elements=1, nodes=3, 2, 1",
       )
     )
 

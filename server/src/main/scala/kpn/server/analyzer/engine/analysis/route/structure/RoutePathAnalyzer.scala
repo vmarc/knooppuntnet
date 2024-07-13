@@ -43,16 +43,21 @@ class RoutePathAnalyzer(context: RouteDetailAnalysisContext) {
   private val pathIds = Util.ids
 
   def analyze(): Seq[RoutePath] = {
-    val paths = context.segments.flatMap { segment =>
-      findPaths(segment.elements)
+    context.segments.flatMap { segment =>
+      segment.elements.map { element =>
+        RoutePath(pathIds.next(), element.direction, Seq(element))
+      }
     }
-    val pathSegmentElementIds = paths.flatMap(_.elements.map(_.id))
-    val otherSegmentElements = context.segments.flatMap(_.elements).filterNot(el => pathSegmentElementIds.contains(el.id))
-    val otherPaths = otherSegmentElements.map { element =>
-      RoutePath(pathIds.next(), element.direction, Seq(element))
-    }
-
-    paths ++ otherPaths
+    //  val paths = context.segments.flatMap { segment =>
+    //    findPaths(segment.elements)
+    //  }
+    //  val pathSegmentElementIds = paths.flatMap(_.elements.map(_.id))
+    //  val otherSegmentElements = context.segments.flatMap(_.elements).filterNot(el => pathSegmentElementIds.contains(el.id))
+    //  val otherPaths = otherSegmentElements.map { element =>
+    //    RoutePath(pathIds.next(), element.direction, Seq(element))
+    //  }
+    //
+    //  paths ++ otherPaths
   }
 
   private def findPaths(remainingElements: Seq[NewRouteSegmentElement]): Seq[RoutePath] = {

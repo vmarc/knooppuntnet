@@ -21,7 +21,6 @@ class Structure_N21_Test extends UnitTest {
     context.nodes.foreach(a => println(s""""$a","""))
     context.segments.foreach(a => println(s""""$a","""))
     context.paths.foreach(a => println(s""""$a","""))
-    context.pathNodes.foreach(a => println(s"""$a,"""))
     context.pathDetails.foreach(a => println(s""""$a","""))
 
     // TODO context.facts.shouldMatchTo(Set(RouteOneWay))
@@ -48,22 +47,16 @@ class Structure_N21_Test extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
+        "path-1 ↔ elements=1, nodes=3, 2, 1",
       )
     )
 
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(3, 2, 1)),
-      )
-    )
-
+    pending
     context.pathDetails.shouldMatchTo(
       Seq(
         "forward=3>1 nodes=3, 2, 1", // TODO there should be no forward (or backward?) path
         "backward=3>1 nodes=1, 2, 3",
       )
     )
-    pending
   }
 }

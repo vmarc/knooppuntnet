@@ -26,7 +26,6 @@ class Structure_N16_Test extends UnitTest {
     context.nodes.foreach(a => println(s""""$a","""))
     context.segments.foreach(a => println(s""""$a","""))
     context.paths.foreach(a => println(s""""$a","""))
-    context.pathNodes.foreach(a => println(s"""$a,"""))
     context.pathDetails.foreach(a => println(s""""$a","""))
 
     context.facts.shouldMatchTo(Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken))
@@ -61,29 +60,18 @@ class Structure_N16_Test extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-        "path-2, bidirectional, elements=2",
-        "path-3, bidirectional, elements=3",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(1, 2)),
-        TestPathNodes(2, Vector(3, 4, 5, 6, 7, 8)),
-        TestPathNodes(3, Vector(7, 9, 10)),
+        "path-1 ↔ elements=1, nodes=1, 2",
+        "path-2 ↔ elements=2, nodes=3, 4, 5, 6, 7, 8",
+        "path-3 ↔ elements=3, nodes=7, 9, 10",
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
-        // TODO forward(1, 2)
-        // TODO backward(10, 9, 7, 8)
-        // structure("forward=(01-None [broken] via +<01- 10>)")
-        // structure("backward=(02-None [broken] via -<-02 12>+<11(7-8)>)")
+        "other=1>2 nodes=1, 2",
+        "other=3>8 nodes=3, 4, 5, 6, 7, 8",
+        "other=7>10 nodes=7, 9, 10",
       )
     )
-
-    pending
   }
 }

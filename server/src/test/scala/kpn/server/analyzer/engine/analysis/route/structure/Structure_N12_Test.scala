@@ -22,15 +22,6 @@ class Structure_N12_Test extends UnitTest {
   test("analyze") {
 
     val context = setup.analyze()
-
-    context.facts.foreach(a => println(s""""$a","""))
-    context.links.foreach(a => println(s""""$a","""))
-    context.nodes.foreach(a => println(s""""$a","""))
-    context.segments.foreach(a => println(s""""$a","""))
-    context.paths.foreach(a => println(s""""$a","""))
-    context.pathNodes.foreach(a => println(s"""$a,"""))
-    context.pathDetails.foreach(a => println(s""""$a","""))
-
     context.facts.shouldMatchTo(Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken))
     context.links.shouldMatchTo(
       Seq(
@@ -63,24 +54,16 @@ class Structure_N12_Test extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-        "path-2, bidirectional, elements=2",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(1, 2, 3)),
-        TestPathNodes(2, Vector(4, 5, 6)),
+        "path-1 ↔ elements=1, nodes=1, 2, 3",
+        "path-2 ↔ elements=2, nodes=4, 5, 6",
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
-        // TODO forward(1, 2, 3)
-        // TODO backward(6, 5, 4)
+        "other=1>3 nodes=1, 2, 3",
+        "other=4>6 nodes=4, 5, 6",
       )
     )
-    pending
   }
 }

@@ -57,22 +57,15 @@ class Structure_N06_Test extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-        "path-2, bidirectional, elements=2",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(1, 2, 3, 4, 5)),
-        TestPathNodes(2, Vector(5, 6, 7)),
+        "path-1 ↔ elements=1, nodes=1, 2, 3, 4, 5",
+        "path-2 ↔ elements=2, nodes=5, 6, 7",
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
         "forward=1>5 nodes=1, 2, 3, 4, 5",
-        "backward=1>5 nodes=5, 4, 3, 2, 1",
+        "backward=5>1 nodes=5, 4, 3, 2, 1",
         "end-tentacle=5>7 nodes=5, 6, 7",
       )
     )

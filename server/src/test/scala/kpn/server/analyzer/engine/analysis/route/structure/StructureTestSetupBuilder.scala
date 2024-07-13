@@ -5,6 +5,7 @@ import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawWay
+import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
@@ -106,6 +107,7 @@ class StructureTestSetupBuilder extends SharedTestObjects {
     scopedNetworkType: ScopedNetworkType = ScopedNetworkType.rwn,
     routeTags: Seq[Tag] = Seq.empty
   ): StructureTestSetup = {
+    val routeTagValue = if (scopedNetworkType.networkType == NetworkType.cycling) "bicycle" else "hiking"
     val relation = newRawRelation(
       1,
       members = memberBuffer.toSeq,
@@ -113,7 +115,7 @@ class StructureTestSetupBuilder extends SharedTestObjects {
         "from" -> from,
         "to" -> to,
         "type" -> "route",
-        "route" -> "hiking",
+        "route" -> routeTagValue,
         "network:type" -> "node_network",
         "network" -> scopedNetworkType.key
       ) ++ routeTags

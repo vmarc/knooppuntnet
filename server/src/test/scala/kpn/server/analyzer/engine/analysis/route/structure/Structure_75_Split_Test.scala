@@ -48,17 +48,9 @@ class Structure_75_Split_Test extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, forward, elements=1",
-        "path-2, backward, elements=2",
-        "path-3, bidirectional, elements=3",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(1, 2, 3, 4)),
-        TestPathNodes(2, Vector(1, 5, 6, 4)),
-        TestPathNodes(3, Vector(4, 7)),
+        "path-1 → elements=1, nodes=1, 2, 3, 4",
+        "path-2 ← elements=2, nodes=4, 6, 5, 1",
+        "path-3 ↔ elements=3, nodes=4, 7",
       )
     )
 

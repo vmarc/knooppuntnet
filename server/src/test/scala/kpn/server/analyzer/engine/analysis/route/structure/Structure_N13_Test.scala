@@ -1,5 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
+import kpn.api.custom.Fact.RouteBroken
+import kpn.api.custom.Fact.RouteNotBackward
+import kpn.api.custom.Fact.RouteNotContinious
+import kpn.api.custom.Fact.RouteNotForward
 import kpn.core.util.UnitTest
 
 // broken in way that 'overshoots'
@@ -16,16 +20,7 @@ class Structure_N13_Test extends UnitTest {
   test("analyze") {
 
     val context = setup.analyze()
-
-    context.facts.foreach(a => println(s""""$a","""))
-    context.links.foreach(a => println(s""""$a","""))
-    context.nodes.foreach(a => println(s""""$a","""))
-    context.segments.foreach(a => println(s""""$a","""))
-    context.paths.foreach(a => println(s""""$a","""))
-    context.pathNodes.foreach(a => println(s"""$a,"""))
-    context.pathDetails.foreach(a => println(s""""$a","""))
-
-    // TODO context.facts.shouldMatchTo(Set(RouteBroken, RouteUnusedSegments))
+    context.facts.shouldMatchTo(Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken))
     context.links.shouldMatchTo(
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
@@ -55,25 +50,16 @@ class Structure_N13_Test extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-        "path-2, bidirectional, elements=2",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(1, 2, 3, 4, 5)),
-        TestPathNodes(2, Vector(3, 6)),
+        "path-1 ↔ elements=1, nodes=1, 2, 3, 4, 5",
+        "path-2 ↔ elements=2, nodes=3, 6",
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
-        // TODO forward(1, 2, 3, 6)
-        // TODO backward(6, 3, 2, 1)
-        // TODO structure("unused=(+<11(3-4-5)>)")
+        "other=1>5 nodes=1, 2, 3, 4, 5",
+        "other=3>6 nodes=3, 6",
       )
     )
-    pending
   }
 }

@@ -70,27 +70,14 @@ class Structure_72_SplitRoundabout_Test extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-        "path-2, forward, elements=2",
-        "path-3, backward, elements=3",
-        "path-4, forward, elements=4",
-        "path-5, backward, elements=5",
-        "path-6, forward, elements=6",
-        "path-7, backward, elements=7",
-        "path-8, bidirectional, elements=8",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(1, 2)),
-        TestPathNodes(2, Vector(2, 5)),
-        TestPathNodes(3, Vector(2, 8, 4)),
-        TestPathNodes(4, Vector(5, 6)),
-        TestPathNodes(5, Vector(4, 3, 7)),
-        TestPathNodes(6, Vector(6, 9, 10)),
-        TestPathNodes(7, Vector(7, 11, 10)),
-        TestPathNodes(8, Vector(10, 12)),
+        "path-1 ↔ elements=1, nodes=1, 2",
+        "path-2 → elements=2, nodes=2, 5",
+        "path-3 ← elements=3, nodes=4, 8, 2",
+        "path-4 → elements=4, nodes=5, 6",
+        "path-5 ← elements=5, nodes=7, 3, 4",
+        "path-6 → elements=6, nodes=6, 9, 10",
+        "path-7 ← elements=7, nodes=10, 11, 7",
+        "path-8 ↔ elements=8, nodes=10, 12",
       )
     )
 

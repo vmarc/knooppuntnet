@@ -30,23 +30,17 @@ class Structure_53_WayRoundaboutTest extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
+        "path-1 ↔ elements=1, nodes=1, 2, 3, 4, 5, 6, 3",
       )
     )
 
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Seq(1, 2, 3, 4, 5, 6, 3)),
-      )
-    )
-
-    pending
     context.pathDetails.shouldMatchTo(
       Seq(
         "forward=1>3 nodes=1, 2, 3, 4, 5, 6, 3",
         "backward=3>1 nodes=3, 6, 5, 4, 3, 2, 1", // TODO redesign - this is NOK?
       )
     )
+    pending
   }
 
   test("elements") {

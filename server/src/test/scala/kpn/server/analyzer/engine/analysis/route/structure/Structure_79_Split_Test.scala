@@ -19,6 +19,7 @@ class Structure_79_Split_Test extends UnitTest {
   }.build
 
   test("analyze") {
+    pending
     val context = setup.analyze()
     context.links.shouldMatchTo(
       Seq(

@@ -25,15 +25,17 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
   def paths: Seq[String] = {
     context.paths.map { path =>
       val id = s"path-${path.id}"
-      val direction = path.direction.entryName.toLowerCase
+      val direction = if (path.direction == RoutePathDirection.Bidirectional) {
+        "↔"
+      } else if (path.direction == RoutePathDirection.Forward) {
+        "→"
+      }
+      else {
+        "←"
+      }
       val elements = path.elements.map(_.id).mkString(", ")
-      s"$id, $direction, elements=$elements"
-    }
-  }
-
-  def pathNodes: Seq[TestPathNodes] = {
-    context.paths.map { path =>
-      TestPathNodes(path.id, path.nodeIds)
+      val nodes = path.nodeIds.mkString(", ")
+      s"$id $direction elements=$elements, nodes=$nodes"
     }
   }
 

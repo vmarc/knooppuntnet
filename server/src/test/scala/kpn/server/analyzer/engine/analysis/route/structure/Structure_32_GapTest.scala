@@ -40,15 +40,8 @@ class Structure_32_GapTest extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-        "path-2, bidirectional, elements=2",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Seq(1, 2, 3, 4, 5)),
-        TestPathNodes(2, Seq(6, 7, 8)),
+        "path-1 ↔ elements=1, nodes=1, 2, 3, 4, 5",
+        "path-2 ↔ elements=2, nodes=6, 7, 8",
       )
     )
 

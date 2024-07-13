@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
+import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
@@ -11,21 +12,12 @@ class Structure_N18_Test extends UnitTest {
     node(1, "01")
     node(3, "02")
     memberWayWithTags(10, "", Tags.from("highway" -> "road", "oneway" -> "yes"), 1, 2, 3)
-  }.build("01", "02", ScopedNetworkType.rcn, Tags.from("oneway" -> "yes"))
+  }.build("01", "02", ScopedNetworkType.rwn, Tags.from("oneway" -> "yes"))
 
   test("analyze") {
 
     val context = setup.analyze()
-
-    context.facts.foreach(a => println(s""""$a","""))
-    context.links.foreach(a => println(s""""$a","""))
-    context.nodes.foreach(a => println(s""""$a","""))
-    context.segments.foreach(a => println(s""""$a","""))
-    context.paths.foreach(a => println(s""""$a","""))
-    context.pathNodes.foreach(a => println(s"""$a,"""))
-    context.pathDetails.foreach(a => println(s""""$a","""))
-
-    // TODO context.facts.shouldMatchTo(Set(RouteOneWay))
+    context.facts.shouldMatchTo(Set(RouteOneWay))
     context.links.shouldMatchTo(
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
@@ -49,22 +41,14 @@ class Structure_N18_Test extends UnitTest {
 
     context.paths.shouldMatchTo(
       Seq(
-        "path-1, bidirectional, elements=1",
-      )
-    )
-
-    context.pathNodes.shouldMatchTo(
-      Seq(
-        TestPathNodes(1, Vector(1, 2, 3)),
+        "path-1 ↔ elements=1, nodes=1, 2, 3",
       )
     )
 
     context.pathDetails.shouldMatchTo(
       Seq(
         "forward=1>3 nodes=1, 2, 3",
-        "backward=1>3 nodes=3, 2, 1", // TODO there should be no backward path
       )
     )
-    pending
   }
 }
