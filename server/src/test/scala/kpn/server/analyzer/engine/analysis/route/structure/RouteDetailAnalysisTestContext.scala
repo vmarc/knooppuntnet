@@ -13,12 +13,11 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
 
   def nodes: Seq[String] = {
     Seq(
-      networkNodeStrings("start", context.routeNodeAnalysis.startNode.toSeq),
-      networkNodeStrings("end", context.routeNodeAnalysis.endNode.toSeq),
-      networkNodeStrings("start-tentacle", context.routeNodeAnalysis.startTentacleFromNodes),
-      networkNodeStrings("end-tentacle", context.routeNodeAnalysis.endTentacleToNodes),
-      networkNodeStrings("free", context.routeNodeAnalysis.freeNodes),
-      networkNodeStrings("redundant", context.routeNodeAnalysis.redundantNodes)
+      networkNodeStrings("start", context.nodeAnalysis.startNode.toSeq),
+      networkNodeStrings("end", context.nodeAnalysis.endNode.toSeq),
+      networkNodeStrings("start-tentacle", context.nodeAnalysis.startTentacleNodes),
+      networkNodeStrings("end-tentacle", context.nodeAnalysis.endTentacleNodes),
+      networkNodeStrings("redundant", context.nodeAnalysis.redundantNodes)
     ).flatten
   }
 
@@ -71,7 +70,7 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
     s"${path.startNodeId}>${path.endNodeId} nodes=$nodeString"
   }
 
-  private def networkNodeStrings(nodeType: String, routeNodeDatas: Seq[RouteNodeData]): Seq[String] = {
-    routeNodeDatas.map(routeNodeData => s"$nodeType=${routeNodeData.node.id}(${routeNodeData.name})")
+  private def networkNodeStrings(nodeType: String, nodeDatas: Seq[RouteNodeData]): Seq[String] = {
+    nodeDatas.map(routeNodeData => s"$nodeType=${routeNodeData.node.id}(${routeNodeData.name})")
   }
 }

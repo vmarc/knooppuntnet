@@ -557,12 +557,6 @@ class RouteNodeAnalyzerTest extends UnitTest {
     )
 
     val newContext = RouteNodeAnalyzer.analyze(context)
-    //      RouteNameAnalyzer.analyze( // TODO redesign - the RouteNameAnalyzer should not be a prerequisite
-    //        OldRouteNodeTagAnalyzer.analyze(
-    //          context
-    //        )
-    //      )
-    //    )
-    new RouteNodeAnalysisFormatter(newContext.routeNodeAnalysis).nodeStrings ++ newContext.facts.map(_.name)
+    new RouteNodeAnalysisFormatter(newContext.nodeAnalysis).nodeStrings ++ newContext.facts.map(_.name)
   }
 }

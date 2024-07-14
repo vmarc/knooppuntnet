@@ -51,7 +51,7 @@ case class RouteDetailAnalysisContext(
   unexpectedRelationIds: Option[Seq[Long]] = None,
   _routeNameAnalysis: Option[RouteNameAnalysis] = None,
   _oldRouteNodeAnalysis: Option[OldRouteNodeAnalysis] = None,
-  _routeNodeAnalysis: Option[RouteNodeAnalysis] = None,
+  _nodeAnalysis: Option[RouteNodeAnalysis] = None,
   expectedName: Option[String] = None,
   suspiciousWayIds: Option[Seq[Long]] = None,
   _fragmentMap: Option[FragmentMap] = None,
@@ -177,7 +177,7 @@ case class RouteDetailAnalysisContext(
 
   def oldRouteNodeAnalysis: OldRouteNodeAnalysis = _oldRouteNodeAnalysis.getOrElse(throw new PreconditionMissingException)
 
-  def routeNodeAnalysis: RouteNodeAnalysis = _routeNodeAnalysis.getOrElse(throw new PreconditionMissingException)
+  def nodeAnalysis: RouteNodeAnalysis = _nodeAnalysis.getOrElse(throw new PreconditionMissingException)
 
   def fragmentMap: FragmentMap = _fragmentMap.getOrElse(throw new PreconditionMissingException)
 

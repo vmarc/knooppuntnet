@@ -52,7 +52,7 @@ class RouteLinksReport(context: RouteDetailAnalysisContext) {
         else {
           (head, last)
         }
-        ("node", routeLinkWay.way.id, "TODO", from, to, networkNodeString(routeLinkWay.way.nodeIds))
+        ("node", routeLinkWay.way.id, "TODO", from, to, allNodes(routeLinkWay.way.nodeIds))
       case routeLinkRelationId: RouteLinkRelationId =>
         ("node", routeLinkRelationId.relationId, "TODO", "", "", "")
     }
@@ -84,19 +84,18 @@ class RouteLinksReport(context: RouteDetailAnalysisContext) {
        |""".stripMargin
   }
 
-  private def networkNodeString(nodeIds: Seq[Long]): String = {
+  private def allNodes(nodeIds: Seq[Long]): String = {
     Seq(
-      networkNodeStrings(nodeIds, "start", context.routeNodeAnalysis.startNode.toSeq),
-      networkNodeStrings(nodeIds, "end", context.routeNodeAnalysis.endNode.toSeq),
-      networkNodeStrings(nodeIds, "start tentacle", context.routeNodeAnalysis.startTentacleFromNodes),
-      networkNodeStrings(nodeIds, "end tentacle", context.routeNodeAnalysis.endTentacleToNodes),
-      networkNodeStrings(nodeIds, "free", context.routeNodeAnalysis.freeNodes),
-      networkNodeStrings(nodeIds, "redundant", context.routeNodeAnalysis.redundantNodes)
+      nodes(nodeIds, "start", context.nodeAnalysis.startNode.toSeq),
+      nodes(nodeIds, "end", context.nodeAnalysis.endNode.toSeq),
+      nodes(nodeIds, "start tentacle", context.nodeAnalysis.startTentacleNodes),
+      nodes(nodeIds, "end tentacle", context.nodeAnalysis.endTentacleNodes),
+      nodes(nodeIds, "redundant", context.nodeAnalysis.redundantNodes)
     ).flatten.mkString(", ")
   }
 
-  private def networkNodeStrings(nodeIds: Seq[Long], nodeType: String, routeNodeDatas: Seq[RouteNodeData]): Seq[String] = {
-    val routeNodeDatasInFragment = routeNodeDatas.filter(n => nodeIds.contains(n.node.id))
-    routeNodeDatasInFragment.map(routeNodeData => s"$nodeType=${routeNodeData.node.id}(${routeNodeData.name})")
+  private def nodes(nodeIds: Seq[Long], nodeType: String, nodeDatas: Seq[RouteNodeData]): Seq[String] = {
+    val filteredNodeDatas = nodeDatas.filter(n => nodeIds.contains(n.node.id))
+    filteredNodeDatas.map(nodeData => s"$nodeType=${nodeData.node.id}(${nodeData.name})")
   }
 }

@@ -66,7 +66,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.unexpectedNodeIds.get,
       context.unexpectedRelationIds.get,
       members,
-      context.expectedName.get,
+      context.expectedName.getOrElse(""),
       nameDerivedFromNodes,
       context.routeMap,
       new RouteStructureFormatter(context.structure).strings,

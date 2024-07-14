@@ -84,17 +84,16 @@ class StructureElementGroupsReport(context: RouteDetailAnalysisContext) {
 
   private def networkNodes(fragment: StructureFragment): String = {
     Seq(
-      fragmentNodes(fragment, "start", context.routeNodeAnalysis.startNode.toSeq),
-      fragmentNodes(fragment, "end", context.routeNodeAnalysis.endNode.toSeq),
-      fragmentNodes(fragment, "start tentacle", context.routeNodeAnalysis.startTentacleFromNodes),
-      fragmentNodes(fragment, "end tentacle", context.routeNodeAnalysis.endTentacleToNodes),
-      fragmentNodes(fragment, "free", context.routeNodeAnalysis.freeNodes),
-      fragmentNodes(fragment, "redundant", context.routeNodeAnalysis.redundantNodes)
+      fragmentNodes(fragment, "start", context.nodeAnalysis.startNode.toSeq),
+      fragmentNodes(fragment, "end", context.nodeAnalysis.endNode.toSeq),
+      fragmentNodes(fragment, "start tentacle", context.nodeAnalysis.startTentacleNodes),
+      fragmentNodes(fragment, "end tentacle", context.nodeAnalysis.endTentacleNodes),
+      fragmentNodes(fragment, "redundant", context.nodeAnalysis.redundantNodes)
     ).flatten.mkString(", ")
   }
 
-  private def fragmentNodes(fragment: StructureFragment, nodeType: String, routeNodeDatas: Seq[RouteNodeData]): Seq[String] = {
-    val routeNodeDatasInFragment = routeNodeDatas.filter(n => fragment.nodeIds.contains(n.node.id))
+  private def fragmentNodes(fragment: StructureFragment, nodeType: String, nodeDatas: Seq[RouteNodeData]): Seq[String] = {
+    val routeNodeDatasInFragment = nodeDatas.filter(n => fragment.nodeIds.contains(n.node.id))
     routeNodeDatasInFragment.map(routeNodeData => s"$nodeType=${routeNodeData.name}(${routeNodeData.node.id})")
   }
 }

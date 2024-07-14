@@ -12,7 +12,7 @@ case class StructurePath(
     }
   }
 
-  def pathIds: Seq[Long] = {
+  def elementIds: Seq[Long] = {
     elements.map(_.element.id)
   }
 }

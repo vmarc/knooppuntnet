@@ -6,8 +6,8 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisConte
 object RouteNodeAnalysisReport {
 
   def report(context: RouteDetailAnalysisContext): String = {
-    val routeNodeAnalysis = context.routeNodeAnalysis
-    if (routeNodeAnalysis.startNode.nonEmpty || routeNodeAnalysis.endNode.nonEmpty || routeNodeAnalysis.freeNodes.nonEmpty || routeNodeAnalysis.redundantNodes.nonEmpty) {
+    val nodeAnalysis = context.nodeAnalysis
+    if (nodeAnalysis.startNode.nonEmpty || nodeAnalysis.endNode.nonEmpty || nodeAnalysis.redundantNodes.nonEmpty) {
       s"""
          |<table>
          |  <tr class="header">
@@ -19,11 +19,9 @@ object RouteNodeAnalysisReport {
          |    <td>name</td>
          |    <td>isInWay</td>
          |  </tr>
-         |  ${routeNodeAnalysis.startNode.map(n => routeNodeReport("startNode", n)).mkString}
-         |  ${routeNodeAnalysis.endNode.map(n => routeNodeReport("endNode", n)).mkString}
-         |  ${routeNodeAnalysis.freeNodes.map(n => routeNodeReport("freeNode", n)).mkString}
-         |  ${routeNodeAnalysis.redundantNodes.map(n => routeNodeReport("redundantNode", n)).mkString}
-         |  <tr><td colspan="4">reversed: ${routeNodeAnalysis.reversed}</td></tr>
+         |  ${nodeAnalysis.startNode.map(n => routeNodeReport("startNode", n)).mkString}
+         |  ${nodeAnalysis.endNode.map(n => routeNodeReport("endNode", n)).mkString}
+         |  ${nodeAnalysis.redundantNodes.map(n => routeNodeReport("redundantNode", n)).mkString}
          |</table>
          |""".stripMargin
     }

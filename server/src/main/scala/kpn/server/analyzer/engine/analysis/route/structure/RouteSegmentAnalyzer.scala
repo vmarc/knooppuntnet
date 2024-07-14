@@ -32,16 +32,16 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
         handleRoundabout(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption)
       }
       else {
-        val linkFragments = StructureUtil.split(currentRouteLinkWay.nodeIds, context.routeNodeAnalysis.nodeIds).map { nodeIds =>
+        val linkFragments = StructureUtil.split(currentRouteLinkWay.nodeIds, context.nodeAnalysis.nodeIds).map { nodeIds =>
           toFragment(currentRouteLinkWay, nodeIds)
         }
 
-        if (context.routeNodeAnalysis.nodeIds.contains(linkFragments.head.fromNodeId)) {
+        if (context.nodeAnalysis.nodeIds.contains(linkFragments.head.fromNodeId)) {
           finalizeSegmentElement()
         }
 
         linkFragments.foreach { fragment =>
-          if (context.routeNodeAnalysis.nodeIds.contains(fragment.nodeIds.last)) {
+          if (context.nodeAnalysis.nodeIds.contains(fragment.nodeIds.last)) {
             fragments += fragment
             finalizeSegmentElement()
           }
@@ -184,7 +184,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   }
 
   private def fragmentEndContainsNetworkNode(fragment: NewRouteSegmentElementFragment): Boolean = {
-    context.routeNodeAnalysis.nodeIds.contains(fragment.nodeIds.last) // TODO redesign - not sure if this is ok
+    context.nodeAnalysis.nodeIds.contains(fragment.nodeIds.last) // TODO redesign - not sure if this is ok
   }
 
   private def buildSegmentElement(fragments: Seq[NewRouteSegmentElementFragment]): NewRouteSegmentElement = {
@@ -201,8 +201,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       RoutePathDirection.Bidirectional
     }
 
-    val fromNetworkNode = context.routeNodeAnalysis.nodes.find(_.node.id == fromNodeId)
-    val toNetworkNode = context.routeNodeAnalysis.nodes.find(_.node.id == toNodeId)
+    val fromNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == fromNodeId)
+    val toNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == toNodeId)
 
     NewRouteSegmentElement(
       elementIds.next(),
@@ -234,8 +234,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       nodeIds
     )
 
-    val fromNetworkNode = context.routeNodeAnalysis.nodes.find(_.node.id == fragment.fromNodeId)
-    val toNetworkNode = context.routeNodeAnalysis.nodes.find(_.node.id == fragment.toNodeId)
+    val fromNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == fragment.fromNodeId)
+    val toNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == fragment.toNodeId)
 
     NewRouteSegmentElement(
       elementIds.next(),

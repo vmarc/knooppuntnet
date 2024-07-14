@@ -23,7 +23,7 @@ object RouteNodeAnalyzer extends RouteAnalyzer {
       new RouteNodeAnalyzer(context).analyze
     }
     else {
-      context.copy(_routeNodeAnalysis = Some(RouteNodeAnalysis()))
+      context.copy(_nodeAnalysis = Some(RouteNodeAnalysis()))
     }
   }
 }
@@ -90,12 +90,10 @@ class RouteNodeAnalyzer(context: RouteDetailAnalysisContext) {
         val redundantNodes = routeNodeDatas.filterNot(n => startNodes.contains(n) || endNodes.contains(n))
 
         val routeNodeAnalysis = RouteNodeAnalysis(
-          reversed = false,
-          freeNodes = Seq.empty,
           startNode = startNodes.lastOption,
           endNode = endNodes.headOption,
-          startTentacleFromNodes = startNodes.dropRight(1),
-          endTentacleToNodes = endNodes.drop(1),
+          startTentacleNodes = startNodes.dropRight(1),
+          endTentacleNodes = endNodes.drop(1),
           redundantNodes = redundantNodes
         )
 
@@ -115,7 +113,7 @@ class RouteNodeAnalyzer(context: RouteDetailAnalysisContext) {
     }
 
     context.copy(
-      _routeNodeAnalysis = Some(routeNodeAnalysis)
+      _nodeAnalysis = Some(routeNodeAnalysis)
     ).withFacts(facts.toSeq *)
   }
 

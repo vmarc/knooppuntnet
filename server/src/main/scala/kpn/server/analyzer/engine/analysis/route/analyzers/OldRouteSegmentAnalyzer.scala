@@ -17,7 +17,7 @@ import org.locationtech.jts.geom.GeometryFactory
 object OldRouteSegmentAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     val wayMembers = context.relation.wayMembers
-    val segmentAnalysis = new OldRouteSegmentAnalyzer(context.routeNodeAnalysis).analyze(wayMembers)
+    val segmentAnalysis = new OldRouteSegmentAnalyzer(context.nodeAnalysis).analyze(wayMembers)
     context.copy(
       _segmentAnalysis = Some(segmentAnalysis)
     )
