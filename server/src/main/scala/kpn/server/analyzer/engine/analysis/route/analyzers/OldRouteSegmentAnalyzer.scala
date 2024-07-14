@@ -3,8 +3,8 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.common.data.WayMember
 import kpn.core.util.Haversine
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.OldRouteSegment
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteSegment
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteSegmentData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
@@ -75,7 +75,7 @@ class OldRouteSegmentAnalyzer(routeNodeAnalysis: RouteNodeAnalysis) {
 
         val geoJson = MonitorRouteAnalysisSupport.toGeoJson(geometryCollection)
 
-        val segment = RouteSegment(
+        val segment = OldRouteSegment(
           id = index + 1,
           startNodeId,
           endNodeId,

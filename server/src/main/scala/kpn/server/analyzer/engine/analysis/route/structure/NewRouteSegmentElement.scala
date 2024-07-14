@@ -9,11 +9,15 @@ case class NewRouteSegmentElement(
   toNetworkNode: Option[RouteNodeData],
   fromNodeId: Long,
   toNodeId: Long,
-  fragments: Seq[NewRouteSegmentElementFragment]
+  fragmentGroups: Seq[NewRouteSegmentElementFragmentGroup]
 ) {
+  def fragments: Seq[NewRouteSegmentElementFragment] = {
+    fragmentGroups.flatMap(_.fragments)
+  }
+
   def nodeIds: Seq[Long] = {
     fragments.headOption match {
-      case Some(firstLink) => firstLink.nodeIds ++ fragments.tail.flatMap(link => link.nodeIds.tail)
+      case Some(firstFragment) => firstFragment.nodeIds ++ fragments.tail.flatMap(_.nodeIds.tail)
       case None => Seq.empty
     }
   }

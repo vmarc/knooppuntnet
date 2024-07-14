@@ -26,6 +26,9 @@ case class RouteDetailDoc(
   nodeRefs: Seq[Long], // networkNodeIds
   elementIds: ElementIds,
   edges: Seq[RouteEdge],
+  segments: Seq[RouteDetailSegment],
+  segmentElements: Seq[RouteDetailSegmentElement],
+  paths: Seq[RouteDetailPath],
 ) extends WithId {
 
   def id: Long = summary.id

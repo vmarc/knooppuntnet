@@ -3,8 +3,10 @@ package kpn.server.analyzer.engine.analysis.route.structure
 import kpn.core.analysis.LinkDirection
 import kpn.core.util.Triplet
 import kpn.core.util.Util
+import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer
 
 import scala.collection.mutable.ListBuffer
 
@@ -204,8 +206,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     val fromNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == fromNodeId)
     val toNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == toNodeId)
 
-    NewRouteSegmentElement(
-      elementIds.next(),
+    buildElement(
       direction,
       fromNetworkNode,
       toNetworkNode,
@@ -226,19 +227,11 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
 
   private def buildFragmentElement(routeLinkWay: RouteLinkWay, direction: RoutePathDirection, nodeIds: Seq[Long]): NewRouteSegmentElement = {
     // this is a closed loop at the end of the route
-    val fragment = NewRouteSegmentElementFragment(
-      fragmentIds.next(),
-      routeLinkWay.way.id,
-      routeLinkWay.link,
-      routeLinkWay.role,
-      nodeIds
-    )
-
+    val fragment = toFragment(routeLinkWay, nodeIds)
     val fromNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == fragment.fromNodeId)
     val toNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == fragment.toNodeId)
 
-    NewRouteSegmentElement(
-      elementIds.next(),
+    buildElement(
       direction,
       fromNetworkNode,
       toNetworkNode,
@@ -249,11 +242,13 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   }
 
   private def toFragment(routeLinkWay: RouteLinkWay, nodeIds: Seq[Long]): NewRouteSegmentElementFragment = {
+    val surface = new SurfaceAnalyzer(context.networkTypes, routeLinkWay.way).surface()
     NewRouteSegmentElementFragment(
       fragmentIds.next(),
       routeLinkWay.way.id,
       routeLinkWay.link,
       routeLinkWay.role,
+      surface,
       nodeIds
     )
   }
@@ -263,5 +258,25 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       elements += buildSegmentElement(fragments.toSeq)
       fragments.clear()
     }
+  }
+
+  private def buildElement(
+    direction: RoutePathDirection,
+    fromNetworkNode: Option[RouteNodeData],
+    toNetworkNode: Option[RouteNodeData],
+    fromNodeId: Long,
+    toNodeId: Long,
+    fragments: Seq[NewRouteSegmentElementFragment]
+  ): NewRouteSegmentElement = {
+    val fragmentGroups = SurfaceFragmentSplitter.split(context.networkTypes, fragments)
+    NewRouteSegmentElement(
+      elementIds.next(),
+      direction,
+      fromNetworkNode,
+      toNetworkNode,
+      fromNodeId,
+      toNodeId,
+      fragmentGroups
+    )
   }
 }

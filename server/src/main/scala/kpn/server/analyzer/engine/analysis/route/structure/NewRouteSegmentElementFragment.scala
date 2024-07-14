@@ -7,6 +7,7 @@ case class NewRouteSegmentElementFragment(
   wayId: Long,
   link: Link,
   role: Option[String],
+  surface: String,
   nodeIds: Seq[Long]
 ) {
   def fromNodeId: Long = nodeIds.head

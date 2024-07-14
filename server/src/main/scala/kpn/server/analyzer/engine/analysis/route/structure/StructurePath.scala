@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
 case class StructurePath(
+  id: Long,
   startNodeId: Long,
   endNodeId: Long,
   elements: Seq[StructurePathElement] = Seq.empty,

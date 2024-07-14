@@ -1,7 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.Bounds
 import kpn.api.common.RouteSummary
 import kpn.api.common.data.Element
+import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Fact
@@ -9,7 +11,11 @@ import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.doc.RouteDetailDoc
+import kpn.core.doc.RouteDetailPath
+import kpn.core.doc.RouteDetailSegment
+import kpn.core.doc.RouteDetailSegmentElement
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.structure.StructurePath
 
 class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
 
@@ -115,7 +121,68 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.tiles,
       routeAnalysis.map.nodeIds,
       context.elementIds,
-      context.edges
+      context.edges,
+      buildSegments,
+      Seq.empty, // TODO redesign
+      Seq.empty, // TODO redesign
     )
+  }
+
+  private def buildSegments: Seq[RouteDetailSegment] = {
+    val ways = context.relation.wayMembers.map(_.way)
+    context.segments.map { segment =>
+      val segmentWayIds = segment.elements.flatMap(_.fragments).map(_.wayId)
+      val segmentWays = segmentWayIds.flatMap(wayId => ways.find(_.id == wayId))
+      val meters = segmentWays.map(_.length).sum
+      val segmentNodes = segmentWays.flatMap(_.nodes)
+      val bounds = Bounds.from(segmentNodes)
+      RouteDetailSegment(
+        segment.id,
+        segment.fromNodeId,
+        segment.toNodeId,
+        meters,
+        bounds,
+        segment.elements.map(_.id)
+      )
+    }
+  }
+
+  private def buildSegmentElements: Seq[RouteDetailSegmentElement] = {
+
+    val nodeMap: Map[Long, Node] = {
+      val nodeMemberNodes = context.relation.nodeMembers.map(_.node).toSet
+      val wayMemberNodes = context.relation.wayMembers.flatMap(_.way.nodes).toSet
+      val nodes = nodeMemberNodes ++ wayMemberNodes
+      nodes.map(node => node.id -> node)
+    }.toMap
+
+    context.segments.flatMap { segment =>
+      segment.elements.flatMap { element =>
+        element.fragmentGroups.map { fragmentGroup =>
+          val nodes = fragmentGroup.nodeIds.flatMap(nodeId => nodeMap.get(nodeId))
+          val coordinates = nodes.map(node => s"[${node.latitude},${node.latitude}]").mkString("[", ",", "]")
+          RouteDetailSegmentElement(
+            segment.id,
+            element.id,
+            fragmentGroup.surface,
+            coordinates
+          )
+        }
+      }
+    }
+  }
+
+  private def buildPaths: Seq[RouteDetailPath] = {
+    Seq(
+      context.newStructure.forwardPath.toSeq.map(path => toRouteDetailPath(path, "forward")),
+      context.newStructure.backwardPath.toSeq.map(path => toRouteDetailPath(path, "backward")),
+      context.newStructure.startTentaclePaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"start-tentacle-${index + 1}") },
+      context.newStructure.endTentaclePaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"end-tentacle-${index + 1}") },
+      context.newStructure.otherPaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"other-${index + 1}") },
+    ).flatten
+  }
+
+  private def toRouteDetailPath(path: StructurePath, name: String): RouteDetailPath = {
+    RouteDetailPath(path.id, name, path.elementIds)
   }
 }

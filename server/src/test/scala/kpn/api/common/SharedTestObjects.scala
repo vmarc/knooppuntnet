@@ -55,6 +55,8 @@ import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.common.route.RoutePath
+import kpn.api.common.route.RouteSegment
 import kpn.api.custom.Change
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
@@ -82,6 +84,9 @@ import kpn.core.doc.NodeDoc
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RouteDetailDoc
+import kpn.core.doc.RouteDetailPath
+import kpn.core.doc.RouteDetailSegment
+import kpn.core.doc.RouteDetailSegmentElement
 import kpn.core.doc.RouteDoc
 import kpn.core.test.OverpassData
 import kpn.database.actions.statistics.ChangeSetCount2
@@ -407,7 +412,11 @@ trait SharedTestObjects extends MockFactory {
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     facts: Seq[Fact] = Seq.empty,
     tiles: Seq[String] = Seq.empty,
-    elementIds: ElementIds = ElementIds()
+    elementIds: ElementIds = ElementIds(),
+    edges: Seq[RouteEdge] = Seq.empty,
+    segments: Seq[RouteDetailSegment] = Seq.empty,
+    segmentElements: Seq[RouteDetailSegmentElement] = Seq.empty,
+    paths: Seq[RouteDetailPath] = Seq.empty,
   ): RouteDetailDoc = {
 
     val summary = RouteSummary(
@@ -440,7 +449,10 @@ trait SharedTestObjects extends MockFactory {
       tiles,
       analysis.map.nodeIds,
       elementIds,
-      Seq.empty
+      edges,
+      segments,
+      segmentElements,
+      paths
     )
   }
 
@@ -971,6 +983,8 @@ trait SharedTestObjects extends MockFactory {
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty,
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
+    segments: Seq[RouteSegment] = Seq.empty,
+    paths: Seq[RoutePath] = Seq.empty,
   ): RouteDoc = {
     RouteDoc(
       summary.id,
@@ -983,7 +997,9 @@ trait SharedTestObjects extends MockFactory {
       lastSurvey,
       facts,
       facts,
-      analysis
+      analysis,
+      segments,
+      paths
     )
   }
 
@@ -1000,7 +1016,10 @@ trait SharedTestObjects extends MockFactory {
     tiles: Seq[String] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty,
     elementIds: ElementIds = ElementIds(),
-    edges: Seq[RouteEdge] = Seq.empty
+    edges: Seq[RouteEdge] = Seq.empty,
+    segments: Seq[RouteDetailSegment] = Seq.empty,
+    segmentElements: Seq[RouteDetailSegmentElement] = Seq.empty,
+    paths: Seq[RouteDetailPath] = Seq.empty
   ): RouteDetailDoc = {
     RouteDetailDoc(
       summary.id,
@@ -1017,7 +1036,10 @@ trait SharedTestObjects extends MockFactory {
       tiles,
       nodeRefs,
       elementIds,
-      edges
+      edges,
+      segments,
+      segmentElements,
+      paths
     )
   }
 

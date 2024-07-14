@@ -165,7 +165,10 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
       context.tiles,
       routeAnalysis.map.nodeIds,
       context.elementIds,
-      context.edges
+      context.edges,
+      Seq.empty, // TODO redesign
+      Seq.empty, // TODO redesign
+      Seq.empty, // TODO redesign
     )
   }
 }

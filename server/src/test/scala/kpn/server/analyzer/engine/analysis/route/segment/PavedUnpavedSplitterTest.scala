@@ -5,6 +5,7 @@ import kpn.api.custom.Tags
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 
+// TODO redesign - move to SurfaceFragmentSplitterTest
 class PavedUnpavedSplitterTest extends UnitTest {
 
   test("split paved/unpaved segment fragments") {

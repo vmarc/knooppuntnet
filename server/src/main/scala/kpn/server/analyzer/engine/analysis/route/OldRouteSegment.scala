@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.Bounds
 
-case class RouteSegment(
+case class OldRouteSegment(
   id: Long,
   startNodeId: Long,
   endNodeId: Long,

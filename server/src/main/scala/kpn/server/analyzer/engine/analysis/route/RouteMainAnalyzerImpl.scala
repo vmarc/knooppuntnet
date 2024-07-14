@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.route.RoutePath
+import kpn.api.common.route.RouteSegment
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
@@ -25,6 +27,25 @@ class RouteMainAnalyzerImpl() extends RouteMainAnalyzer {
   @tailrec
   private def doAnalyze(analyzers: List[RouteDocAnalyzer], context: RouteDocAnalysisContext): Option[RouteDoc] = {
     if (analyzers.isEmpty) {
+      val segments = context.routeDetailDoc.segments.map { segment =>
+        RouteSegment(
+          segment.id,
+          segment.startNodeId,
+          segment.endNodeId,
+          segment.meters,
+          segment.bounds,
+          segment.elementIds
+        )
+      }
+
+      val paths = context.routeDetailDoc.paths.map { path =>
+        RoutePath(
+          path.id,
+          path.name,
+          path.elementIds
+        )
+      }
+
       Some(
         RouteDoc(
           context.routeDetailDoc._id, // routeId
@@ -37,7 +58,9 @@ class RouteMainAnalyzerImpl() extends RouteMainAnalyzer {
           context.routeDetailDoc.lastSurvey,
           context.routeDetailDoc.facts,
           context.routeDetailDoc.oldFacts,
-          context.routeDetailDoc.analysis
+          context.routeDetailDoc.analysis,
+          segments,
+          paths
         )
       )
     }

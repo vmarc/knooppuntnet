@@ -4,6 +4,8 @@ import kpn.api.base.WithId
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Ref
 import kpn.api.common.route.RouteInfoAnalysis
+import kpn.api.common.route.RoutePath
+import kpn.api.common.route.RouteSegment
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Timestamp
@@ -20,6 +22,8 @@ case class RouteDoc(
   facts: Seq[Fact],
   oldFacts: Seq[Fact],
   analysis: RouteInfoAnalysis,
+  segments: Seq[RouteSegment],
+  paths: Seq[RoutePath],
 ) extends WithId {
 
   def id: Long = summary.id
