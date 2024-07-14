@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.structure
 import kpn.api.custom.Relation
 import kpn.core.data.Data
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
@@ -43,7 +43,7 @@ class StructureTestSetup(val data: Data) extends MockFactory {
     val routeRepository = stub[RouteRepository]
     val routeCountryAnalyzer = new RouteCountryAnalyzerMock()
     val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-    val routeAnalyzer = new RouteDetailMainAnalyzerImpl(
+    val routeAnalyzer = new RouteDetailMainAnalyzer(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer

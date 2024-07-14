@@ -33,9 +33,7 @@ import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -111,7 +109,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     val routeLocator = new RouteLocatorImpl(locationAnalyzer)
     val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)
     val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
-    new RouteDetailMainAnalyzerImpl(
+    new RouteDetailMainAnalyzer(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer
@@ -119,7 +117,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   val routeMainAnalyzer: RouteMainAnalyzer = {
-    new RouteMainAnalyzerImpl()
+    new RouteMainAnalyzer()
   }
 
   val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzerImpl(
