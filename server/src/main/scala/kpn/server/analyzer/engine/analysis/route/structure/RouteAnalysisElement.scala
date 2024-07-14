@@ -2,16 +2,16 @@ package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 
-case class NewRouteSegmentElement(
+case class RouteAnalysisElement(
   id: Long,
   direction: RoutePathDirection,
   fromNetworkNode: Option[RouteNodeData],
   toNetworkNode: Option[RouteNodeData],
   fromNodeId: Long,
   toNodeId: Long,
-  fragmentGroups: Seq[NewRouteSegmentElementFragmentGroup]
+  fragmentGroups: Seq[RouteAnalysisFragmentGroup]
 ) {
-  def fragments: Seq[NewRouteSegmentElementFragment] = {
+  def fragments: Seq[RouteAnalysisFragment] = {
     fragmentGroups.flatMap(_.fragments)
   }
 

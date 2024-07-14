@@ -42,11 +42,11 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
     }
   }
 
-  private def segmentToString(segment: NewRouteSegment): String = {
+  private def segmentToString(segment: RouteAnalysisSegment): String = {
     s"""segment-${segment.id} ${segment.fromNodeId}>${segment.toNodeId}"""
   }
 
-  private def elementToString(element: NewRouteSegmentElement): String = {
+  private def elementToString(element: RouteAnalysisElement): String = {
     val direction = if (element.direction == RoutePathDirection.Bidirectional) {
       "↔"
     } else if (element.direction == RoutePathDirection.Forward) {
@@ -61,7 +61,7 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
     s"""  element-${element.id} ${element.fromNodeId}>${element.toNodeId}$from$to  $direction  nodes=$nodes"""
   }
 
-  private def fragmentToString(link: NewRouteSegmentElementFragment): String = {
+  private def fragmentToString(link: RouteAnalysisFragment): String = {
     s"""    way-${link.wayId}  ${link.link.reportString}"""
   }
 

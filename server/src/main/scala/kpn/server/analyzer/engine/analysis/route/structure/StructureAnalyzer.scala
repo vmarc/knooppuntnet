@@ -296,7 +296,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
 
   private def findNonNodeNetworkRouteForwardPath(
     pathElements: Seq[StructurePathElement],
-    remainingSegmentElements: Seq[NewRouteSegmentElement]
+    remainingSegmentElements: Seq[RouteAnalysisElement]
   ): Seq[StructurePathElement] = {
 
     if (remainingSegmentElements.isEmpty) {
@@ -327,7 +327,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
 
   private def findNonNodeNetworkRouteBackwardPath(
     pathElements: Seq[StructurePathElement],
-    remainingSegmentElements: Seq[NewRouteSegmentElement]
+    remainingSegmentElements: Seq[RouteAnalysisElement]
   ): Seq[StructurePathElement] = {
 
     if (remainingSegmentElements.isEmpty) {
@@ -356,7 +356,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
     }
   }
 
-  private def findFirstForwardPathIndex(elements: Seq[NewRouteSegmentElement], startNodeId: Long): Option[Int] = {
+  private def findFirstForwardPathIndex(elements: Seq[RouteAnalysisElement], startNodeId: Long): Option[Int] = {
     val index = elements.indexWhere { element =>
       element.nodeIds.head == startNodeId
     }
@@ -371,7 +371,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
   @tailrec
   private def nodeNetworkFindNextForwardPath(
     pathElements: Seq[StructurePathElement],
-    segmentElements: Seq[NewRouteSegmentElement],
+    segmentElements: Seq[RouteAnalysisElement],
     endNodeId: Long
   ): Seq[StructurePathElement] = {
 
@@ -396,7 +396,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
     }
   }
 
-  private def nodeNetworkFindFirstBackwardPathIndex(segmentElements: Seq[NewRouteSegmentElement], endNodeId: Long): Option[Int] = {
+  private def nodeNetworkFindFirstBackwardPathIndex(segmentElements: Seq[RouteAnalysisElement], endNodeId: Long): Option[Int] = {
     val index = segmentElements.indexWhere { element =>
       if (element.direction == RoutePathDirection.Bidirectional) {
         element.toNodeId == endNodeId
@@ -419,7 +419,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
   @tailrec
   private def findNextBackwardPath(
     pathElements: Seq[StructurePathElement],
-    segmentElements: Seq[NewRouteSegmentElement],
+    segmentElements: Seq[RouteAnalysisElement],
     startNodeId: Long
   ): Seq[StructurePathElement] = {
 

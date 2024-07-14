@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.core.tools.config.Dirs
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.report.OldRouteNodeAnalysisReport
-import kpn.server.analyzer.engine.analysis.route.report.OldRouteSegmentsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteFactsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteLinksReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteNameAnalysisReport
@@ -11,7 +10,6 @@ import kpn.server.analyzer.engine.analysis.route.report.RouteNodeAnalysisReport
 import kpn.server.analyzer.engine.analysis.route.report.RoutePathReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteSegmentReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteSummaryReport
-import kpn.server.analyzer.engine.analysis.route.report.StructureElementGroupsReport
 
 import java.io.File
 import java.io.PrintWriter
@@ -42,8 +40,6 @@ class RouteAnalysisContextReport(context: RouteDetailAnalysisContext) {
        |${RouteLinksReport.report(context)}
        |${RouteSegmentReport.report(context)}
        |${RoutePathReport.report(context)}
-       |${OldRouteSegmentsReport.report(context)}
-       |${new StructureElementGroupsReport(context).report}
        |</body>
        |</html>
        |""".stripMargin

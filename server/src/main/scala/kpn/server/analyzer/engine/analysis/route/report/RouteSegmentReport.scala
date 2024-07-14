@@ -3,9 +3,9 @@ package kpn.server.analyzer.engine.analysis.route.report
 import kpn.core.analysis.LinkDirection
 import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.structure.NewRouteSegment
-import kpn.server.analyzer.engine.analysis.route.structure.NewRouteSegmentElement
-import kpn.server.analyzer.engine.analysis.route.structure.NewRouteSegmentElementFragment
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisElement
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisFragment
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisSegment
 
 object RouteSegmentReport {
   def report(context: RouteDetailAnalysisContext): String = {
@@ -51,7 +51,7 @@ class RouteSegmentReport(context: RouteDetailAnalysisContext) {
     }.mkString
   }
 
-  private def segmentElements(segment: NewRouteSegment): String = {
+  private def segmentElements(segment: RouteAnalysisSegment): String = {
     segment.elements.map { element =>
       val from = element.fromNetworkNode.map(node => s"from=${ReportUtil.osmNodeLink(node.node.id)}(${node.name})").getOrElse("")
       val to = element.toNetworkNode.map(node => s"to=${ReportUtil.osmNodeLink(node.node.id)}(${node.name})").getOrElse("")
@@ -73,11 +73,11 @@ class RouteSegmentReport(context: RouteDetailAnalysisContext) {
     }.mkString
   }
 
-  private def elementFragments(element: NewRouteSegmentElement): String = {
+  private def elementFragments(element: RouteAnalysisElement): String = {
     element.fragments.map(elementFragment).mkString
   }
 
-  private def elementFragment(fragment: NewRouteSegmentElementFragment): String = {
+  private def elementFragment(fragment: RouteAnalysisFragment): String = {
 
     val head = ReportUtil.osmNodeLink(fragment.nodeIds.head)
     val last = ReportUtil.osmNodeLink(fragment.nodeIds.last)

@@ -6,20 +6,20 @@ import scala.annotation.tailrec
 
 object SurfaceFragmentSplitter {
 
-  def split(networkTypes: Seq[NetworkType], segmentFragments: Seq[NewRouteSegmentElementFragment]): Seq[NewRouteSegmentElementFragmentGroup] = {
+  def split(networkTypes: Seq[NetworkType], segmentFragments: Seq[RouteAnalysisFragment]): Seq[RouteAnalysisFragmentGroup] = {
 
     if (segmentFragments.isEmpty) {
       Seq.empty
     }
     else {
       val firstFragment = segmentFragments.head
-      val initialSegment = NewRouteSegmentElementFragmentGroup(firstFragment.surface, Seq(firstFragment))
+      val initialSegment = RouteAnalysisFragmentGroup(firstFragment.surface, Seq(firstFragment))
       doSplit(Seq(initialSegment), segmentFragments.tail)
     }
   }
 
   @tailrec
-  private def doSplit(found: Seq[NewRouteSegmentElementFragmentGroup], remaining: Seq[NewRouteSegmentElementFragment]): Seq[NewRouteSegmentElementFragmentGroup] = {
+  private def doSplit(found: Seq[RouteAnalysisFragmentGroup], remaining: Seq[RouteAnalysisFragment]): Seq[RouteAnalysisFragmentGroup] = {
     if (remaining.isEmpty) {
       found
     }
@@ -33,7 +33,7 @@ object SurfaceFragmentSplitter {
         doSplit(newFound, remaining.tail)
       }
       else {
-        val newSegment = NewRouteSegmentElementFragmentGroup(surface, Seq(fragment))
+        val newSegment = RouteAnalysisFragmentGroup(surface, Seq(fragment))
         doSplit(found :+ newSegment, remaining.tail)
       }
     }

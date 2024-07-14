@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
-case class NewRouteSegment(
+case class RouteAnalysisSegment(
   id: Long,
   fromNodeId: Long,
   toNodeId: Long,
-  elements: Seq[NewRouteSegmentElement]
+  elements: Seq[RouteAnalysisElement]
 )

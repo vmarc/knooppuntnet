@@ -20,7 +20,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteOkRouteAnal
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteSegmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
@@ -91,8 +90,6 @@ class RouteDetailMainAnalyzer(
         RouteNodeAnalyzer,
         RouteLinkAnalyzer,
         RouteSegmentAnalyzer,
-
-        OldRouteSegmentAnalyzer,
         RouteStructureAnalyzer,
 
         RouteFragmentAnalyzer,

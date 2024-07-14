@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.core.analysis.Link
 
-case class NewRouteSegmentElementFragment(
+case class RouteAnalysisFragment(
   id: Long,
   wayId: Long,
   link: Link,

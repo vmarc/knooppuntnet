@@ -19,11 +19,10 @@ import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteSegmentAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
-import kpn.server.analyzer.engine.analysis.route.structure.NewRouteSegment
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisSegment
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinks
 import kpn.server.analyzer.engine.analysis.route.structure.Structure
 import kpn.server.analyzer.engine.context.ElementIds
@@ -42,8 +41,7 @@ case class RouteDetailAnalysisContext(
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
   country: Option[Country] = None,
   _links: Option[RouteLinks] = None,
-  _segments: Option[Seq[NewRouteSegment]] = None,
-  _segmentAnalysis: Option[RouteSegmentAnalysis] = None,
+  _segments: Option[Seq[RouteAnalysisSegment]] = None,
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   facts: Seq[Fact] = Seq.empty,
   oldFacts: Seq[Fact] = Seq.empty,
@@ -169,9 +167,7 @@ case class RouteDetailAnalysisContext(
 
   def links: RouteLinks = _links.getOrElse(throw new PreconditionMissingException)
 
-  def segments: Seq[NewRouteSegment] = _segments.getOrElse(throw new PreconditionMissingException)
-
-  def segmentAnalysis: RouteSegmentAnalysis = _segmentAnalysis.getOrElse(throw new PreconditionMissingException)
+  def segments: Seq[RouteAnalysisSegment] = _segments.getOrElse(throw new PreconditionMissingException)
 
   def routeNameAnalysis: RouteNameAnalysis = _routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
 

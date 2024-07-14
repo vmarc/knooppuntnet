@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
 case class StructurePathElement(
-  element: NewRouteSegmentElement,
+  element: RouteAnalysisElement,
   reversed: Boolean
 ) {
 

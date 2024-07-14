@@ -24,11 +24,11 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   private val elementIds = Util.ids
   private val fragmentIds = Util.ids
 
-  private val fragments = ListBuffer[NewRouteSegmentElementFragment]()
-  private val elements = ListBuffer[NewRouteSegmentElement]()
-  private val segments = ListBuffer[NewRouteSegment]()
+  private val fragments = ListBuffer[RouteAnalysisFragment]()
+  private val elements = ListBuffer[RouteAnalysisElement]()
+  private val segments = ListBuffer[RouteAnalysisSegment]()
 
-  def analyze(): Seq[NewRouteSegment] = {
+  def analyze(): Seq[RouteAnalysisSegment] = {
     Triplet.slide(context.links.routeLinkWays).foreach { case Triplet(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption) =>
       if (currentRouteLinkWay.link.direction == LinkDirection.RoundaboutRight && currentRouteLinkWay.isClosedLoop && currentRouteLinkWay.link.hasNext) {
         handleRoundabout(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption)
@@ -174,10 +174,10 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     }
   }
 
-  private def buildSegment(id: Long, elements: Seq[NewRouteSegmentElement]): NewRouteSegment = {
+  private def buildSegment(id: Long, elements: Seq[RouteAnalysisElement]): RouteAnalysisSegment = {
     val fromNodeId = elements.head.fromNodeId
     val toNodeId = elements.last.toNodeId
-    NewRouteSegment(
+    RouteAnalysisSegment(
       id,
       fromNodeId,
       toNodeId,
@@ -185,11 +185,11 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     )
   }
 
-  private def fragmentEndContainsNetworkNode(fragment: NewRouteSegmentElementFragment): Boolean = {
+  private def fragmentEndContainsNetworkNode(fragment: RouteAnalysisFragment): Boolean = {
     context.nodeAnalysis.nodeIds.contains(fragment.nodeIds.last) // TODO redesign - not sure if this is ok
   }
 
-  private def buildSegmentElement(fragments: Seq[NewRouteSegmentElementFragment]): NewRouteSegmentElement = {
+  private def buildSegmentElement(fragments: Seq[RouteAnalysisFragment]): RouteAnalysisElement = {
     val fromNodeId = fragments.head.fromNodeId
     val toNodeId = fragments.last.toNodeId
 
@@ -225,7 +225,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     }
   }
 
-  private def buildFragmentElement(routeLinkWay: RouteLinkWay, direction: RoutePathDirection, nodeIds: Seq[Long]): NewRouteSegmentElement = {
+  private def buildFragmentElement(routeLinkWay: RouteLinkWay, direction: RoutePathDirection, nodeIds: Seq[Long]): RouteAnalysisElement = {
     // this is a closed loop at the end of the route
     val fragment = toFragment(routeLinkWay, nodeIds)
     val fromNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == fragment.fromNodeId)
@@ -241,9 +241,9 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     )
   }
 
-  private def toFragment(routeLinkWay: RouteLinkWay, nodeIds: Seq[Long]): NewRouteSegmentElementFragment = {
+  private def toFragment(routeLinkWay: RouteLinkWay, nodeIds: Seq[Long]): RouteAnalysisFragment = {
     val surface = new SurfaceAnalyzer(context.networkTypes, routeLinkWay.way).surface()
-    NewRouteSegmentElementFragment(
+    RouteAnalysisFragment(
       fragmentIds.next(),
       routeLinkWay.way.id,
       routeLinkWay.link,
@@ -266,10 +266,10 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     toNetworkNode: Option[RouteNodeData],
     fromNodeId: Long,
     toNodeId: Long,
-    fragments: Seq[NewRouteSegmentElementFragment]
-  ): NewRouteSegmentElement = {
+    fragments: Seq[RouteAnalysisFragment]
+  ): RouteAnalysisElement = {
     val fragmentGroups = SurfaceFragmentSplitter.split(context.networkTypes, fragments)
-    NewRouteSegmentElement(
+    RouteAnalysisElement(
       elementIds.next(),
       direction,
       fromNetworkNode,
