@@ -4,6 +4,7 @@ import { RouteSummary } from '@api/common';
 import { LocationCandidateInfo } from '@api/common/location';
 import { Day } from '@api/custom';
 import { Fact } from '@api/custom';
+import { RouteMemberInfo } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { RouteInfoAnalysis } from './route-info-analysis';
 
@@ -18,6 +19,10 @@ export interface RouteDetailsPageData {
   readonly lastSurvey: Day;
   readonly facts: Fact[];
   readonly locationCandidateInfos: LocationCandidateInfo[];
+  readonly unexpectedNodeIds: number[];
+  readonly unexpectedRelationIds: number[];
+  readonly members: RouteMemberInfo[];
+  readonly nameDerivedFromNodes: boolean;
   readonly analysis: RouteInfoAnalysis;
   readonly tiles: string[];
   readonly nodeRefs: number[];

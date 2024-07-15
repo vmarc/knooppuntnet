@@ -69,11 +69,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
     val nameDerivedFromNodes = context.routeNameAnalysis.derivedFromNodes
 
     val routeAnalysis = RouteInfoAnalysis(
-      context.unexpectedNodeIds.get,
-      context.unexpectedRelationIds.get,
-      members,
       context.expectedName.getOrElse(""),
-      nameDerivedFromNodes,
       context.routeMap,
       new RouteStructureFormatter(context.structure).strings,
       context.geometryDigest,
@@ -117,6 +113,10 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.lastSurvey,
       context.facts,
       context.oldFacts,
+      context.unexpectedNodeIds,
+      context.unexpectedRelationIds,
+      members,
+      nameDerivedFromNodes,
       routeAnalysis,
       context.tiles,
       routeAnalysis.map.nodeIds,

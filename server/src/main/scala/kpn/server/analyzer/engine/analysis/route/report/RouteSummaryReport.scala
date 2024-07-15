@@ -12,8 +12,8 @@ object RouteSummaryReport {
     val networkType = context.networkTypes.map(_.name).mkString(", ")
     val scopedNetworkType = context.scopedNetworkTypeOption.map(_.key).getOrElse("")
     val country = context.country.map(_.domain).getOrElse("")
-    val unexpectedNodeIds = context.unexpectedNodeIds.toSeq.flatten.mkString(", ")
-    val unexpectedRelationIds = context.unexpectedRelationIds.toSeq.flatten.mkString(", ")
+    val unexpectedNodeIds = context.unexpectedNodeIds.mkString(", ")
+    val unexpectedRelationIds = context.unexpectedRelationIds.mkString(", ")
 
     s"""
        |<table>

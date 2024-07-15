@@ -48,6 +48,10 @@ class RouteDetailsPageBuilderImpl(
           routeDoc.lastSurvey,
           routeDoc.facts,
           locationCandidateInfos,
+          routeDoc.unexpectedNodeIds,
+          routeDoc.unexpectedRelationIds,
+          routeDoc.members,
+          routeDoc.nameDerivedFromNodes,
           routeDoc.analysis,
           routeDetailDoc.tiles,
           routeDetailDoc.nodeRefs

@@ -25,7 +25,6 @@ import { RouteMembersComponent } from './components/route-members.component';
 import { RouteNetworkReferencesComponent } from './components/route-network-references.component';
 import { RouteRedundantNodesComponent } from './components/route-redundant-nodes.component';
 import { RouteStartNodesComponent } from './components/route-start-nodes.component';
-import { RouteStructureComponent } from './components/route-structure.component';
 import { RouteSummaryComponent } from './components/route-summary.component';
 import { RouteDetailsPageService } from './route-details-page.service';
 
@@ -116,15 +115,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
                   [locationCandidateInfos]="page.route.locationCandidateInfos"
                 />
               </kpn-data>
-              @if (page.route.analysis && showRouteDetails()) {
-                <div>
-                  <kpn-data title="Structure" i18n-title="@@route.structure">
-                    <kpn-route-structure
-                      [structureStrings]="page.route.analysis.structureStrings"
-                    />
-                  </kpn-data>
-                </div>
-              }
               <kpn-data title="Facts" i18n-title="@@route.facts">
                 <kpn-facts [factInfos]="factInfos(page)" />
               </kpn-data>
@@ -132,7 +122,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
                 <div>
                   <kpn-route-members
                     [networkType]="page.route.summary.networkType"
-                    [members]="page.route.analysis.members"
+                    [members]="page.route.members"
                   />
                 </div>
               }
@@ -159,7 +149,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
     RoutePageHeaderComponent,
     RouteRedundantNodesComponent,
     RouteStartNodesComponent,
-    RouteStructureComponent,
     RouteSummaryComponent,
     RouterLink,
     TagTableComponent,
@@ -184,11 +173,11 @@ export class RouteDetailsPageComponent implements OnInit {
   factInfos(page: RouteDetailsPage): FactInfo[] {
     return page.route.facts.map((fact) => {
       if (fact === 'RouteUnexpectedNode') {
-        const unexpectedNodeIds = page.route.analysis.unexpectedNodeIds;
+        const unexpectedNodeIds = page.route.unexpectedNodeIds;
         return new FactInfo(fact, undefined, undefined, undefined, unexpectedNodeIds);
       }
       if (fact === 'RouteUnexpectedRelation') {
-        const unexpectedRelationIds = page.route.analysis.unexpectedRelationIds;
+        const unexpectedRelationIds = page.route.unexpectedRelationIds;
         return new FactInfo(
           fact,
           undefined,

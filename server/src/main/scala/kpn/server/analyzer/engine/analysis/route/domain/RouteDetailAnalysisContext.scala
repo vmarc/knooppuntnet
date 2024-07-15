@@ -45,8 +45,8 @@ case class RouteDetailAnalysisContext(
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   facts: Seq[Fact] = Seq.empty,
   oldFacts: Seq[Fact] = Seq.empty,
-  unexpectedNodeIds: Option[Seq[Long]] = None,
-  unexpectedRelationIds: Option[Seq[Long]] = None,
+  _unexpectedNodeIds: Option[Seq[Long]] = None,
+  _unexpectedRelationIds: Option[Seq[Long]] = None,
   _routeNameAnalysis: Option[RouteNameAnalysis] = None,
   _oldRouteNodeAnalysis: Option[OldRouteNodeAnalysis] = None,
   _nodeAnalysis: Option[RouteNodeAnalysis] = None,
@@ -168,6 +168,10 @@ case class RouteDetailAnalysisContext(
   def links: RouteLinks = _links.getOrElse(throw new PreconditionMissingException)
 
   def segments: Seq[RouteAnalysisSegment] = _segments.getOrElse(throw new PreconditionMissingException)
+
+  def unexpectedNodeIds: Seq[Long] = _unexpectedNodeIds.getOrElse(throw new PreconditionMissingException)
+
+  def unexpectedRelationIds: Seq[Long] = _unexpectedRelationIds.getOrElse(throw new PreconditionMissingException)
 
   def routeNameAnalysis: RouteNameAnalysis = _routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
 

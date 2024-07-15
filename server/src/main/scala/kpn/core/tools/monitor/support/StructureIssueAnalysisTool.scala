@@ -29,7 +29,7 @@ class StructureIssueAnalysisTool(database: Database) {
       routeRepository.findRouteById(routeId) match {
         case None => println(s"${index + 1}/${routeIds.size} $routeId not found")
         case Some(route) =>
-          val hasIssueLink = route.analysis.members.exists { member =>
+          val hasIssueLink = route.members.exists { member =>
             StructureIssueLinks.links.contains(member.linkName)
           }
           println(s"${index + 1}/${routeIds.size} $routeId ${if (hasIssueLink) "ISSUE" else "OK"}")

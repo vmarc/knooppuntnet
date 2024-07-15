@@ -33,7 +33,7 @@ class RouteRenderer(route: RouteDoc, language: String) {
   }
 
   private def members: String = {
-    route.analysis.members.zipWithIndex.map { case (member, index) =>
+    route.members.zipWithIndex.map { case (member, index) =>
       val y = 30 + (1 + index) * memberHeight
       val memberType = s"""<text x="50" y="$y">${member.memberType}</text>"""
       val name = if (member.isWay) {
@@ -61,7 +61,7 @@ class RouteRenderer(route: RouteDoc, language: String) {
 
     val firstMemberSeparator = s"""<line x1="${linex - 3}" y1="${30 + memberHeight - (memberHeight / 2)}" x2="${linex + 3}" y2="${30 + memberHeight - (memberHeight / 2)}" style="stroke:rgb(255,0,0);stroke-width:1" />"""
 
-    val memberSeparators = route.analysis.members.zipWithIndex.map { case (member, index) =>
+    val memberSeparators = route.members.zipWithIndex.map { case (member, index) =>
       val y = 30 + (1 + index) * memberHeight
       s"""<line x1="${linex - 3}" y1="${y + (memberHeight / 2)}" x2="${linex + 3}" y2="${y + (memberHeight / 2)}" style="stroke:rgb(255,0,0);stroke-width:1" />"""
     }

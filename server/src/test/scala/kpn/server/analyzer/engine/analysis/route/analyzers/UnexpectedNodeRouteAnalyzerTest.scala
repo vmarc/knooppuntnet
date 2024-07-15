@@ -18,7 +18,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
     val context = analyze(d)
 
     context.facts shouldBe empty
-    context.unexpectedNodeIds.shouldMatchTo(Some(Seq.empty))
+    context._unexpectedNodeIds.shouldMatchTo(Some(Seq.empty))
   }
 
   test("random node is unexpected") {
@@ -33,7 +33,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
     val context = analyze(d)
 
     context.facts.shouldMatchTo(Seq(RouteUnexpectedNode))
-    context.unexpectedNodeIds.shouldMatchTo(Some(Seq(1003)))
+    context._unexpectedNodeIds.shouldMatchTo(Some(Seq(1003)))
   }
 
   test("network node with different scope is unexpected") {
@@ -48,7 +48,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
     val context = analyze(d)
 
     context.facts.shouldMatchTo(Seq(RouteUnexpectedNode))
-    context.unexpectedNodeIds.shouldMatchTo(Some(Seq(1003)))
+    context._unexpectedNodeIds.shouldMatchTo(Some(Seq(1003)))
   }
 
   test("maps and guideposts/route markers are expected") {
@@ -67,7 +67,7 @@ class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
     val context = analyze(d)
 
     context.facts.shouldMatchTo(Seq.empty)
-    context.unexpectedNodeIds.shouldMatchTo(Some(Seq.empty))
+    context._unexpectedNodeIds.shouldMatchTo(Some(Seq.empty))
   }
 
   private def analyze(routeTestData: RouteTestData): RouteDetailAnalysisContext = {

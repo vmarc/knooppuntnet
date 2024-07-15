@@ -14,7 +14,7 @@ class UnexpectedRelationRouteAnalyzer(context: RouteDetailAnalysisContext) {
   def analyze: RouteDetailAnalysisContext = {
     val relationIds = findUnexpectedRelationIds
     context.copy(
-      unexpectedRelationIds = Some(relationIds)
+      _unexpectedRelationIds = Some(relationIds)
     ).withOldFact(relationIds.nonEmpty, RouteUnexpectedRelation)
   }
 

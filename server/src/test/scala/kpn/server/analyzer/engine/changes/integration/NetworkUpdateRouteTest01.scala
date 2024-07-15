@@ -109,31 +109,31 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           Label.country(Country.nl),
           Label.networkType(NetworkType.hiking)
         ),
+        members = Seq(
+          kpn.api.custom.RouteMemberInfo(
+            101,
+            "way",
+            isWay = true,
+            Seq(
+              RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
+              RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
+            ),
+            "wn000",
+            "1",
+            1002,
+            "2",
+            1001,
+            "",
+            Timestamp(2015, 8, 11, 0, 0, 0),
+            accessible = true,
+            "0 m",
+            "2",
+            "",
+            Both,
+            Seq.empty
+          )
+        ),
         analysis = newRouteInfoAnalysis(
-          members = Seq(
-            kpn.api.custom.RouteMemberInfo(
-              101,
-              "way",
-              isWay = true,
-              Seq(
-                RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
-                RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
-              ),
-              "wn000",
-              "1",
-              1002,
-              "2",
-              1001,
-              "",
-              Timestamp(2015, 8, 11, 0, 0, 0),
-              accessible = true,
-              "0 m",
-              "2",
-              "",
-              Both,
-              Seq.empty
-            )
-          ),
           expectedName = "01-02",
           map = newRouteMap(
             bounds = MapBounds("0.0", "0.0", "0.0", "0.0"),
@@ -208,31 +208,31 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           Label.country(Country.nl),
           Label.networkType(NetworkType.hiking)
         ),
+        members = Seq(
+          kpn.api.custom.RouteMemberInfo(
+            101,
+            "way",
+            isWay = true,
+            Seq(
+              RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
+              RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
+            ),
+            "wn000",
+            "1",
+            1002,
+            "2",
+            1001,
+            "",
+            Timestamp(2015, 8, 11, 0, 0, 0),
+            accessible = true,
+            "0 m",
+            "2",
+            "",
+            Both,
+            Seq.empty
+          )
+        ),
         analysis = newRouteInfoAnalysis(
-          members = Seq(
-            kpn.api.custom.RouteMemberInfo(
-              101,
-              "way",
-              isWay = true,
-              Seq(
-                RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
-                RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
-              ),
-              "wn000",
-              "1",
-              1002,
-              "2",
-              1001,
-              "",
-              Timestamp(2015, 8, 11, 0, 0, 0),
-              accessible = true,
-              "0 m",
-              "2",
-              "",
-              Both,
-              Seq.empty
-            )
-          ),
           expectedName = "01-02",
           map = newRouteMap(
             bounds = MapBounds("0.0", "0.0", "0.0", "0.0"),

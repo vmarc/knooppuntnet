@@ -92,6 +92,6 @@ export class RouteSummaryComponent {
   }
 
   isRouteNameDerivedFromNodes(): boolean {
-    return this.route().analysis?.nameDerivedFromNodes === true;
+    return this.route()?.nameDerivedFromNodes === true;
   }
 }

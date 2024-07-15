@@ -145,11 +145,7 @@ class RouteChangeBuilderImpl(
 
           val routeDetailDoc = analysisBefore.routeDetail.deactivated.copy(
             analysis = RouteInfoAnalysis(
-              unexpectedNodeIds = Seq.empty,
-              unexpectedRelationIds = Seq.empty,
-              members = Seq.empty,
               expectedName = "",
-              nameDerivedFromNodes = false,
               map = RouteMap(),
               structureStrings = Seq.empty,
               geometryDigest = "",

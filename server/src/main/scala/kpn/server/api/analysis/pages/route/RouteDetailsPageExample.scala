@@ -32,54 +32,7 @@ object RouteDetailsPageExample {
 
   private def route(): RouteDetailsPageData = {
     val analysis = RouteInfoAnalysis(
-      unexpectedNodeIds = Seq(1001),
-      unexpectedRelationIds = Seq(1, 2, 3),
-      members = Seq(
-        RouteMemberInfo(
-          id = 1L,
-          memberType = "node",
-          isWay = false,
-          nodes = Seq.empty,
-          linkName = "n",
-          from = "01",
-          fromNodeId = 1,
-          to = "",
-          toNodeId = 1,
-          role = "connection",
-          timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-          accessible = true,
-          length = "",
-          nodeCount = "",
-          description = "",
-          oneWay = Both,
-          oneWayTags = Seq.empty
-        ),
-        RouteMemberInfo(
-          id = 1L,
-          memberType = "way",
-          isWay = true,
-          nodes = Seq.empty,
-          linkName = "wb003",
-          from = "01",
-          fromNodeId = 1,
-          to = "02",
-          toNodeId = 2,
-          role = "",
-          timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-          accessible = false,
-          length = "",
-          nodeCount = "3",
-          description = "description",
-          oneWay = Both,
-          oneWayTags = Tags.from(
-            "key1" -> "value1",
-            "key2" -> "value2",
-            "key3" -> "value3"
-          )
-        )
-      ),
       expectedName = "01-02",
-      nameDerivedFromNodes = true,
       map = RouteMap(
         startNodes = Seq[RouteNetworkNodeInfo](
           RouteNetworkNodeInfo(
@@ -219,6 +172,53 @@ object RouteDetailsPageExample {
         Fact.RouteUnexpectedRelation,
       ),
       locationCandidateInfos = Seq(),
+      unexpectedNodeIds = Seq(1001),
+      unexpectedRelationIds = Seq(1, 2, 3),
+      members = Seq(
+        RouteMemberInfo(
+          id = 1L,
+          memberType = "node",
+          isWay = false,
+          nodes = Seq.empty,
+          linkName = "n",
+          from = "01",
+          fromNodeId = 1,
+          to = "",
+          toNodeId = 1,
+          role = "connection",
+          timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
+          accessible = true,
+          length = "",
+          nodeCount = "",
+          description = "",
+          oneWay = Both,
+          oneWayTags = Seq.empty
+        ),
+        RouteMemberInfo(
+          id = 1L,
+          memberType = "way",
+          isWay = true,
+          nodes = Seq.empty,
+          linkName = "wb003",
+          from = "01",
+          fromNodeId = 1,
+          to = "02",
+          toNodeId = 2,
+          role = "",
+          timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
+          accessible = false,
+          length = "",
+          nodeCount = "3",
+          description = "description",
+          oneWay = Both,
+          oneWayTags = Tags.from(
+            "key1" -> "value1",
+            "key2" -> "value2",
+            "key3" -> "value3"
+          )
+        )
+      ),
+      nameDerivedFromNodes = true,
       analysis,
       Seq.empty,
       analysis.map.nodeIds
