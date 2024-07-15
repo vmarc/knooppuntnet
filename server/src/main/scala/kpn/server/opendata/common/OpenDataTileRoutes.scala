@@ -1,8 +1,8 @@
 package kpn.server.opendata.common
 
-import kpn.server.analyzer.engine.tiles.domain.OldTile
+import kpn.server.analyzer.engine.tiles.domain.Tile
 
 case class OpenDataTileRoutes(
-  tile: OldTile,
+  tile: Tile,
   routes: Seq[OpenDataRoute]
 )

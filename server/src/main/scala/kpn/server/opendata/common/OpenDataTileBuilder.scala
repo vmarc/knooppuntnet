@@ -2,24 +2,22 @@ package kpn.server.opendata.common
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldNodeTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
-import kpn.server.analyzer.engine.tiles.domain.Line
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
-import kpn.server.analyzer.engine.tiles.domain.OldTile
+import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.apache.commons.io.FileUtils
+import org.locationtech.jts.geom.LineSegment
 
 import java.io.File
 
 class OpenDataTileBuilder {
 
   private val log = Log(classOf[OpenDataTileBuilder])
-  private val tileCalculator = new OldTileCalculatorImpl()
-  private val nodeTileCalculator = new OldNodeTileCalculatorImpl(tileCalculator)
-  private val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
-  private val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
+  private val tileCalculator = new TileCalculatorImpl()
+  private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
+  private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
 
   def build(nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute], dir: String): Unit = {
 
@@ -44,16 +42,18 @@ class OpenDataTileBuilder {
 
         var progress = 0
         routes.zipWithIndex.foreach { case (tileRoute, index) =>
-          val lines = tileRoute.coordinates.sliding(2).toSeq.map { case Seq(p1, p2) =>
-            Line(p1.lon, p1.lat, p2.lon, p2.lat)
+          val lineSegments = tileRoute.coordinates.sliding(2).toSeq.map { case Seq(p1, p2) =>
+            new LineSegment(p1.lon, p1.lat, p2.lon, p2.lat)
           }
           val segment = RouteTileSegment(
-            1L,
+            0L,
+            0L,
+            Seq.empty,
             oneWay = false,
             surface = "",
-            lines = lines
+            lineSegments = lineSegments
           )
-          val tiles = routeTileCalculator.tiles(z, Seq(segment))
+          val tiles = lineSegmentTileCalculator.tiles(z, lineSegments)
           val currentProgress = (100d * (index + 1) / routes.size).round.toInt
           if (currentProgress != progress) {
             progress = currentProgress
@@ -115,7 +115,7 @@ class OpenDataTileBuilder {
     }
   }
 
-  private def writeTile(tile: OldTile, tileBytes: Array[Byte], dir: String, fileExtension: String): Unit = {
+  private def writeTile(tile: Tile, tileBytes: Array[Byte], dir: String, fileExtension: String): Unit = {
     val filename = s"/Users/marc/kpn/tiles/$dir/${tile.z}/${tile.x}/${tile.y}.$fileExtension"
     val file = new File(filename)
     FileUtils.writeByteArrayToFile(file, tileBytes)

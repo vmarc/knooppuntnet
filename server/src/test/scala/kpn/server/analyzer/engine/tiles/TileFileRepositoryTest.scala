@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.tiles
 
-import java.io.File
-
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.tiles.domain.OldTile
+import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.apache.commons.io.FileUtils
+
+import java.io.File
 
 class TileFileRepositoryTest extends UnitTest {
 
@@ -125,10 +125,10 @@ class TileFileRepositoryTest extends UnitTest {
 
       val repo = new TileFileRepositoryImpl("/tmp/tiles", "png")
 
-      repo.saveOrUpdate("cycling/survey", OldTile(11, 12, 13), Array())
+      repo.saveOrUpdate("cycling/survey", Tile(11, 12, 13), Array())
       assert(file.exists())
 
-      repo.deleteTile("cycling/survey", OldTile(11, 12, 13))
+      repo.deleteTile("cycling/survey", Tile(11, 12, 13))
       assert(!file.exists())
     }
     finally {
@@ -141,5 +141,4 @@ class TileFileRepositoryTest extends UnitTest {
     FileUtils.touch(file)
     file
   }
-
 }

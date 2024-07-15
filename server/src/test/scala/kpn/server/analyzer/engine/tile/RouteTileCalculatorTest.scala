@@ -2,15 +2,15 @@ package kpn.server.analyzer.engine.tile
 
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.TestTileSetup
-import kpn.server.analyzer.engine.tiles.domain.Line
-import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.LineSegment
 
 class RouteTileCalculatorTest extends UnitTest {
 
   val t = new TestTileSetup()
 
-  val linesTileCalculator = new OldLinesTileCalculatorImpl(t.tileCalculator)
+  val linesTileCalculator = new LineSegmentTileCalculatorImpl(t.tileCalculator)
   val calculator = new RouteTileCalculatorImpl(linesTileCalculator)
 
   test("single tile route") {
@@ -23,17 +23,19 @@ class RouteTileCalculatorTest extends UnitTest {
     val y1 = b.yMin + delta
     val y2 = b.yMax - delta
 
-    val line = Line(Point(x1, y1), Point(x2, y2))
+    val lineSegment = new LineSegment(new Coordinate(x1, y1), new Coordinate(x2, y2))
 
     val tiles = calculator.tiles(
       13,
       Seq(
         RouteTileSegment(
           0,
+          0,
+          Seq.empty,
           oneWay = false,
           "",
-          lines = Seq(
-            line
+          lineSegments = Seq(
+            lineSegment
           )
         )
       )
@@ -51,17 +53,19 @@ class RouteTileCalculatorTest extends UnitTest {
     val tile1 = t.t12.tile.bounds
     val tile2 = t.t22.tile.bounds
 
-    val line = Line(Point(tile1.xCenter, tile1.yCenter), Point(tile2.xCenter, tile2.yCenter))
+    val lineSegment = new LineSegment(new Coordinate(tile1.xCenter, tile1.yCenter), new Coordinate(tile2.xCenter, tile2.yCenter))
 
     val tiles = calculator.tiles(
       13,
       Seq(
         RouteTileSegment(
           0,
+          0,
+          Seq.empty,
           oneWay = false,
           "",
-          lines = Seq(
-            line
+          lineSegments = Seq(
+            lineSegment
           )
         )
       )
@@ -80,17 +84,19 @@ class RouteTileCalculatorTest extends UnitTest {
     val tile1 = t.t12.tile.bounds
     val tile2 = t.t32.tile.bounds
 
-    val line = Line(Point(tile1.xCenter, tile1.yCenter), Point(tile2.xCenter, tile2.yCenter))
+    val lineSegment = new LineSegment(new Coordinate(tile1.xCenter, tile1.yCenter), new Coordinate(tile2.xCenter, tile2.yCenter))
 
     val tiles = calculator.tiles(
       13,
       Seq(
         RouteTileSegment(
           0,
+          0,
+          Seq.empty,
           oneWay = false,
           "",
-          lines = Seq(
-            line
+          lineSegments = Seq(
+            lineSegment
           )
         )
       )

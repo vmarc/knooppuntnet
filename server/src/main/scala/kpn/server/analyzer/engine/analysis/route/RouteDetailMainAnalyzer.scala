@@ -21,6 +21,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyz
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteStructureAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteContextAnalyzer
@@ -56,6 +57,7 @@ import scala.collection.mutable.ListBuffer
 class RouteDetailMainAnalyzer(
   routeCountryAnalyzer: RouteCountryAnalyzer,
   routeLocationAnalyzer: RouteLocationAnalyzer,
+  oldRouteTileAnalyzer: OldRouteTileAnalyzer,
   routeTileAnalyzer: RouteTileAnalyzer
 ) {
 
@@ -104,6 +106,7 @@ class RouteDetailMainAnalyzer(
         FactCombinationAnalyzer,
         RouteLastSurveyAnalyzer,
         RouteElementsAnalyzer,
+        oldRouteTileAnalyzer,
         routeTileAnalyzer,
         EdgeRouteAnalyzer,
         RouteLabelsAnalyzer, // this always should be the last analyzer

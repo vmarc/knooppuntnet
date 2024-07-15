@@ -103,10 +103,12 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
             zoomLevel = 10,
             segments = Seq(
               RouteTileSegment(
-                pathId = 101,
+                0,
+                0,
+                pathIds = Seq(101),
                 oneWay = false,
                 surface = "",
-                lines = Seq.empty
+                lineSegments = Seq.empty
               )
             )
           )

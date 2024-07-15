@@ -27,14 +27,10 @@ object MongoQueryRouteTileInfo {
         include("proposed"),
         include("lastSurvey"),
         computed("tags", "$summary.tags"),
+        include("segments"),
+        include("segmentElements"),
         include("facts"),
-        computed("freePaths", "$analysis.map.freePaths"),
-        computed("forwardPath", "$analysis.map.forwardPath"),
-        computed("backwardPath", "$analysis.map.backwardPath"),
-        computed("backwardPath", "$analysis.map.backwardPath"),
-        computed("startTentaclePaths", "$analysis.map.startTentaclePaths"),
-        computed("endTentaclePaths", "$analysis.map.endTentaclePaths"),
-        computed("unusedSegments", "$analysis.map.unusedSegments"),
+        include("paths"),
       )
     )
   }
@@ -53,7 +49,7 @@ class MongoQueryRouteTileInfo(database: Database) {
         ),
         projectRouteTileInfo
       )
-      val routes = database.routes.aggregate[RouteTileInfo](pipeline, log)
+      val routes = database.routeDetails.aggregate[RouteTileInfo](pipeline, log)
       (s"${routes.size} routes", routes)
     }
   }

@@ -1,10 +1,10 @@
 package kpn.core.tools.poi
 
-import kpn.database.util.Mongo
 import kpn.core.util.Log
+import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.poi.PoiTileBuilderImpl
 import kpn.server.analyzer.engine.poi.PoiTileUpdaterImpl
-import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.vector.PoiVectorTileBuilder
 import kpn.server.repository.PoiRepositoryImpl
@@ -23,7 +23,7 @@ object PoiTileUpdateTool {
             val poiTileBuilder = {
               val tileBuilder = new PoiVectorTileBuilder()
               val poiRepository = new PoiRepositoryImpl(database)
-              val tileCalculator = new OldTileCalculatorImpl()
+              val tileCalculator = new TileCalculatorImpl()
               val tileFileRepository = new TileFileRepositoryImpl(options.tileDir, "mvt")
               new PoiTileBuilderImpl(
                 poiRepository,
@@ -51,7 +51,6 @@ object PoiTileUpdateTool {
 
     System.exit(exit)
   }
-
 }
 
 class PoiTileUpdateTool(poiTileUpdaterImpl: PoiTileUpdaterImpl) {
@@ -62,5 +61,4 @@ class PoiTileUpdateTool(poiTileUpdaterImpl: PoiTileUpdaterImpl) {
     poiTileUpdaterImpl.update()
     log.info("Done")
   }
-
 }

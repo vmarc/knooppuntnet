@@ -8,4 +8,5 @@ trait TileCalculator {
 
   def tileXY(z: Int, x: Int, y: Int): Tile
 
+  def tileNamed(tileName: String): Tile
 }

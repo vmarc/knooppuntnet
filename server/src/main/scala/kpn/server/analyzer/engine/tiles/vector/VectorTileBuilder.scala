@@ -15,9 +15,8 @@ class VectorTileBuilder extends TileBuilder {
     val encoder = new VectorTileEncoder()
 
     data.nodes.foreach { node =>
-      val x = data.tile.scaleLon(node.lon)
-      val y = data.tile.scaleLat(node.lat)
-      val point = geometryFactory.createPoint(new Coordinate(x, y))
+      val coordinate = data.tile.scale(new Coordinate(node.lon, node.lat))
+      val point = geometryFactory.createPoint(coordinate)
 
       val userData = Seq(
         Some("id" -> node.id.toString),
@@ -32,17 +31,20 @@ class VectorTileBuilder extends TileBuilder {
 
     data.routes.foreach { tileRoute =>
       tileRoute.segments.foreach { segment =>
-        val coordinates = segment.lines.flatMap { line =>
+        val coordinates = segment.lineSegments.flatMap { line =>
           Seq(
-            new Coordinate(data.tile.scaleLon(line.p1.x), data.tile.scaleLat(line.p1.y)),
-            new Coordinate(data.tile.scaleLon(line.p2.x), data.tile.scaleLat(line.p2.y))
+            data.tile.scale(new Coordinate(line.p0.x, line.p0.y)),
+            data.tile.scale(new Coordinate(line.p1.x, line.p1.y)),
           )
         }
         val lineString = geometryFactory.createLineString(coordinates.toArray)
         val userData = Seq(
-          Some("id" -> (tileRoute.routeId.toString + "-" + segment.pathId)),
+          Some("routeId" -> tileRoute.routeId.toString),
+          Some("segmentId" -> segment.segmentId.toString),
+          Some("segmentElementId" -> segment.segmentElementId.toString),
+          Some("pathIds" -> segment.pathIds.mkString(",")),
           Some("name" -> tileRoute.routeName),
-          Some("oneway" -> segment.oneWay.toString),
+          // TODO redesign - Some("oneway" -> segment.oneWay.toString),
           Some("surface" -> segment.surface),
           tileRoute.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
           tileRoute.state.map(state => "state" -> state)

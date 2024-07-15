@@ -5,10 +5,12 @@ import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
 import org.springframework.stereotype.Component
 
 @Component
-class RouteTileCalculatorImpl(linesTileCalculator: OldLinesTileCalculator) extends RouteTileCalculator {
+class RouteTileCalculatorImpl(lineSegmentTileCalculator: LineSegmentTileCalculator) extends RouteTileCalculator {
 
   override def tiles(z: Int, segments: Seq[RouteTileSegment]): Seq[OldTile] = {
-    val lines = segments.flatMap(_.lines)
-    linesTileCalculator.tiles(z, lines)
+    // TODO redesign - cleanup
+    //  val lines = segments.flatMap(_.lineSegments)
+    //  linesTileCalculator.tiles(z, lines)
+    Seq.empty
   }
 }

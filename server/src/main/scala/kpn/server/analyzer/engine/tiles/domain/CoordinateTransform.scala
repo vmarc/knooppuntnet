@@ -72,4 +72,7 @@ object CoordinateTransform {
     way.nodes.map(node => new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat)))
   }
 
+  def latLonCoordinatesToWorldCoordinates(coordinates: Seq[Coordinate]): Seq[Coordinate] = {
+    coordinates.map(coordinate => new Coordinate(lonToWorldX(coordinate.y), latToWorldY(coordinate.x)))
+  }
 }

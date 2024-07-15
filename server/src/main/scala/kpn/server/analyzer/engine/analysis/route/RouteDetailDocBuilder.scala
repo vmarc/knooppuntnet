@@ -123,8 +123,8 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.elementIds,
       context.edges,
       buildSegments,
-      Seq.empty, // TODO redesign
-      Seq.empty, // TODO redesign
+      buildSegmentElements,
+      buildPaths
     )
   }
 
@@ -160,7 +160,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       segment.elements.flatMap { element =>
         element.fragmentGroups.map { fragmentGroup =>
           val nodes = fragmentGroup.nodeIds.flatMap(nodeId => nodeMap.get(nodeId))
-          val coordinates = nodes.map(node => s"[${node.latitude},${node.latitude}]").mkString("[", ",", "]")
+          val coordinates = nodes.map(node => s"[${node.longitude},${node.latitude}]").mkString("[", ",", "]")
           RouteDetailSegmentElement(
             segment.id,
             element.id,

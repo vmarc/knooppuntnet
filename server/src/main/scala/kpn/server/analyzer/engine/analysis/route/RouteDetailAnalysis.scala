@@ -12,7 +12,6 @@ import kpn.api.custom.Subset
 import kpn.core.analysis.RouteMember
 import kpn.core.doc.RouteDetailDoc
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
-import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
 case class RouteDetailAnalysis(
   relation: Relation,
@@ -55,23 +54,6 @@ case class RouteDetailAnalysis(
       ways.map(_.toRaw),
       Seq[RawRelation](), // TODO CHANGE add unexpected relations
       routeDetail.facts
-    )
-  }
-
-  def toRouteTileInfo: RouteTileInfo = {
-    RouteTileInfo(
-      _id = id,
-      name = routeDetail.summary.name,
-      proposed = routeDetail.proposed,
-      lastSurvey = routeDetail.lastSurvey,
-      tags = routeDetail.summary.tags,
-      facts = routeDetail.facts,
-      freePaths = routeDetail.analysis.map.freePaths,
-      forwardPath = routeDetail.analysis.map.forwardPath,
-      backwardPath = routeDetail.analysis.map.backwardPath,
-      startTentaclePaths = routeDetail.analysis.map.startTentaclePaths,
-      endTentaclePaths = routeDetail.analysis.map.endTentaclePaths,
-      unusedSegments = routeDetail.analysis.map.unusedSegments,
     )
   }
 }

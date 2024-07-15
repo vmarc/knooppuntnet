@@ -6,5 +6,5 @@ object Redesign {
   val enableNewFactTests = false
   val enableDebugPrinting = true
   val enablePendingTests = false
-  val tileGenerationNetworkTypes = Seq[NetworkType]() // Seq(NetworkType.hiking) NetworkType.all
+  val tileGenerationNetworkTypes: Seq[NetworkType] = Seq(NetworkType.hiking) // Seq.empty  NetworkType.all
 }

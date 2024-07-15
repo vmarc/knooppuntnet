@@ -3,8 +3,8 @@ package kpn.server.analyzer.engine.tiles
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.OldNodeTileCalculator
-import kpn.server.analyzer.engine.tile.RouteTileCalculator
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
+import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.engine.tile.TileFileBuilder
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
@@ -16,8 +16,8 @@ class TilesBuilder(
   bitmapTileFileRepository: TileFileRepository,
   vectorTileFileRepository: TileFileRepository,
   tileFileBuilder: TileFileBuilder,
-  nodeTileCalculator: OldNodeTileCalculator,
-  routeTileCalculator: RouteTileCalculator
+  nodeTileCalculator: NodeTileCalculator,
+  lineSegmentTileCalculator: LineSegmentTileCalculator
 ) {
 
   private val log = Log(classOf[TilesBuilder])
@@ -178,7 +178,8 @@ class TilesBuilder(
 
     var progress = 0
     tileRoutes.zipWithIndex.foreach { case (tileRoute, index) =>
-      val tiles = routeTileCalculator.tiles(z, tileRoute.segments)
+      val allLineSegments = tileRoute.segments.flatMap(_.lineSegments)
+      val tiles = lineSegmentTileCalculator.tiles(z, allLineSegments)
       val currentProgress = (100d * (index + 1) / tileRoutes.size).round.toInt
       if (currentProgress != progress) {
         progress = currentProgress

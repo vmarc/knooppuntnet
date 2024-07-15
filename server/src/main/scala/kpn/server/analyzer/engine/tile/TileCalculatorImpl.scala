@@ -17,4 +17,7 @@ class TileCalculatorImpl extends TileCalculator {
     cache(z, x, y)
   }
 
+  def tileNamed(tileName: String): Tile = {
+    cache(tileName)
+  }
 }

@@ -2,14 +2,13 @@ package kpn.core.tools.tile
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
-import kpn.database.base.Database
-import kpn.database.util.Mongo
 import kpn.core.tools.tile.TileTool.log
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldNodeTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
+import kpn.database.base.Database
+import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileAnalyzer
 import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
@@ -73,19 +72,18 @@ object TileTool {
     }
 
     val tilesBuilder: TilesBuilder = {
-      val tileCalculator = new OldTileCalculatorImpl()
+      val tileCalculator = new TileCalculatorImpl()
       val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
       val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
       val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
-      val nodeTileCalculator = new OldNodeTileCalculatorImpl(tileCalculator)
-      val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
-      val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
+      val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
+      val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
       new TilesBuilder(
         bitmapTileFileRepository,
         vectorTileFileRepository,
         tileFileBuilder,
         nodeTileCalculator,
-        routeTileCalculator
+        lineSegmentTileCalculator
       )
     }
 

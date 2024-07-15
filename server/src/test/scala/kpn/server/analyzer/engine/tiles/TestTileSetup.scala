@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tiles
 
-import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 
 class TestTileSetup {
 
@@ -12,7 +12,7 @@ class TestTileSetup {
 
    */
 
-  val tileCalculator = new OldTileCalculatorImpl()
+  val tileCalculator = new TileCalculatorImpl()
 
   val zoomLevel = 13
 
@@ -30,5 +30,4 @@ class TestTileSetup {
 
   val tiles: Seq[TestTile] = Seq(t11, t21, t31, t12, t22, t32, t13, t23, t33)
   val tilesByName: Map[String, TestTile] = tiles.map(t => t.tile.name -> t).toMap
-
 }

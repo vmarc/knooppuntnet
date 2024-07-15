@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.tiles.raster
 
-import kpn.server.analyzer.engine.tiles.domain.OldTile
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
+import kpn.server.analyzer.engine.tiles.domain.Tile
 
-import java.awt.image.BufferedImage
 import java.awt.BasicStroke
 import java.awt.Font
 import java.awt.Graphics2D
 import java.awt.RenderingHints
+import java.awt.image.BufferedImage
 import java.io.ByteArrayOutputStream
 import javax.imageio.ImageIO
 
@@ -65,23 +65,23 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
       g.setStroke(stroke)
       tileRoute.segments.foreach { segment =>
         g.setColor(tileColor.routeColor(tileRoute, segment))
-        segment.lines.foreach { line =>
-          val x1 = lngToPixel(data.tile, line.p1.x)
-          val y1 = latToPixel(data.tile, line.p1.y)
-          val x2 = lngToPixel(data.tile, line.p2.x)
-          val y2 = latToPixel(data.tile, line.p2.y)
+        segment.lineSegments.foreach { line =>
+          val x1 = lngToPixel(data.tile, line.p0.x)
+          val y1 = latToPixel(data.tile, line.p0.y)
+          val x2 = lngToPixel(data.tile, line.p1.x)
+          val y2 = latToPixel(data.tile, line.p1.y)
           g.drawLine(x1, y1, x2, y2)
         }
       }
     }
   }
 
-  private def lngToPixel(tile: OldTile, lng: Double): Int = {
+  private def lngToPixel(tile: Tile, lng: Double): Int = {
     ((lng - tile.bounds.xMin) * width / (tile.bounds.xMax - tile.bounds.xMin)).round.toInt
   }
 
-  private def latToPixel(tile: OldTile, lat: Double): Int = {
-    (height - ((lat - tile.bounds.yMin) * height / (tile.bounds.yMax - tile.bounds.yMin))).round.toInt
+  private def latToPixel(tile: Tile, lat: Double): Int = {
+    ((lat - tile.bounds.yMin) * height / (tile.bounds.yMax - tile.bounds.yMin)).round.toInt
   }
 
   private def drawNodes(g: Graphics2D, data: TileData): Unit = {

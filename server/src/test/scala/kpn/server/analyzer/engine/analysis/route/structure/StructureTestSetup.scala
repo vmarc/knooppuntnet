@@ -5,12 +5,15 @@ import kpn.core.data.Data
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
 
@@ -35,10 +38,13 @@ class StructureTestSetup(val data: Data) extends MockFactory {
   }
 
   def analyze(traceEnabled: Boolean = false): RouteDetailAnalysisTestContext = {
-    val tileCalculator = new OldTileCalculatorImpl()
-    val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
-    val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
-    val routeTileAnalyzer = new RouteTileAnalyzer(routeTileCalculator)
+    val oldTileCalculator = new OldTileCalculatorImpl()
+    val tileCalculator = new TileCalculatorImpl()
+    val linesTileCalculator = new OldLinesTileCalculatorImpl(oldTileCalculator)
+    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
+    val routeTileCalculator = new RouteTileCalculatorImpl(lineSegmentTileCalculator)
+    val oldRouteTileAnalyzer = new OldRouteTileAnalyzer(routeTileCalculator)
+    val routeTileAnalyzer = new RouteTileAnalyzer(lineSegmentTileCalculator)
     val locationAnalyzer = stub[LocationAnalyzer]
     val routeRepository = stub[RouteRepository]
     val routeCountryAnalyzer = new RouteCountryAnalyzerMock()
@@ -46,6 +52,7 @@ class StructureTestSetup(val data: Data) extends MockFactory {
     val routeAnalyzer = new RouteDetailMainAnalyzer(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
+      oldRouteTileAnalyzer,
       routeTileAnalyzer
     )
     RouteDetailAnalysisTestContext(

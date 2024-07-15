@@ -34,15 +34,17 @@ import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
-import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldNodeTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
+import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
@@ -78,11 +80,12 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   private val locationAnalyzer = new LocationAnalyzerImpl(true, true)
 
-  private val tileCalculator = new OldTileCalculatorImpl()
+  private val oldTileCalculator = new OldTileCalculatorImpl()
+  private val tileCalculator = new TileCalculatorImpl()
 
   private val nodeAnalyzer: NodeAnalyzer = {
     val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(locationAnalyzer)
-    val nodeTileCalculator = new OldNodeTileCalculatorImpl(tileCalculator)
+    val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
     val nodeTileAnalyzer = new NodeTileAnalyzerImpl(nodeTileCalculator)
     val nodeLocationsAnalyzer = new NodeLocationsAnalyzerImpl(locationAnalyzer)
     val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
@@ -94,10 +97,15 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )
   }
 
+  private val oldRouteTileAnalyzer = {
+    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
+    val routeTileCalculator = new RouteTileCalculatorImpl(lineSegmentTileCalculator)
+    new OldRouteTileAnalyzer(routeTileCalculator)
+  }
+
   private val routeTileAnalyzer = {
-    val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
-    val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
-    new RouteTileAnalyzer(routeTileCalculator)
+    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
+    new RouteTileAnalyzer(lineSegmentTileCalculator)
   }
 
   val overpassQueryExecutor: OverpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
@@ -112,6 +120,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     new RouteDetailMainAnalyzer(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
+      oldRouteTileAnalyzer,
       routeTileAnalyzer
     )
   }
@@ -180,19 +189,18 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   val tilesBuilder: TilesBuilder = {
-    val tileCalculator = new OldTileCalculatorImpl()
+    val tileCalculator = new TileCalculatorImpl()
     val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
     val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
     val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
-    val nodeTileCalculator = new OldNodeTileCalculatorImpl(tileCalculator)
-    val linesTileCalculator = new OldLinesTileCalculatorImpl(tileCalculator)
-    val routeTileCalculator = new RouteTileCalculatorImpl(linesTileCalculator)
+    val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
+    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
     new TilesBuilder(
       bitmapTileFileRepository,
       vectorTileFileRepository,
       tileFileBuilder,
       nodeTileCalculator,
-      routeTileCalculator
+      lineSegmentTileCalculator
     )
   }
 }

@@ -4,7 +4,7 @@ import org.locationtech.jts.geom.Coordinate
 
 object Tile {
 
-  val EXTENT: Int = 256
+  val EXTENT: Int = 4096
 
   val CLIP_BUFFER: ClipBuffer = ClipBuffer(
     EXTENT * 14 / 256, // assume tile size 256 pixels, radius of node circle 14 pixels
@@ -19,7 +19,6 @@ object Tile {
     top = 0,
     bottom = EXTENT * 39 / 256 // poi icon height 37 (37 + 2)
   )
-
 
   def apply(z: Int, x: Int, y: Int): Tile = {
     new Tile(z, x, y)
@@ -47,6 +46,15 @@ class Tile(val z: Int, val x: Int, val y: Int) {
   val worldXMax = (x.toDouble + 1) / zoomFactor
   val worldYMin = y.toDouble / zoomFactor
   val worldYMax = (y.toDouble + 1) / zoomFactor
+
+  val bounds: Rectangle = {
+    Rectangle(
+      worldXMin,
+      worldXMax,
+      worldYMin,
+      worldYMax
+    )
+  }
 
   val clipBounds: Rectangle = {
     buildClipBounds(OldTile.CLIP_BUFFER)
@@ -77,8 +85,8 @@ class Tile(val z: Int, val x: Int, val y: Int) {
   }
 
   def scale(coordinate: Coordinate): Coordinate = {
-    val scaledX = ((coordinate.x - worldXMin) * 256 / (worldXMax - worldXMin))
-    val scaledY = ((coordinate.y - worldYMin) * 256 / (worldYMax - worldYMin))
+    val scaledX = ((coordinate.x - worldXMin) * Tile.EXTENT / (worldXMax - worldXMin))
+    val scaledY = ((coordinate.y - worldYMin) * Tile.EXTENT / (worldYMax - worldYMin))
     new Coordinate(scaledX, scaledY)
   }
 }

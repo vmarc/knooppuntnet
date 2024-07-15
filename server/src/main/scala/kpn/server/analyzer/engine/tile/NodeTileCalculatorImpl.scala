@@ -1,19 +1,19 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.LatLon
-import kpn.server.analyzer.engine.tiles.domain.OldTile
+import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.springframework.stereotype.Component
 
 @Component
-class OldNodeTileCalculatorImpl(tileCalculator: OldTileCalculator) extends OldNodeTileCalculator {
+class NodeTileCalculatorImpl(tileCalculator: TileCalculator) extends NodeTileCalculator {
 
-  override def tiles(z: Int, latLon: LatLon): Seq[OldTile] = {
+  override def tiles(z: Int, latLon: LatLon): Seq[Tile] = {
 
     val lon = latLon.lon
     val lat = latLon.lat
 
-    val x = OldTile.x(z, lon)
-    val y = OldTile.y(z, lat)
+    val x = Tile.tileX(z, lon)
+    val y = Tile.tileY(z, lat)
 
     Seq(
       Some(tileCalculator.tileXY(z, x, y)),
@@ -28,7 +28,7 @@ class OldNodeTileCalculatorImpl(tileCalculator: OldTileCalculator) extends OldNo
     ).flatten
   }
 
-  private def explore(lon: Double, lat: Double, z: Int, x: Int, y: Int): Option[OldTile] = {
+  private def explore(lon: Double, lat: Double, z: Int, x: Int, y: Int): Option[Tile] = {
     val tile = tileCalculator.tileXY(z, x, y)
     if (tile.clipBounds.contains(lon, lat)) Some(tile) else None
   }

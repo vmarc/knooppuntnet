@@ -29,6 +29,7 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.api.custom.Timestamp2
+import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
 import org.locationtech.jts.geom.Geometry
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder
 
@@ -115,6 +116,8 @@ object Json {
 
     b.deserializerByType(classOf[ElementChangeType], new ElementChangeTypeJsonDeserializer())
     b.serializerByType(classOf[ElementChangeType], new ElementChangeTypeJsonSerializer())
+
+    b.deserializerByType(classOf[CoordinateArray], new CoordinateArrayJsonDeserializer())
 
     val om: ObjectMapper = b.build()
     om.registerModule(DefaultScalaModule)
