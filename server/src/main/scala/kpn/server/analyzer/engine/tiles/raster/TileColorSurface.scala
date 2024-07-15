@@ -10,17 +10,17 @@ class TileColorSurface extends TileColor {
 
   override def routeColor(route: TileDataRoute, segment: RouteTileSegment): Color = {
     if ("unpaved" == segment.surface) {
-      TileColor.orange
+      TileColor.green
     }
     else if ("unknown" == segment.surface) {
-      TileColor.mediumBlue
+      TileColor.orange
     }
     else {
-      TileColor.green
+      TileColor.blue
     }
   }
 
   override def nodeColor(node: TileDataNode): Color = {
-    TileColor.green
+    TileColor.blue
   }
 }
