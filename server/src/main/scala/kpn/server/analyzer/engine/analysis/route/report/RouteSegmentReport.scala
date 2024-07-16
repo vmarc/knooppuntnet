@@ -53,8 +53,8 @@ class RouteSegmentReport(context: RouteDetailAnalysisContext) {
 
   private def segmentElements(segment: RouteAnalysisSegment): String = {
     segment.elements.map { element =>
-      val from = element.fromNetworkNode.map(node => s"from=${ReportUtil.osmNodeLink(node.node.id)}(${node.name})").getOrElse("")
-      val to = element.toNetworkNode.map(node => s"to=${ReportUtil.osmNodeLink(node.node.id)}(${node.name})").getOrElse("")
+      val from = element.fromNetworkNode.map(node => s"from=${ReportUtil.osmNodeLink(node.nodeId)}(${node.name})").getOrElse("")
+      val to = element.toNetworkNode.map(node => s"to=${ReportUtil.osmNodeLink(node.nodeId)}(${node.name})").getOrElse("")
       s"""<tr>
          |  <td colspan="5">
          |    Segment element ${element.id} ${element.direction.toString.toLowerCase} $from $to
@@ -125,7 +125,7 @@ class RouteSegmentReport(context: RouteDetailAnalysisContext) {
   }
 
   private def nodes(nodeIds: Seq[Long], nodeType: String, nodeDatas: Seq[RouteNodeData]): Seq[String] = {
-    val filteredNodeDatas = nodeDatas.filter(n => nodeIds.contains(n.node.id))
-    filteredNodeDatas.map(nodeData => s"$nodeType=${nodeData.node.id}(${nodeData.name})")
+    val filteredNodeDatas = nodeDatas.filter(n => nodeIds.contains(n.nodeId))
+    filteredNodeDatas.map(nodeData => s"$nodeType=${nodeData.nodeId}(${nodeData.name})")
   }
 }

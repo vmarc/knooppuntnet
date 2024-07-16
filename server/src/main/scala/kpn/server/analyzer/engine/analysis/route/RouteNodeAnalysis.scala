@@ -9,5 +9,5 @@ case class RouteNodeAnalysis(
 ) {
   def nodes: Seq[RouteNodeData] = startNode.toSeq ++ endNode.toSeq ++ startTentacleNodes ++ endTentacleNodes
 
-  def nodeIds: Seq[Long] = nodes.map(_.node.id)
+  def nodeIds: Seq[Long] = nodes.map(_.nodeId)
 }

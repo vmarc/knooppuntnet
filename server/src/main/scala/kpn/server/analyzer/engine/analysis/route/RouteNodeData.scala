@@ -1,9 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.api.common.data.Node
-
 case class RouteNodeData(
-  node: Node,
+  nodeId: Long,
+  //  latitude: String,
+  //  longitude: String,
   name: String,
+  alternateName: String,
+  //  longName: Option[String] = None,
+  //  definedInRelation: Boolean = false,
+  //  definedInWay: Boolean = false,
   isInWay: Boolean,
 )

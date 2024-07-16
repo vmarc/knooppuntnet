@@ -39,7 +39,7 @@ object RouteNodeAnalysisReport {
   private def routeNodeReport(nodeType: String, routeNode: RouteNodeData): String = {
     s"""<tr>
        |  <td>$nodeType</td>
-       |  <td>${routeNode.node.id}</td>
+       |  <td>${routeNode.nodeId}</td>
        |  <td>${routeNode.name}</td>
        |  <td>${yes(routeNode.isInWay)}</td>
        |</tr>

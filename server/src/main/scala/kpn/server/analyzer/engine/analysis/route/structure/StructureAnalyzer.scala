@@ -116,7 +116,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
     context.nodeAnalysis.endTentacleNodes.flatMap { toNode =>
       val usedElementIds = forwardPath.toSeq.flatMap(_.elementIds) ++ backwardPath.toSeq.flatMap(_.elementIds) ++ startTentaclePaths.flatMap(_.elementIds)
       val remainingElements = context.segments.flatMap(_.elements).filterNot(element => usedElementIds.contains(element.id))
-      remainingElements.find(_.toNodeId == toNode.node.id) match {
+      remainingElements.find(_.toNodeId == toNode.nodeId) match {
         case None => None
         case Some(firstElement) =>
           Some(
@@ -141,7 +141,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
     val usedElementIds = forwardPath.toSeq.flatMap(_.elementIds) ++ backwardPath.toSeq.flatMap(_.elementIds)
     val remainingElements = context.segments.flatMap(_.elements).filterNot(element => usedElementIds.contains(element.id))
     context.nodeAnalysis.startTentacleNodes.flatMap { fromNode =>
-      remainingElements.find(_.nodeIds.head == fromNode.node.id) match {
+      remainingElements.find(_.nodeIds.head == fromNode.nodeId) match {
         case None => None
         case Some(firstElement) =>
           Some(
@@ -167,20 +167,20 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
       None
     }
     else {
-      nodeNetworkFindFirstBackwardPathIndex(context.segments.flatMap(_.elements), mainEndNode.node.id).flatMap { index =>
+      nodeNetworkFindFirstBackwardPathIndex(context.segments.flatMap(_.elements), mainEndNode.nodeId).flatMap { index =>
         val lastBackwardElement = context.segments.flatMap(_.elements)(index)
         val remainingElements = context.segments.flatMap(_.elements).take(index).reverse
         val element = StructurePathElement(
           lastBackwardElement,
           reversed = true
         )
-        val elements = findNextBackwardPath(Seq(element), remainingElements, mainStartNode.node.id)
+        val elements = findNextBackwardPath(Seq(element), remainingElements, mainStartNode.nodeId)
         if (elements.nonEmpty) {
           Some(
             StructurePath(
               pathIds.next(),
-              mainEndNode.node.id,
-              mainStartNode.node.id,
+              mainEndNode.nodeId,
+              mainStartNode.nodeId,
               elements
             )
           )
@@ -194,20 +194,20 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
 
   private def nodeNetworkForwardPath(mainStartNode: RouteNodeData, mainEndNode: RouteNodeData): Option[StructurePath] = {
 
-    findFirstForwardPathIndex(context.segments.flatMap(_.elements), mainStartNode.node.id).flatMap { index =>
+    findFirstForwardPathIndex(context.segments.flatMap(_.elements), mainStartNode.nodeId).flatMap { index =>
       val firstForwardElement = context.segments.flatMap(_.elements)(index)
       val element = StructurePathElement(
         firstForwardElement,
         reversed = false
       )
       val remainingElements = context.segments.flatMap(_.elements).drop(index + 1)
-      val elements = nodeNetworkFindNextForwardPath(Seq(element), remainingElements, mainEndNode.node.id)
+      val elements = nodeNetworkFindNextForwardPath(Seq(element), remainingElements, mainEndNode.nodeId)
       if (elements.nonEmpty) {
         Some(
           StructurePath(
             pathIds.next(),
-            mainStartNode.node.id,
-            mainEndNode.node.id,
+            mainStartNode.nodeId,
+            mainEndNode.nodeId,
             elements
           )
         )

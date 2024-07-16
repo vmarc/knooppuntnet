@@ -39,8 +39,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/W)",
-        "End=(2/02/W)"
+        "start=1(01)W",
+        "end=2(02)W"
       )
     )
   }
@@ -56,8 +56,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/R)",
-        "End=(2/02/R)",
+        "start=1(01)R",
+        "end=2(02)R",
         "RouteNodeMissingInWays"
       )
     )
@@ -75,8 +75,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(2/20/20/W)",
-        "End=(1/100/100/W)",
+        "start=2(20)W",
+        "end=1(100)W)",
         "(reversed)"
       )
     )
@@ -101,54 +101,17 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/W)", // 01.a
-        "Start=(2/01/W)", // 01.b
-        "Start=(3/01/W)", // 01.c
-        "End=(4/02/W)", // 02.a
-        "End=(5/02/W)", // 02.b
-        "End=(6/02/W)" // 02.c
+        "start=3(01.a)W",
+        "end=4(02.a)W",
+        "start-tentacle=2(01.b)W",
+        "start-tentacle=1(01.c)W",
+        "end-tentacle=5(02.b)W",
+        "end-tentacle=6(02.c)W",
       )
     )
   }
 
-  test("route with extra start and end nodes in reverse order") {
-
-    pending // TODO redesign - this logic is not needed anymore in the new design?
-
-    val d = new RouteTestData("01-02") {
-      node(1, "01")
-      node(2, "01")
-      node(3, "01")
-      node(4, "02")
-      node(5, "02")
-      node(6, "02")
-      memberWay(11, "", 6)
-      memberWay(12, "", 5)
-      memberWay(13, "", 4)
-      memberWay(14, "", 3)
-      memberWay(15, "", 2)
-      memberWay(16, "", 1)
-    }
-
-    analyze(d).shouldMatchTo(
-      Seq(
-        "Start=(6/02/W)",
-        "Start=(5/02/W)",
-        "Start=(4/02/W)",
-        "End=(3/01/W)",
-        "End=(2/01/W)",
-        "End=(1/01/W)",
-        // "(reversed)"
-      )
-      /* TODO redesign - was:
-       "Start=(3/01/01.a/W,2/01/01.b/W,1/01/01.c/W)," +
-        "End=(4/02/02.a/W,5/02/02.b/W,6/02/02.c/W)," +
-        "(reversed)"
-       */
-    )
-  }
-
-  test("route with extra end nodes not in reverse order") {
+  test("route with extra end node") {
 
     val d = new RouteTestData("01-02") {
       node(1, "01")
@@ -160,29 +123,9 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/W)",
-        "End=(2/02/W)",
-        "End=(3/02/W)"
-      )
-    )
-  }
-
-  test("route with extra end nodes not in reverse order 2") {
-
-    pending // TODO redesign - this test is not needed anymore in the new design?
-
-    val d = new RouteTestData("01-02") {
-      node(1, "01")
-      node(2, "02")
-      node(3, "02")
-      memberWay(11, "", 2, 1)
-      memberWay(12, "", 2, 3)
-    }
-
-    analyze(d).shouldMatchTo(
-      Seq(
-        "Start=(1/01/01/W)",
-        "End=(2/02/02.a/W,3/02/02.b/W)"
+        "start=1(01)W",
+        "end=2(02.a)W",
+        "end-tentacle=3(02.b)W",
       )
     )
   }
@@ -201,9 +144,9 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/W)",
-        "End=(2/02/W)",
-        "Redundant=(3/03/R)",
+        "start=1(01)W",
+        "end=2(02)W",
+        "redundant=3(03)R",
         "RouteRedundantNodes"
       )
     )
@@ -221,10 +164,10 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/W)",
-        "End=(3/03/W)",
-        "Redundant=(2/02/W)",
-        "RouteRedundantNodes"
+        "start=1(01)W",
+        "end=3(03)W",
+        "redundant=2(02)W",
+        "RouteRedundantNodes",
       )
     )
   }
@@ -243,8 +186,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/01/W)",
-        "End=(2/02/02/W)",
+        "start=(1/01/01/W)",
+        "end=(2/02/02/W)",
         "Redundant=(3/03/03/W)",
         "RouteRedundantNodes"
       )
@@ -268,6 +211,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(17, "", 7, 8) // 8: end --> 01
       memberWay(18, "", 8, 9) // 9: redundant --> 02
     }
+    analyze(d).foreach(a => println(s""""$a","""))
 
     analyze(d).shouldMatchTo(
       Seq(
@@ -314,8 +258,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/01/W)",
-        "End=(3/02/02/W)",
+        "start=(1/01/01/W)",
+        "end=(3/02/02/W)",
         "Redundant=(5/03/03/W)",
         "RouteRedundantNodes"
       )
@@ -334,8 +278,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/01/R)",
-        "End=(3/02/02/RW)",
+        "start=(1/01/01/R)",
+        "end=(3/02/02/RW)",
         "RouteNodeMissingInWays"
       )
     )
@@ -353,7 +297,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "End=(2/02/02/RW)",
+        "end=(2/02/02/RW)",
         "Redundant=(1/01/01/RW)",
         "RouteRedundantNodes"
       )
@@ -372,7 +316,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/01/RW)",
+        "start=(1/01/01/RW)",
         "Redundant=(2/02/02/RW)",
         "RouteRedundantNodes"
       )
@@ -408,8 +352,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/01/RW)",
-        "End=(2/02/02/RW)"
+        "start=(1/01/01/RW)",
+        "end=(2/02/02/RW)"
       )
     )
   }
@@ -443,8 +387,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/02/02/W)",
-        "End=(3/01/01/W)"
+        "start=(1/02/02/W)",
+        "end=(3/01/01/W)"
       )
     )
   }
@@ -466,8 +410,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(5/01/01/W)",
-        "End=(3/03/03/W)",
+        "start=(5/01/01/W)",
+        "end=(3/03/03/W)",
         "Redundant=(1/02/02/W)",
         "(reversed)",
         "RouteNameMissing",
@@ -504,8 +448,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Start=(1/01/01/W)",
-        "End=(2/02/02/W)"
+        "start=(1/01/01/W)",
+        "end=(2/02/02/W)"
       )
     )
   }
@@ -538,8 +482,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d, proposed = true).shouldMatchTo(
       Seq(
-        "Start=(1/01/01/W)",
-        "End=(2/02/02/W)"
+        "start=(1/01/01/W)",
+        "end=(2/02/02/W)"
       )
     )
   }

@@ -203,8 +203,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       RoutePathDirection.Bidirectional
     }
 
-    val fromNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == fromNodeId)
-    val toNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == toNodeId)
+    val fromNetworkNode = context.nodeAnalysis.nodes.find(_.nodeId == fromNodeId)
+    val toNetworkNode = context.nodeAnalysis.nodes.find(_.nodeId == toNodeId)
 
     buildElement(
       direction,
@@ -228,8 +228,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   private def buildFragmentElement(routeLinkWay: RouteLinkWay, direction: RoutePathDirection, nodeIds: Seq[Long]): RouteAnalysisElement = {
     // this is a closed loop at the end of the route
     val fragment = toFragment(routeLinkWay, nodeIds)
-    val fromNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == fragment.fromNodeId)
-    val toNetworkNode = context.nodeAnalysis.nodes.find(_.node.id == fragment.toNodeId)
+    val fromNetworkNode = context.nodeAnalysis.nodes.find(_.nodeId == fragment.fromNodeId)
+    val toNetworkNode = context.nodeAnalysis.nodes.find(_.nodeId == fragment.toNodeId)
 
     buildElement(
       direction,

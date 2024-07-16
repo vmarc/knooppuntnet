@@ -18,7 +18,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyze
 import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
@@ -84,7 +83,7 @@ class RouteDetailMainAnalyzer(
         OldRouteNodeTagAnalyzer,
         RouteNameAnalyzer,
 
-        OldRouteNodeAnalyzer,
+        //OldRouteNodeAnalyzer,
         RouteNameFromNodesAnalyzer,
         ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK

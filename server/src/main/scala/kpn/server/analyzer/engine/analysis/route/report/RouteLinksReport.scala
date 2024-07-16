@@ -95,7 +95,7 @@ class RouteLinksReport(context: RouteDetailAnalysisContext) {
   }
 
   private def nodes(nodeIds: Seq[Long], nodeType: String, nodeDatas: Seq[RouteNodeData]): Seq[String] = {
-    val filteredNodeDatas = nodeDatas.filter(n => nodeIds.contains(n.node.id))
-    filteredNodeDatas.map(nodeData => s"$nodeType=${nodeData.node.id}(${nodeData.name})")
+    val filteredNodeDatas = nodeDatas.filter(n => nodeIds.contains(n.nodeId))
+    filteredNodeDatas.map(nodeData => s"$nodeType=${nodeData.nodeId}(${nodeData.name})")
   }
 }

@@ -55,8 +55,8 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
     else {
       "←"
     }
-    val from = element.fromNetworkNode.map(n => s"  ${n.node.id}(${n.name})").getOrElse("")
-    val to = element.toNetworkNode.map(n => s"  ${n.node.id}(${n.name})").getOrElse("")
+    val from = element.fromNetworkNode.map(n => s"  ${n.nodeId}(${n.name})").getOrElse("")
+    val to = element.toNetworkNode.map(n => s"  ${n.nodeId}(${n.name})").getOrElse("")
     val nodes = element.nodeIds.mkString(", ")
     s"""  element-${element.id} ${element.fromNodeId}>${element.toNodeId}$from$to  $direction  nodes=$nodes"""
   }
@@ -71,6 +71,6 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
   }
 
   private def networkNodeStrings(nodeType: String, nodeDatas: Seq[RouteNodeData]): Seq[String] = {
-    nodeDatas.map(routeNodeData => s"$nodeType=${routeNodeData.node.id}(${routeNodeData.name})")
+    nodeDatas.map(routeNodeData => s"$nodeType=${routeNodeData.nodeId}(${routeNodeData.name})")
   }
 }
