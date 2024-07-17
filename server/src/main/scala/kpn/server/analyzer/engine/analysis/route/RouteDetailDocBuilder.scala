@@ -127,7 +127,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
   private def buildSegments: Seq[RouteDetailSegment] = {
     val ways = context.relation.wayMembers.map(_.way)
     context.segments.map { segment =>
-      val segmentWayIds = segment.elements.flatMap(_.fragments).map(_.wayId)
+      val segmentWayIds = segment.elements.flatMap(_.fragments).map(_.way.id)
       val segmentWays = segmentWayIds.flatMap(wayId => ways.find(_.id == wayId))
       val meters = segmentWays.map(_.length).sum
       val segmentNodes = segmentWays.flatMap(_.nodes)

@@ -30,7 +30,7 @@ class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: 
   }
 
   private def locate(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
-    val routeLocationAnalysis = routeLocator.locate(context.routeMap)
+    val routeLocationAnalysis = routeLocator.locate(context.segments)
     if (routeLocationAnalysis.location.isEmpty && context.country.nonEmpty) {
       val country = context.country.get.domain
       context.copy(

@@ -98,7 +98,7 @@ class RouteSegmentReport(context: RouteDetailAnalysisContext) {
        |    <pre>${fragment.link.reportString}</pre>
        |  </td>
        |  <td>
-       |    ${ReportUtil.osmLink("way", fragment.wayId)}
+       |    ${ReportUtil.osmLink("way", fragment.way.id)}
        |  </td>
        |  <td>
        |    ${fragment.role.getOrElse("")}

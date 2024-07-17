@@ -5,7 +5,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.core.doc.RouteDetailDoc
-import kpn.core.doc.RouteDoc
 import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
@@ -25,7 +24,7 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
       val locator = new RouteLocatorImpl(LocationAnalyzerTest.locationAnalyzer)
 
       // route 24-81
-      locator.locate(route("28184").analysis.map).shouldMatchTo(
+      route("28184").locationAnalysis.shouldMatchTo(
         RouteLocationAnalysis(
           Some(essen),
           Seq(
@@ -46,7 +45,7 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
       )
 
       // route 55-95
-      locator.locate(route("19227").analysis.map).shouldMatchTo(
+      route("19227").locationAnalysis.shouldMatchTo(
         RouteLocationAnalysis(
           Some(rucphen),
           Seq(
@@ -67,7 +66,7 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
       )
 
       // route 80-89
-      locator.locate(route("28182").analysis.map).shouldMatchTo(
+      route("28182").locationAnalysis.shouldMatchTo(
         RouteLocationAnalysis(
           Some(kalmthout),
           Seq(

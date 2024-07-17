@@ -10,6 +10,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
@@ -23,7 +24,7 @@ import scala.xml.XML
 
 object CaseStudy extends MockFactory {
 
-  def routeAnalysis(name: String): RouteDetailAnalysis = {
+  def analyze(name: String): RouteDetailAnalysisContext = {
     val filename = s"/case-studies/$name.xml"
     val routeRelation = load(filename)
     val locationAnalyzer = new LocationAnalyzerFixed()
@@ -43,7 +44,11 @@ object CaseStudy extends MockFactory {
       oldRouteTileAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(routeRelation, None /* TODO redesign - hierarchy */).get.oldRouteDetailAnalysis
+    routeAnalyzer.analyze(routeRelation, None /* TODO redesign - hierarchy */).get
+  }
+
+  def routeAnalysis(name: String): RouteDetailAnalysis = {
+    analyze(name).oldRouteDetailAnalysis
   }
 
   def load(filename: String): Relation = {

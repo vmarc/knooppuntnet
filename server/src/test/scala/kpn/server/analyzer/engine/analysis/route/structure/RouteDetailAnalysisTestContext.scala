@@ -61,7 +61,7 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
   }
 
   private def fragmentToString(link: RouteAnalysisFragment): String = {
-    s"""    way-${link.wayId}  ${link.link.reportString}"""
+    s"""    way-${link.way.id}  ${link.link.reportString}"""
   }
 
   private def pathToString(path: StructurePath): String = {

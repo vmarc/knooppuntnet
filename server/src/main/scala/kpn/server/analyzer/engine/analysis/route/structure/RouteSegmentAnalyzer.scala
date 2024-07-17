@@ -244,7 +244,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     val surface = new SurfaceAnalyzer(context.networkTypes, routeLinkWay.way).surface()
     RouteAnalysisFragment(
       fragmentIds.next(),
-      routeLinkWay.way.id,
+      routeLinkWay.way,
       routeLinkWay.link,
       routeLinkWay.role,
       surface,

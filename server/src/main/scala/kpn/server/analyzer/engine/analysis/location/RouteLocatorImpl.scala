@@ -1,11 +1,9 @@
 package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.RouteLocationAnalysis
-import kpn.api.common.common.TrackSegment
 import kpn.api.common.location.LocationCandidate
-import kpn.api.common.route.RouteMap
 import kpn.core.util.Haversine
-import org.locationtech.jts.geom.Coordinate
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisSegment
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString
@@ -17,9 +15,9 @@ class RouteLocatorImpl(locationAnalyzer: LocationAnalyzer) extends RouteLocator 
 
   private val geometryFactory = new GeometryFactory
 
-  def locate(routeMap: RouteMap): RouteLocationAnalysis = {
+  def locate(segments: Seq[RouteAnalysisSegment]): RouteLocationAnalysis = {
 
-    val routeGeometries: Seq[Geometry] = toGeometries(routeMap)
+    val routeGeometries: Seq[Geometry] = toGeometries(segments)
 
     val candidates: Seq[LocationSelector] = locationAnalyzer.locateGeometries(routeGeometries)
 
@@ -51,20 +49,8 @@ class RouteLocatorImpl(locationAnalyzer: LocationAnalyzer) extends RouteLocator 
     }
   }
 
-  private def toGeometries(routeMap: RouteMap): Seq[Geometry] = {
-    toSegments(routeMap).flatMap { segment =>
-      val coordinates = (segment.source +: segment.fragments.map(_.trackPoint)).map { trackPoint =>
-        val lat = trackPoint.lat.toDouble
-        val lon = trackPoint.lon.toDouble
-        new Coordinate(lon, lat)
-      }
-      if (coordinates.size > 1) {
-        Some(geometryFactory.createLineString(coordinates.toArray))
-      }
-      else {
-        None
-      }
-    }
+  private def toGeometries(segments: Seq[RouteAnalysisSegment]): Seq[Geometry] = {
+    segments.flatMap(_.elements).flatMap(_.fragmentGroups).map(_.lineString)
   }
 
   private def lineLength(geometry: Geometry): Double = {
@@ -77,17 +63,6 @@ class RouteLocatorImpl(locationAnalyzer: LocationAnalyzer) extends RouteLocator 
 
       case _ => 0d
     }
-  }
-
-  private def toSegments(routeMap: RouteMap): Seq[TrackSegment] = {
-    Seq(
-      routeMap.forwardPath.toSeq.flatMap(_.segments),
-      routeMap.backwardPath.toSeq.flatMap(_.segments),
-      routeMap.unusedSegments,
-      routeMap.startTentaclePaths.flatMap(_.segments),
-      routeMap.endTentaclePaths.flatMap(_.segments),
-      routeMap.freePaths.flatMap(_.segments)
-    ).flatten
   }
 
   private def calculateDistance(routeGeometries: Seq[Geometry], location: LocationSelector): Double = {
