@@ -6,5 +6,6 @@ case class RouteMapInfo(
   routeId: Long,
   routeName: String,
   networkType: NetworkType,
-  map: RouteMap
+  segments: Seq[RouteSegment],
+  paths: Seq[RoutePath],
 )

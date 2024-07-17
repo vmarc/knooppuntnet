@@ -67,15 +67,15 @@ object Util {
 
   def classNameOf(obj: Any): String = obj.getClass.getSimpleName.filterNot(_ == '$')
 
-  def mergeBounds(boundss: Seq[Bounds]): Bounds = {
-    if (boundss.isEmpty) {
+  def mergeBounds(boundsCollection: Seq[Bounds]): Bounds = {
+    if (boundsCollection.isEmpty) {
       Bounds()
     }
     else {
-      val minLat = boundss.map(_.minLat).min
-      val maxLat = boundss.map(_.maxLat).max
-      val minLon = boundss.map(_.minLon).min
-      val maxLon = boundss.map(_.maxLon).max
+      val minLat = boundsCollection.map(_.minLat).min
+      val maxLat = boundsCollection.map(_.maxLat).max
+      val minLon = boundsCollection.map(_.minLon).min
+      val maxLon = boundsCollection.map(_.maxLon).max
       Bounds(
         minLat,
         minLon,

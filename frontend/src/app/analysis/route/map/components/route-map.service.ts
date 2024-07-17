@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { RouteMapInfo } from '@api/common/route';
-import { OlUtil } from '@app/ol';
+import { RouteMapPage } from '@api/common/route';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { OpenDataLayers } from '@app/ol/layers';
@@ -11,13 +10,13 @@ import { MapLayerRegistry } from '@app/ol/layers';
 import { OsmLayer } from '@app/ol/layers';
 import { TileDebug256Layer } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
-import { RouteLayers } from '@app/ol/layers';
 import { MapClickService } from '@app/ol/services';
 import { OpenlayersMapService } from '@app/ol/services';
 import { NodeMapStyle } from '@app/ol/style';
 import { Coordinate } from 'ol/coordinate';
 import { Extent } from 'ol/extent';
 import Map from 'ol/Map';
+import { fromLonLat } from 'ol/proj';
 import { ViewOptions } from 'ol/View';
 import View from 'ol/View';
 
@@ -25,8 +24,8 @@ import View from 'ol/View';
 export class RouteMapService extends OpenlayersMapService {
   private readonly mapClickService = inject(MapClickService);
 
-  init(routeMapInfo: RouteMapInfo, mapPositionFromUrl: MapPosition, urlLayerIds: string[]): void {
-    this.registerLayers(routeMapInfo, urlLayerIds);
+  init(routeMapPage: RouteMapPage, mapPositionFromUrl: MapPosition, urlLayerIds: string[]): void {
+    this.registerLayers(routeMapPage, urlLayerIds);
 
     let viewOptions: ViewOptions = {
       minZoom: ZoomLevel.minZoom,
@@ -57,33 +56,39 @@ export class RouteMapService extends OpenlayersMapService {
     const view = this.map.getView();
 
     if (!mapPositionFromUrl) {
-      view.fit(this.buildExtent(routeMapInfo));
+      view.fit(this.buildExtent(routeMapPage));
     }
 
     this.finalizeSetup(true);
   }
 
-  private registerLayers(routeMapInfo: RouteMapInfo, urlLayerIds: string[]): void {
+  private registerLayers(page: RouteMapPage, urlLayerIds: string[]): void {
     const networkVectorTileLayer = NetworkVectorTileLayer.build(
-      routeMapInfo.networkType,
+      page.routeMapInfo.networkType,
       new NodeMapStyle().styleFunction()
     );
-    const routeLayers = new RouteLayers(routeMapInfo.map).build();
+    // const routeLayers = new RouteLayers(page.map).build();
     const registry = new MapLayerRegistry();
     registry.register(urlLayerIds, BackgroundLayer.build(), true);
     registry.register(urlLayerIds, OsmLayer.build(), false);
     registry.register(urlLayerIds, networkVectorTileLayer, true);
-    routeLayers.forEach((mapLayer) => registry.register(urlLayerIds, mapLayer, true));
-    OpenDataLayers.register(registry, routeMapInfo.networkType, urlLayerIds);
+    // routeLayers.forEach((mapLayer) => registry.register(urlLayerIds, mapLayer, true));
+    OpenDataLayers.register(registry, page.routeMapInfo.networkType, urlLayerIds);
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);
 
     this.register(registry);
   }
 
-  private buildExtent(routeMapInfo: RouteMapInfo): Extent {
-    const bounds = routeMapInfo.map.bounds;
-    const min = OlUtil.toCoordinate(bounds.latMin, bounds.lonMin);
-    const max = OlUtil.toCoordinate(bounds.latMax, bounds.lonMax);
+  private buildExtent(page: RouteMapPage): Extent {
+    const bounds = page.bounds;
+    const latExtra = (bounds.maxLat - bounds.minLat) / 5;
+    const lonExtra = (bounds.maxLon - bounds.minLon) / 5;
+    const latMinAdjusted = bounds.minLat - latExtra;
+    const latMaxAdjusted = bounds.maxLat + latExtra;
+    const lonMinAdjusted = bounds.minLon - lonExtra;
+    const lonMaxAdjusted = bounds.maxLon + lonExtra;
+    const min = fromLonLat([lonMinAdjusted, latMinAdjusted]);
+    const max = fromLonLat([lonMaxAdjusted, latMaxAdjusted]);
     return [min[0], min[1], max[0], max[1]];
   }
 }
