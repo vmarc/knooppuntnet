@@ -36,7 +36,7 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
       context.unexpectedNodeIds,
       context.unexpectedRelationIds,
       context.expectedName.getOrElse(""),
-      context.structure,
+      context.oldStructure,
       context.oldRouteNodeAnalysis,
       context.nodes.toRouteNodes
     )
@@ -44,7 +44,7 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
     RouteDetailAnalysis(
       context.relation,
       routeDetail = route,
-      structure = context.structure,
+      structure = context.oldStructure,
       routeNodeAnalysis = context.oldRouteNodeAnalysis,
       routeMembers = context._routeMembers.get,
       ways = context._ways.get,
@@ -119,8 +119,6 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
       expectedName,
       routeMap,
       new RouteStructureFormatter(structure).strings,
-      context.geometryDigest,
-      context.locationAnalysis.get
     )
 
     val lastUpdatedElement: Element = {
@@ -166,6 +164,8 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
       nameDerivedFromNodes,
       nodes,
       routeAnalysis,
+      context.geometryDigest,
+      context.locationAnalysis,
       context.tiles,
       routeAnalysis.map.nodeIds,
       context.elementIds,

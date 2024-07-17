@@ -64,6 +64,7 @@ class RouteMainAnalyzer {
           context.routeDetailDoc.nameDerivedFromNodes,
           context.routeDetailDoc.nodes,
           context.routeDetailDoc.analysis,
+          context.routeDetailDoc.locationAnalysis,
           segments,
           paths
         )

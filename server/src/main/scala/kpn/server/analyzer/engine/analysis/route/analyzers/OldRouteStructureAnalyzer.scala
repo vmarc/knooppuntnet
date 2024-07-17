@@ -36,7 +36,7 @@ class OldRouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
     // val structure = analyzeStructure(context.oldRouteNodeAnalysis)
     // analyzeStructure2(context.oldRouteNodeAnalysis, structure, context.fragmentMap.all)
     context.copy(
-      _structure = Some(RouteStructure()) // TODO redesign - Some(structure),
+      _oldStructure = Some(RouteStructure()) // TODO redesign - Some(structure),
       // oldFacts = oldFacts.toSeq,
     )
   }

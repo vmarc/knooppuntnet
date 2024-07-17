@@ -81,7 +81,7 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
     }
 
     context.copy(
-      _newStructure = Some(structure),
+      _structure = Some(structure),
       facts = facts.toSeq,
     )
   }

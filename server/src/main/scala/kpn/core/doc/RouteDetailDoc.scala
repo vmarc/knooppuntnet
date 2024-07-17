@@ -1,6 +1,7 @@
 package kpn.core.doc
 
 import kpn.api.base.WithId
+import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Ref
 import kpn.api.common.route.RouteEdge
@@ -29,6 +30,8 @@ case class RouteDetailDoc(
   nameDerivedFromNodes: Boolean,
   nodes: RouteNodes,
   analysis: RouteInfoAnalysis,
+  geometryDigest: String,
+  locationAnalysis: RouteLocationAnalysis,
   tiles: Seq[String],
   nodeRefs: Seq[Long], // networkNodeIds
   elementIds: ElementIds,

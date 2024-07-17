@@ -51,7 +51,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no location analysis - country location is included") {
     val context = buildContext().copy(
-      locationAnalysis = Some(
+      _locationAnalysis = Some(
         RouteLocationAnalysis(
           None,
           Seq.empty,
@@ -83,7 +83,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
       country = Some(Country.be),
       lastSurvey = Some(Day(2020, 8)),
       facts = Seq(Fact.RouteBroken),
-      locationAnalysis = Some(
+      _locationAnalysis = Some(
         RouteLocationAnalysis(
           None,
           Seq.empty,

@@ -125,7 +125,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
         key = key,
         changeType = ChangeType.InitialValue,
         name = routeDoc.summary.name,
-        locationAnalysis = routeDoc.analysis.locationAnalysis,
+        locationAnalysis = routeDoc.locationAnalysis,
         addedToNetwork = Seq.empty,
         removedFromNetwork = Seq.empty,
         before = None,

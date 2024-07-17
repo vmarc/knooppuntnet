@@ -6,6 +6,6 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisConte
 class RouteLocationAnalyzerMock extends RouteLocationAnalyzer {
 
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
-    context.copy(locationAnalysis = Some(RouteLocationAnalysis(None, Seq.empty, Seq.empty)))
+    context.copy(_locationAnalysis = Some(RouteLocationAnalysis(None, Seq.empty, Seq.empty)))
   }
 }

@@ -73,7 +73,7 @@ class RouteChangeBuilderImpl(
               key = key,
               changeType = ChangeType.Create,
               name = analysisAfter.name,
-              locationAnalysis = analysisAfter.routeDetail.analysis.locationAnalysis,
+              locationAnalysis = analysisAfter.routeDetail.locationAnalysis,
               addedToNetwork = context.networkAfter.map(_.toRef).toSeq,
               removedFromNetwork = Seq.empty,
               before = None,
@@ -104,7 +104,7 @@ class RouteChangeBuilderImpl(
               key = key,
               changeType = ChangeType.Update,
               name = analysisAfter.name,
-              locationAnalysis = analysisAfter.routeDetail.analysis.locationAnalysis,
+              locationAnalysis = analysisAfter.routeDetail.locationAnalysis,
               addedToNetwork = context.networkAfter.map(_.toRef).toSeq,
               removedFromNetwork = Seq.empty,
               before = Some(analysisBefore.toRouteData),
@@ -148,10 +148,10 @@ class RouteChangeBuilderImpl(
               expectedName = "",
               map = RouteMap(),
               structureStrings = Seq.empty,
-              geometryDigest = "",
-              locationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty)
             ),
-            lastUpdated = context.changeSetContext.changeSet.timestamp
+            lastUpdated = context.changeSetContext.changeSet.timestamp,
+            geometryDigest = "",
+            locationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty)
           )
 
           routeRepository.saveRouteDetail(routeDetailDoc)
@@ -169,7 +169,7 @@ class RouteChangeBuilderImpl(
                 key = key,
                 changeType = ChangeType.Delete,
                 name = analysisBefore.name,
-                locationAnalysis = analysisBefore.routeDetail.analysis.locationAnalysis,
+                locationAnalysis = analysisBefore.routeDetail.locationAnalysis,
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
                 before = Some(analysisBefore.toRouteData),
@@ -227,7 +227,7 @@ class RouteChangeBuilderImpl(
           key = key,
           changeType = ChangeType.Update,
           name = analysisAfter.name,
-          locationAnalysis = analysisAfter.routeDetail.analysis.locationAnalysis,
+          locationAnalysis = analysisAfter.routeDetail.locationAnalysis,
           addedToNetwork = Seq.empty,
           removedFromNetwork = context.networkBefore.map(_.toRef).toSeq,
           before = Some(analysisBefore.toRouteData),
@@ -272,7 +272,7 @@ class RouteChangeBuilderImpl(
                 key = key,
                 changeType = ChangeType.Update,
                 name = analysisAfter.name,
-                locationAnalysis = analysisAfter.routeDetail.analysis.locationAnalysis,
+                locationAnalysis = analysisAfter.routeDetail.locationAnalysis,
                 addedToNetwork = Seq.empty,
                 removedFromNetwork = Seq.empty,
                 before = Some(analysisBefore.toRouteData),

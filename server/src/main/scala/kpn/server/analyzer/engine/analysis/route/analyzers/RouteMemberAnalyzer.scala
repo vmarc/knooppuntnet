@@ -9,8 +9,8 @@ import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.analysis.TagInterpreter
-import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNodes
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkWay
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
@@ -22,7 +22,7 @@ object RouteMemberAnalyzer extends RouteAnalyzer {
 class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
-    val routeMembers: Seq[RouteMember] = Seq.empty // TODO redesign - analyzeRouteMembers(context.oldRouteNodeAnalysis)
+    val routeMembers: Seq[RouteMember] = analyzeRouteMembers(context.nodes)
     if (routeMembers.exists(!_.accessible)) {
       context.copy(_routeMembers = Some(routeMembers)).withFact(RouteInaccessible)
     }
@@ -31,7 +31,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
     }
   }
 
-  private def analyzeRouteMembers(routeNodeAnalysis: OldRouteNodeAnalysis): Seq[RouteMember] = {
+  private def analyzeRouteMembers(nodes: RouteAnalysisNodes): Seq[RouteMember] = {
     // map with key Node.id and value node number
     val nodeMap: scala.collection.mutable.Map[Long, Int] = scala.collection.mutable.Map.empty
     val nodeNumberIterator = (1 to 10000).iterator
@@ -71,7 +71,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           n
         }
 
-        val alternateName = routeNodeAnalysis.routeNodes.find(rn => rn.id == node.id).map(_.alternateName) match {
+        val alternateName = nodes.nodes.find(rn => rn.node.id == node.id).map(_.alternateName) match {
           case Some(aname) => aname
           case _ => name
         }
@@ -97,7 +97,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           else {
             false
           }
-        }.flatMap(n => routeNodeAnalysis.routeNodes.find(_.id == n.id))
+        }.flatMap(n => nodes.nodes.find(_.node.id == n.id))
         val name = way.tagValue("name").getOrElse("")
 
         val fromNode = if (link.link.direction == LinkDirection.Forward) way.nodes.head else way.nodes.last
@@ -137,7 +137,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           from.toString,
           to.toString,
           accessible,
-          wayNetworkNodes
+          wayNetworkNodes.map(_.toRouteNode)
         )
     }
   }

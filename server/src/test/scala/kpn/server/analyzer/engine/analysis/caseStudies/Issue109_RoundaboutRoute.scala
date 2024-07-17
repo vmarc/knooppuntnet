@@ -46,7 +46,7 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
     val context = routeAnalyzer.analyze(relation, None).get
 
     assert(context.facts.isEmpty)
-    assert(context.structure.unusedSegments.isEmpty)
+    assert(context.oldStructure.unusedSegments.isEmpty)
 
     context.routeMap.freeNodes.map(_.id).toSet should equal(
       Set(

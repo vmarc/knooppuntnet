@@ -48,14 +48,9 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       )
     }
 
-    val length: Long = context.ways.map(_.length).sum
+    val length: Long = context.relation.wayMembers.map(_.way.length).sum
 
-    val routeWays: Seq[Way] = {
-      context.routeMembers.flatMap {
-        case w: RouteMemberWay => Some(w.way)
-        case _ => None
-      }
-    }
+    val routeWays: Seq[Way] = context.relation.wayMembers.map(_.way)
 
     def routeMemberWays: Seq[RouteMemberWay] = {
       context.routeMembers.flatMap {
@@ -71,9 +66,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
     val routeAnalysis = RouteInfoAnalysis(
       context.expectedName.getOrElse(""),
       context.routeMap,
-      new RouteStructureFormatter(context.structure).strings,
-      context.geometryDigest,
-      context.locationAnalysis.get
+      new RouteStructureFormatter(context.oldStructure).strings,
     )
 
     val lastUpdatedElement: Element = {
@@ -119,6 +112,8 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       nameDerivedFromNodes,
       context.nodes.toRouteNodes,
       routeAnalysis,
+      context.geometryDigest,
+      context._locationAnalysis.get,
       context.tiles,
       routeAnalysis.map.nodeIds,
       context.elementIds,
@@ -175,11 +170,11 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
 
   private def buildPaths: Seq[RouteDetailPath] = {
     Seq(
-      context.newStructure.forwardPath.toSeq.map(path => toRouteDetailPath(path, "forward")),
-      context.newStructure.backwardPath.toSeq.map(path => toRouteDetailPath(path, "backward")),
-      context.newStructure.startTentaclePaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"start-tentacle-${index + 1}") },
-      context.newStructure.endTentaclePaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"end-tentacle-${index + 1}") },
-      context.newStructure.otherPaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"other-${index + 1}") },
+      context.structure.forwardPath.toSeq.map(path => toRouteDetailPath(path, "forward")),
+      context.structure.backwardPath.toSeq.map(path => toRouteDetailPath(path, "backward")),
+      context.structure.startTentaclePaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"start-tentacle-${index + 1}") },
+      context.structure.endTentaclePaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"end-tentacle-${index + 1}") },
+      context.structure.otherPaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"other-${index + 1}") },
     ).flatten
   }
 

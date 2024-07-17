@@ -186,7 +186,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             "forward=(01-02 via +<01-02 101>)",
             "backward=(02-01 via -<01-02 101>)"
           ),
-          geometryDigest = "39dfa55283318d31afe5a3ff4a0e3253e2045e43"
         )
       )
     )
@@ -285,7 +284,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             "forward=(01-02 via +<01-02 101>)",
             "backward=(02-01 via -<01-02 101>)"
           ),
-          geometryDigest = "39dfa55283318d31afe5a3ff4a0e3253e2045e43"
         ),
         nodeRefs = Seq(
           1001,

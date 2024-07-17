@@ -31,7 +31,7 @@ class RouteDetailsPageBuilderImpl(
         val changeCount = changeSetRepository.routeChangesCount(routeId)
         val networkReferences = routeRepository.networkReferences(routeId)
         val locationCandidateInfos = {
-          routeDoc.analysis.locationAnalysis.candidates.map { candidate =>
+          routeDoc.locationAnalysis.candidates.map { candidate =>
             val locationNames = candidate.location.names
             val locationInfos = locationService.toInfos(language, locationNames, locationNames)
             LocationCandidateInfo(locationInfos, candidate.percentage)

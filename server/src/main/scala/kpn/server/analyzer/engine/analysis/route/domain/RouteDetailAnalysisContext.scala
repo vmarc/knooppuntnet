@@ -53,15 +53,15 @@ case class RouteDetailAnalysisContext(
   expectedName: Option[String] = None,
   suspiciousWayIds: Option[Seq[Long]] = None,
   _fragmentMap: Option[FragmentMap] = None,
-  _structure: Option[RouteStructure] = None,
-  _newStructure: Option[Structure] = None,
+  _oldStructure: Option[RouteStructure] = None,
+  _structure: Option[Structure] = None,
   _routeMembers: Option[Seq[RouteMember]] = None,
   _routeMap: Option[RouteMap] = None,
   _ways: Option[Seq[Way]] = None,
   allWayNodes: Option[Seq[Node]] = None,
   streets: Option[Seq[String]] = None,
   _geometryDigest: Option[String] = None,
-  locationAnalysis: Option[RouteLocationAnalysis] = None,
+  _locationAnalysis: Option[RouteLocationAnalysis] = None,
   lastSurvey: Option[Day] = None,
   labels: Seq[String] = Seq.empty,
   _tileAnalysis: Option[RouteTileAnalysis] = None,
@@ -181,13 +181,15 @@ case class RouteDetailAnalysisContext(
 
   def fragmentMap: FragmentMap = _fragmentMap.getOrElse(throw new PreconditionMissingException)
 
-  def structure: RouteStructure = _structure.getOrElse(throw new PreconditionMissingException)
+  def oldStructure: RouteStructure = _oldStructure.getOrElse(throw new PreconditionMissingException)
 
-  def newStructure: Structure = _newStructure.getOrElse(throw new PreconditionMissingException)
+  def structure: Structure = _structure.getOrElse(throw new PreconditionMissingException)
 
   def routeMembers: Seq[RouteMember] = _routeMembers.getOrElse(throw new PreconditionMissingException)
 
   def geometryDigest: String = _geometryDigest.getOrElse(throw new PreconditionMissingException)
+
+  def locationAnalysis: RouteLocationAnalysis = _locationAnalysis.getOrElse(throw new PreconditionMissingException)
 
   def tileAnalysis: RouteTileAnalysis = _tileAnalysis.getOrElse(throw new PreconditionMissingException)
 

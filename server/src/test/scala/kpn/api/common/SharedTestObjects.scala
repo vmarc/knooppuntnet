@@ -416,6 +416,8 @@ trait SharedTestObjects extends MockFactory {
     nameDerivedFromNodes: Boolean = false,
     nodes: RouteNodes = RouteNodes(),
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
+    geometryDigest: String = "",
+    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
     facts: Seq[Fact] = Seq.empty,
     tiles: Seq[String] = Seq.empty,
     elementIds: ElementIds = ElementIds(),
@@ -457,6 +459,8 @@ trait SharedTestObjects extends MockFactory {
       nameDerivedFromNodes,
       nodes,
       analysis,
+      geometryDigest,
+      locationAnalysis,
       tiles,
       analysis.map.nodeIds,
       elementIds,
@@ -620,16 +624,12 @@ trait SharedTestObjects extends MockFactory {
   def newRouteInfoAnalysis(
     expectedName: String = "",
     map: RouteMap = RouteMap(),
-    structureStrings: Seq[String] = Seq.empty,
-    geometryDigest: String = "",
-    locationAnalysis: RouteLocationAnalysis = newRouteLocationAnalysis()
+    structureStrings: Seq[String] = Seq.empty
   ): RouteInfoAnalysis = {
     RouteInfoAnalysis(
       expectedName,
       map,
-      structureStrings,
-      geometryDigest,
-      locationAnalysis
+      structureStrings
     )
   }
 
@@ -992,6 +992,7 @@ trait SharedTestObjects extends MockFactory {
     nameDerivedFromNodes: Boolean = false,
     nodes: RouteNodes = RouteNodes(),
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
+    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
     segments: Seq[RouteSegment] = Seq.empty,
     paths: Seq[RoutePath] = Seq.empty,
   ): RouteDoc = {
@@ -1012,6 +1013,7 @@ trait SharedTestObjects extends MockFactory {
       nameDerivedFromNodes,
       nodes,
       analysis,
+      locationAnalysis,
       segments,
       paths
     )
@@ -1032,6 +1034,8 @@ trait SharedTestObjects extends MockFactory {
     nameDerivedFromNodes: Boolean = false,
     nodes: RouteNodes = RouteNodes(),
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
+    geometryDigest: String = "",
+    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
     tiles: Seq[String] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty,
     elementIds: ElementIds = ElementIds(),
@@ -1057,6 +1061,8 @@ trait SharedTestObjects extends MockFactory {
       nameDerivedFromNodes,
       nodes,
       analysis,
+      geometryDigest,
+      locationAnalysis,
       tiles,
       nodeRefs,
       elementIds,

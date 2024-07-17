@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component
 class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: RouteLocator) extends RouteLocationAnalyzer {
 
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
-    routeRepository.findRouteById(context.relation.id) match {
+    routeRepository.findRouteDetailById(context.relation.id) match {
       case Some(route) =>
-        if (route.analysis.geometryDigest == context.geometryDigest) {
-          context.copy(locationAnalysis = Some(route.analysis.locationAnalysis))
+        if (route.geometryDigest == context.geometryDigest) {
+          context.copy(_locationAnalysis = Some(route.locationAnalysis))
         }
         else {
           locate(context)
@@ -34,7 +34,7 @@ class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: 
     if (routeLocationAnalysis.location.isEmpty && context.country.nonEmpty) {
       val country = context.country.get.domain
       context.copy(
-        locationAnalysis = Some(
+        _locationAnalysis = Some(
           RouteLocationAnalysis(
             location = Some(
               Location(Seq(country))
@@ -46,7 +46,7 @@ class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: 
       )
     }
     else {
-      context.copy(locationAnalysis = Some(routeLocationAnalysis))
+      context.copy(_locationAnalysis = Some(routeLocationAnalysis))
     }
   }
 }
