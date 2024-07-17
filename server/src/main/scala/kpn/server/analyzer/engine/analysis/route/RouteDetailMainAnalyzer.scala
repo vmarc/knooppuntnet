@@ -11,8 +11,6 @@ import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.analyzers.EdgeRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
@@ -26,17 +24,14 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteContextAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteElementsAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteFragmentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLastSurveyAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMapAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameFromNodesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNetworkTypeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStreetsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -84,8 +79,8 @@ class RouteDetailMainAnalyzer(
         RouteNameAnalyzer,
 
         //OldRouteNodeAnalyzer,
-        RouteNameFromNodesAnalyzer,
-        ExpectedNameRouteAnalyzer, // <== needs further updating
+        // TODO RouteNameFromNodesAnalyzer,
+        // TODO ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK
 
         RouteNodeAnalyzer,
@@ -93,11 +88,11 @@ class RouteDetailMainAnalyzer(
         RouteSegmentAnalyzer,
         RouteStructureAnalyzer,
 
-        RouteFragmentAnalyzer,
+        // TODO RouteFragmentAnalyzer,
         OldRouteStructureAnalyzer,
 
         RouteMemberAnalyzer,
-        RouteStreetsAnalyzer,
+        // TODO RouteStreetsAnalyzer,
         RouteMapAnalyzer,
         GeometryDigestAnalyzer,
         routeLocationAnalyzer,
@@ -105,9 +100,9 @@ class RouteDetailMainAnalyzer(
         FactCombinationAnalyzer,
         RouteLastSurveyAnalyzer,
         RouteElementsAnalyzer,
-        oldRouteTileAnalyzer,
+        // TODO oldRouteTileAnalyzer,
         routeTileAnalyzer,
-        EdgeRouteAnalyzer,
+        // TODO EdgeRouteAnalyzer,
         RouteLabelsAnalyzer, // this always should be the last analyzer
         RouteContextAnalyzer // helper to be used during development only
       )
@@ -156,7 +151,7 @@ class RouteDetailMainAnalyzer(
 
 object RouteAnalyzerFunctions {
 
-  def toInfos(nodes: Seq[RouteNode]): Seq[RouteNetworkNodeInfo] = {
+  def toInfos(nodes: Seq[OldRouteNode]): Seq[RouteNetworkNodeInfo] = {
     nodes.map { routeNode =>
       RouteNetworkNodeInfo(
         routeNode.id,

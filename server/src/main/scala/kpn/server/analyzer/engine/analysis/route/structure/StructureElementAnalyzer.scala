@@ -2,13 +2,13 @@ package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.common.data.Member
 import kpn.api.common.data.WayMember
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
+import kpn.api.common.route.RouteNodes
 
 import scala.annotation.tailrec
 import scala.collection.mutable
 
 object StructureElementAnalyzer {
-  def analyze(routeNodeAnalysis: RouteNodeAnalysis, members: Seq[Member], traceEnabled: Boolean = false): Seq[StructureElementGroup] = {
+  def analyze(routeNodeAnalysis: RouteNodes, members: Seq[Member], traceEnabled: Boolean = false): Seq[StructureElementGroup] = {
     val wayMembers = members.flatMap { member =>
       member match {
         case wayMember: WayMember => Some(wayMember)
@@ -22,7 +22,7 @@ object StructureElementAnalyzer {
   }
 }
 
-class StructureElementAnalyzer(routeNodeAnalysis: RouteNodeAnalysis, wayMembers: Seq[WayMember], traceEnabled: Boolean = false) {
+class StructureElementAnalyzer(routeNodeAnalysis: RouteNodes, wayMembers: Seq[WayMember], traceEnabled: Boolean = false) {
 
   private var elementDirection: Option[ElementDirection.Value] = None
 

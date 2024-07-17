@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
+import kpn.api.common.route.RouteNodes
 
 class OldStructureAnalyzer(traceEnabled: Boolean = false) {
 
-  def analyze(routeNodeAnalysis: RouteNodeAnalysis, elementGroups: Seq[StructureElementGroup]): OldStructure = {
+  def analyze(routeNodeAnalysis: RouteNodes, elementGroups: Seq[StructureElementGroup]): OldStructure = {
 
     val mainStartNode = routeNodeAnalysis.startNode.lastOption
     val mainEndNode = routeNodeAnalysis.endNode.headOption

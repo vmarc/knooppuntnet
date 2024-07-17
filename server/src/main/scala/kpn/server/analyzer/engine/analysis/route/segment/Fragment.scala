@@ -3,12 +3,12 @@ package kpn.server.analyzer.engine.analysis.route.segment
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.core.util.Haversine
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 
 object Fragment {
   def create(
-    start: Option[RouteNode] = None,
-    end: Option[RouteNode] = None,
+    start: Option[OldRouteNode] = None,
+    end: Option[OldRouteNode] = None,
     way: Way,
     nodeSubset: Vector[Node] = Vector.empty,
     role: Option[String] = None
@@ -33,8 +33,8 @@ object Fragment {
  */
 case class Fragment(
   id: Int,
-  start: Option[RouteNode] = None,
-  end: Option[RouteNode] = None,
+  start: Option[OldRouteNode] = None,
+  end: Option[OldRouteNode] = None,
   way: Way,
   nodeSubset: Vector[Node] = Vector.empty,
   role: Option[String] = None,

@@ -8,7 +8,7 @@ import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
 
@@ -287,15 +287,15 @@ class OldRouteNodeAnalyzer(context: RouteDetailAnalysisContext) {
     routeNodeInfos.filter(routeNodeInfo => routeNodeInfo.name.equals(nodeName))
   }
 
-  private def toRouteNodes(alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ], routeNodeInfos: Seq[RouteNodeInfo]): Seq[RouteNode] = {
+  private def toRouteNodes(alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ], routeNodeInfos: Seq[RouteNodeInfo]): Seq[OldRouteNode] = {
     routeNodeInfos.map(routeNodeInfo => toRouteNode(alternateNameMap, routeNodeInfo))
   }
 
-  private def toRouteNode(alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ], routeNodeInfo: RouteNodeInfo): RouteNode = {
+  private def toRouteNode(alternateNameMap: Map[Long /*nodeId*/ , String /*alternateName*/ ], routeNodeInfo: RouteNodeInfo): OldRouteNode = {
     val alternateName = alternateNameMap.getOrElse(routeNodeInfo.node.id, routeNodeInfo.name)
     val definedInRelation = nodesInRelation.contains(routeNodeInfo)
     val definedInWay = nodesInWays.contains(routeNodeInfo)
-    RouteNode(
+    OldRouteNode(
       null,
       routeNodeInfo.node,
       routeNodeInfo.name,

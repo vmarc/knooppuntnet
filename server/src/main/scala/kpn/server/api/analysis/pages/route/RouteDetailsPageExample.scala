@@ -1,14 +1,11 @@
 package kpn.server.api.analysis.pages.route
 
-import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Reference
 import kpn.api.common.route.Both
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
-import kpn.api.common.route.RouteInfoAnalysis
-import kpn.api.common.route.RouteMap
-import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -31,104 +28,9 @@ object RouteDetailsPageExample {
   }
 
   private def route(): RouteDetailsPageData = {
-    val analysis = RouteInfoAnalysis(
-      expectedName = "01-02",
-      map = RouteMap(
-        startNodes = Seq[RouteNetworkNodeInfo](
-          RouteNetworkNodeInfo(
-            1001,
-            "01",
-            "01.a",
-            None,
-            "1",
-            "1"
-          ),
-          RouteNetworkNodeInfo(
-            1002,
-            "02",
-            "02.a",
-            None,
-            "2",
-            "2"
-          )
-        ),
-        endNodes = Seq[RouteNetworkNodeInfo](
-          RouteNetworkNodeInfo(
-            1001,
-            "01",
-            "01.a",
-            None,
-            "1",
-            "1"
-          ),
-          RouteNetworkNodeInfo(
-            1002,
-            "02",
-            "02.a",
-            None,
-            "2",
-            "2"
-          )
-        ),
-        startTentacleNodes = Seq[RouteNetworkNodeInfo](
-          RouteNetworkNodeInfo(
-            1001,
-            "01",
-            "01.a",
-            None,
-            "2",
-            "2"
-          ),
-          RouteNetworkNodeInfo(
-            1002,
-            "02",
-            "02.a",
-            None,
-            "2",
-            "2"
-          )
-        ),
-        endTentacleNodes = Seq[RouteNetworkNodeInfo](
-          RouteNetworkNodeInfo(
-            1001,
-            "01",
-            "01.a",
-            None,
-            "1",
-            "1"
-          ),
-          RouteNetworkNodeInfo(
-            1002,
-            "02",
-            "02.a",
-            None,
-            "2",
-            "2"
-          )
-        ),
-        redundantNodes = Seq(
-          RouteNetworkNodeInfo(
-            1009,
-            "09",
-            "09",
-            None,
-            "9",
-            "9"
-          )
-        )
-      ),
-      structureStrings = Seq[String](
-        "one",
-        "two",
-        "three"
-      ),
-      "",
-      locationAnalysis = RouteLocationAnalysis(
-        None,
-        Seq.empty,
-        Seq.empty
-      )
-    )
+
+    val nodes = RouteNodes()
+
     RouteDetailsPageData(
       id = 1,
       active = true,
@@ -219,9 +121,7 @@ object RouteDetailsPageExample {
         )
       ),
       nameDerivedFromNodes = true,
-      analysis,
-      Seq.empty,
-      analysis.map.nodeIds
+      nodes,
     )
   }
 }

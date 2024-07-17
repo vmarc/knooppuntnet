@@ -12,7 +12,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeType
 
 class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
@@ -142,7 +142,7 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
         ),
         routeNodeAnalysis = OldRouteNodeAnalysis(
           startNodes = Seq(
-            RouteNode(
+            OldRouteNode(
               nodeType = RouteNodeType.Start,
               node = networkNode.node,
               definedInRelation = true,

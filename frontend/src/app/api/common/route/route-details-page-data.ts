@@ -6,7 +6,7 @@ import { Day } from '@api/custom';
 import { Fact } from '@api/custom';
 import { RouteMemberInfo } from '@api/custom';
 import { Timestamp } from '@api/custom';
-import { RouteInfoAnalysis } from './route-info-analysis';
+import { RouteNodes } from './route-nodes';
 
 export interface RouteDetailsPageData {
   readonly id: number;
@@ -23,7 +23,5 @@ export interface RouteDetailsPageData {
   readonly unexpectedRelationIds: number[];
   readonly members: RouteMemberInfo[];
   readonly nameDerivedFromNodes: boolean;
-  readonly analysis: RouteInfoAnalysis;
-  readonly tiles: string[];
-  readonly nodeRefs: number[];
+  readonly nodes: RouteNodes;
 }

@@ -5,6 +5,7 @@ import kpn.api.common.data.Element
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
+import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Fact
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
@@ -36,7 +37,8 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
       context.unexpectedRelationIds,
       context.expectedName.getOrElse(""),
       context.structure,
-      context.oldRouteNodeAnalysis
+      context.oldRouteNodeAnalysis,
+      context.nodes.toRouteNodes
     )
 
     RouteDetailAnalysis(
@@ -66,7 +68,8 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
     unexpectedRelationIds: Seq[Long],
     expectedName: String,
     structure: RouteStructure,
-    routeNodeAnalysis: OldRouteNodeAnalysis
+    routeNodeAnalysis: OldRouteNodeAnalysis,
+    nodes: RouteNodes
   ): RouteDetailDoc = {
 
     val members: Seq[RouteMemberInfo] = routeMembers.map { member =>
@@ -161,6 +164,7 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
       context.unexpectedRelationIds,
       members,
       nameDerivedFromNodes,
+      nodes,
       routeAnalysis,
       context.tiles,
       routeAnalysis.map.nodeIds,

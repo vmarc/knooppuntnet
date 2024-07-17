@@ -18,10 +18,10 @@ import kpn.core.tools.next.domain.RouteRelation
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNodes
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisSegment
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinks
 import kpn.server.analyzer.engine.analysis.route.structure.Structure
@@ -49,7 +49,7 @@ case class RouteDetailAnalysisContext(
   _unexpectedRelationIds: Option[Seq[Long]] = None,
   _routeNameAnalysis: Option[RouteNameAnalysis] = None,
   _oldRouteNodeAnalysis: Option[OldRouteNodeAnalysis] = None,
-  _nodeAnalysis: Option[RouteNodeAnalysis] = None,
+  _nodes: Option[RouteAnalysisNodes] = None,
   expectedName: Option[String] = None,
   suspiciousWayIds: Option[Seq[Long]] = None,
   _fragmentMap: Option[FragmentMap] = None,
@@ -177,7 +177,7 @@ case class RouteDetailAnalysisContext(
 
   def oldRouteNodeAnalysis: OldRouteNodeAnalysis = _oldRouteNodeAnalysis.getOrElse(throw new PreconditionMissingException)
 
-  def nodeAnalysis: RouteNodeAnalysis = _nodeAnalysis.getOrElse(throw new PreconditionMissingException)
+  def nodes: RouteAnalysisNodes = _nodes.getOrElse(throw new PreconditionMissingException)
 
   def fragmentMap: FragmentMap = _fragmentMap.getOrElse(throw new PreconditionMissingException)
 

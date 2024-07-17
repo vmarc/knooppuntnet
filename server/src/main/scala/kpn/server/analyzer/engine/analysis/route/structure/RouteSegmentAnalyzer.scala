@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.route.structure
 import kpn.core.analysis.LinkDirection
 import kpn.core.util.Triplet
 import kpn.core.util.Util
-import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer
@@ -34,16 +33,16 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
         handleRoundabout(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption)
       }
       else {
-        val linkFragments = StructureUtil.split(currentRouteLinkWay.nodeIds, context.nodeAnalysis.nodeIds).map { nodeIds =>
+        val linkFragments = StructureUtil.split(currentRouteLinkWay.nodeIds, context.nodes.nodeIds).map { nodeIds =>
           toFragment(currentRouteLinkWay, nodeIds)
         }
 
-        if (context.nodeAnalysis.nodeIds.contains(linkFragments.head.fromNodeId)) {
+        if (context.nodes.nodeIds.contains(linkFragments.head.fromNodeId)) {
           finalizeSegmentElement()
         }
 
         linkFragments.foreach { fragment =>
-          if (context.nodeAnalysis.nodeIds.contains(fragment.nodeIds.last)) {
+          if (context.nodes.nodeIds.contains(fragment.nodeIds.last)) {
             fragments += fragment
             finalizeSegmentElement()
           }
@@ -186,7 +185,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   }
 
   private def fragmentEndContainsNetworkNode(fragment: RouteAnalysisFragment): Boolean = {
-    context.nodeAnalysis.nodeIds.contains(fragment.nodeIds.last) // TODO redesign - not sure if this is ok
+    context.nodes.nodeIds.contains(fragment.nodeIds.last) // TODO redesign - not sure if this is ok
   }
 
   private def buildSegmentElement(fragments: Seq[RouteAnalysisFragment]): RouteAnalysisElement = {
@@ -203,8 +202,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       RoutePathDirection.Bidirectional
     }
 
-    val fromNetworkNode = context.nodeAnalysis.nodes.find(_.nodeId == fromNodeId)
-    val toNetworkNode = context.nodeAnalysis.nodes.find(_.nodeId == toNodeId)
+    val fromNetworkNode = context.nodes.nodes.find(_.node.id == fromNodeId)
+    val toNetworkNode = context.nodes.nodes.find(_.node.id == toNodeId)
 
     buildElement(
       direction,
@@ -228,8 +227,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   private def buildFragmentElement(routeLinkWay: RouteLinkWay, direction: RoutePathDirection, nodeIds: Seq[Long]): RouteAnalysisElement = {
     // this is a closed loop at the end of the route
     val fragment = toFragment(routeLinkWay, nodeIds)
-    val fromNetworkNode = context.nodeAnalysis.nodes.find(_.nodeId == fragment.fromNodeId)
-    val toNetworkNode = context.nodeAnalysis.nodes.find(_.nodeId == fragment.toNodeId)
+    val fromNetworkNode = context.nodes.nodes.find(_.node.id == fragment.fromNodeId)
+    val toNetworkNode = context.nodes.nodes.find(_.node.id == fragment.toNodeId)
 
     buildElement(
       direction,
@@ -262,8 +261,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
 
   private def buildElement(
     direction: RoutePathDirection,
-    fromNetworkNode: Option[RouteNodeData],
-    toNetworkNode: Option[RouteNodeData],
+    fromNetworkNode: Option[RouteAnalysisNode],
+    toNetworkNode: Option[RouteAnalysisNode],
     fromNodeId: Long,
     toNodeId: Long,
     fragments: Seq[RouteAnalysisFragment]

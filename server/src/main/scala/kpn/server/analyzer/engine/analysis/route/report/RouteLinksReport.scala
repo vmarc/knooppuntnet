@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
 import kpn.core.analysis.LinkDirection
-import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLink
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkNode
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkRelationId
@@ -86,16 +86,16 @@ class RouteLinksReport(context: RouteDetailAnalysisContext) {
 
   private def allNodes(nodeIds: Seq[Long]): String = {
     Seq(
-      nodes(nodeIds, "start", context.nodeAnalysis.startNode.toSeq),
-      nodes(nodeIds, "end", context.nodeAnalysis.endNode.toSeq),
-      nodes(nodeIds, "start tentacle", context.nodeAnalysis.startTentacleNodes),
-      nodes(nodeIds, "end tentacle", context.nodeAnalysis.endTentacleNodes),
-      nodes(nodeIds, "redundant", context.nodeAnalysis.redundantNodes)
+      nodes(nodeIds, "start", context.nodes.startNode.toSeq),
+      nodes(nodeIds, "end", context.nodes.endNode.toSeq),
+      nodes(nodeIds, "start tentacle", context.nodes.startTentacleNodes),
+      nodes(nodeIds, "end tentacle", context.nodes.endTentacleNodes),
+      nodes(nodeIds, "redundant", context.nodes.redundantNodes)
     ).flatten.mkString(", ")
   }
 
-  private def nodes(nodeIds: Seq[Long], nodeType: String, nodeDatas: Seq[RouteNodeData]): Seq[String] = {
-    val filteredNodeDatas = nodeDatas.filter(n => nodeIds.contains(n.nodeId))
-    filteredNodeDatas.map(nodeData => s"$nodeType=${nodeData.nodeId}(${nodeData.name})")
+  private def nodes(nodeIds: Seq[Long], nodeType: String, nodeDatas: Seq[RouteAnalysisNode]): Seq[String] = {
+    val filteredNodeDatas = nodeDatas.filter(n => nodeIds.contains(n.node.id))
+    filteredNodeDatas.map(nodeData => s"$nodeType=${nodeData.node.id}(${nodeData.name})")
   }
 }

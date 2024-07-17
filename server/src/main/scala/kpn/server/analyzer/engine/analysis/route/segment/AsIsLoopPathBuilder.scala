@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
 import kpn.api.custom.NetworkType
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 
 import scala.annotation.tailrec
 
 class AsIsLoopPathBuilder(
   networkTypes: Seq[NetworkType],
   fragmentMap: FragmentMap,
-  allRouteNodes: Set[RouteNode],
+  allRouteNodes: Set[OldRouteNode],
 ) {
 
   def build(): Option[Path] = {

@@ -1,6 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route
 
-class RouteNodeAnalysisFormatter(analysis: RouteNodeAnalysis) {
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNodes
+
+class RouteNodeAnalysisFormatter(analysis: RouteAnalysisNodes) {
 
   def nodeStrings: Seq[String] = {
     List(
@@ -12,13 +15,13 @@ class RouteNodeAnalysisFormatter(analysis: RouteNodeAnalysis) {
     ).flatten
   }
 
-  private def nodeStrings(title: String, nodeDatas: Seq[RouteNodeData]): Seq[String] = {
+  private def nodeStrings(title: String, nodeDatas: Seq[RouteAnalysisNode]): Seq[String] = {
     nodeDatas.map(n => s"$title=${nodeString(n)}")
   }
 
-  private def nodeString(nodeData: RouteNodeData): String = {
+  private def nodeString(nodeData: RouteAnalysisNode): String = {
     "%s(%s)%s".format(
-      nodeData.nodeId,
+      nodeData.node.id,
       nodeData.alternateName,
       if (nodeData.isInWay) "W" else "R",
     )

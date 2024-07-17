@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.custom.Fact
-import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
@@ -13,11 +12,11 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
 
   def nodes: Seq[String] = {
     Seq(
-      networkNodeStrings("start", context.nodeAnalysis.startNode.toSeq),
-      networkNodeStrings("end", context.nodeAnalysis.endNode.toSeq),
-      networkNodeStrings("start-tentacle", context.nodeAnalysis.startTentacleNodes),
-      networkNodeStrings("end-tentacle", context.nodeAnalysis.endTentacleNodes),
-      networkNodeStrings("redundant", context.nodeAnalysis.redundantNodes)
+      networkNodeStrings("start", context.nodes.startNode.toSeq),
+      networkNodeStrings("end", context.nodes.endNode.toSeq),
+      networkNodeStrings("start-tentacle", context.nodes.startTentacleNodes),
+      networkNodeStrings("end-tentacle", context.nodes.endTentacleNodes),
+      networkNodeStrings("redundant", context.nodes.redundantNodes)
     ).flatten
   }
 
@@ -55,8 +54,8 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
     else {
       "←"
     }
-    val from = element.fromNetworkNode.map(n => s"  ${n.nodeId}(${n.name})").getOrElse("")
-    val to = element.toNetworkNode.map(n => s"  ${n.nodeId}(${n.name})").getOrElse("")
+    val from = element.fromNetworkNode.map(n => s"  ${n.node.id}(${n.name})").getOrElse("")
+    val to = element.toNetworkNode.map(n => s"  ${n.node.id}(${n.name})").getOrElse("")
     val nodes = element.nodeIds.mkString(", ")
     s"""  element-${element.id} ${element.fromNodeId}>${element.toNodeId}$from$to  $direction  nodes=$nodes"""
   }
@@ -70,7 +69,7 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
     s"${path.startNodeId}>${path.endNodeId} nodes=$nodeString"
   }
 
-  private def networkNodeStrings(nodeType: String, nodeDatas: Seq[RouteNodeData]): Seq[String] = {
-    nodeDatas.map(routeNodeData => s"$nodeType=${routeNodeData.nodeId}(${routeNodeData.name})")
+  private def networkNodeStrings(nodeType: String, nodeDatas: Seq[RouteAnalysisNode]): Seq[String] = {
+    nodeDatas.map(routeNodeData => s"$nodeType=${routeNodeData.node.id}(${routeNodeData.name})")
   }
 }

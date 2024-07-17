@@ -22,7 +22,7 @@ object RouteMemberAnalyzer extends RouteAnalyzer {
 class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
-    val routeMembers = analyzeRouteMembers(context.oldRouteNodeAnalysis)
+    val routeMembers: Seq[RouteMember] = Seq.empty // TODO redesign - analyzeRouteMembers(context.oldRouteNodeAnalysis)
     if (routeMembers.exists(!_.accessible)) {
       context.copy(_routeMembers = Some(routeMembers)).withFact(RouteInaccessible)
     }

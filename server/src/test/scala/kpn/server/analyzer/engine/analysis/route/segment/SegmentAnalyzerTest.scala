@@ -4,7 +4,7 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.RouteStructureFormatter
@@ -531,7 +531,7 @@ class SegmentAnalyzerTest extends UnitTest {
     actual should equal(expected)
   }
 
-  private def formatRouteNode(routeNode: RouteNode): String = {
+  private def formatRouteNode(routeNode: OldRouteNode): String = {
     new RouteNodeFormatter(routeNode).shortString
   }
 }

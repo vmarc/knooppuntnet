@@ -52,9 +52,7 @@ class RouteDetailsPageBuilderImpl(
           routeDoc.unexpectedRelationIds,
           routeDoc.members,
           routeDoc.nameDerivedFromNodes,
-          routeDoc.analysis,
-          routeDetailDoc.tiles,
-          routeDetailDoc.nodeRefs
+          routeDoc.nodes,
         )
         RouteDetailsPage(data, networkReferences, changeCount)
       }

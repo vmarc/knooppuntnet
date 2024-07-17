@@ -5,7 +5,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.FreePathAnalyzer
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
 import kpn.server.analyzer.engine.analysis.route.TentacleAnalyzer
 import kpn.server.analyzer.engine.analysis.route.UnusedSegmentAnalyzer
@@ -23,7 +23,7 @@ class SegmentAnalyzer(
 
   private val log = Log(classOf[SegmentAnalyzer])
 
-  private val allRouteNodes: Set[RouteNode] = routeNodeAnalysis.usedNodes.toSet
+  private val allRouteNodes: Set[OldRouteNode] = routeNodeAnalysis.usedNodes.toSet
   private val allNodes: Set[Node] = allRouteNodes.map(_.node)
 
   private val segmentFinder = new SegmentFinder(fragmentMap, networkTypes, allRouteNodes, allNodes, loop)
@@ -65,7 +65,7 @@ class SegmentAnalyzer(
     )
   }
 
-  case class PathNodes(sourceNode: RouteNode, targetNode: RouteNode)
+  case class PathNodes(sourceNode: OldRouteNode, targetNode: OldRouteNode)
 
   private def findForwardPath(): Option[Path] = {
     findPath(routeNodeAnalysis.startNodes, routeNodeAnalysis.endNodes)
@@ -75,7 +75,7 @@ class SegmentAnalyzer(
     findPath(routeNodeAnalysis.endNodes, routeNodeAnalysis.startNodes)
   }
 
-  private def findPath(sourceNodes: Seq[RouteNode], targetNodes: Seq[RouteNode]): Option[Path] = {
+  private def findPath(sourceNodes: Seq[OldRouteNode], targetNodes: Seq[OldRouteNode]): Option[Path] = {
     val startEndCombinations = sourceNodes.flatMap(sourceNode => targetNodes.map(targetNode => PathNodes(sourceNode, targetNode)))
     val paths = startEndCombinations.flatMap { path =>
       findPath2(Forward, path.sourceNode.node, path.targetNode.node)
@@ -83,7 +83,7 @@ class SegmentAnalyzer(
     PathSelector.select(paths)
   }
 
-  private def findPath(direction: SegmentDirection.Value, startNode: Option[RouteNode], endNode: Option[RouteNode]): Option[Path] = {
+  private def findPath(direction: SegmentDirection.Value, startNode: Option[OldRouteNode], endNode: Option[OldRouteNode]): Option[Path] = {
     if (startNode.isDefined && endNode.isDefined) {
       findPath2(Forward, startNode.get.node, endNode.get.node)
     }

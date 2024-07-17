@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.data.Node
 
-case class RouteNode(
+case class OldRouteNode(
   nodeType: RouteNodeType.Value = RouteNodeType.Start,
   node: Node = null,
   name: String = "",
@@ -19,5 +19,4 @@ case class RouteNode(
   def lon: String = node.longitude
 
   def missingInWays: Boolean = !definedInWay
-
 }

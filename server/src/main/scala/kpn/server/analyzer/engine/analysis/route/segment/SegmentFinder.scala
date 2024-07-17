@@ -6,7 +6,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.common.Timer
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 
 class SegmentFinderAbort extends RuntimeException
 
@@ -26,7 +26,7 @@ case class SegmentFinderContext(
 class SegmentFinder(
   fragmentMap: FragmentMap,
   networkTypes: Seq[NetworkType],
-  allRouteNodes: Set[RouteNode],
+  allRouteNodes: Set[OldRouteNode],
   allNodes: Set[Node],
   loop: Boolean
 ) {

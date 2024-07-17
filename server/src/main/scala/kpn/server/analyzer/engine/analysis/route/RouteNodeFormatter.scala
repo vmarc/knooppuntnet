@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route
 
-class RouteNodeFormatter(routeNode: RouteNode) {
+class RouteNodeFormatter(routeNode: OldRouteNode) {
 
   def shortString: String = "%s/%s".format(routeNode.node.id, routeNode.alternateName)
 

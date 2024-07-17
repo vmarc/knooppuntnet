@@ -55,6 +55,7 @@ import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.custom.Change
@@ -413,6 +414,7 @@ trait SharedTestObjects extends MockFactory {
     unexpectedRelationIds: Seq[Long] = Seq.empty,
     members: Seq[RouteMemberInfo] = Seq.empty,
     nameDerivedFromNodes: Boolean = false,
+    nodes: RouteNodes = RouteNodes(),
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     facts: Seq[Fact] = Seq.empty,
     tiles: Seq[String] = Seq.empty,
@@ -453,6 +455,7 @@ trait SharedTestObjects extends MockFactory {
       unexpectedRelationIds,
       members,
       nameDerivedFromNodes,
+      nodes,
       analysis,
       tiles,
       analysis.map.nodeIds,
@@ -987,6 +990,7 @@ trait SharedTestObjects extends MockFactory {
     unexpectedRelationIds: Seq[Long] = Seq.empty,
     members: Seq[RouteMemberInfo] = Seq.empty,
     nameDerivedFromNodes: Boolean = false,
+    nodes: RouteNodes = RouteNodes(),
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     segments: Seq[RouteSegment] = Seq.empty,
     paths: Seq[RoutePath] = Seq.empty,
@@ -1006,6 +1010,7 @@ trait SharedTestObjects extends MockFactory {
       unexpectedRelationIds,
       members,
       nameDerivedFromNodes,
+      nodes,
       analysis,
       segments,
       paths
@@ -1025,6 +1030,7 @@ trait SharedTestObjects extends MockFactory {
     unexpectedRelationIds: Seq[Long] = Seq.empty,
     members: Seq[RouteMemberInfo] = Seq.empty,
     nameDerivedFromNodes: Boolean = false,
+    nodes: RouteNodes = RouteNodes(),
     analysis: RouteInfoAnalysis = newRouteInfoAnalysis(),
     tiles: Seq[String] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty,
@@ -1049,6 +1055,7 @@ trait SharedTestObjects extends MockFactory {
       unexpectedRelationIds,
       members,
       nameDerivedFromNodes,
+      nodes,
       analysis,
       tiles,
       nodeRefs,

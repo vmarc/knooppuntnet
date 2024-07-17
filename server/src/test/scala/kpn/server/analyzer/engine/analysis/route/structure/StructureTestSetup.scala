@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
+import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Relation
 import kpn.core.data.Data
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
@@ -20,7 +20,7 @@ import org.scalamock.scalatest.MockFactory
 class StructureTestSetup(val data: Data) extends MockFactory {
 
   def elementGroups(traceEnabled: Boolean = false): Seq[Seq[String]] = {
-    val elementGroups = StructureElementAnalyzer.analyze(RouteNodeAnalysis(), relation.members, traceEnabled)
+    val elementGroups = StructureElementAnalyzer.analyze(RouteNodes(), relation.members, traceEnabled)
     if (traceEnabled) {
       println("\nResult:")
       elementGroups.zipWithIndex.map { case (elementGroup, groupIndex) =>
@@ -33,8 +33,8 @@ class StructureTestSetup(val data: Data) extends MockFactory {
   }
 
   def structure(traceEnabled: Boolean = false): TestStructure = {
-    val elementGroups = StructureElementAnalyzer.analyze(RouteNodeAnalysis(), relation.members, traceEnabled)
-    TestStructure.from(new OldStructureAnalyzer(traceEnabled).analyze(RouteNodeAnalysis(), elementGroups))
+    val elementGroups = StructureElementAnalyzer.analyze(RouteNodes(), relation.members, traceEnabled)
+    TestStructure.from(new OldStructureAnalyzer(traceEnabled).analyze(RouteNodes(), elementGroups))
   }
 
   def analyze(traceEnabled: Boolean = false): RouteDetailAnalysisTestContext = {

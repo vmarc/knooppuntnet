@@ -40,7 +40,7 @@ class TentacleAnalyzerTest extends UnitTest with SharedTestObjects {
     b.fragment(way2, n6, n7)
     b.fragment(way2, n7, n8)
 
-    val allRouteNodes: Set[RouteNode] = Set.empty
+    val allRouteNodes: Set[OldRouteNode] = Set.empty
     val allNodes: Set[Node] = Set(n1, n3, n9)
 
     val nodes: Seq[Node] = Seq(n1, n3, n9)
@@ -71,7 +71,7 @@ class TentacleAnalyzerTest extends UnitTest with SharedTestObjects {
     b.fragment(way2, n6, n7)
     b.fragment(way2, n7, n8)
 
-    val allRouteNodes: Set[RouteNode] = Set.empty
+    val allRouteNodes: Set[OldRouteNode] = Set.empty
     val allNodes: Set[Node] = Set(n1, n3, n5)
 
     val nodes: Seq[Node] = Seq(n1, n3, n5)
@@ -102,7 +102,7 @@ class TentacleAnalyzerTest extends UnitTest with SharedTestObjects {
     b.fragment(way2, n6, n7)
     b.fragment(way2, n7, n8)
 
-    val allRouteNodes: Set[RouteNode] = Set.empty
+    val allRouteNodes: Set[OldRouteNode] = Set.empty
     val allNodes: Set[Node] = Set(n1, n3, n5)
 
     val nodes: Seq[Node] = Seq(n1, n3, n5)

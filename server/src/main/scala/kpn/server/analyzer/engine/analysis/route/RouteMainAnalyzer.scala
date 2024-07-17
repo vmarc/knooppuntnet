@@ -62,6 +62,7 @@ class RouteMainAnalyzer {
           context.routeDetailDoc.unexpectedRelationIds,
           context.routeDetailDoc.members,
           context.routeDetailDoc.nameDerivedFromNodes,
+          context.routeDetailDoc.nodes,
           context.routeDetailDoc.analysis,
           segments,
           paths

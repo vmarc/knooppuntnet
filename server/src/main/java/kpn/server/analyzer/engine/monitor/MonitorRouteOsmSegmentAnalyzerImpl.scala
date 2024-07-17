@@ -2,9 +2,9 @@ package kpn.server.analyzer.engine.monitor
 
 import kpn.api.common.data.WayMember
 import kpn.api.common.monitor.MonitorRouteSegment
+import kpn.api.common.route.RouteNodes
 import kpn.core.util.Haversine
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.structure.ElementDirection
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteOsmSegmentAnalysis
@@ -25,7 +25,7 @@ class MonitorRouteOsmSegmentAnalyzerImpl extends MonitorRouteOsmSegmentAnalyzer 
     val nodeMap = nodes.map(node => node.id -> new Coordinate(node.lon, node.lat)).toMap
 
     val elementGroups = try {
-      StructureElementAnalyzer.analyze(RouteNodeAnalysis(), wayMembers)
+      StructureElementAnalyzer.analyze(RouteNodes(), wayMembers)
     }
     catch {
       case e: Exception =>

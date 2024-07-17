@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
-import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
 
 object RouteNodeAnalysisReport {
 
   def report(context: RouteDetailAnalysisContext): String = {
-    val nodeAnalysis = context.nodeAnalysis
-    if (nodeAnalysis.startNode.nonEmpty || nodeAnalysis.endNode.nonEmpty || nodeAnalysis.redundantNodes.nonEmpty) {
+    val nodes = context.nodes
+    if (nodes.startNode.nonEmpty || nodes.endNode.nonEmpty || nodes.redundantNodes.nonEmpty) {
       s"""
          |<table>
          |  <tr class="header">
@@ -19,9 +19,9 @@ object RouteNodeAnalysisReport {
          |    <td>name</td>
          |    <td>isInWay</td>
          |  </tr>
-         |  ${nodeAnalysis.startNode.map(n => routeNodeReport("startNode", n)).mkString}
-         |  ${nodeAnalysis.endNode.map(n => routeNodeReport("endNode", n)).mkString}
-         |  ${nodeAnalysis.redundantNodes.map(n => routeNodeReport("redundantNode", n)).mkString}
+         |  ${nodes.startNode.map(n => routeNodeReport("startNode", n)).mkString}
+         |  ${nodes.endNode.map(n => routeNodeReport("endNode", n)).mkString}
+         |  ${nodes.redundantNodes.map(n => routeNodeReport("redundantNode", n)).mkString}
          |</table>
          |""".stripMargin
     }
@@ -36,10 +36,10 @@ object RouteNodeAnalysisReport {
     }
   }
 
-  private def routeNodeReport(nodeType: String, routeNode: RouteNodeData): String = {
+  private def routeNodeReport(nodeType: String, routeNode: RouteAnalysisNode): String = {
     s"""<tr>
        |  <td>$nodeType</td>
-       |  <td>${routeNode.nodeId}</td>
+       |  <td>${routeNode.node.id}</td>
        |  <td>${routeNode.name}</td>
        |  <td>${yes(routeNode.isInWay)}</td>
        |</tr>

@@ -1,6 +1,6 @@
-package kpn.server.analyzer.engine.analysis.route
+package kpn.api.common.route
 
-case class RouteNodeData(
+case class RouteNode(
   nodeId: Long,
   //  latitude: String,
   //  longitude: String,

@@ -77,7 +77,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
     )
 
     val lastUpdatedElement: Element = {
-      val elements: Seq[Element] = Seq(context.relation) ++ routeWays ++ context.oldRouteNodeAnalysis.routeNodes.map(rn => rn.node)
+      val elements: Seq[Element] = Seq(context.relation) ++ routeWays ++ context.nodes.nodes.map(rn => rn.node)
       elements.reduceLeft((a, b) => if (a.timestamp > b.timestamp) a else b)
     }
 
@@ -117,6 +117,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.unexpectedRelationIds,
       members,
       nameDerivedFromNodes,
+      context.nodes.toRouteNodes,
       routeAnalysis,
       context.tiles,
       routeAnalysis.map.nodeIds,

@@ -501,6 +501,6 @@ class RouteNodeAnalyzerTest extends UnitTest {
     )
 
     val newContext = RouteNodeAnalyzer.analyze(context)
-    new RouteNodeAnalysisFormatter(newContext.nodeAnalysis).nodeStrings ++ newContext.facts.map(_.name)
+    new RouteNodeAnalysisFormatter(newContext.nodes).nodeStrings ++ newContext.facts.map(_.name)
   }
 }

@@ -35,8 +35,8 @@ class RouteMapAnalyzer(context: RouteDetailAnalysisContext) {
     }
 
     val allWayNodes = ways.flatMap(w => w.nodes)
-    val bounds = MapBounds(allWayNodes ++ context.oldRouteNodeAnalysis.routeNodes.map(_.node))
-    val routeMap = buildRouteMap(context.oldRouteNodeAnalysis, context.structure, bounds)
+    // TODO redesign - val bounds = MapBounds(allWayNodes ++ context.oldRouteNodeAnalysis.routeNodes.map(_.node))
+    val routeMap = RouteMap() // TODO redesign - buildRouteMap(context.oldRouteNodeAnalysis, context.structure, bounds)
     context.copy(
       _ways = Some(ways),
       allWayNodes = Some(allWayNodes),

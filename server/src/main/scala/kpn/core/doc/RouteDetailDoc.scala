@@ -5,6 +5,7 @@ import kpn.api.common.RouteSummary
 import kpn.api.common.common.Ref
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
+import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.RouteMemberInfo
@@ -22,12 +23,11 @@ case class RouteDetailDoc(
   lastSurvey: Option[Day],
   facts: Seq[Fact],
   oldFacts: Seq[Fact],
-  //---
   unexpectedNodeIds: Seq[Long],
   unexpectedRelationIds: Seq[Long],
   members: Seq[RouteMemberInfo],
   nameDerivedFromNodes: Boolean,
-  //---
+  nodes: RouteNodes,
   analysis: RouteInfoAnalysis,
   tiles: Seq[String],
   nodeRefs: Seq[Long], // networkNodeIds

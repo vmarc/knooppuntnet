@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class RouteNameFromNodesAnalyzerTest extends UnitTest {
@@ -17,10 +17,10 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _oldRouteNodeAnalysis = Some(
         OldRouteNodeAnalysis(
           startNodes = Seq(
-            RouteNode(name = "01")
+            OldRouteNode(name = "01")
           ),
           endNodes = Seq(
-            RouteNode(name = "02")
+            OldRouteNode(name = "02")
           )
         )
       )
@@ -38,10 +38,10 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _oldRouteNodeAnalysis = Some(
         OldRouteNodeAnalysis(
           startNodes = Seq(
-            RouteNode(name = "a")
+            OldRouteNode(name = "a")
           ),
           endNodes = Seq(
-            RouteNode(name = "b")
+            OldRouteNode(name = "b")
           )
         )
       )
@@ -60,10 +60,10 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _oldRouteNodeAnalysis = Some(
         OldRouteNodeAnalysis(
           startNodes = Seq(
-            RouteNode(name = "01")
+            OldRouteNode(name = "01")
           ),
           endNodes = Seq(
-            RouteNode(name = "02")
+            OldRouteNode(name = "02")
           )
         )
       )
@@ -82,10 +82,10 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _oldRouteNodeAnalysis = Some(
         OldRouteNodeAnalysis(
           startNodes = Seq(
-            RouteNode()
+            OldRouteNode()
           ),
           endNodes = Seq(
-            RouteNode(name = "02")
+            OldRouteNode(name = "02")
           )
         )
       )
@@ -104,10 +104,10 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
       _oldRouteNodeAnalysis = Some(
         OldRouteNodeAnalysis(
           startNodes = Seq(
-            RouteNode(name = "01")
+            OldRouteNode(name = "01")
           ),
           endNodes = Seq(
-            RouteNode()
+            OldRouteNode()
           )
         )
       )

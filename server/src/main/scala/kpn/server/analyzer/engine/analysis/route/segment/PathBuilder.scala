@@ -3,9 +3,9 @@ package kpn.server.analyzer.engine.analysis.route.segment
 import kpn.api.common.route.Both
 import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 
-class PathBuilder(allRouteNodes: Set[RouteNode]) {
+class PathBuilder(allRouteNodes: Set[OldRouteNode]) {
 
   def buildPath(networkTypes: Seq[NetworkType], segmentFragments: Seq[SegmentFragment], broken: Boolean = false): Option[Path] = {
     if (segmentFragments.isEmpty) {

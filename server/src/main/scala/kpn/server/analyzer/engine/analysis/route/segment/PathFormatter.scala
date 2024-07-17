@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 
 class PathFormatter(path: Path) {
 
@@ -12,7 +12,7 @@ class PathFormatter(path: Path) {
     s"$start-$end$broken via $segmentsString"
   }
 
-  private def formattedNode(node: Option[RouteNode]): String = {
+  private def formattedNode(node: Option[OldRouteNode]): String = {
     node match {
       case None => "None"
       case Some(n) => n.alternateName

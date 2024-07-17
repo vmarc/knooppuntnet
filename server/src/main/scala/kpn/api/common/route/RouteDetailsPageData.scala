@@ -18,13 +18,9 @@ case class RouteDetailsPageData(
   lastSurvey: Option[Day],
   facts: Seq[Fact],
   locationCandidateInfos: Seq[LocationCandidateInfo],
-  //---
   unexpectedNodeIds: Seq[Long],
   unexpectedRelationIds: Seq[Long],
   members: Seq[RouteMemberInfo],
   nameDerivedFromNodes: Boolean,
-  //---
-  analysis: RouteInfoAnalysis,
-  tiles: Seq[String],
-  nodeRefs: Seq[Long],
+  nodes: RouteNodes,
 )

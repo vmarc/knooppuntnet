@@ -4,7 +4,7 @@ import kpn.api.common.data.Element
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteNetworkNodeInfo
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 
 case class RouteMemberWay(
@@ -17,7 +17,7 @@ case class RouteMemberWay(
   from: String,
   to: String,
   accessible: Boolean,
-  routeNodes: Seq[RouteNode]
+  routeNodes: Seq[OldRouteNode]
 ) extends RouteMember {
 
   def memberType: String = "way"

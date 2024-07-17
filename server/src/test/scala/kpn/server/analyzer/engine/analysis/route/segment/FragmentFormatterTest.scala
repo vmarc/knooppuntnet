@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.segment
 import kpn.api.common.SharedTestObjects
 import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 import kpn.server.analyzer.engine.analysis.route.RouteNodeType
 
 class FragmentFormatterTest extends UnitTest with SharedTestObjects {
@@ -44,9 +44,9 @@ class FragmentFormatterTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  private def routeNode(alternateName: String): Option[RouteNode] = {
+  private def routeNode(alternateName: String): Option[OldRouteNode] = {
     Some(
-      RouteNode(
+      OldRouteNode(
         RouteNodeType.Start,
         newNode(0),
         "",

@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.core.tools.config.Dirs
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.report.OldRouteNodeAnalysisReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteFactsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteLinksReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteNameAnalysisReport
@@ -35,7 +34,6 @@ class RouteAnalysisContextReport(context: RouteDetailAnalysisContext) {
        |${RouteSummaryReport.report(context)}
        |${RouteFactsReport.report(context)}
        |${RouteNodeAnalysisReport.report(context)}
-       |${OldRouteNodeAnalysisReport.report(context)}
        |${RouteNameAnalysisReport.report(context)}
        |${RouteLinksReport.report(context)}
        |${RouteSegmentReport.report(context)}

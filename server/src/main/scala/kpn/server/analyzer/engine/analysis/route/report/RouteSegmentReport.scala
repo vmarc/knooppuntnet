@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
 import kpn.core.analysis.LinkDirection
-import kpn.server.analyzer.engine.analysis.route.RouteNodeData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisElement
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisFragment
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisSegment
 
 object RouteSegmentReport {
@@ -53,8 +53,8 @@ class RouteSegmentReport(context: RouteDetailAnalysisContext) {
 
   private def segmentElements(segment: RouteAnalysisSegment): String = {
     segment.elements.map { element =>
-      val from = element.fromNetworkNode.map(node => s"from=${ReportUtil.osmNodeLink(node.nodeId)}(${node.name})").getOrElse("")
-      val to = element.toNetworkNode.map(node => s"to=${ReportUtil.osmNodeLink(node.nodeId)}(${node.name})").getOrElse("")
+      val from = element.fromNetworkNode.map(node => s"from=${ReportUtil.osmNodeLink(node.node.id)}(${node.name})").getOrElse("")
+      val to = element.toNetworkNode.map(node => s"to=${ReportUtil.osmNodeLink(node.node.id)}(${node.name})").getOrElse("")
       s"""<tr>
          |  <td colspan="5">
          |    Segment element ${element.id} ${element.direction.toString.toLowerCase} $from $to
@@ -116,16 +116,16 @@ class RouteSegmentReport(context: RouteDetailAnalysisContext) {
 
   private def allNodes(nodeIds: Seq[Long]): String = {
     Seq(
-      nodes(nodeIds, "start", context.nodeAnalysis.startNode.toSeq),
-      nodes(nodeIds, "end", context.nodeAnalysis.endNode.toSeq),
-      nodes(nodeIds, "start tentacle", context.nodeAnalysis.startTentacleNodes),
-      nodes(nodeIds, "end tentacle", context.nodeAnalysis.endTentacleNodes),
-      nodes(nodeIds, "redundant", context.nodeAnalysis.redundantNodes)
+      nodes(nodeIds, "start", context.nodes.startNode.toSeq),
+      nodes(nodeIds, "end", context.nodes.endNode.toSeq),
+      nodes(nodeIds, "start tentacle", context.nodes.startTentacleNodes),
+      nodes(nodeIds, "end tentacle", context.nodes.endTentacleNodes),
+      nodes(nodeIds, "redundant", context.nodes.redundantNodes)
     ).flatten.mkString(", ")
   }
 
-  private def nodes(nodeIds: Seq[Long], nodeType: String, nodeDatas: Seq[RouteNodeData]): Seq[String] = {
-    val filteredNodeDatas = nodeDatas.filter(n => nodeIds.contains(n.nodeId))
-    filteredNodeDatas.map(nodeData => s"$nodeType=${nodeData.nodeId}(${nodeData.name})")
+  private def nodes(nodeIds: Seq[Long], nodeType: String, nodeDatas: Seq[RouteAnalysisNode]): Seq[String] = {
+    val filteredNodeDatas = nodeDatas.filter(n => nodeIds.contains(n.node.id))
+    filteredNodeDatas.map(nodeData => s"$nodeType=${nodeData.node.id}(${nodeData.name})")
   }
 }

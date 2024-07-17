@@ -4,7 +4,7 @@ import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteNode
+import kpn.server.analyzer.engine.analysis.route.OldRouteNode
 import kpn.server.analyzer.engine.analysis.route.WayAnalyzer
 
 object FragmentAnalyzer {
@@ -18,7 +18,7 @@ object FragmentAnalyzer {
  * @param routeNodes all network nodes that were found in the route relation or the route ways
  * @param wayMembers all members of type 'way' in the route relation
  */
-class FragmentAnalyzer(routeNodes: Seq[RouteNode], wayMembers: Seq[WayMember]) {
+class FragmentAnalyzer(routeNodes: Seq[OldRouteNode], wayMembers: Seq[WayMember]) {
 
   import FragmentAnalyzer.log
 

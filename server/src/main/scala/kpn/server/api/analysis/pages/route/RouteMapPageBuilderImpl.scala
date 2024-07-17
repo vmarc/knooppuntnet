@@ -12,15 +12,6 @@ class RouteMapPageBuilderImpl(
 ) extends RouteMapPageBuilder {
 
   override def build(routeId: Long): Option[RouteMapPage] = {
-    if (routeId == 1) {
-      Some(RouteMapPageExample.page)
-    }
-    else {
-      doBuild(routeId)
-    }
-  }
-
-  private def doBuild(routeId: Long): Option[RouteMapPage] = {
     routeRepository.mapInfo(routeId).map { routeMapInfo =>
       val changeCount = changeSetRepository.routeChangesCount(routeId)
       RouteMapPage(routeMapInfo, changeCount)

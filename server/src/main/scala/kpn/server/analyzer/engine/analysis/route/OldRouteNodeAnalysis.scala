@@ -2,19 +2,19 @@ package kpn.server.analyzer.engine.analysis.route
 
 case class OldRouteNodeAnalysis(
   reversed: Boolean = false,
-  freeNodes: Seq[RouteNode] = Seq.empty,
-  startNodes: Seq[RouteNode] = Seq.empty,
-  endNodes: Seq[RouteNode] = Seq.empty,
-  redundantNodes: Seq[RouteNode] = Seq.empty
+  freeNodes: Seq[OldRouteNode] = Seq.empty,
+  startNodes: Seq[OldRouteNode] = Seq.empty,
+  endNodes: Seq[OldRouteNode] = Seq.empty,
+  redundantNodes: Seq[OldRouteNode] = Seq.empty
 ) {
 
-  def routeNodes: Seq[RouteNode] = usedNodes ++ redundantNodes
+  def routeNodes: Seq[OldRouteNode] = usedNodes ++ redundantNodes
 
-  def nodesInWays: Seq[RouteNode] = routeNodes.filter(_.definedInWay)
+  def nodesInWays: Seq[OldRouteNode] = routeNodes.filter(_.definedInWay)
 
-  def nodesInRelation: Seq[RouteNode] = routeNodes.filter(_.definedInRelation)
+  def nodesInRelation: Seq[OldRouteNode] = routeNodes.filter(_.definedInRelation)
 
-  def usedNodes: Seq[RouteNode] = freeNodes ++ startNodes ++ endNodes
+  def usedNodes: Seq[OldRouteNode] = freeNodes ++ startNodes ++ endNodes
 
   def hasStartAndEndNode: Boolean = startNodes.nonEmpty && endNodes.nonEmpty
 }

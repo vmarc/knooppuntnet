@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route';
-import { RouteInfoAnalysis } from '@api/common/route';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
 import { PageWidthService } from '@app/components/shared';
@@ -19,7 +18,6 @@ import { SymbolComponent } from '@app/symbol';
 import { RouterService } from '../../../shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { RouteEndNodesComponent } from './components/route-end-nodes.component';
-import { RouteFreeNodesComponent } from './components/route-free-nodes.component';
 import { RouteLocationComponent } from './components/route-location.component';
 import { RouteMembersComponent } from './components/route-members.component';
 import { RouteNetworkReferencesComponent } from './components/route-network-references.component';
@@ -80,32 +78,27 @@ import { RouteDetailsPageService } from './route-details-page.service';
               <kpn-data title="Network" i18n-title="@@route.network">
                 <kpn-route-network-references [references]="page.networkReferences" />
               </kpn-data>
-              @if (page.route.analysis; as analysis) {
-                <div>
-                  @if (hasFreeNodes(analysis)) {
-                    <kpn-data title="Nodes" i18n-title="@@route.nodes">
-                      <kpn-route-free-nodes [analysis]="analysis" />
-                    </kpn-data>
-                  } @else {
-                    <kpn-data title="Start node" i18n-title="@@route.start-node">
-                      <kpn-route-start-nodes [analysis]="analysis" />
-                    </kpn-data>
-                    <kpn-data title="End node" i18n-title="@@route.end-node">
-                      <kpn-route-end-nodes [analysis]="analysis" />
-                    </kpn-data>
-                  }
-                  @if (analysis.map.redundantNodes.length > 0) {
+              <div>
+                @if (page.route.nodes; as nodes) {
+                  <kpn-data title="Start node" i18n-title="@@route.start-node">
+                    <kpn-route-start-nodes [nodes]="nodes" />
+                  </kpn-data>
+
+                  <kpn-data title="End node" i18n-title="@@route.end-node">
+                    <kpn-route-end-nodes [nodes]="nodes" />
+                  </kpn-data>
+                  @if (nodes.redundantNodes.length > 0) {
                     <div>
                       <kpn-data title="Redundant node" i18n-title="@@route.redundant-node">
-                        <kpn-route-redundant-nodes [analysis]="analysis" />
+                        <kpn-route-redundant-nodes [nodes]="nodes.redundantNodes" />
                       </kpn-data>
                     </div>
                   }
-                  <kpn-data title="Number of ways" i18n-title="@@route.number-of-ways">
-                    {{ page.route.summary.wayCount }}
-                  </kpn-data>
-                </div>
-              }
+                }
+                <kpn-data title="Number of ways" i18n-title="@@route.number-of-ways">
+                  {{ page.route.summary.wayCount }}
+                </kpn-data>
+              </div>
               <kpn-data title="Tags" i18n-title="@@route.tags">
                 <kpn-tag-table [tags]="routeTags(page)" />
               </kpn-data>
@@ -142,7 +135,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
     FactsComponent,
     PageComponent,
     RouteEndNodesComponent,
-    RouteFreeNodesComponent,
     RouteLocationComponent,
     RouteMembersComponent,
     RouteNetworkReferencesComponent,
@@ -189,10 +181,6 @@ export class RouteDetailsPageComponent implements OnInit {
       }
       return new FactInfo(fact);
     });
-  }
-
-  hasFreeNodes(analysis: RouteInfoAnalysis): boolean {
-    return analysis.map.freeNodes && analysis.map.freeNodes.length > 0;
   }
 
   hasSymbol(page: RouteDetailsPage): boolean {

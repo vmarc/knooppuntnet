@@ -1,12 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
-import kpn.server.analyzer.engine.analysis.route.RouteNodeData
-
 case class RouteAnalysisElement(
   id: Long,
   direction: RoutePathDirection,
-  fromNetworkNode: Option[RouteNodeData],
-  toNetworkNode: Option[RouteNodeData],
+  fromNetworkNode: Option[RouteAnalysisNode],
+  toNetworkNode: Option[RouteAnalysisNode],
   fromNodeId: Long,
   toNodeId: Long,
   fragmentGroups: Seq[RouteAnalysisFragmentGroup]
