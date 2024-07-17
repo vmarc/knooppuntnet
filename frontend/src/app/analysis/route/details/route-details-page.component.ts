@@ -143,9 +143,9 @@ import { RouteDetailsPageService } from './route-details-page.service';
     RouteStartNodesComponent,
     RouteSummaryComponent,
     RouterLink,
+    SymbolComponent,
     TagTableComponent,
     TimestampComponent,
-    SymbolComponent,
   ],
 })
 export class RouteDetailsPageComponent implements OnInit {

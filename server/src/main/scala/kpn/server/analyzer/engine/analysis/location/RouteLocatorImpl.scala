@@ -17,12 +17,11 @@ class RouteLocatorImpl(locationAnalyzer: LocationAnalyzer) extends RouteLocator 
 
   def locate(segments: Seq[RouteAnalysisSegment]): RouteLocationAnalysis = {
 
-    val routeGeometries: Seq[Geometry] = toGeometries(segments)
-
-    val candidates: Seq[LocationSelector] = locationAnalyzer.locateGeometries(routeGeometries)
+    val geometries = toGeometries(segments)
+    val candidates = locationAnalyzer.locateGeometries(geometries)
 
     val locationSelectorCandidates = candidates.map { candidate =>
-      val distance = calculateDistance(routeGeometries, candidate)
+      val distance = calculateDistance(geometries, candidate)
       LocationSelectorCandidate(candidate, distance)
     }
 

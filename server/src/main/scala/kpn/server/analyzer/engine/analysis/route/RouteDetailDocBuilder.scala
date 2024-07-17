@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.route
 import kpn.api.common.Bounds
 import kpn.api.common.RouteSummary
 import kpn.api.common.data.Element
-import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Fact
@@ -144,19 +143,10 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
   }
 
   private def buildSegmentElements: Seq[RouteDetailSegmentElement] = {
-
-    val nodeMap: Map[Long, Node] = {
-      val nodeMemberNodes = context.relation.nodeMembers.map(_.node).toSet
-      val wayMemberNodes = context.relation.wayMembers.flatMap(_.way.nodes).toSet
-      val nodes = nodeMemberNodes ++ wayMemberNodes
-      nodes.map(node => node.id -> node)
-    }.toMap
-
     context.segments.flatMap { segment =>
       segment.elements.flatMap { element =>
         element.fragmentGroups.map { fragmentGroup =>
-          val nodes = fragmentGroup.nodeIds.flatMap(nodeId => nodeMap.get(nodeId))
-          val coordinates = nodes.map(node => s"[${node.longitude},${node.latitude}]").mkString("[", ",", "]")
+          val coordinates = fragmentGroup.nodes.map(node => s"[${node.longitude},${node.latitude}]").mkString("[", ",", "]")
           RouteDetailSegmentElement(
             segment.id,
             element.id,

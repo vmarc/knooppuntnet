@@ -4,36 +4,9 @@ import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.core.analysis.Link
 
-object RouteAnalysisFragment {
-  def apply(
-    id: Long,
-    way: Way,
-    link: Link,
-    role: Option[String],
-    surface: String,
-    nodeIds: Seq[Long]
-  ): RouteAnalysisFragment = {
-    val nodes = if (nodeIds.size == way.nodes.size) {
-      way.nodes
-    } else {
-      nodeIds.flatMap { nodeId => way.nodes.find(_.id == nodeId) }
-    }
-    RouteAnalysisFragment(
-      id,
-      way,
-      nodes,
-      link,
-      role,
-      surface,
-      nodeIds
-    )
-  }
-}
-
 case class RouteAnalysisFragment(
   id: Long,
   way: Way,
-  nodes: Seq[Node],
   link: Link,
   role: Option[String],
   surface: String,
@@ -42,4 +15,8 @@ case class RouteAnalysisFragment(
   def fromNodeId: Long = nodeIds.head
 
   def toNodeId: Long = nodeIds.last
+
+  def nodes: Seq[Node] = {
+    nodeIds.flatMap(nodeId => way.nodes.find(_.id == nodeId))
+  }
 }
