@@ -173,6 +173,7 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
       Seq.empty, // TODO redesign
       Seq.empty, // TODO redesign
       Seq.empty, // TODO redesign
+      context.hierarchy
     )
   }
 }

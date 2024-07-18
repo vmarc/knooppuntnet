@@ -90,6 +90,7 @@ import kpn.core.doc.RouteDetailSegment
 import kpn.core.doc.RouteDetailSegmentElement
 import kpn.core.doc.RouteDoc
 import kpn.core.test.OverpassData
+import kpn.core.tools.next.domain.RouteRelation
 import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.ElementIds
@@ -425,6 +426,7 @@ trait SharedTestObjects extends MockFactory {
     segments: Seq[RouteDetailSegment] = Seq.empty,
     segmentElements: Seq[RouteDetailSegmentElement] = Seq.empty,
     paths: Seq[RouteDetailPath] = Seq.empty,
+    hierarchy: Option[RouteRelation] = None,
   ): RouteDetailDoc = {
 
     val summary = RouteSummary(
@@ -467,7 +469,8 @@ trait SharedTestObjects extends MockFactory {
       edges,
       segments,
       segmentElements,
-      paths
+      paths,
+      hierarchy,
     )
   }
 
@@ -1042,7 +1045,8 @@ trait SharedTestObjects extends MockFactory {
     edges: Seq[RouteEdge] = Seq.empty,
     segments: Seq[RouteDetailSegment] = Seq.empty,
     segmentElements: Seq[RouteDetailSegmentElement] = Seq.empty,
-    paths: Seq[RouteDetailPath] = Seq.empty
+    paths: Seq[RouteDetailPath] = Seq.empty,
+    hierarchy: Option[RouteRelation] = None
   ): RouteDetailDoc = {
     RouteDetailDoc(
       summary.id,
@@ -1069,7 +1073,8 @@ trait SharedTestObjects extends MockFactory {
       edges,
       segments,
       segmentElements,
-      paths
+      paths,
+      hierarchy
     )
   }
 

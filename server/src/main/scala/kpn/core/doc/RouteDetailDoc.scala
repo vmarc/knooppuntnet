@@ -11,6 +11,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
+import kpn.core.tools.next.domain.RouteRelation
 import kpn.server.analyzer.engine.context.ElementIds
 
 case class RouteDetailDoc(
@@ -39,6 +40,7 @@ case class RouteDetailDoc(
   segments: Seq[RouteDetailSegment],
   segmentElements: Seq[RouteDetailSegmentElement],
   paths: Seq[RouteDetailPath],
+  hierarchy: Option[RouteRelation]
 ) extends WithId {
 
   def id: Long = summary.id

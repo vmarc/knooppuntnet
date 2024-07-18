@@ -119,7 +119,8 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.edges,
       buildSegments,
       buildSegmentElements,
-      buildPaths
+      buildPaths,
+      context.hierarchy
     )
   }
 

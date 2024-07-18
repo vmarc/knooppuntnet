@@ -24,14 +24,13 @@ import { LinkImageComponent } from './link-image.component';
           <table class="kpn-table">
             <thead>
               <tr>
+                <th i18n="@@route.members.table.nr">Nr</th>
                 <th></th>
                 <th i18n="@@route.members.table.node">Node</th>
                 <th i18n="@@route.members.table.id">Id</th>
-                <th colSpan="2" i18n="@@route.members.table.nodes">Nodes</th>
+                <th i18n="@@route.members.table.name">Name</th>
                 <th i18n="@@route.members.table.role">Role</th>
                 <th i18n="@@route.members.table.length">Length</th>
-                <th i18n="@@route.members.table.node-count">#Nodes</th>
-                <th i18n="@@route.members.table.name">Name</th>
                 <th i18n="@@route.members.table.inaccessible">Inaccessible</th>
                 @if (networkType() === 'cycling') {
                   <th colSpan="2" i18n="@@route.members.table.one-way">One Way</th>
@@ -39,8 +38,11 @@ import { LinkImageComponent } from './link-image.component';
               </tr>
             </thead>
             <tbody>
-              @for (member of members(); track member) {
+              @for (member of members(); track member; let rowIndex = $index) {
                 <tr>
+                  <td>
+                    {{ rowIndex + 1 }}
+                  </td>
                   <td class="image-cell">
                     <kpn-link-image [linkName]="member.linkName" />
                   </td>
@@ -52,6 +54,13 @@ import { LinkImageComponent } from './link-image.component';
                     </div>
                   </td>
                   <td>
+                    @if (member.memberType === 'node') {
+                      <span>N</span>
+                    } @else if (member.memberType === 'way') {
+                      <span>W</span>
+                    } @else if (member.memberType === 'relation') {
+                      <span>R</span>
+                    }
                     <kpn-osm-link
                       [kind]="member.memberType"
                       [elementId]="member.id.toString()"
@@ -59,32 +68,13 @@ import { LinkImageComponent } from './link-image.component';
                     />
                   </td>
                   <td>
-                    <kpn-osm-link
-                      kind="node"
-                      [elementId]="member.fromNodeId.toString()"
-                      [title]="member.from"
-                    />
-                  </td>
-                  <td>
-                    @if (member.isWay) {
-                      <kpn-osm-link
-                        kind="node"
-                        [elementId]="member.toNodeId.toString()"
-                        [title]="member.to"
-                      />
-                    }
+                    {{ member.description }}
                   </td>
                   <td>
                     {{ member.role }}
                   </td>
                   <td class="distance">
                     {{ member.length }}
-                  </td>
-                  <td>
-                    {{ member.nodeCount }}
-                  </td>
-                  <td>
-                    {{ member.description }}
                   </td>
                   <td>
                     @if (!member.accessible) {
