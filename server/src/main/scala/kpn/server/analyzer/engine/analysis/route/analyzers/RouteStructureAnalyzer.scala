@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.custom.Fact
+import kpn.api.custom.Fact.RouteAnalysisFailed
 import kpn.api.custom.Fact.RouteNodeMissingInWays
 import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotContinious
@@ -8,6 +9,7 @@ import kpn.api.custom.Fact.RouteNotForward
 import kpn.api.custom.Fact.RouteNotOneWay
 import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteUnusedSegments
+import kpn.api.custom.Fact.RouteWithoutNodes
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.StructureAnalyzer
 
@@ -28,55 +30,58 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
 
     val structure = new StructureAnalyzer(context).analyze()
 
-    val oneWayRouteForward = context.relation.hasTag("direction", "forward")
-    val oneWayRouteBackward = context.relation.hasTag("direction", "backward")
+    if (!Seq(RouteAnalysisFailed, RouteWithoutNodes, RouteNodeMissingInWays).exists(context.facts.contains)) {
 
-    val oneWayRoute = context.relation.hasTag("oneway", "yes") || context.relation.hasTag("signed_direction", "yes")
+      val oneWayRouteForward = context.relation.hasTag("direction", "forward")
+      val oneWayRouteBackward = context.relation.hasTag("direction", "backward")
 
-    val hasValidForwardPath = structure.forwardPath.isDefined // TODO redesign && !structure.forwardPath.exists(_.broken)
-    val hasValidBackwardPath = structure.backwardPath.isDefined // TODO redesign && !structure.backwardPath.exists(_.broken)
+      val oneWayRoute = context.relation.hasTag("oneway", "yes") || context.relation.hasTag("signed_direction", "yes")
 
-    if (hasValidForwardPath) {
-      if (hasValidBackwardPath) {
-        if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
-          facts += RouteNotOneWay
+      val hasValidForwardPath = structure.forwardPath.isDefined // TODO redesign && !structure.forwardPath.exists(_.broken)
+      val hasValidBackwardPath = structure.backwardPath.isDefined // TODO redesign && !structure.backwardPath.exists(_.broken)
+
+      if (hasValidForwardPath) {
+        if (hasValidBackwardPath) {
+          if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
+            facts += RouteNotOneWay
+          }
+        }
+        else {
+          if (oneWayRoute || oneWayRouteForward) {
+            facts += RouteOneWay
+          }
+          else {
+            facts += RouteNotBackward
+          }
         }
       }
-      else {
-        if (oneWayRoute || oneWayRouteForward) {
+      else if (hasValidBackwardPath) {
+        if (oneWayRoute || oneWayRouteBackward) {
           facts += RouteOneWay
         }
         else {
-          facts += RouteNotBackward
+          facts += RouteNotForward
         }
       }
-    }
-    else if (hasValidBackwardPath) {
-      if (oneWayRoute || oneWayRouteBackward) {
-        facts += RouteOneWay
-      }
       else {
+        if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
+          facts += RouteNotOneWay
+        }
         facts += RouteNotForward
+        facts += RouteNotBackward
       }
-    }
-    else {
-      if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
-        facts += RouteNotOneWay
-      }
-      facts += RouteNotForward
-      facts += RouteNotBackward
-    }
 
-    if (!Seq(RouteNodeMissingInWays, RouteOneWay).exists(facts.contains)) {
-      if (structure.forwardPath.isEmpty || /* segmentAnalysis.structure.forwardPath.get.broken ||*/
-        structure.backwardPath.isEmpty /*|| segmentAnalysis.structure.backwardPath.get.broken*/ ) {
-        facts += RouteNotContinious
+      if (!Seq(RouteNodeMissingInWays, RouteOneWay).exists(facts.contains)) {
+        if (structure.forwardPath.isEmpty || /* segmentAnalysis.structure.forwardPath.get.broken ||*/
+          structure.backwardPath.isEmpty /*|| segmentAnalysis.structure.backwardPath.get.broken*/ ) {
+          facts += RouteNotContinious
+        }
       }
-    }
 
-    if (!Seq(RouteNotForward, RouteNotBackward).exists(facts.contains)) {
-      if (structure.otherPaths.nonEmpty) {
-        facts += RouteUnusedSegments
+      if (!Seq(RouteNotForward, RouteNotBackward).exists(facts.contains)) {
+        if (structure.otherPaths.nonEmpty) {
+          facts += RouteUnusedSegments
+        }
       }
     }
 

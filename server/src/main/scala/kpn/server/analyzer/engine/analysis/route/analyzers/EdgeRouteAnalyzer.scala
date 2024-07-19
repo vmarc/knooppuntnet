@@ -13,7 +13,12 @@ object EdgeRouteAnalyzer extends RouteAnalyzer {
 class EdgeRouteAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
-    val edges = context.structure.nodeNetworkPaths.map(toEdge)
+    val edges = if (context.nodeNetwork) {
+      context.structure.nodeNetworkPaths.map(toEdge)
+    }
+    else {
+      Seq.empty
+    }
     context.copy(edges = edges)
   }
 

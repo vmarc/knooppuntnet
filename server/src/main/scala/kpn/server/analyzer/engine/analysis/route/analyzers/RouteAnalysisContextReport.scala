@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.core.tools.config.Dirs
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.report.RouteEdgeReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteFactsReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteLinksReport
 import kpn.server.analyzer.engine.analysis.route.report.RouteNameAnalysisReport
@@ -38,6 +39,7 @@ class RouteAnalysisContextReport(context: RouteDetailAnalysisContext) {
        |${RouteLinksReport.report(context)}
        |${RouteSegmentReport.report(context)}
        |${RoutePathReport.report(context)}
+       |${RouteEdgeReport.report(context.edges)}
        |</body>
        |</html>
        |""".stripMargin

@@ -10,38 +10,18 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
   private val pathIds = Util.ids
 
   def analyze(): Structure = {
-    if (context.nodes.nodes.isEmpty) {
-      analyzeNonNodeNetworkRoute()
+    if (context.nodeNetwork) {
+      analyzeNodeNetworkRoute()
     }
     else {
-      analyzeNodeNetworkRoute()
+      analyzeNonNodeNetworkRoute()
     }
   }
 
   private def analyzeNodeNetworkRoute(): Structure = {
 
     if (context.segments.size > 1) {
-      val otherElements = context.segments.flatMap(_.elements).map { element =>
-        StructurePath(
-          pathIds.next(),
-          element.fromNodeId,
-          element.toNodeId,
-          Seq(
-            StructurePathElement(
-              element,
-              reversed = false
-            )
-          )
-        )
-      }
-
-      Structure(
-        forwardPath = None,
-        backwardPath = None,
-        startTentaclePaths = Seq.empty,
-        endTentaclePaths = Seq.empty,
-        otherElements,
-      )
+      otherElementsStructure()
     }
     else {
       val structureOption = context.nodes.startNode match {
@@ -56,7 +36,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
               )
           }
       }
-      structureOption.get // TODO redesign
+      structureOption.getOrElse(otherElementsStructure())
     }
   }
 
@@ -447,5 +427,28 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
           findNextBackwardPath(pathElements :+ element, remainingPaths, startNodeId)
       }
     }
+  }
+
+  private def otherElementsStructure(): Structure = {
+    val otherElements = context.segments.flatMap(_.elements).map { element =>
+      StructurePath(
+        pathIds.next(),
+        element.fromNodeId,
+        element.toNodeId,
+        Seq(
+          StructurePathElement(
+            element,
+            reversed = false
+          )
+        )
+      )
+    }
+    Structure(
+      forwardPath = None,
+      backwardPath = None,
+      startTentaclePaths = Seq.empty,
+      endTentaclePaths = Seq.empty,
+      otherElements,
+    )
   }
 }

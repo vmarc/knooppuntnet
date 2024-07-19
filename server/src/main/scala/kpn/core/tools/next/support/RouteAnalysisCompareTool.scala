@@ -5,10 +5,14 @@ import kpn.core.doc.OldRouteDoc
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.tools.analysis.AnalysisStartConfiguration
 import kpn.core.tools.analysis.AnalysisStartToolOptions
+import kpn.core.tools.config.Dirs
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.tools.next.support.compare.CompareEdges
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
+import org.apache.commons.io.FileUtils
+
+import java.io.File
 
 object RouteAnalysisCompareTool {
   def main(args: Array[String]): Unit = {
@@ -23,7 +27,9 @@ class RouteAnalysisCompareTool(config: AnalysisStartConfiguration) {
 
   def analyze(): Unit = {
     log.info("Collecting routeIds")
-    val routeIds = config.oldDatabase.oldRoutes.ids()
+    val file = new File(Dirs.root, "logs/mismatch-ids.txt")
+    val routeIds = FileUtils.readFileToString(file, "UTF-8").split("\n").map(_.toLong)
+    // val routeIds = Seq(17700250L) // config.oldDatabase.oldRoutes.ids()
     log.info(s"Comparing ${routeIds.size} routes")
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       if (index % 50 == 0) {
