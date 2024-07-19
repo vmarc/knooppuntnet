@@ -30,7 +30,7 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
 
     val route = buildRouteDetailDoc(
       title,
-      context._routeMembers.get,
+      context.routeMembers,
       context._ways.get,
       context.routeMap,
       context.unexpectedNodeIds,
@@ -46,7 +46,7 @@ class RouteAnalysisBuilder(context: RouteDetailAnalysisContext) {
       routeDetail = route,
       structure = context.oldStructure,
       routeNodeAnalysis = context.oldRouteNodeAnalysis,
-      routeMembers = context._routeMembers.get,
+      routeMembers = context.routeMembers,
       ways = context._ways.get,
       startNodes = context.routeMap.startNodes,
       endNodes = context.routeMap.endNodes,

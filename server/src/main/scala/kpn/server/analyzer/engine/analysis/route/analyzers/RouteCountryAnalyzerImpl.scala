@@ -15,7 +15,6 @@ class RouteCountryAnalyzerImpl(locationAnalyzer: LocationAnalyzer, routeReposito
     }
     context.copy(
       country = countryOption,
-      abort = countryOption.isEmpty
     )
   }
 }

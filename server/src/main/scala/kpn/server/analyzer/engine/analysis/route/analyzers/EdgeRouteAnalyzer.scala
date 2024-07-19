@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.common.common.TrackPath
 import kpn.api.common.route.RouteEdge
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.structure.StructurePath
 
 object EdgeRouteAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
@@ -13,49 +13,16 @@ object EdgeRouteAnalyzer extends RouteAnalyzer {
 class EdgeRouteAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
-
-    val routeMap = context.routeMap
-    val edges = Seq(
-      toEdges(routeMap.forwardPath),
-      toEdges(routeMap.backwardPath),
-      routeMap.freePaths.map(toEdge),
-      routeMap.startTentaclePaths.map(toEdge),
-      routeMap.endTentaclePaths.map(toEdge),
-    ).flatten
+    val edges = context.structure.nodeNetworkPaths.map(toEdge)
     context.copy(edges = edges)
   }
 
-  private def toEdges(trackPathOption: Option[TrackPath]): Seq[RouteEdge] = {
-    trackPathOption match {
-      case None => Seq.empty
-      case Some(trackPath) =>
-        if (trackPath.oneWay) {
-          Seq(toEdge(trackPath))
-        }
-        else {
-          Seq(
-            toEdge(trackPath),
-            toReverseEdge(trackPath)
-          )
-        }
-    }
-  }
-
-  private def toEdge(trackPath: TrackPath): RouteEdge = {
+  private def toEdge(path: StructurePath): RouteEdge = {
     RouteEdge(
-      trackPath.pathId,
-      trackPath.startNodeId,
-      trackPath.endNodeId,
-      trackPath.meters
-    )
-  }
-
-  private def toReverseEdge(trackPath: TrackPath): RouteEdge = {
-    RouteEdge(
-      100L + trackPath.pathId,
-      trackPath.endNodeId,
-      trackPath.startNodeId,
-      trackPath.meters
+      path.id,
+      path.startNodeId,
+      path.endNodeId,
+      path.meters
     )
   }
 }

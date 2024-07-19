@@ -13,7 +13,7 @@ object RouteStreetsAnalyzer extends RouteAnalyzer {
 class RouteStreetsAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
-    val ways: Seq[Way] = context._routeMembers.get.flatMap {
+    val ways: Seq[Way] = context.routeMembers.flatMap {
       case w: RouteMemberWay => Some(w.way)
       case _ => None
     }

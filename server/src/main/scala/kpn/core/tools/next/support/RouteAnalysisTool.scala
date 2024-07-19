@@ -88,7 +88,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     }
 
     DependencySorter.sort(dependencies).foreach { relationId =>
-      config.routeRepository.findRouteDetailById(relationId).match {
+      config.routeRepository.findRouteDetailById(relationId) match {
         case None => // TODO redesign - error message?
         case Some(routeDetailDoc) =>
           config.routeMainAnalyzer.analyze(routeDetailDoc) match {

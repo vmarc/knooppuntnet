@@ -22,7 +22,8 @@ class RouteTagAnalyzer(context: RouteDetailAnalysisContext) {
     }
     else {
       context.relation.tagValue("route") match {
-        case None => context.copy(abort = true).withFacts(RouteTagMissing)
+        case None =>
+          context.copy(abort = true).withFacts(RouteTagMissing)
         case Some(routeTagValue) =>
           val superRoute = context.relation.hasTag("type", "superroute")
           val nodeNetwork = context.relation.hasTag("network:type", "node_network")

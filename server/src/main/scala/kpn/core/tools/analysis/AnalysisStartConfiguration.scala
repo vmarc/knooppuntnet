@@ -71,6 +71,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   private val database = Mongo.database(Mongo.client, options.databaseName)
   private val nextDatabase = Mongo.nextDatabase(Mongo.client, options.databaseName)
+  val oldDatabase = Mongo.oldDatabase(Mongo.client, options.databaseName)
 
   val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
   val routeRepository: RouteRepository = new RouteRepositoryImpl(database)

@@ -1,0 +1,69 @@
+package kpn.core.tools.next.support
+
+import kpn.api.custom.Relation
+import kpn.core.doc.OldRouteDoc
+import kpn.core.doc.RouteDetailDoc
+import kpn.core.tools.analysis.AnalysisStartConfiguration
+import kpn.core.tools.analysis.AnalysisStartToolOptions
+import kpn.core.tools.next.domain.RouteRelation
+import kpn.core.tools.next.support.compare.CompareEdges
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
+
+object RouteAnalysisCompareTool {
+  def main(args: Array[String]): Unit = {
+    val configuration = new AnalysisStartConfiguration(AnalysisStartToolOptions("kpn-next"))
+    new RouteAnalysisCompareTool(configuration).analyze()
+  }
+}
+
+class RouteAnalysisCompareTool(config: AnalysisStartConfiguration) {
+
+  private val log = Log(classOf[RouteAnalysisTool])
+
+  def analyze(): Unit = {
+    log.info("Collecting routeIds")
+    val routeIds = config.oldDatabase.oldRoutes.ids()
+    log.info(s"Comparing ${routeIds.size} routes")
+    routeIds.zipWithIndex.foreach { case (routeId, index) =>
+      if (index % 50 == 0) {
+        log.info(s"${index + 1}/${routeIds.size}")
+      }
+      Log.context(s"${index + 1}/${routeIds.size} route=$routeId") {
+        try {
+          analyzeAndCompare(routeId)
+        } catch {
+          case e: Throwable =>
+            log.error("Error processing route", e)
+        }
+      }
+    }
+    log.info(s"Done")
+  }
+
+  private def analyzeAndCompare(routeId: Long): Unit = {
+    config.nextRepository.nextRouteRelation(routeId) match {
+      case None => log.error(s"route not found in route-relations")
+      case Some(nextRouteRelation) =>
+        analyzeRoute(nextRouteRelation.relation, nextRouteRelation.structure) match {
+          case None => log.error(s"could not analyze route")
+          case Some(newRouteDetailDoc) =>
+            config.oldDatabase.oldRoutes.findById(routeId) match {
+              case None =>
+              case Some(oldRouteDoc) =>
+                compare(oldRouteDoc, newRouteDetailDoc)
+            }
+        }
+    }
+  }
+
+  private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Option[RouteDetailDoc] = {
+    config.routeDetailMainAnalyzer.analyze(relation, hierarchy).map { context =>
+      new RouteDetailDocBuilder(context).build()
+    }
+  }
+
+  private def compare(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc): Unit = {
+    new CompareEdges(oldRouteDoc, newRouteDoc, log).compare()
+  }
+}

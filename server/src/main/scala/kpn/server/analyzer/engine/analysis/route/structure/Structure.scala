@@ -7,7 +7,8 @@ case class Structure(
   endTentaclePaths: Seq[StructurePath],
   otherPaths: Seq[StructurePath]
 ) {
-  def paths: Seq[StructurePath] = {
-    forwardPath.toSeq ++ backwardPath.toSeq ++ startTentaclePaths ++ endTentaclePaths ++ otherPaths
+  def nodeNetworkPaths: Seq[StructurePath] = {
+    // does not include otherPaths
+    forwardPath.toSeq ++ backwardPath.toSeq ++ startTentaclePaths ++ endTentaclePaths
   }
 }
