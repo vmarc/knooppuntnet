@@ -4,8 +4,7 @@ case class PlanRoute(
   sourceNode: PlanNode,
   sinkNode: PlanNode,
   meters: Long,
-  segments: Seq[PlanSegment],
-  streets: Seq[String]
+  segments: Seq[PlanSegment]
 ) {
 
   def reverse: PlanRoute = {
@@ -15,8 +14,7 @@ case class PlanRoute(
         sinkNode,
         sourceNode,
         meters,
-        Seq.empty,
-        streets
+        Seq.empty
       )
     }
     else {
@@ -42,8 +40,7 @@ case class PlanRoute(
         sinkNode,
         sourceNode,
         meters,
-        reversedSegments,
-        streets
+        reversedSegments
       )
     }
   }

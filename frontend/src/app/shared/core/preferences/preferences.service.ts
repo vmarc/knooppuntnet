@@ -17,7 +17,6 @@ export class PreferencesService {
 
   readonly strategy: Signal<AnalysisStrategy>;
   readonly networkType: Signal<string>;
-  readonly instructions: Signal<boolean>;
   // TODO SIGNAL not used anymore? re-introduce?
   readonly extraLayers: Signal<boolean>;
   readonly pageSize: Signal<number>;
@@ -38,7 +37,6 @@ export class PreferencesService {
 
     this.strategy = computed(() => this.preferences().strategy);
     this.networkType = computed(() => this.preferences().networkType);
-    this.instructions = computed(() => this.preferences().instructions);
     // TODO SIGNAL not used anymore? re-introduce?
     this.extraLayers = computed(() => this.preferences().extraLayers);
     this.pageSize = computed(() => this.preferences().pageSize);
@@ -61,13 +59,6 @@ export class PreferencesService {
     this.update({
       ...this.preferences(),
       networkType,
-    });
-  }
-
-  setInstructions(instructions: boolean): void {
-    this.update({
-      ...this.preferences(),
-      instructions,
     });
   }
 

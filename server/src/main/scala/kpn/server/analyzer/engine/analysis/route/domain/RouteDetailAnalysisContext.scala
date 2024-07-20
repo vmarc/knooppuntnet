@@ -59,7 +59,6 @@ case class RouteDetailAnalysisContext(
   _routeMap: Option[RouteMap] = None,
   _ways: Option[Seq[Way]] = None,
   allWayNodes: Option[Seq[Node]] = None,
-  streets: Option[Seq[String]] = None,
   _geometryDigest: Option[String] = None,
   _locationAnalysis: Option[RouteLocationAnalysis] = None,
   lastSurvey: Option[Day] = None,

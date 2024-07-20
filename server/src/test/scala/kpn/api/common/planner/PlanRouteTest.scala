@@ -32,15 +32,11 @@ class PlanRouteTest extends UnitTest {
           fragments = Seq(
             PlanFragment(
               meters = 10,
-              orientation = 1,
-              streetIndex = Some(0),
               coordinate = PlanCoordinate(2, 2),
               LatLonImpl("2", "2")
             ),
             PlanFragment(
               meters = 30,
-              orientation = 1,
-              streetIndex = Some(0),
               coordinate = PlanCoordinate(3, 3),
               LatLonImpl("3", "3")
             )
@@ -53,17 +49,11 @@ class PlanRouteTest extends UnitTest {
           fragments = Seq(
             PlanFragment(
               meters = 50,
-              orientation = 1,
-              streetIndex = Some(1),
               coordinate = PlanCoordinate(4, 4),
               LatLonImpl("4", "4")
             )
           )
         )
-      ),
-      streets = Seq(
-        "street1",
-        "street2"
       )
     )
 
@@ -94,8 +84,6 @@ class PlanRouteTest extends UnitTest {
             fragments = Seq(
               PlanFragment(
                 meters = 50,
-                orientation = 1,
-                streetIndex = Some(1),
                 coordinate = PlanCoordinate(3, 3),
                 LatLonImpl("3", "3")
               )
@@ -108,24 +96,16 @@ class PlanRouteTest extends UnitTest {
             fragments = Seq(
               PlanFragment(
                 meters = 30,
-                orientation = 1,
-                streetIndex = Some(0),
                 coordinate = PlanCoordinate(2, 2),
                 LatLonImpl("2", "2")
               ),
               PlanFragment(
                 meters = 10,
-                orientation = 1,
-                streetIndex = Some(0),
                 coordinate = PlanCoordinate(1, 1),
                 LatLonImpl("1", "1")
               )
             )
           )
-        ),
-        streets = Seq(
-          "street1",
-          "street2"
         )
       )
     )

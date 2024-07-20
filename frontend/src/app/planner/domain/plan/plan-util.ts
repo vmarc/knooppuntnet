@@ -228,8 +228,6 @@ export class PlanUtil {
     const legKey = sourceNode.nodeId + '-' + sinkNode.nodeId;
     const fragment: PlanFragment = {
       meters: 0,
-      orientation: 0,
-      streetIndex: -1,
       coordinate: sinkNode.coordinate,
       latLon: sinkNode.latLon,
     };
@@ -244,7 +242,6 @@ export class PlanUtil {
       sinkNode,
       meters: 0,
       segments: [segment],
-      streets: [],
     };
     return new PlanLeg(featureId, legKey, source, sink, sinkFlag, viaFlag, List([route]));
   }
@@ -265,8 +262,6 @@ export class PlanUtil {
   static planRoute(sourceNode: PlanNode, sinkNode: PlanNode): PlanRoute {
     const fragment: PlanFragment = {
       meters: 0,
-      orientation: 0,
-      streetIndex: -1,
       coordinate: sinkNode.coordinate,
       latLon: sinkNode.latLon,
     };
@@ -281,7 +276,6 @@ export class PlanUtil {
       sinkNode,
       meters: 0,
       segments: [segment],
-      streets: [],
     };
   }
 }

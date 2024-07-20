@@ -22,5 +22,4 @@ export interface RouteMap {
   readonly startTentacleNodes: RouteNetworkNodeInfo[];
   readonly endTentacleNodes: RouteNetworkNodeInfo[];
   readonly redundantNodes: RouteNetworkNodeInfo[];
-  readonly streets: string[];
 }

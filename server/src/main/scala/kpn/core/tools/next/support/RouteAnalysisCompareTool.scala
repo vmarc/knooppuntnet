@@ -75,6 +75,6 @@ class RouteAnalysisCompareTool(config: AnalysisStartConfiguration) {
 
   private def readRouteIds(filename: String): Seq[Long] = {
     val file = new File(Dirs.root, filename)
-    FileUtils.readFileToString(file, "UTF-8").split("\n").map(_.toLong)
+    FileUtils.readFileToString(file, "UTF-8").split("\n").toSeq.map(_.toLong)
   }
 }

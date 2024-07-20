@@ -50,7 +50,6 @@ export class PlannerStateService {
   readonly resultMode = computed(() => this._state().resultMode);
   readonly resultModeCompact = computed(() => this.resultMode() === 'compact');
   readonly resultModeDetailed = computed(() => this.resultMode() === 'detailed');
-  readonly resultModeInstructions = computed(() => this.resultMode() === 'instructions');
   readonly layerStates = computed(() => this._state().layerStates);
   readonly poiLayerStates = computed(() => this._state().poiLayerStates);
 
@@ -227,8 +226,6 @@ export class PlannerStateService {
     let resultMode: MapResultMode = 'compact';
     if (resultModeParam === 'detailed') {
       resultMode = 'detailed';
-    } else if (resultModeParam === 'instructions') {
-      resultMode = 'instructions';
     }
     return resultMode;
   }

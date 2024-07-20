@@ -81,9 +81,7 @@ class GraphTestData extends SharedTestObjects with MockFactory {
                   fragments = Seq(
                     TrackSegmentFragment(
                       trackPoint = TrackPoint(endNode.lat, endNode.lon),
-                      meters = 0,
-                      orientation = 1,
-                      streetIndex = None
+                      meters = 0
                     )
                   )
                 )

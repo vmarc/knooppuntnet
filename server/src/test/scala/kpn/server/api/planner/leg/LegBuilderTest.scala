@@ -202,15 +202,12 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
           fragments = Seq(
             PlanFragment(
               meters = 0,
-              orientation = 1,
-              streetIndex = None,
               coordinate = sinkPlanNode.coordinate,
               sinkPlanNode.latLon
             )
           )
         )
-      ),
-      streets = Seq.empty
+      )
     )
   }
 

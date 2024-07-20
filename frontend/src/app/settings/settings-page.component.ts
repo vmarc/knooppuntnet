@@ -22,24 +22,6 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
 
       <div class="setting">
         <mat-slide-toggle
-          [checked]="service.instructions()"
-          (change)="instructionsChanged($event)"
-          i18n="@@settings.directions"
-        >
-          Navigation instructions
-        </mat-slide-toggle>
-        <p class="comment" i18n="@@settings.directions.comment.1">
-          You can enable this extra functionality in the planner to generate a list with navigation
-          instructions for the route you have planned.
-        </p>
-        <p class="comment" i18n="@@settings.directions.comment.2">
-          This functionality is still experimental and under development at this moment and may not
-          work completely ok yet. By default, this functionality is not enabled.
-        </p>
-      </div>
-
-      <div class="setting">
-        <mat-slide-toggle
           [checked]="service.extraLayers()"
           (change)="extraLayersChanged($event)"
           i18n="@@settings.extra-layers"
@@ -81,10 +63,6 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
 })
 export class SettingsPageComponent {
   protected readonly service = inject(PreferencesService);
-
-  instructionsChanged(event: MatSlideToggleChange): void {
-    this.service.setInstructions(event.checked);
-  }
 
   extraLayersChanged(event: MatSlideToggleChange): void {
     this.service.setExtraLayers(event.checked);

@@ -93,7 +93,6 @@ class RouteDetailMainAnalyzer(
         OldRouteStructureAnalyzer,
 
         RouteMemberAnalyzer,
-        // TODO RouteStreetsAnalyzer,
         RouteMapAnalyzer,
         GeometryDigestAnalyzer,
         routeLocationAnalyzer,

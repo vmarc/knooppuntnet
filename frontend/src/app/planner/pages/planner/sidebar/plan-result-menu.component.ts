@@ -29,17 +29,6 @@ import { PlannerStateService } from '../planner-state.service';
             Detailed
           </a>
         </span>
-        @if (instructions()) {
-          <span>
-            <a
-              [ngClass]="{ selected: resultMode === 'instructions' }"
-              (click)="resultModeInstructions($event)"
-              i18n="@@planner.instructions"
-            >
-              Instructions
-            </a>
-          </span>
-        }
       </div>
     }
   `,
@@ -67,7 +56,6 @@ export class PlanResultMenuComponent {
   private readonly preferencesService = inject(PreferencesService);
 
   readonly resultMode = this.plannerStateService.resultMode;
-  readonly instructions = this.preferencesService.instructions;
 
   resultModeCompact(event) {
     this.handleResultMode(event, 'compact');
@@ -75,10 +63,6 @@ export class PlanResultMenuComponent {
 
   resultModeDetailed(event) {
     this.handleResultMode(event, 'detailed');
-  }
-
-  resultModeInstructions(event) {
-    this.handleResultMode(event, 'instructions');
   }
 
   private handleResultMode(event, resultMode: MapResultMode) {

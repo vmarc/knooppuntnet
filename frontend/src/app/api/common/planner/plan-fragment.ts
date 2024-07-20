@@ -5,8 +5,6 @@ import { Coordinate } from 'ol/coordinate';
 
 export interface PlanFragment {
   readonly meters: number;
-  readonly orientation: number;
-  readonly streetIndex: number;
   readonly coordinate: Coordinate;
   readonly latLon: LatLonImpl;
 }

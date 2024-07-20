@@ -17,9 +17,9 @@ class TrackPathTest extends UnitTest {
           "",
           source = TrackPoint("1", "1"),
           fragments = Seq(
-            TrackSegmentFragment(trackPoint = TrackPoint("2", "2"), 0L, 0L, None),
-            TrackSegmentFragment(trackPoint = TrackPoint("3", "3"), 0L, 0L, None),
-            TrackSegmentFragment(trackPoint = TrackPoint("4", "4"), 0L, 0L, None)
+            TrackSegmentFragment(trackPoint = TrackPoint("2", "2"), 0L),
+            TrackSegmentFragment(trackPoint = TrackPoint("3", "3"), 0L),
+            TrackSegmentFragment(trackPoint = TrackPoint("4", "4"), 0L)
           )
         )
       )
@@ -53,10 +53,10 @@ class TrackPathTest extends UnitTest {
           "surface",
           source = TrackPoint("1", "1"),
           fragments = Seq(
-            TrackSegmentFragment(trackPoint = TrackPoint("2", "2"), 0L, 2L, None),
-            TrackSegmentFragment(trackPoint = TrackPoint("3", "3"), 0L, 3L, None),
-            TrackSegmentFragment(trackPoint = TrackPoint("4", "4"), 0L, 4L, None),
-            TrackSegmentFragment(trackPoint = TrackPoint("5", "5"), 0L, 5L, None)
+            TrackSegmentFragment(trackPoint = TrackPoint("2", "2"), 0L),
+            TrackSegmentFragment(trackPoint = TrackPoint("3", "3"), 0L),
+            TrackSegmentFragment(trackPoint = TrackPoint("4", "4"), 0L),
+            TrackSegmentFragment(trackPoint = TrackPoint("5", "5"), 0L)
           )
         )
       )
@@ -74,10 +74,10 @@ class TrackPathTest extends UnitTest {
             "surface",
             source = TrackPoint("5", "5"),
             fragments = Seq(
-              TrackSegmentFragment(trackPoint = TrackPoint("4", "4"), 0L, 185L, None),
-              TrackSegmentFragment(trackPoint = TrackPoint("3", "3"), 0L, 184L, None),
-              TrackSegmentFragment(trackPoint = TrackPoint("2", "2"), 0L, 183L, None),
-              TrackSegmentFragment(trackPoint = TrackPoint("1", "1"), 0L, 182L, None)
+              TrackSegmentFragment(trackPoint = TrackPoint("4", "4"), 0L),
+              TrackSegmentFragment(trackPoint = TrackPoint("3", "3"), 0L),
+              TrackSegmentFragment(trackPoint = TrackPoint("2", "2"), 0L),
+              TrackSegmentFragment(trackPoint = TrackPoint("1", "1"), 0L)
             )
           )
         )

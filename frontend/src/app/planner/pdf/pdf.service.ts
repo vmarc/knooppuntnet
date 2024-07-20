@@ -1,10 +1,7 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { List } from 'immutable';
 import { Plan } from '../domain/plan/plan';
-import { PlanInstruction } from '../domain/plan/plan-instruction';
 import { GpxWriter } from './plan/gpx-writer';
-import { PdfDirections } from './plan/pdf-directions';
 import { PdfDocument } from './plan/pdf-document';
 import { PdfStripDocument } from './plan/pdf-strip-document';
 import { PdfTextDocument } from './plan/pdf-text-document';
@@ -24,10 +21,6 @@ export class PdfService {
 
   printTextDocument(plan: Plan, name: string): void {
     new PdfTextDocument(plan, name).print();
-  }
-
-  printInstructions(instructions: List<PlanInstruction>, name: string): void {
-    new PdfDirections(instructions, this.iconService, name).print();
   }
 
   writeGpx(plan: Plan, name: string): void {

@@ -148,10 +148,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                   TrackSegment(
                     "paved",
                     TrackPoint("0", "0"),
-                    Seq(TrackSegmentFragment(TrackPoint("0", "0"),
-                      0,
-                      90,
-                      None)
+                    Seq(
+                      TrackSegmentFragment(TrackPoint("0", "0"), 0)
                     )
                   )
                 )
@@ -169,7 +167,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                     "paved",
                     TrackPoint("0", "0"),
                     Seq(
-                      TrackSegmentFragment(TrackPoint("0", "0"), 0, 90, None)
+                      TrackSegmentFragment(TrackPoint("0", "0"), 0)
                     )
                   )
                 )
@@ -246,10 +244,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                   TrackSegment(
                     "paved",
                     TrackPoint("0", "0"),
-                    Seq(TrackSegmentFragment(TrackPoint("0", "0"),
-                      0,
-                      90,
-                      None)
+                    Seq(
+                      TrackSegmentFragment(TrackPoint("0", "0"), 0)
                     )
                   )
                 )
@@ -267,7 +263,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                     "paved",
                     TrackPoint("0", "0"),
                     Seq(
-                      TrackSegmentFragment(TrackPoint("0", "0"), 0, 90, None)
+                      TrackSegmentFragment(TrackPoint("0", "0"), 0)
                     )
                   )
                 )

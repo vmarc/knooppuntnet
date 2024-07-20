@@ -9,8 +9,6 @@ import kpn.api.common.data.Node
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteMap
 import kpn.core.analysis.RouteMemberWay
-import kpn.core.directions.DirectionAnalyzer
-import kpn.core.directions.Latlon
 import kpn.core.util.Haversine
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteAnalyzerFunctions
@@ -80,8 +78,7 @@ class RouteMapAnalyzer(context: RouteDetailAnalysisContext) {
       endNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.endNodes.isEmpty) Seq.empty else Seq(routeNodeAnalysis.endNodes.head)),
       startTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.startNodes.size <= 1) Seq.empty else routeNodeAnalysis.startNodes.tail),
       endTentacleNodes = RouteAnalyzerFunctions.toInfos(if (routeNodeAnalysis.endNodes.size <= 1) Seq.empty else routeNodeAnalysis.endNodes.tail),
-      redundantNodes = RouteAnalyzerFunctions.toInfos(routeNodeAnalysis.redundantNodes),
-      streets = context.streets.toSeq.flatten
+      redundantNodes = RouteAnalyzerFunctions.toInfos(routeNodeAnalysis.redundantNodes)
     )
   }
 
@@ -93,27 +90,15 @@ class RouteMapAnalyzer(context: RouteDetailAnalysisContext) {
   private def toTrackSegment(segment: Segment): TrackSegment = {
 
     val fragments: Seq[TrackSegmentFragment] = segment.fragments.flatMap { fragment =>
-      val streetIndex: Option[Long] = fragment.fragment.way.tagValue("name") match {
-        case None => None
-        case Some(street) =>
-          context.streets match {
-            case Some(streets) => streets.zipWithIndex.find(_._1 == street).map(_._2)
-            case None => None
-          }
-      }
-
       if (fragment.nodes.size < 2) {
         Seq.empty
       }
       else {
         fragment.nodes.sliding(2).toSeq.map { case Seq(p1, p2) =>
           val meters = (Haversine.km(p1.lat, p1.lon, p2.lat, p2.lon) * 1000).toInt
-          val orientation = DirectionAnalyzer.calculateHeading(Latlon(p1.lat, p1.lon), Latlon(p2.lat, p2.lon))
           TrackSegmentFragment(
             toTrackPoint(p2),
-            meters,
-            orientation,
-            streetIndex
+            meters
           )
         }
       }

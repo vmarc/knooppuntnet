@@ -1,1 +1,1 @@
-export type MapResultMode = 'compact' | 'detailed' | 'instructions';
+export type MapResultMode = 'compact' | 'detailed';

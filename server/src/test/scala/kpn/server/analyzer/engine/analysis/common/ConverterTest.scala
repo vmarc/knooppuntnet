@@ -54,12 +54,9 @@ class ConverterTest extends UnitTest {
       fragments = fragmentTrackPoints.map { trackPoint =>
         TrackSegmentFragment(
           trackPoint = trackPoint,
-          meters = 0,
-          orientation = 0,
-          streetIndex = None
+          meters = 0
         )
       }
     )
   }
-
 }

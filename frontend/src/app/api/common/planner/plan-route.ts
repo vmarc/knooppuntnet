@@ -8,5 +8,4 @@ export interface PlanRoute {
   readonly sinkNode: PlanNode;
   readonly meters: number;
   readonly segments: PlanSegment[];
-  readonly streets: string[];
 }

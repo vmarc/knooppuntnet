@@ -22,14 +22,9 @@ case class TrackPath(
       val source = segment.trackPoints.last
       val trackPoints = segment.trackPoints.dropRight(1).reverse
       val reversedFragments = trackPoints.zip(segment.fragments.reverse).map { case (trackPoint, fragment) =>
-
-        val newOrientation = (fragment.orientation + 180) % 360
-
         TrackSegmentFragment(
           trackPoint,
-          fragment.meters,
-          newOrientation,
-          fragment.streetIndex
+          fragment.meters
         )
       }
 
@@ -49,5 +44,4 @@ case class TrackPath(
       segments = reversedSegments
     )
   }
-
 }

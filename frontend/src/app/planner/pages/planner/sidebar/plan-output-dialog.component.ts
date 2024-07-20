@@ -15,7 +15,6 @@ import { DialogComponent } from '@app/components/shared/dialog';
 import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
 import { ClipboardModule } from 'ngx-clipboard';
-import { DirectionsAnalyzer } from '../../../domain/directions/directions-analyzer';
 import { PlanUtil } from '../../../domain/plan/plan-util';
 import { PdfService } from '../../../pdf/pdf.service';
 import { PlannerService } from '../planner.service';
@@ -73,18 +72,6 @@ import { PlannerService } from '../planner.service';
         >
           Node strip
         </button>
-
-        @if (instructions()) {
-          <button
-            mat-stroked-button
-            (click)="printInstructions()"
-            title="Produce a route pdf with navigation instructions"
-            i18n-title="@@plan.output.navigation-instructions-pdf.tooltip"
-            i18n="@@plan.output.navigation-instructions-pdf"
-          >
-            Navigation instructions
-          </button>
-        }
 
         <button
           mat-stroked-button
@@ -156,7 +143,6 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   protected qrCode: string | ArrayBuffer = '';
 
-  readonly instructions = this.preferencesService.instructions;
   private readonly plan = this.plannerService.context.plan;
 
   ngOnInit(): void {
@@ -185,11 +171,6 @@ export class PlanOutputDialogComponent implements OnInit, AfterViewInit {
 
   printTextDocument(): void {
     this.pdfService.printTextDocument(this.plan(), this.routeName());
-  }
-
-  printInstructions(): void {
-    const instructions = new DirectionsAnalyzer().analyze(this.plan());
-    this.pdfService.printInstructions(instructions, this.routeName());
   }
 
   gpx(): void {

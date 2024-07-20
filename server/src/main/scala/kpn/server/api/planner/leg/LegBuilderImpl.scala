@@ -268,8 +268,7 @@ class LegBuilderImpl(
                 sourceNode,
                 sinkNode,
                 meters,
-                routeLegSegments,
-                routeDetailDoc.analysis.map.streets
+                routeLegSegments
               )
             )
 
@@ -302,8 +301,6 @@ class LegBuilderImpl(
 
     PlanFragment(
       trackSegmentFragment.meters,
-      trackSegmentFragment.orientation,
-      trackSegmentFragment.streetIndex,
       coordinate,
       latLon
     )

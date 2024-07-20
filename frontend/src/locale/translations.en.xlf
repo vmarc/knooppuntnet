@@ -1215,77 +1215,9 @@
         <source>Detailed</source>
         <target>Detailed</target>
       </trans-unit>
-      <trans-unit datatype="html" id="planner.instructions">
-        <source>Instructions</source>
-        <target>Instructions</target>
-      </trans-unit>
       <trans-unit datatype="html" id="plan.distance">
         <source>Distance</source>
         <target>Distance</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.head">
-        <source>Head</source>
-        <target>Head</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.heading.north">
-        <source>north</source>
-        <target>north</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.heading.north-east">
-        <source>north-east</source>
-        <target>north-east</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.heading.east">
-        <source>east</source>
-        <target>east</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.heading.south-east">
-        <source>south-east</source>
-        <target>south-east</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.heading.south">
-        <source>south</source>
-        <target>south</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.heading.south-west">
-        <source>south-west</source>
-        <target>south-west</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.heading.west">
-        <source>west</source>
-        <target>west</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.heading.north-west">
-        <source>north-west</source>
-        <target>north-west</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.command.continue">
-        <source>Continue</source>
-        <target>Continue</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.command.turn-slight-left">
-        <source>Slight left</source>
-        <target>Slight left</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.command.turn-slight-right">
-        <source>Slight right</source>
-        <target>Slight right</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.command.turn-left">
-        <source>Turn left</source>
-        <target>Turn left</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.command.turn-right">
-        <source>Turn right</source>
-        <target>Turn right</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.command.turn-sharp-left">
-        <source>Sharp left</source>
-        <target>Sharp left</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.command.turn-sharp-right">
-        <source>Sharp right</source>
-        <target>Sharp right</target>
       </trans-unit>
       <trans-unit datatype="html" id="breadcrumb.status">
         <source>Status</source>
@@ -3301,10 +3233,6 @@
         <source>Node strip</source>
         <target>Node strip</target>
       </trans-unit>
-      <trans-unit datatype="html" id="plan.output.navigation-instructions-pdf">
-        <source>Navigation instructions</source>
-        <target>Navigation instructions</target>
-      </trans-unit>
       <trans-unit datatype="html" id="plan.output.gpx">
         <source>GPX file</source>
         <target>GPX file</target>
@@ -3365,10 +3293,6 @@
         <source>Produce a route pdf file with nodes in 'strip' format</source>
         <target>Produce a route pdf file with nodes in 'strip' format</target>
       </trans-unit>
-      <trans-unit datatype="html" id="plan.output.navigation-instructions-pdf.tooltip">
-        <source>Produce a route pdf with navigation instructions</source>
-        <target>Produce a route pdf with navigation instructions</target>
-      </trans-unit>
       <trans-unit datatype="html" id="plan.output.gpx.tooltip">
         <source>Produce a route file that can be used in a gps-device</source>
         <target>Produce a route file that can be used in a gps-device</target>
@@ -3404,10 +3328,6 @@
       <trans-unit datatype="html" id="location-edit.full-routes">
         <source>routes with ways (takes more time)</source>
         <target>routes with ways (takes more time)</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="plan.follow-colour">
-        <source>Follow colour</source>
-        <target>Follow colour</target>
       </trans-unit>
       <trans-unit datatype="html" id="route.colour.black">
         <source>black</source>
@@ -3624,18 +3544,6 @@
       <trans-unit datatype="html" id="settings-page.title">
         <source>Settings</source>
         <target>Settings</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="settings.directions">
-        <source>Navigation instructions</source>
-        <target>Navigation instructions</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="settings.directions.comment.1">
-        <source>You can enable this extra functionality in the planner to generate a list with navigation instructions for the route you have planned.</source>
-        <target>You can enable this extra functionality in the planner to generate a list with navigation instructions for the route you have planned.</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="settings.directions.comment.2">
-        <source>This functionality is still experimental and under development at this moment and may not work completely ok yet. By default, this functionality is not enabled.</source>
-        <target>This functionality is still experimental and under development at this moment and may not work completely ok yet. By default, this functionality is not enabled.</target>
       </trans-unit>
       <trans-unit datatype="html" id="map.layer.background">
         <source>Background</source>
@@ -5426,6 +5334,10 @@
       <trans-unit datatype="html" id="node.details-sidebar.tip.mac">
         <source>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes. Use cmd-click to open to open these details in another window.</source>
         <target>TIP: click on other nodes or routes in the map to go to the details of these nodes or routes. Use cmd-click to open to open these details in another window.</target>
+      </trans-unit>
+      <trans-unit datatype="html" id="route.members.table.nr">
+        <source>Nr</source>
+        <target>Nr</target>
       </trans-unit>
     </body>
   </file>
