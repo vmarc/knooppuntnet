@@ -11,9 +11,12 @@ import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
+import kpn.core.analysis.LinkDirection
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNodes
+import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkNode
+import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkWay
 
 import scala.collection.mutable.ListBuffer
 
@@ -127,32 +130,43 @@ class RouteNodeAnalyzer(context: RouteDetailAnalysisContext) {
 
   private def findRouteNodes(networkType: NetworkType): Seq[RouteAnalysisNode] = {
     val nodeDatas = ListBuffer[RouteAnalysisNode]()
-    context.relation.members.foreach {
-      case wayMember: WayMember =>
-        wayMember.way.nodes.distinct.foreach { node =>
-          wayNodeData(networkType, node) match {
-            case None => // not a node network node
-            case Some(nodeData) =>
-              if (!nodeDatas.filter(_.isInWay).map(_.node.id).contains(nodeData.node.id)) {
-                nodeDatas += nodeData
-              }
-          }
-        }
 
-      case nodeMember: NodeMember =>
-        if (nodeDatas.map(_.node.id).contains(nodeMember.node.id)) {
-          // we prefer the position of the node in the ways over the position in the route relation
-        }
-        else {
-          standaloneNodeData(networkType, nodeMember.node) match {
-            case None => // not a node network node
-            case Some(nodeData) =>
-              if (!nodeDatas.filterNot(_.isInWay).map(_.node.id).contains(nodeData.node.id)) {
-                nodeDatas += nodeData
-              }
+    context.links.links.foreach { link =>
+      link match {
+        case routeLinkWay: RouteLinkWay =>
+          val nodes = if (routeLinkWay.link.direction == LinkDirection.Backward) {
+            routeLinkWay.way.nodes.reverse.distinct
           }
-        }
-      case _ =>
+          else {
+            routeLinkWay.way.nodes.distinct
+          }
+          nodes.foreach { node =>
+            wayNodeData(networkType, node) match {
+              case None => // not a node network node
+              case Some(nodeData) =>
+                if (!nodeDatas.filter(_.isInWay).map(_.node.id).contains(nodeData.node.id)) {
+                  nodeDatas += nodeData
+                }
+            }
+          }
+
+        case routeLinkNode: RouteLinkNode =>
+
+          if (nodeDatas.map(_.node.id).contains(routeLinkNode.node.id)) {
+            // we prefer the position of the node in the ways over the position in the route relation
+          }
+          else {
+            standaloneNodeData(networkType, routeLinkNode.node) match {
+              case None => // not a node network node
+              case Some(nodeData) =>
+                if (!nodeDatas.filterNot(_.isInWay).map(_.node.id).contains(nodeData.node.id)) {
+                  nodeDatas += nodeData
+                }
+            }
+          }
+
+        case _ =>
+      }
     }
 
     val wayNodeIds = nodeDatas.toSeq.filter(_.isInWay).map(_.node.id)

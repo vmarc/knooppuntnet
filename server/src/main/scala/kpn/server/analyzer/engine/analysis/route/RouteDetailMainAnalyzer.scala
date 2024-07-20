@@ -84,8 +84,8 @@ class RouteDetailMainAnalyzer(
         // TODO ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK
 
-        RouteNodeAnalyzer,
         RouteLinkAnalyzer,
+        RouteNodeAnalyzer,
         RouteSegmentAnalyzer,
         RouteStructureAnalyzer,
 
