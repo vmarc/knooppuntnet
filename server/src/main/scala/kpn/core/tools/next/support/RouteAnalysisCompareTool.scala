@@ -27,9 +27,8 @@ class RouteAnalysisCompareTool(config: AnalysisStartConfiguration) {
 
   def analyze(): Unit = {
     log.info("Collecting routeIds")
-    val file = new File(Dirs.root, "logs/mismatch-ids.txt")
-    val routeIds = FileUtils.readFileToString(file, "UTF-8").split("\n").map(_.toLong)
-    // val routeIds = Seq(17700250L) // config.oldDatabase.oldRoutes.ids()
+    // val routeIds = readRouteIds("logs/mismatch-ids-4.txt")
+    val routeIds = Seq(17613906L) // config.oldDatabase.oldRoutes.ids()
     log.info(s"Comparing ${routeIds.size} routes")
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       if (index % 50 == 0) {
@@ -71,5 +70,10 @@ class RouteAnalysisCompareTool(config: AnalysisStartConfiguration) {
 
   private def compare(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc): Unit = {
     new CompareEdges(oldRouteDoc, newRouteDoc, log).compare()
+  }
+
+  private def readRouteIds(filename: String): Seq[Long] = {
+    val file = new File(Dirs.root, filename)
+    FileUtils.readFileToString(file, "UTF-8").split("\n").map(_.toLong)
   }
 }

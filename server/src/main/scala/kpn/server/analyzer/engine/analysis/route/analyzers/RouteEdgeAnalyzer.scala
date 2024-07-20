@@ -4,13 +4,13 @@ import kpn.api.common.route.RouteEdge
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.StructurePath
 
-object EdgeRouteAnalyzer extends RouteAnalyzer {
+object RouteEdgeAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
-    new EdgeRouteAnalyzer(context).analyze
+    new RouteEdgeAnalyzer(context).analyze
   }
 }
 
-class EdgeRouteAnalyzer(context: RouteDetailAnalysisContext) {
+class RouteEdgeAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
     val edges = if (context.nodeNetwork) {

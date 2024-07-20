@@ -11,7 +11,6 @@ import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.analyzers.EdgeRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
@@ -24,6 +23,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteContextAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteEdgeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteElementsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLastSurveyAnalyzer
@@ -103,7 +103,7 @@ class RouteDetailMainAnalyzer(
         RouteElementsAnalyzer,
         // TODO oldRouteTileAnalyzer,
         routeTileAnalyzer,
-        EdgeRouteAnalyzer,
+        RouteEdgeAnalyzer,
         RouteLabelsAnalyzer, // this always should be the last analyzer
         RouteContextAnalyzer // helper to be used during development only
       )

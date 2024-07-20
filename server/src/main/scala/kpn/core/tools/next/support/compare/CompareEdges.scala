@@ -15,18 +15,25 @@ case class CompareEdge(
 
 class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc, log: Log) {
   def compare(): Unit = {
-    if (newRouteDoc.segments.size == 1) { // cannot compare edges
-      val oldEdges = oldCompareEdges()
-      val newEdges = newCompareEdges()
-      if (!edgesEqual(oldEdges, newEdges)) {
-        val detail = Seq(
-          oldRouteDoc.edges.map(edge => s"old-edge $edge"),
-          newRouteDoc.edges.map(edge => s"new-edge $edge"),
-          oldEdges.map(edge => s"old-edge $edge"),
-          newEdges.map(edge => s"new-edge $edge"),
-        ).flatten.mkString("\n")
-        log.info(s"edge mismatch\n$detail")
-      }
+    if (oldRouteDoc.facts.nonEmpty && newRouteDoc.facts.isEmpty && newRouteDoc.edges.nonEmpty) {
+      // new analysis without problem found edges, old analysis failed: assume new edges better than old
+      return
+    }
+    if (newRouteDoc.segments.size != 1) {
+      // cannot compare edges
+      return
+    }
+
+    val oldEdges = oldCompareEdges()
+    val newEdges = newCompareEdges()
+    if (!edgesEqual(oldEdges, newEdges)) {
+      val detail = Seq(
+        oldRouteDoc.edges.map(edge => s"old-edge $edge"),
+        newRouteDoc.edges.map(edge => s"new-edge $edge"),
+        oldEdges.map(edge => s"old-edge $edge"),
+        newEdges.map(edge => s"new-edge $edge"),
+      ).flatten.mkString("\n")
+      log.info(s"edge mismatch\n$detail")
     }
   }
 
@@ -77,9 +84,13 @@ class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc, log: L
   }
 
   private def edgeEqual(oldEdge: CompareEdge, newEdge: CompareEdge): Boolean = {
-    val metersEqual = abs(oldEdge.meters - newEdge.meters) < (newEdge.meters / 20) // 20%
-    oldEdge.sourceNodeId == newEdge.sourceNodeId &&
-      oldEdge.sinkNodeId == newEdge.sinkNodeId &&
-      metersEqual
+    val metersEqual = abs(oldEdge.meters - newEdge.meters) < (newEdge.meters / 5) // 20%
+    if (metersEqual) {
+      (oldEdge.sourceNodeId == newEdge.sourceNodeId && oldEdge.sinkNodeId == newEdge.sinkNodeId) ||
+        (oldEdge.sourceNodeId == newEdge.sinkNodeId && oldEdge.sinkNodeId == newEdge.sourceNodeId)
+    }
+    else {
+      false
+    }
   }
 }

@@ -69,8 +69,8 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
 
     // analyzeRoutes(essenOkRouteIds)
     // analyzeRoutes(law9)
-    analyzeRoutes(Seq(13844575L))
-    analyzeRoutes(Seq(17700250L)) // exception during structure analysis
+    // analyzeRoutes(Seq(13844575L))
+    analyzeRoutes(Seq(17613906L)) // exception during structure analysis
     // analyzeRoutes(Seq(3952592)) // broken route
     // analyzeRoutes(Seq(3963819)) // route with roundabout
     buildTiles()

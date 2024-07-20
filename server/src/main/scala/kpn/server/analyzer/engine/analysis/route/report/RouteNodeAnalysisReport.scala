@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.report.ReportUtil.osmNodeLink
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
 
 object RouteNodeAnalysisReport {
@@ -19,9 +20,11 @@ object RouteNodeAnalysisReport {
          |    <td>name</td>
          |    <td>isInWay</td>
          |  </tr>
-         |  ${nodes.startNode.map(n => routeNodeReport("startNode", n)).mkString}
-         |  ${nodes.endNode.map(n => routeNodeReport("endNode", n)).mkString}
-         |  ${nodes.redundantNodes.map(n => routeNodeReport("redundantNode", n)).mkString}
+         |  ${nodes.startNode.map(n => routeNodeReport("start", n)).mkString}
+         |  ${nodes.endNode.map(n => routeNodeReport("end", n)).mkString}
+         |  ${nodes.startTentacleNodes.map(n => routeNodeReport("start-tentacle", n)).mkString}
+         |  ${nodes.endTentacleNodes.map(n => routeNodeReport("end-tentacle", n)).mkString}
+         |  ${nodes.redundantNodes.map(n => routeNodeReport("redundant", n)).mkString}
          |</table>
          |""".stripMargin
     }
@@ -39,7 +42,7 @@ object RouteNodeAnalysisReport {
   private def routeNodeReport(nodeType: String, routeNode: RouteAnalysisNode): String = {
     s"""<tr>
        |  <td>$nodeType</td>
-       |  <td>${routeNode.node.id}</td>
+       |  <td>${osmNodeLink(routeNode.node.id)}</td>
        |  <td>${routeNode.name}</td>
        |  <td>${yes(routeNode.isInWay)}</td>
        |</tr>
