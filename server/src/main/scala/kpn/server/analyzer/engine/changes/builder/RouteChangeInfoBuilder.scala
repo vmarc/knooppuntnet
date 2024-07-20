@@ -28,7 +28,7 @@ class RouteChangeInfoBuilder {
       val comment = changeSetInfo.flatMap(_.tagValue("comment"))
 
       val allNodes = before.networkNodes ++ after.networkNodes
-      val allNodeIds = allNodes.map(_.id).distinct
+      val allNodeIds = allNodes.map(_.nodeId).distinct
 
       val nodeIdsAdded = routeChange.diffs.nodeDiffs.flatMap(_.added.map(_.id))
       val nodeIdsRemoved = routeChange.diffs.nodeDiffs.flatMap(_.removed.map(_.id))
@@ -39,10 +39,10 @@ class RouteChangeInfoBuilder {
         } else if (nodeIdsRemoved.contains(nodeId)) {
           ElementChangeType.Removed
         } else {
-          before.networkNodes.find(_.id == nodeId) match {
+          before.networkNodes.find(_.nodeId == nodeId) match {
             case None => ElementChangeType.Unchanged
             case Some(nodeBefore) =>
-              after.networkNodes.find(_.id == nodeId) match {
+              after.networkNodes.find(_.nodeId == nodeId) match {
                 case None => ElementChangeType.Unchanged
                 case Some(nodeAfter) =>
                   if (nodeBefore.latitude == nodeAfter.latitude && nodeBefore.longitude == nodeAfter.longitude) {
@@ -55,10 +55,10 @@ class RouteChangeInfoBuilder {
           }
         }
         val node = if (changeType == ElementChangeType.Removed) {
-          before.networkNodes.find(_.id == nodeId)
+          before.networkNodes.find(_.nodeId == nodeId)
         }
         else {
-          after.networkNodes.find(_.id == nodeId)
+          after.networkNodes.find(_.nodeId == nodeId)
         }
 
         node.map { node =>
@@ -91,13 +91,13 @@ class RouteChangeInfoBuilder {
 
       RouteChangeInfo(
         index,
-        after.id,
-        after.relation.version,
+        after.relationId,
+        after.meta.version,
         routeChange.key,
         routeChange.changeType,
         comment,
-        routeChange.before.map(_.relation.toMeta),
-        routeChange.after.map(_.relation.toMeta),
+        routeChange.before.map(_.meta),
+        routeChange.after.map(_.meta),
         routeChange.removedWays.map(w => WayInfo(w.id, w.version, w.changeSetId, w.timestamp, w.tags)),
         routeChange.addedWays.map(w => WayInfo(w.id, w.version, w.changeSetId, w.timestamp, w.tags)),
         routeChange.updatedWays,
@@ -127,7 +127,7 @@ class RouteChangeInfoBuilder {
 
       val nodeChanges = routeData.networkNodes.map { node =>
         RouteNodeChange(
-          node.id,
+          node.nodeId,
           node.latitude,
           node.longitude,
           ElementChangeType.Removed
@@ -136,13 +136,13 @@ class RouteChangeInfoBuilder {
 
       RouteChangeInfo(
         index,
-        routeData.id,
-        routeData.relation.version,
+        routeData.relationId,
+        routeData.meta.version,
         routeChange.key,
         routeChange.changeType,
         comment,
-        routeChange.before.map(_.relation.toMeta),
-        routeChange.after.map(_.relation.toMeta),
+        routeChange.before.map(_.meta),
+        routeChange.after.map(_.meta),
 
         routeChange.removedWays.map(w => WayInfo(w.id, w.version, w.changeSetId, w.timestamp, w.tags)),
         routeChange.addedWays.map(w => WayInfo(w.id, w.version, w.changeSetId, w.timestamp, w.tags)),
@@ -166,7 +166,7 @@ class RouteChangeInfoBuilder {
       val comment = changeSetInfo.flatMap(_.tagValue("comment"))
 
       val bounds = {
-        val nodeLatLons: Seq[LatLon] = routeData.nodes
+        val nodeLatLons: Seq[LatLon] = routeData.networkNodes
         val wayLatLons: Seq[LatLon] = ways.flatMap(_.nodes)
         val latLons = (nodeLatLons ++ wayLatLons).distinct
         Bounds.from(latLons)
@@ -174,7 +174,7 @@ class RouteChangeInfoBuilder {
 
       val nodeChanges = routeData.networkNodes.map { node =>
         RouteNodeChange(
-          node.id,
+          node.nodeId,
           node.latitude,
           node.longitude,
           ElementChangeType.Added
@@ -183,13 +183,13 @@ class RouteChangeInfoBuilder {
 
       RouteChangeInfo(
         index,
-        routeData.id,
-        routeData.relation.version,
+        routeData.relationId,
+        routeData.meta.version,
         routeChange.key,
         routeChange.changeType,
         comment,
-        routeChange.before.map(_.relation.toMeta),
-        routeChange.after.map(_.relation.toMeta),
+        routeChange.before.map(_.meta),
+        routeChange.after.map(_.meta),
         routeChange.removedWays.map(w => WayInfo(w.id, w.version, w.changeSetId, w.timestamp, w.tags)),
         routeChange.addedWays.map(w => WayInfo(w.id, w.version, w.changeSetId, w.timestamp, w.tags)),
         routeChange.updatedWays,

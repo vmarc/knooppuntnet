@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes.route
 
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.ChangeType
@@ -167,7 +168,7 @@ class RouteChangeProcessorImpl(
           addedToNetwork = addedToNetwork,
           removedFromNetwork = removedFromNetwork,
           before = None,
-          after = Some(contextAfter.oldToRouteData),
+          after = Some(RouteData.from(contextAfter)),
           removedWays = Seq.empty,
           addedWays = Seq.empty,
           updatedWays = Seq.empty,
@@ -225,7 +226,7 @@ class RouteChangeProcessorImpl(
           locationAnalysis = routeDetailDoc.locationAnalysis,
           addedToNetwork = addedToNetwork,
           removedFromNetwork = removedFromNetwork,
-          before = Some(contextBefore.oldToRouteData),
+          before = Some(RouteData.from(contextBefore)),
           after = None,
           removedWays = Seq.empty,
           addedWays = Seq.empty,
@@ -259,7 +260,7 @@ class RouteChangeProcessorImpl(
 
               val impactedTiles = tileChangeAnalyzer.impactedTiles(contextBefore, contextAfter)
 
-              val routeUpdate = new RouteDiffAnalyzer(contextBefore.oldRouteDetailAnalysis, contextAfter.oldRouteDetailAnalysis).analysis
+              val routeUpdate = new RouteDiffAnalyzer(contextBefore, contextAfter).analysis
 
               if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
                 analysisContext.watched.routes.delete(routeUpdate.id)
@@ -299,7 +300,7 @@ class RouteChangeProcessorImpl(
                 }
               }
 
-              val key = context.buildChangeKey(routeUpdate.after.id)
+              val key = context.buildChangeKey(routeUpdate.after.relationId)
 
               Some(
                 RouteChangeStateAnalyzer.analyzed(
@@ -311,8 +312,8 @@ class RouteChangeProcessorImpl(
                     locationAnalysis = routeDetailDocAfter.locationAnalysis,
                     addedToNetwork = addedToNetwork,
                     removedFromNetwork = removedFromNetwork,
-                    before = Some(routeUpdate.before.toRouteData),
-                    after = Some(routeUpdate.after.toRouteData),
+                    before = Some(routeUpdate.before),
+                    after = Some(routeUpdate.after),
                     removedWays = routeUpdate.removedWays,
                     addedWays = routeUpdate.addedWays,
                     updatedWays = routeUpdate.updatedWays,
@@ -375,7 +376,7 @@ class RouteChangeProcessorImpl(
           locationAnalysis = beforeRouteDetailDoc.locationAnalysis,
           addedToNetwork = Seq.empty,
           removedFromNetwork = removedFromNetwork,
-          before = Some(beforeContext.oldToRouteData),
+          before = Some(RouteData.from(beforeContext)),
           after = None,
           removedWays = Seq.empty,
           addedWays = Seq.empty,

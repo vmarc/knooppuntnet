@@ -55,7 +55,7 @@ class RouteChangeBuilderImpl(
 
       analysisContext.watched.routes.delete(routeId)
 
-      context.routeAnalysesBefore.find(_.id == routeId) match {
+      context.routeAnalysisBefore.find(_.relation.id == routeId) match {
 
         case None =>
 
@@ -130,7 +130,7 @@ class RouteChangeBuilderImpl(
 
       val routeId = analysisBefore.id
 
-      context.routeAnalysesAfter.find(_.id == routeId) match {
+      context.routeAnalysisAfter.find(_.id == routeId) match {
 
         case None =>
 

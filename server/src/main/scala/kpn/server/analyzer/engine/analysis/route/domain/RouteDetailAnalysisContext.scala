@@ -3,8 +3,6 @@ package kpn.server.analyzer.engine.analysis.route.domain
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
-import kpn.api.common.data.raw.RawRelation
-import kpn.api.common.diff.RouteData
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteMap
 import kpn.api.custom.Country
@@ -194,20 +192,5 @@ case class RouteDetailAnalysisContext(
 
   def oldRouteDetailAnalysis: RouteDetailAnalysis = {
     new RouteAnalysisBuilder(this).build
-  }
-
-  def oldToRouteData: RouteData = {
-    RouteData(
-      country,
-      networkTypes.head,
-      scopedNetworkType.networkScope,
-      relation.toRaw,
-      routeNameAnalysis.name.get,
-      oldRouteNodeAnalysis.routeNodes.map(_.node),
-      allWayNodes.get,
-      ways.map(_.toRaw),
-      Seq[RawRelation](), // TODO CHANGE add unexpected relations
-      facts
-    )
   }
 }

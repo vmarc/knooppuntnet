@@ -3,15 +3,15 @@ package kpn.server.analyzer.engine.changes.diff
 import kpn.api.common.common.Ref
 import kpn.api.common.common.ReferencedElements
 import kpn.api.common.data.raw.RawWay
+import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 
 case class RouteUpdate(
-  before: RouteDetailAnalysis,
-  after: RouteDetailAnalysis,
+  before: RouteData,
+  after: RouteData,
   removedWays: Seq[RawWay] = Seq.empty,
   addedWays: Seq[RawWay] = Seq.empty,
   updatedWays: Seq[WayUpdate] = Seq.empty,
@@ -19,17 +19,17 @@ case class RouteUpdate(
   facts: Seq[Fact] = Seq.empty
 ) {
 
-  def subsets: Seq[Subset] = (before.subset ++ after.subset).toSeq.distinct.sorted
+  def subsets: Seq[Subset] = (before.subsets ++ after.subsets).toSeq.distinct.sorted
 
-  def id: Long = after.id
+  def id: Long = after.relationId
 
-  def name: String = after.routeDetail.summary.name
+  def name: String = after.name
 
   def toRef: Ref = Ref(id, name)
 
   def nonEmpty: Boolean = removedWays.nonEmpty || addedWays.nonEmpty || updatedWays.nonEmpty || diffs.nonEmpty
 
-  def isNewVersion: Boolean = before.relation.version != after.relation.version
+  def isNewVersion: Boolean = before.meta.version != after.meta.version
 
   def happy: Boolean = diffs.happy
 

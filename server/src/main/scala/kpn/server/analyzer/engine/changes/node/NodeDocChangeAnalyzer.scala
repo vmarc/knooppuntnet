@@ -61,14 +61,14 @@ class NodeDocChangeAnalyzer(
     }.map(_.toRef)
 
     val addedToRoute = context.changes.routeChanges.filter { routeChange =>
-      val hasNodeBefore = routeChange.before.toSeq.flatMap(_.nodes).exists(_.id == before._id)
-      val hasNodeAfter = routeChange.after.toSeq.flatMap(_.nodes).exists(_.id == before._id)
+      val hasNodeBefore = routeChange.before.toSeq.flatMap(_.networkNodes).exists(_.nodeId == before._id)
+      val hasNodeAfter = routeChange.after.toSeq.flatMap(_.networkNodes).exists(_.nodeId == before._id)
       !hasNodeBefore && hasNodeAfter
     }.map(_.toRef)
 
     val removedFromRoute = context.changes.routeChanges.filter { routeChange =>
-      val hasNodeBefore = routeChange.before.toSeq.flatMap(_.nodes).exists(_.id == before._id)
-      val hasNodeAfter = routeChange.after.toSeq.flatMap(_.nodes).exists(_.id == before._id)
+      val hasNodeBefore = routeChange.before.toSeq.flatMap(_.networkNodes).exists(_.nodeId == before._id)
+      val hasNodeAfter = routeChange.after.toSeq.flatMap(_.networkNodes).exists(_.nodeId == before._id)
       hasNodeBefore && !hasNodeAfter
     }.map(_.toRef)
 

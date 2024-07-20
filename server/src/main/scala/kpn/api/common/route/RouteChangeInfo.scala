@@ -4,7 +4,6 @@ import kpn.api.common.Bounds
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.data.MetaData
-import kpn.api.common.data.Node
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.route.RouteDiff
@@ -23,7 +22,7 @@ case class RouteChangeInfo(
   addedWays: Seq[WayInfo],
   updatedWays: Seq[WayUpdate],
   diffs: RouteDiff,
-  nodes: Seq[Node],
+  nodes: Seq[RouteNode],
   nodeChanges: Seq[RouteNodeChange],
   changeSetInfo: Option[ChangeSetInfo],
   geometryDiff: Option[GeometryDiff],

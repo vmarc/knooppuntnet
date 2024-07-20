@@ -2,19 +2,20 @@ package kpn.core.history
 
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawWay
+import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.common.diff.route.RouteNodeDiff
-import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Fact
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
 import kpn.server.analyzer.engine.changes.diff.RouteUpdate
 
-class RouteDiffAnalyzer(before: RouteDetailAnalysis, after: RouteDetailAnalysis) {
+class RouteDiffAnalyzer(before: RouteDetailAnalysisContext, after: RouteDetailAnalysisContext) {
 
   private val log = Log(classOf[RouteDiffAnalyzer])
 
@@ -22,17 +23,20 @@ class RouteDiffAnalyzer(before: RouteDetailAnalysis, after: RouteDetailAnalysis)
 
     val diffs = findDiffs
 
-    val facts = if ((after.routeDetail.facts.contains(Fact.RouteTagMissing) && !before.routeDetail.facts.contains(Fact.RouteTagMissing)) ||
-      (after.routeDetail.facts.contains(Fact.RouteTagInvalid) && !before.routeDetail.facts.contains(Fact.RouteTagInvalid))) {
+    val facts = if ((after.facts.contains(Fact.RouteTagMissing) && !before.facts.contains(Fact.RouteTagMissing)) ||
+      (after.facts.contains(Fact.RouteTagInvalid) && !before.facts.contains(Fact.RouteTagInvalid))) {
       Seq(Fact.LostRouteTags)
     }
     else {
       Seq.empty
     }
 
+    val beforeRouteData = RouteData.from(before)
+    val afterRouteData = RouteData.from(after)
+
     RouteUpdate(
-      before,
-      after,
+      beforeRouteData,
+      afterRouteData,
       removedWays,
       addedWays,
       updatedWays,
@@ -120,8 +124,8 @@ class RouteDiffAnalyzer(before: RouteDetailAnalysis, after: RouteDetailAnalysis)
 
   private def factDiffs: Option[FactDiffs] = {
 
-    val beforeFacts = before.routeDetail.facts.toSet
-    val afterFacts = after.routeDetail.facts.toSet
+    val beforeFacts = before.facts.toSet
+    val afterFacts = after.facts.toSet
 
     val resolvedFacts = (beforeFacts -- afterFacts).toSeq
     val introducedFacts = (afterFacts -- beforeFacts).toSeq
@@ -142,8 +146,8 @@ class RouteDiffAnalyzer(before: RouteDetailAnalysis, after: RouteDetailAnalysis)
 
   private def nameDiff: Option[RouteNameDiff] = {
 
-    val nameBefore = before.routeDetail.summary.name
-    val nameAfter = after.routeDetail.summary.name
+    val nameBefore = before.routeNameAnalysis.name.getOrElse("no-name")
+    val nameAfter = after.routeNameAnalysis.name.getOrElse("no-name")
 
     if (nameBefore != nameAfter) {
       Some(RouteNameDiff(nameBefore, nameAfter))
@@ -155,10 +159,11 @@ class RouteDiffAnalyzer(before: RouteDetailAnalysis, after: RouteDetailAnalysis)
 
   private def nodeDiffs: Seq[RouteNodeDiff] = {
     Seq(
-      nodeChanged("startNodes", before.startNodes, after.startNodes),
-      nodeChanged("endNodes", before.endNodes, after.endNodes),
-      nodeChanged("startTentacleNodes", before.startTentacleNodes, after.startTentacleNodes),
-      nodeChanged("endTentacleNodes", before.endTentacleNodes, after.endTentacleNodes)
+      nodeChanged("startNodes", before.nodes.startNode.toSeq, after.nodes.startNode.toSeq),
+      nodeChanged("endNodes", before.nodes.endNode.toSeq, after.nodes.endNode.toSeq),
+      nodeChanged("startTentacleNodes", before.nodes.startTentacleNodes, after.nodes.startTentacleNodes),
+      nodeChanged("endTentacleNodes", before.nodes.endTentacleNodes, after.nodes.endTentacleNodes)
+      // TODO redesign - should include 'redundantNodes'?
     ).flatten
   }
 
@@ -177,13 +182,13 @@ class RouteDiffAnalyzer(before: RouteDetailAnalysis, after: RouteDetailAnalysis)
   }
 
   private def tagDiffs: Option[TagDiffs] = {
-    new RouteTagDiffAnalyzer(before.routeDetail.summary, after.routeDetail.summary).diffs
+    new RouteTagDiffAnalyzer(before.relation, after.relation).diffs
   }
 
-  private def nodeChanged(title: String, before: Seq[RouteNetworkNodeInfo], after: Seq[RouteNetworkNodeInfo]): Option[RouteNodeDiff] = {
+  private def nodeChanged(title: String, before: Seq[RouteAnalysisNode], after: Seq[RouteAnalysisNode]): Option[RouteNodeDiff] = {
 
-    val beforeNodeIds = before.map(_.id).toSet
-    val afterNodeIds = after.map(_.id).toSet
+    val beforeNodeIds = before.map(_.node.id).toSet
+    val afterNodeIds = after.map(_.node.id).toSet
 
     if (beforeNodeIds == afterNodeIds) {
       None
@@ -192,8 +197,8 @@ class RouteDiffAnalyzer(before: RouteDetailAnalysis, after: RouteDetailAnalysis)
       val added = afterNodeIds -- beforeNodeIds
       val removed = beforeNodeIds -- afterNodeIds
 
-      val addedNodeRefs = after.filter(n => added.contains(n.id)).map(n => Ref(n.id, n.name))
-      val removedNodeRefs = before.filter(n => removed.contains(n.id)).map(n => Ref(n.id, n.name))
+      val addedNodeRefs = after.filter(n => added.contains(n.node.id)).map(n => Ref(n.node.id, n.name))
+      val removedNodeRefs = before.filter(n => removed.contains(n.node.id)).map(n => Ref(n.node.id, n.name))
 
       Some(RouteNodeDiff(title, addedNodeRefs, removedNodeRefs))
     }

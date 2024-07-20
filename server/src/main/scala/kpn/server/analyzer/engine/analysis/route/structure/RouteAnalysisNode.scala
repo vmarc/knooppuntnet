@@ -15,6 +15,8 @@ case class RouteAnalysisNode(
   def toRouteNode: RouteNode = {
     RouteNode(
       node.id,
+      node.latitude,
+      node.longitude,
       name,
       alternateName,
       isInWay

@@ -44,7 +44,7 @@ case class RouteChange(
   def id: Long = key.elementId
 
   def subsets: Seq[Subset] = {
-    (before.toSeq.flatMap(_.subset) ++ after.toSeq.flatMap(_.subset)).distinct.sorted
+    (before.toSeq.flatMap(_.subsets) ++ after.toSeq.flatMap(_.subsets)).distinct.sorted
   }
 
   def toRef: Ref = Ref(id, name)
@@ -62,6 +62,6 @@ case class RouteChange(
   }
 
   private def nodeIdsReferencedIn(routeData: Option[RouteData]): Set[Long] = {
-    routeData.toSeq.flatMap(_.networkNodes.map(_.id)).toSet
+    routeData.toSeq.flatMap(_.networkNodes.map(_.nodeId)).toSet
   }
 }
