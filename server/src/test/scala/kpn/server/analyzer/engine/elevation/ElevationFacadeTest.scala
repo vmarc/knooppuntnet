@@ -8,7 +8,6 @@ import kpn.core.gpx.WayPoint
 import kpn.core.util.Haversine
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
-import kpn.server.analyzer.engine.analysis.common.Converter
 import kpn.server.analyzer.engine.tiles.domain.Point
 
 class ElevationFacadeTest extends UnitTest {
@@ -61,11 +60,12 @@ class ElevationFacadeTest extends UnitTest {
   }
 
   private def loadForwardPath(routeId: String): Seq[Point] = {
-    val forwardPath = CaseStudy.routeAnalysis(routeId).routeDetail.analysis.map.forwardPath.get
-    println("forwardPatch distance=" + forwardPath.segments.flatMap(_.fragments.map(_.meters)).sum)
-    val points = Converter.trackPathToPoints(forwardPath)
-    println("points distance=" + points.sliding(2).map { case Seq(p1, p2) => Haversine.distance(p1, p2) }.sum)
-    points
+    val forwardPath = CaseStudy.analyze(routeId).structure.forwardPath.get
+    // TODO redesign - println("forwardPatch distance=" + forwardPath.segments.flatMap(_.fragments.map(_.meters)).sum)
+    //    val points = Converter.trackPathToPoints(forwardPath)
+    //    println("points distance=" + points.sliding(2).map { case Seq(p1, p2) => Haversine.distance(p1, p2) }.sum)
+    //    points
+    Seq.empty
   }
 
   private def deltas(elevations: Seq[Int]): Seq[Int] = {

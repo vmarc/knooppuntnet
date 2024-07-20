@@ -5,7 +5,7 @@ import kpn.core.util.UnitTest
 class Issue208_LoopRoute extends UnitTest {
 
   test("route Golf - Golf") {
-    val route = CaseStudy.routeAnalysis("13331398").routeDetail
+    val route = CaseStudy.routeDetailDoc("13331398")
     route.facts should equal(Seq.empty)
     route.summary.name should equal("Golf - Golf")
     route.analysis.map.freePaths.size should equal(1)
@@ -13,7 +13,7 @@ class Issue208_LoopRoute extends UnitTest {
   }
 
   test("route ?-? instead of no-name") {
-    val route = CaseStudy.routeAnalysis("13669113").routeDetail
+    val route = CaseStudy.routeDetailDoc("13669113")
     route.facts should equal(Seq.empty)
     route.summary.name should equal("?-?")
   }

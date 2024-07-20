@@ -6,17 +6,17 @@ import kpn.core.util.UnitTest
 class Issue4_RedundantNodes extends UnitTest {
 
   test("route 21-70") {
-    val route = CaseStudy.routeAnalysis("3792006").routeDetail
-    route.facts should equal(Seq.empty)
+    val context = CaseStudy.analyze("3792006")
+    context.facts should equal(Seq.empty)
   }
 
   test("route 24-32") {
 
-    val route = CaseStudy.routeAnalysis("3330377").routeDetail
+    val context = CaseStudy.analyze("3330377")
 
-    route.analysis.map.startNodes.map(_.name).sorted should equal(Seq("24"))
-    route.analysis.map.endNodes.map(_.name).sorted should equal(Seq("32"))
-    route.analysis.map.redundantNodes.map(_.name).sorted should equal(
+    context.nodes.startNode.map(_.name) should equal(Some("24"))
+    context.nodes.endNode.map(_.name) should equal(Some("32"))
+    context.nodes.redundantNodes.map(_.name).sorted should equal(
       Seq(
         "83",
         "84",
@@ -25,16 +25,16 @@ class Issue4_RedundantNodes extends UnitTest {
       )
     )
 
-    route.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteRedundantNodes, Fact.RouteBroken))
+    context.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteRedundantNodes, Fact.RouteBroken))
   }
 
   test("route 56-58") {
 
-    val route = CaseStudy.routeAnalysis("3715798").routeDetail
+    val context = CaseStudy.analyze("3715798")
 
-    route.analysis.map.startNodes.map(_.name).sorted should equal(Seq("56"))
-    route.analysis.map.endNodes.map(_.name).sorted should equal(Seq("58"))
-    route.analysis.map.redundantNodes.map(_.name).sorted should equal(
+    context.nodes.startNode.map(_.name).sorted should equal(Some("56"))
+    context.nodes.endNode.map(_.name).sorted should equal(Some("58"))
+    context.nodes.redundantNodes.map(_.name).sorted should equal(
       Seq(
         "03",
         "04",
@@ -44,6 +44,6 @@ class Issue4_RedundantNodes extends UnitTest {
       )
     )
 
-    route.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteRedundantNodes, Fact.RouteBroken))
+    context.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteRedundantNodes, Fact.RouteBroken))
   }
 }

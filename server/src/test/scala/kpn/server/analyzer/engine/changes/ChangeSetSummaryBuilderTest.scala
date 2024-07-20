@@ -34,7 +34,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Delete,
             name = "01-02",
             before = Some(
-              newRouteData(country = Some(Country.nl), networkType = NetworkType.hiking)
+              newRouteData(countries = Seq(Country.nl), networkTypes = Seq(NetworkType.hiking))
             ),
             locationAnalysis = newRouteLocationAnalysis(
               candidates = Seq(
@@ -52,7 +52,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Create,
             name = "02-03",
             after = Some(
-              newRouteData(country = Some(Country.nl), networkType = NetworkType.hiking)
+              newRouteData(countries = Seq(Country.nl), networkTypes = Seq(NetworkType.hiking))
             ),
             locationAnalysis = newRouteLocationAnalysis(
               candidates = Seq(
@@ -70,10 +70,10 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Update,
             name = "03-04",
             before = Some(
-              newRouteData(country = Some(Country.nl), networkType = NetworkType.hiking)
+              newRouteData(countries = Seq(Country.nl), networkTypes = Seq(NetworkType.hiking))
             ),
             after = Some(
-              newRouteData(country = Some(Country.nl), networkType = NetworkType.hiking)
+              newRouteData(countries = Seq(Country.nl), networkTypes = Seq(NetworkType.hiking))
             ),
             locationAnalysis = newRouteLocationAnalysis(
               candidates = Seq(

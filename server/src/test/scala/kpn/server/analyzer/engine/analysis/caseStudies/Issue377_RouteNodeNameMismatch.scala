@@ -7,7 +7,7 @@ import kpn.core.util.UnitTest
 class Issue377_RouteNodeNameMismatch extends UnitTest {
 
   test("RouteNodeNameMismatch") {
-    val route = CaseStudy.routeAnalysis("13945193").routeDetail
+    val route = CaseStudy.routeDetailDoc("13945193")
     route.oldFacts should equal(
       Seq(
         Fact.RouteRedundantNodes,
@@ -27,7 +27,7 @@ class Issue377_RouteNodeNameMismatch extends UnitTest {
   }
 
   test("route with RouteNodeNameMismatch") {
-    val route = CaseStudy.routeAnalysis("12347801").routeDetail
+    val route = CaseStudy.routeDetailDoc("12347801")
     route.facts should equal(Seq(Fact.RouteNodeNameMismatch))
   }
 }

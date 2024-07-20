@@ -28,7 +28,7 @@ case class Network(
 
   val bounds: Bounds = {
 
-    val allNodes: Seq[Node] = nodes.map(_.networkNode.node) ++ routes.flatMap(_.routeAnalysis.ways).flatMap(_.nodes)
+    val allNodes: Seq[Node] = nodes.map(_.networkNode.node) ++ routes.flatMap(_.data.ways).flatMap(_.nodes)
 
     val minLat = if (allNodes.isEmpty) 0 else allNodes.map(_.lat).min
     val maxLat = if (allNodes.isEmpty) 0 else allNodes.map(_.lat).max
@@ -45,7 +45,7 @@ case class Network(
 
   def subset: Option[Subset] = country.flatMap(c => Subset.of(c, networkType))
 
-  def length: Long = routes.map(_.routeAnalysis.routeDetail.summary.meters).sum
+  def length: Long = routes.map(_.data.meters).sum
 
   def nodeCount: Int = nodes.filterNot(n => n.roleConnection && !n.definedInRelation).size
 
@@ -53,7 +53,7 @@ case class Network(
 
   def brokenRouteCount: Int = brokenRoutes.size
 
-  private def brokenRoutes: Seq[NetworkMemberRoute] = routes.filter(_.routeAnalysis.routeDetail.facts.exists(_.isError))
+  private def brokenRoutes: Seq[NetworkMemberRoute] = routes.filter(_.data.facts.exists(_.isError))
 
   def brokenRoutePercentage: String = percentage(brokenRouteCount, routeCount)
 
@@ -80,7 +80,7 @@ case class Network(
   def lastUpdated: Timestamp = {
     val relationUpdates = Seq(relation.timestamp)
     val nodeUpdates = nodes.map(_.networkNode.node.timestamp)
-    val routeUpdates = routes.map(_.routeAnalysis.routeDetail.summary.timestamp)
+    val routeUpdates = routes.map(_.data.meta.timestamp)
     val timestamp: Seq[Timestamp] = relationUpdates ++ nodeUpdates ++ routeUpdates
     timestamp.max
   }
@@ -127,7 +127,7 @@ case class Network(
 
   def integrityCheckNokCount: Int = integrityCheckCount - integrityCheckOkCount
 
-  def inaccessibleRouteCount: Int = routes.count(_.routeAnalysis.routeDetail.facts.contains(RouteInaccessible))
+  def inaccessibleRouteCount: Int = routes.count(_.data.facts.contains(RouteInaccessible))
 
   def extraMemberNodeIds: Seq[Long] = {
     facts.networkExtraMemberNode match {

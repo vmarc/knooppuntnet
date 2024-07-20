@@ -10,12 +10,12 @@ class RedundantNodeTest extends UnitTest {
 
   test("redundant node in the middle should not prevent forward and backward path calculation") {
 
-    val route = CaseStudy.routeAnalysis("2614657").routeDetail
+    val context = CaseStudy.analyze("2614657")
 
-    route.facts should contain(RouteRedundantNodes)
+    context.facts should contain(RouteRedundantNodes)
 
-    route.facts should not contain RouteNotBackward
-    route.facts should not contain RouteNotForward
-    route.facts should not contain RouteNotContinious
+    context.facts should not contain RouteNotBackward
+    context.facts should not contain RouteNotForward
+    context.facts should not contain RouteNotContinious
   }
 }

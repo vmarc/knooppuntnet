@@ -2,9 +2,10 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Relation
 import kpn.core.data.DataBuilder
+import kpn.core.doc.RouteDetailDoc
 import kpn.core.loadOld.Parser
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
+import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
@@ -47,8 +48,8 @@ object CaseStudy extends MockFactory {
     routeAnalyzer.analyze(routeRelation, None /* TODO redesign - hierarchy */).get
   }
 
-  def routeAnalysis(name: String): RouteDetailAnalysis = {
-    analyze(name).oldRouteDetailAnalysis
+  def routeDetailDoc(name: String): RouteDetailDoc = {
+    new RouteDetailDocBuilder(analyze(name)).build()
   }
 
   def load(filename: String): Relation = {

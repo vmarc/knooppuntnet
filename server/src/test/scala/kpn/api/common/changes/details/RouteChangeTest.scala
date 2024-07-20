@@ -11,22 +11,22 @@ class RouteChangeTest extends UnitTest with SharedTestObjects {
   test("subsets are derived from both 'before' and 'after' situation") {
 
     newRouteChange(
-      before = Some(newRouteData(country = Some(Country.nl), networkType = NetworkType.hiking)),
-      after = Some(newRouteData(country = Some(Country.be), networkType = NetworkType.hiking))
+      before = Some(newRouteData(countries = Seq(Country.nl), networkTypes = Seq(NetworkType.hiking))),
+      after = Some(newRouteData(countries = Seq(Country.be), networkTypes = Seq(NetworkType.hiking)))
     ).subsets should equal(Seq(Subset.beHiking, Subset.nlHiking))
 
     newRouteChange(
-      before = Some(newRouteData(country = None, networkType = NetworkType.hiking)),
-      after = Some(newRouteData(country = Some(Country.be), networkType = NetworkType.hiking))
+      before = Some(newRouteData(countries = Seq.empty, networkTypes = Seq(NetworkType.hiking))),
+      after = Some(newRouteData(countries = Seq(Country.be), networkTypes = Seq(NetworkType.hiking)))
     ).subsets should equal(Seq(Subset.beHiking))
 
     newRouteChange(
       before = None,
-      after = Some(newRouteData(country = Some(Country.be), networkType = NetworkType.hiking))
+      after = Some(newRouteData(countries = Seq(Country.be), networkTypes = Seq(NetworkType.hiking)))
     ).subsets should equal(Seq(Subset.beHiking))
 
     newRouteChange(
-      before = Some(newRouteData(country = Some(Country.nl), networkType = NetworkType.hiking)),
+      before = Some(newRouteData(countries = Seq(Country.nl), networkTypes = Seq(NetworkType.hiking))),
       after = None
     ).subsets should equal(Seq(Subset.nlHiking))
 

@@ -14,10 +14,8 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteStructure
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalysisBuilder
 import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNodes
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisSegment
@@ -189,8 +187,4 @@ case class RouteDetailAnalysisContext(
   def locationAnalysis: RouteLocationAnalysis = _locationAnalysis.getOrElse(throw new PreconditionMissingException)
 
   def tileAnalysis: RouteTileAnalysis = _tileAnalysis.getOrElse(throw new PreconditionMissingException)
-
-  def oldRouteDetailAnalysis: RouteDetailAnalysis = {
-    new RouteAnalysisBuilder(this).build
-  }
 }

@@ -16,23 +16,13 @@ object ExpectedNameRouteAnalyzer extends RouteAnalyzer {
 
 class ExpectedNameRouteAnalyzer(context: RouteDetailAnalysisContext) {
 
-  private val routeNodeAnalysis = context.oldRouteNodeAnalysis
+  private val routeNodeAnalysis = context.nodes
 
   def analyze: RouteDetailAnalysisContext = {
     if (canDetermineRouteNameFromNodeNames) {
       val name = context.routeNameAnalysis.name.get
-      val start = if (routeNodeAnalysis.freeNodes.isEmpty) {
-        routeNodeAnalysis.startNodes.head.name
-      }
-      else {
-        routeNodeAnalysis.freeNodes.head.name
-      }
-      val end = if (routeNodeAnalysis.freeNodes.isEmpty) {
-        routeNodeAnalysis.endNodes.head.name
-      }
-      else {
-        routeNodeAnalysis.freeNodes.head.name
-      }
+      val start = routeNodeAnalysis.startNode.map(_.name).getOrElse("")
+      val end = routeNodeAnalysis.endNode.map(_.name).getOrElse("")
       val separator = if (name.contains(" - ")) " - " else "-"
       val expectedName = start + separator + end
       val expectedNameReversed = end + separator + start
@@ -49,8 +39,8 @@ class ExpectedNameRouteAnalyzer(context: RouteDetailAnalysisContext) {
   }
 
   private def canDetermineRouteNameFromNodeNames: Boolean = {
-    context.routeNameAnalysis.name.isDefined &&
-      ((routeNodeAnalysis.startNodes.nonEmpty && routeNodeAnalysis.endNodes.nonEmpty) ||
-        routeNodeAnalysis.freeNodes.nonEmpty)
+    context.routeNameAnalysis.name.nonEmpty &&
+      routeNodeAnalysis.startNode.nonEmpty &&
+      routeNodeAnalysis.endNode.nonEmpty
   }
 }

@@ -1,26 +1,26 @@
 package kpn.server.analyzer.engine.changes.route
 
+import kpn.api.common.diff.RouteData
 import kpn.api.custom.Fact
 import kpn.core.history.RouteTagDiffAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.context.Watched
 
 class RouteFactAnalyzer(
   analysisData: Watched
 ) {
 
-  def facts(before: Option[RouteDetailAnalysis], after: RouteDetailAnalysis): Seq[Fact] = {
+  def facts(before: Option[RouteData], after: RouteData): Seq[Fact] = {
     Seq(
       test(Fact.LostRouteTags, hasLostRouteTags(before, after))
     ).flatten
   }
 
-  private def hasLostRouteTags(before: Option[RouteDetailAnalysis], after: RouteDetailAnalysis): Boolean = {
+  private def hasLostRouteTags(before: Option[RouteData], after: RouteData): Boolean = {
     before.nonEmpty && hasRouteTags(before.get) && !hasRouteTags(after)
   }
 
-  private def hasRouteTags(routeAnalysis: RouteDetailAnalysis): Boolean = {
-    RouteTagDiffAnalyzer.mainTagKeys.forall(key => routeAnalysis.relation.hasTag(key))
+  private def hasRouteTags(routeData: RouteData): Boolean = {
+    RouteTagDiffAnalyzer.mainTagKeys.forall(key => routeData.hasTag(key))
   }
 
   private def test(fact: Fact, exists: Boolean): Seq[Fact] = {

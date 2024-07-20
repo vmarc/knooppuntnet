@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.node
 
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.route.RouteNode
 import kpn.api.custom.Country
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tag
@@ -10,10 +11,6 @@ import kpn.core.analysis.NetworkMemberRoute
 import kpn.core.analysis.NetworkNode
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.NetworkAnalysis
-import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
-import kpn.server.analyzer.engine.analysis.route.OldRouteNode
-import kpn.server.analyzer.engine.analysis.route.RouteNodeType
 
 class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -132,22 +129,18 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
   private def networkMemberRoute(networkNode: NetworkNode, routeId: Long, role: Option[String] = None, routeTags: Seq[Tag] = Seq.empty): NetworkMemberRoute = {
 
     NetworkMemberRoute(
-      routeAnalysis = RouteDetailAnalysis(
-        relation = null,
-        routeDetail = newRouteDetailDoc(
-          newRouteSummary(
-            routeId,
-            tags = routeTags
-          ),
-        ),
-        routeNodeAnalysis = OldRouteNodeAnalysis(
-          startNodes = Seq(
-            OldRouteNode(
-              nodeType = RouteNodeType.Start,
-              node = networkNode.node,
-              definedInRelation = true,
-              definedInWay = true
-            )
+      data = newRouteData(
+        relationId = routeId,
+        tags = routeTags,
+        networkNodes = Seq(
+          RouteNode(
+            networkNode.node.id,
+            networkNode.node.latitude,
+            networkNode.node.longitude,
+            networkNode.name,
+            networkNode.name, // TODO redesign - alternateName
+            isInWay = true,
+
           )
         )
       ),

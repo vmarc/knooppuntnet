@@ -4,8 +4,8 @@ import kpn.core.util.UnitTest
 
 class LargeRouteTest extends UnitTest {
 
-  ignore("Super large route") {
-    val analysis = CaseStudy.routeAnalysis("222560")
-    analysis.routeDetail.analysis.map.unusedSegments.size should equal(200)
+  test("Super large route") {
+    val context = CaseStudy.analyze("222560")
+    context.segments.size should equal(321)
   }
 }

@@ -7,8 +7,8 @@ import kpn.core.util.UnitTest
 class Issue203_NamedRoutes extends UnitTest {
 
   test("Carrefour des Planches - Croix des Clos") {
-    val route = CaseStudy.routeAnalysis("13305500").routeDetail
-    route.oldFacts should equal(
+    val context = CaseStudy.analyze("13305500")
+    context.oldFacts should equal(
       Seq(
         Fact.RouteRedundantNodes,
         Fact.RouteNotForward,
@@ -18,7 +18,7 @@ class Issue203_NamedRoutes extends UnitTest {
       )
     )
     if (Redesign.enableNewFactTests) {
-      route.facts should equal(
+      context.facts should equal(
         Seq(
           Fact.RouteRedundantNodes,
           Fact.RouteNotForward,
@@ -31,8 +31,8 @@ class Issue203_NamedRoutes extends UnitTest {
   }
 
   test("Le Villard - Le Villard") {
-    val route = CaseStudy.routeAnalysis("12219285").routeDetail
-    route.oldFacts should equal(
+    val context = CaseStudy.analyze("12219285")
+    context.oldFacts should equal(
       Seq(
         Fact.RouteRedundantNodes,
         Fact.RouteUnusedSegments,
@@ -40,7 +40,7 @@ class Issue203_NamedRoutes extends UnitTest {
       )
     )
     if (Redesign.enableNewFactTests) {
-      route.facts should equal(
+      context.facts should equal(
         Seq(
           Fact.RouteRedundantNodes,
           Fact.RouteUnusedSegments,

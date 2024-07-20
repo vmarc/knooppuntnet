@@ -1,7 +1,7 @@
 package kpn.core.tools.analysis
 
 import kpn.api.common.changes.details.RouteChange
-import kpn.api.common.data.raw.RawRelation
+import kpn.api.common.data.MetaData
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
@@ -107,16 +107,18 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
     val facts = routeDoc.facts
     val locationFacts = facts.filter(Fact.locationFacts.contains)
     val routeData = RouteData(
-      routeDoc.summary.country,
-      routeDoc.summary.networkType,
-      routeDoc.summary.networkScope,
-      null, // TODO redesign - relation: RawRelation,
+      routeDoc.summary.id,
+      MetaData(routeDoc.version, routeDoc.lastUpdated, routeDoc.changeSetId),
+      routeDoc.summary.country.toSeq,
+      Seq(routeDoc.summary.networkType),
       routeDoc.summary.name: String,
-      null, //
-      null, // TODO redesign - routeDoc.analysis.nodes: Seq[Node], // all nodes  in hierarchy
-      null, // TODO redesign - routeDoc.analysis.ways: Seq[RawWay], // all ways  in hierarchy
-      Seq[RawRelation](), // TODO redesign - relations: Seq[RawRelation], // all relations in hierarchy
-      facts
+      routeDoc.nodes.nodes,
+      Seq.empty, // TODO redesign - ways ???
+      routeDoc.facts,
+      routeDoc.summary.meters,
+      routeDoc.locationAnalysis,
+      Seq.empty, // TODO redesign - routeDoc.tiles,
+      routeDoc.summary.tags
     )
 
     config.changeSetRepository.saveRouteChange(

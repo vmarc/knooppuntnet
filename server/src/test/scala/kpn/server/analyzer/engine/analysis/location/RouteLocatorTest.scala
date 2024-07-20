@@ -85,6 +85,6 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
   }
 
   private def route(routeId: String): RouteDetailDoc = {
-    CaseStudy.routeAnalysis(routeId).routeDetail
+    CaseStudy.routeDetailDoc(routeId)
   }
 }

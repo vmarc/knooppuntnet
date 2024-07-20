@@ -55,6 +55,7 @@ import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.common.route.RouteNode
 import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
@@ -300,28 +301,33 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newRouteData(
-    country: Option[Country] = None,
-    networkType: NetworkType = NetworkType.hiking,
-    networkScope: NetworkScope = NetworkScope.regional,
-    relation: RawRelation = newRawRelation(),
+    relationId: Long = 0,
+    meta: MetaData = MetaData(0, defaultTimestamp, 0),
+    countries: Seq[Country] = Seq.empty,
+    networkTypes: Seq[NetworkType] = Seq.empty,
     name: String = "",
-    networkNodes: Seq[Node] = Seq.empty,
-    nodes: Seq[Node] = Seq.empty,
-    ways: Seq[RawWay] = Seq.empty,
+    networkNodes: Seq[RouteNode] = Seq.empty,
+    ways: Seq[Way] = Seq.empty,
     relations: Seq[RawRelation] = Seq.empty,
-    facts: Seq[Fact] = Seq.empty
+    facts: Seq[Fact] = Seq.empty,
+    meters: Long = 0,
+    locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
+    tiles: Seq[String] = Seq.empty,
+    tags: Seq[Tag] = Seq.empty,
   ): RouteData = {
     RouteData(
-      country,
-      networkType,
-      networkScope,
-      relation,
+      relationId,
+      meta,
+      countries,
+      networkTypes,
       name,
       networkNodes,
-      nodes,
       ways,
-      relations,
-      facts
+      facts,
+      meters: Long,
+      locationAnalysis: RouteLocationAnalysis,
+      tiles: Seq[String],
+      tags: Seq[Tag]
     )
   }
 

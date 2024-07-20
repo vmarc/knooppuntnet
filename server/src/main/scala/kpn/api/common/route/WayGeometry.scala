@@ -6,13 +6,15 @@ import kpn.api.common.diff.RouteData
 object WayGeometry {
 
   def from(routeData: RouteData): Seq[WayGeometry] = {
-    routeData.ways.map { way =>
-      val nodes = way.nodeIds.flatMap { nodeId =>
-        routeData.nodes.find(_.id == nodeId)
-      }
-      // TODO could add logic here to combine adjecent ways into combined WayGeometries
-      WayGeometry(way.id, nodes.map(n => LatLonImpl(n.latitude, n.longitude)))
-    }
+    // TODO redesign - save coordinates in RouteData
+    //    routeData.ways.map { way =>
+    //      val nodes = way.nodeIds.flatMap { nodeId =>
+    //        routeData.nodes.find(_.id == nodeId)
+    //      }
+    //      // TODO could add logic here to combine adjecent ways into combined WayGeometries
+    //      WayGeometry(way.id, nodes.map(n => LatLonImpl(n.latitude, n.longitude)))
+    //    }
+    Seq.empty
   }
 }
 

@@ -1,13 +1,11 @@
 package kpn.server.analyzer.engine.changes.diff
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.diff.RouteData
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
-import kpn.api.custom.Relation
 import kpn.api.custom.Subset
-import kpn.api.custom.Timestamp
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 
 class RouteUpdateTest extends UnitTest with SharedTestObjects {
 
@@ -17,27 +15,10 @@ class RouteUpdateTest extends UnitTest with SharedTestObjects {
     RouteUpdate(routeAnalysis(Some(Country.nl), NetworkType.hiking), routeAnalysis(Some(Country.be), NetworkType.hiking)).subsets should equal(Seq(Subset.beHiking, Subset.nlHiking))
   }
 
-  private def routeAnalysis(country: Option[Country], networkType: NetworkType): RouteDetailAnalysis = {
-    RouteDetailAnalysis(
-      relation = Relation(
-        id = 1,
-        version = 1,
-        timestamp = Timestamp(2015, 8, 11),
-        changeSetId = 1,
-        tags = Seq.empty,
-        members = Seq.empty,
-      ),
-      routeDetail = newRouteDetailDoc(
-        summary = newRouteSummary(
-          id = 1,
-          country = country,
-          networkType = networkType,
-          timestamp = Timestamp(2015, 8, 11),
-          nodeNames = Seq.empty,
-          tags = Seq.empty
-        ),
-        lastUpdated = Timestamp(2015, 8, 11)
-      )
+  private def routeAnalysis(country: Option[Country], networkType: NetworkType): RouteData = {
+    newRouteData(
+      countries = country.toSeq,
+      networkTypes = Seq(networkType)
     )
   }
 }

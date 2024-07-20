@@ -4,8 +4,6 @@ import kpn.api.common.common.MapBounds
 import kpn.api.common.common.Ref
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
-import kpn.api.common.data.raw.RawRelation
-import kpn.api.common.diff.RouteData
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
@@ -40,20 +38,5 @@ case class RouteDetailAnalysis(
 
   def containsNode(nodeId: Long): Boolean = {
     routeNodeAnalysis.routeNodes.exists(_.id == nodeId)
-  }
-
-  def toRouteData: RouteData = {
-    RouteData(
-      routeDetail.summary.country,
-      routeDetail.summary.networkType,
-      routeDetail.summary.networkScope,
-      relation.toRaw,
-      routeDetail.summary.name,
-      routeNodeAnalysis.routeNodes.map(_.node),
-      allWayNodes,
-      ways.map(_.toRaw),
-      Seq[RawRelation](), // TODO CHANGE add unexpected relations
-      routeDetail.facts
-    )
   }
 }

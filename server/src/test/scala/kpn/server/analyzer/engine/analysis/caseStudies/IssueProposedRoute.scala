@@ -5,10 +5,10 @@ import kpn.core.util.UnitTest
 class IssueProposedRoute extends UnitTest {
 
   test("lcn proposed route should ignore rcn nodes") {
-    val route = CaseStudy.routeAnalysis("11771769").routeDetail
-    route.analysis.map.startNodes.map(_.id) should equal(Seq(287668251))
-    route.analysis.map.endNodes.map(_.id) should equal(Seq(282827349))
-    assert(route.analysis.map.redundantNodes.isEmpty)
-    route.facts should equal(Seq.empty)
+    val context = CaseStudy.analyze("11771769")
+    context.nodes.startNode.map(_.node.id) should equal(Some(287668251))
+    context.nodes.endNode.map(_.node.id) should equal(Some(282827349))
+    assert(context.nodes.redundantNodes.isEmpty)
+    context.facts should equal(Seq.empty)
   }
 }

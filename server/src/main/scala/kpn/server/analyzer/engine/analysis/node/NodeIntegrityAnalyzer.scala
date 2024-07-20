@@ -40,11 +40,10 @@ class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysi
   }
 
   private def hasSpecialState(memberRoute: NetworkMemberRoute): Boolean = {
-    val route = memberRoute.routeAnalysis.routeDetail
-    route.summary.hasTag("state", "connection") || route.summary.hasTag("state", "alternate")
+    memberRoute.data.hasTag("state", "connection") || memberRoute.data.hasTag("state", "alternate")
   }
 
   private def hasNodeReference(memberRoute: NetworkMemberRoute): Boolean = {
-    memberRoute.routeAnalysis.routeNodeAnalysis.nodesInWays.map(_.id).contains(networkNode.id)
+    memberRoute.data.networkNodes.map(_.nodeId).contains(networkNode.id)
   }
 }

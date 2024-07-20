@@ -6,8 +6,8 @@ import kpn.core.util.UnitTest
 class IssueRouteNameTest extends UnitTest {
 
   test("note") {
-    val analysis = CaseStudy.routeAnalysis("14755555")
-    analysis.routeDetail.summary.name should equal("Chemin de la Grive")
-    analysis.routeDetail.facts.shouldMatchTo(Seq(Fact.RouteNodeNameMismatch))
+    val route = CaseStudy.routeDetailDoc("14755555")
+    route.summary.name should equal("Chemin de la Grive")
+    route.facts.shouldMatchTo(Seq(Fact.RouteNodeNameMismatch))
   }
 }

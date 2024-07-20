@@ -96,8 +96,8 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
       newChangeKey(elementId = 10),
       after = Some(
         newRouteData(
-          country = Some(Country.nl),
-          networkType = NetworkType.hiking
+          countries = Seq(Country.nl),
+          networkTypes = Seq(NetworkType.hiking)
         )
       ),
       facts = Seq(Fact.OrphanRoute)

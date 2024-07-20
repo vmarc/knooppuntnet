@@ -1,29 +1,23 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Fact
-import kpn.core.util.GeoJsonUtil
 import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 
 class SebastianTest01 extends UnitTest {
 
   test("route 44-53") {
-    val analysis = CaseStudy.routeAnalysis("11721562")
-    analysis.routeDetail.analysis.map.unusedSegments.size should equal(2)
-    analysis.routeDetail.oldFacts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
+    val context = CaseStudy.analyze("11721562")
+    context.structure.otherPaths.size should equal(7)
+    context.oldFacts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
     if (Redesign.enableNewFactTests) {
-      analysis.routeDetail.facts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
-    }
-
-    analysis.structure.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
-      val wayIds = segment.fragments.map(_.fragment.way.id).mkString(", ")
-      println(s"segment ${index + 1}, ways: $wayIds")
+      context.facts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
     }
   }
 
   test("route 44-53 adapted") {
-    val analysis = CaseStudy.routeAnalysis("11721562-adapted")
-    assert(analysis.routeDetail.oldFacts.isEmpty)
-    GeoJsonUtil.printMap(analysis.routeDetail.analysis.map)
+    val context = CaseStudy.analyze("11721562-adapted")
+    assert(context.oldFacts.isEmpty)
+    // GeoJsonUtil.printMap(context.structure)
   }
 }

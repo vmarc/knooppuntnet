@@ -10,12 +10,12 @@ import kpn.core.util.GeoJsonLineStringGeometry
 import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
-import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
@@ -36,12 +36,11 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
       fail("reproduces unresolved issue")
 
       val routeAnalysis = analyze("28-28", "vv", 7776398L, 9174227L)
-      println(routeAnalysis.routeDetail.analysis.structureStrings)
-      routeAnalysis.routeDetail.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
-        makeGeojson(s"unusedSegment ${index + 1}", segment)
-      }
-      assert(routeAnalysis.routeDetail.facts.isEmpty)
-      assert(routeAnalysis.structure.unusedSegments.isEmpty)
+      //      routeAnalysis.routeDetail.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
+      //        makeGeojson(s"unusedSegment ${index + 1}", segment)
+      //      }
+      assert(routeAnalysis.facts.isEmpty)
+      //      assert(routeAnalysis.structure.unusedSegments.isEmpty)
     }
   }
 
@@ -51,16 +50,15 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
       fail("reproduces unresolved issue")
 
       val routeAnalysis = analyze("32-32", "x", 7175609L, 11047960L)
-      println(routeAnalysis.routeDetail.analysis.structureStrings)
-      routeAnalysis.routeDetail.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
-        makeGeojson(s"unusedSegment: ${index + 1}", segment)
-      }
-      assert(routeAnalysis.routeDetail.facts.isEmpty)
-      assert(routeAnalysis.structure.unusedSegments.isEmpty)
+      //      routeAnalysis.routeDetail.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
+      //        makeGeojson(s"unusedSegment: ${index + 1}", segment)
+      //      }
+      assert(routeAnalysis.facts.isEmpty)
+      //      assert(routeAnalysis.structure.unusedSegments.isEmpty)
     }
   }
 
-  private def analyze(routeName: String, connectingNodeName: String, routeId1: Long, routeId2: Long): RouteDetailAnalysis = {
+  private def analyze(routeName: String, connectingNodeName: String, routeId1: Long, routeId2: Long): RouteDetailAnalysisContext = {
     val rawData1 = withoutConnectionNode(readData(routeId1), connectingNodeName)
     val rawData2 = withoutConnectionNode(readData(routeId2), connectingNodeName)
     val rawData = RawData.merge(rawData1, rawData2)
@@ -93,7 +91,7 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
       oldRouteTileAnalyzer,
       routeTileAnalyzer
     )
-    routeAnalyzer.analyze(routeRelation, None).get.oldRouteDetailAnalysis
+    routeAnalyzer.analyze(routeRelation, None).get
   }
 
   private def readData(routeId: Long): RawData = {
