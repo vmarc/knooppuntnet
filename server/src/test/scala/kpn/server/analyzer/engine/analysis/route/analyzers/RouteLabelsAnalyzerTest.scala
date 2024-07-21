@@ -80,7 +80,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
       None,
       _networkTypes = Some(Seq(NetworkType.hiking)),
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
-      country = Some(Country.be),
+      _countries = Some(Seq(Country.be)),
       lastSurvey = Some(Day(2020, 8)),
       facts = Seq(Fact.RouteBroken),
       _locationAnalysis = Some(

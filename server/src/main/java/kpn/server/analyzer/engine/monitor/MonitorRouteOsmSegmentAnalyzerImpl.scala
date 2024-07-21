@@ -5,7 +5,7 @@ import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.route.RouteNodes
 import kpn.core.util.Haversine
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.structure.ElementDirection
+import kpn.server.analyzer.engine.analysis.route.domain.ElementDirection
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteOsmSegmentAnalysis
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteSegmentData

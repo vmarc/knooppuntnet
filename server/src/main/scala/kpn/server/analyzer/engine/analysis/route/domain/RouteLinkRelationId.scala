@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.route.structure
+package kpn.server.analyzer.engine.analysis.route.domain
 
 case class RouteLinkRelationId(role: Option[String], relationId: Long) extends RouteLink {
 

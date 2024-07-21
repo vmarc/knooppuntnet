@@ -19,7 +19,7 @@ object RouteData {
     RouteData(
       context.relation.id,
       context.relation.toMeta,
-      context.country.toSeq,
+      context.countries,
       context.networkTypes,
       context.routeNameAnalysis.name.getOrElse("no-name"),
       context.nodes.nodes.map(_.toRouteNode),

@@ -14,7 +14,7 @@ class RouteCountryAnalyzerImpl(locationAnalyzer: LocationAnalyzer, routeReposito
       case None => routeRepository.routeCountry(context.relation.id)
     }
     context.copy(
-      country = countryOption,
+      _countries = Some(countryOption.toSeq),
     )
   }
 }

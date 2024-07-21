@@ -3,6 +3,11 @@ package kpn.server.analyzer.engine.analysis.route.structure
 import kpn.api.common.data.Member
 import kpn.api.common.data.WayMember
 import kpn.api.common.route.RouteNodes
+import kpn.server.analyzer.engine.analysis.route.domain.ElementDirection
+import kpn.server.analyzer.engine.analysis.route.domain.StructureElement
+import kpn.server.analyzer.engine.analysis.route.domain.StructureElementGroup
+import kpn.server.analyzer.engine.analysis.route.domain.StructureFragment
+import kpn.server.analyzer.engine.analysis.route.domain.WayMemberLink
 
 import scala.annotation.tailrec
 import scala.collection.mutable

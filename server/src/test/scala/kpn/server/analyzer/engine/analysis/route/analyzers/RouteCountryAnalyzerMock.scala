@@ -7,7 +7,7 @@ class RouteCountryAnalyzerMock(country: Country = Country.be) extends RouteCount
 
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     context.copy(
-      country = Some(country)
+      _countries = Some(Seq(country))
     )
   }
 }

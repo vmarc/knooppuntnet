@@ -15,7 +15,7 @@ case class RouteDiffs(
   updated: Seq[RouteUpdate] = Seq.empty
 ) {
 
-  def subsets: Seq[Subset] = (removed.flatMap(_.subset) ++ added.flatMap(_.subset) ++ updated.flatMap(_.subsets)).distinct.sorted
+  def subsets: Seq[Subset] = (removed.flatMap(_.subsets) ++ added.flatMap(_.subsets) ++ updated.flatMap(_.subsets)).distinct.sorted
 
   def nonEmpty: Boolean = removed.nonEmpty || added.nonEmpty || updated.nonEmpty
 

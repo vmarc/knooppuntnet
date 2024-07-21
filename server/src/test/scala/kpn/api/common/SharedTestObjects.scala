@@ -407,7 +407,7 @@ trait SharedTestObjects extends MockFactory {
     id: Long = 0,
     labels: Seq[String] = Seq(Label.active),
     proposed: Boolean = false,
-    country: Option[Country] = None,
+    countries: Seq[Country] = Seq.empty,
     networkType: NetworkType = NetworkType.hiking,
     networkScope: NetworkScope = NetworkScope.regional,
     name: String = "",
@@ -436,7 +436,7 @@ trait SharedTestObjects extends MockFactory {
 
     val summary = RouteSummary(
       id,
-      country,
+      countries,
       networkType,
       networkScope,
       name,
@@ -640,7 +640,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newRouteSummary(
     id: Long,
-    country: Option[Country] = None,
+    countries: Seq[Country] = Seq.empty,
     networkType: NetworkType = NetworkType.hiking,
     networkScope: NetworkScope = NetworkScope.regional,
     name: String = "",
@@ -654,7 +654,7 @@ trait SharedTestObjects extends MockFactory {
   ): RouteSummary = {
     RouteSummary(
       id,
-      country,
+      countries,
       networkType,
       networkScope,
       name,
@@ -1231,7 +1231,6 @@ trait SharedTestObjects extends MockFactory {
     routeSegmentCount: Long = 0,
     newNokSegmentCount: Long = 0,
     resolvedNokSegmentCount: Long = 0,
-    referenceKey: String = "",
     happy: Boolean = false,
     investigate: Boolean = false
   ): MonitorRouteChange = {

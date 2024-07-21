@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
 import kpn.core.analysis.LinkDirection
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisElement
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragment
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNode
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisSegment
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisElement
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisFragment
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisSegment
 
 object RouteSegmentReport {
   def report(context: RouteDetailAnalysisContext): String = {

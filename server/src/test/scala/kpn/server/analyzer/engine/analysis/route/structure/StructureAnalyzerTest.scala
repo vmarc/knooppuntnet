@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.structure
 import kpn.api.common.route.RouteNodes
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
+import kpn.server.analyzer.engine.analysis.route.domain.ElementDirection
 
 class StructureAnalyzerTest extends UnitTest {
 

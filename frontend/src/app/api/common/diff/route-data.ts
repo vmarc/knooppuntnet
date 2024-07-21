@@ -1,22 +1,25 @@
 // this file is generated, please do not modify
 
-import { Node } from '@api/common/data';
-import { RawRelation } from '@api/common/data/raw';
-import { RawWay } from '@api/common/data/raw';
+import { RouteLocationAnalysis } from '@api/common';
+import { MetaData } from '@api/common/data';
+import { Way } from '@api/common/data';
+import { RouteNode } from '@api/common/route';
 import { Country } from '@api/custom';
 import { Fact } from '@api/custom';
-import { NetworkScope } from '@api/custom';
 import { NetworkType } from '@api/custom';
+import { Tag } from '@api/custom';
 
 export interface RouteData {
-  readonly country: Country;
-  readonly networkType: NetworkType;
-  readonly networkScope: NetworkScope;
-  readonly relation: RawRelation;
+  readonly relationId: number;
+  readonly meta: MetaData;
+  readonly countries: Country[];
+  readonly networkTypes: NetworkType[];
   readonly name: string;
-  readonly networkNodes: Node[];
-  readonly nodes: Node[];
-  readonly ways: RawWay[];
-  readonly relations: RawRelation[];
+  readonly networkNodes: RouteNode[];
+  readonly ways: Way[];
   readonly facts: Fact[];
+  readonly meters: number;
+  readonly locationAnalysis: RouteLocationAnalysis;
+  readonly tiles: string[];
+  readonly tags: Tag[];
 }

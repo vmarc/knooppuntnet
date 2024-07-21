@@ -15,9 +15,11 @@ import { ActionButtonRouteComponent } from '../../../components/action/action-bu
     <div>
       <p>{{ (route().summary.meters | integer) + ' m' }}</p>
 
-      @if (route().summary.country) {
+      @if (route().summary.countries) {
         <p>
-          <kpn-country-name [country]="route().summary.country" />
+          @for (country of route().summary.countries; track country) {
+            <kpn-country-name [country]="country" />
+          }
         </p>
       }
 

@@ -4,5 +4,4 @@ import kpn.core.doc.RouteDetailDoc
 
 case class RouteAnalysisContext(
   routeDetailDoc: RouteDetailDoc,
-) {
-}
+)

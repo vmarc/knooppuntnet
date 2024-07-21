@@ -9,6 +9,10 @@ import kpn.core.analysis.Link
 import kpn.core.analysis.LinkDirection
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkNode
+import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkRelationId
+import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay
+import kpn.server.analyzer.engine.analysis.route.domain.RouteLinks
 import kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLink
 import kpn.server.analyzer.engine.analysis.route.structure.reference.ReferenceLinkAnalyzer
 

@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.common.data.Member
 import kpn.api.custom.Relation
+import kpn.server.analyzer.engine.analysis.route.domain.StructureMemberGroup
 
 import scala.collection.mutable
 

@@ -13,10 +13,6 @@ import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNodes
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisSegment
-import kpn.server.analyzer.engine.analysis.route.structure.RouteLinks
-import kpn.server.analyzer.engine.analysis.route.structure.Structure
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
@@ -31,11 +27,10 @@ case class RouteDetailAnalysisContext(
   proposed: Boolean = false,
   _networkTypes: Option[Seq[NetworkType]] = None,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
-  country: Option[Country] = None,
+  _countries: Option[Seq[Country]] = None,
   _links: Option[RouteLinks] = None,
   _segments: Option[Seq[RouteAnalysisSegment]] = None,
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
-  facts: Seq[Fact] = Seq.empty,
   _unexpectedNodeIds: Option[Seq[Long]] = None,
   _unexpectedRelationIds: Option[Seq[Long]] = None,
   _routeNameAnalysis: Option[RouteNameAnalysis] = None,
@@ -54,6 +49,7 @@ case class RouteDetailAnalysisContext(
   tiles: Seq[String] = Seq.empty,
   elementIds: ElementIds = ElementIds(),
   edges: Seq[RouteEdge] = Seq.empty,
+  facts: Seq[Fact] = Seq.empty,
   traceEnabled: Boolean = false,
   abort: Boolean = false
 ) {
@@ -104,6 +100,8 @@ case class RouteDetailAnalysisContext(
   // prerequisite checking accessors
 
   def networkTypes: Seq[NetworkType] = _networkTypes.getOrElse(throw new PreconditionMissingException)
+
+  def countries: Seq[Country] = _countries.getOrElse(throw new PreconditionMissingException)
 
   def routeMap: RouteMap = _routeMap.getOrElse(throw new PreconditionMissingException)
 

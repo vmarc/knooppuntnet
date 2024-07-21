@@ -1,7 +1,7 @@
-package kpn.server.analyzer.engine.analysis.route.structure
+package kpn.server.analyzer.engine.analysis.route.domain
 
 import kpn.api.common.data.Node
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisFragmentGroup.geometryFactory
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragmentGroup.geometryFactory
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString

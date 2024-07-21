@@ -84,13 +84,13 @@ class DuplicateRoutesReport(database: Database) {
         println(s"${routeIds.size}/$index")
       }
       routeRepository.findRouteById(routeId).flatMap { routeDoc =>
-        val country = routeDoc.summary.country
+        val countries = routeDoc.summary.countries
         val networkType = routeDoc.summary.networkType
         val name = routeDoc.summary.name
         val wayIds = routeDoc.members.filter(_.isWay).map(_.id).toSet
         val alternate = routeDoc.summary.hasTag("state", "alternate")
-        if (routeDoc.isActive && wayIds.nonEmpty && country.isDefined) {
-          Some(RouteWays(country.get, networkType, routeDoc.id, name, alternate, wayIds))
+        if (routeDoc.isActive && wayIds.nonEmpty && countries.nonEmpty) {
+          Some(RouteWays(countries.head, networkType, routeDoc.id, name, alternate, wayIds))
         }
         else {
           None

@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.route.structure
+package kpn.server.analyzer.engine.analysis.route.domain
 
 case class RouteLinks(links: Seq[RouteLink]) {
   def routeLinkWays: Seq[RouteLinkWay] = {

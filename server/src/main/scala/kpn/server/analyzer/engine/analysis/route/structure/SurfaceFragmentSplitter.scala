@@ -1,6 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.custom.NetworkType
+import kpn.server.analyzer.engine.analysis.route.domain
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragment
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragmentGroup
 
 import scala.annotation.tailrec
 
@@ -13,7 +16,7 @@ object SurfaceFragmentSplitter {
     }
     else {
       val firstFragment = segmentFragments.head
-      val initialSegment = RouteAnalysisFragmentGroup(firstFragment.surface, Seq(firstFragment))
+      val initialSegment = domain.RouteAnalysisFragmentGroup(firstFragment.surface, Seq(firstFragment))
       doSplit(Seq(initialSegment), segmentFragments.tail)
     }
   }
@@ -33,7 +36,7 @@ object SurfaceFragmentSplitter {
         doSplit(newFound, remaining.tail)
       }
       else {
-        val newSegment = RouteAnalysisFragmentGroup(surface, Seq(fragment))
+        val newSegment = domain.RouteAnalysisFragmentGroup(surface, Seq(fragment))
         doSplit(found :+ newSegment, remaining.tail)
       }
     }

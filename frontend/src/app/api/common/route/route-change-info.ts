@@ -4,12 +4,12 @@ import { Bounds } from '@api/common';
 import { ChangeSetInfo } from '@api/common/changes';
 import { ChangeKey } from '@api/common/changes/details';
 import { MetaData } from '@api/common/data';
-import { Node } from '@api/common/data';
 import { WayInfo } from '@api/common/diff';
 import { WayUpdate } from '@api/common/diff';
 import { RouteDiff } from '@api/common/diff/route';
 import { ChangeType } from '@api/custom';
 import { GeometryDiff } from './geometry-diff';
+import { RouteNode } from './route-node';
 import { RouteNodeChange } from './route-node-change';
 
 export interface RouteChangeInfo {
@@ -25,7 +25,7 @@ export interface RouteChangeInfo {
   readonly addedWays: WayInfo[];
   readonly updatedWays: WayUpdate[];
   readonly diffs: RouteDiff;
-  readonly nodes: Node[];
+  readonly nodes: RouteNode[];
   readonly nodeChanges: RouteNodeChange[];
   readonly changeSetInfo: ChangeSetInfo;
   readonly geometryDiff: GeometryDiff;

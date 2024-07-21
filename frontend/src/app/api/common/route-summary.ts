@@ -8,7 +8,7 @@ import { Timestamp } from '@api/custom';
 
 export interface RouteSummary {
   readonly id: number;
-  readonly country: Country;
+  readonly countries: Country[];
   readonly networkType: NetworkType;
   readonly networkScope: NetworkScope;
   readonly name: string;

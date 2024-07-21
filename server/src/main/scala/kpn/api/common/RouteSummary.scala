@@ -9,7 +9,7 @@ import kpn.api.custom.Timestamp
 
 case class RouteSummary(
   id: Long,
-  country: Option[Country],
+  countries: Seq[Country],
   networkType: NetworkType,
   networkScope: NetworkScope,
   name: String,

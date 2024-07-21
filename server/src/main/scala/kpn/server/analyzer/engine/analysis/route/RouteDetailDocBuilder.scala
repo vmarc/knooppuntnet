@@ -14,7 +14,7 @@ import kpn.core.doc.RouteDetailPath
 import kpn.core.doc.RouteDetailSegment
 import kpn.core.doc.RouteDetailSegmentElement
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.structure.StructurePath
+import kpn.server.analyzer.engine.analysis.route.domain.StructurePath
 
 class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
 
@@ -80,7 +80,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
 
     val summary = RouteSummary(
       context.relation.id,
-      context.country,
+      context.countries,
       context.scopedNetworkType.networkType,
       context.scopedNetworkType.networkScope,
       title,

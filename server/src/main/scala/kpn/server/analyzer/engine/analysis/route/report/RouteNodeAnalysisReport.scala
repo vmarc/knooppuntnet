@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.report.ReportUtil.osmNodeLink
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
 
 object RouteNodeAnalysisReport {
 

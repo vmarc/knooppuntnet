@@ -4,7 +4,14 @@ import kpn.core.analysis.LinkDirection
 import kpn.core.util.Triplet
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.domain
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisElement
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragment
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNode
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisSegment
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay
+import kpn.server.analyzer.engine.analysis.route.domain.RoutePathDirection
 import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer
 
 import scala.collection.mutable.ListBuffer
@@ -176,7 +183,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   private def buildSegment(id: Long, elements: Seq[RouteAnalysisElement]): RouteAnalysisSegment = {
     val fromNodeId = elements.head.fromNodeId
     val toNodeId = elements.last.toNodeId
-    RouteAnalysisSegment(
+    domain.RouteAnalysisSegment(
       id,
       fromNodeId,
       toNodeId,
@@ -268,7 +275,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     fragments: Seq[RouteAnalysisFragment]
   ): RouteAnalysisElement = {
     val fragmentGroups = SurfaceFragmentSplitter.split(context.networkTypes, fragments)
-    RouteAnalysisElement(
+    domain.RouteAnalysisElement(
       elementIds.next(),
       direction,
       fromNetworkNode,

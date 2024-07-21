@@ -109,7 +109,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
     val routeData = RouteData(
       routeDoc.summary.id,
       MetaData(routeDoc.version, routeDoc.lastUpdated, routeDoc.changeSetId),
-      routeDoc.summary.country.toSeq,
+      routeDoc.summary.countries.toSeq,
       Seq(routeDoc.summary.networkType),
       routeDoc.summary.name: String,
       routeDoc.nodes.nodes,

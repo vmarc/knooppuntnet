@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.location
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.location.LocationCandidate
 import kpn.core.util.Haversine
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisSegment
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisSegment
 import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineString

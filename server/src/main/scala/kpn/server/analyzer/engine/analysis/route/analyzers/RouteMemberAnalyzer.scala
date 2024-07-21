@@ -9,9 +9,9 @@ import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.analysis.TagInterpreter
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNodes
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNodes
-import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkWay
+import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {

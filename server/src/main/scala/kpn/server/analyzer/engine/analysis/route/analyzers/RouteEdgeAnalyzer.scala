@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.route.RouteEdge
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.structure.StructurePath
+import kpn.server.analyzer.engine.analysis.route.domain.StructurePath
 
 object RouteEdgeAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {

@@ -97,7 +97,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         newRouteSummary(
           11,
           name = "01-02",
-          country = Some(Country.nl),
+          countries = Seq(Country.nl),
           wayCount = 1,
           nodeNames = Seq("01", "02"),
           tags = newRouteTags("01-02")
@@ -189,7 +189,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         newRouteSummary(
           11,
           name = "01-02",
-          country = Some(Country.nl),
+          countries = Seq(Country.nl),
           wayCount = 1,
           nodeNames = Seq("01", "02"),
           tags = newRouteTags("01-02")

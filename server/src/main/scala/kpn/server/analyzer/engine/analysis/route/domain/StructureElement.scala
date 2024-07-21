@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.route.structure
+package kpn.server.analyzer.engine.analysis.route.domain
 
 object StructureElement {
   def from(fragments: Seq[StructureFragment], direction: Option[ElementDirection.Value]): StructureElement = {

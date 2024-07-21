@@ -36,7 +36,7 @@ object RouteDetailsPageExample {
       active = true,
       summary = RouteSummary(
         id = 1,
-        country = Some(Country.nl),
+        countries = Seq(Country.nl),
         networkType = NetworkType.hiking,
         networkScope = NetworkScope.regional,
         name = "01-02",

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNodes
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNode
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNodes
 
 class RouteNodeAnalysisFormatter(analysis: RouteAnalysisNodes) {
 

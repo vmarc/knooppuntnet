@@ -6,6 +6,7 @@ export * from './point-segment';
 export * from './route-map-info';
 export * from './route-map-page';
 export * from './route-name-info';
+export * from './route-node';
 export * from './map-route-detail';
 export * from './route-references';
 export * from './route-change-info';

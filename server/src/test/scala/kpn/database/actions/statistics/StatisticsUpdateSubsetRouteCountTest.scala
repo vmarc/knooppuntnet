@@ -48,7 +48,7 @@ class StatisticsUpdateSubsetRouteCountTest extends UnitTest with SharedTestObjec
       newRouteDoc(
         newRouteSummary(
           routeId,
-          Some(country),
+          Seq(country),
           networkType,
         ),
         labels = if (active) Seq(Label.active) else Seq.empty

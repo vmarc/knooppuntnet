@@ -48,7 +48,7 @@ class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestOb
       newRouteDoc(
         newRouteSummary(
           routeId,
-          Some(country),
+          Seq(country),
           networkType,
           meters = meters
         ),

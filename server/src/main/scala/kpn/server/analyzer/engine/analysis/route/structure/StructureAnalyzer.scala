@@ -1,7 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.core.util.Util
+import kpn.server.analyzer.engine.analysis.route.domain
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisElement
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RoutePathDirection
+import kpn.server.analyzer.engine.analysis.route.domain.Structure
+import kpn.server.analyzer.engine.analysis.route.domain.StructurePath
+import kpn.server.analyzer.engine.analysis.route.domain.StructurePathElement
 
 import scala.annotation.tailrec
 
@@ -156,7 +163,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
         val elements = findNextBackwardPath(Seq(element), remainingElements, mainStartNode.node.id)
         if (elements.nonEmpty) {
           Some(
-            StructurePath(
+            domain.StructurePath(
               pathIds.next(),
               mainEndNode.node.id,
               mainStartNode.node.id,
@@ -183,7 +190,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
       val elements = nodeNetworkFindNextForwardPath(Seq(element), remainingElements, mainEndNode.node.id)
       if (elements.nonEmpty) {
         Some(
-          StructurePath(
+          domain.StructurePath(
             pathIds.next(),
             mainStartNode.node.id,
             mainEndNode.node.id,
@@ -221,7 +228,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
         val elements = findNonNodeNetworkRouteForwardPath(Seq.empty, context.segments.flatMap(_.elements))
         if (elements.nonEmpty) {
           Some(
-            StructurePath(
+            domain.StructurePath(
               pathIds.next(),
               elements.head.startNodeId,
               elements.last.endNodeId,
@@ -238,7 +245,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
         val elements = findNonNodeNetworkRouteBackwardPath(Seq.empty, context.segments.flatMap(_.elements).reverse)
         if (elements.nonEmpty) {
           Some(
-            StructurePath(
+            domain.StructurePath(
               pathIds.next(),
               elements.head.startNodeId,
               elements.last.endNodeId,

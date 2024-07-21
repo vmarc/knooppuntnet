@@ -12,11 +12,11 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.LinkDirection
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNode
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNodes
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNode
-import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNodes
-import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkNode
-import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkWay
+import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkNode
+import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay
 
 import scala.collection.mutable.ListBuffer
 
