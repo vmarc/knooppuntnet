@@ -23,7 +23,6 @@ case class RouteDoc(
   lastUpdated: Timestamp,
   lastSurvey: Option[Day],
   facts: Seq[Fact],
-  oldFacts: Seq[Fact],
   unexpectedNodeIds: Seq[Long],
   unexpectedRelationIds: Seq[Long],
   members: Seq[RouteMemberInfo],

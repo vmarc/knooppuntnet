@@ -6,7 +6,7 @@ import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteDocAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain.RouteDocAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
@@ -16,7 +16,7 @@ class RouteMainAnalyzer {
 
   def analyze(routeDetailDoc: RouteDetailDoc): Option[RouteDoc] = {
     Log.context("route=%07d".format(routeDetailDoc.summary.id)) {
-      val context = RouteDocAnalysisContext(routeDetailDoc)
+      val context = RouteAnalysisContext(routeDetailDoc)
       val analyzers: List[RouteDocAnalyzer] = List(
         // RouteLabelsAnalyzer, // this always should be the last analyzer
       )
@@ -25,7 +25,7 @@ class RouteMainAnalyzer {
   }
 
   @tailrec
-  private def doAnalyze(analyzers: List[RouteDocAnalyzer], context: RouteDocAnalysisContext): Option[RouteDoc] = {
+  private def doAnalyze(analyzers: List[RouteDocAnalyzer], context: RouteAnalysisContext): Option[RouteDoc] = {
     if (analyzers.isEmpty) {
       val segments = context.routeDetailDoc.segments.map { segment =>
         RouteSegment(
@@ -57,7 +57,6 @@ class RouteMainAnalyzer {
           context.routeDetailDoc.lastUpdated,
           context.routeDetailDoc.lastSurvey,
           context.routeDetailDoc.facts,
-          context.routeDetailDoc.oldFacts,
           context.routeDetailDoc.unexpectedNodeIds,
           context.routeDetailDoc.unexpectedRelationIds,
           context.routeDetailDoc.members,

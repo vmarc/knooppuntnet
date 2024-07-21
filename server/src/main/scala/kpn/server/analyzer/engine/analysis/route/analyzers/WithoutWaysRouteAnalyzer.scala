@@ -16,7 +16,7 @@ class WithoutWaysRouteAnalyzer(context: RouteDetailAnalysisContext) {
       context
     }
     else {
-      context.withFact(RouteWithoutWays).withOldFact(RouteWithoutWays)
+      context.withFact(RouteWithoutWays)
     }
   }
 

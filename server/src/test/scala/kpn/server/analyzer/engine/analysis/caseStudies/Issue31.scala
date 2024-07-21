@@ -6,6 +6,6 @@ class Issue31 extends UnitTest {
 
   test("oneway:bicycle=no overrules junction=roundabout oneway") {
     val route = CaseStudy.routeDetailDoc("4271")
-    route.oldFacts shouldBe empty // no more RouteNotBackward etc. generated
+    route.facts shouldBe empty // no more RouteNotBackward etc. generated
   }
 }

@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.custom.Fact
-import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 
 class SebastianTest01 extends UnitTest {
@@ -9,15 +8,12 @@ class SebastianTest01 extends UnitTest {
   test("route 44-53") {
     val context = CaseStudy.analyze("11721562")
     context.structure.otherPaths.size should equal(7)
-    context.oldFacts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
-    if (Redesign.enableNewFactTests) {
-      context.facts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
-    }
+    context.facts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
   }
 
   test("route 44-53 adapted") {
     val context = CaseStudy.analyze("11721562-adapted")
-    assert(context.oldFacts.isEmpty)
+    assert(context.facts.isEmpty)
     // GeoJsonUtil.printMap(context.structure)
   }
 }

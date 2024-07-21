@@ -36,7 +36,6 @@ case class RouteDetailAnalysisContext(
   _segments: Option[Seq[RouteAnalysisSegment]] = None,
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   facts: Seq[Fact] = Seq.empty,
-  oldFacts: Seq[Fact] = Seq.empty,
   _unexpectedNodeIds: Option[Seq[Long]] = None,
   _unexpectedRelationIds: Option[Seq[Long]] = None,
   _routeNameAnalysis: Option[RouteNameAnalysis] = None,
@@ -69,29 +68,9 @@ case class RouteDetailAnalysisContext(
     copy(facts = facts :+ fact)
   }
 
-  def withOldFact(fact: Fact): RouteDetailAnalysisContext = {
-    copy(oldFacts = oldFacts :+ fact)
-  }
-
-  def replaceAllFactsWith(fact: Fact): RouteDetailAnalysisContext = {
-    copy(
-      facts = Seq(fact),
-      oldFacts = Seq(fact)
-    )
-  }
-
   def withFact(condition: Boolean, fact: Fact): RouteDetailAnalysisContext = {
     if (condition) {
       withFact(fact)
-    }
-    else {
-      this
-    }
-  }
-
-  def withOldFact(condition: Boolean, fact: Fact): RouteDetailAnalysisContext = {
-    if (condition) {
-      withOldFact(fact)
     }
     else {
       this
@@ -107,15 +86,6 @@ case class RouteDetailAnalysisContext(
     }
   }
 
-  def withOldFacts(newFacts: Fact*): RouteDetailAnalysisContext = {
-    if (newFacts.nonEmpty) {
-      copy(oldFacts = oldFacts ++ newFacts)
-    }
-    else {
-      this
-    }
-  }
-
   def withoutFacts(excludedFacts: Fact*): RouteDetailAnalysisContext = {
     if (excludedFacts.nonEmpty) {
       copy(facts = facts.filterNot(excludedFacts.contains))
@@ -125,21 +95,8 @@ case class RouteDetailAnalysisContext(
     }
   }
 
-  def withoutOldFacts(excludedFacts: Fact*): RouteDetailAnalysisContext = {
-    if (excludedFacts.nonEmpty) {
-      copy(oldFacts = oldFacts.filterNot(excludedFacts.contains))
-    }
-    else {
-      this
-    }
-  }
-
   def hasFact(expectedFacts: Fact*): Boolean = {
     expectedFacts.exists(f => facts.contains(f))
-  }
-
-  def hasOldFact(expectedFacts: Fact*): Boolean = {
-    expectedFacts.exists(f => oldFacts.contains(f))
   }
 
   def connection: Boolean = relation.hasTag("state", "connection")

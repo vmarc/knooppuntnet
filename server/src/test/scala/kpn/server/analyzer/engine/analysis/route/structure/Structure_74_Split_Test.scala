@@ -40,24 +40,24 @@ class Structure_74_Split_Test extends UnitTest {
 
   test("structure") {
     pending
-    val structure = setup.structure()
-    structure.shouldMatchTo(
-      TestStructure(
-        forwardPath = Some(
-          TestStructurePath(
-            startNodeId = 1,
-            endNodeId = 3,
-            nodeIds = Seq(1, 2, 3)
-          )
-        ),
-        backwardPath = Some(
-          TestStructurePath(
-            startNodeId = 3,
-            endNodeId = 1,
-            nodeIds = Seq(3, 4, 1)
-          )
-        )
-      )
-    )
+    //    val structure = setup.structure()
+    //    structure.shouldMatchTo(
+    //      TestStructure(
+    //        forwardPath = Some(
+    //          TestStructurePath(
+    //            startNodeId = 1,
+    //            endNodeId = 3,
+    //            nodeIds = Seq(1, 2, 3)
+    //          )
+    //        ),
+    //        backwardPath = Some(
+    //          TestStructurePath(
+    //            startNodeId = 3,
+    //            endNodeId = 1,
+    //            nodeIds = Seq(3, 4, 1)
+    //          )
+    //        )
+    //      )
+    //    )
   }
 }

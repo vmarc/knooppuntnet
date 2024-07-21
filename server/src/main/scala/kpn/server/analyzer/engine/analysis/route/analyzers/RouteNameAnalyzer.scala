@@ -47,8 +47,6 @@ class RouteNameAnalyzer(context: RouteDetailAnalysisContext) {
       .copy(_routeNameAnalysis = Some(routeNameAnalysis))
       .withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
       .withFact(routeNameAnalysis.derivedFromDeprecatedNoteTag, RouteNameDeprecatedNoteTag)
-      .withOldFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
-      .withOldFact(routeNameAnalysis.derivedFromDeprecatedNoteTag, RouteNameDeprecatedNoteTag)
   }
 
   private def routeNameFromRefTag(): Option[RouteNameAnalysis] = {

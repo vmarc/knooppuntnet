@@ -114,19 +114,9 @@ class RouteDetailMainAnalyzer(
         }
       }
 
-      val oldFacts: ListBuffer[Fact] = ListBuffer[Fact]()
-      oldFacts ++= context.oldFacts
-      if (oldFacts.exists(_.isError)) {
-        oldFacts += RouteBroken
-        if (!oldFacts.contains(RouteBroken)) {
-          oldFacts += RouteBroken
-        }
-      }
-
       Some(
         context.copy(
           facts = facts.toSeq,
-          oldFacts = oldFacts.toSeq,
         )
       )
     }

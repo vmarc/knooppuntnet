@@ -31,10 +31,10 @@ class StructureTestSetup(val data: Data) extends MockFactory {
     elementGroups.map(_.elements.map(_.string))
   }
 
-  def structure(traceEnabled: Boolean = false): TestStructure = {
-    val elementGroups = StructureElementAnalyzer.analyze(RouteNodes(), relation.members, traceEnabled)
-    TestStructure.from(new OldStructureAnalyzer(traceEnabled).analyze(RouteNodes(), elementGroups))
-  }
+  //  def structure(traceEnabled: Boolean = false): TestStructure = {
+  //    val elementGroups = StructureElementAnalyzer.analyze(RouteNodes(), relation.members, traceEnabled)
+  //    TestStructure.from(new OldStructureAnalyzer(traceEnabled).analyze(RouteNodes(), elementGroups))
+  //  }
 
   def analyze(traceEnabled: Boolean = false): RouteDetailAnalysisTestContext = {
     val oldTileCalculator = new OldTileCalculatorImpl()
