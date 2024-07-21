@@ -34,7 +34,6 @@ import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -43,7 +42,6 @@ import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
@@ -98,12 +96,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )
   }
 
-  private val oldRouteTileAnalyzer = {
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
-    val routeTileCalculator = new RouteTileCalculatorImpl(lineSegmentTileCalculator)
-    new OldRouteTileAnalyzer(routeTileCalculator)
-  }
-
   private val routeTileAnalyzer = {
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
     new RouteTileAnalyzer(lineSegmentTileCalculator)
@@ -121,7 +113,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     new RouteDetailMainAnalyzer(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
-      oldRouteTileAnalyzer,
       routeTileAnalyzer
     )
   }

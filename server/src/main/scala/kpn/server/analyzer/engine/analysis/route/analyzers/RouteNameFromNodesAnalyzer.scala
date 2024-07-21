@@ -18,17 +18,17 @@ object RouteNameFromNodesAnalyzer extends RouteAnalyzer {
 
 class RouteNameFromNodesAnalyzer(context: RouteDetailAnalysisContext) {
 
-  private val routeNodeAnalysis = context.oldRouteNodeAnalysis
+  private val routeNodeAnalysis = context.nodes
 
   def analyze: RouteDetailAnalysisContext = {
     if (context.routeNameAnalysis.name.isDefined) {
       context // we already have a route name, no need to try to derive from node names
     }
     else {
-      routeNodeAnalysis.startNodes.map(_.name).headOption match {
+      routeNodeAnalysis.startNode.map(_.name) match {
         case None => context // start node name not known, cannot derive route name
         case Some(startNodeName) =>
-          routeNodeAnalysis.endNodes.map(_.name).headOption match {
+          routeNodeAnalysis.endNode.map(_.name) match {
             case None => context // end node name not known, cannot derive route name
             case Some(endNodeName) =>
               if (startNodeName.nonEmpty && endNodeName.nonEmpty) {

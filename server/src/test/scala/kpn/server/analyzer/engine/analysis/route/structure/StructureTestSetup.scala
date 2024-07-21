@@ -5,7 +5,6 @@ import kpn.api.custom.Relation
 import kpn.core.data.Data
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -43,7 +42,6 @@ class StructureTestSetup(val data: Data) extends MockFactory {
     val linesTileCalculator = new OldLinesTileCalculatorImpl(oldTileCalculator)
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
     val routeTileCalculator = new RouteTileCalculatorImpl(lineSegmentTileCalculator)
-    val oldRouteTileAnalyzer = new OldRouteTileAnalyzer(routeTileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(lineSegmentTileCalculator)
     val locationAnalyzer = stub[LocationAnalyzer]
     val routeRepository = stub[RouteRepository]
@@ -52,7 +50,6 @@ class StructureTestSetup(val data: Data) extends MockFactory {
     val routeAnalyzer = new RouteDetailMainAnalyzer(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
-      oldRouteTileAnalyzer,
       routeTileAnalyzer
     )
     RouteDetailAnalysisTestContext(

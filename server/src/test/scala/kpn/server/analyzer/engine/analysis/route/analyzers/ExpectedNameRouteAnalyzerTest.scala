@@ -3,10 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Fact
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.OldRouteNode
-import kpn.server.analyzer.engine.analysis.route.RouteNodeType
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
@@ -68,14 +65,15 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def doTest(routeName: Option[String], startNodeName: Option[String], endNodeName: Option[String]): RouteDetailAnalysisContext = {
     val routeNameAnalysis = RouteNameAnalysis(name = routeName)
-    val routeNodeAnalysis = OldRouteNodeAnalysis(
-      startNodes = startNodeName.toSeq.map(name => OldRouteNode(RouteNodeType.Start, name = name)),
-      endNodes = endNodeName.toSeq.map(name => OldRouteNode(RouteNodeType.End, name = name))
-    )
+    // TODO redesign
+    //    val routeNodeAnalysis = OldRouteNodeAnalysis(
+    //      startNodes = startNodeName.toSeq.map(name => OldRouteNode(RouteNodeType.Start, name = name)),
+    //      endNodes = endNodeName.toSeq.map(name => OldRouteNode(RouteNodeType.End, name = name))
+    //    )
 
-    val context = buildContext().
-      copy(_routeNameAnalysis = Some(routeNameAnalysis)).
-      copy(_oldRouteNodeAnalysis = Some(routeNodeAnalysis))
+    val context = buildContext()
+    //      copy(_routeNameAnalysis = Some(routeNameAnalysis)).
+    //      copy(_oldRouteNodeAnalysis = Some(routeNodeAnalysis))
 
     ExpectedNameRouteAnalyzer.analyze(context)
   }

@@ -1,6 +1,5 @@
 package kpn.core.tools.monitor
 
-import kpn.api.base.ObjectId
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
@@ -52,11 +51,6 @@ object MonitorUpdateTool {
     System.exit(exit)
   }
 }
-
-case class MonitorGroupRoute(
-  group: MonitorGroup,
-  routeId: ObjectId
-)
 
 class MonitorUpdateTool(
   database: Database,

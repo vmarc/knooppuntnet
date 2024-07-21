@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route.domain
 
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.data.Node
-import kpn.api.common.data.Way
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteMap
 import kpn.api.custom.Country
@@ -13,10 +12,7 @@ import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
 import kpn.core.tools.next.domain.RouteRelation
-import kpn.server.analyzer.engine.analysis.route.OldRouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
-import kpn.server.analyzer.engine.analysis.route.RouteStructure
-import kpn.server.analyzer.engine.analysis.route.segment.FragmentMap
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisNodes
 import kpn.server.analyzer.engine.analysis.route.structure.RouteAnalysisSegment
 import kpn.server.analyzer.engine.analysis.route.structure.RouteLinks
@@ -44,16 +40,12 @@ case class RouteDetailAnalysisContext(
   _unexpectedNodeIds: Option[Seq[Long]] = None,
   _unexpectedRelationIds: Option[Seq[Long]] = None,
   _routeNameAnalysis: Option[RouteNameAnalysis] = None,
-  _oldRouteNodeAnalysis: Option[OldRouteNodeAnalysis] = None,
   _nodes: Option[RouteAnalysisNodes] = None,
   expectedName: Option[String] = None,
   suspiciousWayIds: Option[Seq[Long]] = None,
-  _fragmentMap: Option[FragmentMap] = None,
-  _oldStructure: Option[RouteStructure] = None,
   _structure: Option[Structure] = None,
   _routeMembers: Option[Seq[RouteMember]] = None,
   _routeMap: Option[RouteMap] = None,
-  _ways: Option[Seq[Way]] = None,
   allWayNodes: Option[Seq[Node]] = None,
   _geometryDigest: Option[String] = None,
   _locationAnalysis: Option[RouteLocationAnalysis] = None,
@@ -158,8 +150,6 @@ case class RouteDetailAnalysisContext(
 
   def routeMap: RouteMap = _routeMap.getOrElse(throw new PreconditionMissingException)
 
-  def ways: Seq[Way] = _ways.getOrElse(throw new PreconditionMissingException)
-
   def links: RouteLinks = _links.getOrElse(throw new PreconditionMissingException)
 
   def segments: Seq[RouteAnalysisSegment] = _segments.getOrElse(throw new PreconditionMissingException)
@@ -170,13 +160,7 @@ case class RouteDetailAnalysisContext(
 
   def routeNameAnalysis: RouteNameAnalysis = _routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
 
-  def oldRouteNodeAnalysis: OldRouteNodeAnalysis = _oldRouteNodeAnalysis.getOrElse(throw new PreconditionMissingException)
-
   def nodes: RouteAnalysisNodes = _nodes.getOrElse(throw new PreconditionMissingException)
-
-  def fragmentMap: FragmentMap = _fragmentMap.getOrElse(throw new PreconditionMissingException)
-
-  def oldStructure: RouteStructure = _oldStructure.getOrElse(throw new PreconditionMissingException)
 
   def structure: Structure = _structure.getOrElse(throw new PreconditionMissingException)
 

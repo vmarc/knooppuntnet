@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.route.Both
-import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteBroken
@@ -16,9 +15,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyze
 import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteNodeTagAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteStructureAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteContextAnalyzer
@@ -28,7 +24,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteElementsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLastSurveyAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMapAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNetworkTypeAnalyzer
@@ -52,7 +47,6 @@ import scala.collection.mutable.ListBuffer
 class RouteDetailMainAnalyzer(
   routeCountryAnalyzer: RouteCountryAnalyzer,
   routeLocationAnalyzer: RouteLocationAnalyzer,
-  oldRouteTileAnalyzer: OldRouteTileAnalyzer,
   routeTileAnalyzer: RouteTileAnalyzer
 ) {
 
@@ -76,7 +70,6 @@ class RouteDetailMainAnalyzer(
         FixmeTodoRouteAnalyzer,
         UnexpectedNodeRouteAnalyzer,
         UnexpectedRelationRouteAnalyzer, // TODO redesign - move to pass 2?
-        OldRouteNodeTagAnalyzer,
         RouteNameAnalyzer,
 
         //OldRouteNodeAnalyzer,
@@ -89,18 +82,13 @@ class RouteDetailMainAnalyzer(
         RouteSegmentAnalyzer,
         RouteStructureAnalyzer,
 
-        // TODO RouteFragmentAnalyzer,
-        OldRouteStructureAnalyzer,
-
         RouteMemberAnalyzer,
-        RouteMapAnalyzer,
         GeometryDigestAnalyzer,
         routeLocationAnalyzer,
         IncompleteOkRouteAnalyzer,
         FactCombinationAnalyzer,
         RouteLastSurveyAnalyzer,
         RouteElementsAnalyzer,
-        // TODO oldRouteTileAnalyzer,
         routeTileAnalyzer,
         RouteEdgeAnalyzer,
         RouteLabelsAnalyzer, // this always should be the last analyzer
@@ -150,19 +138,6 @@ class RouteDetailMainAnalyzer(
 }
 
 object RouteAnalyzerFunctions {
-
-  def toInfos(nodes: Seq[OldRouteNode]): Seq[RouteNetworkNodeInfo] = {
-    nodes.map { routeNode =>
-      RouteNetworkNodeInfo(
-        routeNode.id,
-        routeNode.name,
-        routeNode.alternateName,
-        routeNode.longName,
-        routeNode.lat,
-        routeNode.lon
-      )
-    }
-  }
 
   def oneWay(member: RouteMember): WayDirection = {
     member match {

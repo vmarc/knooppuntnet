@@ -178,10 +178,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
               RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
             )
           ),
-          structureStrings = Seq(
-            "forward=(01-02 via +<01-02 101>)",
-            "backward=(02-01 via -<01-02 101>)"
-          ),
         )
       )
     )
@@ -273,10 +269,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             endNodes = Seq(
               RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
             )
-          ),
-          structureStrings = Seq(
-            "forward=(01-02 via +<01-02 101>)",
-            "backward=(02-01 via -<01-02 101>)"
           ),
         ),
         nodeRefs = Seq(

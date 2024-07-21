@@ -5,6 +5,7 @@ import kpn.api.custom.Relation
 
 import scala.collection.mutable
 
+// TODO redesign - currently not used
 class StructureMemberAnalyzer {
 
   // see: MonitorFilter.ignoredRoles  Seq("place_of_worship", "guest_house", "outer", "inner")

@@ -14,8 +14,6 @@ import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 case class RouteDetailAnalysis(
   relation: Relation,
   routeDetail: RouteDetailDoc,
-  structure: RouteStructure = RouteStructure(),
-  routeNodeAnalysis: OldRouteNodeAnalysis = OldRouteNodeAnalysis(),
   routeMembers: Seq[RouteMember] = Seq.empty,
   ways: Seq[Way] = Seq.empty,
   startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
@@ -35,8 +33,4 @@ case class RouteDetailAnalysis(
   def subset: Option[Subset] = routeDetail.summary.country.flatMap(c => Subset.of(c, routeDetail.summary.networkType))
 
   def toRef: Ref = Ref(id, name)
-
-  def containsNode(nodeId: Long): Boolean = {
-    routeNodeAnalysis.routeNodes.exists(_.id == nodeId)
-  }
 }

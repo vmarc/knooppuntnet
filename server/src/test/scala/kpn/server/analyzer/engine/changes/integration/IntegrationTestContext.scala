@@ -24,7 +24,6 @@ import kpn.server.analyzer.engine.analysis.post.PostProcessor
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -101,14 +100,12 @@ class IntegrationTestContext(
   private val linesTileCalculator = new OldLinesTileCalculatorImpl(oldTileCalculator)
   private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
   private val routeTileCalculator = new RouteTileCalculatorImpl(lineSegmentTileCalculator)
-  private val oldRouteTileAnalyzer = new OldRouteTileAnalyzer(routeTileCalculator)
   private val routeTileAnalyzer = new RouteTileAnalyzer(lineSegmentTileCalculator)
   private val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
   private val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
   private val routeDetailMainAnalyzer = new RouteDetailMainAnalyzer(
     routeCountryAnalyzer,
     routeLocationAnalyzer,
-    oldRouteTileAnalyzer,
     routeTileAnalyzer
   )
   private val routeMainAnalyzer = new RouteMainAnalyzer()

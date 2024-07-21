@@ -6,8 +6,6 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.route.update.MonitorRouteRelationRepository
 
-case class RelationId(relationId: Long)
-
 object MonitorSymbolMigrationTool {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-monitor") { database =>

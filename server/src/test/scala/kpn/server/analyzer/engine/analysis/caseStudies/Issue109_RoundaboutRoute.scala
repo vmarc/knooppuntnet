@@ -7,7 +7,6 @@ import kpn.core.loadOld.Parser
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.OldRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -31,7 +30,6 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
     val linesTileCalculator = new OldLinesTileCalculatorImpl(oldTileCalculator)
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
     val routeTileCalculator = new RouteTileCalculatorImpl(lineSegmentTileCalculator)
-    val oldRouteTileAnalyzer = new OldRouteTileAnalyzer(routeTileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(lineSegmentTileCalculator)
     val routeRepository = stub[RouteRepository]
     val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
@@ -39,14 +37,13 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
     val routeAnalyzer = new RouteDetailMainAnalyzer(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
-      oldRouteTileAnalyzer,
       routeTileAnalyzer
     )
     val relation = readRoute()
     val context = routeAnalyzer.analyze(relation, None).get
 
     assert(context.facts.isEmpty)
-    assert(context.oldStructure.unusedSegments.isEmpty)
+    assert(context.structure.otherPaths.isEmpty)
 
     context.routeMap.freeNodes.map(_.id).toSet should equal(
       Set(

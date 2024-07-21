@@ -47,7 +47,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       )
     }
 
-    val length: Long = context.relation.wayMembers.map(_.way.length).sum
+    val length: Long = context.structure.allPaths.map(_.meters).sum
 
     val routeWays: Seq[Way] = context.relation.wayMembers.map(_.way)
 
@@ -58,14 +58,13 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       }
     }
 
-    val accessible: Boolean = context.ways.size == routeMemberWays.count(_.accessible)
+    val accessible: Boolean = routeMemberWays.size == routeMemberWays.count(_.accessible)
 
     val nameDerivedFromNodes = context.routeNameAnalysis.derivedFromNodes
 
     val routeAnalysis = RouteInfoAnalysis(
       context.expectedName.getOrElse(""),
-      context.routeMap,
-      new RouteStructureFormatter(context.oldStructure).strings,
+      context.routeMap
     )
 
     val lastUpdatedElement: Element = {

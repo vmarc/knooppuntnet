@@ -632,13 +632,11 @@ trait SharedTestObjects extends MockFactory {
 
   def newRouteInfoAnalysis(
     expectedName: String = "",
-    map: RouteMap = RouteMap(),
-    structureStrings: Seq[String] = Seq.empty
+    map: RouteMap = RouteMap()
   ): RouteInfoAnalysis = {
     RouteInfoAnalysis(
       expectedName,
-      map,
-      structureStrings
+      map
     )
   }
 
