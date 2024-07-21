@@ -45,10 +45,6 @@ object RouteDetailsPageExample {
         inaccessible = true,
         wayCount = 10,
         timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-        nodeNames = Seq(
-          "01",
-          "02"
-        ),
         tags = Tags.from(
           "key1" -> "value1",
           "key2" -> "value2",

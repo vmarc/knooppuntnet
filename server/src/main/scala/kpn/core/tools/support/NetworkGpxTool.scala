@@ -1,5 +1,7 @@
 package kpn.core.tools.support
 
+import kpn.api.common.common.TrackSegment
+import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.core.gpx.GpxFile
 import kpn.core.gpx.GpxSegment
 import kpn.core.gpx.GpxWriter
@@ -39,27 +41,31 @@ class NetworkGpxTool(database: Database) {
           routeRepository.findRouteById(routeId)
         }
 
-        val trackSegments = routeDocs.flatMap { routeDoc =>
-          val map = routeDoc.analysis.map
-          val trackPaths = map.freePaths ++
-            map.forwardPath.toSeq ++
-            map.backwardPath.toSeq ++
-            map.startTentaclePaths ++
-            map.endTentaclePaths
-          trackPaths.flatMap(_.segments)
+        val trackSegments: Seq[TrackSegment] = routeDocs.flatMap { routeDoc =>
+          // TODO redesign
+          //   val map = routeDoc.analysis.map
+          //   val trackPaths = map.freePaths ++
+          //     map.forwardPath.toSeq ++
+          //     map.backwardPath.toSeq ++
+          //     map.startTentaclePaths ++
+          //     map.endTentaclePaths
+          //   trackPaths.flatMap(_.segments)
+          Seq.empty
         }
 
         val gpxSegments = trackSegments.map { trackSegment =>
           GpxSegment(trackSegment.trackPoints)
         }
 
-        val routeNetworkNodeInfos = routeDocs.flatMap { routeDoc =>
-          val map = routeDoc.analysis.map
-          map.freeNodes ++
-            map.startNodes ++
-            map.endNodes ++
-            map.startTentacleNodes ++
-            map.endTentacleNodes
+        val routeNetworkNodeInfos: Seq[RouteNetworkNodeInfo] = routeDocs.flatMap { routeDoc =>
+          // TODO redesign
+          //   val map = routeDoc.analysis.map
+          //   map.freeNodes ++
+          //     map.startNodes ++
+          //     map.endNodes ++
+          //     map.startTentacleNodes ++
+          //     map.endTentacleNodes
+          Seq.empty
         }
 
         val wayPoints = routeNetworkNodeInfos.map { routeNetworkNodeInfo =>

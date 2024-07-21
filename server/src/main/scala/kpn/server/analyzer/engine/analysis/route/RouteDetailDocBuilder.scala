@@ -8,7 +8,6 @@ import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Fact
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
-import kpn.core.analysis.RouteMemberWay
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDetailPath
 import kpn.core.doc.RouteDetailSegment
@@ -51,15 +50,6 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
 
     val routeWays: Seq[Way] = context.relation.wayMembers.map(_.way)
 
-    def routeMemberWays: Seq[RouteMemberWay] = {
-      context.routeMembers.flatMap {
-        case w: RouteMemberWay => Some(w)
-        case _ => None
-      }
-    }
-
-    val accessible: Boolean = routeMemberWays.size == routeMemberWays.count(_.accessible)
-
     val nameDerivedFromNodes = context.routeNameAnalysis.derivedFromNodes
 
     val routeAnalysis = RouteInfoAnalysis(
@@ -74,10 +64,6 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
 
     val lastUpdated: Timestamp = lastUpdatedElement.timestamp
 
-    val nodeNames = routeAnalysis.map.freeNodes.map(_.name) ++
-      routeAnalysis.map.startNodes.map(_.name) ++
-      routeAnalysis.map.endNodes.map(_.name)
-
     val summary = RouteSummary(
       context.relation.id,
       context.countries,
@@ -89,7 +75,6 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.facts.contains(Fact.RouteInaccessible),
       routeWays.size,
       context.relation.timestamp,
-      nodeNames,
       context.relation.tags
     )
 

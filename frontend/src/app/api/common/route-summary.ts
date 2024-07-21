@@ -17,6 +17,5 @@ export interface RouteSummary {
   readonly inaccessible: boolean;
   readonly wayCount: number;
   readonly timestamp: Timestamp;
-  readonly nodeNames: string[];
   readonly tags: Tag[];
 }

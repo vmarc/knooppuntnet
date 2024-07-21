@@ -445,7 +445,6 @@ trait SharedTestObjects extends MockFactory {
       inaccessible = facts.contains(Fact.RouteInaccessible),
       wayCount,
       relationLastUpdated,
-      nodeNames = Seq.empty,
       tags = Seq.empty
     )
 
@@ -649,7 +648,6 @@ trait SharedTestObjects extends MockFactory {
     inaccessible: Boolean = false,
     wayCount: Int = 0,
     timestamp: Timestamp = defaultTimestamp,
-    nodeNames: Seq[String] = Seq.empty,
     tags: Seq[Tag] = Seq.empty
   ): RouteSummary = {
     RouteSummary(
@@ -663,7 +661,6 @@ trait SharedTestObjects extends MockFactory {
       inaccessible,
       wayCount,
       timestamp,
-      nodeNames,
       tags
     )
   }

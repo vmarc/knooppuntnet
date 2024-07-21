@@ -34,11 +34,12 @@ class FindCircularRoutesTool(database: Database) {
         case None =>
         case Some(routeDoc) =>
           if (routeDoc.isActive) {
-            if (routeDoc.analysis.map.freeNodes.size > 2) {
-              if (routeDoc.analysis.map.freeNodes.map(_.name).distinct.size == 1) {
-                println("circular route: " + routeId)
-              }
-            }
+            // TODO redesign
+            //    if (routeDoc.analysis.map.freeNodes.size > 2) {
+            //      if (routeDoc.analysis.map.freeNodes.map(_.name).distinct.size == 1) {
+            //        println("circular route: " + routeId)
+            //      }
+            //    }
           }
       }
     }

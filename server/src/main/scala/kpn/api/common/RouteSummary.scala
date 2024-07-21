@@ -18,6 +18,5 @@ case class RouteSummary(
   inaccessible: Boolean,
   wayCount: Long,
   timestamp: Timestamp, // TODO redesign - same as RouteDoc.lastUpdated ???
-  nodeNames: Seq[String],
   tags: Seq[Tag]
 ) extends Tagable
