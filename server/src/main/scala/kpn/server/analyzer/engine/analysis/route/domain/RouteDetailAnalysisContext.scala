@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.route.domain
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.data.Node
 import kpn.api.common.route.RouteEdge
-import kpn.api.common.route.RouteMap
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
@@ -39,7 +38,6 @@ case class RouteDetailAnalysisContext(
   suspiciousWayIds: Option[Seq[Long]] = None,
   _structure: Option[Structure] = None,
   _routeMembers: Option[Seq[RouteMember]] = None,
-  _routeMap: Option[RouteMap] = None,
   allWayNodes: Option[Seq[Node]] = None,
   _geometryDigest: Option[String] = None,
   _locationAnalysis: Option[RouteLocationAnalysis] = None,
@@ -102,8 +100,6 @@ case class RouteDetailAnalysisContext(
   def networkTypes: Seq[NetworkType] = _networkTypes.getOrElse(throw new PreconditionMissingException)
 
   def countries: Seq[Country] = _countries.getOrElse(throw new PreconditionMissingException)
-
-  def routeMap: RouteMap = _routeMap.getOrElse(throw new PreconditionMissingException)
 
   def links: RouteLinks = _links.getOrElse(throw new PreconditionMissingException)
 

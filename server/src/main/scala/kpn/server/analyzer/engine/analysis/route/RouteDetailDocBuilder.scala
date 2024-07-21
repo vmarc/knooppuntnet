@@ -53,8 +53,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
     val nameDerivedFromNodes = context.routeNameAnalysis.derivedFromNodes
 
     val routeAnalysis = RouteInfoAnalysis(
-      context.expectedName.getOrElse(""),
-      context.routeMap
+      context.expectedName.getOrElse("")
     )
 
     val lastUpdatedElement: Element = {
@@ -97,7 +96,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.geometryDigest,
       context._locationAnalysis.get,
       context.tiles,
-      routeAnalysis.map.nodeIds,
+      context.nodes.nodeIds,
       context.elementIds,
       context.edges,
       buildSegments,

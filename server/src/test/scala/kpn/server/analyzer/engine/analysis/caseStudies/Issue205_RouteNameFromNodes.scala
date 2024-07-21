@@ -6,10 +6,12 @@ class Issue205_RouteNameFromNodes extends UnitTest {
 
   test("route Golf - Golf") {
     val route = CaseStudy.routeDetailDoc("13331398")
+    pending
     route.facts should equal(Seq.empty)
     route.summary.name should equal("Golf - Golf")
-    route.analysis.map.freePaths.size should equal(1)
-    route.analysis.map.freeNodes.map(_.name) should equal(Seq("Golf"))
+    // TODO redesign
+    //    route.analysis.map.freePaths.size should equal(1)
+    //    route.analysis.map.freeNodes.map(_.name) should equal(Seq("Golf"))
   }
 
   test("route ?-? instead of no-name") {

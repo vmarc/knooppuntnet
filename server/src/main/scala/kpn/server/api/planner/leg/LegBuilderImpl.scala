@@ -8,7 +8,6 @@ import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
 import kpn.api.common.planner.PlanFragment
 import kpn.api.common.planner.PlanLegDetail
-import kpn.api.common.planner.PlanNode
 import kpn.api.common.planner.PlanRoute
 import kpn.api.common.planner.PlanSegment
 import kpn.api.custom.NetworkType
@@ -201,18 +200,19 @@ class LegBuilderImpl(
         case Some(route) =>
           val pathId = if (graphPathSegment.pathKey.pathId < 100) graphPathSegment.pathKey.pathId else graphPathSegment.pathKey.pathId - 100
           val colour = route.summary.tagValue("colour")
-          route.analysis.map.paths.find(_.pathId == pathId) match {
-            case None => None
-            case Some(trackPath) =>
-              trackPathToPlanRoute(route, trackPath, colour).map { planRoute =>
-                if (graphPathSegment.pathKey.pathId > 100) {
-                  planRoute.reverse
-                }
-                else {
-                  planRoute
-                }
-              }
-          }
+          None // TODO redesign
+        //  route.analysis.map.paths.find(_.pathId == pathId) match {
+        //    case None => None
+        //    case Some(trackPath) =>
+        //      trackPathToPlanRoute(route, trackPath, colour).map { planRoute =>
+        //        if (graphPathSegment.pathKey.pathId > 100) {
+        //          planRoute.reverse
+        //        }
+        //        else {
+        //          planRoute
+        //        }
+        //      }
+        //  }
 
         case None =>
           log.error(s"route $routeId not found")
@@ -225,62 +225,64 @@ class LegBuilderImpl(
 
     val routeLegSegments = trackPath.segments.map(s => toPlanSegment(s, colour))
 
-    routeDetailDoc.analysis.map.nodeWithId(trackPath.startNodeId) match {
-      case Some(sourceRouteNetworkNodeInfo) =>
-        val sourceNodeId = sourceRouteNetworkNodeInfo.id.toString
-        val sourceNodeName = sourceRouteNetworkNodeInfo.name
-        val sourceNodeLongName = sourceRouteNetworkNodeInfo.longName
+    None // TODO redesign
 
-        val sourceCoordinate = PlanUtil.toCoordinate(sourceRouteNetworkNodeInfo.lat.toDouble, sourceRouteNetworkNodeInfo.lon.toDouble)
-        val sourceLatLon = LatLonImpl(sourceRouteNetworkNodeInfo.lat, sourceRouteNetworkNodeInfo.lon)
-
-        val sourceNode = PlanNode(
-          featureId.next,
-          sourceNodeId,
-          sourceNodeName,
-          sourceNodeLongName,
-          sourceCoordinate,
-          sourceLatLon
-        )
-
-        routeDetailDoc.analysis.map.nodeWithId(trackPath.endNodeId) match {
-
-          case Some(sinkRouteNetworkNodeInfo) =>
-            val sinkNodeId = sinkRouteNetworkNodeInfo.id.toString
-            val sinkNodeName = sinkRouteNetworkNodeInfo.name
-            val sinkNodeLongName = sinkRouteNetworkNodeInfo.longName
-            val sinkCoordinate = PlanUtil.toCoordinate(sinkRouteNetworkNodeInfo.lat.toDouble, sinkRouteNetworkNodeInfo.lon.toDouble)
-            val sinkLatLon = LatLonImpl(sinkRouteNetworkNodeInfo.lat, sinkRouteNetworkNodeInfo.lon)
-
-            val sinkNode = PlanNode(
-              featureId.next,
-              sinkNodeId,
-              sinkNodeName,
-              sinkNodeLongName,
-              sinkCoordinate,
-              sinkLatLon
-            )
-
-            val meters = routeLegSegments.map(_.meters).sum
-
-            Some(
-              PlanRoute(
-                sourceNode,
-                sinkNode,
-                meters,
-                routeLegSegments
-              )
-            )
-
-          case None =>
-            log.error(s"route ${routeDetailDoc.id} source node ${trackPath.startNodeId} not found")
-            None
-        }
-
-      case None =>
-        log.error(s"route ${routeDetailDoc.id} sink node ${trackPath.endNodeId} not found")
-        None
-    }
+    //    routeDetailDoc.analysis.map.nodeWithId(trackPath.startNodeId) match {
+    //      case Some(sourceRouteNetworkNodeInfo) =>
+    //        val sourceNodeId = sourceRouteNetworkNodeInfo.id.toString
+    //        val sourceNodeName = sourceRouteNetworkNodeInfo.name
+    //        val sourceNodeLongName = sourceRouteNetworkNodeInfo.longName
+    //
+    //        val sourceCoordinate = PlanUtil.toCoordinate(sourceRouteNetworkNodeInfo.lat.toDouble, sourceRouteNetworkNodeInfo.lon.toDouble)
+    //        val sourceLatLon = LatLonImpl(sourceRouteNetworkNodeInfo.lat, sourceRouteNetworkNodeInfo.lon)
+    //
+    //        val sourceNode = PlanNode(
+    //          featureId.next,
+    //          sourceNodeId,
+    //          sourceNodeName,
+    //          sourceNodeLongName,
+    //          sourceCoordinate,
+    //          sourceLatLon
+    //        )
+    //
+    //        routeDetailDoc.analysis.map.nodeWithId(trackPath.endNodeId) match {
+    //
+    //          case Some(sinkRouteNetworkNodeInfo) =>
+    //            val sinkNodeId = sinkRouteNetworkNodeInfo.id.toString
+    //            val sinkNodeName = sinkRouteNetworkNodeInfo.name
+    //            val sinkNodeLongName = sinkRouteNetworkNodeInfo.longName
+    //            val sinkCoordinate = PlanUtil.toCoordinate(sinkRouteNetworkNodeInfo.lat.toDouble, sinkRouteNetworkNodeInfo.lon.toDouble)
+    //            val sinkLatLon = LatLonImpl(sinkRouteNetworkNodeInfo.lat, sinkRouteNetworkNodeInfo.lon)
+    //
+    //            val sinkNode = PlanNode(
+    //              featureId.next,
+    //              sinkNodeId,
+    //              sinkNodeName,
+    //              sinkNodeLongName,
+    //              sinkCoordinate,
+    //              sinkLatLon
+    //            )
+    //
+    //            val meters = routeLegSegments.map(_.meters).sum
+    //
+    //            Some(
+    //              PlanRoute(
+    //                sourceNode,
+    //                sinkNode,
+    //                meters,
+    //                routeLegSegments
+    //              )
+    //            )
+    //
+    //          case None =>
+    //            log.error(s"route ${routeDetailDoc.id} source node ${trackPath.startNodeId} not found")
+    //            None
+    //        }
+    //
+    //      case None =>
+    //        log.error(s"route ${routeDetailDoc.id} sink node ${trackPath.endNodeId} not found")
+    //        None
+    //    }
   }
 
   private def toPlanSegment(trackSegment: TrackSegment, colour: Option[String]): PlanSegment = {

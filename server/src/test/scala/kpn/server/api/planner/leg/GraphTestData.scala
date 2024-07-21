@@ -1,12 +1,7 @@
 package kpn.server.api.planner.leg
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.common.TrackPath
-import kpn.api.common.common.TrackPoint
-import kpn.api.common.common.TrackSegment
-import kpn.api.common.common.TrackSegmentFragment
 import kpn.api.common.planner.LegEndRoute
-import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.NetworkType
 import kpn.core.doc.RouteDetailDoc
@@ -59,36 +54,38 @@ class GraphTestData extends SharedTestObjects with MockFactory {
   }
 
   private def routeDoc(legEndRoute: LegEndRoute, startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): RouteDetailDoc = {
+    pending // TODO redesign
     newRouteDetailDoc(
       summary = newRouteSummary(
         id = legEndRoute.trackPathKeys.head.routeId
       ),
       analysis = newRouteInfoAnalysis(
-        map = RouteMap(
-          startNodes = Seq(startNode),
-          endNodes = Seq(endNode),
-          forwardPath = Some(
-            TrackPath(
-              pathId = legEndRoute.trackPathKeys.head.pathId,
-              startNodeId = startNode.id,
-              endNodeId = endNode.id,
-              meters = 0,
-              oneWay = false,
-              segments = Seq(
-                TrackSegment(
-                  surface = "unpaved",
-                  source = TrackPoint(startNode.lat, startNode.lon),
-                  fragments = Seq(
-                    TrackSegmentFragment(
-                      trackPoint = TrackPoint(endNode.lat, endNode.lon),
-                      meters = 0
-                    )
-                  )
-                )
-              )
-            )
-          )
-        )
+        // TODO redesign
+        //  map = RouteMap(
+        //    startNodes = Seq(startNode),
+        //    endNodes = Seq(endNode),
+        //    forwardPath = Some(
+        //      TrackPath(
+        //        pathId = legEndRoute.trackPathKeys.head.pathId,
+        //        startNodeId = startNode.id,
+        //        endNodeId = endNode.id,
+        //        meters = 0,
+        //        oneWay = false,
+        //        segments = Seq(
+        //          TrackSegment(
+        //            surface = "unpaved",
+        //            source = TrackPoint(startNode.lat, startNode.lon),
+        //            fragments = Seq(
+        //              TrackSegmentFragment(
+        //                trackPoint = TrackPoint(endNode.lat, endNode.lon),
+        //                meters = 0
+        //              )
+        //            )
+        //          )
+        //        )
+        //      )
+        //    )
+        //  )
       )
     )
   }

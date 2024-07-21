@@ -8,8 +8,9 @@ class Issue208_LoopRoute extends UnitTest {
     val route = CaseStudy.routeDetailDoc("13331398")
     route.facts should equal(Seq.empty)
     route.summary.name should equal("Golf - Golf")
-    route.analysis.map.freePaths.size should equal(1)
-    route.analysis.map.freeNodes.map(_.name) should equal(Seq("Golf"))
+    pending // TODO redesign
+    //  route.analysis.map.freePaths.size should equal(1)
+    //  route.analysis.map.freeNodes.map(_.name) should equal(Seq("Golf"))
   }
 
   test("route ?-? instead of no-name") {

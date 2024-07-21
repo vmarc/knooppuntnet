@@ -8,13 +8,9 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.details.RefChanges
 import kpn.api.common.changes.details.RouteChange
-import kpn.api.common.common.MapBounds
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
-import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackPathKey
-import kpn.api.common.common.TrackPoint
-import kpn.api.common.common.TrackSegment
 import kpn.api.common.data.Member
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
@@ -53,7 +49,6 @@ import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.poi.Poi
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
-import kpn.api.common.route.RouteMap
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.RouteNode
 import kpn.api.common.route.RouteNodes
@@ -467,7 +462,7 @@ trait SharedTestObjects extends MockFactory {
       geometryDigest,
       locationAnalysis,
       tiles,
-      analysis.map.nodeIds,
+      nodes.nodeIds,
       elementIds,
       edges,
       segments,
@@ -628,12 +623,10 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newRouteInfoAnalysis(
-    expectedName: String = "",
-    map: RouteMap = RouteMap()
+    expectedName: String = ""
   ): RouteInfoAnalysis = {
     RouteInfoAnalysis(
-      expectedName,
-      map
+      expectedName
     )
   }
 
@@ -662,42 +655,6 @@ trait SharedTestObjects extends MockFactory {
       wayCount,
       timestamp,
       tags
-    )
-  }
-
-  def newRouteMap(
-    bounds: MapBounds = MapBounds(),
-    freePaths: Seq[TrackPath] = Seq.empty,
-    forwardPath: Option[TrackPath] = None,
-    backwardPath: Option[TrackPath] = None,
-    unusedSegments: Seq[TrackSegment] = Seq.empty,
-    startTentaclePaths: Seq[TrackPath] = Seq.empty,
-    endTentaclePaths: Seq[TrackPath] = Seq.empty,
-    forwardBreakPoint: Option[TrackPoint] = None,
-    backwardBreakPoint: Option[TrackPoint] = None,
-    freeNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
-    startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
-    endNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
-    startTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
-    endTentacleNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
-    redundantNodes: Seq[RouteNetworkNodeInfo] = Seq.empty
-  ): RouteMap = {
-    RouteMap(
-      bounds,
-      freePaths,
-      forwardPath,
-      backwardPath,
-      unusedSegments,
-      startTentaclePaths,
-      endTentaclePaths,
-      forwardBreakPoint,
-      backwardBreakPoint,
-      freeNodes,
-      startNodes,
-      endNodes,
-      startTentacleNodes,
-      endTentacleNodes,
-      redundantNodes
     )
   }
 
