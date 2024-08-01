@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.StructureTestSetupBuilder
+import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 class WayMemberLinkTest extends UnitTest {
 

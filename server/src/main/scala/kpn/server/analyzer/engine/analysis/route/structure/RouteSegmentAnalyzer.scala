@@ -117,7 +117,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
             StructureUtil.closedLoopNodeIds(currentRouteLinkWay.fromNodeId, connectingNodeId, currentRouteLinkWay.way.nodeIds) match {
               case Some(nodeIds) =>
                 elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, nodeIds)
-              case None => ???
+              case None =>
+                ???
             }
         }
 
@@ -138,7 +139,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
                 StructureUtil.closedLoopNodeIds(connectingNodeId, currentRouteLinkWay.fromNodeId, currentRouteLinkWay.way.nodeIds) match {
                   case Some(nodeIds) =>
                     elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
-                  case None => ???
+                  case None =>
+                    ???
                 }
 
               case Some(link) =>
@@ -146,7 +148,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
                 StructureUtil.closedLoopNodeIds(fromConnectingNodeId, connectingNodeId, currentRouteLinkWay.way.nodeIds) match {
                   case Some(nodeIds) =>
                     elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
-                  case None => ???
+                  case None =>
+                    ???
                 }
             }
 
@@ -165,7 +168,8 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
                 StructureUtil.closedLoopNodeIds(fromConnectingNodeId, toConnectingNodeId, currentRouteLinkWay.way.nodeIds) match {
                   case Some(nodeIds) =>
                     elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
-                  case None => ???
+                  case None =>
+                    ???
                 }
 
               case Some(link) =>
@@ -173,7 +177,9 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
                 StructureUtil.closedLoopNodeIds(fromConnectingNodeId, toConnectingNodeId, currentRouteLinkWay.way.nodeIds) match {
                   case Some(nodeIds) =>
                     elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
-                  case None => ???
+                  case None =>
+                    // TODO redesign ???
+                    println("")
                 }
             }
         }

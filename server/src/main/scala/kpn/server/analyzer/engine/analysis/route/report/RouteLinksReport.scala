@@ -52,9 +52,9 @@ class RouteLinksReport(context: RouteDetailAnalysisContext) {
         else {
           (head, last)
         }
-        ("node", routeLinkWay.way.id, "TODO", from, to, allNodes(routeLinkWay.way.nodeIds))
+        ("way", routeLinkWay.way.id, "TODO", from, to, allNodes(routeLinkWay.way.nodeIds))
       case routeLinkRelationId: RouteLinkRelationId =>
-        ("node", routeLinkRelationId.relationId, "TODO", "", "", "")
+        ("relation", routeLinkRelationId.relationId, "TODO", "", "", "")
     }
 
     s"""<tr>

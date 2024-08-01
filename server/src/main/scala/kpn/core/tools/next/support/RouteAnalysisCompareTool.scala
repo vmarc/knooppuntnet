@@ -7,7 +7,7 @@ import kpn.core.tools.analysis.AnalysisStartConfiguration
 import kpn.core.tools.analysis.AnalysisStartToolOptions
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.next.domain.RouteRelation
-import kpn.core.tools.next.support.compare.CompareEdges
+import kpn.core.tools.next.support.compare.CompareFacts
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
 import org.apache.commons.io.FileUtils
@@ -29,7 +29,7 @@ class RouteAnalysisCompareTool(config: AnalysisStartConfiguration) {
     log.info("Collecting routeIds")
     // val routeIds = config.oldDatabase.oldRoutes.ids()
     // val routeIds = readRouteIds("logs/mismatch-ids-7.txt")
-    val routeIds = Seq(17402807L)
+    val routeIds = Seq(4275L)
     log.info(s"Comparing ${routeIds.size} routes")
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       if (index % 50 == 0) {
@@ -70,7 +70,9 @@ class RouteAnalysisCompareTool(config: AnalysisStartConfiguration) {
   }
 
   private def compare(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc): Unit = {
-    new CompareEdges(oldRouteDoc, newRouteDoc, log).compare()
+    //  new CompareEdges(oldRouteDoc, newRouteDoc, log).compare()
+    //  new CompareLabels(oldRouteDoc, newRouteDoc, log).compare()
+    new CompareFacts(oldRouteDoc, newRouteDoc, log).compare()
   }
 
   private def readRouteIds(filename: String): Seq[Long] = {
