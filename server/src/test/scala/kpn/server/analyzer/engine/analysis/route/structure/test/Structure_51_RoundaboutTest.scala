@@ -21,7 +21,7 @@ class Structure_51_RoundaboutTest extends UnitTest {
     context.segments.shouldMatchTo(
       Seq(
         "segment-1 1>1",
-        "  element-1 1>1  ↔  nodes=1, 2, 3, 4, 1",
+        "  element-1 1>1  →  nodes=1, 2, 3, 4, 1",
         "    way-11  p     n     loop     fp     bp     head     tail     d roundaboutright",
       )
     )
@@ -29,9 +29,7 @@ class Structure_51_RoundaboutTest extends UnitTest {
     context.paths.shouldMatchTo(
       Seq(
         "forward=1>1 nodes=1, 2, 3, 4, 1",
-        "backward=1>1 nodes=1, 4, 3, 2, 1", // TODO redesign
       )
     )
-    pending
   }
 }

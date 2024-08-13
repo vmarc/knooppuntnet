@@ -27,7 +27,7 @@ class Structure_52_RoundaboutRoundaboutTest extends UnitTest {
         "    way-11  p     n ■   loop ■   fp     bp     head     tail     d roundaboutright",
         "  element-2 1>3  ←  nodes=1, 4, 3",
         "    way-11  p     n ■   loop ■   fp     bp     head     tail     d roundaboutright",
-        "  element-3 3>3  ↔  nodes=3, 5, 6, 7, 3",
+        "  element-3 3>3  →  nodes=3, 5, 6, 7, 3",
         "    way-12  p ■   n     loop ■   fp     bp     head     tail     d roundaboutright",
       )
     )
@@ -35,9 +35,8 @@ class Structure_52_RoundaboutRoundaboutTest extends UnitTest {
     context.paths.shouldMatchTo(
       Seq(
         "forward=1>3 nodes=1, 2, 3, 5, 6, 7, 3",
-        "backward=3>1 nodes=3, 7, 6, 5, 3, 4, 1", // TODO redesign nodeIds = Seq(3, 5, 6, 7, 3, 4, 1)
+        "backward=3>1 nodes=3, 4, 1",
       )
     )
-    pending
   }
 }

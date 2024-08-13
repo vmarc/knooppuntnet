@@ -13,6 +13,10 @@ case class Link(
   isOnewayTail: Boolean,
 ) {
 
+  def isBidirectional: Boolean = {
+    !isOnewayLoopForwardPart && !isOnewayLoopBackwardPart
+  }
+
   def name: String = {
     val directionLetter = direction match {
       case LinkDirection.Forward => "f"

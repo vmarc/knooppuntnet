@@ -228,7 +228,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
         val elements = findNonNodeNetworkRouteForwardPath(Seq.empty, context.segments.flatMap(_.elements))
         if (elements.nonEmpty) {
           Some(
-            domain.StructurePath(
+            StructurePath(
               pathIds.next(),
               elements.head.startNodeId,
               elements.last.endNodeId,

@@ -4,7 +4,6 @@ import kpn.core.analysis.LinkDirection
 import kpn.core.util.Triplet
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisElement
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragment
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNode
@@ -36,7 +35,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze(): Seq[RouteAnalysisSegment] = {
     Triplet.slide(context.links.routeLinkWays).foreach { case Triplet(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption) =>
-      if (currentRouteLinkWay.link.direction == LinkDirection.RoundaboutRight && currentRouteLinkWay.isClosedLoop && currentRouteLinkWay.link.hasNext) {
+      if (isRoundabout(currentRouteLinkWay)) {
         handleRoundabout(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption)
       }
       else {
@@ -81,7 +80,12 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     segments.toSeq
   }
 
-  private def handleRoundabout(previousRouteLinkWayOption: Option[RouteLinkWay], currentRouteLinkWay: RouteLinkWay, nextRouteLinkWayOption: Option[RouteLinkWay]) = {
+  private def handleRoundabout(
+    previousRouteLinkWayOption: Option[RouteLinkWay],
+    currentRouteLinkWay: RouteLinkWay,
+    nextRouteLinkWayOption: Option[RouteLinkWay]
+  ) = {
+
     finalizeSegmentElement()
 
     nextRouteLinkWayOption match {
@@ -160,7 +164,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
               lastBackwardElement.fromNodeId
             }
 
-            val nextLinkOption = context.links.routeLinkWays.find(link => link.id > currentRouteLinkWay.id && link.link.isOnewayLoopBackwardPart)
+            val nextLinkOption = context.links.routeLinkWays.find(link => link.id > currentRouteLinkWay.id && (link.link.isBidirectional || link.link.isOnewayLoopBackwardPart))
             nextLinkOption match {
               case None =>
 
@@ -180,6 +184,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
                   case None =>
                     // TODO redesign ???
                     println("")
+                    ???
                 }
             }
         }
@@ -189,7 +194,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   private def buildSegment(id: Long, elements: Seq[RouteAnalysisElement]): RouteAnalysisSegment = {
     val fromNodeId = elements.head.fromNodeId
     val toNodeId = elements.last.toNodeId
-    domain.RouteAnalysisSegment(
+    RouteAnalysisSegment(
       id,
       fromNodeId,
       toNodeId,
@@ -205,7 +210,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     val fromNodeId = fragments.head.fromNodeId
     val toNodeId = fragments.last.toNodeId
 
-    val direction: RoutePathDirection = if (fragments.head.link.isOnewayLoopForwardPart) {
+    val direction: RoutePathDirection = if (fragments.head.link.isOnewayLoopForwardPart || fragments.head.link.direction == LinkDirection.RoundaboutRight) {
       RoutePathDirection.Forward
     }
     else if (fragments.head.link.isOnewayLoopBackwardPart) {
@@ -281,7 +286,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     fragments: Seq[RouteAnalysisFragment]
   ): RouteAnalysisElement = {
     val fragmentGroups = SurfaceFragmentSplitter.split(context.networkTypes, fragments)
-    domain.RouteAnalysisElement(
+    RouteAnalysisElement(
       elementIds.next(),
       direction,
       fromNetworkNode,
@@ -290,5 +295,9 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       toNodeId,
       fragmentGroups
     )
+  }
+
+  private def isRoundabout(routeLinkWay: RouteLinkWay): Boolean = {
+    routeLinkWay.link.direction == LinkDirection.RoundaboutRight && routeLinkWay.isClosedLoop && routeLinkWay.link.hasNext
   }
 }

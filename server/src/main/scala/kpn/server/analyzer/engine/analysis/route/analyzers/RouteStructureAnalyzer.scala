@@ -10,6 +10,7 @@ import kpn.api.custom.Fact.RouteNotOneWay
 import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.Fact.RouteUnusedSegments
 import kpn.api.custom.Fact.RouteWithoutNodes
+import kpn.core.analysis.LinkDirection
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.StructureAnalyzer
 
@@ -47,11 +48,13 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
           }
         }
         else {
-          if (oneWayRoute || oneWayRouteForward) {
-            facts += RouteOneWay
-          }
-          else {
-            facts += RouteNotBackward
+          if (!isSingleWayRoundabout()) {
+            if (oneWayRoute || oneWayRouteForward) {
+              facts += RouteOneWay
+            }
+            else {
+              facts += RouteNotBackward
+            }
           }
         }
       }
@@ -72,9 +75,11 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
       }
 
       if (!Seq(RouteNodeMissingInWays, RouteOneWay).exists(facts.contains)) {
-        if (structure.forwardPath.isEmpty || /* segmentAnalysis.structure.forwardPath.get.broken ||*/
-          structure.backwardPath.isEmpty /*|| segmentAnalysis.structure.backwardPath.get.broken*/ ) {
-          facts += RouteNotContinious
+        if (!isSingleWayRoundabout()) {
+          if (structure.forwardPath.isEmpty || /* segmentAnalysis.structure.forwardPath.get.broken ||*/
+            structure.backwardPath.isEmpty /*|| segmentAnalysis.structure.backwardPath.get.broken*/ ) {
+            facts += RouteNotContinious
+          }
         }
       }
 
@@ -89,5 +94,18 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
       _structure = Some(structure),
       facts = facts.toSeq,
     )
+  }
+
+  private def isSingleWayRoundabout(): Boolean = {
+    if (context.segments.size == 1) {
+      val elements = context.segments.head.elements
+      if (elements.size == 1) {
+        val fragments = elements.head.fragments
+        if (fragments.size == 1) {
+          return fragments.head.link.direction == LinkDirection.RoundaboutRight
+        }
+      }
+    }
+    false
   }
 }
