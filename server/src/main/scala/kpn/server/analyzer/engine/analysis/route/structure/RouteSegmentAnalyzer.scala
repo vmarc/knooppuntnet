@@ -36,7 +36,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   def analyze(): Seq[RouteAnalysisSegment] = {
     Triplet.slide(context.links.routeLinkWays).foreach { case Triplet(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption) =>
       if (isRoundabout(currentRouteLinkWay)) {
-        handleRoundabout(previousRouteLinkWayOption, currentRouteLinkWay, nextRouteLinkWayOption)
+        handleRoundabout(currentRouteLinkWay, nextRouteLinkWayOption)
       }
       else {
         val linkFragments = StructureUtil.split(currentRouteLinkWay.nodeIds, context.nodes.nodeIds).map { nodeIds =>
@@ -81,19 +81,16 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   }
 
   private def handleRoundabout(
-    previousRouteLinkWayOption: Option[RouteLinkWay],
     currentRouteLinkWay: RouteLinkWay,
     nextRouteLinkWayOption: Option[RouteLinkWay]
-  ) = {
+  ): Unit = {
 
     finalizeSegmentElement()
 
     nextRouteLinkWayOption match {
       case None =>
-      // this is a closed loop at the end of the route
-      // elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Bidirectional, currentRouteLinkWay.nodeIds)
-      // should not be possible to get to this point in the code, because of following condition above:
-      //     currentRouteLinkWay.link.hasNext
+        // this is a closed loop at the end of the route
+        elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, currentRouteLinkWay.nodeIds)
 
       case Some(nextRouteLinkWay) =>
 
@@ -298,6 +295,6 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   }
 
   private def isRoundabout(routeLinkWay: RouteLinkWay): Boolean = {
-    routeLinkWay.link.direction == LinkDirection.RoundaboutRight && routeLinkWay.isClosedLoop && routeLinkWay.link.hasNext
+    routeLinkWay.link.direction == LinkDirection.RoundaboutRight && routeLinkWay.isClosedLoop
   }
 }
