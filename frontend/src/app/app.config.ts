@@ -28,6 +28,7 @@ import { PoiNameService } from '@app/services';
 import { SpinnerInterceptor } from '@app/spinner';
 import { SpinnerService } from '@app/spinner';
 import * as Sentry from '@sentry/angular';
+import { AngularSplitModule } from 'angular-split';
 import { MarkdownModule } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
 import { UserService } from './shared/user';
@@ -50,7 +51,8 @@ export const appConfig: ApplicationConfig = {
       MatIconModule,
       MatSidenavModule,
       MatButtonModule,
-      MatDialogModule
+      MatDialogModule,
+      AngularSplitModule
     ),
     {
       provide: ErrorHandler,

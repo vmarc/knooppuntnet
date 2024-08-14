@@ -40,6 +40,7 @@
     "@sentry/cli": "^2.32.1",
     "@swimlane/ngx-charts": "^20.5.0",
     "@types/file-saver": "^2.0.7",
+    "angular-split": "^17.2.0",
     "canvg": "^4.0.2",
     "file-saver-es": "^2.0.5",
     "immutable": "^5.0.0-beta.5",
