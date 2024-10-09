@@ -52,8 +52,18 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
     mainEndNode: RouteAnalysisNode
   ): Option[Structure] = {
 
-    val forwardPath = nodeNetworkForwardPath(mainStartNode, mainEndNode)
-    val backwardPath = nodeNetworkBackwardPath(mainStartNode, mainEndNode)
+    val forwardPath = if (context.oneWayRouteBackward) {
+      None
+    }
+    else {
+      nodeNetworkForwardPath(mainStartNode, mainEndNode)
+    }
+    val backwardPath = if (context.oneWayRouteForward) {
+      None
+    }
+    else {
+      nodeNetworkBackwardPath(mainStartNode, mainEndNode)
+    }
     val startTentaclePaths = nodeNetworkStartTentaclePaths(forwardPath, backwardPath)
     val endTentaclePaths = nodeNetworkEndTentaclePaths(forwardPath, backwardPath, startTentaclePaths)
     val otherPaths = nodeNetworkOtherPaths(forwardPath, backwardPath, startTentaclePaths, endTentaclePaths)
@@ -225,36 +235,46 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
     }
     else {
       val forwardPath = {
-        val elements = findNonNodeNetworkRouteForwardPath(Seq.empty, context.segments.flatMap(_.elements))
-        if (elements.nonEmpty) {
-          Some(
-            StructurePath(
-              pathIds.next(),
-              elements.head.startNodeId,
-              elements.last.endNodeId,
-              elements
-            )
-          )
+        if (context.oneWayRouteBackward) {
+          None
         }
         else {
-          None
+          val elements = findNonNodeNetworkRouteForwardPath(Seq.empty, context.segments.flatMap(_.elements))
+          if (elements.nonEmpty) {
+            Some(
+              StructurePath(
+                pathIds.next(),
+                elements.head.startNodeId,
+                elements.last.endNodeId,
+                elements
+              )
+            )
+          }
+          else {
+            None
+          }
         }
       }
 
       val backwardPath = {
-        val elements = findNonNodeNetworkRouteBackwardPath(Seq.empty, context.segments.flatMap(_.elements).reverse)
-        if (elements.nonEmpty) {
-          Some(
-            domain.StructurePath(
-              pathIds.next(),
-              elements.head.startNodeId,
-              elements.last.endNodeId,
-              elements
-            )
-          )
+        if (context.oneWayRouteForward) {
+          None
         }
         else {
-          None
+          val elements = findNonNodeNetworkRouteBackwardPath(Seq.empty, context.segments.flatMap(_.elements).reverse)
+          if (elements.nonEmpty) {
+            Some(
+              domain.StructurePath(
+                pathIds.next(),
+                elements.head.startNodeId,
+                elements.last.endNodeId,
+                elements
+              )
+            )
+          }
+          else {
+            None
+          }
         }
       }
 

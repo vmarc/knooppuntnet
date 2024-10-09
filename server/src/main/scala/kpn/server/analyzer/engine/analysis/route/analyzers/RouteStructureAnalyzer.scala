@@ -33,23 +33,15 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
 
     if (!Seq(RouteAnalysisFailed, RouteWithoutNodes, RouteNodeMissingInWays).exists(context.facts.contains)) {
 
-      val oneWayRouteForward = context.relation.hasTag("direction", "forward")
-      val oneWayRouteBackward = context.relation.hasTag("direction", "backward")
-
-      val oneWayRoute = context.relation.hasTag("oneway", "yes") || context.relation.hasTag("signed_direction", "yes")
-
-      val hasValidForwardPath = structure.forwardPath.isDefined // TODO redesign && !structure.forwardPath.exists(_.broken)
-      val hasValidBackwardPath = structure.backwardPath.isDefined // TODO redesign && !structure.backwardPath.exists(_.broken)
-
-      if (hasValidForwardPath) {
-        if (hasValidBackwardPath) {
-          if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
+      if (structure.forwardPath.isDefined) {
+        if (structure.backwardPath.isDefined) {
+          if (context.oneWayRouteForward || context.oneWayRouteBackward) {
             facts += RouteNotOneWay
           }
         }
         else {
           if (!isSingleWayRoundabout()) {
-            if (oneWayRoute || oneWayRouteForward) {
+            if (context.oneWayRouteForward) {
               facts += RouteOneWay
             }
             else {
@@ -58,8 +50,8 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
           }
         }
       }
-      else if (hasValidBackwardPath) {
-        if (oneWayRoute || oneWayRouteBackward) {
+      else if (structure.backwardPath.isDefined) {
+        if (context.oneWayRouteBackward) {
           facts += RouteOneWay
         }
         else {
@@ -67,7 +59,7 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
         }
       }
       else {
-        if (oneWayRoute || oneWayRouteForward || oneWayRouteBackward) {
+        if (context.oneWayRouteForward || context.oneWayRouteBackward) {
           facts += RouteNotOneWay
         }
         facts += RouteNotForward

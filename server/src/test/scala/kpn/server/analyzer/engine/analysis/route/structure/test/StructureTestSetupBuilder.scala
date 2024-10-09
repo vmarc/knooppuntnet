@@ -46,6 +46,17 @@ class StructureTestSetupBuilder extends SharedTestObjects {
     )
   }
 
+  def nodeWithTags(id: Long, tags: Seq[Tag]): RawNode = {
+    rawNode(
+      newRawNode(
+        id,
+        "0",
+        "0",
+        tags = tags
+      )
+    )
+  }
+
   private def rawNode(rawNode: RawNode): RawNode = {
     nodeBuffer += rawNode
     rawNode
