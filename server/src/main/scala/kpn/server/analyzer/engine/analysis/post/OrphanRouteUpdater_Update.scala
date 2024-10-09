@@ -6,6 +6,7 @@ import kpn.database.base.Database
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.out
 import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
@@ -18,9 +19,10 @@ class OrphanRouteUpdater_Update(database: Database, log: Log) {
         filter(
           in("_id", allOrphanRouteIds *)
         ),
+        unwind("$summary.countries"),
         project(
           fields(
-            computed("country", "$summary.country"),
+            computed("country", "$summary.countries"),
             computed("networkType", "$summary.networkType"),
             computed("name", "$summary.name"),
             computed("meters", "$summary.meters"),

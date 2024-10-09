@@ -20,7 +20,7 @@ class OrphanRouteUpdater_AllRouteIds(database: Database, log: Log) {
         filter(
           and(
             equal("labels", Label.active),
-            exists("summary.country")
+            exists("summary.countries.0")
           )
         ),
         project(

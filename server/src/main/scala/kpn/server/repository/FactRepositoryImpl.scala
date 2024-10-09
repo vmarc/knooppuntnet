@@ -2,7 +2,6 @@ package kpn.server.repository
 
 import kpn.api.common.common.Ref
 import kpn.api.common.subset.NetworkFactRefs
-import kpn.api.common.subset.SubsetFactRefs
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
@@ -87,8 +86,6 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
             equal("labels", Label.country(subset.country)),
             equal("labels", Label.networkType(subset.networkType)),
             equal("labels", Label.fact(fact)),
-            // in addition to country label (labels can contain multiple countries):
-            equal("summary.country", subset.country.domain),
           )
         ),
         project(

@@ -111,12 +111,13 @@ class StatisticsUpdater(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          exists("summary.country")
+          exists("summary.countries.0")
         )
       ),
+      unwind("$summary.countries"),
       group(
         Document(
-          "country" -> "$summary.country",
+          "country" -> "$summary.countries",
           "networkType" -> "$summary.networkType"
         ),
         sum("value", 1)
@@ -182,14 +183,15 @@ class StatisticsUpdater(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          exists("summary.country"),
+          exists("summary.countries.0"),
           exists("facts")
         )
       ),
       unwind("$facts"),
+      unwind("$summary.countries"),
       group(
         Document(
-          "country" -> "$summary.country",
+          "country" -> "$summary.countries",
           "networkType" -> "$summary.networkType",
           "factName" -> "$facts"
         ),
@@ -388,12 +390,13 @@ class StatisticsUpdater(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          exists("summary.country")
+          exists("summary.countries.0")
         )
       ),
+      unwind("$summary.countries"),
       group(
         Document(
-          "country" -> "$summary.country",
+          "country" -> "$summary.countries",
           "networkType" -> "$summary.networkType"
         ),
         sum("value", "$summary.meters")
@@ -514,10 +517,11 @@ class StatisticsUpdater(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          exists("summary.country")
+          exists("summary.countries.0")
         )
       ),
       unwind("$facts"),
+      unwind("$summary.countries"),
       filter(
         and(
           notEqual("facts", "RouteBroken"),
@@ -527,7 +531,7 @@ class StatisticsUpdater(database: Database) {
       ),
       group(
         Document(
-          "country" -> "$summary.country",
+          "country" -> "$summary.countries",
           "networkType" -> "$summary.networkType"
         ),
         sum("factCount", 1)
