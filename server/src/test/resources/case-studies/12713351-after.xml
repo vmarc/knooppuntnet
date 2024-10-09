@@ -12,7 +12,7 @@
   <node id="8731919681" lat="52.0540603" lon="4.2505903">
     <tag k="name" v="52"/>
     <tag k="network:type" v="node_network"/>
-    <tag k="rpf_ref" v="52"/>
+    <tag k="rpn_ref" v="52"/>
   </node>
   <node id="8734240777" lat="52.0517907" lon="4.2406227">
     <tag k="name" v="59"/>

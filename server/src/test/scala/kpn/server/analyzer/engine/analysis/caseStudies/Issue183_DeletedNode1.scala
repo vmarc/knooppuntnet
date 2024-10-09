@@ -7,22 +7,22 @@ import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.UnitTest
 import org.scalamock.scalatest.MockFactory
 
+//  changeSetId = 104737699L
+//  replicationNumber = 4542690L
 class Issue183_DeletedNode1 extends UnitTest with MockFactory with SharedTestObjects {
 
-  private val changeSetId = 104737699L
-  private val replicationNumber = 4542690L
   private val deletedNodeId = 8731919671L
   private val replacementNodeId = 8734240777L
 
   test("rpn node removed in way in orphan rpn route") {
 
     val contextBefore = CaseStudy.analyze("12713351-before")
-    val deletedNodeBefore = contextBefore.nodes.endNode.get
+    val deletedNodeBefore = contextBefore.nodes.startNode.get
     deletedNodeBefore.node.id should equal(deletedNodeId)
     deletedNodeBefore.name should equal("59")
 
     val contextAfter = CaseStudy.analyze("12713351-after")
-    val deletedNodeAfter = contextAfter.nodes.endNode.get
+    val deletedNodeAfter = contextAfter.nodes.startNode.get
     deletedNodeAfter.node.id should equal(replacementNodeId)
     deletedNodeAfter.name should equal("59")
 
