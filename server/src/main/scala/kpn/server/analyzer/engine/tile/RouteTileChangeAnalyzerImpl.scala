@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.tiles.domain.ZoomLevelRouteTileSegments
 import org.springframework.stereotype.Component
@@ -9,20 +8,21 @@ import org.springframework.stereotype.Component
 class RouteTileChangeAnalyzerImpl extends RouteTileChangeAnalyzer {
 
   def impactedTiles(before: RouteDetailAnalysisContext, after: RouteDetailAnalysisContext): Seq[String] = {
-    if (tileRelatedRoutePropertiesChanged(before, after)) {
-      // all tiles before and after are impacted
-      (before.tiles ++ after.tiles).distinct.sorted
-    }
-    else {
-      ZoomLevel.all.flatMap { zoomLevel =>
-        if (segmentsIn(before, zoomLevel) != segmentsIn(after, zoomLevel)) {
-          (tiles(before, zoomLevel) ++ tiles(after, zoomLevel)).distinct.sorted
-        }
-        else {
-          Seq.empty
-        }
-      }
-    }
+    Seq.empty // TODO redesign, re-implement
+    //    if (tileRelatedRoutePropertiesChanged(before, after)) {
+    //      // all tiles before and after are impacted
+    //      (before.tiles ++ after.tiles).distinct.sorted
+    //    }
+    //    else {
+    //      ZoomLevel.all.flatMap { zoomLevel =>
+    //        if (segmentsIn(before, zoomLevel) != segmentsIn(after, zoomLevel)) {
+    //          (tiles(before, zoomLevel) ++ tiles(after, zoomLevel)).distinct.sorted
+    //        }
+    //        else {
+    //          Seq.empty
+    //        }
+    //      }
+    //    }
   }
 
   private def tileRelatedRoutePropertiesChanged(before: RouteDetailAnalysisContext, after: RouteDetailAnalysisContext): Boolean = {

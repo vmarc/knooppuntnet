@@ -66,9 +66,9 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
   }
 
   private def collectRouteFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
-    val facts = context.routeDetails.flatMap(_.oldFacts).filterNot(isIgnoredFact).distinct.sortBy(_.name)
+    val facts = context.routeDetails.flatMap(_.facts).filterNot(isIgnoredFact).distinct.sortBy(_.name)
     facts.map { fact =>
-      val routes = context.routeDetails.filter(_.oldFacts.contains(fact))
+      val routes = context.routeDetails.filter(_.facts.contains(fact))
       val routeIds = routes.map(_.id)
       val refs = routes.map { routeDetail =>
         Ref(

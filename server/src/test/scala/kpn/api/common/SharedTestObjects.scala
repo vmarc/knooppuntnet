@@ -1404,7 +1404,6 @@ trait SharedTestObjects extends MockFactory {
     lastSurvey: Option[Day] = None,
     proposed: Boolean = false,
     facts: Seq[Fact] = Seq.empty,
-    oldFacts: Seq[Fact] = Seq.empty,
     tags: Seq[Tag] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty
   ): NetworkInfoRouteDetail = {
@@ -1420,7 +1419,6 @@ trait SharedTestObjects extends MockFactory {
       lastSurvey,
       proposed,
       facts,
-      oldFacts,
       tags,
       nodeRefs
     )
