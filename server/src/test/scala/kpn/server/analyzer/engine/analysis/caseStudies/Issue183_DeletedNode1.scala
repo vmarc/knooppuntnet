@@ -17,12 +17,12 @@ class Issue183_DeletedNode1 extends UnitTest with MockFactory with SharedTestObj
   test("rpn node removed in way in orphan rpn route") {
 
     val contextBefore = CaseStudy.analyze("12713351-before")
-    val deletedNodeBefore = contextBefore.nodes.startNode.get
+    val deletedNodeBefore = contextBefore.routeNodesAnalysis.startNode.get
     deletedNodeBefore.node.id should equal(deletedNodeId)
     deletedNodeBefore.name should equal("59")
 
     val contextAfter = CaseStudy.analyze("12713351-after")
-    val deletedNodeAfter = contextAfter.nodes.startNode.get
+    val deletedNodeAfter = contextAfter.routeNodesAnalysis.startNode.get
     deletedNodeAfter.node.id should equal(replacementNodeId)
     deletedNodeAfter.name should equal("59")
 

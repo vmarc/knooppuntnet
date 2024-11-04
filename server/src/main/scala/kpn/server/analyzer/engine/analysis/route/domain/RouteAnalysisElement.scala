@@ -5,8 +5,8 @@ import kpn.api.common.data.Node
 case class RouteAnalysisElement(
   id: Long,
   direction: RoutePathDirection,
-  fromNetworkNode: Option[RouteAnalysisNode],
-  toNetworkNode: Option[RouteAnalysisNode],
+  fromNetworkNode: Option[RouteNodeAnalysis],
+  toNetworkNode: Option[RouteNodeAnalysis],
   fromNodeId: Long,
   toNodeId: Long,
   fragmentGroups: Seq[RouteAnalysisFragmentGroup]

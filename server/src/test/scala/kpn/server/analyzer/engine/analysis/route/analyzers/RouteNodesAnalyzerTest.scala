@@ -4,11 +4,12 @@ import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.RouteNodeAnalysisFormatter
+import kpn.server.analyzer.engine.analysis.route.RouteNodesAnalysisFormatter
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkAnalyzer
 
-class RouteNodeAnalyzerTest extends UnitTest {
+class RouteNodesAnalyzerTest extends UnitTest {
 
   test("no nodes") {
 
@@ -182,14 +183,12 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(12, "", 2, 3)
     }
 
-    analyze(d).foreach(println)
-
     analyze(d).shouldMatchTo(
       Seq(
-        "start=(1/01/01/W)",
-        "end=(2/02/02/W)",
-        "Redundant=(3/03/03/W)",
-        "RouteRedundantNodes"
+        "start=1(01)W",
+        "end=3(03)W",
+        "redundant=2(02)W",
+        "RouteRedundantNodes",
       )
     )
   }
@@ -202,22 +201,24 @@ class RouteNodeAnalyzerTest extends UnitTest {
       node(5, "01")
       node(8, "01")
       node(9, "02")
-      memberWay(11, "", 1, 2) // 1: secondary start node --> 01.c
+      memberWay(11, "", 1, 2) // 1: secondary start node --> 01.d
       memberWay(12, "", 2, 3)
-      memberWay(13, "", 3, 4) // 3: secondary start node --> 01.b
+      memberWay(13, "", 3, 4) // 3: secondary start node --> 01.c
       memberWay(14, "", 4, 5)
-      memberWay(15, "", 5, 6) // 5: start --> 01.a
+      memberWay(15, "", 5, 6) // 5: start --> 01.b
       memberWay(16, "", 6, 7)
-      memberWay(17, "", 7, 8) // 8: end --> 01
-      memberWay(18, "", 8, 9) // 9: redundant --> 02
+      memberWay(17, "", 7, 8) // 8: start --> 01.a
+      memberWay(18, "", 8, 9) // 9: end --> 02
     }
     analyze(d).foreach(a => println(s""""$a","""))
 
     analyze(d).shouldMatchTo(
       Seq(
-        "Free=(1/01/01.a/W,3/01/01.b/W,5/01/01.c/W,8/01/01.d/W)",
-        "Redundant=(9/02/02/W)",
-        "RouteRedundantNodes"
+        "start=8(01.a)W",
+        "end=9(02)W",
+        "start-tentacle=5(01.b)W",
+        "start-tentacle=3(01.c)W",
+        "start-tentacle=1(01.d)W",
       )
     )
   }
@@ -233,6 +234,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(13, "", 3, 4)
       memberNode(5)
     }
+
+    analyze(d).foreach(a => println(s""""$a","""))
 
     analyze(d).shouldMatchTo(
       Seq(
@@ -256,6 +259,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(14, "", 4, 5)
     }
 
+    analyze(d).foreach(a => println(s""""$a","""))
+
     analyze(d).shouldMatchTo(
       Seq(
         "start=(1/01/01/W)",
@@ -276,6 +281,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(11, "", 2, 3)
     }
 
+    analyze(d).foreach(a => println(s""""$a","""))
+
     analyze(d).shouldMatchTo(
       Seq(
         "start=(1/01/01/R)",
@@ -285,7 +292,7 @@ class RouteNodeAnalyzerTest extends UnitTest {
     )
   }
 
-  test("no start node in route name") {
+  test("no start node in route name") { // TODO redesign - this test does not belong here (route name irrelevant)?
 
     val d = new RouteTestData("-02") {
       node(1, "01")
@@ -295,16 +302,17 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(11, "", 1, 2)
     }
 
+    analyze(d).foreach(a => println(s""""$a","""))
+
     analyze(d).shouldMatchTo(
       Seq(
-        "end=(2/02/02/RW)",
-        "Redundant=(1/01/01/RW)",
-        "RouteRedundantNodes"
+        "start=1(01)W",
+        "end=2(02)W",
       )
     )
   }
 
-  test("no end node in route name") {
+  test("no end node in route name") { // TODO redesign - this test does not belong here (route name irrelevant)?
 
     val d = new RouteTestData("01-") {
       node(1, "01")
@@ -314,11 +322,12 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(11, "", 1, 2)
     }
 
+    analyze(d).foreach(a => println(s""""$a","""))
+
     analyze(d).shouldMatchTo(
       Seq(
-        "start=(1/01/01/RW)",
-        "Redundant=(2/02/02/RW)",
-        "RouteRedundantNodes"
+        "start=1(01)W",
+        "end=2(02)W",
       )
     )
   }
@@ -333,14 +342,16 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(11, "", 1, 2, 3, 4, 1)
     }
 
+    analyze(d).foreach(a => println(s""""$a","""))
+
     analyze(d).shouldMatchTo(
       Seq(
-        "Free=(1/01/01/W)"
+        "start=1(01)W",
       )
     )
   }
 
-  test("no route name") {
+  test("no route name") { // TODO redesign - this test does not belong here (route name irrelevant)?
 
     val d = new RouteTestData("") {
       node(1, "01")
@@ -352,13 +363,13 @@ class RouteNodeAnalyzerTest extends UnitTest {
 
     analyze(d).shouldMatchTo(
       Seq(
-        "start=(1/01/01/RW)",
-        "end=(2/02/02/RW)"
+        "start=1(01)W",
+        "end=2(02)W"
       )
     )
   }
 
-  test("no route name - multiple nodes with same name") {
+  test("no route name - multiple nodes with same name") { // TODO redesign - this test does not belong here (route name irrelevant)?
 
     val d = new RouteTestData("") {
       node(1, "01")
@@ -368,14 +379,18 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(12, "", 2, 3)
     }
 
+    analyze(d).foreach(a => println(s""""$a","""))
+
     analyze(d).shouldMatchTo(
       Seq(
-        "Free=(1/01/01.a/W,2/01/01.b/W,3/01/01.c/W)"
+        "start=3(01.a)W",
+        "start-tentacle=2(01.b)W",
+        "start-tentacle=1(01.c)W",
       )
     )
   }
 
-  test("no route name - numeric node names in reverse order") {
+  test("no route name - numeric node names in reverse order") { // TODO redesign - this test does not belong here (route name irrelevant)?
 
     val d = new RouteTestData("") {
       node(1, "02")
@@ -385,15 +400,17 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(12, "", 2, 3)
     }
 
+    analyze(d).foreach(a => println(s""""$a","""))
+
     analyze(d).shouldMatchTo(
       Seq(
-        "start=(1/02/02/W)",
-        "end=(3/01/01/W)"
+        "start=1(02)W",
+        "end=3(01)W",
       )
     )
   }
 
-  test("no route name - pick start and and end node from numeric node names") {
+  test("no route name - pick start and and end node from numeric node names") { // TODO redesign - this test does not belong here (route name irrelevant)?
 
     val d = new RouteTestData("") {
       node(1, "02")
@@ -408,19 +425,19 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(14, "", 4, 5)
     }
 
+    analyze(d).foreach(a => println(s""""$a","""))
+
     analyze(d).shouldMatchTo(
       Seq(
-        "start=(5/01/01/W)",
-        "end=(3/03/03/W)",
-        "Redundant=(1/02/02/W)",
-        "(reversed)",
-        "RouteNameMissing",
-        "RouteRedundantNodes"
+        "start=1(02)W",
+        "end=5(01)W",
+        "redundant=3(03)W",
+        "RouteRedundantNodes",
       )
     )
   }
 
-  test("extra 'proposed' nodes in regular route") {
+  test("extra 'proposed' nodes in regular route are ignored") {
     val d = new RouteTestData("01-02") {
       node(1, "01")
       node(2, "02")
@@ -446,10 +463,12 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(11, "", 1, 3, 4, 2)
     }
 
+    analyze(d).foreach(a => println(s""""$a","""))
+
     analyze(d).shouldMatchTo(
       Seq(
-        "start=(1/01/01/W)",
-        "end=(2/02/02/W)"
+        "start=1(01)W",
+        "end=2(02)W",
       )
     )
   }
@@ -480,6 +499,8 @@ class RouteNodeAnalyzerTest extends UnitTest {
       memberWay(11, "", 1, 3, 4, 2)
     }
 
+    analyze(d).foreach(a => println(s""""$a","""))
+
     analyze(d, proposed = true).shouldMatchTo(
       Seq(
         "start=(1/01/01/W)",
@@ -489,18 +510,19 @@ class RouteNodeAnalyzerTest extends UnitTest {
   }
 
   private def analyze(d: RouteTestData, proposed: Boolean = false): Seq[String] = {
-
     val relation = d.data.relations(1L)
-    val context = RouteDetailAnalysisContext(
-      relation,
-      None,
-      nodeNetwork = true,
-      _networkTypes = Some(Seq(NetworkType.hiking)),
-      scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
-      proposed = proposed,
+    val context = RouteNodesAnalyzer.analyze(
+      RouteLinkAnalyzer.analyze(
+        RouteDetailAnalysisContext(
+          relation,
+          None,
+          nodeNetwork = true,
+          _networkTypes = Some(Seq(NetworkType.hiking)),
+          scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
+          proposed = proposed,
+        )
+      )
     )
-
-    val newContext = RouteNodeAnalyzer.analyze(context)
-    new RouteNodeAnalysisFormatter(newContext.nodes).nodeStrings ++ newContext.facts.map(_.name)
+    new RouteNodesAnalysisFormatter(context.routeNodesAnalysis).nodeStrings ++ context.facts.map(_.name)
   }
 }

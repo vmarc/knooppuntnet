@@ -9,4 +9,13 @@ case class RouteLinks(links: Seq[RouteLink]) {
       }
     }
   }
+
+  def routeLinkNodes: Seq[RouteLinkNode] = {
+    links.flatMap { link =>
+      link match {
+        case routeLinkNode: RouteLinkNode => Some(routeLinkNode)
+        case _ => None
+      }
+    }
+  }
 }

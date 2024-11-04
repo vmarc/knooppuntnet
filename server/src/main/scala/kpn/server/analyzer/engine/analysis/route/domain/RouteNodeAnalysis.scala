@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.domain
 import kpn.api.common.data.Node
 import kpn.api.common.route.RouteNode
 
-case class RouteAnalysisNode(
+case class RouteNodeAnalysis(
   node: Node,
   name: String,
   alternateName: String,

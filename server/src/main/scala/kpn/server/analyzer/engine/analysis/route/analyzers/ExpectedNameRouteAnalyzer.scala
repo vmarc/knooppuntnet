@@ -16,7 +16,7 @@ object ExpectedNameRouteAnalyzer extends RouteAnalyzer {
 
 class ExpectedNameRouteAnalyzer(context: RouteDetailAnalysisContext) {
 
-  private val routeNodeAnalysis = context.nodes
+  private val routeNodeAnalysis = context.routeNodesAnalysis
 
   def analyze: RouteDetailAnalysisContext = {
     if (canDetermineRouteNameFromNodeNames) {

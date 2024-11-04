@@ -3,9 +3,9 @@ package kpn.server.analyzer.engine.analysis.route.structure
 import kpn.api.custom.Fact
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisElement
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragment
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisSegment
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RoutePathDirection
 import kpn.server.analyzer.engine.analysis.route.domain.StructurePath
 
@@ -18,11 +18,11 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
 
   def nodes: Seq[String] = {
     Seq(
-      networkNodeStrings("start", context.nodes.startNode.toSeq),
-      networkNodeStrings("end", context.nodes.endNode.toSeq),
-      networkNodeStrings("start-tentacle", context.nodes.startTentacleNodes),
-      networkNodeStrings("end-tentacle", context.nodes.endTentacleNodes),
-      networkNodeStrings("redundant", context.nodes.redundantNodes)
+      networkNodeStrings("start", context.routeNodesAnalysis.startNode.toSeq),
+      networkNodeStrings("end", context.routeNodesAnalysis.endNode.toSeq),
+      networkNodeStrings("start-tentacle", context.routeNodesAnalysis.startTentacleNodes),
+      networkNodeStrings("end-tentacle", context.routeNodesAnalysis.endTentacleNodes),
+      networkNodeStrings("redundant", context.routeNodesAnalysis.redundantNodes)
     ).flatten
   }
 
@@ -75,7 +75,7 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
     s"${path.startNodeId}>${path.endNodeId} nodes=$nodeString"
   }
 
-  private def networkNodeStrings(nodeType: String, nodeDatas: Seq[RouteAnalysisNode]): Seq[String] = {
+  private def networkNodeStrings(nodeType: String, nodeDatas: Seq[RouteNodeAnalysis]): Seq[String] = {
     nodeDatas.map(routeNodeData => s"$nodeType=${routeNodeData.node.id}(${routeNodeData.name})")
   }
 }

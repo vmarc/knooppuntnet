@@ -136,7 +136,7 @@ class RouteChangeProcessorImpl(
         None
       }
 
-      val impactedNodeIds: Seq[Long] = contextAfter.nodes.nodes.map(_.node.id).distinct.sorted
+      val impactedNodeIds: Seq[Long] = contextAfter.routeNodesAnalysis.nodes.map(_.node.id).distinct.sorted
 
       val key = context.buildChangeKey(routeId)
 
@@ -195,7 +195,7 @@ class RouteChangeProcessorImpl(
         case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
         case None =>
       }
-      val impactedNodeIds: Seq[Long] = contextBefore.nodes.nodes.map(_.node.id).distinct.sorted
+      val impactedNodeIds: Seq[Long] = contextBefore.routeNodesAnalysis.nodes.map(_.node.id).distinct.sorted
 
       val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
         if (networkChanges.relations.added.contains(routeId)) {
@@ -279,7 +279,7 @@ class RouteChangeProcessorImpl(
               }
 
               val impactedNodeIds: Seq[Long] = Seq(contextBefore, contextAfter).flatMap { routeAnalysis =>
-                routeAnalysis.nodes.nodes.map(_.node.id)
+                routeAnalysis.routeNodesAnalysis.nodes.map(_.node.id)
               }.distinct.sorted
 
               val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
@@ -351,7 +351,7 @@ class RouteChangeProcessorImpl(
       case None =>
     }
 
-    val impactedNodeIds = beforeContext.nodes.nodes.map(_.node.id).distinct.sorted
+    val impactedNodeIds = beforeContext.routeNodesAnalysis.nodes.map(_.node.id).distinct.sorted
 
     val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
       if (networkChanges.relations.removed.contains(routeId)) {

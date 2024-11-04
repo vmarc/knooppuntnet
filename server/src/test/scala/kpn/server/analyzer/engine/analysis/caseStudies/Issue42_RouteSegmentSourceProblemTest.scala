@@ -8,7 +8,7 @@ class Issue42_RouteSegmentSourceProblemTest extends UnitTest {
     val context = CaseStudy.analyze("9499242")
 
     val forwardPath = context.structure.forwardPath.get
-    val startNode = context.nodes.startNode.get.node
+    val startNode = context.routeNodesAnalysis.startNode.get.node
     pending // TODO redesign
     //    startNode.lat should equal(forwardPath.segments.head.source.lat)
     //    startNode.lon should equal(forwardPath.segments.head.source.lon)

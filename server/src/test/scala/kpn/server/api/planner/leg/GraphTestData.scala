@@ -46,10 +46,10 @@ class GraphTestData extends SharedTestObjects with MockFactory {
 
   val routeRepository: RouteRepository = {
     val routeRepository = stub[RouteRepository]
-    (routeRepository.findRouteDetailById _).when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute1, node1, node2)))
-    (routeRepository.findRouteDetailById _).when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute2, node2, node3)))
-    (routeRepository.findRouteDetailById _).when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute3, node3, node4)))
-    (routeRepository.findRouteDetailById _).when(legEndRoute4.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute4, node1, node3)))
+    //    (routeRepository.findRouteDetailById _).when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute1, node1, node2)))
+    //    (routeRepository.findRouteDetailById _).when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute2, node2, node3)))
+    //    (routeRepository.findRouteDetailById _).when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute3, node3, node4)))
+    //    (routeRepository.findRouteDetailById _).when(legEndRoute4.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute4, node1, node3)))
     routeRepository
   }
 

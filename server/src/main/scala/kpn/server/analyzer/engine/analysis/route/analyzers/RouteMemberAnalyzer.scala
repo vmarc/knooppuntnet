@@ -9,9 +9,9 @@ import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.analysis.TagInterpreter
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNodes
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
@@ -22,7 +22,7 @@ object RouteMemberAnalyzer extends RouteAnalyzer {
 class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
-    val routeMembers: Seq[RouteMember] = analyzeRouteMembers(context.nodes)
+    val routeMembers: Seq[RouteMember] = analyzeRouteMembers(context.routeNodesAnalysis)
     if (routeMembers.exists(!_.accessible)) {
       context.copy(_routeMembers = Some(routeMembers)).withFact(RouteInaccessible)
     }
@@ -31,7 +31,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
     }
   }
 
-  private def analyzeRouteMembers(nodes: RouteAnalysisNodes): Seq[RouteMember] = {
+  private def analyzeRouteMembers(nodes: RouteNodesAnalysis): Seq[RouteMember] = {
     // map with key Node.id and value node number
     val nodeMap: scala.collection.mutable.Map[Long, Int] = scala.collection.mutable.Map.empty
     val nodeNumberIterator = (1 to 10000).iterator

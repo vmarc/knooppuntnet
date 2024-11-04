@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
 import kpn.core.analysis.LinkDirection
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLink
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkRelationId
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 
 object RouteLinksReport {
   def report(context: RouteDetailAnalysisContext): String = {
@@ -86,15 +86,15 @@ class RouteLinksReport(context: RouteDetailAnalysisContext) {
 
   private def allNodes(nodeIds: Seq[Long]): String = {
     Seq(
-      nodes(nodeIds, "start", context.nodes.startNode.toSeq),
-      nodes(nodeIds, "end", context.nodes.endNode.toSeq),
-      nodes(nodeIds, "start tentacle", context.nodes.startTentacleNodes),
-      nodes(nodeIds, "end tentacle", context.nodes.endTentacleNodes),
-      nodes(nodeIds, "redundant", context.nodes.redundantNodes)
+      nodes(nodeIds, "start", context.routeNodesAnalysis.startNode.toSeq),
+      nodes(nodeIds, "end", context.routeNodesAnalysis.endNode.toSeq),
+      nodes(nodeIds, "start tentacle", context.routeNodesAnalysis.startTentacleNodes),
+      nodes(nodeIds, "end tentacle", context.routeNodesAnalysis.endTentacleNodes),
+      nodes(nodeIds, "redundant", context.routeNodesAnalysis.redundantNodes)
     ).flatten.mkString(", ")
   }
 
-  private def nodes(nodeIds: Seq[Long], nodeType: String, nodeDatas: Seq[RouteAnalysisNode]): Seq[String] = {
+  private def nodes(nodeIds: Seq[Long], nodeType: String, nodeDatas: Seq[RouteNodeAnalysis]): Seq[String] = {
     val filteredNodeDatas = nodeDatas.filter(n => nodeIds.contains(n.node.id))
     filteredNodeDatas.map(nodeData => s"$nodeType=${nodeData.node.id}(${nodeData.name})")
   }

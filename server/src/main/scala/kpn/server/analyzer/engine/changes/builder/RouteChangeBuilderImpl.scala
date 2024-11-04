@@ -90,7 +90,7 @@ class RouteChangeBuilderImpl(
 
           val impactedTiles: Seq[String] = Seq.empty // TODO redesign - tileChangeAnalyzer.impactedTiles(analysisBefore, analysisAfter)
 
-          val impactedNodeIds: Seq[Long] = (analysisBefore.nodes.nodes.map(_.node.id) ++
+          val impactedNodeIds: Seq[Long] = (analysisBefore.routeNodesAnalysis.nodes.map(_.node.id) ++
             routeDataAfter.networkNodes.map(_.nodeId)).distinct.sorted
 
           val key = context.changeSetContext.buildChangeKey(routeId)

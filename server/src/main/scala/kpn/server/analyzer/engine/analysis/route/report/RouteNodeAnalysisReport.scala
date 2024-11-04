@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
-import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.report.ReportUtil.osmNodeLink
 
 object RouteNodeAnalysisReport {
 
   def report(context: RouteDetailAnalysisContext): String = {
-    val nodes = context.nodes
+    val nodes = context.routeNodesAnalysis
     if (nodes.startNode.nonEmpty || nodes.endNode.nonEmpty || nodes.redundantNodes.nonEmpty) {
       s"""
          |<table>
@@ -39,7 +39,7 @@ object RouteNodeAnalysisReport {
     }
   }
 
-  private def routeNodeReport(nodeType: String, routeNode: RouteAnalysisNode): String = {
+  private def routeNodeReport(nodeType: String, routeNode: RouteNodeAnalysis): String = {
     s"""<tr>
        |  <td>$nodeType</td>
        |  <td>${osmNodeLink(routeNode.node.id)}</td>

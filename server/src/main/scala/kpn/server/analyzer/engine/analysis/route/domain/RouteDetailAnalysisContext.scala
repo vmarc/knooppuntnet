@@ -33,7 +33,7 @@ case class RouteDetailAnalysisContext(
   _unexpectedNodeIds: Option[Seq[Long]] = None,
   _unexpectedRelationIds: Option[Seq[Long]] = None,
   _routeNameAnalysis: Option[RouteNameAnalysis] = None,
-  _nodes: Option[RouteAnalysisNodes] = None,
+  _routeNodesAnalysis: Option[RouteNodesAnalysis] = None,
   expectedName: Option[String] = None,
   suspiciousWayIds: Option[Seq[Long]] = None,
   _oneWayRouteForward: Option[Boolean] = None,
@@ -113,7 +113,7 @@ case class RouteDetailAnalysisContext(
 
   def routeNameAnalysis: RouteNameAnalysis = _routeNameAnalysis.getOrElse(throw new PreconditionMissingException)
 
-  def nodes: RouteAnalysisNodes = _nodes.getOrElse(throw new PreconditionMissingException)
+  def routeNodesAnalysis: RouteNodesAnalysis = _routeNodesAnalysis.getOrElse(throw new PreconditionMissingException)
 
   def oneWayRouteForward: Boolean = _oneWayRouteForward.getOrElse(throw new PreconditionMissingException)
 

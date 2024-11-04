@@ -14,9 +14,9 @@ class Issue4_RedundantNodes extends UnitTest {
 
     val context = CaseStudy.analyze("3330377")
 
-    context.nodes.startNode.map(_.name) should equal(Some("24"))
-    context.nodes.endNode.map(_.name) should equal(Some("32"))
-    context.nodes.redundantNodes.map(_.name).sorted should equal(
+    context.routeNodesAnalysis.startNode.map(_.name) should equal(Some("24"))
+    context.routeNodesAnalysis.endNode.map(_.name) should equal(Some("32"))
+    context.routeNodesAnalysis.redundantNodes.map(_.name).sorted should equal(
       Seq(
         "83",
         "84",
@@ -32,9 +32,9 @@ class Issue4_RedundantNodes extends UnitTest {
 
     val context = CaseStudy.analyze("3715798")
 
-    context.nodes.startNode.map(_.name).sorted should equal(Some("56"))
-    context.nodes.endNode.map(_.name).sorted should equal(Some("58"))
-    context.nodes.redundantNodes.map(_.name).sorted should equal(
+    context.routeNodesAnalysis.startNode.map(_.name).sorted should equal(Some("56"))
+    context.routeNodesAnalysis.endNode.map(_.name).sorted should equal(Some("58"))
+    context.routeNodesAnalysis.redundantNodes.map(_.name).sorted should equal(
       Seq(
         "03",
         "04",

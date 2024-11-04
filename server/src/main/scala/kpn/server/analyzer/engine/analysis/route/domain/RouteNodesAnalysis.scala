@@ -2,14 +2,14 @@ package kpn.server.analyzer.engine.analysis.route.domain
 
 import kpn.api.common.route.RouteNodes
 
-case class RouteAnalysisNodes(
-  startNode: Option[RouteAnalysisNode] = None,
-  endNode: Option[RouteAnalysisNode] = None,
-  startTentacleNodes: Seq[RouteAnalysisNode] = Seq.empty,
-  endTentacleNodes: Seq[RouteAnalysisNode] = Seq.empty,
-  redundantNodes: Seq[RouteAnalysisNode] = Seq.empty
+case class RouteNodesAnalysis(
+  startNode: Option[RouteNodeAnalysis] = None,
+  endNode: Option[RouteNodeAnalysis] = None,
+  startTentacleNodes: Seq[RouteNodeAnalysis] = Seq.empty,
+  endTentacleNodes: Seq[RouteNodeAnalysis] = Seq.empty,
+  redundantNodes: Seq[RouteNodeAnalysis] = Seq.empty
 ) {
-  def nodes: Seq[RouteAnalysisNode] = {
+  def nodes: Seq[RouteNodeAnalysis] = {
     startNode.toSeq ++ endNode.toSeq ++ startTentacleNodes ++ endTentacleNodes ++ redundantNodes
   }
 

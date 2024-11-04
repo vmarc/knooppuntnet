@@ -22,7 +22,7 @@ object RouteData {
       context.countries,
       context.networkTypes,
       context.routeNameAnalysis.name.getOrElse("no-name"),
-      context.nodes.nodes.map(_.toRouteNode),
+      context.routeNodesAnalysis.nodes.map(_.toRouteNode),
       context.relation.wayMembers.map(_.way), // all ways  in hierarchy
       context.facts,
       context.structure.nodeNetworkPaths.map(_.meters).sum,
