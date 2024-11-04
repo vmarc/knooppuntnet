@@ -6,8 +6,16 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
+import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
 class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
+
+  test("no check for non nodenetwork route") {
+    val newContext = doTest(Some("bla"), None, None, nodeNetwork = false)
+    newContext.expectedName should equal(None)
+    newContext.facts.shouldMatchTo(Seq.empty)
+  }
 
   test("happy path") {
     val newContext = doTest(Some("01-02"), Some("01"), Some("02"))
@@ -63,22 +71,26 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     newContext.facts.toSet.shouldMatchTo(Set(Fact.RouteNodeNameMismatch))
   }
 
-  private def doTest(routeName: Option[String], startNodeName: Option[String], endNodeName: Option[String]): RouteDetailAnalysisContext = {
-    val routeNameAnalysis = RouteNameAnalysis(name = routeName)
-    // TODO redesign
-    //    val routeNodeAnalysis = OldRouteNodeAnalysis(
-    //      startNodes = startNodeName.toSeq.map(name => OldRouteNode(RouteNodeType.Start, name = name)),
-    //      endNodes = endNodeName.toSeq.map(name => OldRouteNode(RouteNodeType.End, name = name))
-    //    )
+  private def doTest(routeName: Option[String], startNodeName: Option[String], endNodeName: Option[String], nodeNetwork: Boolean = true): RouteDetailAnalysisContext = {
+    val routeNameAnalysis = RouteNameAnalysis(
+      name = routeName,
+      startNodeName = startNodeName,
+      endNodeName = endNodeName
+    )
 
-    val context = buildContext()
-    //      copy(_routeNameAnalysis = Some(routeNameAnalysis)).
-    //      copy(_oldRouteNodeAnalysis = Some(routeNodeAnalysis))
+    val routeNodesAnalysis = RouteNodesAnalysis(
+      startNode = startNodeName.map(name => RouteNodeAnalysis(newNode(), name = name, alternateName = name, isInWay = true)),
+      endNode = endNodeName.map(name => RouteNodeAnalysis(newNode(), name = name, alternateName = name, isInWay = true)),
+    )
+
+    val context = buildContext(nodeNetwork).
+      copy(_routeNameAnalysis = Some(routeNameAnalysis)).
+      copy(_routeNodesAnalysis = Some(routeNodesAnalysis))
 
     ExpectedNameRouteAnalyzer.analyze(context)
   }
 
-  private def buildContext(): RouteDetailAnalysisContext = {
+  private def buildContext(nodeNetwork: Boolean): RouteDetailAnalysisContext = {
     val data = new RouteTestData("01-02") {
       node(1001)
       node(1002)
@@ -92,6 +104,6 @@ class ExpectedNameRouteAnalyzerTest extends UnitTest with SharedTestObjects {
     }.data
 
     val relation = data.relations(1L)
-    RouteDetailAnalysisContext(relation, None, nodeNetwork = true)
+    RouteDetailAnalysisContext(relation, None, nodeNetwork = nodeNetwork)
   }
 }

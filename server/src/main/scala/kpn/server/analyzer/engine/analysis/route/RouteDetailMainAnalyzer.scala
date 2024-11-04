@@ -10,6 +10,7 @@ import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
@@ -75,11 +76,11 @@ class RouteDetailMainAnalyzer(
 
         //OldRouteNodeAnalyzer,
         // TODO RouteNameFromNodesAnalyzer,
-        // TODO ExpectedNameRouteAnalyzer, // <== needs further updating
         SuspiciousWaysRouteAnalyzer, // OK
 
         RouteLinkAnalyzer,
         RouteNodesAnalyzer,
+        ExpectedNameRouteAnalyzer,
         RouteSegmentAnalyzer,
         RouteOneWayAnalyzer,
         RouteStructureAnalyzer,
