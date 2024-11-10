@@ -17,7 +17,14 @@ object DuplicateRoutesReport {
 
 class DuplicateRoutesReport(database: Database) {
 
-  case class RouteWays(country: Country, networkType: NetworkType, id: Long, name: String, alternate: Boolean, wayIds: Set[Long])
+  case class RouteWays(
+    country: Country,
+    networkTypes: Seq[NetworkType],
+    id: Long,
+    name: String,
+    alternate: Boolean,
+    wayIds: Set[Long]
+  )
 
   case class Overlap(
     name: String,
@@ -42,7 +49,7 @@ class DuplicateRoutesReport(database: Database) {
 
     Country.all.foreach { country =>
       NetworkType.all.foreach { networkType =>
-        val subsetRoutes = routes.filter(_.country == country).filter(_.networkType == networkType)
+        val subsetRoutes = routes.filter(_.country == country).filter(_.networkTypes.contains(networkType))
         val overlaps = findOverlaps(subsetRoutes)
         if (overlaps.nonEmpty) {
           println()
@@ -85,12 +92,21 @@ class DuplicateRoutesReport(database: Database) {
       }
       routeRepository.findRouteById(routeId).flatMap { routeDoc =>
         val countries = routeDoc.summary.countries
-        val networkType = routeDoc.summary.networkType
+        val networkTypes = routeDoc.summary.networkTypes
         val name = routeDoc.summary.name
         val wayIds = routeDoc.members.filter(_.isWay).map(_.id).toSet
         val alternate = routeDoc.summary.hasTag("state", "alternate")
         if (routeDoc.isActive && wayIds.nonEmpty && countries.nonEmpty) {
-          Some(RouteWays(countries.head, networkType, routeDoc.id, name, alternate, wayIds))
+          Some(
+            RouteWays(
+              countries.head,
+              networkTypes,
+              routeDoc.id,
+              name,
+              alternate,
+              wayIds
+            )
+          )
         }
         else {
           None

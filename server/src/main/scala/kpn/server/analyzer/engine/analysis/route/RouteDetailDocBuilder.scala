@@ -66,8 +66,8 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
     val summary = RouteSummary(
       context.relation.id,
       context.countries,
-      context.scopedNetworkType.networkType,
-      context.scopedNetworkType.networkScope,
+      context.nodeNetwork,
+      context.networkTypes,
       title,
       length,
       context.facts.exists(_.isError),

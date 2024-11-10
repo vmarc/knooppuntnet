@@ -32,7 +32,9 @@ case class RouteDetailAnalysis(
 
   def subsets: Seq[Subset] = {
     routeDetail.summary.countries.flatMap { country =>
-      Subset.of(country, routeDetail.summary.networkType)
+      routeDetail.summary.networkTypes.flatMap { networkType =>
+        Subset.of(country, networkType)
+      }
     }
   }
 

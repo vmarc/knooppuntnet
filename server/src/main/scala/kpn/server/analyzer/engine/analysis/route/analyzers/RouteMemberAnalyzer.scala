@@ -2,6 +2,8 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
+import kpn.api.common.data.RelationIdMember
+import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Fact.RouteInaccessible
 import kpn.core.analysis.LinkDirection
@@ -14,6 +16,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
 object RouteMemberAnalyzer extends RouteAnalyzer {
+
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteMemberAnalyzer(context).analyze
   }
@@ -54,7 +57,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
     val linkIterator = links.iterator
     //    val wayMemberIterator = validRouteMembers.filter(_.isWay).iterator
     //    val nodeMemberIterator = validRouteMembers.filter(_.isNode).iterator
-    validRouteMembers.map {
+    validRouteMembers.flatMap {
       case nodeMember: NodeMember =>
 
         val node = nodeMember.node
@@ -76,13 +79,15 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           case _ => name
         }
 
-        RouteMemberNode(
-          name,
-          alternateName,
-          longName,
-          number.toString,
-          nodeMember.role,
-          node
+        Some(
+          RouteMemberNode(
+            name,
+            alternateName,
+            longName,
+            number.toString,
+            nodeMember.role,
+            node
+          )
         )
 
       case wayMember: WayMember =>
@@ -127,18 +132,28 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
         // some ways have <tag k="route" v="bicycle"/>; Is this enough to decide that this is ok ???
 
-        RouteMemberWay(
-          name,
-          Some(link.link),
-          wayMember.role,
-          way,
-          fromNode,
-          toNode,
-          from.toString,
-          to.toString,
-          accessible,
-          wayNetworkNodes.map(_.toRouteNode)
+        Some(
+          RouteMemberWay(
+            name,
+            Some(link.link),
+            wayMember.role,
+            way,
+            fromNode,
+            toNode,
+            from.toString,
+            to.toString,
+            accessible,
+            wayNetworkNodes.map(_.toRouteNode)
+          )
         )
+
+      case relationIdMember: RelationIdMember =>
+        // TODO redesign - process relationIdMember
+        None
+
+      case relationMember: RelationMember =>
+        // TODO redesign - process relationMember
+        None
     }
   }
 }

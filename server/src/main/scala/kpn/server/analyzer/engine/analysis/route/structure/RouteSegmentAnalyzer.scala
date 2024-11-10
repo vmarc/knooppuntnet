@@ -101,9 +101,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
               case Some(nodeIds) =>
                 elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, nodeIds)
               case None =>
-
-
-                ???
+              // TODO redesign ???
             }
 
           case None =>
@@ -119,7 +117,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
               case Some(nodeIds) =>
                 elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, nodeIds)
               case None =>
-                ???
+              // TODO redesign ???
             }
         }
 
@@ -141,7 +139,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
                   case Some(nodeIds) =>
                     elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
                   case None =>
-                    ???
+                  // TODO redesign ???
                 }
 
               case Some(link) =>
@@ -150,7 +148,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
                   case Some(nodeIds) =>
                     elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
                   case None =>
-                    ???
+                  // TODO redesign ???
                 }
             }
 
@@ -170,7 +168,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
                   case Some(nodeIds) =>
                     elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
                   case None =>
-                    ???
+                  // TODO redesign ???
                 }
 
               case Some(link) =>
@@ -179,9 +177,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
                   case Some(nodeIds) =>
                     elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Backward, nodeIds.reverse)
                   case None =>
-                    // TODO redesign ???
-                    println("")
-                    ???
+                  // TODO redesign ???
                 }
             }
         }

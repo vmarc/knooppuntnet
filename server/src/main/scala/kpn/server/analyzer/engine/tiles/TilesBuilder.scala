@@ -198,6 +198,9 @@ class TilesBuilder(
 
   private def buildTileRoutes(z: Int, routeInfos: Seq[RouteTileInfo]): Seq[TileDataRoute] = {
     val b = new TileDataRouteBuilder(z)
-    routeInfos.map(b.fromRouteInfo).filter(_.segments.nonEmpty)
+    routeInfos.zipWithIndex.map { case (routeInfo, index) =>
+      log.info(s"${index + 1}/${routeInfos.size}")
+      b.fromRouteInfo(routeInfo)
+    }.filter(_.segments.nonEmpty)
   }
 }

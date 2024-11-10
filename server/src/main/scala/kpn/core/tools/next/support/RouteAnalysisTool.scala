@@ -63,14 +63,16 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   private val log = Log(classOf[RouteAnalysisTool])
 
   def analyze(): Unit = {
-    log.info("Start")
+    // log.info("Fetching all route ids")
+    // val routeIds = config.nextRepository.allRouteIds()
+    // log.info(s"found ${routeIds.size} routeIds")
+    // analyzeRoutes(routeIds)
     // analyzeRoutes(Seq(8618)) // ok route with start tenticle
     // analyzeRoutes(Seq(5491)) // ok route with 2 start tenticles
-
     // analyzeRoutes(essenOkRouteIds)
     // analyzeRoutes(law9)
     // analyzeRoutes(Seq(13844575L))
-    analyzeRoutes(Seq(5880L)) // exception during structure analysis
+    // analyzeRoutes(Seq(5880L)) // exception during structure analysis
     // analyzeRoutes(Seq(3952592)) // broken route
     // analyzeRoutes(Seq(3963819)) // route with roundabout
     buildTiles()
@@ -78,58 +80,76 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   }
 
   private def analyzeRoutes(routeIds: Seq[Long]): Unit = {
-    val dependencies = routeIds.flatMap { routeId =>
-      config.nextRepository.nextRouteRelation(routeId) match {
-        case Some(nextRouteRelation) => analyzeRoute(nextRouteRelation.relation, nextRouteRelation.structure)
-        case None =>
-          log.error(s"route $routeId not found in route-relations")
-          Seq.empty
-      }
-    }
+    val dependencies = analyzeRouteDetails(routeIds)
+    analyzeRoutesMain(dependencies)
+  }
 
-    DependencySorter.sort(dependencies).foreach { relationId =>
-      config.routeRepository.findRouteDetailById(relationId) match {
-        case None => // TODO redesign - error message?
-        case Some(routeDetailDoc) =>
-          config.routeMainAnalyzer.analyze(routeDetailDoc) match {
-            case Some(routeDoc) => config.routeRepository.saveRoute(routeDoc)
+  private def analyzeRouteDetails(routeIds: Seq[Long]): Seq[RouteDependency] = {
+    log.info(s"analyzing ${routeIds.size} route relation details")
+    routeIds.zipWithIndex.flatMap { case (routeId, index) =>
+      Log.context(s"${index + 1}/${routeIds.size} route=$routeId") {
+        log.info("analyze detail")
+        try {
+          config.nextRepository.nextRouteRelation(routeId) match {
+            case Some(nextRouteRelation) => analyzeRouteDetail(nextRouteRelation.relation, nextRouteRelation.structure)
             case None =>
+              log.error(s"route $routeId not found in route-relations")
+              Seq.empty
           }
+        } catch {
+          case e: Exception =>
+            log.error(s"Error analyzing detail route $routeId", e)
+            Seq.empty
+        }
       }
     }
   }
 
-  private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Seq[RouteDependency] = {
-    Log.context(s"route=${relation.id}") {
-      try {
-        config.routeDetailMainAnalyzer.analyze(relation, hierarchy) match {
-          case None => Seq.empty
-          case Some(context) =>
-            val routeDetailDoc = new RouteDetailDocBuilder(context).build()
-            config.routeRepository.saveRouteDetail(routeDetailDoc)
-
-            routeDetailDoc.hierarchy match {
-              case None =>
-                config.routeMainAnalyzer.analyze(routeDetailDoc) match {
-                  case Some(routeDoc) =>
-                    config.routeRepository.saveRoute(routeDoc)
-                    Seq.empty
-                  case None => Seq.empty
-                }
-              case Some(hierarchy) =>
-                // further analysis should go in second pass
-                hierarchy.relations.map(subrelation =>
-                  RouteDependency(relation.id, subrelation.relationId)
-                )
-            }
-
-          // TODO saveRouteChange(routeAnalysis)
+  private def analyzeRoutesMain(dependencies: Seq[RouteDependency]): Unit = {
+    val sortedRouteIds = DependencySorter.sort(dependencies)
+    sortedRouteIds.zipWithIndex.foreach { case (relationId, index) =>
+      Log.context(s"${index + 1}/${sortedRouteIds.size} route=$relationId") {
+        try {
+          config.routeRepository.findRouteDetailById(relationId) match {
+            case None => log.error(s"could not find route details")
+            case Some(routeDetailDoc) =>
+              config.routeMainAnalyzer.analyze(routeDetailDoc) match {
+                case Some(routeDoc) => config.routeRepository.saveRoute(routeDoc)
+                case None =>
+              }
+          }
+        } catch {
+          case e: Exception =>
+            log.error(s"Error analyzing main route $relationId", e)
+            Seq.empty
         }
-      } catch {
-        case e: Exception =>
-          log.error(s"Error processing route ${relation.id}", e)
-          throw e
       }
+    }
+  }
+
+  private def analyzeRouteDetail(relation: Relation, hierarchy: Option[RouteRelation]): Seq[RouteDependency] = {
+    config.routeDetailMainAnalyzer.analyze(relation, hierarchy) match {
+      case None => Seq.empty
+      case Some(context) =>
+        val routeDetailDoc = new RouteDetailDocBuilder(context).build()
+        config.routeRepository.saveRouteDetail(routeDetailDoc)
+
+        routeDetailDoc.hierarchy match {
+          case None =>
+            config.routeMainAnalyzer.analyze(routeDetailDoc) match {
+              case Some(routeDoc) =>
+                config.routeRepository.saveRoute(routeDoc)
+                Seq.empty
+              case None => Seq.empty
+            }
+          case Some(hierarchy) =>
+            // further analysis should go in second pass
+            hierarchy.relations.map(subrelation =>
+              RouteDependency(relation.id, subrelation.relationId)
+            )
+        }
+
+      // TODO saveRouteChange(routeAnalysis)
     }
   }
 

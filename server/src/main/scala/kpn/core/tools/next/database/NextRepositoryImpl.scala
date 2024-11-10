@@ -13,4 +13,8 @@ class NextRepositoryImpl(database: NextDatabase) extends NextRepository {
   override def nextRouteRelation(routeId: Long): Option[NextRouteRelation] = {
     database.routeRelations.findById(routeId)
   }
+
+  override def allRouteIds(): Seq[Long] = {
+    database.routeRelations.ids()
+  }
 }

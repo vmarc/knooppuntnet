@@ -37,8 +37,8 @@ object RouteDetailsPageExample {
       summary = RouteSummary(
         id = 1,
         countries = Seq(Country.nl),
-        networkType = NetworkType.hiking,
-        networkScope = NetworkScope.regional,
+        nodeNetwork = true,
+        networkTypes = Seq(NetworkType.hiking),
         name = "01-02",
         meters = 1234,
         broken = true,

@@ -32,7 +32,7 @@ object RouteChangesPageExample {
       RouteNameInfo(
         route.id,
         route.summary.name,
-        route.summary.networkType
+        route.summary.networkTypes.head // TODO redesign - improve support for multiple networkTypes
       ),
       Seq.empty,
       changes(),

@@ -2,7 +2,6 @@ package kpn.api.common
 
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Country
-import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
@@ -10,8 +9,9 @@ import kpn.api.custom.Timestamp
 case class RouteSummary(
   id: Long,
   countries: Seq[Country],
-  networkType: NetworkType,
-  networkScope: NetworkScope,
+  nodeNetwork: Boolean,
+  networkTypes: Seq[NetworkType],
+  // TODO redesign - reintroduce networkScope: NetworkScope, ?
   name: String,
   meters: Long,
   broken: Boolean,
