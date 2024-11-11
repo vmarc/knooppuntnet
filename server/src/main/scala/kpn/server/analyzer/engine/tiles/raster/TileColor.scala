@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.tiles.raster
 
-import java.awt.Color
-
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
-import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
+import kpn.server.analyzer.engine.tiles.domain.TileDataRouteSegment
+
+import java.awt.Color
 
 // See also: Typescript MainStyleColors
 object TileColor {
@@ -32,13 +32,11 @@ object TileColor {
   val darkBlue: Color = new Color(0, 0, 187)
 
   val yellow: Color = new Color(255, 255, 0)
-
 }
 
 trait TileColor {
 
-  def routeColor(route: TileDataRoute, segment: RouteTileSegment): Color
+  def routeColor(route: TileDataRoute, segment: TileDataRouteSegment): Color
 
   def nodeColor(node: TileDataNode): Color
-
 }

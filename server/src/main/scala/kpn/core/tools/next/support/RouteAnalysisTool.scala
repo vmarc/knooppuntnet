@@ -1,12 +1,10 @@
 package kpn.core.tools.next.support
 
-import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Relation
 import kpn.core.tools.analysis.AnalysisStartConfiguration
 import kpn.core.tools.analysis.AnalysisStartToolOptions
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
-import kpn.core.util.Redesign
 import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
 import kpn.server.analyzer.engine.analysis.route.structure.DependencySorter
 import kpn.server.analyzer.engine.analysis.route.structure.RouteDependency
@@ -75,7 +73,6 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     // analyzeRoutes(Seq(5880L)) // exception during structure analysis
     // analyzeRoutes(Seq(3952592)) // broken route
     // analyzeRoutes(Seq(3963819)) // route with roundabout
-    buildTiles()
     log.info(s"Done")
   }
 
@@ -150,20 +147,6 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
         }
 
       // TODO saveRouteChange(routeAnalysis)
-    }
-  }
-
-  private def buildTiles(): Unit = {
-    Redesign.tileGenerationNetworkTypes.foreach { networkType =>
-      Log.context(networkType.name) {
-        log.info("Start tile analysis")
-        val tileAnalysis = config.tileAnalyzer.analysis(networkType)
-        (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
-          Log.context(s"$z") {
-            config.tilesBuilder.build(z, tileAnalysis)
-          }
-        }
-      }
     }
   }
 }

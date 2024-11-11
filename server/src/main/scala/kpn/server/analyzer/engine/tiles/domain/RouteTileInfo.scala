@@ -14,6 +14,7 @@ import kpn.core.doc.RouteDetailSegmentElement
 case class RouteTileInfo(
   _id: Long,
   name: String,
+  nodeNetwork: Boolean,
   proposed: Boolean,
   lastSurvey: Option[Day],
   tags: Seq[Tag],
@@ -21,4 +22,5 @@ case class RouteTileInfo(
   segments: Seq[RouteDetailSegment],
   segmentElements: Seq[RouteDetailSegmentElement],
   paths: Seq[RouteDetailPath],
+  tiles: Seq[String]
 ) extends Tagable

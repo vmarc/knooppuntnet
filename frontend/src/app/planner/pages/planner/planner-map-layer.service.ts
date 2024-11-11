@@ -5,7 +5,6 @@ import { NetworkType } from '@api/custom';
 import { NetworkTypes } from '@app/kpn/common';
 import { OpenDataLayers } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
-import { NetworkBitmapTileLayer } from '@app/ol/layers';
 import { MapLayer } from '@app/ol/layers';
 import { TileDebug512Layer } from '@app/ol/layers';
 import { TileDebug256Layer } from '@app/ol/layers';
@@ -93,9 +92,10 @@ export class PlannerMapLayerService {
   ): MapLayer[] {
     const networkVectorLayerStyle = new MainMapStyle(parameters);
     return [
-      NetworkBitmapTileLayer.build(networkType, 'surface'),
-      NetworkBitmapTileLayer.build(networkType, 'survey'),
-      NetworkBitmapTileLayer.build(networkType, 'analysis'),
+      // TODO redesign tiles - uncomment
+      // NetworkBitmapTileLayer.build(networkType, 'surface'),
+      // NetworkBitmapTileLayer.build(networkType, 'survey'),
+      // NetworkBitmapTileLayer.build(networkType, 'analysis'),
       NetworkVectorTileLayer.build(networkType, networkVectorLayerStyle.styleFunction()),
     ];
   }

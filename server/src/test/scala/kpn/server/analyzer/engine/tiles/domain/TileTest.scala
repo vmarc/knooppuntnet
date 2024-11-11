@@ -4,6 +4,7 @@ import kpn.api.common.LatLonImpl
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
+import org.locationtech.jts.geom.Coordinate
 
 class TileTest extends UnitTest {
 
@@ -29,5 +30,12 @@ class TileTest extends UnitTest {
     tile.clipBounds.xMax should equal(lonToWorldX(4.48482) +- 0.001)
     tile.clipBounds.yMin should equal(latToWorldY(51.45250) +- 0.001)
     tile.clipBounds.yMax should equal(latToWorldY(51.48288) +- 0.001)
+
+    val worldX = lonToWorldX(essen.lon)
+    val worldY = latToWorldY(essen.lat)
+    val worldCoordinate = new Coordinate(worldX, worldY)
+    val scaled = tile.scale(worldCoordinate)
+
+    println(scaled)
   }
 }

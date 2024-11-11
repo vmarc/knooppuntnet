@@ -2,7 +2,7 @@ export class ZoomLevel {
   static readonly bitmapTileMinZoom = 6;
   static readonly bitmapTileMaxZoom = 11;
 
-  static readonly vectorTileMinZoom = 12;
+  static readonly vectorTileMinZoom = 6; // TODO redesign tiles - reset to 12?;
   static readonly vectorTileMaxZoom = 14;
   static readonly vectorTileMaxOverZoom = 20;
 

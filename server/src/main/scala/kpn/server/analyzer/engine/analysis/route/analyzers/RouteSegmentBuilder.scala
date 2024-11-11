@@ -2,16 +2,15 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
-import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latLonCoordinatesToWorldCoordinates
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latLonCoordinatesToWorldCoordinatesSeq
 import kpn.server.analyzer.engine.tiles.domain.Line
 import kpn.server.analyzer.engine.tiles.domain.OldTile
 import kpn.server.analyzer.engine.tiles.domain.Point
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
-import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
+import kpn.server.analyzer.engine.tiles.domain.TileDataRouteSegment
 import kpn.server.json.Json
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.LineSegment
 import org.locationtech.jts.geom.LineString
 import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 
@@ -24,22 +23,19 @@ class RouteSegmentBuilder(zoomLevel: Int) {
 
   private val geometryFactory = new GeometryFactory
 
-  def from(tileInfo: RouteTileInfo): Seq[RouteTileSegment] = {
+  def from(tileInfo: RouteTileInfo): Seq[TileDataRouteSegment] = {
     tileInfo.segments.flatMap { segment =>
       tileInfo.segmentElements.map { segmentElement =>
         val coordinates = Json.value(segmentElement.coordinates, classOf[CoordinateArray]).coordinates.toSeq
-        val worldCoordinates = latLonCoordinatesToWorldCoordinates(coordinates)
-        val lineSegments = worldCoordinates.sliding(2).map { case Seq(c1, c2) =>
-          new LineSegment(c1, c2)
-        }.toSeq
+        val worldCoordinates = latLonCoordinatesToWorldCoordinatesSeq(coordinates)
         val pathIds = tileInfo.paths.filter(_.elementIds.contains(segmentElement.segmentElementId)).map(_.id)
-        RouteTileSegment(
+        TileDataRouteSegment(
           segment.id,
           segmentElement.segmentElementId,
           pathIds = pathIds,
-          oneWay = false, // TODO redesign - still needed???
+          oneWay = false, // TODO redesign tiles - still needed???
           segmentElement.surface,
-          lineSegments
+          worldCoordinates
         )
       }
     }

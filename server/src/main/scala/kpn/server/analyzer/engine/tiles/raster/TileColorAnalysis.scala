@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.tiles.raster
 
-import java.awt.Color
-
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
-import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
+import kpn.server.analyzer.engine.tiles.domain.TileDataRouteSegment
+
+import java.awt.Color
 
 class TileColorAnalysis extends TileColor {
 
-  override def routeColor(route: TileDataRoute, segment: RouteTileSegment): Color = {
+  override def routeColor(route: TileDataRoute, segment: TileDataRouteSegment): Color = {
     route.layer match {
       case "orphan-route" => TileColor.darkGreen
       case "incomplete-route" => TileColor.red

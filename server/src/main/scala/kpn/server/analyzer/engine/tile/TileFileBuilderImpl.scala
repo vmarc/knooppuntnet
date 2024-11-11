@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.TileFileRepository
@@ -19,18 +18,18 @@ class TileFileBuilderImpl(
 ) extends TileFileBuilder {
 
   def build(tileData: TileData): Unit = {
-    if (tileData.tile.z <= ZoomLevel.bitmapTileMaxZoom) {
-      buildRasterStandard(tileData)
-      buildRasterSurface(tileData)
-      buildRasterSurvey(tileData)
-      buildRasterAnalysis(tileData)
-      if (tileData.tile.z == ZoomLevel.vectorTileMinZoom - 1) { // both mvt and png at zoom level 11
-        buildVector(tileData)
-      }
-    }
-    else {
-      buildVector(tileData)
-    }
+    //    if (tileData.tile.z <= ZoomLevel.bitmapTileMaxZoom) {
+    //      buildRasterStandard(tileData)
+    //      buildRasterSurface(tileData)
+    //      buildRasterSurvey(tileData)
+    //      buildRasterAnalysis(tileData)
+    //      if (tileData.tile.z == ZoomLevel.vectorTileMinZoom - 1) { // both mvt and png at zoom level 11
+    //        buildVector(tileData)
+    //      }
+    //    }
+    //    else {
+    buildVector(tileData)
+    //    }
   }
 
   private def buildVector(tileData: TileData): Unit = {

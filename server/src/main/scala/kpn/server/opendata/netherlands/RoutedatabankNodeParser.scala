@@ -1,8 +1,8 @@
 package kpn.server.opendata.netherlands
 
+import org.geotools.api.feature.simple.SimpleFeature
 import org.geotools.data.geojson.GeoJSONReader
 import org.locationtech.jts.geom.Point
-import org.opengis.feature.simple.SimpleFeature
 
 import java.io.InputStream
 import java.text.SimpleDateFormat

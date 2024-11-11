@@ -51,10 +51,10 @@ class OpenDataBitmapTileBuilder {
       g.setStroke(stroke)
       tileRoute.coordinates.sliding(2).toSeq.foreach { case Seq(p1, p2) =>
         ???
-        val x1 = 0 // TODO redesign - tile.lngToPixel(width, p1.lon)
-        val y1 = 0 // TODO redesign - tile.latToPixel(height, p1.lat)
-        val x2 = 0 // TODO redesign - tile.lngToPixel(width, p2.lon)
-        val y2 = 0 // TODO redesign - tile.latToPixel(height, p2.lat)
+        val x1 = 0 // TODO redesign tiles - tile.lngToPixel(width, p1.lon)
+        val y1 = 0 // TODO redesign tiles - tile.latToPixel(height, p1.lat)
+        val x2 = 0 // TODO redesign tiles - tile.lngToPixel(width, p2.lon)
+        val y2 = 0 // TODO redesign tiles - tile.latToPixel(height, p2.lat)
         g.drawLine(x1, y1, x2, y2)
       }
     }
@@ -65,8 +65,8 @@ class OpenDataBitmapTileBuilder {
     nodes.foreach { node =>
 
       ???
-      val x = 0 // TODO redesign - tile.lngToPixel(width, node.lon)
-      val y = 0 // TODO redesign - tile.latToPixel(height, node.lat)
+      val x = 0 // TODO redesign tiles - tile.lngToPixel(width, node.lon)
+      val y = 0 // TODO redesign tiles - tile.latToPixel(height, node.lat)
 
       if (tile.z == 10) {
         g.fillOval(x - 1, y - 1, 3, 3)

@@ -5,7 +5,6 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.apache.commons.io.FileUtils
 import org.locationtech.jts.geom.LineSegment
@@ -45,14 +44,15 @@ class OpenDataTileBuilder {
           val lineSegments = tileRoute.coordinates.sliding(2).toSeq.map { case Seq(p1, p2) =>
             new LineSegment(p1.lon, p1.lat, p2.lon, p2.lat)
           }
-          val segment = RouteTileSegment(
-            0L,
-            0L,
-            Seq.empty,
-            oneWay = false,
-            surface = "",
-            lineSegments = lineSegments
-          )
+          // TODO redesign tiles - cleanup
+          //          val segment = RouteTileSegment(
+          //            0L,
+          //            0L,
+          //            Seq.empty,
+          //            oneWay = false,
+          //            surface = "",
+          //            lineSegments = lineSegments
+          //          )
           val tiles = lineSegmentTileCalculator.tiles(z, lineSegments)
           val currentProgress = (100d * (index + 1) / routes.size).round.toInt
           if (currentProgress != progress) {

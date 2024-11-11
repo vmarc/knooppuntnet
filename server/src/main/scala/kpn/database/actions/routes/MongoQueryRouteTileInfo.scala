@@ -12,6 +12,7 @@ import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Filters.exists
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
@@ -24,6 +25,7 @@ object MongoQueryRouteTileInfo {
       fields(
         include("_id"),
         computed("name", "$summary.name"),
+        include("nodeNetwork"),
         include("proposed"),
         include("lastSurvey"),
         computed("tags", "$summary.tags"),
@@ -31,6 +33,7 @@ object MongoQueryRouteTileInfo {
         include("segmentElements"),
         include("facts"),
         include("paths"),
+        include("tiles"),
       )
     )
   }
@@ -44,7 +47,8 @@ class MongoQueryRouteTileInfo(database: Database) {
         filter(
           and(
             equal("labels", Label.active),
-            equal("labels", Label.networkType(networkType))
+            equal("labels", Label.networkType(networkType)),
+            exists("summary.countries.0") // TODO redesign tiles - this condition was added temporarily to avoid problems with lat/lon calculations
           )
         ),
         projectRouteTileInfo

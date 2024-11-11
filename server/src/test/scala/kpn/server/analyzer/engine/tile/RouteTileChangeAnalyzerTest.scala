@@ -6,7 +6,7 @@ import kpn.core.TestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
-import kpn.server.analyzer.engine.tiles.domain.RouteTileSegment
+import kpn.server.analyzer.engine.tiles.domain.TileDataRouteSegment
 import kpn.server.analyzer.engine.tiles.domain.ZoomLevelRouteTileSegments
 import org.scalamock.scalatest.MockFactory
 
@@ -23,7 +23,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
     val after = before.copy(
       routeDetail = before.routeDetail.copy(
         summary = before.routeDetail.summary.copy(
-          networkType = NetworkType.cycling
+          networkTypes = Seq(NetworkType.cycling)
         ),
         tiles = Seq("cycling-tile-1")
       )
@@ -89,7 +89,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
       routeDetail = newRouteDetailDoc(
         newRouteSummary(
           id = 10,
-          networkType = NetworkType.hiking
+          networkTypes = Seq(NetworkType.hiking)
         ),
         tiles = Seq("hiking-tile-1")
       ),
@@ -102,13 +102,13 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
           ZoomLevelRouteTileSegments(
             zoomLevel = 10,
             segments = Seq(
-              RouteTileSegment(
+              TileDataRouteSegment(
                 0,
                 0,
                 pathIds = Seq(101),
                 oneWay = false,
                 surface = "",
-                lineSegments = Seq.empty
+                worldCoordinates = Seq.empty
               )
             )
           )

@@ -4,6 +4,8 @@ import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
 import kpn.core.tools.tile.TileTool.log
 import kpn.core.util.Log
+import kpn.core.util.Memory
+import kpn.core.util.Redesign
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
@@ -36,7 +38,7 @@ object TileTool {
 
           Mongo.executeIn(options.databaseName) { database =>
             val tileTool = buildTileTool(database, options.tileDir)
-            NetworkType.all.foreach(tileTool.make)
+            Redesign.tileGenerationNetworkTypes.foreach(tileTool.make)
           }
 
           log.info("Done")
@@ -102,7 +104,10 @@ class TileTool(
   def make(networkType: NetworkType): Unit = {
     Log.context(networkType.name) {
       log.info("Start tile analysis")
+      val memoryBefore = Memory.bytes
       val tileAnalysis = tileAnalyzer.analysis(networkType)
+      val memoryAfter = Memory.bytes
+      log.info(s"Memory allocated for tile analysis: ${(memoryAfter - memoryBefore) / 1024 / 1024}M")
       (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
         Log.context(s"$z") {
           tilesBuilder.build(z, tileAnalysis)

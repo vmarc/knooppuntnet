@@ -98,9 +98,14 @@ export class Features {
         const segmentId = feature.get('id');
         const routeName = feature.get('name');
         const oneWay = feature.get('oneway') === 'true';
-        const dashIndex = segmentId.indexOf('-');
-        const routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
-        const pathId = dashIndex === -1 ? -1 : segmentId.substr(dashIndex + 1);
+        let dashIndex = -1;
+        let routeId = 0;
+        let pathId = 0;
+        if (segmentId) {
+          dashIndex = segmentId.indexOf('-');
+          routeId = dashIndex === -1 ? segmentId : segmentId.substr(0, dashIndex);
+          pathId = dashIndex === -1 ? -1 : segmentId.substr(dashIndex + 1);
+        }
         const proposed = feature.get('state') === 'proposed';
         return new RouteFeature(+routeId, +pathId, routeName, oneWay, proposed, feature);
       }

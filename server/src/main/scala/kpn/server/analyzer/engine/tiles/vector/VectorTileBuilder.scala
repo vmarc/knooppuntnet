@@ -1,12 +1,17 @@
 package kpn.server.analyzer.engine.tiles.vector
 
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.LineString
+import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 
 class VectorTileBuilder extends TileBuilder {
+
+  private val log = Log(classOf[VectorTileBuilder])
 
   def build(data: TileData): Array[Byte] = {
 
@@ -29,27 +34,37 @@ class VectorTileBuilder extends TileBuilder {
       encoder.addPointFeature(node.layer, userData, point)
     }
 
-    data.routes.foreach { tileRoute =>
+    data.routes.zipWithIndex.foreach { case (tileRoute, index) =>
+      log.info(s"${index + 1}/${data.routes.size} route ${tileRoute.routeName}")
       tileRoute.segments.foreach { segment =>
-        val coordinates = segment.lineSegments.flatMap { line =>
-          Seq(
-            data.tile.scale(new Coordinate(line.p0.x, line.p0.y)),
-            data.tile.scale(new Coordinate(line.p1.x, line.p1.y)),
-          )
+        // TODO redesign tiles - do a bounding box test here
+
+        val scaledCoordinates = segment.worldCoordinates.sliding(2, 2).toSeq.map { case Seq(x, y) =>
+          data.tile.scale(new Coordinate(x, y))
         }
-        val lineString = geometryFactory.createLineString(coordinates.toArray)
+        val lineString = geometryFactory.createLineString(scaledCoordinates.toArray)
+        val simplifiedLineString: LineString = if (data.tile.z < 14) {
+          DouglasPeuckerSimplifier.simplify(lineString, 3).asInstanceOf[LineString]
+        }
+        else {
+          lineString
+        }
+
+        // TODO redesign tiles - cleanup:
+        // log.info(s"simplication, before=${lineString.getNumPoints}, after=${simplifiedLineString.getNumPoints}")
+
         val userData = Seq(
           Some("routeId" -> tileRoute.routeId.toString),
           Some("segmentId" -> segment.segmentId.toString),
           Some("segmentElementId" -> segment.segmentElementId.toString),
           Some("pathIds" -> segment.pathIds.mkString(",")),
           Some("name" -> tileRoute.routeName),
-          // TODO redesign - Some("oneway" -> segment.oneWay.toString),
+          // TODO redesign tiles - Some("oneway" -> segment.oneWay.toString),
           Some("surface" -> segment.surface),
           tileRoute.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
           tileRoute.state.map(state => "state" -> state)
         ).flatten.toMap
-        encoder.addLineStringFeature(tileRoute.layer, userData, lineString)
+        encoder.addLineStringFeature(tileRoute.layer, userData, simplifiedLineString)
       }
     }
 

@@ -7,10 +7,13 @@ import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
 import kpn.server.analyzer.engine.tile.TileFileBuilder
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
+import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.analyzer.engine.tiles.domain.TileNodes
-import kpn.server.analyzer.engine.tiles.domain.TileRoutes
+
+import java.util.concurrent.atomic.AtomicInteger
+import scala.collection.parallel.CollectionConverters.ImmutableSeqIsParallelizable
 
 class TilesBuilder(
   bitmapTileFileRepository: TileFileRepository,
@@ -22,7 +25,37 @@ class TilesBuilder(
 
   private val log = Log(classOf[TilesBuilder])
 
+  private val tileRoutesMapBuilder = new TileRoutesMapBuilder(lineSegmentTileCalculator)
+
   def build(z: Int, analysis: TileAnalysis): Unit = {
+    val prefix = s"$z-"
+    val nodeTileNames: Seq[String] = Seq.empty // TODO redesign tiles - add 'tiles' to TileDataNode
+    val routeTileNames = analysis.routes.flatMap(routeTileInfo => routeTileInfo.tiles.filter(tileName => tileName.startsWith(prefix))).distinct
+    val tileNames = (nodeTileNames ++ routeTileNames).distinct.sorted
+    tileNames.zipWithIndex.foreach { case (tileName, index) =>
+      Log.context(s"${index + 1}/${tileNames.size} $tileName") {
+        val splitted = tileName.split("-")
+        val tile = Tile(z, Integer.parseInt(splitted(1)), Integer.parseInt(splitted(2))) // TODO redesign tiles - move to Tile apply function?
+        val nodes: Seq[TileDataNode] = Seq.empty // TODO redesign tiles - filter node data for this tile
+        val routeTileInfos = analysis.routes.filter(routeTileInfo => routeTileInfo.tiles.contains(tileName))
+
+        // TODO redesign tiles - try to move the RouteSegmentBuilder logic into tileFileBuilder to avoid extra memory allocation
+        val tileDataRoutes = routeTileInfos.map(routeTileInfo => new TileDataRouteBuilder(z).fromRouteInfo(routeTileInfo))
+        log.info(s"nodes=${nodes.size}, routes=${tileDataRoutes.size}")
+
+        val tileData = TileData(
+          analysis.networkType,
+          tile,
+          nodes,
+          tileDataRoutes
+        )
+
+        tileFileBuilder.build(tileData)
+      }
+    }
+  }
+
+  def oldBuild(z: Int, analysis: TileAnalysis): Unit = {
 
     val existingVectorTileNames = if (z >= ZoomLevel.vectorTileMinZoom - 1) {
       vectorTileFileRepository.existingTileNames(analysis.networkType.name, z)
@@ -75,19 +108,20 @@ class TilesBuilder(
     log.info(s"buildTileRoutes()")
     val tileRoutes = buildTileRoutes(z, analysis.routes)
     log.info(s"buildTileRouteMap()")
-    val tileRoutesMap = buildTileRouteMap(z, tileRoutes)
+    val tileRoutesMap = tileRoutesMapBuilder.build(z, tileRoutes)
+
     val tileNames = (tileNodes.keys ++ tileRoutesMap.keys).toSet.toSeq
     log.info(s"build ${tileNames.size} tiles")
 
-    var progress: Int = 0
+    //    var progress: Int = 0
 
     tileNames.zipWithIndex.foreach { case (tileName: String, index) =>
       Log.context(s"${index + 1}/${tileNames.size}") {
-        val currentProgress = (100d * (index + 1) / tileNames.size).round.toInt
-        if (currentProgress != progress) {
-          progress = currentProgress
-          log.info(s"Build tile ${index + 1}/${tileNames.size} $progress $tileName")
-        }
+        //        val currentProgress = (100d * (index + 1) / tileNames.size).round.toInt
+        //        if (currentProgress != progress) {
+        //          progress = currentProgress
+        log.info(s"Build tile ${index + 1}/${tileNames.size} $tileName")
+        //        }
 
         val tileNodesOption = tileNodes.get(tileName)
         val tileRoutesOption = tileRoutesMap.get(tileName)
@@ -115,6 +149,8 @@ class TilesBuilder(
           nodes,
           routes
         )
+
+        log.info(s"$tileName, nodes=${nodes.size}, routes=${routes.size}")
 
         tileFileBuilder.build(tileData)
       }
@@ -172,35 +208,22 @@ class TilesBuilder(
     }
   }
 
-  private def buildTileRouteMap(z: Int, tileRoutes: Seq[TileDataRoute]): Map[String, TileRoutes] = {
-
-    val map = scala.collection.mutable.Map[String, TileRoutes]()
-
-    var progress = 0
-    tileRoutes.zipWithIndex.foreach { case (tileRoute, index) =>
-      val allLineSegments = tileRoute.segments.flatMap(_.lineSegments)
-      val tiles = lineSegmentTileCalculator.tiles(z, allLineSegments)
-      val currentProgress = (100d * (index + 1) / tileRoutes.size).round.toInt
-      if (currentProgress != progress) {
-        progress = currentProgress
-        log.info(s"Build route map ${index + 1}/${tileRoutes.size} $progress% tileCount=${map.size}")
+  private def buildTileRoutes(z: Int, routeInfos: Seq[RouteTileInfo]): Seq[TileDataRoute] = {
+    val count = new AtomicInteger(0)
+    val b = new TileDataRouteBuilder(z)
+    val datas = routeInfos.par.flatMap { routeInfo =>
+      val index = count.incrementAndGet()
+      if ((index % 100) == 0) {
+        log.info(s"${index + 1}/${routeInfos.size}")
       }
-      tiles.foreach { tile =>
-        map(tile.name) = map.get(tile.name) match {
-          case Some(tileRoutes1) => TileRoutes(tile, tileRoutes1.routes :+ tileRoute)
-          case None => TileRoutes(tile, Seq(tileRoute))
-        }
+      val tileDataRoute = b.fromRouteInfo(routeInfo)
+      if (tileDataRoute.segments.nonEmpty) {
+        Some(tileDataRoute)
+      }
+      else {
+        None
       }
     }
-    log.info(s"Build route map ${tileRoutes.size}/${tileRoutes.size} 100% tileCount=${map.size}")
-    map.toMap
-  }
-
-  private def buildTileRoutes(z: Int, routeInfos: Seq[RouteTileInfo]): Seq[TileDataRoute] = {
-    val b = new TileDataRouteBuilder(z)
-    routeInfos.zipWithIndex.map { case (routeInfo, index) =>
-      log.info(s"${index + 1}/${routeInfos.size}")
-      b.fromRouteInfo(routeInfo)
-    }.filter(_.segments.nonEmpty)
+    Seq.from(datas)
   }
 }

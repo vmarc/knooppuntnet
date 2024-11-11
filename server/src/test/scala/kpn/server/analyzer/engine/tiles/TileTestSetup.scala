@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.tiles
 
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 
-class TestTileSetup {
+class TileTestSetup {
 
   /*
 

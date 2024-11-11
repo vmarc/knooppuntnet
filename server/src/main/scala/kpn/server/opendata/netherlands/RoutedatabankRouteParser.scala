@@ -1,9 +1,9 @@
 package kpn.server.opendata.netherlands
 
 import kpn.api.common.LatLonImpl
+import org.geotools.api.feature.simple.SimpleFeature
 import org.geotools.data.geojson.GeoJSONReader
 import org.locationtech.jts.geom.LineString
-import org.opengis.feature.simple.SimpleFeature
 
 import java.io.InputStream
 import java.text.SimpleDateFormat

@@ -75,4 +75,8 @@ object CoordinateTransform {
   def latLonCoordinatesToWorldCoordinates(coordinates: Seq[Coordinate]): Seq[Coordinate] = {
     coordinates.map(coordinate => new Coordinate(lonToWorldX(coordinate.y), latToWorldY(coordinate.x)))
   }
+
+  def latLonCoordinatesToWorldCoordinatesSeq(coordinates: Seq[Coordinate]): Seq[Double] = {
+    coordinates.flatMap(coordinate => Seq(lonToWorldX(coordinate.y), latToWorldY(coordinate.x)))
+  }
 }

@@ -3,6 +3,8 @@ package kpn.server.analyzer.engine.tiles.raster
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.domain.Tile
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.LineSegment
 
 import java.awt.BasicStroke
 import java.awt.Font
@@ -65,7 +67,9 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
       g.setStroke(stroke)
       tileRoute.segments.foreach { segment =>
         g.setColor(tileColor.routeColor(tileRoute, segment))
-        segment.lineSegments.foreach { line =>
+        val worldCoordinates = segment.worldCoordinates.sliding(2).toSeq.map { case Seq(x, y) => new Coordinate(x, y) }
+        val lineSegments = worldCoordinates.sliding(2).toSeq.map { case Seq(c1, c2) => new LineSegment(c1, c2) }
+        lineSegments.foreach { line =>
           val x1 = lngToPixel(data.tile, line.p0.x)
           val y1 = latToPixel(data.tile, line.p0.y)
           val x2 = lngToPixel(data.tile, line.p1.x)

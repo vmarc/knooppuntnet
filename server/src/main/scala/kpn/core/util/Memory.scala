@@ -60,6 +60,13 @@ class MemoryLog(logPeriodInSeconds: Int) {
   private def toMb(nanos: Long): String = "%.0fMb".format(nanos / 1000000d)
 }
 
+object Memory {
+  def bytes: Long = {
+    System.gc()
+    Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()
+  }
+}
+
 case class Memory(init: Long, used: Long, committed: Long, max: Long) {
   def +(x: Memory): Memory = Memory(init + x.init, used + x.used, committed + x.committed, max + x.max)
 }
