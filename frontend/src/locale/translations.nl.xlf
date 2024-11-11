@@ -3664,10 +3664,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
         <source>These extra layers are intended for debugging purposes only, and are not needed for normal planner use. The extra layers can show the tile names and background tiles from OpenStreetMap (normally we use tiles from our own server).</source>
         <target>Deze extra kaartlagen zijn bedoeld als extra informatie bij het opsporen van problemen in knooppuntnet. Deze extra kaartlagen zijn niet nodig voor normaal gebruik.  Deze extra kaartlagen kunnen de kaarttegelnummers tonen, en de achtergrondlaag van OpenStreetMap (normaal gebruiken we enkel onze eigen achtergrondtegels en niet die van OpenStreetMap).</target>
       </trans-unit>
-      <trans-unit datatype="html" id="home.demo">
-        <source>Demo</source>
-        <target>Demo</target>
-      </trans-unit>
       <trans-unit datatype="html" id="changeset.not-found">
         <source>Changeset not found</source>
         <target>Wijzigingset niet gevonden</target>
@@ -4036,10 +4032,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
         <source>in</source>
         <target>in</target>
       </trans-unit>
-      <trans-unit datatype="html" id="demo.no-video-support">
-        <source>Sorry, cannot play videos in your browser.</source>
-        <target>Sorry, kan geen videos afspelen in jouw browser.</target>
-      </trans-unit>
       <trans-unit datatype="html" id="edit-dialog.title">
         <source>Load in editor</source>
         <target>In editor laden</target>
@@ -4135,50 +4127,6 @@ Mogelijke waarden bij andere knooppuntnetwerken zijn *"horse"*, *"motorboat"* , 
       <trans-unit datatype="html" id="integrity-indicator.green.text">
         <source>The number of routes found in this network node (<x equiv-text="{{ actual }}" id="INTERPOLATION"/>) does match the expected number of routes (<x equiv-text="{{ expected }}" id="INTERPOLATION_1"/>) as defined in the *"<x equiv-text="{{ tag }}" id="INTERPOLATION_2"/>"* tag on this node. This is what we expect.</source>
         <target>Het aantal gevonden routes in dit netwerkknooppunt (<x equiv-text="{{ actual }}" id="INTERPOLATION"/>) komt overeen met het verwachte aantal routes (<x equiv-text="{{ expected } }" id="INTERPOLATION_1"/>) zoals gedefinieerd in de *"<x equiv-text="{{ tag }}" id="INTERPOLATION_2"/>"* tag op dit knooppunt. Dit is wat we verwachten.</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.disabled.text-1">
-        <source>Sorry.</source>
-        <target>Sorry.</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.disabled.text-2">
-        <source>Your window is currently not large enough to show the videos in good quality.</source>
-        <target>Uw browser venster is momenteel niet groot genoeg om de videos in een goede kwaliteit weer te geven.</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.disabled.text-3">
-        <source>Please increase your browser window size, or use a device with a larger display to view the videos.</source>
-        <target>Maak je browser venster groter, of gebruik een toestel met een groter scherm om de videos te bekijken.</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.title">
-        <source>Demo videos</source>
-        <target>Demo video's</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.plan-a-route">
-        <source>How to plan a walk (or bicycle ride)?</source>
-        <target>Hoe plan ik een wandeling (of fietstocht)?</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.zoom-in">
-        <source>How to zoom in to a selected area of the map?</source>
-        <target>Hoe in te zoomen op een geselecteerd gebied van de kaart?</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.current-location">
-        <source>How to zoom in to your current location?</source>
-        <target>Hoe kan ik inzoomen op mijn huidige locatie?</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.refine-plan">
-        <source>How to refine your plan?</source>
-        <target>Hoe uw plan verfijnen?</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.via-loop">
-        <source>How to include a loop in the route? (Dutch)</source>
-        <target>Hoe een lus in de route opnemen?</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.duration.seconds">
-        <source>seconds</source>
-        <target>seconden</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="video-cover.text">
-        <source>knooppuntnet demo video</source>
-        <target>knooppuntnet demo video</target>
       </trans-unit>
       <trans-unit datatype="html" id="plan-detailed.calculating">
         <source>Calculating...</source>

@@ -48,10 +48,6 @@ export const appRoutes: Routes = [
     loadChildren: () => import('@app/poi').then((m) => m.poiRoutes),
   },
   {
-    path: 'demo',
-    loadChildren: () => import('@app/demo').then((m) => m.demoRoutes),
-  },
-  {
     path: 'monitor',
     loadChildren: () => import('@app/monitor').then((m) => m.monitorRoutes),
   },

@@ -35,7 +35,6 @@ export const sheriffConfig: SheriffConfig = {
     'libs/shared/src/lib/spinner': ['spinner'],
     'libs/shared/src/lib/core': ['core'],
     'libs/poi/src/lib': ['poi'],
-    'libs/demo/src/lib': ['demo'],
     'libs/shared/src/lib/services': ['services'],
     'libs/util/src': ['util'],
 
@@ -327,7 +326,6 @@ export const sheriffConfig: SheriffConfig = {
       'components/shared/paginator',
       'components/shared/tags',
     ],
-    demo: ['core', 'components/shared'],
     services: ['api', 'ol', 'core'],
     util: [],
     'components/shared/tags': ['api', 'kpn/common'],

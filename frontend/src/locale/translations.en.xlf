@@ -3681,10 +3681,6 @@
         <source>These extra layers are intended for debugging purposes only, and are not needed for normal planner use. The extra layers can show the tile names and background tiles from OpenStreetMap (normally we use tiles from our own server).</source>
         <target>These extra layers are intended for debugging purposes only, and are not needed for normal planner use. The extra layers can show the tile names and background tiles from OpenStreetMap (normally we use tiles from our own server).</target>
       </trans-unit>
-      <trans-unit datatype="html" id="home.demo">
-        <source>Demo</source>
-        <target>Demo</target>
-      </trans-unit>
       <trans-unit datatype="html" id="changeset.not-found">
         <source>Changeset not found</source>
         <target>Changeset not found</target>
@@ -4053,10 +4049,6 @@
         <source>in</source>
         <target>in</target>
       </trans-unit>
-      <trans-unit datatype="html" id="demo.no-video-support">
-        <source>Sorry, cannot play videos in your browser.</source>
-        <target>Sorry, cannot play videos in your browser.</target>
-      </trans-unit>
       <trans-unit datatype="html" id="edit-dialog.title">
         <source>Load in editor</source>
         <target>Load in editor</target>
@@ -4152,50 +4144,6 @@
       <trans-unit datatype="html" id="integrity-indicator.green.text">
         <source>The number of routes found in this network node (<x equiv-text="{{ actual }}" id="INTERPOLATION"/>) does match the expected number of routes (<x equiv-text="{{ expected }}" id="INTERPOLATION_1"/>) as defined in the *"<x equiv-text="{{ tag }}" id="INTERPOLATION_2"/>"* tag on this node. This is what we expect.</source>
         <target>The number of routes found in this network node (<x equiv-text="{{ actual }}" id="INTERPOLATION"/>) does match the expected number of routes (<x equiv-text="{{ expected }}" id="INTERPOLATION_1"/>) as defined in the *"<x equiv-text="{{ tag }}" id="INTERPOLATION_2"/>"* tag on this node. This is what we expect.</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.disabled.text-1">
-        <source>Sorry.</source>
-        <target>Sorry.</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.disabled.text-2">
-        <source>Your window is currently not large enough to show the videos in good quality.</source>
-        <target>Your window is currently not large enough to show the videos in good quality.</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.disabled.text-3">
-        <source>Please increase your browser window size, or use a device with a larger display to view the videos.</source>
-        <target>Please increase your browser window size, or use a device with a larger display to view the videos.</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.title">
-        <source>Demo videos</source>
-        <target>Demo videos</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.plan-a-route">
-        <source>How to plan a walk (or bicycle ride)?</source>
-        <target>How to plan a walk (or bicycle ride)?</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.zoom-in">
-        <source>How to zoom in to a selected area of the map?</source>
-        <target>How to zoom in to a selected area of the map?</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.current-location">
-        <source>How to zoom in to your current location?</source>
-        <target>How to zoom in to your current location?</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.refine-plan">
-        <source>How to refine your plan?</source>
-        <target>How to refine your plan?</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.via-loop">
-        <source>How to include a loop in the route? (Dutch)</source>
-        <target>How to include a loop in the route? (Dutch)</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="demo.duration.seconds">
-        <source>seconds</source>
-        <target>seconds</target>
-      </trans-unit>
-      <trans-unit datatype="html" id="video-cover.text">
-        <source>knooppuntnet demo video</source>
-        <target>knooppuntnet demo video</target>
       </trans-unit>
       <trans-unit datatype="html" id="plan-detailed.calculating">
         <source>Calculating...</source>

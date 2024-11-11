@@ -4,7 +4,6 @@ import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '@app/components/shared/icon';
 import { PageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { BaseSidebarComponent } from '../../base-sidebar.component';
 
 @Component({
@@ -28,7 +27,6 @@ import { BaseSidebarComponent } from '../../base-sidebar.component';
         title="Monitor"
         i18n-title="@@home.monitor"
       />
-      <kpn-icon-button routerLink="/demo" icon="video" title="Demo" i18n-title="@@home.demo" />
       <kpn-base-sidebar sidebar />
     </kpn-page>
   `,
@@ -39,7 +37,6 @@ import { BaseSidebarComponent } from '../../base-sidebar.component';
     PageComponent,
     PageHeaderComponent,
     RouterLink,
-    SidebarComponent,
   ],
 })
 export class HomePageComponent {}

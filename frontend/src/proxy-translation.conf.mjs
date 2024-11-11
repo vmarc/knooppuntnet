@@ -1,27 +1,17 @@
 export default [
   {
-    context: [
-      "/api/**",
-      "/admin-api/**",
-    ],
+    context: ["/api/**", "/admin-api/**"],
     target: "https://knooppuntnet.nl",
     secure: false,
   },
   {
-    context: [
-      "/websocket/*",
-    ],
+    context: ["/websocket/*"],
     target: "ws://knooppuntnet.nl",
     secure: false,
     ws: true,
   },
   {
-    context: [
-      "/tiles/**",
-      "/images/**",
-      "/videos/**",
-      "/assets/**",
-    ],
+    context: ["/tiles/**", "/images/**", "/assets/**"],
     target: "https://experimental.knooppuntnet.nl",
     changeOrigin: true,
     secure: false,

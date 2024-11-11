@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
-import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -44,11 +43,6 @@ import { MatIcon } from '@angular/material/icon';
           <mat-icon svgIcon="overview" />
         </button>
       </div>
-      <div [class]="menuItemClasses('video')">
-        <button mat-icon-button (click)="select('video')">
-          <mat-icon svgIcon="video" />
-        </button>
-      </div>
     </div>
   `,
   styles: `
@@ -67,7 +61,7 @@ import { MatIcon } from '@angular/material/icon';
     }
   `,
   standalone: true,
-  imports: [MatButton, MatIcon, MatIconButton],
+  imports: [MatIcon, MatIconButton],
 })
 export class TryoutPanelsMenuComponent {
   selected = 'analysis';
