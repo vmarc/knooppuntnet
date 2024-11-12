@@ -61,10 +61,10 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   private val log = Log(classOf[RouteAnalysisTool])
 
   def analyze(): Unit = {
-    // log.info("Fetching all route ids")
-    // val routeIds = config.nextRepository.allRouteIds()
-    // log.info(s"found ${routeIds.size} routeIds")
-    // analyzeRoutes(routeIds)
+    log.info("Fetching all route ids")
+    val routeIds = config.nextRepository.allRouteIds()
+    log.info(s"found ${routeIds.size} routeIds")
+    analyzeRoutes(routeIds)
     // analyzeRoutes(Seq(8618)) // ok route with start tenticle
     // analyzeRoutes(Seq(5491)) // ok route with 2 start tenticles
     // analyzeRoutes(essenOkRouteIds)

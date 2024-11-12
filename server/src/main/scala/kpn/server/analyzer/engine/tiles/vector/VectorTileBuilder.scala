@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.tiles.vector
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
+import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
@@ -13,14 +14,14 @@ class VectorTileBuilder extends TileBuilder {
 
   private val log = Log(classOf[VectorTileBuilder])
 
-  def build(data: TileData): Array[Byte] = {
+  def build(data: TileData, tile: Tile): Array[Byte] = {
 
     val geometryFactory = new GeometryFactory
 
     val encoder = new VectorTileEncoder()
 
     data.nodes.foreach { node =>
-      val coordinate = data.tile.scale(new Coordinate(node.lon, node.lat))
+      val coordinate = tile.scale(new Coordinate(node.lon, node.lat))
       val point = geometryFactory.createPoint(coordinate)
 
       val userData = Seq(
@@ -40,10 +41,10 @@ class VectorTileBuilder extends TileBuilder {
         // TODO redesign tiles - do a bounding box test here
 
         val scaledCoordinates = segment.worldCoordinates.sliding(2, 2).toSeq.map { case Seq(x, y) =>
-          data.tile.scale(new Coordinate(x, y))
+          tile.scale(new Coordinate(x, y))
         }
         val lineString = geometryFactory.createLineString(scaledCoordinates.toArray)
-        val simplifiedLineString: LineString = if (data.tile.z < 14) {
+        val simplifiedLineString: LineString = if (tile.z < 14) {
           DouglasPeuckerSimplifier.simplify(lineString, 3).asInstanceOf[LineString]
         }
         else {

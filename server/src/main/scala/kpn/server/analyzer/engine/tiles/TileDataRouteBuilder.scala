@@ -10,17 +10,18 @@ import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import scala.util.Failure
 import scala.util.Success
 
-class TileDataRouteBuilder(zoomLevel: Int) {
+object TileDataRouteBuilder {
 
   def fromRouteInfo(route: RouteTileInfo): TileDataRoute = {
-    val routeTileSegments = new RouteSegmentBuilder(zoomLevel).from(route)
+    val routeTileSegments = new RouteSegmentBuilder().from(route)
     TileDataRoute(
       route._id,
       route.name,
       layer(route),
       surveyDate(route),
       state(route),
-      routeTileSegments
+      routeTileSegments,
+      route.tiles
     )
   }
 

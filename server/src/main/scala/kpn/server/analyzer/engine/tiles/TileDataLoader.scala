@@ -2,8 +2,7 @@ package kpn.server.analyzer.engine.tiles
 
 import kpn.api.custom.NetworkType
 
-trait TileAnalyzer {
+trait TileDataLoader {
 
-  def analysis(networkType: NetworkType): TileAnalysis
-
+  def load(networkType: NetworkType): TileData
 }

@@ -44,7 +44,7 @@ import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
-import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
+import kpn.server.analyzer.engine.tiles.TileDataLoaderImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesBuilder
@@ -77,7 +77,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(database)
   val nextRepository: NextRepository = new NextRepositoryImpl(nextDatabase)
 
-  private val locationAnalyzer = new LocationAnalyzerImpl(true, true)
+  private val locationAnalyzer = new LocationAnalyzerImpl(true, false)
 
   private val oldTileCalculator = new OldTileCalculatorImpl()
   private val tileCalculator = new TileCalculatorImpl()
@@ -173,7 +173,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val tileAnalyzer = {
     val nodeRepository = new NodeRepositoryImpl(database)
     val routeRepository = new RouteRepositoryImpl(database)
-    new TileAnalyzerImpl(
+    new TileDataLoaderImpl(
       nodeRepository,
       routeRepository,
       tileDataNodeBuilder
@@ -181,18 +181,13 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   val tilesBuilder: TilesBuilder = {
-    val tileCalculator = new TileCalculatorImpl()
     val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
     val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
     val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
-    val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
-    val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
     new TilesBuilder(
       bitmapTileFileRepository,
       vectorTileFileRepository,
-      tileFileBuilder,
-      nodeTileCalculator,
-      lineSegmentTileCalculator
+      tileFileBuilder
     )
   }
 }

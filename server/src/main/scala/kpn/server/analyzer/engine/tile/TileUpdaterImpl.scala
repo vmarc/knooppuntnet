@@ -62,8 +62,8 @@ class TileUpdaterImpl(
     private def updateTile(networkType: NetworkType, tile: Tile): Unit = {
       val tileDataNodes = collectTileDataNodes(networkType, tile)
       val tileDataRoutes = collectTileDataRoutes(networkType, tile)
-      val tileData = TileData(networkType, tile, tileDataNodes, tileDataRoutes)
-      tileFileBuilder.build(tileData)
+      val tileData = TileData(networkType, tileDataNodes, tileDataRoutes)
+      tileFileBuilder.build(tileData, tile)
     }
 
     private def collectTileDataNodes(networkType: NetworkType, tile: Tile): Seq[TileDataNode] = {
@@ -89,7 +89,7 @@ class TileUpdaterImpl(
           routeId,
           routeRepository.routeTileInfosById(routeId) match {
             case Some(routeTileInfo) =>
-              val tileDataRoute = new TileDataRouteBuilder(tile.z).fromRouteInfo(routeTileInfo)
+              val tileDataRoute = TileDataRouteBuilder.fromRouteInfo(routeTileInfo)
               if (tileDataRoute.segments.nonEmpty) {
                 Some(tileDataRoute)
               }

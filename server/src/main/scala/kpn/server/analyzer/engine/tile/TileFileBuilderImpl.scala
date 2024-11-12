@@ -1,8 +1,10 @@
 package kpn.server.analyzer.engine.tile
 
+import kpn.api.common.tiles.ZoomLevel
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.TileFileRepository
+import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.raster.RasterTileBuilder
 import kpn.server.analyzer.engine.tiles.raster.TileColorAnalysis
 import kpn.server.analyzer.engine.tiles.raster.TileColorSurface
@@ -17,57 +19,57 @@ class TileFileBuilderImpl(
   vectorTileRepository: TileFileRepository
 ) extends TileFileBuilder {
 
-  def build(tileData: TileData): Unit = {
-    //    if (tileData.tile.z <= ZoomLevel.bitmapTileMaxZoom) {
-    //      buildRasterStandard(tileData)
-    //      buildRasterSurface(tileData)
-    //      buildRasterSurvey(tileData)
-    //      buildRasterAnalysis(tileData)
-    //      if (tileData.tile.z == ZoomLevel.vectorTileMinZoom - 1) { // both mvt and png at zoom level 11
-    //        buildVector(tileData)
-    //      }
-    //    }
-    //    else {
-    buildVector(tileData)
-    //    }
-  }
-
-  private def buildVector(tileData: TileData): Unit = {
-    if (tileData.isEmpty) {
-      vectorTileRepository.deleteTile(tileData.networkType.name, tileData.tile)
+  def build(tileData: TileData, tile: Tile): Unit = {
+    if (tile.z <= ZoomLevel.bitmapTileMaxZoom) {
+      buildRasterStandard(tileData, tile)
+      buildRasterSurface(tileData, tile)
+      buildRasterSurvey(tileData, tile)
+      buildRasterAnalysis(tileData, tile)
+      if (tile.z == ZoomLevel.vectorTileMinZoom - 1) { // TODO redesign tiles - both mvt and png at zoom level 11 ???
+        buildVector(tileData, tile)
+      }
     }
     else {
-      val tileBytes = new VectorTileBuilder().build(tileData)
+      buildVector(tileData, tile)
+    }
+  }
+
+  private def buildVector(tileData: TileData, tile: Tile): Unit = {
+    if (tileData.isEmpty) {
+      vectorTileRepository.deleteTile(tileData.networkType.name, tile)
+    }
+    else {
+      val tileBytes = new VectorTileBuilder().build(tileData, tile)
       if (tileBytes.nonEmpty) {
-        vectorTileRepository.saveOrUpdate(tileData.networkType.name, tileData.tile, tileBytes)
+        vectorTileRepository.saveOrUpdate(tileData.networkType.name, tile, tileBytes)
       }
     }
   }
 
-  private def buildRasterStandard(tileData: TileData): Unit = {
-    build(new RasterTileBuilder(new TileColorSurface), tileData.networkType.name, tileData)
+  private def buildRasterStandard(tileData: TileData, tile: Tile): Unit = {
+    build(new RasterTileBuilder(new TileColorSurface), tileData.networkType.name, tileData, tile)
   }
 
-  private def buildRasterSurface(tileData: TileData): Unit = {
-    build(new RasterTileBuilder(new TileColorSurface), s"${tileData.networkType.name}/surface", tileData)
+  private def buildRasterSurface(tileData: TileData, tile: Tile): Unit = {
+    build(new RasterTileBuilder(new TileColorSurface), s"${tileData.networkType.name}/surface", tileData, tile)
   }
 
-  private def buildRasterSurvey(tileData: TileData): Unit = {
-    build(new RasterTileBuilder(new TileColorSurvey(SurveyDateInfoBuilder.dateInfo)), s"${tileData.networkType.name}/survey", tileData)
+  private def buildRasterSurvey(tileData: TileData, tile: Tile): Unit = {
+    build(new RasterTileBuilder(new TileColorSurvey(SurveyDateInfoBuilder.dateInfo)), s"${tileData.networkType.name}/survey", tileData, tile)
   }
 
-  private def buildRasterAnalysis(tileData: TileData): Unit = {
-    build(new RasterTileBuilder(new TileColorAnalysis), s"${tileData.networkType.name}/analysis", tileData)
+  private def buildRasterAnalysis(tileData: TileData, tile: Tile): Unit = {
+    build(new RasterTileBuilder(new TileColorAnalysis), s"${tileData.networkType.name}/analysis", tileData, tile)
   }
 
-  private def build(tileBuilder: TileBuilder, tileType: String, tileData: TileData): Unit = {
+  private def build(tileBuilder: TileBuilder, tileType: String, tileData: TileData, tile: Tile): Unit = {
     if (tileData.isEmpty) {
-      rasterTileRepository.deleteTile(tileType, tileData.tile)
+      rasterTileRepository.deleteTile(tileType, tile)
     }
     else {
-      val tileBytes = tileBuilder.build(tileData)
+      val tileBytes = tileBuilder.build(tileData, tile)
       if (tileBytes.length > 0) {
-        rasterTileRepository.saveOrUpdate(tileType, tileData.tile, tileBytes)
+        rasterTileRepository.saveOrUpdate(tileType, tile, tileBytes)
       }
     }
   }

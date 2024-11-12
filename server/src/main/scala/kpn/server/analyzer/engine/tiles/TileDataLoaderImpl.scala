@@ -2,24 +2,24 @@ package kpn.server.analyzer.engine.tiles
 
 import kpn.api.custom.NetworkType
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
+import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.RouteRepository
 
-class TileAnalyzerImpl(
+class TileDataLoaderImpl(
   nodeRepository: NodeRepository,
   routeRepository: RouteRepository,
   tileDataNodeBuilder: TileDataNodeBuilder
-) extends TileAnalyzer {
+) extends TileDataLoader {
 
-  private val log = Log(classOf[TileAnalyzerImpl])
+  private val log = Log(classOf[TileDataLoaderImpl])
 
-  def analysis(networkType: NetworkType): TileAnalysis = {
+  def load(networkType: NetworkType): TileData = {
     log.infoElapsed {
       val nodes = findNodes(networkType)
       val routes = findRoutes(networkType)
-      val tileAnalysis = TileAnalysis(networkType, nodes, routes)
+      val tileAnalysis = TileData(networkType, nodes, routes)
       (s"Completed analysis for ${networkType.name}", tileAnalysis)
     }
   }
@@ -33,11 +33,12 @@ class TileAnalyzerImpl(
     }
   }
 
-  private def findRoutes(networkType: NetworkType): Seq[RouteTileInfo] = {
+  private def findRoutes(networkType: NetworkType): Seq[TileDataRoute] = {
     log.info("Find routes")
     log.infoElapsed {
       val routeTileInfos = routeRepository.routeTileInfosByNetworkType(networkType)
-      (s"${routeTileInfos.size} route tile infos", routeTileInfos)
+      val tileDataRoutes = routeTileInfos.map(routeTileInfo => TileDataRouteBuilder.fromRouteInfo(routeTileInfo))
+      (s"${routeTileInfos.size} routes", tileDataRoutes)
     }
   }
 }

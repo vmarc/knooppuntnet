@@ -8,12 +8,9 @@ import kpn.core.util.Memory
 import kpn.core.util.Redesign
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
-import kpn.server.analyzer.engine.tiles.TileAnalyzer
-import kpn.server.analyzer.engine.tiles.TileAnalyzerImpl
+import kpn.server.analyzer.engine.tiles.TileDataLoader
+import kpn.server.analyzer.engine.tiles.TileDataLoaderImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesBuilder
@@ -66,7 +63,7 @@ object TileTool {
     val tileAnalyzer = {
       val nodeRepository = new NodeRepositoryImpl(database)
       val routeRepository = new RouteRepositoryImpl(database)
-      new TileAnalyzerImpl(
+      new TileDataLoaderImpl(
         nodeRepository,
         routeRepository,
         tileDataNodeBuilder
@@ -74,18 +71,13 @@ object TileTool {
     }
 
     val tilesBuilder: TilesBuilder = {
-      val tileCalculator = new TileCalculatorImpl()
       val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
       val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
       val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
-      val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
-      val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
       new TilesBuilder(
         bitmapTileFileRepository,
         vectorTileFileRepository,
-        tileFileBuilder,
-        nodeTileCalculator,
-        lineSegmentTileCalculator
+        tileFileBuilder
       )
     }
 
@@ -97,7 +89,7 @@ object TileTool {
 }
 
 class TileTool(
-  tileAnalyzer: TileAnalyzer,
+  tileAnalyzer: TileDataLoader,
   tilesBuilder: TilesBuilder
 ) {
 
@@ -105,10 +97,10 @@ class TileTool(
     Log.context(networkType.name) {
       log.info("Start tile analysis")
       val memoryBefore = Memory.bytes
-      val tileAnalysis = tileAnalyzer.analysis(networkType)
+      val tileAnalysis = tileAnalyzer.load(networkType)
       val memoryAfter = Memory.bytes
       log.info(s"Memory allocated for tile analysis: ${(memoryAfter - memoryBefore) / 1024 / 1024}M")
-      (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
+      (10 /* TODO redesign tiles - ZoomLevel.minZoom*/ to ZoomLevel.vectorTileMaxZoom).foreach { z =>
         Log.context(s"$z") {
           tilesBuilder.build(z, tileAnalysis)
         }

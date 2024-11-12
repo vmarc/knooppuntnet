@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NetworkType } from '@api/custom';
 import { NetworkTypes } from '@app/kpn/common';
+import { NetworkBitmapTileLayer } from '@app/ol/layers';
 import { OpenDataLayers } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
 import { MapLayer } from '@app/ol/layers';
@@ -92,10 +93,9 @@ export class PlannerMapLayerService {
   ): MapLayer[] {
     const networkVectorLayerStyle = new MainMapStyle(parameters);
     return [
-      // TODO redesign tiles - uncomment
-      // NetworkBitmapTileLayer.build(networkType, 'surface'),
-      // NetworkBitmapTileLayer.build(networkType, 'survey'),
-      // NetworkBitmapTileLayer.build(networkType, 'analysis'),
+      NetworkBitmapTileLayer.build(networkType, 'surface'),
+      NetworkBitmapTileLayer.build(networkType, 'survey'),
+      NetworkBitmapTileLayer.build(networkType, 'analysis'),
       NetworkVectorTileLayer.build(networkType, networkVectorLayerStyle.styleFunction()),
     ];
   }

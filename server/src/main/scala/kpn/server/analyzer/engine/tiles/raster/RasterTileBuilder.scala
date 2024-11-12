@@ -4,7 +4,6 @@ import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.LineSegment
 
 import java.awt.BasicStroke
 import java.awt.Font
@@ -19,12 +18,12 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
   private val width = 256
   private val height = 256
 
-  def build(data: TileData): Array[Byte] = {
+  def build(data: TileData, tile: Tile): Array[Byte] = {
     val image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
     val g = createGraphics(image)
     try {
-      drawRoutes(g, data)
-      drawNodes(g, data)
+      drawRoutes(g, data, tile)
+      drawNodes(g, data, tile)
     }
     finally {
       g.dispose()
@@ -32,12 +31,12 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
     toByteArray(image)
   }
 
-  private def drawRoutes(g: Graphics2D, data: TileData): Unit = {
+  private def drawRoutes(g: Graphics2D, data: TileData, tile: Tile): Unit = {
 
-    val lineWidth = if (data.tile.z < 9) {
+    val lineWidth = if (tile.z < 9) {
       0.5f
     }
-    else if (data.tile.z < 10) {
+    else if (tile.z < 10) {
       1f
     }
     else {
@@ -67,13 +66,12 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
       g.setStroke(stroke)
       tileRoute.segments.foreach { segment =>
         g.setColor(tileColor.routeColor(tileRoute, segment))
-        val worldCoordinates = segment.worldCoordinates.sliding(2).toSeq.map { case Seq(x, y) => new Coordinate(x, y) }
-        val lineSegments = worldCoordinates.sliding(2).toSeq.map { case Seq(c1, c2) => new LineSegment(c1, c2) }
-        lineSegments.foreach { line =>
-          val x1 = lngToPixel(data.tile, line.p0.x)
-          val y1 = latToPixel(data.tile, line.p0.y)
-          val x2 = lngToPixel(data.tile, line.p1.x)
-          val y2 = latToPixel(data.tile, line.p1.y)
+        val worldCoordinates = segment.worldCoordinates.sliding(2, 2).toSeq.map { case Seq(x, y) => new Coordinate(x, y) }
+        worldCoordinates.sliding(2).toSeq.map { case Seq(p0, p1) =>
+          val x1 = lngToPixel(tile, p0.x)
+          val y1 = latToPixel(tile, p0.y)
+          val x2 = lngToPixel(tile, p1.x)
+          val y2 = latToPixel(tile, p1.y)
           g.drawLine(x1, y1, x2, y2)
         }
       }
@@ -88,19 +86,19 @@ class RasterTileBuilder(tileColor: TileColor) extends TileBuilder {
     ((lat - tile.bounds.yMin) * height / (tile.bounds.yMax - tile.bounds.yMin)).round.toInt
   }
 
-  private def drawNodes(g: Graphics2D, data: TileData): Unit = {
+  private def drawNodes(g: Graphics2D, data: TileData, tile: Tile): Unit = {
 
     data.nodes.foreach { node =>
 
       g.setColor(tileColor.nodeColor(node))
 
-      val x = lngToPixel(data.tile, node.lon)
-      val y = latToPixel(data.tile, node.lat)
+      val x = lngToPixel(tile, node.lon)
+      val y = latToPixel(tile, node.lat)
 
-      if (data.tile.z == 10) {
+      if (tile.z == 10) {
         g.fillOval(x - 1, y - 1, 3, 3)
       }
-      else if (data.tile.z > 10) {
+      else if (tile.z > 10) {
         g.fillOval(x - 1, y - 1, 3, 3)
       }
     }
