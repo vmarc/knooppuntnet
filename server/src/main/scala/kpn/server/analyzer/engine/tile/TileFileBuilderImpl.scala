@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.tiles.ZoomLevel
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.TileFileRepository
@@ -18,6 +19,8 @@ class TileFileBuilderImpl(
   rasterTileRepository: TileFileRepository,
   vectorTileRepository: TileFileRepository
 ) extends TileFileBuilder {
+
+  private val log = Log(classOf[TileFileBuilderImpl])
 
   def build(tileData: TileData, tile: Tile): Unit = {
     if (tile.z <= ZoomLevel.bitmapTileMaxZoom) {
@@ -42,6 +45,9 @@ class TileFileBuilderImpl(
       val tileBytes = new VectorTileBuilder().build(tileData, tile)
       if (tileBytes.nonEmpty) {
         vectorTileRepository.saveOrUpdate(tileData.networkType.name, tile, tileBytes)
+      }
+      else {
+        log.info("empty tile")
       }
     }
   }

@@ -38,7 +38,7 @@ trait RouteRepository {
 
   def filterKnown(routeIds: Set[Long]): Set[Long]
 
-  def routeTileInfosByNetworkType(networkType: NetworkType): Seq[RouteTileInfo]
+  def routeTileInfosByNetworkType(networkType: NetworkType, nodeNetwork: Boolean): Seq[RouteTileInfo]
 
   def routeTileInfosById(routeId: Long): Option[RouteTileInfo]
 

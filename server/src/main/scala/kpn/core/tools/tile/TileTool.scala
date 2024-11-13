@@ -35,7 +35,7 @@ object TileTool {
 
           Mongo.executeIn(options.databaseName) { database =>
             val tileTool = buildTileTool(database, options.tileDir)
-            Redesign.tileGenerationNetworkTypes.foreach(tileTool.make)
+            Redesign.tileGenerationNetworkTypes.foreach(networkType => tileTool.make(networkType, false))
           }
 
           log.info("Done")
@@ -93,16 +93,19 @@ class TileTool(
   tilesBuilder: TilesBuilder
 ) {
 
-  def make(networkType: NetworkType): Unit = {
+  def make(networkType: NetworkType, nodeNetwork: Boolean): Unit = {
     Log.context(networkType.name) {
       log.info("Start tile analysis")
       val memoryBefore = Memory.bytes
-      val tileAnalysis = tileAnalyzer.load(networkType)
+      val tileData = tileAnalyzer.load(networkType, nodeNetwork)
       val memoryAfter = Memory.bytes
       log.info(s"Memory allocated for tile analysis: ${(memoryAfter - memoryBefore) / 1024 / 1024}M")
-      (10 /* TODO redesign tiles - ZoomLevel.minZoom*/ to ZoomLevel.vectorTileMaxZoom).foreach { z =>
+      (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
         Log.context(s"$z") {
-          tilesBuilder.build(z, tileAnalysis)
+          log.infoElapsed {
+            tilesBuilder.build(z, tileData)
+            (s"tile building done", ())
+          }
         }
       }
     }

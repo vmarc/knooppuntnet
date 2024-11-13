@@ -78,8 +78,8 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryKnownRouteIds(database).execute(routeIds.toSeq, log).toSet
   }
 
-  override def routeTileInfosByNetworkType(networkType: NetworkType): Seq[RouteTileInfo] = {
-    new MongoQueryRouteTileInfo(database).findByNetworkType(networkType)
+  override def routeTileInfosByNetworkType(networkType: NetworkType, nodeNetwork: Boolean): Seq[RouteTileInfo] = {
+    new MongoQueryRouteTileInfo(database).findByNetworkType(networkType, nodeNetwork)
   }
 
   override def routeTileInfosById(routeId: Long): Option[RouteTileInfo] = {

@@ -13,10 +13,9 @@ import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 class VectorTileBuilder extends TileBuilder {
 
   private val log = Log(classOf[VectorTileBuilder])
+  private val geometryFactory = new GeometryFactory
 
   def build(data: TileData, tile: Tile): Array[Byte] = {
-
-    val geometryFactory = new GeometryFactory
 
     val encoder = new VectorTileEncoder()
 
@@ -36,36 +35,38 @@ class VectorTileBuilder extends TileBuilder {
     }
 
     data.routes.zipWithIndex.foreach { case (tileRoute, index) =>
-      log.info(s"${index + 1}/${data.routes.size} route ${tileRoute.routeName}")
+      if (data.routes.size > 50) {
+        log.info(s"${index + 1}/${data.routes.size} route ${tileRoute.routeName}")
+      }
       tileRoute.segments.foreach { segment =>
-        // TODO redesign tiles - do a bounding box test here
+        if (tile.contains(segment.worldCoordinates)) {
+          val scaledCoordinates = segment.worldCoordinates.sliding(2, 2).map { case Seq(x, y) =>
+            tile.scale(new Coordinate(x, y))
+          }
+          val lineString = geometryFactory.createLineString(scaledCoordinates.toArray)
+          val simplifiedLineString: LineString = if (tile.z < 14) {
+            DouglasPeuckerSimplifier.simplify(lineString, 3).asInstanceOf[LineString]
+          }
+          else {
+            lineString
+          }
 
-        val scaledCoordinates = segment.worldCoordinates.sliding(2, 2).toSeq.map { case Seq(x, y) =>
-          tile.scale(new Coordinate(x, y))
-        }
-        val lineString = geometryFactory.createLineString(scaledCoordinates.toArray)
-        val simplifiedLineString: LineString = if (tile.z < 14) {
-          DouglasPeuckerSimplifier.simplify(lineString, 3).asInstanceOf[LineString]
-        }
-        else {
-          lineString
-        }
+          // TODO redesign tiles - cleanup:
+          // log.info(s"simplication, before=${lineString.getNumPoints}, after=${simplifiedLineString.getNumPoints}")
 
-        // TODO redesign tiles - cleanup:
-        // log.info(s"simplication, before=${lineString.getNumPoints}, after=${simplifiedLineString.getNumPoints}")
-
-        val userData = Seq(
-          Some("routeId" -> tileRoute.routeId.toString),
-          Some("segmentId" -> segment.segmentId.toString),
-          Some("segmentElementId" -> segment.segmentElementId.toString),
-          Some("pathIds" -> segment.pathIds.mkString(",")),
-          Some("name" -> tileRoute.routeName),
-          // TODO redesign tiles - Some("oneway" -> segment.oneWay.toString),
-          Some("surface" -> segment.surface),
-          tileRoute.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
-          tileRoute.state.map(state => "state" -> state)
-        ).flatten.toMap
-        encoder.addLineStringFeature(tileRoute.layer, userData, simplifiedLineString)
+          val userData = Seq(
+            Some("routeId" -> tileRoute.routeId.toString),
+            Some("segmentId" -> segment.segmentId.toString),
+            Some("segmentElementId" -> segment.segmentElementId.toString),
+            Some("pathIds" -> segment.pathIds.mkString(",")),
+            Some("name" -> tileRoute.routeName),
+            // TODO redesign tiles - Some("oneway" -> segment.oneWay.toString),
+            Some("surface" -> segment.surface),
+            tileRoute.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
+            tileRoute.state.map(state => "state" -> state)
+          ).flatten.toMap
+          encoder.addLineStringFeature(tileRoute.layer, userData, simplifiedLineString)
+        }
       }
     }
 

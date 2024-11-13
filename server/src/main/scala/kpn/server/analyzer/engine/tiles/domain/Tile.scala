@@ -111,4 +111,45 @@ class Tile(val z: Int, val x: Int, val y: Int) {
 
     new Coordinate(scaledX, scaledY)
   }
+
+  def contains(worldCoordinates: Seq[Double]): Boolean = {
+    var xmin = worldCoordinates.head
+    var xmax = xmin
+    var ymin = worldCoordinates(1)
+    var ymax = ymin
+    worldCoordinates.sliding(2, 2).foreach { case Seq(x, y) =>
+      if (x < xmin) xmin = x
+      if (x > xmax) xmax = x
+      if (y < ymin) ymin = y
+      if (y > ymax) ymax = y
+    }
+    xmin < clipBounds.xMax &&
+      clipBounds.xMin < xmax &&
+      ymin < clipBounds.yMax &&
+      clipBounds.yMin < ymax
+  }
+
+  def slowerContainsSaved(worldCoordinates: Seq[Double]): Boolean = {
+    val xs = worldCoordinates.zipWithIndex.filter(_._2 % 2 == 0).map(_._1)
+    val ys = worldCoordinates.zipWithIndex.filter(_._2 % 2 == 1).map(_._1)
+    val xmin = xs.min
+    val xmax = xs.max
+    val ymin = ys.min
+    val ymax = ys.max
+    xmin < clipBounds.xMax &&
+      clipBounds.xMin < xmax &&
+      ymin < clipBounds.yMax &&
+      clipBounds.yMin < ymax
+  }
+
+  def containsLine(x1: Double, y1: Double, x2: Double, y2: Double): Boolean = {
+    val xmin = if (x1 < x2) x1 else x2
+    val xmax = if (x1 > x2) x1 else x2
+    val ymin = if (y1 < y2) y1 else y2
+    val ymax = if (y1 > y2) y1 else y2
+    xmin < clipBounds.xMax &&
+      clipBounds.xMin < xmax &&
+      ymin < clipBounds.yMax &&
+      clipBounds.yMin < ymax
+  }
 }

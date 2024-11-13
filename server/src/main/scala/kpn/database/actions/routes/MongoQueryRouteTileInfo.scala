@@ -41,14 +41,15 @@ object MongoQueryRouteTileInfo {
 
 class MongoQueryRouteTileInfo(database: Database) {
 
-  def findByNetworkType(networkType: NetworkType): Seq[RouteTileInfo] = {
+  def findByNetworkType(networkType: NetworkType, nodeNetwork: Boolean): Seq[RouteTileInfo] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
           and(
             equal("labels", Label.active),
             equal("labels", Label.networkType(networkType)),
-            exists("summary.countries.0") // TODO redesign tiles - this condition was added temporarily to avoid problems with lat/lon calculations
+            exists("summary.countries.0"), // TODO redesign tiles - this condition was added temporarily to avoid problems with lat/lon calculations
+            equal("summary.nodeNetwork", nodeNetwork)
           )
         ),
         projectRouteTileInfo

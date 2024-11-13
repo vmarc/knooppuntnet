@@ -15,10 +15,10 @@ class TileDataLoaderImpl(
 
   private val log = Log(classOf[TileDataLoaderImpl])
 
-  def load(networkType: NetworkType): TileData = {
+  def load(networkType: NetworkType, nodeNetwork: Boolean): TileData = {
     log.infoElapsed {
-      val nodes = findNodes(networkType)
-      val routes = findRoutes(networkType)
+      val nodes = if (nodeNetwork) findNodes(networkType) else Seq.empty
+      val routes = findRoutes(networkType, nodeNetwork)
       val tileAnalysis = TileData(networkType, nodes, routes)
       (s"Completed analysis for ${networkType.name}", tileAnalysis)
     }
@@ -33,10 +33,10 @@ class TileDataLoaderImpl(
     }
   }
 
-  private def findRoutes(networkType: NetworkType): Seq[TileDataRoute] = {
+  private def findRoutes(networkType: NetworkType, nodeNetwork: Boolean): Seq[TileDataRoute] = {
     log.info("Find routes")
     log.infoElapsed {
-      val routeTileInfos = routeRepository.routeTileInfosByNetworkType(networkType)
+      val routeTileInfos = routeRepository.routeTileInfosByNetworkType(networkType, nodeNetwork)
       val tileDataRoutes = routeTileInfos.map(routeTileInfo => TileDataRouteBuilder.fromRouteInfo(routeTileInfo))
       (s"${routeTileInfos.size} routes", tileDataRoutes)
     }

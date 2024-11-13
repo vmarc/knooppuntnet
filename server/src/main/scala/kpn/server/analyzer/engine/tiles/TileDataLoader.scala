@@ -4,5 +4,5 @@ import kpn.api.custom.NetworkType
 
 trait TileDataLoader {
 
-  def load(networkType: NetworkType): TileData
+  def load(networkType: NetworkType, nodenetwork: Boolean): TileData
 }
