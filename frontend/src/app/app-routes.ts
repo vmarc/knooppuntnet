@@ -14,19 +14,6 @@ export const appRoutes: Routes = [
       import('./tryout/tabs/tryout-tabs-page.component').then((m) => m.TryoutTabsPageComponent),
   },
   {
-    path: 'tryout-panels',
-    loadChildren: () =>
-      import('./tryout/panels/tryout-panels.routes').then((m) => m.tryoutPanelsRoutes),
-  },
-  {
-    path: 'tryout-panels',
-    outlet: 'sidebar',
-    loadComponent: () =>
-      import('./tryout/panels/tryout-panels-menu.component').then(
-        (m) => m.TryoutPanelsMenuComponent
-      ),
-  },
-  {
     path: 'analysis',
     loadChildren: () => import('@app/analysis/analysis').then((m) => m.analysisRoutes),
   },
@@ -56,6 +43,6 @@ export const appRoutes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('@app/shared/base').then((m) => m.baseRoutes),
+    loadChildren: () => import('@app/root').then((m) => m.rootRoutes),
   },
 ];

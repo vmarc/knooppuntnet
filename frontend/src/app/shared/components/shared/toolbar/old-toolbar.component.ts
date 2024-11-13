@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from '@app/spinner';
 import { PageService } from '..';
 
@@ -71,16 +71,9 @@ import { PageService } from '..';
     }
   `,
   standalone: true,
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
-    RouterLink,
-    RouterOutlet,
-    SpinnerComponent,
-  ],
+  imports: [MatButtonModule, MatIconModule, MatToolbarModule, RouterLink, SpinnerComponent],
 })
-export class ToolbarComponent {
+export class OldToolbarComponent {
   private readonly pageService = inject(PageService);
   protected readonly toolbarBackgroundColor = this.pageService.toolbarBackgroundColor;
 

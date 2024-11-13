@@ -31,8 +31,8 @@ import * as Sentry from '@sentry/angular';
 import { AngularSplitModule } from 'angular-split';
 import { MarkdownModule } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
+import { RootService } from './root/root.service';
 import { UserService } from './shared/user';
-import { TryoutPanelsService } from './tryout/panels/tryout-panels.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -76,7 +76,7 @@ export const appConfig: ApplicationConfig = {
     PreferencesService,
     ApiService,
     SpinnerService,
-    TryoutPanelsService,
+    RootService,
     PageService,
     PageWidthService,
     MatIconRegistry,

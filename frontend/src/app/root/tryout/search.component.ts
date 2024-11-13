@@ -1,22 +1,19 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { TryoutPanelsService } from './tryout-panels.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'kpn-tryout-panels-analysis',
+  selector: 'kpn-search',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button mat-icon-button (click)="service.gotoMenu()">
+    <button mat-icon-button routerLink="/">
       <mat-icon svgIcon="back" />
     </button>
-    Analysis
+    Search
   `,
   standalone: true,
-  imports: [MatIcon, MatIconButton],
+  imports: [MatIcon, MatIconButton, RouterLink],
 })
-export class TryoutPanelsAnalysisComponent {
-  readonly service = inject(TryoutPanelsService);
-}
+export class SearchComponent {}

@@ -4,9 +4,7 @@ import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { RouterOutlet } from '@angular/router';
 import { SidebarBackComponent } from '@app/components/shared/sidebar';
-import { ToolbarComponent } from '@app/components/shared/toolbar';
 import { PageWidthService } from '../page-width.service';
 import { PageService } from '../page.service';
 import { PageExperimentalComponent } from './page-experimental.component';
@@ -32,9 +30,9 @@ import { PageFooterComponent } from './page-footer.component';
 
       <mat-sidenav-content>
         <header>
-          <kpn-toolbar>
-            <ng-content select="[toolbar]" />
-          </kpn-toolbar>
+          <!--          <kpn-toolbar>-->
+          <!--            <ng-content select="[toolbar]" />-->
+          <!--          </kpn-toolbar>-->
         </header>
         <div class="page-contents">
           <main>
@@ -77,14 +75,7 @@ import { PageFooterComponent } from './page-footer.component';
     }
   `,
   standalone: true,
-  imports: [
-    MatSidenavModule,
-    PageExperimentalComponent,
-    PageFooterComponent,
-    RouterOutlet,
-    SidebarBackComponent,
-    ToolbarComponent,
-  ],
+  imports: [MatSidenavModule, PageExperimentalComponent, PageFooterComponent, SidebarBackComponent],
 })
 export class PageComponent {
   showFooter = input<boolean>(true);

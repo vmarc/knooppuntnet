@@ -1,46 +1,45 @@
-import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatListItem } from '@angular/material/list';
 import { MatNavList } from '@angular/material/list';
-import { TryoutPanelsService } from './tryout-panels.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'kpn-tryout-panels-menu',
+  selector: 'kpn-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-nav-list>
-      <mat-list-item (click)="service.gotoSearch()">
+      <mat-list-item routerLink="search">
         <button mat-icon-button>
-          <mat-icon svgIcon="link" />
+          <mat-icon>search</mat-icon>
         </button>
         <a>Search</a>
       </mat-list-item>
 
-      <mat-list-item (click)="service.gotoPlanner()">
+      <mat-list-item routerLink="planner">
         <button mat-icon-button>
           <mat-icon svgIcon="location" />
         </button>
         <a>Plan a route</a>
       </mat-list-item>
 
-      <mat-list-item (click)="service.gotoConfiguration()">
+      <mat-list-item routerLink="configuration">
         <button mat-icon-button>
           <mat-icon svgIcon="layers" />
         </button>
         <a>Map configuration</a>
       </mat-list-item>
 
-      <mat-list-item (click)="service.gotoAnalysis()">
+      <mat-list-item routerLink="analysis">
         <button mat-icon-button>
           <mat-icon svgIcon="analysis" />
         </button>
         <a>Analysis</a>
       </mat-list-item>
 
-      <mat-list-item (click)="service.gotoMonitor()">
+      <mat-list-item routerLink="monitor">
         <button mat-icon-button>
           <mat-icon svgIcon="output" />
         </button>
@@ -49,8 +48,6 @@ import { TryoutPanelsService } from './tryout-panels.service';
     </mat-nav-list>
   `,
   standalone: true,
-  imports: [MatIcon, MatIconButton, MatNavList, MatListItem],
+  imports: [MatIcon, MatIconButton, MatNavList, MatListItem, RouterLink],
 })
-export class TryoutPanelsMenuComponent {
-  readonly service = inject(TryoutPanelsService);
-}
+export class MenuComponent {}

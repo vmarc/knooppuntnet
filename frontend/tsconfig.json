@@ -195,6 +195,9 @@
       "@app/poi": [
         "src/app/poi/index.ts"
       ],
+      "@app/root": [
+        "src/app/root/index.ts"
+      ],
       "@app/services": [
         "src/app/shared/services/index.ts"
       ],

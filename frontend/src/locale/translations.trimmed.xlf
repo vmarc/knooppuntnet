@@ -4457,8 +4457,8 @@
       </trans-unit>
       <trans-unit datatype="html" id="stats.route-name-deprecated-note-tag.comment">
         <source>Routes where the route name was defined in the *"note"* tag. This is OK, but the use
-          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
-          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can 
+          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is
+          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can
           be used for naming routes.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-configuration.service.ts</context>
@@ -8586,7 +8586,7 @@
       <trans-unit datatype="html" id="toolbar.title">
         <source>knooppuntnet</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/components/shared/toolbar/toolbar.component.ts</context>
+          <context context-type="sourcefile">src/app/shared/components/shared/toolbar/old-toolbar.component.ts</context>
           <context context-type="linenumber">20,22</context>
         </context-group>
         <context-group purpose="location">

@@ -7,20 +7,21 @@ import { RouteConfigLoadEnd } from '@angular/router';
 import { RouteConfigLoadStart } from '@angular/router';
 import { Router } from '@angular/router';
 import { RouterOutlet } from '@angular/router';
-import { PageFooterComponent } from '@app/components/shared/page';
-import { PageExperimentalComponent } from '@app/components/shared/page';
-import { SidebarBackComponent } from '@app/components/shared/sidebar';
-import { ToolbarComponent } from '@app/components/shared/toolbar';
 import { IconService } from '@app/services';
 import { Version } from '@app/services';
 import { SpinnerService } from '@app/spinner';
 import { Subscriptions } from '@app/util';
 import { setTag } from '@sentry/angular';
+import { RootPageComponent } from './root/root.component';
 
 @Component({
-  selector: 'kpn-root',
+  selector: 'kpn-app',
   changeDetection: ChangeDetectionStrategy.Default,
-  template: ` <router-outlet /> `,
+  template: `
+    <kpn-root>
+      <router-outlet />
+    </kpn-root>
+  `,
   styles: `
     header {
       position: fixed;
@@ -42,14 +43,7 @@ import { setTag } from '@sentry/angular';
     }
   `,
   standalone: true,
-  imports: [
-    MatSidenavModule,
-    PageExperimentalComponent,
-    PageFooterComponent,
-    RouterOutlet,
-    SidebarBackComponent,
-    ToolbarComponent,
-  ],
+  imports: [MatSidenavModule, RouterOutlet, RootPageComponent],
 })
 export class AppComponent implements OnDestroy {
   private readonly iconService = inject(IconService);
