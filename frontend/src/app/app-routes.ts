@@ -15,16 +15,15 @@ export const appRoutes: Routes = [
   },
   {
     path: 'tryout-panels',
-    loadComponent: () =>
-      import('./tryout/panels/tryout-panels-page.component').then(
-        (m) => m.TryoutPanelsPageComponent
-      ),
+    loadChildren: () =>
+      import('./tryout/panels/tryout-panels.routes').then((m) => m.tryoutPanelsRoutes),
   },
   {
-    path: 'tryout-panels-1',
+    path: 'tryout-panels',
+    outlet: 'sidebar',
     loadComponent: () =>
-      import('./tryout/panels/tryout-panels-page-1.component').then(
-        (m) => m.TryoutPanelsPage1Component
+      import('./tryout/panels/tryout-panels-menu.component').then(
+        (m) => m.TryoutPanelsMenuComponent
       ),
   },
   {

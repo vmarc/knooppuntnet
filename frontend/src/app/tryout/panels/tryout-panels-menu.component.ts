@@ -1,79 +1,56 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatListItem } from '@angular/material/list';
+import { MatNavList } from '@angular/material/list';
+import { TryoutPanelsService } from './tryout-panels.service';
 
 @Component({
   selector: 'kpn-tryout-panels-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div>
-      <div [class]="menuItemClasses('analysis')">
-        <button mat-icon-button (click)="select('analysis')">
-          <mat-icon svgIcon="analysis" />
-        </button>
-      </div>
-      <div [class]="menuItemClasses('layers')">
-        <button mat-icon-button (click)="select('layers')">
-          <mat-icon svgIcon="layers" />
-        </button>
-      </div>
-      <div [class]="menuItemClasses('link')">
-        <button mat-icon-button (click)="select('link')">
+    <mat-nav-list>
+      <mat-list-item (click)="service.gotoSearch()">
+        <button mat-icon-button>
           <mat-icon svgIcon="link" />
         </button>
-      </div>
-      <div [class]="menuItemClasses('changes')">
-        <button mat-icon-button (click)="select('changes')">
-          <mat-icon svgIcon="changes" />
+        <a>Search</a>
+      </mat-list-item>
+
+      <mat-list-item (click)="service.gotoPlanner()">
+        <button mat-icon-button>
+          <mat-icon svgIcon="location" />
         </button>
-      </div>
-      <div [class]="menuItemClasses('external-link')">
-        <button mat-icon-button (click)="select('external-link')">
-          <mat-icon svgIcon="external-link" />
+        <a>Plan a route</a>
+      </mat-list-item>
+
+      <mat-list-item (click)="service.gotoConfiguration()">
+        <button mat-icon-button>
+          <mat-icon svgIcon="layers" />
         </button>
-      </div>
-      <div [class]="menuItemClasses('output')">
-        <button mat-icon-button (click)="select('output')">
+        <a>Map configuration</a>
+      </mat-list-item>
+
+      <mat-list-item (click)="service.gotoAnalysis()">
+        <button mat-icon-button>
+          <mat-icon svgIcon="analysis" />
+        </button>
+        <a>Analysis</a>
+      </mat-list-item>
+
+      <mat-list-item (click)="service.gotoMonitor()">
+        <button mat-icon-button>
           <mat-icon svgIcon="output" />
         </button>
-      </div>
-      <div [class]="menuItemClasses('overview')">
-        <button mat-icon-button (click)="select('overview')">
-          <mat-icon svgIcon="overview" />
-        </button>
-      </div>
-    </div>
-  `,
-  styles: `
-    .icon-menu-item {
-      display: block;
-    }
-
-    .icon-menu-item-selected {
-      border-top: 1px solid lightgray;
-      border-bottom: 1px solid lightgray;
-      background-color: rgb(250, 250, 250);
-    }
-
-    .icon-menu-item-unselected {
-      border-right: 1px solid lightgray;
-    }
+        <a>Monitor</a>
+      </mat-list-item>
+    </mat-nav-list>
   `,
   standalone: true,
-  imports: [MatIcon, MatIconButton],
+  imports: [MatIcon, MatIconButton, MatNavList, MatListItem],
 })
 export class TryoutPanelsMenuComponent {
-  selected = 'analysis';
-
-  menuItemClasses(name: string): string {
-    if (this.selected === name) {
-      return 'icon-menu-item icon-menu-item-selected';
-    }
-    return 'icon-menu-item icon-menu-item-unselected';
-  }
-
-  select(name: string): void {
-    this.selected = name;
-  }
+  readonly service = inject(TryoutPanelsService);
 }

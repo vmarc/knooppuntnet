@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButton } from '@angular/material/button';
@@ -5,7 +6,13 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { RouterLink } from '@angular/router';
 import { SpinnerComponent } from '@app/spinner';
 import { AngularSplitModule } from 'angular-split';
+import { TryoutPanelsAnalysisComponent } from './tryout-panels-analysis.component';
+import { TryoutPanelsConfigurationComponent } from './tryout-panels-configuration.component';
 import { TryoutPanelsMenuComponent } from './tryout-panels-menu.component';
+import { TryoutPanelsMonitorComponent } from './tryout-panels-monitor.component';
+import { TryoutPanelsPlannerComponent } from './tryout-panels-planner.component';
+import { TryoutPanelsSearchComponent } from './tryout-panels-search.component';
+import { TryoutPanelsService } from './tryout-panels.service';
 
 @Component({
   selector: 'kpn-tryout-panels-page',
@@ -21,18 +28,33 @@ import { TryoutPanelsMenuComponent } from './tryout-panels-menu.component';
     </header>
     <main>
       <as-split direction="horizontal" disabled="false" unit="percent" class="panels">
-        <as-split-area size="20">
+        <as-split-area size="40">
           <div class="sidebar">
-            <kpn-tryout-panels-menu />
             <div class="sidebar-panel">
-              <p>Sidebar contents</p>
+              @switch (service.sidebar()) {
+                @case ('menu') {
+                  <kpn-tryout-panels-menu />
+                }
+                @case ('search') {
+                  <kpn-tryout-panels-search />
+                }
+                @case ('planner') {
+                  <kpn-tryout-panels-planner />
+                }
+                @case ('configuration') {
+                  <kpn-tryout-panels-configuration />
+                }
+                @case ('analysis') {
+                  <kpn-tryout-panels-analysis />
+                }
+                @case ('monitor') {
+                  <kpn-tryout-panels-monitor />
+                }
+              }
             </div>
           </div>
         </as-split-area>
-        <as-split-area size="40">
-          <p>Text details</p>
-        </as-split-area>
-        <as-split-area size="40">
+        <as-split-area size="60">
           <p>Map</p>
         </as-split-area>
       </as-split>
@@ -79,8 +101,15 @@ import { TryoutPanelsMenuComponent } from './tryout-panels-menu.component';
     MatToolbar,
     RouterLink,
     SpinnerComponent,
-    TryoutPanelsMenuComponent,
     AngularSplitModule,
+    TryoutPanelsMenuComponent,
+    TryoutPanelsSearchComponent,
+    TryoutPanelsPlannerComponent,
+    TryoutPanelsConfigurationComponent,
+    TryoutPanelsAnalysisComponent,
+    TryoutPanelsMonitorComponent,
   ],
 })
-export class TryoutPanelsPageComponent {}
+export class TryoutPanelsPageComponent {
+  readonly service = inject(TryoutPanelsService);
+}
