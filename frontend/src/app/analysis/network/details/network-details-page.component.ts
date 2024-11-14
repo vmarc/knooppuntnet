@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
@@ -14,7 +14,7 @@ import { NetworkDetailsPageService } from './network-details-page.service';
   selector: 'kpn-network-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-network-page-header
         pageName="details"
         pageTitle="Details"
@@ -31,7 +31,7 @@ import { NetworkDetailsPageService } from './network-details-page.service';
         </div>
       }
       <kpn-analysis-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [NetworkDetailsPageService, AnalysisStrategyService, RouterService],
   standalone: true,
@@ -39,7 +39,7 @@ import { NetworkDetailsPageService } from './network-details-page.service';
     AnalysisSidebarComponent,
     NetworkDetailsComponent,
     NetworkPageHeaderComponent,
-    PageComponent,
+    OldPageComponent,
   ],
 })
 export class NetworkDetailsPageComponent implements OnInit {

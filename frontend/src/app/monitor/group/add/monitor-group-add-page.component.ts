@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Translations } from '@app/i18n';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
@@ -18,7 +18,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
   selector: 'kpn-monitor-group-add-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-monitor-group-breadcrumb />
 
       <kpn-page-header>
@@ -51,7 +51,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
         </div>
       </form>
       <kpn-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [MonitorGroupAddPageService, NavService],
   standalone: true,
@@ -61,7 +61,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
     MonitorGroupDescriptionComponent,
     MonitorGroupDescriptionComponent,
     MonitorGroupNameComponent,
-    PageComponent,
+    OldPageComponent,
     ReactiveFormsModule,
     RouterLink,
     SidebarComponent,

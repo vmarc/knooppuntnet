@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '@app/components/shared/icon';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { BaseSidebarComponent } from '../../base-sidebar.component';
 
@@ -10,7 +10,7 @@ import { BaseSidebarComponent } from '../../base-sidebar.component';
   selector: 'kpn-home-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-page-header [pageTitle]="null" subject="home" i18n="@@home.page-title"
         >Node networks
       </kpn-page-header>
@@ -28,13 +28,13 @@ import { BaseSidebarComponent } from '../../base-sidebar.component';
         i18n-title="@@home.monitor"
       />
       <kpn-base-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   standalone: true,
   imports: [
     BaseSidebarComponent,
     IconButtonComponent,
-    PageComponent,
+    OldPageComponent,
     PageHeaderComponent,
     RouterLink,
   ],

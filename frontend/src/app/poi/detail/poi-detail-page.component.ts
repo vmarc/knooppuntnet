@@ -6,7 +6,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Tag } from '@api/custom';
 import { PoiAnalysisComponent } from '@app/components/poi';
 import { DataComponent } from '@app/components/shared/data';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
@@ -25,7 +25,7 @@ import { PoiDetailPageService } from './poi-detail-page.service';
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <kpn-page>
+    <kpn-old-page>
       <!--    <kpn-page-header>-->
       <!--      <span i18n="@@poi-areas.title">Poi</span>-->
       <!--    </kpn-page-header>-->
@@ -110,7 +110,7 @@ import { PoiDetailPageService } from './poi-detail-page.service';
         }
       }
       <kpn-base-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   styles: `
     .map-divider {
@@ -124,7 +124,7 @@ import { PoiDetailPageService } from './poi-detail-page.service';
     BaseSidebarComponent,
     DataComponent,
     MatDividerModule,
-    PageComponent,
+    OldPageComponent,
     PoiAnalysisComponent,
     PoiDetailMapComponent,
     TagTableComponent,

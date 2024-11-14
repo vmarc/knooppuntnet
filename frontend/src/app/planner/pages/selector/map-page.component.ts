@@ -3,16 +3,15 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '@app/components/shared/icon';
 import { IconButtonsComponent } from '@app/components/shared/icon';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { BaseSidebarComponent } from '@app/shared/base';
 
 @Component({
   selector: 'kpn-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li i18n="@@breadcrumb.map">Map</li>
@@ -58,17 +57,16 @@ import { BaseSidebarComponent } from '@app/shared/base';
         />
       </kpn-icon-buttons>
       <kpn-base-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   standalone: true,
   imports: [
     BaseSidebarComponent,
     IconButtonComponent,
     IconButtonsComponent,
-    PageComponent,
+    OldPageComponent,
     PageHeaderComponent,
     RouterLink,
-    SidebarComponent,
   ],
 })
 export class MapPageComponent {}

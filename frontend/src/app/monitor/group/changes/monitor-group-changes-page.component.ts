@@ -5,7 +5,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
@@ -19,7 +19,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -67,7 +67,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
         }
       }
       <kpn-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [NavService, MonitorGroupChangesPageService],
   standalone: true,
@@ -75,7 +75,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
     MatSlideToggleModule,
     MonitorChangesComponent,
     MonitorGroupPageMenuComponent,
-    PageComponent,
+    OldPageComponent,
     PaginatorComponent,
     RouterLink,
     SidebarComponent,

@@ -8,7 +8,7 @@ import { ChangesComponent } from '@app/analysis/components/changes';
 import { ErrorComponent } from '@app/components/shared/error';
 import { ItemsComponent } from '@app/components/shared/items';
 import { ItemComponent } from '@app/components/shared/items';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
@@ -20,7 +20,7 @@ import { SubsetChangesPageService } from './subset-changes-page.service';
   selector: 'kpn-subset-changes-page',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-subset-page-header-block
         pageName="changes"
         pageTitle="Changes"
@@ -70,7 +70,7 @@ import { SubsetChangesPageService } from './subset-changes-page.service';
         </div>
       }
       <kpn-subset-changes-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [SubsetChangesPageService, RouterService],
   standalone: true,
@@ -81,7 +81,7 @@ import { SubsetChangesPageService } from './subset-changes-page.service';
     ErrorComponent,
     ItemComponent,
     ItemsComponent,
-    PageComponent,
+    OldPageComponent,
     SituationOnComponent,
     SubsetChangesSidebarComponent,
     SubsetPageHeaderBlockComponent,

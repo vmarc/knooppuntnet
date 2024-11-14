@@ -1,11 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
 import { MatTabLabel } from '@angular/material/tabs';
 import { MatTabGroup } from '@angular/material/tabs';
 import { MatTab } from '@angular/material/tabs';
-import { PageComponent } from '@app/components/shared/page';
-import { TryoutTabsDropDownComponent } from './tryout-tabs-drop-down.component';
 
 @Component({
   selector: 'kpn-tryout-tabs-menu',
@@ -56,13 +53,6 @@ import { TryoutTabsDropDownComponent } from './tryout-tabs-drop-down.component';
     </div>
   `,
   standalone: true,
-  imports: [
-    MatTabGroup,
-    MatTab,
-    MatTabLabel,
-    PageComponent,
-    TryoutTabsDropDownComponent,
-    MatDivider,
-  ],
+  imports: [MatTabGroup, MatTab, MatTabLabel],
 })
 export class TryoutTabsMenuComponent {}

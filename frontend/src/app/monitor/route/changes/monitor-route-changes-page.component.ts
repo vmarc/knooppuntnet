@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { NavService } from '@app/components/shared';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
@@ -19,7 +19,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
     @if (service.state(); as state) {
-      <kpn-page>
+      <kpn-old-page>
         <kpn-monitor-route-page-header
           pageName="changes"
           [groupName]="state.groupName"
@@ -58,7 +58,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
         }
 
         <kpn-sidebar sidebar />
-      </kpn-page>
+      </kpn-old-page>
     }
   `,
   providers: [MonitorRouteChangesPageService, NavService],
@@ -67,7 +67,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
     MatSlideToggleModule,
     MonitorChangesComponent,
     MonitorRoutePageHeaderComponent,
-    PageComponent,
+    OldPageComponent,
     PaginatorComponent,
     SidebarComponent,
   ],

@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { IconButtonComponent } from '@app/components/shared/icon';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
@@ -14,7 +14,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   selector: 'kpn-analysis-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li i18n="@@breadcrumb.analysis">Analysis</li>
@@ -76,7 +76,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
         />
       </div>
       <kpn-analysis-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   styles: `
     .buttons {
@@ -89,7 +89,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   imports: [
     AnalysisSidebarComponent,
     IconButtonComponent,
-    PageComponent,
+    OldPageComponent,
     PageHeaderComponent,
     RouterLink,
   ],

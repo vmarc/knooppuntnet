@@ -18,7 +18,7 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
@@ -29,7 +29,7 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
   selector: 'kpn-subset-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-subset-page-header-block
         pageName="facts"
         pageTitle="Facts"
@@ -69,7 +69,7 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
         </div>
       }
       <kpn-subset-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [SubsetFactsPageService, AnalysisStrategyService, RouterService],
   standalone: true,
@@ -81,7 +81,7 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
     IconHappyComponent,
     ItemComponent,
     ItemsComponent,
-    PageComponent,
+    OldPageComponent,
     RouterLink,
     SituationOnComponent,
     SubsetPageHeaderBlockComponent,

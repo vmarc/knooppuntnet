@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { ServerDiskUsageComponent } from './charts/server-disk-usage.component';
 import { StatusLinksComponent } from './status-links.component';
@@ -15,7 +15,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <kpn-page>
+    <kpn-old-page>
       @if (service.response(); as response) {
         <p>
           <span class="kpn-label">The analysis is up-to-date until</span>
@@ -36,12 +36,12 @@ import { StatusSidebarComponent } from './status-sidebar.component';
         <kpn-server-disk-usage [diskUsage]="response.result.diskUsage" />
       }
       <kpn-status-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [StatusPageService],
   standalone: true,
   imports: [
-    PageComponent,
+    OldPageComponent,
     ServerDiskUsageComponent,
     StatusLinksComponent,
     StatusSidebarComponent,

@@ -3,7 +3,9 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
+import { SidebarFooterComponent } from '@app/components/shared/sidebar';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
@@ -31,8 +33,8 @@ import { LocationFactsPageService } from './location-facts-page.service';
           </kpn-location-response>
         </div>
       }
-      <kpn-location-sidebar sidebar />
     </kpn-page>
+    <kpn-sidebar-footer />
   `,
   providers: [LocationFactsPageService, RouterService],
   standalone: true,
@@ -41,8 +43,8 @@ import { LocationFactsPageService } from './location-facts-page.service';
     LocationFactsComponent,
     LocationPageHeaderComponent,
     LocationResponseComponent,
-    LocationSidebarComponent,
     PageComponent,
+    SidebarFooterComponent,
   ],
 })
 export class LocationFactsPageComponent implements OnInit {

@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { RouteControlComponent } from '@app/ol/components';
@@ -24,7 +24,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-planner-popup />
       <div [id]="service.mapId" class="map" (mouseleave)="service.mouseleave()">
         <kpn-route-control (action)="service.zoomInToRoute()" />
@@ -36,7 +36,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       </div>
       <kpn-planner-toolbar toolbar />
       <kpn-planner-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   styles: `
     .map {
@@ -71,7 +71,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
     GeolocationControlComponent,
     LayerSwitcherComponent,
     MapLinkMenuComponent,
-    PageComponent,
+    OldPageComponent,
     PlannerPopupComponent,
     PlannerSidebarComponent,
     PlannerToolbarComponent,

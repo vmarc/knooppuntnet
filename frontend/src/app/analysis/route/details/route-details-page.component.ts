@@ -9,12 +9,12 @@ import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
 import { PageWidthService } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
-import { PageComponent } from '@app/components/shared/page';
-import { AnalysisSidebarComponent } from '@app/components/shared/sidebar';
+import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { SymbolComponent } from '@app/symbol';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { RouteEndNodesComponent } from './components/route-end-nodes.component';
@@ -123,17 +123,15 @@ import { RouteDetailsPageService } from './route-details-page.service';
           }
         </div>
       }
-      <kpn-analysis-sidebar sidebar />
     </kpn-page>
+    <kpn-sidebar-footer />
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
   providers: [RouteDetailsPageService, RouterService],
   standalone: true,
   imports: [
-    AnalysisSidebarComponent,
     DataComponent,
     FactsComponent,
-    PageComponent,
     RouteEndNodesComponent,
     RouteLocationComponent,
     RouteMembersComponent,
@@ -146,6 +144,8 @@ import { RouteDetailsPageService } from './route-details-page.service';
     SymbolComponent,
     TagTableComponent,
     TimestampComponent,
+    SidebarFooterComponent,
+    PageComponent,
   ],
 })
 export class RouteDetailsPageComponent implements OnInit {

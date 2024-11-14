@@ -46,7 +46,21 @@ import { RouterLink } from '@angular/router';
         <a>Monitor</a>
       </mat-list-item>
     </mat-nav-list>
+    <div class="test-link"><a routerLink="analysis/route/6376622">Route 01-02</a></div>
+    <div class="test-link"><a routerLink="analysis/route/7973533">LAW9 Pierpad</a></div>
+    <div class="test-link">
+      <a routerLink="analysis/hiking/be/België:Oost-Vlaanderen:Aalst/details">Location Aalst</a>
+    </div>
   `,
+  styles: [
+    `
+      .test-link {
+        margin-left: 2em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+      }
+    `,
+  ],
   standalone: true,
   imports: [MatIcon, MatIconButton, MatNavList, MatListItem, RouterLink],
 })

@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
@@ -15,7 +15,7 @@ import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.servi
   selector: 'kpn-subset-orphan-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-subset-page-header-block
         pageName="orphan-routes"
         pageTitle="Free routes"
@@ -39,13 +39,13 @@ import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.servi
         </div>
       }
       <kpn-subset-orphan-routes-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [SubsetOrphanRoutesPageService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
-    PageComponent,
+    OldPageComponent,
     SituationOnComponent,
     SubsetOrphanRoutesSidebarComponent,
     SubsetOrphanRoutesTableComponent,

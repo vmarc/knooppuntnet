@@ -2,10 +2,9 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationSelectionPageBreadcrumbComponent } from './components/location-selection-page-breadcrumb.component';
 import { LocationSelectionPageHeaderComponent } from './components/location-selection-page-header.component';
@@ -18,7 +17,7 @@ import { LocationSelectionPageService } from './location-selection-page.service'
   selector: 'kpn-location-selection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-location-selection-page-breadcrumb [key]="service.key()" />
       <kpn-location-selection-page-header [key]="service.key()" />
       <kpn-error />
@@ -42,7 +41,7 @@ import { LocationSelectionPageService } from './location-selection-page.service'
         }
       }
       <kpn-location-selection-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [LocationSelectionPageService, AnalysisStrategyService, RouterService],
   standalone: true,
@@ -51,10 +50,9 @@ import { LocationSelectionPageService } from './location-selection-page.service'
     LocationSelectionSidebarComponent,
     LocationSelectorComponent,
     LocationTreeComponent,
-    PageComponent,
+    OldPageComponent,
     LocationSelectionPageBreadcrumbComponent,
     LocationSelectionPageHeaderComponent,
-    RouterLink,
   ],
 })
 export class LocationSelectionPageComponent implements OnInit {

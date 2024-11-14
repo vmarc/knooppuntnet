@@ -6,11 +6,10 @@ import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteFormComponent } from '../components/monitor-route-form.component';
-import { MonitorRoutePropertiesComponent } from '../components/monitor-route-properties.component';
 import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
 
 @Component({
@@ -18,7 +17,7 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.state(); as state) {
-      <kpn-page>
+      <kpn-old-page>
         <ul class="breadcrumb">
           <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
           <li>
@@ -45,15 +44,14 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
         />
 
         <kpn-sidebar sidebar />
-      </kpn-page>
+      </kpn-old-page>
     }
   `,
   providers: [MonitorRouteAddPageService, NavService],
   standalone: true,
   imports: [
     ErrorComponent,
-    MonitorRoutePropertiesComponent,
-    PageComponent,
+    OldPageComponent,
     RouterLink,
     SidebarComponent,
     MonitorRouteFormComponent,

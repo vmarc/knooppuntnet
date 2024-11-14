@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../shared/services/router.service';
 import { LogAnalysisChartComponent } from './charts/log/log-analysis-chart.component';
 import { LogAnalysisRobotChartComponent } from './charts/log/log-analysis-robot-chart.component';
@@ -23,7 +23,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
@@ -54,7 +54,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
         </div>
       }
       <kpn-status-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   styles: `
     .chart-group {
@@ -80,7 +80,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
     LogRobotChartComponent,
     LogTileChartComponent,
     LogTileRobotChartComponent,
-    PageComponent,
+    OldPageComponent,
     RouterLink,
     StatusPageMenuComponent,
     StatusSidebarComponent,

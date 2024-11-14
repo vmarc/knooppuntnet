@@ -12,7 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { TimestampUtil } from '@app/components/shared';
 import { NavService } from '@app/components/shared';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Translations } from '@app/i18n';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
@@ -27,7 +27,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (_state(); as state) {
-      <kpn-page>
+      <kpn-old-page>
         <kpn-monitor-route-gpx-breadcrumb
           [groupName]="state.groupName"
           [groupLink]="state.groupLink"
@@ -94,7 +94,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
         }
 
         <kpn-sidebar sidebar />
-      </kpn-page>
+      </kpn-old-page>
     }
   `,
   styles: `
@@ -110,7 +110,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     MatButtonModule,
     MonitorRouteGpxBreadcrumbComponent,
     MonitorRouteGpxReferenceComponent,
-    PageComponent,
+    OldPageComponent,
     ReactiveFormsModule,
     RouterLink,
     SidebarComponent,

@@ -3,11 +3,11 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { PageFilterComponent } from '../../../shared/components/shared/page/page-filter.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
-import { LocationRoutesSidebarComponent } from './components/location-routes-sidebar.component';
+import { LocationRoutesFilterComponent } from './components/location-routes-filter.component';
 import { LocationRoutesComponent } from './components/location-routes.component';
 import { LocationRoutesPageService } from './location-routes-page.service';
 
@@ -15,7 +15,7 @@ import { LocationRoutesPageService } from './location-routes-page.service';
   selector: 'kpn-location-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page-filter>
       <kpn-location-page-header
         pageName="routes"
         pageTitle="Routes"
@@ -31,8 +31,8 @@ import { LocationRoutesPageService } from './location-routes-page.service';
           </kpn-location-response>
         </div>
       }
-      <kpn-location-routes-sidebar sidebar />
-    </kpn-page>
+      <kpn-location-routes-filter filter />
+    </kpn-page-filter>
   `,
   providers: [LocationRoutesPageService, RouterService],
   standalone: true,
@@ -41,8 +41,8 @@ import { LocationRoutesPageService } from './location-routes-page.service';
     LocationPageHeaderComponent,
     LocationResponseComponent,
     LocationRoutesComponent,
-    LocationRoutesSidebarComponent,
-    PageComponent,
+    LocationRoutesFilterComponent,
+    PageFilterComponent,
   ],
 })
 export class LocationRoutesPageComponent implements OnInit {

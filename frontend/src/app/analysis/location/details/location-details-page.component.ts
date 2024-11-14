@@ -3,9 +3,9 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { PageComponent } from '@app/components/shared/page';
+import { SidebarFooterComponent } from '@app/components/shared/sidebar';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
-import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationDetailsComponent } from './components/location-details.component';
 import { LocationDetailsPageService } from './location-details-page.service';
@@ -30,16 +30,16 @@ import { LocationDetailsPageService } from './location-details-page.service';
           }
         </div>
       }
-      <kpn-analysis-sidebar sidebar />
     </kpn-page>
+    <kpn-sidebar-footer />
   `,
   providers: [LocationDetailsPageService, AnalysisStrategyService, RouterService],
   standalone: true,
   imports: [
-    AnalysisSidebarComponent,
     LocationDetailsComponent,
     LocationPageHeaderComponent,
     PageComponent,
+    SidebarFooterComponent,
   ],
 })
 export class LocationDetailsPageComponent implements OnInit {

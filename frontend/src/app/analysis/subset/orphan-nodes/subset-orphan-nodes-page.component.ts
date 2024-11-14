@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
 import { IconHappyComponent } from '@app/components/shared/icon';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
@@ -16,7 +16,7 @@ import { SubsetOrphanNodesPageService } from './subset-orphan-nodes-page.service
   selector: 'kpn-subset-orphan-nodes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-subset-page-header-block
         pageName="orphan-nodes"
         pageTitle="Orphan nodes"
@@ -41,14 +41,14 @@ import { SubsetOrphanNodesPageService } from './subset-orphan-nodes-page.service
         </div>
       }
       <kpn-subset-orphan-nodes-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [SubsetOrphanNodesPageService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
     IconHappyComponent,
-    PageComponent,
+    OldPageComponent,
     SituationOnComponent,
     SubsetOrphanNodesSidebarComponent,
     SubsetOrphanNodesTableComponent,

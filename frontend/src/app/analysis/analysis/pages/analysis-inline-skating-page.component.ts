@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '@app/components/shared/icon';
 import { IconButtonsComponent } from '@app/components/shared/icon';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisStrategyService } from '../../strategy';
@@ -16,7 +16,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   selector: 'kpn-analysis-inline-skating-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -41,7 +41,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
         />
       </kpn-icon-buttons>
       <kpn-analysis-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   standalone: true,
   providers: [AnalysisStrategyService, RouterService],
@@ -50,7 +50,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
     IconButtonComponent,
     IconButtonsComponent,
     MatIconModule,
-    PageComponent,
+    OldPageComponent,
     PageHeaderComponent,
     RouterLink,
   ],

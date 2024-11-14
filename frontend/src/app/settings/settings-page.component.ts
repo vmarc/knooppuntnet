@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { PreferencesService } from '@app/core';
 import { SettingsSidebarComponent } from './settings-sidebar.component';
@@ -12,7 +12,7 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
   selector: 'kpn-settings-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li i18n="@@breadcrumb.settings">Settings</li>
@@ -39,7 +39,7 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
         </p>
       </div>
       <kpn-settings-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   styles: `
     .setting {
@@ -55,7 +55,7 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
   standalone: true,
   imports: [
     MatSlideToggleModule,
-    PageComponent,
+    OldPageComponent,
     PageHeaderComponent,
     RouterLink,
     SettingsSidebarComponent,

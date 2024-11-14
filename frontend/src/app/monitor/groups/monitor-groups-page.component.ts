@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
 import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
@@ -17,7 +17,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
   selector: 'kpn-monitor-groups',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li i18n="@@breadcrumb.monitor">Monitor</li>
@@ -60,7 +60,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
         }
       }
       <kpn-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   styles: `
     .header {
@@ -82,7 +82,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
     MonitorAdminToggleComponent,
     MonitorGroupTableComponent,
     MonitorPageMenuComponent,
-    PageComponent,
+    OldPageComponent,
     RouterLink,
     SidebarComponent,
     PageHeaderComponent,

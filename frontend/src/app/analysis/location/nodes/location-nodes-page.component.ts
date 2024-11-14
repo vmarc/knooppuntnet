@@ -3,11 +3,12 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { SidebarFooterComponent } from '@app/components/shared/sidebar';
+import { PageFilterComponent } from '../../../shared/components/shared/page/page-filter.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
-import { LocationNodesSidebarComponent } from './components/location-nodes-sidebar.component';
+import { LocationNodesFilterComponent } from './components/location-nodes-filter.component';
 import { LocationNodesComponent } from './components/location-nodes.component';
 import { LocationNodesPageService } from './location-nodes-page.service';
 
@@ -15,7 +16,7 @@ import { LocationNodesPageService } from './location-nodes-page.service';
   selector: 'kpn-location-nodes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page-filter>
       <kpn-location-page-header
         pageName="nodes"
         pageTitle="Nodes"
@@ -30,18 +31,20 @@ import { LocationNodesPageService } from './location-nodes-page.service';
           </kpn-location-response>
         </div>
       }
-      <kpn-location-nodes-sidebar sidebar />
-    </kpn-page>
+      <kpn-location-nodes-filter filter />
+    </kpn-page-filter>
+    <kpn-sidebar-footer />
   `,
   providers: [LocationNodesPageService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
     LocationNodesComponent,
-    LocationNodesSidebarComponent,
+    LocationNodesFilterComponent,
     LocationPageHeaderComponent,
     LocationResponseComponent,
-    PageComponent,
+    SidebarFooterComponent,
+    PageFilterComponent,
   ],
 })
 export class LocationNodesPageComponent implements OnInit {

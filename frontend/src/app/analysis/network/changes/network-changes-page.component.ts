@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { ChangesComponent } from '@app/analysis/components/changes';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
@@ -18,7 +18,7 @@ import { NetworkChangesPageService } from './network-changes-page.service';
   selector: 'kpn-network-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-network-page-header
         pageName="changes"
         pageTitle="Changes"
@@ -68,7 +68,7 @@ import { NetworkChangesPageService } from './network-changes-page.service';
         </div>
       }
       <kpn-network-changes-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [NetworkChangesPageService, RouterService],
   standalone: true,
@@ -79,7 +79,7 @@ import { NetworkChangesPageService } from './network-changes-page.service';
     NetworkChangeSetComponent,
     NetworkChangesSidebarComponent,
     NetworkPageHeaderComponent,
-    PageComponent,
+    OldPageComponent,
     SituationOnComponent,
     UserLinkLoginComponent,
   ],

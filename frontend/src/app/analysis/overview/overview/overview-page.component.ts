@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { OverviewPageService } from './overview-page.service';
@@ -17,7 +17,7 @@ import { OverviewTableComponent } from './components/overview-table.component';
   selector: 'kpn-overview-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-overview-page-breadcrumb />
 
       <kpn-page-header subject="overview-in-numbers-page" i18n="@@overview-page.title">
@@ -41,7 +41,7 @@ import { OverviewTableComponent } from './components/overview-table.component';
         </div>
       }
       <kpn-overview-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   standalone: true,
   imports: [
@@ -49,9 +49,8 @@ import { OverviewTableComponent } from './components/overview-table.component';
     OverviewListComponent,
     OverviewSidebarComponent,
     OverviewTableComponent,
-    PageComponent,
+    OldPageComponent,
     PageHeaderComponent,
-    RouterLink,
     SituationOnComponent,
     OverviewPageBreadcrumbComponent,
   ],

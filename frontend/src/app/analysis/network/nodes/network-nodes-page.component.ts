@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../../shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
@@ -14,7 +14,7 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
   selector: 'kpn-network-nodes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-network-page-header
         pageName="nodes"
         pageTitle="Nodes"
@@ -44,7 +44,7 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
         }
       }
       <kpn-network-nodes-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [NetworkNodesPageService, RouterService],
   standalone: true,
@@ -52,7 +52,7 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
     NetworkNodeTableComponent,
     NetworkNodesSidebarComponent,
     NetworkPageHeaderComponent,
-    PageComponent,
+    OldPageComponent,
     SituationOnComponent,
   ],
 })

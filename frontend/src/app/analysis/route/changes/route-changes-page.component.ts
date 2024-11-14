@@ -4,22 +4,23 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ChangesComponent } from '@app/analysis/components/changes';
+import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { PageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { ChangeOption } from '@app/kpn/common';
+import { PageFilterComponent } from '../../../shared/components/shared/page/page-filter.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { RouteChangeComponent } from './components/route-change.component';
-import { RouteChangesSidebarComponent } from './components/route-changes-sidebar.component';
 import { RouteChangesPageService } from './route-changes-page.service';
 
 @Component({
   selector: 'kpn-route-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page-filter>
       <ul class="breadcrumb">
         <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -102,8 +103,12 @@ import { RouteChangesPageService } from './route-changes-page.service';
           }
         </div>
       }
-      <kpn-route-changes-sidebar sidebar />
-    </kpn-page>
+      <kpn-change-filter
+        [filterOptions]="service.filterOptions()"
+        (optionSelected)="onOptionSelected($event)"
+        filter
+      />
+    </kpn-page-filter>
   `,
   providers: [RouteChangesPageService, RouterService],
   standalone: true,
@@ -111,13 +116,13 @@ import { RouteChangesPageService } from './route-changes-page.service';
     ChangesComponent,
     ItemComponent,
     ItemsComponent,
-    PageComponent,
     RouteChangeComponent,
-    RouteChangesSidebarComponent,
     RoutePageHeaderComponent,
     RouterLink,
     SituationOnComponent,
     UserLinkLoginComponent,
+    ChangeFilterComponent,
+    PageFilterComponent,
   ],
 })
 export class RouteChangesPageComponent implements OnInit {
@@ -137,5 +142,9 @@ export class RouteChangesPageComponent implements OnInit {
 
   onPageIndexChange(pageIndex: number): void {
     this.service.updatePageIndex(pageIndex);
+  }
+
+  onOptionSelected(option: ChangeOption): void {
+    this.service.updateFilterOption(option);
   }
 }

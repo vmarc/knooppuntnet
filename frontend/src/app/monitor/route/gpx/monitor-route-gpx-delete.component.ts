@@ -8,10 +8,8 @@ import { NavService } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
 import { TimestampDayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
-import { DayPipe } from '@app/components/shared/format';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
-import { RouteSummaryComponent } from '@app/analysis/route';
 import { Translations } from '@app/i18n';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorRouteFormErrorsComponent } from '../components/monitor-route-form-errors.component';
@@ -24,7 +22,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (_state(); as state) {
-      <kpn-page>
+      <kpn-old-page>
         <kpn-monitor-route-gpx-breadcrumb
           [groupName]="state.groupName"
           [groupLink]="state.groupLink"
@@ -84,7 +82,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
         }
 
         <kpn-sidebar sidebar />
-      </kpn-page>
+      </kpn-old-page>
     }
   `,
   styles: `
@@ -102,12 +100,10 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   standalone: true,
   imports: [
     DataComponent,
-    DayPipe,
     DistancePipe,
     MatButtonModule,
     MonitorRouteGpxBreadcrumbComponent,
-    PageComponent,
-    RouteSummaryComponent,
+    OldPageComponent,
     RouterLink,
     SidebarComponent,
     TimestampDayPipe,

@@ -9,7 +9,7 @@ import { FactsComponent } from '@app/analysis/fact';
 import { NetworkTypeIconComponent } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
@@ -27,7 +27,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
   selector: 'kpn-node-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -122,7 +122,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
         </div>
       }
       <kpn-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
   providers: [NodeDetailsPageService, RouterService],
@@ -138,7 +138,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
     NodePageHeaderComponent,
     NodeRouteReferencesComponent,
     NodeSummaryComponent,
-    PageComponent,
+    OldPageComponent,
     RouterLink,
     TagTableComponent,
     TimestampComponent,

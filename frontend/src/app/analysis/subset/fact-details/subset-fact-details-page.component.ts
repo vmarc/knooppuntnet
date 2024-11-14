@@ -12,7 +12,7 @@ import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
@@ -24,7 +24,7 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
   selector: 'kpn-subset-fact-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-subset-page-header-block
         pageName="facts"
         pageTitle="Facts"
@@ -57,7 +57,7 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
         </div>
       }
       <kpn-subset-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   styleUrl: './subset-fact-details-page.component.scss',
   providers: [SubsetFactDetailsPageService, AnalysisStrategyService, RouterService],
@@ -70,7 +70,7 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
     MatCardContent,
     MatCardHeader,
     MatCardTitle,
-    PageComponent,
+    OldPageComponent,
     SubsetFactDetailsComponent,
     SubsetFactDetailsSummaryComponent,
     SubsetPageHeaderBlockComponent,

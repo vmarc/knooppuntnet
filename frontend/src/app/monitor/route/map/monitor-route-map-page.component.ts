@@ -4,8 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MonitorRouteMapPage } from '@api/common/monitor';
 import { NavService } from '@app/components/shared';
-import { PageComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
+import { OldPageComponent } from '@app/components/shared/page';
 import { EditGotoService } from '../../../analysis/components/edit/edit-goto.service';
 import { RouterService } from '../../../shared/services/router.service';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
@@ -20,7 +19,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.state(); as state) {
-      <kpn-page [showFooter]="false">
+      <kpn-old-page [showFooter]="false">
         <kpn-monitor-route-page-header
           pageName="map"
           [groupName]="state.groupName"
@@ -42,7 +41,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
         }
 
         <kpn-monitor-route-map-sidebar sidebar />
-      </kpn-page>
+      </kpn-old-page>
     }
   `,
   providers: [
@@ -57,8 +56,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
     MonitorRouteMapComponent,
     MonitorRouteMapSidebarComponent,
     MonitorRoutePageHeaderComponent,
-    PageComponent,
-    SidebarComponent,
+    OldPageComponent,
   ],
 })
 export class MonitorRouteMapPageComponent {

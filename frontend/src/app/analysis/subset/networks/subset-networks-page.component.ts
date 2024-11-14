@@ -6,7 +6,7 @@ import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { PageWidthService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { IntegerFormatPipe } from '@app/components/shared/format';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { MarkdownModule } from 'ngx-markdown';
 import { RouterService } from '../../../shared/services/router.service';
@@ -20,7 +20,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
   selector: 'kpn-subset-networks-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <kpn-subset-page-header-block
         pageName="networks"
         pageTitle="Networks"
@@ -54,7 +54,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
         </div>
       }
       <kpn-subset-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [SubsetNetworksPageService, AnalysisStrategyService, RouterService],
   standalone: true,
@@ -62,7 +62,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
     ErrorComponent,
     IntegerFormatPipe,
     MarkdownModule,
-    PageComponent,
+    OldPageComponent,
     SituationOnComponent,
     SubsetNetworkListComponent,
     SubsetNetworkTableComponent,

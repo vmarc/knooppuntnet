@@ -10,7 +10,7 @@ import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { RouterService } from '../../shared/services/router.service';
@@ -22,7 +22,7 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
   selector: 'kpn-changes-page',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -80,7 +80,7 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
         </div>
       }
       <kpn-changes-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [ChangesPageService, AnalysisStrategyService, RouterService],
   standalone: true,
@@ -92,7 +92,7 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
     ErrorComponent,
     ItemComponent,
     ItemsComponent,
-    PageComponent,
+    OldPageComponent,
     PageHeaderComponent,
     RouterLink,
     SituationOnComponent,

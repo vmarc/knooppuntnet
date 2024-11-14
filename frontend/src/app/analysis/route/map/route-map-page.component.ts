@@ -3,8 +3,8 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PageComponent } from '@app/components/shared/page';
 import { AnalysisSidebarComponent } from '@app/components/shared/sidebar';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { RouteMapComponent } from './components/route-map.component';
@@ -15,7 +15,7 @@ import { RouteMapPageService } from './route-map-page.service';
   selector: 'kpn-route-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page [showFooter]="false">
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -40,10 +40,10 @@ import { RouteMapPageService } from './route-map-page.service';
   standalone: true,
   imports: [
     AnalysisSidebarComponent,
-    PageComponent,
     RouteMapComponent,
     RoutePageHeaderComponent,
     RouterLink,
+    PageComponent,
   ],
 })
 export class RouteMapPageComponent implements OnInit {

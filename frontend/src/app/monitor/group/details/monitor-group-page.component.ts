@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
 import { MonitorTranslations } from '../../components/monitor-translations';
@@ -18,7 +18,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
   selector: 'kpn-monitor-group-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -66,7 +66,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
         }
       }
       <kpn-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [NavService, MonitorGroupPageService],
   standalone: true,
@@ -75,7 +75,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
     MonitorAdminToggleComponent,
     MonitorGroupPageMenuComponent,
     MonitorGroupRouteTableComponent,
-    PageComponent,
+    OldPageComponent,
     RouterLink,
     SidebarComponent,
     PageHeaderComponent,

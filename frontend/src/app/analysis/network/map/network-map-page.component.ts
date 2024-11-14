@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkMapSidebarComponent } from './components/network-map-sidebar.component';
@@ -14,7 +14,7 @@ import { NetworkMapPageService } from './network-map-page.service';
   selector: 'kpn-network-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page [showFooter]="false">
+    <kpn-old-page [showFooter]="false">
       <kpn-network-page-header
         pageName="map"
         pageTitle="Map"
@@ -33,7 +33,7 @@ import { NetworkMapPageService } from './network-map-page.service';
         </div>
       }
       <kpn-network-map-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [NetworkMapService, NetworkMapPageService, RouterService],
   standalone: true,
@@ -41,7 +41,7 @@ import { NetworkMapPageService } from './network-map-page.service';
     NetworkMapComponent,
     NetworkMapSidebarComponent,
     NetworkPageHeaderComponent,
-    PageComponent,
+    OldPageComponent,
   ],
 })
 export class NetworkMapPageComponent implements OnInit {

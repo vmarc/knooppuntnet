@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../shared/services/router.service';
 import { DataSizeChartComponent } from './charts/system/data-size-chart.component';
 import { DiskSizeChartComponent } from './charts/system/disk-size-chart.component';
@@ -22,7 +22,7 @@ import { SystemStatusPageService } from './system-status-page.service';
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
@@ -86,7 +86,7 @@ import { SystemStatusPageService } from './system-status-page.service';
         </div>
       }
       <kpn-status-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   styles: `
     .chart-group {
@@ -111,7 +111,7 @@ import { SystemStatusPageService } from './system-status-page.service';
     DiskSpaceOverpassChartComponent,
     DiskSpaceUsedChartComponent,
     DocsChartComponent,
-    PageComponent,
+    OldPageComponent,
     RouterLink,
     StatusPageMenuComponent,
     StatusSidebarComponent,

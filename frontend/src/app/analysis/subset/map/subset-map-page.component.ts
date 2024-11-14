@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
@@ -17,7 +17,7 @@ import { SubsetMapService } from './subset-map.service';
   selector: 'kpn-subset-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page [showFooter]="false">
+    <kpn-old-page [showFooter]="false">
       <kpn-subset-page-header-block
         pageName="map"
         pageTitle="Map"
@@ -30,13 +30,13 @@ import { SubsetMapService } from './subset-map.service';
         <kpn-subset-map />
       }
       <kpn-subset-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [SubsetMapService, SubsetMapPageService, AnalysisStrategyService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
-    PageComponent,
+    OldPageComponent,
     SubsetMapComponent,
     SubsetPageHeaderBlockComponent,
     SubsetSidebarComponent,

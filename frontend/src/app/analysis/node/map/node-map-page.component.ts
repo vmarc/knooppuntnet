@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { RouterService } from '../../../shared/services/router.service';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { NodeDetailsSidebarComponent } from '../details/components/node-details-sidebar.component';
@@ -16,7 +16,7 @@ import { NodeMapPageService } from './node-map-page.service';
   selector: 'kpn-node-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page [showFooter]="false">
+    <kpn-old-page [showFooter]="false">
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -39,7 +39,7 @@ import { NodeMapPageService } from './node-map-page.service';
         </div>
       }
       <kpn-node-details-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   providers: [NodeMapPageService, NodeMapService, RouterService],
   standalone: true,
@@ -48,7 +48,7 @@ import { NodeMapPageService } from './node-map-page.service';
     NodeDetailsSidebarComponent,
     NodeMapComponent,
     NodePageHeaderComponent,
-    PageComponent,
+    OldPageComponent,
     RouterLink,
   ],
 })

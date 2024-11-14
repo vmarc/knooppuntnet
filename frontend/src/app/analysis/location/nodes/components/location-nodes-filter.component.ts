@@ -6,70 +6,62 @@ import { SurveyParameter } from '@api/common/location';
 import { BooleanParameter } from '@api/common/location/boolean-parameter';
 import { LastUpdatedParameter } from '@api/common/location/last-updated-parameter';
 import { Fact } from '@api/custom';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { LocationFilterFactComponent } from '../../components/filter/location-filter-fact';
 import { LocationFilterGroupComponent } from '../../components/filter/location-filter-group';
 import { LocationNodesPageService } from '../location-nodes-page.service';
 
 @Component({
-  selector: 'kpn-location-nodes-sidebar',
+  selector: 'kpn-location-nodes-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-sidebar>
-      @if (store.response(); as response) {
-        <kpn-location-filter-group
-          title="integrityCheck"
-          [filterGroup]="response.result.filter.integrityCheck"
-          (changed)="integrityCheckChanged($event)"
-        />
+    @if (store.response(); as response) {
+      <kpn-location-filter-group
+        title="integrityCheck"
+        [filterGroup]="response.result.filter.integrityCheck"
+        (changed)="integrityCheckChanged($event)"
+      />
 
-        <kpn-location-filter-group
-          title="integrityCheckFailed"
-          [filterGroup]="response.result.filter.integrityCheckFailed"
-          (changed)="integrityCheckFailedChanged($event)"
-        />
+      <kpn-location-filter-group
+        title="integrityCheckFailed"
+        [filterGroup]="response.result.filter.integrityCheckFailed"
+        (changed)="integrityCheckFailedChanged($event)"
+      />
 
-        <kpn-location-filter-fact
-          title="fact"
-          [filterGroup]="response.result.filter.fact"
-          (changed)="factChanged($event)"
-        />
+      <kpn-location-filter-fact
+        title="fact"
+        [filterGroup]="response.result.filter.fact"
+        (changed)="factChanged($event)"
+      />
 
-        <kpn-location-filter-group
-          title="referencedInRoute"
-          [filterGroup]="response.result.filter.referencedInRoutes"
-          (changed)="referencedInRoutesChanged($event)"
-        />
+      <kpn-location-filter-group
+        title="referencedInRoute"
+        [filterGroup]="response.result.filter.referencedInRoutes"
+        (changed)="referencedInRoutesChanged($event)"
+      />
 
-        <kpn-location-filter-group
-          title="survey"
-          [filterGroup]="response.result.filter.survey"
-          (changed)="surveyChanged($event)"
-        />
+      <kpn-location-filter-group
+        title="survey"
+        [filterGroup]="response.result.filter.survey"
+        (changed)="surveyChanged($event)"
+      />
 
-        <kpn-location-filter-group
-          title="lastUpdated"
-          [filterGroup]="response.result.filter.lastUpdated"
-          (changed)="lastUpdatedChanged($event)"
-        />
+      <kpn-location-filter-group
+        title="lastUpdated"
+        [filterGroup]="response.result.filter.lastUpdated"
+        (changed)="lastUpdatedChanged($event)"
+      />
 
-        <kpn-location-filter-group
-          title="proposed"
-          [filterGroup]="response.result.filter.proposed"
-          (changed)="proposedChanged($event)"
-        />
-      }
-    </kpn-sidebar>
+      <kpn-location-filter-group
+        title="proposed"
+        [filterGroup]="response.result.filter.proposed"
+        (changed)="proposedChanged($event)"
+      />
+    }
   `,
   standalone: true,
-  imports: [
-    LocationFilterFactComponent,
-    LocationFilterGroupComponent,
-    MatRadioModule,
-    SidebarComponent,
-  ],
+  imports: [LocationFilterFactComponent, LocationFilterGroupComponent, MatRadioModule],
 })
-export class LocationNodesSidebarComponent {
+export class LocationNodesFilterComponent {
   protected readonly store = inject(LocationNodesPageService);
 
   integrityCheckChanged(integrityCheck: string): void {

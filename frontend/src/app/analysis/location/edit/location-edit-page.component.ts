@@ -3,12 +3,12 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { SidebarFooterComponent } from '@app/components/shared/sidebar';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
-import { LocationSidebarComponent } from '../location-sidebar.component';
 import { LocationEditComponent } from './components/location-edit.component';
 import { LocationEditPageService } from './location-edit-page.service';
 
@@ -53,8 +53,8 @@ import { LocationEditPageService } from './location-edit-page.service';
           </p>
         }
       }
-      <kpn-location-sidebar sidebar />
     </kpn-page>
+    <kpn-sidebar-footer />
   `,
   styles: `
     .too-many-nodes {
@@ -73,8 +73,8 @@ import { LocationEditPageService } from './location-edit-page.service';
     LocationEditComponent,
     LocationPageHeaderComponent,
     LocationResponseComponent,
-    LocationSidebarComponent,
     PageComponent,
+    SidebarFooterComponent,
   ],
 })
 export class LocationEditPageComponent implements OnInit {

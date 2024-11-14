@@ -2,12 +2,13 @@ import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { ErrorComponent } from '@app/components/shared/error';
-import { PageComponent } from '@app/components/shared/page';
+import { ChangeOption } from '@app/kpn/common';
+import { PageFilterComponent } from '../../../shared/components/shared/page/page-filter.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
-import { LocationChangesSidebarComponent } from './components/location-changes-sidebar.component';
 import { LocationChangesComponent } from './components/location-changes.component';
 import { LocationChangesPageService } from './location-changes-page.service';
 
@@ -15,7 +16,7 @@ import { LocationChangesPageService } from './location-changes-page.service';
   selector: 'kpn-location-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-page-filter>
       <kpn-location-page-header
         pageName="changes"
         pageTitle="Changes"
@@ -31,18 +32,22 @@ import { LocationChangesPageService } from './location-changes-page.service';
           </kpn-location-response>
         </div>
       }
-      <kpn-location-changes-sidebar sidebar />
-    </kpn-page>
+      <kpn-change-filter
+        [filterOptions]="service.filterOptions()"
+        (optionSelected)="onOptionSelected($event)"
+        filter
+      />
+    </kpn-page-filter>
   `,
   providers: [LocationChangesPageService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
     LocationChangesComponent,
-    LocationChangesSidebarComponent,
     LocationPageHeaderComponent,
     LocationResponseComponent,
-    PageComponent,
+    PageFilterComponent,
+    ChangeFilterComponent,
   ],
 })
 export class LocationChangesPageComponent implements OnInit {
@@ -50,5 +55,9 @@ export class LocationChangesPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.onInit();
+  }
+
+  onOptionSelected(option: ChangeOption): void {
+    this.service.setFilterOption(option);
   }
 }

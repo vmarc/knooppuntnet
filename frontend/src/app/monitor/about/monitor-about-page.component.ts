@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { PageComponent } from '@app/components/shared/page';
+import { OldPageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
 
@@ -10,7 +10,7 @@ import { MonitorPageMenuComponent } from '../components/monitor-page-menu.compon
   selector: 'kpn-monitor-about',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page>
+    <kpn-old-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -32,12 +32,12 @@ import { MonitorPageMenuComponent } from '../components/monitor-page-menu.compon
         </p>
       </div>
       <kpn-sidebar sidebar />
-    </kpn-page>
+    </kpn-old-page>
   `,
   standalone: true,
   imports: [
     MonitorPageMenuComponent,
-    PageComponent,
+    OldPageComponent,
     RouterLink,
     SidebarComponent,
     PageHeaderComponent,
