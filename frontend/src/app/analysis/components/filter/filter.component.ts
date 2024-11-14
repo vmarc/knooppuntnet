@@ -10,7 +10,9 @@ import { FilterTitleComponent } from './filter-title.component';
   selector: 'kpn-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @if (!filterOptions().isEmpty()) {
+    @if (filterOptions().isEmpty()) {
+      <p style="margin: 2em">No filter options</p>
+    } @else {
       <div class="filter">
         <kpn-filter-title [filterOptions]="filterOptions()" />
         @for (group of filterOptions().groups; track $index) {

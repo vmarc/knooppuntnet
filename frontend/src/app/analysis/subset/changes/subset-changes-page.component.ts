@@ -5,22 +5,28 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangesComponent } from '@app/analysis/components/changes';
+import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { ErrorComponent } from '@app/components/shared/error';
 import { ItemsComponent } from '@app/components/shared/items';
 import { ItemComponent } from '@app/components/shared/items';
-import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { ChangeOption } from '@app/kpn/common';
+import { PageFilterComponent } from '../../../shared/components/shared/page/page-filter.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { SubsetChangesSidebarComponent } from './components/subset-changes-sidebar.component';
 import { SubsetChangesPageService } from './subset-changes-page.service';
 
 @Component({
   selector: 'kpn-subset-changes-page',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <kpn-old-page>
+    <kpn-page-filter>
+      <kpn-change-filter
+        [filterOptions]="filterOptions()"
+        (optionSelected)="onOptionSelected($event)"
+        filter
+      />
       <kpn-subset-page-header-block
         pageName="changes"
         pageTitle="Changes"
@@ -69,27 +75,27 @@ import { SubsetChangesPageService } from './subset-changes-page.service';
           }
         </div>
       }
-      <kpn-subset-changes-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page-filter>
   `,
   providers: [SubsetChangesPageService, RouterService],
   standalone: true,
   imports: [
+    ChangeFilterComponent,
     ChangeLocationAnalysisSummaryComponent,
     ChangeNetworkAnalysisSummaryComponent,
     ChangesComponent,
     ErrorComponent,
     ItemComponent,
     ItemsComponent,
-    OldPageComponent,
+    PageFilterComponent,
     SituationOnComponent,
-    SubsetChangesSidebarComponent,
     SubsetPageHeaderBlockComponent,
     UserLinkLoginComponent,
   ],
 })
 export class SubsetChangesPageComponent implements OnInit {
   protected readonly service = inject(SubsetChangesPageService);
+  protected readonly filterOptions = this.service.filterOptions;
 
   ngOnInit(): void {
     this.service.onInit();
@@ -105,5 +111,9 @@ export class SubsetChangesPageComponent implements OnInit {
 
   onPageIndexChange(pageIndex: number): void {
     this.service.setPageIndex(pageIndex);
+  }
+
+  onOptionSelected(option: ChangeOption): void {
+    this.service.setFilterOption(option);
   }
 }

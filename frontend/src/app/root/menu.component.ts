@@ -46,16 +46,26 @@ import { RouterLink } from '@angular/router';
         <a>Monitor</a>
       </mat-list-item>
     </mat-nav-list>
-    <div class="test-link"><a routerLink="analysis/route/6376622">Route 01-02</a></div>
-    <div class="test-link"><a routerLink="analysis/route/7973533">LAW9 Pierpad</a></div>
-    <div class="test-link">
-      <a routerLink="analysis/hiking/be/België:Oost-Vlaanderen:Aalst/details">Location Aalst</a>
-    </div>
+
+    <ul>
+      <li>
+        <a routerLink="analysis/route/6376622">Route 01-02</a>
+      </li>
+      <li>
+        <a routerLink="analysis/route/7973533">LAW9 Pierpad</a>
+      </li>
+      <li>
+        <a routerLink="analysis/hiking/be/België:Oost-Vlaanderen:Aalst/details">Location Aalst</a>
+      </li>
+      <li>
+        <a routerLink="analysis/hiking/be/networks">Subset Belgium</a>
+      </li>
+    </ul>
   `,
   styles: [
     `
-      .test-link {
-        margin-left: 2em;
+      li {
+        margin-left: 0.5em;
         margin-top: 1em;
         margin-bottom: 1em;
       }

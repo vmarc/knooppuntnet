@@ -2,13 +2,13 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FilterComponent } from '@app/analysis/components/filter';
 import { ErrorComponent } from '@app/components/shared/error';
 import { IconHappyComponent } from '@app/components/shared/icon';
-import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { PageFilterComponent } from '../../../shared/components/shared/page/page-filter.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { SubsetOrphanNodesSidebarComponent } from './components/subset-orphan-nodes-sidebar.component';
 import { SubsetOrphanNodesTableComponent } from './components/subset-orphan-nodes-table.component';
 import { SubsetOrphanNodesPageService } from './subset-orphan-nodes-page.service';
 
@@ -16,7 +16,7 @@ import { SubsetOrphanNodesPageService } from './subset-orphan-nodes-page.service
   selector: 'kpn-subset-orphan-nodes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page-filter>
       <kpn-subset-page-header-block
         pageName="orphan-nodes"
         pageTitle="Orphan nodes"
@@ -40,23 +40,24 @@ import { SubsetOrphanNodesPageService } from './subset-orphan-nodes-page.service
           }
         </div>
       }
-      <kpn-subset-orphan-nodes-sidebar sidebar />
-    </kpn-old-page>
+      <kpn-filter [filterOptions]="filterOptions()" filter />
+    </kpn-page-filter>
   `,
   providers: [SubsetOrphanNodesPageService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
+    FilterComponent,
     IconHappyComponent,
-    OldPageComponent,
+    PageFilterComponent,
     SituationOnComponent,
-    SubsetOrphanNodesSidebarComponent,
     SubsetOrphanNodesTableComponent,
     SubsetPageHeaderBlockComponent,
   ],
 })
 export class SubsetOrphanNodesPageComponent implements OnInit {
   protected readonly service = inject(SubsetOrphanNodesPageService);
+  protected readonly filterOptions = this.service.filterOptions;
 
   ngOnInit(): void {
     this.service.onInit();

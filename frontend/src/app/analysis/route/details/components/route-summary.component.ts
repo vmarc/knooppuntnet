@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { RouteDetailsPageData } from '@api/common/route';
 import { CountryNameComponent } from '@app/components/shared';
 import { IntegerFormatPipe } from '@app/components/shared/format';
+import { SymbolComponent } from '@app/symbol';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
+import { RouteLocationComponent } from './route-location.component';
 
 @Component({
   selector: 'kpn-route-summary',
@@ -21,6 +24,25 @@ import { ActionButtonRouteComponent } from '../../../components/action/action-bu
             <kpn-country-name [country]="country" />
           }
         </p>
+      }
+
+      <div class="kpn-align-center">
+        <span>{{ route().summary.id }}</span>
+        <kpn-action-button-route [relationId]="route().summary.id" />
+      </div>
+
+      <kpn-route-location
+        [networkType]="route().summary.networkType"
+        [locationCandidateInfos]="route().locationCandidateInfos"
+      />
+      @if (hasSymbol()) {
+        <kpn-symbol [description]="symbolDescription()" />
+      }
+
+      @if (hasAdditionalInformation()) {
+        <div class="kpn-small-spacer-above kpn-small-spacer-below">
+          <mat-divider />
+        </div>
       }
 
       @if (isRouteBroken()) {
@@ -62,19 +84,17 @@ import { ActionButtonRouteComponent } from '../../../components/action/action-bu
         </p>
       }
     </div>
-
-    <div class="kpn-align-center">
-      <span>{{ route().summary.id }}</span>
-      <kpn-action-button-route [relationId]="route().summary.id" />
-    </div>
   `,
   standalone: true,
   imports: [
+    ActionButtonRouteComponent,
     CountryNameComponent,
     IntegerFormatPipe,
     MarkdownModule,
+    MatDivider,
     MatIconModule,
-    ActionButtonRouteComponent,
+    RouteLocationComponent,
+    SymbolComponent,
   ],
 })
 export class RouteSummaryComponent {
@@ -95,5 +115,27 @@ export class RouteSummaryComponent {
 
   isRouteNameDerivedFromNodes(): boolean {
     return this.route()?.nameDerivedFromNodes === true;
+  }
+
+  hasAdditionalInformation(): boolean {
+    return (
+      this.isRouteBroken() ||
+      this.isRouteIncomplete() ||
+      !this.route().active ||
+      this.isProposed() ||
+      this.isRouteNameDerivedFromNodes()
+    );
+  }
+
+  hasSymbol(): boolean {
+    return !!this.symbolDescription();
+  }
+
+  symbolDescription(): string {
+    const symbolTag = this.route().summary.tags.find((tag) => tag.key === 'osmc:symbol');
+    if (symbolTag) {
+      return symbolTag.value;
+    }
+    return undefined;
   }
 }

@@ -3,6 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { MatDivider } from '@angular/material/divider';
 import { RouterLink } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route';
 import { FactInfo } from '@app/analysis/fact';
@@ -13,12 +14,10 @@ import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
-import { SymbolComponent } from '@app/symbol';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { RouteEndNodesComponent } from './components/route-end-nodes.component';
-import { RouteLocationComponent } from './components/route-location.component';
 import { RouteMembersComponent } from './components/route-members.component';
 import { RouteNetworkReferencesComponent } from './components/route-network-references.component';
 import { RouteRedundantNodesComponent } from './components/route-redundant-nodes.component';
@@ -48,14 +47,10 @@ import { RouteDetailsPageService } from './route-details-page.service';
           }
           @if (response.result; as page) {
             <div>
-              <kpn-data title="Summary" i18n-title="@@route.summary">
-                <kpn-route-summary [route]="page.route" />
-              </kpn-data>
-              @if (hasSymbol(page)) {
-                <kpn-data title="Symbol" i18n-title="@@route.symbol">
-                  <kpn-symbol [description]="symbolDescription(page)" />
-                </kpn-data>
-              }
+              <kpn-route-summary [route]="page.route" />
+              <div class="kpn-small-spacer-above kpn-small-spacer-below">
+                <mat-divider />
+              </div>
               <div class="data2">
                 <div class="title">
                   <span i18n="@@route.situation-on">Situation on</span>
@@ -99,19 +94,22 @@ import { RouteDetailsPageService } from './route-details-page.service';
                   {{ page.route.summary.wayCount }}
                 </kpn-data>
               </div>
-              <kpn-data title="Tags" i18n-title="@@route.tags">
-                <kpn-tag-table [tags]="routeTags(page)" />
-              </kpn-data>
-              <kpn-data title="Location" i18n-title="@@route.location">
-                <kpn-route-location
-                  [networkType]="page.route.summary.networkType"
-                  [locationCandidateInfos]="page.route.locationCandidateInfos"
-                />
-              </kpn-data>
-              <kpn-data title="Facts" i18n-title="@@route.facts">
-                <kpn-facts [factInfos]="factInfos(page)" />
-              </kpn-data>
+
+              <div class="kpn-small-spacer-above kpn-small-spacer-below">
+                <mat-divider />
+              </div>
+              <p i18n-title="@@route.tags">Tags</p>
+              <kpn-tag-table [tags]="routeTags(page)" />
+
+              <div class="kpn-small-spacer-above kpn-small-spacer-below">
+                <mat-divider />
+              </div>
+
+              <kpn-facts [factInfos]="factInfos(page)" />
               @if (showRouteDetails()) {
+                <div class="kpn-small-spacer-above kpn-small-spacer-below">
+                  <mat-divider />
+                </div>
                 <div>
                   <kpn-route-members
                     [networkType]="page.route.summary.networkType"
@@ -132,8 +130,9 @@ import { RouteDetailsPageService } from './route-details-page.service';
   imports: [
     DataComponent,
     FactsComponent,
+    MatDivider,
+    PageComponent,
     RouteEndNodesComponent,
-    RouteLocationComponent,
     RouteMembersComponent,
     RouteNetworkReferencesComponent,
     RoutePageHeaderComponent,
@@ -141,11 +140,9 @@ import { RouteDetailsPageService } from './route-details-page.service';
     RouteStartNodesComponent,
     RouteSummaryComponent,
     RouterLink,
-    SymbolComponent,
+    SidebarFooterComponent,
     TagTableComponent,
     TimestampComponent,
-    SidebarFooterComponent,
-    PageComponent,
   ],
 })
 export class RouteDetailsPageComponent implements OnInit {
@@ -181,17 +178,5 @@ export class RouteDetailsPageComponent implements OnInit {
       }
       return new FactInfo(fact);
     });
-  }
-
-  hasSymbol(page: RouteDetailsPage): boolean {
-    return !!this.symbolDescription(page);
-  }
-
-  symbolDescription(page: RouteDetailsPage): string {
-    const symbolTag = page.route.summary.tags.find((tag) => tag.key === 'osmc:symbol');
-    if (symbolTag) {
-      return symbolTag.value;
-    }
-    return undefined;
   }
 }

@@ -16,6 +16,7 @@ import { Facts } from './facts';
   selector: 'kpn-facts',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <p i18n-title="@@route.facts">Facts</p>
     @for (factInfo of filteredFactInfos; track $index) {
       <div class="fact">
         <div>

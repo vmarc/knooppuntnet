@@ -14,7 +14,7 @@ import { LinkImageComponent } from './link-image.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <h4 i18n="@@route.members.title">Route Members</h4>
+      <p i18n="@@route.members.title">Route members</p>
       @if (members().length === 0) {
         <div>
           <span i18n="@@route.members.none">None</span>

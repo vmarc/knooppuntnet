@@ -2,12 +2,12 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FilterComponent } from '@app/analysis/components/filter';
 import { ErrorComponent } from '@app/components/shared/error';
-import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { PageFilterComponent } from '../../../shared/components/shared/page/page-filter.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { SubsetOrphanRoutesSidebarComponent } from './components/subset-orphan-routes-sidebar.component';
 import { SubsetOrphanRoutesTableComponent } from './components/subset-orphan-routes-table.component';
 import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.service';
 
@@ -15,7 +15,9 @@ import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.servi
   selector: 'kpn-subset-orphan-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page-filter>
+      <kpn-filter [filterOptions]="filterOptions()" filter />
+
       <kpn-subset-page-header-block
         pageName="orphan-routes"
         pageTitle="Free routes"
@@ -38,22 +40,22 @@ import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.servi
           }
         </div>
       }
-      <kpn-subset-orphan-routes-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page-filter>
   `,
   providers: [SubsetOrphanRoutesPageService, RouterService],
   standalone: true,
   imports: [
     ErrorComponent,
-    OldPageComponent,
+    FilterComponent,
+    PageFilterComponent,
     SituationOnComponent,
-    SubsetOrphanRoutesSidebarComponent,
     SubsetOrphanRoutesTableComponent,
     SubsetPageHeaderBlockComponent,
   ],
 })
 export class SubsetOrphanRoutesPageComponent implements OnInit {
   protected readonly service = inject(SubsetOrphanRoutesPageService);
+  protected readonly filterOptions = this.service.filterOptions;
 
   ngOnInit(): void {
     this.service.onInit();
