@@ -5,9 +5,9 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AngularSplitModule } from 'angular-split';
+import { MapComponent } from '../map/map.component';
 import { RootService } from './root.service';
 import { ToolbarComponent } from './toolbar.component';
-import { MapComponent } from './tryout/map.component';
 
 @Component({
   selector: 'kpn-root',
@@ -71,7 +71,14 @@ import { MapComponent } from './tryout/map.component';
     }
   `,
   standalone: true,
-  imports: [AngularSplitModule, NgTemplateOutlet, ToolbarComponent, NgClass, MapComponent],
+  imports: [
+    AngularSplitModule,
+    NgTemplateOutlet,
+    ToolbarComponent,
+    NgClass,
+    MapComponent,
+    MapComponent,
+  ],
 })
 export class RootPageComponent {
   private readonly rootService = inject(RootService);

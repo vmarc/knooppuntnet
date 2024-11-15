@@ -16,6 +16,7 @@ export class IconService {
   registerIcons() {
     const resolver: IconResolver = (name) =>
       this.domSanitizer.bypassSecurityTrustResourceUrl(`/assets/images/icons/${name}.svg`);
+    this.iconRegistry.setDefaultFontSetClass('material-symbols-outlined');
     this.iconRegistry.addSvgIconResolver(resolver);
   }
 }
