@@ -66,8 +66,9 @@
               "src/manifest.json"
             ],
             "styles": [
-              "src/styles.scss",
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/theme.scss",
+              "src/styles.scss",
               "node_modules/ol/ol.css",
               "node_modules/ol-geocoder/dist/ol-geocoder.css"
             ],

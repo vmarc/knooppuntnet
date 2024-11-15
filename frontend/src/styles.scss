@@ -153,14 +153,6 @@ table.kpn-bordered-table {
   }
 }
 
-.mat-mdc-list .mat-mdc-list-item {
-  height: 32px;
-}
-
-.mat-mdc-outlined-button:not([disabled]) {
-  background-color: white;
-}
-
 .kpn-line {
   display: flex;
   justify-content: flex-start;
@@ -586,21 +578,8 @@ markdown > p > em:after {
   pointer-events: auto;
 }
 
-// knooppuntnet specifics after Angular 15 update:
-.mdc-form-field {
-  height: 28px;
-}
-
 .poi-config .mat-mdc-radio-button .mdc-radio [aria-disabled=true] .mdc-radio__native-control:not(:checked) + .mdc-radio__background .mdc-radio__outer-circle, .mat-mdc-radio-button .mdc-radio .mdc-radio__native-control:disabled:not(:checked) + .mdc-radio__background .mdc-radio__outer-circle {
   opacity: 0.1 !important;
-}
-
-.mat-drawer-container {
-  background-color: white;
-}
-
-.mat-mdc-form-field:not(.mat-form-field-no-animations) .mdc-text-field {
-  background-color: white;
 }
 
 .mdc-dialog__actions {
