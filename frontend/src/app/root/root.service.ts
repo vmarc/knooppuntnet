@@ -2,6 +2,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { NetworkType } from '@api/custom';
 import { merge } from 'rxjs';
 
 @Injectable({
@@ -17,6 +18,9 @@ export class RootService {
   private readonly _activePanel = signal<string>('map');
   readonly activePanel = this._activePanel.asReadonly();
 
+  private readonly _networkType = signal<NetworkType>(NetworkType.hiking);
+  readonly networkType = this._networkType.asReadonly();
+
   constructor() {
     const smallMediaQuery = `(max-width: ${this.smallMaxWidth}px)`;
     const breakpointState$ = merge(this.breakpointObserver.observe(smallMediaQuery));
@@ -28,5 +32,9 @@ export class RootService {
 
   setShowTextPanel(value: string): void {
     this._activePanel.set(value);
+  }
+
+  updateNetworkType(networkType: NetworkType): void {
+    this._networkType.set(networkType);
   }
 }

@@ -12,6 +12,10 @@ import View from 'ol/View';
 export class MapService {
   private _map: Map;
 
+  constructor() {
+    console.log('MapService constructor');
+  }
+
   init(): void {
     const osmLayer = new TileLayer({
       source: new OSM({
