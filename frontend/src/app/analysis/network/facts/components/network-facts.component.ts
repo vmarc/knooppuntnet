@@ -7,7 +7,6 @@ import { viewChildren } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
 import { MatExpansionPanelHeader } from '@angular/material/expansion';
 import { MatExpansionPanelContent } from '@angular/material/expansion';
 import { MatExpansionPanel } from '@angular/material/expansion';
@@ -19,6 +18,7 @@ import { ApiResponse } from '@api/custom';
 import { Fact } from '@api/custom';
 import { FactInfo } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
+import { DividerComponent } from '@app/components/shared';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { ExpandCollapseComponent } from '../../../../shared/components/shared/button/expand-collapse.component';
@@ -86,10 +86,7 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
                 <div class="description">
                   <kpn-fact-description [factInfo]="factInfo(fact)" />
                 </div>
-                <div class="kpn-small-spacer-above kpn-small-spacer-below">
-                  <mat-divider />
-                </div>
-
+                <kpn-divider />
                 <div class="sideline">
                   @if (fact.elements) {
                     @if (fact.elementType === 'route') {
@@ -140,11 +137,15 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
   `,
   standalone: true,
   imports: [
-    IconHappyComponent,
-    SituationOnComponent,
+    ActionButtonNodesComponent,
+    ActionButtonRelationsComponent,
+    ActionButtonRoutesComponent,
+    ActionButtonWaysComponent,
+    DividerComponent,
+    ExpandCollapseComponent,
     FactDescriptionComponent,
+    IconHappyComponent,
     MatAccordion,
-    MatDivider,
     MatExpansionPanel,
     MatExpansionPanelContent,
     MatExpansionPanelHeader,
@@ -155,11 +156,7 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
     NetworkFactRelationIdsComponent,
     NetworkFactRoutesComponent,
     NetworkFactWayIdsComponent,
-    ActionButtonNodesComponent,
-    ActionButtonWaysComponent,
-    ActionButtonRelationsComponent,
-    ActionButtonRoutesComponent,
-    ExpandCollapseComponent,
+    SituationOnComponent,
   ],
 })
 export class NetworkFactsComponent implements AfterViewInit {

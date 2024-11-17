@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDividerModule } from '@angular/material/divider';
+import { DividerComponent } from '@app/components/shared';
 import { PoiService } from '@app/services';
 import { PlannerStateService } from '../planner-state.service';
 import { PlannerMapService } from '../planner-map.service';
@@ -14,7 +14,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   // changeDetection: ChangeDetectionStrategy.OnPush,
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <mat-divider></mat-divider>
+    <kpn-divider />
 
     <mat-checkbox
       (click)="$event.stopPropagation()"
@@ -54,17 +54,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
     </div>
   `,
   styles: `
-    mat-divider {
-      margin-top: 5px;
-      margin-bottom: 5px;
-    }
-
     .pois {
       padding-right: 20px;
     }
   `,
   standalone: true,
-  imports: [MatCheckboxModule, MatDividerModule, PoiMenuOptionComponent],
+  imports: [MatCheckboxModule, PoiMenuOptionComponent, DividerComponent],
 })
 export class PoiMenuComponent {
   private readonly plannerStateService = inject(PlannerStateService);

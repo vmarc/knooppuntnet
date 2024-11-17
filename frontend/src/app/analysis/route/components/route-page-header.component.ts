@@ -13,14 +13,10 @@ import { RouteService } from '../route.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page-header [pageTitle]="service.routeName()" subject="route-page">
-      <span class="header-network-type-icon">
-        <mat-icon [svgIcon]="service.networkType()" />
-      </span>
-      <span i18n="@@route.title">Route</span>
       @if (service.routeName()) {
-        <span>&nbsp;{{ service.routeName() }}</span>
+        <span>{{ service.routeName() }}</span>
       } @else {
-        <span>&nbsp;{{ service.routeId() }}</span>
+        <span>{{ service.routeId() }}</span>
       }
     </kpn-page-header>
 

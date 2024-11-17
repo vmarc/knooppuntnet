@@ -2,9 +2,9 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButton } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
 import { MatNavList } from '@angular/material/list';
 import { RouterLink } from '@angular/router';
+import { DividerComponent } from '@app/components/shared';
 import { MapService } from '../map/map.service';
 import { MenuItemComponent } from './menu-item.component';
 
@@ -21,9 +21,7 @@ import { MenuItemComponent } from './menu-item.component';
       <kpn-menu-item label="Monitor" icon="cardiology" link="monitor" />
     </mat-nav-list>
 
-    <div class="kpn-small-spacer-above kpn-spacer-below">
-      <mat-divider />
-    </div>
+    <kpn-divider />
 
     <p class="links-title">Temporary test links:</p>
 
@@ -45,9 +43,7 @@ import { MenuItemComponent } from './menu-item.component';
       </li>
     </ul>
 
-    <div class="kpn-small-spacer-above kpn-spacer-below">
-      <mat-divider />
-    </div>
+    <kpn-divider />
 
     <div class="action">
       <button mat-stroked-button (click)="selectRoute(8464197)">LAW11</button>
@@ -62,9 +58,7 @@ import { MenuItemComponent } from './menu-item.component';
       <button mat-stroked-button (click)="selectRoute(null)">None</button>
     </div>
 
-    <div class="kpn-spacer-above kpn-spacer-below">
-      <mat-divider />
-    </div>
+    <kpn-divider />
   `,
   styles: [
     `
@@ -84,7 +78,7 @@ import { MenuItemComponent } from './menu-item.component';
     `,
   ],
   standalone: true,
-  imports: [MatNavList, RouterLink, MatDivider, MenuItemComponent, MatButton],
+  imports: [MatNavList, RouterLink, MenuItemComponent, MatButton, DividerComponent],
 })
 export class MenuComponent {
   private readonly mapService = inject(MapService);

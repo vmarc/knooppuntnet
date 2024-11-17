@@ -29,7 +29,7 @@ import { OpenlayersMapService } from '../services';
                   {{ layerState.name }}
                 </mat-checkbox>
                 @if (layerState.id === osmLayerId && layerStates.length > 2) {
-                  <mat-divider></mat-divider>
+                  <mat-divider />
                 }
               </div>
             }

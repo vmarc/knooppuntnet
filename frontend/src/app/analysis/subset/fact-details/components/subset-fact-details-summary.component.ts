@@ -2,18 +2,16 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
 import { SubsetFactDetailsPage } from '@api/common/subset';
 import { Facts } from '@app/analysis/fact';
+import { DividerComponent } from '@app/components/shared';
 import { IconHappyComponent } from '@app/components/shared/icon';
 
 @Component({
   selector: 'kpn-subset-fact-details-summary',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="kpn-spacer-above kpn-spacer-below">
-      <mat-divider />
-    </div>
+    <kpn-divider />
     @if (page().networks.length === 0) {
       <div class="kpn-line">
         <span i18n="@@subset-facts.no-facts">No facts</span>
@@ -83,7 +81,7 @@ import { IconHappyComponent } from '@app/components/shared/icon';
   `,
   styleUrl: '../subset-fact-details-page.component.scss',
   standalone: true,
-  imports: [IconHappyComponent, MatDivider],
+  imports: [IconHappyComponent, DividerComponent],
 })
 export class SubsetFactDetailsSummaryComponent {
   page = input.required<SubsetFactDetailsPage>();

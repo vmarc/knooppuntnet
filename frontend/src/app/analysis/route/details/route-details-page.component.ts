@@ -1,16 +1,19 @@
+import { Location } from '@angular/common';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
+import { MatButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { MatLabel } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
+import { DividerComponent } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
-import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
@@ -30,13 +33,20 @@ import { RouteDetailsPageService } from './route-details-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
-          <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-        </li>
-        <li i18n="@@breadcrumb.route-details">Route details</li>
-      </ul>
+      <div>
+        <button mat-stroked-button (click)="back()">
+          <mat-icon>arrow_back</mat-icon>
+          <mat-label>back</mat-label>
+        </button>
+        <button mat-stroked-button routerLink="changes">
+          <mat-icon>list</mat-icon>
+          <mat-label>segments (3)</mat-label>
+        </button>
+        <button mat-stroked-button routerLink="changes">
+          <mat-icon>history</mat-icon>
+          <mat-label>changes</mat-label>
+        </button>
+      </div>
 
       <kpn-route-page-header pageName="details" />
 
@@ -48,9 +58,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
           @if (response.result; as page) {
             <div>
               <kpn-route-summary [route]="page.route" />
-              <div class="kpn-small-spacer-above kpn-small-spacer-below">
-                <mat-divider />
-              </div>
+              <kpn-divider />
               <div class="data2">
                 <div class="title">
                   <span i18n="@@route.situation-on">Situation on</span>
@@ -95,21 +103,15 @@ import { RouteDetailsPageService } from './route-details-page.service';
                 </kpn-data>
               </div>
 
-              <div class="kpn-small-spacer-above kpn-small-spacer-below">
-                <mat-divider />
-              </div>
+              <kpn-divider />
               <p i18n-title="@@route.tags">Tags</p>
               <kpn-tag-table [tags]="routeTags(page)" />
 
-              <div class="kpn-small-spacer-above kpn-small-spacer-below">
-                <mat-divider />
-              </div>
+              <kpn-divider />
 
               <kpn-facts [factInfos]="factInfos(page)" />
               @if (showRouteDetails()) {
-                <div class="kpn-small-spacer-above kpn-small-spacer-below">
-                  <mat-divider />
-                </div>
+                <kpn-divider />
                 <div>
                   <kpn-route-members
                     [networkType]="page.route.summary.networkType"
@@ -122,15 +124,17 @@ import { RouteDetailsPageService } from './route-details-page.service';
         </div>
       }
     </kpn-page>
-    <kpn-sidebar-footer />
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
   providers: [RouteDetailsPageService, RouterService],
   standalone: true,
   imports: [
     DataComponent,
+    DividerComponent,
     FactsComponent,
-    MatDivider,
+    MatButton,
+    MatIcon,
+    MatLabel,
     PageComponent,
     RouteEndNodesComponent,
     RouteMembersComponent,
@@ -140,7 +144,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
     RouteStartNodesComponent,
     RouteSummaryComponent,
     RouterLink,
-    SidebarFooterComponent,
     TagTableComponent,
     TimestampComponent,
   ],
@@ -148,6 +151,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
 export class RouteDetailsPageComponent implements OnInit {
   protected readonly service = inject(RouteDetailsPageService);
   private readonly pageWidthService = inject(PageWidthService);
+  private readonly location = inject(Location);
 
   readonly showRouteDetails = computed(() => !this.pageWidthService.isAllSmall());
 
@@ -178,5 +182,9 @@ export class RouteDetailsPageComponent implements OnInit {
       }
       return new FactInfo(fact);
     });
+  }
+
+  back(): void {
+    this.location.back();
   }
 }

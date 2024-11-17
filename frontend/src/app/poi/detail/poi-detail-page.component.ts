@@ -2,9 +2,9 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { MatDividerModule } from '@angular/material/divider';
 import { Tag } from '@api/custom';
 import { PoiAnalysisComponent } from '@app/components/poi';
+import { DividerComponent } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
 import { OldPageComponent } from '@app/components/shared/page';
 import { InterpretedTags } from '@app/components/shared/tags';
@@ -33,9 +33,9 @@ import { PoiDetailPageService } from './poi-detail-page.service';
       @if (service.response(); as response) {
         @if (response.result) {
           <kpn-poi-analysis [poi]="response.result.poiAnalysis" />
-          <mat-divider class="map-divider" />
+          <kpn-divider />
           <kpn-poi-detail-map [poiDetail]="response.result" />
-          <mat-divider class="map-divider" />
+          <kpn-divider />
           <kpn-data title="Identification" i18n-title="@@poi-detail.id">
             <span class="kpn-line">
               <span>{{ response.result.poi._id }}</span>
@@ -112,26 +112,20 @@ import { PoiDetailPageService } from './poi-detail-page.service';
       <kpn-base-sidebar sidebar />
     </kpn-old-page>
   `,
-  styles: `
-    .map-divider {
-      margin-top: 1em;
-      margin-bottom: 1em;
-    }
-  `,
   providers: [PoiDetailPageService, RouterService],
   standalone: true,
   imports: [
+    ActionButtonNodeComponent,
+    ActionButtonRelationComponent,
+    ActionButtonWayComponent,
     BaseSidebarComponent,
     DataComponent,
-    MatDividerModule,
+    DividerComponent,
     OldPageComponent,
     PoiAnalysisComponent,
     PoiDetailMapComponent,
     TagTableComponent,
     TimestampComponent,
-    ActionButtonWayComponent,
-    ActionButtonNodeComponent,
-    ActionButtonRelationComponent,
   ],
 })
 export class PoiDetailPageComponent implements OnInit {

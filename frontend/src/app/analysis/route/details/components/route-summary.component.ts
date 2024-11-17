@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { RouteDetailsPageData } from '@api/common/route';
+import { DividerComponent } from '@app/components/shared';
 import { CountryNameComponent } from '@app/components/shared';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { SymbolComponent } from '@app/symbol';
@@ -40,9 +40,7 @@ import { RouteLocationComponent } from './route-location.component';
       }
 
       @if (hasAdditionalInformation()) {
-        <div class="kpn-small-spacer-above kpn-small-spacer-below">
-          <mat-divider />
-        </div>
+        <kpn-divider />
       }
 
       @if (isRouteBroken()) {
@@ -89,9 +87,9 @@ import { RouteLocationComponent } from './route-location.component';
   imports: [
     ActionButtonRouteComponent,
     CountryNameComponent,
+    DividerComponent,
     IntegerFormatPipe,
     MarkdownModule,
-    MatDivider,
     MatIconModule,
     RouteLocationComponent,
     SymbolComponent,

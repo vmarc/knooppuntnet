@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatDivider } from '@angular/material/divider';
 import { LocationFact } from '@api/common/location';
 import { FactInfo } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
+import { DividerComponent } from '@app/components/shared';
 import { IconRouteComponent } from '@app/components/shared/icon';
 import { IconNodeComponent } from '@app/components/shared/icon';
 import { LinkNodeComponent } from '@app/components/shared/link';
@@ -20,9 +20,7 @@ import { ActionButtonRouteComponent } from '../../../components/action/action-bu
       <div class="description">
         <kpn-fact-description [factInfo]="factInfo(locationFact)" />
       </div>
-      <div class="kpn-small-spacer-above kpn-small-spacer-below">
-        <mat-divider />
-      </div>
+      <kpn-divider />
       <div class="sideline">
         @if (locationFact.elementType === 'route') {
           @for (ref of locationFact.refs; track ref) {
@@ -62,12 +60,12 @@ import { ActionButtonRouteComponent } from '../../../components/action/action-bu
   imports: [
     ActionButtonNodeComponent,
     ActionButtonRouteComponent,
+    DividerComponent,
     FactDescriptionComponent,
     IconNodeComponent,
     IconRouteComponent,
     LinkNodeComponent,
     LinkRouteComponent,
-    MatDivider,
   ],
 })
 export class LocationFactPanelContentsComponent {
