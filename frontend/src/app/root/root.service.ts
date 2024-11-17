@@ -15,7 +15,7 @@ export class RootService {
   private readonly _small = signal<boolean>(false);
   readonly small = this._small.asReadonly();
 
-  private readonly _activePanel = signal<string>('map');
+  private readonly _activePanel = signal<string>('text');
   readonly activePanel = this._activePanel.asReadonly();
 
   private readonly _networkType = signal<NetworkType>(NetworkType.hiking);

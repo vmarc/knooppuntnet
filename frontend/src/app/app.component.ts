@@ -22,26 +22,6 @@ import { RootPageComponent } from './root/root.component';
       <router-outlet />
     </kpn-root>
   `,
-  styles: `
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 48px;
-      z-index: 1001;
-    }
-
-    main {
-      flex: 1;
-      margin: 20px;
-    }
-
-    mat-sidenav {
-      min-width: 360px;
-      max-width: 360px;
-    }
-  `,
   standalone: true,
   imports: [MatSidenavModule, RouterOutlet, RootPageComponent],
 })

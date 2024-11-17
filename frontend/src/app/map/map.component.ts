@@ -3,11 +3,6 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { RouteControlComponent } from '@app/ol/components';
-import { MapLinkMenuComponent } from '@app/ol/components';
-import { LayerSwitcherComponent } from '@app/ol/components';
-import { GeolocationControlComponent } from '../planner/pages/planner/geolocation/geolocation-control.component';
-import { PoiMenuComponent } from '../planner/pages/planner/poi/poi-menu.component';
 import { MapService } from './map.service';
 
 @Component({
@@ -16,6 +11,11 @@ import { MapService } from './map.service';
   template: ` <div id="main-map" class="main-map"></div> `,
   styles: [
     `
+      :host {
+        width: 100%;
+        height: 100%;
+      }
+
       .main-map {
         width: 100%;
         height: 100%;
@@ -40,13 +40,17 @@ import { MapService } from './map.service';
 export class MapComponent implements AfterViewInit, OnDestroy {
   private readonly mapService = inject(MapService);
 
-  constructor() {}
+  constructor() {
+    console.log('MapComponent constructor');
+  }
 
   ngAfterViewInit(): void {
+    console.log('MapComponent.ngAfterViewInit()');
     this.mapService.init();
   }
 
   ngOnDestroy(): void {
+    console.log('MapComponent.ngOnDestroy()');
     this.mapService.destroy();
   }
 }

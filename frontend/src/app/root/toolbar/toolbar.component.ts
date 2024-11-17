@@ -25,11 +25,6 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
     </mat-toolbar>
   `,
   styles: `
-    :host {
-      display: block;
-      border-bottom: solid 1px lightgray;
-    }
-
     mat-toolbar {
       padding: 16px 16px 16px 6px;
     }

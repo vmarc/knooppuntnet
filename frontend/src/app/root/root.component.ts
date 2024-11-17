@@ -1,73 +1,115 @@
 import { NgClass } from '@angular/common';
 import { NgTemplateOutlet } from '@angular/common';
+import { effect } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 import { AngularSplitModule } from 'angular-split';
 import { MapComponent } from '../map/map.component';
 import { RootService } from './root.service';
-import { ToolbarComponent } from './toolbar.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @Component({
   selector: 'kpn-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <header>
+    <div class="toolbar">
       <kpn-toolbar />
-    </header>
-    <div class="page-contents">
-      <main>
-        @if (small()) {
-          <div [ngClass]="{ hidden: hideText() }">
-            <ng-container *ngTemplateOutlet="text"></ng-container>
-          </div>
-          <div [ngClass]="{ hidden: hideMap() }">
-            <kpn-map />
-          </div>
-        } @else {
-          <as-split direction="horizontal" disabled="false" unit="percent" class="split-panels">
-            <as-split-area size="40">
-              <ng-container *ngTemplateOutlet="text"></ng-container>
-            </as-split-area>
-            <as-split-area size="60">
-              <kpn-map />
-            </as-split-area>
-          </as-split>
-        }
-        <ng-template #text>
-          <ng-content />
-        </ng-template>
-      </main>
     </div>
+    @if (small()) {
+      <div [ngClass]="{ hidden: hideText() }">
+        <div class="main content">
+          <div class="text-panel-container">
+            <div class="text-panel-body">
+              <div>
+                <ng-container *ngTemplateOutlet="text"></ng-container>
+              </div>
+            </div>
+            <div class="text-panel-footer">
+              <kpn-sidebar-footer />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div [ngClass]="{ hidden: hideMap() }">
+        <div class="map-panel-container content">
+          <kpn-map />
+        </div>
+      </div>
+    } @else {
+      <div class="main content">
+        <as-split direction="horizontal" disabled="false" unit="percent">
+          <as-split-area size="40">
+            <div class="text-panel-container">
+              <div class="text-panel-body">
+                <ng-container *ngTemplateOutlet="text"></ng-container>
+              </div>
+              <div class="text-panel-footer">
+                <kpn-sidebar-footer />
+              </div>
+            </div>
+          </as-split-area>
+          <as-split-area size="60">
+            <kpn-map />
+          </as-split-area>
+        </as-split>
+      </div>
+    }
+    <ng-template #text>
+      <ng-content />
+    </ng-template>
   `,
   styles: `
-    .split-panels {
-      height: calc(100vh - 48px);
-    }
-
-    header {
+    .toolbar {
       position: fixed;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 48px;
+      width: 100vw;
       z-index: 1001;
+      border-bottom: solid 1px lightgray;
     }
 
-    .page-contents {
-      margin-top: 48px;
+    .content {
+      position: fixed;
+      left: 0;
+      top: 53px;
+      width: 100vw;
+      height: calc(100vh - 53px);
       display: flex;
-      min-height: calc(100vh - 48px);
+    }
+
+    .main {
       flex-direction: column;
     }
 
-    main {
+    as-split {
       flex: 1;
     }
 
     .hidden {
       display: none;
+    }
+
+    .text-panel-container {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .text-panel-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      align-content: stretch;
+    }
+
+    .text-panel-footer {
+      flex: 0;
     }
   `,
   standalone: true,
@@ -78,6 +120,7 @@ import { ToolbarComponent } from './toolbar.component';
     NgClass,
     MapComponent,
     MapComponent,
+    SidebarFooterComponent,
   ],
 })
 export class RootPageComponent {
@@ -85,4 +128,12 @@ export class RootPageComponent {
   readonly small = this.rootService.small;
   readonly hideText = computed(() => this.rootService.activePanel() !== 'text');
   readonly hideMap = computed(() => this.rootService.activePanel() !== 'map');
+
+  constructor() {
+    effect(() => {
+      console.log('active panel: ' + this.rootService.activePanel());
+      console.log('   hide text: ' + this.hideText());
+      console.log('   hide map:  ' + this.hideMap());
+    });
+  }
 }
