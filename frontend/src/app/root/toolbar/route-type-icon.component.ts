@@ -21,7 +21,7 @@ export class RouteTypeIconItemComponent {
       case NetworkType.hiking:
         return 'directions_walk';
       case NetworkType.horseRiding:
-        return 'directions_walk';
+        return 'bedroom_baby';
       case NetworkType.motorboat:
         return 'directions_boat';
       case NetworkType.canoe:

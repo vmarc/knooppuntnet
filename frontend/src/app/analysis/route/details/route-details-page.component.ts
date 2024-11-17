@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -11,9 +10,11 @@ import { RouterLink } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
+import { BackButtonComponent } from '@app/components/shared';
 import { DividerComponent } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
+import { PageButtonsComponent } from '@app/components/shared/page';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
@@ -32,22 +33,18 @@ import { RouteDetailsPageService } from './route-details-page.service';
   selector: 'kpn-route-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <kpn-page-buttons>
+      <kpn-back-button />
+      <button mat-stroked-button routerLink="changes">
+        <mat-icon>list</mat-icon>
+        <mat-label>segments (3)</mat-label>
+      </button>
+      <button mat-stroked-button routerLink="changes">
+        <mat-icon>history</mat-icon>
+        <mat-label>changes</mat-label>
+      </button>
+    </kpn-page-buttons>
     <kpn-page>
-      <div>
-        <button mat-stroked-button (click)="back()">
-          <mat-icon>arrow_back</mat-icon>
-          <mat-label>back</mat-label>
-        </button>
-        <button mat-stroked-button routerLink="changes">
-          <mat-icon>list</mat-icon>
-          <mat-label>segments (3)</mat-label>
-        </button>
-        <button mat-stroked-button routerLink="changes">
-          <mat-icon>history</mat-icon>
-          <mat-label>changes</mat-label>
-        </button>
-      </div>
-
       <kpn-route-page-header pageName="details" />
 
       @if (service.response(); as response) {
@@ -104,7 +101,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
               </div>
 
               <kpn-divider />
-              <p i18n-title="@@route.tags">Tags</p>
+              <p i18n="@@route.tags">Tags</p>
               <kpn-tag-table [tags]="routeTags(page)" />
 
               <kpn-divider />
@@ -146,12 +143,13 @@ import { RouteDetailsPageService } from './route-details-page.service';
     RouterLink,
     TagTableComponent,
     TimestampComponent,
+    BackButtonComponent,
+    PageButtonsComponent,
   ],
 })
 export class RouteDetailsPageComponent implements OnInit {
   protected readonly service = inject(RouteDetailsPageService);
   private readonly pageWidthService = inject(PageWidthService);
-  private readonly location = inject(Location);
 
   readonly showRouteDetails = computed(() => !this.pageWidthService.isAllSmall());
 
@@ -182,9 +180,5 @@ export class RouteDetailsPageComponent implements OnInit {
       }
       return new FactInfo(fact);
     });
-  }
-
-  back(): void {
-    this.location.back();
   }
 }

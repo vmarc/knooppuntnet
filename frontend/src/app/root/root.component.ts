@@ -74,9 +74,9 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     .content {
       position: fixed;
       left: 0;
-      top: 53px;
+      top: 48px;
       width: 100vw;
-      height: calc(100vh - 53px);
+      height: calc(100vh - 48px);
       display: flex;
     }
 

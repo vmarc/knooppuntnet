@@ -1,4 +1,5 @@
 export * from './country-name.component';
+export * from './back-button.component';
 export * from './day-util';
 export * from './divider.component';
 export * from './edit.service';

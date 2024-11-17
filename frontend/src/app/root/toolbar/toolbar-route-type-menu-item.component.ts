@@ -17,7 +17,7 @@ import { RouteTypeIconItemComponent } from './route-type-icon.component';
     <button mat-menu-item (click)="clicked()">
       <div class="item">
         <kpn-route-type-icon [networkType]="networkType()" />
-        <mat-label>{{ title() }}</mat-label>
+        <mat-label>{{ label() }}</mat-label>
       </div>
     </button>
   `,
@@ -36,7 +36,7 @@ export class ToolbarRouteTypeMenuItemComponent {
   private readonly rootService = inject(RootService);
 
   readonly networkType = input.required<NetworkType>();
-  readonly title = input.required<string>();
+  readonly label = input.required<string>();
 
   clicked(): void {
     this.rootService.updateNetworkType(this.networkType());
