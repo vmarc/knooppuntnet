@@ -40,17 +40,13 @@ import { MapService } from './map.service';
 export class MapComponent implements AfterViewInit, OnDestroy {
   private readonly mapService = inject(MapService);
 
-  constructor() {
-    console.log('MapComponent constructor');
-  }
-
   ngAfterViewInit(): void {
-    console.log('MapComponent.ngAfterViewInit()');
-    this.mapService.init();
+    setTimeout(() => {
+      this.mapService.init();
+    }, 100);
   }
 
   ngOnDestroy(): void {
-    console.log('MapComponent.ngOnDestroy()');
     this.mapService.destroy();
   }
 }
