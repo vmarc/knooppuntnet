@@ -34,7 +34,6 @@ import { MapService } from './map.service';
       }
     `,
   ],
-  providers: [MapService],
   standalone: true,
 })
 export class MapComponent implements AfterViewInit, OnDestroy {

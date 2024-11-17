@@ -31,6 +31,7 @@ import * as Sentry from '@sentry/angular';
 import { AngularSplitModule } from 'angular-split';
 import { MarkdownModule } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
+import { MapService } from './map/map.service';
 import { RootService } from './root/root.service';
 import { UserService } from './shared/user';
 
@@ -79,6 +80,7 @@ export const appConfig: ApplicationConfig = {
     RootService,
     PageService,
     PageWidthService,
+    MapService,
     MatIconRegistry,
     IconService,
     PoiService,
