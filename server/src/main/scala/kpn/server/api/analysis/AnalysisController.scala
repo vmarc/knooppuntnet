@@ -7,6 +7,7 @@ import kpn.api.common.LOCATION
 import kpn.api.common.Language
 import kpn.api.common.Languages
 import kpn.api.common.ReplicationId
+import kpn.api.common.SearchResponse
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
@@ -360,6 +361,11 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   ): ApiResponse[LocationEditPage] = {
     val locationKey = LocationKey(networkType, country, location)
     analysisFacade.locationEdit(toLanguage(language), locationKey)
+  }
+
+  @GetMapping(value = Array("/api/search"))
+  def search(@RequestParam query: String): ApiResponse[SearchResponse] = {
+    analysisFacade.search(query)
   }
 
   private def toLanguage(language: String): Language = {

@@ -4,6 +4,7 @@ import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.Language
 import kpn.api.common.ReplicationId
+import kpn.api.common.SearchResponse
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
@@ -107,4 +108,6 @@ trait AnalysisFacade {
   def locationChanges(language: Language, locationKey: LocationKey, parameters: ChangesParameters): ApiResponse[LocationChangesPage]
 
   def locationEdit(language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage]
+
+  def search(query: String): ApiResponse[SearchResponse]
 }

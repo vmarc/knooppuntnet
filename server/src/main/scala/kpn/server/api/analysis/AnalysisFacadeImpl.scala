@@ -4,6 +4,7 @@ import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.Language
 import kpn.api.common.ReplicationId
+import kpn.api.common.SearchResponse
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
@@ -77,6 +78,7 @@ import kpn.server.api.analysis.pages.subset.SubsetNetworksPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanNodesPageBuilder
 import kpn.server.api.analysis.pages.subset.SubsetOrphanRoutesPageBuilder
 import kpn.server.repository.AnalysisRepository
+import kpn.server.search.SearchFacade
 import org.springframework.stereotype.Component
 
 @Component
@@ -114,7 +116,8 @@ class AnalysisFacadeImpl(
   locationRoutesPageBuilder: LocationRoutesPageBuilder,
   locationFactsPageBuilder: LocationFactsPageBuilder,
   locationMapPageBuilder: LocationMapPageBuilder,
-  locationChangesPageBuilder: LocationChangesPageBuilder
+  locationChangesPageBuilder: LocationChangesPageBuilder,
+  searchFacade: SearchFacade
 ) extends AnalysisFacade {
 
   override def nodeDetails(language: Language, nodeId: Long): ApiResponse[NodeDetailsPage] = {
@@ -334,6 +337,13 @@ class AnalysisFacadeImpl(
     val args = s"${locationKey.networkType.name}, ${locationKey.country.domain}, ${locationKey.name}"
     api.execute("location-edit", args) {
       reply(locationEditPageBuilder.build(language, locationKey))
+    }
+  }
+
+  override def search(query: String): ApiResponse[SearchResponse] = {
+    val args = s"query=$query"
+    api.execute("search", args) {
+      reply(searchFacade.search(query))
     }
   }
 
