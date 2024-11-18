@@ -37,6 +37,7 @@ import { MapRouteDetail } from '@api/common/route';
 import { RouteChangesPage } from '@api/common/route';
 import { RouteDetailsPage } from '@api/common/route';
 import { RouteMapPage } from '@api/common/route';
+import { SearchResponse } from '@api/common/search-response';
 import { StatisticValues } from '@api/common/statistics';
 import { LogPage } from '@api/common/status';
 import { PeriodParameters } from '@api/common/status';
@@ -331,6 +332,12 @@ export class ApiService {
   public poiDetail(elementType: string, elementId: number): Observable<ApiResponse<PoiDetail>> {
     const url = `/api/poi-detail/${elementType}/${elementId}`;
     return this.http.get(url, { params: this.languageParams() });
+  }
+
+  public search(query: string): Observable<ApiResponse<SearchResponse>> {
+    const url = `/api/search`;
+    const params = new HttpParams().set('query', query);
+    return this.http.get(url, { params });
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {

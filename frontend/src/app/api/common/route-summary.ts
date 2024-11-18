@@ -1,7 +1,6 @@
 // this file is generated, please do not modify
 
 import { Country } from '@api/custom';
-import { NetworkScope } from '@api/custom';
 import { NetworkType } from '@api/custom';
 import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
@@ -9,8 +8,8 @@ import { Timestamp } from '@api/custom';
 export interface RouteSummary {
   readonly id: number;
   readonly countries: Country[];
-  readonly networkType: NetworkType;
-  readonly networkScope: NetworkScope;
+  readonly nodeNetwork: boolean;
+  readonly networkTypes: NetworkType[];
   readonly name: string;
   readonly meters: number;
   readonly broken: boolean;

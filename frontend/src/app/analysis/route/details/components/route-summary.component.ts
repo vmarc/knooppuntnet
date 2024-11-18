@@ -31,8 +31,9 @@ import { RouteLocationComponent } from './route-location.component';
         <kpn-action-button-route [relationId]="route().summary.id" />
       </div>
 
+      <!-- TODO redesign networkTypes[0] -->
       <kpn-route-location
-        [networkType]="route().summary.networkType"
+        [networkType]="route().summary.networkTypes[0]"
         [locationCandidateInfos]="route().locationCandidateInfos"
       />
       @if (hasSymbol()) {
