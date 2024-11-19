@@ -16,6 +16,10 @@ import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesBuilder
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
+
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
+import scala.concurrent.ExecutionContext
 
 /*
   Generates tiles for all nodes and routes in the database.
@@ -69,7 +73,8 @@ object TileTool {
         tileDataNodeBuilder
       )
     }
-
+    val executor = buildExecutor()
+    val executionContext: ExecutionContext = ExecutionContext.fromExecutor(executor)
     val tilesBuilder: TilesBuilder = {
       val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
       val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
@@ -78,13 +83,23 @@ object TileTool {
         bitmapTileFileRepository,
         vectorTileFileRepository,
         tileFileBuilder
-      )
+      )(executionContext)
     }
 
     new TileTool(
       tileAnalyzer,
       tilesBuilder
     )
+  }
+
+  private def buildExecutor(): ThreadPoolTaskExecutor = {
+    val executor = new ThreadPoolTaskExecutor
+    executor.setCorePoolSize(6)
+    executor.setMaxPoolSize(6)
+    executor.setRejectedExecutionHandler(new CallerRunsPolicy)
+    executor.setThreadNamePrefix("tile-builder-")
+    executor.initialize()
+    executor
   }
 }
 

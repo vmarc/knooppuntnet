@@ -63,7 +63,8 @@ class VectorTileBuilder extends TileBuilder {
             // TODO redesign tiles - Some("oneway" -> segment.oneWay.toString),
             Some("surface" -> segment.surface),
             tileRoute.surveyDate.map(surveyDate => "survey" -> surveyDate.yyyymm),
-            tileRoute.state.map(state => "state" -> state)
+            tileRoute.state.map(state => "state" -> state),
+            tileRoute.scopes.map(value => "scope" -> value)
           ).flatten.toMap
           encoder.addLineStringFeature(tileRoute.layer, userData, simplifiedLineString)
         }

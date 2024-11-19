@@ -7,13 +7,13 @@ import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 
-import scala.collection.parallel.CollectionConverters.ImmutableIterableIsParallelizable
+import scala.concurrent.ExecutionContext
 
 class TilesBuilder(
   bitmapTileFileRepository: TileFileRepository,
   vectorTileFileRepository: TileFileRepository,
   tileFileBuilder: TileFileBuilder
-) {
+)(implicit val executionContext: ExecutionContext) {
 
   private val log = Log(classOf[TilesBuilder])
 
@@ -25,13 +25,28 @@ class TilesBuilder(
     val prefix = s"$z-"
     val nodeTileNames: Seq[String] = Seq.empty // TODO redesign tiles - add 'tiles' to TileDataNode
 
+    val includedScopes = if (z == 6 || z == 7) {
+      Seq("international")
+    }
+    else if (z == 8 || z == 9) {
+      Seq("international", "national", "regional")
+    }
+    else if (z == 10 || z == 11) {
+      Seq("international", "national", "regional")
+    }
+    else {
+      Seq("international", "national", "regional", "local", "unkown")
+    }
+
     val tileDataRouteMap = scala.collection.mutable.Map[String, Seq[TileDataRoute]]()
     allTileData.routes.foreach { tileDataRoute =>
-      val routeTileNames = tileDataRoute.tiles.filter(tileName => tileName.startsWith(prefix))
-      routeTileNames.foreach { tileName =>
-        tileDataRouteMap(tileName) = tileDataRouteMap.get(tileName) match {
-          case Some(tileRoutes1) => tileRoutes1 :+ tileDataRoute
-          case None => Seq(tileDataRoute)
+      if (tileDataRoute.scopes.exists(scope => includedScopes.contains(scope))) {
+        val routeTileNames = tileDataRoute.tiles.filter(tileName => tileName.startsWith(prefix))
+        routeTileNames.foreach { tileName =>
+          tileDataRouteMap(tileName) = tileDataRouteMap.get(tileName) match {
+            case Some(tileRoutes1) => tileRoutes1 :+ tileDataRoute
+            case None => Seq(tileDataRoute)
+          }
         }
       }
     }
@@ -40,7 +55,7 @@ class TilesBuilder(
     val context = Log.contextMessages
     val progress = Progress(tileNames.size) // TODO redesign tiles - tileNames.size
     // TODO redesign tiles - tileNames.par.foreach { tileName =>
-    tileNames.par.foreach { tileName =>
+    tileNames.foreach { tileName =>
       Log.context(context :+ s"${progress.get()} $tileName") {
         val splitted = tileName.split("-")
         val tile = Tile(z, Integer.parseInt(splitted(1)), Integer.parseInt(splitted(2))) // TODO redesign tiles - move to Tile apply function?

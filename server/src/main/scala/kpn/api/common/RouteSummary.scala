@@ -11,6 +11,7 @@ case class RouteSummary(
   countries: Seq[Country],
   nodeNetwork: Boolean,
   networkTypes: Seq[NetworkType],
+  scopes: Seq[String],
   // TODO redesign - reintroduce networkScope: NetworkScope, ?
   name: String,
   meters: Long,

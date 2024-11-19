@@ -103,6 +103,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   }
 
   private def analyzeRoutesMain(dependencies: Seq[RouteDependency]): Unit = {
+    log.info(s"analyzing main ${dependencies.size} route relations")
     val sortedRouteIds = DependencySorter.sort(dependencies)
     sortedRouteIds.zipWithIndex.foreach { case (relationId, index) =>
       Log.context(s"${index + 1}/${sortedRouteIds.size} route=$relationId") {

@@ -30,6 +30,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNetworkTypeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteOneWayAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.RouteScopeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
@@ -65,6 +66,7 @@ class RouteDetailMainAnalyzer(
       val analyzers: List[RouteAnalyzer] = List(
         RouteTagAnalyzer,
         RouteNetworkTypeAnalyzer,
+        RouteScopeAnalyzer,
         routeCountryAnalyzer, // TODO redesign - support multiple countries?
         ProposedAnalyzer,
         WithoutWaysRouteAnalyzer,

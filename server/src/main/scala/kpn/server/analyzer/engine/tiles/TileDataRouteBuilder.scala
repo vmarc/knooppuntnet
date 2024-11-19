@@ -17,6 +17,7 @@ object TileDataRouteBuilder {
     TileDataRoute(
       route._id,
       route.name,
+      route.scopes,
       layer(route),
       surveyDate(route),
       state(route),

@@ -39,6 +39,7 @@ object RouteDetailsPageExample {
         countries = Seq(Country.nl),
         nodeNetwork = true,
         networkTypes = Seq(NetworkType.hiking),
+        scopes = Seq("regional"),
         name = "01-02",
         meters = 1234,
         broken = true,

@@ -5,6 +5,7 @@ import kpn.api.custom.Day
 case class TileDataRoute(
   routeId: Long,
   routeName: String,
+  scopes: Seq[String],
   layer: String,
   surveyDate: Option[Day],
   state: Option[String],

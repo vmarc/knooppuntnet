@@ -26,6 +26,7 @@ object MongoQueryRouteTileInfo {
         include("_id"),
         computed("name", "$summary.name"),
         include("nodeNetwork"),
+        computed("scopes", "$summary.scopes"),
         include("proposed"),
         include("lastSurvey"),
         computed("tags", "$summary.tags"),

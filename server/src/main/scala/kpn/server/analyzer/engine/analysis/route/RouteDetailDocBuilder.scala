@@ -68,6 +68,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.countries,
       context.nodeNetwork,
       context.networkTypes,
+      context.scopes,
       title,
       length,
       context.facts.exists(_.isError),

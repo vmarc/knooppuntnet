@@ -25,6 +25,7 @@ case class RouteDetailAnalysisContext(
   nodeNetwork: Boolean = false,
   proposed: Boolean = false,
   _networkTypes: Option[Seq[NetworkType]] = None,
+  _scopes: Option[Seq[String]] = None,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
   _countries: Option[Seq[Country]] = None,
   _links: Option[RouteLinks] = None,
@@ -100,6 +101,8 @@ case class RouteDetailAnalysisContext(
   // prerequisite checking accessors
 
   def networkTypes: Seq[NetworkType] = _networkTypes.getOrElse(throw new PreconditionMissingException)
+
+  def scopes: Seq[String] = _scopes.getOrElse(throw new PreconditionMissingException)
 
   def countries: Seq[Country] = _countries.getOrElse(throw new PreconditionMissingException)
 

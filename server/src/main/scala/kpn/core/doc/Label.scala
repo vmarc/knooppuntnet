@@ -17,4 +17,6 @@ object Label {
   def country(country: Country): String = location(country.domain)
 
   def fact(fact: Fact): String = s"fact-${fact.name}"
+
+  def scope(routeScope: String): String = s"scope-$routeScope"
 }

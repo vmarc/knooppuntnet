@@ -15,6 +15,7 @@ case class RouteTileInfo(
   _id: Long,
   name: String,
   nodeNetwork: Boolean,
+  scopes: Seq[String],
   proposed: Boolean,
   lastSurvey: Option[Day],
   tags: Seq[Tag],

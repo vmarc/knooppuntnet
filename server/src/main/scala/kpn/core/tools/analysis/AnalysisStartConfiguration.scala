@@ -62,6 +62,10 @@ import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteRepositoryImpl
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
+
+import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
+import scala.concurrent.ExecutionContext
 
 class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
@@ -180,6 +184,11 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )
   }
 
+  val executionContext: ExecutionContext = {
+    val executor = buildExecutor()
+    ExecutionContext.fromExecutor(executor)
+  }
+
   val tilesBuilder: TilesBuilder = {
     val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
     val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
@@ -188,6 +197,16 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
       bitmapTileFileRepository,
       vectorTileFileRepository,
       tileFileBuilder
-    )
+    )(executionContext)
+  }
+
+  private def buildExecutor(): ThreadPoolTaskExecutor = {
+    val executor = new ThreadPoolTaskExecutor
+    executor.setCorePoolSize(6)
+    executor.setMaxPoolSize(6)
+    executor.setRejectedExecutionHandler(new CallerRunsPolicy)
+    executor.setThreadNamePrefix("analyzer-start-")
+    executor.initialize()
+    executor
   }
 }
