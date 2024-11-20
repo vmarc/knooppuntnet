@@ -48,6 +48,7 @@ case class RouteDetailAnalysisContext(
   labels: Seq[String] = Seq.empty,
   _tileAnalysis: Option[RouteTileAnalysis] = None,
   tiles: Seq[String] = Seq.empty,
+  _tileDatas: Option[Seq[RouteTileData]] = None,
   elementIds: ElementIds = ElementIds(),
   edges: Seq[RouteEdge] = Seq.empty,
   facts: Seq[Fact] = Seq.empty,
@@ -131,4 +132,6 @@ case class RouteDetailAnalysisContext(
   def locationAnalysis: RouteLocationAnalysis = _locationAnalysis.getOrElse(throw new PreconditionMissingException)
 
   def tileAnalysis: RouteTileAnalysis = _tileAnalysis.getOrElse(throw new PreconditionMissingException)
+
+  def tileDatas: Seq[RouteTileData] = _tileDatas.getOrElse(throw new PreconditionMissingException)
 }

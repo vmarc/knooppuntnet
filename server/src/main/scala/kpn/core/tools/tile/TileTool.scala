@@ -3,21 +3,30 @@ package kpn.core.tools.tile
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
 import kpn.core.tools.tile.TileTool.log
+import kpn.core.util.Colors
 import kpn.core.util.Log
 import kpn.core.util.Memory
-import kpn.core.util.Redesign
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileDataLoader
 import kpn.server.analyzer.engine.tiles.TileDataLoaderImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
+import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesBuilder
+import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
+import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.json.Json
 import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteRepositoryImpl
+import no.ecc.vectortile.VectorTileEncoder
+import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 
+import java.util
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
 import scala.concurrent.ExecutionContext
 
@@ -39,7 +48,8 @@ object TileTool {
 
           Mongo.executeIn(options.databaseName) { database =>
             val tileTool = buildTileTool(database, options.tileDir)
-            Redesign.tileGenerationNetworkTypes.foreach(networkType => tileTool.make(networkType, false))
+            tileTool.newMake()
+            // Redesign.tileGenerationNetworkTypes.foreach(networkType => tileTool.make(networkType, false))
           }
 
           log.info("Done")
@@ -64,9 +74,10 @@ object TileTool {
 
     val tileDataNodeBuilder = new TileDataNodeBuilderImpl()
 
+    val routeRepository = new RouteRepositoryImpl(database)
+
     val tileAnalyzer = {
       val nodeRepository = new NodeRepositoryImpl(database)
-      val routeRepository = new RouteRepositoryImpl(database)
       new TileDataLoaderImpl(
         nodeRepository,
         routeRepository,
@@ -75,9 +86,9 @@ object TileTool {
     }
     val executor = buildExecutor()
     val executionContext: ExecutionContext = ExecutionContext.fromExecutor(executor)
+    val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
+    val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
     val tilesBuilder: TilesBuilder = {
-      val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
-      val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
       val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
       new TilesBuilder(
         bitmapTileFileRepository,
@@ -88,7 +99,9 @@ object TileTool {
 
     new TileTool(
       tileAnalyzer,
-      tilesBuilder
+      tilesBuilder,
+      routeRepository,
+      vectorTileFileRepository
     )
   }
 
@@ -105,8 +118,58 @@ object TileTool {
 
 class TileTool(
   tileAnalyzer: TileDataLoader,
-  tilesBuilder: TilesBuilder
+  tilesBuilder: TilesBuilder,
+  routeRepository: RouteRepository,
+  vectorTileRepository: TileFileRepository
 ) {
+  private val geometryFactory = new GeometryFactory
+
+  def newMake(): Unit = {
+    val networkType = NetworkType.hiking
+
+    log.info("loading tile names")
+    val tiles = routeRepository.tiles(networkType)
+    log.info(s"sorting ${tiles.size} tile names")
+    val sortedTiles = tiles.map { name =>
+      val splitted = name.split("-")
+      val z = splitted.head.toInt
+      val x = splitted(1).toInt
+      val y = splitted(2).toInt
+      (z, x, y)
+    }.sorted
+
+    sortedTiles.zipWithIndex.foreach { case (tileNameParts, index) =>
+      val tile = Tile(tileNameParts._1, tileNameParts._2, tileNameParts._3)
+      Log.context(s"${index + 1}/${sortedTiles.size} ${tile.name}") {
+
+        val encoder = new VectorTileEncoder(Tile.EXTENT, 14 /* TODO redesign tiles */ , false)
+        val docs = routeRepository.tilesWithName(networkType, tile.name)
+        docs.foreach { doc =>
+          //        val userData: java.util.Map[String, String] = new util.HashMap[String, String]()
+          //        userData.put("routeId", doc.routeId.toString)
+          //        userData.put("name", doc.routeName)
+
+          val colors = new Colors()
+
+          doc.geometries.foreach { geometryString =>
+            val coordinates: Array[Coordinate] = Json.value(geometryString, classOf[CoordinateArray]).coordinates
+
+            val flipped = coordinates.map(c => new Coordinate(c.y, c.x))
+            val lineString = geometryFactory.createLineString(flipped)
+            val userData: java.util.Map[String, String] = new util.HashMap[String, String]()
+            userData.put("routeId", doc.routeId.toString)
+            userData.put("name", doc.routeName)
+            userData.put("color", colors.next())
+            encoder.addFeature(doc.scope, userData, lineString)
+          }
+        }
+        val tileBytes = encoder.encode()
+        if (tileBytes.nonEmpty) {
+          vectorTileRepository.saveOrUpdate("hiking", tile, tileBytes)
+        }
+      }
+    }
+  }
 
   def make(networkType: NetworkType, nodeNetwork: Boolean): Unit = {
     Log.context(networkType.name) {

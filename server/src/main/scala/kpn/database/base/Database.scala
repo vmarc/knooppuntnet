@@ -21,6 +21,7 @@ import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
 import kpn.database.actions.statistics.StatisticLongValues
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.monitor.domain.MonitorGroup
@@ -52,6 +53,8 @@ trait Database {
   def routes: DatabaseCollection[RouteDoc]
 
   def routeDetails: DatabaseCollection[RouteDetailDoc]
+
+  def routeTiles: DatabaseCollection[RouteTileDoc]
 
   def orphanRoutes: DatabaseCollection[OrphanRouteDoc]
 

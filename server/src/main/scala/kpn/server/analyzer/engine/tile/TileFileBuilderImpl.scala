@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
@@ -23,18 +22,18 @@ class TileFileBuilderImpl(
   private val log = Log(classOf[TileFileBuilderImpl])
 
   def build(tileData: TileData, tile: Tile): Unit = {
-    if (tile.z <= ZoomLevel.bitmapTileMaxZoom) {
-      buildRasterStandard(tileData, tile)
-      buildRasterSurface(tileData, tile)
-      buildRasterSurvey(tileData, tile)
-      buildRasterAnalysis(tileData, tile)
-      if (tile.z == ZoomLevel.vectorTileMinZoom - 1) { // TODO redesign tiles - both mvt and png at zoom level 11 ???
-        buildVector(tileData, tile)
-      }
-    }
-    else {
-      buildVector(tileData, tile)
-    }
+    //    if (tile.z <= ZoomLevel.bitmapTileMaxZoom) {
+    //      buildRasterStandard(tileData, tile)
+    //      buildRasterSurface(tileData, tile)
+    //      buildRasterSurvey(tileData, tile)
+    //      buildRasterAnalysis(tileData, tile)
+    //      if (tile.z == ZoomLevel.vectorTileMinZoom - 1) { // TODO redesign tiles - both mvt and png at zoom level 11 ???
+    //        buildVector(tileData, tile)
+    //      }
+    //    }
+    //    else {
+    buildVector(tileData, tile)
+    //    }
   }
 
   private def buildVector(tileData: TileData, tile: Tile): Unit = {

@@ -7,6 +7,7 @@ import kpn.api.custom.Country
 import kpn.api.custom.NetworkType
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
@@ -18,9 +19,15 @@ trait RouteRepository {
 
   def activeRouteElementIds(): Seq[ReferencedElementIds]
 
+  def tiles(networkType: NetworkType): Seq[String]
+
+  def tilesWithName(networkType: NetworkType, name: String): Seq[RouteTileDoc]
+
   def saveRoute(route: RouteDoc): Unit
 
   def saveRouteDetail(routeDetail: RouteDetailDoc): Unit
+
+  def saveRouteTile(routeTile: RouteTileDoc): Unit
 
   def bulkSaveRouteDetails(routeDetails: Seq[RouteDetailDoc]): Unit
 

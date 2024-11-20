@@ -15,8 +15,11 @@ import kpn.database.actions.routes.MongoQueryRouteIds
 import kpn.database.actions.routes.MongoQueryRouteMapInfo
 import kpn.database.actions.routes.MongoQueryRouteNameInfo
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
+import kpn.database.actions.routes.MongoQueryRouteTileDocs
 import kpn.database.actions.routes.MongoQueryRouteTileInfo
+import kpn.database.actions.routes.MongoQueryRouteTileNames
 import kpn.database.base.Database
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import org.springframework.stereotype.Component
@@ -38,12 +41,24 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteElementIds(database).execute()
   }
 
+  override def tiles(networkType: NetworkType): Seq[String] = {
+    new MongoQueryRouteTileNames(database).execute(networkType, log)
+  }
+
+  override def tilesWithName(networkType: NetworkType, name: String): Seq[RouteTileDoc] = {
+    new MongoQueryRouteTileDocs(database).execute(networkType, name, log)
+  }
+
   override def saveRoute(routeDoc: RouteDoc): Unit = {
     database.routes.save(routeDoc, log)
   }
 
   override def saveRouteDetail(routeDetailDoc: RouteDetailDoc): Unit = {
     database.routeDetails.save(routeDetailDoc, log)
+  }
+
+  override def saveRouteTile(routeTileDoc: RouteTileDoc): Unit = {
+    database.routeTiles.save(routeTileDoc, log)
   }
 
   override def bulkSaveRouteDetails(routeDetailDocs: Seq[RouteDetailDoc]): Unit = {

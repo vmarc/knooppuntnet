@@ -21,6 +21,7 @@ import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
 import kpn.database.actions.statistics.StatisticLongValues
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.monitor.domain.MonitorGroup
@@ -72,6 +73,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def routeDetails: DatabaseCollection[RouteDetailDoc] = {
     new DatabaseCollectionImpl(database.getCollection[RouteDetailDoc]("route-details"))
+  }
+
+  override def routeTiles: DatabaseCollection[RouteTileDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[RouteTileDoc]("route-tiles"))
   }
 
   override def orphanRoutes: DatabaseCollection[OrphanRouteDoc] = {

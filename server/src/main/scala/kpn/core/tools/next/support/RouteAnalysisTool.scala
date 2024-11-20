@@ -6,6 +6,7 @@ import kpn.core.tools.analysis.AnalysisStartToolOptions
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.analysis.route.structure.DependencySorter
 import kpn.server.analyzer.engine.analysis.route.structure.RouteDependency
 
@@ -131,6 +132,18 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
       case Some(context) =>
         val routeDetailDoc = new RouteDetailDocBuilder(context).build()
         config.routeRepository.saveRouteDetail(routeDetailDoc)
+        context.tileDatas.foreach { tileData =>
+          val doc = RouteTileDoc(
+            _id = s"${tileData.tile}-${context.relation.id}",
+            routeId = context.relation.id,
+            routeName = context.routeNameAnalysis.name.getOrElse("no-name"), // TODO redesign tiles - can do better?
+            tile = tileData.tile,
+            scope = tileData.scope,
+            networkTypes = context.networkTypes,
+            geometries = tileData.geometries
+          )
+          config.routeRepository.saveRouteTile(doc)
+        }
 
         routeDetailDoc.hierarchy match {
           case None =>

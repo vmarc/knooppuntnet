@@ -10,6 +10,7 @@ export interface RouteSummary {
   readonly countries: Country[];
   readonly nodeNetwork: boolean;
   readonly networkTypes: NetworkType[];
+  readonly scopes: string[];
   readonly name: string;
   readonly meters: number;
   readonly broken: boolean;
