@@ -3,12 +3,16 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MapPopupComponent } from './map-popup.component';
 import { MapService } from './map.service';
 
 @Component({
   selector: 'kpn-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <div id="main-map" class="main-map"></div> `,
+  template: `
+    <kpn-map-popup />
+    <div id="main-map" class="main-map"></div>
+  `,
   styles: [
     `
       :host {
@@ -35,6 +39,7 @@ import { MapService } from './map.service';
     `,
   ],
   standalone: true,
+  imports: [MapPopupComponent],
 })
 export class MapComponent implements AfterViewInit, OnDestroy {
   private readonly mapService = inject(MapService);
