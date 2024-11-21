@@ -1,9 +1,23 @@
-import { OsmLayer } from './osm-layer';
+import { Signal } from '@angular/core';
+import TileLayer from 'ol/layer/Tile';
+import VectorTileLayer from 'ol/layer/VectorTile';
+import OSM from 'ol/source/OSM';
+import TileDebug from 'ol/source/TileDebug';
+import { Grid256Layer } from './grid-256-layer';
 import { Grid512Layer } from './grid-512-layer';
+import { OsmLayer } from './osm-layer';
 import { RouteLayer } from './route-layer';
 
 export class Layers {
-  static readonly osmLayer = OsmLayer.build();
-  static readonly grid512Layer = Grid512Layer.build();
-  static readonly routeLayer = RouteLayer.build();
+  readonly osmLayer: TileLayer<OSM>;
+  readonly grid256Layer: TileLayer<TileDebug>;
+  readonly grid512Layer: TileLayer<TileDebug>;
+  readonly routeLayer: VectorTileLayer;
+
+  constructor(zoom: Signal<number>) {
+    this.osmLayer = OsmLayer.build();
+    this.grid256Layer = Grid256Layer.build();
+    this.grid512Layer = Grid512Layer.build();
+    this.routeLayer = new RouteLayer(zoom).build();
+  }
 }
