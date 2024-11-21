@@ -7,10 +7,10 @@ import { NavService } from '@app/components/shared';
 import { Util } from '@app/components/shared';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
-import { BackgroundLayer } from '@app/ol/layers';
+import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { MapLayerRegistry } from '@app/ol/layers';
-import { OsmLayer } from '@app/ol/layers';
+import { OldOsmLayer } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
 import { MapBrowserEvent } from 'ol';
 import { Coordinate } from 'ol/coordinate';
@@ -164,8 +164,8 @@ export class MonitorRouteMapService extends OpenlayersMapService {
 
   private registerLayers(urlLayerIds: string[]): void {
     const registry = new MapLayerRegistry();
-    registry.register(urlLayerIds, BackgroundLayer.build(), true);
-    registry.register(urlLayerIds, OsmLayer.build(), false);
+    registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OldOsmLayer.build(), false);
     // registry.register(urlLayerIds, MonitorLayer.build(), true);
     // registry.register(urlLayerIds, TileDebug256Layer.build(), false);
     this.register(registry);

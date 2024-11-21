@@ -6,13 +6,13 @@ import { Util } from '@app/components/shared';
 import { CachedMapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { OpenDataLayers } from '@app/ol/layers';
-import { BackgroundLayer } from '@app/ol/layers';
+import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { MapLayerRegistry } from '@app/ol/layers';
 import { NetworkNodesBitmapTileLayer } from '@app/ol/layers';
 import { NetworkNodesMarkerLayer } from '@app/ol/layers';
 import { NetworkNodesVectorTileLayer } from '@app/ol/layers';
-import { OsmLayer } from '@app/ol/layers';
+import { OldOsmLayer } from '@app/ol/layers';
 import { TileDebug256Layer } from '@app/ol/layers';
 import { MapClickService } from '@app/ol/services';
 import { MapZoomService } from '@app/ol/services';
@@ -90,8 +90,8 @@ export class NetworkMapService extends OpenlayersMapService {
 
   private registerLayers(page: NetworkMapPage, urlLayerIds: string[]): void {
     const registry = new MapLayerRegistry();
-    registry.register(urlLayerIds, BackgroundLayer.build(), true);
-    registry.register(urlLayerIds, OsmLayer.build(), false);
+    registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OldOsmLayer.build(), false);
     const networkNodesLayers = [
       NetworkNodesBitmapTileLayer.build(page.summary.networkType),
       NetworkNodesVectorTileLayer.build(

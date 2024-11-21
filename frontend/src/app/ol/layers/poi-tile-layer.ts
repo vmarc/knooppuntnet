@@ -2,7 +2,7 @@ import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { ZoomLevel } from '../domain';
-import { Layers } from './layers';
+import { OldLayers } from './old-layers';
 
 export class PoiTileLayer {
   build(): VectorTileLayer {
@@ -15,7 +15,7 @@ export class PoiTileLayer {
     });
 
     return new VectorTileLayer({
-      zIndex: Layers.zIndexPoiLayer,
+      zIndex: OldLayers.zIndexPoiLayer,
       source,
       renderBuffer: 40,
       declutter: false,

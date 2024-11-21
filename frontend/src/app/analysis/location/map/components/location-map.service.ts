@@ -11,8 +11,8 @@ import { CachedMapPosition } from '@app/ol/domain';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { OpenDataLayers } from '@app/ol/layers';
-import { BackgroundLayer } from '@app/ol/layers';
-import { OsmLayer } from '@app/ol/layers';
+import { OldBackgroundLayer } from '@app/ol/layers';
+import { OldOsmLayer } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
 import { NetworkBitmapTileLayer } from '@app/ol/layers';
 import { LocationBoundaryLayer } from '@app/ol/layers';
@@ -106,8 +106,8 @@ export class LocationMapService extends OpenlayersMapService {
     ];
 
     const registry = new MapLayerRegistry();
-    registry.register(urlLayerIds, BackgroundLayer.build(), true);
-    registry.register(urlLayerIds, OsmLayer.build(), false);
+    registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OldOsmLayer.build(), false);
     registry.registerAll(urlLayerIds, networkLayers, true);
     registry.register(urlLayerIds, LocationBoundaryLayer.build(geoJson), true);
     if (geoJson2) {

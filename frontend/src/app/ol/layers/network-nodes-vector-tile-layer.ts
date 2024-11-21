@@ -5,7 +5,7 @@ import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { ZoomLevel } from '../domain';
 import { NetworkMapStyle } from '../style';
-import { Layers } from './layers';
+import { OldLayers } from './old-layers';
 import { MapLayer } from './map-layer';
 
 export class NetworkNodesVectorTileLayer {
@@ -25,7 +25,7 @@ export class NetworkNodesVectorTileLayer {
     });
 
     const layer = new VectorTileLayer({
-      zIndex: Layers.zIndexNetworkLayer,
+      zIndex: OldLayers.zIndexNetworkLayer,
       className: 'network-layer',
       source,
       renderMode: 'vector',

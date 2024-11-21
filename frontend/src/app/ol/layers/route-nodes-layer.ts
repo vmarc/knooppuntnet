@@ -3,7 +3,7 @@ import { OlUtil } from '@app/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Marker } from '../domain';
-import { Layers } from './layers';
+import { OldLayers } from './old-layers';
 import { MapLayer } from './map-layer';
 
 export class RouteNodesLayer {
@@ -28,7 +28,7 @@ export class RouteNodesLayer {
       source.addFeature(nodeMarker);
     });
     const layer = new VectorLayer({
-      zIndex: Layers.zIndexNetworkNodesLayer,
+      zIndex: OldLayers.zIndexNetworkNodesLayer,
       source,
     });
     const name = $localize`:@@map.layer.route-nodes:Nodes`;

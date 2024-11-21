@@ -5,8 +5,8 @@ import VectorTile from 'ol/source/VectorTile';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import { StyleFunction } from 'ol/style/Style';
-import { Layers } from './layers';
 import { MapLayer } from './map-layer';
+import { OldLayers } from './old-layers';
 
 export class MonitorLayer {
   static build(): MapLayer {
@@ -18,7 +18,7 @@ export class MonitorLayer {
     });
 
     const layer = new VectorTileLayer({
-      zIndex: Layers.zIndexNetworkLayer,
+      zIndex: OldLayers.zIndexNetworkLayer,
       className: `monitor`,
       declutter: false,
       source,

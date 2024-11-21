@@ -7055,7 +7055,7 @@
       <trans-unit datatype="html" id="map.layer.background">
         <source>Background</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ol/layers/background-layer.ts</context>
+          <context context-type="sourcefile">src/app/ol/layers/old-background-layer.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
@@ -7136,7 +7136,7 @@
       <trans-unit datatype="html" id="map.layer.osm">
         <source>OpenStreetMap</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/ol/layers/osm-layer.ts</context>
+          <context context-type="sourcefile">src/app/ol/layers/old-osm-layer.ts</context>
           <context context-type="linenumber">14</context>
         </context-group>
       </trans-unit>

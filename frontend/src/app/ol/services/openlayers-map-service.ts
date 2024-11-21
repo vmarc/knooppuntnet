@@ -25,8 +25,8 @@ import { MapLayerState } from '../domain';
 import { MapPosition } from '../domain';
 import { MapLayer } from '../layers';
 import { MapLayerRegistry } from '../layers';
-import { OsmLayer } from '../layers';
-import { BackgroundLayer } from '../layers/';
+import { OldOsmLayer } from '../layers';
+import { OldBackgroundLayer } from '../layers/';
 
 export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>('MAP_SERVICE_TOKEN');
 
@@ -113,13 +113,13 @@ export abstract class OpenlayersMapService {
     const visible = change.visible;
 
     const mapLayerStates = this._layerStates().map((layerState) => {
-      if (layerState.id === BackgroundLayer.id && layerId === OsmLayer.id && visible) {
+      if (layerState.id === OldBackgroundLayer.id && layerId === OldOsmLayer.id && visible) {
         return {
           ...layerState,
           visible: false,
         };
       }
-      if (layerState.id === OsmLayer.id && layerId === BackgroundLayer.id && visible) {
+      if (layerState.id === OldOsmLayer.id && layerId === OldBackgroundLayer.id && visible) {
         return {
           ...layerState,
           visible: false,

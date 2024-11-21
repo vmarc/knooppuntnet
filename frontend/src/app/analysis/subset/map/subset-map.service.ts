@@ -7,8 +7,8 @@ import { Util } from '@app/components/shared';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapLayerRegistry } from '@app/ol/layers';
-import { BackgroundLayer } from '@app/ol/layers';
-import { OsmLayer } from '@app/ol/layers';
+import { OldBackgroundLayer } from '@app/ol/layers';
+import { OldOsmLayer } from '@app/ol/layers';
 import { NetworkMarkerLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
@@ -69,8 +69,8 @@ export class SubsetMapService extends OpenlayersMapService {
 
   private registerLayers(networks: SubsetMapNetwork[], urlLayerIds: string[]): void {
     const registry = new MapLayerRegistry();
-    registry.register(urlLayerIds, BackgroundLayer.build(), true);
-    registry.register(urlLayerIds, OsmLayer.build(), false);
+    registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OldOsmLayer.build(), false);
     registry.register(urlLayerIds, new NetworkMarkerLayer().build(networks), true);
     this.register(registry);
   }

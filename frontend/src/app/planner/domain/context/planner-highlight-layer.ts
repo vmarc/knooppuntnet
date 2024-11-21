@@ -1,4 +1,4 @@
-import { Layers } from '@app/ol/layers';
+import { OldLayers } from '@app/ol/layers';
 import { FeatureLike } from 'ol/Feature';
 import Feature from 'ol/Feature';
 import { Geometry } from 'ol/geom';
@@ -28,7 +28,7 @@ export class PlannerHighlightLayer {
   });
 
   private layer = new VectorLayer({
-    zIndex: Layers.zIndexHighlightLayer,
+    zIndex: OldLayers.zIndexHighlightLayer,
     source: this.source,
   });
 

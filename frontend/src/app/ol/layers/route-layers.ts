@@ -16,7 +16,7 @@ import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import { Marker } from '../domain';
-import { Layers } from './layers';
+import { OldLayers } from './old-layers';
 import { MapLayer } from './map-layer';
 
 export class RouteLayers {
@@ -155,7 +155,7 @@ export class RouteLayers {
 
     const source = new VectorSource();
     const layer = new VectorLayer({
-      zIndex: Layers.zIndexNetworkNodesLayer,
+      zIndex: OldLayers.zIndexNetworkNodesLayer,
       className: 'route-marker',
       source,
     });

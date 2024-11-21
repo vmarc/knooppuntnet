@@ -3,7 +3,7 @@ import { OlUtil } from '@app/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Marker } from '../domain';
-import { Layers } from './layers';
+import { OldLayers } from './old-layers';
 import { MapLayer } from './map-layer';
 
 export class NetworkNodesMarkerLayer {
@@ -20,7 +20,7 @@ export class NetworkNodesMarkerLayer {
 
     const source = new VectorSource();
     const layer = new VectorLayer({
-      zIndex: Layers.zIndexNetworkNodesLayer,
+      zIndex: OldLayers.zIndexNetworkNodesLayer,
       source,
     });
 

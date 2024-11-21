@@ -9,7 +9,7 @@ import Stroke from 'ol/style/Stroke';
 import Style, { StyleFunction } from 'ol/style/Style';
 import Text from 'ol/style/Text';
 import { ZoomLevel } from '../domain';
-import { Layers } from './layers';
+import { OldLayers } from './old-layers';
 import { MapLayer } from './map-layer';
 
 export class OpendataVectorTileLayer {
@@ -27,7 +27,7 @@ export class OpendataVectorTileLayer {
     });
 
     const layer = new VectorTileLayer({
-      zIndex: Layers.zIndexPoiLayer,
+      zIndex: OldLayers.zIndexPoiLayer,
       source,
       renderBuffer: 40,
       declutter: false,

@@ -6,12 +6,12 @@ import { OlUtil } from '@app/ol';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { OpenDataLayers } from '@app/ol/layers';
-import { BackgroundLayer } from '@app/ol/layers';
+import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { MapLayerRegistry } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
 import { NodeMarkerLayer } from '@app/ol/layers';
-import { OsmLayer } from '@app/ol/layers';
+import { OldOsmLayer } from '@app/ol/layers';
 import { TileDebug256Layer } from '@app/ol/layers';
 import { MapClickService } from '@app/ol/services';
 import { OpenlayersMapService } from '@app/ol/services';
@@ -75,8 +75,8 @@ export class NodeMapService extends OpenlayersMapService {
     urlLayerIds: string[]
   ): void {
     const registry = new MapLayerRegistry();
-    registry.register(urlLayerIds, BackgroundLayer.build(), true);
-    registry.register(urlLayerIds, OsmLayer.build(), false);
+    registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OldOsmLayer.build(), false);
 
     nodeMapInfo.networkTypes.forEach((networkType) => {
       const visible =

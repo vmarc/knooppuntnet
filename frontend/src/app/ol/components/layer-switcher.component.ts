@@ -6,7 +6,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { OsmLayer } from '@app/ol/layers';
+import { OldOsmLayer } from '@app/ol/layers';
 import { MapLayerState } from '../domain';
 import { MAP_SERVICE_TOKEN } from '../services';
 import { OpenlayersMapService } from '../services';
@@ -62,7 +62,7 @@ export class LayerSwitcherComponent {
   private readonly openlayersMapService: OpenlayersMapService = inject(MAP_SERVICE_TOKEN);
 
   protected readonly layerStates = this.openlayersMapService.layerStates;
-  protected readonly osmLayerId = OsmLayer.id;
+  protected readonly osmLayerId = OldOsmLayer.id;
 
   layerVisibleChanged(layerState: MapLayerState, event: MatCheckboxChange): void {
     const change: MapLayerState = {

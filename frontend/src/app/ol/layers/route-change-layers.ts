@@ -9,7 +9,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
-import { Layers } from './layers';
+import { OldLayers } from './old-layers';
 import { MapLayer } from './map-layer';
 
 export class RouteChangeLayers {
@@ -69,7 +69,7 @@ export class RouteChangeLayers {
     });
 
     const layer = new VectorLayer({
-      zIndex: Layers.zIndexNetworkLayer,
+      zIndex: OldLayers.zIndexNetworkLayer,
       source,
     });
     return MapLayer.build(id, name, layer);

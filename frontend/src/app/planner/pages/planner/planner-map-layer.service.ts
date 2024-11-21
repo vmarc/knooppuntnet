@@ -9,8 +9,8 @@ import { NetworkVectorTileLayer } from '@app/ol/layers';
 import { MapLayer } from '@app/ol/layers';
 import { TileDebug512Layer } from '@app/ol/layers';
 import { TileDebug256Layer } from '@app/ol/layers';
-import { OsmLayer } from '@app/ol/layers';
-import { BackgroundLayer } from '@app/ol/layers';
+import { OldOsmLayer } from '@app/ol/layers';
+import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapLayerRegistry } from '@app/ol/layers';
 import { PoiTileLayerService } from '@app/ol/services';
 import { MainMapStyleParameters } from '@app/ol/style';
@@ -28,8 +28,8 @@ export class PlannerMapLayerService {
     parameters: Signal<MainMapStyleParameters>
   ): MapLayerRegistry {
     const registry = new MapLayerRegistry();
-    registry.register(urlLayerIds, BackgroundLayer.build(), true);
-    registry.register(urlLayerIds, OsmLayer.build(), false);
+    registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
+    registry.register(urlLayerIds, OldOsmLayer.build(), false);
 
     registry.registerAll(
       urlLayerIds,

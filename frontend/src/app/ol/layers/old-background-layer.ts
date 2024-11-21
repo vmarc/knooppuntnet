@@ -1,7 +1,7 @@
 import { MapboxVectorLayer } from 'ol-mapbox-style';
 import { MapLayer } from './map-layer';
 
-export class BackgroundLayer {
+export class OldBackgroundLayer {
   static readonly id = 'background';
 
   static build(): MapLayer {
