@@ -210,6 +210,9 @@
       "@app/spinner": [
         "src/app/shared/spinner/index.ts"
       ],
+      "@app/state": [
+        "src/app/state/index.ts"
+      ],
       "@app/status": [
         "src/app/status/index.ts"
       ],

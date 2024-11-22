@@ -7,8 +7,7 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioGroup } from '@angular/material/radio';
 import { NetworkType } from '@api/custom';
-import { IconButtonComponent } from '@app/components/shared/icon';
-import { RootService } from '../root.service';
+import { StateService } from '@app/state';
 import { ConfigurationNetworkTypeItemComponent } from './configuration-network-type-item.component';
 
 @Component({
@@ -57,19 +56,18 @@ import { ConfigurationNetworkTypeItemComponent } from './configuration-network-t
   imports: [
     MatRadioGroup,
     ConfigurationNetworkTypeItemComponent,
-    IconButtonComponent,
     MatExpansionPanel,
     MatExpansionPanelContent,
     MatExpansionPanelHeader,
   ],
 })
 export class ConfigurationNetworkTypeComponent {
-  private readonly rootService = inject(RootService);
+  private readonly state = inject(StateService);
   protected readonly networkType = NetworkType;
-  protected readonly selectedNetworkType = this.rootService.networkType;
+  protected readonly selectedNetworkType = this.state.page.networkType;
 
   networkTypeChanged(event: MatRadioChange) {
-    this.rootService.updateNetworkType(event.value);
+    this.state.page.updateNetworkType(event.value);
   }
 
   expanded(): boolean {

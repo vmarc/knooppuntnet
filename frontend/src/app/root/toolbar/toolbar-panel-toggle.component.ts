@@ -6,7 +6,7 @@ import { MatButtonToggle } from '@angular/material/button-toggle';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RootService } from '../root.service';
+import { StateService } from '@app/state';
 
 @Component({
   selector: 'kpn-toolbar-panel-toggle',
@@ -15,8 +15,8 @@ import { RootService } from '../root.service';
     <mat-button-toggle-group
       #group="matButtonToggleGroup"
       [hideSingleSelectionIndicator]="true"
-      [value]="rootService.activePanel()"
-      (change)="rootService.setShowTextPanel($event.value)"
+      [value]="activePanel()"
+      (change)="updateActivePanel($event.value)"
     >
       <mat-button-toggle value="text" aria-label="Text">
         <mat-icon>format_align_left</mat-icon>
@@ -36,5 +36,10 @@ import { RootService } from '../root.service';
   ],
 })
 export class ToolbarPanelToggleComponent {
-  readonly rootService = inject(RootService);
+  private readonly state = inject(StateService);
+  readonly activePanel = this.state.page.activePanel;
+
+  updateActivePanel(value: string): void {
+    this.state.page.updateActivePanel(value);
+  }
 }

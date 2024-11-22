@@ -1,6 +1,5 @@
 import { NgClass } from '@angular/common';
 import { NgTemplateOutlet } from '@angular/common';
-import { effect } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -8,7 +7,7 @@ import { Component } from '@angular/core';
 import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 import { AngularSplitModule } from 'angular-split';
 import { MapComponent } from '../map/map.component';
-import { RootService } from './root.service';
+import { StateService } from '@app/state';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @Component({
@@ -123,16 +122,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
   ],
 })
 export class RootPageComponent {
-  private readonly rootService = inject(RootService);
-  readonly small = this.rootService.small;
-  readonly hideText = computed(() => this.rootService.activePanel() !== 'text');
-  readonly hideMap = computed(() => this.rootService.activePanel() !== 'map');
-
-  constructor() {
-    effect(() => {
-      console.log('active panel: ' + this.rootService.activePanel());
-      console.log('   hide text: ' + this.hideText());
-      console.log('   hide map:  ' + this.hideMap());
-    });
-  }
+  private readonly state = inject(StateService);
+  readonly small = this.state.page.small;
+  readonly hideText = computed(() => this.state.page.activePanel() !== 'text');
+  readonly hideMap = computed(() => this.state.page.activePanel() !== 'map');
 }

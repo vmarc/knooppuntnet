@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatLabel } from '@angular/material/select';
 import { NetworkType } from '@api/custom';
-import { RootService } from '../root.service';
+import { StateService } from '@app/state';
 import { RouteTypeIconItemComponent } from './route-type-icon.component';
 
 @Component({
@@ -33,12 +33,12 @@ import { RouteTypeIconItemComponent } from './route-type-icon.component';
   imports: [MatButtonModule, MatIconModule, MatMenuItem, MatLabel, RouteTypeIconItemComponent],
 })
 export class ToolbarRouteTypeMenuItemComponent {
-  private readonly rootService = inject(RootService);
+  private readonly state = inject(StateService);
 
   readonly networkType = input.required<NetworkType>();
   readonly label = input.required<string>();
 
   clicked(): void {
-    this.rootService.updateNetworkType(this.networkType());
+    this.state.page.updateNetworkType(this.networkType());
   }
 }

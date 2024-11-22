@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SpinnerComponent } from '@app/spinner';
-import { RootService } from '../root.service';
+import { StateService } from '@app/state';
 import { ToolbarPanelToggleComponent } from './toolbar-panel-toggle.component';
 import { ToolbarRouteTypeMenuComponent } from './toolbar-route-type-menu.component';
 import { ToolbarTitleComponent } from './toolbar-title.component';
@@ -19,7 +19,7 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
       <kpn-toolbar-title />
       <kpn-spinner />
       <span class="toolbar-spacer"></span>
-      @if (rootService.small()) {
+      @if (small()) {
         <kpn-toolbar-panel-toggle />
       }
     </mat-toolbar>
@@ -45,5 +45,6 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
   ],
 })
 export class ToolbarComponent {
-  readonly rootService = inject(RootService);
+  private readonly state = inject(StateService);
+  readonly small = this.state.page.small;
 }
