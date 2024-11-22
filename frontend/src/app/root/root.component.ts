@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 import { AngularSplitModule } from 'angular-split';
 import { MapComponent } from '../map/map.component';
-import { StateService } from '@app/state';
+import { State } from '@app/state';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @Component({
@@ -122,7 +122,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
   ],
 })
 export class RootPageComponent {
-  private readonly state = inject(StateService);
+  private readonly state = inject(State);
   readonly small = this.state.page.small;
   readonly hideText = computed(() => this.state.page.activePanel() !== 'text');
   readonly hideMap = computed(() => this.state.page.activePanel() !== 'map');

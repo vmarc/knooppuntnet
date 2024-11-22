@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { DividerComponent } from '@app/components/shared';
-import { MapService } from '../map.service';
+import { State } from '@app/state';
 
 @Component({
   selector: 'kpn-map-route-popup',
@@ -35,10 +35,10 @@ import { MapService } from '../map.service';
   imports: [DividerComponent, NgClass],
 })
 export class MapRoutePopupComponent {
-  private readonly mapService = inject(MapService);
+  private readonly state = inject(State);
 
   readonly routes = computed(() => {
-    const state = this.mapService.routePopupState();
+    const state = this.state.map.routePopupState();
     if (state) {
       return state.routes;
     }

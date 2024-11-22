@@ -6,7 +6,7 @@ import { MatButtonToggle } from '@angular/material/button-toggle';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { StateService } from '@app/state';
+import { State } from '@app/state';
 
 @Component({
   selector: 'kpn-toolbar-panel-toggle',
@@ -36,7 +36,7 @@ import { StateService } from '@app/state';
   ],
 })
 export class ToolbarPanelToggleComponent {
-  private readonly state = inject(StateService);
+  private readonly state = inject(State);
   readonly activePanel = this.state.page.activePanel;
 
   updateActivePanel(value: string): void {

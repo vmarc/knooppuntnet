@@ -34,7 +34,7 @@ import { appRoutes } from './app-routes';
 import { MapService } from './map/map.service';
 import { RootService } from './root/root.service';
 import { UserService } from './shared/user';
-import { StateService } from '@app/state';
+import { State } from '@app/state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -79,7 +79,7 @@ export const appConfig: ApplicationConfig = {
     ApiService,
     SpinnerService,
     RootService,
-    StateService,
+    State,
     PageService,
     PageWidthService,
     MapService,

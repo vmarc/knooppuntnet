@@ -1,15 +1,11 @@
-import { signal } from '@angular/core';
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { ExploreRoute } from './explore-route';
+import { State } from '@app/state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExploreService {
-  private readonly _routes = signal<Array<ExploreRoute>>([]);
-  readonly routes = this._routes.asReadonly();
-
-  updateRoutes(routes: Array<ExploreRoute>) {
-    this._routes.set(routes);
-  }
+  private readonly state = inject(State);
+  readonly routes = this.state.explore.routes;
 }

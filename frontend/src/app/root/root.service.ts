@@ -2,13 +2,13 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { merge } from 'rxjs';
-import { StateService } from '@app/state';
+import { State } from '@app/state';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RootService {
-  private readonly state = inject(StateService);
+  private readonly state = inject(State);
   private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly smallMaxWidth = 1000;
 

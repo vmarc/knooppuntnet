@@ -1,8 +1,9 @@
-import { WritableSignal } from '@angular/core';
+import { ExploreRoute } from '@app/state';
+import { MapRoutePopupState } from '@app/state';
+import { MapRoutePopupRoute } from '@app/state';
+import { State } from '@app/state';
 import { Coordinate } from 'ol/coordinate';
 import { FeatureLike } from 'ol/Feature';
-import { MapRoutePopupRoute } from './map-route-popup-route';
-import { MapRoutePopupState } from './map-route-popup-state';
 
 export type MapRoutePopupAction = (
   routes: Array<MapRoutePopupRoute>,
@@ -10,38 +11,55 @@ export type MapRoutePopupAction = (
 ) => void;
 
 export class MapRoutePopupHandler {
-  constructor(
-    readonly popupState: WritableSignal<MapRoutePopupState>,
-    readonly clickAction: () => void
-  ) {}
+  constructor(readonly state: State) {}
 
   handle(features: Array<FeatureLike>, coordinate: Coordinate | null) {
+    if (!this.containsRoutes(features) && this.state.map.routePopupState().routes.length === 0) {
+      return true;
+    }
     const routes = this.toPopupFeatures(features);
     const newRoutes = this.withoutDuplicates(routes);
-    if (!this.equalPopupState(this.popupState(), routes, coordinate)) {
-      this.popupState.set(new MapRoutePopupState(newRoutes, coordinate));
+    if (!this.equalPopupState(this.state.map.routePopupState(), routes, coordinate)) {
+      this.state.map.updateRoutePopupState(new MapRoutePopupState(newRoutes, coordinate));
     }
     return true;
   }
 
   click(): boolean {
-    if (this.popupState().routes.length > 0) {
-      this.clickAction();
+    if (this.state.map.routePopupState().routes.length > 0) {
+      const routes = this.state.map
+        .routePopupState()
+        .routes.map((r) => new ExploreRoute(r.routeId, r.name, r.scope));
+      this.state.explore.updateRoutes(routes);
       return false; // no need to further propagate to other interactions
     }
     return true;
   }
 
   private toPopupFeatures(features: Array<FeatureLike>): Array<MapRoutePopupRoute> {
-    return features.flatMap((feature: FeatureLike) => {
-      const routeId = feature.get('routeId');
-      const name = feature.get('name');
-      const scope = feature.get('layer');
-      if (name && routeId && scope) {
-        return new MapRoutePopupRoute(routeId, name, scope);
-      }
-      return null;
-    });
+    if (!this.containsRoutes(features)) {
+      return [];
+    }
+
+    return features
+      .map((feature: FeatureLike) => {
+        const layer = feature.get('layer');
+        if (
+          layer == 'international' ||
+          layer == 'national' ||
+          layer == 'regional' ||
+          layer == 'local' ||
+          layer == 'unknown'
+        ) {
+          const routeId = feature.get('routeId');
+          const name = feature.get('name');
+          if (name && routeId && layer) {
+            return new MapRoutePopupRoute(routeId, name, layer);
+          }
+        }
+        return null;
+      })
+      .filter((x) => x !== null);
   }
 
   private withoutDuplicates(routes: Array<MapRoutePopupRoute>): Array<MapRoutePopupRoute> {
@@ -102,6 +120,23 @@ export class MapRoutePopupHandler {
         if (a.scope === b.scope) {
           return true;
         }
+      }
+    }
+    return false;
+  }
+
+  private containsRoutes(features: Array<FeatureLike>): boolean {
+    for (let i = 0; i < features.length; i++) {
+      const feature = features[i];
+      const layer = feature.get('layer');
+      if (
+        layer == 'international' ||
+        layer == 'national' ||
+        layer == 'regional' ||
+        layer == 'local' ||
+        layer == 'unknown'
+      ) {
+        return true;
       }
     }
     return false;

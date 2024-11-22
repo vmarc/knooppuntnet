@@ -10,8 +10,8 @@ import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { MapRoutePopupRoute } from '@app/state';
 import { Coordinate } from 'ol/coordinate';
-import { MapRoutePopupRoute } from './popup/map-route-popup-route';
 import { MapRoutePopupComponent } from './popup/map-route-popup.component';
 import { MapService } from './map.service';
 

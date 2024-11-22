@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SpinnerComponent } from '@app/spinner';
-import { StateService } from '@app/state';
+import { State } from '@app/state';
 import { ToolbarPanelToggleComponent } from './toolbar-panel-toggle.component';
 import { ToolbarRouteTypeMenuComponent } from './toolbar-route-type-menu.component';
 import { ToolbarTitleComponent } from './toolbar-title.component';
@@ -45,6 +45,6 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
   ],
 })
 export class ToolbarComponent {
-  private readonly state = inject(StateService);
+  private readonly state = inject(State);
   readonly small = this.state.page.small;
 }

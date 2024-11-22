@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenu } from '@angular/material/menu';
 import { NetworkType } from '@api/custom';
-import { StateService } from '@app/state';
+import { State } from '@app/state';
 import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-item.component';
 
 @Component({
@@ -81,7 +81,7 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
   ],
 })
 export class ToolbarRouteTypeMenuComponent {
-  private readonly state = inject(StateService);
+  private readonly state = inject(State);
   readonly networkType = NetworkType;
   readonly icon = computed(() => {
     switch (this.state.page.networkType()) {

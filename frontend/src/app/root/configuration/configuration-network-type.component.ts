@@ -7,7 +7,7 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioGroup } from '@angular/material/radio';
 import { NetworkType } from '@api/custom';
-import { StateService } from '@app/state';
+import { State } from '@app/state';
 import { ConfigurationNetworkTypeItemComponent } from './configuration-network-type-item.component';
 
 @Component({
@@ -62,7 +62,7 @@ import { ConfigurationNetworkTypeItemComponent } from './configuration-network-t
   ],
 })
 export class ConfigurationNetworkTypeComponent {
-  private readonly state = inject(StateService);
+  private readonly state = inject(State);
   protected readonly networkType = NetworkType;
   protected readonly selectedNetworkType = this.state.page.networkType;
 

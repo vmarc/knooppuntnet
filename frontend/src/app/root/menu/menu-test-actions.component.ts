@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { DividerComponent } from '@app/components/shared';
-import { MapService } from '../../map/map.service';
+import { State } from '@app/state';
 
 @Component({
   selector: 'kpn-menu-test-actions',
@@ -37,10 +37,10 @@ import { MapService } from '../../map/map.service';
   imports: [MatButton, DividerComponent],
 })
 export class MenuTestActionsComponent {
-  private readonly mapService = inject(MapService);
-  readonly zoom = this.mapService.zoom;
+  private readonly state = inject(State);
+  readonly zoom = this.state.map.zoom;
   readonly center = computed(() => {
-    const coordinate = this.mapService.center();
+    const coordinate = this.state.map.center();
     if (coordinate) {
       return `${coordinate[0]},${coordinate[1]}`;
     }
@@ -48,7 +48,6 @@ export class MenuTestActionsComponent {
   });
 
   selectRoute(routeId: number) {
-    console.log('selectedRoute: ' + routeId);
-    this.mapService.selectRoute(routeId);
+    this.state.map.updateSelectedRoute(routeId);
   }
 }

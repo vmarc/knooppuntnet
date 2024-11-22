@@ -1,25 +1,19 @@
-import { Signal } from '@angular/core';
-import { WritableSignal } from '@angular/core';
+import { State } from '@app/state';
 import { Interaction } from 'ol/interaction';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
-import { MapRoutePopupState } from './map-route-popup-state';
 import { MapRoutePopupHandler } from './map-route-popup-handler';
 
 export class MapRoutePopupInteraction extends Interaction {
   private readonly handler: MapRoutePopupHandler;
 
-  constructor(
-    readonly mode: Signal<string>,
-    hooverState: WritableSignal<MapRoutePopupState>,
-    clickAction: () => void
-  ) {
+  constructor(readonly state: State) {
     super();
-    this.handler = new MapRoutePopupHandler(hooverState, clickAction);
+    this.handler = new MapRoutePopupHandler(state);
   }
 
   override handleEvent(evt: MapBrowserEvent<UIEvent>) {
-    if (this.mode() !== 'explore') {
+    if (this.state.map.mode() !== 'explore') {
       return true; // no need to handle event, propagate to other interactions
     }
 
