@@ -16,16 +16,17 @@ import { DividerComponent } from '@app/components/shared';
 import { BackButtonComponent } from '@app/components/shared';
 import { PageButtonsComponent } from '@app/components/shared/page';
 import { ApiService } from '@app/services';
-import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PageComponent } from '../shared/components/shared/page/page.component';
+import { ExploreRoutesComponent } from './explore-routes.component';
 
 @Component({
-  selector: 'kpn-search',
+  selector: 'kpn-explore',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page-buttons>
       <kpn-back-button />
-      <mat-label>Search</mat-label>
+      <mat-label>Explore</mat-label>
     </kpn-page-buttons>
     <kpn-page>
       <form [formGroup]="form" class="kpn-form" #ngForm="ngForm">
@@ -49,6 +50,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         </mat-nav-list>
         <kpn-divider />
       }
+      <kpn-explore-routes />
     </kpn-page>
   `,
   standalone: true,
@@ -65,9 +67,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     DividerComponent,
     MatListItem,
     MatNavList,
+    PageComponent,
+    ExploreRoutesComponent,
   ],
 })
-export class SearchComponent {
+export class ExploreComponent {
   private readonly apiService = inject(ApiService);
   readonly geocoderLocations = signal<GeocoderLocation[]>([]);
 

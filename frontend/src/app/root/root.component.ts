@@ -119,7 +119,6 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     ToolbarComponent,
     NgClass,
     MapComponent,
-    MapComponent,
     SidebarFooterComponent,
   ],
 })

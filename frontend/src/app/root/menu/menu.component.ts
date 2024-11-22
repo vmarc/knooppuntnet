@@ -11,7 +11,7 @@ import { MenuTestLinksComponent } from './menu-test-links.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-nav-list>
-      <kpn-menu-item label="Search" icon="search" link="search" />
+      <kpn-menu-item label="Explore" icon="search" link="explore" />
       <kpn-menu-item label="Plan a route" icon="explore" link="planner" />
       <kpn-menu-item label="Map configuration" icon="layers" link="configuration" />
       <kpn-menu-item label="Settings" icon="settings" link="configuration" />

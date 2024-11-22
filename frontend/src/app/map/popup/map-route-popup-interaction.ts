@@ -3,20 +3,19 @@ import { WritableSignal } from '@angular/core';
 import { Interaction } from 'ol/interaction';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import MapBrowserEventType from 'ol/MapBrowserEventType';
-import { HooverState } from './hoover-state';
-import { RouteHooverHandler } from './route-hoover-handler';
-import { RouteHooverAction } from './route-hoover-handler';
+import { MapRoutePopupState } from './map-route-popup-state';
+import { MapRoutePopupHandler } from './map-route-popup-handler';
 
-export class RouteHooverInteraction extends Interaction {
-  private readonly handler: RouteHooverHandler;
+export class MapRoutePopupInteraction extends Interaction {
+  private readonly handler: MapRoutePopupHandler;
 
   constructor(
     readonly mode: Signal<string>,
-    hooverState: WritableSignal<HooverState>,
-    clickAction: RouteHooverAction
+    hooverState: WritableSignal<MapRoutePopupState>,
+    clickAction: () => void
   ) {
     super();
-    this.handler = new RouteHooverHandler(hooverState, clickAction);
+    this.handler = new MapRoutePopupHandler(hooverState, clickAction);
   }
 
   override handleEvent(evt: MapBrowserEvent<UIEvent>) {
@@ -25,11 +24,15 @@ export class RouteHooverInteraction extends Interaction {
     }
 
     if (MapBrowserEventType.SINGLECLICK === evt.type) {
-      return this.handler.click(evt.coordinate);
+      return this.handler.click();
     }
 
     if (MapBrowserEventType.POINTERMOVE === evt.type) {
-      return this.handler.handle(evt.map.getFeaturesAtPixel(evt.pixel), evt.coordinate);
+      const event = evt.originalEvent as PointerEvent;
+      return this.handler.handle(evt.map.getFeaturesAtPixel(evt.pixel), [
+        event.clientX,
+        event.clientY,
+      ]);
     }
 
     if (MapBrowserEventType.POINTEROUT === evt.type) {
