@@ -1,5 +1,6 @@
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
+import { NetworkType } from '@api/custom';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldLayers } from '@app/ol/layers';
 import { MVT } from 'ol/format';
@@ -9,7 +10,7 @@ import { StyleFunction } from 'ol/style/Style';
 import { ExploreStyle } from '../style/explore-style';
 
 export class RouteLayer {
-  private zoom: number;
+  private zoom: number; // local copy for performance reasons
 
   constructor(zoomSignal: Signal<number>) {
     effect(() => {
@@ -17,13 +18,13 @@ export class RouteLayer {
     });
   }
 
-  build(): VectorTileLayer {
+  build(networkType: NetworkType): VectorTileLayer {
     const source = new VectorTile({
       tileSize: 256,
-      minZoom: 6, // ZoomLevel.vectorTileMinZoom,
+      minZoom: ZoomLevel.newMinZoom,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: `/tiles/hiking/{z}/{x}/{y}.mvt`,
+      url: `/tiles/${networkType}/{z}/{x}/{y}.mvt`,
     });
     return new VectorTileLayer({
       zIndex: OldLayers.zIndexNetworkLayer,
@@ -35,19 +36,7 @@ export class RouteLayer {
 
   private styleFunction(): StyleFunction {
     return (feature) => {
-      // const routeId = feature.get('routeId');
-      // const name = feature.get('name');
-      // const layer = feature.get('layer');
-      // const surface = feature.get('surface');
-      // const segmentId = feature.get('segmentId');
-      // const segmentElementId = feature.get('segmentElementId');
-      // const pathIds = feature.get('pathIds');
-      const scope = feature.get('layer');
-
-      // console.log(
-      //   `feature routeId=${routeId}, name=${name}, layer=${layer}, surface=${surface}, segmentId=${segmentId}, segmentElementId=${segmentElementId}, pathIds=${pathIds}`
-      // );
-
+      const scope = feature.get('scope');
       return ExploreStyle.style(scope, this.zoom);
     };
   }

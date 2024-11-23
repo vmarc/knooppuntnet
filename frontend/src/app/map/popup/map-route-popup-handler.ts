@@ -44,17 +44,12 @@ export class MapRoutePopupHandler {
     return features
       .map((feature: FeatureLike) => {
         const layer = feature.get('layer');
-        if (
-          layer == 'international' ||
-          layer == 'national' ||
-          layer == 'regional' ||
-          layer == 'local' ||
-          layer == 'unknown'
-        ) {
+        if (layer == 'route') {
           const routeId = feature.get('routeId');
           const name = feature.get('name');
+          const scope = feature.get('scope');
           if (name && routeId && layer) {
-            return new MapRoutePopupRoute(routeId, name, layer);
+            return new MapRoutePopupRoute(routeId, name, scope);
           }
         }
         return null;
@@ -129,13 +124,7 @@ export class MapRoutePopupHandler {
     for (let i = 0; i < features.length; i++) {
       const feature = features[i];
       const layer = feature.get('layer');
-      if (
-        layer == 'international' ||
-        layer == 'national' ||
-        layer == 'regional' ||
-        layer == 'local' ||
-        layer == 'unknown'
-      ) {
+      if (layer === 'route') {
         return true;
       }
     }

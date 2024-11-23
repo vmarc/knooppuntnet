@@ -60,10 +60,10 @@ export class MapService {
   init(): void {
     this._map = new Map({
       target: 'main-map',
-      layers: [this.layers.backgroundLayer, this.layers.routeLayer, this.layers.grid256Layer],
+      layers: [this.layers.osmLayer, this.layers.routeLayer, this.layers.grid256Layer],
       controls: MapControls.build(),
       view: new View({
-        minZoom: 6, //ZoomLevel.minZoom,
+        minZoom: ZoomLevel.newMinZoom,
         maxZoom: ZoomLevel.vectorTileMaxOverZoom, //ZoomLevel.maxZoom,
         zoom: 6,
       }),

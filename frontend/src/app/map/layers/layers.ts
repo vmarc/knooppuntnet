@@ -1,4 +1,5 @@
 import { Signal } from '@angular/core';
+import { NetworkType } from '@api/custom';
 import { MapboxVectorLayer } from 'ol-mapbox-style';
 import TileLayer from 'ol/layer/Tile';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -22,6 +23,6 @@ export class Layers {
     this.backgroundLayer = BackgroundLayer.build();
     this.grid256Layer = Grid256Layer.build();
     this.grid512Layer = Grid512Layer.build();
-    this.routeLayer = new RouteLayer(zoom).build();
+    this.routeLayer = new RouteLayer(zoom).build(NetworkType.hiking);
   }
 }
