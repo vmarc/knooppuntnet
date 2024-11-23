@@ -22,6 +22,7 @@ import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
+import kpn.server.analyzer.engine.tiles.domain.TileId
 import org.springframework.stereotype.Component
 
 @Component
@@ -41,12 +42,12 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteElementIds(database).execute()
   }
 
-  override def tiles(networkType: NetworkType): Seq[String] = {
+  override def tiles(networkType: NetworkType): Seq[TileId] = {
     new MongoQueryRouteTileNames(database).execute(networkType, log)
   }
 
-  override def tilesWithName(networkType: NetworkType, name: String): Seq[RouteTileDoc] = {
-    new MongoQueryRouteTileDocs(database).execute(networkType, name, log)
+  override def tilesWithName(networkType: NetworkType, tileId: TileId): Seq[RouteTileDoc] = {
+    new MongoQueryRouteTileDocs(database).execute(networkType, tileId, log)
   }
 
   override def saveRoute(routeDoc: RouteDoc): Unit = {

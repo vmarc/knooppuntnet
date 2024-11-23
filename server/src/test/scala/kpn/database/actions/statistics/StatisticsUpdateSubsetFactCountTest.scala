@@ -153,7 +153,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
         newRouteSummary(
           routeId,
           Seq(country),
-          networkType,
+          networkTypes = Seq(networkType),
         ),
         labels = if (active) Seq(Label.active) else Seq.empty,
         facts = facts

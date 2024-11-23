@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Relation
-import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
@@ -29,7 +28,6 @@ case class TileSegment(
 
 @Component
 class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) extends RouteAnalyzer {
-  private val log = Log(classOf[RouteTileAnalyzer])
   private val geometryFactory = new GeometryFactory
   private val extent = Tile.EXTENT
   private val clipBuffer: ClipBuffer = Tile.CLIP_BUFFER
@@ -58,7 +56,7 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
       Seq.empty
     }
     else {
-      val zoomLevels = ZoomLevel.minZoom.to(ZoomLevel.maxZoom).toSeq
+      val zoomLevels = ZoomLevel.newMinZoom.to(ZoomLevel.maxZoom).toSeq
       val datas = zoomLevels.flatMap { zoomLevel =>
         if (includeZoomLevel(context, zoomLevel)) {
           buildTileRouteData(context, zoomLevel, tiles, tileSegments)
@@ -82,13 +80,13 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
       val lineSegments = worldCoordinates.sliding(2).map { case Seq(c1, c2) =>
         new LineSegment(c1, c2)
       }.toSeq
-      (ZoomLevel.minZoom to ZoomLevel.maxZoom).flatMap { z =>
+      (ZoomLevel.newMinZoom to ZoomLevel.maxZoom).flatMap { z =>
         lineSegmentTileCalculator.tiles(z, lineSegments)
       }
     }.distinct.sortBy(tile => (tile.z, tile.x, tile.y))
   }
 
-  private def clipGeometry(geometry: Geometry): Geometry = {
+  private def clipGeometry(z: Int, geometry: Geometry): Geometry = {
     try {
       var clippedGeometry = tileEnvelope.intersection(geometry)
       // some times a intersection is returned as an empty geometry.
@@ -109,13 +107,13 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
   }
 
   private def includeZoomLevel(context: RouteDetailAnalysisContext, zoomLevel: Int): Boolean = {
-    val includedScopes = if (zoomLevel == 6 || zoomLevel == 7) {
+    val includedScopes = if (zoomLevel < 7) {
       Seq("international")
     }
-    else if (zoomLevel == 8 || zoomLevel == 9) {
-      Seq("international", "national", "regional")
+    else if (zoomLevel < 9) {
+      Seq("international", "national")
     }
-    else if (zoomLevel == 10 || zoomLevel == 11) {
+    else if (zoomLevel < 11) {
       Seq("international", "national", "regional")
     }
     else {
@@ -136,7 +134,9 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
       else {
         Some(
           RouteTileData(
-            tile.name,
+            tile.z,
+            tile.x,
+            tile.y,
             context.scopes.head,
             geometries
           )
@@ -150,7 +150,7 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
     val scaledCoordinates = tileSegment.worldCoordinates.map(tile.scale)
     val lineString = geometryFactory.createLineString(scaledCoordinates.toArray)
     val simplifiedLineString = if (tile.z < 14) {
-      DouglasPeuckerSimplifier.simplify(lineString, 3).asInstanceOf[LineString]
+      DouglasPeuckerSimplifier.simplify(lineString, 14).asInstanceOf[LineString]
     }
     else {
       lineString
@@ -160,7 +160,7 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
       None
     }
     else {
-      val clippedGeometry = clipGeometry(simplifiedLineString)
+      val clippedGeometry = clipGeometry(tile.z, simplifiedLineString)
 
       // ignore geometry if empty after clipping
       if (clippedGeometry.isEmpty) {
@@ -171,7 +171,7 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
           None
         }
         else {
-          val geometryString = clippedGeometry.getCoordinates().map(coordinate => s"[${coordinate.x},${coordinate.y}]").mkString("[", ",", "]")
+          val geometryString = clippedGeometry.getCoordinates().map(coordinate => s"[${Math.floor(coordinate.x).toInt},${Math.floor(coordinate.y).toInt}]").mkString("[", ",", "]")
           Some(geometryString)
         }
       }

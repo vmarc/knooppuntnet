@@ -403,7 +403,8 @@ trait SharedTestObjects extends MockFactory {
     labels: Seq[String] = Seq(Label.active),
     proposed: Boolean = false,
     countries: Seq[Country] = Seq.empty,
-    networkType: NetworkType = NetworkType.hiking,
+    nodeNetwork: Boolean = true,
+    networkTypes: Seq[NetworkType] = Seq(NetworkType.hiking),
     networkScope: NetworkScope = NetworkScope.regional,
     name: String = "",
     meters: Int = 0,
@@ -432,8 +433,9 @@ trait SharedTestObjects extends MockFactory {
     val summary = RouteSummary(
       id,
       countries,
-      networkType,
-      networkScope,
+      nodeNetwork,
+      networkTypes,
+      Seq.empty, // TODO redesign tiles - scopes
       name,
       meters,
       broken = facts.exists(_.isError),
@@ -633,8 +635,8 @@ trait SharedTestObjects extends MockFactory {
   def newRouteSummary(
     id: Long,
     countries: Seq[Country] = Seq.empty,
-    networkType: NetworkType = NetworkType.hiking,
-    networkScope: NetworkScope = NetworkScope.regional,
+    nodeNetwork: Boolean = true,
+    networkTypes: Seq[NetworkType] = Seq(NetworkType.hiking),
     name: String = "",
     meters: Int = 0,
     broken: Boolean = false,
@@ -646,8 +648,9 @@ trait SharedTestObjects extends MockFactory {
     RouteSummary(
       id,
       countries,
-      networkType,
-      networkScope,
+      nodeNetwork,
+      networkTypes,
+      Seq.empty, // TODO redesign tiles - scopes
       name,
       meters,
       broken,

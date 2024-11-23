@@ -38,4 +38,18 @@ class TileTest extends UnitTest {
 
     println(scaled)
   }
+
+  test("contains") {
+    val tile = Tile(1, 0, 0)
+
+    tile.bounds.xMin should equal(0.0)
+    tile.bounds.xMax should equal(0.5)
+    tile.bounds.yMin should equal(0)
+    tile.bounds.yMax should equal(0.5)
+
+    tile.contains(Seq(0.2, 0.2, 0.4, 0.4)) should equal(true)
+    tile.contains(Seq(-0.25, 0.25, 0.25, 0.25)) should equal(true)
+    tile.contains(Seq(-0.25, -0.25, 0.75, 0.75)) should equal(true)
+    tile.contains(Seq(-0.25, 0.75, 0.25, 0.75)) should equal(false)
+  }
 }

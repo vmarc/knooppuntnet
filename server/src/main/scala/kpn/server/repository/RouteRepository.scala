@@ -10,6 +10,7 @@ import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
+import kpn.server.analyzer.engine.tiles.domain.TileId
 
 trait RouteRepository {
 
@@ -19,9 +20,9 @@ trait RouteRepository {
 
   def activeRouteElementIds(): Seq[ReferencedElementIds]
 
-  def tiles(networkType: NetworkType): Seq[String]
+  def tiles(networkType: NetworkType): Seq[TileId]
 
-  def tilesWithName(networkType: NetworkType, name: String): Seq[RouteTileDoc]
+  def tilesWithName(networkType: NetworkType, tileId: TileId): Seq[RouteTileDoc]
 
   def saveRoute(route: RouteDoc): Unit
 

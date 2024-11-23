@@ -6,11 +6,13 @@ object Tile {
 
   val EXTENT: Int = 4096
 
+  val CLIP_BUFFER_SIZE = 14 // assume tile size 256 pixels, radius of node circle 14 pixels
+
   val CLIP_BUFFER: ClipBuffer = ClipBuffer(
-    EXTENT * 14 / 256, // assume tile size 256 pixels, radius of node circle 14 pixels
-    EXTENT * 14 / 256,
-    EXTENT * 14 / 256,
-    EXTENT * 14 / 256
+    EXTENT * CLIP_BUFFER_SIZE / 256,
+    EXTENT * CLIP_BUFFER_SIZE / 256,
+    EXTENT * CLIP_BUFFER_SIZE / 256,
+    EXTENT * CLIP_BUFFER_SIZE / 256
   )
 
   val POI_CLIP_BUFFER: ClipBuffer = ClipBuffer(
@@ -99,14 +101,42 @@ class Tile(val z: Int, val x: Int, val y: Int) {
     //      throw new RuntimeException(s"invalid worldCoordinate y: ${worldCoordinate.y} (should be between $worldYMin and $worldYMax)")
     //    }
 
-    val scaledX = Math.round(((worldCoordinate.x - worldXMin) * Tile.EXTENT / (worldXMax - worldXMin)))
-    val scaledY = Math.round(((worldCoordinate.y - worldYMin) * Tile.EXTENT / (worldYMax - worldYMin)))
+    val scaledX = (worldCoordinate.x - worldXMin) * Tile.EXTENT / (worldXMax - worldXMin)
+    val scaledY = (worldCoordinate.y - worldYMin) * Tile.EXTENT / (worldYMax - worldYMin)
 
     //    if (scaledX < 0 || scaledX > Tile.EXTENT) {
     //      throw new RuntimeException(s"invalid scaledCoordinate x: $scaledX (should be between 0 and ${Tile.EXTENT})")
     //    }
     //    if (scaledY < 0 || scaledY > Tile.EXTENT) {
     //      throw new RuntimeException(s"invalid scaledCoordinate y: $scaledY (should be between 0 and ${Tile.EXTENT})")
+    //    }
+
+    new Coordinate(scaledX, scaledY)
+  }
+
+  def scale14(worldCoordinate: Coordinate): Coordinate = {
+    //    if (worldCoordinate.x < 0 || worldCoordinate.x > 1) {
+    //      throw new RuntimeException(s"invalid worldCoordinate x: ${worldCoordinate.x} (should be between 0 and 1)")
+    //    }
+    //    if (worldCoordinate.y < 0 || worldCoordinate.y > 1) {
+    //      throw new RuntimeException(s"invalid worldCoordinate y: ${worldCoordinate.y} (should be between 0 and 1)")
+    //    }
+    //
+    //    if (worldCoordinate.x < worldXMin || worldCoordinate.x > worldXMax) {
+    //      throw new RuntimeException(s"invalid worldCoordinate x: ${worldCoordinate.x} (should be between $worldXMin and $worldXMax)")
+    //    }
+    //    if (worldCoordinate.y < worldYMin || worldCoordinate.y > worldYMax) {
+    //      throw new RuntimeException(s"invalid worldCoordinate y: ${worldCoordinate.y} (should be between $worldYMin and $worldYMax)")
+    //    }
+
+    val scaledX = (worldCoordinate.x - worldXMin) * 4096 / (worldXMax - worldXMin)
+    val scaledY = (worldCoordinate.y - worldYMin) * 4096 / (worldYMax - worldYMin)
+
+    //    if (scaledX < 0 || scaledX > 4096) {
+    //      throw new RuntimeException(s"invalid scaledCoordinate x: $scaledX (should be between 0 and ${4096})")
+    //    }
+    //    if (scaledY < 0 || scaledY > 4096) {
+    //      throw new RuntimeException(s"invalid scaledCoordinate y: $scaledY (should be between 0 and ${4096})")
     //    }
 
     new Coordinate(scaledX, scaledY)

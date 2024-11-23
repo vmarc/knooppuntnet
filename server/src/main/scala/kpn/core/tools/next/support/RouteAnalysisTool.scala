@@ -66,6 +66,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     val routeIds = config.nextRepository.allRouteIds()
     log.info(s"found ${routeIds.size} routeIds")
     analyzeRoutes(routeIds)
+    // analyzeRoutes(Seq(8312991L)) // GR145 Arras to Reims
     // analyzeRoutes(Seq(8618)) // ok route with start tenticle
     // analyzeRoutes(Seq(5491)) // ok route with 2 start tenticles
     // analyzeRoutes(essenOkRouteIds)
@@ -134,10 +135,12 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
         config.routeRepository.saveRouteDetail(routeDetailDoc)
         context.tileDatas.foreach { tileData =>
           val doc = RouteTileDoc(
-            _id = s"${tileData.tile}-${context.relation.id}",
+            _id = s"${tileData.name}-${context.relation.id}",
             routeId = context.relation.id,
             routeName = context.routeNameAnalysis.name.getOrElse("no-name"), // TODO redesign tiles - can do better?
-            tile = tileData.tile,
+            z = tileData.z,
+            x = tileData.x,
+            y = tileData.y,
             scope = tileData.scope,
             networkTypes = context.networkTypes,
             geometries = tileData.geometries

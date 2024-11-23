@@ -49,7 +49,7 @@ class StatisticsUpdateSubsetRouteDistanceTest extends UnitTest with SharedTestOb
         newRouteSummary(
           routeId,
           Seq(country),
-          networkType,
+          networkTypes = Seq(networkType),
           meters = meters
         ),
         labels = if (active) Seq(Label.active) else Seq.empty

@@ -4,6 +4,7 @@ import kpn.api.custom.NetworkType
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.tiles.domain.TileId
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
@@ -14,12 +15,14 @@ object MongoQueryRouteTileDocs {
 
 class MongoQueryRouteTileDocs(database: Database) {
 
-  def execute(networkType: NetworkType, tile: String, log: Log = MongoQueryRouteTileDocs.log): Seq[RouteTileDoc] = {
+  def execute(networkType: NetworkType, tileId: TileId, log: Log = MongoQueryRouteTileDocs.log): Seq[RouteTileDoc] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
           and(
-            equal("tile", tile),
+            equal("z", tileId.z),
+            equal("x", tileId.x),
+            equal("y", tileId.y),
             equal("networkTypes", networkType.name)
           )
         ),

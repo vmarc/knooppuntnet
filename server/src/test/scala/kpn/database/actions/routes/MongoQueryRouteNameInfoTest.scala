@@ -28,7 +28,7 @@ class MongoQueryRouteNameInfoTest extends UnitTest with SharedTestObjects {
     newRouteDoc(
       newRouteSummary(
         id,
-        networkType = hiking,
+        networkTypes = Seq(hiking),
         name = name
       ),
       labels = if (active) Seq(Label.active) else Seq.empty

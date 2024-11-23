@@ -3,9 +3,8 @@ package kpn.database.actions.routes
 import kpn.api.custom.NetworkType
 import kpn.core.util.Log
 import kpn.database.base.Database
-import kpn.database.base.StringId
+import kpn.server.analyzer.engine.tiles.domain.TileId
 import org.mongodb.scala.model.Aggregates.filter
-import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.exclude
@@ -18,7 +17,7 @@ object MongoQueryRouteTileNames {
 
 class MongoQueryRouteTileNames(database: Database) {
 
-  def execute(networkType: NetworkType, log: Log = MongoQueryRouteTileNames.log): Seq[String] = {
+  def execute(networkType: NetworkType, log: Log = MongoQueryRouteTileNames.log): Seq[TileId] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
@@ -27,15 +26,18 @@ class MongoQueryRouteTileNames(database: Database) {
         project(
           fields(
             exclude("_id"),
-            include("tile"),
+            include("z"),
+            include("x"),
+            include("y"),
           )
         ),
-        group(
-          "$tile"
-        ),
+        // TODO redesign tiles - group by z,x,y to avoid having to do the 'distinct' further down
+        //        group(
+        //          "$tile"
+        //        ),
       )
-      val ids = database.routeTiles.aggregate[StringId](pipeline, log).map(_._id)
-      (s"${ids.size} tiles", ids)
+      val tiles = database.routeTiles.aggregate[TileId](pipeline, log).distinct
+      (s"${tiles.size} tiles", tiles)
     }
   }
 }

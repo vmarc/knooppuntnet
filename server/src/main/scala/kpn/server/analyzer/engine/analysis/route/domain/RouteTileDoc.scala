@@ -7,7 +7,9 @@ case class RouteTileDoc(
   _id: String,
   routeId: Long,
   routeName: String,
-  tile: String,
+  z: Long,
+  x: Long,
+  y: Long,
   scope: String,
   networkTypes: Seq[NetworkType],
   geometries: Seq[String]
