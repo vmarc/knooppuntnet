@@ -4,8 +4,11 @@ case class RouteTileData(
   z: Long,
   x: Long,
   y: Long,
-  scope: String,
-  geometries: Seq[String]
+  layer: String,
+  scope: Option[String],
+  survey: Option[String],
+  error: Option[String],
+  segments: Seq[RouteTileSegment]
 ) {
   def name: String = {
     s"$z-$x-$y"

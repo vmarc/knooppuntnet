@@ -4,8 +4,8 @@ import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculator
-import kpn.server.analyzer.engine.tiles.domain.ClipBuffer
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.wayToWorldCoordinates
@@ -15,7 +15,6 @@ import org.locationtech.jts.geom.Geometry
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.LineSegment
 import org.locationtech.jts.geom.LineString
-import org.locationtech.jts.geom.Polygon
 import org.locationtech.jts.geom.TopologyException
 import org.locationtech.jts.io.ParseException
 import org.locationtech.jts.io.WKTReader
@@ -23,49 +22,33 @@ import org.locationtech.jts.simplify.DouglasPeuckerSimplifier
 import org.springframework.stereotype.Component
 
 case class TileSegment(
+  segmentId: Long,
+  segmentElementId: Long,
   worldCoordinates: Seq[Coordinate]
 )
 
 @Component
 class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) extends RouteAnalyzer {
   private val geometryFactory = new GeometryFactory
-  private val extent = Tile.EXTENT
-  private val clipBuffer: ClipBuffer = Tile.CLIP_BUFFER
-  private val tileEnvelope: Polygon = {
-    val size = extent.toDouble
-    val coords = new Array[Coordinate](5)
-    coords(0) = new Coordinate(0d - clipBuffer.left, size + clipBuffer.bottom)
-    coords(1) = new Coordinate(size + clipBuffer.right, size + clipBuffer.bottom)
-    coords(2) = new Coordinate(size + clipBuffer.right, 0d - clipBuffer.top)
-    coords(3) = new Coordinate(0d - clipBuffer.left, 0d - clipBuffer.top)
-    coords(4) = coords(0)
-    new GeometryFactory().createPolygon(coords)
-  }
 
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     val tileSegments = context.segments.flatMap { segment =>
       segment.elements.map { element =>
         val worldCoordinates = element.nodes.map(node => new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat)))
-        TileSegment(worldCoordinates)
+        TileSegment(segment.id, element.id, worldCoordinates)
       }
     }
 
     val tiles = determineTiles(context.relation)
 
-    val tileDatas = if (context.nodeNetwork) {
-      Seq.empty
-    }
-    else {
-      val zoomLevels = ZoomLevel.newMinZoom.to(ZoomLevel.maxZoom).toSeq
-      val datas = zoomLevels.flatMap { zoomLevel =>
-        if (includeZoomLevel(context, zoomLevel)) {
-          buildTileRouteData(context, zoomLevel, tiles, tileSegments)
-        }
-        else {
-          Seq.empty
-        }
+    val zoomLevels = ZoomLevel.newMinZoom.to(ZoomLevel.newMaxZoom).toSeq
+    val tileDatas = zoomLevels.flatMap { zoomLevel =>
+      if (includeRoute(context, zoomLevel)) {
+        buildTileRouteData(context, zoomLevel, tiles, tileSegments)
       }
-      datas
+      else {
+        Seq.empty
+      }
     }
 
     context.copy(
@@ -80,20 +63,20 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
       val lineSegments = worldCoordinates.sliding(2).map { case Seq(c1, c2) =>
         new LineSegment(c1, c2)
       }.toSeq
-      (ZoomLevel.newMinZoom to ZoomLevel.maxZoom).flatMap { z =>
+      (ZoomLevel.newMinZoom to ZoomLevel.newMaxZoom).flatMap { z =>
         lineSegmentTileCalculator.tiles(z, lineSegments)
       }
     }.distinct.sortBy(tile => (tile.z, tile.x, tile.y))
   }
 
-  private def clipGeometry(z: Int, geometry: Geometry): Geometry = {
+  private def clipGeometry(tile: Tile, geometry: Geometry): Geometry = {
     try {
-      var clippedGeometry = tileEnvelope.intersection(geometry)
+      var clippedGeometry = tile.tileEnvelope.intersection(geometry)
       // some times a intersection is returned as an empty geometry.
       // going via wkt fixes the problem.
-      if (clippedGeometry.isEmpty && geometry.intersects(tileEnvelope)) {
+      if (clippedGeometry.isEmpty && geometry.intersects(tile.tileEnvelope)) {
         val originalViaWkt = new WKTReader().read(geometry.toText)
-        clippedGeometry = tileEnvelope.intersection(originalViaWkt)
+        clippedGeometry = tile.tileEnvelope.intersection(originalViaWkt)
       }
       clippedGeometry
     } catch {
@@ -106,7 +89,10 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
     }
   }
 
-  private def includeZoomLevel(context: RouteDetailAnalysisContext, zoomLevel: Int): Boolean = {
+  private def includeRoute(context: RouteDetailAnalysisContext, zoomLevel: Int): Boolean = {
+    if (context.nodeNetwork && zoomLevel >= 6) {
+      return true
+    }
     val includedScopes = if (zoomLevel < 7) {
       Seq("international")
     }
@@ -122,13 +108,48 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
     includedScopes.exists(context.scopes.contains)
   }
 
-  private def buildTileRouteData(context: RouteDetailAnalysisContext, zoomLevel: Int, tiles: Seq[Tile], tileSegments: Seq[TileSegment]): Seq[RouteTileData] = {
+  private def buildTileRouteData(
+    context: RouteDetailAnalysisContext,
+    zoomLevel: Int,
+    tiles: Seq[Tile],
+    tileSegments: Seq[TileSegment]
+  ): Seq[RouteTileData] = {
+
+    val layer = if (context.nodeNetwork) "node-route" else "route"
+    val scope = if (context.nodeNetwork) {
+      None
+    } else {
+      context.scopes.headOption
+    }
+    val survey = context.lastSurvey.map(_.yyyymm)
+    val error = if (context.facts.exists(_.isError)) Some("true") else None
+
     val zoomLevelTiles = tiles.filter(_.z == zoomLevel)
     zoomLevelTiles.flatMap { tile =>
-      val geometries: Seq[String] = tileSegments.flatMap { tileSegment =>
-        tileSegmentToGeometry(tile, tileSegment)
+      val segments = tileSegments.flatMap { tileSegment =>
+        tileSegmentToGeometry(tile, tileSegment).flatMap { geometry =>
+          val segmentId = if (tile.z > 6) {
+            Some(tileSegment.segmentId)
+          }
+          else {
+            None
+          }
+          val segmentElementId = if (tile.detailed) {
+            Some(tileSegment.segmentElementId)
+          }
+          else {
+            None
+          }
+          Some(
+            RouteTileSegment(
+              segmentId,
+              segmentElementId,
+              Seq(geometry)
+            )
+          )
+        }
       }
-      if (geometries.isEmpty) {
+      if (segments.isEmpty) {
         None
       }
       else {
@@ -137,8 +158,11 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
             tile.z,
             tile.x,
             tile.y,
-            context.scopes.head,
-            geometries
+            layer,
+            scope,
+            survey,
+            error,
+            segments
           )
         )
       }
@@ -146,11 +170,10 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
   }
 
   private def tileSegmentToGeometry(tile: Tile, tileSegment: TileSegment): Option[String] = {
-    // TODO redesign tiles - need to include bounding box check? // if (tile.contains(worldCoordinates))
     val scaledCoordinates = tileSegment.worldCoordinates.map(tile.scale)
     val lineString = geometryFactory.createLineString(scaledCoordinates.toArray)
-    val simplifiedLineString = if (tile.z < 14) {
-      DouglasPeuckerSimplifier.simplify(lineString, 14).asInstanceOf[LineString]
+    val simplifiedLineString = if (!tile.detailed) {
+      DouglasPeuckerSimplifier.simplify(lineString, 1).asInstanceOf[LineString]
     }
     else {
       lineString
@@ -160,7 +183,7 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
       None
     }
     else {
-      val clippedGeometry = clipGeometry(tile.z, simplifiedLineString)
+      val clippedGeometry = clipGeometry(tile, simplifiedLineString)
 
       // ignore geometry if empty after clipping
       if (clippedGeometry.isEmpty) {

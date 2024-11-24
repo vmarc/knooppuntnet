@@ -22,7 +22,7 @@ export class RouteLayer {
     const source = new VectorTile({
       tileSize: 256,
       minZoom: ZoomLevel.newMinZoom,
-      maxZoom: ZoomLevel.vectorTileMaxZoom,
+      maxZoom: ZoomLevel.newMaxZoom,
       format: new MVT(),
       url: `/tiles/${networkType}/{z}/{x}/{y}.mvt`,
     });
@@ -36,8 +36,9 @@ export class RouteLayer {
 
   private styleFunction(): StyleFunction {
     return (feature) => {
+      const layer = feature.get('layer');
       const scope = feature.get('scope');
-      return ExploreStyle.style(scope, this.zoom);
+      return ExploreStyle.style(layer, scope, this.zoom);
     };
   }
 }

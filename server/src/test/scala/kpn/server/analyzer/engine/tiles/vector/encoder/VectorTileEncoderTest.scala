@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.tiles.vector.encoder
 
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.tiles.domain.ClipBuffer
+import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 
@@ -30,20 +32,19 @@ class VectorTileEncoderTest extends UnitTest {
       geometryFactory.createLineString(cs)
     }
 
-    val obsoleteAttributes = new java.util.HashMap[String, String]()
-
-    {
-      val vtm = new VectorTileEncoder()
-      //      vtm.addFeature("DEPCNT", ListMap(), geometry1)
-      //      vtm.addFeature("DEPCNT", ListMap(), geometry2)
-      //      val encoded = vtm.encode
-      //      encoded.length should not equal (0)
-    }
+    //    val obsoleteAttributes = new java.util.HashMap[String, String]()
+    //
+    //    {
+    //      val vtm = new VectorTileEncoder()
+    //      //      vtm.addFeature("DEPCNT", ListMap(), geometry1)
+    //      //      vtm.addFeature("DEPCNT", ListMap(), geometry2)
+    //      //      val encoded = vtm.encode
+    //      //      encoded.length should not equal (0)
+    //    }
   }
 
-
   test("NullAttributeValue") {
-    val vtm = new VectorTileEncoder()
+    //    val vtm = new VectorTileEncoder()
     val geometry = geometryFactory.createPoint(new Coordinate(3, 6))
     val attributes = ListMap(
       "key1" -> "value1",
@@ -62,7 +63,7 @@ class VectorTileEncoderTest extends UnitTest {
   }
 
   test("AttributeTypes") {
-    val vtm = new VectorTileEncoder()
+    //    val vtm = new VectorTileEncoder()
     val geometry = geometryFactory.createPoint(new Coordinate(3, 6))
     val attributes = new java.util.HashMap[String, Object]()
     attributes.put("key1", "value1")
@@ -433,13 +434,19 @@ class VectorTileEncoderTest extends UnitTest {
 
     val geometry = geomFactory.createMultiLineString(lineStrings.toArray)
 
-    val newEncoder = new VectorTileEncoder()
+    val newEncoder = new VectorTileEncoder(
+      new ClipBuffer(
+        Tile.CLIP_BUFFER_SIZE_DETAILED,
+        Tile.CLIP_BUFFER_SIZE_DETAILED,
+        Tile.CLIP_BUFFER_SIZE_DETAILED,
+        Tile.CLIP_BUFFER_SIZE_DETAILED
+      )
+    )
 
     newEncoder.addMultiLineStringFeature("test", ListMap(), geometry)
 
     val newBytes = newEncoder.encode
 
     val newBytesHex = newBytes.map("%02X" format _).mkString(" ")
-
   }
 }

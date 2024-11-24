@@ -1,25 +1,23 @@
 package kpn.server.analyzer.engine.tiles.domain
 
 import org.locationtech.jts.geom.Coordinate
+import org.locationtech.jts.geom.GeometryFactory
+import org.locationtech.jts.geom.Polygon
 
 object Tile {
 
-  val EXTENT: Int = 4096
+  val TILE_SIZE = 256
+  val EXTENT_STANDARD = TILE_SIZE
+  val EXTENT_DETAILED = 4096
 
-  val CLIP_BUFFER_SIZE = 14 // assume tile size 256 pixels, radius of node circle 14 pixels
-
-  val CLIP_BUFFER: ClipBuffer = ClipBuffer(
-    EXTENT * CLIP_BUFFER_SIZE / 256,
-    EXTENT * CLIP_BUFFER_SIZE / 256,
-    EXTENT * CLIP_BUFFER_SIZE / 256,
-    EXTENT * CLIP_BUFFER_SIZE / 256
-  )
+  val CLIP_BUFFER_SIZE_STANDARD = 14 // assume tile size 256 pixels, radius of node circle 14 pixels
+  val CLIP_BUFFER_SIZE_DETAILED = EXTENT_DETAILED * 14 / TILE_SIZE
 
   val POI_CLIP_BUFFER: ClipBuffer = ClipBuffer(
-    left = EXTENT * 17 / 256, // poi icon width 32 (32 / 2 + 1) -> 17
-    right = EXTENT * 17 / 256,
+    left = EXTENT_STANDARD * 17 / 256, // poi icon width 32 (32 / 2 + 1) -> 17
+    right = EXTENT_STANDARD * 17 / 256,
     top = 0,
-    bottom = EXTENT * 39 / 256 // poi icon height 37 (37 + 2)
+    bottom = EXTENT_STANDARD * 39 / 256 // poi icon height 37 (37 + 2)
   )
 
   def apply(z: Int, x: Int, y: Int): Tile = {
@@ -43,6 +41,33 @@ class Tile(val z: Int, val x: Int, val y: Int) {
 
   val name: String = s"$z-$x-$y"
 
+  val detailed = z >= 13
+
+  val extent = if (detailed) {
+    Tile.EXTENT_DETAILED
+  }
+  else {
+    Tile.EXTENT_STANDARD
+  }
+
+  val clipBufferSize = if (z < 13) {
+    Tile.CLIP_BUFFER_SIZE_STANDARD
+  }
+  else {
+    Tile.CLIP_BUFFER_SIZE_DETAILED
+  }
+
+  val tileEnvelope: Polygon = {
+    val size = extent.toDouble
+    val coords = new Array[Coordinate](5)
+    coords(0) = new Coordinate(0d - clipBufferSize, size + clipBufferSize)
+    coords(1) = new Coordinate(size + clipBufferSize, size + clipBufferSize)
+    coords(2) = new Coordinate(size + clipBufferSize, 0d - clipBufferSize)
+    coords(3) = new Coordinate(0d - clipBufferSize, 0d - clipBufferSize)
+    coords(4) = coords(0)
+    new GeometryFactory().createPolygon(coords)
+  }
+
   val zoomFactor = 1 << z // the number of tiles across the map in each direction
   val worldXMin = x.toDouble / zoomFactor
   val worldXMax = (x.toDouble + 1) / zoomFactor
@@ -59,18 +84,18 @@ class Tile(val z: Int, val x: Int, val y: Int) {
   }
 
   val clipBounds: Rectangle = {
-    buildClipBounds(Tile.CLIP_BUFFER)
+    buildClipBounds()
   }
 
   val poiClipBounds: Rectangle = {
-    buildClipBounds(Tile.POI_CLIP_BUFFER)
+    buildClipBounds()
   }
 
-  private def buildClipBounds(clipBuffer: ClipBuffer): Rectangle = {
-    val xMin = worldXMin - ((worldXMax - worldXMin) * clipBuffer.left / Tile.EXTENT)
-    val xMax = worldXMax + ((worldXMax - worldXMin) * clipBuffer.right / Tile.EXTENT)
-    val yMin = worldYMin - ((worldYMax - worldYMin) * clipBuffer.bottom / Tile.EXTENT)
-    val yMax = worldYMax + ((worldYMax - worldYMin) * clipBuffer.top / Tile.EXTENT)
+  private def buildClipBounds(): Rectangle = {
+    val xMin = worldXMin - ((worldXMax - worldXMin) * clipBufferSize / extent)
+    val xMax = worldXMax + ((worldXMax - worldXMin) * clipBufferSize / extent)
+    val yMin = worldYMin - ((worldYMax - worldYMin) * clipBufferSize / extent)
+    val yMax = worldYMax + ((worldYMax - worldYMin) * clipBufferSize / extent)
     Rectangle(xMin, xMax, yMin, yMax)
   }
 
@@ -87,58 +112,8 @@ class Tile(val z: Int, val x: Int, val y: Int) {
   }
 
   def scale(worldCoordinate: Coordinate): Coordinate = {
-    //    if (worldCoordinate.x < 0 || worldCoordinate.x > 1) {
-    //      throw new RuntimeException(s"invalid worldCoordinate x: ${worldCoordinate.x} (should be between 0 and 1)")
-    //    }
-    //    if (worldCoordinate.y < 0 || worldCoordinate.y > 1) {
-    //      throw new RuntimeException(s"invalid worldCoordinate y: ${worldCoordinate.y} (should be between 0 and 1)")
-    //    }
-    //
-    //    if (worldCoordinate.x < worldXMin || worldCoordinate.x > worldXMax) {
-    //      throw new RuntimeException(s"invalid worldCoordinate x: ${worldCoordinate.x} (should be between $worldXMin and $worldXMax)")
-    //    }
-    //    if (worldCoordinate.y < worldYMin || worldCoordinate.y > worldYMax) {
-    //      throw new RuntimeException(s"invalid worldCoordinate y: ${worldCoordinate.y} (should be between $worldYMin and $worldYMax)")
-    //    }
-
-    val scaledX = (worldCoordinate.x - worldXMin) * Tile.EXTENT / (worldXMax - worldXMin)
-    val scaledY = (worldCoordinate.y - worldYMin) * Tile.EXTENT / (worldYMax - worldYMin)
-
-    //    if (scaledX < 0 || scaledX > Tile.EXTENT) {
-    //      throw new RuntimeException(s"invalid scaledCoordinate x: $scaledX (should be between 0 and ${Tile.EXTENT})")
-    //    }
-    //    if (scaledY < 0 || scaledY > Tile.EXTENT) {
-    //      throw new RuntimeException(s"invalid scaledCoordinate y: $scaledY (should be between 0 and ${Tile.EXTENT})")
-    //    }
-
-    new Coordinate(scaledX, scaledY)
-  }
-
-  def scale14(worldCoordinate: Coordinate): Coordinate = {
-    //    if (worldCoordinate.x < 0 || worldCoordinate.x > 1) {
-    //      throw new RuntimeException(s"invalid worldCoordinate x: ${worldCoordinate.x} (should be between 0 and 1)")
-    //    }
-    //    if (worldCoordinate.y < 0 || worldCoordinate.y > 1) {
-    //      throw new RuntimeException(s"invalid worldCoordinate y: ${worldCoordinate.y} (should be between 0 and 1)")
-    //    }
-    //
-    //    if (worldCoordinate.x < worldXMin || worldCoordinate.x > worldXMax) {
-    //      throw new RuntimeException(s"invalid worldCoordinate x: ${worldCoordinate.x} (should be between $worldXMin and $worldXMax)")
-    //    }
-    //    if (worldCoordinate.y < worldYMin || worldCoordinate.y > worldYMax) {
-    //      throw new RuntimeException(s"invalid worldCoordinate y: ${worldCoordinate.y} (should be between $worldYMin and $worldYMax)")
-    //    }
-
-    val scaledX = (worldCoordinate.x - worldXMin) * 4096 / (worldXMax - worldXMin)
-    val scaledY = (worldCoordinate.y - worldYMin) * 4096 / (worldYMax - worldYMin)
-
-    //    if (scaledX < 0 || scaledX > 4096) {
-    //      throw new RuntimeException(s"invalid scaledCoordinate x: $scaledX (should be between 0 and ${4096})")
-    //    }
-    //    if (scaledY < 0 || scaledY > 4096) {
-    //      throw new RuntimeException(s"invalid scaledCoordinate y: $scaledY (should be between 0 and ${4096})")
-    //    }
-
+    val scaledX = (worldCoordinate.x - worldXMin) * extent / (worldXMax - worldXMin)
+    val scaledY = (worldCoordinate.y - worldYMin) * extent / (worldYMax - worldYMin)
     new Coordinate(scaledX, scaledY)
   }
 
@@ -159,18 +134,18 @@ class Tile(val z: Int, val x: Int, val y: Int) {
       clipBounds.yMin < ymax
   }
 
-  def slowerContainsSaved(worldCoordinates: Seq[Double]): Boolean = {
-    val xs = worldCoordinates.zipWithIndex.filter(_._2 % 2 == 0).map(_._1)
-    val ys = worldCoordinates.zipWithIndex.filter(_._2 % 2 == 1).map(_._1)
-    val xmin = xs.min
-    val xmax = xs.max
-    val ymin = ys.min
-    val ymax = ys.max
-    xmin < clipBounds.xMax &&
-      clipBounds.xMin < xmax &&
-      ymin < clipBounds.yMax &&
-      clipBounds.yMin < ymax
-  }
+  //  def slowerContainsSaved(worldCoordinates: Seq[Double]): Boolean = {
+  //    val xs = worldCoordinates.zipWithIndex.filter(_._2 % 2 == 0).map(_._1)
+  //    val ys = worldCoordinates.zipWithIndex.filter(_._2 % 2 == 1).map(_._1)
+  //    val xmin = xs.min
+  //    val xmax = xs.max
+  //    val ymin = ys.min
+  //    val ymax = ys.max
+  //    xmin < clipBounds.xMax &&
+  //      clipBounds.xMin < xmax &&
+  //      ymin < clipBounds.yMax &&
+  //      clipBounds.yMin < ymax
+  //  }
 
   def containsLine(x1: Double, y1: Double, x2: Double, y2: Double): Boolean = {
     val xmin = if (x1 < x2) x1 else x2

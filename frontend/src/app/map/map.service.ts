@@ -72,7 +72,7 @@ export class MapService {
     const essen: LatLonImpl = { latitude: '51.46774', longitude: '4.46839' };
     const center = OlUtil.latLonToCoordinate(essen);
     this._map.getView().setCenter(center);
-    // this._map.getView().setZoom(14);
+    this._map.getView().setZoom(13);
 
     const view = this._map.getView();
     view.on('change:resolution', this.updateResolution);

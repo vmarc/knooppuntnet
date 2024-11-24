@@ -1,5 +1,6 @@
 package kpn.server.opendata.common
 
+import kpn.server.analyzer.engine.tiles.domain.ClipBuffer
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
@@ -12,7 +13,7 @@ class OpenDataVectorTileBuilder {
 
     val geometryFactory = new GeometryFactory
 
-    val encoder = new VectorTileEncoder()
+    val encoder = new VectorTileEncoder(new ClipBuffer(tile.clipBufferSize, tile.clipBufferSize, tile.clipBufferSize, tile.clipBufferSize))
 
     nodes.foreach { node =>
       val point: Point = geometryFactory.createPoint(tile.scale(new Coordinate(node.lon, node.lat)))

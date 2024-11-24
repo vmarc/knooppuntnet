@@ -13,11 +13,11 @@ import org.locationtech.jts.geom.TopologyException
 import org.locationtech.jts.io.ParseException
 import org.locationtech.jts.io.WKTReader
 
-class VectorTileEncoder(clipBuffer: ClipBuffer = Tile.CLIP_BUFFER) {
+class VectorTileEncoder(clipBuffer: ClipBuffer) {
 
   private val layers = new VectorTileLayers()
 
-  private val extent = Tile.EXTENT
+  private val extent = Tile.EXTENT_STANDARD
 
   private val tileEnvelope: Polygon = buildTileEnvelope()
 

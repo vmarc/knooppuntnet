@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.tiles.vector
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.TileBuilder
 import kpn.server.analyzer.engine.tiles.TileData
+import kpn.server.analyzer.engine.tiles.domain.ClipBuffer
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
@@ -17,7 +18,7 @@ class VectorTileBuilder extends TileBuilder {
 
   def build(data: TileData, tile: Tile): Array[Byte] = {
 
-    val encoder = new VectorTileEncoder()
+    val encoder = new VectorTileEncoder(new ClipBuffer(tile.clipBufferSize, tile.clipBufferSize, tile.clipBufferSize, tile.clipBufferSize))
 
     data.nodes.foreach { node =>
       val coordinate = tile.scale(new Coordinate(node.lon, node.lat))

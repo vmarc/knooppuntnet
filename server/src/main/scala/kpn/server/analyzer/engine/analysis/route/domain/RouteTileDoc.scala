@@ -7,10 +7,13 @@ case class RouteTileDoc(
   _id: String,
   routeId: Long,
   routeName: String,
+  networkTypes: Seq[NetworkType],
   z: Long,
   x: Long,
   y: Long,
-  scope: String,
-  networkTypes: Seq[NetworkType],
-  geometries: Seq[String]
+  layer: String,
+  scope: Option[String],
+  survey: Option[String],
+  error: Option[String],
+  segments: Seq[RouteTileSegment]
 ) extends WithStringId

@@ -1,24 +1,17 @@
 package kpn.core.tools.tile
 
-import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.NetworkType
 import kpn.core.tools.tile.TileTool.log
 import kpn.core.util.Log
-import kpn.core.util.Memory
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
-import kpn.server.analyzer.engine.tiles.TileDataLoader
-import kpn.server.analyzer.engine.tiles.TileDataLoaderImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepository
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
-import kpn.server.analyzer.engine.tiles.TilesBuilder
 import kpn.server.analyzer.engine.tiles.domain.CoordinateArray
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.json.Json
-import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteRepositoryImpl
 import no.ecc.vectortile.VectorTileEncoder
@@ -48,9 +41,10 @@ object TileTool {
 
           Mongo.executeIn(options.databaseName) { database =>
             val tileTool = buildTileTool(database, options.tileDir)
-            NetworkType.all.foreach { networkType =>
-              tileTool.newMake(networkType)
-            }
+            //  NetworkType.all.foreach { networkType =>
+            //    tileTool.newMake(networkType)
+            //  }
+            tileTool.newMake(NetworkType.hiking)
           }
 
           log.info("Done")
@@ -77,30 +71,11 @@ object TileTool {
 
     val routeRepository = new RouteRepositoryImpl(database)
 
-    val tileAnalyzer = {
-      val nodeRepository = new NodeRepositoryImpl(database)
-      new TileDataLoaderImpl(
-        nodeRepository,
-        routeRepository,
-        tileDataNodeBuilder
-      )
-    }
     val executor = buildExecutor()
     val executionContext: ExecutionContext = ExecutionContext.fromExecutor(executor)
     val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
     val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
-    val tilesBuilder: TilesBuilder = {
-      val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
-      new TilesBuilder(
-        bitmapTileFileRepository,
-        vectorTileFileRepository,
-        tileFileBuilder
-      )(executionContext)
-    }
-
     new TileTool(
-      tileAnalyzer,
-      tilesBuilder,
       routeRepository,
       vectorTileFileRepository
     )
@@ -118,8 +93,6 @@ object TileTool {
 }
 
 class TileTool(
-  tileAnalyzer: TileDataLoader,
-  tilesBuilder: TilesBuilder,
   routeRepository: RouteRepository,
   vectorTileRepository: TileFileRepository
 ) {
@@ -137,41 +110,37 @@ class TileTool(
       val tile = Tile(tileId.z.toInt, tileId.x.toInt, tileId.y.toInt)
       Log.context(s"${index + 1}/${sortedTiles.size} ${tile.name}") {
 
-        val encoder = new VectorTileEncoder(Tile.EXTENT, Tile.CLIP_BUFFER_SIZE, false)
+        val encoder = if (tile.z == 13) {
+          new VectorTileEncoder(4096, 14 * 4096 / 256, false)
+        }
+        else {
+          new VectorTileEncoder(256, 14, false)
+        }
+
         val docs = routeRepository.tilesWithName(networkType, tileId)
         docs.foreach { doc =>
-          val userData: java.util.Map[String, String] = new util.HashMap[String, String]()
-          userData.put("routeId", doc.routeId.toString)
-          userData.put("name", doc.routeName)
-          userData.put("scope", doc.scope)
-          doc.geometries.foreach { geometryString =>
-            val coordinates: Array[Coordinate] = Json.value(geometryString, classOf[CoordinateArray]).coordinates
-            val flipped = coordinates.map(c => new Coordinate(c.y, c.x))
-            val lineString = geometryFactory.createLineString(flipped)
-            encoder.addFeature("route", userData, lineString)
+          if (!(tileId.z < 11 && doc.layer == "node-route")) {
+            doc.segments.foreach { segment =>
+              val userData: java.util.Map[String, String] = new util.HashMap[String, String]()
+              userData.put("routeId", doc.routeId.toString)
+              userData.put("name", doc.routeName)
+              segment.segmentId.foreach(segmentId => userData.put("segmentId", segmentId.toString))
+              segment.segmentElementId.foreach(segmentElementId => userData.put("segmentElementId", segmentElementId.toString))
+              doc.scope.foreach(scope => userData.put("scope", scope))
+              doc.survey.foreach(survey => userData.put("survey", survey))
+              doc.error.foreach(error => userData.put("error", error))
+              segment.geometries.foreach { geometryString =>
+                val coordinates: Array[Coordinate] = Json.value(geometryString, classOf[CoordinateArray]).coordinates
+                val flipped = coordinates.map(c => new Coordinate(c.y, c.x))
+                val lineString = geometryFactory.createLineString(flipped)
+                encoder.addFeature(doc.layer, userData, lineString)
+              }
+            }
           }
         }
         val tileBytes = encoder.encode()
         if (tileBytes.nonEmpty) {
           vectorTileRepository.saveOrUpdate(networkType.name, tile, tileBytes)
-        }
-      }
-    }
-  }
-
-  def make(networkType: NetworkType, nodeNetwork: Boolean): Unit = {
-    Log.context(networkType.name) {
-      log.info("Start tile analysis")
-      val memoryBefore = Memory.bytes
-      val tileData = tileAnalyzer.load(networkType, nodeNetwork)
-      val memoryAfter = Memory.bytes
-      log.info(s"Memory allocated for tile analysis: ${(memoryAfter - memoryBefore) / 1024 / 1024}M")
-      (ZoomLevel.minZoom to ZoomLevel.vectorTileMaxZoom).foreach { z =>
-        Log.context(s"$z") {
-          log.infoElapsed {
-            tilesBuilder.build(z, tileData)
-            (s"tile building done", ())
-          }
         }
       }
     }
