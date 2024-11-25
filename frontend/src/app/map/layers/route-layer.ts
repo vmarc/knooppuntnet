@@ -3,18 +3,31 @@ import { Signal } from '@angular/core';
 import { NetworkType } from '@api/custom';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldLayers } from '@app/ol/layers';
+import { FeatureLike } from 'ol/Feature';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { StyleFunction } from 'ol/style/Style';
+import { MapStyleOptions } from '../../state/map-style-options';
 import { ExploreStyle } from '../style/explore-style';
 
 export class RouteLayer {
-  private zoom: number; // local copy for performance reasons
+  private styleOptions: MapStyleOptions; // local copy for performance reasons
 
-  constructor(zoomSignal: Signal<number>) {
+  constructor(styleOptionsSignal: Signal<MapStyleOptions>) {
     effect(() => {
-      this.zoom = zoomSignal();
+      this.styleOptions = styleOptionsSignal();
+      const zoom = this.styleOptions.zoom;
+      const mode = this.styleOptions.mode;
+      const international = this.styleOptions.scopeInternational;
+      const national = this.styleOptions.scopeNational;
+      const regional = this.styleOptions.scopeRegional;
+      const local = this.styleOptions.scopeLocal;
+      const nodeRoutes = this.styleOptions.scopeNodeRoutes;
+      const route = this.styleOptions.selectedRoute;
+      console.log(
+        `mapOptions zoom=${zoom}, mode=${mode}, international=${international}, national=${national}, regional=${regional}, local=${local}, nodeRoutes=${nodeRoutes}, route=${route}`
+      );
     });
   }
 
@@ -35,10 +48,8 @@ export class RouteLayer {
   }
 
   private styleFunction(): StyleFunction {
-    return (feature) => {
-      const layer = feature.get('layer');
-      const scope = feature.get('scope');
-      return ExploreStyle.style(layer, scope, this.zoom);
+    return (feature: FeatureLike) => {
+      return ExploreStyle.style(this.styleOptions, feature);
     };
   }
 }

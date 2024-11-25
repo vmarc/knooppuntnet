@@ -25,7 +25,7 @@ export class MapService {
     this.state.map.updateCenter(this._map.getView().getCenter());
   };
 
-  private readonly layers = new Layers(this.state.map.zoom);
+  private readonly layers = new Layers(this.state.map.mapStyleOptions);
 
   action: MapRoutePopupAction;
 
@@ -44,7 +44,7 @@ export class MapService {
 
     effect(
       () => {
-        const selectedRoute = this.state.map.selectedRoute();
+        const styleOptions = this.state.map.mapStyleOptions();
         this.layers.routeLayer.changed();
       },
       {

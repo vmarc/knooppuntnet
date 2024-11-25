@@ -18,7 +18,9 @@ import { PageButtonsComponent } from '@app/components/shared/page';
 import { ApiService } from '@app/services';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageComponent } from '../shared/components/shared/page/page.component';
+import { ExploreModeComponent } from './explore-mode.component';
 import { ExploreRoutesComponent } from './explore-routes.component';
+import { ExploreScopeComponent } from './explore-scope.component';
 
 @Component({
   selector: 'kpn-explore',
@@ -51,6 +53,8 @@ import { ExploreRoutesComponent } from './explore-routes.component';
         <kpn-divider />
       }
       <kpn-explore-routes />
+      <kpn-explore-mode />
+      <kpn-explore-scope />
     </kpn-page>
   `,
   standalone: true,
@@ -69,6 +73,8 @@ import { ExploreRoutesComponent } from './explore-routes.component';
     MatNavList,
     PageComponent,
     ExploreRoutesComponent,
+    ExploreScopeComponent,
+    ExploreModeComponent,
   ],
 })
 export class ExploreComponent {
