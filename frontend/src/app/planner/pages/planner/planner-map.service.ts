@@ -7,7 +7,7 @@ import { ZoomLevel } from '@app/ol/domain';
 import { MapGeocoder } from '@app/ol/domain';
 import { MapLayerState } from '@app/ol/domain';
 import { MapControls } from '@app/ol/layers';
-import { MapLayer } from '@app/ol/layers';
+import { OldMapLayer } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
 import { MapZoomService } from '@app/ol/services';
 import { PoiTileLayerService } from '@app/ol/services';
@@ -127,7 +127,7 @@ export class PlannerMapService extends OpenlayersMapService {
     }
   }
 
-  protected override layerVisible(mapLayer: MapLayer): boolean {
+  protected override layerVisible(mapLayer: OldMapLayer): boolean {
     if (!!mapLayer.networkType && mapLayer.networkType !== this.plannerStateService.networkType()) {
       return false;
     }

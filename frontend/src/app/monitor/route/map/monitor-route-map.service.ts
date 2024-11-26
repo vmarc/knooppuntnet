@@ -9,7 +9,7 @@ import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
-import { MapLayerRegistry } from '@app/ol/layers';
+import { OldMapLayerRegistry } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
 import { MapBrowserEvent } from 'ol';
@@ -163,7 +163,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
   }
 
   private registerLayers(urlLayerIds: string[]): void {
-    const registry = new MapLayerRegistry();
+    const registry = new OldMapLayerRegistry();
     registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
     registry.register(urlLayerIds, OldOsmLayer.build(), false);
     // registry.register(urlLayerIds, MonitorLayer.build(), true);

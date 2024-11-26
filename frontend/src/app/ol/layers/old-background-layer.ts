@@ -1,10 +1,10 @@
 import { MapboxVectorLayer } from 'ol-mapbox-style';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class OldBackgroundLayer {
   static readonly id = 'background';
 
-  static build(): MapLayer {
+  static build(): OldMapLayer {
     const osmAttribution =
       '&#169; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors';
     const openMapTilesAttribution =
@@ -16,6 +16,6 @@ export class OldBackgroundLayer {
 
     layer.getSource().setAttributions([osmAttribution, openMapTilesAttribution]);
     const name = $localize`:@@map.layer.background:Background`;
-    return new MapLayer(this.id, name, -Infinity, Infinity, 'vector', layer);
+    return new OldMapLayer(this.id, name, -Infinity, Infinity, 'vector', layer);
   }
 }

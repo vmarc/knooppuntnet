@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
 import { NetworkType } from '@api/custom';
 import { NetworkTypes } from '@app/kpn/common';
 import { NetworkBitmapTileLayer } from '@app/ol/layers';
-import { OpenDataLayers } from '@app/ol/layers';
+import { OldOpenDataLayers } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
-import { MapLayer } from '@app/ol/layers';
+import { OldMapLayer } from '@app/ol/layers';
 import { TileDebug512Layer } from '@app/ol/layers';
 import { TileDebug256Layer } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
 import { OldBackgroundLayer } from '@app/ol/layers';
-import { MapLayerRegistry } from '@app/ol/layers';
+import { OldMapLayerRegistry } from '@app/ol/layers';
 import { PoiTileLayerService } from '@app/ol/services';
 import { MainMapStyleParameters } from '@app/ol/style';
 import { MainMapStyle } from '@app/ol/style';
@@ -26,42 +26,42 @@ export class PlannerMapLayerService {
     networkType: NetworkType,
     urlLayerIds: string[],
     parameters: Signal<MainMapStyleParameters>
-  ): MapLayerRegistry {
-    const registry = new MapLayerRegistry();
+  ): OldMapLayerRegistry {
+    const registry = new OldMapLayerRegistry();
     registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
     registry.register(urlLayerIds, OldOsmLayer.build(), false);
 
     registry.registerAll(
       urlLayerIds,
-      OpenDataLayers.flandersHiking(),
+      OldOpenDataLayers.flandersHiking(),
       false,
       networkType === NetworkType.hiking
     );
 
     registry.registerAll(
       urlLayerIds,
-      OpenDataLayers.flandersCycling(),
+      OldOpenDataLayers.flandersCycling(),
       false,
       networkType === NetworkType.cycling
     );
 
     registry.registerAll(
       urlLayerIds,
-      OpenDataLayers.netherlandsHiking(),
+      OldOpenDataLayers.netherlandsHiking(),
       false,
       networkType === NetworkType.hiking
     );
 
     registry.registerAll(
       urlLayerIds,
-      OpenDataLayers.netherlandsCycling(),
+      OldOpenDataLayers.netherlandsCycling(),
       false,
       networkType === NetworkType.cycling
     );
 
     registry.registerAll(
       urlLayerIds,
-      OpenDataLayers.franceHiking(),
+      OldOpenDataLayers.franceHiking(),
       false,
       networkType === NetworkType.hiking
     );
@@ -90,7 +90,7 @@ export class PlannerMapLayerService {
   private networkLayers(
     networkType: NetworkType,
     parameters: Signal<MainMapStyleParameters>
-  ): MapLayer[] {
+  ): OldMapLayer[] {
     const networkVectorLayerStyle = new MainMapStyle(parameters);
     return [
       NetworkBitmapTileLayer.build(networkType, 'surface'),

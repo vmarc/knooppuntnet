@@ -5,10 +5,10 @@ import { NetworkMapPage } from '@api/common/network';
 import { Util } from '@app/components/shared';
 import { CachedMapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
-import { OpenDataLayers } from '@app/ol/layers';
+import { OldOpenDataLayers } from '@app/ol/layers';
 import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
-import { MapLayerRegistry } from '@app/ol/layers';
+import { OldMapLayerRegistry } from '@app/ol/layers';
 import { NetworkNodesBitmapTileLayer } from '@app/ol/layers';
 import { NetworkNodesMarkerLayer } from '@app/ol/layers';
 import { NetworkNodesVectorTileLayer } from '@app/ol/layers';
@@ -89,7 +89,7 @@ export class NetworkMapService extends OpenlayersMapService {
   }
 
   private registerLayers(page: NetworkMapPage, urlLayerIds: string[]): void {
-    const registry = new MapLayerRegistry();
+    const registry = new OldMapLayerRegistry();
     registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
     registry.register(urlLayerIds, OldOsmLayer.build(), false);
     const networkNodesLayers = [
@@ -104,7 +104,7 @@ export class NetworkMapService extends OpenlayersMapService {
     ];
     registry.registerAll(urlLayerIds, networkNodesLayers, true);
     registry.register(urlLayerIds, NetworkNodesMarkerLayer.build(page.nodes), true);
-    OpenDataLayers.register(registry, page.summary.networkType, urlLayerIds);
+    OldOpenDataLayers.register(registry, page.summary.networkType, urlLayerIds);
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);
     this.register(registry);
   }

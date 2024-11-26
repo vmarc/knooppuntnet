@@ -3,7 +3,7 @@ import { NetworkType } from '@api/custom';
 import { OlUtil } from '@app/ol';
 import { ZoomLevel } from '@app/ol/domain';
 import { NetworkBitmapTileLayer } from '@app/ol/layers';
-import { MapLayerRegistry } from '@app/ol/layers';
+import { OldMapLayerRegistry } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
 import { PoiAreasLayer } from '@app/ol/layers';
 import { OldBackgroundLayer } from '@app/ol/layers';
@@ -35,7 +35,7 @@ export class PoiMapService extends OpenlayersMapService {
   }
 
   private registerLayers(geoJson: string): void {
-    const registry = new MapLayerRegistry();
+    const registry = new OldMapLayerRegistry();
     registry.register([], OldBackgroundLayer.build(), true);
     registry.register([], OldOsmLayer.build(), false);
 

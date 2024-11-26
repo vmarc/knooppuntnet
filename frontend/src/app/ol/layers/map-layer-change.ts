@@ -1,8 +1,8 @@
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class MapLayerChange {
   constructor(
-    public oldLayer: MapLayer,
-    public newLayer: MapLayer
+    public oldLayer: OldMapLayer,
+    public newLayer: OldMapLayer
   ) {}
 }

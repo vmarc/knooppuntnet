@@ -23,8 +23,8 @@ import { debounceTime } from 'rxjs/operators';
 import { MapGeocoder } from '../domain';
 import { MapLayerState } from '../domain';
 import { MapPosition } from '../domain';
-import { MapLayer } from '../layers';
-import { MapLayerRegistry } from '../layers';
+import { OldMapLayer } from '../layers';
+import { OldMapLayerRegistry } from '../layers';
 import { OldOsmLayer } from '../layers';
 import { OldBackgroundLayer } from '../layers/';
 
@@ -40,7 +40,7 @@ export abstract class OpenlayersMapService {
 
   private readonly _layerStates = signal<MapLayerState[]>([]);
 
-  protected mapLayers: MapLayer[] = [];
+  protected mapLayers: OldMapLayer[] = [];
 
   readonly layerStates = this._layerStates.asReadonly();
 
@@ -93,7 +93,7 @@ export abstract class OpenlayersMapService {
     return this.mapLayers.map((mapLayer) => mapLayer.layer);
   }
 
-  protected register(registry: MapLayerRegistry): void {
+  protected register(registry: OldMapLayerRegistry): void {
     this.mapLayers = registry.layers;
     this._layerStates.set(registry.layerStates);
   }
@@ -157,7 +157,7 @@ export abstract class OpenlayersMapService {
     }
   }
 
-  protected layerVisible(mapLayer: MapLayer): boolean {
+  protected layerVisible(mapLayer: OldMapLayer): boolean {
     const mapLayerState = this.layerStates().find((layerState) => layerState.id === mapLayer.id);
     if (mapLayerState) {
       const zoom = this._mapPosition$.value.zoom;

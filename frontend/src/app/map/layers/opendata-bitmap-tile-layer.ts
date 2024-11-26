@@ -1,7 +1,7 @@
 import { NetworkType } from '@api/custom';
+import { ZoomLevel } from '@app/ol/domain';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
-import { ZoomLevel } from '../domain';
 import { MapLayer } from './map-layer';
 
 export class OpendataBitmapTileLayer {
@@ -19,10 +19,10 @@ export class OpendataBitmapTileLayer {
       layerName,
       ZoomLevel.bitmapTileMinZoom,
       ZoomLevel.bitmapTileMaxZoom,
-      'bitmap',
+      // 'bitmap',
       layer,
-      networkType,
-      null
+      networkType
+      // null
     );
   }
 }

@@ -6,7 +6,7 @@ import { Util } from '@app/components/shared';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
-import { MapLayerRegistry } from '@app/ol/layers';
+import { OldMapLayerRegistry } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
 import { RouteNodesLayer } from '@app/ol/layers';
 import { RouteChangeLayers } from '@app/ol/layers';
@@ -36,7 +36,7 @@ export class RouteChangeMapService extends OpenlayersMapService {
   }
 
   private registerLayers(geometryDiff: GeometryDiff, nodeChanges: RouteNodeChange[]): void {
-    const registry = new MapLayerRegistry();
+    const registry = new OldMapLayerRegistry();
     registry.register([], OldBackgroundLayer.build(), true);
     registry.register([], OldOsmLayer.build(), false);
     if (nodeChanges && nodeChanges.length > 0) {

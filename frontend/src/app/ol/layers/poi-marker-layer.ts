@@ -4,10 +4,10 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Marker } from '../domain';
 import { OldLayers } from './old-layers';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class PoiMarkerLayer {
-  static build(poiDetail: PoiDetail): MapLayer {
+  static build(poiDetail: PoiDetail): OldMapLayer {
     const coordinate = OlUtil.toCoordinate(poiDetail.poi.latitude, poiDetail.poi.longitude);
     const marker = Marker.create('blue', coordinate);
 
@@ -19,6 +19,6 @@ export class PoiMarkerLayer {
 
     source.addFeature(marker);
     const name = $localize`:@@map.layer.poi-detail:Points of interest`;
-    return MapLayer.build('poi-marker-layer', name, layer);
+    return OldMapLayer.build('poi-marker-layer', name, layer);
   }
 }

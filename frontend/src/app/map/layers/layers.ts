@@ -13,6 +13,15 @@ import { OsmLayer } from './osm-layer';
 import { RouteLayer } from './route-layer';
 
 export class Layers {
+  static readonly zIndexOsmLayer = 90;
+  static readonly zIndexGpxLayer = 80;
+  static readonly zIndexPlannerMarkerLayer = 70;
+  static readonly zIndexNetworkNodesLayer = 65;
+  static readonly zIndexNetworkLayer = 60;
+  static readonly zIndexPlannerRouteLayer = 50;
+  static readonly zIndexPoiLayer = 40;
+  static readonly zIndexHighlightLayer = 30;
+
   readonly osmLayer: TileLayer<OSM>;
   readonly backgroundLayer: MapboxVectorLayer;
   readonly grid256Layer: TileLayer<TileDebug>;

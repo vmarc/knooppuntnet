@@ -17,13 +17,13 @@ import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import { Marker } from '../domain';
 import { OldLayers } from './old-layers';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class RouteLayers {
   constructor(private routeMap: RouteMap) {}
 
-  build(): List<MapLayer> {
-    let layers: MapLayer[] = [];
+  build(): List<OldMapLayer> {
+    let layers: OldMapLayer[] = [];
     layers.push(this.buildMarkerLayer());
     layers = layers.concat(this.buildFreePathsLayers());
     layers.push(this.buildForwardLayer());
@@ -35,7 +35,7 @@ export class RouteLayers {
     return List(layers).filter((layer) => layer !== null);
   }
 
-  private buildFreePathsLayers(): MapLayer[] {
+  private buildFreePathsLayers(): OldMapLayer[] {
     return this.routeMap.freePaths.map((path) => {
       const id = `free-path-${path.pathId}`;
       const translatedTitle = $localize`:@@map.layer.free-path:Path`;
@@ -43,11 +43,11 @@ export class RouteLayers {
       const source = new VectorSource();
       const layer = new VectorLayer({ source });
       source.addFeature(this.pathToFeature([0, 0, 255, 0.3], path));
-      return MapLayer.build(id, name, layer);
+      return OldMapLayer.build(id, name, layer);
     });
   }
 
-  private buildForwardLayer(): MapLayer {
+  private buildForwardLayer(): OldMapLayer {
     const path = this.routeMap.forwardPath;
     if (path && path.segments.length > 0) {
       const name = $localize`:@@map.layer.forward-route:Forward route`;
@@ -56,12 +56,12 @@ export class RouteLayers {
         source,
       });
       source.addFeature(this.pathToFeature([0, 0, 255, 0.3], path));
-      return MapLayer.build('forward-route', name, layer);
+      return OldMapLayer.build('forward-route', name, layer);
     }
     return null;
   }
 
-  private buildBackwardLayer(): MapLayer {
+  private buildBackwardLayer(): OldMapLayer {
     const path = this.routeMap.backwardPath;
     if (path) {
       const name = $localize`:@@map.layer.backward-route:Backward route`;
@@ -70,12 +70,12 @@ export class RouteLayers {
         source,
       });
       source.addFeature(this.pathToFeature([0, 0, 255, 0.3], path));
-      return MapLayer.build('backward-route', name, layer);
+      return OldMapLayer.build('backward-route', name, layer);
     }
     return null;
   }
 
-  private buildStartTentaclesLayer(): MapLayer {
+  private buildStartTentaclesLayer(): OldMapLayer {
     const paths = this.routeMap.startTentaclePaths;
     if (paths && paths.length > 0) {
       const source = new VectorSource();
@@ -86,12 +86,12 @@ export class RouteLayers {
         source.addFeature(this.pathToFeature([0, 0, 255, 0.3], path));
       });
       const name = $localize`:@@map.layer.start-tentacle:Start tentacle`;
-      return MapLayer.build('start-tentacle', name, layer);
+      return OldMapLayer.build('start-tentacle', name, layer);
     }
     return null;
   }
 
-  private buildEndTentaclesLayer(): MapLayer {
+  private buildEndTentaclesLayer(): OldMapLayer {
     const paths = this.routeMap.endTentaclePaths;
     if (paths && paths.length > 0) {
       const name = $localize`:@@map.layer.end-tentacle:End tentacle`;
@@ -102,12 +102,12 @@ export class RouteLayers {
       paths.forEach((path) => {
         source.addFeature(this.pathToFeature([0, 0, 255, 0.3], path));
       });
-      return MapLayer.build('end-tentacle', name, layer);
+      return OldMapLayer.build('end-tentacle', name, layer);
     }
     return null;
   }
 
-  private buildUnusedSegmentsLayer(): MapLayer {
+  private buildUnusedSegmentsLayer(): OldMapLayer {
     const segments = this.routeMap.unusedSegments;
     if (segments && segments.length > 0) {
       const source = new VectorSource();
@@ -118,12 +118,12 @@ export class RouteLayers {
         source.addFeature(this.segmentToFeature([255, 0, 0, 0.3], segment));
       });
       const name = $localize`:@@map.layer.unused:Unused`;
-      return MapLayer.build('unused', name, layer);
+      return OldMapLayer.build('unused', name, layer);
     }
     return null;
   }
 
-  private buildMarkerLayer(): MapLayer {
+  private buildMarkerLayer(): OldMapLayer {
     const freeNodeMarkers = this.buildMarkers(this.routeMap.freeNodes, 'blue', '@@map.free-node');
     const startNodeMarkers = this.buildMarkers(
       this.routeMap.startNodes,
@@ -162,7 +162,7 @@ export class RouteLayers {
 
     source.addFeatures(markers);
     const name = $localize`:@@map.layer.route-nodes:Nodes`;
-    return MapLayer.build('nodes', name, layer);
+    return OldMapLayer.build('nodes', name, layer);
   }
 
   private buildMarkers(

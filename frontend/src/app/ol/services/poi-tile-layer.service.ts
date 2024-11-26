@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { PoiService } from '@app/services';
 import { StyleFunction } from 'ol/style/Style';
 import { ZoomLevel } from '../domain';
-import { PoiTileLayer } from '../layers';
-import { MapLayer } from '../layers';
+import { OldPoiTileLayer } from '../layers';
+import { OldMapLayer } from '../layers';
 import { PoiStyleMap } from '../style';
 
 @Injectable({
@@ -25,11 +25,11 @@ export class PoiTileLayerService {
     });
   }
 
-  public buildLayer(): MapLayer {
-    const layer = new PoiTileLayer().build();
+  public buildLayer(): OldMapLayer {
+    const layer = new OldPoiTileLayer().build();
     layer.setStyle(this.poiStyleFunction());
     this.poiService.changeCount.subscribe(() => layer.changed());
-    return new MapLayer(
+    return new OldMapLayer(
       PoiTileLayerService.poiLayerId,
       PoiTileLayerService.poiLayerId,
       ZoomLevel.poiTileMinZoom,

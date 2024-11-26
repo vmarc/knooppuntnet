@@ -5,10 +5,10 @@ import { NetworkType } from '@api/custom';
 import { OlUtil } from '@app/ol';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
-import { OpenDataLayers } from '@app/ol/layers';
+import { OldOpenDataLayers } from '@app/ol/layers';
 import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
-import { MapLayerRegistry } from '@app/ol/layers';
+import { OldMapLayerRegistry } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
 import { NodeMarkerLayer } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
@@ -74,7 +74,7 @@ export class NodeMapService extends OpenlayersMapService {
     defaultNetworkType: NetworkType,
     urlLayerIds: string[]
   ): void {
-    const registry = new MapLayerRegistry();
+    const registry = new OldMapLayerRegistry();
     registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
     registry.register(urlLayerIds, OldOsmLayer.build(), false);
 
@@ -91,7 +91,7 @@ export class NodeMapService extends OpenlayersMapService {
     registry.register(urlLayerIds, NodeMarkerLayer.build(nodeMapInfo), true);
 
     nodeMapInfo.networkTypes.forEach((networkType) =>
-      OpenDataLayers.register(registry, networkType, urlLayerIds)
+      OldOpenDataLayers.register(registry, networkType, urlLayerIds)
     );
 
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);

@@ -4,10 +4,10 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Marker } from '../domain';
 import { OldLayers } from './old-layers';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class RouteNodesLayer {
-  static build(nodeChanges: RouteNodeChange[]): MapLayer {
+  static build(nodeChanges: RouteNodeChange[]): OldMapLayer {
     if (nodeChanges.length === 0) {
       return null;
     }
@@ -32,6 +32,6 @@ export class RouteNodesLayer {
       source,
     });
     const name = $localize`:@@map.layer.route-nodes:Nodes`;
-    return MapLayer.build('route-nodes-layer', name, layer);
+    return OldMapLayer.build('route-nodes-layer', name, layer);
   }
 }

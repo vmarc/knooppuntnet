@@ -2,7 +2,6 @@ import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
 import { NetworkType } from '@api/custom';
 import { ZoomLevel } from '@app/ol/domain';
-import { OldLayers } from '@app/ol/layers';
 import { FeatureLike } from 'ol/Feature';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -10,6 +9,7 @@ import VectorTile from 'ol/source/VectorTile';
 import { StyleFunction } from 'ol/style/Style';
 import { MapStyleOptions } from '../../state/map-style-options';
 import { ExploreStyle } from '../style/explore-style';
+import { Layers } from './layers';
 
 export class RouteLayer {
   private styleOptions: MapStyleOptions; // local copy for performance reasons
@@ -26,7 +26,7 @@ export class RouteLayer {
       const nodeRoutes = this.styleOptions.scopeNodeRoutes;
       const route = this.styleOptions.selectedRoute;
       console.log(
-        `mapOptions zoom=${zoom}, mode=${mode}, international=${international}, national=${national}, regional=${regional}, local=${local}, nodeRoutes=${nodeRoutes}, route=${route}`
+        `mapStyleOptions zoom=${zoom}, mode=${mode}, international=${international}, national=${national}, regional=${regional}, local=${local}, nodeRoutes=${nodeRoutes}, route=${route}`
       );
     });
   }
@@ -40,7 +40,7 @@ export class RouteLayer {
       url: `/tiles/${networkType}/{z}/{x}/{y}.mvt`,
     });
     return new VectorTileLayer({
-      zIndex: OldLayers.zIndexNetworkLayer,
+      zIndex: Layers.zIndexNetworkLayer,
       source: source,
       renderMode: 'vector',
       style: this.styleFunction(),

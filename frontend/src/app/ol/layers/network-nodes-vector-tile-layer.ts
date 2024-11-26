@@ -6,7 +6,7 @@ import VectorTile from 'ol/source/VectorTile';
 import { ZoomLevel } from '../domain';
 import { NetworkMapStyle } from '../style';
 import { OldLayers } from './old-layers';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class NetworkNodesVectorTileLayer {
   static build(
@@ -15,7 +15,7 @@ export class NetworkNodesVectorTileLayer {
     connectionNodeIds: number[],
     networkRouteIds: number[],
     connectionRouteIds: number[]
-  ): MapLayer {
+  ): OldMapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -40,7 +40,7 @@ export class NetworkNodesVectorTileLayer {
     layer.setStyle(nodeMapStyle);
 
     const name = Translations.get(`network-type.${networkType}`);
-    return new MapLayer(
+    return new OldMapLayer(
       `network-nodes-${networkType}-layer`,
       name,
       ZoomLevel.vectorTileMinZoom,

@@ -10,14 +10,14 @@ import { SurveyDateValues } from '@app/core';
 import { CachedMapPosition } from '@app/ol/domain';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
-import { OpenDataLayers } from '@app/ol/layers';
+import { OldOpenDataLayers } from '@app/ol/layers';
 import { OldBackgroundLayer } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
 import { NetworkBitmapTileLayer } from '@app/ol/layers';
 import { LocationBoundaryLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
-import { MapLayerRegistry } from '@app/ol/layers';
+import { OldMapLayerRegistry } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
 import { MapClickService } from '@app/ol/services';
 import { MainMapStyleParameters } from '@app/ol/style';
@@ -105,7 +105,7 @@ export class LocationMapService extends OpenlayersMapService {
       NetworkBitmapTileLayer.build(networkType, 'analysis'),
     ];
 
-    const registry = new MapLayerRegistry();
+    const registry = new OldMapLayerRegistry();
     registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
     registry.register(urlLayerIds, OldOsmLayer.build(), false);
     registry.registerAll(urlLayerIds, networkLayers, true);
@@ -113,7 +113,7 @@ export class LocationMapService extends OpenlayersMapService {
     if (geoJson2) {
       registry.register(urlLayerIds, LocationBoundaryLayer.build2(geoJson2), true);
     }
-    OpenDataLayers.register(registry, networkType, urlLayerIds);
+    OldOpenDataLayers.register(registry, networkType, urlLayerIds);
     this.register(registry);
   }
 

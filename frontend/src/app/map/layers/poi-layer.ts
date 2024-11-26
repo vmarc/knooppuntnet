@@ -1,11 +1,11 @@
+import { ZoomLevel } from '@app/ol/domain';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
-import { ZoomLevel } from '../domain';
-import { OldLayers } from './old-layers';
+import { Layers } from './layers';
 
-export class PoiTileLayer {
-  build(): VectorTileLayer {
+export class PoiLayer {
+  static build(): VectorTileLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.poiTileMinZoom,
@@ -15,7 +15,7 @@ export class PoiTileLayer {
     });
 
     return new VectorTileLayer({
-      zIndex: OldLayers.zIndexPoiLayer,
+      zIndex: Layers.zIndexPoiLayer,
       source,
       renderBuffer: 40,
       declutter: false,

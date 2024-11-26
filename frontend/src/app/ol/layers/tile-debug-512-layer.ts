@@ -1,10 +1,10 @@
 import TileLayer from 'ol/layer/Tile';
 import TileDebug from 'ol/source/TileDebug';
 import { createXYZ } from 'ol/tilegrid';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class TileDebug512Layer {
-  static build(): MapLayer {
+  static build(): OldMapLayer {
     const tileGrid = createXYZ({
       tileSize: 512, // <--
       maxZoom: 20,
@@ -18,6 +18,6 @@ export class TileDebug512Layer {
     });
 
     const name = $localize`:@@map.layer.tile-512-names:Tilenames (512)`;
-    return MapLayer.build('debug-512', name, layer);
+    return OldMapLayer.build('debug-512', name, layer);
   }
 }

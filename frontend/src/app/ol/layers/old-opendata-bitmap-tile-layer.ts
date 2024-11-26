@@ -1,27 +1,28 @@
 import { NetworkType } from '@api/custom';
-import { Translations } from '@app/i18n';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import { ZoomLevel } from '../domain';
 import { OldMapLayer } from './old-map-layer';
 
-export class NetworkNodesBitmapTileLayer {
-  static build(networkType: NetworkType): OldMapLayer {
-    const layer = new TileLayer({
+export class OldOpendataBitmapTileLayer {
+  static build(networkType: NetworkType, id: string, layerName: string, dir: string): OldMapLayer {
+    const layer = new TileLayer<XYZ>({
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
         maxZoom: ZoomLevel.bitmapTileMaxZoom,
-        url: `/tiles/${networkType}/analysis/{z}/{x}/{y}.png`,
+        url: `/tiles/opendata/${dir}/{z}/{x}/{y}.png`,
       }),
     });
-    const name = Translations.get(`network-type.${networkType}`);
+
     return new OldMapLayer(
-      `network-nodes-${networkType}-layer`,
-      name,
+      id,
+      layerName,
       ZoomLevel.bitmapTileMinZoom,
       ZoomLevel.bitmapTileMaxZoom,
       'bitmap',
-      layer
+      layer,
+      networkType,
+      null
     );
   }
 }

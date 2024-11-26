@@ -6,7 +6,7 @@ import { OldBackgroundLayer } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
 import { NodeMovedLayer } from '@app/ol/layers';
-import { MapLayerRegistry } from '@app/ol/layers';
+import { OldMapLayerRegistry } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
 import Map from 'ol/Map';
 import View from 'ol/View';
@@ -33,7 +33,7 @@ export class NodeMovedMapService extends OpenlayersMapService {
   }
 
   private registerLayers(nodeMoved: NodeMoved): void {
-    const registry = new MapLayerRegistry();
+    const registry = new OldMapLayerRegistry();
     registry.register([], OldBackgroundLayer.build(), true);
     registry.register([], OldOsmLayer.build(), false);
     registry.register([], NodeMovedLayer.build(nodeMoved), true);

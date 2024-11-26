@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { RouteMapPage } from '@api/common/route';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
-import { OpenDataLayers } from '@app/ol/layers';
+import { OldOpenDataLayers } from '@app/ol/layers';
 import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
-import { MapLayerRegistry } from '@app/ol/layers';
+import { OldMapLayerRegistry } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
 import { TileDebug256Layer } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
@@ -68,12 +68,12 @@ export class RouteMapService extends OpenlayersMapService {
       new NodeMapStyle().styleFunction()
     );
     // const routeLayers = new RouteLayers(page.map).build();
-    const registry = new MapLayerRegistry();
+    const registry = new OldMapLayerRegistry();
     registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
     registry.register(urlLayerIds, OldOsmLayer.build(), false);
     registry.register(urlLayerIds, networkVectorTileLayer, true);
     // routeLayers.forEach((mapLayer) => registry.register(urlLayerIds, mapLayer, true));
-    OpenDataLayers.register(registry, page.routeMapInfo.networkType, urlLayerIds);
+    OldOpenDataLayers.register(registry, page.routeMapInfo.networkType, urlLayerIds);
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);
 
     this.register(registry);

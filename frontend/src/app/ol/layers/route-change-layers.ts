@@ -10,10 +10,10 @@ import VectorSource from 'ol/source/Vector';
 import { Stroke } from 'ol/style';
 import { Style } from 'ol/style';
 import { OldLayers } from './old-layers';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class RouteChangeLayers {
-  build(geometryDiff: GeometryDiff): List<MapLayer> {
+  build(geometryDiff: GeometryDiff): List<OldMapLayer> {
     const unchanged = this.segmentLayer(
       'map.layer.unchanged',
       $localize`:@@map.layer.unchanged:Unchanged`,
@@ -47,7 +47,7 @@ export class RouteChangeLayers {
     segments: PointSegment[],
     width: number,
     color: Color
-  ): MapLayer {
+  ): OldMapLayer {
     if (segments.length === 0) {
       return null;
     }
@@ -72,6 +72,6 @@ export class RouteChangeLayers {
       zIndex: OldLayers.zIndexNetworkLayer,
       source,
     });
-    return MapLayer.build(id, name, layer);
+    return OldMapLayer.build(id, name, layer);
   }
 }

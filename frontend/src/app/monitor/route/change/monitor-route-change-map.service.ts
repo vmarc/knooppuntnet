@@ -4,8 +4,8 @@ import { MonitorRouteSegment } from '@api/common/monitor';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
-import { MapLayer } from '@app/ol/layers';
-import { MapLayerRegistry } from '@app/ol/layers';
+import { OldMapLayer } from '@app/ol/layers';
+import { OldMapLayerRegistry } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
 import { Util } from '@app/components/shared';
@@ -49,7 +49,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     deviation: MonitorRouteDeviation,
     routeSegments: MonitorRouteSegment[]
   ): void {
-    const registry = new MapLayerRegistry();
+    const registry = new OldMapLayerRegistry();
     registry.register([], OldBackgroundLayer.build(), true);
     registry.register([], OldOsmLayer.build(), false);
     registry.register([], this.buildReferenceLayer(referenceJson), true);
@@ -58,7 +58,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     this.register(registry);
   }
 
-  private buildReferenceLayer(referenceJson: string): MapLayer {
+  private buildReferenceLayer(referenceJson: string): OldMapLayer {
     const layerStyle = this.fixedStyle('blue', 4);
     const features = new GeoJSON().readFeatures(referenceJson, {
       featureProjection: 'EPSG:3857',
@@ -70,10 +70,10 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
     });
 
     layer.set('name', 'GPX reference'); // TODO planner: set elsewhere?
-    return MapLayer.build('gpx-reference-layer', 'GPX reference', layer);
+    return OldMapLayer.build('gpx-reference-layer', 'GPX reference', layer);
   }
 
-  private buildNokSegmentLayer(deviation: MonitorRouteDeviation): MapLayer {
+  private buildNokSegmentLayer(deviation: MonitorRouteDeviation): OldMapLayer {
     const layerStyle = this.fixedStyle('red', 4);
     const features = new GeoJSON().readFeatures(deviation.geoJson, {
       featureProjection: 'EPSG:3857',
@@ -85,10 +85,10 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
       style: () => layerStyle,
     });
     layer.set('name', 'Not OK segment'); // TODO planner: set elsewhere?
-    return MapLayer.build('not-ok-layer', 'Not OK', layer);
+    return OldMapLayer.build('not-ok-layer', 'Not OK', layer);
   }
 
-  private buildOsmRelationLayer(routeSegments: MonitorRouteSegment[]): MapLayer {
+  private buildOsmRelationLayer(routeSegments: MonitorRouteSegment[]): OldMapLayer {
     const thickStyle = this.fixedStyle('yellow', 10);
     const features = [];
     routeSegments.forEach((segment) => {
@@ -106,7 +106,7 @@ export class MonitorRouteChangeMapService extends OpenlayersMapService {
       style: () => thickStyle,
     });
     layer.set('name', 'OSM Relation'); // TODO planner: set elsewhere?
-    return MapLayer.build('osm-relation-layer', 'OSM relation', layer);
+    return OldMapLayer.build('osm-relation-layer', 'OSM relation', layer);
   }
 
   private fixedStyle(color: string, width: number): Style {

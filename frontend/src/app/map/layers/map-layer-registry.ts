@@ -1,5 +1,5 @@
-import { MapLayer } from '.';
-import { MapLayerState } from '../domain';
+import { MapLayer } from './map-layer';
+import { MapLayerState } from './map-layer-state';
 
 export class MapLayerRegistry {
   layers: MapLayer[] = [];

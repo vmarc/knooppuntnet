@@ -10,14 +10,14 @@ import Style, { StyleFunction } from 'ol/style/Style';
 import Text from 'ol/style/Text';
 import { ZoomLevel } from '../domain';
 import { OldLayers } from './old-layers';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
-export class OpendataVectorTileLayer {
+export class OldOpendataVectorTileLayer {
   private static readonly largeMaxZoomResolution = /* zoomLevel 13 */ 19.109;
   private static readonly smallStyle = this.buildSmallStyle();
   private static readonly largeStyle = this.buildLargeStyle();
 
-  static build(networkType: NetworkType, id: string, name: string, dir: string): MapLayer {
+  static build(networkType: NetworkType, id: string, name: string, dir: string): OldMapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -37,7 +37,7 @@ export class OpendataVectorTileLayer {
 
     layer.setStyle(this.styleFunction());
 
-    return new MapLayer(
+    return new OldMapLayer(
       id,
       name,
       ZoomLevel.vectorTileMinZoom,

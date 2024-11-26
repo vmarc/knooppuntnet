@@ -5,11 +5,11 @@ import VectorTile from 'ol/source/VectorTile';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import { StyleFunction } from 'ol/style/Style';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 import { OldLayers } from './old-layers';
 
 export class MonitorLayer {
-  static build(): MapLayer {
+  static build(): OldMapLayer {
     const source = new VectorTile({
       minZoom: 2,
       maxZoom: 14,
@@ -27,7 +27,7 @@ export class MonitorLayer {
     });
 
     const name = $localize`:@@map.layer.monitor:All monitor routes`;
-    return new MapLayer('monitor', name, 2, 22, 'vector', layer, null, null);
+    return new OldMapLayer('monitor', name, 2, 22, 'vector', layer, null, null);
   }
 
   static styleFunction(): StyleFunction {

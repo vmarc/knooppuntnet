@@ -4,10 +4,10 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Marker } from '../domain';
 import { OldLayers } from './old-layers';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class NodeMarkerLayer {
-  static build(nodeMapInfo: NodeMapInfo): MapLayer {
+  static build(nodeMapInfo: NodeMapInfo): OldMapLayer {
     const coordinate = OlUtil.toCoordinate(nodeMapInfo.latitude, nodeMapInfo.longitude);
     const marker = Marker.create('blue', coordinate);
 
@@ -20,6 +20,6 @@ export class NodeMarkerLayer {
     source.addFeature(marker);
 
     const name = $localize`:@@map.layer.node:Node`;
-    return MapLayer.build('node-marker-layer', name, layer);
+    return OldMapLayer.build('node-marker-layer', name, layer);
   }
 }

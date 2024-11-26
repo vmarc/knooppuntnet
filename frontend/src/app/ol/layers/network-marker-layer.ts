@@ -2,7 +2,7 @@ import { SubsetMapNetwork } from '@api/common/subset';
 import { OlUtil } from '@app/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { MapLayer } from '.';
+import { OldMapLayer } from '.';
 import { Marker } from '../domain';
 
 export class NetworkMarkerLayer {
@@ -10,7 +10,7 @@ export class NetworkMarkerLayer {
   static readonly layer = 'layer';
   static readonly networkMarker = 'network-marker';
 
-  build(networks: SubsetMapNetwork[]): MapLayer {
+  build(networks: SubsetMapNetwork[]): OldMapLayer {
     const markers = networks.map((network) => {
       const coordinate = OlUtil.toCoordinate(network.center.latitude, network.center.longitude);
       const marker = Marker.create('blue', coordinate);
@@ -25,6 +25,6 @@ export class NetworkMarkerLayer {
     });
     markers.forEach((marker) => source.addFeature(marker));
     const name = $localize`:@@map.layer.networks:Networks`;
-    return MapLayer.build('network-marker-layer', name, layer);
+    return OldMapLayer.build('network-marker-layer', name, layer);
   }
 }

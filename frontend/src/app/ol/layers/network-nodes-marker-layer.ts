@@ -4,10 +4,10 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Marker } from '../domain';
 import { OldLayers } from './old-layers';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class NetworkNodesMarkerLayer {
-  static build(nodes: NetworkMapNode[]): MapLayer {
+  static build(nodes: NetworkMapNode[]): OldMapLayer {
     const markers = nodes.map((node) => {
       const color = node.roleConnection ? 'orange' : 'blue';
       const coordinate = OlUtil.toCoordinate(node.latitude, node.longitude);
@@ -27,6 +27,6 @@ export class NetworkNodesMarkerLayer {
     markers.forEach((marker) => source.addFeature(marker));
 
     const name = $localize`:@@map.layer.nodes:Nodes`;
-    return MapLayer.build('network-node-markers-layer', name, layer);
+    return OldMapLayer.build('network-node-markers-layer', name, layer);
   }
 }
