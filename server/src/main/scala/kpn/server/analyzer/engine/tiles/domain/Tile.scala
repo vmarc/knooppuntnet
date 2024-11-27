@@ -24,6 +24,10 @@ object Tile {
     new Tile(z, x, y)
   }
 
+  def apply(tileId: TileId): Tile = {
+    new Tile(tileId.z.toInt, tileId.x.toInt, tileId.y.toInt)
+  }
+
   // x part of the z-x-y tilename
   def tileX(z: Int, worldX: Double): Int = {
     val zoomFactor = 1 << z // the number of tiles across the map in each direction
