@@ -1,7 +1,6 @@
 import { ClientPoiConfiguration } from '@api/common/tiles';
 import { ClientPoiDefinition } from '@api/common/tiles';
 import { ClientPoiGroupDefinition } from '@api/common/tiles';
-import { Map } from 'immutable';
 
 export class InterpretedPoiConfiguration {
   private readonly poiDefinitionMap: Map<string, ClientPoiDefinition>;
@@ -13,7 +12,7 @@ export class InterpretedPoiConfiguration {
         keysAndValues.push([d.name, d]);
       });
     });
-    this.poiDefinitionMap = Map(keysAndValues);
+    this.poiDefinitionMap = new Map<string, ClientPoiDefinition>(keysAndValues);
   }
 
   poiDefinitionWithName(name: string): ClientPoiDefinition {

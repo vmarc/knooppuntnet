@@ -11,7 +11,7 @@ class PoiTileUpdaterImpl(
 ) extends PoiTileUpdater {
 
   override def update(): Unit = {
-    val tasks = taskRepository.all(PoiTileTask.prefix)
+    val tasks = taskRepository.all(PoiTileTask.prefix).toVector
     tasks.zipWithIndex.foreach { case (task, index) =>
       val tileName = PoiTileTask.tileName(task)
       Log.context(s"${index + 1}/${tasks.size} $tileName") {

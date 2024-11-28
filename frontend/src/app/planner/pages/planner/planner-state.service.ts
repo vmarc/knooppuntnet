@@ -9,7 +9,7 @@ import { Util } from '@app/components/shared';
 import { NetworkTypes } from '@app/kpn/common';
 import { MapLayerState } from '@app/ol/domain';
 import { MapPosition } from '@app/ol/domain';
-import { PoiTileLayerService } from '@app/ol/services';
+import { OldPoiTileLayerService } from '@app/ol/services';
 import { MapMode } from '@app/ol/services';
 import { BrowserStorageService } from '@app/services';
 import { Coordinate } from 'ol/coordinate';
@@ -56,7 +56,7 @@ export class PlannerStateService {
   readonly poisVisible = computed(() => {
     let visible = false;
     const poiLayerState = this.layerStates().find(
-      (layerState) => layerState.id == PoiTileLayerService.poiLayerId
+      (layerState) => layerState.id == OldPoiTileLayerService.poiLayerId
     );
     if (poiLayerState) {
       visible = poiLayerState.visible;
@@ -135,7 +135,7 @@ export class PlannerStateService {
 
   setPoisVisible(visible: boolean): void {
     const layerStates = this.layerStates().map((layerState) => {
-      if (layerState.id === PoiTileLayerService.poiLayerId) {
+      if (layerState.id === OldPoiTileLayerService.poiLayerId) {
         return {
           ...layerState,
           visible,

@@ -15,7 +15,6 @@ case class TileInfo(z: Int, x: Int, y: Int, size: Long) {
 object TileReportTool {
 
   def main(args: Array[String]): Unit = {
-    // println(new File("/Users/marc/kpn/tiles/hiking/13/3920/3065.mvt").length())
     new TileReportTool().report()
     println("Done")
   }
@@ -26,9 +25,7 @@ class TileReportTool {
     val tileInfos = loadTileInfos(NetworkType.hiking)
     val sizes = tileInfos.map(_.size)
     println(s"tileCount=${tileInfos.size}, totalSize=${sizes.sum}, maxTileSize=${sizes.max}")
-    //    val largestTiles = tileInfos.filter(tileInfo => tileInfo.size > 110000)
-    //    largestTiles.foreach(println)
-    (ZoomLevel.newMinZoom to ZoomLevel.maxZoom).foreach { z =>
+    (ZoomLevel.newMinZoom to ZoomLevel.poiTileMaxZoom).foreach { z =>
       val zoomLevelTiles = tileInfos.filter(_.z == z)
       val max = if (zoomLevelTiles.isEmpty) 0 else zoomLevelTiles.map(_.size).max
       val largestTiles: Seq[TileInfo] = if (zoomLevelTiles.isEmpty) Seq.empty else zoomLevelTiles.filter(_.size == max)
@@ -54,12 +51,6 @@ class TileReportTool {
         xDir.listFiles(fileFilter).sortBy(_.getName).map { tileFile =>
           val y = tileFile.getName.dropRight(".mvt".length).toInt
           val size = tileFile.length()
-          //  if (z == 11 && x == 1088 && y == 698) {
-          //    println()
-          //  }
-          //  if (size == 2543717) {
-          //    println()
-          //  }
           TileInfo(z, x, y, size)
         }
       }

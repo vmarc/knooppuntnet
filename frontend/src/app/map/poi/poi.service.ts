@@ -1,29 +1,28 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { InterpretedPoiConfiguration } from '@app/ol/domain';
-import { Map } from 'immutable';
+import { BrowserStorageService } from '@app/services';
+import { ApiService } from '@app/services';
+import { State } from '@app/state';
 import { BehaviorSubject } from 'rxjs';
-import { ApiService } from './api.service';
-import { BrowserStorageService } from './browser-storage.service';
-import { PoiNameService } from './poi-name.service';
-import { PoiGroupPreference } from './poi-preferences';
-import { PoiPreference } from './poi-preferences';
-import { PoiPreferences } from './poi-preferences';
+import { InterpretedPoiConfiguration } from '../../state/poi/interpreted-poi-configuration';
+import { PoiGroupPreference } from '../../state/poi/poi-group-preference';
+import { PoiNameTranslations } from '../../state/poi/poi-name-translations';
+import { PoiPreference } from '../../state/poi/poi-preference';
+import { PoiPreferences } from '../../state/poi/poi-preferences';
+import { PoiStyleMap } from '../style/poi-style-map';
 
 @Injectable()
 export class PoiService {
   private readonly apiService = inject(ApiService);
-  private readonly poiNameService = inject(PoiNameService);
   private readonly browserStorageService = inject(BrowserStorageService);
+  private readonly state = inject(State);
 
   readonly changeCount: BehaviorSubject<number> = new BehaviorSubject(0);
-  poiActive = Map<string, boolean>();
   readonly poiConfiguration: BehaviorSubject<InterpretedPoiConfiguration> = new BehaviorSubject(
     null
   );
-  private zoomLevel: number;
   private poiPreferences: PoiPreferences;
-  private readonly poiNames: Map<string, string> = this.poiNameService.buildPoiNames();
+  private readonly poiNames: ReadonlyMap<string, string> = PoiNameTranslations.nameMap;
 
   constructor() {
     this.loadPoiConfiguration();
@@ -34,13 +33,17 @@ export class PoiService {
   }
 
   isPoiActive(poiId: string): boolean {
-    return this.poiActive.get(poiId, false);
+    let active = this.state.map.poiActive().get(poiId);
+    if (active === undefined) {
+      active = false;
+    }
+    return active;
   }
 
-  updateZoomLevel(zoomLevel: number): void {
-    this.zoomLevel = zoomLevel;
-    this.updatePoiActive();
-  }
+  // updateZoomLevel(zoomLevel: number): void {
+  //   this.zoomLevel = zoomLevel;
+  //   this.updatePoiActive();
+  // }
 
   isEnabled(): boolean {
     if (this.poiPreferences != null) {
@@ -124,7 +127,8 @@ export class PoiService {
   }
 
   updatePoiActive(): void {
-    if (this.zoomLevel != null && this.poiPreferences != null) {
+    console.log('updatePoiActive()', this.state.map.zoom(), this.poiPreferences);
+    if (this.state.map.zoom() != null && this.poiPreferences != null) {
       let activeChanged = false;
       this.poiPreferences.groups.forEach((group, groupName) => {
         group.pois.forEach((poi, poiName) => {
@@ -132,9 +136,12 @@ export class PoiService {
             this.poiPreferences.enabled &&
             group.enabled &&
             poi.minLevel !== 0 &&
-            poi.minLevel <= this.zoomLevel;
-          if (this.poiActive.get(poiName) !== active) {
-            this.poiActive = this.poiActive.set(poiName, active);
+            poi.minLevel <= this.state.map.zoom();
+          if (this.state.map.poiActive().get(poiName) !== active) {
+            const entries = Array.from(this.state.map.poiActive());
+            entries.push([poiName, active]);
+            const newMap = new Map(entries);
+            this.state.map.updatePoiActive(newMap); // TODO redesign - do update only once, not inside this loop!!!
             activeChanged = true;
           }
         });
@@ -144,13 +151,24 @@ export class PoiService {
         this.changeCount.next(this.changeCount.value + 1);
       }
     }
+    console.log(
+      'updatePoiActive() DONE',
+      this.state.map.zoom(),
+      this.poiPreferences,
+      this.state.map.poiActive()
+    );
   }
 
   private loadPoiConfiguration() {
+    console.log('load poiConfiguration');
     this.apiService.poiConfiguration().subscribe((response) => {
+      console.log('poiConfiguration loaded', response);
       this.poiConfiguration.next(new InterpretedPoiConfiguration(response.result));
       this.initPoiConfig();
       this.updatePoiActive();
+      this.state.map.updatePoiStyleMap(
+        new PoiStyleMap(new InterpretedPoiConfiguration(response.result))
+      );
     });
   }
 
@@ -177,14 +195,14 @@ export class PoiService {
         groupDefinition.poiDefinitions.forEach((poiDefinition) => {
           poiEntries.push([poiDefinition.name, new PoiPreference(poiDefinition.defaultLevel)]);
         });
-        const pois = Map<string, PoiPreference>(poiEntries);
+        const pois = new Map<string, PoiPreference>(poiEntries);
         groupEntries.push([
           groupDefinition.name,
           new PoiGroupPreference(groupDefinition.enabledDefault, pois),
         ]);
       });
-      const groups = Map<string, PoiGroupPreference>(groupEntries);
-      this.poiPreferences = new PoiPreferences(groups, false);
+      const groups = new Map<string, PoiGroupPreference>(groupEntries);
+      this.poiPreferences = new PoiPreferences(groups, true); // TODO redesign - make default false again
     }
   }
 

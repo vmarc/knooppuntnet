@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { PoiService } from '@app/services';
+import { OldPoiService } from '@app/services';
 import { PlannerStateService } from '../planner-state.service';
 
 @Component({
@@ -36,7 +36,7 @@ export class PoiMenuOptionComponent {
   groupName = input.required<string>();
 
   private readonly plannerStateService = inject(PlannerStateService);
-  private readonly poiService = inject(PoiService);
+  private readonly poiService = inject(OldPoiService);
   protected readonly enabled = this.plannerStateService.poisVisible;
   protected visible = computed(() => this.plannerStateService.poiGroupVisible(this.groupName()));
 

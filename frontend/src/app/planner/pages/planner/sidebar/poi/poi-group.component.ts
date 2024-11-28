@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { PoiService } from '@app/services';
+import { OldPoiService } from '@app/services';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
@@ -68,7 +68,7 @@ export class PoiGroupComponent {
   name = input.required<string>();
   title = input.required<string>();
 
-  private readonly poiService = inject(PoiService);
+  private readonly poiService = inject(OldPoiService);
 
   isEnabled(): boolean {
     return this.poiService.isGroupEnabled(this.name());

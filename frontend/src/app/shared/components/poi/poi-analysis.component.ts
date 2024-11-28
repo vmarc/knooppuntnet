@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { PoiAnalysis } from '@api/common';
-import { PoiService } from '@app/services';
+import { OldPoiService } from '@app/services';
 
 @Component({
   selector: 'kpn-poi-analysis',
@@ -249,7 +249,7 @@ import { PoiService } from '@app/services';
 export class PoiAnalysisComponent {
   poi = input.required<PoiAnalysis>();
 
-  private readonly poiService = inject(PoiService);
+  private readonly poiService = inject(OldPoiService);
 
   layerName(): string {
     const layer = this.poi().layers[0];

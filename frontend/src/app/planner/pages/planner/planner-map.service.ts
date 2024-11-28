@@ -10,9 +10,9 @@ import { MapControls } from '@app/ol/layers';
 import { OldMapLayer } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
 import { MapZoomService } from '@app/ol/services';
-import { PoiTileLayerService } from '@app/ol/services';
+import { OldPoiTileLayerService } from '@app/ol/services';
 import { MainMapStyleParameters } from '@app/ol/style';
-import { PoiService } from '@app/services';
+import { OldPoiService } from '@app/services';
 import { Subscriptions } from '@app/util';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
@@ -29,7 +29,7 @@ import { PlannerService } from './planner.service';
 })
 export class PlannerMapService extends OpenlayersMapService {
   private readonly plannerService = inject(PlannerService);
-  private readonly poiService = inject(PoiService);
+  private readonly poiService = inject(OldPoiService);
   private readonly mapZoomService = inject(MapZoomService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly sharedStateService = inject(SharedStateService);
@@ -140,7 +140,7 @@ export class PlannerMapService extends OpenlayersMapService {
   plannerUpdatePoiLayerVisibility(newLayerStates: MapLayerState[]): void {
     this.updateLayerStates(newLayerStates);
     this.mapLayers.forEach((mapLayer) => {
-      if (mapLayer.name === PoiTileLayerService.poiLayerId) {
+      if (mapLayer.name === OldPoiTileLayerService.poiLayerId) {
         const mapLayerState = this.layerStates().find(
           (layerState) => layerState.id === mapLayer.id
         );

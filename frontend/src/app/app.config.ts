@@ -23,8 +23,8 @@ import { PageWidthService } from '@app/components/shared';
 import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
 import { IconService } from '@app/services';
-import { PoiService } from '@app/services';
-import { PoiNameService } from '@app/services';
+import { OldPoiService } from '@app/services';
+import { OldPoiNameService } from '@app/services';
 import { SpinnerInterceptor } from '@app/spinner';
 import { SpinnerService } from '@app/spinner';
 import * as Sentry from '@sentry/angular';
@@ -32,6 +32,7 @@ import { AngularSplitModule } from 'angular-split';
 import { MarkdownModule } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
 import { MapService } from './map/map.service';
+import { PoiService } from './map/poi/poi.service';
 import { RootService } from './root/root.service';
 import { UserService } from './shared/user';
 import { State } from '@app/state';
@@ -75,20 +76,21 @@ export const appConfig: ApplicationConfig = {
     },
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
-    PreferencesService,
     ApiService,
-    SpinnerService,
-    RootService,
-    State,
+    EditService,
+    IconService,
+    MapService,
+    MatDialog,
+    MatIconRegistry,
+    OldPoiNameService,
+    OldPoiService,
     PageService,
     PageWidthService,
-    MapService,
-    MatIconRegistry,
-    IconService,
     PoiService,
-    PoiNameService,
-    EditService,
-    MatDialog,
+    PreferencesService,
+    RootService,
+    SpinnerService,
+    State,
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     { provide: UserService },

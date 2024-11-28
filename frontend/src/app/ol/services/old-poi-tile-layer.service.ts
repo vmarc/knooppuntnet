@@ -1,26 +1,26 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { PoiService } from '@app/services';
+import { OldPoiService } from '@app/services';
 import { StyleFunction } from 'ol/style/Style';
 import { ZoomLevel } from '../domain';
 import { OldPoiTileLayer } from '../layers';
 import { OldMapLayer } from '../layers';
-import { PoiStyleMap } from '../style';
+import { OldPoiStyleMap } from '../style';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PoiTileLayerService {
-  private readonly poiService = inject(PoiService);
+export class OldPoiTileLayerService {
+  private readonly poiService = inject(OldPoiService);
 
   static poiLayerId = 'pois';
-  poiStyleMap: PoiStyleMap;
+  poiStyleMap: OldPoiStyleMap;
 
   constructor() {
-    console.log('PoiTileLayerService.constructor');
+    console.log('OldPoiTileLayerService.constructor');
     this.poiService.poiConfiguration.subscribe((configuration) => {
       if (configuration !== null) {
-        this.poiStyleMap = new PoiStyleMap(configuration);
+        this.poiStyleMap = new OldPoiStyleMap(configuration);
       }
     });
   }
@@ -30,8 +30,8 @@ export class PoiTileLayerService {
     layer.setStyle(this.poiStyleFunction());
     this.poiService.changeCount.subscribe(() => layer.changed());
     return new OldMapLayer(
-      PoiTileLayerService.poiLayerId,
-      PoiTileLayerService.poiLayerId,
+      OldPoiTileLayerService.poiLayerId,
+      OldPoiTileLayerService.poiLayerId,
       ZoomLevel.poiTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
       'vector',

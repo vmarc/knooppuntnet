@@ -12,15 +12,15 @@ import { TileDebug256Layer } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
 import { OldBackgroundLayer } from '@app/ol/layers';
 import { OldMapLayerRegistry } from '@app/ol/layers';
-import { PoiTileLayerService } from '@app/ol/services';
+import { OldPoiTileLayerService } from '@app/ol/services';
 import { MainMapStyleParameters } from '@app/ol/style';
 import { MainMapStyle } from '@app/ol/style';
-import { PoiService } from '@app/services';
+import { OldPoiService } from '@app/services';
 
 @Injectable()
 export class PlannerMapLayerService {
-  private readonly poiService = inject(PoiService);
-  private readonly poiTileLayerService = inject(PoiTileLayerService);
+  private readonly poiService = inject(OldPoiService);
+  private readonly poiTileLayerService = inject(OldPoiTileLayerService);
 
   registerLayers(
     networkType: NetworkType,

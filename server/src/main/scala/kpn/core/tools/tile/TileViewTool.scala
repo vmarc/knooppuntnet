@@ -4,6 +4,7 @@ import no.ecc.vectortile.VectorTileDecoder
 import org.apache.commons.io.FileUtils
 import org.apache.commons.io.IOUtils
 import org.locationtech.jts.geom.LineString
+import org.locationtech.jts.geom.Point
 
 import java.io.File
 import java.io.FileInputStream
@@ -13,8 +14,10 @@ import java.util.zip.GZIPInputStream
 object TileViewTool {
 
   def main(args: Array[String]): Unit = {
-    new TileViewTool().print("/Users/marc/kpn/tiles/hiking/6/31/21.mvt")
-    new TileViewTool().print("/Users/marc/kpn/tiles/hiking/13/4197/2724.mvt")
+    // new TileViewTool().print("/Users/marc/kpn/tiles/hiking/6/31/21.mvt")
+    // new TileViewTool().print("/Users/marc/kpn/tiles/hiking/13/4197/2724.mvt")
+    new TileViewTool().print("/Users/marc/kpn/tiles/poi/15/16790/10901.mvt")
+    new TileViewTool().print("/Users/marc/kpn/tiles/poi/14/8395/5450.mvt")
     println("Done")
   }
 }
@@ -32,10 +35,14 @@ class TileViewTool {
     val layer = feature.getLayerName
     val extent = feature.getExtent
     val attributes = feature.getAttributes
-    val geometry = feature.getGeometry.asInstanceOf[LineString]
-    val coordinates = geometry.getCoordinates().map(coordinate => s"[${coordinate.x},${coordinate.x}]").mkString((","))
+    val geometry = feature.getGeometry match {
+      case lineString: LineString =>
+        lineString.getCoordinates().map(coordinate => s"[${coordinate.x},${coordinate.x}]").mkString((","))
+      case point: Point => s"[${point.getX},${point.getY}]"
+      case _ => "?"
+    }
     println(s"  id=$id, layer=$layer, extent=$extent, attributes=$attributes")
-    println(s"    $coordinates")
+    println(s"    $geometry")
   }
 
   def load(filename: String): VectorTileDecoder.FeatureIterable = {

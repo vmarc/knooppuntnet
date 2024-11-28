@@ -6,10 +6,12 @@ import VectorTileLayer from 'ol/layer/VectorTile';
 import OSM from 'ol/source/OSM';
 import TileDebug from 'ol/source/TileDebug';
 import { MapStyleOptions } from '../../state/map-style-options';
+import { PoiStyleMap } from '../style/poi-style-map';
 import { BackgroundLayer } from './background-layer';
 import { Grid256Layer } from './grid-256-layer';
 import { Grid512Layer } from './grid-512-layer';
 import { OsmLayer } from './osm-layer';
+import { PoiLayer } from './poi-layer';
 import { RouteLayer } from './route-layer';
 
 export class Layers {
@@ -27,12 +29,18 @@ export class Layers {
   readonly grid256Layer: TileLayer<TileDebug>;
   readonly grid512Layer: TileLayer<TileDebug>;
   readonly routeLayer: VectorTileLayer;
+  readonly poiLayer: VectorTileLayer;
 
-  constructor(styleOptions: Signal<MapStyleOptions>) {
+  constructor(
+    styleOptions: Signal<MapStyleOptions>,
+    poiStyleMap: Signal<PoiStyleMap>,
+    poiActive: Signal<ReadonlyMap<string, boolean>>
+  ) {
     this.osmLayer = OsmLayer.build();
     this.backgroundLayer = BackgroundLayer.build();
     this.grid256Layer = Grid256Layer.build();
     this.grid512Layer = Grid512Layer.build();
     this.routeLayer = new RouteLayer(styleOptions).build(NetworkType.hiking);
+    this.poiLayer = PoiLayer.build(poiStyleMap, poiActive);
   }
 }

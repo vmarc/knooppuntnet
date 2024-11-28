@@ -1,11 +1,12 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { Coordinate } from 'ol/coordinate';
+import { PoiStyleMap } from '../map/style/poi-style-map';
 import { MapStyleOptions } from './map-style-options';
 import { MapRoutePopupState } from './map-route-popup-state';
 
 export class MapState {
-  private readonly _viewZoom = signal<number>(0);
+  private readonly _viewZoom = signal<number>(15);
   private readonly _center = signal<Coordinate | null>(null);
   private readonly _routePopupState = signal<MapRoutePopupState>(
     new MapRoutePopupState([], [0, 0])
@@ -17,6 +18,8 @@ export class MapState {
   private readonly _scopeLocal = signal<boolean>(true);
   private readonly _scopeNodeRoutes = signal<boolean>(true);
   private readonly _selectedRoute = signal<number | undefined>(undefined);
+  private readonly _poiStyleMap = signal<PoiStyleMap>(undefined);
+  private readonly _poiActive = signal<ReadonlyMap<string, boolean>>(new Map());
 
   readonly zoom = computed(() => Math.floor(this._viewZoom()));
   readonly center = this._center.asReadonly();
@@ -28,6 +31,8 @@ export class MapState {
   readonly scopeLocal = this._scopeLocal.asReadonly();
   readonly scopeNodeRoutes = this._scopeNodeRoutes.asReadonly();
   readonly selectedRoute = this._selectedRoute.asReadonly();
+  readonly poiStyleMap = this._poiStyleMap.asReadonly();
+  readonly poiActive = this._poiActive.asReadonly();
 
   readonly mapStyleOptions = computed(() => {
     const options: MapStyleOptions = {
@@ -81,5 +86,13 @@ export class MapState {
 
   updateSelectedRoute(value: number | null): void {
     this._selectedRoute.set(value);
+  }
+
+  updatePoiStyleMap(value: PoiStyleMap): void {
+    this._poiStyleMap.set(value);
+  }
+
+  updatePoiActive(value: ReadonlyMap<string, boolean>): void {
+    this._poiActive.set(value);
   }
 }

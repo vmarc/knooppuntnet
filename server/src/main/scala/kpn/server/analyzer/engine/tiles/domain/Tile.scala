@@ -13,6 +13,9 @@ object Tile {
   val CLIP_BUFFER_SIZE_STANDARD = 14 // assume tile size 256 pixels, radius of node circle 14 pixels
   val CLIP_BUFFER_SIZE_DETAILED = EXTENT_DETAILED * 14 / TILE_SIZE
 
+  val POI_CLIP_BUFFER_SIZE_STANDARD = 17 // assume tile size 256 pixels, radius of node circle 14 pixels
+  val POI_CLIP_BUFFER_SIZE_DETAILED = EXTENT_DETAILED * 17 / TILE_SIZE
+
   val POI_CLIP_BUFFER: ClipBuffer = ClipBuffer(
     left = EXTENT_STANDARD * 17 / 256, // poi icon width 32 (32 / 2 + 1) -> 17
     right = EXTENT_STANDARD * 17 / 256,
@@ -54,11 +57,27 @@ class Tile(val z: Int, val x: Int, val y: Int) {
     Tile.EXTENT_STANDARD
   }
 
+  val poiDetailed = z >= 15
+
+  val poiExtent = if (poiDetailed) {
+    Tile.EXTENT_DETAILED
+  }
+  else {
+    Tile.EXTENT_STANDARD
+  }
+
   val clipBufferSize = if (z < 13) {
     Tile.CLIP_BUFFER_SIZE_STANDARD
   }
   else {
     Tile.CLIP_BUFFER_SIZE_DETAILED
+  }
+
+  val poiClipBufferSize = if (z < 15) {
+    Tile.POI_CLIP_BUFFER_SIZE_STANDARD
+  }
+  else {
+    Tile.POI_CLIP_BUFFER_SIZE_DETAILED
   }
 
   val tileEnvelope: Polygon = {
@@ -68,6 +87,17 @@ class Tile(val z: Int, val x: Int, val y: Int) {
     coords(1) = new Coordinate(size + clipBufferSize, size + clipBufferSize)
     coords(2) = new Coordinate(size + clipBufferSize, 0d - clipBufferSize)
     coords(3) = new Coordinate(0d - clipBufferSize, 0d - clipBufferSize)
+    coords(4) = coords(0)
+    new GeometryFactory().createPolygon(coords)
+  }
+
+  val poiTileEnvelope: Polygon = {
+    val size = extent.toDouble
+    val coords = new Array[Coordinate](5)
+    coords(0) = new Coordinate(0d - poiClipBufferSize, size + poiClipBufferSize)
+    coords(1) = new Coordinate(size + poiClipBufferSize, size + poiClipBufferSize)
+    coords(2) = new Coordinate(size + poiClipBufferSize, 0d - poiClipBufferSize)
+    coords(3) = new Coordinate(0d - poiClipBufferSize, 0d - poiClipBufferSize)
     coords(4) = coords(0)
     new GeometryFactory().createPolygon(coords)
   }
@@ -118,6 +148,12 @@ class Tile(val z: Int, val x: Int, val y: Int) {
   def scale(worldCoordinate: Coordinate): Coordinate = {
     val scaledX = (worldCoordinate.x - worldXMin) * extent / (worldXMax - worldXMin)
     val scaledY = (worldCoordinate.y - worldYMin) * extent / (worldYMax - worldYMin)
+    new Coordinate(scaledX, scaledY)
+  }
+
+  def poiScale(worldCoordinate: Coordinate): Coordinate = {
+    val scaledX = (worldCoordinate.x - worldXMin) * poiExtent / (worldXMax - worldXMin)
+    val scaledY = (worldCoordinate.y - worldYMin) * poiExtent / (worldYMax - worldYMin)
     new Coordinate(scaledX, scaledY)
   }
 

@@ -5,7 +5,7 @@ import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { PoiService } from '@app/services';
+import { OldPoiService } from '@app/services';
 import { Subscriptions } from '@app/util';
 import { ChangeDetectionStrategy } from '@angular/core';
 
@@ -80,7 +80,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 export class PoiConfigComponent implements OnInit, OnDestroy {
   poiId = input.required<string>();
 
-  private readonly poiService = inject(PoiService);
+  private readonly poiService = inject(OldPoiService);
 
   protected icon: string;
   protected minLevel = 0;

@@ -9,11 +9,13 @@ import { State } from '@app/state';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { Layers } from './layers/layers';
+import { PoiService } from './poi/poi.service';
 import { MapRoutePopupAction } from './popup/map-route-popup-handler';
 import { MapRoutePopupInteraction } from './popup/map-route-popup-interaction';
 
 @Injectable()
 export class MapService {
+  private readonly poiService = inject(PoiService);
   private readonly state = inject(State);
   private _map: Map;
 
@@ -25,7 +27,11 @@ export class MapService {
     this.state.map.updateCenter(this._map.getView().getCenter());
   };
 
-  private readonly layers = new Layers(this.state.map.mapStyleOptions);
+  private readonly layers = new Layers(
+    this.state.map.mapStyleOptions,
+    this.state.map.poiStyleMap,
+    this.state.map.poiActive
+  );
 
   action: MapRoutePopupAction;
 
@@ -58,9 +64,15 @@ export class MapService {
   }
 
   init(): void {
+    const mapLayers = [
+      this.layers.osmLayer,
+      // this.layers.routeLayer,
+      this.layers.grid256Layer,
+      this.layers.poiLayer,
+    ];
     this._map = new Map({
       target: 'main-map',
-      layers: [this.layers.osmLayer, this.layers.routeLayer, this.layers.grid256Layer],
+      layers: mapLayers,
       controls: MapControls.build(),
       view: new View({
         minZoom: ZoomLevel.newMinZoom,
@@ -72,7 +84,7 @@ export class MapService {
     const essen: LatLonImpl = { latitude: '51.46774', longitude: '4.46839' };
     const center = OlUtil.latLonToCoordinate(essen);
     this._map.getView().setCenter(center);
-    this._map.getView().setZoom(13);
+    this._map.getView().setZoom(15);
 
     const view = this._map.getView();
     view.on('change:resolution', this.updateResolution);

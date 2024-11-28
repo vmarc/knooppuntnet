@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DividerComponent } from '@app/components/shared';
-import { PoiService } from '@app/services';
+import { OldPoiService } from '@app/services';
 import { PlannerStateService } from '../planner-state.service';
 import { PlannerMapService } from '../planner-map.service';
 import { PoiMenuOptionComponent } from './poi-menu-option.component';
@@ -63,7 +63,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 })
 export class PoiMenuComponent {
   private readonly plannerStateService = inject(PlannerStateService);
-  private readonly poiService = inject(PoiService);
+  private readonly poiService = inject(OldPoiService);
   private readonly plannerMapService = inject(PlannerMapService);
   protected readonly visible = this.plannerStateService.poisVisible;
 

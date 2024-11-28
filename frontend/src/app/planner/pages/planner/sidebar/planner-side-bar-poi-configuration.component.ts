@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { PoiService } from '@app/services';
+import { OldPoiService } from '@app/services';
 import { MapPoiConfigComponent } from './poi/map-poi-config.component';
 
 @Component({
@@ -43,7 +43,7 @@ import { MapPoiConfigComponent } from './poi/map-poi-config.component';
   imports: [MapPoiConfigComponent, MatButtonModule, MatCheckboxModule, MatExpansionModule],
 })
 export class PlannerSideBarPoiConfigurationComponent {
-  private readonly poiService = inject(PoiService);
+  private readonly poiService = inject(OldPoiService);
 
   enabledChanged(event: MatCheckboxChange) {
     this.poiService.updateEnabled(event.checked);

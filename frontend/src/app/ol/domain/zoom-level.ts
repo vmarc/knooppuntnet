@@ -7,7 +7,7 @@ export class ZoomLevel {
   static readonly vectorTileMaxOverZoom = 20;
 
   static readonly poiTileMinZoom = 11;
-  static readonly poiTileMaxZoom = 14;
+  static readonly poiTileMaxZoom = 15;
 
   static readonly newMinZoom: number = 2;
   static readonly newMaxZoom: number = 13;
