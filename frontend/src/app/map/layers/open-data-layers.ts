@@ -1,6 +1,5 @@
 import { NetworkType } from '@api/custom';
-import { MapLayer } from './map-layer';
-import { MapLayerRegistry } from './map-layer-registry';
+import { OldMapLayer } from './old-map-layer';
 import { OpendataBitmapTileLayer } from './opendata-bitmap-tile-layer';
 import { OpendataVectorTileLayer } from './opendata-vector-tile-layer';
 
@@ -11,26 +10,26 @@ export class OpenDataLayers {
   private static readonly netherlandsCyclingName = $localize`:@@map.layer.netherlands-cycling:NL routedatabank (cycling)`;
   private static readonly franceHikingName = $localize`:@@map.layer.france-hiking:Parc du Vercors`;
 
-  static register(
-    registry: MapLayerRegistry,
-    networkType: NetworkType,
-    urlLayerIds: string[]
-  ): void {
-    if (networkType == NetworkType.hiking) {
-      registry.registerAll(urlLayerIds, OpenDataLayers.flandersHiking(), false);
-      registry.registerAll(urlLayerIds, OpenDataLayers.netherlandsHiking(), false);
-      registry.registerAll(urlLayerIds, OpenDataLayers.franceHiking(), false);
-    } else if (networkType == NetworkType.cycling) {
-      registry.registerAll(urlLayerIds, OpenDataLayers.flandersCycling(), false);
-      registry.registerAll(urlLayerIds, OpenDataLayers.netherlandsCycling(), false);
-    }
-  }
+  // static register(
+  //   registry: MapLayerRegistry,
+  //   networkType: NetworkType,
+  //   urlLayerIds: string[]
+  // ): void {
+  //   if (networkType == NetworkType.hiking) {
+  //     registry.registerAll(urlLayerIds, OpenDataLayers.flandersHiking(), false);
+  //     registry.registerAll(urlLayerIds, OpenDataLayers.netherlandsHiking(), false);
+  //     registry.registerAll(urlLayerIds, OpenDataLayers.franceHiking(), false);
+  //   } else if (networkType == NetworkType.cycling) {
+  //     registry.registerAll(urlLayerIds, OpenDataLayers.flandersCycling(), false);
+  //     registry.registerAll(urlLayerIds, OpenDataLayers.netherlandsCycling(), false);
+  //   }
+  // }
 
-  static flandersHiking(): MapLayer[] {
+  static flandersHiking(): OldMapLayer[] {
     return [this.flandersHikingBitmap(), this.flandersHikingVector()];
   }
 
-  private static flandersHikingBitmap(): MapLayer {
+  private static flandersHikingBitmap(): OldMapLayer {
     return OpendataBitmapTileLayer.build(
       NetworkType.hiking,
       'flanders-hiking',
@@ -39,7 +38,7 @@ export class OpenDataLayers {
     );
   }
 
-  private static flandersHikingVector(): MapLayer {
+  private static flandersHikingVector(): OldMapLayer {
     return OpendataVectorTileLayer.build(
       NetworkType.hiking,
       'flanders-hiking',
@@ -48,11 +47,11 @@ export class OpenDataLayers {
     );
   }
 
-  static flandersCycling(): MapLayer[] {
+  static flandersCycling(): OldMapLayer[] {
     return [this.flandersCyclingBitmap(), this.flandersCyclingVector()];
   }
 
-  private static flandersCyclingBitmap(): MapLayer {
+  private static flandersCyclingBitmap(): OldMapLayer {
     return OpendataBitmapTileLayer.build(
       NetworkType.cycling,
       'flanders-cycling',
@@ -61,7 +60,7 @@ export class OpenDataLayers {
     );
   }
 
-  private static flandersCyclingVector(): MapLayer {
+  private static flandersCyclingVector(): OldMapLayer {
     return OpendataVectorTileLayer.build(
       NetworkType.cycling,
       'flanders-cycling',
@@ -70,11 +69,11 @@ export class OpenDataLayers {
     );
   }
 
-  static netherlandsHiking(): MapLayer[] {
+  static netherlandsHiking(): OldMapLayer[] {
     return [this.netherlandsHikingBitmap(), this.netherlandsHikingVector()];
   }
 
-  private static netherlandsHikingBitmap(): MapLayer {
+  private static netherlandsHikingBitmap(): OldMapLayer {
     return OpendataBitmapTileLayer.build(
       NetworkType.hiking,
       'netherlands-hiking',
@@ -83,7 +82,7 @@ export class OpenDataLayers {
     );
   }
 
-  private static netherlandsHikingVector(): MapLayer {
+  private static netherlandsHikingVector(): OldMapLayer {
     return OpendataVectorTileLayer.build(
       NetworkType.hiking,
       'netherlands-hiking',
@@ -92,11 +91,11 @@ export class OpenDataLayers {
     );
   }
 
-  static netherlandsCycling(): MapLayer[] {
+  static netherlandsCycling(): OldMapLayer[] {
     return [this.netherlandsCyclingBitmap(), this.netherlandsCyclingVector()];
   }
 
-  private static netherlandsCyclingBitmap(): MapLayer {
+  private static netherlandsCyclingBitmap(): OldMapLayer {
     return OpendataBitmapTileLayer.build(
       NetworkType.cycling,
       'netherlands-cycling',
@@ -105,7 +104,7 @@ export class OpenDataLayers {
     );
   }
 
-  private static netherlandsCyclingVector(): MapLayer {
+  private static netherlandsCyclingVector(): OldMapLayer {
     return OpendataVectorTileLayer.build(
       NetworkType.cycling,
       'netherlands-cycling',
@@ -114,11 +113,11 @@ export class OpenDataLayers {
     );
   }
 
-  static franceHiking(): MapLayer[] {
+  static franceHiking(): OldMapLayer[] {
     return [this.franceHikingBitmap(), this.franceHikingVector()];
   }
 
-  private static franceHikingBitmap(): MapLayer {
+  private static franceHikingBitmap(): OldMapLayer {
     return OpendataBitmapTileLayer.build(
       NetworkType.hiking,
       'france-hiking',
@@ -127,7 +126,7 @@ export class OpenDataLayers {
     );
   }
 
-  private static franceHikingVector(): MapLayer {
+  private static franceHikingVector(): OldMapLayer {
     return OpendataVectorTileLayer.build(
       NetworkType.hiking,
       'france-hiking',

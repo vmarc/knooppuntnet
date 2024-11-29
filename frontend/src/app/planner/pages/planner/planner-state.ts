@@ -23,5 +23,3 @@ export type PlannerState = {
   urlLayerIds: string[];
   poiLayerStates: MapLayerState[];
 };
-
-export const plannerFeatureKey = 'planner';

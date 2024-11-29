@@ -1,7 +1,8 @@
 import { MapboxVectorLayer } from 'ol-mapbox-style';
+import { MapLayer } from './map-layer';
 
-export class BackgroundLayer {
-  static build(): MapboxVectorLayer {
+export class StandardBackground {
+  static build(): MapLayer {
     const osmAttribution =
       '&#169; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> contributors';
     const openMapTilesAttribution =
@@ -12,6 +13,12 @@ export class BackgroundLayer {
     });
 
     layer.getSource().setAttributions([osmAttribution, openMapTilesAttribution]);
-    return layer;
+
+    return {
+      layerType: 'standard-background',
+      minZoom: 2,
+      maxZoom: 20,
+      layer: layer,
+    };
   }
 }

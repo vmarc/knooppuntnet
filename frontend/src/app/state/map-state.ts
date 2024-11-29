@@ -1,6 +1,10 @@
+import { Signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
+import { MapLayerState } from '@app/ol/domain';
 import { Coordinate } from 'ol/coordinate';
+import { BackgroundLayerType } from '../map/layers/background-layer-type';
+import { LayerType } from '../map/layers/layer-type';
 import { PoiStyleMap } from '../map/style/poi-style-map';
 import { MapStyleOptions } from './map-style-options';
 import { MapRoutePopupState } from './map-route-popup-state';
@@ -20,6 +24,15 @@ export class MapState {
   private readonly _selectedRoute = signal<number | undefined>(undefined);
   private readonly _poiStyleMap = signal<PoiStyleMap>(undefined);
   private readonly _poiActive = signal<ReadonlyMap<string, boolean>>(new Map());
+  private readonly _poiLayerStates = signal<ReadonlyArray<MapLayerState>>([]);
+
+  private readonly _backgroundLayer = signal<BackgroundLayerType>('standard');
+  private readonly _routeLayerEnabled = signal<boolean>(true);
+  private readonly _poiLayerEnabled = signal<boolean>(true);
+  private readonly _gridLayerEnabled = signal<boolean>(true);
+  private readonly _flandersOpenDataLayerEnabled = signal<boolean>(true);
+  private readonly _netherlandsOpenDataLayerEnabled = signal<boolean>(true);
+  private readonly _franceOpenDataLayerEnabled = signal<boolean>(true);
 
   readonly zoom = computed(() => Math.floor(this._viewZoom()));
   readonly center = this._center.asReadonly();
@@ -33,6 +46,16 @@ export class MapState {
   readonly selectedRoute = this._selectedRoute.asReadonly();
   readonly poiStyleMap = this._poiStyleMap.asReadonly();
   readonly poiActive = this._poiActive.asReadonly();
+  readonly poiLayerStates = this._poiLayerStates.asReadonly();
+
+  readonly standardBackgroundLayerEnabled = computed(() => this._backgroundLayer() === 'standard');
+  readonly osmBackgroundLayerEnabled = computed(() => this._backgroundLayer() === 'osm');
+  readonly routeLayerEnabled = this._routeLayerEnabled.asReadonly();
+  readonly poiLayerEnabled = this._poiLayerEnabled.asReadonly();
+  readonly gridLayerEnabled = this._gridLayerEnabled.asReadonly();
+  readonly flandersOpenDataLayerEnabled = this._flandersOpenDataLayerEnabled.asReadonly();
+  readonly netherlandsOpenDataLayerEnabled = this._netherlandsOpenDataLayerEnabled.asReadonly();
+  readonly franceOpenDataLayerEnabled = this._franceOpenDataLayerEnabled.asReadonly();
 
   readonly mapStyleOptions = computed(() => {
     const options: MapStyleOptions = {
@@ -47,6 +70,20 @@ export class MapState {
     };
     return options;
   });
+
+  readonly layerEnabled: Signal<ReadonlyMap<LayerType, boolean>> = computed(
+    () =>
+      new Map([
+        ['osm-background', this.osmBackgroundLayerEnabled()],
+        ['standard-background', this.standardBackgroundLayerEnabled()],
+        ['route', this.routeLayerEnabled()],
+        ['poi', this.poiLayerEnabled()],
+        ['grid', this.gridLayerEnabled()],
+        ['flandersOpenData', this.flandersOpenDataLayerEnabled()],
+        ['netherlandsOpenData', this.netherlandsOpenDataLayerEnabled()],
+        ['franceOpenData', this.franceOpenDataLayerEnabled()],
+      ])
+  );
 
   updateViewZoom(value: number): void {
     this._viewZoom.set(value);
@@ -94,5 +131,51 @@ export class MapState {
 
   updatePoiActive(value: ReadonlyMap<string, boolean>): void {
     this._poiActive.set(value);
+  }
+
+  updatePoiGroupActive(group: string, active: boolean): void {
+    this._poiLayerStates.update((mapLayerStates) => {
+      return mapLayerStates.map((mapLayerState) => {
+        if (mapLayerState.id === group) {
+          return {
+            ...mapLayerState,
+            visible: active,
+          };
+        }
+        return mapLayerState;
+      });
+    });
+  }
+
+  updateOsmBackgroundLayerEnabled(enabled: boolean): void {
+    this._backgroundLayer.set(enabled ? 'osm' : 'none');
+  }
+
+  updateStandardBackgroundLayerEnabled(enabled: boolean): void {
+    this._backgroundLayer.set(enabled ? 'standard' : 'none');
+  }
+
+  updateRouteLayerEnabled(value: boolean): void {
+    this._routeLayerEnabled.set(value);
+  }
+
+  updatePoiLayerEnabled(value: boolean): void {
+    this._poiLayerEnabled.set(value);
+  }
+
+  updateGridLayerEnabled(value: boolean): void {
+    this._gridLayerEnabled.set(value);
+  }
+
+  updateFlandersOpenDataLayerEnabled(value: boolean): void {
+    this._flandersOpenDataLayerEnabled.set(value);
+  }
+
+  updateNetherlandsOpenDataLayerEnabled(value: boolean): void {
+    this._netherlandsOpenDataLayerEnabled.set(value);
+  }
+
+  updateFranceOpenDataLayerEnabled(value: boolean): void {
+    this._franceOpenDataLayerEnabled.set(value);
   }
 }

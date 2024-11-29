@@ -169,6 +169,7 @@ export class PoiService {
       this.state.map.updatePoiStyleMap(
         new PoiStyleMap(new InterpretedPoiConfiguration(response.result))
       );
+      console.log('poiConfiguration', this.poiConfiguration);
     });
   }
 

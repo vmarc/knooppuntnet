@@ -10,6 +10,7 @@ import { StyleFunction } from 'ol/style/Style';
 import { MapStyleOptions } from '../../state/map-style-options';
 import { ExploreStyle } from '../style/explore-style';
 import { Layers } from './layers';
+import { MapLayer } from './map-layer';
 
 export class RouteLayer {
   private styleOptions: MapStyleOptions; // local copy for performance reasons
@@ -17,21 +18,21 @@ export class RouteLayer {
   constructor(styleOptionsSignal: Signal<MapStyleOptions>) {
     effect(() => {
       this.styleOptions = styleOptionsSignal();
-      const zoom = this.styleOptions.zoom;
-      const mode = this.styleOptions.mode;
-      const international = this.styleOptions.scopeInternational;
-      const national = this.styleOptions.scopeNational;
-      const regional = this.styleOptions.scopeRegional;
-      const local = this.styleOptions.scopeLocal;
-      const nodeRoutes = this.styleOptions.scopeNodeRoutes;
-      const route = this.styleOptions.selectedRoute;
-      console.log(
-        `mapStyleOptions zoom=${zoom}, mode=${mode}, international=${international}, national=${national}, regional=${regional}, local=${local}, nodeRoutes=${nodeRoutes}, route=${route}`
-      );
+      const options = [
+        'zoom=' + this.styleOptions.zoom,
+        'mode=' + this.styleOptions.mode,
+        'international=' + this.styleOptions.scopeInternational,
+        'national=' + this.styleOptions.scopeNational,
+        'regional=' + this.styleOptions.scopeRegional,
+        'local=' + this.styleOptions.scopeLocal,
+        'nodeRoutes=' + this.styleOptions.scopeNodeRoutes,
+        'route=' + this.styleOptions.selectedRoute,
+      ];
+      console.log(`mapStyleOptions ${options.join(', ')}`);
     });
   }
 
-  build(networkType: NetworkType): VectorTileLayer {
+  build(networkType: NetworkType): MapLayer {
     const source = new VectorTile({
       tileSize: 256,
       minZoom: ZoomLevel.newMinZoom,
@@ -39,12 +40,19 @@ export class RouteLayer {
       format: new MVT(),
       url: `/tiles/${networkType}/{z}/{x}/{y}.mvt`,
     });
-    return new VectorTileLayer({
+    const layer = new VectorTileLayer({
       zIndex: Layers.zIndexNetworkLayer,
       source: source,
       renderMode: 'vector',
       style: this.styleFunction(),
     });
+    return {
+      layerType: 'route',
+      networkType: networkType,
+      minZoom: 2,
+      maxZoom: 20,
+      layer: layer,
+    };
   }
 
   private styleFunction(): StyleFunction {

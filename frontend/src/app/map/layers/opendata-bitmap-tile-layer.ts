@@ -2,10 +2,10 @@ import { NetworkType } from '@api/custom';
 import { ZoomLevel } from '@app/ol/domain';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
-import { MapLayer } from './map-layer';
+import { OldMapLayer } from './old-map-layer';
 
 export class OpendataBitmapTileLayer {
-  static build(networkType: NetworkType, id: string, layerName: string, dir: string): MapLayer {
+  static build(networkType: NetworkType, id: string, layerName: string, dir: string): OldMapLayer {
     const layer = new TileLayer<XYZ>({
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
@@ -14,7 +14,7 @@ export class OpendataBitmapTileLayer {
       }),
     });
 
-    return new MapLayer(
+    return new OldMapLayer(
       id,
       layerName,
       ZoomLevel.bitmapTileMinZoom,

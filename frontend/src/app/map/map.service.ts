@@ -28,6 +28,7 @@ export class MapService {
   };
 
   private readonly layers = new Layers(
+    this.state,
     this.state.map.mapStyleOptions,
     this.state.map.poiStyleMap,
     this.state.map.poiActive
@@ -51,7 +52,17 @@ export class MapService {
     effect(
       () => {
         const styleOptions = this.state.map.mapStyleOptions();
-        this.layers.routeLayer.changed();
+        this.layers.routeLayer.layer.changed();
+      },
+      {
+        allowSignalWrites: true,
+      }
+    );
+    effect(
+      () => {
+        const xxx = this.state.map.poiActive();
+        console.log('poiActive changed', xxx);
+        this.layers.poiLayer.layer.changed();
       },
       {
         allowSignalWrites: true,
@@ -64,12 +75,7 @@ export class MapService {
   }
 
   init(): void {
-    const mapLayers = [
-      this.layers.osmLayer,
-      // this.layers.routeLayer,
-      this.layers.grid256Layer,
-      this.layers.poiLayer,
-    ];
+    const mapLayers = this.layers.all.map((mapLayer) => mapLayer.layer);
     this._map = new Map({
       target: 'main-map',
       layers: mapLayers,

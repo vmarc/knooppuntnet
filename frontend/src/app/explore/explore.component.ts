@@ -18,7 +18,9 @@ import { PageButtonsComponent } from '@app/components/shared/page';
 import { ApiService } from '@app/services';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PageComponent } from '../shared/components/shared/page/page.component';
+import { ExploreLayersComponent } from './explore-layers.component';
 import { ExploreModeComponent } from './explore-mode.component';
+import { ExplorePoiComponent } from './explore-poi.component';
 import { ExploreRoutesComponent } from './explore-routes.component';
 import { ExploreScopeComponent } from './explore-scope.component';
 
@@ -55,6 +57,8 @@ import { ExploreScopeComponent } from './explore-scope.component';
       <kpn-explore-routes />
       <kpn-explore-mode />
       <kpn-explore-scope />
+      <kpn-explore-layers />
+      <kpn-explore-poi />
     </kpn-page>
   `,
   standalone: true,
@@ -75,6 +79,8 @@ import { ExploreScopeComponent } from './explore-scope.component';
     ExploreRoutesComponent,
     ExploreScopeComponent,
     ExploreModeComponent,
+    ExplorePoiComponent,
+    ExploreLayersComponent,
   ],
 })
 export class ExploreComponent {

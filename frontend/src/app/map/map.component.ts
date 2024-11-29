@@ -86,7 +86,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   private openModel() {
-    console.log('elementRef', this.elementRef());
     this.positionStrategy = this.overlay
       .position()
       .flexibleConnectedTo(this.elementRef())

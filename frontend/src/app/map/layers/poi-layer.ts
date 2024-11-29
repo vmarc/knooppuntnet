@@ -6,12 +6,13 @@ import VectorTile from 'ol/source/VectorTile';
 import { StyleFunction } from 'ol/style/Style';
 import { PoiStyleMap } from '../style/poi-style-map';
 import { Layers } from './layers';
+import { MapLayer } from './map-layer';
 
 export class PoiLayer {
   static build(
     poiStyleMap: Signal<PoiStyleMap>,
     poiActive: Signal<ReadonlyMap<string, boolean>>
-  ): VectorTileLayer {
+  ): MapLayer {
     const source = new VectorTile({
       tileSize: 256,
       minZoom: ZoomLevel.poiTileMinZoom,
@@ -20,7 +21,7 @@ export class PoiLayer {
       url: '/tiles/poi/{z}/{x}/{y}.mvt',
     });
 
-    return new VectorTileLayer({
+    const layer = new VectorTileLayer({
       zIndex: Layers.zIndexPoiLayer,
       source,
       renderBuffer: 40,
@@ -29,6 +30,13 @@ export class PoiLayer {
       renderMode: 'vector',
       style: this.styleFunction(poiStyleMap, poiActive),
     });
+
+    return {
+      layerType: 'poi',
+      minZoom: 11,
+      maxZoom: 15,
+      layer: layer,
+    };
   }
 
   private static styleFunction(

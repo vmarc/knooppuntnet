@@ -1,16 +1,15 @@
+import { computed } from '@angular/core';
+import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
 import { NetworkType } from '@api/custom';
-import { MapboxVectorLayer } from 'ol-mapbox-style';
-import TileLayer from 'ol/layer/Tile';
-import VectorTileLayer from 'ol/layer/VectorTile';
-import OSM from 'ol/source/OSM';
-import TileDebug from 'ol/source/TileDebug';
+import { State } from '@app/state';
+import { LayersState } from '../../state/layers-state';
 import { MapStyleOptions } from '../../state/map-style-options';
 import { PoiStyleMap } from '../style/poi-style-map';
-import { BackgroundLayer } from './background-layer';
-import { Grid256Layer } from './grid-256-layer';
-import { Grid512Layer } from './grid-512-layer';
-import { OsmLayer } from './osm-layer';
+import { StandardBackground } from './standard-background';
+import { GridLayer } from './grid-layer';
+import { MapLayer } from './map-layer';
+import { OsmBackgroundLayer } from './osm-background-layer';
 import { PoiLayer } from './poi-layer';
 import { RouteLayer } from './route-layer';
 
@@ -24,23 +23,54 @@ export class Layers {
   static readonly zIndexPoiLayer = 40;
   static readonly zIndexHighlightLayer = 30;
 
-  readonly osmLayer: TileLayer<OSM>;
-  readonly backgroundLayer: MapboxVectorLayer;
-  readonly grid256Layer: TileLayer<TileDebug>;
-  readonly grid512Layer: TileLayer<TileDebug>;
-  readonly routeLayer: VectorTileLayer;
-  readonly poiLayer: VectorTileLayer;
+  readonly standardBackgroundLayer: MapLayer;
+  readonly osmBackgroundLayer: MapLayer;
+  readonly gridLayer: MapLayer;
+  readonly routeLayer: MapLayer;
+  readonly poiLayer: MapLayer;
+  readonly all: ReadonlyArray<MapLayer>;
 
   constructor(
+    state: State,
     styleOptions: Signal<MapStyleOptions>,
     poiStyleMap: Signal<PoiStyleMap>,
     poiActive: Signal<ReadonlyMap<string, boolean>>
   ) {
-    this.osmLayer = OsmLayer.build();
-    this.backgroundLayer = BackgroundLayer.build();
-    this.grid256Layer = Grid256Layer.build();
-    this.grid512Layer = Grid512Layer.build();
+    this.standardBackgroundLayer = StandardBackground.build();
+    this.osmBackgroundLayer = OsmBackgroundLayer.build();
+    this.gridLayer = GridLayer.build();
     this.routeLayer = new RouteLayer(styleOptions).build(NetworkType.hiking);
     this.poiLayer = PoiLayer.build(poiStyleMap, poiActive);
+    this.all = [
+      this.osmBackgroundLayer,
+      this.standardBackgroundLayer,
+      this.gridLayer,
+      this.routeLayer,
+      this.poiLayer,
+    ];
+
+    const layersState: Signal<LayersState> = computed(() => {
+      return {
+        networkType: state.page.networkType(),
+        layerEnabled: state.map.layerEnabled(),
+        zoom: state.map.zoom(),
+      };
+    });
+
+    effect(() => {
+      this.updateLayerVisibility(layersState());
+    });
+  }
+
+  private updateLayerVisibility(layersState: LayersState): void {
+    this.all.forEach((mapLayer) => {
+      const zoomInRange =
+        layersState.zoom >= mapLayer.minZoom && layersState.zoom <= mapLayer.maxZoom;
+      const layerEnabled = layersState.layerEnabled.get(mapLayer.layerType);
+      const networkTypeMatch =
+        !mapLayer.networkType || mapLayer.networkType === layersState.networkType;
+      const visible = zoomInRange && layerEnabled && networkTypeMatch;
+      mapLayer.layer.setVisible(visible);
+    });
   }
 }
