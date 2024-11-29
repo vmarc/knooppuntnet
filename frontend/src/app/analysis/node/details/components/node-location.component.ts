@@ -18,7 +18,6 @@ import { NetworkType } from '@api/custom';
       }
     </div>
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class NodeLocationComponent {

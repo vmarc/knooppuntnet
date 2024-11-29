@@ -13,7 +13,6 @@ import { NetworkNodesPageService } from '../network-nodes-page.service';
       <kpn-filter [filterOptions]="service.filterOptions()" />
     </kpn-sidebar>
   `,
-  standalone: true,
   imports: [SidebarComponent, FilterComponent],
 })
 export class NetworkNodesSidebarComponent {

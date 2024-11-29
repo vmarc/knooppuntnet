@@ -64,7 +64,6 @@ import { PageMenuComponent } from '@app/components/shared/menu';
       </kpn-page-menu-option>
     </kpn-page-menu>
   `,
-  standalone: true,
   imports: [PageMenuComponent, PageMenuOptionComponent],
 })
 export class SubsetPageMenuComponent {

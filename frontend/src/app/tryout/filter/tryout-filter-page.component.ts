@@ -14,7 +14,6 @@ import { TryoutFilterAlternative2Component } from './tryout-filter-alternative-2
       <kpn-tryout-filter-alternative-2 />
     </kpn-old-page>
   `,
-  standalone: true,
   imports: [OldPageComponent, TryoutFilterAlternative1Component, TryoutFilterAlternative2Component],
 })
 export class TryoutFilterPageComponent {}

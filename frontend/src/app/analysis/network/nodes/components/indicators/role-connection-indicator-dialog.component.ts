@@ -41,7 +41,6 @@ import { MarkdownModule } from 'ngx-markdown';
       </div>
     </kpn-indicator-dialog>
   `,
-  standalone: true,
   imports: [IndicatorDialogComponent, MarkdownModule],
 })
 export class RoleConnectionIndicatorDialogComponent {

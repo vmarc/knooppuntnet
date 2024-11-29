@@ -102,7 +102,6 @@ import { SystemStatusPageService } from './system-status-page.service';
     }
   `,
   providers: [SystemStatusPageComponent, RouterService],
-  standalone: true,
   imports: [
     DataSizeChartComponent,
     DiskSizeChartComponent,

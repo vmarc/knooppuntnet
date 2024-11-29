@@ -120,7 +120,6 @@ import { LocationTreeNodeComponent } from './location-tree-node.component';
       align-items: flex-start;
     }
   `,
-  standalone: true,
   imports: [
     LocationTreeNodeComponent,
     MatButtonModule,

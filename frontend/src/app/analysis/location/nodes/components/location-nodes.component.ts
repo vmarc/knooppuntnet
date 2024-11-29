@@ -18,7 +18,6 @@ import { LocationNodeTableComponent } from './location-node-table.component';
       />
     }
   `,
-  standalone: true,
   imports: [LocationNodeTableComponent],
 })
 export class LocationNodesComponent {

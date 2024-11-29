@@ -19,7 +19,6 @@ import { RoleConnectionIndicatorDialogComponent } from './role-connection-indica
       (openDialog)="onOpenDialog()"
     />
   `,
-  standalone: true,
   imports: [IndicatorComponent],
 })
 export class RoleConnectionIndicatorComponent implements OnInit {

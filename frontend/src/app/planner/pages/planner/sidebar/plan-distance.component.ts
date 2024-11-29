@@ -26,7 +26,6 @@ import { Plan } from '../../../domain/plan/plan';
       padding-left: 20px;
     }
   `,
-  standalone: true,
   imports: [],
 })
 export class PlanDistanceComponent implements OnChanges {

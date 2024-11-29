@@ -41,7 +41,6 @@ import { PreferencesService } from '@app/core';
       </ng-template>
     </mat-expansion-panel>
   `,
-  standalone: true,
   imports: [MatExpansionModule, MatRadioModule],
 })
 export class ConfigurationModeComponent {

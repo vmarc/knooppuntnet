@@ -44,7 +44,6 @@ import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-n
       margin-bottom: 5px;
     }
   `,
-  standalone: true,
   imports: [
     ChangeHeaderComponent,
     ChangesSetNetworkComponent,

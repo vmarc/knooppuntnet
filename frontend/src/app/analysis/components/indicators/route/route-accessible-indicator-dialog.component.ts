@@ -88,7 +88,6 @@ import { RouteAccessibleData } from './route-accessible-data';
       }
     </kpn-indicator-dialog>
   `,
-  standalone: true,
   imports: [IndicatorDialogComponent],
 })
 export class RouteAccessibleIndicatorDialogComponent {

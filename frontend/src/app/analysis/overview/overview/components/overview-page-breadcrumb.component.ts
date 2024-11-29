@@ -14,7 +14,6 @@ import { RouterLink } from '@angular/router';
       <li i18n="@@breadcrumb.overview">Overview</li>
     </ul>
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class OverviewPageBreadcrumbComponent {}

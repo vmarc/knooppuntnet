@@ -253,7 +253,6 @@ import { ActionButtonRelationComponent } from '../../../analysis/components/acti
       vertical-align: middle;
     }
   `,
-  standalone: true,
   imports: [
     DayPipe,
     DistancePipe,

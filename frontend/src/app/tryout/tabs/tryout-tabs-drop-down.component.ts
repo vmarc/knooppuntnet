@@ -38,7 +38,6 @@ import { MatSelect } from '@angular/material/select';
       color: rgb(128, 128, 128);
     }
   `,
-  standalone: true,
   imports: [MatSelect, MatOption],
 })
 export class TryoutTabsDropDownComponent {}

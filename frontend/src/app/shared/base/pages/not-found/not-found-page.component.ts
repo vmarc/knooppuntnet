@@ -12,7 +12,6 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
       <kpn-sidebar sidebar />
     </kpn-old-page>
   `,
-  standalone: true,
   imports: [OldPageComponent, SidebarComponent],
 })
 export class NotFoundPageComponent {}

@@ -45,7 +45,6 @@ import { IconHappyComponent } from '@app/components/shared/icon';
       </p>
     }
   `,
-  standalone: true,
   imports: [IconHappyComponent, DistancePipe],
 })
 export class MonitorRouteDetailsAnalysisComponent {

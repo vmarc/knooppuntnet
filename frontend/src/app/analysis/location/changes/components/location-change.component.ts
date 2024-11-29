@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
 import { LocationChangeSetInfo } from '@api/common/location-change-set-info';
 import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
 import { ChangesSetElementRefsComponent } from '@app/analysis/components/change-set/components';
-import { NetworkTypeIconComponent } from '@app/components/shared';
 import { LocationPipe } from '../../../../shared/components/shared/format/location.pipe';
 
 @Component({
@@ -69,14 +68,7 @@ import { LocationPipe } from '../../../../shared/components/shared/format/locati
       content: ' \\2192 \\0020 ';
     }
   `,
-  standalone: true,
-  imports: [
-    ChangeHeaderComponent,
-    ChangesSetElementRefsComponent,
-    NetworkTypeIconComponent,
-    RouterLink,
-    LocationPipe,
-  ],
+  imports: [ChangeHeaderComponent, ChangesSetElementRefsComponent, RouterLink, LocationPipe],
 })
 export class LocationChangeComponent {
   changeSet = input.required<LocationChangeSetInfo>();

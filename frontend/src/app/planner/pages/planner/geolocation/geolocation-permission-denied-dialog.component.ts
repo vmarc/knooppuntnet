@@ -16,7 +16,6 @@ import { DialogComponent } from '@app/components/shared/dialog';
       </div>
     </kpn-dialog>
   `,
-  standalone: true,
   imports: [DialogComponent, MatDialogModule],
 })
 export class GeolocationPermissionDeniedDialogComponent {}

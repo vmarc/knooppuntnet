@@ -20,7 +20,6 @@ import { PlanDistanceComponent } from './plan-distance.component';
       }
     }
   `,
-  standalone: true,
   imports: [PlanCompactComponent, PlanDetailedComponent, PlanDistanceComponent],
 })
 export class PlanResultComponent {

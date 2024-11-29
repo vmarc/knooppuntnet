@@ -9,7 +9,6 @@ import { NetworkType } from '@api/custom';
   selector: 'kpn-route-type-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<mat-icon>{{ icon() }}</mat-icon>',
-  standalone: true,
   imports: [MatIconModule],
 })
 export class RouteTypeIconItemComponent {

@@ -33,7 +33,6 @@ import { DayUtil } from '..';
       deps: [MAT_DATE_LOCALE],
     },
   ],
-  standalone: true,
   imports: [
     MatDatepickerModule,
     MatFormFieldModule,

@@ -30,7 +30,6 @@ import { CountryName } from './country-name';
       </mat-select>
     </mat-form-field>
   `,
-  standalone: true,
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule, ReactiveFormsModule],
 })
 export class CountrySelectComponent {

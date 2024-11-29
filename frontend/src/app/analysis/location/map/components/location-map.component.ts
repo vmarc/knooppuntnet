@@ -27,7 +27,6 @@ import { LocationMapService } from './location-map.service';
       useExisting: LocationMapService,
     },
   ],
-  standalone: true,
   imports: [LayerSwitcherComponent, LocationMapControlComponent, MapLinkMenuComponent],
 })
 export class LocationMapComponent implements AfterViewInit, OnDestroy {

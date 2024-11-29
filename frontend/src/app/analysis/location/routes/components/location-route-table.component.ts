@@ -122,7 +122,6 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       vertical-align: middle;
     }
   `,
-  standalone: true,
   imports: [
     ActionButtonRouteComponent,
     DayComponent,

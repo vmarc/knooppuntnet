@@ -1,6 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set';
-import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangesComponent } from '@app/analysis/components/changes';
 import { ItemComponent, ItemsComponent } from '@app/components/shared/items';
 import { LocationChangesPageService } from '../location-changes-page.service';
@@ -32,15 +30,7 @@ import { LocationChangesPage } from '@api/common/location';
       </kpn-changes>
     </div>
   `,
-  standalone: true,
-  imports: [
-    ChangeLocationAnalysisSummaryComponent,
-    ChangeNetworkAnalysisSummaryComponent,
-    ChangesComponent,
-    ItemComponent,
-    ItemsComponent,
-    LocationChangeComponent,
-  ],
+  imports: [ChangesComponent, ItemComponent, ItemsComponent, LocationChangeComponent],
 })
 export class LocationChangesComponent {
   protected readonly service = inject(LocationChangesPageService);

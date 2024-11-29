@@ -30,7 +30,6 @@ import { RouterLink } from '@angular/router';
       }
     `,
   ],
-  standalone: true,
   imports: [MatIcon, MatIconButton, MatListItem, RouterLink, MatLabel],
 })
 export class MenuItemComponent {

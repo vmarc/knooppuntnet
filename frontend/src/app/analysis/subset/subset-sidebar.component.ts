@@ -13,7 +13,6 @@ import { SubsetService } from './subset.service';
   template: ` <kpn-sidebar>
     <kpn-analysis-strategy (strategyChange)="strategyChanged($event)" />
   </kpn-sidebar>`,
-  standalone: true,
   imports: [SidebarComponent, AnalysisStrategyComponent],
 })
 export class SubsetSidebarComponent {

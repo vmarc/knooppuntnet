@@ -57,7 +57,6 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
     </kpn-old-page>
   `,
   providers: [SubsetNetworksPageService, AnalysisStrategyService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     IntegerFormatPipe,

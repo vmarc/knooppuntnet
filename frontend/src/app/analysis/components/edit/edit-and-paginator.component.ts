@@ -36,7 +36,6 @@ import { EditLinkComponent } from './edit-link.component';
       margin-left: auto;
     }
   `,
-  standalone: true,
   imports: [EditLinkComponent, PaginatorComponent],
 })
 export class EditAndPaginatorComponent {
@@ -49,7 +48,7 @@ export class EditAndPaginatorComponent {
 
   pageSizeChange = output<number>();
   pageIndexChange = output<number>();
-  edit = new EventEmitter<void>();
+  edit = output<void>();
 
   readonly paginator = viewChild(PaginatorComponent);
 

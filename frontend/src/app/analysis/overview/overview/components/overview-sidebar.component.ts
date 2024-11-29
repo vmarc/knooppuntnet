@@ -61,7 +61,6 @@ import { OverviewFormat } from './overview-format';
       padding-bottom: 10px;
     }
   `,
-  standalone: true,
   imports: [SidebarComponent, MatRadioModule],
 })
 export class OverviewSidebarComponent {

@@ -20,7 +20,6 @@ import { Stat } from '../../domain/stat';
       display: contents;
     }
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class OverviewValueComponent {

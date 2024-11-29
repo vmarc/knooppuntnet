@@ -48,7 +48,6 @@ import { LocationFactPanelHeaderComponent } from './location-fact-panel-header.c
       </mat-accordion>
     }
   `,
-  standalone: true,
   imports: [
     IconHappyComponent,
     MatAccordion,

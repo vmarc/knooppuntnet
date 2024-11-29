@@ -28,7 +28,6 @@ import { RouteChangeMapService } from './route-change-map.service';
       useExisting: RouteChangeMapService,
     },
   ],
-  standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {

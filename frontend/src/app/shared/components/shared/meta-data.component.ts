@@ -17,7 +17,6 @@ import { TimestampComponent } from './timestamp/timestamp.component';
     }
   `,
   styleUrl: './meta-data.component.scss',
-  standalone: true,
   imports: [TimestampComponent],
 })
 export class MetaDataComponent {

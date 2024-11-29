@@ -31,7 +31,6 @@ import { PageHeaderComponent } from '@app/components/shared/page';
       content: ' ';
     }
   `,
-  standalone: true,
   imports: [CountryNameComponent, MatIconModule, NetworkTypeNameComponent, PageHeaderComponent],
 })
 export class LocationSelectionPageHeaderComponent {

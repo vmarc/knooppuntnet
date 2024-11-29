@@ -134,7 +134,6 @@ import { LegendIconComponent } from './legend-icon.component';
       text-align: center;
     }
   `,
-  standalone: true,
   imports: [MatExpansionModule, LegendIconComponent],
 })
 export class PlannerSideBarLegendComponent {

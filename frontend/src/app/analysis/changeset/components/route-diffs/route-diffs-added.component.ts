@@ -65,7 +65,6 @@ import { RouteDiffsData } from './route-diffs-data';
       </div>
     }
   `,
-  standalone: true,
   imports: [FactDiffsComponent, IconHappyComponent, LinkRouteRefHeaderComponent, MetaDataComponent],
 })
 export class RouteDiffsAddedComponent implements OnInit {

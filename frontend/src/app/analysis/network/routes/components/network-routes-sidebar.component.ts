@@ -13,7 +13,6 @@ import { NetworkRoutesPageService } from '../network-routes-page.service';
       <kpn-filter [filterOptions]="service.filterOptions()" />
     </kpn-sidebar>
   `,
-  standalone: true,
   imports: [SidebarComponent, FilterComponent],
 })
 export class NetworkRoutesSidebarComponent {

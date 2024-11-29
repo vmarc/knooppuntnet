@@ -34,7 +34,6 @@ import { MonitorPageMenuComponent } from '../components/monitor-page-menu.compon
       <kpn-sidebar sidebar />
     </kpn-old-page>
   `,
-  standalone: true,
   imports: [
     MonitorPageMenuComponent,
     OldPageComponent,

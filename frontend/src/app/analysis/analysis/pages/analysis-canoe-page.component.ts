@@ -52,7 +52,6 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
       <kpn-analysis-sidebar sidebar />
     </kpn-old-page>
   `,
-  standalone: true,
   providers: [AnalysisStrategyService, RouterService],
   imports: [
     AnalysisSidebarComponent,

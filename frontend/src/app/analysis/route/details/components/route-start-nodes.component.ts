@@ -25,7 +25,6 @@ import { RouteNodeComponent } from './route-node.component';
       <p>?</p>
     }
   `,
-  standalone: true,
   imports: [RouteNodeComponent],
 })
 export class RouteStartNodesComponent {

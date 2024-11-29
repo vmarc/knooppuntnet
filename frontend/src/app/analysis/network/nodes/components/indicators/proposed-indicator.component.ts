@@ -19,7 +19,6 @@ import { ProposedIndicatorDialogComponent } from './proposed-indicator-dialog.co
       (openDialog)="onOpenDialog()"
     />
   `,
-  standalone: true,
   imports: [IndicatorComponent],
 })
 export class ProposedIndicatorComponent implements OnInit {

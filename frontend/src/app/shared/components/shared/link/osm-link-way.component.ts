@@ -7,7 +7,6 @@ import { OsmLinkComponent } from './osm-link.component';
   selector: 'kpn-osm-link-way',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <kpn-osm-link kind="way" [elementId]="wayId().toString()" [title]="title()" /> `,
-  standalone: true,
   imports: [OsmLinkComponent],
 })
 export class OsmLinkWayComponent {

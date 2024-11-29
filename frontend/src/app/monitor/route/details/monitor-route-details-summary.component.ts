@@ -40,7 +40,6 @@ import { ActionButtonRelationComponent } from '../../../analysis/components/acti
       }
     }
   `,
-  standalone: true,
   imports: [ActionButtonRelationComponent, DistancePipe, SymbolComponent],
 })
 export class MonitorRouteDetailsSummaryComponent {

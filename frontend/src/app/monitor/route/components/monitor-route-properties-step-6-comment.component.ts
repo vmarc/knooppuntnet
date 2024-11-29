@@ -30,7 +30,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       width: 50em;
     }
   `,
-  standalone: true,
   imports: [
     MatButtonModule,
     MatFormFieldModule,

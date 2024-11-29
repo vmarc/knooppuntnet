@@ -54,7 +54,6 @@ import { UserLinkLoginComponent } from '../../../user';
       color: lightgray;
     }
   `,
-  standalone: true,
   imports: [UserLinkLoginComponent, UserLinkLogoutComponent],
 })
 export class SidebarFooterComponent {

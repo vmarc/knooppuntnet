@@ -43,7 +43,6 @@ import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.servi
     </kpn-page-filter>
   `,
   providers: [SubsetOrphanRoutesPageService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     FilterComponent,

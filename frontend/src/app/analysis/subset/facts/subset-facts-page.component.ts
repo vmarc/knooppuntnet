@@ -72,7 +72,6 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
     </kpn-old-page>
   `,
   providers: [SubsetFactsPageService, AnalysisStrategyService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     FactDescriptionComponent,

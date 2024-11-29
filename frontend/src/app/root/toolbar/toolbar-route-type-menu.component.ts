@@ -6,7 +6,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenu } from '@angular/material/menu';
-import { NetworkType } from '@api/custom';
 import { State } from '@app/state';
 import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-item.component';
 
@@ -71,7 +70,6 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
       align-items: center;
     }
   `,
-  standalone: true,
   imports: [
     MatButtonModule,
     MatIconModule,

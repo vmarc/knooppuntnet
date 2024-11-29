@@ -96,7 +96,6 @@ import { SymbolComponent } from '@app/symbol';
       padding-left: 2em;
     }
   `,
-  standalone: true,
   imports: [DataComponent, SymbolComponent, MatIconModule],
 })
 export class MonitorRouteInfoComponent {

@@ -29,7 +29,6 @@ import { ActionService } from './action.service';
       </button>
     </mat-menu>
   `,
-  standalone: true,
   imports: [MatIcon, MatIconButton, MatMenu, MatMenuItem, MatMenuTrigger, MatTooltipModule],
 })
 export class ActionButtonRelationsComponent {

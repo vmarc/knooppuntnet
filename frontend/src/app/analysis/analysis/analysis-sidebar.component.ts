@@ -11,7 +11,6 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
       <kpn-analysis-strategy />
     </kpn-sidebar>
   `,
-  standalone: true,
   imports: [AnalysisStrategyComponent, SidebarComponent],
 })
 export class AnalysisSidebarComponent {}

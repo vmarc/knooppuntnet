@@ -38,7 +38,6 @@ import { RouteDiffComponent } from './route-diff.component';
       <kpn-route-change-way-updated [wayUpdate]="wayUpdate" />
     }
   `,
-  standalone: true,
   imports: [
     RouteChangeMapComponent,
     RouteChangeWayAddedComponent,

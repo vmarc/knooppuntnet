@@ -48,7 +48,6 @@ import { PlannerStateService } from '../planner-state.service';
       font-weight: bold;
     }
   `,
-  standalone: true,
   imports: [NgClass],
 })
 export class PlanResultMenuComponent {

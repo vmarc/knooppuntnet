@@ -45,7 +45,6 @@ import { MAP_SERVICE_TOKEN } from '../services';
       height: 14px;
     }
   `,
-  standalone: true,
   imports: [MatMenuModule, MatIconModule],
 })
 export class MapLinkMenuComponent {

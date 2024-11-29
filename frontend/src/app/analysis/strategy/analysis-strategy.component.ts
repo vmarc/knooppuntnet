@@ -29,7 +29,6 @@ import { AnalysisStrategyService } from './analysis-strategy.service';
     </div>
   `,
   styleUrl: '../../shared/components/shared/sidebar/sidebar.scss',
-  standalone: true,
   imports: [MatRadioModule],
 })
 export class AnalysisStrategyComponent {

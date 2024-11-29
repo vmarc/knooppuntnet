@@ -79,7 +79,6 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       margin-top: 1em;
     }
   `,
-  standalone: true,
   imports: [MatCheckboxModule, LegendLineComponent],
 })
 export class MonitorRouteMapLayersComponent {

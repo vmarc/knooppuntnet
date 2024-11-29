@@ -22,7 +22,6 @@ import { RootPageComponent } from './root/root.component';
       <router-outlet />
     </kpn-root>
   `,
-  standalone: true,
   imports: [MatSidenavModule, RouterOutlet, RootPageComponent],
 })
 export class AppComponent implements OnDestroy {

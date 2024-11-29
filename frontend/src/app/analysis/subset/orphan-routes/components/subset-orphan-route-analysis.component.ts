@@ -23,7 +23,6 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
       display: flex;
     }
   `,
-  standalone: true,
   imports: [RouteAccessibleIndicatorComponent, RouteInvestigateIndicatorComponent],
 })
 export class SubsetOrphanRouteAnalysisComponent {

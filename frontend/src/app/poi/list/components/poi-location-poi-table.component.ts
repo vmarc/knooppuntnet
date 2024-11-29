@@ -94,7 +94,6 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
       flex: 0 0 4em;
     }
   `,
-  standalone: true,
   imports: [PaginatorComponent, MatTableModule, RouterLink],
 })
 export class PoiLocationPoiTableComponent {

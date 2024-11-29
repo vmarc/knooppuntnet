@@ -32,7 +32,6 @@ import { PieChartModule } from '@swimlane/ngx-charts';
       margin: 15px 15px 5px;
     }
   `,
-  standalone: true,
   imports: [PieChartModule],
 })
 export class ServerDiskUsagePieChartComponent {

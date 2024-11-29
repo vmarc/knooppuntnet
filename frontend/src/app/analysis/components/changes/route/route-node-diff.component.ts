@@ -40,7 +40,6 @@ import { LinkNodeComponent } from '@app/components/shared/link';
       }
     </div>
   `,
-  standalone: true,
   imports: [LinkNodeComponent],
 })
 export class RouteNodeDiffComponent {

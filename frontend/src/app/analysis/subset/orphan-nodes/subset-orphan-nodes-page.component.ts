@@ -44,7 +44,6 @@ import { SubsetOrphanNodesPageService } from './subset-orphan-nodes-page.service
     </kpn-page-filter>
   `,
   providers: [SubsetOrphanNodesPageService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     FilterComponent,

@@ -84,7 +84,6 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
       flex-wrap: wrap;
     }
   `,
-  standalone: true,
   providers: [AnalysisStrategyService, RouterService],
   imports: [
     AnalysisSidebarComponent,

@@ -48,7 +48,6 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
       font-style: italic;
     }
   `,
-  standalone: true,
   imports: [IconHappyComponent, IconInvestigateComponent, RouterLink],
 })
 export class MonitorChangeHeaderComponent {

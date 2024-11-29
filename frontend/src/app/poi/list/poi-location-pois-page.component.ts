@@ -22,7 +22,6 @@ import { PoiLocationPoisPageService } from './poi-location-pois-page.service';
     </kpn-old-page>
   `,
   providers: [PoiLocationPoisPageService, RouterService],
-  standalone: true,
   imports: [LocationPoisSidebarComponent, OldPageComponent, PoiLocationPoiTableComponent],
 })
 export class PoiLocationPoisPageComponent implements OnInit {

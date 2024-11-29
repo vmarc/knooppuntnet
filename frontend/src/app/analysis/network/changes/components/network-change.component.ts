@@ -180,7 +180,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
       </div>
     }
   `,
-  standalone: true,
   imports: [LinkNodeComponent, LinkRouteComponent],
 })
 export class NetworkChangeComponent {

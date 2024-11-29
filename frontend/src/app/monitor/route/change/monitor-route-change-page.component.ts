@@ -241,7 +241,6 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
     }
   `,
   providers: [MonitorRouteChangePageService, NavService],
-  standalone: true,
   imports: [
     ErrorComponent,
     IconHappyComponent,

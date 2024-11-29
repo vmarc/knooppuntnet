@@ -31,7 +31,6 @@ import { IntegerFormatPipe } from '@app/components/shared/format';
       font-weight: normal;
     }
   `,
-  standalone: true,
   imports: [RouterLink, NgClass, IntegerFormatPipe],
 })
 export class PageMenuOptionComponent {

@@ -61,7 +61,6 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
   `,
   styleUrl: './subset-fact-details-page.component.scss',
   providers: [SubsetFactDetailsPageService, AnalysisStrategyService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     FactDescriptionComponent,

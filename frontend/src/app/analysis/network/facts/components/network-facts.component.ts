@@ -135,7 +135,6 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
       border-left: 1px solid lightgray;
     }
   `,
-  standalone: true,
   imports: [
     ActionButtonNodesComponent,
     ActionButtonRelationsComponent,

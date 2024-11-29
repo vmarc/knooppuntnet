@@ -26,7 +26,6 @@ import { PoiDetailMapService } from './poi-detail-map.service';
       useExisting: PoiDetailMapService,
     },
   ],
-  standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {

@@ -23,7 +23,6 @@ import { NodeMapService } from './node-map.service';
       useExisting: NodeMapService,
     },
   ],
-  standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class NodeMapComponent implements AfterViewInit, OnDestroy {

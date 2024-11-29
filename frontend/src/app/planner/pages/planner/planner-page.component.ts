@@ -66,7 +66,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       useExisting: PlannerMapService,
     },
   ],
-  standalone: true,
   imports: [
     GeolocationControlComponent,
     LayerSwitcherComponent,

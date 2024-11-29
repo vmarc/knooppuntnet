@@ -18,7 +18,6 @@ import { RouteInvestigateIndicatorDialogComponent } from './route-investigate-in
       (openDialog)="onOpenDialog()"
     />
   `,
-  standalone: true,
   imports: [IndicatorComponent],
 })
 export class RouteInvestigateIndicatorComponent implements OnInit {

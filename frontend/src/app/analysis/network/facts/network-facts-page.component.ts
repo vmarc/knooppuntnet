@@ -33,7 +33,6 @@ import { NetworkFactsPageService } from './network-facts-page.service';
     </kpn-old-page>
   `,
   providers: [NetworkFactsPageService, AnalysisStrategyService, RouterService],
-  standalone: true,
   imports: [
     AnalysisSidebarComponent,
     NetworkPageHeaderComponent,

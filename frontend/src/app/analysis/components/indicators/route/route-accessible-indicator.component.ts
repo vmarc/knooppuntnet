@@ -20,7 +20,6 @@ import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indi
       (openDialog)="onOpenDialog()"
     />
   `,
-  standalone: true,
   imports: [IndicatorComponent],
 })
 export class RouteAccessibleIndicatorComponent implements OnInit {

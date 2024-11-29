@@ -38,7 +38,6 @@ import { Version } from '@app/services';
       padding-left: 1em;
     }
   `,
-  standalone: true,
   imports: [NgClass],
 })
 export class PageExperimentalComponent {

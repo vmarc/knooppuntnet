@@ -65,7 +65,6 @@ import { MonitorGroupDetail } from '@api/common/monitor';
       <tr mat-row *matRowDef="let group; columns: displayedColumns(admin())"></tr>
     </table>
   `,
-  standalone: true,
   imports: [MatButtonModule, MatIconModule, MatTableModule, RouterLink],
 })
 export class MonitorGroupTableComponent {

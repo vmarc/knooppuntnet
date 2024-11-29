@@ -38,7 +38,6 @@ import { MonitorRouteGapComponent } from './monitor-route-gap.component';
       padding: 0;
     }
   `,
-  standalone: true,
   imports: [MonitorRouteGapComponent],
 })
 export class MonitorRouteGapsComponent {

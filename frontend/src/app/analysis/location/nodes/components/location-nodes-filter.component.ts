@@ -58,7 +58,6 @@ import { LocationNodesPageService } from '../location-nodes-page.service';
       />
     }
   `,
-  standalone: true,
   imports: [LocationFilterFactComponent, LocationFilterGroupComponent, MatRadioModule],
 })
 export class LocationNodesFilterComponent {

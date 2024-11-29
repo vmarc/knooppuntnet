@@ -11,7 +11,6 @@ import { MarkdownModule } from 'ngx-markdown';
       valid route relations or network nodes as members in the node network relation).
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactNetworkExtraMemberRelationComponent {}

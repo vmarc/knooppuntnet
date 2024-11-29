@@ -16,7 +16,6 @@ import { TryoutTabsMenuComponent } from './tryout-tabs-menu.component';
       <kpn-tryout-tabs-drop-down />
     </kpn-old-page>
   `,
-  standalone: true,
   imports: [
     DividerComponent,
     OldPageComponent,

@@ -12,7 +12,6 @@ import { MarkdownModule } from 'ngx-markdown';
       used for mapper notes only. The _"ref"_ and _"name"_ tags can be used for naming routes.
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactRouteNameDeprecatedNoteTagComponent {}

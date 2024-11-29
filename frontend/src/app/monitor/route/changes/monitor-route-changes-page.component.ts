@@ -62,7 +62,6 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
     }
   `,
   providers: [MonitorRouteChangesPageService, NavService],
-  standalone: true,
   imports: [
     MatSlideToggleModule,
     MonitorChangesComponent,

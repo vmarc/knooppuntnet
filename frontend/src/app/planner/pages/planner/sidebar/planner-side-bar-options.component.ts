@@ -28,7 +28,6 @@ import { PreferencesService } from '@app/core';
       align-items: center;
     }
   `,
-  standalone: true,
   imports: [MatExpansionModule, MatCheckboxModule],
 })
 export class PlannerSideBarOptionsComponent {

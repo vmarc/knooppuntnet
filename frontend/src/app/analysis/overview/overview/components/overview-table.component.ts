@@ -22,7 +22,6 @@ import { OverviewTableRowComponent } from './overview-table-row.component';
       </tbody>
     </table>
   `,
-  standalone: true,
   imports: [OverviewTableHeaderComponent, OverviewTableRowComponent],
 })
 export class OverviewTableComponent implements OnInit {

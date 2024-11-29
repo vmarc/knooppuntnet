@@ -52,7 +52,6 @@ import { MatTab } from '@angular/material/tabs';
       </mat-tab-group>
     </div>
   `,
-  standalone: true,
   imports: [MatTabGroup, MatTab, MatTabLabel],
 })
 export class TryoutTabsMenuComponent {}

@@ -45,7 +45,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       height: 0.3em;
     }
   `,
-  standalone: true,
   imports: [MatIconModule, MatProgressSpinnerModule],
 })
 export class MonitorRouteFormSaveStepComponent implements AfterViewChecked {

@@ -83,7 +83,6 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
     </kpn-old-page>
   `,
   providers: [ChangesPageService, AnalysisStrategyService, RouterService],
-  standalone: true,
   imports: [
     ChangeLocationAnalysisSummaryComponent,
     ChangeNetworkAnalysisSummaryComponent,

@@ -19,7 +19,6 @@ import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-i
       (openDialog)="onOpenDialog()"
     />
   `,
-  standalone: true,
   imports: [IndicatorComponent],
 })
 export class LocationNodeFactIndicatorComponent implements OnInit {

@@ -29,7 +29,6 @@ import { StatusLinks } from './status-links';
       </kpn-page-menu-option>
     </kpn-page-menu>
   `,
-  standalone: true,
   imports: [PageMenuComponent, PageMenuOptionComponent],
 })
 export class StatusPageMenuComponent {

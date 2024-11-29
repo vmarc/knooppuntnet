@@ -38,7 +38,6 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
       margin-top: 5px;
     }
   `,
-  standalone: true,
   imports: [NodeMovedMapComponent, TimestampComponent],
 })
 export class NodeChangeMovedComponent {

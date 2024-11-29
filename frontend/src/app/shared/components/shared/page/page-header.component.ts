@@ -34,7 +34,6 @@ import { PageService } from '../page.service';
       flex: 1;
     }
   `,
-  standalone: true,
   imports: [DocLinkComponent],
 })
 export class PageHeaderComponent implements AfterViewInit, OnChanges {

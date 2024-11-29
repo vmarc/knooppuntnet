@@ -28,7 +28,6 @@ import { PoiAreasPageService } from './poi-areas-page.service';
     </kpn-old-page>
   `,
   providers: [PoiAreasPageService],
-  standalone: true,
   imports: [BaseSidebarComponent, OldPageComponent, PageHeaderComponent, PoiMapComponent],
 })
 export class PoiAreasPageComponent implements OnInit {

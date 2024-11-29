@@ -32,7 +32,6 @@ import { Subsets } from '@app/kpn/common';
       display: table-header-group;
     }
   `,
-  standalone: true,
   imports: [MatIconModule],
 })
 export class OverviewTableHeaderComponent {

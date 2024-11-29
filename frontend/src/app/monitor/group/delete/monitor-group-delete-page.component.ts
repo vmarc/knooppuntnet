@@ -70,7 +70,6 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
     </kpn-old-page>
   `,
   providers: [MonitorGroupDeletePageService, NavService],
-  standalone: true,
   imports: [
     MatButtonModule,
     MatIconModule,

@@ -6,7 +6,6 @@ import { SidebarComponent } from './sidebar.component';
   selector: 'kpn-analysis-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<kpn-sidebar/>',
-  standalone: true,
   imports: [SidebarComponent],
 })
 export class AnalysisSidebarComponent {}

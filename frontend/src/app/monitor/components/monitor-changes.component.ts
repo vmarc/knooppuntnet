@@ -95,7 +95,6 @@ import { MonitorChangeHeaderComponent } from './monitor-change-header.component'
       margin-bottom: 5px;
     }
   `,
-  standalone: true,
   imports: [
     IconHappyComponent,
     IconInvestigateComponent,

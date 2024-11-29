@@ -113,7 +113,6 @@ import { PoiDetailPageService } from './poi-detail-page.service';
     </kpn-old-page>
   `,
   providers: [PoiDetailPageService, RouterService],
-  standalone: true,
   imports: [
     ActionButtonNodeComponent,
     ActionButtonRelationComponent,

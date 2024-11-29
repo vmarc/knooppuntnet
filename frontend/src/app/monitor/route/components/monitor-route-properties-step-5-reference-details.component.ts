@@ -162,7 +162,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       display: none;
     }
   `,
-  standalone: true,
   imports: [DayInputComponent, MatButtonModule, MatStepperModule, NgClass, TimestampPipe],
 })
 export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {

@@ -54,7 +54,6 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
       align-items: center;
     }
   `,
-  standalone: true,
   imports: [
     ActionButtonNodeComponent,
     ActionButtonRelationComponent,

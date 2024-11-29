@@ -54,7 +54,6 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
     </kpn-old-page>
   `,
   providers: [MonitorGroupAddPageService, NavService],
-  standalone: true,
   imports: [
     MatButtonModule,
     MonitorGroupBreadcrumbComponent,

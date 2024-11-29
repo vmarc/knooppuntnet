@@ -44,7 +44,6 @@ import { LocationSelectionPageService } from './location-selection-page.service'
     </kpn-old-page>
   `,
   providers: [LocationSelectionPageService, AnalysisStrategyService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     LocationSelectionSidebarComponent,

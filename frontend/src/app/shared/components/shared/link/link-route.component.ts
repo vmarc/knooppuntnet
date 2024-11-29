@@ -17,7 +17,6 @@ import { NetworkType } from '@api/custom';
       >{{ linkTitle }}</a
     >
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class LinkRouteComponent implements OnInit {

@@ -10,7 +10,6 @@ import { MarkdownModule } from 'ngx-markdown';
       Route definition needs work (has tag *"fixmetodo"*).
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactRouteFixmetodoComponent {}

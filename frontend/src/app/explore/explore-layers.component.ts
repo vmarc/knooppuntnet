@@ -129,7 +129,6 @@ import { State } from '@app/state';
       padding-right: 20px;
     }
   `,
-  standalone: true,
   imports: [MatCheckboxModule, DividerComponent],
 })
 export class ExploreLayersComponent {

@@ -36,7 +36,6 @@ import { PaginatorComponent } from '@app/components/shared/paginator';
       </div>
     }
   `,
-  standalone: true,
   imports: [MatSlideToggleModule, PaginatorComponent],
 })
 export class ChangesComponent {

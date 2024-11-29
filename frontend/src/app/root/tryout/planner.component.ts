@@ -13,7 +13,6 @@ import { RouterLink } from '@angular/router';
     </button>
     Plan a route
   `,
-  standalone: true,
   imports: [MatIcon, MatIconButton, RouterLink],
 })
 export class PlannerComponent {}

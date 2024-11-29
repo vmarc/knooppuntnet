@@ -39,7 +39,6 @@ import { RouteDiffsData } from './route-diffs-data';
       </div>
     }
   `,
-  standalone: true,
   imports: [LinkRouteRefHeaderComponent, RouteChangeDetailComponent, VersionChangeComponent],
 })
 export class RouteDiffsUpdatedComponent implements OnInit {

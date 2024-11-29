@@ -27,7 +27,6 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
       </ul>
     }
   `,
-  standalone: true,
   imports: [CountryNameComponent, NetworkTypeNameComponent, RouterLink],
 })
 export class LocationSelectionPageBreadcrumbComponent {

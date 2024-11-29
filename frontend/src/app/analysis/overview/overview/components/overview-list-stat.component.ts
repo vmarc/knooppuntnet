@@ -95,7 +95,6 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
       max-width: 40em;
     }
   `,
-  standalone: true,
   imports: [MarkdownModule, MatIconModule, OverviewListStatTableComponent],
 })
 export class OverviewListStatComponent {

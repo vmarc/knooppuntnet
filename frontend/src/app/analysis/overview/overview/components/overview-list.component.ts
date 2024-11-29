@@ -16,7 +16,6 @@ import { OverviewListStatComponent } from './overview-list-stat.component';
       <kpn-overview-list-stat [stat]="stat" />
     }
   `,
-  standalone: true,
   imports: [OverviewListStatComponent],
 })
 export class OverviewListComponent implements OnInit {

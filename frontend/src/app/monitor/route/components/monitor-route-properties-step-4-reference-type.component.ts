@@ -73,7 +73,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       padding-top: 0.5em;
     }
   `,
-  standalone: true,
   imports: [MatButtonModule, MatRadioModule, MatStepperModule, ReactiveFormsModule],
 })
 export class MonitorRoutePropertiesStep4ReferenceTypeComponent {

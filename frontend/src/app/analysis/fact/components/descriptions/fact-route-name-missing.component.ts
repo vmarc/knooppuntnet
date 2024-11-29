@@ -12,7 +12,6 @@ import { MarkdownModule } from 'ngx-markdown';
       name can be derived.
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactRouteNameMissingComponent {}

@@ -54,7 +54,6 @@ import { TimestampComponent } from '@app/components/shared/timestamp';
       font-style: italic;
     }
   `,
-  standalone: true,
   imports: [
     IconHappyComponent,
     IconInvestigateComponent,

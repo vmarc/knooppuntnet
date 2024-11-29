@@ -45,7 +45,6 @@ import { RouteChangeDetailComponent } from '@app/analysis/components/changes/rou
 
     <kpn-route-change-detail [routeChangeInfo]="routeChangeInfo()" />
   `,
-  standalone: true,
   imports: [ChangeHeaderComponent, ChangeSetTagsComponent, RouteChangeDetailComponent],
 })
 export class RouteChangeComponent {

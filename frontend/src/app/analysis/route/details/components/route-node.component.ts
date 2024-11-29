@@ -18,7 +18,6 @@ import { OsmLinkNodeComponent } from '@app/components/shared/link';
       </kpn-brackets>
     </p>
   `,
-  standalone: true,
   imports: [LinkNodeComponent, BracketsComponent, OsmLinkNodeComponent],
 })
 export class RouteNodeComponent {

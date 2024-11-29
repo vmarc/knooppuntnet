@@ -3,9 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
 import { TimestampPipe } from '@app/components/shared/format';
-import { TimestampDayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
-import { DayPipe } from '@app/components/shared/format';
 
 @Component({
   selector: 'kpn-monitor-route-details-reference',
@@ -33,8 +31,7 @@ import { DayPipe } from '@app/components/shared/format';
 
     <p>{{ page().referenceDistance | distance }}</p>
   `,
-  standalone: true,
-  imports: [DayPipe, DistancePipe, TimestampDayPipe, TimestampPipe],
+  imports: [DistancePipe, TimestampPipe],
 })
 export class MonitorRouteDetailsReferenceComponent {
   page = input.required<MonitorRouteDetailsPage>();

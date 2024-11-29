@@ -29,7 +29,6 @@ import { LocationPipe } from '../../../shared/components/shared/format/location.
       <li>{{ locationName() | location }}</li>
     </ul>
   `,
-  standalone: true,
   imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent, LocationPipe],
 })
 export class LocationPageBreadcrumbComponent {

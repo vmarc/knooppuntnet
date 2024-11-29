@@ -243,7 +243,6 @@ import { OldPoiService } from '@app/services';
       align-items: center;
     }
   `,
-  standalone: true,
   imports: [],
 })
 export class PoiAnalysisComponent {

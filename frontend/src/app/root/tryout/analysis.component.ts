@@ -13,7 +13,6 @@ import { RouterLink } from '@angular/router';
     </button>
     Analysis
   `,
-  standalone: true,
   imports: [MatIcon, MatIconButton, RouterLink],
 })
 export class AnalysisComponent {}

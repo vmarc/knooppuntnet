@@ -28,7 +28,6 @@ import { MatAccordion } from '@angular/material/expansion';
       </button>
     </div>
   `,
-  standalone: true,
   imports: [MatButton],
 })
 export class ExpandCollapseComponent {

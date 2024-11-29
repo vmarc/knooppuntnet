@@ -9,7 +9,6 @@ import { RouterLink } from '@angular/router';
   template: `
     <a [routerLink]="'/analysis/' + fact() + '/' + country() + '/' + networkType()">{{ fact() }}</a>
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class LinkFactComponent {

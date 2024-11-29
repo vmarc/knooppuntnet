@@ -59,7 +59,6 @@ import { BaseSidebarComponent } from '@app/shared/base';
       <kpn-base-sidebar sidebar />
     </kpn-old-page>
   `,
-  standalone: true,
   imports: [
     BaseSidebarComponent,
     IconButtonComponent,

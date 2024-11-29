@@ -24,7 +24,6 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       </div>
     }
   `,
-  standalone: true,
   imports: [MatRadioModule],
 })
 export class MonitorRouteMapControlModeComponent {

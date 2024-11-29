@@ -47,7 +47,6 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
     </kpn-old-page>
   `,
   providers: [NetworkNodesPageService, RouterService],
-  standalone: true,
   imports: [
     NetworkNodeTableComponent,
     NetworkNodesSidebarComponent,

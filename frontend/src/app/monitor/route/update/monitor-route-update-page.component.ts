@@ -51,7 +51,6 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
     }
   `,
   providers: [MonitorRouteUpdatePageService, NavService],
-  standalone: true,
   imports: [
     ErrorComponent,
     MonitorRouteFormComponent,

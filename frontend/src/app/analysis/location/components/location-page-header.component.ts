@@ -86,7 +86,6 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
       }
     }
   `,
-  standalone: true,
   imports: [
     LocationPageBreadcrumbComponent,
     LocationPipe,

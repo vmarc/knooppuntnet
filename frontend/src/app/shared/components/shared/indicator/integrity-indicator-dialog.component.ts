@@ -51,7 +51,6 @@ import { IntegrityIndicatorData } from './integrity-indicator-data';
       }
     </kpn-indicator-dialog>
   `,
-  standalone: true,
   imports: [IndicatorDialogComponent, MarkdownModule],
 })
 export class IntegrityIndicatorDialogComponent {

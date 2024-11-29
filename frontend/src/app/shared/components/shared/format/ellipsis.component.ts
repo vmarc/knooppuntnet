@@ -11,7 +11,6 @@ import { ShowIfTruncatedDirective } from './show-if-truncated.directive';
       <ng-content />
     </div>
   `,
-  standalone: true,
   imports: [MatTooltipModule, ShowIfTruncatedDirective],
 })
 export class EllipsisComponent {}

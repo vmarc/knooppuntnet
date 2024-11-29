@@ -17,7 +17,6 @@ import { OsmLinkRelationComponent } from './osm-link-relation.component';
       <kpn-osm-link-relation [relationId]="ref().id" [title]="ref().name" />
     }
   `,
-  standalone: true,
   imports: [LinkRouteComponent, OsmLinkRelationComponent],
 })
 export class LinkRouteRefComponent implements OnInit {

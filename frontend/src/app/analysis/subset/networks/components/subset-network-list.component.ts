@@ -18,7 +18,6 @@ import { SubsetNetworkComponent } from './subset-network.component';
       }
     </kpn-items>
   `,
-  standalone: true,
   imports: [ItemsComponent, ItemComponent, SubsetNetworkComponent],
 })
 export class SubsetNetworkListComponent {

@@ -27,7 +27,6 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
 
     <kpn-subset-page-menu [subset]="subset()" [subsetInfo]="subsetInfo()" [pageName]="pageName()" />
   `,
-  standalone: true,
   imports: [
     MatIconModule,
     PageHeaderComponent,

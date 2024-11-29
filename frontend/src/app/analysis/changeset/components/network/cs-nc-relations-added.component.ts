@@ -25,7 +25,6 @@ import { OsmLinkRelationComponent } from '@app/components/shared/link';
       </div>
     }
   `,
-  standalone: true,
   imports: [IconInvestigateComponent, OsmLinkRelationComponent],
 })
 export class CsNcRelationsAddedComponent {

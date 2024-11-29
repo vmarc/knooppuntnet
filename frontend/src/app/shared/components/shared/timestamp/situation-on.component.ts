@@ -11,7 +11,6 @@ import { TimestampComponent } from './timestamp.component';
     <ng-container class="kpn-label" i18n="@@situation-on"> Situation on </ng-container>
     <kpn-timestamp [timestamp]="timestamp()" />
   `,
-  standalone: true,
   imports: [TimestampComponent],
 })
 export class SituationOnComponent {

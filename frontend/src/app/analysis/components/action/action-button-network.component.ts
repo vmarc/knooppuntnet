@@ -33,7 +33,6 @@ import { ActionService } from './action.service';
       <button mat-menu-item (click)="deepHistory()">Open in OSM Deep History</button>
     </mat-menu>
   `,
-  standalone: true,
   imports: [
     MatIconButton,
     MatIcon,

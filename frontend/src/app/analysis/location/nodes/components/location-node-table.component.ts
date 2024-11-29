@@ -116,7 +116,6 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       flex: 0 0 4em;
     }
   `,
-  standalone: true,
   imports: [
     ActionButtonNodeComponent,
     DayComponent,

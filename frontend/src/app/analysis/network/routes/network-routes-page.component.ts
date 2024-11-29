@@ -48,7 +48,6 @@ import { NetworkRoutesPageService } from './network-routes-page.service';
     </kpn-old-page>
   `,
   providers: [NetworkRoutesPageService, RouterService],
-  standalone: true,
   imports: [
     NetworkPageHeaderComponent,
     NetworkRouteTableComponent,

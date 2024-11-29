@@ -54,7 +54,6 @@ import { RouterLink } from '@angular/router';
       color: grey;
     }
   `,
-  standalone: true,
   imports: [RouterLink, MatIconModule],
 })
 export class IconButtonComponent {

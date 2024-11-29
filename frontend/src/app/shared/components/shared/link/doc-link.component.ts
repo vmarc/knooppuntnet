@@ -23,7 +23,6 @@ import { Translations } from '@app/i18n';
       height: 24px;
     }
   `,
-  standalone: true,
   imports: [MatIconModule],
 })
 export class DocLinkComponent {

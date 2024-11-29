@@ -19,7 +19,6 @@ import { NodeChangesPageService } from '../node-changes-page.service';
     </kpn-sidebar>
   `,
   providers: [NodeChangesPageService, RouterService],
-  standalone: true,
   imports: [SidebarComponent, ChangeFilterComponent],
 })
 export class NodeChangesSidebarComponent {

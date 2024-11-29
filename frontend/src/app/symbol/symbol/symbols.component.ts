@@ -100,7 +100,6 @@ import { SymbolComponent } from './symbol.component';
       margin: 0 0 1em 1em;
     }
   `,
-  standalone: true,
   imports: [SymbolComponent, OsmLinkRelationComponent, RouterLink],
 })
 export class SymbolsComponent {

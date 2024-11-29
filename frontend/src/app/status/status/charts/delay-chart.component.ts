@@ -19,7 +19,6 @@ import { ActionBarChartStackedComponent } from './action-bar-chart-stacked.compo
       />
     </div>
   `,
-  standalone: true,
   imports: [ActionBarChartStackedComponent],
 })
 export class DelayChartComponent {

@@ -197,7 +197,6 @@ import { FactInfo } from './fact-info';
       }
     }
   `,
-  standalone: true,
   imports: [
     FactAddedComponent,
     FactDeletedComponent,

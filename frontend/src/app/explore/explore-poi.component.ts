@@ -57,7 +57,6 @@ import { ExplorePoiOptionComponent } from './explore-poi-option.component';
       padding-right: 20px;
     }
   `,
-  standalone: true,
   imports: [MatCheckboxModule, DividerComponent, ExplorePoiOptionComponent],
 })
 export class ExplorePoiComponent {

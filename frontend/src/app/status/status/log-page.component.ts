@@ -70,7 +70,6 @@ import { StatusSidebarComponent } from './status-sidebar.component';
     }
   `,
   providers: [LogPageService, RouterService],
-  standalone: true,
   imports: [
     LogAnalysisChartComponent,
     LogAnalysisRobotChartComponent,

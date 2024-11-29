@@ -47,7 +47,6 @@ import { DeviceDetectorService } from 'ngx-device-detector';
       margin: 1em;
     }
   `,
-  standalone: true,
   imports: [SidebarFooterComponent],
 })
 export class NodeDetailsSidebarComponent {

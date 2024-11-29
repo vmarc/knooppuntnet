@@ -25,7 +25,6 @@ import { MenuTestLinksComponent } from './menu-test-links.component';
     <kpn-menu-test-actions />
     <kpn-divider />
   `,
-  standalone: true,
   imports: [
     MatNavList,
     MenuItemComponent,

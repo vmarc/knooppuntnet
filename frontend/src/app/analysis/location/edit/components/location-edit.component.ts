@@ -57,7 +57,6 @@ import { EditService } from '@app/components/shared';
       </button>
     </p>
   `,
-  standalone: true,
   imports: [MatCheckboxModule, MatButtonModule],
 })
 export class LocationEditComponent implements OnInit {

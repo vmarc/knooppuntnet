@@ -58,7 +58,6 @@ import { MatTab } from '@angular/material/tabs';
       color: darkgray;
     }
   `,
-  standalone: true,
   imports: [
     MatSelect,
     MatOption,

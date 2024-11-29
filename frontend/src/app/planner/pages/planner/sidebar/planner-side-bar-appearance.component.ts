@@ -37,7 +37,6 @@ import { PlannerPageService } from '../planner-page.service';
       </ng-template>
     </mat-expansion-panel>
   `,
-  standalone: true,
   imports: [MatExpansionModule, MatRadioModule],
 })
 export class PlannerSideBarAppearanceComponent {

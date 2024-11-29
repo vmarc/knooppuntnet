@@ -36,7 +36,6 @@ import { LocationNodesPageService } from './location-nodes-page.service';
     <kpn-sidebar-footer />
   `,
   providers: [LocationNodesPageService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     LocationNodesComponent,

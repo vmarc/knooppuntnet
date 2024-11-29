@@ -111,7 +111,6 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
       flex: 0;
     }
   `,
-  standalone: true,
   imports: [
     AngularSplitModule,
     NgTemplateOutlet,

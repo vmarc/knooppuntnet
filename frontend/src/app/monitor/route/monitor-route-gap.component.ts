@@ -31,7 +31,6 @@ import { MonitorRouteGapCanvasComponent } from './monitor-route-gap-canvas.compo
       justify-content: center;
     }
   `,
-  standalone: true,
   imports: [MonitorRouteGapCanvasComponent],
 })
 export class MonitorRouteGapComponent implements AfterViewInit, OnInit, OnDestroy {

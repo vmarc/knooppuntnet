@@ -48,7 +48,6 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
     }
   `,
   providers: [MonitorRouteAddPageService, NavService],
-  standalone: true,
   imports: [
     ErrorComponent,
     OldPageComponent,

@@ -48,7 +48,6 @@ import { NodeDiffsData } from './node-diffs-data';
       </div>
     }
   `,
-  standalone: true,
   imports: [LinkNodeRefHeaderComponent, MetaDataComponent, NodeChangeDetailComponent],
 })
 export class NodeDiffsUpdatedComponent implements OnInit {

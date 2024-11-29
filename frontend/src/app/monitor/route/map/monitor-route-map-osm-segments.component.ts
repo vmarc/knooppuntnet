@@ -46,7 +46,6 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
       width: 3em;
     }
   `,
-  standalone: true,
   imports: [MatListModule, LegendLineComponent, DistancePipe],
 })
 export class MonitorRouteMapOsmSegmentsComponent {

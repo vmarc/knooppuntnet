@@ -33,7 +33,6 @@ import { NetworkTypeIconComponent } from '@app/components/shared';
       }
     `,
   ],
-  standalone: true,
   imports: [MatLabel, MatRadioButton, NetworkTypeIconComponent],
 })
 export class ConfigurationNetworkTypeItemComponent {

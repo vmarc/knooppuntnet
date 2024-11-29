@@ -11,7 +11,6 @@ import { MarkdownModule } from 'ngx-markdown';
       marked incomplete by adding a tag *"fixme"* with value *"incomplete"* in the route relation.
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactRouteIncompleteComponent {}

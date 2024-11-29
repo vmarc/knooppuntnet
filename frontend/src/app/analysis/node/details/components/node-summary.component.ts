@@ -89,7 +89,6 @@ import { ActionButtonNodeComponent } from '../../../components/action/action-but
       padding-left: 0.4em;
     }
   `,
-  standalone: true,
   imports: [
     CountryNameComponent,
     MarkdownModule,

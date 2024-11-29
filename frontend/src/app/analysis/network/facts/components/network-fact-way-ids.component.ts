@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { IconWayComponent } from '@app/components/shared/icon';
-import { OsmLinkWayComponent } from '@app/components/shared/link';
 import { ActionButtonWayComponent } from '../../../components/action/action-button-way.component';
 
 @Component({
@@ -17,8 +16,7 @@ import { ActionButtonWayComponent } from '../../../components/action/action-butt
       </div>
     }
   `,
-  standalone: true,
-  imports: [OsmLinkWayComponent, IconWayComponent, ActionButtonWayComponent],
+  imports: [IconWayComponent, ActionButtonWayComponent],
 })
 export class NetworkFactWayIdsComponent {
   elementIds = input.required<number[]>();

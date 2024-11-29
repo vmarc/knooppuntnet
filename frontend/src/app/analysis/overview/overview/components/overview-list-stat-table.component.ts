@@ -114,7 +114,6 @@ import { OverviewListStatRowComponent } from './overview-list-stat-row.component
       width: 3.5em;
     }
   `,
-  standalone: true,
   imports: [OverviewListStatRowComponent],
 })
 export class OverviewListStatTableComponent {

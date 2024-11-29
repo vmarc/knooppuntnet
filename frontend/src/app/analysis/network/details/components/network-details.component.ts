@@ -45,7 +45,6 @@ import { NetworkSummaryComponent } from './network-summary.component';
     </kpn-data>
   `,
   styleUrl: '../../../../shared/components/shared/data/data.component.scss',
-  standalone: true,
   imports: [DataComponent, NetworkSummaryComponent, TagTableComponent, TimestampComponent],
 })
 export class NetworkDetailsComponent implements OnInit {

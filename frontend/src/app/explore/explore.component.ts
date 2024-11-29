@@ -61,7 +61,6 @@ import { ExploreScopeComponent } from './explore-scope.component';
       <kpn-explore-poi />
     </kpn-page>
   `,
-  standalone: true,
   imports: [
     BackButtonComponent,
     MatLabel,

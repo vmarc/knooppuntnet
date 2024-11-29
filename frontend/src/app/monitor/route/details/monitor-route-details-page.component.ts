@@ -83,7 +83,6 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
     }
   `,
   providers: [MonitorRouteDetailsPageService, NavService],
-  standalone: true,
   imports: [
     DataComponent,
     MarkdownModule,

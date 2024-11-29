@@ -23,7 +23,6 @@ import { RouteMapService } from './route-map.service';
       useExisting: RouteMapService,
     },
   ],
-  standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class RouteMapComponent implements AfterViewInit, OnDestroy {

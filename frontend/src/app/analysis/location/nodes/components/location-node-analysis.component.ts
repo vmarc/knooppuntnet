@@ -23,7 +23,6 @@ import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicat
       display: flex;
     }
   `,
-  standalone: true,
   imports: [LocationNodeFactIndicatorComponent, IntegrityIndicatorComponent],
 })
 export class LocationNodeAnalysisComponent implements OnInit {

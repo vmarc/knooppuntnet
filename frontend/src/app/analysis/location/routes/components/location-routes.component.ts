@@ -18,7 +18,6 @@ import { LocationRouteTableComponent } from './location-route-table.component';
       />
     }
   `,
-  standalone: true,
   imports: [LocationRouteTableComponent],
 })
 export class LocationRoutesComponent {

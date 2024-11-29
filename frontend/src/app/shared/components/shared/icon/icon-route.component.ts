@@ -8,7 +8,6 @@ import { MatTooltip } from '@angular/material/tooltip';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template:
     '<mat-icon svgIcon="route" matTooltip="route" i18n-matTooltip="@@icon.route.tooltip" />',
-  standalone: true,
   imports: [MatIcon, MatTooltip],
 })
 export class IconRouteComponent {}

@@ -16,7 +16,6 @@ import { IconRouteLinkComponent } from '@app/components/shared/link';
       <p i18n="@@node.route-references.none">None</p>
     }
   `,
-  standalone: true,
   imports: [IconRouteLinkComponent],
 })
 export class NodeRouteReferencesComponent {

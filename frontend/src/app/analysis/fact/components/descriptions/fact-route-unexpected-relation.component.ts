@@ -23,7 +23,6 @@ import { FactInfo } from '../fact-info';
       </span>
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule, OsmLinkRelationComponent],
 })
 export class FactRouteUnexpectedRelationComponent {

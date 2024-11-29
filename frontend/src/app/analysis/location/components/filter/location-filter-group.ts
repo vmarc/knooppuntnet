@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { ServerFilterGroup } from '@api/common/changes/filter';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Translations } from '@app/i18n';
 
 @Component({
@@ -35,8 +34,7 @@ import { Translations } from '@app/i18n';
       padding-bottom: 10px;
     }
   `,
-  standalone: true,
-  imports: [SidebarComponent, MatRadioModule],
+  imports: [MatRadioModule],
 })
 export class LocationFilterGroupComponent {
   title = input.required<string>();

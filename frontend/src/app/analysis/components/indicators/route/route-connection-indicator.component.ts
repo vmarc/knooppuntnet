@@ -19,7 +19,6 @@ import { RouteConnectionIndicatorDialogComponent } from './route-connection-indi
       (openDialog)="onOpenDialog()"
     />
   `,
-  standalone: true,
   imports: [IndicatorComponent],
 })
 export class RouteConnectionIndicatorComponent implements OnInit {

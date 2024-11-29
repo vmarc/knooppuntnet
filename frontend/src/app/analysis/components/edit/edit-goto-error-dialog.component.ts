@@ -34,7 +34,6 @@ import { MatDialogRef } from '@angular/material/dialog';
       min-width: 20em;
     }
   `,
-  standalone: true,
   imports: [MatButtonModule, MatDialogModule],
 })
 export class EditGotoErrorDialogComponent {

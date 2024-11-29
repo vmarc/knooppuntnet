@@ -67,7 +67,6 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
     </kpn-old-page>
   `,
   providers: [MonitorChangesPageService],
-  standalone: true,
   imports: [
     ErrorComponent,
     MatSlideToggleModule,

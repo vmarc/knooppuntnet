@@ -8,7 +8,6 @@ import { TimestampDayPipe } from '../format/timestamp-day.pipe';
   selector: 'kpn-day',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` {{ timestamp() | yyyymmdd }} `,
-  standalone: true,
   imports: [TimestampDayPipe],
 })
 export class DayComponent {

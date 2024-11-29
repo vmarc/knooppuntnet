@@ -27,7 +27,6 @@ import { IconHappyComponent } from '@app/components/shared/icon';
       }
     </div>
   `,
-  standalone: true,
   imports: [IconHappyComponent, IconInvestigateComponent],
 })
 export class ChangeSetAnalysisComponent {

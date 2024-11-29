@@ -11,7 +11,6 @@ import { MarkdownModule } from 'ngx-markdown';
       derived from the start and end node of the route.
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactRouteNodeNameMismatchComponent {}

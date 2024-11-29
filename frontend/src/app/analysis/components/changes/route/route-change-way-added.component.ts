@@ -41,7 +41,6 @@ import { TagTableComponent } from '@app/components/shared/tags';
       </div>
     </div>
   `,
-  standalone: true,
   imports: [OsmLinkWayComponent, MetaDataComponent, TagTableComponent],
 })
 export class RouteChangeWayAddedComponent {

@@ -80,7 +80,6 @@ import { IconHappyComponent } from '@app/components/shared/icon';
     }
   `,
   styleUrl: '../subset-fact-details-page.component.scss',
-  standalone: true,
   imports: [IconHappyComponent, DividerComponent],
 })
 export class SubsetFactDetailsSummaryComponent {

@@ -9,7 +9,6 @@ import { OsmLinkComponent } from './osm-link.component';
   template: `
     <kpn-osm-link kind="relation" [elementId]="relationId().toString()" [title]="title()" />
   `,
-  standalone: true,
   imports: [OsmLinkComponent],
 })
 export class OsmLinkRelationComponent {

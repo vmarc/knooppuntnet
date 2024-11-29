@@ -134,7 +134,6 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       margin-left: auto;
     }
   `,
-  standalone: true,
   imports: [
     DistancePipe,
     IconHappyComponent,

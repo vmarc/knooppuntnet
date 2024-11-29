@@ -19,7 +19,6 @@ import { NetworkIndicatorDialogComponent } from './network-indicator-dialog.comp
       (openDialog)="onOpenDialog()"
     />
   `,
-  standalone: true,
   imports: [IndicatorComponent],
 })
 export class NetworkIndicatorComponent implements OnInit {

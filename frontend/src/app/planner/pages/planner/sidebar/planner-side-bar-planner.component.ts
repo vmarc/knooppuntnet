@@ -35,7 +35,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       display: inline-block;
     }
   `,
-  standalone: true,
   imports: [MatExpansionModule, DocLinkComponent, PlanComponent],
 })
 export class PlannerSideBarPlannerComponent {}

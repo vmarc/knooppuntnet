@@ -54,7 +54,6 @@ import { PlannerStateService } from '../planner-state.service';
       margin-top: 2em;
     }
   `,
-  standalone: true,
   imports: [RouterLink, LinkRouteComponent],
 })
 export class PlannerPopupRouteComponent {

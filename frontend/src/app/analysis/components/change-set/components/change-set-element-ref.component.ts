@@ -25,7 +25,6 @@ export class ChangeSetElement {
     </div>
   `,
   styleUrl: './change-set-element-ref.component.scss',
-  standalone: true,
   imports: [NgClass],
 })
 export class ChangesSetElementRefComponent {

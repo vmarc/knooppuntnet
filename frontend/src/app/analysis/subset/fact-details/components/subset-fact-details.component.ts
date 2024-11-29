@@ -3,7 +3,6 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatButton } from '@angular/material/button';
 import { MatDivider } from '@angular/material/divider';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatExpansionPanelHeader } from '@angular/material/expansion';
@@ -113,7 +112,6 @@ import { ActionButtonWayComponent } from '../../../components/action/action-butt
     }
   `,
   styleUrl: '../subset-fact-details-page.component.scss',
-  standalone: true,
   imports: [
     ActionButtonNetworkComponent,
     ActionButtonNodeComponent,
@@ -129,7 +127,6 @@ import { ActionButtonWayComponent } from '../../../components/action/action-butt
     LinkNodeComponent,
     LinkRouteComponent,
     MatAccordion,
-    MatButton,
     MatDivider,
     MatExpansionPanel,
     MatExpansionPanelContent,

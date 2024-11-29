@@ -36,7 +36,6 @@ import { CsNcComponent } from './network/cs-nc.component';
       </div>
     }
   `,
-  standalone: true,
   imports: [CsNcComponent, LinkNetworkDetailsComponent, NetworkTypeIconComponent],
 })
 export class ChangeSetNetworkChangesComponent implements OnDestroy, AfterViewInit {

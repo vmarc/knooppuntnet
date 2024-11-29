@@ -74,7 +74,6 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
       content: ' \\2192 \\0020 ';
     }
   `,
-  standalone: true,
   imports: [
     ChangeHeaderComponent,
     ChangesSetElementRefsComponent,

@@ -11,7 +11,6 @@ import { MarkdownModule } from 'ngx-markdown';
       network nodes or information maps as members in the network relation).
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactNetworkExtraMemberNodeComponent {}

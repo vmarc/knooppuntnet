@@ -29,7 +29,6 @@ import { RoleConnectionIndicatorComponent } from './indicators/role-connection-i
       display: flex;
     }
   `,
-  standalone: true,
   imports: [
     IntegrityIndicatorComponent,
     NetworkIndicatorComponent,

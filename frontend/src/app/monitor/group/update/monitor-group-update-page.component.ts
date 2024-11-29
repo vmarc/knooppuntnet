@@ -63,7 +63,6 @@ import { MonitorGroupUpdatePageService } from './monitor-group-update-page.servi
     </kpn-old-page>
   `,
   providers: [MonitorGroupUpdatePageService, NavService],
-  standalone: true,
   imports: [
     MatButtonModule,
     MonitorGroupBreadcrumbComponent,

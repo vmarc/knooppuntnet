@@ -56,7 +56,6 @@ import { NetworkMapLegendIconComponent } from './network-map-legend-icon.compone
       align-items: center;
     }
   `,
-  standalone: true,
   imports: [SidebarComponent, NetworkMapLegendIconComponent],
 })
 export class NetworkMapSidebarComponent {

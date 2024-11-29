@@ -25,7 +25,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       <button id="step2-next" mat-stroked-button matStepperNext i18n="@@action.next">Next</button>
     </div>
   `,
-  standalone: true,
   imports: [
     MatButtonModule,
     MatStepperModule,

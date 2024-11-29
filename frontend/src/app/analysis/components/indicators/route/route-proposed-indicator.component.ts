@@ -18,7 +18,6 @@ import { RouteProposedIndicatorDialogComponent } from './route-proposed-indicato
       (openDialog)="onOpenDialog()"
     />
   `,
-  standalone: true,
   imports: [IndicatorComponent],
 })
 export class RouteProposedIndicatorComponent implements OnInit {

@@ -8,7 +8,6 @@ import { TimestampPipe } from '../format/timestamp-pipe';
   selector: 'kpn-timestamp',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` {{ timestamp() | yyyymmddhhmm }} `,
-  standalone: true,
   imports: [TimestampPipe],
 })
 export class TimestampComponent {

@@ -69,7 +69,6 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
     </kpn-old-page>
   `,
   providers: [NavService, MonitorGroupPageService],
-  standalone: true,
   imports: [
     MatButtonModule,
     MonitorAdminToggleComponent,

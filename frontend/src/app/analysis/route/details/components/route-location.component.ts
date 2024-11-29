@@ -39,7 +39,6 @@ import { NetworkType } from '@api/custom';
       padding-left: 20px;
     }
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class RouteLocationComponent {

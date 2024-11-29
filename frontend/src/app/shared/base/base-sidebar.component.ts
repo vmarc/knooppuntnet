@@ -54,7 +54,6 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
       height: 20px;
     }
   `,
-  standalone: true,
   imports: [SidebarComponent, RouterLink, MatButtonModule],
 })
 export class BaseSidebarComponent {

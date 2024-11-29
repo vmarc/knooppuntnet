@@ -15,7 +15,6 @@ import { MarkdownModule } from 'ngx-markdown';
       *"inline_skates"*.
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactRouteTagInvalidComponent {}

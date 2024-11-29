@@ -61,7 +61,6 @@ import { ActionButtonRelationComponent } from '../../../components/action/action
       <kpn-action-button-relation [relationId]="page().attributes.id" />
     </div>
   `,
-  standalone: true,
   imports: [
     CountryNameComponent,
     IntegerFormatPipe,

@@ -5,9 +5,10 @@ import { provideHttpClient } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { withInterceptorsFromDi } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
+import { inject } from '@angular/core';
+import { provideAppInitializer } from '@angular/core';
 import { importProvidersFrom } from '@angular/core';
 import { ErrorHandler } from '@angular/core';
-import { APP_INITIALIZER } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
@@ -68,12 +69,9 @@ export const appConfig: ApplicationConfig = {
       provide: Sentry.TraceService,
       deps: [Router],
     },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: () => () => {},
-      deps: [Sentry.TraceService],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+      inject(Sentry.TraceService);
+    }),
     { provide: HTTP_INTERCEPTORS, useClass: SpinnerInterceptor, multi: true },
     { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
     ApiService,

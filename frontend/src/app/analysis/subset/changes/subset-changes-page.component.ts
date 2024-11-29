@@ -78,7 +78,6 @@ import { SubsetChangesPageService } from './subset-changes-page.service';
     </kpn-page-filter>
   `,
   providers: [SubsetChangesPageService, RouterService],
-  standalone: true,
   imports: [
     ChangeFilterComponent,
     ChangeLocationAnalysisSummaryComponent,

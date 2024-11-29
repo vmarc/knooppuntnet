@@ -22,7 +22,6 @@ import { OsmLinkRelationComponent } from './osm-link-relation.component';
       <kpn-osm-link-relation [relationId]="ref().id" [title]="ref().id.toString()" />
     </div>
   `,
-  standalone: true,
   imports: [LinkRouteComponent, OsmLinkRelationComponent],
 })
 export class LinkRouteRefHeaderComponent implements OnInit {

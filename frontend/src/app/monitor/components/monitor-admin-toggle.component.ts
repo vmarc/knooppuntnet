@@ -29,7 +29,6 @@ import { MonitorService } from '../monitor.service';
       justify-content: flex-end;
     }
   `,
-  standalone: true,
   imports: [MatSlideToggleModule],
 })
 export class MonitorAdminToggleComponent {

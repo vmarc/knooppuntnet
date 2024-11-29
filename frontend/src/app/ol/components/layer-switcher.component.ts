@@ -55,7 +55,6 @@ import { OpenlayersMapService } from '../services';
       right: 10px;
     }
   `,
-  standalone: true,
   imports: [MatCheckboxModule, MatDividerModule, MatIconModule, MatMenuModule],
 })
 export class LayerSwitcherComponent {

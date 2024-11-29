@@ -92,7 +92,6 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
       padding-bottom: 10px;
     }
   `,
-  standalone: true,
   imports: [MatRadioModule],
 })
 export class LocationRoutesFilterComponent {

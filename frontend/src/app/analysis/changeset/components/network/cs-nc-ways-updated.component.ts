@@ -23,7 +23,6 @@ import { OsmLinkWayComponent } from '@app/components/shared/link';
       </div>
     }
   `,
-  standalone: true,
   imports: [OsmLinkWayComponent],
 })
 export class CsNcWaysUpdatedComponent {

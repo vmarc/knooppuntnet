@@ -84,7 +84,6 @@ import { RouteLocationComponent } from './route-location.component';
       }
     </div>
   `,
-  standalone: true,
   imports: [
     ActionButtonRouteComponent,
     CountryNameComponent,

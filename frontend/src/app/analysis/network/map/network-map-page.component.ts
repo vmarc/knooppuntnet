@@ -36,7 +36,6 @@ import { NetworkMapPageService } from './network-map-page.service';
     </kpn-old-page>
   `,
   providers: [NetworkMapService, NetworkMapPageService, RouterService],
-  standalone: true,
   imports: [
     NetworkMapComponent,
     NetworkMapSidebarComponent,

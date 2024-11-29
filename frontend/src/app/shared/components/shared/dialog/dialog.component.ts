@@ -19,7 +19,6 @@ import { MatButtonModule } from '@angular/material/button';
       z-index: 100;
     }
   `,
-  standalone: true,
   imports: [MatButtonModule, MatDialogModule, MatIconModule],
 })
 export class DialogComponent {}

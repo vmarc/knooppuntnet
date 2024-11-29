@@ -54,7 +54,6 @@ import { DividerComponent } from '@app/components/shared';
       }
     `,
   ],
-  standalone: true,
   imports: [
     MatCheckbox,
     MatExpansionPanel,

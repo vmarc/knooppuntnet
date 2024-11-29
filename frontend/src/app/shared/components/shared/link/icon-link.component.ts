@@ -21,7 +21,6 @@ import { NetworkTypeIconComponent } from '../network-type-icon.component';
       }
     </div>
   `,
-  standalone: true,
   imports: [NetworkScopeNameComponent, NetworkTypeIconComponent, RouterLink],
 })
 export class IconLinkComponent implements OnInit {

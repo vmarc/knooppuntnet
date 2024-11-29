@@ -43,7 +43,6 @@ import { PlannerPageService } from '../planner-page.service';
       height: 34px;
     }
   `,
-  standalone: true,
   imports: [MatButtonToggleModule, MatIconModule],
 })
 export class NetworkTypeSelectorComponent {

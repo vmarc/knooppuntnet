@@ -51,7 +51,6 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
     NavService,
     RouterService,
   ],
-  standalone: true,
   imports: [
     MonitorRouteMapComponent,
     MonitorRouteMapSidebarComponent,

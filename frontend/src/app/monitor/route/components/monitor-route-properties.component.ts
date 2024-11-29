@@ -147,7 +147,6 @@ import { MonitorRoutePropertiesStep6CommentComponent } from './monitor-route-pro
       <a [routerLink]="groupLink()" id="cancel">{{ cancelLinkText }}</a>
     </div>
   `,
-  standalone: true,
   imports: [
     MatButtonModule,
     MatStepperModule,

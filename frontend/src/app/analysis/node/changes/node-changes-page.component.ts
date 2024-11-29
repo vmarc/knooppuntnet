@@ -109,7 +109,6 @@ import { NodeChangesPageService } from './node-changes-page.service';
     </kpn-old-page>
   `,
   providers: [NodeChangesPageService, RouterService],
-  standalone: true,
   imports: [
     ChangesComponent,
     ErrorComponent,

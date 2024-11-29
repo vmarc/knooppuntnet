@@ -83,7 +83,6 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
       }
     }
   `,
-  standalone: true,
   imports: [FactNameComponent, IconHappyComponent, IconInvestigateComponent],
 })
 export class FactDiffsComponent {

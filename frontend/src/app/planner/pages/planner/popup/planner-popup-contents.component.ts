@@ -23,7 +23,6 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
       }
     }
   `,
-  standalone: true,
   imports: [
     PlannerPopupRouteComponent,
     NgClass,

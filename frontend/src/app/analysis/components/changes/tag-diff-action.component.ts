@@ -20,7 +20,6 @@ import { TagDetailType } from '@api/common/diff';
       }
     }
   `,
-  standalone: true,
   imports: [MatIconModule],
 })
 export class TagDiffActionComponent {

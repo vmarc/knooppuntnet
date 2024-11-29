@@ -67,7 +67,6 @@ import { LocationEditPageService } from './location-edit-page.service';
     }
   `,
   providers: [LocationEditPageService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     LocationEditComponent,

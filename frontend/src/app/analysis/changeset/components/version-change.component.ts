@@ -19,7 +19,6 @@ import { MetaDataComponent } from '@app/components/shared';
       <kpn-meta-data [metaData]="after()" />
     </div>
   `,
-  standalone: true,
   imports: [MetaDataComponent],
 })
 export class VersionChangeComponent {

@@ -13,7 +13,6 @@ import { MatIcon } from '@angular/material/icon';
       <mat-icon>arrow_back</mat-icon>
     </button>
   `,
-  standalone: true,
   imports: [MatIcon, MatIconButton],
 })
 export class BackButtonComponent {

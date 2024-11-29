@@ -21,7 +21,6 @@ import { PlanActionsComponent } from './plan-actions.component';
       align-items: center;
     }
   `,
-  standalone: true,
   imports: [NetworkTypeSelectorComponent, PlanActionsComponent],
 })
 export class PlannerToolbarComponent {

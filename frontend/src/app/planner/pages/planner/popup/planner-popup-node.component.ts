@@ -71,7 +71,6 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
       margin-top: 2em;
     }
   `,
-  standalone: true,
   imports: [LinkRouteComponent, RouterLink, TimestampComponent],
 })
 export class PlannerPopupNodeComponent {

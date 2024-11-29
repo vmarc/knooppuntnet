@@ -47,7 +47,6 @@ import { RouteService } from '../route.service';
       </kpn-page-menu-option>
     </kpn-page-menu>
   `,
-  standalone: true,
   imports: [MatIconModule, PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class RoutePageHeaderComponent {

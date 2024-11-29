@@ -45,7 +45,6 @@ import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.
       flex-wrap: wrap;
     }
   `,
-  standalone: true,
   imports: [ServerDiskUsagePieChartComponent, ServerDiskUsageLegendComponent],
 })
 export class ServerDiskUsageComponent {

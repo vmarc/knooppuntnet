@@ -35,7 +35,6 @@ import { LocationRoutesPageService } from './location-routes-page.service';
     </kpn-page-filter>
   `,
   providers: [LocationRoutesPageService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     LocationPageHeaderComponent,

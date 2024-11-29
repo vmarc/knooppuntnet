@@ -19,7 +19,6 @@ import { ChangesPageService } from '../changes-page.service';
       />
     </kpn-sidebar>
   `,
-  standalone: true,
   imports: [AnalysisStrategyComponent, ChangeFilterComponent, SidebarComponent],
 })
 export class ChangesSidebarComponent {

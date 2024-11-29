@@ -37,7 +37,6 @@ import { RouteMapPageService } from './route-map-page.service';
     </kpn-page>
   `,
   providers: [RouteMapPageService, RouterService, RouteMapService],
-  standalone: true,
   imports: [
     AnalysisSidebarComponent,
     RouteMapComponent,

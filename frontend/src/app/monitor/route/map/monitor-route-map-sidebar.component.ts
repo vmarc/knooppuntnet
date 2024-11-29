@@ -48,7 +48,6 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       padding-bottom: 1em;
     }
   `,
-  standalone: true,
   imports: [
     MonitorRouteMapControlJosmComponent,
     MonitorRouteMapControlModeComponent,

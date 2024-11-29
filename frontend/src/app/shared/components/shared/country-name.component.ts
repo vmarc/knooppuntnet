@@ -18,7 +18,6 @@ import { Util } from './util';
       </ng-container>
     }
   `,
-  standalone: true,
   imports: [],
 })
 export class CountryNameComponent {

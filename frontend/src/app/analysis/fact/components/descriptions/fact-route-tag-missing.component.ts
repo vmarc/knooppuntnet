@@ -10,7 +10,6 @@ import { MarkdownModule } from 'ngx-markdown';
       Routerelation does not contain the required _route_ tag.
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactRouteTagMissingComponent {}

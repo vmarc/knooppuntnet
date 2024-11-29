@@ -51,7 +51,6 @@ import { CsNcWaysUpdatedComponent } from './cs-nc-ways-updated.component';
 
     <kpn-route-diffs [data]="routeDiffs(networkChangeInfo())" />
   `,
-  standalone: true,
   imports: [
     CsNcNodesAddedComponent,
     CsNcNodesRemovedComponent,

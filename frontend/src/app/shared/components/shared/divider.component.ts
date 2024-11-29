@@ -10,7 +10,6 @@ import { MatDivider } from '@angular/material/divider';
       <mat-divider />
     </div>
   `,
-  standalone: true,
   imports: [MatDivider],
 })
 export class DividerComponent {}

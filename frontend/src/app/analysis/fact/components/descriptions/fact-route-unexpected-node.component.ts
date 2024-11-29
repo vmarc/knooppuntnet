@@ -19,7 +19,6 @@ import { FactInfo } from '../fact-info';
       </span>
     </p>
   `,
-  standalone: true,
   imports: [OsmLinkNodeComponent],
 })
 export class FactRouteUnexpectedNodeComponent {

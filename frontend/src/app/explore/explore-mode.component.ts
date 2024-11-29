@@ -40,7 +40,6 @@ import { State } from '@app/state';
       </ng-template>
     </mat-expansion-panel>
   `,
-  standalone: true,
   imports: [MatExpansionModule, MatRadioModule],
 })
 export class ExploreModeComponent {

@@ -23,7 +23,6 @@ import { SubsetMapPageService } from '../subset-map-page.service';
       useExisting: SubsetMapService,
     },
   ],
-  standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class SubsetMapComponent implements AfterViewInit {

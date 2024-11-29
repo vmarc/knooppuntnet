@@ -50,7 +50,6 @@ import { TagValueComponent } from './tag-value.component';
       padding-bottom: 10px;
     }
   `,
-  standalone: true,
   imports: [TagValueComponent],
 })
 export class TagTableComponent {

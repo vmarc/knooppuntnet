@@ -48,7 +48,6 @@ import { Translations } from '@app/i18n';
       text-align: center;
     }
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class PageFooterComponent {

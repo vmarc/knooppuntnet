@@ -8,7 +8,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteSubRelation } from '@api/common/monitor';
 import { ErrorComponent } from '@app/components/shared/error';
-import { EllipsisComponent } from '@app/components/shared/format';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
@@ -112,9 +111,7 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
       color: grey;
     }
   `,
-  standalone: true,
   imports: [
-    EllipsisComponent,
     ErrorComponent,
     MatMenuModule,
     MonitorRouteSubRelationMenuOptionComponent,

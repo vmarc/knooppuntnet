@@ -8,7 +8,6 @@ import { MatTooltip } from '@angular/material/tooltip';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template:
     '<mat-icon svgIcon="network" matTooltip="node network" i18n-matTooltip="@@icon.network.tooltip" />',
-  standalone: true,
   imports: [MatIcon, MatTooltip],
 })
 export class IconNetworkComponent {}

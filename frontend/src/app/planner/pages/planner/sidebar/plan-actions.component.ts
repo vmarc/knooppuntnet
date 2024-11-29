@@ -82,7 +82,6 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
       padding-bottom: 15px;
     }
   `,
-  standalone: true,
   imports: [PlanActionButtonComponent],
 })
 export class PlanActionsComponent {

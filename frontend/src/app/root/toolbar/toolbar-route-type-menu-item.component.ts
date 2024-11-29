@@ -29,7 +29,6 @@ import { RouteTypeIconItemComponent } from './route-type-icon.component';
       }
     `,
   ],
-  standalone: true,
   imports: [MatButtonModule, MatIconModule, MatMenuItem, MatLabel, RouteTypeIconItemComponent],
 })
 export class ToolbarRouteTypeMenuItemComponent {

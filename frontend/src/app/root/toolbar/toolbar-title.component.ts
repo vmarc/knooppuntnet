@@ -20,7 +20,6 @@ import { RouterLink } from '@angular/router';
       letter-spacing: 0.0125em;
     }
   `,
-  standalone: true,
   imports: [MatButtonModule, MatIconModule, MatToolbarModule, RouterLink],
 })
 export class ToolbarTitleComponent {}

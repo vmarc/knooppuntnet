@@ -23,7 +23,6 @@ import { NetworkTypeIconComponent } from '@app/components/shared';
       <div i18n="@@route.no-network-references">None</div>
     }
   `,
-  standalone: true,
   imports: [NetworkTypeIconComponent, RouterLink],
 })
 export class RouteNetworkReferencesComponent {

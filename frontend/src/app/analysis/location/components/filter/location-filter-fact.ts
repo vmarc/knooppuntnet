@@ -7,7 +7,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ServerFilterGroup } from '@api/common/changes/filter';
 import { Fact } from '@api/custom';
 import { FactNameComponent } from '@app/analysis/fact';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Translations } from '@app/i18n';
 
 @Component({
@@ -41,8 +40,7 @@ import { Translations } from '@app/i18n';
       padding-bottom: 10px;
     }
   `,
-  standalone: true,
-  imports: [SidebarComponent, MatRadioModule, FactNameComponent],
+  imports: [MatRadioModule, FactNameComponent],
 })
 export class LocationFilterFactComponent {
   title = input.required<string>();

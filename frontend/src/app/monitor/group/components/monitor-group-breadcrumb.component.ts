@@ -12,7 +12,6 @@ import { RouterLink } from '@angular/router';
       <li i18n="@@breadcrumb.monitor.group">Group</li>
     </ul>
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class MonitorGroupBreadcrumbComponent {}

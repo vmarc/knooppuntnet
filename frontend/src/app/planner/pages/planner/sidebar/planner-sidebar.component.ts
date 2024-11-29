@@ -23,7 +23,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
     <kpn-sidebar-footer [loginEnabled]="false" />
     <kpn-page-footer [settings]="false" />
   `,
-  standalone: true,
   imports: [
     PageFooterComponent,
     PlannerSideBarAppearanceComponent,

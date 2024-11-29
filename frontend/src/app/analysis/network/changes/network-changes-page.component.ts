@@ -71,7 +71,6 @@ import { NetworkChangesPageService } from './network-changes-page.service';
     </kpn-old-page>
   `,
   providers: [NetworkChangesPageService, RouterService],
-  standalone: true,
   imports: [
     ChangesComponent,
     ItemComponent,

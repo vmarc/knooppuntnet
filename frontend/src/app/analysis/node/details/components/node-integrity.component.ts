@@ -74,7 +74,6 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
       top: 3px;
     }
   `,
-  standalone: true,
   imports: [
     IconHappyComponent,
     IconInvestigateComponent,

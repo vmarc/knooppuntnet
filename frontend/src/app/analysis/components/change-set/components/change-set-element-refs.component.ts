@@ -17,7 +17,6 @@ import { ChangesSetElementRefComponent } from './change-set-element-ref.componen
       }
     </div>
   `,
-  standalone: true,
   imports: [ChangesSetElementRefComponent],
 })
 export class ChangesSetElementRefsComponent implements OnInit {

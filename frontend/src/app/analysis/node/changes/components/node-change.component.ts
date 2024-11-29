@@ -47,7 +47,6 @@ import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node
 
     <kpn-node-change-detail [nodeChangeInfo]="nodeChangeInfo()" />
   `,
-  standalone: true,
   imports: [ChangeHeaderComponent, ChangeSetTagsComponent, NodeChangeDetailComponent],
 })
 export class NodeChangeComponent {

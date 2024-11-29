@@ -27,7 +27,6 @@ import { LocationModeService } from './location-mode.service';
     </div>
   `,
   styleUrl: '../../../../shared/components/shared/sidebar/sidebar.scss',
-  standalone: true,
   imports: [MatRadioModule],
 })
 export class LocationModeComponent {

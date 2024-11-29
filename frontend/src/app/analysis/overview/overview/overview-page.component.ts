@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
 import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
@@ -43,7 +42,6 @@ import { OverviewTableComponent } from './components/overview-table.component';
       <kpn-overview-sidebar sidebar />
     </kpn-old-page>
   `,
-  standalone: true,
   imports: [
     ErrorComponent,
     OverviewListComponent,

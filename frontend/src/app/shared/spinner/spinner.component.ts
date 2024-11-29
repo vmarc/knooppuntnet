@@ -12,7 +12,6 @@ import { SpinnerService } from './spinner.service';
       <mat-spinner diameter="40" />
     }
   `,
-  standalone: true,
   imports: [MatProgressSpinnerModule],
 })
 export class SpinnerComponent {

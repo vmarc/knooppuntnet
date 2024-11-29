@@ -158,7 +158,6 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
       padding-right: 1rem !important;
     }
   `,
-  standalone: true,
   imports: [
     DayComponent,
     DayPipe,

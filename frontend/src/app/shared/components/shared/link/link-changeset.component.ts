@@ -11,7 +11,6 @@ import { RouterLink } from '@angular/router';
       changeSetId()
     }}</a>
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class LinkChangesetComponent {

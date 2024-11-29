@@ -36,7 +36,6 @@ import { State } from '@app/state';
       display: block;
     }
   `,
-  standalone: true,
   imports: [MatExpansionModule, MatCheckbox],
 })
 export class ExploreScopeComponent {

@@ -28,7 +28,6 @@ import { ActionButtonLocationFactRoutesComponent } from '../../../components/act
       </div>
     }
   `,
-  standalone: true,
   imports: [
     ActionButtonLocationFactNodesComponent,
     ActionButtonLocationFactRoutesComponent,

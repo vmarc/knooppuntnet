@@ -7,7 +7,6 @@ import { OsmLinkComponent } from './osm-link.component';
   selector: 'kpn-osm-link-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <kpn-osm-link kind="node" [elementId]="nodeId().toString()" [title]="title()" /> `,
-  standalone: true,
   imports: [OsmLinkComponent],
 })
 export class OsmLinkNodeComponent {

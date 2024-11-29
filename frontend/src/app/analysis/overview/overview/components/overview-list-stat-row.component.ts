@@ -38,7 +38,6 @@ import { OverviewValueComponent } from './overview-value.component';
       width: 3.5em;
     }
   `,
-  standalone: true,
   imports: [CountryNameComponent, NetworkTypeIconComponent, OverviewValueComponent],
 })
 export class OverviewListStatRowComponent {

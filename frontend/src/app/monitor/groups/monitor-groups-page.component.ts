@@ -75,7 +75,6 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
     }
   `,
   providers: [MonitorGroupsPageService, NavService],
-  standalone: true,
   imports: [
     ErrorComponent,
     MatButtonModule,

@@ -31,7 +31,6 @@ import { Facts } from '../fact';
       <kpn-analysis-sidebar sidebar />
     </kpn-old-page>
   `,
-  standalone: true,
   providers: [AnalysisStrategyService, RouterService],
   imports: [
     AnalysisSidebarComponent,

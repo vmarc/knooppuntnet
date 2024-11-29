@@ -52,7 +52,6 @@ import { SubsetMapNetwork } from '@api/common/subset';
       padding-top: 2em;
     }
   `,
-  standalone: true,
   imports: [MatDialogModule, RouterLink, MatButtonModule],
 })
 export class SubsetMapNetworkDialogComponent {

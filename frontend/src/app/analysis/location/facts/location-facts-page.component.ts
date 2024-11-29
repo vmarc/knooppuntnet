@@ -3,13 +3,11 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
-import { OldPageComponent } from '@app/components/shared/page';
 import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
-import { LocationSidebarComponent } from '../location-sidebar.component';
 import { LocationFactsComponent } from './components/location-facts.component';
 import { LocationFactsPageService } from './location-facts-page.service';
 
@@ -37,7 +35,6 @@ import { LocationFactsPageService } from './location-facts-page.service';
     <kpn-sidebar-footer />
   `,
   providers: [LocationFactsPageService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     LocationFactsComponent,

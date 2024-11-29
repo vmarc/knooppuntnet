@@ -6,7 +6,6 @@ import { SidebarComponent } from '@app/components/shared/sidebar';
   selector: 'kpn-status-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<kpn-sidebar/>',
-  standalone: true,
   imports: [SidebarComponent],
 })
 export class StatusSidebarComponent {}

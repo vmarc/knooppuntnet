@@ -11,7 +11,6 @@ import { MarkdownModule } from 'ngx-markdown';
       [accessible](https://wiki.openstreetmap.org/wiki/Knooppuntnet_analysis#accessible).
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactRouteInaccessibleComponent {}

@@ -12,7 +12,6 @@ import { MonitorRouteRelationStructureRow } from '@api/common/monitor';
 import { TimestampDayPipe } from '@app/components/shared/format';
 import { DayPipe } from '@app/components/shared/format';
 import { DistancePipe } from '@app/components/shared/format';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
 import { SymbolComponent } from '@app/symbol';
 import { ActionButtonRelationComponent } from '../../../analysis/components/action/action-button-relation.component';
 import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
@@ -300,7 +299,6 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
       background-color: #f8f8f8;
     }
   `,
-  standalone: true,
   imports: [
     DayPipe,
     DistancePipe,
@@ -309,7 +307,6 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
     MatTableModule,
     MatTooltipModule,
     MonitorRouteGapComponent,
-    OsmLinkRelationComponent,
     RouterLink,
     TimestampDayPipe,
     SymbolComponent,

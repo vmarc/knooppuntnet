@@ -58,7 +58,6 @@ import { LocationFlatNode } from './location-flat-node';
       }
     }
   `,
-  standalone: true,
   imports: [LocationPipe, DecimalPipe, IntegerFormatPipe, ZeroIntegerFormatPipe],
 })
 export class LocationTreeNodeComponent {

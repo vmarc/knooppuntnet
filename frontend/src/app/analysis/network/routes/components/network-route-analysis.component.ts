@@ -27,7 +27,6 @@ import { RouteProposedIndicatorComponent } from '@app/analysis/components/indica
       display: flex;
     }
   `,
-  standalone: true,
   imports: [
     RouteAccessibleIndicatorComponent,
     RouteConnectionIndicatorComponent,

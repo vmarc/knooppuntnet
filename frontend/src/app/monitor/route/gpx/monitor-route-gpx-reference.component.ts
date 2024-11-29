@@ -4,16 +4,8 @@ import { input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterLink } from '@angular/router';
-import { DataComponent } from '@app/components/shared/data';
 import { DayInputComponent } from '@app/components/shared/format';
-import { DistancePipe } from '@app/components/shared/format';
-import { IconHappyComponent } from '@app/components/shared/icon';
 import { MarkdownModule } from 'ngx-markdown';
-import { MonitorRouteDetailsAnalysisComponent } from '../details/monitor-route-details-analysis.component';
-import { MonitorRouteDetailsReferenceComponent } from '../details/monitor-route-details-reference.component';
-import { MonitorRouteDetailsStructureComponent } from '../details/monitor-route-details-structure.component';
-import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-details-summary.component';
 
 @Component({
   selector: 'kpn-monitor-route-gpx-reference',
@@ -102,20 +94,7 @@ import { MonitorRouteDetailsSummaryComponent } from '../details/monitor-route-de
       display: none;
     }
   `,
-  standalone: true,
-  imports: [
-    DataComponent,
-    DayInputComponent,
-    DistancePipe,
-    IconHappyComponent,
-    MarkdownModule,
-    MatButtonModule,
-    MonitorRouteDetailsAnalysisComponent,
-    MonitorRouteDetailsReferenceComponent,
-    MonitorRouteDetailsStructureComponent,
-    MonitorRouteDetailsSummaryComponent,
-    RouterLink,
-  ],
+  imports: [DayInputComponent, MarkdownModule, MatButtonModule],
 })
 export class MonitorRouteGpxReferenceComponent {
   ngForm = input.required<FormGroupDirective>();

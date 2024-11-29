@@ -14,7 +14,6 @@ import { RouteDiffsUpdatedComponent } from './route-diffs-updated.component';
     <kpn-route-diffs-added [data]="data()" />
     <kpn-route-diffs-updated [data]="data()" />
   `,
-  standalone: true,
   imports: [RouteDiffsAddedComponent, RouteDiffsRemovedComponent, RouteDiffsUpdatedComponent],
 })
 export class RouteDiffsComponent {

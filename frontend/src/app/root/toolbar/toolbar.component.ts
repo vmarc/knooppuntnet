@@ -33,7 +33,6 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
       flex: 1 1 auto;
     }
   `,
-  standalone: true,
   imports: [
     MatButtonModule,
     MatIconModule,

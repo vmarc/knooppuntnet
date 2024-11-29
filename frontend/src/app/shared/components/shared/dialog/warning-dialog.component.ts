@@ -19,7 +19,6 @@ import { WarningDialogData } from './warning-dialog-data';
       </div>
     </kpn-dialog>
   `,
-  standalone: true,
   imports: [DialogComponent, MatDialogModule],
 })
 export class WarningDialogComponent {

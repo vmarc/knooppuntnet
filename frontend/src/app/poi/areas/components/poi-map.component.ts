@@ -22,7 +22,6 @@ import { PoiMapService } from './poi-map.service';
       useExisting: PoiMapService,
     },
   ],
-  standalone: true,
   imports: [LayerSwitcherComponent],
 })
 export class PoiMapComponent implements AfterViewInit, OnDestroy {

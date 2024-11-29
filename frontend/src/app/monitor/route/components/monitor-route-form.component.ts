@@ -33,7 +33,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
     }
   `,
   providers: [MonitorWebsocketService],
-  standalone: true,
   imports: [MonitorRouteFormSaveComponent, MonitorRoutePropertiesComponent, NgClass],
 })
 export class MonitorRouteFormComponent {

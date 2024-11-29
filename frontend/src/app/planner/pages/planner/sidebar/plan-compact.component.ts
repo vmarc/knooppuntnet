@@ -42,7 +42,6 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
       color: rgba(0, 0, 0, 0.75);
     }
   `,
-  standalone: true,
   imports: [],
 })
 export class PlanCompactComponent {

@@ -30,7 +30,6 @@ export class ChangeSetNetworkAction {
     <kpn-change-set-element-refs elementType="node" [changeSetElementRefs]="nodeChanges()" />
     <kpn-change-set-element-refs elementType="route" [changeSetElementRefs]="routeChanges()" />
   `,
-  standalone: true,
   imports: [ChangesSetElementRefsComponent, NetworkTypeIconComponent, RouterLink],
 })
 export class ChangesSetNetworkComponent {

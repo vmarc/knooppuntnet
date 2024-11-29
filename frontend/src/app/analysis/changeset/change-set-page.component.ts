@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
-import { RouterLink } from '@angular/router';
 import { Util } from '@app/components/shared';
 import { OldPageComponent } from '@app/components/shared/page';
 import { SidebarComponent } from '@app/components/shared/sidebar';
@@ -45,7 +44,6 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
     </kpn-old-page>
   `,
   providers: [ChangeSetPageService, RouterService],
-  standalone: true,
   imports: [
     ChangeSetHeaderComponent,
     ChangeSetLocationChangesComponent,

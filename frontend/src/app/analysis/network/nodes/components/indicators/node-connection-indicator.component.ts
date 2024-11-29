@@ -19,7 +19,6 @@ import { NodeConnectionIndicatorDialogComponent } from './node-connection-indica
       (openDialog)="onOpenDialog()"
     />
   `,
-  standalone: true,
   imports: [IndicatorComponent],
 })
 export class NodeConnectionIndicatorComponent implements OnInit {

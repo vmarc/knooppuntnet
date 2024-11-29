@@ -19,7 +19,6 @@ import { DialogComponent } from '../dialog/dialog.component';
       </div>
     </kpn-dialog>
   `,
-  standalone: true,
   imports: [DialogComponent, MatDialogContent, MatDialogTitle],
 })
 export class TimeoutComponent {}

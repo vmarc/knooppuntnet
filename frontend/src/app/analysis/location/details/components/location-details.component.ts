@@ -65,7 +65,6 @@ import { LocationSummaryComponent } from './location-summary.component';
       content: ' \\2192 \\0020 ';
     }
   `,
-  standalone: true,
   imports: [
     DataComponent,
     LocationSummaryComponent,

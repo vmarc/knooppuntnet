@@ -22,7 +22,6 @@ import { PageComponent } from './page.component';
       </mat-drawer-content>
     </mat-drawer-container>
   `,
-  standalone: true,
   imports: [MatDrawerContainer, MatDrawer, MatDrawerContent, PageComponent, MatButton],
 })
 export class PageFilterComponent {}

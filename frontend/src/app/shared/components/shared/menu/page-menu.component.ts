@@ -36,7 +36,6 @@ import { MatDividerModule } from '@angular/material/divider';
       padding-right: 5px;
     }
   `,
-  standalone: true,
   imports: [MatDividerModule],
 })
 export class PageMenuComponent {}

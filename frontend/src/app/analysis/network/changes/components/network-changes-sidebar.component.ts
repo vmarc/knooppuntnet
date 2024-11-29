@@ -17,7 +17,6 @@ import { NetworkChangesPageService } from '../network-changes-page.service';
       />
     </kpn-sidebar>
   `,
-  standalone: true,
   imports: [ChangeFilterComponent, SidebarComponent],
 })
 export class NetworkChangesSidebarComponent {

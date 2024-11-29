@@ -17,7 +17,6 @@ import { NetworkChangeComponent } from './network-change.component';
     />
     <kpn-network-change [networkChangeInfo]="networkChangeInfo()" />
   `,
-  standalone: true,
   imports: [ChangeHeaderComponent, NetworkChangeComponent],
 })
 export class NetworkChangeSetComponent {

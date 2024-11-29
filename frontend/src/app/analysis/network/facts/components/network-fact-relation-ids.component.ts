@@ -17,7 +17,6 @@ import { ActionButtonRouteComponent } from '../../../components/action/action-bu
       </div>
     }
   `,
-  standalone: true,
   imports: [ActionButtonRouteComponent, IconRouteComponent, LinkRouteComponent],
 })
 export class NetworkFactRelationIdsComponent {

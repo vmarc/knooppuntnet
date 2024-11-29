@@ -3,7 +3,6 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenuItem } from '@angular/material/menu';
@@ -31,16 +30,7 @@ import { ActionService } from './action.service';
       </button>
     </mat-menu>
   `,
-  standalone: true,
-  imports: [
-    MatDivider,
-    MatIcon,
-    MatIconButton,
-    MatMenu,
-    MatMenuItem,
-    MatMenuTrigger,
-    MatTooltipModule,
-  ],
+  imports: [MatIcon, MatIconButton, MatMenu, MatMenuItem, MatMenuTrigger, MatTooltipModule],
 })
 export class ActionButtonLocationFactRoutesComponent {
   locationFact = input.required<LocationFact>();

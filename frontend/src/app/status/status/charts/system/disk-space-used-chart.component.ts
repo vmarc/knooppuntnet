@@ -35,7 +35,6 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
       />
     </div>
   `,
-  standalone: true,
   imports: [ActionBarChartComponent, LineChartModule],
 })
 export class DiskSpaceUsedChartComponent {

@@ -13,7 +13,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
     <kpn-plan-result-menu />
     <kpn-plan-result />
   `,
-  standalone: true,
   imports: [PlanTipComponent, PlanResultMenuComponent, PlanResultComponent],
 })
 export class PlanComponent {}

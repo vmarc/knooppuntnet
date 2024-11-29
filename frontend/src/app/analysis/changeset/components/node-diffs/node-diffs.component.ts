@@ -14,7 +14,6 @@ import { NodeDiffsUpdatedComponent } from './node-diffs-updated.component';
     <kpn-node-diffs-added [data]="data()" />
     <kpn-node-diffs-updated [data]="data()" />
   `,
-  standalone: true,
   imports: [NodeDiffsAddedComponent, NodeDiffsRemovedComponent, NodeDiffsUpdatedComponent],
 })
 export class NodeDiffsComponent {

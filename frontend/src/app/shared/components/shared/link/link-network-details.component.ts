@@ -15,7 +15,6 @@ import { NetworkType } from '@api/custom';
       {{ networkName() }}
     </a>
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class LinkNetworkDetailsComponent {

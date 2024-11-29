@@ -34,7 +34,6 @@ import { LocationDetailsPageService } from './location-details-page.service';
     <kpn-sidebar-footer />
   `,
   providers: [LocationDetailsPageService, AnalysisStrategyService, RouterService],
-  standalone: true,
   imports: [
     LocationDetailsComponent,
     LocationPageHeaderComponent,

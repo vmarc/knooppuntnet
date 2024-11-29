@@ -37,7 +37,6 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       white-space: nowrap;
     }
   `,
-  standalone: true,
   imports: [IntegerFormatPipe, LinkNetworkDetailsComponent, SubsetNetworkHappyComponent],
 })
 export class SubsetNetworkComponent implements OnInit {

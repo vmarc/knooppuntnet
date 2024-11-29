@@ -23,7 +23,6 @@ import { OsmLinkNodeComponent } from '@app/components/shared/link';
       </div>
     }
   `,
-  standalone: true,
   imports: [OsmLinkNodeComponent],
 })
 export class CsNcNodesUpdatedComponent {

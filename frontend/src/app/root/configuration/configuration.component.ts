@@ -29,7 +29,6 @@ import { ConfigurationNetworkTypeComponent } from './configuration-network-type.
       margin: 8px;
     }
   `,
-  standalone: true,
   imports: [
     BackButtonComponent,
     ConfigurationNetworkTypeComponent,

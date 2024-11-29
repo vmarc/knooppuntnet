@@ -33,7 +33,6 @@ import { State } from '@app/state';
       }
     `,
   ],
-  standalone: true,
   imports: [MatButton, DividerComponent],
 })
 export class MenuTestActionsComponent {

@@ -39,7 +39,6 @@ import { StatusSidebarComponent } from './status-sidebar.component';
     </kpn-old-page>
   `,
   providers: [StatusPageService],
-  standalone: true,
   imports: [
     OldPageComponent,
     ServerDiskUsageComponent,

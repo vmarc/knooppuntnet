@@ -16,7 +16,6 @@ import { ActionButtonNodeComponent } from '../../../components/action/action-but
       </div>
     }
   `,
-  standalone: true,
   imports: [ActionButtonNodeComponent, IconNodeComponent],
 })
 export class NetworkFactNodeIdsComponent {

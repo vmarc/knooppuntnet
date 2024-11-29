@@ -27,7 +27,6 @@ import { PageService } from '..';
       padding-left: 10px;
     }
   `,
-  standalone: true,
   imports: [MatListModule, MatIconModule],
 })
 export class SidebarBackComponent {

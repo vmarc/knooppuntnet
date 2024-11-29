@@ -20,7 +20,6 @@ import { PageMenuComponent } from '@app/components/shared/menu';
     </kpn-page-menu>
     <kpn-error />
   `,
-  standalone: true,
   imports: [PageMenuComponent, PageMenuOptionComponent, ErrorComponent],
 })
 export class MonitorGroupPageMenuComponent {

@@ -28,7 +28,6 @@ import { NodeDiffsComponent } from './node-diffs/node-diffs.component';
       </div>
     }
   `,
-  standalone: true,
   imports: [NetworkTypeIconComponent, NodeDiffsComponent],
 })
 export class ChangeSetOrphanNodeChangesComponent {

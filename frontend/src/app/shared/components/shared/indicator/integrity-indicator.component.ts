@@ -18,7 +18,6 @@ import { IntegrityIndicatorDialogComponent } from './integrity-indicator-dialog.
       (openDialog)="onOpenDialog()"
     />
   `,
-  standalone: true,
   imports: [IndicatorComponent],
 })
 export class IntegrityIndicatorComponent {

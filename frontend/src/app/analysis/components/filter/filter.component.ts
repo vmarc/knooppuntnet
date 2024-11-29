@@ -28,7 +28,6 @@ import { FilterTitleComponent } from './filter-title.component';
     }
   `,
   styleUrl: './filter.scss',
-  standalone: true,
   imports: [FilterCheckboxGroupComponent, FilterRadioGroupComponent, FilterTitleComponent],
 })
 export class FilterComponent {

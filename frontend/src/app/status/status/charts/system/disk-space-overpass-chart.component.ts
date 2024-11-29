@@ -19,7 +19,6 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
       />
     </div>
   `,
-  standalone: true,
   imports: [ActionBarChartComponent],
 })
 export class DiskSpaceOverpassChartComponent {

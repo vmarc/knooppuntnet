@@ -36,7 +36,6 @@ import { NodeDiffsData } from './node-diffs-data';
       </div>
     }
   `,
-  standalone: true,
   imports: [IconInvestigateComponent, LinkNodeRefHeaderComponent, MetaDataComponent],
 })
 export class NodeDiffsRemovedComponent implements OnInit {

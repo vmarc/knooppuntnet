@@ -17,7 +17,6 @@ import { MatIconModule } from '@angular/material/icon';
       height: 25px;
     }
   `,
-  standalone: true,
   imports: [MatIconModule],
 })
 export class IconHappyComponent {}

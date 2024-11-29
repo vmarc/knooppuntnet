@@ -34,7 +34,6 @@ import { IndicatorIconComponent } from './indicator-icon.component';
       padding-left: 20px;
     }
   `,
-  standalone: true,
   imports: [DialogComponent, MatDialogModule, IndicatorIconComponent],
 })
 export class IndicatorDialogComponent {

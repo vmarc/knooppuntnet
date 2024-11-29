@@ -26,7 +26,6 @@ import { State } from '@app/state';
       </mat-button-toggle>
     </mat-button-toggle-group>
   `,
-  standalone: true,
   imports: [
     MatButtonModule,
     MatButtonToggle,

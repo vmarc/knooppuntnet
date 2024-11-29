@@ -77,7 +77,6 @@ import { TagDiffsComponent } from '../tag-diffs.component';
       </div>
     </div>
   `,
-  standalone: true,
   imports: [MetaDataComponent, NodeListComponent, OsmLinkWayComponent, TagDiffsComponent],
 })
 export class RouteChangeWayUpdatedComponent {

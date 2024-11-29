@@ -60,7 +60,6 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
     }
   `,
   providers: [MonitorRouteDeletePageService, NavService],
-  standalone: true,
   imports: [
     ErrorComponent,
     MatButtonModule,

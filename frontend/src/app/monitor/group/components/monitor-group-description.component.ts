@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <mat-form-field class="description">
-      <mat-label i18n="@@monitor.group.description.label">Description </mat-label>
+      <mat-label i18n="@@monitor.group.description.label">Description</mat-label>
       <input matInput [formControl]="description()" required />
     </mat-form-field>
 
@@ -41,11 +41,11 @@ import { ChangeDetectionStrategy } from '@angular/core';
     :host {
       display: block;
     }
+
     .description {
       width: 40em;
     }
   `,
-  standalone: true,
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
 })
 export class MonitorGroupDescriptionComponent {

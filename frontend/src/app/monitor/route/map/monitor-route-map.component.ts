@@ -27,7 +27,6 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
       useExisting: MonitorRouteMapService,
     },
   ],
-  standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent, GeolocationControlComponent],
 })
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {

@@ -28,7 +28,6 @@ import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
       </div>
     }
   `,
-  standalone: true,
   imports: [NetworkTypeIconComponent, RouteDiffsComponent],
 })
 export class ChangeSetOrphanRouteChangesComponent {

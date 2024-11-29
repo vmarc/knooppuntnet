@@ -28,7 +28,6 @@ import { ChangeFilterPeriodComponent } from './change-filter-period.component';
     }
   `,
   styleUrl: '../../filter/filter.scss',
-  standalone: true,
   imports: [ChangeFilterPeriodComponent],
 })
 export class ChangeFilterComponent {

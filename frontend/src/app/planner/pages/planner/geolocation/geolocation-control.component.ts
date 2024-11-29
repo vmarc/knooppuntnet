@@ -29,7 +29,6 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
       top: 110px;
     }
   `,
-  standalone: true,
   imports: [MatIconModule],
 })
 export class GeolocationControlComponent {

@@ -134,7 +134,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
     }
   `,
   providers: [MonitorRoutePropertiesStep3RelationService],
-  standalone: true,
   imports: [
     MatButtonModule,
     MatFormFieldModule,

@@ -12,7 +12,6 @@ import { MarkdownModule } from 'ngx-markdown';
       etc).
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactUnexpectedIntegrityCheckComponent {}

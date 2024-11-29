@@ -29,7 +29,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
       display: inline-block;
     }
   `,
-  standalone: true,
   imports: [LinkRouteComponent],
 })
 export class LocationNodeRoutesComponent {

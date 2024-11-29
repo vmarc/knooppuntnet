@@ -67,7 +67,6 @@ import { PlannerPopupContentsComponent } from './planner-popup-contents.componen
       content: '✖';
     }
   `,
-  standalone: true,
   imports: [PlannerPopupContentsComponent],
 })
 export class PlannerPopupComponent implements AfterViewInit {

@@ -58,7 +58,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       padding-right: 20px;
     }
   `,
-  standalone: true,
   imports: [MatCheckboxModule, PoiMenuOptionComponent, DividerComponent],
 })
 export class PoiMenuComponent {

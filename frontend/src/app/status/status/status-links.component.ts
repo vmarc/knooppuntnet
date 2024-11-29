@@ -18,7 +18,6 @@ import { StatusLinks } from './status-links';
       <a [routerLink]="links().year">Year</a>
     </span>
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class StatusLinksComponent {

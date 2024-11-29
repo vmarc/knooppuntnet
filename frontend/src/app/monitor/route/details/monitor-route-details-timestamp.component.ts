@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
-import { IntegerFormatPipe } from '@app/components/shared/format';
 import { TimestampPipe } from '@app/components/shared/format';
 
 @Component({
@@ -22,8 +21,7 @@ import { TimestampPipe } from '@app/components/shared/format';
       -
     }
   `,
-  standalone: true,
-  imports: [TimestampPipe, IntegerFormatPipe],
+  imports: [TimestampPipe],
 })
 export class MonitorRouteDetailsTimestampComponent implements OnInit {
   page = input.required<MonitorRouteDetailsPage>();

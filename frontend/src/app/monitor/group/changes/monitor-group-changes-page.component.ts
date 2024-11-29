@@ -70,7 +70,6 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
     </kpn-old-page>
   `,
   providers: [NavService, MonitorGroupChangesPageService],
-  standalone: true,
   imports: [
     MatSlideToggleModule,
     MonitorChangesComponent,

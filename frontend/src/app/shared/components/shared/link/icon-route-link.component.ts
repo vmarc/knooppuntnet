@@ -14,7 +14,6 @@ import { IconLinkComponent } from './icon-link.component';
       elementType="route"
     />
   `,
-  standalone: true,
   imports: [IconLinkComponent],
 })
 export class IconRouteLinkComponent {

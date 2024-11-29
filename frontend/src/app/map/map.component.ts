@@ -50,7 +50,6 @@ import { MapService } from './map.service';
       }
     `,
   ],
-  standalone: true,
   imports: [CdkPortal, MapRoutePopupComponent],
 })
 export class MapComponent implements AfterViewInit, OnDestroy {

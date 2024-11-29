@@ -79,7 +79,6 @@ import { SubsetOrphanNodesPageService } from '../subset-orphan-nodes-page.servic
       width: 3rem;
     }
   `,
-  standalone: true,
   imports: [
     ActionButtonNodeComponent,
     DayComponent,

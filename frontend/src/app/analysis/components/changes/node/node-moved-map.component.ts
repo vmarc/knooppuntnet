@@ -26,7 +26,6 @@ import { NodeMovedMapService } from './node-moved-map.service';
       useExisting: NodeMovedMapService,
     },
   ],
-  standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent],
 })
 export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {

@@ -26,7 +26,6 @@ import { BarChartModule } from '@swimlane/ngx-charts';
       (select)="onSelect($event)"
     />
   `,
-  standalone: true,
   imports: [BarChartModule],
 })
 export class ActionBarChartComponent {

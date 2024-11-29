@@ -51,7 +51,6 @@ import { ConfigurationNetworkTypeItemComponent } from './configuration-network-t
       </ng-template>
     </mat-expansion-panel>
   `,
-  standalone: true,
   imports: [
     MatRadioGroup,
     ConfigurationNetworkTypeItemComponent,

@@ -37,7 +37,6 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
       </ngx-charts-line-chart>
     </div>
   `,
-  standalone: true,
   imports: [ActionBarChartComponent, LineChartModule],
 })
 export class DocsChartComponent {

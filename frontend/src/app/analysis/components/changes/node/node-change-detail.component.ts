@@ -121,7 +121,6 @@ import { NodeMovedMapComponent } from './node-moved-map.component';
       </div>
     }
   `,
-  standalone: true,
   imports: [
     FactDiffsComponent,
     FactNameComponent,

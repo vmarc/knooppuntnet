@@ -42,7 +42,6 @@ import { NodeMapPageService } from './node-map-page.service';
     </kpn-old-page>
   `,
   providers: [NodeMapPageService, NodeMapService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     NodeDetailsSidebarComponent,

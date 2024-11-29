@@ -19,7 +19,6 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
       [changeSetElementRefs]="subsetElementRefs().elementRefs"
     />
   `,
-  standalone: true,
   imports: [NetworkTypeIconComponent, ChangesSetElementRefsComponent],
 })
 export class ChangesSetOrphanNodesComponent {

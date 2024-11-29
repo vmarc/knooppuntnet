@@ -50,7 +50,6 @@ import { SymbolWheelComponent } from './symbol-wheel.component';
       position: absolute;
     }
   `,
-  standalone: true,
   imports: [SymbolHikerComponent, SymbolWheelComponent],
 })
 export class SymbolComponent implements OnInit, AfterViewInit {

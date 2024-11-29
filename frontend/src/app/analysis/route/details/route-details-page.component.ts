@@ -125,14 +125,15 @@ import { RouteDetailsPageService } from './route-details-page.service';
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
   providers: [RouteDetailsPageService, RouterService],
-  standalone: true,
   imports: [
+    BackButtonComponent,
     DataComponent,
     DividerComponent,
     FactsComponent,
     MatButton,
     MatIcon,
     MatLabel,
+    PageButtonsComponent,
     PageComponent,
     RouteEndNodesComponent,
     RouteMembersComponent,
@@ -144,8 +145,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
     RouterLink,
     TagTableComponent,
     TimestampComponent,
-    BackButtonComponent,
-    PageButtonsComponent,
   ],
 })
 export class RouteDetailsPageComponent implements OnInit {

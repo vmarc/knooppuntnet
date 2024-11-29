@@ -19,7 +19,6 @@ import { IndicatorIconComponent } from './indicator-icon.component';
       padding-right: 5px;
     }
   `,
-  standalone: true,
   imports: [IndicatorIconComponent],
 })
 export class IndicatorComponent {

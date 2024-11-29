@@ -104,7 +104,6 @@ import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
       padding-left: 6px;
     }
   `,
-  standalone: true,
   imports: [],
 })
 export class PlanDetailedComponent {

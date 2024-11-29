@@ -21,7 +21,6 @@ import { EditService } from '@app/components/shared';
       <kpn-fact-level [factLevel]="factLevel()" class="level" />
     </div>
   `,
-  standalone: true,
   imports: [FactNameComponent, FactLevelComponent],
 })
 export class NetworkFactHeaderComponent {

@@ -47,7 +47,6 @@ import { NodeService } from '../node.service';
       </kpn-page-menu-option>
     </kpn-page-menu>
   `,
-  standalone: true,
   imports: [PageHeaderComponent, PageMenuComponent, PageMenuOptionComponent],
 })
 export class NodePageHeaderComponent {

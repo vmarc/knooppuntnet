@@ -22,7 +22,6 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
       padding-left: 5px;
     }
   `,
-  standalone: true,
   imports: [IconHappyComponent],
 })
 export class SubsetNetworkHappyComponent implements OnInit {

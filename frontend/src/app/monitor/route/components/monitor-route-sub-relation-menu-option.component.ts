@@ -23,7 +23,6 @@ import { MonitorRouteSubRelation } from '@api/common/monitor';
       color: grey;
     }
   `,
-  standalone: true,
   imports: [NgClass],
 })
 export class MonitorRouteSubRelationMenuOptionComponent {

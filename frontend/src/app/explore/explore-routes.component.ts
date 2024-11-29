@@ -24,7 +24,6 @@ import { ExploreService } from './explore.service';
       </div>
     }
   `,
-  standalone: true,
   imports: [FormsModule, ReactiveFormsModule, MatListItem, MatNavList, DividerComponent],
 })
 export class ExploreRoutesComponent {

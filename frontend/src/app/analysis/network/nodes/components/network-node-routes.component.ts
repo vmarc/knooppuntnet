@@ -22,7 +22,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
       </span>
     }
   `,
-  standalone: true,
   imports: [LinkRouteComponent],
 })
 export class NetworkNodeRoutesComponent {

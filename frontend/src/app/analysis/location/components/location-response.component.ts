@@ -19,7 +19,6 @@ import { SituationOnComponent } from '@app/components/shared/timestamp';
       }
     }
   `,
-  standalone: true,
   imports: [SituationOnComponent],
 })
 export class LocationResponseComponent {

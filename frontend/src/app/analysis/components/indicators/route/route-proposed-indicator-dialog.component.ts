@@ -39,7 +39,6 @@ import { MarkdownModule } from 'ngx-markdown';
       }
     </kpn-indicator-dialog>
   `,
-  standalone: true,
   imports: [IndicatorDialogComponent, MarkdownModule],
 })
 export class RouteProposedIndicatorDialogComponent {

@@ -12,7 +12,6 @@ import { MarkdownModule } from 'ngx-markdown';
       *"source=survey"*.
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactNodeInvalidSurveyDateComponent {}

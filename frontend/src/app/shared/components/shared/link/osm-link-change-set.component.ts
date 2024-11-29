@@ -9,7 +9,6 @@ import { OsmLinkComponent } from './osm-link.component';
   template: `
     <kpn-osm-link kind="changeset" [elementId]="changeSetId().toString()" title="osm" />
   `,
-  standalone: true,
   imports: [OsmLinkComponent],
 })
 export class OsmLinkChangeSetComponent {

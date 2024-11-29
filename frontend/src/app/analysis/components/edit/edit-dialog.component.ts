@@ -76,7 +76,6 @@ import { EditService } from './edit.service';
     }
   `,
   providers: [EditService],
-  standalone: true,
   imports: [MatButtonModule, MatDialogModule, MatProgressBarModule],
 })
 export class EditDialogComponent implements OnInit, OnDestroy {

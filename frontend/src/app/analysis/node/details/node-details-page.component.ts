@@ -126,7 +126,6 @@ import { NodeDetailsPageService } from './node-details-page.service';
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
   providers: [NodeDetailsPageService, RouterService],
-  standalone: true,
   imports: [
     DataComponent,
     ErrorComponent,

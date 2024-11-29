@@ -97,7 +97,6 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     }
   `,
   providers: [MonitorRouteGpxService, MonitorWebsocketService, NavService],
-  standalone: true,
   imports: [
     DataComponent,
     DistancePipe,

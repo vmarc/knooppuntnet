@@ -31,7 +31,6 @@ import { State } from '@app/state';
       font-size: 0.8em;
     }
   `,
-  standalone: true,
   imports: [DividerComponent, NgClass],
 })
 export class MapRoutePopupComponent {

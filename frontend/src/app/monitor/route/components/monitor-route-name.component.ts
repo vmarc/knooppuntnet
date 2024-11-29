@@ -48,7 +48,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       width: 8em;
     }
   `,
-  standalone: true,
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule],
 })
 export class MonitorRouteNameComponent {

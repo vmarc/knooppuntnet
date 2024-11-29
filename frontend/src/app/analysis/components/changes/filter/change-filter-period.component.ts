@@ -34,7 +34,6 @@ import { MonthComponent } from './month.component';
     </div>
   `,
   styleUrl: '../../filter/filter.scss',
-  standalone: true,
   imports: [NgClass, MonthComponent],
 })
 export class ChangeFilterPeriodComponent {

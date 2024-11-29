@@ -27,7 +27,6 @@ import { NetworkMapService } from './network-map.service';
       useExisting: NetworkMapService,
     },
   ],
-  standalone: true,
   imports: [LayerSwitcherComponent, MapLinkMenuComponent, NetworkControlComponent],
 })
 export class NetworkMapComponent implements AfterViewInit {

@@ -83,7 +83,6 @@ import { LocationOption } from './location-option';
       color: grey;
     }
   `,
-  standalone: true,
   imports: [
     MatAutocompleteModule,
     MatButtonModule,

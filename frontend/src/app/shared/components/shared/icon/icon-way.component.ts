@@ -7,7 +7,6 @@ import { MatTooltip } from '@angular/material/tooltip';
   selector: 'kpn-icon-way',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: '<mat-icon svgIcon="way" matTooltip="way" i18n-matTooltip="@@icon.way.tooltip" />',
-  standalone: true,
   imports: [MatIcon, MatTooltip],
 })
 export class IconWayComponent {}

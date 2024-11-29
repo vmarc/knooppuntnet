@@ -8,7 +8,6 @@ import { NetworkType } from '@api/custom';
   selector: 'kpn-network-type-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <mat-icon [svgIcon]="networkType()" /> `,
-  standalone: true,
   imports: [MatIconModule],
 })
 export class NetworkTypeIconComponent {

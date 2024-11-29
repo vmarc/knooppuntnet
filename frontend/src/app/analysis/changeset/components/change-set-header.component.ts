@@ -75,7 +75,6 @@ import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
       </tbody>
     </table>
   `,
-  standalone: true,
   imports: [ChangeSetAnalysisComponent, OsmLinkChangeSetComponent, TimestampComponent],
 })
 export class ChangeSetHeaderComponent {

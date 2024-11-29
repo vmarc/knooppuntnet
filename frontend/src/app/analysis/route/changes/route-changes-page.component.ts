@@ -111,7 +111,6 @@ import { RouteChangesPageService } from './route-changes-page.service';
     </kpn-page-filter>
   `,
   providers: [RouteChangesPageService, RouterService],
-  standalone: true,
   imports: [
     ChangesComponent,
     ItemComponent,

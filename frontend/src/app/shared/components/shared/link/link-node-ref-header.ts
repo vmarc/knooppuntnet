@@ -22,7 +22,6 @@ import { OsmLinkNodeComponent } from './osm-link-node.component';
       <kpn-osm-link-node [nodeId]="ref().id" [title]="ref().id.toString()" />
     </div>
   `,
-  standalone: true,
   imports: [LinkNodeComponent, OsmLinkNodeComponent],
 })
 export class LinkNodeRefHeaderComponent implements OnInit {

@@ -37,7 +37,6 @@ import { IndicatorDialogComponent } from '@app/components/shared/indicator';
       }
     </kpn-indicator-dialog>
   `,
-  standalone: true,
   imports: [IndicatorDialogComponent],
 })
 export class RouteConnectionIndicatorDialogComponent {

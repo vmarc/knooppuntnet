@@ -53,7 +53,6 @@ import { OverviewValueComponent } from './overview-value.component';
       text-align: right;
     }
   `,
-  standalone: true,
   imports: [OverviewValueComponent, MarkdownModule],
 })
 export class OverviewTableRowComponent {

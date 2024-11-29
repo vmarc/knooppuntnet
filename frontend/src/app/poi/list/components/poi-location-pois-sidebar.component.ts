@@ -89,7 +89,6 @@ import { CountrySelectComponent } from './country-select.component';
       justify-content: right;
     }
   `,
-  standalone: true,
   imports: [
     CountrySelectComponent,
     LocationSelectorComponent,

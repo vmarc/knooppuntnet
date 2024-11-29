@@ -52,7 +52,6 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
       font-style: italic;
     }
   `,
-  standalone: true,
   imports: [
     MatSlideToggleModule,
     OldPageComponent,

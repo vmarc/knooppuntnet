@@ -119,7 +119,6 @@ import { LinkImageComponent } from './link-image.component';
       text-align: right;
     }
   `,
-  standalone: true,
   imports: [
     LinkImageComponent,
     LinkNodeComponent,

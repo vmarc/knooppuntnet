@@ -56,7 +56,6 @@ import { ActionButtonRouteComponent } from '../../../components/action/action-bu
       border-left: 1px solid lightgray;
     }
   `,
-  standalone: true,
   imports: [
     ActionButtonNodeComponent,
     ActionButtonRouteComponent,

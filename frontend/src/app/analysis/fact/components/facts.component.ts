@@ -83,7 +83,6 @@ import { Facts } from './facts';
       padding-left: 20px;
     }
   `,
-  standalone: true,
   imports: [
     BracketsComponent,
     FactDescriptionComponent,

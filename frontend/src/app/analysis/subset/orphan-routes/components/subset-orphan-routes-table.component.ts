@@ -104,7 +104,6 @@ import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analys
       width: 100%;
     }
   `,
-  standalone: true,
   imports: [
     DayComponent,
     EditAndPaginatorComponent,

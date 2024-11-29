@@ -27,7 +27,6 @@ import { NetworkTypeNameComponent } from './network-type-name.component';
       margin-right: 10px;
     }
   `,
-  standalone: true,
   imports: [NetworkTypeIconComponent, NetworkTypeNameComponent],
 })
 export class NetworkTypeComponent {

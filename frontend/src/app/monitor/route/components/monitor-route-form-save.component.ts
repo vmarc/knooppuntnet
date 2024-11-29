@@ -48,7 +48,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       </button>
     </div>
   `,
-  standalone: true,
   imports: [
     MatButtonModule,
     MatIconModule,

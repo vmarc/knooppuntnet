@@ -31,7 +31,6 @@ import { LocationMapPageService } from './location-map-page.service';
     </kpn-page>
   `,
   providers: [LocationMapPageService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     LocationMapComponent,

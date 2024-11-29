@@ -163,7 +163,6 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
       padding-right: 1rem !important;
     }
   `,
-  standalone: true,
   imports: [
     DayComponent,
     DayPipe,

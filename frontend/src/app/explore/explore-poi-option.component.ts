@@ -29,7 +29,6 @@ import { State } from '@app/state';
       padding-right: 10px;
     }
   `,
-  standalone: true,
   imports: [MatCheckboxModule],
 })
 export class ExplorePoiOptionComponent {

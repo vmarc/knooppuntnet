@@ -17,7 +17,6 @@ import { LocationModeComponent } from './location-mode.component';
       <kpn-location-mode />
     </kpn-sidebar>
   `,
-  standalone: true,
   imports: [SidebarComponent, AnalysisStrategyComponent, LocationModeComponent],
 })
 export class LocationSelectionSidebarComponent {

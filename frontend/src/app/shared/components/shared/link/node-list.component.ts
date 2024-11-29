@@ -15,7 +15,6 @@ import { OsmLinkNodeComponent } from './osm-link-node.component';
       }
     </div>
   `,
-  standalone: true,
   imports: [OsmLinkNodeComponent],
 })
 export class NodeListComponent {

@@ -119,7 +119,6 @@ import { PlannerService } from '../planner.service';
     }
   `,
   providers: [PdfService],
-  standalone: true,
   imports: [
     ClipboardModule,
     DialogComponent,

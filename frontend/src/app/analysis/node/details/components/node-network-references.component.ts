@@ -21,7 +21,6 @@ import { NodeNetworkReferenceComponent } from './node-network-reference.componen
       <p i18n="@@node.network-references.none">None</p>
     }
   `,
-  standalone: true,
   imports: [NodeNetworkReferenceComponent],
 })
 export class NodeNetworkReferencesComponent {

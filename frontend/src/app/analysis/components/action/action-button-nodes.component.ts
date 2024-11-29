@@ -26,7 +26,6 @@ import { ActionService } from './action.service';
       <button mat-menu-item (click)="josmLoad()">JOSM load nodes</button>
     </mat-menu>
   `,
-  standalone: true,
   imports: [MatIcon, MatIconButton, MatMenu, MatMenuItem, MatMenuTrigger, MatTooltipModule],
 })
 export class ActionButtonNodesComponent {

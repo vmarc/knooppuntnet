@@ -16,7 +16,6 @@ import { RouterLink } from '@angular/router';
       {{ nodeName() }}
     </a>
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class LinkNodeComponent {

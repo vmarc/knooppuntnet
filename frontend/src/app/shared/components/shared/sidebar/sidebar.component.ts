@@ -42,7 +42,6 @@ import { SidebarFooterComponent } from './sidebar-footer.component';
       margin-top: auto;
     }
   `,
-  standalone: true,
   imports: [SidebarFooterComponent],
 })
 export class SidebarComponent {}

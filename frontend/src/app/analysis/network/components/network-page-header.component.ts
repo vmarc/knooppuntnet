@@ -88,7 +88,6 @@ import { NetworkService } from '../network.service';
       }
     }
   `,
-  standalone: true,
   imports: [
     MatIconModule,
     PageHeaderComponent,

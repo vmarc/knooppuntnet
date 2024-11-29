@@ -34,7 +34,6 @@ import { NetworkDetailsPageService } from './network-details-page.service';
     </kpn-old-page>
   `,
   providers: [NetworkDetailsPageService, AnalysisStrategyService, RouterService],
-  standalone: true,
   imports: [
     AnalysisSidebarComponent,
     NetworkDetailsComponent,

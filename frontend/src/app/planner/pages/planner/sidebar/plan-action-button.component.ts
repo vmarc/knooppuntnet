@@ -43,7 +43,6 @@ import { PageWidthService } from '@app/components/shared';
       padding-left: 10px;
     }
   `,
-  standalone: true,
   imports: [MatButtonModule, MatIconModule],
 })
 export class PlanActionButtonComponent {

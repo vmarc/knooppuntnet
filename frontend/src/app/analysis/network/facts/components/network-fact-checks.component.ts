@@ -57,7 +57,6 @@ import { ActionButtonNodeComponent } from '../../../components/action/action-but
       padding-left: 0 !important;
     }
   `,
-  standalone: true,
   imports: [LinkNodeComponent, ActionButtonNodeComponent],
 })
 export class NetworkFactChecksComponent {

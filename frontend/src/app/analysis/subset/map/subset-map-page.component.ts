@@ -33,7 +33,6 @@ import { SubsetMapService } from './subset-map.service';
     </kpn-old-page>
   `,
   providers: [SubsetMapService, SubsetMapPageService, AnalysisStrategyService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     OldPageComponent,

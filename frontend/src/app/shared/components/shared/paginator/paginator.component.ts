@@ -27,7 +27,6 @@ import { MatPaginator } from '@angular/material/paginator';
       background-color: transparent;
     }
   `,
-  standalone: true,
   imports: [MatPaginatorModule],
 })
 export class PaginatorComponent implements AfterViewInit {

@@ -49,7 +49,6 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
       </li>
     </ul>
   `,
-  standalone: true,
   imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent],
 })
 export class SubsetPageBreadcrumbComponent {

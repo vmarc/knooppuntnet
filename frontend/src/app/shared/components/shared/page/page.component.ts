@@ -15,7 +15,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
       margin: 1em;
     }
   `,
-  standalone: true,
   imports: [MatSidenavModule],
 })
 export class PageComponent {}

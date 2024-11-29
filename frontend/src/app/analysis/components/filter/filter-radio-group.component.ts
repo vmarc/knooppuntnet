@@ -26,7 +26,6 @@ import { FilterOptionGroup } from '@app/kpn/filter';
     </div>
   `,
   styleUrl: './filter.scss',
-  standalone: true,
   imports: [MatRadioModule],
 })
 export class FilterRadioGroupComponent {

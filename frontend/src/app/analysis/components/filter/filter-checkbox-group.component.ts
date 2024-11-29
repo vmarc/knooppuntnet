@@ -20,7 +20,6 @@ import { FilterOptionGroup } from '@app/kpn/filter';
       }
     </div>
   `,
-  standalone: true,
   imports: [MatCheckboxModule],
 })
 export class FilterCheckboxGroupComponent {

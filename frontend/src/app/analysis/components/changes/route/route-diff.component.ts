@@ -71,7 +71,6 @@ import { RouteNodeDiffComponent } from './route-node-diff.component';
       </div>
     }
   `,
-  standalone: true,
   imports: [FactDiffsComponent, RouteNodeDiffComponent, TagDiffsComponent],
 })
 export class RouteDiffComponent {

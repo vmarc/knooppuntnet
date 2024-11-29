@@ -81,7 +81,6 @@ import { StatusSidebarComponent } from './status-sidebar.component';
     }
   `,
   providers: [ReplicationStatusPageService, RouterService],
-  standalone: true,
   imports: [
     AnalysisDelayChartComponent,
     DelayChartComponent,

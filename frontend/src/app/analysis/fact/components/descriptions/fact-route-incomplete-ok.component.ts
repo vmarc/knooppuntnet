@@ -12,7 +12,6 @@ import { MarkdownModule } from 'ngx-markdown';
       But after analysis, the route seems to be ok.
     </markdown>
   `,
-  standalone: true,
   imports: [MarkdownModule],
 })
 export class FactRouteIncompleteOkComponent {}

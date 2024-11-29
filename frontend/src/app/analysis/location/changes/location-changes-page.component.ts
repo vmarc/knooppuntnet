@@ -40,7 +40,6 @@ import { LocationChangesPageService } from './location-changes-page.service';
     </kpn-page-filter>
   `,
   providers: [LocationChangesPageService, RouterService],
-  standalone: true,
   imports: [
     ErrorComponent,
     LocationChangesComponent,

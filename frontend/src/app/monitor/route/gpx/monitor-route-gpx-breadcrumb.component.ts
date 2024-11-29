@@ -19,7 +19,6 @@ import { RouterLink } from '@angular/router';
       <li i18n="@@breadcrumb.monitor.route.gpx">gpx</li>
     </ul>
   `,
-  standalone: true,
   imports: [RouterLink],
 })
 export class MonitorRouteGpxBreadcrumbComponent {

@@ -19,7 +19,6 @@ import { Tag } from '@api/custom';
       padding-bottom: 10px;
     }
   `,
-  standalone: true,
   imports: [],
 })
 export class TagsTextComponent {

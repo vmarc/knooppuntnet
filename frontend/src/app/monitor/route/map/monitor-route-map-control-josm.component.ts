@@ -68,7 +68,6 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
       padding-left: 0.8em;
     }
   `,
-  standalone: true,
   imports: [MatButtonModule, MatMenuModule],
 })
 export class MonitorRouteMapControlJosmComponent {

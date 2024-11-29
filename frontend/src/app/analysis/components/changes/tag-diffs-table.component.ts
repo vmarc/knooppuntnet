@@ -62,7 +62,6 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
       color: grey;
     }
   `,
-  standalone: true,
   imports: [NgClass, TagDiffActionComponent],
 })
 export class TagDiffsTableComponent {

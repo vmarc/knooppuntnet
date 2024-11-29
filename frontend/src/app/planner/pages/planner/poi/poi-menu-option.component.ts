@@ -29,7 +29,6 @@ import { PlannerStateService } from '../planner-state.service';
       padding-right: 10px;
     }
   `,
-  standalone: true,
   imports: [MatCheckboxModule],
 })
 export class PoiMenuOptionComponent {

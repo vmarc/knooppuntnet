@@ -16,7 +16,6 @@ import { IconNetworkLinkComponent } from '@app/components/shared/link';
       />
     </div>
   `,
-  standalone: true,
   imports: [IconNetworkLinkComponent],
 })
 export class NodeNetworkReferenceComponent {

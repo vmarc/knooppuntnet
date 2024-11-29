@@ -19,7 +19,6 @@ import { TagDiffsTextComponent } from './tag-diffs-text.component';
       <kpn-tag-diffs-table #large [tagDiffs]="tagDiffs()" />
     }
   `,
-  standalone: true,
   imports: [TagDiffsTextComponent, TagDiffsTableComponent],
 })
 export class TagDiffsComponent {

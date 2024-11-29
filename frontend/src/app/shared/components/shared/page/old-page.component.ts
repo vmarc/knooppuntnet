@@ -74,7 +74,6 @@ import { PageFooterComponent } from './page-footer.component';
       max-width: 360px;
     }
   `,
-  standalone: true,
   imports: [MatSidenavModule, PageExperimentalComponent, PageFooterComponent, SidebarBackComponent],
 })
 export class OldPageComponent {
