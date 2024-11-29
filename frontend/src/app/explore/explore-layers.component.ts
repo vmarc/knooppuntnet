@@ -134,40 +134,41 @@ import { State } from '@app/state';
 })
 export class ExploreLayersComponent {
   private readonly state = inject(State);
+  private readonly layers = this.state.map.layers;
   protected networkType = this.state.page.networkType;
-  protected standardBackgroundLayerEnabled = this.state.map.standardBackgroundLayerEnabled;
-  protected osmBackgroundLayerEnabled = this.state.map.osmBackgroundLayerEnabled;
-  protected flandersOpenDataLayerEnabled = this.state.map.flandersOpenDataLayerEnabled;
-  protected netherlandsOpenDataLayerEnabled = this.state.map.netherlandsOpenDataLayerEnabled;
-  protected franceOpenDataLayerEnabled = this.state.map.franceOpenDataLayerEnabled;
-  protected routeLayerEnabled = this.state.map.routeLayerEnabled;
-  protected gridLayerEnabled = this.state.map.gridLayerEnabled;
+  protected standardBackgroundLayerEnabled = this.layers.standardBackgroundLayerEnabled;
+  protected osmBackgroundLayerEnabled = this.layers.osmBackgroundLayerEnabled;
+  protected flandersOpenDataLayerEnabled = this.layers.flandersOpenDataLayerEnabled;
+  protected netherlandsOpenDataLayerEnabled = this.layers.netherlandsOpenDataLayerEnabled;
+  protected franceOpenDataLayerEnabled = this.layers.franceOpenDataLayerEnabled;
+  protected routeLayerEnabled = this.layers.routeLayerEnabled;
+  protected gridLayerEnabled = this.layers.gridLayerEnabled;
 
   standardBackgroundLayerEnabledChanged(event: MatCheckboxChange): void {
-    this.state.map.updateStandardBackgroundLayerEnabled(event.checked);
+    this.layers.updateStandardBackgroundLayerEnabled(event.checked);
   }
 
   osmBackgroundLayerEnabledChanged(event: MatCheckboxChange): void {
-    this.state.map.updateOsmBackgroundLayerEnabled(event.checked);
+    this.layers.updateOsmBackgroundLayerEnabled(event.checked);
   }
 
   flandersOpenDataLayerEnabledChanged(event: MatCheckboxChange): void {
-    this.state.map.updateFlandersOpenDataLayerEnabled(event.checked);
+    this.layers.updateFlandersOpenDataLayerEnabled(event.checked);
   }
 
   netherlandsOpenDataLayerEnabledChanged(event: MatCheckboxChange): void {
-    this.state.map.updateNetherlandsOpenDataLayerEnabled(event.checked);
+    this.layers.updateNetherlandsOpenDataLayerEnabled(event.checked);
   }
 
   franceOpenDataLayerEnabledChanged(event: MatCheckboxChange): void {
-    this.state.map.updateFranceOpenDataLayerEnabled(event.checked);
+    this.layers.updateFranceOpenDataLayerEnabled(event.checked);
   }
 
   routeLayerEnabledChanged(event: MatCheckboxChange): void {
-    this.state.map.updateRouteLayerEnabled(event.checked);
+    this.layers.updateRouteLayerEnabled(event.checked);
   }
 
   gridLayerEnabledChanged(event: MatCheckboxChange): void {
-    this.state.map.updateGridLayerEnabled(event.checked);
+    this.layers.updateGridLayerEnabled(event.checked);
   }
 }

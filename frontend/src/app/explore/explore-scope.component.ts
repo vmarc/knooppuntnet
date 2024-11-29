@@ -41,11 +41,12 @@ import { State } from '@app/state';
 })
 export class ExploreScopeComponent {
   private readonly state = inject(State);
-  protected readonly scopeInternational = this.state.map.scopeInternational;
-  protected readonly scopeNational = this.state.map.scopeNational;
-  protected readonly scopeRegional = this.state.map.scopeRegional;
-  protected readonly scopeLocal = this.state.map.scopeLocal;
-  protected readonly scopeNodeRoutes = this.state.map.scopeNodeRoutes;
+  private readonly scopes = this.state.map.scopes;
+  protected readonly scopeInternational = this.scopes.scopeInternational;
+  protected readonly scopeNational = this.scopes.scopeNational;
+  protected readonly scopeRegional = this.scopes.scopeRegional;
+  protected readonly scopeLocal = this.scopes.scopeLocal;
+  protected readonly scopeNodeRoutes = this.scopes.scopeNodeRoutes;
 
   expanded(): boolean {
     // TODO redesign - read preference
@@ -57,22 +58,22 @@ export class ExploreScopeComponent {
   }
 
   updateScopeInternational(event: MatCheckboxChange): void {
-    this.state.map.updateScopeInternational(event.checked);
+    this.scopes.updateScopeInternational(event.checked);
   }
 
   updateScopeNational(event: MatCheckboxChange): void {
-    this.state.map.updateScopeNational(event.checked);
+    this.scopes.updateScopeNational(event.checked);
   }
 
   updateScopeRegional(event: MatCheckboxChange): void {
-    this.state.map.updateScopeRegional(event.checked);
+    this.scopes.updateScopeRegional(event.checked);
   }
 
   updateScopeLocal(event: MatCheckboxChange): void {
-    this.state.map.updateScopeLocal(event.checked);
+    this.scopes.updateScopeLocal(event.checked);
   }
 
   updateScopeNodeRoutes(event: MatCheckboxChange): void {
-    this.state.map.updateScopeNodeRoutes(event.checked);
+    this.scopes.updateScopeNodeRoutes(event.checked);
   }
 }

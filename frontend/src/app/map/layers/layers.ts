@@ -63,7 +63,7 @@ export class Layers {
     const layersState: Signal<LayersState> = computed(() => {
       return {
         networkType: state.page.networkType(),
-        layerEnabled: state.map.layerEnabled(),
+        layerEnabled: state.map.layers.layerEnabledMap(),
         zoom: state.map.zoom(),
       };
     });

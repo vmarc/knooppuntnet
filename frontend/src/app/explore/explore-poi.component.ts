@@ -62,9 +62,10 @@ import { ExplorePoiOptionComponent } from './explore-poi-option.component';
 })
 export class ExplorePoiComponent {
   private readonly state = inject(State);
-  protected readonly poiLayerEnabled = this.state.map.poiLayerEnabled;
+  private readonly layers = this.state.map.layers;
+  protected readonly poiLayerEnabled = this.layers.poiLayerEnabled;
 
   poiLayerEnabledChanged(event: MatCheckboxChange): void {
-    this.state.map.updatePoiLayerEnabled(event.checked);
+    this.layers.updatePoiLayerEnabled(event.checked);
   }
 }
