@@ -18,17 +18,6 @@ export class RouteLayer {
   constructor(styleOptionsSignal: Signal<MapStyleOptions>) {
     effect(() => {
       this.styleOptions = styleOptionsSignal();
-      const options = [
-        'zoom=' + this.styleOptions.zoom,
-        'mode=' + this.styleOptions.mode,
-        'international=' + this.styleOptions.scopeInternational,
-        'national=' + this.styleOptions.scopeNational,
-        'regional=' + this.styleOptions.scopeRegional,
-        'local=' + this.styleOptions.scopeLocal,
-        'nodeRoutes=' + this.styleOptions.scopeNodeRoutes,
-        'route=' + this.styleOptions.selectedRoute,
-      ];
-      console.log(`mapStyleOptions ${options.join(', ')}`);
     });
   }
 
@@ -41,7 +30,7 @@ export class RouteLayer {
       url: `/tiles/${networkType}/{z}/{x}/{y}.mvt`,
     });
     const layer = new VectorTileLayer({
-      zIndex: Layers.zIndexNetworkLayer,
+      zIndex: Layers.zIndexRouteLayer,
       source: source,
       renderMode: 'vector',
       style: this.styleFunction(),

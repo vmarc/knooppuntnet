@@ -15,19 +15,9 @@ import { PoiLayer } from './poi-layer';
 import { RouteLayer } from './route-layer';
 
 export class Layers {
-  static readonly zIndexOsmLayer = 90;
-  static readonly zIndexGpxLayer = 80;
-  static readonly zIndexPlannerMarkerLayer = 70;
-  static readonly zIndexNetworkNodesLayer = 65;
-  static readonly zIndexNetworkLayer = 60;
-  static readonly zIndexPlannerRouteLayer = 50;
+  static readonly zIndexRouteLayer = 60;
   static readonly zIndexPoiLayer = 40;
-  static readonly zIndexHighlightLayer = 30;
 
-  readonly standardBackgroundLayer: MapLayer;
-  readonly osmBackgroundLayer: MapLayer;
-  readonly gridLayer: MapLayer;
-  readonly routeLayer: MapLayer;
   readonly poiLayer: MapLayer;
   readonly all: ReadonlyArray<MapLayer>;
 
@@ -37,16 +27,17 @@ export class Layers {
     poiStyleMap: Signal<PoiStyleMap>,
     poiActive: Signal<ReadonlyMap<string, boolean>>
   ) {
-    this.standardBackgroundLayer = StandardBackground.build();
-    this.osmBackgroundLayer = OsmBackgroundLayer.build();
-    this.gridLayer = GridLayer.build();
-    this.routeLayer = new RouteLayer(styleOptions).build('hiking');
     this.poiLayer = PoiLayer.build(poiStyleMap, poiActive);
     this.all = [
-      this.osmBackgroundLayer,
-      this.standardBackgroundLayer,
-      this.gridLayer,
-      this.routeLayer,
+      StandardBackground.build(),
+      OsmBackgroundLayer.build(),
+      GridLayer.build(),
+      new RouteLayer(styleOptions).build('cycling'),
+      new RouteLayer(styleOptions).build('hiking'),
+      new RouteLayer(styleOptions).build('horse-riding'),
+      new RouteLayer(styleOptions).build('motorboat'),
+      new RouteLayer(styleOptions).build('canoe'),
+      new RouteLayer(styleOptions).build('inline-skating'),
       this.poiLayer,
       OpendataBitmapTileLayer.build('flanders-open-data', 'hiking', 'flanders/hiking'),
       OpendataVectorTileLayer.build('flanders-open-data', 'hiking', 'flanders/hiking'),
@@ -70,6 +61,14 @@ export class Layers {
 
     effect(() => {
       this.updateLayerVisibility(layersState());
+    });
+  }
+
+  routeLayerChanged(): void {
+    this.all.forEach((mapLayer) => {
+      if (mapLayer.layerType === 'route' && mapLayer.layer.getVisible()) {
+        mapLayer.layer.changed();
+      }
     });
   }
 

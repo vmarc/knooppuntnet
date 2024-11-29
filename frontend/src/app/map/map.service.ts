@@ -49,15 +49,21 @@ export class MapService {
       }
     );
 
-    effect(
-      () => {
-        const styleOptions = this.state.map.mapStyleOptions();
-        this.layers.routeLayer.layer.changed();
-      },
-      {
-        allowSignalWrites: true,
-      }
-    );
+    effect(() => {
+      const styleOptions = this.state.map.mapStyleOptions();
+      this.layers.routeLayerChanged();
+      const options = [
+        'zoom=' + styleOptions.zoom,
+        'mode=' + styleOptions.mode,
+        'international=' + styleOptions.scopeInternational,
+        'national=' + styleOptions.scopeNational,
+        'regional=' + styleOptions.scopeRegional,
+        'local=' + styleOptions.scopeLocal,
+        'nodeRoutes=' + styleOptions.scopeNodeRoutes,
+        'route=' + styleOptions.selectedRoute,
+      ];
+      console.log(`mapStyleOptions ${options.join(', ')}`);
+    });
     effect(
       () => {
         const xxx = this.state.map.poiActive();
