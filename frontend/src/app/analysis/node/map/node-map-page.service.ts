@@ -2,7 +2,6 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { NodeMapPage } from '@api/common/node';
-import { NetworkType } from '@api/custom';
 import { ApiResponse } from '@api/custom';
 import { MapPosition } from '@app/ol/domain';
 import { ApiService } from '@app/services';
@@ -30,7 +29,7 @@ export class NodeMapPageService {
     const mapPositionFromUrl = MapPosition.fromQueryParam(mapPositionString);
     this.nodeMapService.init(
       this.response().result.nodeMapInfo,
-      NetworkType.hiking, // TODO SIGNAL get preferred networkType from preferencesStore
+      'hiking', // TODO SIGNAL get preferred networkType from preferencesStore
       mapPositionFromUrl,
       this.routerService.urlLayerIds()
     );

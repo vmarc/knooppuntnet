@@ -79,9 +79,9 @@ export class MapState {
         ['route', this.routeLayerEnabled()],
         ['poi', this.poiLayerEnabled()],
         ['grid', this.gridLayerEnabled()],
-        ['flandersOpenData', this.flandersOpenDataLayerEnabled()],
-        ['netherlandsOpenData', this.netherlandsOpenDataLayerEnabled()],
-        ['franceOpenData', this.franceOpenDataLayerEnabled()],
+        ['flanders-open-data', this.flandersOpenDataLayerEnabled()],
+        ['netherlands-open-data', this.netherlandsOpenDataLayerEnabled()],
+        ['france-open-data', this.franceOpenDataLayerEnabled()],
       ])
   );
 

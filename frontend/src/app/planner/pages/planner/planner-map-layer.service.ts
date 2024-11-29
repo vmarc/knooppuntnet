@@ -35,35 +35,35 @@ export class PlannerMapLayerService {
       urlLayerIds,
       OldOpenDataLayers.flandersHiking(),
       false,
-      networkType === NetworkType.hiking
+      networkType === 'hiking'
     );
 
     registry.registerAll(
       urlLayerIds,
       OldOpenDataLayers.flandersCycling(),
       false,
-      networkType === NetworkType.cycling
+      networkType === 'cycling'
     );
 
     registry.registerAll(
       urlLayerIds,
       OldOpenDataLayers.netherlandsHiking(),
       false,
-      networkType === NetworkType.hiking
+      networkType === 'hiking'
     );
 
     registry.registerAll(
       urlLayerIds,
       OldOpenDataLayers.netherlandsCycling(),
       false,
-      networkType === NetworkType.cycling
+      networkType === 'cycling'
     );
 
     registry.registerAll(
       urlLayerIds,
       OldOpenDataLayers.franceHiking(),
       false,
-      networkType === NetworkType.hiking
+      networkType === 'hiking'
     );
 
     NetworkTypes.all.forEach((layerNetworkType) => {

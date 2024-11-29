@@ -4,7 +4,7 @@ import { NetworkType } from '@api/custom';
 export class PageState {
   private readonly _small = signal<boolean>(false);
   private readonly _activePanel = signal<string>('map');
-  private readonly _networkType = signal<NetworkType>(NetworkType.hiking);
+  private readonly _networkType = signal<NetworkType>('hiking');
 
   readonly small = this._small.asReadonly();
   readonly activePanel = this._activePanel.asReadonly();

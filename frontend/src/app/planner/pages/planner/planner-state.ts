@@ -5,7 +5,7 @@ import { MapMode } from '@app/ol/services';
 import { MapResultMode } from '../../../ol/services/map-result-mode';
 
 export const initialPlannerState: PlannerState = {
-  networkType: NetworkType.hiking,
+  networkType: 'hiking',
   position: null,
   mapMode: 'surface',
   resultMode: 'compact',

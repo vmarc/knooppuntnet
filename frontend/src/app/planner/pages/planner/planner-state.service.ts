@@ -187,7 +187,7 @@ export class PlannerStateService {
         return networkType;
       }
     }
-    return NetworkType.hiking;
+    return 'hiking';
   }
 
   private parsePosition(queryParams: Params): MapPosition {

@@ -2,68 +2,40 @@ import { NetworkType } from '@api/custom';
 
 export class NetworkTypes {
   static all: NetworkType[] = [
-    NetworkType.cycling,
-    NetworkType.hiking,
-    NetworkType.horseRiding,
-    NetworkType.motorboat,
-    NetworkType.canoe,
-    NetworkType.inlineSkating,
+    'cycling',
+    'hiking',
+    'horse-riding',
+    'motorboat',
+    'canoe',
+    'inline-skating',
   ];
 
   static withName(name: string): NetworkType | undefined {
     return NetworkTypes.all.find((networkType) => networkType === name);
   }
 
-  static tagValue(networkType: NetworkType): string {
-    if (networkType === NetworkType.cycling) {
-      return 'rcn';
-    }
-
-    if (networkType === NetworkType.hiking) {
-      return 'rwn';
-    }
-
-    if (networkType === NetworkType.horseRiding) {
-      return 'rhn';
-    }
-
-    if (networkType === NetworkType.motorboat) {
-      return 'rmn';
-    }
-
-    if (networkType === NetworkType.canoe) {
-      return 'rpn';
-    }
-
-    if (networkType === NetworkType.inlineSkating) {
-      return 'rin';
-    }
-
-    return '???';
-  }
-
   static letter(networkType: NetworkType): string {
-    if (networkType === NetworkType.cycling) {
+    if (networkType === 'cycling') {
       return 'c';
     }
 
-    if (networkType === NetworkType.hiking) {
+    if (networkType === 'hiking') {
       return 'w';
     }
 
-    if (networkType === NetworkType.horseRiding) {
+    if (networkType === 'horse-riding') {
       return 'h';
     }
 
-    if (networkType === NetworkType.motorboat) {
+    if (networkType === 'motorboat') {
       return 'm';
     }
 
-    if (networkType === NetworkType.canoe) {
+    if (networkType === 'canoe') {
       return 'p';
     }
 
-    if (networkType === NetworkType.inlineSkating) {
+    if (networkType === 'inline-skating') {
       return 'i';
     }
 

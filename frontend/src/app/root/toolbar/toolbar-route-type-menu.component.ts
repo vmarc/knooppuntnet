@@ -23,32 +23,32 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
 
     <mat-menu #menu="matMenu">
       <kpn-toolbar-route-type-menu-item
-        [networkType]="networkType.hiking"
+        networkType="hiking"
         i18n-label="@@network-type.hiking"
         label="Hiking"
       />
       <kpn-toolbar-route-type-menu-item
-        [networkType]="networkType.cycling"
+        networkType="cycling"
         i18n-label="@@network-type.cycling"
         label="Cycling"
       />
       <kpn-toolbar-route-type-menu-item
-        [networkType]="networkType.horseRiding"
+        networkType="horse-riding"
         i18n-label="@@network-type.horseRiding"
         label="Horse riding"
       />
       <kpn-toolbar-route-type-menu-item
-        [networkType]="networkType.motorboat"
+        networkType="motorboat"
         i18n-label="@@network-type.motorboat"
         label="Motorboat"
       />
       <kpn-toolbar-route-type-menu-item
-        [networkType]="networkType.canoe"
+        networkType="canoe"
         i18n-label="@@network-type.canoe"
         label="Canoe"
       />
       <kpn-toolbar-route-type-menu-item
-        [networkType]="networkType.inlineSkating"
+        networkType="inline-skating"
         i18n-label="@@network-type.inlineSkating"
         label="Inline skating"
       />
@@ -82,20 +82,19 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
 })
 export class ToolbarRouteTypeMenuComponent {
   private readonly state = inject(State);
-  readonly networkType = NetworkType;
   readonly icon = computed(() => {
     switch (this.state.page.networkType()) {
-      case NetworkType.cycling:
+      case 'cycling':
         return 'directions_bike';
-      case NetworkType.hiking:
+      case 'hiking':
         return 'directions_walk';
-      case NetworkType.horseRiding:
+      case 'horse-riding':
         return 'bedroom_baby';
-      case NetworkType.motorboat:
+      case 'motorboat':
         return 'directions_boat';
-      case NetworkType.canoe:
+      case 'canoe':
         return 'kayaking';
-      case NetworkType.inlineSkating:
+      case 'inline-skating':
         return 'roller_skating';
       default:
         return '';

@@ -1,11 +1,12 @@
 import { computed } from '@angular/core';
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
-import { NetworkType } from '@api/custom';
 import { State } from '@app/state';
 import { LayersState } from '../../state/layers-state';
 import { MapStyleOptions } from '../../state/map-style-options';
 import { PoiStyleMap } from '../style/poi-style-map';
+import { OpendataBitmapTileLayer } from './opendata-bitmap-tile-layer';
+import { OpendataVectorTileLayer } from './opendata-vector-tile-layer';
 import { StandardBackground } from './standard-background';
 import { GridLayer } from './grid-layer';
 import { MapLayer } from './map-layer';
@@ -39,7 +40,7 @@ export class Layers {
     this.standardBackgroundLayer = StandardBackground.build();
     this.osmBackgroundLayer = OsmBackgroundLayer.build();
     this.gridLayer = GridLayer.build();
-    this.routeLayer = new RouteLayer(styleOptions).build(NetworkType.hiking);
+    this.routeLayer = new RouteLayer(styleOptions).build('hiking');
     this.poiLayer = PoiLayer.build(poiStyleMap, poiActive);
     this.all = [
       this.osmBackgroundLayer,
@@ -47,6 +48,16 @@ export class Layers {
       this.gridLayer,
       this.routeLayer,
       this.poiLayer,
+      OpendataBitmapTileLayer.build('flanders-open-data', 'hiking', 'flanders/hiking'),
+      OpendataVectorTileLayer.build('flanders-open-data', 'hiking', 'flanders/hiking'),
+      OpendataBitmapTileLayer.build('flanders-open-data', 'cycling', 'flanders/cycling'),
+      OpendataVectorTileLayer.build('flanders-open-data', 'cycling', 'flanders/cycling'),
+      OpendataBitmapTileLayer.build('netherlands-open-data', 'hiking', 'netherlands/hiking'),
+      OpendataVectorTileLayer.build('netherlands-open-data', 'hiking', 'netherlands/hiking'),
+      OpendataBitmapTileLayer.build('netherlands-open-data', 'cycling', 'netherlands/cycling'),
+      OpendataVectorTileLayer.build('netherlands-open-data', 'cycling', 'netherlands/cycling'),
+      OpendataBitmapTileLayer.build('france-open-data', 'hiking', 'france/hiking'),
+      OpendataVectorTileLayer.build('france-open-data', 'hiking', 'france/hiking'),
     ];
 
     const layersState: Signal<LayersState> = computed(() => {

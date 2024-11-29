@@ -16,11 +16,11 @@ export class OldOpenDataLayers {
     networkType: NetworkType,
     urlLayerIds: string[]
   ): void {
-    if (networkType == NetworkType.hiking) {
+    if (networkType == 'hiking') {
       registry.registerAll(urlLayerIds, OldOpenDataLayers.flandersHiking(), false);
       registry.registerAll(urlLayerIds, OldOpenDataLayers.netherlandsHiking(), false);
       registry.registerAll(urlLayerIds, OldOpenDataLayers.franceHiking(), false);
-    } else if (networkType == NetworkType.cycling) {
+    } else if (networkType == 'cycling') {
       registry.registerAll(urlLayerIds, OldOpenDataLayers.flandersCycling(), false);
       registry.registerAll(urlLayerIds, OldOpenDataLayers.netherlandsCycling(), false);
     }
@@ -32,7 +32,7 @@ export class OldOpenDataLayers {
 
   private static flandersHikingBitmap(): OldMapLayer {
     return OldOpendataBitmapTileLayer.build(
-      NetworkType.hiking,
+      'hiking',
       'flanders-hiking',
       this.flandersHikingName,
       'flanders/hiking'
@@ -41,7 +41,7 @@ export class OldOpenDataLayers {
 
   private static flandersHikingVector(): OldMapLayer {
     return OldOpendataVectorTileLayer.build(
-      NetworkType.hiking,
+      'hiking',
       'flanders-hiking',
       this.flandersHikingName,
       'flanders/hiking'
@@ -54,7 +54,7 @@ export class OldOpenDataLayers {
 
   private static flandersCyclingBitmap(): OldMapLayer {
     return OldOpendataBitmapTileLayer.build(
-      NetworkType.cycling,
+      'cycling',
       'flanders-cycling',
       this.flandersCyclingName,
       'flanders/cycling'
@@ -63,7 +63,7 @@ export class OldOpenDataLayers {
 
   private static flandersCyclingVector(): OldMapLayer {
     return OldOpendataVectorTileLayer.build(
-      NetworkType.cycling,
+      'cycling',
       'flanders-cycling',
       this.flandersCyclingName,
       'flanders/cycling'
@@ -76,7 +76,7 @@ export class OldOpenDataLayers {
 
   private static netherlandsHikingBitmap(): OldMapLayer {
     return OldOpendataBitmapTileLayer.build(
-      NetworkType.hiking,
+      'hiking',
       'netherlands-hiking',
       this.netherlandsHikingName,
       'netherlands/hiking'
@@ -85,7 +85,7 @@ export class OldOpenDataLayers {
 
   private static netherlandsHikingVector(): OldMapLayer {
     return OldOpendataVectorTileLayer.build(
-      NetworkType.hiking,
+      'hiking',
       'netherlands-hiking',
       this.netherlandsHikingName,
       'netherlands/hiking'
@@ -98,7 +98,7 @@ export class OldOpenDataLayers {
 
   private static netherlandsCyclingBitmap(): OldMapLayer {
     return OldOpendataBitmapTileLayer.build(
-      NetworkType.cycling,
+      'cycling',
       'netherlands-cycling',
       this.netherlandsCyclingName,
       'netherlands/cycling'
@@ -107,7 +107,7 @@ export class OldOpenDataLayers {
 
   private static netherlandsCyclingVector(): OldMapLayer {
     return OldOpendataVectorTileLayer.build(
-      NetworkType.cycling,
+      'cycling',
       'netherlands-cycling',
       this.netherlandsCyclingName,
       'netherlands/cycling'
@@ -120,7 +120,7 @@ export class OldOpenDataLayers {
 
   private static franceHikingBitmap(): OldMapLayer {
     return OldOpendataBitmapTileLayer.build(
-      NetworkType.hiking,
+      'hiking',
       'france-hiking',
       this.franceHikingName,
       'france/hiking'
@@ -129,7 +129,7 @@ export class OldOpenDataLayers {
 
   private static franceHikingVector(): OldMapLayer {
     return OldOpendataVectorTileLayer.build(
-      NetworkType.hiking,
+      'hiking',
       'france-hiking',
       this.franceHikingName,
       'france/hiking'

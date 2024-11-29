@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { NetworkType } from '@api/custom';
 import { OlUtil } from '@app/ol';
 import { ZoomLevel } from '@app/ol/domain';
 import { NetworkBitmapTileLayer } from '@app/ol/layers';
@@ -39,7 +38,7 @@ export class PoiMapService extends OpenlayersMapService {
     registry.register([], OldBackgroundLayer.build(), true);
     registry.register([], OldOsmLayer.build(), false);
 
-    registry.register([], NetworkBitmapTileLayer.build(NetworkType.cycling, 'analysis'), true);
+    registry.register([], NetworkBitmapTileLayer.build('cycling', 'analysis'), true);
 
     registry.register([], PoiAreasLayer.build(geoJson), true);
 

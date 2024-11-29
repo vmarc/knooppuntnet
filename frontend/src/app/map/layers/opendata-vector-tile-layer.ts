@@ -9,15 +9,16 @@ import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import Style, { StyleFunction } from 'ol/style/Style';
 import Text from 'ol/style/Text';
+import { LayerType } from './layer-type';
 import { Layers } from './layers';
-import { OldMapLayer } from './old-map-layer';
+import { MapLayer } from './map-layer';
 
 export class OpendataVectorTileLayer {
   private static readonly largeMaxZoomResolution = /* zoomLevel 13 */ 19.109;
   private static readonly smallStyle = this.buildSmallStyle();
   private static readonly largeStyle = this.buildLargeStyle();
 
-  static build(networkType: NetworkType, id: string, name: string, dir: string): OldMapLayer {
+  static build(layerType: LayerType, networkType: NetworkType, dir: string): MapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -37,16 +38,13 @@ export class OpendataVectorTileLayer {
 
     layer.setStyle(this.styleFunction());
 
-    return new OldMapLayer(
-      id,
-      name,
-      ZoomLevel.vectorTileMinZoom,
-      ZoomLevel.vectorTileMaxOverZoom,
-      // 'vector',
+    return {
+      layerType,
+      networkType,
+      minZoom: ZoomLevel.vectorTileMinZoom,
+      maxZoom: ZoomLevel.vectorTileMaxOverZoom,
       layer,
-      networkType
-      // null
-    );
+    };
   }
 
   private static styleFunction(): StyleFunction {

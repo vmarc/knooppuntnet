@@ -1,7 +1,6 @@
 import { signal } from '@angular/core';
 import { PlanNode } from '@api/common/planner';
 import { PlanRoute } from '@api/common/planner';
-import { NetworkType } from '@api/custom';
 import { List } from 'immutable';
 import { FeatureId } from '../features/feature-id';
 import { Plan } from '../plan/plan';
@@ -41,7 +40,7 @@ export class PlannerTestSetup {
   readonly node4 = PlanUtil.planNodeWithCoordinate('1004', '04', null, [4, 4]);
 
   constructor() {
-    this.context.setNetworkType(NetworkType.hiking);
+    this.context.setNetworkType('hiking');
   }
 
   createPlanWithStartPointOnly(): Plan {
@@ -154,7 +153,6 @@ export class PlannerTestSetup {
       sinkNode: node2,
       meters: 0,
       segments: [],
-      streets: [],
     };
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
     this.legRepository.add(planLegData);

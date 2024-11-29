@@ -16,17 +16,17 @@ export class RouteTypeIconItemComponent {
   readonly networkType = input.required<NetworkType>();
   readonly icon = computed(() => {
     switch (this.networkType()) {
-      case NetworkType.cycling:
+      case 'cycling':
         return 'directions_bike';
-      case NetworkType.hiking:
+      case 'hiking':
         return 'directions_walk';
-      case NetworkType.horseRiding:
+      case 'horse-riding':
         return 'bedroom_baby';
-      case NetworkType.motorboat:
+      case 'motorboat':
         return 'directions_boat';
-      case NetworkType.canoe:
+      case 'canoe':
         return 'kayaking';
-      case NetworkType.inlineSkating:
+      case 'inline-skating':
         return 'roller_skating';
       default:
         return '';

@@ -4,6 +4,6 @@ export type LayerType =
   | 'route'
   | 'poi'
   | 'grid'
-  | 'flandersOpenData'
-  | 'netherlandsOpenData'
-  | 'franceOpenData';
+  | 'flanders-open-data'
+  | 'netherlands-open-data'
+  | 'france-open-data';

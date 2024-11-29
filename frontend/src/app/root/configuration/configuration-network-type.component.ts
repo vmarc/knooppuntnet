@@ -6,7 +6,6 @@ import { MatExpansionPanelContent } from '@angular/material/expansion';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioGroup } from '@angular/material/radio';
-import { NetworkType } from '@api/custom';
 import { State } from '@app/state';
 import { ConfigurationNetworkTypeItemComponent } from './configuration-network-type-item.component';
 
@@ -19,32 +18,32 @@ import { ConfigurationNetworkTypeItemComponent } from './configuration-network-t
       <ng-template matExpansionPanelContent>
         <mat-radio-group [value]="selectedNetworkType()" (change)="networkTypeChanged($event)">
           <kpn-configuration-network-type-item
-            [networkType]="networkType.hiking"
+            networkType="hiking"
             i18n-label="@@network-type.hiking"
             label="Hiking"
           />
           <kpn-configuration-network-type-item
-            [networkType]="networkType.cycling"
+            networkType="cycling"
             i18n-label="@@network-type.cycling"
             label="Cycling"
           />
           <kpn-configuration-network-type-item
-            [networkType]="networkType.horseRiding"
+            networkType="horse-riding"
             i18n-label="@@network-type.horse-riding"
             label="Horse riding"
           />
           <kpn-configuration-network-type-item
-            [networkType]="networkType.motorboat"
+            networkType="motorboat"
             i18n-label="@@network-type.motorboat"
             label="Motorboat"
           />
           <kpn-configuration-network-type-item
-            [networkType]="networkType.canoe"
+            networkType="canoe"
             i18n-label="@@network-type.canoe"
             label="Canoe"
           />
           <kpn-configuration-network-type-item
-            [networkType]="networkType.inlineSkating"
+            networkType="inline-skating"
             i18n-label="@@network-type.inlineSkating"
             label="Inline skating"
           />
@@ -63,7 +62,6 @@ import { ConfigurationNetworkTypeItemComponent } from './configuration-network-t
 })
 export class ConfigurationNetworkTypeComponent {
   private readonly state = inject(State);
-  protected readonly networkType = NetworkType;
   protected readonly selectedNetworkType = this.state.page.networkType;
 
   networkTypeChanged(event: MatRadioChange) {

@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NetworkType } from '@api/custom';
 import { IndicatorDialogComponent } from '@app/components/shared/indicator';
 import { RouteAccessibleData } from './route-accessible-data';
 
@@ -32,22 +31,22 @@ import { RouteAccessibleData } from './route-accessible-data';
       @if (data.color === 'green') {
         <div dialog-body>
           @switch (data.networkType) {
-            @case (NetworkType.cycling) {
+            @case ('cycling') {
               <ng-container i18n="@@route-accessible-indicator.green.text.cycling">
                 This route is completely accessible for bicycle.
               </ng-container>
             }
-            @case (NetworkType.hiking) {
+            @case ('hiking') {
               <ng-container i18n="@@route-accessible-indicator.green.text.hiking">
                 This route is completely accessible for hiking.
               </ng-container>
             }
-            @case (NetworkType.motorboat) {
+            @case ('motorboat') {
               <ng-container i18n="@@route-accessible-indicator.green.text.motorboat">
                 This route is completely accessible for motorboat.
               </ng-container>
             }
-            @case (NetworkType.canoe) {
+            @case ('canoe') {
               <ng-container i18n="@@route-accessible-indicator.green.text.canoe">
                 This route is completely accessible for canoe.
               </ng-container>
@@ -64,22 +63,22 @@ import { RouteAccessibleData } from './route-accessible-data';
       @if (data.color === 'red') {
         <div dialog-body>
           @switch (data.networkType) {
-            @case (NetworkType.cycling) {
+            @case ('cycling') {
               <ng-container i18n="@@route-accessible-indicator.red.text.cycling">
                 This route is not completely accessible for bicycle.
               </ng-container>
             }
-            @case (NetworkType.hiking) {
+            @case ('hiking') {
               <ng-container i18n="@@route-accessible-indicator.red.text.hiking">
                 This route is not completely accessible for hiking.
               </ng-container>
             }
-            @case (NetworkType.motorboat) {
+            @case ('motorboat') {
               <ng-container i18n="@@route-accessible-indicator.red.text.motorboat">
                 This route is not completely accessible for motorboat.
               </ng-container>
             }
-            @case (NetworkType.canoe) {
+            @case ('canoe') {
               <ng-container i18n="@@route-accessible-indicator.red.text.canoe">
                 This route is not completely accessible for canoe.
               </ng-container>
@@ -94,5 +93,4 @@ import { RouteAccessibleData } from './route-accessible-data';
 })
 export class RouteAccessibleIndicatorDialogComponent {
   protected readonly data: RouteAccessibleData = inject(MAT_DIALOG_DATA);
-  protected readonly NetworkType = NetworkType;
 }

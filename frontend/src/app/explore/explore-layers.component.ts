@@ -1,9 +1,7 @@
-import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { NetworkType } from '@api/custom';
 import { DividerComponent } from '@app/components/shared';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { State } from '@app/state';
@@ -30,52 +28,7 @@ import { State } from '@app/state';
 
     <kpn-divider />
 
-    @if (networkType() == nt.hiking) {
-      <mat-checkbox
-        [checked]="flandersOpenDataLayerEnabled()"
-        (change)="flandersOpenDataLayerEnabledChanged($event)"
-        i18n="@@map.layer.flanders-hiking"
-      >
-        Toerisme Vlaanderen (hiking)
-      </mat-checkbox>
-    }
-    @if (networkType() == nt.cycling) {
-      <mat-checkbox
-        [checked]="flandersOpenDataLayerEnabled()"
-        (change)="flandersOpenDataLayerEnabledChanged($event)"
-        i18n="@@map.layer.flanders-cycling"
-      >
-        Toerisme Vlaanderen (cycling)
-      </mat-checkbox>
-    }
-    @if (networkType() == nt.hiking) {
-      <mat-checkbox
-        [checked]="netherlandsOpenDataLayerEnabled()"
-        (change)="netherlandsOpenDataLayerEnabledChanged($event)"
-        i18n="@@map.layer.netherlands-hiking"
-      >
-        NL routedatabank (hiking)
-      </mat-checkbox>
-    }
-    @if (networkType() == nt.cycling) {
-      <mat-checkbox
-        [checked]="netherlandsOpenDataLayerEnabled()"
-        (change)="netherlandsOpenDataLayerEnabledChanged($event)"
-        i18n="@@map.layer.netherlands-cycling"
-      >
-        NL routedatabank (cycling)
-      </mat-checkbox>
-    }
-    @if (networkType() == nt.hiking) {
-      <mat-checkbox
-        [checked]="franceOpenDataLayerEnabled()"
-        (change)="franceOpenDataLayerEnabledChanged($event)"
-        i18n="map.layer.france-hiking"
-      >
-        Parc du Vercors
-      </mat-checkbox>
-    }
-    @if (networkType() == nt.hiking) {
+    @if (networkType() == 'hiking') {
       <mat-checkbox
         [checked]="routeLayerEnabled()"
         (change)="routeLayerEnabledChanged($event)"
@@ -84,7 +37,7 @@ import { State } from '@app/state';
         Hiking
       </mat-checkbox>
     }
-    @if (networkType() == nt.cycling) {
+    @if (networkType() == 'cycling') {
       <mat-checkbox
         [checked]="routeLayerEnabled()"
         (change)="routeLayerEnabledChanged($event)"
@@ -93,7 +46,7 @@ import { State } from '@app/state';
         Cycling
       </mat-checkbox>
     }
-    @if (networkType() == nt.horseRiding) {
+    @if (networkType() == 'horse-riding') {
       <mat-checkbox
         [checked]="routeLayerEnabled()"
         (change)="routeLayerEnabledChanged($event)"
@@ -102,7 +55,7 @@ import { State } from '@app/state';
         Horseriding
       </mat-checkbox>
     }
-    @if (networkType() == nt.motorboat) {
+    @if (networkType() == 'motorboat') {
       <mat-checkbox
         [checked]="routeLayerEnabled()"
         (change)="routeLayerEnabledChanged($event)"
@@ -111,13 +64,59 @@ import { State } from '@app/state';
         Motorboat
       </mat-checkbox>
     }
-    @if (networkType() == nt.canoe) {
+    @if (networkType() == 'canoe') {
       <mat-checkbox
         [checked]="routeLayerEnabled()"
         (change)="routeLayerEnabledChanged($event)"
         i18n="@@network-type.canoe"
       >
         Canoe
+      </mat-checkbox>
+    }
+
+    @if (networkType() == 'hiking') {
+      <mat-checkbox
+        [checked]="flandersOpenDataLayerEnabled()"
+        (change)="flandersOpenDataLayerEnabledChanged($event)"
+        i18n="@@map.layer.flanders-hiking"
+      >
+        Toerisme Vlaanderen (hiking)
+      </mat-checkbox>
+    }
+    @if (networkType() == 'cycling') {
+      <mat-checkbox
+        [checked]="flandersOpenDataLayerEnabled()"
+        (change)="flandersOpenDataLayerEnabledChanged($event)"
+        i18n="@@map.layer.flanders-cycling"
+      >
+        Toerisme Vlaanderen (cycling)
+      </mat-checkbox>
+    }
+    @if (networkType() == 'hiking') {
+      <mat-checkbox
+        [checked]="netherlandsOpenDataLayerEnabled()"
+        (change)="netherlandsOpenDataLayerEnabledChanged($event)"
+        i18n="@@map.layer.netherlands-hiking"
+      >
+        NL routedatabank (hiking)
+      </mat-checkbox>
+    }
+    @if (networkType() == 'cycling') {
+      <mat-checkbox
+        [checked]="netherlandsOpenDataLayerEnabled()"
+        (change)="netherlandsOpenDataLayerEnabledChanged($event)"
+        i18n="@@map.layer.netherlands-cycling"
+      >
+        NL routedatabank (cycling)
+      </mat-checkbox>
+    }
+    @if (networkType() == 'hiking') {
+      <mat-checkbox
+        [checked]="franceOpenDataLayerEnabled()"
+        (change)="franceOpenDataLayerEnabledChanged($event)"
+        i18n="map.layer.france-hiking"
+      >
+        Parc du Vercors
       </mat-checkbox>
     }
     <mat-checkbox [checked]="gridLayerEnabled()" (change)="gridLayerEnabledChanged($event)">
@@ -135,7 +134,6 @@ import { State } from '@app/state';
 })
 export class ExploreLayersComponent {
   private readonly state = inject(State);
-  protected nt = NetworkType;
   protected networkType = this.state.page.networkType;
   protected standardBackgroundLayerEnabled = this.state.map.standardBackgroundLayerEnabled;
   protected osmBackgroundLayerEnabled = this.state.map.osmBackgroundLayerEnabled;
