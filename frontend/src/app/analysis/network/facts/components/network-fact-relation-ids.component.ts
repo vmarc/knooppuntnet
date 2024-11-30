@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { IconRouteComponent } from '@app/components/shared/icon';
-import { LinkRouteComponent } from '@app/components/shared/link';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
 
 @Component({
@@ -17,7 +16,7 @@ import { ActionButtonRouteComponent } from '../../../components/action/action-bu
       </div>
     }
   `,
-  imports: [ActionButtonRouteComponent, IconRouteComponent, LinkRouteComponent],
+  imports: [ActionButtonRouteComponent, IconRouteComponent],
 })
 export class NetworkFactRelationIdsComponent {
   elementIds = input.required<number[]>();

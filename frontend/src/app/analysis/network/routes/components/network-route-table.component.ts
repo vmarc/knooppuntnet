@@ -197,14 +197,9 @@ export class NetworkRouteTableComponent implements OnInit {
   });
 
   constructor() {
-    effect(
-      () => {
-        this.dataSource.data = this.routes();
-      },
-      {
-        allowSignalWrites: true,
-      }
-    );
+    effect(() => {
+      this.dataSource.data = this.routes();
+    });
   }
 
   ngOnInit(): void {

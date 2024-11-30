@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatOption } from '@angular/material/autocomplete';
 import { MatButton } from '@angular/material/button';
 import { MatChipRemove } from '@angular/material/chips';
 import { MatChip } from '@angular/material/chips';
@@ -13,10 +12,6 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatMenu } from '@angular/material/menu';
 import { MatLabel } from '@angular/material/select';
-import { MatSelect } from '@angular/material/select';
-import { MatTabLabel } from '@angular/material/tabs';
-import { MatTabGroup } from '@angular/material/tabs';
-import { MatTab } from '@angular/material/tabs';
 
 @Component({
   selector: 'kpn-tryout-filter-alternative-1',
@@ -101,11 +96,6 @@ import { MatTab } from '@angular/material/tabs';
     }
   `,
   imports: [
-    MatSelect,
-    MatOption,
-    MatTabGroup,
-    MatTab,
-    MatTabLabel,
     MatButton,
     MatMenuTrigger,
     MatMenu,

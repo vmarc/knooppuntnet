@@ -1,4 +1,4 @@
-@import 'variables';
+@use 'variables' as config;
 
 html, body {
   margin: 0;
@@ -63,7 +63,7 @@ strong {
   font-size: 13px;
 }
 
-@media (max-width: $medium-max-width) {
+@media (max-width: config.$medium-max-width) {
   .note-page-contents {
     padding-top: 20px;
     padding-bottom: 40px;
@@ -71,7 +71,7 @@ strong {
   }
 }
 
-@media (min-width: $medium-min-width) {
+@media (min-width: config.$medium-min-width) {
   .note-page-contents {
     padding-top: 20px;
     padding-bottom: 40px;

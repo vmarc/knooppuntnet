@@ -1,4 +1,3 @@
-import { forwardRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -162,13 +161,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
     }
   `,
   standalone: true,
-  imports: [
-    IconHappyComponent,
-    IconInvestigateComponent,
-    LinkNodeComponent,
-    LinkRouteComponent,
-    forwardRef(() => ChangeSetLocationTreeNodeComponent),
-  ],
+  imports: [IconHappyComponent, IconInvestigateComponent, LinkNodeComponent, LinkRouteComponent],
 })
 export class ChangeSetLocationTreeNodeComponent {
   trees = input.required<LocationChangesTreeNode[]>();

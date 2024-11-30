@@ -2,7 +2,6 @@ import { output } from '@angular/core';
 import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { EventEmitter } from '@angular/core';
 import { input } from '@angular/core';
 import { PaginatorComponent } from '@app/components/shared/paginator';
 import { EditLinkComponent } from './edit-link.component';

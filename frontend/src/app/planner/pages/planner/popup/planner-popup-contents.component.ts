@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
@@ -23,12 +22,7 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
       }
     }
   `,
-  imports: [
-    PlannerPopupRouteComponent,
-    NgClass,
-    PlannerPopupNodeComponent,
-    PlannerPopupPoiComponent,
-  ],
+  imports: [PlannerPopupRouteComponent, PlannerPopupNodeComponent, PlannerPopupPoiComponent],
 })
 export class PlannerPopupContentsComponent {
   protected readonly service = inject(PlannerPopupService);

@@ -37,17 +37,12 @@ export class MapService {
   action: MapRoutePopupAction;
 
   constructor() {
-    effect(
-      () => {
-        const state = this.state.map.routePopupState();
-        if (this.action && state) {
-          this.action(state.routes, state.coordinate);
-        }
-      },
-      {
-        allowSignalWrites: true,
+    effect(() => {
+      const state = this.state.map.routePopupState();
+      if (this.action && state) {
+        this.action(state.routes, state.coordinate);
       }
-    );
+    });
 
     effect(() => {
       const styleOptions = this.state.map.mapStyleOptions();
@@ -64,16 +59,11 @@ export class MapService {
       ];
       console.log(`mapStyleOptions ${options.join(', ')}`);
     });
-    effect(
-      () => {
-        const xxx = this.state.map.poiActive();
-        console.log('poiActive changed', xxx);
-        this.layers.poiLayer.layer.changed();
-      },
-      {
-        allowSignalWrites: true,
-      }
-    );
+    effect(() => {
+      const xxx = this.state.map.poiActive();
+      console.log('poiActive changed', xxx);
+      this.layers.poiLayer.layer.changed();
+    });
   }
 
   xxx(action: MapRoutePopupAction): void {

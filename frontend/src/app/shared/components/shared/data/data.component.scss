@@ -1,25 +1,25 @@
-@import '../../../../../../src/variables';
+@use '../../../../../../src/variables' as config;
 
 .data {
-  @media (max-width: $small-max-width) {
+  @media (max-width: config.$small-max-width) {
     padding-bottom: 20px;
   }
-  @media (min-width: $medium-min-width) {
+  @media (min-width: config.$medium-min-width) {
     margin-bottom: 25px;
   }
 }
 
 .data2 {
-  @media (max-width: $small-max-width) {
+  @media (max-width: config.$small-max-width) {
     padding-bottom: 20px;
   }
-  @media (min-width: $medium-min-width) {
+  @media (min-width: config.$medium-min-width) {
     margin-bottom: 0.5em;
   }
 }
 
 .title {
-  @media (max-width: $small-max-width) {
+  @media (max-width: config.$small-max-width) {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -33,7 +33,7 @@
     border-bottom-style: solid;
     border-bottom-color: lightgray;
   }
-  @media (min-width: $medium-min-width) {
+  @media (min-width: config.$medium-min-width) {
     float: left;
     width: 160px;
     overflow: hidden;
@@ -46,10 +46,10 @@
 
 .body {
   min-height: 1px;
-  @media (max-width: $small-max-width) {
+  @media (max-width: config.$small-max-width) {
     margin: 15px;
   }
-  @media (min-width: $medium-min-width) {
+  @media (min-width: config.$medium-min-width) {
     margin-left: 180px;
   }
 }

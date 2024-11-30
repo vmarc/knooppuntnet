@@ -1,5 +1,4 @@
 import { Country } from '@api/custom';
-import { NetworkType } from '@api/custom';
 import { Subset } from '@api/custom';
 
 export class Subsets {

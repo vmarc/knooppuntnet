@@ -1,9 +1,7 @@
-import { DecimalPipe } from '@angular/common';
 import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LocationPipe } from '../../../../shared/components/shared/format/location.pipe';
 import { ZeroIntegerFormatPipe } from '../../../../shared/components/shared/format/zero-integer-format.pipe';
 import { LocationFlatNode } from './location-flat-node';
@@ -58,7 +56,7 @@ import { LocationFlatNode } from './location-flat-node';
       }
     }
   `,
-  imports: [LocationPipe, DecimalPipe, IntegerFormatPipe, ZeroIntegerFormatPipe],
+  imports: [LocationPipe, ZeroIntegerFormatPipe],
 })
 export class LocationTreeNodeComponent {
   node = input.required<LocationFlatNode>();

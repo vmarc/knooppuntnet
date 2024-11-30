@@ -1,24 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatOption } from '@angular/material/autocomplete';
-import { MatButton } from '@angular/material/button';
 import { MatChipOption } from '@angular/material/chips';
 import { MatChipListbox } from '@angular/material/chips';
-import { MatChipRemove } from '@angular/material/chips';
-import { MatChip } from '@angular/material/chips';
 import { MatExpansionPanelHeader } from '@angular/material/expansion';
 import { MatExpansionPanelDescription } from '@angular/material/expansion';
 import { MatExpansionPanelTitle } from '@angular/material/expansion';
 import { MatExpansionPanel } from '@angular/material/expansion';
-import { MatIcon } from '@angular/material/icon';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { MatMenuItem } from '@angular/material/menu';
-import { MatMenu } from '@angular/material/menu';
 import { MatLabel } from '@angular/material/select';
-import { MatSelect } from '@angular/material/select';
-import { MatTabLabel } from '@angular/material/tabs';
-import { MatTabGroup } from '@angular/material/tabs';
-import { MatTab } from '@angular/material/tabs';
 
 @Component({
   selector: 'kpn-tryout-filter-alternative-2',
@@ -52,25 +40,8 @@ import { MatTab } from '@angular/material/tabs';
     mat-chip {
       margin-right: 0.5em;
     }
-
-    .menu-count {
-      padding-left: 1em;
-      color: darkgray;
-    }
   `,
   imports: [
-    MatSelect,
-    MatOption,
-    MatTabGroup,
-    MatTab,
-    MatTabLabel,
-    MatButton,
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
-    MatIcon,
-    MatChip,
-    MatChipRemove,
     MatExpansionPanel,
     MatExpansionPanelTitle,
     MatExpansionPanelHeader,

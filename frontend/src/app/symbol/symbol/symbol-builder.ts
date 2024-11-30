@@ -4,7 +4,7 @@ import { SymbolImage } from './symbol-image';
 import { SymbolShape } from './symbol-shape';
 
 export class SymbolBuilder {
-  private context: CanvasRenderingContext2D;
+  private readonly context: CanvasRenderingContext2D;
 
   constructor(canvas: ElementRef<HTMLCanvasElement>) {
     this.context = canvas.nativeElement.getContext('2d') as CanvasRenderingContext2D;
