@@ -9,14 +9,14 @@ import java.text.DecimalFormat
 
 object PoiLocation {
 
-  val belgiumAndNetherlands: Rectangle = latLonBoundsFrom(Tile(10, 519, 331), Tile(10, 532, 349))
-  private val germany = latLonBoundsFrom(Tile(10, 535, 355), Tile(10, 536, 356))
-  private val germanyNorth = latLonBoundsFrom(Tile(10, 531, 330), Tile(10, 536, 338))
-  private val germanySouth = latLonBoundsFrom(Tile(10, 528, 338), Tile(10, 537, 344))
-  private val germanyEast = latLonBoundsFrom(Tile(10, 544, 331), Tile(10, 553, 341))
-  private val austria = latLonBoundsFrom(Tile(10, 552, 358), Tile(10, 555, 360))
-  private val france = latLonBoundsFrom(Tile(10, 518, 343), Tile(10, 520, 344))
-  private val spain = latLonBoundsFrom(Tile(10, 508, 380), Tile(10, 509, 381))
+  val belgiumAndNetherlands: Rectangle = latLonBoundsFrom(Tile.poiTile(10, 519, 331), Tile.poiTile(10, 532, 349))
+  private val germany = latLonBoundsFrom(Tile.poiTile(10, 535, 355), Tile.poiTile(10, 536, 356))
+  private val germanyNorth = latLonBoundsFrom(Tile.poiTile(10, 531, 330), Tile.poiTile(10, 536, 338))
+  private val germanySouth = latLonBoundsFrom(Tile.poiTile(10, 528, 338), Tile.poiTile(10, 537, 344))
+  private val germanyEast = latLonBoundsFrom(Tile.poiTile(10, 544, 331), Tile.poiTile(10, 553, 341))
+  private val austria = latLonBoundsFrom(Tile.poiTile(10, 552, 358), Tile.poiTile(10, 555, 360))
+  private val france = latLonBoundsFrom(Tile.poiTile(10, 518, 343), Tile.poiTile(10, 520, 344))
+  private val spain = latLonBoundsFrom(Tile.poiTile(10, 508, 380), Tile.poiTile(10, 509, 381))
 
   val allBoundingBoxes: Seq[Rectangle] = Seq(
     belgiumAndNetherlands,

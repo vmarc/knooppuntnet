@@ -79,14 +79,9 @@ class TileTool(
     log.info("loading tile names")
     val tiles = routeRepository.tiles(networkType).toVector // needs to be Vector for performance reasons
     tiles.zipWithIndex.foreach { case (tileId, index) =>
-      val tile = Tile(tileId)
+      val tile = Tile.routeTileFromId(tileId)
       Log.context(s"${index + 1}/${tiles.size} ${tile.name}") {
-        val encoder = if (tile.detailed) {
-          new VectorTileEncoder(Tile.EXTENT_DETAILED, Tile.CLIP_BUFFER_SIZE_DETAILED, false)
-        }
-        else {
-          new VectorTileEncoder(Tile.EXTENT_STANDARD, Tile.CLIP_BUFFER_SIZE_STANDARD, false)
-        }
+        val encoder = new VectorTileEncoder(tile.extent, tile.clipBufferSize, false)
         val docs = routeRepository.tilesWithName(networkType, tileId)
         docs.foreach { doc =>
           if (!(tileId.z < 11 && doc.layer == "node-route")) {

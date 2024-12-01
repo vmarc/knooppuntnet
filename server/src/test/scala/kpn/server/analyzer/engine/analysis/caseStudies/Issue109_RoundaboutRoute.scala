@@ -11,9 +11,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerI
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
@@ -25,11 +22,8 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
 
   test("analysis") {
     val locationAnalyzer = new LocationAnalyzerFixed()
-    val oldTileCalculator = new OldTileCalculatorImpl()
     val tileCalculator = new TileCalculatorImpl()
-    val linesTileCalculator = new OldLinesTileCalculatorImpl(oldTileCalculator)
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
-    val routeTileCalculator = new RouteTileCalculatorImpl(lineSegmentTileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(lineSegmentTileCalculator)
     val routeRepository = stub[RouteRepository]
     val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)

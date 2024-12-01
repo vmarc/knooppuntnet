@@ -19,7 +19,7 @@ class TileTest extends UnitTest {
     Tile.tileX(z, lonToWorldX(essen.lon)) should equal(x)
     Tile.tileY(z, latToWorldY(essen.lat)) should equal(y)
 
-    val tile = Tile(z, x, y)
+    val tile = Tile.routeTile(z, x, y)
 
     tile.worldXMin should equal(lonToWorldX(4.43847) +- 0.001)
     tile.worldXMax should equal(lonToWorldX(4.48242) +- 0.001)
@@ -40,7 +40,7 @@ class TileTest extends UnitTest {
   }
 
   test("contains") {
-    val tile = Tile(1, 0, 0)
+    val tile = Tile.routeTile(1, 0, 0)
 
     tile.bounds.xMin should equal(0.0)
     tile.bounds.xMax should equal(0.5)

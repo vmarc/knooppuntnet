@@ -1,40 +1,51 @@
 package kpn.server.opendata.common
 
-import kpn.server.analyzer.engine.tiles.domain.ClipBuffer
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.Tile
-import kpn.server.analyzer.engine.tiles.vector.encoder.VectorTileEncoder
+import kpn.server.analyzer.engine.tiles.domain.TileUtil
+import no.ecc.vectortile.VectorTileEncoder
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.Point
 
 class OpenDataVectorTileBuilder {
 
+  private val geometryFactory = new GeometryFactory
+
   def build(tile: Tile, nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute]): Array[Byte] = {
 
-    val geometryFactory = new GeometryFactory
+    val encoder = new VectorTileEncoder(tile.extent, tile.clipBufferSize, false)
 
-    val encoder = new VectorTileEncoder(new ClipBuffer(tile.clipBufferSize, tile.clipBufferSize, tile.clipBufferSize, tile.clipBufferSize))
-
-    nodes.foreach { node =>
-      val point: Point = geometryFactory.createPoint(tile.scale(new Coordinate(node.lon, node.lat)))
-
-      val userData = Seq(
-        "id" -> node._id,
-        "name" -> node.name,
-      ).toMap
-
-      encoder.addPointFeature("opendata-node", userData, point)
-    }
-
-    routes.foreach { route =>
-      val coordinates = tile.scale(route.coordinates.map(p => new Coordinate(p.lon, p.lat)))
-      val lineString = geometryFactory.createLineString(coordinates.toArray)
-      val userData = Seq(
-        "id" -> route._id,
-      ).toMap
-      encoder.addLineStringFeature("opendata-route", userData, lineString)
-    }
-
+    encodeNodes(encoder, tile, nodes)
+    encodeRoutes(encoder, tile, routes)
     encoder.encode
+  }
+
+  private def encodeNodes(encoder: VectorTileEncoder, tile: Tile, nodes: Seq[OpenDataNode]): Unit = {
+    nodes.foreach { node =>
+      val worldCoordinate = new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat))
+      val scaledCoordinate = tile.scale(worldCoordinate)
+      val coordinate = new Coordinate(Math.floor(scaledCoordinate.x), Math.floor(scaledCoordinate.y))
+      val point: Point = geometryFactory.createPoint(coordinate)
+
+      val userData = new java.util.HashMap[String, String]()
+      userData.put("id", node._id)
+      userData.put("name", node.name)
+
+      encoder.addFeature("opendata-node", userData, point)
+    }
+  }
+
+  private def encodeRoutes(encoder: VectorTileEncoder, tile: Tile, routes: Seq[OpenDataRoute]): Unit = {
+    routes.foreach { route =>
+      val worldCoordinates = route.coordinates.map(coordinate => new Coordinate(lonToWorldX(coordinate.lon), latToWorldY(coordinate.lat)))
+      val tileCoordinates = TileUtil.tileCoordinates(tile, worldCoordinates)
+      val coordinates = tileCoordinates.map(c => new Coordinate(c.x, c.y))
+      val lineString = geometryFactory.createLineString(coordinates.toArray)
+      val userData = new java.util.HashMap[String, String]()
+      userData.put("id", route._id)
+      encoder.addFeature("opendata-route", userData, lineString)
+    }
   }
 }

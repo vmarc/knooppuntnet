@@ -1,6 +1,10 @@
 package kpn.server.opendata.common
 
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.Tile
+import kpn.server.analyzer.engine.tiles.domain.TileUtil
+import org.locationtech.jts.geom.Coordinate
 
 import java.awt.BasicStroke
 import java.awt.Color
@@ -12,11 +16,8 @@ import javax.imageio.ImageIO
 
 class OpenDataBitmapTileBuilder {
 
-  private val width = 256
-  private val height = 256
-
   def build(tile: Tile, nodes: Seq[OpenDataNode], routes: Seq[OpenDataRoute]): Array[Byte] = {
-    val image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB)
+    val image = new BufferedImage(Tile.TILE_SIZE, Tile.TILE_SIZE, BufferedImage.TYPE_INT_ARGB)
     val g = createGraphics(image)
     g.setColor(Color.red)
     try {
@@ -49,25 +50,20 @@ class OpenDataBitmapTileBuilder {
 
     routes.foreach { tileRoute =>
       g.setStroke(stroke)
-      tileRoute.coordinates.sliding(2).toSeq.foreach { case Seq(p1, p2) =>
-        ???
-        val x1 = 0 // TODO redesign tiles - tile.lngToPixel(width, p1.lon)
-        val y1 = 0 // TODO redesign tiles - tile.latToPixel(height, p1.lat)
-        val x2 = 0 // TODO redesign tiles - tile.lngToPixel(width, p2.lon)
-        val y2 = 0 // TODO redesign tiles - tile.latToPixel(height, p2.lat)
-        g.drawLine(x1, y1, x2, y2)
+      val worldCoordinates = tileRoute.coordinates.map(coordinate => new Coordinate(lonToWorldX(coordinate.lon), latToWorldY(coordinate.lat)))
+      val tileCoordinates = TileUtil.tileCoordinates(tile, worldCoordinates)
+      tileCoordinates.sliding(2).toSeq.foreach { case Seq(c1, c2) =>
+        g.drawLine(c1.x, c1.y, c2.x, c2.y)
       }
     }
   }
 
   private def drawNodes(g: Graphics2D, tile: Tile, nodes: Seq[OpenDataNode]): Unit = {
-
     nodes.foreach { node =>
-
-      ???
-      val x = 0 // TODO redesign tiles - tile.lngToPixel(width, node.lon)
-      val y = 0 // TODO redesign tiles - tile.latToPixel(height, node.lat)
-
+      val worldCoordinate = new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat))
+      val scaledCoordinate = tile.scale(worldCoordinate)
+      val x = scaledCoordinate.x.toInt
+      val y = scaledCoordinate.y.toInt
       if (tile.z == 10) {
         g.fillOval(x - 1, y - 1, 3, 3)
       }

@@ -82,7 +82,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
           Log.context(s"${index + 1}/${tileDatas.size}") {
             try {
               val Array(z, x, y) = tileData.name.split("-").map(namePart => java.lang.Integer.parseInt(namePart))
-              val tile = Tile(z, x, y)
+              val tile = Tile.routeTile(z, x, y)
               val tileRelationDatas = tileData.relationIds.flatMap { relationId =>
                 allRelationDatas.get(relationId)
               }

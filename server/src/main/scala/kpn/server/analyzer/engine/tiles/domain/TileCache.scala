@@ -24,6 +24,6 @@ class TileCache {
   }
 
   private def cachedOrNewTile(tileName: String, z: Int, x: Int, y: Int): Tile = {
-    tiles.getOrElseUpdate(tileName, new Tile(z, x, y))
+    tiles.getOrElseUpdate(tileName, Tile.routeTile(z, x, y))
   }
 }

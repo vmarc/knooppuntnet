@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.tile
 
 import kpn.api.common.LatLon
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.latToWorldY
+import kpn.server.analyzer.engine.tiles.domain.CoordinateTransform.lonToWorldX
 import kpn.server.analyzer.engine.tiles.domain.Tile
 import org.springframework.stereotype.Component
 
@@ -12,8 +14,11 @@ class NodeTileCalculatorImpl(tileCalculator: TileCalculator) extends NodeTileCal
     val lon = latLon.lon
     val lat = latLon.lat
 
-    val x = Tile.tileX(z, lon)
-    val y = Tile.tileY(z, lat)
+    val xWorld = lonToWorldX(lon)
+    val yWorld = latToWorldY(lat)
+
+    val x = Tile.tileX(z, xWorld)
+    val y = Tile.tileY(z, yWorld)
 
     Seq(
       Some(tileCalculator.tileXY(z, x, y)),

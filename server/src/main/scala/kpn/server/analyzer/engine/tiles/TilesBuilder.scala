@@ -58,7 +58,7 @@ class TilesBuilder(
     tileNames.foreach { tileName =>
       Log.context(context :+ s"${progress.get()} $tileName") {
         val splitted = tileName.split("-")
-        val tile = Tile(z, Integer.parseInt(splitted(1)), Integer.parseInt(splitted(2))) // TODO redesign tiles - move to Tile apply function?
+        val tile = Tile.routeTile(z, Integer.parseInt(splitted(1)), Integer.parseInt(splitted(2))) // TODO redesign tiles - move to Tile apply function?
         val nodes: Seq[TileDataNode] = Seq.empty // TODO redesign tiles - filter node data for this tile
         // val tileDataRoutes = allTileData.routes.filter(_.tiles.contains(tileName))
         val tileDataRoutes = tileDataRouteMap(tileName)

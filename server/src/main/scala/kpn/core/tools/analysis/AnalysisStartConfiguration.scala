@@ -41,7 +41,6 @@ import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileDataLoaderImpl
@@ -83,7 +82,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   private val locationAnalyzer = new LocationAnalyzerImpl(true, false)
 
-  private val oldTileCalculator = new OldTileCalculatorImpl()
   private val tileCalculator = new TileCalculatorImpl()
 
   private val nodeAnalyzer: NodeAnalyzer = {

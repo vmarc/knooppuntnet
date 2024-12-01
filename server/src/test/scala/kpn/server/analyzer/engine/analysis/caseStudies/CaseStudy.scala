@@ -12,9 +12,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldLinesTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.OldTileCalculatorImpl
-import kpn.server.analyzer.engine.tile.RouteTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.repository.RouteRepository
 import org.scalamock.scalatest.MockFactory
@@ -28,11 +25,8 @@ object CaseStudy extends MockFactory {
     val filename = s"/case-studies/$name.xml"
     val routeRelation = load(filename)
     val locationAnalyzer = new LocationAnalyzerFixed()
-    val oldTileCalculator = new OldTileCalculatorImpl()
     val tileCalculator = new TileCalculatorImpl()
-    val linesTileCalculator = new OldLinesTileCalculatorImpl(oldTileCalculator)
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
-    val routeTileCalculator = new RouteTileCalculatorImpl(lineSegmentTileCalculator)
     val routeTileAnalyzer = new RouteTileAnalyzer(lineSegmentTileCalculator)
     val routeRepository = stub[RouteRepository]
     val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
