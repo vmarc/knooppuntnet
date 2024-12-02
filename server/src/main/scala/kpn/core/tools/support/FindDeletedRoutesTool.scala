@@ -40,10 +40,11 @@ class FindDeletedRoutesTool(database: Database, overpassQueryExecutor: OverpassQ
   def report(): Unit = {
     log.info("Collecting route ids")
     val routeIds = routeRepository.activeRouteIds()
-    log.info(s"${routeIds.size} active routes")
+    val routeIdsSize = routeIds.size
+    log.info(s"$routeIdsSize active routes")
     val batchSize = 1000
     val deletedRouteIds = routeIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (batchRouteIds, index) =>
-      val progress = s"${index * batchSize}/${routeIds.size}"
+      val progress = s"${index * batchSize}/$routeIdsSize"
       val deletedRouteIds = findDeletedRouteIds(batchRouteIds)
       if (deletedRouteIds.nonEmpty) {
         log.info(s"$progress deleted route(s)=${deletedRouteIds.mkString(", ")}")

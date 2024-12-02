@@ -45,12 +45,13 @@ class LocationBuilderGermany(dir: String) {
   private def buildFederalStates(): Unit = {
     Log.context("federal states") {
       val federalStates = InterpretedLocationJson.load(federalStatesFilename)
+      val federalStatesSize = federalStates.size
       federalStates.zipWithIndex.foreach { case (federalState, index) =>
         federalState.tags.get("de:regionalschluessel") match {
           case None => throw new RuntimeException(s"federal state, no id found for ${federalState.name}")
           case Some(tagValue) =>
             val id = s"de-1-$tagValue"
-            log.info(s"${index + 1}/${federalStates.size} $id ${federalState.name}")
+            log.info(s"${index + 1}/$federalStatesSize $id ${federalState.name}")
             locationDatas.add(
               LocationData.from(
                 id,

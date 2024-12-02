@@ -39,10 +39,11 @@ class NextCreateRouteStatesTool(
 
   def createRelationStates(): Unit = {
     val routeIds = collectRouteIds()
-    log.info(s"processing ${routeIds.size} route ids")
+    val routeIdsSize = routeIds.size
+    log.info(s"processing $routeIdsSize route ids")
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       if (((index + 1) % 100) == 0) {
-        log.info(s"${index + 1}/${routeIds.size}")
+        log.info(s"${index + 1}/$routeIdsSize")
       }
       createRelationState(routeId)
     }

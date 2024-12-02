@@ -43,11 +43,12 @@ class NextCreateRouteRelationsTool(database: NextDatabase, overpassQueryExecutor
 
   def createRouteRelations(): Unit = {
     val routeIds = collectRouteIds()
-    log.info(s"collected ${routeIds.size} route ids")
+    val routeIdsSize = routeIds.size
+    log.info(s"collected $routeIdsSize route ids")
     val batches = routeIds.sliding(batchSize, batchSize)
 
     batches.zipWithIndex.foreach { case (batchRouteIds, index) =>
-      log.info(s"${index * batchSize}/${routeIds.size}")
+      log.info(s"${index * batchSize}/$routeIdsSize")
       createRouteRelationBatch(batchRouteIds)
     }
     /*

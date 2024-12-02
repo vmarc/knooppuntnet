@@ -35,8 +35,9 @@ class MonitorRouteDeviationAnalyzerImpl extends MonitorRouteDeviationAnalyzer {
     val referenceGeometry = new GeoJsonReader().read(referenceGeoJson)
     val referenceSegments = MonitorRouteReferenceUtil.toLineStrings(referenceGeometry)
 
+    val referenceSegmentsSize = referenceSegments.size
     val analysisResults = referenceSegments.zipWithIndex.map { case (referenceSegment, index) =>
-      Log.context(s"reference segment ${index + 1}/${referenceSegments.size}") {
+      Log.context(s"reference segment ${index + 1}/$referenceSegmentsSize") {
         analyzeReferenceSegment(tree, referenceSegment)
       }
     }

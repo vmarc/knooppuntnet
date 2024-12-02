@@ -34,8 +34,9 @@ object MonitorRouteCopyTool {
     private def copyCollection[T](name: String, source: DatabaseCollection[T], target: DatabaseCollection[T]): Unit = {
       println("Collecting ids: " + name)
       val ids = source.objectIds()
+      val idsSize = ids.size
       ids.zipWithIndex.foreach { case (id, index) =>
-        println(s"  $name ${index + 1}/${ids.size}")
+        println(s"  $name ${index + 1}/$idsSize")
         if (target.countDocuments(equal("_id", id.raw)) == 0L) {
           source.findByObjectId(id).foreach { document =>
             target.save(document)

@@ -40,9 +40,10 @@ class AnalysisStartNodeAnalyzer(log: Log, config: AnalysisStartConfiguration)(im
 
   private def analyzeNodes(overpassNodeIds: Seq[Long]): Seq[Long] = {
     val batchSize = 500
+    val overpassNodeIdsSize = overpassNodeIds.size
     val updateFutures = overpassNodeIds.sliding(batchSize, batchSize).zipWithIndex.map { case (nodeIdsBatch, index) =>
       Future(
-        Log.context(s"${index * batchSize}/${overpassNodeIds.size}") {
+        Log.context(s"${index * batchSize}/$overpassNodeIdsSize") {
           log.infoElapsed {
             val nodeDocs = config.bulkNodeAnalyzer.analyze(config.timestamp, nodeIdsBatch)
             nodeDocs.foreach { nodeDoc =>

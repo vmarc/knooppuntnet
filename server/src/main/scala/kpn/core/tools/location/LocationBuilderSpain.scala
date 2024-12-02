@@ -41,9 +41,10 @@ class LocationBuilderSpain(dir: String) {
   private def buildProvincies(): Unit = {
     Log.context("provinces") {
       val provinces = InterpretedLocationJson.load(provincesFilename)
+      val provincesSize = provinces.size
       provinces.zipWithIndex.foreach { case (province, index) =>
         val id = s"es-1-${province.tags("ine:provincia")}"
-        log.info(s"${index + 1}/${provinces.size} $id ${province.name}")
+        log.info(s"${index + 1}/$provincesSize $id ${province.name}")
         locationDatas.add(
           LocationData.from(
             id,

@@ -61,8 +61,9 @@ class NetworkInfoMasterAnalyzer(
   def updateAll(analysisTimestamp: Timestamp): Unit = {
     log.infoElapsed {
       val networkIds = database.networks.ids(log)
+      val networkIdsSize = networkIds.size
       networkIds.zipWithIndex.foreach { case (networkDoc, index) =>
-        Log.context(s"${index + 1}/${networkIds.size}") {
+        Log.context(s"${index + 1}/$networkIdsSize") {
           updateNetwork(analysisTimestamp, networkDoc)
         }
       }
@@ -71,8 +72,9 @@ class NetworkInfoMasterAnalyzer(
   }
 
   def updateNetworks(analysisTimestamp: Timestamp, networkIds: Seq[Long]): Unit = {
+    val networkIdsSize = networkIds.size
     networkIds.zipWithIndex.foreach { case (networkId, index) =>
-      Log.context(s"${index + 1}/${networkIds.size}") {
+      Log.context(s"${index + 1}/$networkIdsSize") {
         updateNetwork(analysisTimestamp, networkId)
       }
     }

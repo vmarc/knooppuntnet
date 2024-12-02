@@ -25,14 +25,15 @@ class StructureIssueAnalysisTool(database: Database) {
   def analyze(): Unit = {
     val filename = s"${Dirs.root}/cycling-nok-routes.txt"
     val routeIds = FileUtils.readLines(new File(filename), Charset.forName("UTF-8")).asScala.map(_.toLong)
+    val routeIdsSize = routeIds.size
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       routeRepository.findRouteById(routeId) match {
-        case None => println(s"${index + 1}/${routeIds.size} $routeId not found")
+        case None => println(s"${index + 1}/$routeIdsSize $routeId not found")
         case Some(route) =>
           val hasIssueLink = route.members.exists { member =>
             StructureIssueLinks.links.contains(member.linkName)
           }
-          println(s"${index + 1}/${routeIds.size} $routeId ${if (hasIssueLink) "ISSUE" else "OK"}")
+          println(s"${index + 1}/$routeIdsSize $routeId ${if (hasIssueLink) "ISSUE" else "OK"}")
       }
     }
   }

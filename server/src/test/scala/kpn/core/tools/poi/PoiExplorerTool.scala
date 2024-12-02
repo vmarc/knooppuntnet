@@ -10,9 +10,10 @@ object PoiExplorerTool {
     Mongo.executeIn("pois4") { database =>
       val repo = new PoiRepositoryImpl(database)
       val poiRefs = loadPoiRefs(repo)
+      val poiRefsSize = poiRefs.size
       val tagValues = poiRefs.zipWithIndex.flatMap { case (poiRef, index) =>
         if (index % 1000 == 0) {
-          println(s"$index/${poiRefs.size}")
+          println(s"$index/$poiRefsSize")
         }
         repo.get(poiRef).flatMap { poi => poi.tagValue("cuisine") }
       }

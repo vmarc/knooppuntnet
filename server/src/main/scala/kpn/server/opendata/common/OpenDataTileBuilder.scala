@@ -29,12 +29,13 @@ class OpenDataTileBuilder {
       val tileNames = (nodeMap.keys ++ routeMap.keys).toSet.toSeq
 
       var progress: Int = 0
+      val tileNamesSize = tileNames.size
       tileNames.zipWithIndex.foreach { case (tileName: String, index) =>
-        Log.context(s"${index + 1}/${tileNames.size}") {
-          val currentProgress = (100d * (index + 1) / tileNames.size).round.toInt
+        Log.context(s"${index + 1}/$tileNamesSize") {
+          val currentProgress = (100d * (index + 1) / tileNamesSize).round.toInt
           if (currentProgress != progress) {
             progress = currentProgress
-            log.info(s"Build tile ${index + 1}/${tileNames.size} $progress $tileName")
+            log.info(s"Build tile ${index + 1}/$tileNamesSize $progress $tileName")
           }
           buildTile(nodeMap, routeMap, tileName, dir)
         }
@@ -48,7 +49,7 @@ class OpenDataTileBuilder {
       val tiles = nodeTileCalculator.tiles(z, node)
       tiles.foreach { tile =>
         map(tile.name) = map.get(tile.name) match {
-          case Some(tileNodes) => OpenDataTileNodes(tile, tileNodes.nodes :+ node)
+          case Some(tileNodes) => OpenDataTileNodes(tile, node +: tileNodes.nodes)
           case None => OpenDataTileNodes(tile, Seq(node))
         }
       }
@@ -60,6 +61,7 @@ class OpenDataTileBuilder {
     val map = scala.collection.mutable.Map[String, OpenDataTileRoutes]()
 
     var progress = 0
+    val routeSize = routes.size
     routes.zipWithIndex.foreach { case (tileRoute, index) =>
       val worldCoordinates = tileRoute.coordinates.map(coordinate => new Coordinate(lonToWorldX(coordinate.lon), latToWorldY(coordinate.lat)))
       val lineSegments = worldCoordinates.sliding(2).toSeq.map { case Seq(p1, p2) =>
@@ -75,14 +77,14 @@ class OpenDataTileBuilder {
       //            lineSegments = lineSegments
       //          )
       val tiles = lineSegmentTileCalculator.tiles(z, lineSegments)
-      val currentProgress = (100d * (index + 1) / routes.size).round.toInt
+      val currentProgress = (100d * (index + 1) / routeSize).round.toInt
       if (currentProgress != progress) {
         progress = currentProgress
         //log.info(s"Build route map ${index + 1}/${routes.size} $progress% tileCount=${map.size}")
       }
       tiles.foreach { tile =>
         map(tile.name) = map.get(tile.name) match {
-          case Some(tileRoutes1) => OpenDataTileRoutes(tile, tileRoutes1.routes :+ tileRoute)
+          case Some(tileRoutes1) => OpenDataTileRoutes(tile, tileRoute +: tileRoutes1.routes)
           case None => OpenDataTileRoutes(tile, Seq(tileRoute))
         }
       }

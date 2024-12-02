@@ -28,14 +28,15 @@ class RouteAnalysisCompareTool(config: AnalysisStartConfiguration) {
   def analyze(): Unit = {
     log.info("Collecting routeIds")
     val routeIds = config.oldDatabase.oldRoutes.ids()
+    val routeIdsSize = routeIds.size
     // val routeIds = readRouteIds("logs/mismatch-ids-7.txt")
     // val routeIds = Seq(5880L)
-    log.info(s"Comparing ${routeIds.size} routes")
+    log.info(s"Comparing $routeIdsSize routes")
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       if (index % 50 == 0) {
-        log.info(s"${index + 1}/${routeIds.size}")
+        log.info(s"${index + 1}/$routeIdsSize")
       }
-      Log.context(s"${index + 1}/${routeIds.size} route=$routeId") {
+      Log.context(s"${index + 1}/$routeIdsSize route=$routeId") {
         try {
           analyzeAndCompare(routeId)
         } catch {

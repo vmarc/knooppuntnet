@@ -78,8 +78,9 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
     (2 to 14) foreach { zoomLevel =>
       Log.context(s"zoom=$zoomLevel") {
         val tileDatas = config.relationRepository.tilesZoomLevel(zoomLevel)
+        val tileDatasSize = tileDatas.size
         tileDatas.zipWithIndex.foreach { case (tileData, index) =>
-          Log.context(s"${index + 1}/${tileDatas.size}") {
+          Log.context(s"${index + 1}/$tileDatasSize") {
             try {
               val Array(z, x, y) = tileData.name.split("-").map(namePart => java.lang.Integer.parseInt(namePart))
               val tile = Tile.routeTile(z, x, y)
@@ -154,10 +155,11 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
   }
 
   private def loadRelations(relationIds: Seq[Long]): Map[Long, TileRelationData] = {
+    val relationIdsSize = relationIds.size
     Log.context("load-relations") {
       log.infoElapsed {
         val result = relationIds.zipWithIndex.map { case (relationId, index) =>
-          log.info(s"${index + 1}/${relationIds.size} $relationId")
+          log.info(s"${index + 1}/$relationIdsSize $relationId")
           val geoJsons = readOsmSegments(relationId).flatMap(_.osmSegments).map(_.geoJson)
           val segments = geoJsons.flatMap { geoJson =>
             val geometry = GeoJSONReader.parseGeometry(geoJson)
@@ -168,7 +170,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
           }
           (relationId -> TileRelationData(relationId, segments))
         }.toMap
-        (s"loaded ${relationIds.size} relations", result)
+        (s"loaded $relationIdsSize relations", result)
       }
     }
   }

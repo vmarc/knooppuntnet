@@ -9,8 +9,9 @@ trait MonitorUpdateReporter {
   def report(message: MonitorRouteUpdateStatusMessage): Unit
 
   def processList(processList: Seq[MonitorRouteRelation]): Unit = {
+    val processListSize = processList.size
     val commands = processList.zipWithIndex.map { case (monitorRouteRelation, index) =>
-      val description = s"${index + 1}/${processList.size} ${monitorRouteRelation.name}"
+      val description = s"${index + 1}/$processListSize ${monitorRouteRelation.name}"
       MonitorRouteUpdateStatusCommand(
         "step-add",
         monitorRouteRelation.relationId.toString,

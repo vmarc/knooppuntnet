@@ -1,11 +1,11 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.base.ObjectId
+import kpn.api.common.Bounds
+import kpn.api.common.data.WayMember
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
 import kpn.api.common.monitor.MonitorRouteUpdateStatusMessage
-import kpn.api.common.Bounds
-import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.core.common.Time
 import kpn.core.tools.monitor.MonitorRouteGpxReader
@@ -21,6 +21,7 @@ import kpn.server.analyzer.engine.monitor.MonitorRouteOsmSegmentBuilder
 import kpn.server.analyzer.engine.monitor.MonitorRouteReferenceUtil
 import kpn.server.analyzer.engine.monitor.domain.MonitorRouteAnalysis
 import kpn.server.json.Json
+import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.domain.MonitorRouteReference
@@ -29,7 +30,6 @@ import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorRouteStateSummary
-import kpn.server.monitor.MonitorUtil
 import org.locationtech.jts.geom.GeometryCollection
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.io.geojson.GeoJsonReader
@@ -462,8 +462,9 @@ class MonitorRouteUpdateExecutor(
             val processList = composeProcessList(monitorRouteRelation)
             context.reporter.processList(processList)
 
+            val processListSize = processList.size
             processList.zipWithIndex.foreach { case (mrr, index) =>
-              Log.context(s"${index + 1}/${processList.size} ${mrr.relationId}") {
+              Log.context(s"${index + 1}/$processListSize ${mrr.relationId}") {
                 context.reporter.stepActive(mrr.relationId.toString)
                 val updateSingleRelationRoute = index == 0 && processList.size == 1
 
@@ -519,8 +520,9 @@ class MonitorRouteUpdateExecutor(
       case None =>
       case Some(rootMonitorRouteRelation) =>
         val monitorRouteRelations = composeProcessList(rootMonitorRouteRelation)
+        val monitorRouteRelationsSize = monitorRouteRelations.size
         monitorRouteRelations.zipWithIndex.foreach { case (monitorRouteRelation, index) =>
-          Log.context(s"${index + 1}/${monitorRouteRelations.size} ${monitorRouteRelation.relationId}") {
+          Log.context(s"${index + 1}/$monitorRouteRelationsSize ${monitorRouteRelation.relationId}") {
             if (monitorRouteRelation.referenceTimestamp.nonEmpty && monitorRouteRelation.referenceFilename.nonEmpty) {
               monitorRouteRepository.routeReference(route._id, Some(monitorRouteRelation.relationId)) match {
                 case None => log.error("could not find reference")
@@ -581,8 +583,9 @@ class MonitorRouteUpdateExecutor(
       case None =>
       case Some(rootMonitorRouteRelation) =>
         val monitorRouteRelations = composeProcessList(rootMonitorRouteRelation)
+        val monitorRouteRelationsSize = monitorRouteRelations.size
         monitorRouteRelations.zipWithIndex.foreach { case (monitorRouteRelation, index) =>
-          Log.context(s"${index + 1}/${monitorRouteRelations.size} ${monitorRouteRelation.relationId}") {
+          Log.context(s"${index + 1}/$monitorRouteRelationsSize ${monitorRouteRelation.relationId}") {
             monitorRouteRepository.routeReference(route._id, Some(monitorRouteRelation.relationId)) match {
               case None =>
                 log.info("could not find reference") // TODO ???
@@ -620,9 +623,10 @@ class MonitorRouteUpdateExecutor(
           case None =>
           case Some(monitorRouteRelation) =>
             val processList = composeProcessList(monitorRouteRelation)
+            val processListSize = processList.size
             context.reporter.processList(processList)
             processList.zipWithIndex.foreach { case (mrr, index) =>
-              Log.context(s"${index + 1}/${processList.size} ${mrr.relationId}") {
+              Log.context(s"${index + 1}/$processListSize ${mrr.relationId}") {
                 context.reporter.stepActive(mrr.relationId.toString)
                 val updateSingleRelationRoute = index == 0 && processList.size == 1
                 updateSubRelationOsmReference(mrr, updateSingleRelationRoute)
@@ -743,8 +747,9 @@ class MonitorRouteUpdateExecutor(
           case None =>
           case Some(monitorRouteRelation) =>
             val processList = composeProcessList(monitorRouteRelation)
+            val processListSize = processList.size
             processList.zipWithIndex.foreach { case (mrr, index) =>
-              Log.context(s"${index + 1}/${processList.size} ${mrr.relationId}") {
+              Log.context(s"${index + 1}/$processListSize ${mrr.relationId}") {
                 analyzeSubRelation(mrr)
               }
             }

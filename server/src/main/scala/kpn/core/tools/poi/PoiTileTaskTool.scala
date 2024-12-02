@@ -44,11 +44,11 @@ class PoiTileTaskTool(
 
     log.info("Reading tile names")
     val tiles = poiRepository.allTiles().sorted
-
-    log.info(s"Generating ${tiles.size} tile tasks")
+    val tilesSize = tiles.size
+    log.info(s"Generating $tilesSize tile tasks")
     tiles.zipWithIndex.foreach { case (tileName, index) =>
       if (((index + 1) % 100) == 0) {
-        log.info(s"${index + 1}/${tiles.size}")
+        log.info(s"${index + 1}/$tilesSize")
       }
       taskRepository.add(PoiTileTask.withTileName(tileName))
     }

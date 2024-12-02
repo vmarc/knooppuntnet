@@ -52,8 +52,9 @@ class FullNetworkAnalyzerImpl(
 
   private def analyzeNetworks(context: FullAnalysisContext, overpassNetworkIds: Seq[Long]) = {
     val batchSize = 25
+    val overpassNetworkIdsSize = overpassNetworkIds.size
     val networkIds = overpassNetworkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIdsBatch, index) =>
-      Log.context(s"${index * batchSize}/${overpassNetworkIds.size}") {
+      Log.context(s"${index * batchSize}/$overpassNetworkIdsSize") {
         log.infoElapsed {
           val networkDocs = overpassRepository.relations(context.timestamp, networkIdsBatch).map(NetworkDoc.from)
           networkRepository.bulkSave(networkDocs)

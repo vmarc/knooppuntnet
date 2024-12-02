@@ -36,8 +36,9 @@ class NetworkChangeProcessorImpl(
         log.info(s"${changedNetworkIds.size} network(s) impacted: ${changedNetworkIds.mkString(", ")}")
       }
 
+      val changedNetworkIdsSize = changedNetworkIds.size
       val networkChanges = changedNetworkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIds, index) =>
-        Log.context(s"$index/${changedNetworkIds.size}") {
+        Log.context(s"$index/$changedNetworkIdsSize") {
           process(context, elementChanges, networkIds)
         }
       }.toSeq

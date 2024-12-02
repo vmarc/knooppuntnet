@@ -6,6 +6,7 @@ import org.locationtech.jts.geom.Point
 
 import java.io.InputStream
 import java.text.SimpleDateFormat
+import java.util.Date
 import scala.collection.mutable.ListBuffer
 
 class RoutedatabankNodeParser {
@@ -59,11 +60,16 @@ class RoutedatabankNodeParser {
             }
           }
 
-          val updated = if (lastEditedDate == "null") {
-            None
-          }
-          else {
-            Some(simpleDateFormat.format(lastEditedDate))
+          val updated = lastEditedDate match {
+            case date: Date => Some(simpleDateFormat.format(date))
+            case string: String =>
+              if (string == "null") {
+                None
+              }
+              else {
+                Some(string.take("yyyy-mm-dd".length))
+              }
+            case _ => None
           }
 
           RoutedatabankNode(

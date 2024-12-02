@@ -40,9 +40,10 @@ class LocationBuilderAustria(dir: String) {
   private def buildFederalStates(): Unit = {
     Log.context("federal states") {
       val federalStates = InterpretedLocationJson.load(federalStatesFilename)
+      val federalStatesSize = federalStates.size
       federalStates.zipWithIndex.foreach { case (federalState, index) =>
         val id = s"at-1-${federalState.tags("ref:at:gkz")}"
-        log.info(s"${index + 1}/${federalStates.size} $id ${federalState.name}")
+        log.info(s"${index + 1}/$federalStatesSize $id ${federalState.name}")
         locationDatas.add(
           LocationData.from(
             id,
@@ -62,8 +63,9 @@ class LocationBuilderAustria(dir: String) {
     Log.context("districts") {
       val federalStates = locationDatas.startingWith("at-1")
       val districts = InterpretedLocationJson.load(districtsFilename)
+      val districtsSize = districts.size
       districts.zipWithIndex.foreach { case (district, index) =>
-        Log.context(s"${index + 1}/${districts.size}") {
+        Log.context(s"${index + 1}/$districtsSize") {
           val id = s"at-2-${district.tags("ref:at:gkz")}"
           log.info(s"$id ${district.name}")
           val districtGeometry = LocationGeometry(district.geometry)

@@ -38,10 +38,11 @@ class RouteColoursTool(database: Database) {
   def report(): Unit = {
     println("Collecting route ids")
     val routeIds = routeRepository.allRouteIds()
+    val routeIdsSize = routeIds.size
     println(s"${routeIds.size} routes")
     val colours = routeIds.zipWithIndex.flatMap { case (routeId, index) =>
       if ((index + 1) % 500 == 0) {
-        println(s"${index + 1}/${routeIds.size}")
+        println(s"${index + 1}/$routeIdsSize")
       }
       val colourTagValues = routeRepository.findRouteById(routeId).toSeq.flatMap(_.summary.tagValue("colour"))
       val colours = colourTagValues.flatMap(value => value.split(";"))

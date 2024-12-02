@@ -21,8 +21,9 @@ class MonitorSymbolMigrationTool(database: Database) {
 
   def migrate(): Unit = {
     val routeIds = database.monitorRoutes.objectIds()
+    val routeIdsSize = routeIds.size
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
-      println(s"${index + 1}/${routeIds.size}")
+      println(s"${index + 1}/$routeIdsSize")
       database.monitorRoutes.findByObjectId(routeId).foreach { monitorRoute =>
         monitorRoute.relationId.foreach { relationId =>
           monitorRouteRelationRepository.loadTopLevel(None, relationId).foreach { relation =>

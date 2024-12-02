@@ -43,9 +43,10 @@ class LocationBuilderDenmark(dir: String) {
   private def buildRegions(): Unit = {
     Log.context("regions") {
       val regions = InterpretedLocationJson.load(regionsFilename)
+      val regionsSize = regions.size
       regions.zipWithIndex.foreach { case (region, index) =>
         val id = s"dk-1-${region.tags("ref:nuts")}"
-        log.info(s"${index + 1}/${regions.size} $id ${region.name}")
+        log.info(s"${index + 1}/$regionsSize $id ${region.name}")
         locationDatas.add(
           LocationData.from(
             id,

@@ -45,9 +45,9 @@ class NodeChangeProcessorImpl(
       if (changedNodeIds.nonEmpty) {
         log.info(s"${changedNodeIds.size} node(s) impacted: ${changedNodeIds.mkString(", ")}")
       }
-      val nodeChanges = changedNodeIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (nodeIds, index) =>
+      val nodeChanges = changedNodeIds.sliding(batchSize, batchSize).toSeq.flatMap { nodeIds =>
         processBatch(context, nodeElementChanges, nodeIds)
-      }.toSeq
+      }
 
       (
         s"${nodeChanges.size} node changes",

@@ -61,10 +61,11 @@ class LocationBuilderFrance(dir: String) {
   private def buildDepartments(context: FranceContext): FranceContext = {
     Log.context("departments") {
       val departmentLocationJsons = loadDepartments(context.country)
+      val departmentLocationJsonsSize = departmentLocationJsons.size
       val departments = departmentLocationJsons.zipWithIndex.map { case (department, index) =>
         val id = s"fr-1-${department.tags("ref:INSEE")}"
         val name = department.tags("name")
-        log.info(s"${index + 1}/${departmentLocationJsons.size} $id $name")
+        log.info(s"${index + 1}/$departmentLocationJsonsSize $id $name")
         val names = department.names
         LocationData.from(
           id,

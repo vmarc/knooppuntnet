@@ -34,9 +34,10 @@ class ChangeSetInfoEngine(
   }
 
   private def processTasks(taskIds: Seq[String]): Unit = {
+    val taskIdsSize = taskIds.size
     taskIds.zipWithIndex.foreach { case (taskId, index) =>
       val changeSetId = taskIdToChangeSetId(taskId)
-      Log.context(s"${index + 1}/${taskIds.size}") {
+      Log.context(s"${index + 1}/$taskIdsSize") {
         log.debug(s"changesetId=$changeSetId")
         if (changeSetInfoRepository.exists(changeSetId)) {
           log.debug(s"Info for change set $changeSetId already in database")

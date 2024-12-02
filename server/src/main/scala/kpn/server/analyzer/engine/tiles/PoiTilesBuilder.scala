@@ -32,11 +32,12 @@ class PoiTilesBuilder(
 
     var progress: Int = 0
 
+    val tilePoisMapSize = tilePoisMap.size
     tilePoisMap.values.zipWithIndex.foreach { case (tilePois, index) =>
-      val currentProgress = (100d * (index + 1) / tilePoisMap.size).round.toInt
+      val currentProgress = (100d * (index + 1) / tilePoisMapSize).round.toInt
       if (currentProgress != progress) {
         progress = currentProgress
-        log.info(s"Build tile ${index + 1}/${tilePoisMap.size} $progress ${tilePois.tile.name}")
+        log.info(s"Build tile ${index + 1}/$tilePoisMapSize $progress ${tilePois.tile.name}")
       }
 
       val tileData = PoiTileData(

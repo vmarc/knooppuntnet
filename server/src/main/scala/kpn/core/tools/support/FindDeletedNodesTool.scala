@@ -1,12 +1,12 @@
 package kpn.core.tools.support
 
 import kpn.core.data.DataBuilder
-import kpn.database.base.Database
 import kpn.core.loadOld.Parser
-import kpn.database.util.Mongo
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorImpl
 import kpn.core.overpass.QueryNodes
+import kpn.database.base.Database
+import kpn.database.util.Mongo
 import kpn.server.repository.NodeRepositoryImpl
 import org.xml.sax.SAXParseException
 
@@ -39,9 +39,10 @@ class FindDeletedNodesTool(
   def report(): Unit = {
     println("Collecting node ids")
     val nodeIds = nodeRepository.allNodeIds()
-    println(s"${nodeIds.size} nodes")
+    val nodeIdsSize = nodeIds.size
+    println(s"$nodeIdsSize nodes")
     nodeIds.sliding(50, 50).zipWithIndex.foreach { case (ids, index) =>
-      println(s"${index * 50}/${nodeIds.size}")
+      println(s"${index * 50}/$nodeIdsSize")
       val nodes = nodeRepository.nodesWithIds(ids)
       val activeNodeIds = nodes.filter(_.active).map(_._id)
       val xmlString = executor.executeQuery(None, QueryNodes("nodes", activeNodeIds))

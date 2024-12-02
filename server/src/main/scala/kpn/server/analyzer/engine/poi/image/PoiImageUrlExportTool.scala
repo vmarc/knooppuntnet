@@ -32,9 +32,10 @@ class PoiImageUrlExportTool(database: Database) {
   def exportPois(): Unit = {
     try {
       val allPoiIds = readPoiIds()
-      log.info(s"Processing ${allPoiIds.size} pois")
+      val allPoiIdsSize = allPoiIds.size
+      log.info(s"Processing $allPoiIdsSize pois")
       allPoiIds.sliding(batchSize, batchSize).zipWithIndex.foreach { case (poiIds, index) =>
-        log.info(s"${index * batchSize}/${allPoiIds.length}")
+        log.info(s"${index * batchSize}/$allPoiIdsSize")
         exportBatch(poiIds)
       }
     }

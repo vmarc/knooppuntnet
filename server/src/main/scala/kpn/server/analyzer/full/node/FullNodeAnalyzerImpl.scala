@@ -1,8 +1,8 @@
 package kpn.server.analyzer.full.node
 
 import kpn.api.custom.Timestamp
-import kpn.database.base.Database
 import kpn.core.util.Log
+import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.overpass.OverpassRepository
@@ -59,16 +59,17 @@ class FullNodeAnalyzerImpl(
 
   private def analyzeNodes(context: FullAnalysisContext, overpassNodeIds: Seq[Long]): Seq[Long] = {
     val batchSize = 500
-    val updateFutures = overpassNodeIds.sliding(batchSize, batchSize).zipWithIndex.map { case (nodeIdsBatch, index) =>
+    val overpassNodeIdsSize = overpassNodeIds.size
+    val updateFutures = overpassNodeIds.sliding(batchSize, batchSize).toSeq.zipWithIndex.map { case (nodeIdsBatch, index) =>
       Future(
-        Log.context(s"${index * batchSize}/${overpassNodeIds.size}") {
+        Log.context(s"${index * batchSize}/$overpassNodeIdsSize") {
           log.infoElapsed {
             val ids = bulkNodeAnalyzer.analyze(context.timestamp, nodeIdsBatch).map(_._id)
             (s"analyzed ${ids.size} nodes: ${ids.mkString(", ")}", ids)
           }
         }
       )
-    }.toSeq
+    }
 
     val loadIdFuturesSeq = Future.sequence(updateFutures)
     val updateResult = Await.result(loadIdFuturesSeq, Duration(3, TimeUnit.HOURS))

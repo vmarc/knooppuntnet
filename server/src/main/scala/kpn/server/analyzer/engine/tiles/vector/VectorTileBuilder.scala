@@ -35,9 +35,10 @@ class VectorTileBuilder extends TileBuilder {
       encoder.addPointFeature(node.layer, userData, point)
     }
 
+    val routesSize = data.routes.size
     data.routes.zipWithIndex.foreach { case (tileRoute, index) =>
-      if (data.routes.size > 50) {
-        log.info(s"${index + 1}/${data.routes.size} route ${tileRoute.routeName}")
+      if (routesSize > 50) {
+        log.info(s"${index + 1}/$routesSize route ${tileRoute.routeName}")
       }
       tileRoute.segments.foreach { segment =>
         if (tile.contains(segment.worldCoordinates)) {

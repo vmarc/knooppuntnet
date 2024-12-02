@@ -7,6 +7,7 @@ import org.locationtech.jts.geom.LineString
 
 import java.io.InputStream
 import java.text.SimpleDateFormat
+import java.util.Date
 import scala.collection.mutable.ListBuffer
 
 class RoutedatabankRouteParser {
@@ -49,11 +50,16 @@ class RoutedatabankRouteParser {
           }
           val lastEditedDate = feature.getAttribute("last_edited_date")
 
-          val updated = if (lastEditedDate == "null") {
-            None
-          }
-          else {
-            Some(simpleDateFormat.format(lastEditedDate))
+          val updated = lastEditedDate match {
+            case date: Date => Some(simpleDateFormat.format(date))
+            case string: String =>
+              if (string == "null") {
+                None
+              }
+              else {
+                Some(string.take("yyyy-mm-dd".length))
+              }
+            case _ => None
           }
 
           val coordinates = lineString.getCoordinates.toSeq.map { coordinate =>

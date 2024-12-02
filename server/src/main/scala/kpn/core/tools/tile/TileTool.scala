@@ -77,10 +77,11 @@ class TileTool(
 
   def newMake(networkType: NetworkType): Unit = {
     log.info("loading tile names")
-    val tiles = routeRepository.tiles(networkType).toVector // needs to be Vector for performance reasons
+    val tiles = routeRepository.tiles(networkType)
+    val tilesSize = tiles.size
     tiles.zipWithIndex.foreach { case (tileId, index) =>
       val tile = Tile.routeTileFromId(tileId)
-      Log.context(s"${index + 1}/${tiles.size} ${tile.name}") {
+      Log.context(s"${index + 1}/$tilesSize ${tile.name}") {
         val encoder = new VectorTileEncoder(tile.extent, tile.clipBufferSize, false)
         val docs = routeRepository.tilesWithName(networkType, tileId)
         docs.foreach { doc =>

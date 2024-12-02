@@ -44,15 +44,16 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def analyzeRoutes(routeIds: Seq[Long]): Seq[Long] = {
     log.infoElapsed {
       val batchSize = 100
-      val futures = Future.sequence(
+      val futures = Future.sequence {
+        val routeIdsSize = routeIds.size
         routeIds.sliding(batchSize, batchSize).zipWithIndex.map { case (batchRouteIds, index) =>
           Future(
-            Log.context(s"${index * batchSize}/${routeIds.size}") {
+            Log.context(s"${index * batchSize}/$routeIdsSize") {
               analyzeRouteBatch(batchRouteIds)
             }
           )
         }.toSeq
-      )
+      }
       val updatedRouteIds = Await.result(futures, Duration(3, TimeUnit.HOURS)).flatten
       (s"${updatedRouteIds.size} routes analyzed", updatedRouteIds)
     }

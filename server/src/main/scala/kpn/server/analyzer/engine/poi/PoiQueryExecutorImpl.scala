@@ -47,8 +47,9 @@ class PoiQueryExecutorImpl(overpassQueryExecutor: OverpassQueryExecutor) extends
 
   override def centers(elementType: String, elementIds: Seq[Long]): Seq[ElementCenter] = {
     val batchSize = 100
+    val elementIdsSize = elementIds.size
     elementIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (idsBatch, index) =>
-      Log.context(s"${index * batchSize}/${elementIds.size}") {
+      Log.context(s"${index * batchSize}/$elementIdsSize") {
         log.infoElapsed {
           val query = QueryCenters(elementType, idsBatch)
           val xmlString = overpassQueryExecutor.executeQuery(None, query)

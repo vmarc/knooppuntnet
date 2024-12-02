@@ -16,10 +16,11 @@ class FixChangesTool(database: Database) {
 
   def fix(): Unit = {
     val ids = database.changes.stringIds()
-    println(s"processing ${ids.size} changes")
+    val idsSize = ids.size
+    println(s"processing $idsSize changes")
     ids.zipWithIndex.foreach { case (id, index) =>
       if (((index + 1) % 100) == 0) {
-        println(s"${index + 1}/${ids.size}")
+        println(s"${index + 1}/$idsSize")
       }
       database.changes.findByStringId(id).foreach(fixChangeSetSummary)
     }

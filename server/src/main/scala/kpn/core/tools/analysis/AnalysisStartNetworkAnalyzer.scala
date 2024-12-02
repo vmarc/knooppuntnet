@@ -27,8 +27,9 @@ class AnalysisStartNetworkAnalyzer(log: Log, config: AnalysisStartConfiguration)
 
   private def analyzeNetworks(networkIds: Seq[Long]): Seq[Long] = {
     val batchSize = 25
+    val networkIdsSize = networkIds.size
     networkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (batchNetworkIds, index) =>
-      Log.context(s"${index * batchSize}/${networkIds.size}") {
+      Log.context(s"${index * batchSize}/$networkIdsSize") {
         analyzeNetworkBatch(batchNetworkIds)
       }
     }.toSeq

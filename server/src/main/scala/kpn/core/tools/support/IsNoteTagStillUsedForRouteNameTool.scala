@@ -16,9 +16,10 @@ class IsNoteTagStillUsedForRouteNameTool(database: Database) {
 
   def investigate(): Unit = {
     val routeIds = database.routes.ids()
+    val routeIdsSize = routeIds.size
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       if ((index % 1000) == 0) {
-        println(s"$index/${routeIds.size}")
+        println(s"$index/$routeIdsSize")
       }
       database.routes.findById(routeId) foreach { route =>
         if (route.isActive) {

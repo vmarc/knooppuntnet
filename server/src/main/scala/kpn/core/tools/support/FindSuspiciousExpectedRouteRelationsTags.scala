@@ -43,8 +43,9 @@ class FindSuspiciousExpectedRouteRelationsTags(database: Database) {
     Country.all.foreach { country =>
       println(s"** ${country.domain} ***")
       val countryNodes = nodes.filter(_.country.contains(country))
+      val countryNodesSize = countryNodes.size
       countryNodes.zipWithIndex.foreach { case (node, index) =>
-        println(s"${country.domain} ${index + 1}/${countryNodes.size} [${node.name}](http://localhost:4000/analysis/node/${node._id})")
+        println(s"${country.domain} ${index + 1}/$countryNodesSize [${node.name}](http://localhost:4000/analysis/node/${node._id})")
         reportNode(node)
       }
     }

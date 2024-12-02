@@ -25,10 +25,11 @@ class FindCircularRoutesTool(database: Database) {
   def report(): Unit = {
     println("Collecting route ids")
     val routeIds = routeRepository.allRouteIds()
-    println(s"${routeIds.size} routes")
+    val routeIdsSize = routeIds.size
+    println(s"$routeIdsSize routes")
     routeIds.zipWithIndex.foreach { case (routeId, index) =>
       if ((index + 1) % 500 == 0) {
-        println(s"${index + 1}/${routeIds.size}")
+        println(s"${index + 1}/$routeIdsSize")
       }
       routeRepository.findRouteById(routeId) match {
         case None =>

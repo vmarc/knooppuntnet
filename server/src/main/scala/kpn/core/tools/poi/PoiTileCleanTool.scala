@@ -33,10 +33,11 @@ class PoiTileCleanTool(
     11 to 15 foreach { z =>
       println(s"Processing zoomlevel $z")
       val existingTileNames = tileFileRepository.existingTileNames("poi", z)
-      println(s"Number of tiles before: " + existingTileNames.size)
+      val existingTileNamesSize = existingTileNames.size
+      println(s"Number of tiles before: $existingTileNamesSize")
       val obsoleteTileNames = existingTileNames.zipWithIndex.filter { case (tileName, index) =>
         if ((index % 50) == 0) {
-          println(s"$z $index/${existingTileNames.size}")
+          println(s"$z $index/$existingTileNamesSize")
         }
         val shortTileName = tileName.drop("poi-".length)
         poiRepository.tilePoiInfos(shortTileName).isEmpty

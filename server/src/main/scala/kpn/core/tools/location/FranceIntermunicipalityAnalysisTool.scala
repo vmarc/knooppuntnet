@@ -41,9 +41,10 @@ class FranceIntermunicipalityAnalysisTool {
     val intermunicipalities = loadIntermunicipalities().filter(x => france.contains(x.geometry))
     val municipalities = loadMunicipalities()
 
+    val municipalitiesSize = municipalities.size
     municipalities.zipWithIndex.foreach { case (municipality, index) =>
       if ((index % 1000) == 0) {
-        println(s"$index/${municipalities.size}")
+        println(s"$index/$municipalitiesSize")
       }
       val locationGeometry = LocationGeometry(municipality.geometry)
       if (france.contains(locationGeometry)) {
@@ -65,9 +66,10 @@ class FranceIntermunicipalityAnalysisTool {
   def assertIntermunicipalitiesDoNotOverlap(): Unit = {
     val intermunicipalities = loadIntermunicipalities()
     val combinations = intermunicipalities.combinations(2).toSeq
+    val combinationsSize = combinations.size
     combinations.zipWithIndex.foreach { case (Seq(area1, area2), index) =>
       if ((index % 10000) == 0) {
-        println(s"$index/${combinations.size}")
+        println(s"$index/$combinationsSize")
       }
       if (area1.geometry.overlap(area2.geometry) > 0.05) {
         println(s"OVERLAP ${area1.intermunicipalityType}-${area1.relationId} <> ${area2.intermunicipalityType}-${area2.relationId}")
@@ -113,9 +115,10 @@ class FranceIntermunicipalityAnalysisTool {
 
   def loadRelations(): Unit = {
     val ids = loadIds()
+    val idsSize = ids.size
     ids.zipWithIndex.foreach { case (relationId, index) =>
       val filename = s"$intermunicipalitiesDir/$relationId.xml"
-      println(s"${index + 1}/${ids.size} $filename")
+      println(s"${index + 1}/$idsSize $filename")
       val xml = overpassQueryExecutor.executeQuery(None, QueryRelation(relationId))
       FileUtils.writeStringToFile(new File(filename), xml, "UTF-8")
     }
@@ -135,8 +138,9 @@ class FranceIntermunicipalityAnalysisTool {
   private def loadIntermunicipalities(): Seq[IntermunicipalityGeometry] = {
     FranceIntermunicipalities.types.flatMap { intermunicipalityType =>
       val ids = loadIds(intermunicipalityType)
+      val idsSize = ids.size
       ids.zipWithIndex.map { case (relationId, index) =>
-        println(s"load $intermunicipalityType ${index + 1}/${ids.size} relation=$relationId")
+        println(s"load $intermunicipalityType ${index + 1}/$idsSize relation=$relationId")
         loadIntermunicipality(intermunicipalityType, relationId)
       }
     }

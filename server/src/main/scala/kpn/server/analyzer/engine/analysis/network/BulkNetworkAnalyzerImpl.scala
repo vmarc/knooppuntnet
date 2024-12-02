@@ -21,8 +21,9 @@ class BulkNetworkAnalyzerImpl(
 
   def analyze(timestamp: Timestamp, networkIds: Seq[Long]): Seq[Long] = {
     val batchSize = 25
+    val networkIdsSize = networkIds.size
     networkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIdsBatch, index) =>
-      Log.context(s"${index * batchSize}/${networkIds.size}") {
+      Log.context(s"${index * batchSize}/$networkIdsSize") {
         log.infoElapsed {
           val networkDocs = overpassRepository.relations(timestamp, networkIdsBatch).map(toDoc)
           networkRepository.bulkSave(networkDocs)

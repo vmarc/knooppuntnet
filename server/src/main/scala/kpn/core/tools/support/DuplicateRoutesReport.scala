@@ -86,9 +86,10 @@ class DuplicateRoutesReport(database: Database) {
   }
 
   private def loadRoutes(routeIds: Seq[Long]): Seq[RouteWays] = {
+    val routeIdsSize = routeIds.size
     routeIds.zipWithIndex.flatMap { case (routeId, index) =>
       if (index % 100 == 0) {
-        println(s"${routeIds.size}/$index")
+        println(s"$routeIdsSize/$index")
       }
       routeRepository.findRouteById(routeId).flatMap { routeDoc =>
         val countries = routeDoc.summary.countries

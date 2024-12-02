@@ -34,9 +34,10 @@ class NetworkGpxTool(database: Database) {
       case None => println("network not found")
       case Some(network) =>
         val routeIds = network.relationMembers.map(_.relationId)
+        val routeIdsSize = routeIds.size
         val routeDocs = routeIds.zipWithIndex.flatMap { case (routeId, index) =>
           if ((index + 1) % 500 == 0) {
-            println(s"${index + 1}/${routeIds.size}")
+            println(s"${index + 1}/$routeIdsSize")
           }
           routeRepository.findRouteById(routeId)
         }

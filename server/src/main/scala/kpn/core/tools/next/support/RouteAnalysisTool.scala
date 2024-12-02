@@ -85,9 +85,10 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   }
 
   private def analyzeRouteDetails(routeIds: Seq[Long]): Seq[RouteDependency] = {
-    log.info(s"analyzing ${routeIds.size} route relation details")
+    val routeIdsSize = routeIds.size
+    log.info(s"analyzing $routeIdsSize route relation details")
     routeIds.zipWithIndex.flatMap { case (routeId, index) =>
-      Log.context(s"${index + 1}/${routeIds.size} route=$routeId") {
+      Log.context(s"${index + 1}/$routeIdsSize route=$routeId") {
         log.info("analyze detail")
         try {
           config.nextRepository.nextRouteRelation(routeId) match {
@@ -108,8 +109,9 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   private def analyzeRoutesMain(dependencies: Seq[RouteDependency]): Unit = {
     log.info(s"analyzing main ${dependencies.size} route relations")
     val sortedRouteIds = DependencySorter.sort(dependencies)
+    val sortedRouteIdsSize = sortedRouteIds.size
     sortedRouteIds.zipWithIndex.foreach { case (relationId, index) =>
-      Log.context(s"${index + 1}/${sortedRouteIds.size} route=$relationId") {
+      Log.context(s"${index + 1}/$sortedRouteIdsSize route=$relationId") {
         try {
           config.routeRepository.findRouteDetailById(relationId) match {
             case None => log.error(s"could not find route details")
