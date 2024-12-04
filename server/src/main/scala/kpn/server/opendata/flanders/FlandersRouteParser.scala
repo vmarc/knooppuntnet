@@ -17,6 +17,7 @@ class FlandersRouteParser {
     val _id = (route \ "pid").text
     val fromNodeId = (route \ "begin_geoid").text
     val toNodeId = (route \ "end_geoid").text
+    val virtual = (route \ "virtual").text == "virtual network"
     val owner = (route \ "eigenaar").text
     val network = (route \ "naam").text
     val contact = (route \ "meldpunt").text
@@ -26,6 +27,7 @@ class FlandersRouteParser {
       _id,
       fromNodeId,
       toNodeId,
+      virtual,
       coordinates,
       owner,
       network,

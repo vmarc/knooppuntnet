@@ -22,6 +22,7 @@ class FlandersRouteParserTest extends UnitTest {
         "2735158-2735159",
         "2735158",
         "2735159",
+        false,
         List(
           LatLonImpl("50.99726300884831", "4.20858961833763"),
           LatLonImpl("50.99743014977333", "4.209364062541376"),
@@ -50,6 +51,7 @@ class FlandersRouteParserTest extends UnitTest {
         "2875710-2875711",
         "2875710",
         "2875711",
+        false,
         List(
           LatLonImpl("51.1841283623481", "5.36690510439659"),
           LatLonImpl("51.1838229476952", "5.36835420514106"),
@@ -72,6 +74,7 @@ class FlandersRouteParserTest extends UnitTest {
         "3918832-3918833",
         "3918832",
         "3918833",
+        true,
         List(
           LatLonImpl("51.24270625282907", "4.082555070978579"),
           LatLonImpl("51.242297740067414", "4.083974523189664"),

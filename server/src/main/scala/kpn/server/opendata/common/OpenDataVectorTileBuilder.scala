@@ -9,6 +9,8 @@ import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.Point
 
+import scala.jdk.CollectionConverters.MapHasAsJava
+
 class OpenDataVectorTileBuilder {
 
   private val geometryFactory = new GeometryFactory
@@ -29,9 +31,11 @@ class OpenDataVectorTileBuilder {
       val coordinate = new Coordinate(Math.floor(scaledCoordinate.x), Math.floor(scaledCoordinate.y))
       val point: Point = geometryFactory.createPoint(coordinate)
 
-      val userData = new java.util.HashMap[String, String]()
-      userData.put("id", node._id)
-      userData.put("name", node.name)
+      val userData = Seq(
+        Some("id" -> node._id),
+        Some("name" -> node.name),
+        if (node.virtual) Some("virtual" -> "true") else None
+      ).flatten.toMap.asJava
 
       encoder.addFeature("opendata-node", userData, point)
     }
@@ -43,8 +47,12 @@ class OpenDataVectorTileBuilder {
       val tileCoordinates = TileUtil.tileCoordinates(tile, worldCoordinates)
       val coordinates = tileCoordinates.map(c => new Coordinate(c.x, c.y))
       val lineString = geometryFactory.createLineString(coordinates.toArray)
-      val userData = new java.util.HashMap[String, String]()
-      userData.put("id", route._id)
+
+      val userData = Seq(
+        Some("id" -> route._id),
+        if (route.virtual) Some("virtual" -> "true") else None
+      ).flatten.toMap.asJava
+
       encoder.addFeature("opendata-route", userData, lineString)
     }
   }

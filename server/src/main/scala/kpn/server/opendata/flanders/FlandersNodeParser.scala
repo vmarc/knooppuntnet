@@ -16,6 +16,7 @@ class FlandersNodeParser {
   private def parseNode(node: Node): FlandersNode = {
     val _id = (node \ "geoid").text
     val name = (node \ "knoopnr").text
+    val virtual = (node \ "virtual").text == "virtual network"
     val owner = (node \ "eigenaar").text
     val network = (node \ "naam").text
     val contact = (node \ "meldpunt").text
@@ -26,6 +27,7 @@ class FlandersNodeParser {
       name,
       latLon.latitude,
       latLon.longitude,
+      virtual,
       owner,
       network,
       updated,

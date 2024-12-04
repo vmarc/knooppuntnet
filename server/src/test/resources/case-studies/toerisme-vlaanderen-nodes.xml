@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wfs:FeatureCollection xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:routes="https://toerismevlaanderen.be/routes" xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" numberOfFeatures="9606" timeStamp="2023-02-26T21:17:01.003Z" xsi:schemaLocation="http://www.opengis.net/wfs https://geodata.toerismevlaanderen.be/geoserver/schemas/wfs/1.1.0/wfs.xsd https://toerismevlaanderen.be/routes https://geodata.toerismevlaanderen.be/geoserver/wfs?service=WFS&amp;version=1.1.0&amp;request=DescribeFeatureType&amp;typeName=routes%3Aknoop_wandel">
+<wfs:FeatureCollection xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:routes="https://toerismevlaanderen.be/routes"
+                       xmlns:wfs="http://www.opengis.net/wfs" xmlns:gml="http://www.opengis.net/gml"
+                       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" numberOfFeatures="9606"
+                       timeStamp="2023-02-26T21:17:01.003Z"
+                       xsi:schemaLocation="http://www.opengis.net/wfs https://geodata.toerismevlaanderen.be/geoserver/schemas/wfs/1.1.0/wfs.xsd https://toerismevlaanderen.be/routes https://geodata.toerismevlaanderen.be/geoserver/wfs?service=WFS&amp;version=1.1.0&amp;request=DescribeFeatureType&amp;typeName=routes%3Aknoop_wandel">
   <gml:boundedBy>
     <gml:Envelope srsDimension="2" srsName="urn:x-ogc:def:crs:EPSG:31370">
       <gml:lowerCorner>22657.0848 153324.484</gml:lowerCorner>
@@ -93,6 +97,7 @@
         </gml:Envelope>
       </gml:boundedBy>
       <routes:objectid>4515</routes:objectid>
+      <routes:virtual>virtual network</routes:virtual>
       <routes:eigenaar>Regionaal Landschap Lage Kempen</routes:eigenaar>
       <routes:mobility>Wandel</routes:mobility>
       <routes:geoid>2875711</routes:geoid>
@@ -121,6 +126,7 @@
       <routes:objectid>417</routes:objectid>
       <routes:eigenaar>Toerisme Oost-Vlaanderen</routes:eigenaar>
       <routes:mobility>Wandel</routes:mobility>
+      <routes:virtual>virtual network</routes:virtual>
       <routes:geoid>3918832</routes:geoid>
       <routes:local_id>181837</routes:local_id>
       <routes:partnerid>2181837</routes:partnerid>

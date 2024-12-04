@@ -9,6 +9,7 @@ export class OpendataBitmapTileLayer {
   static build(layerType: LayerType, networkType: NetworkType, dir: string): MapLayer {
     const layer = new TileLayer<XYZ>({
       source: new XYZ({
+        tileSize: 256,
         minZoom: ZoomLevel.bitmapTileMinZoom,
         maxZoom: ZoomLevel.bitmapTileMaxZoom,
         url: `/tiles/opendata/${dir}/{z}/{x}/{y}.png`,
