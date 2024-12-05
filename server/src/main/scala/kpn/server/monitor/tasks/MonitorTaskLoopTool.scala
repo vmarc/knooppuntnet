@@ -32,10 +32,10 @@ class MonitorTaskLoopTool(database: Database) {
   def taskProcessingLoop(): Unit = {
     simulateExternalMonitorShutdown()
     log.info("start task processing loop")
-    do {
+    while (abort == false) {
       processAllTasks()
       waitForNewTask()
-    } while (abort == false)
+    }
 
     log.info(s"end of task processing loop")
     System.exit(0)

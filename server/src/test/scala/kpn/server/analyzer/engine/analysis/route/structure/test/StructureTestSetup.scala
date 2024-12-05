@@ -11,9 +11,8 @@ import kpn.server.analyzer.engine.analysis.route.structure.RouteDetailAnalysisTe
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
-import org.scalamock.scalatest.MockFactory
 
-class StructureTestSetup(val data: Data) extends MockFactory {
+class StructureTestSetup(val data: Data) {
 
   def elementGroups(traceEnabled: Boolean = false): Seq[Seq[String]] = {
     val elementGroups = StructureElementAnalyzer.analyze(RouteNodes(), relation.members, traceEnabled)

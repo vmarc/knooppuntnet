@@ -15,9 +15,9 @@ import kpn.server.analyzer.engine.tile.OldTileCalculator
 import kpn.server.analyzer.engine.tiles.domain.OldTile
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzer
 import kpn.server.api.analysis.pages.poi.MasterPoiAnalyzerImpl
-import kpn.server.repository.MockTaskRepository
 import kpn.server.repository.PoiRepository
 import kpn.server.repository.TaskRepository
+import kpn.server.repository.TaskRepositoryMock
 
 class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -624,7 +624,7 @@ class PoiChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val poiRepository: PoiRepository = stub[PoiRepository]
     val knownPoiCache: KnownPoiCache = stub[KnownPoiCache]
     val tileCalculator: OldTileCalculator = stub[OldTileCalculator]
-    val taskRepository: TaskRepository = new MockTaskRepository()
+    val taskRepository: TaskRepository = new TaskRepositoryMock()
     val poiQueryExecutor: PoiQueryExecutor = stub[PoiQueryExecutor]
     val poiScopeAnalyzer: PoiScopeAnalyzer = stub[PoiScopeAnalyzer]
     val locationAnalyzer: LocationAnalyzer = stub[LocationAnalyzer]

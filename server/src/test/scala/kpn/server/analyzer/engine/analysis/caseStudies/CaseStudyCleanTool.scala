@@ -39,11 +39,11 @@ class CaseStudyCleanTool {
 
   private def skipFirstLine(stream: InputStream): Unit = {
     var done = false
-    do {
+    while (done == false) {
       val c = stream.read()
       if (c == '\n') {
         done = true
       }
-    } while (done == false)
+    } 
   }
 }

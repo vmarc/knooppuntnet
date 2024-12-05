@@ -7,7 +7,7 @@ sealed trait BooleanParameter extends EnumEntry
 
 object BooleanParameter extends Enum[BooleanParameter] {
 
-  val values: IndexedSeq[BooleanParameter] = findValues
+  val values: IndexedSeq[BooleanParameter] = IndexedSeq(yes, no)
 
   case object yes extends BooleanParameter
 

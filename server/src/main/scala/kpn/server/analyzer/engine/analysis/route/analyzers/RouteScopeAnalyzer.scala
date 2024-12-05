@@ -29,7 +29,7 @@ class RouteScopeAnalyzer(context: RouteDetailAnalysisContext) {
     val scopes: Seq[String] = Tags.get(context.relation.tags, "network") match {
       case None => Seq.empty
       case Some(tagValue) =>
-        val values = tagValue.split(";")
+        val values = tagValue.split(";").toSeq
         values.flatMap { value =>
           if (RouteScopeAnalyzer.localNetworkTagValues.contains(value)) {
             Some("local")

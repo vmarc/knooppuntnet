@@ -39,7 +39,6 @@ class AuthenticationCookieFilter(cryptoKey: String) extends HttpFilter {
               val authentication = new PreAuthenticatedAuthenticationToken(user, null)
               authentication.setAuthenticated(true)
               SecurityContextHolder.getContext.setAuthentication(authentication)
-              authentication
           }
       }
     }

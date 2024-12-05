@@ -74,7 +74,7 @@ object TileUtil {
           Seq.empty
         }
         else {
-          clippedGeometry.getCoordinates().map(coordinate => TileCoordinate(Math.floor(coordinate.x).toInt, Math.floor(coordinate.y).toInt))
+          clippedGeometry.getCoordinates().toSeq.map(coordinate => TileCoordinate(Math.floor(coordinate.x).toInt, Math.floor(coordinate.y).toInt))
         }
       }
     }

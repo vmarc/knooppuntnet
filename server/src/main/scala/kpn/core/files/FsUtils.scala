@@ -12,13 +12,13 @@ object FsUtils {
     val bufferedOut = new BufferedOutputStream(out)
     try {
       val buf = new Array[Byte](1000)
-      var read = 0
-      do {
+      var read = 1
+      while (read > 0) {
         read = bufferedIn.read(buf)
         if (read > 0) {
           bufferedOut.write(buf, 0, read)
         }
-      } while (read > 0)
+      }
     } finally {
       if (bufferedIn != null) bufferedIn.close()
       if (bufferedOut != null) bufferedOut.close()

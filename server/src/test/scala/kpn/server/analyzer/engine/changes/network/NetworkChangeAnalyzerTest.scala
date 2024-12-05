@@ -16,7 +16,7 @@ import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.MockBlacklistRepository
+import kpn.server.repository.BlacklistRepositoryMock
 
 class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -117,7 +117,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   class Setup {
 
     val analysisContext = new AnalysisContext()
-    private val blacklistRepository = new MockBlacklistRepository()
+    private val blacklistRepository = new BlacklistRepositoryMock()
 
     def blacklistNetwork(networkId: Long): Unit = {
       blacklistRepository.save(Blacklist(networks = Seq(BlacklistEntry(networkId, "", ""))))

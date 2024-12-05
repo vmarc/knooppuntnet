@@ -17,7 +17,7 @@ import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.context.ElementIds
-import kpn.server.repository.MockBlacklistRepository
+import kpn.server.repository.BlacklistRepositoryMock
 
 import java.util.concurrent.Executors
 import scala.concurrent.ExecutionContext
@@ -141,7 +141,7 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   class Setup {
 
     val analysisContext = new AnalysisContext()
-    private val blacklistRepository = new MockBlacklistRepository()
+    private val blacklistRepository = new BlacklistRepositoryMock()
 
     def blacklistRoute(routeId: Long): Unit = {
       blacklistRepository.save(Blacklist(routes = Seq(BlacklistEntry(routeId, "", ""))))

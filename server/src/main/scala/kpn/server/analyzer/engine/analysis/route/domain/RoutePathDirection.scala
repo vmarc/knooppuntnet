@@ -7,7 +7,11 @@ sealed trait RoutePathDirection extends EnumEntry
 
 object RoutePathDirection extends Enum[RoutePathDirection] {
 
-  val values: IndexedSeq[RoutePathDirection] = findValues
+  val values: IndexedSeq[RoutePathDirection] = IndexedSeq(
+    Forward,
+    Backward,
+    Bidirectional,
+  )
 
   case object Forward extends RoutePathDirection
 

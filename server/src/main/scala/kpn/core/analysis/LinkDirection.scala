@@ -7,7 +7,13 @@ sealed trait LinkDirection extends EnumEntry
 
 object LinkDirection extends Enum[LinkDirection] {
 
-  val values: IndexedSeq[LinkDirection] = findValues
+  val values: IndexedSeq[LinkDirection] = IndexedSeq(
+    Forward,
+    Backward,
+    RoundaboutLeft,
+    RoundaboutRight,
+    Unconnected
+  )
 
   /*
      The link direction is "Forward" if the first node of this way is connected to the previous way

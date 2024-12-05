@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-class MockTaskRepository extends TaskRepository {
+class TaskRepositoryMock extends TaskRepository {
 
   var tasks: Seq[String] = Seq.empty
 

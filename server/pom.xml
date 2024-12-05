@@ -114,7 +114,7 @@
     <dependency>
       <groupId>org.scala-lang</groupId>
       <artifactId>scala-library</artifactId>
-      <version>2.13.14</version>
+      <version>2.13.15</version>
     </dependency>
 
     <dependency>
@@ -191,12 +191,6 @@
     <dependency>
       <groupId>org.geotools</groupId>
       <artifactId>gt-referencing</artifactId>
-      <version>32.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.geotools</groupId>
-      <artifactId>gt-geometry</artifactId>
       <version>32.0</version>
     </dependency>
 
@@ -416,7 +410,7 @@
       <plugin>
         <groupId>net.alchim31.maven</groupId>
         <artifactId>scala-maven-plugin</artifactId>
-        <version>4.8.1</version>
+        <version>4.9.2</version>
         <executions>
           <execution>
             <goals>
@@ -428,14 +422,15 @@
         <configuration>
           <jvmArgs>
             <jvmArg>-Xms1G</jvmArg>
-            <jvmArg>-Xmx2G</jvmArg>
+            <jvmArg>-Xmx4G</jvmArg>
             <jvmArg>-Xss2m</jvmArg>
             <jvmArg>-XX:+UseParallelGC</jvmArg>
-            <jvmArg>-XX:MaxInlineLevel=20</jvmArg>
+            <jvmArg>-XX:MaxInlineLevel=32</jvmArg>
           </jvmArgs>
           <args>
             <arg>-deprecation</arg>
             <arg>-Xsource:3</arg>
+            <!-- <arg>-Xmax-inlines:32</arg> -->
           </args>
         </configuration>
       </plugin>
@@ -459,8 +454,8 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>11</source>
-          <target>11</target>
+          <source>17</source>
+          <target>17</target>
         </configuration>
       </plugin>
     </plugins>

@@ -12,7 +12,7 @@ import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.data.BlacklistEntry
 import kpn.server.analyzer.engine.context.AnalysisContext
-import kpn.server.repository.MockBlacklistRepository
+import kpn.server.repository.BlacklistRepositoryMock
 
 class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -126,7 +126,7 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
   class Setup {
 
     val analysisContext = new AnalysisContext()
-    private val blacklistRepository = new MockBlacklistRepository()
+    private val blacklistRepository = new BlacklistRepositoryMock()
 
     def blacklistNode(nodeId: Long): Unit = {
       blacklistRepository.save(Blacklist(nodes = Seq(BlacklistEntry(nodeId, "", ""))))

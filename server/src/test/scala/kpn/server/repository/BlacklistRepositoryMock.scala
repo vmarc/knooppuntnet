@@ -2,7 +2,7 @@ package kpn.server.repository
 
 import kpn.server.analyzer.engine.changes.data.Blacklist
 
-class MockBlacklistRepository extends BlacklistRepository {
+class BlacklistRepositoryMock extends BlacklistRepository {
 
   private var storedBlacklist = Blacklist()
 
