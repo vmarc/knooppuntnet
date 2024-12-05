@@ -18,9 +18,10 @@ class OpenDataVectorTileBuilder {
       val point: Point = geometryFactory.createPoint(new Coordinate(tile.scaleLon(node.lon), tile.scaleLat(node.lat)))
 
       val userData = Seq(
-        "id" -> node._id,
-        "name" -> node.name,
-      ).toMap
+        Some("id" -> node._id),
+        Some("name" -> node.name),
+        if (node.virtual) Some("virtual" -> "true") else None
+      ).flatten.toMap
 
       encoder.addPointFeature("opendata-node", userData, point)
     }
@@ -31,8 +32,9 @@ class OpenDataVectorTileBuilder {
       }
       val lineString = geometryFactory.createLineString(coordinates.toArray)
       val userData = Seq(
-        "id" -> route._id,
-      ).toMap
+        Some("id" -> route._id),
+        if (route.virtual) Some("virtual" -> "true") else None
+      ).flatten.toMap
       encoder.addLineStringFeature("opendata-route", userData, lineString)
     }
 

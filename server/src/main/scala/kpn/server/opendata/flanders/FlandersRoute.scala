@@ -7,6 +7,7 @@ case class FlandersRoute(
   _id: String,
   fromNodeId: String,
   toNodeId: String,
+  virtual: Boolean,
   coordinates: Seq[LatLonImpl],
   owner: String,
   network: String,
@@ -16,6 +17,7 @@ case class FlandersRoute(
   def toOpenDataRoute: OpenDataRoute = {
     OpenDataRoute(
       _id,
+      virtual,
       coordinates
     )
   }

@@ -7,4 +7,5 @@ case class OpenDataNode(
   name: String,
   latitude: String,
   longitude: String,
+  virtual: Boolean,
 ) extends LatLon

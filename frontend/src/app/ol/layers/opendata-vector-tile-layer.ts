@@ -14,8 +14,10 @@ import { MapLayer } from './map-layer';
 
 export class OpendataVectorTileLayer {
   private static readonly largeMaxZoomResolution = /* zoomLevel 13 */ 19.109;
-  private static readonly smallStyle = this.buildSmallStyle();
-  private static readonly largeStyle = this.buildLargeStyle();
+  private static readonly smallStyle = this.buildSmallStyle(false);
+  private static readonly largeStyle = this.buildLargeStyle(false);
+  private static readonly smallStyleVirtual = this.buildSmallStyle(true);
+  private static readonly largeStyleVirtual = this.buildLargeStyle(true);
 
   static build(networkType: NetworkType, id: string, name: string, dir: string): MapLayer {
     const source = new VectorTile({
@@ -52,22 +54,36 @@ export class OpendataVectorTileLayer {
   private static styleFunction(): StyleFunction {
     return (feature, resolution) => {
       const name = feature.get('name');
+      const virtual = feature.get('virtual') == 'true';
       const large = resolution < this.largeMaxZoomResolution;
-      let style = this.smallStyle;
+      let style: Style | null = null;
       if (large) {
-        style = this.largeStyle;
+        if (virtual) {
+          style = this.largeStyleVirtual;
+        } else {
+          style = this.largeStyle;
+        }
         style.getText().setText(name);
+      } else {
+        if (virtual) {
+          style = this.smallStyleVirtual;
+        } else {
+          style = this.smallStyle;
+        }
       }
       return style;
     };
   }
 
-  private static buildLargeStyle(): Style {
+  private static buildLargeStyle(virtual: boolean): Style {
     const red: Color = [255, 0, 0];
     const white: Color = [255, 255, 255];
+    const lineDash = virtual ? [1, 10] : null;
+    const circleDash = virtual ? [1, 6] : null;
     return new Style({
       stroke: new Stroke({
         color: red,
+        lineDash,
         width: 6,
       }),
       image: new Circle({
@@ -78,6 +94,7 @@ export class OpendataVectorTileLayer {
         stroke: new Stroke({
           color: red,
           width: 4,
+          lineDash: circleDash,
         }),
       }),
       text: new Text({
@@ -93,15 +110,16 @@ export class OpendataVectorTileLayer {
     });
   }
 
-  private static buildSmallStyle(): Style {
+  private static buildSmallStyle(virtual: boolean): Style {
     const red: Color = [255, 0, 0];
     const white: Color = [255, 255, 255];
-    const lineDash = null; //[5, 5];
+    const lineDash = virtual ? [1, 5] : null;
+    const lineWidth = virtual ? 2 : 3;
     return new Style({
       stroke: new Stroke({
         color: red,
         lineDash,
-        width: 3,
+        width: lineWidth,
       }),
       image: new Circle({
         radius: 3,

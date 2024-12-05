@@ -13,6 +13,7 @@ case class RoutedatabankRoute(
   def toOpenDataRoute: OpenDataRoute = {
     OpenDataRoute(
       _id,
+      virtual = false,
       coordinates
     )
   }

@@ -48,29 +48,30 @@ class OpenDataBitmapTileBuilder {
     )
 
     routes.foreach { tileRoute =>
-      g.setStroke(stroke)
-      tileRoute.coordinates.sliding(2).toSeq.foreach { case Seq(p1, p2) =>
-        val x1 = tile.lngToPixel(width, p1.lon)
-        val y1 = tile.latToPixel(height, p1.lat)
-        val x2 = tile.lngToPixel(width, p2.lon)
-        val y2 = tile.latToPixel(height, p2.lat)
-        g.drawLine(x1, y1, x2, y2)
+      if (!tileRoute.virtual) {
+        g.setStroke(stroke)
+        tileRoute.coordinates.sliding(2).toSeq.foreach { case Seq(p1, p2) =>
+          val x1 = tile.lngToPixel(width, p1.lon)
+          val y1 = tile.latToPixel(height, p1.lat)
+          val x2 = tile.lngToPixel(width, p2.lon)
+          val y2 = tile.latToPixel(height, p2.lat)
+          g.drawLine(x1, y1, x2, y2)
+        }
       }
     }
   }
 
   private def drawNodes(g: Graphics2D, tile: OldTile, nodes: Seq[OpenDataNode]): Unit = {
-
     nodes.foreach { node =>
-
-      val x = tile.lngToPixel(width, node.lon)
-      val y = tile.latToPixel(height, node.lat)
-
-      if (tile.z == 10) {
-        g.fillOval(x - 1, y - 1, 3, 3)
-      }
-      else if (tile.z > 10) {
-        g.fillOval(x - 1, y - 1, 3, 3)
+      if (!node.virtual) {
+        val x = tile.lngToPixel(width, node.lon)
+        val y = tile.latToPixel(height, node.lat)
+        if (tile.z == 10) {
+          g.fillOval(x - 1, y - 1, 3, 3)
+        }
+        else if (tile.z > 10) {
+          g.fillOval(x - 1, y - 1, 3, 3)
+        }
       }
     }
   }

@@ -8,6 +8,7 @@ case class FlandersNode(
   name: String,
   latitude: String,
   longitude: String,
+  virtual: Boolean,
   owner: String,
   network: String,
   updated: String,
@@ -18,7 +19,8 @@ case class FlandersNode(
       _id,
       name,
       latitude,
-      longitude
+      longitude,
+      virtual
     )
   }
 }
