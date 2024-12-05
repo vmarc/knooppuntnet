@@ -44,29 +44,15 @@ class OpenDataBitmapTileBuilder {
       BasicStroke.CAP_ROUND,
       BasicStroke.JOIN_ROUND
     )
-
-    val dash = Array[Float](1f)
-
-    val virtualStroke = new BasicStroke(
-      lineWidth,
-      BasicStroke.CAP_BUTT,
-      BasicStroke.JOIN_ROUND,
-      0,
-      dash,
-      0
-    )
+    g.setStroke(stroke)
 
     routes.foreach { tileRoute =>
-      if (tileRoute.virtual) {
-        g.setStroke(virtualStroke)
-      }
-      else {
-        g.setStroke(stroke)
-      }
-      val worldCoordinates = tileRoute.coordinates.map(coordinate => new Coordinate(lonToWorldX(coordinate.lon), latToWorldY(coordinate.lat)))
-      val tileCoordinates = TileUtil.tileCoordinates(tile, worldCoordinates)
-      tileCoordinates.sliding(2).toSeq.foreach { case Seq(c1, c2) =>
-        g.drawLine(c1.x, c1.y, c2.x, c2.y)
+      if (!tileRoute.virtual) {
+        val worldCoordinates = tileRoute.coordinates.map(coordinate => new Coordinate(lonToWorldX(coordinate.lon), latToWorldY(coordinate.lat)))
+        val tileCoordinates = TileUtil.tileCoordinates(tile, worldCoordinates)
+        tileCoordinates.sliding(2).toSeq.foreach { case Seq(c1, c2) =>
+          g.drawLine(c1.x, c1.y, c2.x, c2.y)
+        }
       }
     }
   }
@@ -74,11 +60,13 @@ class OpenDataBitmapTileBuilder {
   private def drawNodes(g: Graphics2D, tile: Tile, nodes: Seq[OpenDataNode]): Unit = {
     if (tile.z == 11) {
       nodes.foreach { node =>
-        val worldCoordinate = new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat))
-        val scaledCoordinate = tile.scale(worldCoordinate)
-        val x = scaledCoordinate.x.toInt
-        val y = scaledCoordinate.y.toInt
-        g.fillOval(x - 1, y - 1, 3, 3)
+        if (!node.virtual) {
+          val worldCoordinate = new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat))
+          val scaledCoordinate = tile.scale(worldCoordinate)
+          val x = scaledCoordinate.x.toInt
+          val y = scaledCoordinate.y.toInt
+          g.fillOval(x - 1, y - 1, 3, 3)
+        }
       }
     }
   }

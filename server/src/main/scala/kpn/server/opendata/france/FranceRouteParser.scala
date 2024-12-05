@@ -26,7 +26,7 @@ class FranceRouteParser {
         val coordinates = points.map { point =>
           FranceUtil.lambertToLatLon(point.getX, point.getY)
         }
-        Some(OpenDataRoute(fid.toString, false, coordinates))
+        Some(OpenDataRoute(fid.toString, virtual = false, coordinates))
       }
       else {
         None
