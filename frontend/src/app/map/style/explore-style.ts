@@ -1,3 +1,6 @@
+import { SurveyDateValues } from '@app/core';
+import { MainMapNodeStyle } from '@app/ol/style';
+import { MainMapStyleParameters } from '@app/ol/style';
 import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
@@ -21,7 +24,21 @@ export class ExploreStyle {
     }),
   });
 
-  static style(styleOptions: MapStyleOptions, feature: FeatureLike): Style {
+  static style(styleOptions: MapStyleOptions, feature: FeatureLike): Style | Array<Style> {
+    const layer = feature.get('layer');
+    console.log('layer', layer);
+
+    if (layer === 'node') {
+      const parameters: MainMapStyleParameters = {
+        mapMode: 'analysis',
+        showProposed: true,
+        surveyDateValues: new SurveyDateValues('', '', '', ''),
+        selectedRouteId: null,
+        selectedNodeId: null,
+      };
+      return new MainMapNodeStyle().nodeStyle(parameters, 0, feature);
+    }
+
     const scope = feature.get('scope');
     if (!this.showScope(styleOptions, scope)) {
       return undefined;

@@ -9,8 +9,11 @@ import kpn.database.actions.nodes.MongoQueryKnownNodeIds
 import kpn.database.actions.nodes.MongoQueryNodeIds
 import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
 import kpn.database.actions.nodes.MongoQueryNodeTileInfo
+import kpn.database.actions.nodes.MongoQueryNodeTilenames
+import kpn.database.actions.nodes.OldMongoQueryNodeTileInfo
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
+import kpn.server.analyzer.engine.tiles.domain.TileId
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -69,12 +72,20 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     new MongoQueryKnownNodeIds(database).execute(nodeIds.toSeq).toSet
   }
 
+  override def tiles(networkType: NetworkType): Seq[TileId] = {
+    new MongoQueryNodeTilenames(database).execute(networkType)
+  }
+
+  override def tilesWithName(networkType: NetworkType, tileId: TileId): Seq[NodeTileInfo] = {
+    new MongoQueryNodeTileInfo(database).execute(networkType, tileId)
+  }
+
   override def nodeTileInfoByNetworkType(networkType: NetworkType): Seq[NodeTileInfo] = {
-    new MongoQueryNodeTileInfo(database).findByNetworkType(networkType)
+    new OldMongoQueryNodeTileInfo(database).findByNetworkType(networkType)
   }
 
   override def nodeTileInfoById(nodeId: Long): Option[NodeTileInfo] = {
-    new MongoQueryNodeTileInfo(database).findById(nodeId)
+    new OldMongoQueryNodeTileInfo(database).findById(nodeId)
   }
 
   private def routeReferencesPipeline(nodeId: Long): Seq[Bson] = {

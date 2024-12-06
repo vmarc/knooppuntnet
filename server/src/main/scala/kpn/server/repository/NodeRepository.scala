@@ -4,6 +4,7 @@ import kpn.api.common.common.Reference
 import kpn.api.custom.NetworkType
 import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
+import kpn.server.analyzer.engine.tiles.domain.TileId
 
 trait NodeRepository {
 
@@ -26,6 +27,10 @@ trait NodeRepository {
   def nodeRouteReferences(nodeId: Long): Seq[Reference]
 
   def filterKnown(nodeIds: Set[Long]): Set[Long]
+
+  def tiles(networkType: NetworkType): Seq[TileId]
+
+  def tilesWithName(networkType: NetworkType, tileId: TileId): Seq[NodeTileInfo]
 
   def nodeTileInfoByNetworkType(networkType: NetworkType): Seq[NodeTileInfo]
 
