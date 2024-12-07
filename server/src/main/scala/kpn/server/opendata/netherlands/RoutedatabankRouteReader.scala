@@ -32,7 +32,7 @@ class RoutedatabankRouteReader {
 
     val idMap = routes.groupBy(_._id)
     val nonUniqueIds = idMap.keys.filter { key =>
-      idMap(key).size > 1
+      idMap(key).sizeIs > 1
     }
     log.info(s"nonUniqueIds: ${nonUniqueIds.size}")
     nonUniqueIds.foreach { id =>

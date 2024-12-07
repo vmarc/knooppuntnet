@@ -35,11 +35,11 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
 
-    if (context.networkTypes.size > 1) {
+    if (context.networkTypes.sizeIs > 1) {
       // TODO redesign - should only contain nodes with no NetworkType
       context
     }
-    else if (context.networkTypes.size == 1) {
+    else if (context.networkTypes.sizeIs == 1) {
       val networkType = context.networkTypes.head
       analyzeRouteWithSingleNetworkType(networkType)
     }
@@ -238,7 +238,7 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
   private def withSuffixes(nodeDatas: Seq[RouteNodeAnalysis]): Seq[RouteNodeAnalysis] = {
     nodeDatas.zipWithIndex.map { case (nodeData, index) =>
       val suffixes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-      if (nodeDatas.size == 1) {
+      if (nodeDatas.sizeIs == 1) {
         nodeData.copy(alternateName = nodeData.name)
       }
       else {

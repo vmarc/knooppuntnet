@@ -31,7 +31,7 @@ object RingBuilder {
       val connectingWays = ways.flatMap { w =>
         if (w.nodeIds.head == connectingNode) {
           Some(w)
-        } else if(w.nodeIds.last == connectingNode) {
+        } else if (w.nodeIds.last == connectingNode) {
           Some(SkeletonWay(w.id, w.nodeIds.reverse))
         }
         else {
@@ -39,9 +39,9 @@ object RingBuilder {
         }
       }
       if (connectingWays.isEmpty) {
-        throw new RuntimeException(s"no connecting ways found. rings=${rings.size}, currentRing=${currentRing.size}" )
+        throw new RuntimeException(s"no connecting ways found. rings=${rings.size}, currentRing=${currentRing.size}")
       }
-      else if (connectingWays.length > 1) {
+      else if (connectingWays.sizeIs > 1) {
         val b = new mutable.StringBuilder
         b.append("multiple connecting ways found; connecting way ")
         b.append(connectingWay.id)

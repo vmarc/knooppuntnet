@@ -231,7 +231,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
         val resultString = if (!result.wasAcknowledged()) {
           ", not acknowledged"
         }
-        else if (docs.size != result.getInsertedIds.size()) {
+        else if (docs.sizeIs != result.getInsertedIds.size()) {
           s", docs.size does not match number of inserted docs: ${result.getInsertedIds.size()}"
         }
         else {

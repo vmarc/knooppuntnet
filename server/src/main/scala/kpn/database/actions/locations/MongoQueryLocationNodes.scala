@@ -72,14 +72,14 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
 
     val proposed = {
       val options = groups.flatMap(_.proposed).flatMap(_.options)
-      val oo = if (options.size != 1) {
+      val oo = if (options.sizeIs != 1) {
         Seq(ServerFilterOption("all", options.map(_.count).sum)) ++ options
       }
       else {
         options
       }
 
-      val selected = if (oo.size == 1) {
+      val selected = if (oo.sizeIs == 1) {
         oo.head.name
       }
       else {
@@ -108,14 +108,14 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
 
     val survey = {
       val surveyOptions = groups.flatMap(_.survey).flatMap(_.options)
-      val options = if (surveyOptions.size != 1) {
+      val options = if (surveyOptions.sizeIs != 1) {
         Seq(ServerFilterOption("all", surveyOptions.map(_.count).sum)) ++ surveyOptions
       }
       else {
         surveyOptions
       }
 
-      val selected = if (options.size == 1) {
+      val selected = if (options.sizeIs == 1) {
         options.head.name
       }
       else {
@@ -133,14 +133,14 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
 
     val lastUpdated = {
       val lastUpdatedOptions = groups.flatMap(_.lastUpdated).flatMap(_.options).sortBy(_.name)
-      val options = if (lastUpdatedOptions.size != 1) {
+      val options = if (lastUpdatedOptions.sizeIs != 1) {
         Seq(ServerFilterOption("all", lastUpdatedOptions.map(_.count).sum)) ++ lastUpdatedOptions
       }
       else {
         lastUpdatedOptions
       }
 
-      val selected = if (options.size == 1) {
+      val selected = if (options.sizeIs == 1) {
         options.head.name
       }
       else {
@@ -202,7 +202,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         )
       }
 
-      val selected = if (options.size == 1) {
+      val selected = if (options.sizeIs == 1) {
         options.head.name
       }
       else {
@@ -233,7 +233,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         )
       }
 
-      val selected = if (options.size == 1) {
+      val selected = if (options.sizeIs == 1) {
         options.head.name
       }
       else {

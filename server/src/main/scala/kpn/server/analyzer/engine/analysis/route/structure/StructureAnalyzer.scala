@@ -27,7 +27,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
 
   private def analyzeNodeNetworkRoute(): Structure = {
 
-    if (context.segments.size > 1) {
+    if (context.segments.sizeIs > 1) {
       otherElementsStructure()
     }
     else {
@@ -216,7 +216,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
 
   private def analyzeNonNodeNetworkRoute(): Structure = {
 
-    if (context.segments.size > 1) {
+    if (context.segments.sizeIs > 1) {
       val otherPaths = context.segments.flatMap(_.elements).map { element =>
         StructurePath(
           pathIds.next(),

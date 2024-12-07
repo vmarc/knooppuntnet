@@ -36,7 +36,7 @@ class BreakPointAnalysis {
       }
     }
 
-    if (waysWithNodes.size < 2) {
+    if (waysWithNodes.sizeIs < 2) {
       None
     }
     else {
@@ -44,7 +44,6 @@ class BreakPointAnalysis {
       breakPoint(triplets, Nodes())
     }
   }
-
 
   @tailrec
   private def breakPoint(triplets: Seq[WayTriplet], candidateCommonNodes: Nodes): Option[BreakPoint] = {

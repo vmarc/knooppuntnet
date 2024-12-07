@@ -246,7 +246,7 @@ class RouteNameAnalyzer(context: RouteDetailAnalysisContext) {
 
   private def routeNameFromNodesInWays(): Option[RouteNameAnalysis] = {
     val nodeNames = context.routeNodeInfos.values.map(_.name).toSeq.distinct
-    if (nodeNames.size == 1) {
+    if (nodeNames.sizeIs == 1) {
       val startNodeName = nodeNames.head
       val endNodeName = startNodeName
       val routeName = s"$startNodeName-$endNodeName"
@@ -260,7 +260,7 @@ class RouteNameAnalyzer(context: RouteDetailAnalysisContext) {
         )
       )
     }
-    else if (nodeNames.size == 2) {
+    else if (nodeNames.sizeIs == 2) {
       val startNodeName = nodeNames.head
       val endNodeName = nodeNames(1)
       val routeName = s"$startNodeName-$endNodeName"

@@ -19,7 +19,7 @@ class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc, log: L
       // new analysis without problem found edges, old analysis failed: assume new edges better than old
       return
     }
-    if (newRouteDoc.segments.size != 1) {
+    if (newRouteDoc.segments.sizeIs != 1) {
       // cannot compare edges
       return
     }
@@ -77,7 +77,7 @@ class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc, log: L
   }
 
   private def edgesEqual(oldEdges: Seq[CompareEdge], newEdges: Seq[CompareEdge]): Boolean = {
-    if (oldEdges.size == newEdges.size) {
+    if (oldEdges.sizeIs == newEdges.sizeIs) {
       val mismatches = oldEdges.filter { oldEdge =>
         !newEdges.exists(newEdge => edgeEqual(oldEdge, newEdge))
       }

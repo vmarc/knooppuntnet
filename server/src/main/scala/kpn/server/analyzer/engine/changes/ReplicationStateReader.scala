@@ -1,12 +1,11 @@
 package kpn.server.analyzer.engine.changes
 
-import java.io.File
-
 import kpn.api.common.ReplicationId
 import kpn.api.custom.Timestamp
 import kpn.core.common.TimestampUtil
 import kpn.core.util.Log
 
+import java.io.File
 import scala.io.Source
 
 class ReplicationStateReader(replicationDir: File) {
@@ -18,7 +17,7 @@ class ReplicationStateReader(replicationDir: File) {
     val file = new File(filename)
     if (file.exists) {
       val lines = Source.fromFile(new File(filename)).getLines().toSeq
-      if (lines.size < 2) {
+      if (lines.sizeIs < 2) {
         log.debug(s"$filename contains less than 2 lines")
         None
       }

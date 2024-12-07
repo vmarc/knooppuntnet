@@ -28,7 +28,7 @@ object ChangesPipeline {
       parameters.day.map(day => equal("key.time.day", day.toInt)),
     ).flatten
 
-    val filterElements = if (allFilterElements.size == 1) {
+    val filterElements = if (allFilterElements.sizeIs == 1) {
       allFilterElements.head
     }
     else {

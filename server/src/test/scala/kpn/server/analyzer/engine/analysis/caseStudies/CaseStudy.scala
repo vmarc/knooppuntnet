@@ -54,7 +54,7 @@ object CaseStudy extends MockFactory {
       throw new IllegalArgumentException(s"No route relation found in file $filename")
     }
 
-    if (rawData.relations.size > 1) {
+    if (rawData.relations.sizeIs > 1) {
       throw new IllegalArgumentException(s"Multiple relations found in file $filename (expected 1 single relation only)")
     }
 

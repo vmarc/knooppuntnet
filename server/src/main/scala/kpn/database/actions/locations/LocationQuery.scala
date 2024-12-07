@@ -34,7 +34,7 @@ import org.mongodb.scala.model.Sorts.orderBy
 object LocationQuery {
 
   def locationFilter(fieldName: String, subset: LocationSubset): Bson = {
-    if (subset.locationIds.size == 1) {
+    if (subset.locationIds.sizeIs == 1) {
       equal(fieldName, Label.location(subset.locationIds.head))
     }
     else {
@@ -46,7 +46,7 @@ object LocationQuery {
   }
 
   def changesLocationFilter(fieldName: String, subset: LocationSubset): Bson = {
-    if (subset.locationIds.size == 1) {
+    if (subset.locationIds.sizeIs == 1) {
       equal(fieldName, subset.locationIds.head)
     }
     else {
@@ -335,7 +335,7 @@ object LocationQuery {
     if (filters.isEmpty) {
       Seq.empty
     }
-    else if (otherFilters.size == 1) {
+    else if (otherFilters.sizeIs == 1) {
       Seq(
         filter(filters.head)
       )

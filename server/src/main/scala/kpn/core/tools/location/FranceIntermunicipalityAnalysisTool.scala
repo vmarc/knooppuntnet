@@ -52,10 +52,10 @@ class FranceIntermunicipalityAnalysisTool {
         val relationId = Math.abs(municipality.locationJson.properties.osm_id)
         val overlapping = intermunicipalities.filter(x => x.geometry.overlap(locationGeometry) > 0.25)
         val summary = s"${relationId}L, // $insee  ${municipality.name}"
-        if (overlapping.size < 1) {
+        if (overlapping.sizeIs < 1) {
           println(s"ORPHAN $summary")
         }
-        else if (overlapping.size > 1) {
+        else if (overlapping.sizeIs > 1) {
           val overlappingIntermunicipalities = overlapping.map(_.relationId).mkString(",")
           println(s"OVERLAP $summary, overlapping=$overlappingIntermunicipalities")
         }
@@ -155,7 +155,7 @@ class FranceIntermunicipalityAnalysisTool {
     }
     val relation = locationRelations.head
     val polygons = RelationPolygonBuilder.toPolygons(data, relation)
-    val geometry = if (polygons.size != 1) {
+    val geometry = if (polygons.sizeIs != 1) {
       polygons.head
     }
     else {

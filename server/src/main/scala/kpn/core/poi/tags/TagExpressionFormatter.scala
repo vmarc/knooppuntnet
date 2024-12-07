@@ -4,7 +4,7 @@ class TagExpressionFormatter {
 
   def format(expression: TagExpression): Seq[String] = {
     expression match {
-      case e: Or => Seq(formatExpression(e.left) ,formatExpression(e.right))
+      case e: Or => Seq(formatExpression(e.left), formatExpression(e.right))
       case _ => Seq(formatExpression(expression))
     }
   }
@@ -25,7 +25,7 @@ class TagExpressionFormatter {
     if (hasTag.allowedValues.isEmpty) {
       s"[${hasTag.tagKey}]"
     }
-    else if (hasTag.allowedValues.size == 1) {
+    else if (hasTag.allowedValues.sizeIs == 1) {
       s"[${hasTag.tagKey}=${hasTag.allowedValues.head}]"
     }
     else {
@@ -38,7 +38,7 @@ class TagExpressionFormatter {
     if (notHasTag.allowedValues.isEmpty) {
       s"[${notHasTag.tagKey}!~'.']"
     }
-    else if (notHasTag.allowedValues.size == 1) {
+    else if (notHasTag.allowedValues.sizeIs == 1) {
       s"[${notHasTag.tagKey}!=${notHasTag.allowedValues.head}]"
     }
     else {
@@ -65,5 +65,4 @@ class TagExpressionFormatter {
       s"[${notTagContains.tagKey}!~'$values']"
     }
   }
-
 }

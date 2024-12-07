@@ -34,7 +34,7 @@ object Haversine {
   }
 
   def meters(nodes: Seq[LatLon]): Int = {
-    if (nodes.size < 2) {
+    if (nodes.sizeIs < 2) {
       0
     }
     else {

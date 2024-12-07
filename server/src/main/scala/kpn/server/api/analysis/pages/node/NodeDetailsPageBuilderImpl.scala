@@ -32,7 +32,7 @@ class NodeDetailsPageBuilderImpl(
         nodeDoc.names.map(_.networkScope) ++
           nodeRouteReferences.map(_.networkScope) ++
           networkReferences.map(_.networkScope)
-        ).distinct.size > 1
+        ).distinct.sizeIs > 1
       val locations = locationService.toInfos(language, nodeDoc.locations, nodeDoc.locations).reverse
       val nodeInfo = NodeInfo(
         id = nodeDoc._id,

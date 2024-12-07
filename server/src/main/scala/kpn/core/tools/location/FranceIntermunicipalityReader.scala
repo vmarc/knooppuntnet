@@ -24,7 +24,7 @@ class FranceIntermunicipalityReader(intermunicipalitiesDir: String, locationId: 
       val sirenCode = relation.tagValue("ref:FR:SIREN").getOrElse(throw new RuntimeException(error("SIREN code not found")))
       val id = s"fr-2-$sirenCode"
       val polygons = RelationPolygonBuilder.toPolygons(data, relation)
-      val geometry = if (polygons.size != 1) {
+      val geometry = if (polygons.sizeIs != 1) {
         polygons.head
       }
       else {

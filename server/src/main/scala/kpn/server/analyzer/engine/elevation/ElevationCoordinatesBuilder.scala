@@ -15,7 +15,7 @@ class ElevationCoordinatesBuilder {
 
   @tailrec
   private def buildCoordinates(remainingDistanceInSegment: Double, points: Seq[Point], result: Seq[Point]): Seq[Point] = {
-    if (points.size == 1) {
+    if (points.sizeIs == 1) {
       result ++ points
     }
     else {
@@ -35,5 +35,4 @@ class ElevationCoordinatesBuilder {
       }
     }
   }
-
 }

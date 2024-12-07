@@ -21,7 +21,6 @@ object NodeUtil {
   def normalize(nodeName: String): String = {
     if (nodeName.length == 1 && nodeName(0).isDigit) "0" + nodeName else nodeName
   }
-
 }
 
 class NodeUtil(scopedNetworkType: ScopedNetworkType) {
@@ -48,12 +47,12 @@ class NodeUtil(scopedNetworkType: ScopedNetworkType) {
   }
 
   def alternateNames(facts: ListBuffer[Fact], routeNodeInfos: Seq[RouteNodeInfo]): Map[Long /*nodeId*/ , String /*alternateName*/ ] = {
-    if (routeNodeInfos.size < 2) {
+    if (routeNodeInfos.sizeIs < 2) {
       Map.empty
     }
     else {
       val suffixes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-      if (routeNodeInfos.size > suffixes.length) {
+      if (routeNodeInfos.sizeIs > suffixes.length) {
         facts.addOne(Fact.RouteAnalysisFailed)
       }
       routeNodeInfos.zip(suffixes).map { case (routeNodeInfo, letter) =>
@@ -61,5 +60,4 @@ class NodeUtil(scopedNetworkType: ScopedNetworkType) {
       }.toMap
     }
   }
-
 }

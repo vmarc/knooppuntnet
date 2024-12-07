@@ -13,7 +13,7 @@ case class NodeIntegrityDetail(
 ) {
 
   def failed: Boolean = {
-    routeRefs.size != expectedRouteCount
+    routeRefs.sizeIs != expectedRouteCount
   }
 
   def hasScopedNetworkType(scopedNetworkType: ScopedNetworkType): Boolean = {

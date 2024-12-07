@@ -50,7 +50,6 @@ object MonitorRouteAnalysisSupport {
     )
   }
 
-
   def split(list: List[(Boolean, Int)]): List[List[(Boolean, Int)]] = {
     list match {
       case Nil => Nil
@@ -66,7 +65,7 @@ object MonitorRouteAnalysisSupport {
   }
 
   def toLineString(osmCoordinates: Seq[Coordinate], sequence: ReferenceCoordinateSequence): LineString = {
-    val coordinates = if (sequence.indexes.size == 1) {
+    val coordinates = if (sequence.indexes.sizeIs == 1) {
       Seq(osmCoordinates.head, osmCoordinates.head) // TODO investigate why this is useful
     }
     else {
@@ -76,7 +75,7 @@ object MonitorRouteAnalysisSupport {
   }
 
   def simplifyCoordinates(coordinates: List[Coordinate]): List[Coordinate] = {
-    if (coordinates.size < 3) {
+    if (coordinates.sizeIs < 3) {
       coordinates
     }
     else {
@@ -120,5 +119,4 @@ object MonitorRouteAnalysisSupport {
     val allWayMembers = allRelations.flatMap(relation => relation.wayMembers)
     MonitorFilter.filterWayMembers(allWayMembers)
   }
-
 }

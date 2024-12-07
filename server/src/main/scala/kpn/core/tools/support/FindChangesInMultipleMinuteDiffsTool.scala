@@ -23,7 +23,7 @@ class FindChangesInMultipleMinuteDiffsTool(database: Database) {
     val idMap = ids.map { id =>
       val splitted = id.split(":")
       splitted.head -> splitted(1)
-    }.groupBy(_._1).filter(_._2.size > 5).map(entry => entry._1 -> entry._2.map(_._2))
+    }.groupBy(_._1).filter(_._2.sizeIs > 5).map(entry => entry._1 -> entry._2.map(_._2))
     val mostRecentId = idMap.keys.toSeq.sorted.reverse.head
     println(s"$mostRecentId: ${idMap(mostRecentId).mkString(", ")}")
   }

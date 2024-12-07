@@ -51,7 +51,7 @@ object StructureUtil {
 
   def split(nodeIds: Seq[Long], nodeNetworkNodeIds: Seq[Long]): Seq[Seq[Long]] = {
     val splitNodeIdIndexes = {
-      if (nodeIds.size > 2) {
+      if (nodeIds.sizeIs > 2) {
         (1 until nodeIds.size - 1).filter { index =>
           val nodeId = nodeIds(index)
           nodeNetworkNodeIds.contains(nodeId)

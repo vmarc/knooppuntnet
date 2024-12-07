@@ -27,7 +27,7 @@ class NetworkDocAnalyzer(context: NetworkInfoAnalysisContext, nodeDoc: NodeDoc) 
     // that contain this node have role "connection" in the network relation
     val nodeRouteDetails = context.routeDetails.filter(_.nodeRefs.contains(nodeDoc._id))
     val connectionRouteDetails = nodeRouteDetails.filter(_.role.contains("connection"))
-    nodeRouteDetails.nonEmpty && connectionRouteDetails.size == nodeRouteDetails.size
+    nodeRouteDetails.nonEmpty && connectionRouteDetails.sizeIs == nodeRouteDetails.sizeIs
   }
 
   def proposed: Boolean = {

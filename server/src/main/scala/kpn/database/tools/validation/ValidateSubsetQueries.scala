@@ -17,7 +17,7 @@ class ValidateSubsetQueries(database: Database) {
   private def validateSubsetOrphanNodes(): ValidationResult = {
     ValidationResult.validate("MongoQuerySubsetOrphanNodes") {
       val nodeInfos = new MongoQuerySubsetOrphanNodes(database).execute(Subset.deBicycle)
-      if (nodeInfos.size < 10) {
+      if (nodeInfos.sizeIs < 10) {
         Some(s"less than 10 bicycle orphan nodes in Germany (${nodeInfos.size})")
       }
       else {
@@ -29,7 +29,7 @@ class ValidateSubsetQueries(database: Database) {
   private def validateSubsetOrphanRoutes(): ValidationResult = {
     ValidationResult.validate("MongoQuerySubsetOrphanRoutes") {
       val orphanRouteInfos = new MongoQuerySubsetOrphanRoutes(database).execute(Subset.deBicycle)
-      if (orphanRouteInfos.size < 100) {
+      if (orphanRouteInfos.sizeIs < 100) {
         Some(s"less than 100 bicycle orphan routes in Germany (${orphanRouteInfos.size})")
       }
       else {

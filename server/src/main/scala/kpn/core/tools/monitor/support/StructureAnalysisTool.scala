@@ -34,7 +34,7 @@ class StructureAnalysisTool {
       val rawData = new Parser().parse(xml)
       val relation = new DataBuilder(rawData).data.relations(relationId)
       val elementGroups = StructureElementAnalyzer.analyze(RouteNodes(), relation.members)
-      println(s"${index + 1}/${ids.size} $relationId ${if (elementGroups.size > 1) "ISSUE" else "OK"}")
+      println(s"${index + 1}/${ids.size} $relationId ${if (elementGroups.sizeIs > 1) "ISSUE" else "OK"}")
     }
   }
 }

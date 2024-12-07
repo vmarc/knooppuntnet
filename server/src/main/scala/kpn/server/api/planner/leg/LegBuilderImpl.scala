@@ -126,7 +126,7 @@ class LegBuilderImpl(
       }
     }.toMap
 
-    if (routeIds.size != routeDocs.size) {
+    if (routeIds.sizeIs != routeDocs.size) {
       log.error(s"building leg aborted")
       None
     }
@@ -175,7 +175,7 @@ class LegBuilderImpl(
     if (segments.isEmpty) {
       result
     }
-    else if (segments.size == 1) {
+    else if (segments.sizeIs == 1) {
       result :+ segments.head
     }
     else {

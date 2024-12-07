@@ -127,7 +127,7 @@ object ParcDuVercors {
     val data = new DataBuilder(rawData).data
     val relation = data.relations(relationId)
     val polygons = RelationPolygonBuilder.toPolygons(data, relation)
-    if (polygons.size != 1) {
+    if (polygons.sizeIs != 1) {
       polygons.head
     }
     else {

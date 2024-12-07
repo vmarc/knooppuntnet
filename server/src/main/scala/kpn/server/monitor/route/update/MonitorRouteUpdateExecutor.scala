@@ -466,7 +466,7 @@ class MonitorRouteUpdateExecutor(
             processList.zipWithIndex.foreach { case (mrr, index) =>
               Log.context(s"${index + 1}/$processListSize ${mrr.relationId}") {
                 context.reporter.stepActive(mrr.relationId.toString)
-                val updateSingleRelationRoute = index == 0 && processList.size == 1
+                val updateSingleRelationRoute = index == 0 && processList.sizeIs == 1
 
                 monitorRouteRelationRepository.loadTopLevel(None, mrr.relationId) match {
                   case None => None
@@ -628,7 +628,7 @@ class MonitorRouteUpdateExecutor(
             processList.zipWithIndex.foreach { case (mrr, index) =>
               Log.context(s"${index + 1}/$processListSize ${mrr.relationId}") {
                 context.reporter.stepActive(mrr.relationId.toString)
-                val updateSingleRelationRoute = index == 0 && processList.size == 1
+                val updateSingleRelationRoute = index == 0 && processList.sizeIs == 1
                 updateSubRelationOsmReference(mrr, updateSingleRelationRoute)
               }
             }
@@ -1119,7 +1119,7 @@ class MonitorRouteUpdateExecutor(
         )
       )
 
-      val happy = superRouteSuperSegments.size == 1 &&
+      val happy = superRouteSuperSegments.sizeIs == 1 &&
         context.newRoute.map(_.deviationCount).sum == 0 &&
         (context.newRoute.get.relation.map(_.happy).getOrElse(false))
 
@@ -1274,7 +1274,7 @@ class MonitorRouteUpdateExecutor(
 
           val happy = routeAnalysis.gpxDistance > 0 &&
             routeAnalysis.deviations.isEmpty &&
-            routeAnalysis.osmSegments.size == 1
+            routeAnalysis.osmSegments.sizeIs == 1
 
           val id = if (context.isActionAnalyze || context.isActionUpdate || context.isActionGpxUpload) {
             context.oldStateIds.find(_.relationId == relationId) match {

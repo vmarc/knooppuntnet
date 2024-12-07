@@ -130,7 +130,7 @@ class LocationBuilderGermany(dir: String) {
               val countyGeometry = LocationGeometry(county.geometry)
               districts.find(_.contains(countyGeometry)) match {
                 case Some(district) =>
-                  if (district.paths.size != 1) {
+                  if (district.paths.sizeIs != 1) {
                     throw new RuntimeException(s"unexpected number of paths in district ${district.id} ${district.name}")
                   }
                   val parents = district.paths.head.locationIds :+ district.id

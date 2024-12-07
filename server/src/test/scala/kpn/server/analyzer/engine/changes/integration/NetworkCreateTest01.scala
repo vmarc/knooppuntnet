@@ -62,7 +62,7 @@ class NetworkCreateTest01 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       assert(database.orphanNodes.isEmpty)
-      assert(database.orphanRoutes.findAll().size == 1)
+      assert(database.orphanRoutes.findAll().sizeIs == 1)
 
       process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 
