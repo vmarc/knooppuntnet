@@ -47,8 +47,7 @@ class NomatimResponseParserTest extends UnitTest {
   }
 
   private def responseString: String = {
-    """
-      |<?xml version="1.0" encoding="UTF-8" ?>
+    """<?xml version="1.0" encoding="UTF-8" ?>
       |<searchresults
       |    timestamp="Mon, 18 Nov 2024 16:55:45 +00:00"
       |    attribution="Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright"

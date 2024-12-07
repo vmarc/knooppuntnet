@@ -115,10 +115,11 @@ class StatisticsUpdater(database: Database) {
         )
       ),
       unwind("$summary.countries"),
+      unwind("$summary.networkTypes"),
       group(
         Document(
           "country" -> "$summary.countries",
-          "networkType" -> "$summary.networkType"
+          "networkType" -> "$summary.networkTypes"
         ),
         sum("value", 1)
       )
@@ -189,10 +190,11 @@ class StatisticsUpdater(database: Database) {
       ),
       unwind("$facts"),
       unwind("$summary.countries"),
+      unwind("$summary.networkTypes"),
       group(
         Document(
           "country" -> "$summary.countries",
-          "networkType" -> "$summary.networkType",
+          "networkType" -> "$summary.networkTypes",
           "factName" -> "$facts"
         ),
         sum("value", 1)
@@ -394,10 +396,11 @@ class StatisticsUpdater(database: Database) {
         )
       ),
       unwind("$summary.countries"),
+      unwind("$summary.networkTypes"),
       group(
         Document(
           "country" -> "$summary.countries",
-          "networkType" -> "$summary.networkType"
+          "networkType" -> "$summary.networkTypes"
         ),
         sum("value", "$summary.meters")
       ),
@@ -522,6 +525,7 @@ class StatisticsUpdater(database: Database) {
       ),
       unwind("$facts"),
       unwind("$summary.countries"),
+      unwind("$summary.networkTypes"),
       filter(
         and(
           notEqual("facts", "RouteBroken"),
@@ -532,7 +536,7 @@ class StatisticsUpdater(database: Database) {
       group(
         Document(
           "country" -> "$summary.countries",
-          "networkType" -> "$summary.networkType"
+          "networkType" -> "$summary.networkTypes"
         ),
         sum("factCount", 1)
       )
