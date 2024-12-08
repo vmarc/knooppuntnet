@@ -59,7 +59,7 @@ class AnalysisDataDiffReporter {
         Seq.empty
       }
       else {
-        Seq("  " + title + ":") ++ leftOnly ++ rightOnly ++ diffs
+        Seq(s"  $title:") ++ leftOnly ++ rightOnly ++ diffs
       }
     }
   }
@@ -74,15 +74,15 @@ class AnalysisDataDiffReporter {
     }
     else {
       Seq(
-        idList(title + "LeftOnly", leftOnly),
-        idList(title + "RightOnly", rightOnly)
+        idList(s"${title}LeftOnly", leftOnly),
+        idList(s"${title}RightOnly", rightOnly)
       ).flatten
     }
   }
 
   private def idList(title: String, ids: Set[Long]): Seq[String] = {
     if (ids.nonEmpty) {
-      Seq(s"$title = " + ids.toSeq.sorted.mkString(", "))
+      Seq(s"$title = ${ids.toSeq.sorted.mkString(", ")}")
     } else {
       Seq.empty
     }
@@ -102,7 +102,7 @@ class AnalysisDataDiffReporter {
       val rightOnly = idList("    rightOnly", rightOnlyKeys)
 
       Seq(
-        Seq("  " + title + ":"),
+        Seq(s"  $title:"),
         leftOnly,
         rightOnly
       ).flatten

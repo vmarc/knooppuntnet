@@ -1,14 +1,10 @@
 package kpn.server.monitor.tasks
 
-import kpn.api.base.ObjectId
-import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.monitor.domain.MonitorTask
-import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
-import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Sorts.ascending
 import org.mongodb.scala.model.Sorts.orderBy
@@ -29,10 +25,11 @@ class MonitorTaskLoopTool(database: Database) {
   private var savedObserver: Option[MonitorTaskObserver] = None
   private var abort = false
 
+  //noinspection LoopVariableNotUpdated
   def taskProcessingLoop(): Unit = {
     simulateExternalMonitorShutdown()
     log.info("start task processing loop")
-    while (abort == false) {
+    while (!abort) {
       processAllTasks()
       waitForNewTask()
     }

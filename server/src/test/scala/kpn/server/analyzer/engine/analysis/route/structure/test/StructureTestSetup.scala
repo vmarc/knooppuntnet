@@ -18,7 +18,7 @@ class StructureTestSetup(val data: Data) {
     val elementGroups = StructureElementAnalyzer.analyze(RouteNodes(), relation.members, traceEnabled)
     if (traceEnabled) {
       println("\nResult:")
-      elementGroups.zipWithIndex.map { case (elementGroup, groupIndex) =>
+      elementGroups.zipWithIndex.foreach { case (elementGroup, groupIndex) =>
         elementGroup.elements.zipWithIndex.foreach { case (element, elementIndex) =>
           println(s"  group=${groupIndex + 1}, element=${elementIndex + 1}: ${element.string}")
         }

@@ -53,7 +53,7 @@ class ServerWebSocketHandler(
     else {
       "unknown"
     }
-    log.warn(s"user=$user, transport error: ${exception.toString}");
+    log.warn(s"user=$user, transport error: ${exception.toString}")
     super.handleTransportError(session, exception);
   }
 

@@ -5,14 +5,14 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisConte
 
 object RouteContextAnalyzer extends RouteAnalyzer {
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
-    new RouteContextAnalyzer(context).analyze
+    new RouteContextAnalyzer(context).analyze()
     context
   }
 }
 
 class RouteContextAnalyzer(context: RouteDetailAnalysisContext) {
 
-  def analyze: Unit = {
+  def analyze(): Unit = {
     if (Redesign.enableDebugPrinting) {
       RouteAnalysisContextReport.report(context)
     }

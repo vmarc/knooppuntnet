@@ -9,37 +9,37 @@ object ChangesFilter {
     throw new RuntimeException("TODO")
     ChangesFilter(Seq.empty)
 
-//    val periods = changeSetCounts.years.map { yearChangeSetCount =>
-//      val monthPeriods = changeSetCounts.months.filter(_.year == yearChangeSetCount.year).map { monthChangeSetCount =>
-//        val dayPeriods = changeSetCounts.days.filter(csc => csc.year == monthChangeSetCount.year && csc.month == monthChangeSetCount.month).map { dayChangeSetCount =>
-//          ChangesFilterPeriod(
-//            dayChangeSetCount.day,
-//            dayChangeSetCount.total,
-//            dayChangeSetCount.impact,
-//            current = false,
-//            selected = dayOption.contains(f"${dayChangeSetCount.day}%02d"),
-//            Seq.empty
-//          )
-//        }
-//        ChangesFilterPeriod(
-//          monthChangeSetCount.month,
-//          monthChangeSetCount.total,
-//          monthChangeSetCount.impact,
-//          current = false,
-//          selected = monthOption.contains(f"${monthChangeSetCount.month}%02d"),
-//          dayPeriods
-//        )
-//      }
-//      ChangesFilterPeriod(
-//        yearChangeSetCount.year,
-//        yearChangeSetCount.total,
-//        yearChangeSetCount.impact,
-//        current = false,
-//        selected = yearOption.contains(yearChangeSetCount.year.toString),
-//        monthPeriods
-//      )
-//    }
-//    ChangesFilter(periods)
+    //    val periods = changeSetCounts.years.map { yearChangeSetCount =>
+    //      val monthPeriods = changeSetCounts.months.filter(_.year == yearChangeSetCount.year).map { monthChangeSetCount =>
+    //        val dayPeriods = changeSetCounts.days.filter(csc => csc.year == monthChangeSetCount.year && csc.month == monthChangeSetCount.month).map { dayChangeSetCount =>
+    //          ChangesFilterPeriod(
+    //            dayChangeSetCount.day,
+    //            dayChangeSetCount.total,
+    //            dayChangeSetCount.impact,
+    //            current = false,
+    //            selected = dayOption.contains(f"${dayChangeSetCount.day}%02d"),
+    //            Seq.empty
+    //          )
+    //        }
+    //        ChangesFilterPeriod(
+    //          monthChangeSetCount.month,
+    //          monthChangeSetCount.total,
+    //          monthChangeSetCount.impact,
+    //          current = false,
+    //          selected = monthOption.contains(f"${monthChangeSetCount.month}%02d"),
+    //          dayPeriods
+    //        )
+    //      }
+    //      ChangesFilterPeriod(
+    //        yearChangeSetCount.year,
+    //        yearChangeSetCount.total,
+    //        yearChangeSetCount.impact,
+    //        current = false,
+    //        selected = yearOption.contains(yearChangeSetCount.year.toString),
+    //        monthPeriods
+    //      )
+    //    }
+    //    ChangesFilter(periods)
   }
 }
 
@@ -68,7 +68,7 @@ case class ChangesFilter(periods: Seq[ChangesFilterPeriod]) {
 
   def impactedCount: Long = periods.map(_.impactedCount).sum
 
-  def currentPeriod: Option[ChangesFilterPeriod] = {
+  private def currentPeriod: Option[ChangesFilterPeriod] = {
     currentPeriodIn(periods)
   }
 

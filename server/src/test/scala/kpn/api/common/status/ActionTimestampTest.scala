@@ -7,15 +7,15 @@ import kpn.core.util.UnitTest
 class ActionTimestampTest extends UnitTest {
 
   test("week numbers") {
-    calculateWeek(Timestamp(2019, 12, 30, 12, 0, 0)) should equal(2020, 1, 1)
-    calculateWeek(Timestamp(2020, 1, 1, 12, 0, 0)) should equal(2020, 1, 3)
-    calculateWeek(Timestamp(2020, 1, 6, 12, 0, 0)) should equal(2020, 2, 1)
-    calculateWeek(Timestamp(2020, 12, 27, 12, 0, 0)) should equal(2020, 52, 7)
-    calculateWeek(Timestamp(2020, 12, 28, 12, 0, 0)) should equal(2020, 53, 1)
-    calculateWeek(Timestamp(2021, 1, 1, 12, 0, 0)) should equal(2020, 53, 5)
-    calculateWeek(Timestamp(2021, 1, 2, 12, 0, 0)) should equal(2020, 53, 6)
-    calculateWeek(Timestamp(2021, 1, 3, 12, 0, 0)) should equal(2020, 53, 7)
-    calculateWeek(Timestamp(2021, 1, 4, 12, 0, 0)) should equal(2021, 1, 1)
+    calculateWeek(Timestamp(2019, 12, 30, 12, 0, 0)) should equal((2020, 1, 1))
+    calculateWeek(Timestamp(2020, 1, 1, 12, 0, 0)) should equal((2020, 1, 3))
+    calculateWeek(Timestamp(2020, 1, 6, 12, 0, 0)) should equal((2020, 2, 1))
+    calculateWeek(Timestamp(2020, 12, 27, 12, 0, 0)) should equal((2020, 52, 7))
+    calculateWeek(Timestamp(2020, 12, 28, 12, 0, 0)) should equal((2020, 53, 1))
+    calculateWeek(Timestamp(2021, 1, 1, 12, 0, 0)) should equal((2020, 53, 5))
+    calculateWeek(Timestamp(2021, 1, 2, 12, 0, 0)) should equal((2020, 53, 6))
+    calculateWeek(Timestamp(2021, 1, 3, 12, 0, 0)) should equal((2020, 53, 7))
+    calculateWeek(Timestamp(2021, 1, 4, 12, 0, 0)) should equal((2021, 1, 1))
   }
 
   test("minuteDiffInfo") {
@@ -36,5 +36,4 @@ class ActionTimestampTest extends UnitTest {
     val actionTimestamp = ActionTimestamp.from(timestamp)
     (actionTimestamp.weekYear, actionTimestamp.weekWeek, actionTimestamp.weekDay)
   }
-
 }

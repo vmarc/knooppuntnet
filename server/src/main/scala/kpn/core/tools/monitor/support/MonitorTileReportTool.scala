@@ -32,7 +32,7 @@ class MonitorTileReportTool(
     println("|level|tile count|")
     println("|---|---|")
     (1 to 14).foreach { level =>
-      val tileCount = tileNames.filter(_.startsWith(s"$level-")).size
+      val tileCount = tileNames.count(_.startsWith(s"$level-"))
       println(s"|$level|$tileCount|")
     }
     val totalTileCount = tileNames.size

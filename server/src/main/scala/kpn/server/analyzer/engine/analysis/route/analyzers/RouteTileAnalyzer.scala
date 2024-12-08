@@ -34,7 +34,7 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
 
     val tiles = determineTiles(context.relation)
 
-    val zoomLevels = ZoomLevel.newMinZoom.to(ZoomLevel.newMaxZoom).toSeq
+    val zoomLevels = ZoomLevel.newMinZoom.to(ZoomLevel.newMaxZoom)
     val tileDatas = zoomLevels.flatMap { zoomLevel =>
       if (includeRoute(context, zoomLevel)) {
         buildTileRouteData(context, zoomLevel, tiles, tileSegments)

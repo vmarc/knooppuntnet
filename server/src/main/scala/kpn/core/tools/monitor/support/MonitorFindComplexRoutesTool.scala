@@ -53,7 +53,7 @@ class MonitorFindComplexRoutesTool(database: Database) {
       val groupName = complexRoute.groupName
       val routeName = complexRoute.routeName
       val url = s"https://knooppuntnet.nl/fr/monitor/groups/$groupName/routes/routeName"
-      val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString())
+      val encodedUrl = URLEncoder.encode(url, StandardCharsets.UTF_8.toString)
       val name = s"$groupName:$routeName"
       val routeLink = s"[$name]($url)"
       print(s"|${index + 1}|$routeLink|")

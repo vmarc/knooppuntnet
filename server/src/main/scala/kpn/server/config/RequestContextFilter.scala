@@ -22,7 +22,7 @@ class RequestContextFilter(testEnabled: Boolean) extends HttpFilter {
     filterChain: FilterChain
   ): Unit = {
 
-    val headers = new java.util.HashMap[String, String]();
+    val headers = new java.util.HashMap[String, String]()
     val headerIterator = request.getHeaderNames
     while (headerIterator.hasMoreElements) {
       val headerName = headerIterator.nextElement()

@@ -1,11 +1,10 @@
-package kpn.server.analyzer.engine.analysis.route.structure
+package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteNotBackward
 import kpn.api.custom.Fact.RouteNotContinious
 import kpn.api.custom.Fact.RouteNotForward
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 class Structure_31_GapSecondWayBackwardTest extends UnitTest {
 

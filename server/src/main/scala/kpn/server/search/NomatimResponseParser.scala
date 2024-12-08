@@ -13,7 +13,7 @@ object NomatimResponseParser {
 
 class NomatimResponseParser {
   def parse(xmlString: String): Seq[GeocoderLocation] = {
-    val strippedXmlString = xmlString.drop("""<?xml version="1.0" encoding="UTF-8" ?>""".size)
+    val strippedXmlString = xmlString.drop("""<?xml version="1.0" encoding="UTF-8" ?>""".length)
     val xml = XML.loadString(strippedXmlString)
     val searchresults = xml.head \\ "searchresults"
     (searchresults.head \\ "place").map { place =>

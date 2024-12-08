@@ -168,7 +168,7 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
               case _ => None
             }
           }
-          (relationId -> TileRelationData(relationId, segments))
+          relationId -> TileRelationData(relationId, segments)
         }.toMap
         (s"loaded $relationIdsSize relations", result)
       }

@@ -22,7 +22,7 @@ class ApplicationTest extends EndToEndTest {
   private var database: Database = _
 
   override def beforeEach(): Unit = {
-    super.beforeEach();
+    super.beforeEach()
     mongoClient = Mongo.client
     database = new DatabaseImpl(mongoClient.getDatabase("kpn-test").withCodecRegistry(Mongo.codecRegistry))
   }
@@ -299,7 +299,6 @@ class ApplicationTest extends EndToEndTest {
     println(route)
 
     println("done")
-
   }
 
   test("monitor add route with gpx reference") {

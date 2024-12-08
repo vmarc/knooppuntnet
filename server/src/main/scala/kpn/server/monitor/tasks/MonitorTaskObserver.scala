@@ -8,7 +8,7 @@ import org.mongodb.scala.Subscription
 
 import java.util.concurrent.CountDownLatch
 
-case class MonitorTaskObserver() extends Observer[ChangeStreamDocument[MonitorTask]] {
+class MonitorTaskObserver() extends Observer[ChangeStreamDocument[MonitorTask]] {
 
   private val latch = new CountDownLatch(1)
   private var savedSubscription: Option[Subscription] = None

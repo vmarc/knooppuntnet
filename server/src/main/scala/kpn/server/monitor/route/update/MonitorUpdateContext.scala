@@ -59,7 +59,7 @@ case class MonitorUpdateContext(
     }
   }
 
-  def isRouteChanged(): Boolean = {
+  def isRouteChanged: Boolean = {
     oldRoute match {
       case None => false
       case Some(route) =>
@@ -74,7 +74,7 @@ case class MonitorUpdateContext(
     }
   }
 
-  def isReferenceChanged(): Boolean = {
+  def isReferenceChanged: Boolean = {
     oldRoute match {
       case None => false
       case Some(route) =>

@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.route.structure
+package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.api.custom.Fact.RouteOneWay
 import kpn.api.custom.ScopedNetworkType

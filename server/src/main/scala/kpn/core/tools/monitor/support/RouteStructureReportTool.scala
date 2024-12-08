@@ -1,4 +1,4 @@
-package kpn.core.tools.monitor
+package kpn.core.tools.monitor.support
 
 import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser

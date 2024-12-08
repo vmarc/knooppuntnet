@@ -55,7 +55,7 @@ class MonitorRouteUpdateExecutor(
 
   private val log = Log(classOf[MonitorRouteUpdateExecutor])
 
-  private var context: MonitorUpdateContext = null
+  private var context: MonitorUpdateContext = _
 
   def execute(originalContext: MonitorUpdateContext): Unit = {
     context = originalContext.copy(
@@ -1121,7 +1121,7 @@ class MonitorRouteUpdateExecutor(
 
       val happy = superRouteSuperSegments.sizeIs == 1 &&
         context.newRoute.map(_.deviationCount).sum == 0 &&
-        (context.newRoute.get.relation.map(_.happy).getOrElse(false))
+        context.newRoute.get.relation.exists(_.happy)
 
       val updatedRoute = context.route.copy(
         osmSegments = superRouteSuperSegments,

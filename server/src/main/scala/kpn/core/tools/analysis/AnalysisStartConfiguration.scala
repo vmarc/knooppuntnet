@@ -182,7 +182,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )
   }
 
-  val executionContext: ExecutionContext = {
+  private val executionContext: ExecutionContext = {
     val executor = buildExecutor()
     ExecutionContext.fromExecutor(executor)
   }

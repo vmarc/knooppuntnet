@@ -8,8 +8,8 @@ class AnalyzerJob(applicationName: String, analyzer: Analyzer, mailer: Mailer) {
 
   private val log = Log(classOf[AnalyzerJob])
 
-  var init = false
-  var aborted = false
+  private var init = false
+  private var aborted = false
 
   @Scheduled(fixedDelay = 5000)
   def analyze(): Unit = {

@@ -7,7 +7,7 @@ class CoordinateArrayJsonTest extends UnitTest {
 
   test("deserializer") {
     val coordinates = Json.value("[[1.1,2.2],[3.3,4.4],[5.5,6.6]]", classOf[CoordinateArray]).coordinates
-    coordinates.size should equal(3)
+    coordinates.length should equal(3)
     coordinates(0).y should equal(1.1)
     coordinates(0).x should equal(2.2)
     coordinates(1).y should equal(3.3)

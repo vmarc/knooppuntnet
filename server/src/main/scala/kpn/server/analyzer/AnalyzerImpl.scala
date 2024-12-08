@@ -21,7 +21,7 @@ class AnalyzerImpl(
 
   private val log = Log(classOf[AnalyzerImpl])
 
-  var shutdownRequestReceived = false
+  private var shutdownRequestReceived = false
   var active = false
 
   @PreDestroy

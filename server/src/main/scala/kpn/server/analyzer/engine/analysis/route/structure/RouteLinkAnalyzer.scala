@@ -35,7 +35,7 @@ class RouteLinkAnalyzer(traceEnabled: Boolean = false) {
 
   def analyze(relation: Relation): RouteLinks = {
     val referenceRelation = toJavaRelation(relation)
-    val analyzer = new ReferenceLinkAnalyzer(referenceRelation, referenceRelation.getMembers(), traceEnabled)
+    val analyzer = new ReferenceLinkAnalyzer(referenceRelation, referenceRelation.getMembers, traceEnabled)
     val javaWayLinks = analyzer.analyze().asScala.iterator
 
     val linkIds = (1L to 10000L).iterator

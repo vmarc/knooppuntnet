@@ -191,7 +191,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
       id,
       fromNodeId,
       toNodeId,
-      elements.toSeq
+      elements
     )
   }
 

@@ -57,13 +57,13 @@ class MemoryLog(logPeriodInSeconds: Int) {
       reduceLeft(_ + _) // add up all memory pools
   }
 
-  private def toMb(nanos: Long): String = "%.0fMb".format(nanos / 1000000d)
+  private def toMb(nanos: Long): String = f"${nanos / 1000000d}%.0fMb"
 }
 
 object Memory {
   def bytes: Long = {
     System.gc()
-    Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()
+    Runtime.getRuntime.totalMemory() - Runtime.getRuntime.freeMemory()
   }
 }
 

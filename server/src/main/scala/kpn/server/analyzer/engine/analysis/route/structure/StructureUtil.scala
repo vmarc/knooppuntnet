@@ -31,7 +31,7 @@ object StructureUtil {
       val endIndex = reducedNodeIds.indexOf(endNodeId)
       if (endIndex >= 0) {
         if (endIndex > startIndex) {
-          Some(reducedNodeIds.drop(startIndex).take(endIndex - startIndex + 1))
+          Some(reducedNodeIds.slice(startIndex, endIndex + 1))
         }
         else if (endIndex < startIndex) {
           Some(reducedNodeIds.drop(startIndex) ++ reducedNodeIds.take(endIndex + 1))

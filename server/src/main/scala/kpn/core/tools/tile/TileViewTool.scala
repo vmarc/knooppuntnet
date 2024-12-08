@@ -37,7 +37,7 @@ class TileViewTool {
     val attributes = feature.getAttributes
     val geometry = feature.getGeometry match {
       case lineString: LineString =>
-        lineString.getCoordinates().map(coordinate => s"[${coordinate.x},${coordinate.x}]").mkString((","))
+        lineString.getCoordinates.map(coordinate => s"[${coordinate.x},${coordinate.x}]").mkString((","))
       case point: Point => s"[${point.getX},${point.getY}]"
       case _ => "?"
     }

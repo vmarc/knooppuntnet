@@ -1,12 +1,12 @@
-package kpn.core.tools.monitor
+package kpn.core.tools.monitor.support
 
 import kpn.database.util.Mongo
+import kpn.server.monitor.MonitorUtil
 import kpn.server.monitor.domain.MonitorRoute
 import kpn.server.monitor.repository.MonitorGroupRepository
 import kpn.server.monitor.repository.MonitorGroupRepositoryImpl
 import kpn.server.monitor.repository.MonitorRouteRepository
 import kpn.server.monitor.repository.MonitorRouteRepositoryImpl
-import kpn.server.monitor.MonitorUtil
 
 object OsmSegmentReportTool {
   def main(args: Array[String]): Unit = {

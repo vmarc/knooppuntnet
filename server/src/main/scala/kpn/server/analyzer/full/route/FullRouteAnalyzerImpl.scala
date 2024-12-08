@@ -106,11 +106,11 @@ class FullRouteAnalyzerImpl(
   private def deactivateObsoleteRoutes(routeIds: Seq[Long]): Unit = {
     if (routeIds.nonEmpty) {
       routeIds.foreach { routeId =>
-        routeRepository.findRouteById(routeId).map { routeDoc =>
+        routeRepository.findRouteById(routeId).foreach { routeDoc =>
           log.warn(s"de-activating route ${routeDoc._id}")
           routeRepository.saveRoute(routeDoc.deactivated)
         }
-        routeRepository.findRouteDetailById(routeId).map { routeDetailDoc =>
+        routeRepository.findRouteDetailById(routeId).foreach { routeDetailDoc =>
           log.warn(s"de-activating route ${routeDetailDoc._id}")
           routeRepository.saveRouteDetail(routeDetailDoc.deactivated)
         }

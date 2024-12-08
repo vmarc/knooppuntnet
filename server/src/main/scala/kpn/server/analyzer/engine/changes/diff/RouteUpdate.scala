@@ -19,7 +19,7 @@ case class RouteUpdate(
   facts: Seq[Fact] = Seq.empty
 ) {
 
-  def subsets: Seq[Subset] = (before.subsets ++ after.subsets).toSeq.distinct.sorted
+  def subsets: Seq[Subset] = (before.subsets ++ after.subsets).distinct.sorted
 
   def id: Long = after.relationId
 

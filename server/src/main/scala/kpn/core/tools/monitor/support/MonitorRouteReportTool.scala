@@ -27,7 +27,7 @@ class MonitorRouteReportTool(
         val hasRole = route.relation match {
           case None => false
           case Some(relation) =>
-            relation.relations.flatMap(_.role).size > 0
+            relation.relations.flatMap(_.role).nonEmpty
         }
         println(s"  route ${route.name} has role: $hasRole")
       }
