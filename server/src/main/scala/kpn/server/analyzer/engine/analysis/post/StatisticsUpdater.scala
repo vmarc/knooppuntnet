@@ -129,10 +129,11 @@ class StatisticsUpdater(database: Database) {
   private def pipelineOrphanRouteCount(): Seq[Bson] = {
     factPipeline(
       "OrphanRouteCount",
+      unwind("$networkTypes"),
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$networkType"
+          "networkType" -> "$networkTypes"
         ),
         sum("value", 1)
       )

@@ -5,6 +5,7 @@ import kpn.core.util.Log
 import kpn.database.base.Database
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
@@ -23,12 +24,13 @@ class MongoQueryRouteMapInfo(database: Database) {
         filter(
           equal("_id", routeId)
         ),
+        unwind("$summary.networkTypes"),
         project(
           fields(
             excludeId(),
             computed("routeId", "$_id"),
             computed("routeName", "$summary.name"),
-            computed("networkType", "$summary.networkType"),
+            computed("networkType", "$summary.networkTypes"),
             include("segments"),
             include("paths"),
           )

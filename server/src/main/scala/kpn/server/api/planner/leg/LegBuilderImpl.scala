@@ -109,7 +109,7 @@ class LegBuilderImpl(
     graphRepository.graph(networkType) match {
       case Some(graph) => buildLeg(params, graph)
       case None =>
-        log.error("Could not find graph for network type " + networkType.name)
+        log.error(s"Could not find graph for network type ${networkType.name}")
         None
     }
   }
@@ -127,7 +127,7 @@ class LegBuilderImpl(
     }.toMap
 
     if (routeIds.sizeIs != routeDocs.size) {
-      log.error(s"building leg aborted")
+      log.error("building leg aborted")
       None
     }
     else {

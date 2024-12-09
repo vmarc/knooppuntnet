@@ -51,9 +51,10 @@ class MongoQueryGraphEdges(database: Database) {
     val pipeline = Seq(
       filter(equal("labels", Label.active)),
       unwind("$edges"),
+      unwind("$summary.networkTypes"),
       project(
         fields(
-          computed("networkType", "$summary.networkType"),
+          computed("networkType", "$summary.networkTypes"),
           include("proposed"),
           include("_id"),
           computed("pathId", "$edges.pathId"),

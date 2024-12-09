@@ -40,7 +40,7 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
           }
         }
         else {
-          if (!isSingleWayRoundabout()) {
+          if (!isSingleWayRoundabout) {
             if (context.oneWayRouteForward) {
               facts += RouteOneWay
             }
@@ -67,7 +67,7 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
       }
 
       if (!Seq(RouteNodeMissingInWays, RouteOneWay).exists(facts.contains)) {
-        if (!isSingleWayRoundabout()) {
+        if (!isSingleWayRoundabout) {
           if (structure.forwardPath.isEmpty || /* segmentAnalysis.structure.forwardPath.get.broken ||*/
             structure.backwardPath.isEmpty /*|| segmentAnalysis.structure.backwardPath.get.broken*/ ) {
             facts += RouteNotContinious

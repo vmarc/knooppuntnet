@@ -1500,7 +1500,7 @@ trait SharedTestObjects extends MockFactory {
     OrphanRouteDoc(
       _id,
       country,
-      networkType,
+      Seq(networkType),
       name,
       meters,
       facts,

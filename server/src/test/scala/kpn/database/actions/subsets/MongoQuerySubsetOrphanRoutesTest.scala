@@ -23,7 +23,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
           OrphanRouteDoc(
             _id = 100L,
             Country.nl,
-            NetworkType.hiking,
+            Seq(NetworkType.hiking),
             name = "01-02",
             meters = 123,
             facts = Seq.empty,
@@ -57,7 +57,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
           OrphanRouteDoc(
             _id = 100L,
             Country.nl,
-            NetworkType.hiking,
+            Seq(NetworkType.hiking),
             name = "01-02",
             meters = 123,
             facts = Seq(Fact.RouteBroken),

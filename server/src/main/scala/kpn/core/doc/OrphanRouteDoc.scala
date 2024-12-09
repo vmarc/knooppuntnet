@@ -10,7 +10,7 @@ import kpn.api.custom.Timestamp
 case class OrphanRouteDoc(
   _id: Long,
   country: Country,
-  networkType: NetworkType,
+  networkTypes: Seq[NetworkType],
   name: String,
   meters: Long,
   facts: Seq[Fact],

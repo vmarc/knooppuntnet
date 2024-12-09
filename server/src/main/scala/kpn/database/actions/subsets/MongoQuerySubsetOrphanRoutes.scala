@@ -23,7 +23,7 @@ class MongoQuerySubsetOrphanRoutes(database: Database) {
       filter(
         and(
           equal("country", subset.country.domain),
-          equal("networkType", subset.networkType.name)
+          equal("networkTypes", subset.networkType.name)
         )
       )
     )

@@ -220,7 +220,7 @@ class MonitorRouteUpdateExecutor(
     findGroup()
     val oldRoute = findRoute()
 
-    if (context.isRouteChanged()) {
+    if (context.isRouteChanged) {
 
       val groupId = context.update.newGroupName match {
         case None => context.group.get._id
@@ -276,7 +276,7 @@ class MonitorRouteUpdateExecutor(
       updateRouteWithGpxReference()
     }
     else {
-      if (context.isReferenceTypeOsm && context.isReferenceChanged()) {
+      if (context.isReferenceTypeOsm && context.isReferenceChanged) {
         updateSubRelationOsmReferences()
       }
     }

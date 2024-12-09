@@ -18,6 +18,7 @@ import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.sort
+import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
@@ -96,11 +97,13 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
           equal("nodeRefs", nodeId)
         )
       ),
+      unwind("$summary.networkTypes"),
+      unwind("$summary.scopes"),
       project(
         fields(
           excludeId(),
-          computed("networkType", "$summary.networkType"),
-          computed("networkScope", "$summary.networkScope"),
+          computed("networkType", "$summary.networkTypes"),
+          computed("networkScope", "$summary.scopes"),
           computed("id", "$summary.id"),
           computed("name", "$summary.name")
         )

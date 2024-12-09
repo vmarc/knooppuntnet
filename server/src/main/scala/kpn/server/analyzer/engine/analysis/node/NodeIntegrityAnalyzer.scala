@@ -14,7 +14,7 @@ class NodeIntegrityAnalyzer(scopedNetworkType: ScopedNetworkType, networkAnalysi
       TagInterpreter.expectedRouteRelationCount(scopedNetworkType, networkNode.node) match {
         case None => None
         case Some(expectedRouteRelationCount) =>
-          val failed = routesWithNodeReference.sizeIs != expectedRouteRelationCount
+          val failed = routesWithNodeReference.size != expectedRouteRelationCount
           Some(
             NodeIntegrityCheck(
               networkNode.name,
