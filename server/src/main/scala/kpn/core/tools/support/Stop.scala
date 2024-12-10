@@ -34,7 +34,7 @@ object Stop {
         }
         catch {
           case e: Exception =>
-            println(s"Could not stop application on port ${options.port}: " + e.getMessage)
+            println(s"Could not stop application on port ${options.port}: ${e.getMessage}")
             -1
         }
       case None => -1

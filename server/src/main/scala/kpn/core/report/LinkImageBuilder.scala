@@ -21,7 +21,7 @@ object LinkImageBuilder {
   val roundabout: Image = readImage("roundabout-right.png")
 
   private def readImage(name: String): Image = {
-    val file = new File("/Users/marc/wrk/projects/knooppuntnet/server/src/main/resources/kpn/images/" + name)
+    val file = new File(s"/Users/marc/wrk/projects/knooppuntnet/server/src/main/resources/kpn/images/$name")
     ImageIO.read(file)
   }
 

@@ -42,7 +42,7 @@ class SurveyRenameImagesTool(dir: File) {
   def rename(): Unit = {
     val imageFiles = listImageFiles()
     imageFiles.zipWithIndex.foreach { case (imageFile, index) =>
-      val newFile = new File(dir, "%03d.jpg".format(index + 1))
+      val newFile = new File(dir, f"${index + 1}%03d.jpg")
       imageFile.renameTo(newFile)
     }
   }

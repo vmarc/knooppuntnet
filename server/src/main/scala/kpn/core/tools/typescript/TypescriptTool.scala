@@ -54,7 +54,7 @@ class TypescriptTool {
   private def scalaClassNames(): Seq[String] = {
     val files = FileUtils.listFiles(new File(root), Array("scala"), true).asScala.toSeq
     files.flatMap { file =>
-      if (ignoredClasses.exists(n => file.getName.endsWith(n + ".scala"))) {
+      if (ignoredClasses.exists(n => file.getName.endsWith(s"$n.scala"))) {
         None
       }
       else {
@@ -95,8 +95,8 @@ class TypescriptTool {
     val className = classSymbol.name.toString
     val packageName = classSymbol.fullName.dropRight(className.length + 1)
     val dirName = packageName.replaceAll("kpn.api.", "").replaceAll("\\.", "/")
-    val fileName = dirName + "/" + CamelCaseUtil.toDashed(className) + ".ts"
-    val file = new File(targetDir + "/" + fileName)
+    val fileName = s"$dirName/${CamelCaseUtil.toDashed(className)}.ts"
+    val file = new File(s"$targetDir/$fileName")
     file.getParentFile.mkdirs()
     new PrintStream(file)
   }

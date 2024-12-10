@@ -59,7 +59,7 @@ class RouteDetailMainAnalyzer(
     traceEnabled: Boolean = false
   ): Option[RouteDetailAnalysisContext] = {
 
-    Log.context("route=%07d".format(relation.id)) {
+    Log.context(f"route=${relation.id}%07d") {
 
       val context = RouteDetailAnalysisContext(relation, hierarchy, traceEnabled = traceEnabled)
 

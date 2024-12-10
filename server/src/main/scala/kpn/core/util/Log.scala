@@ -90,7 +90,7 @@ object Log {
   }
 
   def contextAnd(message: String): String = {
-    contextMessages.mkString("", ", ", ", ") + message
+    s"${contextMessages.mkString("", ", ", ", ")}$message"
   }
 
   private class Log4j(name: String) extends Log {
@@ -139,7 +139,7 @@ class MockLog extends Log {
       stackMessages.mkString("[", ", ", "] ")
     }
 
-    messageBuffer.append("TRACE " + stack + message)
+    messageBuffer.append(s"TRACE $stack$message")
   }
 
   def debug(message: String): Unit = {
@@ -152,7 +152,7 @@ class MockLog extends Log {
       stackMessages.mkString("[", ", ", "] ")
     }
 
-    messageBuffer.append("DEBUG " + stack + message)
+    messageBuffer.append(s"DEBUG $stack$message")
   }
 
   def debug(message: String, throwable: Throwable): Unit = {
@@ -165,16 +165,16 @@ class MockLog extends Log {
       stackMessages.mkString("[", ", ", "] ")
     }
 
-    messageBuffer.append("DEBUG " + stack + message)
+    messageBuffer.append(s"DEBUG $stack$message")
   }
 
-  def info(message: String): Unit = messageBuffer.append("INFO " + message)
+  def info(message: String): Unit = messageBuffer.append(s"INFO $message")
 
-  def warn(message: String): Unit = messageBuffer.append("WARN " + message)
+  def warn(message: String): Unit = messageBuffer.append(s"WARN $message")
 
-  def error(message: String): Unit = messageBuffer.append("ERROR " + message)
+  def error(message: String): Unit = messageBuffer.append(s"ERROR $message")
 
-  def error(message: String, throwable: Throwable): Unit = messageBuffer.append("ERROR " + message)
+  def error(message: String, throwable: Throwable): Unit = messageBuffer.append(s"ERROR $message")
 
-  def fatal(message: String, throwable: Throwable): Unit = messageBuffer.append("FATAL " + message)
+  def fatal(message: String, throwable: Throwable): Unit = messageBuffer.append(s"FATAL $message")
 }

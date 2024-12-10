@@ -24,7 +24,7 @@ class ChangeSetInfoApiImpl(directory: File) extends ChangeSetInfoApi {
 
     val idString = changeSetId.toString
     val id = idString.substring(idString.length - 2)
-    val cachedChangeSetInfoFile = new File(directory, "" + id + "/" + changeSetId + ".xml")
+    val cachedChangeSetInfoFile = new File(directory, s"$id/$changeSetId.xml")
 
     if (cachedChangeSetInfoFile.exists) {
       log.debug(s"Changeset $changeSetId resolved from cache")
@@ -73,7 +73,7 @@ class ChangeSetInfoApiImpl(directory: File) extends ChangeSetInfoApi {
       }
       catch {
         case e: Exception =>
-          log.debug("Exception while fetching changeset " + changeSetId, e)
+          log.debug(s"Exception while fetching changeset $changeSetId", e)
           None
       }
     }

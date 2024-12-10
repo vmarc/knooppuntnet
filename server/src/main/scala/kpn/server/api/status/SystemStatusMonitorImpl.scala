@@ -73,7 +73,7 @@ class SystemStatusMonitorImpl(
     }
     catch {
       case e: RuntimeException =>
-        log.error("Could not execute command: '$command':" + e.getMessage)
+        log.error(s"Could not execute command: '$$command':${e.getMessage}")
         Seq.empty
     }
   }
@@ -101,14 +101,14 @@ class SystemStatusMonitorImpl(
         }
         else {
           // TODO log error
-          println("ERROR " + url)
+          println(s"ERROR $url")
           Seq.empty
         }
       }
       catch {
         case e: HttpClientErrorException.NotFound =>
           // TODO log error
-          println("NOT FOUND" + url)
+          println(s"NOT FOUND$url")
           Seq.empty
       }
     }

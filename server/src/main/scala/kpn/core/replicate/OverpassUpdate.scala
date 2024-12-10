@@ -26,8 +26,8 @@ class OverpassUpdate(overpassUpdate: File, tmpDir: File) {
   def update(replicationTimestamp: Timestamp): Unit = {
 
     val bin = overpassUpdate.getAbsolutePath
-    val source = "--osc-dir=" + tmpDir.getAbsolutePath
-    val version = "--version=" + replicationTimestamp.iso.replaceAll("\\:", "\\\\:")
+    val source = s"--osc-dir=${tmpDir.getAbsolutePath}"
+    val version = s"--version=${replicationTimestamp.iso.replaceAll("\\:", "\\\\:")}"
 
     val out = ListBuffer[String]()
     val err = ListBuffer[String]()

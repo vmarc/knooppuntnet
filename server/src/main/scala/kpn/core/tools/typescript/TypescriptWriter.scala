@@ -38,7 +38,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
     val fields = classInfo.fields.map { field =>
       val fieldType = {
         val fieldName = if (classInfo.formClass) {
-          field.name + "?"
+          s"${field.name}?"
         }
         else {
           field.name
@@ -46,11 +46,11 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
 
         val typeName = field.classType.typeName
         if (typeName.startsWith("List<")) {
-          val arrayTypeName = typeName.drop("List<".length).dropRight(1) + "[]"
+          val arrayTypeName = s"${typeName.drop("List<".length).dropRight(1)}[]"
           s"$fieldName: $arrayTypeName"
         }
         else if (typeName.startsWith("Array<")) {
-          val arrayTypeName = typeName.drop("Array<".length).dropRight(1) + "[]"
+          val arrayTypeName = s"${typeName.drop("Array<".length).dropRight(1)}[]"
           s"$fieldName: $arrayTypeName"
         }
         else if (typeName == "PlanCoordinate") {
@@ -60,7 +60,7 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
           s"$fieldName: $typeName"
         }
       }
-      fieldType + (if (field.classType.optional) " | undefined" else "")
+      s"$fieldType${if (field.classType.optional) " | undefined" else ""}"
     }
     fields.mkString("  readonly ", ";\n  readonly ", ";\n").foreach {
       out.print

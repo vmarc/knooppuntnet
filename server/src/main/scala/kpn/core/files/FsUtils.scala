@@ -30,7 +30,7 @@ object FsUtils {
       path
     }
     else {
-      path + "/"
+      s"$path/"
     }
   }
 

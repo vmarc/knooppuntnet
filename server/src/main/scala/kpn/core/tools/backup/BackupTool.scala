@@ -65,7 +65,7 @@ class BackupTool(localFileSystem: FileSystem, remoteFileSystem: FileSystem) {
   private def process(dir: String, level: Int): Unit = {
 
     if (level < 3) {
-      BackupTool.log.info("progress " + dir)
+      BackupTool.log.info(s"progress $dir")
     }
 
     val (localSubDirectories, localFiles) = localFileSystem.listFiles(dir).partition(_.isDirectory)
@@ -74,8 +74,8 @@ class BackupTool(localFileSystem: FileSystem, remoteFileSystem: FileSystem) {
     val remoteSubDirectoryNames = remoteSubDirectories.map(_.name)
     val localSubdirsNotInRemote = localSubDirectories.filterNot(local => remoteSubDirectoryNames.contains(local.name))
     localSubdirsNotInRemote.foreach { localSubdir =>
-      val relativePath = FsUtils.withTrailingSlash(dir) + FsUtils.withoutLeadingSlash(localSubdir.name)
-      BackupTool.log.info("transfer " + relativePath)
+      val relativePath = s"${FsUtils.withTrailingSlash(dir)}${FsUtils.withoutLeadingSlash(localSubdir.name)}"
+      BackupTool.log.info(s"transfer $relativePath")
       remoteFileSystem.createDirectory(relativePath)
     }
 
@@ -83,12 +83,12 @@ class BackupTool(localFileSystem: FileSystem, remoteFileSystem: FileSystem) {
       val remoteFileNames = remoteFiles.map(_.name)
       val localFilesNotInRemote = localFiles.filterNot(localFile => remoteFileNames.contains(localFile.name))
       localFilesNotInRemote.foreach { localFile =>
-        val relativePath = dir + "/" + localFile.name
-        BackupTool.log.info("transfer " + relativePath)
+        val relativePath = s"$dir/${localFile.name}"
+        BackupTool.log.info(s"transfer $relativePath")
         remoteFileSystem.putFile(localFile.toFile, relativePath)
       }
     }
 
-    localSubDirectories.foreach(item => process(FsUtils.withTrailingSlash(dir) + item.name, level + 1))
+    localSubDirectories.foreach(item => process(s"${FsUtils.withTrailingSlash(dir)}${item.name}", level + 1))
   }
 }

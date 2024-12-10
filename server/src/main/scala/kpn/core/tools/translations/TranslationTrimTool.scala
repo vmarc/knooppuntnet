@@ -62,7 +62,7 @@ class TranslationTrimTool(root: String) {
   private def readDocument(): Document = {
     val file = new File(s"$root/locale/translations.xlf")
     if (!file.exists()) {
-      throw new RuntimeException("translations file not found: " + file.getAbsolutePath)
+      throw new RuntimeException(s"translations file not found: ${file.getAbsolutePath}")
     }
     val factory = DocumentBuilderFactory.newInstance
     factory.newDocumentBuilder.parse(file)
@@ -75,7 +75,7 @@ class TranslationTrimTool(root: String) {
     transformer.transform(new DOMSource(doc), new StreamResult(writer))
     val xmlString = writer.getBuffer.toString
     val file = new File(s"$root/locale/translations.trimmed.xlf")
-    println("write " + file.getAbsolutePath)
+    println(s"write ${file.getAbsolutePath}")
     FileUtils.writeStringToFile(file, xmlString, "UTF-8")
   }
 }

@@ -39,8 +39,8 @@ object FindNodeWithLongName {
       val nodes = database.nodes.aggregate[NodeWithLongName](pipeline)
       nodes.foreach(println)
 
-      println("node count = " + nodes.size)
-      println("unique names node count = " + nodes.count(node => node.name != node.longName))
+      println(s"node count = ${nodes.size}")
+      println(s"unique names node count = ${nodes.count(node => node.name != node.longName)}")
     }
   }
 }

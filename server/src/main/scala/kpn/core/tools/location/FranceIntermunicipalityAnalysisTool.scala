@@ -18,7 +18,7 @@ import scala.xml.XML
 object FranceIntermunicipalityAnalysisTool {
 
   private val rootDir = s"${Dirs.root}/locations"
-  private val intermunicipalitiesDir = rootDir + "/fr-intermunicipalities"
+  private val intermunicipalitiesDir = s"$rootDir/fr-intermunicipalities"
 
   def main(args: Array[String]): Unit = {
     val tool = new FranceIntermunicipalityAnalysisTool()

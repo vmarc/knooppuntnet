@@ -169,7 +169,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     ElementIds()
   )
 
-  private val tileDir = Dirs.root.getAbsolutePath + "/tiles"
+  private val tileDir = s"${Dirs.root.getAbsolutePath}/tiles"
   private val tileDataNodeBuilder = new TileDataNodeBuilderImpl()
 
   val tileAnalyzer = {

@@ -4,6 +4,6 @@ case class TagDetail(action: TagDetailType, key: String, valueBefore: Option[Str
 
   def name: String = action.toString.toLowerCase
 
-  def sortKey: String = action.name + " " + key
+  def sortKey: String = s"${action.name} $key"
 
 }

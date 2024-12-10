@@ -37,12 +37,12 @@ object FtpFileSystem {
         log.debug("> PASS ...") // do not show password in log file
       }
       else {
-        log.debug("> " + toMessage(event))
+        log.debug(s"> ${toMessage(event)}")
       }
     }
 
     override def protocolReplyReceived(event: ProtocolCommandEvent): Unit = {
-      log.debug("< " + toMessage(event))
+      log.debug(s"< ${toMessage(event)}")
     }
 
     private def toMessage(event: ProtocolCommandEvent): String = {
@@ -77,14 +77,14 @@ class FtpFileSystem(ftpConfig: FtpConfig, val baseDir: String) extends FileSyste
   override def deleteFile(name: String): Unit = {
     val filename = fullPath(name)
     if (!client.deleteFile(filename)) {
-      throw new FtpException("Could not delete file " + filename, client.getReplyStrings)
+      throw new FtpException(s"Could not delete file $filename", client.getReplyStrings)
     }
   }
 
   override def deleteDirectory(name: String): Unit = {
     val filename = fullPath(name)
     if (!client.removeDirectory(filename)) {
-      throw new FtpException("Could not delete directory " + filename, client.getReplyStrings)
+      throw new FtpException(s"Could not delete directory $filename", client.getReplyStrings)
     }
   }
 
@@ -93,7 +93,7 @@ class FtpFileSystem(ftpConfig: FtpConfig, val baseDir: String) extends FileSyste
     val in = new FileInputStream(local)
     try {
       if (!client.storeFile(targetFilename, in)) {
-        throw new FtpException("Could not put file " + local + " to " + targetFilename, client.getReplyStrings)
+        throw new FtpException(s"Could not put file $local to $targetFilename", client.getReplyStrings)
       }
     }
     finally {
@@ -108,7 +108,7 @@ class FtpFileSystem(ftpConfig: FtpConfig, val baseDir: String) extends FileSyste
     val out = new FileOutputStream(local)
     try {
       if (!client.retrieveFile(targetFilename, out)) {
-        throw new FtpException("Could not get file " + local + " from " + targetFilename, client.getReplyStrings)
+        throw new FtpException(s"Could not get file $local from $targetFilename", client.getReplyStrings)
       }
     }
     finally {
@@ -121,7 +121,7 @@ class FtpFileSystem(ftpConfig: FtpConfig, val baseDir: String) extends FileSyste
   override def createDirectory(name: String): Unit = {
     val fileName = fullPath(name)
     if (!client.makeDirectory(fileName)) {
-      throw new FtpException("Could not create directory " + fileName, client.getReplyStrings)
+      throw new FtpException(s"Could not create directory $fileName", client.getReplyStrings)
     }
   }
 

@@ -52,12 +52,12 @@ class PoiImageRetrieverImpl(
         val response: ResponseEntity[Array[Byte]] = restTemplate.exchange(url, HttpMethod.GET, entity, classOf[Array[Byte]])
         if (response.getStatusCode == HttpStatus.MOVED_PERMANENTLY) {
           val newUrl = response.getHeaders.getLocation.toString
-          log.info("moved permanently to: " + newUrl)
+          log.info(s"moved permanently to: $newUrl")
           val result = retrieveImage(poiRef, newUrl)
           PoiState(
             _id = poiRef.toId,
             imageLink = result.imageLink,
-            imageStatus = Some("MovedPermanently-301|" + result.imageStatus.mkString),
+            imageStatus = Some(s"MovedPermanently-301|${result.imageStatus.mkString}"),
             imageStatusDetail = Some(newUrl),
             imageLastSeen = result.imageLastSeen
           )
@@ -65,19 +65,19 @@ class PoiImageRetrieverImpl(
         if (response.getStatusCode == HttpStatus.FOUND) {
           // TODO report in PoiState, example http redirected to https
           val newUrl = response.getHeaders.getLocation.toString
-          log.info("moved permanently to: " + newUrl)
+          log.info(s"moved permanently to: $newUrl")
           retrieveImage(poiRef, newUrl)
           val result = retrieveImage(poiRef, newUrl)
           PoiState(
             _id = poiRef.toId,
             imageLink = result.imageLink,
-            imageStatus = Some("MovedPermanently-302|" + result.imageStatus.mkString),
+            imageStatus = Some(s"MovedPermanently-302|${result.imageStatus.mkString}"),
             imageStatusDetail = Some(newUrl),
             imageLastSeen = result.imageLastSeen
           )
         }
         else if (response.getStatusCode != HttpStatus.OK) {
-          log.warn("not success: " + response.getStatusCode)
+          log.warn(s"not success: ${response.getStatusCode}")
           PoiState(
             _id = poiRef.toId,
             imageLink = Some(url),
@@ -112,7 +112,7 @@ class PoiImageRetrieverImpl(
         case e: HttpClientErrorException.NotFound =>
           if (url.contains("upload.wikimedia.org/wikipedia/commons") && url.contains(" ")) {
             val newUrl = url.replaceAll(" ", "_")
-            log.info("try again with " + newUrl)
+            log.info(s"try again with $newUrl")
             retrieveImage(poiRef, newUrl)
           }
           else {
@@ -124,7 +124,7 @@ class PoiImageRetrieverImpl(
             )
           }
         case e: Throwable =>
-          val detail = e.getClass.getName + " " + e.getMessage
+          val detail = s"${e.getClass.getName} ${e.getMessage}"
           log.warn(detail)
           PoiState(
             _id = poiRef.toId,

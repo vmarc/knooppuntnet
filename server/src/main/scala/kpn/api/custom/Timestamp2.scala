@@ -8,9 +8,9 @@ case class Timestamp2(year: Int, month: Int, day: Int, hour: Int, minute: Int, s
 
   def yyyymmddhhmmss: String = s"$yyyymmdd $hhmmss"
 
-  def yyyymmddhhmm: String = yyyymmdd + s" $hourString:$minuteString"
+  def yyyymmddhhmm: String = s"$yyyymmdd $hourString:$minuteString"
 
-  def yearString: String = "" + year
+  def yearString: String = s"$year"
 
   def monthString: String = to2digitString(month)
 
@@ -22,7 +22,7 @@ case class Timestamp2(year: Int, month: Int, day: Int, hour: Int, minute: Int, s
 
   def secondString: String = to2digitString(second)
 
-  def iso: String = yyyymmdd + "T" + hhmmss + "Z"
+  def iso: String = s"${yyyymmdd}T${hhmmss}Z"
 
-  private def to2digitString(value: Int): String = (if (value < 10) "0" else "") + value
+  private def to2digitString(value: Int): String = s"${(if (value < 10) "0" else "")}$value"
 }

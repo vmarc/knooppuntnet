@@ -139,6 +139,6 @@ class RelationTopLevelDataBuilder(rawData: RawData, relationIds: Seq[Long], log:
   }
 
   private def inconsistant(message: String): Unit = {
-    log.warn("data inconsistancy: " + message)
+    log.warn(s"data inconsistancy: $message")
   }
 }

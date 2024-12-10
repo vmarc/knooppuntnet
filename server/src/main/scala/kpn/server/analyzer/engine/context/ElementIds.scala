@@ -29,7 +29,7 @@ case class ElementIds(
   private def idString(name: String, ids: Set[Long]): Option[String] = {
     if (ids.nonEmpty) {
       val sortedIds = ids.toSeq.sorted
-      Some(name + "=" + sortedIds.mkString("+"))
+      Some(s"$name=${sortedIds.mkString("+")}")
     }
     else {
       None

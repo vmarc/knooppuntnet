@@ -11,7 +11,7 @@ class MinuteDiffReader(replicationDir: File) {
   private val log = Log(classOf[MinuteDiffReader])
 
   def read(replicationId: ReplicationId): Option[String] = {
-    val filename = replicationDir.getAbsolutePath + "/" + replicationId.name + ".osc.gz"
+    val filename = s"${replicationDir.getAbsolutePath}/${replicationId.name}.osc.gz"
     val file = new File(filename)
     if (file.exists) {
       val contents = GZipFile.read(filename)

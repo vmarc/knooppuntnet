@@ -19,7 +19,7 @@ object NodeUtil {
   }
 
   def normalize(nodeName: String): String = {
-    if (nodeName.length == 1 && nodeName(0).isDigit) "0" + nodeName else nodeName
+    if (nodeName.length == 1 && nodeName(0).isDigit) s"0$nodeName" else nodeName
   }
 }
 
@@ -56,7 +56,7 @@ class NodeUtil(scopedNetworkType: ScopedNetworkType) {
         facts.addOne(Fact.RouteAnalysisFailed)
       }
       routeNodeInfos.zip(suffixes).map { case (routeNodeInfo, letter) =>
-        routeNodeInfo.node.id -> (routeNodeInfo.name + "." + letter)
+        routeNodeInfo.node.id -> (s"${routeNodeInfo.name}.$letter")
       }.toMap
     }
   }

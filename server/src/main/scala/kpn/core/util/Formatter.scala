@@ -11,7 +11,7 @@ object Formatter {
       "-"
     }
     else {
-      "%.02f%%".format(100d * count.toDouble / denominator).replaceAll("\\.", ",")
+      f"${100d * count.toDouble / denominator}%.02f%%".replaceAll("\\.", ",")
     }
   }
 

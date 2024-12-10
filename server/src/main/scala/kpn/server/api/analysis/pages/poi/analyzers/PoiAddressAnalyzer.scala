@@ -21,7 +21,7 @@ class PoiAddressAnalyzer(context: PoiAnalysisContext) {
     val addressLine1: Option[String] = street match {
       case Some(s) =>
         housenumber match {
-          case Some(n) => Some(s + " " + n)
+          case Some(n) => Some(s"$s $n")
           case None => street
         }
       case None => None
@@ -30,7 +30,7 @@ class PoiAddressAnalyzer(context: PoiAnalysisContext) {
     val addressLine2: Option[String] = postcode match {
       case Some(p) =>
         city match {
-          case Some(c) => Some(p + " " + c)
+          case Some(c) => Some(s"$p $c")
           case None => postcode
         }
       case None => city

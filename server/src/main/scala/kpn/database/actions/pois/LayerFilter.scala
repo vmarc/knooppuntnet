@@ -7,7 +7,7 @@ object LayerFilter {
 
   def of(layers: Seq[String]): Option[Bson] = {
     if (layers.nonEmpty) {
-      val quotedLayers = layers.map(l => "\"" + l + "\"").mkString(",")
+      val quotedLayers = layers.map(l => s"\"$l\"").mkString(",")
       val elemMatch = s"""{"layers": {"$$elemMatch": { "$$in": [$quotedLayers]}}}}"""
       Some(
         BsonDocument(elemMatch),

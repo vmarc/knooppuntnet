@@ -23,7 +23,7 @@ class PoiTilesBuilder(
     val existingTileNames = tileFileRepository.existingTileNames("poi", z)
 
     log.info(s"Processing zoomlevel $z")
-    log.info(s"Number of tiles before: " + existingTileNames.size)
+    log.info(s"Number of tiles before: ${existingTileNames.size}")
 
     log.info(s"buildTilePoisMap()")
     val tilePoisMap = buildTilePoisMap(z, pois)
@@ -51,12 +51,12 @@ class PoiTilesBuilder(
       }
     }
 
-    val afterTileNames = tilePoisMap.keys.map(tileName => "poi-" + tileName)
+    val afterTileNames = tilePoisMap.keys.map(tileName => s"poi-$tileName")
 
     val obsoleteTileNames = (existingTileNames.toSet -- afterTileNames.toSet).toSeq.sorted
-    log.info(s"Obsolete: " + obsoleteTileNames)
+    log.info(s"Obsolete: $obsoleteTileNames")
 
-    log.info(s"Obsolete tile count: " + obsoleteTileNames.size)
+    log.info(s"Obsolete tile count: ${obsoleteTileNames.size}")
     tileFileRepository.delete(obsoleteTileNames)
     log.info(s"Obsolete tiles removed")
   }

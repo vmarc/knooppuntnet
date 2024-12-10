@@ -79,7 +79,7 @@ class AnalyzerImpl(
     statusRepository.updaterStatus match {
       case Some(updaterReplicationId) => updaterReplicationId
       case None =>
-        val message = "Could not read " + dirs.updateStatus.getAbsolutePath
+        val message = s"Could not read ${dirs.updateStatus.getAbsolutePath}"
         log.error(message)
         throw new RuntimeException(message)
     }

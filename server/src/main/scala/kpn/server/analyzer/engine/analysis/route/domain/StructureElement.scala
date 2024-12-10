@@ -48,20 +48,20 @@ case class StructureElement(
     direction match {
       case Some(ElementDirection.Backward) =>
         val endNodeIds = fragments.map(_.backwardEndNodeId)
-        val nodeString = backwardStartNodeId.toString + endNodeIds.mkString(">", ">", "")
+        val nodeString = s"${backwardStartNodeId.toString}${endNodeIds.mkString(">", ">", "")}"
         val directionString = direction match {
           case None => ""
           case Some(string) => s" ($string)"
         }
-        nodeString + directionString
+        s"$nodeString$directionString"
       case _ =>
         val endNodeIds = fragments.map(_.forwardEndNodeId)
-        val nodeString = forwardStartNodeId.toString + endNodeIds.mkString(">", ">", "")
+        val nodeString = s"${forwardStartNodeId.toString}${endNodeIds.mkString(">", ">", "")}"
         val directionString = direction match {
           case None => ""
           case Some(string) => s" ($string)"
         }
-        nodeString + directionString
+        s"$nodeString$directionString"
     }
   }
 }

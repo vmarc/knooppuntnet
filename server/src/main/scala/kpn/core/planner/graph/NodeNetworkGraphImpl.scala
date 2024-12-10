@@ -66,10 +66,10 @@ class NodeNetworkGraphImpl extends NodeNetworkGraph {
     graphFull.addVertex(sink)
     graphFull.addVertex(via)
 
-    graphFull.addEdge(source, via, via + "+a")
+    graphFull.addEdge(source, via, s"$via+a")
     graphFull.setEdgeWeight(source, via, distance)
 
-    graphFull.addEdge(via, sink, via + "+b")
+    graphFull.addEdge(via, sink, s"$via+b")
     graphFull.setEdgeWeight(via, sink, distance)
   }
 

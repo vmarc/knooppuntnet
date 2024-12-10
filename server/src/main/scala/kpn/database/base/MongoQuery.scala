@@ -10,7 +10,7 @@ import scala.io.Source
 class MongoQuery {
 
   def readPipelineString(pipelineName: String): String = {
-    val classFilename = "/" + getClass.getCanonicalName.replaceAll("\\.", "/").replaceAll("\\$", "")
+    val classFilename = s"/${getClass.getCanonicalName.replaceAll("\\.", "/").replaceAll("\\$", "")}"
     val pipelineFilename = s"$classFilename-$pipelineName.json"
     try {
       val stream: InputStream = getClass.getResourceAsStream(pipelineFilename)
@@ -40,7 +40,7 @@ class MongoQuery {
   }
 
   private def readPipelineFile(pipelineName: String): List[String] = {
-    val classFilename = "/" + getClass.getCanonicalName.replaceAll("\\.", "/").replaceAll("\\$", "")
+    val classFilename = s"/${getClass.getCanonicalName.replaceAll("\\.", "/").replaceAll("\\$", "")}"
     val pipelineFilename = s"$classFilename-$pipelineName.json"
     try {
       val stream: InputStream = getClass.getResourceAsStream(pipelineFilename)

@@ -24,7 +24,7 @@ class SubsetRepositoryImpl(database: Database) extends SubsetRepository {
   def subsetFactCounts(subset: Subset): Seq[FactCount] = {
     val statisticValuess = new MongoQueryStatistics(database).execute()
     Fact.reportedFacts.flatMap { fact =>
-      statisticValuess.find(_._id == (fact.name + "Count")) match {
+      statisticValuess.find(_._id == (s"${fact.name}Count")) match {
         case None => Seq.empty
         case Some(statisticValues) =>
           statisticValues.values.filter(_.isSubset(subset)).map { sv =>

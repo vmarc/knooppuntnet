@@ -60,7 +60,7 @@ class FindDeletedNodesTool(
       val foundNodeIds = data.nodes.keys
       val deletedNodeIds = (activeNodeIds.toSet -- foundNodeIds.toSet).toSeq.sorted
       if (deletedNodeIds.nonEmpty) {
-        println("deleted nodeIds: " + deletedNodeIds)
+        println(s"deleted nodeIds: $deletedNodeIds")
       }
     }
     println("done")

@@ -12,7 +12,7 @@ class RouteRenderer(route: RouteDoc, language: String) {
   val memberHeight = 50
 
   def svg: String = {
-    header + contents + trailer
+    s"$header$contents$trailer"
   }
 
   private def header: String = s"""<svg width="$width" height="$height">"""
@@ -20,7 +20,7 @@ class RouteRenderer(route: RouteDoc, language: String) {
   private def trailer: String = "</svg>"
 
   private def contents: String = {
-    boundingBox + structure + members
+    s"$boundingBox$structure$members"
   }
 
   private def boundingBox: String = {
@@ -51,7 +51,7 @@ class RouteRenderer(route: RouteDoc, language: String) {
          """.stripMargin
       }.mkString
 
-      memberType + name + nodes
+      s"$memberType$name$nodes"
     }.mkString
   }
 
@@ -65,6 +65,6 @@ class RouteRenderer(route: RouteDoc, language: String) {
       val y = 30 + (1 + index) * memberHeight
       s"""<line x1="${linex - 3}" y1="${y + (memberHeight / 2)}" x2="${linex + 3}" y2="${y + (memberHeight / 2)}" style="stroke:rgb(255,0,0);stroke-width:1" />"""
     }
-    """<g class="svg-structure">""" + verticalLine + firstMemberSeparator + memberSeparators + "</g>"
+    s"<g class=\"svg-structure\">$verticalLine$firstMemberSeparator$memberSeparators</g>"
   }
 }

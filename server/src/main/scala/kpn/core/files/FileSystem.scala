@@ -21,7 +21,7 @@ trait FileSystem {
   def close(): Unit
 
   def fullPath(relativePath: String): String = {
-    FsUtils.withTrailingSlash(baseDir) + FsUtils.withoutLeadingSlash(relativePath)
+    s"${FsUtils.withTrailingSlash(baseDir)}${FsUtils.withoutLeadingSlash(relativePath)}"
   }
 
 }

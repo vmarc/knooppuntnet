@@ -30,11 +30,11 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
 
   def paths: Seq[String] = {
     Seq(
-      context.structure.forwardPath.map(path => "forward=" + pathToString(path)).toSeq,
-      context.structure.backwardPath.map(path => "backward=" + pathToString(path)).toSeq,
-      context.structure.startTentaclePaths.map(path => "start-tentacle=" + pathToString(path)),
-      context.structure.endTentaclePaths.map(path => "end-tentacle=" + pathToString(path)),
-      context.structure.otherPaths.map(path => "other=" + pathToString(path)),
+      context.structure.forwardPath.map(path => s"forward=${pathToString(path)}").toSeq,
+      context.structure.backwardPath.map(path => s"backward=${pathToString(path)}").toSeq,
+      context.structure.startTentaclePaths.map(path => s"start-tentacle=${pathToString(path)}"),
+      context.structure.endTentaclePaths.map(path => s"end-tentacle=${pathToString(path)}"),
+      context.structure.otherPaths.map(path => s"other=${pathToString(path)}"),
     ).flatten
   }
 

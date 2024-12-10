@@ -23,7 +23,7 @@ class PoiWebsiteAnalyzer(context: PoiAnalysisContext) {
           url
         }
         else {
-          "http://" + url
+          s"http://$url"
         }
       }
     }

@@ -20,8 +20,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02 via +<01-02 10>)," +
-        "backward=(02-01 via -<01-02 10>)"
+      "forward=(01-02 via +<01-02 10>),backward=(02-01 via -<01-02 10>)"
     )
   }
 
@@ -36,8 +35,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02 via +<01- 10>+<11>+<-02 12>)," +
-        "backward=(02-01 via -<-02 12>-<11>-<01- 10>)"
+      "forward=(01-02 via +<01- 10>+<11>+<-02 12>),backward=(02-01 via -<-02 12>-<11>-<01- 10>)"
     )
   }
 
@@ -52,8 +50,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02 via +<01- 10>-<11>+<-02 12>)," +
-        "backward=(02-01 via -<-02 12>+<11>-<01- 10>)"
+      "forward=(01-02 via +<01- 10>-<11>+<-02 12>),backward=(02-01 via -<-02 12>+<11>-<01- 10>)"
     )
   }
 
@@ -71,8 +68,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02 via +<01- 10>+>11>+>12>+<-02 15>)," +
-        "backward=(02-01 via -<-02 15>-<14<-<13<-<01- 10>)"
+      "forward=(01-02 via +<01- 10>+>11>+>12>+<-02 15>),backward=(02-01 via -<-02 15>-<14<-<13<-<01- 10>)"
     )
   }
 
@@ -89,9 +85,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01.a-02 via +<01.a- 12>+<-02 13>)," +
-        "backward=(02-01.a via -<-02 13>-<01.a- 12>)," +
-        "startTentacles=(01.a-01.b via -<-01.a 11>-<01.b- 10>)"
+      "forward=(01.a-02 via +<01.a- 12>+<-02 13>),backward=(02-01.a via -<-02 13>-<01.a- 12>),startTentacles=(01.a-01.b via -<-01.a 11>-<01.b- 10>)"
     )
   }
 
@@ -108,9 +102,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02.a via +<01- 10>+<-02.a 11>)," +
-        "backward=(02.a-01 via -<-02.a 11>-<01- 10>)," +
-        "endTentacles=(02.a-02.b via +<02.a- 12>+<-02.b 13>)"
+      "forward=(01-02.a via +<01- 10>+<-02.a 11>),backward=(02.a-01 via -<-02.a 11>-<01- 10>),endTentacles=(02.a-02.b via +<02.a- 12>+<-02.b 13>)"
     )
   }
 
@@ -125,9 +117,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01.a-02 via +<01.a-02 11>)," +
-        "backward=(02-01.a via -<01.a-02 11>)," +
-        "startTentacles=(01.b-01.a via +>01.b-01.a 10>)"
+      "forward=(01.a-02 via +<01.a-02 11>),backward=(02-01.a via -<01.a-02 11>),startTentacles=(01.b-01.a via +>01.b-01.a 10>)"
     )
   }
 
@@ -144,9 +134,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01.a-02 via +<01.a-02 12>)," +
-        "backward=(02-01.a via -<01.a-02 12>)," +
-        "startTentacles=(01.b-01.a via +>01.b-01.a 11>,01.c-01.b via +>01.c-01.b 10>)"
+      "forward=(01.a-02 via +<01.a-02 12>),backward=(02-01.a via -<01.a-02 12>),startTentacles=(01.b-01.a via +>01.b-01.a 11>,01.c-01.b via +>01.c-01.b 10>)"
     )
   }
 
@@ -161,9 +149,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02.a via +<01-02.a 11>)," +
-        "backward=(02.a-01 via -<01-02.a 11>)," +
-        "endTentacles=(02.b-02.a via -<02.a-02.b 12<)"
+      "forward=(01-02.a via +<01-02.a 11>),backward=(02.a-01 via -<01-02.a 11>),endTentacles=(02.b-02.a via -<02.a-02.b 12<)"
     )
   }
 
@@ -185,9 +171,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01.a-02 via +<01.a- 14>+<-02 15>)," +
-        "backward=(02-01.a via -<-02 15>-<01.a- 14>)," +
-        "startTentacles=(01.a-01.b via -<-01.a 13>-<01.b- 12>,01.a-01.c via -<-01.a 11>-<01.c- 10>)"
+      "forward=(01.a-02 via +<01.a- 14>+<-02 15>),backward=(02-01.a via -<-02 15>-<01.a- 14>),startTentacles=(01.a-01.b via -<-01.a 13>-<01.b- 12>,01.a-01.c via -<-01.a 11>-<01.c- 10>)"
     )
   }
 
@@ -207,9 +191,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01.a-02 via +<01.a- 14>+<-02 15>)," +
-        "backward=(02-01.a via -<-02 15>-<01.a- 14>)," +
-        "startTentacles=(01.a-01.b via +>01.a- 12>+>-01.b 13>,01.a-01.c via -<-01.a 11<-<01.c- 10<)"
+      "forward=(01.a-02 via +<01.a- 14>+<-02 15>),backward=(02-01.a via -<-02 15>-<01.a- 14>),startTentacles=(01.a-01.b via +>01.a- 12>+>-01.b 13>,01.a-01.c via -<-01.a 11<-<01.c- 10<)"
     )
   }
 
@@ -236,8 +218,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02 via +<01- 10(2-3-4)>+<-02 11>)," +
-        "backward=(02-01 via -<-02 11>+<10(4-1)>+<-01 10(1-2)>)"
+      "forward=(01-02 via +<01- 10(2-3-4)>+<-02 11>),backward=(02-01 via -<-02 11>+<10(4-1)>+<-01 10(1-2)>)"
     )
   }
 
@@ -251,8 +232,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02 via -<-01 10(1-2)>-<10(4-1)>+<-02 11>)," +
-        "backward=(02-01 via -<-02 11>-<01- 10(2-3-4)>)"
+      "forward=(01-02 via -<-01 10(1-2)>-<10(4-1)>+<-02 11>),backward=(02-01 via -<-02 11>-<01- 10(2-3-4)>)"
     )
   }
 
@@ -268,8 +248,7 @@ class SegmentAnalyzerTest extends UnitTest {
       }
 
       assertSegments(d,
-        "forward=(01-02 via +<01- 10(2-3-4-5)<+<-02 11>)," +
-          "backward=(02-01 via -<-02 11>+<10(5-6-7-8-9-10-11-12-1)<+<-01 10(1-2)<)"
+        "forward=(01-02 via +<01- 10(2-3-4-5)<+<-02 11>),backward=(02-01 via -<-02 11>+<10(5-6-7-8-9-10-11-12-1)<+<-01 10(1-2)<)"
       )
     }
   }
@@ -290,8 +269,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02 via +<01- 11>+>12>+>13>+>14>+<-02 19>)," +
-        "backward=(02-01 via -<-02 19>+>18>+>17>+>16>-<01- 11>)"
+      "forward=(01-02 via +<01- 11>+>12>+>13>+>14>+<-02 19>),backward=(02-01 via -<-02 19>+>18>+>17>+>16>-<01- 11>)"
     )
   }
 
@@ -310,8 +288,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02.a via +<01- 11>+<12>+>13>+>-02.a 14>)," +
-        "backward=(02.b-01 via -<-02.b 17<-<16<-<12>-<01- 11>)"
+      "forward=(01-02.a via +<01- 11>+<12>+>13>+>-02.a 14>),backward=(02.b-01 via -<-02.b 17<-<16<-<12>-<01- 11>)"
     )
   }
 
@@ -329,8 +306,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02.b via +<01- 11>+>14>+>-02.b 15>)," +
-        "backward=(02.a-01 via -<-02.a 13<-<12<-<01- 11>)"
+      "forward=(01-02.b via +<01- 11>+>14>+>-02.b 15>),backward=(02.a-01 via -<-02.a 13<-<12<-<01- 11>)"
     )
   }
 
@@ -348,8 +324,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01.b-02 via +>01.b- 11>+>12>+<-02 15>)," +
-        "backward=(02-01.a via -<-02 15>-<14<-<01.a- 13<)"
+      "forward=(01.b-02 via +>01.b- 11>+>12>+<-02 15>),backward=(02-01.a via -<-02 15>-<14<-<01.a- 13<)"
     )
   }
 
@@ -372,8 +347,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01.b-02.b via +>01.b- 11>+>12>+<15>+>18>+>-02.b 19>)," +
-        "backward=(02.a-01.a via -<-02.a 17<-<16<-<15>-<14<-<01.a- 13<)"
+      "forward=(01.b-02.b via +>01.b- 11>+>12>+<15>+>18>+>-02.b 19>),backward=(02.a-01.a via -<-02.a 17<-<16<-<15>-<14<-<01.a- 13<)"
     )
   }
 
@@ -396,8 +370,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01.a-02.b via +>01.a- 13>+>14>+<15>+>18>+>-02.b 19>)," +
-        "backward=(02.a-01.b via -<-02.a 17<-<16<-<15>-<12<-<01.b- 11<)"
+      "forward=(01.a-02.b via +>01.a- 13>+>14>+<15>+>18>+>-02.b 19>),backward=(02.a-01.b via -<-02.a 17<-<16<-<15>-<12<-<01.b- 11<)"
     )
   }
 
@@ -420,8 +393,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01.b-02.a via +>01.b- 11>+>12>+<15>+>16>+>-02.a 17>)," +
-        "backward=(02.b-01.a via -<-02.b 19<-<18<-<15>-<14<-<01.a- 13<)"
+      "forward=(01.b-02.a via +>01.b- 11>+>12>+<15>+>16>+>-02.a 17>),backward=(02.b-01.a via -<-02.b 19<-<18<-<15>-<14<-<01.a- 13<)"
     )
   }
 
@@ -444,8 +416,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01.a-02.a via +>01.a- 13>+>14>+<15>+>16>+>-02.a 17>)," +
-        "backward=(02.b-01.b via -<-02.b 19<-<18<-<15>-<12<-<01.b- 11<)"
+      "forward=(01.a-02.a via +>01.a- 13>+>14>+<15>+>16>+>-02.a 17>),backward=(02.b-01.b via -<-02.b 19<-<18<-<15>-<12<-<01.b- 11<)"
     )
   }
 
@@ -466,13 +437,11 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(testData(ScopedNetworkType.rwn),
-      "forward=(01-02 via -<-01 10(1-2)>-<10(8-1)>+<-02 11>)," + // shortest path
-        "backward=(02-01 via -<-02 11>+<10(8-1)>+<-01 10(1-2)>)"
+      "forward=(01-02 via -<-01 10(1-2)>-<10(8-1)>+<-02 11>),backward=(02-01 via -<-02 11>+<10(8-1)>+<-01 10(1-2)>)"
     )
 
     assertSegments(testData(ScopedNetworkType.rcn),
-      "forward=(01-02 via +<01- 10(2-3-4-5-6-7-8)>+<-02 11>)," + // follows roundabout direction
-        "backward=(02-01 via -<-02 11>+<10(8-1)>+<-01 10(1-2)>)"
+      "forward=(01-02 via +<01- 10(2-3-4-5-6-7-8)>+<-02 11>),backward=(02-01 via -<-02 11>+<10(8-1)>+<-01 10(1-2)>)"
     )
   }
 
@@ -495,8 +464,7 @@ class SegmentAnalyzerTest extends UnitTest {
     }
 
     assertSegments(d,
-      "forward=(01-02 via +<01- 10>-<11(1-2)>-<11(8-1)>+<-02 12>)," +
-        "backward=(02-01 via -<-02 12>+<11(8-1)>+<11(1-2)>-<01- 10>)"
+      "forward=(01-02 via +<01- 10>-<11(1-2)>-<11(8-1)>+<-02 12>),backward=(02-01 via -<-02 12>+<11(8-1)>+<11(1-2)>-<01- 10>)"
     )
   }
 

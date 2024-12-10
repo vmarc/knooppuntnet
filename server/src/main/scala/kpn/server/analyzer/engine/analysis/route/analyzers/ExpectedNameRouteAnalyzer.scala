@@ -24,8 +24,8 @@ class ExpectedNameRouteAnalyzer(context: RouteDetailAnalysisContext) {
       val start = routeNodeAnalysis.startNode.map(_.name).getOrElse("")
       val end = routeNodeAnalysis.endNode.map(_.name).getOrElse("")
       val separator = if (name.contains(" - ")) " - " else "-"
-      val expectedName = start + separator + end
-      val expectedNameReversed = end + separator + start
+      val expectedName = s"$start$separator$end"
+      val expectedNameReversed = s"$end$separator$start"
       if (name.equals(expectedName) || name.equals(expectedNameReversed)) {
         context.copy(expectedName = Some(expectedName))
       }

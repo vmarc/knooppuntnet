@@ -53,7 +53,7 @@ case class RouteMemberWay(
 
   def linkDescription: String = link.map(_.description).getOrElse("")
 
-  def length: String = way.length.toString + " m"
+  def length: String = s"${way.length.toString} m"
 
   def nodeCount: String = way.nodes.size.toString
 

@@ -36,7 +36,7 @@ class MonitorRouteLoaderImpl(overpassQueryExecutor: OverpassQueryExecutor) exten
 
     val xmlString: String = log.infoElapsed {
       val xml = overpassQueryExecutor.executeQuery(Some(timestamp), QueryRelation(routeId))
-      ("Load at " + timestamp.iso, xml)
+      (s"Load at ${timestamp.iso}", xml)
     }
 
     new Loader(routeId, xmlString).load()

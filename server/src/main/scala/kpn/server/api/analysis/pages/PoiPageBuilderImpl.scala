@@ -59,10 +59,7 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository, masterPoiAnalyzer: Master
   private def logPoi(poi: Poi, filteredTags: Seq[Tag], interpretedTags: Seq[Tag], processedTags: Seq[Tag], ignoredTags: Seq[Tag]): Unit = {
     val header = s"""${poi.elementType}:${poi.elementId} ${poi.layers.mkString(", ")}"""
 
-    val tags = format("Reported", filteredTags) +
-      format("Interpreted", interpretedTags) +
-      format("Processed", processedTags) +
-      format("Ignored", ignoredTags)
+    val tags = s"${format("Reported", filteredTags)}${format("Interpreted", interpretedTags)}${format("Processed", processedTags)}${format("Ignored", ignoredTags)}"
 
     val message = s"$header$tags"
     log.info(message)
@@ -70,8 +67,8 @@ class PoiPageBuilderImpl(poiRepository: PoiRepository, masterPoiAnalyzer: Master
 
   private def format(title: String, tags: Seq[Tag]): String = {
     if (tags.nonEmpty) {
-      s"\n  $title tags:" +
-        tags.map(tag => s"${tag.key}=${tag.value}").mkString("\n    ", "\n    ", "")
+      s"""
+  $title tags:${tags.map(tag => s"${tag.key}=${tag.value}").mkString("\n    ", "\n    ", "")}"""
     }
     else {
       ""

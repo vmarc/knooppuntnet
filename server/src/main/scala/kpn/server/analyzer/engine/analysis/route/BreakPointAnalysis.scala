@@ -22,7 +22,7 @@ class BreakPointAnalysis {
 
     val result = doBreakPoint(ways)
     val resultString = result.map(bp => s"BreakPoint(way=${bp.way.id}, node=${bp.node.id})")
-    log.debug("  result=" + resultString)
+    log.debug(s"  result=$resultString")
     result
   }
 
@@ -32,7 +32,7 @@ class BreakPointAnalysis {
     if (log.isDebugEnabled) {
       if (waysWithNodes != ways) {
         log.debug("  there are ways without nodes")
-        log.debug("  waysWithNodes=" + waysWithNodes.map(_.id).mkString("+"))
+        log.debug(s"  waysWithNodes=${waysWithNodes.map(_.id).mkString("+")}")
       }
     }
 

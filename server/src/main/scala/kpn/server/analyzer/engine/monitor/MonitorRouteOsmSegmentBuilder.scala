@@ -185,11 +185,14 @@ class MonitorRouteOsmSegmentBuilder(segmentMap: Map[Long, MonitorRouteSegmentInf
     val availableSegmentIdsString = availableSegmentIds.mkString(", ")
 
     val foundSegmentString = foundSuperSegments.map(superSegment =>
-      s"\n    superSegment(\n" +
+      s"""
+    superSegment(
+${
         superSegment.segments.map(segment =>
           s"      ${segmentString(segment)}"
-        ).mkString("\n") +
-        s"\n    )"
+        ).mkString("\n")
+      }
+    )"""
     ).mkString("\n")
 
     s"""findSuperSegments(

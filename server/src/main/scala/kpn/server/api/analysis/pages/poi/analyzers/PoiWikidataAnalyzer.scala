@@ -14,7 +14,7 @@ class PoiWikidataAnalyzer(context: PoiAnalysisContext) {
   def analyze: PoiAnalysisContext = {
 
     val wikidata = context.poi.tagValue("wikidata").map { id =>
-      "https://www.wikidata.org/wiki/" + id
+      s"https://www.wikidata.org/wiki/$id"
     }
 
     context.copy(

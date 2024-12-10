@@ -54,7 +54,7 @@ class HttpArchiveReportTool {
   private def printHeaders(headers: Seq[HarHeader]): Unit = {
     println("Headers")
     headers.foreach { header =>
-      println("  " + header.getName + ": " + header.getValue)
+      println(s"  ${header.getName}: ${header.getValue}")
     }
   }
 
@@ -69,7 +69,7 @@ class HttpArchiveReportTool {
 
   def printResponseContent(content: HarContent): Unit = {
     if (content != null) {
-      println("Content: mimeType=" + content.getMimeType)
+      println(s"Content: mimeType=${content.getMimeType}")
       if (content.getMimeType != null && content.getMimeType.contains("text/html")) {
         // println("  html content not printed")
         println(content.getText)

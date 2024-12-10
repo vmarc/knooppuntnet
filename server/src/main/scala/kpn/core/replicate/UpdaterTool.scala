@@ -100,7 +100,7 @@ class UpdaterTool(
       case None =>
         LOG.info("Cannot find initial update status")
       case Some(initialReplicationId) =>
-        LOG.info("Start processing minute diff files after " + initialReplicationId.name)
+        LOG.info(s"Start processing minute diff files after ${initialReplicationId.name}")
         processBatchLoop(initialReplicationId)
     }
 

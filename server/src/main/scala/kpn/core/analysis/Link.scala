@@ -34,7 +34,7 @@ case class Link(
       (if (isOnewayHead) 32 else 0) +
       (if (isOnewayTail) 64 else 0)
 
-    "w%s%03d".format(directionLetter, code)
+    f"w$directionLetter$code%03d"
   }
 
   def description: String = {
@@ -61,14 +61,14 @@ case class Link(
 
   def reportString: String = {
     val sb = new StringBuilder
-    sb.append("p " + bool(hasPrev))
-    sb.append("   n " + bool(hasNext))
-    sb.append("   loop " + bool(isLoop))
-    sb.append("   fp " + bool(isOnewayLoopForwardPart))
-    sb.append("   bp " + bool(isOnewayLoopBackwardPart))
-    sb.append("   head " + bool(isOnewayHead))
-    sb.append("   tail " + bool(isOnewayTail))
-    sb.append(String.format("   d %s", direction.entryName.toLowerCase))
+    sb.append(s"p ${bool(hasPrev)}")
+    sb.append(s"   n ${bool(hasNext)}")
+    sb.append(s"   loop ${bool(isLoop)}")
+    sb.append(s"   fp ${bool(isOnewayLoopForwardPart)}")
+    sb.append(s"   bp ${bool(isOnewayLoopBackwardPart)}")
+    sb.append(s"   head ${bool(isOnewayHead)}")
+    sb.append(s"   tail ${bool(isOnewayTail)}")
+    sb.append(s"   d ${direction.entryName.toLowerCase}")
     sb.toString
   }
 

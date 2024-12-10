@@ -38,7 +38,7 @@ class MonitorCreatePpRoutesTool(configuration: MonitorUpdaterConfiguration) {
     val targetGroup = configuration.monitorGroupRepository.groupByName("SGR-PP").get
 
     configuration.monitorGroupRepository.groupRoutes(sourceGroup._id).sortBy(_.name).foreach { route =>
-      val targetRouteName = "PP-" + route.name
+      val targetRouteName = s"PP-${route.name}"
       configuration.monitorRouteRepository.routeByName(targetGroup._id, targetRouteName) match {
         case Some(targetRoute) =>
         case None =>

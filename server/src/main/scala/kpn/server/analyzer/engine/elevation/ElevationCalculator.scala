@@ -44,7 +44,7 @@ class ElevationCalculator(elevationRepository: ElevationRepository) {
         explore(tileQueue, foundTiles, line, tile, tile.bounds.bottom, 0, -1)
       }
 
-      println(s"line=$line, foundTiles=${foundTiles.map(t => t.fullName + " " + elevationRepository.elevationFor(t).get + "m")}")
+      println(s"line=$line, foundTiles=${foundTiles.map(t => s"${t.fullName} ${elevationRepository.elevationFor(t).get}m")}")
 
       foundTiles.toSeq.flatMap { tile =>
         CohenSutherland.clip(tile.bounds, line).flatMap { linePart =>

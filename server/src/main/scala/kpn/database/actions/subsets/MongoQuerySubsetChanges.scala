@@ -33,7 +33,7 @@ object MongoQuerySubsetChanges {
         )
       )
 
-      println("changes.size=" + changes.size)
+      println(s"changes.size=${changes.size}")
       changes.zipWithIndex.foreach { case (change, index) =>
         println(s"  index=$index, ${change.key.timestamp.yyyymmddhhmmss}")
       }

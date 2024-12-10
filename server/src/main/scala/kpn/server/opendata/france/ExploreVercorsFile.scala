@@ -122,7 +122,7 @@ class ExploreVercorsFile {
   }
 
   private def printRouteSurfaces(rows: Seq[FeatureRow]): Unit = {
-    val names = rows.map(row => "" + row.getValue("revet"))
+    val names = rows.map(row => s"${row.getValue("revet")}")
     val resultMap = names.groupBy(identity).map(e => e._1 -> e._2.size).toSeq.sortBy(_._1.toLowerCase())
     report.print(s"surfaces")
     report.indent {
@@ -136,9 +136,9 @@ class ExploreVercorsFile {
   }
 
   private def printRouteSurfaceDistances(rows: Seq[FeatureRow]): Unit = {
-    val surfaces = rows.map(row => "" + row.getValue("revet")).distinct.sorted
+    val surfaces = rows.map(row => s"${row.getValue("revet")}").distinct.sorted
     val surfaceDistances = surfaces.map { surface =>
-      val surfaceRows = rows.filter(row => "" + row.getValue("revet") == surface)
+      val surfaceRows = rows.filter(row => s"${row.getValue("revet")}" == surface)
       val distance = surfaceRows.map(routeDistance).sum
       surface -> distanceString(distance)
     }

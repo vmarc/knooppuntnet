@@ -63,11 +63,11 @@ object Subset {
 
 case class Subset(country: Country, networkType: NetworkType) extends Ordered[Subset] {
 
-  def key: String = country.domain + ":" + networkType.name
+  def key: String = s"${country.domain}:${networkType.name}"
 
-  def name: String = country.domain + "-" + networkType.name
+  def name: String = s"${country.domain}-${networkType.name}"
 
-  def string: String = country.domain + "/" + networkType.name
+  def string: String = s"${country.domain}/${networkType.name}"
 
   import scala.math.Ordered.orderingToOrdered
 

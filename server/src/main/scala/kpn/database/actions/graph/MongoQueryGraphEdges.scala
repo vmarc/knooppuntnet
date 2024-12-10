@@ -39,7 +39,7 @@ object MongoQueryGraphEdges {
       val t1 = System.currentTimeMillis()
       query.execute()
       val t2 = System.currentTimeMillis()
-      println("Total = " + (t2 - t1))
+      println(s"Total = ${t2 - t1}")
     }
   }
 }

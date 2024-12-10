@@ -318,7 +318,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       Some(Country.nl),
       NetworkType.hiking,
       networkId,
-      "network" + networkId,
+      s"network$networkId",
       None,
       RefDiffs.empty,
       RefDiffs.empty,

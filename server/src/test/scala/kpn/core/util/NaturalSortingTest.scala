@@ -65,8 +65,7 @@ class NaturalSortingTest extends UnitTest {
         "ignore m.a.s spaces: 2-2",
         "ignore m.a.s  spaces: 2-1",
         "ignore m.a.s   spaces: 2+0",
-        "ignore m.a.s  " +
-          "spaces: 2+1"
+        "ignore m.a.s  spaces: 2+1"
       ),
       Seq(
         "ignore m.a.s   spaces: 2+0",
@@ -239,7 +238,7 @@ class NaturalSortingTest extends UnitTest {
       "EV9-gpx-full"
     )
 
-    NaturalSorting.sortBy(input)(s => s + "-").shouldMatchTo(
+    NaturalSorting.sortBy(input)(s => s"$s-").shouldMatchTo(
       Seq(
         "EV1",
         "EV1-gpx",

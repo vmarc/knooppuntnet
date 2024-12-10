@@ -32,7 +32,7 @@ class OverpassController(overpassQueryExecutor: OverpassQueryExecutor) {
       .replaceAll("\\[timeout:1500]\\[maxsize:24000000000];", "")
       .replaceAll("\\[timeout:500]\\[maxsize:12000000000];", "")
     if (string.length > 300) {
-      string.take(300) + "..."
+      s"${string.take(300)}..."
     }
     else {
       string

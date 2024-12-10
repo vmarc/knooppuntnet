@@ -21,13 +21,14 @@ class ReplicationStateRepositoryImpl(replicateDir: File) extends ReplicationStat
       case Some(line) =>
         val timestamp = line.drop("timestamp=".length).replaceAll("\\\\:", ":")
         TimestampUtil.parseIso(timestamp)
-      case None => throw new RuntimeException("Timestamp line not found in:\n" + state)
+      case None => throw new RuntimeException(s"""Timestamp line not found in:
+$state""")
     }
   }
 
-  private def stateFile(replicationId: ReplicationId): File = new File(replicateDir, replicationId.name + ".state.txt")
+  private def stateFile(replicationId: ReplicationId): File = new File(replicateDir, s"${replicationId.name}.state.txt")
 
   private def stateDir(replicationId: ReplicationId): File = {
-    new File(replicateDir, "%03d/%03d".format(replicationId.level1, replicationId.level2))
+    new File(replicateDir, f"${replicationId.level1}%03d/${replicationId.level2}%03d")
   }
 }

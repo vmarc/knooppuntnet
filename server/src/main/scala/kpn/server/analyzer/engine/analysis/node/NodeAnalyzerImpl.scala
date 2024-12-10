@@ -25,7 +25,7 @@ class NodeAnalyzerImpl(
 ) extends NodeAnalyzer {
 
   override def analyze(analysis: NodeAnalysis): Option[NodeAnalysis] = {
-    Log.context("node=%07d".format(analysis.node.id)) {
+    Log.context(f"node=${analysis.node.id}%07d") {
       val analyzers = List(
         NodeNetworkTagAnalyzer,
         nodeCountryAnalyzer,

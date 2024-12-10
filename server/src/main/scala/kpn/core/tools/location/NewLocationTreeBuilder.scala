@@ -12,7 +12,7 @@ class NewLocationTreeBuilder {
 
   private def buildTrees(pathMap: Map[String, Seq[LocationData]], path: String): Seq[LocationTree] = {
     pathMap.getOrElse(path, Seq.empty).map { location =>
-      val children = buildTrees(pathMap, path + ":" + location.id)
+      val children = buildTrees(pathMap, s"$path:${location.id}")
       if (children.nonEmpty) {
         LocationTree(location.id, Some(children))
       }

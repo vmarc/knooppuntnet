@@ -32,7 +32,7 @@ class FullAnalysisTrigger(analysisTime: AnalysisTimeRepository) {
     val today = Time.now.yyyymmdd
     analysisTime.get match {
       case Some(previous) =>
-        val expectedPrevious = FullAnalysisTrigger.fullAnalysisTimes.reverse.map(hhmm => today + " " + hhmm).find { time => now >= time }.get
+        val expectedPrevious = FullAnalysisTrigger.fullAnalysisTimes.reverse.map(hhmm => s"$today $hhmm").find { time => now >= time }.get
         if (previous >= expectedPrevious) {
           // analysis already done
           false

@@ -14,8 +14,8 @@ trait OverpassQueryExecutor {
     }
 
     val queryString = query match {
-      case q: QueryNodeIdsByType => date + "[timeout:1500][maxsize:24000000000];" + query.string
-      case _ => date + "[timeout:500][maxsize:12000000000];" + query.string
+      case q: QueryNodeIdsByType => s"$date[timeout:1500][maxsize:24000000000];${query.string}"
+      case _ => s"$date[timeout:500][maxsize:12000000000];${query.string}"
     }
     execute(queryString)
   }

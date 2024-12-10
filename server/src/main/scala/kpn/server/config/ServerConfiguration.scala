@@ -175,7 +175,7 @@ class ServerConfiguration {
     executor.setRejectedExecutionHandler(new CallerRunsPolicy)
     executor.setWaitForTasksToCompleteOnShutdown(true)
     executor.setAwaitTerminationSeconds(60 * 5)
-    executor.setThreadNamePrefix(name + "-")
+    executor.setThreadNamePrefix(s"$name-")
     executor.initialize()
     executor
   }

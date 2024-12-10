@@ -123,7 +123,7 @@ class MonitorController(facade: MonitorFacade) {
     @PathVariable routeName: String,
     @RequestBody parameters: MonitorChangesParameters
   ): ApiResponse[MonitorRouteChangesPage] = {
-    facade.routeChanges(groupName + ":" + routeName, parameters)
+    facade.routeChanges(s"$groupName:$routeName", parameters)
   }
 
   @GetMapping(value = Array("routes/{monitorRouteId}/changes/{changeSetId}/{replicationNumber}"))

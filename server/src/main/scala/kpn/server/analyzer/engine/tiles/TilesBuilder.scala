@@ -72,7 +72,7 @@ class TilesBuilder(
       }
     }
 
-    val afterTileNames = tileNames.map(tileName => allTileData.networkType.name + "-" + tileName)
+    val afterTileNames = tileNames.map(tileName => s"${allTileData.networkType.name}-$tileName")
 
     manager.deleteObsoleteFiles(z, allTileData.networkType, existingFilesSnapshot, afterTileNames)
   }

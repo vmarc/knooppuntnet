@@ -13,7 +13,7 @@ object ChangeSetTaskTool {
       val taskRepository = new TaskRepositoryImpl(database)
       val files = new File(Dirs.root, "wrk").list().filterNot(_ == "begin").toSeq.sorted
       files.foreach { changeSetId =>
-        taskRepository.add(TaskRepository.changeSetInfoTask + changeSetId)
+        taskRepository.add(s"${TaskRepository.changeSetInfoTask}$changeSetId")
       }
     }
   }

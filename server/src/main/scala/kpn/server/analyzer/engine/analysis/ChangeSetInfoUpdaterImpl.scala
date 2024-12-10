@@ -24,12 +24,12 @@ class ChangeSetInfoUpdaterImpl(
         // the changeset info is already in the database
       }
       else {
-        val taskId = TaskRepository.changeSetInfoTask + changeSetId
+        val taskId = s"${TaskRepository.changeSetInfoTask}$changeSetId"
         if (taskRepository.exists(taskId)) {
           // there already is a request registered to fetch the changeset info from OSM API
         }
         else {
-          taskRepository.add(TaskRepository.changeSetInfoTask + changeSetId)
+          taskRepository.add(s"${TaskRepository.changeSetInfoTask}$changeSetId")
         }
       }
     }

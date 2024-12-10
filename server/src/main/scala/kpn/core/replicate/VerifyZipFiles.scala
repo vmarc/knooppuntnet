@@ -17,7 +17,7 @@ object VerifyZipFiles {
       }
       catch {
         case _: java.io.EOFException =>
-          println("Error reading " + replicationId.name)
+          println(s"Error reading ${replicationId.name}")
       }
     }
     println("End VerifyZipFiles")

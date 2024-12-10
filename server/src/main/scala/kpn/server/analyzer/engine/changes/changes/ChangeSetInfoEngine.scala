@@ -60,7 +60,7 @@ class ChangeSetInfoEngine(
       taskId.drop(TaskRepository.changeSetInfoTask.length).toLong // TODO make more safe ???
     }
     else {
-      throw new RuntimeException("Unexpected taskId: " + taskId)
+      throw new RuntimeException(s"Unexpected taskId: $taskId")
     }
   }
 }

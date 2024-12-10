@@ -29,9 +29,9 @@ case class ReplicationId(level1: Long, level2: Long, level3: Long) {
 
   def number: Long = 1000000 * level1 + level2 * 1000 + level3
 
-  def key: String = "%03d:%03d:%03d".format(level1, level2, level3)
+  def key: String = f"$level1%03d:$level2%03d:$level3%03d"
 
-  def name: String = "%03d/%03d/%03d".format(level1, level2, level3)
+  def name: String = f"$level1%03d/$level2%03d/$level3%03d"
 
   def next: ReplicationId = ReplicationId(number + 1)
 

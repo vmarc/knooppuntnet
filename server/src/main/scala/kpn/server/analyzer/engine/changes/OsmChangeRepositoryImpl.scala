@@ -9,7 +9,7 @@ import java.io.File
 class OsmChangeRepositoryImpl(replicateDir: File) extends OsmChangeRepository {
 
   override def get(replicationId: ReplicationId): OsmChange = {
-    val fileName = replicateDir.getAbsolutePath + "/" + replicationId.name + ".osc.gz"
+    val fileName = s"${replicateDir.getAbsolutePath}/${replicationId.name}.osc.gz"
     new OsmChangeReader(fileName).read
   }
 

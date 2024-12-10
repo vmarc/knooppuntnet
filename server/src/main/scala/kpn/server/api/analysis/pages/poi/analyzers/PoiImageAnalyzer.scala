@@ -88,7 +88,7 @@ class PoiImageAnalyzer(context: PoiAnalysisContext) {
     val messageDigest = DigestUtils.md5Hex(fileName.replace(" ", "_"))
     val hash1 = messageDigest.substring(0, 1)
     val hash2 = messageDigest.substring(0, 2)
-    hash1 + "/" + hash2 + "/" + fileName
+    s"$hash1/$hash2/$fileName"
   }
 
   private def isImage(tagValue: String): Boolean = {

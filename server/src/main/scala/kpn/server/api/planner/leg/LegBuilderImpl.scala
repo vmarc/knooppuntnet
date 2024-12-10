@@ -33,7 +33,7 @@ class LegBuilderImpl(
     NetworkType.withName(params.networkType) match {
       case Some(networkType) => buildLeg(params, networkType)
       case None =>
-        log.error("Unknown network type " + params.networkType)
+        log.error(s"Unknown network type ${params.networkType}")
         None
     }
   }
@@ -51,7 +51,7 @@ class LegBuilderImpl(
         }
 
       case None =>
-        log.error("Could not find graph for network type " + networkType.name)
+        log.error(s"Could not find graph for network type ${networkType.name}")
         None
     }
   }

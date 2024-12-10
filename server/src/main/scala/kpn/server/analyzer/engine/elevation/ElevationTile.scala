@@ -33,7 +33,7 @@ case class ElevationTile(
   def name: String = {
     val latPref = if (bottom < 0) "S" else "N"
     val lonPref = if (left < 0) "W" else "E"
-    "%s%02d%s%03d".format(latPref, bottom, lonPref, left)
+    f"$latPref$bottom%02d$lonPref$left%03d"
   }
 
   def fullName: String = {

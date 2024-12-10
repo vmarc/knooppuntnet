@@ -54,7 +54,7 @@ class FindDeletedRoutesTool(database: Database, overpassQueryExecutor: OverpassQ
       }
       deletedRouteIds
     }
-    log.info("deleted route(s)=" + deletedRouteIds.mkString(", "))
+    log.info(s"deleted route(s)=${deletedRouteIds.mkString(", ")}")
     log.info("done")
   }
 

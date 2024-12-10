@@ -181,16 +181,16 @@ class MonitorTileTool(config: MonitorTileToolConfig) {
     if (file.exists()) {
       val existingTile: Array[Byte] = FileUtils.readFileToByteArray(file: File)
       if (existingTile.sameElements(tileBytes)) {
-        log.info("no change for tile " + fileName)
+        log.info(s"no change for tile $fileName")
       }
       else {
         FileUtils.writeByteArrayToFile(file, tileBytes)
-        log.info("saved updated tile " + fileName)
+        log.info(s"saved updated tile $fileName")
       }
     }
     else {
       FileUtils.writeByteArrayToFile(file, tileBytes)
-      log.info("saved tile " + fileName)
+      log.info(s"saved tile $fileName")
     }
   }
 }

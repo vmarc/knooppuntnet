@@ -25,7 +25,7 @@ object XmlFile {
     }
     catch {
       case e: SAXParseException =>
-        val message = "Error parsing file \"%s\" at line %d, column %d: %s".format(fileName, e.getLineNumber, e.getColumnNumber, e.getMessage)
+        val message = s"Error parsing file \"$fileName\" at line ${e.getLineNumber}, column ${e.getColumnNumber}: ${e.getMessage}"
         throw new RuntimeException(message, e)
     }
   }

@@ -64,7 +64,7 @@ class ImageGenerationTool {
   private def processLink(name: String, description: String): Unit = {
     out.println("<tr>")
     out.println("""<td style="padding:0">""")
-    out.println("""<img src="images/%s.png"/>""".format(name))
+    out.println(s"<img src=\"images/$name.png\"/>")
     out.println("</td>")
     out.println("<td>")
     out.println(name)

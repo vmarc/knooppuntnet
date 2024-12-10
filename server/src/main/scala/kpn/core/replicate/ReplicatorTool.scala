@@ -105,7 +105,7 @@ class ReplicatorTool(
     statusRepository.replicatorStatus match {
       case None => log.error("Cannot find current replication status")
       case Some(replicationId) =>
-        log.info("Start replication id=" + replicationId.name)
+        log.info(s"Start replication id=${replicationId.name}")
         launch(replicationId)
     }
   }
@@ -201,12 +201,12 @@ class ReplicatorTool(
         ReplicationResult(NotFound)
 
       case Some(changesString) =>
-        val file = new File(replicateDir, replicationId.name + ".osc.gz")
+        val file = new File(replicateDir, s"${replicationId.name}.osc.gz")
         file.getParentFile.mkdirs()
         GZipFile.write(file.getAbsolutePath, changesString)
         try {
           val osmChange = new OsmChangeReader(file.getAbsolutePath).read
-          log.debug(file.getAbsolutePath + " integrity check OK")
+          log.debug(s"${file.getAbsolutePath} integrity check OK")
           ReplicationResult(
             Ok,
             file.length(),
@@ -216,7 +216,7 @@ class ReplicatorTool(
         }
         catch {
           case e: Exception =>
-            log.error(file.getAbsolutePath + " integrity check 2 NOK", e)
+            log.error(s"${file.getAbsolutePath} integrity check 2 NOK", e)
             ReplicationResult(Error)
         }
     }
@@ -232,7 +232,7 @@ class ReplicatorTool(
   }
 
   private def sleep(seconds: Int): Unit = {
-    log.debug("sleep " + seconds + "s")
+    log.debug(s"sleep ${seconds}s")
     val end = System.currentTimeMillis() + (seconds * 1000)
     while (oper.isActive && System.currentTimeMillis() < end) {
       Thread.sleep(1000)

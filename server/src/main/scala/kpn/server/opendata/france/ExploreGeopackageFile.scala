@@ -24,7 +24,7 @@ class ExploreGeopackageFile {
   }
 
   private def explore(name: String): Unit = {
-    val filename = "/Users/marc/kpn/opendata/france/" + name
+    val filename = s"/Users/marc/kpn/opendata/france/$name"
     report.print(filename)
     report.indent {
       val file = new File(filename)

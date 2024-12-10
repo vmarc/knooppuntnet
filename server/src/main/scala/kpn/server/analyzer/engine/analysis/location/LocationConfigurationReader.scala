@@ -17,7 +17,7 @@ class LocationConfigurationReader {
 
   def read(): LocationConfiguration = {
     val rootLocations = Country.all.map { country =>
-      log.info("Loading " + country.domain.toUpperCase)
+      log.info(s"Loading ${country.domain.toUpperCase}")
       val locationNameDefinitions = {
         val filename = s"${Dirs.root}/locations/${country.domain}/locations.json"
         val string = FileUtils.readFileToString(new File(filename), "UTF-8")

@@ -24,7 +24,7 @@ object TestSupport extends Assertions {
    */
   def withDatabase(keepDatabaseAfterTest: Boolean = false)(f: Database => Unit): Unit = {
 
-    val databaseName = "unit-testdb-" + count.incrementAndGet()
+    val databaseName = s"unit-testdb-${count.incrementAndGet()}"
     val mongoClient = MongoClient()
     try {
       val database = Mongo.database(mongoClient, databaseName)

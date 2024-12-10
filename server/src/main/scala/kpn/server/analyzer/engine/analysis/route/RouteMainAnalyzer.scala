@@ -15,7 +15,7 @@ import scala.annotation.tailrec
 class RouteMainAnalyzer {
 
   def analyze(routeDetailDoc: RouteDetailDoc): Option[RouteDoc] = {
-    Log.context("route=%07d".format(routeDetailDoc.summary.id)) {
+    Log.context(f"route=${routeDetailDoc.summary.id}%07d") {
       val context = RouteAnalysisContext(routeDetailDoc)
       val analyzers: List[RouteDocAnalyzer] = List(
         // RouteLabelsAnalyzer, // this always should be the last analyzer

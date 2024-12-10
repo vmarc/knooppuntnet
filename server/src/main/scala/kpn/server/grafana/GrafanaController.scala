@@ -66,7 +66,7 @@ class GrafanaController {
 
     val response = Seq(timeseries1, timeseries2, timeseries3)
     val responseString = Json.objectMapper.writeValueAsString(response)
-    println("Query response: " + responseString)
+    println(s"Query response: $responseString")
     responseString
   }
 

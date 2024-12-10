@@ -35,17 +35,18 @@ case class CountryCounts(counts: Map[Option[Country], Int] = Map.empty) {
       case None => "Foreign country"
       case Some(country) =>
         if (counts.size == 1) {
-          "Country=" + country.domain
+          s"Country=${country.domain}"
         }
         else {
-          "Country=" + country.domain + " " +
-          counts.map{ case (countryOption, count) =>
-            val key = countryOption match {
-              case None => "Foreign"
-              case Some(c) => c.domain
-            }
-            key + "=" + count
-          }.mkString(", ")
+          s"Country=${country.domain} ${
+            counts.map { case (countryOption, count) =>
+              val key = countryOption match {
+                case None => "Foreign"
+                case Some(c) => c.domain
+              }
+              s"$key=$count"
+            }.mkString(", ")
+          }"
         }
     }
   }

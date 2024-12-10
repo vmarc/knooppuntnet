@@ -21,7 +21,7 @@ class ReplicationRequestExecutorImpl extends ReplicationRequestExecutor {
 
   def requestChangesFile(replicationId: ReplicationId): Option[String] = {
 
-    val url = URL + replicationId.name + ".osc.gz"
+    val url = s"$URL${replicationId.name}.osc.gz"
     val restTemplate = new RestTemplate
     val headers = new HttpHeaders()
     headers.set(HttpHeaders.REFERER, "knooppuntnet.nl")
@@ -45,7 +45,7 @@ class ReplicationRequestExecutorImpl extends ReplicationRequestExecutor {
   }
 
   def requestStateFile(replicationId: ReplicationId): Option[String] = {
-    val url = URL + replicationId.name + ".state.txt"
+    val url = s"$URL${replicationId.name}.state.txt"
     val restTemplate = new RestTemplate
     val headers = new HttpHeaders()
     headers.set(HttpHeaders.REFERER, "knooppuntnet.nl")

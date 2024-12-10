@@ -10,7 +10,7 @@ object ScopedNetworkType {
   val lpn: ScopedNetworkType = ScopedNetworkType(NetworkScope.local, NetworkType.canoe)
 
   def apply(networkScope: NetworkScope, networkType: NetworkType): ScopedNetworkType = {
-    val key = networkScope.letter + networkType.letter + "n"
+    val key = s"${networkScope.letter}${networkType.letter}n"
     ScopedNetworkType(networkScope, networkType, key)
   }
 
@@ -41,5 +41,5 @@ case class ScopedNetworkType(networkScope: NetworkScope, networkType: NetworkTyp
 
   def proposedNodeNameTagKey: String = s"proposed:${key}_name"
 
-  def expectedRouteRelationsTag: String = "expected_" + key + "_route_relations"
+  def expectedRouteRelationsTag: String = s"expected_${key}_route_relations"
 }

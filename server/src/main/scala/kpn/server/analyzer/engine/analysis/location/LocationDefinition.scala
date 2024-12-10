@@ -39,7 +39,7 @@ case class LocationDefinition(
   }
 
   def names: Seq[String] = {
-    locationNames.keys.map(key => key.toString + "=" + locationNames(key)).toSeq
+    locationNames.keys.map(key => s"${key.toString}=${locationNames(key)}").toSeq
   }
 
   def allChilderen(): Seq[LocationDefinition] = {

@@ -13,7 +13,7 @@ class ReplicationStateReader(replicationDir: File) {
   private val log = Log(classOf[ReplicationStateReader])
 
   def readTimestamp(replicationId: ReplicationId): Option[Timestamp] = {
-    val filename = replicationDir.getAbsolutePath + "/" + replicationId.name + ".state.txt"
+    val filename = s"${replicationDir.getAbsolutePath}/${replicationId.name}.state.txt"
     val file = new File(filename)
     if (file.exists) {
       val lines = Source.fromFile(new File(filename)).getLines().toSeq

@@ -19,7 +19,7 @@ class MonitorGroupPageBuilder(
     val admin = monitorRepository.isAdminUser(RequestContext.user)
     monitorGroupRepository.groupByName(groupName).map { group =>
       val routeDetails = monitorRouteRepository.groupRouteDetails(group._id)
-      val sortedRouteDetails = NaturalSorting.sortBy(routeDetails)(s => s.name + "-")
+      val sortedRouteDetails = NaturalSorting.sortBy(routeDetails)(s => s"${s.name}-")
       MonitorGroupPage(
         group._id.oid,
         groupName,

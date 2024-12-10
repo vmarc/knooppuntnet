@@ -155,7 +155,7 @@ class RouteNameAnalyzer(context: RouteDetailAnalysisContext) {
           val to = NodeUtil.normalize(toNodeName)
           Some(
             RouteNameAnalysis(
-              Some("-" + to),
+              Some(s"-$to"),
               None,
               Some(to)
             )
@@ -168,7 +168,7 @@ class RouteNameAnalyzer(context: RouteDetailAnalysisContext) {
             val from = NodeUtil.normalize(fromNodeName)
             Some(
               RouteNameAnalysis(
-                Some(from + "-"),
+                Some(s"$from-"),
                 Some(from),
                 None
               )
@@ -176,7 +176,7 @@ class RouteNameAnalyzer(context: RouteDetailAnalysisContext) {
           case Some(toNodeName) =>
             val to = NodeUtil.normalize(toNodeName)
             val from = NodeUtil.normalize(fromNodeName)
-            toRouteNameAnalysisFromNodeNames(from + "-" + to, from, to)
+            toRouteNameAnalysisFromNodeNames(s"$from-$to", from, to)
         }
     }
   }

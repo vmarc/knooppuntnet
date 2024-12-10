@@ -24,12 +24,12 @@ class CachingOverpassQueryExecutor(cacheRootDir: File, val overpassQueryExecutor
 
         val cacheDir = new File(cacheRootDir, TimestampUtil.cacheDir(t))
         cacheDir.mkdirs()
-        val cacheFile = new File(cacheDir, query.name + ".xml.gz")
+        val cacheFile = new File(cacheDir, s"${query.name}.xml.gz")
 
         // temp code
         if (!cacheFile.exists()) {
           val oldCacheDir = new File(s"${Dirs.root}/cache-old/", TimestampUtil.cacheDir(t))
-          val oldCacheFile = new File(oldCacheDir, query.name + ".xml.gz")
+          val oldCacheFile = new File(oldCacheDir, s"${query.name}.xml.gz")
           if (oldCacheFile.exists()) {
             log.debug(s"Re-using request result ${query.name}.xml.gz")
             FileUtils.copyFile(oldCacheFile, cacheFile)

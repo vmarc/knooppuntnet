@@ -11,7 +11,7 @@ import scala.jdk.CollectionConverters.*
 
 class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRepository {
 
-  private val log = Log(classOf[TileFileRepositoryImpl])
+  private val log: Log = Log(classOf[TileFileRepositoryImpl])
 
   override def saveOrUpdate(tileType: String, tile: Tile, tileBytes: Array[Byte]): Unit = {
 
@@ -22,16 +22,16 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
       val existingTile: Array[Byte] = FileUtils.readFileToByteArray(file: File)
 
       if (existingTile.sameElements(tileBytes)) {
-        log.info("no change for tile " + fileName)
+        log.info(s"no change for tile $fileName")
       }
       else {
         FileUtils.writeByteArrayToFile(file, tileBytes)
-        log.info("saved updated tile " + fileName)
+        log.info(s"saved updated tile $fileName")
       }
     }
     else {
       FileUtils.writeByteArrayToFile(file, tileBytes)
-      log.info("saved tile " + fileName)
+      log.info(s"saved tile $fileName")
     }
   }
 
@@ -43,7 +43,7 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
     val dir = new File(s"$root/$tileType/$z")
     if (dir.exists) {
       val files = FileUtils.listFiles(dir, TRUE, TRUE).asScala.toSeq.filter(_.getAbsolutePath.endsWith(extension))
-      val tileNames = files.map(_.getAbsolutePath.substring(root.length + 1)).map(_.replaceAll("/", "-").replaceAll("\\." + extension, ""))
+      val tileNames = files.map(_.getAbsolutePath.substring(root.length + 1)).map(_.replaceAll("/", "-").replaceAll(s"\\.$extension", ""))
       tileNames.sorted
     }
     else {

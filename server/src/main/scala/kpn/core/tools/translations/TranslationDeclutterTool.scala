@@ -58,7 +58,7 @@ class TranslationDeclutterTool(root: String) {
 
   private def readDocument(file: File): Document = {
     if (!file.exists()) {
-      throw new RuntimeException("translations file not found: " + file.getAbsolutePath)
+      throw new RuntimeException(s"translations file not found: ${file.getAbsolutePath}")
     }
     val factory = DocumentBuilderFactory.newInstance
     factory.newDocumentBuilder.parse(file)

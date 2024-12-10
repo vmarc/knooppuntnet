@@ -20,10 +20,6 @@ class RouteNodesAnalysisFormatter(analysis: RouteNodesAnalysis) {
   }
 
   private def nodeString(nodeData: RouteNodeAnalysis): String = {
-    "%s(%s)%s".format(
-      nodeData.node.id,
-      nodeData.alternateName,
-      if (nodeData.isInWay) "W" else "R",
-    )
+    s"${nodeData.node.id}(${nodeData.alternateName})${if (nodeData.isInWay) "W" else "R"}"
   }
 }

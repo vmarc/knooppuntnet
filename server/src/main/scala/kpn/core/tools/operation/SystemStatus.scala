@@ -15,7 +15,9 @@ class SystemStatus(
       processStatus(web)
     }
     else {
-      processStatus(web) + "\n\n" + toolStatus
+      s"""${processStatus(web)}
+
+$toolStatus"""
     }
   }
 
@@ -29,9 +31,9 @@ class SystemStatus(
     ).map {
       case (title, Some(replicationId)) =>
         val timestamp = replicationStateRepository.read(replicationId)
-        title + " " + replicationId.name + " " + TimestampUtil.toLocal(timestamp).yyyymmddhhmmss
+        s"$title ${replicationId.name} ${TimestampUtil.toLocal(timestamp).yyyymmddhhmmss}"
       case (title, None) =>
-        title + " ?"
+        s"$title ?"
     }.mkString("\n")
   }
 
@@ -51,13 +53,13 @@ class SystemStatus(
 
   private def processLines(processes: Seq[ProcessInfo]): Seq[String] = {
     processes.map { processInfo =>
-      "%-20s ".format(processInfo.name) + status(processInfo)
+      f"${processInfo.name}%-20s ${status(processInfo)}"
     }
   }
 
   private def status(processInfo: ProcessInfo): String = {
     processInfo.status match {
-      case Some(status) => "OK    " + status.pid + "  " + status.start + "  " + status.elapsed
+      case Some(status) => s"OK    ${status.pid}  ${status.start}  ${status.elapsed}"
       case None => "NOK"
     }
   }

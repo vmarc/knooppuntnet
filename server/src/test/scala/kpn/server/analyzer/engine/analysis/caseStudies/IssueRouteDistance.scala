@@ -55,6 +55,6 @@ class IssueRouteDistance extends UnitTest {
 
     val osmDistance = MonitorRouteRelation.from(relation, None).osmDistance
 
-    println("|%s|%.1f|%.1f|".format(name, length, osmDistance.toDouble / 1000))
+    println(f"|$name|$length%.1f|${osmDistance.toDouble / 1000}%.1f|")
   }
 }

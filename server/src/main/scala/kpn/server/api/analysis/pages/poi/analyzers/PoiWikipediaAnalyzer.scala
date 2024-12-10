@@ -16,19 +16,19 @@ class PoiWikipediaAnalyzer(context: PoiAnalysisContext) {
     val wikipedia = context.poi.tagValue("wikipedia").map { tagValue =>
       if (tagValue.startsWith("nl:")) {
         val id = tagValue.substring(3)
-        "https://nl.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
+        s"https://nl.wikipedia.org/wiki/${id.replaceAll(" ", "_")}"
       }
       else if (tagValue.startsWith("de:")) {
         val id = tagValue.substring(3)
-        "https://de.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
+        s"https://de.wikipedia.org/wiki/${id.replaceAll(" ", "_")}"
       }
       else if (tagValue.startsWith("fr:")) {
         val id = tagValue.substring(3)
-        "https://fr.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
+        s"https://fr.wikipedia.org/wiki/${id.replaceAll(" ", "_")}"
       }
       else if (tagValue.startsWith("en:")) {
         val id = tagValue.substring(3)
-        "https://en.wikipedia.org/wiki/" + id.replaceAll(" ", "_")
+        s"https://en.wikipedia.org/wiki/${id.replaceAll(" ", "_")}"
       }
       else {
         tagValue

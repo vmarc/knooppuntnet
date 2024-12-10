@@ -67,7 +67,7 @@ class MonitorChangeProcessorImpl(
   }
 
   private def processRoute(changeSetContext: ChangeSetContext, routeId: Long): Unit = {
-    monitorRouteRepository.routeReferenceKey("TODO KEY" + routeId) match {
+    monitorRouteRepository.routeReferenceKey(s"TODO KEY$routeId") match {
       case None => log.warn(s"$routeId TODO routeReferenceKey not available ")
       case Some(referenceKey) =>
 

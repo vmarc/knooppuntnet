@@ -24,7 +24,7 @@ class ScriptTool(name: String) {
 
   def execute(command: String): Unit = {
 
-    println(Time.now.yyyymmddhhmm + " Start")
+    println(s"${Time.now.yyyymmddhhmm} Start")
     val start = System.currentTimeMillis()
 
     val success = try {
@@ -38,11 +38,11 @@ class ScriptTool(name: String) {
 
     val end = System.currentTimeMillis()
     val elapsed = Elapsed(end - start)
-    val subject = (if (success) "Done: " else "Error: ") + name
+    val subject = s"${(if (success) "Done: " else "Error: ")}$name"
     val text = s"$command\n$elapsed"
     mailSender.send(subject, text)
 
-    println(Time.now.yyyymmddhhmm + " Done")
+    println(s"${Time.now.yyyymmddhhmm} Done")
     println(s"Elapsed: $elapsed")
   }
 

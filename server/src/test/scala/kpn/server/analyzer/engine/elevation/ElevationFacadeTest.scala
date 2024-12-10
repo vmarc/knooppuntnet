@@ -49,8 +49,8 @@ class ElevationFacadeTest extends UnitTest {
     val distanceElevations = new ElevationCalculator(repo).calculate(forwardPath)
     //distanceElevations.foreach(println)
 
-    println("distanceElevations.size=" + distanceElevations.size)
-    println("total distance=" + distanceElevations.map(_.distance).sum)
+    println(s"distanceElevations.size=${distanceElevations.size}")
+    println(s"total distance=${distanceElevations.map(_.distance).sum}")
 
     //    var total = 0.0
     //    distanceElevations.reverse.foreach { case DistanceElevation(distance, elevation) =>
@@ -93,7 +93,7 @@ class ElevationFacadeTest extends UnitTest {
 
   private def gpx(points: Seq[Point]): String = {
     val wayPoints: Seq[WayPoint] = points.zipWithIndex.map { case (point, index) =>
-      val name = "" + index
+      val name = s"$index"
       WayPoint(name, point.x.toString, point.y.toString, "")
     }
     val trackSegments = Seq(GpxSegment(points.map(p => TrackPoint(p.x.toString, p.y.toString))))

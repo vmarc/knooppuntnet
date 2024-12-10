@@ -35,8 +35,7 @@ class OrphanNodeUpdateTest01 extends IntegrationTest {
       1001,
       "01",
       version = 2,
-      extraTags = Tags.from("" +
-        "tag" -> "after"
+      extraTags = Tags.from("tag" -> "after"
       )
     )
 

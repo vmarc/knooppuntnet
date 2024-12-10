@@ -130,6 +130,6 @@ class BaseRelationBuilder(rawData: RawData, log: Log) {
   }
 
   private def inconsistant(message: String): Unit = {
-    log.warn("data inconsistancy: " + message)
+    log.warn(s"data inconsistancy: $message")
   }
 }

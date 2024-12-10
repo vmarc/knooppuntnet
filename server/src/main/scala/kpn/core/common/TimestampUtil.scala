@@ -72,7 +72,7 @@ object TimestampUtil {
   }
 
   def parseIso(string: String): Timestamp = {
-    toTimestamp(ZonedDateTime.parse(string + "[UTC]", DateTimeFormatter.ISO_DATE_TIME))
+    toTimestamp(ZonedDateTime.parse(s"$string[UTC]", DateTimeFormatter.ISO_DATE_TIME))
   }
 
   def fromMilliSeconds(milliSeconds: Long): Timestamp = {

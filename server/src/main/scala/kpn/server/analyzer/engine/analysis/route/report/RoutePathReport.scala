@@ -29,7 +29,7 @@ class RoutePathReport(context: RouteDetailAnalysisContext) {
       val toNode = element.toNetworkNode
       val from = fromNode.map(n => s"${ReportUtil.osmNodeLink(n.node.id)}(${n.name})").getOrElse("")
       val to = toNode.map(n => s"${ReportUtil.osmNodeLink(n.node.id)}(${n.name})").getOrElse("")
-      val elementIds = "" + element.id
+      val elementIds = s"${element.id}"
 
       s"""<tr>
          |  <td>

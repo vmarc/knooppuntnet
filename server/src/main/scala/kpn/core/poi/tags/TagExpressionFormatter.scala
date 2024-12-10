@@ -12,12 +12,12 @@ class TagExpressionFormatter {
   private def formatExpression(expression: TagExpression): String = {
 
     expression match {
-      case e: And => formatExpression(e.left) + formatExpression(e.right)
+      case e: And => s"${formatExpression(e.left)}${formatExpression(e.right)}"
       case e: HasTag => formatHasTag(e)
       case e: NotHasTag => formatNotHasTag(e)
       case e: TagContains => formatTagContains(e)
       case e: NotTagContains => formatNotTagContains(e)
-      case _ => throw new IllegalStateException("Unexpected expression: " + expression)
+      case _ => throw new IllegalStateException(s"Unexpected expression: $expression")
     }
   }
 
@@ -42,13 +42,13 @@ class TagExpressionFormatter {
       s"[${notHasTag.tagKey}!=${notHasTag.allowedValues.head}]"
     }
     else {
-      throw new IllegalStateException("Unexpected expression (at most 1 value): " + notHasTag)
+      throw new IllegalStateException(s"Unexpected expression (at most 1 value): $notHasTag")
     }
   }
 
   private def formatTagContains(tagContains: TagContains): String = {
     if (tagContains.tagValues.isEmpty) {
-      throw new IllegalStateException("Unexpected expression (at least 1 value): " + tagContains)
+      throw new IllegalStateException(s"Unexpected expression (at least 1 value): $tagContains")
     }
     else {
       val values = tagContains.tagValues.map(v => s"$v").mkString("|")
@@ -58,7 +58,7 @@ class TagExpressionFormatter {
 
   private def formatNotTagContains(notTagContains: NotTagContains): String = {
     if (notTagContains.tagValues.isEmpty) {
-      throw new IllegalStateException("Unexpected expression (at least 1 value): " + notTagContains)
+      throw new IllegalStateException(s"Unexpected expression (at least 1 value): $notTagContains")
     }
     else {
       val values = notTagContains.tagValues.map(v => s"$v").mkString("|")

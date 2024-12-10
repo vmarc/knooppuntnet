@@ -19,7 +19,7 @@ object MemoryLog {
 
 class MemoryLog(logPeriodInSeconds: Int) {
 
-  MemoryLog.LOG.info("Logging memory statistics every " + logPeriodInSeconds + " seconds")
+  MemoryLog.LOG.info(s"Logging memory statistics every $logPeriodInSeconds seconds")
 
   private val startTime = System.nanoTime
 
@@ -30,13 +30,7 @@ class MemoryLog(logPeriodInSeconds: Int) {
   private def logMemoryUsage(): Unit = {
     val elapsed: Long = (System.nanoTime - startTime) / 1000000000
     val m = currentMemoryUsage()
-    val message = "elapsed=%ds, initial=%s, used=%s, committed=%s, max=%s".format(
-      elapsed,
-      toMb(m.init),
-      toMb(m.used),
-      toMb(m.committed),
-      toMb(m.max)
-    )
+    val message = s"elapsed=${elapsed}s, initial=${toMb(m.init)}, used=${toMb(m.used)}, committed=${toMb(m.committed)}, max=${toMb(m.max)}"
     MemoryLog.LOG.info(message)
   }
 

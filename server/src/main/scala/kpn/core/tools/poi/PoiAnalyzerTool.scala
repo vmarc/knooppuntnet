@@ -118,7 +118,7 @@ class PoiAnalyzerTool(
                         case None => context.analysis.addressLine2
                         case Some(addressLine1) =>
                           context.analysis.addressLine2 match {
-                            case Some(addressLine2) => Some(addressLine1 + ", " + addressLine2)
+                            case Some(addressLine2) => Some(s"$addressLine1, $addressLine2")
                             case None => Some(addressLine1)
                           }
                       }

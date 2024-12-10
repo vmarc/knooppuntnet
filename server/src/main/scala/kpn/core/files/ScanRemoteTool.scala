@@ -29,7 +29,7 @@ class ScanRemoteTool(config: FtpConfig) {
   private def scan(fileSystem: FileSystem, dir: String): Unit = {
     println(dir)
     fileSystem.listFiles(dir).foreach { item =>
-      println(FsUtils.withTrailingSlash(dir) + item.name)
+      println(s"${FsUtils.withTrailingSlash(dir)}${item.name}")
     }
   }
 }

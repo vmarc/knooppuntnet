@@ -32,7 +32,7 @@ object MonitorRouteCopyTool {
     }
 
     private def copyCollection[T](name: String, source: DatabaseCollection[T], target: DatabaseCollection[T]): Unit = {
-      println("Collecting ids: " + name)
+      println(s"Collecting ids: $name")
       val ids = source.objectIds()
       val idsSize = ids.size
       ids.zipWithIndex.foreach { case (id, index) =>

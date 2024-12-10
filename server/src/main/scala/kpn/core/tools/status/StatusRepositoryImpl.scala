@@ -44,7 +44,7 @@ class StatusRepositoryImpl(dirs: Dirs) extends StatusRepository {
   }
 
   override def write(file: File, replicationId: ReplicationId): Unit = {
-    val tempFile = new File(file.getAbsolutePath + ".tmp")
+    val tempFile = new File(s"${file.getAbsolutePath}.tmp")
     FileUtils.writeStringToFile(tempFile, s"${replicationId.number}\n", "UTF-8")
     tempFile.renameTo(file)
   }

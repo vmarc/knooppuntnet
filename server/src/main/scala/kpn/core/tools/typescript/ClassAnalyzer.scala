@@ -69,10 +69,10 @@ class ClassAnalyzer {
 
             val fileName = {
               if (fieldPackageName == packageName) {
-                "./" + CamelCaseUtil.toDashed(withoutPackage)
+                s"./${CamelCaseUtil.toDashed(withoutPackage)}"
               }
               else if (fieldPackageName.startsWith("kpn.api.")) {
-                "@api/" + fieldPackageName.substring("kpn.api.".length).replaceAll("\\.", "/")
+                s"@api/${fieldPackageName.substring("kpn.api.".length).replaceAll("\\.", "/")}"
               }
               else {
                 throw new RuntimeException("unexpected field package name")

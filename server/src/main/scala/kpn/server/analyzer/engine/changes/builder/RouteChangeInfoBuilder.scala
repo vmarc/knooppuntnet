@@ -204,7 +204,7 @@ class RouteChangeInfoBuilder {
       )
     }
     else {
-      throw new IllegalStateException("Cannot derive RouteChangeInfo from RouteChange " + routeChange)
+      throw new IllegalStateException(s"Cannot derive RouteChangeInfo from RouteChange $routeChange")
     }
   }
 }
