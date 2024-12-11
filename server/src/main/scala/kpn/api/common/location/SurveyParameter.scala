@@ -7,24 +7,17 @@ sealed trait SurveyParameter extends EnumEntry
 
 object SurveyParameter extends Enum[SurveyParameter] {
 
-  val values: IndexedSeq[SurveyParameter] = IndexedSeq(
-    unknown,
-    lastMonth,
-    lastHalfYear,
-    lastYear,
-    lastTwoYears,
-    older
-  )
+  val values: IndexedSeq[SurveyParameter] = findValues
 
-  case object unknown extends SurveyParameter
+  final case object unknown extends SurveyParameter
 
-  case object lastMonth extends SurveyParameter
+  final case object lastMonth extends SurveyParameter
 
-  case object lastHalfYear extends SurveyParameter
+  final case object lastHalfYear extends SurveyParameter
 
-  case object lastYear extends SurveyParameter
+  final case object lastYear extends SurveyParameter
 
-  case object lastTwoYears extends SurveyParameter
+  final case object lastTwoYears extends SurveyParameter
 
-  case object older extends SurveyParameter
+  final case object older extends SurveyParameter
 }

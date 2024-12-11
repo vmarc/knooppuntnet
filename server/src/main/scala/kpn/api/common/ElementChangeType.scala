@@ -7,18 +7,13 @@ sealed trait ElementChangeType extends EnumEntry
 
 object ElementChangeType extends Enum[ElementChangeType] {
 
-  val values: IndexedSeq[ElementChangeType] = IndexedSeq(
-    Unchanged,
-    Added,
-    Changed,
-    Removed
-  )
+  val values: IndexedSeq[ElementChangeType] = findValues
 
-  case object Unchanged extends ElementChangeType
+  final case object Unchanged extends ElementChangeType
 
-  case object Added extends ElementChangeType
+  final case object Added extends ElementChangeType
 
-  case object Changed extends ElementChangeType
+  final case object Changed extends ElementChangeType
 
-  case object Removed extends ElementChangeType
+  final case object Removed extends ElementChangeType
 }
