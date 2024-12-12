@@ -6,12 +6,14 @@ import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkType
+import kpn.api.custom.NetworkTypeLetter
 
 object NodeTagDiffAnalyzer {
 
   private val prefixes = NetworkScope.all.flatMap { networkScope =>
     NetworkType.all.map { networkType =>
-      s"${networkScope.letter}${networkType.letter}"
+      val networkTypeLetter = NetworkTypeLetter.letter(networkType)
+      s"${networkScope.letter}${networkTypeLetter}"
     }
   }
 

@@ -10,7 +10,8 @@ object ScopedNetworkType {
   val lpn: ScopedNetworkType = ScopedNetworkType(NetworkScope.local, NetworkType.canoe)
 
   def apply(networkScope: NetworkScope, networkType: NetworkType): ScopedNetworkType = {
-    val key = s"${networkScope.letter}${networkType.letter}n"
+    val letter = NetworkTypeLetter.letter(networkType)
+    val key = s"${networkScope.letter}${letter}n"
     ScopedNetworkType(networkScope, networkType, key)
   }
 

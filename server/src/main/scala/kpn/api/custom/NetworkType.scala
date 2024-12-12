@@ -6,17 +6,17 @@ object NetworkType {
     all.find(_.name == name)
   }
 
-  val hiking: NetworkType = NetworkType("hiking", "w", Seq("hiking", "walking", "foot"))
-  val cycling: NetworkType = NetworkType("cycling", "c", Seq("bicycle"))
-  val horseRiding: NetworkType = NetworkType("horse-riding", "h", Seq("horse"))
-  val canoe: NetworkType = NetworkType("canoe", "p", Seq("canoe"))
-  val motorboat: NetworkType = NetworkType("motorboat", "m", Seq("motorboat"))
-  val inlineSkating: NetworkType = NetworkType("inline-skating", "i", Seq("inline_skates"))
+  val hiking: NetworkType = NetworkType("hiking")
+  val cycling: NetworkType = NetworkType("cycling")
+  val horseRiding: NetworkType = NetworkType("horse-riding")
+  val canoe: NetworkType = NetworkType("canoe")
+  val motorboat: NetworkType = NetworkType("motorboat")
+  val inlineSkating: NetworkType = NetworkType("inline-skating")
 
   val all: Seq[NetworkType] = Seq(hiking, cycling, horseRiding, canoe, motorboat, inlineSkating)
 }
 
-case class NetworkType(name: String, letter: String, routeTagValues: Seq[String]) {
+case class NetworkType(name: String) {
 
   override def toString: String = name
 
