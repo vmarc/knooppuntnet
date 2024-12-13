@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.location
 
+import kpn.api.common.Country
 import kpn.api.common.Language
-import kpn.api.custom.Country
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.location.LocationNameDefinition
 import kpn.core.tools.location.LocationNameDefinitions
@@ -16,15 +16,15 @@ class LocationConfigurationReader {
   private val log = Log(classOf[LocationConfigurationReader])
 
   def read(): LocationConfiguration = {
-    val rootLocations = Country.all.map { country =>
-      log.info(s"Loading ${country.domain.toUpperCase}")
+    val rootLocations = Country.values.map { country =>
+      log.info(s"Loading ${country.entryName.toUpperCase}")
       val locationNameDefinitions = {
-        val filename = s"${Dirs.root}/locations/${country.domain}/locations.json"
+        val filename = s"${Dirs.root}/locations/${country.entryName}/locations.json"
         val string = FileUtils.readFileToString(new File(filename), "UTF-8")
         Json.objectMapper.readValue(string, classOf[LocationNameDefinitions])
       }
       val locationMap = locationNameDefinitions.locations.map(lnd => lnd.id -> lnd).toMap
-      val treeFilename = s"${Dirs.root}/locations/${country.domain}/tree.json"
+      val treeFilename = s"${Dirs.root}/locations/${country.entryName}/tree.json"
       val string = FileUtils.readFileToString(new File(treeFilename), "UTF-8")
       val tree = Json.objectMapper.readValue(string, classOf[LocationTree])
       toLocation(locationMap, tree)

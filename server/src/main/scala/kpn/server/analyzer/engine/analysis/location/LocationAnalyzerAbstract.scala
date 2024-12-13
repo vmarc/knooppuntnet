@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.location
 
+import kpn.api.common.Country
 import kpn.api.common.LatLon
-import kpn.api.custom.Country
 import kpn.api.custom.Relation
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
 
@@ -34,7 +34,7 @@ abstract class LocationAnalyzerAbstract extends LocationAnalyzer {
       val countryCounts: Map[Country, Int] = c.groupBy(identity).map(e => e._1 -> e._2.size)
       val maxCountryCount = countryCounts.values.max
       val countriesWithMaxCount = countryCounts.filter(_._2 == maxCountryCount).keys
-      Some(countriesWithMaxCount.minBy(_.domain))
+      Some(countriesWithMaxCount.minBy(_.entryName))
     }
     else {
       None

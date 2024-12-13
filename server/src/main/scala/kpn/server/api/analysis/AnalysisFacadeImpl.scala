@@ -2,6 +2,7 @@ package kpn.server.api.analysis
 
 import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
+import kpn.api.common.Country
 import kpn.api.common.Language
 import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
@@ -40,7 +41,6 @@ import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
 import kpn.api.custom.Subset
@@ -267,7 +267,7 @@ class AnalysisFacadeImpl(
   }
 
   override def locationDetails(language: Language, locationKey: LocationKey): ApiResponse[LocationDetailsPage] = {
-    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.domain}, ${locationKey.name}"
+    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
     api.execute("location-details", args) {
       reply(locationDetailsPageBuilder.build(language, locationKey))
     }
@@ -276,7 +276,7 @@ class AnalysisFacadeImpl(
   override def locationNodes(language: Language, key: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
     val args = Seq(
       Some(key.networkType.entryName),
-      Some(key.country.domain),
+      Some(key.country.entryName),
       Some(key.name),
       Some(s"pageSize=${parameters.pageSize}"),
       Some(s"pageIndex=${parameters.pageIndex}"),
@@ -297,7 +297,7 @@ class AnalysisFacadeImpl(
   override def locationRoutes(language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage] = {
     val args = Seq(
       Some(locationKey.networkType.entryName),
-      Some(locationKey.country.domain),
+      Some(locationKey.country.entryName),
       Some(locationKey.name),
       Some(s"pageSize=${parameters.pageSize}"),
       Some(s"pageIndex=${parameters.pageIndex}"),
@@ -313,28 +313,28 @@ class AnalysisFacadeImpl(
   }
 
   override def locationFacts(language: Language, locationKey: LocationKey): ApiResponse[LocationFactsPage] = {
-    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.domain}, ${locationKey.name}"
+    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
     api.execute("location-facts", args) {
       reply(locationFactsPageBuilder.build(language, locationKey))
     }
   }
 
   override def locationMap(language: Language, locationKey: LocationKey): ApiResponse[LocationMapPage] = {
-    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.domain}, ${locationKey.name}"
+    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
     api.execute("location-map", args) {
       reply(locationMapPageBuilder.build(language, locationKey))
     }
   }
 
   override def locationChanges(language: Language, locationKey: LocationKey, parameters: ChangesParameters): ApiResponse[LocationChangesPage] = {
-    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.domain}, ${locationKey.name}"
+    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
     api.execute("location-changes", args) {
       reply(locationChangesPageBuilder.build(language, locationKey, parameters))
     }
   }
 
   override def locationEdit(language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage] = {
-    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.domain}, ${locationKey.name}"
+    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
     api.execute("location-edit", args) {
       reply(locationEditPageBuilder.build(language, locationKey))
     }

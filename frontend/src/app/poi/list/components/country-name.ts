@@ -1,4 +1,4 @@
-import { Country } from '@api/custom';
+import { Country } from '@api/common';
 
 export class CountryName {
   constructor(

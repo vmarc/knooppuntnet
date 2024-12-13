@@ -1,6 +1,6 @@
 package kpn.core.tools.country
 
-import kpn.api.custom.Country
+import kpn.api.common.Country
 import kpn.core.tools.config.Dirs
 import org.locationtech.jts.geom.Polygon
 import org.locationtech.jts.io.WKTWriter
@@ -10,14 +10,14 @@ import java.io.FileWriter
 object CountryBoundaryTool {
 
   def main(args: Array[String]): Unit = {
-    Country.all.foreach { country =>
+    Country.values.foreach { country =>
       val data = load(country)
-      val polygons = new PolygonBuilder(country.domain, data).polygons()
+      val polygons = new PolygonBuilder(country.entryName, data).polygons()
       log(polygons)
       val writer = new WKTWriter()
       polygons.zipWithIndex.foreach { case (polygon, index) =>
         val suffix = "%02d".format(index + 1)
-        val filename = s"${Dirs.root}/country/${country.domain}-$suffix.poly"
+        val filename = s"${Dirs.root}/country/${country.entryName}-$suffix.poly"
         val w = new FileWriter(filename)
         try {
           writer.writeFormatted(polygon, w)
@@ -30,7 +30,7 @@ object CountryBoundaryTool {
   }
 
   private def load(country: Country): SkeletonData = {
-    println(s"Collecting boundary information for ${country.domain}")
+    println(s"Collecting boundary information for ${country.entryName}")
     val loader = new CountryBoundaryLoader()
     val id = loader.countryId(country)
     val data = {

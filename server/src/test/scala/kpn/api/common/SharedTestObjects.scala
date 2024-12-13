@@ -55,7 +55,6 @@ import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.custom.Change
-import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
@@ -1470,7 +1469,7 @@ trait SharedTestObjects extends MockFactory {
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty
   ): OrphanNodeDoc = {
-    val _id = s"${country.domain}:${networkType.entryName}:$nodeId"
+    val _id = s"${country.entryName}:${networkType.entryName}:$nodeId"
     OrphanNodeDoc(
       _id,
       country,

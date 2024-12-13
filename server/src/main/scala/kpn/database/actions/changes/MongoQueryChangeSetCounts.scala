@@ -21,7 +21,7 @@ class MongoQueryChangeSetCounts(database: Database) {
     val mainFilter = subset.map { subset =>
       filter(
         and(
-          equal("subsets.country", subset.country.domain),
+          equal("subsets.country", subset.country.entryName),
           equal("subsets.networkType", subset.networkType.entryName)
         )
       )

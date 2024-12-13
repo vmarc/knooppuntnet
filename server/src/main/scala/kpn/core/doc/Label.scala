@@ -1,7 +1,7 @@
 package kpn.core.doc
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
-import kpn.api.custom.Country
 import kpn.api.custom.Fact
 
 object Label {
@@ -14,7 +14,7 @@ object Label {
 
   def location(locationName: String): String = s"location-$locationName"
 
-  def country(country: Country): String = location(country.domain)
+  def country(country: Country): String = location(country.entryName)
 
   def fact(fact: Fact): String = s"fact-${fact.name}"
 

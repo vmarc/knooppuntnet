@@ -5,17 +5,17 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.api.custom.Country
+import kpn.api.common.Country
 
 class CountryJsonDeserializer extends JsonDeserializer[Country] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): Country = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    val domain = node.asText
-    if (domain == null || domain.isEmpty) {
+    val name = node.asText
+    if (name == null || name.isEmpty) {
       null
     }
     else {
-      Country.withDomain(domain).getOrElse(
+      Country.withNameOption(name).getOrElse(
         throw JsonMappingException.from(
           jsonParser,
           "Could not deserialize country"

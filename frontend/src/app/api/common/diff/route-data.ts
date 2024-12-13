@@ -1,11 +1,11 @@
 // this file is generated, please do not modify
 
+import { Country } from '@api/common';
 import { NetworkType } from '@api/common';
 import { RouteLocationAnalysis } from '@api/common';
 import { MetaData } from '@api/common/data';
 import { Way } from '@api/common/data';
 import { RouteNode } from '@api/common/route';
-import { Country } from '@api/custom';
 import { Fact } from '@api/custom';
 import { Tag } from '@api/custom';
 

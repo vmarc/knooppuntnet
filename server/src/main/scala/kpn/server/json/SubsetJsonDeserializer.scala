@@ -5,8 +5,8 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
-import kpn.api.custom.Country
 import kpn.api.custom.Subset
 
 class SubsetJsonDeserializer extends JsonDeserializer[Subset] {

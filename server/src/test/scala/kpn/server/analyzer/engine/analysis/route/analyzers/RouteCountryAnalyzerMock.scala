@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.Country
+import kpn.api.common.Country
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class RouteCountryAnalyzerMock(country: Country = Country.be) extends RouteCountryAnalyzer {

@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
+import { Country } from '@api/common';
 import { LatLonImpl } from '@api/common';
 import { NetworkType } from '@api/common';
-import { Country } from '@api/custom';
 import { NetworkScope } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { Integrity } from './integrity';

@@ -1,5 +1,6 @@
 package kpn.api.custom
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
 
 object Subset {
@@ -55,7 +56,7 @@ object Subset {
   )
 
   def ofName(domain: String, networkTypeName: String): Option[Subset] = {
-    all.find(s => s.country.domain == domain && s.networkType.entryName == networkTypeName)
+    all.find(s => s.country.entryName == domain && s.networkType.entryName == networkTypeName)
   }
 
   def of(country: Country, networkType: NetworkType): Option[Subset] = {
@@ -65,13 +66,13 @@ object Subset {
 
 case class Subset(country: Country, networkType: NetworkType) extends Ordered[Subset] {
 
-  def key: String = s"${country.domain}:${networkType.entryName}"
+  def key: String = s"${country.entryName}:${networkType.entryName}"
 
-  def name: String = s"${country.domain}-${networkType.entryName}"
+  def name: String = s"${country.entryName}-${networkType.entryName}"
 
-  def string: String = s"${country.domain}/${networkType.entryName}"
+  def string: String = s"${country.entryName}/${networkType.entryName}"
 
   import scala.math.Ordered.orderingToOrdered
 
-  def compare(that: Subset): Int = (this.country.domain, this.networkType.entryName).compare((that.country.domain, that.networkType.entryName))
+  def compare(that: Subset): Int = (this.country.entryName, this.networkType.entryName).compare((that.country.entryName, that.networkType.entryName))
 }

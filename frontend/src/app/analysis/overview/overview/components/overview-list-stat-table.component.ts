@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Country } from '@api/custom';
 import { Stat } from '../../domain/stat';
 import { OverviewListStatRowComponent } from './overview-list-stat-row.component';
 
@@ -13,87 +12,63 @@ import { OverviewListStatRowComponent } from './overview-list-stat-row.component
       <tbody>
         <kpn-overview-list-stat-row
           [stat]="stat()"
-          [country]="country.nl"
+          country="nl"
           networkType="cycling"
           [rowspan]="6"
         />
-        <kpn-overview-list-stat-row [stat]="stat()" [country]="country.nl" networkType="hiking" />
-        <kpn-overview-list-stat-row
-          [stat]="stat()"
-          [country]="country.nl"
-          networkType="horse-riding"
-        />
-        <kpn-overview-list-stat-row
-          [stat]="stat()"
-          [country]="country.nl"
-          networkType="motorboat"
-        />
-        <kpn-overview-list-stat-row [stat]="stat()" [country]="country.nl" networkType="canoe" />
-        <kpn-overview-list-stat-row
-          [stat]="stat()"
-          [country]="country.nl"
-          networkType="inline-skating"
-        />
+        <kpn-overview-list-stat-row [stat]="stat()" country="nl" networkType="hiking" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="nl" networkType="horse-riding" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="nl" networkType="motorboat" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="nl" networkType="canoe" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="nl" networkType="inline-skating" />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
-          [country]="country.be"
+          country="be"
           networkType="cycling"
           [rowspan]="3"
         />
-        <kpn-overview-list-stat-row [stat]="stat()" [country]="country.be" networkType="hiking" />
-        <kpn-overview-list-stat-row
-          [stat]="stat()"
-          [country]="country.be"
-          networkType="horse-riding"
-        />
+        <kpn-overview-list-stat-row [stat]="stat()" country="be" networkType="hiking" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="be" networkType="horse-riding" />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
-          [country]="country.de"
+          country="de"
           networkType="cycling"
           [rowspan]="3"
         />
-        <kpn-overview-list-stat-row [stat]="stat()" [country]="country.de" networkType="hiking" />
-        <kpn-overview-list-stat-row
-          [stat]="stat()"
-          [country]="country.de"
-          networkType="horse-riding"
-        />
+        <kpn-overview-list-stat-row [stat]="stat()" country="de" networkType="hiking" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="de" networkType="horse-riding" />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
-          [country]="country.fr"
+          country="fr"
           networkType="cycling"
           [rowspan]="4"
         />
-        <kpn-overview-list-stat-row [stat]="stat()" [country]="country.fr" networkType="hiking" />
-        <kpn-overview-list-stat-row
-          [stat]="stat()"
-          [country]="country.fr"
-          networkType="horse-riding"
-        />
-        <kpn-overview-list-stat-row [stat]="stat()" [country]="country.fr" networkType="canoe" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="fr" networkType="hiking" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="fr" networkType="horse-riding" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="fr" networkType="canoe" />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
-          [country]="country.at"
+          country="at"
           networkType="cycling"
           [rowspan]="1"
         />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
-          [country]="country.es"
+          country="es"
           networkType="cycling"
           [rowspan]="2"
         />
 
-        <kpn-overview-list-stat-row [stat]="stat()" [country]="country.es" networkType="hiking" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="es" networkType="hiking" />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
-          [country]="country.dk"
+          country="dk"
           networkType="cycling"
           [rowspan]="1"
         />
@@ -118,5 +93,4 @@ import { OverviewListStatRowComponent } from './overview-list-stat-row.component
 })
 export class OverviewListStatTableComponent {
   stat = input.required<Stat>();
-  country = Country;
 }

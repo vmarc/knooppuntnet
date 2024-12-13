@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.node
 
+import kpn.api.common.Country
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNode
-import kpn.api.custom.Country
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags

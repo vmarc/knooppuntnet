@@ -1,11 +1,11 @@
 package kpn.api.common.changes.details
 
 import kpn.api.common.ChangeType
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.custom.Country
 
 case class NetworkChangeInfo(
   rowIndex: Long,

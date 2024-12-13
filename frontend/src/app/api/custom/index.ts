@@ -3,7 +3,6 @@ export * from './tag';
 export * from './fact';
 export * from './change';
 export * from './subset';
-export * from './country';
 export * from './relation';
 export * from './timestamp';
 export * from './statistics';

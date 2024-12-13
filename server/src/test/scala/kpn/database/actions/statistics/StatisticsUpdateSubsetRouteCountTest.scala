@@ -1,12 +1,12 @@
 package kpn.database.actions.statistics
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
 import kpn.api.common.NetworkType.cycling
 import kpn.api.common.NetworkType.hiking
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Country
-import kpn.api.custom.Country.de
-import kpn.api.custom.Country.nl
+import Country.de
+import Country.nl
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest

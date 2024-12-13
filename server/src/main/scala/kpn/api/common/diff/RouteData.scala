@@ -1,5 +1,6 @@
 package kpn.api.common.diff
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.Ref
@@ -7,7 +8,6 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.data.Tagable
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteNode
-import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag

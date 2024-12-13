@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
+import kpn.api.common.Country
 import kpn.api.common.data.Tagable
-import kpn.api.custom.Country
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.doc.NodeDoc
 import kpn.database.base.Database
@@ -40,12 +40,12 @@ class FindSuspiciousExpectedRouteRelationsTags(database: Database) {
   }
 
   private def report(nodes: Seq[NodeDoc]): Unit = {
-    Country.all.foreach { country =>
-      println(s"** ${country.domain} ***")
+    Country.values.foreach { country =>
+      println(s"** ${country.entryName} ***")
       val countryNodes = nodes.filter(_.country.contains(country))
       val countryNodesSize = countryNodes.size
       countryNodes.zipWithIndex.foreach { case (node, index) =>
-        println(s"${country.domain} ${index + 1}/$countryNodesSize [${node.name}](http://localhost:4000/analysis/node/${node._id})")
+        println(s"${country.entryName} ${index + 1}/$countryNodesSize [${node.name}](http://localhost:4000/analysis/node/${node._id})")
         reportNode(node)
       }
     }

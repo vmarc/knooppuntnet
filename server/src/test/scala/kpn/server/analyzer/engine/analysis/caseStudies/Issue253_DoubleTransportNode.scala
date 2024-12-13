@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
 import kpn.api.common.NetworkType.hiking
 import kpn.api.common.NodeName
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
-import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag

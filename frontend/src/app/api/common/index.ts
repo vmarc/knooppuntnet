@@ -12,6 +12,7 @@ export * from './change-set-summary-network-info';
 export * from './change-type';
 export * from './changes-page';
 export * from './check';
+export * from './country';
 export * from './element-change-type';
 export * from './fact-count';
 export * from './lat-lon-impl';

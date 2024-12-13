@@ -5,7 +5,7 @@ import { signal } from '@angular/core';
 import { PoiLocationsPage } from '@api/common';
 import { LocationPoiSummaryPage } from '@api/common';
 import { LocationPoisPage } from '@api/common';
-import { Country } from '@api/custom';
+import { Country } from '@api/common';
 import { ApiResponse } from '@api/custom';
 import { PreferencesService } from '@app/core';
 import { RouterService } from '../../shared/services/router.service';

@@ -1,7 +1,7 @@
 package kpn.database.actions.locations
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
-import kpn.api.custom.Country
 import kpn.core.doc.Label
 import kpn.core.doc.LocationNodeCount
 import kpn.core.util.Log
@@ -47,7 +47,7 @@ class MongoQueryLocationNodeCounts(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.location(country.domain)),
+          equal("labels", Label.location(country.entryName)),
           equal("labels", Label.networkType(networkType))
         )
       ),

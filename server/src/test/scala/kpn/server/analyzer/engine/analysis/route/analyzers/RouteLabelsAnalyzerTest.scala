@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
@@ -23,7 +23,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         Label.fact(Fact.RouteBroken),
         Label.facts,
         Label.location("Essen"),
-        Label.location(Country.be.domain),
+        Label.location(Country.be.entryName),
         Label.networkType(NetworkType.hiking),
         Label.survey,
       )
@@ -65,7 +65,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         "broken",
         Label.fact(Fact.RouteBroken),
         Label.facts,
-        Label.location(Country.be.domain),
+        Label.location(Country.be.entryName),
         Label.networkType(NetworkType.hiking),
         Label.survey,
       )

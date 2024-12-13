@@ -1,7 +1,7 @@
 package kpn.api.common.subset
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
-import kpn.api.custom.Country
 
 case class SubsetInfo(
   country: Country,

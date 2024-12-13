@@ -1,7 +1,7 @@
 package kpn.server.json
 
 import com.fasterxml.jackson.databind.JsonMappingException
-import kpn.api.custom.Country
+import kpn.api.common.Country
 import kpn.core.util.UnitTest
 
 class CountryJsonTest extends UnitTest {

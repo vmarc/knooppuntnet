@@ -1,12 +1,10 @@
 package kpn.core.doc
 
 import kpn.api.base.WithId
+import kpn.api.common.Country
 import kpn.api.common.NetworkFact
-import kpn.api.common.data.Meta
-import kpn.api.common.data.MetaData
 import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkSummary
-import kpn.api.custom.Country
 import kpn.api.custom.ScopedNetworkType
 
 case class NetworkInfoDoc(

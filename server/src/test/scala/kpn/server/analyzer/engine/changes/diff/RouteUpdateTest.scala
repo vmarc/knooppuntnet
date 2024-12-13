@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.diff
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.diff.RouteData
-import kpn.api.custom.Country
 import kpn.api.custom.Subset
 import kpn.core.util.UnitTest
 

@@ -4,6 +4,7 @@ import kpn.api.common.ChangeSetNetwork
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ChangeType
+import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
@@ -17,7 +18,6 @@ import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.custom.Country
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.test.TestSupport.withDatabase

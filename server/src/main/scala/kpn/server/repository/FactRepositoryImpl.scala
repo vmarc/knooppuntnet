@@ -107,7 +107,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
         filter(
           and(
             equal("active", true),
-            equal("country", subset.country.domain),
+            equal("country", subset.country.entryName),
             equal("summary.networkType", subset.networkType.entryName)
           )
         ),
@@ -133,7 +133,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
         filter(
           and(
             equal("active", true),
-            equal("country", subset.country.domain),
+            equal("country", subset.country.entryName),
             equal("summary.networkType", subset.networkType.entryName)
           )
         ),
@@ -167,7 +167,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
         filter(
           and(
             equal("active", true),
-            equal("country", subset.country.domain),
+            equal("country", subset.country.entryName),
             equal("summary.networkType", subset.networkType.entryName)
           )
         ),
@@ -260,7 +260,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
         filter(
           and(
             equal("active", true),
-            equal("country", subset.country.domain),
+            equal("country", subset.country.entryName),
             equal("summary.networkType", subset.networkType.entryName)
           )
         ),

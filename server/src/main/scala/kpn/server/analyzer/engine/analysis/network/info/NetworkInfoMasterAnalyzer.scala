@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.info
 
-import kpn.api.custom.Country
+import kpn.api.common.Country
 import kpn.api.custom.Timestamp
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log

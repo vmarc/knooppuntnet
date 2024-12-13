@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.api.custom.Country
+import kpn.api.common.Country
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.location.LocationGeometry
 import kpn.core.tools.location.LocationNameDefinitions
@@ -27,11 +27,11 @@ class LocationStoreReader(development: Boolean) {
       Seq(Country.nl, Country.be)
     }
     else {
-      Country.all
+      Country.values
     }
     val countries: Seq[LocationStoreCountry] = locationCounties.map { country =>
       val locationStoreCountry = loadCountry(country)
-      val filename = s"$root/${country.domain}/tree.json"
+      val filename = s"$root/${country.entryName}/tree.json"
       val string = FileUtils.readFileToString(new File(filename), "UTF-8")
       val tree = Json.objectMapper.readValue(string, classOf[LocationTree])
       val location = toLocation(locationStoreCountry.dataMap, tree)
@@ -41,15 +41,15 @@ class LocationStoreReader(development: Boolean) {
   }
 
   private def loadCountry(country: Country): LocationStoreCountry = {
-    log.info(s"Loading ${country.domain.toUpperCase}")
+    log.info(s"Loading ${country.entryName.toUpperCase}")
     val locationNameDefinitions = {
-      val filename = s"$root/${country.domain}/locations.json"
+      val filename = s"$root/${country.entryName}/locations.json"
       val string = FileUtils.readFileToString(new File(filename), "UTF-8")
       Json.objectMapper.readValue(string, classOf[LocationNameDefinitions])
     }
     val dataMap = locationNameDefinitions.locations.map { locationNameDefinition =>
       val locationGeometry = {
-        val filename = s"$root/${country.domain}/geometries/${locationNameDefinition.id}.json"
+        val filename = s"$root/${country.entryName}/geometries/${locationNameDefinition.id}.json"
         val string = FileUtils.readFileToString(new File(filename), "UTF-8")
         val geometry = Json.objectMapper.readValue(string, classOf[Geometry])
         LocationGeometry(geometry)
@@ -67,7 +67,7 @@ class LocationStoreReader(development: Boolean) {
     LocationStoreCountry(
       country,
       dataMap,
-      dataMap(country.domain)
+      dataMap(country.entryName)
     )
   }
 

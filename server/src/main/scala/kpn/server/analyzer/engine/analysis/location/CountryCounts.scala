@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.api.custom.Country
+import kpn.api.common.Country
 
 object CountryCounts {
   def apply(countries: Seq[Option[Country]]): CountryCounts = {
@@ -35,14 +35,14 @@ case class CountryCounts(counts: Map[Option[Country], Int] = Map.empty) {
       case None => "Foreign country"
       case Some(country) =>
         if (counts.size == 1) {
-          s"Country=${country.domain}"
+          s"Country=${country.entryName}"
         }
         else {
-          s"Country=${country.domain} ${
+          s"Country=${country.entryName} ${
             counts.map { case (countryOption, count) =>
               val key = countryOption match {
                 case None => "Foreign"
-                case Some(c) => c.domain
+                case Some(c) => c.entryName
               }
               s"$key=$count"
             }.mkString(", ")

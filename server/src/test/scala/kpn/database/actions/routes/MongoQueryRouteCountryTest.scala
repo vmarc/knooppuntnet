@@ -1,7 +1,7 @@
 package kpn.database.actions.routes
 
+import kpn.api.common.Country
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Country
 import kpn.core.doc.NetworkRelationMember
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest

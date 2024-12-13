@@ -1,6 +1,6 @@
 package kpn.database.actions.routes
 
-import kpn.api.custom.Country
+import kpn.api.common.Country
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryRouteCountry.log
 import kpn.database.base.CountryResult

@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.data.Node
 import kpn.api.common.route.RouteEdge
-import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Relation

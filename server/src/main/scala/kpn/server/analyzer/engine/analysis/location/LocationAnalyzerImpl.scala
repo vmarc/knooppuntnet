@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.location
 
+import kpn.api.common.Country
 import kpn.api.common.LatLon
-import kpn.api.custom.Country
 import kpn.core.util.Log
 import org.locationtech.jts.geom.Geometry
 import org.springframework.stereotype.Component
@@ -20,7 +20,7 @@ class LocationAnalyzerImpl(analyzerEnabled: Boolean, development: Boolean) exten
 
   override def countries(latLon: LatLon): Seq[Country] = {
     locationStore.countries.filter { countryLocations =>
-      countryLocations.dataMap.get(countryLocations.country.domain) match {
+      countryLocations.dataMap.get(countryLocations.country.entryName) match {
         case Some(loc) => loc.contains(latLon.latitude, latLon.longitude)
         case None => // throw exception ? log error?
           false

@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
-import kpn.api.custom.Country
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.repository.RouteRepositoryImpl
@@ -47,13 +47,13 @@ class DuplicateRoutesReport(database: Database) {
     val routeIds = routeRepository.activeRouteIds()
     val routes = loadRoutes(routeIds)
 
-    Country.all.foreach { country =>
+    Country.values.foreach { country =>
       NetworkType.values.foreach { networkType =>
         val subsetRoutes = routes.filter(_.country == country).filter(_.networkTypes.contains(networkType))
         val overlaps = findOverlaps(subsetRoutes)
         if (overlaps.nonEmpty) {
           println()
-          println(s"### ${country.domain}/${networkType.entryName} ${subsetRoutes.size} routes, with ${overlaps.size} overlaps")
+          println(s"### ${country.entryName}/${networkType.entryName} ${subsetRoutes.size} routes, with ${overlaps.size} overlaps")
           println()
           printTableHeader()
           overlaps.sorted.foreach(printOverlap)

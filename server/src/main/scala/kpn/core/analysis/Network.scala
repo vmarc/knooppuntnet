@@ -1,12 +1,12 @@
 package kpn.core.analysis
 
 import kpn.api.common.Bounds
+import kpn.api.common.Country
 import kpn.api.common.NetworkFacts
 import kpn.api.common.NetworkType
 import kpn.api.common.common.Ref
 import kpn.api.common.data.Node
 import kpn.api.common.network.NetworkShape
-import kpn.api.custom.Country
 import kpn.api.custom.Fact.RouteInaccessible
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.Relation

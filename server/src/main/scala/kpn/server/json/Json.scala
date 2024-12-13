@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import kpn.api.base.ObjectId
 import kpn.api.common.ChangeType
+import kpn.api.common.Country
 import kpn.api.common.ElementChangeType
 import kpn.api.common.Language
 import kpn.api.common.NetworkType
@@ -18,7 +19,6 @@ import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.SurveyParameter
 import kpn.api.common.planner.PlanCoordinate
 import kpn.api.common.route.WayDirection
-import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationNodesType

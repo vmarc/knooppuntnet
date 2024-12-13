@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.location
 
+import kpn.api.common.Country
 import kpn.api.common.LatLon
-import kpn.api.custom.Country
 import org.locationtech.jts.geom.Geometry
 
 class LocationAnalyzerMock extends LocationAnalyzerAbstract {

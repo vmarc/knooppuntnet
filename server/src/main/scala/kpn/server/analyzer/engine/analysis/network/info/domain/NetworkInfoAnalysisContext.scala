@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.network.info.domain
 
+import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkFact
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkShape
-import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType

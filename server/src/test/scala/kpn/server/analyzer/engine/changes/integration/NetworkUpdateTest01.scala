@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
+import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
@@ -16,7 +17,6 @@ import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
-import kpn.api.custom.Country
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData

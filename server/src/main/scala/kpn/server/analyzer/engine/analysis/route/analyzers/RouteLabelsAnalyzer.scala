@@ -20,7 +20,7 @@ class RouteLabelsAnalyzer(context: RouteDetailAnalysisContext) {
     val locationLabels = {
       val analysisLabels = context.locationAnalysis.locationNames.map(location => Label.location(location))
       if (analysisLabels.isEmpty) {
-        context.countries.map(country => Label.location(country.domain))
+        context.countries.map(country => Label.location(country.entryName))
       }
       else {
         analysisLabels

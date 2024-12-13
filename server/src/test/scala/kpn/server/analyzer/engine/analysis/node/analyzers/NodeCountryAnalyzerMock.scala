@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.node.analyzers
 
-import kpn.api.custom.Country
+import kpn.api.common.Country
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
 class NodeCountryAnalyzerMock(country: Option[Country]) extends NodeCountryAnalyzer {

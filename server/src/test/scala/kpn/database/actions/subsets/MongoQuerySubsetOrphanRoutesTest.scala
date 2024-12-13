@@ -1,8 +1,8 @@
 package kpn.database.actions.subsets
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset

@@ -75,7 +75,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
         filter(
           and(
             equal("active", true),
-            equal("country", subset.country.domain),
+            equal("country", subset.country.entryName),
             equal("summary.networkType", subset.networkType.entryName)
           )
         ),
@@ -101,7 +101,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
         filter(
           and(
             equal("active", true),
-            equal("country", subset.country.domain),
+            equal("country", subset.country.entryName),
             equal("summary.networkType", subset.networkType.entryName)
           )
         ),

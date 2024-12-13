@@ -1,12 +1,12 @@
 package kpn.server.api.analysis.pages.location
 
+import kpn.api.common.Country
 import kpn.api.common.Language
 import kpn.api.common.LocationChangeSetInfo
 import kpn.api.common.LocationChangesInfo
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
-import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetInfoRepository

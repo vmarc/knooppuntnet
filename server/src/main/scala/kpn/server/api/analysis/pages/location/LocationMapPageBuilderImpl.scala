@@ -1,9 +1,9 @@
 package kpn.server.api.analysis.pages.location
 
+import kpn.api.common.Country
 import kpn.api.common.Language
 import kpn.api.common.NetworkType
 import kpn.api.common.location.LocationMapPage
-import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
 import kpn.core.tools.config.Dirs
 import kpn.core.util.GeometryUtil
@@ -39,7 +39,7 @@ class LocationMapPageBuilderImpl(
 
     if (locationKeyParam.name == ParcDuVercors.name) {
       val geometries = ParcDuVercors.communes.map { locationId =>
-        val filename = s"${Dirs.root}/locations/${locationKeyParam.country.domain}/geometries/$locationId.json"
+        val filename = s"${Dirs.root}/locations/${locationKeyParam.country.entryName}/geometries/$locationId.json"
         var geoJson = FileUtils.readFileToString(new File(filename), "UTF-8")
         geoJson = geoJson.replace("EPSG:0", "EPSG:4326")
         new GeoJsonReader().read(geoJson)
@@ -61,7 +61,7 @@ class LocationMapPageBuilderImpl(
       )
     }
     else {
-      val filename = s"${Dirs.root}/locations/${locationKeyParam.country.domain}/geometries/${subset.locationIds.head}.json"
+      val filename = s"${Dirs.root}/locations/${locationKeyParam.country.entryName}/geometries/${subset.locationIds.head}.json"
       var geoJson = FileUtils.readFileToString(new File(filename), "UTF-8")
       geoJson = geoJson.replace("EPSG:0", "EPSG:4326")
       val geometry = new GeoJsonReader().read(geoJson)

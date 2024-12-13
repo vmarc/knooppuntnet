@@ -1,9 +1,9 @@
 package kpn.server.api.analysis.pages
 
+import kpn.api.common.Country
 import kpn.api.common.Language
 import kpn.api.common.location.LocationNode
 import kpn.api.common.poi.PoiLocationsPage
-import kpn.api.custom.Country
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.location.LocationConfiguration
 import kpn.server.analyzer.engine.analysis.location.LocationDefinition
@@ -18,10 +18,10 @@ class PoiLocationsPageBuilder(
   private val log = Log(classOf[PoiLocationsPageBuilder])
 
   def build(country: Country, language: Language): PoiLocationsPage = {
-    val locationNode = locationConfiguration.locations.find(_.id == country.domain) match {
+    val locationNode = locationConfiguration.locations.find(_.id == country.entryName) match {
       case Some(locationDefinition) => Some(toLocationNode(language, locationDefinition))
       case None =>
-        log.error(s"No locations found for country ${country.domain}")
+        log.error(s"No locations found for country ${country.entryName}")
         None
     }
     PoiLocationsPage(locationNode)

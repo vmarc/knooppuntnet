@@ -1,5 +1,6 @@
 package kpn.server.api.poi
 
+import kpn.api.common.Country
 import kpn.api.common.EN
 import kpn.api.common.Language
 import kpn.api.common.Languages
@@ -9,7 +10,6 @@ import kpn.api.common.poi.LocationPoiSummaryPage
 import kpn.api.common.poi.LocationPoisPage
 import kpn.api.common.poi.PoiLocationsPage
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Country
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.CurrentUser
 import org.springframework.web.bind.annotation.GetMapping

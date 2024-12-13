@@ -1,8 +1,8 @@
 package kpn.api.common.network
 
+import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkType
-import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp

@@ -13,8 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Country } from '@api/common';
 import { LocationNode } from '@api/common/location';
-import { Country } from '@api/custom';
 import { Util } from '@app/components/shared';
 import { LocationOption } from './location-option';
 

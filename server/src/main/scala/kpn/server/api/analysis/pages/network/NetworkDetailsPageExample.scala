@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkExtraMemberNode
 import kpn.api.common.NetworkExtraMemberRelation
@@ -14,7 +15,6 @@ import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkSummary
-import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags

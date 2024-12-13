@@ -1,7 +1,7 @@
 package kpn.api.common.common
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
-import kpn.api.custom.Country
 
 /*
   List of 'node' or 'route' references in a given network.

@@ -6,13 +6,13 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ChangeType
+import kpn.api.common.Country
 import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
-import kpn.api.custom.Country
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.TestObjects

@@ -1,7 +1,7 @@
 package kpn.core.tools.country
 
+import kpn.api.common.Country
 import kpn.api.common.data.raw.RawMember
-import kpn.api.custom.Country
 import kpn.core.util.UnitTest
 import org.locationtech.jts.geom.Coordinate
 
@@ -52,7 +52,7 @@ class PolygonBuilderTest extends UnitTest {
     val relations = Seq(r).map(r => r.id -> r).toMap
     val data: SkeletonData = SkeletonData(r.id, nodes, ways, relations)
 
-    val polygons = new PolygonBuilder(Country.be.domain, data: SkeletonData).polygons()
+    val polygons = new PolygonBuilder(Country.be.entryName, data: SkeletonData).polygons()
 
     polygons.size should equal(1)
     val polygon = polygons.head

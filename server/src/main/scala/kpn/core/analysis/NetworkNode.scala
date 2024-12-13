@@ -1,9 +1,9 @@
 package kpn.core.analysis
 
+import kpn.api.common.Country
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
 import kpn.api.common.data.Tagable
-import kpn.api.custom.Country
 import kpn.api.custom.Tag
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 

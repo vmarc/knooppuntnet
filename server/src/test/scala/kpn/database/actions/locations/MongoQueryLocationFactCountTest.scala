@@ -1,8 +1,8 @@
 package kpn.database.actions.locations
 
+import kpn.api.common.Country
 import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
@@ -22,7 +22,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
             Label.active,
             Label.facts,
             Label.networkType(NetworkType.hiking),
-            Label.location(Country.be.domain)
+            Label.location(Country.be.entryName)
           ),
           facts = Seq(Fact.NodeInvalidSurveyDate),
           names = Seq(
@@ -37,7 +37,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
           labels = Seq(
             Label.active,
             Label.networkType(NetworkType.hiking),
-            Label.location(Country.be.domain)
+            Label.location(Country.be.entryName)
           ),
           names = Seq(
             newNodeName(name = "02")
@@ -50,7 +50,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
           1003L,
           labels = Seq(
             Label.networkType(NetworkType.hiking),
-            Label.location(Country.be.domain)
+            Label.location(Country.be.entryName)
             // not active
           ),
           names = Seq(
@@ -77,7 +77,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
             Label.active,
             Label.facts,
             Label.networkType(NetworkType.hiking),
-            Label.location(Country.be.domain)
+            Label.location(Country.be.entryName)
           ),
           facts = Seq(Fact.RouteWithoutWays, Fact.RouteBroken),
         )
@@ -89,7 +89,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
           labels = Seq(
             Label.active,
             Label.networkType(NetworkType.hiking),
-            Label.location(Country.be.domain)
+            Label.location(Country.be.entryName)
           )
         )
       )
@@ -100,7 +100,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
           labels = Seq(
             Label.facts,
             Label.networkType(NetworkType.hiking),
-            Label.location(Country.be.domain)
+            Label.location(Country.be.entryName)
             // not active
           ),
           facts = Seq(Fact.RouteWithoutWays, Fact.RouteBroken),
