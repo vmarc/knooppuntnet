@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { Signal } from '@angular/core';
 import { LegEnd } from '@api/common/planner';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { Subscriptions } from '@app/util';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';

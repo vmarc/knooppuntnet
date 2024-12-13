@@ -1,5 +1,8 @@
 package kpn.database.actions.statistics
 
+import kpn.api.common.NetworkType
+import kpn.api.common.NetworkType.cycling
+import kpn.api.common.NetworkType.hiking
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
 import kpn.api.custom.Country.de
@@ -9,9 +12,6 @@ import kpn.api.custom.Fact.RouteBroken
 import kpn.api.custom.Fact.RouteFixmetodo
 import kpn.api.custom.Fact.RouteInaccessible
 import kpn.api.custom.Fact.RouteWithoutWays
-import kpn.api.custom.NetworkType
-import kpn.api.custom.NetworkType.cycling
-import kpn.api.custom.NetworkType.hiking
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest

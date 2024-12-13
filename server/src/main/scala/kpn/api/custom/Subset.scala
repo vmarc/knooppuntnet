@@ -1,5 +1,7 @@
 package kpn.api.custom
 
+import kpn.api.common.NetworkType
+
 object Subset {
 
   val beHiking: Subset = Subset(Country.be, NetworkType.hiking)

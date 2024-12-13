@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ChangeSetSummaryInfo } from '@api/common';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { Util } from '@app/components/shared';
 import { NetworkTypeIconComponent } from '@app/components/shared';
 import { Translations } from '@app/i18n';

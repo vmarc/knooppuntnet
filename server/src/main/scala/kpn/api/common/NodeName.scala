@@ -1,7 +1,6 @@
 package kpn.api.common
 
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 
 case class NodeName(

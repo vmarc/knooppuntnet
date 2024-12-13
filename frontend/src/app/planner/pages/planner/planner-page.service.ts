@@ -4,7 +4,7 @@ import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PlanParams } from '@api/common/planner';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { Util } from '@app/components/shared';
 import { PageService } from '@app/components/shared';
 import { NoRouteDialogComponent } from '@app/ol/components';

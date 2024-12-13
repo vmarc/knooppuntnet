@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.core.planner.graph.NodeNetworkGraph
 
 import scala.collection.mutable

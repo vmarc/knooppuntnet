@@ -1,11 +1,11 @@
 package kpn.core.history
 
+import kpn.api.common.NetworkType
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.network.NetworkNodeDiff
 import kpn.api.common.diff.network.NodeIntegrityCheckDiff
 import kpn.api.common.diff.network.NodeRouteReferenceDiffs
-import kpn.api.custom.NetworkType
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.doc.RouteDoc
 

@@ -1,6 +1,6 @@
 package kpn.core.tools.tile
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.core.tools.tile.TileTool.log
 import kpn.core.util.Log
 import kpn.database.base.Database

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 
 @Component({
   selector: 'kpn-link-network-details',

@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
+import { NetworkType } from '@api/common';
 import { Country } from '@api/custom';
-import { NetworkType } from '@api/custom';
 import { Ref } from './ref';
 
 export interface NetworkRefs {

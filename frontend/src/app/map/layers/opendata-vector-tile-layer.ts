@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { ZoomLevel } from '@app/ol/domain';
 import { Color } from 'ol/color';
 import { MVT } from 'ol/format';

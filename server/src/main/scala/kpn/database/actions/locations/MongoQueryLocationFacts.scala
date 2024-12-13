@@ -1,7 +1,7 @@
 package kpn.database.actions.locations
 
+import kpn.api.common.NetworkType
 import kpn.api.common.location.LocationFact
-import kpn.api.custom.NetworkType
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.actions.locations.MongoQueryLocationFacts.log

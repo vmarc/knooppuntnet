@@ -1,11 +1,11 @@
 // this file is generated, please do not modify
 
+import { NetworkType } from '@api/common';
 import { MetaData } from '@api/common/data';
 import { IdDiffs } from '@api/common/diff';
 import { RefDiffs } from '@api/common/diff';
 import { ChangeType } from '@api/custom';
 import { Country } from '@api/custom';
-import { NetworkType } from '@api/custom';
 import { ChangeKey } from './change-key';
 
 export interface NetworkChangeInfo {

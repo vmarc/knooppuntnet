@@ -1,8 +1,8 @@
 package kpn.database.actions.locations
 
 import kpn.api.common.LocationChangeSet
+import kpn.api.common.NetworkType
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.api.custom.NetworkType
 import kpn.core.common.Time
 import kpn.core.util.Log
 import kpn.database.actions.base.ChangeCountPipeline

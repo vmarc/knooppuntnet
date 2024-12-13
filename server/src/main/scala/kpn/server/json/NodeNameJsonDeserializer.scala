@@ -4,9 +4,9 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
+import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 
 class NodeNameJsonDeserializer extends JsonDeserializer[NodeName] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): NodeName = {

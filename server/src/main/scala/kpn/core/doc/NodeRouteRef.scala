@@ -1,8 +1,8 @@
 package kpn.core.doc
 
 import kpn.api.base.WithStringId
+import kpn.api.common.NetworkType
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 
 case class NodeRouteRef(
   _id: String,

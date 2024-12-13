@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { MapLayerState } from '@app/ol/domain';
 import { MapPosition } from '@app/ol/domain';
 import { MapMode } from '@app/ol/services';

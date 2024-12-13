@@ -1,6 +1,7 @@
 package kpn.server.api.planner.leg
 
 import kpn.api.common.LatLonImpl
+import kpn.api.common.NetworkType
 import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
@@ -10,7 +11,6 @@ import kpn.api.common.planner.PlanFragment
 import kpn.api.common.planner.PlanLegDetail
 import kpn.api.common.planner.PlanRoute
 import kpn.api.common.planner.PlanSegment
-import kpn.api.custom.NetworkType
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.planner.graph.GraphPath
 import kpn.core.planner.graph.GraphPathSegment

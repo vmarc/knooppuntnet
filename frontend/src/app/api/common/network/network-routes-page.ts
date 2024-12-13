@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
+import { NetworkType } from '@api/common';
 import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
-import { NetworkType } from '@api/custom';
 import { NetworkRouteRow } from './network-route-row';
 import { NetworkSummary } from './network-summary';
 

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
 import kpn.api.base.WithStringId
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 
 case class RouteTileDoc(
   _id: String,

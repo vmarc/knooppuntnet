@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.node.analyzers
 
+import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.common.data.Tagable
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis

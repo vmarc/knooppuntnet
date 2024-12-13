@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.NetworkType
 import kpn.api.custom.Fact.RouteUnsupportedNetworkType
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext

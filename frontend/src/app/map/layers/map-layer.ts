@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import BaseLayer from 'ol/layer/Base';
 import { LayerType } from './layer-type';
 

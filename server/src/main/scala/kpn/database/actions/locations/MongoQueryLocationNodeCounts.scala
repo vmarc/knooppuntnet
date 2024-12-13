@@ -1,13 +1,13 @@
 package kpn.database.actions.locations
 
+import kpn.api.common.NetworkType
 import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
-import kpn.database.actions.locations.MongoQueryLocationNodeCounts.log
-import kpn.database.base.Database
 import kpn.core.doc.Label
 import kpn.core.doc.LocationNodeCount
-import kpn.database.util.Mongo
 import kpn.core.util.Log
+import kpn.database.actions.locations.MongoQueryLocationNodeCounts.log
+import kpn.database.base.Database
+import kpn.database.util.Mongo
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group

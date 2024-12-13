@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 
 object TileName {
 

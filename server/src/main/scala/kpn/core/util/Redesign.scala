@@ -1,6 +1,6 @@
 package kpn.core.util
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 
 object Redesign {
   val enableNewFactTests = false

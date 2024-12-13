@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { IndicatorComponent } from '@app/components/shared/indicator';
 import { RouteAccessibleData } from './route-accessible-data';
 import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indicator-dialog.component';

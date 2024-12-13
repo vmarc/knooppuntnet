@@ -6,6 +6,7 @@ import kpn.api.common.EN
 import kpn.api.common.LOCATION
 import kpn.api.common.Language
 import kpn.api.common.Languages
+import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
 import kpn.api.common.SearchResponse
 import kpn.api.common.SurveyDateInfo
@@ -46,7 +47,6 @@ import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import org.springframework.http.HttpStatus

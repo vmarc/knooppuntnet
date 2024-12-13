@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Country } from '@api/custom';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { Subset } from '@api/custom';
 import { CountryNameComponent } from '@app/components/shared';
 import { NetworkTypeIconComponent } from '@app/components/shared';

@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { Color } from 'ol/color';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';

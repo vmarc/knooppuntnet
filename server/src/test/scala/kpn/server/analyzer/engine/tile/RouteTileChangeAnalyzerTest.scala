@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tile
 
+import kpn.api.common.NetworkType
 import kpn.api.custom.Day
-import kpn.api.custom.NetworkType
 import kpn.core.TestObjects
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteDetailAnalysis

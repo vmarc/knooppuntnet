@@ -1,12 +1,12 @@
 package kpn.database.actions.locations
 
+import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
 import kpn.api.common.location.LocationRouteInfo
 import kpn.api.common.location.LocationRoutesParameters
 import kpn.api.custom.Day
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.test.TestSupport.withDatabase

@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.database.actions.tiles.MongoQueryTiles
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.tiles.domain.Tile

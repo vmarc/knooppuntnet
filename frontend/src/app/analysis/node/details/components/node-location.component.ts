@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocationInfo } from '@api/common/location-info';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 
 @Component({
   selector: 'kpn-node-location',

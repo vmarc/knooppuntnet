@@ -1,18 +1,18 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.NetworkType
+import kpn.api.common.NetworkType.canoe
+import kpn.api.common.NetworkType.cycling
+import kpn.api.common.NetworkType.hiking
+import kpn.api.common.NetworkType.horseRiding
+import kpn.api.common.NetworkType.inlineSkating
+import kpn.api.common.NetworkType.motorboat
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Fact.RouteTagMissing
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkScope.local
 import kpn.api.custom.NetworkScope.national
 import kpn.api.custom.NetworkScope.regional
-import kpn.api.custom.NetworkType
-import kpn.api.custom.NetworkType.canoe
-import kpn.api.custom.NetworkType.cycling
-import kpn.api.custom.NetworkType.hiking
-import kpn.api.custom.NetworkType.horseRiding
-import kpn.api.custom.NetworkType.inlineSkating
-import kpn.api.custom.NetworkType.motorboat
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags

@@ -1,5 +1,7 @@
 package kpn.api.custom
 
+import kpn.api.common.NetworkType
+
 object ScopedNetworkType {
 
   val rwn: ScopedNetworkType = ScopedNetworkType(NetworkScope.regional, NetworkType.hiking)

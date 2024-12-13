@@ -55,7 +55,7 @@ import { ClientPoiConfiguration } from '@api/common/tiles';
 import { ApiResponse } from '@api/custom';
 import { Country } from '@api/custom';
 import { LocationKey } from '@api/custom';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { Subset } from '@api/custom';
 import { AnalysisStrategy } from '@app/core';
 import { LOCAL_ERROR_HANDLING } from '@app/spinner';

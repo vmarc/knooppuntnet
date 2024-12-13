@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.common.NetworkType
 import kpn.api.common.data.Way
-import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.footwayPaved
 import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.highwayUnpaved
 import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.wikiSurfacePaved

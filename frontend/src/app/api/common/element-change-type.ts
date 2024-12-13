@@ -1,3 +1,7 @@
 // this file is generated, please do not modify
 
-export type ElementChangeType = 'Added' | 'Changed' | 'Removed' | 'Unchanged';
+export type ElementChangeType =
+  | 'Unchanged'
+  | 'Added'
+  | 'Changed'
+  | 'Removed';

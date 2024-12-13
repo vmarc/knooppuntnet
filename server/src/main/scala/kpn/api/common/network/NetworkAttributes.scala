@@ -1,9 +1,9 @@
 package kpn.api.common.network
 
 import kpn.api.common.LatLonImpl
+import kpn.api.common.NetworkType
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Timestamp
 
@@ -47,5 +47,4 @@ case class NetworkAttributes(
   def happy: Boolean = percentageOk > 95
 
   def veryHappy: Boolean = percentageOk > 99.9
-
 }

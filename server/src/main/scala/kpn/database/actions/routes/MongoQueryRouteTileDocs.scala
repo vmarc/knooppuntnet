@@ -1,6 +1,6 @@
 package kpn.database.actions.routes
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc

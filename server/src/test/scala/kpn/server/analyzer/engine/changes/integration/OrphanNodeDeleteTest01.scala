@@ -3,12 +3,12 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData

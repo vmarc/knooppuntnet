@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
+import kpn.api.common.NetworkType
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
-import kpn.api.custom.NetworkType
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.GeoJsonLineStringGeometry

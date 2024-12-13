@@ -3,6 +3,7 @@ package kpn.server.api.analysis
 import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.Language
+import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
 import kpn.api.common.SearchResponse
 import kpn.api.common.changes.ChangeSetPage
@@ -42,7 +43,6 @@ import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 
 trait AnalysisFacade {

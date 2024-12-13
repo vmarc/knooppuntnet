@@ -60,7 +60,6 @@ import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset

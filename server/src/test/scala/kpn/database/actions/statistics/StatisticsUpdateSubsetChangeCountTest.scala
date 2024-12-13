@@ -1,10 +1,10 @@
 package kpn.database.actions.statistics
 
+import kpn.api.common.NetworkType.cycling
+import kpn.api.common.NetworkType.hiking
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country.de
 import kpn.api.custom.Country.nl
-import kpn.api.custom.NetworkType.cycling
-import kpn.api.custom.NetworkType.hiking
 import kpn.api.custom.Subset
 import kpn.api.custom.Subset.deHiking
 import kpn.api.custom.Subset.nlBicycle

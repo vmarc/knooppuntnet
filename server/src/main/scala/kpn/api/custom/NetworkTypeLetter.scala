@@ -1,5 +1,7 @@
 package kpn.api.custom
 
+import kpn.api.common.NetworkType
+
 object NetworkTypeLetter {
   
   def letter(networkType: NetworkType): String = {

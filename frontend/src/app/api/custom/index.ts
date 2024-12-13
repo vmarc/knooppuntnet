@@ -10,7 +10,6 @@ export * from './statistics';
 export * from './change-type';
 export * from './api-response';
 export * from './location-key';
-export * from './network-type';
 export * from './network-scope';
 export * from './route-member-info';
 export * from './location-nodes-type';

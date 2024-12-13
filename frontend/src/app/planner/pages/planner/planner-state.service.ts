@@ -4,7 +4,7 @@ import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { Params } from '@angular/router';
 import { Router } from '@angular/router';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { Util } from '@app/components/shared';
 import { NetworkTypes } from '@app/kpn/common';
 import { MapLayerState } from '@app/ol/domain';

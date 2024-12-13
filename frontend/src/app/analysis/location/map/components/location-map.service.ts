@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { LocationKey } from '@api/custom';
 import { Util } from '@app/components/shared';
 import { SurveyDateValues } from '@app/core';

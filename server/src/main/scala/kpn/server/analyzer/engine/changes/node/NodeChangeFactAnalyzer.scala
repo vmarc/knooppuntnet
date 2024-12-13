@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.node
 
+import kpn.api.common.NetworkType
 import kpn.api.common.data.Node
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.context.AnalysisContext
 

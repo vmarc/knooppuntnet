@@ -1,7 +1,7 @@
 package kpn.server.repository
 
+import kpn.api.common.NetworkType
 import kpn.api.common.common.Reference
-import kpn.api.custom.NetworkType
 import kpn.core.doc.Label
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log

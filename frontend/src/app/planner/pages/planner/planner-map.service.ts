@@ -1,7 +1,7 @@
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { PreferencesService } from '@app/core';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapGeocoder } from '@app/ol/domain';

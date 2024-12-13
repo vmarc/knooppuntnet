@@ -9,7 +9,10 @@ import org.apache.commons.io.FileUtils
 import java.io.File
 import java.io.PrintStream
 import scala.jdk.CollectionConverters.*
-import scala.reflect.runtime.universe.*
+import scala.reflect.runtime.universe.ClassSymbol
+import scala.reflect.runtime.universe.runtimeMirror
+import scala.reflect.runtime.universe.MethodSymbol
+
 
 object TypescriptTool {
 
@@ -38,10 +41,11 @@ class TypescriptTool {
     // following classes have been manually changed in Typescript after changing List to Array, enable again when switching to interfaces
   )
 
+  private val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
+
   def generate(): Unit = {
 
     val scalaClasses = {
-      val mirror = runtimeMirror(classOf[RawNode].getClassLoader)
       scalaClassNames().map(className => mirror.staticClass(className))
     }
 
@@ -82,12 +86,15 @@ class TypescriptTool {
 
   private def generateEnumeration(enumeration: ClassSymbol): Unit = {
     val out = fileStream(enumeration)
-    val values = enumeration.knownDirectSubclasses.map { sub =>
-      s"'${sub.name}'"
-    }.mkString(" | ")
+    val enumMirror = mirror.reflectModule(enumeration.companion.asModule).instance.asInstanceOf[enumeratum.Enum[?]]
+    val values = enumMirror.values.map(_.asInstanceOf[enumeratum.EnumEntry].entryName)
     out.println("// this file is generated, please do not modify")
     out.println()
-    out.println(s"export type ${enumeration.name.toString} = $values;")
+    out.println(s"export type ${enumeration.name.toString} =")
+    values.zipWithIndex.foreach { case (value, index) =>
+      val lineEnd = if (index == values.length - 1) ";" else ""
+      out.println(s"  | '$value'$lineEnd")
+    }
     out.close()
   }
 

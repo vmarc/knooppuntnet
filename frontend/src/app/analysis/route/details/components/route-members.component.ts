@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { RouteMemberInfo } from '@api/custom';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { OsmLinkComponent } from '@app/components/shared/link';

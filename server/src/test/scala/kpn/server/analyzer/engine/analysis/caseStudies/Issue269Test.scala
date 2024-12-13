@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.database.util.Mongo
 import kpn.server.api.planner.leg.LegBuilderImpl
 import kpn.server.repository.GraphRepositoryImpl

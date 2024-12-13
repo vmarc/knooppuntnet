@@ -1,6 +1,6 @@
 package kpn.api.common.route
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 
 case class RouteNameInfo(
   routeId: Long,

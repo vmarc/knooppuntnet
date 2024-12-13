@@ -12,7 +12,7 @@ import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkNodeRow } from '@api/common/network';
 import { NetworkScope } from '@api/custom';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';

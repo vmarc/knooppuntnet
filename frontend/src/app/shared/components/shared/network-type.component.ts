@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { NetworkTypeIconComponent } from './network-type-icon.component';
 import { NetworkTypeNameComponent } from './network-type-name.component';
 

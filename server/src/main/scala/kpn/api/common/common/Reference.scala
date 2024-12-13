@@ -1,7 +1,7 @@
 package kpn.api.common.common
 
+import kpn.api.common.NetworkType
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 
 case class Reference(
   networkType: NetworkType,

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.server.analyzer.engine.analysis.route.domain
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragment
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragmentGroup

@@ -1,8 +1,8 @@
 package kpn.core.doc
 
+import kpn.api.common.NetworkType
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
 
 object Label {
 

@@ -1,5 +1,5 @@
 import { signal } from '@angular/core';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 
 export class PageState {
   private readonly _small = signal<boolean>(false);

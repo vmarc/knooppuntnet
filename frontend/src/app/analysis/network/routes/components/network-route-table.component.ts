@@ -12,7 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkRouteRow } from '@api/common/network';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';

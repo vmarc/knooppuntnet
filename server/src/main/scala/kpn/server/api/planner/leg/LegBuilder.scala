@@ -1,8 +1,8 @@
 package kpn.server.api.planner.leg
 
+import kpn.api.common.NetworkType
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.PlanLegDetail
-import kpn.api.custom.NetworkType
 
 trait LegBuilder {
 

@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { ZoomLevel } from '@app/ol/domain';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';

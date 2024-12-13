@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Subset } from '@api/custom';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { Countries } from '@app/kpn/common';
 import { NetworkTypes } from '@app/kpn/common';
 

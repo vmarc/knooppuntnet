@@ -1,6 +1,7 @@
 package kpn.server.api.planner.leg
 
 import kpn.api.common.LatLonImpl
+import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
@@ -11,7 +12,6 @@ import kpn.api.common.planner.PlanNode
 import kpn.api.common.planner.PlanRoute
 import kpn.api.common.planner.PlanSegment
 import kpn.api.common.route.RouteNetworkNodeInfo
-import kpn.api.custom.NetworkType
 import kpn.core.util.UnitTest
 import org.scalamock.scalatest.MockFactory
 

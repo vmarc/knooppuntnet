@@ -1,10 +1,10 @@
 package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.Language
+import kpn.api.common.NetworkType
 import kpn.api.common.location.LocationMapPage
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
-import kpn.api.custom.NetworkType
 import kpn.core.tools.config.Dirs
 import kpn.core.util.GeometryUtil
 import kpn.server.analyzer.engine.analysis.location.LocationService

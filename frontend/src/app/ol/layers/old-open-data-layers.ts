@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { OldMapLayer } from './old-map-layer';
 import { OldMapLayerRegistry } from './old-map-layer-registry';
 import { OldOpendataBitmapTileLayer } from './old-opendata-bitmap-tile-layer';

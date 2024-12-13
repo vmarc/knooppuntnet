@@ -1,6 +1,6 @@
 package kpn.server.json
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.core.util.UnitTest
 
 class NetworkTypeJsonTest extends UnitTest {

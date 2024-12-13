@@ -1,7 +1,7 @@
 package kpn.server.json
 
+import kpn.api.common.NetworkType
 import org.springframework.core.convert.converter.Converter
-import kpn.api.custom.NetworkType
 import org.springframework.stereotype.Component
 
 @Component

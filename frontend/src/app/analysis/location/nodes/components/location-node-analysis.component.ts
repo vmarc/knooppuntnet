@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { LocationNodeInfo } from '@api/common/location';
 import { NetworkScope } from '@api/custom';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { IntegrityIndicatorData } from '@app/components/shared/indicator';
 import { IntegrityIndicatorComponent } from '@app/components/shared/indicator';
 import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicator.component';

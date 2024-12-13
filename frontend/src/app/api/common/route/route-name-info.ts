@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 
 export interface RouteNameInfo {
   readonly routeId: number;

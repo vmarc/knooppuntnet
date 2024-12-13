@@ -1,9 +1,9 @@
 package kpn.server.repository
 
+import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Reference
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

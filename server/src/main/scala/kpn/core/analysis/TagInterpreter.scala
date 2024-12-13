@@ -1,12 +1,12 @@
 package kpn.core.analysis
 
+import kpn.api.common.NetworkType
 import kpn.api.common.data.Element
 import kpn.api.common.data.Member
 import kpn.api.common.data.Node
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.RelationMember
 import kpn.api.common.data.Tagable
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 

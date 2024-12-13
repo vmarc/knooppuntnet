@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
+import kpn.api.common.NetworkType
+import kpn.api.common.NetworkType.cycling
+import kpn.api.common.NetworkType.hiking
+import kpn.api.common.NetworkType.horseRiding
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Way
-import kpn.api.custom.NetworkType
-import kpn.api.custom.NetworkType.cycling
-import kpn.api.custom.NetworkType.hiking
-import kpn.api.custom.NetworkType.horseRiding
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 

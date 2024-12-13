@@ -1,5 +1,5 @@
 import { LegEnd } from '@api/common/planner';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { Map } from 'immutable';
 import { List } from 'immutable';
 import { Observable, of } from 'rxjs';

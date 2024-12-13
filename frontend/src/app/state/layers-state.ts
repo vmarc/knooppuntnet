@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { LayerType } from '../map/layers/layer-type';
 
 export interface LayersState {

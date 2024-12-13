@@ -2,10 +2,10 @@ package kpn.database.actions.locations
 
 import kpn.api.common.LocationChangeSet
 import kpn.api.common.LocationChanges
+import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.database.base.Database

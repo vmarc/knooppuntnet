@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tiles
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 

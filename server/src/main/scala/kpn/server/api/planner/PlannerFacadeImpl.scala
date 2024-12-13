@@ -1,5 +1,6 @@
 package kpn.server.api.planner
 
+import kpn.api.common.NetworkType
 import kpn.api.common.PoiPage
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.planner.LegBuildParams
@@ -8,7 +9,6 @@ import kpn.api.common.planner.PlanLegDetail
 import kpn.api.common.route.MapRouteDetail
 import kpn.api.common.tiles.ClientPoiConfiguration
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.NetworkType
 import kpn.core.common.TimestampLocal
 import kpn.core.poi.PoiConfiguration
 import kpn.server.analyzer.engine.poi.PoiRef

@@ -1,5 +1,5 @@
 import { LegEnd } from '@api/common/planner';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { Observable } from 'rxjs';
 import { PlanLegData } from './plan-leg-data';
 

@@ -6,6 +6,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.NetworkChanges
+import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.details.NetworkInfoChange
@@ -13,7 +14,6 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges

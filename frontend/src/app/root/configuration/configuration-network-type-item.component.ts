@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatLabel } from '@angular/material/form-field';
 import { MatRadioButton } from '@angular/material/radio';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { NetworkTypeIconComponent } from '@app/components/shared';
 
 @Component({

@@ -2,10 +2,10 @@ package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.Language
 import kpn.api.common.LocationInfo
+import kpn.api.common.NetworkType
 import kpn.api.common.location.LocationDetailsPage
 import kpn.api.custom.Country
 import kpn.api.custom.LocationKey
-import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.analyzer.engine.analysis.location.ParcDuVercors
 import kpn.server.repository.LocationRepository

@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.server.analyzer.engine.tiles.domain.Tile
 
 trait TileRepository {

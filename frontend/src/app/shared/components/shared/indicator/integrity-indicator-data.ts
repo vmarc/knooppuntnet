@@ -1,5 +1,5 @@
 import { NetworkScope } from '@api/custom';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 
 export class IntegrityIndicatorData {
   constructor(

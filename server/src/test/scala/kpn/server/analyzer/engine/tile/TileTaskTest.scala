@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.core.util.UnitTest
 
 class TileTaskTest extends UnitTest {

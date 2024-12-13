@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
 import { Country } from '@api/custom';
-import { NetworkType } from '@api/custom';
 import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
+import { NetworkType } from './network-type';
 
 export interface RouteSummary {
   readonly id: number;

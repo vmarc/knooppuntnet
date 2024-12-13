@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 

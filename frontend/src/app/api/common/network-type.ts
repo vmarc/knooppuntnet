@@ -1,7 +1,9 @@
+// this file is generated, please do not modify
+
 export type NetworkType =
-  | 'cycling'
   | 'hiking'
+  | 'cycling'
   | 'horse-riding'
-  | 'motorboat'
   | 'canoe'
+  | 'motorboat'
   | 'inline-skating';

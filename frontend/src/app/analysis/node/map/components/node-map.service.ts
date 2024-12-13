@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NodeMapInfo } from '@api/common';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { OlUtil } from '@app/ol';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';

@@ -1,6 +1,6 @@
 package kpn.database.actions.nodes
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.actions.nodes.OldMongoQueryNodeTileInfo.log

@@ -4,7 +4,7 @@ import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { BrowserStorageService } from '@app/services';
 import { PageWidthService } from './page-width.service';
 

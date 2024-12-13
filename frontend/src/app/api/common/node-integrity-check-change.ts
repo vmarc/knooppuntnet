@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkType } from '@api/custom';
+import { NetworkType } from './network-type';
 import { NodeIntegrityCheck } from './node-integrity-check';
 
 export interface NodeIntegrityCheckChange {

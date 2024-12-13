@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.NetworkType
 import kpn.api.custom.Fact
 import kpn.api.custom.Fact.RouteTagInvalid
 import kpn.api.custom.Fact.RouteTagMissing
-import kpn.api.custom.NetworkType
 import kpn.api.custom.ScopedNetworkType
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
@@ -47,7 +47,7 @@ class RouteTagAnalyzer(context: RouteDetailAnalysisContext) {
       }
     }
   }
-  
+
   private def assertTagValueMatchesNetworkType(networkType: NetworkType, routeTagValue: String): Seq[Fact] = {
 
     val facts = ListBuffer[Fact]()

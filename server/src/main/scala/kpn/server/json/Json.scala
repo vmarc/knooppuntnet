@@ -10,6 +10,7 @@ import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import kpn.api.base.ObjectId
 import kpn.api.common.ElementChangeType
 import kpn.api.common.Language
+import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LastUpdatedParameter
@@ -23,7 +24,6 @@ import kpn.api.custom.Fact
 import kpn.api.custom.LocationNodesType
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset

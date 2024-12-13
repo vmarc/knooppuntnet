@@ -1,5 +1,6 @@
 package kpn.api.custom
 
+import kpn.api.common.NetworkType
 import kpn.core.util.UnitTest
 
 class ScopedNetworkTypeTest extends UnitTest {

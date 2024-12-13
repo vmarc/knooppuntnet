@@ -1,9 +1,9 @@
 package kpn.database.actions.locations
 
+import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest

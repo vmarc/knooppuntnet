@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.tiles
 
+import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.custom.Fact
 import kpn.api.custom.FactLevel
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode

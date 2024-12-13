@@ -1,6 +1,7 @@
 package kpn.server.api.analysis.pages.node
 
 import kpn.api.common.LocationInfo
+import kpn.api.common.NetworkType
 import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
 import kpn.api.common.common.Ref
@@ -12,7 +13,6 @@ import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 

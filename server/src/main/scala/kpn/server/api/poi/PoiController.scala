@@ -10,8 +10,6 @@ import kpn.api.common.poi.LocationPoisPage
 import kpn.api.common.poi.PoiLocationsPage
 import kpn.api.custom.ApiResponse
 import kpn.api.custom.Country
-import kpn.api.custom.LocationKey
-import kpn.api.custom.NetworkType
 import kpn.server.analyzer.engine.poi.PoiRef
 import kpn.server.api.CurrentUser
 import org.springframework.web.bind.annotation.GetMapping

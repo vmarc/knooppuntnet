@@ -7,6 +7,7 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
+import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeSetDetail
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.ChangeSetPage
@@ -30,7 +31,6 @@ import kpn.api.common.route.RouteChangeInfo
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp

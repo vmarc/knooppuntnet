@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
+import { NetworkType } from '@api/common';
 import { NetworkScope } from '@api/custom';
-import { NetworkType } from '@api/custom';
 
 export interface NetworkSummary {
   readonly name: string;

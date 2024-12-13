@@ -1,11 +1,11 @@
 package kpn.core.history
 
+import kpn.api.common.NetworkType
 import kpn.api.common.data.Tagable
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.NetworkTypeLetter
 
 object NodeTagDiffAnalyzer {

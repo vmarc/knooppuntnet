@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.tiles.ZoomLevel
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.core.util.Log
 
 class TileFileManager(

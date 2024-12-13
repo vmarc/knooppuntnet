@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { ChangeSetElementRefs } from './change-set-element-refs';
 
 export interface LocationTreeItem {

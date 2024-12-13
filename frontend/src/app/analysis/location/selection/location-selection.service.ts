@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { LocationNode } from '@api/common/location';
 import { Country } from '@api/custom';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';

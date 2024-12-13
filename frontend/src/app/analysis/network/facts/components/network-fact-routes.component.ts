@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Ref } from '@api/common/common';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { IconRouteComponent } from '@app/components/shared/icon';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';

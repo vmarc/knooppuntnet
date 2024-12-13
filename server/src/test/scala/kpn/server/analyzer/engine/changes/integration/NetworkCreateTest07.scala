@@ -4,6 +4,7 @@ import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.NetworkChanges
+import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RefDiffs
@@ -13,7 +14,6 @@ import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData

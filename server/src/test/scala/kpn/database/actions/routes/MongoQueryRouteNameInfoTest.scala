@@ -1,8 +1,8 @@
 package kpn.database.actions.routes
 
+import kpn.api.common.NetworkType.hiking
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNameInfo
-import kpn.api.custom.NetworkType.hiking
 import kpn.core.doc.Label
 import kpn.core.doc.RouteDoc
 import kpn.core.test.TestSupport.withDatabase

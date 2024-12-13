@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages.node
 
+import kpn.api.common.NetworkType
 import kpn.api.common.NodeMapInfo
 import kpn.api.common.node.NodeMapPage
-import kpn.api.custom.NetworkType
 
 object NodeMapPageExample {
 

@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkType } from '@api/custom';
+import { NetworkType } from './network-type';
 
 export interface NodeMapInfo {
   readonly id: number;

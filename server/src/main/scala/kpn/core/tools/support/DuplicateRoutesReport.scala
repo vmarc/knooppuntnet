@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
+import kpn.api.common.NetworkType
 import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.repository.RouteRepositoryImpl

@@ -1,9 +1,9 @@
 package kpn.database.actions.locations
 
 import kpn.api.common.LocationChangeSet
+import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.filter.ChangesParameters
-import kpn.api.custom.NetworkType
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 

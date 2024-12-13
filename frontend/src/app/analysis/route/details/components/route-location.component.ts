@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocationInfo } from '@api/common';
 import { LocationCandidateInfo } from '@api/common/location/location-candidate-info';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 
 @Component({
   selector: 'kpn-route-location',

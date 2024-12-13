@@ -1,11 +1,11 @@
 package kpn.database.actions.locations
 
+import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.common.common.Reference
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 

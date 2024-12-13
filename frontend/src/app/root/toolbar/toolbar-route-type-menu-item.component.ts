@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatLabel } from '@angular/material/select';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { State } from '@app/state';
 import { RouteTypeIconItemComponent } from './route-type-icon.component';
 

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.custom.NetworkType
+import kpn.api.common.NetworkType
 import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo

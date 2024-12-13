@@ -1,11 +1,11 @@
 package kpn.server.api.analysis.pages.network
 
+import kpn.api.common.NetworkType
 import kpn.api.common.common.Reference
 import kpn.api.common.network.NetworkNodeDetail
 import kpn.api.common.network.NetworkNodeRow
 import kpn.api.common.network.NetworkNodesPage
 import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Timestamp
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder

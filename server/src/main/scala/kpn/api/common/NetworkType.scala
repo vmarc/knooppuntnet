@@ -1,4 +1,4 @@
-package kpn.api.custom
+package kpn.api.common
 
 import enumeratum.Enum
 import enumeratum.EnumEntry

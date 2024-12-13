@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import BaseLayer from 'ol/layer/Base';
 import { MapMode } from '../services';
 import { MapTile } from '../services/map-tile';

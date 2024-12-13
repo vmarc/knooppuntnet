@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 
 export class NetworkTypes {
   static all: NetworkType[] = [

@@ -1,6 +1,6 @@
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { ZoomLevel } from '@app/ol/domain';
 import { FeatureLike } from 'ol/Feature';
 import { MVT } from 'ol/format';

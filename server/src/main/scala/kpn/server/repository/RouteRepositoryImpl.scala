@@ -1,10 +1,10 @@
 package kpn.server.repository
 
+import kpn.api.common.NetworkType
 import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log

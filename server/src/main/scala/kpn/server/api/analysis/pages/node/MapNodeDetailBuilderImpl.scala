@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages.node
 
+import kpn.api.common.NetworkType
 import kpn.api.common.common.Reference
 import kpn.api.common.node.MapNodeDetail
-import kpn.api.custom.NetworkType
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 

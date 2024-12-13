@@ -2,7 +2,6 @@ package kpn.api.common
 
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Country
-import kpn.api.custom.NetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 

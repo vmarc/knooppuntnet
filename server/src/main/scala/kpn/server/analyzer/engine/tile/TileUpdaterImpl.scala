@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tile
 
+import kpn.api.common.NetworkType
 import kpn.api.common.tiles.ZoomLevel
-import kpn.api.custom.NetworkType
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.TileData
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilder

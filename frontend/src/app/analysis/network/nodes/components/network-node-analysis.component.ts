@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkNodeRow } from '@api/common/network';
 import { NetworkScope } from '@api/custom';
-import { NetworkType } from '@api/custom';
+import { NetworkType } from '@api/common';
 import { IntegrityIndicatorData } from '@app/components/shared/indicator';
 import { IntegrityIndicatorComponent } from '@app/components/shared/indicator';
 import { NetworkIndicatorComponent } from './indicators/network-indicator.component';

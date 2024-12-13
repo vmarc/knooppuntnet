@@ -1,9 +1,9 @@
 package kpn.server.api.planner.leg
 
+import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.route.RouteNetworkNodeInfo
-import kpn.api.custom.NetworkType
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraphImpl
