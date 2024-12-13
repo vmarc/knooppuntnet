@@ -1,9 +1,9 @@
 package kpn.core.tools.analysis
 
+import kpn.api.common.ChangeType
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.custom.ChangeType
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
 

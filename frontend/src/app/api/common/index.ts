@@ -9,6 +9,7 @@ export * from './change-set-summary';
 export * from './change-set-summary-info';
 export * from './change-set-summary-location-info';
 export * from './change-set-summary-network-info';
+export * from './change-type';
 export * from './changes-page';
 export * from './check';
 export * from './element-change-type';

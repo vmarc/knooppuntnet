@@ -1,9 +1,9 @@
 package kpn.core.tools.analysis
 
+import kpn.api.common.ChangeType
 import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
-import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp

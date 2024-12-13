@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.changes.route
 
+import kpn.api.common.ChangeType
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
-import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Relation
 import kpn.core.analysis.TagInterpreter

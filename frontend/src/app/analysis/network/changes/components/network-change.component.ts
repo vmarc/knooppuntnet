@@ -1,8 +1,8 @@
+import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
-import { ChangeType } from '@api/custom';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 
@@ -11,25 +11,25 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- changeType -->
-    @if (isCreate()) {
+    @if (changeType() === 'create') {
       <div>
         <b i18n="@@network-changes.network-created">Network created</b>
       </div>
     }
-    @if (isDelete()) {
+    @if (changeType() === 'delete') {
       <div>
         <b i18n="@@network-changes.network-deleted">Network deleted</b>
       </div>
     }
 
-    @if (isInitialValue()) {
+    @if (changeType() === 'initial-value') {
       <div i18n="@@network-changes.network-initial-value">Oldest known state of the network.</div>
     }
 
     <!-- networkNodesAdded -->
     @if (networkChangeInfo().networkNodes.added.length > 0) {
       <div class="kpn-text-only-line">
-        @if (isInitialValue()) {
+        @if (changeType() === 'initial-value') {
           <span class="kpn-label" i18n="@@network-changes.network-nodes.list">Nodes</span>
         } @else {
           <span class="kpn-label" i18n="@@network-changes.network-nodes.added">Added node(s)</span>
@@ -45,7 +45,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
     <!-- routesAdded -->
     @if (networkChangeInfo().routes.added.length > 0) {
       <div class="kpn-text-only-line">
-        @if (isInitialValue()) {
+        @if (changeType() === 'initial-value') {
           <span class="kpn-label" i18n="@@network-changes.routes.list">Routes</span>
         } @else {
           <span class="kpn-label" i18n="@@network-changes.routes.added">Added route(s)</span>
@@ -183,25 +183,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
   imports: [LinkNodeComponent, LinkRouteComponent],
 })
 export class NetworkChangeComponent {
-  networkChangeInfo = input.required<NetworkChangeInfo>();
-
-  isCreate(): boolean {
-    return this.isChangeType(ChangeType.create);
-  }
-
-  isUpdate(): boolean {
-    return this.isChangeType(ChangeType.create);
-  }
-
-  isDelete(): boolean {
-    return this.isChangeType(ChangeType.delete);
-  }
-
-  isInitialValue(): boolean {
-    return this.isChangeType(ChangeType.initialValue);
-  }
-
-  private isChangeType(changeType: ChangeType): boolean {
-    return this.networkChangeInfo().changeType === changeType;
-  }
+  readonly networkChangeInfo = input.required<NetworkChangeInfo>();
+  readonly changeType = computed(() => this.networkChangeInfo().changeType);
 }

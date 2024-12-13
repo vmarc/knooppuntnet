@@ -3,6 +3,7 @@ package kpn.server.api.analysis.pages
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetElementRefs
+import kpn.api.common.ChangeType
 import kpn.api.common.Language
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
@@ -16,7 +17,6 @@ import kpn.api.common.common.KnownElements
 import kpn.api.common.common.ReferencedElements
 import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.route.RouteChangeInfo
-import kpn.api.custom.ChangeType
 import kpn.api.custom.Subset
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.analyzer.engine.changes.builder.NetworkChangeInfoBuilder

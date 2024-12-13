@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common.ChangeType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.raw.RawMember
-import kpn.api.custom.ChangeType
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 

@@ -37,7 +37,7 @@ class HttpArchiveReportTool {
   private def reportRequest(request: HarRequest): Unit = {
     println("---")
     val url = URLDecoder.decode(request.getUrl, StandardCharsets.UTF_8)
-    println(s"${request.getMethod} ${url}")
+    println(s"${request.getMethod} $url")
     printHeaders(request.getHeaders.asScala.toSeq)
     printPostData(request.getPostData)
   }

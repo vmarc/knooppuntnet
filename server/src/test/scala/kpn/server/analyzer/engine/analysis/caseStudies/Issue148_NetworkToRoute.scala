@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
+import kpn.api.common.ChangeType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.raw.RawMember
-import kpn.api.custom.ChangeType
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData

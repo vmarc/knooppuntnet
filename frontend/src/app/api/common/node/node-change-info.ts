@@ -1,5 +1,6 @@
 // this file is generated, please do not modify
 
+import { ChangeType } from '@api/common';
 import { LatLonImpl } from '@api/common';
 import { ChangeKey } from '@api/common/changes/details';
 import { RefBooleanChange } from '@api/common/changes/details';
@@ -8,7 +9,6 @@ import { MetaData } from '@api/common/data';
 import { TagDiffs } from '@api/common/diff';
 import { FactDiffs } from '@api/common/diff/common';
 import { NodeMoved } from '@api/common/diff/node';
-import { ChangeType } from '@api/custom';
 import { Fact } from '@api/custom';
 import { Tag } from '@api/custom';
 

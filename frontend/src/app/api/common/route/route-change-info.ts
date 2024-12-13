@@ -1,13 +1,13 @@
 // this file is generated, please do not modify
 
 import { Bounds } from '@api/common';
+import { ChangeType } from '@api/common';
 import { ChangeSetInfo } from '@api/common/changes';
 import { ChangeKey } from '@api/common/changes/details';
 import { MetaData } from '@api/common/data';
 import { WayInfo } from '@api/common/diff';
 import { WayUpdate } from '@api/common/diff';
 import { RouteDiff } from '@api/common/diff/route';
-import { ChangeType } from '@api/custom';
 import { GeometryDiff } from './geometry-diff';
 import { RouteNode } from './route-node';
 import { RouteNodeChange } from './route-node-change';

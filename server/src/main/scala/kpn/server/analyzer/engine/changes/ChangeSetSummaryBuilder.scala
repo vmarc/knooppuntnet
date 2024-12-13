@@ -5,6 +5,7 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetNetwork
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeSetSummary
+import kpn.api.common.ChangeType
 import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
@@ -14,7 +15,6 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.location.Location
-import kpn.api.custom.ChangeType
 import kpn.api.custom.Subset
 import kpn.core.util.NaturalSorting
 

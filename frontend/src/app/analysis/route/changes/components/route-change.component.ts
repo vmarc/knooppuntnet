@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteChangeInfo } from '@api/common/route';
-import { ChangeType } from '@api/custom';
 import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
 import { ChangeSetTagsComponent } from '@app/analysis/components/change-set';
 import { RouteChangeDetailComponent } from '@app/analysis/components/changes/route';
@@ -57,10 +56,10 @@ export class RouteChangeComponent {
   }
 
   isCreate(): boolean {
-    return this.routeChangeInfo().changeType === ChangeType.create;
+    return this.routeChangeInfo().changeType === 'create';
   }
 
   isDelete(): boolean {
-    return this.routeChangeInfo().changeType === ChangeType.delete;
+    return this.routeChangeInfo().changeType === 'delete';
   }
 }

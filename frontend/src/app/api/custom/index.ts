@@ -7,7 +7,6 @@ export * from './country';
 export * from './relation';
 export * from './timestamp';
 export * from './statistics';
-export * from './change-type';
 export * from './api-response';
 export * from './location-key';
 export * from './network-scope';

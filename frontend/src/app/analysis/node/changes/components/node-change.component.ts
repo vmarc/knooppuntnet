@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NodeChangeInfo } from '@api/common/node';
-import { ChangeType } from '@api/custom';
 import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
 import { ChangeSetTagsComponent } from '@app/analysis/components/change-set';
 import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node';
@@ -59,10 +58,10 @@ export class NodeChangeComponent {
   }
 
   isCreate(): boolean {
-    return this.nodeChangeInfo().changeType === ChangeType.create;
+    return this.nodeChangeInfo().changeType === 'create';
   }
 
   isDelete(): boolean {
-    return this.nodeChangeInfo().changeType === ChangeType.delete;
+    return this.nodeChangeInfo().changeType === 'delete';
   }
 }

@@ -55,7 +55,6 @@ import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.custom.Change
-import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.Day
 import kpn.api.custom.Fact

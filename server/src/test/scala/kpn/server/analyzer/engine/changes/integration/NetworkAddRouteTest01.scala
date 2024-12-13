@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetElementRef
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
+import kpn.api.common.ChangeType
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
@@ -13,7 +14,6 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
-import kpn.api.custom.ChangeType
 import kpn.api.custom.Country
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.Subset

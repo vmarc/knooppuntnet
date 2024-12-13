@@ -1,5 +1,6 @@
 package kpn.api.common.node
 
+import kpn.api.common.ChangeType
 import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.RefBooleanChange
@@ -8,7 +9,6 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
-import kpn.api.custom.ChangeType
 import kpn.api.custom.Fact
 import kpn.api.custom.Tag
 

@@ -1,12 +1,12 @@
 // this file is generated, please do not modify
 
+import { ChangeType } from '@api/common';
 import { RouteLocationAnalysis } from '@api/common';
 import { Ref } from '@api/common/common';
 import { RawWay } from '@api/common/data/raw';
 import { RouteData } from '@api/common/diff';
 import { WayUpdate } from '@api/common/diff';
 import { RouteDiff } from '@api/common/diff/route';
-import { ChangeType } from '@api/custom';
 import { Fact } from '@api/custom';
 import { ChangeKey } from './change-key';
 
