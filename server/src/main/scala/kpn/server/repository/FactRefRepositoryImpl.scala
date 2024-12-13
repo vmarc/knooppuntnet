@@ -76,7 +76,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
           and(
             equal("active", true),
             equal("country", subset.country.domain),
-            equal("summary.networkType", subset.networkType.name)
+            equal("summary.networkType", subset.networkType.entryName)
           )
         ),
         unwind("$facts"),
@@ -102,7 +102,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
           and(
             equal("active", true),
             equal("country", subset.country.domain),
-            equal("summary.networkType", subset.networkType.name)
+            equal("summary.networkType", subset.networkType.entryName)
           )
         ),
         unwind("$facts"),
@@ -124,7 +124,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
 
   private def integrityCheckFailedFactRefs(subset: Subset): SubsetFactRefs = {
     log.debugElapsed {
-      val factLabel = s"integrity-check-failed-${subset.networkType.name}"
+      val factLabel = s"integrity-check-failed-${subset.networkType.entryName}"
       val pipeline = Seq(
         filter(
           and(

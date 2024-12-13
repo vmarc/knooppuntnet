@@ -67,7 +67,7 @@ class MongoQueryGraphEdges(database: Database) {
 
     log.debugElapsed {
       val edges = database.routes.aggregate[RouteGraphEdge](pipeline, log)
-      val grapEdgess = NetworkType.all.map { networkType =>
+      val grapEdgess = NetworkType.values.map { networkType =>
         val networkTypeEdges = edges.filter(_.networkType == networkType).map { edge =>
           GraphEdge(
             edge.sourceNodeId: Long,
@@ -79,7 +79,7 @@ class MongoQueryGraphEdges(database: Database) {
         }
         GraphEdges(networkType, networkTypeEdges)
       }
-      val result = grapEdgess.map(e => s"${e.networkType.name}: ${e.edges.size}").mkString(", ")
+      val result = grapEdgess.map(e => s"${e.networkType.entryName}: ${e.edges.size}").mkString(", ")
       (result, grapEdgess)
     }
   }

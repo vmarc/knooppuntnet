@@ -7,17 +7,17 @@ import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object RouteScopeAnalyzer extends RouteAnalyzer {
-  val localNetworkTagValues = tagValues(NetworkScope.local)
-  val regionalNetworkTagValues = tagValues(NetworkScope.regional)
-  val nationalNetworkTagValues = tagValues(NetworkScope.national)
-  val internationalNetworkTagValues = tagValues(NetworkScope.international)
+  private val localNetworkTagValues = tagValues(NetworkScope.local)
+  private val regionalNetworkTagValues = tagValues(NetworkScope.regional)
+  private val nationalNetworkTagValues = tagValues(NetworkScope.national)
+  private val internationalNetworkTagValues = tagValues(NetworkScope.international)
 
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteScopeAnalyzer(context).analyze
   }
 
   private def tagValues(scope: NetworkScope): Seq[String] = {
-    NetworkType.all.map { networkType =>
+    NetworkType.values.map { networkType =>
       ScopedNetworkType(scope, networkType).key
     }
   }

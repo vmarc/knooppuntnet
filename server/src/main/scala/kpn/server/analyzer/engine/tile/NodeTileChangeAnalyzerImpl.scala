@@ -16,14 +16,14 @@ class NodeTileChangeAnalyzerImpl(
     val beforeNodeTileInfo = toNodeTileInfo(before)
     val afterNodeTileInfo = toNodeTileInfo(after)
 
-    val impactedNetworkTypes = NetworkType.all.filter { networkType =>
+    val impactedNetworkTypes = NetworkType.values.filter { networkType =>
       val beforeTileNodeData = tileDataNodeBuilder.build(networkType, beforeNodeTileInfo)
       val afterTileNodeData = tileDataNodeBuilder.build(networkType, afterNodeTileInfo)
       beforeTileNodeData != afterTileNodeData
     }
 
     (before.tiles ++ after.tiles).distinct.filter { tile =>
-      NetworkType.withName(TileName.networkType(tile)) match {
+      NetworkType.withNameOption(TileName.networkType(tile)) match {
         case Some(networkType) => impactedNetworkTypes.contains(networkType)
         case None => false
       }

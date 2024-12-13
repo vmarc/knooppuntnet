@@ -17,31 +17,31 @@ class NodeFragmentConnectionAnalyzerTest extends UnitTest with SharedTestObjects
   private val wayNodes = Vector(node1, node2, node3)
 
   test("a node cannot connect to a fragment if it is not the start or endnode of the fragment") {
-    assert(!canConnect(NetworkType.all, SegmentDirection.Both, node4, None))
+    assert(!canConnect(NetworkType.values, SegmentDirection.Both, node4, None))
   }
 
   test("when no direction requested, then a node can connect to a fragment") {
-    assert(canConnect(NetworkType.all, SegmentDirection.Both, node1, None))
-    assert(canConnect(NetworkType.all, SegmentDirection.Both, node3, None))
+    assert(canConnect(NetworkType.values, SegmentDirection.Both, node1, None))
+    assert(canConnect(NetworkType.values, SegmentDirection.Both, node3, None))
   }
 
   test("a node can connect a fragment without forward or backward role") {
-    assert(canConnect(NetworkType.all, SegmentDirection.Forward, node1, None))
-    assert(canConnect(NetworkType.all, SegmentDirection.Forward, node3, None))
-    assert(canConnect(NetworkType.all, SegmentDirection.Backward, node1, None))
-    assert(canConnect(NetworkType.all, SegmentDirection.Backward, node3, None))
+    assert(canConnect(NetworkType.values, SegmentDirection.Forward, node1, None))
+    assert(canConnect(NetworkType.values, SegmentDirection.Forward, node3, None))
+    assert(canConnect(NetworkType.values, SegmentDirection.Backward, node1, None))
+    assert(canConnect(NetworkType.values, SegmentDirection.Backward, node3, None))
   }
 
   test("a node can connect a fragment if the fragment role matches the requested direction") {
-    assert(canConnect(NetworkType.all, SegmentDirection.Forward, node1, Some("forward")))
-    assert(!canConnect(NetworkType.all, SegmentDirection.Forward, node3, Some("forward")))
-    assert(!canConnect(NetworkType.all, SegmentDirection.Forward, node1, Some("backward")))
-    assert(canConnect(NetworkType.all, SegmentDirection.Forward, node3, Some("backward")))
+    assert(canConnect(NetworkType.values, SegmentDirection.Forward, node1, Some("forward")))
+    assert(!canConnect(NetworkType.values, SegmentDirection.Forward, node3, Some("forward")))
+    assert(!canConnect(NetworkType.values, SegmentDirection.Forward, node1, Some("backward")))
+    assert(canConnect(NetworkType.values, SegmentDirection.Forward, node3, Some("backward")))
 
-    assert(!canConnect(NetworkType.all, SegmentDirection.Backward, node1, Some("backward")))
-    assert(canConnect(NetworkType.all, SegmentDirection.Backward, node3, Some("backward")))
-    assert(canConnect(NetworkType.all, SegmentDirection.Backward, node1, Some("forward")))
-    assert(!canConnect(NetworkType.all, SegmentDirection.Backward, node3, Some("forward")))
+    assert(!canConnect(NetworkType.values, SegmentDirection.Backward, node1, Some("backward")))
+    assert(canConnect(NetworkType.values, SegmentDirection.Backward, node3, Some("backward")))
+    assert(canConnect(NetworkType.values, SegmentDirection.Backward, node1, Some("forward")))
+    assert(!canConnect(NetworkType.values, SegmentDirection.Backward, node3, Some("forward")))
   }
 
   test("bicycles respect the roundabout direction: can only connect to start node") {

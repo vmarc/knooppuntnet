@@ -39,7 +39,7 @@ object TagInterpreter {
 
   def isNetworkNode(tagable: Tagable, networkType: NetworkType): Boolean = {
     tagable.hasTag("network:type", "node_network") &&
-      networkType.scopedNetworkTypes.exists(scopedNetworkType => hasNodeTagKey(scopedNetworkType, tagable))
+      ScopedNetworkType.all.filter(_.networkType == networkType).exists(scopedNetworkType => hasNodeTagKey(scopedNetworkType, tagable))
   }
 
   def isNetworkRelation(networkType: NetworkType, relation: Relation): Boolean = {
@@ -54,7 +54,7 @@ object TagInterpreter {
   }
 
   def isValidNetworkNode(node: Node): Boolean = {
-    NetworkType.all.exists(networkType => isValidNetworkNode(networkType, node))
+    NetworkType.values.exists(networkType => isValidNetworkNode(networkType, node))
   }
 
   /*

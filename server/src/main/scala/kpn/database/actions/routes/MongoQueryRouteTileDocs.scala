@@ -23,7 +23,7 @@ class MongoQueryRouteTileDocs(database: Database) {
             equal("z", tileId.z),
             equal("x", tileId.x),
             equal("y", tileId.y),
-            equal("networkTypes", networkType.name)
+            equal("networkTypes", networkType.entryName)
           )
         ),
       )

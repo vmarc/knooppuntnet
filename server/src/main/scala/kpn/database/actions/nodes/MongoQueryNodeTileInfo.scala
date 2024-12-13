@@ -36,7 +36,7 @@ class MongoQueryNodeTileInfo(database: Database) {
 
   def execute(networkType: NetworkType, tileId: TileId, log: Log = MongoQueryNodeTileInfo.log): Seq[NodeTileInfo] = {
     log.debugElapsed {
-      val tilename = s"${networkType.name}-${tileId.name}"
+      val tilename = s"${networkType.entryName}-${tileId.name}"
       val pipeline = Seq(
         filter(
           and(

@@ -31,7 +31,7 @@ class FindSpecialNodesTool(database: Database) {
   def report(): Unit = {
     val nodes = findNodes()
     nodes.zipWithIndex.foreach { case (node, index) =>
-      println(s"| ${index + 1} | ${node.country.domain} | ${node.networkType.name} | [${node.nodeId}](https://knooppuntnet.nl/en/analysis/node/${node.nodeId}) |")
+      println(s"| ${index + 1} | ${node.country.domain} | ${node.networkType.entryName} | [${node.nodeId}](https://knooppuntnet.nl/en/analysis/node/${node.nodeId}) |")
     }
   }
 

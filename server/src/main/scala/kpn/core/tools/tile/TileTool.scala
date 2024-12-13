@@ -42,7 +42,7 @@ object TileTool {
 
           Mongo.executeIn(options.databaseName) { database =>
             val tileTool = buildTileTool(database, options.tileDir)
-            NetworkType.all.foreach { networkType =>
+            NetworkType.values.foreach { networkType =>
               tileTool.newMake(networkType)
             }
           }
@@ -142,7 +142,7 @@ class TileTool(
         }
         val tileBytes = encoder.encode()
         if (tileBytes.nonEmpty) {
-          vectorTileRepository.saveOrUpdate(networkType.name, tile, tileBytes)
+          vectorTileRepository.saveOrUpdate(networkType.entryName, tile, tileBytes)
         }
       }
     }

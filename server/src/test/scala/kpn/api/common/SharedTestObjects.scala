@@ -1472,7 +1472,7 @@ trait SharedTestObjects extends MockFactory {
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty
   ): OrphanNodeDoc = {
-    val _id = s"${country.domain}:${networkType.name}:$nodeId"
+    val _id = s"${country.domain}:${networkType.entryName}:$nodeId"
     OrphanNodeDoc(
       _id,
       country,

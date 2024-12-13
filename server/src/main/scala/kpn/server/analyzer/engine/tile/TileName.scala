@@ -12,8 +12,8 @@ object TileName {
       "inline-skating"
     }
     else {
-      NetworkType.withName(tileName.split("-").head) match {
-        case Some(networkType) => networkType.name
+      NetworkType.withNameOption(tileName.split("-").head) match {
+        case Some(networkType) => networkType.entryName
         case _ => ""
       }
     }

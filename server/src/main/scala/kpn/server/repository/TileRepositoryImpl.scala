@@ -17,5 +17,5 @@ class TileRepositoryImpl(database: Database) extends TileRepository {
     new MongoQueryTiles(database).routeIds(name(networkType, tile))
   }
 
-  private def name(networkType: NetworkType, tile: Tile): String = s"${networkType.name}-${tile.name}"
+  private def name(networkType: NetworkType, tile: Tile): String = s"${networkType.entryName}-${tile.name}"
 }

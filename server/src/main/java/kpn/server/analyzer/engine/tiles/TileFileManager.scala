@@ -43,17 +43,17 @@ class TileFileManager(
       bitmapTileFileRepository.delete(obsoleteTileNames)
       log.info(s"Obsolete bitmap tiles removed: ${obsoleteTileNames.size}")
 
-      val afterTileNamesSurface = afterTileNames.map(tileName => s"${networkType.name}-surface-$tileName")
+      val afterTileNamesSurface = afterTileNames.map(tileName => s"${networkType.entryName}-surface-$tileName")
       val obsoleteTileNamesSurface = (existingFilesSnapshot.bitmapTileNamesSurface.toSet -- afterTileNamesSurface.toSet).toSeq.sorted
       bitmapTileFileRepository.delete(obsoleteTileNamesSurface)
       log.info(s"Obsolete bitmap surface tiles removed: ${obsoleteTileNamesSurface.size}")
 
-      val afterTileNamesSurvey = afterTileNames.map(tileName => s"${networkType.name}-survey-$tileName")
+      val afterTileNamesSurvey = afterTileNames.map(tileName => s"${networkType.entryName}-survey-$tileName")
       val obsoleteTileNamesSurvey = (existingFilesSnapshot.bitmapTileNamesSurvey.toSet -- afterTileNamesSurvey.toSet).toSeq.sorted
       bitmapTileFileRepository.delete(obsoleteTileNamesSurvey)
       log.info(s"Obsolete bitmap survey tiles removed: ${obsoleteTileNamesSurvey.size}")
 
-      val afterTileNamesAnalysis = afterTileNames.map(tileName => s"${networkType.name}-analysis-$tileName")
+      val afterTileNamesAnalysis = afterTileNames.map(tileName => s"${networkType.entryName}-analysis-$tileName")
       val obsoleteTileNamesAnalysis = (existingFilesSnapshot.bitmapTileNamesAnalysis.toSet -- afterTileNamesAnalysis.toSet).toSeq.sorted
       bitmapTileFileRepository.delete(obsoleteTileNamesAnalysis)
       log.info(s"Obsolete bitmap analysis tiles removed: ${obsoleteTileNamesAnalysis.size}")
@@ -69,7 +69,7 @@ class TileFileManager(
 
   private def collectExistingVectorTileNames(z: Int, data: TileData) = {
     if (z >= ZoomLevel.vectorTileMinZoom - 1) {
-      vectorTileFileRepository.existingTileNames(data.networkType.name, z)
+      vectorTileFileRepository.existingTileNames(data.networkType.entryName, z)
     }
     else {
       Seq.empty
@@ -78,7 +78,7 @@ class TileFileManager(
 
   private def collectExistingBitmapTileNames(z: Int, data: TileData) = {
     if (z < ZoomLevel.vectorTileMinZoom) {
-      bitmapTileFileRepository.existingTileNames(data.networkType.name, z)
+      bitmapTileFileRepository.existingTileNames(data.networkType.entryName, z)
     }
     else {
       Seq.empty
@@ -87,7 +87,7 @@ class TileFileManager(
 
   private def collectExistingBitmapTileNamesSurface(z: Int, data: TileData) = {
     if (z < ZoomLevel.vectorTileMinZoom) {
-      bitmapTileFileRepository.existingTileNames(s"${data.networkType.name}/surface", z)
+      bitmapTileFileRepository.existingTileNames(s"${data.networkType.entryName}/surface", z)
     }
     else {
       Seq.empty
@@ -96,7 +96,7 @@ class TileFileManager(
 
   private def collectExistingBitmapTileNamesSurvey(z: Int, data: TileData) = {
     if (z < ZoomLevel.vectorTileMinZoom) {
-      bitmapTileFileRepository.existingTileNames(s"${data.networkType.name}/survey", z)
+      bitmapTileFileRepository.existingTileNames(s"${data.networkType.entryName}/survey", z)
     }
     else {
       Seq.empty
@@ -105,7 +105,7 @@ class TileFileManager(
 
   private def collectExistingBitmapTileNamesAnalysis(z: Int, data: TileData) = {
     if (z < ZoomLevel.vectorTileMinZoom) {
-      bitmapTileFileRepository.existingTileNames(s"${data.networkType.name}/analysis", z)
+      bitmapTileFileRepository.existingTileNames(s"${data.networkType.entryName}/analysis", z)
     }
     else {
       Seq.empty

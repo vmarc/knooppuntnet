@@ -27,7 +27,7 @@ class MongoQueryRouteTileNames(database: Database) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          equal("networkTypes", networkType.name)
+          equal("networkTypes", networkType.entryName)
         ),
         project(
           fields(

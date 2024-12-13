@@ -20,7 +20,7 @@ class TileDataLoaderImpl(
       val nodes = if (nodeNetwork) findNodes(networkType) else Seq.empty
       val routes = findRoutes(networkType, nodeNetwork)
       val tileAnalysis = TileData(networkType, nodes, routes)
-      (s"Completed analysis for ${networkType.name}", tileAnalysis)
+      (s"Completed analysis for ${networkType.entryName}", tileAnalysis)
     }
   }
 

@@ -54,7 +54,7 @@ object MongoQueryLocationChanges {
         val changeSetId = change.key.changeSetId
         println(s"$timestamp $changeSetId, happy=${change.happy}, investigate=${change.investigate}")
         change.locationChanges.foreach { locationChanges =>
-          val networkType = locationChanges.networkType.name
+          val networkType = locationChanges.networkType.entryName
           val location = locationChanges.locationNames.mkString(" > ")
           println(s"  $networkType $location, happy=${locationChanges.happy}, investigate=${locationChanges.investigate}")
           locationChanges.nodeChanges.removed.foreach { ref =>
@@ -221,7 +221,7 @@ class MongoQueryLocationChanges(database: Database) {
       filter(
         and(
           Seq(
-            Some(equal("locationChanges.networkType", subset.networkType.name)),
+            Some(equal("locationChanges.networkType", subset.networkType.entryName)),
             Some(
               LocationQuery.changesLocationFilter("locationChanges.locationNames", subset)
             ),

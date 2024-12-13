@@ -40,8 +40,8 @@ class TileReportTool {
   }
 
   private def loadTileInfos(networkType: NetworkType): Seq[TileInfo] = {
-    println(s"loading ${networkType.name} tile infos")
-    val root = new File("/Users/marc/kpn/tiles", networkType.name)
+    println(s"loading ${networkType.entryName} tile infos")
+    val root = new File("/Users/marc/kpn/tiles", networkType.entryName)
     val zs = root.listFiles(fileFilter).map(dir => dir.getName.toInt).sorted.toSeq
     zs.flatMap { z =>
       val zDir = new File(root, z.toString)

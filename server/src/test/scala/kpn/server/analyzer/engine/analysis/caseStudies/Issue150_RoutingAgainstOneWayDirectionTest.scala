@@ -31,7 +31,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
       val legBuilder = new LegBuilderImpl(graphRepository, routeRepository)
       val params = LegBuildParams(
-        NetworkType.cycling.name,
+        NetworkType.cycling.entryName,
         LegEnd.node(7741683309L),
         LegEnd.node(42784896L),
         proposed = false

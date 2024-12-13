@@ -76,7 +76,7 @@ class TileUpdaterImpl(
         nodeTileInfoOption match {
           case Some(tileInfoNode) => tileDataNodeBuilder.build(networkType, tileInfoNode)
           case None =>
-            log.error(s"Unexpected data integrity problem: node $nodeId for tile ${networkType.name}-${tile.name} not found in database")
+            log.error(s"Unexpected data integrity problem: node $nodeId for tile ${networkType.entryName}-${tile.name} not found in database")
             None
         }
       }
@@ -97,7 +97,7 @@ class TileUpdaterImpl(
                 None
               }
             case None =>
-              log.error(s"Unexpected data integrity problem: route $routeId for tile ${networkType.name}-${tile.name} not found in database")
+              log.error(s"Unexpected data integrity problem: route $routeId for tile ${networkType.entryName}-${tile.name} not found in database")
               None
           }
         )

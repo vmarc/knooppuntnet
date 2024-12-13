@@ -10,7 +10,7 @@ object Label {
   val survey: String = "survey"
   val facts: String = "facts"
 
-  def networkType(networkType: NetworkType): String = s"network-type-${networkType.name}"
+  def networkType(networkType: NetworkType): String = s"network-type-${networkType.entryName}"
 
   def location(locationName: String): String = s"location-$locationName"
 

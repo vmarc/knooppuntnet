@@ -30,7 +30,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.node(data.node4.id)
-    val params = LegBuildParams(NetworkType.hiking.name, source, sink, proposed = false)
+    val params = LegBuildParams(NetworkType.hiking.entryName, source, sink, proposed = false)
 
     legBuilder().leg(params).value.shouldMatchTo(
       PlanLegDetail(
@@ -49,7 +49,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.route(data.legEndRoute3)
-    val params = LegBuildParams(NetworkType.hiking.name, source, sink, proposed = false)
+    val params = LegBuildParams(NetworkType.hiking.entryName, source, sink, proposed = false)
 
     legBuilder().leg(params).value.shouldMatchTo(
       PlanLegDetail(
@@ -68,7 +68,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
     val source = LegEnd.route(data.legEndRoute1)
     val sink = LegEnd.route(data.legEndRoute3)
-    val params = LegBuildParams(NetworkType.hiking.name, source, sink, proposed = false)
+    val params = LegBuildParams(NetworkType.hiking.entryName, source, sink, proposed = false)
 
     legBuilder().leg(params).value.shouldMatchTo(
       PlanLegDetail(
@@ -87,7 +87,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
     val source = LegEnd.route(data.legEndRoute4)
     val sink = LegEnd.route(data.legEndRoute3)
-    val params = LegBuildParams(NetworkType.hiking.name, source, sink, proposed = false)
+    val params = LegBuildParams(NetworkType.hiking.entryName, source, sink, proposed = false)
 
     legBuilder().leg(params).value.shouldMatchTo(
       PlanLegDetail(
@@ -105,7 +105,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.route(data.legEndRoute1)
-    val params = LegBuildParams(NetworkType.hiking.name, source, sink, proposed = false)
+    val params = LegBuildParams(NetworkType.hiking.entryName, source, sink, proposed = false)
 
     legBuilder().leg(params).value.shouldMatchTo(
       PlanLegDetail(
@@ -122,7 +122,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
 
     val source = LegEnd.node(data.node1.id)
     val sink = LegEnd.route(data.legEndRoute4)
-    val params = LegBuildParams(NetworkType.hiking.name, source, sink, proposed = false)
+    val params = LegBuildParams(NetworkType.hiking.entryName, source, sink, proposed = false)
 
     legBuilder().leg(params).value.shouldMatchTo(
       PlanLegDetail(

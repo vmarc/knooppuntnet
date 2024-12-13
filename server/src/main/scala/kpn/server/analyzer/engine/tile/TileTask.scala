@@ -22,13 +22,13 @@ object TileTask {
       NetworkType.inlineSkating
     }
     else {
-      NetworkType.withName(fullTileName(task).split("-").head).get
+      NetworkType.withName(fullTileName(task).split("-").head)
     }
   }
 
   def tileName(task: String): String = {
     val n = fullTileName(task)
-    n.substring(networkType(task).name.length + 1)
+    n.substring(networkType(task).entryName.length + 1)
   }
 
   def zoomLevel(task: String): Int = {

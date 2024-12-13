@@ -45,8 +45,8 @@ class MongoQueryNodeTilenames(database: Database) {
       println(Mongo.pipelineString(pipeline))
 
       val tiles = database.nodes.aggregate[StringId](pipeline, log, allowDiskUse = true)
-      val tileIds = tiles.map(_._id).filter(_.startsWith(networkType.name)).map { tileName =>
-        val splitted = tileName.drop(networkType.name.length + 1).split("-")
+      val tileIds = tiles.map(_._id).filter(_.startsWith(networkType.entryName)).map { tileName =>
+        val splitted = tileName.drop(networkType.entryName.length + 1).split("-")
         TileId(splitted(0).toInt, splitted(0).toInt, splitted(0).toInt)
       }
       (s"${tileIds.size} tiles", tileIds)

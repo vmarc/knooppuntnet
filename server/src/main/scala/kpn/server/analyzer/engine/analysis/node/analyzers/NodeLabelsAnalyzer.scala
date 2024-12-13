@@ -40,8 +40,8 @@ class NodeLabelsAnalyzer(analysis: NodeAnalysis) {
         networkTypes.flatMap { networkType =>
           val failed = nodeIntegrity.details.filter(_.networkType == networkType).exists(_.failed)
           Seq(
-            Some(s"integrity-check-${networkType.name}"),
-            if (failed) Some(s"integrity-check-failed-${networkType.name}") else None
+            Some(s"integrity-check-${networkType.entryName}"),
+            if (failed) Some(s"integrity-check-failed-${networkType.entryName}") else None
           ).flatten
         }
     }

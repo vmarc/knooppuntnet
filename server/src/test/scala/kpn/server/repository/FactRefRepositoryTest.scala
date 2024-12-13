@@ -129,7 +129,7 @@ class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
           Label.active,
           Label.networkType(subset.networkType),
           Label.location(subset.country.domain),
-          s"integrity-check-failed-${subset.networkType.name}"
+          s"integrity-check-failed-${subset.networkType.entryName}"
         )
       )
     )

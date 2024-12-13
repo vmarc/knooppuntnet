@@ -17,8 +17,8 @@ case class Reference(
   import scala.math.Ordered.orderingToOrdered
 
   def compare(that: Reference): Int = {
-    (this.networkScope.name, this.networkType.name, this.name).compare(
-      (that.networkScope.name, that.networkType.name, that.name)
+    (this.networkScope.name, this.networkType.entryName, this.name).compare(
+      (that.networkScope.name, that.networkType.entryName, that.name)
     )
   }
 }

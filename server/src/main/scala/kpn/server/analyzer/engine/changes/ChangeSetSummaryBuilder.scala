@@ -171,7 +171,7 @@ class ChangeSetSummaryBuilder {
   }
 
   private def buildLocationChanges(context: ChangeSetContext): Seq[LocationChanges] = {
-    NetworkType.all.flatMap { networkType =>
+    NetworkType.values.flatMap { networkType =>
       val nodeChanges = context.changes.nodeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
       val routeChanges = context.changes.routeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
       val locations = {

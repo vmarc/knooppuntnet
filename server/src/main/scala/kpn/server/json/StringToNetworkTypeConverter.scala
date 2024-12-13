@@ -6,5 +6,5 @@ import org.springframework.stereotype.Component
 
 @Component
 class StringToNetworkTypeConverter extends Converter[String, NetworkType] {
-  override def convert(source: String): NetworkType = NetworkType.withName(source).get
+  override def convert(source: String): NetworkType = NetworkType.withName(source)
 }

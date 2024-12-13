@@ -30,7 +30,7 @@ class LegBuilderImpl(
   private val featureId = new FeatureId()
 
   override def leg(params: LegBuildParams): Option[PlanLegDetail] = {
-    NetworkType.withName(params.networkType) match {
+    NetworkType.withNameOption(params.networkType) match {
       case Some(networkType) => buildLeg(params, networkType)
       case None =>
         log.error(s"Unknown network type ${params.networkType}")
@@ -51,7 +51,7 @@ class LegBuilderImpl(
         }
 
       case None =>
-        log.error(s"Could not find graph for network type ${networkType.name}")
+        log.error(s"Could not find graph for network type ${networkType.entryName}")
         None
     }
   }
@@ -72,7 +72,7 @@ class LegBuilderImpl(
         val source = legEnds.head
         val sink = legEnds.tail.head
         val params = LegBuildParams(
-          networkType.name,
+          networkType.entryName,
           source,
           sink,
           proposed
@@ -91,7 +91,7 @@ class LegBuilderImpl(
         }
         else {
           val params = LegBuildParams(
-            networkType.name,
+            networkType.entryName,
             source,
             sink,
             proposed
@@ -109,7 +109,7 @@ class LegBuilderImpl(
     graphRepository.graph(networkType) match {
       case Some(graph) => buildLeg(params, graph)
       case None =>
-        log.error(s"Could not find graph for network type ${networkType.name}")
+        log.error(s"Could not find graph for network type ${networkType.entryName}")
         None
     }
   }

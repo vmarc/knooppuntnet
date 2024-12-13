@@ -1,25 +1,24 @@
 package kpn.api.custom
 
-object NetworkType {
+import enumeratum.Enum
+import enumeratum.EnumEntry
+import enumeratum.EnumEntry.Hyphencase
 
-  def withName(name: String): Option[NetworkType] = {
-    all.find(_.name == name)
-  }
+sealed trait NetworkType extends EnumEntry with Hyphencase
 
-  val hiking: NetworkType = NetworkType("hiking")
-  val cycling: NetworkType = NetworkType("cycling")
-  val horseRiding: NetworkType = NetworkType("horse-riding")
-  val canoe: NetworkType = NetworkType("canoe")
-  val motorboat: NetworkType = NetworkType("motorboat")
-  val inlineSkating: NetworkType = NetworkType("inline-skating")
+object NetworkType extends Enum[NetworkType] {
 
-  val all: Seq[NetworkType] = Seq(hiking, cycling, horseRiding, canoe, motorboat, inlineSkating)
-}
+  val values: IndexedSeq[NetworkType] = findValues
 
-case class NetworkType(name: String) {
+  final case object hiking extends NetworkType
 
-  override def toString: String = name
+  final case object cycling extends NetworkType
 
-  def scopedNetworkTypes: Seq[ScopedNetworkType] = ScopedNetworkType.all.filter(_.networkType == this)
+  final case object horseRiding extends NetworkType 
 
+  final case object canoe extends NetworkType
+
+  final case object motorboat extends NetworkType
+
+  final case object inlineSkating extends NetworkType
 }

@@ -35,7 +35,7 @@ class LocationDetailsPageBuilderImpl(
     val nameParts = locationKey.name.split(":").toSeq
     val locationInfos = nameParts.zipWithIndex.map { case (namePart, index) =>
       val names = nameParts.take(index + 1)
-      val link = s"${locationKey.networkType.name}/${locationKey.country.domain}/${names.mkString(":")}"
+      val link = s"${locationKey.networkType.entryName}/${locationKey.country.domain}/${names.mkString(":")}"
       LocationInfo(
         namePart,
         link

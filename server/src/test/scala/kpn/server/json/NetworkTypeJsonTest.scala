@@ -7,10 +7,13 @@ class NetworkTypeJsonTest extends UnitTest {
 
   test("serializer") {
     Json.string(NetworkType.cycling) should equal(""""cycling"""")
+    Json.string(NetworkType.horseRiding) should equal(""""horse-riding"""")
+    Json.string(NetworkType.inlineSkating) should equal(""""inline-skating"""")
   }
 
   test("deserializer") {
-    val networkType = Json.value(""""cycling"""", classOf[NetworkType])
-    networkType should equal(NetworkType.cycling)
+    Json.value(""""cycling"""", classOf[NetworkType]) should equal(NetworkType.cycling)
+    Json.value(""""horse-riding"""", classOf[NetworkType]) should equal(NetworkType.horseRiding)
+    Json.value(""""inline-skating"""", classOf[NetworkType]) should equal(NetworkType.inlineSkating)
   }
 }

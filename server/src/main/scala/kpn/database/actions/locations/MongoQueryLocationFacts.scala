@@ -58,7 +58,7 @@ class MongoQueryLocationFacts(database: Database) {
       mainFilter,
       unwind("$names"),
       filter(
-        equal("names.networkType", subset.networkType.name)
+        equal("names.networkType", subset.networkType.entryName)
       ),
       unwind("$facts"),
       project(
@@ -93,12 +93,12 @@ class MongoQueryLocationFacts(database: Database) {
       ),
       unwind("$names"),
       filter(
-        equal("names.networkType", subset.networkType.name)
+        equal("names.networkType", subset.networkType.entryName)
       ),
       unwind("$integrity.details"),
       filter(
         and(
-          equal("integrity.details.networkType", subset.networkType.name),
+          equal("integrity.details.networkType", subset.networkType.entryName),
           BsonDocument("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
         )
       ),

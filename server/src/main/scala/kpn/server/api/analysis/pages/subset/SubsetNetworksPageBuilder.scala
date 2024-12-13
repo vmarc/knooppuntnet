@@ -83,7 +83,7 @@ class SubsetNetworksPageBuilder(
         and(
           equal("active", true),
           equal("country", subset.country.domain),
-          equal("summary.networkType", subset.networkType.name)
+          equal("summary.networkType", subset.networkType.entryName)
         )
       ),
       sort(orderBy(ascending("summary.name"))),

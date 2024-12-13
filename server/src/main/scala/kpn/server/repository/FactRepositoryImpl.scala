@@ -108,7 +108,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           and(
             equal("active", true),
             equal("country", subset.country.domain),
-            equal("summary.networkType", subset.networkType.name)
+            equal("summary.networkType", subset.networkType.entryName)
           )
         ),
         unwind("$routes"),
@@ -134,7 +134,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           and(
             equal("active", true),
             equal("country", subset.country.domain),
-            equal("summary.networkType", subset.networkType.name)
+            equal("summary.networkType", subset.networkType.entryName)
           )
         ),
         unwind("$facts"),
@@ -168,7 +168,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           and(
             equal("active", true),
             equal("country", subset.country.domain),
-            equal("summary.networkType", subset.networkType.name)
+            equal("summary.networkType", subset.networkType.entryName)
           )
         ),
         unwind("$facts"),
@@ -228,7 +228,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
   private def findNodesWithIntegrityCheckFailed(subset: Subset): Seq[Ref] = {
     log.debugElapsed {
 
-      val factLabel = s"integrity-check-failed-${subset.networkType.name}"
+      val factLabel = s"integrity-check-failed-${subset.networkType.entryName}"
 
       val pipeline = Seq(
         filter(
@@ -240,7 +240,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           )
         ),
         unwind("$names"),
-        filter(equal("names.networkType", subset.networkType.name)),
+        filter(equal("names.networkType", subset.networkType.entryName)),
         project(
           fields(
             excludeId(),
@@ -261,7 +261,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           and(
             equal("active", true),
             equal("country", subset.country.domain),
-            equal("summary.networkType", subset.networkType.name)
+            equal("summary.networkType", subset.networkType.entryName)
           )
         ),
         unwind("$nodes"),

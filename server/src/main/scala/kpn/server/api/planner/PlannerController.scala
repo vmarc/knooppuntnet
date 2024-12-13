@@ -24,7 +24,7 @@ class PlannerController(plannerFacade: PlannerFacade) {
     @PathVariable networkType: String,
     @PathVariable nodeId: Long
   ): ApiResponse[MapNodeDetail] = {
-    val networkTypeValue = NetworkType.withName(networkType).get
+    val networkTypeValue = NetworkType.withName(networkType)
     plannerFacade.mapNodeDetail(networkTypeValue, nodeId)
   }
 
@@ -54,7 +54,7 @@ class PlannerController(plannerFacade: PlannerFacade) {
   @PostMapping(path = Array("/api/plan"), consumes = Array("application/json"))
   def plan(@RequestBody params: PlanParams): ApiResponse[Seq[PlanLegDetail]] = {
     plannerFacade.plan(
-      NetworkType.withName(params.networkType).get,
+      NetworkType.withName(params.networkType),
       params.planString,
       proposed = false
     )

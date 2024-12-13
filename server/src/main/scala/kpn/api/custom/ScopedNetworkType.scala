@@ -16,7 +16,7 @@ object ScopedNetworkType {
   }
 
   val all: Seq[ScopedNetworkType] = {
-    NetworkType.all.flatMap { networkType =>
+    NetworkType.values.flatMap { networkType =>
       NetworkScope.all.map(scope => ScopedNetworkType(scope, networkType))
     }
   }

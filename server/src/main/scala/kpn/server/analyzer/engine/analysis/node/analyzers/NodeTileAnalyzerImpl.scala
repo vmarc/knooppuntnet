@@ -13,7 +13,7 @@ class NodeTileAnalyzerImpl(nodeTileCalculator: NodeTileCalculator) extends NodeT
     }
     val tileNames = tiles.flatMap { tile =>
       analysis.nodeNames.map(_.networkType).map { networkType =>
-        s"${networkType.name}-${tile.name}"
+        s"${networkType.entryName}-${tile.name}"
       }
     }
     analysis.copy(tiles = tileNames)

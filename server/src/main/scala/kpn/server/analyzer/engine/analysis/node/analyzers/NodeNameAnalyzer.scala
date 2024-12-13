@@ -37,7 +37,7 @@ object NodeNameAnalyzer extends NodeAspectAnalyzer {
   }
 
   def findName(tagable: Tagable): String = {
-    NetworkType.all.flatMap { networkType =>
+    NetworkType.values.flatMap { networkType =>
       NetworkScope.all.flatMap { networkScope =>
         scopedName(tagable, ScopedNetworkType.from(networkScope, networkType))
       }.distinct

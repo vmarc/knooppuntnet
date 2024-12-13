@@ -25,7 +25,7 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
       filter(
         and(
           equal("country", subset.country.domain),
-          equal("networkType", subset.networkType.name),
+          equal("networkType", subset.networkType.entryName),
         )
       )
     )
@@ -43,7 +43,7 @@ class MongoQuerySubsetOrphanNodes(database: Database) {
       filter(
         and(
           equal("country", subset.country.domain),
-          equal("networkType", subset.networkType.name),
+          equal("networkType", subset.networkType.entryName),
         )
       ),
       project(

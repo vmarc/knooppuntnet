@@ -48,12 +48,12 @@ class DuplicateRoutesReport(database: Database) {
     val routes = loadRoutes(routeIds)
 
     Country.all.foreach { country =>
-      NetworkType.all.foreach { networkType =>
+      NetworkType.values.foreach { networkType =>
         val subsetRoutes = routes.filter(_.country == country).filter(_.networkTypes.contains(networkType))
         val overlaps = findOverlaps(subsetRoutes)
         if (overlaps.nonEmpty) {
           println()
-          println(s"### ${country.domain}/${networkType.name} ${subsetRoutes.size} routes, with ${overlaps.size} overlaps")
+          println(s"### ${country.domain}/${networkType.entryName} ${subsetRoutes.size} routes, with ${overlaps.size} overlaps")
           println()
           printTableHeader()
           overlaps.sorted.foreach(printOverlap)
