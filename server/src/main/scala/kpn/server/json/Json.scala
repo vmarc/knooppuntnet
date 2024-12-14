@@ -21,7 +21,6 @@ import kpn.api.common.planner.PlanCoordinate
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Day
 import kpn.api.custom.Fact
-import kpn.api.custom.LocationNodesType
 import kpn.api.custom.LocationRoutesType
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.Relation
@@ -73,9 +72,6 @@ object Json {
 
     b.deserializerByType(classOf[ChangeType], new ChangeTypeJsonDeserializer())
     b.serializerByType(classOf[ChangeType], new ChangeTypeJsonSerializer())
-
-    b.deserializerByType(classOf[LocationNodesType], new LocationNodesTypeJsonDeserializer())
-    b.serializerByType(classOf[LocationNodesType], new LocationNodesTypeJsonSerializer())
 
     b.deserializerByType(classOf[LocationRoutesType], new LocationRoutesTypeJsonDeserializer())
     b.serializerByType(classOf[LocationRoutesType], new LocationRoutesTypeJsonSerializer())

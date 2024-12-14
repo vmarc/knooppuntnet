@@ -10,5 +10,4 @@ export * from './api-response';
 export * from './location-key';
 export * from './network-scope';
 export * from './route-member-info';
-export * from './location-nodes-type';
 export * from './location-routes-type';
