@@ -5,7 +5,7 @@ import { input } from '@angular/core';
 import { NetworkFact } from '@api/common';
 import { EditParameters } from '@app/analysis/components/edit';
 import { FactInfo } from '@app/analysis/fact';
-import { FactLevel } from '@app/analysis/fact';
+import { FactLevel } from '@api/common';
 import { Facts } from '@app/analysis/fact';
 import { FactLevelComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';

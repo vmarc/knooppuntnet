@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { LocationFact } from '@api/common/location';
 import { Fact } from '@api/custom';
-import { FactLevel } from '@app/analysis/fact';
+import { FactLevel } from '@api/common';
 import { Facts } from '@app/analysis/fact';
 import { FactLevelComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';

@@ -1,5 +1,7 @@
 package kpn.api.custom
 
+import kpn.api.common.FactLevel
+
 import scala.collection.mutable.ListBuffer
 
 case class Fact(name: String, level: FactLevel) {

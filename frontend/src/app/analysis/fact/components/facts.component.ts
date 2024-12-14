@@ -7,7 +7,7 @@ import { LinkNodeComponent } from '@app/components/shared/link';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { FactDescriptionComponent } from './fact-description.component';
 import { FactInfo } from './fact-info';
-import { FactLevel } from './fact-level';
+import { FactLevel } from '@api/common/fact-level';
 import { FactLevelComponent } from './fact-level.component';
 import { FactNameComponent } from './fact-name.component';
 import { Facts } from './facts';

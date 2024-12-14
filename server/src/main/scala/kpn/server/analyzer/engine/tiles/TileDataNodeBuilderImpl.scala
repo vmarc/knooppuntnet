@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.tiles
 
+import kpn.api.common.FactLevel
 import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.custom.Fact
-import kpn.api.custom.FactLevel
 import kpn.api.custom.NetworkScope
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
@@ -53,7 +53,7 @@ class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
 
       val surveyDateTry = SurveyDateAnalyzer.analyze(node)
       val surveyDate = surveyDateTry match {
-        case Success(surveyDate) => surveyDate
+        case Success(date) => date
         case Failure(_) => None
       }
 

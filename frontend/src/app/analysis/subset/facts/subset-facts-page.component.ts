@@ -8,7 +8,7 @@ import { SubsetFactsPage } from '@api/common/subset';
 import { ApiResponse } from '@api/custom';
 import { Fact } from '@api/custom';
 import { FactInfo } from '@app/analysis/fact';
-import { FactLevel } from '@app/analysis/fact';
+import { FactLevel } from '@api/common';
 import { Facts } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactLevelComponent } from '@app/analysis/fact';
