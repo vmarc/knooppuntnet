@@ -21,7 +21,6 @@ import { MatLabel } from '@angular/material/select';
       <mat-chip-listbox aria-label="Facts" [multiple]="true">
         <mat-chip-option>RouteOverlappingWays (12)</mat-chip-option>
         <mat-chip-option selected>RouteRedundantNodes (3)</mat-chip-option>
-        <mat-chip-option>RouteReversed (7)</mat-chip-option>
         <mat-chip-option>RouteSuspiciousWays (11)</mat-chip-option>
         <mat-chip-option>RouteTagInvalid (1)</mat-chip-option>
       </mat-chip-listbox>

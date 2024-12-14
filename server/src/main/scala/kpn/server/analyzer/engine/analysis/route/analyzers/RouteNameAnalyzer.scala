@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.Fact.RouteNameDeprecatedNoteTag
-import kpn.api.custom.Fact.RouteNameMissing
+import kpn.api.common.Fact.RouteNameDeprecatedNoteTag
+import kpn.api.common.Fact.RouteNameMissing
 import kpn.core.util.NaturalSorting
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.node.NodeUtil

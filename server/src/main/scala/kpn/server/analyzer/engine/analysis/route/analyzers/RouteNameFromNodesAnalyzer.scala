@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.Fact
+import kpn.api.common.Fact
 import kpn.core.util.Util.isDigits
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext

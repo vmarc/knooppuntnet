@@ -1,9 +1,9 @@
 package kpn.core.doc
 
+import kpn.api.common.Fact
 import kpn.api.common.common.Ref
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 

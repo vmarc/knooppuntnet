@@ -34,7 +34,7 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
         <mat-card-header>
           <mat-card-title>
             <div class="kpn-line">
-              <kpn-fact-name [fact]="service.factDefinition().name" />
+              <kpn-fact-name [fact]="service.factDefinition().fact" />
               <kpn-fact-level [factLevel]="service.factDefinition().level"></kpn-fact-level>
             </div>
           </mat-card-title>
@@ -85,6 +85,6 @@ export class SubsetFactDetailsPageComponent implements OnInit {
   }
 
   factInfo(): FactInfo {
-    return new FactInfo(this.service.subsetFact().factName);
+    return new FactInfo(this.service.subsetFact().fact);
   }
 }

@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.node
 
+import kpn.api.common.Fact
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
-import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest

@@ -4,6 +4,7 @@ import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.Country
 import kpn.api.common.EN
+import kpn.api.common.Fact
 import kpn.api.common.LOCATION
 import kpn.api.common.Language
 import kpn.api.common.Languages
@@ -45,7 +46,6 @@ import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
 import kpn.api.custom.Subset
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
@@ -96,7 +96,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   ): ApiResponse[SubsetFactRefs] = {
     Subset.of(country, networkType) match {
       case Some(subset) =>
-        Fact.withName(fact) match {
+        Fact.withNameOption(fact) match {
           case Some(f) => analysisFacade.subsetFactRefs(subset, f)
           case None => notFound()
         }
@@ -112,7 +112,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   ): ApiResponse[SubsetFactDetailsPage] = {
     Subset.of(country, networkType) match {
       case Some(subset) =>
-        Fact.withName(fact) match {
+        Fact.withNameOption(fact) match {
           case Some(f) => analysisFacade.subsetFactDetails(subset, f)
           case None => notFound()
         }

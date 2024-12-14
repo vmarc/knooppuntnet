@@ -1,6 +1,6 @@
 package kpn.core.tools.support
 
-import kpn.api.custom.Fact
+import kpn.api.common.Fact
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.database.base.Database

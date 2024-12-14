@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
-import kpn.api.custom.Fact.RouteOneWay
+import kpn.api.common.Fact.RouteOneWay
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest

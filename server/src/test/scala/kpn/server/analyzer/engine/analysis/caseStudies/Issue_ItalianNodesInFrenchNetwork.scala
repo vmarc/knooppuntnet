@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
+import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.core.loadOld.Parser
 import kpn.core.test.OverpassData
@@ -28,7 +29,7 @@ class Issue_ItalianNodesInFrenchNetwork extends IntegrationTest {
       networkInfo.facts.shouldMatchTo {
         Seq(
           NetworkFact(
-            "NetworkExtraMemberNode",
+            Fact.NetworkExtraMemberNode,
             Some("node"),
             Some(
               Seq(

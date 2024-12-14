@@ -6,8 +6,8 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
-import kpn.api.custom.Fact
 import kpn.api.custom.Relation
+import kpn.core.analysis.Facts
 import kpn.core.doc.RouteDoc
 import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
@@ -106,7 +106,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
 
     val key = config.changeSetContext.buildChangeKey(routeDoc.id)
     val facts = routeDoc.facts
-    val locationFacts = facts.filter(Fact.locationFacts.contains)
+    val locationFacts = facts.filter(Facts.locationFacts.contains)
     val routeData = RouteData(
       routeDoc.summary.id,
       MetaData(routeDoc.version, routeDoc.lastUpdated, routeDoc.changeSetId),

@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.tiles.ZoomLevel
 import kpn.api.custom.Relation
+import kpn.core.analysis.Facts
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileSegment
@@ -95,7 +96,7 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
       context.scopes.headOption
     }
     val survey = context.lastSurvey.map(_.yyyymm)
-    val error = if (context.facts.exists(_.isError)) Some("true") else None
+    val error = if (context.facts.exists(Facts.isError)) Some("true") else None
 
     val zoomLevelTiles = tiles.filter(_.z == zoomLevel)
     zoomLevelTiles.flatMap { tile =>

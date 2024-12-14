@@ -1,9 +1,9 @@
 package kpn.api.common.route
 
+import kpn.api.common.Fact
 import kpn.api.common.RouteSummary
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 

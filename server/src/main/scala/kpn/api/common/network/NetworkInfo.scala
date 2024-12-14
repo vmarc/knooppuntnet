@@ -1,8 +1,9 @@
 package kpn.api.common.network
 
 import kpn.api.base.WithId
-import kpn.api.custom.Fact
+import kpn.api.common.Fact
 import kpn.api.custom.Tag
+import kpn.core.analysis.Facts
 
 case class NetworkInfo(
   _id: Long,
@@ -77,14 +78,14 @@ case class NetworkInfo(
 
   private def nodeFactCount: Int = {
     detail match {
-      case Some(d) => d.nodes.map(_.facts.count(Fact.reportedFacts.contains)).sum
+      case Some(d) => d.nodes.map(_.facts.count(Facts.reportedFacts.contains)).sum
       case None => 0
     }
   }
 
   private def routeFactCount: Int = {
     detail match {
-      case Some(d) => d.routes.map(_.facts.count(Fact.reportedFacts.contains)).sum
+      case Some(d) => d.routes.map(_.facts.count(Facts.reportedFacts.contains)).sum
       case None => 0
     }
   }

@@ -1,11 +1,11 @@
 package kpn.core.history
 
+import kpn.api.common.Fact
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteNameDiff
-import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest

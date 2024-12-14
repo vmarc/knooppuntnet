@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.custom.Fact.RouteNameDeprecatedNoteTag
+import kpn.api.common.Fact.RouteNameDeprecatedNoteTag
 import kpn.core.util.UnitTest
 
 class RoundaboutTest extends UnitTest {

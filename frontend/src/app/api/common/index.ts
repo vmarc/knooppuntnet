@@ -14,6 +14,7 @@ export * from './changes-page';
 export * from './check';
 export * from './country';
 export * from './element-change-type';
+export * from './fact';
 export * from './fact-count';
 export * from './fact-level';
 export * from './lat-lon-impl';

@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
+import { Fact } from '@api/common';
 import { RouteSummary } from '@api/common';
 import { LocationCandidateInfo } from '@api/common/location';
 import { Day } from '@api/custom';
-import { Fact } from '@api/custom';
 import { RouteMemberInfo } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { RouteNodes } from './route-nodes';

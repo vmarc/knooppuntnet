@@ -1,10 +1,10 @@
 package kpn.api.common.network
 
+import kpn.api.common.Fact
 import kpn.api.common.LatLon
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.common.Ref
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 

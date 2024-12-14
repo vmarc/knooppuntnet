@@ -1,5 +1,5 @@
 import { Ref } from '@api/common/common';
-import { Fact } from '@api/custom';
+import { Fact } from '@api/common';
 
 export class FactInfo {
   constructor(

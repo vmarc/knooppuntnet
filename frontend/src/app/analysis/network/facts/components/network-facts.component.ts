@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 import { NetworkFact } from '@api/common';
 import { NetworkFactsPage } from '@api/common/network';
 import { ApiResponse } from '@api/custom';
-import { Fact } from '@api/custom';
+import { Fact } from '@api/common';
 import { FactInfo } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { DividerComponent } from '@app/components/shared';
@@ -52,8 +52,8 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
           (active)="expandCollapseActiveChanged($event)"
         />
         <mat-accordion multi>
-          @for (fact of page.facts; track fact.name) {
-            <mat-expansion-panel togglePosition="before" (opened)="updateFactFragment(fact.name)">
+          @for (fact of page.facts; track fact.fact) {
+            <mat-expansion-panel togglePosition="before" (opened)="updateFactFragment(fact.fact)">
               <mat-expansion-panel-header>
                 <div class="kpn-align-center">
                   @if (fact.elements && fact.elementType === 'node') {
@@ -174,7 +174,7 @@ export class NetworkFactsComponent implements AfterViewInit {
     if (this.apiResponse() && this.routerService.fragment()) {
       const fact = this.routerService.fragment();
       const networkFacts: NetworkFact[] = this.apiResponse().result.facts;
-      const panelIndex = networkFacts.findIndex((networkFact) => networkFact.name === fact);
+      const panelIndex = networkFacts.findIndex((networkFact) => networkFact.fact === fact);
 
       if (panelIndex >= 0 && panelIndex < this.panels().length) {
         const panel = this.panels().at(panelIndex);
@@ -195,7 +195,7 @@ export class NetworkFactsComponent implements AfterViewInit {
   }
 
   factInfo(networkFact: NetworkFact): FactInfo {
-    return new FactInfo(networkFact.name);
+    return new FactInfo(networkFact.fact);
   }
 
   elementIds(networkFact: NetworkFact): number[] {

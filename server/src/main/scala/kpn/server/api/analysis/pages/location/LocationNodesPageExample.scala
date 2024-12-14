@@ -1,5 +1,6 @@
 package kpn.server.api.analysis.pages.location
 
+import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.common.Reference
@@ -7,7 +8,6 @@ import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodeOptions
 import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationSummary
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.Timestamp
 import kpn.server.api.analysis.pages.TimeInfoBuilder

@@ -8,7 +8,7 @@ import kpn.api.common.NetworkType.horseRiding
 import kpn.api.common.NetworkType.inlineSkating
 import kpn.api.common.NetworkType.motorboat
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Fact.RouteTagMissing
+import kpn.api.common.Fact.RouteTagMissing
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.NetworkScope.local
 import kpn.api.custom.NetworkScope.national

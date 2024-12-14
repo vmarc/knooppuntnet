@@ -1,7 +1,7 @@
 package kpn.server.repository
 
+import kpn.api.common.Fact
 import kpn.api.common.subset.NetworkFactRefs
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 
 trait FactRepository {

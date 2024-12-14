@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { FactCount } from '@api/common';
 import { SubsetFactsPage } from '@api/common/subset';
 import { ApiResponse } from '@api/custom';
-import { Fact } from '@api/custom';
+import { Fact } from '@api/common';
 import { FactInfo } from '@app/analysis/fact';
 import { FactLevel } from '@api/common';
 import { Facts } from '@app/analysis/fact';

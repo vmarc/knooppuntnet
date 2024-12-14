@@ -3,7 +3,7 @@ package kpn.api.common
 import kpn.api.common.common.Ref
 
 case class NetworkFact(
-  name: String,
+  fact: Fact,
   elementType: Option[String] = None,
   // either 'elementIds' is filled in or 'elements', not both at the same time
   elementIds: Option[Seq[Long]] = None,

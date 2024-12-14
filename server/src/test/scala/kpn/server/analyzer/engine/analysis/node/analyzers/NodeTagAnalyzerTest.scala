@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.node.analyzers
 
+import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags

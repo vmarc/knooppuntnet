@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.post
 
 import kpn.api.common.Country
+import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.test.TestSupport.withDatabase

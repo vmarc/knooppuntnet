@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { Fact } from '@api/common';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
@@ -46,7 +47,7 @@ export class FactsPageComponent {
     return Facts.allFactNames;
   }
 
-  factInfo(factName: string): FactInfo {
-    return new FactInfo(factName);
+  factInfo(fact: Fact): FactInfo {
+    return new FactInfo(fact);
   }
 }

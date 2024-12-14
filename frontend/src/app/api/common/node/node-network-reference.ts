@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
+import { Fact } from '@api/common';
 import { NetworkType } from '@api/common';
-import { Fact } from '@api/custom';
 import { NodeNetworkIntegrityCheck } from './node-network-integrity-check';
 import { NodeNetworkRouteReference } from './node-network-route-reference';
 

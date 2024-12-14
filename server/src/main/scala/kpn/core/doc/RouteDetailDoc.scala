@@ -1,6 +1,7 @@
 package kpn.core.doc
 
 import kpn.api.base.WithId
+import kpn.api.common.Fact
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Ref
@@ -8,7 +9,6 @@ import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 import kpn.core.tools.next.domain.RouteRelation

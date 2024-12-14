@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { ServerFilterGroup } from '@api/common/changes/filter';
-import { Fact } from '@api/custom';
+import { Fact } from '@api/common';
 import { FactNameComponent } from '@app/analysis/fact';
 import { Translations } from '@app/i18n';
 
@@ -22,7 +22,7 @@ import { Translations } from '@app/i18n';
               @if (option.name === 'all') {
                 {{ translate(option.name) }}
               } @else {
-                <kpn-fact-name [fact]="option.name" />
+                <kpn-fact-name [fact]="toFact(option.name)" />
               }
               <span class="kpn-brackets">{{ option.count }}</span>
             </mat-radio-button>
@@ -57,5 +57,9 @@ export class LocationFilterFactComponent {
     } else {
       this.changed.emit(change.value as Fact);
     }
+  }
+
+  toFact(factName: string): Fact {
+    return factName as Fact;
   }
 }

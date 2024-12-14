@@ -3,8 +3,8 @@ package kpn.server.repository
 import kpn.api.common.FactCount
 import kpn.api.common.subset.SubsetInfo
 import kpn.api.common.subset.SubsetMapNetwork
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
+import kpn.core.analysis.Facts
 import kpn.core.util.Log
 import kpn.database.actions.statistics.MongoQueryStatistics
 import kpn.database.actions.subsets.MongoQuerySubsetInfo
@@ -23,8 +23,8 @@ class SubsetRepositoryImpl(database: Database) extends SubsetRepository {
 
   def subsetFactCounts(subset: Subset): Seq[FactCount] = {
     val statisticValuess = new MongoQueryStatistics(database).execute()
-    Fact.reportedFacts.flatMap { fact =>
-      statisticValuess.find(_._id == (s"${fact.name}Count")) match {
+    Facts.reportedFacts.flatMap { fact =>
+      statisticValuess.find(_._id == (s"${fact.entryName}Count")) match {
         case None => Seq.empty
         case Some(statisticValues) =>
           statisticValues.values.filter(_.isSubset(subset)).map { sv =>

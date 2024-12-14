@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.raw.RawData
-import kpn.api.custom.Fact.RouteNameMissing
+import kpn.api.common.Fact.RouteNameMissing
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder

@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
+import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.data.Tagable
 import kpn.api.common.data.raw.RawNode
-import kpn.api.custom.Fact
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import kpn.server.overpass.OverpassRepository
 import org.springframework.stereotype.Component
@@ -84,7 +84,7 @@ class NetworkInfoExtraAnalyzer(
     if (ids.nonEmpty) {
       Some(
         NetworkFact(
-          fact.name,
+          fact,
           elementType = Some(elementType),
           elementIds = Some(ids)
         )

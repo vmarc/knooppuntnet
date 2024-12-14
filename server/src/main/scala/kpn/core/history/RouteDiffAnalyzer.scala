@@ -1,5 +1,6 @@
 package kpn.core.history
 
+import kpn.api.common.Fact
 import kpn.api.common.common.Ref
 import kpn.api.common.data.raw.RawWay
 import kpn.api.common.diff.RouteData
@@ -10,7 +11,6 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.common.diff.route.RouteNodeDiff
 import kpn.api.common.route.RouteNode
-import kpn.api.custom.Fact
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.changes.diff.RouteUpdate
 

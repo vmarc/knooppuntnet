@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.node.analyzers
 
+import kpn.api.common.Fact
 import kpn.api.common.NodeName
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeUtil

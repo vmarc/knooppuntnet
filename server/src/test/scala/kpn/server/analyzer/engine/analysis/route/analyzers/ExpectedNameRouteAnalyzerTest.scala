@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.Fact
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Fact
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.analysis.route.RouteTestData

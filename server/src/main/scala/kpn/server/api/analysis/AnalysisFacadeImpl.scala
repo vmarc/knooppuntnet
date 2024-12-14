@@ -3,6 +3,7 @@ package kpn.server.api.analysis
 import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.Country
+import kpn.api.common.Fact
 import kpn.api.common.Language
 import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
@@ -41,7 +42,6 @@ import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
 import kpn.api.custom.Subset
 import kpn.core.common.TimestampLocal
@@ -205,13 +205,13 @@ class AnalysisFacadeImpl(
   }
 
   override def subsetFactDetails(subset: Subset, fact: Fact): ApiResponse[SubsetFactDetailsPage] = {
-    api.execute("subset-fact-details", s"${subset.string}, ${fact.name}") {
+    api.execute("subset-fact-details", s"${subset.string}, ${fact.entryName}") {
       reply(Some(subsetFactDetailsPageBuilder.build(subset, fact)))
     }
   }
 
   override def subsetFactRefs(subset: Subset, fact: Fact): ApiResponse[SubsetFactRefs] = {
-    api.execute("subset-fact-refs", s"${subset.string}, ${fact.name}") {
+    api.execute("subset-fact-refs", s"${subset.string}, ${fact.entryName}") {
       reply(Some(subsetFactRefsBuilder.build(subset, fact)))
     }
   }

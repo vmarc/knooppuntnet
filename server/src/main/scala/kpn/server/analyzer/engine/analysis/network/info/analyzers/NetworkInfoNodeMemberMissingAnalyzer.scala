@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
+import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
-import kpn.api.custom.Fact
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
 object NetworkInfoNodeMemberMissingAnalyzer extends NetworkInfoAnalyzer {
@@ -28,7 +28,7 @@ class NetworkInfoNodeMemberMissingAnalyzer(context: NetworkInfoAnalysisContext) 
 
     if (missingNodeDetails.nonEmpty) {
       val fact = NetworkFact(
-        Fact.NodeMemberMissing.name,
+        Fact.NodeMemberMissing,
         Some("node"),
         None,
         Some(missingNodeDetails.map(_.toRef)),

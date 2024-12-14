@@ -1,8 +1,9 @@
 package kpn.server.analyzer.engine.changes.node
 
 import kpn.api.common.ChangeType
+import kpn.api.common.Fact
 import kpn.api.common.changes.details.NodeChange
-import kpn.api.custom.Fact
+import kpn.core.analysis.Facts
 
 object NodeChangeStateAnalyzer {
   def analyzed(nodeChange: NodeChange): NodeChange = {
@@ -66,7 +67,7 @@ class NodeChangeStateAnalyzer(nodeChange: NodeChange) {
       return true
     }
 
-    if (nodeChange.factDiffs.exists(_.resolved.exists(Fact.locationFacts.contains))) {
+    if (nodeChange.factDiffs.exists(_.resolved.exists(Facts.locationFacts.contains))) {
       return true
     }
 
@@ -109,7 +110,7 @@ class NodeChangeStateAnalyzer(nodeChange: NodeChange) {
       return true
     }
 
-    if (nodeChange.factDiffs.exists(_.introduced.filter(_.isError).exists(Fact.locationFacts.contains))) {
+    if (nodeChange.factDiffs.exists(_.introduced.filter(Facts.isError).exists(Facts.locationFacts.contains))) {
       return true
     }
 

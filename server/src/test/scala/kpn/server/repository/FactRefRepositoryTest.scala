@@ -1,10 +1,10 @@
 package kpn.server.repository
 
+import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.subset.SubsetFactRefs
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
@@ -152,7 +152,7 @@ class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
         ),
         facts = Seq(
           NetworkFact(
-            fact.name,
+            fact,
             Some(elementType),
             elementIds = Some(elementIds),
           )
@@ -176,7 +176,7 @@ class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
         ),
         facts = Seq(
           NetworkFact(
-            Fact.NodeMemberMissing.name,
+            Fact.NodeMemberMissing,
             Some("node"),
             elements = Some(nodeIds.map(id => Ref(id, "")))
           )

@@ -1,10 +1,10 @@
 package kpn.database.actions.locations
 
+import kpn.api.common.Fact
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.SurveyParameter
-import kpn.api.custom.Fact
 import kpn.core.doc.Label
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 import org.mongodb.scala.bson.BsonDocument

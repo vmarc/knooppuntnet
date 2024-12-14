@@ -1,7 +1,8 @@
 package kpn.server.analyzer.engine.tiles
 
+import kpn.api.common.Fact
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
+import kpn.core.analysis.Facts
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteSegmentBuilder
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
@@ -37,7 +38,7 @@ object TileDataRouteBuilder {
     if (route.facts.contains(Fact.RouteIncomplete)) {
       "incomplete-route"
     }
-    else if (route.facts.exists(_.isError)) {
+    else if (route.facts.exists(Facts.isError)) {
       "error-route"
     }
     else {

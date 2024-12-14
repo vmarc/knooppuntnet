@@ -1,6 +1,7 @@
 package kpn.server.api.analysis.pages.node
 
 import kpn.api.common.ChangeType
+import kpn.api.common.Fact
 import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.RefBooleanChange
@@ -13,7 +14,6 @@ import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.common.node.NodeChangeInfo
 import kpn.api.common.node.NodeChangesPage
-import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 

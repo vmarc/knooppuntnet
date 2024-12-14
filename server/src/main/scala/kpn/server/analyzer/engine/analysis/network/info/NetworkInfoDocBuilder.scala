@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.network.info
 
+import kpn.api.common.Fact
 import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkSummary
-import kpn.api.custom.Fact
 import kpn.core.doc.NetworkInfoDoc
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
@@ -13,8 +13,8 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
     val summary = buildSummary()
     val detail = buildDetail()
 
-    val facts = Fact.all.flatMap { fact => // use fact sorting order as defined in Fact class
-      context.networkFacts.filter(_.name == fact.name)
+    val facts = Fact.values.flatMap { fact => // use fact sorting order as defined in Fact class
+      context.networkFacts.filter(_.fact == fact.entryName)
     }
 
     NetworkInfoDoc(

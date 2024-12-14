@@ -2,13 +2,13 @@ package kpn.api.common.changes.details
 
 import kpn.api.base.WithStringId
 import kpn.api.common.ChangeType
+import kpn.api.common.Fact
 import kpn.api.common.LatLonImpl
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 

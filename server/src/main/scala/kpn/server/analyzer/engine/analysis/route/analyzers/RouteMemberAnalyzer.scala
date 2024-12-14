@@ -5,7 +5,7 @@ import kpn.api.common.data.NodeMember
 import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
-import kpn.api.custom.Fact.RouteInaccessible
+import kpn.api.common.Fact.RouteInaccessible
 import kpn.core.analysis.LinkDirection
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberNode

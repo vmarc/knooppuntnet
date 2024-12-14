@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.node
 
+import kpn.api.common.Fact
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.context.AnalysisContext

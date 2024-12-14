@@ -56,7 +56,6 @@ import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.custom.Change
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.Relation
 import kpn.api.custom.RouteMemberInfo
@@ -64,6 +63,7 @@ import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
+import kpn.core.analysis.Facts
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
 import kpn.core.doc.Label
@@ -435,7 +435,7 @@ trait SharedTestObjects extends MockFactory {
       Seq.empty, // TODO redesign tiles - scopes
       name,
       meters,
-      broken = facts.exists(_.isError),
+      broken = facts.exists(Facts.isError),
       inaccessible = facts.contains(Fact.RouteInaccessible),
       wayCount,
       relationLastUpdated,

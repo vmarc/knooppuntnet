@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Fact } from '@api/custom';
+import { Fact } from '@api/common';
 import { NetworkFactRefs } from './network-fact-refs';
 import { SubsetInfo } from './subset-info';
 

@@ -1,6 +1,6 @@
 package kpn.api.common.location
 
-import kpn.api.custom.Fact
+import kpn.api.common.Fact
 
 case class LocationRoutesParameters(
   fact: Option[Fact] = None,

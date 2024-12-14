@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Fact } from '@api/custom';
+import { Fact } from './fact';
 
 export interface FactCount {
   readonly fact: Fact;

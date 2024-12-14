@@ -1,10 +1,10 @@
 package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.Check
+import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.common.Ref
 import kpn.api.common.network.NetworkFactsPage
-import kpn.api.custom.Fact
 
 object NetworkFactsPageExample {
 
@@ -13,22 +13,22 @@ object NetworkFactsPageExample {
     NetworkDetailsPageExample.networkSummary(),
     Seq(
       NetworkFact(
-        Fact.NetworkExtraMemberNode.name,
+        Fact.NetworkExtraMemberNode,
         elementType = Some("node"),
         elementIds = Some(Seq(111, 222, 333))
       ),
       NetworkFact(
-        Fact.NetworkExtraMemberWay.name,
+        Fact.NetworkExtraMemberWay,
         elementType = Some("way"),
         elementIds = Some(Seq(444, 555, 666))
       ),
       NetworkFact(
-        Fact.NetworkExtraMemberRelation.name,
+        Fact.NetworkExtraMemberRelation,
         elementType = Some("relation"),
         elementIds = Some(Seq(777, 888, 999))
       ),
       NetworkFact(
-        Fact.IntegrityCheckFailed.name,
+        Fact.IntegrityCheckFailed,
         checks = Some(
           Seq(
             Check(nodeId = 1, nodeName = "01", expected = 3, actual = 1),
@@ -38,9 +38,9 @@ object NetworkFactsPageExample {
           )
         )
       ),
-      NetworkFact(Fact.NameMissing.name),
+      NetworkFact(Fact.NameMissing),
       NetworkFact(
-        Fact.NodeMemberMissing.name,
+        Fact.NodeMemberMissing,
         elementType = Some("node"),
         elements = Some(
           Seq(
@@ -51,7 +51,7 @@ object NetworkFactsPageExample {
         )
       ),
       NetworkFact(
-        Fact.OrphanNode.name,
+        Fact.OrphanNode,
         elementType = Some("node"),
         elements = Some(
           Seq(
@@ -60,7 +60,7 @@ object NetworkFactsPageExample {
         )
       ),
       NetworkFact(
-        Fact.RouteNotBackward.name,
+        Fact.RouteNotBackward,
         elementType = Some("route"),
         elements = Some(
           Seq(
@@ -72,7 +72,7 @@ object NetworkFactsPageExample {
         )
       ),
       NetworkFact(
-        Fact.RouteUnusedSegments.name,
+        Fact.RouteUnusedSegments,
         elementType = Some("route"),
         elements = Some(
           Seq(

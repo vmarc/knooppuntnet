@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.network.info.domain
 
+import kpn.api.common.Fact
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 

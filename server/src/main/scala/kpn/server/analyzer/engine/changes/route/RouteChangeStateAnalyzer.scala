@@ -1,8 +1,9 @@
 package kpn.server.analyzer.engine.changes.route
 
 import kpn.api.common.ChangeType
+import kpn.api.common.Fact
 import kpn.api.common.changes.details.RouteChange
-import kpn.api.custom.Fact
+import kpn.core.analysis.Facts
 
 object RouteChangeStateAnalyzer {
   def analyzed(routeChange: RouteChange): RouteChange = {
@@ -91,7 +92,7 @@ class RouteChangeStateAnalyzer(routeChange: RouteChange) {
 
     routeChange.diffs.factDiffs match {
       case Some(factDiffs) =>
-        factDiffs.introduced.filter(_.isError).exists(Fact.locationFacts.contains)
+        factDiffs.introduced.filter(Facts.isError).exists(Facts.locationFacts.contains)
       case None => false
     }
   }

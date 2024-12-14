@@ -21,7 +21,7 @@ export class SubsetFactDetailsPageService {
   readonly subsetFact = this._subsetFact.asReadonly();
   readonly response = this._response.asReadonly();
   readonly page = computed(() => this.response()?.result);
-  readonly factDefinition = computed(() => Facts.facts.get(this.subsetFact().factName));
+  readonly factDefinition = computed(() => Facts.facts.get(this.subsetFact().fact));
 
   onInit(): void {
     this.subsetService.initPage(this.routerService);
@@ -32,7 +32,7 @@ export class SubsetFactDetailsPageService {
 
   private load(): void {
     this.apiService
-      .subsetFactDetails(this.subsetService.subset(), this.subsetFact().factName)
+      .subsetFactDetails(this.subsetService.subset(), this.subsetFact().fact)
       .subscribe((response) => {
         if (response.result) {
           this.subsetService.setSubsetInfo(response.result.subsetInfo);

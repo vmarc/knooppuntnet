@@ -101,7 +101,7 @@ class MongoQueryLocationRoutes(database: Database, surveyDateInfo: SurveyDateInf
       val options = Seq(ServerFilterOption("all", totalCount)) ++ factOptions
       val selected = parameters.fact match {
         case None => "all"
-        case Some(f) => f.name
+        case Some(f) => f.entryName
       }
       ServerFilterGroup(selected, options)
     }

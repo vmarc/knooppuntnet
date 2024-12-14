@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.api.custom.Fact
+import kpn.api.common.Fact
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 

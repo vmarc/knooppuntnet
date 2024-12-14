@@ -234,7 +234,7 @@ class StatisticsUpdater(database: Database) {
       unwind("$facts"),
       filter(
         in(
-          "facts.name",
+          "facts.fact",
           "NetworkExtraMemberNode",
           "NetworkExtraMemberWay",
           "NetworkExtraMemberRelation",
@@ -242,7 +242,7 @@ class StatisticsUpdater(database: Database) {
       ),
       project(
         fields(
-          computed("factName", "$facts.name"),
+          computed("factName", "$facts.fact"),
           include("country"),
           computed("networkType", "$summary.networkType"),
           BsonDocument("""{"factCount": { "$size": "$facts.elementIds" }}""")
@@ -291,13 +291,13 @@ class StatisticsUpdater(database: Database) {
       unwind("$facts"),
       filter(
         in(
-          "facts.name",
+          "facts.fact",
           "NodeMemberMissing",
         )
       ),
       project(
         fields(
-          computed("factName", "$facts.name"),
+          computed("factName", "$facts.fact"),
           include("country"),
           computed("networkType", "$summary.networkType"),
           BsonDocument("""{"factCount": { "$size": "$facts.elements" }}""")
@@ -346,13 +346,13 @@ class StatisticsUpdater(database: Database) {
       unwind("$facts"),
       filter(
         in(
-          "facts.name",
+          "facts.fact",
           "NameMissing",
         )
       ),
       project(
         fields(
-          computed("factName", "$facts.name"),
+          computed("factName", "$facts.fact"),
           include("country"),
           computed("networkType", "$summary.networkType"),
           computed("factCount", 1)

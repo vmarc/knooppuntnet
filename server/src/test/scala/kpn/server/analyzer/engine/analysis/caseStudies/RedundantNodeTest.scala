@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.custom.Fact.RouteNotBackward
-import kpn.api.custom.Fact.RouteNotContinious
-import kpn.api.custom.Fact.RouteNotForward
-import kpn.api.custom.Fact.RouteRedundantNodes
+import kpn.api.common.Fact.RouteNotBackward
+import kpn.api.common.Fact.RouteNotContinious
+import kpn.api.common.Fact.RouteNotForward
+import kpn.api.common.Fact.RouteRedundantNodes
 import kpn.core.util.UnitTest
 
 class RedundantNodeTest extends UnitTest {

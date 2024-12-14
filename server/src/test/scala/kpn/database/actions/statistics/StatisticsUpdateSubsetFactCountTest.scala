@@ -1,14 +1,14 @@
 package kpn.database.actions.statistics
 
 import kpn.api.common.Country
+import kpn.api.common.Country.de
+import kpn.api.common.Country.nl
+import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.NetworkType
 import kpn.api.common.NetworkType.cycling
 import kpn.api.common.NetworkType.hiking
 import kpn.api.common.SharedTestObjects
-import Country.de
-import Country.nl
-import kpn.api.custom.Fact
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -102,13 +102,13 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
   }
 
   private def buildNetworks(database: Database): Unit = {
-    buildNetwork(database, 1L, nl, hiking, Seq(NetworkFact("fact1"), NetworkFact("fact2")))
-    buildNetwork(database, 2L, nl, hiking, Seq(NetworkFact("fact1"), NetworkFact("fact3")))
+    buildNetwork(database, 1L, nl, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode), NetworkFact(Fact.NetworkExtraMemberWay)))
+    buildNetwork(database, 2L, nl, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode), NetworkFact(Fact.NetworkExtraMemberRelation)))
     buildNetwork(database, 3L, nl, hiking, Seq.empty)
-    buildNetwork(database, 4L, de, hiking, Seq(NetworkFact("fact1")))
-    buildNetwork(database, 5L, de, hiking, Seq(NetworkFact("fact1")))
-    buildNetwork(database, 6L, de, cycling, Seq(NetworkFact("fact1")))
-    buildNetwork(database, 7L, de, cycling, Seq(NetworkFact("fact-1")), active = false)
+    buildNetwork(database, 4L, de, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode)))
+    buildNetwork(database, 5L, de, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode)))
+    buildNetwork(database, 6L, de, cycling, Seq(NetworkFact(Fact.NetworkExtraMemberNode)))
+    buildNetwork(database, 7L, de, cycling, Seq(NetworkFact(Fact.NetworkExtraMemberNode)), active = false)
   }
 
   private def buildNetwork(

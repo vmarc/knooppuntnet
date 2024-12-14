@@ -1,9 +1,10 @@
 package kpn.server.repository
 
+import kpn.api.common.Fact
 import kpn.api.common.common.Ref
 import kpn.api.common.subset.NetworkFactRefs
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
+import kpn.core.analysis.Facts
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -26,10 +27,10 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
   private val log = Log(classOf[FactRepositoryImpl])
 
   override def factsPerNetwork(subset: Subset, fact: Fact): Seq[NetworkFactRefs] = {
-    if (Fact.networkFactsWithElementIds.contains(fact)) {
+    if (Facts.networkFactsWithElementIds.contains(fact)) {
       findNetworkFactsWithElementIds(subset, fact)
     }
-    else if (Fact.networkFactsWithRefs.contains(fact)) {
+    else if (Facts.networkFactsWithRefs.contains(fact)) {
       findNetworkFactsWithRefs(subset, fact)
     }
     else if (Fact.IntegrityCheckFailed == fact) {
@@ -138,7 +139,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           )
         ),
         unwind("$facts"),
-        filter(equal("facts.name", fact.name)),
+        filter(equal("facts.fact", fact.entryName)),
         project(
           fields(
             excludeId(),
@@ -172,7 +173,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           )
         ),
         unwind("$facts"),
-        filter(equal("facts.name", fact.name)),
+        filter(equal("facts.fact", fact.entryName)),
         project(
           fields(
             excludeId(),

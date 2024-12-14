@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.Fact.RouteIncomplete
-import kpn.api.custom.Fact.RouteNodeMissingInWays
-import kpn.api.custom.Fact.RouteNotBackward
-import kpn.api.custom.Fact.RouteNotContinious
-import kpn.api.custom.Fact.RouteNotForward
-import kpn.api.custom.Fact.RouteRedundantNodes
-import kpn.api.custom.Fact.RouteUnusedSegments
-import kpn.api.custom.Fact.RouteWithoutWays
+import kpn.api.common.Fact.RouteIncomplete
+import kpn.api.common.Fact.RouteNodeMissingInWays
+import kpn.api.common.Fact.RouteNotBackward
+import kpn.api.common.Fact.RouteNotContinious
+import kpn.api.common.Fact.RouteNotForward
+import kpn.api.common.Fact.RouteRedundantNodes
+import kpn.api.common.Fact.RouteUnusedSegments
+import kpn.api.common.Fact.RouteWithoutWays
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object FactCombinationAnalyzer extends RouteAnalyzer {

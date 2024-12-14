@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
+import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
-import kpn.api.custom.Fact
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
@@ -13,7 +13,7 @@ class NetworkInfoNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestO
     analyze(definedInRelation = false) should equal(
       Seq(
         NetworkFact(
-          Fact.NodeMemberMissing.name,
+          Fact.NodeMemberMissing,
           Some("node"),
           None,
           Some(Seq(Ref(1001, "01"))),

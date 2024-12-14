@@ -1,6 +1,7 @@
 package kpn.api.common.diff
 
 import kpn.api.common.Country
+import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.common.Ref
@@ -8,9 +9,9 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.data.Tagable
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteNode
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
+import kpn.core.analysis.Facts
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object RouteData {
@@ -50,7 +51,7 @@ case class RouteData(
 
   def toRef: Ref = Ref(relationId, name)
 
-  def investigate: Boolean = facts.exists(_.isError)
+  def investigate: Boolean = facts.exists(Facts.isError)
 
   def subsets: Seq[Subset] = {
     countries.flatMap { country =>

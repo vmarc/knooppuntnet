@@ -2,6 +2,7 @@ package kpn.server.api.analysis.pages.route
 
 import kpn.api.common.Bounds
 import kpn.api.common.ChangeType
+import kpn.api.common.Fact
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
@@ -20,7 +21,6 @@ import kpn.api.common.diff.route.RouteRoleDiff
 import kpn.api.common.route.RouteChangeInfo
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteNameInfo
-import kpn.api.custom.Fact
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 

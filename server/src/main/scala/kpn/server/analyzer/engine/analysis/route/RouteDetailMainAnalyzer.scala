@@ -1,11 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.common.Fact
 import kpn.api.common.route.Both
 import kpn.api.common.route.WayDirection
-import kpn.api.custom.Fact
-import kpn.api.custom.Fact.RouteBroken
+import Fact.RouteBroken
 import kpn.api.custom.Relation
 import kpn.api.custom.Tag
+import kpn.core.analysis.Facts
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
 import kpn.core.tools.next.domain.RouteRelation
@@ -113,7 +114,7 @@ class RouteDetailMainAnalyzer(
 
       val facts: ListBuffer[Fact] = ListBuffer[Fact]()
       facts ++= context.facts
-      if (facts.exists(_.isError)) {
+      if (facts.exists(Facts.isError)) {
         if (!facts.contains(RouteBroken)) {
           facts += RouteBroken
         }

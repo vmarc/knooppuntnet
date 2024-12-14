@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.custom.Fact
+import kpn.api.common.Fact
 import kpn.core.util.UnitTest
 
 class RouteUnexpectedNode extends UnitTest {

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.data.Node
-import kpn.api.custom.Fact.RouteUnexpectedNode
+import kpn.api.common.Fact.RouteUnexpectedNode
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 

@@ -55,10 +55,6 @@ import { MatLabel } from '@angular/material/select';
           <span class="menu-count"> (3)</span>
         </button>
         <button mat-menu-item>
-          <span>RouteReversed</span>
-          <span class="menu-count"> (7)</span>
-        </button>
-        <button mat-menu-item>
           <span>RouteSuspiciousWays</span>
           <span class="menu-count"> (11)</span>
         </button>
@@ -114,7 +110,6 @@ export class TryoutFilterAlternative1Component {
   readonly filterNames = [
     'RouteOverlappingWays (12)',
     'RouteRedundantNodes (3)',
-    'RouteReversed (7)',
     'RouteSuspiciousWays (11)',
     'RouteTagInvalid (1)',
   ];

@@ -1,10 +1,10 @@
 package kpn.server.api.analysis.pages.location
 
+import kpn.api.common.Fact
 import kpn.api.common.common.Ref
 import kpn.api.common.location.LocationFact
 import kpn.api.common.location.LocationFactsPage
 import kpn.api.common.location.LocationSummary
-import kpn.api.custom.Fact
 
 object LocationFactsPageExample {
 

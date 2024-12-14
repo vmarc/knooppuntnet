@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
-import kpn.api.custom.Fact
+import kpn.api.common.Fact
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisElement
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragment
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisSegment

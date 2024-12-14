@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.subset
 
+import kpn.api.common.Fact
 import kpn.api.common.subset.SubsetFactDetailsPage
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.server.repository.FactRepository
 import kpn.server.repository.SubsetRepository

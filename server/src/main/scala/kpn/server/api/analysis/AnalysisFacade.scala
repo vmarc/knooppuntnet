@@ -3,6 +3,7 @@ package kpn.server.api.analysis
 import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.Country
+import kpn.api.common.Fact
 import kpn.api.common.Language
 import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
@@ -41,7 +42,6 @@ import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.common.subset.SubsetOrphanNodesPage
 import kpn.api.common.subset.SubsetOrphanRoutesPage
 import kpn.api.custom.ApiResponse
-import kpn.api.custom.Fact
 import kpn.api.custom.LocationKey
 import kpn.api.custom.Subset
 

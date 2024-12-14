@@ -1,6 +1,7 @@
 package kpn.api.common.diff.common
 
-import kpn.api.custom.Fact
+import kpn.api.common.Fact
+import kpn.core.analysis.Facts
 
 case class FactDiffs(
   resolved: Seq[Fact] = Seq.empty,
@@ -14,6 +15,6 @@ case class FactDiffs(
 
   def happy: Boolean = resolved.nonEmpty
 
-  def investigate: Boolean = introduced.exists(_.isError)
+  def investigate: Boolean = introduced.exists(Facts.isError)
 
 }

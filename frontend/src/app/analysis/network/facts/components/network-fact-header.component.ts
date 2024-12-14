@@ -16,7 +16,7 @@ import { EditService } from '@app/components/shared';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <span class="kpn-thick"><kpn-fact-name [fact]="fact().name" /></span>
+      <span class="kpn-thick"><kpn-fact-name [fact]="fact().fact" /></span>
       <span class="kpn-brackets">{{ factCount() }}</span>
       <kpn-fact-level [factLevel]="factLevel()" class="level" />
     </div>
@@ -29,7 +29,7 @@ export class NetworkFactHeaderComponent {
   private readonly editService = inject(EditService);
 
   factLevel(): FactLevel {
-    return Facts.factLevel(this.fact().name);
+    return Facts.factLevel(this.fact().fact);
   }
 
   factCount(): number {
@@ -84,6 +84,6 @@ export class NetworkFactHeaderComponent {
   }
 
   factInfo(networkFact: NetworkFact): FactInfo {
-    return new FactInfo(networkFact.name);
+    return new FactInfo(networkFact.fact);
   }
 }

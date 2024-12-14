@@ -9,4 +9,3 @@ export * from './subset-networks-page';
 export * from './subset-fact-details-page';
 export * from './subset-orphan-nodes-page';
 export * from './subset-orphan-routes-page';
-export * from './subset-node-fact-details-page';

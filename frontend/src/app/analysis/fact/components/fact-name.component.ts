@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Fact } from '@api/custom';
+import { Fact } from '@api/common';
 
 @Component({
   selector: 'kpn-fact-name',
@@ -74,8 +74,6 @@ export class FactNameComponent implements OnInit {
       this.factName = $localize`:@@fact.name.route-overlapping-ways:RouteOverlappingWays`;
     } else if (this.fact() === 'RouteRedundantNodes') {
       this.factName = $localize`:@@fact.name.route-redundant-nodes:RouteRedundantNodes`;
-    } else if (this.fact() === 'RouteReversed') {
-      this.factName = $localize`:@@fact.name.route-reversed:RouteReversed`;
     } else if (this.fact() === 'RouteSuspiciousWays') {
       this.factName = $localize`:@@fact.name.route-suspicious-ways:RouteSuspiciousWays`;
     } else if (this.fact() === 'RouteTagInvalid') {

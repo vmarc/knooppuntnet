@@ -7,11 +7,11 @@ import kpn.api.common.NetworkType.hiking
 import kpn.api.common.SharedTestObjects
 import Country.de
 import Country.nl
-import kpn.api.custom.Fact
-import kpn.api.custom.Fact.RouteBroken
-import kpn.api.custom.Fact.RouteFixmetodo
-import kpn.api.custom.Fact.RouteInaccessible
-import kpn.api.custom.Fact.RouteWithoutWays
+import kpn.api.common.Fact
+import Fact.RouteBroken
+import Fact.RouteFixmetodo
+import Fact.RouteInaccessible
+import Fact.RouteWithoutWays
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest

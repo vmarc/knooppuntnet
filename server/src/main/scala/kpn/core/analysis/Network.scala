@@ -7,7 +7,7 @@ import kpn.api.common.NetworkType
 import kpn.api.common.common.Ref
 import kpn.api.common.data.Node
 import kpn.api.common.network.NetworkShape
-import kpn.api.custom.Fact.RouteInaccessible
+import kpn.api.common.Fact.RouteInaccessible
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
@@ -53,7 +53,7 @@ case class Network(
 
   def brokenRouteCount: Int = brokenRoutes.size
 
-  private def brokenRoutes: Seq[NetworkMemberRoute] = routes.filter(_.data.facts.exists(_.isError))
+  private def brokenRoutes: Seq[NetworkMemberRoute] = routes.filter(_.data.facts.exists(Facts.isError))
 
   def brokenRoutePercentage: String = percentage(brokenRouteCount, routeCount)
 

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.Fact.RouteUnexpectedNode
+import kpn.api.common.Fact.RouteUnexpectedNode
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData

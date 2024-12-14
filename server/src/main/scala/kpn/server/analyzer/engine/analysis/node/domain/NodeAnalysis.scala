@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node.domain
 
 import kpn.api.common.Country
+import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.common.common.Reference
@@ -8,7 +9,6 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.doc.NodeDoc
 

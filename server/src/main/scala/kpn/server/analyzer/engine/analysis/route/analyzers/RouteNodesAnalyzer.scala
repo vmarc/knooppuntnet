@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
+import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.data.Node
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
-import kpn.api.custom.Fact
-import kpn.api.custom.Fact.RouteNodeMissingInWays
-import kpn.api.custom.Fact.RouteRedundantNodes
-import kpn.api.custom.Fact.RouteWithoutNodes
+import Fact.RouteNodeMissingInWays
+import Fact.RouteRedundantNodes
+import Fact.RouteWithoutNodes
 import kpn.api.custom.NetworkScope
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType

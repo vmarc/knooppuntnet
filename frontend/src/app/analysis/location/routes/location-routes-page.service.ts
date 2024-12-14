@@ -1,6 +1,7 @@
 import { signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
+import { Fact } from '@api/common';
 import { LocationRoutesParameters } from '@api/common/location';
 import { LocationRoutesPage } from '@api/common/location';
 import { BooleanParameter } from '@api/common/location/boolean-parameter';
@@ -19,7 +20,7 @@ export class LocationRoutesPageService {
   private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
 
-  private readonly _fact = signal<string | null>(null);
+  private readonly _fact = signal<Fact | null>(null);
   private readonly _survey = signal<SurveyParameter | null>(null);
   private readonly _lastUpdated = signal<LastUpdatedParameter | null>(null);
   private readonly _proposed = signal<BooleanParameter | null>(null);
@@ -61,7 +62,7 @@ export class LocationRoutesPageService {
     this.load();
   }
 
-  setFact(value: string): void {
+  setFact(value: Fact): void {
     this._fact.set(value);
     this.load();
   }

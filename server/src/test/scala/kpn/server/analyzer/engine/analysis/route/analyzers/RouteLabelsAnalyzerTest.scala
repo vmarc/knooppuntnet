@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.Country
+import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.doc.Label
 import kpn.core.util.UnitTest

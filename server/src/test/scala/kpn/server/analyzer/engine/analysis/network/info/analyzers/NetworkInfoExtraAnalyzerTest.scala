@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
+import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
@@ -61,7 +62,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     contextAfter.networkFacts.shouldMatchTo(
       Seq(
         NetworkFact(
-          "NetworkExtraMemberNode",
+          Fact.NetworkExtraMemberNode,
           Some("node"),
           Some(List(1001)
           ),
@@ -139,7 +140,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     contextAfter.networkFacts.shouldMatchTo(
       Seq(
         NetworkFact(
-          "NetworkExtraMemberNode",
+          Fact.NetworkExtraMemberNode,
           Some("node"),
           Some(List(1001)
           ),

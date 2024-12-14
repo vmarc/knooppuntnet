@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages.subset
 
+import kpn.api.common.Fact
 import kpn.api.common.OrphanRouteInfo
 import kpn.api.common.subset.SubsetOrphanRoutesPage
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.doc.OrphanRouteDoc
 import kpn.core.util.Log

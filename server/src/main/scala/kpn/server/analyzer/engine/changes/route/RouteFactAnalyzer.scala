@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.route
 
+import kpn.api.common.Fact
 import kpn.api.common.diff.RouteData
-import kpn.api.custom.Fact
 import kpn.core.history.RouteTagDiffAnalyzer
 import kpn.server.analyzer.engine.context.Watched
 

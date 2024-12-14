@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node
 
+import kpn.api.common.Fact
 import kpn.api.common.data.Node
-import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo

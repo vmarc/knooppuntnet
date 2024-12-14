@@ -1,6 +1,6 @@
 package kpn.server.json
 
-import kpn.api.custom.Fact
+import kpn.api.common.Fact
 import kpn.core.util.UnitTest
 
 class FactJsonTest extends UnitTest {

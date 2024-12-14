@@ -1,12 +1,13 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
 import kpn.api.common.Check
+import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.common.Ref
-import kpn.api.custom.Fact
-import kpn.api.custom.Fact.RouteBroken
-import kpn.api.custom.Fact.RouteNotBackward
-import kpn.api.custom.Fact.RouteNotForward
+import Fact.RouteBroken
+import Fact.RouteNotBackward
+import Fact.RouteNotForward
+import kpn.core.analysis.Facts
 import kpn.core.util.Formatter
 import kpn.core.util.NaturalSorting
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
@@ -28,7 +29,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
       val networkFacts = integrityFailedFacts(context)
 
       val facts = networkFacts ++ routeFacts ++ nodeFacts
-      val brokenRouteCount = context.routeDetails.count(_.facts.exists(_.isError))
+      val brokenRouteCount = context.routeDetails.count(_.facts.exists(Facts.isError))
       val brokenRoutePercentage = Formatter.percentage(brokenRouteCount, context.routeDetails.size)
       val inaccessibleRouteCount: Long = context.routeDetails.count(_.facts.contains(Fact.RouteInaccessible))
 
@@ -45,7 +46,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
   }
 
   private def collectNodeFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
-    val facts = context.nodeDetails.flatMap(_.facts).distinct.sortBy(_.name)
+    val facts = context.nodeDetails.flatMap(_.facts).distinct.sortBy(_.entryName)
     facts.map { fact =>
       val nodeDetails = context.nodeDetails.filter(_.facts.contains(fact))
       val nodeIds = nodeDetails.map(_.id)
@@ -56,7 +57,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
         )
       }
       NetworkFact(
-        fact.name,
+        fact,
         Some("node"),
         Some(nodeIds),
         Some(refs),
@@ -66,7 +67,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
   }
 
   private def collectRouteFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
-    val facts = context.routeDetails.flatMap(_.facts).filterNot(isIgnoredFact).distinct.sortBy(_.name)
+    val facts = context.routeDetails.flatMap(_.facts).filterNot(isIgnoredFact).distinct.sortBy(_.entryName)
     facts.map { fact =>
       val routes = context.routeDetails.filter(_.facts.contains(fact))
       val routeIds = routes.map(_.id)
@@ -77,7 +78,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
         )
       }
       NetworkFact(
-        fact.name,
+        fact,
         Some("route"),
         Some(routeIds),
         Some(refs),
@@ -110,7 +111,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
       val sortedChecks = NaturalSorting.sortBy(checks)(_.nodeName)
       Seq(
         NetworkFact(
-          Fact.IntegrityCheckFailed.name,
+          Fact.IntegrityCheckFailed,
           checks = Some(sortedChecks)
         )
       )

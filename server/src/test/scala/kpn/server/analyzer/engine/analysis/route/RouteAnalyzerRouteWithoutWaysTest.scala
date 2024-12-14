@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route
 
-import kpn.api.custom.Fact.RouteBroken
-import kpn.api.custom.Fact.RouteWithoutWays
+import kpn.api.common.Fact.RouteBroken
+import kpn.api.common.Fact.RouteWithoutWays
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
 import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl

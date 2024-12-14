@@ -1,7 +1,6 @@
 export * from './api-response';
 export * from './change';
 export * from './day';
-export * from './fact';
 export * from './location-key';
 export * from './network-scope';
 export * from './relation';

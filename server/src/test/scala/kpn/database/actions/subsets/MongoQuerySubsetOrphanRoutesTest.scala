@@ -1,10 +1,10 @@
 package kpn.database.actions.subsets
 
 import kpn.api.common.Country
+import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.doc.OrphanRouteDoc

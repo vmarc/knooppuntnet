@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.node.analyzers
 
+import kpn.api.common.Fact
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
-import kpn.api.custom.Fact
 import kpn.api.custom.ScopedNetworkType
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 

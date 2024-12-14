@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
-import kpn.api.custom.Fact.RouteBroken
-import kpn.api.custom.Fact.RouteNotBackward
-import kpn.api.custom.Fact.RouteNotContinious
+import kpn.api.common.Fact.RouteBroken
+import kpn.api.common.Fact.RouteNotBackward
+import kpn.api.common.Fact.RouteNotContinious
 import kpn.core.util.UnitTest
 
 class Structure_02_SingleWayForwardTest extends UnitTest {

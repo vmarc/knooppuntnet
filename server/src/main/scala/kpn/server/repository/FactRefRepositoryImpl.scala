@@ -1,8 +1,8 @@
 package kpn.server.repository
 
+import kpn.api.common.Fact
 import kpn.api.common.location.Ids
 import kpn.api.common.subset.SubsetFactRefs
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.util.Log
@@ -80,7 +80,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
           )
         ),
         unwind("$facts"),
-        filter(equal("facts.name", fact.name)),
+        filter(equal("facts.fact", fact.entryName)),
         project(
           fields(
             excludeId(),
@@ -106,7 +106,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
           )
         ),
         unwind("$facts"),
-        filter(equal("facts.name", fact.name)),
+        filter(equal("facts.fact", fact.entryName)),
         unwind("$facts.elements"),
         project(
           fields(

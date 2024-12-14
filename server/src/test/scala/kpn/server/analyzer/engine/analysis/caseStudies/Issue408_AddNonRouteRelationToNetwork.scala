@@ -44,7 +44,7 @@ class Issue408_AddNonRouteRelationToNetwork extends IntegrationTest {
       val networkInfoDoc = findNetworkInfoById(1)
 
       networkInfoDoc.routes.size should equal(0)
-      networkInfoDoc.facts.map(_.name) should equal(Seq("NetworkExtraMemberRelation"))
+      networkInfoDoc.facts.map(_.fact) should equal(Seq("NetworkExtraMemberRelation"))
       networkInfoDoc.extraRelationIds should equal(Seq(11))
       database.routes.findById(11) should equal(None)
     }

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Fact } from '@api/custom';
+import { Fact } from '@api/common';
 import { FactNameComponent } from '@app/analysis/fact';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { IconInvestigateComponent } from '@app/components/shared/icon';

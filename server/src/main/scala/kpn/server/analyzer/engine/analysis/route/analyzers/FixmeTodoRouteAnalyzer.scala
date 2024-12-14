@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.Fact.RouteFixmetodo
+import kpn.api.common.Fact.RouteFixmetodo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object FixmeTodoRouteAnalyzer extends RouteAnalyzer {

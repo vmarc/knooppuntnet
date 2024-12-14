@@ -35,7 +35,7 @@ object MongoQueryLocationFacts {
       val subset = LocationSubset("", NetworkType.hiking, Seq("fr"))
       val locationFacts = query.execute(subset)
       locationFacts.foreach { locationFact =>
-        println(s"${locationFact.elementType} ${locationFact.fact.name}: ${locationFact.refs.map(_.name).mkString(", ")}")
+        println(s"${locationFact.elementType} ${locationFact.fact.entryName}: ${locationFact.refs.map(_.name).mkString(", ")}")
       }
     }
   }

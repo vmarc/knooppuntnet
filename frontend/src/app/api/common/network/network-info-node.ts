@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
+import { Fact } from '@api/common';
 import { NodeIntegrityCheck } from '@api/common';
 import { Ref } from '@api/common/common';
 import { Day } from '@api/custom';
-import { Fact } from '@api/custom';
 import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 

@@ -13,7 +13,7 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { MatAccordion } from '@angular/material/expansion';
 import { Router } from '@angular/router';
 import { LocationFact } from '@api/common/location';
-import { Fact } from '@api/custom';
+import { Fact } from '@api/common';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { ExpandCollapseComponent } from '../../../../shared/components/shared/button/expand-collapse.component';
 import { RouterService } from '../../../../shared/services/router.service';

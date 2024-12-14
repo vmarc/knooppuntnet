@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.Fact.RouteUnexpectedRelation
+import kpn.api.common.Fact.RouteUnexpectedRelation
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object UnexpectedRelationRouteAnalyzer extends RouteAnalyzer {

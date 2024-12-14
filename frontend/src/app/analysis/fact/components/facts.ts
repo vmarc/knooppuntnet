@@ -1,9 +1,10 @@
+import { Fact } from '@api/common';
 import { FactElement } from './fact-element';
 import { FactLevel } from '@api/common/fact-level';
 
 class FactDefinition {
   constructor(
-    public name: string,
+    public fact: Fact,
     public level: FactLevel,
     public element?: FactElement
   ) {}
@@ -65,7 +66,6 @@ export class Facts {
     new FactDefinition('RouteOneWay', 'info', FactElement.route),
     new FactDefinition('RouteOverlappingWays', 'error', FactElement.route),
     new FactDefinition('RouteRedundantNodes', 'error', FactElement.route),
-    new FactDefinition('RouteReversed', 'info', FactElement.route),
     new FactDefinition('RouteSuspiciousWays', 'error', FactElement.route),
     new FactDefinition('RouteTagInvalid', 'error', FactElement.route),
     new FactDefinition('RouteTagMissing', 'error', FactElement.route),
@@ -81,20 +81,16 @@ export class Facts {
     new FactDefinition('UnexpectedIntegrityCheck', 'error', FactElement.node),
   ];
 
-  static readonly facts: Map<string, FactDefinition> = new Map(
+  static readonly facts: Map<Fact, FactDefinition> = new Map(
     Facts.factDefinitions.map((f) => {
-      const row: [string, FactDefinition] = [f.name, f];
+      const row: [Fact, FactDefinition] = [f.fact, f];
       return row;
     })
   );
 
-  static factLevel(factName: string): FactLevel {
-    return this.facts.get(factName).level;
+  static factLevel(fact: Fact): FactLevel {
+    return this.facts.get(fact).level;
   }
 
   static readonly allFactNames = Facts.facts.keys();
-
-  static factWithName() {
-    Facts.facts.get('');
-  }
 }

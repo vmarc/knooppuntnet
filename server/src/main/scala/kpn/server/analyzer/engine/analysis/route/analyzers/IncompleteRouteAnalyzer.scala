@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
-import kpn.api.custom.Fact.RouteIncomplete
+import kpn.api.common.Fact.RouteIncomplete
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 object IncompleteRouteAnalyzer extends RouteAnalyzer {

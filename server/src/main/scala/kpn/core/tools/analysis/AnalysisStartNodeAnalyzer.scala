@@ -4,9 +4,9 @@ import kpn.api.common.ChangeType
 import kpn.api.common.LatLonImpl
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
-import kpn.api.custom.Fact
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
+import kpn.core.analysis.Facts
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 
@@ -74,7 +74,7 @@ class AnalysisStartNodeAnalyzer(log: Log, config: AnalysisStartConfiguration)(im
 
     val key = config.changeSetContext.buildChangeKey(nodeDoc._id)
     val facts = nodeDoc.facts
-    val locationFacts = facts.filter(Fact.locationFacts.contains)
+    val locationFacts = facts.filter(Facts.locationFacts.contains)
 
     val factDiffs = if (facts.nonEmpty) {
       Some(

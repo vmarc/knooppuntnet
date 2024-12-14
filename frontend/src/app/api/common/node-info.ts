@@ -3,10 +3,10 @@
 import { Reference } from '@api/common/common';
 import { NodeIntegrity } from '@api/common/node';
 import { Day } from '@api/custom';
-import { Fact } from '@api/custom';
 import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { Country } from './country';
+import { Fact } from './fact';
 import { LocationInfo } from './location-info';
 import { NodeName } from './node-name';
 
