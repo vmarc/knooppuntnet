@@ -5,6 +5,7 @@ import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
 import kpn.core.doc.Label
+import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.RouteRepository
@@ -37,6 +38,9 @@ class RouteDetailsPageBuilderImpl(
             LocationCandidateInfo(locationInfos, candidate.percentage)
           }
         }
+
+        val routeBounds = Util.mergeBounds(routeDoc.segments.map(_.bounds))
+
         val data = RouteDetailsPageData(
           routeDoc._id,
           routeDoc.labels.contains(Label.active),
@@ -53,6 +57,7 @@ class RouteDetailsPageBuilderImpl(
           routeDoc.members,
           routeDoc.nameDerivedFromNodes,
           routeDoc.nodes,
+          routeBounds
         )
         RouteDetailsPage(data, networkReferences, changeCount)
       }

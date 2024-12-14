@@ -1,4 +1,5 @@
 import { SurveyDateValues } from '@app/core';
+import { FocusElements } from '../map/focus-elements';
 
 export interface MapStyleOptions {
   zoom: number;
@@ -10,4 +11,5 @@ export interface MapStyleOptions {
   scopeNodeRoutes: boolean;
   selectedRoute: number | undefined;
   surveyDateValues: SurveyDateValues | undefined;
+  focusElements: FocusElements;
 }

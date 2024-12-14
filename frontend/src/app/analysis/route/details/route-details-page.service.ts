@@ -4,6 +4,8 @@ import { inject } from '@angular/core';
 import { RouteDetailsPage } from '@api/common/route';
 import { ApiResponse } from '@api/custom';
 import { ApiService } from '@app/services';
+import { FocusElements } from '../../../map/focus-elements';
+import { MapService } from '../../../map/map.service';
 import { RouterService } from '../../../shared/services/router.service';
 import { RouteService } from '../route.service';
 
@@ -12,6 +14,7 @@ export class RouteDetailsPageService {
   private readonly apiService = inject(ApiService);
   private readonly routeService = inject(RouteService);
   private readonly routerService = inject(RouterService);
+  private readonly mapService = inject(MapService);
 
   private readonly _response = signal<ApiResponse<RouteDetailsPage>>(null);
   readonly response = this._response.asReadonly();
@@ -30,6 +33,32 @@ export class RouteDetailsPageService {
         this.routeService.updateRoute(networkType, name, changeCount);
       }
       this._response.set(response);
+      const route = response.result?.route;
+
+      if (route) {
+        const routeId = route.id.toString();
+        const nodeIds = new Array<string>();
+        if (route.nodes.startNode) {
+          nodeIds.push(route.nodes.startNode.nodeId.toString());
+        }
+        if (route.nodes.endNode) {
+          nodeIds.push(route.nodes.endNode.nodeId.toString());
+        }
+        route.nodes.startTentacleNodes
+          .map((node) => node.nodeId.toString())
+          .forEach((nodeId) => nodeIds.push(nodeId));
+        route.nodes.endTentacleNodes
+          .map((node) => node.nodeId.toString())
+          .forEach((nodeId) => nodeIds.push(nodeId));
+        route.nodes.redundantNodes
+          .map((node) => node.nodeId.toString())
+          .forEach((nodeId) => nodeIds.push(nodeId));
+        const elements: FocusElements = {
+          nodeIds: nodeIds,
+          routeIds: [routeId],
+        };
+        this.mapService.focusElements(route.bounds, elements);
+      }
     });
   }
 }

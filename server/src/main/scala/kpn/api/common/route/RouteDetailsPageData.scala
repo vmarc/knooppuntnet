@@ -1,5 +1,6 @@
 package kpn.api.common.route
 
+import kpn.api.common.Bounds
 import kpn.api.common.Fact
 import kpn.api.common.RouteSummary
 import kpn.api.common.location.LocationCandidateInfo
@@ -23,4 +24,5 @@ case class RouteDetailsPageData(
   members: Seq[RouteMemberInfo],
   nameDerivedFromNodes: Boolean,
   nodes: RouteNodes,
+  bounds: Bounds
 )

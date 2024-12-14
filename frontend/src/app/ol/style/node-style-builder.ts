@@ -27,7 +27,7 @@ export const nameStyle = (): Style =>
     }),
   });
 
-export const small = (color: Color): Style => {
+export const small = (color: Color | string): Style => {
   return new Style({
     zIndex: MainMapStyle.zIndexNode,
     image: new Circle({
@@ -43,7 +43,7 @@ export const small = (color: Color): Style => {
   });
 };
 
-export const large = (color: Color): Style => {
+export const large = (color: Color | string): Style => {
   return buildLarge(color, false);
 };
 
@@ -51,7 +51,7 @@ export const proposedLarge = (color: Color): Style => {
   return buildLarge(color, true);
 };
 
-const buildLarge = (color: Color, proposed: boolean): Style => {
+const buildLarge = (color: Color | string, proposed: boolean): Style => {
   const backgroundColor = proposed ? proposedWhite : white;
   const lineDash = proposed ? [3, 6] : null;
 

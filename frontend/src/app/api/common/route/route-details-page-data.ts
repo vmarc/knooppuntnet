@@ -1,5 +1,6 @@
 // this file is generated, please do not modify
 
+import { Bounds } from '@api/common';
 import { Fact } from '@api/common';
 import { RouteSummary } from '@api/common';
 import { LocationCandidateInfo } from '@api/common/location';
@@ -24,4 +25,5 @@ export interface RouteDetailsPageData {
   readonly members: RouteMemberInfo[];
   readonly nameDerivedFromNodes: boolean;
   readonly nodes: RouteNodes;
+  readonly bounds: Bounds;
 }

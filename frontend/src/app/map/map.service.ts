@@ -1,13 +1,16 @@
 import { inject } from '@angular/core';
 import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { Bounds } from '@api/common';
 import { LatLonImpl } from '@api/common';
+import { Util } from '@app/components/shared';
 import { OlUtil } from '@app/ol';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapControls } from '@app/ol/layers';
 import { State } from '@app/state';
 import Map from 'ol/Map';
 import View from 'ol/View';
+import { FocusElements } from './focus-elements';
 import { Layers } from './layers/layers';
 import { PoiService } from './poi/poi.service';
 import { MapRoutePopupAction } from './popup/map-route-popup-handler';
@@ -105,6 +108,24 @@ export class MapService {
       this._map.getView().un('change:center', this.updateCenter);
       this._map.dispose();
       this._map.setTarget(null);
+    }
+  }
+
+  focusElements(bounds: Bounds, elements: FocusElements) {
+    if (this._map !== null) {
+      this._map.getView().fit(Util.toExtent(bounds, 0.1));
+      this.state.map.updateFocusElements(elements);
+    }
+  }
+
+  focusNode(latLon: LatLonImpl, nodeId: string) {
+    if (this._map !== null) {
+      const center = OlUtil.latLonToCoordinate(latLon);
+      this._map.getView().setCenter(center);
+      this.state.map.updateFocusElements({
+        nodeIds: [nodeId],
+        routeIds: [],
+      });
     }
   }
 }

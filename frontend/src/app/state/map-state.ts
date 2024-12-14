@@ -3,6 +3,7 @@ import { signal } from '@angular/core';
 import { SurveyDateValues } from '@app/core';
 import { MapLayerState } from '@app/ol/domain';
 import { Coordinate } from 'ol/coordinate';
+import { FocusElements } from '../map/focus-elements';
 import { PoiStyleMap } from '../map/style/poi-style-map';
 import { MapStateLayers } from './map-state-layers';
 import { MapStateScopes } from './map-state-scopes';
@@ -17,6 +18,7 @@ export class MapState {
   );
   private readonly _mode = signal<string>('survey');
 
+  private readonly _focusElements = signal<FocusElements | undefined>(undefined);
   private readonly _selectedRoute = signal<number | undefined>(undefined);
   private readonly _poiStyleMap = signal<PoiStyleMap>(undefined);
   private readonly _poiActive = signal<ReadonlyMap<string, boolean>>(new Map());
@@ -30,6 +32,7 @@ export class MapState {
   readonly center = this._center.asReadonly();
   readonly routePopupState = this._routePopupState.asReadonly();
   readonly mode = this._mode.asReadonly();
+  readonly focusElements = this._focusElements.asReadonly();
   readonly selectedRoute = this._selectedRoute.asReadonly();
   readonly poiStyleMap = this._poiStyleMap.asReadonly();
   readonly poiActive = this._poiActive.asReadonly();
@@ -47,6 +50,7 @@ export class MapState {
       scopeNodeRoutes: this.scopes.scopeNodeRoutes(),
       selectedRoute: this.selectedRoute(),
       surveyDateValues: this.surveyDateValues(),
+      focusElements: this.focusElements(),
     };
     return options;
   });
@@ -70,6 +74,10 @@ export class MapState {
 
   updateMode(value: string): void {
     this._mode.set(value);
+  }
+
+  updateFocusElements(elements: FocusElements): void {
+    this._focusElements.set(elements);
   }
 
   updateSelectedRoute(value: number | null): void {

@@ -8,6 +8,7 @@ import { MapStyleOptions } from '../../state/map-style-options';
 import { ExploreStyleAnalysis } from './explore-style-analysis';
 import { ExploreStyleStandard } from './explore-style-standard';
 import { ExploreStyleSurvey } from './explore-style-survey';
+import { ExploreStyleUnfocused } from './explore-style-unfocused';
 
 export class ExploreStyle {
   private static unselectedRouteStyle = new Style({
@@ -31,45 +32,86 @@ export class ExploreStyle {
     }
 
     const layer = feature.get('layer');
-
     if (layer === 'node') {
-      if (styleOptions.mode === 'survey') {
-        if (styleOptions.surveyDateValues) {
-          const survey = feature.get('survey');
-          const proposed = feature.get('proposed') === 'true';
-          const ref = feature.get('ref');
-          const name = feature.get('name');
+      return this.nodeStyle(styleOptions, feature);
+    } else if (layer === 'route' || layer === 'node-route') {
+      return this.routeStyle(styleOptions, feature);
+    }
+    return undefined;
+  }
 
-          let title: string;
-          let subTitle: string;
-
-          if (ref && ref !== 'o') {
-            title = ref;
-            subTitle = name;
-          } else {
-            title = name;
-          }
-
-          return ExploreStyleSurvey.nodeStyle(
-            styleOptions.zoom,
-            styleOptions.surveyDateValues,
-            survey,
-            proposed,
-            title
-          );
+  private static nodeStyle(
+    styleOptions: MapStyleOptions,
+    feature: FeatureLike
+  ): Style | Array<Style> {
+    if (styleOptions.focusElements) {
+      const nodeId = feature.get('id');
+      if (!styleOptions.focusElements.nodeIds.includes(nodeId)) {
+        const ref = feature.get('ref');
+        const name = feature.get('name');
+        let title: string;
+        if (ref && ref !== 'o') {
+          title = ref;
         } else {
-          return undefined;
+          title = name;
         }
+        return ExploreStyleUnfocused.nodeStyle(styleOptions.zoom, title);
       }
+    }
 
-      const parameters: MainMapStyleParameters = {
-        mapMode: 'analysis',
-        showProposed: true,
-        surveyDateValues: new SurveyDateValues('', '', '', ''),
-        selectedRouteId: null,
-        selectedNodeId: null,
-      };
-      return new MainMapNodeStyle().nodeStyle(parameters, 0, feature);
+    if (styleOptions.mode === 'survey') {
+      if (styleOptions.surveyDateValues) {
+        const survey = feature.get('survey');
+        const proposed = feature.get('proposed') === 'true';
+        const ref = feature.get('ref');
+        const name = feature.get('name');
+
+        let title: string;
+        let subTitle: string;
+
+        if (ref && ref !== 'o') {
+          title = ref;
+          subTitle = name;
+        } else {
+          title = name;
+        }
+
+        return ExploreStyleSurvey.nodeStyle(
+          styleOptions.zoom,
+          styleOptions.surveyDateValues,
+          survey,
+          proposed,
+          title
+        );
+      } else {
+        return undefined;
+      }
+    }
+
+    const parameters: MainMapStyleParameters = {
+      mapMode: 'analysis',
+      showProposed: true,
+      surveyDateValues: new SurveyDateValues('', '', '', ''),
+      selectedRouteId: null,
+      selectedNodeId: null,
+    };
+    return new MainMapNodeStyle().nodeStyle(parameters, 0, feature);
+  }
+
+  private static routeStyle(
+    styleOptions: MapStyleOptions,
+    feature: FeatureLike
+  ): Style | Array<Style> {
+    const scope = feature.get('scope');
+
+    if (styleOptions.focusElements) {
+      const routeId = feature.get('routeId');
+
+      console.log('routeId', routeId, styleOptions.focusElements.routeIds);
+
+      if (!styleOptions.focusElements.routeIds.includes(routeId)) {
+        return ExploreStyleUnfocused.routeStyle(styleOptions.zoom);
+      }
     }
 
     if (styleOptions.mode === 'survey') {
