@@ -6,6 +6,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
@@ -14,7 +15,6 @@ import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType.Delete
 import kpn.api.common.diff.TagDetailType.Same
 import kpn.api.common.diff.TagDiffs
-import kpn.api.custom.NetworkScope
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label

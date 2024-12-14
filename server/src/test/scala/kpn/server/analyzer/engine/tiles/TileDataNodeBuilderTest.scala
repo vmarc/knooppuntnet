@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.tiles
 
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
-import kpn.api.custom.NetworkScope
 import kpn.api.custom.Tags
 import kpn.core.doc.NodeDoc
 import kpn.core.util.UnitTest

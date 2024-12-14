@@ -3,7 +3,7 @@ package kpn.database.actions.nodes
 import kpn.api.common.NetworkType.hiking
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Reference
-import kpn.api.custom.NetworkScope.regional
+import kpn.api.common.NetworkScope.regional
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest

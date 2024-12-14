@@ -1,28 +1,23 @@
-import { NetworkScope } from '@api/custom';
+import { NetworkScope } from '@api/common';
 
 export class NetworkScopes {
-  static all: NetworkScope[] = [
-    NetworkScope.local,
-    NetworkScope.regional,
-    NetworkScope.national,
-    NetworkScope.international,
-  ];
+  static all: NetworkScope[] = ['local', 'regional', 'national', 'international'];
 
   static withName(name: string): NetworkScope {
     return NetworkScopes.all.find((networkScope) => networkScope === name);
   }
 
   static letter(networkScope: NetworkScope): string {
-    if (networkScope === NetworkScope.local) {
+    if (networkScope === 'local') {
       return 'l';
     }
-    if (networkScope === NetworkScope.regional) {
+    if (networkScope === 'regional') {
       return 'r';
     }
-    if (networkScope === NetworkScope.national) {
+    if (networkScope === 'national') {
       return 'n';
     }
-    if (networkScope === NetworkScope.international) {
+    if (networkScope === 'international') {
       return 'i';
     }
     return '?';

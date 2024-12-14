@@ -2,7 +2,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NetworkScope } from '@api/custom';
+import { NetworkScope } from '@api/common';
 import { Translations } from '@app/i18n';
 
 @Component({

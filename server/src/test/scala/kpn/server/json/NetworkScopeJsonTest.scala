@@ -1,6 +1,6 @@
 package kpn.server.json
 
-import kpn.api.custom.NetworkScope
+import kpn.api.common.NetworkScope
 import kpn.core.util.UnitTest
 
 class NetworkScopeJsonTest extends UnitTest {

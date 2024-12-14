@@ -1,8 +1,8 @@
 package kpn.database.tools.validation
 
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.common.Reference
-import kpn.api.custom.NetworkScope
 import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
 import kpn.database.base.Database
 

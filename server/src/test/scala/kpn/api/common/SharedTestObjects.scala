@@ -56,7 +56,6 @@ import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.custom.Change
 import kpn.api.custom.Day
-import kpn.api.custom.NetworkScope
 import kpn.api.custom.Relation
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset

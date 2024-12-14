@@ -1,6 +1,7 @@
 package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.NetworkFacts
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.details.NetworkChangeInfo
 import kpn.api.common.changes.filter.ChangesFilterOption
@@ -9,7 +10,6 @@ import kpn.api.common.network.NetworkInfo
 import kpn.api.common.network.NetworkInfoDetail
 import kpn.api.common.network.NetworkShape
 import kpn.api.common.network.NetworkSummary
-import kpn.api.custom.NetworkScope
 
 object NetworkChangesPageExample {
 

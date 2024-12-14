@@ -13,6 +13,7 @@ import kpn.api.common.Country
 import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.Language
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.common.location.BooleanParameter
@@ -21,7 +22,6 @@ import kpn.api.common.location.SurveyParameter
 import kpn.api.common.planner.PlanCoordinate
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Day
-import kpn.api.custom.NetworkScope
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Subset

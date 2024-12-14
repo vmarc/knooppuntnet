@@ -1,8 +1,8 @@
 package kpn.server.json
 
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
-import kpn.api.custom.NetworkScope
 import kpn.core.util.UnitTest
 
 class NodeNameJsonDeserializerTest extends UnitTest {

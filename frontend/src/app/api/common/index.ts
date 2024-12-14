@@ -36,6 +36,7 @@ export * from './network-facts';
 export * from './network-integrity-check';
 export * from './network-integrity-check-failed';
 export * from './network-name-missing';
+export * from './network-scope';
 export * from './network-type';
 export * from './node-info';
 export * from './node-integrity-check';

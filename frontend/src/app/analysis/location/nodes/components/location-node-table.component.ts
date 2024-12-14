@@ -5,8 +5,8 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { TimeInfo } from '@api/common';
+import { NetworkScope } from '@api/common';
 import { LocationNodeInfo } from '@api/common/location';
-import { NetworkScope } from '@api/custom';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
 import { EditService } from '@app/components/shared';
@@ -136,7 +136,7 @@ export class LocationNodeTableComponent {
   protected readonly service = inject(LocationNodesPageService);
 
   // TODO SIGNAL
-  networkScope: NetworkScope = NetworkScope.regional;
+  networkScope: NetworkScope = 'regional';
 
   private readonly pageWidthService = inject(PageWidthService);
   private readonly editService = inject(EditService);

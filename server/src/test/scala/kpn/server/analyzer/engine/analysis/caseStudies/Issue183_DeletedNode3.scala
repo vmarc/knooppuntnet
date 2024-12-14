@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.Fact
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
-import kpn.api.custom.NetworkScope
 import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 

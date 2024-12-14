@@ -2,8 +2,8 @@
 
 import { Country } from '@api/common';
 import { LatLonImpl } from '@api/common';
+import { NetworkScope } from '@api/common';
 import { NetworkType } from '@api/common';
-import { NetworkScope } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { Integrity } from './integrity';
 

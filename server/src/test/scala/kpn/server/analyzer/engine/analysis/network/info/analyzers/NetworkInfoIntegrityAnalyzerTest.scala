@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.network.Integrity
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
-import kpn.api.custom.NetworkScope
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.doc.NetworkNodeMember
 import kpn.core.util.UnitTest

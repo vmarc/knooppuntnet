@@ -9,10 +9,10 @@ import kpn.api.common.NetworkType.inlineSkating
 import kpn.api.common.NetworkType.motorboat
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.Fact.RouteTagMissing
-import kpn.api.custom.NetworkScope
-import kpn.api.custom.NetworkScope.local
-import kpn.api.custom.NetworkScope.national
-import kpn.api.custom.NetworkScope.regional
+import kpn.api.common.NetworkScope
+import NetworkScope.local
+import NetworkScope.national
+import NetworkScope.regional
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags

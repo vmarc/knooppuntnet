@@ -8,7 +8,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.Node
 import kpn.api.common.network.NetworkShape
 import kpn.api.common.Fact.RouteInaccessible
-import kpn.api.custom.NetworkScope
+import kpn.api.common.NetworkScope
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp

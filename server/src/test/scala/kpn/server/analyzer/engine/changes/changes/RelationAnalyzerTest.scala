@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.changes
 
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.NetworkScope
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestData

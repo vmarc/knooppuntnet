@@ -1,14 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.Fact
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.data.Node
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
-import Fact.RouteNodeMissingInWays
-import Fact.RouteRedundantNodes
-import Fact.RouteWithoutNodes
-import kpn.api.custom.NetworkScope
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.LinkDirection
@@ -51,7 +48,7 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
   private def analyzeRouteWithSingleNetworkType(networkType: NetworkType): RouteDetailAnalysisContext = {
     val nodeDatas = findRouteNodes(networkType)
     val nodeAnalysis = if (nodeDatas.isEmpty) {
-      facts += RouteWithoutNodes
+      facts += Fact.RouteWithoutNodes
       RouteNodesAnalysis()
     }
     else {
@@ -77,14 +74,14 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
         )
 
         if (nodes.startNode.nonEmpty && !nodes.startNode.exists(_.isInWay)) {
-          facts += RouteNodeMissingInWays
+          facts += Fact.RouteNodeMissingInWays
         }
         else if (nodes.endNode.nonEmpty && !nodes.endNode.exists(_.isInWay)) {
-          facts += RouteNodeMissingInWays
+          facts += Fact.RouteNodeMissingInWays
         }
 
         if (nodes.redundantNodes.nonEmpty) {
-          facts += RouteRedundantNodes
+          facts += Fact.RouteRedundantNodes
         }
 
         nodes
@@ -208,7 +205,7 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
 
   private def nodeName(networkType: NetworkType, node: Node): Option[String] = {
     if (node.hasTag("network:type", "node_network")) {
-      val scopedNetworkTypes = NetworkScope.all.map(scope => ScopedNetworkType(scope, networkType))
+      val scopedNetworkTypes = NetworkScope.values.map(scope => ScopedNetworkType(scope, networkType))
       val nameTagKeys1 = scopedNetworkTypes.map(_.nodeRefTagKey)
       val nameTagKeys2 = scopedNetworkTypes.map(_.proposedNodeRefTagKey)
       val longNameTagKeys1 = scopedNetworkTypes.flatMap { scopedNetworkType =>

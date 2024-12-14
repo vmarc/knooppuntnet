@@ -1,5 +1,6 @@
 package kpn.api.custom
 
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 
 object ScopedNetworkType {
@@ -12,14 +13,15 @@ object ScopedNetworkType {
   val lpn: ScopedNetworkType = ScopedNetworkType(NetworkScope.local, NetworkType.canoe)
 
   def apply(networkScope: NetworkScope, networkType: NetworkType): ScopedNetworkType = {
-    val letter = NetworkTypeLetter.letter(networkType)
-    val key = s"${networkScope.letter}${letter}n"
+    val networkTypeLetter = NetworkTypeLetter.letter(networkType)
+    val networkScopeLetter = NetworkScopeLetter.letter(networkScope)
+    val key = s"$networkScopeLetter${networkTypeLetter}n"
     ScopedNetworkType(networkScope, networkType, key)
   }
 
   val all: Seq[ScopedNetworkType] = {
     NetworkType.values.flatMap { networkType =>
-      NetworkScope.all.map(scope => ScopedNetworkType(scope, networkType))
+      NetworkScope.values.map(scope => ScopedNetworkType(scope, networkType))
     }
   }
 

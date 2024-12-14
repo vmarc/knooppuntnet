@@ -1,19 +1,21 @@
 package kpn.core.history
 
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.data.Tagable
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
-import kpn.api.custom.NetworkScope
+import kpn.api.custom.NetworkScopeLetter
 import kpn.api.custom.NetworkTypeLetter
 
 object NodeTagDiffAnalyzer {
 
-  private val prefixes = NetworkScope.all.flatMap { networkScope =>
+  private val prefixes = NetworkScope.values.flatMap { networkScope =>
     NetworkType.values.map { networkType =>
       val networkTypeLetter = NetworkTypeLetter.letter(networkType)
-      s"${networkScope.letter}${networkTypeLetter}"
+      val networkScopeLetter = NetworkScopeLetter.letter(networkScope)
+      s"$networkScopeLetter$networkTypeLetter"
     }
   }
 

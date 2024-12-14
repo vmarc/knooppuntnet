@@ -1,7 +1,7 @@
 package kpn.api.common.common
 
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
-import kpn.api.custom.NetworkScope
 
 case class Reference(
   networkType: NetworkType,
@@ -17,8 +17,8 @@ case class Reference(
   import scala.math.Ordered.orderingToOrdered
 
   def compare(that: Reference): Int = {
-    (this.networkScope.name, this.networkType.entryName, this.name).compare(
-      (that.networkScope.name, that.networkType.entryName, that.name)
+    (this.networkScope.entryName, this.networkType.entryName, this.name).compare(
+      (that.networkScope.entryName, that.networkType.entryName, that.name)
     )
   }
 }

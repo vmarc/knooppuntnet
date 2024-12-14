@@ -84,7 +84,7 @@ class TagInfoReport {
       TagInfoTag(
         "network",
         Some(scopedNetworkType.key),
-        s"Used in node network analysis - ${scopedNetworkType.networkScope.name} ${scopedNetworkType.networkType.entryName} network"
+        s"Used in node network analysis - ${scopedNetworkType.networkScope.entryName} ${scopedNetworkType.networkType.entryName} network"
       )
     }
   }

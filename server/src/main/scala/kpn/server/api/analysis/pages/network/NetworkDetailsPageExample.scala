@@ -9,13 +9,13 @@ import kpn.api.common.NetworkFacts
 import kpn.api.common.NetworkIntegrityCheck
 import kpn.api.common.NetworkIntegrityCheckFailed
 import kpn.api.common.NetworkNameMissing
+import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkDetailsPage
 import kpn.api.common.network.NetworkSummary
-import kpn.api.custom.NetworkScope
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
