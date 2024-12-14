@@ -1,9 +1,62 @@
 package kpn.server.api.analysis.pages.location
 
+import kpn.api.common.Country
 import kpn.api.common.Language
+import kpn.api.common.LocationInfo
+import kpn.api.common.NetworkType
 import kpn.api.common.location.LocationDetailsPage
 import kpn.api.custom.LocationKey
+import kpn.server.analyzer.engine.analysis.location.LocationService
+import kpn.server.analyzer.engine.analysis.location.ParcDuVercors
+import kpn.server.repository.LocationRepository
+import org.springframework.stereotype.Component
 
-trait LocationDetailsPageBuilder {
-  def build(language: Language, locationKey: LocationKey): Option[LocationDetailsPage]
+@Component
+class LocationDetailsPageBuilder(
+  locationRepository: LocationRepository,
+  locationService: LocationService
+) {
+
+  def build(language: Language, locationKey: LocationKey): Option[LocationDetailsPage] = {
+    if (locationKey == LocationKey(NetworkType.cycling, Country.nl, "example")) {
+      Some(LocationDetailsPageExample.page)
+    }
+    else {
+      buildPage(language, locationKey)
+    }
+  }
+
+  private def buildPage(language: Language, locationKey: LocationKey): Option[LocationDetailsPage] = {
+    val locationId = locationService.toId(language, locationKey.name)
+    val locationDefinition = locationService.locationDefinition(locationId)
+    val subset = locationService.toSubset(language, locationKey)
+    val summary = locationRepository.summary(subset)
+    val distance = locationRepository.distance(subset)
+    val nameParts = locationKey.name.split(":").toSeq
+    val locationInfos = nameParts.zipWithIndex.map { case (namePart, index) =>
+      val names = nameParts.take(index + 1)
+      val link = s"${locationKey.networkType.entryName}/${locationKey.country.entryName}/${names.mkString(":")}"
+      LocationInfo(
+        namePart,
+        link
+      )
+    }
+
+    val relationId = if (locationId == ParcDuVercors.name) {
+      ParcDuVercors.relationId
+    }
+    else {
+      locationDefinition.map(_.relationId).getOrElse(0L)
+    }
+
+    Some(
+      LocationDetailsPage(
+        summary,
+        relationId,
+        distance,
+        locationInfos,
+        locationDefinition.map(_.tags).getOrElse(Seq.empty)
+      )
+    )
+  }
 }
