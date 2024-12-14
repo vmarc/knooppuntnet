@@ -6,7 +6,7 @@ import kpn.database.actions.changes.MongoQueryChangeSetRefs.pipeline
 import kpn.database.actions.statistics.ChangeSetRef
 import kpn.database.base.Database
 import kpn.database.base.MongoQuery
-import org.mongodb.scala.*
+import org.mongodb.scala._
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await

@@ -6,7 +6,7 @@ import kpn.api.base.WithObjectId
 import kpn.api.base.WithStringId
 import kpn.core.util.Log
 import kpn.database.util.Mongo
-import org.mongodb.scala.*
+import org.mongodb.scala._
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.project
@@ -114,7 +114,7 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def findByIds(ids: Seq[Long], log: Log): Seq[T] = {
     if (ids.nonEmpty) {
       log.debugElapsed {
-        val filter = in("_id", ids *)
+        val filter = in("_id", ids: _*)
         val future = collection.find[T](filter).toFuture()
         val docs = awaitResult(future, Duration(30, TimeUnit.SECONDS), log)
         (s"findByIds - collection: '$collectionName', ids: ${ids.mkString(", ")}", docs)

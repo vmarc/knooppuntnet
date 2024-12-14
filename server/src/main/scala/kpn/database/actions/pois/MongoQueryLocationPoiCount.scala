@@ -25,7 +25,7 @@ class MongoQueryLocationPoiCount(database: Database) {
         Seq(
           Some(equal("location.names", locationName)),
           LayerFilter.of(layers)
-        ).flatten *
+        ).flatten: _*
       )
       val locationPoiCount = database.pois.countDocuments(filter, log)
       (s"locationPoiCount: $locationPoiCount", locationPoiCount)

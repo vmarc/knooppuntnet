@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component
 import org.springframework.web.client.RestTemplate
 
 import java.util.Locale.LanguageRange
-import scala.jdk.CollectionConverters.*
+import scala.jdk.CollectionConverters._
 
 @Component
 class GeocoderImpl extends Geocoder {

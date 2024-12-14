@@ -1,7 +1,7 @@
 package kpn.database.tools
 
 import kpn.database.util.Mongo
-import org.mongodb.scala.*
+import org.mongodb.scala._
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await

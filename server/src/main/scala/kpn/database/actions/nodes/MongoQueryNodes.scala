@@ -31,7 +31,7 @@ class MongoQueryNodes(database: Database) {
         filter(
           and(
             equal("labels", Label.active),
-            in("_id", nodeIds *)
+            in("_id", nodeIds: _*)
           ),
         )
       )
@@ -46,7 +46,7 @@ class MongoQueryNodes(database: Database) {
         filter(
           and(
             equal("labels", Label.active),
-            in("_id", nodeIds *)
+            in("_id", nodeIds: _*)
           )
         ),
         unwind("$facts"), // TODO MONGO facts related to different scopedNetworkTypes than the network for which we do this query will also be counted

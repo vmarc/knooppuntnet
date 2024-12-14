@@ -48,7 +48,7 @@ class MongoQueryChangeSet(database: Database) {
 
     val pipeline = Seq(
       filter(
-        and(conditions *)
+        and(conditions: _*)
       )
     )
 

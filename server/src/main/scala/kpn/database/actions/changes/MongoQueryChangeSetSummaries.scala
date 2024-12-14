@@ -65,7 +65,7 @@ class MongoQueryChangeSetSummaries(database: Database) {
     ).flatten
 
     val pipeline = if (filterElements.nonEmpty) {
-      Seq(filter(and(filterElements *))) ++ unfilteredPipeline
+      Seq(filter(and(filterElements: _*))) ++ unfilteredPipeline
     }
     else {
       unfilteredPipeline

@@ -14,7 +14,7 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
     val detail = buildDetail()
 
     val facts = Fact.values.flatMap { fact => // use fact sorting order as defined in Fact class
-      context.networkFacts.filter(_.fact == fact.entryName)
+      context.networkFacts.filter(_.fact == fact)
     }
 
     NetworkInfoDoc(

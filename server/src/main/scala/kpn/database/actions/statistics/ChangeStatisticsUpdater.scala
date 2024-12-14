@@ -7,7 +7,7 @@ import kpn.database.base.Database
 import kpn.database.base.MongoQuery
 import kpn.database.base.Pipeline
 import kpn.database.util.Mongo
-import org.mongodb.scala.*
+import org.mongodb.scala._
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await

@@ -26,6 +26,6 @@ case class ChangeSetData(
     val es2 = routeChanges.map(_.referencedElements)
     val e3 = ReferencedElements(nodeIds = nodeChanges.map(_.id).toSet)
     val e = es1 ++ es2 :+ e3
-    ReferencedElements.merge(e *)
+    ReferencedElements.merge(e: _*)
   }
 }

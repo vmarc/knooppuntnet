@@ -57,7 +57,7 @@ object LinkImageBuilder {
 
 class LinkImageBuilder(g: Graphics2D, link: Link) {
 
-  import kpn.core.report.LinkImageBuilder.*
+  import kpn.core.report.LinkImageBuilder._
 
   def paint(): Unit = {
     val width = size

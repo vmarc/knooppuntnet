@@ -61,7 +61,7 @@ class SurveyDateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   private def analyze(tags: (String, String)*): Try[Option[Day]] = {
     SurveyDateAnalyzer.analyze(
-      newNode(tags = Tags.from(tags *))
+      newNode(tags = Tags.from(tags: _*))
     )
   }
 }

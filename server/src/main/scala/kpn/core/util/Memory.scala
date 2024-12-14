@@ -2,7 +2,7 @@ package kpn.core.util
 
 import java.lang.management.ManagementFactory
 import scala.annotation.tailrec
-import scala.jdk.CollectionConverters.*
+import scala.jdk.CollectionConverters._
 
 /**
  * Logs memory usage every X seconds.

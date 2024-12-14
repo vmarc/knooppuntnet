@@ -3,7 +3,7 @@ package kpn.core.loadOld
 import org.xml.sax.SAXParseException
 
 import java.io.File
-import scala.jdk.CollectionConverters.*
+import scala.jdk.CollectionConverters._
 import scala.xml.XML
 
 object XmlFile {

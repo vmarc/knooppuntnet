@@ -51,20 +51,20 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   private val log = Log(classOf[MongoQueryLocationNodes])
 
   def filterOptions(subset: LocationSubset, parameters: LocationNodesParameters): LocationNodeOptions = {
-    val pipeline = Seq(filter(and(subsetFilter(subset) *))) ++ Seq(
+    val pipeline = Seq(filter(and(subsetFilter(subset): _*))) ++ Seq(
       facet(
-        Facet("factsTotalNodeCount", factsTotalNodeCountPipeline(subset, parameters) *),
-        Facet("facts", factsPipeline(subset, parameters) *),
-        Facet("proposed", proposedPipeline(subset, parameters) *),
-        Facet("survey", surveyPipeline(subset, parameters) *),
-        Facet("lastUpdated", lastUpdatedPipeline(subset, parameters) *),
-        Facet("integrityCheckCount", integrityCheckPipeline(subset, parameters) *),
-        Facet("integrityCheckTotalNodeCount", integrityCheckTotalNodeCountPipeline(subset, parameters) *),
-        Facet("integrityCheckFailedCount", integrityCheckFailedPipeline(subset, parameters) *),
-        Facet("integrityCheckFailedTotalNodeCount", integrityCheckFailedTotalNodeCountPipeline(subset, parameters) *),
-        Facet("referencedInRoutesCount", referencedInRoutesCountPipeline(subset, parameters) *),
-        Facet("referencedInRoutesTotalNodeCount", referencedInRoutesTotalNodeCountPipeline(subset, parameters) *),
-        Facet("totalNodeCount", totalNodeCountPipeline(subset, parameters) *),
+        Facet("factsTotalNodeCount", factsTotalNodeCountPipeline(subset, parameters): _*),
+        Facet("facts", factsPipeline(subset, parameters): _*),
+        Facet("proposed", proposedPipeline(subset, parameters): _*),
+        Facet("survey", surveyPipeline(subset, parameters): _*),
+        Facet("lastUpdated", lastUpdatedPipeline(subset, parameters): _*),
+        Facet("integrityCheckCount", integrityCheckPipeline(subset, parameters): _*),
+        Facet("integrityCheckTotalNodeCount", integrityCheckTotalNodeCountPipeline(subset, parameters): _*),
+        Facet("integrityCheckFailedCount", integrityCheckFailedPipeline(subset, parameters): _*),
+        Facet("integrityCheckFailedTotalNodeCount", integrityCheckFailedTotalNodeCountPipeline(subset, parameters): _*),
+        Facet("referencedInRoutesCount", referencedInRoutesCountPipeline(subset, parameters): _*),
+        Facet("referencedInRoutesTotalNodeCount", referencedInRoutesTotalNodeCountPipeline(subset, parameters): _*),
+        Facet("totalNodeCount", totalNodeCountPipeline(subset, parameters): _*),
       )
     )
 
@@ -333,7 +333,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
 
   private def nodeFilter(subset: LocationSubset, parameters: LocationNodesParameters): Bson = {
     val filters: Seq[Bson] = subsetFilter(subset) ++ allFilters(subset, parameters).flatten
-    and(filters *)
+    and(filters: _*)
   }
 
   private def allFilters(subset: LocationSubset, parameters: LocationNodesParameters): Seq[Option[Bson]] = {

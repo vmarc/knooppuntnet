@@ -284,7 +284,7 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
   }
 
   private def route(database: Database, id: Long, labels: String*): Unit = {
-    routeWithTags(database, id, Seq.empty, labels *)
+    routeWithTags(database, id, Seq.empty, labels: _*)
   }
 
   private def routeWithTags(database: Database, id: Long, tags: Seq[Tag], labels: String*): Unit = {

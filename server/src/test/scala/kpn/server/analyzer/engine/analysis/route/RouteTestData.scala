@@ -39,7 +39,7 @@ class RouteTestData(
 
   def way(wayId: Long, nodeIds: Long*): RawWay = {
     addNodesIfMissing(nodeIds)
-    way(wayId, Seq.empty, nodeIds *)
+    way(wayId, Seq.empty, nodeIds: _*)
   }
 
   def way(wayId: Long, tags: Seq[Tag], nodeIds: Long*): RawWay = {
@@ -59,12 +59,12 @@ class RouteTestData(
 
   def memberWay(wayId: Long, role: String, nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
-    memberWay(wayId, Tags.from("highway" -> "road"), role, nodeIds *)
+    memberWay(wayId, Tags.from("highway" -> "road"), role, nodeIds: _*)
   }
 
   def memberWay(wayId: Long, tags: Seq[Tag], role: String, nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
-    way(wayId, tags, nodeIds *)
+    way(wayId, tags, nodeIds: _*)
     member("way", wayId, role)
   }
 

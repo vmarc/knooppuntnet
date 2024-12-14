@@ -30,6 +30,6 @@ class FactCombinationAnalyzer(context: RouteDetailAnalysisContext) {
       case _ => false
     }
 
-    context.withoutFacts(excludedFacts *)
+    context.withoutFacts(excludedFacts: _*)
   }
 }

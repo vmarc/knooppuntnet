@@ -5,7 +5,7 @@ import kpn.database.base.Database
 import kpn.database.base.DatabaseCollection
 import kpn.database.tools.CreateIndexesTool.Index
 import kpn.database.util.Mongo
-import org.mongodb.scala.*
+import org.mongodb.scala._
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.IndexOptions
 import org.mongodb.scala.model.Indexes
@@ -22,7 +22,7 @@ object CreateIndexesTool {
       indexName: String,
       fieldNames: String*
     ): Index = {
-      val index = Indexes.ascending(fieldNames *)
+      val index = Indexes.ascending(fieldNames: _*)
       Index(
         collection: DatabaseCollection[?],
         indexName: String,

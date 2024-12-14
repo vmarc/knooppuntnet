@@ -90,7 +90,7 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
 
     context.copy(
       _routeNodesAnalysis = Some(nodeAnalysis)
-    ).withFacts(facts.toSeq *)
+    ).withFacts(facts.toSeq: _*)
   }
 
   private def determineStartNodeName(nodeDatas: Seq[RouteNodeAnalysis], wayNodeDatas: Seq[RouteNodeAnalysis]): String = {

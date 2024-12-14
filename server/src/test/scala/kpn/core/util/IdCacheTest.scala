@@ -1,6 +1,6 @@
 package kpn.core.util
 
-import scala.jdk.CollectionConverters.*
+import scala.jdk.CollectionConverters._
 
 class IdCacheTest extends UnitTest {
 

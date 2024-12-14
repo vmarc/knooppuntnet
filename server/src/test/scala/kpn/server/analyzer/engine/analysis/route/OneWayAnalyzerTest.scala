@@ -403,6 +403,6 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   private def oneway(tags: (String, String)*): WayDirection = {
-    new OneWayAnalyzer(newWay(1, tags = Tags.from(tags *))).direction
+    new OneWayAnalyzer(newWay(1, tags = Tags.from(tags: _*))).direction
   }
 }

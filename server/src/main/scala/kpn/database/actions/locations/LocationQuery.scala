@@ -41,7 +41,7 @@ object LocationQuery {
       val locationComparisons = subset.locationIds.map { locationId =>
         equal(fieldName, Label.location(locationId))
       }
-      or(locationComparisons *)
+      or(locationComparisons: _*)
     }
   }
 
@@ -53,7 +53,7 @@ object LocationQuery {
       val locationComparisons = subset.locationIds.map { locationId =>
         equal(fieldName, locationId)
       }
-      or(locationComparisons *)
+      or(locationComparisons: _*)
     }
   }
 
@@ -342,7 +342,7 @@ object LocationQuery {
     }
     else {
       Seq(
-        filter(and(filters *))
+        filter(and(filters: _*))
       )
     }
   }

@@ -5,7 +5,7 @@ import kpn.api.custom.Tags
 
 case class HasTag(tagKey: String, allowedValues: String*) extends TagExpression {
 
-  def evaluate(tags: Seq[Tag]): Boolean = Tags.has(tags, tagKey, allowedValues *)
+  def evaluate(tags: Seq[Tag]): Boolean = Tags.has(tags, tagKey, allowedValues: _*)
 
   def tagKeys: Seq[String] = Seq(tagKey)
 }

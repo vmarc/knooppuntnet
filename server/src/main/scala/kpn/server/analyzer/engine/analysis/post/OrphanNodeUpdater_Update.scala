@@ -22,7 +22,7 @@ class OrphanNodeUpdater_Update(database: Database, log: Log) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          in("_id", allOrphanNodeIds *)
+          in("_id", allOrphanNodeIds: _*)
         ),
         unwind("$names"),
         project(

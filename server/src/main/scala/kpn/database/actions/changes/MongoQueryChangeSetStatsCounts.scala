@@ -10,7 +10,7 @@ import kpn.database.actions.statistics.ChangeSetCounts
 import kpn.database.base.Database
 import kpn.database.base.MongoQuery
 import kpn.database.util.Mongo
-import org.mongodb.scala.*
+import org.mongodb.scala._
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.facet
 import org.mongodb.scala.model.Facet
@@ -43,8 +43,8 @@ class MongoQueryChangeSetStatsCounts(database: Database) {
       case None =>
         Seq(
           facet(
-            Facet("years", pipelineYears *),
-            Facet("months", pipelineMonths *),
+            Facet("years", pipelineYears: _*),
+            Facet("months", pipelineMonths: _*),
           )
         )
 
@@ -55,9 +55,9 @@ class MongoQueryChangeSetStatsCounts(database: Database) {
         }
         Seq(
           facet(
-            Facet("years", pipelineYears *),
-            Facet("months", pipelineMonths *),
-            Facet("days", pipelineDays *),
+            Facet("years", pipelineYears: _*),
+            Facet("months", pipelineMonths: _*),
+            Facet("days", pipelineDays: _*),
           )
         )
     }

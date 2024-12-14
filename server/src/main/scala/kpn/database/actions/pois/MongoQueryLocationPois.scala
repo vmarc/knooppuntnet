@@ -39,7 +39,7 @@ class MongoQueryLocationPois(database: Database) {
             Seq(
               Some(equal("location.names", locationName)),
               LayerFilter.of(layers)
-            ).flatten *
+            ).flatten: _*
           )
         ),
         sort(orderBy(ascending("layers.0", "description"))),

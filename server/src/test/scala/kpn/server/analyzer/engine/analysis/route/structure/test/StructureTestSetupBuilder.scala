@@ -20,16 +20,16 @@ class StructureTestSetupBuilder extends SharedTestObjects {
   private val memberBuffer = ListBuffer[RawMember]()
 
   def memberWay(wayId: Long, role: String, nodeIds: Long*): RawMember = {
-    memberWayWithTags(wayId, role, Tags.from("highway" -> "road"), nodeIds *)
+    memberWayWithTags(wayId, role, Tags.from("highway" -> "road"), nodeIds: _*)
   }
 
   def memberWayWithTags(wayId: Long, role: String, tags: Seq[Tag], nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
-    memberWay(wayId, tags, role, nodeIds *)
+    memberWay(wayId, tags, role, nodeIds: _*)
   }
 
   def memberRoundabout(wayId: Long, role: String, nodeIds: Long*): RawMember = {
-    memberWayWithTags(wayId, role, Tags.from("highway" -> "road", "junction" -> "roundabout"), nodeIds *)
+    memberWayWithTags(wayId, role, Tags.from("highway" -> "road", "junction" -> "roundabout"), nodeIds: _*)
   }
 
   def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
@@ -63,7 +63,7 @@ class StructureTestSetupBuilder extends SharedTestObjects {
   }
 
   private def way(wayId: Long, nodeIds: Long*): RawWay = {
-    way(wayId, Seq.empty, nodeIds *)
+    way(wayId, Seq.empty, nodeIds: _*)
   }
 
   private def way(wayId: Long, tags: Seq[Tag], nodeIds: Long*): RawWay = {
@@ -75,7 +75,7 @@ class StructureTestSetupBuilder extends SharedTestObjects {
 
   private def memberWay(wayId: Long, tags: Seq[Tag], role: String, nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
-    way(wayId, tags, nodeIds *)
+    way(wayId, tags, nodeIds: _*)
     member("way", wayId, role)
   }
 

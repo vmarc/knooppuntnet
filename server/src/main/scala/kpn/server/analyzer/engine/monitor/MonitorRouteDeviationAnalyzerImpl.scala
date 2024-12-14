@@ -15,7 +15,7 @@ import org.locationtech.jts.index.strtree.STRtree
 import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.springframework.stereotype.Component
 
-import scala.jdk.CollectionConverters.*
+import scala.jdk.CollectionConverters._
 
 case class ReferenceCoordinateSequence(
   indexes: Seq[Int]

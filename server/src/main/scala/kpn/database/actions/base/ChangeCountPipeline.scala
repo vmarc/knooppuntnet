@@ -31,8 +31,8 @@ object ChangeCountPipeline {
         mainPipeline ++
           Seq(
             facet(
-              Facet("years", years() *),
-              Facet("months", months(year) *),
+              Facet("years", years(): _*),
+              Facet("months", months(year): _*),
             )
           )
 
@@ -40,9 +40,9 @@ object ChangeCountPipeline {
         mainPipeline ++
           Seq(
             facet(
-              Facet("years", years() *),
-              Facet("months", months(year) *),
-              Facet("days", days(year, month) *),
+              Facet("years", years(): _*),
+              Facet("months", months(year): _*),
+              Facet("days", days(year, month): _*),
             )
           )
     }

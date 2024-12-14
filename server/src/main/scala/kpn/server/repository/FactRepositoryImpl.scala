@@ -113,7 +113,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           )
         ),
         unwind("$routes"),
-        filter(in("routes.id", routeIds *)),
+        filter(in("routes.id", routeIds: _*)),
         project(
           fields(
             excludeId(),
@@ -266,7 +266,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           )
         ),
         unwind("$nodes"),
-        filter(in("nodes.id", nodeIds *)),
+        filter(in("nodes.id", nodeIds: _*)),
         project(
           fields(
             excludeId(),

@@ -32,7 +32,7 @@ class NetworkInfoNodeDocAnalyzer(database: Database) extends NetworkInfoAnalyzer
         filter(
           and(
             equal("labels", Label.active),
-            in("_id", nodeIds *)
+            in("_id", nodeIds: _*)
           ),
         )
       )

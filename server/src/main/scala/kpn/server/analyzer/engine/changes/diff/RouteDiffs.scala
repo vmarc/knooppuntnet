@@ -21,7 +21,7 @@ case class RouteDiffs(
 
   def referencedElements: ReferencedElements = {
     val routeIds = removed.map(_.id) ++ added.map(_.id) ++ updated.map(_.id)
-    val e1 = ReferencedElements.merge(updated.map(_.referencedElements) *)
+    val e1 = ReferencedElements.merge(updated.map(_.referencedElements): _*)
     val e2 = ReferencedElements(routeIds = routeIds.toSet)
     ReferencedElements.merge(e1, e2)
   }

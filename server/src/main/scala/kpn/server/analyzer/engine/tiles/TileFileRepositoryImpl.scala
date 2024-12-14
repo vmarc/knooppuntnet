@@ -7,7 +7,7 @@ import org.apache.commons.io.FileUtils
 import org.apache.commons.io.filefilter.TrueFileFilter.TRUE
 
 import java.io.File
-import scala.jdk.CollectionConverters.*
+import scala.jdk.CollectionConverters._
 
 class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRepository {
 

@@ -39,7 +39,7 @@ class MongoQueryNetworkChanges(database: Database) {
 
     val pipeline: Seq[Bson] = Seq(
       filter(
-        and(filterElements *)
+        and(filterElements: _*)
       ),
       sort(
         orderBy(

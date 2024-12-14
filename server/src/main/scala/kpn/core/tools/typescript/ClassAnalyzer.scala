@@ -2,7 +2,7 @@ package kpn.core.tools.typescript
 
 import kpn.api.common.data.raw.RawNode
 
-import scala.reflect.runtime.universe.*
+import scala.reflect.runtime.universe._
 import scala.util.matching.Regex
 
 object ClassAnalyzer {

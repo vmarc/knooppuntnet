@@ -14,7 +14,7 @@ import kpn.server.json.Json
 import java.io.File
 import java.net.URLDecoder
 import java.nio.charset.StandardCharsets
-import scala.jdk.CollectionConverters.*
+import scala.jdk.CollectionConverters._
 
 object HttpArchiveReportTool {
   def main(args: Array[String]): Unit = {
