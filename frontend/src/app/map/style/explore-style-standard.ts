@@ -1,16 +1,12 @@
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
+import { ExploreStyleConstants } from './explore-style-constants';
 
 export class ExploreStyleStandard {
   private static readonly colorInternational = '#ff0000';
   private static readonly colorNational = '#0000ff';
   private static readonly colorRegional = '#00cc00';
   private static readonly colorLocal = '#ff8800';
-
-  private static readonly zIndexInternational = 11;
-  private static readonly zIndexNational = 12;
-  private static readonly zIndexRegional = 13;
-  private static readonly zIndexLocal = 14;
 
   private static readonly width1 = 1;
   private static readonly width2 = 2;
@@ -33,7 +29,7 @@ export class ExploreStyleStandard {
 
   private static buildInternationalRouteStyle(width: number): Style {
     return new Style({
-      zIndex: this.zIndexInternational,
+      zIndex: ExploreStyleConstants.zIndexInternational,
       stroke: new Stroke({
         color: this.colorInternational,
         width: width,
@@ -43,7 +39,7 @@ export class ExploreStyleStandard {
 
   private static buildNationalRouteStyle(width: number): Style {
     return new Style({
-      zIndex: this.zIndexNational,
+      zIndex: ExploreStyleConstants.zIndexNational,
       stroke: new Stroke({
         color: this.colorNational,
         width: width,
@@ -53,7 +49,7 @@ export class ExploreStyleStandard {
 
   private static buildRegionalRouteStyle(width: number): Style {
     return new Style({
-      zIndex: this.zIndexRegional,
+      zIndex: ExploreStyleConstants.zIndexRegional,
       stroke: new Stroke({
         color: this.colorRegional,
         width: width,
@@ -63,7 +59,7 @@ export class ExploreStyleStandard {
 
   private static buildLocalRouteStyle(width: number): Style {
     return new Style({
-      zIndex: this.zIndexLocal,
+      zIndex: ExploreStyleConstants.zIndexLocal,
       stroke: new Stroke({
         color: this.colorLocal,
         width: width,

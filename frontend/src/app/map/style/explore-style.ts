@@ -2,29 +2,14 @@ import { SurveyDateValues } from '@app/core';
 import { MainMapNodeStyle } from '@app/ol/style';
 import { MainMapStyleParameters } from '@app/ol/style';
 import { FeatureLike } from 'ol/Feature';
-import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import { MapStyleOptions } from '../../state/map-style-options';
 import { ExploreStyleAnalysis } from './explore-style-analysis';
+import { ExploreStyleFocus } from './explore-style-focus';
 import { ExploreStyleStandard } from './explore-style-standard';
 import { ExploreStyleSurvey } from './explore-style-survey';
-import { ExploreStyleUnfocused } from './explore-style-unfocused';
 
 export class ExploreStyle {
-  private static unselectedRouteStyle = new Style({
-    stroke: new Stroke({
-      color: [130, 130, 130],
-      width: 3,
-    }),
-  });
-
-  private static readonly selectedRouteStyle = new Style({
-    stroke: new Stroke({
-      color: [0, 0, 255],
-      width: 3,
-    }),
-  });
-
   static style(styleOptions: MapStyleOptions, feature: FeatureLike): Style | Array<Style> {
     const scope = feature.get('scope');
     if (!this.showScope(styleOptions, scope)) {
@@ -40,25 +25,21 @@ export class ExploreStyle {
     return undefined;
   }
 
-  private static nodeStyle(
-    styleOptions: MapStyleOptions,
-    feature: FeatureLike
-  ): Style | Array<Style> {
-    if (styleOptions.focusElements) {
-      const nodeId = feature.get('id');
-      if (!styleOptions.focusElements.nodeIds.includes(nodeId)) {
-        const ref = feature.get('ref');
-        const name = feature.get('name');
-        let title: string;
-        if (ref && ref !== 'o') {
-          title = ref;
-        } else {
-          title = name;
+  private static nodeStyle(styleOptions: MapStyleOptions, feature: FeatureLike): Array<Style> {
+    const baseStyle = this.baseNodeStyle(styleOptions, feature);
+    if (baseStyle) {
+      if (styleOptions.focusElements) {
+        const nodeId = feature.get('id');
+        if (styleOptions.focusElements.nodeIds.includes(nodeId)) {
+          const focusStyle = ExploreStyleFocus.nodeStyle(styleOptions.zoom);
+          return [...baseStyle, focusStyle];
         }
-        return ExploreStyleUnfocused.nodeStyle(styleOptions.zoom, title);
       }
     }
+    return baseStyle;
+  }
 
+  private static baseNodeStyle(styleOptions: MapStyleOptions, feature: FeatureLike): Array<Style> {
     if (styleOptions.mode === 'survey') {
       if (styleOptions.surveyDateValues) {
         const survey = feature.get('survey');
@@ -67,22 +48,21 @@ export class ExploreStyle {
         const name = feature.get('name');
 
         let title: string;
-        let subTitle: string;
-
         if (ref && ref !== 'o') {
           title = ref;
-          subTitle = name;
         } else {
           title = name;
         }
 
-        return ExploreStyleSurvey.nodeStyle(
-          styleOptions.zoom,
-          styleOptions.surveyDateValues,
-          survey,
-          proposed,
-          title
-        );
+        return [
+          ExploreStyleSurvey.nodeStyle(
+            styleOptions.zoom,
+            styleOptions.surveyDateValues,
+            survey,
+            proposed,
+            title
+          ),
+        ];
       } else {
         return undefined;
       }
@@ -102,17 +82,19 @@ export class ExploreStyle {
     styleOptions: MapStyleOptions,
     feature: FeatureLike
   ): Style | Array<Style> {
-    const scope = feature.get('scope');
-
-    if (styleOptions.focusElements) {
+    const baseStyle = this.baseRouteStyle(styleOptions, feature);
+    if (baseStyle && styleOptions.focusElements) {
       const routeId = feature.get('routeId');
-
-      console.log('routeId', routeId, styleOptions.focusElements.routeIds);
-
-      if (!styleOptions.focusElements.routeIds.includes(routeId)) {
-        return ExploreStyleUnfocused.routeStyle(styleOptions.zoom);
+      if (styleOptions.focusElements.routeIds.includes(routeId)) {
+        const focusStyle = ExploreStyleFocus.routeStyle(styleOptions.zoom);
+        return [baseStyle, focusStyle];
       }
     }
+    return baseStyle;
+  }
+
+  private static baseRouteStyle(styleOptions: MapStyleOptions, feature: FeatureLike): Style {
+    const scope = feature.get('scope');
 
     if (styleOptions.mode === 'survey') {
       const survey = feature.get('survey');

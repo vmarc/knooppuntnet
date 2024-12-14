@@ -6,6 +6,7 @@ import { small } from '@app/ol/style';
 import { Color } from 'ol/color';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
+import { ExploreStyleConstants } from './explore-style-constants';
 
 export class ExploreStyleSurvey {
   private static readonly surveyUnknown: Color = [255, 255, 0]; // yellow
@@ -42,7 +43,7 @@ export class ExploreStyleSurvey {
   static readonly surveyOlderProposedLarge = proposedLarge(StyleColor.surveyOlder);
 
   private static readonly surveyStyle = new Style({
-    zIndex: 11,
+    zIndex: ExploreStyleConstants.zIndexStandard,
     stroke: new Stroke({
       color: '#ffff00',
       width: 4,
@@ -63,8 +64,6 @@ export class ExploreStyleSurvey {
     } else if (zoom >= 10) {
       style = this.smallNodeStyle(surveyDateValues, survey);
     }
-    console.log('nodeStyle', style);
-
     return style;
   }
 

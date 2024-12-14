@@ -13,9 +13,9 @@ export class MapRoutePopupInteraction extends Interaction {
   }
 
   override handleEvent(evt: MapBrowserEvent<UIEvent>) {
-    if (this.state.map.mode() !== 'explore') {
-      return true; // no need to handle event, propagate to other interactions
-    }
+    // if (this.state.map.mode() !== 'standard') {
+    //   return true; // no need to handle event, propagate to other interactions
+    // }
 
     if (MapBrowserEventType.SINGLECLICK === evt.type) {
       return this.handler.click();
