@@ -1,5 +1,6 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
+import { SurveyDateValues } from '@app/core';
 import { MapLayerState } from '@app/ol/domain';
 import { Coordinate } from 'ol/coordinate';
 import { PoiStyleMap } from '../map/style/poi-style-map';
@@ -14,12 +15,13 @@ export class MapState {
   private readonly _routePopupState = signal<MapRoutePopupState>(
     new MapRoutePopupState([], [0, 0])
   );
-  private readonly _mode = signal<string>('analysis');
+  private readonly _mode = signal<string>('survey');
 
   private readonly _selectedRoute = signal<number | undefined>(undefined);
   private readonly _poiStyleMap = signal<PoiStyleMap>(undefined);
   private readonly _poiActive = signal<ReadonlyMap<string, boolean>>(new Map());
   private readonly _poiLayerStates = signal<ReadonlyArray<MapLayerState>>([]);
+  private readonly _surveyDateValues = signal<SurveyDateValues | undefined>(undefined);
 
   readonly layers: MapStateLayers;
   readonly scopes: MapStateScopes;
@@ -32,6 +34,7 @@ export class MapState {
   readonly poiStyleMap = this._poiStyleMap.asReadonly();
   readonly poiActive = this._poiActive.asReadonly();
   readonly poiLayerStates = this._poiLayerStates.asReadonly();
+  readonly surveyDateValues = this._surveyDateValues.asReadonly();
 
   readonly mapStyleOptions = computed(() => {
     const options: MapStyleOptions = {
@@ -43,6 +46,7 @@ export class MapState {
       scopeLocal: this.scopes.scopeLocal(),
       scopeNodeRoutes: this.scopes.scopeNodeRoutes(),
       selectedRoute: this.selectedRoute(),
+      surveyDateValues: this.surveyDateValues(),
     };
     return options;
   });
@@ -92,5 +96,9 @@ export class MapState {
         return mapLayerState;
       });
     });
+  }
+
+  updateSurveyDateValues(surveyDateValues: SurveyDateValues): void {
+    this._surveyDateValues.set(surveyDateValues);
   }
 }

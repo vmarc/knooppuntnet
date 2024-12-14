@@ -30,11 +30,11 @@ export class MapStateLayers {
 
     this._backgroundLayer = signal<BackgroundLayerType>('standard');
     this._routeLayerEnabled = signal<boolean>(true);
-    this._poiLayerEnabled = signal<boolean>(true);
-    this._gridLayerEnabled = signal<boolean>(true);
-    this._flandersOpenDataLayerEnabled = signal<boolean>(true);
-    this._netherlandsOpenDataLayerEnabled = signal<boolean>(true);
-    this._franceOpenDataLayerEnabled = signal<boolean>(true);
+    this._poiLayerEnabled = signal<boolean>(false);
+    this._gridLayerEnabled = signal<boolean>(false);
+    this._flandersOpenDataLayerEnabled = signal<boolean>(false);
+    this._netherlandsOpenDataLayerEnabled = signal<boolean>(false);
+    this._franceOpenDataLayerEnabled = signal<boolean>(false);
 
     this.standardBackgroundLayerEnabled = computed(() => this._backgroundLayer() === 'standard');
     this.osmBackgroundLayerEnabled = computed(() => this._backgroundLayer() === 'osm');

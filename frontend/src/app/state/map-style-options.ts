@@ -1,3 +1,5 @@
+import { SurveyDateValues } from '@app/core';
+
 export interface MapStyleOptions {
   zoom: number;
   mode: string; // standard, surface, survey, analysis
@@ -7,4 +9,5 @@ export interface MapStyleOptions {
   scopeLocal: boolean;
   scopeNodeRoutes: boolean;
   selectedRoute: number | undefined;
+  surveyDateValues: SurveyDateValues | undefined;
 }

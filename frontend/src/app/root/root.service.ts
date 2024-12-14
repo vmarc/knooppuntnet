@@ -1,6 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { SurveyDateValues } from '@app/core';
+import { ApiService } from '@app/services';
 import { merge } from 'rxjs';
 import { State } from '@app/state';
 
@@ -9,6 +11,7 @@ import { State } from '@app/state';
 })
 export class RootService {
   private readonly state = inject(State);
+  private readonly apiService = inject(ApiService);
   private readonly breakpointObserver = inject(BreakpointObserver);
   private readonly smallMaxWidth = 1000;
 
@@ -19,5 +22,15 @@ export class RootService {
       const width = window.innerWidth;
       this.state.page.updateSmall(width <= this.smallMaxWidth);
     });
+    this.loadSurveyDateValues();
+  }
+
+  loadSurveyDateValues(): void {
+    if (!this.state.map.surveyDateValues()) {
+      this.apiService.surveyDateInfo().subscribe((response) => {
+        const surveyDateValues = SurveyDateValues.from(response.result);
+        this.state.map.updateSurveyDateValues(surveyDateValues);
+      });
+    }
   }
 }

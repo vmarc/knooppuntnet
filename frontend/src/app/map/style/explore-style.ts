@@ -25,10 +25,43 @@ export class ExploreStyle {
   });
 
   static style(styleOptions: MapStyleOptions, feature: FeatureLike): Style | Array<Style> {
+    const scope = feature.get('scope');
+    if (!this.showScope(styleOptions, scope)) {
+      return undefined;
+    }
+
     const layer = feature.get('layer');
-    console.log('layer', layer);
 
     if (layer === 'node') {
+      if (styleOptions.mode === 'survey') {
+        if (styleOptions.surveyDateValues) {
+          const survey = feature.get('survey');
+          const proposed = feature.get('proposed') === 'true';
+          const ref = feature.get('ref');
+          const name = feature.get('name');
+
+          let title: string;
+          let subTitle: string;
+
+          if (ref && ref !== 'o') {
+            title = ref;
+            subTitle = name;
+          } else {
+            title = name;
+          }
+
+          return ExploreStyleSurvey.nodeStyle(
+            styleOptions.zoom,
+            styleOptions.surveyDateValues,
+            survey,
+            proposed,
+            title
+          );
+        } else {
+          return undefined;
+        }
+      }
+
       const parameters: MainMapStyleParameters = {
         mapMode: 'analysis',
         showProposed: true,
@@ -39,13 +72,13 @@ export class ExploreStyle {
       return new MainMapNodeStyle().nodeStyle(parameters, 0, feature);
     }
 
-    const scope = feature.get('scope');
-    if (!this.showScope(styleOptions, scope)) {
-      return undefined;
-    }
     if (styleOptions.mode === 'survey') {
       const survey = feature.get('survey');
-      return ExploreStyleSurvey.style(styleOptions.zoom, survey);
+      return ExploreStyleSurvey.routeStyle(
+        styleOptions.zoom,
+        styleOptions.surveyDateValues,
+        survey
+      );
     }
     if (styleOptions.mode === 'analysis') {
       const error = feature.get('error');
