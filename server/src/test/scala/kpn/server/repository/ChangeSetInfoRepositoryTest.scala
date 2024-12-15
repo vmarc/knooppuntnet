@@ -32,7 +32,10 @@ class ChangeSetInfoRepositoryTest extends UnitTest {
 
       repository.save(changeSetInfo)
 
-      repository.get(changeSetId).value.shouldMatchTo(changeSetInfo)
+      assertEqual(
+        repository.get(changeSetId),
+        Some(changeSetInfo)
+      )
     }
   }
 

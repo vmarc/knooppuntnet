@@ -4,8 +4,6 @@ import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.json.Json
 import org.mongodb.scala.MongoClient
-import org.scalatest.exceptions.StackDepthException
-import org.scalatest.exceptions.TestFailedException
 
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -42,18 +40,6 @@ object TestSupport {
     }
     finally {
       mongoClient.close()
-    }
-  }
-
-  def assertEqual(object1: Object, object2: Object): Unit = {
-    if (object1 != object2) {
-      val json1 = jsonWriter.writeValueAsString(object1)
-      val json2 = jsonWriter.writeValueAsString(object2)
-      throw new TestFailedException(
-        (e: StackDepthException) => Some(s"""$json1 did not equal $json2"""),
-        None,
-        (e: StackDepthException) => 1, // stack depth at which assertXx() is called, used to provide source line of assert in failure message
-      )
     }
   }
 }

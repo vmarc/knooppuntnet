@@ -24,14 +24,17 @@ class NodeNetworkGraphTest extends UnitTest with SharedTestObjects {
     graph.add(GraphEdge(1, 3, 1, proposed = false, leg13))
     graph.add(GraphEdge(3, 4, 1, proposed = false, leg34))
 
-    graph.findPath("1", "4", proposed = false).value.shouldMatchTo(
-      GraphPath(
-        source = "1",
-        segments = Seq(
-          GraphPathSegment("13.1", leg13),
-          GraphPathSegment("3", leg13),
-          GraphPathSegment("34.1", leg34),
-          GraphPathSegment("4", leg34)
+    assertEqual(
+      graph.findPath("1", "4", proposed = false),
+      Some(
+        GraphPath(
+          source = "1",
+          segments = Seq(
+            GraphPathSegment("13.1", leg13),
+            GraphPathSegment("3", leg13),
+            GraphPathSegment("34.1", leg34),
+            GraphPathSegment("4", leg34)
+          )
         )
       )
     )
@@ -47,5 +50,4 @@ class NodeNetworkGraphTest extends UnitTest with SharedTestObjects {
     graph.add(GraphEdge(1, 2, 1, proposed = false, TrackPathKey(12, 1)))
     graph.findPath("1", "4", proposed = false) should equal(None)
   }
-
 }

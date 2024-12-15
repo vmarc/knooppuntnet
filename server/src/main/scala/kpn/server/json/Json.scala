@@ -36,12 +36,18 @@ object Json {
   val objectMapper: ObjectMapper = buildObjectMapper(false)
   val mongoObjectMapper: ObjectMapper = buildObjectMapper(true)
 
+  private val prettyPrinter = Json.objectMapper.writerWithDefaultPrettyPrinter()
+
+  def value[T](string: String, valueType: Class[T]): T = {
+    objectMapper.readValue(string, valueType)
+  }
+
   def string(o: Object): String = {
     objectMapper.writeValueAsString(o)
   }
 
-  def value[T](string: String, valueType: Class[T]): T = {
-    objectMapper.readValue(string, valueType)
+  def pretty(o: Object): String = {
+    prettyPrinter.writeValueAsString(o)
   }
 
   private def buildObjectMapper(mongo: Boolean): ObjectMapper = {
