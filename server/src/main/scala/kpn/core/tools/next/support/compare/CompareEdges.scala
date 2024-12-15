@@ -5,6 +5,7 @@ import kpn.core.doc.OldRouteDoc
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.util.Log
 
+import scala.annotation.tailrec
 import scala.math.abs
 
 case class CompareEdge(
@@ -49,6 +50,7 @@ class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc, log: L
     sort(distinctOldEdges(Seq.empty, oldRouteDoc.edges))
   }
 
+  @tailrec
   private def distinctOldEdges(edges: Seq[CompareEdge], remainingEdges: Seq[RouteEdge]): Seq[CompareEdge] = {
     if (remainingEdges.isEmpty) {
       edges

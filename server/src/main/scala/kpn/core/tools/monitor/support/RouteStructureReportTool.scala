@@ -33,7 +33,7 @@ class RouteStructureReportTool {
           val startNodeId2 = startWay.way.nodes.last.id
           val endNodeId1 = endWay.way.nodes.last.id
           val endNodeId2 = endWay.way.nodes.head.id
-          println(s"${relation.id} ${startNodeId1}  ${startNodeId2} ${endNodeId1} ${endNodeId2}")
+          println(s"${relation.id} $startNodeId1  $startNodeId2 $endNodeId1 $endNodeId2")
         }
     }
   }

@@ -1,5 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
+import scala.annotation.tailrec
+
 object DependencySorter {
   def sort(dependencies: Seq[RouteDependency]): Seq[Long] = {
     new DependencySorter().sort(dependencies)
@@ -12,6 +14,7 @@ class DependencySorter {
     sortDependencies(Seq.empty, dependencies)
   }
 
+  @tailrec
   private def sortDependencies(relationIds: Seq[Long], remainingDependencies: Seq[RouteDependency]): Seq[Long] = {
     if (remainingDependencies.isEmpty) {
       relationIds

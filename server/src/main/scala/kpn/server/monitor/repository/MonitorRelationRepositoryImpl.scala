@@ -3,16 +3,16 @@ package kpn.server.monitor.repository
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.server.monitor.domain.MonitorRelation
+import org.mongodb.scala.model.Accumulators.addToSet
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.group
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
-import org.mongodb.scala.model.Projections.computed
-import org.mongodb.scala.model.Projections.fields
-import org.mongodb.scala.model.Accumulators.addToSet
-import org.mongodb.scala.model.Aggregates.group
-import org.mongodb.scala.model.Projections.excludeId
-import org.mongodb.scala.model.Projections.include
-import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Filters.regex
+import org.mongodb.scala.model.Projections.computed
+import org.mongodb.scala.model.Projections.excludeId
+import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
 
 class MonitorRelationRepositoryImpl(database: Database) extends MonitorRelationRepository {
 
@@ -55,7 +55,7 @@ class MonitorRelationRepositoryImpl(database: Database) extends MonitorRelationR
       ),
       unwind("$tiles"),
       filter(
-        regex("tiles", s"^${zoomLevel}-")
+        regex("tiles", s"^$zoomLevel-")
       ),
       group(
         "$tiles",

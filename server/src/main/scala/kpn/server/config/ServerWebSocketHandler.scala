@@ -54,7 +54,7 @@ class ServerWebSocketHandler(
       "unknown"
     }
     log.warn(s"user=$user, transport error: ${exception.toString}")
-    super.handleTransportError(session, exception);
+    super.handleTransportError(session, exception)
   }
 
   override def afterConnectionClosed(session: WebSocketSession, status: CloseStatus): Unit = {
@@ -65,8 +65,8 @@ class ServerWebSocketHandler(
       else {
         "unknown"
       }
-      log.warn(s"Error in websocket connection: user=$user, code=${status.getCode}, reason=${status.getReason}");
+      log.warn(s"Error in websocket connection: user=$user, code=${status.getCode}, reason=${status.getReason}")
     }
-    super.afterConnectionClosed(session, status);
+    super.afterConnectionClosed(session, status)
   }
 }

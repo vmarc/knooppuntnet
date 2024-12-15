@@ -4,9 +4,7 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.custom.Subset
 import kpn.core.util.Log
-import kpn.database.actions.subsets.MongoQuerySubsetChanges.log
 import kpn.database.base.Database
-import kpn.database.util.Mongo
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.limit
 import org.mongodb.scala.model.Aggregates.project
@@ -19,29 +17,9 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Sorts.descending
 import org.mongodb.scala.model.Sorts.orderBy
 
-object MongoQuerySubsetChanges {
-  private val log = Log(classOf[MongoQuerySubsetChanges])
-
-  def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-2") { database =>
-      val changes = new MongoQuerySubsetChanges(database).execute(
-        Subset.nlBicycle,
-        ChangesParameters(
-          pageSize = 100,
-          pageIndex = 0,
-          impact = true,
-        )
-      )
-
-      println(s"changes.size=${changes.size}")
-      changes.zipWithIndex.foreach { case (change, index) =>
-        println(s"  index=$index, ${change.key.timestamp.yyyymmddhhmmss}")
-      }
-    }
-  }
-}
-
 class MongoQuerySubsetChanges(database: Database) {
+
+  private val log = Log(classOf[MongoQuerySubsetChanges])
 
   def execute(subset: Subset, parameters: ChangesParameters): Seq[ChangeSetSummary] = {
 

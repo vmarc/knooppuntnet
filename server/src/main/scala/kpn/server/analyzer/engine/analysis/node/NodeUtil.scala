@@ -56,7 +56,7 @@ class NodeUtil(scopedNetworkType: ScopedNetworkType) {
         facts.addOne(Fact.RouteAnalysisFailed)
       }
       routeNodeInfos.zip(suffixes).map { case (routeNodeInfo, letter) =>
-        routeNodeInfo.node.id -> (s"${routeNodeInfo.name}.$letter")
+        routeNodeInfo.node.id -> s"${routeNodeInfo.name}.$letter"
       }.toMap
     }
   }

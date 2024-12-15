@@ -1,15 +1,15 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.Fact
-import Fact.RouteAnalysisFailed
-import Fact.RouteNodeMissingInWays
-import Fact.RouteNotBackward
-import Fact.RouteNotContinious
-import Fact.RouteNotForward
-import Fact.RouteNotOneWay
-import Fact.RouteOneWay
-import Fact.RouteUnusedSegments
-import Fact.RouteWithoutNodes
+import kpn.api.common.Fact.RouteAnalysisFailed
+import kpn.api.common.Fact.RouteNodeMissingInWays
+import kpn.api.common.Fact.RouteNotBackward
+import kpn.api.common.Fact.RouteNotContinious
+import kpn.api.common.Fact.RouteNotForward
+import kpn.api.common.Fact.RouteNotOneWay
+import kpn.api.common.Fact.RouteOneWay
+import kpn.api.common.Fact.RouteUnusedSegments
+import kpn.api.common.Fact.RouteWithoutNodes
 import kpn.core.analysis.LinkDirection
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.structure.StructureAnalyzer

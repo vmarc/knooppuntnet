@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.Fact
+import kpn.api.common.Fact.RouteBroken
 import kpn.api.common.route.Both
 import kpn.api.common.route.WayDirection
-import Fact.RouteBroken
 import kpn.api.custom.Relation
 import kpn.api.custom.Tag
 import kpn.core.analysis.Facts

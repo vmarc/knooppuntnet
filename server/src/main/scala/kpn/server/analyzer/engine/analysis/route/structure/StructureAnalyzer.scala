@@ -300,6 +300,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
     }
   }
 
+  @tailrec
   private def findNonNodeNetworkRouteForwardPath(
     pathElements: Seq[StructurePathElement],
     remainingSegmentElements: Seq[RouteAnalysisElement]
@@ -331,6 +332,7 @@ class StructureAnalyzer(context: RouteDetailAnalysisContext, traceEnabled: Boole
     }
   }
 
+  @tailrec
   private def findNonNodeNetworkRouteBackwardPath(
     pathElements: Seq[StructurePathElement],
     remainingSegmentElements: Seq[RouteAnalysisElement]

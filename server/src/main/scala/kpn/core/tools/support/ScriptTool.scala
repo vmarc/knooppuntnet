@@ -38,7 +38,7 @@ class ScriptTool(name: String) {
 
     val end = System.currentTimeMillis()
     val elapsed = Elapsed(end - start)
-    val subject = s"${(if (success) "Done: " else "Error: ")}$name"
+    val subject = s"${if (success) "Done: " else "Error: "}$name"
     val text = s"$command\n$elapsed"
     mailSender.send(subject, text)
 

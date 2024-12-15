@@ -2,13 +2,13 @@ package kpn.server.monitor.tasks
 
 import kpn.core.util.Log
 import kpn.server.monitor.domain.MonitorTask
-import org.mongodb.scala.model.changestream.ChangeStreamDocument
 import org.mongodb.scala.Observer
 import org.mongodb.scala.Subscription
+import org.mongodb.scala.model.changestream.ChangeStreamDocument
 
 import java.util.concurrent.CountDownLatch
 
-class MonitorTaskObserver() extends Observer[ChangeStreamDocument[MonitorTask]] {
+class MonitorTaskObserver extends Observer[ChangeStreamDocument[MonitorTask]] {
 
   private val latch = new CountDownLatch(1)
   private var savedSubscription: Option[Subscription] = None

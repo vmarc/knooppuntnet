@@ -229,7 +229,7 @@ class MonitorRouteUpdateExecutor(
             case Some(id) => id
             case None =>
               throw new IllegalArgumentException(
-                s"""Could not find group with name "${newGroupName}""""
+                s"""Could not find group with name "$newGroupName""""
               )
           }
       }

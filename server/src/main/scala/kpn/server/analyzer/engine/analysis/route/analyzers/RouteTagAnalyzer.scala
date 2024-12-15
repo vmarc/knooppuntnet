@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers
 
 import kpn.api.common.Fact
+import kpn.api.common.Fact.RouteTagInvalid
+import kpn.api.common.Fact.RouteTagMissing
 import kpn.api.common.NetworkType
-import Fact.RouteTagInvalid
-import Fact.RouteTagMissing
 import kpn.api.custom.ScopedNetworkType
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 

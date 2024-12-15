@@ -28,10 +28,10 @@ object Elapsed {
       s"${seconds}s"
     }
     else if (seconds > 0) {
-      f"$seconds.${milliseconds}%03ds"
+      f"$seconds.$milliseconds%03ds"
     }
     else {
-      f"0.${milliseconds}%03ds"
+      f"0.$milliseconds%03ds"
     }
   }
 }

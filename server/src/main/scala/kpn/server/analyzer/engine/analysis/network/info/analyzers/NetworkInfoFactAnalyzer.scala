@@ -2,11 +2,11 @@ package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
 import kpn.api.common.Check
 import kpn.api.common.Fact
+import kpn.api.common.Fact.RouteBroken
+import kpn.api.common.Fact.RouteNotBackward
+import kpn.api.common.Fact.RouteNotForward
 import kpn.api.common.NetworkFact
 import kpn.api.common.common.Ref
-import Fact.RouteBroken
-import Fact.RouteNotBackward
-import Fact.RouteNotForward
 import kpn.core.analysis.Facts
 import kpn.core.util.Formatter
 import kpn.core.util.NaturalSorting

@@ -24,5 +24,5 @@ case class Timestamp2(year: Int, month: Int, day: Int, hour: Int, minute: Int, s
 
   def iso: String = s"${yyyymmdd}T${hhmmss}Z"
 
-  private def to2digitString(value: Int): String = s"${(if (value < 10) "0" else "")}$value"
+  private def to2digitString(value: Int): String = s"${if (value < 10) "0" else ""}$value"
 }

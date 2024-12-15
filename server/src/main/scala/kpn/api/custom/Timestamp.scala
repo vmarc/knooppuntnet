@@ -176,5 +176,5 @@ case class Timestamp(year: Int, month: Int, day: Int, hour: Int, minute: Int, se
     }
   }
 
-  private def to2digitString(value: Int): String = s"${(if (value < 10) "0" else "")}$value"
+  private def to2digitString(value: Int): String = s"${if (value < 10) "0" else ""}$value"
 }

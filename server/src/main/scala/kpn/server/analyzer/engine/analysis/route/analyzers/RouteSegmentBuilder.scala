@@ -6,7 +6,7 @@ import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataRouteSegment
 import kpn.server.json.Json
 
-class RouteSegmentBuilder() {
+class RouteSegmentBuilder {
 
   def from(tileInfo: RouteTileInfo): Seq[TileDataRouteSegment] = {
     tileInfo.segments.flatMap { segment =>
