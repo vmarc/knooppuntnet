@@ -59,7 +59,8 @@ class RouteCreateTest01 extends IntegrationTest {
   }
 
   private def assertOrphanRoute(): Unit = {
-    findOrphanRouteById(11L).shouldMatchTo(
+    assertEqual(
+      findOrphanRouteById(11L),
       newOrphanRouteDoc(
         11L,
         country = Country.nl,
@@ -70,7 +71,8 @@ class RouteCreateTest01 extends IntegrationTest {
   }
 
   private def assertNode1001(): Unit = {
-    findNodeById(1001).shouldMatchTo {
+    assertEqual(
+      findNodeById(1001),
       newNodeDoc(
         1001,
         labels = Seq(
@@ -91,11 +93,12 @@ class RouteCreateTest01 extends IntegrationTest {
           Reference(NetworkType.hiking, NetworkScope.regional, 11, "01-02")
         )
       )
-    }
+    )
   }
 
   private def assertNode1002(): Unit = {
-    findNodeById(1002).shouldMatchTo {
+    assertEqual(
+      findNodeById(1002),
       newNodeDoc(
         1002,
         labels = Seq(
@@ -116,12 +119,13 @@ class RouteCreateTest01 extends IntegrationTest {
           Reference(NetworkType.hiking, NetworkScope.regional, 11, "01-02")
         )
       )
-    }
+    )
   }
 
   private def assertRouteChange(): Unit = {
     pending // TODO redesign
-    findRouteChangeById("123:1:11").shouldMatchTo {
+    assertEqual(
+      findRouteChangeById("123:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Create,
@@ -162,11 +166,12 @@ class RouteCreateTest01 extends IntegrationTest {
         locationHappy = true,
         locationImpact = true
       )
-    }
+    )
   }
 
   private def assertNodeChange1001(): Unit = {
-    findNodeChangeById("123:1:1001").shouldMatchTo {
+    assertEqual(
+      findNodeChangeById("123:1:1001"),
       newNodeChange(
         newChangeKey(elementId = 1001),
         ChangeType.Create,
@@ -193,11 +198,12 @@ class RouteCreateTest01 extends IntegrationTest {
         locationHappy = true,
         locationImpact = true
       )
-    }
+    )
   }
 
   private def assertNodeChange1002(): Unit = {
-    findNodeChangeById("123:1:1002").shouldMatchTo {
+    assertEqual(
+      findNodeChangeById("123:1:1002"),
       newNodeChange(
         newChangeKey(elementId = 1002),
         ChangeType.Create,
@@ -224,11 +230,12 @@ class RouteCreateTest01 extends IntegrationTest {
         locationHappy = true,
         locationImpact = true
       )
-    }
+    )
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo {
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         orphanRouteChanges = Seq(
@@ -255,6 +262,6 @@ class RouteCreateTest01 extends IntegrationTest {
         ),
         happy = true
       )
-    }
+    )
   }
 }

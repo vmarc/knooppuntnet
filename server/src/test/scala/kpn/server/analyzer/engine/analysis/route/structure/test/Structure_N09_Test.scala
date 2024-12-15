@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // split way with forward and backward roles
 class Structure_N09_Test extends UnitTest {
@@ -25,8 +24,14 @@ class Structure_N09_Test extends UnitTest {
   test("analyze") {
 
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Set.empty)
-    context.links.shouldMatchTo(
+
+    assertEqual(
+      context.facts,
+      Set.empty
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
         "2    p ■   n ■   loop     fp     bp     head     tail     d forward",
@@ -41,14 +46,16 @@ class Structure_N09_Test extends UnitTest {
       )
     )
 
-    context.nodes.shouldMatchTo(
+    assertEqual(
+      context.nodes,
       Seq(
         "start=1(01)",
         "end=10(02)",
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>10",
         "  element-1 1>3  1(01)  ↔  nodes=1, 2, 3",
@@ -68,7 +75,8 @@ class Structure_N09_Test extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=1>10 nodes=1, 2, 3, 4, 5, 6, 9, 10",
         "backward=10>1 nodes=10, 9, 6, 8, 7, 3, 2, 1",

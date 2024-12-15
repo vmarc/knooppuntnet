@@ -10,7 +10,8 @@ class Issue247_RouteRedundantNodes extends UnitTest {
     val route = CaseStudy.routeDetailDoc("13569497")
     route.facts shouldBe empty
     route.summary.name should equal("?-?")
-    route.summary.tags.shouldMatchTo(
+    assertEqual(
+      route.summary.tags,
       Tags.from(
         "ref" -> "? - ?",
         "network" -> "lwn",

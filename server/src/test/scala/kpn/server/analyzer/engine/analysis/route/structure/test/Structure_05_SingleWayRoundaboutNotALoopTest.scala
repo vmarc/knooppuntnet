@@ -10,14 +10,21 @@ class Structure_05_SingleWayRoundaboutNotALoopTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Set.empty)
-    context.links.shouldMatchTo(
+
+    assertEqual(
+      context.facts,
+      Set.empty
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>4",
         "  element-1 1>4  ↔  nodes=1, 2, 3, 4",
@@ -25,7 +32,8 @@ class Structure_05_SingleWayRoundaboutNotALoopTest extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=1>4 nodes=1, 2, 3, 4",
         "backward=4>1 nodes=4, 3, 2, 1", // TODO redesign - NOK

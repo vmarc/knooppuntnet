@@ -96,7 +96,8 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertNode1003(): Unit = {
-    findNodeById(1003).shouldMatchTo(
+    assertEqual(
+      findNodeById(1003),
       newNodeDoc(
         1003,
         labels = Seq(
@@ -122,7 +123,8 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
-    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
+    assertEqual(
+      findNetworkInfoChangeById("123:1:1"),
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Update,
@@ -151,7 +153,8 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
   private def assertRouteChange(): Unit = {
     pending // TODO redesign
-    findRouteChangeById("123:1:12").shouldMatchTo(
+    assertEqual(
+      findRouteChangeById("123:1:12"),
       newRouteChange(
         newChangeKey(elementId = 12),
         ChangeType.Delete,
@@ -196,7 +199,8 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertNodeChange1002(): Unit = {
-    findNodeChangeById("123:1:1002").shouldMatchTo(
+    assertEqual(
+      findNodeChangeById("123:1:1002"),
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -218,7 +222,8 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertNodeChange1003(): Unit = {
-    findNodeChangeById("123:1:1003").shouldMatchTo(
+    assertEqual(
+      findNodeChangeById("123:1:1003"),
       newNodeChange(
         key = newChangeKey(elementId = 1003),
         changeType = ChangeType.Delete,
@@ -239,7 +244,8 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo(
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(

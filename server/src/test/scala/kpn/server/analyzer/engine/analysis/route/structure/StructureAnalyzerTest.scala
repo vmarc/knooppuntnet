@@ -44,7 +44,9 @@ class StructureAnalyzerTest extends UnitTest {
     val elementGroups = StructureElementAnalyzer.analyze(RouteNodes(), relation.members)
     elementGroups.size should equal(1)
     elementGroups.head.elements.size should equal(3)
-    elementGroups.head.elements.map(_.direction).shouldMatchTo(
+
+    assertEqual(
+      elementGroups.head.elements.map(_.direction),
       Seq(
         Some(ElementDirection.Forward), // startTentacle
         None,
@@ -57,7 +59,13 @@ class StructureAnalyzerTest extends UnitTest {
     val relation = CaseStudy.load("/case-studies/monitor/11524393.xml")
     val elementGroups = StructureElementAnalyzer.analyze(RouteNodes(), relation.members, traceEnabled = true)
     elementGroups.size should equal(2)
-    elementGroups.head.elements.map(_.direction).shouldMatchTo(Seq(Some(ElementDirection.Forward)))
-    elementGroups(1).elements.map(_.direction).shouldMatchTo(Seq(None))
+    assertEqual(
+      elementGroups.head.elements.map(_.direction),
+      Seq(Some(ElementDirection.Forward))
+    )
+    assertEqual(
+      elementGroups(1).elements.map(_.direction),
+      Seq(None)
+    )
   }
 }

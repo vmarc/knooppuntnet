@@ -7,6 +7,9 @@ class RoundaboutTest extends UnitTest {
 
   test("roundabout in the middle") {
     val route = CaseStudy.routeDetailDoc("1193198")
-    route.facts.shouldMatchTo(Seq(RouteNameDeprecatedNoteTag))
+    assertEqual(
+      route.facts,
+      Seq(RouteNameDeprecatedNoteTag)
+    )
   }
 }

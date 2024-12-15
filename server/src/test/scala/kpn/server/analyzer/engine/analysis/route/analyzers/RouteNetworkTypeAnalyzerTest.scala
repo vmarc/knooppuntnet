@@ -7,18 +7,18 @@ import kpn.core.util.UnitTest
 class RouteNetworkTypeAnalyzerTest extends UnitTest {
 
   test("analyze route networkType") {
-    networkTypes("hiking").shouldMatchTo(Seq(NetworkType.hiking))
-    networkTypes("walking").shouldMatchTo(Seq(NetworkType.hiking))
-    networkTypes("foot").shouldMatchTo(Seq(NetworkType.hiking))
-    networkTypes("bicycle").shouldMatchTo(Seq(NetworkType.cycling))
-    networkTypes("horse").shouldMatchTo(Seq(NetworkType.horseRiding))
-    networkTypes("canoe").shouldMatchTo(Seq(NetworkType.canoe))
-    networkTypes("motorboat").shouldMatchTo(Seq(NetworkType.motorboat))
-    networkTypes("inline_skates").shouldMatchTo(Seq(NetworkType.inlineSkating))
-    networkTypes("hiking;bicycle").shouldMatchTo(Seq(NetworkType.hiking, NetworkType.cycling))
-    networkTypes("hiking; horse ").shouldMatchTo(Seq(NetworkType.hiking, NetworkType.horseRiding))
-    networkTypes("hiking;bla").shouldMatchTo(Seq(NetworkType.hiking))
-    networkTypes("bla").shouldMatchTo(Seq.empty)
+    assertEqual(networkTypes("hiking"), Seq(NetworkType.hiking))
+    assertEqual(networkTypes("walking"), Seq(NetworkType.hiking))
+    assertEqual(networkTypes("foot"), Seq(NetworkType.hiking))
+    assertEqual(networkTypes("bicycle"), Seq(NetworkType.cycling))
+    assertEqual(networkTypes("horse"), Seq(NetworkType.horseRiding))
+    assertEqual(networkTypes("canoe"), Seq(NetworkType.canoe))
+    assertEqual(networkTypes("motorboat"), Seq(NetworkType.motorboat))
+    assertEqual(networkTypes("inline_skates"), Seq(NetworkType.inlineSkating))
+    assertEqual(networkTypes("hiking;bicycle"), Seq(NetworkType.hiking, NetworkType.cycling))
+    assertEqual(networkTypes("hiking; horse "), Seq(NetworkType.hiking, NetworkType.horseRiding))
+    assertEqual(networkTypes("hiking;bla"), Seq(NetworkType.hiking))
+    assertEqual(networkTypes("bla"), Seq.empty)
   }
 
   private def networkTypes(routeTagValue: String): Seq[NetworkType] = {

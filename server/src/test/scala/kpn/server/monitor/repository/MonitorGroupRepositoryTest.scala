@@ -24,7 +24,8 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       repository.groupByName("name1") should equal(Some(group1))
       repository.groupByName("name2") should equal(Some(group2))
 
-      repository.groups().shouldMatchTo(
+      assertEqual(
+        repository.groups(),
         Seq(
           group1,
           group2
@@ -32,7 +33,8 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       repository.deleteGroup(group1._id)
-      repository.groups().shouldMatchTo(
+      assertEqual(
+        repository.groups(),
         Seq(
           group2
         )
@@ -60,7 +62,8 @@ class MonitorGroupRepositoryTest extends UnitTest with SharedTestObjects {
       database.monitorRoutes.save(route2)
       database.monitorRoutes.save(route3)
 
-      groupRepository.groupRoutes(group._id).shouldMatchTo(
+      assertEqual(
+        groupRepository.groupRoutes(group._id),
         Seq(
           route1,
           route2,

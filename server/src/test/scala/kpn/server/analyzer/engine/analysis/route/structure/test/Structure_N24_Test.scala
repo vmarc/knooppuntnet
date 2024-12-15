@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.route.structure.test
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // route with direction=backward, but backward not ok
 class Structure_N24_Test extends UnitTest {
@@ -27,20 +26,23 @@ class Structure_N24_Test extends UnitTest {
     pending
 
     // TODO context.facts.shouldMatchTo(Set(RouteNotBackward, RouteNotContinious, RouteBroken))
-    context.links.shouldMatchTo(
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
-    context.nodes.shouldMatchTo(
+    assertEqual(
+      context.nodes,
       Seq(
         "start=1(01)",
         "end=3(02)",
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>3",
         "  element-1 1>3  1(01)  3(02)  ↔  nodes=1, 2, 3",
@@ -49,7 +51,8 @@ class Structure_N24_Test extends UnitTest {
     )
 
     pending
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=1>3 nodes=1, 2, 3",
         "backward=1>3 nodes=3, 2, 1", // TODO there should be no backward path

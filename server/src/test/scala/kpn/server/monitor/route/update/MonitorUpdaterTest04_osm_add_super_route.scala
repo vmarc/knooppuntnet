@@ -66,7 +66,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
       database.monitorRouteStates.countDocuments(log) should equal(2)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        route.copy(analysisDuration = None),
         MonitorRoute(
           route._id,
           groupId = group._id,
@@ -176,7 +177,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
       reference1 should equal(None)
 
       val reference11 = configuration.monitorRouteRepository.routeReference(route._id, Some(11)).get
-      reference11.shouldMatchTo(
+      assertEqual(
+        reference11,
         MonitorRouteReference(
           reference11._id,
           routeId = route._id,
@@ -194,7 +196,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
       )
 
       val reference12 = configuration.monitorRouteRepository.routeReference(route._id, Some(12)).get
-      reference12.shouldMatchTo(
+      assertEqual(
+        reference12,
         MonitorRouteReference(
           reference12._id,
           routeId = route._id,
@@ -215,7 +218,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
       state should equal(None)
 
       val state11 = configuration.monitorRouteRepository.routeState(route._id, 11).get
-      state11.shouldMatchTo(
+      assertEqual(
+        state11,
         MonitorRouteState(
           state11._id,
           routeId = route._id,
@@ -243,7 +247,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
       )
 
       val state12 = configuration.monitorRouteRepository.routeState(route._id, 12).get
-      state12.shouldMatchTo(
+      assertEqual(
+        state12,
         MonitorRouteState(
           state12._id,
           routeId = route._id,

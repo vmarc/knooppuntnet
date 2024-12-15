@@ -109,7 +109,8 @@ class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAn
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
-      updatedRoute.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        updatedRoute.copy(analysisDuration = None),
         MonitorRoute(
           _id = route._id,
           groupId = group._id,
@@ -173,7 +174,8 @@ class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAn
       configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
 
       val reference2 = configuration.monitorRouteRepository.routeReference(route._id, Some(2)).get
-      reference2.shouldMatchTo(
+      assertEqual(
+        reference2,
         MonitorRouteReference(
           _id = reference2._id,
           routeId = route._id,
@@ -191,7 +193,8 @@ class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAn
       )
 
       val state2 = configuration.monitorRouteRepository.routeState(route._id, 2).get
-      state2.shouldMatchTo(
+      assertEqual(
+        state2,
         MonitorRouteState(
           state2._id,
           routeId = route._id,
@@ -255,7 +258,8 @@ class MonitorUpdaterTest21_osm_update_relation_id extends UnitTest with BeforeAn
   }
 
   private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
-    reporter.messages.shouldMatchTo(
+    assertEqual(
+      reporter.messages,
       Seq(
         MonitorRouteUpdateStatusMessage(
           commands = Seq(

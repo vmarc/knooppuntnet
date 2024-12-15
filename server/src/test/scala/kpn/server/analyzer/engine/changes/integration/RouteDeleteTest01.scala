@@ -62,7 +62,8 @@ class RouteDeleteTest01 extends IntegrationTest {
   }
 
   private def assertNode1001(): Unit = {
-    findNodeById(1001).shouldMatchTo {
+    assertEqual(
+      findNodeById(1001),
       newNodeDoc(
         1001,
         labels = Seq(
@@ -82,11 +83,12 @@ class RouteDeleteTest01 extends IntegrationTest {
         ),
         tags = newNodeTags("01")
       )
-    }
+    )
   }
 
   private def assertNode1002(): Unit = {
-    findNodeById(1002).shouldMatchTo {
+    assertEqual(
+      findNodeById(1002),
       newNodeDoc(
         1002,
         labels = Seq(
@@ -106,12 +108,13 @@ class RouteDeleteTest01 extends IntegrationTest {
         ),
         tags = newNodeTags("02")
       )
-    }
+    )
   }
 
   private def assertRouteChange(): Unit = {
     pending // TODO redesign
-    findRouteChangeById("123:1:11").shouldMatchTo(
+    assertEqual(
+      findRouteChangeById("123:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Delete,
@@ -157,7 +160,8 @@ class RouteDeleteTest01 extends IntegrationTest {
   }
 
   private def assertNodeChange1001(): Unit = {
-    findNodeChangeById("123:1:1001").shouldMatchTo {
+    assertEqual(
+      findNodeChangeById("123:1:1001"),
       newNodeChange(
         newChangeKey(elementId = 1001),
         ChangeType.Update,
@@ -177,11 +181,12 @@ class RouteDeleteTest01 extends IntegrationTest {
         locationInvestigate = true,
         locationImpact = true
       )
-    }
+    )
   }
 
   private def assertNodeChange1002(): Unit = {
-    findNodeChangeById("123:1:1002").shouldMatchTo {
+    assertEqual(
+      findNodeChangeById("123:1:1002"),
       newNodeChange(
         newChangeKey(elementId = 1002),
         ChangeType.Update,
@@ -201,11 +206,12 @@ class RouteDeleteTest01 extends IntegrationTest {
         locationInvestigate = true,
         locationImpact = true
       )
-    }
+    )
   }
 
   private def assertOrphanNode1001(): Unit = {
-    findOrphanNodeById("nl:hiking:1001").shouldMatchTo(
+    assertEqual(
+      findOrphanNodeById("nl:hiking:1001"),
       newOrphanNodeDoc(
         country = Country.nl,
         networkType = NetworkType.hiking,
@@ -216,7 +222,8 @@ class RouteDeleteTest01 extends IntegrationTest {
   }
 
   private def assertOrphanNode1002(): Unit = {
-    findOrphanNodeById("nl:hiking:1002").shouldMatchTo(
+    assertEqual(
+      findOrphanNodeById("nl:hiking:1002"),
       newOrphanNodeDoc(
         country = Country.nl,
         networkType = NetworkType.hiking,
@@ -227,7 +234,8 @@ class RouteDeleteTest01 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo(
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         orphanRouteChanges = Seq(

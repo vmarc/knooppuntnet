@@ -89,7 +89,8 @@ class MonitorUpdaterTest06_osm_update_no_changes extends UnitTest with BeforeAnd
   }
 
   private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
-    reporter.messages.shouldMatchTo(
+    assertEqual(
+      reporter.messages,
       Seq(
         MonitorRouteUpdateStatusMessage(
           commands = Seq(

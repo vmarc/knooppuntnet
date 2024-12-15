@@ -54,6 +54,6 @@ class RelationJsonDeserializerTest extends UnitTest with SharedTestObjects {
 
     val json = Json.string(relation1)
     val relation2 = Json.value(json, classOf[Relation])
-    relation2.shouldMatchTo(relation1)
+    assertEqual(relation2, relation1)
   }
 }

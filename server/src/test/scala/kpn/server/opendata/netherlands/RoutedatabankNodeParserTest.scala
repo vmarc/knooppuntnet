@@ -10,17 +10,20 @@ class RoutedatabankNodeParserTest extends UnitTest {
     val inputStream = getClass.getResourceAsStream(filename)
     val nodes = new RoutedatabankNodeParser().parse(inputStream)
 
-    nodes shouldMatchTo Seq(
-      RoutedatabankNode(
-        "162757",
-        "57",
-        "52.07450141",
-        "5.64449968",
-        "Gelderland",
-        Some("2019-11-19"),
-        "1",
-        "keuzepunt",
-        "Lunteren"
+    assertEqual(
+      nodes,
+      Seq(
+        RoutedatabankNode(
+          "162757",
+          "57",
+          "52.07450141",
+          "5.64449968",
+          "Gelderland",
+          Some("2019-11-19"),
+          "1",
+          "keuzepunt",
+          "Lunteren"
+        )
       )
     )
   }

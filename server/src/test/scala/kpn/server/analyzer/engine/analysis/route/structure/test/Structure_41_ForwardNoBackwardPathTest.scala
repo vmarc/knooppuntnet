@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 class Structure_41_ForwardNoBackwardPathTest extends UnitTest {
 
@@ -12,15 +11,22 @@ class Structure_41_ForwardNoBackwardPathTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Set.empty)
-    context.links.shouldMatchTo(
+
+    assertEqual(
+      context.facts,
+      Set.empty
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n ■   loop     fp ■   bp     head ■   tail     d forward",
         "2    p ■   n     loop     fp     bp     head     tail     d backward",
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>3",
         "  element-1 1>2  →  nodes=1, 2",
@@ -30,7 +36,8 @@ class Structure_41_ForwardNoBackwardPathTest extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=1>3 nodes=1, 2, 3",
         "backward=3>2 nodes=3, 2",

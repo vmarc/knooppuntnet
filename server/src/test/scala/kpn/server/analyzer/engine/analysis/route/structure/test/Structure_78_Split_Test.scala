@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // reproduces situation in node network route 6701558
 class Structure_78_Split_Test extends UnitTest {
@@ -18,7 +17,8 @@ class Structure_78_Split_Test extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.links.shouldMatchTo(
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
         "2    p     n ■   loop     fp ■   bp     head     tail     d forward",
@@ -32,7 +32,8 @@ class Structure_78_Split_Test extends UnitTest {
   }
 
   test("elements") {
-    setup.elementGroups(traceEnabled = true).shouldMatchTo(
+    assertEqual(
+      setup.elementGroups(traceEnabled = true),
       Seq(
         Seq(
           "1>2",

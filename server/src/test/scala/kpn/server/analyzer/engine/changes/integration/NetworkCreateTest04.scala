@@ -58,7 +58,8 @@ class NetworkCreateTest04 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo(
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(
@@ -94,7 +95,8 @@ class NetworkCreateTest04 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
-    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
+    assertEqual(
+      findNetworkInfoChangeById("123:1:1"),
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Create,

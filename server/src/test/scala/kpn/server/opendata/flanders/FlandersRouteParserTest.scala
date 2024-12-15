@@ -88,10 +88,12 @@ class FlandersRouteParserTest extends UnitTest {
         "http://www.tov.be/nl/routedokter"
       )
 
-      routes shouldMatchTo Seq(
-        route1,
-        route2,
-        route3,
+      assertEqual(
+        routes, Seq(
+          route1,
+          route2,
+          route3,
+        )
       )
     }
   }

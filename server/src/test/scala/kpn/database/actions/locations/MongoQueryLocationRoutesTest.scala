@@ -103,7 +103,8 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
       val locationRouteInfos = query.find(subset, LocationRoutesParameters(pageSize = 10))
 
-      locationRouteInfos.shouldMatchTo(
+      assertEqual(
+        locationRouteInfos,
         Seq(
           LocationRouteInfo(
             0L,
@@ -188,7 +189,8 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
       val options = query.filterOptions(subset, LocationRoutesParameters())
 
-      options.fact.shouldMatchTo(
+      assertEqual(
+        options.fact,
         ServerFilterGroup(
           "all",
           Seq(
@@ -239,7 +241,8 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       val subset = LocationSubset("", NetworkType.hiking, Seq("be"))
       val options = query.filterOptions(subset, LocationRoutesParameters())
 
-      options.survey.shouldMatchTo(
+      assertEqual(
+        options.survey,
         ServerFilterGroup(
           "all",
           Seq(
@@ -270,7 +273,8 @@ class MongoQueryLocationRoutesTest extends UnitTest with SharedTestObjects {
       val query = new MongoQueryLocationRoutes(database, setup.surveyDateInfo)
       val options = query.filterOptions(subset, LocationRoutesParameters())
 
-      options.proposed.shouldMatchTo(
+      assertEqual(
+        options.proposed,
         ServerFilterGroup(
           "all",
           Seq(

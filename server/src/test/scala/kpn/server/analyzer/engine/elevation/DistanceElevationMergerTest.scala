@@ -12,7 +12,8 @@ class DistanceElevationMergerTest extends UnitTest {
     val des = Seq(
       DistanceElevation(10, 10)
     )
-    DistanceElevationMerger.merge(des).shouldMatchTo(
+    assertEqual(
+      DistanceElevationMerger.merge(des),
       Seq(
         DistanceElevation(10, 10)
       )
@@ -24,7 +25,8 @@ class DistanceElevationMergerTest extends UnitTest {
       DistanceElevation(10, 10),
       DistanceElevation(20, 10)
     )
-    DistanceElevationMerger.merge(des).shouldMatchTo(
+    assertEqual(
+      DistanceElevationMerger.merge(des),
       Seq(
         DistanceElevation(30, 10)
       )
@@ -40,7 +42,8 @@ class DistanceElevationMergerTest extends UnitTest {
       DistanceElevation(50, 20),
       DistanceElevation(60, 30)
     )
-    DistanceElevationMerger.merge(des).shouldMatchTo(
+    assertEqual(
+      DistanceElevationMerger.merge(des),
       Seq(
         DistanceElevation(60, 10),
         DistanceElevation(90, 20),

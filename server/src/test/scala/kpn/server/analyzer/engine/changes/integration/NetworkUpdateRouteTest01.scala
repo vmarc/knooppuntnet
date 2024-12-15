@@ -88,7 +88,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
 
   private def assertRoute(): Unit = {
     pending // TODO redesign
-    findRouteById(11).shouldMatchTo(
+    assertEqual(
+      findRouteById(11),
       newRouteDoc(
         newRouteSummary(
           11,
@@ -181,7 +182,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
 
   private def assertRouteDetail(): Unit = {
     pending // TODO redesign
-    findRouteDetailById(11).shouldMatchTo(
+    assertEqual(
+      findRouteDetailById(11),
       newRouteDetailDoc(
         newRouteSummary(
           11,
@@ -287,7 +289,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
   }
 
   private def assertOrphanRoute(): Unit = {
-    findOrphanRouteById(11).shouldMatchTo(
+    assertEqual(
+      findOrphanRouteById(11),
       newOrphanRouteDoc(
         11L,
         Country.nl,
@@ -298,7 +301,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
-    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
+    assertEqual(
+      findNetworkInfoChangeById("123:1:1"),
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Update,
@@ -364,7 +368,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
     //    )
     //  )
 
-    findRouteChangeById("123:1:11").shouldMatchTo(
+    assertEqual(
+      findRouteChangeById("123:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -380,7 +385,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo(
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(

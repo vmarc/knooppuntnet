@@ -51,7 +51,8 @@ class MongoQueryTilePoisTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      new MongoQueryTilePois(database).execute("tile-1").shouldMatchTo(
+      assertEqual(
+        new MongoQueryTilePois(database).execute("tile-1"),
         Seq(
           PoiInfo("node", 1, "11", "12", "bar"),
           PoiInfo("node", 2, "21", "22", "bench"),
@@ -59,7 +60,8 @@ class MongoQueryTilePoisTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      new MongoQueryTilePois(database).execute("tile-2").shouldMatchTo(
+      assertEqual(
+        new MongoQueryTilePois(database).execute("tile-2"),
         Seq(
           PoiInfo("node", 2, "21", "22", "bench"),
           PoiInfo("node", 2, "21", "22", "windmill"),
@@ -68,7 +70,8 @@ class MongoQueryTilePoisTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      new MongoQueryTilePois(database).execute("tile-3").shouldMatchTo(
+      assertEqual(
+        new MongoQueryTilePois(database).execute("tile-3"),
         Seq(
           PoiInfo("node", 4, "41", "42", "bench"),
         )

@@ -89,13 +89,16 @@ class FlandersNodeParserTest extends UnitTest {
         "http://www.tov.be/nl/routedokter"
       )
 
-      nodes shouldMatchTo Seq(
-        node1,
-        node2,
-        node3,
-        node4,
-        node5,
-        node6
+      assertEqual(
+        nodes,
+        Seq(
+          node1,
+          node2,
+          node3,
+          node4,
+          node5,
+          node6
+        )
       )
     }
   }

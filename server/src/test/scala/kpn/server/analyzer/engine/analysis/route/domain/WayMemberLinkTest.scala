@@ -15,13 +15,19 @@ class WayMemberLinkTest extends UnitTest {
     val wayMembers = setup.data.relations(1).wayMembers
 
     val links = WayMemberLink.from(wayMembers)
-    links.map(_.wayMember.way.id).shouldMatchTo(Seq(11, 12, 13, 14))
-    links.map(_.next.map(_.wayMember.way.id)).shouldMatchTo(Seq(Some(12), Some(13), Some(14), None))
+    assertEqual(
+      links.map(_.wayMember.way.id),
+      Seq(11, 12, 13, 14)
+    )
+    assertEqual(
+      links.map(_.next.map(_.wayMember.way.id)),
+      Seq(Some(12), Some(13), Some(14), None)
+    )
   }
 
   test("empty links") {
     val links = WayMemberLink.from(Seq.empty)
-    links.shouldMatchTo(Seq.empty)
+    assertEqual(links, Seq.empty)
   }
 
   test("single link") {
@@ -31,7 +37,7 @@ class WayMemberLinkTest extends UnitTest {
     val wayMembers = setup.data.relations(1).wayMembers
 
     val links = WayMemberLink.from(wayMembers)
-    links.map(_.wayMember.way.id).shouldMatchTo(Seq(11))
-    links.map(_.next.map(_.wayMember.way.id)).shouldMatchTo(Seq(None))
+    assertEqual(links.map(_.wayMember.way.id), Seq(11))
+    assertEqual(links.map(_.next.map(_.wayMember.way.id)), Seq(None))
   }
 }

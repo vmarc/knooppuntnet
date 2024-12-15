@@ -9,38 +9,41 @@ class NomatimResponseParserTest extends UnitTest {
   test("parse nomatim response string") {
 
     val locations = NomatimResponseParser.parse(responseString)
-    locations shouldMatchTo Seq(
-      GeocoderLocation(
-        name = "Essen, North Rhine-Westphalia, Germany",
-        latitude = "51.4582235",
-        longitude = "7.0158171",
-        bounds = Bounds(
-          51.3475714,
-          51.5342269,
-          6.8943442,
-          7.1376500
-        )
-      ),
-      GeocoderLocation(
-        name = "Essen, Antwerp, Flanders, 2910, Belgium",
-        latitude = "51.4679229",
-        longitude = "4.4698256",
-        bounds = Bounds(
-          51.4154863,
-          51.4823977,
-          4.3793170,
-          4.5481608
-        )
-      ),
-      GeocoderLocation(
-        name = "Essen (Oldenburg), Cloppenburg district, Lower Saxony, 49632, Germany",
-        latitude = "52.7224880",
-        longitude = "7.9352306",
-        bounds = Bounds(
-          52.6797506,
-          52.7664132,
-          7.8318507,
-          8.0777375
+    assertEqual(
+      locations,
+      Seq(
+        GeocoderLocation(
+          name = "Essen, North Rhine-Westphalia, Germany",
+          latitude = "51.4582235",
+          longitude = "7.0158171",
+          bounds = Bounds(
+            51.3475714,
+            51.5342269,
+            6.8943442,
+            7.1376500
+          )
+        ),
+        GeocoderLocation(
+          name = "Essen, Antwerp, Flanders, 2910, Belgium",
+          latitude = "51.4679229",
+          longitude = "4.4698256",
+          bounds = Bounds(
+            51.4154863,
+            51.4823977,
+            4.3793170,
+            4.5481608
+          )
+        ),
+        GeocoderLocation(
+          name = "Essen (Oldenburg), Cloppenburg district, Lower Saxony, 49632, Germany",
+          latitude = "52.7224880",
+          longitude = "7.9352306",
+          bounds = Bounds(
+            52.6797506,
+            52.7664132,
+            7.8318507,
+            8.0777375
+          )
         )
       )
     )

@@ -91,7 +91,8 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
   }
 
   private def assertNode(): Unit = {
-    findNodeById(1002).shouldMatchTo(
+    assertEqual(
+      findNodeById(1002),
       newNodeDoc(
         1002,
         labels = Seq(
@@ -118,7 +119,8 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
   }
 
   private def assertOrphanNode(): Unit = {
-    findOrphanNodeById("nl:cycling:1002").shouldMatchTo(
+    assertEqual(
+      findOrphanNodeById("nl:cycling:1002"),
       newOrphanNodeDoc(
         country = Country.nl,
         networkType = NetworkType.cycling,
@@ -129,7 +131,8 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
-    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
+    assertEqual(
+      findNetworkInfoChangeById("123:1:1"),
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Update,
@@ -147,7 +150,8 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
   }
 
   private def assertNodeChange(): Unit = {
-    findNodeChangeById("123:1:1002").shouldMatchTo(
+    assertEqual(
+      findNodeChangeById("123:1:1002"),
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -187,7 +191,8 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo(
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(
           Subset.nlHiking

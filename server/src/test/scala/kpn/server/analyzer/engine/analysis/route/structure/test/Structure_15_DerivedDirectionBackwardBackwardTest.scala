@@ -12,15 +12,22 @@ class Structure_15_DerivedDirectionBackwardBackwardTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Set.empty)
-    context.links.shouldMatchTo(
+
+    assertEqual(
+      context.facts,
+      Set.empty
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d backward",
         "2    p ■   n     loop     fp ■   bp     head ■   tail     d backward",
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>5",
         "  element-1 1>3  ↔  nodes=1, 2, 3",
@@ -30,7 +37,8 @@ class Structure_15_DerivedDirectionBackwardBackwardTest extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=1>5 nodes=1, 2, 3, 4, 5",
         "backward=3>1 nodes=3, 2, 1",

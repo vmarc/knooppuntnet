@@ -3,6 +3,8 @@ package kpn.server.json
 import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.JsonInclude.Include.NON_ABSENT
 import com.fasterxml.jackson.annotation.PropertyAccessor
+import com.fasterxml.jackson.core.util.DefaultIndenter
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter
 import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
@@ -36,7 +38,10 @@ object Json {
   val objectMapper: ObjectMapper = buildObjectMapper(false)
   val mongoObjectMapper: ObjectMapper = buildObjectMapper(true)
 
-  private val prettyPrinter = Json.objectMapper.writerWithDefaultPrettyPrinter()
+  private val prettyJsonWriter = {
+    val printer = new DefaultPrettyPrinter().withArrayIndenter(new DefaultIndenter())
+    Json.objectMapper.writer(printer)
+  }
 
   def value[T](string: String, valueType: Class[T]): T = {
     objectMapper.readValue(string, valueType)
@@ -47,7 +52,7 @@ object Json {
   }
 
   def pretty(o: Object): String = {
-    prettyPrinter.writeValueAsString(o)
+    prettyJsonWriter.writeValueAsString(o)
   }
 
   private def buildObjectMapper(mongo: Boolean): ObjectMapper = {

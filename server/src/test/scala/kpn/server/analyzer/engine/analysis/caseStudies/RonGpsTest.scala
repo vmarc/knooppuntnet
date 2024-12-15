@@ -18,16 +18,25 @@ class RonGpsTest extends UnitTest {
 
   test("RonGps original definition is reported to be broken") {
     val route = CaseStudy.routeDetailDoc("RonGpsOriginal")
-    route.facts.shouldMatchTo(Seq(Fact.RouteNameDeprecatedNoteTag))
+    assertEqual(
+      route.facts,
+      Seq(Fact.RouteNameDeprecatedNoteTag)
+    )
   }
 
   test("ways for lower to higher branch moved to front, before ways for higher to lower branch") {
     val route = CaseStudy.routeDetailDoc("RonGpsFixed")
-    route.facts.shouldMatchTo(Seq(Fact.RouteNameDeprecatedNoteTag))
+    assertEqual(
+      route.facts,
+      Seq(Fact.RouteNameDeprecatedNoteTag)
+    )
   }
 
   test("all forward roles changed to backward - oneway ways are followed in the wrong direction") {
     val route = CaseStudy.routeDetailDoc("RonGpsBackward")
-    route.facts.shouldMatchTo(Seq(Fact.RouteNameDeprecatedNoteTag))
+    assertEqual(
+      route.facts,
+      Seq(Fact.RouteNameDeprecatedNoteTag)
+    )
   }
 }

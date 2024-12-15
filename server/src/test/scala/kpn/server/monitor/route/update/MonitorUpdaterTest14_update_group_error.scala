@@ -73,7 +73,8 @@ class MonitorUpdaterTest14_update_group_error extends UnitTest with BeforeAndAft
           )
         )
       )
-      reporter.messages.shouldMatchTo(
+      assertEqual(
+        reporter.messages,
         Seq(
           MonitorRouteUpdateStatusMessage(
             commands = Seq(

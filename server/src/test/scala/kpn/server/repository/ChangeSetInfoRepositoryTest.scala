@@ -57,7 +57,10 @@ class ChangeSetInfoRepositoryTest extends UnitTest {
 
       repository.save(changeSetInfo)
 
-      repository.all(Seq(changeSetId)).shouldMatchTo(Seq(changeSetInfo))
+      assertEqual(
+        repository.all(Seq(changeSetId)),
+        Seq(changeSetInfo)
+      )
     }
   }
 

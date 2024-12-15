@@ -68,7 +68,8 @@ class MonitorUpdaterTest02_osm_add_now extends UnitTest with BeforeAndAfterEach 
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        route.copy(analysisDuration = None),
         MonitorRoute(
           _id = route._id,
           groupId = group._id,
@@ -129,7 +130,8 @@ class MonitorUpdaterTest02_osm_add_now extends UnitTest with BeforeAndAfterEach 
       )
 
       val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
-      reference.shouldMatchTo(
+      assertEqual(
+        reference,
         MonitorRouteReference(
           _id = reference._id,
           routeId = route._id,
@@ -147,7 +149,8 @@ class MonitorUpdaterTest02_osm_add_now extends UnitTest with BeforeAndAfterEach 
       )
 
       val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
-      state.shouldMatchTo(
+      assertEqual(
+        state,
         MonitorRouteState(
           state._id,
           routeId = route._id,
@@ -211,7 +214,8 @@ class MonitorUpdaterTest02_osm_add_now extends UnitTest with BeforeAndAfterEach 
   }
 
   private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
-    reporter.messages.shouldMatchTo(
+    assertEqual(
+      reporter.messages,
       Seq(
         MonitorRouteUpdateStatusMessage(
           commands = Seq(

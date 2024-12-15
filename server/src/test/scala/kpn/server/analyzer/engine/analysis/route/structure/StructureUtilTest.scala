@@ -21,7 +21,8 @@ class StructureUtilTest extends UnitTest {
   }
 
   test("split nodeIds at network nodes") {
-    StructureUtil.split(Seq(1, 2, 3, 4, 5, 6, 7, 8), Seq(3, 6)).shouldMatchTo(
+    assertEqual(
+      StructureUtil.split(Seq(1, 2, 3, 4, 5, 6, 7, 8), Seq(3, 6)),
       Seq(
         Seq(1, 2, 3),
         Seq(3, 4, 5, 6),
@@ -31,7 +32,8 @@ class StructureUtilTest extends UnitTest {
   }
 
   test("split nodeIds at network nodes - ignore network node at start") {
-    StructureUtil.split(Seq(1, 2, 3, 4, 5, 6, 7, 8), Seq(1, 3, 6)).shouldMatchTo(
+    assertEqual(
+      StructureUtil.split(Seq(1, 2, 3, 4, 5, 6, 7, 8), Seq(1, 3, 6)),
       Seq(
         Seq(1, 2, 3),
         Seq(3, 4, 5, 6),
@@ -41,7 +43,8 @@ class StructureUtilTest extends UnitTest {
   }
 
   test("split nodeIds at network nodes - ignore network node at end") {
-    StructureUtil.split(Seq(1, 2, 3, 4, 5, 6, 7, 8), Seq(1, 3, 6, 8)).shouldMatchTo(
+    assertEqual(
+      StructureUtil.split(Seq(1, 2, 3, 4, 5, 6, 7, 8), Seq(1, 3, 6, 8)),
       Seq(
         Seq(1, 2, 3),
         Seq(3, 4, 5, 6),
@@ -51,7 +54,8 @@ class StructureUtilTest extends UnitTest {
   }
 
   test("split nodeIds at network nodes - no network nodes") {
-    StructureUtil.split(Seq(1, 2, 3, 4, 5, 6, 7, 8), Seq.empty).shouldMatchTo(
+    assertEqual(
+      StructureUtil.split(Seq(1, 2, 3, 4, 5, 6, 7, 8), Seq.empty),
       Seq(
         Seq(1, 2, 3, 4, 5, 6, 7, 8),
       )
@@ -59,7 +63,8 @@ class StructureUtilTest extends UnitTest {
   }
 
   test("split nodeIds at network nodes - network node that is not included in nodeIds") {
-    StructureUtil.split(Seq(1, 2, 3, 4, 5, 6, 7, 8), Seq.empty).shouldMatchTo(
+    assertEqual(
+      StructureUtil.split(Seq(1, 2, 3, 4, 5, 6, 7, 8), Seq.empty),
       Seq(
         Seq(1, 2, 3, 4, 5, 6, 7, 8),
       )

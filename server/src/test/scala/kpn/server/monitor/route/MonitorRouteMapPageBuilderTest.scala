@@ -80,7 +80,8 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
 
       routeRepository.saveRoute(route)
 
-      pageBuilder.build("group", "route", None, log) shouldMatchTo {
+      assertEqual(
+        pageBuilder.build("group", "route", None, log),
         Some(
           MonitorRouteMapPage(
             relationId = None,
@@ -101,7 +102,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             subRelations = Seq.empty
           )
         )
-      }
+      )
       log.messages should equal(Seq.empty)
     }
   }
@@ -145,7 +146,8 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
       )
       routeRepository.saveRouteReference(reference)
 
-      pageBuilder.build("group", "route", None, log) shouldMatchTo {
+      assertEqual(
+        pageBuilder.build("group", "route", None, log),
         Some(
           MonitorRouteMapPage(
             relationId = None,
@@ -178,7 +180,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             subRelations = Seq.empty
           )
         )
-      }
+      )
       log.messages should equal(Seq.empty)
     }
   }
@@ -333,9 +335,9 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      pageBuilder.build("group", "route", None, log) shouldMatchTo expectedPage
-      pageBuilder.build("group", "route", Some(0), log) shouldMatchTo expectedPage
-      pageBuilder.build("group", "route", Some(9), log) shouldMatchTo expectedPage
+      assertEqual(pageBuilder.build("group", "route", None, log), expectedPage)
+      assertEqual(pageBuilder.build("group", "route", Some(0), log), expectedPage)
+      assertEqual(pageBuilder.build("group", "route", Some(9), log), expectedPage)
 
       log.messages should equal(Seq.empty)
     }
@@ -408,7 +410,8 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
       routeRepository.saveRouteReference(reference11)
       routeRepository.saveRouteReference(reference12)
 
-      pageBuilder.build("group", "route", Some(0), log) shouldMatchTo {
+      assertEqual(
+        pageBuilder.build("group", "route", Some(0), log),
         Some(
           MonitorRouteMapPage(
             relationId = None,
@@ -468,9 +471,10 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             )
           )
         )
-      }
+      )
 
-      pageBuilder.build("group", "route", Some(1), log) shouldMatchTo {
+      assertEqual(
+        pageBuilder.build("group", "route", Some(1), log),
         Some(
           MonitorRouteMapPage(
             relationId = None,
@@ -530,7 +534,7 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
             )
           )
         )
-      }
+      )
 
       log.messages should equal(Seq.empty)
     }
@@ -821,9 +825,9 @@ class MonitorRouteMapPageBuilderTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      pageBuilder.build("group", "route", None, log) shouldMatchTo expectedPage11
-      pageBuilder.build("group", "route", Some(0), log) shouldMatchTo expectedPage11
-      pageBuilder.build("group", "route", Some(1), log) shouldMatchTo expectedPage12
+      assertEqual(pageBuilder.build("group", "route", None, log), expectedPage11)
+      assertEqual(pageBuilder.build("group", "route", Some(0), log), expectedPage11)
+      assertEqual(pageBuilder.build("group", "route", Some(1), log), expectedPage12)
 
       log.messages should equal(Seq.empty)
     }

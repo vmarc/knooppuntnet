@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // reproduces situation in route 5444896 (EV1 Roscoff — Morlaix)
 class Structure_71_5444896_Test extends UnitTest {
@@ -23,8 +22,14 @@ class Structure_71_5444896_Test extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Set.empty)
-    context.links.shouldMatchTo(
+
+    assertEqual(
+      context.facts,
+      Set.empty
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d backward",
         "2    p ■   n ■   loop     fp ■   bp     head ■   tail     d backward",
@@ -38,7 +43,8 @@ class Structure_71_5444896_Test extends UnitTest {
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>9",
         "  element-1 1>2  ↔  nodes=1, 2",
@@ -57,7 +63,8 @@ class Structure_71_5444896_Test extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=1>9 nodes=1, 2, 3, 4, 5, 8, 9",
         "backward=9>1 nodes=9, 8, 7, 6, 2, 1",

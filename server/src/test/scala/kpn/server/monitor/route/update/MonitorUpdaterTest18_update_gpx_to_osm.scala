@@ -77,7 +77,8 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val addedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      addedRoute.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        addedRoute.copy(analysisDuration = None),
         MonitorRoute(
           addedRoute._id,
           groupId = group._id,
@@ -139,7 +140,8 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
       )
 
       val addedReference = configuration.monitorRouteRepository.routeReference(addedRoute._id, Some(1)).get
-      addedReference.shouldMatchTo(
+      assertEqual(
+        addedReference,
         MonitorRouteReference(
           addedReference._id,
           routeId = addedRoute._id,
@@ -157,7 +159,8 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
       )
 
       val addedState = configuration.monitorRouteRepository.routeState(addedRoute._id, 1).get
-      addedState.shouldMatchTo(
+      assertEqual(
+        addedState,
         MonitorRouteState(
           addedState._id,
           routeId = addedRoute._id,
@@ -208,7 +211,8 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      updatedRoute.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        updatedRoute.copy(analysisDuration = None),
         MonitorRoute(
           addedRoute._id,
           groupId = group._id,
@@ -270,7 +274,8 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
       )
 
       val updatedReference = configuration.monitorRouteRepository.routeReference(updatedRoute._id, Some(1)).get
-      updatedReference.shouldMatchTo(
+      assertEqual(
+        updatedReference,
         MonitorRouteReference(
           addedReference._id,
           routeId = addedRoute._id,
@@ -288,7 +293,8 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
       )
 
       val updatedState = configuration.monitorRouteRepository.routeState(updatedRoute._id, 1).get
-      updatedState.shouldMatchTo(
+      assertEqual(
+        updatedState,
         MonitorRouteState(
           addedState._id,
           routeId = addedRoute._id,

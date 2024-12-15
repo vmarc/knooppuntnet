@@ -238,7 +238,8 @@ class NaturalSortingTest extends UnitTest {
       "EV9-gpx-full"
     )
 
-    NaturalSorting.sortBy(input)(s => s"$s-").shouldMatchTo(
+    assertEqual(
+      NaturalSorting.sortBy(input)(s => s"$s-"),
       Seq(
         "EV1",
         "EV1-gpx",
@@ -285,6 +286,6 @@ class NaturalSortingTest extends UnitTest {
   }
 
   private def performTest(input: Seq[String], expected: Seq[String]): Unit = {
-    NaturalSorting.sort(input).shouldMatchTo(expected)
+    assertEqual(NaturalSorting.sort(input), expected)
   }
 }

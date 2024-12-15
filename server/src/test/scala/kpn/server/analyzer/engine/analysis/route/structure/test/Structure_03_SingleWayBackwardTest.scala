@@ -13,14 +13,21 @@ class Structure_03_SingleWayBackwardTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Set(RouteNotBackward, RouteNotContinious, RouteBroken))
-    context.links.shouldMatchTo(
+
+    assertEqual(
+      context.facts,
+      Set(RouteNotBackward, RouteNotContinious, RouteBroken)
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n     loop     fp ■   bp     head ■   tail     d backward",
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 3>1",
         "  element-1 3>1  →  nodes=3, 2, 1",
@@ -28,7 +35,8 @@ class Structure_03_SingleWayBackwardTest extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=3>1 nodes=3, 2, 1",
       )

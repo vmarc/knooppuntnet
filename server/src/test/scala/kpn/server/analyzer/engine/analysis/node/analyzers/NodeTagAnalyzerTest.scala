@@ -136,20 +136,26 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("survey date invalid format") {
-    analyze(
-      "network:type" -> "node_network",
-      "rwn_ref" -> "01",
-      "survey:date" -> "bla"
-    ).get.facts.shouldMatchTo(Seq(Fact.NodeInvalidSurveyDate))
+    assertEqual(
+      analyze(
+        "network:type" -> "node_network",
+        "rwn_ref" -> "01",
+        "survey:date" -> "bla"
+      ).map(_.facts),
+      Some(
+        Seq(Fact.NodeInvalidSurveyDate)
+      )
+    )
   }
 
   test("multiple scopes and network types") {
-    analyze(
-      "network:type" -> "node_network",
-      "rwn_ref" -> "01",
-      "lwn_ref" -> "02",
-      "rcn_ref" -> "03"
-    ) should equal(
+    assertEqual(
+      analyze(
+        "network:type" -> "node_network",
+        "rwn_ref" -> "01",
+        "lwn_ref" -> "02",
+        "rcn_ref" -> "03"
+      ),
       Some(
         NodeTagAnalysis(
           "01 / 02 / 03",
@@ -184,11 +190,12 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("state=proposed") {
-    analyze(
-      "network:type" -> "node_network",
-      "rwn_ref" -> "01",
-      "state" -> "proposed"
-    ) should equal(
+    assertEqual(
+      analyze(
+        "network:type" -> "node_network",
+        "rwn_ref" -> "01",
+        "state" -> "proposed"
+      ),
       Some(
         NodeTagAnalysis(
           "01",

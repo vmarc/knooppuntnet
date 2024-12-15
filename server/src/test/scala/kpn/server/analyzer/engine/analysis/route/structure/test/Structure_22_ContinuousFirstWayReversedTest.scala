@@ -12,8 +12,14 @@ class Structure_22_ContinuousFirstWayReversedTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Set.empty)
-    context.links.shouldMatchTo(
+
+    assertEqual(
+      context.facts,
+      Set.empty
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d backward",
         "2    p ■   n ■   loop     fp     bp     head     tail     d forward",
@@ -21,7 +27,8 @@ class Structure_22_ContinuousFirstWayReversedTest extends UnitTest {
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>7",
         "  element-1 1>7  ↔  nodes=1, 2, 3, 4, 5, 6, 7",
@@ -31,7 +38,8 @@ class Structure_22_ContinuousFirstWayReversedTest extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=1>7 nodes=1, 2, 3, 4, 5, 6, 7",
         "backward=7>1 nodes=7, 6, 5, 4, 3, 2, 1",

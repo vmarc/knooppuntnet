@@ -29,10 +29,10 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
 
     val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
 
-    contextAfter.extraNodeIds.shouldMatchTo(Seq.empty)
-    contextAfter.extraWayIds.shouldMatchTo(Seq.empty)
-    contextAfter.extraRelationIds.shouldMatchTo(Seq.empty)
-    contextAfter.networkFacts.shouldMatchTo(Seq.empty)
+    assertEqual(contextAfter.extraNodeIds, Seq.empty)
+    assertEqual(contextAfter.extraWayIds, Seq.empty)
+    assertEqual(contextAfter.extraRelationIds, Seq.empty)
+    assertEqual(contextAfter.networkFacts, Seq.empty)
   }
 
   test("networkExtraMemberNode") {
@@ -54,12 +54,13 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
 
     val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
 
-    contextAfter.extraNodeIds.shouldMatchTo(Seq(1001))
-    contextAfter.extraWayIds.shouldMatchTo(Seq.empty)
-    contextAfter.extraRelationIds.shouldMatchTo(Seq.empty)
-    contextAfter.facts.shouldMatchTo(Seq.empty)
+    assertEqual(contextAfter.extraNodeIds, Seq(1001))
+    assertEqual(contextAfter.extraWayIds, Seq.empty)
+    assertEqual(contextAfter.extraRelationIds, Seq.empty)
+    assertEqual(contextAfter.facts, Seq.empty)
 
-    contextAfter.networkFacts.shouldMatchTo(
+    assertEqual(
+      contextAfter.networkFacts,
       Seq(
         NetworkFact(
           Fact.NetworkExtraMemberNode,
@@ -132,12 +133,13 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
 
     val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
 
-    contextAfter.extraNodeIds.shouldMatchTo(Seq(1001))
-    contextAfter.extraWayIds.shouldMatchTo(Seq.empty)
-    contextAfter.extraRelationIds.shouldMatchTo(Seq.empty)
-    contextAfter.facts.shouldMatchTo(Seq.empty)
+    assertEqual(contextAfter.extraNodeIds, Seq(1001))
+    assertEqual(contextAfter.extraWayIds, Seq.empty)
+    assertEqual(contextAfter.extraRelationIds, Seq.empty)
+    assertEqual(contextAfter.facts, Seq.empty)
 
-    contextAfter.networkFacts.shouldMatchTo(
+    assertEqual(
+      contextAfter.networkFacts,
       Seq(
         NetworkFact(
           Fact.NetworkExtraMemberNode,
@@ -207,11 +209,11 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
 
     val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
 
-    contextAfter.extraNodeIds.shouldMatchTo(Seq.empty)
-    contextAfter.extraWayIds.shouldMatchTo(Seq.empty)
-    contextAfter.extraRelationIds.shouldMatchTo(Seq.empty)
-    contextAfter.facts.shouldMatchTo(Seq.empty)
-    contextAfter.networkFacts.shouldMatchTo(Seq.empty)
+    assertEqual(contextAfter.extraNodeIds, Seq.empty)
+    assertEqual(contextAfter.extraWayIds, Seq.empty)
+    assertEqual(contextAfter.extraRelationIds, Seq.empty)
+    assertEqual(contextAfter.facts, Seq.empty)
+    assertEqual(contextAfter.networkFacts, Seq.empty)
 
     //    val network = analyze(d)
     //    network.facts.networkExtraMemberNode should equal(None)

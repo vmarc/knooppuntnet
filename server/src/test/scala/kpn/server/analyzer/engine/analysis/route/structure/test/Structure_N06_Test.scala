@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // tentacle at end
 class Structure_N06_Test extends UnitTest {
@@ -22,8 +21,14 @@ class Structure_N06_Test extends UnitTest {
   test("analyze") {
 
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Set.empty)
-    context.links.shouldMatchTo(
+
+    assertEqual(
+      context.facts,
+      Set.empty
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
         "2    p ■   n ■   loop     fp     bp     head     tail     d forward",
@@ -34,7 +39,8 @@ class Structure_N06_Test extends UnitTest {
       )
     )
 
-    context.nodes.shouldMatchTo(
+    assertEqual(
+      context.nodes,
       Seq(
         "start=1(01)",
         "end=5(02)",
@@ -42,7 +48,8 @@ class Structure_N06_Test extends UnitTest {
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>7",
         "  element-1 1>5  1(01)  5(02)  ↔  nodes=1, 2, 3, 4, 5",
@@ -56,7 +63,8 @@ class Structure_N06_Test extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=1>5 nodes=1, 2, 3, 4, 5",
         "backward=5>1 nodes=5, 4, 3, 2, 1",

@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // reproduces situation in route 16786092 (EV1 Morlaix — Carhaix-Plouguer)
 class Structure_74_Split_Test extends UnitTest {
@@ -17,7 +16,8 @@ class Structure_74_Split_Test extends UnitTest {
   test("reference") {
     pending
     val context = setup.analyze()
-    context.links.shouldMatchTo(
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n ■   loop     fp ■   bp     head ■   tail     d forward",
         "2    p ■   n ■   loop     fp ■   bp     head     tail     d forward",
@@ -29,7 +29,8 @@ class Structure_74_Split_Test extends UnitTest {
 
   test("elements") {
     pending
-    setup.elementGroups(traceEnabled = true).shouldMatchTo(
+    assertEqual(
+    setup.elementGroups(traceEnabled = true),
       Seq(
         Seq(
           "1>3 (Forward)",

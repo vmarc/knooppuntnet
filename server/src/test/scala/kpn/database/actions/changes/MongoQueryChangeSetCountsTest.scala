@@ -21,7 +21,8 @@ class MongoQueryChangeSetCountsTest extends UnitTest with SharedTestObjects {
 
       val query = new MongoQueryChangeSetCounts(database)
 
-      query.execute(None, 2021, None).shouldMatchTo(
+      assertEqual(
+        query.execute(None, 2021, None),
         ChangeSetCounts(
           years = Seq(
             newChangeSetCount(2021)(1, 4),
@@ -34,7 +35,8 @@ class MongoQueryChangeSetCountsTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      query.execute(None, 2021, Some(1)).shouldMatchTo(
+      assertEqual(
+        query.execute(None, 2021, Some(1)),
         ChangeSetCounts(
           years = Seq(
             newChangeSetCount(2021)(1, 4),

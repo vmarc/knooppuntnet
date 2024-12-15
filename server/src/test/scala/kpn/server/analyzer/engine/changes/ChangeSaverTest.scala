@@ -62,14 +62,15 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
     (changeSetRepository.saveNetworkInfoChange _).verify(
       where { (savedNetworkChange: NetworkInfoChange) =>
-        savedNetworkChange.shouldMatchTo(networkChange)
+        assertEqual(savedNetworkChange, networkChange)
         true
       }
     ).once()
 
     (changeSetRepository.saveChangeSetSummary _).verify(
       where { (changeSetSummary: ChangeSetSummary) =>
-        changeSetSummary.shouldMatchTo(
+        assertEqual(
+          changeSetSummary,
           newChangeSetSummary(
             networkChanges = NetworkChanges(
               updates = Seq(
@@ -118,14 +119,15 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
     (changeSetRepository.saveRouteChange _).verify(
       where { (savedRouteChange: RouteChange) =>
-        savedRouteChange.shouldMatchTo(routeChange)
+        assertEqual(savedRouteChange, routeChange)
         true
       }
     ).once()
 
     (changeSetRepository.saveChangeSetSummary _).verify(
       where { (changeSetSummary: ChangeSetSummary) =>
-        changeSetSummary.shouldMatchTo(
+        assertEqual(
+          changeSetSummary,
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
             orphanRouteChanges = Seq(
@@ -172,14 +174,15 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
     (changeSetRepository.saveNodeChange _).verify(
       where { (savedNodeChange: NodeChange) =>
-        savedNodeChange.shouldMatchTo(nodeChange)
+        assertEqual(savedNodeChange, nodeChange)
         true
       }
     ).once()
 
     (changeSetRepository.saveChangeSetSummary _).verify(
       where { (changeSetSummary: ChangeSetSummary) =>
-        changeSetSummary.shouldMatchTo(
+        assertEqual(
+          changeSetSummary,
           newChangeSetSummary(
             subsets = Seq(Subset.nlHiking),
             orphanNodeChanges = Seq(

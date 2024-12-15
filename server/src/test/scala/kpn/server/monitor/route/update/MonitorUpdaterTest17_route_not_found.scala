@@ -37,7 +37,8 @@ class MonitorUpdaterTest17_route_not_found extends UnitTest with SharedTestObjec
         )
       )
 
-      reporter.messages.shouldMatchTo(
+      assertEqual(
+        reporter.messages,
         Seq(
           MonitorRouteUpdateStatusMessage(
             commands = Seq(

@@ -5,7 +5,6 @@ import kpn.api.common.Fact.RouteNotBackward
 import kpn.api.common.Fact.RouteNotContinious
 import kpn.api.common.Fact.RouteNotForward
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // broken after roundabout
 class Structure_N17_Test extends UnitTest {
@@ -28,8 +27,13 @@ class Structure_N17_Test extends UnitTest {
     context.segments.foreach(a => println(s""""$a","""))
     context.paths.foreach(a => println(s""""$a","""))
 
-    context.facts.shouldMatchTo(Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken))
-    context.links.shouldMatchTo(
+    assertEqual(
+      context.facts,
+      Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken)
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
         "2    p     n     loop     fp     bp     head     tail     d unconnected",
@@ -37,14 +41,16 @@ class Structure_N17_Test extends UnitTest {
       )
     )
 
-    context.nodes.shouldMatchTo(
+    assertEqual(
+      context.nodes,
       Seq(
         "start=1(01)",
         "end=10(02)",
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>4",
         "  element-1 1>4  1(01)  ↔  nodes=1, 2, 4",
@@ -58,7 +64,8 @@ class Structure_N17_Test extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "other=1>4 nodes=1, 2, 4",
         "other=3>8 nodes=3, 4, 5, 6, 7, 8",

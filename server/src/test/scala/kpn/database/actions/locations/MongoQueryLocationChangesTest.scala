@@ -24,7 +24,8 @@ class MongoQueryLocationChangesTest extends UnitTest with SharedTestObjects {
       setup.changeSetSummary3(locationChanges = Seq(change3))
 
       setup.count() should equal(3)
-      setup.changes().shouldMatchTo(
+      assertEqual(
+        setup.changes(),
         Seq(
           LocationChangeSet(
             _id = "301:30",
@@ -72,7 +73,8 @@ class MongoQueryLocationChangesTest extends UnitTest with SharedTestObjects {
       )
 
       setup.count() should equal(2)
-      setup.changes().shouldMatchTo(
+      assertEqual(
+        setup.changes(),
         Seq(
           LocationChangeSet(
             _id = "201:20",
@@ -88,7 +90,8 @@ class MongoQueryLocationChangesTest extends UnitTest with SharedTestObjects {
       )
 
       setup.count(locationName = "be-1-b") should equal(2)
-      setup.changes(locationName = "be-1-b").shouldMatchTo(
+      assertEqual(
+        setup.changes(locationName = "be-1-b"),
         Seq(
           LocationChangeSet(
             _id = "301:30",
@@ -138,7 +141,8 @@ class MongoQueryLocationChangesTest extends UnitTest with SharedTestObjects {
       setup.count(parameters = ChangesParameters(impact = true)) should equal(2)
       val impactedChanges = setup.changes(parameters = ChangesParameters(impact = true))
 
-      impactedChanges.shouldMatchTo(
+      assertEqual(
+        impactedChanges,
         Seq(
           LocationChangeSet(
             _id = "201:20",
@@ -176,7 +180,8 @@ class MongoQueryLocationChangesTest extends UnitTest with SharedTestObjects {
       setup.changeSetSummary3(locationChanges = Seq(change3))
 
       setup.count(NetworkType.hiking) should equal(2)
-      setup.changes(NetworkType.hiking).shouldMatchTo(
+      assertEqual(
+        setup.changes(NetworkType.hiking),
         Seq(
           LocationChangeSet(
             _id = "201:20",
@@ -192,7 +197,8 @@ class MongoQueryLocationChangesTest extends UnitTest with SharedTestObjects {
       )
 
       setup.count(NetworkType.cycling) should equal(2)
-      setup.changes(NetworkType.cycling).shouldMatchTo(
+      assertEqual(
+        setup.changes(NetworkType.cycling),
         Seq(
           LocationChangeSet(
             _id = "301:30",

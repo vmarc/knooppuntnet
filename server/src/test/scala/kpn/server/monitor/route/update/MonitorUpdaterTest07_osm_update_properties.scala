@@ -152,7 +152,8 @@ class MonitorUpdaterTest07_osm_update_properties extends UnitTest with BeforeAnd
       val updatedState = configuration.monitorRouteRepository.routeState(route._id, 1).get
       val updatedReference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
 
-      updatedRoute.copy(analysisTimestamp = None, analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        updatedRoute.copy(analysisTimestamp = None, analysisDuration = None),
         route.copy(
           name = "route-name-changed",
           description = "description-changed",
@@ -169,7 +170,8 @@ class MonitorUpdaterTest07_osm_update_properties extends UnitTest with BeforeAnd
 
   private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
     // not analyzed, no errors
-    reporter.messages.shouldMatchTo(
+    assertEqual(
+      reporter.messages,
       Seq(
         MonitorRouteUpdateStatusMessage(
           commands = Seq(

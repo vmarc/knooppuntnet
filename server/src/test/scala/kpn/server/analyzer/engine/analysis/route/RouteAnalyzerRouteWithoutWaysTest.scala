@@ -36,6 +36,9 @@ class RouteAnalyzerRouteWithoutWaysTest extends UnitTest with MockFactory {
       routeTileAnalyzer
     )
     val context = routeAnalyzer.analyze(relation, None).get
-    context.facts.toSet.shouldMatchTo(Set(RouteWithoutWays, RouteBroken))
+    assertEqual(
+      context.facts.toSet,
+      Set(RouteWithoutWays, RouteBroken)
+    )
   }
 }

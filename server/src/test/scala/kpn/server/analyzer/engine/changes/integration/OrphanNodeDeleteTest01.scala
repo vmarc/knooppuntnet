@@ -35,7 +35,8 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
   }
 
   private def assertNode(): Unit = {
-    findNodeById(1001).shouldMatchTo(
+    assertEqual(
+      findNodeById(1001),
       newNodeDoc(
         1001,
         labels = Seq(
@@ -58,7 +59,8 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
   }
 
   private def assertNodeChange(): Unit = {
-    findNodeChangeById("123:1:1001").shouldMatchTo(
+    assertEqual(
+      findNodeChangeById("123:1:1001"),
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Delete,
@@ -77,7 +79,8 @@ class OrphanNodeDeleteTest01 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo(
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         orphanNodeChanges = Seq(

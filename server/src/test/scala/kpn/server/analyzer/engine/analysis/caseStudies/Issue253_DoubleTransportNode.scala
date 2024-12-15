@@ -49,7 +49,8 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
     )
 
     simulate(data, data) {
-      new MongoQuerySubsetOrphanNodes(context.database).execute(Subset.frHiking).shouldMatchTo(
+      assertEqual(
+        new MongoQuerySubsetOrphanNodes(context.database).execute(Subset.frHiking),
         Seq(
           OrphanNodeDoc(
             _id = "fr:hiking:620168928",
@@ -72,7 +73,8 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         SurveyDateInfoBuilder.dateInfoAt(local)
       }
 
-      new MongoQueryLocationNodes(database, surveyDateInfo).find(subset, LocationNodesParameters()).shouldMatchTo(
+      assertEqual(
+        new MongoQueryLocationNodes(database, surveyDateInfo).find(subset, LocationNodesParameters()),
         Seq(
           LocationNodeInfo(
             rowIndex = 0,
@@ -90,7 +92,8 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         )
       )
 
-      database.nodes.findById(620168928L).shouldMatchTo(
+      assertEqual(
+        database.nodes.findById(620168928L),
         Some(
           newNodeDoc(
             id = 620168928L,
@@ -150,7 +153,8 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
       )
     )
     nodeAnalysis.name should equal("Teumelet / o")
-    nodeAnalysis.nodeNames.shouldMatchTo(
+    assertEqual(
+      nodeAnalysis.nodeNames,
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -185,7 +189,8 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
       )
     )
     nodeAnalysis.name should equal("Teumelet")
-    nodeAnalysis.nodeNames.shouldMatchTo(
+    assertEqual(
+      nodeAnalysis.nodeNames,
       Seq(
         NodeName(
           networkType = NetworkType.hiking,

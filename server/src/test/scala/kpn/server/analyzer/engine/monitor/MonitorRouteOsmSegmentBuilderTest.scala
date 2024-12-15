@@ -19,7 +19,8 @@ class MonitorRouteOsmSegmentBuilderTest extends UnitTest with SharedTestObjects 
       MonitorRouteSegmentInfo(1, 11, 1, 1001, 1002, 100, Bounds(1, 1, 1, 1)),
     )
 
-    MonitorRouteOsmSegmentBuilder.build(segments).shouldMatchTo(
+    assertEqual(
+      MonitorRouteOsmSegmentBuilder.build(segments),
       Seq(
         MonitorRouteOsmSegment(
           Seq(
@@ -37,7 +38,8 @@ class MonitorRouteOsmSegmentBuilderTest extends UnitTest with SharedTestObjects 
       MonitorRouteSegmentInfo(2, 12, 1, 1002, 1003, 200, Bounds(2, 2, 2, 2)),
     )
 
-    MonitorRouteOsmSegmentBuilder.build(segments).shouldMatchTo(
+    assertEqual(
+      MonitorRouteOsmSegmentBuilder.build(segments),
       Seq(
         MonitorRouteOsmSegment(
           Seq(
@@ -57,7 +59,8 @@ class MonitorRouteOsmSegmentBuilderTest extends UnitTest with SharedTestObjects 
       MonitorRouteSegmentInfo(3, 13, 1, 1002, 1003, 300, Bounds(3, 3, 3, 3)),
     )
 
-    MonitorRouteOsmSegmentBuilder.build(segments).shouldMatchTo(
+    assertEqual(
+      MonitorRouteOsmSegmentBuilder.build(segments),
       Seq(
         MonitorRouteOsmSegment(
           Seq(
@@ -79,7 +82,8 @@ class MonitorRouteOsmSegmentBuilderTest extends UnitTest with SharedTestObjects 
       MonitorRouteSegmentInfo(4, 12, 2, 1005, 1006, 400, Bounds(4, 4, 4, 4)),
     )
 
-    MonitorRouteOsmSegmentBuilder.build(segments).shouldMatchTo(
+    assertEqual(
+      MonitorRouteOsmSegmentBuilder.build(segments),
       Seq(
         MonitorRouteOsmSegment(
           Seq(

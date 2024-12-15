@@ -86,7 +86,8 @@ class NetworkCreateTest01 extends IntegrationTest {
   }
 
   private def assertNetworkDoc(): Unit = {
-    findNetworkById(1).shouldMatchTo(
+    assertEqual(
+      findNetworkById(1),
       NetworkDoc(
         1,
         active = true,
@@ -112,7 +113,8 @@ class NetworkCreateTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfoDoc(): Unit = {
-    findNetworkInfoById(1).shouldMatchTo(
+    assertEqual(
+      findNetworkInfoById(1),
       newNetworkInfoDoc(
         1,
         summary = newNetworkSummary(
@@ -164,7 +166,8 @@ class NetworkCreateTest01 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo(
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(
@@ -198,7 +201,8 @@ class NetworkCreateTest01 extends IntegrationTest {
   }
 
   private def assertNetworkChange(): Unit = {
-    findNetworkChangeById("123:1:1").shouldMatchTo(
+    assertEqual(
+      findNetworkChangeById("123:1:1"),
       newNetworkChange(
         newChangeKey(elementId = 1),
         networkName = "name",
@@ -225,7 +229,8 @@ class NetworkCreateTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
-    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
+    assertEqual(
+      findNetworkInfoChangeById("123:1:1"),
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         networkName = "name",
@@ -250,7 +255,8 @@ class NetworkCreateTest01 extends IntegrationTest {
 
   private def assertRouteChange(): Unit = {
     pending // TODO redesign
-    findRouteChangeById("123:1:11").shouldMatchTo(
+    assertEqual(
+      findRouteChangeById("123:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -326,7 +332,8 @@ class NetworkCreateTest01 extends IntegrationTest {
   }
 
   private def assertNodeChange1001(): Unit = {
-    findNodeChangeById("123:1:1001").shouldMatchTo(
+    assertEqual(
+      findNodeChangeById("123:1:1001"),
       newNodeChange(
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Update,
@@ -348,7 +355,8 @@ class NetworkCreateTest01 extends IntegrationTest {
   }
 
   private def assertNodeChange1002(): Unit = {
-    findNodeChangeById("123:1:1002").shouldMatchTo(
+    assertEqual(
+      findNodeChangeById("123:1:1002"),
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,

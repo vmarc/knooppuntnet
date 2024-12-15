@@ -30,7 +30,7 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
         "network" -> "rwn"
       )
     )
-    context.facts.shouldMatchTo(Seq(RouteTagMissing))
+    assertEqual(context.facts, Seq(RouteTagMissing))
   }
 
   test("route tag valid") {

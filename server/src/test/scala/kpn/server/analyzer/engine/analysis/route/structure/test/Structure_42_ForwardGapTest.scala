@@ -5,7 +5,6 @@ import kpn.api.common.Fact.RouteNotBackward
 import kpn.api.common.Fact.RouteNotContinious
 import kpn.api.common.Fact.RouteNotForward
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 class Structure_42_ForwardGapTest extends UnitTest {
 
@@ -16,8 +15,14 @@ class Structure_42_ForwardGapTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken))
-    context.links.shouldMatchTo(
+
+    assertEqual(
+      context.facts,
+      Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken)
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n     loop     fp ■   bp     head ■   tail     d forward",
         //
@@ -25,7 +30,8 @@ class Structure_42_ForwardGapTest extends UnitTest {
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 2>1",
         "  element-1 2>1  →  nodes=2, 1",
@@ -36,7 +42,8 @@ class Structure_42_ForwardGapTest extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "other=2>1 nodes=2, 1",
         "other=3>2 nodes=3, 2",

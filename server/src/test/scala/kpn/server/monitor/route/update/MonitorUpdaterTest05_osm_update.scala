@@ -96,7 +96,8 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
       database.monitorRouteStates.countDocuments(log) should equal(0)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route").get
-      updatedRoute.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        updatedRoute.copy(analysisDuration = None),
         MonitorRoute(
           _id = route._id,
           groupId = group._id,
@@ -184,7 +185,8 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
   }
 
   private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
-    reporter.messages.shouldMatchTo(
+    assertEqual(
+      reporter.messages,
       Seq(
         MonitorRouteUpdateStatusMessage(
           commands = Seq(

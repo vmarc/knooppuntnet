@@ -6,11 +6,12 @@ import kpn.core.util.UnitTest
 class LegEndTest extends UnitTest {
 
   test("start node only") {
-    LegEnd.fromPlanString("a").shouldMatchTo(Seq(LegEnd.node(10)))
+    assertEqual(LegEnd.fromPlanString("a"), Seq(LegEnd.node(10)))
   }
 
   test("node-node") {
-    LegEnd.fromPlanString("a-b").shouldMatchTo(
+    assertEqual(
+      LegEnd.fromPlanString("a-b"),
       Seq(
         LegEnd.node(10),
         LegEnd.node(11)
@@ -19,7 +20,8 @@ class LegEndTest extends UnitTest {
   }
 
   test("node-node-node") {
-    LegEnd.fromPlanString("a-b-c").shouldMatchTo(
+    assertEqual(
+      LegEnd.fromPlanString("a-b-c"),
       Seq(
         LegEnd.node(10),
         LegEnd.node(11),
@@ -29,7 +31,8 @@ class LegEndTest extends UnitTest {
   }
 
   test("node-route") {
-    LegEnd.fromPlanString("a-b.1").shouldMatchTo(
+    assertEqual(
+      LegEnd.fromPlanString("a-b.1"),
       Seq(
         LegEnd.node(10),
         LegEnd.route(List(TrackPathKey(11, 1)))
@@ -38,7 +41,8 @@ class LegEndTest extends UnitTest {
   }
 
   test("node-route-node") {
-    LegEnd.fromPlanString("a-b.1-c").shouldMatchTo(
+    assertEqual(
+      LegEnd.fromPlanString("a-b.1-c"),
       Seq(
         LegEnd.node(10),
         LegEnd.route(List(TrackPathKey(11, 1))),
@@ -48,7 +52,8 @@ class LegEndTest extends UnitTest {
   }
 
   test("route-node") {
-    LegEnd.fromPlanString("a.1-b").shouldMatchTo(
+    assertEqual(
+      LegEnd.fromPlanString("a.1-b"),
       Seq(
         LegEnd.route(List(TrackPathKey(10, 1))),
         LegEnd.node(11)
@@ -63,12 +68,12 @@ class LegEndTest extends UnitTest {
   }
 
   test("node-routes") {
-    LegEnd.fromPlanString("a-b.1|c.1").shouldMatchTo(
+    assertEqual(
+      LegEnd.fromPlanString("a-b.1|c.1"),
       Seq(
         LegEnd.node(10),
         LegEnd.route(List(TrackPathKey(11, 1), TrackPathKey(12, 1))),
       )
     )
   }
-
 }

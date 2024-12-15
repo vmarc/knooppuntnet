@@ -16,15 +16,22 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.facts.shouldMatchTo(Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken))
-    context.links.shouldMatchTo(
+
+    assertEqual(
+      context.facts,
+      Set(RouteNotForward, RouteNotBackward, RouteNotContinious, RouteBroken)
+    )
+
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
         "2    p     n     loop     fp ■   bp     head ■   tail     d backward",
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>3",
         "  element-1 1>3  ↔  nodes=1, 2, 3",
@@ -35,7 +42,8 @@ class Structure_31_GapSecondWayBackwardTest extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "other=1>3 nodes=1, 2, 3",
         "other=5>3 nodes=5, 4, 3",

@@ -68,7 +68,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       database.monitorRouteStates.countDocuments(log) should equal(2)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        route.copy(analysisDuration = None),
         MonitorRoute(
           _id = route._id,
           groupId = group._id,
@@ -180,7 +181,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
 
       configuration.monitorRouteRepository.routeState(route._id, 1) should equal(None)
       val state11 = configuration.monitorRouteRepository.routeState(route._id, 11).get
-      state11.shouldMatchTo(
+      assertEqual(
+        state11,
         MonitorRouteState(
           state11._id,
           routeId = route._id,
@@ -208,7 +210,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       val state12 = configuration.monitorRouteRepository.routeState(route._id, 12).get
-      state12.shouldMatchTo(
+      assertEqual(
+        state12,
         MonitorRouteState(
           state12._id,
           routeId = route._id,
@@ -275,7 +278,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       database.monitorRouteStates.countDocuments(log) should equal(2)
 
       val routeUpdated1 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      routeUpdated1.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        routeUpdated1.copy(analysisDuration = None),
         route.copy(
           analysisTimestamp = Some(Timestamp(2022, 8, 12, 12, 0, 0)),
           analysisDuration = None,
@@ -301,7 +305,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       val reference11 = configuration.monitorRouteRepository.routeReference(route._id, Some(11)).get
-      reference11.shouldMatchTo(
+      assertEqual(
+        reference11,
         MonitorRouteReference(
           reference11._id,
           routeId = route._id,
@@ -322,7 +327,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       configuration.monitorRouteRepository.routeReference(route._id, Some(12)) should equal(None)
 
       val updatedState11 = configuration.monitorRouteRepository.routeState(route._id, 11).get
-      updatedState11.shouldMatchTo(
+      assertEqual(
+        updatedState11,
         state11.copy(
           timestamp = Timestamp(2022, 8, 12, 12, 0, 0),
           matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4553911,51.4633666],[4.4562458,51.4618272]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
@@ -330,7 +336,10 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
         )
       )
 
-      configuration.monitorRouteRepository.routeState(route._id, 12).get.shouldMatchTo(state12)
+      assertEqual(
+        configuration.monitorRouteRepository.routeState(route._id, 12),
+        Some(state12)
+      )
 
       val gpx2 =
         """
@@ -373,7 +382,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       database.monitorRouteStates.countDocuments(log) should equal(2)
 
       val routeUpdated2 = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      routeUpdated2.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        routeUpdated2.copy(analysisDuration = None),
         route.copy(
           analysisTimestamp = Some(Timestamp(2022, 8, 13, 12, 0, 0)),
           analysisDuration = None,
@@ -408,10 +418,14 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       configuration.monitorRouteRepository.routeReference(route._id, Some(1)) should equal(None)
-      configuration.monitorRouteRepository.routeReference(route._id, Some(11)).shouldMatchTo(Some(reference11))
+      assertEqual(
+        configuration.monitorRouteRepository.routeReference(route._id, Some(11)),
+        Some(reference11)
+      )
 
       val reference2 = configuration.monitorRouteRepository.routeReference(route._id, Some(12)).get
-      reference2.shouldMatchTo(
+      assertEqual(
+        reference2,
         MonitorRouteReference(
           reference2._id,
           routeId = route._id,
@@ -429,7 +443,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
       )
 
       val updatedState12 = configuration.monitorRouteRepository.routeState(route._id, 12).get
-      updatedState12.shouldMatchTo(
+      assertEqual(
+        updatedState12,
         state12.copy(
           timestamp = Timestamp(2022, 8, 13, 12, 0, 0),
           matchesGeometry = Some("""{"type":"GeometryCollection","geometries":[{"type":"MultiLineString","coordinates":[[[4.4562458,51.4618272],[4.455056,51.4614496]]]}],"crs":{"type":"name","properties":{"name":"EPSG:4326"}}}"""),
@@ -512,7 +527,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
   }
 
   private def assertRouteAddMessages(messages: Seq[MonitorRouteUpdateStatusMessage]): Unit = {
-    messages.shouldMatchTo(
+    assertEqual(
+      messages,
       Seq(
         MonitorRouteUpdateStatusMessage(
           commands = Seq(
@@ -564,7 +580,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
   }
 
   private def assertUploadGpx1Messages(messages: Seq[MonitorRouteUpdateStatusMessage]): Unit = {
-    messages.shouldMatchTo(
+    assertEqual(
+      messages,
       Seq(
         MonitorRouteUpdateStatusMessage(
           commands = Seq(
@@ -588,7 +605,8 @@ class MonitorUpdaterTest10_multi_gpx_add extends UnitTest with BeforeAndAfterEac
   }
 
   private def assertUploadGpx2Messages(messages: Seq[MonitorRouteUpdateStatusMessage]): Unit = {
-    messages.shouldMatchTo(
+    assertEqual(
+      messages,
       Seq(
         MonitorRouteUpdateStatusMessage(
           commands = Seq(

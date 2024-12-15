@@ -52,7 +52,8 @@ class MonitorUpdaterTest15_add_error extends UnitTest with BeforeAndAfterEach wi
         )
       )
 
-      reporter.messages.shouldMatchTo(
+      assertEqual(
+        reporter.messages,
         Seq(
           MonitorRouteUpdateStatusMessage(
             commands = Seq(

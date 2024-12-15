@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // oneway route -> direction=backward
 class Structure_N21_Test extends UnitTest {
@@ -24,20 +23,23 @@ class Structure_N21_Test extends UnitTest {
     context.paths.foreach(a => println(s""""$a","""))
 
     // TODO context.facts.shouldMatchTo(Set(RouteOneWay))
-    context.links.shouldMatchTo(
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
-    context.nodes.shouldMatchTo(
+    assertEqual(
+      context.nodes,
       Seq(
         "start=3(02)",
         "end=1(01)",
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 3>1",
         "  element-1 3>1  3(02)  1(01)  ↔  nodes=3, 2, 1",
@@ -46,7 +48,8 @@ class Structure_N21_Test extends UnitTest {
     )
 
     pending
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=3>1 nodes=3, 2, 1", // TODO there should be no forward (or backward?) path
         "backward=3>1 nodes=1, 2, 3",

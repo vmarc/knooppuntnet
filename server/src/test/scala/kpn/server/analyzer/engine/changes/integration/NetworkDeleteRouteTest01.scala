@@ -63,7 +63,8 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
   }
 
   private def assertOrphanRoute(): Unit = {
-    findOrphanRouteById(11).shouldMatchTo(
+    assertEqual(
+      findOrphanRouteById(11),
       newOrphanRouteDoc(
         11,
         Country.nl,
@@ -74,7 +75,8 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfo(): Unit = {
-    findNetworkInfoById(1).shouldMatchTo(
+    assertEqual(
+      findNetworkInfoById(1),
       newNetworkInfoDoc(
         1,
         active = false, // <--- !!!
@@ -94,7 +96,8 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
-    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
+    assertEqual(
+      findNetworkInfoChangeById("123:1:1"),
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Delete,
@@ -149,7 +152,8 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
     //    )
     //  )
 
-    findRouteChangeById("123:1:11").shouldMatchTo(
+    assertEqual(
+      findRouteChangeById("123:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
@@ -165,7 +169,8 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo(
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(

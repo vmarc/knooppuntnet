@@ -18,7 +18,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
 
       database.orphanRoutes.save(createOrphanRouteDoc())
 
-      new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking).shouldMatchTo(
+      assertEqual(
+        new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking),
         Seq(
           OrphanRouteDoc(
             _id = 100L,
@@ -52,7 +53,8 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
   test("route that is broken") {
     withDatabase { database =>
       database.orphanRoutes.save(createOrphanRouteDoc(facts = Seq(Fact.RouteBroken)))
-      new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking).shouldMatchTo(
+      assertEqual(
+        new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking),
         Seq(
           OrphanRouteDoc(
             _id = 100L,

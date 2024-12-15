@@ -16,7 +16,8 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
   test("node removed") {
     val before = newWay(101, version = 2, nodes = Vector(newNode(1001), newNode(1002)))
     val after = newWay(101, version = 3, nodes = Vector(newNode(1001)))
-    wayUpdate(before, after).shouldMatchTo(
+    assertEqual(
+      wayUpdate(before, after),
       WayUpdate(
         101,
         before.toMeta,
@@ -31,7 +32,8 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
   test("node added") {
     val before = newWay(101, version = 2, nodes = Vector(newNode(1001)))
     val after = newWay(101, version = 3, nodes = Vector(newNode(1001), newNode(1002)))
-    wayUpdate(before, after).shouldMatchTo(
+    assertEqual(
+      wayUpdate(before, after),
       WayUpdate(
         101,
         before.toMeta,
@@ -48,7 +50,8 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     val nodeAfter = newNode(1002, version = 2)
     val before = newWay(101, 2, Timestamp(2015, 8, 11, 0, 0, 0), 100, Vector(newNode(1001), nodeBefore), Tags.from("a" -> "1"))
     val after = newWay(101, 3, Timestamp(2015, 8, 11, 12, 0, 0), 101, Vector(newNode(1001), nodeAfter), Tags.from("a" -> "1"))
-    wayUpdate(before, after).shouldMatchTo(
+    assertEqual(
+      wayUpdate(before, after),
       WayUpdate(
         101,
         before.toMeta,
@@ -67,7 +70,8 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
     val nodes = Vector(newNode(1001), newNode(1002))
     val before = newWay(101, version = 2, nodes = nodes, tags = Tags.from("a" -> "1"))
     val after = newWay(101, version = 3, nodes = nodes, tags = Tags.from("a" -> "2"))
-    wayUpdate(before, after).shouldMatchTo(
+    assertEqual(
+      wayUpdate(before, after),
       WayUpdate(
         101,
         before.toMeta,
@@ -92,7 +96,8 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
   test("direction reversed") {
     val before = newWay(101, version = 2, nodes = Vector(newNode(1001), newNode(1002)))
     val after = newWay(101, version = 3, nodes = Vector(newNode(1002), newNode(1001)))
-    wayUpdate(before, after).shouldMatchTo(
+    assertEqual(
+      wayUpdate(before, after),
       WayUpdate(
         101,
         before.toMeta,

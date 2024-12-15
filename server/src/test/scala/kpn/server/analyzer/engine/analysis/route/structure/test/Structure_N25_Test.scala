@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // start tentacle in middle of way in backward order (like route 17613906)
 class Structure_N25_Test extends UnitTest {
@@ -18,21 +17,21 @@ class Structure_N25_Test extends UnitTest {
 
     val context = setup.analyze()
 
-    context.facts.foreach(a => println(s""""$a","""))
-    context.links.foreach(a => println(s""""$a","""))
-    context.nodes.foreach(a => println(s""""$a","""))
-    context.segments.foreach(a => println(s""""$a","""))
-    context.paths.foreach(a => println(s""""$a","""))
+    assertEqual(
+      context.facts,
+      Set.empty
+    )
 
-    context.facts.shouldMatchTo(Set.empty)
-    context.links.shouldMatchTo(
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d backward",
         "2    p ■   n     loop     fp     bp     head     tail     d backward",
       )
     )
 
-    context.nodes.shouldMatchTo(
+    assertEqual(
+      context.nodes,
       Seq(
         "start=3(01)",
         "end=5(02)",
@@ -40,7 +39,8 @@ class Structure_N25_Test extends UnitTest {
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>5",
         "  element-1 1>3  1(01)  3(01)  ↔  nodes=1, 2, 3",
@@ -50,7 +50,8 @@ class Structure_N25_Test extends UnitTest {
       )
     )
 
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=3>5 nodes=3, 4, 5",
         "backward=5>3 nodes=5, 4, 3",

@@ -55,7 +55,8 @@ class NetworkDeleteTest01 extends IntegrationTest {
   }
 
   private def assertNetworkNonActive(): Unit = {
-    findNetworkById(1).shouldMatchTo(
+    assertEqual(
+      findNetworkById(1),
       newNetwork(
         1L,
         active = false,
@@ -70,7 +71,8 @@ class NetworkDeleteTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfoNoneActive(): Unit = {
-    findNetworkInfoById(1).shouldMatchTo(
+    assertEqual(
+      findNetworkInfoById(1),
       newNetworkInfoDoc(
         1L,
         active = false,
@@ -92,7 +94,8 @@ class NetworkDeleteTest01 extends IntegrationTest {
   }
 
   private def assertNodeNonActive(): Unit = {
-    findNodeById(1001L).shouldMatchTo(
+    assertEqual(
+      findNodeById(1001L),
       newNodeDoc(
         1001L,
         labels = Seq(
@@ -111,7 +114,8 @@ class NetworkDeleteTest01 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo(
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         key = ChangeKey(1, Timestamp(2015, 8, 11, 0, 0, 0), 123, 0),
         subsets = Seq(Subset.nlHiking),

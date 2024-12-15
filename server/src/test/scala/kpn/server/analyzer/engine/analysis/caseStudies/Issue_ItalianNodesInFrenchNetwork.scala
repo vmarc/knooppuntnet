@@ -26,7 +26,8 @@ class Issue_ItalianNodesInFrenchNetwork extends IntegrationTest {
     simulate(dataBefore, dataAfter) {
       val networkInfo = database.networkInfos.findById(12280062L).get
 
-      networkInfo.facts.shouldMatchTo {
+      assertEqual(
+        networkInfo.facts,
         Seq(
           NetworkFact(
             Fact.NetworkExtraMemberNode,
@@ -44,7 +45,7 @@ class Issue_ItalianNodesInFrenchNetwork extends IntegrationTest {
             None
           )
         )
-      }
+      )
     }
   }
 }

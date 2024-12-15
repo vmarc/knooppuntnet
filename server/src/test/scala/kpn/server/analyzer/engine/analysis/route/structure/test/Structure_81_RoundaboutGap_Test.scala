@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // reproduces situation in route 16827727 (EV1 Saint-Gilles-Croix-de-Vie — Les Sables-d'Olonne)
 class Structure_81_RoundaboutGap_Test extends UnitTest {
@@ -15,7 +14,8 @@ class Structure_81_RoundaboutGap_Test extends UnitTest {
 
   test("analyze") {
     val context = setup.analyze()
-    context.links.shouldMatchTo(
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
         "2    p     n ■   loop     fp     bp     head     tail     d roundaboutright",
@@ -26,7 +26,8 @@ class Structure_81_RoundaboutGap_Test extends UnitTest {
   }
 
   test("elements") {
-    setup.elementGroups(traceEnabled = true).shouldMatchTo(
+    assertEqual(
+      setup.elementGroups(traceEnabled = true),
       Seq(
         Seq(
           "1>2",

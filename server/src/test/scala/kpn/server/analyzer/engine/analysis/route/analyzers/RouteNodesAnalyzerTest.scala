@@ -36,9 +36,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberNode(2)
     }
 
-    analyze(d).foreach(println)
-
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)W",
         "end=2(02)W"
@@ -55,7 +54,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberNode(2)
     }
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)R",
         "end=2(02)R",
@@ -74,7 +74,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberWay(12, "", 2)
     }
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=2(20)W",
         "end=1(100)W)",
@@ -100,7 +101,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberWay(16, "", 6)
     }
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=3(01.a)W",
         "end=4(02.a)W",
@@ -122,7 +124,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberWay(12, "", 2, 3)
     }
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)W",
         "end=2(02.a)W",
@@ -143,7 +146,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberWay(5, "", 1, 2)
     }
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)W",
         "end=2(02)W",
@@ -163,7 +167,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberWay(12, "", 2, 3)
     }
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)W",
         "end=3(03)W",
@@ -183,7 +188,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberWay(12, "", 2, 3)
     }
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)W",
         "end=3(03)W",
@@ -210,9 +216,9 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberWay(17, "", 7, 8) // 8: start --> 01.a
       memberWay(18, "", 8, 9) // 9: end --> 02
     }
-    analyze(d).foreach(a => println(s""""$a","""))
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=8(01.a)W",
         "end=9(02)W",
@@ -235,9 +241,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberNode(5)
     }
 
-    analyze(d).foreach(a => println(s""""$a","""))
-
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "Free=(1/01/01.a/W,5/01/01.b/R)",
         "Redundant=(4/02/02/W)",
@@ -259,9 +264,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberWay(14, "", 4, 5)
     }
 
-    analyze(d).foreach(a => println(s""""$a","""))
-
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=(1/01/01/W)",
         "end=(3/02/02/W)",
@@ -283,7 +287,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
 
     analyze(d).foreach(a => println(s""""$a","""))
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=(1/01/01/R)",
         "end=(3/02/02/RW)",
@@ -304,7 +309,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
 
     analyze(d).foreach(a => println(s""""$a","""))
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)W",
         "end=2(02)W",
@@ -324,7 +330,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
 
     analyze(d).foreach(a => println(s""""$a","""))
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)W",
         "end=2(02)W",
@@ -344,7 +351,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
 
     analyze(d).foreach(a => println(s""""$a","""))
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)W",
       )
@@ -361,7 +369,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
       memberWay(11, "", 1, 2)
     }
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)W",
         "end=2(02)W"
@@ -381,7 +390,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
 
     analyze(d).foreach(a => println(s""""$a","""))
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=3(01.a)W",
         "start-tentacle=2(01.b)W",
@@ -402,7 +412,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
 
     analyze(d).foreach(a => println(s""""$a","""))
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(02)W",
         "end=3(01)W",
@@ -427,7 +438,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
 
     analyze(d).foreach(a => println(s""""$a","""))
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(02)W",
         "end=5(01)W",
@@ -465,7 +477,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
 
     analyze(d).foreach(a => println(s""""$a","""))
 
-    analyze(d).shouldMatchTo(
+    assertEqual(
+      analyze(d),
       Seq(
         "start=1(01)W",
         "end=2(02)W",
@@ -501,7 +514,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
 
     analyze(d).foreach(a => println(s""""$a","""))
 
-    analyze(d, proposed = true).shouldMatchTo(
+    assertEqual(
+      analyze(d, proposed = true),
       Seq(
         "start=(1/01/01/W)",
         "end=(2/02/02/W)"

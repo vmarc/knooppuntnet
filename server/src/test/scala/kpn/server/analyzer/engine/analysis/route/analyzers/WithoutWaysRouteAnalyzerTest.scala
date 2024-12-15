@@ -19,19 +19,19 @@ class WithoutWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val context = analyze(d)
 
-    context.facts.shouldMatchTo(Seq.empty)
+    assertEqual(context.facts, Seq.empty)
   }
 
   test("route relation without way members") {
     val d = new RouteTestData("01-02")
     val context = analyze(d)
-    context.facts.shouldMatchTo(Seq(RouteWithoutWays))
+    assertEqual(context.facts, Seq(RouteWithoutWays))
   }
 
   test("no RouteWithoutWays fact in a superroute") {
     val relation = newRelation(tags = Tags.from("type" -> "superroute"))
     val context = RouteDetailAnalysisContext(relation, None)
-    WithoutWaysRouteAnalyzer.analyze(context).facts.shouldMatchTo(Seq.empty)
+    assertEqual(WithoutWaysRouteAnalyzer.analyze(context).facts, Seq.empty)
   }
 
   test("no RouteWithoutWays when there are subrelations") {
@@ -40,7 +40,7 @@ class WithoutWaysRouteAnalyzerTest extends UnitTest with SharedTestObjects {
       member("relation", 2)
     }
     val context = analyze(d)
-    context.facts.shouldMatchTo(Seq.empty)
+    assertEqual(context.facts, Seq.empty)
   }
 
   private def analyze(routeTestData: RouteTestData): RouteDetailAnalysisContext = {

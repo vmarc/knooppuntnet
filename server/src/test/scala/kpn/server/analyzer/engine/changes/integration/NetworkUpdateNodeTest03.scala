@@ -71,8 +71,8 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
       assert(database.orphanNodes.isEmpty)
 
       // network 2 has not changed
-      findNetworkById(2).shouldMatchTo(network2)
-      findNetworkInfoById(2).shouldMatchTo(networkInfo2)
+      assertEqual(findNetworkById(2), network2)
+      assertEqual(findNetworkInfoById(2), networkInfo2)
 
       assertNetwork1()
       assertNetworkInfo1()
@@ -93,7 +93,8 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange1(): Unit = {
-    findNetworkInfoChangeById("123:1:1").shouldMatchTo(
+    assertEqual(
+      findNetworkInfoChangeById("123:1:1"),
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Update,
@@ -113,7 +114,8 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
   }
 
   private def assertNodeChange1002(): Unit = {
-    findNodeChangeById("123:1:1002").shouldMatchTo(
+    assertEqual(
+      findNodeChangeById("123:1:1002"),
       newNodeChange(
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
@@ -133,7 +135,8 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
   }
 
   private def assertChangeSetSummary(): Unit = {
-    findChangeSetSummaryById("123:1").shouldMatchTo(
+    assertEqual(
+      findChangeSetSummaryById("123:1"),
       newChangeSetSummary(
         subsets = Seq(Subset.nlHiking),
         networkChanges = NetworkChanges(

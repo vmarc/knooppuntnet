@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.analysis.route.structure.test
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.structure.test.StructureTestSetupBuilder
 
 // not a oneway route if both directions ok
 class Structure_N22_Test extends UnitTest {
@@ -27,20 +26,23 @@ class Structure_N22_Test extends UnitTest {
     pending
 
     // TODO context.facts.shouldMatchTo(Set(RouteNotOneWay))
-    context.links.shouldMatchTo(
+    assertEqual(
+      context.links,
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
       )
     )
 
-    context.nodes.shouldMatchTo(
+    assertEqual(
+      context.nodes,
       Seq(
         "start=1(01)",
         "end=2(02)",
       )
     )
 
-    context.segments.shouldMatchTo(
+    assertEqual(
+      context.segments,
       Seq(
         "segment-1 1>2",
         "  element-1 1>2  1(01)  2(02)  ↔  nodes=1, 2",
@@ -49,7 +51,8 @@ class Structure_N22_Test extends UnitTest {
     )
 
     pending
-    context.paths.shouldMatchTo(
+    assertEqual(
+      context.paths,
       Seq(
         "forward=1>2 nodes=1, 2",
         "backward=1>2 nodes=2, 1",

@@ -22,7 +22,8 @@ class MongoQueryRouteChangeCountsTest extends UnitTest with SharedTestObjects {
 
       val query = new MongoQueryRouteChangeCounts(database)
 
-      query.execute(11L, 2021, None).shouldMatchTo(
+      assertEqual(
+        query.execute(11L, 2021, None),
         ChangeSetCounts(
           years = Seq(
             newChangeSetCount(2021)(1, 4),
@@ -35,7 +36,8 @@ class MongoQueryRouteChangeCountsTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      query.execute(11L, 2021, Some(1)).shouldMatchTo(
+      assertEqual(
+        query.execute(11L, 2021, Some(1)),
         ChangeSetCounts(
           years = Seq(
             newChangeSetCount(2021)(1, 4),

@@ -6,8 +6,14 @@ import kpn.server.analyzer.engine.tiles.domain.Point
 class ElevationTileTest extends UnitTest {
 
   ignore("constructor") {
-    ElevationTile(Point(51, 4)).shouldMatchTo(ElevationTile(51, 4, 1201, 0))
-    ElevationTile(Point(51.0 + (1199.0 / 1200), 4.0 + (1199.0 / 1200))).shouldMatchTo(ElevationTile(51, 4, 2, 1199))
+    assertEqual(
+      ElevationTile(Point(51, 4)),
+      ElevationTile(51, 4, 1201, 0)
+    )
+    assertEqual(
+      ElevationTile(Point(51.0 + (1199.0 / 1200), 4.0 + (1199.0 / 1200))),
+      ElevationTile(51, 4, 2, 1199)
+    )
   }
 
   ignore("bounding rectangle") {
@@ -33,5 +39,4 @@ class ElevationTileTest extends UnitTest {
     //    tile.right.p2.x should equal(52.0)
     //    tile.right.p2.y should equal(5.0)
   }
-
 }

@@ -29,7 +29,8 @@ class PoiQueryResultParserTest extends UnitTest with SharedTestObjects {
     val node = XML.loadString(xml)
     val pois = new PoiQueryResultParser().parse("windmill", node)
 
-    pois.shouldMatchTo(
+    assertEqual(
+      pois,
       Seq(
         newPoi(
           "node",
@@ -72,7 +73,8 @@ class PoiQueryResultParserTest extends UnitTest with SharedTestObjects {
     val node = XML.loadString(xml)
     val pois = new PoiQueryResultParser().parse("windmill", node)
 
-    pois.shouldMatchTo(
+    assertEqual(
+      pois,
       Seq(
         newPoi(
           "way",
@@ -106,7 +108,8 @@ class PoiQueryResultParserTest extends UnitTest with SharedTestObjects {
     val node = XML.loadString(xml)
     val pois = new PoiQueryResultParser().parse("bank", node)
 
-    pois.shouldMatchTo(
+    assertEqual(
+      pois,
       Seq(
         newPoi(
           "relation",

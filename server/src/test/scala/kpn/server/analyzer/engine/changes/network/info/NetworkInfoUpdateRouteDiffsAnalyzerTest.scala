@@ -28,7 +28,8 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
       1
     )
 
-    analyze(before, after).shouldMatchTo(
+    assertEqual(
+      analyze(before, after),
       RefDiffs(
         removed = Seq(
           Ref(11, "01-02")
@@ -53,7 +54,8 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
       )
     )
 
-    analyze(before, after).shouldMatchTo(
+    assertEqual(
+      analyze(before, after),
       RefDiffs(
         added = Seq(
           Ref(11, "01-02")
@@ -84,7 +86,8 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
       )
     )
 
-    analyze(before, after).shouldMatchTo(
+    assertEqual(
+      analyze(before, after),
       RefDiffs(
         updated = Seq(
           Ref(11, "01-03")
@@ -119,7 +122,8 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
       )
     )
 
-    analyze(context, networkInfoDoc, networkInfoDoc).shouldMatchTo(
+    assertEqual(
+      analyze(context, networkInfoDoc, networkInfoDoc),
       RefDiffs(
         updated = Seq(
           Ref(11, "01-02")

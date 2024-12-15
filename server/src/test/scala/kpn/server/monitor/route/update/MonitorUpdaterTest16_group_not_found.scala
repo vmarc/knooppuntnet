@@ -38,7 +38,8 @@ class MonitorUpdaterTest16_group_not_found extends UnitTest with BeforeAndAfterE
         )
       )
 
-      reporter.messages.shouldMatchTo(
+      assertEqual(
+        reporter.messages,
         Seq(
           MonitorRouteUpdateStatusMessage(
             commands = Seq(

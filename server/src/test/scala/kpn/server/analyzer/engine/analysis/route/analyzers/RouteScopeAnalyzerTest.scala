@@ -24,7 +24,7 @@ class RouteScopeAnalyzerTest extends UnitTest with SharedTestObjects {
         "network" -> "rwn"
       )
     )
-    context.scopes.shouldMatchTo(Seq("regional")) // international national regional local
+    assertEqual(context.scopes, Seq("regional")) // international national regional local
   }
 
   private def testNetworkTag(tagValue: String, expectedScope: String): Unit = {
@@ -33,7 +33,7 @@ class RouteScopeAnalyzerTest extends UnitTest with SharedTestObjects {
         "network" -> tagValue
       )
     )
-    context.scopes.shouldMatchTo(Seq(expectedScope))
+    assertEqual(context.scopes, Seq(expectedScope))
   }
 
   private def analyze(tags: Seq[Tag]): RouteDetailAnalysisContext = {

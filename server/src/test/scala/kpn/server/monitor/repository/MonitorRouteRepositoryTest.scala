@@ -42,7 +42,8 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       routeRepository.changesCount(MonitorChangesParameters(impact = true)) should equal(2)
-      routeRepository.changes(MonitorChangesParameters(impact = true)).shouldMatchTo(
+      assertEqual(
+        routeRepository.changes(MonitorChangesParameters(impact = true)),
         Seq(
           change5,
           change2
@@ -50,7 +51,8 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       routeRepository.groupChangesCount("group-1", MonitorChangesParameters()) should equal(3)
-      routeRepository.groupChanges("group-1", MonitorChangesParameters()).shouldMatchTo(
+      assertEqual(
+        routeRepository.groupChanges("group-1", MonitorChangesParameters()),
         Seq(
           change3,
           change2,
@@ -59,7 +61,8 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       routeRepository.groupChangesCount("group-1", MonitorChangesParameters(impact = true)) should equal(1)
-      routeRepository.groupChanges("group-1", MonitorChangesParameters(impact = true)).shouldMatchTo(
+      assertEqual(
+        routeRepository.groupChanges("group-1", MonitorChangesParameters(impact = true)),
         Seq(
           change2
         )
@@ -68,7 +71,8 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       pending // use string monitor id instead of long id
 
       routeRepository.routeChangesCount("101", MonitorChangesParameters()) should equal(2)
-      routeRepository.routeChanges("101", MonitorChangesParameters()).shouldMatchTo(
+      assertEqual(
+        routeRepository.routeChanges("101", MonitorChangesParameters()),
         Seq(
           change2,
           change1
@@ -76,7 +80,8 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       )
 
       routeRepository.routeChangesCount("101", MonitorChangesParameters(impact = true)) should equal(1)
-      routeRepository.routeChanges("101", MonitorChangesParameters(impact = true)).shouldMatchTo(
+      assertEqual(
+        routeRepository.routeChanges("101", MonitorChangesParameters(impact = true)),
         Seq(
           change2
         )
@@ -150,7 +155,6 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
       database.monitorRoutes.save(route)
 
       database.monitorRoutes.findByObjectId(route._id) should equal(Some(route))
-
     }
   }
 
@@ -330,14 +334,27 @@ class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
       val routeRepository = new MonitorRouteRepositoryImpl(database)
 
-      routeRepository.routeReference(route._id, None).shouldMatchTo(Some(reference1))
-      routeRepository.routeReference(route._id, Some(1)).shouldMatchTo(Some(reference2))
+      assertEqual(
+        routeRepository.routeReference(route._id, None),
+        Some(reference1)
+      )
 
-      routeRepository.routeRelationReferenceId(route._id, None).shouldMatchTo(Some(reference1._id))
-      routeRepository.routeRelationReferenceId(route._id, Some(1)).shouldMatchTo(Some(reference2._id))
+      assertEqual(
+        routeRepository.routeReference(route._id, Some(1)),
+        Some(reference2)
+      )
+
+      assertEqual(
+        routeRepository.routeRelationReferenceId(route._id, None),
+        Some(reference1._id)
+      )
+
+      assertEqual(
+        routeRepository.routeRelationReferenceId(route._id, Some(1)),
+        Some(reference2._id)
+      )
     }
   }
-
 
   private def buildChange(groupName: String /*TODO MON remove*/ , routeId: Long, changeSetId: Long, timestamp: Timestamp, happy: Boolean): MonitorRouteChange = {
     newMonitorRouteChange(

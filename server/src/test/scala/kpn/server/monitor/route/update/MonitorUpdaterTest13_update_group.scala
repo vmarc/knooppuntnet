@@ -88,7 +88,8 @@ class MonitorUpdaterTest13_update_group extends UnitTest with BeforeAndAfterEach
   }
 
   private def assertMessages(reporter: MonitorUpdateReporterMock): Unit = {
-    reporter.messages.shouldMatchTo(
+    assertEqual(
+      reporter.messages,
       Seq(
         MonitorRouteUpdateStatusMessage(
           commands = Seq(

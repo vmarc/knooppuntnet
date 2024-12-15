@@ -11,7 +11,7 @@ class TagsJsonTest extends UnitTest {
     val json = Json.string(tag1)
     val tag2 = Json.value(json, classOf[Tag])
     json should equal("""{"key":"key1","value":"value1"}""")
-    tag1.shouldMatchTo(tag2)
+    assertEqual(tag1, tag2)
   }
 
   test("quotes should be escaped") {

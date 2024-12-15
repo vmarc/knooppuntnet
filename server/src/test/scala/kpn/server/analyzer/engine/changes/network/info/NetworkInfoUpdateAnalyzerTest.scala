@@ -35,7 +35,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.investigate)
     assert(!networkInfoChange.happy)
 
-    networkInfoChange.nodeDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.nodeDiffs,
       RefDiffs(
         removed = Seq(
           Ref(1001, "01")
@@ -66,7 +67,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.impact)
     assert(!networkInfoChange.investigate)
 
-    networkInfoChange.nodeDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.nodeDiffs,
       RefDiffs(
         added = Seq(
           Ref(1001, "01")
@@ -103,7 +105,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(!networkInfoChange.impact)
 
-    networkInfoChange.nodeDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.nodeDiffs,
       RefDiffs(
         updated = Seq(
           Ref(1001, "02")
@@ -134,7 +137,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.routeDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.routeDiffs,
       RefDiffs(
         removed = Seq(
           Ref(11, "01-02")
@@ -165,7 +169,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.routeDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.routeDiffs,
       RefDiffs(
         added = Seq(
           Ref(11, "01-02")
@@ -202,7 +207,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(!networkInfoChange.impact)
 
-    networkInfoChange.routeDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.routeDiffs,
       RefDiffs(
         updated = Seq(
           Ref(11, "01-03")
@@ -228,7 +234,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraNodeDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.extraNodeDiffs,
       IdDiffs(
         removed = Seq(
           1001
@@ -254,7 +261,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraNodeDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.extraNodeDiffs,
       IdDiffs(
         added = Seq(
           1001
@@ -280,7 +288,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraWayDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.extraWayDiffs,
       IdDiffs(
         removed = Seq(
           101
@@ -306,7 +315,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraWayDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.extraWayDiffs,
       IdDiffs(
         added = Seq(
           101
@@ -332,7 +342,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(!networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraRelationDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.extraRelationDiffs,
       IdDiffs(
         removed = Seq(
           2
@@ -358,7 +369,8 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     assert(networkInfoChange.investigate)
     assert(networkInfoChange.impact)
 
-    networkInfoChange.extraRelationDiffs.shouldMatchTo(
+    assertEqual(
+      networkInfoChange.extraRelationDiffs,
       IdDiffs(
         added = Seq(
           2

@@ -62,7 +62,8 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
       database.monitorRouteStates.countDocuments(log) should equal(0)
 
       val route = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      route.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        route.copy(analysisDuration = None),
         MonitorRoute(
           _id = route._id,
           groupId = group._id,
@@ -117,7 +118,8 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
       database.monitorRouteStates.countDocuments(log) should equal(1)
 
       val updatedRoute = configuration.monitorRouteRepository.routeByName(group._id, "route-name").get
-      updatedRoute.copy(analysisDuration = None).shouldMatchTo(
+      assertEqual(
+        updatedRoute.copy(analysisDuration = None),
         MonitorRoute(
           route._id,
           groupId = group._id,
@@ -178,7 +180,8 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
       )
 
       val reference = configuration.monitorRouteRepository.routeReference(route._id, Some(1)).get
-      reference.shouldMatchTo(
+      assertEqual(
+        reference,
         MonitorRouteReference(
           reference._id,
           routeId = route._id,
@@ -196,7 +199,8 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
       )
 
       val state = configuration.monitorRouteRepository.routeState(route._id, 1).get
-      state.shouldMatchTo(
+      assertEqual(
+        state,
         MonitorRouteState(
           state._id,
           routeId = route._id,
