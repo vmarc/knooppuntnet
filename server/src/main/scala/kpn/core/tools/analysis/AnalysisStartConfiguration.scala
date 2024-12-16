@@ -8,6 +8,7 @@ import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.next.database.NextRepository
 import kpn.core.tools.next.database.NextRepositoryImpl
+import kpn.database.base.OldDatabase
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
@@ -37,13 +38,13 @@ import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteBoundsAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
-import kpn.server.analyzer.engine.tiles.TileDataLoaderImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesBuilder
@@ -59,6 +60,8 @@ import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteDetailRepository
+import kpn.server.repository.RouteDetailRepositoryImpl
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteRepositoryImpl
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
@@ -72,10 +75,11 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   private val database = Mongo.database(Mongo.client, options.databaseName)
   private val nextDatabase = Mongo.nextDatabase(Mongo.client, options.databaseName)
-  val oldDatabase = Mongo.oldDatabase(Mongo.client, options.databaseName)
+  val oldDatabase: OldDatabase = Mongo.oldDatabase(Mongo.client, options.databaseName)
 
   val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
   val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
+  val routeDetailRepository: RouteDetailRepository = new RouteDetailRepositoryImpl(database)
   val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(database)
   val nextRepository: NextRepository = new NextRepositoryImpl(nextDatabase)
@@ -110,7 +114,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val routeDetailMainAnalyzer: RouteDetailMainAnalyzer = {
     val routeLocator = new RouteLocatorImpl(locationAnalyzer)
-    val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeRepository, routeLocator)
+    val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeDetailRepository, routeLocator)
     val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
     new RouteDetailMainAnalyzer(
       routeCountryAnalyzer,
@@ -120,7 +124,8 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   val routeMainAnalyzer: RouteMainAnalyzer = {
-    new RouteMainAnalyzer()
+    val routeBoundsAnalyzer = new RouteBoundsAnalyzer(routeDetailRepository)
+    new RouteMainAnalyzer(routeBoundsAnalyzer)
   }
 
   val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzerImpl(
@@ -171,16 +176,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   private val tileDir = s"${Dirs.root.getAbsolutePath}/tiles"
   private val tileDataNodeBuilder = new TileDataNodeBuilderImpl()
-
-  val tileAnalyzer = {
-    val nodeRepository = new NodeRepositoryImpl(database)
-    val routeRepository = new RouteRepositoryImpl(database)
-    new TileDataLoaderImpl(
-      nodeRepository,
-      routeRepository,
-      tileDataNodeBuilder
-    )
-  }
 
   private val executionContext: ExecutionContext = {
     val executor = buildExecutor()

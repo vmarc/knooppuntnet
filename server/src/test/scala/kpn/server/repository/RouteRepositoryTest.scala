@@ -13,14 +13,14 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeDetailRepository = new RouteDetailRepositoryImpl(database)
 
-      routeRepository.saveRouteDetail(newRouteDetail(10))
-      routeRepository.saveRouteDetail(newRouteDetail(20))
+      routeDetailRepository.save(newRouteDetail(10))
+      routeDetailRepository.save(newRouteDetail(20))
 
-      routeRepository.findRouteDetailById(10) should equal(Some(newRouteDetail(10)))
-      routeRepository.findRouteDetailById(20) should equal(Some(newRouteDetail(20)))
-      routeRepository.findRouteDetailById(30) should equal(None)
+      routeDetailRepository.findById(10) should equal(Some(newRouteDetail(10)))
+      routeDetailRepository.findById(20) should equal(Some(newRouteDetail(20)))
+      routeDetailRepository.findById(30) should equal(None)
     }
   }
 
@@ -53,38 +53,38 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeDetailRepository = new RouteDetailRepositoryImpl(database)
 
       // first save
-      routeRepository.saveRouteDetail(newRouteDetail(10, name = "01-02"))
-      routeRepository.saveRouteDetail(newRouteDetail(20, name = "02-03"))
+      routeDetailRepository.save(newRouteDetail(10, name = "01-02"))
+      routeDetailRepository.save(newRouteDetail(20, name = "02-03"))
 
-      routeRepository.findRouteDetailById(10) should equal(Some(newRouteDetail(10, name = "01-02")))
-      routeRepository.findRouteDetailById(20) should equal(Some(newRouteDetail(20, name = "02-03")))
-      routeRepository.findRouteDetailById(30) should equal(None)
+      routeDetailRepository.findById(10) should equal(Some(newRouteDetail(10, name = "01-02")))
+      routeDetailRepository.findById(20) should equal(Some(newRouteDetail(20, name = "02-03")))
+      routeDetailRepository.findById(30) should equal(None)
 
       // save again without change
-      routeRepository.saveRouteDetail(newRouteDetail(10, name = "01-02"))
-      routeRepository.saveRouteDetail(newRouteDetail(20, name = "02-03"))
+      routeDetailRepository.save(newRouteDetail(10, name = "01-02"))
+      routeDetailRepository.save(newRouteDetail(20, name = "02-03"))
 
-      routeRepository.findRouteDetailById(10) should equal(Some(newRouteDetail(10, name = "01-02")))
-      routeRepository.findRouteDetailById(20) should equal(Some(newRouteDetail(20, name = "02-03")))
-      routeRepository.findRouteDetailById(30) should equal(None)
-
-      // update
-      routeRepository.saveRouteDetail(newRouteDetail(10, name = "01-02"))
-      routeRepository.saveRouteDetail(newRouteDetail(20, name = "02-04"))
-
-      routeRepository.findRouteDetailById(10) should equal(Some(newRouteDetail(10, name = "01-02")))
-      routeRepository.findRouteDetailById(20) should equal(Some(newRouteDetail(20, name = "02-04"))) // updated
-      routeRepository.findRouteDetailById(30) should equal(None)
+      routeDetailRepository.findById(10) should equal(Some(newRouteDetail(10, name = "01-02")))
+      routeDetailRepository.findById(20) should equal(Some(newRouteDetail(20, name = "02-03")))
+      routeDetailRepository.findById(30) should equal(None)
 
       // update
-      routeRepository.saveRouteDetail(newRouteDetail(20, name = "02-05"))
+      routeDetailRepository.save(newRouteDetail(10, name = "01-02"))
+      routeDetailRepository.save(newRouteDetail(20, name = "02-04"))
 
-      routeRepository.findRouteDetailById(10) should equal(Some(newRouteDetail(10, name = "01-02"))) // not deleted
-      routeRepository.findRouteDetailById(20) should equal(Some(newRouteDetail(20, name = "02-05"))) // updated
-      routeRepository.findRouteDetailById(30) should equal(None)
+      routeDetailRepository.findById(10) should equal(Some(newRouteDetail(10, name = "01-02")))
+      routeDetailRepository.findById(20) should equal(Some(newRouteDetail(20, name = "02-04"))) // updated
+      routeDetailRepository.findById(30) should equal(None)
+
+      // update
+      routeDetailRepository.save(newRouteDetail(20, name = "02-05"))
+
+      routeDetailRepository.findById(10) should equal(Some(newRouteDetail(10, name = "01-02"))) // not deleted
+      routeDetailRepository.findById(20) should equal(Some(newRouteDetail(20, name = "02-05"))) // updated
+      routeDetailRepository.findById(30) should equal(None)
     }
   }
 
@@ -92,13 +92,13 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
+      val routeDetailRepository = new RouteDetailRepositoryImpl(database)
 
-      routeRepository.saveRouteDetail(newRouteDetail(10))
-      routeRepository.saveRouteDetail(newRouteDetail(20))
+      routeDetailRepository.save(newRouteDetail(10))
+      routeDetailRepository.save(newRouteDetail(20))
 
-      routeRepository.filterKnown(Set(5, 10, 15)) should equal(Set(10))
-      routeRepository.filterKnown(Set(10, 20, 30)) should equal(Set(10, 20))
+      routeDetailRepository.filterKnown(Set(5, 10, 15)) should equal(Set(10))
+      routeDetailRepository.filterKnown(Set(10, 20, 30)) should equal(Set(10, 20))
     }
   }
 }

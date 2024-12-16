@@ -1,6 +1,5 @@
 package kpn.server.api.analysis.pages.route
 
-import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
@@ -120,7 +119,7 @@ object RouteDetailsPageExample {
       ),
       nameDerivedFromNodes = true,
       nodes,
-      Bounds(),
+      None,
       Seq(1L)
     )
   }

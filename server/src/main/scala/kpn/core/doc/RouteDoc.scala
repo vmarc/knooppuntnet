@@ -1,6 +1,7 @@
 package kpn.core.doc
 
 import kpn.api.base.WithId
+import kpn.api.common.Bounds
 import kpn.api.common.Fact
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteSummary
@@ -32,7 +33,8 @@ case class RouteDoc(
   locationAnalysis: RouteLocationAnalysis,
   segments: Seq[RouteSegment],
   paths: Seq[RoutePath],
-  routeIds: Seq[Long]
+  routeIds: Seq[Long],
+  bounds: Option[Bounds],
 ) extends WithId {
 
   def id: Long = summary.id

@@ -26,7 +26,7 @@ case class TileSegment(
 class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) extends RouteDetailAnalyzer {
 
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
-    val tileSegments = context.segments.flatMap { segment =>
+    val tileSegments = context.analysisSegments.flatMap { segment =>
       segment.elements.map { element =>
         val worldCoordinates = element.nodes.map(node => new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat)))
         TileSegment(segment.id, element.id, worldCoordinates)

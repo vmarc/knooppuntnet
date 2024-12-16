@@ -17,13 +17,13 @@ import kpn.core.planner.graph.GraphPathSegment
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.util.Log
 import kpn.server.repository.GraphRepository
-import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteDetailRepository
 import org.springframework.stereotype.Component
 
 @Component
 class LegBuilderImpl(
   graphRepository: GraphRepository,
-  routeRepository: RouteRepository
+  routeDetailRepository: RouteDetailRepository
 ) extends LegBuilder {
 
   private val log = Log(classOf[LegBuilderImpl])
@@ -118,7 +118,7 @@ class LegBuilderImpl(
 
     val routeIds = params.routeIds
     val routeDocs = routeIds.flatMap { routeId =>
-      routeRepository.findRouteDetailById(routeId) match {
+      routeDetailRepository.findById(routeId) match {
         case Some(routeDoc) => Some(routeDoc.id -> routeDoc)
         case None =>
           log.error(s"via-route $routeId not found")
@@ -196,7 +196,7 @@ class LegBuilderImpl(
 
     segments.flatMap { graphPathSegment =>
       val routeId = graphPathSegment.pathKey.routeId
-      routeRepository.findRouteDetailById(routeId) match {
+      routeDetailRepository.findById(routeId) match {
         case Some(route) =>
           val pathId = if (graphPathSegment.pathKey.pathId < 100) graphPathSegment.pathKey.pathId else graphPathSegment.pathKey.pathId - 100
           val colour = route.summary.tagValue("colour")

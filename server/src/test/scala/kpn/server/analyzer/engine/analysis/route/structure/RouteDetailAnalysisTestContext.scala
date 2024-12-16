@@ -39,7 +39,7 @@ case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
   }
 
   def segments: Seq[String] = {
-    context.segments.flatMap { segment =>
+    context.analysisSegments.flatMap { segment =>
       val elements = segment.elements.flatMap { element =>
         elementToString(element) +: element.fragments.map(fragmentToString)
       }

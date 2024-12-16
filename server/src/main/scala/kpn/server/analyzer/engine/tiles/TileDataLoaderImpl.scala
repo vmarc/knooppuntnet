@@ -5,11 +5,11 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteDetailRepository
 
 class TileDataLoaderImpl(
   nodeRepository: NodeRepository,
-  routeRepository: RouteRepository,
+  routeDetailRepository: RouteDetailRepository,
   tileDataNodeBuilder: TileDataNodeBuilder
 ) extends TileDataLoader {
 
@@ -36,7 +36,7 @@ class TileDataLoaderImpl(
   private def findRoutes(networkType: NetworkType, nodeNetwork: Boolean): Seq[TileDataRoute] = {
     log.info("Find routes")
     log.infoElapsed {
-      val routeTileInfos = routeRepository.routeTileInfosByNetworkType(networkType, nodeNetwork)
+      val routeTileInfos = routeDetailRepository.routeTileInfosByNetworkType(networkType, nodeNetwork)
       val tileDataRoutes = routeTileInfos.map(routeTileInfo => TileDataRouteBuilder.fromRouteInfo(routeTileInfo))
       (s"${routeTileInfos.size} routes", tileDataRoutes)
     }

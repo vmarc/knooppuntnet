@@ -32,7 +32,7 @@ class RouteSegmentReport(context: RouteDetailAnalysisContext) {
   }
 
   private def segments(): String = {
-    context.segments.map { segment =>
+    context.analysisSegments.map { segment =>
       s"""<tr>
          |  <td colspan="5">
          |    Segment ${segment.id}

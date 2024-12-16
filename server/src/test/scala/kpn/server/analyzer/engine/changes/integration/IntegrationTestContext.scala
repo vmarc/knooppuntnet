@@ -27,6 +27,7 @@ import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteBoundsAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSaverImpl
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
@@ -59,6 +60,7 @@ import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.NetworkInfoRepositoryImpl
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepositoryImpl
+import kpn.server.repository.RouteDetailRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
 import kpn.server.repository.TaskRepository
 import org.scalamock.scalatest.MockFactory
@@ -84,6 +86,7 @@ class IntegrationTestContext(
   private val changeSetRepository = new ChangeSetRepositoryImpl(database)
   val nodeRepository = new NodeRepositoryImpl(database)
   private val routeRepository = new RouteRepositoryImpl(database)
+  private val routeDetailRepository = new RouteDetailRepositoryImpl(database)
   private val networkRepository = new NetworkRepositoryImpl(database)
   private val changeSetInfoRepository = new ChangeSetInfoRepositoryImpl(database)
   private val networkInfoRepository = new NetworkInfoRepositoryImpl(database)
@@ -102,7 +105,10 @@ class IntegrationTestContext(
     routeLocationAnalyzer,
     routeTileAnalyzer
   )
-  private val routeMainAnalyzer = new RouteMainAnalyzer()
+  private val routeMainAnalyzer = {
+    val routeBoundsAnalyzer = new RouteBoundsAnalyzer(routeDetailRepository)
+    new RouteMainAnalyzer(routeBoundsAnalyzer)
+  }
 
   private val elementIdAnalyzer = new ElementIdAnalyzerImpl
 
@@ -156,6 +162,7 @@ class IntegrationTestContext(
       routeMainAnalyzer,
       routeTileChangeAnalyzer,
       routeRepository,
+      routeDetailRepository,
       analysisExecutionContext
     )
   }
@@ -220,6 +227,7 @@ class IntegrationTestContext(
   private val fullRouteAnalyzer = new FullRouteAnalyzerImpl(
     overpassRepository,
     routeRepository,
+    routeDetailRepository,
     routeDetailMainAnalyzer,
     routeMainAnalyzer,
     analysisExecutionContext: ExecutionContext
@@ -272,6 +280,7 @@ class IntegrationTestContext(
     analysisContext,
     networkRepository,
     routeRepository,
+    routeDetailRepository,
     nodeRepository
   )
 }

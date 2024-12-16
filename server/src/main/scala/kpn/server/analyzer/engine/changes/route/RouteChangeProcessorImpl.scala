@@ -22,6 +22,7 @@ import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzer
 import kpn.server.overpass.OverpassRepository
+import kpn.server.repository.RouteDetailRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -36,6 +37,7 @@ class RouteChangeProcessorImpl(
   routeMainAnalyzer: RouteMainAnalyzer,
   tileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeRepository: RouteRepository,
+  routeDetailRepository: RouteDetailRepository,
   implicit val analysisExecutionContext: ExecutionContext
 ) extends RouteChangeProcessor {
 
@@ -116,7 +118,7 @@ class RouteChangeProcessorImpl(
 
     routeDetailMainAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */).map { contextAfter =>
       val afterRouteDetailDoc = new RouteDetailDocBuilder(contextAfter).build()
-      routeRepository.saveRouteDetail(afterRouteDetailDoc)
+      routeDetailRepository.save(afterRouteDetailDoc)
       // TODO redesign - move to phase 2
       routeMainAnalyzer.analyze(afterRouteDetailDoc) match {
         case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
@@ -189,7 +191,7 @@ class RouteChangeProcessorImpl(
 
     routeDetailMainAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */).map { contextBefore =>
       val routeDetailDoc = new RouteDetailDocBuilder(contextBefore).build().deactivated
-      routeRepository.saveRouteDetail(routeDetailDoc)
+      routeDetailRepository.save(routeDetailDoc)
       // TODO redesign - move to phase 2
       routeMainAnalyzer.analyze(routeDetailDoc) match {
         case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
@@ -271,7 +273,7 @@ class RouteChangeProcessorImpl(
 
               val facts = routeUpdate.facts
 
-              routeRepository.saveRouteDetail(routeDetailDocAfter)
+              routeDetailRepository.save(routeDetailDocAfter)
               // TODO redesign - move to phase 2
               routeMainAnalyzer.analyze(routeDetailDocAfter) match {
                 case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
@@ -344,7 +346,7 @@ class RouteChangeProcessorImpl(
       facts = Seq(Fact.LostRouteTags)
     )
 
-    routeRepository.saveRouteDetail(updatedRouteDoc)
+    routeDetailRepository.save(updatedRouteDoc)
     // TODO redesign - move to phase 2
     routeMainAnalyzer.analyze(updatedRouteDoc) match {
       case Some(routeDoc) => routeRepository.saveRoute(routeDoc)

@@ -5,7 +5,7 @@ import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
-import kpn.server.repository.RouteRepositoryImpl
+import kpn.server.repository.RouteDetailRepositoryImpl
 
 class MongoQueryTilesTest extends UnitTest with TestObjects {
 
@@ -50,9 +50,9 @@ class MongoQueryTilesTest extends UnitTest with TestObjects {
 
     withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
-      routeRepository.saveRouteDetail(newRouteDetail(11, tiles = Seq("cycling-10-001-001", "cycling-10-001-002")))
-      routeRepository.saveRouteDetail(newRouteDetail(12, tiles = Seq("cycling-10-001-001")))
+      val routeDetailRepository = new RouteDetailRepositoryImpl(database)
+      routeDetailRepository.save(newRouteDetail(11, tiles = Seq("cycling-10-001-001", "cycling-10-001-002")))
+      routeDetailRepository.save(newRouteDetail(12, tiles = Seq("cycling-10-001-001")))
 
       val query = new MongoQueryTiles(database)
 
@@ -70,9 +70,9 @@ class MongoQueryTilesTest extends UnitTest with TestObjects {
 
     withDatabase { database =>
 
-      val routeRepository = new RouteRepositoryImpl(database)
-      routeRepository.saveRouteDetail(newRouteDetail(11, tiles = Seq("cycling-10-001-001")))
-      routeRepository.saveRouteDetail(newRouteDetail(12, tiles = Seq("cycling-10-001-001"), labels = Seq.empty /* not active */))
+      val routeDetailRepository = new RouteDetailRepositoryImpl(database)
+      routeDetailRepository.save(newRouteDetail(11, tiles = Seq("cycling-10-001-001")))
+      routeDetailRepository.save(newRouteDetail(12, tiles = Seq("cycling-10-001-001"), labels = Seq.empty /* not active */))
 
       val query = new MongoQueryTiles(database)
 

@@ -424,6 +424,7 @@ trait SharedTestObjects extends MockFactory {
     segmentElements: Seq[RouteDetailSegmentElement] = Seq.empty,
     paths: Seq[RouteDetailPath] = Seq.empty,
     hierarchy: Option[RouteRelation] = None,
+    bounds: Option[Bounds] = None,
   ): RouteDetailDoc = {
 
     val summary = RouteSummary(
@@ -438,7 +439,7 @@ trait SharedTestObjects extends MockFactory {
       inaccessible = facts.contains(Fact.RouteInaccessible),
       wayCount,
       relationLastUpdated,
-      tags = Seq.empty
+      tags = Seq.empty,
     )
 
     RouteDetailDoc(
@@ -467,6 +468,7 @@ trait SharedTestObjects extends MockFactory {
       segmentElements,
       paths,
       hierarchy,
+      bounds
     )
   }
 
@@ -952,6 +954,7 @@ trait SharedTestObjects extends MockFactory {
     segments: Seq[RouteSegment] = Seq.empty,
     paths: Seq[RoutePath] = Seq.empty,
     routeIds: Seq[Long] = Seq.empty,
+    bounds: Option[Bounds] = None
   ): RouteDoc = {
     RouteDoc(
       summary.id,
@@ -972,7 +975,8 @@ trait SharedTestObjects extends MockFactory {
       locationAnalysis,
       segments,
       paths,
-      routeIds
+      routeIds,
+      bounds
     )
   }
 
@@ -1000,7 +1004,8 @@ trait SharedTestObjects extends MockFactory {
     segments: Seq[RouteDetailSegment] = Seq.empty,
     segmentElements: Seq[RouteDetailSegmentElement] = Seq.empty,
     paths: Seq[RouteDetailPath] = Seq.empty,
-    hierarchy: Option[RouteRelation] = None
+    hierarchy: Option[RouteRelation] = None,
+    bounds: Option[Bounds] = None
   ): RouteDetailDoc = {
     RouteDetailDoc(
       summary.id,
@@ -1027,7 +1032,8 @@ trait SharedTestObjects extends MockFactory {
       segments,
       segmentElements,
       paths,
-      hierarchy
+      hierarchy,
+      bounds
     )
   }
 

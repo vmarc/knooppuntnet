@@ -20,7 +20,7 @@ object RouteSegmentAnalyzer extends RouteDetailAnalyzer {
   override def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     val segments = new RouteSegmentAnalyzer(context).analyze()
     context.copy(
-      _segments = Some(segments)
+      _analysisSegments = Some(segments)
     )
   }
 }

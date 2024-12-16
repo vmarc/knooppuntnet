@@ -14,6 +14,7 @@ import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteUtil
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzer
+import kpn.server.repository.RouteDetailRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Component
 class RouteChangeBuilderImpl(
   analysisContext: AnalysisContext,
   routeRepository: RouteRepository,
+  routeDetailRepository: RouteDetailRepository,
   tileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeMainAnalyzer: RouteMainAnalyzer
 ) extends RouteChangeBuilder {
@@ -151,7 +153,7 @@ class RouteChangeBuilderImpl(
           //    locationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty)
           //  )
 
-          routeRepository.saveRouteDetail(routeDetailDoc)
+          routeDetailRepository.save(routeDetailDoc)
           routeMainAnalyzer.analyze(routeDetailDoc) match {
             case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
             case None =>

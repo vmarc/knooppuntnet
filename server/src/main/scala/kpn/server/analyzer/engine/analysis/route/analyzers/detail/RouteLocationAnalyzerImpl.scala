@@ -4,7 +4,7 @@ import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.location.Location
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
-import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteDetailRepository
 import org.springframework.stereotype.Component
 
 /*
@@ -12,10 +12,13 @@ import org.springframework.stereotype.Component
   of the route did not change (same geometry digest)).
 */
 @Component
-class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: RouteLocator) extends RouteLocationAnalyzer {
+class RouteLocationAnalyzerImpl(
+  routeDetailRepository: RouteDetailRepository,
+  routeLocator: RouteLocator
+) extends RouteLocationAnalyzer {
 
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
-    routeRepository.findRouteDetailById(context.relation.id) match {
+    routeDetailRepository.findById(context.relation.id) match {
       case Some(route) =>
         if (route.geometryDigest == context.geometryDigest) {
           context.copy(_locationAnalysis = Some(route.locationAnalysis))
@@ -30,7 +33,7 @@ class RouteLocationAnalyzerImpl(routeRepository: RouteRepository, routeLocator: 
   }
 
   private def locate(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
-    val routeLocationAnalysis = routeLocator.locate(context.segments)
+    val routeLocationAnalysis = routeLocator.locate(context.analysisSegments)
     if (routeLocationAnalysis.location.isEmpty && context.countries.nonEmpty) {
       val countries = context.countries.map(_.entryName)
       context.copy(

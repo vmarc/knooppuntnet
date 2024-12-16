@@ -27,42 +27,40 @@ class RouteDetailsPageBuilder(
   }
 
   private def doBuildDetailsPage(language: Language, routeId: Long): Option[RouteDetailsPage] = {
-    routeRepository.findRouteById(routeId).flatMap { routeDoc =>
-      routeRepository.findRouteDetailById(routeId).map { routeDetailDoc =>
-        val changeCount = changeSetRepository.routeChangesCount(routeId)
-        val networkReferences = routeRepository.networkReferences(routeId)
-        val locationCandidateInfos = {
-          routeDoc.locationAnalysis.candidates.map { candidate =>
-            val locationNames = candidate.location.names
-            val locationInfos = locationService.toInfos(language, locationNames, locationNames)
-            LocationCandidateInfo(locationInfos, candidate.percentage)
-          }
+    routeRepository.findRouteById(routeId).map { routeDoc =>
+      val changeCount = changeSetRepository.routeChangesCount(routeId)
+      val networkReferences = routeRepository.networkReferences(routeId)
+      val locationCandidateInfos = {
+        routeDoc.locationAnalysis.candidates.map { candidate =>
+          val locationNames = candidate.location.names
+          val locationInfos = locationService.toInfos(language, locationNames, locationNames)
+          LocationCandidateInfo(locationInfos, candidate.percentage)
         }
-
-        val routeBounds = Util.mergeBounds(routeDoc.segments.map(_.bounds))
-
-        // TODO add routeIds, parent routes (reverse hierarchy), add children
-        val data = RouteDetailsPageData(
-          routeDoc._id,
-          routeDoc.labels.contains(Label.active),
-          routeDoc.summary,
-          routeDoc.proposed,
-          routeDoc.version,
-          routeDoc.changeSetId,
-          routeDoc.lastUpdated,
-          routeDoc.lastSurvey,
-          routeDoc.facts,
-          locationCandidateInfos,
-          routeDoc.unexpectedNodeIds,
-          routeDoc.unexpectedRelationIds,
-          routeDoc.members,
-          routeDoc.nameDerivedFromNodes,
-          routeDoc.nodes,
-          routeBounds,
-          routeDoc.routeIds
-        )
-        RouteDetailsPage(data, networkReferences, changeCount)
       }
+
+      val routeBounds = Util.mergeBounds(routeDoc.segments.map(_.bounds))
+
+      // TODO add routeIds, parent routes (reverse hierarchy), add children
+      val data = RouteDetailsPageData(
+        routeDoc._id,
+        routeDoc.labels.contains(Label.active),
+        routeDoc.summary,
+        routeDoc.proposed,
+        routeDoc.version,
+        routeDoc.changeSetId,
+        routeDoc.lastUpdated,
+        routeDoc.lastSurvey,
+        routeDoc.facts,
+        locationCandidateInfos,
+        routeDoc.unexpectedNodeIds,
+        routeDoc.unexpectedRelationIds,
+        routeDoc.members,
+        routeDoc.nameDerivedFromNodes,
+        routeDoc.nodes,
+        routeDoc.bounds,
+        routeDoc.routeIds
+      )
+      RouteDetailsPage(data, networkReferences, changeCount)
     }
   }
 }

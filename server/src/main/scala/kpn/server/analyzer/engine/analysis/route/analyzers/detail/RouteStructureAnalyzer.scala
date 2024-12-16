@@ -88,8 +88,8 @@ class RouteStructureAnalyzer(context: RouteDetailAnalysisContext) {
   }
 
   private def isSingleWayRoundabout: Boolean = {
-    if (context.segments.sizeIs == 1) {
-      val elements = context.segments.head.elements
+    if (context.analysisSegments.sizeIs == 1) {
+      val elements = context.analysisSegments.head.elements
       if (elements.sizeIs == 1) {
         val fragments = elements.head.fragments
         if (fragments.sizeIs == 1) {

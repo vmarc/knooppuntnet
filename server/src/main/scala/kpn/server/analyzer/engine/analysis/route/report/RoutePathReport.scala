@@ -24,7 +24,7 @@ class RoutePathReport(context: RouteDetailAnalysisContext) {
   }
 
   private def paths(): String = {
-    context.segments.flatMap(_.elements).map { element =>
+    context.analysisSegments.flatMap(_.elements).map { element =>
       val fromNode = element.fromNetworkNode
       val toNode = element.toNetworkNode
       val from = fromNode.map(n => s"${ReportUtil.osmNodeLink(n.node.id)}(${n.name})").getOrElse("")

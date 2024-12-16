@@ -114,7 +114,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     sortedRouteIds.zipWithIndex.foreach { case (relationId, index) =>
       Log.context(s"${index + 1}/$sortedRouteIdsSize route=$relationId") {
         try {
-          config.routeRepository.findRouteDetailById(relationId) match {
+          config.routeDetailRepository.findById(relationId) match {
             case None => log.error(s"could not find route details")
             case Some(routeDetailDoc) =>
               config.routeMainAnalyzer.analyze(routeDetailDoc) match {
@@ -136,7 +136,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
       case None => Seq.empty
       case Some(context) =>
         val routeDetailDoc = new RouteDetailDocBuilder(context).build()
-        config.routeRepository.saveRouteDetail(routeDetailDoc)
+        config.routeDetailRepository.save(routeDetailDoc)
         context.tileDatas.foreach { tileData =>
           val doc = RouteTileDoc(
             _id = s"${tileData.name}-${context.relation.id}",

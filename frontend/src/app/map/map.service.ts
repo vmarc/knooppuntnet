@@ -113,7 +113,9 @@ export class MapService {
 
   focusElements(bounds: Bounds, elements: FocusElements) {
     if (this._map !== null) {
-      this._map.getView().fit(Util.toExtent(bounds, 0.1));
+      if (bounds) {
+        this._map.getView().fit(Util.toExtent(bounds, 0.1));
+      }
       this.state.map.updateFocusElements(elements);
     }
   }

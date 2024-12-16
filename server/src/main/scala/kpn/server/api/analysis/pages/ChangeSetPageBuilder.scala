@@ -26,7 +26,7 @@ import kpn.server.config.RequestContext
 import kpn.server.repository.ChangeSetInfoRepository
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.RouteRepository
+import kpn.server.repository.RouteDetailRepository
 import org.springframework.stereotype.Component
 
 @Component
@@ -34,9 +34,9 @@ class ChangeSetPageBuilder(
   changeSetInfoRepository: ChangeSetInfoRepository,
   changeSetRepository: ChangeSetRepository,
   nodeRepository: NodeRepository,
-  routeRepository: RouteRepository,
+  routeDetailRepository: RouteDetailRepository,
   locationService: LocationService
-)  {
+) {
 
   def build(language: Language, changeSetId: Long, replicationId: Option[ReplicationId]): Option[ChangeSetPage] = {
 
@@ -105,7 +105,7 @@ class ChangeSetPageBuilder(
   private def findKnownElements(elements: ReferencedElements): KnownElements = {
     KnownElements(
       nodeIds = nodeRepository.filterKnown(elements.nodeIds),
-      routeIds = routeRepository.filterKnown(elements.routeIds)
+      routeIds = routeDetailRepository.filterKnown(elements.routeIds)
     )
   }
 
