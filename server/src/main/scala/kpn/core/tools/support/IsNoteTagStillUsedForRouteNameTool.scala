@@ -2,7 +2,7 @@ package kpn.core.tools.support
 
 import kpn.database.base.Database
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.analysis.route.analyzers.NoteTagAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.NoteTagAnalyzer
 
 object IsNoteTagStillUsedForRouteNameTool {
   def main(args: Array[String]): Unit = {

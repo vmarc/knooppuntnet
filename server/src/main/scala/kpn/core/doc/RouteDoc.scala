@@ -32,6 +32,7 @@ case class RouteDoc(
   locationAnalysis: RouteLocationAnalysis,
   segments: Seq[RouteSegment],
   paths: Seq[RoutePath],
+  routeIds: Seq[Long]
 ) extends WithId {
 
   def id: Long = summary.id

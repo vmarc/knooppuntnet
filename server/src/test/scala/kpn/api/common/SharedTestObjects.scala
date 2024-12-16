@@ -81,8 +81,8 @@ import kpn.core.doc.RouteDetailPath
 import kpn.core.doc.RouteDetailSegment
 import kpn.core.doc.RouteDetailSegmentElement
 import kpn.core.doc.RouteDoc
+import kpn.core.doc.RouteRelation
 import kpn.core.test.OverpassData
-import kpn.core.tools.next.domain.RouteRelation
 import kpn.database.actions.statistics.ChangeSetCount2
 import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.ElementIds
@@ -951,6 +951,7 @@ trait SharedTestObjects extends MockFactory {
     locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
     segments: Seq[RouteSegment] = Seq.empty,
     paths: Seq[RoutePath] = Seq.empty,
+    routeIds: Seq[Long] = Seq.empty,
   ): RouteDoc = {
     RouteDoc(
       summary.id,
@@ -970,7 +971,8 @@ trait SharedTestObjects extends MockFactory {
       analysis,
       locationAnalysis,
       segments,
-      paths
+      paths,
+      routeIds
     )
   }
 
@@ -1525,5 +1527,14 @@ trait SharedTestObjects extends MockFactory {
   def setupRouteStructure(configuration: MonitorUpdaterConfiguration, overpassData: OverpassData, relationId: Long): Unit = {
     val monitorRouteRelation = MonitorRouteRelation.from(new DataBuilder(overpassData.rawData).data.relations(relationId), None)
     (configuration.monitorRouteStructureLoader.load _).when(None, relationId).returns(Some(monitorRouteRelation))
+  }
+
+  def newRouteRelation(relationId: Long, relations: Seq[RouteRelation] = Seq.empty): RouteRelation = {
+    RouteRelation(
+      relationId,
+      "",
+      None,
+      relations
+    )
   }
 }

@@ -6,7 +6,7 @@ import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
-import kpn.core.tools.next.domain.RouteRelation
+import kpn.core.doc.RouteRelation
 import kpn.server.overpass.OverpassRepository
 
 class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends OverpassRepository {

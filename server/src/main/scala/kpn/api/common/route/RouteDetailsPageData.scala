@@ -24,5 +24,6 @@ case class RouteDetailsPageData(
   members: Seq[RouteMemberInfo],
   nameDerivedFromNodes: Boolean,
   nodes: RouteNodes,
-  bounds: Bounds
+  bounds: Bounds,
+  routeIds: Seq[Long]
 )

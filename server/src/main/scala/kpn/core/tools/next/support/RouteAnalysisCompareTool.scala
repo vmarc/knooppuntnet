@@ -3,10 +3,10 @@ package kpn.core.tools.next.support
 import kpn.api.custom.Relation
 import kpn.core.doc.OldRouteDoc
 import kpn.core.doc.RouteDetailDoc
+import kpn.core.doc.RouteRelation
 import kpn.core.tools.analysis.AnalysisStartConfiguration
 import kpn.core.tools.analysis.AnalysisStartToolOptions
 import kpn.core.tools.config.Dirs
-import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.tools.next.support.compare.CompareFacts
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder

@@ -6,6 +6,7 @@ import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
 import kpn.core.data.DataBuilder
+import kpn.core.doc.RouteRelation
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQuery
 import kpn.core.overpass.OverpassQueryExecutor
@@ -17,7 +18,6 @@ import kpn.core.overpass.QueryRelationStructure
 import kpn.core.overpass.QueryRelationTopLevel
 import kpn.core.overpass.QueryRelations
 import kpn.core.overpass.QueryRouteIds
-import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
 import org.springframework.stereotype.Component
 import org.xml.sax.SAXParseException

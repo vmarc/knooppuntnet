@@ -41,6 +41,7 @@ class RouteDetailsPageBuilder(
 
         val routeBounds = Util.mergeBounds(routeDoc.segments.map(_.bounds))
 
+        // TODO add routeIds, parent routes (reverse hierarchy), add children
         val data = RouteDetailsPageData(
           routeDoc._id,
           routeDoc.labels.contains(Label.active),
@@ -57,7 +58,8 @@ class RouteDetailsPageBuilder(
           routeDoc.members,
           routeDoc.nameDerivedFromNodes,
           routeDoc.nodes,
-          routeBounds
+          routeBounds,
+          routeDoc.routeIds
         )
         RouteDetailsPage(data, networkReferences, changeCount)
       }

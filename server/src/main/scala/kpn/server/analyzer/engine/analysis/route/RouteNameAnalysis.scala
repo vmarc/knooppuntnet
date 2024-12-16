@@ -16,11 +16,11 @@ case class RouteNameAnalysis(
   def hasStandardNodeNames: Boolean = {
     startNodeName match {
       case None => false
-      case Some(startNodeName) =>
+      case Some(startNodeNameValue) =>
         endNodeName match {
           case None => false
-          case Some(endNodeName) =>
-            startNodeName.forall(_.isDigit) && endNodeName.forall(_.isDigit)
+          case Some(endNodeNameValue) =>
+            startNodeNameValue.forall(_.isDigit) && endNodeNameValue.forall(_.isDigit)
         }
     }
   }

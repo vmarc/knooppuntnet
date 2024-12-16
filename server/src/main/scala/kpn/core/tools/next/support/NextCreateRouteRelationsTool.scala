@@ -3,6 +3,7 @@ package kpn.core.tools.next.support
 import kpn.api.custom.Timestamp
 import kpn.core.data.Data
 import kpn.core.data.DataBuilder
+import kpn.core.doc.RouteRelation
 import kpn.core.loadOld.Parser
 import kpn.core.overpass.OverpassQueryExecutor
 import kpn.core.overpass.OverpassQueryExecutorRemoteImpl
@@ -11,7 +12,6 @@ import kpn.core.tools.config.Dirs
 import kpn.core.tools.next.database.NextDatabase
 import kpn.core.tools.next.database.NextDatabaseImpl
 import kpn.core.tools.next.domain.NextRouteRelation
-import kpn.core.tools.next.domain.RouteRelation
 import kpn.core.util.Log
 import kpn.database.util.Mongo.codecRegistry
 import kpn.server.monitor.route.update.RelationTopLevelDataBuilder

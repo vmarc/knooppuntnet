@@ -26,4 +26,5 @@ export interface RouteDetailsPageData {
   readonly nameDerivedFromNodes: boolean;
   readonly nodes: RouteNodes;
   readonly bounds: Bounds;
+  readonly routeIds: number[];
 }

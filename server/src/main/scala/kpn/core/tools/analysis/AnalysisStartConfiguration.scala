@@ -34,9 +34,9 @@ import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl

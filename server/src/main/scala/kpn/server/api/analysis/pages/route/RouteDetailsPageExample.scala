@@ -120,7 +120,8 @@ object RouteDetailsPageExample {
       ),
       nameDerivedFromNodes = true,
       nodes,
-      Bounds()
+      Bounds(),
+      Seq(1L)
     )
   }
 }

@@ -36,7 +36,7 @@ export class RouteDetailsPageService {
       const route = response.result?.route;
 
       if (route) {
-        const routeId = route.id.toString();
+        const routeIds = route.routeIds.map((id) => id.toString());
         const nodeIds = new Array<string>();
         if (route.nodes.startNode) {
           nodeIds.push(route.nodes.startNode.nodeId.toString());
@@ -54,8 +54,8 @@ export class RouteDetailsPageService {
           .map((node) => node.nodeId.toString())
           .forEach((nodeId) => nodeIds.push(nodeId));
         const elements: FocusElements = {
-          nodeIds: nodeIds,
-          routeIds: [routeId],
+          nodeIds,
+          routeIds,
         };
         this.mapService.focusElements(route.bounds, elements);
       }

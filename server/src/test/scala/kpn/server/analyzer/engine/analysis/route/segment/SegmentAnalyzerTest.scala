@@ -5,8 +5,8 @@ import kpn.api.custom.Tags
 import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteNameAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 class SegmentAnalyzerTest extends UnitTest {

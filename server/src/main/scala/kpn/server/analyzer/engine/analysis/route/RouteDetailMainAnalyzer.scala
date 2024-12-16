@@ -9,39 +9,39 @@ import kpn.api.custom.Tag
 import kpn.core.analysis.Facts
 import kpn.core.analysis.RouteMember
 import kpn.core.analysis.RouteMemberWay
-import kpn.core.tools.next.domain.RouteRelation
+import kpn.core.doc.RouteRelation
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.analyzers.ExpectedNameRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.FactCombinationAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.FixmeTodoRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.GeometryDigestAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteOkRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.IncompleteRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.ProposedAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteContextAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteEdgeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteElementsAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLabelsAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLastSurveyAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteMemberAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNameAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNetworkTypeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteNodesAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteOneWayAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteScopeAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteStructureAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTagAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.SuspiciousWaysRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedNodeRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.UnexpectedRelationRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.WithoutWaysRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.ExpectedNameRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.FactCombinationAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.FixmeTodoRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.GeometryDigestAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.IncompleteOkRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.IncompleteRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.ProposedAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteContextAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteDetailAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteEdgeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteElementsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLabelsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLastSurveyAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLinkAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteMemberAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteNameAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteNetworkTypeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteNodesAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteOneWayAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteScopeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteSegmentAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteStructureAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTagAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.SuspiciousWaysRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.UnexpectedNodeRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.UnexpectedRelationRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.WithoutWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
-import kpn.server.analyzer.engine.analysis.route.structure.RouteLinkAnalyzer
-import kpn.server.analyzer.engine.analysis.route.structure.RouteSegmentAnalyzer
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
@@ -64,7 +64,7 @@ class RouteDetailMainAnalyzer(
 
       val context = RouteDetailAnalysisContext(relation, hierarchy, traceEnabled = traceEnabled)
 
-      val analyzers: List[RouteAnalyzer] = List(
+      val analyzers: List[RouteDetailAnalyzer] = List(
         RouteTagAnalyzer,
         RouteNetworkTypeAnalyzer,
         RouteScopeAnalyzer,
@@ -106,7 +106,7 @@ class RouteDetailMainAnalyzer(
   }
 
   @tailrec
-  private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteDetailAnalysisContext): Option[RouteDetailAnalysisContext] = {
+  private def doAnalyze(analyzers: List[RouteDetailAnalyzer], context: RouteDetailAnalysisContext): Option[RouteDetailAnalysisContext] = {
     if (context.abort) {
       None
     }

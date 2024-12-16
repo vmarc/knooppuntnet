@@ -5,7 +5,8 @@ import kpn.api.common.route.RouteSegment
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteDocAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteIdsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import org.springframework.stereotype.Component
 
@@ -17,7 +18,8 @@ class RouteMainAnalyzer {
   def analyze(routeDetailDoc: RouteDetailDoc): Option[RouteDoc] = {
     Log.context(f"route=${routeDetailDoc.summary.id}%07d") {
       val context = RouteAnalysisContext(routeDetailDoc)
-      val analyzers: List[RouteDocAnalyzer] = List(
+      val analyzers: List[RouteAnalyzer] = List(
+        RouteIdsAnalyzer,
         // RouteLabelsAnalyzer, // this always should be the last analyzer
       )
       doAnalyze(analyzers, context)
@@ -25,7 +27,7 @@ class RouteMainAnalyzer {
   }
 
   @tailrec
-  private def doAnalyze(analyzers: List[RouteDocAnalyzer], context: RouteAnalysisContext): Option[RouteDoc] = {
+  private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): Option[RouteDoc] = {
     if (analyzers.isEmpty) {
       val segments = context.routeDetailDoc.segments.map { segment =>
         RouteSegment(
@@ -65,7 +67,8 @@ class RouteMainAnalyzer {
           context.routeDetailDoc.analysis,
           context.routeDetailDoc.locationAnalysis,
           segments,
-          paths
+          paths,
+          context.routeIds
         )
       )
     }

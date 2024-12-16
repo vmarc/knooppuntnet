@@ -4,9 +4,9 @@ import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Relation
 import kpn.core.data.Data
 import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteCountryAnalyzerMock
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteLocationAnalyzerMock
-import kpn.server.analyzer.engine.analysis.route.analyzers.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAnalyzerMock
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzerMock
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.structure.RouteDetailAnalysisTestContext
 import kpn.server.analyzer.engine.analysis.route.structure.StructureElementAnalyzer
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl

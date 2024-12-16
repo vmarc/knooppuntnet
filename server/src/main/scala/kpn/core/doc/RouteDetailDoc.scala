@@ -11,7 +11,6 @@ import kpn.api.common.route.RouteNodes
 import kpn.api.custom.Day
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
-import kpn.core.tools.next.domain.RouteRelation
 import kpn.server.analyzer.engine.context.ElementIds
 
 case class RouteDetailDoc(

@@ -10,7 +10,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.RouteMember
-import kpn.core.tools.next.domain.RouteRelation
+import kpn.core.doc.RouteRelation
 import kpn.server.analyzer.engine.analysis.route.RouteNameAnalysis
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.context.PreconditionMissingException

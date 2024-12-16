@@ -9,7 +9,7 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Relation
 import kpn.core.analysis.Facts
 import kpn.core.doc.RouteDoc
-import kpn.core.tools.next.domain.RouteRelation
+import kpn.core.doc.RouteRelation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
 
