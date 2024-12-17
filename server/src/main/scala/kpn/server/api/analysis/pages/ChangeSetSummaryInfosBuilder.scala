@@ -5,9 +5,7 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ChangeSetSummaryInfo
 import kpn.api.common.ChangeSetSummaryLocationInfo
 import kpn.api.common.ChangeSetSummaryNetworkInfo
-import kpn.api.common.LOCATION
 import kpn.api.common.Language
-import kpn.api.common.NETWORK
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.server.analyzer.engine.analysis.location.LocationService
 import kpn.server.repository.ChangeSetInfoRepository
@@ -31,7 +29,7 @@ class ChangeSetSummaryInfosBuilder(
       val rowIndex = parameters.pageSize * parameters.pageIndex + index
       val comment = changeSetInfos.find(s => s.id == summary.key.changeSetId).flatMap(_.tagValue("comment"))
       strategy match {
-        case LOCATION =>
+        case AnalysisStrategy.Location =>
 
           val changes = summary.locationChanges.map { locationChanges =>
             val locationNames = locationChanges.locationNames.head.toUpperCase +: locationChanges.locationNames.drop(1).map(locationName => locationService.name(language, locationName))
@@ -52,7 +50,7 @@ class ChangeSetSummaryInfosBuilder(
             impact = summary.impact,
           )
 
-        case NETWORK =>
+        case AnalysisStrategy.Network =>
 
           ChangeSetSummaryInfo(
             rowIndex = rowIndex,

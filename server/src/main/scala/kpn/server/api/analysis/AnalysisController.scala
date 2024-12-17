@@ -1,10 +1,10 @@
 package kpn.server.api.analysis
 
 import kpn.api.common.AnalysisStrategy
+import kpn.api.common.AnalysisStrategy.Location
 import kpn.api.common.ChangesPage
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.LOCATION
 import kpn.api.common.Language
 import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
@@ -371,7 +371,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   }
 
   private def toAnalysisStrategy(analysisStrategy: String): AnalysisStrategy = {
-    AnalysisStrategy.all.find(_.toString.toLowerCase == analysisStrategy).getOrElse(LOCATION)
+    AnalysisStrategy.withNameOption(analysisStrategy).getOrElse(Location)
   }
 
   private def notFound[T](): ApiResponse[T] = {

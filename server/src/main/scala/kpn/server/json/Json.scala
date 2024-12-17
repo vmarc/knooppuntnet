@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector
 import com.fasterxml.jackson.module.scala.DefaultScalaModule
 import kpn.api.base.ObjectId
+import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.ElementChangeType
@@ -123,6 +124,9 @@ object Json {
 
     b.deserializerByType(classOf[ElementChangeType], new ElementChangeTypeJsonDeserializer())
     b.serializerByType(classOf[ElementChangeType], new ElementChangeTypeJsonSerializer())
+
+    b.deserializerByType(classOf[AnalysisStrategy], new AnalysisStrategyJsonDeserializer())
+    b.serializerByType(classOf[AnalysisStrategy], new AnalysisStrategyJsonSerializer())
 
     b.deserializerByType(classOf[CoordinateArray], new CoordinateArrayJsonDeserializer())
 

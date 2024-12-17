@@ -1,11 +1,16 @@
 package kpn.api.common
 
-sealed trait AnalysisStrategy
+import enumeratum.Enum
+import enumeratum.EnumEntry
+import enumeratum.EnumEntry.Hyphencase
 
-case object LOCATION extends AnalysisStrategy
+sealed trait AnalysisStrategy extends EnumEntry with Hyphencase
 
-case object NETWORK extends AnalysisStrategy
+object AnalysisStrategy extends Enum[AnalysisStrategy] {
 
-object AnalysisStrategy {
-  val all: Seq[AnalysisStrategy] = Seq(LOCATION, NETWORK)
+  val values: IndexedSeq[AnalysisStrategy] = findValues
+
+  final case object Location extends AnalysisStrategy
+
+  final case object Network extends AnalysisStrategy
 }
