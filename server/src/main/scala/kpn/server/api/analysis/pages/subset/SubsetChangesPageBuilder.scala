@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.subset
 
 import kpn.api.common.ChangeSetSummary
-import kpn.api.common.EN
+import kpn.api.common.Language
 import kpn.api.common.NETWORK
 import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
@@ -38,7 +38,7 @@ class SubsetChangesPageBuilder(
       ChangeSetSummarySubsetFilter.filter(changeSetSummary, subset)
     }
     val changeSetSummaryInfos = changeSetSummaryInfosBuilder.toChangeSetSummaryInfos(
-      EN,
+      Language.EN,
       NETWORK,
       parameters,
       changeSetSummariesWithSubsetRelatedChangesOnly

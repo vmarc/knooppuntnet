@@ -1,15 +1,20 @@
 package kpn.api.common
 
-sealed trait Language
+import enumeratum.Enum
+import enumeratum.EnumEntry
+import enumeratum.EnumEntry.Hyphencase
 
-case object EN extends Language
+sealed trait Language extends EnumEntry with Hyphencase
 
-case object NL extends Language
+object Language extends Enum[Language] {
 
-case object DE extends Language
+  val values: IndexedSeq[Language] = findValues
 
-case object FR extends Language
+  final case object EN extends Language
 
-object Languages {
-  val all: Seq[Language] = Seq(EN, NL, DE, FR)
+  final case object NL extends Language
+
+  final case object DE extends Language
+
+  final case object FR extends Language
 }

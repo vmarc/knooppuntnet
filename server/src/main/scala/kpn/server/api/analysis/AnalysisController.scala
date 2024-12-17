@@ -3,11 +3,9 @@ package kpn.server.api.analysis
 import kpn.api.common.AnalysisStrategy
 import kpn.api.common.ChangesPage
 import kpn.api.common.Country
-import kpn.api.common.EN
 import kpn.api.common.Fact
 import kpn.api.common.LOCATION
 import kpn.api.common.Language
-import kpn.api.common.Languages
 import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
 import kpn.api.common.SearchResponse
@@ -369,7 +367,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   }
 
   private def toLanguage(language: String): Language = {
-    Languages.all.find(_.toString.toLowerCase == language).getOrElse(EN)
+    Language.withNameOption(language).getOrElse(Language.EN)
   }
 
   private def toAnalysisStrategy(analysisStrategy: String): AnalysisStrategy = {

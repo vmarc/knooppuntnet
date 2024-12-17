@@ -1,9 +1,7 @@
 package kpn.server.api.poi
 
 import kpn.api.common.Country
-import kpn.api.common.EN
 import kpn.api.common.Language
-import kpn.api.common.Languages
 import kpn.api.common.PoiDetail
 import kpn.api.common.poi.LocationPoiParameters
 import kpn.api.common.poi.LocationPoiSummaryPage
@@ -76,6 +74,6 @@ class PoiController(poiFacade: PoiFacade) {
   }
 
   private def toLanguage(language: String): Language = {
-    Languages.all.find(_.toString.toLowerCase == language).getOrElse(EN)
+    Language.withNameOption(language).getOrElse(Language.EN)
   }
 }

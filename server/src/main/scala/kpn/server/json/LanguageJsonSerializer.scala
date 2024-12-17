@@ -7,6 +7,6 @@ import kpn.api.common.Language
 
 class LanguageJsonSerializer extends JsonSerializer[Language] {
   override def serialize(language: Language, jsonGenerator: JsonGenerator, serializerProvider: SerializerProvider): Unit = {
-    jsonGenerator.writeString(language.toString.toLowerCase)
+    jsonGenerator.writeString(language.entryName)
   }
 }

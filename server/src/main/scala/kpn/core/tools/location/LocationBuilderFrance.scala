@@ -1,7 +1,6 @@
 package kpn.core.tools.location
 
-import kpn.api.common.DE
-import kpn.api.common.NL
+import kpn.api.common.Language
 import kpn.api.custom.Tags
 import kpn.core.doc.LocationName
 import kpn.core.doc.LocationPath
@@ -48,8 +47,8 @@ class LocationBuilderFrance(dir: String) {
         countryLocationJson.relationId,
         "France",
         Seq(
-          LocationName(NL, "Frankrijk"),
-          LocationName(DE, "Frankreich")
+          LocationName(Language.NL, "Frankrijk"),
+          LocationName(Language.DE, "Frankreich")
         ),
         Tags.from(countryLocationJson.tags),
         LocationGeometry(countryLocationJson.geometry)

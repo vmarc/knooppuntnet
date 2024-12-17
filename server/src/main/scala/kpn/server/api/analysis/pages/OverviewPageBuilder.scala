@@ -1,6 +1,5 @@
 package kpn.server.api.analysis.pages
 
-import kpn.api.common.FR
 import kpn.api.common.Language
 import kpn.api.common.statistics.StatisticValue
 import kpn.api.common.statistics.StatisticValues
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class OverviewPageBuilder(statisticsRepository: StatisticsRepository) {
-    
+
   def build(language: Language): Option[Seq[StatisticValues]] = {
     val values = statisticsRepository.statisticValues()
     Some(
@@ -88,6 +87,6 @@ class OverviewPageBuilder(statisticsRepository: StatisticsRepository) {
 
   private def formatted(language: Language, value: Long): String = {
     val f = Formatter.number(value)
-    if (FR == language) f.replaceAll("\\.", " ") else f
+    if (Language.FR == language) f.replaceAll("\\.", " ") else f
   }
 }

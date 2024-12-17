@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.analysis.location
 
 import kpn.api.common.Language
-import kpn.api.common.Languages
 import kpn.api.common.LocationInfo
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.location.Location
@@ -119,7 +118,7 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
     locations.find(_.name(language) == localLocationName) match {
       case Some(locationDefinition) => Some(locationDefinition)
       case None =>
-        val definitions = Languages.all.filterNot(_ == language).flatMap { otherLanguage =>
+        val definitions = Language.values.filterNot(_ == language).flatMap { otherLanguage =>
           locations.find(_.name(otherLanguage) == localLocationName)
         }
         definitions.headOption
