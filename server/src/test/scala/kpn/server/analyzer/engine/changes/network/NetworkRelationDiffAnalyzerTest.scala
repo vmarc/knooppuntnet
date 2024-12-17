@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes.network
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
 import kpn.core.util.UnitTest
@@ -11,15 +12,15 @@ class NetworkRelationDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val before = newRawRelation(
       members = Seq(
-        RawMember("node", 1, None),
-        RawMember("node", 3, None),
+        RawMember(MemberType.Node, 1, None),
+        RawMember(MemberType.Node, 3, None),
       )
     )
 
     val after = newRawRelation(
       members = Seq(
-        RawMember("node", 2, None),
-        RawMember("node", 3, Some("connection"))
+        RawMember(MemberType.Node, 2, None),
+        RawMember(MemberType.Node, 3, Some("connection"))
       )
     )
 
@@ -38,13 +39,13 @@ class NetworkRelationDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val before = newRawRelation(
       members = Seq(
-        RawMember("way", 1, None),
+        RawMember(MemberType.Way, 1, None),
       )
     )
 
     val after = newRawRelation(
       members = Seq(
-        RawMember("way", 2, None),
+        RawMember(MemberType.Way, 2, None),
       )
     )
 
@@ -62,15 +63,15 @@ class NetworkRelationDiffAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val before = newRawRelation(
       members = Seq(
-        RawMember("relation", 1, None),
-        RawMember("relation", 3, None),
+        RawMember(MemberType.Relation, 1, None),
+        RawMember(MemberType.Relation, 3, None),
       )
     )
 
     val after = newRawRelation(
       members = Seq(
-        RawMember("relation", 2, None),
-        RawMember("relation", 3, Some("connection"))
+        RawMember(MemberType.Relation, 2, None),
+        RawMember(MemberType.Relation, 3, Some("connection"))
       )
     )
 

@@ -7,7 +7,7 @@ case class WayMember(way: Way, role: Option[String]) extends Member {
 
   def toRaw: RawMember = {
     RawMember(
-      "way",
+      MemberType.Way,
       way.id,
       role
     )

@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.network.info.analyzers
 import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 import kpn.core.doc.NetworkDoc
@@ -172,11 +173,11 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     //      relation(
     //        1,
     //        Seq(
-    //          newMember("node", 1001),
-    //          newMember("node", 1002),
-    //          newMember("node", 1003),
-    //          newMember("node", 1004),
-    //          newMember("node", 1005)
+    //          newMember(MemberType.node, 1001),
+    //          newMember(MemberType.node, 1002),
+    //          newMember(MemberType.node, 1003),
+    //          newMember(MemberType.node, 1004),
+    //          newMember(MemberType.node, 1005)
     //        )
     //      )
     //    }
@@ -232,11 +233,11 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
       relation(
         1,
         Seq(
-          newMember("node", 1001),
-          newMember("node", 1002),
-          newMember("node", 1003),
-          newMember("node", 1004),
-          newMember("node", 1005)
+          newMember(MemberType.Node, 1001),
+          newMember(MemberType.Node, 1002),
+          newMember(MemberType.Node, 1003),
+          newMember(MemberType.Node, 1004),
+          newMember(MemberType.Node, 1005)
         ),
         tags = Tags.from("state" -> "proposed")
       )
@@ -254,7 +255,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
       relation(
         1,
         Seq(
-          newMember("way", 1)
+          newMember(MemberType.Way, 1)
         )
       )
     }
@@ -273,8 +274,8 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
       relation(
         1,
         Seq(
-          newMember("relation", 10),
-          newMember("relation", 20)
+          newMember(MemberType.Relation, 10),
+          newMember(MemberType.Relation, 20)
         )
       )
     }
@@ -294,9 +295,9 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
       relation(
         1,
         Seq(
-          newMember("relation", 10, "forward"),
-          newMember("relation", 20, "backward"),
-          newMember("relation", 30)
+          newMember(MemberType.Relation, 10, "forward"),
+          newMember(MemberType.Relation, 20, "backward"),
+          newMember(MemberType.Relation, 30)
         )
       )
     }
@@ -322,12 +323,12 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
       relation(
         1,
         Seq(
-          newMember("node", 1001),
-          newMember("node", 1002),
-          newMember("node", 1003),
-          newMember("node", 1004),
-          newMember("node", 1005),
-          newMember("node", 1006)
+          newMember(MemberType.Node, 1001),
+          newMember(MemberType.Node, 1002),
+          newMember(MemberType.Node, 1003),
+          newMember(MemberType.Node, 1004),
+          newMember(MemberType.Node, 1005),
+          newMember(MemberType.Node, 1006)
         )
       )
     }

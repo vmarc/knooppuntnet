@@ -1,6 +1,7 @@
 package kpn.core.history
 
 import kpn.api.common.Fact
+import kpn.api.common.data.MemberType
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
@@ -27,12 +28,12 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101),
-          newMember("way", 102)
+          newMember(MemberType.Way, 101),
+          newMember(MemberType.Way, 102)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     val after = new TestData() {
@@ -47,11 +48,11 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     //    val analysis = new RouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
@@ -72,11 +73,11 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     val after = new TestData() {
@@ -91,12 +92,12 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101),
-          newMember("way", 102)
+          newMember(MemberType.Way, 101),
+          newMember(MemberType.Way, 102)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
@@ -115,11 +116,11 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     val after = new TestData() {
@@ -132,11 +133,11 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
@@ -155,11 +156,11 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     val after = new TestData() {
@@ -172,13 +173,12 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "02-01",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
-
 
     val expectedNameDiff = Some(RouteNameDiff("01-02", "02-01"))
 
@@ -211,11 +211,11 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11, "role")))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11, "role")))
     }
 
     val after = new TestData() {
@@ -228,11 +228,11 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11, "connection")))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11, "connection")))
     }
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
@@ -251,11 +251,11 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     val after = new TestData() {
@@ -270,12 +270,12 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101),
-          newMember("relation", 12)
+          newMember(MemberType.Way, 101),
+          newMember(MemberType.Relation, 12)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     val expectedDiff = FactDiffs(
@@ -304,13 +304,13 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-04",
         Seq(
-          newMember("way", 101),
-          newMember("way", 102),
-          newMember("way", 103)
+          newMember(MemberType.Way, 101),
+          newMember(MemberType.Way, 102),
+          newMember(MemberType.Way, 103)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     val after = new TestData() {
@@ -327,13 +327,13 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-04",
         Seq(
-          newMember("way", 101),
-          newMember("way", 103),
-          newMember("way", 102)
+          newMember(MemberType.Way, 101),
+          newMember(MemberType.Way, 103),
+          newMember(MemberType.Way, 102)
         )
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
@@ -352,12 +352,12 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         ),
         Tags.from("a" -> "1")
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     val after = new TestData() {
@@ -370,12 +370,12 @@ class RouteDiffAnalyzerTest extends UnitTest with MockFactory {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         ),
         Tags.from("a" -> "2")
       )
 
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }
 
     //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis

@@ -8,6 +8,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
@@ -22,11 +23,11 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
       .networkNode(1003, "03") // referenced in network2
       .networkNode(1004, "04") // referenced in orphan route
       .way(101, 1001, 1002) // route 11 only referenced in network 1
-      .route(11, "01-02", Seq(newMember("way", 101)))
+      .route(11, "01-02", Seq(newMember(MemberType.Way, 101)))
       .way(102, 1001, 1003) // route 12 referenced in network 1 and network 2
-      .route(12, "01-03", Seq(newMember("way", 102)))
-      .networkRelation(1, "network1", Seq(newMember("relation", 11), newMember("relation", 12)))
-      .networkRelation(2, "network2", Seq(newMember("relation", 12)))
+      .route(12, "01-03", Seq(newMember(MemberType.Way, 102)))
+      .networkRelation(1, "network1", Seq(newMember(MemberType.Relation, 11), newMember(MemberType.Relation, 12)))
+      .networkRelation(2, "network2", Seq(newMember(MemberType.Relation, 12)))
 
     val dataAfter = OverpassData()
       .networkNode(1001, "01")
@@ -34,10 +35,10 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
       .networkNode(1003, "03")
       .networkNode(1004, "04")
       .way(101, 1001, 1002)
-      .route(11, "01-02", Seq(newMember("way", 101))) // route has become orphan
+      .route(11, "01-02", Seq(newMember(MemberType.Way, 101))) // route has become orphan
       .way(102, 1001, 1003) // route 12 still referenced in network 2
-      .route(12, "01-03", Seq(newMember("way", 102)))
-      .networkRelation(2, "network2", Seq(newMember("relation", 12)))
+      .route(12, "01-03", Seq(newMember(MemberType.Way, 102)))
+      .networkRelation(2, "network2", Seq(newMember(MemberType.Relation, 12)))
 
     testIntegration(dataBefore, dataAfter) {
 

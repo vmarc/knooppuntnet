@@ -1,5 +1,6 @@
 package kpn.core.loadOld
 
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
@@ -62,7 +63,7 @@ class Parser(full: Boolean = true) {
       val timestamp = if (full) timestampIn(r) else now
       val changeSetId = if (full) (r \ "@changeset").text.toLong else 0
       val members = (r \ "member").map { t =>
-        val memberType = (t \ "@type").text
+        val memberType = MemberType.withName((t \ "@type").text)
         val ref = (t \ "@ref").text.toLong
         val role = (t \ "@role").text
         val roleOption = if (role == "") None else Some(role)

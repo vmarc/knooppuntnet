@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
@@ -76,16 +77,16 @@ class StructureTestSetupBuilder extends SharedTestObjects {
   private def memberWay(wayId: Long, tags: Seq[Tag], role: String, nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
     way(wayId, tags, nodeIds: _*)
-    member("way", wayId, role)
+    member(MemberType.Way, wayId, role)
   }
 
   def memberNode(nodeId: Long, role: String = ""): RawMember = {
-    member("node", nodeId, role)
+    member(MemberType.Node, nodeId, role)
   }
 
-  def roundAboutTags = Tags.from("highway" -> "road", "junction" -> "roundabout")
+  def roundAboutTags: Seq[Tag] = Tags.from("highway" -> "road", "junction" -> "roundabout")
 
-  private def member(memberType: String, ref: Long, role: String = ""): RawMember = {
+  private def member(memberType: MemberType, ref: Long, role: String = ""): RawMember = {
     val m = RawMember(memberType, ref, if (role.nonEmpty) Some(role) else None)
     memberBuffer += m
     m

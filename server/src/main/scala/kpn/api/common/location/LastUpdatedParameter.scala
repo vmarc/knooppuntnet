@@ -2,8 +2,9 @@ package kpn.api.common.location
 
 import enumeratum.Enum
 import enumeratum.EnumEntry
+import enumeratum.EnumEntry.Hyphencase
 
-sealed trait LastUpdatedParameter extends EnumEntry
+sealed trait LastUpdatedParameter extends EnumEntry with Hyphencase
 
 object LastUpdatedParameter extends Enum[LastUpdatedParameter] {
 

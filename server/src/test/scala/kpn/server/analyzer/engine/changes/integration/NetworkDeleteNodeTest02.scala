@@ -8,6 +8,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
@@ -18,12 +19,12 @@ class NetworkDeleteNodeTest02 extends IntegrationTest {
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
-      .networkRelation(1, "network1", Seq(newMember("node", 1001)))
-      .networkRelation(2, "network2", Seq(newMember("node", 1001)))
+      .networkRelation(1, "network1", Seq(newMember(MemberType.Node, 1001)))
+      .networkRelation(2, "network2", Seq(newMember(MemberType.Node, 1001)))
 
     val dataAfter = OverpassData()
       .networkNode(1001, "01")
-      .networkRelation(2, "network2", Seq(newMember("node", 1001)))
+      .networkRelation(2, "network2", Seq(newMember(MemberType.Node, 1001)))
 
     testIntegration(dataBefore, dataAfter) {
 

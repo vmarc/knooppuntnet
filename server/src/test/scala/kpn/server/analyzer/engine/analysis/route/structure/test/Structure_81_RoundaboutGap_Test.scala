@@ -18,7 +18,7 @@ class Structure_81_RoundaboutGap_Test extends UnitTest {
       context.links,
       Seq(
         "1    p     n     loop     fp     bp     head     tail     d unconnected",
-        "2    p     n ■   loop     fp     bp     head     tail     d roundaboutright",
+        "2    p     n ■   loop     fp     bp     head     tail     d roundabout-right",
         "3    p ■   n     loop     fp     bp     head     tail     d forward",
         "4    p     n     loop     fp     bp     head     tail     d unconnected",
       )

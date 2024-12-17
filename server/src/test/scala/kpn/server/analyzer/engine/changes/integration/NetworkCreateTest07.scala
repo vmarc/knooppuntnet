@@ -9,6 +9,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
@@ -30,7 +31,7 @@ class NetworkCreateTest07 extends IntegrationTest {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
@@ -42,7 +43,7 @@ class NetworkCreateTest07 extends IntegrationTest {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         ),
         tags = Tags.from("newkey" -> "value")
       )
@@ -50,7 +51,7 @@ class NetworkCreateTest07 extends IntegrationTest {
         1,
         "name",
         Seq(
-          newMember("relation", 11)
+          newMember(MemberType.Relation, 11)
         )
       )
 

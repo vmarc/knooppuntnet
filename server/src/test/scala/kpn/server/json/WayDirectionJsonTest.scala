@@ -7,11 +7,11 @@ import kpn.core.util.UnitTest
 class WayDirectionJsonTest extends UnitTest {
 
   test("serializer") {
-    Json.string(Both) should equal(""""Both"""")
+    Json.string(Both) should equal(""""both"""")
   }
 
   test("deserializer") {
-    val wayDirection = Json.value(""""Both"""", classOf[WayDirection])
+    val wayDirection = Json.value(""""both"""", classOf[WayDirection])
     wayDirection should equal(Both)
   }
 }

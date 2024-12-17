@@ -11,6 +11,7 @@ import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
+import kpn.api.common.data.MemberType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
@@ -28,7 +29,7 @@ class RouteCreateTest01 extends IntegrationTest {
       .way(101, 1001, 1002)
       .route(11, "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 

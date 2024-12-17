@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -286,8 +287,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
           "name" -> "main-relation"
         ),
         members = Seq(
-          newMember("relation", 11),
-          newMember("relation", 12)
+          newMember(MemberType.Relation, 11),
+          newMember(MemberType.Relation, 12)
         )
       )
       .relation(
@@ -320,8 +321,8 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
           "name" -> "main-relation"
         ),
         members = Seq(
-          newMember("relation", 11),
-          newMember("relation", 12),
+          newMember(MemberType.Relation, 11),
+          newMember(MemberType.Relation, 12),
         )
       )
       .relation(
@@ -330,7 +331,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
           "name" -> "sub-relation-1"
         ),
         members = Seq(
-          newMember("way", 101),
+          newMember(MemberType.Way, 101),
         )
       )
       .relation(
@@ -339,7 +340,7 @@ class MonitorUpdaterTest04_osm_add_super_route extends UnitTest with BeforeAndAf
           "name" -> "sub-relation-2"
         ),
         members = Seq(
-          newMember("way", 102),
+          newMember(MemberType.Way, 102),
         )
       )
 

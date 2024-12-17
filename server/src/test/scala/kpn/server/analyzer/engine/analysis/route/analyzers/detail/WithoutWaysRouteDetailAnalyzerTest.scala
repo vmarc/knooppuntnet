@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
 import kpn.api.common.Fact.RouteWithoutWays
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
@@ -37,7 +38,7 @@ class WithoutWaysRouteDetailAnalyzerTest extends UnitTest with SharedTestObjects
   test("no RouteWithoutWays when there are subrelations") {
     val d = new RouteTestData("01-02") {
       relation(2)
-      member("relation", 2)
+      member(MemberType.Relation, 2)
     }
     val context = analyze(d)
     assertEqual(context.facts, Seq.empty)

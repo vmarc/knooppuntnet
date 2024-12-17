@@ -1,6 +1,5 @@
 package kpn.server.json
 
-import com.fasterxml.jackson.databind.JsonMappingException
 import kpn.api.common.Country
 import kpn.core.util.UnitTest
 
@@ -23,10 +22,9 @@ class CountryJsonTest extends UnitTest {
   }
 
   test("exception") {
-    val message = intercept[JsonMappingException] {
+    val message = intercept[NoSuchElementException] {
       Json.value(""""bla"""", classOf[Country])
     }.getMessage
-    message should equal("Could not deserialize country\n at [Source: (String)\"\"bla\"\"; line: 1, column: 1]")
+    message should equal("bla is not a member of Enum (nl, be, de, fr, at, es, dk)")
   }
-
 }

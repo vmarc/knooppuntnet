@@ -4,6 +4,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction.Create
 import kpn.api.common.changes.ChangeAction.Delete
 import kpn.api.common.changes.ChangeAction.Modify
+import kpn.api.common.data.MemberType
 import kpn.api.custom.Change
 import kpn.core.test.TestData
 import kpn.server.analyzer.engine.changes.changes.RelationAnalyzer
@@ -50,8 +51,8 @@ class AnalysisTestData extends SharedTestObjects {
 
     route(routeInWatchedNetwork, "",
       Seq(
-        newMember("way", wayInRouteInWatchedNetwork),
-        newMember("node", nodeInRouteInWatchedNetwork)
+        newMember(MemberType.Way, wayInRouteInWatchedNetwork),
+        newMember(MemberType.Node, nodeInRouteInWatchedNetwork)
       )
     )
 
@@ -59,8 +60,8 @@ class AnalysisTestData extends SharedTestObjects {
       watchedNetwork,
       "network1",
       Seq(
-        newMember("relation", routeInWatchedNetwork),
-        newMember("node", nodeInWatchedNetwork)
+        newMember(MemberType.Relation, routeInWatchedNetwork),
+        newMember(MemberType.Node, nodeInWatchedNetwork)
       )
     )
 
@@ -73,8 +74,8 @@ class AnalysisTestData extends SharedTestObjects {
 
     route(watchedOrphanRoute, "",
       Seq(
-        newMember("way", wayInWatchedOrphanRoute),
-        newMember("node", nodeInWatchedOrphanRoute)
+        newMember(MemberType.Way, wayInWatchedOrphanRoute),
+        newMember(MemberType.Node, nodeInWatchedOrphanRoute)
       )
     )
 

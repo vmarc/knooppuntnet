@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
@@ -55,7 +56,7 @@ class RouteTestData(
     r
   }
 
-  def memberNode(nodeId: Long, role: String = ""): RawMember = member("node", nodeId, role)
+  def memberNode(nodeId: Long, role: String = ""): RawMember = member(MemberType.Node, nodeId, role)
 
   def memberWay(wayId: Long, role: String, nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
@@ -65,10 +66,10 @@ class RouteTestData(
   def memberWay(wayId: Long, tags: Seq[Tag], role: String, nodeIds: Long*): RawMember = {
     addNodesIfMissing(nodeIds)
     way(wayId, tags, nodeIds: _*)
-    member("way", wayId, role)
+    member(MemberType.Way, wayId, role)
   }
 
-  def member(memberType: String, ref: Long, role: String = ""): RawMember = {
+  def member(memberType: MemberType, ref: Long, role: String = ""): RawMember = {
     val m = RawMember(memberType, ref, if (role.nonEmpty) Some(role) else None)
     memberBuffer += m
     m

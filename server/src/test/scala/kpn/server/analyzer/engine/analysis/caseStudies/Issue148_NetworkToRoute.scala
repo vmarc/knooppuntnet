@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.ChangeType
 import kpn.api.common.changes.ChangeAction
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
@@ -21,7 +22,7 @@ class Issue148_NetworkToRoute extends IntegrationTest {
       )
       .relation(
         11774118L,
-        members = Seq(RawMember("node", 1001, None)),
+        members = Seq(RawMember(MemberType.Node, 1001, None)),
         tags = Tags.from(
           "cycle_network" -> "rfn_gent",
           "network" -> "rcn",
@@ -45,7 +46,7 @@ class Issue148_NetworkToRoute extends IntegrationTest {
       )
       .relation(
         11774118L,
-        members = Seq(RawMember("node", 1001, None)),
+        members = Seq(RawMember(MemberType.Node, 1001, None)),
         tags = Tags.from(
           "cycle_network" -> "rfn_gent",
           "network" -> "rcn",

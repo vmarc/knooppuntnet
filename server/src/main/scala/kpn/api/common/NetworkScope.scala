@@ -10,7 +10,10 @@ object NetworkScope extends Enum[NetworkScope] {
   val values: IndexedSeq[NetworkScope] = findValues
 
   final case object local extends NetworkScope
+
   final case object regional extends NetworkScope
+
   final case object national extends NetworkScope
+
   final case object international extends NetworkScope
 }

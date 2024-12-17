@@ -12,6 +12,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.common.TrackPathKey
 import kpn.api.common.data.Member
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
@@ -187,7 +188,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newMember(memberType: String, ref: Long, role: String = ""): RawMember = {
+  def newMember(memberType: MemberType, ref: Long, role: String = ""): RawMember = {
     RawMember(memberType, ref, if (role.nonEmpty) Some(role) else None)
   }
 

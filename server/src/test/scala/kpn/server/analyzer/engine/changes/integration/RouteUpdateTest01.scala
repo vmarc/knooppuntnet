@@ -7,6 +7,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
+import kpn.api.common.data.MemberType
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
@@ -25,7 +26,7 @@ class RouteUpdateTest01 extends IntegrationTest {
       .way(101, 1001, 1002)
       .route(11, "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         ),
         Tags.from("key" -> "value1")
       )
@@ -36,7 +37,7 @@ class RouteUpdateTest01 extends IntegrationTest {
       .way(101, 1001, 1002)
       .route(11, "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         ),
         Tags.from("key" -> "value2")
       )

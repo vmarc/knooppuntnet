@@ -1,11 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers.route
 
-import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.RouteMemberInfo
-import kpn.api.custom.Tag
-import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteDetailRepository
 import org.springframework.stereotype.Component
@@ -28,23 +25,23 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
   private def wayNodeRow(member: RouteMemberInfo): RouteStructureRow = {
     RouteStructureRow(
       // RouteMemberInfo
-      member.id: Long,
-      member.memberType: String,
-      member.isWay: Boolean,
-      member.nodes: Seq[RouteNetworkNodeInfo],
-      member.linkName: String,
-      member.from: String,
-      member.fromNodeId: Long,
-      member.to: String,
-      member.toNodeId: Long,
-      member.role: String,
-      member.timestamp: Timestamp,
-      member.accessible: Boolean,
-      member.length: String,
-      member.nodeCount: String,
-      member.description: String,
-      member.oneWay: WayDirection,
-      member.oneWayTags: Seq[Tag],
+      member.id,
+      member.memberType,
+      member.isWay,
+      member.nodes,
+      member.linkName,
+      member.from,
+      member.fromNodeId,
+      member.to,
+      member.toNodeId,
+      member.role,
+      member.timestamp,
+      member.accessible,
+      member.length,
+      member.nodeCount,
+      member.description,
+      member.oneWay,
+      member.oneWayTags,
 
       level = 0, // Long
       physical = false, // Boolean

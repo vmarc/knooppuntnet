@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.ChangeType
 import kpn.api.common.changes.ChangeAction
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
@@ -14,7 +15,7 @@ class NetworkToRouteTest01 extends IntegrationTest {
       .networkRelation(
         1,
         "01-02",
-        members = Seq(RawMember("node", 1001, None)),
+        members = Seq(RawMember(MemberType.Node, 1001, None)),
         version = 1
       )
 
@@ -23,7 +24,7 @@ class NetworkToRouteTest01 extends IntegrationTest {
       .route(
         1,
         "01-02",
-        members = Seq(RawMember("node", 1001, None)),
+        members = Seq(RawMember(MemberType.Node, 1001, None)),
         version = 2
       )
 

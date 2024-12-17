@@ -22,7 +22,7 @@ class Structure_54_WayRoundaboutWayTest extends UnitTest {
       context.links,
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
-        "2    p ■   n ■   loop     fp     bp     head     tail     d roundaboutright",
+        "2    p ■   n ■   loop     fp     bp     head     tail     d roundabout-right",
         "3    p ■   n     loop     fp     bp     head     tail     d forward"
       )
     )
@@ -34,9 +34,9 @@ class Structure_54_WayRoundaboutWayTest extends UnitTest {
         "  element-1 1>3  ↔  nodes=1, 2, 3",
         "    way-11  p     n ■   loop     fp     bp     head     tail     d forward",
         "  element-2 3>5  →  nodes=3, 4, 5",
-        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright",
+        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundabout-right",
         "  element-3 3>5  ←  nodes=3, 6, 5",
-        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright",
+        "    way-12  p ■   n ■   loop     fp     bp     head     tail     d roundabout-right",
         "  element-4 5>8  ↔  nodes=5, 7, 8",
         "    way-13  p ■   n     loop     fp     bp     head     tail     d forward",
       )

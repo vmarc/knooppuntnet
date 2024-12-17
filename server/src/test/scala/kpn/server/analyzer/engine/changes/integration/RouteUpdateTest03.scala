@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.changes.ChangeAction
+import kpn.api.common.data.MemberType
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 
@@ -18,10 +19,10 @@ class RouteUpdateTest03 extends IntegrationTest {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
-      .networkRelation(1, "name", Seq(newMember("relation", 11)))
+      .networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
 
     val dataAfter = OverpassData()
       .node(1001)
@@ -33,11 +34,11 @@ class RouteUpdateTest03 extends IntegrationTest {
         11,
         "01-02",
         Seq(
-          newMember("way", 101),
-          newMember("way", 102)
+          newMember(MemberType.Way, 101),
+          newMember(MemberType.Way, 102)
         )
       )
-      .networkRelation(1, "name", Seq(newMember("relation", 11)))
+      .networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
 
     testIntegration(dataBefore, dataAfter) {
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))

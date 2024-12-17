@@ -8,6 +8,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
@@ -24,14 +25,14 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
       .networkRelation(
         1,
         "network",
         Seq(
-          newMember("relation", 11)
+          newMember(MemberType.Relation, 11)
         )
       )
 
@@ -43,7 +44,7 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 

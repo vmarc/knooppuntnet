@@ -8,6 +8,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
@@ -23,7 +24,7 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
         1,
         "name",
         Seq(
-          newMember("node", 1001)
+          newMember(MemberType.Node, 1001)
           // the network does not reference the orphan node
         )
       )
@@ -35,8 +36,8 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
         1,
         "name",
         Seq(
-          newMember("node", 1001),
-          newMember("node", 1002) // reference to the previous orphan node
+          newMember(MemberType.Node, 1001),
+          newMember(MemberType.Node, 1002) // reference to the previous orphan node
         )
       )
 

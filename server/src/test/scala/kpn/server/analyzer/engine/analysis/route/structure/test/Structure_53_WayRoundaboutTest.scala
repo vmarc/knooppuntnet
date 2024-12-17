@@ -1,6 +1,5 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
-import kpn.api.common.Fact.RouteBroken
 import kpn.core.util.UnitTest
 
 class Structure_53_WayRoundaboutTest extends UnitTest {
@@ -22,7 +21,7 @@ class Structure_53_WayRoundaboutTest extends UnitTest {
       context.links,
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
-        "2    p ■   n     loop     fp     bp     head     tail     d roundaboutright"
+        "2    p ■   n     loop     fp     bp     head     tail     d roundabout-right"
       )
     )
 
@@ -33,7 +32,7 @@ class Structure_53_WayRoundaboutTest extends UnitTest {
         "  element-1 1>3  ↔  nodes=1, 2, 3",
         "    way-11  p     n ■   loop     fp     bp     head     tail     d forward",
         "  element-2 3>3  →  nodes=3, 4, 5, 6, 3",
-        "    way-12  p ■   n     loop     fp     bp     head     tail     d roundaboutright"
+        "    way-12  p ■   n     loop     fp     bp     head     tail     d roundabout-right"
       )
     )
 

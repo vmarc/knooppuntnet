@@ -1,10 +1,12 @@
 package kpn.api.common.data.raw
 
-case class RawMember(memberType: String, ref: Long, role: Option[String]) {
+import kpn.api.common.data.MemberType
 
-  def isNode: Boolean = memberType == "node"
+case class RawMember(memberType: MemberType, ref: Long, role: Option[String]) {
 
-  def isWay: Boolean = memberType == "way"
+  def isNode: Boolean = memberType == MemberType.Node
 
-  def isRelation: Boolean = memberType == "relation"
+  def isWay: Boolean = memberType == MemberType.Way
+
+  def isRelation: Boolean = memberType == MemberType.Relation
 }

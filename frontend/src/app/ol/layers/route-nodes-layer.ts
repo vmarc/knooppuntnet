@@ -16,11 +16,11 @@ export class RouteNodesLayer {
     nodeChanges.forEach((nodeChange) => {
       const coordinate = OlUtil.latLonToCoordinate(nodeChange);
       let color = 'blue';
-      if (nodeChange.changeType === 'Added') {
+      if (nodeChange.changeType === 'added') {
         color = 'green';
-      } else if (nodeChange.changeType === 'Removed') {
+      } else if (nodeChange.changeType === 'removed') {
         color = 'red';
-      } else if (nodeChange.changeType === 'Changed') {
+      } else if (nodeChange.changeType === 'changed') {
         color = 'orange';
       }
 

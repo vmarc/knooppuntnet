@@ -2,8 +2,9 @@ package kpn.server.analyzer.engine.analysis.route.domain
 
 import enumeratum.Enum
 import enumeratum.EnumEntry
+import enumeratum.EnumEntry.Hyphencase
 
-sealed trait RoutePathDirection extends EnumEntry
+sealed trait RoutePathDirection extends EnumEntry with Hyphencase
 
 object RoutePathDirection extends Enum[RoutePathDirection] {
 

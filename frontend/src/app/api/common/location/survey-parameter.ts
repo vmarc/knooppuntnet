@@ -2,8 +2,8 @@
 
 export type SurveyParameter =
   | 'unknown'
-  | 'lastMonth'
-  | 'lastHalfYear'
-  | 'lastYear'
-  | 'lastTwoYears'
+  | 'last-month'
+  | 'last-half-year'
+  | 'last-year'
+  | 'last-two-years'
   | 'older';

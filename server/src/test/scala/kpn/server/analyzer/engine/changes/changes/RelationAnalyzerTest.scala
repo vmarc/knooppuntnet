@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.changes
 import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.core.test.TestData
@@ -25,11 +26,11 @@ class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
       way(101, 1001, 1002)
       route(11, "01-02",
         Seq(
-          newMember("node", 1003),
-          newMember("way", 101)
+          newMember(MemberType.Node, 1003),
+          newMember(MemberType.Way, 101)
         )
       )
-      networkRelation(1, "name", Seq(newMember("relation", 11)))
+      networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
     }.data.relations(1)
 
     RelationAnalyzer.referencedNodes(network).map(_.id) should equal(Set(1001L, 1002L, 1003L))
@@ -44,7 +45,7 @@ class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
       way(101, 1001)
       route(11, "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
     }.data.relations(11)

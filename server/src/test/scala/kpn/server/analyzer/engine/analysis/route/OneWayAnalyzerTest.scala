@@ -2,11 +2,9 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.WayDirection
-import kpn.api.common.route.WayDirection.Backward
 import kpn.api.common.route.WayDirection.Both
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.route.domain.RoutePathDirection.Forward
 
 class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -17,68 +15,68 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
   // testcases based on http://wiki.openstreetmap.org/wiki/Key:oneway
 
   test("oneway in forward direction of way for all vehicles") {
-    oneway("oneway" -> "yes") should equal(Forward)
-    oneway("oneway" -> "1") should equal(Forward)
-    oneway("oneway" -> "true") should equal(Forward)
+    oneway("oneway" -> "yes") should equal(WayDirection.Forward)
+    oneway("oneway" -> "1") should equal(WayDirection.Forward)
+    oneway("oneway" -> "true") should equal(WayDirection.Forward)
   }
 
   test("oneway in backward direction of way for all vehicles") {
-    oneway("oneway" -> "-1") should equal(Backward)
-    oneway("oneway" -> "reverse") should equal(Backward) // discouraged alternative
+    oneway("oneway" -> "-1") should equal(WayDirection.Backward)
+    oneway("oneway" -> "reverse") should equal(WayDirection.Backward) // discouraged alternative
   }
 
   test("tag 'oneway=no' confirms that the way can be travelled in both directions") {
-    oneway("oneway" -> "no") should equal(Both)
-    oneway("oneway" -> "false") should equal(Both) // discouraged alternative
-    oneway("oneway" -> "0") should equal(Both) // discouraged alternative
+    oneway("oneway" -> "no") should equal(WayDirection.Both)
+    oneway("oneway" -> "false") should equal(WayDirection.Both) // discouraged alternative
+    oneway("oneway" -> "0") should equal(WayDirection.Both) // discouraged alternative
   }
 
   test("oneway:bicycle overrides oneway") {
-    oneway("oneway" -> "yes", "oneway:bicycle" -> "no") should equal(Both)
-    oneway("oneway" -> "yes", "oneway:bicycle" -> "false") should equal(Both)
-    oneway("oneway" -> "yes", "oneway:bicycle" -> "0") should equal(Both)
-    oneway("oneway" -> "-1", "oneway:bicycle" -> "no") should equal(Both)
-    oneway("oneway" -> "-1", "oneway:bicycle" -> "false") should equal(Both)
-    oneway("oneway" -> "-1", "oneway:bicycle" -> "0") should equal(Both)
+    oneway("oneway" -> "yes", "oneway:bicycle" -> "no") should equal(WayDirection.Both)
+    oneway("oneway" -> "yes", "oneway:bicycle" -> "false") should equal(WayDirection.Both)
+    oneway("oneway" -> "yes", "oneway:bicycle" -> "0") should equal(WayDirection.Both)
+    oneway("oneway" -> "-1", "oneway:bicycle" -> "no") should equal(WayDirection.Both)
+    oneway("oneway" -> "-1", "oneway:bicycle" -> "false") should equal(WayDirection.Both)
+    oneway("oneway" -> "-1", "oneway:bicycle" -> "0") should equal(WayDirection.Both)
 
     // following combinations are probably not useful in practice
-    oneway("oneway" -> "no", "oneway:bicycle" -> "yes") should equal(Forward)
-    oneway("oneway" -> "no", "oneway:bicycle" -> "true") should equal(Forward)
-    oneway("oneway" -> "no", "oneway:bicycle" -> "1") should equal(Forward)
-    oneway("oneway" -> "no", "oneway:bicycle" -> "-1") should equal(Backward)
-    oneway("oneway" -> "no", "oneway:bicycle" -> "reverse") should equal(Backward)
+    oneway("oneway" -> "no", "oneway:bicycle" -> "yes") should equal(WayDirection.Forward)
+    oneway("oneway" -> "no", "oneway:bicycle" -> "true") should equal(WayDirection.Forward)
+    oneway("oneway" -> "no", "oneway:bicycle" -> "1") should equal(WayDirection.Forward)
+    oneway("oneway" -> "no", "oneway:bicycle" -> "-1") should equal(WayDirection.Backward)
+    oneway("oneway" -> "no", "oneway:bicycle" -> "reverse") should equal(WayDirection.Backward)
   }
 
   test("bicycle:oneway is a synonym for oneway:bicycle") {
-    oneway("oneway" -> "yes", "bicycle:oneway" -> "no") should equal(Both)
-    oneway("oneway" -> "yes", "bicycle:oneway" -> "false") should equal(Both)
-    oneway("oneway" -> "yes", "bicycle:oneway" -> "0") should equal(Both)
-    oneway("oneway" -> "reverse", "bicycle:oneway" -> "no") should equal(Both)
-    oneway("oneway" -> "reverse", "bicycle:oneway" -> "false") should equal(Both)
-    oneway("oneway" -> "reverse", "bicycle:oneway" -> "0") should equal(Both)
-    oneway("oneway" -> "no", "bicycle:oneway" -> "yes") should equal(Forward)
-    oneway("oneway" -> "no", "bicycle:oneway" -> "true") should equal(Forward)
-    oneway("oneway" -> "no", "bicycle:oneway" -> "1") should equal(Forward)
-    oneway("oneway" -> "no", "bicycle:oneway" -> "-1") should equal(Backward)
-    oneway("oneway" -> "no", "bicycle:oneway" -> "reverse") should equal(Backward)
+    oneway("oneway" -> "yes", "bicycle:oneway" -> "no") should equal(WayDirection.Both)
+    oneway("oneway" -> "yes", "bicycle:oneway" -> "false") should equal(WayDirection.Both)
+    oneway("oneway" -> "yes", "bicycle:oneway" -> "0") should equal(WayDirection.Both)
+    oneway("oneway" -> "reverse", "bicycle:oneway" -> "no") should equal(WayDirection.Both)
+    oneway("oneway" -> "reverse", "bicycle:oneway" -> "false") should equal(WayDirection.Both)
+    oneway("oneway" -> "reverse", "bicycle:oneway" -> "0") should equal(WayDirection.Both)
+    oneway("oneway" -> "no", "bicycle:oneway" -> "yes") should equal(WayDirection.Forward)
+    oneway("oneway" -> "no", "bicycle:oneway" -> "true") should equal(WayDirection.Forward)
+    oneway("oneway" -> "no", "bicycle:oneway" -> "1") should equal(WayDirection.Forward)
+    oneway("oneway" -> "no", "bicycle:oneway" -> "-1") should equal(WayDirection.Backward)
+    oneway("oneway" -> "no", "bicycle:oneway" -> "reverse") should equal(WayDirection.Backward)
   }
 
   test("oneway:bicycle used on its own") {
     // probably should not be done in practice
-    oneway("oneway:bicycle" -> "yes") should equal(Forward)
-    oneway("oneway:bicycle" -> "true") should equal(Forward)
-    oneway("oneway:bicycle" -> "1") should equal(Forward)
-    oneway("oneway:bicycle" -> "-1") should equal(Backward)
-    oneway("oneway:bicycle" -> "reverse") should equal(Backward)
-    oneway("oneway:bicycle" -> "no") should equal(Both)
-    oneway("oneway:bicycle" -> "false") should equal(Both)
-    oneway("oneway:bicycle" -> "0") should equal(Both)
+    oneway("oneway:bicycle" -> "yes") should equal(WayDirection.Forward)
+    oneway("oneway:bicycle" -> "true") should equal(WayDirection.Forward)
+    oneway("oneway:bicycle" -> "1") should equal(WayDirection.Forward)
+    oneway("oneway:bicycle" -> "-1") should equal(WayDirection.Backward)
+    oneway("oneway:bicycle" -> "reverse") should equal(WayDirection.Backward)
+    oneway("oneway:bicycle" -> "no") should equal(WayDirection.Both)
+    oneway("oneway:bicycle" -> "false") should equal(WayDirection.Both)
+    oneway("oneway:bicycle" -> "0") should equal(WayDirection.Both)
   }
 
   test("oneway:bicycle same as oneway has no effect") {
-    oneway("oneway" -> "yes", "oneway:bicycle" -> "yes") should equal(Forward)
-    oneway("oneway" -> "-1", "oneway:bicycle" -> "-1") should equal(Backward)
-    oneway("oneway" -> "no", "oneway:bicycle" -> "no") should equal(Both)
+    oneway("oneway" -> "yes", "oneway:bicycle" -> "yes") should equal(WayDirection.Forward)
+    oneway("oneway" -> "-1", "oneway:bicycle" -> "-1") should equal(WayDirection.Backward)
+    oneway("oneway" -> "no", "oneway:bicycle" -> "no") should equal(WayDirection.Both)
   }
 
   /*
@@ -92,10 +90,10 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
     or one-way streets where there is a lane operating in the direction of main traffic flow.
   */
   test("tag 'cycleway=lane' does not override the 'oneway'") {
-    oneway("cycleway" -> "lane", "oneway" -> "yes") should equal(Forward)
-    oneway("cycleway" -> "lane", "oneway" -> "-1") should equal(Backward)
-    oneway("cycleway" -> "lane", "oneway" -> "no") should equal(Both)
-    oneway("cycleway" -> "lane") should equal(Both)
+    oneway("cycleway" -> "lane", "oneway" -> "yes") should equal(WayDirection.Forward)
+    oneway("cycleway" -> "lane", "oneway" -> "-1") should equal(WayDirection.Backward)
+    oneway("cycleway" -> "lane", "oneway" -> "no") should equal(WayDirection.Both)
+    oneway("cycleway" -> "lane") should equal(WayDirection.Both)
   }
 
   /*
@@ -105,19 +103,19 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
     to flow in the customary direction for traffic on that side of the road.
   */
   test("cycleway:left=lane - there is a lane in the opposite direction of the way (assume driving on the right)") {
-    oneway("oneway" -> "yes", "cycleway:left" -> "lane") should equal(Both)
-    oneway("oneway" -> "-1", "cycleway:left" -> "lane") should equal(Backward)
+    oneway("oneway" -> "yes", "cycleway:left" -> "lane") should equal(WayDirection.Both)
+    oneway("oneway" -> "-1", "cycleway:left" -> "lane") should equal(WayDirection.Backward)
   }
 
   test("cycleway:right=lane - there is a lane in the direction of the way (assume driving on the right)") {
-    oneway("oneway" -> "yes", "cycleway:right" -> "lane") should equal(Forward)
-    oneway("oneway" -> "-1", "cycleway:right" -> "lane") should equal(Forward)
+    oneway("oneway" -> "yes", "cycleway:right" -> "lane") should equal(WayDirection.Forward)
+    oneway("oneway" -> "-1", "cycleway:right" -> "lane") should equal(WayDirection.Forward)
   }
 
   test("with both cycleway:left=lane and cycleway:right=lane can travel in both directions") {
-    oneway("cycleway:left" -> "lane", "cycleway:right" -> "lane") should equal(Both)
-    oneway("oneway" -> "yes", "cycleway:left" -> "lane", "cycleway:right" -> "lane") should equal(Both)
-    oneway("oneway" -> "-1", "cycleway:left" -> "lane", "cycleway:right" -> "lane") should equal(Both)
+    oneway("cycleway:left" -> "lane", "cycleway:right" -> "lane") should equal(WayDirection.Both)
+    oneway("oneway" -> "yes", "cycleway:left" -> "lane", "cycleway:right" -> "lane") should equal(WayDirection.Both)
+    oneway("oneway" -> "-1", "cycleway:left" -> "lane", "cycleway:right" -> "lane") should equal(WayDirection.Both)
   }
 
   /*
@@ -126,9 +124,9 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
     cycleway:right=opposite_lane tags instead, as this describes on which side the contraflow lane is.
   */
   test("a contraflow cycle lane overrides oneway=yes") {
-    oneway("oneway" -> "yes", "cycleway" -> "opposite_lane") should equal(Both)
-    oneway("oneway" -> "yes", "cycleway:left" -> "opposite_lane") should equal(Both)
-    oneway("oneway" -> "yes", "cycleway:right" -> "opposite_lane") should equal(Both)
+    oneway("oneway" -> "yes", "cycleway" -> "opposite_lane") should equal(WayDirection.Both)
+    oneway("oneway" -> "yes", "cycleway:left" -> "opposite_lane") should equal(WayDirection.Both)
+    oneway("oneway" -> "yes", "cycleway:right" -> "opposite_lane") should equal(WayDirection.Both)
   }
 
   /*
@@ -137,8 +135,8 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
     marked for cyclists.
   */
   test("cycleway:opposite can travel in both directions") {
-    oneway("oneway" -> "yes", "cycleway" -> "opposite") should equal(Both)
-    oneway("oneway" -> "-1", "cycleway:left" -> "lane", "cycleway:right" -> "lane") should equal(Both)
+    oneway("oneway" -> "yes", "cycleway" -> "opposite") should equal(WayDirection.Both)
+    oneway("oneway" -> "-1", "cycleway:left" -> "lane", "cycleway:right" -> "lane") should equal(WayDirection.Both)
   }
 
   /*
@@ -147,9 +145,9 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
     relative to the direction in which the way was drawn in the editor.
   */
   test("a cycleway=track does not alter the oneway property") {
-    oneway("oneway" -> "yes", "cycleway" -> "track") should equal(Forward)
-    oneway("oneway" -> "no", "cycleway" -> "track") should equal(Both)
-    oneway("oneway" -> "-1", "cycleway" -> "track") should equal(Backward)
+    oneway("oneway" -> "yes", "cycleway" -> "track") should equal(WayDirection.Forward)
+    oneway("oneway" -> "no", "cycleway" -> "track") should equal(WayDirection.Both)
+    oneway("oneway" -> "-1", "cycleway" -> "track") should equal(WayDirection.Backward)
   }
 
   /*
@@ -158,31 +156,31 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
       or cycleway:right=opposite_track tags instead, as this describes on which side the contraflow track is.
   */
   test("a contraflow cycle track overrides oneway=yes") {
-    oneway("oneway" -> "yes", "cycleway" -> "opposite_track") should equal(Both)
-    oneway("oneway" -> "yes", "cycleway:left" -> "opposite_track") should equal(Both)
-    oneway("oneway" -> "yes", "cycleway:right" -> "opposite_track") should equal(Both)
+    oneway("oneway" -> "yes", "cycleway" -> "opposite_track") should equal(WayDirection.Both)
+    oneway("oneway" -> "yes", "cycleway:left" -> "opposite_track") should equal(WayDirection.Both)
+    oneway("oneway" -> "yes", "cycleway:right" -> "opposite_track") should equal(WayDirection.Both)
   }
 
   test("combination from practice") {
-    oneway("cycleway" -> "opposite", "oneway" -> "yes", "cycleway:left" -> "lane") should equal(Both)
+    oneway("cycleway" -> "opposite", "oneway" -> "yes", "cycleway:left" -> "lane") should equal(WayDirection.Both)
   }
 
   /* Jarien email 2015-09-06 - support added for cycleway:left=track and cycleway:right=track */
 
   test("St. Elisabethstraat (7074930) v.9") {
-    oneway("oneway" -> "yes", "oneway:bicycle" -> "no") should equal(Both)
+    oneway("oneway" -> "yes", "oneway:bicycle" -> "no") should equal(WayDirection.Both)
   }
 
   test("St. Elisabethstraat (7074930) v.8") {
-    oneway("cycleway" -> "opposite", "oneway" -> "yes", "oneway:bicycle" -> "no") should equal(Both)
+    oneway("cycleway" -> "opposite", "oneway" -> "yes", "oneway:bicycle" -> "no") should equal(WayDirection.Both)
   }
 
   test("St. Elisabethstraat (7074930) v.7") {
-    oneway("cycleway" -> "opposite", "oneway" -> "yes") should equal(Both)
+    oneway("cycleway" -> "opposite", "oneway" -> "yes") should equal(WayDirection.Both)
   }
 
   test("Esschestraat (7074935) v9") {
-    oneway("oneway" -> "yes", "oneway:bicycle" -> "no") should equal(Both)
+    oneway("oneway" -> "yes", "oneway:bicycle" -> "no") should equal(WayDirection.Both)
   }
 
   test("Esschestraat (7074935) v8") {
@@ -193,7 +191,7 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
       "cycleway:surface:color" -> "red",
       "oneway" -> "yes",
       "oneway:bicycle" -> "no"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("Esschestraat (7074935) v7") {
@@ -203,7 +201,7 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
       "cycleway:surface" -> "asphalt",
       "cycleway:surface:color" -> "red",
       "oneway" -> "yes"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   /* A67-A67 email 2017-07-25 */
@@ -213,7 +211,7 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
       "cycleway:right" -> "track",
       "oneway" -> "yes",
       "oneway:bicycle" -> "no"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   /* A67-A67 Issue #31 oneway:bicycle=no on roundabout */
@@ -221,14 +219,14 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
   test("Issue #31 junction=roundabout included in OneWayAnalyzer") {
     oneway(
       "junction" -> "roundabout"
-    ) should equal(Forward)
+    ) should equal(WayDirection.Forward)
   }
 
   test("Issue #31 junction=roundabout overruled by oneway:bicycle=no") {
     oneway(
       "junction" -> "roundabout",
       "oneway:bicycle" -> "no"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   /* Examples on: http://wiki.openstreetmap.org/wiki/Bicycle */
@@ -236,27 +234,27 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
   test("L1a") {
     oneway(
       "cycleway" -> "lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
 
     oneway(
       "cycleway:left" -> "lane",
       "cycleway:right" -> "lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
 
     oneway(
       "cycleway:both" -> "lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("L1b") {
     oneway(
       "cycleway:right" -> "lane",
       "oneway:bicycle" -> "no"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
 
     oneway(
       "cycleway" -> "lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("L2") {
@@ -266,7 +264,7 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
      */
     oneway(
       "cycleway:right" -> "lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("M1") {
@@ -274,37 +272,37 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
       "oneway" -> "yes",
       "cycleway" -> "lane",
       "oneway:bicycle" -> "no"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
 
     oneway(
       "oneway" -> "yes",
       "cycleway:left" -> "opposite_lane",
       "cycleway:right" -> "lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("M2a") {
     oneway(
       "oneway" -> "yes",
       "cycleway:right" -> "lane"
-    ) should equal(Forward)
+    ) should equal(WayDirection.Forward)
 
     oneway(
       "oneway" -> "yes",
       "cycleway" -> "lane"
-    ) should equal(Forward)
+    ) should equal(WayDirection.Forward)
   }
 
   test("M2b") {
     oneway(
       "oneway" -> "yes",
       "cycleway:left" -> "lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
 
     oneway(
       "oneway" -> "yes",
       "cycleway" -> "lane"
-    ) should equal(Forward)
+    ) should equal(WayDirection.Forward)
   }
 
   test("M2c") {
@@ -312,7 +310,7 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
       "oneway" -> "yes",
       "lanes" -> "2",
       "cycleway" -> "lane"
-    ) should equal(Forward)
+    ) should equal(WayDirection.Forward)
   }
 
   test("M2d") {
@@ -320,7 +318,7 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
       "oneway" -> "yes",
       "cycleway:left" -> "lane",
       "oneway:bicycle" -> "no"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("M3a") {
@@ -328,13 +326,13 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
       "oneway" -> "yes",
       "oneway:bicycle" -> "no",
       "cycleway:left" -> "opposite_lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
 
     oneway(
       "oneway" -> "yes",
       "oneway:bicycle" -> "no",
       "cycleway" -> "opposite_lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("M3b") {
@@ -342,26 +340,26 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
       "oneway" -> "yes",
       "oneway:bicycle" -> "no",
       "cycleway:right" -> "opposite_lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
 
     oneway(
       "oneway" -> "yes",
       "oneway:bicycle" -> "no",
       "cycleway" -> "opposite_lane"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("T1") {
     oneway(
       "cycleway" -> "track"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("T2") {
     oneway(
       "cycleway:right" -> "track",
       "oneway:bicycle" -> "no"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("T3") {
@@ -369,7 +367,7 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
       "oneway" -> "yes",
       "cycleway:right" -> "track",
       "oneway:bicycle" -> "no"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("T4") {
@@ -378,7 +376,7 @@ class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
      */
     oneway(
       "cycleway:right" -> "track"
-    ) should equal(Both)
+    ) should equal(WayDirection.Both)
   }
 
   test("oneWayTags") {

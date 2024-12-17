@@ -7,7 +7,7 @@ case class NodeMember(node: Node, role: Option[String]) extends Member {
 
   def toRaw: RawMember = {
     RawMember(
-      "node",
+      MemberType.Node,
       node.id,
       role
     )

@@ -1,6 +1,7 @@
 package kpn.core.tools.country
 
 import kpn.api.common.Country
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.core.util.UnitTest
 import org.locationtech.jts.geom.Coordinate
@@ -36,14 +37,14 @@ class PolygonBuilderTest extends UnitTest {
     val r = SkeletonRelation(
       1,
       Seq(
-        RawMember("way", ab.id, Some("outer")),
-        RawMember("way", bc.id, Some("outer")),
-        RawMember("way", cd.id, Some("outer")),
-        RawMember("way", da.id, Some("outer")),
-        RawMember("way", ef.id, Some("inner")),
-        RawMember("way", fg.id, Some("inner")),
-        RawMember("way", gh.id, Some("inner")),
-        RawMember("way", he.id, Some("inner"))
+        RawMember(MemberType.Way, ab.id, Some("outer")),
+        RawMember(MemberType.Way, bc.id, Some("outer")),
+        RawMember(MemberType.Way, cd.id, Some("outer")),
+        RawMember(MemberType.Way, da.id, Some("outer")),
+        RawMember(MemberType.Way, ef.id, Some("inner")),
+        RawMember(MemberType.Way, fg.id, Some("inner")),
+        RawMember(MemberType.Way, gh.id, Some("inner")),
+        RawMember(MemberType.Way, he.id, Some("inner"))
       )
     )
 

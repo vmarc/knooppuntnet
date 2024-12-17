@@ -2,8 +2,9 @@ package kpn.api.common
 
 import enumeratum.Enum
 import enumeratum.EnumEntry
+import enumeratum.EnumEntry.Hyphencase
 
-sealed trait ElementChangeType extends EnumEntry
+sealed trait ElementChangeType extends EnumEntry with Hyphencase
 
 object ElementChangeType extends Enum[ElementChangeType] {
 

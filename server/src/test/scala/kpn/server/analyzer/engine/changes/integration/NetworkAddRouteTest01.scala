@@ -12,6 +12,7 @@ import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
@@ -32,8 +33,8 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         "network",
         version = 1,
         members = Seq(
-          newMember("node", 1001),
-          newMember("node", 1002)
+          newMember(MemberType.Node, 1001),
+          newMember(MemberType.Node, 1002)
         )
       )
 
@@ -41,15 +42,15 @@ class NetworkAddRouteTest01 extends IntegrationTest {
       .networkNode(1001, "01")
       .networkNode(1002, "02")
       .way(101, 1001, 1002)
-      .route(11, "01-02", Seq(newMember("way", 101)))
+      .route(11, "01-02", Seq(newMember(MemberType.Way, 101)))
       .networkRelation(
         1,
         "network",
         version = 2,
         members = Seq(
-          newMember("node", 1001),
-          newMember("node", 1002),
-          newMember("relation", 11)
+          newMember(MemberType.Node, 1001),
+          newMember(MemberType.Node, 1002),
+          newMember(MemberType.Relation, 11)
         )
       )
 

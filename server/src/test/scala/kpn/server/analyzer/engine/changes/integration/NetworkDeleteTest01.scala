@@ -11,6 +11,7 @@ import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -28,7 +29,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
         1,
         "network1",
         members = Seq(
-          RawMember("node", 1001, None)
+          RawMember(MemberType.Node, 1001, None)
         )
       )
 

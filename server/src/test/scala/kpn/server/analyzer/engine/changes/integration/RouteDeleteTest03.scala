@@ -9,6 +9,7 @@ import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
@@ -27,7 +28,7 @@ class RouteDeleteTest03 extends IntegrationTest {
       .way(101, 1001, 1002)
       .route(11, "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
 
@@ -38,7 +39,7 @@ class RouteDeleteTest03 extends IntegrationTest {
       .relation(
         11,
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         ),
         Tags.from(
           "network:type" -> "node_network"

@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.network
 
 import kpn.api.common.Bounds
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.network.NetworkShape
 import kpn.api.custom.Relation
@@ -21,10 +22,10 @@ class NetworkShapeAnalyzerTest extends UnitTest {
         1,
         "",
         members = Seq(
-          RawMember("node", 1001, None),
-          RawMember("node", 1002, None),
-          RawMember("node", 1003, None),
-          RawMember("node", 1004, None)
+          RawMember(MemberType.Node, 1001, None),
+          RawMember(MemberType.Node, 1002, None),
+          RawMember(MemberType.Node, 1003, None),
+          RawMember(MemberType.Node, 1004, None)
         )
       )
     }.data.relations(1)
@@ -47,10 +48,10 @@ class NetworkShapeAnalyzerTest extends UnitTest {
         1,
         "",
         members = Seq(
-          RawMember("node", 1001, None),
-          RawMember("node", 1002, None),
-          RawMember("node", 1003, None),
-          RawMember("node", 1004, Some("connection"))
+          RawMember(MemberType.Node, 1001, None),
+          RawMember(MemberType.Node, 1002, None),
+          RawMember(MemberType.Node, 1003, None),
+          RawMember(MemberType.Node, 1004, Some("connection"))
         )
       )
     }.data.relations(1)
@@ -64,5 +65,4 @@ class NetworkShapeAnalyzerTest extends UnitTest {
   private def analyze(networkRelation: Relation): Option[NetworkShape] = {
     new NetworkShapeAnalyzer(networkRelation).shape
   }
-
 }

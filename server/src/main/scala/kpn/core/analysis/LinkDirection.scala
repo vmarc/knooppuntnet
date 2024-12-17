@@ -2,8 +2,9 @@ package kpn.core.analysis
 
 import enumeratum.Enum
 import enumeratum.EnumEntry
+import enumeratum.EnumEntry.Hyphencase
 
-sealed trait LinkDirection extends EnumEntry
+sealed trait LinkDirection extends EnumEntry with Hyphencase
 
 object LinkDirection extends Enum[LinkDirection] {
 

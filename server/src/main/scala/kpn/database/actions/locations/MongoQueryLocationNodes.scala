@@ -85,8 +85,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       else {
         parameters.proposed match {
           case None => "all"
-          case Some(proposed) =>
-            oo.find(_.name == proposed.entryName) match {
+          case Some(proposedValue) =>
+            oo.find(_.name == proposedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -121,8 +121,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       else {
         parameters.survey match {
           case None => "all"
-          case Some(value) =>
-            surveyOptions.find(_.name == value.entryName) match {
+          case Some(surveyValue) =>
+            surveyOptions.find(_.name == surveyValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -146,8 +146,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       else {
         parameters.lastUpdated match {
           case None => "all"
-          case Some(value) =>
-            options.find(_.name == value.entryName) match {
+          case Some(lastUpdatedValue) =>
+            options.find(_.name == lastUpdatedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -166,8 +166,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         val no = all - yes
         Seq(
           ServerFilterOption("all", all),
-          ServerFilterOption(BooleanParameter.yes.entryName, yes),
-          ServerFilterOption(BooleanParameter.no.entryName, no),
+          ServerFilterOption(BooleanParameter.Yes.entryName, yes),
+          ServerFilterOption(BooleanParameter.No.entryName, no),
         )
       }
 
@@ -177,8 +177,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       else {
         parameters.proposed match {
           case None => "all"
-          case Some(proposed) =>
-            options.find(_.name == proposed.entryName) match {
+          case Some(proposedValue) =>
+            options.find(_.name == proposedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -197,8 +197,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       else {
         Seq(
           ServerFilterOption("all", all),
-          ServerFilterOption(BooleanParameter.yes.entryName, yes),
-          ServerFilterOption(BooleanParameter.no.entryName, all - yes),
+          ServerFilterOption(BooleanParameter.Yes.entryName, yes),
+          ServerFilterOption(BooleanParameter.No.entryName, all - yes),
         )
       }
 
@@ -208,8 +208,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       else {
         parameters.proposed match {
           case None => "all"
-          case Some(proposed) =>
-            options.find(_.name == proposed.entryName) match {
+          case Some(proposedValue) =>
+            options.find(_.name == proposedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }
@@ -228,8 +228,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       else {
         Seq(
           ServerFilterOption("all", all),
-          ServerFilterOption(BooleanParameter.yes.entryName, yes),
-          ServerFilterOption(BooleanParameter.no.entryName, all - yes),
+          ServerFilterOption(BooleanParameter.Yes.entryName, yes),
+          ServerFilterOption(BooleanParameter.No.entryName, all - yes),
         )
       }
 
@@ -239,8 +239,8 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
       else {
         parameters.proposed match {
           case None => "all"
-          case Some(proposed) =>
-            options.find(_.name == proposed.entryName) match {
+          case Some(proposedValue) =>
+            options.find(_.name == proposedValue.entryName) match {
               case None => "all"
               case Some(value) => value.name
             }

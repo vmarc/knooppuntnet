@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.changes.ChangeAction
+import kpn.api.common.data.MemberType
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
@@ -21,7 +22,7 @@ class Issue408_AddNonRouteRelationToNetwork extends IntegrationTest {
       .relation(
         11,
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         ),
         Tags.from( // no network:type=node_network tag
           "network" -> "rwn",
@@ -33,7 +34,7 @@ class Issue408_AddNonRouteRelationToNetwork extends IntegrationTest {
         1,
         "name",
         Seq(
-          newMember("relation", 11)
+          newMember(MemberType.Relation, 11)
         )
       )
 

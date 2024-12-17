@@ -1,6 +1,7 @@
 package kpn.core.data
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
@@ -28,12 +29,12 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
     val relation2 = newRawRelation(2)
 
     val membersRelation3 = Seq(
-      RawMember("node", 101, None),
-      RawMember("node", 102, Some("role1")),
-      RawMember("way", 11, None),
-      RawMember("way", 12, Some("role2")),
-      RawMember("relation", 1, None),
-      RawMember("relation", 2, Some("role2"))
+      RawMember(MemberType.Node, 101, None),
+      RawMember(MemberType.Node, 102, Some("role1")),
+      RawMember(MemberType.Way, 11, None),
+      RawMember(MemberType.Way, 12, Some("role2")),
+      RawMember(MemberType.Relation, 1, None),
+      RawMember(MemberType.Relation, 2, Some("role2"))
     )
 
     val relation3 = newRawRelation(3, members = membersRelation3)
@@ -74,13 +75,13 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
     val relation1 = newRawRelation(
       1,
       members = Seq(
-        RawMember("relation", 2, None)
+        RawMember(MemberType.Relation, 2, None)
       )
     )
     val relation2 = newRawRelation(
       2,
       members = Seq(
-        RawMember("relation", 1, None)
+        RawMember(MemberType.Relation, 1, None)
       )
     )
 
@@ -127,7 +128,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
     val relation = newRawRelation(
       1,
       members = Seq(
-        RawMember("node", 101, None)
+        RawMember(MemberType.Node, 101, None)
       )
     )
 
@@ -144,7 +145,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
     val relation = newRawRelation(
       1,
       members = Seq(
-        RawMember("way", 10, None)
+        RawMember(MemberType.Way, 10, None)
       )
     )
 
@@ -161,7 +162,7 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
     val relation = newRawRelation(
       1,
       members = Seq(
-        RawMember("relation", 2, None)
+        RawMember(MemberType.Relation, 2, None)
       )
     )
 
@@ -174,23 +175,6 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
     log.messages.head should equal("WARN data inconsistancy: relation 2 not found")
   }
 
-  test("unknown relation member type") {
-    val relation = newRawRelation(
-      1,
-      members = Seq(
-        RawMember("bla", 11, None)
-      )
-    )
-
-    val log = Log.mock
-
-    val rawData = RawData(None, Seq.empty, Seq.empty, Seq(relation))
-    val data = new DataBuilder(rawData, log).data
-
-    log.messages.size should equal(1)
-    log.messages.head should equal("""WARN data inconsistancy: unknown member type "bla" in relation 1""")
-  }
-
   test("ignore relation self references") {
 
     val node1 = newRawNode(101, tags = Tags.from("name" -> "01"))
@@ -200,9 +184,9 @@ class DataBuilderTest extends UnitTest with SharedTestObjects {
 
     val relation = newRawRelation(
       1, members = Seq(
-        RawMember("node", 101, None),
-        RawMember("way", 11, None),
-        RawMember("relation", 1, None)
+        RawMember(MemberType.Node, 101, None),
+        RawMember(MemberType.Way, 11, None),
+        RawMember(MemberType.Relation, 1, None)
       )
     )
 

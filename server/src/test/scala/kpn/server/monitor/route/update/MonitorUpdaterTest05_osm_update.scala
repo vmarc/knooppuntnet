@@ -1,6 +1,7 @@
 package kpn.server.monitor.route.update
 
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteUpdate
 import kpn.api.common.monitor.MonitorRouteUpdateStatusCommand
@@ -175,7 +176,7 @@ class MonitorUpdaterTest05_osm_update extends UnitTest with BeforeAndAfterEach w
           "name" -> "route"
         ),
         members = Seq(
-          newMember("way", 101),
+          newMember(MemberType.Way, 101),
         )
       )
 

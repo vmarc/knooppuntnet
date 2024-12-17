@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -346,7 +347,7 @@ class MonitorUpdaterTest18_update_gpx_to_osm extends UnitTest with BeforeAndAfte
           "name" -> "route-name"
         ),
         members = Seq(
-          newMember("way", 101),
+          newMember(MemberType.Way, 101),
         )
       )
 

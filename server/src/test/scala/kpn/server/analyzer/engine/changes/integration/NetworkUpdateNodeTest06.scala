@@ -11,6 +11,7 @@ import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
@@ -38,8 +39,8 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         1,
         "name",
         Seq(
-          newMember("node", 1001),
-          newMember("node", 1002)
+          newMember(MemberType.Node, 1001),
+          newMember(MemberType.Node, 1002)
         )
       )
 
@@ -56,7 +57,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         1,
         "name",
         Seq(
-          newMember("node", 1001)
+          newMember(MemberType.Node, 1001)
           // node 02 no longer part of the network
         )
       )

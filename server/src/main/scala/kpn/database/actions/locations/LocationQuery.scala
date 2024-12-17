@@ -59,31 +59,31 @@ object LocationQuery {
 
   def surveyFilter(surveyDateInfo: SurveyDateInfo, survey: Option[SurveyParameter]): Option[Bson] = {
     survey.map {
-      case SurveyParameter.unknown => not(equal("labels", "survey"))
-      case SurveyParameter.lastMonth =>
+      case SurveyParameter.Unknown => not(equal("labels", "survey"))
+      case SurveyParameter.LastMonth =>
         and(
           equal("labels", "survey"),
           gte("lastSurvey", surveyDateInfo.lastMonthStart.yyyymmdd)
         )
-      case SurveyParameter.lastHalfYear =>
+      case SurveyParameter.LastHalfYear =>
         and(
           equal("labels", "survey"),
           lt("lastSurvey", surveyDateInfo.lastMonthStart.yyyymmdd),
           gte("lastSurvey", surveyDateInfo.lastHalfYearStart.yyyymmdd)
         )
-      case SurveyParameter.lastYear =>
+      case SurveyParameter.LastYear =>
         and(
           equal("labels", "survey"),
           lt("lastSurvey", surveyDateInfo.lastHalfYearStart.yyyymmdd),
           gte("lastSurvey", surveyDateInfo.lastYearStart.yyyymmdd)
         )
-      case SurveyParameter.lastTwoYears =>
+      case SurveyParameter.LastTwoYears =>
         and(
           equal("labels", "survey"),
           lt("lastSurvey", surveyDateInfo.lastYearStart.yyyymmdd),
           gte("lastSurvey", surveyDateInfo.lastTwoYearsStart.yyyymmdd)
         )
-      case SurveyParameter.older =>
+      case SurveyParameter.Older =>
         and(
           equal("labels", "survey"),
           lt("lastSurvey", surveyDateInfo.lastTwoYearsStart.yyyymmdd)
@@ -107,8 +107,8 @@ object LocationQuery {
 
   def proposedFilter(proposed: Option[BooleanParameter]): Option[Bson] = {
     proposed.map {
-      case BooleanParameter.yes => equal("proposed", true)
-      case BooleanParameter.no => equal("proposed", false)
+      case BooleanParameter.Yes => equal("proposed", true)
+      case BooleanParameter.No => equal("proposed", false)
     }
   }
 
@@ -138,8 +138,8 @@ object LocationQuery {
 
   private def booleanFilter(booleanParameter: Option[BooleanParameter], condition: Bson): Option[Bson] = {
     booleanParameter.map {
-      case BooleanParameter.yes => condition
-      case BooleanParameter.no => not(condition)
+      case BooleanParameter.Yes => condition
+      case BooleanParameter.No => not(condition)
     }
   }
 

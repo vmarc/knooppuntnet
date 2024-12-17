@@ -1,6 +1,7 @@
 package kpn.server.analyzer.engine.changes.changes
 
 import kpn.api.common.changes.ChangeAction
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
@@ -45,7 +46,7 @@ class OsmChangeParser {
 
   private def relation(node: scala.xml.Node): RawRelation = {
     val members = (node \ "member").map { member =>
-      val memberType = (member \ "@type").text
+      val memberType = MemberType.withName((member \ "@type").text)
       val ref = (member \ "@ref").text.toLong
       val role = (member \ "@role").text
       val roleOption = if (role == "") None else Some(role)

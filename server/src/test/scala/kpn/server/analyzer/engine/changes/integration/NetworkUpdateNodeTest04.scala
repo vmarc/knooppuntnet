@@ -8,6 +8,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
@@ -27,15 +28,15 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
       .networkRelation(
         1,
         "name",
         Seq(
-          newMember("node", 1001),
-          newMember("node", 1002)
+          newMember(MemberType.Node, 1001),
+          newMember(MemberType.Node, 1002)
         ),
         version = 1
       )
@@ -48,14 +49,14 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
         11,
         "01-02",
         Seq(
-          newMember("way", 101)
+          newMember(MemberType.Way, 101)
         )
       )
       .networkRelation(
         1,
         "name",
         Seq(
-          newMember("node", 1001)
+          newMember(MemberType.Node, 1001)
           // node 02 no longer part of the network
         ),
         version = 2

@@ -9,6 +9,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
@@ -24,13 +25,13 @@ class NetworkCreateTest04 extends IntegrationTest {
       .networkNode(1002, "02")
       .way(101, 1001, 1002)
       .way(102)
-      .route(11, "01-02", Seq(newMember("way", 101)))
+      .route(11, "01-02", Seq(newMember(MemberType.Way, 101)))
       .networkRelation(
         1,
         "name",
         Seq(
-          newMember("relation", 11),
-          newMember("way", 102)
+          newMember(MemberType.Relation, 11),
+          newMember(MemberType.Way, 102)
         )
       )
 

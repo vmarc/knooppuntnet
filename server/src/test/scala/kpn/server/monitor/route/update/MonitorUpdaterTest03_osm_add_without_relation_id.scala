@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -254,7 +255,7 @@ class MonitorUpdaterTest03_osm_add_without_relation_id extends UnitTest with Bef
           "name" -> "route-name"
         ),
         members = Seq(
-          newMember("way", 101),
+          newMember(MemberType.Way, 101),
         )
       )
 

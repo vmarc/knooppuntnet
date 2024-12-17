@@ -19,7 +19,7 @@ class Structure_51_RoundaboutTest extends UnitTest {
     assertEqual(
       context.links,
       Seq(
-        "1    p     n     loop     fp     bp     head     tail     d roundaboutright",
+        "1    p     n     loop     fp     bp     head     tail     d roundabout-right",
       )
     )
 
@@ -28,7 +28,7 @@ class Structure_51_RoundaboutTest extends UnitTest {
       Seq(
         "segment-1 1>1",
         "  element-1 1>1  →  nodes=1, 2, 3, 4, 1",
-        "    way-11  p     n     loop     fp     bp     head     tail     d roundaboutright",
+        "    way-11  p     n     loop     fp     bp     head     tail     d roundabout-right",
       )
     )
 

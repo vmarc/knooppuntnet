@@ -2,6 +2,7 @@ package kpn.server.monitor.route.update
 
 import kpn.api.common.Bounds
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
 import kpn.api.common.monitor.MonitorRouteRelation
 import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.monitor.MonitorRouteUpdate
@@ -349,7 +350,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
           "name" -> "main-relation"
         ),
         members = Seq(
-          newMember("relation", 11),
+          newMember(MemberType.Relation, 11),
         )
       )
       .relation(
@@ -380,7 +381,7 @@ class MonitorUpdaterTest12_multi_gpx_update_gpx extends UnitTest with BeforeAndA
           "name" -> "sub-relation"
         ),
         members = Seq(
-          newMember("way", 101),
+          newMember(MemberType.Way, 101),
         )
       )
 

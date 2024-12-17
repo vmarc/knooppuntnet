@@ -1,5 +1,6 @@
 package kpn.api.common.data.raw
 
+import kpn.api.common.data.MemberType
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
@@ -14,9 +15,9 @@ case class RawRelation(
 
   override def isRelation: Boolean = true
 
-  def nodeMembers: Seq[RawMember] = members.filter(_.memberType == "node")
+  def nodeMembers: Seq[RawMember] = members.filter(_.memberType == MemberType.Node)
 
-  def wayMembers: Seq[RawMember] = members.filter(_.memberType == "way")
+  def wayMembers: Seq[RawMember] = members.filter(_.memberType == MemberType.Way)
 
-  def relationMembers: Seq[RawMember] = members.filter(_.memberType == "relation")
+  def relationMembers: Seq[RawMember] = members.filter(_.memberType == MemberType.Relation)
 }

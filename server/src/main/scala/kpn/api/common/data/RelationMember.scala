@@ -8,7 +8,7 @@ case class RelationMember(relation: Relation, role: Option[String]) extends Memb
 
   def toRaw: RawMember = {
     RawMember(
-      "relation",
+      MemberType.Relation,
       relation.id,
       role
     )

@@ -10,6 +10,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.data.MemberType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -25,7 +26,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
       .relation(
         1,
         Seq(
-          newMember("node", 1001)
+          newMember(MemberType.Node, 1001)
         ),
         Tags.from(
           "network:type" -> "node_network",
@@ -41,7 +42,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
       .relation(
         1,
         Seq(
-          newMember("node", 1001)
+          newMember(MemberType.Node, 1001)
         ),
         Tags.from(
           "network:type" -> "node_network",

@@ -26,7 +26,7 @@ class Structure_N11_Test extends UnitTest {
       context.links,
       Seq(
         "1    p     n ■   loop     fp     bp     head     tail     d forward",
-        "2    p ■   n ■   loop     fp     bp     head     tail     d roundaboutright",
+        "2    p ■   n ■   loop     fp     bp     head     tail     d roundabout-right",
         "3    p ■   n     loop     fp     bp     head     tail     d forward",
       )
     )
@@ -46,9 +46,9 @@ class Structure_N11_Test extends UnitTest {
         "  element-1 1>4  1(01)  ↔  nodes=1, 2, 4",
         "    way-10  p     n ■   loop     fp     bp     head     tail     d forward",
         "  element-2 4>7  →  nodes=4, 5, 6, 7",
-        "    way-11  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright",
+        "    way-11  p ■   n ■   loop     fp     bp     head     tail     d roundabout-right",
         "  element-3 4>7  ←  nodes=4, 3, 8, 7",
-        "    way-11  p ■   n ■   loop     fp     bp     head     tail     d roundaboutright",
+        "    way-11  p ■   n ■   loop     fp     bp     head     tail     d roundabout-right",
         "  element-4 7>10  10(02)  ↔  nodes=7, 9, 10",
         "    way-12  p ■   n     loop     fp     bp     head     tail     d forward",
       )
