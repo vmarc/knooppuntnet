@@ -10,6 +10,7 @@ import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
+import kpn.api.common.route.RouteStructureRow
 import kpn.api.custom.Day
 import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
@@ -35,6 +36,7 @@ case class RouteDoc(
   paths: Seq[RoutePath],
   routeIds: Seq[Long],
   bounds: Option[Bounds],
+  structureRows: Seq[RouteStructureRow]
 ) extends WithId {
 
   def id: Long = summary.id

@@ -28,6 +28,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAn
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteBoundsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSaverImpl
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
@@ -107,7 +108,8 @@ class IntegrationTestContext(
   )
   private val routeMainAnalyzer = {
     val routeBoundsAnalyzer = new RouteBoundsAnalyzer(routeDetailRepository)
-    new RouteMainAnalyzer(routeBoundsAnalyzer)
+    val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(routeDetailRepository)
+    new RouteMainAnalyzer(routeBoundsAnalyzer, routeStructureRowsAnalyzer)
   }
 
   private val elementIdAnalyzer = new ElementIdAnalyzerImpl

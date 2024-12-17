@@ -5,7 +5,6 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteSummary
 import kpn.api.common.location.LocationCandidateInfo
 import kpn.api.custom.Day
-import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 
 case class RouteDetailsPageData(
@@ -21,7 +20,7 @@ case class RouteDetailsPageData(
   locationCandidateInfos: Seq[LocationCandidateInfo],
   unexpectedNodeIds: Seq[Long],
   unexpectedRelationIds: Seq[Long],
-  members: Seq[RouteMemberInfo],
+  structureRows: Seq[RouteStructureRow],
   nameDerivedFromNodes: Boolean,
   nodes: RouteNodes,
   bounds: Option[Bounds],

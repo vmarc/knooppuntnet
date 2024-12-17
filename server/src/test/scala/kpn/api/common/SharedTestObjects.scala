@@ -54,6 +54,7 @@ import kpn.api.common.route.RouteNode
 import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
+import kpn.api.common.route.RouteStructureRow
 import kpn.api.custom.Change
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
@@ -954,7 +955,8 @@ trait SharedTestObjects extends MockFactory {
     segments: Seq[RouteSegment] = Seq.empty,
     paths: Seq[RoutePath] = Seq.empty,
     routeIds: Seq[Long] = Seq.empty,
-    bounds: Option[Bounds] = None
+    bounds: Option[Bounds] = None,
+    structureRows: Seq[RouteStructureRow] = Seq.empty,
   ): RouteDoc = {
     RouteDoc(
       summary.id,
@@ -976,7 +978,8 @@ trait SharedTestObjects extends MockFactory {
       segments,
       paths,
       routeIds,
-      bounds
+      bounds,
+      structureRows
     )
   }
 

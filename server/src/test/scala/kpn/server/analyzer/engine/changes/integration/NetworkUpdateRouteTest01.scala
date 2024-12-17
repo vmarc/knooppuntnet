@@ -12,9 +12,9 @@ import kpn.api.common.data.MetaData
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.route.Both
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.common.route.WayDirection
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.doc.Label
@@ -123,7 +123,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             "0 m",
             "2",
             "",
-            Both,
+            WayDirection.Both,
             Seq.empty
           )
         ),
@@ -217,7 +217,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             "0 m",
             "2",
             "",
-            Both,
+            WayDirection.Both,
             Seq.empty
           )
         ),

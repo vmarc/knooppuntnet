@@ -5,9 +5,9 @@ import { Fact } from '@api/common';
 import { RouteSummary } from '@api/common';
 import { LocationCandidateInfo } from '@api/common/location';
 import { Day } from '@api/custom';
-import { RouteMemberInfo } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { RouteNodes } from './route-nodes';
+import { RouteStructureRow } from './route-structure-row';
 
 export interface RouteDetailsPageData {
   readonly id: number;
@@ -22,7 +22,7 @@ export interface RouteDetailsPageData {
   readonly locationCandidateInfos: LocationCandidateInfo[];
   readonly unexpectedNodeIds: number[];
   readonly unexpectedRelationIds: number[];
-  readonly members: RouteMemberInfo[];
+  readonly structureRows: RouteStructureRow[];
   readonly nameDerivedFromNodes: boolean;
   readonly nodes: RouteNodes;
   readonly bounds: Bounds;

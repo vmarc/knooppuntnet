@@ -1,9 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.data.Way
-import kpn.api.common.route.Backward
-import kpn.api.common.route.Both
-import kpn.api.common.route.Forward
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Tag
 
@@ -32,46 +29,46 @@ class OneWayAnalyzer(way: Way) {
   def direction: WayDirection = {
 
     if (isOneWayBicycleNo) {
-      Both
+      WayDirection.Both
     }
     else if (isOppositeTrack) {
-      Both
+      WayDirection.Both
     }
     else if (isCycleLaneLeftAndRight) {
-      Both
+      WayDirection.Both
     }
     else if (isOneWayYes && isOppositeLane) {
-      Both
+      WayDirection.Both
     }
     else if (isOneWayReverse && !(isOneWayBicycleNo || isOneWayBicycleNoCycleWay)) {
-      Backward
+      WayDirection.Backward
     }
     else if (isRoundabout) {
-      Forward
+      WayDirection.Forward
     }
     else if (isOneWayBicycleYes) {
-      Forward
+      WayDirection.Forward
     }
     else if (isOneWayYes && !(isOneWayBicycleNo || isOneWayBicycleNoCycleWay)) {
-      Forward
+      WayDirection.Forward
     }
     else if (isOneWayYes && cycleWayLeft) {
-      Both
+      WayDirection.Both
     }
     else if (isOneWayReverse && cycleWayLeft) {
-      Backward
+      WayDirection.Backward
     }
     else if (isOneWayYes && cycleWayRight) {
-      Forward
+      WayDirection.Forward
     }
     else if (isOneWayReverse && cycleWayRight) {
-      Forward
+      WayDirection.Forward
     }
     else if (isOneWayBicycleReverse) {
-      Backward
+      WayDirection.Backward
     }
     else {
-      Both
+      WayDirection.Both
     }
   }
 

@@ -6,12 +6,12 @@ import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Reference
-import kpn.api.common.route.Both
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteNodes
+import kpn.api.common.route.RouteStructureRow
+import kpn.api.common.route.WayDirection
 import kpn.api.custom.Day
-import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
 
@@ -73,8 +73,8 @@ object RouteDetailsPageExample {
       locationCandidateInfos = Seq(),
       unexpectedNodeIds = Seq(1001),
       unexpectedRelationIds = Seq(1, 2, 3),
-      members = Seq(
-        RouteMemberInfo(
+      structureRows = Seq(
+        RouteStructureRow(
           id = 1L,
           memberType = "node",
           isWay = false,
@@ -90,10 +90,23 @@ object RouteDetailsPageExample {
           length = "",
           nodeCount = "",
           description = "",
-          oneWay = Both,
-          oneWayTags = Seq.empty
+          oneWay = WayDirection.Both,
+          oneWayTags = Seq.empty,
+
+          level = 1,
+          physical = false,
+          name = "",
+          relationId = 1,
+          subRelationIndex = None,
+          // role: Option[String],
+          survey = None,
+          symbol = None,
+          osmSegmentCount = None,
+          osmDistance = 0,
+          gaps = None,
+          happy = false
         ),
-        RouteMemberInfo(
+        RouteStructureRow(
           id = 1L,
           memberType = "way",
           isWay = true,
@@ -109,12 +122,25 @@ object RouteDetailsPageExample {
           length = "",
           nodeCount = "3",
           description = "description",
-          oneWay = Both,
+          oneWay = WayDirection.Both,
           oneWayTags = Tags.from(
             "key1" -> "value1",
             "key2" -> "value2",
             "key3" -> "value3"
-          )
+          ),
+
+          level = 1,
+          physical = false,
+          name = "",
+          relationId = 1,
+          subRelationIndex = None,
+          // role: Option[String],
+          survey = None,
+          symbol = None,
+          osmSegmentCount = None,
+          osmDistance = 0,
+          gaps = None,
+          happy = false
         )
       ),
       nameDerivedFromNodes = true,

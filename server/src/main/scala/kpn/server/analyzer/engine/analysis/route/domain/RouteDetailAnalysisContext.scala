@@ -9,8 +9,8 @@ import kpn.api.common.data.Node
 import kpn.api.common.route.RouteEdge
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
+import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.ScopedNetworkType
-import kpn.core.analysis.RouteMember
 import kpn.core.doc.RouteDetailPath
 import kpn.core.doc.RouteDetailSegment
 import kpn.core.doc.RouteDetailSegmentElement
@@ -48,7 +48,7 @@ case class RouteDetailAnalysisContext(
   _oneWayRouteForward: Option[Boolean] = None,
   _oneWayRouteBackward: Option[Boolean] = None,
   _structure: Option[Structure] = None,
-  _routeMembers: Option[Seq[RouteMember]] = None,
+  _routeMembers: Option[Seq[RouteMemberInfo]] = None,
   allWayNodes: Option[Seq[Node]] = None,
   _geometryDigest: Option[String] = None,
   _locationAnalysis: Option[RouteLocationAnalysis] = None,
@@ -141,7 +141,7 @@ case class RouteDetailAnalysisContext(
 
   def structure: Structure = _structure.getOrElse(throw new PreconditionMissingException)
 
-  def routeMembers: Seq[RouteMember] = _routeMembers.getOrElse(throw new PreconditionMissingException)
+  def routeMembers: Seq[RouteMemberInfo] = _routeMembers.getOrElse(throw new PreconditionMissingException)
 
   def geometryDigest: String = _geometryDigest.getOrElse(throw new PreconditionMissingException)
 

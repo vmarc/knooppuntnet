@@ -6,11 +6,12 @@ import kpn.api.common.data.NodeMember
 import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
+import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.common.route.WayDirection
+import kpn.api.custom.RouteMemberInfo
 import kpn.core.analysis.LinkDirection
-import kpn.core.analysis.RouteMember
-import kpn.core.analysis.RouteMemberNode
-import kpn.core.analysis.RouteMemberWay
 import kpn.core.analysis.TagInterpreter
+import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
@@ -25,7 +26,7 @@ object RouteMemberAnalyzer extends RouteDetailAnalyzer {
 class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
-    val routeMembers: Seq[RouteMember] = analyzeRouteMembers(context.routeNodesAnalysis)
+    val routeMembers: Seq[RouteMemberInfo] = analyzeRouteMembers(context.routeNodesAnalysis)
     if (routeMembers.exists(!_.accessible)) {
       context.copy(_routeMembers = Some(routeMembers)).withFact(RouteInaccessible)
     }
@@ -34,7 +35,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
     }
   }
 
-  private def analyzeRouteMembers(nodes: RouteNodesAnalysis): Seq[RouteMember] = {
+  private def analyzeRouteMembers(nodes: RouteNodesAnalysis): Seq[RouteMemberInfo] = {
     // map with key Node.id and value node number
     val nodeMap: scala.collection.mutable.Map[Long, Int] = scala.collection.mutable.Map.empty
     val nodeNumberIterator = (1 to 10000).iterator
@@ -79,14 +80,29 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           case _ => name
         }
 
+        val nodesX: Seq[RouteNetworkNodeInfo] = Seq(
+          RouteNetworkNodeInfo(node.id, name, alternateName, longName, node.latitude, node.longitude)
+        )
+
         Some(
-          RouteMemberNode(
-            name,
-            alternateName,
-            longName,
-            number.toString,
-            nodeMember.role,
-            node
+          RouteMemberInfo(
+            id = node.id,
+            memberType = "way",
+            isWay = true,
+            nodes = nodesX,
+            linkName = "n",
+            from = node.toString,
+            fromNodeId = node.id,
+            to = node.toString,
+            toNodeId = node.id,
+            role = nodeMember.role.getOrElse(""),
+            timestamp = node.timestamp,
+            accessible = false,
+            length = "",
+            nodeCount = "",
+            description = name,
+            oneWay = WayDirection.Both,
+            oneWayTags = Seq.empty
           )
         )
 
@@ -132,24 +148,63 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
         // some ways have <tag k="route" v="bicycle"/>; Is this enough to decide that this is ok ???
 
+        def nodesX: Seq[RouteNetworkNodeInfo] = wayNetworkNodes.map(_.toRouteNode).map { rn =>
+          RouteNetworkNodeInfo(
+            rn.nodeId,
+            rn.name,
+            rn.alternateName,
+            None, // TODO redesign
+            "TODO rn.latitude",
+            "TODO rn.longitude"
+          )
+        }
+
         Some(
-          RouteMemberWay(
-            name,
-            Some(link.link),
-            wayMember.role,
-            way,
-            fromNode,
-            toNode,
-            from.toString,
-            to.toString,
-            accessible,
-            wayNetworkNodes.map(_.toRouteNode)
+          RouteMemberInfo(
+            id = way.id,
+            memberType = "way",
+            isWay = true,
+            nodes = nodesX,
+            linkName = link.linkName,
+            from = fromNode.toString,
+            fromNodeId = fromNode.id,
+            to = toNode.toString,
+            toNodeId = toNode.id,
+            role = wayMember.role.getOrElse(""),
+            timestamp = way.timestamp,
+            accessible = accessible,
+            length = s"${way.length.toString} m",
+            nodeCount = way.nodes.size.toString,
+            description = name,
+            oneWay = new OneWayAnalyzer(way).direction,
+            oneWayTags = OneWayAnalyzer.oneWayTags(way)
           )
         )
 
       case relationIdMember: RelationIdMember =>
-        // TODO redesign - process relationIdMember
-        None
+
+        Some(
+          RouteMemberInfo(
+            id = relationIdMember.relationId,
+            memberType = "relation",
+            isWay = false,
+            nodes = Seq.empty,
+            linkName = "",
+            from = "",
+            fromNodeId = 0,
+            to = "",
+            toNodeId = 0,
+            role = relationIdMember.role.getOrElse(""),
+            timestamp = null, //: Timestamp,
+            accessible = false,
+            length = "",
+            nodeCount = "",
+            description = "",
+            oneWay = WayDirection.Both,
+            oneWayTags = Seq.empty
+          )
+
+        )
 
       case relationMember: RelationMember =>
         // TODO redesign - process relationMember

@@ -113,7 +113,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
                   <!-- TODO redesign networkTypes[0]-->
                   <kpn-route-members
                     [networkType]="page.route.summary.networkTypes[0]"
-                    [members]="page.route.members"
+                    [rows]="page.route.structureRows"
                   />
                 </div>
               }

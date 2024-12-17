@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.route.Backward
-import kpn.api.common.route.Both
-import kpn.api.common.route.Forward
 import kpn.api.common.route.WayDirection
+import kpn.api.common.route.WayDirection.Backward
+import kpn.api.common.route.WayDirection.Both
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
+import kpn.server.analyzer.engine.analysis.route.domain.RoutePathDirection.Forward
 
 class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
 

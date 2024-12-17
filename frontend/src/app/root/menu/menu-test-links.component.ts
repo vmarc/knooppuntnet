@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
         <a routerLink="analysis/route/6376622">Route 01-02</a>
       </li>
       <li>
-        <a routerLink="analysis/route/7973533">LAW9 Pierpad</a>
+        <a routerLink="analysis/route/7973533">LAW9 Pieterpad</a>
       </li>
       <li>
         <a routerLink="analysis/route/16068584">Wandelpad Calmeyn</a>

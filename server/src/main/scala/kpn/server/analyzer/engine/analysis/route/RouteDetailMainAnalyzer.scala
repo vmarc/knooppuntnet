@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.Fact
 import kpn.api.common.Fact.RouteBroken
-import kpn.api.common.route.Both
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Relation
 import kpn.api.custom.Tag
@@ -140,7 +139,7 @@ object RouteAnalyzerFunctions {
   def oneWay(member: RouteMember): WayDirection = {
     member match {
       case routeMemberWay: RouteMemberWay => new OneWayAnalyzer(routeMemberWay.way).direction
-      case _ => Both
+      case _ => WayDirection.Both
     }
   }
 

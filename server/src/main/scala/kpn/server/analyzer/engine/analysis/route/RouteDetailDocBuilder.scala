@@ -20,27 +20,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       case _ => "no-name"
     }
 
-    val members: Seq[RouteMemberInfo] = context.routeMembers.map { member =>
-      kpn.api.custom.RouteMemberInfo(
-        member.id,
-        member.memberType,
-        member.memberType == "way",
-        member.nodes,
-        member.linkName,
-        member.from: String,
-        member.fromNode.id,
-        member.to,
-        member.toNode.id,
-        member.role.getOrElse(""),
-        member.element.timestamp,
-        member.accessible,
-        member.length,
-        member.nodeCount,
-        member.description,
-        RouteAnalyzerFunctions.oneWay(member),
-        RouteAnalyzerFunctions.oneWayTags(member)
-      )
-    }
+    val members: Seq[RouteMemberInfo] = context.routeMembers
 
     val length: Long = context.structure.allPaths.map(_.meters).sum
 
