@@ -9,6 +9,7 @@ import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.analysis.LinkDirection
+import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
@@ -225,7 +226,7 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
         )
       }
       val keys: Seq[String] = nameTagKeys1 ++ nameTagKeys2 ++ longNameTagKeys1 ++ longNameTagKeys2 :+ "name"
-      keys.find(key => node.hasTag(key)).flatMap(key => node.tagValue(key))
+      keys.find(key => node.hasTag(key)).flatMap(key => node.tagValue(key)).map(NodeUtil.normalize)
     }
     else {
       None
