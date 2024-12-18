@@ -7,8 +7,6 @@ import kpn.core.tools.analysis.AnalysisStartToolOptions
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
-import kpn.server.analyzer.engine.analysis.route.structure.DependencySorter
-import kpn.server.analyzer.engine.analysis.route.structure.RouteDependency
 
 object RouteAnalysisTool {
   def main(args: Array[String]): Unit = {
@@ -66,6 +64,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     val routeIds = config.nextRepository.allRouteIds()
     log.info(s"found ${routeIds.size} routeIds")
     analyzeRoutes(routeIds)
+
     // analyzeRoutes(Seq(16068584L) ++ essenOkRouteIds) // 16068584 Wandelpad Calmeyn
     // analyzeRoutes(Seq(8312991L)) // GR145 Arras to Reims
     // analyzeRoutes(Seq(8618)) // ok route with start tenticle
@@ -80,11 +79,12 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   }
 
   private def analyzeRoutes(routeIds: Seq[Long]): Unit = {
-    val dependencies = analyzeRouteDetails(routeIds)
-    analyzeRoutesMain(dependencies)
+    val superRouteIds = analyzeRouteDetails(routeIds)
+    log.info(s"analyzing main ${superRouteIds.size} super route relations")
+    analyzeNestedRoutes(superRouteIds)
   }
 
-  private def analyzeRouteDetails(routeIds: Seq[Long]): Seq[RouteDependency] = {
+  private def analyzeRouteDetails(routeIds: Seq[Long]): Seq[Long] = {
     val routeIdsSize = routeIds.size
     log.info(s"analyzing $routeIdsSize route relation details")
     routeIds.zipWithIndex.flatMap { case (routeId, index) =>
@@ -92,7 +92,14 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
         log.info("analyze detail")
         try {
           config.nextRepository.nextRouteRelation(routeId) match {
-            case Some(nextRouteRelation) => analyzeRouteDetail(nextRouteRelation.relation, nextRouteRelation.structure)
+            case Some(nextRouteRelation) =>
+              val nestedRelation = analyzeRouteDetail(nextRouteRelation.relation, nextRouteRelation.structure)
+              if (nestedRelation) {
+                Seq(nextRouteRelation.relation.id)
+              }
+              else {
+                Seq.empty
+              }
             case None =>
               log.error(s"route $routeId not found in route-relations")
               Seq.empty
@@ -106,13 +113,12 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     }
   }
 
-  private def analyzeRoutesMain(dependencies: Seq[RouteDependency]): Unit = {
-    log.info(s"analyzing main ${dependencies.size} route relations")
-    val sortedRouteIds = DependencySorter.sort(dependencies)
-    val sortedRouteIdsSize = sortedRouteIds.size
-    sortedRouteIds.zipWithIndex.foreach { case (relationId, index) =>
-      Log.context(s"${index + 1}/$sortedRouteIdsSize route=$relationId") {
+  private def analyzeNestedRoutes(routeIds: Seq[Long]): Unit = {
+    val routeIdsSize = routeIds.size
+    routeIds.zipWithIndex.foreach { case (relationId, index) =>
+      Log.context(s"${index + 1}/$routeIdsSize route=$relationId") {
         try {
+          log.info("analyze main")
           config.routeDetailRepository.findById(relationId) match {
             case None => log.error(s"could not find route details")
             case Some(routeDetailDoc) =>
@@ -130,9 +136,9 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     }
   }
 
-  private def analyzeRouteDetail(relation: Relation, hierarchy: Option[RouteRelation]): Seq[RouteDependency] = {
+  private def analyzeRouteDetail(relation: Relation, hierarchy: Option[RouteRelation]): Boolean = {
     config.routeDetailMainAnalyzer.analyze(relation, hierarchy) match {
-      case None => Seq.empty
+      case None => false
       case Some(context) =>
         val routeDetailDoc = new RouteDetailDocBuilder(context).build()
         config.routeDetailRepository.save(routeDetailDoc)
@@ -156,17 +162,13 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
 
         routeDetailDoc.hierarchy match {
           case None =>
-            config.routeMainAnalyzer.analyze(routeDetailDoc) match {
-              case Some(routeDoc) =>
-                config.routeRepository.saveRoute(routeDoc)
-                Seq.empty
-              case None => Seq.empty
+            config.routeMainAnalyzer.analyze(routeDetailDoc).foreach { routeDoc =>
+              config.routeRepository.saveRoute(routeDoc)
             }
+            false
           case Some(hierarchyValue) =>
             // further analysis should go in second pass
-            hierarchyValue.relations.map(subrelation =>
-              RouteDependency(relation.id, subrelation.relationId)
-            )
+            true
         }
 
       // TODO saveRouteChange(routeAnalysis)
