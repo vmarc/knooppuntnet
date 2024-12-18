@@ -3,6 +3,7 @@ package kpn.core.doc
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkType
+import kpn.api.common.RouteScope
 
 object Label {
 
@@ -18,5 +19,5 @@ object Label {
 
   def fact(fact: Fact): String = s"fact-${fact.entryName}"
 
-  def scope(routeScope: String): String = s"scope-$routeScope"
+  def scope(routeScope: RouteScope): String = s"scope-${routeScope.entryName}"
 }

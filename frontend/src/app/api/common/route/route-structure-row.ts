@@ -1,5 +1,6 @@
 // this file is generated, please do not modify
 
+import { MemberType } from '@api/common/data';
 import { Day } from '@api/custom';
 import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
@@ -8,7 +9,7 @@ import { WayDirection } from './way-direction';
 
 export interface RouteStructureRow {
   readonly id: number;
-  readonly memberType: string;
+  readonly memberType: MemberType;
   readonly isWay: boolean;
   readonly nodes: RouteNetworkNodeInfo[];
   readonly linkName: string;

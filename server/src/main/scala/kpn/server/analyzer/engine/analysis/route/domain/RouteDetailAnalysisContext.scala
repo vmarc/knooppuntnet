@@ -5,6 +5,7 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.RouteScope
 import kpn.api.common.data.Node
 import kpn.api.common.route.RouteEdge
 import kpn.api.custom.Day
@@ -29,7 +30,7 @@ case class RouteDetailAnalysisContext(
   nodeNetwork: Boolean = false,
   proposed: Boolean = false,
   _networkTypes: Option[Seq[NetworkType]] = None,
-  _scopes: Option[Seq[String]] = None,
+  _scopes: Option[Seq[RouteScope]] = None,
   scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
   _countries: Option[Seq[Country]] = None,
   _links: Option[RouteLinks] = None,
@@ -111,7 +112,7 @@ case class RouteDetailAnalysisContext(
 
   def networkTypes: Seq[NetworkType] = _networkTypes.getOrElse(throw new PreconditionMissingException)
 
-  def scopes: Seq[String] = _scopes.getOrElse(throw new PreconditionMissingException)
+  def scopes: Seq[RouteScope] = _scopes.getOrElse(throw new PreconditionMissingException)
 
   def countries: Seq[Country] = _countries.getOrElse(throw new PreconditionMissingException)
 

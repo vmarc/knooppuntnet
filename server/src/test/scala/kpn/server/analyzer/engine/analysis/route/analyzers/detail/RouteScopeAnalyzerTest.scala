@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
+import kpn.api.common.RouteScope
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
@@ -9,11 +10,11 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisConte
 class RouteScopeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("network tag based scope") {
-    testNetworkTag("iwn", "international")
-    testNetworkTag("nwn", "national")
-    testNetworkTag("rwn", "regional")
-    testNetworkTag("lwn", "local")
-    testNetworkTag("bla", "unknown")
+    testNetworkTag("iwn", RouteScope.International)
+    testNetworkTag("nwn", RouteScope.National)
+    testNetworkTag("rwn", RouteScope.Regional)
+    testNetworkTag("lwn", RouteScope.Local)
+    testNetworkTag("bla", RouteScope.Unknown)
   }
 
   test("scope") {
@@ -24,10 +25,10 @@ class RouteScopeAnalyzerTest extends UnitTest with SharedTestObjects {
         "network" -> "rwn"
       )
     )
-    assertEqual(context.scopes, Seq("regional")) // international national regional local
+    assertEqual(context.scopes, Seq(RouteScope.Regional))
   }
 
-  private def testNetworkTag(tagValue: String, expectedScope: String): Unit = {
+  private def testNetworkTag(tagValue: String, expectedScope: RouteScope): Unit = {
     val context = analyze(
       Tags.from(
         "network" -> tagValue

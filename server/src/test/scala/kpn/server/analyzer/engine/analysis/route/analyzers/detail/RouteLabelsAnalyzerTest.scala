@@ -4,6 +4,7 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.RouteScope
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.ScopedNetworkType
@@ -16,7 +17,8 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("labels") {
     val context = buildContext()
-    RouteLabelsAnalyzer.analyze(context).labels should equal(
+    assertEqual(
+      RouteLabelsAnalyzer.analyze(context).labels,
       Seq(
         Label.active,
         "broken",
@@ -25,6 +27,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         Label.location("Essen"),
         Label.location(Country.be.entryName),
         Label.networkType(NetworkType.hiking),
+        Label.scope(RouteScope.Regional),
         Label.survey,
       )
     )
@@ -59,7 +62,8 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         )
       )
     )
-    RouteLabelsAnalyzer.analyze(context).labels should equal(
+    assertEqual(
+      RouteLabelsAnalyzer.analyze(context).labels,
       Seq(
         Label.active,
         "broken",
@@ -67,6 +71,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         Label.facts,
         Label.location(Country.be.entryName),
         Label.networkType(NetworkType.hiking),
+        Label.scope(RouteScope.Regional),
         Label.survey,
       )
     )
@@ -79,6 +84,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
       relation,
       None,
       _networkTypes = Some(Seq(NetworkType.hiking)),
+      _scopes = Some(Seq(RouteScope.Regional)),
       scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
       _countries = Some(Seq(Country.be)),
       lastSurvey = Some(Day(2020, 8)),

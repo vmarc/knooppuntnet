@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
 import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
+import kpn.api.common.RouteScope
 import kpn.api.custom.ScopedNetworkType
 import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
@@ -26,22 +27,22 @@ object RouteScopeAnalyzer extends RouteDetailAnalyzer {
 class RouteScopeAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
-    val scopes: Seq[String] = Tags.get(context.relation.tags, "network") match {
+    val scopes: Seq[RouteScope] = Tags.get(context.relation.tags, "network") match {
       case None => Seq.empty
       case Some(tagValue) =>
         val values = tagValue.split(";").toSeq
         values.flatMap { value =>
           if (RouteScopeAnalyzer.localNetworkTagValues.contains(value)) {
-            Some("local")
+            Some(RouteScope.Local)
           }
           else if (RouteScopeAnalyzer.regionalNetworkTagValues.contains(value)) {
-            Some("regional")
+            Some(RouteScope.Regional)
           }
           else if (RouteScopeAnalyzer.nationalNetworkTagValues.contains(value)) {
-            Some("national")
+            Some(RouteScope.National)
           }
           else if (RouteScopeAnalyzer.internationalNetworkTagValues.contains(value)) {
-            Some("international")
+            Some(RouteScope.International)
           }
           else {
             None
@@ -49,7 +50,7 @@ class RouteScopeAnalyzer(context: RouteDetailAnalysisContext) {
         }
     }
     val allScopes = if (scopes.isEmpty) {
-      Seq("unknown")
+      Seq(RouteScope.Unknown)
     }
     else {
       scopes

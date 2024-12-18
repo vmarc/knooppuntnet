@@ -4,6 +4,7 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
@@ -40,7 +41,7 @@ object RouteDetailsPageExample {
         countries = Seq(Country.nl),
         nodeNetwork = true,
         networkTypes = Seq(NetworkType.hiking),
-        scopes = Seq("regional"),
+        scopes = Seq(RouteScope.Regional),
         name = "01-02",
         meters = 1234,
         broken = true,

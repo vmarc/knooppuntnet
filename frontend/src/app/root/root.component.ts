@@ -41,7 +41,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     } @else {
       <div class="main content">
         <as-split direction="horizontal" disabled="false" unit="percent">
-          <as-split-area size="40">
+          <!-- 40 -->
+          <as-split-area size="70">
             <div class="text-panel-container">
               <div class="text-panel-body">
                 <ng-container *ngTemplateOutlet="text"></ng-container>
@@ -51,7 +52,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
               </div>
             </div>
           </as-split-area>
-          <as-split-area size="60">
+          <!-- 60 -->
+          <as-split-area size="30">
             <kpn-map />
           </as-split-area>
         </as-split>

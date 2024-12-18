@@ -19,6 +19,7 @@ import kpn.api.common.Language
 import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteScope
 import kpn.api.common.data.MemberType
 import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LastUpdatedParameter
@@ -81,6 +82,9 @@ object Json {
 
     b.deserializerByType(classOf[ScopedNetworkType], new ScopedNetworkTypeJsonDeserializer())
     b.serializerByType(classOf[ScopedNetworkType], new ScopedNetworkTypeJsonSerializer())
+
+    b.deserializerByType(classOf[RouteScope], new RouteScopeJsonDeserializer())
+    b.serializerByType(classOf[RouteScope], new RouteScopeJsonSerializer())
 
     b.deserializerByType(classOf[MemberType], new MemberTypeJsonDeserializer())
     b.serializerByType(classOf[MemberType], new MemberTypeJsonSerializer())
