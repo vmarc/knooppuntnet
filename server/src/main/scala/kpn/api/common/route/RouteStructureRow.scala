@@ -1,5 +1,6 @@
 package kpn.api.common.route
 
+import kpn.api.common.data.MemberType
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
@@ -7,7 +8,7 @@ import kpn.api.custom.Timestamp
 case class RouteStructureRow(
   // RouteMemberInfo
   id: Long,
-  memberType: String,
+  memberType: MemberType,
   isWay: Boolean,
   nodes: Seq[RouteNetworkNodeInfo],
   linkName: String,

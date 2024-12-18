@@ -6,6 +6,7 @@ import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
 import kpn.api.common.RouteSummary
 import kpn.api.common.common.Reference
+import kpn.api.common.data.MemberType
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteNodes
@@ -76,7 +77,7 @@ object RouteDetailsPageExample {
       structureRows = Seq(
         RouteStructureRow(
           id = 1L,
-          memberType = "node",
+          memberType = MemberType.Node,
           isWay = false,
           nodes = Seq.empty,
           linkName = "n",
@@ -108,7 +109,7 @@ object RouteDetailsPageExample {
         ),
         RouteStructureRow(
           id = 1L,
-          memberType = "way",
+          memberType = MemberType.Way,
           isWay = true,
           nodes = Seq.empty,
           linkName = "wb003",

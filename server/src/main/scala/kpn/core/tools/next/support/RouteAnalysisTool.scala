@@ -4,7 +4,6 @@ import kpn.api.custom.Relation
 import kpn.core.doc.RouteRelation
 import kpn.core.tools.analysis.AnalysisStartConfiguration
 import kpn.core.tools.analysis.AnalysisStartToolOptions
-import kpn.core.tools.next.support.RouteAnalysisTool.law9
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
@@ -64,15 +63,15 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
 
   def analyze(): Unit = {
     log.info("Fetching all route ids")
-    // val routeIds = config.nextRepository.allRouteIds()
-    // log.info(s"found ${routeIds.size} routeIds")
-    // analyzeRoutes(routeIds)
+    val routeIds = config.nextRepository.allRouteIds()
+    log.info(s"found ${routeIds.size} routeIds")
+    analyzeRoutes(routeIds)
     // analyzeRoutes(Seq(16068584L) ++ essenOkRouteIds) // 16068584 Wandelpad Calmeyn
     // analyzeRoutes(Seq(8312991L)) // GR145 Arras to Reims
     // analyzeRoutes(Seq(8618)) // ok route with start tenticle
     // analyzeRoutes(Seq(5491)) // ok route with 2 start tenticles
     // analyzeRoutes(essenOkRouteIds)
-    analyzeRoutes(law9)
+    // analyzeRoutes(law9)
     // analyzeRoutes(Seq(7973533L))
     // analyzeRoutes(Seq(5880L)) // exception during structure analysis
     // analyzeRoutes(Seq(3952592)) // broken route

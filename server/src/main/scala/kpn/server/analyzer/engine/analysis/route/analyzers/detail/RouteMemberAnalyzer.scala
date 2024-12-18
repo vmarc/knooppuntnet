@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
 import kpn.api.common.Fact.RouteInaccessible
 import kpn.api.common.data.Member
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.RelationMember
@@ -87,7 +88,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
         Some(
           RouteMemberInfo(
             id = node.id,
-            memberType = "way",
+            memberType = MemberType.Way,
             isWay = true,
             nodes = nodesX,
             linkName = "n",
@@ -97,7 +98,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
             toNodeId = node.id,
             role = nodeMember.role.getOrElse(""),
             timestamp = node.timestamp,
-            accessible = false,
+            accessible = true,
             length = "",
             nodeCount = "",
             description = name,
@@ -162,7 +163,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
         Some(
           RouteMemberInfo(
             id = way.id,
-            memberType = "way",
+            memberType = MemberType.Way,
             isWay = true,
             nodes = nodesX,
             linkName = link.linkName,
@@ -186,7 +187,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
         Some(
           RouteMemberInfo(
             id = relationIdMember.relationId,
-            memberType = "relation",
+            memberType = MemberType.Relation,
             isWay = false,
             nodes = Seq.empty,
             linkName = "",

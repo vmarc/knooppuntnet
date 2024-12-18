@@ -107,7 +107,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         members = Seq(
           kpn.api.custom.RouteMemberInfo(
             101,
-            "way",
+            MemberType.Way,
             isWay = true,
             Seq(
               RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
@@ -201,7 +201,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         members = Seq(
           kpn.api.custom.RouteMemberInfo(
             101,
-            "way",
+            MemberType.Way,
             isWay = true,
             Seq(
               RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),

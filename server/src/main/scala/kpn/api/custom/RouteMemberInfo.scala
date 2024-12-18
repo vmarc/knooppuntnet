@@ -1,11 +1,12 @@
 package kpn.api.custom
 
+import kpn.api.common.data.MemberType
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.WayDirection
 
 case class RouteMemberInfo(
   id: Long,
-  memberType: String,
+  memberType: MemberType,
   isWay: Boolean,
   nodes: Seq[RouteNetworkNodeInfo],
   linkName: String,
