@@ -13,7 +13,7 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val rows = context.routeDetailDoc.members.flatMap { member =>
       if (member.memberType == MemberType.Relation) {
-        relationRows(1, member)
+        relationRows(1, member, Seq.empty)
       }
       else {
         Seq(wayNodeRow(member))
@@ -58,48 +58,56 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
     )
   }
 
-  private def relationRows(level: Int, member: RouteMemberInfo): Seq[RouteStructureRow] = {
+  private def relationRows(
+    level: Int,
+    member: RouteMemberInfo,
+    processedRelationIds: Seq[Long]
+  ): Seq[RouteStructureRow] = {
 
-    routeDetailRepository.findById(member.id) match {
-      case None => Seq.empty
-      case Some(routeDetailDoc) =>
-        val subRelationMembers = routeDetailDoc.members.filter(_.memberType == MemberType.Relation)
-        val subRows: Seq[RouteStructureRow] = subRelationMembers.flatMap(member => relationRows(level + 1, member))
+    if (processedRelationIds.contains(member.id)) {
+      Seq.empty
+    }
+    else {
+      routeDetailRepository.findById(member.id) match {
+        case None => Seq.empty
+        case Some(routeDetailDoc) =>
+          val subRelationMembers = routeDetailDoc.members.filter(_.memberType == MemberType.Relation)
+          val subRows: Seq[RouteStructureRow] = subRelationMembers.flatMap(member => relationRows(level + 1, member, processedRelationIds :+ member.id))
+          RouteStructureRow(
+            // RouteMemberInfo
+            id = member.id,
+            memberType = member.memberType,
+            isWay = false,
+            nodes = Seq.empty,
+            linkName = "",
+            from = "",
+            fromNodeId = 0,
+            to = "",
+            toNodeId = 0,
+            role = member.role,
+            timestamp = null,
+            accessible = false,
+            length = "",
+            nodeCount = "",
+            description = "",
+            oneWay = WayDirection.Both,
+            oneWayTags = Seq.empty,
 
-        RouteStructureRow(
-          // RouteMemberInfo
-          id = member.id,
-          memberType = member.memberType,
-          isWay = false,
-          nodes = Seq.empty,
-          linkName = "",
-          from = "",
-          fromNodeId = 0,
-          to = "",
-          toNodeId = 0,
-          role = member.role,
-          timestamp = null,
-          accessible = false,
-          length = "",
-          nodeCount = "",
-          description = "",
-          oneWay = WayDirection.Both,
-          oneWayTags = Seq.empty,
-
-          // MonitorRouteRelationStructureRow
-          level = level,
-          physical = false,
-          name = routeDetailDoc.summary.name,
-          relationId = member.id,
-          subRelationIndex = None,
-          // role: Option[String],
-          survey = None,
-          symbol = None,
-          osmSegmentCount = Some(routeDetailDoc.segments.size),
-          osmDistance = routeDetailDoc.summary.meters,
-          gaps = None,
-          happy = false,
-        ) +: subRows
+            // MonitorRouteRelationStructureRow
+            level = level,
+            physical = false,
+            name = routeDetailDoc.summary.name,
+            relationId = member.id,
+            subRelationIndex = None,
+            // role: Option[String],
+            survey = None,
+            symbol = None,
+            osmSegmentCount = Some(routeDetailDoc.segments.size),
+            osmDistance = routeDetailDoc.summary.meters,
+            gaps = None,
+            happy = false,
+          ) +: subRows
+      }
     }
   }
 }
