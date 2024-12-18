@@ -53,12 +53,17 @@ class RouteTileAnalyzer(lineSegmentTileCalculator: LineSegmentTileCalculator) ex
 
   private def determineTiles(relation: Relation): Seq[Tile] = {
     relation.wayMembers.map(_.way).flatMap { way =>
-      val worldCoordinates = wayToWorldCoordinates(way)
-      val lineSegments = worldCoordinates.sliding(2).map { case Seq(c1, c2) =>
-        new LineSegment(c1, c2)
-      }.toSeq
-      (ZoomLevel.newMinZoom to ZoomLevel.newMaxZoom).flatMap { z =>
-        lineSegmentTileCalculator.tiles(z, lineSegments)
+      if (way.nodes.sizeIs > 1) {
+        val worldCoordinates = wayToWorldCoordinates(way)
+        val lineSegments = worldCoordinates.sliding(2).map { case Seq(c1, c2) =>
+          new LineSegment(c1, c2)
+        }.toSeq
+        (ZoomLevel.newMinZoom to ZoomLevel.newMaxZoom).flatMap { z =>
+          lineSegmentTileCalculator.tiles(z, lineSegments)
+        }
+      }
+      else {
+        Seq.empty
       }
     }.distinct.sortBy(tile => (tile.z, tile.x, tile.y))
   }
