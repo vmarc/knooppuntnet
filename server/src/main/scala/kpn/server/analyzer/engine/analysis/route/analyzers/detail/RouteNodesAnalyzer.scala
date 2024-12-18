@@ -64,7 +64,7 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
         val startNodes = withSuffixes(nodeDatas.filter(_.name == startNodeName).reverse)
         val endNodes = withSuffixes(nodeDatas.filter(n => endNodeNameOption.contains(n.name)))
         val nodeIds = startNodes.map(_.node.id) ++ endNodes.map(_.node.id)
-        val redundantNodes = nodeDatas.filterNot(n => nodeIds.contains(n.node.id))
+        val redundantNodes = nodeDatas.filterNot(n => nodeIds.contains(n.node.id) || n.name == "*")
 
         val nodes = RouteNodesAnalysis(
           startNode = startNodes.headOption,

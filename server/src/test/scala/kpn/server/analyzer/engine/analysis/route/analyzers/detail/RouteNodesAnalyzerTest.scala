@@ -522,6 +522,31 @@ class RouteNodesAnalyzerTest extends UnitTest {
     )
   }
 
+  test("extra node with name '*' is ignored") {
+    val d = new RouteTestData("01-02") {
+      node(1, "01")
+      node(2)
+      node(3, "*")
+      node(4)
+      node(5, "02")
+
+      memberWay(11, "", 1, 2)
+      memberWay(12, "", 2, 3)
+      memberWay(13, "", 3, 4)
+      memberWay(14, "", 4, 5)
+    }
+
+    analyze(d).foreach(a => println(s""""$a","""))
+
+    assertEqual(
+      analyze(d),
+      Seq(
+        "start=1(01)W",
+        "end=5(02)W",
+      )
+    )
+  }
+
   private def analyze(d: RouteTestData, proposed: Boolean = false): Seq[String] = {
     val relation = d.data.relations(1L)
     val context = RouteNodesAnalyzer.analyze(
