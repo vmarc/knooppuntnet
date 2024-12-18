@@ -23,8 +23,8 @@ class LocationStoreReader(development: Boolean) {
 
   def read(): LocationStore = {
     val locationCounties = if (development) {
-      log.warn("!!! Loading NL and BE locations only!!!")
-      Seq(Country.nl, Country.be)
+      log.warn("!!! Loading NL, BE and DE locations only!!!")
+      Seq(Country.nl, Country.be, Country.de)
     }
     else {
       Country.values

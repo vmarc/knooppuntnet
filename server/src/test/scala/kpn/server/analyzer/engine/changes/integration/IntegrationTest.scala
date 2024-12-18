@@ -148,7 +148,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
         fail(s"Could not find node $nodeId, no nodes in database")
       }
       else {
-        fail(s"Could not find route $nodeId (but found: ${ids.mkString(", ")})")
+        fail(s"Could not find node $nodeId (but found: ${ids.mkString(", ")})")
       }
     }
   }
