@@ -64,17 +64,6 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     val routeIds = config.nextRepository.allRouteIds()
     log.info(s"found ${routeIds.size} routeIds")
     analyzeRoutes(routeIds)
-
-    // analyzeRoutes(Seq(16068584L) ++ essenOkRouteIds) // 16068584 Wandelpad Calmeyn
-    // analyzeRoutes(Seq(8312991L)) // GR145 Arras to Reims
-    // analyzeRoutes(Seq(8618)) // ok route with start tenticle
-    // analyzeRoutes(Seq(5491)) // ok route with 2 start tenticles
-    // analyzeRoutes(essenOkRouteIds)
-    // analyzeRoutes(law9)
-    // analyzeRoutes(Seq(7973533L))
-    // analyzeRoutes(Seq(5880L)) // exception during structure analysis
-    // analyzeRoutes(Seq(3952592)) // broken route
-    // analyzeRoutes(Seq(3963819)) // route with roundabout
     log.info(s"Done")
   }
 

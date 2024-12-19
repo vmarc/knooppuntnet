@@ -58,16 +58,16 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
           }
         }
 
-        if (!currentRouteLinkWay.link.hasNext) {
-          finalizeSegmentElement()
-          segments += buildSegment(segments.size + 1, elements.toSeq)
-          elements.clear()
-        }
-        else {
+        if (currentRouteLinkWay.link.hasNext) {
           val change = isDirectionChange(currentRouteLinkWay, nextRouteLinkWayOption)
           if (change) {
             finalizeSegmentElement()
           }
+        }
+        else {
+          finalizeSegmentElement()
+          segments += buildSegment(segments.size + 1, elements.toSeq)
+          elements.clear()
         }
       }
     }
