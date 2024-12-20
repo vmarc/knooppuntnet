@@ -6,7 +6,7 @@ import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
-class UnexpectedNodeRouteDetailAnalyzerTest extends UnitTest {
+class UnexpectedNodeRouteAnalyzerTest extends UnitTest {
 
   test("no unexpected nodes") {
 
@@ -70,7 +70,20 @@ class UnexpectedNodeRouteDetailAnalyzerTest extends UnitTest {
     assertEqual(context._unexpectedNodeIds, Some(Seq.empty))
   }
 
-  private def analyze(routeTestData: RouteTestData): RouteDetailAnalysisContext = {
+  test("no unexpected nodes in non node network routes") {
+
+    val d = new RouteTestData("01-02") {
+      node(1001, "01")
+      node(1002, "02")
+    }
+
+    val context = analyze(d, nodeNetwork = false)
+
+    context.facts shouldBe empty
+    assertEqual(context._unexpectedNodeIds, Some(Seq.empty))
+  }
+
+  private def analyze(routeTestData: RouteTestData, nodeNetwork: Boolean = true): RouteDetailAnalysisContext = {
 
     val data = routeTestData.data
     val relation = data.relations(1L)
@@ -78,6 +91,7 @@ class UnexpectedNodeRouteDetailAnalyzerTest extends UnitTest {
     val context = RouteDetailAnalysisContext(
       relation,
       None,
+      nodeNetwork = nodeNetwork,
       scopedNetworkTypeOption = Some(routeTestData.scopedNetworkType)
     )
 

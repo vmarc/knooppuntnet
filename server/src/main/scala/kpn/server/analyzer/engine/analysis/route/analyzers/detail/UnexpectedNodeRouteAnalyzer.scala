@@ -14,7 +14,12 @@ object UnexpectedNodeRouteAnalyzer extends RouteDetailAnalyzer {
 class UnexpectedNodeRouteAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
-    val unexpectedNodeIds = findUnexpectedNodeIds
+    val unexpectedNodeIds = if (context.nodeNetwork) {
+      findUnexpectedNodeIds
+    }
+    else {
+      Seq.empty
+    }
     context.copy(
       _unexpectedNodeIds = Some(unexpectedNodeIds)
     ).withFact(unexpectedNodeIds.nonEmpty, RouteUnexpectedNode)
