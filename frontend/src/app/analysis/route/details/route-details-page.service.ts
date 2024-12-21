@@ -1,9 +1,11 @@
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route';
 import { ApiResponse } from '@api/custom';
 import { ApiService } from '@app/services';
+import { Subscriptions } from '@app/util';
 import { FocusElements } from '../../../map/focus-elements';
 import { MapService } from '../../../map/map.service';
 import { RouterService } from '../../../shared/services/router.service';
@@ -15,13 +17,19 @@ export class RouteDetailsPageService {
   private readonly routeService = inject(RouteService);
   private readonly routerService = inject(RouterService);
   private readonly mapService = inject(MapService);
+  private readonly activatedRoute = inject(ActivatedRoute);
+  private readonly subscriptions = new Subscriptions();
 
   private readonly _response = signal<ApiResponse<RouteDetailsPage>>(null);
   readonly response = this._response.asReadonly();
 
   onInit(): void {
-    this.routeService.initPage(this.routerService);
-    this.load();
+    this.subscriptions.add(
+      this.activatedRoute.params.subscribe((params) => {
+        this.routeService.initPage(this.routerService);
+        this.load();
+      })
+    );
   }
 
   private load(): void {

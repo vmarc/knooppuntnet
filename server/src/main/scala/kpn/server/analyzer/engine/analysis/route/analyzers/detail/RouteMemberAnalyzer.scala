@@ -94,7 +94,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
         Some(
           RouteMemberInfo(
             id = node.id,
-            memberType = MemberType.Way,
+            memberType = MemberType.Node,
             role = nodeMember.role.getOrElse(""),
             linkName = "n",
             way = None
