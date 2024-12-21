@@ -40,15 +40,19 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
         handleRoundabout(currentRouteLinkWay, nextRouteLinkWayOption)
       }
       else {
+        // split the current link way into separate fragments at the node network nodes in the way
         val linkFragments = StructureUtil.split(currentRouteLinkWay.nodeIds, context.routeNodesAnalysis.nodeIds).map { nodeIds =>
           toFragment(currentRouteLinkWay, nodeIds)
         }
 
+        // if the first fragment starts with a network node, then finalize the current element and start a new one
         if (context.routeNodesAnalysis.nodeIds.contains(linkFragments.head.fromNodeId)) {
           finalizeSegmentElement()
         }
 
+        // group the fragments that belong together into segment elements
         linkFragments.foreach { fragment =>
+          // if the fragment ends with a network node, finalize the current element and start a new one
           if (context.routeNodesAnalysis.nodeIds.contains(fragment.nodeIds.last)) {
             fragments += fragment
             finalizeSegmentElement()
@@ -59,12 +63,14 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
         }
 
         if (currentRouteLinkWay.link.hasNext) {
+          // if there is a direction change between this link and the next link, finalize the segment element
           val change = isDirectionChange(currentRouteLinkWay, nextRouteLinkWayOption)
           if (change) {
             finalizeSegmentElement()
           }
         }
         else {
+          // this link does not connect to the next, finalize the current segment, and prepare for a new segment
           finalizeSegmentElement()
           segments += buildSegment(segments.size + 1, elements.toSeq)
           elements.clear()
@@ -102,23 +108,33 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
               case Some(nodeIds) =>
                 elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, nodeIds)
               case None =>
-              // TODO redesign ???
+              // the roundabout does not connect to the next link way
             }
 
           case None =>
 
-            val connectingNodeId = if (nextRouteLinkWay.isClosedLoop) {
-              currentRouteLinkWay.nodeIds.find(nextRouteLinkWay.nodeIds.contains).get // TODO redesign - make more safe?
+            if (nextRouteLinkWay.isClosedLoop) {
+              currentRouteLinkWay.nodeIds.find(nextRouteLinkWay.nodeIds.contains) match {
+                case Some(connectingNodeId) =>
+                  StructureUtil.closedLoopNodeIds(currentRouteLinkWay.fromNodeId, connectingNodeId, currentRouteLinkWay.way.nodeIds) match {
+                    case Some(nodeIds) =>
+                      elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, nodeIds)
+                    case None =>
+                    // the roundabout does not connect to the next link closed loop
+                  }
+
+                case None =>
+                // the roundabout does not connect to the next link way
+              }
             }
             else {
-              nextRouteLinkWay.fromNodeId
-            }
-
-            StructureUtil.closedLoopNodeIds(currentRouteLinkWay.fromNodeId, connectingNodeId, currentRouteLinkWay.way.nodeIds) match {
-              case Some(nodeIds) =>
-                elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, nodeIds)
-              case None =>
-              // TODO redesign ???
+              val connectingNodeId = nextRouteLinkWay.fromNodeId
+              StructureUtil.closedLoopNodeIds(currentRouteLinkWay.fromNodeId, connectingNodeId, currentRouteLinkWay.way.nodeIds) match {
+                case Some(nodeIds) =>
+                  elements += buildFragmentElement(currentRouteLinkWay, RoutePathDirection.Forward, nodeIds)
+                case None =>
+                // the roundabout does not connect to the next link way
+              }
             }
         }
 
@@ -126,7 +142,10 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
           case None =>
 
             val connectingNodeId = if (nextRouteLinkWay.isClosedLoop) {
-              currentRouteLinkWay.nodeIds.find(nextRouteLinkWay.nodeIds.contains).get // TODO redesign - make more safe?
+              currentRouteLinkWay.nodeIds.find(nextRouteLinkWay.nodeIds.contains) match {
+                case Some(connect) => connect
+                case None => 0 // ???
+              }
             }
             else {
               nextRouteLinkWay.fromNodeId

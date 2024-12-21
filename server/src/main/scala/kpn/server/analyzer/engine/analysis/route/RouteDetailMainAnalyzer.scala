@@ -107,7 +107,11 @@ class RouteDetailMainAnalyzer(
   }
 
   @tailrec
-  private def doAnalyze(analyzers: List[RouteDetailAnalyzer], context: RouteDetailAnalysisContext): Option[RouteDetailAnalysisContext] = {
+  private def doAnalyze(
+    analyzers: List[RouteDetailAnalyzer],
+    context: RouteDetailAnalysisContext
+  ): Option[RouteDetailAnalysisContext] = {
+    
     if (context.abort) {
       None
     }

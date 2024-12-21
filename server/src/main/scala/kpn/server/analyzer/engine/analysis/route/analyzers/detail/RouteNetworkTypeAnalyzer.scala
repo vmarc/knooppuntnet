@@ -11,6 +11,7 @@ object RouteNetworkTypeAnalyzer extends RouteDetailAnalyzer {
     val networkTypes = new RouteNetworkTypeAnalyzer(context.relation.tags).analyze()
     if (networkTypes.isEmpty) {
       context.copy(
+        abort = true,
         facts = context.facts :+ RouteUnsupportedNetworkType
       )
     }
