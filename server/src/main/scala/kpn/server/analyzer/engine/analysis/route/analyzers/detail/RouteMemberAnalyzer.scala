@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
 import kpn.api.common.Fact.RouteInaccessible
+import kpn.api.common.RouteMemberInfo
+import kpn.api.common.RouteMemberInfoWay
 import kpn.api.common.data.Member
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.NodeMember
@@ -8,8 +10,6 @@ import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
 import kpn.api.common.route.RouteNetworkNodeInfo
-import kpn.api.common.route.WayDirection
-import kpn.api.custom.RouteMemberInfo
 import kpn.core.analysis.LinkDirection
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
@@ -28,7 +28,13 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
     val routeMembers: Seq[RouteMemberInfo] = analyzeRouteMembers(context.routeNodesAnalysis)
-    if (routeMembers.exists(!_.accessible)) {
+    val inaccessible = routeMembers.exists { member =>
+      member.way match {
+        case Some(wayInfo) => !wayInfo.accessible
+        case None => false
+      }
+    }
+    if (inaccessible) {
       context.copy(_routeMembers = Some(routeMembers)).withFact(RouteInaccessible)
     }
     else {
@@ -89,21 +95,9 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           RouteMemberInfo(
             id = node.id,
             memberType = MemberType.Way,
-            isWay = true,
-            nodes = nodesX,
-            linkName = "n",
-            from = node.toString,
-            fromNodeId = node.id,
-            to = node.toString,
-            toNodeId = node.id,
             role = nodeMember.role.getOrElse(""),
-            timestamp = node.timestamp,
-            accessible = true,
-            distance = 0,
-            nodeCount = "",
-            description = name,
-            oneWay = WayDirection.Both,
-            oneWayTags = Seq.empty
+            linkName = "n",
+            way = None
           )
         )
 
@@ -164,21 +158,24 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           RouteMemberInfo(
             id = way.id,
             memberType = MemberType.Way,
-            isWay = true,
-            nodes = nodesX,
-            linkName = link.linkName,
-            from = fromNode.toString,
-            fromNodeId = fromNode.id,
-            to = toNode.toString,
-            toNodeId = toNode.id,
             role = wayMember.role.getOrElse(""),
-            timestamp = way.timestamp,
-            accessible = accessible,
-            distance = way.length,
-            nodeCount = way.nodes.size.toString,
-            description = name,
-            oneWay = new OneWayAnalyzer(way).direction,
-            oneWayTags = OneWayAnalyzer.oneWayTags(way)
+            linkName = link.linkName,
+            Some(
+              RouteMemberInfoWay(
+                nodes = nodesX,
+                from = fromNode.toString,
+                fromNodeId = fromNode.id,
+                to = toNode.toString,
+                toNodeId = toNode.id,
+                timestamp = way.timestamp,
+                accessible = accessible,
+                distance = way.length,
+                nodeCount = way.nodes.size.toString,
+                description = name,
+                oneWay = new OneWayAnalyzer(way).direction,
+                oneWayTags = OneWayAnalyzer.oneWayTags(way)
+              )
+            )
           )
         )
 
@@ -188,23 +185,10 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           RouteMemberInfo(
             id = relationIdMember.relationId,
             memberType = MemberType.Relation,
-            isWay = false,
-            nodes = Seq.empty,
-            linkName = "",
-            from = "",
-            fromNodeId = 0,
-            to = "",
-            toNodeId = 0,
             role = relationIdMember.role.getOrElse(""),
-            timestamp = null, //: Timestamp,
-            accessible = false,
-            distance = 0,
-            nodeCount = "",
-            description = "",
-            oneWay = WayDirection.Both,
-            oneWayTags = Seq.empty
+            linkName = "",
+            way = None
           )
-
         )
 
       case relationMember: RelationMember =>

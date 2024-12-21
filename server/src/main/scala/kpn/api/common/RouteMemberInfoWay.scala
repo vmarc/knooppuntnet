@@ -1,20 +1,16 @@
-package kpn.api.custom
+package kpn.api.common
 
-import kpn.api.common.data.MemberType
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.WayDirection
+import kpn.api.custom.Tag
+import kpn.api.custom.Timestamp
 
-case class RouteMemberInfo(
-  id: Long,
-  memberType: MemberType,
-  isWay: Boolean,
+case class RouteMemberInfoWay(
   nodes: Seq[RouteNetworkNodeInfo],
-  linkName: String,
   from: String,
   fromNodeId: Long,
   to: String,
   toNodeId: Long,
-  role: String,
   timestamp: Timestamp,
   accessible: Boolean,
   distance: Long,

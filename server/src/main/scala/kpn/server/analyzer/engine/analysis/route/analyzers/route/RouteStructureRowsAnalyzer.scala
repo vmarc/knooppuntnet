@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers.route
 
+import kpn.api.common.RouteMemberInfo
 import kpn.api.common.data.MemberType
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRelation
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.RouteStructureWay
-import kpn.api.custom.RouteMemberInfo
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteDetailRepository
 import org.springframework.stereotype.Component
@@ -15,14 +15,10 @@ import org.springframework.stereotype.Component
 class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val rows = context.routeDetailDoc.members.flatMap { member =>
-      if (member.memberType == MemberType.Relation) {
-        relationRows(1, member, Seq.empty)
-      }
-      else if (member.memberType == MemberType.Way) {
-        Seq(wayRow(member))
-      }
-      else {
-        Seq(nodeRow(member))
+      member.memberType match {
+        case MemberType.Relation => relationRows(1, member, Seq.empty)
+        case MemberType.Way => Seq(wayRow(member))
+        case MemberType.Node => Seq(nodeRow(member))
       }
     }
 
@@ -72,19 +68,19 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
       member.memberType,
       member.role,
       linkName = member.linkName,
-      distance = member.distance,
-      way = Some(
+      distance = member.way.map(_.distance).sum,
+      way = member.way.map(way =>
         RouteStructureWay(
-          nodes = member.nodes,
-          from = member.from,
-          fromNodeId = member.fromNodeId,
-          to = member.to,
-          toNodeId = member.toNodeId,
-          accessible = member.accessible,
-          nodeCount = member.nodeCount,
-          description = member.description,
-          oneWay = member.oneWay,
-          oneWayTags = member.oneWayTags
+          nodes = way.nodes,
+          from = way.from,
+          fromNodeId = way.fromNodeId,
+          to = way.to,
+          toNodeId = way.toNodeId,
+          accessible = way.accessible,
+          nodeCount = way.nodeCount,
+          description = way.description,
+          oneWay = way.oneWay,
+          oneWayTags = way.oneWayTags
         )
       ),
       None,

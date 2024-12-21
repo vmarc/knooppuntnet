@@ -36,22 +36,22 @@ class RouteRenderer(route: RouteDoc, language: String) {
     route.members.zipWithIndex.map { case (member, index) =>
       val y = 30 + (1 + index) * memberHeight
       val memberType = s"""<text x="50" y="$y">${member.memberType}</text>"""
-      val name = if (member.isWay) {
-        s"""<text x="100" y="${30 + (1 + index) * memberHeight}">${member.description}</text>"""
-      }
-      else {
-        s"""<circle cx="$linex" cy="$y" r="5" fill="blue"/>"""
-      }
-
-      val nodes = member.nodes.map { node =>
-        s"""
-           |<a xlink:href="/$language/node/${node.id}">
-           |  <text x="${linex - 10}" y="$y" style="stroke: blue;stroke-width:0.2;" text-anchor="end">${node.alternateName}</text>
-           |</a>
+      member.way match {
+        case Some(memberInfoWay) =>
+          val name = s"""<text x="100" y="${30 + (1 + index) * memberHeight}">${memberInfoWay.description}</text>"""
+          val nodes = memberInfoWay.nodes.map { node =>
+            s"""
+               |<a xlink:href="/$language/node/${node.id}">
+               |  <text x="${linex - 10}" y="$y" style="stroke: blue;stroke-width:0.2;" text-anchor="end">${node.alternateName}</text>
+               |</a>
          """.stripMargin
-      }.mkString
+          }.mkString
+          s"$memberType$name$nodes"
 
-      s"$memberType$name$nodes"
+        case None =>
+          val name = s"""<circle cx="$linex" cy="$y" r="5" fill="blue"/>"""
+          s"$memberType$name"
+      }
     }.mkString
   }
 

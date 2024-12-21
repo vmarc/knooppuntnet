@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.analysis.route
 
 import kpn.api.common.Fact
+import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteSummary
 import kpn.api.common.data.Element
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteInfoAnalysis
-import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.Facts
 import kpn.core.doc.RouteDetailDoc

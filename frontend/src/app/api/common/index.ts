@@ -53,6 +53,8 @@ export * from './poi-page';
 export * from './poi-state';
 export * from './replication-id';
 export * from './route-location-analysis';
+export * from './route-member-info';
+export * from './route-member-info-way';
 export * from './route-summary';
 export * from './routes-fact';
 export * from './survey-date-info';

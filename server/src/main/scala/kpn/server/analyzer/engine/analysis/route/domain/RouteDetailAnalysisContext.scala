@@ -5,12 +5,12 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteScope
 import kpn.api.common.data.Node
 import kpn.api.common.route.RouteEdge
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
-import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.ScopedNetworkType
 import kpn.core.doc.RouteDetailPath
 import kpn.core.doc.RouteDetailSegment

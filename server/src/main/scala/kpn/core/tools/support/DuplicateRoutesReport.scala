@@ -2,6 +2,7 @@ package kpn.core.tools.support
 
 import kpn.api.common.Country
 import kpn.api.common.NetworkType
+import kpn.api.common.data.MemberType
 import kpn.database.base.Database
 import kpn.database.util.Mongo
 import kpn.server.repository.RouteRepositoryImpl
@@ -95,7 +96,7 @@ class DuplicateRoutesReport(database: Database) {
         val countries = routeDoc.summary.countries
         val networkTypes = routeDoc.summary.networkTypes
         val name = routeDoc.summary.name
-        val wayIds = routeDoc.members.filter(_.isWay).map(_.id).toSet
+        val wayIds = routeDoc.members.filter(_.memberType == MemberType.Way).map(_.id).toSet
         val alternate = routeDoc.summary.hasTag("state", "alternate")
         if (routeDoc.isActive && wayIds.nonEmpty && countries.nonEmpty) {
           Some(

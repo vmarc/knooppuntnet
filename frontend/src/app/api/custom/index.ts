@@ -3,7 +3,6 @@ export * from './change';
 export * from './day';
 export * from './location-key';
 export * from './relation';
-export * from './route-member-info';
 export * from './statistics';
 export * from './subset';
 export * from './tag';

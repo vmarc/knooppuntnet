@@ -59,7 +59,6 @@ import kpn.api.common.route.RouteStructureRow
 import kpn.api.custom.Change
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
-import kpn.api.custom.RouteMemberInfo
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags

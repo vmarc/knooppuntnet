@@ -1,11 +1,14 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkType
+import kpn.api.common.RouteMemberInfo
+import kpn.api.common.RouteMemberInfoWay
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -105,27 +108,30 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           Label.networkType(NetworkType.hiking)
         ),
         members = Seq(
-          kpn.api.custom.RouteMemberInfo(
+          RouteMemberInfo(
             101,
             MemberType.Way,
-            isWay = true,
-            Seq(
-              RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
-              RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
-            ),
+            "",
             "wn000",
-            "1",
-            1002,
-            "2",
-            1001,
-            "",
-            Timestamp(2015, 8, 11, 0, 0, 0),
-            accessible = true,
-            0,
-            "2",
-            "",
-            WayDirection.Both,
-            Seq.empty
+            Some(
+              RouteMemberInfoWay(
+                Seq(
+                  RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
+                  RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
+                ),
+                "1",
+                1002,
+                "2",
+                1001,
+                Timestamp(2015, 8, 11, 0, 0, 0),
+                accessible = true,
+                0,
+                "2",
+                "",
+                WayDirection.Both,
+                Seq.empty
+              )
+            )
           )
         ),
         analysis = newRouteInfoAnalysis(
@@ -199,27 +205,30 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           Label.networkType(NetworkType.hiking)
         ),
         members = Seq(
-          kpn.api.custom.RouteMemberInfo(
+          common.RouteMemberInfo(
             101,
             MemberType.Way,
-            isWay = true,
-            Seq(
-              RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
-              RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
-            ),
+            "",
             "wn000",
-            "1",
-            1002,
-            "2",
-            1001,
-            "",
-            Timestamp(2015, 8, 11, 0, 0, 0),
-            accessible = true,
-            0,
-            "2",
-            "",
-            WayDirection.Both,
-            Seq.empty
+            Some(
+              RouteMemberInfoWay(
+                Seq(
+                  RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
+                  RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
+                ),
+                "1",
+                1002,
+                "2",
+                1001,
+                Timestamp(2015, 8, 11, 0, 0, 0),
+                accessible = true,
+                0,
+                "2",
+                "",
+                WayDirection.Both,
+                Seq.empty
+              )
+            )
           )
         ),
         analysis = newRouteInfoAnalysis(
