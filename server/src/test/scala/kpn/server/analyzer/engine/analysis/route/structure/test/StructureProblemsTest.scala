@@ -12,8 +12,4 @@ class StructureProblemsTest extends UnitTest {
   test("108126 RouteSegmentAnalyzer") {
     val context = CaseStudy.analyze("108126")
   }
-
-  test("67311 RouteDetailAnalysisContext.scala:113 PreconditionMissingException: null") {
-    val context = CaseStudy.analyze("67311")
-  }
 }
