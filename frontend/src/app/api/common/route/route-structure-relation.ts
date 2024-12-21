@@ -10,7 +10,7 @@ export interface RouteStructureRelation {
   readonly survey: Day;
   readonly symbol: string;
   readonly osmSegmentCount: number;
-  readonly osmDistance: number;
+  readonly totalDistance: number;
   readonly gaps: string;
   readonly happy: boolean;
 }

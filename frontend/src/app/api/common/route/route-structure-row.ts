@@ -9,6 +9,7 @@ export interface RouteStructureRow {
   readonly memberType: MemberType;
   readonly role: string;
   readonly linkName: string;
+  readonly distance: number;
   readonly way: RouteStructureWay;
   readonly relation: RouteStructureRelation;
 }

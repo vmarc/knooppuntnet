@@ -12,6 +12,7 @@ case class RouteAnalysisContext(
   _routeIds: Option[Seq[Long]] = None,
   _bounds: Option[Option[Bounds]] = None,
   _structureRows: Option[Seq[RouteStructureRow]] = None,
+  _distance: Option[Long] = None,
   _segments: Option[Seq[RouteSegment]] = None,
   _paths: Option[Seq[RoutePath]] = None
 ) {
@@ -20,6 +21,8 @@ case class RouteAnalysisContext(
   def bounds: Option[Bounds] = _bounds.getOrElse(throw new PreconditionMissingException)
 
   def structureRows: Seq[RouteStructureRow] = _structureRows.getOrElse(throw new PreconditionMissingException)
+
+  def distance: Long = _distance.getOrElse(throw new PreconditionMissingException)
 
   def segments: Seq[RouteSegment] = _segments.getOrElse(throw new PreconditionMissingException)
 

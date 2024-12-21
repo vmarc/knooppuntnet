@@ -17,7 +17,7 @@ case class RouteMemberInfo(
   role: String,
   timestamp: Timestamp,
   accessible: Boolean,
-  length: String,
+  distance: Long,
   nodeCount: String,
   description: String,
   oneWay: WayDirection,

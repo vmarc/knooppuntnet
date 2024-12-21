@@ -10,7 +10,7 @@ case class RouteStructureRelation(
   survey: Option[Day],
   symbol: Option[String],
   osmSegmentCount: Option[Long],
-  osmDistance: Long,
+  totalDistance: Long,
   gaps: Option[String],
   happy: Boolean
 )

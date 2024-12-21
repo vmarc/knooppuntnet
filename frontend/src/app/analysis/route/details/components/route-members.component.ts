@@ -13,6 +13,7 @@ import { ActionButtonRelationComponent } from '../../../components/action/action
 import { LinkImageComponent } from './link-image.component';
 import { SymbolComponent } from '@app/symbol';
 import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-route-gap.component';
+import { RouteDistanceComponent } from './route-distance.component';
 
 @Component({
   selector: 'kpn-route-members',
@@ -35,7 +36,6 @@ import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-rout
                 <th i18n="@@route.members.table.id">Id</th>
                 <th i18n="@@route.members.table.name">Name</th>
                 <th i18n="@@route.members.table.role">Role</th>
-                <th i18n="@@route.members.table.length">Length</th>
                 <th i18n="@@route.members.table.inaccessible">Inaccessible</th>
                 @if (networkType() === 'cycling') {
                   <th colSpan="2" i18n="@@route.members.table.one-way">One Way</th>
@@ -90,14 +90,6 @@ import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-rout
                   <td>
                     {{ row.role }}
                   </td>
-                  <td class="distance">
-                    @if (row.way) {
-                      {{ row.way.length }}
-                    }
-                    @if (row.relation) {
-                      {{ row.relation.osmDistance }}
-                    }
-                  </td>
                   <td>
                     @if (row.way) {
                       @if (!row.way.accessible) {
@@ -130,6 +122,7 @@ import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-rout
                   }
                   <td>
                     @if (row.relation) {
+                      {{ row.relation.level }}
                       @switch (row.relation.level) {
                         @case (1) {
                           <div class="level-1">{{ row.relation.name }}</div>
@@ -174,32 +167,7 @@ import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-rout
                     }
                   </td>
                   <td>
-                    <div class="distance">
-                      @if (row.memberType === 'way') {
-                        <span>{{ row.way.length }}</span>
-                      }
-                      @if (row.memberType === 'relation') {
-                        TODO
-                      }
-                      <!--                      @if (row.osmDistanceSubRelations > 0) {-->
-                      <!--                        <span-->
-                      <!--                          class="cumulative-distance"-->
-                      <!--                          matTooltip="Total length of ways in all subrelations"-->
-                      <!--                        >-->
-                      <!--                          {{ row.osmDistanceSubRelations | distance }}-->
-                      <!--                        </span>-->
-                      <!--                      }-->
-
-                      <!--                      @if (row.osmDistanceSubRelations > 0 && row.osmDistance > 0) {-->
-                      <!--                        <span> / </span>-->
-                      <!--                      }-->
-
-                      <!--                      @if (row.osmDistance > 0) {-->
-                      <!--                        <span matTooltip="Total length of ways in this relation">-->
-                      <!--                          {{ row.osmDistance | distance }}-->
-                      <!--                        </span>-->
-                      <!--                      }-->
-                    </div>
+                    <kpn-route-distance [row]="row" />
                   </td>
                   <td>
                     @if (row.relation) {
@@ -230,11 +198,6 @@ import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-rout
       padding: 0;
       height: 100%;
     }
-
-    .distance {
-      white-space: nowrap;
-      text-align: right;
-    }
   `,
   imports: [
     LinkImageComponent,
@@ -247,6 +210,7 @@ import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-rout
     MonitorRouteGapComponent,
     ActionButtonRelationComponent,
     DayPipe,
+    RouteDistanceComponent,
   ],
 })
 export class RouteMembersComponent {

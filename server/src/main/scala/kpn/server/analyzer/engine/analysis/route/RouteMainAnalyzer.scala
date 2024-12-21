@@ -35,11 +35,15 @@ class RouteMainAnalyzer(
   private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): Option[RouteDoc] = {
     if (analyzers.isEmpty) {
 
+      val summary = context.routeDetailDoc.summary.copy(
+        meters = context.distance
+      )
+
       Some(
         RouteDoc(
           context.routeDetailDoc._id, // routeId
           context.routeDetailDoc.labels,
-          context.routeDetailDoc.summary,
+          summary,
           context.routeDetailDoc.proposed,
           context.routeDetailDoc.version,
           context.routeDetailDoc.changeSetId,

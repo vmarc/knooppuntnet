@@ -82,12 +82,14 @@ object RouteDetailsPageExample {
           memberType = MemberType.Node,
           role = "connection",
           linkName = "n",
+          distance = 0
         ),
         RouteStructureRow(
           id = 1L,
           memberType = MemberType.Way,
           role = "",
           linkName = "wb003",
+          distance = 100,
           way = Some(
             RouteStructureWay(
               nodes = Seq.empty,
@@ -96,7 +98,6 @@ object RouteDetailsPageExample {
               to = "02",
               toNodeId = 2,
               accessible = false,
-              length = "",
               nodeCount = "3",
               description = "description",
               oneWay = WayDirection.Both,

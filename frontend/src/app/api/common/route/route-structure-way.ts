@@ -11,7 +11,6 @@ export interface RouteStructureWay {
   readonly to: string;
   readonly toNodeId: number;
   readonly accessible: boolean;
-  readonly length: string;
   readonly nodeCount: string;
   readonly description: string;
   readonly oneWay: WayDirection;

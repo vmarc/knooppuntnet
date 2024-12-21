@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouteDetailsPageData } from '@api/common/route';
 import { DividerComponent } from '@app/components/shared';
 import { CountryNameComponent } from '@app/components/shared';
-import { IntegerFormatPipe } from '@app/components/shared/format';
+import { DistancePipe } from '@app/components/shared/format';
 import { SymbolComponent } from '@app/symbol';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
@@ -16,7 +16,7 @@ import { RouteLocationComponent } from './route-location.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <p>{{ (route().summary.meters | integer) + ' m' }}</p>
+      <p>{{ route().summary.meters | distance }}</p>
 
       @if (route().summary.countries) {
         <p>
@@ -88,11 +88,11 @@ import { RouteLocationComponent } from './route-location.component';
     ActionButtonRouteComponent,
     CountryNameComponent,
     DividerComponent,
-    IntegerFormatPipe,
     MarkdownModule,
     MatIconModule,
     RouteLocationComponent,
     SymbolComponent,
+    DistancePipe,
   ],
 })
 export class RouteSummaryComponent {

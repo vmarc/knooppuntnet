@@ -9,7 +9,6 @@ case class RouteStructureWay(
   to: String,
   toNodeId: Long,
   accessible: Boolean,
-  length: String,
   nodeCount: String,
   description: String,
   oneWay: WayDirection,
