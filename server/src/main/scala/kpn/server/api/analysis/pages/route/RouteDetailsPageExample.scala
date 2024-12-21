@@ -12,6 +12,7 @@ import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteDetailsPageData
 import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RouteStructureRow
+import kpn.api.common.route.RouteStructureWay
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
@@ -79,70 +80,33 @@ object RouteDetailsPageExample {
         RouteStructureRow(
           id = 1L,
           memberType = MemberType.Node,
-          isWay = false,
-          nodes = Seq.empty,
-          linkName = "n",
-          from = "01",
-          fromNodeId = 1,
-          to = "",
-          toNodeId = 1,
           role = "connection",
-          timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-          accessible = true,
-          length = "",
-          nodeCount = "",
-          description = "",
-          oneWay = WayDirection.Both,
-          oneWayTags = Seq.empty,
-
-          level = 1,
-          physical = false,
-          name = "",
-          relationId = 1,
-          subRelationIndex = None,
-          // role: Option[String],
-          survey = None,
-          symbol = None,
-          osmSegmentCount = None,
-          osmDistance = 0,
-          gaps = None,
-          happy = false
+          linkName = "n",
         ),
         RouteStructureRow(
           id = 1L,
           memberType = MemberType.Way,
-          isWay = true,
-          nodes = Seq.empty,
-          linkName = "wb003",
-          from = "01",
-          fromNodeId = 1,
-          to = "02",
-          toNodeId = 2,
           role = "",
-          timestamp = Timestamp(2020, 10, 11, 12, 34, 56),
-          accessible = false,
-          length = "",
-          nodeCount = "3",
-          description = "description",
-          oneWay = WayDirection.Both,
-          oneWayTags = Tags.from(
-            "key1" -> "value1",
-            "key2" -> "value2",
-            "key3" -> "value3"
-          ),
-
-          level = 1,
-          physical = false,
-          name = "",
-          relationId = 1,
-          subRelationIndex = None,
-          // role: Option[String],
-          survey = None,
-          symbol = None,
-          osmSegmentCount = None,
-          osmDistance = 0,
-          gaps = None,
-          happy = false
+          linkName = "wb003",
+          way = Some(
+            RouteStructureWay(
+              nodes = Seq.empty,
+              from = "01",
+              fromNodeId = 1,
+              to = "02",
+              toNodeId = 2,
+              accessible = false,
+              length = "",
+              nodeCount = "3",
+              description = "description",
+              oneWay = WayDirection.Both,
+              oneWayTags = Tags.from(
+                "key1" -> "value1",
+                "key2" -> "value2",
+                "key3" -> "value3"
+              ),
+            )
+          )
         )
       ),
       nameDerivedFromNodes = true,

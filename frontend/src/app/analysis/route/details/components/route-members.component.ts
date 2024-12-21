@@ -55,12 +55,16 @@ import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-rout
                     {{ rowIndex + 1 }}
                   </td>
                   <td class="image-cell">
-                    <kpn-link-image [linkName]="row.linkName" />
+                    @if (row.memberType !== 'relation') {
+                      <kpn-link-image [linkName]="row.linkName" />
+                    }
                   </td>
                   <td>
                     <div class="kpn-comma-list">
-                      @for (node of row.nodes; track node) {
-                        <kpn-link-node [nodeId]="node.id" [nodeName]="node.alternateName" />
+                      @if (row.way) {
+                        @for (node of row.way.nodes; track node) {
+                          <kpn-link-node [nodeId]="node.id" [nodeName]="node.alternateName" />
+                        }
                       }
                     </div>
                   </td>
@@ -79,76 +83,104 @@ import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-rout
                     />
                   </td>
                   <td>
-                    {{ row.description }}
+                    @if (row.way) {
+                      {{ row.way.description }}
+                    }
                   </td>
                   <td>
                     {{ row.role }}
                   </td>
                   <td class="distance">
-                    {{ row.length }}
+                    @if (row.way) {
+                      {{ row.way.length }}
+                    }
+                    @if (row.relation) {
+                      {{ row.relation.osmDistance }}
+                    }
                   </td>
                   <td>
-                    @if (!row.accessible) {
-                      <div>
-                        <mat-icon svgIcon="warning" />
-                      </div>
+                    @if (row.way) {
+                      @if (!row.way.accessible) {
+                        <div>
+                          <mat-icon svgIcon="warning" />
+                        </div>
+                      }
                     }
                   </td>
                   @if (networkType() === 'cycling') {
                     <td>
-                      @if (row.oneWay === 'forward') {
-                        <div i18n="@@route.members.table.one-way.yes">Yes</div>
-                      }
-                      @if (row.oneWay === 'backward') {
-                        <div i18n="@@route.members.table.one-way.reverse">Reverse</div>
+                      @if (row.way) {
+                        @if (row.way.oneWay === 'forward') {
+                          <div i18n="@@route.members.table.one-way.yes">Yes</div>
+                        }
+                        @if (row.way.oneWay === 'backward') {
+                          <div i18n="@@route.members.table.one-way.reverse">Reverse</div>
+                        }
                       }
                     </td>
                   }
                   @if (networkType() === 'cycling') {
                     <td>
-                      @if (row.oneWayTags.length > 0) {
-                        <kpn-tags-text [tags]="row.oneWayTags" />
+                      @if (row.way) {
+                        @if (row.way.oneWayTags.length > 0) {
+                          <kpn-tags-text [tags]="row.way.oneWayTags" />
+                        }
                       }
                     </td>
                   }
                   <td>
-                    @switch (row.level) {
-                      @case (1) {
-                        <div class="level-1">{{ row.name }}</div>
-                      }
-                      @case (2) {
-                        <div class="level-2">{{ row.name }}</div>
-                      }
-                      @case (3) {
-                        <div class="level-3">{{ row.name }}</div>
-                      }
-                      @case (4) {
-                        <div class="level-4">{{ row.name }}</div>
-                      }
-                      @case (5) {
-                        <div class="level-5">{{ row.name }}</div>
+                    @if (row.relation) {
+                      @switch (row.relation.level) {
+                        @case (1) {
+                          <div class="level-1">{{ row.relation.name }}</div>
+                        }
+                        @case (2) {
+                          <div class="level-2">{{ row.relation.name }}</div>
+                        }
+                        @case (3) {
+                          <div class="level-3">{{ row.relation.name }}</div>
+                        }
+                        @case (4) {
+                          <div class="level-4">{{ row.relation.name }}</div>
+                        }
+                        @case (5) {
+                          <div class="level-5">{{ row.relation.name }}</div>
+                        }
                       }
                     }
                   </td>
                   <td>
-                    @if (row.happy) {
-                      <mat-icon svgIcon="happy" />
+                    @if (row.relation) {
+                      @if (row.relation.happy) {
+                        <mat-icon svgIcon="happy" />
+                      }
                     }
                   </td>
                   <td class="action-button-table-cell">
                     <div class="kpn-align-center">
-                      <kpn-action-button-relation [relationId]="row.relationId" />
-                      {{ row.relationId }}
+                      <kpn-action-button-relation [relationId]="row.id" />
+                      {{ row.id }}
                     </div>
                   </td>
                   <td class="symbol">
-                    @if (row.symbol) {
-                      <kpn-symbol [description]="row.symbol" [width]="25" [height]="25" />
+                    @if (row.relation) {
+                      @if (row.relation.symbol) {
+                        <kpn-symbol
+                          [description]="row.relation.symbol"
+                          [width]="25"
+                          [height]="25"
+                        />
+                      }
                     }
                   </td>
                   <td>
                     <div class="distance">
-                      0m
+                      @if (row.memberType === 'way') {
+                        <span>{{ row.way.length }}</span>
+                      }
+                      @if (row.memberType === 'relation') {
+                        TODO
+                      }
                       <!--                      @if (row.osmDistanceSubRelations > 0) {-->
                       <!--                        <span-->
                       <!--                          class="cumulative-distance"-->
@@ -170,15 +202,19 @@ import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-rout
                     </div>
                   </td>
                   <td>
-                    {{ row.survey | day }}
+                    @if (row.relation) {
+                      {{ row.relation.survey | day }}
+                    }
                   </td>
-                  <td [ngClass]="{ 'no-route-gap': row.gaps === undefined }">
+                  <td [ngClass]="{ 'no-route-gap': row.relation?.gaps === undefined }">
                     gaps
-                    @if (row.gaps !== undefined) {
-                      <kpn-monitor-route-gap
-                        [description]=""
-                        [osmSegmentCount]="row.osmSegmentCount"
-                      />
+                    @if (row.relation) {
+                      @if (row.relation.gaps !== undefined) {
+                        <kpn-monitor-route-gap
+                          [description]=""
+                          [osmSegmentCount]="row.relation.osmSegmentCount"
+                        />
+                      }
                     }
                   </td>
                 </tr>
