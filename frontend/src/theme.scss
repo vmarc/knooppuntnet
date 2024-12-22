@@ -14,6 +14,8 @@ html {
   @include mat.app-background();
   @include mat.toolbar-density($theme);
   @include mat.button-toggle-density($theme);
+  @include mat.slide-toggle-density($theme);
+  @include mat.card-density($theme);
 
   //@include mat.all-component-densities($theme);
   @include mat.button-theme($theme);
