@@ -6,6 +6,7 @@ import { RouteSummary } from '@api/common';
 import { LocationCandidateInfo } from '@api/common/location';
 import { Day } from '@api/custom';
 import { Timestamp } from '@api/custom';
+import { ParentRoute } from './parent-route';
 import { RouteNodes } from './route-nodes';
 import { RouteStructureRow } from './route-structure-row';
 
@@ -27,4 +28,5 @@ export interface RouteDetailsPageData {
   readonly nodes: RouteNodes;
   readonly bounds: Bounds;
   readonly routeIds: number[];
+  readonly parentRoutes: ParentRoute[];
 }

@@ -24,6 +24,7 @@ import { RoutePageHeaderComponent } from '../components/route-page-header.compon
 import { RouteEndNodesComponent } from './components/route-end-nodes.component';
 import { RouteMembersComponent } from './components/route-members.component';
 import { RouteNetworkReferencesComponent } from './components/route-network-references.component';
+import { RouteParentsComponent } from './components/route-parents.component';
 import { RouteRedundantNodesComponent } from './components/route-redundant-nodes.component';
 import { RouteStartNodesComponent } from './components/route-start-nodes.component';
 import { RouteSummaryComponent } from './components/route-summary.component';
@@ -78,6 +79,13 @@ import { RouteDetailsPageService } from './route-details-page.service';
               <kpn-data title="Network" i18n-title="@@route.network">
                 <kpn-route-network-references [references]="page.networkReferences" />
               </kpn-data>
+
+              @if (page.route.parentRoutes.length > 0) {
+                <kpn-data title="Part of" i18n-title="@@route.parent-routes">
+                  <kpn-route-parents [parentRoutes]="page.route.parentRoutes" />
+                </kpn-data>
+              }
+
               <div>
                 @if (page.route.nodes; as nodes) {
                   <kpn-data title="Start node" i18n-title="@@route.start-node">
@@ -145,6 +153,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
     RouterLink,
     TagTableComponent,
     TimestampComponent,
+    RouteParentsComponent,
   ],
 })
 export class RouteDetailsPageComponent implements OnInit {

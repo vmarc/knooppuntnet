@@ -1,4 +1,3 @@
-import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
@@ -179,7 +178,6 @@ import { RouteMemberIdComponent } from './route-member-id.component';
   imports: [
     LinkImageComponent,
     LinkNodeComponent,
-    NgClass,
     MatIconModule,
     TagsTextComponent,
     SymbolComponent,

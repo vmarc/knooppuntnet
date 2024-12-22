@@ -58,7 +58,8 @@ class RouteDetailsPageBuilder(
         routeDoc.nameDerivedFromNodes,
         routeDoc.nodes,
         routeDoc.bounds,
-        routeDoc.routeIds
+        routeDoc.routeIds,
+        routeDoc.parentRoutes
       )
       RouteDetailsPage(data, networkReferences, changeCount)
     }

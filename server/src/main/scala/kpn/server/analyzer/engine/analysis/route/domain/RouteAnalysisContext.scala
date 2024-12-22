@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
 import kpn.api.common.Bounds
+import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
-import kpn.core.doc.ParentRoute
 import kpn.core.doc.RouteDetailDoc
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 

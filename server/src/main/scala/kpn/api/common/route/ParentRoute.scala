@@ -1,4 +1,4 @@
-package kpn.core.doc
+package kpn.api.common.route
 
 case class ParentRoute(
   level: Long,

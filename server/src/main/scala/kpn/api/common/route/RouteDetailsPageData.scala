@@ -25,4 +25,5 @@ case class RouteDetailsPageData(
   nodes: RouteNodes,
   bounds: Option[Bounds],
   routeIds: Seq[Long],
+  parentRoutes: Seq[ParentRoute],
 )

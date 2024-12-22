@@ -1,5 +1,6 @@
 export * from './geometry-diff';
 export * from './map-route-detail';
+export * from './parent-route';
 export * from './point-segment';
 export * from './route-change-info';
 export * from './route-change-infos';

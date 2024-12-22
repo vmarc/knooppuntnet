@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers.route
 
 import kpn.api.common.SharedTestObjects
-import kpn.core.doc.ParentRoute
+import kpn.api.common.route.ParentRoute
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext

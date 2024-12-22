@@ -113,7 +113,8 @@ object RouteDetailsPageExample {
       nameDerivedFromNodes = true,
       nodes,
       None,
-      Seq(1L)
+      Seq(1L),
+      Seq.empty
     )
   }
 }

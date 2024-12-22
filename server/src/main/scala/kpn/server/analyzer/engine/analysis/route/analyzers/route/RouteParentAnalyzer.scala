@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers.route
 
-import kpn.core.doc.ParentRoute
+import kpn.api.common.route.ParentRoute
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import kpn.server.repository.RouteDetailRepository
 import org.springframework.stereotype.Component
