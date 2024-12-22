@@ -36,7 +36,8 @@ case class RouteDoc(
   paths: Seq[RoutePath],
   routeIds: Seq[Long],
   bounds: Option[Bounds],
-  structureRows: Seq[RouteStructureRow]
+  structureRows: Seq[RouteStructureRow],
+  parentRoutes: Seq[ParentRoute]
 ) extends WithId {
 
   def id: Long = summary.id

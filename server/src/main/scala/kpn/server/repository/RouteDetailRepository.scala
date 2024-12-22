@@ -2,7 +2,9 @@ package kpn.server.repository
 
 import kpn.api.common.Bounds
 import kpn.api.common.NetworkType
+import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDetailDoc
+import kpn.core.doc.SubRouteData
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
@@ -21,4 +23,8 @@ trait RouteDetailRepository {
   def routeTileInfosByNetworkType(networkType: NetworkType, nodeNetwork: Boolean): Seq[RouteTileInfo]
 
   def bounds(routeIds: Seq[Long]): Option[Bounds]
+
+  def subRouteData(routeId: Long): Option[SubRouteData]
+
+  def parentRoutes(routeId: Long): Seq[ParentRouteData]
 }

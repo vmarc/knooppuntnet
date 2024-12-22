@@ -97,14 +97,14 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
       Seq.empty
     }
     else {
-      routeDetailRepository.findById(member.id) match {
+      routeDetailRepository.subRouteData(member.id) match {
         case None => Seq.empty
-        case Some(routeDetailDoc) =>
-          val subRelationMembers = routeDetailDoc.members.filter(_.memberType == MemberType.Relation)
+        case Some(subRouteData) =>
+          val subRelationMembers = subRouteData.members.filter(_.memberType == MemberType.Relation)
           val subRows: Seq[RouteStructureRow] = subRelationMembers.flatMap(subRelationMember =>
             relationRows(level + 1, subRelationMember, processedRelationIds :+ member.id)
           )
-          val distance = routeDetailDoc.summary.meters
+          val distance = subRouteData.distance
           val subRowsDistance = subRows.flatMap(_.relation.map(_.totalDistance)).sum
           val totalDistance = distance + subRowsDistance
 
@@ -119,12 +119,11 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
               RouteStructureRelation(
                 level = level,
                 physical = false,
-                name = routeDetailDoc.summary.name,
+                name = subRouteData.name,
                 subRelationIndex = None,
-                // role: Option[String],
                 survey = None,
                 symbol = None,
-                osmSegmentCount = Some(routeDetailDoc.segments.size),
+                osmSegmentCount = None, //Some(subRouteData.segments.size),
                 totalDistance = totalDistance,
                 gaps = None,
                 happy = false,

@@ -77,6 +77,7 @@ import kpn.core.doc.NetworkWayMember
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
+import kpn.core.doc.ParentRoute
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDetailPath
 import kpn.core.doc.RouteDetailSegment
@@ -426,6 +427,7 @@ trait SharedTestObjects extends MockFactory {
     paths: Seq[RouteDetailPath] = Seq.empty,
     hierarchy: Option[RouteRelation] = None,
     bounds: Option[Bounds] = None,
+    subRouteIds: Seq[Long] = Seq.empty
   ): RouteDetailDoc = {
 
     val summary = RouteSummary(
@@ -469,7 +471,8 @@ trait SharedTestObjects extends MockFactory {
       segmentElements,
       paths,
       hierarchy,
-      bounds
+      bounds,
+      subRouteIds
     )
   }
 
@@ -957,6 +960,7 @@ trait SharedTestObjects extends MockFactory {
     routeIds: Seq[Long] = Seq.empty,
     bounds: Option[Bounds] = None,
     structureRows: Seq[RouteStructureRow] = Seq.empty,
+    parentRoutes: Seq[ParentRoute] = Seq.empty,
   ): RouteDoc = {
     RouteDoc(
       summary.id,
@@ -979,7 +983,8 @@ trait SharedTestObjects extends MockFactory {
       paths,
       routeIds,
       bounds,
-      structureRows
+      structureRows,
+      parentRoutes
     )
   }
 
@@ -1008,7 +1013,8 @@ trait SharedTestObjects extends MockFactory {
     segmentElements: Seq[RouteDetailSegmentElement] = Seq.empty,
     paths: Seq[RouteDetailPath] = Seq.empty,
     hierarchy: Option[RouteRelation] = None,
-    bounds: Option[Bounds] = None
+    bounds: Option[Bounds] = None,
+    subRouteIds: Seq[Long] = Seq.empty
   ): RouteDetailDoc = {
     RouteDetailDoc(
       summary.id,
@@ -1036,7 +1042,8 @@ trait SharedTestObjects extends MockFactory {
       segmentElements,
       paths,
       hierarchy,
-      bounds
+      bounds,
+      subRouteIds
     )
   }
 

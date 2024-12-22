@@ -4,6 +4,7 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteSummary
 import kpn.api.common.data.Element
+import kpn.api.common.data.MemberType.Relation
 import kpn.api.common.data.Way
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Timestamp
@@ -54,6 +55,14 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.relation.tags
     )
 
+    val subRelationIds = context.routeMembers.flatMap { member =>
+      // TODO redesign - exclude subrelations that are not routes
+      member.memberType match {
+        case Relation => Some(member.id)
+        case _ => None
+      }
+    }
+
     RouteDetailDoc(
       summary.id,
       context.labels,
@@ -80,7 +89,8 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.segmentElements,
       context.paths,
       context.hierarchy,
-      context.bounds
+      context.bounds,
+      subRelationIds
     )
   }
 }

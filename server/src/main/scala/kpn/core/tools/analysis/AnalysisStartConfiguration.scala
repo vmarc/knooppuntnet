@@ -39,6 +39,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAn
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteBoundsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
@@ -127,7 +128,12 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   val routeMainAnalyzer: RouteMainAnalyzer = {
     val routeBoundsAnalyzer = new RouteBoundsAnalyzer(routeDetailRepository)
     val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(routeDetailRepository)
-    new RouteMainAnalyzer(routeBoundsAnalyzer, routeStructureRowsAnalyzer)
+    val routeParentAnalyzer = new RouteParentAnalyzer(routeDetailRepository)
+    new RouteMainAnalyzer(
+      routeBoundsAnalyzer,
+      routeStructureRowsAnalyzer,
+      routeParentAnalyzer
+    )
   }
 
   val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzerImpl(

@@ -41,6 +41,7 @@ case class RouteDetailDoc(
   paths: Seq[RouteDetailPath],
   hierarchy: Option[RouteRelation],
   bounds: Option[Bounds],
+  subRouteIds: Seq[Long]
 ) extends WithId {
 
   def id: Long = summary.id

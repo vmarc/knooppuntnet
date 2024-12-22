@@ -6,6 +6,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteBoundsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteIdsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 import org.springframework.stereotype.Component
@@ -15,7 +16,8 @@ import scala.annotation.tailrec
 @Component
 class RouteMainAnalyzer(
   routeBoundsAnalyzer: RouteBoundsAnalyzer,
-  routeStructureRowsAnalyzer: RouteStructureRowsAnalyzer
+  routeStructureRowsAnalyzer: RouteStructureRowsAnalyzer,
+  routeParentAnalyzer: RouteParentAnalyzer
 ) {
 
   def analyze(routeDetailDoc: RouteDetailDoc): Option[RouteDoc] = {
@@ -25,6 +27,7 @@ class RouteMainAnalyzer(
         RouteIdsAnalyzer,
         routeBoundsAnalyzer,
         routeStructureRowsAnalyzer,
+        routeParentAnalyzer,
         // RouteLabelsAnalyzer, // this always should be the last analyzer
       )
       doAnalyze(analyzers, context)
@@ -61,7 +64,8 @@ class RouteMainAnalyzer(
           context.paths,
           context.routeIds,
           context.bounds,
-          context.structureRows
+          context.structureRows,
+          context.parentRoutes
         )
       )
     }
