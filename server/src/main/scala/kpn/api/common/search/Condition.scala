@@ -1,7 +1,7 @@
 package kpn.api.common.search
 
 case class Condition(
-  conditionType: ConditionType,
+  subject: ConditionSubject,
   tag: Option[ConditionTag],
   location: Option[ConditionLocation],
   name: Option[ConditionRouteName],

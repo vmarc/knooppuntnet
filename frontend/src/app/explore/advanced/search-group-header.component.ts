@@ -1,3 +1,4 @@
+import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -9,6 +10,7 @@ import { MatMenuItem } from '@angular/material/menu';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenu } from '@angular/material/menu';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ConditionGroup } from '@api/common/search/condition-group';
 
 @Component({
   selector: 'kpn-search-group-header',
@@ -44,4 +46,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatMenuItem,
   ],
 })
-export class SearchGroupHeaderComponent {}
+export class SearchGroupHeaderComponent {
+  group = input.required<ConditionGroup>();
+  indexes = input.required<number[]>();
+}

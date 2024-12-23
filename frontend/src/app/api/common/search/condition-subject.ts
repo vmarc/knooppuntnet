@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-export type ConditionType =
+export type ConditionSubject =
   | 'tag'
   | 'location'
   | 'name'
