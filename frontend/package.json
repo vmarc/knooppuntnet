@@ -43,6 +43,7 @@
     "angular-split": "^18.0.0",
     "canvg": "^4.0.2",
     "file-saver-es": "^2.0.5",
+    "immer": "^10.1.1",
     "immutable": "^5.0.2",
     "jspdf": "^2.5.2",
     "marked": "^12.0.2",

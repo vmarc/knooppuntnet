@@ -51,7 +51,6 @@ describe('PlanReverser', () => {
       sinkNode,
       meters: 0,
       segments: [],
-      streets: [],
     };
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
@@ -90,21 +89,18 @@ describe('PlanReverser', () => {
       sinkNode: planNode3,
       meters: 0,
       segments: [],
-      streets: [],
     };
     const planRoute32: PlanRoute = {
       sourceNode: planNode3,
       sinkNode: planNode2,
       meters: 0,
       segments: [],
-      streets: [],
     };
     const planRoute21: PlanRoute = {
       sourceNode: planNode2,
       sinkNode: planNode1,
       meters: 0,
       segments: [],
-      streets: [],
     };
 
     const planLegData43 = new PlanLegData(legEnd4, legEnd3, List([planRoute43]));
@@ -164,7 +160,6 @@ describe('PlanReverser', () => {
       sinkNode,
       meters: 0,
       segments: [],
-      streets: [],
     };
     const planLegData = new PlanLegData(source, sink, List([planRoute]));
 
@@ -196,8 +191,6 @@ describe('PlanReverser', () => {
 
     const fragment: PlanFragment = {
       meters: 0,
-      orientation: 0,
-      streetIndex: -1,
       coordinate: sinkNode.coordinate,
       latLon: sinkNode.latLon,
     };
@@ -212,7 +205,6 @@ describe('PlanReverser', () => {
       sinkNode,
       meters: 0,
       segments: [segment],
-      streets: [],
     };
     const leg = new PlanLeg('11', legKey, source, sink, sinkFlag, viaFlag, List([route]));
 

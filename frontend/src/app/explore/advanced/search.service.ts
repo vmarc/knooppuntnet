@@ -1,80 +1,44 @@
+import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { signal } from '@angular/core';
+import { Condition } from '@api/common/search/condition';
 import { ConditionGroup } from '@api/common/search/condition-group';
+import { State } from '@app/state';
+import { produce } from 'immer';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
-  private readonly _group = signal<ConditionGroup>(this.example());
-
-  readonly group = this._group.asReadonly();
+  private readonly state = inject(State);
+  readonly group = this.state.explore.group;
 
   removeCondition(indexes: number[]): void {
-    const updatedGroup = this.group();
-
-    this._group.set(updatedGroup);
+    if (indexes.length === 1) {
+      const newGroup = produce(this.group(), (draft) => {
+        draft.conditions.splice(indexes[0] /*the index */, 1);
+      });
+      this.updateGroup(newGroup);
+    } else if (indexes.length === 2) {
+      const newGroup = produce(this.group(), (draft) => {
+        draft.conditions[indexes[0]].group.conditions.splice(indexes[1] /*the index */, 1);
+      });
+      this.updateGroup(newGroup);
+    } else if (indexes.length === 3) {
+      const newGroup = produce(this.group(), (draft) => {
+        draft.conditions[indexes[0]].group.conditions[indexes[1]].group.conditions.splice(
+          indexes[2] /*the index */,
+          1
+        );
+      });
+      this.updateGroup(newGroup);
+    }
   }
 
-  private defaultGroup(): ConditionGroup {
-    return {
-      operator: 'and',
-      conditions: [
-        {
-          subject: 'tag',
-          tag: {
-            operator: 'equals',
-            key: '',
-            value: '',
-          },
-        },
-      ],
-    };
+  private update(conditions: Condition[], indexes: number[]): Condition[] {
+    return conditions;
   }
 
-  example(): ConditionGroup {
-    return {
-      operator: 'and',
-      conditions: [
-        {
-          subject: 'tag',
-          tag: {
-            operator: 'contains',
-            key: 'operator',
-            value: 'US:US',
-          },
-        },
-        {
-          subject: 'tag',
-          tag: {
-            operator: 'equals',
-            key: 'symbol',
-            value: 'gray',
-          },
-        },
-        {
-          subject: 'group',
-          group: {
-            operator: 'or',
-            conditions: [
-              {
-                subject: 'name',
-                name: {
-                  operator: 'contains',
-                  name: 'LAW 9',
-                },
-              },
-              {
-                subject: 'location',
-                location: {
-                  operator: 'contains',
-                  name: 'Essen',
-                },
-              },
-            ],
-          },
-        },
-      ],
-    };
+  private updateGroup(value: ConditionGroup): void {
+    this.state.explore.updateGroup(value);
   }
 }

@@ -43,21 +43,18 @@ describe('PlanUtil', () => {
       sinkNode: viaNode1,
       meters: 0,
       segments: [],
-      streets: [],
     };
     const route2: PlanRoute = {
       sourceNode: viaNode1,
       sinkNode: viaNode2,
       meters: 0,
       segments: [],
-      streets: [],
     };
     const route3: PlanRoute = {
       sourceNode: viaNode2,
       sinkNode: endNode,
       meters: 0,
       segments: [],
-      streets: [],
     };
 
     const startLegEnd = PlanUtil.legEndNode(10);
@@ -100,21 +97,18 @@ describe('PlanUtil', () => {
       sinkNode: null,
       meters: 1000,
       segments: [],
-      streets: [],
     };
     const route2: PlanRoute = {
       sourceNode: null,
       sinkNode: null,
       meters: 2000,
       segments: [],
-      streets: [],
     };
     const route3: PlanRoute = {
       sourceNode: null,
       sinkNode: null,
       meters: 4000,
       segments: [],
-      streets: [],
     };
 
     const leg1 = new PlanLeg('1', '', null, null, null, null, List([route1, route2]));
