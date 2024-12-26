@@ -1,51 +1,21 @@
 package kpn.database.actions.routes
 
-import kpn.api.common.search.Condition
 import kpn.api.common.search.ConditionGroup
-import kpn.api.common.search.ConditionGroupOperator
-import kpn.api.common.search.ConditionOperator
-import kpn.api.common.search.ConditionSubject
-import kpn.api.common.search.ConditionTag
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
-import kpn.database.util.Mongo
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Aggregates.sort
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
+import org.mongodb.scala.model.Sorts.ascending
+import org.mongodb.scala.model.Sorts.orderBy
 
 object MongoQueryRoutes {
-
-  def main(args: Array[String]): Unit = {
-    Mongo.executeIn("kpn-next") { database =>
-      val group = ConditionGroup(
-        ConditionGroupOperator.And,
-        Seq(
-          Condition(
-            ConditionSubject.Tag,
-            tag = Some(
-              ConditionTag(
-                ConditionOperator.EndsWith,
-                "name",
-                "pelgrimspad",
-              )
-            ),
-            location = None,
-            name = None,
-            group = None,
-          )
-        )
-      )
-      val result = new MongoQueryRoutes(database).execute(group)
-      result.foreach(println)
-      println(s"rows=${result.size}")
-    }
-  }
-
   private val log = Log(classOf[MongoQueryRoutes])
 }
 
@@ -59,6 +29,13 @@ class MongoQueryRoutes(database: Database) {
           and(
             equal("labels", Label.active),
             SearchQueryBuilder.buildFilter(group)
+          )
+        ),
+        sort(
+          orderBy(
+            ascending(
+              "summary.name",
+            )
           )
         ),
         project(

@@ -1,0 +1,77 @@
+package kpn.database.actions.routes
+
+import kpn.api.common.search.Condition
+import kpn.api.common.search.ConditionGroup
+import kpn.api.common.search.ConditionGroupOperator
+import kpn.api.common.search.ConditionOperator
+import kpn.api.common.search.ConditionSubject
+import kpn.api.common.search.ConditionTag
+
+object QueryBuilder {
+
+  def and(conditions: Condition*): ConditionGroup = {
+    ConditionGroup(
+      ConditionGroupOperator.And,
+      conditions
+    )
+  }
+
+  def or(conditions: Condition*): ConditionGroup = {
+    ConditionGroup(
+      ConditionGroupOperator.Or,
+      conditions
+    )
+  }
+
+  def tag(key: String, value: String): Condition = {
+    Condition(
+      ConditionSubject.Tag,
+      tag = Some(
+        ConditionTag(
+          ConditionOperator.Equals,
+          key,
+          value
+        )
+      )
+    )
+  }
+
+  def tagContains(key: String, value: String): Condition = {
+    Condition(
+      ConditionSubject.Tag,
+      tag = Some(
+        ConditionTag(
+          ConditionOperator.Contains,
+          key,
+          value
+        )
+      )
+    )
+  }
+
+  def tagStartsWith(key: String, value: String): Condition = {
+    Condition(
+      ConditionSubject.Tag,
+      tag = Some(
+        ConditionTag(
+          ConditionOperator.StartsWith,
+          key,
+          value
+        )
+      )
+    )
+  }
+
+  def tagEndsWith(key: String, value: String): Condition = {
+    Condition(
+      ConditionSubject.Tag,
+      tag = Some(
+        ConditionTag(
+          ConditionOperator.EndsWith,
+          key,
+          value
+        )
+      )
+    )
+  }
+}
