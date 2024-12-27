@@ -55,7 +55,12 @@ object SearchQueryBuilder {
   }
 
   private def buildConditionName(condition: ConditionRouteName): Bson = {
-    equal("", "")
+    condition.operator match {
+      case Equals =>
+        equal("summary.name", condition.name)
+      case _ =>
+        regex("summary.name", condition.pattern, "i")
+    }
   }
 
   private def buildConditionGroup(condition: ConditionGroup): Bson = {
