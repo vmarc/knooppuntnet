@@ -3,6 +3,7 @@ package kpn.database.actions.routes
 import kpn.api.common.search.Condition
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.ConditionGroupOperator
+import kpn.api.common.search.ConditionLocation
 import kpn.api.common.search.ConditionOperator
 import kpn.api.common.search.ConditionRouteName
 import kpn.api.common.search.ConditionSubject
@@ -118,6 +119,18 @@ object QueryBuilder {
       name = Some(
         ConditionRouteName(
           ConditionOperator.EndsWith,
+          value
+        )
+      )
+    )
+  }
+
+  def location(value: String): Condition = {
+    Condition(
+      ConditionSubject.Location,
+      location = Some(
+        ConditionLocation(
+          ConditionOperator.Equals,
           value
         )
       )

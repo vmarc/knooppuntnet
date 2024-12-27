@@ -8,8 +8,8 @@ object MongoQueryRoutesTool {
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-next") { database =>
       val query = and(
-        QueryBuilder.name(
-          "LAW 9"
+        QueryBuilder.location(
+          "be-2-11016"
         )
       )
       val result = new MongoQueryRoutes(database).execute(query)

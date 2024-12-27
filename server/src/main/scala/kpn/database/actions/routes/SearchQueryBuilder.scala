@@ -12,6 +12,7 @@ import kpn.api.common.search.ConditionSubject.Location
 import kpn.api.common.search.ConditionSubject.Name
 import kpn.api.common.search.ConditionSubject.Tag
 import kpn.api.common.search.ConditionTag
+import kpn.core.doc.Label
 import org.bson.conversions.Bson
 import org.mongodb.scala.bson.BsonDocument
 import org.mongodb.scala.model.Filters.and
@@ -51,7 +52,7 @@ object SearchQueryBuilder {
   }
 
   private def buildConditionLocation(condition: ConditionLocation): Bson = {
-    equal("", "")
+    equal("labels", Label.location(condition.name))
   }
 
   private def buildConditionName(condition: ConditionRouteName): Bson = {
