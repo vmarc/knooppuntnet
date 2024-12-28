@@ -11,17 +11,41 @@ import kpn.api.common.search.ConditionTag
 
 object QueryBuilder {
 
-  def and(conditions: Condition*): ConditionGroup = {
+  def andGroup(conditions: Condition*): ConditionGroup = {
     ConditionGroup(
       ConditionGroupOperator.And,
       conditions
     )
   }
 
-  def or(conditions: Condition*): ConditionGroup = {
+  def orGroup(conditions: Condition*): ConditionGroup = {
     ConditionGroup(
       ConditionGroupOperator.Or,
       conditions
+    )
+  }
+
+  def and(conditions: Condition*): Condition = {
+    Condition(
+      ConditionSubject.Group,
+      group = Some(
+        ConditionGroup(
+          ConditionGroupOperator.And,
+          conditions
+        )
+      )
+    )
+  }
+
+  def or(conditions: Condition*): Condition = {
+    Condition(
+      ConditionSubject.Group,
+      group = Some(
+        ConditionGroup(
+          ConditionGroupOperator.Or,
+          conditions
+        )
+      )
     )
   }
 

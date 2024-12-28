@@ -35,7 +35,7 @@ object SearchQueryBuilder {
       case Tag => buildConditionTag(condition.tag.get)
       case Location => buildConditionLocation(condition.location.get)
       case Name => buildConditionName(condition.name.get)
-      case Group => buildConditionGroup(condition.group.get)
+      case Group => buildFilter(condition.group.get)
     }
   }
 
@@ -62,9 +62,5 @@ object SearchQueryBuilder {
       case _ =>
         regex("summary.name", condition.pattern, "i")
     }
-  }
-
-  private def buildConditionGroup(condition: ConditionGroup): Bson = {
-    equal("", "")
   }
 }
