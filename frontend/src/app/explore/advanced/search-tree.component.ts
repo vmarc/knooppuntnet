@@ -1,25 +1,42 @@
-import { input } from '@angular/core';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Condition } from '@api/common/search/condition';
 import { ConditionGroup } from '@api/common/search/condition-group';
 import { SearchConditionComponent } from './search-condition.component';
 import { SearchGroupHeaderComponent } from './search-group-header.component';
+import { SearchService } from './search.service';
 
 @Component({
   selector: 'kpn-search-tree',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="condition-tree">
-      <kpn-search-group-header [group]="group()" [indexes]="[]" />
+      <kpn-search-group-header
+        [group]="group()"
+        [removeEnabled]="false"
+        (add)="add([], $event)"
+        (update)="updateGroup([], $event)"
+      />
       <ul>
         @for (conditionLevel1 of group().conditions; track indexLevel1; let indexLevel1 = $index) {
           <li>
+            @let indexes1 = [indexLevel1];
             @if (conditionLevel1.subject !== 'group') {
-              <kpn-search-condition [condition]="conditionLevel1" [indexes]="[indexLevel1]" />
+              <kpn-search-condition
+                [condition]="conditionLevel1"
+                (update)="update(indexes1, $event)"
+                (remove)="remove(indexes1)"
+              />
             } @else {
-              <kpn-search-group-header [group]="conditionLevel1.group" [indexes]="[indexLevel1]" />
+              <kpn-search-group-header
+                [group]="conditionLevel1.group"
+                (add)="add(indexes1, $event)"
+                (update)="updateGroup(indexes1, $event)"
+                (remove)="remove(indexes1)"
+              />
               <ul>
                 @for (
                   conditionLevel2 of conditionLevel1.group.conditions;
@@ -27,15 +44,19 @@ import { SearchGroupHeaderComponent } from './search-group-header.component';
                   let indexLevel2 = $index
                 ) {
                   <li>
+                    @let indexes2 = indexes1.concat([indexLevel2]);
                     @if (conditionLevel2.subject !== 'group') {
                       <kpn-search-condition
                         [condition]="conditionLevel2"
-                        [indexes]="[indexLevel1, indexLevel2]"
+                        (update)="update(indexes2, $event)"
+                        (remove)="remove(indexes2)"
                       />
                     } @else {
                       <kpn-search-group-header
                         [group]="conditionLevel2.group"
-                        [indexes]="[indexLevel1, indexLevel2]"
+                        (add)="add(indexes2, $event)"
+                        (update)="updateGroup(indexes2, $event)"
+                        (remove)="remove(indexes2)"
                       />
                       <ul>
                         @for (
@@ -44,15 +65,19 @@ import { SearchGroupHeaderComponent } from './search-group-header.component';
                           let indexLevel3 = $index
                         ) {
                           <li>
+                            @let indexes3 = indexes2.concat([indexLevel3]);
                             @if (conditionLevel3.subject !== 'group') {
                               <kpn-search-condition
                                 [condition]="conditionLevel3"
-                                [indexes]="[indexLevel1, indexLevel2, indexLevel3]"
+                                (update)="update(indexes3, $event)"
+                                (remove)="remove(indexes3)"
                               />
                             } @else {
                               <kpn-search-group-header
                                 [group]="conditionLevel3.group"
-                                [indexes]="[indexLevel1, indexLevel2, indexLevel3]"
+                                (add)="add(indexes3, $event)"
+                                (update)="updateGroup(indexes3, $event)"
+                                (remove)="remove(indexes3)"
                               />
                               <ul>
                                 @for (
@@ -61,14 +86,11 @@ import { SearchGroupHeaderComponent } from './search-group-header.component';
                                   let indexLevel4 = $index
                                 ) {
                                   <li>
+                                    @let indexes4 = indexes3.concat([indexLevel4]);
                                     <kpn-search-condition
                                       [condition]="conditionLevel4"
-                                      [indexes]="[
-                                        indexLevel1,
-                                        indexLevel2,
-                                        indexLevel3,
-                                        indexLevel4,
-                                      ]"
+                                      (update)="update(indexes4, $event)"
+                                      (remove)="remove(indexes4)"
                                     />
                                   </li>
                                 }
@@ -132,5 +154,23 @@ import { SearchGroupHeaderComponent } from './search-group-header.component';
   imports: [FormsModule, ReactiveFormsModule, SearchConditionComponent, SearchGroupHeaderComponent],
 })
 export class SearchTreeComponent {
-  group = input.required<ConditionGroup>();
+  private readonly service = inject(SearchService);
+
+  readonly group = this.service.group;
+
+  add(indexes: number[], condition: Condition): void {
+    this.service.add(indexes, condition);
+  }
+
+  update(indexes: number[], condition: Condition): void {
+    this.service.update(indexes, condition);
+  }
+
+  updateGroup(indexes: number[], group: ConditionGroup): void {
+    this.service.updateGroup(indexes, group);
+  }
+
+  remove(indexes: number[]): void {
+    this.service.remove(indexes);
+  }
 }

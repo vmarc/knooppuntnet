@@ -61,7 +61,7 @@ describe('searchService', () => {
 
   it('delete at level 1', () => {
     state.explore.updateGroup(group);
-    searchService.removeCondition([2]);
+    searchService.remove([2]);
 
     expect(searchService.group()).toEqual({
       operator: 'and',
@@ -88,7 +88,7 @@ describe('searchService', () => {
 
   it('delete at level 2', () => {
     state.explore.updateGroup(group);
-    searchService.removeCondition([2, 0]);
+    searchService.remove([2, 0]);
 
     expect(searchService.group()).toEqual({
       operator: 'and',

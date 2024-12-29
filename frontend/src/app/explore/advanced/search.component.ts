@@ -12,7 +12,7 @@ import { SearchService } from './search.service';
   selector: 'kpn-search',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-search-tree [group]="group()" />
+    <kpn-search-tree />
     <div>
       <button mat-stroked-button>Search</button>
     </div>

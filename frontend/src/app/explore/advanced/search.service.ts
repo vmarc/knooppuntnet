@@ -13,17 +13,45 @@ export class SearchService {
   private readonly state = inject(State);
   readonly group = this.state.explore.group;
 
-  removeCondition(indexes: number[]): void {
-    this.updateGroup(
+  add(indexes: number[], condition: Condition): void {
+    this.updateRoot(
+      produce(this.group(), (draft) => {
+        const conditions = this.conditionsAtIndexes(draft, indexes);
+        conditions.push(condition);
+      })
+    );
+  }
+
+  update(indexes: number[], condition: Condition): void {
+    this.updateRoot(
+      produce(this.group(), (draft) => {
+        const conditions = this.conditionsAtIndexes(draft, indexes);
+        conditions.splice(indexes[indexes.length - 1], 0, condition);
+      })
+    );
+  }
+
+  updateGroup(indexes: number[], group: ConditionGroup): void {
+    this.updateRoot(
+      produce(this.group(), (draft) => {
+        const conditions = this.conditionsAtIndexes(draft, indexes);
+        const groupCondition = conditions.at(indexes[indexes.length - 1]);
+        const newGroupCondition = {
+          ...groupCondition,
+          group: group,
+        };
+        conditions.splice(indexes[indexes.length - 1], 0, newGroupCondition);
+      })
+    );
+  }
+
+  remove(indexes: number[]): void {
+    this.updateRoot(
       produce(this.group(), (draft) => {
         const conditions = this.conditionsAtIndexes(draft, indexes);
         conditions.splice(indexes[indexes.length - 1], 1);
       })
     );
-  }
-
-  private update(conditions: Condition[], indexes: number[]): Condition[] {
-    return conditions;
   }
 
   private conditionsAtIndexes(
@@ -46,7 +74,7 @@ export class SearchService {
     return conditions;
   }
 
-  private updateGroup(value: ConditionGroup): void {
+  private updateRoot(value: ConditionGroup): void {
     this.state.explore.updateGroup(value);
   }
 }

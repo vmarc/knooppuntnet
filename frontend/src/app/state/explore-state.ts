@@ -1,4 +1,5 @@
 import { signal } from '@angular/core';
+import { Condition } from '@api/common/search/condition';
 import { ConditionGroup } from '@api/common/search/condition-group';
 import { ExploreRoute } from './explore-route';
 
@@ -17,19 +18,31 @@ export class ExploreState {
     this._routes.set(routes);
   }
 
-  private defaultGroup(): ConditionGroup {
+  static defaultGroup(): ConditionGroup {
     return {
       operator: 'and',
-      conditions: [
-        {
-          subject: 'tag',
-          tag: {
-            operator: 'equals',
-            key: '',
-            value: '',
-          },
-        },
-      ],
+      conditions: [this.defaultCondition()],
+    };
+  }
+
+  static defaultCondition(): Condition {
+    return {
+      subject: 'tag',
+      tag: {
+        operator: 'equals',
+        key: '',
+        value: '',
+      },
+    };
+  }
+
+  static defaultGroupCondition(): Condition {
+    return {
+      subject: 'group',
+      group: {
+        operator: 'and',
+        conditions: [this.defaultCondition()],
+      },
     };
   }
 

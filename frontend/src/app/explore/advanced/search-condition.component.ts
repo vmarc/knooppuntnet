@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+import { output } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -15,7 +15,6 @@ import { Condition } from '@api/common/search/condition';
 import { SearchConditionLocationComponent } from './search-condition-location.component';
 import { SearchConditionNameComponent } from './search-condition-name.component';
 import { SearchConditionTagComponent } from './search-condition-tag.component';
-import { SearchService } from './search.service';
 
 @Component({
   selector: 'kpn-search-condition',
@@ -44,7 +43,7 @@ import { SearchService } from './search.service';
           }
 
           <button mat-icon-button>
-            <mat-icon svgIcon="remove" (click)="remove()"></mat-icon>
+            <mat-icon svgIcon="remove" (click)="onRemove()"></mat-icon>
           </button>
         </div>
       </mat-card>
@@ -73,12 +72,11 @@ import { SearchService } from './search.service';
   ],
 })
 export class SearchConditionComponent {
-  private readonly service = inject(SearchService);
-
   condition = input.required<Condition>();
-  indexes = input.required<number[]>();
+  update = output<Condition>();
+  remove = output<void>();
 
-  remove() {
-    this.service.removeCondition(this.indexes());
+  onRemove() {
+    this.remove.emit();
   }
 }
