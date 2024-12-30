@@ -12,6 +12,8 @@ import { MatFormField } from '@angular/material/select';
 import { MatLabel } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Condition } from '@api/common/search/condition';
+import { ConditionSubject } from '@api/common/search/condition-subject';
+import { ExploreState } from '@app/state';
 import { SearchConditionLocationComponent } from './search-condition-location.component';
 import { SearchConditionNameComponent } from './search-condition-name.component';
 import { SearchConditionTagComponent } from './search-condition-tag.component';
@@ -25,21 +27,33 @@ import { SearchConditionTagComponent } from './search-condition-tag.component';
         <div class="condition-line kpn-small-spacer-above" style="padding-left: 0.5em;">
           <mat-form-field appearance="outline">
             <mat-label>condition</mat-label>
-            <mat-select [value]="condition().subject">
+            <mat-select
+              [value]="condition().subject"
+              (selectionChange)="onSubjectChange($event.value)"
+            >
               <mat-option value="location">location</mat-option>
               <mat-option value="tag">tag</mat-option>
-              <mat-option value="name">route name</mat-option>
+              <mat-option value="name">name</mat-option>
             </mat-select>
           </mat-form-field>
 
           @if (condition().subject === 'tag') {
-            <kpn-search-condition-tag [condition]="condition()" />
+            <kpn-search-condition-tag
+              [condition]="condition()"
+              (change)="onConditionChange($event)"
+            />
           }
           @if (condition().subject === 'location') {
-            <kpn-search-condition-location [condition]="condition()" />
+            <kpn-search-condition-location
+              [condition]="condition()"
+              (change)="onConditionChange($event)"
+            />
           }
           @if (condition().subject === 'name') {
-            <kpn-search-condition-name [condition]="condition()" />
+            <kpn-search-condition-name
+              [condition]="condition()"
+              (change)="onConditionChange($event)"
+            />
           }
 
           <button mat-icon-button>
@@ -75,6 +89,15 @@ export class SearchConditionComponent {
   condition = input.required<Condition>();
   update = output<Condition>();
   remove = output<void>();
+
+  onSubjectChange(subject: ConditionSubject): void {
+    const updated = ExploreState.defaultConditionSubject(subject);
+    this.update.emit(updated);
+  }
+
+  onConditionChange(value: Condition): void {
+    this.update.emit(value);
+  }
 
   onRemove() {
     this.remove.emit();

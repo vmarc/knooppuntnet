@@ -1,6 +1,10 @@
 import { signal } from '@angular/core';
 import { Condition } from '@api/common/search/condition';
 import { ConditionGroup } from '@api/common/search/condition-group';
+import { ConditionLocation } from '@api/common/search/condition-location';
+import { ConditionRouteName } from '@api/common/search/condition-route-name';
+import { ConditionSubject } from '@api/common/search/condition-subject';
+import { ConditionTag } from '@api/common/search/condition-tag';
 import { ExploreRoute } from './explore-route';
 
 export class ExploreState {
@@ -33,6 +37,24 @@ export class ExploreState {
         key: '',
         value: '',
       },
+    };
+  }
+
+  static defaultConditionSubject(subject: ConditionSubject): Condition {
+    const tag: ConditionTag =
+      subject === 'tag' ? { operator: 'contains', key: '', value: '' } : undefined;
+    const location: ConditionLocation =
+      subject === 'location' ? { operator: 'equals', name: '' } : undefined;
+    const name: ConditionRouteName =
+      subject === 'name' ? { operator: 'equals', name: '' } : undefined;
+    const group: ConditionGroup = subject === 'group' ? this.defaultGroup() : undefined;
+
+    return {
+      subject,
+      tag,
+      location,
+      name,
+      group,
     };
   }
 

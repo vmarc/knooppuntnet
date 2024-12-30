@@ -1,3 +1,4 @@
+import { output } from '@angular/core';
 import { computed } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -41,4 +42,5 @@ export class SearchConditionNameComponent {
   condition = input.required<Condition>();
   operator = computed(() => this.condition().name?.operator);
   name = computed(() => this.condition().name?.name);
+  change = output<Condition>();
 }

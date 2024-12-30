@@ -1,3 +1,4 @@
+import { output } from '@angular/core';
 import { computed } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -26,4 +27,5 @@ export class SearchConditionLocationComponent {
   condition = input.required<Condition>();
   conditionString = computed(() => JSON.stringify(this.condition));
   name = computed(() => this.condition().location?.name);
+  change = output<Condition>();
 }
