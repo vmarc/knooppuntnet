@@ -68,6 +68,7 @@ export class SearchGroupHeaderComponent {
       ...this.group(),
       operator: changeEvent.value,
     };
+    console.log(`UPDATE OPERATOR ${JSON.stringify(updatedGroup, null, 2)}`);
     this.update.emit(updatedGroup);
   }
 

@@ -28,7 +28,7 @@ import { ConditionTag } from '@api/common/search/condition-tag';
         matInput
         [value]="key()"
         [matAutocomplete]="auto"
-        (change)="onValueChange($event)"
+        (change)="onKeyChange($event)"
       />
       <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
         <mat-option value="operator">operator</mat-option>
@@ -94,6 +94,8 @@ export class SearchConditionTagComponent {
   }
 
   onValueChange(event): void {
+    console.log(`TAG VALUE CHANGE ${event.target.value}`);
+
     const tag: ConditionTag = {
       ...this.condition().tag,
       value: event.target.value,
