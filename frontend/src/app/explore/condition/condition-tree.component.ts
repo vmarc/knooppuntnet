@@ -6,7 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { Condition } from '@api/common/search/condition';
 import { ConditionGroup } from '@api/common/search/condition-group';
-import { ConditionTreeItemComponent } from './condition-tree-item.component';
+import { ConditionGroupComponent } from './condition-group.component';
+import { ConditionComponent } from './condition.component';
 import { ConditionService } from './condition.service';
 
 @Component({
@@ -15,7 +16,79 @@ import { ConditionService } from './condition.service';
   template: `
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="condition-tree">
-        <kpn-condition-tree-item [form]="form" />
+        <kpn-condition-group [form]="form" [removeEnabled]="false" />
+        <ul formArrayName="conditions">
+          @for (
+            conditionLevel1 of form.controls.conditions.controls;
+            track indexLevel1;
+            let indexLevel1 = $index
+          ) {
+            <li [formGroupName]="indexLevel1">
+              @let indexes1 = [indexLevel1];
+              @if (conditionLevel1.controls.subject.value !== 'group') {
+                <kpn-condition [form]="conditionLevel1" />
+              } @else {
+                @let formLevel1 = conditionLevel1.controls.group;
+                <form [formGroup]="formLevel1">
+                  <kpn-condition-group [form]="conditionLevel1.controls.group" />
+                  <ul formArrayName="conditions">
+                    @for (
+                      conditionLevel2 of formLevel1.controls.conditions.controls;
+                      track indexLevel2;
+                      let indexLevel2 = $index
+                    ) {
+                      <li [formGroupName]="indexLevel2">
+                        @let indexes2 = indexes1.concat([indexLevel2]);
+                        @if (conditionLevel2.controls.subject.value !== 'group') {
+                          <kpn-condition [form]="conditionLevel2" />
+                        } @else {
+                          @let formLevel2 = conditionLevel2.controls.group;
+                          <form [formGroup]="formLevel2">
+                            <kpn-condition-group [form]="conditionLevel2.controls.group" />
+                            <ul>
+                              @for (
+                                conditionLevel3 of formLevel2.controls.conditions.controls;
+                                track indexLevel3;
+                                let indexLevel3 = $index
+                              ) {
+                                <li>
+                                  @let indexes3 = indexes2.concat([indexLevel3]);
+                                  @if (conditionLevel3.controls.subject.value !== 'group') {
+                                    <kpn-condition [form]="conditionLevel3" />
+                                  } @else {
+                                    @let formLevel3 = conditionLevel3.controls.group;
+                                    <form [formGroup]="formLevel3">
+                                      <kpn-condition-group
+                                        [form]="conditionLevel3.controls.group"
+                                      />
+                                      <ul>
+                                        @for (
+                                          conditionLevel4 of formLevel3.controls.conditions
+                                            .controls;
+                                          track indexLevel4;
+                                          let indexLevel4 = $index
+                                        ) {
+                                          <li>
+                                            @let indexes4 = indexes3.concat([indexLevel4]);
+                                            <kpn-condition [form]="conditionLevel4" />
+                                          </li>
+                                        }
+                                      </ul>
+                                    </form>
+                                  }
+                                </li>
+                              }
+                            </ul>
+                          </form>
+                        }
+                      </li>
+                    }
+                  </ul>
+                </form>
+              }
+            </li>
+          }
+        </ul>
       </div>
       <div class="kpn-spacer-above">
         <button mat-stroked-button type="submit">Search</button>
@@ -65,7 +138,13 @@ import { ConditionService } from './condition.service';
       height: 25px;
     }
   `,
-  imports: [FormsModule, ReactiveFormsModule, MatButton, ConditionTreeItemComponent],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    MatButton,
+    ConditionComponent,
+    ConditionGroupComponent,
+  ],
 })
 export class ConditionTreeComponent {
   private readonly service = inject(ConditionService);

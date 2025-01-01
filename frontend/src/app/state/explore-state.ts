@@ -8,7 +8,7 @@ import { ConditionTag } from '@api/common/search/condition-tag';
 import { ExploreRoute } from './explore-route';
 
 export class ExploreState {
-  private readonly _group = signal<ConditionGroup>(/*this.defaultGroup()*/ this.example());
+  private readonly _group = signal<ConditionGroup>(/*this.defaultGroup()*/ ExploreState.example());
   private readonly _routes = signal<Array<ExploreRoute>>([]);
 
   readonly group = this._group.asReadonly();
@@ -68,7 +68,7 @@ export class ExploreState {
     };
   }
 
-  private example(): ConditionGroup {
+  static example(): ConditionGroup {
     return {
       operator: 'and',
       conditions: [
