@@ -40,19 +40,19 @@ import { SearchConditionTagComponent } from './search-condition-tag.component';
           @if (condition().subject === 'tag') {
             <kpn-search-condition-tag
               [condition]="condition()"
-              (change)="onConditionChange($event)"
+              (conditionChange)="onConditionChange($event)"
             />
           }
           @if (condition().subject === 'location') {
             <kpn-search-condition-location
               [condition]="condition()"
-              (change)="onConditionChange($event)"
+              (conditionChange)="onConditionChange($event)"
             />
           }
           @if (condition().subject === 'name') {
             <kpn-search-condition-name
               [condition]="condition()"
-              (change)="onConditionChange($event)"
+              (conditionChange)="onConditionChange($event)"
             />
           }
 

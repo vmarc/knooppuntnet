@@ -1,31 +1,58 @@
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { output } from '@angular/core';
-import { computed } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatInput } from '@angular/material/input';
 import { MatFormField } from '@angular/material/select';
 import { MatLabel } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Condition } from '@api/common/search/condition';
+import { Subscriptions } from '@app/util';
 
 @Component({
   selector: 'kpn-search-condition-location',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    {{ conditionString() }}
-    <mat-form-field appearance="outline">
-      <mat-label>Name</mat-label>
-      <input matInput [value]="name()" />
-    </mat-form-field>
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput [formControl]="name" />
+      </mat-form-field>
+    </form>
   `,
-  styles: ``,
   imports: [MatLabel, MatFormField, MatInput, FormsModule, ReactiveFormsModule],
 })
-export class SearchConditionLocationComponent {
+export class SearchConditionLocationComponent implements OnInit, OnDestroy {
   condition = input.required<Condition>();
-  conditionString = computed(() => JSON.stringify(this.condition));
-  name = computed(() => this.condition().location?.name);
-  change = output<Condition>();
+  conditionChange = output<Condition>();
+
+  private readonly subscriptions = new Subscriptions();
+  readonly name = new FormControl<string>('');
+  readonly form = new FormGroup({
+    name: this.name,
+  });
+
+  ngOnInit(): void {
+    this.name.setValue(this.condition().name?.name);
+    this.subscriptions.add(
+      this.form.valueChanges.subscribe((value) => {
+        this.conditionChange.emit({
+          subject: 'location',
+          location: {
+            operator: 'equals',
+            name: value.name,
+          },
+        });
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 }

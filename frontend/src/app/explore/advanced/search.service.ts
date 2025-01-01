@@ -14,9 +14,6 @@ export class SearchService {
   readonly group = this.state.explore.group;
 
   add(indexes: number[], condition: Condition): void {
-    console.log(
-      `ADD indexes=${JSON.stringify(indexes)}, condition=${JSON.stringify(condition, null, 2)}`
-    );
     this.updateRoot(
       produce(this.group(), (draft) => {
         const conditions = this.groupConditionsAtIndexes(draft, indexes);
@@ -26,24 +23,15 @@ export class SearchService {
   }
 
   update(indexes: number[], condition: Condition): void {
-    console.log(
-      `UPDATE indexes=${JSON.stringify(indexes)}, condition=${JSON.stringify(condition, null, 2)}`
-    );
     this.updateRoot(
       produce(this.group(), (draft) => {
         const conditions = this.groupConditionsAtIndexes(draft, indexes);
-        console.log(
-          `UPDATE indexes=${JSON.stringify(indexes)}, condition=${JSON.stringify(condition, null, 2)}, conditions=${conditions}`
-        );
         conditions[indexes[indexes.length - 1]] = condition;
       })
     );
   }
 
   updateGroup(indexes: number[], group: ConditionGroup): void {
-    console.log(
-      `UPDATE GROUP indexes=${JSON.stringify(indexes)}, group=${JSON.stringify(group, null, 2)}`
-    );
     if (indexes.length === 0) {
       this.updateRoot(group);
     } else {
@@ -105,22 +93,7 @@ export class SearchService {
     return conditions;
   }
 
-  private groupAtIndexes(draft: WritableDraft<ConditionGroup>, indexes: number[]): ConditionGroup {
-    let group: ConditionGroup = draft;
-    if (indexes.length >= 0) {
-      group = group.conditions[indexes[0]].group;
-    }
-    if (indexes.length >= 1) {
-      group = group.conditions[indexes[1]].group;
-    }
-    if (indexes.length >= 2) {
-      group = group.conditions[indexes[2]].group;
-    }
-    return group;
-  }
-
   private updateRoot(value: ConditionGroup): void {
-    console.log(`UPDATE ROOT ${JSON.stringify(value, null, 2)}`);
     this.state.explore.updateGroup(value);
   }
 }

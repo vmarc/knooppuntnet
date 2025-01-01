@@ -1,54 +1,58 @@
+import { OnDestroy } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { output } from '@angular/core';
-import { computed } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { MatOption } from '@angular/material/autocomplete';
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { MatAutocomplete } from '@angular/material/autocomplete';
 import { MatInput } from '@angular/material/input';
-import { MatSelectChange } from '@angular/material/select';
 import { MatSelect } from '@angular/material/select';
 import { MatFormField } from '@angular/material/select';
 import { MatLabel } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Condition } from '@api/common/search/condition';
-import { ConditionTag } from '@api/common/search/condition-tag';
+import { ConditionOperator } from '@api/common/search/condition-operator';
+import { Subscriptions } from '@app/util';
 
 @Component({
   selector: 'kpn-search-condition-tag',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-form-field appearance="outline">
-      <mat-label>tag key</mat-label>
-      <input
-        type="text"
-        placeholder="Pick one"
-        matInput
-        [value]="key()"
-        [matAutocomplete]="auto"
-        (change)="onKeyChange($event)"
-      />
-      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-        <mat-option value="operator">operator</mat-option>
-        <mat-option value="symbol">symbol</mat-option>
-        <mat-option value="option3">option3</mat-option>
-        <mat-option value="option4">option4</mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <form [formGroup]="form">
+      <mat-form-field appearance="outline">
+        <mat-label>tag key</mat-label>
+        <input
+          type="text"
+          placeholder="key"
+          matInput
+          [formControl]="key"
+          [matAutocomplete]="auto"
+        />
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+          <mat-option value="operator">operator</mat-option>
+          <mat-option value="symbol">symbol</mat-option>
+          <mat-option value="option3">option3</mat-option>
+          <mat-option value="option4">option4</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>operation</mat-label>
-      <mat-select [value]="operator()" (selectionChange)="onOperatorChange($event)">
-        <mat-option value="equals">equals</mat-option>
-        <mat-option value="contains">contains</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Tag value</mat-label>
-      <input matInput [value]="value()" (change)="onValueChange($event)" />
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>operation</mat-label>
+        <mat-select [formControl]="operator">
+          <mat-option value="equals">equals</mat-option>
+          <mat-option value="contains">contains</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Tag value</mat-label>
+        <input matInput [formControl]="value" />
+      </mat-form-field>
+    </form>
   `,
   imports: [
     MatLabel,
@@ -62,48 +66,39 @@ import { ConditionTag } from '@api/common/search/condition-tag';
     MatSelect,
   ],
 })
-export class SearchConditionTagComponent {
+export class SearchConditionTagComponent implements OnInit, OnDestroy {
   condition = input.required<Condition>();
-  operator = computed(() => this.condition().tag?.operator);
-  key = computed(() => this.condition().tag?.key);
-  value = computed(() => this.condition().tag?.value);
-  change = output<Condition>();
+  conditionChange = output<Condition>();
 
-  onOperatorChange(event: MatSelectChange): void {
-    const tag: ConditionTag = {
-      ...this.condition().tag,
-      operator: event.value,
-    };
-    const updatedCondition: Condition = {
-      ...this.condition(),
-      tag: tag,
-    };
-    this.change.emit(updatedCondition);
+  private readonly subscriptions = new Subscriptions();
+  readonly operator = new FormControl<ConditionOperator>('equals');
+  readonly key = new FormControl<string>('');
+  readonly value = new FormControl<string>('');
+  readonly form = new FormGroup({
+    operator: this.operator,
+    key: this.key,
+    value: this.value,
+  });
+
+  ngOnInit(): void {
+    this.operator.setValue(this.condition().tag?.operator);
+    this.key.setValue(this.condition().tag?.key);
+    this.value.setValue(this.condition().tag?.value);
+    this.subscriptions.add(
+      this.form.valueChanges.subscribe((value) => {
+        this.conditionChange.emit({
+          subject: 'tag',
+          tag: {
+            operator: value.operator,
+            key: value.key,
+            value: value.value,
+          },
+        });
+      })
+    );
   }
 
-  onKeyChange(event): void {
-    const tag: ConditionTag = {
-      ...this.condition().tag,
-      key: event.target.value,
-    };
-    const updatedCondition: Condition = {
-      ...this.condition(),
-      tag: tag,
-    };
-    this.change.emit(updatedCondition);
-  }
-
-  onValueChange(event): void {
-    console.log(`TAG VALUE CHANGE ${event.target.value}`);
-
-    const tag: ConditionTag = {
-      ...this.condition().tag,
-      value: event.target.value,
-    };
-    const updatedCondition: Condition = {
-      ...this.condition(),
-      tag: tag,
-    };
-    this.change.emit(updatedCondition);
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
