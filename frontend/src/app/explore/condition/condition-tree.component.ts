@@ -45,7 +45,7 @@ import { ConditionService } from './condition.service';
                           @let formLevel2 = conditionLevel2.controls.group;
                           <form [formGroup]="formLevel2">
                             <kpn-condition-group [form]="conditionLevel2.controls.group" />
-                            <ul>
+                            <ul formArrayName="conditions">
                               @for (
                                 conditionLevel3 of formLevel2.controls.conditions.controls;
                                 track indexLevel3;
@@ -61,7 +61,7 @@ import { ConditionService } from './condition.service';
                                       <kpn-condition-group
                                         [form]="conditionLevel3.controls.group"
                                       />
-                                      <ul>
+                                      <ul formArrayName="conditions">
                                         @for (
                                           conditionLevel4 of formLevel3.controls.conditions
                                             .controls;
