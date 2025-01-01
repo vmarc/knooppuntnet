@@ -22,10 +22,10 @@ import { SearchConditionTagComponent } from './search-condition-tag.component';
   selector: 'kpn-search-condition',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div style="padding-top: 0.5em;">
+    <div class="card-wrapper">
       <mat-card appearance="outlined">
-        <div class="condition-line kpn-small-spacer-above" style="padding-left: 0.5em;">
-          <mat-form-field appearance="outline">
+        <div class="condition-line kpn-small-spacer-above">
+          <mat-form-field appearance="outline" class="subject">
             <mat-label>condition</mat-label>
             <mat-select
               [value]="condition().subject"
@@ -64,10 +64,23 @@ import { SearchConditionTagComponent } from './search-condition-tag.component';
     </div>
   `,
   styles: `
+    .card-wrapper {
+      padding-top: 0.5em;
+    }
+
     .condition-line {
       display: flex;
-      align-items: center;
+      padding-left: 0.5em;
       gap: 0.5em;
+    }
+
+    .subject {
+      width: 8em;
+      min-width: 8em;
+    }
+
+    button {
+      margin-top: 0.4em;
     }
   `,
   imports: [

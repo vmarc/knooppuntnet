@@ -22,7 +22,7 @@ import { Subscriptions } from '@app/util';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <form [formGroup]="form">
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="operator">
         <mat-label>operation</mat-label>
         <mat-select [formControl]="operator">
           <mat-option value="equals">equals</mat-option>
@@ -30,10 +30,21 @@ import { Subscriptions } from '@app/util';
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Route name</mat-label>
+        <mat-label>route name</mat-label>
         <input matInput [formControl]="name" />
       </mat-form-field>
     </form>
+  `,
+  styles: `
+    .operator {
+      width: 8em;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
   `,
   imports: [
     MatLabel,

@@ -41,7 +41,7 @@ import { Subscriptions } from '@app/util';
         </mat-autocomplete>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="operator">
         <mat-label>operation</mat-label>
         <mat-select [formControl]="operator">
           <mat-option value="equals">equals</mat-option>
@@ -49,10 +49,21 @@ import { Subscriptions } from '@app/util';
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Tag value</mat-label>
+        <mat-label>tag value</mat-label>
         <input matInput [formControl]="value" />
       </mat-form-field>
     </form>
+  `,
+  styles: `
+    form {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+    }
+
+    .operator {
+      width: 8em;
+    }
   `,
   imports: [
     MatLabel,

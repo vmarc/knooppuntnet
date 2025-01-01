@@ -20,7 +20,7 @@ import { Subscriptions } from '@app/util';
   template: `
     <form [formGroup]="form">
       <mat-form-field appearance="outline">
-        <mat-label>Name</mat-label>
+        <mat-label>name</mat-label>
         <input matInput [formControl]="name" />
       </mat-form-field>
     </form>
@@ -38,7 +38,7 @@ export class SearchConditionLocationComponent implements OnInit, OnDestroy {
   });
 
   ngOnInit(): void {
-    this.name.setValue(this.condition().name?.name);
+    this.name.setValue(this.condition().location?.name);
     this.subscriptions.add(
       this.form.valueChanges.subscribe((value) => {
         this.conditionChange.emit({

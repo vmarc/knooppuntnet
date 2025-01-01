@@ -7,6 +7,7 @@ import { MatIconButton } from '@angular/material/button';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { MatButtonToggle } from '@angular/material/button-toggle';
 import { MatButtonToggleGroup } from '@angular/material/button-toggle';
+import { MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -20,13 +21,13 @@ import { ExploreState } from '@app/state';
   selector: 'kpn-search-group-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div>
+    <div class="group">
       <mat-button-toggle-group
         name="operator"
         [value]="group().operator"
         (change)="updateOperator($event)"
       >
-        <mat-button-toggle value="and">and</mat-button-toggle>
+        <mat-button-toggle value="and"> and</mat-button-toggle>
         <mat-button-toggle value="or">or</mat-button-toggle>
       </mat-button-toggle-group>
 
@@ -34,8 +35,14 @@ import { ExploreState } from '@app/state';
         <mat-icon svgIcon="add"></mat-icon>
       </button>
       <mat-menu #addMenu="matMenu">
-        <button mat-menu-item (click)="addCondition()">add condition</button>
-        <button mat-menu-item (click)="addGroup()">add group</button>
+        <button mat-menu-item (click)="addCondition()">
+          <mat-icon svgIcon="add"></mat-icon>
+          <mat-label>add condition</mat-label>
+        </button>
+        <button mat-menu-item (click)="addGroup()">
+          <mat-icon svgIcon="add"></mat-icon>
+          <mat-label>add group</mat-label>
+        </button>
       </mat-menu>
       @if (removeEnabled()) {
         <button mat-icon-button>
@@ -43,6 +50,13 @@ import { ExploreState } from '@app/state';
         </button>
       }
     </div>
+  `,
+  styles: `
+    .group {
+      padding-top: 0.5em;
+      display: flex;
+      align-items: center;
+    }
   `,
   imports: [
     FormsModule,
@@ -54,6 +68,7 @@ import { ExploreState } from '@app/state';
     MatMenu,
     MatMenuTrigger,
     MatMenuItem,
+    MatLabel,
   ],
 })
 export class SearchGroupHeaderComponent {
@@ -64,12 +79,10 @@ export class SearchGroupHeaderComponent {
   update = output<ConditionGroup>();
 
   updateOperator(changeEvent: MatButtonToggleChange): void {
-    const updatedGroup: ConditionGroup = {
+    this.update.emit({
       ...this.group(),
       operator: changeEvent.value,
-    };
-    console.log(`UPDATE OPERATOR ${JSON.stringify(updatedGroup, null, 2)}`);
-    this.update.emit(updatedGroup);
+    });
   }
 
   onRemove() {

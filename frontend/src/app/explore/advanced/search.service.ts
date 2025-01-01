@@ -16,8 +16,8 @@ export class SearchService {
   add(indexes: number[], condition: Condition): void {
     this.updateRoot(
       produce(this.group(), (draft) => {
-        const conditions = this.groupConditionsAtIndexes(draft, indexes);
-        conditions.push(condition);
+        const group = this.groupAtIndexes(draft, indexes);
+        group.conditions.push(condition);
       })
     );
   }
@@ -91,6 +91,20 @@ export class SearchService {
       conditions = conditions[indexes[2]].group.conditions;
     }
     return conditions;
+  }
+
+  private groupAtIndexes(draft: WritableDraft<ConditionGroup>, indexes: number[]): ConditionGroup {
+    let group: ConditionGroup = draft;
+    if (indexes.length > 0) {
+      group = group.conditions[indexes[0]].group;
+    }
+    if (indexes.length > 1) {
+      group = group.conditions[indexes[1]].group;
+    }
+    if (indexes.length > 2) {
+      group = group.conditions[indexes[2]].group;
+    }
+    return group;
   }
 
   private updateRoot(value: ConditionGroup): void {

@@ -24,7 +24,6 @@ import { SearchService } from './search.service';
         @for (conditionLevel1 of group().conditions; track indexLevel1; let indexLevel1 = $index) {
           <li>
             @let indexes1 = [indexLevel1];
-            {{ 'indexes1=' + indexes1 }}
             @if (conditionLevel1.subject !== 'group') {
               <kpn-search-condition
                 [condition]="conditionLevel1"
@@ -46,7 +45,6 @@ import { SearchService } from './search.service';
                 ) {
                   <li>
                     @let indexes2 = indexes1.concat([indexLevel2]);
-                    {{ 'indexes2=' + indexes2 }}
                     @if (conditionLevel2.subject !== 'group') {
                       <kpn-search-condition
                         [condition]="conditionLevel2"
@@ -68,7 +66,6 @@ import { SearchService } from './search.service';
                         ) {
                           <li>
                             @let indexes3 = indexes2.concat([indexLevel3]);
-                            {{ 'indexes3=' + indexes3 }}
                             @if (conditionLevel3.subject !== 'group') {
                               <kpn-search-condition
                                 [condition]="conditionLevel3"
@@ -90,7 +87,6 @@ import { SearchService } from './search.service';
                                 ) {
                                   <li>
                                     @let indexes4 = indexes3.concat([indexLevel4]);
-                                    {{ 'indexes4=' + indexes4 }}
                                     <kpn-search-condition
                                       [condition]="conditionLevel4"
                                       (update)="update(indexes4, $event)"
@@ -122,6 +118,7 @@ import { SearchService } from './search.service';
     }
 
     ul {
+      margin: 0;
       list-style: none;
       padding-left: 32px;
     }
