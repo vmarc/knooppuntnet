@@ -2,7 +2,7 @@
 
 import { ConditionOperator } from './condition-operator';
 
-export interface ConditionRouteName {
+export interface ConditionName {
   readonly operator: ConditionOperator;
   readonly name: string;
 }

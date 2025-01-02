@@ -4,9 +4,8 @@ import kpn.api.common.search.Condition
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.ConditionGroupOperator
 import kpn.api.common.search.ConditionLocation
+import kpn.api.common.search.ConditionName
 import kpn.api.common.search.ConditionOperator
-import kpn.api.common.search.ConditionRouteName
-import kpn.api.common.search.ConditionSubject
 import kpn.api.common.search.ConditionTag
 
 object QueryBuilder {
@@ -27,7 +26,6 @@ object QueryBuilder {
 
   def and(conditions: Condition*): Condition = {
     Condition(
-      ConditionSubject.Group,
       group = Some(
         ConditionGroup(
           ConditionGroupOperator.And,
@@ -39,7 +37,6 @@ object QueryBuilder {
 
   def or(conditions: Condition*): Condition = {
     Condition(
-      ConditionSubject.Group,
       group = Some(
         ConditionGroup(
           ConditionGroupOperator.Or,
@@ -51,7 +48,6 @@ object QueryBuilder {
 
   def tag(key: String, value: String): Condition = {
     Condition(
-      ConditionSubject.Tag,
       tag = Some(
         ConditionTag(
           ConditionOperator.Equals,
@@ -64,7 +60,6 @@ object QueryBuilder {
 
   def tagContains(key: String, value: String): Condition = {
     Condition(
-      ConditionSubject.Tag,
       tag = Some(
         ConditionTag(
           ConditionOperator.Contains,
@@ -77,7 +72,6 @@ object QueryBuilder {
 
   def tagStartsWith(key: String, value: String): Condition = {
     Condition(
-      ConditionSubject.Tag,
       tag = Some(
         ConditionTag(
           ConditionOperator.StartsWith,
@@ -90,7 +84,6 @@ object QueryBuilder {
 
   def tagEndsWith(key: String, value: String): Condition = {
     Condition(
-      ConditionSubject.Tag,
       tag = Some(
         ConditionTag(
           ConditionOperator.EndsWith,
@@ -103,9 +96,8 @@ object QueryBuilder {
 
   def name(value: String): Condition = {
     Condition(
-      ConditionSubject.Name,
       name = Some(
-        ConditionRouteName(
+        ConditionName(
           ConditionOperator.Equals,
           value
         )
@@ -115,9 +107,8 @@ object QueryBuilder {
 
   def nameContains(value: String): Condition = {
     Condition(
-      ConditionSubject.Name,
       name = Some(
-        ConditionRouteName(
+        ConditionName(
           ConditionOperator.Contains,
           value
         )
@@ -127,9 +118,8 @@ object QueryBuilder {
 
   def nameStartsWith(value: String): Condition = {
     Condition(
-      ConditionSubject.Name,
       name = Some(
-        ConditionRouteName(
+        ConditionName(
           ConditionOperator.StartsWith,
           value
         )
@@ -139,9 +129,8 @@ object QueryBuilder {
 
   def nameEndsWith(value: String): Condition = {
     Condition(
-      ConditionSubject.Name,
       name = Some(
-        ConditionRouteName(
+        ConditionName(
           ConditionOperator.EndsWith,
           value
         )
@@ -151,10 +140,8 @@ object QueryBuilder {
 
   def location(value: String): Condition = {
     Condition(
-      ConditionSubject.Location,
       location = Some(
         ConditionLocation(
-          ConditionOperator.Equals,
           value
         )
       )

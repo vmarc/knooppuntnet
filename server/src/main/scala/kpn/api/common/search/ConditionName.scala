@@ -5,7 +5,7 @@ import kpn.api.common.search.ConditionOperator.EndsWith
 import kpn.api.common.search.ConditionOperator.Equals
 import kpn.api.common.search.ConditionOperator.StartsWith
 
-case class ConditionRouteName(
+case class ConditionName(
   operator: ConditionOperator,
   name: String,
 ) {
@@ -18,4 +18,3 @@ case class ConditionRouteName(
     }
   }
 }
-

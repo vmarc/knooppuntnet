@@ -12,7 +12,6 @@ export type ConditionTagForm = FormGroup<{
 }>;
 
 export type ConditionLocationForm = FormGroup<{
-  operator: FormControl<ConditionOperator>;
   name: FormControl<string>;
 }>;
 

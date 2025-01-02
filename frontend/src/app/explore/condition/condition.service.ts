@@ -1,12 +1,13 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Condition } from '@api/common/search/condition';
 import { ConditionGroup } from '@api/common/search/condition-group';
 import { ConditionGroupOperator } from '@api/common/search/condition-group-operator';
 import { ConditionLocation } from '@api/common/search/condition-location';
 import { ConditionOperator } from '@api/common/search/condition-operator';
-import { ConditionRouteName } from '@api/common/search/condition-route-name';
+import { ConditionName } from '@api/common/search/condition-name';
 import { ConditionSubject } from '@api/common/search/condition-subject';
 import { ConditionTag } from '@api/common/search/condition-tag';
 import { ExploreState } from '@app/state';
@@ -29,41 +30,37 @@ export class ConditionService {
   readonly form: ConditionGroupForm = this.toConditionGroupForm(ExploreState.example());
 
   submit() {
-    const group = this.convertGroup(this.form.value as ConditionGroup);
+    const group = this.toConditionGroup(this.form);
     console.log(`SUBMIT ${JSON.stringify(group, null, 2)}`);
   }
 
-  private convertGroup(group: ConditionGroup): ConditionGroup {
-    const conditions = group.conditions.map((c) => this.convert(c));
+  private toConditionGroup(groupForm: ConditionGroupForm): ConditionGroup {
+    const operator = groupForm.controls.operator.value;
+    const conditions = groupForm.controls.conditions.controls.map((c) => this.toCondition(c));
     return {
-      ...group,
+      operator,
       conditions,
     };
   }
 
-  private convert(condition: Condition): Condition {
-    const subject = condition.subject;
+  private toCondition(conditionForm: ConditionForm): Condition {
+    const subject = conditionForm.controls.subject.value;
     let tag: ConditionTag = undefined;
     let location: ConditionLocation = undefined;
-    let name: ConditionRouteName = undefined;
+    let name: ConditionName = undefined;
     let group: ConditionGroup = undefined;
 
-    if (condition.subject === 'tag') {
-      tag = condition.tag;
-    } else if (condition.subject === 'location') {
-      location = condition.location;
-    } else if (condition.subject === 'name') {
-      name = condition.name;
-    } else if (!condition.subject || condition.subject === 'group') {
-      const conditions = condition.group.conditions.map((c) => this.convert(c));
-      group = {
-        ...condition.group,
-        conditions,
-      };
+    if (subject === 'tag') {
+      tag = conditionForm.controls.tag.value as ConditionTag;
+    } else if (subject === 'location') {
+      location = conditionForm.controls.location.value as ConditionLocation;
+    } else if (subject === 'name') {
+      name = conditionForm.controls.name.value as ConditionName;
+    } else if (!subject || subject === 'group') {
+      group = this.toConditionGroup(conditionForm.controls.group);
     }
 
     return {
-      subject,
       tag,
       location,
       name,
@@ -93,14 +90,14 @@ export class ConditionService {
   }
 
   toConditionForm(condition: Condition): ConditionForm {
-    const subject = this.fb.control<ConditionSubject>(condition.subject);
-
+    let subject: FormControl<ConditionSubject>;
     let tag: ConditionTagForm;
     let location: ConditionLocationForm;
     let name: ConditionRouteNameForm;
     let group: ConditionGroupForm;
 
-    if (condition.subject === 'tag') {
+    if (condition.tag) {
+      subject = this.fb.control<ConditionSubject>('tag');
       const operator = this.fb.control<ConditionOperator>(condition.tag.operator);
       const key = this.fb.control<string>(condition.tag.key);
       const value = this.fb.control<string>(condition.tag.value);
@@ -113,18 +110,18 @@ export class ConditionService {
       tag = this.defaultTagForm();
     }
 
-    if (condition.subject === 'location') {
-      const operator = this.fb.control<ConditionOperator>(condition.location.operator);
+    if (condition.location) {
+      subject = this.fb.control<ConditionSubject>('location');
       const nameControl = this.fb.control<string>(condition.location.name);
       location = this.fb.group({
-        operator,
         name: nameControl,
       });
     } else {
       location = this.defaultLocationForm();
     }
 
-    if (condition.subject === 'name') {
+    if (condition.name) {
+      subject = this.fb.control<ConditionSubject>('name');
       const operator = this.fb.control<ConditionOperator>(condition.name.operator);
       const nameControl = this.fb.control<string>(condition.name.name);
       name = this.fb.group({
@@ -135,7 +132,8 @@ export class ConditionService {
       name = this.defaultNameForm();
     }
 
-    if (condition.subject === 'group') {
+    if (condition.group) {
+      subject = this.fb.control<ConditionSubject>('group');
       const operator = this.fb.control<ConditionGroupOperator>(condition.group.operator);
       const conditions = this.fb.array<ConditionForm>(
         condition.group.conditions.map((c) => this.toConditionForm(c))
@@ -167,7 +165,6 @@ export class ConditionService {
 
   private defaultLocationForm(): ConditionLocationForm {
     return this.fb.group({
-      operator: this.fb.control<ConditionOperator>('contains'),
       name: this.fb.control<string>(''),
     });
   }

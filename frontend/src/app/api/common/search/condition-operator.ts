@@ -2,4 +2,6 @@
 
 export type ConditionOperator =
   | 'equals'
-  | 'contains';
+  | 'contains'
+  | 'starts-with'
+  | 'ends-with';

@@ -5,12 +5,8 @@ import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.ConditionGroupOperator.And
 import kpn.api.common.search.ConditionGroupOperator.Or
 import kpn.api.common.search.ConditionLocation
+import kpn.api.common.search.ConditionName
 import kpn.api.common.search.ConditionOperator.Equals
-import kpn.api.common.search.ConditionRouteName
-import kpn.api.common.search.ConditionSubject.Group
-import kpn.api.common.search.ConditionSubject.Location
-import kpn.api.common.search.ConditionSubject.Name
-import kpn.api.common.search.ConditionSubject.Tag
 import kpn.api.common.search.ConditionTag
 import kpn.core.doc.Label
 import org.bson.conversions.Bson
@@ -31,11 +27,21 @@ object SearchQueryBuilder {
   }
 
   private def buildCondition(condition: Condition): Bson = {
-    condition.subject match {
-      case Tag => buildConditionTag(condition.tag.get)
-      case Location => buildConditionLocation(condition.location.get)
-      case Name => buildConditionName(condition.name.get)
-      case Group => buildFilter(condition.group.get)
+    condition.tag match {
+      case Some(tag) => buildConditionTag(tag)
+      case None =>
+        condition.location match {
+          case Some(location) => buildConditionLocation(location)
+          case None =>
+            condition.name match {
+              case Some(name) => buildConditionName(name)
+              case None =>
+                condition.group match {
+                  case Some(group) => buildFilter(group)
+                  case None => throw new IllegalArgumentException()
+                }
+            }
+        }
     }
   }
 
@@ -55,7 +61,7 @@ object SearchQueryBuilder {
     equal("labels", Label.location(condition.name))
   }
 
-  private def buildConditionName(condition: ConditionRouteName): Bson = {
+  private def buildConditionName(condition: ConditionName): Bson = {
     condition.operator match {
       case Equals =>
         equal("summary.name", condition.name)

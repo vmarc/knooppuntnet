@@ -2,14 +2,12 @@
 
 import { ConditionGroup } from './condition-group';
 import { ConditionLocation } from './condition-location';
-import { ConditionRouteName } from './condition-route-name';
-import { ConditionSubject } from './condition-subject';
+import { ConditionName } from './condition-name';
 import { ConditionTag } from './condition-tag';
 
 export interface Condition {
-  readonly subject: ConditionSubject;
   readonly tag?: ConditionTag;
   readonly location?: ConditionLocation;
-  readonly name?: ConditionRouteName;
+  readonly name?: ConditionName;
   readonly group?: ConditionGroup;
 }

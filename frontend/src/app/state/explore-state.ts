@@ -2,7 +2,7 @@ import { signal } from '@angular/core';
 import { Condition } from '@api/common/search/condition';
 import { ConditionGroup } from '@api/common/search/condition-group';
 import { ConditionLocation } from '@api/common/search/condition-location';
-import { ConditionRouteName } from '@api/common/search/condition-route-name';
+import { ConditionName } from '@api/common/search/condition-name';
 import { ConditionSubject } from '@api/common/search/condition-subject';
 import { ConditionTag } from '@api/common/search/condition-tag';
 import { ExploreRoute } from './explore-route';
@@ -31,7 +31,6 @@ export class ExploreState {
 
   static defaultCondition(): Condition {
     return {
-      subject: 'tag',
       tag: {
         operator: 'equals',
         key: '',
@@ -43,14 +42,11 @@ export class ExploreState {
   static defaultConditionSubject(subject: ConditionSubject): Condition {
     const tag: ConditionTag =
       subject === 'tag' ? { operator: 'contains', key: '', value: '' } : undefined;
-    const location: ConditionLocation =
-      subject === 'location' ? { operator: 'equals', name: '' } : undefined;
-    const name: ConditionRouteName =
-      subject === 'name' ? { operator: 'equals', name: '' } : undefined;
+    const location: ConditionLocation = subject === 'location' ? { name: '' } : undefined;
+    const name: ConditionName = subject === 'name' ? { operator: 'equals', name: '' } : undefined;
     const group: ConditionGroup = subject === 'group' ? this.defaultGroup() : undefined;
 
     return {
-      subject,
       tag,
       location,
       name,
@@ -60,7 +56,6 @@ export class ExploreState {
 
   static defaultGroupCondition(): Condition {
     return {
-      subject: 'group',
       group: {
         operator: 'and',
         conditions: [this.defaultCondition()],
@@ -73,43 +68,37 @@ export class ExploreState {
       operator: 'and',
       conditions: [
         {
-          subject: 'tag',
           tag: {
             operator: 'contains',
             key: 'operator',
             value: 'US:US',
           },
         },
-        // {
-        //   subject: 'tag',
-        //   tag: {
-        //     operator: 'equals',
-        //     key: 'symbol',
-        //     value: 'gray',
-        //   },
-        // },
-        // {
-        //   subject: 'group',
-        //   group: {
-        //     operator: 'or',
-        //     conditions: [
-        //       {
-        //         subject: 'name',
-        //         name: {
-        //           operator: 'contains',
-        //           name: 'LAW 9',
-        //         },
-        //       },
-        //       {
-        //         subject: 'location',
-        //         location: {
-        //           operator: 'contains',
-        //           name: 'Essen',
-        //         },
-        //       },
-        //     ],
-        //   },
-        // },
+        {
+          tag: {
+            operator: 'equals',
+            key: 'symbol',
+            value: 'gray',
+          },
+        },
+        {
+          group: {
+            operator: 'or',
+            conditions: [
+              {
+                name: {
+                  operator: 'contains',
+                  name: 'LAW 9',
+                },
+              },
+              {
+                location: {
+                  name: 'Essen',
+                },
+              },
+            ],
+          },
+        },
       ],
     };
   }

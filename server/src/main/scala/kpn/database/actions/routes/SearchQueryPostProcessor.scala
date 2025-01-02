@@ -5,9 +5,8 @@ import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.ConditionGroupOperator.And
 import kpn.api.common.search.ConditionGroupOperator.Or
 import kpn.api.common.search.ConditionLocation
+import kpn.api.common.search.ConditionName
 import kpn.api.common.search.ConditionOperator.Equals
-import kpn.api.common.search.ConditionRouteName
-import kpn.api.common.search.ConditionSubject.Tag
 import kpn.api.common.search.ConditionTag
 
 import java.util.regex.Pattern
@@ -28,12 +27,9 @@ object SearchQueryPostProcessor {
   }
 
   private def evaluateCondition(condition: Condition, result: SearchQueryResult): Boolean = {
-    condition.subject match {
-      case Tag => evaluateConditionTag(condition.tag.get, result)
+    condition.tag match {
+      case Some(tag) => evaluateConditionTag(tag, result)
       case _ => true
-      //  case Location => evaluateConditionLocation(condition.location.get)
-      //  case Name => evaluateConditionName(condition.name.get)
-      //  case Group => evaluateConditionGroup(condition.group.get)
     }
   }
 
@@ -55,7 +51,7 @@ object SearchQueryPostProcessor {
     true
   }
 
-  private def evaluateConditionName(condition: ConditionRouteName): Boolean = {
+  private def evaluateConditionName(condition: ConditionName): Boolean = {
     true
   }
 
