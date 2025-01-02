@@ -28,7 +28,7 @@ export class ConditionService {
 
   private readonly fb = inject(FormBuilder);
 
-  form: ConditionGroupForm = this.example();
+  readonly form: ConditionGroupForm = this.example();
 
   submit() {
     const group = this.convertGroup(this.form.value as ConditionGroup);
@@ -110,7 +110,7 @@ export class ConditionService {
   private toConditionGroupForm(group: ConditionGroup): ConditionGroupForm {
     const operator = this.fb.control<ConditionGroupOperator>(group.operator);
     const conditions = this.fb.array<ConditionForm>(
-      group.conditions.map((condition) => this.toCondition(condition))
+      group.conditions.map((condition) => this.toConditionForm(condition))
     );
 
     return this.fb.group({
@@ -119,7 +119,7 @@ export class ConditionService {
     });
   }
 
-  private toCondition(condition: Condition): ConditionForm {
+  toConditionForm(condition: Condition): ConditionForm {
     const subject = this.fb.control<ConditionSubject>(condition.subject);
 
     let tag: ConditionTagForm;
@@ -165,7 +165,7 @@ export class ConditionService {
     if (condition.subject === 'group') {
       const operator = this.fb.control<ConditionGroupOperator>(condition.group.operator);
       const conditions = this.fb.array<ConditionForm>(
-        condition.group.conditions.map((c) => this.toCondition(c))
+        condition.group.conditions.map((c) => this.toConditionForm(c))
       );
       group = this.fb.group({
         operator,

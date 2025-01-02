@@ -80,36 +80,36 @@ export class ExploreState {
             value: 'US:US',
           },
         },
-        {
-          subject: 'tag',
-          tag: {
-            operator: 'equals',
-            key: 'symbol',
-            value: 'gray',
-          },
-        },
-        {
-          subject: 'group',
-          group: {
-            operator: 'or',
-            conditions: [
-              {
-                subject: 'name',
-                name: {
-                  operator: 'contains',
-                  name: 'LAW 9',
-                },
-              },
-              {
-                subject: 'location',
-                location: {
-                  operator: 'contains',
-                  name: 'Essen',
-                },
-              },
-            ],
-          },
-        },
+        // {
+        //   subject: 'tag',
+        //   tag: {
+        //     operator: 'equals',
+        //     key: 'symbol',
+        //     value: 'gray',
+        //   },
+        // },
+        // {
+        //   subject: 'group',
+        //   group: {
+        //     operator: 'or',
+        //     conditions: [
+        //       {
+        //         subject: 'name',
+        //         name: {
+        //           operator: 'contains',
+        //           name: 'LAW 9',
+        //         },
+        //       },
+        //       {
+        //         subject: 'location',
+        //         location: {
+        //           operator: 'contains',
+        //           name: 'Essen',
+        //         },
+        //       },
+        //     ],
+        //   },
+        // },
       ],
     };
   }
