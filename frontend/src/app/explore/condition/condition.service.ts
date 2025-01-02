@@ -11,8 +11,6 @@ import { ConditionSubject } from '@api/common/search/condition-subject';
 import { ConditionTag } from '@api/common/search/condition-tag';
 import { ExploreState } from '@app/state';
 import { State } from '@app/state';
-import { WritableDraft } from 'immer';
-import { produce } from 'immer';
 import { ConditionRouteNameForm } from './condition-controls';
 import { ConditionTagForm } from './condition-controls';
 import { ConditionLocationForm } from './condition-controls';
@@ -28,7 +26,7 @@ export class ConditionService {
 
   private readonly fb = inject(FormBuilder);
 
-  readonly form: ConditionGroupForm = this.example();
+  readonly form: ConditionGroupForm = this.toConditionGroupForm(ExploreState.example());
 
   submit() {
     const group = this.convertGroup(this.form.value as ConditionGroup);
@@ -73,38 +71,13 @@ export class ConditionService {
     };
   }
 
-  private generateCondition(): ConditionForm {
-    return this.fb.group({
-      subject: this.fb.control<ConditionSubject>('name'),
-      tag: this.fb.group({
-        operator: this.fb.control<ConditionOperator>('contains'),
-        key: this.fb.control<string>(''),
-        value: this.fb.control<string>(''),
-      }),
-      location: this.fb.group({
-        operator: this.fb.control<ConditionOperator>('contains'),
-        name: this.fb.control<string>(''),
-      }),
-      name: this.fb.group({
-        operator: this.fb.control<ConditionOperator>('contains'),
-        name: this.fb.control<string>(''),
-      }),
-      group: this.fb.group({
-        operator: this.fb.control<ConditionGroupOperator>('and'),
-        conditions: this.fb.array<ConditionForm>([]),
-      }),
-    });
-  }
-
   private rootConditionGroup(): ConditionGroupForm {
     return this.fb.group({
       operator: this.fb.control<ConditionGroupOperator>('and'),
-      conditions: this.fb.array<ConditionForm>([this.generateCondition()]),
+      conditions: this.fb.array<ConditionForm>([
+        this.toConditionForm(ExploreState.defaultCondition()),
+      ]),
     });
-  }
-
-  private example(): ConditionGroupForm {
-    return this.toConditionGroupForm(ExploreState.example());
   }
 
   private toConditionGroupForm(group: ConditionGroup): ConditionGroupForm {
@@ -211,103 +184,5 @@ export class ConditionService {
       operator: this.fb.control<ConditionGroupOperator>('and'),
       conditions: this.fb.array<ConditionForm>([]),
     });
-  }
-
-  add(indexes: number[], condition: Condition): void {
-    this.updateRoot(
-      produce(this.group(), (draft) => {
-        const group = this.groupAtIndexes(draft, indexes);
-        group.conditions.push(condition);
-      })
-    );
-  }
-
-  update(indexes: number[], condition: Condition): void {
-    this.updateRoot(
-      produce(this.group(), (draft) => {
-        const conditions = this.groupConditionsAtIndexes(draft, indexes);
-        conditions[indexes[indexes.length - 1]] = condition;
-      })
-    );
-  }
-
-  updateGroup(indexes: number[], group: ConditionGroup): void {
-    if (indexes.length === 0) {
-      this.updateRoot(group);
-    } else {
-      this.updateRoot(
-        produce(this.group(), (draft) => {
-          const conditions = this.conditionsAtIndexes(draft, indexes);
-          conditions[indexes[indexes.length - 1]] = {
-            subject: 'group',
-            group,
-          };
-        })
-      );
-    }
-  }
-
-  remove(indexes: number[]): void {
-    this.updateRoot(
-      produce(this.group(), (draft) => {
-        const conditions = this.conditionsAtIndexes(draft, indexes);
-        conditions.splice(indexes[indexes.length - 1], 1);
-      })
-    );
-  }
-
-  private conditionsAtIndexes(
-    draft: WritableDraft<ConditionGroup>,
-    indexes: number[]
-  ): Condition[] {
-    let conditions: Condition[] = [];
-    if (indexes.length >= 1) {
-      conditions = draft.conditions;
-    }
-    if (indexes.length >= 2) {
-      conditions = conditions[indexes[0]].group.conditions;
-    }
-    if (indexes.length >= 3) {
-      conditions = conditions[indexes[1]].group.conditions;
-    }
-    if (indexes.length >= 4) {
-      conditions = conditions[indexes[2]].group.conditions;
-    }
-    return conditions;
-  }
-
-  private groupConditionsAtIndexes(
-    draft: WritableDraft<ConditionGroup>,
-    indexes: number[]
-  ): Condition[] {
-    let conditions: Condition[] = draft.conditions;
-    if (indexes.length - 1 > 0) {
-      conditions = conditions[indexes[0]].group.conditions;
-    }
-    if (indexes.length - 1 > 1) {
-      conditions = conditions[indexes[1]].group.conditions;
-    }
-    if (indexes.length - 1 > 2) {
-      conditions = conditions[indexes[2]].group.conditions;
-    }
-    return conditions;
-  }
-
-  private groupAtIndexes(draft: WritableDraft<ConditionGroup>, indexes: number[]): ConditionGroup {
-    let group: ConditionGroup = draft;
-    if (indexes.length > 0) {
-      group = group.conditions[indexes[0]].group;
-    }
-    if (indexes.length > 1) {
-      group = group.conditions[indexes[1]].group;
-    }
-    if (indexes.length > 2) {
-      group = group.conditions[indexes[2]].group;
-    }
-    return group;
-  }
-
-  private updateRoot(value: ConditionGroup): void {
-    this.state.explore.updateGroup(value);
   }
 }
