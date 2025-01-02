@@ -5,6 +5,8 @@ import kpn.api.common.NetworkType
 import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
+import kpn.api.common.search.ConditionGroup
+import kpn.api.common.search.RouteSearchResult
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryRouteCountry
@@ -12,9 +14,11 @@ import kpn.database.actions.routes.MongoQueryRouteIds
 import kpn.database.actions.routes.MongoQueryRouteMapInfo
 import kpn.database.actions.routes.MongoQueryRouteNameInfo
 import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
+import kpn.database.actions.routes.MongoQueryRouteSearchResults
 import kpn.database.actions.routes.MongoQueryRouteTileDocs
 import kpn.database.actions.routes.MongoQueryRouteTileInfo
 import kpn.database.actions.routes.MongoQueryRouteTileNames
+import kpn.database.actions.routes.MongoQueryRoutes
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
@@ -76,5 +80,10 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def routeCountry(routeId: Long): Option[Country] = {
     new MongoQueryRouteCountry(database).execute(routeId)
+  }
+
+  override def explore(query: ConditionGroup): Seq[RouteSearchResult] = {
+    val routeIds = new MongoQueryRoutes(database).execute(query)
+    new MongoQueryRouteSearchResults(database).execute(routeIds)
   }
 }

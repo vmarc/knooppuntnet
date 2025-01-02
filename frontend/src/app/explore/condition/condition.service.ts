@@ -10,6 +10,7 @@ import { ConditionOperator } from '@api/common/search/condition-operator';
 import { ConditionName } from '@api/common/search/condition-name';
 import { ConditionSubject } from '@api/common/search/condition-subject';
 import { ConditionTag } from '@api/common/search/condition-tag';
+import { ApiService } from '@app/services';
 import { ExploreState } from '@app/state';
 import { State } from '@app/state';
 import { ConditionRouteNameForm } from './condition-controls';
@@ -23,15 +24,19 @@ import { ConditionForm } from './condition-controls';
 })
 export class ConditionService {
   private readonly state = inject(State);
-  readonly group = this.state.explore.group;
-
+  private readonly apiService = inject(ApiService);
   private readonly fb = inject(FormBuilder);
+  readonly group = this.state.explore.group;
 
   readonly form: ConditionGroupForm = this.toConditionGroupForm(ExploreState.example());
 
   submit() {
     const group = this.toConditionGroup(this.form);
-    console.log(`SUBMIT ${JSON.stringify(group, null, 2)}`);
+    this.apiService.explore(group).subscribe((response) => {
+      if (response.result) {
+        this.state.explore.updateRouteSearchResults(response.result);
+      }
+    });
   }
 
   private toConditionGroup(groupForm: ConditionGroupForm): ConditionGroup {

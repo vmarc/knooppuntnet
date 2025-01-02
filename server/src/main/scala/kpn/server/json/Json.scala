@@ -26,6 +26,8 @@ import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.SurveyParameter
 import kpn.api.common.planner.PlanCoordinate
 import kpn.api.common.route.WayDirection
+import kpn.api.common.search.ConditionGroupOperator
+import kpn.api.common.search.ConditionOperator
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
@@ -88,6 +90,12 @@ object Json {
 
     b.deserializerByType(classOf[MemberType], new MemberTypeJsonDeserializer())
     b.serializerByType(classOf[MemberType], new MemberTypeJsonSerializer())
+
+    b.deserializerByType(classOf[ConditionGroupOperator], new ConditionGroupOperatorJsonDeserializer())
+    b.serializerByType(classOf[ConditionGroupOperator], new ConditionGroupOperatorJsonSerializer())
+
+    b.deserializerByType(classOf[ConditionOperator], new ConditionOperatorJsonDeserializer())
+    b.serializerByType(classOf[ConditionOperator], new ConditionOperatorJsonSerializer())
 
     b.deserializerByType(classOf[ChangeType], new ChangeTypeJsonDeserializer())
     b.serializerByType(classOf[ChangeType], new ChangeTypeJsonSerializer())

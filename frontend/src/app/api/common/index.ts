@@ -55,6 +55,7 @@ export * from './replication-id';
 export * from './route-location-analysis';
 export * from './route-member-info';
 export * from './route-member-info-way';
+export * from './route-scope';
 export * from './route-summary';
 export * from './routes-fact';
 export * from './survey-date-info';

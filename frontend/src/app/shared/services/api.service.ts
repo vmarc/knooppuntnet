@@ -40,6 +40,8 @@ import { RouteChangesPage } from '@api/common/route';
 import { RouteDetailsPage } from '@api/common/route';
 import { RouteMapPage } from '@api/common/route';
 import { SearchResponse } from '@api/common/search-response';
+import { ConditionGroup } from '@api/common/search/condition-group';
+import { RouteSearchResult } from '@api/common/search/route-search-result';
 import { StatisticValues } from '@api/common/statistics';
 import { LogPage } from '@api/common/status';
 import { PeriodParameters } from '@api/common/status';
@@ -338,6 +340,11 @@ export class ApiService {
     const url = `/api/search`;
     const params = new HttpParams().set('query', query);
     return this.http.get(url, { params });
+  }
+
+  public explore(query: ConditionGroup): Observable<ApiResponse<Array<RouteSearchResult>>> {
+    const url = `/api/explore`;
+    return this.http.post(url, query);
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {

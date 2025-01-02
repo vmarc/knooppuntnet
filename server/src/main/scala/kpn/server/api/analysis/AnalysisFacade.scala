@@ -32,6 +32,8 @@ import kpn.api.common.node.NodeMapPage
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
+import kpn.api.common.search.ConditionGroup
+import kpn.api.common.search.RouteSearchResult
 import kpn.api.common.statistics.StatisticValues
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
@@ -110,4 +112,6 @@ trait AnalysisFacade {
   def locationEdit(language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage]
 
   def search(query: String): ApiResponse[SearchResponse]
+
+  def explore(query: ConditionGroup): ApiResponse[Seq[RouteSearchResult]]
 }

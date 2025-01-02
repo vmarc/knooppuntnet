@@ -45,7 +45,7 @@ class MongoQueryRoutes(database: Database) {
           )
         )
       )
-      val results = database.routes.aggregate[SearchQueryResult](pipeline, log)
+      val results = database.routes.aggregate[SearchQueryResult](pipeline, log, allowDiskUse = true)
       val ids = SearchQueryPostProcessor.process(group, results).map(_._id)
       (s"${ids.size} routes", ids)
     }
