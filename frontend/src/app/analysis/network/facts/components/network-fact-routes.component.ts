@@ -14,7 +14,7 @@ import { ActionButtonRouteComponent } from '../../../components/action/action-bu
     @for (route of routes(); track route.id) {
       <div class="kpn-align-center">
         <kpn-icon-route />
-        <kpn-action-button-route [relationId]="route.id" />
+        <kpn-action-button-route [networkType]="networkType()" [relationId]="route.id" />
         <kpn-link-route
           [routeId]="route.id"
           [routeName]="route.name"

@@ -79,7 +79,10 @@ import { ActionButtonWayComponent } from '../../../components/action/action-butt
                       }
                       @if (fact.hasRouteRefs()) {
                         <kpn-icon-route />
-                        <kpn-action-button-route [relationId]="ref.id" />
+                        <kpn-action-button-route
+                          [networkType]="page().subsetInfo.networkType"
+                          [relationId]="ref.id"
+                        />
                         <kpn-link-route
                           [routeId]="ref.id"
                           [routeName]="ref.name"

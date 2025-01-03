@@ -50,7 +50,7 @@ import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analys
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-routes.table.name">Route</th>
         <td mat-cell *matCellDef="let route" class="kpn-align-center action-button-table-cell">
-          <kpn-action-button-route [relationId]="route.id" />
+          <kpn-action-button-route [networkType]="networkType()" [relationId]="route.id" />
           <kpn-link-route
             [routeId]="route.id"
             [routeName]="route.name"

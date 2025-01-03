@@ -9,6 +9,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatMenu } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NetworkType } from '@api/common';
 import { ActionService } from './action.service';
 
 @Component({
@@ -31,6 +32,10 @@ import { ActionService } from './action.service';
       <button mat-menu-item (click)="id()">Open in iD</button>
       <button mat-menu-item (click)="osm()">Open in openstreetmap.org</button>
       <button mat-menu-item (click)="deepHistory()">Open in OSM Deep History</button>
+      @if (networkType()) {
+        <mat-divider />
+        <button mat-menu-item (click)="waymarkedTrails()">Waymarked Trails</button>
+      }
     </mat-menu>
   `,
   imports: [
@@ -45,6 +50,7 @@ import { ActionService } from './action.service';
 })
 export class ActionButtonRouteComponent {
   relationId = input.required<number>();
+  networkType = input<NetworkType | undefined>(undefined);
 
   private readonly actionService = inject(ActionService);
 
@@ -70,5 +76,9 @@ export class ActionButtonRouteComponent {
 
   deepHistory(): void {
     this.actionService.deepHistoryRelation(this.relationId());
+  }
+
+  waymarkedTrails(): void {
+    this.actionService.waymarkedTrails(this.networkType(), this.relationId());
   }
 }

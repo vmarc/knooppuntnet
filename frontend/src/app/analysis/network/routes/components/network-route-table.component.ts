@@ -74,7 +74,7 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
           Route
         </th>
         <td mat-cell *matCellDef="let route" class="kpn-align-center route-column">
-          <kpn-action-button-route [relationId]="route.id" />
+          <kpn-action-button-route [networkType]="route.networkType" [relationId]="route.id" />
           <kpn-link-route
             [routeId]="route.id"
             [routeName]="route.name"

@@ -28,7 +28,10 @@ import { RouteLocationComponent } from './route-location.component';
 
       <div class="kpn-align-center">
         <span>{{ route().summary.id }}</span>
-        <kpn-action-button-route [relationId]="route().summary.id" />
+        <kpn-action-button-route
+          [networkType]="route().summary.networkTypes[0]"
+          [relationId]="route().summary.id"
+        />
       </div>
 
       <!-- TODO redesign networkTypes[0] -->
