@@ -1,8 +1,11 @@
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NetworkType } from '@api/common';
 import { RouteSearchResult } from '@api/common/search/route-search-result';
 import { DistancePipe } from '@app/components/shared/format';
+import { ActionButtonRouteComponent } from '../../analysis/components/action/action-button-route.component';
 import { ScopeIconComponent } from '../scope-icon.component';
 
 @Component({
@@ -12,15 +15,16 @@ import { ScopeIconComponent } from '../scope-icon.component';
     @let route = routeSearchResult();
     <div class="kpn-line">
       <kpn-scope-icon [scope]="route.scopes[0]" />
-      <span>{{ route.id }}</span>
-      <span>{{ route.name }}</span>
+      <kpn-action-button-route [networkType]="networkType()" [relationId]="route.id" />
+      <a [routerLink]="'/analysis/route/' + route.id">{{ route.name }}</a>
     </div>
     <div class="kpn-line">
       <span>{{ route.distance | distance }}</span>
     </div>
   `,
-  imports: [DistancePipe, ScopeIconComponent],
+  imports: [DistancePipe, ScopeIconComponent, RouterLink, ActionButtonRouteComponent],
 })
 export class SearchRouteComponent {
+  networkType = input.required<NetworkType>();
   routeSearchResult = input.required<RouteSearchResult>();
 }

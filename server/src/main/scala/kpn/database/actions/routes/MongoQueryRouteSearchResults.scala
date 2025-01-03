@@ -10,6 +10,7 @@ import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.exclude
 import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
 
 object MongoQueryRouteSearchResults {
   private val log = Log(classOf[MongoQueryRouteSearchResults])
@@ -32,6 +33,8 @@ class MongoQueryRouteSearchResults(database: Database) {
             computed("name", "$summary.name"),
             computed("distance", "$summary.meters"),
             computed("scopes", "$summary.scopes"),
+            include("bounds"),
+            include("routeIds"),
           )
         )
       )

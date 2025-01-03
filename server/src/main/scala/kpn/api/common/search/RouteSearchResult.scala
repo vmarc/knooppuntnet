@@ -1,5 +1,6 @@
 package kpn.api.common.search
 
+import kpn.api.common.Bounds
 import kpn.api.common.RouteScope
 
 case class RouteSearchResult(
@@ -8,4 +9,6 @@ case class RouteSearchResult(
   scopes: Seq[RouteScope],
   distance: Long,
   symbol: Option[String],
+  bounds: Option[Bounds],
+  routeIds: Seq[Long],
 )

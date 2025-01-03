@@ -1,5 +1,6 @@
 // this file is generated, please do not modify
 
+import { Bounds } from '@api/common';
 import { RouteScope } from '@api/common';
 
 export interface RouteSearchResult {
@@ -8,4 +9,6 @@ export interface RouteSearchResult {
   readonly scopes: RouteScope[];
   readonly distance: number;
   readonly symbol: string;
+  readonly bounds: Bounds;
+  readonly routeIds: number[];
 }
