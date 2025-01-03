@@ -9,8 +9,8 @@ import kpn.api.common.data.NodeMember
 import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.RelationMember
 import kpn.api.common.data.WayMember
+import kpn.api.common.route.LinkDirection
 import kpn.api.common.route.RouteNetworkNodeInfo
-import kpn.core.analysis.LinkDirection
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext

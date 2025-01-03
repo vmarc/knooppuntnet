@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.domain
 
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
-import kpn.core.analysis.Link
+import kpn.api.common.route.Link
 
 case class RouteAnalysisFragment(
   id: Long,

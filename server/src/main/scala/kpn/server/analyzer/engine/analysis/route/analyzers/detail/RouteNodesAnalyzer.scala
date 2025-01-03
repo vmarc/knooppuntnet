@@ -6,9 +6,9 @@ import kpn.api.common.NetworkType
 import kpn.api.common.data.Node
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
+import kpn.api.common.route.LinkDirection
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedNetworkType
-import kpn.core.analysis.LinkDirection
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis

@@ -10,7 +10,7 @@ import kpn.api.common.Fact.RouteNotOneWay
 import kpn.api.common.Fact.RouteOneWay
 import kpn.api.common.Fact.RouteUnusedSegments
 import kpn.api.common.Fact.RouteWithoutNodes
-import kpn.core.analysis.LinkDirection
+import kpn.api.common.route.LinkDirection
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 import scala.collection.mutable.ListBuffer

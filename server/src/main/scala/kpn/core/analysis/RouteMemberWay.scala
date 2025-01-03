@@ -3,6 +3,7 @@ package kpn.core.analysis
 import kpn.api.common.data.Element
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
+import kpn.api.common.route.Link
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.RouteNode
 import kpn.server.analyzer.engine.analysis.route.WayAnalyzer

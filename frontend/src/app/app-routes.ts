@@ -14,6 +14,13 @@ export const appRoutes: Routes = [
       import('./tryout/tabs/tryout-tabs-page.component').then((m) => m.TryoutTabsPageComponent),
   },
   {
+    path: 'tryout-canvas',
+    loadComponent: () =>
+      import('./tryout/canvas/tryout-canvas-page.component').then(
+        (m) => m.TryoutCanvasPageComponent
+      ),
+  },
+  {
     path: 'analysis',
     loadChildren: () => import('@app/analysis/analysis').then((m) => m.analysisRoutes),
   },

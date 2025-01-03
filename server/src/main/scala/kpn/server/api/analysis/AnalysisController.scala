@@ -31,6 +31,7 @@ import kpn.api.common.network.NetworkRoutesPage
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
 import kpn.api.common.node.NodeMapPage
+import kpn.api.common.route.LinkInfo
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
@@ -371,6 +372,11 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   @PostMapping(value = Array("/api/explore"))
   def explore(@RequestBody query: ConditionGroup): ApiResponse[Seq[RouteSearchResult]] = {
     analysisFacade.explore(query)
+  }
+
+  @GetMapping(value = Array("/api/links"))
+  def links(): ApiResponse[Seq[LinkInfo]] = {
+    ApiResponse(None, 1, Some(LinkInfo.all))
   }
 
   private def toLanguage(language: String): Language = {

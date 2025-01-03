@@ -1,7 +1,7 @@
 package kpn.core.report
 
-import kpn.core.analysis.Link
-import kpn.core.analysis.LinkDirection
+import kpn.api.common.route.Link
+import kpn.api.common.route.LinkDirection
 
 import java.awt.BasicStroke
 import java.awt.Color
@@ -57,7 +57,7 @@ object LinkImageBuilder {
 
 class LinkImageBuilder(g: Graphics2D, link: Link) {
 
-  import kpn.core.report.LinkImageBuilder._
+  import kpn.core.report.LinkImageBuilder.*
 
   def paint(): Unit = {
     val width = size

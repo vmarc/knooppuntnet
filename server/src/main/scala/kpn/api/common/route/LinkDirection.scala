@@ -1,4 +1,4 @@
-package kpn.core.analysis
+package kpn.api.common.route
 
 import enumeratum.Enum
 import enumeratum.EnumEntry

@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
 import kpn.api.common.data.Way
-import kpn.core.analysis.Link
-import kpn.core.analysis.LinkDirection
+import kpn.api.common.route.Link
+import kpn.api.common.route.LinkDirection
 
 case class RouteLinkWay(
   id: Long,

@@ -39,6 +39,7 @@ import { MapRouteDetail } from '@api/common/route';
 import { RouteChangesPage } from '@api/common/route';
 import { RouteDetailsPage } from '@api/common/route';
 import { RouteMapPage } from '@api/common/route';
+import { LinkInfo } from '@api/common/route/link-info';
 import { SearchResponse } from '@api/common/search-response';
 import { ConditionGroup } from '@api/common/search/condition-group';
 import { RouteSearchResult } from '@api/common/search/route-search-result';
@@ -345,6 +346,11 @@ export class ApiService {
   public explore(query: ConditionGroup): Observable<ApiResponse<Array<RouteSearchResult>>> {
     const url = `/api/explore`;
     return this.http.post(url, query);
+  }
+
+  public links(): Observable<ApiResponse<Array<LinkInfo>>> {
+    const url = `/api/links`;
+    return this.http.get(url);
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {

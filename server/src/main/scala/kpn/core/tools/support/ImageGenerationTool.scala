@@ -1,7 +1,6 @@
 package kpn.core.tools.support
 
-import kpn.core.analysis.Link
-import kpn.core.analysis.LinkDirection
+import kpn.api.common.route.LinkInfo
 import kpn.core.report.LinkImageBuilder
 import kpn.core.tools.config.Dirs
 import kpn.core.util.Xml
@@ -26,7 +25,7 @@ class ImageGenerationTool {
   }
 
   def generate(): Unit = {
-    val allLinks = buildAllLinks()
+    val allLinks = LinkInfo.all.map(_.link)
 
     out.println("<html>")
 
@@ -73,34 +72,5 @@ class ImageGenerationTool {
     out.println(Xml.escape(description))
     out.println("</td>")
     out.println("</tr>")
-  }
-
-  private def buildAllLinks(): Seq[Link] = {
-    Seq(LinkDirection.Forward, LinkDirection.Backward, LinkDirection.RoundaboutRight, LinkDirection.Unconnected) flatMap { linkDirection =>
-      Seq(false, true) flatMap { isLoop =>
-        Seq(false, true) flatMap { isOnewayLoopForwardPart =>
-          Seq(false, true) flatMap { isOnewayLoopBackwardPart =>
-            Seq(false, true) flatMap { isOnewayHead =>
-              Seq(false, true) flatMap { isOnewayTail =>
-                Seq(false, true) flatMap { hasPrev =>
-                  Seq(false, true) map { hasNext =>
-                    Link(
-                      linkDirection,
-                      hasPrev,
-                      hasNext,
-                      isLoop,
-                      isOnewayLoopForwardPart,
-                      isOnewayLoopBackwardPart,
-                      isOnewayHead,
-                      isOnewayTail
-                    )
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   }
 }

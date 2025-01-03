@@ -4,9 +4,9 @@ import kpn.api.common.data.Member
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.RelationIdMember
 import kpn.api.common.data.WayMember
+import kpn.api.common.route.Link
+import kpn.api.common.route.LinkDirection
 import kpn.api.custom.Relation
-import kpn.core.analysis.Link
-import kpn.core.analysis.LinkDirection
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkRelationId

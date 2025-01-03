@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
-import kpn.core.analysis.LinkDirection
+import kpn.api.common.route.LinkDirection
 import kpn.core.util.Triplet
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisElement

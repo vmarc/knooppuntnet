@@ -2,6 +2,8 @@ package kpn.core.analysis
 
 import kpn.api.common.data.Element
 import kpn.api.common.data.Node
+import kpn.api.common.route.Link
+import kpn.api.common.route.LinkDirection
 import kpn.api.common.route.RouteNetworkNodeInfo
 
 case class RouteMemberNode(name: String, alternateName: String, longName: Option[String], number: String, role: Option[String], node: Node) extends RouteMember {

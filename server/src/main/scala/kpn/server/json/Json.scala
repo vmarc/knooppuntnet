@@ -25,6 +25,7 @@ import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.SurveyParameter
 import kpn.api.common.planner.PlanCoordinate
+import kpn.api.common.route.LinkDirection
 import kpn.api.common.route.WayDirection
 import kpn.api.common.search.ConditionGroupOperator
 import kpn.api.common.search.ConditionOperator
@@ -75,6 +76,9 @@ object Json {
 
     b.deserializerByType(classOf[Language], new LanguageJsonDeserializer())
     b.serializerByType(classOf[Language], new LanguageJsonSerializer())
+
+    b.deserializerByType(classOf[LinkDirection], new LinkDirectionJsonDeserializer())
+    b.serializerByType(classOf[LinkDirection], new LinkDirectionJsonSerializer())
 
     b.deserializerByType(classOf[NetworkType], new NetworkTypeJsonDeserializer())
     b.serializerByType(classOf[NetworkType], new NetworkTypeJsonSerializer())
