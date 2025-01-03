@@ -10,6 +10,9 @@ import { RouterLink } from '@angular/router';
 
     <ul>
       <li>
+        <a routerLink="analysis/route/1788296">Route with many members</a>
+      </li>
+      <li>
         <a routerLink="analysis/route/6376622">Route 01-02</a>
       </li>
       <li>

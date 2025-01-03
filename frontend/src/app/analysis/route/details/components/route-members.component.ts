@@ -7,11 +7,11 @@ import { RouteStructureRow } from '@api/common/route';
 import { DayPipe } from '@app/components/shared/format';
 import { LinkNodeComponent } from '@app/components/shared/link';
 import { TagsTextComponent } from '@app/components/shared/tags';
-import { LinkImageComponent } from './link-image.component';
 import { SymbolComponent } from '@app/symbol';
-import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-route-gap.component';
 import { RouteDistanceComponent } from './route-distance.component';
 import { RouteMemberIdComponent } from './route-member-id.component';
+import { RouteMemberImageComponent } from './route-member-image.component';
+import { RouteMemberNameComponent } from './route-member-name.component';
 
 @Component({
   selector: 'kpn-route-members',
@@ -25,84 +25,32 @@ import { RouteMemberIdComponent } from './route-member-id.component';
         </div>
       } @else {
         <div>
-          <table class="kpn-table">
-            <thead>
-              <tr>
-                <th i18n="@@route.members.table.nr">Nr</th>
-                <th></th>
-                <th i18n="@@route.members.table.node">Node</th>
-                <th i18n="@@route.members.table.id">Id</th>
-                <th colSpan="2" i18n="@@route.members.table.name">Name</th>
-                <th i18n="@@route.members.table.role">Role</th>
-                <th i18n="@@route.members.table.inaccessible">Inaccessible</th>
-                @if (networkType() === 'cycling') {
-                  <th colSpan="2" i18n="@@route.members.table.one-way">One Way</th>
-                }
-                <th i18n="@@monitor.route.relation-table.symbol">Symbol</th>
-                <th i18n="@@monitor.route.relation-table.distance">Distance</th>
-                <th i18n="@@monitor.route.relation-table.survey">Survey</th>
-              </tr>
-            </thead>
-            <tbody>
-              @for (row of rows(); track row; let rowIndex = $index) {
-                <tr>
-                  <td>
+          <div class="items">
+            @for (row of rows(); track row; let rowIndex = $index) {
+              @defer (on viewport) {
+                <div class="item">
+                  <div class="item-number">
                     {{ rowIndex + 1 }}
-                  </td>
-                  <td class="image-cell">
-                    @if (row.memberType !== 'relation') {
-                      <kpn-link-image [linkName]="row.linkName" />
-                    } @else {
-                      gaps
-                      @if (row.relation) {
-                        @if (row.relation.gaps !== undefined) {
-                          <kpn-monitor-route-gap
-                            [description]=""
-                            [osmSegmentCount]="row.relation.osmSegmentCount"
-                          />
-                        }
-                      }
-                    }
-                  </td>
-                  <td>
-                    <div class="kpn-comma-list">
-                      @if (row.way) {
-                        @for (node of row.way.nodes; track node) {
-                          <kpn-link-node [nodeId]="node.id" [nodeName]="node.alternateName" />
-                        }
+                  </div>
+                  <kpn-route-member-image [row]="row" />
+                  <div class="row-contents">
+                    <div class="kpn-line">
+                      <kpn-route-member-id [row]="row" />
+                      <kpn-route-member-name [row]="row" />
+                      <kpn-route-distance [row]="row" class="kpn-brackets" />
+                      @if (row.role) {
+                        <span class="kpn-label">role</span> {{ row.role }}
                       }
                     </div>
-                  </td>
-                  <td class="action-button-table-cell">
-                    <kpn-route-member-id [row]="row" />
-                  </td>
-                  <td>
-                    @if (row.way) {
-                      {{ row.way.description }}
+                    @if (row.way && row.way.nodes.length > 0) {
+                      <div class="kpn-comma-list">
+                        @if (row.way) {
+                          @for (node of row.way.nodes; track node) {
+                            <kpn-link-node [nodeId]="node.id" [nodeName]="node.alternateName" />
+                          }
+                        }
+                      </div>
                     }
-
-                    @if (row.relation) {
-                      {{ row.relation.level }}
-                      @switch (row.relation.level) {
-                        @case (1) {
-                          <div class="level-1">{{ row.relation.name }}</div>
-                        }
-                        @case (2) {
-                          <div class="level-2">{{ row.relation.name }}</div>
-                        }
-                        @case (3) {
-                          <div class="level-3">{{ row.relation.name }}</div>
-                        }
-                        @case (4) {
-                          <div class="level-4">{{ row.relation.name }}</div>
-                        }
-                        @case (5) {
-                          <div class="level-5">{{ row.relation.name }}</div>
-                        }
-                      }
-                    }
-                  </td>
-                  <td class="symbol">
                     @if (row.relation) {
                       @if (row.relation.symbol) {
                         <kpn-symbol
@@ -112,11 +60,6 @@ import { RouteMemberIdComponent } from './route-member-id.component';
                         />
                       }
                     }
-                  </td>
-                  <td>
-                    {{ row.role }}
-                  </td>
-                  <td>
                     @if (row.way) {
                       @if (!row.way.accessible) {
                         <div>
@@ -124,9 +67,7 @@ import { RouteMemberIdComponent } from './route-member-id.component';
                         </div>
                       }
                     }
-                  </td>
-                  @if (networkType() === 'cycling') {
-                    <td>
+                    @if (networkType() === 'cycling') {
                       @if (row.way) {
                         @if (row.way.oneWay === 'forward') {
                           <div i18n="@@route.members.table.one-way.yes">Yes</div>
@@ -135,56 +76,82 @@ import { RouteMemberIdComponent } from './route-member-id.component';
                           <div i18n="@@route.members.table.one-way.reverse">Reverse</div>
                         }
                       }
-                    </td>
-                  }
-                  @if (networkType() === 'cycling') {
-                    <td>
+                    }
+                    @if (networkType() === 'cycling') {
                       @if (row.way) {
                         @if (row.way.oneWayTags.length > 0) {
                           <kpn-tags-text [tags]="row.way.oneWayTags" />
                         }
                       }
-                    </td>
-                  }
-                  <td>
+                    }
                     @if (row.relation) {
                       @if (row.relation.happy) {
                         <mat-icon svgIcon="happy" />
                       }
                     }
-                  </td>
-                  <td>
-                    <kpn-route-distance [row]="row" />
-                  </td>
-                  <td>
                     @if (row.relation) {
                       {{ row.relation.survey | day }}
                     }
-                  </td>
-                </tr>
+                  </div>
+                </div>
+              } @placeholder {
+                <div class="item-placeholder">{{ rowIndex }}</div>
               }
-            </tbody>
-          </table>
+            }
+          </div>
         </div>
       }
     </div>
   `,
   styles: `
-    .image-cell {
-      padding: 0;
-      height: 100%;
+    .items {
+      margin-top: 20px;
+      border-top-color: lightgray;
+      border-top-style: solid;
+      border-top-width: 1px;
+    }
+
+    .item {
+      border-bottom: 1px solid lightgray;
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      /* media.maxWidth(PageWidth.SmallMaxWidth.px) */
+      .items {
+        margin-left: -20px;
+        margin-right: -20px;
+      }
+    }
+
+    .item-number {
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 2em;
+      padding: 0.5em;
+      border-right: 1px solid lightgray;
+    }
+
+    .item-placeholder {
+      height: 18em;
+    }
+
+    .row-contents {
+      flex-grow: 1;
+      padding: 0.5em;
+      border-left: 1px solid lightgray;
     }
   `,
   imports: [
-    LinkImageComponent,
     LinkNodeComponent,
     MatIconModule,
     TagsTextComponent,
     SymbolComponent,
-    MonitorRouteGapComponent,
     DayPipe,
     RouteDistanceComponent,
     RouteMemberIdComponent,
+    RouteMemberImageComponent,
+    RouteMemberNameComponent,
   ],
 })
 export class RouteMembersComponent {
