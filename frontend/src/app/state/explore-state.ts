@@ -12,10 +12,12 @@ export class ExploreState {
   private readonly _group = signal<ConditionGroup>(/*this.defaultGroup()*/ ExploreState.example());
   private readonly _routes = signal<Array<ExploreRoute>>([]);
   private readonly _routeSearchResults = signal<Array<RouteSearchResult>>([]);
+  private readonly _selectedRouteSearchResult = signal<RouteSearchResult | undefined>(undefined);
 
   readonly group = this._group.asReadonly();
   readonly routes = this._routes.asReadonly();
   readonly routeSearchResults = this._routeSearchResults.asReadonly();
+  readonly selectedRouteSearchResult = this._selectedRouteSearchResult.asReadonly();
 
   updateGroup(value: ConditionGroup): void {
     this._group.set(value);
@@ -27,6 +29,10 @@ export class ExploreState {
 
   updateRouteSearchResults(routeSearchResults: Array<RouteSearchResult>) {
     this._routeSearchResults.set(routeSearchResults);
+  }
+
+  updateRouteSearchResult(routeSearchResult: RouteSearchResult | undefined) {
+    this._selectedRouteSearchResult.set(routeSearchResult);
   }
 
   static defaultGroup(): ConditionGroup {
@@ -71,6 +77,20 @@ export class ExploreState {
   }
 
   static example(): ConditionGroup {
+    return {
+      operator: 'and',
+      conditions: [
+        {
+          name: {
+            operator: 'contains',
+            name: 'LAW 9',
+          },
+        },
+      ],
+    };
+  }
+
+  static example2(): ConditionGroup {
     return {
       operator: 'and',
       conditions: [

@@ -123,6 +123,9 @@
       "@app/components/shared/indicator": [
         "src/app/shared/components/shared/indicator/index.ts"
       ],
+      "@app/components/shared/list": [
+        "src/app/shared/components/shared/list/index.ts"
+      ],
       "@app/components/shared/items": [
         "src/app/shared/components/shared/items/index.ts"
       ],

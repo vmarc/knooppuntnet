@@ -47,7 +47,6 @@ export class PlanLegBuilder {
       sinkNode: sink,
       meters: route.meters,
       segments: segments.toArray(),
-      streets: route.streets.toArray(),
     };
   }
 
@@ -69,8 +68,6 @@ export class PlanLegBuilder {
     const coordinate = OlUtil.latLonToCoordinate(latLon);
     return {
       meters: fragment.meters,
-      orientation: fragment.orientation,
-      streetIndex: fragment.streetIndex,
       coordinate,
       latLon,
     };
