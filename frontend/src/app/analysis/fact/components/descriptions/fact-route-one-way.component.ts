@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
       The route is tagged as useable in one direction only. This is OK.
     </p>
   `,
-  standalone: true,
 })
 export class FactRouteOneWayComponent {}

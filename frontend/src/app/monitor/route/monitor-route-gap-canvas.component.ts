@@ -15,7 +15,6 @@ import { MonitorRouteGapBuilder } from './monitor-route-gap-builder';
       display: block;
     }
   `,
-  standalone: true,
 })
 export class MonitorRouteGapCanvasComponent {
   description = input.required<string>();

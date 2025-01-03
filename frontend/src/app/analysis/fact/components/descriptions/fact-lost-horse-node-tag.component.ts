@@ -10,6 +10,5 @@ import { Component } from '@angular/core';
       removed.
     </p>
   `,
-  standalone: true,
 })
 export class FactLostHorseNodeTagComponent {}

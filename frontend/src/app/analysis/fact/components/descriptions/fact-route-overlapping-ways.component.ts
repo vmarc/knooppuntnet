@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
       No detailed route analysis is performed because the route contains overlapping ways.
     </p>
   `,
-  standalone: true,
 })
 export class FactRouteOverlappingWaysComponent {}

@@ -128,7 +128,6 @@ import { PageService } from '@app/components/shared';
       display: none;
     }
   `,
-  standalone: true,
 })
 export class ChangeSetLocationChangesComponent /*implements OnInit*/ {
   changess = input.required<LocationChanges[]>();

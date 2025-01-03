@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
       The route could not be analyzed (too complex?).
     </p>
   `,
-  standalone: true,
 })
 export class FactRouteAnalysisFailedComponent {}

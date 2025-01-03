@@ -160,7 +160,6 @@ import { LinkRouteComponent } from '@app/components/shared/link';
       margin-left: 2em;
     }
   `,
-  standalone: true,
   imports: [IconHappyComponent, IconInvestigateComponent, LinkNodeComponent, LinkRouteComponent],
 })
 export class ChangeSetLocationTreeNodeComponent {

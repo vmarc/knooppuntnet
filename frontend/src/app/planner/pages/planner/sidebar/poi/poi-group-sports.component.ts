@@ -25,7 +25,6 @@ import { PoiGroupComponent } from './poi-group.component';
       <kpn-poi-config poiId="volleyball" />
     </kpn-poi-group>
   `,
-  standalone: true,
   imports: [PoiGroupComponent, PoiConfigComponent],
 })
 export class PoiGroupSportsComponent {}

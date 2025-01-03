@@ -8,7 +8,6 @@ import { input } from '@angular/core';
   selector: 'kpn-edit-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <a rel="nofollow" (click)="clicked()" title="{{ linkTitle }}">josm</a> `,
-  standalone: true,
 })
 export class EditLinkComponent implements OnInit {
   title = input<string>();

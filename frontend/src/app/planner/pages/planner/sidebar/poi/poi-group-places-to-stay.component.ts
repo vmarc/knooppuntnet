@@ -24,7 +24,6 @@ import { PoiGroupComponent } from './poi-group.component';
       <kpn-poi-config poiId="sauna" />
     </kpn-poi-group>
   `,
-  standalone: true,
   imports: [PoiGroupComponent, PoiConfigComponent],
 })
 export class PoiGroupPlacesToStayComponent {}

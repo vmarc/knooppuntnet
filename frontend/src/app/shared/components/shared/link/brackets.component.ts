@@ -15,6 +15,5 @@ import { Component } from '@angular/core';
       color: grey;
     }
   `,
-  standalone: true,
 })
 export class BracketsComponent {}

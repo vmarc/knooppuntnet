@@ -10,6 +10,5 @@ import { Component } from '@angular/core';
       OpenStreetMap
     </a>
   `,
-  standalone: true,
 })
 export class OsmWebsiteComponent {}

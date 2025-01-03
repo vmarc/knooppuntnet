@@ -10,6 +10,5 @@ import { Component } from '@angular/core';
       in the forward direction or the backward direction or both.
     </p>
   `,
-  standalone: true,
 })
 export class FactRouteNotContiniousComponent {}

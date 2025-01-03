@@ -24,7 +24,6 @@ import { fromEvent } from 'rxjs';
       />
     </div>
   `,
-  standalone: true,
 })
 export class LinkImageComponent implements OnInit, OnDestroy, AfterViewChecked {
   linkName = input.required<string>();

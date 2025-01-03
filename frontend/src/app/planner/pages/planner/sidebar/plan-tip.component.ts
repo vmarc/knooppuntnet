@@ -70,7 +70,6 @@ import { PlannerService } from '../planner.service';
       color: black;
     }
   `,
-  standalone: true,
 })
 export class PlanTipComponent {
   private readonly plannerService = inject(PlannerService);

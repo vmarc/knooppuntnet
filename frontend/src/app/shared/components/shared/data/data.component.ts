@@ -16,7 +16,6 @@ import { input } from '@angular/core';
     </div>
   `,
   styleUrl: './data.component.scss',
-  standalone: true,
 })
 export class DataComponent {
   title = input.required<string>();

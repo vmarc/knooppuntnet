@@ -17,7 +17,6 @@ import { MatRipple } from '@angular/material/core';
       <ng-content />
     </div>
   `,
-  standalone: true,
   imports: [NgClass, MatRipple],
 })
 export class ListItemComponent {

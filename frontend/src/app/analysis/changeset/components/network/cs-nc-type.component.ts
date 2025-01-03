@@ -19,7 +19,6 @@ import { NetworkChangeInfo } from '@api/common/changes/details';
       </div>
     }
   `,
-  standalone: true,
 })
 export class CsNcTypeComponent {
   readonly networkChangeInfo = input.required<NetworkChangeInfo>();

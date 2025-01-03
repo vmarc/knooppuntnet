@@ -5,6 +5,5 @@ import { Component } from '@angular/core';
   selector: 'kpn-fact-deleted',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <p i18n="@@fact.description.deleted">Deleted from the OpenStreetMap database.</p> `,
-  standalone: true,
 })
 export class FactDeletedComponent {}

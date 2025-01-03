@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
       This node is no longer a valid motorboatnetwork node because the rmn_ref tag has been removed.
     </p>
   `,
-  standalone: true,
 })
 export class FactLostMotorboatNodeTagComponent {}

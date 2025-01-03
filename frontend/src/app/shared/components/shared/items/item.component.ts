@@ -54,7 +54,6 @@ import { input } from '@angular/core';
       }
     }
   `,
-  standalone: true,
 })
 export class ItemComponent {
   index = input.required<number>();

@@ -13,7 +13,6 @@ import { FilterOptions } from '@app/kpn/filter';
     </div>
   `,
   styleUrl: './filter.scss',
-  standalone: true,
 })
 export class FilterTitleComponent {
   filterOptions = input.required<FilterOptions>();

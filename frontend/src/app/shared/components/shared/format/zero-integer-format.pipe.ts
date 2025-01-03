@@ -5,7 +5,6 @@ import { Pipe } from '@angular/core';
 
 @Pipe({
   name: 'zeroInteger',
-  standalone: true,
 })
 export class ZeroIntegerFormatPipe implements PipeTransform {
   public locale: string = inject(LOCALE_ID);

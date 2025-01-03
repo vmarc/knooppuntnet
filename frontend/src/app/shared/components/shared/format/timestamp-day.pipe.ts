@@ -7,7 +7,6 @@ import { TimestampUtil } from '..';
 
 @Pipe({
   name: 'yyyymmdd',
-  standalone: true,
 })
 export class TimestampDayPipe implements PipeTransform {
   public locale: string = inject(LOCALE_ID);

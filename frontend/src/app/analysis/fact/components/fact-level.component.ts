@@ -39,7 +39,6 @@ import { FactLevel } from '@api/common/fact-level';
       background: rgb(255, 167, 38); /* material orange400 */
     }
   `,
-  standalone: true,
 })
 export class FactLevelComponent {
   factLevel = input.required<FactLevel>();

@@ -16,6 +16,5 @@ import { ChangeDetectionStrategy } from '@angular/core';
       gap: 0.5em;
     }
   `,
-  standalone: true,
 })
 export class PageButtonsComponent {}

@@ -45,7 +45,6 @@ import { SharedStateService } from '../../../core/shared/shared-state.service';
       color: red;
     }
   `,
-  standalone: true,
 })
 export class ErrorComponent {
   protected readonly service = inject(SharedStateService);

@@ -30,7 +30,6 @@ import { Tag } from '@api/custom';
       color: grey;
     }
   `,
-  standalone: true,
 })
 export class ChangeSetTagsComponent {
   changeSetTags = input.required<Tag[]>();

@@ -5,7 +5,6 @@ import { Pipe } from '@angular/core';
 
 @Pipe({
   name: 'integer',
-  standalone: true,
 })
 export class IntegerFormatPipe implements PipeTransform {
   public locale: string = inject(LOCALE_ID);

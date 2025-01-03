@@ -74,7 +74,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       padding-bottom: 10px;
     }
   `,
-  standalone: true,
   imports: [MatRadioModule],
 })
 export class PoiConfigComponent implements OnInit, OnDestroy {

@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
       This relation is no longer a valid network route because a required tag has been removed.
     </p>
   `,
-  standalone: true,
 })
 export class FactLostRouteTagsComponent {}

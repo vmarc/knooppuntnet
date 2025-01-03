@@ -9,7 +9,6 @@ import { Translations } from '@app/i18n';
   selector: 'kpn-network-scope-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `{{ networkScopeName() }}`,
-  standalone: true,
 })
 export class NetworkScopeNameComponent {
   networkScope = input.required<NetworkScope>();

@@ -11,6 +11,5 @@ import { Component } from '@angular/core';
       member to a valid network relation or is an free route).
     </p>
   `,
-  standalone: true,
 })
 export class FactOrphanNodeComponent {}

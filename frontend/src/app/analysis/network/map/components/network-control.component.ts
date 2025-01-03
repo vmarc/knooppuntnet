@@ -23,7 +23,6 @@ import { Component } from '@angular/core';
       top: 112px;
     }
   `,
-  standalone: true,
 })
 export class NetworkControlComponent {
   action = output<void>();

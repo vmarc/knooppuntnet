@@ -13,7 +13,6 @@ import { SubsetOrphanRoutesPageService } from '../subset-orphan-routes-page.serv
       <kpn-filter [filterOptions]="filterOptions()" />
     </kpn-sidebar>
   `,
-  standalone: true,
   imports: [SidebarComponent, FilterComponent],
 })
 export class SubsetOrphanRoutesSidebarComponent {

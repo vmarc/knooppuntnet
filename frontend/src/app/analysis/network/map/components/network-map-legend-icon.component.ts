@@ -23,7 +23,6 @@ import { input } from '@angular/core';
       </text>
     </svg>
   `,
-  standalone: true,
 })
 export class NetworkMapLegendIconComponent {
   color = input.required<string>();

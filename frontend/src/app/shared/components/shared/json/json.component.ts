@@ -23,7 +23,6 @@ import { input } from '@angular/core';
     <br />
     <br />
   `,
-  standalone: true,
   imports: [],
 })
 export class JsonComponent implements OnInit {

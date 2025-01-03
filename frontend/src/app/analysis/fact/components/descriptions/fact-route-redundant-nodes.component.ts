@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
       The ways of this route contain extra nodes other than the start and end nodes.
     </p>
   `,
-  standalone: true,
 })
 export class FactRouteRedundantNodesComponent {}

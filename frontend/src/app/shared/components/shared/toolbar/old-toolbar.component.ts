@@ -70,7 +70,6 @@ import { PageService } from '..';
       background-color: rgba(255, 182, 193, 0.3);
     }
   `,
-  standalone: true,
   imports: [MatButtonModule, MatIconModule, MatToolbarModule, RouterLink, SpinnerComponent],
 })
 export class OldToolbarComponent {

@@ -10,6 +10,5 @@ import { Component } from '@angular/core';
       network relation.
     </p>
   `,
-  standalone: true,
 })
 export class FactOrphanRouteComponent {}

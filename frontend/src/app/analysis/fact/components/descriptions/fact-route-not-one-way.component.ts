@@ -10,6 +10,5 @@ import { Component } from '@angular/core';
       both directions.
     </p>
   `,
-  standalone: true,
 })
 export class FactRouteNotOneWayComponent {}

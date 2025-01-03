@@ -8,7 +8,6 @@ import { Fact } from '@api/common';
   selector: 'kpn-fact-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `{{ factName }}`,
-  standalone: true,
 })
 export class FactNameComponent implements OnInit {
   fact = input.required<Fact>();

@@ -9,7 +9,6 @@ import { Translations } from '@app/i18n';
   selector: 'kpn-network-type-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `{{ networkTypeName() }}`,
-  standalone: true,
 })
 export class NetworkTypeNameComponent {
   networkType = input.required<NetworkType>();

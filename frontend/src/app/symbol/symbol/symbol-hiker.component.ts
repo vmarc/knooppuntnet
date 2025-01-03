@@ -62,7 +62,6 @@ import { input } from '@angular/core';
       </svg>
     </div>
   `,
-  standalone: true,
 })
 export class SymbolHikerComponent implements OnInit {
   color = input('#000000');

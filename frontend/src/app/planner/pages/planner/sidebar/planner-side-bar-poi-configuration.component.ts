@@ -39,7 +39,6 @@ import { MapPoiConfigComponent } from './poi/map-poi-config.component';
       </ng-template>
     </mat-expansion-panel>
   `,
-  standalone: true,
   imports: [MapPoiConfigComponent, MatButtonModule, MatCheckboxModule, MatExpansionModule],
 })
 export class PlannerSideBarPoiConfigurationComponent {

@@ -24,7 +24,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       z-index: 100;
     }
   `,
-  standalone: true,
 })
 export class RouteControlComponent {
   action = output<void>();

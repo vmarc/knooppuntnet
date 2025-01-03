@@ -84,7 +84,6 @@ import { input } from '@angular/core';
       </svg>
     </div>
   `,
-  standalone: true,
 })
 export class SymbolWheelComponent implements OnInit {
   color = input('#000000');

@@ -18,7 +18,6 @@ import { UserService } from '../../../user';
       list of authorised applications
     </a>
   `,
-  standalone: true,
 })
 export class OsmLinkUserAothClientsComponent {
   private readonly userService = inject(UserService);

@@ -26,7 +26,6 @@ import { Tag } from '@api/custom';
       }
     }
   `,
-  standalone: true,
 })
 export class TagValueComponent {
   tag = input.required<Tag>();

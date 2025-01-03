@@ -49,6 +49,5 @@ import { Component } from '@angular/core';
       background-color: #bdeb34;
     }
   `,
-  standalone: true,
 })
 export class ServerDiskUsageLegendComponent {}

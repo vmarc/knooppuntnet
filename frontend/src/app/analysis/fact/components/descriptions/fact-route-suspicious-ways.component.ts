@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
       Route with funny ways (for example ways with only 1 node).
     </p>
   `,
-  standalone: true,
 })
 export class FactRouteSuspiciousWaysComponent {}

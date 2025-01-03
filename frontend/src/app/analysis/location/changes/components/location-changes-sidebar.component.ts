@@ -15,7 +15,6 @@ import { LocationChangesPageService } from '../location-changes-page.service';
       />
     </kpn-sidebar>
   `,
-  standalone: true,
   imports: [SidebarComponent, ChangeFilterComponent],
 })
 export class LocationChangesSidebarComponent {

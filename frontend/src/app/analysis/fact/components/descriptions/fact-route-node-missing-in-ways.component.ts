@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
       One or more of the nodes is not found in any of the ways of this route.
     </p>
   `,
-  standalone: true,
 })
 export class FactRouteNodeMissingInWaysComponent {}

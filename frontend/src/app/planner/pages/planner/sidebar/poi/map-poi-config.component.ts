@@ -93,7 +93,6 @@ import { PoiGroupHikingBikingComponent } from './poi-group-hiking-biking.compone
       vertical-align: top;
     }
   `,
-  standalone: true,
   imports: [
     PoiGroupAmenityComponent,
     PoiGroupFoodshopsComponent,

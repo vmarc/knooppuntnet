@@ -17,7 +17,6 @@ import { input } from '@angular/core';
       {{ title() }}
     </a>
   `,
-  standalone: true,
 })
 export class OsmLinkComponent {
   kind = input.required<string>();

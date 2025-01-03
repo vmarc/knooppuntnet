@@ -2,7 +2,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'location',
-  standalone: true,
 })
 export class LocationPipe implements PipeTransform {
   private subStrings = [

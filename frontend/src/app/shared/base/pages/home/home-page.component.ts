@@ -30,7 +30,6 @@ import { BaseSidebarComponent } from '../../base-sidebar.component';
       <kpn-base-sidebar sidebar />
     </kpn-old-page>
   `,
-  standalone: true,
   imports: [
     BaseSidebarComponent,
     IconButtonComponent,

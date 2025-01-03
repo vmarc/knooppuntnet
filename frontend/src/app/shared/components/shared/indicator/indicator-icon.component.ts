@@ -43,7 +43,6 @@ import { input } from '@angular/core';
       background-color: rgb(224, 224, 224);
     }
   `,
-  standalone: true,
 })
 export class IndicatorIconComponent {
   letter = input.required<string>();

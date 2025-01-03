@@ -42,7 +42,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       margin-bottom: 2rem;
     }
   `,
-  standalone: true,
 })
 export class MonitorRouteFormErrorsComponent {
   errors = input.required<string[]>();

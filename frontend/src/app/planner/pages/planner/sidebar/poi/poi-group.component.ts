@@ -61,7 +61,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       padding-right: 20px;
     }
   `,
-  standalone: true,
   imports: [MatExpansionModule, MatCheckboxModule, MatButtonModule],
 })
 export class PoiGroupComponent {

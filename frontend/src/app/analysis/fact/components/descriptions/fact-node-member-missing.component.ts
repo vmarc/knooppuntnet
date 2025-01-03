@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
       The node is not member of the network relation.
     </p>
   `,
-  standalone: true,
 })
 export class FactNodeMemberMissingComponent {}

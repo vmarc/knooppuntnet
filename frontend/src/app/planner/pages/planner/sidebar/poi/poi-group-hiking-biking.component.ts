@@ -28,7 +28,6 @@ import { PoiGroupComponent } from './poi-group.component';
       <kpn-poi-config poiId="defibrillator" />
     </kpn-poi-group>
   `,
-  standalone: true,
   imports: [PoiGroupComponent, PoiConfigComponent],
 })
 export class PoiGroupHikingBikingComponent {}

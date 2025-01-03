@@ -45,7 +45,6 @@ import { input } from '@angular/core';
       }
     }
   `,
-  standalone: true,
 })
 export class MonthComponent {
   month = input.required<number>();

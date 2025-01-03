@@ -12,7 +12,6 @@ import { MatDividerModule } from '@angular/material/divider';
     <canvas #profile width="200" height="100"></canvas>
     <mat-divider />
   `,
-  standalone: true,
   imports: [MatDividerModule],
 })
 export class ElevationProfileComponent implements AfterViewInit {

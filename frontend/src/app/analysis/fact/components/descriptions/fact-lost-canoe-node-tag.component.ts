@@ -9,6 +9,5 @@ import { Component } from '@angular/core';
       This node is no longer a valid canoenetwork node because the rpn_ref tag has been removed.
     </p>
   `,
-  standalone: true,
 })
 export class FactLostCanoeNodeTagComponent {}

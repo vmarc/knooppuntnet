@@ -15,6 +15,5 @@ import { Component } from '@angular/core';
       flex-wrap: wrap;
     }
   `,
-  standalone: true,
 })
 export class IconButtonsComponent {}
