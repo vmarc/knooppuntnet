@@ -685,3 +685,27 @@ input[type=number] {
   color: rgba(0, 0, 0, 0.8) !important;
   padding: 0 !important;
 }
+
+.kpn-list-item {
+  border-bottom-color: lightgray;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  padding: 10px;
+}
+
+.kpn-list-item:not(.kpn-list-item-selected):hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+
+.kpn-list-item-selected {
+  background-color: #e0e0e0;
+}
+
+.kpn-list-item > .mat-ripple-element {
+  z-index: -1 !important;
+}
+
+.kpn-list-item > .mat-ripple {
+  z-index: 50;
+}

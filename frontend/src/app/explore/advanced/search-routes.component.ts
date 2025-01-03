@@ -12,7 +12,7 @@ import { SearchRouteComponent } from './search-route.component';
   selector: 'kpn-search-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div>{{ rowCount() }} rows</div>
+    <div>{{ rowCount() }} routes</div>
     <kpn-list>
       @for (result of results(); track result.id; let i = $index) {
         <kpn-list-item [selected]="selectedResult() == result" (click)="onSelectionChange(result)">
