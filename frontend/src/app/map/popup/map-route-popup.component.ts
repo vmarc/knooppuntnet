@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { DividerComponent } from '@app/components/shared';
 import { State } from '@app/state';
+import { ScopeIconComponent } from '../../explore/scope-icon.component';
 
 @Component({
   selector: 'kpn-map-route-popup',
@@ -12,7 +13,11 @@ import { State } from '@app/state';
   template: `
     <div class="route-popup" [ngClass]="{ hidden: hide() }">
       @for (route of routes(); track route.routeId) {
-        <div>{{ route.scope }} {{ route.name }} ({{ route.routeId }})</div>
+        <div class="kpn-line">
+          <kpn-scope-icon [scope]="route.scope" />
+          <span>{{ route.name }}</span>
+          <span>({{ route.routeId }})</span>
+        </div>
       }
       <kpn-divider />
       <div class="hint">Click for further details</div>
@@ -31,7 +36,7 @@ import { State } from '@app/state';
       font-size: 0.8em;
     }
   `,
-  imports: [DividerComponent, NgClass],
+  imports: [DividerComponent, NgClass, ScopeIconComponent],
 })
 export class MapRoutePopupComponent {
   private readonly state = inject(State);

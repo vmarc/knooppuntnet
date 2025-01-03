@@ -3,10 +3,10 @@ import Style from 'ol/style/Style';
 import { ExploreStyleConstants } from './explore-style-constants';
 
 export class ExploreStyleStandard {
-  private static readonly colorInternational = '#ff0000';
-  private static readonly colorNational = '#0000ff';
-  private static readonly colorRegional = '#00cc00';
-  private static readonly colorLocal = '#ff8800';
+  static readonly colorInternational = '#ff0000';
+  static readonly colorNational = '#0000ff';
+  static readonly colorRegional = '#00cc00';
+  static readonly colorLocal = '#ff8800';
 
   private static readonly width1 = 1;
   private static readonly width2 = 2;

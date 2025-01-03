@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouteSearchResult } from '@api/common/search/route-search-result';
 import { DistancePipe } from '@app/components/shared/format';
+import { ScopeIconComponent } from '../scope-icon.component';
 
 @Component({
   selector: 'kpn-search-route',
@@ -10,7 +11,7 @@ import { DistancePipe } from '@app/components/shared/format';
   template: `
     @let route = routeSearchResult();
     <div class="kpn-line">
-      <span>{{ route.scopes[0] }}</span>
+      <kpn-scope-icon [scope]="route.scopes[0]" />
       <span>{{ route.id }}</span>
       <span>{{ route.name }}</span>
     </div>
@@ -18,7 +19,7 @@ import { DistancePipe } from '@app/components/shared/format';
       <span>{{ route.distance | distance }}</span>
     </div>
   `,
-  imports: [DistancePipe],
+  imports: [DistancePipe, ScopeIconComponent],
 })
 export class SearchRouteComponent {
   routeSearchResult = input.required<RouteSearchResult>();

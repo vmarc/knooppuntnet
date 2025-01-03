@@ -2,11 +2,12 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatNavList } from '@angular/material/list';
-import { MatListItem } from '@angular/material/list';
 import { DividerComponent } from '@app/components/shared';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListItemComponent } from '@app/components/shared/list';
+import { ListComponent } from '@app/components/shared/list';
 import { ExploreService } from './explore.service';
+import { ScopeIconComponent } from './scope-icon.component';
 
 @Component({
   selector: 'kpn-explore-routes',
@@ -16,15 +17,28 @@ import { ExploreService } from './explore.service';
       <kpn-divider />
       <div>Routes</div>
       <div>
-        <mat-nav-list>
+        <kpn-list>
           @for (route of routes(); track route.routeId) {
-            <mat-list-item> {{ route.scope }} {{ route.name }} ({{ route.routeId }})</mat-list-item>
+            <kpn-list-item [selected]="false">
+              <div class="kpn-line">
+                <kpn-scope-icon [scope]="route.scope" />
+                <span>{{ route.name }}</span>
+                <span>({{ route.routeId }})</span>
+              </div>
+            </kpn-list-item>
           }
-        </mat-nav-list>
+        </kpn-list>
       </div>
     }
   `,
-  imports: [FormsModule, ReactiveFormsModule, MatListItem, MatNavList, DividerComponent],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    DividerComponent,
+    ScopeIconComponent,
+    ListComponent,
+    ListItemComponent,
+  ],
 })
 export class ExploreRoutesComponent {
   private readonly exploreService = inject(ExploreService);
