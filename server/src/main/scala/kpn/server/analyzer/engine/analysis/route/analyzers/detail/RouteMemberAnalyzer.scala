@@ -96,7 +96,6 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
             id = node.id,
             memberType = MemberType.Node,
             role = nodeMember.role.getOrElse(""),
-            linkName = "n",
             way = None
           )
         )
@@ -159,7 +158,6 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
             id = way.id,
             memberType = MemberType.Way,
             role = wayMember.role.getOrElse(""),
-            linkName = link.linkName,
             Some(
               RouteMemberInfoWay(
                 nodes = nodesX,
@@ -173,7 +171,8 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
                 nodeCount = way.nodes.size.toString,
                 description = name,
                 oneWay = new OneWayAnalyzer(way).direction,
-                oneWayTags = OneWayAnalyzer.oneWayTags(way)
+                oneWayTags = OneWayAnalyzer.oneWayTags(way),
+                link.link
               )
             )
           )
@@ -186,7 +185,6 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
             id = relationIdMember.relationId,
             memberType = MemberType.Relation,
             role = relationIdMember.role.getOrElse(""),
-            linkName = "",
             way = None
           )
         )

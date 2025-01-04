@@ -1,5 +1,6 @@
 package kpn.api.common
 
+import kpn.api.common.route.Link
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Tag
@@ -17,5 +18,6 @@ case class RouteMemberInfoWay(
   nodeCount: String,
   description: String,
   oneWay: WayDirection,
-  oneWayTags: Seq[Tag]
+  oneWayTags: Seq[Tag],
+  link: Link
 )

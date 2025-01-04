@@ -55,7 +55,7 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
       member.id,
       member.memberType,
       member.role,
-      linkName = "n",
+      link = None,
       distance = 0,
       None,
       None,
@@ -67,7 +67,7 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
       member.id,
       member.memberType,
       member.role,
-      linkName = member.linkName,
+      link = member.way.map(_.link),
       distance = member.way.map(_.distance).sum,
       way = member.way.map(way =>
         RouteStructureWay(
@@ -112,7 +112,7 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
             id = member.id,
             memberType = member.memberType,
             role = member.role,
-            linkName = "r",
+            link = None,
             distance = distance,
             way = None,
             relation = Some(

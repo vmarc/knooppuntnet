@@ -48,6 +48,8 @@ import kpn.api.common.network.NetworkSummary
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.poi.Poi
+import kpn.api.common.route.Link
+import kpn.api.common.route.LinkDirection
 import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
@@ -1551,6 +1553,28 @@ trait SharedTestObjects extends MockFactory {
       "",
       None,
       relations
+    )
+  }
+
+  def newLink(
+    direction: LinkDirection = LinkDirection.Unconnected,
+    hasPrev: Boolean = false,
+    hasNext: Boolean = false,
+    isLoop: Boolean = false,
+    isOnewayLoopForwardPart: Boolean = false,
+    isOnewayLoopBackwardPart: Boolean = false,
+    isOnewayHead: Boolean = false,
+    isOnewayTail: Boolean = false,
+  ): Link = {
+    Link(
+      direction,
+      hasPrev,
+      hasNext,
+      isLoop,
+      isOnewayLoopForwardPart,
+      isOnewayLoopBackwardPart,
+      isOnewayHead,
+      isOnewayTail,
     )
   }
 }

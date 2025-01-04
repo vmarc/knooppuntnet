@@ -17,7 +17,7 @@ case class RouteLinkWay(
 
   def linkDetail: String = link.reportString
 
-  def fromNodeId = {
+  def fromNodeId: Long = {
     if (link.direction == LinkDirection.Backward) {
       way.nodeIds.last
     }
@@ -26,7 +26,7 @@ case class RouteLinkWay(
     }
   }
 
-  def toNodeId = {
+  def toNodeId: Long = {
     if (link.direction == LinkDirection.Backward) {
       way.nodeIds.head
     }

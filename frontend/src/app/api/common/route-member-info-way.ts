@@ -1,5 +1,6 @@
 // this file is generated, please do not modify
 
+import { Link } from '@api/common/route';
 import { RouteNetworkNodeInfo } from '@api/common/route';
 import { WayDirection } from '@api/common/route';
 import { Tag } from '@api/custom';
@@ -18,4 +19,5 @@ export interface RouteMemberInfoWay {
   readonly description: string;
   readonly oneWay: WayDirection;
   readonly oneWayTags: Tag[];
+  readonly link: Link;
 }

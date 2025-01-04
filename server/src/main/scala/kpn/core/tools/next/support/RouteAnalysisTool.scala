@@ -4,6 +4,7 @@ import kpn.api.custom.Relation
 import kpn.core.doc.RouteRelation
 import kpn.core.tools.analysis.AnalysisStartConfiguration
 import kpn.core.tools.analysis.AnalysisStartToolOptions
+import kpn.core.tools.next.support.RouteAnalysisTool.law9
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
@@ -60,11 +61,11 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   private val log = Log(classOf[RouteAnalysisTool])
 
   def analyze(): Unit = {
-    log.info("Fetching all route ids")
-    val routeIds = config.nextRepository.allRouteIds()
-    log.info(s"found ${routeIds.size} routeIds")
-    analyzeRoutes(routeIds)
-    // analyzeRoutes(law9)
+    //    log.info("Fetching all route ids")
+    //    val routeIds = config.nextRepository.allRouteIds()
+    //    log.info(s"found ${routeIds.size} routeIds")
+    //    analyzeRoutes(Seq(6376622L))
+    analyzeRoutes(law9)
     log.info(s"Done")
   }
 

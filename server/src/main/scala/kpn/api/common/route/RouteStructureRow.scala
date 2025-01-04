@@ -6,7 +6,7 @@ case class RouteStructureRow(
   id: Long,
   memberType: MemberType,
   role: String,
-  linkName: String,
+  link: Option[Link],
   distance: Long,
   way: Option[RouteStructureWay] = None,
   relation: Option[RouteStructureRelation] = None,

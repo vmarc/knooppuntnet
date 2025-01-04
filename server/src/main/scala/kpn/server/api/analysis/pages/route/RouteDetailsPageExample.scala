@@ -81,14 +81,14 @@ object RouteDetailsPageExample {
           id = 1L,
           memberType = MemberType.Node,
           role = "connection",
-          linkName = "n",
+          link = None,
           distance = 0
         ),
         RouteStructureRow(
           id = 1L,
           memberType = MemberType.Way,
           role = "",
-          linkName = "wb003",
+          link = None,
           distance = 100,
           way = Some(
             RouteStructureWay(

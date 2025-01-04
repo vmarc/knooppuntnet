@@ -4,15 +4,18 @@ import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouteStructureRow } from '@api/common/route';
 import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-route-gap.component';
+import { TryoutWrapperComponent } from '../../../../tryout/canvas/tryout-wrapper.component';
 
 @Component({
   selector: 'kpn-route-member-image',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let r = row();
-    @if (r.memberType !== 'relation') {
-      <img [src]="'/assets/images/links/' + r.linkName + '.png'" [alt]="r.linkName" />
-    } @else {
+    @if (r.memberType === 'node') {
+      node
+    } @else if (r.memberType === 'way') {
+      <kpn-tryout-wrapper [link]="r.link" />
+    } @else if (r.memberType === 'relation') {
       gaps
       @if (r.relation) {
         @if (r.relation.gaps !== undefined) {
@@ -26,13 +29,8 @@ import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-rout
       display: flex;
       flex-direction: row;
     }
-
-    :host img {
-      width: 40px;
-      height: 100%;
-    }
   `,
-  imports: [MatIconModule, MonitorRouteGapComponent],
+  imports: [MatIconModule, MonitorRouteGapComponent, TryoutWrapperComponent],
 })
 export class RouteMemberImageComponent {
   row = input.required<RouteStructureRow>();

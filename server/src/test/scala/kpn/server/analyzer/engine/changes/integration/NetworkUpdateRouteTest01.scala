@@ -112,7 +112,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             101,
             MemberType.Way,
             "",
-            "wn000",
             Some(
               RouteMemberInfoWay(
                 Seq(
@@ -129,7 +128,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                 "2",
                 "",
                 WayDirection.Both,
-                Seq.empty
+                Seq.empty,
+                newLink() // "wn000"
               )
             )
           )
@@ -209,7 +209,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             101,
             MemberType.Way,
             "",
-            "wn000",
             Some(
               RouteMemberInfoWay(
                 Seq(
@@ -226,7 +225,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                 "2",
                 "",
                 WayDirection.Both,
-                Seq.empty
+                Seq.empty,
+                newLink() // "wn000"
               )
             )
           )
