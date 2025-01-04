@@ -8,6 +8,8 @@ import { OlUtil } from '@app/ol';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapControls } from '@app/ol/layers';
 import { State } from '@app/state';
+import { FeatureLike } from 'ol/Feature';
+import VectorTileLayer from 'ol/layer/VectorTile';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { FocusElements } from './focus-elements';
@@ -129,5 +131,17 @@ export class MapService {
         routeIds: [],
       });
     }
+  }
+
+  allFeatures(): FeatureLike[] {
+    const features: FeatureLike[] = [];
+    this.layers.all.forEach((mapLayer) => {
+      if (mapLayer.layerType === 'route' && mapLayer.layer.getVisible()) {
+        const vl = mapLayer.layer as VectorTileLayer;
+        const extent = this._map.getView().getViewStateAndExtent().extent;
+        features.push(...vl.getSource().getFeaturesInExtent(extent));
+      }
+    });
+    return features;
   }
 }
