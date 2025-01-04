@@ -38,6 +38,6 @@ export class TryoutCanvasComponent implements AfterViewInit {
   }
 
   draw(): void {
-    new TryoutLinkBuilder(this.canvas(), this.linkInfo()).draw();
+    new TryoutLinkBuilder(this.canvas().nativeElement, this.height, this.linkInfo()).draw();
   }
 }

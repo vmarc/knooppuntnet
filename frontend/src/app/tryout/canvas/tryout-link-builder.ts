@@ -2,18 +2,22 @@ import { ElementRef } from '@angular/core';
 import { LinkInfo } from '@api/common/route/link-info';
 
 export class TryoutLinkBuilder {
-  private readonly width: number;
-  private readonly height: number;
+  private readonly width = 40;
   private readonly lineWidth = 1;
   private context: CanvasRenderingContext2D;
 
   constructor(
-    canvas: ElementRef<HTMLCanvasElement>,
+    canvas: HTMLCanvasElement,
+    private height: number,
     private linkInfo: LinkInfo
   ) {
-    this.context = canvas.nativeElement.getContext('2d');
-    this.height = canvas.nativeElement.height;
-    this.width = canvas.nativeElement.width;
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = this.width * dpr;
+    canvas.height = height * dpr;
+    this.context = canvas.getContext('2d');
+    this.context.scale(dpr, dpr);
+    canvas.style.width = `${this.width}px`;
+    canvas.style.height = `${this.height}px`;
   }
 
   draw(): void {
@@ -28,17 +32,17 @@ export class TryoutLinkBuilder {
     this.context.stroke();
     this.context.closePath();
 
-    this.context.strokeStyle = 'blue';
+    this.context.strokeStyle = 'green';
     this.context.beginPath();
     this.context.moveTo(0, this.height);
     this.context.lineTo(this.width, 0);
     this.context.stroke();
     this.context.closePath();
 
-    this.context.strokeStyle = 'green';
+    this.context.strokeStyle = 'blue';
     this.context.beginPath();
-    this.context.moveTo(0, 100);
-    this.context.lineTo(200, 100);
+    this.context.moveTo(this.width / 2, 0);
+    this.context.lineTo(this.width / 2, this.height);
     this.context.stroke();
     this.context.closePath();
   }
