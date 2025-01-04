@@ -1,5 +1,4 @@
-import { Input } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
+import { effect } from '@angular/core';
 import { input } from '@angular/core';
 import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -11,33 +10,29 @@ import { TryoutLinkBuilder } from './tryout-link-builder';
 @Component({
   selector: 'kpn-tryout-canvas',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<canvas #gapCanvas  [height]="height" width="40"></canvas>',
+  template: '<canvas #gapCanvas  [height]="height()" width="40"></canvas>',
   styles: `
     canvas {
       display: block;
     }
   `,
 })
-export class TryoutCanvasComponent implements AfterViewInit {
+export class TryoutCanvasComponent {
   linkInfo = input.required<LinkInfo>();
-
-  private _height: number;
-  get height(): number {
-    return this._height;
-  }
-
-  @Input({ required: true }) set height(value: number) {
-    this._height = value;
-    setTimeout(() => this.draw(), 0);
-  }
-
+  height = input.required<number>();
   private readonly canvas = viewChild<ElementRef<HTMLCanvasElement>>('gapCanvas');
 
-  ngAfterViewInit(): void {
-    setTimeout(() => this.draw(), 0);
-  }
-
-  draw(): void {
-    new TryoutLinkBuilder(this.canvas().nativeElement, this.height, this.linkInfo()).draw();
+  constructor() {
+    effect(() => {
+      const linkInfo = this.linkInfo();
+      const canvas = this.canvas()?.nativeElement;
+      const height = this.height();
+      if (linkInfo && canvas && height > 0) {
+        console.log(`link=${linkInfo.name}, height=${height}`);
+        setTimeout(() => new TryoutLinkBuilder(canvas, height, linkInfo.link).draw(), 0);
+      } else {
+        console.log(`height=${height}`);
+      }
+    });
   }
 }

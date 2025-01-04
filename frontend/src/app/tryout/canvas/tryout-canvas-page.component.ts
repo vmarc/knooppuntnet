@@ -14,44 +14,46 @@ import { TryoutWrapperComponent } from './tryout-wrapper.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="page">
-      <p>Links: {{ linkCount() }}</p>
-      <pre>{{ selectedLinkDescription() }}</pre>
-      <div style="display: flex;">
-        <div class="selected-link">
-          <kpn-tryout-wrapper [linkInfo]="selectedLink()" />
+      @if (linkInfos()) {
+        <p>Links: {{ linkCount() }}</p>
+        <pre>{{ selectedLinkDescription() }}</pre>
+        <div class="link-box">
+          <div class="selected-link">
+            <kpn-tryout-wrapper [linkInfo]="selectedLink()" />
+          </div>
+          <div style="height:40px;">&nbsp;</div>
         </div>
-        <div style="height:40px;">&nbsp;</div>
-      </div>
-      <div style="display: flex;">
-        <div class="selected-link">
-          <kpn-tryout-wrapper [linkInfo]="selectedLink()" />
+        <div class="link-box">
+          <div class="selected-link">
+            <kpn-tryout-wrapper [linkInfo]="selectedLink()" />
+          </div>
+          <div style="height:80px;">&nbsp;</div>
         </div>
-        <div style="height:80px;">&nbsp;</div>
-      </div>
-      <table class="kpn-table">
-        @for (rowIndex of rowIndexes(); track rowIndex) {
-          <tr>
-            @for (columnIndex of columnIndexes; track columnIndex) {
-              @let linkIndex = rowIndex * columnCount + columnIndex;
-              @let linkInfo = linkInfos()[linkIndex];
-              <td [ngClass]="{ selected: isSelected(linkInfo) }">
-                @if (linkIndex < linkInfos().length) {
-                  <div class="link-box" (click)="selectLink(linkInfo)">
-                    <img
-                      [src]="'/assets/images/links/' + linkInfo.name + '.png'"
-                      [alt]="linkInfo.name"
-                      class="box"
-                    />
-                    <div class="box">
-                      <kpn-tryout-wrapper [linkInfo]="linkInfo" />
+        <table class="kpn-table">
+          @for (rowIndex of rowIndexes(); track rowIndex) {
+            <tr>
+              @for (columnIndex of columnIndexes; track columnIndex) {
+                @let linkIndex = rowIndex * columnCount + columnIndex;
+                @let linkInfo = linkInfos()[linkIndex];
+                <td [ngClass]="{ selected: isSelected(linkInfo) }">
+                  @if (linkIndex < linkInfos().length) {
+                    <div class="link-box" (click)="selectLink(linkInfo)">
+                      <img
+                        [src]="'/assets/images/links/' + linkInfo.name + '.png'"
+                        [alt]="linkInfo.name"
+                        class="box"
+                      />
+                      <div class="box">
+                        <kpn-tryout-wrapper [linkInfo]="linkInfo" />
+                      </div>
                     </div>
-                  </div>
-                }
-              </td>
-            }
-          </tr>
-        }
-      </table>
+                  }
+                </td>
+              }
+            </tr>
+          }
+        </table>
+      }
     </div>
   `,
   styles: `

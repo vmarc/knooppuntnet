@@ -7,10 +7,10 @@ import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { LinkInfo } from "@api/common/route/link-info";
+import { LinkInfo } from '@api/common/route/link-info';
 import { fromEvent } from 'rxjs';
 import { Subscription } from 'rxjs';
-import { TryoutCanvasComponent } from "./tryout-canvas.component";
+import { TryoutCanvasComponent } from './tryout-canvas.component';
 
 @Component({
   selector: 'kpn-tryout-wrapper',
