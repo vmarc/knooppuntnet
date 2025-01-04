@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { LinkInfo } from '@api/common/route/link-info';
 import { ApiService } from '@app/services';
-import { TryoutCanvasComponent } from './tryout-canvas.component';
+import { TryoutWrapperComponent } from './tryout-wrapper.component';
 
 @Component({
   selector: 'kpn-tryout-canvas-page',
@@ -16,35 +16,53 @@ import { TryoutCanvasComponent } from './tryout-canvas.component';
     <div class="page">
       <p>Links: {{ linkCount() }}</p>
       <pre>{{ selectedLinkDescription() }}</pre>
-      @if (linkInfos()) {
-        <table class="kpn-table">
-          @for (rowIndex of rowIndexes(); track rowIndex) {
-            <tr>
-              @for (columnIndex of columnIndexes; track columnIndex) {
-                @let linkIndex = rowIndex * columnCount + columnIndex;
-                @let linkInfo = linkInfos()[linkIndex];
-                <td [ngClass]="{ selected: isSelected(linkInfo) }">
-                  @if (linkIndex < linkInfos().length) {
-                    <div class="link-box" (click)="selectLink(linkInfo)">
-                      <img
-                        [src]="'/assets/images/links/' + linkInfo.name + '.png'"
-                        [alt]="linkInfo.name"
-                        class="box"
-                      />
-                      <kpn-tryout-canvas class="box" />
+      <div style="display: flex;">
+        <div class="selected-link">
+          <kpn-tryout-wrapper [linkInfo]="selectedLink()" />
+        </div>
+        <div style="height:40px;">&nbsp;</div>
+      </div>
+      <div style="display: flex;">
+        <div class="selected-link">
+          <kpn-tryout-wrapper [linkInfo]="selectedLink()" />
+        </div>
+        <div style="height:80px;">&nbsp;</div>
+      </div>
+      <table class="kpn-table">
+        @for (rowIndex of rowIndexes(); track rowIndex) {
+          <tr>
+            @for (columnIndex of columnIndexes; track columnIndex) {
+              @let linkIndex = rowIndex * columnCount + columnIndex;
+              @let linkInfo = linkInfos()[linkIndex];
+              <td [ngClass]="{ selected: isSelected(linkInfo) }">
+                @if (linkIndex < linkInfos().length) {
+                  <div class="link-box" (click)="selectLink(linkInfo)">
+                    <img
+                      [src]="'/assets/images/links/' + linkInfo.name + '.png'"
+                      [alt]="linkInfo.name"
+                      class="box"
+                    />
+                    <div class="box">
+                      <kpn-tryout-wrapper [linkInfo]="linkInfo" />
                     </div>
-                  }
-                </td>
-              }
-            </tr>
-          }
-        </table>
-      }
+                  </div>
+                }
+              </td>
+            }
+          </tr>
+        }
+      </table>
     </div>
   `,
   styles: `
     .page {
       margin: 1em;
+    }
+
+    .selected-link {
+      display: flex;
+      border: 1px solid lightgray;
+      margin-bottom: 1em;
     }
 
     .link-box {
@@ -65,7 +83,7 @@ import { TryoutCanvasComponent } from './tryout-canvas.component';
       background-color: lightgray;
     }
   `,
-  imports: [TryoutCanvasComponent, NgClass],
+  imports: [TryoutWrapperComponent, NgClass],
 })
 export class TryoutCanvasPageComponent implements OnInit {
   readonly columnCount = 10;
