@@ -9,7 +9,7 @@ import { Integrity } from './integrity';
 
 export interface NetworkAttributes {
   readonly id: number;
-  readonly country: Country;
+  readonly country?: Country;
   readonly networkType: NetworkType;
   readonly networkScope: NetworkScope;
   readonly name: string;
@@ -24,5 +24,5 @@ export interface NetworkAttributes {
   readonly connectionCount: number;
   readonly lastUpdated: Timestamp;
   readonly relationLastUpdated: Timestamp;
-  readonly center: LatLonImpl;
+  readonly center?: LatLonImpl;
 }

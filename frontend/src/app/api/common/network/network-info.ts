@@ -14,5 +14,5 @@ export interface NetworkInfo {
   readonly networkRefs: number[];
   readonly facts: Fact[];
   readonly tags: Tag[];
-  readonly detail: NetworkInfoDetail;
+  readonly detail?: NetworkInfoDetail;
 }

@@ -36,36 +36,32 @@ class TypescriptWriter(out: PrintStream, classInfo: ClassInfo) {
   private def writeContents(): Unit = {
     out.println(s"export interface ${classInfo.className} {")
     val fields = classInfo.fields.map { field =>
-      val fieldType = {
-        val fieldName = if (classInfo.formClass) {
-          s"${field.name}?"
-        }
-        else {
-          field.name
-        }
-
-        val typeName = field.classType.typeName
-        if (typeName.startsWith("List<")) {
-          val arrayTypeName = s"${typeName.drop("List<".length).dropRight(1)}[]"
-          s"$fieldName: $arrayTypeName"
-        }
-        else if (typeName.startsWith("Array<")) {
-          val arrayTypeName = s"${typeName.drop("Array<".length).dropRight(1)}[]"
-          s"$fieldName: $arrayTypeName"
-        }
-        else if (typeName == "PlanCoordinate") {
-          s"$fieldName: Coordinate"
-        }
-        else {
-          s"$fieldName: $typeName"
-        }
+      val fieldName = if (classInfo.formClass || field.classType.optional) {
+        s"${field.name}?"
       }
-      s"$fieldType${if (field.classType.optional) " | undefined" else ""}"
+      else {
+        field.name
+      }
+
+      val typeName = field.classType.typeName
+      if (typeName.startsWith("List<")) {
+        val arrayTypeName = s"${typeName.drop("List<".length).dropRight(1)}[]"
+        s"$fieldName: $arrayTypeName"
+      }
+      else if (typeName.startsWith("Array<")) {
+        val arrayTypeName = s"${typeName.drop("Array<".length).dropRight(1)}[]"
+        s"$fieldName: $arrayTypeName"
+      }
+      else if (typeName == "PlanCoordinate") {
+        s"$fieldName: Coordinate"
+      }
+      else {
+        s"$fieldName: $typeName"
+      }
     }
     fields.mkString("  readonly ", ";\n  readonly ", ";\n").foreach {
       out.print
     }
     out.println("}")
   }
-
 }

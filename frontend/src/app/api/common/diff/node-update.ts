@@ -7,6 +7,6 @@ import { TagDiffs } from './tag-diffs';
 export interface NodeUpdate {
   readonly before: Node;
   readonly after: Node;
-  readonly tagDiffs: TagDiffs;
-  readonly nodeMoved: NodeMoved;
+  readonly tagDiffs?: TagDiffs;
+  readonly nodeMoved?: NodeMoved;
 }

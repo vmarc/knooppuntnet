@@ -9,7 +9,7 @@ export interface LocationRouteInfo {
   readonly name: string;
   readonly meters: number;
   readonly lastUpdated: Timestamp;
-  readonly lastSurvey: Day;
+  readonly lastSurvey?: Day;
   readonly symbol: string;
   readonly broken: boolean;
   readonly inaccessible: boolean;

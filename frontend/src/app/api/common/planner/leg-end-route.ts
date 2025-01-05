@@ -4,5 +4,5 @@ import { TrackPathKey } from '@api/common/common';
 
 export interface LegEndRoute {
   readonly trackPathKeys: TrackPathKey[];
-  readonly selection: TrackPathKey;
+  readonly selection?: TrackPathKey;
 }

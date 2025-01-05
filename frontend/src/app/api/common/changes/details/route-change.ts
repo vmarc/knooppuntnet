@@ -18,8 +18,8 @@ export interface RouteChange {
   readonly locationAnalysis: RouteLocationAnalysis;
   readonly addedToNetwork: Ref[];
   readonly removedFromNetwork: Ref[];
-  readonly before: RouteData;
-  readonly after: RouteData;
+  readonly before?: RouteData;
+  readonly after?: RouteData;
   readonly removedWays: RawWay[];
   readonly addedWays: RawWay[];
   readonly updatedWays: WayUpdate[];

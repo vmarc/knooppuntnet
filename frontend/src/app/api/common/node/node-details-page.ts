@@ -9,6 +9,6 @@ export interface NodeDetailsPage {
   readonly mixedNetworkScopes: boolean;
   readonly routeReferences: Reference[];
   readonly networkReferences: Reference[];
-  readonly integrity: NodeIntegrity;
+  readonly integrity?: NodeIntegrity;
   readonly changeCount: number;
 }

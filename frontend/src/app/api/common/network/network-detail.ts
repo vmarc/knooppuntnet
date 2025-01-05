@@ -13,12 +13,12 @@ export interface NetworkDetail {
   readonly changeSetId: number;
   readonly lastUpdated: Timestamp;
   readonly relationLastUpdated: Timestamp;
-  readonly lastSurvey: Day;
+  readonly lastSurvey?: Day;
   readonly tags: Tag[];
   readonly brokenRouteCount: number;
   readonly brokenRoutePercentage: string;
   readonly integrity: Integrity;
   readonly inaccessibleRouteCount: number;
   readonly connectionCount: number;
-  readonly center: LatLonImpl;
+  readonly center?: LatLonImpl;
 }

@@ -7,7 +7,7 @@ import { Ref } from './ref';
 export interface NetworkRefs {
   readonly country: Country;
   readonly networkType: NetworkType;
-  readonly networkRef: Ref;
+  readonly networkRef?: Ref;
   readonly refType: string;
   readonly refs: Ref[];
 }

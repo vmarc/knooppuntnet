@@ -3,6 +3,6 @@
 import { NodeIntegrityCheck } from '@api/common';
 
 export interface NodeIntegrityCheckDiff {
-  readonly before: NodeIntegrityCheck;
-  readonly after: NodeIntegrityCheck;
+  readonly before?: NodeIntegrityCheck;
+  readonly after?: NodeIntegrityCheck;
 }

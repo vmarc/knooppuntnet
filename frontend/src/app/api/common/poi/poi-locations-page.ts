@@ -3,5 +3,5 @@
 import { LocationNode } from '@api/common/location';
 
 export interface PoiLocationsPage {
-  readonly locationNode: LocationNode;
+  readonly locationNode?: LocationNode;
 }

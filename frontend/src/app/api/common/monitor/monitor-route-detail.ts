@@ -9,7 +9,7 @@ export interface MonitorRouteDetail {
   readonly symbol: string;
   readonly relationId: number;
   readonly referenceType: string;
-  readonly referenceTimestamp: Timestamp;
+  readonly referenceTimestamp?: Timestamp;
   readonly referenceDistance: number;
   readonly deviationDistance: number;
   readonly deviationCount: number;

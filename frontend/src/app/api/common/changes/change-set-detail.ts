@@ -10,7 +10,7 @@ import { ChangeSetInfo } from './change-set-info';
 
 export interface ChangeSetDetail {
   readonly summary: ChangeSetSummary;
-  readonly changeSetInfo: ChangeSetInfo;
+  readonly changeSetInfo?: ChangeSetInfo;
   readonly networkChanges: NetworkChangeInfo[];
   readonly orphanRouteChanges: ChangeSetSubsetElementRefs[];
   readonly orphanNodeChanges: ChangeSetSubsetElementRefs[];

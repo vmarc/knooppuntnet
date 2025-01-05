@@ -7,7 +7,7 @@ import { Fact } from './fact';
 export interface NetworkFact {
   readonly fact: Fact;
   readonly elementType: string;
-  readonly elementIds: number[] | undefined;
-  readonly elements: Ref[] | undefined;
-  readonly checks: Check[] | undefined;
+  readonly elementIds?: number[];
+  readonly elements?: Ref[];
+  readonly checks?: Check[];
 }

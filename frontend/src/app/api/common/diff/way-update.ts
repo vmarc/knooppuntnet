@@ -13,5 +13,5 @@ export interface WayUpdate {
   readonly addedNodes: Node[];
   readonly updatedNodes: NodeUpdate[];
   readonly directionReversed: boolean;
-  readonly tagDiffs: TagDiffs;
+  readonly tagDiffs?: TagDiffs;
 }

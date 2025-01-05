@@ -5,5 +5,5 @@ export interface LocationNode {
   readonly nodeCount: number;
   readonly routeCount: number;
   readonly factCount: number;
-  readonly children: LocationNode[] | undefined;
+  readonly children?: LocationNode[];
 }

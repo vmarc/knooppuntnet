@@ -7,6 +7,6 @@ export interface PoiState {
   readonly imageLink: string;
   readonly imageStatus: string;
   readonly imageStatusDetail: string;
-  readonly imageFirstSeen: Timestamp;
-  readonly imageLastSeen: Timestamp;
+  readonly imageFirstSeen?: Timestamp;
+  readonly imageLastSeen?: Timestamp;
 }

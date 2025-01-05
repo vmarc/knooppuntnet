@@ -7,10 +7,10 @@ import { RouteNodeDiff } from './route-node-diff';
 import { RouteRoleDiff } from './route-role-diff';
 
 export interface RouteDiff {
-  readonly nameDiff: RouteNameDiff;
-  readonly roleDiff: RouteRoleDiff;
-  readonly factDiffs: FactDiffs;
+  readonly nameDiff?: RouteNameDiff;
+  readonly roleDiff?: RouteRoleDiff;
+  readonly factDiffs?: FactDiffs;
   readonly nodeDiffs: RouteNodeDiff[];
   readonly memberOrderChanged: boolean;
-  readonly tagDiffs: TagDiffs;
+  readonly tagDiffs?: TagDiffs;
 }

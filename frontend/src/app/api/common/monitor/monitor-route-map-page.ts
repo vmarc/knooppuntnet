@@ -14,14 +14,14 @@ export interface MonitorRouteMapPage {
   readonly groupName: string;
   readonly groupDescription: string;
   readonly referenceType: string;
-  readonly bounds: Bounds;
-  readonly analysisTimestamp: Timestamp;
-  readonly currentSubRelation: MonitorRouteSubRelation;
-  readonly previousSubRelation: MonitorRouteSubRelation;
-  readonly nextSubRelation: MonitorRouteSubRelation;
+  readonly bounds?: Bounds;
+  readonly analysisTimestamp?: Timestamp;
+  readonly currentSubRelation?: MonitorRouteSubRelation;
+  readonly previousSubRelation?: MonitorRouteSubRelation;
+  readonly nextSubRelation?: MonitorRouteSubRelation;
   readonly osmSegments: MonitorRouteSegment[];
   readonly matchesGeoJson: string;
   readonly deviations: MonitorRouteDeviation[];
-  readonly reference: MonitorRouteReferenceInfo;
+  readonly reference?: MonitorRouteReferenceInfo;
   readonly subRelations: MonitorRouteSubRelation[];
 }

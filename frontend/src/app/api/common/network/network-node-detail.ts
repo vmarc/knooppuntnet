@@ -15,7 +15,7 @@ export interface NetworkNodeDetail {
   readonly definedInRelation: boolean;
   readonly proposed: boolean;
   readonly timestamp: Timestamp;
-  readonly lastSurvey: Day;
+  readonly lastSurvey?: Day;
   readonly expectedRouteCount: number;
   readonly facts: Fact[];
 }

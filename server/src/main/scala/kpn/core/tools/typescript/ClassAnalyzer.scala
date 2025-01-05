@@ -2,7 +2,7 @@ package kpn.core.tools.typescript
 
 import kpn.api.common.data.raw.RawNode
 
-import scala.reflect.runtime.universe._
+import scala.reflect.runtime.universe.*
 import scala.util.matching.Regex
 
 object ClassAnalyzer {
@@ -130,8 +130,8 @@ class ClassAnalyzer {
     fieldTypeString match {
 
       case mapSignature(type1, type2) =>
-        val typescriptType1 = fieldTypeToTypescript(type1)
-        val typescriptType2 = fieldTypeToTypescript(type2)
+        val typescriptType1 = fieldTypeToTypescript(type1, optional)
+        val typescriptType2 = fieldTypeToTypescript(type2, optional)
         ClassType(
           s"Map<${typescriptType1.typeName}, ${typescriptType2.typeName}>",
           mapTypes = Some((typescriptType1, typescriptType2)),
@@ -139,7 +139,7 @@ class ClassAnalyzer {
         )
 
       case setSignature(type1) =>
-        val typescriptType1 = fieldTypeToTypescript(type1)
+        val typescriptType1 = fieldTypeToTypescript(type1, optional)
         ClassType(
           s"List<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1),
@@ -147,7 +147,7 @@ class ClassAnalyzer {
         )
 
       case seqSignature(type1) =>
-        val typescriptType1 = fieldTypeToTypescript(type1)
+        val typescriptType1 = fieldTypeToTypescript(type1, optional)
         ClassType(
           s"Array<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1),
@@ -155,7 +155,7 @@ class ClassAnalyzer {
         )
 
       case vectorSignature(type1) =>
-        val typescriptType1 = fieldTypeToTypescript(type1)
+        val typescriptType1 = fieldTypeToTypescript(type1, optional)
         ClassType(
           s"Array<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1),
@@ -163,7 +163,7 @@ class ClassAnalyzer {
         )
 
       case arraySignature(type1) =>
-        val typescriptType1 = fieldTypeToTypescript(type1)
+        val typescriptType1 = fieldTypeToTypescript(type1, optional)
         ClassType(
           s"Array<${typescriptType1.typeName}>",
           arrayType = Some(typescriptType1),
@@ -174,7 +174,7 @@ class ClassAnalyzer {
         buildClassType(type1, optional = true)
 
       case _ =>
-        fieldTypeToTypescript(fieldTypeString)
+        fieldTypeToTypescript(fieldTypeString, optional)
     }
   }
 
@@ -201,7 +201,7 @@ class ClassAnalyzer {
     }
   }
 
-  private def fieldTypeToTypescript(fieldType: String): ClassType = {
+  private def fieldTypeToTypescript(fieldType: String, optional: Boolean): ClassType = {
     fieldType match {
       case "Int" => ClassType("number", primitive = true)
       case "Long" => ClassType("number", primitive = true)
@@ -216,7 +216,7 @@ class ClassAnalyzer {
         else {
           fieldType
         }
-        ClassType(classType)
+        ClassType(classType, optional = optional)
     }
   }
 

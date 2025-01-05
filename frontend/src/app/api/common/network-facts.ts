@@ -8,10 +8,10 @@ import { NetworkIntegrityCheckFailed } from './network-integrity-check-failed';
 import { NetworkNameMissing } from './network-name-missing';
 
 export interface NetworkFacts {
-  readonly networkExtraMemberNode: NetworkExtraMemberNode[] | undefined;
-  readonly networkExtraMemberWay: NetworkExtraMemberWay[] | undefined;
-  readonly networkExtraMemberRelation: NetworkExtraMemberRelation[] | undefined;
-  readonly integrityCheck: NetworkIntegrityCheck;
-  readonly integrityCheckFailed: NetworkIntegrityCheckFailed;
-  readonly nameMissing: NetworkNameMissing;
+  readonly networkExtraMemberNode?: NetworkExtraMemberNode[];
+  readonly networkExtraMemberWay?: NetworkExtraMemberWay[];
+  readonly networkExtraMemberRelation?: NetworkExtraMemberRelation[];
+  readonly integrityCheck?: NetworkIntegrityCheck;
+  readonly integrityCheckFailed?: NetworkIntegrityCheckFailed;
+  readonly nameMissing?: NetworkNameMissing;
 }

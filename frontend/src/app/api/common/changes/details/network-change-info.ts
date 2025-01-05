@@ -13,12 +13,12 @@ export interface NetworkChangeInfo {
   readonly comment: string;
   readonly key: ChangeKey;
   readonly changeType: ChangeType;
-  readonly country: Country;
+  readonly country?: Country;
   readonly networkType: NetworkType;
   readonly networkId: number;
   readonly networkName: string;
-  readonly before: MetaData;
-  readonly after: MetaData;
+  readonly before?: MetaData;
+  readonly after?: MetaData;
   readonly networkDataUpdated: boolean;
   readonly networkNodes: RefDiffs;
   readonly routes: RefDiffs;

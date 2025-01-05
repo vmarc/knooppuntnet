@@ -9,5 +9,5 @@ export interface NetworkInfoDetail {
   readonly nodes: NetworkInfoNode[];
   readonly routes: NetworkInfoRoute[];
   readonly networkFacts: NetworkFacts;
-  readonly shape: NetworkShape;
+  readonly shape?: NetworkShape;
 }

@@ -7,7 +7,7 @@ export interface ChangeSetInfo {
   readonly _id: number;
   readonly id: number;
   readonly createdAt: Timestamp;
-  readonly closedAt: Timestamp;
+  readonly closedAt?: Timestamp;
   readonly open: boolean;
   readonly commentsCount: number;
   readonly tags: Tag[];

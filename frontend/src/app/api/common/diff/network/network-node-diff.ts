@@ -8,7 +8,7 @@ export interface NetworkNodeDiff {
   readonly connection: boolean;
   readonly roleConnection: boolean;
   readonly definedInNetworkRelation: boolean;
-  readonly routeReferenceDiffs: NodeRouteReferenceDiffs;
-  readonly nodeIntegrityCheckDiff: NodeIntegrityCheckDiff;
-  readonly tagDiffs: TagDiffs;
+  readonly routeReferenceDiffs?: NodeRouteReferenceDiffs;
+  readonly nodeIntegrityCheckDiff?: NodeIntegrityCheckDiff;
+  readonly tagDiffs?: TagDiffs;
 }

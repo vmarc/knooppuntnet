@@ -18,7 +18,7 @@ export interface RouteDetailsPageData {
   readonly version: number;
   readonly changeSetId: number;
   readonly lastUpdated: Timestamp;
-  readonly lastSurvey: Day;
+  readonly lastSurvey?: Day;
   readonly facts: Fact[];
   readonly locationCandidateInfos: LocationCandidateInfo[];
   readonly unexpectedNodeIds: number[];
@@ -26,7 +26,7 @@ export interface RouteDetailsPageData {
   readonly structureRows: RouteStructureRow[];
   readonly nameDerivedFromNodes: boolean;
   readonly nodes: RouteNodes;
-  readonly bounds: Bounds;
+  readonly bounds?: Bounds;
   readonly routeIds: number[];
   readonly parentRoutes: ParentRoute[];
 }

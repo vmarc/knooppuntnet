@@ -10,8 +10,8 @@ export interface ChangeSetSummaryInfo {
   readonly key: ChangeKey;
   readonly comment: string;
   readonly subsets: Subset[];
-  readonly network: ChangeSetSummaryNetworkInfo;
-  readonly location: ChangeSetSummaryLocationInfo;
+  readonly network?: ChangeSetSummaryNetworkInfo;
+  readonly location?: ChangeSetSummaryLocationInfo;
   readonly happy: boolean;
   readonly investigate: boolean;
   readonly impact: boolean;

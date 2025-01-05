@@ -5,6 +5,6 @@ import { NodeIntegrityCheck } from './node-integrity-check';
 
 export interface NodeIntegrityCheckChange {
   readonly networkType: NetworkType;
-  readonly before: NodeIntegrityCheck;
-  readonly after: NodeIntegrityCheck;
+  readonly before?: NodeIntegrityCheck;
+  readonly after?: NodeIntegrityCheck;
 }

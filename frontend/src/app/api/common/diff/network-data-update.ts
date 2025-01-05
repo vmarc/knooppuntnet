@@ -3,6 +3,6 @@
 import { NetworkData } from './network-data';
 
 export interface NetworkDataUpdate {
-  readonly before: NetworkData;
-  readonly after: NetworkData;
+  readonly before?: NetworkData;
+  readonly after?: NetworkData;
 }

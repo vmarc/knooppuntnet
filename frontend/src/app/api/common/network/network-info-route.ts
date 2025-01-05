@@ -12,7 +12,7 @@ export interface NetworkInfoRoute {
   readonly role: string;
   readonly relationLastUpdated: Timestamp;
   readonly lastUpdated: Timestamp;
-  readonly lastSurvey: Day;
+  readonly lastSurvey?: Day;
   readonly facts: Fact[];
   readonly proposed: boolean;
 }

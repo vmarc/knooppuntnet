@@ -9,6 +9,6 @@ export interface RouteSearchResult {
   readonly scopes: RouteScope[];
   readonly distance: number;
   readonly symbol: string;
-  readonly bounds: Bounds;
+  readonly bounds?: Bounds;
   readonly routeIds: number[];
 }

@@ -5,7 +5,7 @@ import { Country } from './country';
 import { NetworkType } from './network-type';
 
 export interface ChangeSetNetwork {
-  readonly country: Country;
+  readonly country?: Country;
   readonly networkType: NetworkType;
   readonly networkId: number;
   readonly networkName: string;

@@ -6,10 +6,10 @@ import { LastUpdatedParameter } from './last-updated-parameter';
 import { SurveyParameter } from './survey-parameter';
 
 export interface LocationRoutesParameters {
-  readonly fact: Fact;
-  readonly survey: SurveyParameter;
-  readonly lastUpdated: LastUpdatedParameter;
-  readonly proposed: BooleanParameter;
+  readonly fact?: Fact;
+  readonly survey?: SurveyParameter;
+  readonly lastUpdated?: LastUpdatedParameter;
+  readonly proposed?: BooleanParameter;
   readonly pageSize: number;
   readonly pageIndex: number;
 }

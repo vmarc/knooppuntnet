@@ -3,5 +3,5 @@
 import { LocationNode } from './location-node';
 
 export interface LocationsPage {
-  readonly locationNode: LocationNode;
+  readonly locationNode?: LocationNode;
 }

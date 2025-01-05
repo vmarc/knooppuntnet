@@ -12,7 +12,7 @@ export interface NetworkRouteRow {
   readonly accessible: boolean;
   readonly roleConnection: boolean;
   readonly lastUpdated: Timestamp;
-  readonly lastSurvey: Day;
+  readonly lastSurvey?: Day;
   readonly proposed: boolean;
   readonly symbol: string;
 }

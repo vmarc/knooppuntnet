@@ -12,10 +12,10 @@ export interface MonitorRouteDetailsPage {
   readonly relationId: number;
   readonly comment: string;
   readonly symbol: string;
-  readonly analysisTimestamp: Timestamp;
+  readonly analysisTimestamp?: Timestamp;
   readonly analysisDuration: number;
   readonly referenceType: string;
-  readonly referenceTimestamp: Timestamp;
+  readonly referenceTimestamp?: Timestamp;
   readonly referenceFilename: string;
   readonly referenceDistance: number;
   readonly deviationDistance: number;
@@ -26,5 +26,5 @@ export interface MonitorRouteDetailsPage {
   readonly osmDistance: number;
   readonly relationCount: number;
   readonly relationLevels: number;
-  readonly structureRows: MonitorRouteRelationStructureRow[] | undefined;
+  readonly structureRows?: MonitorRouteRelationStructureRow[];
 }

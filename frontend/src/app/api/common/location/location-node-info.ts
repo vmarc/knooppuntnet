@@ -13,7 +13,7 @@ export interface LocationNodeInfo {
   readonly latitude: string;
   readonly longitude: string;
   readonly lastUpdated: Timestamp;
-  readonly lastSurvey: Day;
+  readonly lastSurvey?: Day;
   readonly facts: Fact[];
   readonly expectedRouteCount: string;
   readonly routeReferences: Reference[];

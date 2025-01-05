@@ -10,9 +10,9 @@ export interface MonitorRouteRelationStructureRow {
   readonly relationId: number;
   readonly subRelationIndex: number;
   readonly role: string;
-  readonly survey: Day;
+  readonly survey?: Day;
   readonly symbol: string;
-  readonly referenceTimestamp: Timestamp;
+  readonly referenceTimestamp?: Timestamp;
   readonly referenceFilename: string;
   readonly referenceDistance: number;
   readonly deviationDistance: number;

@@ -19,9 +19,9 @@ export interface NetworkInfoNode {
   readonly definedInRoute: boolean;
   readonly proposed: boolean;
   readonly timestamp: Timestamp;
-  readonly lastSurvey: Day;
+  readonly lastSurvey?: Day;
   readonly routeReferences: Ref[];
-  readonly integrityCheck: NodeIntegrityCheck;
+  readonly integrityCheck?: NodeIntegrityCheck;
   readonly facts: Fact[];
   readonly tags: Tag[];
 }

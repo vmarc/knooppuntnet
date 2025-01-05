@@ -4,6 +4,6 @@ import { MonitorRouteUpdateStatusCommand } from './monitor-route-update-status-c
 
 export interface MonitorRouteUpdateStatusMessage {
   readonly commands: MonitorRouteUpdateStatusCommand[];
-  readonly errors: string[] | undefined;
+  readonly errors?: string[];
   readonly exception: string;
 }
