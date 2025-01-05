@@ -11,7 +11,7 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisConte
 /**
  * Analyzes the route name.
  *
- * The route name can be found (in following order of precedence):
+ * The name of a network node route can be found (in following order of precedence):
  * <ol>
  * <li>in the 'ref' tag
  * <li>in the 'name' tag
@@ -22,6 +22,13 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisConte
  * If none of the above results in a route name, we try to make up a route name
  * from the nodes that are found in the route ways (requires less than 3 different
  * node names).
+ *
+ * The name of a non network node route can be found (in following order of precedence):
+ * <ol>
+ * <li>in the 'name' tag
+ * <li>in the 'ref' tag
+ * <li>in the 'from' and 'to' tags
+ * </ol>
  */
 object RouteNameAnalyzer extends RouteDetailAnalyzer {
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
@@ -32,7 +39,21 @@ object RouteNameAnalyzer extends RouteDetailAnalyzer {
 class RouteNameAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
-    val routeNameAnalysis = routeNameFromRefTag().getOrElse {
+    val routeNameAnalysis = if (context.nodeNetwork) {
+      analyzeNetworkNodeRoute()
+    }
+    else {
+      analyzeNonNetworkNodeRouteName()
+    }
+
+    context
+      .copy(_routeNameAnalysis = Some(routeNameAnalysis))
+      .withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
+      .withFact(routeNameAnalysis.derivedFromDeprecatedNoteTag, RouteNameDeprecatedNoteTag)
+  }
+
+  private def analyzeNetworkNodeRoute(): RouteNameAnalysis = {
+    routeNameFromRefTag().getOrElse {
       routeNameFromNameTag().getOrElse {
         routeNameFromNoteTag().getOrElse {
           routeNameFromToAndFromTags().getOrElse {
@@ -43,10 +64,25 @@ class RouteNameAnalyzer(context: RouteDetailAnalysisContext) {
         }
       }
     }
-    context
-      .copy(_routeNameAnalysis = Some(routeNameAnalysis))
-      .withFact(routeNameAnalysis.name.isEmpty, RouteNameMissing)
-      .withFact(routeNameAnalysis.derivedFromDeprecatedNoteTag, RouteNameDeprecatedNoteTag)
+  }
+
+  private def analyzeNonNetworkNodeRouteName(): RouteNameAnalysis = {
+    context.relation.tagValue("name") match {
+      case Some(name) => RouteNameAnalysis(Some(name))
+      case None =>
+        context.relation.tagValue("ref") match {
+          case Some(ref) => RouteNameAnalysis(Some(ref))
+          case None =>
+            context.relation.tagValue("from") match {
+              case Some(from) =>
+                context.relation.tagValue("to") match {
+                  case Some(to) => RouteNameAnalysis(Some(s"$from-$to"))
+                  case None => RouteNameAnalysis(Some(s"${context.relation.id}"))
+                }
+              case None => RouteNameAnalysis(Some(s"${context.relation.id}"))
+            }
+        }
+    }
   }
 
   private def routeNameFromRefTag(): Option[RouteNameAnalysis] = {
