@@ -124,7 +124,7 @@ import { NodeChangesPageService } from './node-changes-page.service';
   ],
 })
 export class NodeChangesPageComponent implements OnInit {
-  protected readonly service = inject(NodeChangesPageService);
+  readonly service = inject(NodeChangesPageService);
 
   ngOnInit(): void {
     this.service.onInit();

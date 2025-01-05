@@ -255,7 +255,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
   ],
 })
 export class MonitorRouteChangePageComponent {
-  protected readonly service = inject(MonitorRouteChangePageService);
+  readonly service = inject(MonitorRouteChangePageService);
 
   timestamp(timestampString: string): Timestamp {
     // temporary hack until Timestamp is interface

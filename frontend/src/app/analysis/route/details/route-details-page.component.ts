@@ -157,7 +157,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
   ],
 })
 export class RouteDetailsPageComponent implements OnInit {
-  protected readonly service = inject(RouteDetailsPageService);
+  readonly service = inject(RouteDetailsPageService);
   private readonly pageWidthService = inject(PageWidthService);
 
   readonly showRouteDetails = computed(() => !this.pageWidthService.isAllSmall());

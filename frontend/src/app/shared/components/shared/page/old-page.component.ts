@@ -82,6 +82,6 @@ export class OldPageComponent {
   private readonly pageService = inject(PageService);
   private readonly pageWidthService = inject(PageWidthService);
 
-  protected readonly sidebarOpen = this.pageService.sidebarOpen;
-  protected readonly smallPage = computed(() => this.pageWidthService.isAllSmall());
+  readonly sidebarOpen = this.pageService.sidebarOpen;
+  readonly smallPage = computed(() => this.pageWidthService.isAllSmall());
 }

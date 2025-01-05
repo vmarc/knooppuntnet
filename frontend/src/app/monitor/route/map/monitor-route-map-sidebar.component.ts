@@ -59,7 +59,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   ],
 })
 export class MonitorRouteMapSidebarComponent {
-  protected readonly service = inject(MonitorRouteMapStateService);
+  readonly service = inject(MonitorRouteMapStateService);
 
-  protected readonly MonitorMapMode = MonitorMapMode;
+  readonly MonitorMapMode = MonitorMapMode;
 }

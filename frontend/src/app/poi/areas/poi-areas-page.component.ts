@@ -31,7 +31,7 @@ import { PoiAreasPageService } from './poi-areas-page.service';
   imports: [BaseSidebarComponent, OldPageComponent, PageHeaderComponent, PoiMapComponent],
 })
 export class PoiAreasPageComponent implements OnInit {
-  protected readonly service = inject(PoiAreasPageService);
+  readonly service = inject(PoiAreasPageService);
 
   ngOnInit(): void {
     this.service.onInit();

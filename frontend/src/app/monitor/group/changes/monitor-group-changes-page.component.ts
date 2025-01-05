@@ -82,7 +82,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
   ],
 })
 export class MonitorGroupChangesPageComponent {
-  protected readonly service = inject(MonitorGroupChangesPageService);
+  readonly service = inject(MonitorGroupChangesPageService);
 
   pageChanged(pageIndex: number) {
     window.scroll(0, 0);

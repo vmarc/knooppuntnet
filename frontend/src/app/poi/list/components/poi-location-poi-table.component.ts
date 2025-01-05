@@ -101,9 +101,9 @@ export class PoiLocationPoiTableComponent {
   poiCount = input.required<number>();
 
   private readonly pageWidthService = inject(PageWidthService);
-  protected readonly service = inject(PoiLocationPoisPageService);
+  readonly service = inject(PoiLocationPoisPageService);
 
-  protected readonly displayedColumns = computed(() => {
+  readonly displayedColumns = computed(() => {
     if (this.pageWidthService.isVeryLarge()) {
       return ['nr', 'layer', 'id', 'description', 'address', 'link', 'image'];
     }

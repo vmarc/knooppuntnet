@@ -58,9 +58,9 @@ import { MonitorRouteAddPageService } from './monitor-route-add-page.service';
   ],
 })
 export class MonitorRouteAddPageComponent {
-  protected readonly subtitle = $localize`:@@monitor.route.add.title:Add route`;
-  protected readonly service = inject(MonitorRouteAddPageService);
-  protected readonly pageTitle = computed(() => {
+  readonly subtitle = $localize`:@@monitor.route.add.title:Add route`;
+  readonly service = inject(MonitorRouteAddPageService);
+  readonly pageTitle = computed(() => {
     const groupName = this.service.state().groupName;
     const monitor = MonitorTranslations.get('monitor');
     return `${this.subtitle} | ${groupName} | ${monitor}`;

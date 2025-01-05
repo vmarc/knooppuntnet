@@ -60,8 +60,8 @@ import { OpenlayersMapService } from '../services';
 export class LayerSwitcherComponent {
   private readonly openlayersMapService: OpenlayersMapService = inject(MAP_SERVICE_TOKEN);
 
-  protected readonly layerStates = this.openlayersMapService.layerStates;
-  protected readonly osmLayerId = OldOsmLayer.id;
+  readonly layerStates = this.openlayersMapService.layerStates;
+  readonly osmLayerId = OldOsmLayer.id;
 
   layerVisibleChanged(layerState: MapLayerState, event: MatCheckboxChange): void {
     const change: MapLayerState = {

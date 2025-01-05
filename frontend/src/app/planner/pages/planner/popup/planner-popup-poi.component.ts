@@ -64,7 +64,7 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
 })
 export class PlannerPopupPoiComponent {
   private readonly service = inject(PlannerPopupService);
-  protected readonly response = this.service.poiResponse;
+  readonly response = this.service.poiResponse;
   protected readonly mainTags = computed(() =>
     InterpretedTags.all(this.response().result.analysis.mainTags)
   );

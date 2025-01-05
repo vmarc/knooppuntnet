@@ -59,8 +59,8 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   ],
 })
 export class MonitorRouteMapPageComponent {
-  protected readonly service = inject(MonitorRouteMapPageService);
-  protected readonly stateService = inject(MonitorRouteMapStateService);
+  readonly service = inject(MonitorRouteMapPageService);
+  readonly stateService = inject(MonitorRouteMapStateService);
   private readonly editGotoService = inject(EditGotoService);
 
   readonly subRelations = computed(() => {

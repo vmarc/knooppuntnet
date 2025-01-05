@@ -46,7 +46,7 @@ import { PlannerPageService } from '../planner-page.service';
   imports: [MatButtonToggleModule, MatIconModule],
 })
 export class NetworkTypeSelectorComponent {
-  protected readonly service = inject(PlannerPageService);
+  readonly service = inject(PlannerPageService);
 
   networkTypeChanged(event: MatButtonToggleChange): void {
     this.service.setNetworkType(event.value);

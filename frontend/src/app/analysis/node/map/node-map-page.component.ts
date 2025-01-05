@@ -52,7 +52,7 @@ import { NodeMapPageService } from './node-map-page.service';
   ],
 })
 export class NodeMapPageComponent implements OnInit {
-  protected readonly service = inject(NodeMapPageService);
+  readonly service = inject(NodeMapPageService);
 
   ngOnInit(): void {
     this.service.onInit();

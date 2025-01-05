@@ -88,5 +88,5 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
   ],
 })
 export class MonitorGroupsPageComponent {
-  protected readonly service = inject(MonitorGroupsPageService);
+  readonly service = inject(MonitorGroupsPageService);
 }

@@ -36,7 +36,7 @@ export class PoiMenuOptionComponent {
 
   private readonly plannerStateService = inject(PlannerStateService);
   private readonly poiService = inject(OldPoiService);
-  protected readonly enabled = this.plannerStateService.poisVisible;
+  readonly enabled = this.plannerStateService.poisVisible;
   protected visible = computed(() => this.plannerStateService.poiGroupVisible(this.groupName()));
 
   enabledChanged(event: MatCheckboxChange): void {

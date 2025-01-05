@@ -32,7 +32,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
   private readonly service = inject(MonitorRouteMapService);
   private readonly routerService = inject(RouterService);
-  protected readonly mapId = this.service.mapId;
+  readonly mapId = this.service.mapId;
 
   ngAfterViewInit(): void {
     this.service.init(this.routerService.urlLayerIds());

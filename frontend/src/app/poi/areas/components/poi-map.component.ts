@@ -25,7 +25,7 @@ import { PoiMapService } from './poi-map.service';
   imports: [LayerSwitcherComponent],
 })
 export class PoiMapComponent implements AfterViewInit, OnDestroy {
-  protected readonly service = inject(PoiMapService);
+  readonly service = inject(PoiMapService);
   private readonly pageService = inject(PoiAreasPageService);
 
   ngAfterViewInit(): void {

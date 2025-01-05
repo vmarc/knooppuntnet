@@ -82,7 +82,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
   imports: [MatCheckboxModule, LegendLineComponent],
 })
 export class MonitorRouteMapLayersComponent {
-  protected readonly mapStateService = inject(MonitorRouteMapStateService);
+  readonly mapStateService = inject(MonitorRouteMapStateService);
 
   readonly referenceType = computed(() => this.mapStateService.page().referenceType);
 

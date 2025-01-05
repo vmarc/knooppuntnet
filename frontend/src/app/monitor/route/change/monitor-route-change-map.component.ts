@@ -34,7 +34,7 @@ export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy 
   routeSegments = input.required<MonitorRouteSegment[]>();
   deviation = input.required<MonitorRouteDeviation>();
 
-  protected readonly service = inject(MonitorRouteChangeMapService);
+  readonly service = inject(MonitorRouteChangeMapService);
 
   ngAfterViewInit(): void {
     this.service.init(this.referenceJson(), this.deviation(), this.routeSegments());

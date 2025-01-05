@@ -74,7 +74,7 @@ import { PageService } from '..';
 })
 export class OldToolbarComponent {
   private readonly pageService = inject(PageService);
-  protected readonly toolbarBackgroundColor = this.pageService.toolbarBackgroundColor;
+  readonly toolbarBackgroundColor = this.pageService.toolbarBackgroundColor;
 
   toggleSidebarOpen() {
     this.pageService.toggleSidebarOpen();

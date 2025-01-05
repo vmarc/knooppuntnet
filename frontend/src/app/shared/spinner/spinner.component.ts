@@ -15,5 +15,5 @@ import { SpinnerService } from './spinner.service';
   imports: [MatProgressSpinnerModule],
 })
 export class SpinnerComponent {
-  protected readonly service = inject(SpinnerService);
+  readonly service = inject(SpinnerService);
 }

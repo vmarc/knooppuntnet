@@ -98,7 +98,7 @@ import { CountrySelectComponent } from './country-select.component';
   ],
 })
 export class LocationPoisSidebarComponent {
-  protected readonly service = inject(PoiLocationPoisPageService);
+  readonly service = inject(PoiLocationPoisPageService);
 
   locationSelectionChanged(location: string): void {
     this.service.setLocation(location);

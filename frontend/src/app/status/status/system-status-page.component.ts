@@ -117,7 +117,7 @@ import { SystemStatusPageService } from './system-status-page.service';
   ],
 })
 export class SystemStatusPageComponent implements OnInit {
-  protected readonly service = inject(SystemStatusPageService);
+  readonly service = inject(SystemStatusPageService);
 
   ngOnInit(): void {
     this.service.onInit();

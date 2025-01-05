@@ -22,5 +22,5 @@ import { WarningDialogData } from './warning-dialog-data';
   imports: [DialogComponent, MatDialogModule],
 })
 export class WarningDialogComponent {
-  protected readonly data: WarningDialogData = inject(MAT_DIALOG_DATA);
+  readonly data: WarningDialogData = inject(MAT_DIALOG_DATA);
 }

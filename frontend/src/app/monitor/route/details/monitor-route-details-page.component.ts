@@ -98,5 +98,5 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
   ],
 })
 export class MonitorRouteDetailsPageComponent {
-  protected readonly service = inject(MonitorRouteDetailsPageService);
+  readonly service = inject(MonitorRouteDetailsPageService);
 }

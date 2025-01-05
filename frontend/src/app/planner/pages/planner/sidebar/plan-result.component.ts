@@ -26,7 +26,7 @@ export class PlanResultComponent {
   private readonly plannerService = inject(PlannerService);
   private readonly plannerStateService = inject(PlannerStateService);
 
-  protected readonly compact = this.plannerStateService.resultModeCompact;
+  readonly compact = this.plannerStateService.resultModeCompact;
   protected readonly detailed = this.plannerStateService.resultModeDetailed;
   protected readonly plan = this.plannerService.context.plan;
 }

@@ -75,5 +75,5 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
 })
 export class PlannerPopupNodeComponent {
   private readonly service = inject(PlannerPopupService);
-  protected readonly response = this.service.nodeDetailResponse;
+  readonly response = this.service.nodeDetailResponse;
 }

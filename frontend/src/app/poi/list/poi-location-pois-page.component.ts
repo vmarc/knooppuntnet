@@ -25,7 +25,7 @@ import { PoiLocationPoisPageService } from './poi-location-pois-page.service';
   imports: [LocationPoisSidebarComponent, OldPageComponent, PoiLocationPoiTableComponent],
 })
 export class PoiLocationPoisPageComponent implements OnInit {
-  protected readonly service = inject(PoiLocationPoisPageService);
+  readonly service = inject(PoiLocationPoisPageService);
 
   ngOnInit(): void {
     this.service.onInit();

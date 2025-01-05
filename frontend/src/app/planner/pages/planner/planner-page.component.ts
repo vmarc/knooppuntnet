@@ -79,7 +79,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
   ],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
-  protected readonly service = inject(PlannerPageService);
+  readonly service = inject(PlannerPageService);
 
   ngOnInit(): void {
     this.service.onInit();

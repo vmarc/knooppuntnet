@@ -46,7 +46,7 @@ import { RouteMapPageService } from './route-map-page.service';
   ],
 })
 export class RouteMapPageComponent implements OnInit {
-  protected readonly service = inject(RouteMapPageService);
+  readonly service = inject(RouteMapPageService);
 
   ngOnInit(): void {
     this.service.onInit();

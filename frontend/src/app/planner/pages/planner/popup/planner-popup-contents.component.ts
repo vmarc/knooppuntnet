@@ -25,5 +25,5 @@ import { PlannerPopupPoiComponent } from './planner-popup-poi.component';
   imports: [PlannerPopupRouteComponent, PlannerPopupNodeComponent, PlannerPopupPoiComponent],
 })
 export class PlannerPopupContentsComponent {
-  protected readonly service = inject(PlannerPopupService);
+  readonly service = inject(PlannerPopupService);
 }

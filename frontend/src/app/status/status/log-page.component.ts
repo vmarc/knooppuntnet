@@ -86,7 +86,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
   ],
 })
 export class LogPageComponent implements OnInit {
-  protected readonly service = inject(LogPageService);
+  readonly service = inject(LogPageService);
 
   ngOnInit(): void {
     this.service.onInit();

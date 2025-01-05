@@ -23,7 +23,7 @@ import { NodeChangesPageService } from '../node-changes-page.service';
 })
 export class NodeChangesSidebarComponent {
   private readonly service = inject(NodeChangesPageService);
-  protected readonly filterOptions = this.service.filterOptions;
+  readonly filterOptions = this.service.filterOptions;
 
   onOptionSelected(option: ChangeOption): void {
     this.service.updateFilterOption(option);

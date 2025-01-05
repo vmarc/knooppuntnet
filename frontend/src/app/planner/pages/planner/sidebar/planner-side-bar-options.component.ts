@@ -33,7 +33,7 @@ import { PreferencesService } from '@app/core';
 export class PlannerSideBarOptionsComponent {
   private preferencesService = inject(PreferencesService);
 
-  protected readonly expanded = this.preferencesService.showOptions;
+  readonly expanded = this.preferencesService.showOptions;
   protected readonly showProposed = this.preferencesService.showProposed;
   protected readonly planProposed = this.preferencesService.planProposed;
 

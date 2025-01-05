@@ -170,7 +170,7 @@ export class MonitorRoutePropertiesComponent implements OnInit, OnDestroy {
   private readonly monitorService = inject(MonitorService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
 
-  protected readonly cancelLinkText = Translations.get('action.cancel');
+  readonly cancelLinkText = Translations.get('action.cancel');
 
   readonly group = new FormControl<MonitorRouteGroup>(null);
 

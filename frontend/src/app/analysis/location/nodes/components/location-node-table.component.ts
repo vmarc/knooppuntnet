@@ -133,7 +133,7 @@ export class LocationNodeTableComponent {
   nodes = input.required<LocationNodeInfo[]>();
   nodeCount = input.required<number>();
 
-  protected readonly service = inject(LocationNodesPageService);
+  readonly service = inject(LocationNodesPageService);
 
   // TODO SIGNAL
   networkScope: NetworkScope = 'regional';
@@ -141,7 +141,7 @@ export class LocationNodeTableComponent {
   private readonly pageWidthService = inject(PageWidthService);
   private readonly editService = inject(EditService);
 
-  protected readonly displayedColumns = computed(() => {
+  readonly displayedColumns = computed(() => {
     if (this.pageWidthService.isVeryLarge()) {
       return [
         'nr',

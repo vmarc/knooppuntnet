@@ -59,6 +59,6 @@ import { PlannerStateService } from '../planner-state.service';
 export class PlannerPopupRouteComponent {
   private readonly service = inject(PlannerPopupService);
   private readonly plannerStateService = inject(PlannerStateService);
-  protected readonly response = this.service.routeDetailResponse;
-  protected readonly networkType = this.plannerStateService.networkType;
+  readonly response = this.service.routeDetailResponse;
+  readonly networkType = this.plannerStateService.networkType;
 }

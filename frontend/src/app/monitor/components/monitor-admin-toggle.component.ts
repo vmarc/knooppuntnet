@@ -32,7 +32,7 @@ import { MonitorService } from '../monitor.service';
   imports: [MatSlideToggleModule],
 })
 export class MonitorAdminToggleComponent {
-  protected readonly service = inject(MonitorService);
+  readonly service = inject(MonitorService);
 
   adminChanged(event: MatSlideToggleChange): void {
     this.service.setAdmin(event.checked);

@@ -81,7 +81,7 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
   ],
 })
 export class MonitorGroupPageComponent {
-  protected readonly service = inject(MonitorGroupPageService);
+  readonly service = inject(MonitorGroupPageService);
   private groupName = computed(() => this.service.state().groupName);
   protected pageTitle = computed(() => {
     const monitor = MonitorTranslations.get('monitor');

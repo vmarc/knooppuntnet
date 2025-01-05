@@ -72,7 +72,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
   ],
 })
 export class MonitorRouteChangesPageComponent {
-  protected readonly service = inject(MonitorRouteChangesPageService);
+  readonly service = inject(MonitorRouteChangesPageService);
 
   impactChanged(event: MatSlideToggleChange) {
     this.service.impactChanged(event.checked);

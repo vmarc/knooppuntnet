@@ -55,8 +55,8 @@ export class MonitorChangeHeaderComponent {
 
   private readonly pageWidthService = inject(PageWidthService);
 
-  protected readonly timestampOnSeparateLine = computed(() => this.pageWidthService.isAllSmall());
-  protected readonly timestampOnSameLine = computed(() => !this.timestampOnSeparateLine());
+  readonly timestampOnSeparateLine = computed(() => this.pageWidthService.isAllSmall());
+  readonly timestampOnSameLine = computed(() => !this.timestampOnSeparateLine());
 
   link(): string {
     const key = this.changeSet().key;

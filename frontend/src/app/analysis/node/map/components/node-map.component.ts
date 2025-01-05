@@ -27,7 +27,7 @@ import { NodeMapService } from './node-map.service';
 })
 export class NodeMapComponent implements AfterViewInit, OnDestroy {
   private readonly pageService = inject(NodeMapPageService);
-  protected readonly service = inject(NodeMapService);
+  readonly service = inject(NodeMapService);
 
   ngAfterViewInit(): void {
     this.pageService.onAfterViewInit();

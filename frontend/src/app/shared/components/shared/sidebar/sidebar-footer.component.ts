@@ -62,8 +62,8 @@ export class SidebarFooterComponent {
   private readonly router = inject(Router);
 
   private readonly userService = inject(UserService);
-  protected readonly loggedIn = this.userService.loggedIn;
-  protected readonly user = this.userService.user;
+  readonly loggedIn = this.userService.loggedIn;
+  readonly user = this.userService.user;
 
   version(): string {
     return Version.id;

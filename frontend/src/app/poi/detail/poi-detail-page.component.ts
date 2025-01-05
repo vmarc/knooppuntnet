@@ -128,7 +128,7 @@ import { PoiDetailPageService } from './poi-detail-page.service';
   ],
 })
 export class PoiDetailPageComponent implements OnInit {
-  protected readonly service = inject(PoiDetailPageService);
+  readonly service = inject(PoiDetailPageService);
 
   ngOnInit(): void {
     this.service.onInit();

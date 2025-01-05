@@ -31,7 +31,7 @@ import { PoiDetailMapService } from './poi-detail-map.service';
 export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
   poiDetail = input.required<PoiDetail>();
 
-  protected readonly service = inject(PoiDetailMapService);
+  readonly service = inject(PoiDetailMapService);
 
   ngAfterViewInit(): void {
     this.service.init(this.poiDetail());

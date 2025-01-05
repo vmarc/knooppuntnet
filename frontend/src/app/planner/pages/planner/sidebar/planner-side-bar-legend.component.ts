@@ -139,8 +139,8 @@ import { LegendIconComponent } from './legend-icon.component';
 export class PlannerSideBarLegendComponent {
   private readonly plannerStateService = inject(PlannerStateService);
   private readonly preferencesService = inject(PreferencesService);
-  protected readonly expanded = this.preferencesService.showLegend;
-  protected readonly mapMode = this.plannerStateService.mapMode;
+  readonly expanded = this.preferencesService.showLegend;
+  readonly mapMode = this.plannerStateService.mapMode;
 
   expandedChanged(expanded: boolean): void {
     this.preferencesService.setShowLegend(expanded);

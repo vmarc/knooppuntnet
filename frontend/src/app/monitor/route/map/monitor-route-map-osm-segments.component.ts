@@ -49,7 +49,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   imports: [MatListModule, LegendLineComponent, DistancePipe],
 })
 export class MonitorRouteMapOsmSegmentsComponent {
-  protected readonly mapStateService = inject(MonitorRouteMapStateService);
+  readonly mapStateService = inject(MonitorRouteMapStateService);
   private readonly mapService = inject(MonitorRouteMapService);
 
   readonly osmSegments = computed(() => {

@@ -90,7 +90,7 @@ export class PlanActionsComponent {
   private readonly dialog = inject(MatDialog);
   private readonly injector = inject(Injector);
 
-  protected readonly plan = this.plannerService.context.plan;
+  readonly plan = this.plannerService.context.plan;
   protected readonly showUndoButton = computed(() => !this.pageWidthService.isVeryVerySmall());
   protected readonly showRedoButton = this.showUndoButton;
   protected readonly showResetButton = computed(

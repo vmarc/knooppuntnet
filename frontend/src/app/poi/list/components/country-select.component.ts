@@ -33,9 +33,9 @@ import { CountryName } from './country-name';
   imports: [MatFormFieldModule, MatOptionModule, MatSelectModule, ReactiveFormsModule],
 })
 export class CountrySelectComponent {
-  protected readonly service = inject(PoiLocationPoisPageService);
-  protected readonly countryControl = new FormControl<Country>(null);
-  protected readonly countryNames = Countries.all.map((country) => {
+  readonly service = inject(PoiLocationPoisPageService);
+  readonly countryControl = new FormControl<Country>(null);
+  readonly countryNames = Countries.all.map((country) => {
     const name = Translations.get(`country.${country}`);
     return new CountryName(country, name);
   });

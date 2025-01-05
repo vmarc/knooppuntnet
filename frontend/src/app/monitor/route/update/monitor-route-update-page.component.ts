@@ -61,9 +61,9 @@ import { MonitorRouteUpdatePageService } from './monitor-route-update-page.servi
   ],
 })
 export class MonitorRouteUpdatePageComponent {
-  protected readonly subtitle = $localize`:@@monitor.route.update.title:Update route`;
-  protected readonly service = inject(MonitorRouteUpdatePageService);
-  protected readonly pageTitle = computed(() => {
+  readonly subtitle = $localize`:@@monitor.route.update.title:Update route`;
+  readonly service = inject(MonitorRouteUpdatePageService);
+  readonly pageTitle = computed(() => {
     const state = this.service.state();
     const monitor = MonitorTranslations.get('monitor');
     return `${this.subtitle} | ${state.routeName} | ${state.groupName} | ${monitor}`;

@@ -79,7 +79,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
   ],
 })
 export class MonitorChangesPageComponent {
-  protected readonly service = inject(MonitorChangesPageService);
+  readonly service = inject(MonitorChangesPageService);
 
   impactChanged(event: MatSlideToggleChange) {
     this.service.impactChanged(event.checked);

@@ -145,8 +145,8 @@ import { NodeDetailsPageService } from './node-details-page.service';
   ],
 })
 export class NodeDetailsPageComponent implements OnInit {
-  protected readonly service = inject(NodeDetailsPageService);
-  protected readonly networkTypes = this.service.networkTypes;
+  readonly service = inject(NodeDetailsPageService);
+  readonly networkTypes = this.service.networkTypes;
 
   ngOnInit(): void {
     this.service.onInit();

@@ -120,14 +120,14 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
 export class MonitorRouteGpxComponent {
   private readonly service = inject(MonitorRouteGpxService);
   private readonly monitorWebsocketService = inject(MonitorWebsocketService);
-  protected readonly cancelLinkText = Translations.get('action.cancel');
+  readonly cancelLinkText = Translations.get('action.cancel');
 
-  protected readonly _state = this.service.state;
+  readonly _state = this.service.state;
 
-  protected readonly steps = this.monitorWebsocketService.steps;
-  protected readonly errors = this.monitorWebsocketService.errors;
-  protected readonly busy = this.monitorWebsocketService.busy;
-  protected readonly done = this.monitorWebsocketService.done;
+  readonly steps = this.monitorWebsocketService.steps;
+  readonly errors = this.monitorWebsocketService.errors;
+  readonly busy = this.monitorWebsocketService.busy;
+  readonly done = this.monitorWebsocketService.done;
 
   protected readonly gpxReferenceDate = new FormControl<Date>(null, Validators.required);
   protected readonly referenceFilename = new FormControl<string>(null, Validators.required);

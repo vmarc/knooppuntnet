@@ -43,8 +43,8 @@ export class PlannerSideBarAppearanceComponent {
   private readonly plannerStateService = inject(PlannerStateService);
   private readonly plannerPageService = inject(PlannerPageService);
   private readonly preferencesService = inject(PreferencesService);
-  protected readonly mapMode = this.plannerStateService.mapMode;
-  protected readonly expanded = this.preferencesService.showAppearanceOptions;
+  readonly mapMode = this.plannerStateService.mapMode;
+  readonly expanded = this.preferencesService.showAppearanceOptions;
 
   expandedChanged(expanded: boolean): void {
     this.preferencesService.setShowAppearanceOptions(expanded);

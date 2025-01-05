@@ -47,7 +47,7 @@ import { SharedStateService } from '../../../core/shared/shared-state.service';
   `,
 })
 export class ErrorComponent {
-  protected readonly service = inject(SharedStateService);
+  readonly service = inject(SharedStateService);
 
   isRecoverableServerError(httpError: string): boolean {
     return httpError === 'error-502' || httpError === 'error-504' || httpError === 'error-0';

@@ -29,11 +29,11 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 export class MonitorRouteMapControlModeComponent {
   private readonly service = inject(MonitorRouteMapStateService);
 
-  protected readonly osmSegmentCount = computed(() => {
+  readonly osmSegmentCount = computed(() => {
     return this.service.page()?.osmSegments.length ?? 0;
   });
-  protected readonly mode = this.service.mode;
-  protected readonly MonitorMapMode = MonitorMapMode;
+  readonly mode = this.service.mode;
+  readonly MonitorMapMode = MonitorMapMode;
 
   modeChanged(value: MonitorMapMode): void {
     this.service.modeChanged(value);
