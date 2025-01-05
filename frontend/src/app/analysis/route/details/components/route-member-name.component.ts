@@ -10,25 +10,32 @@ import { RouteStructureRow } from '@api/common/route';
   template: `
     @let r = row();
     @if (r.way) {
-      {{ r.way.description }}
+      @if (r.way.wayType) {
+        <span class="way-type">{{ r.way.wayType }}</span>
+      }
+      @if (r.way.description) {
+        <span class="name">
+          {{ r.way.description }}
+        </span>
+      }
     }
     @if (r.relation) {
       {{ r.relation.level }}
       @switch (r.relation.level) {
         @case (1) {
-          <div class="level-1">{{ r.relation.name }}</div>
+          <div class="level-1 name">{{ r.relation.name }}</div>
         }
         @case (2) {
-          <div class="level-2">{{ r.relation.name }}</div>
+          <div class="level-2 name">{{ r.relation.name }}</div>
         }
         @case (3) {
-          <div class="level-3">{{ r.relation.name }}</div>
+          <div class="level-3 name">{{ r.relation.name }}</div>
         }
         @case (4) {
-          <div class="level-4">{{ r.relation.name }}</div>
+          <div class="level-4 name">{{ r.relation.name }}</div>
         }
         @case (5) {
-          <div class="level-5">{{ r.relation.name }}</div>
+          <div class="level-5 name">{{ r.relation.name }}</div>
         }
       }
     }
@@ -51,6 +58,18 @@ import { RouteStructureRow } from '@api/common/route';
 
     .level-5 {
       margin-left: 6em;
+    }
+
+    .way-type {
+      font-style: italic;
+      padding: 0.3em 0.8em 0.3em 0.5em;
+      margin-right: 1em;
+      border-radius: 1em;
+      border: 1px solid lightgray;
+    }
+
+    .name {
+      margin-right: 2em;
     }
   `,
   imports: [MatIconModule],

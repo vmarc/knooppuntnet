@@ -114,6 +114,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             "",
             Some(
               RouteMemberInfoWay(
+                None,
                 Seq(
                   RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
                   RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
@@ -211,6 +212,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             "",
             Some(
               RouteMemberInfoWay(
+                None,
                 Seq(
                   RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
                   RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")

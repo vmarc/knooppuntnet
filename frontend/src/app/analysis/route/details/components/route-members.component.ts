@@ -34,10 +34,10 @@ import { RouteMemberNameComponent } from './route-member-name.component';
                   </div>
                   <kpn-route-member-image [row]="row" />
                   <div class="row-contents">
-                    <div class="kpn-line">
+                    <div class="row-line-1">
                       <kpn-route-member-id [row]="row" />
                       <kpn-route-member-name [row]="row" />
-                      <kpn-route-distance [row]="row" class="kpn-brackets" />
+                      <kpn-route-distance [row]="row" />
                       @if (row.role) {
                         <span class="kpn-label">role</span> {{ row.role }}
                       }
@@ -136,9 +136,14 @@ import { RouteMemberNameComponent } from './route-member-name.component';
       height: 18em;
     }
 
+    .row-line-1 {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+    }
+
     .row-contents {
       flex-grow: 1;
-      padding: 0.5em;
       border-left: 1px solid lightgray;
     }
   `,

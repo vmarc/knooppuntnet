@@ -5,6 +5,7 @@ import { RouteNetworkNodeInfo } from './route-network-node-info';
 import { WayDirection } from './way-direction';
 
 export interface RouteStructureWay {
+  readonly wayType: string;
   readonly nodes: RouteNetworkNodeInfo[];
   readonly from: string;
   readonly fromNodeId: number;

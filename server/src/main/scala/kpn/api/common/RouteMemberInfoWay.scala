@@ -7,6 +7,7 @@ import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
 case class RouteMemberInfoWay(
+  wayType: Option[String],
   nodes: Seq[RouteNetworkNodeInfo],
   from: String,
   fromNodeId: Long,

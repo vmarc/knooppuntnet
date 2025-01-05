@@ -92,6 +92,7 @@ object RouteDetailsPageExample {
           distance = 100,
           way = Some(
             RouteStructureWay(
+              wayType = Some("path"),
               nodes = Seq.empty,
               from = "01",
               fromNodeId = 1,

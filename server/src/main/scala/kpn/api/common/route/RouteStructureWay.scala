@@ -3,6 +3,7 @@ package kpn.api.common.route
 import kpn.api.custom.Tag
 
 case class RouteStructureWay(
+  wayType: Option[String],
   nodes: Seq[RouteNetworkNodeInfo],
   from: String,
   fromNodeId: Long,

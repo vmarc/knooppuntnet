@@ -12,12 +12,14 @@ import kpn.api.common.data.WayMember
 import kpn.api.common.route.LinkDirection
 import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.core.analysis.TagInterpreter
+import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodesAnalysis
 
 object RouteMemberAnalyzer extends RouteDetailAnalyzer {
+  private val log = Log(classOf[RouteMemberAnalyzer])
 
   def analyze(context: RouteDetailAnalysisContext): RouteDetailAnalysisContext = {
     new RouteMemberAnalyzer(context).analyze
@@ -153,6 +155,18 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           )
         }
 
+        val wayType = way.tagValue("highway") match {
+          case Some(value) =>
+            Some(value)
+          case None =>
+            way.tagValue("route") match {
+              case Some("ferry") => Some("ferry")
+              case _ =>
+                RouteMemberAnalyzer.log.error(s"Could not determine wayType in way ${way.id}, tags=${way.tags} ")
+                None
+            }
+        }
+
         Some(
           RouteMemberInfo(
             id = way.id,
@@ -160,6 +174,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
             role = wayMember.role.getOrElse(""),
             Some(
               RouteMemberInfoWay(
+                wayType = wayType,
                 nodes = nodesX,
                 from = fromNode.toString,
                 fromNodeId = fromNode.id,

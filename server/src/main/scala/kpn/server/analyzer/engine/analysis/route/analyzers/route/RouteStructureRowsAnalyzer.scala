@@ -71,6 +71,7 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
       distance = member.way.map(_.distance).sum,
       way = member.way.map(way =>
         RouteStructureWay(
+          wayType = way.wayType,
           nodes = way.nodes,
           from = way.from,
           fromNodeId = way.fromNodeId,
