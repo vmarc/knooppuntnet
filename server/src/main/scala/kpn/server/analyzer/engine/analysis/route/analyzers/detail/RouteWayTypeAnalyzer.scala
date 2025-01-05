@@ -1,0 +1,103 @@
+package kpn.server.analyzer.engine.analysis.route.analyzers.detail
+
+import kpn.api.common.data.Way
+import kpn.api.common.data.WayMember
+import kpn.core.poi.PoiConfiguration
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteWayTypeAnalyzer.prefixes
+
+object RouteWayTypeAnalyzer {
+  private val log = Log(classOf[RouteWayTypeAnalyzer])
+
+  // https://wiki.openstreetmap.org/wiki/Lifecycle_prefix
+  private val lifeCyclePrefixes: Seq[String] = Seq(
+    "proposed",
+    "planned",
+    "construction",
+    "disused",
+    "abandoned",
+    "ruins",
+    "demolished",
+    "removed",
+    "razed",
+    "destroyed",
+    "was",
+    "ruined",
+    "closed",
+    "no",
+    "not",
+  );
+
+  private val extraPrefixes = Seq(
+    "area"
+  )
+
+  val prefixes: Seq[String] = lifeCyclePrefixes ++ extraPrefixes
+}
+
+class RouteWayTypeAnalyzer {
+
+  def analyze(member: WayMember): Option[String] = {
+    val way = member.way
+    val roles = member.role match {
+      case None => Seq.empty
+      case Some(role) =>
+        if (role.contains(";")) {
+          role.split(";").toSeq
+        }
+        else {
+          Seq(role)
+        }
+    }
+
+    if (roles.exists(role => Seq("nightstop", "shelter", "viewpoint").contains(role) || role.startsWith("stop:"))) {
+      val poiDefinitions = PoiConfiguration.instance.groupDefinitions.flatMap(_.definitions).filter(_.expression.evaluate(way.tags))
+      poiDefinitions.map(_.name).distinct.sorted.headOption
+    }
+    else {
+      if (way.tags.isEmpty) {
+        None
+      }
+      else {
+        highway(way) match {
+          case Some(value) => Some(value)
+          case None =>
+            way.tagValue("waterway") match {
+              case Some(value) => Some(value)
+              case None =>
+                way.tagValue("route") match {
+                  case Some("ferry") => Some("ferry")
+                  case _ =>
+                    if (way.hasTag("railway")) {
+                      way.tagValue("railway").map(value => s"railway $value")
+                    }
+                    else {
+                      val poiDefinitions = PoiConfiguration.instance.groupDefinitions.flatMap(_.definitions).filter(_.expression.evaluate(way.tags))
+                      val layers = poiDefinitions.map(_.name).distinct.sorted
+                      if (layers.nonEmpty) {
+                        Some(layers.head)
+                      }
+                      else {
+                        RouteWayTypeAnalyzer.log.error(s"Could not determine wayType in way ${way.id}, tags=${way.tags} ")
+                        None
+                      }
+                    }
+                }
+            }
+        }
+      }
+    }
+  }
+
+  private def highway(way: Way): Option[String] = {
+    way.tagValue("highway") match {
+      case Some(value) =>
+        Some(value)
+      case None =>
+        prefixes.find(prefix => way.hasTag(s"$prefix:highway")) match {
+          case Some(prefix) => way.tagValue(s"$prefix:highway").map(value => s"$prefix $value")
+          case None => None
+        }
+    }
+  }
+}

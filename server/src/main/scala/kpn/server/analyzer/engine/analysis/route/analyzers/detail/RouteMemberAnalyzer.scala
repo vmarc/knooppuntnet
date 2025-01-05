@@ -155,17 +155,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           )
         }
 
-        val wayType = way.tagValue("highway") match {
-          case Some(value) =>
-            Some(value)
-          case None =>
-            way.tagValue("route") match {
-              case Some("ferry") => Some("ferry")
-              case _ =>
-                RouteMemberAnalyzer.log.error(s"Could not determine wayType in way ${way.id}, tags=${way.tags} ")
-                None
-            }
-        }
+        val wayType = new RouteWayTypeAnalyzer().analyze(wayMember)
 
         Some(
           RouteMemberInfo(
