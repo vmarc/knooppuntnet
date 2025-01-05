@@ -22,11 +22,7 @@ import { State } from '@app/state';
 import { MapService } from '../map/map.service';
 import { PageComponent } from '../shared/components/shared/page/page.component';
 import { SearchComponent } from './advanced/search.component';
-import { ExploreLayersComponent } from './explore-layers.component';
-import { ExploreModeComponent } from './explore-mode.component';
-import { ExplorePoiComponent } from './explore-poi.component';
 import { ExploreRoutesComponent } from './explore-routes.component';
-import { ExploreScopeComponent } from './explore-scope.component';
 
 @Component({
   selector: 'kpn-explore',
@@ -67,10 +63,6 @@ import { ExploreScopeComponent } from './explore-scope.component';
         <kpn-divider />
       }
       <kpn-explore-routes />
-      <kpn-explore-mode />
-      <kpn-explore-scope />
-      <kpn-explore-layers />
-      <kpn-explore-poi />
     </kpn-page>
   `,
   imports: [
@@ -88,10 +80,6 @@ import { ExploreScopeComponent } from './explore-scope.component';
     MatNavList,
     PageComponent,
     ExploreRoutesComponent,
-    ExploreScopeComponent,
-    ExploreModeComponent,
-    ExplorePoiComponent,
-    ExploreLayersComponent,
     SearchComponent,
     MatSlideToggle,
   ],

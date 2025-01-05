@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SpinnerComponent } from '@app/spinner';
 import { State } from '@app/state';
+import { SettingsMenuComponent } from './settings/settings-menu.component';
 import { ToolbarPanelToggleComponent } from './toolbar-panel-toggle.component';
 import { ToolbarRouteTypeMenuComponent } from './toolbar-route-type-menu.component';
 import { ToolbarTitleComponent } from './toolbar-title.component';
@@ -15,6 +16,7 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-toolbar>
+      <kpn-settings-menu />
       <kpn-toolbar-route-type-menu />
       <kpn-toolbar-title />
       <kpn-spinner />
@@ -41,6 +43,7 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
     ToolbarPanelToggleComponent,
     ToolbarRouteTypeMenuComponent,
     ToolbarTitleComponent,
+    SettingsMenuComponent,
   ],
 })
 export class ToolbarComponent {

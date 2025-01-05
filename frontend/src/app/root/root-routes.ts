@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { ExploreComponent } from '../explore/explore.component';
 import { NotFoundPageComponent } from '../shared/base/pages/not-found/not-found-page.component';
-import { ConfigurationComponent } from './configuration/configuration.component';
 import { MenuComponent } from './menu/menu.component';
 import { AnalysisComponent } from './tryout/analysis.component';
 import { MonitorComponent } from './tryout/monitor.component';
@@ -15,10 +14,6 @@ export const rootRoutes: Routes = [
   {
     path: 'explore',
     component: ExploreComponent,
-  },
-  {
-    path: 'configuration',
-    component: ConfigurationComponent,
   },
   {
     path: 'planner',

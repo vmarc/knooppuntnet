@@ -9,7 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { State } from '@app/state';
 
 @Component({
-  selector: 'kpn-explore-poi-option',
+  selector: 'kpn-settings-menu-poi-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-checkbox
@@ -31,13 +31,11 @@ import { State } from '@app/state';
   `,
   imports: [MatCheckboxModule],
 })
-export class ExplorePoiOptionComponent {
+export class SettingsMenuPoiOptionComponent {
   private readonly state = inject(State);
-
-  groupName = input.required<string>();
-
-  protected readonly enabled = signal<boolean>(true);
-  protected visible = computed(() => this.state.map.poiActive().get(this.groupName()));
+  readonly groupName = input.required<string>();
+  readonly enabled = signal<boolean>(true);
+  readonly visible = computed(() => this.state.map.poiActive().get(this.groupName()));
 
   enabledChanged(event: MatCheckboxChange): void {
     this.state.map.updatePoiGroupActive(this.groupName(), event.checked);
