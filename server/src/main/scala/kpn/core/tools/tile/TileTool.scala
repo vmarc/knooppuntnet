@@ -127,7 +127,7 @@ class TileTool(
                 Some("name" -> doc.routeName),
                 segment.segmentId.map(segmentId => "segmentId" -> segmentId.toString),
                 segment.segmentElementId.map(segmentElementId => "segmentElementId" -> segmentElementId.toString),
-                doc.scope.map(scope => "scope" -> scope),
+                doc.scope.map(scope => "scope" -> scope.entryName),
                 doc.survey.map(survey => "survey" -> survey),
                 doc.error.map(error => "error" -> error)
               ).flatten.toMap.asJava
