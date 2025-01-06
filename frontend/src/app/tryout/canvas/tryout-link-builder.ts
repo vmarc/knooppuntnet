@@ -18,6 +18,16 @@ export class TryoutLinkBuilder {
     canvas.style.height = `${this.height}px`;
   }
 
+  drawNode(): void {
+    const x = this.width / 2;
+    const y = this.height / 2;
+    this.context.fillStyle = 'blue';
+    this.context.beginPath();
+    this.context.arc(x, y, 3, 0, Math.PI * 2);
+    this.context.fill();
+    this.context.closePath();
+  }
+
   draw(): void {
     const ymax = this.height - 1;
     const xloop = 14;

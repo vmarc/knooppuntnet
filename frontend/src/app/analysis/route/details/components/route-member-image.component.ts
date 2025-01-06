@@ -12,7 +12,7 @@ import { TryoutWrapperComponent } from '../../../../tryout/canvas/tryout-wrapper
   template: `
     @let r = row();
     @if (r.memberType === 'node') {
-      node
+      <kpn-tryout-wrapper [link]="null" />
     } @else if (r.memberType === 'way') {
       <kpn-tryout-wrapper [link]="r.link" />
     } @else if (r.memberType === 'relation') {

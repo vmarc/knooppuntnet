@@ -17,7 +17,6 @@ import { ActionButtonWayComponent } from '../../../components/action/action-butt
       @switch (r.memberType) {
         @case ('node') {
           <kpn-action-button-node [nodeId]="r.id" />
-          {{ r.id }}
         }
         @case ('way') {
           <kpn-action-button-way [wayId]="r.id" />

@@ -27,8 +27,14 @@ export class TryoutCanvasComponent {
       const link = this.link();
       const canvas = this.canvas()?.nativeElement;
       const height = this.height();
-      if (link && canvas && height > 0) {
-        setTimeout(() => new TryoutLinkBuilder(canvas, height, link).draw(), 0);
+      if (link !== undefined && canvas && height > 0) {
+        setTimeout(() => {
+          if (link !== null) {
+            new TryoutLinkBuilder(canvas, height, link).draw();
+          } else {
+            new TryoutLinkBuilder(canvas, height, link).drawNode();
+          }
+        }, 0);
       } else {
         console.log(`height=${height}`);
       }

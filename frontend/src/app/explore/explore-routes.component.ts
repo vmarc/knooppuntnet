@@ -15,7 +15,10 @@ import { ScopeIconComponent } from './scope-icon.component';
   template: `
     @if (routes().length > 0) {
       <kpn-divider />
-      <div>Routes</div>
+      <div>
+        <span>Routes</span>
+        <span class="kpn-brackets">{{ routes().length }}</span>
+      </div>
       <div>
         <kpn-list>
           @for (route of routes(); track route.routeId) {
