@@ -9,6 +9,9 @@ import { RouteStructureRow } from '@api/common/route';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @let r = row();
+    @if ((r.memberType === 'node' || r.memberType === 'way') && r.poi) {
+      <span class="way-type">{{ r.poi }}</span>
+    }
     @if (r.way) {
       @if (r.way.wayType) {
         <span class="way-type">{{ r.way.wayType }}</span>

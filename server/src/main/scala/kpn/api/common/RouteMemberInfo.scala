@@ -6,5 +6,6 @@ case class RouteMemberInfo(
   id: Long,
   memberType: MemberType,
   role: String,
-  way: Option[RouteMemberInfoWay]
+  poi: Option[String],
+  way: Option[RouteMemberInfoWay],
 )

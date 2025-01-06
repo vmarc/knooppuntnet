@@ -118,7 +118,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
 
   private def analyzeRouteDetail(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
     config.routeDetailMainAnalyzer.analyze(relation, hierarchy) match {
-      case None => false
+      case None =>
       case Some(context) =>
         val routeDetailDoc = new RouteDetailDocBuilder(context).build()
         config.routeDetailRepository.save(routeDetailDoc)

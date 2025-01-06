@@ -93,12 +93,15 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           RouteNetworkNodeInfo(node.id, name, alternateName, longName, node.latitude, node.longitude)
         )
 
+        val poi = RouteMemberPoiAnalyzer.analyze(nodeMember)
+
         Some(
           RouteMemberInfo(
             id = node.id,
             memberType = MemberType.Node,
             role = nodeMember.role.getOrElse(""),
-            way = None
+            poi = poi,
+            way = None,
           )
         )
 
@@ -157,11 +160,17 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
         val wayType = new RouteWayTypeAnalyzer().analyze(wayMember)
 
+        val poi = wayType match {
+          case None => RouteMemberPoiAnalyzer.analyze(wayMember)
+          case _ => None
+        }
+
         Some(
           RouteMemberInfo(
             id = way.id,
             memberType = MemberType.Way,
             role = wayMember.role.getOrElse(""),
+            poi = poi,
             Some(
               RouteMemberInfoWay(
                 wayType = wayType,
@@ -190,6 +199,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
             id = relationIdMember.relationId,
             memberType = MemberType.Relation,
             role = relationIdMember.role.getOrElse(""),
+            poi = None,
             way = None
           )
         )

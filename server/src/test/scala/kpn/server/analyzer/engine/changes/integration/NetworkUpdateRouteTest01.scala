@@ -112,6 +112,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             101,
             MemberType.Way,
             "",
+            None,
             Some(
               RouteMemberInfoWay(
                 None,
@@ -210,6 +211,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             101,
             MemberType.Way,
             "",
+            None,
             Some(
               RouteMemberInfoWay(
                 None,

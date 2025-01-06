@@ -82,7 +82,8 @@ object RouteDetailsPageExample {
           memberType = MemberType.Node,
           role = "connection",
           link = None,
-          distance = 0
+          distance = 0,
+          poi = None,
         ),
         RouteStructureRow(
           id = 1L,
@@ -90,6 +91,7 @@ object RouteDetailsPageExample {
           role = "",
           link = None,
           distance = 100,
+          poi = None,
           way = Some(
             RouteStructureWay(
               wayType = Some("path"),

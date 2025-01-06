@@ -8,6 +8,7 @@ case class RouteStructureRow(
   role: String,
   link: Option[Link],
   distance: Long,
+  poi: Option[String],
   way: Option[RouteStructureWay] = None,
   relation: Option[RouteStructureRelation] = None,
 )

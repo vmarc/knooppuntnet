@@ -2,7 +2,6 @@ package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
 import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
-import kpn.core.poi.PoiConfiguration
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteWayTypeAnalyzer.prefixes
 
@@ -26,7 +25,7 @@ object RouteWayTypeAnalyzer {
     "closed",
     "no",
     "not",
-  );
+  )
 
   private val extraPrefixes = Seq(
     "area"
@@ -39,41 +38,27 @@ class RouteWayTypeAnalyzer {
 
   def analyze(member: WayMember): Option[String] = {
     val way = member.way
-    if (RouteRoleAnalyzer.isPoiRole(member.role)) {
-      val poiDefinitions = PoiConfiguration.instance.groupDefinitions.flatMap(_.definitions).filter(_.expression.evaluate(way.tags))
-      poiDefinitions.map(_.name).distinct.sorted.headOption
+    if (way.tags.isEmpty) {
+      None
     }
     else {
-      if (way.tags.isEmpty) {
-        None
-      }
-      else {
-        highway(way) match {
-          case Some(value) => Some(value)
-          case None =>
-            way.tagValue("waterway") match {
-              case Some(value) => Some(value)
-              case None =>
-                way.tagValue("route") match {
-                  case Some("ferry") => Some("ferry")
-                  case _ =>
-                    if (way.hasTag("railway")) {
-                      way.tagValue("railway").map(value => s"railway $value")
-                    }
-                    else {
-                      val poiDefinitions = PoiConfiguration.instance.groupDefinitions.flatMap(_.definitions).filter(_.expression.evaluate(way.tags))
-                      val layers = poiDefinitions.map(_.name).distinct.sorted
-                      if (layers.nonEmpty) {
-                        Some(layers.head)
-                      }
-                      else {
-                        RouteWayTypeAnalyzer.log.error(s"Could not determine wayType in way ${way.id}, tags=${way.tags} ")
-                        None
-                      }
-                    }
-                }
-            }
-        }
+      highway(way) match {
+        case Some(value) => Some(value)
+        case None =>
+          way.tagValue("waterway") match {
+            case Some(value) => Some(value)
+            case None =>
+              way.tagValue("route") match {
+                case Some("ferry") => Some("ferry")
+                case _ =>
+                  if (way.hasTag("railway")) {
+                    way.tagValue("railway").map(value => s"railway $value")
+                  }
+                  else {
+                    None
+                  }
+              }
+          }
       }
     }
   }

@@ -12,13 +12,12 @@ import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 
-case class TagsDoc(
+case class MembersDoc(
   _id: Long,
   members: Seq[RouteMemberInfo],
-  //tags: Seq[Tag]
-) //extends Tagable
+)
 
-object RouteNameTool {
+object RouteExploreTool {
   def main(args: Array[String]): Unit = {
 
     Mongo.executeIn("kpn-next") { database =>
@@ -32,11 +31,10 @@ object RouteNameTool {
         project(
           fields(
             include("members"),
-            //            computed("tags", "$summary.tags"),
           )
         )
       )
-      val docs = database.routes.aggregate[TagsDoc](pipeline)
+      val docs = database.routes.aggregate[MembersDoc](pipeline)
 
       val docCount = docs.length
       println(s"$docCount routes")
