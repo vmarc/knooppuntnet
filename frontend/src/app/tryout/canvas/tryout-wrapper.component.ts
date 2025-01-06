@@ -7,6 +7,7 @@ import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { MemberType } from '@api/common/data';
 import { Link } from '@api/common/route/link';
 import { fromEvent } from 'rxjs';
 import { Subscription } from 'rxjs';
@@ -18,7 +19,7 @@ import { TryoutCanvasComponent } from './tryout-canvas.component';
   template: `
     <div #canvasWrapper class="canvasWrapper">
       @if (height() > 0) {
-        <kpn-tryout-canvas [height]="height()" [link]="link()" />
+        <kpn-tryout-canvas [height]="height()" [memberType]="memberType()" [link]="link()" />
       }
     </div>
   `,
@@ -31,6 +32,7 @@ import { TryoutCanvasComponent } from './tryout-canvas.component';
   imports: [TryoutCanvasComponent],
 })
 export class TryoutWrapperComponent implements AfterViewInit, OnInit, OnDestroy {
+  memberType = input.required<MemberType>();
   link = input.required<Link>();
 
   private readonly canvasWrapper = viewChild<ElementRef<HTMLDivElement>>('canvasWrapper');

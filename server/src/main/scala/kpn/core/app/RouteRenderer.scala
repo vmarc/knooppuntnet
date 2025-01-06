@@ -38,7 +38,7 @@ class RouteRenderer(route: RouteDoc, language: String) {
       val memberType = s"""<text x="50" y="$y">${member.memberType}</text>"""
       member.way match {
         case Some(memberInfoWay) =>
-          val name = s"""<text x="100" y="${30 + (1 + index) * memberHeight}">${memberInfoWay.description}</text>"""
+          val name = s"""<text x="100" y="${30 + (1 + index) * memberHeight}">${member.name}</text>"""
           val nodes = memberInfoWay.nodes.map { node =>
             s"""
                |<a xlink:href="/$language/node/${node.id}">

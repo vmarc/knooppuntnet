@@ -12,17 +12,17 @@ import { TryoutWrapperComponent } from '../../../../tryout/canvas/tryout-wrapper
   template: `
     @let r = row();
     @if (r.memberType === 'node') {
-      <kpn-tryout-wrapper [link]="null" />
+      <kpn-tryout-wrapper [memberType]="r.memberType" [link]="null" />
     } @else if (r.memberType === 'way') {
-      <kpn-tryout-wrapper [link]="r.link" />
+      <kpn-tryout-wrapper [memberType]="r.memberType" [link]="r.link" />
     } @else if (r.memberType === 'relation') {
-      gaps
-      @if (r.relation) {
-        @if (r.relation.gaps !== undefined) {
-          <kpn-monitor-route-gap [description]="" [osmSegmentCount]="r.relation.osmSegmentCount" />
-        }
-      }
+      <!--      @if (r.relation) {-->
+      <kpn-tryout-wrapper [memberType]="r.memberType" [link]="null" />
+      <!--        @if (r.relation.gaps !== undefined) {-->
+      <!--          <kpn-monitor-route-gap [description]="" [osmSegmentCount]="r.relation.osmSegmentCount" />-->
+      <!--        }-->
     }
+    <!--    }-->
   `,
   styles: `
     :host {
@@ -30,7 +30,7 @@ import { TryoutWrapperComponent } from '../../../../tryout/canvas/tryout-wrapper
       flex-direction: row;
     }
   `,
-  imports: [MatIconModule, MonitorRouteGapComponent, TryoutWrapperComponent],
+  imports: [MatIconModule, TryoutWrapperComponent],
 })
 export class RouteMemberImageComponent {
   row = input.required<RouteStructureRow>();

@@ -2,43 +2,53 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { RouteStructureRow } from '@api/common/route';
 
 @Component({
   selector: 'kpn-route-member-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @let r = row();
-    @if ((r.memberType === 'node' || r.memberType === 'way') && r.poi) {
-      <span class="way-type">{{ r.poi }}</span>
+    @let row = structureRow();
+    @if (row.poi) {
+      <span class="way-type">{{ row.poi }}</span>
     }
-    @if (r.way) {
-      @if (r.way.wayType) {
-        <span class="way-type">{{ r.way.wayType }}</span>
-      }
-      @if (r.way.description) {
-        <span class="name">
-          {{ r.way.description }}
-        </span>
+    @if (row.way) {
+      @if (row.way.wayType) {
+        <span class="way-type">{{ row.way.wayType }}</span>
       }
     }
-    @if (r.relation) {
-      {{ r.relation.level }}
-      @switch (r.relation.level) {
+    @if (row.name) {
+      <span class="name">
+        {{ row.name }}
+      </span>
+    }
+    @if (row.relation) {
+      @switch (row.relation.level) {
         @case (1) {
-          <div class="level-1 name">{{ r.relation.name }}</div>
+          <div class="level-1 name">
+            <a [routerLink]="'/analysis/route/' + row.id">{{ row.relation.name }}</a>
+          </div>
         }
         @case (2) {
-          <div class="level-2 name">{{ r.relation.name }}</div>
+          <div class="level-2 name">
+            <a [routerLink]="'/analysis/route/' + row.id">{{ row.relation.name }}</a>
+          </div>
         }
         @case (3) {
-          <div class="level-3 name">{{ r.relation.name }}</div>
+          <div class="level-3 name">
+            <a [routerLink]="'/analysis/route/' + row.id">{{ row.relation.name }}</a>
+          </div>
         }
         @case (4) {
-          <div class="level-4 name">{{ r.relation.name }}</div>
+          <div class="level-4 name">
+            <a [routerLink]="'/analysis/route/' + row.id">{{ row.relation.name }}</a>
+          </div>
         }
         @case (5) {
-          <div class="level-5 name">{{ r.relation.name }}</div>
+          <div class="level-5 name">
+            <a [routerLink]="'/analysis/route/' + row.id">{{ row.relation.name }}</a>
+          </div>
         }
       }
     }
@@ -75,8 +85,8 @@ import { RouteStructureRow } from '@api/common/route';
       margin-right: 2em;
     }
   `,
-  imports: [MatIconModule],
+  imports: [MatIconModule, RouterLink],
 })
 export class RouteMemberNameComponent {
-  row = input.required<RouteStructureRow>();
+  structureRow = input.required<RouteStructureRow>();
 }

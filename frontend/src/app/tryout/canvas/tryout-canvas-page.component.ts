@@ -19,13 +19,13 @@ import { TryoutWrapperComponent } from './tryout-wrapper.component';
         <pre>{{ selectedLinkDescription() }}</pre>
         <div class="link-box">
           <div class="selected-link">
-            <kpn-tryout-wrapper [link]="selectedLink()?.link" />
+            <kpn-tryout-wrapper memberType="way" [link]="selectedLink()?.link" />
           </div>
           <div style="height:40px;">&nbsp;</div>
         </div>
         <div class="link-box">
           <div class="selected-link">
-            <kpn-tryout-wrapper [link]="selectedLink()?.link" />
+            <kpn-tryout-wrapper memberType="way" [link]="selectedLink()?.link" />
           </div>
           <div style="height:80px;">&nbsp;</div>
         </div>
@@ -44,7 +44,7 @@ import { TryoutWrapperComponent } from './tryout-wrapper.component';
                         class="box"
                       />
                       <div class="box">
-                        <kpn-tryout-wrapper [link]="linkInfo.link" />
+                        <kpn-tryout-wrapper memberType="way" [link]="linkInfo.link" />
                       </div>
                     </div>
                   }

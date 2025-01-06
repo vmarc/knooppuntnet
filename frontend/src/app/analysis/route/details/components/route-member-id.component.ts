@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
 import { RouteStructureRow } from '@api/common/route';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
 import { ActionButtonRelationComponent } from '../../../components/action/action-button-relation.component';
@@ -12,18 +11,17 @@ import { ActionButtonWayComponent } from '../../../components/action/action-butt
   selector: 'kpn-route-member-id',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @let r = row();
+    @let row = structureRow();
     <div class="kpn-align-center">
-      @switch (r.memberType) {
+      @switch (row.memberType) {
         @case ('node') {
-          <kpn-action-button-node [nodeId]="r.id" />
+          <kpn-action-button-node [nodeId]="row.id" />
         }
         @case ('way') {
-          <kpn-action-button-way [wayId]="r.id" />
+          <kpn-action-button-way [wayId]="row.id" />
         }
         @case ('relation') {
-          <kpn-action-button-relation [relationId]="r.id" />
-          <a [routerLink]="'/analysis/route/' + r.id">{{ r.id }}</a>
+          <kpn-action-button-relation [relationId]="row.id" />
         }
       }
     </div>
@@ -33,9 +31,8 @@ import { ActionButtonWayComponent } from '../../../components/action/action-butt
     ActionButtonRelationComponent,
     ActionButtonNodeComponent,
     ActionButtonWayComponent,
-    RouterLink,
   ],
 })
 export class RouteMemberIdComponent {
-  row = input.required<RouteStructureRow>();
+  structureRow = input.required<RouteStructureRow>();
 }

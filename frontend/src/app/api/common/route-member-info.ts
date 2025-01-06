@@ -7,6 +7,7 @@ export interface RouteMemberInfo {
   readonly id: number;
   readonly memberType: MemberType;
   readonly role: string;
+  readonly name: string;
   readonly poi: string;
   readonly way?: RouteMemberInfoWay;
 }

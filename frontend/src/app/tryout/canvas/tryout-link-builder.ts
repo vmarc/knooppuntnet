@@ -1,3 +1,4 @@
+import { MemberType } from '@api/common/data';
 import { Link } from '@api/common/route/link';
 
 export class TryoutLinkBuilder {
@@ -7,6 +8,7 @@ export class TryoutLinkBuilder {
   constructor(
     canvas: HTMLCanvasElement,
     private height: number,
+    private memberType: MemberType,
     private link: Link
   ) {
     const dpr = window.devicePixelRatio || 1;
@@ -18,7 +20,17 @@ export class TryoutLinkBuilder {
     canvas.style.height = `${this.height}px`;
   }
 
-  drawNode(): void {
+  draw(): void {
+    if (this.memberType === 'node') {
+      this.drawNode();
+    } else if (this.memberType === 'way') {
+      this.drawWay();
+    } else {
+      this.drawRelation();
+    }
+  }
+
+  private drawNode(): void {
     const x = this.width / 2;
     const y = this.height / 2;
     this.context.fillStyle = 'blue';
@@ -28,7 +40,18 @@ export class TryoutLinkBuilder {
     this.context.closePath();
   }
 
-  draw(): void {
+  private drawRelation(): void {
+    this.context.strokeStyle = 'blue';
+    this.context.beginPath();
+    this.context.moveTo(this.width / 2, this.height / 2 - 5);
+    this.context.lineTo(this.width / 2, this.height / 2 + 5);
+    this.context.moveTo(this.width / 2 - 5, this.height / 2);
+    this.context.lineTo(this.width / 2 + 5, this.height / 2);
+    this.context.stroke();
+    this.context.closePath();
+  }
+
+  private drawWay(): void {
     const ymax = this.height - 1;
     const xloop = 14;
 

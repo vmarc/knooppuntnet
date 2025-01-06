@@ -47,7 +47,7 @@ object RouteExploreTool {
             m.role.nonEmpty &&
             !RouteRoleAnalyzer.knownRoles.contains(m.role) &&
             !RouteRoleAnalyzer.poiRoles.contains(m.role) &&
-            !m.role.startsWith("stop")
+            !m.role.exists(_.startsWith("stop"))
         }
         inaccessibleMembers.foreach { member =>
           println(s"routeId=${doc._id}, ${member.role}")

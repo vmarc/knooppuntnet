@@ -111,7 +111,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           RouteMemberInfo(
             101,
             MemberType.Way,
-            "",
+            None,
+            None,
             None,
             Some(
               RouteMemberInfoWay(
@@ -128,7 +129,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                 accessible = true,
                 0,
                 "2",
-                "",
                 WayDirection.Both,
                 Seq.empty,
                 newLink() // "wn000"
@@ -210,7 +210,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           common.RouteMemberInfo(
             101,
             MemberType.Way,
-            "",
+            None,
+            None,
             None,
             Some(
               RouteMemberInfoWay(
@@ -227,7 +228,6 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
                 accessible = true,
                 0,
                 "2",
-                "",
                 WayDirection.Both,
                 Seq.empty,
                 newLink() // "wn000"

@@ -17,7 +17,6 @@ case class RouteMemberInfoWay(
   accessible: Boolean,
   distance: Long,
   nodeCount: String,
-  description: String,
   oneWay: WayDirection,
   oneWayTags: Seq[Tag],
   link: Link

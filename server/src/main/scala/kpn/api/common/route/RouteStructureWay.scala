@@ -11,7 +11,6 @@ case class RouteStructureWay(
   toNodeId: Long,
   accessible: Boolean,
   nodeCount: String,
-  description: String,
   oneWay: WayDirection,
   oneWayTags: Seq[Tag],
 )

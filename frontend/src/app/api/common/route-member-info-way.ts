@@ -17,7 +17,6 @@ export interface RouteMemberInfoWay {
   readonly accessible: boolean;
   readonly distance: number;
   readonly nodeCount: string;
-  readonly description: string;
   readonly oneWay: WayDirection;
   readonly oneWayTags: Tag[];
   readonly link: Link;

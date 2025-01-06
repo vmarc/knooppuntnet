@@ -10,25 +10,23 @@ import { DistancePipe } from '@app/components/shared/format';
   selector: 'kpn-route-distance',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @let r = row();
+    @let row = structureRow();
 
-    @if (r.memberType === 'node') {
-      <span>-</span>
-    } @else if (r.memberType === 'way') {
-      <span>{{ r.distance | distance }}</span>
-    } @else if (r.memberType === 'relation') {
+    @if (row.memberType === 'way') {
+      <span class="distance">{{ row.distance | distance }}</span>
+    } @else if (row.memberType === 'relation') {
       <span class="distance">
-        @if (r.distance !== r.relation.totalDistance && r.relation.totalDistance > 0) {
+        @if (row.distance !== row.relation.totalDistance && row.relation.totalDistance > 0) {
           <span class="cumulative-distance" matTooltip="Total length of ways in all subrelations">
-            {{ r.relation.totalDistance | distance }}
+            {{ row.relation.totalDistance | distance }}
           </span>
         }
-        @if (r.distance !== r.relation.totalDistance && r.distance > 0) {
+        @if (row.distance !== row.relation.totalDistance && row.distance > 0) {
           <span>/</span>
         }
-        @if (r.distance > 0) {
+        @if (row.distance > 0) {
           <span matTooltip="Total length of ways in this relation">
-            {{ r.distance | distance }}
+            {{ row.distance | distance }}
           </span>
         }
       </span>
@@ -47,5 +45,5 @@ import { DistancePipe } from '@app/components/shared/format';
   imports: [MatIconModule, DistancePipe, MatTooltip],
 })
 export class RouteDistanceComponent {
-  row = input.required<RouteStructureRow>();
+  structureRow = input.required<RouteStructureRow>();
 }

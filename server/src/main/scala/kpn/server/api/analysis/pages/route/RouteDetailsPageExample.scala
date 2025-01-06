@@ -80,17 +80,19 @@ object RouteDetailsPageExample {
         RouteStructureRow(
           id = 1L,
           memberType = MemberType.Node,
-          role = "connection",
+          role = Some("connection"),
           link = None,
           distance = 0,
+          name = None,
           poi = None,
         ),
         RouteStructureRow(
           id = 1L,
           memberType = MemberType.Way,
-          role = "",
+          role = None,
           link = None,
           distance = 100,
+          name = Some("description"),
           poi = None,
           way = Some(
             RouteStructureWay(
@@ -102,7 +104,6 @@ object RouteDetailsPageExample {
               toNodeId = 2,
               accessible = false,
               nodeCount = "3",
-              description = "description",
               oneWay = WayDirection.Both,
               oneWayTags = Tags.from(
                 "key1" -> "value1",

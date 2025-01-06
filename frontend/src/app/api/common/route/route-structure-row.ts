@@ -11,6 +11,7 @@ export interface RouteStructureRow {
   readonly role: string;
   readonly link?: Link;
   readonly distance: number;
+  readonly name: string;
   readonly poi: string;
   readonly way?: RouteStructureWay;
   readonly relation?: RouteStructureRelation;

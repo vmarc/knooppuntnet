@@ -93,15 +93,17 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           RouteNetworkNodeInfo(node.id, name, alternateName, longName, node.latitude, node.longitude)
         )
 
+        val memberName = nodeMember.node.tagValue("name")
         val poi = RouteMemberPoiAnalyzer.analyze(nodeMember)
 
         Some(
           RouteMemberInfo(
-            id = node.id,
-            memberType = MemberType.Node,
-            role = nodeMember.role.getOrElse(""),
-            poi = poi,
-            way = None,
+            node.id,
+            MemberType.Node,
+            nodeMember.role,
+            memberName,
+            poi,
+            None,
           )
         )
 
@@ -160,6 +162,8 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
         val wayType = new RouteWayTypeAnalyzer().analyze(wayMember)
 
+        val memberName = wayMember.way.tagValue("name")
+
         val poi = wayType match {
           case None => RouteMemberPoiAnalyzer.analyze(wayMember)
           case _ => None
@@ -167,10 +171,11 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
         Some(
           RouteMemberInfo(
-            id = way.id,
-            memberType = MemberType.Way,
-            role = wayMember.role.getOrElse(""),
-            poi = poi,
+            way.id,
+            MemberType.Way,
+            wayMember.role,
+            memberName,
+            poi,
             Some(
               RouteMemberInfoWay(
                 wayType = wayType,
@@ -183,7 +188,6 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
                 accessible = accessible,
                 distance = way.length,
                 nodeCount = way.nodes.size.toString,
-                description = name,
                 oneWay = new OneWayAnalyzer(way).direction,
                 oneWayTags = OneWayAnalyzer.oneWayTags(way),
                 link.link
@@ -196,11 +200,12 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
 
         Some(
           RouteMemberInfo(
-            id = relationIdMember.relationId,
-            memberType = MemberType.Relation,
-            role = relationIdMember.role.getOrElse(""),
-            poi = None,
-            way = None
+            relationIdMember.relationId,
+            MemberType.Relation,
+            relationIdMember.role,
+            None,
+            None,
+            None
           )
         )
 
