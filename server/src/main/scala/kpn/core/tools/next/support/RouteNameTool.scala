@@ -1,17 +1,22 @@
 package kpn.core.tools.next.support
 
-import kpn.api.common.data.Tagable
-import kpn.api.custom.Tag
+import kpn.api.common.Fact
+import kpn.api.common.RouteMemberInfo
 import kpn.core.doc.Label
 import kpn.database.util.Mongo
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteRoleAnalyzer
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
 
-case class TagsDoc(_id: Long, tags: Seq[Tag]) extends Tagable
+case class TagsDoc(
+  _id: Long,
+  members: Seq[RouteMemberInfo],
+  //tags: Seq[Tag]
+) //extends Tagable
 
 object RouteNameTool {
   def main(args: Array[String]): Unit = {
@@ -21,12 +26,13 @@ object RouteNameTool {
         filter(
           and(
             equal("labels", Label.active),
-            equal("summary.nodeNetwork", true),
+            equal("labels", Label.fact(Fact.RouteInaccessible)),
           )
         ),
         project(
           fields(
-            computed("tags", "$summary.tags")
+            include("members"),
+            //            computed("tags", "$summary.tags"),
           )
         )
       )
@@ -38,12 +44,15 @@ object RouteNameTool {
         if ((index % 1000) == 0) {
           println(s"$index/$docCount")
         }
-        if (doc.hasTag("name") && doc.hasTag("ref")) {
-          val name = doc.tagValue("name").get
-          val ref = doc.tagValue("ref").get
-          if (name != "ref") {
-            println(s"routeId=${doc._id}, ref=$ref, name=$name")
-          }
+        val inaccessibleMembers = doc.members.filter { m =>
+          m.way.exists(i => !i.accessible) &&
+            m.role.nonEmpty &&
+            !RouteRoleAnalyzer.knownRoles.contains(m.role) &&
+            !RouteRoleAnalyzer.poiRoles.contains(m.role) &&
+            !m.role.startsWith("stop")
+        }
+        inaccessibleMembers.foreach { member =>
+          println(s"routeId=${doc._id}, ${member.role}")
         }
       }
     }

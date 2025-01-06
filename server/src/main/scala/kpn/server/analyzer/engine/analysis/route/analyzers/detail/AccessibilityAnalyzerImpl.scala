@@ -5,15 +5,20 @@ import kpn.api.common.data.Way
 
 class AccessibilityAnalyzerImpl extends AccessibilityAnalyzer {
 
-  def accessible(networkType: NetworkType, way: Way): Boolean = {
-    networkType match {
-      case NetworkType.cycling => bicycleAccessible(way)
-      case NetworkType.hiking => hikingAccessible(way)
-      case NetworkType.horseRiding => horseAccessible(way)
-      case NetworkType.motorboat => motorboatAccessible(way)
-      case NetworkType.canoe => canoeAccessible(way)
-      case NetworkType.inlineSkating => inlineSkatesAccessible(way)
-      case _ => false
+  def accessible(role: Option[String], networkType: NetworkType, way: Way): Boolean = {
+    if (RouteRoleAnalyzer.isPoiRole(role)) {
+      true
+    }
+    else {
+      networkType match {
+        case NetworkType.cycling => bicycleAccessible(way)
+        case NetworkType.hiking => hikingAccessible(way)
+        case NetworkType.horseRiding => horseAccessible(way)
+        case NetworkType.motorboat => motorboatAccessible(way)
+        case NetworkType.canoe => canoeAccessible(way)
+        case NetworkType.inlineSkating => inlineSkatesAccessible(way)
+        case _ => false
+      }
     }
   }
 

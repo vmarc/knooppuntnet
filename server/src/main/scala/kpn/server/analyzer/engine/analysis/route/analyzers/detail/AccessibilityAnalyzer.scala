@@ -4,5 +4,5 @@ import kpn.api.common.NetworkType
 import kpn.api.common.data.Way
 
 trait AccessibilityAnalyzer {
-  def accessible(networkType: NetworkType, way: Way): Boolean
+  def accessible(role: Option[String], networkType: NetworkType, way: Way): Boolean
 }

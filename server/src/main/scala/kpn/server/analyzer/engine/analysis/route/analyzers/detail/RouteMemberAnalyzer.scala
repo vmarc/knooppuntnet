@@ -138,7 +138,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           n
         }
 
-        val accessible = new AccessibilityAnalyzerImpl().accessible(context.networkTypes.head /*TODO redesign - support multiple networkTypes*/ , way)
+        val accessible = new AccessibilityAnalyzerImpl().accessible(wayMember.role, context.networkTypes.head /*TODO redesign - support multiple networkTypes*/ , way)
 
         // way.tags.has("route", "ferry") TODO draw boat icon?
 

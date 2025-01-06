@@ -39,18 +39,7 @@ class RouteWayTypeAnalyzer {
 
   def analyze(member: WayMember): Option[String] = {
     val way = member.way
-    val roles = member.role match {
-      case None => Seq.empty
-      case Some(role) =>
-        if (role.contains(";")) {
-          role.split(";").toSeq
-        }
-        else {
-          Seq(role)
-        }
-    }
-
-    if (roles.exists(role => Seq("nightstop", "shelter", "viewpoint").contains(role) || role.startsWith("stop:"))) {
+    if (RouteRoleAnalyzer.isPoiRole(member.role)) {
       val poiDefinitions = PoiConfiguration.instance.groupDefinitions.flatMap(_.definitions).filter(_.expression.evaluate(way.tags))
       poiDefinitions.map(_.name).distinct.sorted.headOption
     }
