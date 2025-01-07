@@ -33,7 +33,7 @@ import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
 import kpn.api.common.search.ConditionGroup
-import kpn.api.common.search.RouteSearchResult
+import kpn.api.common.search.RouteList
 import kpn.api.common.statistics.StatisticValues
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
@@ -349,7 +349,7 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def explore(query: ConditionGroup): ApiResponse[Seq[RouteSearchResult]] = {
+  override def explore(query: ConditionGroup): ApiResponse[RouteList] = {
     val args = s"query=$query"
     api.execute("explore", args) {
       reply(Some(searchFacade.explore(query)))

@@ -34,7 +34,7 @@ export class ConditionService {
     const group = this.toConditionGroup(this.form);
     this.apiService.explore(group).subscribe((response) => {
       if (response.result) {
-        this.state.explore.updateRouteSearchResults(response.result);
+        this.state.explore.updateRouteList(response.result);
       }
     });
   }

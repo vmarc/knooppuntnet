@@ -42,7 +42,7 @@ import { RouteMapPage } from '@api/common/route';
 import { LinkInfo } from '@api/common/route/link-info';
 import { SearchResponse } from '@api/common/search-response';
 import { ConditionGroup } from '@api/common/search/condition-group';
-import { RouteSearchResult } from '@api/common/search/route-search-result';
+import { RouteList } from '@api/common/search/route-list';
 import { StatisticValues } from '@api/common/statistics';
 import { LogPage } from '@api/common/status';
 import { PeriodParameters } from '@api/common/status';
@@ -343,7 +343,7 @@ export class ApiService {
     return this.http.get(url, { params });
   }
 
-  public explore(query: ConditionGroup): Observable<ApiResponse<Array<RouteSearchResult>>> {
+  public explore(query: ConditionGroup): Observable<ApiResponse<RouteList>> {
     const url = `/api/explore`;
     return this.http.post(url, query);
   }

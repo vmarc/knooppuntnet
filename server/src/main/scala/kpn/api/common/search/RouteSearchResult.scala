@@ -11,4 +11,15 @@ case class RouteSearchResult(
   symbol: Option[String],
   bounds: Option[Bounds],
   routeIds: Seq[Long],
-)
+) {
+  def toRouteListItem: RouteListItem = {
+    RouteListItem(
+      id,
+      name,
+      distance,
+      symbol,
+      bounds,
+      routeIds,
+    )
+  }
+}

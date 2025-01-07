@@ -36,7 +36,7 @@ import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
 import kpn.api.common.search.ConditionGroup
-import kpn.api.common.search.RouteSearchResult
+import kpn.api.common.search.RouteList
 import kpn.api.common.statistics.StatisticValues
 import kpn.api.common.subset.SubsetChangesPage
 import kpn.api.common.subset.SubsetFactDetailsPage
@@ -370,7 +370,7 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
   }
 
   @PostMapping(value = Array("/api/explore"))
-  def explore(@RequestBody query: ConditionGroup): ApiResponse[Seq[RouteSearchResult]] = {
+  def explore(@RequestBody query: ConditionGroup): ApiResponse[RouteList] = {
     analysisFacade.explore(query)
   }
 

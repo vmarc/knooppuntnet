@@ -2,7 +2,7 @@ package kpn.server.search
 
 import kpn.api.common.SearchResponse
 import kpn.api.common.search.ConditionGroup
-import kpn.api.common.search.RouteSearchResult
+import kpn.api.common.search.RouteList
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -17,7 +17,7 @@ class SearchFacadeImpl(geocoder: Geocoder, routeRepository: RouteRepository) ext
     )
   }
 
-  override def explore(query: ConditionGroup): Seq[RouteSearchResult] = {
+  override def explore(query: ConditionGroup): RouteList = {
     routeRepository.explore(query)
   }
 }

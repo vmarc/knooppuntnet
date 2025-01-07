@@ -3,18 +3,16 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NetworkType } from '@api/common';
-import { RouteSearchResult } from '@api/common/search/route-search-result';
+import { RouteListItem } from '@api/common/search/route-list-item';
 import { DistancePipe } from '@app/components/shared/format';
 import { ActionButtonRouteComponent } from '../../analysis/components/action/action-button-route.component';
-import { ScopeIconComponent } from '../scope-icon.component';
 
 @Component({
   selector: 'kpn-search-route',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @let route = routeSearchResult();
+    @let route = item();
     <div class="kpn-line">
-      <kpn-scope-icon [scope]="route.scopes[0]" />
       <kpn-action-button-route [networkType]="networkType()" [relationId]="route.id" />
       <a [routerLink]="'/analysis/route/' + route.id">{{ route.name }}</a>
     </div>
@@ -22,9 +20,9 @@ import { ScopeIconComponent } from '../scope-icon.component';
       <span>{{ route.distance | distance }}</span>
     </div>
   `,
-  imports: [DistancePipe, ScopeIconComponent, RouterLink, ActionButtonRouteComponent],
+  imports: [DistancePipe, RouterLink, ActionButtonRouteComponent],
 })
 export class SearchRouteComponent {
   networkType = input.required<NetworkType>();
-  routeSearchResult = input.required<RouteSearchResult>();
+  item = input.required<RouteListItem>();
 }

@@ -1,5 +1,11 @@
 package kpn.database.actions.routes
 
+import kpn.api.common.RouteScope.International
+import kpn.api.common.RouteScope.Local
+import kpn.api.common.RouteScope.National
+import kpn.api.common.RouteScope.Regional
+import kpn.api.common.search.RouteList
+import kpn.api.common.search.RouteListItem
 import kpn.api.common.search.RouteSearchResult
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -18,7 +24,7 @@ object MongoQueryRouteSearchResults {
 
 class MongoQueryRouteSearchResults(database: Database) {
 
-  def execute(routeIds: Seq[Long], log: Log = MongoQueryRouteSearchResults.log): Seq[RouteSearchResult] = {
+  def execute(routeIds: Seq[Long], log: Log = MongoQueryRouteSearchResults.log): RouteList = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
@@ -39,10 +45,23 @@ class MongoQueryRouteSearchResults(database: Database) {
         )
       )
       val results = database.routes.aggregate[RouteSearchResult](pipeline, log)
-      val sortedResults = routeIds.flatMap { routeId =>
-        results.find(_.id == routeId)
-      }
-      (s"${sortedResults.size} routes", sortedResults)
+      val (international, nonInternational) = results.partition(_.scopes.contains(International))
+      val (national, nonNational) = nonInternational.partition(_.scopes.contains(National))
+      val (regional, nonRegional) = nonNational.partition(_.scopes.contains(Regional))
+      val (local, unknown) = nonRegional.partition(_.scopes.contains(Local))
+      val routeList = RouteList(
+        toRouteListItems(international),
+        toRouteListItems(national),
+        toRouteListItems(regional),
+        toRouteListItems(local),
+        toRouteListItems(unknown),
+        results.size
+      )
+      (s"${results.size} routes", routeList)
     }
+  }
+
+  private def toRouteListItems(results: Seq[RouteSearchResult]): Option[Seq[RouteListItem]] = {
+    if (results.nonEmpty) Some(results.map(_.toRouteListItem).sortBy(_.name)) else None
   }
 }

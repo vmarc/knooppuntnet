@@ -5,19 +5,20 @@ import { ConditionLocation } from '@api/common/search/condition-location';
 import { ConditionName } from '@api/common/search/condition-name';
 import { ConditionSubject } from '@api/common/search/condition-subject';
 import { ConditionTag } from '@api/common/search/condition-tag';
-import { RouteSearchResult } from '@api/common/search/route-search-result';
+import { RouteList } from '@api/common/search/route-list';
+import { RouteListItem } from '@api/common/search/route-list-item';
 import { ExploreRoute } from './explore-route';
 
 export class ExploreState {
   private readonly _group = signal<ConditionGroup>(/*this.defaultGroup()*/ ExploreState.example());
   private readonly _routes = signal<Array<ExploreRoute>>([]);
-  private readonly _routeSearchResults = signal<Array<RouteSearchResult>>([]);
-  private readonly _selectedRouteSearchResult = signal<RouteSearchResult | undefined>(undefined);
+  private readonly _routeList = signal<RouteList | undefined>(undefined);
+  private readonly _selectedRouteListItem = signal<RouteListItem | undefined>(undefined);
 
   readonly group = this._group.asReadonly();
   readonly routes = this._routes.asReadonly();
-  readonly routeSearchResults = this._routeSearchResults.asReadonly();
-  readonly selectedRouteSearchResult = this._selectedRouteSearchResult.asReadonly();
+  readonly routeList = this._routeList.asReadonly();
+  readonly selectedRouteListItem = this._selectedRouteListItem.asReadonly();
 
   updateGroup(value: ConditionGroup): void {
     this._group.set(value);
@@ -27,12 +28,12 @@ export class ExploreState {
     this._routes.set(routes);
   }
 
-  updateRouteSearchResults(routeSearchResults: Array<RouteSearchResult>) {
-    this._routeSearchResults.set(routeSearchResults);
+  updateRouteList(routeList: RouteList | undefined) {
+    this._routeList.set(routeList);
   }
 
-  updateRouteSearchResult(routeSearchResult: RouteSearchResult | undefined) {
-    this._selectedRouteSearchResult.set(routeSearchResult);
+  updateRouteListItem(item: RouteListItem | undefined) {
+    this._selectedRouteListItem.set(item);
   }
 
   static defaultGroup(): ConditionGroup {

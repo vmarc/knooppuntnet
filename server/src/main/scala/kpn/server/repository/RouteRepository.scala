@@ -6,7 +6,7 @@ import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.common.search.ConditionGroup
-import kpn.api.common.search.RouteSearchResult
+import kpn.api.common.search.RouteList
 import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
@@ -40,5 +40,5 @@ trait RouteRepository {
 
   def routeCountry(routeId: Long): Option[Country]
 
-  def explore(query: ConditionGroup): Seq[RouteSearchResult]
+  def explore(query: ConditionGroup): RouteList
 }
