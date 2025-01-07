@@ -6,7 +6,7 @@ import kpn.api.base.WithObjectId
 import kpn.api.base.WithStringId
 import kpn.core.util.Log
 import kpn.database.util.Mongo
-import org.mongodb.scala._
+import org.mongodb.scala.*
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.bson.conversions.Bson
 import org.mongodb.scala.model.Aggregates.project
@@ -264,8 +264,6 @@ class DatabaseCollectionImpl[T: ClassTag](collection: MongoCollection[T]) extend
   override def updateOne(filter: Bson, update: Seq[Bson], log: Log): Unit = {
     val future = collection.updateOne(filter, update).toFuture()
     val updateResult = awaitResult(future, Duration(1, TimeUnit.MINUTES), log)
-    val message = s"update - collection: '$collectionName' : ${updateResult.getModifiedCount}"
-    (message, ())
   }
 
   override def drop(log: Log): Unit = {

@@ -32,6 +32,7 @@ import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.domain.MonitorTask
+import kpn.server.sync.Transaction
 import org.mongodb.scala.MongoCollection
 
 import scala.reflect.ClassTag
@@ -107,4 +108,6 @@ trait Database {
   def dropDatabase(): Unit
 
   def users: DatabaseCollection[User]
+
+  def transactions: DatabaseCollection[Transaction]
 }

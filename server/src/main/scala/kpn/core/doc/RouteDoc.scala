@@ -1,5 +1,6 @@
 package kpn.core.doc
 
+import kpn.api.base.ObjectId
 import kpn.api.base.WithId
 import kpn.api.common.Bounds
 import kpn.api.common.Fact
@@ -38,7 +39,8 @@ case class RouteDoc(
   routeIds: Seq[Long],
   bounds: Option[Bounds],
   structureRows: Seq[RouteStructureRow],
-  parentRoutes: Seq[ParentRoute]
+  parentRoutes: Seq[ParentRoute],
+  stamp: Option[ObjectId],
 ) extends WithId {
 
   def id: Long = summary.id

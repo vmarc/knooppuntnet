@@ -91,6 +91,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
               case None =>
               case Some(routeDoc) =>
                 config.routeRepository.saveRoute(routeDoc)
+
                 saveRouteChange(routeDoc)
             }
         }

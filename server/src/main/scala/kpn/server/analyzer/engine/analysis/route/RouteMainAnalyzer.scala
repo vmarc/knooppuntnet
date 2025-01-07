@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route
 
+import kpn.api.base.ObjectId
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
@@ -65,7 +66,8 @@ class RouteMainAnalyzer(
           context.routeIds,
           context.bounds,
           context.structureRows,
-          context.parentRoutes
+          context.parentRoutes,
+          Some(ObjectId())
         )
       )
     }

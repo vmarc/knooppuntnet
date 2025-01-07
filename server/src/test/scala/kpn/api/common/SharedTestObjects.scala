@@ -986,7 +986,8 @@ trait SharedTestObjects extends MockFactory {
       routeIds,
       bounds,
       structureRows,
-      parentRoutes
+      parentRoutes,
+      None
     )
   }
 

@@ -23,6 +23,7 @@ import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
+import kpn.server.sync.Transaction
 import org.springframework.stereotype.Component
 
 @Component
@@ -48,6 +49,7 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def saveRoute(routeDoc: RouteDoc): Unit = {
     database.routes.save(routeDoc, log)
+    database.transactions.save(Transaction.routeUpdate(routeDoc._id))
   }
 
   override def saveRouteTile(routeTileDoc: RouteTileDoc): Unit = {
@@ -56,6 +58,10 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def bulkSaveRoutes(routeDocs: Seq[RouteDoc]): Unit = {
     database.routes.bulkSave(routeDocs, log)
+    val transactions = routeDocs.map { routeDoc =>
+      Transaction.routeUpdate(routeDoc._id)
+    }
+    database.transactions.bulkSave(transactions)
   }
 
   override def findRouteById(routeId: Long): Option[RouteDoc] = {
