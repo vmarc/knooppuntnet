@@ -22,14 +22,14 @@ import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeCountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeLocationsAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeLocationsAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeTileAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
@@ -91,15 +91,15 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   private val tileCalculator = new TileCalculatorImpl()
 
   private val nodeAnalyzer: NodeAnalyzer = {
-    val nodeCountryAnalyzer = new NodeCountryAnalyzerImpl(locationAnalyzer)
+    val nodeCountryAnalyzer = new OldNodeCountryAnalyzerImpl(locationAnalyzer)
     val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
-    val nodeTileAnalyzer = new NodeTileAnalyzerImpl(nodeTileCalculator)
-    val nodeLocationsAnalyzer = new NodeLocationsAnalyzerImpl(locationAnalyzer)
+    val nodeTileAnalyzer = new OldNodeTileAnalyzerImpl(nodeTileCalculator)
+    val nodeLocationsAnalyzer = new OldNodeLocationsAnalyzerImpl(locationAnalyzer)
     val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
     new NodeAnalyzerImpl(
-      nodeCountryAnalyzer: NodeCountryAnalyzer,
-      nodeTileAnalyzer: NodeTileAnalyzer,
-      nodeLocationsAnalyzer: NodeLocationsAnalyzer,
+      nodeCountryAnalyzer: OldNodeCountryAnalyzer,
+      nodeTileAnalyzer: OldNodeTileAnalyzer,
+      nodeLocationsAnalyzer: OldNodeLocationsAnalyzer,
       nodeRouteReferencesAnalyzer: NodeRouteReferencesAnalyzer
     )
   }

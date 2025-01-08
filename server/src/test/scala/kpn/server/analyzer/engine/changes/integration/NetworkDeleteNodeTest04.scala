@@ -81,7 +81,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
           // not active
         ),
         country = Some(Country.nl),
-        name = "01",
+        name = Some("01"),
         names = Seq(newNodeName(name = "01")),
         version = 1, // <--
         tags = Tags.from(
@@ -119,7 +119,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Delete,
         subsets = Seq(Subset.nlHiking),
-        name = "01",
+        name = Some("01"),
         before = Some(
           newMetaData(version = 1)
         ),

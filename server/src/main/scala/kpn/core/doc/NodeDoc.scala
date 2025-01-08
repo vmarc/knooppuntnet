@@ -20,7 +20,7 @@ case class NodeDoc(
   _id: Long,
   labels: Seq[String],
   country: Option[Country],
-  name: String,
+  name: Option[String],
   names: Seq[NodeName],
   version: Long,
   changeSetId: Long,
@@ -31,7 +31,6 @@ case class NodeDoc(
   tags: Seq[Tag],
   facts: Seq[Fact],
   locations: Seq[String],
-  tiles: Seq[String],
   integrity: Option[NodeIntegrity] = None,
   routeReferences: Seq[Reference]
 ) extends Tagable with LatLon with WithId {

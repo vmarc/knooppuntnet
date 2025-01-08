@@ -104,7 +104,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
           // not active
         ),
         country = Some(Country.nl),
-        name = "01",
+        name = Some("01"),
         names = Seq(newNodeName(name = "01")),
         tags = Tags.from(
           "rwn_ref" -> "01",
@@ -168,7 +168,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
     nodeChange.key.elementId should equal(1001)
     nodeChange.changeType should equal(ChangeType.Delete)
     nodeChange.subsets should contain(Subset.nlHiking)
-    nodeChange.name should equal("01")
+    nodeChange.name should equal(Some("01"))
     nodeChange.removedFromNetwork should equal(Seq(Ref(1, "network1")))
     nodeChange.facts should equal(Seq(Fact.Deleted))
     assert(!nodeChange.happy)

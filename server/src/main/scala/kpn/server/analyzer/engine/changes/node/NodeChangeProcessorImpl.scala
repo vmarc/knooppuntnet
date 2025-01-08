@@ -144,7 +144,6 @@ class NodeChangeProcessorImpl(
           facts = Seq.empty,
           initialTags = Some(nodeDoc.tags),
           initialLatLon = Some(LatLonImpl(nodeDoc.latitude, nodeDoc.longitude)),
-          tiles = nodeDoc.tiles
         )
       )
     )
@@ -239,7 +238,6 @@ class NodeChangeProcessorImpl(
           facts = Seq(Fact.Deleted),
           initialTags = None,
           initialLatLon = None,
-          tiles = nodeDoc.tiles
         )
       )
     )

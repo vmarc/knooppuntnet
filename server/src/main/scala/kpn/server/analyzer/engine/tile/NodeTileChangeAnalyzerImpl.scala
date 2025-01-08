@@ -22,12 +22,13 @@ class NodeTileChangeAnalyzerImpl(
       beforeTileNodeData != afterTileNodeData
     }
 
-    (before.tiles ++ after.tiles).distinct.filter { tile =>
-      NetworkType.withNameOption(TileName.networkType(tile)) match {
-        case Some(networkType) => impactedNetworkTypes.contains(networkType)
-        case None => false
-      }
-    }.sorted
+    //    (before.tiles ++ after.tiles).distinct.filter { tile =>
+    //      NetworkType.withNameOption(TileName.networkType(tile)) match {
+    //        case Some(networkType) => impactedNetworkTypes.contains(networkType)
+    //        case None => false
+    //      }
+    //    }.sorted
+    Seq.empty
   }
 
   private def toNodeTileInfo(nodeDoc: NodeDoc): NodeTileInfo = {

@@ -197,7 +197,7 @@ class ChangeSetPageBuilder(
   private def toChangeSetElementRef(nodeChange: NodeChange): ChangeSetElementRef = {
     ChangeSetElementRef(
       nodeChange.id,
-      nodeChange.name,
+      nodeChange.name.getOrElse(nodeChange.id.toString),
       nodeChange.happy,
       nodeChange.investigate
     )

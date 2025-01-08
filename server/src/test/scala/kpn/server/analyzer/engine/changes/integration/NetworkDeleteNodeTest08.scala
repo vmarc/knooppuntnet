@@ -58,7 +58,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
           // not active
         ),
         country = Some(Country.nl),
-        name = "01",
+        name = Some("01"),
         names = Seq(
           newNodeName(NetworkType.hiking, NetworkScope.regional, "01")
         ),
@@ -120,7 +120,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Delete,
         subsets = Seq(Subset.nlHiking),
-        name = "01",
+        name = Some("01"),
         before = Some(
           newMetaData()
         ),

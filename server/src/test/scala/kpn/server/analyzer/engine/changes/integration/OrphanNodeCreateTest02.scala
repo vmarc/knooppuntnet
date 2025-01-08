@@ -51,7 +51,7 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
           Label.networkType(NetworkType.hiking)
         ),
         country = Some(Country.nl),
-        name = "01",
+        name = Some("01"),
         names = Seq(
           newNodeName(
             NetworkType.hiking,
@@ -76,7 +76,7 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Create,
         subsets = Seq(Subset.nlHiking),
-        name = "01",
+        name = Some("01"),
         after = Some(
           newMetaData(version = 1)
         ),

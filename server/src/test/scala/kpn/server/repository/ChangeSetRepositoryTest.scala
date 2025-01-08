@@ -356,7 +356,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
     replicationNumber: Int,
     nodeId: Long,
     timestamp: Timestamp = Timestamp(2015, 8, 11),
-    name: String = "name"
+    name: Option[String] = None
   ): NodeChange = {
 
     newNodeChange(

@@ -53,7 +53,7 @@ case class NodeAnalysis(
       node.id,
       labels,
       country,
-      name,
+      Some(name),
       nodeNames,
       node.version,
       node.changeSetId,
@@ -64,7 +64,6 @@ case class NodeAnalysis(
       node.tags,
       facts,
       locations,
-      tiles,
       integrity,
       routeReferences
     )

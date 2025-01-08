@@ -21,7 +21,7 @@ case class NodeChange(
   changeType: ChangeType,
   subsets: Seq[Subset],
   locations: Seq[String],
-  name: String,
+  name: Option[String],
   before: Option[MetaData],
   after: Option[MetaData],
   connectionChanges: Seq[RefBooleanChange],
@@ -37,7 +37,6 @@ case class NodeChange(
   facts: Seq[Fact],
   initialTags: Option[Seq[Tag]],
   initialLatLon: Option[LatLonImpl],
-  tiles: Seq[String],
   // following values are filled in by NodeChangeAnalyzer.analyzed
   happy: Boolean = false,
   investigate: Boolean = false,
@@ -64,5 +63,5 @@ case class NodeChange(
       facts.isEmpty
   }
 
-  def toRef: Ref = Ref(id, name)
+  def toRef: Ref = Ref(id, name.getOrElse(s"id"))
 }

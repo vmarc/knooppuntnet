@@ -229,7 +229,7 @@ class NetworkUpdateTest01 extends IntegrationTest {
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
         subsets = Seq(Subset.nlHiking),
-        name = "03",
+        name = Some("03"),
         before = Some(
           newMetaData()
         ),

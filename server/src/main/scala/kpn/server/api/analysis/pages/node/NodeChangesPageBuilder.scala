@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component
 class NodeChangesPageBuilder(
   nodeRepository: NodeRepository,
   changeSetRepository: ChangeSetRepository
-)  {
+) {
 
   def build(nodeId: Long, parameters: ChangesParameters): Option[NodeChangesPage] = {
     if (nodeId == 1) {
@@ -62,7 +62,7 @@ class NodeChangesPageBuilder(
         }
         NodeChangesPage(
           nodeDoc._id,
-          nodeDoc.name,
+          nodeDoc.name.getOrElse(nodeDoc._id.toString),
           filterOptions,
           changes,
           changeCount,
@@ -73,7 +73,7 @@ class NodeChangesPageBuilder(
         // user is not logged in; we do not show change information
         NodeChangesPage(
           nodeDoc._id,
-          nodeDoc.name,
+          nodeDoc.name.getOrElse(nodeDoc._id.toString),
           Seq.empty,
           Seq.empty,
           0,

@@ -106,7 +106,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
         nodeChanges = Seq(
           newNodeChange(
             key = newChangeKey(elementId = 1001L),
-            name = "01"
+            name = Some("01")
           )
         )
       )

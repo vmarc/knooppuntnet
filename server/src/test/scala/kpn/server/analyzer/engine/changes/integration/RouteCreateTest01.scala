@@ -81,7 +81,7 @@ class RouteCreateTest01 extends IntegrationTest {
           Label.networkType(NetworkType.hiking)
         ),
         country = Some(Country.nl),
-        name = "01",
+        name = Some("01"),
         names = Seq(
           newNodeName(
             NetworkType.hiking,
@@ -107,7 +107,7 @@ class RouteCreateTest01 extends IntegrationTest {
           Label.networkType(NetworkType.hiking)
         ),
         country = Some(Country.nl),
-        name = "02",
+        name = Some("02"),
         names = Seq(
           newNodeName(
             NetworkType.hiking,
@@ -177,7 +177,7 @@ class RouteCreateTest01 extends IntegrationTest {
         newChangeKey(elementId = 1001),
         ChangeType.Create,
         Seq(Subset.nlHiking),
-        name = "01",
+        name = Some("01"),
         before = None,
         after = Some(
           newMetaData()
@@ -209,7 +209,7 @@ class RouteCreateTest01 extends IntegrationTest {
         newChangeKey(elementId = 1002),
         ChangeType.Create,
         Seq(Subset.nlHiking),
-        name = "02",
+        name = Some("02"),
         before = None,
         after = Some(
           newMetaData()

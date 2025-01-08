@@ -155,7 +155,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     val nodeChange = newNodeChange(
       newChangeKey(elementId = 1001),
       subsets = Seq(Subset.nlHiking),
-      name = "01",
+      name = Some("01"),
       facts = Seq(Fact.OrphanNode)
     )
 

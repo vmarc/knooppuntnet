@@ -93,7 +93,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Delete,
             subsets = Seq(Subset.nlHiking),
             locations = Seq("nl", "North Brabant", "Roosendaal"),
-            name = "01"
+            name = Some("01")
           )
         ),
         NodeChangeStateAnalyzer.analyzed(
@@ -102,7 +102,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Create,
             subsets = Seq(Subset.nlHiking),
             locations = Seq("nl", "North Brabant", "Roosendaal"),
-            name = "02"
+            name = Some("02")
           )
         ),
         NodeChangeStateAnalyzer.analyzed(
@@ -111,7 +111,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Update,
             subsets = Seq(Subset.nlHiking),
             locations = Seq("nl", "North Brabant", "Roosendaal"),
-            name = "03"
+            name = Some("03")
           )
         )
       )
@@ -256,7 +256,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Update,
             subsets = Seq(Subset.nlHiking),
             locations = Seq("nl", "North Brabant", "Roosendaal"),
-            name = "01"
+            name = Some("01")
           )
         ),
         NodeChangeStateAnalyzer.analyzed(
@@ -265,7 +265,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Update,
             subsets = Seq(Subset.nlHiking),
             locations = Seq("nl", "North Brabant", "Roosendaal"),
-            name = "02"
+            name = Some("02")
           )
         ),
         NodeChangeStateAnalyzer.analyzed(
@@ -274,7 +274,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Update,
             subsets = Seq(Subset.beHiking),
             locations = Seq("be", "Antwerp", "Essen"),
-            name = "03"
+            name = Some("03")
           )
         ),
         NodeChangeStateAnalyzer.analyzed(
@@ -283,7 +283,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Update,
             subsets = Seq(Subset.beBicycle),
             locations = Seq("be", "Antwerp", "Essen"),
-            name = "04"
+            name = Some("04")
           )
         )
       )

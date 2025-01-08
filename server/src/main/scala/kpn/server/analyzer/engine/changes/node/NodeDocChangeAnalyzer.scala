@@ -117,7 +117,6 @@ class NodeDocChangeAnalyzer(
             facts = facts,
             initialTags = None,
             initialLatLon = None,
-            impactedTiles
           )
         )
       )

@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.node.analyzers
+package kpn.server.analyzer.engine.analysis.node.base.analyzers
 
 import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkType
@@ -7,14 +7,13 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
-class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
+class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("rwn_ref") {
-    val nodeAnalysis = analyze(Tags.from("rwn_ref" -> "01"))
-    nodeAnalysis.name should equal("01")
-    nodeAnalysis.nodeNames should equal(
+    val context = analyze(Tags.from("rwn_ref" -> "01"))
+    context.name should equal(Some("01"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -28,9 +27,9 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("proposed:rwn_ref") {
-    val nodeAnalysis = analyze(Tags.from("proposed:rwn_ref" -> "01"))
-    nodeAnalysis.name should equal("01")
-    nodeAnalysis.nodeNames should equal(
+    val context = analyze(Tags.from("proposed:rwn_ref" -> "01"))
+    context.name should equal(Some("01"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -44,14 +43,14 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("rwn_ref and rwn_name") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "rwn_ref" -> "01",
         "rwn_name" -> "01"
       )
     )
-    nodeAnalysis.name should equal("01")
-    nodeAnalysis.nodeNames should equal(
+    context.name should equal(Some("01"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -65,9 +64,9 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("node name not normalized") {
-    val nodeAnalysis = analyze(Tags.from("rwn_ref" -> "1")) // node leading zero in tag
-    nodeAnalysis.name should equal("01")
-    nodeAnalysis.nodeNames should equal(
+    val context = analyze(Tags.from("rwn_ref" -> "1")) // node leading zero in tag
+    context.name should equal(Some("01"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -81,14 +80,14 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("multiple names 01 / 02 - different network types") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "rwn_ref" -> "01",
         "rcn_ref" -> "02"
       )
     )
-    nodeAnalysis.name should equal("01 / 02")
-    nodeAnalysis.nodeNames should equal(
+    context.name should equal(Some("01 / 02"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -109,14 +108,14 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("multiple names - proposed and not proposed") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "proposed:rwn_ref" -> "01",
         "rcn_ref" -> "02"
       )
     )
-    nodeAnalysis.name should equal("01 / 02")
-    nodeAnalysis.nodeNames should equal(
+    context.name should equal(Some("01 / 02"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -137,14 +136,14 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("same name in multiple network scopes") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "rwn_ref" -> "01",
         "lwn_ref" -> "01"
       )
     )
-    nodeAnalysis.name should equal("01")
-    nodeAnalysis.nodeNames should equal(
+    context.name should equal(Some("01"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -165,14 +164,14 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("same name in multiple network scopes and proposed and not proposed") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "proposed:lwn_ref" -> "01",
         "rwn_ref" -> "01"
       )
     )
-    nodeAnalysis.name should equal("01")
-    nodeAnalysis.nodeNames should equal(
+    context.name should equal(Some("01"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -193,15 +192,15 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("same name in multiple network types and scopes") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "rwn_ref" -> "01",
         "lwn_ref" -> "01",
         "rcn_ref" -> "01"
       )
     )
-    nodeAnalysis.name should equal("01 / 01")
-    nodeAnalysis.nodeNames should equal(
+    context.name should equal(Some("01"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -230,18 +229,18 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("name - empty string when no name") {
     val nodeAnalysis = analyze(Seq.empty)
-    nodeAnalysis.name should equal("")
-    nodeAnalysis.nodeNames should equal(Seq.empty)
+    nodeAnalysis.name should equal(None)
+    nodeAnalysis.names should equal(Seq.empty)
   }
 
   test("rwn_name") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "rwn_name" -> "01"
       )
     )
-    nodeAnalysis.name should equal("01")
-    nodeAnalysis.nodeNames should equal(
+    context.name should equal(Some("01"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -255,13 +254,13 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("proposed:rwn_name") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "proposed:rwn_name" -> "01"
       )
     )
-    nodeAnalysis.name should equal("01")
-    nodeAnalysis.nodeNames should equal(
+    context.name should equal(Some("01"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -275,14 +274,14 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("names - name:rwn_ref") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "rwn_ref" -> "01",
         "name:rwn_ref" -> "long name"
       )
     )
-    nodeAnalysis.name should equal("01")
-    nodeAnalysis.nodeNames should equal(
+    context.name should equal(Some("01"))
+    context.names should equal(
       Seq(
         NodeName(
           networkType = NetworkType.hiking,
@@ -296,11 +295,14 @@ class NodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("analysis is aborted when the node name cannot be determined") {
-    analyze(Seq.empty).abort should equal(true)
+    val context = analyze(Seq.empty)
+    context.name should equal(None)
+    context.names should equal(Seq.empty)
   }
 
-  private def analyze(tags: Seq[Tag]): NodeAnalysis = {
-    val nodeAnalysis = NodeAnalysis(newRawNode(tags = tags))
-    NodeNameAnalyzer.analyze(nodeAnalysis)
+  private def analyze(tags: Seq[Tag]): BaseNodeAnalysisContext = {
+    val node = newRawNode(tags = tags)
+    val context = BaseNodeAnalysisContext(node)
+    BaseNodeNameAnalyzer.analyze(context)
   }
 }

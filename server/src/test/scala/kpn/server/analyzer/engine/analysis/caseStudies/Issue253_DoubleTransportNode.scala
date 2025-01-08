@@ -106,7 +106,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
               Label.location("fr-3-73307")
             ),
             country = Some(Country.fr),
-            name = "Teumelet / o",
+            name = Some("Teumelet / o"),
             names = Seq(
               newNodeName(NetworkType.hiking, NetworkScope.local, "Teumelet"),
               newNodeName(NetworkType.hiking, NetworkScope.regional, "o")

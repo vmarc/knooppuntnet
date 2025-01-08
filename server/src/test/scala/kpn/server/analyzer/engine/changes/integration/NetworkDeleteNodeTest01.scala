@@ -114,7 +114,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         key = newChangeKey(elementId = 1001),
         changeType = ChangeType.Update,
         subsets = Seq(Subset.nlHiking),
-        name = "01",
+        name = Some("01"),
         before = Some(
           newMetaData()
         ),

@@ -59,9 +59,9 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
   override def bulkSaveRoutes(routeDocs: Seq[RouteDoc]): Unit = {
     database.routes.bulkSave(routeDocs, log)
     val transactions = routeDocs.map { routeDoc =>
-      Transaction.routeUpdate(routeDoc._id)
+      val transaction = Transaction.routeUpdate(routeDoc._id)
+      database.transactions.save(transaction)
     }
-    database.transactions.bulkSave(transactions)
   }
 
   override def findRouteById(routeId: Long): Option[RouteDoc] = {

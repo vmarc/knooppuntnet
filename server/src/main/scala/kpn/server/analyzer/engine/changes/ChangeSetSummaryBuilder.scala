@@ -163,7 +163,7 @@ class ChangeSetSummaryBuilder {
       change =>
         ChangeSetElementRef(
           change.id,
-          change.name,
+          change.name.getOrElse(change.id.toString),
           change.happy,
           change.investigate
         )
@@ -289,7 +289,7 @@ class ChangeSetSummaryBuilder {
   private def toRef(nodeChange: NodeChange): ChangeSetElementRef = {
     ChangeSetElementRef(
       id = nodeChange.key.elementId,
-      name = nodeChange.name,
+      name = nodeChange.name.getOrElse(nodeChange.key.elementId.toString),
       happy = nodeChange.locationHappy,
       investigate = nodeChange.locationInvestigate
     )

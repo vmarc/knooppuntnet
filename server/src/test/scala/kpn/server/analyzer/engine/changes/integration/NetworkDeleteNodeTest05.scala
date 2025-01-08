@@ -79,7 +79,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
           Label.networkType(NetworkType.cycling)
         ),
         country = Some(Country.nl),
-        name = "02",
+        name = Some("02"),
         names = Seq(
           newNodeName(NetworkType.cycling, NetworkScope.regional, "02")
         ),
@@ -148,7 +148,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
           Subset.nlHiking,
           Subset.nlBicycle
         ),
-        name = "02",
+        name = Some("02"),
         before = Some(
           newMetaData(version = 1)
         ),

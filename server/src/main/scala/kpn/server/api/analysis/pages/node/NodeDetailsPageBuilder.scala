@@ -39,7 +39,7 @@ class NodeDetailsPageBuilder(
         active = nodeDoc.active,
         orphan = networkReferences.isEmpty && nodeRouteReferences.isEmpty,
         country = nodeDoc.country,
-        name = nodeDoc.name,
+        name = nodeDoc.name.getOrElse(nodeDoc._id.toString),
         names = nodeDoc.names,
         latitude = nodeDoc.latitude,
         longitude = nodeDoc.longitude,
@@ -48,7 +48,7 @@ class NodeDetailsPageBuilder(
         tags = nodeDoc.tags,
         facts = nodeDoc.facts,
         locations = locations,
-        tiles = nodeDoc.tiles,
+        tiles = Seq.empty,
         integrity = nodeDoc.integrity,
         routeReferences = Seq.empty
       )

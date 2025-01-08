@@ -2,15 +2,15 @@ package kpn.server.analyzer.engine.analysis.node
 
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeAspectAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeIntegrityAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLabelsAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeLocationsAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeNameAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeNetworkTagAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.NodeSurveyAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeTileAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeLocationsAnalyzer
+import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeTileAnalyzer
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import org.springframework.stereotype.Component
 
@@ -18,9 +18,9 @@ import scala.annotation.tailrec
 
 @Component
 class NodeAnalyzerImpl(
-  nodeCountryAnalyzer: NodeCountryAnalyzer,
-  nodeTileAnalyzer: NodeTileAnalyzer,
-  nodeLocationsAnalyzer: NodeLocationsAnalyzer,
+  nodeCountryAnalyzer: OldNodeCountryAnalyzer,
+  nodeTileAnalyzer: OldNodeTileAnalyzer,
+  nodeLocationsAnalyzer: OldNodeLocationsAnalyzer,
   nodeRouteReferencesAnalyzer: NodeRouteReferencesAnalyzer
 ) extends NodeAnalyzer {
 

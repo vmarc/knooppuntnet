@@ -101,7 +101,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
           Label.networkType(NetworkType.cycling)
         ),
         country = Some(Country.nl),
-        name = "03",
+        name = Some("03"),
         names = Seq(
           NodeName(
             NetworkType.cycling,
@@ -160,7 +160,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
           Subset.nlHiking,
           Subset.nlBicycle
         ),
-        name = "03",
+        name = Some("03"),
         before = Some(
           newMetaData()
         ),

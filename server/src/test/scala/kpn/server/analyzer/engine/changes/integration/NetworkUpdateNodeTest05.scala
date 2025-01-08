@@ -89,7 +89,7 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
           // not active
         ),
         country = Some(Country.nl),
-        name = "02",
+        name = Some("02"),
         names = Seq(
           newNodeName(name = "02")
         ),
@@ -127,7 +127,7 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Delete,
         subsets = Seq(Subset.nlHiking),
-        name = "02",
+        name = Some("02"),
         before = Some(
           newMetaData()
         ),

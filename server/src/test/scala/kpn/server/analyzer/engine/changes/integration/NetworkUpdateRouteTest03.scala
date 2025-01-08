@@ -106,7 +106,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
           // not active
         ),
         country = Some(Country.nl),
-        name = "03",
+        name = Some("03"),
         names = Seq(
           NodeName(
             NetworkType.hiking,
@@ -206,7 +206,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         key = newChangeKey(elementId = 1002),
         changeType = ChangeType.Update,
         subsets = Seq(Subset.nlHiking),
-        name = "02",
+        name = Some("02"),
         before = Some(
           newMetaData()
         ),
@@ -229,7 +229,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         key = newChangeKey(elementId = 1003),
         changeType = ChangeType.Delete,
         subsets = Seq(Subset.nlHiking),
-        name = "03",
+        name = Some("03"),
         before = Some(
           newMetaData()
         ),

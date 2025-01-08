@@ -147,7 +147,7 @@ class RouteDeleteTest03 extends IntegrationTest {
         newChangeKey(elementId = 1001),
         ChangeType.Update,
         Seq(Subset.nlHiking),
-        name = "01",
+        name = Some("01"),
         before = Some(
           newMetaData()
         ),
@@ -172,7 +172,7 @@ class RouteDeleteTest03 extends IntegrationTest {
         newChangeKey(elementId = 1002),
         ChangeType.Update,
         Seq(Subset.nlHiking),
-        name = "02",
+        name = Some("02"),
         before = Some(
           newMetaData()
         ),

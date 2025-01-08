@@ -5,9 +5,9 @@ import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import org.springframework.stereotype.Component
 
 @Component
-class NodeLocationsAnalyzerImpl(
+class OldNodeLocationsAnalyzerImpl(
   locationAnalyzer: LocationAnalyzer
-) extends NodeLocationsAnalyzer {
+) extends OldNodeLocationsAnalyzer {
 
   override def analyze(analysis: NodeAnalysis): NodeAnalysis = {
     val locations = locationAnalyzer.findLocations(analysis.node.latitude, analysis.node.longitude)

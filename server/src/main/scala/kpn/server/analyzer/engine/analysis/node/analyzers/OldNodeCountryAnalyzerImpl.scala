@@ -5,7 +5,7 @@ import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 import org.springframework.stereotype.Component
 
 @Component
-class NodeCountryAnalyzerImpl(locationAnalyzer: LocationAnalyzer) extends NodeCountryAnalyzer {
+class OldNodeCountryAnalyzerImpl(locationAnalyzer: LocationAnalyzer) extends OldNodeCountryAnalyzer {
   def analyze(analysis: NodeAnalysis): NodeAnalysis = {
     val country = locationAnalyzer.country(Seq(analysis.node))
     analysis.copy(

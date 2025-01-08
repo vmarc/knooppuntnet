@@ -110,7 +110,6 @@ class AnalysisStartNodeAnalyzer(log: Log, config: AnalysisStartConfiguration)(im
         facts = Seq.empty,
         initialTags = Some(nodeDoc.tags),
         initialLatLon = Some(LatLonImpl(nodeDoc.latitude, nodeDoc.longitude)),
-        tiles = nodeDoc.tiles,
         investigate = facts.nonEmpty,
         impact = true,
         locationInvestigate = locationFacts.nonEmpty,

@@ -34,6 +34,6 @@ case class ChangeSetChanges(
   }
 
   def tiles: Seq[String] = {
-    (routeChanges.flatMap(_.tiles) ++ nodeChanges.flatMap(_.tiles)).distinct.sorted
+    (routeChanges.flatMap(_.tiles) /*++ nodeChanges.flatMap(_.tiles)*/).distinct.sorted
   }
 }
