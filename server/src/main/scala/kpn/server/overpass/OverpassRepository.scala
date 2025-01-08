@@ -10,7 +10,7 @@ trait OverpassRepository {
 
   def nodeIds(timestamp: Timestamp): Seq[Long]
 
-  def routeIds(timestamp: Timestamp): Seq[Long]
+  def oldRouteIds(timestamp: Timestamp): Seq[Long]
 
   def networkIds(timestamp: Timestamp): Seq[Long]
 
@@ -23,4 +23,6 @@ trait OverpassRepository {
   def relationTopLevel(timestamp: Timestamp, relationId: Long): Option[Relation]
 
   def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation]
+
+  def routeIds(timestamp: Timestamp, typeValue: String): Seq[Long]
 }

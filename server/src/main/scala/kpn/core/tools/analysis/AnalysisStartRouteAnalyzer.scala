@@ -36,7 +36,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def collectOverpassRouteIds(): Seq[Long] = {
     log.info(s"Collecting overpass route ids")
     log.infoElapsed {
-      val ids = config.overpassRepository.routeIds(config.timestamp)
+      val ids = config.overpassRepository.oldRouteIds(config.timestamp)
       (s"${ids.size} overpass route ids", ids)
     }
   }

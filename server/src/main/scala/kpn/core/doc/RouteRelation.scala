@@ -5,7 +5,7 @@ import kpn.api.custom.Relation
 object RouteRelation {
 
   def relationIds(routeRelation: RouteRelation): Seq[Long] = {
-    val subRelationIds = routeRelation.relations.flatMap { subRouteRelation =>
+    val subRelationIds = routeRelation.relations.toSeq.flatten.flatMap { subRouteRelation =>
       relationIds(subRouteRelation)
     }
     routeRelation.relationId +: subRelationIds
@@ -45,7 +45,7 @@ object RouteRelation {
       relationId = relation.id,
       name = name,
       role = role,
-      relations = relations
+      relations = if (relations.nonEmpty) Some(relations) else None
     )
   }
 }
@@ -54,5 +54,5 @@ case class RouteRelation(
   relationId: Long,
   name: String,
   role: Option[String],
-  relations: Seq[RouteRelation]
+  relations: Option[Seq[RouteRelation]]
 )

@@ -1553,7 +1553,7 @@ trait SharedTestObjects extends MockFactory {
       relationId,
       "",
       None,
-      relations
+      if (relations.nonEmpty) Some(relations) else None
     )
   }
 

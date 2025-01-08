@@ -36,7 +36,7 @@ class OverpassRepositoryImpl(
     ids(timestamp, "node", query).distinct.sorted
   }
 
-  override def routeIds(timestamp: Timestamp): Seq[Long] = {
+  override def oldRouteIds(timestamp: Timestamp): Seq[Long] = {
     val overpassQuery = QueryRouteIds()
     ids(timestamp, "relation", overpassQuery)
   }
@@ -71,12 +71,12 @@ class OverpassRepositoryImpl(
     }
   }
 
-  def relations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[RawRelation] = {
+  override def relations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[RawRelation] = {
     val rawData = relationsQuery(timestamp, QueryRelations(relationIds), relationIds)
     rawData.relations
   }
 
-  def fullRelations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[Relation] = {
+  override def fullRelations(timestamp: Timestamp, relationIds: Seq[Long]): Seq[Relation] = {
     val rawData = relationsQuery(timestamp, QueryFullRelations(relationIds), relationIds)
     val data = new DataBuilder(rawData).data
     relationIds.flatMap { routeId =>
@@ -84,7 +84,7 @@ class OverpassRepositoryImpl(
     }
   }
 
-  def relationTopLevel(timestamp: Timestamp, relationId: Long): Option[Relation] = {
+  override def relationTopLevel(timestamp: Timestamp, relationId: Long): Option[Relation] = {
     val query = QueryRelationTopLevel(relationId)
     val xmlString = overpassQueryExecutor.executeQuery(Some(timestamp), query)
     val xml = XML.loadString(xmlString)
@@ -92,7 +92,7 @@ class OverpassRepositoryImpl(
     new BaseRelationBuilder(rawData, log).build(relationId)
   }
 
-  def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = {
+  override def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = {
     val xmlString = overpassQueryExecutor.executeQuery(Some(timestamp), QueryRelationStructure(relationId))
     val filteredXmlString = xmlString.linesIterator.filter { line =>
       !(line.contains("<node id") || line.contains("<way id") || line.contains("<member type=\"node\"") || line.contains("<member type=\"way\""))
@@ -102,6 +102,17 @@ class OverpassRepositoryImpl(
     val data = new DataBuilder(rawData).data
     data.relations.get(relationId).map { relation =>
       RouteRelation.from(relation, None)
+    }
+  }
+
+  override def routeIds(timestamp: Timestamp, typeValue: String): Seq[Long] = {
+    val meta = s"""[date:"${timestamp.iso}"][timeout:1500][maxsize:24000000000]"""
+    val routeTagValues = s"""[~"^route$$"~".*(foot|hiking|walking|bicycle|horse|motorboat|canoe|inline_skates).*"]"""
+    val query = s"""$meta;relation["type"="$typeValue"]$routeTagValues;out ids;"""
+    val xmlString = overpassQueryExecutor.execute(query)
+    val xml = XML.loadString(xmlString)
+    (xml.head \ "relation").map { relationElem =>
+      (relationElem \ "@id").text.toLong
     }
   }
 

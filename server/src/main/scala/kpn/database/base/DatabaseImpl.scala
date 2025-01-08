@@ -16,6 +16,9 @@ import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
+import kpn.core.doc.RawNetworkDoc
+import kpn.core.doc.RawNodeDoc
+import kpn.core.doc.RawRouteDoc
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
@@ -186,5 +189,17 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def transactions: DatabaseCollection[Transaction] = {
     new DatabaseCollectionImpl(database.getCollection[Transaction]("transactions"))
+  }
+
+  def rawNodes: DatabaseCollection[RawNodeDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[RawNodeDoc]("rawNodes"))
+  }
+
+  def rawRoutes: DatabaseCollection[RawRouteDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[RawRouteDoc]("rawRoutes"))
+  }
+
+  def rawNetworks: DatabaseCollection[RawNetworkDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[RawNetworkDoc]("rawNetworks"))
   }
 }

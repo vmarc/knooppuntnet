@@ -26,7 +26,7 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
     }
   }
 
-  override def routeIds(timestamp: Timestamp): Seq[Long] = {
+  override def oldRouteIds(timestamp: Timestamp): Seq[Long] = {
     if (timestamp == timestampBeforeValue) {
       routeRelationIdsIn(beforeData)
     }
@@ -119,5 +119,9 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
     relation.hasTag("network:type", "node_network") &&
       relation.hasTag("type", "network") &&
       relation.hasTag("network")
+  }
+
+  override def routeIds(timestamp: Timestamp, typeValue: String): Seq[Long] = {
+    Seq.empty
   }
 }

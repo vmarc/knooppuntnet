@@ -16,6 +16,9 @@ import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
+import kpn.core.doc.RawNetworkDoc
+import kpn.core.doc.RawNodeDoc
+import kpn.core.doc.RawRouteDoc
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
@@ -110,4 +113,10 @@ trait Database {
   def users: DatabaseCollection[User]
 
   def transactions: DatabaseCollection[Transaction]
+
+  def rawNodes: DatabaseCollection[RawNodeDoc]
+
+  def rawRoutes: DatabaseCollection[RawRouteDoc]
+
+  def rawNetworks: DatabaseCollection[RawNetworkDoc]
 }

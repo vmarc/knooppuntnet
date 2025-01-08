@@ -53,7 +53,7 @@ class FullRouteAnalyzerImpl(
   private def collectOverpassRouteIds(timestamp: Timestamp): Seq[Long] = {
     log.info(s"Collecting overpass route ids")
     log.infoElapsed {
-      val ids = overpassRepository.routeIds(timestamp)
+      val ids = overpassRepository.oldRouteIds(timestamp)
       (s"${ids.size} overpass route ids", ids)
     }
   }
