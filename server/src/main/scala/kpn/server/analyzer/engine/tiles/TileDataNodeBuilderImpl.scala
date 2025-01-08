@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 import kpn.core.analysis.Facts
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
@@ -23,11 +23,11 @@ class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
     NetworkScope.international
   )
 
-  def build(networkType: NetworkType, node: NodeTileInfo): Option[TileDataNode] = {
+  def build(routeType: RouteType, node: NodeTileInfo): Option[TileDataNode] = {
 
     val nodeNameOption: Option[NodeName] = {
       val unprioritizedNames = node.names
-        .filter(_.networkType == networkType)
+        .filter(_.routeType == routeType)
         .filterNot(_.name == "o")
       prioritizedScopes.flatMap { scope =>
         unprioritizedNames.filter(_.networkScope == scope)

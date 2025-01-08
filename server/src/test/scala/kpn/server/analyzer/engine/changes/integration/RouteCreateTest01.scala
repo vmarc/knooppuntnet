@@ -7,7 +7,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
@@ -65,7 +65,7 @@ class RouteCreateTest01 extends IntegrationTest {
       newOrphanRouteDoc(
         11L,
         country = Country.nl,
-        networkType = NetworkType.hiking,
+        routeType = RouteType.hiking,
         name = "01-02"
       )
     )
@@ -78,20 +78,20 @@ class RouteCreateTest01 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
         ),
         country = Some(Country.nl),
         name = Some("01"),
         names = Seq(
           newNodeName(
-            NetworkType.hiking,
+            RouteType.hiking,
             NetworkScope.regional,
             "01"
           )
         ),
         tags = newNodeTags("01"),
         routeReferences = Seq(
-          Reference(NetworkType.hiking, NetworkScope.regional, 11, "01-02")
+          Reference(RouteType.hiking, NetworkScope.regional, 11, "01-02")
         )
       )
     )
@@ -104,20 +104,20 @@ class RouteCreateTest01 extends IntegrationTest {
         1002,
         labels = Seq(
           Label.active,
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
         ),
         country = Some(Country.nl),
         name = Some("02"),
         names = Seq(
           newNodeName(
-            NetworkType.hiking,
+            RouteType.hiking,
             NetworkScope.regional,
             "02"
           )
         ),
         tags = newNodeTags("02"),
         routeReferences = Seq(
-          Reference(NetworkType.hiking, NetworkScope.regional, 11, "01-02")
+          Reference(RouteType.hiking, NetworkScope.regional, 11, "01-02")
         )
       )
     )
@@ -135,7 +135,7 @@ class RouteCreateTest01 extends IntegrationTest {
         //        Some(
         //          newRouteData(
         //            Some(Country.nl),
-        //            NetworkType.hiking,
+        //            routeType.hiking,
         //            relation = newRawRelation(
         //              11,
         //              members = Seq(

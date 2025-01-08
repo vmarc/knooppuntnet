@@ -7,7 +7,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -175,7 +175,7 @@ class NetworkCreateTest01 extends IntegrationTest {
           creates = Seq(
             newChangeSetNetwork(
               Some(Country.nl),
-              NetworkType.hiking,
+              RouteType.hiking,
               1,
               "name",
               routeChanges = ChangeSetElementRefs(
@@ -267,7 +267,7 @@ class NetworkCreateTest01 extends IntegrationTest {
         //        Some(
         //          newRouteData(
         //            Some(Country.nl),
-        //            NetworkType.hiking,
+        //            routeType.hiking,
         //            relation = newRawRelation(
         //              11,
         //              members = Seq(
@@ -297,7 +297,7 @@ class NetworkCreateTest01 extends IntegrationTest {
         //        Some(
         //          newRouteData(
         //            Some(Country.nl),
-        //            NetworkType.hiking,
+        //            routeType.hiking,
         //            relation = newRawRelation(
         //              11,
         //              members = Seq(

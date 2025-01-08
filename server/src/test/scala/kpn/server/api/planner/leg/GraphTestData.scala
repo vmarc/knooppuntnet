@@ -1,6 +1,6 @@
 package kpn.server.api.planner.leg
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.route.RouteNetworkNodeInfo
@@ -38,7 +38,7 @@ class GraphTestData extends SharedTestObjects {
     graph.add(GraphEdge(node1.id, node3.id, 4, proposed = false, legEndRoute4.trackPathKeys.head))
 
     val graphRepository: GraphRepository = stub[GraphRepository]
-    (graphRepository.graph _).when(NetworkType.hiking).returns(Some(graph))
+    (graphRepository.graph _).when(RouteType.hiking).returns(Some(graph))
 
     graphRepository
   }

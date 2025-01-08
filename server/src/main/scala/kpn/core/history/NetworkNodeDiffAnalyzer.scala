@@ -1,6 +1,6 @@
 package kpn.core.history
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.network.NetworkNodeDiff
@@ -9,7 +9,7 @@ import kpn.api.common.diff.network.NodeRouteReferenceDiffs
 import kpn.core.analysis.NetworkNodeInfo
 import kpn.core.doc.RouteDoc
 
-class NetworkNodeDiffAnalyzer(networkType: NetworkType, before: NetworkNodeInfo, after: NetworkNodeInfo) {
+class NetworkNodeDiffAnalyzer(routeType: RouteType, before: NetworkNodeInfo, after: NetworkNodeInfo) {
 
   def diffs: NetworkNodeDiff = NetworkNodeDiff(
     connection,

@@ -4,13 +4,13 @@ import kpn.core.util.UnitTest
 
 class TileNameTest extends UnitTest {
 
-  test("networkType") {
-    TileName.networkType("hiking-10-002-003") should equal("hiking")
-    TileName.networkType("cycling-10-002-003") should equal("cycling")
-    TileName.networkType("horse-riding-10-002-003") should equal("horse-riding")
-    TileName.networkType("canoe-10-002-003") should equal("canoe")
-    TileName.networkType("motorboat-10-002-003") should equal("motorboat")
-    TileName.networkType("inline-skating-10-002-003") should equal("inline-skating")
+  test("routeType") {
+    TileName.routeType("hiking-10-002-003") should equal("hiking")
+    TileName.routeType("cycling-10-002-003") should equal("cycling")
+    TileName.routeType("horse-riding-10-002-003") should equal("horse-riding")
+    TileName.routeType("canoe-10-002-003") should equal("canoe")
+    TileName.routeType("motorboat-10-002-003") should equal("motorboat")
+    TileName.routeType("inline-skating-10-002-003") should equal("inline-skating")
   }
 
   test("tileNumber") {

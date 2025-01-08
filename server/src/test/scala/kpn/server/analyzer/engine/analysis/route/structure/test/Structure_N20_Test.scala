@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
 import kpn.api.common.Fact.RouteOneWay
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
@@ -12,7 +12,7 @@ class Structure_N20_Test extends UnitTest {
     nodeWithTags(1, Tags.from("network:type" -> "node_network", "rcn_ref" -> "01"))
     nodeWithTags(3, Tags.from("network:type" -> "node_network", "rcn_ref" -> "02"))
     memberWayWithTags(10, "", Tags.from("highway" -> "road", "oneway" -> "yes"), 1, 2, 3)
-  }.build("01", "02", ScopedNetworkType.rcn, Tags.from("direction" -> "forward"))
+  }.build("01", "02", ScopedRouteType.rcn, Tags.from("direction" -> "forward"))
 
   test("analyze") {
 

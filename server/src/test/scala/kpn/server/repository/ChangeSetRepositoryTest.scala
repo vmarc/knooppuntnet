@@ -6,8 +6,8 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.details.ChangeKey
@@ -316,7 +316,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       key,
       ChangeType.Update,
       Some(Country.nl),
-      NetworkType.hiking,
+      RouteType.hiking,
       networkId,
       s"network$networkId",
       None,

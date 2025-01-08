@@ -5,7 +5,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -69,7 +69,7 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
       newOrphanRouteDoc(
         11,
         Country.nl,
-        NetworkType.hiking,
+        RouteType.hiking,
         "01-02",
       )
     )
@@ -84,7 +84,7 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
         country = Some(Country.nl),
         newNetworkSummary(
           name = "network",
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           changeCount = 1
         ),
         newNetworkDetail(
@@ -103,7 +103,7 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
         newChangeKey(elementId = 1),
         ChangeType.Delete,
         Some(Country.nl),
-        NetworkType.hiking,
+        RouteType.hiking,
         1,
         "network",
         nodeDiffs = RefDiffs(
@@ -127,7 +127,7 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
     val routeData = newRouteData()
     //  val routeData = newRouteData(
     //    Some(Country.nl),
-    //    NetworkType.hiking,
+    //    routeType.hiking,
     //    relation = newRawRelation(
     //      11,
     //      members = Seq(
@@ -178,7 +178,7 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
           deletes = Seq(
             newChangeSetNetwork(
               Some(Country.nl),
-              NetworkType.hiking,
+              RouteType.hiking,
               1,
               "network",
               routeChanges = ChangeSetElementRefs(

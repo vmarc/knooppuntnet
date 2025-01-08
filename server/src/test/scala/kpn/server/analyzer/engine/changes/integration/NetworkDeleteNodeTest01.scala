@@ -5,7 +5,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -96,7 +96,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         newChangeKey(elementId = 1),
         ChangeType.Delete,
         Some(Country.nl),
-        NetworkType.hiking,
+        RouteType.hiking,
         1,
         "network-name",
         nodeDiffs = RefDiffs(
@@ -139,7 +139,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
           deletes = Seq(
             newChangeSetNetwork(
               Some(Country.nl),
-              NetworkType.hiking,
+              RouteType.hiking,
               1,
               "network-name",
               nodeChanges = ChangeSetElementRefs(
@@ -164,7 +164,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
       findOrphanNodeById("nl:hiking:1001"),
       newOrphanNodeDoc(
         country = Country.nl,
-        networkType = NetworkType.hiking,
+        routeType = RouteType.hiking,
         nodeId = 1001,
         name = "01"
       )

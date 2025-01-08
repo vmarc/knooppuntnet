@@ -32,7 +32,7 @@ object SubsetInfoBuilder {
 
     SubsetInfo(
       subset.country,
-      subset.networkType,
+      subset.routeType,
       networkCount,
       factCount,
       0,

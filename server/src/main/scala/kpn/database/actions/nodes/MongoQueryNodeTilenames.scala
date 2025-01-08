@@ -1,6 +1,6 @@
 package kpn.database.actions.nodes
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -25,11 +25,11 @@ object MongoQueryNodeTilenames {
 
 class MongoQueryNodeTilenames(database: Database) {
 
-  def execute(networkType: NetworkType, log: Log = MongoQueryNodeTilenames.log): Seq[TileId] = {
+  def execute(routeType: RouteType, log: Log = MongoQueryNodeTilenames.log): Seq[TileId] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          equal("labels", Label.networkType(networkType)),
+          equal("labels", Label.routeType(routeType)),
         ),
         project(
           fields(
@@ -45,8 +45,8 @@ class MongoQueryNodeTilenames(database: Database) {
       println(Mongo.pipelineString(pipeline))
 
       val tiles = database.nodes.aggregate[StringId](pipeline, log, allowDiskUse = true)
-      val tileIds = tiles.map(_._id).filter(_.startsWith(networkType.entryName)).map { tileName =>
-        val splitted = tileName.drop(networkType.entryName.length + 1).split("-")
+      val tileIds = tiles.map(_._id).filter(_.startsWith(routeType.entryName)).map { tileName =>
+        val splitted = tileName.drop(routeType.entryName.length + 1).split("-")
         TileId(splitted(0).toInt, splitted(0).toInt, splitted(0).toInt)
       }
       (s"${tileIds.size} tiles", tileIds)

@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.core.doc.Label
 import kpn.core.doc.NodeDoc
@@ -73,16 +73,16 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     new MongoQueryKnownNodeIds(database).execute(nodeIds.toSeq).toSet
   }
 
-  override def tiles(networkType: NetworkType): Seq[TileId] = {
-    new MongoQueryNodeTilenames(database).execute(networkType)
+  override def tiles(routeType: RouteType): Seq[TileId] = {
+    new MongoQueryNodeTilenames(database).execute(routeType)
   }
 
-  override def tilesWithName(networkType: NetworkType, tileId: TileId): Seq[NodeTileInfo] = {
-    new MongoQueryNodeTileInfo(database).execute(networkType, tileId)
+  override def tilesWithName(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo] = {
+    new MongoQueryNodeTileInfo(database).execute(routeType, tileId)
   }
 
-  override def nodeTileInfoByNetworkType(networkType: NetworkType): Seq[NodeTileInfo] = {
-    new OldMongoQueryNodeTileInfo(database).findByNetworkType(networkType)
+  override def nodeTileInfoByrouteType(routeType: RouteType): Seq[NodeTileInfo] = {
+    new OldMongoQueryNodeTileInfo(database).findByrouteType(routeType)
   }
 
   override def nodeTileInfoById(nodeId: Long): Option[NodeTileInfo] = {
@@ -97,18 +97,18 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
           equal("nodeRefs", nodeId)
         )
       ),
-      unwind("$summary.networkTypes"),
+      unwind("$summary.routeTypes"),
       unwind("$summary.scopes"),
       project(
         fields(
           excludeId(),
-          computed("networkType", "$summary.networkTypes"),
+          computed("routeType", "$summary.routeTypes"),
           computed("networkScope", "$summary.scopes"),
           computed("id", "$summary.id"),
           computed("name", "$summary.name")
         )
       ),
-      sort(orderBy(ascending("networkType", "networkScope", "routeName")))
+      sort(orderBy(ascending("routeType", "networkScope", "routeName")))
     )
   }
 }

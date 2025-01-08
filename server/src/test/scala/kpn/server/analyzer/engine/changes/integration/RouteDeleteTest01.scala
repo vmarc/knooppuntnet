@@ -7,8 +7,8 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -69,13 +69,13 @@ class RouteDeleteTest01 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
         ),
         country = Some(Country.nl),
         name = Some("01"),
         names = Seq(
           NodeName(
-            NetworkType.hiking,
+            RouteType.hiking,
             NetworkScope.regional,
             "01",
             None,
@@ -94,13 +94,13 @@ class RouteDeleteTest01 extends IntegrationTest {
         1002,
         labels = Seq(
           Label.active,
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
         ),
         country = Some(Country.nl),
         name = Some("02"),
         names = Seq(
           NodeName(
-            NetworkType.hiking,
+            RouteType.hiking,
             NetworkScope.regional,
             "02",
             None,
@@ -124,7 +124,7 @@ class RouteDeleteTest01 extends IntegrationTest {
         //        Some(
         //          newRouteData(
         //            Some(Country.nl),
-        //            NetworkType.hiking,
+        //            routeType.hiking,
         //            relation = newRawRelation(
         //              11,
         //              members = Seq(
@@ -215,7 +215,7 @@ class RouteDeleteTest01 extends IntegrationTest {
       findOrphanNodeById("nl:hiking:1001"),
       newOrphanNodeDoc(
         country = Country.nl,
-        networkType = NetworkType.hiking,
+        routeType = RouteType.hiking,
         nodeId = 1001L,
         name = "01"
       )
@@ -227,7 +227,7 @@ class RouteDeleteTest01 extends IntegrationTest {
       findOrphanNodeById("nl:hiking:1002"),
       newOrphanNodeDoc(
         country = Country.nl,
-        networkType = NetworkType.hiking,
+        routeType = RouteType.hiking,
         nodeId = 1002L,
         name = "02"
       )

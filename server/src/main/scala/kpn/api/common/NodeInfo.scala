@@ -4,7 +4,7 @@ import kpn.api.common.common.Reference
 import kpn.api.common.data.Tagable
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.custom.Day
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
@@ -27,12 +27,12 @@ case class NodeInfo(
   integrity: Option[NodeIntegrity],
   routeReferences: Seq[Reference]
 ) extends Tagable with LatLon {
-  def networkTypeName(networkType: NetworkType): String = {
-    names.filter(_.networkType == networkType).map(_.name).mkString(" / ")
+  def routeTypeName(routeType: RouteType): String = {
+    names.filter(_.routeType == routeType).map(_.name).mkString(" / ")
   }
 
-  def networkTypeLongName(networkType: NetworkType): Option[String] = {
-    val longNames = names.filter(_.networkType == networkType).flatMap(_.longName)
+  def routeTypeLongName(routeType: RouteType): Option[String] = {
+    val longNames = names.filter(_.routeType == routeType).flatMap(_.longName)
     if (longNames.nonEmpty) {
       Some(longNames.mkString(" / "))
     }
@@ -41,21 +41,21 @@ case class NodeInfo(
     }
   }
 
-  def networkTypeProposed(networkType: NetworkType): Boolean = {
-    names.filter(_.networkType == networkType).exists(_.proposed)
+  def routeTypeProposed(routeType: RouteType): Boolean = {
+    names.filter(_.routeType == routeType).exists(_.proposed)
   }
 
-  def name(scopedNetworkType: ScopedNetworkType): String = {
-    names.filter(_.scopedNetworkType == scopedNetworkType).map(_.name).mkString(" / ")
+  def name(scopedRouteType: ScopedRouteType): String = {
+    names.filter(_.scopedRouteType == scopedRouteType).map(_.name).mkString(" / ")
   }
 
-  def longName(scopedNetworkType: ScopedNetworkType): String = {
-    names.filter(_.scopedNetworkType == scopedNetworkType).flatMap(_.longName).mkString(" / ")
+  def longName(scopedRouteType: ScopedRouteType): String = {
+    names.filter(_.scopedRouteType == scopedRouteType).flatMap(_.longName).mkString(" / ")
   }
 
   def subsets: Seq[Subset] = {
     country match {
-      case Some(c) => names.map(_.scopedNetworkType.networkType).map(networkType => Subset(c, networkType))
+      case Some(c) => names.map(_.scopedRouteType.routeType).map(routeType => Subset(c, routeType))
       case None => Seq.empty
     }
   }

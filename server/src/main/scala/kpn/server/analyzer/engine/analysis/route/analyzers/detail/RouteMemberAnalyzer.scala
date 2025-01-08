@@ -50,7 +50,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
     val nodeNumberIterator = (1 to 10000).iterator
     val validRouteMembers: Seq[Member] = context.relation.members.filter { member =>
       if (context.nodeNetwork) {
-        TagInterpreter.isValidNetworkMember(context.scopedNetworkType, member)
+        TagInterpreter.isValidNetworkMember(context.scopedRouteType, member)
       }
       else {
         true
@@ -114,7 +114,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
         val way = wayMember.way
         val wayNetworkNodes = way.nodes.filter { n =>
           if (context.nodeNetwork) {
-            TagInterpreter.isReferencedNetworkNode(context.scopedNetworkType, n)
+            TagInterpreter.isReferencedNetworkNode(context.scopedRouteType, n)
           }
           else {
             false
@@ -143,7 +143,7 @@ class RouteMemberAnalyzer(context: RouteDetailAnalysisContext) {
           n
         }
 
-        val accessible = new AccessibilityAnalyzerImpl().accessible(wayMember.role, context.networkTypes.head /*TODO redesign - support multiple networkTypes*/ , way)
+        val accessible = new AccessibilityAnalyzerImpl().accessible(wayMember.role, context.routeTypes.head /*TODO redesign - support multiple routeTypes*/ , way)
 
         // way.tags.has("route", "ferry") TODO draw boat icon?
 

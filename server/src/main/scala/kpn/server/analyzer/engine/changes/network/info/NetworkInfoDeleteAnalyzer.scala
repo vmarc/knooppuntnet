@@ -24,7 +24,7 @@ class NetworkInfoDeleteAnalyzer(context: ChangeSetContext, before: NetworkInfoDo
       key,
       changeType = ChangeType.Delete,
       country = before.country,
-      networkType = before.scopedNetworkType.networkType,
+      routeType = before.scopedRouteType.routeType,
       networkId = networkId,
       networkName = before.summary.name,
       networkDataUpdate = None,

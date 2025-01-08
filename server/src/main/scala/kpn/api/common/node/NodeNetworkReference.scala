@@ -1,10 +1,10 @@
 package kpn.api.common.node
 
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 case class NodeNetworkReference(
-  networkType: NetworkType,
+  routeType: RouteType,
   networkId: Long,
   networkName: String,
   nodeDefinedInRelation: Boolean,

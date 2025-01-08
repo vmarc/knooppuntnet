@@ -28,7 +28,7 @@ class NodeMapPageBuilder(
         NodeMapInfo(
           nodeDoc._id,
           nodeDoc.name.getOrElse(nodeDoc._id.toString),
-          nodeDoc.names.map(_.networkType),
+          nodeDoc.names.map(_.routeType),
           nodeDoc.latitude,
           nodeDoc.longitude
         ),

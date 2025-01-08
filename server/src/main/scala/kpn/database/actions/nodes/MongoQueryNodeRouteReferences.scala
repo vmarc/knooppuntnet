@@ -35,13 +35,13 @@ class MongoQueryNodeRouteReferences(database: Database) {
             in("nodeRefs", nodeIds: _*),
           )
         ),
-        unwind("$summary.networkTypes"),
+        unwind("$summary.routeTypes"),
         unwind("$summary.scopes"),
         project(
           fields(
             computed("nodeId", "$nodeRefs"),
             computed("routeId", "$summary.id"),
-            computed("networkType", "$summary.networkTypes"),
+            computed("routeType", "$summary.routeTypes"),
             computed("networkScope", "$summary.scopes"),
             computed("routeName", "$summary.name"),
           )

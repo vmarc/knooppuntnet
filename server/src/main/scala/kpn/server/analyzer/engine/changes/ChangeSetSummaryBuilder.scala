@@ -8,7 +8,7 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ChangeType
 import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
@@ -64,7 +64,7 @@ class ChangeSetSummaryBuilder {
 
       ChangeSetNetwork(
         networkChange.country,
-        networkChange.networkType,
+        networkChange.routeType,
         networkChange.networkId,
         networkChange.networkName,
         routeChanges,
@@ -171,9 +171,9 @@ class ChangeSetSummaryBuilder {
   }
 
   private def buildLocationChanges(context: ChangeSetContext): Seq[LocationChanges] = {
-    NetworkType.values.flatMap { networkType =>
-      val nodeChanges = context.changes.nodeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
-      val routeChanges = context.changes.routeChanges.filter(_.subsets.map(_.networkType).contains(networkType))
+    RouteType.values.flatMap { routeType =>
+      val nodeChanges = context.changes.nodeChanges.filter(_.subsets.map(_.routeType).contains(routeType))
+      val routeChanges = context.changes.routeChanges.filter(_.subsets.map(_.routeType).contains(routeType))
       val locations = {
         val nodeLocations = nodeChanges.flatMap { nodeChange =>
           if (nodeChange.locations.nonEmpty) {
@@ -218,7 +218,7 @@ class ChangeSetSummaryBuilder {
         val investigate = leafNodeNodeChanges.investigate || leafNodeRouteChanges.investigate
 
         LocationChanges(
-          networkType,
+          routeType,
           location.names,
           leafNodeRouteChanges,
           leafNodeNodeChanges,

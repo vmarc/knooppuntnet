@@ -6,7 +6,7 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -84,7 +84,7 @@ class RouteDeleteTest03 extends IntegrationTest {
         //        Some(
         //          newRouteData(
         //            Some(Country.nl),
-        //            NetworkType.hiking,
+        //            routeType.hiking,
         //            relation = newRawRelation(
         //              11,
         //              members = Seq(
@@ -195,7 +195,7 @@ class RouteDeleteTest03 extends IntegrationTest {
       findOrphanNodeById("nl:hiking:1001"),
       newOrphanNodeDoc(
         country = Country.nl,
-        networkType = NetworkType.hiking,
+        routeType = RouteType.hiking,
         nodeId = 1001L,
         name = "01"
       )
@@ -207,7 +207,7 @@ class RouteDeleteTest03 extends IntegrationTest {
       findOrphanNodeById("nl:hiking:1002"),
       newOrphanNodeDoc(
         country = Country.nl,
-        networkType = NetworkType.hiking,
+        routeType = RouteType.hiking,
         nodeId = 1002L,
         name = "02"
       )

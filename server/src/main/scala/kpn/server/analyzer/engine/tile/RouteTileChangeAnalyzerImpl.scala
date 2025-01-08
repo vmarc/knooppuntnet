@@ -26,9 +26,9 @@ class RouteTileChangeAnalyzerImpl extends RouteTileChangeAnalyzer {
   }
 
   private def tileRelatedRoutePropertiesChanged(before: RouteDetailAnalysisContext, after: RouteDetailAnalysisContext): Boolean = {
-    val networkTypeBefore = before.networkTypes.head // TODO redesign - support multiple network types
-    val networkTypeAfter = after.networkTypes.head
-    !(networkTypeBefore == networkTypeAfter && before.tileAnalysis.sameProperties(after.tileAnalysis))
+    val routeTypeBefore = before.routeTypes.head // TODO redesign - support multiple network types
+    val routeTypeAfter = after.routeTypes.head
+    !(routeTypeBefore == routeTypeAfter && before.tileAnalysis.sameProperties(after.tileAnalysis))
   }
 
   private def segmentsIn(context: RouteDetailAnalysisContext, zoomLevel: Int): Seq[ZoomLevelRouteTileSegments] = {

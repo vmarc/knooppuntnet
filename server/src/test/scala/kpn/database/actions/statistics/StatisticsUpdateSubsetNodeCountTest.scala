@@ -1,12 +1,12 @@
 package kpn.database.actions.statistics
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
-import kpn.api.common.NetworkType.cycling
-import kpn.api.common.NetworkType.hiking
+import kpn.api.common.Country.de
+import kpn.api.common.Country.nl
+import kpn.api.common.RouteType
+import kpn.api.common.RouteType.cycling
+import kpn.api.common.RouteType.hiking
 import kpn.api.common.SharedTestObjects
-import Country.de
-import Country.nl
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -45,7 +45,7 @@ class StatisticsUpdateSubsetNodeCountTest extends UnitTest with SharedTestObject
     }
   }
 
-  private def buildNode(database: Database, nodeId: Long, country: Country, networkType: NetworkType, active: Boolean = true): Unit = {
+  private def buildNode(database: Database, nodeId: Long, country: Country, routeType: RouteType, active: Boolean = true): Unit = {
     database.nodes.save(
       newNodeDoc(
         nodeId,
@@ -53,7 +53,7 @@ class StatisticsUpdateSubsetNodeCountTest extends UnitTest with SharedTestObject
         country = Some(country),
         names = Seq(
           newNodeName(
-            networkType = networkType
+            routeType = routeType
           )
         )
       )

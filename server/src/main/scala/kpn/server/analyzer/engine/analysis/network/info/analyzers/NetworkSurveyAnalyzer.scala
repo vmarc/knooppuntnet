@@ -9,7 +9,7 @@ import scala.util.Success
 
 object NetworkSurveyAnalyzer extends NetworkInfoAnalyzer {
   override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
-    new NetworkTypeAnalyzer(context).analyze
+    new RouteTypeAnalyzer(context).analyze
   }
 }
 

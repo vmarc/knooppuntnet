@@ -1,10 +1,10 @@
 package kpn.core.util
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 object Redesign {
   val enableNewFactTests = false
   val enableDebugPrinting = true
   val enablePendingTests = false
-  val tileGenerationNetworkTypes: Seq[NetworkType] = Seq(NetworkType.hiking) // NetworkType.all // Seq.empty
+  val tileGenerationRouteTypes: Seq[RouteType] = Seq(RouteType.hiking) // routeType.all // Seq.empty
 }

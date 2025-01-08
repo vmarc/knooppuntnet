@@ -1,6 +1,6 @@
 package kpn.core.taginfo
 
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.core.poi.PoiConfiguration
 import kpn.core.poi.PoiDefinition
 import kpn.core.poi.PoiGroupDefinition
@@ -61,13 +61,13 @@ class TagInfoReport {
   }
 
   private def nodeAnalysisTags(): Seq[TagInfoTag] = {
-    ScopedNetworkType.all.flatMap { scopedNetworkType =>
+    ScopedRouteType.all.flatMap { scopedRouteType =>
       Seq(
-        scopedNetworkType.nodeRefTagKey,
-        scopedNetworkType.nodeNameTagKey,
-        scopedNetworkType.proposedNodeRefTagKey,
-        scopedNetworkType.proposedNodeNameTagKey,
-        scopedNetworkType.expectedRouteRelationsTag
+        scopedRouteType.nodeRefTagKey,
+        scopedRouteType.nodeNameTagKey,
+        scopedRouteType.proposedNodeRefTagKey,
+        scopedRouteType.proposedNodeNameTagKey,
+        scopedRouteType.expectedRouteRelationsTag
       ).map { tagKey =>
         TagInfoTag(
           tagKey,
@@ -78,13 +78,12 @@ class TagInfoReport {
     }
   }
 
-
   private def networkAnalysisTags(): Seq[TagInfoTag] = {
-    ScopedNetworkType.all.map { scopedNetworkType =>
+    ScopedRouteType.all.map { scopedRouteType =>
       TagInfoTag(
         "network",
-        Some(scopedNetworkType.key),
-        s"Used in node network analysis - ${scopedNetworkType.networkScope.entryName} ${scopedNetworkType.networkType.entryName} network"
+        Some(scopedRouteType.key),
+        s"Used in node network analysis - ${scopedRouteType.networkScope.entryName} ${scopedRouteType.routeType.entryName} network"
       )
     }
   }

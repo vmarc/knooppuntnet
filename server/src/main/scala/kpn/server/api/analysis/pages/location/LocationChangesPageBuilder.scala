@@ -4,7 +4,7 @@ import kpn.api.common.Country
 import kpn.api.common.Language
 import kpn.api.common.LocationChangeSetInfo
 import kpn.api.common.LocationChangesInfo
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.api.common.location.LocationChangesPage
 import kpn.api.custom.LocationKey
@@ -20,7 +20,7 @@ class LocationChangesPageBuilder(
   changeSetInfoRepository: ChangeSetInfoRepository
 ) {
   def build(language: Language, locationKey: LocationKey, parameters: ChangesParameters): Option[LocationChangesPage] = {
-    if (locationKey == LocationKey(NetworkType.cycling, Country.nl, "example")) {
+    if (locationKey == LocationKey(RouteType.cycling, Country.nl, "example")) {
       Some(LocationChangesPageExample.page)
     }
     else {
@@ -42,10 +42,10 @@ class LocationChangesPageBuilder(
       val locationChangeInfos = changeSet.locationChanges.map { change =>
         val locationNames = change.locationNames.dropWhile(_ != subset.locationIds.head /* TODO supports multiple locationIds !!! */).drop(1)
         val locationInfos = locationService.toInfos(language, change.locationNames, locationNames).map { locationInfo =>
-          locationInfo.copy(link = s"${subset.networkType.entryName}/${locationInfo.link}")
+          locationInfo.copy(link = s"${subset.routeType.entryName}/${locationInfo.link}")
         }
         LocationChangesInfo(
-          change.networkType,
+          change.routeType,
           locationInfos,
           change.routeChanges,
           change.nodeChanges,

@@ -4,15 +4,15 @@ import kpn.api.base.WithId
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.LatLon
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Tagable
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.Day
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
@@ -55,16 +55,16 @@ case class NodeDoc(
     )
   }
 
-  def name(scopedNetworkType: ScopedNetworkType): String = {
-    names.filter(_.scopedNetworkType == scopedNetworkType).map(_.name).mkString(" / ")
+  def name(scopedRouteType: ScopedRouteType): String = {
+    names.filter(_.scopedRouteType == scopedRouteType).map(_.name).mkString(" / ")
   }
 
-  def longName(scopedNetworkType: ScopedNetworkType): String = {
-    names.filter(_.scopedNetworkType == scopedNetworkType).flatMap(_.longName).mkString(" / ")
+  def longName(scopedRouteType: ScopedRouteType): String = {
+    names.filter(_.scopedRouteType == scopedRouteType).flatMap(_.longName).mkString(" / ")
   }
 
-  def networkTypeName(networkType: NetworkType): String = {
-    names.filter(_.networkType == networkType).map(_.name).mkString(" / ")
+  def routeTypeName(routeType: RouteType): String = {
+    names.filter(_.routeType == routeType).map(_.name).mkString(" / ")
   }
 
   def isSameAs(other: NodeDoc): Boolean = {
@@ -80,7 +80,7 @@ case class NodeDoc(
       facts == other.facts
   }
 
-  def nodeIntegrityDetail(scopedNetworkType: ScopedNetworkType): Option[NodeIntegrityDetail] = {
-    integrity.toSeq.flatMap(_.details).find(_.hasScopedNetworkType(scopedNetworkType))
+  def nodeIntegrityDetail(scopedRouteType: ScopedRouteType): Option[NodeIntegrityDetail] = {
+    integrity.toSeq.flatMap(_.details).find(_.hasScopedRouteType(scopedRouteType))
   }
 }

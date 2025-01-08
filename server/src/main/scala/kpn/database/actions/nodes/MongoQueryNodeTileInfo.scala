@@ -1,6 +1,6 @@
 package kpn.database.actions.nodes
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -34,14 +34,14 @@ object MongoQueryNodeTileInfo {
 
 class MongoQueryNodeTileInfo(database: Database) {
 
-  def execute(networkType: NetworkType, tileId: TileId, log: Log = MongoQueryNodeTileInfo.log): Seq[NodeTileInfo] = {
+  def execute(routeType: RouteType, tileId: TileId, log: Log = MongoQueryNodeTileInfo.log): Seq[NodeTileInfo] = {
     log.debugElapsed {
-      val tilename = s"${networkType.entryName}-${tileId.name}"
+      val tilename = s"${routeType.entryName}-${tileId.name}"
       val pipeline = Seq(
         filter(
           and(
             equal("labels", Label.active),
-            equal("labels", Label.networkType(networkType)),
+            equal("labels", Label.routeType(routeType)),
             equal("tiles", tilename)
           )
         ),

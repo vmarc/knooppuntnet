@@ -25,7 +25,7 @@ class MongoQuerySubsetChanges(database: Database) {
 
     val filterElements = Seq(
       Some(equal("subsets.country", subset.country.entryName)),
-      Some(equal("subsets.networkType", subset.networkType.entryName)),
+      Some(equal("subsets.routeType", subset.routeType.entryName)),
       if (parameters.impact) {
         Some(equal("impact", true))
       }

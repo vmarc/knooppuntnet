@@ -1,6 +1,6 @@
 package kpn.core.tools.monitor.support
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.tools.config.Dirs
 import kpn.database.base.Database
@@ -33,7 +33,7 @@ class StructureFindOkCyclingRoutesTool(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(NetworkType.cycling)),
+          equal("labels", Label.routeType(RouteType.cycling)),
           BsonDocument("""{"facts": { "$size": 0 }}""")
         )
       ),

@@ -5,8 +5,8 @@ import kpn.api.common.ChangesPage
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.Language
-import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
+import kpn.api.common.RouteType
 import kpn.api.common.SearchResponse
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
@@ -95,7 +95,7 @@ trait AnalysisFacade {
 
   def changes(language: Language, strategy: AnalysisStrategy, parameters: ChangesParameters): ApiResponse[ChangesPage]
 
-  def locations(language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage]
+  def locations(language: Language, routeType: RouteType, country: Country): ApiResponse[LocationsPage]
 
   def locationDetails(language: Language, locationKey: LocationKey): ApiResponse[LocationDetailsPage]
 

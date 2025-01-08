@@ -2,7 +2,7 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.NetworkFacts
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.details.NetworkChangeInfo
 import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.network.NetworkChangesPage
@@ -40,7 +40,7 @@ object NetworkChangesPageExample {
     NetworkChangesPage(
       NetworkSummary(
         "name",
-        NetworkType.hiking,
+        RouteType.hiking,
         NetworkScope.regional,
         1,
         2,

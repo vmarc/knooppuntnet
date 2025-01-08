@@ -1,12 +1,12 @@
 package kpn.core.doc
 
 import kpn.api.base.WithStringId
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 case class NodeNetworkRef(
   _id: String,
   nodeId: Long,
   networkId: Long,
-  networkType: NetworkType,
+  routeType: RouteType,
   networkName: String
 ) extends WithStringId

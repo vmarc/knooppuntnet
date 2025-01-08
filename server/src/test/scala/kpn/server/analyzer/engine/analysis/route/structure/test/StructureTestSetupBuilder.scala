@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawData
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawWay
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.DataBuilder
@@ -51,8 +51,6 @@ class StructureTestSetupBuilder extends SharedTestObjects {
     rawNode(
       newRawNode(
         id,
-        "0",
-        "0",
         tags = tags
       )
     )
@@ -116,10 +114,10 @@ class StructureTestSetupBuilder extends SharedTestObjects {
   def build(
     from: String,
     to: String,
-    scopedNetworkType: ScopedNetworkType = ScopedNetworkType.rwn,
+    scopedRouteType: ScopedRouteType = ScopedRouteType.rwn,
     routeTags: Seq[Tag] = Seq.empty
   ): StructureTestSetup = {
-    val routeTagValue = if (scopedNetworkType.networkType == NetworkType.cycling) "bicycle" else "hiking"
+    val routeTagValue = if (scopedRouteType.routeType == RouteType.cycling) "bicycle" else "hiking"
     val relation = newRawRelation(
       1,
       members = memberBuffer.toSeq,
@@ -129,7 +127,7 @@ class StructureTestSetupBuilder extends SharedTestObjects {
         "type" -> "route",
         "route" -> routeTagValue,
         "network:type" -> "node_network",
-        "network" -> scopedNetworkType.key
+        "network" -> scopedRouteType.key
       ) ++ routeTags
     )
     val rawData = RawData(None, nodeBuffer.toSeq, wayBuffer.toSeq, Seq(relation))

@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.network.Integrity
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.core.doc.NetworkNodeMember
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
@@ -23,7 +23,7 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
         NodeIntegrity(
           details = Seq(
             NodeIntegrityDetail(
-              networkType = NetworkType.hiking,
+              routeType = RouteType.hiking,
               networkScope = NetworkScope.regional,
               expectedRouteCount = 3,
               routeRefs = Seq(
@@ -44,7 +44,7 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
         NodeIntegrity(
           details = Seq(
             NodeIntegrityDetail(
-              networkType = NetworkType.hiking,
+              routeType = RouteType.hiking,
               networkScope = NetworkScope.regional,
               expectedRouteCount = 3,
               routeRefs = Seq.empty
@@ -61,7 +61,7 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
         NodeIntegrity(
           details = Seq(
             NodeIntegrityDetail(
-              networkType = NetworkType.hiking,
+              routeType = RouteType.hiking,
               networkScope = NetworkScope.regional,
               expectedRouteCount = 3,
               routeRefs = Seq.empty
@@ -90,7 +90,7 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
     val context = NetworkInfoAnalysisContext(
       defaultTimestamp,
       networkDoc,
-      scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
+      scopedRouteTypeOption = Some(ScopedRouteType.rwn),
       nodeDocs = Seq(node1, node2, node3, node4)
     )
 

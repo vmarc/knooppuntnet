@@ -28,7 +28,6 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLinkAnaly
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteMemberAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteNameAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteNetworkTypeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteNodesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteOneWayAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteScopeAnalyzer
@@ -37,6 +36,7 @@ import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteSegmentAn
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteStructureAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTagAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouterouteTypeAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.SuspiciousWaysRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.UnexpectedNodeRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.route.analyzers.detail.UnexpectedRelationRouteAnalyzer
@@ -66,7 +66,7 @@ class RouteDetailMainAnalyzer(
 
       val analyzers: List[RouteDetailAnalyzer] = List(
         RouteTagAnalyzer,
-        RouteNetworkTypeAnalyzer,
+        RouterouteTypeAnalyzer,
         RouteScopeAnalyzer,
         routeCountryAnalyzer, // TODO redesign - support multiple countries?
         ProposedAnalyzer,
@@ -111,7 +111,7 @@ class RouteDetailMainAnalyzer(
     analyzers: List[RouteDetailAnalyzer],
     context: RouteDetailAnalysisContext
   ): Option[RouteDetailAnalysisContext] = {
-    
+
     if (context.abort) {
       None
     }

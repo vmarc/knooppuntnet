@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.node.analyzers
 import kpn.api.common.Fact
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
 object NodeIntegrityAnalyzer extends NodeAspectAnalyzer {
@@ -18,18 +18,18 @@ class NodeIntegrityAnalyzer(analysis: NodeAnalysis) {
 
     var unexpectedExpectedRouteRelationsTag: Boolean = false
 
-    val nodeIntegrityDetails = ScopedNetworkType.all.flatMap { scopedNetworkType =>
-      analysis.node.tagValue(scopedNetworkType.expectedRouteRelationsTag) match {
+    val nodeIntegrityDetails = ScopedRouteType.all.flatMap { scopedRouteType =>
+      analysis.node.tagValue(scopedRouteType.expectedRouteRelationsTag) match {
         case None => None
         case Some(expectedRouteRelationsValue) =>
           if (expectedRouteRelationsValue.forall(Character.isDigit)) {
-            if (analysis.networkTypes.contains(scopedNetworkType.networkType)) {
+            if (analysis.routeTypes.contains(scopedRouteType.routeType)) {
               val expectedRouteCount = expectedRouteRelationsValue.toInt
-              val routeRefs = analysis.routeReferences.filter(rr => rr.networkType == scopedNetworkType.networkType && rr.networkScope == scopedNetworkType.networkScope).map(_.toRef)
+              val routeRefs = analysis.routeReferences.filter(rr => rr.routeType == scopedRouteType.routeType && rr.networkScope == scopedRouteType.networkScope).map(_.toRef)
               Some(
                 NodeIntegrityDetail(
-                  scopedNetworkType.networkType,
-                  scopedNetworkType.networkScope,
+                  scopedRouteType.routeType,
+                  scopedRouteType.networkScope,
                   expectedRouteCount,
                   routeRefs
                 )

@@ -43,7 +43,7 @@ class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfigurat
         key = key,
         changeType = ChangeType.InitialValue,
         networkInfoDoc.country,
-        networkInfoDoc.summary.networkType,
+        networkInfoDoc.summary.routeType,
         networkInfoDoc._id,
         networkInfoDoc.summary.name,
         networkDataUpdate = None,

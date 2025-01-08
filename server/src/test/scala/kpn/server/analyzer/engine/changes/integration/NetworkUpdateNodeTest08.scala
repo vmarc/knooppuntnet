@@ -5,7 +5,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -47,7 +47,7 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
         findOrphanNodeById("nl:hiking:1002"),
         newOrphanNodeDoc(
           country = Country.nl,
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           nodeId = 1002,
           name = "02"
         )
@@ -85,7 +85,7 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
         newChangeKey(elementId = 1),
         ChangeType.Update,
         Some(Country.nl),
-        NetworkType.hiking,
+        RouteType.hiking,
         1,
         "name",
         networkDataUpdate = None,
@@ -127,7 +127,7 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
           updates = Seq(
             newChangeSetNetwork(
               Some(Country.nl),
-              NetworkType.hiking,
+              RouteType.hiking,
               1,
               "name",
               nodeChanges = ChangeSetElementRefs(

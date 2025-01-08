@@ -1,6 +1,6 @@
 package kpn.server.api.analysis.pages.network
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.network.NetworkRouteRow
 import kpn.api.common.network.NetworkRoutesPage
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
@@ -15,7 +15,7 @@ object NetworkRoutesPageExample {
     NetworkRoutesPage(
       TimeInfoBuilder.timeInfo,
       SurveyDateInfoBuilder.dateInfo,
-      NetworkType.hiking,
+      RouteType.hiking,
       NetworkDetailsPageExample.networkSummary(),
       routes
     )

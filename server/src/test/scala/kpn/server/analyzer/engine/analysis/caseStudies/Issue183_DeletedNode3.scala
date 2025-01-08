@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
@@ -26,7 +26,7 @@ class Issue183_DeletedNode3 extends IntegrationTest {
       nodeBefore.names should equal(
         Seq(
           newNodeName(
-            NetworkType.cycling,
+            RouteType.cycling,
             NetworkScope.regional,
             "Pau49"
           )
@@ -37,7 +37,7 @@ class Issue183_DeletedNode3 extends IntegrationTest {
           NodeIntegrity(
             Seq(
               NodeIntegrityDetail(
-                NetworkType.cycling,
+                RouteType.cycling,
                 NetworkScope.regional,
                 3,
                 Seq.empty

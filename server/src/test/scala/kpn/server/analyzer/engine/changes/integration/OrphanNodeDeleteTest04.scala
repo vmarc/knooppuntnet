@@ -7,7 +7,7 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -42,7 +42,7 @@ class OrphanNodeDeleteTest04 extends IntegrationTest {
       newNodeDoc(
         1001,
         labels = Seq(
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
           // not active
         ),
         country = Some(Country.nl),

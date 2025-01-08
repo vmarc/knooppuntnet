@@ -8,14 +8,13 @@ class PathMatcherTest extends UnitTest {
 
   test("subset") {
 
-    val pattern = "/api/{country:be|de|fr|nl|at}/{networkType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"
+    val pattern = "/api/{country:be|de|fr|nl|at}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"
     val path = "/api/be/cycling/networks"
 
     val matcher: PathMatcher = new AntPathMatcher()
     val result = matcher.extractUriTemplateVariables(pattern, path)
 
     result.get("country") should equal("be")
-    result.get("networkType") should equal("cycling")
+    result.get("routeType") should equal("cycling")
   }
-
 }

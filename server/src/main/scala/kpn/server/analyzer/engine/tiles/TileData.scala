@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.tiles
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.server.analyzer.engine.tiles.domain.TileDataNode
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 
 case class TileData(
-  networkType: NetworkType,
+  routeType: RouteType,
   nodes: Seq[TileDataNode],
   routes: Seq[TileDataRoute]
 ) {

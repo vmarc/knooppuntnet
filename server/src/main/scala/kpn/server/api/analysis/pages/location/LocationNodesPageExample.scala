@@ -2,7 +2,7 @@ package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.common.Reference
 import kpn.api.common.location.LocationNodeInfo
@@ -42,8 +42,8 @@ object LocationNodesPageExample {
           facts = Seq(Fact.NodeInvalidSurveyDate),
           expectedRouteCount = "3",
           routeReferences = Seq(
-            Reference(NetworkType.hiking, NetworkScope.regional, 101, "01-02"),
-            Reference(NetworkType.hiking, NetworkScope.regional, 102, "01-03")
+            Reference(RouteType.hiking, NetworkScope.regional, 101, "01-02"),
+            Reference(RouteType.hiking, NetworkScope.regional, 102, "01-03")
           )
         )
       )

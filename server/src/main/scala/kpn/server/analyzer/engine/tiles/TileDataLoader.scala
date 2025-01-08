@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.tiles
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 trait TileDataLoader {
 
-  def load(networkType: NetworkType, nodenetwork: Boolean): TileData
+  def load(routeType: RouteType, nodenetwork: Boolean): TileData
 }

@@ -2,11 +2,11 @@ package kpn.server.analyzer.engine.analysis.node.analyzers
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.node.domain.NodeTagAnalysis
@@ -24,18 +24,18 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("??n_ref") {
-    ScopedNetworkType.all.foreach { scopedNetworkType =>
+    ScopedRouteType.all.foreach { scopedRouteType =>
       analyze(
         "network:type" -> "node_network",
-        scopedNetworkType.nodeRefTagKey -> "01"
+        scopedRouteType.nodeRefTagKey -> "01"
       ) should equal(
         Some(
           NodeTagAnalysis(
             "01",
             nodeNames = Seq(
               NodeName(
-                networkType = scopedNetworkType.networkType,
-                networkScope = scopedNetworkType.networkScope,
+                routeType = scopedRouteType.routeType,
+                networkScope = scopedRouteType.networkScope,
                 name = "01",
                 longName = None,
                 proposed = false
@@ -50,18 +50,18 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("??n_name") {
-    ScopedNetworkType.all.foreach { scopedNetworkType =>
+    ScopedRouteType.all.foreach { scopedRouteType =>
       analyze(
         "network:type" -> "node_network",
-        scopedNetworkType.nodeNameTagKey -> "01"
+        scopedRouteType.nodeNameTagKey -> "01"
       ) should equal(
         Some(
           NodeTagAnalysis(
             "01",
             nodeNames = Seq(
               NodeName(
-                networkType = scopedNetworkType.networkType,
-                networkScope = scopedNetworkType.networkScope,
+                routeType = scopedRouteType.routeType,
+                networkScope = scopedRouteType.networkScope,
                 name = "01",
                 longName = Some("01"),
                 proposed = false
@@ -76,18 +76,18 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("proposed:??n_ref") {
-    ScopedNetworkType.all.foreach { scopedNetworkType =>
+    ScopedRouteType.all.foreach { scopedRouteType =>
       analyze(
         "network:type" -> "node_network",
-        scopedNetworkType.proposedNodeRefTagKey -> "01"
+        scopedRouteType.proposedNodeRefTagKey -> "01"
       ) should equal(
         Some(
           NodeTagAnalysis(
             "01",
             nodeNames = Seq(
               NodeName(
-                networkType = scopedNetworkType.networkType,
-                networkScope = scopedNetworkType.networkScope,
+                routeType = scopedRouteType.routeType,
+                networkScope = scopedRouteType.networkScope,
                 name = "01",
                 longName = None,
                 proposed = true
@@ -102,18 +102,18 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("propsed:??n_name") {
-    ScopedNetworkType.all.foreach { scopedNetworkType =>
+    ScopedRouteType.all.foreach { scopedRouteType =>
       analyze(
         "network:type" -> "node_network",
-        scopedNetworkType.proposedNodeNameTagKey -> "01"
+        scopedRouteType.proposedNodeNameTagKey -> "01"
       ) should equal(
         Some(
           NodeTagAnalysis(
             "01",
             nodeNames = Seq(
               NodeName(
-                networkType = scopedNetworkType.networkType,
-                networkScope = scopedNetworkType.networkScope,
+                routeType = scopedRouteType.routeType,
+                networkScope = scopedRouteType.networkScope,
                 name = "01",
                 longName = Some("01"),
                 proposed = true
@@ -161,21 +161,21 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
           "01 / 02 / 03",
           nodeNames = Seq(
             NodeName(
-              networkType = NetworkType.hiking,
+              routeType = RouteType.hiking,
               networkScope = NetworkScope.regional,
               name = "01",
               longName = None,
               proposed = false
             ),
             NodeName(
-              networkType = NetworkType.hiking,
+              routeType = RouteType.hiking,
               networkScope = NetworkScope.local,
               name = "02",
               longName = None,
               proposed = false
             ),
             NodeName(
-              networkType = NetworkType.cycling,
+              routeType = RouteType.cycling,
               networkScope = NetworkScope.regional,
               name = "03",
               longName = None,
@@ -201,7 +201,7 @@ class NodeTagAnalyzerTest extends UnitTest with SharedTestObjects {
           "01",
           nodeNames = Seq(
             NodeName(
-              networkType = NetworkType.hiking,
+              routeType = RouteType.hiking,
               networkScope = NetworkScope.regional,
               name = "01",
               longName = None,

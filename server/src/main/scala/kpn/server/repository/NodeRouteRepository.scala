@@ -1,8 +1,8 @@
 package kpn.server.repository
 
 import kpn.api.common.common.NodeRouteRefs
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 
 trait NodeRouteRepository {
-  def nodesRouteReferences(scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[NodeRouteRefs]
+  def nodesRouteReferences(scopedRouteType: ScopedRouteType, nodeIds: Seq[Long]): Seq[NodeRouteRefs]
 }

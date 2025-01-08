@@ -20,12 +20,12 @@ class NetworkInfoNodeAnalyzer(context: NetworkInfoAnalysisContext) {
   }
 
   private def analyzeNetworkNodes(): Seq[NetworkInfoNodeDetail] = {
-    val sortedNodeDocs = NaturalSorting.sortBy(context.nodeDocs)(_.name(context.scopedNetworkType))
+    val sortedNodeDocs = NaturalSorting.sortBy(context.nodeDocs)(_.name(context.scopedRouteType))
     sortedNodeDocs.map { nodeDoc =>
       val networkDocAnalyzer = new NetworkDocAnalyzer(context, nodeDoc)
       NetworkInfoNodeDetail(
         nodeDoc._id,
-        nodeDoc.name(context.scopedNetworkType),
+        nodeDoc.name(context.scopedRouteType),
         networkDocAnalyzer.longName,
         nodeDoc.latitude,
         nodeDoc.longitude,

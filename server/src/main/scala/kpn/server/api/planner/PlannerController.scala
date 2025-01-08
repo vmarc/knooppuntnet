@@ -1,7 +1,7 @@
 package kpn.server.api.planner
 
-import kpn.api.common.NetworkType
 import kpn.api.common.PoiPage
+import kpn.api.common.RouteType
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.PlanLegDetail
@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class PlannerController(plannerFacade: PlannerFacade) {
 
-  @GetMapping(value = Array("/api/node-detail/{nodeId}/{networkType}"))
+  @GetMapping(value = Array("/api/node-detail/{nodeId}/{routeType}"))
   def mapNodeDetail(
-    @PathVariable networkType: String,
+    @PathVariable routeType: String,
     @PathVariable nodeId: Long
   ): ApiResponse[MapNodeDetail] = {
-    val networkTypeValue = NetworkType.withName(networkType)
-    plannerFacade.mapNodeDetail(networkTypeValue, nodeId)
+    val routeTypeValue = RouteType.withName(routeType)
+    plannerFacade.mapNodeDetail(routeTypeValue, nodeId)
   }
 
   @GetMapping(value = Array("/api/route-detail/{routeId}"))
@@ -54,7 +54,7 @@ class PlannerController(plannerFacade: PlannerFacade) {
   @PostMapping(path = Array("/api/plan"), consumes = Array("application/json"))
   def plan(@RequestBody params: PlanParams): ApiResponse[Seq[PlanLegDetail]] = {
     plannerFacade.plan(
-      NetworkType.withName(params.networkType),
+      RouteType.withName(params.routeType),
       params.planString,
       proposed = false
     )

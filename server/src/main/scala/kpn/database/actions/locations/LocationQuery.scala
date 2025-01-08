@@ -119,12 +119,12 @@ object LocationQuery {
   }
 
   def integrityCheckFilter(subset: LocationSubset, integrityCheck: Option[BooleanParameter]): Option[Bson] = {
-    val condition = equal("labels", s"integrity-check-${subset.networkType.entryName}")
+    val condition = equal("labels", s"integrity-check-${subset.routeType.entryName}")
     booleanFilter(integrityCheck, condition)
   }
 
   def integrityCheckFailedFilter(subset: LocationSubset, integrityCheckFailed: Option[BooleanParameter]): Option[Bson] = {
-    val condition = equal("labels", s"integrity-check-failed-${subset.networkType.entryName}")
+    val condition = equal("labels", s"integrity-check-failed-${subset.routeType.entryName}")
     booleanFilter(integrityCheckFailed, condition)
   }
 
@@ -133,7 +133,7 @@ object LocationQuery {
   }
 
   private def referencedInRoutesCondition(subset: LocationSubset): Bson = {
-    elemMatch("routeReferences", equal("networkType", subset.networkType.entryName))
+    elemMatch("routeReferences", equal("routeType", subset.routeType.entryName))
   }
 
   private def booleanFilter(booleanParameter: Option[BooleanParameter], condition: Bson): Option[Bson] = {
@@ -279,7 +279,7 @@ object LocationQuery {
   def integrityCheckPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
     prefilter(otherFilters) ++ Seq(
       filter(
-        equal("labels", s"integrity-check-${subset.networkType.entryName}")
+        equal("labels", s"integrity-check-${subset.routeType.entryName}")
       ),
       count()
     )
@@ -288,7 +288,7 @@ object LocationQuery {
   def integrityCheckFailedPipeline(subset: LocationSubset, otherFilters: Seq[Option[Bson]]): Seq[Bson] = {
     prefilter(otherFilters) ++ Seq(
       filter(
-        equal("labels", s"integrity-check-failed-${subset.networkType.entryName}")
+        equal("labels", s"integrity-check-failed-${subset.routeType.entryName}")
       ),
       count()
     )

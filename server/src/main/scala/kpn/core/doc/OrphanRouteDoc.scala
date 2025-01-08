@@ -3,14 +3,14 @@ package kpn.core.doc
 import kpn.api.base.WithId
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 
 case class OrphanRouteDoc(
   _id: Long,
   country: Country,
-  networkTypes: Seq[NetworkType],
+  routeTypes: Seq[RouteType],
   name: String,
   meters: Long,
   facts: Seq[Fact],

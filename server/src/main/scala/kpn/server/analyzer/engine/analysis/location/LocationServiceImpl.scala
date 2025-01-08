@@ -52,14 +52,14 @@ class LocationServiceImpl(locationConfiguration: LocationConfiguration) extends 
     if (locationKey.name == ParcDuVercors.name) {
       LocationSubset(
         locationKey.name,
-        locationKey.networkType,
+        locationKey.routeType,
         ParcDuVercors.communes
       )
     }
     else {
       LocationSubset(
         locationKey.name,
-        locationKey.networkType,
+        locationKey.routeType,
         Seq(toId(language, locationKey.name))
       )
     }

@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.node.analyzers
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
@@ -27,7 +27,7 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
       node,
       nodeNames = Seq(
         newNodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "01",
         )
@@ -52,26 +52,26 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
       node,
       nodeNames = Seq(
         newNodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "01",
         )
       ),
       routeReferences = Seq(
         Reference(
-          NetworkType.hiking,
+          RouteType.hiking,
           networkScope = NetworkScope.regional,
           10,
           "R1"
         ),
         Reference(
-          NetworkType.hiking,
+          RouteType.hiking,
           networkScope = NetworkScope.regional,
           20,
           "R2"
         ),
         Reference(
-          NetworkType.hiking,
+          RouteType.hiking,
           networkScope = NetworkScope.regional,
           30,
           "R3"
@@ -86,7 +86,7 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
         NodeIntegrity(
           Seq(
             NodeIntegrityDetail(
-              NetworkType.hiking,
+              RouteType.hiking,
               NetworkScope.regional,
               3,
               Seq(
@@ -114,20 +114,20 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
       node,
       nodeNames = Seq(
         newNodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "01",
         )
       ),
       routeReferences = Seq(
         Reference(
-          NetworkType.hiking,
+          RouteType.hiking,
           networkScope = NetworkScope.regional,
           10,
           "R1"
         ),
         Reference(
-          NetworkType.hiking,
+          RouteType.hiking,
           networkScope = NetworkScope.regional,
           20,
           "R2"
@@ -142,7 +142,7 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
         NodeIntegrity(
           Seq(
             NodeIntegrityDetail(
-              NetworkType.hiking,
+              RouteType.hiking,
               NetworkScope.regional,
               3,
               Seq(

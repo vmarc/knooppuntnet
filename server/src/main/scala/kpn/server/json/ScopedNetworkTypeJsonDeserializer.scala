@@ -5,20 +5,20 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 
-class ScopedNetworkTypeJsonDeserializer extends JsonDeserializer[ScopedNetworkType] {
-  override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): ScopedNetworkType = {
+class scopedRouteTypeJsonDeserializer extends JsonDeserializer[ScopedRouteType] {
+  override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): ScopedRouteType = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
     val key = node.asText
     if (key == null || key.isEmpty) {
       null
     }
     else {
-      ScopedNetworkType.withKey(key).getOrElse(
+      ScopedRouteType.withKey(key).getOrElse(
         throw JsonMappingException.from(
           jsonParser,
-          "Could not deserialize ScopedNetworkType"
+          "Could not deserialize scopedRouteType"
         )
       )
     }

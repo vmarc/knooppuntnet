@@ -2,7 +2,7 @@ package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.Country
 import kpn.api.common.Language
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.location.LocationNodesPage
 import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.LocationKey
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component
 class LocationNodesPageBuilder(
   locationRepository: LocationRepository,
   locationService: LocationService
-)  {
+) {
 
   def build(language: Language, locationKey: LocationKey, parameters: LocationNodesParameters): Option[LocationNodesPage] = {
-    if (locationKey == LocationKey(NetworkType.cycling, Country.nl, "example")) {
+    if (locationKey == LocationKey(RouteType.cycling, Country.nl, "example")) {
       Some(LocationNodesPageExample.page)
     }
     else {

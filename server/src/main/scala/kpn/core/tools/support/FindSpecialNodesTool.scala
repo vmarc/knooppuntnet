@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -22,7 +22,7 @@ object FindSpecialNodesTool {
   }
 }
 
-case class SpecialNode(nodeId: Long, country: Country, networkType: NetworkType)
+case class SpecialNode(nodeId: Long, country: Country, routeType: RouteType)
 
 class FindSpecialNodesTool(database: Database) {
 
@@ -31,7 +31,7 @@ class FindSpecialNodesTool(database: Database) {
   def report(): Unit = {
     val nodes = findNodes()
     nodes.zipWithIndex.foreach { case (node, index) =>
-      println(s"| ${index + 1} | ${node.country.entryName} | ${node.networkType.entryName} | [${node.nodeId}](https://knooppuntnet.nl/en/analysis/node/${node.nodeId}) |")
+      println(s"| ${index + 1} | ${node.country.entryName} | ${node.routeType.entryName} | [${node.nodeId}](https://knooppuntnet.nl/en/analysis/node/${node.nodeId}) |")
     }
   }
 
@@ -49,7 +49,7 @@ class FindSpecialNodesTool(database: Database) {
         fields(
           computed("nodeId", "$_id"),
           include("country"),
-          computed("networkType", "$names.networkType"),
+          computed("routeType", "$names.routeType"),
         )
       ),
     )

@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.RouteScope
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.common.RouteType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
@@ -18,8 +18,8 @@ object RouteScopeAnalyzer extends RouteDetailAnalyzer {
   }
 
   private def tagValues(scope: NetworkScope): Seq[String] = {
-    NetworkType.values.map { networkType =>
-      ScopedNetworkType(scope, networkType).key
+    RouteType.values.map { routeType =>
+      ScopedRouteType(scope, routeType).key
     }
   }
 }

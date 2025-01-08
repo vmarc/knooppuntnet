@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.Bounds
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.SubRouteData
@@ -42,8 +42,8 @@ class RouteDetailRepositoryImpl(database: Database) extends RouteDetailRepositor
     new MongoQueryKnownRouteIds(database).execute(routeIds.toSeq, log).toSet
   }
 
-  override def routeTileInfosByNetworkType(networkType: NetworkType, nodeNetwork: Boolean): Seq[RouteTileInfo] = {
-    new MongoQueryRouteTileInfo(database).findByNetworkType(networkType, nodeNetwork)
+  override def routeTileInfosByrouteType(routeType: RouteType, nodeNetwork: Boolean): Seq[RouteTileInfo] = {
+    new MongoQueryRouteTileInfo(database).findByrouteType(routeType, nodeNetwork)
   }
 
   override def bounds(routeIds: Seq[Long]): Option[Bounds] = {

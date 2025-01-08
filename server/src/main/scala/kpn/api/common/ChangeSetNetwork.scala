@@ -5,7 +5,7 @@ import kpn.api.custom.Subset
 
 case class ChangeSetNetwork(
   country: Option[Country],
-  networkType: NetworkType,
+  routeType: RouteType,
   networkId: Long,
   networkName: String,
   routeChanges: ChangeSetElementRefs,
@@ -14,7 +14,7 @@ case class ChangeSetNetwork(
   investigate: Boolean
 ) {
 
-  def subsets: Set[Subset] = country.map(c => kpn.api.custom.Subset(c, networkType)).toSet
+  def subsets: Set[Subset] = country.map(c => kpn.api.custom.Subset(c, routeType)).toSet
 
   def referencedElements: ReferencedElements = {
     ReferencedElements(

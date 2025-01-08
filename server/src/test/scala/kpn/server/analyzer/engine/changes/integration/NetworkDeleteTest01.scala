@@ -7,7 +7,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.common.Ref
@@ -100,7 +100,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
       newNodeDoc(
         1001L,
         labels = Seq(
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
           // not active
         ),
         country = Some(Country.nl),
@@ -126,7 +126,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
           deletes = Seq(
             ChangeSetNetwork(
               country = Some(Country.nl),
-              networkType = NetworkType.hiking,
+              routeType = RouteType.hiking,
               networkId = 1,
               networkName = "network1",
               routeChanges = ChangeSetElementRefs(),
@@ -156,7 +156,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
     networkChange.key.changeSetId should equal(123)
     networkChange.key.elementId should equal(1)
     networkChange.changeType should equal(ChangeType.Delete)
-    networkChange.networkType should equal(NetworkType.hiking)
+    networkChange.routeType should equal(RouteType.hiking)
     networkChange.networkName should equal("network1")
     assert(!networkChange.happy)
     assert(networkChange.investigate)

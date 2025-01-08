@@ -3,9 +3,9 @@ package kpn.server.api.analysis.pages.route
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteSummary
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
 import kpn.api.common.route.RouteDetailsPage
@@ -23,8 +23,8 @@ object RouteDetailsPageExample {
     RouteDetailsPage(
       route(),
       networkReferences = Seq(
-        Reference(NetworkType.cycling, NetworkScope.regional, 1, "network one"),
-        Reference(NetworkType.cycling, NetworkScope.regional, 2, "network two")
+        Reference(RouteType.cycling, NetworkScope.regional, 1, "network one"),
+        Reference(RouteType.cycling, NetworkScope.regional, 2, "network two")
       ),
       123
     )
@@ -41,7 +41,7 @@ object RouteDetailsPageExample {
         id = 1,
         countries = Seq(Country.nl),
         nodeNetwork = true,
-        networkTypes = Seq(NetworkType.hiking),
+        routeTypes = Seq(RouteType.hiking),
         scopes = Seq(RouteScope.Regional),
         name = "01-02",
         meters = 1234,

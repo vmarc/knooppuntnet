@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
@@ -28,11 +28,11 @@ trait NodeRepository {
 
   def filterKnown(nodeIds: Set[Long]): Set[Long]
 
-  def tiles(networkType: NetworkType): Seq[TileId]
+  def tiles(routeType: RouteType): Seq[TileId]
 
-  def tilesWithName(networkType: NetworkType, tileId: TileId): Seq[NodeTileInfo]
+  def tilesWithName(routeType: RouteType, tileId: TileId): Seq[NodeTileInfo]
 
-  def nodeTileInfoByNetworkType(networkType: NetworkType): Seq[NodeTileInfo]
+  def nodeTileInfoByrouteType(routeType: RouteType): Seq[NodeTileInfo]
 
   def nodeTileInfoById(nodeId: Long): Option[NodeTileInfo]
 }

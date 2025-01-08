@@ -2,12 +2,12 @@ package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.core.doc.Label
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteTestData
@@ -26,7 +26,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         Label.facts,
         Label.location("Essen"),
         Label.location(Country.be.entryName),
-        Label.networkType(NetworkType.hiking),
+        Label.routeType(RouteType.hiking),
         Label.scope(RouteScope.Regional),
         Label.survey,
       )
@@ -70,7 +70,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         Label.fact(Fact.RouteBroken),
         Label.facts,
         Label.location(Country.be.entryName),
-        Label.networkType(NetworkType.hiking),
+        Label.routeType(RouteType.hiking),
         Label.scope(RouteScope.Regional),
         Label.survey,
       )
@@ -83,9 +83,9 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
     RouteDetailAnalysisContext(
       relation,
       None,
-      _networkTypes = Some(Seq(NetworkType.hiking)),
+      _routeTypes = Some(Seq(RouteType.hiking)),
       _scopes = Some(Seq(RouteScope.Regional)),
-      scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
+      scopedRouteTypeOption = Some(ScopedRouteType.rwn),
       _countries = Some(Seq(Country.be)),
       lastSurvey = Some(Day(2020, 8)),
       facts = Seq(Fact.RouteBroken),

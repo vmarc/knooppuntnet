@@ -89,9 +89,9 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
 
   private def integrityFailedFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
     val checks = context.nodeDocs.flatMap { nodeDoc =>
-      nodeDoc.nodeIntegrityDetail(context.scopedNetworkType).flatMap { nodeIntegrityDetail =>
+      nodeDoc.nodeIntegrityDetail(context.scopedRouteType).flatMap { nodeIntegrityDetail =>
         if (nodeIntegrityDetail.failed) {
-          val nodeName = nodeDoc.name(context.scopedNetworkType)
+          val nodeName = nodeDoc.name(context.scopedRouteType)
           Some(
             Check(
               nodeDoc._id,

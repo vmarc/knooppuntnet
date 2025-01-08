@@ -6,9 +6,9 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteMemberInfoWay
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -105,7 +105,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         labels = Seq(
           Label.active,
           Label.country(Country.nl),
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
         ),
         members = Seq(
           RouteMemberInfo(
@@ -204,7 +204,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         labels = Seq(
           Label.active,
           Label.country(Country.nl),
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
         ),
         members = Seq(
           common.RouteMemberInfo(
@@ -308,7 +308,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
       newOrphanRouteDoc(
         11L,
         Country.nl,
-        NetworkType.hiking,
+        RouteType.hiking,
         "01-02"
       )
     )
@@ -321,7 +321,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         newChangeKey(elementId = 1),
         ChangeType.Update,
         Some(Country.nl),
-        NetworkType.hiking,
+        RouteType.hiking,
         1,
         "name",
         networkDataUpdate = Some(
@@ -356,7 +356,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
     val routeData = newRouteData()
     //  val routeData = newRouteData(
     //    Some(Country.nl),
-    //    NetworkType.hiking,
+    //    routeType.hiking,
     //    relation = newRawRelation(
     //      11,
     //      members = Seq(
@@ -407,7 +407,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
           updates = Seq(
             newChangeSetNetwork(
               Some(Country.nl),
-              NetworkType.hiking,
+              RouteType.hiking,
               1,
               "name",
               routeChanges = ChangeSetElementRefs(

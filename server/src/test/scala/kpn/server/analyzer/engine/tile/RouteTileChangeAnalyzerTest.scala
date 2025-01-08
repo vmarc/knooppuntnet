@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.custom.Day
 import kpn.core.TestObjects
 import kpn.core.util.UnitTest
@@ -18,12 +18,12 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
     impactedTiles(before, after) should equal(Seq.empty)
   }
 
-  test("impact when networkType changes") {
+  test("impact when routeType changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
       routeDetail = before.routeDetail.copy(
         summary = before.routeDetail.summary.copy(
-          networkTypes = Seq(NetworkType.cycling)
+          routeTypes = Seq(RouteType.cycling)
         ),
         tiles = Seq("cycling-tile-1")
       )
@@ -89,7 +89,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
       routeDetail = newRouteDetailDoc(
         newRouteSummary(
           id = 10,
-          networkTypes = Seq(NetworkType.hiking)
+          routeTypes = Seq(RouteType.hiking)
         ),
         tiles = Seq("hiking-tile-1")
       ),

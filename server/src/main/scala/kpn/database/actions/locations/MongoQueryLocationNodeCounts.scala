@@ -1,7 +1,7 @@
 package kpn.database.actions.locations
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.doc.LocationNodeCount
 import kpn.core.util.Log
@@ -31,8 +31,8 @@ object MongoQueryLocationNodeCounts {
     println("MongoQueryLocationNodeCount")
     Mongo.executeIn("kpn-test") { database =>
       val query = new MongoQueryLocationNodeCounts(database)
-      query.find(NetworkType.hiking, Country.be)
-      val counts = query.find(NetworkType.hiking, Country.nl)
+      query.find(RouteType.hiking, Country.be)
+      val counts = query.find(RouteType.hiking, Country.nl)
       counts.foreach(println)
       println(s"counts: ${counts.size}")
     }
@@ -41,14 +41,14 @@ object MongoQueryLocationNodeCounts {
 
 class MongoQueryLocationNodeCounts(database: Database) {
 
-  def find(networkType: NetworkType, country: Country): Seq[LocationNodeCount] = {
+  def find(routeType: RouteType, country: Country): Seq[LocationNodeCount] = {
 
     val pipeline = Seq(
       filter(
         and(
           equal("labels", Label.active),
           equal("labels", Label.location(country.entryName)),
-          equal("labels", Label.networkType(networkType))
+          equal("labels", Label.routeType(routeType))
         )
       ),
       unwind("$locations"),

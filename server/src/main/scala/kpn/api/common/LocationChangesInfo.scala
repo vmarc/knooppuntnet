@@ -1,7 +1,7 @@
 package kpn.api.common
 
 case class LocationChangesInfo(
-  networkType: NetworkType,
+  routeType: RouteType,
   locationInfos: Seq[LocationInfo],
   routeChanges: ChangeSetElementRefs,
   nodeChanges: ChangeSetElementRefs,

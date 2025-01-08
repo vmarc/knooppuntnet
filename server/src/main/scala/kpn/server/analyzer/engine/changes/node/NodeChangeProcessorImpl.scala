@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes.node
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.LatLonImpl
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction.ChangeAction
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
@@ -106,7 +106,7 @@ class NodeChangeProcessorImpl(
     analysisContext.watched.nodes.add(nodeDoc._id)
     val key = context.buildChangeKey(nodeDoc._id)
     val subsets = nodeDoc.country.toSeq.flatMap { country =>
-      nodeDoc.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType))
+      nodeDoc.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType))
     }
 
     val factDiffs = if (nodeDoc.facts.nonEmpty) {
@@ -158,12 +158,12 @@ class NodeChangeProcessorImpl(
     val nodeId = nodeDocBefore._id
 
     val lostNodeTagFacts: Seq[Fact] = Seq(
-      lostNodeTag(NetworkType.hiking, nodeDocBefore, nodeDocAfter, Fact.LostHikingNodeTag),
-      lostNodeTag(NetworkType.cycling, nodeDocBefore, nodeDocAfter, Fact.LostBicycleNodeTag),
-      lostNodeTag(NetworkType.horseRiding, nodeDocBefore, nodeDocAfter, Fact.LostHorseNodeTag),
-      lostNodeTag(NetworkType.motorboat, nodeDocBefore, nodeDocAfter, Fact.LostMotorboatNodeTag),
-      lostNodeTag(NetworkType.canoe, nodeDocBefore, nodeDocAfter, Fact.LostCanoeNodeTag),
-      lostNodeTag(NetworkType.inlineSkating, nodeDocBefore, nodeDocAfter, Fact.LostInlineSkateNodeTag)
+      lostNodeTag(RouteType.hiking, nodeDocBefore, nodeDocAfter, Fact.LostHikingNodeTag),
+      lostNodeTag(RouteType.cycling, nodeDocBefore, nodeDocAfter, Fact.LostBicycleNodeTag),
+      lostNodeTag(RouteType.horseRiding, nodeDocBefore, nodeDocAfter, Fact.LostHorseNodeTag),
+      lostNodeTag(RouteType.motorboat, nodeDocBefore, nodeDocAfter, Fact.LostMotorboatNodeTag),
+      lostNodeTag(RouteType.canoe, nodeDocBefore, nodeDocAfter, Fact.LostCanoeNodeTag),
+      lostNodeTag(RouteType.inlineSkating, nodeDocBefore, nodeDocAfter, Fact.LostInlineSkateNodeTag)
     ).flatten
 
     val allNodeTagsLost = !TagInterpreter.isNetworkNode(nodeDocAfter)
@@ -187,9 +187,9 @@ class NodeChangeProcessorImpl(
     ).analyze()
   }
 
-  private def lostNodeTag(networkType: NetworkType, nodeDocBefore: NodeDoc, nodeDocAfter: NodeDoc, fact: Fact): Option[Fact] = {
-    if (TagInterpreter.isNetworkNode(nodeDocBefore, networkType) &&
-      !TagInterpreter.isNetworkNode(nodeDocAfter, networkType)) {
+  private def lostNodeTag(routeType: RouteType, nodeDocBefore: NodeDoc, nodeDocAfter: NodeDoc, fact: Fact): Option[Fact] = {
+    if (TagInterpreter.isNetworkNode(nodeDocBefore, routeType) &&
+      !TagInterpreter.isNetworkNode(nodeDocAfter, routeType)) {
       Some(fact)
     }
     else {
@@ -206,7 +206,7 @@ class NodeChangeProcessorImpl(
     val key = context.buildChangeKey(nodeDoc._id)
     val subsets = nodeDoc.names.flatMap { nodeName =>
       nodeDoc.country.flatMap { country =>
-        Subset.of(country, nodeName.networkType)
+        Subset.of(country, nodeName.routeType)
       }
     }
 

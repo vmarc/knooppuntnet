@@ -5,8 +5,8 @@ import kpn.api.common.ChangesPage
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.Language
-import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
+import kpn.api.common.RouteType
 import kpn.api.common.SearchResponse
 import kpn.api.common.changes.ChangeSetPage
 import kpn.api.common.changes.filter.ChangesParameters
@@ -261,15 +261,15 @@ class AnalysisFacadeImpl(
     }
   }
 
-  override def locations(language: Language, networkType: NetworkType, country: Country): ApiResponse[LocationsPage] = {
-    val subset = Subset.of(country, networkType).get
-    api.execute("location", networkType.entryName) {
+  override def locations(language: Language, routeType: RouteType, country: Country): ApiResponse[LocationsPage] = {
+    val subset = Subset.of(country, routeType).get
+    api.execute("location", routeType.entryName) {
       reply(locationsPageBuilder.build(language, subset))
     }
   }
 
   override def locationDetails(language: Language, locationKey: LocationKey): ApiResponse[LocationDetailsPage] = {
-    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
+    val args = s"${locationKey.routeType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
     api.execute("location-details", args) {
       reply(locationDetailsPageBuilder.build(language, locationKey))
     }
@@ -277,7 +277,7 @@ class AnalysisFacadeImpl(
 
   override def locationNodes(language: Language, key: LocationKey, parameters: LocationNodesParameters): ApiResponse[LocationNodesPage] = {
     val args = Seq(
-      Some(key.networkType.entryName),
+      Some(key.routeType.entryName),
       Some(key.country.entryName),
       Some(key.name),
       Some(s"pageSize=${parameters.pageSize}"),
@@ -298,7 +298,7 @@ class AnalysisFacadeImpl(
 
   override def locationRoutes(language: Language, locationKey: LocationKey, parameters: LocationRoutesParameters): ApiResponse[LocationRoutesPage] = {
     val args = Seq(
-      Some(locationKey.networkType.entryName),
+      Some(locationKey.routeType.entryName),
       Some(locationKey.country.entryName),
       Some(locationKey.name),
       Some(s"pageSize=${parameters.pageSize}"),
@@ -315,28 +315,28 @@ class AnalysisFacadeImpl(
   }
 
   override def locationFacts(language: Language, locationKey: LocationKey): ApiResponse[LocationFactsPage] = {
-    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
+    val args = s"${locationKey.routeType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
     api.execute("location-facts", args) {
       reply(locationFactsPageBuilder.build(language, locationKey))
     }
   }
 
   override def locationMap(language: Language, locationKey: LocationKey): ApiResponse[LocationMapPage] = {
-    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
+    val args = s"${locationKey.routeType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
     api.execute("location-map", args) {
       reply(locationMapPageBuilder.build(language, locationKey))
     }
   }
 
   override def locationChanges(language: Language, locationKey: LocationKey, parameters: ChangesParameters): ApiResponse[LocationChangesPage] = {
-    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
+    val args = s"${locationKey.routeType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
     api.execute("location-changes", args) {
       reply(locationChangesPageBuilder.build(language, locationKey, parameters))
     }
   }
 
   override def locationEdit(language: Language, locationKey: LocationKey): ApiResponse[LocationEditPage] = {
-    val args = s"${locationKey.networkType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
+    val args = s"${locationKey.routeType.entryName}, ${locationKey.country.entryName}, ${locationKey.name}"
     api.execute("location-edit", args) {
       reply(locationEditPageBuilder.build(language, locationKey))
     }

@@ -42,7 +42,7 @@ class SubsetNetworksPageBuilder(
       NetworkAttributes(
         networkInfoDoc._id,
         networkInfoDoc.country,
-        networkInfoDoc.summary.networkType,
+        networkInfoDoc.summary.routeType,
         networkInfoDoc.summary.networkScope,
         networkInfoDoc.summary.name,
         networkInfoDoc.detail.km,
@@ -83,7 +83,7 @@ class SubsetNetworksPageBuilder(
         and(
           equal("active", true),
           equal("country", subset.country.entryName),
-          equal("summary.networkType", subset.networkType.entryName)
+          equal("summary.routeType", subset.routeType.entryName)
         )
       ),
       sort(orderBy(ascending("summary.name"))),

@@ -18,7 +18,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
       //          country = Some(Country.be),
       //          summary = newNetworkSummary(
       //            name = "network-1",
-      //            networkType = NetworkType.hiking,
+      //            routeType = routeType.hiking,
       //          ),
       //          detail = Some(
       //            newNetworkInfoDetail(
@@ -50,7 +50,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
       //          country = Some(Country.be),
       //          summary = newNetworkSummary(
       //            name = "network-2",
-      //            networkType = NetworkType.hiking,
+      //            routeType = routeType.hiking,
       //          ),
       //          detail = Some(
       //            newNetworkInfoDetail(
@@ -103,7 +103,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
       //          newNetworkAttributes(
       //            1,
       //            Some(Country.be),
-      //            NetworkType.hiking,
+      //            routeType.hiking,
       //            name = "network-1"
       //          ),
       //          detail = Some(

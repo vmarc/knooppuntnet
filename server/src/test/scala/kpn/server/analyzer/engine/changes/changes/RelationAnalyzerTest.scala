@@ -1,20 +1,20 @@
 package kpn.server.analyzer.engine.changes.changes
 
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
 
 class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
 
-  test("scopedNetworkType") {
-    testScopedNetworkType("rwn", NetworkScope.regional, NetworkType.hiking)
-    testScopedNetworkType("lcn", NetworkScope.local, NetworkType.cycling)
-    testScopedNetworkType("iin", NetworkScope.international, NetworkType.inlineSkating)
+  test("scopedRouteType") {
+    testscopedRouteType("rwn", NetworkScope.regional, RouteType.hiking)
+    testscopedRouteType("lcn", NetworkScope.local, RouteType.cycling)
+    testscopedRouteType("iin", NetworkScope.international, RouteType.inlineSkating)
   }
 
   test("referenced nodes, ways and relations") {
@@ -53,12 +53,12 @@ class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
     RelationAnalyzer.referencedNodes(network).map(_.id) should equal(Set(1001L))
   }
 
-  private def testScopedNetworkType(networkTagValue: String, expectedNetworkScope: NetworkScope, expectedNetworkType: NetworkType): Unit = {
+  private def testscopedRouteType(networkTagValue: String, expectedNetworkScope: NetworkScope, expectedrouteType: RouteType): Unit = {
     val relation = newRelation(tags = Tags.from("network" -> networkTagValue, "type" -> "network", "name" -> "name", "network:type" -> "node_network"))
     assertEqual(
-      RelationAnalyzer.scopedNetworkType(relation),
+      RelationAnalyzer.scopedRouteType(relation),
       Some(
-        ScopedNetworkType(expectedNetworkScope, expectedNetworkType)
+        ScopedRouteType(expectedNetworkScope, expectedrouteType)
       )
     )
   }

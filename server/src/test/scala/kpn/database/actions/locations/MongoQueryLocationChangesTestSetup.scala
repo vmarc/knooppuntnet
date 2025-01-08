@@ -2,7 +2,7 @@ package kpn.database.actions.locations
 
 import kpn.api.common.LocationChangeSet
 import kpn.api.common.LocationChanges
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.filter.ChangesParameters
@@ -26,13 +26,13 @@ class MongoQueryLocationChangesTestSetup(database: Database) extends SharedTestO
   val key5: ChangeKey = newChangeKey(replicationNumber = 50, timestamp = timestamp5, changeSetId = 501)
 
   def locationChanges(
-    networkType: NetworkType = NetworkType.hiking,
+    routeType: RouteType = RouteType.hiking,
     locationNames: Seq[String] = Seq("be", "be-1", "be-1-a"),
     happy: Boolean = false,
     investigate: Boolean = false
   ): LocationChanges = {
     newLocationChanges(
-      networkType = networkType,
+      routeType = routeType,
       locationNames = locationNames,
       happy = happy,
       investigate = investigate
@@ -97,20 +97,20 @@ class MongoQueryLocationChangesTestSetup(database: Database) extends SharedTestO
   }
 
   def count(
-    networkType: NetworkType = NetworkType.hiking,
+    routeType: RouteType = RouteType.hiking,
     locationName: String = "be-1-a",
     parameters: ChangesParameters = ChangesParameters()
   ): Long = {
-    val subset = LocationSubset("", networkType, Seq(locationName))
+    val subset = LocationSubset("", routeType, Seq(locationName))
     new MongoQueryLocationChanges(database).executeCount(subset, parameters)
   }
 
   def changes(
-    networkType: NetworkType = NetworkType.hiking,
+    routeType: RouteType = RouteType.hiking,
     locationName: String = "be-1-a",
     parameters: ChangesParameters = ChangesParameters()
   ): Seq[LocationChangeSet] = {
-    val subset = LocationSubset("", networkType, Seq(locationName))
+    val subset = LocationSubset("", routeType, Seq(locationName))
     new MongoQueryLocationChanges(database).execute(subset, parameters)
   }
 }

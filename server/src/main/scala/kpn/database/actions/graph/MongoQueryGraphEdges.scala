@@ -1,6 +1,6 @@
 package kpn.database.actions.graph
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.TrackPathKey
 import kpn.core.doc.Label
 import kpn.core.planner.graph.GraphEdge
@@ -18,7 +18,7 @@ import org.mongodb.scala.model.Projections.fields
 import org.mongodb.scala.model.Projections.include
 
 case class RouteGraphEdge(
-  networkType: NetworkType,
+  routeType: RouteType,
   proposed: Boolean,
   _id: Long,
   pathId: Long,
@@ -51,10 +51,10 @@ class MongoQueryGraphEdges(database: Database) {
     val pipeline = Seq(
       filter(equal("labels", Label.active)),
       unwind("$edges"),
-      unwind("$summary.networkTypes"),
+      unwind("$summary.routeTypes"),
       project(
         fields(
-          computed("networkType", "$summary.networkTypes"),
+          computed("routeType", "$summary.routeTypes"),
           include("proposed"),
           include("_id"),
           computed("pathId", "$edges.pathId"),
@@ -67,8 +67,8 @@ class MongoQueryGraphEdges(database: Database) {
 
     log.debugElapsed {
       val edges = database.routes.aggregate[RouteGraphEdge](pipeline, log)
-      val grapEdgess = NetworkType.values.map { networkType =>
-        val networkTypeEdges = edges.filter(_.networkType == networkType).map { edge =>
+      val grapEdgess = RouteType.values.map { routeType =>
+        val routeTypeEdges = edges.filter(_.routeType == routeType).map { edge =>
           GraphEdge(
             edge.sourceNodeId: Long,
             edge.sinkNodeId: Long,
@@ -77,9 +77,9 @@ class MongoQueryGraphEdges(database: Database) {
             TrackPathKey(edge._id, edge.pathId)
           )
         }
-        GraphEdges(networkType, networkTypeEdges)
+        GraphEdges(routeType, routeTypeEdges)
       }
-      val result = grapEdgess.map(e => s"${e.networkType.entryName}: ${e.edges.size}").mkString(", ")
+      val result = grapEdgess.map(e => s"${e.routeType.entryName}: ${e.edges.size}").mkString(", ")
       (result, grapEdgess)
     }
   }

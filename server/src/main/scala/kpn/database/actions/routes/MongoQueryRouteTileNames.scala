@@ -1,6 +1,6 @@
 package kpn.database.actions.routes
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.tiles.domain.TileId
@@ -23,11 +23,11 @@ object MongoQueryRouteTileNames {
 
 class MongoQueryRouteTileNames(database: Database) {
 
-  def execute(networkType: NetworkType, log: Log = MongoQueryRouteTileNames.log): Seq[TileId] = {
+  def execute(routeType: RouteType, log: Log = MongoQueryRouteTileNames.log): Seq[TileId] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
-          equal("networkTypes", networkType.entryName)
+          equal("routeTypes", routeType.entryName)
         ),
         project(
           fields(

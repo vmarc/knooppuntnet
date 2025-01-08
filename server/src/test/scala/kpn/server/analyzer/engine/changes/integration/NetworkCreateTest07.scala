@@ -6,7 +6,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -88,7 +88,7 @@ class NetworkCreateTest07 extends IntegrationTest {
         newChangeKey(elementId = 1),
         ChangeType.Create,
         Some(Country.nl),
-        NetworkType.hiking,
+        RouteType.hiking,
         1,
         "name",
         nodeDiffs = RefDiffs(added = Seq(Ref(1001, "01"), Ref(1002, "02"))),
@@ -111,7 +111,7 @@ class NetworkCreateTest07 extends IntegrationTest {
         //  Some(
         //    newRouteData(
         //      Some(Country.nl),
-        //      NetworkType.hiking,
+        //      routeType.hiking,
         //      relation = newRawRelation(
         //        11,
         //        members = Seq(
@@ -141,7 +141,7 @@ class NetworkCreateTest07 extends IntegrationTest {
         //  Some(
         //    newRouteData(
         //      Some(Country.nl),
-        //      NetworkType.hiking,
+        //      routeType.hiking,
         //      relation = newRawRelation(
         //        11,
         //        members = Seq(
@@ -201,7 +201,7 @@ class NetworkCreateTest07 extends IntegrationTest {
           creates = Seq(
             newChangeSetNetwork(
               Some(Country.nl),
-              NetworkType.hiking,
+              RouteType.hiking,
               1,
               "name",
               routeChanges = ChangeSetElementRefs(

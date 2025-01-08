@@ -8,8 +8,8 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
@@ -98,7 +98,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
       after = Some(
         newRouteData(
           countries = Seq(Country.nl),
-          networkTypes = Seq(NetworkType.hiking)
+          routeTypes = Seq(RouteType.hiking)
         )
       ),
       facts = Seq(Fact.OrphanRoute)

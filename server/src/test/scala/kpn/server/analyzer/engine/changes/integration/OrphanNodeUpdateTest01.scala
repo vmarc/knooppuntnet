@@ -6,8 +6,8 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
@@ -58,13 +58,13 @@ class OrphanNodeUpdateTest01 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
         ),
         country = Some(Country.nl),
         name = Some("01"),
         names = Seq(
           NodeName(
-            NetworkType.hiking,
+            RouteType.hiking,
             NetworkScope.regional,
             "01",
             None,

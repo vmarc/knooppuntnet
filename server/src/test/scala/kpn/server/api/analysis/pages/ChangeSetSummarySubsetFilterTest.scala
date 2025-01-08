@@ -146,7 +146,7 @@ class ChangeSetSummarySubsetFilterTest extends UnitTest {
   private def changeSetNetwork(networkName: String, subset: Subset, happy: Boolean, investigate: Boolean): ChangeSetNetwork = {
     ChangeSetNetwork(
       country = Some(subset.country),
-      networkType = subset.networkType,
+      routeType = subset.routeType,
       networkId = 1,
       networkName = networkName,
       routeChanges = ChangeSetElementRefs(),

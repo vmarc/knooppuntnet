@@ -2,7 +2,7 @@ package kpn.database.actions.locations
 
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
@@ -21,7 +21,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
           labels = Seq(
             Label.active,
             Label.facts,
-            Label.networkType(NetworkType.hiking),
+            Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           ),
           facts = Seq(Fact.NodeInvalidSurveyDate),
@@ -36,7 +36,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
           1002L,
           labels = Seq(
             Label.active,
-            Label.networkType(NetworkType.hiking),
+            Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           ),
           names = Seq(
@@ -49,7 +49,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
         newNodeDoc(
           1003L,
           labels = Seq(
-            Label.networkType(NetworkType.hiking),
+            Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
             // not active
           ),
@@ -60,9 +60,9 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
       )
 
       val query = new MongoQueryLocationFactCount(database)
-      query.execute(LocationSubset("", NetworkType.hiking, Seq("be"))) should equal(1L)
-      query.execute(LocationSubset("", NetworkType.hiking, Seq("nl"))) should equal(0L)
-      query.execute(LocationSubset("", NetworkType.cycling, Seq("be"))) should equal(0L)
+      query.execute(LocationSubset("", RouteType.hiking, Seq("be"))) should equal(1L)
+      query.execute(LocationSubset("", RouteType.hiking, Seq("nl"))) should equal(0L)
+      query.execute(LocationSubset("", RouteType.cycling, Seq("be"))) should equal(0L)
     }
   }
 
@@ -76,7 +76,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
           labels = Seq(
             Label.active,
             Label.facts,
-            Label.networkType(NetworkType.hiking),
+            Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           ),
           facts = Seq(Fact.RouteWithoutWays, Fact.RouteBroken),
@@ -88,7 +88,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
           newRouteSummary(102L),
           labels = Seq(
             Label.active,
-            Label.networkType(NetworkType.hiking),
+            Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
           )
         )
@@ -99,7 +99,7 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
           newRouteSummary(103L),
           labels = Seq(
             Label.facts,
-            Label.networkType(NetworkType.hiking),
+            Label.routeType(RouteType.hiking),
             Label.location(Country.be.entryName)
             // not active
           ),
@@ -108,9 +108,9 @@ class MongoQueryLocationFactCountTest extends UnitTest with SharedTestObjects {
       )
 
       val query = new MongoQueryLocationFactCount(database)
-      query.execute(LocationSubset("", NetworkType.hiking, Seq("be"))) should equal(1L)
-      query.execute(LocationSubset("", NetworkType.hiking, Seq("nl"))) should equal(0L)
-      query.execute(LocationSubset("", NetworkType.cycling, Seq("be"))) should equal(0L)
+      query.execute(LocationSubset("", RouteType.hiking, Seq("be"))) should equal(1L)
+      query.execute(LocationSubset("", RouteType.hiking, Seq("nl"))) should equal(0L)
+      query.execute(LocationSubset("", RouteType.cycling, Seq("be"))) should equal(0L)
     }
   }
 }

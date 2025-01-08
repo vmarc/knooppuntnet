@@ -9,8 +9,8 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
 import kpn.api.common.ReplicationId
+import kpn.api.common.RouteType
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.api.custom.Subset
@@ -34,7 +34,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Delete,
             name = "01-02",
             before = Some(
-              newRouteData(countries = Seq(Country.nl), networkTypes = Seq(NetworkType.hiking))
+              newRouteData(countries = Seq(Country.nl), routeTypes = Seq(RouteType.hiking))
             ),
             locationAnalysis = newRouteLocationAnalysis(
               candidates = Seq(
@@ -52,7 +52,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Create,
             name = "02-03",
             after = Some(
-              newRouteData(countries = Seq(Country.nl), networkTypes = Seq(NetworkType.hiking))
+              newRouteData(countries = Seq(Country.nl), routeTypes = Seq(RouteType.hiking))
             ),
             locationAnalysis = newRouteLocationAnalysis(
               candidates = Seq(
@@ -70,10 +70,10 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             changeType = ChangeType.Update,
             name = "03-04",
             before = Some(
-              newRouteData(countries = Seq(Country.nl), networkTypes = Seq(NetworkType.hiking))
+              newRouteData(countries = Seq(Country.nl), routeTypes = Seq(RouteType.hiking))
             ),
             after = Some(
-              newRouteData(countries = Seq(Country.nl), networkTypes = Seq(NetworkType.hiking))
+              newRouteData(countries = Seq(Country.nl), routeTypes = Seq(RouteType.hiking))
             ),
             locationAnalysis = newRouteLocationAnalysis(
               candidates = Seq(
@@ -176,7 +176,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
         ),
         locationChanges = Seq(
           LocationChanges(
-            NetworkType.hiking,
+            RouteType.hiking,
             locationNames = Seq("nl", "North Brabant", "Roosendaal"),
             routeChanges = ChangeSetElementRefs(
               removed = Seq(
@@ -346,7 +346,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
         ),
         locationChanges = Seq(
           LocationChanges(
-            NetworkType.hiking,
+            RouteType.hiking,
             locationNames = Seq("nl", "North Brabant", "Roosendaal"),
             ChangeSetElementRefs(),
             ChangeSetElementRefs(
@@ -359,7 +359,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             investigate = false
           ),
           LocationChanges(
-            NetworkType.hiking,
+            RouteType.hiking,
             locationNames = Seq("be", "Antwerp", "Essen"),
             ChangeSetElementRefs(),
             ChangeSetElementRefs(
@@ -373,7 +373,7 @@ class ChangeSetSummaryBuilderTest extends UnitTest with TestObjects {
             investigate = false
           ),
           LocationChanges(
-            NetworkType.cycling,
+            RouteType.cycling,
             locationNames = Seq("be", "Antwerp", "Essen"),
             ChangeSetElementRefs(),
             ChangeSetElementRefs(

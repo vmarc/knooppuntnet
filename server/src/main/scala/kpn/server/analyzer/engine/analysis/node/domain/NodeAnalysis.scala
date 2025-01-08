@@ -2,8 +2,8 @@ package kpn.server.analyzer.engine.analysis.node.domain
 
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.raw.RawNode
@@ -29,13 +29,13 @@ case class NodeAnalysis(
   abort: Boolean = false
 ) {
 
-  def networkTypes: Seq[NetworkType] = {
-    nodeNames.map(_.networkType).distinct
+  def routeTypes: Seq[RouteType] = {
+    nodeNames.map(_.routeType).distinct
   }
 
   def subsets: Seq[Subset] = {
     country match {
-      case Some(c) => networkTypes.map(n => Subset(c, n))
+      case Some(c) => routeTypes.map(n => Subset(c, n))
       case None => Seq.empty
     }
   }

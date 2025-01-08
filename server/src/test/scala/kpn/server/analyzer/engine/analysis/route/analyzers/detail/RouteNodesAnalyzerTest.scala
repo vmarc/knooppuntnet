@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
-import kpn.api.common.NetworkType
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.common.RouteType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.RouteNodesAnalysisFormatter
@@ -555,8 +555,8 @@ class RouteNodesAnalyzerTest extends UnitTest {
           relation,
           None,
           nodeNetwork = true,
-          _networkTypes = Some(Seq(NetworkType.hiking)),
-          scopedNetworkTypeOption = Some(ScopedNetworkType.rwn),
+          _routeTypes = Some(Seq(RouteType.hiking)),
+          scopedRouteTypeOption = Some(ScopedRouteType.rwn),
           proposed = proposed,
         )
       )

@@ -112,7 +112,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
       routeDoc.summary.id,
       MetaData(routeDoc.version, routeDoc.lastUpdated, routeDoc.changeSetId),
       routeDoc.summary.countries.toSeq,
-      routeDoc.summary.networkTypes,
+      routeDoc.summary.routeTypes,
       routeDoc.summary.name: String,
       routeDoc.nodes.nodes,
       Seq.empty, // TODO redesign - ways ???

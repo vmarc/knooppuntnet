@@ -4,7 +4,7 @@ import kpn.api.common.Country
 import kpn.api.common.NodeIntegrityCheck
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.route.RouteNode
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.analysis.NetworkMemberRoute
@@ -168,6 +168,6 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   private def analysis(networkAnalysis: NetworkAnalysis, node: NetworkNode): Option[NodeIntegrityCheck] = {
-    new NodeIntegrityAnalyzer(ScopedNetworkType.rwn, networkAnalysis, node).analysis
+    new NodeIntegrityAnalyzer(ScopedRouteType.rwn, networkAnalysis, node).analysis
   }
 }

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.util.UnitTest
 
 class TileTaskTest extends UnitTest {
@@ -9,7 +9,7 @@ class TileTaskTest extends UnitTest {
 
     val task = "tile-task:cycling-10-001-001"
 
-    TileTask.networkType(task) should equal(NetworkType.cycling)
+    TileTask.routeType(task) should equal(RouteType.cycling)
     TileTask.tileName(task) should equal("10-001-001")
     TileTask.fullTileName(task) should equal("cycling-10-001-001")
     TileTask.zoomLevel(task) should equal(10)
@@ -19,19 +19,19 @@ class TileTaskTest extends UnitTest {
 
     val task = "tile-task:inline-skating-10-001-001"
 
-    TileTask.networkType(task) should equal(NetworkType.inlineSkating)
+    TileTask.routeType(task) should equal(RouteType.inlineSkating)
     TileTask.tileName(task) should equal("10-001-001")
     TileTask.fullTileName(task) should equal("inline-skating-10-001-001")
     TileTask.zoomLevel(task) should equal(10)
   }
 
-  test("networkType") {
-    TileTask.networkType("tile-task:hiking-10-001-001") should equal(NetworkType.hiking)
-    TileTask.networkType("tile-task:cycling-10-001-001") should equal(NetworkType.cycling)
-    TileTask.networkType("tile-task:horse-riding-10-001-001") should equal(NetworkType.horseRiding)
-    TileTask.networkType("tile-task:canoe-10-001-001") should equal(NetworkType.canoe)
-    TileTask.networkType("tile-task:motorboat-10-001-001") should equal(NetworkType.motorboat)
-    TileTask.networkType("tile-task:inline-skating-10-001-001") should equal(NetworkType.inlineSkating)
+  test("routeType") {
+    TileTask.routeType("tile-task:hiking-10-001-001") should equal(RouteType.hiking)
+    TileTask.routeType("tile-task:cycling-10-001-001") should equal(RouteType.cycling)
+    TileTask.routeType("tile-task:horse-riding-10-001-001") should equal(RouteType.horseRiding)
+    TileTask.routeType("tile-task:canoe-10-001-001") should equal(RouteType.canoe)
+    TileTask.routeType("tile-task:motorboat-10-001-001") should equal(RouteType.motorboat)
+    TileTask.routeType("tile-task:inline-skating-10-001-001") should equal(RouteType.inlineSkating)
   }
 
   test("zoomLevel") {

@@ -11,8 +11,8 @@ class BaseNodeTileAnalyzer(nodeTileCalculator: NodeTileCalculator) extends BaseN
       nodeTileCalculator.tiles(z, context.node)
     }
     val tileNames = tiles.flatMap { tile =>
-      context.names.map(_.networkType).map { networkType =>
-        s"${networkType.entryName}-${tile.name}"
+      context.names.map(_.routeType).map { routeType =>
+        s"${routeType.entryName}-${tile.name}"
       }
     }
     context.copy(_tiles = Some(tileNames))

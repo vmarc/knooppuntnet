@@ -2,7 +2,7 @@ package kpn.server.api.analysis.pages.location
 
 import kpn.api.common.Country
 import kpn.api.common.Language
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.location.LocationMapPage
 import kpn.api.custom.LocationKey
 import kpn.core.tools.config.Dirs
@@ -25,7 +25,7 @@ class LocationMapPageBuilder(
 ) {
 
   def build(language: Language, locationKey: LocationKey): Option[LocationMapPage] = {
-    if (locationKey == LocationKey(NetworkType.cycling, Country.nl, "example")) {
+    if (locationKey == LocationKey(RouteType.cycling, Country.nl, "example")) {
       Some(LocationMapPageExample.page)
     }
     else {

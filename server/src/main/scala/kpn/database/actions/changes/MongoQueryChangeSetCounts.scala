@@ -22,7 +22,7 @@ class MongoQueryChangeSetCounts(database: Database) {
       filter(
         and(
           equal("subsets.country", subset.country.entryName),
-          equal("subsets.networkType", subset.networkType.entryName)
+          equal("subsets.routeType", subset.routeType.entryName)
         )
       )
     }

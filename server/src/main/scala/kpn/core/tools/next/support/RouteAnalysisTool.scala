@@ -127,7 +127,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
             _id = s"${tileData.name}-${context.relation.id}",
             routeId = context.relation.id,
             routeName = context.routeNameAnalysis.name.getOrElse("no-name"), // TODO redesign tiles - can do better?
-            networkTypes = context.networkTypes,
+            routeTypes = context.routeTypes,
             z = tileData.z,
             x = tileData.x,
             y = tileData.y,

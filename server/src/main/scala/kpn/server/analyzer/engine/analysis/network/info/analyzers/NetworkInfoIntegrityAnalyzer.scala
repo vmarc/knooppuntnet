@@ -41,7 +41,7 @@ class NetworkInfoIntegrityAnalyzer(context: NetworkInfoAnalysisContext) {
 
   private def collectNodeIntegrities(): Seq[NetworkNodeIntegrity] = {
     context.nodeDocs.flatMap { nodeDoc =>
-      nodeDoc.nodeIntegrityDetail(context.scopedNetworkType).map { nodeIntegrityDetail =>
+      nodeDoc.nodeIntegrityDetail(context.scopedRouteType).map { nodeIntegrityDetail =>
         NetworkNodeIntegrity(
           nodeDoc._id,
           nodeIntegrityDetail.expectedRouteCount,

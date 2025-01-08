@@ -12,8 +12,8 @@ class OldNodeTileAnalyzerImpl(nodeTileCalculator: NodeTileCalculator) extends Ol
       nodeTileCalculator.tiles(z, analysis.node)
     }
     val tileNames = tiles.flatMap { tile =>
-      analysis.nodeNames.map(_.networkType).map { networkType =>
-        s"${networkType.entryName}-${tile.name}"
+      analysis.nodeNames.map(_.routeType).map { routeType =>
+        s"${routeType.entryName}-${tile.name}"
       }
     }
     analysis.copy(tiles = tileNames)

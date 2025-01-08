@@ -29,7 +29,7 @@ object MongoQueryStatistics {
             "values",
             fields(
               computed("country", "$_id.country"),
-              computed("networkType", "$_id.networkType"),
+              computed("routeType", "$_id.routeType"),
               computed("value", "$value")
             )
           )

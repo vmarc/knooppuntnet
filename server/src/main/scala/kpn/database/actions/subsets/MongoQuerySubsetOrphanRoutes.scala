@@ -23,7 +23,7 @@ class MongoQuerySubsetOrphanRoutes(database: Database) {
       filter(
         and(
           equal("country", subset.country.entryName),
-          equal("networkTypes", subset.networkType.entryName)
+          equal("routeTypes", subset.routeType.entryName)
         )
       )
     )
@@ -39,7 +39,7 @@ class MongoQuerySubsetOrphanRoutes(database: Database) {
       filter(
         and(
           equal("country", subset.country.entryName),
-          equal("networkType", subset.networkType.entryName)
+          equal("routeType", subset.routeType.entryName)
         )
       ),
       project(

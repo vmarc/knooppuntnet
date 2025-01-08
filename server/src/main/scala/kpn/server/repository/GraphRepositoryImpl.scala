@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.planner.graph.NodeNetworkGraphImpl
 import kpn.core.util.Log
@@ -30,7 +30,7 @@ class GraphRepositoryImpl(
           graphEdges.map { edges =>
             val graph = new NodeNetworkGraphImpl()
             edges.edges.foreach(graph.add)
-            (edges.networkType.entryName, graph)
+            (edges.routeType.entryName, graph)
           }.toMap
         }
         ("Loading graphs", ())
@@ -43,7 +43,7 @@ class GraphRepositoryImpl(
     loadGraphs()
   }
 
-  override def graph(networkType: NetworkType): Option[NodeNetworkGraph] = {
-    graphs.get(networkType.entryName)
+  override def graph(routeType: RouteType): Option[NodeNetworkGraph] = {
+    graphs.get(routeType.entryName)
   }
 }

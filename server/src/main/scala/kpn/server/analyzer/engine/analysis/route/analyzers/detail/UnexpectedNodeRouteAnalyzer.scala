@@ -26,7 +26,7 @@ class UnexpectedNodeRouteAnalyzer(context: RouteDetailAnalysisContext) {
   }
 
   private def findUnexpectedNodeIds: Seq[Long] = {
-    routeNodes.filter(n => TagInterpreter.isUnexpectedNode(context.scopedNetworkType, n)).map(_.id)
+    routeNodes.filter(n => TagInterpreter.isUnexpectedNode(context.scopedRouteType, n)).map(_.id)
   }
 
   private def routeNodes: Seq[Node] = {

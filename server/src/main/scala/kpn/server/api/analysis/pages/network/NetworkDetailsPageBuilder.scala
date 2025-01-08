@@ -34,7 +34,7 @@ class NetworkDetailsPageBuilder(database: Database) {
       NetworkAttributes(
         networkInfoDoc._id,
         networkInfoDoc.country,
-        networkInfoDoc.summary.networkType,
+        networkInfoDoc.summary.routeType,
         networkInfoDoc.summary.networkScope,
         networkInfoDoc.summary.name,
         networkInfoDoc.detail.km,

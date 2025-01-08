@@ -299,7 +299,7 @@ trait SharedTestObjects extends MockFactory {
     relationId: Long = 0,
     meta: MetaData = MetaData(0, defaultTimestamp, 0),
     countries: Seq[Country] = Seq.empty,
-    networkTypes: Seq[NetworkType] = Seq.empty,
+    routeTypes: Seq[RouteType] = Seq.empty,
     name: String = "",
     networkNodes: Seq[RouteNode] = Seq.empty,
     ways: Seq[Way] = Seq.empty,
@@ -313,7 +313,7 @@ trait SharedTestObjects extends MockFactory {
       relationId,
       meta,
       countries,
-      networkTypes,
+      routeTypes,
       name,
       networkNodes,
       ways,
@@ -403,7 +403,7 @@ trait SharedTestObjects extends MockFactory {
     proposed: Boolean = false,
     countries: Seq[Country] = Seq.empty,
     nodeNetwork: Boolean = true,
-    networkTypes: Seq[NetworkType] = Seq(NetworkType.hiking),
+    routeTypes: Seq[RouteType] = Seq(RouteType.hiking),
     networkScope: NetworkScope = NetworkScope.regional,
     name: String = "",
     meters: Int = 0,
@@ -435,7 +435,7 @@ trait SharedTestObjects extends MockFactory {
       id,
       countries,
       nodeNetwork,
-      networkTypes,
+      routeTypes,
       Seq.empty, // TODO redesign tiles - scopes
       name,
       meters,
@@ -480,7 +480,7 @@ trait SharedTestObjects extends MockFactory {
   def newNetworkAttributes(
     id: Long,
     country: Option[Country] = None,
-    networkType: NetworkType = NetworkType.hiking,
+    routeType: RouteType = RouteType.hiking,
     networkScope: NetworkScope = NetworkScope.regional,
     name: String = "",
     km: Int = 0,
@@ -499,7 +499,7 @@ trait SharedTestObjects extends MockFactory {
     NetworkAttributes(
       id,
       country,
-      networkType,
+      routeType,
       networkScope,
       name,
       km,
@@ -639,7 +639,7 @@ trait SharedTestObjects extends MockFactory {
     id: Long,
     countries: Seq[Country] = Seq.empty,
     nodeNetwork: Boolean = true,
-    networkTypes: Seq[NetworkType] = Seq(NetworkType.hiking),
+    routeTypes: Seq[RouteType] = Seq(RouteType.hiking),
     name: String = "",
     meters: Int = 0,
     broken: Boolean = false,
@@ -652,7 +652,7 @@ trait SharedTestObjects extends MockFactory {
       id,
       countries,
       nodeNetwork,
-      networkTypes,
+      routeTypes,
       Seq.empty, // TODO redesign tiles - scopes
       name,
       meters,
@@ -765,7 +765,7 @@ trait SharedTestObjects extends MockFactory {
     key: ChangeKey = newChangeKey(),
     changeType: ChangeType = ChangeType.Update,
     country: Option[Country] = None,
-    networkType: NetworkType = NetworkType.hiking,
+    routeType: RouteType = RouteType.hiking,
     networkId: Long = 0,
     networkName: String = "",
     networkDataUpdate: Option[NetworkDataUpdate] = None,
@@ -782,7 +782,7 @@ trait SharedTestObjects extends MockFactory {
       key,
       changeType,
       country,
-      networkType,
+      routeType,
       networkId,
       networkName,
       networkDataUpdate,
@@ -863,7 +863,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newChangeSetNetwork(
     country: Option[Country] = None,
-    networkType: NetworkType = NetworkType.hiking,
+    routeType: RouteType = RouteType.hiking,
     networkId: Long = 0,
     networkName: String = "",
     routeChanges: ChangeSetElementRefs = ChangeSetElementRefs.empty,
@@ -873,7 +873,7 @@ trait SharedTestObjects extends MockFactory {
   ): ChangeSetNetwork = {
     ChangeSetNetwork(
       country,
-      networkType,
+      routeType,
       networkId,
       networkName,
       routeChanges,
@@ -884,7 +884,7 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newLocationChanges(
-    networkType: NetworkType,
+    routeType: RouteType,
     locationNames: Seq[String],
     routeChanges: ChangeSetElementRefs = ChangeSetElementRefs(),
     nodeChanges: ChangeSetElementRefs = ChangeSetElementRefs(),
@@ -892,7 +892,7 @@ trait SharedTestObjects extends MockFactory {
     investigate: Boolean = false
   ): LocationChanges = {
     LocationChanges(
-      networkType,
+      routeType,
       locationNames,
       routeChanges,
       nodeChanges,
@@ -1281,14 +1281,14 @@ trait SharedTestObjects extends MockFactory {
   }
 
   def newNodeName(
-    networkType: NetworkType = NetworkType.hiking,
+    routeType: RouteType = RouteType.hiking,
     networkScope: NetworkScope = NetworkScope.regional,
     name: String = "",
     longName: Option[String] = None,
     proposed: Boolean = false
   ): NodeName = {
     NodeName(
-      networkType,
+      routeType,
       networkScope,
       name,
       longName,
@@ -1359,7 +1359,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newNetworkSummary(
     name: String = "",
-    networkType: NetworkType = NetworkType.hiking,
+    routeType: RouteType = RouteType.hiking,
     networkScope: NetworkScope = NetworkScope.regional,
     factCount: Long = 0,
     nodeCount: Long = 0,
@@ -1368,7 +1368,7 @@ trait SharedTestObjects extends MockFactory {
   ): NetworkSummary = {
     NetworkSummary(
       name,
-      networkType,
+      routeType,
       networkScope,
       factCount,
       nodeCount,
@@ -1477,7 +1477,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newOrphanNodeDoc(
     country: Country,
-    networkType: NetworkType,
+    routeType: RouteType,
     nodeId: Long,
     name: String = "",
     longName: Option[String] = None,
@@ -1486,11 +1486,11 @@ trait SharedTestObjects extends MockFactory {
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty
   ): OrphanNodeDoc = {
-    val _id = s"${country.entryName}:${networkType.entryName}:$nodeId"
+    val _id = s"${country.entryName}:${routeType.entryName}:$nodeId"
     OrphanNodeDoc(
       _id,
       country,
-      networkType,
+      routeType,
       nodeId,
       name,
       longName,
@@ -1504,7 +1504,7 @@ trait SharedTestObjects extends MockFactory {
   def newOrphanRouteDoc(
     _id: Long,
     country: Country,
-    networkType: NetworkType,
+    routeType: RouteType,
     name: String = "",
     meters: Long = 0,
     facts: Seq[Fact] = Seq.empty,
@@ -1514,7 +1514,7 @@ trait SharedTestObjects extends MockFactory {
     OrphanRouteDoc(
       _id,
       country,
-      Seq(networkType),
+      Seq(routeType),
       name,
       meters,
       facts,

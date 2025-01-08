@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
@@ -18,9 +18,9 @@ trait RouteRepository {
 
   def activeRouteIds(): Seq[Long]
 
-  def tiles(networkType: NetworkType): Seq[TileId]
+  def tiles(routeType: RouteType): Seq[TileId]
 
-  def tilesWithName(networkType: NetworkType, tileId: TileId): Seq[RouteTileDoc]
+  def tilesWithName(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc]
 
   def saveRoute(route: RouteDoc): Unit
 

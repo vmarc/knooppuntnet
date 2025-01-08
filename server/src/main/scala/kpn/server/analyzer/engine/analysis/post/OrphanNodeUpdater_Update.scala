@@ -28,9 +28,9 @@ class OrphanNodeUpdater_Update(database: Database, log: Log) {
         project(
           fields(
             excludeId(),
-            BsonDocument("""{"_id": {"$concat": ["$country",":","$names.networkType",":", {"$toString": "$_id"}]}}"""),
+            BsonDocument("""{"_id": {"$concat": ["$country",":","$names.routeType",":", {"$toString": "$_id"}]}}"""),
             computed("country", "$country"),
-            computed("networkType", "$names.networkType"),
+            computed("routeType", "$names.routeType"),
             computed("nodeId", "$_id"),
             computed("name", "$names.name"),
             computed("longName", "$names.longName"),

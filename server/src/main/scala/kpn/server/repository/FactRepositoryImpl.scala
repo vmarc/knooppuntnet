@@ -85,7 +85,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           and(
             equal("labels", Label.active),
             equal("labels", Label.country(subset.country)),
-            equal("labels", Label.networkType(subset.networkType)),
+            equal("labels", Label.routeType(subset.routeType)),
             equal("labels", Label.fact(fact)),
           )
         ),
@@ -109,7 +109,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           and(
             equal("active", true),
             equal("country", subset.country.entryName),
-            equal("summary.networkType", subset.networkType.entryName)
+            equal("summary.routeType", subset.routeType.entryName)
           )
         ),
         unwind("$routes"),
@@ -135,7 +135,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           and(
             equal("active", true),
             equal("country", subset.country.entryName),
-            equal("summary.networkType", subset.networkType.entryName)
+            equal("summary.routeType", subset.routeType.entryName)
           )
         ),
         unwind("$facts"),
@@ -169,7 +169,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           and(
             equal("active", true),
             equal("country", subset.country.entryName),
-            equal("summary.networkType", subset.networkType.entryName)
+            equal("summary.routeType", subset.routeType.entryName)
           )
         ),
         unwind("$facts"),
@@ -229,19 +229,19 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
   private def findNodesWithIntegrityCheckFailed(subset: Subset): Seq[Ref] = {
     log.debugElapsed {
 
-      val factLabel = s"integrity-check-failed-${subset.networkType.entryName}"
+      val factLabel = s"integrity-check-failed-${subset.routeType.entryName}"
 
       val pipeline = Seq(
         filter(
           and(
             equal("labels", Label.active),
             equal("labels", Label.country(subset.country)),
-            equal("labels", Label.networkType(subset.networkType)),
+            equal("labels", Label.routeType(subset.routeType)),
             equal("labels", factLabel),
           )
         ),
         unwind("$names"),
-        filter(equal("names.networkType", subset.networkType.entryName)),
+        filter(equal("names.routeType", subset.routeType.entryName)),
         project(
           fields(
             excludeId(),
@@ -262,7 +262,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           and(
             equal("active", true),
             equal("country", subset.country.entryName),
-            equal("summary.networkType", subset.networkType.entryName)
+            equal("summary.routeType", subset.routeType.entryName)
           )
         ),
         unwind("$nodes"),

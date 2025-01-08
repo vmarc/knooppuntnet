@@ -1,7 +1,7 @@
 package kpn.server.api.planner.leg
 
 import kpn.api.common.LatLonImpl
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.TrackPath
 import kpn.api.common.common.TrackSegment
 import kpn.api.common.common.TrackSegmentFragment
@@ -30,19 +30,19 @@ class LegBuilderImpl(
   private val featureId = new FeatureId()
 
   override def leg(params: LegBuildParams): Option[PlanLegDetail] = {
-    NetworkType.withNameOption(params.networkType) match {
-      case Some(networkType) => buildLeg(params, networkType)
+    RouteType.withNameOption(params.routeType) match {
+      case Some(routeType) => buildLeg(params, routeType)
       case None =>
-        log.error(s"Unknown network type ${params.networkType}")
+        log.error(s"Unknown network type ${params.routeType}")
         None
     }
   }
 
-  override def plan(networkType: NetworkType, planString: String, encoded: Boolean, proposed: Boolean): Option[Seq[PlanLegDetail]] = {
-    graphRepository.graph(networkType) match {
+  override def plan(routeType: RouteType, planString: String, encoded: Boolean, proposed: Boolean): Option[Seq[PlanLegDetail]] = {
+    graphRepository.graph(routeType) match {
       case Some(graph) =>
         val legEnds = LegEnd.fromPlanString(planString, encoded)
-        val planLegDetails = legEndsToPlanLegs(networkType, graph, legEnds, Seq.empty, proposed)
+        val planLegDetails = legEndsToPlanLegs(routeType, graph, legEnds, Seq.empty, proposed)
         if (planLegDetails.nonEmpty) {
           Some(planLegDetails)
         }
@@ -51,14 +51,14 @@ class LegBuilderImpl(
         }
 
       case None =>
-        log.error(s"Could not find graph for network type ${networkType.entryName}")
+        log.error(s"Could not find graph for network type ${routeType.entryName}")
         None
     }
   }
 
   @scala.annotation.tailrec
   private def legEndsToPlanLegs(
-    networkType: NetworkType,
+    routeType: RouteType,
     graph: NodeNetworkGraph,
     legEnds: Seq[LegEnd],
     legs: Seq[PlanLegDetail],
@@ -72,14 +72,14 @@ class LegBuilderImpl(
         val source = legEnds.head
         val sink = legEnds.tail.head
         val params = LegBuildParams(
-          networkType.entryName,
+          routeType.entryName,
           source,
           sink,
           proposed
         )
 
         buildLeg(params, graph) match {
-          case Some(routeLeg) => legEndsToPlanLegs(networkType, graph, legEnds.tail.tail, legs :+ routeLeg, proposed)
+          case Some(routeLeg) => legEndsToPlanLegs(routeType, graph, legEnds.tail.tail, legs :+ routeLeg, proposed)
           case None => Seq.empty
         }
       }
@@ -87,17 +87,17 @@ class LegBuilderImpl(
         val source = LegEnd.node(legs.last.routes.last.sinkNode.nodeId.toLong)
         val sink = legEnds.head
         if (source == sink) {
-          legEndsToPlanLegs(networkType, graph, legEnds.tail, legs, proposed)
+          legEndsToPlanLegs(routeType, graph, legEnds.tail, legs, proposed)
         }
         else {
           val params = LegBuildParams(
-            networkType.entryName,
+            routeType.entryName,
             source,
             sink,
             proposed
           )
           buildLeg(params, graph) match {
-            case Some(routeLeg) => legEndsToPlanLegs(networkType, graph, legEnds.tail, legs :+ routeLeg, proposed)
+            case Some(routeLeg) => legEndsToPlanLegs(routeType, graph, legEnds.tail, legs :+ routeLeg, proposed)
             case None => Seq.empty
           }
         }
@@ -105,11 +105,11 @@ class LegBuilderImpl(
     }
   }
 
-  private def buildLeg(params: LegBuildParams, networkType: NetworkType): Option[PlanLegDetail] = {
-    graphRepository.graph(networkType) match {
+  private def buildLeg(params: LegBuildParams, routeType: RouteType): Option[PlanLegDetail] = {
+    graphRepository.graph(routeType) match {
       case Some(graph) => buildLeg(params, graph)
       case None =>
-        log.error(s"Could not find graph for network type ${networkType.entryName}")
+        log.error(s"Could not find graph for network type ${routeType.entryName}")
         None
     }
   }

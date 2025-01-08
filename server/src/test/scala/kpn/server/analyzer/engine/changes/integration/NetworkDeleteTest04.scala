@@ -7,7 +7,7 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.data.MemberType
@@ -134,7 +134,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
           deletes = Seq(
             ChangeSetNetwork(
               country = Some(Country.nl),
-              networkType = NetworkType.hiking,
+              routeType = RouteType.hiking,
               networkId = 1,
               networkName = "01-02",
               routeChanges = ChangeSetElementRefs(),
@@ -176,7 +176,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
     networkChange.key.changeSetId should equal(123)
     networkChange.key.elementId should equal(1)
     networkChange.changeType should equal(ChangeType.Delete)
-    networkChange.networkType should equal(NetworkType.hiking)
+    networkChange.routeType should equal(RouteType.hiking)
     networkChange.networkName should equal("01-02")
     assert(!networkChange.happy)
     assert(networkChange.investigate)

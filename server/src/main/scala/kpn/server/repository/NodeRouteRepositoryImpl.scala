@@ -2,7 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.common.NodeRouteRefs
 import kpn.api.common.common.Reference
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.database.actions.nodes.MongoQueryNodeRouteReferences
 import kpn.database.base.Database
 import org.springframework.stereotype.Component
@@ -10,15 +10,15 @@ import org.springframework.stereotype.Component
 @Component
 class NodeRouteRepositoryImpl(database: Database) extends NodeRouteRepository {
 
-  override def nodesRouteReferences(scopedNetworkType: ScopedNetworkType, nodeIds: Seq[Long]): Seq[NodeRouteRefs] = {
+  override def nodesRouteReferences(scopedRouteType: ScopedRouteType, nodeIds: Seq[Long]): Seq[NodeRouteRefs] = {
     val nodeRouteRefs = new MongoQueryNodeRouteReferences(database).execute(nodeIds)
     nodeIds.map { nodeId =>
       val references = nodeRouteRefs.filter(nodeRouteRef => nodeRouteRef.nodeId == nodeId &&
-        nodeRouteRef.networkType == scopedNetworkType.networkType &&
-        nodeRouteRef.networkScope == scopedNetworkType.networkScope
+        nodeRouteRef.routeType == scopedRouteType.routeType &&
+        nodeRouteRef.networkScope == scopedRouteType.networkScope
       ).map { nodeRouteRef =>
         Reference(
-          nodeRouteRef.networkType,
+          nodeRouteRef.routeType,
           nodeRouteRef.networkScope,
           nodeRouteRef.routeId,
           nodeRouteRef.routeName

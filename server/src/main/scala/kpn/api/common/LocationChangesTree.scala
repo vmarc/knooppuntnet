@@ -1,7 +1,7 @@
 package kpn.api.common
 
 case class LocationChangesTree(
-  networkType: NetworkType,
+  routeType: RouteType,
   locationName: String,
   happy: Boolean,
   investigate: Boolean,

@@ -3,7 +3,7 @@ package kpn.server.api.analysis.pages.location
 import kpn.api.common.Country
 import kpn.api.common.Language
 import kpn.api.common.LocationInfo
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.location.LocationDetailsPage
 import kpn.api.custom.LocationKey
 import kpn.server.analyzer.engine.analysis.location.LocationService
@@ -18,7 +18,7 @@ class LocationDetailsPageBuilder(
 ) {
 
   def build(language: Language, locationKey: LocationKey): Option[LocationDetailsPage] = {
-    if (locationKey == LocationKey(NetworkType.cycling, Country.nl, "example")) {
+    if (locationKey == LocationKey(RouteType.cycling, Country.nl, "example")) {
       Some(LocationDetailsPageExample.page)
     }
     else {
@@ -35,7 +35,7 @@ class LocationDetailsPageBuilder(
     val nameParts = locationKey.name.split(":").toSeq
     val locationInfos = nameParts.zipWithIndex.map { case (namePart, index) =>
       val names = nameParts.take(index + 1)
-      val link = s"${locationKey.networkType.entryName}/${locationKey.country.entryName}/${names.mkString(":")}"
+      val link = s"${locationKey.routeType.entryName}/${locationKey.country.entryName}/${names.mkString(":")}"
       LocationInfo(
         namePart,
         link

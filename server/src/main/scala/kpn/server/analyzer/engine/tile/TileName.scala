@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 object TileName {
 
-  def networkType(tileName: String): String = {
+  def routeType(tileName: String): String = {
     if (tileName.contains("horse-riding")) {
       "horse-riding"
     }
@@ -12,18 +12,18 @@ object TileName {
       "inline-skating"
     }
     else {
-      NetworkType.withNameOption(tileName.split("-").head) match {
-        case Some(networkType) => networkType.entryName
+      RouteType.withNameOption(tileName.split("-").head) match {
+        case Some(routeType) => routeType.entryName
         case _ => ""
       }
     }
   }
 
   def tileNumber(tileName: String): String = {
-    tileName.substring(networkType(tileName).length + 1).replaceAll("-", "/")
+    tileName.substring(routeType(tileName).length + 1).replaceAll("-", "/")
   }
 
   def tileZoomLevel(tileName: String): Int = {
-    tileName.substring(networkType(tileName).length + 1).takeWhile(_ != '-').toInt
+    tileName.substring(routeType(tileName).length + 1).takeWhile(_ != '-').toInt
   }
 }

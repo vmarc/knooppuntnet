@@ -1,8 +1,8 @@
 package kpn.server.repository
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.planner.graph.NodeNetworkGraph
 
 trait GraphRepository {
-  def graph(networkType: NetworkType): Option[NodeNetworkGraph]
+  def graph(routeType: RouteType): Option[NodeNetworkGraph]
 }

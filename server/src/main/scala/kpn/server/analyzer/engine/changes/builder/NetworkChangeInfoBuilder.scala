@@ -16,7 +16,7 @@ class NetworkChangeInfoBuilder {
       change.key,
       change.changeType,
       change.country,
-      change.networkType,
+      change.routeType,
       change.networkId,
       change.networkName,
       change.networkDataUpdate.flatMap(_.before.map(_.metaData)),

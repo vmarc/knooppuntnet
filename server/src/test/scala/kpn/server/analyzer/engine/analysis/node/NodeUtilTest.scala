@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.node
 import kpn.api.common.Fact
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeInfo
@@ -12,7 +12,7 @@ import scala.collection.mutable.ListBuffer
 
 class NodeUtilTest extends UnitTest with SharedTestObjects {
 
-  private val util = new NodeUtil(ScopedNetworkType.rwn)
+  private val util = new NodeUtil(ScopedRouteType.rwn)
 
   test("normalize") {
     NodeUtil.normalize("1") should equal("01")

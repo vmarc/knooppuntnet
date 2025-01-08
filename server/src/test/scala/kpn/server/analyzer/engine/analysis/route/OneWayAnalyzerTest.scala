@@ -8,7 +8,7 @@ import kpn.core.util.UnitTest
 
 class OneWayAnalyzerTest extends UnitTest with SharedTestObjects {
 
-  test("way without oneway related tags can be traveled in both directions in all networktypes") {
+  test("way without oneway related tags can be traveled in both directions in all routeTypes") {
     oneway() should equal(Both)
   }
 

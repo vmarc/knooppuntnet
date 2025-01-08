@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.structure.test
 
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
@@ -11,7 +11,7 @@ class Structure_N22_Test extends UnitTest {
     node(1, "01")
     node(2, "02")
     memberWay(10, "", 1, 2)
-  }.build("01", "02", ScopedNetworkType.rcn, Tags.from("oneway" -> "yes"))
+  }.build("01", "02", ScopedRouteType.rcn, Tags.from("oneway" -> "yes"))
 
   test("analyze") {
 

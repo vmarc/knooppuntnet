@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.Tags
@@ -19,7 +19,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       1001L,
       names = Seq(
         NodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "01",
           longName = None,
@@ -33,7 +33,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       facts = Seq.empty
     )
 
-    tileDataNodeBuilder.build(NetworkType.hiking, nodeTileInfo) should equal(
+    tileDataNodeBuilder.build(RouteType.hiking, nodeTileInfo) should equal(
       Some(
         TileDataNode(
           1001L,
@@ -55,7 +55,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       1001L,
       names = Seq(
         NodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "01",
           longName = None,
@@ -69,7 +69,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       facts = Seq.empty
     )
 
-    tileDataNodeBuilder.build(NetworkType.hiking, nodeTileInfo) should equal(
+    tileDataNodeBuilder.build(RouteType.hiking, nodeTileInfo) should equal(
       Some(
         TileDataNode(
           1001L,
@@ -91,7 +91,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       1001L,
       names = Seq(
         NodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "o",
           longName = None,
@@ -105,7 +105,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       facts = Seq.empty
     )
 
-    tileDataNodeBuilder.build(NetworkType.hiking, nodeTileInfo) should equal(None)
+    tileDataNodeBuilder.build(RouteType.hiking, nodeTileInfo) should equal(None)
   }
 
   test("proposed:rwn_ref = 'o'") {
@@ -114,7 +114,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       1001L,
       names = Seq(
         NodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "o",
           longName = None,
@@ -128,7 +128,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       facts = Seq.empty
     )
 
-    tileDataNodeBuilder.build(NetworkType.hiking, nodeTileInfo) should equal(None)
+    tileDataNodeBuilder.build(RouteType.hiking, nodeTileInfo) should equal(None)
   }
 
   test("rwn_ref and rwn_name") {
@@ -137,7 +137,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       1001L,
       names = Seq(
         NodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "01",
           longName = Some("name"),
@@ -154,7 +154,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       facts = Seq.empty
     )
 
-    tileDataNodeBuilder.build(NetworkType.hiking, nodeTileInfo) should equal(
+    tileDataNodeBuilder.build(RouteType.hiking, nodeTileInfo) should equal(
       Some(
         TileDataNode(
           1001L,
@@ -316,13 +316,13 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
     )
 
     pending
-    tileDataNodeBuilder.build(NetworkType.hiking, null /*node*/).flatMap(_.ref) should equal(Some("01"))
-    tileDataNodeBuilder.build(NetworkType.cycling, null /*node*/).flatMap(_.ref) should equal(Some("02"))
+    tileDataNodeBuilder.build(RouteType.hiking, null /*node*/).flatMap(_.ref) should equal(Some("01"))
+    tileDataNodeBuilder.build(RouteType.cycling, null /*node*/).flatMap(_.ref) should equal(Some("02"))
   }
 
   private def buildTileDataNode(node: NodeDoc): TileDataNode = {
     pending
-    tileDataNodeBuilder.build(NetworkType.hiking, null /*node*/).get
+    tileDataNodeBuilder.build(RouteType.hiking, null /*node*/).get
   }
 
   private def tileDataNodeBuilder: TileDataNodeBuilder = {

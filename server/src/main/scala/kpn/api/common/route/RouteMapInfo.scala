@@ -1,11 +1,11 @@
 package kpn.api.common.route
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 case class RouteMapInfo(
   routeId: Long,
   routeName: String,
-  networkType: NetworkType,
+  routeType: RouteType,
   segments: Seq[RouteSegment],
   paths: Seq[RoutePath],
 )

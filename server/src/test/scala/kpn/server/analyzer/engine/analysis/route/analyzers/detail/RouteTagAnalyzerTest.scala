@@ -5,15 +5,15 @@ import kpn.api.common.NetworkScope
 import kpn.api.common.NetworkScope.local
 import kpn.api.common.NetworkScope.national
 import kpn.api.common.NetworkScope.regional
-import kpn.api.common.NetworkType
-import kpn.api.common.NetworkType.canoe
-import kpn.api.common.NetworkType.cycling
-import kpn.api.common.NetworkType.hiking
-import kpn.api.common.NetworkType.horseRiding
-import kpn.api.common.NetworkType.inlineSkating
-import kpn.api.common.NetworkType.motorboat
+import kpn.api.common.RouteType
+import kpn.api.common.RouteType.canoe
+import kpn.api.common.RouteType.cycling
+import kpn.api.common.RouteType.hiking
+import kpn.api.common.RouteType.horseRiding
+import kpn.api.common.RouteType.inlineSkating
+import kpn.api.common.RouteType.motorboat
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.util.Redesign
@@ -46,16 +46,16 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("ignore additional values") {
     if (Redesign.enablePendingTests) {
-      testValid(NetworkScope.regional, NetworkType.cycling, "bicycle;mtb")
+      testValid(NetworkScope.regional, RouteType.cycling, "bicycle;mtb")
     }
   }
 
-  private def testValid(networkScope: NetworkScope, networkType: NetworkType, tagValue: String): Unit = {
-    val scopedNetworkType = ScopedNetworkType(networkScope, networkType)
+  private def testValid(networkScope: NetworkScope, routeType: RouteType, tagValue: String): Unit = {
+    val scopedRouteType = ScopedRouteType(networkScope, routeType)
     val tags = Tags.from(
       "type" -> "route",
       "network:type" -> "node_network",
-      "network" -> scopedNetworkType.key,
+      "network" -> scopedRouteType.key,
       "route" -> tagValue
     )
     val context = analyze(tags)

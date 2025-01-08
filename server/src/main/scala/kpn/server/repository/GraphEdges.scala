@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.planner.graph.GraphEdge
 
-case class GraphEdges(networkType: NetworkType, edges: Seq[GraphEdge])
+case class GraphEdges(routeType: RouteType, edges: Seq[GraphEdge])

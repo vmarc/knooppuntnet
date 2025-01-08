@@ -7,7 +7,7 @@ import org.apache.commons.io.FileUtils
 import org.apache.commons.io.filefilter.TrueFileFilter.TRUE
 
 import java.io.File
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRepository {
 
@@ -53,9 +53,9 @@ class TileFileRepositoryImpl(root: String, extension: String) extends TileFileRe
 
   override def delete(tileNames: Seq[String]): Unit = {
     tileNames.foreach { tileName =>
-      val networkType = TileName.networkType(tileName)
+      val routeType = TileName.routeType(tileName)
       val tileNumber = TileName.tileNumber(tileName)
-      val filename = s"$root/$networkType/$tileNumber.$extension"
+      val filename = s"$root/$routeType/$tileNumber.$extension"
       log.debug(s"delete tile $tileName, file: $filename")
       val file = new File(filename)
       file.delete()

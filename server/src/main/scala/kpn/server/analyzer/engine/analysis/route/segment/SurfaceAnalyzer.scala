@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.data.Way
 import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.footwayPaved
 import kpn.server.analyzer.engine.analysis.route.segment.SurfaceAnalyzer.highwayUnpaved
@@ -97,7 +97,7 @@ object SurfaceAnalyzer {
   )
 }
 
-class SurfaceAnalyzer(networkTypes: Seq[NetworkType], way: Way) {
+class SurfaceAnalyzer(routeTypes: Seq[RouteType], way: Way) {
 
   def surface(): String = {
     surfaceBasedOnSurfaceTag() match {
@@ -146,7 +146,7 @@ class SurfaceAnalyzer(networkTypes: Seq[NetworkType], way: Way) {
   }
 
   private def preferredSurfaceTagKey(): String = {
-    if (networkTypes.contains(NetworkType.hiking)) {
+    if (routeTypes.contains(RouteType.hiking)) {
       if (way.hasTag("footway:surface")) {
         "footway:surface"
       }
@@ -157,7 +157,7 @@ class SurfaceAnalyzer(networkTypes: Seq[NetworkType], way: Way) {
         "surface"
       }
     }
-    else if (networkTypes.contains(NetworkType.cycling)) {
+    else if (routeTypes.contains(RouteType.cycling)) {
       if (way.hasTag("cycleway:surface")) {
         "cycleway:surface"
       }

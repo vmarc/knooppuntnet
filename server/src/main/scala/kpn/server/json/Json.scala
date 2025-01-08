@@ -17,9 +17,9 @@ import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.Language
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
 import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
 import kpn.api.common.data.MemberType
 import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LastUpdatedParameter
@@ -31,7 +31,7 @@ import kpn.api.common.search.ConditionGroupOperator
 import kpn.api.common.search.ConditionOperator
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.api.custom.Timestamp2
@@ -80,14 +80,14 @@ object Json {
     b.deserializerByType(classOf[LinkDirection], new LinkDirectionJsonDeserializer())
     b.serializerByType(classOf[LinkDirection], new LinkDirectionJsonSerializer())
 
-    b.deserializerByType(classOf[NetworkType], new NetworkTypeJsonDeserializer())
-    b.serializerByType(classOf[NetworkType], new NetworkTypeJsonSerializer())
+    b.deserializerByType(classOf[RouteType], new routeTypeJsonDeserializer())
+    b.serializerByType(classOf[RouteType], new routeTypeJsonSerializer())
 
     b.deserializerByType(classOf[NetworkScope], new NetworkScopeJsonDeserializer())
     b.serializerByType(classOf[NetworkScope], new NetworkScopeJsonSerializer())
 
-    b.deserializerByType(classOf[ScopedNetworkType], new ScopedNetworkTypeJsonDeserializer())
-    b.serializerByType(classOf[ScopedNetworkType], new ScopedNetworkTypeJsonSerializer())
+    b.deserializerByType(classOf[ScopedRouteType], new scopedRouteTypeJsonDeserializer())
+    b.serializerByType(classOf[ScopedRouteType], new scopedRouteTypeJsonSerializer())
 
     b.deserializerByType(classOf[RouteScope], new RouteScopeJsonDeserializer())
     b.serializerByType(classOf[RouteScope], new RouteScopeJsonSerializer())

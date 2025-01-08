@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.network.NetworkNodeDetail
 import kpn.api.common.network.NetworkNodeRow
@@ -40,13 +40,13 @@ object NetworkNodesPageExample {
         facts = Seq.empty
       ),
       routeReferences = Seq(
-        Reference(NetworkType.hiking, NetworkScope.regional, 11, "01-02"),
-        Reference(NetworkType.hiking, NetworkScope.regional, 12, "01-03"),
-        Reference(NetworkType.hiking, NetworkScope.regional, 13, "01-04"),
-        Reference(NetworkType.hiking, NetworkScope.regional, 14, "01-05"),
-        Reference(NetworkType.hiking, NetworkScope.regional, 15, "01-06"),
-        Reference(NetworkType.hiking, NetworkScope.regional, 16, "01-07"),
-        Reference(NetworkType.hiking, NetworkScope.regional, 17, "01-08")
+        Reference(RouteType.hiking, NetworkScope.regional, 11, "01-02"),
+        Reference(RouteType.hiking, NetworkScope.regional, 12, "01-03"),
+        Reference(RouteType.hiking, NetworkScope.regional, 13, "01-04"),
+        Reference(RouteType.hiking, NetworkScope.regional, 14, "01-05"),
+        Reference(RouteType.hiking, NetworkScope.regional, 15, "01-06"),
+        Reference(RouteType.hiking, NetworkScope.regional, 16, "01-07"),
+        Reference(RouteType.hiking, NetworkScope.regional, 17, "01-08")
       )
     )
   }
@@ -69,9 +69,9 @@ object NetworkNodesPageExample {
         proposed = true
       ),
       routeReferences = Seq(
-        Reference(NetworkType.hiking, NetworkScope.regional, 11, "01-02"),
-        Reference(NetworkType.hiking, NetworkScope.regional, 12, "01-03"),
-        Reference(NetworkType.hiking, NetworkScope.regional, 13, "01-04")
+        Reference(RouteType.hiking, NetworkScope.regional, 11, "01-02"),
+        Reference(RouteType.hiking, NetworkScope.regional, 12, "01-03"),
+        Reference(RouteType.hiking, NetworkScope.regional, 13, "01-04")
       )
     )
   }

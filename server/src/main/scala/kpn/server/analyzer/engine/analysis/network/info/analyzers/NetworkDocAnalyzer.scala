@@ -14,12 +14,12 @@ class NetworkDocAnalyzer(context: NetworkInfoAnalysisContext, nodeDoc: NodeDoc) 
   }
 
   def longName: String = {
-    val ln = nodeDoc.longName(context.scopedNetworkType)
+    val ln = nodeDoc.longName(context.scopedRouteType)
     if (ln.nonEmpty) ln else "-"
   }
 
   def expectedRouteCount: Option[Long] = {
-    TagInterpreter.expectedRouteRelationCount(context.scopedNetworkType, nodeDoc)
+    TagInterpreter.expectedRouteRelationCount(context.scopedRouteType, nodeDoc)
   }
 
   def connection: Boolean = {
@@ -31,7 +31,7 @@ class NetworkDocAnalyzer(context: NetworkInfoAnalysisContext, nodeDoc: NodeDoc) 
   }
 
   def proposed: Boolean = {
-    TagInterpreter.isProposedNode(context.scopedNetworkType, nodeDoc)
+    TagInterpreter.isProposedNode(context.scopedRouteType, nodeDoc)
   }
 
   def definedInRelation: Boolean = {

@@ -122,7 +122,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       //  nodeRepository.nodeNetworkReferences(1001)should equal(
       //    Seq(
       //      Reference(
-      //        NetworkType.hiking,
+      //        routeType.hiking,
       //        NetworkScope.regional,
       //        2,
       //        "network-2"

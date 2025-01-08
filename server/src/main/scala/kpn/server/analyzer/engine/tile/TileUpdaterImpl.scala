@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.tiles.ZoomLevel
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.tiles.TileData
@@ -55,35 +55,35 @@ class TileUpdaterImpl(
 
     private def processTask(task: String): Unit = {
       val tile = tileCalculator.tileNamed(TileTask.tileName(task))
-      val networkType: NetworkType = TileTask.networkType(task)
-      updateTile(networkType, tile)
+      val routeType: RouteType = TileTask.routeType(task)
+      updateTile(routeType, tile)
     }
 
-    private def updateTile(networkType: NetworkType, tile: Tile): Unit = {
-      val tileDataNodes = collectTileDataNodes(networkType, tile)
-      val tileDataRoutes = collectTileDataRoutes(networkType, tile)
-      val tileData = TileData(networkType, tileDataNodes, tileDataRoutes)
+    private def updateTile(routeType: RouteType, tile: Tile): Unit = {
+      val tileDataNodes = collectTileDataNodes(routeType, tile)
+      val tileDataRoutes = collectTileDataRoutes(routeType, tile)
+      val tileData = TileData(routeType, tileDataNodes, tileDataRoutes)
       tileFileBuilder.build(tileData, tile)
     }
 
-    private def collectTileDataNodes(networkType: NetworkType, tile: Tile): Seq[TileDataNode] = {
-      val nodeIds = tileRepository.nodeIds(networkType, tile)
+    private def collectTileDataNodes(routeType: RouteType, tile: Tile): Seq[TileDataNode] = {
+      val nodeIds = tileRepository.nodeIds(routeType, tile)
       nodeIds.flatMap { nodeId =>
         val nodeTileInfoOption = nodeCache.getOrElseUpdate(
           nodeId,
           nodeRepository.nodeTileInfoById(nodeId)
         )
         nodeTileInfoOption match {
-          case Some(tileInfoNode) => tileDataNodeBuilder.build(networkType, tileInfoNode)
+          case Some(tileInfoNode) => tileDataNodeBuilder.build(routeType, tileInfoNode)
           case None =>
-            log.error(s"Unexpected data integrity problem: node $nodeId for tile ${networkType.entryName}-${tile.name} not found in database")
+            log.error(s"Unexpected data integrity problem: node $nodeId for tile ${routeType.entryName}-${tile.name} not found in database")
             None
         }
       }
     }
 
-    private def collectTileDataRoutes(networkType: NetworkType, tile: Tile): Seq[TileDataRoute] = {
-      val routeIds = tileRepository.routeIds(networkType, tile)
+    private def collectTileDataRoutes(routeType: RouteType, tile: Tile): Seq[TileDataRoute] = {
+      val routeIds = tileRepository.routeIds(routeType, tile)
       routeIds.flatMap { routeId =>
         routeCache.getOrElseUpdate(
           routeId,
@@ -97,7 +97,7 @@ class TileUpdaterImpl(
                 None
               }
             case None =>
-              log.error(s"Unexpected data integrity problem: route $routeId for tile ${networkType.entryName}-${tile.name} not found in database")
+              log.error(s"Unexpected data integrity problem: route $routeId for tile ${routeType.entryName}-${tile.name} not found in database")
               None
           }
         )

@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route.domain
 
 import kpn.api.base.WithStringId
-import kpn.api.common.NetworkType
 import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
 
 case class RouteTileDoc(
   _id: String,
   routeId: Long,
   routeName: String,
-  networkTypes: Seq[NetworkType],
+  routeTypes: Seq[RouteType],
   z: Long,
   x: Long,
   y: Long,

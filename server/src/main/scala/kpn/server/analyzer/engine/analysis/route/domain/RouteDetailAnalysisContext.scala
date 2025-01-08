@@ -3,15 +3,15 @@ package kpn.server.analyzer.engine.analysis.route.domain
 import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
 import kpn.api.common.data.Node
 import kpn.api.common.route.RouteEdge
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.core.doc.RouteDetailPath
 import kpn.core.doc.RouteDetailSegment
 import kpn.core.doc.RouteDetailSegmentElement
@@ -29,9 +29,9 @@ case class RouteDetailAnalysisContext(
   superRoute: Boolean = false,
   nodeNetwork: Boolean = false,
   proposed: Boolean = false,
-  _networkTypes: Option[Seq[NetworkType]] = None,
+  _routeTypes: Option[Seq[RouteType]] = None,
   _scopes: Option[Seq[RouteScope]] = None,
-  scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
+  scopedRouteTypeOption: Option[ScopedRouteType] = None,
   _countries: Option[Seq[Country]] = None,
   _links: Option[RouteLinks] = None,
   _analysisSegments: Option[Seq[RouteAnalysisSegment]] = None,
@@ -65,9 +65,9 @@ case class RouteDetailAnalysisContext(
   abort: Boolean = false
 ) {
 
-  def scopedNetworkType: ScopedNetworkType = {
-    scopedNetworkTypeOption.getOrElse {
-      throw new IllegalArgumentException("trying to use scopedNetworkType before definition")
+  def scopedRouteType: ScopedRouteType = {
+    scopedRouteTypeOption.getOrElse {
+      throw new IllegalArgumentException("trying to use scopedRouteType before definition")
     }
   }
 
@@ -110,7 +110,7 @@ case class RouteDetailAnalysisContext(
 
   // prerequisite checking accessors
 
-  def networkTypes: Seq[NetworkType] = _networkTypes.getOrElse(throw new PreconditionMissingException)
+  def routeTypes: Seq[RouteType] = _routeTypes.getOrElse(throw new PreconditionMissingException)
 
   def scopes: Seq[RouteScope] = _scopes.getOrElse(throw new PreconditionMissingException)
 

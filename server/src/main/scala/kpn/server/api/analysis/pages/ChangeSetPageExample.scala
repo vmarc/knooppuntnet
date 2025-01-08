@@ -10,7 +10,7 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeSetDetail
 import kpn.api.common.changes.ChangeSetInfo
 import kpn.api.common.changes.ChangeSetPage
@@ -85,7 +85,7 @@ object ChangeSetPageExample {
       //          creates = Seq(
       //            ChangeSetNetwork(
       //              country = Some(Country.nl),
-      //              networkType = NetworkType.hiking,
+      //              routeType = routeType.hiking,
       //              networkId = 1,
       //              networkName = "network one",
       //              routeChanges = ChangeSetElementRefs(
@@ -159,7 +159,7 @@ object ChangeSetPageExample {
       //          updates = Seq(
       //            ChangeSetNetwork(
       //              country = Some(Country.nl),
-      //              networkType = NetworkType.hiking,
+      //              routeType = routeType.hiking,
       //              networkId = 2,
       //              networkName = "network two",
       //              routeChanges = ChangeSetElementRefs(
@@ -233,7 +233,7 @@ object ChangeSetPageExample {
       //          deletes = Seq(
       //            ChangeSetNetwork(
       //              country = Some(Country.nl),
-      //              networkType = NetworkType.hiking,
+      //              routeType = routeType.hiking,
       //              networkId = 3,
       //              networkName = "network three",
       //              routeChanges = ChangeSetElementRefs(
@@ -432,7 +432,7 @@ object ChangeSetPageExample {
       ),
       changeType = ChangeType.Create, // <==
       country = Some(Country.nl),
-      networkType = NetworkType.hiking,
+      routeType = RouteType.hiking,
       networkId = 1,
       networkName = "network one",
       before = None,
@@ -504,7 +504,7 @@ object ChangeSetPageExample {
       ),
       changeType = ChangeType.Update, // <==
       country = Some(Country.nl),
-      networkType = NetworkType.hiking,
+      routeType = RouteType.hiking,
       networkId = 2,
       networkName = "network two",
       before = Some(
@@ -544,7 +544,7 @@ object ChangeSetPageExample {
       ),
       changeType = ChangeType.Delete, // <==
       country = Some(Country.nl),
-      networkType = NetworkType.hiking,
+      routeType = RouteType.hiking,
       networkId = 1,
       networkName = "network one",
       before = Some(

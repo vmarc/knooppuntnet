@@ -1,7 +1,7 @@
 package kpn.api.common
 
 case class ChangeSetLocation(
-  networkType: NetworkType,
+  routeType: RouteType,
   locationName: String,
   routeChanges: ChangeSetElementRefs,
   nodeChanges: ChangeSetElementRefs,

@@ -1,9 +1,9 @@
 package kpn.core.analysis
 
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
@@ -15,7 +15,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
 
     def isReferencedNetworkNode(tags: Seq[Tag]): Boolean = {
       val node = newNode(tags = tags)
-      TagInterpreter.isReferencedNetworkNode(ScopedNetworkType.rwn, node)
+      TagInterpreter.isReferencedNetworkNode(ScopedRouteType.rwn, node)
     }
 
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
@@ -36,7 +36,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
 
     def isReferencedNetworkNode(tags: Seq[Tag]): Boolean = {
       val node = newNode(tags = tags)
-      TagInterpreter.isReferencedNetworkNode(ScopedNetworkType(NetworkScope.local, NetworkType.hiking), node)
+      TagInterpreter.isReferencedNetworkNode(ScopedRouteType(NetworkScope.local, RouteType.hiking), node)
     }
 
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01")))
@@ -58,7 +58,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
 
     def isValidNetworkNode(tags: Seq[Tag]): Boolean = {
       val node = newNode(tags = tags)
-      TagInterpreter.isValidNetworkNode(NetworkType.hiking, node)
+      TagInterpreter.isValidNetworkNode(RouteType.hiking, node)
     }
 
     assert(isValidNetworkNode(Tags.from("network:type" -> "node_network", "rwn_ref" -> "01")))
@@ -82,7 +82,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
     def isUnexpectedNode(tags: Seq[Tag]): Boolean = {
       val context = new AnalysisContext()
       val node = newNode(1L, tags = tags)
-      TagInterpreter.isUnexpectedNode(ScopedNetworkType.rwn, node)
+      TagInterpreter.isUnexpectedNode(ScopedRouteType.rwn, node)
     }
 
     // map
@@ -106,10 +106,10 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
         "expected_lpn_route_relations" -> "bla",
       )
     )
-    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.rwn, node) should equal(Some(3))
-    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.rcn, node) should equal(Some(4))
-    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lwn, node) should equal(Some(5))
-    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lcn, node) should equal(None)
-    TagInterpreter.expectedRouteRelationCount(ScopedNetworkType.lpn, node) should equal(Some(0))
+    TagInterpreter.expectedRouteRelationCount(ScopedRouteType.rwn, node) should equal(Some(3))
+    TagInterpreter.expectedRouteRelationCount(ScopedRouteType.rcn, node) should equal(Some(4))
+    TagInterpreter.expectedRouteRelationCount(ScopedRouteType.lwn, node) should equal(Some(5))
+    TagInterpreter.expectedRouteRelationCount(ScopedRouteType.lcn, node) should equal(None)
+    TagInterpreter.expectedRouteRelationCount(ScopedRouteType.lpn, node) should equal(Some(0))
   }
 }

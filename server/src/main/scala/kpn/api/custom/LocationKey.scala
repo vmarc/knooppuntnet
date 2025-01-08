@@ -1,10 +1,10 @@
 package kpn.api.custom
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 case class LocationKey(
-  networkType: NetworkType,
+  routeType: RouteType,
   country: Country,
   name: String
 )

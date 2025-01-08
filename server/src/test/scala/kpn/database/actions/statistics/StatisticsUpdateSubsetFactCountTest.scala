@@ -5,9 +5,9 @@ import kpn.api.common.Country.de
 import kpn.api.common.Country.nl
 import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
-import kpn.api.common.NetworkType
-import kpn.api.common.NetworkType.cycling
-import kpn.api.common.NetworkType.hiking
+import kpn.api.common.RouteType
+import kpn.api.common.RouteType.cycling
+import kpn.api.common.RouteType.hiking
 import kpn.api.common.SharedTestObjects
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
@@ -115,7 +115,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
     database: Database,
     networkId: Long,
     country: Country,
-    networkType: NetworkType,
+    routeType: RouteType,
     facts: Seq[NetworkFact],
     active: Boolean = true
   ): Unit = {
@@ -124,7 +124,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
         networkId,
         active,
         Some(country),
-        newNetworkSummary(networkType = networkType),
+        newNetworkSummary(routeType = routeType),
         facts = facts
       )
     )
@@ -144,7 +144,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
     database: Database,
     routeId: Long,
     country: Country,
-    networkType: NetworkType,
+    routeType: RouteType,
     facts: Seq[Fact],
     active: Boolean = true
   ): Unit = {
@@ -153,7 +153,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
         newRouteSummary(
           routeId,
           Seq(country),
-          networkTypes = Seq(networkType),
+          routeTypes = Seq(routeType),
         ),
         labels = if (active) Seq(Label.active) else Seq.empty,
         facts = facts
@@ -175,7 +175,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
     database: Database,
     nodeId: Long,
     country: Country,
-    networkType: NetworkType,
+    routeType: RouteType,
     facts: Seq[Fact],
     active: Boolean = true
   ): Unit = {
@@ -186,7 +186,7 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
         country = Some(country),
         names = Seq(
           newNodeName(
-            networkType = networkType
+            routeType = routeType
           )
         ),
         facts = facts

@@ -31,7 +31,7 @@ class MongoQueryLocations(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(subset.networkType)),
+          equal("labels", Label.routeType(subset.routeType)),
           LocationQuery.locationFilter("labels", subset),
         )
       ),
@@ -155,7 +155,7 @@ class MongoQueryLocations(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(subset.networkType)),
+          equal("labels", Label.routeType(subset.routeType)),
           equal("labels", Label.location(subset.country.entryName)),
         )
       ),

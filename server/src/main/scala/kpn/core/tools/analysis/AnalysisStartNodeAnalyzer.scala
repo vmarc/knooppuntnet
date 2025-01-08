@@ -67,8 +67,8 @@ class AnalysisStartNodeAnalyzer(log: Log, config: AnalysisStartConfiguration)(im
       nodeDoc.country match {
         case None => Seq.empty
         case Some(c) =>
-          val networkTypes = nodeDoc.names.map(_.networkType).distinct
-          networkTypes.map(n => Subset(c, n))
+          val routeTypes = nodeDoc.names.map(_.routeType).distinct
+          routeTypes.map(n => Subset(c, n))
       }
     }
 

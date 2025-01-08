@@ -272,7 +272,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
   }
 
   private def toFragment(routeLinkWay: RouteLinkWay, nodeIds: Seq[Long]): RouteAnalysisFragment = {
-    val surface = new SurfaceAnalyzer(context.networkTypes, routeLinkWay.way).surface()
+    val surface = new SurfaceAnalyzer(context.routeTypes, routeLinkWay.way).surface()
     RouteAnalysisFragment(
       fragmentIds.next(),
       routeLinkWay.way,
@@ -298,7 +298,7 @@ class RouteSegmentAnalyzer(context: RouteDetailAnalysisContext) {
     toNodeId: Long,
     fragments: Seq[RouteAnalysisFragment]
   ): RouteAnalysisElement = {
-    val fragmentGroups = SurfaceFragmentSplitter.split(context.networkTypes, fragments)
+    val fragmentGroups = SurfaceFragmentSplitter.split(context.routeTypes, fragments)
     RouteAnalysisElement(
       elementIds.next(),
       direction,

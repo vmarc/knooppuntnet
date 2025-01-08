@@ -2,8 +2,8 @@ package kpn.api.common.diff
 
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
 import kpn.api.common.RouteLocationAnalysis
+import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Tagable
@@ -21,7 +21,7 @@ object RouteData {
       context.relation.id,
       context.relation.toMeta,
       context.countries,
-      context.networkTypes,
+      context.routeTypes,
       context.routeNameAnalysis.name.getOrElse("no-name"),
       context.routeNodesAnalysis.nodes.map(_.toRouteNode),
       context.relation.wayMembers.map(_.way), // all ways  in hierarchy
@@ -38,7 +38,7 @@ case class RouteData(
   relationId: Long,
   meta: MetaData,
   countries: Seq[Country],
-  networkTypes: Seq[NetworkType],
+  routeTypes: Seq[RouteType],
   name: String,
   networkNodes: Seq[RouteNode],
   ways: Seq[Way], // all ways  in hierarchy
@@ -55,8 +55,8 @@ case class RouteData(
 
   def subsets: Seq[Subset] = {
     countries.flatMap { country =>
-      networkTypes.flatMap { networkType =>
-        Subset.of(country, networkType)
+      routeTypes.flatMap { routeType =>
+        Subset.of(country, routeType)
       }
     }
   }

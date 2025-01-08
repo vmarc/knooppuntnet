@@ -1,7 +1,7 @@
 package kpn.database.tools.validation
 
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
 import kpn.database.base.Database
@@ -18,8 +18,8 @@ class ValidateNodeQueries(database: Database) {
       val query = new MongoQueryNodeNetworkReferences(database)
       val references = query.execute(247742900L)
       val expectedReferences = Seq(
-        Reference(NetworkType.cycling, NetworkScope.regional, 1066154, "Achterhoek"),
-        Reference(NetworkType.cycling, NetworkScope.regional, 172106, "Veluwe")
+        Reference(RouteType.cycling, NetworkScope.regional, 1066154, "Achterhoek"),
+        Reference(RouteType.cycling, NetworkScope.regional, 172106, "Veluwe")
       )
       if (!references.equals(expectedReferences)) {
         Some(s"Unexpected references: $references")

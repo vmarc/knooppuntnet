@@ -7,8 +7,8 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -23,7 +23,7 @@ import kpn.core.test.OverpassData
 
 class NetworkUpdateNodeTest06 extends IntegrationTest {
 
-  test("network update - removed node that looses required tags, but still has tags of other networkType does not become inactive") {
+  test("network update - removed node that looses required tags, but still has tags of other routeType does not become inactive") {
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -98,13 +98,13 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         1002,
         labels = Seq(
           Label.active,
-          Label.networkType(NetworkType.cycling)
+          Label.routeType(RouteType.cycling)
         ),
         country = Some(Country.nl),
         name = Some("03"),
         names = Seq(
           NodeName(
-            NetworkType.cycling,
+            RouteType.cycling,
             NetworkScope.regional,
             "03",
             None,
@@ -124,7 +124,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
       findOrphanNodeById("nl:cycling:1002"),
       newOrphanNodeDoc(
         country = Country.nl,
-        networkType = NetworkType.cycling,
+        routeType = RouteType.cycling,
         nodeId = 1002,
         name = "03"
       )
@@ -138,7 +138,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         newChangeKey(elementId = 1),
         ChangeType.Update,
         Some(Country.nl),
-        NetworkType.hiking,
+        RouteType.hiking,
         1,
         "name",
         networkDataUpdate = None,
@@ -202,7 +202,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
           updates = Seq(
             newChangeSetNetwork(
               Some(Country.nl),
-              NetworkType.hiking,
+              RouteType.hiking,
               1,
               "name",
               nodeChanges = ChangeSetElementRefs(

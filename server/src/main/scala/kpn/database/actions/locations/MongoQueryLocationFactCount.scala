@@ -1,6 +1,6 @@
 package kpn.database.actions.locations
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.actions.locations.MongoQueryLocationFactCount.log
@@ -31,7 +31,7 @@ object MongoQueryLocationFactCount {
     Mongo.executeIn("kpn-test") { database =>
       database.networks.findById(0)
       val query = new MongoQueryLocationFactCount(database)
-      val subset = LocationSubset("", NetworkType.hiking, Seq("de"))
+      val subset = LocationSubset("", RouteType.hiking, Seq("de"))
       query.execute(subset)
     }
   }
@@ -45,7 +45,7 @@ class MongoQueryLocationFactCount(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(subset.networkType)),
+          equal("labels", Label.routeType(subset.routeType)),
           LocationQuery.locationFilter("labels", subset),
           equal("labels", Label.facts)
         )
@@ -71,18 +71,18 @@ class MongoQueryLocationFactCount(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(subset.networkType)),
+          equal("labels", Label.routeType(subset.routeType)),
           LocationQuery.locationFilter("labels", subset),
         )
       ),
       unwind("$names"),
       filter(
-        equal("names.networkType", subset.networkType.entryName)
+        equal("names.routeType", subset.routeType.entryName)
       ),
       unwind("$integrity.details"),
       filter(
         and(
-          equal("integrity.details.networkType", subset.networkType.entryName),
+          equal("integrity.details.routeType", subset.routeType.entryName),
           BsonDocument("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
         )
       ),
@@ -93,7 +93,7 @@ class MongoQueryLocationFactCount(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(subset.networkType)),
+          equal("labels", Label.routeType(subset.routeType)),
           LocationQuery.locationFilter("labels", subset),
           equal("labels", Label.facts)
         )

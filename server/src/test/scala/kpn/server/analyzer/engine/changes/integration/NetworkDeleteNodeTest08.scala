@@ -7,7 +7,7 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
@@ -54,13 +54,13 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
       newNodeDoc(
         1001,
         labels = Seq(
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
           // not active
         ),
         country = Some(Country.nl),
         name = Some("01"),
         names = Seq(
-          newNodeName(NetworkType.hiking, NetworkScope.regional, "01")
+          newNodeName(RouteType.hiking, NetworkScope.regional, "01")
         ),
         tags = newNodeTags("01")
       )
@@ -81,7 +81,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         country = Some(Country.nl),
         newNetworkSummary(
           name = "network1",
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           changeCount = 1
         ),
         newNetworkDetail(
@@ -100,7 +100,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         newChangeKey(elementId = 1),
         ChangeType.Delete,
         Some(Country.nl),
-        NetworkType.hiking,
+        RouteType.hiking,
         1,
         "network1",
         nodeDiffs = RefDiffs(
@@ -145,7 +145,7 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
           deletes = Seq(
             newChangeSetNetwork(
               Some(Country.nl),
-              NetworkType.hiking,
+              RouteType.hiking,
               1,
               "network1",
               nodeChanges = ChangeSetElementRefs(

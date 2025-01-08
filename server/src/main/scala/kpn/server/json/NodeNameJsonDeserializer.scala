@@ -5,20 +5,20 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 
 class NodeNameJsonDeserializer extends JsonDeserializer[NodeName] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): NodeName = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
     val name = node.get("name").asText
-    val scopedNetworkTypeNode = node.get("scopedNetworkType")
-    val rootNode = if (scopedNetworkTypeNode == null) node else scopedNetworkTypeNode
-    val networkType = NetworkType.withName(rootNode.get("networkType").asText)
+    val scopedRouteTypeNode = node.get("scopedRouteType")
+    val rootNode = if (scopedRouteTypeNode == null) node else scopedRouteTypeNode
+    val routeType = RouteType.withName(rootNode.get("routeType").asText)
     val networkScope = NetworkScope.withName(rootNode.get("networkScope").asText)
     val longName = Option.apply(node.get("longName")).map(_.asText)
     val proposedNode = node.get("proposed")
     val proposed = if (proposedNode == null) false else proposedNode.asBoolean()
-    NodeName(networkType, networkScope, name, longName, proposed)
+    NodeName(routeType, networkScope, name, longName, proposed)
   }
 }

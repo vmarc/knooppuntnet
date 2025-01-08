@@ -1,6 +1,6 @@
 package kpn.database.actions.locations
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.location.LocationFact
 import kpn.core.doc.Label
 import kpn.core.util.Log
@@ -32,7 +32,7 @@ object MongoQueryLocationFacts {
     Mongo.executeIn("kpn-prod") { database =>
       database.networks.findById(0)
       val query = new MongoQueryLocationFacts(database)
-      val subset = LocationSubset("", NetworkType.hiking, Seq("fr"))
+      val subset = LocationSubset("", RouteType.hiking, Seq("fr"))
       val locationFacts = query.execute(subset)
       locationFacts.foreach { locationFact =>
         println(s"${locationFact.elementType} ${locationFact.fact.entryName}: ${locationFact.refs.map(_.name).mkString(", ")}")
@@ -48,7 +48,7 @@ class MongoQueryLocationFacts(database: Database) {
     val mainFilter = filter(
       and(
         equal("labels", Label.active),
-        equal("labels", Label.networkType(subset.networkType)),
+        equal("labels", Label.routeType(subset.routeType)),
         LocationQuery.locationFilter("labels", subset),
         equal("labels", Label.facts)
       )
@@ -58,7 +58,7 @@ class MongoQueryLocationFacts(database: Database) {
       mainFilter,
       unwind("$names"),
       filter(
-        equal("names.networkType", subset.networkType.entryName)
+        equal("names.routeType", subset.routeType.entryName)
       ),
       unwind("$facts"),
       project(
@@ -87,18 +87,18 @@ class MongoQueryLocationFacts(database: Database) {
       filter(
         and(
           equal("labels", Label.active),
-          equal("labels", Label.networkType(subset.networkType)),
+          equal("labels", Label.routeType(subset.routeType)),
           LocationQuery.locationFilter("labels", subset),
         )
       ),
       unwind("$names"),
       filter(
-        equal("names.networkType", subset.networkType.entryName)
+        equal("names.routeType", subset.routeType.entryName)
       ),
       unwind("$integrity.details"),
       filter(
         and(
-          equal("integrity.details.networkType", subset.networkType.entryName),
+          equal("integrity.details.routeType", subset.routeType.entryName),
           BsonDocument("""{$expr: { $ne: ["$integrity.details.expectedRouteCount", { "$size": "$integrity.details.routeRefs" }]}}""")
         )
       ),

@@ -1,9 +1,9 @@
 package kpn.api.common.node
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 case class NodeOrphanRouteReference(
-  networkType: NetworkType,
+  routeType: RouteType,
   routeId: Long,
   routeName: String
 )

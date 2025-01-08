@@ -28,7 +28,7 @@ class NetworkInfoCreateAnalyzer(context: ChangeSetContext, after: NetworkInfoDoc
       key,
       changeType = ChangeType.Create,
       country = after.country,
-      networkType = after.scopedNetworkType.networkType,
+      routeType = after.scopedRouteType.routeType,
       networkId = after._id,
       networkName = after.summary.name,
       networkDataUpdate = None,

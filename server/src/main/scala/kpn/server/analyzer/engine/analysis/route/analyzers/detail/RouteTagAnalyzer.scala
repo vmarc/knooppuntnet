@@ -3,8 +3,8 @@ package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 import kpn.api.common.Fact
 import kpn.api.common.Fact.RouteTagInvalid
 import kpn.api.common.Fact.RouteTagMissing
-import kpn.api.common.NetworkType
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.common.RouteType
+import kpn.api.custom.ScopedRouteType
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 
 import scala.collection.mutable.ListBuffer
@@ -29,59 +29,59 @@ class RouteTagAnalyzer(context: RouteDetailAnalysisContext) {
           val superRoute = context.relation.hasTag("type", "superroute")
           val nodeNetwork = context.relation.hasTag("network:type", "node_network")
           val facts = ListBuffer[Fact]()
-          val scopedNetworkTypeOption = context.relation.tagValue("network") match {
+          val scopedRouteTypeOption = context.relation.tagValue("network") match {
             case None => None
             case Some(key) =>
-              ScopedNetworkType.withKey(key) match {
+              ScopedRouteType.withKey(key) match {
                 case None => None
-                case Some(scopedNetworkType) =>
-                  facts.addAll(assertTagValueMatchesNetworkType(scopedNetworkType.networkType, routeTagValue))
-                  Some(scopedNetworkType)
+                case Some(scopedRouteType) =>
+                  facts.addAll(assertTagValueMatchesrouteType(scopedRouteType.routeType, routeTagValue))
+                  Some(scopedRouteType)
               }
           }
           context.copy(
             superRoute = superRoute,
             nodeNetwork = nodeNetwork,
-            scopedNetworkTypeOption = scopedNetworkTypeOption
+            scopedRouteTypeOption = scopedRouteTypeOption
           ).withFacts(facts.toSeq: _*)
       }
     }
   }
 
-  private def assertTagValueMatchesNetworkType(networkType: NetworkType, routeTagValue: String): Seq[Fact] = {
+  private def assertTagValueMatchesrouteType(routeType: RouteType, routeTagValue: String): Seq[Fact] = {
 
     val facts = ListBuffer[Fact]()
-    if (networkType == NetworkType.hiking) {
+    if (routeType == RouteType.hiking) {
       if (!Seq("hiking", "walking", "foot").contains(routeTagValue)) {
         facts += RouteTagInvalid
       }
     }
-    else if (networkType == NetworkType.cycling) {
+    else if (routeType == RouteType.cycling) {
       if (routeTagValue != "bicycle") {
         facts += RouteTagInvalid
       }
     }
-    else if (networkType == NetworkType.horseRiding) {
+    else if (routeType == RouteType.horseRiding) {
       if (routeTagValue != "horse") {
         facts += RouteTagInvalid
       }
     }
-    else if (networkType == NetworkType.horseRiding) {
+    else if (routeType == RouteType.horseRiding) {
       if (routeTagValue != "horse") {
         facts += RouteTagInvalid
       }
     }
-    else if (networkType == NetworkType.canoe) {
+    else if (routeType == RouteType.canoe) {
       if (routeTagValue != "canoe") {
         facts += RouteTagInvalid
       }
     }
-    else if (networkType == NetworkType.motorboat) {
+    else if (routeType == RouteType.motorboat) {
       if (routeTagValue != "motorboat") {
         facts += RouteTagInvalid
       }
     }
-    else if (networkType == NetworkType.inlineSkating) {
+    else if (routeType == RouteType.inlineSkating) {
       if (routeTagValue != "inline_skates") {
         facts += RouteTagInvalid
       }

@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 object TileTask {
 
@@ -14,21 +14,21 @@ object TileTask {
     task.substring(prefix.length)
   }
 
-  def networkType(task: String): NetworkType = {
+  def routeType(task: String): RouteType = {
     if (task.contains("horse-riding")) {
-      NetworkType.horseRiding
+      RouteType.horseRiding
     }
     else if (task.contains("inline-skating")) {
-      NetworkType.inlineSkating
+      RouteType.inlineSkating
     }
     else {
-      NetworkType.withName(fullTileName(task).split("-").head)
+      RouteType.withName(fullTileName(task).split("-").head)
     }
   }
 
   def tileName(task: String): String = {
     val n = fullTileName(task)
-    n.substring(networkType(task).entryName.length + 1)
+    n.substring(routeType(task).entryName.length + 1)
   }
 
   def zoomLevel(task: String): Int = {

@@ -1,6 +1,6 @@
 package kpn.api.common.planner
 
 case class PlanParams(
-  networkType: String,
+  routeType: String,
   planString: String
 )

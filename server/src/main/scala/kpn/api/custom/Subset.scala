@@ -1,36 +1,36 @@
 package kpn.api.custom
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 object Subset {
 
-  val beHiking: Subset = Subset(Country.be, NetworkType.hiking)
-  val beBicycle: Subset = Subset(Country.be, NetworkType.cycling)
-  val beHorseRiding: Subset = Subset(Country.be, NetworkType.horseRiding)
+  val beHiking: Subset = Subset(Country.be, RouteType.hiking)
+  val beBicycle: Subset = Subset(Country.be, RouteType.cycling)
+  val beHorseRiding: Subset = Subset(Country.be, RouteType.horseRiding)
 
-  val nlHiking: Subset = Subset(Country.nl, NetworkType.hiking)
-  val nlBicycle: Subset = Subset(Country.nl, NetworkType.cycling)
-  val nlHorseRiding: Subset = Subset(Country.nl, NetworkType.horseRiding)
-  val nlCanoe: Subset = Subset(Country.nl, NetworkType.canoe)
-  val nlMotorboat: Subset = Subset(Country.nl, NetworkType.motorboat)
-  val nlInlineSkates: Subset = Subset(Country.nl, NetworkType.inlineSkating)
+  val nlHiking: Subset = Subset(Country.nl, RouteType.hiking)
+  val nlBicycle: Subset = Subset(Country.nl, RouteType.cycling)
+  val nlHorseRiding: Subset = Subset(Country.nl, RouteType.horseRiding)
+  val nlCanoe: Subset = Subset(Country.nl, RouteType.canoe)
+  val nlMotorboat: Subset = Subset(Country.nl, RouteType.motorboat)
+  val nlInlineSkates: Subset = Subset(Country.nl, RouteType.inlineSkating)
 
-  val deHiking: Subset = Subset(Country.de, NetworkType.hiking)
-  val deBicycle: Subset = Subset(Country.de, NetworkType.cycling)
-  val deHorseRiding: Subset = Subset(Country.de, NetworkType.horseRiding)
+  val deHiking: Subset = Subset(Country.de, RouteType.hiking)
+  val deBicycle: Subset = Subset(Country.de, RouteType.cycling)
+  val deHorseRiding: Subset = Subset(Country.de, RouteType.horseRiding)
 
-  val frHiking: Subset = Subset(Country.fr, NetworkType.hiking)
-  val frBicycle: Subset = Subset(Country.fr, NetworkType.cycling)
-  val frHorseRiding: Subset = Subset(Country.fr, NetworkType.horseRiding)
-  val frCanoe: Subset = Subset(Country.fr, NetworkType.canoe)
+  val frHiking: Subset = Subset(Country.fr, RouteType.hiking)
+  val frBicycle: Subset = Subset(Country.fr, RouteType.cycling)
+  val frHorseRiding: Subset = Subset(Country.fr, RouteType.horseRiding)
+  val frCanoe: Subset = Subset(Country.fr, RouteType.canoe)
 
-  val atBicycle: Subset = Subset(Country.at, NetworkType.cycling)
+  val atBicycle: Subset = Subset(Country.at, RouteType.cycling)
 
-  val esHiking: Subset = Subset(Country.es, NetworkType.hiking)
-  val esBicycle: Subset = Subset(Country.es, NetworkType.cycling)
+  val esHiking: Subset = Subset(Country.es, RouteType.hiking)
+  val esBicycle: Subset = Subset(Country.es, RouteType.cycling)
 
-  val dkBicycle: Subset = Subset(Country.dk, NetworkType.cycling)
+  val dkBicycle: Subset = Subset(Country.dk, RouteType.cycling)
 
   val all: Seq[Subset] = Seq(
     nlBicycle,
@@ -55,24 +55,24 @@ object Subset {
     nlInlineSkates
   )
 
-  def ofName(domain: String, networkTypeName: String): Option[Subset] = {
-    all.find(s => s.country.entryName == domain && s.networkType.entryName == networkTypeName)
+  def ofName(domain: String, routeTypeName: String): Option[Subset] = {
+    all.find(s => s.country.entryName == domain && s.routeType.entryName == routeTypeName)
   }
 
-  def of(country: Country, networkType: NetworkType): Option[Subset] = {
-    all.find(s => s.country == country && s.networkType == networkType)
+  def of(country: Country, routeType: RouteType): Option[Subset] = {
+    all.find(s => s.country == country && s.routeType == routeType)
   }
 }
 
-case class Subset(country: Country, networkType: NetworkType) extends Ordered[Subset] {
+case class Subset(country: Country, routeType: RouteType) extends Ordered[Subset] {
 
-  def key: String = s"${country.entryName}:${networkType.entryName}"
+  def key: String = s"${country.entryName}:${routeType.entryName}"
 
-  def name: String = s"${country.entryName}-${networkType.entryName}"
+  def name: String = s"${country.entryName}-${routeType.entryName}"
 
-  def string: String = s"${country.entryName}/${networkType.entryName}"
+  def string: String = s"${country.entryName}/${routeType.entryName}"
 
   import scala.math.Ordered.orderingToOrdered
 
-  def compare(that: Subset): Int = (this.country.entryName, this.networkType.entryName).compare((that.country.entryName, that.networkType.entryName))
+  def compare(that: Subset): Int = (this.country.entryName, this.routeType.entryName).compare((that.country.entryName, that.routeType.entryName))
 }

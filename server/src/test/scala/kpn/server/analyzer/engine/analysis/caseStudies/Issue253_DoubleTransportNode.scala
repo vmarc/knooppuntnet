@@ -2,9 +2,9 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.Country
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
-import kpn.api.common.NetworkType.hiking
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
+import kpn.api.common.RouteType.hiking
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
@@ -55,7 +55,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
           OrphanNodeDoc(
             _id = "fr:hiking:620168928",
             country = Country.fr,
-            networkType = NetworkType.hiking,
+            routeType = RouteType.hiking,
             nodeId = 620168928L,
             name = "Teumelet",
             longName = None,
@@ -99,7 +99,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
             id = 620168928L,
             labels = Seq(
               Label.active,
-              Label.networkType(NetworkType.hiking),
+              Label.routeType(RouteType.hiking),
               Label.location("fr"),
               Label.location("fr-1-73"),
               Label.location("fr-2-247300452"),
@@ -108,8 +108,8 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
             country = Some(Country.fr),
             name = Some("Teumelet / o"),
             names = Seq(
-              newNodeName(NetworkType.hiking, NetworkScope.local, "Teumelet"),
-              newNodeName(NetworkType.hiking, NetworkScope.regional, "o")
+              newNodeName(RouteType.hiking, NetworkScope.local, "Teumelet"),
+              newNodeName(RouteType.hiking, NetworkScope.regional, "o")
             ),
             version = 5,
             latitude = "45.1703505",
@@ -157,14 +157,14 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
       nodeAnalysis.nodeNames,
       Seq(
         NodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.local,
           name = "Teumelet",
           longName = None,
           proposed = false
         ),
         NodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "o",
           longName = None,
@@ -193,7 +193,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
       nodeAnalysis.nodeNames,
       Seq(
         NodeName(
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.local,
           name = "Teumelet",
           longName = None,

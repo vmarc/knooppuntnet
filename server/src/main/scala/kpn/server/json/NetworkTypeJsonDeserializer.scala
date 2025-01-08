@@ -4,11 +4,11 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
-class NetworkTypeJsonDeserializer extends JsonDeserializer[NetworkType] {
-  override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): NetworkType = {
+class routeTypeJsonDeserializer extends JsonDeserializer[RouteType] {
+  override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): RouteType = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
-    NetworkType.withName(node.asText)
+    RouteType.withName(node.asText)
   }
 }

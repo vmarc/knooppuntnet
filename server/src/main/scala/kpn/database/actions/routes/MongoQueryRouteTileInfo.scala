@@ -1,6 +1,6 @@
 package kpn.database.actions.routes
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryRouteTileInfo.log
@@ -42,13 +42,13 @@ object MongoQueryRouteTileInfo {
 
 class MongoQueryRouteTileInfo(database: Database) {
 
-  def findByNetworkType(networkType: NetworkType, nodeNetwork: Boolean): Seq[RouteTileInfo] = {
+  def findByrouteType(routeType: RouteType, nodeNetwork: Boolean): Seq[RouteTileInfo] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
           and(
             equal("labels", Label.active),
-            equal("labels", Label.networkType(networkType)),
+            equal("labels", Label.routeType(routeType)),
             exists("summary.countries.0"), // TODO redesign tiles - this condition was added temporarily to avoid problems with lat/lon calculations
             equal("summary.nodeNetwork", nodeNetwork)
           )

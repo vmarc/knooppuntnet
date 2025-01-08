@@ -1,19 +1,19 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkTypeAnalyzer.log
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.RouteTypeAnalyzer.log
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
-object NetworkTypeAnalyzer extends NetworkInfoAnalyzer {
-  private val log = Log(classOf[NetworkTypeAnalyzer])
+object RouteTypeAnalyzer extends NetworkInfoAnalyzer {
+  private val log = Log(classOf[RouteTypeAnalyzer])
 
   override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
-    new NetworkTypeAnalyzer(context).analyze
+    new RouteTypeAnalyzer(context).analyze
   }
 }
 
-class NetworkTypeAnalyzer(context: NetworkInfoAnalysisContext) {
+class RouteTypeAnalyzer(context: NetworkInfoAnalysisContext) {
 
   def analyze: NetworkInfoAnalysisContext = {
     context.networkDoc.tagValue("network") match {
@@ -21,13 +21,13 @@ class NetworkTypeAnalyzer(context: NetworkInfoAnalysisContext) {
         log.info(s"Network ${context.networkDoc._id} does not have 'network' type")
         context.copy(abort = true)
       case Some(key) =>
-        ScopedNetworkType.withKey(key) match {
+        ScopedRouteType.withKey(key) match {
           case None =>
             log.info(s"Network ${context.networkDoc._id} has unsupported type '$key'")
             context.copy(abort = true)
-          case scopedNetworkTypeOption =>
+          case scopedRouteTypeOption =>
             context.copy(
-              scopedNetworkTypeOption = scopedNetworkTypeOption
+              scopedRouteTypeOption = scopedRouteTypeOption
             )
         }
     }

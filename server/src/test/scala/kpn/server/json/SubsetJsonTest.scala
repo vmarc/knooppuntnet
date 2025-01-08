@@ -6,11 +6,11 @@ import kpn.core.util.UnitTest
 class SubsetJsonTest extends UnitTest {
 
   test("serializer") {
-    Json.string(Subset.nlHiking) should equal("""{"country":"nl","networkType":"hiking"}""")
+    Json.string(Subset.nlHiking) should equal("""{"country":"nl","routeType":"hiking"}""")
   }
 
   test("deserializer") {
-    val subset = Json.value("""{"country":"nl","networkType":"hiking"}""", classOf[Subset])
+    val subset = Json.value("""{"country":"nl","routeType":"hiking"}""", classOf[Subset])
     subset should equal(Subset.nlHiking)
   }
 

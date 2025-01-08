@@ -5,7 +5,7 @@ import kpn.api.common.Country
 import kpn.api.common.NetworkFact
 import kpn.api.common.network.NetworkDetail
 import kpn.api.common.network.NetworkSummary
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 
 case class NetworkInfoDoc(
   _id: Long,
@@ -20,7 +20,7 @@ case class NetworkInfoDoc(
   extraWayIds: Seq[Long],
   extraRelationIds: Seq[Long]
 ) extends WithId {
-  def scopedNetworkType: ScopedNetworkType = {
-    ScopedNetworkType(summary.networkScope, summary.networkType)
+  def scopedRouteType: ScopedRouteType = {
+    ScopedRouteType(summary.networkScope, summary.routeType)
   }
 }

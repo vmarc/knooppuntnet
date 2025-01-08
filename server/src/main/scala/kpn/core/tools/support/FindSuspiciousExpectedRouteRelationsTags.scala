@@ -2,7 +2,7 @@ package kpn.core.tools.support
 
 import kpn.api.common.Country
 import kpn.api.common.data.Tagable
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.core.doc.NodeDoc
 import kpn.database.base.Database
 import kpn.database.util.Mongo
@@ -17,7 +17,7 @@ object FindSuspiciousExpectedRouteRelationsTags {
 
 class FindSuspiciousExpectedRouteRelationsTags(database: Database) {
 
-  private val all = ScopedNetworkType.all
+  private val all = ScopedRouteType.all
   private val nodeNameTags = all.map(_.nodeRefTagKey) ++ all.map(_.nodeNameTagKey)
   private val proposedNameTags = all.map(_.proposedNodeRefTagKey) ++ all.map(_.proposedNodeNameTagKey)
   private val expectedTags = all.map(_.expectedRouteRelationsTag)
@@ -34,8 +34,8 @@ class FindSuspiciousExpectedRouteRelationsTags(database: Database) {
   }
 
   private def isSuspicious(node: NodeDoc): Boolean = {
-    val a = networkTypesInNodeNames(node)
-    val b = networkTypesInExpectedTags(node)
+    val a = routeTypesInNodeNames(node)
+    val b = routeTypesInExpectedTags(node)
     (b -- a).nonEmpty
   }
 
@@ -61,18 +61,18 @@ class FindSuspiciousExpectedRouteRelationsTags(database: Database) {
     println()
   }
 
-  private def networkTypesInNodeNames(tagable: Tagable): Set[String] = {
+  private def routeTypesInNodeNames(tagable: Tagable): Set[String] = {
     val from = "proposed:".length
-    (networkTypesInTags(nodeNameTags, 0, 3, tagable) ++
-      networkTypesInTags(proposedNameTags, from, from + 3, tagable)).toSet
+    (routeTypesInTags(nodeNameTags, 0, 3, tagable) ++
+      routeTypesInTags(proposedNameTags, from, from + 3, tagable)).toSet
   }
 
-  private def networkTypesInExpectedTags(tagable: Tagable): Set[String] = {
+  private def routeTypesInExpectedTags(tagable: Tagable): Set[String] = {
     val from = "expected_".length
-    networkTypesInTags(expectedTags, from, from + 3, tagable).toSet
+    routeTypesInTags(expectedTags, from, from + 3, tagable).toSet
   }
 
-  private def networkTypesInTags(tagKeys: Seq[String], from: Int, until: Int, tagable: Tagable) = {
+  private def routeTypesInTags(tagKeys: Seq[String], from: Int, until: Int, tagable: Tagable) = {
     tagKeys.filter(tag => tagable.hasTag(tag)).map(tag => tag.slice(from, until))
   }
 }

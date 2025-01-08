@@ -8,7 +8,7 @@ import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
@@ -129,7 +129,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         newChangeKey(elementId = 1),
         ChangeType.Update,
         Some(Country.nl),
-        NetworkType.hiking,
+        RouteType.hiking,
         1,
         "network",
         networkDataUpdate = Some(
@@ -170,7 +170,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
     pending // TODO redesign
     //  val routeData = newRouteData(
     //    Some(Country.nl),
-    //    NetworkType.hiking,
+    //    routeType.hiking,
     //    relation = newRawRelation(
     //      11,
     //      members = Seq(
@@ -269,7 +269,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
           updates = Seq(
             newChangeSetNetwork(
               Some(Country.nl),
-              NetworkType.hiking,
+              RouteType.hiking,
               1,
               "network",
               nodeChanges = ChangeSetElementRefs(
@@ -316,7 +316,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
   private def assertNodeRouteReferences(): Unit = {
     val nodeRouteReferences = Seq(
       Reference(
-        NetworkType.hiking,
+        RouteType.hiking,
         NetworkScope.regional,
         11,
         "01-02"

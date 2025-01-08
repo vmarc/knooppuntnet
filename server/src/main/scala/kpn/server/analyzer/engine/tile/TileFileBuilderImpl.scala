@@ -38,12 +38,12 @@ class TileFileBuilderImpl(
 
   private def buildVector(tileData: TileData, tile: Tile): Unit = {
     if (tileData.isEmpty) {
-      vectorTileRepository.deleteTile(tileData.networkType.entryName, tile)
+      vectorTileRepository.deleteTile(tileData.routeType.entryName, tile)
     }
     else {
       val tileBytes = new VectorTileBuilder().build(tileData, tile)
       if (tileBytes.nonEmpty) {
-        vectorTileRepository.saveOrUpdate(tileData.networkType.entryName, tile, tileBytes)
+        vectorTileRepository.saveOrUpdate(tileData.routeType.entryName, tile, tileBytes)
       }
       else {
         log.info("empty tile")
@@ -52,19 +52,19 @@ class TileFileBuilderImpl(
   }
 
   private def buildRasterStandard(tileData: TileData, tile: Tile): Unit = {
-    build(new RasterTileBuilder(new TileColorSurface), tileData.networkType.entryName, tileData, tile)
+    build(new RasterTileBuilder(new TileColorSurface), tileData.routeType.entryName, tileData, tile)
   }
 
   private def buildRasterSurface(tileData: TileData, tile: Tile): Unit = {
-    build(new RasterTileBuilder(new TileColorSurface), s"${tileData.networkType.entryName}/surface", tileData, tile)
+    build(new RasterTileBuilder(new TileColorSurface), s"${tileData.routeType.entryName}/surface", tileData, tile)
   }
 
   private def buildRasterSurvey(tileData: TileData, tile: Tile): Unit = {
-    build(new RasterTileBuilder(new TileColorSurvey(SurveyDateInfoBuilder.dateInfo)), s"${tileData.networkType.entryName}/survey", tileData, tile)
+    build(new RasterTileBuilder(new TileColorSurvey(SurveyDateInfoBuilder.dateInfo)), s"${tileData.routeType.entryName}/survey", tileData, tile)
   }
 
   private def buildRasterAnalysis(tileData: TileData, tile: Tile): Unit = {
-    build(new RasterTileBuilder(new TileColorAnalysis), s"${tileData.networkType.entryName}/analysis", tileData, tile)
+    build(new RasterTileBuilder(new TileColorAnalysis), s"${tileData.routeType.entryName}/analysis", tileData, tile)
   }
 
   private def build(tileBuilder: TileBuilder, tileType: String, tileData: TileData, tile: Tile): Unit = {

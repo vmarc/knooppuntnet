@@ -3,7 +3,7 @@ package kpn.api.common
 case class NodeMapInfo(
   id: Long,
   name: String,
-  networkTypes: Seq[NetworkType],
+  routeTypes: Seq[RouteType],
   latitude: String,
   longitude: String
 )

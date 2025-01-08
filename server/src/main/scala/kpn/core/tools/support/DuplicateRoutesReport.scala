@@ -1,7 +1,7 @@
 package kpn.core.tools.support
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.data.MemberType
 import kpn.database.base.Database
 import kpn.database.util.Mongo
@@ -20,7 +20,7 @@ class DuplicateRoutesReport(database: Database) {
 
   case class RouteWays(
     country: Country,
-    networkTypes: Seq[NetworkType],
+    routeTypes: Seq[RouteType],
     id: Long,
     name: String,
     alternate: Boolean,
@@ -49,12 +49,12 @@ class DuplicateRoutesReport(database: Database) {
     val routes = loadRoutes(routeIds)
 
     Country.values.foreach { country =>
-      NetworkType.values.foreach { networkType =>
-        val subsetRoutes = routes.filter(_.country == country).filter(_.networkTypes.contains(networkType))
+      RouteType.values.foreach { routeType =>
+        val subsetRoutes = routes.filter(_.country == country).filter(_.routeTypes.contains(routeType))
         val overlaps = findOverlaps(subsetRoutes)
         if (overlaps.nonEmpty) {
           println()
-          println(s"### ${country.entryName}/${networkType.entryName} ${subsetRoutes.size} routes, with ${overlaps.size} overlaps")
+          println(s"### ${country.entryName}/${routeType.entryName} ${subsetRoutes.size} routes, with ${overlaps.size} overlaps")
           println()
           printTableHeader()
           overlaps.sorted.foreach(printOverlap)
@@ -94,7 +94,7 @@ class DuplicateRoutesReport(database: Database) {
       }
       routeRepository.findRouteById(routeId).flatMap { routeDoc =>
         val countries = routeDoc.summary.countries
-        val networkTypes = routeDoc.summary.networkTypes
+        val routeTypes = routeDoc.summary.routeTypes
         val name = routeDoc.summary.name
         val wayIds = routeDoc.members.filter(_.memberType == MemberType.Way).map(_.id).toSet
         val alternate = routeDoc.summary.hasTag("state", "alternate")
@@ -102,7 +102,7 @@ class DuplicateRoutesReport(database: Database) {
           Some(
             RouteWays(
               countries.head,
-              networkTypes,
+              routeTypes,
               routeDoc.id,
               name,
               alternate,

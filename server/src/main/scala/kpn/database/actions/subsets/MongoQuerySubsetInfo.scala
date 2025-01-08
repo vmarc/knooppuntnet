@@ -50,7 +50,7 @@ class MongoQuerySubsetInfo(database: Database) {
 
       val subsetInfo = SubsetInfo(
         subset.country,
-        subset.networkType,
+        subset.routeType,
         networkCount,
         factCount,
         changesCount,
@@ -65,7 +65,7 @@ class MongoQuerySubsetInfo(database: Database) {
     statisticValuess.filter(_._id == factname).map { statisticValues =>
       statisticValues.values.filter(statisticValue =>
         statisticValue.country == subset.country &&
-          statisticValue.networkType == subset.networkType
+          statisticValue.routeType == subset.routeType
       ).map(_.value).sum
     }.sum
   }

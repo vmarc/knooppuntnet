@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.custom.Subset
 
 class SubsetJsonDeserializer extends JsonDeserializer[Subset] {
@@ -16,8 +16,8 @@ class SubsetJsonDeserializer extends JsonDeserializer[Subset] {
     if (node.isObject) {
       // regular structure
       val country = jsonParser.getCodec.treeToValue(node.get("country"), classOf[Country])
-      val networkType = jsonParser.getCodec.treeToValue(node.get("networkType"), classOf[NetworkType])
-      Subset(country, networkType)
+      val routeType = jsonParser.getCodec.treeToValue(node.get("routeType"), classOf[RouteType])
+      Subset(country, routeType)
     }
     else {
       // backward compatible structure

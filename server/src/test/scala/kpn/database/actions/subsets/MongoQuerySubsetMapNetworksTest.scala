@@ -3,7 +3,7 @@ package kpn.database.actions.subsets
 import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.subset.SubsetMapNetwork
 import kpn.api.custom.Subset
@@ -56,7 +56,7 @@ class MongoQuerySubsetMapNetworksTest extends UnitTest with SharedTestObjects {
         country = Some(country),
         summary = newNetworkSummary(
           name = name,
-          networkType = NetworkType.hiking,
+          routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           nodeCount = networkId * 10,
           routeCount = networkId * 20,

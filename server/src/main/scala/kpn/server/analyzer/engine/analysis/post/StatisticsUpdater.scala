@@ -85,7 +85,7 @@ class StatisticsUpdater(database: Database) {
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$names.networkType"
+          "routeType" -> "$names.routeType"
         ),
         sum("value", 1)
       )
@@ -98,7 +98,7 @@ class StatisticsUpdater(database: Database) {
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$networkType"
+          "routeType" -> "$routeType"
         ),
         sum("value", 1)
       )
@@ -115,11 +115,11 @@ class StatisticsUpdater(database: Database) {
         )
       ),
       unwind("$summary.countries"),
-      unwind("$summary.networkTypes"),
+      unwind("$summary.routeTypes"),
       group(
         Document(
           "country" -> "$summary.countries",
-          "networkType" -> "$summary.networkTypes"
+          "routeType" -> "$summary.routeTypes"
         ),
         sum("value", 1)
       )
@@ -129,11 +129,11 @@ class StatisticsUpdater(database: Database) {
   private def pipelineOrphanRouteCount(): Seq[Bson] = {
     factPipeline(
       "OrphanRouteCount",
-      unwind("$networkTypes"),
+      unwind("$routeTypes"),
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$networkTypes"
+          "routeType" -> "$routeTypes"
         ),
         sum("value", 1)
       )
@@ -154,7 +154,7 @@ class StatisticsUpdater(database: Database) {
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$names.networkType",
+          "routeType" -> "$names.routeType",
           "factName" -> "$facts"
         ),
         sum("value", 1)
@@ -167,7 +167,7 @@ class StatisticsUpdater(database: Database) {
             "values",
             fields(
               computed("country", "$_id.country"),
-              computed("networkType", "$_id.networkType"),
+              computed("routeType", "$_id.routeType"),
               computed("value", "$value")
             )
           )
@@ -191,11 +191,11 @@ class StatisticsUpdater(database: Database) {
       ),
       unwind("$facts"),
       unwind("$summary.countries"),
-      unwind("$summary.networkTypes"),
+      unwind("$summary.routeTypes"),
       group(
         Document(
           "country" -> "$summary.countries",
-          "networkType" -> "$summary.networkTypes",
+          "routeType" -> "$summary.routeTypes",
           "factName" -> "$facts"
         ),
         sum("value", 1)
@@ -208,7 +208,7 @@ class StatisticsUpdater(database: Database) {
             "values",
             fields(
               computed("country", "$_id.country"),
-              computed("networkType", "$_id.networkType"),
+              computed("routeType", "$_id.routeType"),
               computed("value", "$value")
             )
           )
@@ -227,7 +227,7 @@ class StatisticsUpdater(database: Database) {
         and(
           equal("active", true),
           exists("country"),
-          exists("summary.networkType"),
+          exists("summary.routeType"),
           exists("facts")
         )
       ),
@@ -244,14 +244,14 @@ class StatisticsUpdater(database: Database) {
         fields(
           computed("factName", "$facts.fact"),
           include("country"),
-          computed("networkType", "$summary.networkType"),
+          computed("routeType", "$summary.routeType"),
           BsonDocument("""{"factCount": { "$size": "$facts.elementIds" }}""")
         )
       ),
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$networkType",
+          "routeType" -> "$routeType",
           "factName" -> "$factName"
         ),
         sum("value", "$factCount")
@@ -264,7 +264,7 @@ class StatisticsUpdater(database: Database) {
             "values",
             fields(
               computed("country", "$_id.country"),
-              computed("networkType", "$_id.networkType"),
+              computed("routeType", "$_id.routeType"),
               computed("value", "$value")
             )
           )
@@ -284,7 +284,7 @@ class StatisticsUpdater(database: Database) {
         and(
           equal("active", true),
           exists("country"),
-          exists("summary.networkType"),
+          exists("summary.routeType"),
           exists("facts")
         )
       ),
@@ -299,14 +299,14 @@ class StatisticsUpdater(database: Database) {
         fields(
           computed("factName", "$facts.fact"),
           include("country"),
-          computed("networkType", "$summary.networkType"),
+          computed("routeType", "$summary.routeType"),
           BsonDocument("""{"factCount": { "$size": "$facts.elements" }}""")
         )
       ),
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$networkType",
+          "routeType" -> "$routeType",
           "factName" -> "$factName"
         ),
         sum("value", "$factCount")
@@ -319,7 +319,7 @@ class StatisticsUpdater(database: Database) {
             "values",
             fields(
               computed("country", "$_id.country"),
-              computed("networkType", "$_id.networkType"),
+              computed("routeType", "$_id.routeType"),
               computed("value", "$value")
             )
           )
@@ -339,7 +339,7 @@ class StatisticsUpdater(database: Database) {
         and(
           equal("active", true),
           exists("country"),
-          exists("summary.networkType"),
+          exists("summary.routeType"),
           exists("facts")
         )
       ),
@@ -354,14 +354,14 @@ class StatisticsUpdater(database: Database) {
         fields(
           computed("factName", "$facts.fact"),
           include("country"),
-          computed("networkType", "$summary.networkType"),
+          computed("routeType", "$summary.routeType"),
           computed("factCount", 1)
         )
       ),
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$networkType",
+          "routeType" -> "$routeType",
           "factName" -> "$factName"
         ),
         sum("value", "$factCount")
@@ -374,7 +374,7 @@ class StatisticsUpdater(database: Database) {
             "values",
             fields(
               computed("country", "$_id.country"),
-              computed("networkType", "$_id.networkType"),
+              computed("routeType", "$_id.routeType"),
               computed("value", "$value")
             )
           )
@@ -397,11 +397,11 @@ class StatisticsUpdater(database: Database) {
         )
       ),
       unwind("$summary.countries"),
-      unwind("$summary.networkTypes"),
+      unwind("$summary.routeTypes"),
       group(
         Document(
           "country" -> "$summary.countries",
-          "networkType" -> "$summary.networkTypes"
+          "routeType" -> "$summary.routeTypes"
         ),
         sum("value", "$summary.meters")
       ),
@@ -421,13 +421,13 @@ class StatisticsUpdater(database: Database) {
         and(
           equal("active", true),
           exists("country"),
-          exists("summary.networkType")
+          exists("summary.routeType")
         )
       ),
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$summary.networkType"
+          "routeType" -> "$summary.routeType"
         ),
         sum("value", 1)
       )
@@ -441,14 +441,14 @@ class StatisticsUpdater(database: Database) {
         and(
           equal("active", true),
           exists("country"),
-          exists("summary.networkType"),
+          exists("summary.routeType"),
           equal("detail.integrity.hasChecks", true),
         )
       ),
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$summary.networkType"
+          "routeType" -> "$summary.routeType"
         ),
         sum("value", 1)
       )
@@ -473,7 +473,7 @@ class StatisticsUpdater(database: Database) {
       project(
         fields(
           computed("country", "$_id.country"),
-          computed("networkType", "$_id.networkType"),
+          computed("routeType", "$_id.routeType"),
           computed("value", "$factCount")
         )
       ),
@@ -484,7 +484,7 @@ class StatisticsUpdater(database: Database) {
             "values",
             fields(
               computed("country", "$_id.country"),
-              computed("networkType", "$_id.networkType"),
+              computed("routeType", "$_id.routeType"),
               computed("value", "$value")
             )
           )
@@ -509,7 +509,7 @@ class StatisticsUpdater(database: Database) {
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$summary.networkType"
+          "routeType" -> "$summary.routeType"
         ),
         sum("factCount", 1)
       )
@@ -526,7 +526,7 @@ class StatisticsUpdater(database: Database) {
       ),
       unwind("$facts"),
       unwind("$summary.countries"),
-      unwind("$summary.networkTypes"),
+      unwind("$summary.routeTypes"),
       filter(
         and(
           notEqual("facts", "RouteBroken"),
@@ -537,7 +537,7 @@ class StatisticsUpdater(database: Database) {
       group(
         Document(
           "country" -> "$summary.countries",
-          "networkType" -> "$summary.networkTypes"
+          "routeType" -> "$summary.routeTypes"
         ),
         sum("factCount", 1)
       )
@@ -556,7 +556,7 @@ class StatisticsUpdater(database: Database) {
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$names.networkType"
+          "routeType" -> "$names.routeType"
         ),
         sum("factCount", 1)
       )
@@ -570,7 +570,7 @@ class StatisticsUpdater(database: Database) {
       group(
         Document(
           "country" -> "$subsets.country",
-          "networkType" -> "$subsets.networkType"
+          "routeType" -> "$subsets.routeType"
         ),
         sum("value", 1)
       )
@@ -587,7 +587,7 @@ class StatisticsUpdater(database: Database) {
               "values",
               fields(
                 computed("country", "$_id.country"),
-                computed("networkType", "$_id.networkType"),
+                computed("routeType", "$_id.routeType"),
                 computed("value", "$value")
               )
             )
@@ -621,13 +621,13 @@ class StatisticsUpdater(database: Database) {
       project(
         fields(
           include("country"),
-          computed("networkType", BsonDocument("""{"$substr": ["$labels", 16, 99]}"""))
+          computed("routeType", BsonDocument("""{"$substr": ["$labels", 16, 99]}"""))
         )
       ),
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$networkType"
+          "routeType" -> "$routeType"
         ),
         sum("value", 1)
       )
@@ -650,13 +650,13 @@ class StatisticsUpdater(database: Database) {
       project(
         fields(
           include("country"),
-          computed("networkType", BsonDocument("""{"$substr": ["$labels", 23, 99]}"""))
+          computed("routeType", BsonDocument("""{"$substr": ["$labels", 23, 99]}"""))
         )
       ),
       group(
         Document(
           "country" -> "$country",
-          "networkType" -> "$networkType"
+          "routeType" -> "$routeType"
         ),
         sum("value", 1)
       )

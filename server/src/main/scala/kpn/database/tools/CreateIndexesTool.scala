@@ -95,7 +95,7 @@ class CreateIndexesTool(database: Database) {
         database.networks,
         "subset-networks",
         "attributes.country",
-        "attributes.networkType",
+        "attributes.routeType",
         "active"
       ),
       Index(
@@ -134,7 +134,7 @@ class CreateIndexesTool(database: Database) {
       Index(
         database.routes,
         "route-edges",
-        "summary.networkType",
+        "summary.routeType",
         "proposed",
         "_id",
         "edges.pathId",
@@ -252,7 +252,7 @@ class CreateIndexesTool(database: Database) {
         Indexes.compoundIndex(
           Indexes.ascending(
             "subsets.country",
-            "subsets.networkType",
+            "subsets.routeType",
           ),
           Indexes.descending(
             "key.time"
@@ -266,7 +266,7 @@ class CreateIndexesTool(database: Database) {
           Indexes.ascending(
             "impact",
             "subsets.country",
-            "subsets.networkType",
+            "subsets.routeType",
           ),
           Indexes.descending(
             "key.time"

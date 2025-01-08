@@ -7,7 +7,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -48,13 +48,13 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
         1001,
         labels = Seq(
           Label.active,
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
         ),
         country = Some(Country.nl),
         name = Some("01"),
         names = Seq(
           newNodeName(
-            NetworkType.hiking,
+            RouteType.hiking,
             NetworkScope.regional,
             "01",
             proposed = true

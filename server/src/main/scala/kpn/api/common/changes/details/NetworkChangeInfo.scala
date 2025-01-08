@@ -2,7 +2,7 @@ package kpn.api.common.changes.details
 
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
@@ -13,7 +13,7 @@ case class NetworkChangeInfo(
   key: ChangeKey,
   changeType: ChangeType,
   country: Option[Country],
-  networkType: NetworkType,
+  routeType: RouteType,
   networkId: Long,
   networkName: String,
   before: Option[MetaData],

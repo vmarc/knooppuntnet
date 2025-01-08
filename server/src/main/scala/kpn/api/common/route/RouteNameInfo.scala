@@ -1,9 +1,9 @@
 package kpn.api.common.route
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 case class RouteNameInfo(
   routeId: Long,
   routeName: String,
-  networkType: NetworkType
+  routeType: RouteType
 )

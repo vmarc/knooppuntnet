@@ -2,8 +2,8 @@ package kpn.core.doc
 
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
 import kpn.api.common.RouteScope
+import kpn.api.common.RouteType
 
 object Label {
 
@@ -11,7 +11,7 @@ object Label {
   val survey: String = "survey"
   val facts: String = "facts"
 
-  def networkType(networkType: NetworkType): String = s"network-type-${networkType.entryName}"
+  def routeType(routeType: RouteType): String = s"network-type-${routeType.entryName}"
 
   def location(locationName: String): String = s"location-$locationName"
 

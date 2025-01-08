@@ -41,8 +41,8 @@ class NetworkInfoDocBuilder(context: NetworkInfoAnalysisContext) {
     }
     NetworkSummary(
       context.name,
-      context.scopedNetworkType.networkType,
-      context.scopedNetworkType.networkScope,
+      context.scopedRouteType.routeType,
+      context.scopedRouteType.networkScope,
       factCount,
       context.nodeDetails.size,
       context.routeDetails.size,

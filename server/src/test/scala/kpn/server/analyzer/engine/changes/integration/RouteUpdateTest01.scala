@@ -5,7 +5,7 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.TagDetail
@@ -74,7 +74,7 @@ class RouteUpdateTest01 extends IntegrationTest {
         //        Some(
         //          newRouteData(
         //            Some(Country.nl),
-        //            NetworkType.hiking,
+        //            routeType.hiking,
         //            relation = newRawRelation(
         //              11,
         //              members = Seq(
@@ -111,7 +111,7 @@ class RouteUpdateTest01 extends IntegrationTest {
         //        Some(
         //          newRouteData(
         //            Some(Country.nl),
-        //            NetworkType.hiking,
+        //            routeType.hiking,
         //            relation = newRawRelation(
         //              11,
         //              members = Seq(
@@ -171,7 +171,7 @@ class RouteUpdateTest01 extends IntegrationTest {
       newOrphanRouteDoc(
         11L,
         country = Country.nl,
-        networkType = NetworkType.hiking,
+        routeType = RouteType.hiking,
         name = "01-02"
       )
     )

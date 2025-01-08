@@ -7,7 +7,7 @@ import kpn.api.common.NetworkFact
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkShape
 import kpn.api.custom.Day
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Timestamp
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
@@ -17,7 +17,7 @@ import kpn.core.doc.NodeDoc
 case class NetworkInfoAnalysisContext(
   analysisTimestamp: Timestamp,
   networkDoc: NetworkDoc,
-  scopedNetworkTypeOption: Option[ScopedNetworkType] = None,
+  scopedRouteTypeOption: Option[ScopedRouteType] = None,
   previousKnownCountry: Option[Country] = None,
   country: Option[Country] = None,
   name: String = "",
@@ -45,9 +45,9 @@ case class NetworkInfoAnalysisContext(
   abort: Boolean = false
 ) {
 
-  def scopedNetworkType: ScopedNetworkType = {
-    scopedNetworkTypeOption.getOrElse {
-      throw new IllegalArgumentException("trying to use scopedNetworkType before definition")
+  def scopedRouteType: ScopedRouteType = {
+    scopedRouteTypeOption.getOrElse {
+      throw new IllegalArgumentException("trying to use scopedRouteType before definition")
     }
   }
 

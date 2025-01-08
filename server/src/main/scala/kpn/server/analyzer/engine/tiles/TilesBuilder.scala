@@ -64,7 +64,7 @@ class TilesBuilder(
         val tileDataRoutes = tileDataRouteMap(tileName)
         //log.info(s"nodes=${nodes.size}, routes=${tileDataRoutes.size}")
         val tileData = TileData(
-          allTileData.networkType,
+          allTileData.routeType,
           nodes,
           tileDataRoutes
         )
@@ -72,8 +72,8 @@ class TilesBuilder(
       }
     }
 
-    val afterTileNames = tileNames.map(tileName => s"${allTileData.networkType.entryName}-$tileName")
+    val afterTileNames = tileNames.map(tileName => s"${allTileData.routeType.entryName}-$tileName")
 
-    manager.deleteObsoleteFiles(z, allTileData.networkType, existingFilesSnapshot, afterTileNames)
+    manager.deleteObsoleteFiles(z, allTileData.routeType, existingFilesSnapshot, afterTileNames)
   }
 }

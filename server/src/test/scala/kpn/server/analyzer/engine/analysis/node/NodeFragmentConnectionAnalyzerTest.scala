@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.node
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Node
 import kpn.api.common.data.Way
@@ -17,31 +17,31 @@ class NodeFragmentConnectionAnalyzerTest extends UnitTest with SharedTestObjects
   private val wayNodes = Vector(node1, node2, node3)
 
   test("a node cannot connect to a fragment if it is not the start or endnode of the fragment") {
-    assert(!canConnect(NetworkType.values, SegmentDirection.Both, node4, None))
+    assert(!canConnect(RouteType.values, SegmentDirection.Both, node4, None))
   }
 
   test("when no direction requested, then a node can connect to a fragment") {
-    assert(canConnect(NetworkType.values, SegmentDirection.Both, node1, None))
-    assert(canConnect(NetworkType.values, SegmentDirection.Both, node3, None))
+    assert(canConnect(RouteType.values, SegmentDirection.Both, node1, None))
+    assert(canConnect(RouteType.values, SegmentDirection.Both, node3, None))
   }
 
   test("a node can connect a fragment without forward or backward role") {
-    assert(canConnect(NetworkType.values, SegmentDirection.Forward, node1, None))
-    assert(canConnect(NetworkType.values, SegmentDirection.Forward, node3, None))
-    assert(canConnect(NetworkType.values, SegmentDirection.Backward, node1, None))
-    assert(canConnect(NetworkType.values, SegmentDirection.Backward, node3, None))
+    assert(canConnect(RouteType.values, SegmentDirection.Forward, node1, None))
+    assert(canConnect(RouteType.values, SegmentDirection.Forward, node3, None))
+    assert(canConnect(RouteType.values, SegmentDirection.Backward, node1, None))
+    assert(canConnect(RouteType.values, SegmentDirection.Backward, node3, None))
   }
 
   test("a node can connect a fragment if the fragment role matches the requested direction") {
-    assert(canConnect(NetworkType.values, SegmentDirection.Forward, node1, Some("forward")))
-    assert(!canConnect(NetworkType.values, SegmentDirection.Forward, node3, Some("forward")))
-    assert(!canConnect(NetworkType.values, SegmentDirection.Forward, node1, Some("backward")))
-    assert(canConnect(NetworkType.values, SegmentDirection.Forward, node3, Some("backward")))
+    assert(canConnect(RouteType.values, SegmentDirection.Forward, node1, Some("forward")))
+    assert(!canConnect(RouteType.values, SegmentDirection.Forward, node3, Some("forward")))
+    assert(!canConnect(RouteType.values, SegmentDirection.Forward, node1, Some("backward")))
+    assert(canConnect(RouteType.values, SegmentDirection.Forward, node3, Some("backward")))
 
-    assert(!canConnect(NetworkType.values, SegmentDirection.Backward, node1, Some("backward")))
-    assert(canConnect(NetworkType.values, SegmentDirection.Backward, node3, Some("backward")))
-    assert(canConnect(NetworkType.values, SegmentDirection.Backward, node1, Some("forward")))
-    assert(!canConnect(NetworkType.values, SegmentDirection.Backward, node3, Some("forward")))
+    assert(!canConnect(RouteType.values, SegmentDirection.Backward, node1, Some("backward")))
+    assert(canConnect(RouteType.values, SegmentDirection.Backward, node3, Some("backward")))
+    assert(canConnect(RouteType.values, SegmentDirection.Backward, node1, Some("forward")))
+    assert(!canConnect(RouteType.values, SegmentDirection.Backward, node3, Some("forward")))
   }
 
   test("bicycles respect the roundabout direction: can only connect to start node") {
@@ -55,24 +55,24 @@ class NodeFragmentConnectionAnalyzerTest extends UnitTest with SharedTestObjects
   private def assertOneWay(way: Way): Unit = {
 
     // bicycle
-    assert(canConnect(way, NetworkType.cycling, SegmentDirection.Both, node1, None))
-    assert(!canConnect(way, NetworkType.cycling, SegmentDirection.Both, node3, None))
+    assert(canConnect(way, RouteType.cycling, SegmentDirection.Both, node1, None))
+    assert(!canConnect(way, RouteType.cycling, SegmentDirection.Both, node3, None))
 
-    assert(canConnect(way, NetworkType.cycling, SegmentDirection.Forward, node1, None))
-    assert(!canConnect(way, NetworkType.cycling, SegmentDirection.Forward, node3, None))
+    assert(canConnect(way, RouteType.cycling, SegmentDirection.Forward, node1, None))
+    assert(!canConnect(way, RouteType.cycling, SegmentDirection.Forward, node3, None))
 
-    assert(canConnect(way, NetworkType.cycling, SegmentDirection.Backward, node1, None)) // TODO direction is ignored, is this correct?
-    assert(!canConnect(way, NetworkType.cycling, SegmentDirection.Backward, node3, None))
+    assert(canConnect(way, RouteType.cycling, SegmentDirection.Backward, node1, None)) // TODO direction is ignored, is this correct?
+    assert(!canConnect(way, RouteType.cycling, SegmentDirection.Backward, node3, None))
 
     // oneWay does not have to be respected in hiking networks
-    assert(canConnect(way, NetworkType.hiking, SegmentDirection.Both, node1, None))
-    assert(canConnect(way, NetworkType.hiking, SegmentDirection.Both, node3, None))
+    assert(canConnect(way, RouteType.hiking, SegmentDirection.Both, node1, None))
+    assert(canConnect(way, RouteType.hiking, SegmentDirection.Both, node3, None))
 
-    assert(canConnect(way, NetworkType.hiking, SegmentDirection.Forward, node1, None))
-    assert(canConnect(way, NetworkType.hiking, SegmentDirection.Forward, node3, None))
+    assert(canConnect(way, RouteType.hiking, SegmentDirection.Forward, node1, None))
+    assert(canConnect(way, RouteType.hiking, SegmentDirection.Forward, node3, None))
 
-    assert(canConnect(way, NetworkType.hiking, SegmentDirection.Backward, node1, None))
-    assert(canConnect(way, NetworkType.hiking, SegmentDirection.Backward, node3, None))
+    assert(canConnect(way, RouteType.hiking, SegmentDirection.Backward, node1, None))
+    assert(canConnect(way, RouteType.hiking, SegmentDirection.Backward, node3, None))
   }
 
   test("bicycles respect oneway reverse direction: can only connect to end node") {
@@ -80,39 +80,39 @@ class NodeFragmentConnectionAnalyzerTest extends UnitTest with SharedTestObjects
     val w = newWay(10, tags = Tags.from("oneway" -> "reverse"))
 
     // bicycle
-    assert(!canConnect(w, NetworkType.cycling, SegmentDirection.Both, node1, None))
-    assert(canConnect(w, NetworkType.cycling, SegmentDirection.Both, node3, None))
+    assert(!canConnect(w, RouteType.cycling, SegmentDirection.Both, node1, None))
+    assert(canConnect(w, RouteType.cycling, SegmentDirection.Both, node3, None))
 
-    assert(!canConnect(w, NetworkType.cycling, SegmentDirection.Forward, node1, None))
-    assert(canConnect(w, NetworkType.cycling, SegmentDirection.Forward, node3, None))
+    assert(!canConnect(w, RouteType.cycling, SegmentDirection.Forward, node1, None))
+    assert(canConnect(w, RouteType.cycling, SegmentDirection.Forward, node3, None))
 
-    assert(!canConnect(w, NetworkType.cycling, SegmentDirection.Backward, node1, None)) // TODO direction is ignored, is this correct?
-    assert(canConnect(w, NetworkType.cycling, SegmentDirection.Backward, node3, None))
+    assert(!canConnect(w, RouteType.cycling, SegmentDirection.Backward, node1, None)) // TODO direction is ignored, is this correct?
+    assert(canConnect(w, RouteType.cycling, SegmentDirection.Backward, node3, None))
 
     // oneWay reverse does not have to be respected in hiking networks
-    assert(canConnect(w, NetworkType.hiking, SegmentDirection.Both, node1, None))
-    assert(canConnect(w, NetworkType.hiking, SegmentDirection.Both, node3, None))
+    assert(canConnect(w, RouteType.hiking, SegmentDirection.Both, node1, None))
+    assert(canConnect(w, RouteType.hiking, SegmentDirection.Both, node3, None))
 
-    assert(canConnect(w, NetworkType.hiking, SegmentDirection.Forward, node1, None))
-    assert(canConnect(w, NetworkType.hiking, SegmentDirection.Forward, node3, None))
+    assert(canConnect(w, RouteType.hiking, SegmentDirection.Forward, node1, None))
+    assert(canConnect(w, RouteType.hiking, SegmentDirection.Forward, node3, None))
 
-    assert(canConnect(w, NetworkType.hiking, SegmentDirection.Backward, node1, None))
-    assert(canConnect(w, NetworkType.hiking, SegmentDirection.Backward, node3, None))
+    assert(canConnect(w, RouteType.hiking, SegmentDirection.Backward, node1, None))
+    assert(canConnect(w, RouteType.hiking, SegmentDirection.Backward, node3, None))
   }
 
-  private def canConnect(networkTypes: Seq[NetworkType], direction: SegmentDirection.Value, node: Node, role: Option[String]): Boolean = {
-    networkTypes.forall(networkType => canConnect(networkType, direction, node, role))
+  private def canConnect(routeTypes: Seq[RouteType], direction: SegmentDirection.Value, node: Node, role: Option[String]): Boolean = {
+    routeTypes.forall(routeType => canConnect(routeType, direction, node, role))
   }
 
-  private def canConnect(networkType: NetworkType, direction: SegmentDirection.Value, node: Node, role: Option[String]): Boolean = {
+  private def canConnect(routeType: RouteType, direction: SegmentDirection.Value, node: Node, role: Option[String]): Boolean = {
     val w = newWay(10)
-    canConnect(w, networkType, direction, node, role)
+    canConnect(w, routeType, direction, node, role)
   }
 
-  private def canConnect(way: Way, networkType: NetworkType, direction: SegmentDirection.Value, node: Node, role: Option[String]): Boolean = {
+  private def canConnect(way: Way, routeType: RouteType, direction: SegmentDirection.Value, node: Node, role: Option[String]): Boolean = {
     pending
     //    val fragment = Fragment.create(None, None, way, wayNodes, role)
-    //    new NodeFragmentConnectionAnalyzer(Seq(networkType), direction, node, fragment).canConnect
+    //    new NodeFragmentConnectionAnalyzer(Seq(routeType), direction, node, fragment).canConnect
     false
   }
 }

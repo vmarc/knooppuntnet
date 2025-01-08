@@ -8,7 +8,7 @@ import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodeOptions
 import kpn.api.common.location.LocationNodesParameters
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.CountResult
@@ -300,7 +300,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     log.debugElapsed {
       val locationNodeInfoDocs = database.nodes.aggregate[LocationNodeInfoDoc](pipeline)
       val locationNodeInfos = locationNodeInfoDocs.zipWithIndex.map { case (doc, index) =>
-        val tagValues = NetworkScope.values.map(scope => ScopedNetworkType(scope, subset.networkType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
+        val tagValues = NetworkScope.values.map(scope => ScopedRouteType(scope, subset.routeType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
           doc.tagValue(tagKey)
         }
         val expectedNodeCount = tagValues.headOption.getOrElse("-")
@@ -308,15 +308,15 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
         LocationNodeInfo(
           rowIndex,
           doc.id,
-          doc.networkTypeName(subset.networkType),
-          doc.networkTypeLongName(subset.networkType).getOrElse("-"),
+          doc.routeTypeName(subset.routeType),
+          doc.routeTypeLongName(subset.routeType).getOrElse("-"),
           doc.latitude,
           doc.longitude,
           doc.lastUpdated,
           doc.lastSurvey,
           doc.facts,
           expectedNodeCount,
-          doc.routeReferences.filter(_.networkType == subset.networkType)
+          doc.routeReferences.filter(_.routeType == subset.routeType)
         )
       }
       (s"location nodes: ${locationNodeInfos.size}", locationNodeInfos)
@@ -326,7 +326,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
   private def subsetFilter(subset: LocationSubset): Seq[Bson] = {
     Seq(
       equal("labels", Label.active),
-      equal("labels", Label.networkType(subset.networkType)),
+      equal("labels", Label.routeType(subset.routeType)),
       LocationQuery.locationFilter("labels", subset),
     )
   }

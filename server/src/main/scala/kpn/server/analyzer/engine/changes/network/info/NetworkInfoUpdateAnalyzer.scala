@@ -56,7 +56,7 @@ class NetworkInfoUpdateAnalyzer(
       key,
       ChangeType.Update,
       after.country,
-      after.scopedNetworkType.networkType,
+      after.scopedRouteType.routeType,
       networkId,
       after.summary.name,
       networkDataUpdate,

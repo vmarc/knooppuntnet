@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.location
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 case class LocationSubset(
   name: String,
-  networkType: NetworkType,
+  routeType: RouteType,
   locationIds: Seq[String]
 )

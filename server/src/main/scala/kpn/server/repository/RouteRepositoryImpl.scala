@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
@@ -39,12 +39,12 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
     new MongoQueryRouteIds(database).execute(log).sorted
   }
 
-  override def tiles(networkType: NetworkType): Seq[TileId] = {
-    new MongoQueryRouteTileNames(database).execute(networkType, log)
+  override def tiles(routeType: RouteType): Seq[TileId] = {
+    new MongoQueryRouteTileNames(database).execute(routeType, log)
   }
 
-  override def tilesWithName(networkType: NetworkType, tileId: TileId): Seq[RouteTileDoc] = {
-    new MongoQueryRouteTileDocs(database).execute(networkType, tileId, log)
+  override def tilesWithName(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc] = {
+    new MongoQueryRouteTileDocs(database).execute(routeType, tileId, log)
   }
 
   override def saveRoute(routeDoc: RouteDoc): Unit = {

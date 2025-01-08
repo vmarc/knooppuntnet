@@ -1,6 +1,6 @@
 package kpn.core.tools.tile
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.tiles.ZoomLevel
 
 import java.io.File
@@ -22,7 +22,7 @@ object TileReportTool {
 
 class TileReportTool {
   def report(): Unit = {
-    val tileInfos = loadTileInfos(NetworkType.hiking)
+    val tileInfos = loadTileInfos(RouteType.hiking)
     val sizes = tileInfos.map(_.size)
     println(s"tileCount=${tileInfos.size}, totalSize=${sizes.sum}, maxTileSize=${sizes.max}")
     (ZoomLevel.newMinZoom to ZoomLevel.poiTileMaxZoom).foreach { z =>
@@ -39,9 +39,9 @@ class TileReportTool {
     }
   }
 
-  private def loadTileInfos(networkType: NetworkType): Seq[TileInfo] = {
-    println(s"loading ${networkType.entryName} tile infos")
-    val root = new File("/Users/marc/kpn/tiles", networkType.entryName)
+  private def loadTileInfos(routeType: RouteType): Seq[TileInfo] = {
+    println(s"loading ${routeType.entryName} tile infos")
+    val root = new File("/Users/marc/kpn/tiles", routeType.entryName)
     val zs = root.listFiles(fileFilter).map(dir => dir.getName.toInt).sorted.toSeq
     zs.flatMap { z =>
       val zDir = new File(root, z.toString)

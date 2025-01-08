@@ -1,7 +1,7 @@
 package kpn.database.actions.locations
 
 import kpn.api.common.LocationChangeSet
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.common.Time
 import kpn.core.util.Log
@@ -46,7 +46,7 @@ object MongoQueryLocationChanges {
         day = None
       )
       val query = new MongoQueryLocationChanges(database)
-      val subset = LocationSubset("", NetworkType.hiking, Seq("nl-1-gd"))
+      val subset = LocationSubset("", RouteType.hiking, Seq("nl-1-gd"))
       val changes = query.execute(subset, parameters)
       println("---")
       changes.foreach { change =>
@@ -54,9 +54,9 @@ object MongoQueryLocationChanges {
         val changeSetId = change.key.changeSetId
         println(s"$timestamp $changeSetId, happy=${change.happy}, investigate=${change.investigate}")
         change.locationChanges.foreach { locationChanges =>
-          val networkType = locationChanges.networkType.entryName
+          val routeType = locationChanges.routeType.entryName
           val location = locationChanges.locationNames.mkString(" > ")
-          println(s"  $networkType $location, happy=${locationChanges.happy}, investigate=${locationChanges.investigate}")
+          println(s"  $routeType $location, happy=${locationChanges.happy}, investigate=${locationChanges.investigate}")
           locationChanges.nodeChanges.removed.foreach { ref =>
             println(s"    node removed: ${ref.name}, happy=${ref.happy}, investigate=${ref.investigate}")
           }
@@ -221,7 +221,7 @@ class MongoQueryLocationChanges(database: Database) {
       filter(
         and(
           Seq(
-            Some(equal("locationChanges.networkType", subset.networkType.entryName)),
+            Some(equal("locationChanges.routeType", subset.routeType.entryName)),
             Some(
               LocationQuery.changesLocationFilter("locationChanges.locationNames", subset)
             ),

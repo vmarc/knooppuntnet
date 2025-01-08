@@ -1,7 +1,7 @@
 package kpn.server.api.planner
 
-import kpn.api.common.NetworkType
 import kpn.api.common.PoiPage
+import kpn.api.common.RouteType
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
@@ -30,10 +30,10 @@ class PlannerFacadeImpl(
   mapRouteDetailBuilder: MapRouteDetailBuilder
 ) extends PlannerFacade {
 
-  override def mapNodeDetail(networkType: NetworkType, nodeId: Long): ApiResponse[MapNodeDetail] = {
-    val args = s"${networkType.entryName}, $nodeId"
+  override def mapNodeDetail(routeType: RouteType, nodeId: Long): ApiResponse[MapNodeDetail] = {
+    val args = s"${routeType.entryName}, $nodeId"
     execute("map-node-detail", args) {
-      mapNodeDetailBuilder.build(networkType, nodeId)
+      mapNodeDetailBuilder.build(routeType, nodeId)
     }
   }
 
@@ -65,13 +65,13 @@ class PlannerFacadeImpl(
   }
 
   override def plan(
-    networkType: NetworkType,
+    routeType: RouteType,
     planString: String,
     proposed: Boolean
   ): ApiResponse[Seq[PlanLegDetail]] = {
-    val args = s"${networkType.entryName}: $planString"
+    val args = s"${routeType.entryName}: $planString"
     api.execute("plan", args) {
-      val legs = legBuilder.plan(networkType, planString, proposed = proposed)
+      val legs = legBuilder.plan(routeType, planString, proposed = proposed)
       ApiResponse(None, 1, legs)
     }
   }

@@ -1,17 +1,17 @@
 package kpn.database.actions.statistics
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
-import kpn.api.common.NetworkType.cycling
-import kpn.api.common.NetworkType.hiking
-import kpn.api.common.SharedTestObjects
-import Country.de
-import Country.nl
+import kpn.api.common.Country.de
+import kpn.api.common.Country.nl
 import kpn.api.common.Fact
-import Fact.RouteBroken
-import Fact.RouteFixmetodo
-import Fact.RouteInaccessible
-import Fact.RouteWithoutWays
+import kpn.api.common.Fact.RouteBroken
+import kpn.api.common.Fact.RouteFixmetodo
+import kpn.api.common.Fact.RouteInaccessible
+import kpn.api.common.Fact.RouteWithoutWays
+import kpn.api.common.RouteType
+import kpn.api.common.RouteType.cycling
+import kpn.api.common.RouteType.hiking
+import kpn.api.common.SharedTestObjects
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
@@ -99,13 +99,13 @@ class StatisticsUpdateSubsetRouteFactsTest extends UnitTest with SharedTestObjec
     }
   }
 
-  private def buildRoute(database: Database, routeId: Long, country: Country, networkType: NetworkType, facts: Seq[Fact], active: Boolean = true): Unit = {
+  private def buildRoute(database: Database, routeId: Long, country: Country, routeType: RouteType, facts: Seq[Fact], active: Boolean = true): Unit = {
     database.routes.save(
       newRouteDoc(
         newRouteSummary(
           routeId,
           Seq(country),
-          networkTypes = Seq(networkType),
+          routeTypes = Seq(routeType),
         ),
         labels = if (active) Seq(Label.active) else Seq.empty,
         facts = facts

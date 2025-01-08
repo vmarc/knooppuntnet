@@ -1,7 +1,7 @@
 package kpn.server.api.planner
 
-import kpn.api.common.NetworkType
 import kpn.api.common.PoiPage
+import kpn.api.common.RouteType
 import kpn.api.common.node.MapNodeDetail
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.PlanLegDetail
@@ -12,7 +12,7 @@ import kpn.server.analyzer.engine.poi.PoiRef
 
 trait PlannerFacade {
 
-  def mapNodeDetail(networkType: NetworkType, nodeId: Long): ApiResponse[MapNodeDetail]
+  def mapNodeDetail(routeType: RouteType, nodeId: Long): ApiResponse[MapNodeDetail]
 
   def mapRouteDetail(routeId: Long): ApiResponse[MapRouteDetail]
 
@@ -22,5 +22,5 @@ trait PlannerFacade {
 
   def leg(params: LegBuildParams): ApiResponse[PlanLegDetail]
 
-  def plan(networkType: NetworkType, planString: String, proposed: Boolean): ApiResponse[Seq[PlanLegDetail]]
+  def plan(routeType: RouteType, planString: String, proposed: Boolean): ApiResponse[Seq[PlanLegDetail]]
 }

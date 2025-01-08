@@ -7,8 +7,8 @@ import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
@@ -102,14 +102,14 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
       newNodeDoc(
         1003,
         labels = Seq(
-          Label.networkType(NetworkType.hiking)
+          Label.routeType(RouteType.hiking)
           // not active
         ),
         country = Some(Country.nl),
         name = Some("03"),
         names = Seq(
           NodeName(
-            NetworkType.hiking,
+            RouteType.hiking,
             NetworkScope.regional,
             "03", None,
             proposed = false
@@ -117,7 +117,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         ),
         tags = newNodeTags("03"),
         routeReferences = Seq(
-          Reference(NetworkType.hiking, NetworkScope.regional, 12, "02-03")
+          Reference(RouteType.hiking, NetworkScope.regional, 12, "02-03")
         )
       )
     )
@@ -130,7 +130,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         newChangeKey(elementId = 1),
         ChangeType.Update,
         Some(Country.nl),
-        NetworkType.hiking,
+        RouteType.hiking,
         1,
         "name",
         networkDataUpdate = None,
@@ -165,7 +165,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         //        Some(
         //          newRouteData(
         //            Some(Country.nl),
-        //            NetworkType.hiking,
+        //            routeType.hiking,
         //            relation = newRawRelation(
         //              12,
         //              members = Seq(RawMember("way", 102, None)),
@@ -253,7 +253,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
           updates = Seq(
             newChangeSetNetwork(
               Some(Country.nl),
-              NetworkType.hiking,
+              RouteType.hiking,
               1,
               "name",
               routeChanges = ChangeSetElementRefs(

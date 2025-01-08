@@ -1,6 +1,6 @@
 package kpn.core.tools.tile
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.tools.tile.TileTool.log
 import kpn.core.util.Log
 import kpn.database.base.Database
@@ -42,8 +42,8 @@ object TileTool {
 
           Mongo.executeIn(options.databaseName) { database =>
             val tileTool = buildTileTool(database, options.tileDir)
-            NetworkType.values.foreach { networkType =>
-              tileTool.newMake(networkType)
+            RouteType.values.foreach { routeType =>
+              tileTool.newMake(routeType)
             }
           }
 
@@ -87,20 +87,20 @@ class TileTool(
 ) {
   private val geometryFactory = new GeometryFactory
 
-  def newMake(networkType: NetworkType): Unit = {
+  def newMake(routeType: RouteType): Unit = {
     log.info("loading tile names")
-    val nodeTiles = nodeRepository.tiles(networkType)
-    val routeTiles = routeRepository.tiles(networkType)
+    val nodeTiles = nodeRepository.tiles(routeType)
+    val routeTiles = routeRepository.tiles(routeType)
     val tiles = (nodeTiles ++ routeTiles).distinct.sortBy(t => (t.z, t.x, t.y))
     val tilesSize = tiles.size
     tiles.zipWithIndex.foreach { case (tileId, index) =>
       val tile = Tile.routeTileFromId(tileId)
       Log.context(s"${index + 1}/$tilesSize ${tile.name}") {
         val encoder = new VectorTileEncoder(tile.extent, tile.clipBufferSize, false)
-        val nodeDocs = nodeRepository.tilesWithName(networkType, tileId)
+        val nodeDocs = nodeRepository.tilesWithName(routeType, tileId)
         nodeDocs.foreach { doc =>
           if (tileId.z >= 11) {
-            tileDataNodeBuilder.build(networkType, doc) match {
+            tileDataNodeBuilder.build(routeType, doc) match {
               case None =>
               case Some(node) =>
                 val worldCoordinate = new Coordinate(lonToWorldX(node.lon), latToWorldY(node.lat))
@@ -118,7 +118,7 @@ class TileTool(
           }
         }
 
-        val routeDocs = routeRepository.tilesWithName(networkType, tileId)
+        val routeDocs = routeRepository.tilesWithName(routeType, tileId)
         routeDocs.foreach { doc =>
           if (!(tileId.z < 11 && doc.layer == "node-route")) {
             doc.segments.foreach { segment =>
@@ -142,7 +142,7 @@ class TileTool(
         }
         val tileBytes = encoder.encode()
         if (tileBytes.nonEmpty) {
-          vectorTileRepository.saveOrUpdate(networkType.entryName, tile, tileBytes)
+          vectorTileRepository.saveOrUpdate(routeType.entryName, tile, tileBytes)
         }
       }
     }

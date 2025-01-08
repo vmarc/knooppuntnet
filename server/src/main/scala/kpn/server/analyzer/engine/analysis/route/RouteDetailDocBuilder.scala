@@ -44,7 +44,7 @@ class RouteDetailDocBuilder(context: RouteDetailAnalysisContext) {
       context.relation.id,
       context.countries,
       context.nodeNetwork,
-      context.networkTypes,
+      context.routeTypes,
       context.scopes,
       title,
       length,

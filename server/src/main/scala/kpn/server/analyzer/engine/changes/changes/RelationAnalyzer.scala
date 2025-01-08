@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.changes.changes
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.data.Node
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.RelationIdMember
@@ -9,7 +9,7 @@ import kpn.api.common.data.Tagable
 import kpn.api.common.data.Way
 import kpn.api.common.data.WayMember
 import kpn.api.custom.Relation
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.TagInterpreter
 import kpn.server.analyzer.engine.context.ElementIds
@@ -102,26 +102,26 @@ object RelationAnalyzer {
   }
 
   def referencedNetworkNodes(relation: Relation): Set[Node] = {
-    RelationAnalyzer.scopedNetworkType(relation) match {
-      case Some(scopedNetworkType) =>
-        RelationAnalyzerHelper.referencedNodes(relation).filter(n => TagInterpreter.isReferencedNetworkNode(scopedNetworkType, n))
+    RelationAnalyzer.scopedRouteType(relation) match {
+      case Some(scopedRouteType) =>
+        RelationAnalyzerHelper.referencedNodes(relation).filter(n => TagInterpreter.isReferencedNetworkNode(scopedRouteType, n))
       case None => Set()
     }
   }
 
   def referencedRoutes(relation: Relation): Set[Relation] = {
-    RelationAnalyzer.scopedNetworkType(relation) match {
+    RelationAnalyzer.scopedRouteType(relation) match {
       case None => Set()
-      case Some(scopedNetworkType) =>
-        referencedRelations(relation).filter(r => TagInterpreter.isReferencedRouteRelation(scopedNetworkType, r))
+      case Some(scopedRouteType) =>
+        referencedRelations(relation).filter(r => TagInterpreter.isReferencedRouteRelation(scopedRouteType, r))
     }
   }
 
   def referencedNetworks(relation: Relation): Set[Relation] = {
-    RelationAnalyzer.networkType(relation) match {
+    RelationAnalyzer.routeType(relation) match {
       case None => Set()
-      case Some(networkType) =>
-        referencedRelations(relation).filter(r => r.id != relation.id && TagInterpreter.isNetworkRelation(networkType, r))
+      case Some(routeType) =>
+        referencedRelations(relation).filter(r => r.id != relation.id && TagInterpreter.isNetworkRelation(routeType, r))
     }
   }
 
@@ -175,15 +175,15 @@ object RelationAnalyzer {
     elements.max
   }
 
-  def networkType(relation: Relation): Option[NetworkType] = {
+  def routeType(relation: Relation): Option[RouteType] = {
     relation.tagValue("network").flatMap { tagValue =>
-      ScopedNetworkType.all.find(_.key == tagValue).map(_.networkType)
+      ScopedRouteType.all.find(_.key == tagValue).map(_.routeType)
     }
   }
 
-  def scopedNetworkType(relation: Tagable): Option[ScopedNetworkType] = {
+  def scopedRouteType(relation: Tagable): Option[ScopedRouteType] = {
     relation.tagValue("network").flatMap { tagValue =>
-      ScopedNetworkType.all.find(_.key == tagValue)
+      ScopedRouteType.all.find(_.key == tagValue)
     }
   }
 }

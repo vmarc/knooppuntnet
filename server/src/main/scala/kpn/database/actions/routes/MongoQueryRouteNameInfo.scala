@@ -23,13 +23,13 @@ class MongoQueryRouteNameInfo(database: Database) {
         filter(
           equal("_id", routeId)
         ),
-        unwind("$summary.networkTypes"),
+        unwind("$summary.routeTypes"),
         project(
           fields(
             excludeId(),
             computed("routeId", "$_id"),
             computed("routeName", "$summary.name"),
-            computed("networkType", "$summary.networkTypes")
+            computed("routeType", "$summary.routeTypes")
           )
         )
       )

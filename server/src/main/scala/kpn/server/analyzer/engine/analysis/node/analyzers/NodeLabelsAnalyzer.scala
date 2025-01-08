@@ -4,7 +4,6 @@ import kpn.api.common.node.NodeIntegrity
 import kpn.core.doc.Label
 import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
-
 object NodeLabelsAnalyzer extends NodeAspectAnalyzer {
   def analyze(analysis: NodeAnalysis): NodeAnalysis = {
     new NodeLabelsAnalyzer(analysis).analyze
@@ -16,10 +15,10 @@ class NodeLabelsAnalyzer(analysis: NodeAnalysis) {
   def analyze: NodeAnalysis = {
     val basicLabels = buildBasicLabels()
     val factLabels = analysis.facts.map(fact => Label.fact(fact))
-    val networkTypeLabels = analysis.nodeNames.map(name => Label.networkType(name.networkType)).distinct
+    val routeTypeLabels = analysis.nodeNames.map(name => Label.routeType(name.routeType)).distinct
     val integrityCheckLabels = buildIntegrityCheckLabels(analysis.integrity)
     val locationLabels = analysis.locations.map(location => Label.location(location))
-    val labels = basicLabels ++ factLabels ++ networkTypeLabels ++ integrityCheckLabels ++ locationLabels
+    val labels = basicLabels ++ factLabels ++ routeTypeLabels ++ integrityCheckLabels ++ locationLabels
     analysis.copy(labels = labels)
   }
 
@@ -36,12 +35,12 @@ class NodeLabelsAnalyzer(analysis: NodeAnalysis) {
     nodeIntegrityOption match {
       case None => Seq.empty
       case Some(nodeIntegrity) =>
-        val networkTypes = nodeIntegrity.details.map(_.networkType).distinct
-        networkTypes.flatMap { networkType =>
-          val failed = nodeIntegrity.details.filter(_.networkType == networkType).exists(_.failed)
+        val routeTypes = nodeIntegrity.details.map(_.routeType).distinct
+        routeTypes.flatMap { routeType =>
+          val failed = nodeIntegrity.details.filter(_.routeType == routeType).exists(_.failed)
           Seq(
-            Some(s"integrity-check-${networkType.entryName}"),
-            if (failed) Some(s"integrity-check-failed-${networkType.entryName}") else None
+            Some(s"integrity-check-${routeType.entryName}"),
+            if (failed) Some(s"integrity-check-failed-${routeType.entryName}") else None
           ).flatten
         }
     }

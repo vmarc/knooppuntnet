@@ -23,7 +23,7 @@ class OrphanRouteUpdater_Update(database: Database, log: Log) {
         project(
           fields(
             computed("country", "$summary.countries"),
-            computed("networkTypes", "$summary.networkTypes"),
+            computed("routeTypes", "$summary.routeTypes"),
             computed("name", "$summary.name"),
             computed("meters", "$summary.meters"),
             computed("facts", "$facts"),

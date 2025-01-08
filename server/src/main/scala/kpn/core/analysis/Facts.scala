@@ -19,7 +19,7 @@ object Facts {
 
   def level(fact: Fact): FactLevel = {
     fact match {
-      case Fact.RouteUnsupportedNetworkType => FactLevel.ERROR
+      case Fact.RouteUnsupportedRouteType => FactLevel.ERROR
       case Fact.RouteNotContinious => FactLevel.ERROR
       case Fact.RouteNotForward => FactLevel.ERROR
       case Fact.RouteNotBackward => FactLevel.ERROR

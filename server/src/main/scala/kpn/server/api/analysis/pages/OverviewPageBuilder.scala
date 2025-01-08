@@ -31,7 +31,7 @@ class OverviewPageBuilder(statisticsRepository: StatisticsRepository) {
         statisticLongValues.values.map(statisticLongValue =>
           StatisticValue(
             statisticLongValue.country,
-            statisticLongValue.networkType,
+            statisticLongValue.routeType,
             formatted(language, statisticLongValue.value)
           )
         )
@@ -49,7 +49,7 @@ class OverviewPageBuilder(statisticsRepository: StatisticsRepository) {
           val value = Formatter.percentage(subsetIntegrityCheckCount - subsetIntegrityCheckFailedCount, subsetIntegrityCheckCount)
           StatisticValue(
             subset.country,
-            subset.networkType,
+            subset.routeType,
             value
           )
         }
@@ -72,7 +72,7 @@ class OverviewPageBuilder(statisticsRepository: StatisticsRepository) {
           val value = Formatter.percentage(subsetIntegrityCheckCount, subsetNodeCount)
           StatisticValue(
             subset.country,
-            subset.networkType,
+            subset.routeType,
             value
           )
         }

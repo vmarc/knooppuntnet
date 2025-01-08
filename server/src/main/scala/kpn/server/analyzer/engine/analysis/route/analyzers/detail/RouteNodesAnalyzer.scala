@@ -2,13 +2,13 @@ package kpn.server.analyzer.engine.analysis.route.analyzers.detail
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.data.Node
 import kpn.api.common.data.NodeMember
 import kpn.api.common.data.WayMember
 import kpn.api.common.route.LinkDirection
 import kpn.api.custom.Relation
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
 import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
@@ -33,21 +33,21 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
 
   def analyze: RouteDetailAnalysisContext = {
 
-    if (context.networkTypes.sizeIs > 1) {
-      // TODO redesign - should only contain nodes with no NetworkType
+    if (context.routeTypes.sizeIs > 1) {
+      // TODO redesign - should only contain nodes with no routeType
       context
     }
-    else if (context.networkTypes.sizeIs == 1) {
-      val networkType = context.networkTypes.head
-      analyzeRouteWithSingleNetworkType(networkType)
+    else if (context.routeTypes.sizeIs == 1) {
+      val routeType = context.routeTypes.head
+      analyzeRouteWithSinglerouteType(routeType)
     }
     else {
       context
     }
   }
 
-  private def analyzeRouteWithSingleNetworkType(networkType: NetworkType): RouteDetailAnalysisContext = {
-    val nodeDatas = findRouteNodes(networkType)
+  private def analyzeRouteWithSinglerouteType(routeType: RouteType): RouteDetailAnalysisContext = {
+    val nodeDatas = findRouteNodes(routeType)
     val nodeAnalysis = if (nodeDatas.isEmpty) {
       facts += Fact.RouteWithoutNodes
       RouteNodesAnalysis()
@@ -124,7 +124,7 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
     }
   }
 
-  private def findRouteNodes(networkType: NetworkType): Seq[RouteNodeAnalysis] = {
+  private def findRouteNodes(routeType: RouteType): Seq[RouteNodeAnalysis] = {
     val nodeDatas = ListBuffer[RouteNodeAnalysis]()
 
     context.links.routeLinkWays.foreach { link =>
@@ -135,7 +135,7 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
         link.way.nodes.distinct
       }
       nodes.foreach { node =>
-        wayNodeData(networkType, node) match {
+        wayNodeData(routeType, node) match {
           case None => // not a node network node
           case Some(nodeData) =>
             if (!nodeDatas.filter(_.isInWay).map(_.node.id).contains(nodeData.node.id)) {
@@ -150,7 +150,7 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
         // we prefer the position of the node in the ways over the position in the route relation
       }
       else {
-        standaloneNodeData(networkType, link.node) match {
+        standaloneNodeData(routeType, link.node) match {
           case None => // not a node network node
           case Some(nodeData) =>
             if (!nodeDatas.filterNot(_.isInWay).map(_.node.id).contains(nodeData.node.id)) {
@@ -182,8 +182,8 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
     }
   }
 
-  private def wayNodeData(networkType: NetworkType, node: Node): Option[RouteNodeAnalysis] = {
-    nodeName(networkType, node).map { name =>
+  private def wayNodeData(routeType: RouteType, node: Node): Option[RouteNodeAnalysis] = {
+    nodeName(routeType, node).map { name =>
       RouteNodeAnalysis(
         node,
         name,
@@ -193,8 +193,8 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
     }
   }
 
-  private def standaloneNodeData(networkType: NetworkType, node: Node): Option[RouteNodeAnalysis] = {
-    nodeName(networkType, node).map { name =>
+  private def standaloneNodeData(routeType: RouteType, node: Node): Option[RouteNodeAnalysis] = {
+    nodeName(routeType, node).map { name =>
       RouteNodeAnalysis(
         node,
         name,
@@ -204,21 +204,21 @@ class RouteNodesAnalyzer(context: RouteDetailAnalysisContext) {
     }
   }
 
-  private def nodeName(networkType: NetworkType, node: Node): Option[String] = {
+  private def nodeName(routeType: RouteType, node: Node): Option[String] = {
     if (node.hasTag("network:type", "node_network")) {
-      val scopedNetworkTypes = NetworkScope.values.map(scope => ScopedNetworkType(scope, networkType))
-      val nameTagKeys1 = scopedNetworkTypes.map(_.nodeRefTagKey)
-      val nameTagKeys2 = scopedNetworkTypes.map(_.proposedNodeRefTagKey)
-      val longNameTagKeys1 = scopedNetworkTypes.flatMap { scopedNetworkType =>
-        val prefix = scopedNetworkType.key
+      val scopedRouteTypes = NetworkScope.values.map(scope => ScopedRouteType(scope, routeType))
+      val nameTagKeys1 = scopedRouteTypes.map(_.nodeRefTagKey)
+      val nameTagKeys2 = scopedRouteTypes.map(_.proposedNodeRefTagKey)
+      val longNameTagKeys1 = scopedRouteTypes.flatMap { scopedRouteType =>
+        val prefix = scopedRouteType.key
         Seq(
           s"${prefix}_name",
           s"$prefix:name",
           s"name:${prefix}_ref"
         )
       }
-      val longNameTagKeys2 = scopedNetworkTypes.flatMap { scopedNetworkType =>
-        val prefix = scopedNetworkType.key
+      val longNameTagKeys2 = scopedRouteTypes.flatMap { scopedRouteType =>
+        val prefix = scopedRouteType.key
         Seq(
           s"proposed:${prefix}_name",
           s"proposed:$prefix:name",

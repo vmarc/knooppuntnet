@@ -1,12 +1,12 @@
 package kpn.api.common.node
 
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 
 case class NodeIntegrityDetail(
-  networkType: NetworkType,
+  routeType: RouteType,
   networkScope: NetworkScope,
   expectedRouteCount: Int,
   routeRefs: Seq[Ref]
@@ -16,7 +16,7 @@ case class NodeIntegrityDetail(
     routeRefs.sizeIs != expectedRouteCount
   }
 
-  def hasScopedNetworkType(scopedNetworkType: ScopedNetworkType): Boolean = {
-    scopedNetworkType.networkType == networkType && scopedNetworkType.networkScope == networkScope
+  def hasScopedRouteType(scopedRouteType: ScopedRouteType): Boolean = {
+    scopedRouteType.routeType == routeType && scopedRouteType.networkScope == networkScope
   }
 }

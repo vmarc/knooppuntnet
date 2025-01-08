@@ -9,7 +9,7 @@ object Fact extends Enum[Fact] {
 
   val values: IndexedSeq[Fact] = findValues
 
-  final case object RouteUnsupportedNetworkType extends Fact
+  final case object RouteUnsupportedRouteType extends Fact
 
   // errors
   final case object RouteNotContinious extends Fact

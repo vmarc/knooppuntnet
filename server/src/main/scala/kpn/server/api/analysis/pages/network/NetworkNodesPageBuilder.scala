@@ -2,9 +2,9 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkNodeRow
 import kpn.api.common.network.NetworkNodesPage
-import kpn.api.custom.ScopedNetworkType
-import kpn.database.base.Database
+import kpn.api.custom.ScopedRouteType
 import kpn.core.util.Log
+import kpn.database.base.Database
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 import kpn.server.api.analysis.pages.TimeInfoBuilder
 import kpn.server.repository.NodeRouteRepository
@@ -60,11 +60,11 @@ class NetworkNodesPageBuilder(
   }
 
   private def nodesWithRouteReferences(data: NetworkNodesPageData): Seq[NetworkNodeRow] = {
-    val scopedNetworkType = ScopedNetworkType.from(
+    val scopedRouteType = ScopedRouteType.from(
       data.summary.networkScope,
-      data.summary.networkType
+      data.summary.routeType
     )
-    val allRouteReferences = nodeRouteRepository.nodesRouteReferences(scopedNetworkType, data.nodes.map(_.id))
+    val allRouteReferences = nodeRouteRepository.nodesRouteReferences(scopedRouteType, data.nodes.map(_.id))
     data.nodes.map { networkNodeDetail =>
       val routeReferences = allRouteReferences.filter(_.nodeId == networkNodeDetail.id).flatMap(_.routeRefs)
       NetworkNodeRow(

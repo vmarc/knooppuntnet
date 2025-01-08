@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.segment
 
-import kpn.api.common.NetworkType
-import kpn.api.common.NetworkType.cycling
-import kpn.api.common.NetworkType.hiking
-import kpn.api.common.NetworkType.horseRiding
+import kpn.api.common.RouteType
+import kpn.api.common.RouteType.cycling
+import kpn.api.common.RouteType.hiking
+import kpn.api.common.RouteType.horseRiding
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Way
 import kpn.api.custom.Tags
@@ -42,8 +42,8 @@ class SurfaceAnalyzerTest extends UnitTest with SharedTestObjects {
     surface(horseRiding, way3) should equal("unpaved")
   }
 
-  private def surface(networkType: NetworkType, way: Way): String = {
-    new SurfaceAnalyzer(Seq(networkType), way).surface()
+  private def surface(routeType: RouteType, way: Way): String = {
+    new SurfaceAnalyzer(Seq(routeType), way).surface()
   }
 
   private def wayWithTags(tags: (String, String)*): Way = {

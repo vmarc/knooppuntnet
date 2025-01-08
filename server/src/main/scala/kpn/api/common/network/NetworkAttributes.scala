@@ -3,14 +3,14 @@ package kpn.api.common.network
 import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.common.RouteType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Timestamp
 
 case class NetworkAttributes(
   id: Long,
   country: Option[Country],
-  networkType: NetworkType,
+  routeType: RouteType,
   networkScope: NetworkScope,
   name: String,
   km: Long,
@@ -27,8 +27,8 @@ case class NetworkAttributes(
   center: Option[LatLonImpl]
 ) {
 
-  def scopedNetworkType: ScopedNetworkType = {
-    ScopedNetworkType.from(networkScope, networkType)
+  def scopedRouteType: ScopedRouteType = {
+    ScopedRouteType.from(networkScope, routeType)
   }
 
   def percentageOkString: String = {

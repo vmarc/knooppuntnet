@@ -2,7 +2,7 @@ package kpn.database.actions.subsets
 
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
 import kpn.api.custom.Subset
@@ -24,7 +24,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
           OrphanRouteDoc(
             _id = 100L,
             Country.nl,
-            Seq(NetworkType.hiking),
+            Seq(RouteType.hiking),
             name = "01-02",
             meters = 123,
             facts = Seq.empty,
@@ -43,9 +43,9 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  test("do not include routes with a different networkType") {
+  test("do not include routes with a different routeType") {
     withDatabase { database =>
-      database.orphanRoutes.save(createOrphanRouteDoc(networkType = NetworkType.cycling))
+      database.orphanRoutes.save(createOrphanRouteDoc(routeType = RouteType.cycling))
       new MongoQuerySubsetOrphanRoutes(database).execute(Subset.nlHiking) should equal(Seq.empty)
     }
   }
@@ -59,7 +59,7 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
           OrphanRouteDoc(
             _id = 100L,
             Country.nl,
-            Seq(NetworkType.hiking),
+            Seq(RouteType.hiking),
             name = "01-02",
             meters = 123,
             facts = Seq(Fact.RouteBroken),
@@ -73,14 +73,14 @@ class MongoQuerySubsetOrphanRoutesTest extends UnitTest with SharedTestObjects {
 
   private def createOrphanRouteDoc(
     country: Country = Country.nl,
-    networkType: NetworkType = NetworkType.hiking,
+    routeType: RouteType = RouteType.hiking,
     lastSurvey: Option[Day] = None,
     facts: Seq[Fact] = Seq.empty
   ): OrphanRouteDoc = {
     newOrphanRouteDoc(
       _id = 100L,
       country,
-      networkType,
+      routeType,
       name = "01-02",
       meters = 123,
       facts = facts,

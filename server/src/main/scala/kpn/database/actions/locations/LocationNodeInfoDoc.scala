@@ -1,8 +1,8 @@
 package kpn.database.actions.locations
 
 import kpn.api.common.Fact
-import kpn.api.common.NetworkType
 import kpn.api.common.NodeName
+import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
@@ -22,12 +22,12 @@ case class LocationNodeInfoDoc(
   routeReferences: Seq[Reference]
 ) extends Tagable {
 
-  def networkTypeName(networkType: NetworkType): String = {
-    names.filter(_.networkType == networkType).map(_.name).mkString(" / ")
+  def routeTypeName(routeType: RouteType): String = {
+    names.filter(_.routeType == routeType).map(_.name).mkString(" / ")
   }
 
-  def networkTypeLongName(networkType: NetworkType): Option[String] = {
-    val longNames = names.filter(_.networkType == networkType).flatMap(_.longName)
+  def routeTypeLongName(routeType: RouteType): Option[String] = {
+    val longNames = names.filter(_.routeType == routeType).flatMap(_.longName)
     if (longNames.nonEmpty) {
       Some(longNames.mkString(" / "))
     }

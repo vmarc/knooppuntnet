@@ -1,6 +1,6 @@
 package kpn.api.common.statistics
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
-case class StatisticValue(country: Country, networkType: NetworkType, value: String)
+case class StatisticValue(country: Country, routeType: RouteType, value: String)

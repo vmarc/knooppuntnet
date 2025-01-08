@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.changes.diff
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.common.common.ReferencedElements
 import kpn.api.common.diff.IdDiffs
@@ -13,7 +13,7 @@ import kpn.api.custom.Subset
  */
 case class NetworkDiff(
   country: Option[Country],
-  networkType: NetworkType,
+  routeType: RouteType,
   networkId: Long,
   networkName: String,
   networkDataUpdate: Option[NetworkDataUpdate],
@@ -26,7 +26,7 @@ case class NetworkDiff(
   investigate: Boolean
 ) {
 
-  def subsets: Seq[Subset] = country.toSeq.flatMap(country => Subset.of(country, networkType))
+  def subsets: Seq[Subset] = country.toSeq.flatMap(country => Subset.of(country, routeType))
 
   def toRef: Ref = Ref(networkId, networkName)
 

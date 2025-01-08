@@ -77,8 +77,8 @@ class NodeDocChangeAnalyzer(
     }
     else {
       val subsets = {
-        val subsetsBefore = before.country.toSeq.flatMap(country => before.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
-        val subsetsAfter = after.country.toSeq.flatMap(country => after.names.map(_.networkType).flatMap(networkType => Subset.of(country, networkType)))
+        val subsetsBefore = before.country.toSeq.flatMap(country => before.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType)))
+        val subsetsAfter = after.country.toSeq.flatMap(country => after.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType)))
         (subsetsBefore ++ subsetsAfter).distinct
       }
       val tagDiffs = analyzeTagDiffs

@@ -1,11 +1,11 @@
 package kpn.database.actions.nodes
 
-import kpn.database.actions.nodes.MongoQueryNodes.log
-import kpn.database.base.Count
-import kpn.database.base.Database
 import kpn.core.doc.Label
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
+import kpn.database.actions.nodes.MongoQueryNodes.log
+import kpn.database.base.Count
+import kpn.database.base.Database
 import org.mongodb.scala.model.Accumulators.sum
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
@@ -49,7 +49,7 @@ class MongoQueryNodes(database: Database) {
             in("_id", nodeIds: _*)
           )
         ),
-        unwind("$facts"), // TODO MONGO facts related to different scopedNetworkTypes than the network for which we do this query will also be counted
+        unwind("$facts"), // TODO MONGO facts related to different scopedRouteTypes than the network for which we do this query will also be counted
         group(
           "$facts",
           sum("count", 1)

@@ -28,7 +28,7 @@ class NetworkRoutesPageBuilder(database: Database) {
         NetworkRoutesPage(
           timeInfo = TimeInfoBuilder.timeInfo,
           surveyDateInfo = SurveyDateInfoBuilder.dateInfo,
-          networkType = data.summary.networkType,
+          routeType = data.summary.routeType,
           summary = data.summary,
           routes = data.routes.map { route =>
             val symbol = RouteSymbol.from(route)

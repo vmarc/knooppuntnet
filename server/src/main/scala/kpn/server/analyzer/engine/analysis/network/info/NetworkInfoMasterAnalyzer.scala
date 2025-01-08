@@ -21,7 +21,7 @@ import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoTag
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkLastUpdatedAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkNameAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkSurveyAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkTypeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.info.analyzers.RouteTypeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import org.springframework.stereotype.Component
 
@@ -40,7 +40,7 @@ class NetworkInfoMasterAnalyzer(
   private val log = Log(classOf[NetworkInfoMasterAnalyzer])
 
   private val analyzers: List[NetworkInfoAnalyzer] = List(
-    NetworkTypeAnalyzer,
+    RouteTypeAnalyzer,
     NetworkSurveyAnalyzer,
     NetworkNameAnalyzer,
     NetworkInfoTagAnalyzer,

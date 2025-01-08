@@ -1,7 +1,7 @@
 package kpn.server.repository
 
 import kpn.api.common.Bounds
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.SubRouteData
@@ -20,7 +20,7 @@ trait RouteDetailRepository {
 
   def filterKnown(routeIds: Set[Long]): Set[Long]
 
-  def routeTileInfosByNetworkType(networkType: NetworkType, nodeNetwork: Boolean): Seq[RouteTileInfo]
+  def routeTileInfosByrouteType(routeType: RouteType, nodeNetwork: Boolean): Seq[RouteTileInfo]
 
   def bounds(routeIds: Seq[Long]): Option[Bounds]
 

@@ -1,6 +1,6 @@
 package kpn.database.actions.nodes
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.actions.nodes.OldMongoQueryNodeTileInfo.log
@@ -35,13 +35,13 @@ object OldMongoQueryNodeTileInfo {
 
 class OldMongoQueryNodeTileInfo(database: Database) {
 
-  def findByNetworkType(networkType: NetworkType): Seq[NodeTileInfo] = {
+  def findByrouteType(routeType: RouteType): Seq[NodeTileInfo] = {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
           and(
             equal("labels", Label.active),
-            equal("labels", Label.networkType(networkType))
+            equal("labels", Label.routeType(routeType))
           )
         ),
         projectNodeTileInfo

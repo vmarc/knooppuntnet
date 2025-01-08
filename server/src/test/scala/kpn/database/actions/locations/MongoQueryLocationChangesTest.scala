@@ -1,7 +1,7 @@
 package kpn.database.actions.locations
 
 import kpn.api.common.LocationChangeSet
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.test.TestSupport.withDatabase
@@ -164,24 +164,24 @@ class MongoQueryLocationChangesTest extends UnitTest with SharedTestObjects {
   //  parameters.month.map(month => equal("key.time.month", month.toInt)),
   //  parameters.day.map(day => equal("key.time.day", day.toInt))
 
-  test("networkType") {
+  test("routeType") {
 
     withDatabase() { database =>
       val setup = new MongoQueryLocationChangesTestSetup(database)
 
       val change1a = setup.locationChanges()
       val change1b = setup.locationChanges()
-      val change1c = setup.locationChanges(networkType = NetworkType.cycling)
+      val change1c = setup.locationChanges(routeType = RouteType.cycling)
       val change2 = setup.locationChanges()
-      val change3 = setup.locationChanges(networkType = NetworkType.cycling)
+      val change3 = setup.locationChanges(routeType = RouteType.cycling)
 
       setup.changeSetSummary1(locationChanges = Seq(change1a, change1b, change1c))
       setup.changeSetSummary2(locationChanges = Seq(change2))
       setup.changeSetSummary3(locationChanges = Seq(change3))
 
-      setup.count(NetworkType.hiking) should equal(2)
+      setup.count(RouteType.hiking) should equal(2)
       assertEqual(
-        setup.changes(NetworkType.hiking),
+        setup.changes(RouteType.hiking),
         Seq(
           LocationChangeSet(
             _id = "201:20",
@@ -196,9 +196,9 @@ class MongoQueryLocationChangesTest extends UnitTest with SharedTestObjects {
         )
       )
 
-      setup.count(NetworkType.cycling) should equal(2)
+      setup.count(RouteType.cycling) should equal(2)
       assertEqual(
-        setup.changes(NetworkType.cycling),
+        setup.changes(RouteType.cycling),
         Seq(
           LocationChangeSet(
             _id = "301:30",

@@ -7,7 +7,7 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.data.raw.RawWay
-import kpn.api.custom.ScopedNetworkType
+import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
 import kpn.core.data.Data
@@ -17,7 +17,7 @@ import scala.collection.mutable.ListBuffer
 
 class RouteTestData(
   val routeName: String,
-  val scopedNetworkType: ScopedNetworkType = ScopedNetworkType.rwn,
+  val scopedRouteType: ScopedRouteType = ScopedRouteType.rwn,
   val routeTags: Seq[Tag] = Seq.empty
 ) extends SharedTestObjects {
 
@@ -29,7 +29,7 @@ class RouteTestData(
   def routeRelationId = 1L
 
   def node(id: Long, name: String = "", lattitude: Double = 0, longitude: Double = 0): RawNode = {
-    val tags = if (name == "") Seq.empty else Tags.from(scopedNetworkType.nodeRefTagKey -> name, "network:type" -> "node_network")
+    val tags = if (name == "") Seq.empty else Tags.from(scopedRouteType.nodeRefTagKey -> name, "network:type" -> "node_network")
     rawNode(newRawNode(id, lattitude.toString, longitude.toString, tags = tags))
   }
 
@@ -96,7 +96,7 @@ class RouteTestData(
     }
 
     val standardRouteTags = Tags.from(
-      "network" -> scopedNetworkType.key,
+      "network" -> scopedRouteType.key,
       "type" -> "route",
       "route" -> "foot",
       "network:type" -> "node_network"

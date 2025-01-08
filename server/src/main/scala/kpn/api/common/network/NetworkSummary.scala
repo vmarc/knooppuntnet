@@ -1,11 +1,11 @@
 package kpn.api.common.network
 
 import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 
 case class NetworkSummary(
   name: String,
-  networkType: NetworkType,
+  routeType: RouteType,
   networkScope: NetworkScope,
   factCount: Long,
   nodeCount: Long,

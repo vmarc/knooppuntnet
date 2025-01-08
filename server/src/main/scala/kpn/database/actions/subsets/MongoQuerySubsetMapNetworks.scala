@@ -24,7 +24,7 @@ class MongoQuerySubsetMapNetworks(database: Database) {
           and(
             equal("active", true),
             equal("country", subset.country.entryName),
-            equal("summary.networkType", subset.networkType.entryName),
+            equal("summary.routeType", subset.routeType.entryName),
           )
         ),
         project(

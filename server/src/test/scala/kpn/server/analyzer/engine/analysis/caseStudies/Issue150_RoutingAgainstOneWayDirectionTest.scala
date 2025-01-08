@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
-import kpn.api.common.NetworkType
+import kpn.api.common.RouteType
 import kpn.api.common.planner.LegBuildParams
 import kpn.api.common.planner.LegEnd
 import kpn.core.planner.graph.NodeNetworkGraph
@@ -31,7 +31,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
       val legBuilder = new LegBuilderImpl(graphRepository, routeDetailRepository)
       val params = LegBuildParams(
-        NetworkType.cycling.entryName,
+        RouteType.cycling.entryName,
         LegEnd.node(7741683309L),
         LegEnd.node(42784896L),
         proposed = false
@@ -82,7 +82,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)
       graphRepository.loadGraphs()
 
-      val graph: NodeNetworkGraph = graphRepository.graph(NetworkType.cycling).get
+      val graph: NodeNetworkGraph = graphRepository.graph(RouteType.cycling).get
 
       val startNode = "7741683309" // node 57
 
@@ -132,7 +132,7 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
       //      route2forwardPath.endNodeId should equal(42784896L) // node 53
       //
       //      pending // no couchdb database anymore
-      //      val graphEdges: Seq[GraphEdge] = Seq.empty // GraphEdgesView.query(database, NetworkType.cycling, stale = false)
+      //      val graphEdges: Seq[GraphEdge] = Seq.empty // GraphEdgesView.query(database, routeType.cycling, stale = false)
       //
       //      graphEdges.foreach { edge =>
       //        print(s"${edge.pathKey.routeId} ${edge.pathKey.pathId} ${edge.sourceNodeId} ${edge.sinkNodeId} ${edge.meters} ")

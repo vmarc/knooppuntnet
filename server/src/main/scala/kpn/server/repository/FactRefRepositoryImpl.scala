@@ -53,7 +53,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
           and(
             equal("labels", Label.active),
             equal("labels", Label.country(subset.country)),
-            equal("labels", Label.networkType(subset.networkType)),
+            equal("labels", Label.routeType(subset.routeType)),
             equal("labels", Label.fact(fact)),
           )
         ),
@@ -76,7 +76,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
           and(
             equal("active", true),
             equal("country", subset.country.entryName),
-            equal("summary.networkType", subset.networkType.entryName)
+            equal("summary.routeType", subset.routeType.entryName)
           )
         ),
         unwind("$facts"),
@@ -102,7 +102,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
           and(
             equal("active", true),
             equal("country", subset.country.entryName),
-            equal("summary.networkType", subset.networkType.entryName)
+            equal("summary.routeType", subset.routeType.entryName)
           )
         ),
         unwind("$facts"),
@@ -124,13 +124,13 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
 
   private def integrityCheckFailedFactRefs(subset: Subset): SubsetFactRefs = {
     log.debugElapsed {
-      val factLabel = s"integrity-check-failed-${subset.networkType.entryName}"
+      val factLabel = s"integrity-check-failed-${subset.routeType.entryName}"
       val pipeline = Seq(
         filter(
           and(
             equal("labels", Label.active),
             equal("labels", Label.country(subset.country)),
-            equal("labels", Label.networkType(subset.networkType)),
+            equal("labels", Label.routeType(subset.routeType)),
             equal("labels", factLabel),
           )
         ),
