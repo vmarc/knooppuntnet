@@ -4,7 +4,7 @@ import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { BrowserStorageService } from '@app/services';
 import { PageWidthService } from './page-width.service';
 
@@ -57,8 +57,8 @@ export class PageService {
     this.titleService.setTitle(title);
   }
 
-  setNetworkType(networkType: NetworkType): void {
-    this._toolbarBackgroundColor.set(networkType ? 'toolbar-style-' + networkType : null);
+  setRouteType(routeType: RouteType): void {
+    this._toolbarBackgroundColor.set(routeType ? 'toolbar-style-' + routeType : null);
   }
 
   private rememberSidebarOpen(sidebarOpen: boolean): void {

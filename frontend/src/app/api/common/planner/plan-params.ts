@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
 export interface PlanParams {
-  readonly networkType: string;
+  readonly routeType: string;
   readonly planString: string;
 }

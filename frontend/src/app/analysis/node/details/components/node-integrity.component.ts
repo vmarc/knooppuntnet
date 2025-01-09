@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { NodeIntegrity } from '@api/common/node';
 import { NodeIntegrityDetail } from '@api/common/node';
 import { NetworkScopeNameComponent } from '@app/components/shared';
-import { NetworkTypeIconComponent } from '@app/components/shared';
+import { RouteTypeIconComponent } from '@app/components/shared';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { IconInvestigateComponent } from '@app/components/shared/icon';
 
@@ -23,7 +23,7 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
         @for (detail of integrity().details; track detail) {
           <div>
             <div class="kpn-line detail-header">
-              <kpn-network-type-icon [networkType]="detail.networkType" />
+              <kpn-network-type-icon [routeType]="detail.routeType" />
               <div class="detail-header-text">
                 @if (happy(detail)) {
                   <span i18n="@@node.integrity.ok">
@@ -78,7 +78,7 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
     IconHappyComponent,
     IconInvestigateComponent,
     NetworkScopeNameComponent,
-    NetworkTypeIconComponent,
+    RouteTypeIconComponent,
   ],
 })
 export class NodeIntegrityComponent {

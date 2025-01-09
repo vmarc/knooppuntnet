@@ -6,7 +6,7 @@ import { ChangeSetSubsetElementRefs } from '@api/common';
 import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
 import { Ref } from '@api/common/common';
 import { RefDiffs } from '@api/common/diff';
-import { NetworkTypeIconComponent } from '@app/components/shared';
+import { RouteTypeIconComponent } from '@app/components/shared';
 import { List } from 'immutable';
 import { RouteDiffsData } from './route-diffs/route-diffs-data';
 import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
@@ -18,7 +18,7 @@ import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
     @for (refs of detail().orphanRouteChanges; track refs) {
       <div class="kpn-level-1">
         <div class="kpn-level-1-header kpn-line">
-          <kpn-network-type-icon [networkType]="refs.subset.networkType" />
+          <kpn-network-type-icon [routeType]="refs.subset.routeType" />
           <span>{{ refs.subset.country.toUpperCase() }}</span>
           <span i18n="@@change-set.orphan-routes.title">Free routes</span>
         </div>
@@ -28,7 +28,7 @@ import { RouteDiffsComponent } from './route-diffs/route-diffs.component';
       </div>
     }
   `,
-  imports: [NetworkTypeIconComponent, RouteDiffsComponent],
+  imports: [RouteTypeIconComponent, RouteDiffsComponent],
 })
 export class ChangeSetOrphanRouteChangesComponent {
   detail = input.required<ChangeSetDetail>();

@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { Signal } from '@angular/core';
 import { LegEnd } from '@api/common/planner';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Subscriptions } from '@app/util';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { PlannerMarkerLayer } from './planner-marker-layer';
 import { PlannerPopup } from './planner-popup';
 import { PlannerRouteLayer } from './planner-route-layer';
 
-export class NetworkTypeData {
+export class RouteTypeData {
   constructor(
     public plan: Plan,
     public commandStack: PlannerCommandStack
@@ -30,7 +30,7 @@ export class PlannerContext {
   private readonly _plan = signal<Plan>(Plan.empty);
   private readonly _error = signal<Error | null>(null);
   private readonly _commandStack = signal<PlannerCommandStack>(new PlannerCommandStack());
-  private networkTypeMap: Map<NetworkType, NetworkTypeData> = new Map();
+  private routeTypeMap: Map<RouteType, RouteTypeData> = new Map();
 
   private subscriptions = new Subscriptions();
 
@@ -38,7 +38,7 @@ export class PlannerContext {
   readonly error = this._error.asReadonly();
   readonly commandStack = this._commandStack.asReadonly();
 
-  private networkType: NetworkType;
+  private routeType: RouteType;
 
   constructor(
     readonly routeLayer: PlannerRouteLayer,
@@ -55,18 +55,18 @@ export class PlannerContext {
     this.subscriptions.unsubscribe();
   }
 
-  setNetworkType(networkType: NetworkType): void {
-    const oldNetworkType = this.networkType;
-    this.networkType = networkType;
-    if (oldNetworkType) {
+  setRouteType(routeType: RouteType): void {
+    const oldRouteType = this.routeType;
+    this.routeType = routeType;
+    if (oldRouteType) {
       const oldPlan = this.plan();
       const oldCommandStack = this.commandStack();
       this.routeLayer.removePlan(oldPlan);
       this.markerLayer.removePlan(oldPlan);
-      const data = new NetworkTypeData(oldPlan, oldCommandStack);
-      this.networkTypeMap = this.networkTypeMap.set(oldNetworkType, data);
+      const data = new RouteTypeData(oldPlan, oldCommandStack);
+      this.routeTypeMap = this.routeTypeMap.set(oldRouteType, data);
     }
-    const existingData = this.networkTypeMap.get(networkType);
+    const existingData = this.routeTypeMap.get(routeType);
     if (existingData) {
       this.routeLayer.addPlan(existingData.plan);
       this.markerLayer.addPlan(existingData.plan);
@@ -112,7 +112,7 @@ export class PlannerContext {
 
   fetchLeg(source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
     this.cursor.setStyleWait();
-    return this.legRepository.planLeg(this.networkType, source, sink, this.planProposed()).pipe(
+    return this.legRepository.planLeg(this.routeType, source, sink, this.planProposed()).pipe(
       tap(() => {
         this.cursor.setStyleDefault();
         this.highlighter.reset();

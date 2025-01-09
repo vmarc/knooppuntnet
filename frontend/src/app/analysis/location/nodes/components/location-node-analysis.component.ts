@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkScope } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { LocationNodeInfo } from '@api/common/location';
 import { IntegrityIndicatorData } from '@app/components/shared/indicator';
 import { IntegrityIndicatorComponent } from '@app/components/shared/indicator';
@@ -26,7 +26,7 @@ import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicat
   imports: [LocationNodeFactIndicatorComponent, IntegrityIndicatorComponent],
 })
 export class LocationNodeAnalysisComponent implements OnInit {
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
   networkScope = input.required<NetworkScope>();
   node = input.required<LocationNodeInfo>();
 
@@ -34,7 +34,7 @@ export class LocationNodeAnalysisComponent implements OnInit {
 
   ngOnInit(): void {
     this.integrityIndicatorData = new IntegrityIndicatorData(
-      this.networkType(),
+      this.routeType(),
       this.networkScope(),
       this.node().routeReferences.length,
       this.node().expectedRouteCount

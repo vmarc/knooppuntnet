@@ -23,35 +23,35 @@ export const locationRoutes: Routes = [
     ],
     children: [
       {
-        path: ':networkType/:country',
+        path: ':routeType/:country',
         component: LocationSelectionPageComponent,
       },
       {
-        path: ':networkType/:country/:location/details',
+        path: ':routeType/:country/:location/details',
         component: LocationDetailsPageComponent,
       },
       {
-        path: ':networkType/:country/:location/nodes',
+        path: ':routeType/:country/:location/nodes',
         component: LocationNodesPageComponent,
       },
       {
-        path: ':networkType/:country/:location/routes',
+        path: ':routeType/:country/:location/routes',
         component: LocationRoutesPageComponent,
       },
       {
-        path: ':networkType/:country/:location/facts',
+        path: ':routeType/:country/:location/facts',
         component: LocationFactsPageComponent,
       },
       {
-        path: ':networkType/:country/:location/map',
+        path: ':routeType/:country/:location/map',
         component: LocationMapPageComponent,
       },
       {
-        path: ':networkType/:country/:location/changes',
+        path: ':routeType/:country/:location/changes',
         component: LocationChangesPageComponent,
       },
       {
-        path: ':networkType/:country/:location/edit',
+        path: ':routeType/:country/:location/edit',
         component: LocationEditPageComponent,
       },
     ],

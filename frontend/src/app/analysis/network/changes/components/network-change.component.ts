@@ -55,7 +55,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
             <kpn-link-route
               [routeId]="ref.id"
               [routeName]="ref.name"
-              [networkType]="networkChangeInfo().networkType"
+              [routeType]="networkChangeInfo().routeType"
             />
           }
         </div>
@@ -109,7 +109,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
             <kpn-link-route
               [routeId]="ref.id"
               [routeName]="ref.name"
-              [networkType]="networkChangeInfo().networkType"
+              [routeType]="networkChangeInfo().routeType"
             />
           }
         </div>
@@ -154,7 +154,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
             <kpn-link-route
               [routeId]="ref.id"
               [routeName]="ref.name"
-              [networkType]="networkChangeInfo().networkType"
+              [routeType]="networkChangeInfo().routeType"
             />
           }
         </div>

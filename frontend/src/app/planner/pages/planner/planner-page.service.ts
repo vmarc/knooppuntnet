@@ -4,7 +4,7 @@ import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PlanParams } from '@api/common/planner';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Util } from '@app/components/shared';
 import { PageService } from '@app/components/shared';
 import { NoRouteDialogComponent } from '@app/ol/components';
@@ -37,11 +37,11 @@ export class PlannerPageService {
   private readonly subscriptions = new Subscriptions();
 
   readonly mapId = this.plannerMapService.mapId;
-  readonly networkType = this.plannerStateService.networkType;
+  readonly routeType = this.plannerStateService.routeType;
 
   constructor() {
     this.plannerStateService.onInit();
-    this.setNetworkType(this.plannerStateService.networkType());
+    this.setRouteType(this.plannerStateService.routeType());
     this.sharedStateService.loadSurveyDateValues();
     effect(() => {
       const error = this.plannerService.context.error();
@@ -62,12 +62,12 @@ export class PlannerPageService {
   }
 
   onInit(): void {
-    const networkType = this.plannerStateService.networkType();
-    this.pageService.setNetworkType(networkType);
+    const routeType = this.plannerStateService.routeType();
+    this.pageService.setRouteType(routeType);
     const planString = this.routerService.queryParam('plan');
     if (planString) {
       const planParams: PlanParams = {
-        networkType,
+        routeType,
         planString,
       };
       this.apiService.plan(planParams).subscribe((response) => {
@@ -81,11 +81,11 @@ export class PlannerPageService {
     }
   }
 
-  setNetworkType(networkType: NetworkType): void {
-    this.plannerStateService.setNetworkType(networkType);
-    this.plannerService.context.setNetworkType(networkType);
-    this.plannerMapService.networkTypeChanged(networkType);
-    this.pageService.setNetworkType(networkType);
+  setRouteType(routeType: RouteType): void {
+    this.plannerStateService.setRouteType(routeType);
+    this.plannerService.context.setRouteType(routeType);
+    this.plannerMapService.routeTypeChanged(routeType);
+    this.pageService.setRouteType(routeType);
   }
 
   setMapMode(mapMode: MapMode): void {
@@ -103,7 +103,7 @@ export class PlannerPageService {
 
   onDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.pageService.setNetworkType(null);
+    this.pageService.setRouteType(null);
     this.plannerService.context.destroy();
     this.plannerMapService.destroy();
   }
@@ -126,7 +126,7 @@ export class PlannerPageService {
   geolocation(coordinate: Coordinate): void {
     this.plannerMapService.map.getView().setCenter(coordinate);
     let zoomLevel = 15;
-    if ('cycling' === this.plannerStateService.networkType()) {
+    if ('cycling' === this.plannerStateService.routeType()) {
       zoomLevel = 13;
     }
     this.plannerMapService.map.getView().setZoom(zoomLevel);

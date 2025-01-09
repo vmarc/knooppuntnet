@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Color } from 'ol/color';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -17,7 +17,7 @@ export class OldOpendataVectorTileLayer {
   private static readonly smallStyle = this.buildSmallStyle();
   private static readonly largeStyle = this.buildLargeStyle();
 
-  static build(networkType: NetworkType, id: string, name: string, dir: string): OldMapLayer {
+  static build(routeType: RouteType, id: string, name: string, dir: string): OldMapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -44,7 +44,7 @@ export class OldOpendataVectorTileLayer {
       ZoomLevel.vectorTileMaxOverZoom,
       'vector',
       layer,
-      networkType,
+      routeType,
       null
     );
   }

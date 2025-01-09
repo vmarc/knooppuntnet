@@ -1,6 +1,6 @@
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { ZoomLevel } from '@app/ol/domain';
 import { FeatureLike } from 'ol/Feature';
 import { MVT } from 'ol/format';
@@ -21,13 +21,13 @@ export class RouteLayer {
     });
   }
 
-  build(networkType: NetworkType): MapLayer {
+  build(routeType: RouteType): MapLayer {
     const source = new VectorTile({
       tileSize: 256,
       minZoom: ZoomLevel.newMinZoom,
       maxZoom: ZoomLevel.newMaxZoom,
       format: new MVT(),
-      url: `/tiles/${networkType}/{z}/{x}/{y}.mvt`,
+      url: `/tiles/${routeType}/{z}/{x}/{y}.mvt`,
     });
     const layer = new VectorTileLayer({
       zIndex: Layers.zIndexRouteLayer,
@@ -37,7 +37,7 @@ export class RouteLayer {
     });
     return {
       layerType: 'route',
-      networkType: networkType,
+      routeType: routeType,
       minZoom: 2,
       maxZoom: 20,
       layer: layer,

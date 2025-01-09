@@ -9,7 +9,7 @@ import { PoiDetail } from '@api/common';
 import { PoiPage } from '@api/common';
 import { SurveyDateInfo } from '@api/common';
 import { Country } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { ChangeSetPage } from '@api/common/changes';
 import { ChangesParameters } from '@api/common/changes/filter';
 import { LocationChangesPage } from '@api/common/location';
@@ -212,10 +212,10 @@ export class ApiService {
   }
 
   public mapNodeDetail(
-    networkType: NetworkType,
+    routeType: RouteType,
     nodeId: number
   ): Observable<ApiResponse<MapNodeDetail>> {
-    const url = `/api/node-detail/${nodeId}/${networkType}`;
+    const url = `/api/node-detail/${nodeId}/${routeType}`;
     return this.http.get(url);
   }
 
@@ -248,11 +248,8 @@ export class ApiService {
     return this.http.post('/api/qr-code', url, { responseType: 'blob' });
   }
 
-  public locations(
-    networkType: NetworkType,
-    country: Country
-  ): Observable<ApiResponse<LocationsPage>> {
-    const url = `/api/locations/${this.locale}/${networkType}/${country}`;
+  public locations(routeType: RouteType, country: Country): Observable<ApiResponse<LocationsPage>> {
+    const url = `/api/locations/${this.locale}/${routeType}/${country}`;
     return this.http.get(url);
   }
 
@@ -354,11 +351,11 @@ export class ApiService {
   }
 
   private locationUrl(locationKey: LocationKey, target: string): string {
-    return `/api/${locationKey.networkType}/${locationKey.country}/${locationKey.name}/${target}`;
+    return `/api/${locationKey.routeType}/${locationKey.country}/${locationKey.name}/${target}`;
   }
 
   private subsetUrl(subset: Subset, target: string): string {
-    return `/api/${subset.country}/${subset.networkType}/${target}`;
+    return `/api/${subset.country}/${subset.routeType}/${target}`;
   }
 
   private languageParams(): HttpParams {

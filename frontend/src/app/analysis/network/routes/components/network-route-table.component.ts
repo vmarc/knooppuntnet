@@ -12,7 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkRouteRow } from '@api/common/network';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditService } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
@@ -54,7 +54,7 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
       <ng-container matColumnDef="analysis">
         <th mat-header-cell *matHeaderCellDef i18n="@@network-routes.table.analysis">Analysis</th>
         <td mat-cell *matCellDef="let route">
-          <kpn-network-route-analysis [route]="route" [networkType]="networkType()" />
+          <kpn-network-route-analysis [route]="route" [routeType]="routeType()" />
         </td>
       </ng-container>
 
@@ -74,11 +74,11 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
           Route
         </th>
         <td mat-cell *matCellDef="let route" class="kpn-align-center route-column">
-          <kpn-action-button-route [networkType]="route.networkType" [relationId]="route.id" />
+          <kpn-action-button-route [routeType]="route.routeType" [relationId]="route.id" />
           <kpn-link-route
             [routeId]="route.id"
             [routeName]="route.name"
-            [networkType]="route.networkType"
+            [routeType]="route.routeType"
           />
         </td>
       </ng-container>
@@ -174,7 +174,7 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
 export class NetworkRouteTableComponent implements OnInit {
   timeInfo = input.required<TimeInfo>();
   surveyDateInfo = input.required<SurveyDateInfo>();
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
   routes = input.required<NetworkRouteRow[]>();
 
   private readonly editAndPaginator = viewChild(EditAndPaginatorComponent);

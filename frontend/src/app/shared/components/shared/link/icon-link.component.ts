@@ -5,14 +5,14 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Reference } from '@api/common/common';
 import { NetworkScopeNameComponent } from '../network-scope-name.component';
-import { NetworkTypeIconComponent } from '../network-type-icon.component';
+import { RouteTypeIconComponent } from '../network-type-icon.component';
 
 @Component({
   selector: 'kpn-icon-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <kpn-network-type-icon [networkType]="reference().networkType" />
+      <kpn-network-type-icon [routeType]="reference().routeType" />
       <a [routerLink]="link" [state]="state" title="">{{ reference().name }}</a>
       @if (mixedNetworkScopes()) {
         <span class="kpn-brackets kpn-thin">
@@ -21,7 +21,7 @@ import { NetworkTypeIconComponent } from '../network-type-icon.component';
       }
     </div>
   `,
-  imports: [NetworkScopeNameComponent, NetworkTypeIconComponent, RouterLink],
+  imports: [NetworkScopeNameComponent, RouteTypeIconComponent, RouterLink],
 })
 export class IconLinkComponent implements OnInit {
   reference = input.required<Reference>();
@@ -33,7 +33,7 @@ export class IconLinkComponent implements OnInit {
 
   ngOnInit() {
     this.link = `/analysis/${this.elementType()}/${this.reference().id}`;
-    this.state['networkType'] = this.reference().networkType;
+    this.state['routeType'] = this.reference().routeType;
     this.state[this.elementType() + 'Name'] = this.reference().name;
   }
 }

@@ -2,7 +2,7 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { RouteListItem } from '@api/common/search/route-list-item';
 import { DistancePipe } from '@app/components/shared/format';
 import { ActionButtonRouteComponent } from '../../analysis/components/action/action-button-route.component';
@@ -13,7 +13,7 @@ import { ActionButtonRouteComponent } from '../../analysis/components/action/act
   template: `
     @let route = item();
     <div class="kpn-line">
-      <kpn-action-button-route [networkType]="networkType()" [relationId]="route.id" />
+      <kpn-action-button-route [routeType]="routeType()" [relationId]="route.id" />
       <a [routerLink]="'/analysis/route/' + route.id">{{ route.name }}</a>
     </div>
     <div class="kpn-line">
@@ -23,6 +23,6 @@ import { ActionButtonRouteComponent } from '../../analysis/components/action/act
   imports: [DistancePipe, RouterLink, ActionButtonRouteComponent],
 })
 export class SearchRouteComponent {
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
   item = input.required<RouteListItem>();
 }

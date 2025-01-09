@@ -8,7 +8,7 @@ export * from './nav';
 export * from './nav.service';
 export * from './network-scope-name.component';
 export * from './network-type-icon.component';
-export * from './network-type-name.component';
+export * from './route-type-name.component';
 export * from './network-type.component';
 export * from './page-width';
 export * from './page-width.service';

@@ -5,7 +5,7 @@ export enum AnalysisStrategy {
 
 export type PreferencesState = {
   strategy: AnalysisStrategy;
-  networkType: string;
+  routeType: string;
   extraLayers: boolean;
   pageSize: number;
   impact: boolean;
@@ -18,7 +18,7 @@ export type PreferencesState = {
 
 export const initialPreferencesState: PreferencesState = {
   strategy: AnalysisStrategy.location,
-  networkType: null,
+  routeType: null,
   extraLayers: false,
   pageSize: 25,
   impact: true,

@@ -2,7 +2,7 @@
 
 import { ChangeType } from '@api/common';
 import { Country } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { MetaData } from '@api/common/data';
 import { IdDiffs } from '@api/common/diff';
 import { RefDiffs } from '@api/common/diff';
@@ -14,7 +14,7 @@ export interface NetworkChangeInfo {
   readonly key: ChangeKey;
   readonly changeType: ChangeType;
   readonly country?: Country;
-  readonly networkType: NetworkType;
+  readonly routeType: RouteType;
   readonly networkId: number;
   readonly networkName: string;
   readonly before?: MetaData;

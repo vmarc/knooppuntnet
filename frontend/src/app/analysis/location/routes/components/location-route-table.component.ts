@@ -47,7 +47,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       <ng-container matColumnDef="analysis">
         <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.analysis">Analysis</th>
         <td mat-cell *matCellDef="let route">
-          <kpn-location-route-analysis [route]="route" [networkType]="service.networkType()" />
+          <kpn-location-route-analysis [route]="route" [routeType]="service.routeType()" />
         </td>
       </ng-container>
 
@@ -63,11 +63,11 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       <ng-container matColumnDef="route">
         <th mat-header-cell *matHeaderCellDef i18n="@@location-routes.table.route">Route</th>
         <td mat-cell *matCellDef="let route" class="kpn-align-center action-button-table-cell">
-          <kpn-action-button-route [networkType]="service.networkType()" [relationId]="route.id" />
+          <kpn-action-button-route [routeType]="service.routeType()" [relationId]="route.id" />
           <kpn-link-route
             [routeId]="route.id"
             [routeName]="route.name"
-            [networkType]="service.networkType()"
+            [routeType]="service.routeType()"
           />
         </td>
       </ng-container>

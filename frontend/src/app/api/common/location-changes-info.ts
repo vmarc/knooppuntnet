@@ -2,10 +2,10 @@
 
 import { ChangeSetElementRefs } from './change-set-element-refs';
 import { LocationInfo } from './location-info';
-import { NetworkType } from './network-type';
+import { RouteType } from './route-type';
 
 export interface LocationChangesInfo {
-  readonly networkType: NetworkType;
+  readonly routeType: RouteType;
   readonly locationInfos: LocationInfo[];
   readonly routeChanges: ChangeSetElementRefs;
   readonly nodeChanges: ChangeSetElementRefs;

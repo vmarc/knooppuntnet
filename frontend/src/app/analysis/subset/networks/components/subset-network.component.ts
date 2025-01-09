@@ -15,7 +15,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
     <div class="kpn-align-center">
       <kpn-link-network-details
         [networkId]="network().id"
-        [networkType]="network().networkType"
+        [routeType]="network().routeType"
         [networkName]="network().name"
       />
       <span class="percentage">{{ interpretedNetwork.percentageOk() }}</span>

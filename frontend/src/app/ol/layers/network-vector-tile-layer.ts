@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Translations } from '@app/i18n';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -9,13 +9,13 @@ import { OldLayers } from './old-layers';
 import { OldMapLayer } from './old-map-layer';
 
 export class NetworkVectorTileLayer {
-  public static oldBuild(networkType: NetworkType, styleFunction: StyleFunction): OldMapLayer {
+  public static oldBuild(routeType: RouteType, styleFunction: StyleFunction): OldMapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: `/tiles/${networkType}/{z}/{x}/{y}.mvt`,
+      url: `/tiles/${routeType}/{z}/{x}/{y}.mvt`,
     });
 
     const layer = new VectorTileLayer({
@@ -25,46 +25,46 @@ export class NetworkVectorTileLayer {
     });
 
     layer.setStyle(styleFunction);
-    const name = Translations.get(`network-type.${networkType}`);
+    const name = Translations.get(`network-type.${routeType}`);
     return new OldMapLayer(
-      networkType,
+      routeType,
       name,
       ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
       'vector',
       layer,
-      networkType,
+      routeType,
       null
     );
   }
 
-  public static build(networkType: NetworkType, styleFunction: StyleFunction): OldMapLayer {
+  public static build(routeType: RouteType, styleFunction: StyleFunction): OldMapLayer {
     const source = new VectorTile({
       tileSize: 512,
       minZoom: ZoomLevel.vectorTileMinZoom,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: `/tiles/${networkType}/{z}/{x}/{y}.mvt`,
+      url: `/tiles/${routeType}/{z}/{x}/{y}.mvt`,
     });
 
     const layer = new VectorTileLayer({
       zIndex: OldLayers.zIndexNetworkLayer,
-      className: `${networkType} - network`,
+      className: `${routeType} - network`,
       declutter: false,
       source,
       renderMode: 'vector',
       style: styleFunction,
     });
 
-    const name = Translations.get(`network-type.${networkType}`);
+    const name = Translations.get(`network-type.${routeType}`);
     return new OldMapLayer(
-      networkType,
+      routeType,
       name,
       ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
       'vector',
       layer,
-      networkType,
+      routeType,
       null
     );
   }

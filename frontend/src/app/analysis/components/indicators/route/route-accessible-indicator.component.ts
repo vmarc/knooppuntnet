@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { IndicatorComponent } from '@app/components/shared/indicator';
 import { RouteAccessibleData } from './route-accessible-data';
 import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indicator-dialog.component';
@@ -24,7 +24,7 @@ import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indi
 })
 export class RouteAccessibleIndicatorComponent implements OnInit {
   accessible = input.required<boolean>();
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
 
   private readonly dialog = inject(MatDialog);
   color: string;
@@ -34,7 +34,7 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
   }
 
   onOpenDialog() {
-    const data = new RouteAccessibleData(this.networkType(), this.accessible(), this.color);
+    const data = new RouteAccessibleData(this.routeType(), this.accessible(), this.color);
     this.dialog.open(RouteAccessibleIndicatorDialogComponent, {
       data,
       autoFocus: false,
@@ -44,13 +44,13 @@ export class RouteAccessibleIndicatorComponent implements OnInit {
 
   private determineColor() {
     let color = 'gray';
-    if ('horse-riding' === this.networkType() || 'inline-skating' === this.networkType()) {
+    if ('horse-riding' === this.routeType() || 'inline-skating' === this.routeType()) {
       color = 'gray';
     } else if (
-      'cycling' === this.networkType() ||
-      'hiking' === this.networkType() ||
-      'motorboat' === this.networkType() ||
-      'canoe' === this.networkType()
+      'cycling' === this.routeType() ||
+      'hiking' === this.routeType() ||
+      'motorboat' === this.routeType() ||
+      'canoe' === this.routeType()
     ) {
       color = this.accessible() ? 'green' : 'red';
     }

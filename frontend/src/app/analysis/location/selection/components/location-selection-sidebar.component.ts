@@ -26,7 +26,7 @@ export class LocationSelectionSidebarComponent {
   onStrategyChange(strategy: AnalysisStrategy) {
     if (strategy === AnalysisStrategy.network) {
       const key = this.locationService.key();
-      const url = `/analysis/${key.networkType}/${key.country}/networks`;
+      const url = `/analysis/${key.routeType}/${key.country}/networks`;
       this.router.navigate([url]);
     }
   }

@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Country } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { LocationNode } from '@api/common/location';
 import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
@@ -14,10 +14,10 @@ export class LocationSelectionService {
 
   private locationsCache: Map<string, Observable<LocationNode>> = new Map();
 
-  locations(networkType: NetworkType, country: Country): Observable<LocationNode> {
-    const key = `${networkType}:${country}`;
+  locations(routeType: RouteType, country: Country): Observable<LocationNode> {
+    const key = `${routeType}:${country}`;
     if (!this.locationsCache.has(key)) {
-      const res = this.apiService.locations(networkType, country).pipe(
+      const res = this.apiService.locations(routeType, country).pipe(
         map((response) => response.result.locationNode),
         shareReplay(1)
       );

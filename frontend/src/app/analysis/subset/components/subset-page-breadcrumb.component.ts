@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Subset } from '@api/custom';
 import { CountryNameComponent } from '@app/components/shared';
-import { NetworkTypeNameComponent } from '@app/components/shared';
+import { RouteTypeNameComponent } from '@app/components/shared';
 
 @Component({
   selector: 'kpn-subset-page-breadcrumb',
@@ -16,8 +16,8 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
         <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
       </li>
       <li>
-        <a [routerLink]="networkTypeLink()">
-          <kpn-network-type-name [networkType]="subset().networkType" />
+        <a [routerLink]="routeTypeLink()">
+          <kpn-network-type-name [routeType]="subset().routeType" />
         </a>
       </li>
       <li>
@@ -49,17 +49,17 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
       </li>
     </ul>
   `,
-  imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent],
+  imports: [RouterLink, RouteTypeNameComponent, CountryNameComponent],
 })
 export class SubsetPageBreadcrumbComponent {
   subset = input.required<Subset>();
   pageName = input.required<string>();
 
-  networkTypeLink() {
-    return `/analysis/${this.subset().networkType}`;
+  routeTypeLink() {
+    return `/analysis/${this.subset().routeType}`;
   }
 
   countryLink() {
-    return `/analysis/${this.subset().networkType}/${this.subset().country}/networks`;
+    return `/analysis/${this.subset().routeType}/${this.subset().country}/networks`;
   }
 }

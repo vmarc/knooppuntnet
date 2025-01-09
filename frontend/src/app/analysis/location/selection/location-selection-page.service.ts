@@ -22,7 +22,7 @@ export class LocationSelectionPageService {
   readonly locationNode = this._locationNode.asReadonly();
 
   readonly key = this.locationService.key;
-  readonly networkType = computed(() => this.locationService.key().networkType);
+  readonly routeType = computed(() => this.locationService.key().routeType);
   readonly country = computed(() => this.locationService.key().country);
   readonly isModeName = this.locationModeService.isModeName;
   readonly isModeTree = this.locationModeService.isModeTree;
@@ -30,14 +30,14 @@ export class LocationSelectionPageService {
   onInit() {
     this.locationService.initPage(this.routerService);
     this.locationSelectionService
-      .locations(this.networkType(), this.country())
+      .locations(this.routeType(), this.country())
       .subscribe((response) => {
         this._locationNode.set(this.toLocalLocationNode([], response));
       });
   }
 
   locationSelected(locationName: string): void {
-    const url = `/analysis/${this.networkType()}/${this.country()}/${locationName}/details`;
+    const url = `/analysis/${this.routeType()}/${this.country()}/${locationName}/details`;
     this.router.navigateByUrl(url);
   }
 

@@ -118,9 +118,9 @@ import { RouteDetailsPageService } from './route-details-page.service';
               @if (showRouteDetails()) {
                 <kpn-divider />
                 <div>
-                  <!-- TODO redesign networkTypes[0]-->
+                  <!-- TODO redesign routeTypes[0]-->
                   <kpn-route-members
-                    [networkType]="page.route.summary.networkTypes[0]"
+                    [routeType]="page.route.summary.routeTypes[0]"
                     [rows]="page.route.structureRows"
                   />
                 </div>

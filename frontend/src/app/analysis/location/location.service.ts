@@ -16,7 +16,7 @@ export class LocationService {
 
   initPage(routerService: RouterService) {
     const locationKey: LocationKey = {
-      networkType: routerService.paramNetworkType(),
+      routeType: routerService.paramRouteType(),
       country: routerService.paramCountry(),
       name: routerService.param('location'),
     };
@@ -33,7 +33,7 @@ export class LocationService {
   private shouldUpdate(oldKey: LocationKey, newKey: LocationKey): boolean {
     return (
       !oldKey ||
-      oldKey.networkType !== newKey.networkType ||
+      oldKey.routeType !== newKey.routeType ||
       oldKey.country !== newKey.country ||
       oldKey.name !== newKey.name
     );

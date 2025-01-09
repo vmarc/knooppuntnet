@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { NodeDetailsPage } from '@api/common/node';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
-import { NetworkTypeIconComponent } from '@app/components/shared';
+import { RouteTypeIconComponent } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
 import { ErrorComponent } from '@app/components/shared/error';
 import { OldPageComponent } from '@app/components/shared/page';
@@ -65,27 +65,27 @@ import { NodeDetailsPageService } from './node-details-page.service';
                 <kpn-tag-table [tags]="buildTags(page)" />
               </kpn-data>
               <kpn-data title="Location" i18n-title="@@node.location">
-                @if (networkTypes(); as networkTypes) {
+                @if (routeTypes(); as routeTypes) {
                   <div>
-                    @if (networkTypes.length > 1) {
+                    @if (routeTypes.length > 1) {
                       <div>
-                        @for (networkType of networkTypes; track networkType) {
+                        @for (routeType of routeTypes; track routeType) {
                           <div class="kpn-line">
-                            <kpn-network-type-icon [networkType]="networkType" />
+                            <kpn-network-type-icon [routeType]="routeType" />
                             <kpn-node-location
-                              [networkType]="networkType"
+                              [routeType]="routeType"
                               [locations]="page.nodeInfo.locations"
                             />
                           </div>
                         }
                       </div>
                     }
-                    @if (networkTypes.length === 1) {
+                    @if (routeTypes.length === 1) {
                       <div>
-                        @for (networkType of networkTypes; track networkType) {
+                        @for (routeType of routeTypes; track routeType) {
                           <div>
                             <kpn-node-location
-                              [networkType]="networkTypes[0]"
+                              [routeType]="routeTypes[0]"
                               [locations]="page.nodeInfo.locations"
                             />
                           </div>
@@ -130,7 +130,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
     DataComponent,
     ErrorComponent,
     FactsComponent,
-    NetworkTypeIconComponent,
+    RouteTypeIconComponent,
     NodeIntegrityComponent,
     NodeLocationComponent,
     NodeNetworkReferencesComponent,
@@ -146,7 +146,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
 })
 export class NodeDetailsPageComponent implements OnInit {
   readonly service = inject(NodeDetailsPageService);
-  readonly networkTypes = this.service.networkTypes;
+  readonly routeTypes = this.service.routeTypes;
 
   ngOnInit(): void {
     this.service.onInit();

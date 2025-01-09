@@ -22,7 +22,7 @@ export class SubsetSidebarComponent {
   strategyChanged(strategy: AnalysisStrategy) {
     if (strategy === AnalysisStrategy.location) {
       const subset = this.subsetService.subset();
-      const url = `/analysis/${subset.networkType}/${subset.country}`;
+      const url = `/analysis/${subset.routeType}/${subset.country}`;
       this.router.navigate([url]);
     }
   }

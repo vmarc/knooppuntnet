@@ -43,19 +43,15 @@ import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analys
           Analysis
         </th>
         <td mat-cell *matCellDef="let route">
-          <kpn-subset-orphan-route-analysis [route]="route" [networkType]="networkType()" />
+          <kpn-subset-orphan-route-analysis [route]="route" [routeType]="routeType()" />
         </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
         <th *matHeaderCellDef mat-header-cell i18n="@@subset-orphan-routes.table.name">Route</th>
         <td mat-cell *matCellDef="let route" class="kpn-align-center action-button-table-cell">
-          <kpn-action-button-route [networkType]="networkType()" [relationId]="route.id" />
-          <kpn-link-route
-            [routeId]="route.id"
-            [routeName]="route.name"
-            [networkType]="networkType()"
-          />
+          <kpn-action-button-route [routeType]="routeType()" [relationId]="route.id" />
+          <kpn-link-route [routeId]="route.id" [routeName]="route.name" [routeType]="routeType()" />
         </td>
       </ng-container>
 
@@ -117,7 +113,7 @@ import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analys
 export class SubsetOrphanRoutesTableComponent implements OnInit {
   private readonly service = inject(SubsetOrphanRoutesPageService);
   protected readonly pageSize = this.service.pageSize;
-  protected readonly networkType = this.service.networkType;
+  protected readonly routeType = this.service.routeType;
   protected readonly routes = this.service.filteredRoutes;
 
   private readonly editAndPaginator = viewChild.required(EditAndPaginatorComponent);

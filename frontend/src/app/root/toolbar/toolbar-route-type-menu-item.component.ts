@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatLabel } from '@angular/material/select';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { State } from '@app/state';
 import { RouteTypeIconItemComponent } from './route-type-icon.component';
 
@@ -16,7 +16,7 @@ import { RouteTypeIconItemComponent } from './route-type-icon.component';
   template: `
     <button mat-menu-item (click)="clicked()">
       <div class="item">
-        <kpn-route-type-icon [networkType]="networkType()" />
+        <kpn-route-type-icon [routeType]="routeType()" />
         <mat-label>{{ label() }}</mat-label>
       </div>
     </button>
@@ -34,10 +34,10 @@ import { RouteTypeIconItemComponent } from './route-type-icon.component';
 export class ToolbarRouteTypeMenuItemComponent {
   private readonly state = inject(State);
 
-  readonly networkType = input.required<NetworkType>();
+  readonly routeType = input.required<RouteType>();
   readonly label = input.required<string>();
 
   clicked(): void {
-    this.state.page.updateNetworkType(this.networkType());
+    this.state.page.updateRouteType(this.routeType());
   }
 }

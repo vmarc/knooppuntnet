@@ -32,7 +32,7 @@ export class LocationNodesPageService {
 
   readonly response = this._response.asReadonly();
   readonly pageIndex = this._pageIndex.asReadonly();
-  readonly networkType = computed(() => this.locationService.key().networkType);
+  readonly routeType = computed(() => this.locationService.key().routeType);
   readonly pageSize = this.preferencesService.pageSize;
 
   onInit(): void {

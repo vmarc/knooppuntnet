@@ -48,7 +48,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
         <td mat-cell *matCellDef="let node">
           <kpn-location-node-analysis
             [node]="node"
-            [networkType]="service.networkType()"
+            [routeType]="service.routeType()"
             [networkScope]="networkScope"
           />
         </td>

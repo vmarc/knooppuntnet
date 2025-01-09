@@ -20,7 +20,7 @@ export class SubsetService {
     if (
       !oldSubset ||
       oldSubset.country !== subset.country ||
-      oldSubset.networkType !== subset.networkType
+      oldSubset.routeType !== subset.routeType
     ) {
       this._subset.set(subset);
       this._subsetInfo.set(null);

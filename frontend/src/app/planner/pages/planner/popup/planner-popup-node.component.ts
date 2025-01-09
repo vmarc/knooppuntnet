@@ -43,7 +43,7 @@ import { PlannerPopupService } from '../../../domain/context/planner-popup-servi
                 <kpn-link-route
                   [routeId]="ref.id"
                   [routeName]="ref.name"
-                  [networkType]="ref.networkType"
+                  [routeType]="ref.routeType"
                 />
               </div>
             } @empty {

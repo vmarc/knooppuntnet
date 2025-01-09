@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocationKey } from '@api/custom';
 import { CountryNameComponent } from '@app/components/shared';
-import { NetworkTypeNameComponent } from '@app/components/shared';
+import { RouteTypeNameComponent } from '@app/components/shared';
 import { LocationPipe } from '../../../shared/components/shared/format/location.pipe';
 
 @Component({
@@ -17,8 +17,8 @@ import { LocationPipe } from '../../../shared/components/shared/format/location.
         <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
       </li>
       <li>
-        <a [routerLink]="networkTypeLink()">
-          <kpn-network-type-name [networkType]="locationKey().networkType" />
+        <a [routerLink]="routeTypeLink()">
+          <kpn-network-type-name [routeType]="locationKey().routeType" />
         </a>
       </li>
       <li>
@@ -29,17 +29,17 @@ import { LocationPipe } from '../../../shared/components/shared/format/location.
       <li>{{ locationName() | location }}</li>
     </ul>
   `,
-  imports: [RouterLink, NetworkTypeNameComponent, CountryNameComponent, LocationPipe],
+  imports: [RouterLink, RouteTypeNameComponent, CountryNameComponent, LocationPipe],
 })
 export class LocationPageBreadcrumbComponent {
   locationKey = input.required<LocationKey>();
 
-  networkTypeLink(): string {
-    return `/analysis/${this.locationKey().networkType}`;
+  routeTypeLink(): string {
+    return `/analysis/${this.locationKey().routeType}`;
   }
 
   countryLink(): string {
-    return `/analysis/${this.locationKey().networkType}/${this.locationKey().country}`;
+    return `/analysis/${this.locationKey().routeType}/${this.locationKey().country}`;
   }
 
   locationName(): string {

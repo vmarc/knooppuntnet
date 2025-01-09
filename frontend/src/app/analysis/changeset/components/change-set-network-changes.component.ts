@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
-import { NetworkTypeIconComponent } from '@app/components/shared';
+import { RouteTypeIconComponent } from '@app/components/shared';
 import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
 import { Subscriptions } from '@app/util';
 import { CsNcComponent } from './network/cs-nc.component';
@@ -21,11 +21,11 @@ import { CsNcComponent } from './network/cs-nc.component';
         <a [id]="networkChangeInfo.networkId"></a>
         <div class="kpn-level-1-header">
           <div class="kpn-line">
-            <kpn-network-type-icon [networkType]="networkChangeInfo.networkType" />
+            <kpn-network-type-icon [routeType]="networkChangeInfo.routeType" />
             <span i18n="@@change-set.network-changes.network">Network</span>
             <kpn-link-network-details
               [networkId]="networkChangeInfo.networkId"
-              [networkType]="networkChangeInfo.networkType"
+              [routeType]="networkChangeInfo.routeType"
               [networkName]="networkChangeInfo.networkName"
             />
           </div>
@@ -36,7 +36,7 @@ import { CsNcComponent } from './network/cs-nc.component';
       </div>
     }
   `,
-  imports: [CsNcComponent, LinkNetworkDetailsComponent, NetworkTypeIconComponent],
+  imports: [CsNcComponent, LinkNetworkDetailsComponent, RouteTypeIconComponent],
 })
 export class ChangeSetNetworkChangesComponent implements OnDestroy, AfterViewInit {
   detail = input.required<ChangeSetDetail>();

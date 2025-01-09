@@ -29,10 +29,10 @@ export class AnalysisStrategyService {
     this.routerService.updateQueryParams({ strategy });
   }
 
-  link(networkType: string, country: string): Signal<string> {
+  link(routeType: string, country: string): Signal<string> {
     return computed(() => {
       return (
-        `/analysis/${networkType}/${country}` +
+        `/analysis/${routeType}/${country}` +
         (this.preferencesService.strategy() === AnalysisStrategy.network ? '/networks' : '')
       );
     });

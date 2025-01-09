@@ -2,28 +2,28 @@ import { Subset } from '@api/custom';
 
 export class Subsets {
   static all: Subset[] = [
-    { country: 'nl', networkType: 'cycling' },
-    { country: 'nl', networkType: 'hiking' },
-    { country: 'nl', networkType: 'horse-riding' },
-    { country: 'nl', networkType: 'motorboat' },
-    { country: 'nl', networkType: 'canoe' },
-    { country: 'nl', networkType: 'inline-skating' },
-    { country: 'be', networkType: 'cycling' },
-    { country: 'be', networkType: 'hiking' },
-    { country: 'be', networkType: 'horse-riding' },
-    { country: 'de', networkType: 'cycling' },
-    { country: 'de', networkType: 'hiking' },
-    { country: 'fr', networkType: 'cycling' },
-    { country: 'fr', networkType: 'hiking' },
-    { country: 'fr', networkType: 'horse-riding' },
-    { country: 'fr', networkType: 'canoe' },
-    { country: 'at', networkType: 'cycling' },
-    { country: 'es', networkType: 'cycling' },
-    { country: 'es', networkType: 'hiking' },
-    { country: 'dk', networkType: 'cycling' },
+    { country: 'nl', routeType: 'cycling' },
+    { country: 'nl', routeType: 'hiking' },
+    { country: 'nl', routeType: 'horse-riding' },
+    { country: 'nl', routeType: 'motorboat' },
+    { country: 'nl', routeType: 'canoe' },
+    { country: 'nl', routeType: 'inline-skating' },
+    { country: 'be', routeType: 'cycling' },
+    { country: 'be', routeType: 'hiking' },
+    { country: 'be', routeType: 'horse-riding' },
+    { country: 'de', routeType: 'cycling' },
+    { country: 'de', routeType: 'hiking' },
+    { country: 'fr', routeType: 'cycling' },
+    { country: 'fr', routeType: 'hiking' },
+    { country: 'fr', routeType: 'horse-riding' },
+    { country: 'fr', routeType: 'canoe' },
+    { country: 'at', routeType: 'cycling' },
+    { country: 'es', routeType: 'cycling' },
+    { country: 'es', routeType: 'hiking' },
+    { country: 'dk', routeType: 'cycling' },
   ];
 
   static key(subset: Subset): string {
-    return subset.networkType + '/' + subset.country;
+    return subset.routeType + '/' + subset.country;
   }
 }

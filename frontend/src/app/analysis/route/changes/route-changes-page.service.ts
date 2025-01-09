@@ -95,9 +95,9 @@ export class RouteChangesPageService {
         .subscribe((response) => {
           if (response.result) {
             const name = response.result.routeNameInfo.routeName;
-            const networkType = response.result.routeNameInfo.networkType;
+            const routeType = response.result.routeNameInfo.routeType;
             const changeCount = response.result.changeCount;
-            this.routeService.updateRoute(networkType, name, changeCount);
+            this.routeService.updateRoute(routeType, name, changeCount);
           }
           this._response.set(response);
         });

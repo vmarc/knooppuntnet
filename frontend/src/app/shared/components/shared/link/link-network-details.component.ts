@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 
 @Component({
   selector: 'kpn-link-network-details',
@@ -10,7 +10,7 @@ import { NetworkType } from '@api/common';
   template: `
     <a
       [routerLink]="'/analysis/network/' + networkId()"
-      [state]="{ networkType: networkType(), networkName: networkName() }"
+      [state]="{ routeType: routeType(), networkName: networkName() }"
     >
       {{ networkName() }}
     </a>
@@ -20,5 +20,5 @@ import { NetworkType } from '@api/common';
 export class LinkNetworkDetailsComponent {
   networkId = input.required<number>();
   networkName = input.required<string>();
-  networkType = input<NetworkType>();
+  routeType = input<RouteType>();
 }

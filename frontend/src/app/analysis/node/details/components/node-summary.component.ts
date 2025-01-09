@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { NodeInfo } from '@api/common';
 import { CountryNameComponent } from '@app/components/shared';
 import { NetworkScopeNameComponent } from '@app/components/shared';
-import { NetworkTypeComponent } from '@app/components/shared';
+import { RouteTypeComponent } from '@app/components/shared';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
 
@@ -27,7 +27,7 @@ import { ActionButtonNodeComponent } from '../../../components/action/action-but
               </td>
               <td>
                 <div class="kpn-line">
-                  <kpn-network-type [networkType]="nodeName.networkType">
+                  <kpn-network-type [routeType]="nodeName.routeType">
                     <span i18n="@@node.node" class="network-type">network node</span>
                     <span class="kpn-brackets">
                       <kpn-network-scope-name [networkScope]="nodeName.networkScope" />
@@ -44,7 +44,7 @@ import { ActionButtonNodeComponent } from '../../../components/action/action-but
         <div>
           @for (nodeName of nodeInfo().names; track nodeName) {
             <p>
-              <kpn-network-type [networkType]="nodeName.networkType">
+              <kpn-network-type [routeType]="nodeName.routeType">
                 <span i18n="@@node.node" class="network-type">network node</span>
               </kpn-network-type>
             </p>
@@ -94,7 +94,7 @@ import { ActionButtonNodeComponent } from '../../../components/action/action-but
     MarkdownModule,
     MatIconModule,
     NetworkScopeNameComponent,
-    NetworkTypeComponent,
+    RouteTypeComponent,
     ActionButtonNodeComponent,
   ],
 })

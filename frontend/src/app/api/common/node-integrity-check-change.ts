@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
-import { NetworkType } from './network-type';
+import { RouteType } from './route-type';
 import { NodeIntegrityCheck } from './node-integrity-check';
 
 export interface NodeIntegrityCheckChange {
-  readonly networkType: NetworkType;
+  readonly routeType: RouteType;
   readonly before?: NodeIntegrityCheck;
   readonly after?: NodeIntegrityCheck;
 }

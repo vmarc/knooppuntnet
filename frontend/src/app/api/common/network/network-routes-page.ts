@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkRouteRow } from './network-route-row';
@@ -9,7 +9,7 @@ import { NetworkSummary } from './network-summary';
 export interface NetworkRoutesPage {
   readonly timeInfo: TimeInfo;
   readonly surveyDateInfo: SurveyDateInfo;
-  readonly networkType: NetworkType;
+  readonly routeType: RouteType;
   readonly summary: NetworkSummary;
   readonly routes: NetworkRouteRow[];
 }

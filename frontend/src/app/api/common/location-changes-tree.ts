@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
 import { LocationChangesTreeNode } from './location-changes-tree-node';
-import { NetworkType } from './network-type';
+import { RouteType } from './route-type';
 
 export interface LocationChangesTree {
-  readonly networkType: NetworkType;
+  readonly routeType: RouteType;
   readonly locationName: string;
   readonly happy: boolean;
   readonly investigate: boolean;

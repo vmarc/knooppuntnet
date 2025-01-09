@@ -1,11 +1,11 @@
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import { ZoomLevel } from '../domain';
 import { OldMapLayer } from './old-map-layer';
 
 export class OldOpendataBitmapTileLayer {
-  static build(networkType: NetworkType, id: string, layerName: string, dir: string): OldMapLayer {
+  static build(routeType: RouteType, id: string, layerName: string, dir: string): OldMapLayer {
     const layer = new TileLayer<XYZ>({
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
@@ -21,7 +21,7 @@ export class OldOpendataBitmapTileLayer {
       ZoomLevel.bitmapTileMaxZoom,
       'bitmap',
       layer,
-      networkType,
+      routeType,
       null
     );
   }

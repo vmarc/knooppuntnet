@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeSetSubsetElementRefs } from '@api/common';
-import { NetworkTypeIconComponent } from '@app/components/shared';
+import { RouteTypeIconComponent } from '@app/components/shared';
 import { ChangesSetElementRefsComponent } from './change-set-element-refs.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>
-      <kpn-network-type-icon [networkType]="networkType()" />
+      <kpn-network-type-icon [routeType]="routeType()" />
       <span i18n="@@change-set.orphan-routes">Free route(s)</span>
     </div>
     <kpn-change-set-element-refs
@@ -19,7 +19,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
       [changeSetElementRefs]="subsetElementRefs().elementRefs"
     />
   `,
-  imports: [NetworkTypeIconComponent, ChangesSetElementRefsComponent],
+  imports: [RouteTypeIconComponent, ChangesSetElementRefsComponent],
 })
 export class ChangesSetOrphanRoutesComponent {
   subsetElementRefs = input.required<ChangeSetSubsetElementRefs>();
@@ -31,7 +31,7 @@ export class ChangesSetOrphanRoutesComponent {
     return '??country??';
   }
 
-  networkType() {
-    return this.subsetElementRefs().subset.networkType;
+  routeType() {
+    return this.subsetElementRefs().subset.routeType;
   }
 }

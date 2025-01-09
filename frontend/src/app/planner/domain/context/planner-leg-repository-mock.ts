@@ -1,5 +1,5 @@
 import { LegEnd } from '@api/common/planner';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Map } from 'immutable';
 import { List } from 'immutable';
 import { Observable, of } from 'rxjs';
@@ -10,7 +10,7 @@ import { PlannerLegRepository } from './planner-leg-repository';
 export class PlannerLegRepositoryMock implements PlannerLegRepository {
   private planLegDetails: Map<string, PlanLegData> = Map<string, PlanLegData>();
 
-  planLeg(networkType: NetworkType, source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
+  planLeg(routeType: RouteType, source: LegEnd, sink: LegEnd): Observable<PlanLegData> {
     const key = PlanUtil.key(source, sink);
     const data = this.planLegDetails.get(key);
     if (!data) {

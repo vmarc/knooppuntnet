@@ -33,7 +33,7 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
               <div i18n="@@network-nodes.no-nodes">No network nodes in network</div>
             } @else {
               <kpn-network-node-table
-                [networkType]="page.summary.networkType"
+                [routeType]="page.summary.routeType"
                 [networkScope]="page.summary.networkScope"
                 [timeInfo]="page.timeInfo"
                 [surveyDateInfo]="page.surveyDateInfo"

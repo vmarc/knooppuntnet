@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { NodeMapInfo } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { OlUtil } from '@app/ol';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
@@ -27,11 +27,11 @@ export class NodeMapService extends OpenlayersMapService {
 
   init(
     nodeMapInfo: NodeMapInfo,
-    defaultNetworkType: NetworkType,
+    defaultRouteType: RouteType,
     mapPositionFromUrl: MapPosition,
     urlLayerIds: string[]
   ): void {
-    this.registerLayers(nodeMapInfo, defaultNetworkType, urlLayerIds);
+    this.registerLayers(nodeMapInfo, defaultRouteType, urlLayerIds);
 
     let viewOptions: ViewOptions = {
       minZoom: ZoomLevel.vectorTileMinZoom,
@@ -71,27 +71,26 @@ export class NodeMapService extends OpenlayersMapService {
 
   private registerLayers(
     nodeMapInfo: NodeMapInfo,
-    defaultNetworkType: NetworkType,
+    defaultRouteType: RouteType,
     urlLayerIds: string[]
   ): void {
     const registry = new OldMapLayerRegistry();
     registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
     registry.register(urlLayerIds, OldOsmLayer.build(), false);
 
-    nodeMapInfo.networkTypes.forEach((networkType) => {
-      const visible =
-        nodeMapInfo.networkTypes.length > 1 ? networkType == defaultNetworkType : true;
+    nodeMapInfo.routeTypes.forEach((routeType) => {
+      const visible = nodeMapInfo.routeTypes.length > 1 ? routeType == defaultRouteType : true;
       registry.register(
         urlLayerIds,
-        NetworkVectorTileLayer.build(networkType, new NodeMapStyle().styleFunction()),
+        NetworkVectorTileLayer.build(routeType, new NodeMapStyle().styleFunction()),
         visible
       );
     });
 
     registry.register(urlLayerIds, NodeMarkerLayer.build(nodeMapInfo), true);
 
-    nodeMapInfo.networkTypes.forEach((networkType) =>
-      OldOpenDataLayers.register(registry, networkType, urlLayerIds)
+    nodeMapInfo.routeTypes.forEach((routeType) =>
+      OldOpenDataLayers.register(registry, routeType, urlLayerIds)
     );
 
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);

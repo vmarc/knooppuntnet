@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import BaseLayer from 'ol/layer/Base';
 
 export class OldMapLayer {
@@ -13,7 +13,7 @@ export class OldMapLayer {
     public maxZoom: number,
     // public mapTile: MapTile,
     public layer: BaseLayer,
-    public networkType?: NetworkType
+    public routeType?: RouteType
     // public mapMode?: MapMode
   ) {}
 }

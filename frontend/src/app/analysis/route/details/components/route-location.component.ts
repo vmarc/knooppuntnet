@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocationInfo } from '@api/common';
 import { LocationCandidateInfo } from '@api/common/location/location-candidate-info';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 
 @Component({
   selector: 'kpn-route-location',
@@ -42,11 +42,11 @@ import { NetworkType } from '@api/common';
   imports: [RouterLink],
 })
 export class RouteLocationComponent {
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
   locationCandidateInfos = input.required<LocationCandidateInfo[]>();
 
   link(locationInfo: LocationInfo) {
-    return `/analysis/${this.networkType()}/${locationInfo.link}/details`;
+    return `/analysis/${this.routeType()}/${locationInfo.link}/details`;
   }
 
   percentage(locationCandidateInfo: LocationCandidateInfo): string {

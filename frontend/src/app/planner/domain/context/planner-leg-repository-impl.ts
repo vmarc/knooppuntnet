@@ -1,6 +1,6 @@
 import { LegBuildParams } from '@api/common/planner';
 import { LegEnd } from '@api/common/planner';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { ApiService } from '@app/services';
 import { List } from 'immutable';
 import { Observable } from 'rxjs';
@@ -12,13 +12,13 @@ export class PlannerLegRepositoryImpl implements PlannerLegRepository {
   constructor(private apiService: ApiService) {}
 
   planLeg(
-    networkType: NetworkType,
+    routeType: RouteType,
     source: LegEnd,
     sink: LegEnd,
     proposed: boolean
   ): Observable<PlanLegData> {
     const params: LegBuildParams = {
-      networkType,
+      routeType,
       source,
       sink,
       proposed,

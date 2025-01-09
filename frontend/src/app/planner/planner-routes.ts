@@ -12,7 +12,7 @@ export const plannerRoutes: Routes = [
         component: MapPageComponent,
       },
       {
-        path: ':networkType',
+        path: ':routeType',
         children: [
           {
             path: '',

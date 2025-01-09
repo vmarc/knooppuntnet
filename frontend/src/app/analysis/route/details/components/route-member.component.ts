@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { MatLabel } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { RouteStructureRow } from '@api/common/route';
 import { DayPipe } from '@app/components/shared/format';
 import { LinkNodeComponent } from '@app/components/shared/link';
@@ -62,7 +62,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
             </div>
           }
         }
-        @if (networkType() === 'cycling') {
+        @if (routeType() === 'cycling') {
           @if (row.way) {
             @if (row.way.oneWay === 'forward') {
               <div i18n="@@route.members.table.one-way.yes">Yes</div>
@@ -72,7 +72,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
             }
           }
         }
-        @if (networkType() === 'cycling') {
+        @if (routeType() === 'cycling') {
           @if (row.way) {
             @if (row.way.oneWayTags.length > 0) {
               <kpn-tags-text [tags]="row.way.oneWayTags" />
@@ -146,7 +146,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
   ],
 })
 export class RouteMemberComponent {
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
   structureRow = input.required<RouteStructureRow>();
   rowIndex = input.required<number>();
 }

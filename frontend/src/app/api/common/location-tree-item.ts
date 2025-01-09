@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { ChangeSetElementRefs } from './change-set-element-refs';
 
 export interface LocationTreeItem {
@@ -8,7 +8,7 @@ export interface LocationTreeItem {
   readonly locationName: string;
   readonly happy: boolean;
   readonly investigate: boolean;
-  readonly networkType: NetworkType;
+  readonly routeType: RouteType;
   readonly routeChanges: ChangeSetElementRefs;
   readonly nodeChanges: ChangeSetElementRefs;
   readonly expandable: boolean;

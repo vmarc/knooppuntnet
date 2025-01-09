@@ -22,7 +22,7 @@ import { Subsets } from '@app/kpn/common';
     <tr>
       @for (subset of subsets(); track subset) {
         <th class="value-cell">
-          <mat-icon [svgIcon]="subset.networkType" />
+          <mat-icon [svgIcon]="subset.routeType" />
         </th>
       }
     </tr>

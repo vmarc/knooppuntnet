@@ -3,7 +3,7 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 
 @Component({
   selector: 'kpn-route-type-icon',
@@ -12,9 +12,9 @@ import { NetworkType } from '@api/common';
   imports: [MatIconModule],
 })
 export class RouteTypeIconItemComponent {
-  readonly networkType = input.required<NetworkType>();
+  readonly routeType = input.required<RouteType>();
   readonly icon = computed(() => {
-    switch (this.networkType()) {
+    switch (this.routeType()) {
       case 'cycling':
         return 'directions_bike';
       case 'hiking':

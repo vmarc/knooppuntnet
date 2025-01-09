@@ -15,31 +15,31 @@ export const subsetRoutes: Routes = [
     providers: [AnalysisStrategyService, SubsetMapService],
     children: [
       {
-        path: ':networkType/:country/networks',
+        path: ':routeType/:country/networks',
         component: SubsetNetworksPageComponent,
       },
       {
-        path: ':networkType/:country/facts',
+        path: ':routeType/:country/facts',
         component: SubsetFactsPageComponent,
       },
       {
-        path: ':networkType/:country/orphan-nodes',
+        path: ':routeType/:country/orphan-nodes',
         component: SubsetOrphanNodesPageComponent,
       },
       {
-        path: ':networkType/:country/orphan-routes',
+        path: ':routeType/:country/orphan-routes',
         component: SubsetOrphanRoutesPageComponent,
       },
       {
-        path: ':networkType/:country/map',
+        path: ':routeType/:country/map',
         component: SubsetMapPageComponent,
       },
       {
-        path: ':networkType/:country/changes',
+        path: ':routeType/:country/changes',
         component: SubsetChangesPageComponent,
       },
       {
-        path: ':networkType/:country/facts/:fact',
+        path: ':routeType/:country/facts/:fact',
         component: SubsetFactDetailsPageComponent,
       },
     ],

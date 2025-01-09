@@ -13,8 +13,8 @@ import { PlannerPageService } from '../planner-page.service';
     <div class="planner-network-type-selector">
       <mat-button-toggle-group
         [hideSingleSelectionIndicator]="true"
-        [value]="service.networkType()"
-        (change)="networkTypeChanged($event)"
+        [value]="service.routeType()"
+        (change)="routeTypeChanged($event)"
       >
         <mat-button-toggle value="cycling">
           <mat-icon svgIcon="cycling" />
@@ -45,10 +45,10 @@ import { PlannerPageService } from '../planner-page.service';
   `,
   imports: [MatButtonToggleModule, MatIconModule],
 })
-export class NetworkTypeSelectorComponent {
+export class RouteTypeSelectorComponent {
   readonly service = inject(PlannerPageService);
 
-  networkTypeChanged(event: MatButtonToggleChange): void {
-    this.service.setNetworkType(event.value);
+  routeTypeChanged(event: MatButtonToggleChange): void {
+    this.service.setRouteType(event.value);
   }
 }

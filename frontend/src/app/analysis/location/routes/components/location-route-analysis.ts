@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { LocationRouteInfo } from '@api/common/location';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indicators/route';
 import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route';
 
@@ -14,7 +14,7 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
       <kpn-route-investigate-indicator [investigate]="route().broken" />
       <kpn-route-accessible-indicator
         [accessible]="!route().inaccessible"
-        [networkType]="networkType()"
+        [routeType]="routeType()"
       />
     </div>
   `,
@@ -27,5 +27,5 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
 })
 export class LocationRouteAnalysisComponent {
   route = input.required<LocationRouteInfo>();
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
 }

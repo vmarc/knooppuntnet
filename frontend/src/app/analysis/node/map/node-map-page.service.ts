@@ -29,7 +29,7 @@ export class NodeMapPageService {
     const mapPositionFromUrl = MapPosition.fromQueryParam(mapPositionString);
     this.nodeMapService.init(
       this.response().result.nodeMapInfo,
-      'hiking', // TODO SIGNAL get preferred networkType from preferencesStore
+      'hiking', // TODO SIGNAL get preferred routeType from preferencesStore
       mapPositionFromUrl,
       this.routerService.urlLayerIds()
     );

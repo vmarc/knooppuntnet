@@ -1,14 +1,14 @@
 import { signal } from '@angular/core';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 
 export class PageState {
   private readonly _small = signal<boolean>(false);
   private readonly _activePanel = signal<string>('map');
-  private readonly _networkType = signal<NetworkType>('hiking');
+  private readonly _routeType = signal<RouteType>('hiking');
 
   readonly small = this._small.asReadonly();
   readonly activePanel = this._activePanel.asReadonly();
-  readonly networkType = this._networkType.asReadonly();
+  readonly routeType = this._routeType.asReadonly();
 
   updateSmall(value: boolean): void {
     this._small.set(value);
@@ -18,7 +18,7 @@ export class PageState {
     this._activePanel.set(value);
   }
 
-  updateNetworkType(value: NetworkType): void {
-    this._networkType.set(value);
+  updateRouteType(value: RouteType): void {
+    this._routeType.set(value);
   }
 }

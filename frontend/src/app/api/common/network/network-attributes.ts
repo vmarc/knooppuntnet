@@ -3,14 +3,14 @@
 import { Country } from '@api/common';
 import { LatLonImpl } from '@api/common';
 import { NetworkScope } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Timestamp } from '@api/custom';
 import { Integrity } from './integrity';
 
 export interface NetworkAttributes {
   readonly id: number;
   readonly country?: Country;
-  readonly networkType: NetworkType;
+  readonly routeType: RouteType;
   readonly networkScope: NetworkScope;
   readonly name: string;
   readonly km: number;

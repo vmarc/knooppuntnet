@@ -7,7 +7,7 @@ import { RouterService } from '../../shared/services/router.service';
 
 const defaultSummary: NetworkSummary = {
   name: '',
-  networkType: null,
+  routeType: null,
   networkScope: null,
   factCount: 0,
   nodeCount: 0,
@@ -35,12 +35,12 @@ export class NetworkService {
       let summary = defaultSummary;
       const state = this.location.getState();
       if (state) {
-        const networkType = state['networkType'];
+        const routeType = state['routeType'];
         const name = state['networkName'];
         summary = {
           ...defaultSummary,
           name,
-          networkType,
+          routeType,
         };
       }
       this._networkId.set(networkId);

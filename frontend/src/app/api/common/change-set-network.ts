@@ -2,11 +2,11 @@
 
 import { ChangeSetElementRefs } from './change-set-element-refs';
 import { Country } from './country';
-import { NetworkType } from './network-type';
+import { RouteType } from './route-type';
 
 export interface ChangeSetNetwork {
   readonly country?: Country;
-  readonly networkType: NetworkType;
+  readonly routeType: RouteType;
   readonly networkId: number;
   readonly networkName: string;
   readonly routeChanges: ChangeSetElementRefs;

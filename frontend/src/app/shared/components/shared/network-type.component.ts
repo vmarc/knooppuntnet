@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NetworkType } from '@api/common';
-import { NetworkTypeIconComponent } from './network-type-icon.component';
-import { NetworkTypeNameComponent } from './network-type-name.component';
+import { RouteType } from '@api/common';
+import { RouteTypeIconComponent } from './network-type-icon.component';
+import { RouteTypeNameComponent } from './route-type-name.component';
 
 @Component({
   selector: 'kpn-network-type',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="network-type">
-      <kpn-network-type-icon [networkType]="networkType()" />
-      <kpn-network-type-name [networkType]="networkType()" />
+      <kpn-network-type-icon [routeType]="routeType()" />
+      <kpn-network-type-name [routeType]="routeType()" />
       <ng-content></ng-content>
     </div>
   `,
@@ -27,8 +27,8 @@ import { NetworkTypeNameComponent } from './network-type-name.component';
       margin-right: 10px;
     }
   `,
-  imports: [NetworkTypeIconComponent, NetworkTypeNameComponent],
+  imports: [RouteTypeIconComponent, RouteTypeNameComponent],
 })
-export class NetworkTypeComponent {
-  networkType = input.required<NetworkType>();
+export class RouteTypeComponent {
+  routeType = input.required<RouteType>();
 }

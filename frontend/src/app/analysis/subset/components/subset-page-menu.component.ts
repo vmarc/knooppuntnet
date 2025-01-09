@@ -72,6 +72,6 @@ export class SubsetPageMenuComponent {
   pageName = input.required<string>();
 
   link(targetPageName: string) {
-    return `/analysis/${this.subset().networkType}/${this.subset().country}/${targetPageName}`;
+    return `/analysis/${this.subset().routeType}/${this.subset().country}/${targetPageName}`;
   }
 }

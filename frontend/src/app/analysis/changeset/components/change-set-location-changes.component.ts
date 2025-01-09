@@ -20,8 +20,8 @@ import { PageService } from '@app/components/shared';
     <!--        >-->
     <!--          <div class="node-label" *ngIf="node.expandable">-->
     <!--            <kpn-network-type-icon-->
-    <!--              *ngIf="node.networkType"-->
-    <!--              [networkType]="node.networkType"-->
+    <!--              *ngIf="node.routeType"-->
+    <!--              [routeType]="node.routeType"-->
     <!--            ></kpn-network-type-icon>-->
 
     <!--            <mat-icon-->

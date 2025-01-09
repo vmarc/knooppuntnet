@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PageWidthService } from '@app/components/shared';
-import { NetworkTypeSelectorComponent } from './network-type-selector.component';
+import { RouteTypeSelectorComponent } from './network-type-selector.component';
 import { PlanActionsComponent } from './plan-actions.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { PlanActionsComponent } from './plan-actions.component';
   template: `
     <div class="toolbar">
       <kpn-plan-actions />
-      @if (showNetworkTypeSelector()) {
+      @if (showRouteTypeSelector()) {
         <kpn-network-type-selector />
       }
     </div>
@@ -21,9 +21,9 @@ import { PlanActionsComponent } from './plan-actions.component';
       align-items: center;
     }
   `,
-  imports: [NetworkTypeSelectorComponent, PlanActionsComponent],
+  imports: [RouteTypeSelectorComponent, PlanActionsComponent],
 })
 export class PlannerToolbarComponent {
   private readonly pageWidthService = inject(PageWidthService);
-  protected showNetworkTypeSelector = this.pageWidthService.isVeryLarge;
+  protected showRouteTypeSelector = this.pageWidthService.isVeryLarge;
 }

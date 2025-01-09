@@ -1,11 +1,11 @@
 import { LegEnd } from '@api/common/planner';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Observable } from 'rxjs';
 import { PlanLegData } from './plan-leg-data';
 
 export interface PlannerLegRepository {
   planLeg(
-    networkType: NetworkType,
+    routeType: RouteType,
     source: LegEnd,
     sink: LegEnd,
     proposed: boolean

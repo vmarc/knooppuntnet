@@ -13,11 +13,7 @@ import { LinkRouteComponent } from '@app/components/shared/link';
     } @else {
       <span class="kpn-comma-list">
         @for (ref of node().routeReferences; track $index) {
-          <kpn-link-route
-            [routeId]="ref.id"
-            [routeName]="ref.name"
-            [networkType]="ref.networkType"
-          />
+          <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" [routeType]="ref.routeType" />
         }
       </span>
     }

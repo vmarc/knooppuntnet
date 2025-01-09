@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Translations } from '@app/i18n';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
@@ -6,17 +6,17 @@ import { ZoomLevel } from '../domain';
 import { OldMapLayer } from './old-map-layer';
 
 export class NetworkNodesBitmapTileLayer {
-  static build(networkType: NetworkType): OldMapLayer {
+  static build(routeType: RouteType): OldMapLayer {
     const layer = new TileLayer({
       source: new XYZ({
         minZoom: ZoomLevel.bitmapTileMinZoom,
         maxZoom: ZoomLevel.bitmapTileMaxZoom,
-        url: `/tiles/${networkType}/analysis/{z}/{x}/{y}.png`,
+        url: `/tiles/${routeType}/analysis/{z}/{x}/{y}.png`,
       }),
     });
-    const name = Translations.get(`network-type.${networkType}`);
+    const name = Translations.get(`network-type.${routeType}`);
     return new OldMapLayer(
-      `network-nodes-${networkType}-layer`,
+      `network-nodes-${routeType}-layer`,
       name,
       ZoomLevel.bitmapTileMinZoom,
       ZoomLevel.bitmapTileMaxZoom,

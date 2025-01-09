@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkScope } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { NetworkNodeRow } from '@api/common/network';
 import { IntegrityIndicatorData } from '@app/components/shared/indicator';
 import { IntegrityIndicatorComponent } from '@app/components/shared/indicator';
@@ -38,7 +38,7 @@ import { RoleConnectionIndicatorComponent } from './indicators/role-connection-i
   ],
 })
 export class NetworkNodeAnalysisComponent implements OnInit {
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
   networkScope = input.required<NetworkScope>();
   node = input.required<NetworkNodeRow>();
 
@@ -50,7 +50,7 @@ export class NetworkNodeAnalysisComponent implements OnInit {
       expectedRouteCount = this.node().detail.expectedRouteCount.toString();
     }
     this.integrityIndicatorData = new IntegrityIndicatorData(
-      this.networkType(),
+      this.routeType(),
       this.networkScope(),
       this.node().routeReferences.length,
       expectedRouteCount

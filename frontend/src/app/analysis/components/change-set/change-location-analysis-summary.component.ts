@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ChangeSetSummaryInfo } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Util } from '@app/components/shared';
-import { NetworkTypeIconComponent } from '@app/components/shared';
+import { RouteTypeIconComponent } from '@app/components/shared';
 import { Translations } from '@app/i18n';
 import { LocationPipe } from '../../../shared/components/shared/format/location.pipe';
 import { ChangeHeaderComponent } from './change-header.component';
@@ -26,7 +26,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
       @for (locationChanges of changeSet().location.changes; track locationChanges) {
         <div>
           <div class="kpn-line">
-            <kpn-network-type-icon [networkType]="locationChanges.networkType" />
+            <kpn-network-type-icon [routeType]="locationChanges.routeType" />
             <div class="location-names">
               @for (
                 locationName of locationChanges.locationNames;
@@ -36,7 +36,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
                 <div class="location-name">
                   <a
                     [routerLink]="
-                      locationLink(locationChanges.networkType, locationChanges.locationNames, i)
+                      locationLink(locationChanges.routeType, locationChanges.locationNames, i)
                     "
                     >{{ locationName | location }}</a
                   >
@@ -77,7 +77,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
   imports: [
     ChangeHeaderComponent,
     ChangesSetElementRefsComponent,
-    NetworkTypeIconComponent,
+    RouteTypeIconComponent,
     RouterLink,
     LocationPipe,
   ],
@@ -85,11 +85,11 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
 export class ChangeLocationAnalysisSummaryComponent {
   changeSet = input.required<ChangeSetSummaryInfo>();
 
-  locationLink(networkType: NetworkType, locationNames: string[], index: number): string {
+  locationLink(routeType: RouteType, locationNames: string[], index: number): string {
     const country = locationNames[0].toLowerCase();
     const countryName = Translations.get('country.' + Util.safeGet(() => country));
     const locationParts = [countryName].concat(locationNames.slice(1, index + 1));
     const location = locationParts.join(':');
-    return `/analysis/${networkType}/${country}/${location}/details`;
+    return `/analysis/${routeType}/${country}/${location}/details`;
   }
 }

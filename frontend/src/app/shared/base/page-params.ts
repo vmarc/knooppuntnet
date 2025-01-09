@@ -4,7 +4,7 @@ import { Subset } from '@api/custom';
 import { AnalysisStrategy } from '@app/core';
 import { SubsetFact } from '@app/kpn/common';
 import { Countries } from '@app/kpn/common';
-import { NetworkTypes } from '@app/kpn/common';
+import { RouteTypes } from '@app/kpn/common';
 
 export class PageParams {
   constructor(
@@ -71,8 +71,8 @@ export class PageParams {
 
   subset(): Subset {
     const country = Countries.withDomain(this.routeParams['country']);
-    const networkType = NetworkTypes.withName(this.routeParams['networkType']);
-    return { country, networkType };
+    const routeType = RouteTypes.withName(this.routeParams['routeType']);
+    return { country, routeType };
   }
 
   subsetFact(): SubsetFact {

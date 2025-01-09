@@ -21,8 +21,7 @@ export class Stat {
     }
     const subsetStatisticValue = this.statisticValues.values.find((statisticValue) => {
       return (
-        statisticValue.country === subset.country &&
-        statisticValue.networkType === subset.networkType
+        statisticValue.country === subset.country && statisticValue.routeType === subset.routeType
       );
     });
     if (!subsetStatisticValue) {

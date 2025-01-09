@@ -4,9 +4,9 @@ import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { Params } from '@angular/router';
 import { Router } from '@angular/router';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Util } from '@app/components/shared';
-import { NetworkTypes } from '@app/kpn/common';
+import { RouteTypes } from '@app/kpn/common';
 import { MapLayerState } from '@app/ol/domain';
 import { MapPosition } from '@app/ol/domain';
 import { OldPoiTileLayerService } from '@app/ol/services';
@@ -44,7 +44,7 @@ export class PlannerStateService {
   private readonly _state = signal<PlannerState>(initialPlannerState);
 
   readonly state = this._state.asReadonly();
-  readonly networkType = computed(() => this._state().networkType);
+  readonly routeType = computed(() => this._state().routeType);
   readonly position = computed(() => this._state().position);
   readonly mapMode = computed(() => this._state().mapMode);
   readonly resultMode = computed(() => this._state().resultMode);
@@ -75,10 +75,10 @@ export class PlannerStateService {
     this.updateState(state);
   }
 
-  setNetworkType(networkType: NetworkType): void {
+  setRouteType(routeType: RouteType): void {
     this.updateState({
       ...this._state(),
-      networkType,
+      routeType,
     });
   }
 
@@ -155,7 +155,7 @@ export class PlannerStateService {
   }
 
   private toPlannerState(routeParams: Params, queryParams: Params): PlannerState {
-    const networkType = this.parseNetworkType(routeParams);
+    const routeType = this.parseRouteType(routeParams);
     const position = this.parsePosition(queryParams);
     const mapMode = this.parseMapMode(queryParams);
     const resultMode = this.parseResultMode(queryParams);
@@ -169,7 +169,7 @@ export class PlannerStateService {
     const poiLayerStates = this.parsePoiLayerStates(queryParams);
 
     return {
-      networkType,
+      routeType,
       position,
       mapMode,
       resultMode,
@@ -179,12 +179,12 @@ export class PlannerStateService {
     };
   }
 
-  private parseNetworkType(queryParams: Params): NetworkType {
-    const networkTypeParam = queryParams['networkType'];
-    if (networkTypeParam) {
-      const networkType = NetworkTypes.withName(networkTypeParam);
-      if (networkType) {
-        return networkType;
+  private parseRouteType(queryParams: Params): RouteType {
+    const routeTypeParam = queryParams['routeType'];
+    if (routeTypeParam) {
+      const routeType = RouteTypes.withName(routeTypeParam);
+      if (routeType) {
+        return routeType;
       }
     }
     return 'hiking';
@@ -271,7 +271,7 @@ export class PlannerStateService {
 
   private navigate(state: PlannerState): Observable<boolean> {
     const queryParams = this.toQueryParams(state);
-    const promise = this.router.navigate(['map', state.networkType], {
+    const promise = this.router.navigate(['map', state.routeType], {
       queryParams,
       replaceUrl: true, // do not push a new entry to the browser history
     });

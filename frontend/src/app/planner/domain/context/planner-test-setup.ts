@@ -40,7 +40,7 @@ export class PlannerTestSetup {
   readonly node4 = PlanUtil.planNodeWithCoordinate('1004', '04', null, [4, 4]);
 
   constructor() {
-    this.context.setNetworkType('hiking');
+    this.context.setRouteType('hiking');
   }
 
   createPlanWithStartPointOnly(): Plan {

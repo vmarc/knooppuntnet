@@ -22,32 +22,32 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
 
     <mat-menu #menu="matMenu">
       <kpn-toolbar-route-type-menu-item
-        networkType="hiking"
+        routeType="hiking"
         i18n-label="@@network-type.hiking"
         label="Hiking"
       />
       <kpn-toolbar-route-type-menu-item
-        networkType="cycling"
+        routeType="cycling"
         i18n-label="@@network-type.cycling"
         label="Cycling"
       />
       <kpn-toolbar-route-type-menu-item
-        networkType="horse-riding"
+        routeType="horse-riding"
         i18n-label="@@network-type.horseRiding"
         label="Horse riding"
       />
       <kpn-toolbar-route-type-menu-item
-        networkType="motorboat"
+        routeType="motorboat"
         i18n-label="@@network-type.motorboat"
         label="Motorboat"
       />
       <kpn-toolbar-route-type-menu-item
-        networkType="canoe"
+        routeType="canoe"
         i18n-label="@@network-type.canoe"
         label="Canoe"
       />
       <kpn-toolbar-route-type-menu-item
-        networkType="inline-skating"
+        routeType="inline-skating"
         i18n-label="@@network-type.inlineSkating"
         label="Inline skating"
       />
@@ -81,7 +81,7 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
 export class ToolbarRouteTypeMenuComponent {
   private readonly state = inject(State);
   readonly icon = computed(() => {
-    switch (this.state.page.networkType()) {
+    switch (this.state.page.routeType()) {
       case 'cycling':
         return 'directions_bike';
       case 'hiking':

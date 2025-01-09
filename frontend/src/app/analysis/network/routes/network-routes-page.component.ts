@@ -36,7 +36,7 @@ import { NetworkRoutesPageService } from './network-routes-page.service';
                 <kpn-network-route-table
                   [timeInfo]="page.timeInfo"
                   [surveyDateInfo]="page.surveyDateInfo"
-                  [networkType]="page.networkType"
+                  [routeType]="page.routeType"
                   [routes]="service.filteredRoutes()"
                 />
               }

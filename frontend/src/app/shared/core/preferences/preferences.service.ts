@@ -16,7 +16,7 @@ export class PreferencesService {
   private readonly preferences: WritableSignal<PreferencesState>;
 
   readonly strategy: Signal<AnalysisStrategy>;
-  readonly networkType: Signal<string>;
+  readonly routeType: Signal<string>;
   // TODO SIGNAL not used anymore? re-introduce?
   readonly extraLayers: Signal<boolean>;
   readonly pageSize: Signal<number>;
@@ -36,7 +36,7 @@ export class PreferencesService {
     this.preferences = signal<PreferencesState>(preferences);
 
     this.strategy = computed(() => this.preferences().strategy);
-    this.networkType = computed(() => this.preferences().networkType);
+    this.routeType = computed(() => this.preferences().routeType);
     // TODO SIGNAL not used anymore? re-introduce?
     this.extraLayers = computed(() => this.preferences().extraLayers);
     this.pageSize = computed(() => this.preferences().pageSize);
@@ -55,10 +55,10 @@ export class PreferencesService {
     });
   }
 
-  setNetworkType(networkType: string): void {
+  setRouteType(routeType: string): void {
     this.update({
       ...this.preferences(),
-      networkType,
+      routeType,
     });
   }
 

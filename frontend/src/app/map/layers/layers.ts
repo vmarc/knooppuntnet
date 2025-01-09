@@ -53,7 +53,7 @@ export class Layers {
 
     const layersState: Signal<LayersState> = computed(() => {
       return {
-        networkType: state.page.networkType(),
+        routeType: state.page.routeType(),
         layerEnabled: state.map.layers.layerEnabledMap(),
         zoom: state.map.zoom(),
       };
@@ -77,9 +77,8 @@ export class Layers {
       const zoomInRange =
         layersState.zoom >= mapLayer.minZoom && layersState.zoom <= mapLayer.maxZoom;
       const layerEnabled = layersState.layerEnabled.get(mapLayer.layerType);
-      const networkTypeMatch =
-        !mapLayer.networkType || mapLayer.networkType === layersState.networkType;
-      const visible = zoomInRange && layerEnabled && networkTypeMatch;
+      const routeTypeMatch = !mapLayer.routeType || mapLayer.routeType === layersState.routeType;
+      const visible = zoomInRange && layerEnabled && routeTypeMatch;
       mapLayer.layer.setVisible(visible);
     });
   }

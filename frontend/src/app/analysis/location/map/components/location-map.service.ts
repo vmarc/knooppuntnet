@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { LocationKey } from '@api/custom';
 import { Util } from '@app/components/shared';
 import { SurveyDateValues } from '@app/core';
@@ -56,7 +56,7 @@ export class LocationMapService extends OpenlayersMapService {
     urlLayerIds: string[]
   ): void {
     this.locationId = locationKey.name;
-    this.registerLayers(locationKey.networkType, surveyDateValues, geoJson, geoJson2, urlLayerIds);
+    this.registerLayers(locationKey.routeType, surveyDateValues, geoJson, geoJson2, urlLayerIds);
 
     this.initMap(
       new Map({
@@ -90,7 +90,7 @@ export class LocationMapService extends OpenlayersMapService {
   }
 
   private registerLayers(
-    networkType: NetworkType,
+    routeType: RouteType,
     surveyDateValues: SurveyDateValues,
     geoJson: string,
     geoJson2: string,
@@ -101,8 +101,8 @@ export class LocationMapService extends OpenlayersMapService {
     );
     const mainMapStyle = new MainMapStyle(parameters);
     const networkLayers = [
-      NetworkVectorTileLayer.build(networkType, mainMapStyle.styleFunction()),
-      NetworkBitmapTileLayer.build(networkType, 'analysis'),
+      NetworkVectorTileLayer.build(routeType, mainMapStyle.styleFunction()),
+      NetworkBitmapTileLayer.build(routeType, 'analysis'),
     ];
 
     const registry = new OldMapLayerRegistry();
@@ -113,7 +113,7 @@ export class LocationMapService extends OpenlayersMapService {
     if (geoJson2) {
       registry.register(urlLayerIds, LocationBoundaryLayer.build2(geoJson2), true);
     }
-    OldOpenDataLayers.register(registry, networkType, urlLayerIds);
+    OldOpenDataLayers.register(registry, routeType, urlLayerIds);
     this.register(registry);
   }
 

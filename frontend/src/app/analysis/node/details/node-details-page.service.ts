@@ -5,7 +5,7 @@ import { inject } from '@angular/core';
 import { NodeInfo } from '@api/common';
 import { NodeDetailsPage } from '@api/common/node';
 import { ApiResponse } from '@api/custom';
-import { NetworkTypes } from '@app/kpn/common';
+import { RouteTypes } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { MapService } from '../../../map/map.service';
 import { RouterService } from '../../../shared/services/router.service';
@@ -21,11 +21,11 @@ export class NodeDetailsPageService {
   private readonly _response = signal<ApiResponse<NodeDetailsPage>>(null);
   readonly response = this._response.asReadonly();
 
-  readonly networkTypes = computed(() => {
+  readonly routeTypes = computed(() => {
     const resp = this.response();
     if (resp) {
-      const networkTypes = resp.result.nodeInfo.names.map((nodeName) => nodeName.networkType);
-      return NetworkTypes.all.filter((networkType) => networkTypes.includes(networkType));
+      const routeTypes = resp.result.nodeInfo.names.map((nodeName) => nodeName.routeType);
+      return RouteTypes.all.filter((routeType) => routeTypes.includes(routeType));
     }
     return [];
   });

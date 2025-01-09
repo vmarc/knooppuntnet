@@ -92,7 +92,7 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
                     @if (fact.elementType === 'route') {
                       <kpn-network-fact-routes
                         [routes]="fact.elements"
-                        [networkType]="page.summary.networkType"
+                        [routeType]="page.summary.routeType"
                       />
                     } @else if (fact.elementType === 'node') {
                       <kpn-network-fact-nodes [nodes]="fact.elements" />

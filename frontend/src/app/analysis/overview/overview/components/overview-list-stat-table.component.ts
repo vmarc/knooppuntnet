@@ -13,63 +13,63 @@ import { OverviewListStatRowComponent } from './overview-list-stat-row.component
         <kpn-overview-list-stat-row
           [stat]="stat()"
           country="nl"
-          networkType="cycling"
+          routeType="cycling"
           [rowspan]="6"
         />
-        <kpn-overview-list-stat-row [stat]="stat()" country="nl" networkType="hiking" />
-        <kpn-overview-list-stat-row [stat]="stat()" country="nl" networkType="horse-riding" />
-        <kpn-overview-list-stat-row [stat]="stat()" country="nl" networkType="motorboat" />
-        <kpn-overview-list-stat-row [stat]="stat()" country="nl" networkType="canoe" />
-        <kpn-overview-list-stat-row [stat]="stat()" country="nl" networkType="inline-skating" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="nl" routeType="hiking" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="nl" routeType="horse-riding" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="nl" routeType="motorboat" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="nl" routeType="canoe" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="nl" routeType="inline-skating" />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
           country="be"
-          networkType="cycling"
+          routeType="cycling"
           [rowspan]="3"
         />
-        <kpn-overview-list-stat-row [stat]="stat()" country="be" networkType="hiking" />
-        <kpn-overview-list-stat-row [stat]="stat()" country="be" networkType="horse-riding" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="be" routeType="hiking" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="be" routeType="horse-riding" />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
           country="de"
-          networkType="cycling"
+          routeType="cycling"
           [rowspan]="3"
         />
-        <kpn-overview-list-stat-row [stat]="stat()" country="de" networkType="hiking" />
-        <kpn-overview-list-stat-row [stat]="stat()" country="de" networkType="horse-riding" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="de" routeType="hiking" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="de" routeType="horse-riding" />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
           country="fr"
-          networkType="cycling"
+          routeType="cycling"
           [rowspan]="4"
         />
-        <kpn-overview-list-stat-row [stat]="stat()" country="fr" networkType="hiking" />
-        <kpn-overview-list-stat-row [stat]="stat()" country="fr" networkType="horse-riding" />
-        <kpn-overview-list-stat-row [stat]="stat()" country="fr" networkType="canoe" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="fr" routeType="hiking" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="fr" routeType="horse-riding" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="fr" routeType="canoe" />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
           country="at"
-          networkType="cycling"
+          routeType="cycling"
           [rowspan]="1"
         />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
           country="es"
-          networkType="cycling"
+          routeType="cycling"
           [rowspan]="2"
         />
 
-        <kpn-overview-list-stat-row [stat]="stat()" country="es" networkType="hiking" />
+        <kpn-overview-list-stat-row [stat]="stat()" country="es" routeType="hiking" />
 
         <kpn-overview-list-stat-row
           [stat]="stat()"
           country="dk"
-          networkType="cycling"
+          routeType="cycling"
           [rowspan]="1"
         />
 

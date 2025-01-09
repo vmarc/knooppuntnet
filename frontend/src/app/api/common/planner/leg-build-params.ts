@@ -3,7 +3,7 @@
 import { LegEnd } from './leg-end';
 
 export interface LegBuildParams {
-  readonly networkType: string;
+  readonly routeType: string;
   readonly source: LegEnd;
   readonly sink: LegEnd;
   readonly proposed: boolean;

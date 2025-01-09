@@ -53,9 +53,9 @@ export class PlannerPopupService implements PlannerPopup {
 
   nodeClicked(nodeClick: NodeClick): void {
     this._popupType.set('node');
-    const networkType = this.plannerStateService.networkType();
+    const routeType = this.plannerStateService.routeType();
     const nodeId = +nodeClick.node.node.nodeId;
-    this.apiService.mapNodeDetail(networkType, nodeId).subscribe((response) => {
+    this.apiService.mapNodeDetail(routeType, nodeId).subscribe((response) => {
       this._nodeDetailResponse.set(response);
       if (response.result) {
         const coordinate = OlUtil.toCoordinate(response.result.latitude, response.result.longitude);

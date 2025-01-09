@@ -29,14 +29,14 @@ import { RouteLocationComponent } from './route-location.component';
       <div class="kpn-align-center">
         <span>{{ route().summary.id }}</span>
         <kpn-action-button-route
-          [networkType]="route().summary.networkTypes[0]"
+          [routeType]="route().summary.routeTypes[0]"
           [relationId]="route().summary.id"
         />
       </div>
 
-      <!-- TODO redesign networkTypes[0] -->
+      <!-- TODO redesign routeTypes[0] -->
       <kpn-route-location
-        [networkType]="route().summary.networkTypes[0]"
+        [routeType]="route().summary.routeTypes[0]"
         [locationCandidateInfos]="route().locationCandidateInfos"
       />
       @if (hasSymbol()) {

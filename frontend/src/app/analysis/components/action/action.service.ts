@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { TimeoutComponent } from '@app/components/shared/link';
 import { ApiService } from '@app/services';
 
@@ -48,7 +48,7 @@ export class ActionService {
     this.deepHistory('relation', relationId);
   }
 
-  waymarkedTrails(routeType: NetworkType, routeId: number): void {
+  waymarkedTrails(routeType: RouteType, routeId: number): void {
     let domain = 'hiking';
     if (routeType === 'cycling') {
       domain = 'cycling';

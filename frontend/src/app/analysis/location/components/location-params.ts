@@ -1,15 +1,15 @@
 import { Params } from '@angular/router';
 import { LocationKey } from '@api/custom';
 import { Countries } from '@app/kpn/common';
-import { NetworkTypes } from '@app/kpn/common';
+import { RouteTypes } from '@app/kpn/common';
 
 export class LocationParams {
   static toKey(params: Params): LocationKey {
-    const networkType = NetworkTypes.withName(params['networkType']);
+    const routeType = RouteTypes.withName(params['routeType']);
     const country = Countries.withDomain(params['country']);
     const name = params['location'];
     return {
-      networkType,
+      routeType,
       country,
       name,
     };

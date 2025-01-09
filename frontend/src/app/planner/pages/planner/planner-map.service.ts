@@ -1,7 +1,7 @@
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { PreferencesService } from '@app/core';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapGeocoder } from '@app/ol/domain';
@@ -58,7 +58,7 @@ export class PlannerMapService extends OpenlayersMapService {
 
   init(state: PlannerState): void {
     const registry = this.plannerMapLayerService.registerLayers(
-      state.networkType,
+      state.routeType,
       state.urlLayerIds,
       this.parameters
     );
@@ -104,19 +104,19 @@ export class PlannerMapService extends OpenlayersMapService {
     super.destroy();
   }
 
-  networkTypeChanged(networkType: NetworkType) {
+  routeTypeChanged(routeType: RouteType) {
     let changed = false;
     const newLayerStates = this.layerStates().map((layerState) => {
       let enabled = layerState.enabled;
       const correspondingMapLayer = this.mapLayers.find(
         (mapLayer) => mapLayer.id === layerState.id
       );
-      if (correspondingMapLayer && correspondingMapLayer.networkType) {
-        enabled = correspondingMapLayer.networkType === networkType;
+      if (correspondingMapLayer && correspondingMapLayer.routeType) {
+        enabled = correspondingMapLayer.routeType === routeType;
       }
       if (enabled !== layerState.enabled) {
         changed = true;
-        const visible = layerState.id === networkType;
+        const visible = layerState.id === routeType;
         return { ...layerState, visible, enabled };
       }
       return layerState;
@@ -128,7 +128,7 @@ export class PlannerMapService extends OpenlayersMapService {
   }
 
   protected override layerVisible(mapLayer: OldMapLayer): boolean {
-    if (!!mapLayer.networkType && mapLayer.networkType !== this.plannerStateService.networkType()) {
+    if (!!mapLayer.routeType && mapLayer.routeType !== this.plannerStateService.routeType()) {
       return false;
     }
     if (!!mapLayer.mapMode && mapLayer.mapMode !== this.plannerStateService.mapMode()) {

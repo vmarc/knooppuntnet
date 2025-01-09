@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { RouteStructureRow } from '@api/common/route';
 import { RouteMemberComponent } from './route-member.component';
 
@@ -24,7 +24,7 @@ import { RouteMemberComponent } from './route-member.component';
           @for (row of rows(); track row; let rowIndex = $index) {
             @defer (on viewport) {
               <kpn-route-member
-                [networkType]="networkType()"
+                [routeType]="routeType()"
                 [structureRow]="row"
                 [rowIndex]="rowIndex"
               />
@@ -58,6 +58,6 @@ import { RouteMemberComponent } from './route-member.component';
   imports: [MatIconModule, RouteMemberComponent],
 })
 export class RouteMembersComponent {
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
   rows = input.required<RouteStructureRow[]>();
 }

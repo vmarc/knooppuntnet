@@ -36,9 +36,9 @@ export class RouteDetailsPageService {
     this.apiService.routeDetails(this.routeService.routeId()).subscribe((response) => {
       if (response.result) {
         const name = response.result.route.summary.name;
-        const networkType = response.result.route.summary.networkTypes[0]; // TODO redesign
+        const routeType = response.result.route.summary.routeTypes[0]; // TODO redesign
         const changeCount = response.result.changeCount;
-        this.routeService.updateRoute(networkType, name, changeCount);
+        this.routeService.updateRoute(routeType, name, changeCount);
       }
       this._response.set(response);
       const route = response.result?.route;

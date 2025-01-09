@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 
 @Component({
   selector: 'kpn-link-route',
@@ -11,7 +11,7 @@ import { NetworkType } from '@api/common';
   template: `
     <a
       [routerLink]="'/analysis/route/' + routeId()"
-      [state]="{ networkType: networkType(), routeName: routeName() }"
+      [state]="{ routeType: routeType(), routeName: routeName() }"
       title="Open route page"
       i18n-title="@@link-route.title"
       >{{ linkTitle }}</a
@@ -22,7 +22,7 @@ import { NetworkType } from '@api/common';
 export class LinkRouteComponent implements OnInit {
   routeId = input.required<number>();
   routeName = input.required<string>();
-  networkType = input<NetworkType>();
+  routeType = input<RouteType>();
   title = input<string>();
 
   protected linkTitle = '';

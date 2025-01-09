@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { LocationKey } from '@api/custom';
-import { NetworkTypeNameComponent } from '@app/components/shared';
+import { RouteTypeNameComponent } from '@app/components/shared';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
@@ -21,9 +21,9 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
       <kpn-location-page-breadcrumb [locationKey]="key" />
       <kpn-page-header [pageTitle]="fullPageTitle()" subject="location-page">
         <span class="header-network-type-icon">
-          <mat-icon [svgIcon]="key.networkType" />
+          <mat-icon [svgIcon]="key.routeType" />
         </span>
-        <kpn-network-type-name [networkType]="key.networkType" />&nbsp;
+        <kpn-network-type-name [routeType]="key.routeType" />&nbsp;
         <span i18n="@@location-page.header.in">in</span>
         {{ locationName(key) | location }}
       </kpn-page-header>
@@ -90,7 +90,7 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
     LocationPageBreadcrumbComponent,
     LocationPipe,
     MatIconModule,
-    NetworkTypeNameComponent,
+    RouteTypeNameComponent,
     PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
@@ -110,7 +110,7 @@ export class LocationPageHeaderComponent {
   }
 
   link(locationKey: LocationKey, target: string): string {
-    const key = `${locationKey.networkType}/${locationKey.country}/${locationKey.name}`;
+    const key = `${locationKey.routeType}/${locationKey.country}/${locationKey.name}`;
     return `/analysis/${key}/${target}`;
   }
 }

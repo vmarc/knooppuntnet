@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { OrphanRouteInfo } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indicators/route';
 import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route';
 
@@ -12,10 +12,7 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
   template: `
     <div class="analysis">
       <kpn-route-investigate-indicator [investigate]="route().isBroken" />
-      <kpn-route-accessible-indicator
-        [accessible]="route().accessible"
-        [networkType]="networkType()"
-      />
+      <kpn-route-accessible-indicator [accessible]="route().accessible" [routeType]="routeType()" />
     </div>
   `,
   styles: `
@@ -27,5 +24,5 @@ import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/ind
 })
 export class SubsetOrphanRouteAnalysisComponent {
   route = input.required<OrphanRouteInfo>();
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
 }

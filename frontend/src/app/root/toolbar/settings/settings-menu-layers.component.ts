@@ -35,7 +35,7 @@ import { State } from '@app/state';
 
     <kpn-divider />
 
-    @if (networkType() == 'hiking') {
+    @if (routeType() == 'hiking') {
       <div mat-menu-item>
         <mat-checkbox
           [checked]="routeLayerEnabled()"
@@ -48,7 +48,7 @@ import { State } from '@app/state';
       </div>
     }
 
-    @if (networkType() == 'cycling') {
+    @if (routeType() == 'cycling') {
       <div mat-menu-item>
         <mat-checkbox
           [checked]="routeLayerEnabled()"
@@ -61,7 +61,7 @@ import { State } from '@app/state';
       </div>
     }
 
-    @if (networkType() == 'horse-riding') {
+    @if (routeType() == 'horse-riding') {
       <div mat-menu-item>
         <mat-checkbox
           [checked]="routeLayerEnabled()"
@@ -74,7 +74,7 @@ import { State } from '@app/state';
       </div>
     }
 
-    @if (networkType() == 'motorboat') {
+    @if (routeType() == 'motorboat') {
       <div mat-menu-item>
         <mat-checkbox
           [checked]="routeLayerEnabled()"
@@ -87,7 +87,7 @@ import { State } from '@app/state';
       </div>
     }
 
-    @if (networkType() == 'canoe') {
+    @if (routeType() == 'canoe') {
       <div mat-menu-item>
         <mat-checkbox
           [checked]="routeLayerEnabled()"
@@ -100,7 +100,7 @@ import { State } from '@app/state';
       </div>
     }
 
-    @if (networkType() == 'hiking') {
+    @if (routeType() == 'hiking') {
       <div mat-menu-item>
         <mat-checkbox
           [checked]="flandersOpenDataLayerEnabled()"
@@ -113,7 +113,7 @@ import { State } from '@app/state';
       </div>
     }
 
-    @if (networkType() == 'cycling') {
+    @if (routeType() == 'cycling') {
       <div mat-menu-item>
         <mat-checkbox
           [checked]="flandersOpenDataLayerEnabled()"
@@ -126,7 +126,7 @@ import { State } from '@app/state';
       </div>
     }
 
-    @if (networkType() == 'hiking') {
+    @if (routeType() == 'hiking') {
       <div mat-menu-item>
         <mat-checkbox
           [checked]="netherlandsOpenDataLayerEnabled()"
@@ -139,7 +139,7 @@ import { State } from '@app/state';
       </div>
     }
 
-    @if (networkType() == 'cycling') {
+    @if (routeType() == 'cycling') {
       <div mat-menu-item>
         <mat-checkbox
           [checked]="netherlandsOpenDataLayerEnabled()"
@@ -152,7 +152,7 @@ import { State } from '@app/state';
       </div>
     }
 
-    @if (networkType() == 'hiking') {
+    @if (routeType() == 'hiking') {
       <div mat-menu-item>
         <mat-checkbox
           [checked]="franceOpenDataLayerEnabled()"
@@ -181,7 +181,7 @@ import { State } from '@app/state';
 export class SettingsMenuLayersComponent {
   private readonly state = inject(State);
   private readonly layers = this.state.map.layers;
-  readonly networkType = this.state.page.networkType;
+  readonly routeType = this.state.page.routeType;
   readonly standardBackgroundLayerEnabled = this.layers.standardBackgroundLayerEnabled;
   readonly osmBackgroundLayerEnabled = this.layers.osmBackgroundLayerEnabled;
   readonly flandersOpenDataLayerEnabled = this.layers.flandersOpenDataLayerEnabled;

@@ -1,11 +1,11 @@
 // this file is generated, please do not modify
 
-import { NetworkType } from './network-type';
+import { RouteType } from './route-type';
 
 export interface NodeMapInfo {
   readonly id: number;
   readonly name: string;
-  readonly networkTypes: NetworkType[];
+  readonly routeTypes: RouteType[];
   readonly latitude: string;
   readonly longitude: string;
 }

@@ -93,9 +93,9 @@ export class NetworkMapService extends OpenlayersMapService {
     registry.register(urlLayerIds, OldBackgroundLayer.build(), true);
     registry.register(urlLayerIds, OldOsmLayer.build(), false);
     const networkNodesLayers = [
-      NetworkNodesBitmapTileLayer.build(page.summary.networkType),
+      NetworkNodesBitmapTileLayer.build(page.summary.routeType),
       NetworkNodesVectorTileLayer.build(
-        page.summary.networkType,
+        page.summary.routeType,
         page.networkNodeIds,
         page.connectionNodeIds,
         page.networkRouteIds,
@@ -104,7 +104,7 @@ export class NetworkMapService extends OpenlayersMapService {
     ];
     registry.registerAll(urlLayerIds, networkNodesLayers, true);
     registry.register(urlLayerIds, NetworkNodesMarkerLayer.build(page.nodes), true);
-    OldOpenDataLayers.register(registry, page.summary.networkType, urlLayerIds);
+    OldOpenDataLayers.register(registry, page.summary.routeType, urlLayerIds);
     registry.register(urlLayerIds, TileDebug256Layer.build(), false);
     this.register(registry);
   }

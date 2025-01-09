@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
 import { NetworkScope } from './network-scope';
-import { NetworkType } from './network-type';
+import { RouteType } from './route-type';
 
 export interface NodeName {
-  readonly networkType: NetworkType;
+  readonly routeType: RouteType;
   readonly networkScope: NetworkScope;
   readonly name: string;
   readonly longName: string;

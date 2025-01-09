@@ -30,7 +30,7 @@ import { RouteAccessibleData } from './route-accessible-data';
       }
       @if (data.color === 'green') {
         <div dialog-body>
-          @switch (data.networkType) {
+          @switch (data.routeType) {
             @case ('cycling') {
               <ng-container i18n="@@route-accessible-indicator.green.text.cycling">
                 This route is completely accessible for bicycle.
@@ -62,7 +62,7 @@ import { RouteAccessibleData } from './route-accessible-data';
       }
       @if (data.color === 'red') {
         <div dialog-body>
-          @switch (data.networkType) {
+          @switch (data.routeType) {
             @case ('cycling') {
               <ng-container i18n="@@route-accessible-indicator.red.text.cycling">
                 This route is not completely accessible for bicycle.

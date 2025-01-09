@@ -1,8 +1,8 @@
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { LayerType } from '../map/layers/layer-type';
 
 export interface LayersState {
-  networkType: NetworkType;
+  routeType: RouteType;
   layerEnabled: ReadonlyMap<LayerType, boolean>;
   zoom: number;
 }

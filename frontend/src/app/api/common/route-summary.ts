@@ -3,14 +3,14 @@
 import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { Country } from './country';
-import { NetworkType } from './network-type';
+import { RouteType } from './route-type';
 import { RouteScope } from './route-scope';
 
 export interface RouteSummary {
   readonly id: number;
   readonly countries: Country[];
   readonly nodeNetwork: boolean;
-  readonly networkTypes: NetworkType[];
+  readonly routeTypes: RouteType[];
   readonly scopes: RouteScope[];
   readonly name: string;
   readonly meters: number;

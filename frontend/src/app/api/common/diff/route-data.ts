@@ -2,7 +2,7 @@
 
 import { Country } from '@api/common';
 import { Fact } from '@api/common';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { RouteLocationAnalysis } from '@api/common';
 import { MetaData } from '@api/common/data';
 import { Way } from '@api/common/data';
@@ -13,7 +13,7 @@ export interface RouteData {
   readonly relationId: number;
   readonly meta: MetaData;
   readonly countries: Country[];
-  readonly networkTypes: NetworkType[];
+  readonly routeTypes: RouteType[];
   readonly name: string;
   readonly networkNodes: RouteNode[];
   readonly ways: Way[];

@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { OldMapLayer } from './old-map-layer';
 import { OldMapLayerRegistry } from './old-map-layer-registry';
 import { OldOpendataBitmapTileLayer } from './old-opendata-bitmap-tile-layer';
@@ -13,14 +13,14 @@ export class OldOpenDataLayers {
 
   static register(
     registry: OldMapLayerRegistry,
-    networkType: NetworkType,
+    routeType: RouteType,
     urlLayerIds: string[]
   ): void {
-    if (networkType == 'hiking') {
+    if (routeType == 'hiking') {
       registry.registerAll(urlLayerIds, OldOpenDataLayers.flandersHiking(), false);
       registry.registerAll(urlLayerIds, OldOpenDataLayers.netherlandsHiking(), false);
       registry.registerAll(urlLayerIds, OldOpenDataLayers.franceHiking(), false);
-    } else if (networkType == 'cycling') {
+    } else if (routeType == 'cycling') {
       registry.registerAll(urlLayerIds, OldOpenDataLayers.flandersCycling(), false);
       registry.registerAll(urlLayerIds, OldOpenDataLayers.netherlandsCycling(), false);
     }

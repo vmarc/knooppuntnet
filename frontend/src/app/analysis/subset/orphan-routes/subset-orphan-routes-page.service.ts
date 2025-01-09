@@ -22,7 +22,7 @@ export class SubsetOrphanRoutesPageService {
   readonly response = this._response.asReadonly();
   readonly pageIndex = this._pageIndex.asReadonly();
   readonly pageSize = this.preferencesService.pageSize;
-  readonly networkType = computed(() => this.response().result.subsetInfo.networkType);
+  readonly routeType = computed(() => this.response().result.subsetInfo.routeType);
 
   private readonly timeInfo = computed(() => this.response()?.result?.timeInfo);
   private readonly routes = computed(() => this.response()?.result?.routes ?? []);

@@ -37,10 +37,10 @@ export class RouteMapPageService {
   private load(): void {
     this.apiService.routeMap(this.routeService.routeId()).subscribe((response) => {
       if (response.result) {
-        const networkType = response.result.routeMapInfo.networkType;
+        const routeType = response.result.routeMapInfo.routeType;
         const name = response.result.routeMapInfo.routeName;
         const changeCount = response.result.changeCount;
-        this.routeService.updateRoute(networkType, name, changeCount);
+        this.routeService.updateRoute(routeType, name, changeCount);
       }
       this._response.set(response);
     });

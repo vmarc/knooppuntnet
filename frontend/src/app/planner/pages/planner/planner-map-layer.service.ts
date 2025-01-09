@@ -1,8 +1,8 @@
 import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { NetworkType } from '@api/common';
-import { NetworkTypes } from '@app/kpn/common';
+import { RouteType } from '@api/common';
+import { RouteTypes } from '@app/kpn/common';
 import { NetworkBitmapTileLayer } from '@app/ol/layers';
 import { OldOpenDataLayers } from '@app/ol/layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers';
@@ -23,7 +23,7 @@ export class PlannerMapLayerService {
   private readonly poiTileLayerService = inject(OldPoiTileLayerService);
 
   registerLayers(
-    networkType: NetworkType,
+    routeType: RouteType,
     urlLayerIds: string[],
     parameters: Signal<MainMapStyleParameters>
   ): OldMapLayerRegistry {
@@ -35,43 +35,43 @@ export class PlannerMapLayerService {
       urlLayerIds,
       OldOpenDataLayers.flandersHiking(),
       false,
-      networkType === 'hiking'
+      routeType === 'hiking'
     );
 
     registry.registerAll(
       urlLayerIds,
       OldOpenDataLayers.flandersCycling(),
       false,
-      networkType === 'cycling'
+      routeType === 'cycling'
     );
 
     registry.registerAll(
       urlLayerIds,
       OldOpenDataLayers.netherlandsHiking(),
       false,
-      networkType === 'hiking'
+      routeType === 'hiking'
     );
 
     registry.registerAll(
       urlLayerIds,
       OldOpenDataLayers.netherlandsCycling(),
       false,
-      networkType === 'cycling'
+      routeType === 'cycling'
     );
 
     registry.registerAll(
       urlLayerIds,
       OldOpenDataLayers.franceHiking(),
       false,
-      networkType === 'hiking'
+      routeType === 'hiking'
     );
 
-    NetworkTypes.all.forEach((layerNetworkType) => {
+    RouteTypes.all.forEach((layerRouteType) => {
       registry.registerAll(
         urlLayerIds,
-        this.networkLayers(layerNetworkType, parameters),
-        layerNetworkType === networkType,
-        layerNetworkType === networkType
+        this.networkLayers(layerRouteType, parameters),
+        layerRouteType === routeType,
+        layerRouteType === routeType
       );
     });
 
@@ -88,15 +88,15 @@ export class PlannerMapLayerService {
   }
 
   private networkLayers(
-    networkType: NetworkType,
+    routeType: RouteType,
     parameters: Signal<MainMapStyleParameters>
   ): OldMapLayer[] {
     const networkVectorLayerStyle = new MainMapStyle(parameters);
     return [
-      NetworkBitmapTileLayer.build(networkType, 'surface'),
-      NetworkBitmapTileLayer.build(networkType, 'survey'),
-      NetworkBitmapTileLayer.build(networkType, 'analysis'),
-      NetworkVectorTileLayer.build(networkType, networkVectorLayerStyle.styleFunction()),
+      NetworkBitmapTileLayer.build(routeType, 'surface'),
+      NetworkBitmapTileLayer.build(routeType, 'survey'),
+      NetworkBitmapTileLayer.build(routeType, 'analysis'),
+      NetworkVectorTileLayer.build(routeType, networkVectorLayerStyle.styleFunction()),
     ];
   }
 }

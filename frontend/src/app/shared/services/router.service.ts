@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Subset } from '@api/custom';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Countries } from '@app/kpn/common';
-import { NetworkTypes } from '@app/kpn/common';
+import { RouteTypes } from '@app/kpn/common';
 
 @Injectable()
 export class RouterService {
@@ -33,8 +33,8 @@ export class RouterService {
     return this.activatedRoute.snapshot.queryParamMap.get(name);
   }
 
-  paramNetworkType(): NetworkType {
-    return NetworkTypes.withName(this.param('networkType'));
+  paramRouteType(): RouteType {
+    return RouteTypes.withName(this.param('routeType'));
   }
 
   paramCountry() {
@@ -42,7 +42,7 @@ export class RouterService {
   }
 
   paramSubset(): Subset {
-    return { country: this.paramCountry(), networkType: this.paramNetworkType() };
+    return { country: this.paramCountry(), routeType: this.paramRouteType() };
   }
 
   urlLayerIds(): string[] {

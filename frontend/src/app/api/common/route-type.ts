@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-export type NetworkType =
+export type RouteType =
   | 'hiking'
   | 'cycling'
   | 'horse-riding'

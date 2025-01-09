@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocationKey } from '@api/custom';
 import { CountryNameComponent } from '@app/components/shared';
-import { NetworkTypeNameComponent } from '@app/components/shared';
+import { RouteTypeNameComponent } from '@app/components/shared';
 
 @Component({
   selector: 'kpn-location-selection-page-breadcrumb',
@@ -17,8 +17,8 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
           <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
         </li>
         <li>
-          <a [routerLink]="'/analysis/' + key.networkType">
-            <kpn-network-type-name [networkType]="key.networkType" />
+          <a [routerLink]="'/analysis/' + key.routeType">
+            <kpn-network-type-name [routeType]="key.routeType" />
           </a>
         </li>
         <li>
@@ -27,7 +27,7 @@ import { NetworkTypeNameComponent } from '@app/components/shared';
       </ul>
     }
   `,
-  imports: [CountryNameComponent, NetworkTypeNameComponent, RouterLink],
+  imports: [CountryNameComponent, RouteTypeNameComponent, RouterLink],
 })
 export class LocationSelectionPageBreadcrumbComponent {
   key = input.required<LocationKey>();

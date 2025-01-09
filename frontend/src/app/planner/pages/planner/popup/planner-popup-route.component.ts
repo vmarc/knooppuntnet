@@ -36,7 +36,7 @@ import { PlannerStateService } from '../planner-state.service';
             <kpn-link-route
               [routeId]="response.result.id"
               [routeName]="response.result.name"
-              [networkType]="networkType()"
+              [routeType]="routeType()"
               title="More details"
               i18n-title="@@map.route-popup.more-details"
             />
@@ -60,5 +60,5 @@ export class PlannerPopupRouteComponent {
   private readonly service = inject(PlannerPopupService);
   private readonly plannerStateService = inject(PlannerStateService);
   readonly response = this.service.routeDetailResponse;
-  readonly networkType = this.plannerStateService.networkType;
+  readonly routeType = this.plannerStateService.routeType;
 }

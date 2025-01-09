@@ -4,5 +4,5 @@ export * from './subsets';
 export * from './countries';
 export * from './unique-id';
 export * from './change-option';
-export * from './network-types';
+export * from './route-types';
 export * from './network-scopes';

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocationInfo } from '@api/common/location-info';
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 
 @Component({
   selector: 'kpn-node-location',
@@ -21,7 +21,7 @@ import { NetworkType } from '@api/common';
   imports: [RouterLink],
 })
 export class NodeLocationComponent {
-  networkType = input.required<NetworkType>();
+  routeType = input.required<RouteType>();
   locations = input.required<LocationInfo[]>();
 
   hasLocation() {
@@ -29,6 +29,6 @@ export class NodeLocationComponent {
   }
 
   link(locationInfo: LocationInfo): string {
-    return `/analysis/${this.networkType()}/${locationInfo.link}/details`;
+    return `/analysis/${this.routeType()}/${locationInfo.link}/details`;
   }
 }

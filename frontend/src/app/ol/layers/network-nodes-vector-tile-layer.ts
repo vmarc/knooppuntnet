@@ -1,4 +1,4 @@
-import { NetworkType } from '@api/common';
+import { RouteType } from '@api/common';
 import { Translations } from '@app/i18n';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
@@ -10,7 +10,7 @@ import { OldMapLayer } from './old-map-layer';
 
 export class NetworkNodesVectorTileLayer {
   static build(
-    networkType: NetworkType,
+    routeType: RouteType,
     networkNodeIds: number[],
     connectionNodeIds: number[],
     networkRouteIds: number[],
@@ -21,7 +21,7 @@ export class NetworkNodesVectorTileLayer {
       minZoom: ZoomLevel.vectorTileMinZoom,
       maxZoom: ZoomLevel.vectorTileMaxZoom,
       format: new MVT(),
-      url: `/tiles/${networkType}/{z}/{x}/{y}.mvt`,
+      url: `/tiles/${routeType}/{z}/{x}/{y}.mvt`,
     });
 
     const layer = new VectorTileLayer({
@@ -39,15 +39,15 @@ export class NetworkNodesVectorTileLayer {
     ).styleFunction();
     layer.setStyle(nodeMapStyle);
 
-    const name = Translations.get(`network-type.${networkType}`);
+    const name = Translations.get(`network-type.${routeType}`);
     return new OldMapLayer(
-      `network-nodes-${networkType}-layer`,
+      `network-nodes-${routeType}-layer`,
       name,
       ZoomLevel.vectorTileMinZoom,
       ZoomLevel.vectorTileMaxOverZoom,
       'vector',
       layer,
-      networkType,
+      routeType,
       null
     );
   }

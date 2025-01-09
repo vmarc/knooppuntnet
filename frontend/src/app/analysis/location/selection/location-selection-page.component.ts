@@ -33,7 +33,7 @@ import { LocationSelectionPageService } from './location-selection-page.service'
         }
         @if (service.isModeTree()) {
           <kpn-location-tree
-            [networkType]="service.networkType()"
+            [routeType]="service.routeType()"
             [country]="service.country()"
             [locationNode]="locationNode"
             (selection)="selected($event)"

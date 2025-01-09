@@ -9,13 +9,13 @@ export class LocationUrlMatcher {
     group: UrlSegmentGroup,
     route: Route
   ): UrlMatchResult {
-    const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
+    const routeType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
     const country = /(be)|(nl)|(de)|(fr)|(at)|(es)|(dk)/;
     const detail = /(details)|(nodes)|(routes)|(facts)|(map)|(changes)|(edit)/;
 
     if (
       segments.length === 2 &&
-      networkType.test(segments[0].path) &&
+      routeType.test(segments[0].path) &&
       country.test(segments[1].path)
     ) {
       return {
@@ -25,7 +25,7 @@ export class LocationUrlMatcher {
     }
     if (
       segments.length === 4 &&
-      networkType.test(segments[0].path) &&
+      routeType.test(segments[0].path) &&
       country.test(segments[1].path) &&
       detail.test(segments[3].path)
     ) {
@@ -42,13 +42,13 @@ export class LocationUrlMatcher {
     group: UrlSegmentGroup,
     route: Route
   ): UrlMatchResult {
-    const networkType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
+    const routeType = /(cycling)|(hiking)|(horse-riding)|(motorboat)|(canoe)|(inline-skating)/;
     const country = /(be)|(nl)|(de)|(fr)|(at)|(es)/;
     const target = /(networks)|(facts)|(orphan-nodes)|(orphan-routes)|(map)|(changes)/;
 
     if (
       segments.length === 3 &&
-      networkType.test(segments[0].path) &&
+      routeType.test(segments[0].path) &&
       country.test(segments[1].path) &&
       target.test(segments[2].path)
     ) {
@@ -61,7 +61,7 @@ export class LocationUrlMatcher {
     }
     if (
       (segments.length === 3 || segments.length === 4) &&
-      networkType.test(segments[0].path) &&
+      routeType.test(segments[0].path) &&
       country.test(segments[1].path) &&
       'facts' === segments[2].path
     ) {

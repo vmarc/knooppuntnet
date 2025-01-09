@@ -1,7 +1,7 @@
-import { Country } from "@api/common";
-import { NetworkType } from '@api/common';
+import { Country } from '@api/common';
+import { RouteType } from '@api/common';
 
 export interface Subset {
   readonly country: Country;
-  readonly networkType: NetworkType;
+  readonly routeType: RouteType;
 }

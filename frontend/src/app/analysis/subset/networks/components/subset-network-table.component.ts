@@ -35,7 +35,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
             <td>
               <kpn-link-network-details
                 [networkId]="network.id"
-                [networkType]="network.networkType"
+                [routeType]="network.routeType"
                 [networkName]="network.name"
               />
             </td>

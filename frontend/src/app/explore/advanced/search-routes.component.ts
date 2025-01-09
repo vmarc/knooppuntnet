@@ -24,7 +24,7 @@ import { SearchRouteComponent } from './search-route.component';
       <kpn-list>
         @for (item of list.international; track item.id; let i = $index) {
           <kpn-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
-            <kpn-search-route [networkType]="networkType()" [item]="item" />
+            <kpn-search-route [routeType]="routeType()" [item]="item" />
           </kpn-list-item>
         }
       </kpn-list>
@@ -38,7 +38,7 @@ import { SearchRouteComponent } from './search-route.component';
       <kpn-list>
         @for (item of list.national; track item.id; let i = $index) {
           <kpn-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
-            <kpn-search-route [networkType]="networkType()" [item]="item" />
+            <kpn-search-route [routeType]="routeType()" [item]="item" />
           </kpn-list-item>
         }
       </kpn-list>
@@ -52,7 +52,7 @@ import { SearchRouteComponent } from './search-route.component';
       <kpn-list>
         @for (item of list.regional; track item.id; let i = $index) {
           <kpn-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
-            <kpn-search-route [networkType]="networkType()" [item]="item" />
+            <kpn-search-route [routeType]="routeType()" [item]="item" />
           </kpn-list-item>
         }
       </kpn-list>
@@ -66,7 +66,7 @@ import { SearchRouteComponent } from './search-route.component';
       <kpn-list>
         @for (item of list.local; track item.id; let i = $index) {
           <kpn-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
-            <kpn-search-route [networkType]="networkType()" [item]="item" />
+            <kpn-search-route [routeType]="routeType()" [item]="item" />
           </kpn-list-item>
         }
       </kpn-list>
@@ -80,7 +80,7 @@ import { SearchRouteComponent } from './search-route.component';
       <kpn-list>
         @for (item of list.unknown; track item.id; let i = $index) {
           <kpn-list-item [selected]="selectedResult() == item" (click)="onSelectionChange(item)">
-            <kpn-search-route [networkType]="networkType()" [item]="item" />
+            <kpn-search-route [routeType]="routeType()" [item]="item" />
           </kpn-list-item>
         }
       </kpn-list>
@@ -91,7 +91,7 @@ import { SearchRouteComponent } from './search-route.component';
 export class SearchRoutesComponent {
   private readonly state = inject(State);
   private readonly mapService = inject(MapService);
-  readonly networkType = computed(() => this.state.page.networkType());
+  readonly routeType = computed(() => this.state.page.routeType());
   readonly routeList = computed(() => this.state.explore.routeList());
   readonly selectedResult = computed(() => this.state.explore.selectedRouteListItem());
   readonly rowCount = computed(() => (this.routeList() ? this.routeList().size : 0));
