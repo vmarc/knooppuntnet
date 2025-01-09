@@ -17,7 +17,7 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
     <kpn-subset-page-breadcrumb [subset]="subset()" [pageName]="pageName()" />
 
     <kpn-page-header [pageTitle]="subsetPageTitle()" [subject]="'subset-' + pageName() + '-page'">
-      <span class="header-network-type-icon">
+      <span class="header-route-type-icon">
         <mat-icon [svgIcon]="routeType()" />
       </span>
       <span>
@@ -46,7 +46,7 @@ export class SubsetPageHeaderBlockComponent {
 
   protected readonly subsetName = computed(() => {
     const ss = this.subset();
-    const routeType = Translations.get('network-type.' + ss.routeType);
+    const routeType = Translations.get('route-type.' + ss.routeType);
     const country = Translations.get('country.' + ss.country);
     const inWord = Translations.get('subset.in');
     return `${routeType} ${inWord} ${country}`;

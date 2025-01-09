@@ -39,7 +39,7 @@ export class NetworkNodesVectorTileLayer {
     ).styleFunction();
     layer.setStyle(nodeMapStyle);
 
-    const name = Translations.get(`network-type.${routeType}`);
+    const name = Translations.get(`route-type.${routeType}`);
     return new OldMapLayer(
       `network-nodes-${routeType}-layer`,
       name,

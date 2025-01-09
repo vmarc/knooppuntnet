@@ -41,7 +41,7 @@ import { State } from '@app/state';
           [checked]="routeLayerEnabled()"
           (change)="routeLayerEnabledChanged($event)"
           (click)="$event.stopPropagation()"
-          i18n="@@network-type.hiking"
+          i18n="@@route-type.hiking"
         >
           Hiking
         </mat-checkbox>

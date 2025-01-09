@@ -19,10 +19,10 @@ import { PageService } from '@app/components/shared';
     <!--          [attr.aria-label]="'toggle ' + node.locationName"-->
     <!--        >-->
     <!--          <div class="node-label" *ngIf="node.expandable">-->
-    <!--            <kpn-network-type-icon-->
+    <!--            <kpn-route-type-icon-->
     <!--              *ngIf="node.routeType"-->
     <!--              [routeType]="node.routeType"-->
-    <!--            ></kpn-network-type-icon>-->
+    <!--            ></kpn-route-type-icon>-->
 
     <!--            <mat-icon-->
     <!--              svgIcon="expand"-->

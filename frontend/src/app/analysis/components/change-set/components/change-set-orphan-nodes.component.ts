@@ -11,7 +11,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>
-      <span><kpn-network-type-icon [routeType]="routeType()" /></span>
+      <span><kpn-route-type-icon [routeType]="routeType()" /></span>
       <span i18n="@@change-set.orphan-nodes">Orphan node(s)</span>
     </div>
     <kpn-change-set-element-refs

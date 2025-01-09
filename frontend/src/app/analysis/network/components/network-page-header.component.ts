@@ -24,7 +24,7 @@ import { NetworkService } from '../network.service';
     @if (service.networkId(); as networkId) {
       @if (service.summary(); as summary) {
         <kpn-page-header [pageTitle]="networkPageTitle(summary.name)" subject="network-page">
-          <span class="header-network-type-icon">
+          <span class="header-route-type-icon">
             <mat-icon [svgIcon]="summary.routeType" />
           </span>
           <span>

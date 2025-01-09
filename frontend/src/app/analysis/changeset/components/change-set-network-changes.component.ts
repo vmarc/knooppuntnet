@@ -21,7 +21,7 @@ import { CsNcComponent } from './network/cs-nc.component';
         <a [id]="networkChangeInfo.networkId"></a>
         <div class="kpn-level-1-header">
           <div class="kpn-line">
-            <kpn-network-type-icon [routeType]="networkChangeInfo.routeType" />
+            <kpn-route-type-icon [routeType]="networkChangeInfo.routeType" />
             <span i18n="@@change-set.network-changes.network">Network</span>
             <kpn-link-network-details
               [networkId]="networkChangeInfo.networkId"

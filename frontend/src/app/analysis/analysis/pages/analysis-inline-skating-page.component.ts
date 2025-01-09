@@ -22,14 +22,14 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
         <li>
           <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
         </li>
-        <li i18n="@@network-type.inline-skating">Inline skating</li>
+        <li i18n="@@route-type.inline-skating">Inline skating</li>
       </ul>
 
       <kpn-page-header>
-        <span class="header-network-type-icon">
+        <span class="header-route-type-icon">
           <mat-icon svgIcon="inline-skating" />
         </span>
-        <span i18n="@@network-type.inline-skating">Inline skating</span>
+        <span i18n="@@route-type.inline-skating">Inline skating</span>
       </kpn-page-header>
 
       <kpn-icon-buttons>

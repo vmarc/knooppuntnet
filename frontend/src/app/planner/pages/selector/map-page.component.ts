@@ -22,37 +22,37 @@ import { BaseSidebarComponent } from '@app/shared/base';
         <kpn-icon-button
           routerLink="/map/cycling"
           icon="cycling"
-          i18n-title="@@network-type.cycling"
+          i18n-title="@@route-type.cycling"
           title="Cycling"
         />
         <kpn-icon-button
           routerLink="/map/hiking"
           icon="hiking"
-          i18n-title="@@network-type.hiking"
+          i18n-title="@@route-type.hiking"
           title="Hiking"
         />
         <kpn-icon-button
           routerLink="/map/horse-riding"
           icon="horse-riding"
-          i18n-title="@@network-type.horse-riding"
+          i18n-title="@@route-type.horse-riding"
           title="Horse riding"
         />
         <kpn-icon-button
           routerLink="/map/motorboat"
           icon="motorboat"
-          i18n-title="@@network-type.motorboat"
+          i18n-title="@@route-type.motorboat"
           title="Motorboat"
         />
         <kpn-icon-button
           routerLink="/map/canoe"
           icon="canoe"
-          i18n-title="@@network-type.canoe"
+          i18n-title="@@route-type.canoe"
           title="Canoe"
         />
         <kpn-icon-button
           routerLink="/map/inline-skating"
           icon="inline-skating"
-          i18n-title="@@network-type.inline-skating"
+          i18n-title="@@route-type.inline-skating"
           title="Inline skating"
         />
       </kpn-icon-buttons>

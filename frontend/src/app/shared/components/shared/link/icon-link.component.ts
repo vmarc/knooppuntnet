@@ -5,14 +5,14 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Reference } from '@api/common/common';
 import { NetworkScopeNameComponent } from '../network-scope-name.component';
-import { RouteTypeIconComponent } from '../network-type-icon.component';
+import { RouteTypeIconComponent } from '../route-type-icon.component';
 
 @Component({
   selector: 'kpn-icon-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <kpn-network-type-icon [routeType]="reference().routeType" />
+      <kpn-route-type-icon [routeType]="reference().routeType" />
       <a [routerLink]="link" [state]="state" title="">{{ reference().name }}</a>
       @if (mixedNetworkScopes()) {
         <span class="kpn-brackets kpn-thin">

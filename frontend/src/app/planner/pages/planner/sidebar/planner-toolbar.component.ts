@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PageWidthService } from '@app/components/shared';
-import { RouteTypeSelectorComponent } from './network-type-selector.component';
+import { RouteTypeSelectorComponent } from './route-type-selector.component';
 import { PlanActionsComponent } from './plan-actions.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { PlanActionsComponent } from './plan-actions.component';
     <div class="toolbar">
       <kpn-plan-actions />
       @if (showRouteTypeSelector()) {
-        <kpn-network-type-selector />
+        <kpn-route-type-selector />
       }
     </div>
   `,

@@ -23,32 +23,32 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
     <mat-menu #menu="matMenu">
       <kpn-toolbar-route-type-menu-item
         routeType="hiking"
-        i18n-label="@@network-type.hiking"
+        i18n-label="@@route-type.hiking"
         label="Hiking"
       />
       <kpn-toolbar-route-type-menu-item
         routeType="cycling"
-        i18n-label="@@network-type.cycling"
+        i18n-label="@@route-type.cycling"
         label="Cycling"
       />
       <kpn-toolbar-route-type-menu-item
         routeType="horse-riding"
-        i18n-label="@@network-type.horseRiding"
+        i18n-label="@@route-type.horseRiding"
         label="Horse riding"
       />
       <kpn-toolbar-route-type-menu-item
         routeType="motorboat"
-        i18n-label="@@network-type.motorboat"
+        i18n-label="@@route-type.motorboat"
         label="Motorboat"
       />
       <kpn-toolbar-route-type-menu-item
         routeType="canoe"
-        i18n-label="@@network-type.canoe"
+        i18n-label="@@route-type.canoe"
         label="Canoe"
       />
       <kpn-toolbar-route-type-menu-item
         routeType="inline-skating"
-        i18n-label="@@network-type.inlineSkating"
+        i18n-label="@@route-type.inlineSkating"
         label="Inline skating"
       />
     </mat-menu>

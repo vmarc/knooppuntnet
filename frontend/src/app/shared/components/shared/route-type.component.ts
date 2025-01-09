@@ -2,27 +2,27 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteType } from '@api/common';
-import { RouteTypeIconComponent } from './network-type-icon.component';
+import { RouteTypeIconComponent } from './route-type-icon.component';
 import { RouteTypeNameComponent } from './route-type-name.component';
 
 @Component({
-  selector: 'kpn-network-type',
+  selector: 'kpn-route-type',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="network-type">
-      <kpn-network-type-icon [routeType]="routeType()" />
-      <kpn-network-type-name [routeType]="routeType()" />
+    <div class="route-type">
+      <kpn-route-type-icon [routeType]="routeType()" />
+      <kpn-route-type-name [routeType]="routeType()" />
       <ng-content></ng-content>
     </div>
   `,
   styles: `
-    .network-type {
+    .route-type {
       display: inline-flex;
       flex-direction: row;
       align-items: center;
     }
 
-    kpn-network-type-icon {
+    kpn-route-type-icon {
       height: 24px;
       margin-right: 10px;
     }

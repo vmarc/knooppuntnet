@@ -6,12 +6,12 @@ import { RouteType } from '@api/common';
 import { Translations } from '@app/i18n';
 
 @Component({
-  selector: 'kpn-network-type-name',
+  selector: 'kpn-route-type-name',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `{{ routeTypeName() }}`,
 })
 export class RouteTypeNameComponent {
   routeType = input.required<RouteType>();
 
-  protected routeTypeName = computed(() => Translations.get('network-type.' + this.routeType()));
+  protected routeTypeName = computed(() => Translations.get('route-type.' + this.routeType()));
 }

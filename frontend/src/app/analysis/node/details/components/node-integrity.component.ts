@@ -23,7 +23,7 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
         @for (detail of integrity().details; track detail) {
           <div>
             <div class="kpn-line detail-header">
-              <kpn-network-type-icon [routeType]="detail.routeType" />
+              <kpn-route-type-icon [routeType]="detail.routeType" />
               <div class="detail-header-text">
                 @if (happy(detail)) {
                   <span i18n="@@node.integrity.ok">

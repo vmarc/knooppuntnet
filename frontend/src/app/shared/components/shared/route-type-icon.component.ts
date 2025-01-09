@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouteType } from '@api/common';
 
 @Component({
-  selector: 'kpn-network-type-icon',
+  selector: 'kpn-route-type-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: ` <mat-icon [svgIcon]="routeType()" /> `,
   imports: [MatIconModule],

@@ -8,11 +8,11 @@ export class Translations {
     ['country.es', $localize`:@@country.es:Spain`],
     ['country.dk', $localize`:@@country.dk:Denmark`],
     //
-    ['network-type.hiking', $localize`:@@network-type.hiking:Hiking`],
-    ['network-type.cycling', $localize`:@@network-type.cycling:Cycling`],
-    ['network-type.horse-riding', $localize`:@@network-type.horse-riding:Horse riding`],
-    ['network-type.motorboat', $localize`:@@network-type.motorboat:Motorboat`],
-    ['network-type.canoe', $localize`:@@network-type.canoe:Canoe`],
+    ['route-type.hiking', $localize`:@@route-type.hiking:Hiking`],
+    ['route-type.cycling', $localize`:@@route-type.cycling:Cycling`],
+    ['route-type.horse-riding', $localize`:@@route-type.horse-riding:Horse riding`],
+    ['route-type.motorboat', $localize`:@@route-type.motorboat:Motorboat`],
+    ['route-type.canoe', $localize`:@@route-type.canoe:Canoe`],
     ['network-type.inline-skating', $localize`:@@network-type.inline-skating:Inline skating`],
     //
     ['network-scope.local', $localize`:@@network-scope.local:local`],

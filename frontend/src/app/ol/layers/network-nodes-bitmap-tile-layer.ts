@@ -14,7 +14,7 @@ export class NetworkNodesBitmapTileLayer {
         url: `/tiles/${routeType}/analysis/{z}/{x}/{y}.png`,
       }),
     });
-    const name = Translations.get(`network-type.${routeType}`);
+    const name = Translations.get(`route-type.${routeType}`);
     return new OldMapLayer(
       `network-nodes-${routeType}-layer`,
       name,

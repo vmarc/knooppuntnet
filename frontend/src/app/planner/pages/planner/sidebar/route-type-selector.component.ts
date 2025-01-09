@@ -7,10 +7,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { PlannerPageService } from '../planner-page.service';
 
 @Component({
-  selector: 'kpn-network-type-selector',
+  selector: 'kpn-route-type-selector',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="planner-network-type-selector">
+    <div class="planner-route-type-selector">
       <mat-button-toggle-group
         [hideSingleSelectionIndicator]="true"
         [value]="service.routeType()"

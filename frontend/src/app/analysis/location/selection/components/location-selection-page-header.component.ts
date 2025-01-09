@@ -13,10 +13,10 @@ import { PageHeaderComponent } from '@app/components/shared/page';
   template: `
     @if (key(); as key) {
       <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
-        <span class="header-network-type-icon">
+        <span class="header-route-type-icon">
           <mat-icon [svgIcon]="key.routeType" />
         </span>
-        <kpn-network-type-name [routeType]="key.routeType" />
+        <kpn-route-type-name [routeType]="key.routeType" />
         <span i18n="@@subset.in" class="in">in</span>
         <kpn-country-name [country]="key.country" />
       </kpn-page-header>

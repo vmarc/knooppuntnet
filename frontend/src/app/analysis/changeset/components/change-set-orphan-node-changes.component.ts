@@ -18,7 +18,7 @@ import { NodeDiffsComponent } from './node-diffs/node-diffs.component';
     @for (refs of detail().orphanNodeChanges; track refs) {
       <div class="kpn-level-1">
         <div class="kpn-level-1-header kpn-line">
-          <kpn-network-type-icon [routeType]="refs.subset.routeType" />
+          <kpn-route-type-icon [routeType]="refs.subset.routeType" />
           <span>{{ refs.subset.country.toUpperCase() }}</span>
           <span i18n="@@change-set.orphan-nodes.title">Orphan nodes</span>
         </div>

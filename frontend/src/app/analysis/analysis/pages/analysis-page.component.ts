@@ -41,37 +41,37 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
         <kpn-icon-button
           routerLink="/analysis/cycling"
           icon="cycling"
-          i18n-title="@@network-type.cycling"
+          i18n-title="@@route-type.cycling"
           title="Cycling"
         />
         <kpn-icon-button
           routerLink="/analysis/hiking"
           icon="hiking"
-          i18n-title="@@network-type.hiking"
+          i18n-title="@@route-type.hiking"
           title="Hiking"
         />
         <kpn-icon-button
           routerLink="/analysis/horse-riding"
           icon="horse-riding"
-          i18n-title="@@network-type.horse-riding"
+          i18n-title="@@route-type.horse-riding"
           title="Horse riding"
         />
         <kpn-icon-button
           routerLink="/analysis/motorboat"
           icon="motorboat"
-          i18n-title="@@network-type.motorboat"
+          i18n-title="@@route-type.motorboat"
           title="Motorboat"
         />
         <kpn-icon-button
           routerLink="/analysis/canoe"
           icon="canoe"
-          i18n-title="@@network-type.canoe"
+          i18n-title="@@route-type.canoe"
           title="Canoe"
         />
         <kpn-icon-button
           routerLink="/analysis/inline-skating"
           icon="inline-skating"
-          i18n-title="@@network-type.inline-skating"
+          i18n-title="@@route-type.inline-skating"
           title="Inline skating"
         />
       </div>

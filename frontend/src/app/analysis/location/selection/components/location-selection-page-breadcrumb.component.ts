@@ -18,7 +18,7 @@ import { RouteTypeNameComponent } from '@app/components/shared';
         </li>
         <li>
           <a [routerLink]="'/analysis/' + key.routeType">
-            <kpn-network-type-name [routeType]="key.routeType" />
+            <kpn-route-type-name [routeType]="key.routeType" />
           </a>
         </li>
         <li>

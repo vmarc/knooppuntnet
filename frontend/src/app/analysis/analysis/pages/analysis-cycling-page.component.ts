@@ -22,14 +22,14 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
         <li>
           <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
         </li>
-        <li i18n="@@network-type.cycling">Cycling</li>
+        <li i18n="@@route-type.cycling">Cycling</li>
       </ul>
 
       <kpn-page-header>
-        <span class="header-network-type-icon">
+        <span class="header-route-type-icon">
           <mat-icon svgIcon="cycling" />
         </span>
-        <span i18n="@@network-type.cycling">Cycling</span>
+        <span i18n="@@route-type.cycling">Cycling</span>
       </kpn-page-header>
 
       <kpn-icon-buttons>

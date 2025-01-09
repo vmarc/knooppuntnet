@@ -18,7 +18,7 @@ import { LocationPipe } from '../../../shared/components/shared/format/location.
       </li>
       <li>
         <a [routerLink]="routeTypeLink()">
-          <kpn-network-type-name [routeType]="locationKey().routeType" />
+          <kpn-route-type-name [routeType]="locationKey().routeType" />
         </a>
       </li>
       <li>

@@ -25,7 +25,7 @@ export class NetworkVectorTileLayer {
     });
 
     layer.setStyle(styleFunction);
-    const name = Translations.get(`network-type.${routeType}`);
+    const name = Translations.get(`route-type.${routeType}`);
     return new OldMapLayer(
       routeType,
       name,
@@ -56,7 +56,7 @@ export class NetworkVectorTileLayer {
       style: styleFunction,
     });
 
-    const name = Translations.get(`network-type.${routeType}`);
+    const name = Translations.get(`route-type.${routeType}`);
     return new OldMapLayer(
       routeType,
       name,

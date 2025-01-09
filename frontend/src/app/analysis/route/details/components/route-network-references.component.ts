@@ -11,7 +11,7 @@ import { RouteTypeIconComponent } from '@app/components/shared';
   template: `
     @for (reference of references(); track reference) {
       <div class="kpn-line">
-        <kpn-network-type-icon [routeType]="reference.routeType" />
+        <kpn-route-type-icon [routeType]="reference.routeType" />
         <a
           id="{{ 'network-ref-' + reference.id }}"
           [routerLink]="'/analysis/network/' + reference.id"

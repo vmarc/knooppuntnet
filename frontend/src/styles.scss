@@ -530,13 +530,13 @@ markdown > p > em:after {
   padding-right: 3em;
 }
 
-.header-network-type-icon {
+.header-route-type-icon {
   display: inline-block;
   width: 1.6em;
   vertical-align: middle;
 }
 
-.header-network-type-icon mat-icon {
+.header-route-type-icon mat-icon {
   width: 1.2em;
   height: 1.2em;
 }
@@ -680,7 +680,7 @@ input[type=number] {
   padding-right: 2em !important;
 }
 
-.planner-network-type-selector .mat-button-toggle-label-content {
+.planner-route-type-selector .mat-button-toggle-label-content {
   line-height: 34px !important;
   color: rgba(0, 0, 0, 0.8) !important;
   padding: 0 !important;

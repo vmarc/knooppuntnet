@@ -26,7 +26,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
       @for (locationChanges of changeSet().location.changes; track locationChanges) {
         <div>
           <div class="kpn-line">
-            <kpn-network-type-icon [routeType]="locationChanges.routeType" />
+            <kpn-route-type-icon [routeType]="locationChanges.routeType" />
             <div class="location-names">
               @for (
                 locationName of locationChanges.locationNames;

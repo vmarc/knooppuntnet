@@ -20,10 +20,10 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
     @if (service.key(); as key) {
       <kpn-location-page-breadcrumb [locationKey]="key" />
       <kpn-page-header [pageTitle]="fullPageTitle()" subject="location-page">
-        <span class="header-network-type-icon">
+        <span class="header-route-type-icon">
           <mat-icon [svgIcon]="key.routeType" />
         </span>
-        <kpn-network-type-name [routeType]="key.routeType" />&nbsp;
+        <kpn-route-type-name [routeType]="key.routeType" />&nbsp;
         <span i18n="@@location-page.header.in">in</span>
         {{ locationName(key) | location }}
       </kpn-page-header>

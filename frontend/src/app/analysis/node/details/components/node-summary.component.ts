@@ -27,12 +27,12 @@ import { ActionButtonNodeComponent } from '../../../components/action/action-but
               </td>
               <td>
                 <div class="kpn-line">
-                  <kpn-network-type [routeType]="nodeName.routeType">
-                    <span i18n="@@node.node" class="network-type">network node</span>
+                  <kpn-route-type [routeType]="nodeName.routeType">
+                    <span i18n="@@node.node" class="route-type">network node</span>
                     <span class="kpn-brackets">
                       <kpn-network-scope-name [networkScope]="nodeName.networkScope" />
                     </span>
-                  </kpn-network-type>
+                  </kpn-route-type>
                 </div>
               </td>
             </tr>
@@ -44,9 +44,9 @@ import { ActionButtonNodeComponent } from '../../../components/action/action-but
         <div>
           @for (nodeName of nodeInfo().names; track nodeName) {
             <p>
-              <kpn-network-type [routeType]="nodeName.routeType">
-                <span i18n="@@node.node" class="network-type">network node</span>
-              </kpn-network-type>
+              <kpn-route-type [routeType]="nodeName.routeType">
+                <span i18n="@@node.node" class="route-type">network node</span>
+              </kpn-route-type>
             </p>
           }
         </div>
@@ -85,7 +85,7 @@ import { ActionButtonNodeComponent } from '../../../components/action/action-but
       padding-right: 1em;
     }
 
-    .network-type {
+    .route-type {
       padding-left: 0.4em;
     }
   `,

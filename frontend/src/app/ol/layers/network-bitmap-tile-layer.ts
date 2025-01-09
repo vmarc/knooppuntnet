@@ -8,7 +8,7 @@ import { MapMode } from '../services';
 
 export class NetworkBitmapTileLayer {
   public static build(routeType: RouteType, mapMode: MapMode): OldMapLayer {
-    const name = Translations.get(`network-type.${routeType}`);
+    const name = Translations.get(`route-type.${routeType}`);
     return new OldMapLayer(
       routeType,
       name,
