@@ -192,8 +192,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
   private def assertRouteDetail(): Unit = {
     pending // TODO redesign
     assertEqual(
-      findRouteDetailById(11),
-      newRouteDetailDoc(
+      findBaseRouteById(11),
+      newBaseRouteDoc(
         newRouteSummary(
           11,
           name = "01-02",

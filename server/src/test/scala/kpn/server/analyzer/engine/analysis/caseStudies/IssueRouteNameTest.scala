@@ -6,7 +6,7 @@ import kpn.core.util.UnitTest
 class IssueRouteNameTest extends UnitTest {
 
   test("note") {
-    val route = CaseStudy.routeDetailDoc("14755555")
+    val route = CaseStudy.baseRouteDoc("14755555")
     route.summary.name should equal("Chemin de la Grive")
     assertEqual(
       route.facts,

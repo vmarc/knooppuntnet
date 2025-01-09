@@ -37,7 +37,7 @@ class MongoQuerySubRouteData(database: Database) {
           )
         )
       )
-      val routes = database.routeDetails.optionAggregate[SubRouteData](pipeline, log)
+      val routes = database.baseRoutes.optionAggregate[SubRouteData](pipeline, log)
       (s"${routes.size} routes", routes)
     }
   }

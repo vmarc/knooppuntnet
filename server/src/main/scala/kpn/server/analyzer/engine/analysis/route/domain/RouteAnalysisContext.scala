@@ -5,11 +5,11 @@ import kpn.api.common.route.ParentRoute
 import kpn.api.common.route.RoutePath
 import kpn.api.common.route.RouteSegment
 import kpn.api.common.route.RouteStructureRow
-import kpn.core.doc.RouteDetailDoc
+import kpn.core.doc.BaseRouteDoc
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 case class RouteAnalysisContext(
-  routeDetailDoc: RouteDetailDoc,
+  route: BaseRouteDoc,
   _routeIds: Option[Seq[Long]] = None,
   _bounds: Option[Option[Bounds]] = None,
   _structureRows: Option[Seq[RouteStructureRow]] = None,

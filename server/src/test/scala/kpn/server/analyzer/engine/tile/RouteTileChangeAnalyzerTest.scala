@@ -21,8 +21,8 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   test("impact when routeType changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
-      routeDetail = before.routeDetail.copy(
-        summary = before.routeDetail.summary.copy(
+      baseRoute = before.baseRoute.copy(
+        summary = before.baseRoute.summary.copy(
           routeTypes = Seq(RouteType.cycling)
         ),
         tiles = Seq("cycling-tile-1")
@@ -34,7 +34,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   test("impact when routeName changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
-      routeDetail = before.routeDetail.copy(
+      baseRoute = before.baseRoute.copy(
         tiles = Seq("hiking-tile-2")
       ),
       tileAnalysis = before.tileAnalysis.copy(
@@ -47,7 +47,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   test("impact when layer changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
-      routeDetail = before.routeDetail.copy(
+      baseRoute = before.baseRoute.copy(
         tiles = Seq("hiking-tile-2")
       ),
       tileAnalysis = before.tileAnalysis.copy(
@@ -60,7 +60,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   test("impact when surveyDate changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
-      routeDetail = before.routeDetail.copy(
+      baseRoute = before.baseRoute.copy(
         tiles = Seq("hiking-tile-2")
       ),
       tileAnalysis = before.tileAnalysis.copy(
@@ -73,7 +73,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   test("impact when state changes") {
     val before = buildRouteAnalysis()
     val after = before.copy(
-      routeDetail = before.routeDetail.copy(
+      baseRoute = before.baseRoute.copy(
         tiles = Seq("hiking-tile-2")
       ),
       tileAnalysis = before.tileAnalysis.copy(
@@ -86,7 +86,7 @@ class RouteTileChangeAnalyzerTest extends UnitTest with MockFactory with TestObj
   private def buildRouteAnalysis(): RouteDetailAnalysis = {
     RouteDetailAnalysis(
       relation = null,
-      routeDetail = newRouteDetailDoc(
+      baseRoute = newBaseRouteDoc(
         newRouteSummary(
           id = 10,
           routeTypes = Seq(RouteType.hiking)

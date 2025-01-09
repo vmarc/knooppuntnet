@@ -9,6 +9,8 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.User
 import kpn.api.common.poi.Poi
+import kpn.core.doc.BaseNodeDoc
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
@@ -19,7 +21,6 @@ import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RawNetworkDoc
 import kpn.core.doc.RawNodeDoc
 import kpn.core.doc.RawRouteDoc
-import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
@@ -63,6 +64,10 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[NetworkInfoDoc]("network-infos"))
   }
 
+  override def baseNodes: DatabaseCollection[BaseNodeDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[BaseNodeDoc]("base-nodes"))
+  }
+
   override def nodes: DatabaseCollection[NodeDoc] = {
     new DatabaseCollectionImpl(database.getCollection[NodeDoc]("nodes"))
   }
@@ -75,8 +80,8 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     new DatabaseCollectionImpl(database.getCollection[RouteDoc]("routes"))
   }
 
-  override def routeDetails: DatabaseCollection[RouteDetailDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[RouteDetailDoc]("route-details"))
+  override def baseRoutes: DatabaseCollection[BaseRouteDoc] = {
+    new DatabaseCollectionImpl(database.getCollection[BaseRouteDoc]("base-routes"))
   }
 
   override def routeTiles: DatabaseCollection[RouteTileDoc] = {

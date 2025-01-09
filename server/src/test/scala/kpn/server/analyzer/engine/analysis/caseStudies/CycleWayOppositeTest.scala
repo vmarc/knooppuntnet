@@ -7,7 +7,7 @@ class CycleWayOppositeTest extends UnitTest {
 
   test("cycleway=opposite cancels oneway=true") {
 
-    val route = CaseStudy.routeDetailDoc("535487")
+    val route = CaseStudy.baseRouteDoc("535487")
 
     assert(!route.facts.contains(Fact.RouteNotBackward))
     assert(!route.facts.contains(Fact.RouteNotForward))

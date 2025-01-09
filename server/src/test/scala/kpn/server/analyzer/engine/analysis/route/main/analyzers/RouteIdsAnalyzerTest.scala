@@ -7,15 +7,15 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 class RouteIdsAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("route id when there is no hierarchy") {
-    val routeDetailDoc = newRouteDetailDoc(newRouteSummary(11L))
+    val baseRouteDoc = newBaseRouteDoc(newRouteSummary(11L))
     assertEqual(
-      RouteIdsAnalyzer.analyze(RouteAnalysisContext(routeDetailDoc)).routeIds,
+      RouteIdsAnalyzer.analyze(RouteAnalysisContext(baseRouteDoc)).routeIds,
       Seq(11)
     )
   }
 
   test("route ids from hierarchy") {
-    val routeDetailDoc = newRouteDetailDoc(
+    val baseRouteDoc = newBaseRouteDoc(
       newRouteSummary(11L),
       hierarchy = Some(
         newRouteRelation(
@@ -34,7 +34,7 @@ class RouteIdsAnalyzerTest extends UnitTest with SharedTestObjects {
     )
 
     assertEqual(
-      RouteIdsAnalyzer.analyze(RouteAnalysisContext(routeDetailDoc)).routeIds,
+      RouteIdsAnalyzer.analyze(RouteAnalysisContext(baseRouteDoc)).routeIds,
       Seq(
         1,
         2,

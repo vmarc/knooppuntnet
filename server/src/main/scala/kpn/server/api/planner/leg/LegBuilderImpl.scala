@@ -11,19 +11,19 @@ import kpn.api.common.planner.PlanFragment
 import kpn.api.common.planner.PlanLegDetail
 import kpn.api.common.planner.PlanRoute
 import kpn.api.common.planner.PlanSegment
-import kpn.core.doc.RouteDetailDoc
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.planner.graph.GraphPath
 import kpn.core.planner.graph.GraphPathSegment
 import kpn.core.planner.graph.NodeNetworkGraph
 import kpn.core.util.Log
+import kpn.server.repository.BaseRouteRepository
 import kpn.server.repository.GraphRepository
-import kpn.server.repository.RouteDetailRepository
 import org.springframework.stereotype.Component
 
 @Component
 class LegBuilderImpl(
   graphRepository: GraphRepository,
-  routeDetailRepository: RouteDetailRepository
+  baseRouteRepository: BaseRouteRepository
 ) extends LegBuilder {
 
   private val log = Log(classOf[LegBuilderImpl])
@@ -118,7 +118,7 @@ class LegBuilderImpl(
 
     val routeIds = params.routeIds
     val routeDocs = routeIds.flatMap { routeId =>
-      routeDetailRepository.findById(routeId) match {
+      baseRouteRepository.findById(routeId) match {
         case Some(routeDoc) => Some(routeDoc.id -> routeDoc)
         case None =>
           log.error(s"via-route $routeId not found")
@@ -196,7 +196,7 @@ class LegBuilderImpl(
 
     segments.flatMap { graphPathSegment =>
       val routeId = graphPathSegment.pathKey.routeId
-      routeDetailRepository.findById(routeId) match {
+      baseRouteRepository.findById(routeId) match {
         case Some(route) =>
           val pathId = if (graphPathSegment.pathKey.pathId < 100) graphPathSegment.pathKey.pathId else graphPathSegment.pathKey.pathId - 100
           val colour = route.summary.tagValue("colour")
@@ -221,7 +221,7 @@ class LegBuilderImpl(
     }
   }
 
-  private def trackPathToPlanRoute(routeDetailDoc: RouteDetailDoc, trackPath: TrackPath, colour: Option[String]): Option[PlanRoute] = {
+  private def trackPathToPlanRoute(baseRouteDoc: BaseRouteDoc, trackPath: TrackPath, colour: Option[String]): Option[PlanRoute] = {
 
     val routeLegSegments = trackPath.segments.map(s => toPlanSegment(s, colour))
 

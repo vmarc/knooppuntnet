@@ -11,12 +11,12 @@ import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawElement
 import kpn.api.custom.Change
 import kpn.api.custom.Relation
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
-import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.test.OverpassData
 import kpn.core.test.TestSupport.withDatabase
@@ -117,8 +117,8 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
     }
   }
 
-  def findRouteDetailById(routeId: Long): RouteDetailDoc = {
-    database.routeDetails.findById(routeId).getOrElse {
+  def findBaseRouteById(routeId: Long): BaseRouteDoc = {
+    database.baseRoutes.findById(routeId).getOrElse {
       val ids = database.routes.ids()
       if (ids.isEmpty) {
         fail(s"Could not find route $routeId, no routes in database")

@@ -5,7 +5,7 @@ import kpn.core.util.UnitTest
 class Issue220_LoopRoute extends UnitTest {
 
   test("route A25-A25") {
-    val route = CaseStudy.routeDetailDoc("11829926")
+    val route = CaseStudy.baseRouteDoc("11829926")
     route.facts should equal(Seq.empty)
     pending // TODO redesign
     //  route.analysis.map.freePaths.size should equal(1)

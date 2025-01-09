@@ -1,6 +1,6 @@
 package kpn.core.doc
 
-case class RouteDetailSegmentElement(
+case class BaseRouteSegmentElement(
   segmentId: Long,
   segmentElementId: Long,
   surface: String,

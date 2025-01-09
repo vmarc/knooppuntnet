@@ -36,7 +36,7 @@ object ThreadExecutor {
       })
     }
     es.shutdown()
-    es.awaitTermination(12, TimeUnit.HOURS)
+    es.awaitTermination(48, TimeUnit.HOURS)
   }
 
   private def executor(poolSize: Int): ThreadPoolExecutor = {

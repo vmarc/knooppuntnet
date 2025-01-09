@@ -7,7 +7,7 @@ class Issue214_MultipleRouteTypes extends UnitTest {
 
   test("route=hiking;mtb") {
     if (Redesign.enablePendingTests) {
-      val route = CaseStudy.routeDetailDoc("13328443")
+      val route = CaseStudy.baseRouteDoc("13328443")
       route.facts should equal(Seq.empty)
     }
   }

@@ -12,9 +12,9 @@ import kpn.api.common.route.RouteEdge
 import kpn.api.custom.Day
 import kpn.api.custom.Relation
 import kpn.api.custom.ScopedRouteType
-import kpn.core.doc.RouteDetailPath
-import kpn.core.doc.RouteDetailSegment
-import kpn.core.doc.RouteDetailSegmentElement
+import kpn.core.doc.BaseRoutePath
+import kpn.core.doc.BaseRouteSegment
+import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.RouteRelation
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisSegment
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinks
@@ -40,9 +40,9 @@ case class BaseRouteAnalysisContext(
   _countries: Option[Seq[Country]] = None,
   _links: Option[RouteLinks] = None,
   _analysisSegments: Option[Seq[RouteAnalysisSegment]] = None,
-  _segments: Option[Seq[RouteDetailSegment]] = None,
-  _segmentElements: Option[Seq[RouteDetailSegmentElement]] = None,
-  _paths: Option[Seq[RouteDetailPath]] = None,
+  _segments: Option[Seq[BaseRouteSegment]] = None,
+  _segmentElements: Option[Seq[BaseRouteSegmentElement]] = None,
+  _paths: Option[Seq[BaseRoutePath]] = None,
   _bounds: Option[Option[Bounds]] = None,
   routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty,
   _unexpectedNodeIds: Option[Seq[Long]] = None,
@@ -125,11 +125,11 @@ case class BaseRouteAnalysisContext(
 
   def analysisSegments: Seq[RouteAnalysisSegment] = _analysisSegments.getOrElse(throw new PreconditionMissingException)
 
-  def segments: Seq[RouteDetailSegment] = _segments.getOrElse(throw new PreconditionMissingException)
+  def segments: Seq[BaseRouteSegment] = _segments.getOrElse(throw new PreconditionMissingException)
 
-  def segmentElements: Seq[RouteDetailSegmentElement] = _segmentElements.getOrElse(throw new PreconditionMissingException)
+  def segmentElements: Seq[BaseRouteSegmentElement] = _segmentElements.getOrElse(throw new PreconditionMissingException)
 
-  def paths: Seq[RouteDetailPath] = _paths.getOrElse(throw new PreconditionMissingException)
+  def paths: Seq[BaseRoutePath] = _paths.getOrElse(throw new PreconditionMissingException)
 
   def bounds: Option[Bounds] = _bounds.getOrElse(throw new PreconditionMissingException)
 

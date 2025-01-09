@@ -2,9 +2,9 @@ package kpn.server.analyzer.load
 
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.repository.BaseRouteRepository
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeRepository
-import kpn.server.repository.RouteDetailRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -13,7 +13,7 @@ class AnalysisDataInitializerImpl(
   analysisContext: AnalysisContext,
   networkRepository: NetworkRepository,
   routeRepository: RouteRepository,
-  routeDetailRepository: RouteDetailRepository,
+  baseRouteRepository: BaseRouteRepository,
   nodeRepository: NodeRepository
 ) extends AnalysisDataInitializer {
 
@@ -42,7 +42,7 @@ class AnalysisDataInitializerImpl(
 
   private def loadWatchedRoutes(): Int = {
     log.infoElapsed {
-      routeDetailRepository.activeRouteElementIds().foreach { routeElementIds =>
+      baseRouteRepository.activeRouteElementIds().foreach { routeElementIds =>
         analysisContext.watched.routes.add(routeElementIds._id, routeElementIds.elementIds)
       }
       val routeCount = analysisContext.watched.routes.size

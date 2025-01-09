@@ -2,8 +2,8 @@ package kpn.server.repository
 
 import kpn.api.common.Bounds
 import kpn.api.common.RouteType
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.ParentRouteData
-import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.SubRouteData
 import kpn.core.util.Log
 import kpn.database.actions.routes.MongoQueryKnownRouteIds
@@ -18,24 +18,24 @@ import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import org.springframework.stereotype.Component
 
 @Component
-class RouteDetailRepositoryImpl(database: Database) extends RouteDetailRepository {
+class BaseRouteRepositoryImpl(database: Database) extends BaseRouteRepository {
 
-  private val log = Log(classOf[RouteDetailRepositoryImpl])
+  private val log = Log(classOf[BaseRouteRepositoryImpl])
 
   override def activeRouteElementIds(): Seq[ReferencedElementIds] = {
     new MongoQueryRouteElementIds(database).execute()
   }
 
-  override def save(routeDetailDoc: RouteDetailDoc): Unit = {
-    database.routeDetails.save(routeDetailDoc, log)
+  override def save(baseRoute: BaseRouteDoc): Unit = {
+    database.baseRoutes.save(baseRoute, log)
   }
 
-  override def bulkSave(routeDetailDocs: Seq[RouteDetailDoc]): Unit = {
-    database.routeDetails.bulkSave(routeDetailDocs, log)
+  override def bulkSave(baseRoutes: Seq[BaseRouteDoc]): Unit = {
+    database.baseRoutes.bulkSave(baseRoutes, log)
   }
 
-  override def findById(routeId: Long): Option[RouteDetailDoc] = {
-    database.routeDetails.findById(routeId, log)
+  override def findById(routeId: Long): Option[BaseRouteDoc] = {
+    database.baseRoutes.findById(routeId, log)
   }
 
   override def filterKnown(routeIds: Set[Long]): Set[Long] = {

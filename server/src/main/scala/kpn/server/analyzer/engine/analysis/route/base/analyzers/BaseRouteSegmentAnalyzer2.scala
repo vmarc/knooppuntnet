@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.Bounds
-import kpn.core.doc.RouteDetailPath
-import kpn.core.doc.RouteDetailSegment
-import kpn.core.doc.RouteDetailSegmentElement
+import kpn.core.doc.BaseRoutePath
+import kpn.core.doc.BaseRouteSegment
+import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.util.Util
 import kpn.server.analyzer.engine.analysis.route.domain.StructurePath
 
@@ -33,7 +33,7 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
     )
   }
 
-  private def buildSegments: Seq[RouteDetailSegment] = {
+  private def buildSegments: Seq[BaseRouteSegment] = {
     val ways = context.relation.wayMembers.map(_.way)
     context.analysisSegments.map { segment =>
       val segmentWayIds = segment.elements.flatMap(_.fragments).map(_.way.id)
@@ -41,7 +41,7 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
       val meters = segmentWays.map(_.length).sum
       val segmentNodes = segmentWays.flatMap(_.nodes)
       val bounds = Bounds.from(segmentNodes)
-      RouteDetailSegment(
+      BaseRouteSegment(
         segment.id,
         segment.fromNodeId,
         segment.toNodeId,
@@ -52,12 +52,12 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
     }
   }
 
-  private def buildSegmentElements: Seq[RouteDetailSegmentElement] = {
+  private def buildSegmentElements: Seq[BaseRouteSegmentElement] = {
     context.analysisSegments.flatMap { segment =>
       segment.elements.flatMap { element =>
         element.fragmentGroups.map { fragmentGroup =>
           val coordinates = fragmentGroup.nodes.map(node => s"[${node.longitude},${node.latitude}]").mkString("[", ",", "]")
-          RouteDetailSegmentElement(
+          BaseRouteSegmentElement(
             segment.id,
             element.id,
             fragmentGroup.surface,
@@ -68,17 +68,17 @@ class BaseRouteSegmentAnalyzer2(context: BaseRouteAnalysisContext) {
     }
   }
 
-  private def buildPaths: Seq[RouteDetailPath] = {
+  private def buildPaths: Seq[BaseRoutePath] = {
     Seq(
-      context.structure.forwardPath.toSeq.map(path => toRouteDetailPath(path, "forward")),
-      context.structure.backwardPath.toSeq.map(path => toRouteDetailPath(path, "backward")),
-      context.structure.startTentaclePaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"start-tentacle-${index + 1}") },
-      context.structure.endTentaclePaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"end-tentacle-${index + 1}") },
-      context.structure.otherPaths.zipWithIndex.map { case (path, index) => toRouteDetailPath(path, s"other-${index + 1}") },
+      context.structure.forwardPath.toSeq.map(path => toBaseRoutePath(path, "forward")),
+      context.structure.backwardPath.toSeq.map(path => toBaseRoutePath(path, "backward")),
+      context.structure.startTentaclePaths.zipWithIndex.map { case (path, index) => toBaseRoutePath(path, s"start-tentacle-${index + 1}") },
+      context.structure.endTentaclePaths.zipWithIndex.map { case (path, index) => toBaseRoutePath(path, s"end-tentacle-${index + 1}") },
+      context.structure.otherPaths.zipWithIndex.map { case (path, index) => toBaseRoutePath(path, s"other-${index + 1}") },
     ).flatten
   }
 
-  private def toRouteDetailPath(path: StructurePath, name: String): RouteDetailPath = {
-    RouteDetailPath(path.id, name, path.elementIds)
+  private def toBaseRoutePath(path: StructurePath, name: String): BaseRoutePath = {
+    BaseRoutePath(path.id, name, path.elementIds)
   }
 }

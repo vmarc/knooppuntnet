@@ -26,7 +26,7 @@ class OrphanNodeUpdater_ReferencesInRoutes(database: Database, log: Log) {
           )
         )
       )
-      val ids = database.routeDetails.aggregate[Id](pipeline, log).map(_._id).distinct
+      val ids = database.baseRoutes.aggregate[Id](pipeline, log).map(_._id).distinct
       (s"${ids.size} nodes referenced in routes", ids)
     }
   }

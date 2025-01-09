@@ -9,8 +9,8 @@ import kpn.core.util.GeoJsonLineStringGeometry
 import kpn.core.util.UnitTest
 import kpn.server.api.planner.leg.LegBuilderImpl
 import kpn.server.json.Json
+import kpn.server.repository.BaseRouteRepositoryImpl
 import kpn.server.repository.GraphRepositoryImpl
-import kpn.server.repository.RouteDetailRepositoryImpl
 
 class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
@@ -18,18 +18,18 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
     withDatabase { database =>
 
-      val routeDetailRepository = new RouteDetailRepositoryImpl(database)
-      val route1 = CaseStudy.routeDetailDoc("12410463")
-      val route2 = CaseStudy.routeDetailDoc("1029893")
+      val baseRouteRepository = new BaseRouteRepositoryImpl(database)
+      val route1 = CaseStudy.baseRouteDoc("12410463")
+      val route2 = CaseStudy.baseRouteDoc("1029893")
 
-      routeDetailRepository.save(route1)
-      routeDetailRepository.save(route2)
+      baseRouteRepository.save(route1)
+      baseRouteRepository.save(route2)
 
       pending // GraphRepositoryImpl not fully ported to mongodb yet
       val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)
       graphRepository.loadGraphs()
 
-      val legBuilder = new LegBuilderImpl(graphRepository, routeDetailRepository)
+      val legBuilder = new LegBuilderImpl(graphRepository, baseRouteRepository)
       val params = LegBuildParams(
         RouteType.cycling.entryName,
         LegEnd.node(7741683309L),
@@ -71,12 +71,12 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
     withDatabase { database =>
 
-      val routeDetailRepository = new RouteDetailRepositoryImpl(database)
-      val route1 = CaseStudy.routeDetailDoc("12410463")
-      val route2 = CaseStudy.routeDetailDoc("1029893")
+      val baseRouteRepository = new BaseRouteRepositoryImpl(database)
+      val route1 = CaseStudy.baseRouteDoc("12410463")
+      val route2 = CaseStudy.baseRouteDoc("1029893")
 
-      routeDetailRepository.save(route1)
-      routeDetailRepository.save(route2)
+      baseRouteRepository.save(route1)
+      baseRouteRepository.save(route2)
 
       pending // GraphRepositoryImpl not fully ported to mongodb yet
       val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)

@@ -2,21 +2,21 @@ package kpn.server.repository
 
 import kpn.api.common.Bounds
 import kpn.api.common.RouteType
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.ParentRouteData
-import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.SubRouteData
 import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 
-trait RouteDetailRepository {
+trait BaseRouteRepository {
 
   def activeRouteElementIds(): Seq[ReferencedElementIds]
 
-  def save(routeDetail: RouteDetailDoc): Unit
+  def save(baseRoute: BaseRouteDoc): Unit
 
-  def bulkSave(routeDetails: Seq[RouteDetailDoc]): Unit
+  def bulkSave(baseRoutes: Seq[BaseRouteDoc]): Unit
 
-  def findById(routeId: Long): Option[RouteDetailDoc]
+  def findById(routeId: Long): Option[BaseRouteDoc]
 
   def filterKnown(routeIds: Set[Long]): Set[Long]
 

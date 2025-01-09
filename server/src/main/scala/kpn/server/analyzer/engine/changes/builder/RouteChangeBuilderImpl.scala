@@ -14,7 +14,7 @@ import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteUtil
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzer
-import kpn.server.repository.RouteDetailRepository
+import kpn.server.repository.BaseRouteRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component
 class RouteChangeBuilderImpl(
   analysisContext: AnalysisContext,
   routeRepository: RouteRepository,
-  routeDetailRepository: RouteDetailRepository,
+  baseRouteRepository: BaseRouteRepository,
   tileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeMainAnalyzer: RouteMainAnalyzer
 ) extends RouteChangeBuilder {
@@ -141,7 +141,7 @@ class RouteChangeBuilderImpl(
           //noinspection SideEffectsInMonadicTransformation
           log.debug(s"OK: route '$routeId' has been deleted from the database.")
 
-          val routeDetailDoc = ??? // TODO redesign - read doc from database?
+          val baseRouteDoc = ??? // TODO redesign - read doc from database?
           // dataBefore.routeDetail.deactivated.copy(
           //    analysis = RouteInfoAnalysis(
           //      expectedName = "",
@@ -153,8 +153,8 @@ class RouteChangeBuilderImpl(
           //    locationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty)
           //  )
 
-          routeDetailRepository.save(routeDetailDoc)
-          routeMainAnalyzer.analyze(routeDetailDoc) match {
+          baseRouteRepository.save(baseRouteDoc)
+          routeMainAnalyzer.analyze(baseRouteDoc) match {
             case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
             case None =>
           }

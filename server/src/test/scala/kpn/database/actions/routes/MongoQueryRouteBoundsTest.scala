@@ -11,30 +11,30 @@ class MongoQueryRouteBoundsTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      database.routeDetails.save(
-        newRouteDetailDoc(
+      database.baseRoutes.save(
+        newBaseRouteDoc(
           newRouteSummary(11L),
           bounds = Some(Bounds(1, 2, 3, 4))
         )
       )
 
-      database.routeDetails.save(
-        newRouteDetailDoc(
+      database.baseRoutes.save(
+        newBaseRouteDoc(
           newRouteSummary(12L),
           bounds = Some(Bounds(5, 6, 7, 8))
         )
       )
 
-      database.routeDetails.save(
-        newRouteDetailDoc(
+      database.baseRoutes.save(
+        newBaseRouteDoc(
           newRouteSummary(13L),
           labels = Seq.empty, // route does not have 'active' label
           bounds = Some(Bounds(9, 10, 11, 12))
         )
       )
 
-      database.routeDetails.save(
-        newRouteDetailDoc(
+      database.baseRoutes.save(
+        newBaseRouteDoc(
           newRouteSummary(14L),
           bounds = None // superroutes with no ways or nodes do not contain bounds
         )

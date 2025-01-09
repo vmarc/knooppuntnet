@@ -8,12 +8,12 @@ import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.api.custom.Relation
 import kpn.api.custom.Subset
 import kpn.core.analysis.RouteMember
-import kpn.core.doc.RouteDetailDoc
+import kpn.core.doc.BaseRouteDoc
 import kpn.server.analyzer.engine.tiles.domain.RouteTileAnalysis
 
 case class RouteDetailAnalysis(
   relation: Relation,
-  routeDetail: RouteDetailDoc,
+  baseRoute: BaseRouteDoc,
   routeMembers: Seq[RouteMember] = Seq.empty,
   ways: Seq[Way] = Seq.empty,
   startNodes: Seq[RouteNetworkNodeInfo] = Seq.empty,
@@ -28,11 +28,11 @@ case class RouteDetailAnalysis(
 
   def id: Long = relation.id
 
-  def name: String = routeDetail.summary.name
+  def name: String = baseRoute.summary.name
 
   def subsets: Seq[Subset] = {
-    routeDetail.summary.countries.flatMap { country =>
-      routeDetail.summary.routeTypes.flatMap { routeType =>
+    baseRoute.summary.countries.flatMap { country =>
+      baseRoute.summary.routeTypes.flatMap { routeType =>
         Subset.of(country, routeType)
       }
     }

@@ -2,12 +2,12 @@ package kpn.server.analyzer.full.route
 
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.base.RouteDetailDocBuilder
 import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.overpass.OverpassRepository
-import kpn.server.repository.RouteDetailRepository
+import kpn.server.repository.BaseRouteRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -21,8 +21,8 @@ import scala.concurrent.duration.Duration
 class FullRouteAnalyzerImpl(
   overpassRepository: OverpassRepository,
   routeRepository: RouteRepository,
-  routeDetailRepository: RouteDetailRepository,
-  routeDetailMainAnalyzer: BaseRouteMainAnalyzer,
+  baseRouteRepository: BaseRouteRepository,
+  baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
   routeMainAnalyzer: RouteMainAnalyzer,
   implicit val analysisExecutionContext: ExecutionContext
 ) extends FullRouteAnalyzer {
@@ -79,11 +79,11 @@ class FullRouteAnalyzerImpl(
   private def analyzeRouteBatch(timestamp: Timestamp, routeIds: Seq[Long]): Seq[Long] = {
     log.infoElapsed {
       val relations = overpassRepository.fullRelations(timestamp, routeIds)
-      val routeDetailDocs = relations.flatMap { relation =>
+      val baseRouteDocs = relations.flatMap { relation =>
         Log.context(s"route=${relation.id}") {
           try {
-            routeDetailMainAnalyzer.analyze(relation, None /* TODO redesign - hierarchy */).map { context =>
-              new RouteDetailDocBuilder(context).build()
+            baseRouteMainAnalyzer.analyze(relation, None /* TODO redesign - hierarchy */).map { context =>
+              new BaseRouteDocBuilder(context).build()
             }
           } catch {
             case e: Exception =>
@@ -93,14 +93,14 @@ class FullRouteAnalyzerImpl(
         }
       }
 
-      val routeDocs = routeDetailDocs.flatMap { routeDetailDoc =>
-        routeMainAnalyzer.analyze(routeDetailDoc)
+      val routeDocs = baseRouteDocs.flatMap { baseRouteDoc =>
+        routeMainAnalyzer.analyze(baseRouteDoc)
       }
 
-      routeDetailRepository.bulkSave(routeDetailDocs)
+      baseRouteRepository.bulkSave(baseRouteDocs)
       routeRepository.bulkSaveRoutes(routeDocs)
 
-      val ids = routeDetailDocs.map(_.id)
+      val ids = baseRouteDocs.map(_.id)
       (s"processed ${ids.size} routes: ${ids.mkString(", ")}", ids)
     }
   }
@@ -112,9 +112,9 @@ class FullRouteAnalyzerImpl(
           log.warn(s"de-activating route ${routeDoc._id}")
           routeRepository.saveRoute(routeDoc.deactivated)
         }
-        routeDetailRepository.findById(routeId).foreach { routeDetailDoc =>
-          log.warn(s"de-activating route ${routeDetailDoc._id}")
-          routeDetailRepository.save(routeDetailDoc.deactivated)
+        baseRouteRepository.findById(routeId).foreach { baseRouteDoc =>
+          log.warn(s"de-activating route ${baseRouteDoc._id}")
+          baseRouteRepository.save(baseRouteDoc.deactivated)
         }
       }
     }

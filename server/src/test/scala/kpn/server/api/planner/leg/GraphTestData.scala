@@ -4,11 +4,11 @@ import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.planner.LegEndRoute
 import kpn.api.common.route.RouteNetworkNodeInfo
-import kpn.core.doc.RouteDetailDoc
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraphImpl
+import kpn.server.repository.BaseRouteRepository
 import kpn.server.repository.GraphRepository
-import kpn.server.repository.RouteDetailRepository
 
 /*
         1m          2m          5m
@@ -43,8 +43,8 @@ class GraphTestData extends SharedTestObjects {
     graphRepository
   }
 
-  val routeDetailRepository: RouteDetailRepository = {
-    val repository = stub[RouteDetailRepository]
+  val baseRouteRepository: BaseRouteRepository = {
+    val repository = stub[BaseRouteRepository]
     //    (routeRepository.findRouteDetailById _).when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute1, node1, node2)))
     //    (routeRepository.findRouteDetailById _).when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute2, node2, node3)))
     //    (routeRepository.findRouteDetailById _).when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute3, node3, node4)))
@@ -52,9 +52,9 @@ class GraphTestData extends SharedTestObjects {
     repository
   }
 
-  private def routeDoc(legEndRoute: LegEndRoute, startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): RouteDetailDoc = {
+  private def routeDoc(legEndRoute: LegEndRoute, startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): BaseRouteDoc = {
     pending // TODO redesign
-    newRouteDetailDoc(
+    newBaseRouteDoc(
       summary = newRouteSummary(
         id = legEndRoute.trackPathKeys.head.routeId
       ),

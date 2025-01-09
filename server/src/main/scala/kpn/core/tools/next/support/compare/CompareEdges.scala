@@ -1,8 +1,8 @@
 package kpn.core.tools.next.support.compare
 
 import kpn.api.common.route.RouteEdge
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.OldRouteDoc
-import kpn.core.doc.RouteDetailDoc
 import kpn.core.util.Log
 
 import scala.annotation.tailrec
@@ -14,7 +14,7 @@ case class CompareEdge(
   meters: Long
 )
 
-class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc, log: Log) {
+class CompareEdges(oldRouteDoc: OldRouteDoc, newRouteDoc: BaseRouteDoc, log: Log) {
   def compare(): Unit = {
     if (oldRouteDoc.facts.nonEmpty && newRouteDoc.facts.isEmpty && newRouteDoc.edges.nonEmpty) {
       // new analysis without problem found edges, old analysis failed: assume new edges better than old

@@ -30,6 +30,10 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeLocationsAnalyz
 import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeLocationsAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeTileAnalyzer
 import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeTileAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.base.BaseNodeMainAnalyzer
+import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeTileAnalyzer
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
@@ -54,6 +58,10 @@ import kpn.server.overpass.OverpassRepository
 import kpn.server.overpass.OverpassRepositoryImpl
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.AnalysisRepositoryImpl
+import kpn.server.repository.BaseNodeRepository
+import kpn.server.repository.BaseNodeRepositoryImpl
+import kpn.server.repository.BaseRouteRepository
+import kpn.server.repository.BaseRouteRepositoryImpl
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.NetworkInfoRepository
@@ -62,8 +70,8 @@ import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NetworkRepositoryImpl
 import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRepositoryImpl
-import kpn.server.repository.RouteDetailRepository
-import kpn.server.repository.RouteDetailRepositoryImpl
+import kpn.server.repository.RawDataRepository
+import kpn.server.repository.RawDataRepositoryDevelopmentImpl
 import kpn.server.repository.RouteRepository
 import kpn.server.repository.RouteRepositoryImpl
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
@@ -81,7 +89,8 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
   val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
-  val routeDetailRepository: RouteDetailRepository = new RouteDetailRepositoryImpl(database)
+  val baseNodeRepository: BaseNodeRepository = new BaseNodeRepositoryImpl(database)
+  val baseRouteRepository: BaseRouteRepository = new BaseRouteRepositoryImpl(database)
   val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(database)
   val nextRepository: NextRepository = new NextRepositoryImpl(nextDatabase)
@@ -90,9 +99,10 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   private val tileCalculator = new TileCalculatorImpl()
 
+  private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
+
   private val nodeAnalyzer: NodeAnalyzer = {
     val nodeCountryAnalyzer = new OldNodeCountryAnalyzerImpl(locationAnalyzer)
-    val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
     val nodeTileAnalyzer = new OldNodeTileAnalyzerImpl(nodeTileCalculator)
     val nodeLocationsAnalyzer = new OldNodeLocationsAnalyzerImpl(locationAnalyzer)
     val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
@@ -114,9 +124,20 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val changeSetRepository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
 
-  val routeDetailMainAnalyzer: BaseRouteMainAnalyzer = {
+  val baseNodeMainAnalyzer: BaseNodeMainAnalyzer = {
+    val baseNodeLocationAnalyzer = new BaseNodeLocationAnalyzer(locationAnalyzer)
+    val countryAnalyzer = new BaseNodeCountryAnalyzer(locationAnalyzer)
+    val tileAnalyzer = new BaseNodeTileAnalyzer(nodeTileCalculator)
+    new BaseNodeMainAnalyzer(
+      countryAnalyzer,
+      baseNodeLocationAnalyzer,
+      tileAnalyzer
+    )
+  }
+
+  val baseRouteMainAnalyzer: BaseRouteMainAnalyzer = {
     val routeLocator = new RouteLocatorImpl(locationAnalyzer)
-    val routeLocationAnalyzer = new BaseRouteLocationAnalyzerImpl(routeDetailRepository, routeLocator)
+    val routeLocationAnalyzer = new BaseRouteLocationAnalyzerImpl(baseRouteRepository, routeLocator)
     val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
     new BaseRouteMainAnalyzer(
       routeCountryAnalyzer,
@@ -126,9 +147,9 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   val routeMainAnalyzer: RouteMainAnalyzer = {
-    val routeBoundsAnalyzer = new RouteBoundsAnalyzer(routeDetailRepository)
-    val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(routeDetailRepository)
-    val routeParentAnalyzer = new RouteParentAnalyzer(routeDetailRepository)
+    val routeBoundsAnalyzer = new RouteBoundsAnalyzer(baseRouteRepository)
+    val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(baseRouteRepository)
+    val routeParentAnalyzer = new RouteParentAnalyzer(baseRouteRepository)
     new RouteMainAnalyzer(
       routeBoundsAnalyzer,
       routeStructureRowsAnalyzer,
@@ -200,6 +221,8 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
       tileFileBuilder
     )(executionContext)
   }
+
+  val rawDataRepository: RawDataRepository = new RawDataRepositoryDevelopmentImpl(database)
 
   private def buildExecutor(): ThreadPoolTaskExecutor = {
     val executor = new ThreadPoolTaskExecutor

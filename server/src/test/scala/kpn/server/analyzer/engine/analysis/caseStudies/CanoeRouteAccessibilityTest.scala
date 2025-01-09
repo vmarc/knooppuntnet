@@ -4,7 +4,7 @@ import kpn.core.util.UnitTest
 
 class CanoeRouteAccessibilityTest extends UnitTest {
   test("canoe route accessible") {
-    val route = CaseStudy.routeDetailDoc("8473146")
+    val route = CaseStudy.baseRouteDoc("8473146")
     assertEqual(route.facts, Seq.empty)
   }
 }

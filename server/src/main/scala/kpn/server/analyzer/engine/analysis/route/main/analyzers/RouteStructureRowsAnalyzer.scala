@@ -8,13 +8,13 @@ import kpn.api.common.route.RouteStructureRelation
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.RouteStructureWay
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.repository.RouteDetailRepository
+import kpn.server.repository.BaseRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) extends RouteAnalyzer {
+class RouteStructureRowsAnalyzer(baseRouteRepository: BaseRouteRepository) extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    val rows = context.routeDetailDoc.members.flatMap { member =>
+    val rows = context.route.members.flatMap { member =>
       member.memberType match {
         case MemberType.Relation => relationRows(1, member, Seq.empty)
         case MemberType.Way => Seq(wayRow(member))
@@ -22,7 +22,7 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
       }
     }
 
-    val segments = context.routeDetailDoc.segments.map { segment =>
+    val segments = context.route.segments.map { segment =>
       RouteSegment(
         segment.id,
         segment.startNodeId,
@@ -33,7 +33,7 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
       )
     }
 
-    val paths = context.routeDetailDoc.paths.map { path =>
+    val paths = context.route.paths.map { path =>
       RoutePath(
         path.id,
         path.name,
@@ -101,7 +101,7 @@ class RouteStructureRowsAnalyzer(routeDetailRepository: RouteDetailRepository) e
       Seq.empty
     }
     else {
-      routeDetailRepository.subRouteData(member.id) match {
+      baseRouteRepository.subRouteData(member.id) match {
         case None => Seq.empty
         case Some(subRouteData) =>
           val subRelationMembers = subRouteData.members.filter(_.memberType == MemberType.Relation)

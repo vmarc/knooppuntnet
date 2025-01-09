@@ -69,6 +69,10 @@ import kpn.api.custom.Timestamp
 import kpn.core.analysis.Facts
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
+import kpn.core.doc.BaseRouteDoc
+import kpn.core.doc.BaseRoutePath
+import kpn.core.doc.BaseRouteSegment
+import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.Label
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
@@ -80,10 +84,6 @@ import kpn.core.doc.NetworkWayMember
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
-import kpn.core.doc.RouteDetailDoc
-import kpn.core.doc.RouteDetailPath
-import kpn.core.doc.RouteDetailSegment
-import kpn.core.doc.RouteDetailSegmentElement
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.test.OverpassData
@@ -397,7 +397,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newRouteDetail(
+  def newBaseRoute(
     id: Long = 0,
     labels: Seq[String] = Seq(Label.active),
     proposed: Boolean = false,
@@ -423,13 +423,13 @@ trait SharedTestObjects extends MockFactory {
     tiles: Seq[String] = Seq.empty,
     elementIds: ElementIds = ElementIds(),
     edges: Seq[RouteEdge] = Seq.empty,
-    segments: Seq[RouteDetailSegment] = Seq.empty,
-    segmentElements: Seq[RouteDetailSegmentElement] = Seq.empty,
-    paths: Seq[RouteDetailPath] = Seq.empty,
+    segments: Seq[BaseRouteSegment] = Seq.empty,
+    segmentElements: Seq[BaseRouteSegmentElement] = Seq.empty,
+    paths: Seq[BaseRoutePath] = Seq.empty,
     hierarchy: Option[RouteRelation] = None,
     bounds: Option[Bounds] = None,
     subRouteIds: Seq[Long] = Seq.empty
-  ): RouteDetailDoc = {
+  ): BaseRouteDoc = {
 
     val summary = RouteSummary(
       id,
@@ -446,7 +446,7 @@ trait SharedTestObjects extends MockFactory {
       tags = Seq.empty,
     )
 
-    RouteDetailDoc(
+    BaseRouteDoc(
       summary.id,
       labels,
       summary,
@@ -988,7 +988,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newRouteDetailDoc(
+  def newBaseRouteDoc(
     summary: RouteSummary,
     labels: Seq[String] = Seq(Label.active),
     proposed: Boolean = false,
@@ -1009,14 +1009,14 @@ trait SharedTestObjects extends MockFactory {
     nodeRefs: Seq[Long] = Seq.empty,
     elementIds: ElementIds = ElementIds(),
     edges: Seq[RouteEdge] = Seq.empty,
-    segments: Seq[RouteDetailSegment] = Seq.empty,
-    segmentElements: Seq[RouteDetailSegmentElement] = Seq.empty,
-    paths: Seq[RouteDetailPath] = Seq.empty,
+    segments: Seq[BaseRouteSegment] = Seq.empty,
+    segmentElements: Seq[BaseRouteSegmentElement] = Seq.empty,
+    paths: Seq[BaseRoutePath] = Seq.empty,
     hierarchy: Option[RouteRelation] = None,
     bounds: Option[Bounds] = None,
     subRouteIds: Seq[Long] = Seq.empty
-  ): RouteDetailDoc = {
-    RouteDetailDoc(
+  ): BaseRouteDoc = {
+    BaseRouteDoc(
       summary.id,
       labels,
       summary,

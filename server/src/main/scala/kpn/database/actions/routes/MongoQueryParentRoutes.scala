@@ -36,7 +36,7 @@ class MongoQueryParentRoutes(database: Database) {
           )
         )
       )
-      val routes = database.routeDetails.aggregate[ParentRouteData](pipeline, log)
+      val routes = database.baseRoutes.aggregate[ParentRouteData](pipeline, log)
       (s"${routes.size} parent routes", routes)
     }
   }

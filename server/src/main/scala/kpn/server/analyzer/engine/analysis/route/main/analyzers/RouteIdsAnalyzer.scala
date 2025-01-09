@@ -5,9 +5,9 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
 
 object RouteIdsAnalyzer extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    val routeIds = context.routeDetailDoc.hierarchy match {
+    val routeIds = context.route.hierarchy match {
       case Some(rootRelation) => RouteRelation.relationIds(rootRelation)
-      case None => Seq(context.routeDetailDoc.id)
+      case None => Seq(context.route.id)
     }
     context.copy(_routeIds = Some(routeIds))
   }

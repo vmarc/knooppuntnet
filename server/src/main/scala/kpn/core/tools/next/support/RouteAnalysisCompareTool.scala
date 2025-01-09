@@ -1,15 +1,15 @@
 package kpn.core.tools.next.support
 
 import kpn.api.custom.Relation
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.OldRouteDoc
-import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.tools.analysis.AnalysisStartConfiguration
 import kpn.core.tools.analysis.AnalysisStartToolOptions
 import kpn.core.tools.config.Dirs
 import kpn.core.tools.next.support.compare.CompareFacts
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.base.RouteDetailDocBuilder
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
 import org.apache.commons.io.FileUtils
 
 import java.io.File
@@ -54,23 +54,23 @@ class RouteAnalysisCompareTool(config: AnalysisStartConfiguration) {
       case Some(nextRouteRelation) =>
         analyzeRoute(nextRouteRelation.relation, nextRouteRelation.structure) match {
           case None => log.error(s"could not analyze route")
-          case Some(newRouteDetailDoc) =>
+          case Some(newBaseRouteDoc) =>
             config.oldDatabase.oldRoutes.findById(routeId) match {
               case None =>
               case Some(oldRouteDoc) =>
-                compare(oldRouteDoc, newRouteDetailDoc)
+                compare(oldRouteDoc, newBaseRouteDoc)
             }
         }
     }
   }
 
-  private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Option[RouteDetailDoc] = {
-    config.routeDetailMainAnalyzer.analyze(relation, hierarchy).map { context =>
-      new RouteDetailDocBuilder(context).build()
+  private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Option[BaseRouteDoc] = {
+    config.baseRouteMainAnalyzer.analyze(relation, hierarchy).map { context =>
+      new BaseRouteDocBuilder(context).build()
     }
   }
 
-  private def compare(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc): Unit = {
+  private def compare(oldRouteDoc: OldRouteDoc, newRouteDoc: BaseRouteDoc): Unit = {
     //  new CompareEdges(oldRouteDoc, newRouteDoc, log).compare()
     //  new CompareLabels(oldRouteDoc, newRouteDoc, log).compare()
     new CompareFacts(oldRouteDoc, newRouteDoc, log).compare()

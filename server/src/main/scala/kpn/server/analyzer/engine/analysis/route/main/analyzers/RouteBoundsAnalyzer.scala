@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.analysis.route.main.analyzers
 
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.repository.RouteDetailRepository
+import kpn.server.repository.BaseRouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class RouteBoundsAnalyzer(routeDetailRepository: RouteDetailRepository) extends RouteAnalyzer {
+class RouteBoundsAnalyzer(baseRouteRepository: BaseRouteRepository) extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
-    val bounds = routeDetailRepository.bounds(context.routeIds)
+    val bounds = baseRouteRepository.bounds(context.routeIds)
     context.copy(_bounds = Some(bounds))
   }
 }

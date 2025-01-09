@@ -6,7 +6,7 @@ import kpn.core.util.UnitTest
 class Issue379_RedundantNodes extends UnitTest {
 
   test("analyze route with redundant nodes") {
-    val route = CaseStudy.routeDetailDoc("17574316")
+    val route = CaseStudy.baseRouteDoc("17574316")
     route.facts should equal(
       Seq(
         Fact.RouteRedundantNodes,

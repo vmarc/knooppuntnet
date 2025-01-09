@@ -11,7 +11,7 @@ import kpn.core.analysis.Facts
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.base.RouteDetailDocBuilder
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -81,13 +81,13 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
     Log.context(s"route=${relation.id}") {
       try {
-        config.routeDetailMainAnalyzer.analyze(relation, hierarchy) match {
+        config.baseRouteMainAnalyzer.analyze(relation, hierarchy) match {
           case None =>
           case Some(context) =>
-            val routeDetailDoc = new RouteDetailDocBuilder(context).build()
-            config.routeDetailRepository.save(routeDetailDoc)
+            val baseRouteDoc = new BaseRouteDocBuilder(context).build()
+            config.baseRouteRepository.save(baseRouteDoc)
             // TODO redesign - move to phase 2
-            config.routeMainAnalyzer.analyze(routeDetailDoc) match {
+            config.routeMainAnalyzer.analyze(baseRouteDoc) match {
               case None =>
               case Some(routeDoc) =>
                 config.routeRepository.saveRoute(routeDoc)

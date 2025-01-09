@@ -28,7 +28,7 @@ class MongoQueryTiles(database: Database) {
 
   def routeIds(tileName: String): Seq[Long] = {
     log.debugElapsed {
-      val ids = database.routeDetails.aggregate[Id](pipeline(tileName))
+      val ids = database.baseRoutes.aggregate[Id](pipeline(tileName))
       (s"tile '$tileName', route ids: ${ids.size}", ids.map(_._id))
     }
   }

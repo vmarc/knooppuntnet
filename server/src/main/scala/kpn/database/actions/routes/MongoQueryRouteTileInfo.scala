@@ -55,7 +55,7 @@ class MongoQueryRouteTileInfo(database: Database) {
         ),
         projectRouteTileInfo
       )
-      val routes = database.routeDetails.aggregate[RouteTileInfo](pipeline, log)
+      val routes = database.baseRoutes.aggregate[RouteTileInfo](pipeline, log)
       (s"${routes.size} routes", routes)
     }
   }

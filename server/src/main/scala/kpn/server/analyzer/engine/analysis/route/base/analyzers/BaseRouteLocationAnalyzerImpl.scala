@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.route.base.analyzers
 import kpn.api.common.RouteLocationAnalysis
 import kpn.api.common.location.Location
 import kpn.server.analyzer.engine.analysis.location.RouteLocator
-import kpn.server.repository.RouteDetailRepository
+import kpn.server.repository.BaseRouteRepository
 import org.springframework.stereotype.Component
 
 /*
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component
 */
 @Component
 class BaseRouteLocationAnalyzerImpl(
-  routeDetailRepository: RouteDetailRepository,
+  baseRouteRepository: BaseRouteRepository,
   routeLocator: RouteLocator
 ) extends BaseRouteLocationAnalyzer {
 
   def analyze(context: BaseRouteAnalysisContext): BaseRouteAnalysisContext = {
-    routeDetailRepository.findById(context.relation.id) match {
+    baseRouteRepository.findById(context.relation.id) match {
       case Some(route) =>
         if (route.geometryDigest == context.geometryDigest) {
           context.copy(_locationAnalysis = Some(route.locationAnalysis))

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.main
 
 import kpn.api.base.ObjectId
-import kpn.core.doc.RouteDetailDoc
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
@@ -21,9 +21,9 @@ class RouteMainAnalyzer(
   parentAnalyzer: RouteParentAnalyzer
 ) {
 
-  def analyze(routeDetailDoc: RouteDetailDoc): Option[RouteDoc] = {
-    Log.context(f"route=${routeDetailDoc.summary.id}%07d") {
-      val context = RouteAnalysisContext(routeDetailDoc)
+  def analyze(route: BaseRouteDoc): Option[RouteDoc] = {
+    Log.context(f"route=${route.summary.id}%07d") {
+      val context = RouteAnalysisContext(route)
       val analyzers: List[RouteAnalyzer] = List(
         RouteIdsAnalyzer,
         boundsAnalyzer,
@@ -39,28 +39,28 @@ class RouteMainAnalyzer(
   private def doAnalyze(analyzers: List[RouteAnalyzer], context: RouteAnalysisContext): Option[RouteDoc] = {
     if (analyzers.isEmpty) {
 
-      val summary = context.routeDetailDoc.summary.copy(
+      val summary = context.route.summary.copy(
         meters = context.distance
       )
 
       Some(
         RouteDoc(
-          context.routeDetailDoc._id, // routeId
-          context.routeDetailDoc.labels,
+          context.route._id, // routeId
+          context.route.labels,
           summary,
-          context.routeDetailDoc.proposed,
-          context.routeDetailDoc.version,
-          context.routeDetailDoc.changeSetId,
-          context.routeDetailDoc.lastUpdated,
-          context.routeDetailDoc.lastSurvey,
-          context.routeDetailDoc.facts,
-          context.routeDetailDoc.unexpectedNodeIds,
-          context.routeDetailDoc.unexpectedRelationIds,
-          context.routeDetailDoc.members,
-          context.routeDetailDoc.nameDerivedFromNodes,
-          context.routeDetailDoc.nodes,
-          context.routeDetailDoc.analysis,
-          context.routeDetailDoc.locationAnalysis,
+          context.route.proposed,
+          context.route.version,
+          context.route.changeSetId,
+          context.route.lastUpdated,
+          context.route.lastSurvey,
+          context.route.facts,
+          context.route.unexpectedNodeIds,
+          context.route.unexpectedRelationIds,
+          context.route.members,
+          context.route.nameDerivedFromNodes,
+          context.route.nodes,
+          context.route.analysis,
+          context.route.locationAnalysis,
           context.segments,
           context.paths,
           context.routeIds,

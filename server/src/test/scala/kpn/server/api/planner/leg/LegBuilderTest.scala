@@ -205,7 +205,7 @@ class LegBuilderTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   private def legBuilder(): LegBuilder = {
-    new LegBuilderImpl(data.graphRepository, data.routeDetailRepository)
+    new LegBuilderImpl(data.graphRepository, data.baseRouteRepository)
   }
 
   private def planRoute(sourcePlanNode: PlanNode, sinkPlanNode: PlanNode): PlanRoute = {

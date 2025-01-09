@@ -9,6 +9,8 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.User
 import kpn.api.common.poi.Poi
+import kpn.core.doc.BaseNodeDoc
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
@@ -19,7 +21,6 @@ import kpn.core.doc.OrphanRouteDoc
 import kpn.core.doc.RawNetworkDoc
 import kpn.core.doc.RawNodeDoc
 import kpn.core.doc.RawRouteDoc
-import kpn.core.doc.RouteDetailDoc
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteNetworkRef
 import kpn.core.doc.Task
@@ -50,13 +51,15 @@ trait Database {
 
   def networkInfos: DatabaseCollection[NetworkInfoDoc]
 
+  def baseNodes: DatabaseCollection[BaseNodeDoc]
+
   def nodes: DatabaseCollection[NodeDoc]
 
   def orphanNodes: DatabaseCollection[OrphanNodeDoc]
 
   def routes: DatabaseCollection[RouteDoc]
 
-  def routeDetails: DatabaseCollection[RouteDetailDoc]
+  def baseRoutes: DatabaseCollection[BaseRouteDoc]
 
   def routeTiles: DatabaseCollection[RouteTileDoc]
 

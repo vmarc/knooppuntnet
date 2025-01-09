@@ -6,7 +6,7 @@ import kpn.core.util.UnitTest
 class RouteUnexpectedNode extends UnitTest {
 
   test("no RouteUnexpectedNode for tourism=information + information=board") {
-    val route = CaseStudy.routeDetailDoc("7645863")
+    val route = CaseStudy.baseRouteDoc("7645863")
     route.facts.contains(Fact.RouteUnexpectedNode) should equal(false)
   }
 }

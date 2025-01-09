@@ -14,7 +14,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Timestamp
 import kpn.server.analyzer.engine.context.ElementIds
 
-case class RouteDetailDoc(
+case class BaseRouteDoc(
   _id: Long, // routeId
   labels: Seq[String],
   summary: RouteSummary,
@@ -36,9 +36,9 @@ case class RouteDetailDoc(
   nodeRefs: Seq[Long], // networkNodeIds
   elementIds: ElementIds,
   edges: Seq[RouteEdge],
-  segments: Seq[RouteDetailSegment],
-  segmentElements: Seq[RouteDetailSegmentElement],
-  paths: Seq[RouteDetailPath],
+  segments: Seq[BaseRouteSegment],
+  segmentElements: Seq[BaseRouteSegmentElement],
+  paths: Seq[BaseRoutePath],
   hierarchy: Option[RouteRelation],
   bounds: Option[Bounds],
   subRouteIds: Seq[Long]
@@ -48,7 +48,7 @@ case class RouteDetailDoc(
 
   def toRef: Ref = Ref(summary.id, summary.name)
 
-  def deactivated: RouteDetailDoc = {
+  def deactivated: BaseRouteDoc = {
     copy(
       labels = labels.filterNot(label =>
         label == Label.active || label.startsWith("fact")

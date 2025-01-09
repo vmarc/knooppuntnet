@@ -66,7 +66,7 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
   }
 
   override def nodeRouteReferences(nodeId: Long): Seq[Reference] = {
-    database.routeDetails.aggregate[Reference](routeReferencesPipeline(nodeId))
+    database.baseRoutes.aggregate[Reference](routeReferencesPipeline(nodeId))
   }
 
   override def filterKnown(nodeIds: Set[Long]): Set[Long] = {

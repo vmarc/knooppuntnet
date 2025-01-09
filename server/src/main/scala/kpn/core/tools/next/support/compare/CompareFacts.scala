@@ -1,10 +1,10 @@
 package kpn.core.tools.next.support.compare
 
+import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.OldRouteDoc
-import kpn.core.doc.RouteDetailDoc
 import kpn.core.util.Log
 
-class CompareFacts(oldRouteDoc: OldRouteDoc, newRouteDoc: RouteDetailDoc, log: Log) {
+class CompareFacts(oldRouteDoc: OldRouteDoc, newRouteDoc: BaseRouteDoc, log: Log) {
 
   def compare(): Unit = {
     if (newRouteDoc.segments.sizeIs != 1) {

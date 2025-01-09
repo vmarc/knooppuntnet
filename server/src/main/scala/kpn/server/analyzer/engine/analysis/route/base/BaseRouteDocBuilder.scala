@@ -9,12 +9,12 @@ import kpn.api.common.data.Way
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.custom.Timestamp
 import kpn.core.analysis.Facts
-import kpn.core.doc.RouteDetailDoc
+import kpn.core.doc.BaseRouteDoc
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 
-class RouteDetailDocBuilder(context: BaseRouteAnalysisContext) {
+class BaseRouteDocBuilder(context: BaseRouteAnalysisContext) {
 
-  def build(): RouteDetailDoc = {
+  def build(): BaseRouteDoc = {
 
     val title: String = context.routeNameAnalysis.name match {
       case Some(routeName) => routeName
@@ -63,7 +63,7 @@ class RouteDetailDocBuilder(context: BaseRouteAnalysisContext) {
       }
     }
 
-    RouteDetailDoc(
+    BaseRouteDoc(
       summary.id,
       context.labels,
       summary,

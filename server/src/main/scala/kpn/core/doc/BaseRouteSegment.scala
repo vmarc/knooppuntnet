@@ -2,7 +2,7 @@ package kpn.core.doc
 
 import kpn.api.common.Bounds
 
-case class RouteDetailSegment(
+case class BaseRouteSegment(
   id: Long,
   startNodeId: Long,
   endNodeId: Long,

@@ -4,9 +4,9 @@ import kpn.api.common.Fact
 import kpn.api.common.data.Tagable
 import kpn.api.custom.Day
 import kpn.api.custom.Tag
-import kpn.core.doc.RouteDetailPath
-import kpn.core.doc.RouteDetailSegment
-import kpn.core.doc.RouteDetailSegmentElement
+import kpn.core.doc.BaseRoutePath
+import kpn.core.doc.BaseRouteSegment
+import kpn.core.doc.BaseRouteSegmentElement
 
 /*
   Information about route that is needed to create tiles.
@@ -20,8 +20,8 @@ case class RouteTileInfo(
   lastSurvey: Option[Day],
   tags: Seq[Tag],
   facts: Seq[Fact],
-  segments: Seq[RouteDetailSegment],
-  segmentElements: Seq[RouteDetailSegmentElement],
-  paths: Seq[RouteDetailPath],
+  segments: Seq[BaseRouteSegment],
+  segmentElements: Seq[BaseRouteSegmentElement],
+  paths: Seq[BaseRoutePath],
   tiles: Seq[String]
 ) extends Tagable
