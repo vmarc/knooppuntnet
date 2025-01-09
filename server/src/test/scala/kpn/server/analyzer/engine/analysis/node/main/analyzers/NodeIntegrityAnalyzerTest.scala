@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.node.analyzers
+package kpn.server.analyzer.engine.analysis.node.main.analyzers
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkScope
@@ -10,53 +10,49 @@ import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
 class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("UnexpectedIntegrityCheck") {
 
-    val node = newRawNode(
-      tags = Tags.from(
-        "rwn_ref" -> "01", // hiking node
-        "expected_rcn_route_relations" -> "3", // unexpected cycling tag
-      )
-    )
-
-    val analysis = NodeAnalysis(
-      node,
-      nodeNames = Seq(
+    val node = newBaseNodeDoc(
+      names = Seq(
         newNodeName(
           routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "01",
         )
       ),
+      tags = Tags.from(
+        "rwn_ref" -> "01", // hiking node
+        "expected_rcn_route_relations" -> "3", // unexpected cycling tag
+      ),
     )
 
-    val updatedAnalysis = NodeIntegrityAnalyzer.analyze(analysis)
-    updatedAnalysis.facts should equal(Seq(Fact.UnexpectedIntegrityCheck))
-    updatedAnalysis.integrity should equal(None)
+    val context = NodeAnalysisContext(node)
+    val updatedContext = NodeIntegrityAnalyzer.analyze(context)
+    updatedContext.facts should equal(Seq(Fact.UnexpectedIntegrityCheck))
+    updatedContext.integrity should equal(None)
   }
 
   test("IntegrityCheck ok") {
 
-    val node = newRawNode(
+    val node = newBaseNodeDoc(
+      names = Seq(
+        newNodeName(
+          routeType = RouteType.hiking,
+          networkScope = NetworkScope.regional,
+          name = "01",
+        )
+      ),
       tags = Tags.from(
         "rwn_ref" -> "01",
         "expected_rwn_route_relations" -> "3",
       )
     )
 
-    val analysis = NodeAnalysis(
+    val context = NodeAnalysisContext(
       node,
-      nodeNames = Seq(
-        newNodeName(
-          routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
-          name = "01",
-        )
-      ),
       routeReferences = Seq(
         Reference(
           RouteType.hiking,
@@ -79,9 +75,9 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
 
-    val updatedAnalysis = NodeIntegrityAnalyzer.analyze(analysis)
-    updatedAnalysis.facts should equal(Seq.empty)
-    updatedAnalysis.integrity should equal(
+    val updatedContext = NodeIntegrityAnalyzer.analyze(context)
+    updatedContext.facts should equal(Seq.empty)
+    updatedContext.integrity should equal(
       Some(
         NodeIntegrity(
           Seq(
@@ -103,22 +99,22 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("IntegrityCheck nok") {
 
-    val node = newRawNode(
-      tags = Tags.from(
-        "rwn_ref" -> "01",
-        "expected_rwn_route_relations" -> "3",
-      )
-    )
-
-    val analysis = NodeAnalysis(
-      node,
-      nodeNames = Seq(
+    val node = newBaseNodeDoc(
+      names = Seq(
         newNodeName(
           routeType = RouteType.hiking,
           networkScope = NetworkScope.regional,
           name = "01",
         )
       ),
+      tags = Tags.from(
+        "rwn_ref" -> "01",
+        "expected_rwn_route_relations" -> "3",
+      )
+    )
+
+    val context = NodeAnalysisContext(
+      node,
       routeReferences = Seq(
         Reference(
           RouteType.hiking,
@@ -135,9 +131,9 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
 
-    val updatedAnalysis = NodeIntegrityAnalyzer.analyze(analysis)
-    updatedAnalysis.facts should equal(Seq.empty)
-    updatedAnalysis.integrity should equal(
+    val updatedContext = NodeIntegrityAnalyzer.analyze(context)
+    updatedContext.facts should equal(Seq.empty)
+    updatedContext.integrity should equal(
       Some(
         NodeIntegrity(
           Seq(

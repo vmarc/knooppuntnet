@@ -9,6 +9,7 @@ import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.User
 import kpn.api.common.poi.Poi
+import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.ChangeSetComment
@@ -46,6 +47,8 @@ trait Database {
   def getCollection[T: ClassTag](collectionName: String): MongoCollection[T]
 
   def empty: DatabaseCollection[Any]
+
+  def baseNetworks: DatabaseCollection[BaseNetworkDoc]
 
   def networks: DatabaseCollection[NetworkDoc]
 

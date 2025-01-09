@@ -12,12 +12,7 @@ import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoExt
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeDocAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeCountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeLocationsAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeTileAnalyzerNoop
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.PostProcessor
@@ -120,17 +115,7 @@ class IntegrationTestContext(
 
   private val elementIdAnalyzer = new ElementIdAnalyzerImpl
 
-  val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
-
-  private val nodeAnalyzer: NodeAnalyzer = {
-    val nodeCountryAnalyzer = new OldNodeCountryAnalyzerImpl(locationAnalyzer)
-    new NodeAnalyzerImpl(
-      nodeCountryAnalyzer,
-      new OldNodeTileAnalyzerNoop,
-      new OldNodeLocationsAnalyzerImpl(locationAnalyzer),
-      nodeRouteReferencesAnalyzer
-    )
-  }
+  val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
 
   private val routeTileChangeAnalyzer = new RouteTileChangeAnalyzerImpl()
 
@@ -180,11 +165,7 @@ class IntegrationTestContext(
     blacklistRepository
   )
 
-  private val bulkNodeAnalyzer = new BulkNodeAnalyzerImpl(
-    database,
-    overpassRepository,
-    nodeAnalyzer
-  )
+  private val bulkNodeAnalyzer = new BulkNodeAnalyzerImpl()
 
   private val nodeTileChangeAnalyzer = new NodeTileChangeAnalyzerImpl(
     new TileDataNodeBuilderImpl()

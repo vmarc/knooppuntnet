@@ -18,8 +18,8 @@ import kpn.core.test.OverpassData
 import kpn.database.actions.locations.MongoQueryLocationNodes
 import kpn.database.actions.subsets.MongoQuerySubsetOrphanNodes
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeNameAnalyzer
-import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
+import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeAnalysisContext
+import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeNameAnalyzer
 import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 import kpn.server.api.analysis.pages.SurveyDateInfoBuilder
 
@@ -139,7 +139,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
   }
 
   test("step1: node that is both regional and local") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "hiking" -> "yes",
         "information" -> "guidepost",
@@ -152,9 +152,9 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         "tourism" -> "information",
       )
     )
-    nodeAnalysis.name should equal("Teumelet / o")
+    context.name should equal("Teumelet / o")
     assertEqual(
-      nodeAnalysis.nodeNames,
+      context.names,
       Seq(
         NodeName(
           routeType = RouteType.hiking,
@@ -175,7 +175,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
   }
 
   test("step2: node only local, regional tag removed, changeset 113461712 004/790/397") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "hiking" -> "yes",
         "information" -> "guidepost",
@@ -188,9 +188,9 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         "tourism" -> "information",
       )
     )
-    nodeAnalysis.name should equal("Teumelet")
+    context.name should equal("Teumelet")
     assertEqual(
-      nodeAnalysis.nodeNames,
+      context.names,
       Seq(
         NodeName(
           routeType = RouteType.hiking,
@@ -204,7 +204,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
   }
 
   test("step3: lost network node tags, changeset 113584885 004/794/696") {
-    val nodeAnalysis = analyze(
+    val context = analyze(
       Tags.from(
         "hiking" -> "yes",
         "information" -> "guidepost",
@@ -213,12 +213,12 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
         "tourism" -> "information",
       )
     )
-    nodeAnalysis.name should equal("")
-    nodeAnalysis.nodeNames should equal(Seq.empty)
+    context.name should equal("")
+    context.names should equal(Seq.empty)
   }
 
-  private def analyze(tags: Seq[Tag]): NodeAnalysis = {
-    val nodeAnalysis = NodeAnalysis(newRawNode(tags = tags))
-    NodeNameAnalyzer.analyze(nodeAnalysis)
+  private def analyze(tags: Seq[Tag]): BaseNodeAnalysisContext = {
+    val context = BaseNodeAnalysisContext(newRawNode(tags = tags))
+    BaseNodeNameAnalyzer.analyze(context)
   }
 }

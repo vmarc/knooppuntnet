@@ -300,6 +300,181 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
     context.names should equal(Seq.empty)
   }
 
+  /*
+
+    test("??n_ref") {
+      ScopedRouteType.all.foreach { scopedRouteType =>
+        analyze(
+          "network:type" -> "node_network",
+          scopedRouteType.nodeRefTagKey -> "01"
+        ) should equal(
+          Some(
+            NodeTagAnalysis(
+              "01",
+              nodeNames = Seq(
+                NodeName(
+                  routeType = scopedRouteType.routeType,
+                  networkScope = scopedRouteType.networkScope,
+                  name = "01",
+                  longName = None,
+                  proposed = false
+                )
+              ),
+              lastSurvey = None,
+              facts = Seq.empty
+            )
+          )
+        )
+      }
+    }
+
+    test("??n_name") {
+      ScopedRouteType.all.foreach { scopedRouteType =>
+        analyze(
+          "network:type" -> "node_network",
+          scopedRouteType.nodeNameTagKey -> "01"
+        ) should equal(
+          Some(
+            NodeTagAnalysis(
+              "01",
+              nodeNames = Seq(
+                NodeName(
+                  routeType = scopedRouteType.routeType,
+                  networkScope = scopedRouteType.networkScope,
+                  name = "01",
+                  longName = Some("01"),
+                  proposed = false
+                )
+              ),
+              lastSurvey = None,
+              facts = Seq.empty
+            )
+          )
+        )
+      }
+    }
+
+    test("proposed:??n_ref") {
+      ScopedRouteType.all.foreach { scopedRouteType =>
+        analyze(
+          "network:type" -> "node_network",
+          scopedRouteType.proposedNodeRefTagKey -> "01"
+        ) should equal(
+          Some(
+            NodeTagAnalysis(
+              "01",
+              nodeNames = Seq(
+                NodeName(
+                  routeType = scopedRouteType.routeType,
+                  networkScope = scopedRouteType.networkScope,
+                  name = "01",
+                  longName = None,
+                  proposed = true
+                )
+              ),
+              lastSurvey = None,
+              facts = Seq.empty
+            )
+          )
+        )
+      }
+    }
+
+    test("propsed:??n_name") {
+      ScopedRouteType.all.foreach { scopedRouteType =>
+        analyze(
+          "network:type" -> "node_network",
+          scopedRouteType.proposedNodeNameTagKey -> "01"
+        ) should equal(
+          Some(
+            NodeTagAnalysis(
+              "01",
+              nodeNames = Seq(
+                NodeName(
+                  routeType = scopedRouteType.routeType,
+                  networkScope = scopedRouteType.networkScope,
+                  name = "01",
+                  longName = Some("01"),
+                  proposed = true
+                )
+              ),
+              lastSurvey = None,
+              facts = Seq.empty
+            )
+          )
+        )
+      }
+    }
+
+    test("multiple scopes and network types") {
+      assertEqual(
+        analyze(
+          "network:type" -> "node_network",
+          "rwn_ref" -> "01",
+          "lwn_ref" -> "02",
+          "rcn_ref" -> "03"
+        ),
+        Some(
+          NodeTagAnalysis(
+            "01 / 02 / 03",
+            nodeNames = Seq(
+              NodeName(
+                routeType = RouteType.hiking,
+                networkScope = NetworkScope.regional,
+                name = "01",
+                longName = None,
+                proposed = false
+              ),
+              NodeName(
+                routeType = RouteType.hiking,
+                networkScope = NetworkScope.local,
+                name = "02",
+                longName = None,
+                proposed = false
+              ),
+              NodeName(
+                routeType = RouteType.cycling,
+                networkScope = NetworkScope.regional,
+                name = "03",
+                longName = None,
+                proposed = false
+              )
+            ),
+            lastSurvey = None,
+            facts = Seq.empty
+          )
+        )
+      )
+    }
+
+    test("state=proposed") {
+      assertEqual(
+        analyze(
+          "network:type" -> "node_network",
+          "rwn_ref" -> "01",
+          "state" -> "proposed"
+        ),
+        Some(
+          NodeTagAnalysis(
+            "01",
+            nodeNames = Seq(
+              NodeName(
+                routeType = RouteType.hiking,
+                networkScope = NetworkScope.regional,
+                name = "01",
+                longName = None,
+                proposed = true
+              )
+            ),
+            lastSurvey = None,
+            facts = Seq.empty
+          )
+        )
+      )
+    }
+
+  */
+
   private def analyze(tags: Seq[Tag]): BaseNodeAnalysisContext = {
     val node = newRawNode(tags = tags)
     val context = BaseNodeAnalysisContext(node)

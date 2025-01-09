@@ -1,31 +1,30 @@
-package kpn.server.analyzer.engine.analysis.node.analyzers
+package kpn.server.analyzer.engine.analysis.node.main.analyzers
 
 import kpn.api.common.Fact
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.ScopedRouteType
-import kpn.server.analyzer.engine.analysis.node.domain.NodeAnalysis
 
-object NodeIntegrityAnalyzer extends NodeAspectAnalyzer {
-  def analyze(analysis: NodeAnalysis): NodeAnalysis = {
-    new NodeIntegrityAnalyzer(analysis).analyze
+object NodeIntegrityAnalyzer extends NodeAnalyzer {
+  def analyze(context: NodeAnalysisContext): NodeAnalysisContext = {
+    new NodeIntegrityAnalyzer(context).analyze
   }
 }
 
-class NodeIntegrityAnalyzer(analysis: NodeAnalysis) {
+class NodeIntegrityAnalyzer(context: NodeAnalysisContext) {
 
-  def analyze: NodeAnalysis = {
+  def analyze: NodeAnalysisContext = {
 
     var unexpectedExpectedRouteRelationsTag: Boolean = false
 
     val nodeIntegrityDetails = ScopedRouteType.all.flatMap { scopedRouteType =>
-      analysis.node.tagValue(scopedRouteType.expectedRouteRelationsTag) match {
+      context.node.tagValue(scopedRouteType.expectedRouteRelationsTag) match {
         case None => None
         case Some(expectedRouteRelationsValue) =>
           if (expectedRouteRelationsValue.forall(Character.isDigit)) {
-            if (analysis.routeTypes.contains(scopedRouteType.routeType)) {
+            if (context.routeTypes.contains(scopedRouteType.routeType)) {
               val expectedRouteCount = expectedRouteRelationsValue.toInt
-              val routeRefs = analysis.routeReferences.filter(rr => rr.routeType == scopedRouteType.routeType && rr.networkScope == scopedRouteType.networkScope).map(_.toRef)
+              val routeRefs = context.routeReferences.filter(rr => rr.routeType == scopedRouteType.routeType && rr.networkScope == scopedRouteType.networkScope).map(_.toRef)
               Some(
                 NodeIntegrityDetail(
                   scopedRouteType.routeType,
@@ -54,13 +53,13 @@ class NodeIntegrityAnalyzer(analysis: NodeAnalysis) {
     }
 
     val facts = if (unexpectedExpectedRouteRelationsTag) {
-      analysis.facts :+ Fact.UnexpectedIntegrityCheck
+      context.facts :+ Fact.UnexpectedIntegrityCheck
     }
     else {
-      analysis.facts
+      context.facts
     }
 
-    analysis.copy(
+    context.copy(
       integrity = integrity,
       facts = facts
     )

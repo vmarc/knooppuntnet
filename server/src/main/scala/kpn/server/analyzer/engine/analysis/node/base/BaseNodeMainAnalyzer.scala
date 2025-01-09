@@ -8,6 +8,7 @@ import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeNameAnalyzer
+import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeSurveyAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeTileAnalyzer
 import org.springframework.stereotype.Component
 
@@ -25,6 +26,7 @@ class BaseNodeMainAnalyzer(
       val context = BaseNodeAnalysisContext(node)
       val analyzers: List[BaseNodeAnalyzer] = List(
         BaseNodeNameAnalyzer,
+        BaseNodeSurveyAnalyzer,
         countryAnalyzer,
         locationAnalyzer,
         tileAnalyzer,
@@ -47,6 +49,8 @@ class BaseNodeMainAnalyzer(
           longitude = context.node.longitude,
           lastUpdated = context.node.timestamp,
           tags = context.node.tags,
+          lastSurvey = context.lastSurvey,
+          facts = context.facts,
           country = context.country,
           locations = context.locations,
           tiles = context.tiles,

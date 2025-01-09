@@ -1,5 +1,6 @@
 package kpn.server.repository
 
+import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
@@ -41,4 +42,7 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
     database.networkInfos.delete(networkId, log)
   }
 
+  override def saveBaseNetwork(baseNetworkDoc: BaseNetworkDoc): Unit = {
+    database.baseNetworks.save(baseNetworkDoc)
+  }
 }

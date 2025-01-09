@@ -1,5 +1,6 @@
 package kpn.server.repository
 
+import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
 
@@ -19,4 +20,5 @@ trait NetworkRepository {
 
   def delete(networkId: Long): Unit
 
+  def saveBaseNetwork(baseNetworkDoc: BaseNetworkDoc): Unit
 }

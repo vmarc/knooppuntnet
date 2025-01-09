@@ -2,6 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
+import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.tiles.domain.NodeTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
@@ -19,6 +20,8 @@ trait NodeRepository {
   def delete(nodeId: Long): Unit
 
   def nodeWithId(nodeId: Long): Option[NodeDoc]
+
+  def baseNodeWithId(nodeId: Long): Option[BaseNodeDoc]
 
   def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc]
 

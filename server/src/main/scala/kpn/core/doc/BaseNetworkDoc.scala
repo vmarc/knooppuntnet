@@ -1,5 +1,6 @@
 package kpn.core.doc
 
+import kpn.api.base.WithId
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
@@ -14,4 +15,4 @@ case class BaseNetworkDoc(
   tags: Seq[Tag],
   nodeIds: Seq[Long],
   routeIds: Seq[Long],
-)
+) extends WithId

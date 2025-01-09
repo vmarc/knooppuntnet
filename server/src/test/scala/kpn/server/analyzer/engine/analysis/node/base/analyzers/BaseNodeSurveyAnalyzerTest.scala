@@ -1,0 +1,30 @@
+package kpn.server.analyzer.engine.analysis.node.base.analyzers
+
+import kpn.api.common.Fact
+import kpn.api.common.SharedTestObjects
+import kpn.api.custom.Day
+import kpn.core.util.UnitTest
+
+class BaseNodeSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
+
+  test("survey date") {
+    val context = analyze(
+      "survey:date" -> "2020-08"
+    )
+    context.lastSurvey should equal(Some(Day(2020, 8)))
+    context.facts should equal(Seq.empty)
+  }
+
+  test("survey date invalid format") {
+    val context = analyze(
+      "survey:date" -> "bla"
+    )
+    context.lastSurvey should equal(None)
+    context.facts should equal(Seq(Fact.NodeInvalidSurveyDate))
+  }
+
+  private def analyze(tags: (String, String)*): BaseNodeAnalysisContext = {
+    val context = BaseNodeAnalysisContext(newRawNode())
+    BaseNodeSurveyAnalyzer.analyze(context)
+  }
+}

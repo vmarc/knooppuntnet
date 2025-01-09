@@ -4,7 +4,8 @@ import kpn.api.common.NodeName
 import kpn.api.common.data.Tagable
 import kpn.api.custom.ScopedRouteType
 import kpn.server.analyzer.engine.analysis.node.NodeUtil
-import kpn.server.analyzer.engine.analysis.node.analyzers.Name
+
+case class Name(name: String, proposed: Boolean)
 
 object BaseNodeNameAnalyzer extends BaseNodeAnalyzer {
   def analyze(context: BaseNodeAnalysisContext): BaseNodeAnalysisContext = {

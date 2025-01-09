@@ -12,6 +12,7 @@ import kpn.database.base.OldDatabase
 import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
+import kpn.server.analyzer.engine.analysis.network.base.BaseNetworkMainAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
@@ -20,20 +21,12 @@ import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNod
 import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzer
-import kpn.server.analyzer.engine.analysis.node.NodeAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.NodeRouteReferencesAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeCountryAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeCountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeLocationsAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeLocationsAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeTileAnalyzer
-import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeTileAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.base.BaseNodeMainAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeTileAnalyzer
+import kpn.server.analyzer.engine.analysis.node.main.NodeMainAnalyzer
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
@@ -101,19 +94,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   private val nodeTileCalculator = new NodeTileCalculatorImpl(tileCalculator)
 
-  private val nodeAnalyzer: NodeAnalyzer = {
-    val nodeCountryAnalyzer = new OldNodeCountryAnalyzerImpl(locationAnalyzer)
-    val nodeTileAnalyzer = new OldNodeTileAnalyzerImpl(nodeTileCalculator)
-    val nodeLocationsAnalyzer = new OldNodeLocationsAnalyzerImpl(locationAnalyzer)
-    val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzerImpl(nodeRepository)
-    new NodeAnalyzerImpl(
-      nodeCountryAnalyzer: OldNodeCountryAnalyzer,
-      nodeTileAnalyzer: OldNodeTileAnalyzer,
-      nodeLocationsAnalyzer: OldNodeLocationsAnalyzer,
-      nodeRouteReferencesAnalyzer: NodeRouteReferencesAnalyzer
-    )
-  }
-
   private val routeTileAnalyzer = {
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
     new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
@@ -134,6 +114,15 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
       tileAnalyzer
     )
   }
+
+  val nodeMainAnalyzer: NodeMainAnalyzer = {
+    val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
+    new NodeMainAnalyzer(
+      nodeRouteReferencesAnalyzer
+    )
+  }
+
+  val baseNetworkMainAnalyzer: BaseNetworkMainAnalyzer = new BaseNetworkMainAnalyzer
 
   val baseRouteMainAnalyzer: BaseRouteMainAnalyzer = {
     val routeLocator = new RouteLocatorImpl(locationAnalyzer)
@@ -158,9 +147,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzerImpl(
-    database,
-    overpassRepository,
-    nodeAnalyzer
   )
 
   val networkInfoRepository: NetworkInfoRepository = new NetworkInfoRepositoryImpl(database)

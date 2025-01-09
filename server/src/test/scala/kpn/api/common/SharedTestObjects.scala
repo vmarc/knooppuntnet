@@ -69,6 +69,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.analysis.Facts
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
+import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
 import kpn.core.doc.BaseRouteSegment
@@ -125,6 +126,40 @@ trait SharedTestObjects extends MockFactory {
       timestamp,
       changeSetId,
       tags
+    )
+  }
+
+  def newBaseNodeDoc(
+    _id: Long = 0,
+    name: Option[String] = None,
+    names: Seq[NodeName] = Seq.empty,
+    version: Long = 0,
+    changeSetId: Long = 0,
+    latitude: String = "",
+    longitude: String = "",
+    lastUpdated: Timestamp = defaultTimestamp,
+    tags: Seq[Tag] = Seq.empty,
+    lastSurvey: Option[Day] = None,
+    facts: Seq[Fact] = Seq.empty,
+    country: Option[Country] = None,
+    locations: Seq[String] = Seq.empty,
+    tiles: Seq[String] = Seq.empty,
+  ): BaseNodeDoc = {
+    BaseNodeDoc(
+      _id,
+      name,
+      names,
+      version,
+      changeSetId,
+      latitude,
+      longitude,
+      lastUpdated,
+      tags,
+      lastSurvey,
+      facts,
+      country,
+      locations,
+      tiles,
     )
   }
 

@@ -2,6 +2,7 @@ package kpn.server.repository
 
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
+import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.Label
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
@@ -55,6 +56,10 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
 
   override def nodeWithId(nodeId: Long): Option[NodeDoc] = {
     database.nodes.findById(nodeId, log)
+  }
+
+  override def baseNodeWithId(nodeId: Long): Option[BaseNodeDoc] = {
+    database.baseNodes.findById(nodeId, log)
   }
 
   override def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc] = {

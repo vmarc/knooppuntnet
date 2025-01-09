@@ -67,12 +67,21 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     val nodeIds = config.rawDataRepository.nodeIds(timestamp)
     analyzeBaseNodes(nodeIds)
 
+    //    log.info("Fetching all network ids")
+    //    val networkIds = config.rawDataRepository.networkIds(timestamp)
+    //    analyzeBaseNetworks(networkIds)
+
     //    log.info("Fetching all route ids")
     //    val routeIds = config.rawDataRepository.routeIds(timestamp)
     //    log.info(s"found ${routeIds.size} routeIds")
     //    analyzeBaseRoutes(routeIds)
+
+    analyzeNodes(nodeIds)
+
+
     //    // analyzeRoutesMain(routeIds)
-    //    log.info(s"Done")
+
+    log.info(s"Done")
   }
 
   private def analyzeBaseNodes(nodeIds: Seq[Long]): Unit = {
@@ -95,6 +104,55 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
           }
         }
         (s"Analyzed $nodeCount nodes", ())
+      }
+    }
+  }
+
+  private def analyzeNodes(nodeIds: Seq[Long]): Unit = {
+    Log.context("nodes") {
+      val nodeCount = nodeIds.size
+      log.info(s"Analyzing $nodeCount nodes")
+      log.infoElapsed {
+        nodeIds.zipWithIndex.foreach { case (nodeId, index) =>
+          if (((index + 1) % 100) == 0) {
+            log.info(s"${index + 1}/$nodeCount")
+          }
+          config.nodeRepository.baseNodeWithId(nodeId) match {
+            case None => log.error(s"Could not find base node $nodeId")
+            case Some(baseNodeDoc) =>
+              config.nodeMainAnalyzer.analyze(baseNodeDoc) match {
+                case None => log.error(s"Could not analyze node $nodeId")
+                case Some(nodeDoc) =>
+                  config.nodeRepository.save(nodeDoc)
+              }
+          }
+        }
+        (s"Analyzed $nodeCount nodes", ())
+      }
+    }
+  }
+
+  private def analyzeBaseNetworks(networkIds: Seq[Long]): Unit = {
+    val batchSize = 25
+    Log.context("base-networks") {
+      log.info("Analyzing base networks")
+      val networkCount = networkIds.size
+      log.info(s"Analyzing $networkCount networks")
+      log.infoElapsed {
+        networkIds.sliding(batchSize, batchSize).toSeq.zipWithIndex.foreach { case (networkIdsBatch, index) =>
+          log.infoElapsed {
+            val rawNetworks = config.rawDataRepository.networks(timestamp, networkIdsBatch)
+            rawNetworks.foreach { rawNetwork =>
+              config.baseNetworkMainAnalyzer.analyze(rawNetwork) match {
+                case None =>
+                case Some(baseNetworkDoc) =>
+                  config.networkRepository.saveBaseNetwork(baseNetworkDoc)
+              }
+            }
+            (s"Analyzed ${batchSize * (index + 1)}/$networkCount networks", ())
+          }
+        }
+        (s"Analyzed $networkCount networks", ())
       }
     }
   }
