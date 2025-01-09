@@ -3,8 +3,8 @@
 import { Tag } from '@api/custom';
 import { Timestamp } from '@api/custom';
 import { Country } from './country';
-import { RouteType } from './route-type';
 import { RouteScope } from './route-scope';
+import { RouteType } from './route-type';
 
 export interface RouteSummary {
   readonly id: number;

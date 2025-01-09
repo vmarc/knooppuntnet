@@ -2,8 +2,8 @@
 
 import { Country } from '@api/common';
 import { Fact } from '@api/common';
-import { RouteType } from '@api/common';
 import { RouteLocationAnalysis } from '@api/common';
+import { RouteType } from '@api/common';
 import { MetaData } from '@api/common/data';
 import { Way } from '@api/common/data';
 import { RouteNode } from '@api/common/route';

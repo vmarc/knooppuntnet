@@ -35,7 +35,6 @@ export interface NodeChange {
   readonly facts: Fact[];
   readonly initialTags?: Tag[];
   readonly initialLatLon?: LatLonImpl;
-  readonly tiles: string[];
   readonly happy: boolean;
   readonly investigate: boolean;
   readonly impact: boolean;
