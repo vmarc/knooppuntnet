@@ -33,7 +33,7 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
       />
       <kpn-toolbar-route-type-menu-item
         routeType="horse-riding"
-        i18n-label="@@route-type.horseRiding"
+        i18n-label="@@route-type.horse-riding"
         label="Horse riding"
       />
       <kpn-toolbar-route-type-menu-item
@@ -48,7 +48,7 @@ import { ToolbarRouteTypeMenuItemComponent } from './toolbar-route-type-menu-ite
       />
       <kpn-toolbar-route-type-menu-item
         routeType="inline-skating"
-        i18n-label="@@route-type.inlineSkating"
+        i18n-label="@@route-type.inline-skating"
         label="Inline skating"
       />
     </mat-menu>

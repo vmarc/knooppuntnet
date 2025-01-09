@@ -220,7 +220,7 @@
           <context context-type="linenumber">16,19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.canoe" datatype="html">
+      <trans-unit id="route-type.canoe" datatype="html">
         <source>Canoe</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-canoe-page.component.ts</context>
@@ -228,7 +228,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-canoe-page.component.ts</context>
-          <context context-type="linenumber">32,34</context>
+          <context context-type="linenumber">32,33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-page.component.ts</context>
@@ -237,10 +237,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/selector/map-page.component.ts</context>
           <context context-type="linenumber">51,52</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/root/toolbar/settings/settings-menu-layers.component.ts</context>
-          <context context-type="linenumber">98,99</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/root/toolbar/toolbar-route-type-menu.component.ts</context>
@@ -313,7 +309,7 @@
           <context context-type="linenumber">6</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.cycling" datatype="html">
+      <trans-unit id="route-type.cycling" datatype="html">
         <source>Cycling</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
@@ -321,7 +317,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-cycling-page.component.ts</context>
-          <context context-type="linenumber">32,35</context>
+          <context context-type="linenumber">32,34</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-page.component.ts</context>
@@ -330,10 +326,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/selector/map-page.component.ts</context>
           <context context-type="linenumber">27,28</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/root/toolbar/settings/settings-menu-layers.component.ts</context>
-          <context context-type="linenumber">59,61</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/root/toolbar/toolbar-route-type-menu.component.ts</context>
@@ -435,7 +427,7 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.hiking" datatype="html">
+      <trans-unit id="route-type.hiking" datatype="html">
         <source>Hiking</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
@@ -443,7 +435,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-hiking-page.component.ts</context>
-          <context context-type="linenumber">32,35</context>
+          <context context-type="linenumber">32,33</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-page.component.ts</context>
@@ -455,7 +447,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/root/toolbar/settings/settings-menu-layers.component.ts</context>
-          <context context-type="linenumber">46,48</context>
+          <context context-type="linenumber">46,47</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/root/toolbar/toolbar-route-type-menu.component.ts</context>
@@ -466,7 +458,7 @@
           <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.horse-riding" datatype="html">
+      <trans-unit id="route-type.horse-riding" datatype="html">
         <source>Horse riding</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-horse-riding-page.component.ts</context>
@@ -485,15 +477,15 @@
           <context context-type="linenumber">38,41</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/root/toolbar/settings/settings-menu-layers.component.ts</context>
-          <context context-type="linenumber">72,74</context>
+          <context context-type="sourcefile">src/app/root/toolbar/toolbar-route-type-menu.component.ts</context>
+          <context context-type="linenumber">37,39</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
           <context context-type="linenumber">13</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.inline-skating" datatype="html">
+      <trans-unit id="route-type.inline-skating" datatype="html">
         <source>Inline skating</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-inline-skating-page.component.ts</context>
@@ -512,11 +504,11 @@
           <context context-type="linenumber">56,59</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
-          <context context-type="linenumber">16</context>
+          <context context-type="sourcefile">src/app/root/toolbar/toolbar-route-type-menu.component.ts</context>
+          <context context-type="linenumber">52,56</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-type.motorboat" datatype="html">
+      <trans-unit id="route-type.motorboat" datatype="html">
         <source>Motorboat</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/analysis/pages/analysis-motorboat-page.component.ts</context>
@@ -533,10 +525,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/planner/pages/selector/map-page.component.ts</context>
           <context context-type="linenumber">44,46</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/root/toolbar/settings/settings-menu-layers.component.ts</context>
-          <context context-type="linenumber">85,87</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/root/toolbar/toolbar-route-type-menu.component.ts</context>
@@ -8107,6 +8095,34 @@
           <context context-type="linenumber">74,75</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="network-type.cycling" datatype="html">
+        <source> Cycling </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/root/toolbar/settings/settings-menu-layers.component.ts</context>
+          <context context-type="linenumber">59,61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.horse-riding" datatype="html">
+        <source> Horseriding </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/root/toolbar/settings/settings-menu-layers.component.ts</context>
+          <context context-type="linenumber">72,74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.motorboat" datatype="html">
+        <source> Motorboat </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/root/toolbar/settings/settings-menu-layers.component.ts</context>
+          <context context-type="linenumber">85,87</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.canoe" datatype="html">
+        <source> Canoe </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/root/toolbar/settings/settings-menu-layers.component.ts</context>
+          <context context-type="linenumber">98,99</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="8591622220569264979" datatype="html">
         <source> Parc du Vercors </source>
         <context-group purpose="location">
@@ -8120,20 +8136,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/root/toolbar/settings/settings-menu-map-options.component.ts</context>
           <context context-type="linenumber">24,25</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="network-type.horseRiding" datatype="html">
-        <source>Horse riding</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/root/toolbar/toolbar-route-type-menu.component.ts</context>
-          <context context-type="linenumber">37,39</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="network-type.inlineSkating" datatype="html">
-        <source>Inline skating</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/root/toolbar/toolbar-route-type-menu.component.ts</context>
-          <context context-type="linenumber">52,56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="toolbar.title" datatype="html">
@@ -8625,6 +8627,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/components/shared/timestamp/situation-on.component.ts</context>
           <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="network-type.inline-skating" datatype="html">
+        <source>Inline skating</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
+          <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
       <trans-unit id="network-scope.local" datatype="html">
