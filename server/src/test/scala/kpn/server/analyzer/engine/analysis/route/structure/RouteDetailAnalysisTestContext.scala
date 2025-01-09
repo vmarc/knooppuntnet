@@ -1,15 +1,15 @@
 package kpn.server.analyzer.engine.analysis.route.structure
 
 import kpn.api.common.Fact
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisElement
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisFragment
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisSegment
-import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.domain.RoutePathDirection
 import kpn.server.analyzer.engine.analysis.route.domain.StructurePath
 
-case class RouteDetailAnalysisTestContext(context: RouteDetailAnalysisContext) {
+case class RouteDetailAnalysisTestContext(context: BaseRouteAnalysisContext) {
   def links: Seq[String] = {
     context.links.links.zipWithIndex.map { case (link, index) =>
       s"${index + 1}    ${link.linkDetail}"

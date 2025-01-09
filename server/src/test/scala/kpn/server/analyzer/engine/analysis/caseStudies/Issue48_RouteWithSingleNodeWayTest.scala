@@ -7,10 +7,10 @@ import kpn.core.data.DataBuilder
 import kpn.core.loadOld.Parser
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
-import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzerMock
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.repository.RouteRepository
@@ -26,11 +26,11 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest with MockFactory {
     val locationAnalyzer = new LocationAnalyzerFixed()
     val tileCalculator = new TileCalculatorImpl()
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
-    val routeTileAnalyzer = new RouteTileAnalyzer(lineSegmentTileCalculator)
+    val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
     val routeRepository = stub[RouteRepository]
-    val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
-    val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-    val routeAnalyzer = new RouteDetailMainAnalyzer(
+    val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
+    val routeLocationAnalyzer = new BaseRouteLocationAnalyzerMock()
+    val routeAnalyzer = new BaseRouteMainAnalyzer(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer

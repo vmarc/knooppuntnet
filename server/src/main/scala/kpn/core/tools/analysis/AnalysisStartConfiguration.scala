@@ -33,14 +33,14 @@ import kpn.server.analyzer.engine.analysis.node.analyzers.OldNodeTileAnalyzerImp
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
-import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteBoundsAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteParentAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteStructureRowsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteBoundsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
@@ -106,7 +106,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   private val routeTileAnalyzer = {
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
-    new RouteTileAnalyzer(lineSegmentTileCalculator)
+    new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
   }
 
   val overpassQueryExecutor: OverpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
@@ -114,11 +114,11 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val changeSetRepository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
 
-  val routeDetailMainAnalyzer: RouteDetailMainAnalyzer = {
+  val routeDetailMainAnalyzer: BaseRouteMainAnalyzer = {
     val routeLocator = new RouteLocatorImpl(locationAnalyzer)
-    val routeLocationAnalyzer = new RouteLocationAnalyzerImpl(routeDetailRepository, routeLocator)
-    val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
-    new RouteDetailMainAnalyzer(
+    val routeLocationAnalyzer = new BaseRouteLocationAnalyzerImpl(routeDetailRepository, routeLocator)
+    val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
+    new BaseRouteMainAnalyzer(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer

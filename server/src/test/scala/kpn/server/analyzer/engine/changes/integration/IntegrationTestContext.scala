@@ -22,14 +22,14 @@ import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
 import kpn.server.analyzer.engine.analysis.post.PostProcessor
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
-import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzerMock
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteBoundsAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteParentAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.route.RouteStructureRowsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteBoundsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSaverImpl
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
@@ -99,10 +99,10 @@ class IntegrationTestContext(
 
   private val tileCalculator = new TileCalculatorImpl()
   private val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
-  private val routeTileAnalyzer = new RouteTileAnalyzer(lineSegmentTileCalculator)
-  private val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
-  private val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-  private val routeDetailMainAnalyzer = new RouteDetailMainAnalyzer(
+  private val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
+  private val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
+  private val routeLocationAnalyzer = new BaseRouteLocationAnalyzerMock()
+  private val routeDetailMainAnalyzer = new BaseRouteMainAnalyzer(
     routeCountryAnalyzer,
     routeLocationAnalyzer,
     routeTileAnalyzer

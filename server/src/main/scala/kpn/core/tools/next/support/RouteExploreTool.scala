@@ -4,7 +4,7 @@ import kpn.api.common.Fact
 import kpn.api.common.RouteMemberInfo
 import kpn.core.doc.Label
 import kpn.database.util.Mongo
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteRoleAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteRoleAnalyzer
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and

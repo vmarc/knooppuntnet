@@ -12,11 +12,11 @@ import kpn.api.common.route.RouteNode
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 import kpn.core.analysis.Facts
-import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 
 object RouteData {
 
-  def from(context: RouteDetailAnalysisContext): RouteData = {
+  def from(context: BaseRouteAnalysisContext): RouteData = {
     RouteData(
       context.relation.id,
       context.relation.toMeta,

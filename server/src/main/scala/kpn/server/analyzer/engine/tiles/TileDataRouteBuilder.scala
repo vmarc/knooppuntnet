@@ -4,7 +4,7 @@ import kpn.api.common.Fact
 import kpn.api.custom.Day
 import kpn.core.analysis.Facts
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteSegmentBuilder
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.RouteSegmentBuilder
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileDataRoute
 

@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
 import kpn.api.common.route.LinkDirection
-import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLink
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkNode
 import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkRelationId
@@ -9,12 +9,12 @@ import kpn.server.analyzer.engine.analysis.route.domain.RouteLinkWay
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 
 object RouteLinksReport {
-  def report(context: RouteDetailAnalysisContext): String = {
+  def report(context: BaseRouteAnalysisContext): String = {
     new RouteLinksReport(context).report()
   }
 }
 
-class RouteLinksReport(context: RouteDetailAnalysisContext) {
+class RouteLinksReport(context: BaseRouteAnalysisContext) {
   def report(): String = {
     s"""<table>
        |  <tr class="header">

@@ -1,0 +1,157 @@
+package kpn.server.analyzer.engine.analysis.route.base
+
+import kpn.api.common.Fact
+import kpn.api.common.Fact.RouteBroken
+import kpn.api.common.route.WayDirection
+import kpn.api.custom.Relation
+import kpn.api.custom.Tag
+import kpn.core.analysis.Facts
+import kpn.core.analysis.RouteMember
+import kpn.core.analysis.RouteMemberWay
+import kpn.core.doc.RouteRelation
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.route.OneWayAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteContextAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteEdgeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteElementsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteExpectedNameAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteFactCombinationAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteFixmeTodoAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteGeometryDigestAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteIncompleteAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteIncompleteOkAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLabelsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLastSurveyAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLinkAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteMemberAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteNameAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteNodesAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteOneWayAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteProposedAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteScopeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteSegmentAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteSegmentAnalyzer2
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteStructureAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteSuspiciousWaysAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTagAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTypeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteUnexpectedNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteUnexpectedRelationAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteWithoutWaysAnalyzer
+import org.springframework.stereotype.Component
+
+import scala.annotation.tailrec
+import scala.collection.mutable.ListBuffer
+
+@Component
+class BaseRouteMainAnalyzer(
+  countryAnalyzer: BaseRouteCountryAnalyzer,
+  locationAnalyzer: BaseRouteLocationAnalyzer,
+  tileAnalyzer: BaseRouteTileAnalyzer
+) {
+
+  def analyze(
+    relation: Relation,
+    hierarchy: Option[RouteRelation],
+    traceEnabled: Boolean = false
+  ): Option[BaseRouteAnalysisContext] = {
+
+    Log.context(f"route=${relation.id}%07d") {
+
+      val context = BaseRouteAnalysisContext(relation, hierarchy, traceEnabled = traceEnabled)
+
+      val analyzers: List[BaseRouteAnalyzer] = List(
+        BaseRouteTagAnalyzer,
+        BaseRouteTypeAnalyzer,
+        BaseRouteScopeAnalyzer,
+        countryAnalyzer, // TODO redesign - support multiple countries?
+        BaseRouteProposedAnalyzer,
+        BaseRouteWithoutWaysAnalyzer,
+        BaseRouteIncompleteAnalyzer,
+        BaseRouteFixmeTodoAnalyzer,
+        BaseRouteUnexpectedNodeAnalyzer,
+        BaseRouteUnexpectedRelationAnalyzer, // TODO redesign - move to pass 2?
+        BaseRouteNameAnalyzer,
+
+        //OldRouteNodeAnalyzer,
+        // TODO RouteNameFromNodesAnalyzer,
+        BaseRouteSuspiciousWaysAnalyzer, // OK
+
+        BaseRouteLinkAnalyzer,
+        BaseRouteNodesAnalyzer,
+        BaseRouteExpectedNameAnalyzer,
+        BaseRouteSegmentAnalyzer,
+        BaseRouteOneWayAnalyzer,
+        BaseRouteStructureAnalyzer,
+        BaseRouteSegmentAnalyzer2,
+
+        BaseRouteMemberAnalyzer,
+        BaseRouteGeometryDigestAnalyzer,
+        locationAnalyzer,
+        BaseRouteIncompleteOkAnalyzer,
+        BaseRouteFactCombinationAnalyzer,
+        BaseRouteLastSurveyAnalyzer,
+        BaseRouteElementsAnalyzer,
+        tileAnalyzer,
+        BaseRouteEdgeAnalyzer,
+        BaseRouteLabelsAnalyzer, // this always should be the last analyzer
+        BaseRouteContextAnalyzer // helper to be used during development only
+      )
+
+      doAnalyze(analyzers, context)
+    }
+  }
+
+  @tailrec
+  private def doAnalyze(
+    analyzers: List[BaseRouteAnalyzer],
+    context: BaseRouteAnalysisContext
+  ): Option[BaseRouteAnalysisContext] = {
+
+    if (context.abort) {
+      None
+    }
+    else if (analyzers.isEmpty) {
+
+      val facts: ListBuffer[Fact] = ListBuffer[Fact]()
+      facts ++= context.facts
+      if (facts.exists(Facts.isError)) {
+        if (!facts.contains(RouteBroken)) {
+          facts += RouteBroken
+        }
+      }
+
+      Some(
+        context.copy(
+          facts = facts.toSeq,
+        )
+      )
+    }
+    else {
+      val newContext = analyzers.head.analyze(context)
+      doAnalyze(analyzers.tail, newContext)
+    }
+  }
+}
+
+object RouteAnalyzerFunctions {
+
+  def oneWay(member: RouteMember): WayDirection = {
+    member match {
+      case routeMemberWay: RouteMemberWay => new OneWayAnalyzer(routeMemberWay.way).direction
+      case _ => WayDirection.Both
+    }
+  }
+
+  def oneWayTags(member: RouteMember): Seq[Tag] = {
+    member match {
+      case routeMemberWay: RouteMemberWay => OneWayAnalyzer.oneWayTags(routeMemberWay.way)
+      case _ => Seq.empty
+    }
+  }
+}

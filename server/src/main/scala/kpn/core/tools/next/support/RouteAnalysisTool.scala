@@ -5,7 +5,7 @@ import kpn.core.doc.RouteRelation
 import kpn.core.tools.analysis.AnalysisStartConfiguration
 import kpn.core.tools.analysis.AnalysisStartToolOptions
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
+import kpn.server.analyzer.engine.analysis.route.base.RouteDetailDocBuilder
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 
 object RouteAnalysisTool {

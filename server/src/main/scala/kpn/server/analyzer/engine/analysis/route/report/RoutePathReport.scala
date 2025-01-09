@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
-import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 
 object RoutePathReport {
-  def report(context: RouteDetailAnalysisContext): String = {
+  def report(context: BaseRouteAnalysisContext): String = {
     new RoutePathReport(context).report()
   }
 }
 
-class RoutePathReport(context: RouteDetailAnalysisContext) {
+class RoutePathReport(context: BaseRouteAnalysisContext) {
   def report(): String = {
     s"""<table>
        |  <tr class="header">

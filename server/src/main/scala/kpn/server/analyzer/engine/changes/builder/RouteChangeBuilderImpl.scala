@@ -8,7 +8,7 @@ import kpn.api.common.diff.route.RouteDiff
 import kpn.core.analysis.Network
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteFactAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteUtil

@@ -13,10 +13,10 @@ import kpn.core.doc.RouteDetailDoc
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.history.RouteTagDiffAnalyzer
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
-import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.RouteDetailDocBuilder
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -33,7 +33,7 @@ class RouteChangeProcessorImpl(
   analysisContext: AnalysisContext,
   changeAnalyzer: RouteChangeAnalyzer,
   overpassRepository: OverpassRepository,
-  routeDetailMainAnalyzer: RouteDetailMainAnalyzer,
+  routeDetailMainAnalyzer: BaseRouteMainAnalyzer,
   routeMainAnalyzer: RouteMainAnalyzer,
   tileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeRepository: RouteRepository,
@@ -333,7 +333,7 @@ class RouteChangeProcessorImpl(
 
   private def processLostRouteTags(
     context: ChangeSetContext,
-    beforeContext: RouteDetailAnalysisContext,
+    beforeContext: BaseRouteAnalysisContext,
     beforeRouteDetailDoc: RouteDetailDoc,
     relationAfter: Relation,
     routeId: Long

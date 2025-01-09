@@ -1,13 +1,13 @@
 package kpn.server.analyzer.engine.tile
 
-import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.tiles.domain.ZoomLevelRouteTileSegments
 import org.springframework.stereotype.Component
 
 @Component
 class RouteTileChangeAnalyzerImpl extends RouteTileChangeAnalyzer {
 
-  def impactedTiles(before: RouteDetailAnalysisContext, after: RouteDetailAnalysisContext): Seq[String] = {
+  def impactedTiles(before: BaseRouteAnalysisContext, after: BaseRouteAnalysisContext): Seq[String] = {
     Seq.empty // TODO redesign, re-implement
     //    if (tileRelatedRoutePropertiesChanged(before, after)) {
     //      // all tiles before and after are impacted
@@ -25,17 +25,17 @@ class RouteTileChangeAnalyzerImpl extends RouteTileChangeAnalyzer {
     //    }
   }
 
-  private def tileRelatedRoutePropertiesChanged(before: RouteDetailAnalysisContext, after: RouteDetailAnalysisContext): Boolean = {
+  private def tileRelatedRoutePropertiesChanged(before: BaseRouteAnalysisContext, after: BaseRouteAnalysisContext): Boolean = {
     val routeTypeBefore = before.routeTypes.head // TODO redesign - support multiple network types
     val routeTypeAfter = after.routeTypes.head
     !(routeTypeBefore == routeTypeAfter && before.tileAnalysis.sameProperties(after.tileAnalysis))
   }
 
-  private def segmentsIn(context: RouteDetailAnalysisContext, zoomLevel: Int): Seq[ZoomLevelRouteTileSegments] = {
+  private def segmentsIn(context: BaseRouteAnalysisContext, zoomLevel: Int): Seq[ZoomLevelRouteTileSegments] = {
     context.tileAnalysis.zoomLevelSegments.filter(_.zoomLevel == zoomLevel)
   }
 
-  private def tiles(context: RouteDetailAnalysisContext, zoomLevel: Int): Seq[String] = {
+  private def tiles(context: BaseRouteAnalysisContext, zoomLevel: Int): Seq[String] = {
     context.tiles.filter(z => TileName.tileZoomLevel(z) == zoomLevel)
   }
 }

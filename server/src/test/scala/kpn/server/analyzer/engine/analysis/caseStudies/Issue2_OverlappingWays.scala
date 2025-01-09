@@ -10,11 +10,11 @@ import kpn.core.util.GeoJsonLineStringGeometry
 import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
-import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteCountryAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteLocationAnalyzerMock
-import kpn.server.analyzer.engine.analysis.route.analyzers.detail.RouteTileAnalyzer
-import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocationAnalyzerMock
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.json.Json
@@ -54,7 +54,7 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
     }
   }
 
-  private def analyze(routeName: String, connectingNodeName: String, routeId1: Long, routeId2: Long): RouteDetailAnalysisContext = {
+  private def analyze(routeName: String, connectingNodeName: String, routeId1: Long, routeId2: Long): BaseRouteAnalysisContext = {
     val rawData1 = withoutConnectionNode(readData(routeId1), connectingNodeName)
     val rawData2 = withoutConnectionNode(readData(routeId2), connectingNodeName)
     val rawData = RawData.merge(rawData1, rawData2)
@@ -72,12 +72,12 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
 
     val tileCalculator = new TileCalculatorImpl()
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
-    val routeTileAnalyzer = new RouteTileAnalyzer(lineSegmentTileCalculator)
+    val routeTileAnalyzer = new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
     val locationAnalyzer = LocationAnalyzerTest.locationAnalyzer
     val routeRepository = stub[RouteRepository]
-    val routeCountryAnalyzer = new RouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
-    val routeLocationAnalyzer = new RouteLocationAnalyzerMock()
-    val routeAnalyzer = new RouteDetailMainAnalyzer(
+    val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
+    val routeLocationAnalyzer = new BaseRouteLocationAnalyzerMock()
+    val routeAnalyzer = new BaseRouteMainAnalyzer(
       routeCountryAnalyzer,
       routeLocationAnalyzer,
       routeTileAnalyzer

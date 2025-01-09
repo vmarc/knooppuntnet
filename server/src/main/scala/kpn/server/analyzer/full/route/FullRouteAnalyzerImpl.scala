@@ -2,9 +2,9 @@ package kpn.server.analyzer.full.route
 
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.RouteDetailDocBuilder
-import kpn.server.analyzer.engine.analysis.route.RouteDetailMainAnalyzer
-import kpn.server.analyzer.engine.analysis.route.RouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.RouteDetailDocBuilder
+import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.overpass.OverpassRepository
 import kpn.server.repository.RouteDetailRepository
@@ -22,7 +22,7 @@ class FullRouteAnalyzerImpl(
   overpassRepository: OverpassRepository,
   routeRepository: RouteRepository,
   routeDetailRepository: RouteDetailRepository,
-  routeDetailMainAnalyzer: RouteDetailMainAnalyzer,
+  routeDetailMainAnalyzer: BaseRouteMainAnalyzer,
   routeMainAnalyzer: RouteMainAnalyzer,
   implicit val analysisExecutionContext: ExecutionContext
 ) extends FullRouteAnalyzer {

@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.route.report
 
-import kpn.server.analyzer.engine.analysis.route.domain.RouteDetailAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.domain.RouteNodeAnalysis
 import kpn.server.analyzer.engine.analysis.route.report.ReportUtil.osmNodeLink
 
 object RouteNodeAnalysisReport {
 
-  def report(context: RouteDetailAnalysisContext): String = {
+  def report(context: BaseRouteAnalysisContext): String = {
     val nodes = context.routeNodesAnalysis
     if (nodes.startNode.nonEmpty || nodes.endNode.nonEmpty || nodes.redundantNodes.nonEmpty) {
       s"""
