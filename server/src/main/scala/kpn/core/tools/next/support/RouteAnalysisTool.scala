@@ -65,11 +65,11 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   def analyze(): Unit = {
     log.info("Fetching all node ids")
     val nodeIds = config.rawDataRepository.nodeIds(timestamp)
-    analyzeBaseNodes(nodeIds)
+    //    analyzeBaseNodes(nodeIds)
 
-    //    log.info("Fetching all network ids")
-    //    val networkIds = config.rawDataRepository.networkIds(timestamp)
-    //    analyzeBaseNetworks(networkIds)
+    log.info("Fetching all network ids")
+    val networkIds = config.rawDataRepository.networkIds(timestamp)
+    analyzeBaseNetworks(networkIds)
 
     //    log.info("Fetching all route ids")
     //    val routeIds = config.rawDataRepository.routeIds(timestamp)
@@ -77,7 +77,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     //    analyzeBaseRoutes(routeIds)
 
     analyzeNodes(nodeIds)
-
+    //    analyzeNodes(Seq(3939284082L))
 
     //    // analyzeRoutesMain(routeIds)
 

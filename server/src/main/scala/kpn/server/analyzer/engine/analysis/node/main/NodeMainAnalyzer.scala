@@ -7,19 +7,22 @@ import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeAnalysisConte
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeIntegrityAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeLabelsAnalyzer
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
 
 import scala.annotation.tailrec
 
 class NodeMainAnalyzer(
-  nodeRouteReferencesAnalyzer: NodeRouteReferencesAnalyzer
+  nodeRouteReferencesAnalyzer: NodeRouteReferencesAnalyzer,
+  nodeNetworkReferencesAnalyzer: NodeNetworkReferencesAnalyzer,
 ) {
 
   def analyze(node: BaseNodeDoc): Option[NodeDoc] = {
     Log.context(f"node=${node._id}%07d") {
-      val context = NodeAnalysisContext(node)
+      val context = NodeAnalysisContext(node, facts = node.facts)
       val analyzers: List[NodeAnalyzer] = List(
         nodeRouteReferencesAnalyzer,
+        nodeNetworkReferencesAnalyzer,
         NodeIntegrityAnalyzer,
         NodeLabelsAnalyzer
       )
@@ -42,12 +45,13 @@ class NodeMainAnalyzer(
           latitude = context.node.latitude,
           longitude = context.node.longitude,
           lastUpdated = context.node.lastUpdated,
-          lastSurvey = context.lastSurvey,
+          lastSurvey = context.node.lastSurvey,
           tags = context.node.tags,
           facts = context.facts,
           locations = context.node.locations,
           integrity = context.integrity,
-          routeReferences = context.routeReferences
+          routeReferences = context.routeReferences,
+          networkReferences = context.networkReferences,
         )
       )
     }

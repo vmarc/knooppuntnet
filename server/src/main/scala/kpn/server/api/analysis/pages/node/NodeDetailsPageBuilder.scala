@@ -14,6 +14,7 @@ class NodeDetailsPageBuilder(
   changeSetRepository: ChangeSetRepository,
   locationService: LocationService
 ) {
+  
   def build(language: Language, nodeId: Long): Option[NodeDetailsPage] = {
     if (nodeId == 1L) {
       Some(NodeDetailsPageExample.page)
@@ -26,18 +27,16 @@ class NodeDetailsPageBuilder(
   private def buildPage(language: Language, nodeId: Long): Option[NodeDetailsPage] = {
     nodeRepository.nodeWithId(nodeId).map { nodeDoc =>
       val changeCount = changeSetRepository.nodeChangesCount(nodeId)
-      val networkReferences = nodeRepository.nodeNetworkReferences(nodeId)
-      val nodeRouteReferences = nodeRepository.nodeRouteReferences(nodeId)
       val mixedNetworkScopes = (
         nodeDoc.names.map(_.networkScope) ++
-          nodeRouteReferences.map(_.networkScope) ++
-          networkReferences.map(_.networkScope)
+          nodeDoc.routeReferences.map(_.networkScope) ++
+          nodeDoc.networkReferences.map(_.networkScope)
         ).distinct.sizeIs > 1
       val locations = locationService.toInfos(language, nodeDoc.locations, nodeDoc.locations).reverse
       val nodeInfo = NodeInfo(
         id = nodeDoc._id,
         active = nodeDoc.active,
-        orphan = networkReferences.isEmpty && nodeRouteReferences.isEmpty,
+        orphan = nodeDoc.networkReferences.isEmpty && nodeDoc.routeReferences.isEmpty,
         country = nodeDoc.country,
         name = nodeDoc.name.getOrElse(nodeDoc._id.toString),
         names = nodeDoc.names,
@@ -55,8 +54,8 @@ class NodeDetailsPageBuilder(
       NodeDetailsPage(
         nodeInfo,
         mixedNetworkScopes,
-        nodeRouteReferences,
-        networkReferences,
+        nodeDoc.routeReferences,
+        nodeDoc.networkReferences,
         nodeDoc.integrity,
         changeCount
       )

@@ -32,7 +32,8 @@ case class NodeDoc(
   facts: Seq[Fact],
   locations: Seq[String],
   integrity: Option[NodeIntegrity] = None,
-  routeReferences: Seq[Reference]
+  routeReferences: Seq[Reference],
+  networkReferences: Seq[Reference],
 ) extends Tagable with LatLon with WithId {
 
   def active: Boolean = {

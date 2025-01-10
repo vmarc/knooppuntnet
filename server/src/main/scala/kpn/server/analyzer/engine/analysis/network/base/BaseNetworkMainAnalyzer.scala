@@ -6,6 +6,7 @@ import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkAnalysisContext
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkNameAnalyzer
+import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkTypeAnalyzer
 
 import scala.annotation.tailrec
 
@@ -15,6 +16,7 @@ class BaseNetworkMainAnalyzer {
     Log.context(f"network=${relation.id}%07d") {
       val context = BaseNetworkAnalysisContext(relation)
       val analyzers: List[BaseNetworkAnalyzer] = List(
+        BaseNetworkTypeAnalyzer,
         BaseNetworkNameAnalyzer,
       )
       doAnalyze(analyzers, context)
@@ -23,10 +25,16 @@ class BaseNetworkMainAnalyzer {
 
   @tailrec
   private def doAnalyze(analyzers: List[BaseNetworkAnalyzer], context: BaseNetworkAnalysisContext): Option[BaseNetworkDoc] = {
-    if (analyzers.isEmpty) {
+    if (context.abort) {
+      None
+    }
+    else if (analyzers.isEmpty) {
       Some(
         BaseNetworkDoc(
           _id = context.relation.id,
+          active = true,
+          routeType = context.routeType,
+          networkScope = context.networkScope,
           name = context.name,
           version = context.relation.version,
           timestamp = context.relation.timestamp,

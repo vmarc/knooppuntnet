@@ -4,9 +4,9 @@ import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
 @Component
-class NodeRouteReferencesAnalyzer(nodeRepository: NodeRepository) extends NodeAnalyzer {
+class NodeNetworkReferencesAnalyzer(nodeRepository: NodeRepository) extends NodeAnalyzer {
   override def analyze(context: NodeAnalysisContext): NodeAnalysisContext = {
-    val routReferences = nodeRepository.nodeRouteReferences(context.node._id)
-    context.copy(_routeReferences = Some(routReferences))
+    val networkReferences = nodeRepository.nodeNetworkReferences(context.node._id)
+    context.copy(_networkReferences = Some(networkReferences))
   }
 }

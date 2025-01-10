@@ -26,6 +26,7 @@ import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeCountryAn
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeTileAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.NodeMainAnalyzer
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
@@ -117,8 +118,10 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val nodeMainAnalyzer: NodeMainAnalyzer = {
     val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
+    val nodeNetworkReferencesAnalyzer = new NodeNetworkReferencesAnalyzer(nodeRepository)
     new NodeMainAnalyzer(
-      nodeRouteReferencesAnalyzer
+      nodeRouteReferencesAnalyzer,
+      nodeNetworkReferencesAnalyzer,
     )
   }
 

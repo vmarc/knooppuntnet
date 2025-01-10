@@ -60,7 +60,7 @@ class NodeIntegrityAnalyzer(context: NodeAnalysisContext) {
     }
 
     context.copy(
-      integrity = integrity,
+      _integrity = Some(integrity),
       facts = facts
     )
   }

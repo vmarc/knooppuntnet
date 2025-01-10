@@ -53,25 +53,27 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val context = NodeAnalysisContext(
       node,
-      routeReferences = Seq(
-        Reference(
-          RouteType.hiking,
-          networkScope = NetworkScope.regional,
-          10,
-          "R1"
-        ),
-        Reference(
-          RouteType.hiking,
-          networkScope = NetworkScope.regional,
-          20,
-          "R2"
-        ),
-        Reference(
-          RouteType.hiking,
-          networkScope = NetworkScope.regional,
-          30,
-          "R3"
-        ),
+      _routeReferences = Some(
+        Seq(
+          Reference(
+            RouteType.hiking,
+            networkScope = NetworkScope.regional,
+            10,
+            "R1"
+          ),
+          Reference(
+            RouteType.hiking,
+            networkScope = NetworkScope.regional,
+            20,
+            "R2"
+          ),
+          Reference(
+            RouteType.hiking,
+            networkScope = NetworkScope.regional,
+            30,
+            "R3"
+          ),
+        )
       )
     )
 
@@ -115,19 +117,21 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
     val context = NodeAnalysisContext(
       node,
-      routeReferences = Seq(
-        Reference(
-          RouteType.hiking,
-          networkScope = NetworkScope.regional,
-          10,
-          "R1"
-        ),
-        Reference(
-          RouteType.hiking,
-          networkScope = NetworkScope.regional,
-          20,
-          "R2"
-        ),
+      _routeReferences = Some(
+        Seq(
+          Reference(
+            RouteType.hiking,
+            networkScope = NetworkScope.regional,
+            10,
+            "R1"
+          ),
+          Reference(
+            RouteType.hiking,
+            networkScope = NetworkScope.regional,
+            20,
+            "R2"
+          ),
+        )
       )
     )
 

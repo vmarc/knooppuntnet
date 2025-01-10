@@ -69,6 +69,7 @@ import kpn.api.custom.Timestamp
 import kpn.core.analysis.Facts
 import kpn.core.common.Time
 import kpn.core.data.DataBuilder
+import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.BaseRoutePath
@@ -409,7 +410,8 @@ trait SharedTestObjects extends MockFactory {
     locations: Seq[String] = Seq.empty,
     tiles: Seq[String] = Seq.empty,
     integrity: Option[NodeIntegrity] = None,
-    routeReferences: Seq[Reference] = Seq.empty
+    routeReferences: Seq[Reference] = Seq.empty,
+    networkReferences: Seq[Reference] = Seq.empty,
   ): NodeDoc = {
 
     NodeDoc(
@@ -428,7 +430,8 @@ trait SharedTestObjects extends MockFactory {
       facts,
       locations,
       integrity,
-      routeReferences
+      routeReferences,
+      networkReferences,
     )
   }
 
@@ -509,6 +512,36 @@ trait SharedTestObjects extends MockFactory {
       hierarchy,
       bounds,
       subRouteIds
+    )
+  }
+
+  def newBaseNetworkDoc(
+    _id: Long,
+    active: Boolean = true,
+    routeType: RouteType = RouteType.hiking,
+    networkScope: NetworkScope = NetworkScope.regional,
+    name: Option[String] = None,
+    version: Long = 0,
+    timestamp: Timestamp = defaultTimestamp,
+    changeSetId: Long = 0,
+    members: Seq[RawMember] = Seq.empty,
+    tags: Seq[Tag] = Seq.empty,
+    nodeIds: Seq[Long] = Seq.empty,
+    routeIds: Seq[Long] = Seq.empty,
+  ): BaseNetworkDoc = {
+    BaseNetworkDoc(
+      _id,
+      active,
+      routeType,
+      networkScope,
+      name,
+      version,
+      timestamp,
+      changeSetId,
+      members,
+      tags,
+      nodeIds,
+      routeIds,
     )
   }
 

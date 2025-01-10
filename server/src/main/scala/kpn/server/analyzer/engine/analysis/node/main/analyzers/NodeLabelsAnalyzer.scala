@@ -18,14 +18,14 @@ class NodeLabelsAnalyzer(context: NodeAnalysisContext) {
     val integrityCheckLabels = buildIntegrityCheckLabels(context.integrity)
     val locationLabels = context.node.locations.map(location => Label.location(location))
     val labels = basicLabels ++ factLabels ++ routeTypeLabels ++ integrityCheckLabels ++ locationLabels
-    context.copy(labels = labels)
+    context.copy(_labels = Some(labels))
   }
 
   private def buildBasicLabels(): Seq[String] = {
     Seq(
       if (context.active) Some(Label.active) else None,
       if (context.orphan) Some("orphan") else None,
-      if (context.lastSurvey.isDefined) Some(Label.survey) else None,
+      if (context.node.lastSurvey.isDefined) Some(Label.survey) else None,
       if (context.facts.nonEmpty) Some(Label.facts) else None,
     ).flatten
   }
