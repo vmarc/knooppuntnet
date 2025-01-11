@@ -8598,28 +8598,28 @@
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="network-scope.local">
+      <trans-unit datatype="html" id="route-scope.local">
         <source>local</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="network-scope.regional">
+      <trans-unit datatype="html" id="route-scope.regional">
         <source>regional</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="network-scope.national">
+      <trans-unit datatype="html" id="route-scope.national">
         <source>national</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit datatype="html" id="network-scope.international">
+      <trans-unit datatype="html" id="route-scope.international">
         <source>international</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>

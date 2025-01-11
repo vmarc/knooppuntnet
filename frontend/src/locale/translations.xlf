@@ -8636,28 +8636,28 @@
           <context context-type="linenumber">16</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-scope.local" datatype="html">
+      <trans-unit id="route-scope.local" datatype="html">
         <source>local</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
           <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-scope.regional" datatype="html">
+      <trans-unit id="route-scope.regional" datatype="html">
         <source>regional</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
           <context context-type="linenumber">19</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-scope.national" datatype="html">
+      <trans-unit id="route-scope.national" datatype="html">
         <source>national</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
           <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="network-scope.international" datatype="html">
+      <trans-unit id="route-scope.international" datatype="html">
         <source>international</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/i18n/translations.ts</context>
