@@ -34,7 +34,7 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
             } @else {
               <kpn-network-node-table
                 [routeType]="page.summary.routeType"
-                [networkScope]="page.summary.networkScope"
+                [routeScope]="page.summary.routeScope"
                 [timeInfo]="page.timeInfo"
                 [surveyDateInfo]="page.surveyDateInfo"
                 [nodes]="page.nodes"

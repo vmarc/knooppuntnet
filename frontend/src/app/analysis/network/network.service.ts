@@ -8,7 +8,7 @@ import { RouterService } from '../../shared/services/router.service';
 const defaultSummary: NetworkSummary = {
   name: '',
   routeType: null,
-  networkScope: null,
+  routeScope: null,
   factCount: 0,
   nodeCount: 0,
   routeCount: 0,

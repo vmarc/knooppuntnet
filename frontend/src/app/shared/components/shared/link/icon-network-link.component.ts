@@ -10,7 +10,7 @@ import { IconLinkComponent } from './icon-link.component';
   template: `
     <kpn-icon-link
       [reference]="reference()"
-      [mixedNetworkScopes]="mixedNetworkScopes()"
+      [mixedRouteScopes]="mixedRouteScopes()"
       elementType="network"
     />
   `,
@@ -18,5 +18,5 @@ import { IconLinkComponent } from './icon-link.component';
 })
 export class IconNetworkLinkComponent {
   reference = input.required<Reference>();
-  mixedNetworkScopes = input.required<boolean>();
+  mixedRouteScopes = input.required<boolean>();
 }

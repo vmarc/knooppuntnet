@@ -5,4 +5,4 @@ export * from './countries';
 export * from './unique-id';
 export * from './change-option';
 export * from './route-types';
-export * from './network-scopes';
+export * from './route-scopes';

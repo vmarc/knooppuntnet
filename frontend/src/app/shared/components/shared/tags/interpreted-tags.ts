@@ -1,14 +1,14 @@
 import { Tag } from '@api/custom';
-import { NetworkScopes } from '@app/kpn/common';
+import { RouteScopes } from '@app/kpn/common';
 import { RouteTypes } from '@app/kpn/common';
 import { List } from 'immutable';
 
 export class InterpretedTags {
   static nodeTags(tags: Tag[]): InterpretedTags {
     const prefixes: string[] = [];
-    NetworkScopes.all.forEach((networkScope) => {
+    RouteScopes.all.forEach((routeScope) => {
       RouteTypes.all.forEach((routeType) => {
-        const s = NetworkScopes.letter(networkScope);
+        const s = RouteScopes.letter(routeScope);
         const t = RouteTypes.letter(routeType);
         prefixes.push(s + t);
       });

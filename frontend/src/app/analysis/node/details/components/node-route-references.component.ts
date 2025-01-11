@@ -10,7 +10,7 @@ import { IconRouteLinkComponent } from '@app/components/shared/link';
   template: `
     @for (reference of references(); track reference) {
       <p>
-        <kpn-icon-route-link [reference]="reference" [mixedNetworkScopes]="mixedNetworkScopes()" />
+        <kpn-icon-route-link [reference]="reference" [mixedRouteScopes]="mixedRouteScopes()" />
       </p>
     } @empty {
       <p i18n="@@node.route-references.none">None</p>
@@ -20,5 +20,5 @@ import { IconRouteLinkComponent } from '@app/components/shared/link';
 })
 export class NodeRouteReferencesComponent {
   references = input.required<Reference[]>();
-  mixedNetworkScopes = input.required<boolean>();
+  mixedRouteScopes = input.required<boolean>();
 }

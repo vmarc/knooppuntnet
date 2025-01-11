@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { input } from '@angular/core';
 import { NodeIntegrity } from '@api/common/node';
 import { NodeIntegrityDetail } from '@api/common/node';
-import { NetworkScopeNameComponent } from '@app/components/shared';
+import { RouteScopeNameComponent } from '@app/components/shared';
 import { RouteTypeIconComponent } from '@app/components/shared';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { IconInvestigateComponent } from '@app/components/shared/icon';
@@ -38,9 +38,9 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
                   </span>
                   <kpn-icon-investigate />
                 }
-                @if (mixedNetworkScopes()) {
+                @if (mixedRouteScopes()) {
                   <span class="kpn-brackets kpn-thin">
-                    <kpn-network-scope-name [networkScope]="detail.networkScope" />
+                    <kpn-route-scope-name [routeScope]="detail.routeScope" />
                   </span>
                 }
               </div>
@@ -77,13 +77,13 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
   imports: [
     IconHappyComponent,
     IconInvestigateComponent,
-    NetworkScopeNameComponent,
+    RouteScopeNameComponent,
     RouteTypeIconComponent,
   ],
 })
 export class NodeIntegrityComponent {
   integrity = input.required<NodeIntegrity>();
-  mixedNetworkScopes = input.required<boolean>();
+  mixedRouteScopes = input.required<boolean>();
 
   happy(detail: NodeIntegrityDetail): boolean {
     return detail.expectedRouteCount === detail.routeRefs.length;

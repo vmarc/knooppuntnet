@@ -6,7 +6,7 @@ export * from './edit.service';
 export * from './meta-data.component';
 export * from './nav';
 export * from './nav.service';
-export * from './network-scope-name.component';
+export * from './route-scope-name.component';
 export * from './page-width';
 export * from './page-width.service';
 export * from './page.service';

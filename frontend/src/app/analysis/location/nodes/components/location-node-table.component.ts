@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { TimeInfo } from '@api/common';
-import { NetworkScope } from '@api/common';
+import { RouteScope } from '@api/common';
 import { LocationNodeInfo } from '@api/common/location';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
@@ -49,7 +49,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
           <kpn-location-node-analysis
             [node]="node"
             [routeType]="service.routeType()"
-            [networkScope]="networkScope"
+            [routeScope]="routeScope"
           />
         </td>
       </ng-container>
@@ -136,7 +136,7 @@ export class LocationNodeTableComponent {
   readonly service = inject(LocationNodesPageService);
 
   // TODO SIGNAL
-  networkScope: NetworkScope = 'regional';
+  routeScope: RouteScope = 'regional';
 
   private readonly pageWidthService = inject(PageWidthService);
   private readonly editService = inject(EditService);

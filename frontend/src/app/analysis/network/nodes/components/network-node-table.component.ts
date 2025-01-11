@@ -10,7 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
-import { NetworkScope } from '@api/common';
+import { RouteScope } from '@api/common';
 import { RouteType } from '@api/common';
 import { NetworkNodeRow } from '@api/common/network';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
@@ -60,7 +60,7 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
         <td mat-cell *matCellDef="let node">
           <kpn-network-node-analysis
             [routeType]="routeType()"
-            [networkScope]="networkScope()"
+            [routeScope]="routeScope()"
             [node]="node"
           />
         </td>
@@ -176,7 +176,7 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
 })
 export class NetworkNodeTableComponent implements OnInit {
   routeType = input.required<RouteType>();
-  networkScope = input.required<NetworkScope>();
+  routeScope = input.required<RouteScope>();
   timeInfo = input.required<TimeInfo>();
   surveyDateInfo = input.required<SurveyDateInfo>();
   nodes = input.required<NetworkNodeRow[]>();

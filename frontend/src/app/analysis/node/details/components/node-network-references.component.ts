@@ -14,7 +14,7 @@ import { NodeNetworkReferenceComponent } from './node-network-reference.componen
         <kpn-node-network-reference
           [nodeInfo]="nodeInfo()"
           [reference]="reference"
-          [mixedNetworkScopes]="mixedNetworkScopes()"
+          [mixedRouteScopes]="mixedRouteScopes()"
         />
       </p>
     } @empty {
@@ -26,5 +26,5 @@ import { NodeNetworkReferenceComponent } from './node-network-reference.componen
 export class NodeNetworkReferencesComponent {
   nodeInfo = input.required<NodeInfo>();
   references = input.required<Reference[]>();
-  mixedNetworkScopes = input.required<boolean>();
+  mixedRouteScopes = input.required<boolean>();
 }

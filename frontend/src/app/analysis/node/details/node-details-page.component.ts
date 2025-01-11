@@ -98,20 +98,20 @@ import { NodeDetailsPageService } from './node-details-page.service';
               <kpn-data title="Integrity" i18n-title="@@node.integrity">
                 <kpn-node-integrity
                   [integrity]="page.integrity"
-                  [mixedNetworkScopes]="page.mixedNetworkScopes"
+                  [mixedRouteScopes]="page.mixedRouteScopes"
                 />
               </kpn-data>
               <kpn-data title="Routes" i18n-title="@@node.routes">
                 <kpn-node-route-references
                   [references]="page.routeReferences"
-                  [mixedNetworkScopes]="page.mixedNetworkScopes"
+                  [mixedRouteScopes]="page.mixedRouteScopes"
                 />
               </kpn-data>
               <kpn-data title="Networks" i18n-title="@@node.networks">
                 <kpn-node-network-references
                   [nodeInfo]="page.nodeInfo"
                   [references]="page.networkReferences"
-                  [mixedNetworkScopes]="page.mixedNetworkScopes"
+                  [mixedRouteScopes]="page.mixedRouteScopes"
                 />
               </kpn-data>
               <kpn-data title="Facts" i18n-title="@@node.facts">

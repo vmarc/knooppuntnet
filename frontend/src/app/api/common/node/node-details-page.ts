@@ -6,7 +6,7 @@ import { NodeIntegrity } from './node-integrity';
 
 export interface NodeDetailsPage {
   readonly nodeInfo: NodeInfo;
-  readonly mixedNetworkScopes: boolean;
+  readonly mixedRouteScopes: boolean;
   readonly routeReferences: Reference[];
   readonly networkReferences: Reference[];
   readonly integrity?: NodeIntegrity;

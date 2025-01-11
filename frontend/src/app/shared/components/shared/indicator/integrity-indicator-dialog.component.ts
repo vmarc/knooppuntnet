@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NetworkScopes } from '@app/kpn/common';
+import { RouteScopes } from '@app/kpn/common';
 import { RouteTypes } from '@app/kpn/common';
 import { MarkdownModule } from 'ngx-markdown';
 import { IndicatorDialogComponent } from './indicator-dialog.component';
@@ -62,8 +62,8 @@ export class IntegrityIndicatorDialogComponent {
 
   get tag() {
     const routeTypeLetter = RouteTypes.letter(this.indicatorData.routeType);
-    const networkScopeLetter = NetworkScopes.letter(this.indicatorData.networkScope);
-    return `expected_${networkScopeLetter}${routeTypeLetter}n_route_relations`;
+    const routeScopeLetter = RouteScopes.letter(this.indicatorData.routeScope);
+    return `expected_${routeScopeLetter}${routeTypeLetter}n_route_relations`;
   }
 
   get actual() {

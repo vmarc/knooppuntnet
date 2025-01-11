@@ -1,10 +1,10 @@
-import { NetworkScope } from '@api/common';
+import { RouteScope } from '@api/common';
 import { RouteType } from '@api/common';
 
 export class IntegrityIndicatorData {
   constructor(
     readonly routeType: RouteType,
-    readonly networkScope: NetworkScope,
+    readonly routeScope: RouteScope,
     readonly actual: number,
     readonly expected: string
   ) {}

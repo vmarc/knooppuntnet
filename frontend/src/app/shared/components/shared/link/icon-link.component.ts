@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Reference } from '@api/common/common';
-import { NetworkScopeNameComponent } from '../network-scope-name.component';
+import { RouteScopeNameComponent } from '../route-scope-name.component';
 import { RouteTypeIconComponent } from '../route-type-icon.component';
 
 @Component({
@@ -14,18 +14,18 @@ import { RouteTypeIconComponent } from '../route-type-icon.component';
     <div class="kpn-line">
       <kpn-route-type-icon [routeType]="reference().routeType" />
       <a [routerLink]="link" [state]="state" title="">{{ reference().name }}</a>
-      @if (mixedNetworkScopes()) {
+      @if (mixedRouteScopes()) {
         <span class="kpn-brackets kpn-thin">
-          <kpn-network-scope-name [networkScope]="reference().networkScope" />
+          <kpn-route-scope-name [routeScope]="reference().routeScope" />
         </span>
       }
     </div>
   `,
-  imports: [NetworkScopeNameComponent, RouteTypeIconComponent, RouterLink],
+  imports: [RouteScopeNameComponent, RouteTypeIconComponent, RouterLink],
 })
 export class IconLinkComponent implements OnInit {
   reference = input.required<Reference>();
-  mixedNetworkScopes = input.required<boolean>();
+  mixedRouteScopes = input.required<boolean>();
   elementType = input.required<string>();
 
   protected state = {};

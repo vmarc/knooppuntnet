@@ -15,10 +15,10 @@ export class Translations {
     ['route-type.canoe', $localize`:@@route-type.canoe:Canoe`],
     ['network-type.inline-skating', $localize`:@@network-type.inline-skating:Inline skating`],
     //
-    ['network-scope.local', $localize`:@@network-scope.local:local`],
-    ['network-scope.regional', $localize`:@@network-scope.regional:regional`],
-    ['network-scope.national', $localize`:@@network-scope.national:national`],
-    ['network-scope.international', $localize`:@@network-scope.international:international`],
+    ['route-scope.local', $localize`:@@route-scope.local:local`],
+    ['route-scope.regional', $localize`:@@route-scope.regional:regional`],
+    ['route-scope.national', $localize`:@@route-scope.national:national`],
+    ['route-scope.international', $localize`:@@route-scope.international:international`],
     //
     ['subset.in', $localize`:@@subset.in:in`],
     //

@@ -10,10 +10,7 @@ import { IconNetworkLinkComponent } from '@app/components/shared/link';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <kpn-icon-network-link
-        [reference]="reference()"
-        [mixedNetworkScopes]="mixedNetworkScopes()"
-      />
+      <kpn-icon-network-link [reference]="reference()" [mixedRouteScopes]="mixedRouteScopes()" />
     </div>
   `,
   imports: [IconNetworkLinkComponent],
@@ -21,5 +18,5 @@ import { IconNetworkLinkComponent } from '@app/components/shared/link';
 export class NodeNetworkReferenceComponent {
   nodeInfo = input.required<NodeInfo>();
   reference = input.required<Reference>();
-  mixedNetworkScopes = input.required<boolean>();
+  mixedRouteScopes = input.required<boolean>();
 }
