@@ -9,11 +9,10 @@ import { FactsComponent } from '@app/analysis/fact';
 import { RouteTypeIconComponent } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
 import { ErrorComponent } from '@app/components/shared/error';
-import { OldPageComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { NodeIntegrityComponent } from './components/node-integrity.component';
@@ -27,7 +26,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
   selector: 'kpn-node-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -121,8 +120,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
           }
         </div>
       }
-      <kpn-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
   providers: [NodeDetailsPageService, RouterService],
@@ -130,18 +128,17 @@ import { NodeDetailsPageService } from './node-details-page.service';
     DataComponent,
     ErrorComponent,
     FactsComponent,
-    RouteTypeIconComponent,
     NodeIntegrityComponent,
     NodeLocationComponent,
     NodeNetworkReferencesComponent,
     NodePageHeaderComponent,
     NodeRouteReferencesComponent,
     NodeSummaryComponent,
-    OldPageComponent,
+    PageComponent,
+    RouteTypeIconComponent,
     RouterLink,
     TagTableComponent,
     TimestampComponent,
-    SidebarComponent,
   ],
 })
 export class NodeDetailsPageComponent implements OnInit {

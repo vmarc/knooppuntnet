@@ -7,20 +7,19 @@ import { ChangesComponent } from '@app/analysis/components/changes';
 import { ErrorComponent } from '@app/components/shared/error';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { NodeChangeComponent } from './components/node-change.component';
-import { NodeChangesSidebarComponent } from './components/node-changes-sidebar.component';
 import { NodeChangesPageService } from './node-changes-page.service';
 
 @Component({
   selector: 'kpn-node-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -105,8 +104,7 @@ import { NodeChangesPageService } from './node-changes-page.service';
           }
         </div>
       }
-      <kpn-node-changes-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [NodeChangesPageService, RouterService],
   imports: [
@@ -115,9 +113,8 @@ import { NodeChangesPageService } from './node-changes-page.service';
     ItemComponent,
     ItemsComponent,
     NodeChangeComponent,
-    NodeChangesSidebarComponent,
     NodePageHeaderComponent,
-    OldPageComponent,
+    PageComponent,
     RouterLink,
     SituationOnComponent,
     UserLinkLoginComponent,

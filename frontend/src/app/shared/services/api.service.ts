@@ -31,7 +31,6 @@ import { NetworkRoutesPage } from '@api/common/network';
 import { MapNodeDetail } from '@api/common/node';
 import { NodeChangesPage } from '@api/common/node';
 import { NodeDetailsPage } from '@api/common/node';
-import { NodeMapPage } from '@api/common/node';
 import { LegBuildParams } from '@api/common/planner';
 import { PlanLegDetail } from '@api/common/planner';
 import { PlanParams } from '@api/common/planner';
@@ -161,11 +160,6 @@ export class ApiService {
   nodeDetails(nodeId: string): Observable<ApiResponse<NodeDetailsPage>> {
     const url = `/api/node/${nodeId}`;
     return this.http.get(url, { params: this.languageParams() });
-  }
-
-  nodeMap(nodeId: string): Observable<ApiResponse<NodeMapPage>> {
-    const url = `/api/node/${nodeId}/map`;
-    return this.http.get(url);
   }
 
   nodeChanges(

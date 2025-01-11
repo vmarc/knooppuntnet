@@ -30,7 +30,6 @@ import kpn.api.common.network.NetworkNodesPage
 import kpn.api.common.network.NetworkRoutesPage
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
-import kpn.api.common.node.NodeMapPage
 import kpn.api.common.route.LinkInfo
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
@@ -206,11 +205,6 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
     @PathVariable nodeId: Long
   ): ApiResponse[NodeDetailsPage] = {
     analysisFacade.nodeDetails(toLanguage(language), nodeId)
-  }
-
-  @GetMapping(value = Array("/api/node/{nodeId}/map"))
-  def nodeMap(@PathVariable nodeId: Long): ApiResponse[NodeMapPage] = {
-    analysisFacade.nodeMap(nodeId)
   }
 
   @PostMapping(value = Array("/api/node/{nodeId}/changes"))

@@ -28,7 +28,6 @@ import kpn.api.common.network.NetworkNodesPage
 import kpn.api.common.network.NetworkRoutesPage
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
-import kpn.api.common.node.NodeMapPage
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
@@ -50,8 +49,6 @@ import kpn.api.custom.Subset
 trait AnalysisFacade {
 
   def nodeDetails(language: Language, nodeId: Long): ApiResponse[NodeDetailsPage]
-
-  def nodeMap(nodeId: Long): ApiResponse[NodeMapPage]
 
   def nodeChanges(nodeId: Long, parameters: ChangesParameters): ApiResponse[NodeChangesPage]
 

@@ -28,7 +28,6 @@ import kpn.api.common.network.NetworkNodesPage
 import kpn.api.common.network.NetworkRoutesPage
 import kpn.api.common.node.NodeChangesPage
 import kpn.api.common.node.NodeDetailsPage
-import kpn.api.common.node.NodeMapPage
 import kpn.api.common.route.RouteChangesPage
 import kpn.api.common.route.RouteDetailsPage
 import kpn.api.common.route.RouteMapPage
@@ -67,7 +66,6 @@ import kpn.server.api.analysis.pages.network.NetworkNodesPageBuilder
 import kpn.server.api.analysis.pages.network.NetworkRoutesPageBuilder
 import kpn.server.api.analysis.pages.node.NodeChangesPageBuilder
 import kpn.server.api.analysis.pages.node.NodeDetailsPageBuilder
-import kpn.server.api.analysis.pages.node.NodeMapPageBuilder
 import kpn.server.api.analysis.pages.route.RouteChangesPageBuilder
 import kpn.server.api.analysis.pages.route.RouteDetailsPageBuilder
 import kpn.server.api.analysis.pages.route.RouteMapPageBuilder
@@ -90,7 +88,6 @@ class AnalysisFacadeImpl(
   // ---
   overviewPageBuilder: OverviewPageBuilder,
   nodeDetailsPageBuilder: NodeDetailsPageBuilder,
-  nodeMapPageBuilder: NodeMapPageBuilder,
   nodeChangesPageBuilder: NodeChangesPageBuilder,
   routeDetailsPageBuilder: RouteDetailsPageBuilder,
   routeMapPageBuilder: RouteMapPageBuilder,
@@ -125,12 +122,6 @@ class AnalysisFacadeImpl(
   override def nodeDetails(language: Language, nodeId: Long): ApiResponse[NodeDetailsPage] = {
     api.execute("node-details", s"$nodeId") {
       reply(nodeDetailsPageBuilder.build(language, nodeId))
-    }
-  }
-
-  override def nodeMap(nodeId: Long): ApiResponse[NodeMapPage] = {
-    api.execute("node-map", s"$nodeId") {
-      reply(nodeMapPageBuilder.build(nodeId))
     }
   }
 

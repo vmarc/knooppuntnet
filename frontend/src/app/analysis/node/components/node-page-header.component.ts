@@ -30,14 +30,6 @@ import { NodeService } from '../node.service';
       </kpn-page-menu-option>
 
       <kpn-page-menu-option
-        [link]="linkNodeMap()"
-        [active]="pageName() === 'map'"
-        i18n="@@node.menu.map"
-      >
-        Map
-      </kpn-page-menu-option>
-
-      <kpn-page-menu-option
         [link]="linkNodeChanges()"
         [active]="pageName() === 'changes'"
         [elementCount]="service.changeCount()"
@@ -56,10 +48,6 @@ export class NodePageHeaderComponent {
 
   linkNodeDetails(): string {
     return this.linkNode('');
-  }
-
-  linkNodeMap(): string {
-    return this.linkNode('/map');
   }
 
   linkNodeChanges(): string {
