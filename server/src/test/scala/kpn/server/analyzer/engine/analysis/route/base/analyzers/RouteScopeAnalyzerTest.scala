@@ -9,11 +9,11 @@ import kpn.core.util.UnitTest
 class RouteScopeAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("network tag based scope") {
-    testNetworkTag("iwn", RouteScope.International)
-    testNetworkTag("nwn", RouteScope.National)
-    testNetworkTag("rwn", RouteScope.Regional)
-    testNetworkTag("lwn", RouteScope.Local)
-    testNetworkTag("bla", RouteScope.Unknown)
+    testNetworkTag("iwn", RouteScope.international)
+    testNetworkTag("nwn", RouteScope.national)
+    testNetworkTag("rwn", RouteScope.regional)
+    testNetworkTag("lwn", RouteScope.local)
+    testNetworkTag("bla", RouteScope.unknown)
   }
 
   test("scope") {
@@ -24,7 +24,7 @@ class RouteScopeAnalyzerTest extends UnitTest with SharedTestObjects {
         "network" -> "rwn"
       )
     )
-    assertEqual(context.scopes, Seq(RouteScope.Regional))
+    assertEqual(context.scopes, Seq(RouteScope.regional))
   }
 
   private def testNetworkTag(tagValue: String, expectedScope: RouteScope): Unit = {

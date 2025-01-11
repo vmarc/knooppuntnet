@@ -42,7 +42,7 @@ class MongoQueryNodeRouteReferences(database: Database) {
             computed("nodeId", "$nodeRefs"),
             computed("routeId", "$summary.id"),
             computed("routeType", "$summary.routeTypes"),
-            computed("networkScope", "$summary.scopes"),
+            computed("routeScope", "$summary.scopes"),
             computed("routeName", "$summary.name"),
           )
         )

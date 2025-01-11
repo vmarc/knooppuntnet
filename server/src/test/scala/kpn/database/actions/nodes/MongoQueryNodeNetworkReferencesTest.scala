@@ -1,7 +1,7 @@
 package kpn.database.actions.nodes
 
-import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkScope.regional
+import kpn.api.common.RouteScope
+import kpn.api.common.RouteScope.regional
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.hiking
 import kpn.api.common.SharedTestObjects
@@ -19,7 +19,7 @@ class MongoQueryNodeNetworkReferencesTest extends UnitTest with SharedTestObject
           1L,
           name = Some("network-1"),
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           nodeIds = Seq(1001L, 1002L)
         )
       )
@@ -27,7 +27,7 @@ class MongoQueryNodeNetworkReferencesTest extends UnitTest with SharedTestObject
         newBaseNetworkDoc(2L,
           name = Some("network-2"),
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           nodeIds = Seq(1001L, 1003L)
         )
       )

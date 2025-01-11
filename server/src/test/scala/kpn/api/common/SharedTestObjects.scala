@@ -442,7 +442,7 @@ trait SharedTestObjects extends MockFactory {
     countries: Seq[Country] = Seq.empty,
     nodeNetwork: Boolean = true,
     routeTypes: Seq[RouteType] = Seq(RouteType.hiking),
-    networkScope: NetworkScope = NetworkScope.regional,
+    routeScope: RouteScope = RouteScope.regional,
     name: String = "",
     meters: Int = 0,
     wayCount: Int = 0,
@@ -519,7 +519,7 @@ trait SharedTestObjects extends MockFactory {
     _id: Long,
     active: Boolean = true,
     routeType: RouteType = RouteType.hiking,
-    networkScope: NetworkScope = NetworkScope.regional,
+    routeScope: RouteScope = RouteScope.regional,
     name: Option[String] = None,
     version: Long = 0,
     timestamp: Timestamp = defaultTimestamp,
@@ -533,7 +533,7 @@ trait SharedTestObjects extends MockFactory {
       _id,
       active,
       routeType,
-      networkScope,
+      routeScope,
       name,
       version,
       timestamp,
@@ -549,7 +549,7 @@ trait SharedTestObjects extends MockFactory {
     id: Long,
     country: Option[Country] = None,
     routeType: RouteType = RouteType.hiking,
-    networkScope: NetworkScope = NetworkScope.regional,
+    routeScope: RouteScope = RouteScope.regional,
     name: String = "",
     km: Int = 0,
     meters: Int = 0,
@@ -568,7 +568,7 @@ trait SharedTestObjects extends MockFactory {
       id,
       country,
       routeType,
-      networkScope,
+      routeScope,
       name,
       km,
       meters,
@@ -1350,14 +1350,14 @@ trait SharedTestObjects extends MockFactory {
 
   def newNodeName(
     routeType: RouteType = RouteType.hiking,
-    networkScope: NetworkScope = NetworkScope.regional,
+    routeScope: RouteScope = RouteScope.regional,
     name: String = "",
     longName: Option[String] = None,
     proposed: Boolean = false
   ): NodeName = {
     NodeName(
       routeType,
-      networkScope,
+      routeScope,
       name,
       longName,
       proposed
@@ -1428,7 +1428,7 @@ trait SharedTestObjects extends MockFactory {
   def newNetworkSummary(
     name: String = "",
     routeType: RouteType = RouteType.hiking,
-    networkScope: NetworkScope = NetworkScope.regional,
+    routeScope: RouteScope = RouteScope.regional,
     factCount: Long = 0,
     nodeCount: Long = 0,
     routeCount: Long = 0,
@@ -1437,7 +1437,7 @@ trait SharedTestObjects extends MockFactory {
     NetworkSummary(
       name,
       routeType,
-      networkScope,
+      routeScope,
       factCount,
       nodeCount,
       routeCount,

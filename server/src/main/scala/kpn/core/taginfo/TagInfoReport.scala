@@ -83,7 +83,7 @@ class TagInfoReport {
       TagInfoTag(
         "network",
         Some(scopedRouteType.key),
-        s"Used in node network analysis - ${scopedRouteType.networkScope.entryName} ${scopedRouteType.routeType.entryName} network"
+        s"Used in node network analysis - ${scopedRouteType.routeScope.entryName} ${scopedRouteType.routeType.entryName} network"
       )
     }
   }

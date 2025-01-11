@@ -4,12 +4,12 @@ import kpn.api.custom.ScopedRouteType
 
 case class NodeName(
   routeType: RouteType,
-  networkScope: NetworkScope,
+  routeScope: RouteScope,
   name: String,
   longName: Option[String],
   proposed: Boolean
 ) {
   def scopedRouteType: ScopedRouteType = {
-    ScopedRouteType.from(networkScope, routeType)
+    ScopedRouteType.from(routeType, routeScope)
   }
 }

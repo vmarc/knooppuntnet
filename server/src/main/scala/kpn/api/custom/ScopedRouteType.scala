@@ -1,27 +1,27 @@
 package kpn.api.custom
 
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 
 object ScopedRouteType {
 
-  val rwn: ScopedRouteType = ScopedRouteType(NetworkScope.regional, RouteType.hiking)
-  val rcn: ScopedRouteType = ScopedRouteType(NetworkScope.regional, RouteType.cycling)
-  val rmn: ScopedRouteType = ScopedRouteType(NetworkScope.regional, RouteType.motorboat)
-  val lwn: ScopedRouteType = ScopedRouteType(NetworkScope.local, RouteType.hiking)
-  val lcn: ScopedRouteType = ScopedRouteType(NetworkScope.local, RouteType.cycling)
-  val lpn: ScopedRouteType = ScopedRouteType(NetworkScope.local, RouteType.canoe)
+  val rwn: ScopedRouteType = ScopedRouteType(RouteType.hiking, RouteScope.regional)
+  val rcn: ScopedRouteType = ScopedRouteType(RouteType.cycling, RouteScope.regional)
+  val rmn: ScopedRouteType = ScopedRouteType(RouteType.motorboat, RouteScope.regional)
+  val lwn: ScopedRouteType = ScopedRouteType(RouteType.hiking, RouteScope.local)
+  val lcn: ScopedRouteType = ScopedRouteType(RouteType.cycling, RouteScope.local)
+  val lpn: ScopedRouteType = ScopedRouteType(RouteType.canoe, RouteScope.local)
 
-  def apply(networkScope: NetworkScope, routeType: RouteType): ScopedRouteType = {
+  def apply(routeType: RouteType, routeScope: RouteScope): ScopedRouteType = {
     val routeTypeLetter = RouteTypeLetter.letter(routeType)
-    val networkScopeLetter = NetworkScopeLetter.letter(networkScope)
-    val key = s"$networkScopeLetter${routeTypeLetter}n"
-    ScopedRouteType(networkScope, routeType, key)
+    val routeScopeLetter = RouteScopeLetter.letter(routeScope)
+    val key = s"$routeScopeLetter${routeTypeLetter}n"
+    ScopedRouteType(routeType, routeScope, key)
   }
 
   val all: Seq[ScopedRouteType] = {
     RouteType.values.flatMap { routeType =>
-      NetworkScope.values.map(scope => ScopedRouteType(scope, routeType))
+      RouteScope.all.map(scope => ScopedRouteType(routeType, scope))
     }
   }
 
@@ -29,12 +29,12 @@ object ScopedRouteType {
     all.find(_.key == key)
   }
 
-  def from(networkScope: NetworkScope, routeType: RouteType): ScopedRouteType = {
-    all.find(ns => ns.routeType == routeType && ns.networkScope == networkScope).get
+  def from(routeType: RouteType, routeScope: RouteScope): ScopedRouteType = {
+    all.find(ns => ns.routeType == routeType && ns.routeScope == routeScope).get
   }
 }
 
-case class ScopedRouteType(networkScope: NetworkScope, routeType: RouteType, key: String) {
+case class ScopedRouteType(routeType: RouteType, routeScope: RouteScope, key: String) {
 
   override def toString: String = key
 

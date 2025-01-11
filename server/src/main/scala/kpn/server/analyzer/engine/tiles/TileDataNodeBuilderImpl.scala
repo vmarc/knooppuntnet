@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.tiles
 
 import kpn.api.common.Fact
-import kpn.api.common.NetworkScope
 import kpn.api.common.NodeName
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.core.analysis.Facts
 import kpn.server.analyzer.engine.analysis.common.SurveyDateAnalyzer
@@ -17,10 +17,10 @@ import scala.util.Success
 class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
 
   private val prioritizedScopes = Seq(
-    NetworkScope.regional, // prefer regional over local
-    NetworkScope.local,
-    NetworkScope.national,
-    NetworkScope.international
+    RouteScope.regional, // prefer regional over local
+    RouteScope.local,
+    RouteScope.national,
+    RouteScope.international
   )
 
   def build(routeType: RouteType, node: NodeTileInfo): Option[TileDataNode] = {
@@ -30,7 +30,7 @@ class TileDataNodeBuilderImpl extends TileDataNodeBuilder {
         .filter(_.routeType == routeType)
         .filterNot(_.name == "o")
       prioritizedScopes.flatMap { scope =>
-        unprioritizedNames.filter(_.networkScope == scope)
+        unprioritizedNames.filter(_.routeScope == scope)
       }.headOption
     }
 

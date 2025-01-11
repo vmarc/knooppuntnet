@@ -60,10 +60,7 @@ class NetworkNodesPageBuilder(
   }
 
   private def nodesWithRouteReferences(data: NetworkNodesPageData): Seq[NetworkNodeRow] = {
-    val scopedRouteType = ScopedRouteType.from(
-      data.summary.networkScope,
-      data.summary.routeType
-    )
+    val scopedRouteType = ScopedRouteType.from(data.summary.routeType, data.summary.routeScope)
     val allRouteReferences = nodeRouteRepository.nodesRouteReferences(scopedRouteType, data.nodes.map(_.id))
     data.nodes.map { networkNodeDetail =>
       val routeReferences = allRouteReferences.filter(_.nodeId == networkNodeDetail.id).flatMap(_.routeRefs)

@@ -16,7 +16,6 @@ import kpn.api.common.Country
 import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.Language
-import kpn.api.common.NetworkScope
 import kpn.api.common.NodeName
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
@@ -82,9 +81,6 @@ object Json {
 
     b.deserializerByType(classOf[RouteType], new routeTypeJsonDeserializer())
     b.serializerByType(classOf[RouteType], new routeTypeJsonSerializer())
-
-    b.deserializerByType(classOf[NetworkScope], new NetworkScopeJsonDeserializer())
-    b.serializerByType(classOf[NetworkScope], new NetworkScopeJsonSerializer())
 
     b.deserializerByType(classOf[ScopedRouteType], new scopedRouteTypeJsonDeserializer())
     b.serializerByType(classOf[ScopedRouteType], new scopedRouteTypeJsonSerializer())

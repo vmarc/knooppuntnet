@@ -6,7 +6,7 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.NodeName
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
@@ -76,7 +76,7 @@ class RouteDeleteTest01 extends IntegrationTest {
         names = Seq(
           NodeName(
             RouteType.hiking,
-            NetworkScope.regional,
+            RouteScope.regional,
             "01",
             None,
             proposed = false
@@ -101,7 +101,7 @@ class RouteDeleteTest01 extends IntegrationTest {
         names = Seq(
           NodeName(
             RouteType.hiking,
-            NetworkScope.regional,
+            RouteScope.regional,
             "02",
             None,
             proposed = false

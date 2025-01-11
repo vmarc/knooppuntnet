@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.Fact
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.node.NodeIntegrity
@@ -27,7 +27,7 @@ class Issue183_DeletedNode3 extends IntegrationTest {
         Seq(
           newNodeName(
             RouteType.cycling,
-            NetworkScope.regional,
+            RouteScope.regional,
             "Pau49"
           )
         )
@@ -38,7 +38,7 @@ class Issue183_DeletedNode3 extends IntegrationTest {
             Seq(
               NodeIntegrityDetail(
                 RouteType.cycling,
-                NetworkScope.regional,
+                RouteScope.regional,
                 3,
                 Seq.empty
               )

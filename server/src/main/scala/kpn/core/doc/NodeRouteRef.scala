@@ -1,7 +1,7 @@
 package kpn.core.doc
 
 import kpn.api.base.WithStringId
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 
 case class NodeRouteRef(
@@ -9,6 +9,6 @@ case class NodeRouteRef(
   nodeId: Long,
   routeId: Long,
   routeType: RouteType,
-  networkScope: NetworkScope,
+  routeScope: RouteScope,
   routeName: String
 ) extends WithStringId

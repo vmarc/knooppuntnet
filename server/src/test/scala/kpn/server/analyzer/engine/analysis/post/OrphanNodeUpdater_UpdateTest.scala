@@ -2,7 +2,7 @@ package kpn.server.analyzer.engine.analysis.post
 
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
@@ -37,13 +37,13 @@ class OrphanNodeUpdater_UpdateTest extends UnitTest with SharedTestObjects {
           names = Seq(
             newNodeName(
               routeType = RouteType.hiking,
-              networkScope = NetworkScope.regional,
+              routeScope = RouteScope.regional,
               name = "01",
               longName = Some("one")
             ),
             newNodeName(
               routeType = RouteType.cycling,
-              networkScope = NetworkScope.regional,
+              routeScope = RouteScope.regional,
               name = "02",
               longName = None,
               proposed = true

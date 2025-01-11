@@ -1,10 +1,10 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.Fact.RouteTagMissing
-import kpn.api.common.NetworkScope
-import kpn.api.common.NetworkScope.local
-import kpn.api.common.NetworkScope.national
-import kpn.api.common.NetworkScope.regional
+import kpn.api.common.RouteScope
+import kpn.api.common.RouteScope.local
+import kpn.api.common.RouteScope.national
+import kpn.api.common.RouteScope.regional
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.canoe
 import kpn.api.common.RouteType.cycling
@@ -45,12 +45,12 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("ignore additional values") {
     if (Redesign.enablePendingTests) {
-      testValid(NetworkScope.regional, RouteType.cycling, "bicycle;mtb")
+      testValid(RouteScope.regional, RouteType.cycling, "bicycle;mtb")
     }
   }
 
-  private def testValid(networkScope: NetworkScope, routeType: RouteType, tagValue: String): Unit = {
-    val scopedRouteType = ScopedRouteType(networkScope, routeType)
+  private def testValid(routeScope: RouteScope, routeType: RouteType, tagValue: String): Unit = {
+    val scopedRouteType = ScopedRouteType(routeType, routeScope)
     val tags = Tags.from(
       "type" -> "route",
       "network:type" -> "node_network",

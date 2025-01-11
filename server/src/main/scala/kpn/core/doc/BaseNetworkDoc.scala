@@ -1,7 +1,7 @@
 package kpn.core.doc
 
 import kpn.api.base.WithId
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Tag
@@ -11,7 +11,7 @@ case class BaseNetworkDoc(
   _id: Long,
   active: Boolean,
   routeType: RouteType,
-  networkScope: NetworkScope,
+  routeScope: RouteScope,
   name: Option[String],
   version: Long,
   timestamp: Timestamp,

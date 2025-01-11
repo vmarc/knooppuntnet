@@ -32,7 +32,7 @@ object BaseNodeNameAnalyzer extends BaseNodeAnalyzer {
         }
         NodeName(
           scopedRouteType.routeType,
-          scopedRouteType.networkScope,
+          scopedRouteType.routeScope,
           name.name,
           longNameOption,
           proposed = name.proposed

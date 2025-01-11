@@ -1,13 +1,13 @@
 package kpn.api.common.node
 
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.custom.ScopedRouteType
 
 case class NodeIntegrityDetail(
   routeType: RouteType,
-  networkScope: NetworkScope,
+  routeScope: RouteScope,
   expectedRouteCount: Int,
   routeRefs: Seq[Ref]
 ) {
@@ -17,6 +17,6 @@ case class NodeIntegrityDetail(
   }
 
   def hasScopedRouteType(scopedRouteType: ScopedRouteType): Boolean = {
-    scopedRouteType.routeType == routeType && scopedRouteType.networkScope == networkScope
+    scopedRouteType.routeType == routeType && scopedRouteType.routeScope == routeScope
   }
 }

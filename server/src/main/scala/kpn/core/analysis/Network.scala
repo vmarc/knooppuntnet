@@ -4,7 +4,7 @@ import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.Fact.RouteInaccessible
 import kpn.api.common.NetworkFacts
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.common.data.Node
@@ -17,7 +17,7 @@ import kpn.core.util.Formatter.percentage
 case class Network(
   country: Option[Country],
   routeType: RouteType,
-  networkScope: NetworkScope,
+  routeScope: RouteScope,
   relation: Relation,
   name: String,
   nodes: Seq[NetworkNodeInfo],

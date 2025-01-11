@@ -1,9 +1,6 @@
 package kpn.database.actions.routes
 
-import kpn.api.common.RouteScope.International
-import kpn.api.common.RouteScope.Local
-import kpn.api.common.RouteScope.National
-import kpn.api.common.RouteScope.Regional
+import kpn.api.common.RouteScope
 import kpn.api.common.search.RouteList
 import kpn.api.common.search.RouteListItem
 import kpn.api.common.search.RouteSearchResult
@@ -45,10 +42,10 @@ class MongoQueryRouteSearchResults(database: Database) {
         )
       )
       val results = database.routes.aggregate[RouteSearchResult](pipeline, log)
-      val (international, nonInternational) = results.partition(_.scopes.contains(International))
-      val (national, nonNational) = nonInternational.partition(_.scopes.contains(National))
-      val (regional, nonRegional) = nonNational.partition(_.scopes.contains(Regional))
-      val (local, unknown) = nonRegional.partition(_.scopes.contains(Local))
+      val (international, nonInternational) = results.partition(_.scopes.contains(RouteScope.international))
+      val (national, nonNational) = nonInternational.partition(_.scopes.contains(RouteScope.national))
+      val (regional, nonRegional) = nonNational.partition(_.scopes.contains(RouteScope.regional))
+      val (local, unknown) = nonRegional.partition(_.scopes.contains(RouteScope.local))
       val routeList = RouteList(
         toRouteListItems(international),
         toRouteListItems(national),

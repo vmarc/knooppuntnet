@@ -24,11 +24,14 @@ class NodeIntegrityAnalyzer(context: NodeAnalysisContext) {
           if (expectedRouteRelationsValue.forall(Character.isDigit)) {
             if (context.routeTypes.contains(scopedRouteType.routeType)) {
               val expectedRouteCount = expectedRouteRelationsValue.toInt
-              val routeRefs = context.routeReferences.filter(rr => rr.routeType == scopedRouteType.routeType && rr.networkScope == scopedRouteType.networkScope).map(_.toRef)
+              val routeRefs = context.routeReferences.filter(rr =>
+                rr.routeType == scopedRouteType.routeType &&
+                  rr.routeScope == scopedRouteType.routeScope
+              ).map(_.toRef)
               Some(
                 NodeIntegrityDetail(
                   scopedRouteType.routeType,
-                  scopedRouteType.networkScope,
+                  scopedRouteType.routeScope,
                   expectedRouteCount,
                   routeRefs
                 )

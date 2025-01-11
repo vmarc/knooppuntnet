@@ -43,7 +43,7 @@ class SubsetNetworksPageBuilder(
         networkInfoDoc._id,
         networkInfoDoc.country,
         networkInfoDoc.summary.routeType,
-        networkInfoDoc.summary.networkScope,
+        networkInfoDoc.summary.routeScope,
         networkInfoDoc.summary.name,
         networkInfoDoc.detail.km,
         networkInfoDoc.detail.meters,

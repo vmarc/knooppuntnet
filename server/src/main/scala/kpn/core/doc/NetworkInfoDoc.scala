@@ -21,6 +21,6 @@ case class NetworkInfoDoc(
   extraRelationIds: Seq[Long]
 ) extends WithId {
   def scopedRouteType: ScopedRouteType = {
-    ScopedRouteType(summary.networkScope, summary.routeType)
+    ScopedRouteType(summary.routeType, summary.routeScope)
   }
 }

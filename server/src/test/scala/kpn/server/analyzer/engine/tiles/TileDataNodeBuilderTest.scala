@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.tiles
 
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.NodeName
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
@@ -20,7 +20,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       names = Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = false
@@ -56,7 +56,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       names = Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = true
@@ -92,7 +92,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       names = Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "o",
           longName = None,
           proposed = false
@@ -115,7 +115,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       names = Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "o",
           longName = None,
           proposed = false
@@ -138,7 +138,7 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       names = Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = Some("name"),
           proposed = false

@@ -7,7 +7,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
@@ -317,7 +317,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
     val nodeRouteReferences = Seq(
       Reference(
         RouteType.hiking,
-        NetworkScope.regional,
+        RouteScope.regional,
         11,
         "01-02"
       )

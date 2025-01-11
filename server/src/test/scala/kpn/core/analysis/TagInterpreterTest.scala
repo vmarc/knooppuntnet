@@ -1,6 +1,6 @@
 package kpn.core.analysis
 
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.ScopedRouteType
@@ -36,7 +36,7 @@ class TagInterpreterTest extends UnitTest with SharedTestObjects {
 
     def isReferencedNetworkNode(tags: Seq[Tag]): Boolean = {
       val node = newNode(tags = tags)
-      TagInterpreter.isReferencedNetworkNode(ScopedRouteType(NetworkScope.local, RouteType.hiking), node)
+      TagInterpreter.isReferencedNetworkNode(ScopedRouteType(RouteType.hiking, RouteScope.local), node)
     }
 
     assert(isReferencedNetworkNode(Tags.from("network:type" -> "node_network", "lwn_ref" -> "01")))

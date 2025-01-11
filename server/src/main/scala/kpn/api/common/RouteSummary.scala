@@ -10,7 +10,7 @@ case class RouteSummary(
   nodeNetwork: Boolean,
   routeTypes: Seq[RouteType],
   scopes: Seq[RouteScope],
-  // TODO redesign - reintroduce networkScope: NetworkScope, ?
+  // TODO redesign - reintroduce routeScope: RouteScope, ?
   name: String,
   meters: Long,
   broken: Boolean,

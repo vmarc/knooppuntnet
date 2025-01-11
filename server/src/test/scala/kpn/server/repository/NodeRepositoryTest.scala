@@ -123,7 +123,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
       //    Seq(
       //      Reference(
       //        routeType.hiking,
-      //        NetworkScope.regional,
+      //        RouteScope.regional,
       //        2,
       //        "network-2"
       //      )

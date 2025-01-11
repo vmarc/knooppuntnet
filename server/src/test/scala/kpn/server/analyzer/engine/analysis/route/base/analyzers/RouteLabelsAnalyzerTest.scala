@@ -26,7 +26,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         Label.location("Essen"),
         Label.location(Country.be.entryName),
         Label.routeType(RouteType.hiking),
-        Label.scope(RouteScope.Regional),
+        Label.scope(RouteScope.regional),
         Label.survey,
       )
     )
@@ -70,7 +70,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
         Label.facts,
         Label.location(Country.be.entryName),
         Label.routeType(RouteType.hiking),
-        Label.scope(RouteScope.Regional),
+        Label.scope(RouteScope.regional),
         Label.survey,
       )
     )
@@ -83,7 +83,7 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
       relation,
       None,
       _routeTypes = Some(Seq(RouteType.hiking)),
-      _scopes = Some(Seq(RouteScope.Regional)),
+      _scopes = Some(Seq(RouteScope.regional)),
       scopedRouteTypeOption = Some(ScopedRouteType.rwn),
       _countries = Some(Seq(Country.be)),
       lastSurvey = Some(Day(2020, 8)),

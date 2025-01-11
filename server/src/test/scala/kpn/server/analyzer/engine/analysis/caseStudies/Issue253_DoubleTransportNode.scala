@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.analysis.caseStudies
 
 import kpn.api.common.Country
-import kpn.api.common.NetworkScope
 import kpn.api.common.NodeName
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.RouteType.hiking
 import kpn.api.common.SurveyDateInfo
@@ -108,8 +108,8 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
             country = Some(Country.fr),
             name = Some("Teumelet / o"),
             names = Seq(
-              newNodeName(RouteType.hiking, NetworkScope.local, "Teumelet"),
-              newNodeName(RouteType.hiking, NetworkScope.regional, "o")
+              newNodeName(RouteType.hiking, RouteScope.local, "Teumelet"),
+              newNodeName(RouteType.hiking, RouteScope.regional, "o")
             ),
             version = 5,
             latitude = "45.1703505",
@@ -158,14 +158,14 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.local,
+          routeScope = RouteScope.local,
           name = "Teumelet",
           longName = None,
           proposed = false
         ),
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "o",
           longName = None,
           proposed = false
@@ -194,7 +194,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.local,
+          routeScope = RouteScope.local,
           name = "Teumelet",
           longName = None,
           proposed = false

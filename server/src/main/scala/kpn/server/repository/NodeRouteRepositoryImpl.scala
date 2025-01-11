@@ -15,11 +15,11 @@ class NodeRouteRepositoryImpl(database: Database) extends NodeRouteRepository {
     nodeIds.map { nodeId =>
       val references = nodeRouteRefs.filter(nodeRouteRef => nodeRouteRef.nodeId == nodeId &&
         nodeRouteRef.routeType == scopedRouteType.routeType &&
-        nodeRouteRef.networkScope == scopedRouteType.networkScope
+        nodeRouteRef.routeScope == scopedRouteType.routeScope
       ).map { nodeRouteRef =>
         Reference(
           nodeRouteRef.routeType,
-          nodeRouteRef.networkScope,
+          nodeRouteRef.routeScope,
           nodeRouteRef.routeId,
           nodeRouteRef.routeName
         )

@@ -108,12 +108,12 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
         fields(
           excludeId(),
           computed("routeType", "$summary.routeTypes"),
-          computed("networkScope", "$summary.scopes"),
+          computed("routeScope", "$summary.scopes"),
           computed("id", "$summary.id"),
           computed("name", "$summary.name")
         )
       ),
-      sort(orderBy(ascending("routeType", "networkScope", "routeName")))
+      sort(orderBy(ascending("routeType", "routeScope", "routeName")))
     )
   }
 }

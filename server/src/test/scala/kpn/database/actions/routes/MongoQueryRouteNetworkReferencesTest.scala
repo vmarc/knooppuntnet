@@ -1,6 +1,6 @@
 package kpn.database.actions.routes
 
-import kpn.api.common.NetworkScope.regional
+import kpn.api.common.RouteScope.regional
 import kpn.api.common.RouteType.hiking
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Reference
@@ -60,7 +60,7 @@ class MongoQueryRouteNetworkReferencesTest extends UnitTest with SharedTestObjec
       summary = newNetworkSummary(
         name = name,
         routeType = hiking,
-        networkScope = regional
+        routeScope = regional
       ),
       routes = routeIds.map(routeId =>
         newNetworkInfoRouteDetail(routeId)

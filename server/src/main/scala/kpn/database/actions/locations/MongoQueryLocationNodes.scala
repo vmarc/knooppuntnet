@@ -1,6 +1,6 @@
 package kpn.database.actions.locations
 
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.SurveyDateInfo
 import kpn.api.common.changes.filter.ServerFilterGroup
 import kpn.api.common.changes.filter.ServerFilterOption
@@ -300,7 +300,7 @@ class MongoQueryLocationNodes(database: Database, surveyDateInfo: SurveyDateInfo
     log.debugElapsed {
       val locationNodeInfoDocs = database.nodes.aggregate[LocationNodeInfoDoc](pipeline)
       val locationNodeInfos = locationNodeInfoDocs.zipWithIndex.map { case (doc, index) =>
-        val tagValues = NetworkScope.values.map(scope => ScopedRouteType(scope, subset.routeType)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
+        val tagValues = RouteScope.all.map(scope => ScopedRouteType(subset.routeType, scope)).map(_.expectedRouteRelationsTag).flatMap { tagKey =>
           doc.tagValue(tagKey)
         }
         val expectedNodeCount = tagValues.headOption.getOrElse("-")

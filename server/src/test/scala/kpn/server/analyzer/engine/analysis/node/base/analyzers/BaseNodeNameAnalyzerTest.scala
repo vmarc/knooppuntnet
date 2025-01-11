@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.node.base.analyzers
 
-import kpn.api.common.NetworkScope
 import kpn.api.common.NodeName
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tag
@@ -17,7 +17,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = false
@@ -33,7 +33,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = true
@@ -54,7 +54,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = false
@@ -70,7 +70,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01", // <- leading zero added
           longName = None,
           proposed = false
@@ -91,14 +91,14 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = false
         ),
         NodeName(
           routeType = RouteType.cycling,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "02",
           longName = None,
           proposed = false
@@ -119,14 +119,14 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = true
         ),
         NodeName(
           routeType = RouteType.cycling,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "02",
           longName = None,
           proposed = false
@@ -147,14 +147,14 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.local,
+          routeScope = RouteScope.local,
           name = "01",
           longName = None,
           proposed = false
         ),
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = false
@@ -175,14 +175,14 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.local,
+          routeScope = RouteScope.local,
           name = "01",
           longName = None,
           proposed = true
         ),
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = false
@@ -204,21 +204,21 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.local,
+          routeScope = RouteScope.local,
           name = "01",
           longName = None,
           proposed = false
         ),
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = false
         ),
         NodeName(
           routeType = RouteType.cycling,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = false
@@ -244,7 +244,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = false
@@ -264,7 +264,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = None,
           proposed = true
@@ -285,7 +285,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
       Seq(
         NodeName(
           routeType = RouteType.hiking,
-          networkScope = NetworkScope.regional,
+          routeScope = RouteScope.regional,
           name = "01",
           longName = Some("long name"),
           proposed = false
@@ -314,7 +314,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
               nodeNames = Seq(
                 NodeName(
                   routeType = scopedRouteType.routeType,
-                  networkScope = scopedRouteType.networkScope,
+                  routeScope = scopedRouteType.routeScope,
                   name = "01",
                   longName = None,
                   proposed = false
@@ -340,7 +340,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
               nodeNames = Seq(
                 NodeName(
                   routeType = scopedRouteType.routeType,
-                  networkScope = scopedRouteType.networkScope,
+                  routeScope = scopedRouteType.routeScope,
                   name = "01",
                   longName = Some("01"),
                   proposed = false
@@ -366,7 +366,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
               nodeNames = Seq(
                 NodeName(
                   routeType = scopedRouteType.routeType,
-                  networkScope = scopedRouteType.networkScope,
+                  routeScope = scopedRouteType.routeScope,
                   name = "01",
                   longName = None,
                   proposed = true
@@ -392,7 +392,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
               nodeNames = Seq(
                 NodeName(
                   routeType = scopedRouteType.routeType,
-                  networkScope = scopedRouteType.networkScope,
+                  routeScope = scopedRouteType.routeScope,
                   name = "01",
                   longName = Some("01"),
                   proposed = true
@@ -420,21 +420,21 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
             nodeNames = Seq(
               NodeName(
                 routeType = RouteType.hiking,
-                networkScope = NetworkScope.regional,
+                routeScope = RouteScope.regional,
                 name = "01",
                 longName = None,
                 proposed = false
               ),
               NodeName(
                 routeType = RouteType.hiking,
-                networkScope = NetworkScope.local,
+                routeScope = RouteScope.local,
                 name = "02",
                 longName = None,
                 proposed = false
               ),
               NodeName(
                 routeType = RouteType.cycling,
-                networkScope = NetworkScope.regional,
+                routeScope = RouteScope.regional,
                 name = "03",
                 longName = None,
                 proposed = false
@@ -460,7 +460,7 @@ class BaseNodeNameAnalyzerTest extends UnitTest with SharedTestObjects {
             nodeNames = Seq(
               NodeName(
                 routeType = RouteType.hiking,
-                networkScope = NetworkScope.regional,
+                routeScope = RouteScope.regional,
                 name = "01",
                 longName = None,
                 proposed = true

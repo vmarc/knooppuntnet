@@ -34,7 +34,7 @@ class BaseNetworkMainAnalyzer {
           _id = context.relation.id,
           active = true,
           routeType = context.routeType,
-          networkScope = context.networkScope,
+          routeScope = context.routeScope,
           name = context.name,
           version = context.relation.version,
           timestamp = context.relation.timestamp,

@@ -3,9 +3,9 @@ package kpn.server.api.analysis.pages.node
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.LocationInfo
-import kpn.api.common.NetworkScope
 import kpn.api.common.NodeInfo
 import kpn.api.common.NodeName
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
@@ -25,8 +25,8 @@ object NodeDetailsPageExample {
       country = Some(Country.nl),
       name = "01 / 02",
       names = Seq(
-        NodeName(RouteType.cycling, NetworkScope.regional, "01", None, proposed = false),
-        NodeName(RouteType.hiking, NetworkScope.regional, "02", None, proposed = true)
+        NodeName(RouteType.cycling, RouteScope.regional, "01", None, proposed = false),
+        NodeName(RouteType.hiking, RouteScope.regional, "02", None, proposed = true)
       ),
       latitude = "51.5291600",
       longitude = "4.297800",
@@ -55,24 +55,24 @@ object NodeDetailsPageExample {
   val page: NodeDetailsPage = {
     NodeDetailsPage(
       nodeInfo,
-      mixedNetworkScopes = true,
+      mixedRouteScopes = true,
       Seq(
-        Reference(RouteType.cycling, NetworkScope.regional, 101, "01-02"),
-        Reference(RouteType.cycling, NetworkScope.regional, 102, "02-03"),
-        Reference(RouteType.cycling, NetworkScope.local, 103, "03-04"),
-        Reference(RouteType.hiking, NetworkScope.regional, 104, "05-06")
+        Reference(RouteType.cycling, RouteScope.regional, 101, "01-02"),
+        Reference(RouteType.cycling, RouteScope.regional, 102, "02-03"),
+        Reference(RouteType.cycling, RouteScope.local, 103, "03-04"),
+        Reference(RouteType.hiking, RouteScope.regional, 104, "05-06")
       ),
       Seq(
-        Reference(RouteType.hiking, NetworkScope.regional, 1, "network one"),
-        Reference(RouteType.hiking, NetworkScope.regional, 2, "network two"),
-        Reference(RouteType.hiking, NetworkScope.local, 3, "network three")
+        Reference(RouteType.hiking, RouteScope.regional, 1, "network one"),
+        Reference(RouteType.hiking, RouteScope.regional, 2, "network two"),
+        Reference(RouteType.hiking, RouteScope.local, 3, "network three")
       ),
       Some(
         NodeIntegrity(
           Seq(
             NodeIntegrityDetail(
               RouteType.cycling,
-              NetworkScope.regional,
+              RouteScope.regional,
               3,
               Seq(
                 Ref(101L, "01-02"),
@@ -81,7 +81,7 @@ object NodeDetailsPageExample {
             ),
             NodeIntegrityDetail(
               RouteType.cycling,
-              NetworkScope.local,
+              RouteScope.local,
               2,
               Seq(
                 Ref(103L, "03-04")

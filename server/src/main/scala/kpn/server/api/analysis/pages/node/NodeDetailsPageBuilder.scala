@@ -14,7 +14,7 @@ class NodeDetailsPageBuilder(
   changeSetRepository: ChangeSetRepository,
   locationService: LocationService
 ) {
-  
+
   def build(language: Language, nodeId: Long): Option[NodeDetailsPage] = {
     if (nodeId == 1L) {
       Some(NodeDetailsPageExample.page)
@@ -27,10 +27,10 @@ class NodeDetailsPageBuilder(
   private def buildPage(language: Language, nodeId: Long): Option[NodeDetailsPage] = {
     nodeRepository.nodeWithId(nodeId).map { nodeDoc =>
       val changeCount = changeSetRepository.nodeChangesCount(nodeId)
-      val mixedNetworkScopes = (
-        nodeDoc.names.map(_.networkScope) ++
-          nodeDoc.routeReferences.map(_.networkScope) ++
-          nodeDoc.networkReferences.map(_.networkScope)
+      val mixedRouteScopes = (
+        nodeDoc.names.map(_.routeScope) ++
+          nodeDoc.routeReferences.map(_.routeScope) ++
+          nodeDoc.networkReferences.map(_.routeScope)
         ).distinct.sizeIs > 1
       val locations = locationService.toInfos(language, nodeDoc.locations, nodeDoc.locations).reverse
       val nodeInfo = NodeInfo(
@@ -53,7 +53,7 @@ class NodeDetailsPageBuilder(
       )
       NodeDetailsPage(
         nodeInfo,
-        mixedNetworkScopes,
+        mixedRouteScopes,
         nodeDoc.routeReferences,
         nodeDoc.networkReferences,
         nodeDoc.integrity,

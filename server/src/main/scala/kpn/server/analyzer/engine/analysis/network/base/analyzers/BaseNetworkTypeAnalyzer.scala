@@ -26,7 +26,7 @@ class BaseNetworkTypeAnalyzer(context: BaseNetworkAnalysisContext) {
           case Some(scopedRouteType) =>
             context.copy(
               _routeType = Some(scopedRouteType.routeType),
-              _networkScope = Some(scopedRouteType.networkScope),
+              _routeScope = Some(scopedRouteType.routeScope),
             )
         }
     }

@@ -6,7 +6,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
@@ -81,7 +81,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         country = Some(Country.nl),
         name = Some("02"),
         names = Seq(
-          newNodeName(RouteType.cycling, NetworkScope.regional, "02")
+          newNodeName(RouteType.cycling, RouteScope.regional, "02")
         ),
         version = 2, // <--
         tags = Tags.from(

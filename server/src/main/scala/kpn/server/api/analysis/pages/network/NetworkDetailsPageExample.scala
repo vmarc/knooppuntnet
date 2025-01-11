@@ -9,8 +9,8 @@ import kpn.api.common.NetworkFacts
 import kpn.api.common.NetworkIntegrityCheck
 import kpn.api.common.NetworkIntegrityCheckFailed
 import kpn.api.common.NetworkNameMissing
-import kpn.api.common.NetworkScope
 import kpn.api.common.NodeIntegrityCheck
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
@@ -36,7 +36,7 @@ object NetworkDetailsPageExample {
     NetworkSummary(
       "network name",
       RouteType.hiking,
-      NetworkScope.regional,
+      RouteScope.regional,
       3,
       4,
       5,
@@ -52,7 +52,7 @@ object NetworkDetailsPageExample {
       id = 1L,
       country = Some(Country.nl),
       routeType = RouteType.hiking,
-      networkScope = NetworkScope.regional,
+      routeScope = RouteScope.regional,
       name = "Network One",
       km = 12,
       meters = 1234,

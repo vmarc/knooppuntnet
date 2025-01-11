@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.info.analyzers
 
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
@@ -24,7 +24,7 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
           details = Seq(
             NodeIntegrityDetail(
               routeType = RouteType.hiking,
-              networkScope = NetworkScope.regional,
+              routeScope = RouteScope.regional,
               expectedRouteCount = 3,
               routeRefs = Seq(
                 Ref(11L, ""),
@@ -45,7 +45,7 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
           details = Seq(
             NodeIntegrityDetail(
               routeType = RouteType.hiking,
-              networkScope = NetworkScope.regional,
+              routeScope = RouteScope.regional,
               expectedRouteCount = 3,
               routeRefs = Seq.empty
             )
@@ -62,7 +62,7 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
           details = Seq(
             NodeIntegrityDetail(
               routeType = RouteType.hiking,
-              networkScope = NetworkScope.regional,
+              routeScope = RouteScope.regional,
               expectedRouteCount = 3,
               routeRefs = Seq.empty
             )

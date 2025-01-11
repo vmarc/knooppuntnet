@@ -6,7 +6,7 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
@@ -85,13 +85,13 @@ class RouteCreateTest01 extends IntegrationTest {
         names = Seq(
           newNodeName(
             RouteType.hiking,
-            NetworkScope.regional,
+            RouteScope.regional,
             "01"
           )
         ),
         tags = newNodeTags("01"),
         routeReferences = Seq(
-          Reference(RouteType.hiking, NetworkScope.regional, 11, "01-02")
+          Reference(RouteType.hiking, RouteScope.regional, 11, "01-02")
         )
       )
     )
@@ -111,13 +111,13 @@ class RouteCreateTest01 extends IntegrationTest {
         names = Seq(
           newNodeName(
             RouteType.hiking,
-            NetworkScope.regional,
+            RouteScope.regional,
             "02"
           )
         ),
         tags = newNodeTags("02"),
         routeReferences = Seq(
-          Reference(RouteType.hiking, NetworkScope.regional, 11, "01-02")
+          Reference(RouteType.hiking, RouteScope.regional, 11, "01-02")
         )
       )
     )

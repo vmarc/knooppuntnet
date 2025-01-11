@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonParser
 import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonNode
-import kpn.api.common.NetworkScope
 import kpn.api.common.NodeName
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 
 class NodeNameJsonDeserializer extends JsonDeserializer[NodeName] {
@@ -15,10 +15,10 @@ class NodeNameJsonDeserializer extends JsonDeserializer[NodeName] {
     val scopedRouteTypeNode = node.get("scopedRouteType")
     val rootNode = if (scopedRouteTypeNode == null) node else scopedRouteTypeNode
     val routeType = RouteType.withName(rootNode.get("routeType").asText)
-    val networkScope = NetworkScope.withName(rootNode.get("networkScope").asText)
+    val routeScope = RouteScope.withName(rootNode.get("routeScope").asText)
     val longName = Option.apply(node.get("longName")).map(_.asText)
     val proposedNode = node.get("proposed")
     val proposed = if (proposedNode == null) false else proposedNode.asBoolean()
-    NodeName(routeType, networkScope, name, longName, proposed)
+    NodeName(routeType, routeScope, name, longName, proposed)
   }
 }

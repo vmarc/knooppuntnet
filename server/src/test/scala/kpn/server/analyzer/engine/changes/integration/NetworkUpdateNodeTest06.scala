@@ -6,7 +6,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.NodeName
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
@@ -105,7 +105,7 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         names = Seq(
           NodeName(
             RouteType.cycling,
-            NetworkScope.regional,
+            RouteScope.regional,
             "03",
             None,
             proposed = false

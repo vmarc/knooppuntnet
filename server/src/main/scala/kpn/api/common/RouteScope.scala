@@ -2,21 +2,22 @@ package kpn.api.common
 
 import enumeratum.Enum
 import enumeratum.EnumEntry
-import enumeratum.EnumEntry.Hyphencase
 
-sealed trait RouteScope extends EnumEntry with Hyphencase
+sealed trait RouteScope extends EnumEntry
 
 object RouteScope extends Enum[RouteScope] {
 
+  val all: Seq[RouteScope] = Seq(local, regional, national, international)
+
   val values: IndexedSeq[RouteScope] = findValues
 
-  final case object Local extends RouteScope
+  final case object local extends RouteScope
 
-  final case object Regional extends RouteScope
+  final case object regional extends RouteScope
 
-  final case object National extends RouteScope
+  final case object national extends RouteScope
 
-  final case object International extends RouteScope
+  final case object international extends RouteScope
 
-  final case object Unknown extends RouteScope
+  final case object unknown extends RouteScope
 }

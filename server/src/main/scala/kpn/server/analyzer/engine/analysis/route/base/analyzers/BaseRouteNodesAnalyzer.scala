@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.Fact
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.Node
 import kpn.api.common.data.NodeMember
@@ -205,7 +205,7 @@ class BaseRouteNodesAnalyzer(context: BaseRouteAnalysisContext) {
 
   private def nodeName(routeType: RouteType, node: Node): Option[String] = {
     if (node.hasTag("network:type", "node_network")) {
-      val scopedRouteTypes = NetworkScope.values.map(scope => ScopedRouteType(scope, routeType))
+      val scopedRouteTypes = RouteScope.all.map(scope => ScopedRouteType(routeType, scope))
       val nameTagKeys1 = scopedRouteTypes.map(_.nodeRefTagKey)
       val nameTagKeys2 = scopedRouteTypes.map(_.proposedNodeRefTagKey)
       val longNameTagKeys1 = scopedRouteTypes.flatMap { scopedRouteType =>

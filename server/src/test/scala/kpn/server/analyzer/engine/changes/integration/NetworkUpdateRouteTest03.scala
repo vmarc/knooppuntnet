@@ -6,7 +6,7 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.NodeName
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
@@ -110,14 +110,14 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         names = Seq(
           NodeName(
             RouteType.hiking,
-            NetworkScope.regional,
+            RouteScope.regional,
             "03", None,
             proposed = false
           )
         ),
         tags = newNodeTags("03"),
         routeReferences = Seq(
-          Reference(RouteType.hiking, NetworkScope.regional, 12, "02-03")
+          Reference(RouteType.hiking, RouteScope.regional, 12, "02-03")
         )
       )
     )

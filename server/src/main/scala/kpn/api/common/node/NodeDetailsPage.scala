@@ -5,7 +5,7 @@ import kpn.api.common.common.Reference
 
 case class NodeDetailsPage(
   nodeInfo: NodeInfo,
-  mixedNetworkScopes: Boolean,
+  mixedRouteScopes: Boolean,
   routeReferences: Seq[Reference],
   networkReferences: Seq[Reference],
   integrity: Option[NodeIntegrity],

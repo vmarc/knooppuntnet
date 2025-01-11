@@ -1,7 +1,7 @@
 package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.NetworkFacts
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.details.NetworkChangeInfo
 import kpn.api.common.changes.filter.ChangesFilterOption
@@ -41,7 +41,7 @@ object NetworkChangesPageExample {
       NetworkSummary(
         "name",
         RouteType.hiking,
-        NetworkScope.regional,
+        RouteScope.regional,
         1,
         2,
         3,

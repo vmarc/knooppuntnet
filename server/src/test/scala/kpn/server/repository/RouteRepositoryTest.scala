@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Reference
@@ -44,7 +44,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.networkReferences(10) should equal(
-        Seq(Reference(RouteType.hiking, NetworkScope.regional, 1, "network-name"))
+        Seq(Reference(RouteType.hiking, RouteScope.regional, 1, "network-name"))
       )
     }
   }

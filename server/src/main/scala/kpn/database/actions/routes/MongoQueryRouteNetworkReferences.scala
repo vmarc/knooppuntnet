@@ -30,7 +30,7 @@ class MongoQueryRouteNetworkReferences(database: Database) {
           fields(
             excludeId(),
             computed("routeType", "$summary.routeType"),
-            computed("networkScope", "$summary.networkScope"),
+            computed("routeScope", "$summary.routeScope"),
             computed("id", "$_id"),
             computed("name", "$summary.name"),
           )

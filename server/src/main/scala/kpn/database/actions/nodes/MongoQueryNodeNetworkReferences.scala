@@ -34,7 +34,7 @@ class MongoQueryNodeNetworkReferences(database: Database) {
           fields(
             excludeId(),
             include("routeType"),
-            include("networkScope"),
+            include("routeScope"),
             computed("id", "$_id"),
             include("name"),
           )

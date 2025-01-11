@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.changes.changes
 
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
@@ -12,9 +12,9 @@ import kpn.core.util.UnitTest
 class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("scopedRouteType") {
-    testscopedRouteType("rwn", NetworkScope.regional, RouteType.hiking)
-    testscopedRouteType("lcn", NetworkScope.local, RouteType.cycling)
-    testscopedRouteType("iin", NetworkScope.international, RouteType.inlineSkating)
+    testscopedRouteType("rwn", RouteScope.regional, RouteType.hiking)
+    testscopedRouteType("lcn", RouteScope.local, RouteType.cycling)
+    testscopedRouteType("iin", RouteScope.international, RouteType.inlineSkating)
   }
 
   test("referenced nodes, ways and relations") {
@@ -53,12 +53,12 @@ class RelationAnalyzerTest extends UnitTest with SharedTestObjects {
     RelationAnalyzer.referencedNodes(network).map(_.id) should equal(Set(1001L))
   }
 
-  private def testscopedRouteType(networkTagValue: String, expectedNetworkScope: NetworkScope, expectedrouteType: RouteType): Unit = {
+  private def testscopedRouteType(networkTagValue: String, expectedRouteScope: RouteScope, expectedRouteType: RouteType): Unit = {
     val relation = newRelation(tags = Tags.from("network" -> networkTagValue, "type" -> "network", "name" -> "name", "network:type" -> "node_network"))
     assertEqual(
       RelationAnalyzer.scopedRouteType(relation),
       Some(
-        ScopedRouteType(expectedNetworkScope, expectedrouteType)
+        ScopedRouteType(expectedRouteType, expectedRouteScope)
       )
     )
   }

@@ -6,7 +6,7 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
-import kpn.api.common.NetworkScope
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.Subset
@@ -55,7 +55,7 @@ class OrphanNodeCreateTest02 extends IntegrationTest {
         names = Seq(
           newNodeName(
             RouteType.hiking,
-            NetworkScope.regional,
+            RouteScope.regional,
             "01",
             proposed = true
           )
