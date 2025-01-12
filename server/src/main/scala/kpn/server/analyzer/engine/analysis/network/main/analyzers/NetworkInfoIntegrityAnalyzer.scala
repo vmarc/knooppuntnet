@@ -1,18 +1,17 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.network.Integrity
 import kpn.core.util.Formatter.percentage
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
-object NetworkInfoIntegrityAnalyzer extends NetworkInfoAnalyzer {
-  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+object NetworkInfoIntegrityAnalyzer extends NetworkAnalyzer {
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
     new NetworkInfoIntegrityAnalyzer(context).analyze()
   }
 }
 
-class NetworkInfoIntegrityAnalyzer(context: NetworkInfoAnalysisContext) {
+class NetworkInfoIntegrityAnalyzer(context: NetworkAnalysisContext) {
 
-  def analyze(): NetworkInfoAnalysisContext = {
+  def analyze(): NetworkAnalysisContext = {
 
     val networkNodeIntegrities = collectNodeIntegrities()
 

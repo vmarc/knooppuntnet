@@ -1,13 +1,12 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.core.analysis.TagInterpreter
 import kpn.core.doc.NodeDoc
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
-class NetworkDocAnalyzer(context: NetworkInfoAnalysisContext, nodeDoc: NodeDoc) {
+class NetworkDocAnalyzer(context: NetworkAnalysisContext, nodeDoc: NodeDoc) {
 
   def roleConnection: Boolean = {
-    context.networkDoc.nodeMembers.find(_.nodeId == nodeDoc._id) match {
+    context.network.members.find(_.ref == nodeDoc._id) match {
       case Some(nodeRef) => nodeRef.role.contains("connection")
       case None => false
     }
@@ -35,6 +34,6 @@ class NetworkDocAnalyzer(context: NetworkInfoAnalysisContext, nodeDoc: NodeDoc) 
   }
 
   def definedInRelation: Boolean = {
-    context.networkDoc.nodeMembers.exists(_.nodeId == nodeDoc._id)
+    context.network.members.exists(_.ref == nodeDoc._id)
   }
 }

@@ -4,6 +4,7 @@ import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
+import kpn.database.actions.networks.MongoQueryBaseNetworkIds
 import kpn.database.actions.networks.MongoQueryNetworkIds
 import kpn.database.base.Database
 import org.springframework.stereotype.Component
@@ -15,6 +16,10 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
 
   override def allNetworkIds(): Seq[Long] = {
     database.networks.ids(log)
+  }
+
+  override def baseNetworkIds(): Seq[Long] = {
+    new MongoQueryBaseNetworkIds(database).execute()
   }
 
   override def activeNetworkIds(): Seq[Long] = {
@@ -44,5 +49,9 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
 
   override def saveBaseNetwork(baseNetworkDoc: BaseNetworkDoc): Unit = {
     database.baseNetworks.save(baseNetworkDoc)
+  }
+
+  override def findBaseNetworkById(networkId: Long): Option[BaseNetworkDoc] = {
+    database.baseNetworks.findById(networkId, log)
   }
 }

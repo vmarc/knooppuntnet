@@ -1,18 +1,17 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.util.NaturalSorting
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
-object NetworkInfoNodeAnalyzer extends NetworkInfoAnalyzer {
-  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+object NetworkInfoNodeAnalyzer extends NetworkAnalyzer {
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
     new NetworkInfoNodeAnalyzer(context).analyze()
   }
 }
 
-class NetworkInfoNodeAnalyzer(context: NetworkInfoAnalysisContext) {
+class NetworkInfoNodeAnalyzer(context: NetworkAnalysisContext) {
 
-  def analyze(): NetworkInfoAnalysisContext = {
+  def analyze(): NetworkAnalysisContext = {
     val nodeDetails = analyzeNetworkNodes()
     context.copy(
       nodeDetails = nodeDetails

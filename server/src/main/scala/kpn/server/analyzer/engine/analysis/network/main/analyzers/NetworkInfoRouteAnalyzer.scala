@@ -1,12 +1,12 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.Fact
+import kpn.api.common.data.MemberType
 import kpn.core.doc.Label
 import kpn.core.doc.NetworkInfoRouteDetail
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.database.base.Database
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -18,18 +18,18 @@ import org.mongodb.scala.model.Projections.include
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkInfoRouteAnalyzer(database: Database) extends NetworkInfoAnalyzer {
+class NetworkInfoRouteAnalyzer(database: Database) extends NetworkAnalyzer {
 
-  private val log = Log(classOf[NetworkInfoRouteAnalyzer])
+  private val log = Log(classOf[NetworkAnalysisContext])
 
-  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
-    val routeIds = context.networkDoc.relationMembers.map(_.relationId)
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
+    val routeIds = context.network.routeIds
     val routeDetails = queryRouteDetails(routeIds)
     val meters = routeDetails.map(_.length).sum
     val km = Math.round(meters.toDouble / 1000)
     val enrichedRouteDetails = routeDetails.map { networkRouteDetail =>
-      val role = context.networkDoc.relationMembers.find(_.relationId == networkRouteDetail.id).flatMap(_.role) match {
-        case Some(role) => Some(role)
+      val role = context.network.members.find(member => member.memberType == MemberType.Relation && member.ref == networkRouteDetail.id).flatMap(_.role) match {
+        case Some(r) => Some(r)
         case None => None
       }
       val investigate = networkRouteDetail.facts.contains(Fact.RouteBroken)

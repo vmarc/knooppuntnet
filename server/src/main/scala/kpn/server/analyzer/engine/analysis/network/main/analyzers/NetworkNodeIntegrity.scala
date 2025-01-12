@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 case class NetworkNodeIntegrity(nodeId: Long, expectedRouteCount: Int, actualRouteCount: Int) {
 

@@ -13,12 +13,12 @@ import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
 import kpn.server.analyzer.engine.analysis.network.base.BaseNetworkMainAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoExtraAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeDocAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoChangeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoExtraAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoNodeDocAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.base.BaseNodeMainAnalyzer
@@ -154,7 +154,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val networkInfoRepository: NetworkInfoRepository = new NetworkInfoRepositoryImpl(database)
 
-  val networkInfoMasterAnalyzer: NetworkInfoMasterAnalyzer = {
+  val networkMainAnalyzer: NetworkMainAnalyzer = {
 
     val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
     val networkInfoNodeDocAnalyzer = new NetworkInfoNodeDocAnalyzer(database)
@@ -162,7 +162,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     val networkCountryAnalyzer = new NetworkCountryAnalyzer(locationAnalyzer)
     val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
 
-    new NetworkInfoMasterAnalyzer(
+    new NetworkMainAnalyzer(
       database,
       networkInfoRouteAnalyzer,
       networkInfoNodeDocAnalyzer,

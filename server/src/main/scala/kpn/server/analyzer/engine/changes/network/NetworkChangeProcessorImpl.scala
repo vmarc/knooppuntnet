@@ -9,7 +9,7 @@ import kpn.core.analysis.TagInterpreter
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkNameAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNameAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.changes.RawRelationChange
@@ -115,19 +115,20 @@ class NetworkChangeProcessorImpl(
   def processDelete(context: ChangeSetContext, before: RawRelation): NetworkChange = {
 
     analysisContext.watched.networks.delete(before.id)
-    database.networks.save(
-      NetworkDoc(
-        before.id,
-        active = false,
-        before.version,
-        before.changeSetId,
-        context.changeSet.timestamp,
-        Seq.empty,
-        Seq.empty,
-        Seq.empty,
-        before.tags
-      )
-    )
+    throw new Error("implement")
+    //    database.networks.save(
+    //      NetworkDoc(
+    //        before.id,
+    //        active = false,
+    //        before.version,
+    //        before.changeSetId,
+    //        context.changeSet.timestamp,
+    //        Seq.empty,
+    //        Seq.empty,
+    //        Seq.empty,
+    //        before.tags
+    //      )
+    //    )
 
     val key = context.buildChangeKey(before.id)
     val networkNameBefore = NetworkNameAnalyzer.name(before)

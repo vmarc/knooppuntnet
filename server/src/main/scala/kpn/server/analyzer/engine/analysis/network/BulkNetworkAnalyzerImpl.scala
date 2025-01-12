@@ -48,16 +48,17 @@ class BulkNetworkAnalyzerImpl(
       NetworkRelationMember(member.ref, member.role)
     }
 
-    NetworkDoc(
-      rawRelation.id,
-      active = true,
-      rawRelation.version,
-      rawRelation.changeSetId,
-      rawRelation.timestamp,
-      nodeMembers,
-      wayMembers,
-      relationMembers,
-      rawRelation.tags
-    )
+    throw new Error("implement")
+    //  NetworkDoc(
+    //    rawRelation.id,
+    //    active = true,
+    //    rawRelation.version,
+    //    rawRelation.changeSetId,
+    //    rawRelation.timestamp,
+    //    nodeMembers,
+    //    wayMembers,
+    //    relationMembers,
+    //    rawRelation.tags
+    //  )
   }
 }

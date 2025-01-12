@@ -1,17 +1,16 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.LatLonImpl
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
-object NetworkCenterAnalyzer extends NetworkInfoAnalyzer {
-  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+object NetworkCenterAnalyzer extends NetworkAnalyzer {
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
     new NetworkCenterAnalyzer(context).analyze
   }
 }
 
-class NetworkCenterAnalyzer(context: NetworkInfoAnalysisContext) {
+class NetworkCenterAnalyzer(context: NetworkAnalysisContext) {
 
-  def analyze: NetworkInfoAnalysisContext = {
+  def analyze: NetworkAnalysisContext = {
     val center = if (context.nodeDetails.isEmpty) {
       None
     }

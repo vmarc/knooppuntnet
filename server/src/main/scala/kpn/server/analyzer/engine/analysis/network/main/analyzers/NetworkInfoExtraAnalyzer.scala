@@ -1,23 +1,23 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.Tagable
 import kpn.api.common.data.raw.RawNode
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import kpn.server.overpass.OverpassRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkInfoExtraAnalyzer(
   overpassRepository: OverpassRepository
-) extends NetworkInfoAnalyzer {
+) extends NetworkAnalyzer {
 
-  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
-    if (context.networkDoc.active) {
-      val wayIds = context.networkDoc.wayMembers.map(_.wayId).toSet
-      val nodeIds = context.networkDoc.nodeMembers.map(_.nodeId).toSet
-      val relationIds = context.networkDoc.relationMembers.map(_.relationId).toSet
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
+    if (context.network.active) {
+      val wayIds = context.network.members.filter(_.memberType == MemberType.Way).map(_.ref).toSet
+      val nodeIds = context.network.members.filter(_.memberType == MemberType.Node).map(_.ref).toSet
+      val relationIds = context.network.members.filter(_.memberType == MemberType.Relation).map(_.ref).toSet
 
       val networkNodeIds = context.nodeDetails.map(_.id).toSet
       val networkRouteIds = context.routeDetails.map(_.id).toSet

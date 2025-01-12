@@ -1,18 +1,17 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
-import kpn.database.base.Database
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
+import kpn.database.base.Database
 import org.mongodb.scala.model.Filters.equal
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkInfoChangeAnalyzer(database: Database) extends NetworkInfoAnalyzer {
+class NetworkInfoChangeAnalyzer(database: Database) extends NetworkAnalyzer {
 
   private val log = Log(classOf[NetworkInfoChangeAnalyzer])
 
-  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
-    val changeCount = queryNetworkChangeCount(context.networkDoc._id)
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
+    val changeCount = queryNetworkChangeCount(context.network._id)
     context.copy(
       changeCount = changeCount
     )

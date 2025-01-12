@@ -8,6 +8,8 @@ trait NetworkRepository {
 
   def allNetworkIds(): Seq[Long]
 
+  def baseNetworkIds(): Seq[Long]
+
   def activeNetworkIds(): Seq[Long]
 
   def findById(networkId: Long): Option[NetworkDoc]
@@ -21,4 +23,6 @@ trait NetworkRepository {
   def delete(networkId: Long): Unit
 
   def saveBaseNetwork(baseNetworkDoc: BaseNetworkDoc): Unit
+
+  def findBaseNetworkById(networkId: Long): Option[BaseNetworkDoc]
 }

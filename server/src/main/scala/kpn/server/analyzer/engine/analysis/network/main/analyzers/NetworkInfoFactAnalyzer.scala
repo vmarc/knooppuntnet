@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.Check
 import kpn.api.common.Fact
@@ -10,19 +10,18 @@ import kpn.api.common.common.Ref
 import kpn.core.analysis.Facts
 import kpn.core.util.Formatter
 import kpn.core.util.NaturalSorting
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
-object NetworkInfoFactAnalyzer extends NetworkInfoAnalyzer {
-  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+object NetworkInfoFactAnalyzer extends NetworkAnalyzer {
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
     new NetworkInfoFactAnalyzer(context).analyze()
   }
 }
 
-class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
+class NetworkInfoFactAnalyzer(context: NetworkAnalysisContext) {
 
-  def analyze(): NetworkInfoAnalysisContext = {
+  def analyze(): NetworkAnalysisContext = {
 
-    if (context.networkDoc.active) {
+    if (context.network.active) {
 
       val nodeFacts = collectNodeFacts(context)
       val routeFacts = collectRouteFacts(context)
@@ -45,7 +44,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
     }
   }
 
-  private def collectNodeFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
+  private def collectNodeFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {
     val facts = context.nodeDetails.flatMap(_.facts).distinct.sortBy(_.entryName)
     facts.map { fact =>
       val nodeDetails = context.nodeDetails.filter(_.facts.contains(fact))
@@ -66,7 +65,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
     }
   }
 
-  private def collectRouteFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
+  private def collectRouteFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {
     val facts = context.routeDetails.flatMap(_.facts).filterNot(isIgnoredFact).distinct.sortBy(_.entryName)
     facts.map { fact =>
       val routes = context.routeDetails.filter(_.facts.contains(fact))
@@ -87,7 +86,7 @@ class NetworkInfoFactAnalyzer(context: NetworkInfoAnalysisContext) {
     }
   }
 
-  private def integrityFailedFacts(context: NetworkInfoAnalysisContext): Seq[NetworkFact] = {
+  private def integrityFailedFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {
     val checks = context.nodeDocs.flatMap { nodeDoc =>
       nodeDoc.nodeIntegrityDetail(context.scopedRouteType).flatMap { nodeIntegrityDetail =>
         if (nodeIntegrityDetail.failed) {

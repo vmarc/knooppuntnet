@@ -1,16 +1,14 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.MemberType
+import kpn.api.common.data.raw.RawMember
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NetworkNodeMember
 import kpn.core.test.TestData
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import kpn.server.overpass.OverpassRepository
 import org.scalamock.scalatest.MockFactory
 
@@ -20,12 +18,9 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
 
     val overpassRepository: OverpassRepository = null
     val analysisTimestamp: Timestamp = Timestamp(2020, 11, 8)
-    val networkDoc: NetworkDoc = newNetwork(
-      1
-    )
-    val contextBefore = NetworkInfoAnalysisContext(
+    val contextBefore = NetworkAnalysisContext(
+      newBaseNetworkDoc(1),
       analysisTimestamp,
-      networkDoc
     )
 
     val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
@@ -42,15 +37,15 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     (overpassRepository.nodes _).when(*, *).returns(Seq(newRawNode(1001)))
 
     val analysisTimestamp: Timestamp = Timestamp(2020, 11, 8)
-    val networkDoc: NetworkDoc = newNetwork(
+    val network = newBaseNetworkDoc(
       1,
-      nodeMembers = Seq(
-        NetworkNodeMember(1001, None)
+      members = Seq(
+        RawMember(MemberType.Node, 1001, None)
       )
     )
-    val contextBefore = NetworkInfoAnalysisContext(
+    val contextBefore = NetworkAnalysisContext(
+      network,
       analysisTimestamp,
-      networkDoc
     )
 
     val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
@@ -117,19 +112,19 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     (overpassRepository.nodes _).when(*, *).returns(Seq(node, mapNode, guidepostNode, boardNode, routeMarkerNode))
 
     val analysisTimestamp: Timestamp = Timestamp(2020, 11, 8)
-    val networkDoc: NetworkDoc = newNetwork(
+    val network = newBaseNetworkDoc(
       1,
-      nodeMembers = Seq(
-        NetworkNodeMember(1001, None),
-        NetworkNodeMember(1002, None),
-        NetworkNodeMember(1003, None),
-        NetworkNodeMember(1004, None),
-        NetworkNodeMember(1005, None)
+      members = Seq(
+        RawMember(MemberType.Node, 1001, None),
+        RawMember(MemberType.Node, 1002, None),
+        RawMember(MemberType.Node, 1003, None),
+        RawMember(MemberType.Node, 1004, None),
+        RawMember(MemberType.Node, 1005, None)
       )
     )
-    val contextBefore = NetworkInfoAnalysisContext(
+    val contextBefore = NetworkAnalysisContext(
+      network,
       analysisTimestamp,
-      networkDoc
     )
 
     val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
@@ -183,19 +178,19 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     //    }
 
     val analysisTimestamp: Timestamp = Timestamp(2020, 11, 8)
-    val networkDoc: NetworkDoc = newNetwork(
+    val network = newBaseNetworkDoc(
       1,
-      nodeMembers = Seq(
-        NetworkNodeMember(1001, None),
-        NetworkNodeMember(1002, None),
-        NetworkNodeMember(1003, None),
-        NetworkNodeMember(1004, None),
-        NetworkNodeMember(1005, None)
+      members = Seq(
+        RawMember(MemberType.Node, 1001, None),
+        RawMember(MemberType.Node, 1002, None),
+        RawMember(MemberType.Node, 1003, None),
+        RawMember(MemberType.Node, 1004, None),
+        RawMember(MemberType.Node, 1005, None)
       )
     )
-    val contextBefore = NetworkInfoAnalysisContext(
+    val contextBefore = NetworkAnalysisContext(
+      network,
       analysisTimestamp,
-      networkDoc
     )
 
     val rawNodes = Seq(

@@ -33,7 +33,7 @@ class NetworkGpxTool(database: Database) {
     networkRepository.findById(14346399L) match {
       case None => println("network not found")
       case Some(network) =>
-        val routeIds = network.relationMembers.map(_.relationId)
+        val routeIds = network.routes.map(_.id)
         val routeIdsSize = routeIds.size
         val routeDocs = routeIds.zipWithIndex.flatMap { case (routeId, index) =>
           if ((index + 1) % 500 == 0) {

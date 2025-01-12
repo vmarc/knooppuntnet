@@ -66,7 +66,7 @@ class Issue148_NetworkToRoute extends IntegrationTest {
 
       val network = database.networks.findById(11774118L).get
       network.active should equal(false)
-      network.version should equal(1)
+      network.detail.version should equal(1)
 
       val networkInfo = database.networkInfos.findById(11774118L).get
       networkInfo.active should equal(false)

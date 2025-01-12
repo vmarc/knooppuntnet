@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.SharedTestObjects
 import kpn.core.util.UnitTest

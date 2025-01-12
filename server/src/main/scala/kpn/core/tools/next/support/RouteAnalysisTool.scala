@@ -68,8 +68,8 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     analyzeBaseNodes(nodeIds)
 
     log.info("Fetching all network ids")
-    val networkIds = config.rawDataRepository.networkIds(timestamp)
-    analyzeBaseNetworks(networkIds)
+    val rawNetworkIds = config.rawDataRepository.networkIds(timestamp)
+    analyzeBaseNetworks(rawNetworkIds)
 
     log.info("Fetching all route ids")
     val routeIds = config.rawDataRepository.routeIds(timestamp)
@@ -79,6 +79,10 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
     analyzeNodes(nodeIds)
 
     analyzeRoutesMain(routeIds)
+
+    log.info("Fetching base network ids")
+    val networkIds = config.networkRepository.baseNetworkIds()
+    analyzeNetworks(networkIds)
 
     log.info(s"Done")
   }
@@ -149,6 +153,34 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
               }
             }
             (s"Analyzed ${batchSize * (index + 1)}/$networkCount networks", ())
+          }
+        }
+        (s"Analyzed $networkCount networks", ())
+      }
+    }
+  }
+
+  private def analyzeNetworks(networkIds: Seq[Long]): Unit = {
+    Log.context("networks") {
+      log.info("Analyzing networks")
+      val networkCount = networkIds.size
+      log.info(s"Analyzing $networkCount networks")
+      log.infoElapsed {
+        networkIds.zipWithIndex.foreach { case (networkId, index) =>
+          Log.context(s"$index/$networkCount $networkId") {
+            log.infoElapsed {
+              log.info(s"analyzing network $networkId")
+              config.networkRepository.findBaseNetworkById(networkId) match {
+                case None =>
+                case Some(baseNetworkDoc) =>
+                  config.networkMainAnalyzer.analyze(baseNetworkDoc, timestamp) match {
+                    case None =>
+                    case Some(networkDoc) =>
+                      config.networkRepository.save(networkDoc)
+                  }
+              }
+              (s"Analyzed network $networkId", ())
+            }
           }
         }
         (s"Analyzed $networkCount networks", ())

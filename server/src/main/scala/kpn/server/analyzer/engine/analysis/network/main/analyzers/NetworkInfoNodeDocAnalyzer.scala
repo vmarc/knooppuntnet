@@ -1,10 +1,9 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.core.doc.Label
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.database.base.Database
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
@@ -12,13 +11,13 @@ import org.mongodb.scala.model.Filters.in
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkInfoNodeDocAnalyzer(database: Database) extends NetworkInfoAnalyzer {
+class NetworkInfoNodeDocAnalyzer(database: Database) extends NetworkAnalyzer {
 
   private val log = Log(classOf[NetworkInfoNodeDocAnalyzer])
 
-  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
     val routeNodeIds = context.routeDetails.flatMap(_.nodeRefs).distinct.sorted
-    val networkNodeIds = context.networkDoc.nodeMembers.map(_.nodeId)
+    val networkNodeIds = context.network.nodeIds
     val nodeIds = (networkNodeIds ++ routeNodeIds).distinct.sorted
     val nodeDocs = queryNodes(nodeIds)
     context.copy(

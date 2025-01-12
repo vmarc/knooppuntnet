@@ -1,11 +1,10 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
 class NetworkInfoNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -46,7 +45,7 @@ class NetworkInfoNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestO
       )
     )
 
-    val context = NetworkInfoAnalysisContext(
+    val context = NetworkAnalysisContext(
       null,
       null,
       nodeDetails = nodeDetails,

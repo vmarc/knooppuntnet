@@ -11,9 +11,9 @@ import kpn.api.common.data.Node
 import kpn.api.common.data.raw.RawElement
 import kpn.api.custom.Change
 import kpn.api.custom.Relation
+import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.OrphanNodeDoc
 import kpn.core.doc.OrphanRouteDoc
@@ -165,26 +165,26 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
     }
   }
 
+  def findBaseNetworkById(networkId: Long): BaseNetworkDoc = {
+    database.baseNetworks.findById(networkId).getOrElse {
+      val ids = database.networks.ids()
+      if (ids.isEmpty) {
+        fail(s"Could not find BaseNetworkDoc $networkId, no networks in database")
+      }
+      else {
+        fail(s"Could not find BaseNetworkDoc $networkId (but found: ${ids.mkString(", ")})")
+      }
+    }
+  }
+
   def findNetworkById(networkId: Long): NetworkDoc = {
     database.networks.findById(networkId).getOrElse {
-      val ids = database.networks.ids()
+      val ids = database.networkInfos.ids()
       if (ids.isEmpty) {
         fail(s"Could not find NetworkDoc $networkId, no networks in database")
       }
       else {
         fail(s"Could not find NetworkDoc $networkId (but found: ${ids.mkString(", ")})")
-      }
-    }
-  }
-
-  def findNetworkInfoById(networkId: Long): NetworkInfoDoc = {
-    database.networkInfos.findById(networkId).getOrElse {
-      val ids = database.networkInfos.ids()
-      if (ids.isEmpty) {
-        fail(s"Could not find NetworkInfoDoc $networkId, no networks in database")
-      }
-      else {
-        fail(s"Could not find NetworkInfoDoc $networkId (but found: ${ids.mkString(", ")})")
       }
     }
   }

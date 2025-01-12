@@ -1384,17 +1384,18 @@ trait SharedTestObjects extends MockFactory {
     relationMembers: Seq[NetworkRelationMember] = Seq.empty,
     tags: Seq[Tag] = Seq.empty
   ): NetworkDoc = {
-    NetworkDoc(
-      _id,
-      active,
-      version,
-      changeSetId,
-      relationLastUpdated,
-      nodeMembers,
-      wayMembers,
-      relationMembers,
-      tags
-    )
+    throw new Error("implement")
+    //  NetworkDoc(
+    //    _id,
+    //    active,
+    //    version,
+    //    changeSetId,
+    //    relationLastUpdated,
+    //    nodeMembers,
+    //    wayMembers,
+    //    relationMembers,
+    //    tags
+    //  )
   }
 
   def newNetworkInfoDoc(

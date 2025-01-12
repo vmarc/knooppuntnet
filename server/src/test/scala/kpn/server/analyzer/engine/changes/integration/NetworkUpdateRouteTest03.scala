@@ -6,8 +6,8 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
-import kpn.api.common.RouteScope
 import kpn.api.common.NodeName
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
@@ -76,12 +76,12 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertNetwork(): Unit = {
-    val networkDoc = findNetworkById(1)
+    val networkDoc = findBaseNetworkById(1)
     networkDoc._id should equal(1)
   }
 
   private def assertNetworkInfo(): Unit = {
-    val networkInfoDoc = findNetworkInfoById(1)
+    val networkInfoDoc = findNetworkById(1)
     networkInfoDoc._id should equal(1)
     networkInfoDoc.routes.map(_.id) should equal(Seq(11L))
   }

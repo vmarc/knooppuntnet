@@ -16,7 +16,6 @@ import kpn.api.common.Country
 import kpn.api.common.ElementChangeType
 import kpn.api.common.Fact
 import kpn.api.common.Language
-import kpn.api.common.NodeName
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.MemberType
@@ -99,8 +98,6 @@ object Json {
 
     b.deserializerByType(classOf[ChangeType], new ChangeTypeJsonDeserializer())
     b.serializerByType(classOf[ChangeType], new ChangeTypeJsonSerializer())
-
-    b.deserializerByType(classOf[NodeName], new NodeNameJsonDeserializer())
 
     b.deserializerByType(classOf[Subset], new SubsetJsonDeserializer())
 

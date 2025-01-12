@@ -5,12 +5,12 @@ import kpn.core.test.OverpassData
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdaterImpl
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkCountryAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoChangeAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoExtraAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoNodeDocAnalyzer
-import kpn.server.analyzer.engine.analysis.network.info.analyzers.NetworkInfoRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkCountryAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoChangeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoExtraAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoNodeDocAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
@@ -187,7 +187,7 @@ class IntegrationTestContext(
     val networkCountryAnalyzer = new NetworkCountryAnalyzer(locationAnalyzer)
     val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
 
-    new NetworkInfoMasterAnalyzer(
+    new NetworkMainAnalyzer(
       database,
       networkInfoRouteAnalyzer,
       networkInfoNodeDocAnalyzer,

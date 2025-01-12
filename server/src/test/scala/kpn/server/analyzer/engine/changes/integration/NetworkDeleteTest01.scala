@@ -57,7 +57,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
 
   private def assertNetworkNonActive(): Unit = {
     assertEqual(
-      findNetworkById(1),
+      findBaseNetworkById(1),
       newNetwork(
         1L,
         active = false,
@@ -73,7 +73,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
 
   private def assertNetworkInfoNoneActive(): Unit = {
     assertEqual(
-      findNetworkInfoById(1),
+      findNetworkById(1),
       newNetworkInfoDoc(
         1L,
         active = false,

@@ -1,18 +1,17 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
-object NetworkInfoNodeMemberMissingAnalyzer extends NetworkInfoAnalyzer {
-  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+object NetworkInfoNodeMemberMissingAnalyzer extends NetworkAnalyzer {
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
     new NetworkInfoNodeMemberMissingAnalyzer(context).analyze()
   }
 }
 
-class NetworkInfoNodeMemberMissingAnalyzer(context: NetworkInfoAnalysisContext) {
+class NetworkInfoNodeMemberMissingAnalyzer(context: NetworkAnalysisContext) {
 
-  def analyze(): NetworkInfoAnalysisContext = {
+  def analyze(): NetworkAnalysisContext = {
     val missingNodeDetails = context.nodeDetails.filter { nodeDetail =>
       if (nodeDetail.definedInRelation) {
         false

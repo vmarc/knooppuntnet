@@ -1,16 +1,16 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
+import kpn.api.common.data.MemberType
+import kpn.api.common.data.raw.RawMember
 import kpn.api.common.network.Integrity
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.ScopedRouteType
-import kpn.core.doc.NetworkNodeMember
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
 class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
@@ -77,19 +77,19 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
       integrity = None
     )
 
-    val networkDoc = newNetwork(
+    val network = newBaseNetworkDoc(
       _id = 1L,
-      nodeMembers = Seq(
-        NetworkNodeMember(1001L, None),
-        NetworkNodeMember(1002L, None),
-        NetworkNodeMember(1003L, None),
-        NetworkNodeMember(1004L, None),
+      members = Seq(
+        RawMember(MemberType.Node, 1001L, None),
+        RawMember(MemberType.Node, 1002L, None),
+        RawMember(MemberType.Node, 1003L, None),
+        RawMember(MemberType.Node, 1004L, None),
       )
     )
 
-    val context = NetworkInfoAnalysisContext(
+    val context = NetworkAnalysisContext(
+      network,
       defaultTimestamp,
-      networkDoc,
       scopedRouteTypeOption = Some(ScopedRouteType.rwn),
       nodeDocs = Seq(node1, node2, node3, node4)
     )

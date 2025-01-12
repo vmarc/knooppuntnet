@@ -59,8 +59,8 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      val network2 = findNetworkById(2)
-      val networkInfo2 = findNetworkInfoById(2)
+      val network2 = findBaseNetworkById(2)
+      val networkInfo2 = findNetworkById(2)
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
@@ -72,8 +72,8 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
       assert(database.orphanNodes.isEmpty)
 
       // network 2 has not changed
-      assertEqual(findNetworkById(2), network2)
-      assertEqual(findNetworkInfoById(2), networkInfo2)
+      assertEqual(findBaseNetworkById(2), network2)
+      assertEqual(findNetworkById(2), networkInfo2)
 
       assertNetwork1()
       assertNetworkInfo1()
@@ -84,12 +84,12 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
   }
 
   private def assertNetwork1(): Unit = {
-    val networkDoc = findNetworkById(1)
+    val networkDoc = findBaseNetworkById(1)
     networkDoc._id should equal(1)
   }
 
   private def assertNetworkInfo1(): Unit = {
-    val networkInfoDoc = findNetworkInfoById(1)
+    val networkInfoDoc = findNetworkById(1)
     networkInfoDoc._id should equal(1)
   }
 

@@ -1,19 +1,19 @@
 package kpn.server.analyzer.engine.analysis.post
 
 import kpn.api.custom.Timestamp
-import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
 import org.springframework.stereotype.Component
 
 @Component
 class PostProcessor(
-  networkInfoMasterAnalyzer: NetworkInfoMasterAnalyzer,
+  networkMainAnalyzer: NetworkMainAnalyzer,
   orphanNodeUpdater: OrphanNodeUpdater,
   orphanRouteUpdater: OrphanRouteUpdater,
   statisticsUpdater: StatisticsUpdater
 ) {
 
   def process(analysisTimestamp: Timestamp, networkIds: Seq[Long]): Unit = {
-    networkInfoMasterAnalyzer.updateNetworks(analysisTimestamp, networkIds)
+    networkMainAnalyzer.updateNetworks(analysisTimestamp, networkIds)
     processPhase2()
   }
 

@@ -66,7 +66,7 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfo(): Unit = {
-    val networkInfoDoc = findNetworkInfoById(1)
+    val networkInfoDoc = findNetworkById(1)
     networkInfoDoc._id should equal(1)
   }
 

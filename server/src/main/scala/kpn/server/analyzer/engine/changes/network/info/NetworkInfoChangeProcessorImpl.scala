@@ -1,9 +1,9 @@
 package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.api.common.changes.details.NetworkInfoChange
+import kpn.core.doc.NetworkDoc
 import kpn.database.base.Database
-import kpn.core.doc.NetworkInfoDoc
-import kpn.server.analyzer.engine.analysis.network.info.NetworkInfoMasterAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import org.springframework.stereotype.Component
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 class NetworkInfoChangeProcessorImpl(
   database: Database,
   networkInfoImpactAnalyzer: NetworkInfoImpactAnalyzer,
-  networkInfoMasterAnalyzer: NetworkInfoMasterAnalyzer
+  networkMainAnalyzer: NetworkMainAnalyzer
 ) extends NetworkInfoChangeProcessor {
 
   def analyze(changeSetContext: ChangeSetContext): ChangeSetContext = {
@@ -21,7 +21,7 @@ class NetworkInfoChangeProcessorImpl(
     val networkInfoChanges = impactedNetworkIds.flatMap { networkId =>
       val beforeOption = database.networkInfos.findById(networkId)
       val previousKnownCountry = beforeOption.flatMap(_.country)
-      val afterOption = networkInfoMasterAnalyzer.updateNetwork(
+      val afterOption = networkMainAnalyzer.updateNetwork(
         changeSetContext.timestampAfter,
         networkId,
         previousKnownCountry
@@ -35,8 +35,12 @@ class NetworkInfoChangeProcessorImpl(
           }
         case Some(before) =>
           afterOption match {
-            case None => processDelete(changeSetContext, before, networkId)
-            case Some(after) => processUpdate(changeSetContext, before, after, networkId)
+            case None =>
+              // processDelete(changeSetContext, before, networkId)
+              throw new Error("implement")
+            case Some(after) =>
+              // processUpdate(changeSetContext, before, after, networkId)
+              throw new Error("implement")
           }
       }
     }
@@ -48,15 +52,15 @@ class NetworkInfoChangeProcessorImpl(
     )
   }
 
-  private def processCreate(context: ChangeSetContext, after: NetworkInfoDoc, networkId: Long): Option[NetworkInfoChange] = {
+  private def processCreate(context: ChangeSetContext, after: NetworkDoc, networkId: Long): Option[NetworkInfoChange] = {
     Some(new NetworkInfoCreateAnalyzer(context, after, networkId).analyze())
   }
 
-  private def processDelete(context: ChangeSetContext, before: NetworkInfoDoc, networkId: Long): Option[NetworkInfoChange] = {
+  private def processDelete(context: ChangeSetContext, before: NetworkDoc, networkId: Long): Option[NetworkInfoChange] = {
     Some(new NetworkInfoDeleteAnalyzer(context, before, networkId).analyze())
   }
 
-  private def processUpdate(context: ChangeSetContext, before: NetworkInfoDoc, after: NetworkInfoDoc, networkId: Long): Option[NetworkInfoChange] = {
+  private def processUpdate(context: ChangeSetContext, before: NetworkDoc, after: NetworkDoc, networkId: Long): Option[NetworkInfoChange] = {
     if (!after.active) {
       processDelete(context, before, networkId)
     }
@@ -65,9 +69,10 @@ class NetworkInfoChangeProcessorImpl(
         None
       }
       else {
-        Some(
-          new NetworkInfoUpdateAnalyzer(context, before, after, networkId).analyze()
-        )
+        throw new Error("implement")
+        //        Some(
+        //          new NetworkInfoUpdateAnalyzer(context, before, after, networkId).analyze()
+        //        )
       }
     }
   }

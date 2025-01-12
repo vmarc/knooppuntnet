@@ -93,13 +93,13 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
   }
 
   private def assertNetwork(): Unit = {
-    val networkDoc = findNetworkById(1)
+    val networkDoc = findBaseNetworkById(1)
     networkDoc._id should equal(1)
   }
 
   private def assertNetworkInfo(): Unit = {
     assertEqual(
-      findNetworkInfoById(1),
+      findNetworkById(1),
       newNetworkInfoDoc(
         1,
         active = false, // <--- !!!

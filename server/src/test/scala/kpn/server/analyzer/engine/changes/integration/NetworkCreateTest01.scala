@@ -7,20 +7,20 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
+import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
-import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NetworkNodeMember
-import kpn.core.doc.NetworkRelationMember
+import kpn.core.doc.BaseNetworkDoc
 import kpn.core.test.OverpassData
 
 class NetworkCreateTest01 extends IntegrationTest {
@@ -72,7 +72,7 @@ class NetworkCreateTest01 extends IntegrationTest {
       assert(watched.nodes.contains(1001))
       assert(watched.nodes.contains(1002))
 
-      assertNetworkDoc()
+      assertBaseNetworkDoc()
       assertNetworkInfoDoc()
       assertNetworkChange()
       assertNetworkInfoChange()
@@ -86,36 +86,38 @@ class NetworkCreateTest01 extends IntegrationTest {
     }
   }
 
-  private def assertNetworkDoc(): Unit = {
+  private def assertBaseNetworkDoc(): Unit = {
     assertEqual(
-      findNetworkById(1),
-      NetworkDoc(
+      findBaseNetworkById(1),
+      BaseNetworkDoc(
         1,
         active = true,
+        routeType = RouteType.hiking,
+        routeScope = RouteScope.regional,
+        name = Some(""),
         version = 0,
-        changeSetId = 1,
-        relationLastUpdated = defaultTimestamp,
-        nodeMembers = Seq(
-          NetworkNodeMember(1001, None),
-          NetworkNodeMember(1002, None)
-        ),
-        wayMembers = Seq.empty,
-        relationMembers = Seq(
-          NetworkRelationMember(11L, None)
+        changeSetId = 0,
+        timestamp = defaultTimestamp,
+        members = Seq(
+          RawMember(MemberType.Node, 1001, None),
+          RawMember(MemberType.Node, 1002, None),
+          RawMember(MemberType.Relation, 11, None),
         ),
         tags = Tags.from(
           "network:type" -> "node_network",
           "type" -> "network",
           "network" -> "rwn",
           "name" -> "name",
-        )
+        ),
+        nodeIds = Seq(1001, 1002),
+        routeIds = Seq(11)
       )
     )
   }
 
   private def assertNetworkInfoDoc(): Unit = {
     assertEqual(
-      findNetworkInfoById(1),
+      findBaseNetworkById(1),
       newNetworkInfoDoc(
         1,
         summary = newNetworkSummary(

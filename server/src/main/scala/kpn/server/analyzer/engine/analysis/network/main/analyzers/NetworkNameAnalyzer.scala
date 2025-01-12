@@ -1,9 +1,8 @@
-package kpn.server.analyzer.engine.analysis.network.info.analyzers
+package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
 import kpn.api.common.data.Tagable
-import kpn.server.analyzer.engine.analysis.network.info.domain.NetworkInfoAnalysisContext
 
-object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
+object NetworkNameAnalyzer extends NetworkAnalyzer {
 
   private val ignoredSubstrings = Seq(
     "(Wandelnetwerk Goes-Kapelle)",
@@ -58,14 +57,14 @@ object NetworkNameAnalyzer extends NetworkInfoAnalyzer {
     }
   }
 
-  override def analyze(context: NetworkInfoAnalysisContext): NetworkInfoAnalysisContext = {
+  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
     new NetworkNameAnalyzer(context).analyze
   }
 }
 
-class NetworkNameAnalyzer(context: NetworkInfoAnalysisContext) {
-  def analyze: NetworkInfoAnalysisContext = {
-    val nameTagValue = context.networkDoc.tagValue("name").getOrElse("no-name")
+class NetworkNameAnalyzer(context: NetworkAnalysisContext) {
+  def analyze: NetworkAnalysisContext = {
+    val nameTagValue = context.network.tagValue("name").getOrElse("no-name")
     val prefixOption = NetworkNameAnalyzer.ignoredSubstrings.find(n => nameTagValue.contains(n))
     val name = prefixOption match {
       case Some(substring) => nameTagValue.replace(substring, "").trim

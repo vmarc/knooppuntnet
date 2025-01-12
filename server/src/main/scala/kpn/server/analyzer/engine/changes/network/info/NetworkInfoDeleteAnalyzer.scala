@@ -4,10 +4,10 @@ import kpn.api.common.ChangeType
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 
-class NetworkInfoDeleteAnalyzer(context: ChangeSetContext, before: NetworkInfoDoc, networkId: Long) {
+class NetworkInfoDeleteAnalyzer(context: ChangeSetContext, before: NetworkDoc, networkId: Long) {
 
   def analyze(): NetworkInfoChange = {
 
@@ -24,7 +24,7 @@ class NetworkInfoDeleteAnalyzer(context: ChangeSetContext, before: NetworkInfoDo
       key,
       changeType = ChangeType.Delete,
       country = before.country,
-      routeType = before.scopedRouteType.routeType,
+      routeType = before.summary.routeType,
       networkId = networkId,
       networkName = before.summary.name,
       networkDataUpdate = None,

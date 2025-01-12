@@ -202,14 +202,14 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
   }
 
   def rawNodes: DatabaseCollection[RawNodeDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[RawNodeDoc]("rawNodes"))
+    new DatabaseCollectionImpl(database.getCollection[RawNodeDoc]("raw-nodes"))
   }
 
   def rawRoutes: DatabaseCollection[RawRouteDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[RawRouteDoc]("rawRoutes"))
+    new DatabaseCollectionImpl(database.getCollection[RawRouteDoc]("raw-routes"))
   }
 
   def rawNetworks: DatabaseCollection[RawNetworkDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[RawNetworkDoc]("rawNetworks"))
+    new DatabaseCollectionImpl(database.getCollection[RawNetworkDoc]("raw-networks"))
   }
 }
