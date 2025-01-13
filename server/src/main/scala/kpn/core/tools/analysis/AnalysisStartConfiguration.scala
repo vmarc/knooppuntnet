@@ -143,9 +143,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )
   }
 
-  val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzerImpl(
-  )
-
   val networkInfoRepository: NetworkInfoRepository = new NetworkInfoRepositoryImpl(database)
 
   val networkMainAnalyzer: NetworkMainAnalyzer = {
@@ -206,6 +203,12 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   val rawDataRepository: RawDataRepository = new RawDataRepositoryDevelopmentImpl(database)
+
+  val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzerImpl(
+    rawDataRepository,
+    nodeMainAnalyzer,
+    nodeRepository,
+  )
 
   private def buildExecutor(): ThreadPoolTaskExecutor = {
     val executor = new ThreadPoolTaskExecutor

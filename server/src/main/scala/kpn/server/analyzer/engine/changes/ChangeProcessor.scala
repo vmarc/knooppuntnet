@@ -3,12 +3,14 @@ package kpn.server.analyzer.engine.changes
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.network.info.NetworkInfoChangeProcessor
+import kpn.server.analyzer.engine.changes.node.BaseNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import org.springframework.stereotype.Component
 
 @Component
 class ChangeProcessor(
+  baseNodeChangeProcessor: BaseNodeChangeProcessor,
   networkChangeProcessor: NetworkChangeProcessor,
   routeChangeProcessor: RouteChangeProcessor,
   nodeChangeProcessor: NodeChangeProcessor,
@@ -19,15 +21,16 @@ class ChangeProcessor(
 
   def process(context: ChangeSetContext): ChangeSetContext = {
 
-    val context1 = networkChangeProcessor.process(context)
-    val context2 = routeChangeProcessor.process(context1)
-    val context3 = nodeChangeProcessor.process(context2)
-    val context4 = networkInfoChangeProcessor.analyze(context3)
+    val context1 = baseNodeChangeProcessor.process(context)
+    val context2 = networkChangeProcessor.process(context1)
+    val context3 = routeChangeProcessor.process(context2)
+    val context4 = nodeChangeProcessor.process(context3)
+    val context5 = networkInfoChangeProcessor.analyze(context4)
 
-    if (context4.changes.nonEmpty) {
-      changeSetInfoUpdater.changeSetInfo(context4.changeSet.id)
-      changeSaver.save(context4)
+    if (context5.changes.nonEmpty) {
+      changeSetInfoUpdater.changeSetInfo(context5.changeSet.id)
+      changeSaver.save(context5)
     }
-    context4
+    context5
   }
 }

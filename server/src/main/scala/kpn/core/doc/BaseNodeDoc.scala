@@ -12,6 +12,7 @@ import kpn.api.custom.Timestamp
 
 case class BaseNodeDoc(
   _id: Long,
+  active: Boolean,
   name: Option[String],
   names: Seq[NodeName],
   version: Long,
@@ -25,4 +26,9 @@ case class BaseNodeDoc(
   country: Option[Country],
   locations: Seq[String],
   tiles: Seq[String],
-) extends Tagable with LatLon with WithId
+) extends Tagable with LatLon with WithId {
+
+  def deactivated: BaseNodeDoc = {
+    copy(active = false)
+  }
+}

@@ -23,6 +23,8 @@ trait RouteRepository {
 
   def activeRouteIds(): Seq[Long]
 
+  def activeBaseRouteIds(): Seq[Long]
+
   def tiles(routeType: RouteType): Seq[TileId]
 
   def tilesWithName(routeType: RouteType, tileId: TileId): Seq[RouteTileDoc]

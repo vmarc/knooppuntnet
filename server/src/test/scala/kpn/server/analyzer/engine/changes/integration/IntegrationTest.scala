@@ -102,7 +102,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
       elementIds
     )
     context.changeProcessor.process(changeSetContext)
-    context.postProcessor.processPhase2()
+    context.postProcessor.process()
   }
 
   def findRouteById(routeId: Long): RouteDoc = {

@@ -18,6 +18,10 @@ class NetworkInfoNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
         members = Seq(
           RawMember(MemberType.Node, 1002L, None),
           RawMember(MemberType.Node, 1003L, None),
+        ),
+        nodeIds = Seq(
+          1002L,
+          1003L,
         )
       )
 

@@ -45,7 +45,7 @@ class AnalysisStartNodeAnalyzer(log: Log, config: AnalysisStartConfiguration)(im
       Future(
         Log.context(s"${index * batchSize}/$overpassNodeIdsSize") {
           log.infoElapsed {
-            val nodeDocs = config.bulkNodeAnalyzer.analyze(config.timestamp, nodeIdsBatch)
+            val nodeDocs = config.bulkNodeAnalyzer.analyze(nodeIdsBatch)
             nodeDocs.foreach { nodeDoc =>
               loadNodeChange(nodeDoc)
             }

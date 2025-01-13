@@ -71,10 +71,9 @@ class NetworkInfoChangeProcessorImpl(
         None
       }
       else {
-        throw new Error("implement")
-        //        Some(
-        //          new NetworkInfoUpdateAnalyzer(context, before, after, networkId).analyze()
-        //        )
+        Some(
+          new NetworkInfoUpdateAnalyzer(context, before, after, networkId).analyze()
+        )
       }
     }
   }

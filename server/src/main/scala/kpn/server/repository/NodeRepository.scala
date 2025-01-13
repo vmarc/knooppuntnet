@@ -13,6 +13,8 @@ trait NodeRepository {
 
   def activeNodeIds(): Seq[Long]
 
+  def activeBaseNodeIds(): Seq[Long]
+
   def saveBaseNode(baseNode: BaseNodeDoc): Unit
 
   def save(node: NodeDoc): Unit
@@ -26,6 +28,8 @@ trait NodeRepository {
   def nodeWithId(nodeId: Long): Option[NodeDoc]
 
   def baseNodeWithId(nodeId: Long): Option[BaseNodeDoc]
+
+  def baseNodesWithIds(nodeIds: Seq[Long]): Seq[BaseNodeDoc]
 
   def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc]
 

@@ -131,6 +131,7 @@ trait SharedTestObjects extends MockFactory {
 
   def newBaseNodeDoc(
     _id: Long = 0,
+    active: Boolean = true,
     name: Option[String] = None,
     names: Seq[NodeName] = Seq.empty,
     version: Long = 0,
@@ -147,6 +148,7 @@ trait SharedTestObjects extends MockFactory {
   ): BaseNodeDoc = {
     BaseNodeDoc(
       _id,
+      active,
       name,
       names,
       version,

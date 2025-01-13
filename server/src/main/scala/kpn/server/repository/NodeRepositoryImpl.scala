@@ -6,6 +6,7 @@ import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.Label
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
+import kpn.database.actions.nodes.MongoQueryBaseNodeIds
 import kpn.database.actions.nodes.MongoQueryKnownNodeIds
 import kpn.database.actions.nodes.MongoQueryNodeIds
 import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
@@ -42,6 +43,10 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     new MongoQueryNodeIds(database).execute()
   }
 
+  override def activeBaseNodeIds(): Seq[Long] = {
+    new MongoQueryBaseNodeIds(database).execute()
+  }
+
   override def saveBaseNode(baseNode: BaseNodeDoc): Unit = {
     database.baseNodes.save(baseNode)
   }
@@ -66,12 +71,16 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     database.nodes.findById(nodeId, log)
   }
 
+  override def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc] = {
+    database.nodes.findByIds(nodeIds, log)
+  }
+
   override def baseNodeWithId(nodeId: Long): Option[BaseNodeDoc] = {
     database.baseNodes.findById(nodeId, log)
   }
 
-  override def nodesWithIds(nodeIds: Seq[Long]): Seq[NodeDoc] = {
-    database.nodes.findByIds(nodeIds, log)
+  override def baseNodesWithIds(nodeIds: Seq[Long]): Seq[BaseNodeDoc] = {
+    database.baseNodes.findByIds(nodeIds, log)
   }
 
   override def nodeNetworkReferences(nodeId: Long): Seq[Reference] = {

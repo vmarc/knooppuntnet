@@ -1,32 +1,31 @@
-package kpn.server.analyzer.full.network
+package kpn.server.analyzer.full.analyzers
 
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.base.BaseNetworkMainAnalyzer
-import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.repository.NetworkRepository
 import kpn.server.repository.RawDataRepository
 import org.springframework.stereotype.Component
 
 @Component
-class FullNetworkAnalyzerImpl(
+class FullBaseNetworkAnalyzer(
   rawDataRepository: RawDataRepository,
   baseNetworkMainAnalyzer: BaseNetworkMainAnalyzer,
   networkRepository: NetworkRepository
-) extends FullNetworkAnalyzer {
+) {
 
-  private val log = Log(classOf[FullNetworkAnalyzerImpl])
+  private val log = Log(classOf[FullBaseNetworkAnalyzer])
 
-  override def analyze(context: FullAnalysisContext): FullAnalysisContext = {
-    Log.context("full-network-analysis") {
+  def analyze(context: FullAnalysisContext): FullAnalysisContext = {
+    Log.context("base-networks") {
       log.infoElapsed {
-        val activeNetworkIds = collectActiveNetworkIds()
+        val activeNetworkIds = collectActiveBaseNetworkIds()
         val rawNetworkIds = collectRawNetworkIds(context.timestamp)
         val analyzedNetworkIds = analyzeBaseNetworks(context, rawNetworkIds)
         val obsoleteNetworkIds = (activeNetworkIds.toSet -- analyzedNetworkIds).toSeq.sorted
-        deactivateObsoleteNetworks(obsoleteNetworkIds)
+        deactivateObsoleteBaseNetworks(obsoleteNetworkIds)
         (
-          s"completed (${analyzedNetworkIds.size} networks, ${obsoleteNetworkIds.size} obsolete networks)",
+          s"Analyzed (${analyzedNetworkIds.size} networks, ${obsoleteNetworkIds.size} obsolete networks)",
           context.copy(
             obsoleteNetworkIds = obsoleteNetworkIds,
             networkIds = analyzedNetworkIds,
@@ -36,9 +35,9 @@ class FullNetworkAnalyzerImpl(
     }
   }
 
-  private def collectActiveNetworkIds(): Seq[Long] = {
+  private def collectActiveBaseNetworkIds(): Seq[Long] = {
     log.infoElapsed {
-      val ids = networkRepository.activeNetworkIds()
+      val ids = networkRepository.baseNetworkIds()
       (s"Collected ${ids.size} active network ids", ids)
     }
   }
@@ -68,14 +67,13 @@ class FullNetworkAnalyzerImpl(
     networkIds
   }
 
-  private def deactivateObsoleteNetworks(networkIds: Seq[Long]): Unit = {
+  private def deactivateObsoleteBaseNetworks(networkIds: Seq[Long]): Unit = {
     if (networkIds.nonEmpty) {
       networkIds.foreach { networkId =>
-        networkRepository.findById(networkId).map { networkDoc =>
-          log.warn(s"de-activating network ${networkDoc._id}")
-          networkRepository.save(networkDoc.copy(active = false))
+        networkRepository.findBaseNetworkById(networkId).map { baseNetworkDoc =>
+          log.warn(s"de-activating network ${baseNetworkDoc._id}")
+          networkRepository.saveBaseNetwork(baseNetworkDoc.copy(active = false))
         }
-        // TODO also deactivate NetworkInfoDoc's in  PostProcessor
       }
     }
   }

@@ -13,6 +13,7 @@ import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.SubRouteData
 import kpn.core.util.Log
+import kpn.database.actions.routes.MongoQueryBaseRouteIds
 import kpn.database.actions.routes.MongoQueryKnownRouteIds
 import kpn.database.actions.routes.MongoQueryParentRoutes
 import kpn.database.actions.routes.MongoQueryRouteBounds
@@ -47,6 +48,10 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
 
   override def activeRouteIds(): Seq[Long] = {
     new MongoQueryRouteIds(database).execute(log).sorted
+  }
+
+  override def activeBaseRouteIds(): Seq[Long] = {
+    new MongoQueryBaseRouteIds(database).execute(log).sorted
   }
 
   override def tiles(routeType: RouteType): Seq[TileId] = {

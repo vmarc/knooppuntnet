@@ -13,11 +13,15 @@ import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoCha
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoExtraAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoNodeDocAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoRouteAnalyzer
+import kpn.server.analyzer.engine.analysis.node.BaseNodeBulkAnalyzer
+import kpn.server.analyzer.engine.analysis.node.BaseNodeBulkAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.base.BaseNodeMainAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeLocationAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeTileAnalyzer
+import kpn.server.analyzer.engine.analysis.node.main.NodeMainAnalyzer
+import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
@@ -39,6 +43,8 @@ import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.network.info.NetworkInfoChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.network.info.NetworkInfoImpactAnalyzer
+import kpn.server.analyzer.engine.changes.node.BaseNodeChangeProcessor
+import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzerImpl
 import kpn.server.analyzer.engine.changes.node.NodeChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
@@ -53,18 +59,20 @@ import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.full.FullAnalyzer
-import kpn.server.analyzer.full.FullAnalyzerImpl
-import kpn.server.analyzer.full.network.FullNetworkAnalyzerImpl
-import kpn.server.analyzer.full.node.FullNodeAnalyzerImpl
-import kpn.server.analyzer.full.route.FullRouteAnalyzerImpl
+import kpn.server.analyzer.full.analyzers.FullBaseNetworkAnalyzer
+import kpn.server.analyzer.full.analyzers.FullBaseNodeAnalyzer
+import kpn.server.analyzer.full.analyzers.FullBaseRouteAnalyzer
+import kpn.server.analyzer.full.analyzers.FullNetworkAnalyzer
+import kpn.server.analyzer.full.analyzers.FullNodeAnalyzer
+import kpn.server.analyzer.full.analyzers.FullRouteAnalyzer
 import kpn.server.analyzer.load.AnalysisDataInitializer
 import kpn.server.analyzer.load.AnalysisDataInitializerImpl
 import kpn.server.repository.BlacklistRepository
 import kpn.server.repository.ChangeSetInfoRepositoryImpl
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.NetworkInfoRepositoryImpl
-import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NetworkRepositoryImpl
+import kpn.server.repository.NodeRepository
 import kpn.server.repository.NodeRepositoryImpl
 import kpn.server.repository.RawDataRepositoryImpl
 import kpn.server.repository.RouteRepositoryImpl
@@ -176,11 +184,23 @@ class IntegrationTestContext(
     blacklistRepository
   )
 
-  private val bulkNodeAnalyzer = new BulkNodeAnalyzerImpl()
-
   private val nodeTileChangeAnalyzer = new NodeTileChangeAnalyzerImpl(
     new TileDataNodeBuilderImpl()
   )
+
+  private val bulkNodeAnalyzer = {
+    val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
+    val nodeNetworkReferencesAnalyzer = new NodeNetworkReferencesAnalyzer(nodeRepository)
+    val nodeMainAnalyzer = new NodeMainAnalyzer(
+      nodeRouteReferencesAnalyzer,
+      nodeNetworkReferencesAnalyzer,
+    )
+    new BulkNodeAnalyzerImpl(
+      rawDataRepository,
+      nodeMainAnalyzer,
+      nodeRepository,
+    )
+  }
 
   private val nodeChangeProcessor = new NodeChangeProcessorImpl(
     analysisContext,
@@ -220,39 +240,35 @@ class IntegrationTestContext(
     )
   }
 
-  private val fullNetworkAnalyzer = new FullNetworkAnalyzerImpl(
-    rawDataRepository,
-    baseNetworkMainAnalyzer,
-    networkRepository: NetworkRepository
+  private val fullNetworkAnalyzer = new FullNetworkAnalyzer(
+    networkRepository,
+    networkMainAnalyzer,
   )
 
-  private val fullRouteAnalyzer = new FullRouteAnalyzerImpl(
-    overpassRepository,
+  private val fullRouteAnalyzer = new FullRouteAnalyzer(
     routeRepository,
-    baseRouteMainAnalyzer,
     routeMainAnalyzer,
-    analysisExecutionContext: ExecutionContext
   )
 
-  private val fullNodeAnalyzer = {
-
+  private val baseNodeMainAnalyzer = {
     val locationAnalyzer: LocationAnalyzer = new LocationAnalyzerFixed()
     val nodeTileCalculator: NodeTileCalculator = new NodeTileCalculatorImpl(new TileCalculatorImpl())
     val baseNodeCountryAnalyzer = new BaseNodeCountryAnalyzer(locationAnalyzer)
     val baseNodeLocationAnalyzer = new BaseNodeLocationAnalyzer(locationAnalyzer)
     val baseNodeTileAnalyzer = new BaseNodeTileAnalyzer(nodeTileCalculator)
-
-    val baseNodeMainAnalyzer = new BaseNodeMainAnalyzer(
+    new BaseNodeMainAnalyzer(
       baseNodeCountryAnalyzer,
       baseNodeLocationAnalyzer,
       baseNodeTileAnalyzer
     )
+  }
 
-    new FullNodeAnalyzerImpl(
-      database,
+  private val fullNodeAnalyzer = {
+
+    new FullNodeAnalyzer(
       rawDataRepository,
       nodeRepository,
-      baseNodeMainAnalyzer,
+      bulkNodeAnalyzer,
     )
   }
 
@@ -267,7 +283,19 @@ class IntegrationTestContext(
       networkInfoRepository
     )
 
+    val baseNodeBulkAnalyzer = new BaseNodeBulkAnalyzerImpl(
+      rawDataRepository,
+      baseNodeMainAnalyzer,
+    )
+
+    val baseNodeChangeProcessor = new BaseNodeChangeProcessor(
+      nodeChangeAnalyzer: NodeChangeAnalyzer,
+      nodeRepository: NodeRepository,
+      baseNodeBulkAnalyzer: BaseNodeBulkAnalyzer
+    )
+
     new ChangeProcessor(
+      baseNodeChangeProcessor,
       networkChangeProcessor,
       routeChangeProcessor,
       nodeChangeProcessor,
@@ -278,19 +306,38 @@ class IntegrationTestContext(
   }
 
   val postProcessor: PostProcessor = new PostProcessor(
-    networkRepository,
-    networkMainAnalyzer,
     orphanNodeUpdater,
     orphanRouteUpdater,
     statisticsUpdater
   )
 
-  val fullAnalyzer: FullAnalyzer = new FullAnalyzerImpl(
-    fullNetworkAnalyzer,
-    fullRouteAnalyzer,
-    fullNodeAnalyzer,
-    postProcessor
-  )
+  val fullAnalyzer: FullAnalyzer = {
+    val fullBaseNodeAnalyzer = new FullBaseNodeAnalyzer(
+      rawDataRepository,
+      nodeRepository,
+      baseNodeMainAnalyzer,
+    )
+    val fullBaseNetworkAnalyzer = new FullBaseNetworkAnalyzer(
+      rawDataRepository,
+      baseNetworkMainAnalyzer,
+      networkRepository
+    )
+    val fullBaseRouteAnalyzer = new FullBaseRouteAnalyzer(
+      rawDataRepository,
+      routeRepository,
+      baseRouteMainAnalyzer,
+    )
+
+    new FullAnalyzer(
+      fullBaseNodeAnalyzer,
+      fullBaseNetworkAnalyzer,
+      fullBaseRouteAnalyzer,
+      fullNodeAnalyzer,
+      fullRouteAnalyzer,
+      fullNetworkAnalyzer,
+      postProcessor
+    )
+  }
 
   val analysisDataInitializer: AnalysisDataInitializer = new AnalysisDataInitializerImpl(
     analysisContext,
