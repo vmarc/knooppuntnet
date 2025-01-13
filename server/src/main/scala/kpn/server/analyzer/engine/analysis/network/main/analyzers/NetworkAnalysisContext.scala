@@ -17,8 +17,8 @@ import kpn.core.doc.NodeDoc
 case class NetworkAnalysisContext(
   network: BaseNetworkDoc,
   analysisTimestamp: Timestamp,
-  scopedRouteTypeOption: Option[ScopedRouteType] = None,
   previousKnownCountry: Option[Country] = None,
+  scopedRouteTypeOption: Option[ScopedRouteType] = None,
   country: Option[Country] = None,
   name: String = "",
   proposed: Boolean = false,

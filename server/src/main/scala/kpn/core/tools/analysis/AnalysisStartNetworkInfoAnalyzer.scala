@@ -13,9 +13,13 @@ class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfigurat
     networkIds.zipWithIndex.foreach { case (networkId, index) =>
       Log.context(s"${index + 1}/${networkIds.size}") {
         log.infoElapsed {
-          config.networkMainAnalyzer.updateNetwork(config.timestamp, networkId) match {
-            case Some(networkDoc) => saveNetworkInfoChange(networkDoc)
+          config.networkRepository.findBaseNetworkById(networkId) match {
             case None =>
+            case Some(baseNetworkDoc) =>
+              config.networkMainAnalyzer.analyze(baseNetworkDoc, config.timestamp) match {
+                case Some(networkDoc) => saveNetworkInfoChange(networkDoc)
+                case None =>
+              }
           }
           (s"network $networkId", ())
         }

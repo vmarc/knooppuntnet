@@ -38,13 +38,13 @@ class NetworkMainAnalyzer(
   networkInfoExtraAnalyzer: NetworkInfoExtraAnalyzer
 ) {
 
-  def updateNetwork(analysisTimestamp: Timestamp, networkId: Long, previousKnownCountry: Option[Country] = None): Option[NetworkDoc] = {
-    throw new Error("implement")
-  }
-
-  def analyze(network: BaseNetworkDoc, analysisTimestamp: Timestamp): Option[NetworkDoc] = {
+  def analyze(network: BaseNetworkDoc, analysisTimestamp: Timestamp, previousKnownCountry: Option[Country] = None): Option[NetworkDoc] = {
     Log.context(f"network=${network._id}%07d") {
-      val context = NetworkAnalysisContext(network, analysisTimestamp)
+      val context = NetworkAnalysisContext(
+        network,
+        analysisTimestamp,
+        previousKnownCountry
+      )
       val analyzers: List[NetworkAnalyzer] = List(
         NetworkSurveyAnalyzer,
         NetworkNameAnalyzer,

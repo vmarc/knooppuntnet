@@ -211,11 +211,10 @@ class IntegrationTestContext(
   }
 
   private val networkInfoChangeProcessor = {
-
     val networkInfoImpactAnalyzer = new NetworkInfoImpactAnalyzer(database)
-
     new NetworkInfoChangeProcessorImpl(
       database,
+      networkRepository,
       networkInfoImpactAnalyzer,
       networkMainAnalyzer
     )

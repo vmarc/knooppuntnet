@@ -5,11 +5,13 @@ import kpn.core.doc.NetworkDoc
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.repository.NetworkRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkInfoChangeProcessorImpl(
   database: Database,
+  networkRepository: NetworkRepository,
   networkInfoImpactAnalyzer: NetworkInfoImpactAnalyzer,
   networkMainAnalyzer: NetworkMainAnalyzer
 ) extends NetworkInfoChangeProcessor {
@@ -21,11 +23,13 @@ class NetworkInfoChangeProcessorImpl(
     val networkInfoChanges = impactedNetworkIds.flatMap { networkId =>
       val beforeOption = database.networks.findById(networkId)
       val previousKnownCountry = beforeOption.flatMap(_.country)
-      val afterOption = networkMainAnalyzer.updateNetwork(
-        changeSetContext.timestampAfter,
-        networkId,
-        previousKnownCountry
-      )
+      val afterOption = networkRepository.findBaseNetworkById(networkId).flatMap { baseNetworkDoc =>
+        networkMainAnalyzer.analyze(
+          baseNetworkDoc,
+          changeSetContext.timestampAfter,
+          previousKnownCountry
+        )
+      }
 
       beforeOption match {
         case None =>
@@ -36,11 +40,9 @@ class NetworkInfoChangeProcessorImpl(
         case Some(before) =>
           afterOption match {
             case None =>
-              // processDelete(changeSetContext, before, networkId)
-              throw new Error("implement")
+              processDelete(changeSetContext, before, networkId)
             case Some(after) =>
-              // processUpdate(changeSetContext, before, after, networkId)
-              throw new Error("implement")
+              processUpdate(changeSetContext, before, after, networkId)
           }
       }
     }

@@ -58,7 +58,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      assertNetworkInfo()
+      assertNetworkDoc()
       assertNetworkInfoChange()
       assertRouteChange()
       assertNodeChange1001()
@@ -68,7 +68,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
     }
   }
 
-  private def assertNetworkInfo(): Unit = {
+  private def assertNetworkDoc(): Unit = {
     assertEqual(
       findNetworkById(1),
       newNetworkDoc(
