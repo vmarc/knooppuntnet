@@ -6,7 +6,7 @@ import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.ElementIds
@@ -15,7 +15,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("removed network node") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       nodes = Seq(
         newNetworkInfoNodeDetail(
@@ -25,7 +25,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1
     )
 
@@ -47,11 +47,11 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("added network node") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       nodes = Seq(
         newNetworkInfoNodeDetail(
@@ -79,7 +79,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("updated network node") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       nodes = Seq(
         newNetworkInfoNodeDetail(
@@ -89,7 +89,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       nodes = Seq(
         newNetworkInfoNodeDetail(
@@ -117,7 +117,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("removed route") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       routes = Seq(
         newNetworkInfoRouteDetail(
@@ -127,7 +127,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1
     )
 
@@ -149,11 +149,11 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("added route") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       routes = Seq(
         newNetworkInfoRouteDetail(
@@ -181,7 +181,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("updated route") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       routes = Seq(
         newNetworkInfoRouteDetail(
@@ -191,7 +191,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
       )
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       routes = Seq(
         newNetworkInfoRouteDetail(
@@ -219,12 +219,12 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("network relation invalid member change - non network node removed") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       extraNodeIds = Seq(1001)
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1
     )
 
@@ -246,11 +246,11 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("network relation invalid member change - non network node added") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       extraNodeIds = Seq(1001)
     )
@@ -273,12 +273,12 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("network relation invalid member change - way removed") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       extraWayIds = Seq(101)
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1
     )
 
@@ -300,11 +300,11 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("network relation invalid member change - way added") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       extraWayIds = Seq(101)
     )
@@ -327,12 +327,12 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("network relation invalid member change - non route relation removed") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       extraRelationIds = Seq(2)
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1
     )
 
@@ -354,11 +354,11 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("network relation invalid member change - non route relation added") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       extraRelationIds = Seq(2)
     )
@@ -379,7 +379,7 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def analyze(before: NetworkInfoDoc, after: NetworkInfoDoc): NetworkInfoChange = {
+  private def analyze(before: NetworkDoc, after: NetworkDoc): NetworkInfoChange = {
     val networkId: Long = 1
     val context: ChangeSetContext = ChangeSetContext(
       ReplicationId(1),

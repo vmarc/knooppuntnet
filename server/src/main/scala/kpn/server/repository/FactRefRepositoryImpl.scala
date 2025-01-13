@@ -89,7 +89,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
         )
       )
 
-      val elementIds = database.networkInfos.aggregate[Ids](pipeline, log).flatMap(_.ids)
+      val elementIds = database.networks.aggregate[Ids](pipeline, log).flatMap(_.ids)
       val subsetFactRefs = SubsetFactRefs(elementType, elementIds)
       (s"network element references '$elementType': ${elementIds.mkString(", ")}", subsetFactRefs)
     }
@@ -116,7 +116,7 @@ class FactRefRepositoryImpl(database: Database) extends FactRefRepository {
         )
       )
 
-      val elementIds = database.networkInfos.aggregate[Id](pipeline, log).map(_._id)
+      val elementIds = database.networks.aggregate[Id](pipeline, log).map(_._id)
       val subsetFactRefs = SubsetFactRefs(elementType, elementIds)
       (s"network element ref references '$elementType': ${elementIds.mkString(", ")}", subsetFactRefs)
     }

@@ -1,8 +1,8 @@
 package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkFactsPage
-import kpn.database.base.Database
 import kpn.core.util.Log
+import kpn.database.base.Database
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.equal
@@ -36,6 +36,6 @@ class NetworkFactsPageBuilder(database: Database) {
         )
       )
     )
-    database.networkInfos.optionAggregate[NetworkFactsPage](pipeline, log)
+    database.networks.optionAggregate[NetworkFactsPage](pipeline, log)
   }
 }

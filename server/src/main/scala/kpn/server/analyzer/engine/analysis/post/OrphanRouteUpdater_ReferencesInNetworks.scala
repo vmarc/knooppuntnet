@@ -16,14 +16,14 @@ class OrphanRouteUpdater_ReferencesInNetworks(database: Database, log: Log) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(equal("active", true)),
-        unwind("$routes"),
+        unwind("$routeIds"),
         project(
           fields(
-            computed("_id", "$routes.id")
+            computed("_id", "$routeIds")
           )
         )
       )
-      val ids = database.networkInfos.aggregate[Id](pipeline, log).map(_._id).distinct
+      val ids = database.baseNetworks.aggregate[Id](pipeline, log).map(_._id).distinct
       (s"${ids.size} routes referenced in networks", ids)
     }
   }

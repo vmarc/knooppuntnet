@@ -11,7 +11,6 @@ import kpn.api.common.common.User
 import kpn.api.common.poi.Poi
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.OldRouteDoc
@@ -30,7 +29,7 @@ import kpn.server.monitor.domain.MonitorRouteChangeGeometry
 import kpn.server.monitor.domain.MonitorRouteReference
 import kpn.server.monitor.domain.MonitorRouteState
 import kpn.server.monitor.domain.MonitorTask
-import org.mongodb.scala._
+import org.mongodb.scala.*
 import org.mongodb.scala.MongoCollection
 import org.mongodb.scala.MongoDatabase
 
@@ -51,10 +50,6 @@ class OldDatabaseImpl(val database: MongoDatabase) extends OldDatabase {
 
   override def networks: DatabaseCollection[NetworkDoc] = {
     new DatabaseCollectionImpl(database.getCollection[NetworkDoc]("old-networks"))
-  }
-
-  override def networkInfos: DatabaseCollection[NetworkInfoDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[NetworkInfoDoc]("old-network-infos"))
   }
 
   override def nodes: DatabaseCollection[NodeDoc] = {

@@ -63,6 +63,6 @@ class NetworkRoutesPageBuilder(database: Database) {
         )
       )
     )
-    database.networkInfos.optionAggregate[NetworkRoutesPageData](pipeline, log)
+    database.networks.optionAggregate[NetworkRoutesPageData](pipeline, log)
   }
 }

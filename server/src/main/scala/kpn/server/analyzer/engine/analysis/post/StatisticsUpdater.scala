@@ -57,12 +57,12 @@ class StatisticsUpdater(database: Database) {
         Seq(unionWith(database.nodes.name, pipelineNodeIntegrityCheckFailedCount(): _*)),
         Seq(unionWith(database.routes.name, pipelineRouteFacts(): _*)),
         Seq(unionWith(database.routes.name, pipelineRouteDistance(): _*)),
-        Seq(unionWith(database.networkInfos.name, pipelineNetworkCount(): _*)),
-        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts(): _*)),
-        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts2(): _*)),
-        Seq(unionWith(database.networkInfos.name, pipelineNetworkFacts3(): _*)),
-        Seq(unionWith(database.networkInfos.name, factCountPipeline(): _*)),
-        Seq(unionWith(database.networkInfos.name, pipelineIntegrityCheckNetworkCount(): _*)),
+        Seq(unionWith(database.networks.name, pipelineNetworkCount(): _*)),
+        Seq(unionWith(database.networks.name, pipelineNetworkFacts(): _*)),
+        Seq(unionWith(database.networks.name, pipelineNetworkFacts2(): _*)),
+        Seq(unionWith(database.networks.name, pipelineNetworkFacts3(): _*)),
+        Seq(unionWith(database.networks.name, factCountPipeline(): _*)),
+        Seq(unionWith(database.networks.name, pipelineIntegrityCheckNetworkCount(): _*)),
         Seq(unionWith(database.changes.name, pipelineChangeCount(): _*)),
         Seq(out(database.statistics.name))
       ).flatten

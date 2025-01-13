@@ -123,7 +123,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           )
         )
       )
-      val references = database.networkInfos.aggregate[NetworkElement](pipeline, log)
+      val references = database.networks.aggregate[NetworkElement](pipeline, log)
       (s"route network references: ${references.size}", references)
     }
   }
@@ -150,7 +150,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
         )
       )
 
-      val elementReferences = database.networkInfos.aggregate[NetworkFactElementIds](pipeline, log)
+      val elementReferences = database.networks.aggregate[NetworkFactElementIds](pipeline, log)
       val references = elementReferences.map { reference =>
         NetworkFactRefs(
           reference.networkId,
@@ -184,7 +184,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
         )
       )
 
-      val references = database.networkInfos.aggregate[NetworkFactRefs](pipeline, log)
+      val references = database.networks.aggregate[NetworkFactRefs](pipeline, log)
       (s"network fact references: ${references.size}", references)
     }
   }
@@ -276,7 +276,7 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           )
         )
       )
-      val references = database.networkInfos.aggregate[NetworkElement](pipeline, log)
+      val references = database.networks.aggregate[NetworkElement](pipeline, log)
       (s"node network references: ${references.size}", references)
     }
   }

@@ -3,14 +3,14 @@ package kpn.server.api.analysis.pages.network
 import kpn.api.common.Bounds
 import kpn.api.common.network.NetworkMapNode
 import kpn.api.common.network.NetworkMapPage
-import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
-import kpn.server.repository.NetworkInfoRepository
+import kpn.server.repository.NetworkRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NetworkMapPageBuilder(
-  networkInfoRepository: NetworkInfoRepository
+  networkRepository: NetworkRepository
 ) {
 
   def build(networkId: Long): Option[NetworkMapPage] = {
@@ -23,12 +23,12 @@ class NetworkMapPageBuilder(
   }
 
   private def buildPage(networkId: Long): Option[NetworkMapPage] = {
-    networkInfoRepository.findById(networkId).map(buildPageContents)
+    networkRepository.findById(networkId).map(buildPageContents)
   }
 
-  private def buildPageContents(networkInfo: NetworkInfoDoc): NetworkMapPage = {
+  private def buildPageContents(network: NetworkDoc): NetworkMapPage = {
 
-    val networkNodeInfos = networkInfo.nodes.filter(node => node.definedInRelation)
+    val networkNodeInfos = network.nodes.filter(node => node.definedInRelation)
     val bounds = Bounds.from(networkNodeInfos)
 
     val nodes = networkNodeInfos.map { networkNodeInfo =>
@@ -43,11 +43,11 @@ class NetworkMapPageBuilder(
 
     val networkNodeIds = networkNodeInfos.filterNot(isConnection).map(_.id)
     val connectionNodeIds = networkNodeInfos.filter(isConnection).map(_.id)
-    val networkRouteIds = networkInfo.routes.filterNot(_.roleConnection).map(_.id)
-    val connectionRouteIds = networkInfo.routes.filter(_.roleConnection).map(_.id)
+    val networkRouteIds = network.routes.filterNot(_.roleConnection).map(_.id)
+    val connectionRouteIds = network.routes.filter(_.roleConnection).map(_.id)
 
     NetworkMapPage(
-      networkInfo.summary,
+      network.summary,
       nodes,
       networkNodeIds,
       connectionNodeIds,

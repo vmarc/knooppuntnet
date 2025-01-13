@@ -45,8 +45,8 @@ class StatisticsUpdateSubsetNetworkCountTest extends UnitTest with SharedTestObj
   }
 
   private def buildNetwork(database: Database, networkId: Long, country: Country, routeType: RouteType, active: Boolean = true): Unit = {
-    database.networkInfos.save(
-      newNetworkInfoDoc(
+    database.networks.save(
+      newNetworkDoc(
         networkId,
         active,
         Some(country),

@@ -118,7 +118,7 @@ class NetworkCreateTest01 extends IntegrationTest {
   private def assertNetworkInfoDoc(): Unit = {
     assertEqual(
       findBaseNetworkById(1),
-      newNetworkInfoDoc(
+      newNetworkDoc(
         1,
         summary = newNetworkSummary(
           name = "name",

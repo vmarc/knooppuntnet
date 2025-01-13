@@ -28,8 +28,8 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      database.networkInfos.save(
-        newNetworkInfoDoc(
+      database.networks.save(
+        newNetworkDoc(
           1L,
           summary = newNetworkSummary(
             name = "network-name"

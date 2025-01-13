@@ -2,7 +2,6 @@ package kpn.server.repository
 
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryBaseNetworkIds
 import kpn.database.actions.networks.MongoQueryNetworkIds
@@ -34,17 +33,13 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
     database.networks.save(networkDoc, log)
   }
 
-  override def saveNetworkInfo(networkInfoDoc: NetworkInfoDoc): Unit = {
-    database.networkInfos.save(networkInfoDoc, log)
-  }
-
   override def bulkSave(networkDocs: Seq[NetworkDoc]): Unit = {
     database.networks.bulkSave(networkDocs, log)
   }
 
   override def delete(networkId: Long): Unit = {
     database.networks.delete(networkId, log)
-    database.networkInfos.delete(networkId, log)
+    database.baseNetworks.delete(networkId, log)
   }
 
   override def saveBaseNetwork(baseNetworkDoc: BaseNetworkDoc): Unit = {

@@ -11,7 +11,6 @@ import kpn.api.common.common.User
 import kpn.api.common.poi.Poi
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.OldRouteDoc
@@ -41,8 +40,6 @@ trait OldDatabase {
   def empty: DatabaseCollection[Any]
 
   def networks: DatabaseCollection[NetworkDoc]
-
-  def networkInfos: DatabaseCollection[NetworkInfoDoc]
 
   def nodes: DatabaseCollection[NodeDoc]
 

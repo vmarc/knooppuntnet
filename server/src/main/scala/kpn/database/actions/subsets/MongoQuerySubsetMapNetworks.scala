@@ -39,7 +39,7 @@ class MongoQuerySubsetMapNetworks(database: Database) {
         )
       )
 
-      val subsetMapNetworks = database.networkInfos.aggregate[SubsetMapNetwork](pipeline)
+      val subsetMapNetworks = database.networks.aggregate[SubsetMapNetwork](pipeline)
       (s"subset ${subset.name} ${subsetMapNetworks.size} networks", subsetMapNetworks)
     }
   }

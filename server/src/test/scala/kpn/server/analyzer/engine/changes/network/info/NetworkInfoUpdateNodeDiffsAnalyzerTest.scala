@@ -4,7 +4,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RefDiffs
-import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
@@ -14,7 +14,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
 
   test("removed network node") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       nodes = Seq(
         newNetworkInfoNodeDetail(
@@ -24,7 +24,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
       )
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1
     )
 
@@ -40,11 +40,11 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
 
   test("added network node") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       nodes = Seq(
         newNetworkInfoNodeDetail(
@@ -66,7 +66,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
 
   test("updated network node") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       nodes = Seq(
         newNetworkInfoNodeDetail(
@@ -76,7 +76,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
       )
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       nodes = Seq(
         newNetworkInfoNodeDetail(
@@ -112,7 +112,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
       )
     )
 
-    val networkDoc = newNetworkInfoDoc(
+    val networkDoc = newNetworkDoc(
       1,
       nodes = Seq(
         newNetworkInfoNodeDetail(
@@ -132,7 +132,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
     )
   }
 
-  private def analyze(before: NetworkInfoDoc, after: NetworkInfoDoc): RefDiffs = {
+  private def analyze(before: NetworkDoc, after: NetworkDoc): RefDiffs = {
     val context: ChangeSetContext = ChangeSetContext(
       ReplicationId(1),
       newChangeSet(),
@@ -141,7 +141,7 @@ class NetworkInfoUpdateNodeDiffsAnalyzerTest extends UnitTest with SharedTestObj
     analyze(context, before, after)
   }
 
-  private def analyze(context: ChangeSetContext, before: NetworkInfoDoc, after: NetworkInfoDoc): RefDiffs = {
+  private def analyze(context: ChangeSetContext, before: NetworkDoc, after: NetworkDoc): RefDiffs = {
     NetworkInfoUpdateNodeDiffsAnalyzer.analyze(context, before, after)
   }
 }

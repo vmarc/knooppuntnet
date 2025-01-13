@@ -2,9 +2,9 @@ package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkDetailsPage
-import kpn.database.base.Database
-import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
+import kpn.database.base.Database
 import org.springframework.stereotype.Component
 
 @Component
@@ -22,35 +22,35 @@ class NetworkDetailsPageBuilder(database: Database) {
   }
 
   private def buildPage(networkId: Long): Option[NetworkDetailsPage] = {
-    database.networkInfos.findById(networkId, log).map { networkInfoDoc =>
-      buildDetailsPage(networkInfoDoc)
+    database.networks.findById(networkId, log).map { networkDoc =>
+      buildDetailsPage(networkDoc)
     }
   }
 
-  private def buildDetailsPage(networkInfoDoc: NetworkInfoDoc): NetworkDetailsPage = {
+  private def buildDetailsPage(networkDoc: NetworkDoc): NetworkDetailsPage = {
     NetworkDetailsPage(
-      networkInfoDoc.summary,
-      networkInfoDoc.active,
+      networkDoc.summary,
+      networkDoc.active,
       NetworkAttributes(
-        networkInfoDoc._id,
-        networkInfoDoc.country,
-        networkInfoDoc.summary.routeType,
-        networkInfoDoc.summary.routeScope,
-        networkInfoDoc.summary.name,
-        networkInfoDoc.detail.km,
-        networkInfoDoc.detail.meters,
-        networkInfoDoc.summary.nodeCount,
-        networkInfoDoc.summary.routeCount,
-        networkInfoDoc.detail.brokenRouteCount,
-        networkInfoDoc.detail.brokenRoutePercentage,
-        networkInfoDoc.detail.integrity,
-        networkInfoDoc.detail.inaccessibleRouteCount,
-        networkInfoDoc.detail.connectionCount,
-        networkInfoDoc.detail.lastUpdated,
-        networkInfoDoc.detail.relationLastUpdated,
+        networkDoc._id,
+        networkDoc.country,
+        networkDoc.summary.routeType,
+        networkDoc.summary.routeScope,
+        networkDoc.summary.name,
+        networkDoc.detail.km,
+        networkDoc.detail.meters,
+        networkDoc.summary.nodeCount,
+        networkDoc.summary.routeCount,
+        networkDoc.detail.brokenRouteCount,
+        networkDoc.detail.brokenRoutePercentage,
+        networkDoc.detail.integrity,
+        networkDoc.detail.inaccessibleRouteCount,
+        networkDoc.detail.connectionCount,
+        networkDoc.detail.lastUpdated,
+        networkDoc.detail.relationLastUpdated,
         center = None // TODO MONGO niet nodig op dit scherm
       ),
-      networkInfoDoc.detail.tags
+      networkDoc.detail.tags
       // TODO MONGO networkInfoDoc.networkFacts ??
     )
   }

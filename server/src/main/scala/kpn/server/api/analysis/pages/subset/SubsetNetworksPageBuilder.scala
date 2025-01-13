@@ -3,10 +3,10 @@ package kpn.server.api.analysis.pages.subset
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.subset.SubsetNetworksPage
 import kpn.api.custom.Subset
-import kpn.database.base.Database
-import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkDoc
 import kpn.core.util.Formatter.percentage
 import kpn.core.util.Log
+import kpn.database.base.Database
 import kpn.server.repository.SubsetRepository
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
@@ -76,7 +76,7 @@ class SubsetNetworksPageBuilder(
     )
   }
 
-  private def queryNetworks(subset: Subset): Seq[NetworkInfoDoc] = {
+  private def queryNetworks(subset: Subset): Seq[NetworkDoc] = {
 
     val pipeline = Seq(
       filter(
@@ -97,7 +97,7 @@ class SubsetNetworksPageBuilder(
     )
 
     log.debugElapsed {
-      val networks = database.networkInfos.aggregate[NetworkInfoDoc](pipeline, log)
+      val networks = database.networks.aggregate[NetworkDoc](pipeline, log)
       val result = s"subset ${subset.name} networks: ${networks.size}"
       (result, networks)
     }

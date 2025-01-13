@@ -56,7 +56,7 @@ class NetworkNodesPageBuilder(
         )
       )
     )
-    database.networkInfos.optionAggregate[NetworkNodesPageData](pipeline, log)
+    database.networks.optionAggregate[NetworkNodesPageData](pipeline, log)
   }
 
   private def nodesWithRouteReferences(data: NetworkNodesPageData): Seq[NetworkNodeRow] = {

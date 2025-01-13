@@ -4,7 +4,7 @@ import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.RefDiffs
-import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.data.ChangeSetChanges
@@ -14,7 +14,7 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
 
   test("removed route") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       routes = Seq(
         newNetworkInfoRouteDetail(
@@ -24,7 +24,7 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
       )
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1
     )
 
@@ -40,11 +40,11 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
 
   test("added route") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       routes = Seq(
         newNetworkInfoRouteDetail(
@@ -66,7 +66,7 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
 
   test("updated route") {
 
-    val before = newNetworkInfoDoc(
+    val before = newNetworkDoc(
       1,
       routes = Seq(
         newNetworkInfoRouteDetail(
@@ -76,7 +76,7 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
       )
     )
 
-    val after = newNetworkInfoDoc(
+    val after = newNetworkDoc(
       1,
       routes = Seq(
         newNetworkInfoRouteDetail(
@@ -112,7 +112,7 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
       )
     )
 
-    val networkInfoDoc = newNetworkInfoDoc(
+    val networkInfoDoc = newNetworkDoc(
       1,
       routes = Seq(
         newNetworkInfoRouteDetail(
@@ -132,7 +132,7 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
     )
   }
 
-  private def analyze(before: NetworkInfoDoc, after: NetworkInfoDoc): RefDiffs = {
+  private def analyze(before: NetworkDoc, after: NetworkDoc): RefDiffs = {
     val context: ChangeSetContext = ChangeSetContext(
       ReplicationId(1),
       newChangeSet(),
@@ -141,7 +141,7 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
     analyze(context, before, after)
   }
 
-  private def analyze(context: ChangeSetContext, before: NetworkInfoDoc, after: NetworkInfoDoc): RefDiffs = {
+  private def analyze(context: ChangeSetContext, before: NetworkDoc, after: NetworkDoc): RefDiffs = {
     NetworkInfoUpdateRouteDiffsAnalyzer.analyze(context, before, after)
   }
 }

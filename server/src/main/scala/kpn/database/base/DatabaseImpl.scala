@@ -14,7 +14,6 @@ import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.OrphanNodeDoc
@@ -53,20 +52,12 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
     database.getCollection[T](collectionName)
   }
 
-  override def empty: DatabaseCollection[Any] = {
-    new DatabaseCollectionImpl(database.getCollection[Any]("empty"))
-  }
-
   override def baseNetworks: DatabaseCollection[BaseNetworkDoc] = {
     new DatabaseCollectionImpl(database.getCollection[BaseNetworkDoc]("base-networks"))
   }
 
   override def networks: DatabaseCollection[NetworkDoc] = {
     new DatabaseCollectionImpl(database.getCollection[NetworkDoc]("networks"))
-  }
-
-  override def networkInfos: DatabaseCollection[NetworkInfoDoc] = {
-    new DatabaseCollectionImpl(database.getCollection[NetworkInfoDoc]("network-infos"))
   }
 
   override def baseNodes: DatabaseCollection[BaseNodeDoc] = {

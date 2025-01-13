@@ -94,7 +94,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
   private def assertNetworkInfo(): Unit = {
     assertEqual(
       findNetworkById(1),
-      newNetworkInfoDoc(
+      newNetworkDoc(
         1L,
         active = false,
         country = Some(Country.nl),

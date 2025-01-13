@@ -19,8 +19,8 @@ class MongoQueryRouteCountryTest extends UnitTest with SharedTestObjects {
           ),
         )
       )
-      database.networkInfos.save(
-        newNetworkInfoDoc(
+      database.networks.save(
+        newNetworkDoc(
           _id = 1,
           country = Some(Country.nl),
         )
@@ -48,8 +48,8 @@ class MongoQueryRouteCountryTest extends UnitTest with SharedTestObjects {
           ),
         )
       )
-      database.networkInfos.save(
-        newNetworkInfoDoc(
+      database.networks.save(
+        newNetworkDoc(
           _id = 1,
           country = Some(Country.nl),
         )
@@ -69,8 +69,8 @@ class MongoQueryRouteCountryTest extends UnitTest with SharedTestObjects {
           ),
         )
       )
-      database.networkInfos.save(
-        newNetworkInfoDoc(
+      database.networks.save(
+        newNetworkDoc(
           _id = 1,
           active = false,
           country = Some(Country.nl),

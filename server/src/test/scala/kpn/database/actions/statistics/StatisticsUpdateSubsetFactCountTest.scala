@@ -119,8 +119,8 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
     facts: Seq[NetworkFact],
     active: Boolean = true
   ): Unit = {
-    database.networkInfos.save(
-      newNetworkInfoDoc(
+    database.networks.save(
+      newNetworkDoc(
         networkId,
         active,
         Some(country),

@@ -4,7 +4,7 @@ import kpn.api.common.RouteScope.regional
 import kpn.api.common.RouteType.hiking
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Reference
-import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.BaseNetworkDoc
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -14,8 +14,8 @@ class MongoQueryRouteNetworkReferencesTest extends UnitTest with SharedTestObjec
     withDatabase { database =>
       val query = new MongoQueryRouteNetworkReferences(database)
 
-      database.networkInfos.save(buildNetwork(1L, "network-1", Seq(11L, 12L)))
-      database.networkInfos.save(buildNetwork(2L, "network-2", Seq(11L, 13L)))
+      database.baseNetworks.save(buildNetwork(1L, "network-1", Seq(11L, 12L)))
+      database.baseNetworks.save(buildNetwork(2L, "network-2", Seq(11L, 13L)))
 
       query.execute(11L) should equal(
         Seq(
@@ -42,8 +42,8 @@ class MongoQueryRouteNetworkReferencesTest extends UnitTest with SharedTestObjec
     withDatabase { database =>
       val query = new MongoQueryRouteNetworkReferences(database)
 
-      database.networkInfos.save(buildNetwork(1L, "network-1", Seq(11L, 12L)))
-      database.networkInfos.save(buildNetwork(2L, "network-2", Seq(11L, 13L), active = false))
+      database.baseNetworks.save(buildNetwork(1L, "network-1", Seq(11L, 12L)))
+      database.baseNetworks.save(buildNetwork(2L, "network-2", Seq(11L, 13L), active = false))
 
       query.execute(11L) should equal(
         Seq(
@@ -53,18 +53,14 @@ class MongoQueryRouteNetworkReferencesTest extends UnitTest with SharedTestObjec
     }
   }
 
-  private def buildNetwork(id: Long, name: String, routeIds: Seq[Long], active: Boolean = true): NetworkInfoDoc = {
-    newNetworkInfoDoc(
+  private def buildNetwork(id: Long, name: String, routeIds: Seq[Long], active: Boolean = true): BaseNetworkDoc = {
+    newBaseNetworkDoc(
       id,
       active = active,
-      summary = newNetworkSummary(
-        name = name,
-        routeType = hiking,
-        routeScope = regional
-      ),
-      routes = routeIds.map(routeId =>
-        newNetworkInfoRouteDetail(routeId)
-      )
+      name = Some(name),
+      routeType = hiking,
+      routeScope = regional,
+      routeIds = routeIds
     )
   }
 }

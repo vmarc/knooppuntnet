@@ -14,7 +14,6 @@ import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.ChangeSetComment
 import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.NodeNetworkRef
 import kpn.core.doc.OrphanNodeDoc
@@ -46,13 +45,9 @@ trait Database {
 
   def getCollection[T: ClassTag](collectionName: String): MongoCollection[T]
 
-  def empty: DatabaseCollection[Any]
-
   def baseNetworks: DatabaseCollection[BaseNetworkDoc]
 
   def networks: DatabaseCollection[NetworkDoc]
-
-  def networkInfos: DatabaseCollection[NetworkInfoDoc]
 
   def baseNodes: DatabaseCollection[BaseNodeDoc]
 

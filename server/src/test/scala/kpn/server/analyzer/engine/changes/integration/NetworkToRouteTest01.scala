@@ -32,13 +32,13 @@ class NetworkToRouteTest01 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
+      val baseNetwork = database.baseNetworks.findById(1).get
+      baseNetwork.active should equal(false)
+      baseNetwork.version should equal(1)
+
       val network = database.networks.findById(1).get
       network.active should equal(false)
-      network.detail.version should equal(1)
-
-      val networkInfo = database.networkInfos.findById(1).get
-      networkInfo.active should equal(false)
-      networkInfo.summary.name should equal("01-02")
+      network.summary.name should equal("01-02")
 
       val route = database.routes.findById(1).get
       route.labels should contain(Label.active)

@@ -4,7 +4,6 @@ import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.common.Time
-import kpn.core.doc.NetworkInfoDoc
 import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryNetworkChangeCounts
 import kpn.database.actions.networks.MongoQueryNetworkChanges
@@ -18,10 +17,6 @@ class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepositor
 
   private val log = Log(classOf[NetworkInfoRepositoryImpl])
 
-  override def findById(networkId: Long): Option[NetworkInfoDoc] = {
-    database.networkInfos.findById(networkId)
-  }
-
   override def networkChanges(networkId: Long, parameters: ChangesParameters): Seq[NetworkInfoChange] = {
     new MongoQueryNetworkChanges(database).execute(networkId, parameters)
   }
@@ -34,8 +29,8 @@ class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepositor
   ): Seq[ChangesFilterOption] = {
 
     val year = yearOption match {
+      case Some(longYear) => longYear.toInt
       case None => Time.now.year
-      case Some(year) => year.toInt
     }
     val changeSetCounts = new MongoQueryNetworkChangeCounts(database).execute(networkId, year, monthOption.map(_.toInt))
     changeSetCounts.toFilterOptions(yearOption, monthOption, dayOption)
@@ -53,6 +48,6 @@ class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepositor
       set("summary.changeCount", changesCount)
     )
 
-    database.networkInfos.updateOne(filter, update, log)
+    database.networks.updateOne(filter, update, log)
   }
 }

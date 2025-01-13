@@ -179,7 +179,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
 
   def findNetworkById(networkId: Long): NetworkDoc = {
     database.networks.findById(networkId).getOrElse {
-      val ids = database.networkInfos.ids()
+      val ids = database.networks.ids()
       if (ids.isEmpty) {
         fail(s"Could not find NetworkDoc $networkId, no networks in database")
       }

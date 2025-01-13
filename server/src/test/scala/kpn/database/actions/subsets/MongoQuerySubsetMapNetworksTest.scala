@@ -49,8 +49,8 @@ class MongoQuerySubsetMapNetworksTest extends UnitTest with SharedTestObjects {
   }
 
   private def network(database: Database, country: Country, networkId: Long, name: String, active: Boolean): Unit = {
-    database.networkInfos.save(
-      newNetworkInfoDoc(
+    database.networks.save(
+      newNetworkDoc(
         _id = networkId,
         active = active,
         country = Some(country),

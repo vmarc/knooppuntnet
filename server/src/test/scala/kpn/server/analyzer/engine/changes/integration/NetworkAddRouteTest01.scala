@@ -71,7 +71,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
   private def assertNetworkInfo(): Unit = {
     assertEqual(
       findNetworkById(1),
-      newNetworkInfoDoc(
+      newNetworkDoc(
         1,
         country = Some(Country.nl),
         summary = newNetworkSummary(

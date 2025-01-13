@@ -24,10 +24,10 @@ class Issue_ItalianNodesInFrenchNetwork extends IntegrationTest {
     val dataAfter = dataBefore
 
     simulate(dataBefore, dataAfter) {
-      val networkInfo = database.networkInfos.findById(12280062L).get
+      val network = database.networks.findById(12280062L).get
 
       assertEqual(
-        networkInfo.facts,
+        network.facts,
         Seq(
           NetworkFact(
             Fact.NetworkExtraMemberNode,

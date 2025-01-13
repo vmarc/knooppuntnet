@@ -143,8 +143,8 @@ class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
     elementType: String,
     elementIds: Seq[Long]
   ): Unit = {
-    database.networkInfos.save(
-      newNetworkInfoDoc(
+    database.networks.save(
+      newNetworkDoc(
         networkId,
         country = Some(subset.country),
         summary = newNetworkSummary(
@@ -167,8 +167,8 @@ class FactRefRepositoryTest extends UnitTest with SharedTestObjects {
     subset: Subset,
     nodeIds: Seq[Long]
   ): Unit = {
-    database.networkInfos.save(
-      newNetworkInfoDoc(
+    database.networks.save(
+      newNetworkDoc(
         networkId,
         country = Some(subset.country),
         summary = newNetworkSummary(

@@ -7,6 +7,7 @@ import kpn.database.base.Id
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
+import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.computed
@@ -23,20 +24,23 @@ class MongoQueryRouteNetworkReferences(database: Database) {
   def execute(routeId: Long, log: Log = MongoQueryRouteNetworkReferences.log): Seq[Reference] = {
     log.debugElapsed {
       val pipeline = Seq(
-        filter(equal("active", true)),
-        unwind("$routes"),
-        filter(equal("routes.id", routeId)),
+        filter(
+          and(
+            equal("active", true),
+            equal("routeIds", routeId),
+          )
+        ),
         project(
           fields(
             excludeId(),
-            computed("routeType", "$summary.routeType"),
-            computed("routeScope", "$summary.routeScope"),
+            include("routeType"),
+            include("routeScope"),
             computed("id", "$_id"),
-            computed("name", "$summary.name"),
+            include("name"),
           )
         )
       )
-      val references = database.networkInfos.aggregate[Reference](pipeline, log)
+      val references = database.baseNetworks.aggregate[Reference](pipeline, log)
       (s"route network references: ${references.size}", references)
     }
   }

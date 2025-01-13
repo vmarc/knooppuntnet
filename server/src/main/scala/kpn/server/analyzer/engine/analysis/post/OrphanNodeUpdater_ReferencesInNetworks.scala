@@ -16,14 +16,14 @@ class OrphanNodeUpdater_ReferencesInNetworks(database: Database, log: Log) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(equal("active", true)),
-        unwind("$nodes"),
+        unwind("$nodeIds"),
         project(
           fields(
-            computed("_id", "$nodes.id")
+            computed("_id", "$nodesIds")
           )
         )
       )
-      val ids = database.networkInfos.aggregate[Id](pipeline, log).map(_._id).distinct
+      val ids = database.baseNetworks.aggregate[Id](pipeline, log).map(_._id).distinct
       (s"${ids.size} nodes referenced in networks", ids)
     }
   }

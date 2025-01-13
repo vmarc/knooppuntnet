@@ -77,7 +77,6 @@ import kpn.core.doc.BaseRouteSegment
 import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.Label
 import kpn.core.doc.NetworkDoc
-import kpn.core.doc.NetworkInfoDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkInfoRouteDetail
 import kpn.core.doc.NetworkNodeMember
@@ -1398,7 +1397,7 @@ trait SharedTestObjects extends MockFactory {
     //  )
   }
 
-  def newNetworkInfoDoc(
+  def newNetworkDoc(
     _id: Long,
     active: Boolean = true,
     country: Option[Country] = Some(Country.nl),
@@ -1410,8 +1409,8 @@ trait SharedTestObjects extends MockFactory {
     extraNodeIds: Seq[Long] = Seq.empty,
     extraWayIds: Seq[Long] = Seq.empty,
     extraRelationIds: Seq[Long] = Seq.empty
-  ): NetworkInfoDoc = {
-    NetworkInfoDoc(
+  ): NetworkDoc = {
+    NetworkDoc(
       _id,
       active,
       country,

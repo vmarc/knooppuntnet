@@ -4,13 +4,13 @@ import kpn.api.common.ChangeType
 import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
-import kpn.core.doc.NetworkInfoDoc
+import kpn.core.doc.NetworkDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 
 class NetworkInfoUpdateAnalyzer(
   context: ChangeSetContext,
-  before: NetworkInfoDoc,
-  after: NetworkInfoDoc,
+  before: NetworkDoc,
+  after: NetworkDoc,
   networkId: Long
 ) {
 
@@ -56,7 +56,7 @@ class NetworkInfoUpdateAnalyzer(
       key,
       ChangeType.Update,
       after.country,
-      after.scopedRouteType.routeType,
+      after.summary.routeType,
       networkId,
       after.summary.name,
       networkDataUpdate,
