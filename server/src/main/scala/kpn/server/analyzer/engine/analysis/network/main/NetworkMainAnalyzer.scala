@@ -42,10 +42,6 @@ class NetworkMainAnalyzer(
     throw new Error("implement")
   }
 
-  def updateNetworks(analysisTimestamp: Timestamp, networkIds: Seq[Long]): Unit = {
-    throw new Error("implement")
-  }
-
   def analyze(network: BaseNetworkDoc, analysisTimestamp: Timestamp): Option[NetworkDoc] = {
     Log.context(f"network=${network._id}%07d") {
       val context = NetworkAnalysisContext(network, analysisTimestamp)

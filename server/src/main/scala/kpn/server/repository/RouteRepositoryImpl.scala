@@ -1,5 +1,6 @@
 package kpn.server.repository
 
+import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
@@ -7,9 +8,16 @@ import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
+import kpn.core.doc.BaseRouteDoc
+import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
+import kpn.core.doc.SubRouteData
 import kpn.core.util.Log
+import kpn.database.actions.routes.MongoQueryKnownRouteIds
+import kpn.database.actions.routes.MongoQueryParentRoutes
+import kpn.database.actions.routes.MongoQueryRouteBounds
 import kpn.database.actions.routes.MongoQueryRouteCountry
+import kpn.database.actions.routes.MongoQueryRouteElementIds
 import kpn.database.actions.routes.MongoQueryRouteIds
 import kpn.database.actions.routes.MongoQueryRouteMapInfo
 import kpn.database.actions.routes.MongoQueryRouteNameInfo
@@ -19,8 +27,10 @@ import kpn.database.actions.routes.MongoQueryRouteTileDocs
 import kpn.database.actions.routes.MongoQueryRouteTileInfo
 import kpn.database.actions.routes.MongoQueryRouteTileNames
 import kpn.database.actions.routes.MongoQueryRoutes
+import kpn.database.actions.routes.MongoQuerySubRouteData
 import kpn.database.base.Database
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import kpn.server.sync.Transaction
@@ -91,5 +101,41 @@ class RouteRepositoryImpl(database: Database) extends RouteRepository {
   override def explore(query: ConditionGroup): RouteList = {
     val routeIds = new MongoQueryRoutes(database).execute(query)
     new MongoQueryRouteSearchResults(database).execute(routeIds)
+  }
+
+  override def activeRouteElementIds(): Seq[ReferencedElementIds] = {
+    new MongoQueryRouteElementIds(database).execute()
+  }
+
+  override def saveBaseRoute(baseRoute: BaseRouteDoc): Unit = {
+    database.baseRoutes.save(baseRoute, log)
+  }
+
+  override def bulkSaveBaseRoutes(baseRoutes: Seq[BaseRouteDoc]): Unit = {
+    database.baseRoutes.bulkSave(baseRoutes, log)
+  }
+
+  override def findBaseRouteById(routeId: Long): Option[BaseRouteDoc] = {
+    database.baseRoutes.findById(routeId, log)
+  }
+
+  override def filterKnownBaseRoutes(routeIds: Set[Long]): Set[Long] = {
+    new MongoQueryKnownRouteIds(database).execute(routeIds.toSeq, log).toSet
+  }
+
+  override def routeTileInfosByRouteType(routeType: RouteType, nodeNetwork: Boolean): Seq[RouteTileInfo] = {
+    new MongoQueryRouteTileInfo(database).findByrouteType(routeType, nodeNetwork)
+  }
+
+  override def bounds(routeIds: Seq[Long]): Option[Bounds] = {
+    new MongoQueryRouteBounds(database).execute(routeIds, log)
+  }
+
+  override def subRouteData(routeId: Long): Option[SubRouteData] = {
+    new MongoQuerySubRouteData(database).execute(routeId)
+  }
+
+  override def parentRoutes(routeId: Long): Seq[ParentRouteData] = {
+    new MongoQueryParentRoutes(database).execute(routeId)
   }
 }

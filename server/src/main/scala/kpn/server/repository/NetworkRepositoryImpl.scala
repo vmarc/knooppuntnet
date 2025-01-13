@@ -37,6 +37,10 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
     database.networks.bulkSave(networkDocs, log)
   }
 
+  override def bulkSaveBaseNetworks(baseNetworkDocs: Seq[BaseNetworkDoc]): Unit = {
+    database.baseNetworks.bulkSave(baseNetworkDocs, log)
+  }
+
   override def delete(networkId: Long): Unit = {
     database.networks.delete(networkId, log)
     database.baseNetworks.delete(networkId, log)

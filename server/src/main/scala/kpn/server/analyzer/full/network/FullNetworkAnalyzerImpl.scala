@@ -1,16 +1,17 @@
 package kpn.server.analyzer.full.network
 
 import kpn.api.custom.Timestamp
-import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.network.base.BaseNetworkMainAnalyzer
 import kpn.server.analyzer.full.FullAnalysisContext
-import kpn.server.overpass.OverpassRepository
 import kpn.server.repository.NetworkRepository
+import kpn.server.repository.RawDataRepository
 import org.springframework.stereotype.Component
 
 @Component
 class FullNetworkAnalyzerImpl(
-  overpassRepository: OverpassRepository,
+  rawDataRepository: RawDataRepository,
+  baseNetworkMainAnalyzer: BaseNetworkMainAnalyzer,
   networkRepository: NetworkRepository
 ) extends FullNetworkAnalyzer {
 
@@ -20,8 +21,8 @@ class FullNetworkAnalyzerImpl(
     Log.context("full-network-analysis") {
       log.infoElapsed {
         val activeNetworkIds = collectActiveNetworkIds()
-        val overpassNetworkIds = collectOverpassNetworkIds(context.timestamp)
-        val analyzedNetworkIds = analyzeNetworks(context, overpassNetworkIds)
+        val rawNetworkIds = collectRawNetworkIds(context.timestamp)
+        val analyzedNetworkIds = analyzeBaseNetworks(context, rawNetworkIds)
         val obsoleteNetworkIds = (activeNetworkIds.toSet -- analyzedNetworkIds).toSeq.sorted
         deactivateObsoleteNetworks(obsoleteNetworkIds)
         (
@@ -42,24 +43,25 @@ class FullNetworkAnalyzerImpl(
     }
   }
 
-  private def collectOverpassNetworkIds(timestamp: Timestamp): Seq[Long] = {
-    log.info("Collecting overpass network ids")
+  private def collectRawNetworkIds(timestamp: Timestamp): Seq[Long] = {
+    log.info("Collecting raw network ids")
     log.infoElapsed {
-      val ids = overpassRepository.networkIds(timestamp)
-      (s"Collected ${ids.size} overpass network ids", ids)
+      val ids = rawDataRepository.networkIds(timestamp)
+      (s"Collected ${ids.size} raw network ids", ids)
     }
   }
 
-  private def analyzeNetworks(context: FullAnalysisContext, overpassNetworkIds: Seq[Long]) = {
+  private def analyzeBaseNetworks(context: FullAnalysisContext, rawNetworkIds: Seq[Long]): Seq[Long] = {
     val batchSize = 25
-    val overpassNetworkIdsSize = overpassNetworkIds.size
-    val networkIds = overpassNetworkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIdsBatch, index) =>
-      Log.context(s"${index * batchSize}/$overpassNetworkIdsSize") {
+    val networkCount = rawNetworkIds.size
+    val networkIds = rawNetworkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIdsBatch, index) =>
+      Log.context(s"${index * batchSize}/$networkCount") {
         log.infoElapsed {
-          val networkDocs = overpassRepository.relations(context.timestamp, networkIdsBatch).map(NetworkDoc.from)
-          networkRepository.bulkSave(networkDocs)
-          val ids = networkDocs.map(_._id)
-          (s"analyzed ${ids.size} networks: ${ids.mkString(", ")}", ids)
+          val rawRelations = rawDataRepository.networks(context.timestamp, networkIdsBatch)
+          val baseNetworkDocs = rawRelations.flatMap(baseNetworkMainAnalyzer.analyze)
+          networkRepository.bulkSaveBaseNetworks(baseNetworkDocs)
+          val ids = baseNetworkDocs.map(_._id)
+          (s"analyzed ${ids.size} base networks: ${ids.mkString(", ")}", ids)
         }
       }
     }.toSeq

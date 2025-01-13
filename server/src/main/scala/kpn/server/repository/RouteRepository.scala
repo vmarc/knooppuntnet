@@ -1,5 +1,6 @@
 package kpn.server.repository
 
+import kpn.api.common.Bounds
 import kpn.api.common.Country
 import kpn.api.common.RouteType
 import kpn.api.common.common.Reference
@@ -7,8 +8,12 @@ import kpn.api.common.route.RouteMapInfo
 import kpn.api.common.route.RouteNameInfo
 import kpn.api.common.search.ConditionGroup
 import kpn.api.common.search.RouteList
+import kpn.core.doc.BaseRouteDoc
+import kpn.core.doc.ParentRouteData
 import kpn.core.doc.RouteDoc
+import kpn.core.doc.SubRouteData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
+import kpn.server.analyzer.engine.changes.changes.ReferencedElementIds
 import kpn.server.analyzer.engine.tiles.domain.RouteTileInfo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 
@@ -41,4 +46,22 @@ trait RouteRepository {
   def routeCountry(routeId: Long): Option[Country]
 
   def explore(query: ConditionGroup): RouteList
+
+  def activeRouteElementIds(): Seq[ReferencedElementIds]
+
+  def saveBaseRoute(baseRoute: BaseRouteDoc): Unit
+
+  def bulkSaveBaseRoutes(baseRoutes: Seq[BaseRouteDoc]): Unit
+
+  def findBaseRouteById(routeId: Long): Option[BaseRouteDoc]
+
+  def filterKnownBaseRoutes(routeIds: Set[Long]): Set[Long]
+
+  def routeTileInfosByRouteType(routeType: RouteType, nodeNetwork: Boolean): Seq[RouteTileInfo]
+
+  def bounds(routeIds: Seq[Long]): Option[Bounds]
+
+  def subRouteData(routeId: Long): Option[SubRouteData]
+
+  def parentRoutes(routeId: Long): Seq[ParentRouteData]
 }

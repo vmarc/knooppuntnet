@@ -85,7 +85,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
           case None =>
           case Some(context) =>
             val baseRouteDoc = new BaseRouteDocBuilder(context).build()
-            config.baseRouteRepository.save(baseRouteDoc)
+            config.routeRepository.saveBaseRoute(baseRouteDoc)
             // TODO redesign - move to phase 2
             config.routeMainAnalyzer.analyze(baseRouteDoc) match {
               case None =>

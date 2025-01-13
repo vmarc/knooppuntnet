@@ -13,7 +13,11 @@ trait NodeRepository {
 
   def activeNodeIds(): Seq[Long]
 
+  def saveBaseNode(baseNode: BaseNodeDoc): Unit
+
   def save(node: NodeDoc): Unit
+
+  def bulkSaveBaseNodes(baseNodeDocs: Seq[BaseNodeDoc]): Unit
 
   def bulkSave(nodes: NodeDoc*): Unit
 

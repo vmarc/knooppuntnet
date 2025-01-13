@@ -42,8 +42,16 @@ class NodeRepositoryImpl(database: Database) extends NodeRepository {
     new MongoQueryNodeIds(database).execute()
   }
 
+  override def saveBaseNode(baseNode: BaseNodeDoc): Unit = {
+    database.baseNodes.save(baseNode)
+  }
+
   override def save(nodeDoc: NodeDoc): Unit = {
     database.nodes.save(nodeDoc)
+  }
+
+  override def bulkSaveBaseNodes(baseNodeDocs: Seq[BaseNodeDoc]): Unit = {
+    database.baseNodes.bulkSave(baseNodeDocs)
   }
 
   override def bulkSave(nodeDocs: NodeDoc*): Unit = {

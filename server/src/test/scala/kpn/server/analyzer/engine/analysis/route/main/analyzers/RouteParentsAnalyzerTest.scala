@@ -5,36 +5,36 @@ import kpn.api.common.route.ParentRoute
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.repository.BaseRouteRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 
 class RouteParentsAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("two levels of parent routes") {
     withDatabase { database =>
-      val baseRouteRepository = new BaseRouteRepositoryImpl(database)
+      val baseRouteRepository = new RouteRepositoryImpl(database)
       val analyzer = new RouteParentAnalyzer(baseRouteRepository)
 
-      baseRouteRepository.save(
+      baseRouteRepository.saveBaseRoute(
         newBaseRouteDoc(
           newRouteSummary(11, name = "route 11"),
           subRouteIds = Seq(12)
         )
       )
-      baseRouteRepository.save(
+      baseRouteRepository.saveBaseRoute(
         newBaseRouteDoc(
           newRouteSummary(12, name = "route 12"),
           subRouteIds = Seq(13)
         )
       )
-      baseRouteRepository.save(
+      baseRouteRepository.saveBaseRoute(
         newBaseRouteDoc(
           newRouteSummary(13, name = "route 13"),
         )
       )
 
-      val route11 = baseRouteRepository.findById(11).get
-      val route12 = baseRouteRepository.findById(12).get
-      val route13 = baseRouteRepository.findById(13).get
+      val route11 = baseRouteRepository.findBaseRouteById(11).get
+      val route12 = baseRouteRepository.findBaseRouteById(12).get
+      val route13 = baseRouteRepository.findBaseRouteById(13).get
 
       assertEqual(
         analyzer.analyze(RouteAnalysisContext(route11)).parentRoutes,
@@ -72,29 +72,29 @@ class RouteParentsAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("protect against indirect self referential routes") {
     withDatabase { database =>
-      val baseRouteRepository = new BaseRouteRepositoryImpl(database)
+      val baseRouteRepository = new RouteRepositoryImpl(database)
       val analyzer = new RouteParentAnalyzer(baseRouteRepository)
 
-      baseRouteRepository.save(
+      baseRouteRepository.saveBaseRoute(
         newBaseRouteDoc(
           newRouteSummary(11, name = "route 11"),
           subRouteIds = Seq(12)
         )
       )
-      baseRouteRepository.save(
+      baseRouteRepository.saveBaseRoute(
         newBaseRouteDoc(
           newRouteSummary(12, name = "route 12"),
           subRouteIds = Seq(13)
         )
       )
-      baseRouteRepository.save(
+      baseRouteRepository.saveBaseRoute(
         newBaseRouteDoc(
           newRouteSummary(13, name = "route 13"),
           subRouteIds = Seq(11)
         )
       )
 
-      val route13 = baseRouteRepository.findById(13).get
+      val route13 = baseRouteRepository.findBaseRouteById(13).get
 
       assertEqual(
         analyzer.analyze(RouteAnalysisContext(route13)).parentRoutes,

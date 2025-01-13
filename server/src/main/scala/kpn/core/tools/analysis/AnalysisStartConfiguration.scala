@@ -52,10 +52,6 @@ import kpn.server.overpass.OverpassRepository
 import kpn.server.overpass.OverpassRepositoryImpl
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.AnalysisRepositoryImpl
-import kpn.server.repository.BaseNodeRepository
-import kpn.server.repository.BaseNodeRepositoryImpl
-import kpn.server.repository.BaseRouteRepository
-import kpn.server.repository.BaseRouteRepositoryImpl
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.ChangeSetRepositoryImpl
 import kpn.server.repository.NetworkInfoRepository
@@ -83,8 +79,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
   val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
-  val baseNodeRepository: BaseNodeRepository = new BaseNodeRepositoryImpl(database)
-  val baseRouteRepository: BaseRouteRepository = new BaseRouteRepositoryImpl(database)
   val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(database)
   val nextRepository: NextRepository = new NextRepositoryImpl(nextDatabase)
@@ -129,7 +123,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val baseRouteMainAnalyzer: BaseRouteMainAnalyzer = {
     val routeLocator = new RouteLocatorImpl(locationAnalyzer)
-    val routeLocationAnalyzer = new BaseRouteLocationAnalyzerImpl(baseRouteRepository, routeLocator)
+    val routeLocationAnalyzer = new BaseRouteLocationAnalyzerImpl(routeRepository, routeLocator)
     val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
     new BaseRouteMainAnalyzer(
       routeCountryAnalyzer,
@@ -139,9 +133,9 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   }
 
   val routeMainAnalyzer: RouteMainAnalyzer = {
-    val routeBoundsAnalyzer = new RouteBoundsAnalyzer(baseRouteRepository)
-    val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(baseRouteRepository)
-    val routeParentAnalyzer = new RouteParentAnalyzer(baseRouteRepository)
+    val routeBoundsAnalyzer = new RouteBoundsAnalyzer(routeRepository)
+    val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(routeRepository)
+    val routeParentAnalyzer = new RouteParentAnalyzer(routeRepository)
     new RouteMainAnalyzer(
       routeBoundsAnalyzer,
       routeStructureRowsAnalyzer,

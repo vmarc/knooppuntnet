@@ -8,11 +8,11 @@ import kpn.api.common.route.RouteStructureRelation
 import kpn.api.common.route.RouteStructureRow
 import kpn.api.common.route.RouteStructureWay
 import kpn.server.analyzer.engine.analysis.route.domain.RouteAnalysisContext
-import kpn.server.repository.BaseRouteRepository
+import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
 @Component
-class RouteStructureRowsAnalyzer(baseRouteRepository: BaseRouteRepository) extends RouteAnalyzer {
+class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends RouteAnalyzer {
   override def analyze(context: RouteAnalysisContext): RouteAnalysisContext = {
     val rows = context.route.members.flatMap { member =>
       member.memberType match {
@@ -101,7 +101,7 @@ class RouteStructureRowsAnalyzer(baseRouteRepository: BaseRouteRepository) exten
       Seq.empty
     }
     else {
-      baseRouteRepository.subRouteData(member.id) match {
+      routeRepository.subRouteData(member.id) match {
         case None => Seq.empty
         case Some(subRouteData) =>
           val subRelationMembers = subRouteData.members.filter(_.memberType == MemberType.Relation)

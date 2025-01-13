@@ -9,8 +9,8 @@ import kpn.core.util.GeoJsonLineStringGeometry
 import kpn.core.util.UnitTest
 import kpn.server.api.planner.leg.LegBuilderImpl
 import kpn.server.json.Json
-import kpn.server.repository.BaseRouteRepositoryImpl
 import kpn.server.repository.GraphRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 
 class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
@@ -18,12 +18,12 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
     withDatabase { database =>
 
-      val baseRouteRepository = new BaseRouteRepositoryImpl(database)
+      val baseRouteRepository = new RouteRepositoryImpl(database)
       val route1 = CaseStudy.baseRouteDoc("12410463")
       val route2 = CaseStudy.baseRouteDoc("1029893")
 
-      baseRouteRepository.save(route1)
-      baseRouteRepository.save(route2)
+      baseRouteRepository.saveBaseRoute(route1)
+      baseRouteRepository.saveBaseRoute(route2)
 
       pending // GraphRepositoryImpl not fully ported to mongodb yet
       val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)
@@ -71,12 +71,12 @@ class Issue150_RoutingAgainstOneWayDirectionTest extends UnitTest {
 
     withDatabase { database =>
 
-      val baseRouteRepository = new BaseRouteRepositoryImpl(database)
+      val baseRouteRepository = new RouteRepositoryImpl(database)
       val route1 = CaseStudy.baseRouteDoc("12410463")
       val route2 = CaseStudy.baseRouteDoc("1029893")
 
-      baseRouteRepository.save(route1)
-      baseRouteRepository.save(route2)
+      baseRouteRepository.saveBaseRoute(route1)
+      baseRouteRepository.saveBaseRoute(route2)
 
       pending // GraphRepositoryImpl not fully ported to mongodb yet
       val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)

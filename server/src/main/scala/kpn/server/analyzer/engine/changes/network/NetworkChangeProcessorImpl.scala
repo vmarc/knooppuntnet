@@ -160,7 +160,7 @@ class NetworkChangeProcessorImpl(
     context.elementChanges.relationAdd(RawRelationChange(before, after))
 
     analysisContext.watched.networks.add(after.id)
-    database.networks.save(NetworkDoc.from(after))
+    // TODO database.networks.save(NetworkDoc.from(after))
 
     val key = context.buildChangeKey(after.id)
 

@@ -3,14 +3,14 @@ package kpn.server.analyzer.engine.analysis.caseStudies
 import kpn.api.common.RouteType
 import kpn.database.util.Mongo
 import kpn.server.api.planner.leg.LegBuilderImpl
-import kpn.server.repository.BaseRouteRepositoryImpl
 import kpn.server.repository.GraphRepositoryImpl
+import kpn.server.repository.RouteRepositoryImpl
 
 object Issue269Test {
 
   def main(args: Array[String]): Unit = {
     Mongo.executeIn("kpn-prod") { database =>
-      val baseRouteRepository = new BaseRouteRepositoryImpl(database)
+      val baseRouteRepository = new RouteRepositoryImpl(database)
       val graphRepository = new GraphRepositoryImpl(database, graphLoadEnabled = true)
       graphRepository.loadGraphs()
       val legBuilder = new LegBuilderImpl(graphRepository, baseRouteRepository)

@@ -7,8 +7,8 @@ import kpn.api.common.route.RouteNetworkNodeInfo
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.planner.graph.GraphEdge
 import kpn.core.planner.graph.NodeNetworkGraphImpl
-import kpn.server.repository.BaseRouteRepository
 import kpn.server.repository.GraphRepository
+import kpn.server.repository.RouteRepository
 
 /*
         1m          2m          5m
@@ -43,8 +43,8 @@ class GraphTestData extends SharedTestObjects {
     graphRepository
   }
 
-  val baseRouteRepository: BaseRouteRepository = {
-    val repository = stub[BaseRouteRepository]
+  val baseRouteRepository: RouteRepository = {
+    val repository = stub[RouteRepository]
     //    (routeRepository.findRouteDetailById _).when(legEndRoute1.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute1, node1, node2)))
     //    (routeRepository.findRouteDetailById _).when(legEndRoute2.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute2, node2, node3)))
     //    (routeRepository.findRouteDetailById _).when(legEndRoute3.trackPathKeys.head.routeId).returns(Some(routeDoc(legEndRoute3, node3, node4)))

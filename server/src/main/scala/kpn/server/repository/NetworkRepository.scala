@@ -17,6 +17,8 @@ trait NetworkRepository {
 
   def bulkSave(networkDocs: Seq[NetworkDoc]): Unit
 
+  def bulkSaveBaseNetworks(baseNetworkDocs: Seq[BaseNetworkDoc]): Unit
+
   def delete(networkId: Long): Unit
 
   def saveBaseNetwork(baseNetworkDoc: BaseNetworkDoc): Unit

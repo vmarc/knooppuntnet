@@ -7,7 +7,6 @@ import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
 import kpn.server.analyzer.full.FullAnalysisContext
 import kpn.server.overpass.OverpassRepository
-import kpn.server.repository.BaseRouteRepository
 import kpn.server.repository.RouteRepository
 import org.springframework.stereotype.Component
 
@@ -21,7 +20,6 @@ import scala.concurrent.duration.Duration
 class FullRouteAnalyzerImpl(
   overpassRepository: OverpassRepository,
   routeRepository: RouteRepository,
-  baseRouteRepository: BaseRouteRepository,
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
   routeMainAnalyzer: RouteMainAnalyzer,
   implicit val analysisExecutionContext: ExecutionContext
@@ -97,7 +95,7 @@ class FullRouteAnalyzerImpl(
         routeMainAnalyzer.analyze(baseRouteDoc)
       }
 
-      baseRouteRepository.bulkSave(baseRouteDocs)
+      routeRepository.bulkSaveBaseRoutes(baseRouteDocs)
       routeRepository.bulkSaveRoutes(routeDocs)
 
       val ids = baseRouteDocs.map(_.id)
@@ -112,9 +110,9 @@ class FullRouteAnalyzerImpl(
           log.warn(s"de-activating route ${routeDoc._id}")
           routeRepository.saveRoute(routeDoc.deactivated)
         }
-        baseRouteRepository.findById(routeId).foreach { baseRouteDoc =>
+        routeRepository.findBaseRouteById(routeId).foreach { baseRouteDoc =>
           log.warn(s"de-activating route ${baseRouteDoc._id}")
-          baseRouteRepository.save(baseRouteDoc.deactivated)
+          routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
         }
       }
     }

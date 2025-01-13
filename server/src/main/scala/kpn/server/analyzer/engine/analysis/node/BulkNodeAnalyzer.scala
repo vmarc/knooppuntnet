@@ -6,5 +6,4 @@ import kpn.core.doc.NodeDoc
 trait BulkNodeAnalyzer {
 
   def analyze(timestamp: Timestamp, nodeIds: Seq[Long]): Seq[NodeDoc]
-
 }

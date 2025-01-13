@@ -100,7 +100,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
               config.baseNodeMainAnalyzer.analyze(rawNode) match {
                 case None => log.error(s"Could not analyze node ${rawNode.id}")
                 case Some(baseNodeDoc) =>
-                  config.baseNodeRepository.saveBaseNode(baseNodeDoc)
+                  config.nodeRepository.saveBaseNode(baseNodeDoc)
               }
             }
             (s"Analyzed ${batchSize * (index + 1)}/$nodeCount nodes", ())
@@ -225,7 +225,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
       Log.context(s"${index + 1}/$routeIdsSize route=$relationId") {
         try {
           log.info("analyze main")
-          config.baseRouteRepository.findById(relationId) match {
+          config.routeRepository.findBaseRouteById(relationId) match {
             case None => log.error(s"could not find route details")
             case Some(baseRouteDoc) =>
               config.routeMainAnalyzer.analyze(baseRouteDoc) match {
@@ -247,7 +247,7 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
       case None =>
       case Some(context) =>
         val baseRouteDoc = new BaseRouteDocBuilder(context).build()
-        config.baseRouteRepository.save(baseRouteDoc)
+        config.routeRepository.saveBaseRoute(baseRouteDoc)
         context.tileDatas.foreach { tileData =>
           val doc = RouteTileDoc(
             _id = s"${tileData.name}-${context.relation.id}",
