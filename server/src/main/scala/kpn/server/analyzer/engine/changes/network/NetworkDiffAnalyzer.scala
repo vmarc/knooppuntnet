@@ -1,14 +1,14 @@
 package kpn.server.analyzer.engine.changes.network
 
-import kpn.api.common.data.raw.RawRelation
 import kpn.api.common.diff.IdDiffs
+import kpn.core.doc.NetworkDoc
 
-class NetworkRelationDiffAnalyzer(before: RawRelation, after: RawRelation) {
+class NetworkDiffAnalyzer(before: NetworkDoc, after: NetworkDoc) {
 
   def nodeDiffs: IdDiffs = {
 
-    val nodesBefore = before.nodeMembers.map(_.ref).toSet
-    val nodesAfter = after.nodeMembers.map(_.ref).toSet
+    val nodesBefore = before.memberNodeIds.toSet
+    val nodesAfter = after.memberNodeIds.toSet
 
     val nodesAdded = (nodesAfter -- nodesBefore).toSeq.sorted
     val nodesRemoved = (nodesBefore -- nodesAfter).toSeq.sorted
@@ -28,8 +28,8 @@ class NetworkRelationDiffAnalyzer(before: RawRelation, after: RawRelation) {
 
   def wayDiffs: IdDiffs = {
 
-    val waysBefore = before.wayMembers.map(_.ref).toSet
-    val waysAfter = after.wayMembers.map(_.ref).toSet
+    val waysBefore = before.memberWayIds.toSet
+    val waysAfter = after.memberWayIds.toSet
 
     val waysAdded = (waysAfter -- waysBefore).toSeq.sorted
     val waysRemoved = (waysBefore -- waysAfter).toSeq.sorted
@@ -42,8 +42,8 @@ class NetworkRelationDiffAnalyzer(before: RawRelation, after: RawRelation) {
 
   def relationDiffs: IdDiffs = {
 
-    val relationsBefore = before.relationMembers.map(_.ref).toSet
-    val relationsAfter = after.relationMembers.map(_.ref).toSet
+    val relationsBefore = before.memberRelationIds.toSet
+    val relationsAfter = after.memberRelationIds.toSet
 
     val relationsAdded = (relationsAfter -- relationsBefore).toSeq.sorted
     val relationsRemoved = (relationsBefore -- relationsAfter).toSeq.sorted

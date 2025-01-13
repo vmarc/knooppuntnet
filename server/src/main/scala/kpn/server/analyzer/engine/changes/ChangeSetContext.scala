@@ -12,7 +12,10 @@ case class ChangeSetContext(
   changeSet: ChangeSet,
   elementIds: ElementIds,
   changes: ChangeSetChanges = ChangeSetChanges(),
-  elementChanges: ElementChangeMap = new ElementChangeMap()
+  elementChanges: ElementChangeMap = new ElementChangeMap(),
+  baseNetworkCreatedIds: Seq[Long] = Seq.empty,
+  baseNetworkUpdatedIds: Seq[Long] = Seq.empty,
+  baseNetworkDeletedIds: Seq[Long] = Seq.empty,
 ) {
 
   def timestampBefore: Timestamp = changeSet.timestampBefore

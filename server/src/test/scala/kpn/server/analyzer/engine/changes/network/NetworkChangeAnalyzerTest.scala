@@ -135,7 +135,7 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
         changeSet,
         elementIds
       )
-      new NetworkChangeAnalyzerImpl(analysisContext, blacklistRepository).analyze(context)
+      new NetworkChangeAnalyzer(analysisContext, blacklistRepository).analyze(context)
     }
   }
 }

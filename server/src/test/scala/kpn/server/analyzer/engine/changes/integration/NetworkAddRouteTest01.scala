@@ -14,6 +14,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
+import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
@@ -117,6 +118,11 @@ class NetworkAddRouteTest01 extends IntegrationTest {
               1001,
               1002)
           )
+        ),
+        members = Seq(
+          RawMember(MemberType.Node, 1001, None),
+          RawMember(MemberType.Node, 1002, None),
+          RawMember(MemberType.Relation, 11, None),
         )
       )
     )

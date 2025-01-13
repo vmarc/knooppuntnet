@@ -39,17 +39,16 @@ import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSaverImpl
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.Blacklist
-import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzerImpl
-import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessorImpl
+import kpn.server.analyzer.engine.changes.network.BaseNetworkChangeProcessor
+import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzer
+import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.network.info.NetworkInfoChangeProcessorImpl
 import kpn.server.analyzer.engine.changes.network.info.NetworkInfoImpactAnalyzer
 import kpn.server.analyzer.engine.changes.node.BaseNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
-import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzerImpl
-import kpn.server.analyzer.engine.changes.node.NodeChangeProcessorImpl
+import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
-import kpn.server.analyzer.engine.changes.route.RouteChangeProcessorImpl
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.LineSegmentTileCalculatorImpl
 import kpn.server.analyzer.engine.tile.NodeTileCalculator
@@ -139,21 +138,6 @@ class IntegrationTestContext(
 
   private val routeTileChangeAnalyzer = new RouteTileChangeAnalyzerImpl()
 
-  private val networkChangeProcessor = {
-
-    val networkChangeAnalyzer = new NetworkChangeAnalyzerImpl(
-      analysisContext,
-      blacklistRepository
-    )
-
-    new NetworkChangeProcessorImpl(
-      database,
-      analysisContext,
-      networkChangeAnalyzer,
-      overpassRepository
-    )
-  }
-
   private val changeSetInfoUpdater = new ChangeSetInfoUpdaterImpl(
     changeSetInfoRepository,
     taskRepository
@@ -167,7 +151,7 @@ class IntegrationTestContext(
       elementIdAnalyzer
     )
 
-    new RouteChangeProcessorImpl(
+    new RouteChangeProcessor(
       analysisContext,
       routeChangeAnalyzer,
       overpassRepository,
@@ -179,7 +163,7 @@ class IntegrationTestContext(
     )
   }
 
-  private val nodeChangeAnalyzer = new NodeChangeAnalyzerImpl(
+  private val nodeChangeAnalyzer = new NodeChangeAnalyzer(
     analysisContext,
     blacklistRepository
   )
@@ -202,7 +186,7 @@ class IntegrationTestContext(
     )
   }
 
-  private val nodeChangeProcessor = new NodeChangeProcessorImpl(
+  private val nodeChangeProcessor = new NodeChangeProcessor(
     analysisContext,
     bulkNodeAnalyzer,
     nodeChangeAnalyzer,
@@ -288,6 +272,29 @@ class IntegrationTestContext(
       baseNodeMainAnalyzer,
     )
 
+    val networkChangeProcessor = {
+
+      new NetworkChangeProcessor(
+        analysisContext,
+        networkRepository,
+        networkMainAnalyzer,
+      )
+    }
+
+    val baseNetworkChangeProcessor = {
+      val networkChangeAnalyzer = new NetworkChangeAnalyzer(
+        analysisContext,
+        blacklistRepository
+      )
+      new BaseNetworkChangeProcessor(
+        analysisContext,
+        networkChangeAnalyzer,
+        rawDataRepository,
+        networkRepository,
+        baseNetworkMainAnalyzer,
+      )
+    }
+
     val baseNodeChangeProcessor = new BaseNodeChangeProcessor(
       nodeChangeAnalyzer: NodeChangeAnalyzer,
       nodeRepository: NodeRepository,
@@ -296,6 +303,7 @@ class IntegrationTestContext(
 
     new ChangeProcessor(
       baseNodeChangeProcessor,
+      baseNetworkChangeProcessor,
       networkChangeProcessor,
       routeChangeProcessor,
       nodeChangeProcessor,

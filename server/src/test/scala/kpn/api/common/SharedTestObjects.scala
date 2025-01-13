@@ -1410,7 +1410,8 @@ trait SharedTestObjects extends MockFactory {
     routes: Seq[NetworkInfoRouteDetail] = Seq.empty,
     extraNodeIds: Seq[Long] = Seq.empty,
     extraWayIds: Seq[Long] = Seq.empty,
-    extraRelationIds: Seq[Long] = Seq.empty
+    extraRelationIds: Seq[Long] = Seq.empty,
+    members: Seq[RawMember] = Seq.empty
   ): NetworkDoc = {
     NetworkDoc(
       _id,
@@ -1423,7 +1424,8 @@ trait SharedTestObjects extends MockFactory {
       routes,
       extraNodeIds,
       extraWayIds,
-      extraRelationIds
+      extraRelationIds,
+      members
     )
   }
 

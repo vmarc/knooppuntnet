@@ -28,26 +28,25 @@ import org.springframework.stereotype.Component
 import scala.concurrent.ExecutionContext
 
 @Component
-class RouteChangeProcessorImpl(
+class BaseRouteChangeProcessor(
   analysisContext: AnalysisContext,
-  changeAnalyzer: RouteChangeAnalyzer,
+  routeChangeAnalyzer: RouteChangeAnalyzer,
   overpassRepository: OverpassRepository,
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
   routeMainAnalyzer: RouteMainAnalyzer,
   tileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeRepository: RouteRepository,
   implicit val analysisExecutionContext: ExecutionContext
-) extends RouteChangeProcessor {
+) {
 
-  private val log = Log(classOf[RouteChangeProcessorImpl])
+  private val log = Log(classOf[BaseRouteChangeProcessor])
 
-  override def process(context: ChangeSetContext): ChangeSetContext = {
+  def process(context: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
 
-      val impactedRelationIds = context.changes.networkChanges.flatMap(_.impactedRelationIds).distinct.sorted
-      val routeElementChanges = changeAnalyzer.analyze(context)
+      val routeElementChanges = routeChangeAnalyzer.analyze(context)
       val batchSize = 50
-      val changedRouteIds = (routeElementChanges.elementIds ++ impactedRelationIds).distinct.sorted
+      val changedRouteIds = routeElementChanges.elementIds
       if (changedRouteIds.nonEmpty) {
         log.info(s"${changedRouteIds.size} route(s) impacted: ${changedRouteIds.mkString(", ")}")
       }

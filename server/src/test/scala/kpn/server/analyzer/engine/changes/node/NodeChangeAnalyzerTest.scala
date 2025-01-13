@@ -142,7 +142,7 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
 
     def analyze(change: Change): ElementChanges = {
       val changeSet = newChangeSet(changes = Seq(change))
-      new NodeChangeAnalyzerImpl(analysisContext, blacklistRepository).analyze(changeSet)
+      new NodeChangeAnalyzer(analysisContext, blacklistRepository).analyze(changeSet)
     }
   }
 }
