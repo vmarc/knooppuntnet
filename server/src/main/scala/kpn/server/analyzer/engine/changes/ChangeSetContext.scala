@@ -16,6 +16,9 @@ case class ChangeSetContext(
   baseNetworkCreatedIds: Seq[Long] = Seq.empty,
   baseNetworkUpdatedIds: Seq[Long] = Seq.empty,
   baseNetworkDeletedIds: Seq[Long] = Seq.empty,
+  baseRouteCreatedIds: Seq[Long] = Seq.empty,
+  baseRouteUpdatedIds: Seq[Long] = Seq.empty,
+  baseRouteDeletedIds: Seq[Long] = Seq.empty,
 ) {
 
   def timestampBefore: Timestamp = changeSet.timestampBefore

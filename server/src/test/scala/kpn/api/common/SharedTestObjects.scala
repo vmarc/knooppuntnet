@@ -298,7 +298,6 @@ trait SharedTestObjects extends MockFactory {
     diffs: RouteDiff = RouteDiff(),
     facts: Seq[Fact] = Seq.empty,
     impactedNodeIds: Seq[Long] = Seq.empty,
-    tiles: Seq[String] = Seq.empty,
     happy: Boolean = false,
     investigate: Boolean = false,
     impact: Boolean = false,
@@ -322,7 +321,6 @@ trait SharedTestObjects extends MockFactory {
       diffs,
       facts,
       impactedNodeIds,
-      tiles,
       happy,
       investigate,
       impact,
@@ -343,7 +341,6 @@ trait SharedTestObjects extends MockFactory {
     facts: Seq[Fact] = Seq.empty,
     meters: Long = 0,
     locationAnalysis: RouteLocationAnalysis = RouteLocationAnalysis(None, Seq.empty, Seq.empty),
-    tiles: Seq[String] = Seq.empty,
     tags: Seq[Tag] = Seq.empty,
   ): RouteData = {
     RouteData(
@@ -357,7 +354,6 @@ trait SharedTestObjects extends MockFactory {
       facts,
       meters: Long,
       locationAnalysis: RouteLocationAnalysis,
-      tiles: Seq[String],
       tags: Seq[Tag]
     )
   }
@@ -1436,7 +1432,6 @@ trait SharedTestObjects extends MockFactory {
     factCount: Long = 0,
     nodeCount: Long = 0,
     routeCount: Long = 0,
-    changeCount: Long = 0
   ): NetworkSummary = {
     NetworkSummary(
       name,
@@ -1445,7 +1440,6 @@ trait SharedTestObjects extends MockFactory {
       factCount,
       nodeCount,
       routeCount,
-      changeCount
     )
   }
 

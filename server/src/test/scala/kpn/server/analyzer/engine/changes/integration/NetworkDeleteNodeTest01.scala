@@ -75,7 +75,6 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         country = Some(Country.nl),
         summary = newNetworkSummary(
           name = "network-name",
-          changeCount = 1
         ),
         detail = newNetworkDetail(
           tags = Tags.from(

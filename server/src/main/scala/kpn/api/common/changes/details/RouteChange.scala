@@ -31,7 +31,6 @@ case class RouteChange(
   diffs: RouteDiff,
   facts: Seq[Fact],
   impactedNodeIds: Seq[Long],
-  tiles: Seq[String],
   // following values are filled in by RouteChangeAnalyzer.analyzed
   happy: Boolean = false,
   investigate: Boolean = false,

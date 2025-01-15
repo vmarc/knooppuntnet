@@ -30,7 +30,6 @@ case class NetworkAnalysisContext(
   extraNodeIds: Seq[Long] = Seq.empty,
   extraWayIds: Seq[Long] = Seq.empty,
   extraRelationIds: Seq[Long] = Seq.empty,
-  changeCount: Long = 0,
   km: Long = 0,
   meters: Long = 0,
   lastUpdated: Option[Timestamp] = None,

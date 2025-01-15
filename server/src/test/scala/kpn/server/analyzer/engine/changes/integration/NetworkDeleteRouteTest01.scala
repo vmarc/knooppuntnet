@@ -85,7 +85,6 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
         newNetworkSummary(
           name = "network",
           routeType = RouteType.hiking,
-          changeCount = 1
         ),
         newNetworkDetail(
           lastUpdated = defaultTimestamp,

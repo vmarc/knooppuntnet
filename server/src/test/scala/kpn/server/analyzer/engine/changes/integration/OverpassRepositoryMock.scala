@@ -1,6 +1,8 @@
 package kpn.server.analyzer.engine.changes.integration
 
 import kpn.api.common.data.Node
+import kpn.api.common.data.RelationIdMember
+import kpn.api.common.data.RelationMember
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation
 import kpn.api.custom.Relation
@@ -86,7 +88,31 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
     }
   }
 
-  override def relationTopLevel(timestamp: Timestamp, relationId: Long): Option[Relation] = ???
+  override def relationTopLevel(timestamp: Timestamp, relationId: Long): Option[Relation] = {
+    if (timestamp == timestampBeforeValue) {
+      beforeData.relations.get(relationId).map { relation =>
+        relation.copy(
+          members = relation.members.toSeq.map {
+            case m: RelationMember => RelationIdMember(m.relation.id, m.role)
+            case member => member
+          }
+        )
+      }
+    }
+    else if (timestamp == timestampAfterValue) {
+      afterData.relations.get(relationId).map { relation =>
+        relation.copy(
+          members = relation.members.toSeq.map {
+            case m: RelationMember => RelationIdMember(m.relation.id, m.role)
+            case member => member
+          }
+        )
+      }
+    }
+    else {
+      throw new IllegalArgumentException(s"unknown timestamp: ${timestamp.yyyymmddhhmmss}")
+    }
+  }
 
   override def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = ???
 

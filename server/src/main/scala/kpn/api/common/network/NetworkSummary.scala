@@ -9,6 +9,5 @@ case class NetworkSummary(
   routeScope: RouteScope,
   factCount: Long,
   nodeCount: Long,
-  routeCount: Long,
-  changeCount: Long
+  routeCount: Long
 )

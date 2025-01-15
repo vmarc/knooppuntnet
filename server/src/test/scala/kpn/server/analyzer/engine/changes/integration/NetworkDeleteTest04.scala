@@ -100,7 +100,6 @@ class NetworkDeleteTest04 extends IntegrationTest {
         country = Some(Country.nl),
         summary = newNetworkSummary(
           name = "01-02",
-          changeCount = 1
         ),
         detail = newNetworkDetail(
           version = 1,

@@ -126,11 +126,9 @@ class AnalyzerEngineImpl(
       )
       val contextAfter = changeProcessor.process(context)
       val hasChanges = contextAfter.changes.nonEmpty
-      val tiles = contextAfter.changes.tiles
       replicationContext.copy(
         changeSetElementCount = replicationContext.changeSetElementCount + elementIds.size,
         hasChanges = replicationContext.hasChanges || hasChanges,
-        tiles = (replicationContext.tiles ++ tiles).distinct.sorted,
       )
     }
   }

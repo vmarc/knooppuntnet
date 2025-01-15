@@ -9,7 +9,6 @@ import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerFixed
 import kpn.server.analyzer.engine.analysis.network.base.BaseNetworkMainAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkCountryAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoChangeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoExtraAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoNodeDocAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoRouteAnalyzer
@@ -47,6 +46,7 @@ import kpn.server.analyzer.engine.changes.network.info.NetworkInfoImpactAnalyzer
 import kpn.server.analyzer.engine.changes.node.BaseNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
+import kpn.server.analyzer.engine.changes.route.BaseRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import kpn.server.analyzer.engine.context.AnalysisContext
@@ -200,7 +200,6 @@ class IntegrationTestContext(
 
     val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
     val networkInfoNodeDocAnalyzer = new NetworkInfoNodeDocAnalyzer(database)
-    val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
     val networkCountryAnalyzer = new NetworkCountryAnalyzer(locationAnalyzer)
     val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
 
@@ -208,7 +207,6 @@ class IntegrationTestContext(
       database,
       networkInfoRouteAnalyzer,
       networkInfoNodeDocAnalyzer,
-      networkInfoChangeAnalyzer,
       networkCountryAnalyzer,
       networkInfoExtraAnalyzer
     )
@@ -301,9 +299,29 @@ class IntegrationTestContext(
       baseNodeBulkAnalyzer: BaseNodeBulkAnalyzer
     )
 
+    val baseRouteChangeProcessor = {
+      val routeChangeAnalyzer = new RouteChangeAnalyzer(
+        analysisContext,
+        blacklistRepository,
+        elementIdAnalyzer
+      )
+
+      new BaseRouteChangeProcessor(
+        analysisContext,
+        routeChangeAnalyzer,
+        baseRouteMainAnalyzer,
+        routeMainAnalyzer,
+        routeTileChangeAnalyzer,
+        routeRepository,
+        rawDataRepository,
+
+      )
+    }
+
     new ChangeProcessor(
       baseNodeChangeProcessor,
       baseNetworkChangeProcessor,
+      baseRouteChangeProcessor,
       networkChangeProcessor,
       routeChangeProcessor,
       nodeChangeProcessor,

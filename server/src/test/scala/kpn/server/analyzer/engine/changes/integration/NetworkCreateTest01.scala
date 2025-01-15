@@ -124,7 +124,6 @@ class NetworkCreateTest01 extends IntegrationTest {
           name = "name",
           nodeCount = 2,
           routeCount = 1,
-          changeCount = 1
         ),
         detail = newNetworkDetail(
           tags = Tags.from(

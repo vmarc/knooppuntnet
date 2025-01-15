@@ -13,7 +13,6 @@ import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkAnalysi
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkCenterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkCountryAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoChangeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoExtraAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoFactAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoIntegrityAnalyzer
@@ -33,7 +32,6 @@ class NetworkMainAnalyzer(
   database: Database,
   networkInfoRouteAnalyzer: NetworkInfoRouteAnalyzer,
   networkInfoNodeDocAnalyzer: NetworkInfoNodeDocAnalyzer,
-  networkInfoChangeAnalyzer: NetworkInfoChangeAnalyzer,
   networkCountryAnalyzer: NetworkCountryAnalyzer,
   networkInfoExtraAnalyzer: NetworkInfoExtraAnalyzer
 ) {
@@ -56,7 +54,6 @@ class NetworkMainAnalyzer(
         NetworkInfoIntegrityAnalyzer,
         NetworkInfoFactAnalyzer,
         NetworkInfoNodeMemberMissingAnalyzer,
-        networkInfoChangeAnalyzer,
         networkCountryAnalyzer,
         networkInfoExtraAnalyzer,
         NetworkCenterAnalyzer,
@@ -111,7 +108,6 @@ class NetworkMainAnalyzer(
       factCount,
       context.nodeDetails.size,
       context.routeDetails.size,
-      context.changeCount
     )
   }
 

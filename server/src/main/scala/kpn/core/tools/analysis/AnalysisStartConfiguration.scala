@@ -15,7 +15,6 @@ import kpn.server.analyzer.engine.analysis.location.RouteLocatorImpl
 import kpn.server.analyzer.engine.analysis.network.base.BaseNetworkMainAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkCountryAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoChangeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoExtraAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoNodeDocAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoRouteAnalyzer
@@ -149,7 +148,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
     val networkInfoRouteAnalyzer = new NetworkInfoRouteAnalyzer(database)
     val networkInfoNodeDocAnalyzer = new NetworkInfoNodeDocAnalyzer(database)
-    val networkInfoChangeAnalyzer = new NetworkInfoChangeAnalyzer(database)
     val networkCountryAnalyzer = new NetworkCountryAnalyzer(locationAnalyzer)
     val networkInfoExtraAnalyzer = new NetworkInfoExtraAnalyzer(overpassRepository)
 
@@ -157,7 +155,6 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
       database,
       networkInfoRouteAnalyzer,
       networkInfoNodeDocAnalyzer,
-      networkInfoChangeAnalyzer,
       networkCountryAnalyzer,
       networkInfoExtraAnalyzer
     )

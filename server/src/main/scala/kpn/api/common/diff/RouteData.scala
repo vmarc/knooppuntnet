@@ -12,9 +12,30 @@ import kpn.api.common.route.RouteNode
 import kpn.api.custom.Subset
 import kpn.api.custom.Tag
 import kpn.core.analysis.Facts
+import kpn.core.doc.RouteDoc
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 
 object RouteData {
+
+  def from(routeDoc: RouteDoc): RouteData = {
+    RouteData(
+      relationId = routeDoc.id,
+      meta = MetaData(
+        version = routeDoc.version,
+        timestamp = routeDoc.lastUpdated,
+        changeSetId = routeDoc.changeSetId
+      ),
+      countries = routeDoc.summary.countries,
+      routeTypes = routeDoc.summary.routeTypes,
+      name = routeDoc.summary.name,
+      networkNodes = routeDoc.nodes.nodes,
+      ways = Seq.empty, // TODO all ways  in hierarchy
+      facts = routeDoc.facts,
+      meters = routeDoc.summary.meters,
+      locationAnalysis = routeDoc.locationAnalysis,
+      tags = routeDoc.summary.tags
+    )
+  }
 
   def from(context: BaseRouteAnalysisContext): RouteData = {
     RouteData(
@@ -28,7 +49,6 @@ object RouteData {
       context.facts,
       context.structure.nodeNetworkPaths.map(_.meters).sum,
       context.locationAnalysis,
-      context.tiles,
       context.relation.tags
     )
   }
@@ -45,7 +65,6 @@ case class RouteData(
   facts: Seq[Fact],
   meters: Long,
   locationAnalysis: RouteLocationAnalysis,
-  tiles: Seq[String],
   tags: Seq[Tag]
 ) extends Tagable {
 

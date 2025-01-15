@@ -10,6 +10,7 @@ import kpn.api.custom.Relation
 import kpn.core.analysis.TagInterpreter
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.Label
+import kpn.core.doc.RouteDoc
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.history.RouteTagDiffAnalyzer
 import kpn.core.util.Log
@@ -43,6 +44,37 @@ class RouteChangeProcessor(
 
   def process(context: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
+
+      context.baseRouteDeletedIds.foreach { routeId =>
+        routeRepository.findRouteById(routeId) match {
+          case Some(routeDoc) => processDelete(context, routeDoc)
+          case None =>
+        }
+      }
+
+      context.baseRouteCreatedIds.foreach { routeId =>
+        routeRepository.findBaseRouteById(routeId) match {
+          case None =>
+          case Some(baseRouteDoc) =>
+            routeMainAnalyzer.analyze(baseRouteDoc) match {
+              case None =>
+              case Some(routeDoc) =>
+                routeRepository.saveRoute(routeDoc)
+            }
+        }
+      }
+
+      context.baseRouteUpdatedIds.foreach { routeId =>
+        routeRepository.findBaseRouteById(routeId) match {
+          case None =>
+          case Some(baseRouteDoc) =>
+            routeMainAnalyzer.analyze(baseRouteDoc) match {
+              case None =>
+              case Some(routeDoc) =>
+                routeRepository.saveRoute(routeDoc)
+            }
+        }
+      }
 
       val impactedRelationIds = context.changes.networkChanges.flatMap(_.impactedRelationIds).distinct.sorted
       val routeElementChanges = changeAnalyzer.analyze(context)
@@ -100,7 +132,7 @@ class RouteChangeProcessor(
         }
       case Some(before) =>
         data.after match {
-          case None => processDelete(context, before, data.routeId)
+          case None => None // TODO processDelete(context, before, data.routeId)
           case Some(after) =>
             if (TagInterpreter.isRouteRelation(before)) {
               processUpdate(context, before, after, data.routeId)
@@ -177,56 +209,51 @@ class RouteChangeProcessor(
           ),
           facts = Seq.empty,
           impactedNodeIds = impactedNodeIds,
-          afterBaseRouteDoc.tiles
         )
       )
     }
   }
 
-  private def processDelete(context: ChangeSetContext, relationBefore: Relation, routeId: Long): Option[RouteChange] = {
+  private def processDelete(context: ChangeSetContext, routeDoc: RouteDoc): Option[RouteChange] = {
 
-    analysisContext.watched.routes.delete(routeId)
+    /*
+        routeRepository.saveRoute(routeDoc.deactivated)
+     */
 
-    baseRouteMainAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */).map { contextBefore =>
-      val baseRouteDoc = new BaseRouteDocBuilder(contextBefore).build().deactivated
-      routeRepository.saveBaseRoute(baseRouteDoc)
-      // TODO redesign - move to phase 2
-      routeMainAnalyzer.analyze(baseRouteDoc) match {
-        case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
-        case None =>
+    val impactedNodeIds: Seq[Long] = routeDoc.nodes.nodeIds.sorted
+
+    val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
+      if (networkChanges.relations.added.contains(routeDoc._id)) {
+        Some(networkChanges.toRef)
       }
-      val impactedNodeIds: Seq[Long] = contextBefore.routeNodesAnalysis.nodes.map(_.node.id).distinct.sorted
-
-      val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
-        if (networkChanges.relations.added.contains(routeId)) {
-          Some(networkChanges.toRef)
-        }
-        else {
-          None
-        }
+      else {
+        None
       }
+    }
 
-      val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
-        if (networkChanges.relations.removed.contains(routeId)) {
-          Some(networkChanges.toRef)
-        }
-        else {
-          None
-        }
+    val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
+      if (networkChanges.relations.removed.contains(routeDoc._id)) {
+        Some(networkChanges.toRef)
       }
+      else {
+        None
+      }
+    }
 
-      val key = context.buildChangeKey(routeId)
+    val key = context.buildChangeKey(routeDoc._id)
+
+    Some(
 
       RouteChangeStateAnalyzer.analyzed(
         RouteChange(
           _id = key.toId,
           key = key,
           changeType = ChangeType.Delete,
-          name = baseRouteDoc.summary.name,
-          locationAnalysis = baseRouteDoc.locationAnalysis,
+          name = routeDoc.summary.name,
+          locationAnalysis = routeDoc.locationAnalysis,
           addedToNetwork = addedToNetwork,
           removedFromNetwork = removedFromNetwork,
-          before = Some(RouteData.from(contextBefore)),
+          before = Some(RouteData.from(routeDoc)),
           after = None,
           removedWays = Seq.empty,
           addedWays = Seq.empty,
@@ -234,10 +261,9 @@ class RouteChangeProcessor(
           diffs = RouteDiff(),
           facts = Seq(Fact.Deleted),
           impactedNodeIds = impactedNodeIds,
-          baseRouteDoc.tiles
         )
       )
-    }
+    )
   }
 
   def processUpdate(context: ChangeSetContext, relationBefore: Relation, relationAfter: Relation, routeId: Long): Option[RouteChange] = {
@@ -320,7 +346,6 @@ class RouteChangeProcessor(
                     diffs = routeUpdate.diffs,
                     facts = facts,
                     impactedNodeIds = impactedNodeIds,
-                    impactedTiles
                   )
                 )
               )
@@ -386,7 +411,6 @@ class RouteChangeProcessor(
           ),
           facts = Seq(Fact.LostRouteTags),
           impactedNodeIds = impactedNodeIds,
-          beforeBaseRouteDoc.tiles
         )
       )
     )

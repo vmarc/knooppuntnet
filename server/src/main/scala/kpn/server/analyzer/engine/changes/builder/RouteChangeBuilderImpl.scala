@@ -80,7 +80,6 @@ class RouteChangeBuilderImpl(
               diffs = RouteDiff(),
               facts = Seq.empty,
               impactedNodeIds,
-              routeDataAfter.tiles
             )
           )
 
@@ -111,7 +110,6 @@ class RouteChangeBuilderImpl(
               diffs = routeUpdate.diffs,
               facts = routeUpdate.facts,
               impactedNodeIds,
-              impactedTiles
             )
           )
       }
@@ -177,7 +175,6 @@ class RouteChangeBuilderImpl(
                 diffs = RouteDiff(),
                 facts = Seq(Fact.Deleted),
                 impactedNodeIds,
-                dataBefore.tiles
               )
             )
           )
@@ -236,7 +233,6 @@ class RouteChangeBuilderImpl(
           diffs = routeUpdate.diffs,
           facts = facts,
           impactedNodeIds,
-          impactedTiles
         )
       )
     )
@@ -281,7 +277,6 @@ class RouteChangeBuilderImpl(
                 diffs = routeUpdate.diffs,
                 facts = routeUpdate.facts,
                 impactedNodeIds,
-                impactedTiles
               )
             )
           )

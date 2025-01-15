@@ -7,6 +7,7 @@ import kpn.core.doc.NetworkInfoRouteDetail
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.database.base.Database
+import kpn.database.util.Mongo
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -54,31 +55,36 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkAnalyzer {
   }
 
   private def queryRouteDetails(routeIds: Seq[Long]): Seq[NetworkInfoRouteDetail] = {
-    log.debugElapsed {
-      val pipeline = Seq(
-        filter(
-          and(
-            equal("labels", Label.active),
-            in("_id", routeIds: _*)
-          )
-        ),
-        project(
-          fields(
-            computed("id", "$_id"),
-            computed("name", "$summary.name"),
-            computed("length", "$summary.meters"),
-            include("facts"),
-            include("oldFacts"),
-            include("proposed"),
-            include("lastUpdated"),
-            include("lastSurvey"),
-            computed("tags", "$summary.tags"),
-            include("nodeRefs")
+    if (routeIds.nonEmpty) {
+      log.debugElapsed {
+        val pipeline = Seq(
+          filter(
+            and(
+              equal("labels", Label.active),
+              in("_id", routeIds: _*)
+            )
+          ),
+          project(
+            fields(
+              computed("id", "$_id"),
+              computed("name", "$summary.name"),
+              computed("length", "$summary.meters"),
+              include("facts"),
+              include("proposed"),
+              include("lastUpdated"),
+              include("lastSurvey"),
+              computed("tags", "$summary.tags"),
+              include("nodeRefs")
+            )
           )
         )
-      )
-      val routeDetails = database.baseRoutes.aggregate[NetworkInfoRouteDetail](pipeline, log)
-      (s"routeDetails: ${routeDetails.size}", routeDetails)
+        println(Mongo.pipelineString(pipeline))
+        val routeDetails = database.baseRoutes.aggregate[NetworkInfoRouteDetail](pipeline, log)
+        (s"routeDetails: ${routeDetails.size}", routeDetails)
+      }
+    }
+    else {
+      Seq.empty
     }
   }
 }

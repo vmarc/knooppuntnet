@@ -45,7 +45,6 @@ object NetworkChangesPageExample {
         1,
         2,
         3,
-        4
       ),
       filterOptions,
       changes,

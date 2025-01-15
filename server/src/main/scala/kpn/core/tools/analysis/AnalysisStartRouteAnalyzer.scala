@@ -119,7 +119,6 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
       routeDoc.facts,
       routeDoc.summary.meters,
       routeDoc.locationAnalysis,
-      Seq.empty, // TODO redesign - routeDoc.tiles,
       routeDoc.summary.tags
     )
 
@@ -139,7 +138,6 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
         updatedWays = Seq.empty,
         diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = facts))),
         facts = routeDoc.facts,
-        Seq.empty,
         Seq.empty,
         investigate = facts.nonEmpty,
         impact = true,

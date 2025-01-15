@@ -92,6 +92,12 @@ case class OverpassData(
     )
   }
 
+  def rawWayWithId(nodeId: Long): RawWay = {
+    ways.find(_.id == nodeId).getOrElse(
+      throw new IllegalArgumentException(s"No way with id $nodeId in test data")
+    )
+  }
+  
   def rawRelationWithId(relationId: Long): RawRelation = {
     relations.find(_.id == relationId).getOrElse(
       throw new IllegalArgumentException(s"No relation with id $relationId in test data")

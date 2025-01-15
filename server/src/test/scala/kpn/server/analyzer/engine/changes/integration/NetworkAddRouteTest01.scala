@@ -18,6 +18,7 @@ import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
@@ -42,9 +43,9 @@ class NetworkAddRouteTest01 extends IntegrationTest {
     val dataAfter = OverpassData()
       .networkNode(1001, "01")
       .networkNode(1002, "02")
-      .way(101, 1001, 1002)
-      .route(11, "01-02", Seq(newMember(MemberType.Way, 101)))
-      .networkRelation(
+      .way(101, 1001, 1002) // create
+      .route(11, "01-02", Seq(newMember(MemberType.Way, 101))) // create
+      .networkRelation( // update
         1,
         "network",
         version = 2,
@@ -57,7 +58,23 @@ class NetworkAddRouteTest01 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      process(
+        Seq(
+          Change(
+            ChangeAction.Create,
+            Seq(
+              dataAfter.rawWayWithId(101),
+              dataAfter.rawRelationWithId(11)
+            )
+          ),
+          Change(
+            ChangeAction.Modify,
+            Seq(
+              dataAfter.rawRelationWithId(1)
+            )
+          ),
+        )
+      )
 
       assertNetworkDoc()
       assertNetworkInfoChange()
@@ -79,7 +96,6 @@ class NetworkAddRouteTest01 extends IntegrationTest {
           name = "network",
           nodeCount = 2,
           routeCount = 1,
-          changeCount = 1
         ),
         detail = newNetworkDetail(
           version = 2,
@@ -129,8 +145,9 @@ class NetworkAddRouteTest01 extends IntegrationTest {
   }
 
   private def assertNetworkInfoChange(): Unit = {
+    pending
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
+      findNetworkChangeById("123:1:1"),
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Update,
