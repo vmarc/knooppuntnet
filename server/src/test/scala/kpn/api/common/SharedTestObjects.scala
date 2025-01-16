@@ -429,6 +429,7 @@ trait SharedTestObjects extends MockFactory {
       integrity,
       routeReferences,
       networkReferences,
+      None
     )
   }
 
@@ -866,10 +867,20 @@ trait SharedTestObjects extends MockFactory {
     key: ChangeKey = newChangeKey(),
     networkName: String = "",
     changeType: ChangeType = ChangeType.Update,
+    country: Option[Country] = None,
+    routeType: RouteType = RouteType.hiking,
     networkDataUpdate: Option[NetworkDataUpdate] = None,
     nodes: IdDiffs = IdDiffs.empty,
     ways: IdDiffs = IdDiffs.empty,
     relations: IdDiffs = IdDiffs.empty,
+    nodeDiffs: RefDiffs = RefDiffs.empty,
+    routeDiffs: RefDiffs = RefDiffs.empty,
+    extraNodeDiffs: IdDiffs = IdDiffs.empty,
+    extraWayDiffs: IdDiffs = IdDiffs.empty,
+    extraRelationDiffs: IdDiffs = IdDiffs.empty,
+    happy: Boolean = false,
+    investigate: Boolean = false,
+    impact: Boolean = false,
   ): NetworkChange = {
     NetworkChange(
       key.toId,
@@ -877,10 +888,20 @@ trait SharedTestObjects extends MockFactory {
       key.elementId,
       networkName,
       changeType,
+      country,
+      routeType,
       networkDataUpdate,
       nodes,
       ways,
       relations,
+      nodeDiffs: RefDiffs,
+      routeDiffs: RefDiffs,
+      extraNodeDiffs: IdDiffs,
+      extraWayDiffs: IdDiffs,
+      extraRelationDiffs: IdDiffs,
+      happy: Boolean,
+      investigate: Boolean,
+      impact: Boolean,
     )
   }
 
@@ -1025,6 +1046,7 @@ trait SharedTestObjects extends MockFactory {
     bounds: Option[Bounds] = None,
     structureRows: Seq[RouteStructureRow] = Seq.empty,
     parentRoutes: Seq[ParentRoute] = Seq.empty,
+    networkReferences: Seq[Reference] = Seq.empty
   ): RouteDoc = {
     RouteDoc(
       summary.id,
@@ -1049,7 +1071,8 @@ trait SharedTestObjects extends MockFactory {
       bounds,
       structureRows,
       parentRoutes,
-      None
+      networkReferences,
+      None,
     )
   }
 
@@ -1421,7 +1444,8 @@ trait SharedTestObjects extends MockFactory {
       extraNodeIds,
       extraWayIds,
       extraRelationIds,
-      members
+      members,
+      None
     )
   }
 

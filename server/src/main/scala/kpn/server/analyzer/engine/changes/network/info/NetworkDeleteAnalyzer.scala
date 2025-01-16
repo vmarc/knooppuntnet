@@ -1,15 +1,15 @@
 package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.api.common.ChangeType
-import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.core.doc.NetworkDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.network.NetworkChange
 
-class NetworkInfoDeleteAnalyzer(context: ChangeSetContext, before: NetworkDoc, networkId: Long) {
+class NetworkDeleteAnalyzer(context: ChangeSetContext, before: NetworkDoc, networkId: Long) {
 
-  def analyze(): NetworkInfoChange = {
+  def analyze(): NetworkChange = {
 
     val nodeDiffs = RefDiffs(removed = before.nodes.map(_.toRef))
     val routeDiffs = RefDiffs(removed = before.routes.map(_.toRef))
@@ -18,16 +18,23 @@ class NetworkInfoDeleteAnalyzer(context: ChangeSetContext, before: NetworkDoc, n
     val extraWayDiffs = IdDiffs(removed = before.extraWayIds)
     val extraRelationDiffs = IdDiffs(removed = before.extraRelationIds)
 
+    val nodes: IdDiffs = IdDiffs(removed = before.memberNodeIds)
+    val ways: IdDiffs = IdDiffs(removed = before.memberWayIds)
+    val relations: IdDiffs = IdDiffs(removed = before.memberRelationIds)
+
     val key = context.buildChangeKey(networkId)
-    NetworkInfoChange(
+    NetworkChange(
       key.toId,
       key,
+      networkId = networkId,
+      networkName = before.summary.name,
       changeType = ChangeType.Delete,
       country = before.country,
       routeType = before.summary.routeType,
-      networkId = networkId,
-      networkName = before.summary.name,
       networkDataUpdate = None,
+      nodes,
+      ways,
+      relations,
       nodeDiffs,
       routeDiffs,
       extraNodeDiffs,

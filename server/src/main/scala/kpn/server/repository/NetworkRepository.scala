@@ -1,5 +1,6 @@
 package kpn.server.repository
 
+import kpn.api.common.common.Reference
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
 
@@ -24,4 +25,8 @@ trait NetworkRepository {
   def saveBaseNetwork(baseNetworkDoc: BaseNetworkDoc): Unit
 
   def findBaseNetworkById(networkId: Long): Option[BaseNetworkDoc]
+
+  def nodeNetworkReferences(nodeId: Long): Seq[Reference]
+
+  def routeNetworkReferences(routeId: Long): Seq[Reference]
 }

@@ -1,10 +1,13 @@
 package kpn.server.repository
 
+import kpn.api.common.common.Reference
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
 import kpn.database.actions.networks.MongoQueryBaseNetworkIds
 import kpn.database.actions.networks.MongoQueryNetworkIds
+import kpn.database.actions.nodes.MongoQueryNodeNetworkReferences
+import kpn.database.actions.routes.MongoQueryRouteNetworkReferences
 import kpn.database.base.Database
 import org.springframework.stereotype.Component
 
@@ -52,5 +55,13 @@ class NetworkRepositoryImpl(database: Database) extends NetworkRepository {
 
   override def findBaseNetworkById(networkId: Long): Option[BaseNetworkDoc] = {
     database.baseNetworks.findById(networkId, log)
+  }
+
+  override def nodeNetworkReferences(routeId: Long): Seq[Reference] = {
+    new MongoQueryNodeNetworkReferences(database).execute(routeId)
+  }
+
+  override def routeNetworkReferences(routeId: Long): Seq[Reference] = {
+    new MongoQueryRouteNetworkReferences(database).execute(routeId)
   }
 }

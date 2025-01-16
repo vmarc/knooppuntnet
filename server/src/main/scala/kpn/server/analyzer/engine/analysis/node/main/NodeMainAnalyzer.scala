@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.node.main
 
+import kpn.api.base.ObjectId
 import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
@@ -52,6 +53,7 @@ class NodeMainAnalyzer(
           integrity = context.integrity,
           routeReferences = context.routeReferences,
           networkReferences = context.networkReferences,
+          Some(ObjectId())
         )
       )
     }

@@ -84,7 +84,8 @@ class NetworkMainAnalyzer(
           context.extraNodeIds,
           context.extraWayIds,
           context.extraRelationIds,
-          context.network.members
+          context.network.members,
+          None
         )
       )
     }

@@ -37,7 +37,9 @@ class AnalysisStartNetworkAnalyzer(log: Log, config: AnalysisStartConfiguration)
 
   private def analyzeNetworkBatch(networkIds: Seq[Long]): Seq[Long] = {
     log.infoElapsed {
-      val networkDocs = config.overpassRepository.relations(config.timestamp, networkIds).map(NetworkDoc.from)
+      val networkDocs: Seq[NetworkDoc] = config.overpassRepository.relations(config.timestamp, networkIds).map { rawRelation =>
+        throw new Error("implement")
+      }
       config.networkRepository.bulkSave(networkDocs)
       val ids = networkDocs.map(_._id)
       (s"analyzed ${ids.size} networks: ${ids.mkString(", ")}", ids)

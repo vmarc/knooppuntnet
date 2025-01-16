@@ -1,20 +1,21 @@
 package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.api.common.ChangeType
-import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.core.doc.NetworkDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.network.NetworkChange
+import kpn.server.analyzer.engine.changes.network.NetworkDiffAnalyzer
 
-class NetworkInfoUpdateAnalyzer(
+class NetworkUpdateAnalyzer(
   context: ChangeSetContext,
   before: NetworkDoc,
   after: NetworkDoc,
   networkId: Long
 ) {
 
-  def analyze(): NetworkInfoChange = {
+  def analyze(): NetworkChange = {
 
     val networkDataBefore = NetworkData(
       before.detail.toMeta,
@@ -45,21 +46,25 @@ class NetworkInfoUpdateAnalyzer(
       extraWayDiffs = IdDiffsAnalyzer.analyze(before.extraWayIds, after.extraWayIds),
       extraRelationDiffs = IdDiffsAnalyzer.analyze(before.extraRelationIds, after.extraRelationIds)
     )
+    val relationDiffAnalyzer = new NetworkDiffAnalyzer(before, after)
 
     val happy = diffs.happy
     val investigate = diffs.investigate
     val impact = happy || investigate
 
     val key = context.buildChangeKey(networkId)
-    NetworkInfoChange(
+    NetworkChange(
       key.toId,
       key,
+      networkId,
+      after.summary.name,
       ChangeType.Update,
       after.country,
       after.summary.routeType,
-      networkId,
-      after.summary.name,
       networkDataUpdate,
+      relationDiffAnalyzer.nodeDiffs,
+      relationDiffAnalyzer.wayDiffs,
+      relationDiffAnalyzer.relationDiffs,
       diffs.nodeDiffs,
       diffs.routeDiffs,
       diffs.extraNodeDiffs,

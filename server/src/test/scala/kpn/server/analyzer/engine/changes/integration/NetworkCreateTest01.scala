@@ -62,8 +62,12 @@ class NetworkCreateTest01 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
+      assert(!watched.networks.contains(1))
+      assert(watched.routes.contains(11))
+      assert(watched.nodes.contains(1001))
+      assert(watched.nodes.contains(1002))
       assert(database.orphanNodes.isEmpty)
-      assert(database.orphanRoutes.findAll().sizeIs == 1)
+      database.orphanRoutes.findAll().map(_._id) should equal(Seq(11))
 
       process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 
@@ -75,7 +79,6 @@ class NetworkCreateTest01 extends IntegrationTest {
       assertBaseNetworkDoc()
       assertNetworkDoc()
       assertNetworkChange()
-      assertNetworkInfoChange()
       assertRouteChange()
       assertNodeChange1001()
       assertNodeChange1002()
@@ -214,6 +217,7 @@ class NetworkCreateTest01 extends IntegrationTest {
         newChangeKey(elementId = 1),
         networkName = "network-name",
         changeType = ChangeType.Create,
+        country = Some(Country.nl),
         networkDataUpdate = Some(
           NetworkDataUpdate(
             None,
@@ -230,32 +234,21 @@ class NetworkCreateTest01 extends IntegrationTest {
         ),
         relations = IdDiffs(
           added = Seq(11)
-        )
-      )
-    )
-  }
-
-  private def assertNetworkInfoChange(): Unit = {
-    assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        networkName = "name",
-        changeType = ChangeType.Create,
-        country = Some(Country.nl),
-        networkId = 1,
+        ),
         nodeDiffs = RefDiffs(
           added = Seq(
             Ref(1001, "01"),
-            Ref(1002, "02")
+            Ref(1002, "02"),
           )
         ),
         routeDiffs = RefDiffs(
           added = Seq(
-            Ref(11, "01-02")
+            Ref(11, "01-02"),
+
           )
         ),
-        happy = true
+        happy = true,
+        impact = true,
       )
     )
   }

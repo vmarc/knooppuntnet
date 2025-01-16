@@ -36,6 +36,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocatio
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteBoundsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
@@ -111,7 +112,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val nodeMainAnalyzer: NodeMainAnalyzer = {
     val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
-    val nodeNetworkReferencesAnalyzer = new NodeNetworkReferencesAnalyzer(nodeRepository)
+    val nodeNetworkReferencesAnalyzer = new NodeNetworkReferencesAnalyzer(networkRepository)
     new NodeMainAnalyzer(
       nodeRouteReferencesAnalyzer,
       nodeNetworkReferencesAnalyzer,
@@ -135,10 +136,12 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     val routeBoundsAnalyzer = new RouteBoundsAnalyzer(routeRepository)
     val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(routeRepository)
     val routeParentAnalyzer = new RouteParentAnalyzer(routeRepository)
+    val networkReferencesAnalyzer = new RouteNetworkReferencesAnalyzer(networkRepository)
     new RouteMainAnalyzer(
       routeBoundsAnalyzer,
       routeStructureRowsAnalyzer,
-      routeParentAnalyzer
+      routeParentAnalyzer,
+      networkReferencesAnalyzer,
     )
   }
 

@@ -2,16 +2,16 @@ package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.ElementIds
 
-class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
+class NetworkUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("removed network node") {
 
@@ -379,13 +379,13 @@ class NetworkInfoUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     )
   }
 
-  private def analyze(before: NetworkDoc, after: NetworkDoc): NetworkInfoChange = {
+  private def analyze(before: NetworkDoc, after: NetworkDoc): NetworkChange = {
     val networkId: Long = 1
     val context: ChangeSetContext = ChangeSetContext(
       ReplicationId(1),
       newChangeSet(),
       ElementIds()
     )
-    new NetworkInfoUpdateAnalyzer(context, before, after, networkId).analyze()
+    new NetworkUpdateAnalyzer(context, before, after, networkId).analyze()
   }
 }

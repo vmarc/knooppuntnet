@@ -32,6 +32,7 @@ import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteLocatio
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteTileAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteBoundsAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
@@ -41,8 +42,6 @@ import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.BaseNetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzer
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
-import kpn.server.analyzer.engine.changes.network.info.NetworkInfoChangeProcessorImpl
-import kpn.server.analyzer.engine.changes.network.info.NetworkInfoImpactAnalyzer
 import kpn.server.analyzer.engine.changes.node.BaseNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
@@ -125,10 +124,12 @@ class IntegrationTestContext(
     val routeBoundsAnalyzer = new RouteBoundsAnalyzer(baseRouteRepository)
     val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(baseRouteRepository)
     val routeParentAnalyzer = new RouteParentAnalyzer(baseRouteRepository)
+    val networkReferencesAnalyzer = new RouteNetworkReferencesAnalyzer(networkRepository)
     new RouteMainAnalyzer(
       routeBoundsAnalyzer,
       routeStructureRowsAnalyzer,
-      routeParentAnalyzer
+      routeParentAnalyzer,
+      networkReferencesAnalyzer,
     )
   }
 
@@ -174,7 +175,7 @@ class IntegrationTestContext(
 
   private val bulkNodeAnalyzer = {
     val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
-    val nodeNetworkReferencesAnalyzer = new NodeNetworkReferencesAnalyzer(nodeRepository)
+    val nodeNetworkReferencesAnalyzer = new NodeNetworkReferencesAnalyzer(networkRepository)
     val nodeMainAnalyzer = new NodeMainAnalyzer(
       nodeRouteReferencesAnalyzer,
       nodeNetworkReferencesAnalyzer,
@@ -209,16 +210,6 @@ class IntegrationTestContext(
       networkInfoNodeDocAnalyzer,
       networkCountryAnalyzer,
       networkInfoExtraAnalyzer
-    )
-  }
-
-  private val networkInfoChangeProcessor = {
-    val networkInfoImpactAnalyzer = new NetworkInfoImpactAnalyzer(database)
-    new NetworkInfoChangeProcessorImpl(
-      database,
-      networkRepository,
-      networkInfoImpactAnalyzer,
-      networkMainAnalyzer
     )
   }
 
@@ -325,7 +316,6 @@ class IntegrationTestContext(
       networkChangeProcessor,
       routeChangeProcessor,
       nodeChangeProcessor,
-      networkInfoChangeProcessor,
       changeSetInfoUpdater,
       changeSaver
     )

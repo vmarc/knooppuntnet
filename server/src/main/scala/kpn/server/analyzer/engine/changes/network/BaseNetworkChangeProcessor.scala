@@ -59,9 +59,9 @@ class BaseNetworkChangeProcessor(
     val realDeletedIds = allDeletedIds.flatMap(processDelete)
 
     context.copy(
-      baseNetworkCreatedIds = createdIds,
-      baseNetworkUpdatedIds = updatedIds,
-      baseNetworkDeletedIds = realDeletedIds.toSeq.sorted,
+      baseNetworkCreateIds = createdIds,
+      baseNetworkUpdateIds = updatedIds,
+      baseNetworkDeleteIds = realDeletedIds.toSeq.sorted,
     )
   }
 
@@ -70,6 +70,18 @@ class BaseNetworkChangeProcessor(
     baseNetworkMainAnalyzer.analyze(rawRelation) match {
       case None => None
       case Some(baseNetworkDoc) =>
+        networkRepository.findBaseNetworkById(rawRelation.id) match {
+          case None =>
+          // TODO all nodes and routes are affected
+          case Some(before) =>
+            if (before == baseNetworkDoc) {
+              // no change
+            }
+            else {
+              // TODO figure out add/removed nodes/routes and register as affected
+            }
+        }
+
         networkRepository.saveBaseNetwork(baseNetworkDoc)
         Some(baseNetworkDoc._id)
     }
@@ -80,6 +92,7 @@ class BaseNetworkChangeProcessor(
     networkRepository.findBaseNetworkById(networkId) match {
       case None => None
       case Some(baseNetworkDoc) =>
+        // TODO figure out add/removed nodes/routes and register as affected
         networkRepository.saveBaseNetwork(baseNetworkDoc.copy(active = false))
         Some(baseNetworkDoc._id)
     }

@@ -1,5 +1,6 @@
 package kpn.core.doc
 
+import kpn.api.base.ObjectId
 import kpn.api.base.WithId
 import kpn.api.common.Country
 import kpn.api.common.Fact
@@ -34,6 +35,7 @@ case class NodeDoc(
   integrity: Option[NodeIntegrity] = None,
   routeReferences: Seq[Reference],
   networkReferences: Seq[Reference],
+  stamp: Option[ObjectId],
 ) extends Tagable with LatLon with WithId {
 
   def active: Boolean = {

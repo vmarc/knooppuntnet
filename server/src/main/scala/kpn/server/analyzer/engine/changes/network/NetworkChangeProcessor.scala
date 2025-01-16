@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.changes.network
 
-import kpn.api.common.ChangeType
-import kpn.api.common.diff.IdDiffs
-import kpn.api.common.diff.NetworkData
-import kpn.api.common.diff.NetworkDataUpdate
+import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.changes.network.info.NetworkCreateAnalyzer
+import kpn.server.analyzer.engine.changes.network.info.NetworkDeleteAnalyzer
+import kpn.server.analyzer.engine.changes.network.info.NetworkUpdateAnalyzer
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.NetworkRepository
 import org.springframework.stereotype.Component
@@ -23,13 +23,13 @@ class NetworkChangeProcessor(
   def process(context: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
 
-      val createNetworkIds = context.baseNetworkCreatedIds
-      val updateNetworkIds = context.baseNetworkUpdatedIds
-      val deleteNetworkIds = context.baseNetworkDeletedIds
+      val createIds = context.baseNetworkCreateIds
+      val updateIds = context.baseNetworkUpdateIds
+      val deleteIds = context.baseNetworkDeleteIds
 
-      val createChanges = createNetworkIds.flatMap(networkId => processCreate(context, networkId))
-      val updateChanges = updateNetworkIds.flatMap(networkId => processUpdate(context, networkId))
-      val deleteChanges = deleteNetworkIds.flatMap(networkId => processDelete(context, networkId))
+      val createChanges = createIds.flatMap(networkId => processCreate(context, networkId))
+      val updateChanges = updateIds.flatMap(networkId => processUpdate(context, networkId))
+      val deleteChanges = deleteIds.flatMap(networkId => processDelete(context, networkId))
 
       val networkChanges = createChanges ++ updateChanges ++ deleteChanges
 
@@ -51,40 +51,38 @@ class NetworkChangeProcessor(
         // TODO log message?
         None
       case Some(baseNetworkDoc) =>
-        networkMainAnalyzer.analyze(baseNetworkDoc, context.timestampAfter) match {
+        val beforeOption = networkRepository.findById(networkId)
+        val previousKnownCountry = beforeOption.flatMap(_.country)
+        networkMainAnalyzer.analyze(baseNetworkDoc, context.timestampAfter, previousKnownCountry) match {
           case None =>
-            // TODO log message?
-            None
+            beforeOption match {
+              case None =>
+                // TODO log message?
+                None
+              case Some(beforeNetwork) =>
+                deleteNetwork(context, beforeNetwork, networkId)
+            }
+
           case Some(networkDoc) =>
 
+            beforeOption match {
+              case None =>
+                // TODO TagInterpreter.isNetworkRelation(after) ==> change to delete !!
+                createNetwork(context, networkDoc, networkId)
 
-            // TODO TagInterpreter.isNetworkRelation(after) ==> change to delete !!
-
-            networkRepository.save(networkDoc)
-            val key = context.buildChangeKey(networkDoc._id)
-            val networkDataUpdate = NetworkDataUpdate(
-              None,
-              Some(
-                NetworkData(
-                  networkDoc.detail.toMeta,
-                  networkDoc.summary.name
-                )
-              )
-            )
-
-            Some(
-              NetworkChange(
-                _id = key.toId,
-                key = key,
-                networkId = networkDoc._id,
-                networkName = networkDoc.summary.name,
-                changeType = ChangeType.Create,
-                networkDataUpdate = Some(networkDataUpdate),
-                nodes = IdDiffs(added = networkDoc.nodes.map(_.id)),
-                ways = IdDiffs(added = Seq.empty /* TODO networkDoc.wayMembers.map(_.ref)*/),
-                relations = IdDiffs(added = Seq.empty /*after.relationMembers.map(_.ref)*/),
-              )
-            )
+              case Some(beforeNetwork) =>
+                if (!networkDoc.active) {
+                  deleteNetwork(context, beforeNetwork, networkId)
+                }
+                else {
+                  if (beforeNetwork.copy(stamp = None) == networkDoc.copy(stamp = None)) {
+                    None
+                  }
+                  else {
+                    updateNetwork(context, beforeNetwork, networkDoc, networkId)
+                  }
+                }
+            }
         }
     }
   }
@@ -104,92 +102,39 @@ class NetworkChangeProcessor(
 
             val beforeNetworkOption = networkRepository.findById(networkId)
 
-            networkRepository.save(networkDoc)
-
             beforeNetworkOption match {
-              case None => None // TODO build 'create' NetworkChange
+              case None =>
+                createNetwork(context, networkDoc, networkId)
+
               case Some(beforeNetworkDoc) =>
-
-                val key = context.buildChangeKey(networkDoc._id)
-
-                val relationDiffAnalyzer = new NetworkDiffAnalyzer(beforeNetworkDoc, networkDoc)
-
-                val metaBefore = beforeNetworkDoc.detail.toMeta
-                val metaAfter = networkDoc.detail.toMeta
-
-                val networkDataUpdate = if (beforeNetworkDoc.summary.name != networkDoc.summary.name || metaBefore != metaAfter) {
-                  Some(
-                    NetworkDataUpdate(
-                      Some(
-                        NetworkData(
-                          beforeNetworkDoc.detail.toMeta,
-                          beforeNetworkDoc.summary.name
-                        )
-                      ),
-                      Some(
-                        NetworkData(
-                          networkDoc.detail.toMeta,
-                          networkDoc.summary.name
-                        )
-                      )
-                    )
-                  )
-                }
-                else {
-                  None
-                }
-
-                Some(
-                  NetworkChange(
-                    _id = key.toId,
-                    key = key,
-                    networkId = networkDoc._id,
-                    networkName = networkDoc.summary.name,
-                    changeType = ChangeType.Update,
-                    networkDataUpdate = networkDataUpdate,
-                    nodes = relationDiffAnalyzer.nodeDiffs,
-                    ways = relationDiffAnalyzer.wayDiffs,
-                    relations = relationDiffAnalyzer.relationDiffs
-                  )
-                )
+                updateNetwork(context, beforeNetworkDoc, networkDoc, networkId)
             }
         }
     }
   }
 
   private def processDelete(context: ChangeSetContext, networkId: Long): Option[NetworkChange] = {
-
-    analysisContext.watched.networks.delete(networkId)
     networkRepository.findById(networkId) match {
-      case None => None
-      case Some(networkDoc) =>
-
-        networkRepository.save(networkDoc.copy(active = false))
-
-        val key = context.buildChangeKey(networkDoc._id)
-        val networkDataUpdate = NetworkDataUpdate(
-          Some(
-            NetworkData(
-              networkDoc.detail.toMeta,
-              networkDoc.summary.name,
-            )
-          ),
-          None
-        )
-
-        Some(
-          NetworkChange(
-            _id = key.toId,
-            key = key,
-            networkId = networkDoc._id,
-            networkName = networkDoc.summary.name,
-            changeType = ChangeType.Delete,
-            networkDataUpdate = Some(networkDataUpdate),
-            nodes = IdDiffs(removed = networkDoc.memberNodeIds),
-            ways = IdDiffs(removed = networkDoc.memberWayIds),
-            relations = IdDiffs(removed = networkDoc.memberRelationIds)
-          )
-        )
+      case None =>
+        // TODO message ?
+        None
+      case Some(before) =>
+        deleteNetwork(context, before, networkId)
     }
+  }
+
+  private def createNetwork(context: ChangeSetContext, after: NetworkDoc, networkId: Long): Option[NetworkChange] = {
+    networkRepository.save(after)
+    Some(new NetworkCreateAnalyzer(context, after, networkId).analyze())
+  }
+
+  private def updateNetwork(context: ChangeSetContext, before: NetworkDoc, after: NetworkDoc, networkId: Long): Option[NetworkChange] = {
+    networkRepository.save(after)
+    Some(new NetworkUpdateAnalyzer(context, before, after, networkId).analyze())
+  }
+
+  private def deleteNetwork(context: ChangeSetContext, before: NetworkDoc, networkId: Long): Option[NetworkChange] = {
+    networkRepository.save(before.copy(active = false))
+    Some(new NetworkDeleteAnalyzer(context, before, networkId).analyze())
   }
 }

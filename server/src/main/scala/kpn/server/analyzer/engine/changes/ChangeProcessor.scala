@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.changes
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.changes.network.BaseNetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
-import kpn.server.analyzer.engine.changes.network.info.NetworkInfoChangeProcessor
 import kpn.server.analyzer.engine.changes.node.BaseNodeChangeProcessor
 import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.route.BaseRouteChangeProcessor
@@ -18,7 +17,6 @@ class ChangeProcessor(
   networkChangeProcessor: NetworkChangeProcessor,
   routeChangeProcessor: RouteChangeProcessor,
   nodeChangeProcessor: NodeChangeProcessor,
-  networkInfoChangeProcessor: NetworkInfoChangeProcessor,
   changeSetInfoUpdater: ChangeSetInfoUpdater,
   changeSaver: ChangeSaver
 ) {
@@ -31,12 +29,11 @@ class ChangeProcessor(
     val context4 = nodeChangeProcessor.process(context3)
     val context5 = routeChangeProcessor.process(context4)
     val context6 = networkChangeProcessor.process(context5)
-    val context7 = networkInfoChangeProcessor.analyze(context6)
 
-    if (context7.changes.nonEmpty) {
-      changeSetInfoUpdater.changeSetInfo(context7.changeSet.id)
-      changeSaver.save(context7)
+    if (context6.changes.nonEmpty) {
+      changeSetInfoUpdater.changeSetInfo(context6.changeSet.id)
+      changeSaver.save(context6)
     }
-    context7
+    context6
   }
 }

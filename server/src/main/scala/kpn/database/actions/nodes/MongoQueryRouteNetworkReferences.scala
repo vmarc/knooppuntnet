@@ -1,0 +1,44 @@
+package kpn.database.actions.nodes
+
+import kpn.api.common.common.Reference
+import kpn.core.util.Log
+import kpn.database.base.Database
+import org.mongodb.scala.model.Aggregates.filter
+import org.mongodb.scala.model.Aggregates.project
+import org.mongodb.scala.model.Filters.and
+import org.mongodb.scala.model.Filters.equal
+import org.mongodb.scala.model.Projections.computed
+import org.mongodb.scala.model.Projections.excludeId
+import org.mongodb.scala.model.Projections.fields
+import org.mongodb.scala.model.Projections.include
+
+object MongoQueryRouteNetworkReferences {
+  private val log = Log(classOf[MongoQueryRouteNetworkReferences])
+}
+
+class MongoQueryRouteNetworkReferences(database: Database) {
+
+  def execute(routeId: Long, log: Log = MongoQueryRouteNetworkReferences.log): Seq[Reference] = {
+    log.debugElapsed {
+      val pipeline = Seq(
+        filter(
+          and(
+            equal("active", true),
+            equal("routeIds", routeId)
+          ),
+        ),
+        project(
+          fields(
+            excludeId(),
+            include("routeType"),
+            include("routeScope"),
+            computed("id", "$_id"),
+            include("name"),
+          )
+        )
+      )
+      val references = database.baseNetworks.aggregate[Reference](pipeline, log)
+      (s"route network references: ${references.size}", references)
+    }
+  }
+}
