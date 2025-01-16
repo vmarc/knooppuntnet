@@ -19,7 +19,7 @@ class OrphanNodeUpdater_ReferencesInNetworks(database: Database, log: Log) {
         unwind("$nodeIds"),
         project(
           fields(
-            computed("_id", "$nodesIds")
+            computed("_id", "$nodeIds")
           )
         )
       )

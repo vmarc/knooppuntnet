@@ -14,6 +14,7 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
+import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
@@ -31,17 +32,27 @@ class NetworkCreateTest06 extends IntegrationTest {
       .networkNode(1002, "02", Tags.from("tag" -> "after"))
       .way(101, 1001, 1002)
       .route(11, "01-02", Seq(newMember(MemberType.Way, 101)))
-      .networkRelation(1, "name", Seq(newMember(MemberType.Relation, 11)))
+      .networkRelation(1, "network-name", Seq(newMember(MemberType.Relation, 11)))
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
+      process(
+        Seq(
+          Change(
+            ChangeAction.Create,
+            Seq(
+              dataAfter.rawRelationWithId(1),
+              dataAfter.rawRelationWithId(11),
+            )
+          )
+        )
+      )
 
       assert(watched.networks.contains(1))
 
+      assertBaseNetwork()
       assertNetwork()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertRouteChange()
       assertNodeChange1001()
       assertNodeChange1002()
@@ -49,12 +60,12 @@ class NetworkCreateTest06 extends IntegrationTest {
     }
   }
 
-  private def assertNetwork(): Unit = {
-    val networkDoc = findBaseNetworkById(1)
-    networkDoc._id should equal(1)
+  private def assertBaseNetwork(): Unit = {
+    val baseNetworkDoc = findBaseNetworkById(1)
+    baseNetworkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(): Unit = {
+  private def assertNetwork(): Unit = {
     val networkInfoDoc = findNetworkById(1)
     networkInfoDoc._id should equal(1)
     //  networkInfoDoc.detail.networkFacts.shouldMatchTo(
@@ -68,16 +79,16 @@ class NetworkCreateTest06 extends IntegrationTest {
     //  )
   }
 
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
+      findNetworkChangeById("123:1:1"),
       newNetworkInfoChange(
         newChangeKey(elementId = 1),
         ChangeType.Create,
         Some(Country.nl),
         RouteType.hiking,
         1,
-        "name",
+        "network-name",
         nodeDiffs = RefDiffs(added = Seq(Ref(1001, "01"), Ref(1002, "02"))),
         routeDiffs = RefDiffs(added = Seq(Ref(11, "01-02"))),
         happy = true
@@ -93,7 +104,7 @@ class NetworkCreateTest06 extends IntegrationTest {
         newChangeKey(elementId = 11),
         ChangeType.Create,
         "01-02",
-        addedToNetwork = Seq(Ref(1, "name")),
+        addedToNetwork = Seq(Ref(1, "network-name")),
         before = None,
         after = None,
         //  Some(
@@ -206,7 +217,7 @@ class NetworkCreateTest06 extends IntegrationTest {
               Some(Country.nl),
               RouteType.hiking,
               1,
-              "name",
+              "network-name",
               routeChanges = ChangeSetElementRefs(
                 added = Seq(
                   ChangeSetElementRef(11, "01-02", happy = true, investigate = false)

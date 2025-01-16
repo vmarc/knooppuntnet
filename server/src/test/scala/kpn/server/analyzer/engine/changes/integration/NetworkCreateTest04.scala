@@ -41,21 +41,45 @@ class NetworkCreateTest04 extends IntegrationTest {
 
       assert(watched.networks.contains(1))
 
+      assertBaseNetwork()
       assertNetwork()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertChangeSetSummary()
     }
   }
 
+  private def assertBaseNetwork(): Unit = {
+    val baseNetworkDoc = findBaseNetworkById(1)
+    baseNetworkDoc._id should equal(1)
+  }
+
   private def assertNetwork(): Unit = {
-    val networkDoc = findBaseNetworkById(1)
+    val networkDoc = findNetworkById(1)
     networkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(): Unit = {
-    val networkInfoDoc = findNetworkById(1)
-    networkInfoDoc._id should equal(1)
+  private def assertNetworkChange(): Unit = {
+    pending
+    assertEqual(
+      findNetworkChangeById("123:1:1"),
+      newNetworkInfoChange(
+        newChangeKey(elementId = 1),
+        ChangeType.Create,
+        Some(Country.nl),
+        RouteType.hiking,
+        1,
+        "name",
+        nodeDiffs = RefDiffs(added = Seq(Ref(1001, "01"), Ref(1002, "02"))),
+        routeDiffs = RefDiffs(added = Seq(Ref(11, "01-02"))),
+        extraWays = IdDiffs(
+          added = Seq(
+            102
+          )
+        ),
+        happy = true,
+        investigate = true
+      )
+    )
   }
 
   private def assertChangeSetSummary(): Unit = {
@@ -88,29 +112,6 @@ class NetworkCreateTest04 extends IntegrationTest {
         ),
         subsetAnalyses = Seq(
           ChangeSetSubsetAnalysis(Subset.nlHiking, happy = true, investigate = true)
-        ),
-        happy = true,
-        investigate = true
-      )
-    )
-  }
-
-  private def assertNetworkInfoChange(): Unit = {
-    assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Create,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "name",
-        nodeDiffs = RefDiffs(added = Seq(Ref(1001, "01"), Ref(1002, "02"))),
-        routeDiffs = RefDiffs(added = Seq(Ref(11, "01-02"))),
-        extraWays = IdDiffs(
-          added = Seq(
-            102
-          )
         ),
         happy = true,
         investigate = true

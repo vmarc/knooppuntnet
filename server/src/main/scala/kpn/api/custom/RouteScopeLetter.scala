@@ -9,7 +9,7 @@ object RouteScopeLetter {
       case RouteScope.regional => "r"
       case RouteScope.national => "n"
       case RouteScope.international => "i"
-      case RouteScope.international => "i"
+      case RouteScope.unknown => "l"
     }
   }
 }

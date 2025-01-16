@@ -5,7 +5,6 @@ import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
 import kpn.database.base.StringId
-import kpn.database.util.Mongo
 import kpn.server.analyzer.engine.tiles.domain.TileId
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.group
@@ -41,8 +40,6 @@ class MongoQueryNodeTilenames(database: Database) {
         group("$tiles"),
         sort(orderBy(ascending("_id"))),
       )
-
-      println(Mongo.pipelineString(pipeline))
 
       val tiles = database.nodes.aggregate[StringId](pipeline, log, allowDiskUse = true)
       val tileIds = tiles.map(_._id).filter(_.startsWith(routeType.entryName)).map { tileName =>

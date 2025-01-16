@@ -7,7 +7,6 @@ import kpn.core.doc.NetworkInfoRouteDetail
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.database.base.Database
-import kpn.database.util.Mongo
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Filters.and
@@ -78,7 +77,6 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkAnalyzer {
             )
           )
         )
-        println(Mongo.pipelineString(pipeline))
         val routeDetails = database.baseRoutes.aggregate[NetworkInfoRouteDetail](pipeline, log)
         (s"routeDetails: ${routeDetails.size}", routeDetails)
       }

@@ -30,10 +30,22 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
 
   override def oldRouteIds(timestamp: Timestamp): Seq[Long] = {
     if (timestamp == timestampBeforeValue) {
-      routeRelationIdsIn(beforeData)
+      oldRouteRelationIdsIn(beforeData)
     }
     else if (timestamp == timestampAfterValue) {
-      routeRelationIdsIn(afterData)
+      oldRouteRelationIdsIn(afterData)
+    }
+    else {
+      throw new IllegalArgumentException(s"unknown timestamp: ${timestamp.yyyymmddhhmmss}")
+    }
+  }
+
+  override def routeIds(timestamp: Timestamp, typeValue: String): Seq[Long] = {
+    if (timestamp == timestampBeforeValue) {
+      routeRelationIdsIn(beforeData, typeValue)
+    }
+    else if (timestamp == timestampAfterValue) {
+      routeRelationIdsIn(afterData, typeValue)
     }
     else {
       throw new IllegalArgumentException(s"unknown timestamp: ${timestamp.yyyymmddhhmmss}")
@@ -125,14 +137,25 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
     node.hasTag("network:type", "node_network")
   }
 
-  private def routeRelationIdsIn(data: Data): Seq[Long] = {
-    data.relations.values.filter(isRouteRelation).map(_.id).toSeq.sorted
+  private def oldRouteRelationIdsIn(data: Data): Seq[Long] = {
+    data.relations.values.filter(oldIsRouteRelation).map(_.id).toSeq.sorted
   }
 
-  private def isRouteRelation(relation: Relation): Boolean = {
+  private def routeRelationIdsIn(data: Data, typeValue: String): Seq[Long] = {
+    data.relations.values.filter(r => isRouteRelation(r, typeValue)).map(_.id).toSeq.sorted
+  }
+
+  private def oldIsRouteRelation(relation: Relation): Boolean = {
     // matches the conditions in QueryRouteIds()
     relation.hasTag("network:type", "node_network") &&
       relation.hasTag("type", "route") &&
+      relation.hasTag("network")
+  }
+
+  private def isRouteRelation(relation: Relation, typeValue: String): Boolean = {
+    // matches the conditions in QueryRouteIds()
+    relation.hasTag("network:type", "node_network") &&
+      relation.hasTag("type", typeValue) &&
       relation.hasTag("network")
   }
 
@@ -145,9 +168,5 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
     relation.hasTag("network:type", "node_network") &&
       relation.hasTag("type", "network") &&
       relation.hasTag("network")
-  }
-
-  override def routeIds(timestamp: Timestamp, typeValue: String): Seq[Long] = {
-    Seq.empty
   }
 }
