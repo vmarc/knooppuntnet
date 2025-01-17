@@ -37,14 +37,14 @@ class NetworkDeleteNodeTest03 extends IntegrationTest {
       assert(watched.routes.contains(11))
       assert(watched.nodes.contains(1001))
 
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetwork()
+      assertNetworkChange()
       assertNodeChange()
       assertChangeSetSummary()
     }
   }
 
-  private def assertNetworkInfo(): Unit = {
+  private def assertNetwork(): Unit = {
     assertEqual(
       findNetworkById(1),
       newNetworkDoc(
@@ -64,20 +64,29 @@ class NetworkDeleteNodeTest03 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Delete,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "network",
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "network",
+        changeType = ChangeType.Delete,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        //  networkDataUpdate = None,
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
         nodeDiffs = RefDiffs(
           removed = Seq(Ref(1001, "01"))
         ),
-        investigate = true
+        //  routeDiffs = RefDiffs.empty,
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        //  happy = false,
+        investigate = true,
+        impact = true,
       )
     )
   }

@@ -61,8 +61,7 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
       assert(watched.nodes.contains(1002))
 
       assertNetwork()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertNodeChange1002()
       assertChangeSetSummary()
     }
@@ -73,26 +72,29 @@ class NetworkUpdateNodeTest08 extends IntegrationTest {
     networkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(): Unit = {
-    val networkInfoDoc = findNetworkById(1)
-    networkInfoDoc._id should equal(1)
-  }
-
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Update,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "name",
-        networkDataUpdate = None,
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "name",
+        changeType = ChangeType.Update,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        //  networkDataUpdate = None,
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
         nodeDiffs = RefDiffs(
           added = Seq(Ref(1002, "02"))
         ),
-        happy = true
+        //  routeDiffs = RefDiffs.empty,
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        happy = true,
+        //  investigate = false,
+        impact = true,
       )
     )
   }

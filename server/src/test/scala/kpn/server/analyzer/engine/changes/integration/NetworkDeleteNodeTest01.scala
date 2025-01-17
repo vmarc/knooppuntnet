@@ -40,9 +40,9 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
 
       assert(database.routeChanges.isEmpty)
 
+      assertBaseNetwork()
       assertNetwork()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertNodeChange()
       assertChangeSetSummary()
 
@@ -50,7 +50,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
     }
   }
 
-  private def assertNetwork(): Unit = {
+  private def assertBaseNetwork(): Unit = {
     assertEqual(
       findBaseNetworkById(1),
       newNetwork(
@@ -66,7 +66,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfo(): Unit = {
+  private def assertNetwork(): Unit = {
     assertEqual(
       findNetworkById(1),
       newNetworkDoc(
@@ -88,20 +88,20 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Delete,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "network-name",
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "network-name",
+        changeType = ChangeType.Delete,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
         nodeDiffs = RefDiffs(
           removed = Seq(Ref(1001, "01"))
         ),
-        investigate = true
+        investigate = true,
+        impact = true,
       )
     )
   }

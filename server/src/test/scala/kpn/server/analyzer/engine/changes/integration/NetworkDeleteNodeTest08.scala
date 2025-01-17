@@ -40,9 +40,9 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
       assert(!watched.nodes.contains(1001))
 
       assertNode()
+      assertBaseNetwork()
       assertNetwork()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertNodeChange()
       assertChangeSetSummary()
     }
@@ -67,12 +67,12 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
     )
   }
 
-  private def assertNetwork(): Unit = {
+  private def assertBaseNetwork(): Unit = {
     val networkDoc = findBaseNetworkById(1)
     networkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(): Unit = {
+  private def assertNetwork(): Unit = {
     assertEqual(
       findNetworkById(1),
       newNetworkDoc(
@@ -92,22 +92,31 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Delete,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "network1",
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "network1",
+        changeType = ChangeType.Delete,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        //  networkDataUpdate = None,
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01")
           )
         ),
-        investigate = true
+        //  routeDiffs = RefDiffs.empty,
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        //  happy = false,
+        investigate = true,
+        impact = true,
       )
     )
   }

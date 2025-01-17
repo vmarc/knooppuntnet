@@ -82,7 +82,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
       assertRoute()
       assertRouteDetail()
       assertOrphanRoute()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertRouteChange()
       assertChangeSetSummary()
 
@@ -314,16 +314,15 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Update,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "name",
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "name",
+        changeType = ChangeType.Update,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
         networkDataUpdate = Some(
           NetworkDataUpdate(
             Some(
@@ -340,19 +339,27 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             ),
           )
         ),
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
+        //  nodeDiffs = RefDiffs.empty,
         routeDiffs = RefDiffs(
           removed = Seq(
             Ref(11, "01-02")
           )
         ),
-        investigate = true
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        //  happy = false,
+        investigate = true,
+        impact = true,
       )
     )
   }
 
   private def assertRouteChange(): Unit = {
 
-    pending // TODO redesign
     val routeData = newRouteData()
     //  val routeData = newRouteData(
     //    Some(Country.nl),

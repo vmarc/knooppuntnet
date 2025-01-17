@@ -64,8 +64,8 @@ class NetworkDeleteTest04 extends IntegrationTest {
       assert(!watched.networks.contains(1))
       assert(watched.routes.contains(1))
 
+      assertBaseNetwork()
       assertNetwork()
-      assertNetworkInfo()
       assertRoute()
 
       assertNetworkChange()
@@ -74,7 +74,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
     }
   }
 
-  private def assertNetwork(): Unit = {
+  private def assertBaseNetwork(): Unit = {
     assertEqual(
       findBaseNetworkById(1),
       newNetwork(
@@ -91,7 +91,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfo(): Unit = {
+  private def assertNetwork(): Unit = {
     assertEqual(
       findNetworkById(1),
       newNetworkDoc(
@@ -171,7 +171,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
   }
 
   private def assertNetworkChange(): Unit = {
-    val networkChange = findNetworkInfoChangeById("123:1:1")
+    val networkChange = findNetworkChangeById("123:1:1")
     networkChange.key.changeSetId should equal(123)
     networkChange.key.elementId should equal(1)
     networkChange.changeType should equal(ChangeType.Delete)

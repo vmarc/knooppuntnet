@@ -70,9 +70,9 @@ class NetworkUpdateTest01 extends IntegrationTest {
 
       assert(watched.networks.contains(1))
 
+      assertBaseNetwork()
       assertNetwork()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertRouteChange()
       database.nodeChanges.stringIds() should equal(Seq("123:1:1002")) // 1001 not changed
       assertNodeChange1002()
@@ -80,14 +80,14 @@ class NetworkUpdateTest01 extends IntegrationTest {
     }
   }
 
-  private def assertNetwork(): Unit = {
-    val networkDoc = findBaseNetworkById(1)
-    networkDoc._id should equal(1)
+  private def assertBaseNetwork(): Unit = {
+    val baseNetworkDoc = findBaseNetworkById(1)
+    baseNetworkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(): Unit = {
-    val networkInfoDoc = findNetworkById(1)
-    networkInfoDoc._id should equal(1)
+  private def assertNetwork(): Unit = {
+    val networkDoc = findNetworkById(1)
+    networkDoc._id should equal(1)
   }
 
   private def assertRouteChange(): Unit = {
@@ -286,17 +286,19 @@ class NetworkUpdateTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Update,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "name",
-        networkDataUpdate = None,
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "name",
+        changeType = ChangeType.Update,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        //  networkDataUpdate = None,
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
         nodeDiffs = RefDiffs(
           updated = Seq(
             Ref(1002, "03")
@@ -307,6 +309,12 @@ class NetworkUpdateTest01 extends IntegrationTest {
             Ref(11, "01-03")
           )
         )
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        //  happy = false,
+        //  investigate = false,
+        //  impact = false,
       )
     )
   }

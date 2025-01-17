@@ -82,49 +82,55 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
       assert(database.orphanNodes.isEmpty)
       assert(database.orphanRoutes.isEmpty)
 
+      assertBaseNetwork()
       assertNetwork()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertRouteChange()
       assert(database.nodeChanges.isEmpty)
       assertChangeSetSummary()
     }
   }
 
+  private def assertBaseNetwork(): Unit = {
+    val baseNetworkDoc = findBaseNetworkById(1)
+    baseNetworkDoc._id should equal(1)
+  }
+
   private def assertNetwork(): Unit = {
-    val networkDoc = findBaseNetworkById(1)
+    val networkDoc = findNetworkById(1)
     networkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(): Unit = {
-    val networkInfoDoc = findNetworkById(1)
-    networkInfoDoc._id should equal(1)
-  }
-
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Update,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "name",
-        networkDataUpdate = None,
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "name",
+        changeType = ChangeType.Update,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        //  networkDataUpdate = None,
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
+        //  nodeDiffs = RefDiffs.empty,
         routeDiffs = RefDiffs(
           removed = Seq(
             Ref(11, "01-02")
           )
         ),
-        investigate = true
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        //  happy = false,
+        investigate = true,
+        impact = true,
       )
     )
   }
 
   private def assertRouteChange(): Unit = {
-
-    pending // TODO redesign
     val routeData = newRouteData()
     //  val routeData = newRouteData(
     //    Some(Country.nl),

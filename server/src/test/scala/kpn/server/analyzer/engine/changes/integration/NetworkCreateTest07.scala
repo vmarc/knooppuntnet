@@ -10,13 +10,19 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.data.MetaData
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.NetworkData
+import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.route.RouteDiff
+import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 
 class NetworkCreateTest07 extends IntegrationTest {
@@ -45,9 +51,9 @@ class NetworkCreateTest07 extends IntegrationTest {
         Seq(
           newMember(MemberType.Way, 101)
         ),
-        tags = Tags.from("newkey" -> "value")
+        tags = Tags.from("newkey" -> "value") // modify
       )
-      .networkRelation(
+      .networkRelation( // create
         1,
         "name",
         Seq(
@@ -57,15 +63,30 @@ class NetworkCreateTest07 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
+      process(
+        Seq(
+          Change(
+            ChangeAction.Modify,
+            Seq(
+              dataAfter.rawRelationWithId(11)
+
+            )
+          ),
+          Change(
+            ChangeAction.Create,
+            Seq(
+              dataAfter.rawRelationWithId(1)
+            )
+          ),
+        )
+      )
 
       assert(watched.networks.contains(1))
 
       assert(database.nodeChanges.isEmpty)
 
       assertNetwork()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertRouteChange()
       assertChangeSetSummary()
     }
@@ -76,30 +97,40 @@ class NetworkCreateTest07 extends IntegrationTest {
     networkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(): Unit = {
-    val networkInfoDoc = findNetworkById(1)
-    networkInfoDoc._id should equal(1)
-  }
-
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Create,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "name",
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "name",
+        changeType = ChangeType.Create,
+        country = Option(Country.nl),
+        routeType = RouteType.hiking,
+        networkDataUpdate = Some(
+          NetworkDataUpdate(
+            before = None,
+            after = Some(
+              NetworkData(
+                MetaData(
+                  version = 0,
+                  timestamp = Timestamp(2015, 8, 11),
+                  changeSetId = 1
+                ),
+                "name"
+              )
+            )
+          )
+        ),
+        relations = IdDiffs(added = Seq(11)),
         nodeDiffs = RefDiffs(added = Seq(Ref(1001, "01"), Ref(1002, "02"))),
         routeDiffs = RefDiffs(added = Seq(Ref(11, "01-02"))),
-        happy = true
+        happy = true,
+        impact = true,
       )
     )
   }
 
   private def assertRouteChange(): Unit = {
-    pending // TODO redesign
     assertEqual(
       findRouteChangeById("123:1:11"),
       newRouteChange(
@@ -107,66 +138,47 @@ class NetworkCreateTest07 extends IntegrationTest {
         ChangeType.Update,
         "01-02",
         addedToNetwork = Seq(Ref(1, "name")),
-        before = None,
-        //  Some(
-        //    newRouteData(
-        //      Some(Country.nl),
-        //      routeType.hiking,
-        //      relation = newRawRelation(
-        //        11,
-        //        members = Seq(
-        //          RawMember("way", 101, None)
-        //        ),
-        //        tags = newRouteTags("01-02")
-        //      ),
-        //      name = "01-02",
-        //      networkNodes = Seq(
-        //        newNodeWithName(1001, "01"),
-        //        newNodeWithName(1002, "02")
-        //      ),
-        //      nodes = Seq(
-        //        newNodeWithName(1001, "01"),
-        //        newNodeWithName(1002, "02")
-        //      ),
-        //      ways = Seq(
-        //        newRawWay(
-        //          101,
-        //          nodeIds = Vector(1001, 1002),
-        //          tags = Tags.from("highway" -> "unclassified")
-        //        )
-        //      )
-        //    )
-        //  ),
-        after = None,
-        //  Some(
-        //    newRouteData(
-        //      Some(Country.nl),
-        //      routeType.hiking,
-        //      relation = newRawRelation(
-        //        11,
-        //        members = Seq(
-        //          RawMember("way", 101, None)
-        //        ),
-        //        tags = newRouteTags("01-02") ++ Tags.from("newkey" -> "value")
-        //      ),
-        //      name = "01-02",
-        //      networkNodes = Seq(
-        //        newNodeWithName(1001, "01"),
-        //        newNodeWithName(1002, "02")
-        //      ),
-        //      nodes = Seq(
-        //        newNodeWithName(1001, "01"),
-        //        newNodeWithName(1002, "02")
-        //      ),
-        //      ways = Seq(
-        //        newRawWay(
-        //          101,
-        //          nodeIds = Vector(1001, 1002),
-        //          tags = Tags.from("highway" -> "unclassified")
-        //        )
-        //      )
-        //    )
-        //  ),
+        before = Some(
+          newRouteData(
+            relationId = 11,
+            meta = MetaData(0, defaultTimestamp, 1),
+            countries = Seq(Country.nl),
+            routeTypes = Seq(RouteType.hiking),
+            name = "01-02",
+            networkNodes = Seq(
+              newRouteNode(1001, "01"),
+              newRouteNode(1002, "02")
+            ),
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "ref" -> "01-02",
+              "network:type" -> "node_network",
+            ),
+          )
+        ),
+        after = Some(
+          newRouteData(
+            relationId = 11,
+            meta = MetaData(0, defaultTimestamp, 1),
+            countries = Seq(Country.nl),
+            routeTypes = Seq(RouteType.hiking),
+            name = "01-02",
+            networkNodes = Seq(
+              newRouteNode(1001, "01"),
+              newRouteNode(1002, "02")
+            ),
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "ref" -> "01-02",
+              "network:type" -> "node_network",
+              "newkey" -> "value",
+            ),
+          )
+        ),
         diffs = RouteDiff(
           tagDiffs = Some(
             TagDiffs(

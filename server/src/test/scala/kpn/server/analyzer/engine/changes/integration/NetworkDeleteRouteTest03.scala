@@ -54,15 +54,15 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
       assert(watched.nodes.contains(1002)) // still referenced in orphan route
       assert(watched.nodes.contains(1003))
 
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetwork()
+      assertNetworkChange()
       assertRoute11()
       assertRoute12()
       assertChangeSetSummary()
     }
   }
 
-  private def assertNetworkInfo(): Unit = {
+  private def assertNetwork(): Unit = {
     assertEqual(
       findNetworkById(1),
       newNetworkDoc(
@@ -82,16 +82,19 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Delete,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "network1",
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "network1",
+        changeType = ChangeType.Delete,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        //  networkDataUpdate = None,
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01"),
@@ -105,7 +108,12 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
             Ref(12, "01-03")
           )
         ),
-        investigate = true
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        //  happy = false,
+        investigate = true,
+        impact = true,
       )
     )
   }

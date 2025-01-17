@@ -42,35 +42,62 @@ class BaseRouteChangeProcessor(
     log.debugElapsed {
 
       val routeElementChanges = routeChangeAnalyzer.analyze(context)
-      routeElementChanges.deletes.foreach { routeId =>
+
+      val deleteImpactedNodeIds = routeElementChanges.deletes.flatMap { routeId =>
         analysisContext.watched.routes.delete(routeId)
         routeRepository.findBaseRouteById(routeId) match {
-          case Some(baseRouteDoc) => routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
-          case None => // TODO report?
+          case Some(baseRouteDoc) =>
+
+            routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
+            baseRouteDoc.nodes.nodeIds
+          case None =>
+            // TODO report?
+            Seq.empty
         }
       }
 
-      routeElementChanges.creates.foreach { routeId =>
+      val createImpactedNodeIds = routeElementChanges.creates.flatMap { routeId =>
         rawDataRepository.route(context.changeSet.timestampAfter, routeId) match {
           case None =>
             // TODO report?
             println("route not found")
+            Seq.empty
           case Some(rawRouteDoc) =>
             baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.structure) match {
-              case None => // TODO report?
+              case None =>
+                // TODO report?
+                Seq.empty
               case Some(routeAnalysisContext) =>
                 analysisContext.watched.routes.add(routeId, routeAnalysisContext.elementIds)
                 val baseRouteDoc = new BaseRouteDocBuilder(routeAnalysisContext).build()
                 routeRepository.saveBaseRoute(baseRouteDoc)
+                baseRouteDoc.nodes.nodeIds
             }
         }
       }
 
-      routeElementChanges.updates.foreach { routeId =>
+      val updateImpactedNodeIds = routeElementChanges.updates.flatMap { routeId =>
         rawDataRepository.route(context.changeSet.timestampAfter, routeId) match {
-          case None => // TODO report?
+          case None =>
+            // TODO report?
+            Seq.empty
           case Some(rawRouteDoc) =>
-            analyzeBaseRoute(rawRouteDoc.relation, rawRouteDoc.structure)
+            val beforeOption = routeRepository.findBaseRouteById(routeId)
+            analyzeBaseRoute(rawRouteDoc.relation, rawRouteDoc.structure) match {
+              case None => Seq.empty
+              case Some(baseRouteDoc) =>
+                beforeOption match {
+                  case None =>
+                    baseRouteDoc.nodes.nodeIds
+
+                  case Some(before) =>
+                    val beforeNodeIds = before.nodes.nodeIds.toSet
+                    val afterNodeIds = baseRouteDoc.nodes.nodeIds.toSet
+                    val addedNodeIds = afterNodeIds -- beforeNodeIds
+                    val removedNodeIds = beforeNodeIds -- afterNodeIds
+                    (addedNodeIds ++ removedNodeIds).toSeq.sorted
+                }
+            }
         }
       }
 
@@ -81,11 +108,14 @@ class BaseRouteChangeProcessor(
       //      }
       //      val updatedContext = processRouteIds(context, changedRouteIds)
 
+      val impactedNodeIds = (deleteImpactedNodeIds ++ createImpactedNodeIds ++ updateImpactedNodeIds).distinct.sorted
+      val impactedRouteIds = routeElementChanges.elementIds
+
       val updatedContext = context.copy(
         baseRouteCreatedIds = routeElementChanges.creates,
         baseRouteUpdatedIds = routeElementChanges.updates,
         baseRouteDeletedIds = routeElementChanges.deletes,
-      )
+      ).withImpact(nodeIds = impactedNodeIds, routeIds = impactedRouteIds)
 
       (
         s"${routeElementChanges.elementIds.size} base routes",
@@ -136,9 +166,9 @@ class BaseRouteChangeProcessor(
   //    )
   //  }
 
-  private def analyzeBaseRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
+  private def analyzeBaseRoute(relation: Relation, hierarchy: Option[RouteRelation]): Option[BaseRouteDoc] = {
     baseRouteMainAnalyzer.analyze(relation, hierarchy) match {
-      case None =>
+      case None => None
       case Some(context) =>
         val baseRouteDoc = new BaseRouteDocBuilder(context).build()
         analysisContext.watched.routes.add(relation.id, context.elementIds)
@@ -160,6 +190,7 @@ class BaseRouteChangeProcessor(
           )
           routeRepository.saveRouteTile(doc)
         }
+        Some(baseRouteDoc)
     }
   }
 

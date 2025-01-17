@@ -95,21 +95,29 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
 
   private def assertNetworkInfoChange1(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Update,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "name",
-        networkDataUpdate = None,
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "name",
+        changeType = ChangeType.Update,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        //  networkDataUpdate = None,
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1002, "02")
           )
         ),
-        investigate = true
+        //  routeDiffs = RefDiffs.empty,
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        //  happy = false,
+        investigate = true,
+        impact = true,
       )
     )
   }

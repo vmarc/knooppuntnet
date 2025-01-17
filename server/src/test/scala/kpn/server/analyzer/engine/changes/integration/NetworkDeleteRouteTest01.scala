@@ -56,8 +56,8 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
       assert(watched.routes.contains(11))
 
       assertOrphanRoute()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetwork()
+      assertNetworkChange()
       assertRouteChange()
       assertChangeSetSummary()
     }
@@ -75,7 +75,7 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfo(): Unit = {
+  private def assertNetwork(): Unit = {
     assertEqual(
       findNetworkById(1),
       newNetworkDoc(
@@ -95,16 +95,19 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Delete,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "network",
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "network",
+        changeType = ChangeType.Delete,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        //  networkDataUpdate = None,
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01"),
@@ -116,13 +119,17 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
             Ref(11, "01-02")
           )
         ),
-        investigate = true
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        //  happy = false,
+        investigate = true,
+        impact = true,
       )
     )
   }
 
   private def assertRouteChange(): Unit = {
-    pending // TODO redesign
     val routeData = newRouteData()
     //  val routeData = newRouteData(
     //    Some(Country.nl),

@@ -42,40 +42,50 @@ class NetworkUpdateNodeTest11 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
+      assertBaseNetwork()
       assertNetwork()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertNodeChange()
       assertChangeSetSummary()
     }
   }
 
+  private def assertBaseNetwork(): Unit = {
+    val baseNetworkDoc = findBaseNetworkById(1)
+    baseNetworkDoc._id should equal(1)
+  }
+
   private def assertNetwork(): Unit = {
-    val networkDoc = findBaseNetworkById(1)
+    val networkDoc = findNetworkById(1)
     networkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(): Unit = {
-    val networkInfoDoc = findNetworkById(1)
-    networkInfoDoc._id should equal(1)
-  }
-
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Update,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "network-name",
-        networkDataUpdate = None,
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "network-name",
+        changeType = ChangeType.Update,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        //  networkDataUpdate = None,
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
         nodeDiffs = RefDiffs(
           updated = Seq(
             Ref(1001, "01")
           )
-        )
+        ),
+        //  routeDiffs = RefDiffs.empty,
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        //  happy = false,
+        //  investigate = false,
+        //  impact = false,
+
       )
     )
   }

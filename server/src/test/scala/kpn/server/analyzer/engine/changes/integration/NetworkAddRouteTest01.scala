@@ -77,7 +77,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
       )
 
       assertNetworkDoc()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertRouteChange()
       assertNodeChange1001()
       assertNodeChange1002()
@@ -144,17 +144,16 @@ class NetworkAddRouteTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     pending
     assertEqual(
       findNetworkChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Update,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "network",
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "network",
+        changeType = ChangeType.Update,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
         networkDataUpdate = Some(
           NetworkDataUpdate(
             Some(
@@ -182,7 +181,8 @@ class NetworkAddRouteTest01 extends IntegrationTest {
             Ref(11, "01-02")
           )
         ),
-        happy = true
+        happy = true,
+        impact = true,
       )
     )
   }

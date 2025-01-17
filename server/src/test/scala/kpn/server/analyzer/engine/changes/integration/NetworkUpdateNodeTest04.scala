@@ -73,9 +73,9 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
       assert(database.orphanNodes.isEmpty)
 
       assertOrphanRoute()
+      assertBaseNetwork()
       assertNetwork()
-      assertNetworkInfo()
-      assertNetworkInfoChange()
+      assertNetworkChange()
       assertNodeChange1002()
       assertChangeSetSummary()
     }
@@ -93,26 +93,25 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
     )
   }
 
+  private def assertBaseNetwork(): Unit = {
+    val baseNetworkDoc = findBaseNetworkById(1)
+    baseNetworkDoc._id should equal(1)
+  }
+
   private def assertNetwork(): Unit = {
-    val networkDoc = findBaseNetworkById(1)
+    val networkDoc = findNetworkById(1)
     networkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo(): Unit = {
-    val networkInfoDoc = findNetworkById(1)
-    networkInfoDoc._id should equal(1)
-  }
-
-  private def assertNetworkInfoChange(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
-      findNetworkInfoChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Update,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "name",
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "name",
+        changeType = ChangeType.Update,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
         networkDataUpdate = Some(
           NetworkDataUpdate(
             Some(
@@ -129,8 +128,17 @@ class NetworkUpdateNodeTest04 extends IntegrationTest {
             )
           )
         ),
+        //  nodes= IdDiffs.empty,
+        //  ways = IdDiffs.empty,
+        //  relations = IdDiffs.empty,
         nodeDiffs = RefDiffs(removed = Seq(Ref(1002, "02"))),
-        investigate = true
+        //  routeDiffs = RefDiffs.empty,
+        //  extraNodeDiffs = IdDiffs.empty,
+        //  extraWayDiffs = IdDiffs.empty,
+        //  extraRelationDiffs = IdDiffs.empty,
+        //  happy = false,
+        investigate = true,
+        impact = true,
       )
     )
   }

@@ -4,7 +4,6 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction.ChangeAction
-import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.Node
@@ -209,18 +208,6 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
       }
       else {
         fail(s"Could not find NetworkChange $id (but found: ${ids.mkString(", ")})")
-      }
-    }
-  }
-
-  def findNetworkInfoChangeById(id: String): NetworkInfoChange = {
-    database.networkInfoChanges.findByStringId(id).getOrElse {
-      val ids = database.networkInfoChanges.stringIds()
-      if (ids.isEmpty) {
-        fail(s"Could not find NetworkInfoChange $id, no network info changes in database")
-      }
-      else {
-        fail(s"Could not find NetworkInfoChange $id (but found: ${ids.mkString(", ")})")
       }
     }
   }
