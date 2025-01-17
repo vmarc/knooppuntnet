@@ -8,11 +8,13 @@ class NetworkCountryAnalyzer(locationAnalyzer: LocationAnalyzer) extends Network
 
   def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
     val networkCountry = locationAnalyzer.country(context.nodeDetails) match {
-      case None => context.previousKnownCountry
-      case Some(country) => Some(country)
+      case None =>
+        context.previousKnownCountry
+      case Some(country) =>
+        Some(country)
     }
     context.copy(
-      country = networkCountry
+      _country = Some(networkCountry)
     )
   }
 }

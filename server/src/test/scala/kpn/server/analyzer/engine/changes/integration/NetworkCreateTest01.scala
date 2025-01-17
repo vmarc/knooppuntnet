@@ -272,30 +272,12 @@ class NetworkCreateTest01 extends IntegrationTest {
             ),
             countries = Seq(Country.nl),
             routeTypes = Seq(RouteType.hiking),
-            //            relation = newRawRelation(
-            //              11,
-            //              members = Seq(
-            //                RawMember("way", 101, None)
-            //              ),
-            //              tags = newRouteTags("01-02")
-            //            ),
             name = "01-02",
             networkNodes = Seq(
               newRouteNode(1001, "01"),
               newRouteNode(1002, "02")
             ),
-            //            nodes = Seq(
-            //              newNodeWithName(1001, "01"),
-            //              newNodeWithName(1002, "02")
-            //            ),
             ways = Seq.empty,
-            //            ways = Seq(
-            //              newRawWay(
-            //                101,
-            //                nodeIds = Vector(1001, 1002),
-            //                tags = Tags.from("highway" -> "unclassified")
-            //              )
-            //            ),
             tags = Tags.from(
               "network" -> "rwn",
               "type" -> "route",
@@ -306,45 +288,6 @@ class NetworkCreateTest01 extends IntegrationTest {
           )
         ),
         after = Some(
-          //        "after" : {
-          //          "relationId" : 11,
-          //          "meta" : {
-          //          "version" : 0,
-          //          "timestamp" : "2015-08-11T00:00:00Z",
-          //          "changeSetId" : 1
-          //        },
-          //          "countries" : [
-          //          "nl"
-          //          ],
-          //          "routeTypes" : [
-          //          "hiking"
-          //          ],
-          //          "name" : "01-02",
-          //          "networkNodes" : [
-          //        {
-          //          "nodeId" : 1001,
-          //          "latitude" : "0",
-          //          "longitude" : "0",
-          //          "name" : "01",
-          //          "alternateName" : "01",
-          //          "isInWay" : true
-          //        },
-          //        {
-          //          "nodeId" : 1002,
-          //          "latitude" : "0",
-          //          "longitude" : "0",
-          //          "name" : "02",
-          //          "alternateName" : "02",
-          //          "isInWay" : true
-          //        }
-          //          ],
-          //          "ways" : [ ],
-          //          "facts" : [ ],
-          //          "meters" : 0,
-          //          "locationAnalysis" : {
-          //          "candidates" : [ ],
-          //          "locationNames" : [ ]
-          //        },
           newRouteData(
             relationId = 11,
             meta = MetaData(
@@ -354,30 +297,12 @@ class NetworkCreateTest01 extends IntegrationTest {
             ),
             Seq(Country.nl),
             Seq(RouteType.hiking),
-            //            relation = newRawRelation(
-            //              11,
-            //              members = Seq(
-            //                RawMember("way", 101, None)
-            //              ),
-            //              tags = newRouteTags("01-02")
-            //            ),
             name = "01-02",
             networkNodes = Seq(
               newRouteNode(1001, "01"),
               newRouteNode(1002, "02")
             ),
-            //            nodes = Seq(
-            //              newNodeWithName(1001, "01"),
-            //              newNodeWithName(1002, "02")
-            //            ),
             ways = Seq.empty,
-            //            ways = Seq(
-            //              newRawWay(
-            //                101,
-            //                nodeIds = Vector(1001, 1002),
-            //                tags = Tags.from("highway" -> "unclassified")
-            //              )
-            //            ),
             tags = Tags.from(
               "network" -> "rwn",
               "type" -> "route",

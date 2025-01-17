@@ -34,7 +34,7 @@ class NetworkInfoNodeMemberMissingAnalyzer(context: NetworkAnalysisContext) {
         None
       )
       context.copy(
-        networkFacts = context.networkFacts :+ fact
+        _networkFacts = Some(context.networkFacts :+ fact)
       )
     }
     else {

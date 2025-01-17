@@ -16,7 +16,7 @@ class NetworkLastUpdatedAnalyzer(context: NetworkAnalysisContext) {
     ).flatten
     val lastUpdated = timestamps.max
     context.copy(
-      lastUpdated = Some(lastUpdated)
+      _lastUpdated = Some(Some(lastUpdated))
     )
   }
 }

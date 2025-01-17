@@ -64,10 +64,10 @@ class NetworkInfoExtraAnalyzer(
       //    networkInfoFacts ++ networkInfoDocFacts
 
       context.copy(
-        extraNodeIds = filteredExtraNodeIds,
-        extraWayIds = extraWayIds,
-        extraRelationIds = extraRelationIds,
-        networkFacts = context.networkFacts ++ facts
+        _extraNodeIds = Some(filteredExtraNodeIds),
+        _extraWayIds = Some(extraWayIds),
+        _extraRelationIds = Some(extraRelationIds),
+        _networkFacts = Some(context.networkFacts ++ facts)
       )
     }
     else {

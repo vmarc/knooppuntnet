@@ -21,7 +21,7 @@ class NetworkCenterAnalyzer(context: NetworkAnalysisContext) {
     }
 
     context.copy(
-      center = center
+      _center = Some(center)
     )
   }
 }

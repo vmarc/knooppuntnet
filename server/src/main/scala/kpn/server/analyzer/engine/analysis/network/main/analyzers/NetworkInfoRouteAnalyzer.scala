@@ -46,10 +46,10 @@ class NetworkInfoRouteAnalyzer(database: Database) extends NetworkAnalyzer {
     val connectionCount = enrichedRouteDetails.count(_.roleConnection)
 
     context.copy(
-      routeDetails = sortedRouteDetails,
-      connectionCount = connectionCount,
-      meters = meters,
-      km = km
+      _routeDetails = Some(sortedRouteDetails),
+      _connectionCount = Some(connectionCount),
+      _meters = Some(meters),
+      _km = Some(km)
     )
   }
 

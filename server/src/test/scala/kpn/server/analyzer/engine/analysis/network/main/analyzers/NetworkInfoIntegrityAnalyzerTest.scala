@@ -90,8 +90,8 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
     val context = NetworkAnalysisContext(
       network,
       defaultTimestamp,
-      scopedRouteTypeOption = Some(ScopedRouteType.rwn),
-      nodeDocs = Seq(node1, node2, node3, node4)
+      _scopedRouteTypeOption = Some(Some(ScopedRouteType.rwn)),
+      _nodeDocs = Some(Seq(node1, node2, node3, node4))
     )
 
     val updatedContext = NetworkInfoIntegrityAnalyzer.analyze(context)

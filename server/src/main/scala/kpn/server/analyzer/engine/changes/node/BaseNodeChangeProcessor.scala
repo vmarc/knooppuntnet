@@ -21,7 +21,8 @@ class BaseNodeChangeProcessor(
       val nodeIds = nodeElementChanges.elementIds
       val baseNodeDocs = baseNodeBulkAnalyzer.analyze(context.timestampAfter, nodeIds)
       nodeRepository.bulkSaveBaseNodes(baseNodeDocs)
-      (s"${baseNodeDocs.size} node changes", context)
+      val updatedContext = context.withImpact(nodeIds = baseNodeDocs.map(_._id))
+      (s"${baseNodeDocs.size} node changes", updatedContext)
     }
   }
 }

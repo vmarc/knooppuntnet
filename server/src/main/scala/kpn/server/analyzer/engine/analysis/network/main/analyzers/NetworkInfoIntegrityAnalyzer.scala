@@ -25,15 +25,17 @@ class NetworkInfoIntegrityAnalyzer(context: NetworkAnalysisContext) {
     val nokRate = percentage(nokCount, networkNodeIntegrities.size)
 
     context.copy(
-      integrity = Integrity(
-        isOk,
-        hasChecks,
-        count,
-        okCount,
-        nokCount,
-        coverage,
-        okRate,
-        nokRate
+      _integrity = Some(
+        Integrity(
+          isOk,
+          hasChecks,
+          count,
+          okCount,
+          nokCount,
+          coverage,
+          okRate,
+          nokRate
+        )
       )
     )
   }

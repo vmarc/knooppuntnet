@@ -33,10 +33,10 @@ class NetworkInfoFactAnalyzer(context: NetworkAnalysisContext) {
       val inaccessibleRouteCount: Long = context.routeDetails.count(_.facts.contains(Fact.RouteInaccessible))
 
       context.copy(
-        brokenRouteCount = brokenRouteCount,
-        brokenRoutePercentage = brokenRoutePercentage,
-        inaccessibleRouteCount = inaccessibleRouteCount,
-        networkFacts = facts
+        _brokenRouteCount = Some(brokenRouteCount),
+        _brokenRoutePercentage = Some(brokenRoutePercentage),
+        _inaccessibleRouteCount = Some(inaccessibleRouteCount),
+        _networkFacts = Some(facts)
       )
     }
     else {

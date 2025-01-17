@@ -21,7 +21,7 @@ class NetworkInfoNodeDocAnalyzer(database: Database) extends NetworkAnalyzer {
     val nodeIds = (networkNodeIds ++ routeNodeIds).distinct.sorted
     val nodeDocs = queryNodes(nodeIds)
     context.copy(
-      nodeDocs = nodeDocs
+      _nodeDocs = Some(nodeDocs)
     )
   }
 

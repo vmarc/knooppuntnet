@@ -71,7 +71,7 @@ class NetworkNameAnalyzer(context: NetworkAnalysisContext) {
       case None => nameTagValue.trim
     }
     context.copy(
-      name = name
+      _name = Some(name)
     )
   }
 }

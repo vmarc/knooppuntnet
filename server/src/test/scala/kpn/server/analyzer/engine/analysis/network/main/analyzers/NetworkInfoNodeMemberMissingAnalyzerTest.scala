@@ -48,8 +48,8 @@ class NetworkInfoNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestO
     val context = NetworkAnalysisContext(
       null,
       null,
-      nodeDetails = nodeDetails,
-      proposed = networkProposed
+      _nodeDetails = Some(nodeDetails),
+      _proposed = Some(networkProposed)
     )
     NetworkInfoNodeMemberMissingAnalyzer.analyze(context).networkFacts
   }

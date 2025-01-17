@@ -10,9 +10,14 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.data.MetaData
 import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.NetworkData
+import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Change
 import kpn.api.custom.Subset
+import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 
 class NetworkCreateTest04 extends IntegrationTest {
@@ -37,7 +42,19 @@ class NetworkCreateTest04 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
+      process(
+        Seq(
+          Change(
+            ChangeAction.Create,
+            Seq(
+              dataAfter.rawNodeWithId(1001),
+              dataAfter.rawNodeWithId(1002),
+              dataAfter.rawRelationWithId(11),
+              dataAfter.rawRelationWithId(1)
+            )
+          )
+        )
+      )
 
       assert(watched.networks.contains(1))
 
@@ -59,25 +76,40 @@ class NetworkCreateTest04 extends IntegrationTest {
   }
 
   private def assertNetworkChange(): Unit = {
-    pending
     assertEqual(
       findNetworkChangeById("123:1:1"),
-      newNetworkInfoChange(
-        newChangeKey(elementId = 1),
-        ChangeType.Create,
-        Some(Country.nl),
-        RouteType.hiking,
-        1,
-        "name",
-        nodeDiffs = RefDiffs(added = Seq(Ref(1001, "01"), Ref(1002, "02"))),
-        routeDiffs = RefDiffs(added = Seq(Ref(11, "01-02"))),
-        extraWays = IdDiffs(
-          added = Seq(
-            102
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "name",
+        changeType = ChangeType.Create,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        networkDataUpdate = Some(
+          NetworkDataUpdate(
+            before = None,
+            after = Some(
+              NetworkData(
+                MetaData(
+                  version = 0,
+                  timestamp = Timestamp(2015, 8, 11),
+                  changeSetId = 1
+                ),
+                name = "name"
+              )
+            )
           )
         ),
+        nodes = IdDiffs.empty,
+        ways = IdDiffs(added = Seq(102)),
+        relations = IdDiffs(added = Seq(11)),
+        nodeDiffs = RefDiffs(added = Seq(Ref(1001, "01"), Ref(1002, "02"))),
+        routeDiffs = RefDiffs(added = Seq(Ref(11, "01-02"))),
+        extraNodeDiffs = IdDiffs.empty,
+        extraWayDiffs = IdDiffs(added = Seq(102)),
+        extraRelationDiffs = IdDiffs.empty,
         happy = true,
-        investigate = true
+        investigate = true,
+        impact = true,
       )
     )
   }

@@ -28,11 +28,13 @@ class NetworkInfoNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
       val context = NetworkAnalysisContext(
         network,
         defaultTimestamp,
-        scopedRouteTypeOption = Some(ScopedRouteType.rwn),
-        routeDetails = Seq(
-          newNetworkInfoRouteDetail(
-            id = 10L,
-            nodeRefs = Seq(1001L)
+        _scopedRouteTypeOption = Some(Some(ScopedRouteType.rwn)),
+        _routeDetails = Some(
+          Seq(
+            newNetworkInfoRouteDetail(
+              id = 10L,
+              nodeRefs = Seq(1001L)
+            )
           )
         )
       )

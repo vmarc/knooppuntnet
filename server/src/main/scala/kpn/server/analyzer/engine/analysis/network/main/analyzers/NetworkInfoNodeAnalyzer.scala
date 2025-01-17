@@ -14,7 +14,7 @@ class NetworkInfoNodeAnalyzer(context: NetworkAnalysisContext) {
   def analyze(): NetworkAnalysisContext = {
     val nodeDetails = analyzeNetworkNodes()
     context.copy(
-      nodeDetails = nodeDetails
+      _nodeDetails = Some(nodeDetails)
     )
   }
 

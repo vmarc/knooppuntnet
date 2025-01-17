@@ -13,34 +13,35 @@ import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.doc.NetworkInfoRouteDetail
 import kpn.core.doc.NodeDoc
+import kpn.server.analyzer.engine.context.PreconditionMissingException
 
 case class NetworkAnalysisContext(
   network: BaseNetworkDoc,
   analysisTimestamp: Timestamp,
   previousKnownCountry: Option[Country] = None,
-  scopedRouteTypeOption: Option[ScopedRouteType] = None,
-  country: Option[Country] = None,
-  name: String = "",
-  proposed: Boolean = false,
+  _scopedRouteTypeOption: Option[Option[ScopedRouteType]] = None,
+  _country: Option[Option[Country]] = None,
+  _name: Option[String] = None,
+  _proposed: Option[Boolean] = None,
   facts: Seq[Fact] = Seq.empty,
-  nodeDocs: Seq[NodeDoc] = Seq.empty,
-  networkFacts: Seq[NetworkFact] = Seq.empty,
-  nodeDetails: Seq[NetworkInfoNodeDetail] = Seq.empty,
-  routeDetails: Seq[NetworkInfoRouteDetail] = Seq.empty,
-  extraNodeIds: Seq[Long] = Seq.empty,
-  extraWayIds: Seq[Long] = Seq.empty,
-  extraRelationIds: Seq[Long] = Seq.empty,
-  km: Long = 0,
-  meters: Long = 0,
-  lastUpdated: Option[Timestamp] = None,
-  lastSurvey: Option[Day] = None,
-  brokenRouteCount: Long = 0,
-  brokenRoutePercentage: String = "-",
-  integrity: Integrity = Integrity(),
-  inaccessibleRouteCount: Long = 0,
-  connectionCount: Long = 0,
-  center: Option[LatLonImpl] = None,
-  shape: Option[NetworkShape] = None,
+  _nodeDocs: Option[Seq[NodeDoc]] = None,
+  _networkFacts: Option[Seq[NetworkFact]] = None,
+  _nodeDetails: Option[Seq[NetworkInfoNodeDetail]] = None,
+  _routeDetails: Option[Seq[NetworkInfoRouteDetail]] = None,
+  _extraNodeIds: Option[Seq[Long]] = None,
+  _extraWayIds: Option[Seq[Long]] = None,
+  _extraRelationIds: Option[Seq[Long]] = None,
+  _km: Option[Long] = None,
+  _meters: Option[Long] = None,
+  _lastUpdated: Option[Option[Timestamp]] = None,
+  _lastSurvey: Option[Option[Day]] = None,
+  _brokenRouteCount: Option[Long] = None,
+  _brokenRoutePercentage: Option[String] = None,
+  _integrity: Option[Integrity] = None,
+  _inaccessibleRouteCount: Option[Long] = None,
+  _connectionCount: Option[Long] = None,
+  _center: Option[Option[LatLonImpl]] = None,
+  _shape: Option[Option[NetworkShape]] = None,
   abort: Boolean = false
 ) {
 
@@ -54,5 +55,49 @@ case class NetworkAnalysisContext(
   def withFact(fact: Fact): NetworkAnalysisContext = {
     copy(facts = facts :+ fact)
   }
+
+  def scopedRouteTypeOption: Option[ScopedRouteType] = _scopedRouteTypeOption.getOrElse(throw new PreconditionMissingException)
+
+  def country: Option[Country] = _country.getOrElse(throw new PreconditionMissingException)
+
+  def name: String = _name.getOrElse(throw new PreconditionMissingException)
+
+  def proposed: Boolean = _proposed.getOrElse(throw new PreconditionMissingException)
+
+  def nodeDocs: Seq[NodeDoc] = _nodeDocs.getOrElse(throw new PreconditionMissingException)
+
+  def networkFacts: Seq[NetworkFact] = _networkFacts.getOrElse(throw new PreconditionMissingException)
+
+  def nodeDetails: Seq[NetworkInfoNodeDetail] = _nodeDetails.getOrElse(throw new PreconditionMissingException)
+
+  def routeDetails: Seq[NetworkInfoRouteDetail] = _routeDetails.getOrElse(throw new PreconditionMissingException)
+
+  def extraNodeIds: Seq[Long] = _extraNodeIds.getOrElse(throw new PreconditionMissingException)
+
+  def extraWayIds: Seq[Long] = _extraWayIds.getOrElse(throw new PreconditionMissingException)
+
+  def extraRelationIds: Seq[Long] = _extraRelationIds.getOrElse(throw new PreconditionMissingException)
+
+  def km: Long = _km.getOrElse(throw new PreconditionMissingException)
+
+  def meters: Long = _meters.getOrElse(throw new PreconditionMissingException)
+
+  def lastUpdated: Option[Timestamp] = _lastUpdated.getOrElse(throw new PreconditionMissingException)
+
+  def lastSurvey: Option[Day] = _lastSurvey.getOrElse(throw new PreconditionMissingException)
+
+  def brokenRouteCount: Long = _brokenRouteCount.getOrElse(throw new PreconditionMissingException)
+
+  def brokenRoutePercentage: String = _brokenRoutePercentage.getOrElse(throw new PreconditionMissingException)
+
+  def integrity: Integrity = _integrity.getOrElse(throw new PreconditionMissingException)
+
+  def inaccessibleRouteCount: Long = _inaccessibleRouteCount.getOrElse(throw new PreconditionMissingException)
+
+  def connectionCount: Long = _connectionCount.getOrElse(throw new PreconditionMissingException)
+
+  def center: Option[LatLonImpl] = _center.getOrElse(throw new PreconditionMissingException)
+
+  def shape: Option[NetworkShape] = _shape.getOrElse(throw new PreconditionMissingException)
 }
 
