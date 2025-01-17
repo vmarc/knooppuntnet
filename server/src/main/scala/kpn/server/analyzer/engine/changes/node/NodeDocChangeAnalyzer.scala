@@ -52,25 +52,20 @@ class NodeDocChangeAnalyzer(
       }
     }
 
-    val addedToNetwork = context.changes.networkChanges.filter { networkChange =>
-      networkChange.nodes.added.contains(before._id)
-    }.map(_.toRef)
+    val beforeNetworkIds = before.networkReferences.map(_.id).toSet
+    val afterNetworkIds = after.networkReferences.map(_.id).toSet
+    val addedNetworkIds = (afterNetworkIds -- beforeNetworkIds).toSeq.sorted
+    val removedNetworkIds = (beforeNetworkIds -- afterNetworkIds).toSeq.sorted
 
-    val removedFromNetwork = context.changes.networkChanges.filter { networkChange =>
-      networkChange.nodes.removed.contains(before._id)
-    }.map(_.toRef)
+    val addedToNetwork = after.networkReferences.filter(r => addedNetworkIds.contains(r.id)).map(_.toRef)
+    val removedFromNetwork = before.networkReferences.filter(r => removedNetworkIds.contains(r.id)).map(_.toRef)
 
-    val addedToRoute = context.changes.routeChanges.filter { routeChange =>
-      val hasNodeBefore = routeChange.before.toSeq.flatMap(_.networkNodes).exists(_.nodeId == before._id)
-      val hasNodeAfter = routeChange.after.toSeq.flatMap(_.networkNodes).exists(_.nodeId == before._id)
-      !hasNodeBefore && hasNodeAfter
-    }.map(_.toRef)
-
-    val removedFromRoute = context.changes.routeChanges.filter { routeChange =>
-      val hasNodeBefore = routeChange.before.toSeq.flatMap(_.networkNodes).exists(_.nodeId == before._id)
-      val hasNodeAfter = routeChange.after.toSeq.flatMap(_.networkNodes).exists(_.nodeId == before._id)
-      hasNodeBefore && !hasNodeAfter
-    }.map(_.toRef)
+    val beforeRouteIds = before.routeReferences.map(_.id).toSet
+    val afterRouteIds = after.routeReferences.map(_.id).toSet
+    val addedRouteIds = (afterRouteIds -- beforeRouteIds).toSeq.sorted
+    val removedRouteIds = (beforeRouteIds -- afterRouteIds).toSeq.sorted
+    val addedToRoute = after.routeReferences.filter(r => addedRouteIds.contains(r.id)).map(_.toRef)
+    val removedFromRoute = before.routeReferences.filter(r => removedRouteIds.contains(r.id)).map(_.toRef)
 
     if (before.isSameAs(after) && addedToNetwork.isEmpty && removedFromNetwork.isEmpty && addedToRoute.isEmpty && removedFromRoute.isEmpty && roleConnectionChanges.isEmpty) {
       None

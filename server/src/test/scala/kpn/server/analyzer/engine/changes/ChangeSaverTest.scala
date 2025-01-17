@@ -36,7 +36,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
       ChangeSetChanges()
     )
 
-    new ChangeSaverImpl(changeSetRepository, networkInfoRepository).save(context)
+    new ChangeSaver(changeSetRepository, networkInfoRepository).save(context)
 
     (changeSetRepository.saveNetworkInfoChange _).verify(*).never()
     (changeSetRepository.saveRouteChange _).verify(*).never()
@@ -46,10 +46,10 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("save network changes") {
 
-    val networkChange = newNetworkInfoChange(newChangeKey(elementId = 1))
+    val networkChange = newNetworkChange(newChangeKey(elementId = 1))
 
     val changeSetChanges = ChangeSetChanges(
-      networkInfoChanges = Seq(networkChange)
+      networkChanges = Seq(networkChange)
     )
 
     val changeSetRepository = stub[ChangeSetRepository]
@@ -216,6 +216,6 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
       ElementIds(),
       changeSetChanges
     )
-    new ChangeSaverImpl(changeSetRepository, networkInfoRepository).save(context)
+    new ChangeSaver(changeSetRepository, networkInfoRepository).save(context)
   }
 }

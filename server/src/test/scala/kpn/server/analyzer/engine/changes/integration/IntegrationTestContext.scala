@@ -14,7 +14,7 @@ import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoNod
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BaseNodeBulkAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BaseNodeBulkAnalyzerImpl
-import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
+import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.BaseNodeMainAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeLocationAnalyzer
@@ -36,7 +36,7 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkRefe
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeProcessor
-import kpn.server.analyzer.engine.changes.ChangeSaverImpl
+import kpn.server.analyzer.engine.changes.ChangeSaver
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.BaseNetworkChangeProcessor
@@ -180,7 +180,7 @@ class IntegrationTestContext(
       nodeRouteReferencesAnalyzer,
       nodeNetworkReferencesAnalyzer,
     )
-    new BulkNodeAnalyzerImpl(
+    new BulkNodeAnalyzer(
       rawDataRepository,
       nodeMainAnalyzer,
       nodeRepository,
@@ -251,7 +251,7 @@ class IntegrationTestContext(
 
   val changeProcessor: ChangeProcessor = {
 
-    val changeSaver = new ChangeSaverImpl(
+    val changeSaver = new ChangeSaver(
       changeSetRepository,
       networkInfoRepository
     )

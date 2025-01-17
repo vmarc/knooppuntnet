@@ -19,6 +19,11 @@ case class ChangeSetContext(
   baseRouteCreatedIds: Seq[Long] = Seq.empty,
   baseRouteUpdatedIds: Seq[Long] = Seq.empty,
   baseRouteDeletedIds: Seq[Long] = Seq.empty,
+
+  // the elements to be processed in phase II:
+  impactedNodeIds: Seq[Long] = Seq.empty,
+  impactedRouteIds: Seq[Long] = Seq.empty,
+  impactedNetworkIds: Seq[Long] = Seq.empty,
 ) {
 
   def timestampBefore: Timestamp = changeSet.timestampBefore
@@ -31,6 +36,18 @@ case class ChangeSetContext(
       changeSet.timestamp,
       changeSet.id,
       elementId
+    )
+  }
+
+  def withImpact(
+    nodeIds: Seq[Long] = Seq.empty,
+    routeIds: Seq[Long] = Seq.empty,
+    networkIds: Seq[Long] = Seq.empty,
+  ): ChangeSetContext = {
+    copy(
+      impactedNodeIds = (impactedNodeIds ++ nodeIds).sorted.distinct,
+      impactedRouteIds = (impactedRouteIds ++ routeIds).sorted.distinct,
+      impactedNetworkIds = (impactedNetworkIds ++ networkIds).sorted.distinct
     )
   }
 }

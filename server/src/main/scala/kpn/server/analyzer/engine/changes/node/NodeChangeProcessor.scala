@@ -4,7 +4,6 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.LatLonImpl
 import kpn.api.common.RouteType
-import kpn.api.common.changes.ChangeAction.ChangeAction
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.custom.Subset
@@ -13,7 +12,6 @@ import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.ElementChanges
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzer
 import kpn.server.repository.NodeRepository
@@ -34,19 +32,16 @@ class NodeChangeProcessor(
 
     log.debugElapsed {
 
-      val impactedNodeIds = (
-        context.changes.routeChanges.flatMap(_.impactedNodeIds) ++
-          context.changes.networkChanges.flatMap(_.impactedNodeIds)
-        ).distinct.sorted
-
-      val nodeElementChanges = nodeChangeAnalyzer.analyze(context.changeSet)
+      //      val impactedNodeIds = context.impactedNodeIds
+      //
+      //      val nodeElementChanges = nodeChangeAnalyzer.analyze(context.changeSet)
       val batchSize = 500
-      val changedNodeIds = (nodeElementChanges.elementIds ++ impactedNodeIds).distinct.sorted
-      if (changedNodeIds.nonEmpty) {
-        log.info(s"${changedNodeIds.size} node(s) impacted: ${changedNodeIds.mkString(", ")}")
-      }
-      val nodeChanges = changedNodeIds.sliding(batchSize, batchSize).toSeq.flatMap { nodeIds =>
-        processBatch(context, nodeElementChanges, nodeIds)
+      //      val changedNodeIds = (nodeElementChanges.elementIds ++ impactedNodeIds).distinct.sorted
+      //      if (changedNodeIds.nonEmpty) {
+      //        log.info(s"${changedNodeIds.size} node(s) impacted: ${changedNodeIds.mkString(", ")}")
+      //      }
+      val nodeChanges = context.impactedNodeIds.sliding(batchSize, batchSize).toSeq.flatMap { nodeIds =>
+        processBatch(context, nodeIds)
       }
 
       (
@@ -60,7 +55,7 @@ class NodeChangeProcessor(
     }
   }
 
-  private def processBatch(context: ChangeSetContext, nodeElementChanges: ElementChanges, nodeIds: Seq[Long]): Seq[NodeChange] = {
+  private def processBatch(context: ChangeSetContext, nodeIds: Seq[Long]): Seq[NodeChange] = {
 
     val nodeDocsBefore = nodeRepository.nodesWithIds(nodeIds)
     val nodeDocsAfter = bulkNodeAnalyzer.analyze(nodeIds)
@@ -68,12 +63,11 @@ class NodeChangeProcessor(
     nodeIds.flatMap { nodeId =>
       val nodeDocBeforeOption = nodeDocsBefore.find(_._id == nodeId)
       val nodeDocAfterOption = nodeDocsAfter.find(_._id == nodeId)
-      val action = nodeElementChanges.action(nodeId)
+
       processChangeData(
         context,
         nodeDocBeforeOption,
-        nodeDocAfterOption,
-        action
+        nodeDocAfterOption
       )
     }
   }
@@ -82,13 +76,12 @@ class NodeChangeProcessor(
     context: ChangeSetContext,
     nodeDocBeforeOption: Option[NodeDoc],
     nodeDocAfterOption: Option[NodeDoc],
-    action: ChangeAction
   ): Option[NodeChange] = {
 
     nodeDocBeforeOption match {
       case None =>
         nodeDocAfterOption match {
-          case Some(nodeDocAfter) => processCreate(context, nodeDocAfter, action)
+          case Some(nodeDocAfter) => processCreate(context, nodeDocAfter)
           case None =>
             // TODO message ?
             None
@@ -101,9 +94,8 @@ class NodeChangeProcessor(
     }
   }
 
-  private def processCreate(context: ChangeSetContext, nodeDoc: NodeDoc, action: ChangeAction): Option[NodeChange] = {
+  private def processCreate(context: ChangeSetContext, nodeDoc: NodeDoc): Option[NodeChange] = {
 
-    analysisContext.watched.nodes.add(nodeDoc._id)
     val key = context.buildChangeKey(nodeDoc._id)
     val subsets = nodeDoc.country.toSeq.flatMap { country =>
       nodeDoc.names.map(_.routeType).flatMap(routeType => Subset.of(country, routeType))
@@ -169,7 +161,7 @@ class NodeChangeProcessor(
     val allNodeTagsLost = !TagInterpreter.isNetworkNode(nodeDocAfter)
 
     val changeType = if (allNodeTagsLost) {
-      analysisContext.watched.nodes.delete(nodeId)
+      analysisContext.watched.nodes.delete(nodeId) // TODO this should have been handled in phase I ??
       nodeRepository.save(nodeDocAfter.deactivated)
       ChangeType.Delete
     }

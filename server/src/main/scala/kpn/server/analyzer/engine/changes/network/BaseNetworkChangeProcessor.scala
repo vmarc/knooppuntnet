@@ -23,7 +23,6 @@ class BaseNetworkChangeProcessor(
 
   def process(context: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
-      val batchSize = 100
       val elementChanges = networkChangeAnalyzer.analyze(context)
       val changedNetworkIds = elementChanges.elementIds
       if (changedNetworkIds.nonEmpty) {
@@ -38,63 +37,113 @@ class BaseNetworkChangeProcessor(
     }
   }
 
-  private def process(context: ChangeSetContext, networkIds: Seq[Long]): ChangeSetContext = {
-    val rawRelations: Map[Long, RawRelation] = rawDataRepository.networks(context.timestampAfter, networkIds).map(rawRelation => rawRelation.id -> rawRelation).toMap
+  private def process(initialContext: ChangeSetContext, networkIds: Seq[Long]): ChangeSetContext = {
+    val rawRelations: Map[Long, RawRelation] = rawDataRepository.networks(initialContext.timestampAfter, networkIds).map(rawRelation => rawRelation.id -> rawRelation).toMap
     val existingBaseNetworks: Map[Long, BaseNetworkDoc] = networkIds.flatMap(networkRepository.findBaseNetworkById).map(baseNetworkDoc => baseNetworkDoc._id -> baseNetworkDoc).toMap
 
-    val createBaseNetworkIds = rawRelations.keys.toSet -- existingBaseNetworks.keys.toSet
-    val udpateBaseNetworkIds = rawRelations.keys.toSet -- createBaseNetworkIds
-    val deleteBaseNetworkIds = existingBaseNetworks.keys.toSet -- createBaseNetworkIds -- udpateBaseNetworkIds
+    var context = initialContext
+    networkIds.foreach { networkId =>
+      existingBaseNetworks.get(networkId) match {
+        case None =>
+          rawRelations.get(networkId) match {
+            case None =>
+            // nothing to do
 
-    val createRelations = rawRelations.values.toSeq.filter(rawRelation => createBaseNetworkIds.contains(rawRelation.id))
-    val updateRelations = rawRelations.values.toSeq.filter(rawRelation => udpateBaseNetworkIds.contains(rawRelation.id))
+            case Some(rawRelation) =>
+              context = processCreate(context, rawRelation, networkId)
+          }
 
-    val createdIds = createRelations.flatMap(rawRelation => analyzeBaseNetwork(context, rawRelation))
-    val updatedIds = updateRelations.flatMap(rawRelation => analyzeBaseNetwork(context, rawRelation))
+        case Some(beforeNetworkDoc) =>
+          rawRelations.get(networkId) match {
+            case None =>
+              context = processDelete(context, beforeNetworkDoc, networkId)
 
-    val notUpdatedNetworkIds = udpateBaseNetworkIds -- updatedIds.toSet
+            case Some(rawRelation) =>
+              context = processUpdate(context, beforeNetworkDoc, rawRelation, networkId)
+          }
+      }
+    }
 
-    val allDeletedIds = deleteBaseNetworkIds ++ notUpdatedNetworkIds
-
-    val realDeletedIds = allDeletedIds.flatMap(processDelete)
-
-    context.copy(
-      baseNetworkCreateIds = createdIds,
-      baseNetworkUpdateIds = updatedIds,
-      baseNetworkDeleteIds = realDeletedIds.toSeq.sorted,
-    )
+    //    val createBaseNetworkIds = rawRelations.keys.toSet -- existingBaseNetworks.keys.toSet
+    //    val udpateBaseNetworkIds = rawRelations.keys.toSet -- createBaseNetworkIds
+    //    val deleteBaseNetworkIds = existingBaseNetworks.keys.toSet -- createBaseNetworkIds -- udpateBaseNetworkIds
+    //
+    //    val createRelations = rawRelations.values.toSeq.filter(rawRelation => createBaseNetworkIds.contains(rawRelation.id))
+    //    val updateRelations = rawRelations.values.toSeq.filter(rawRelation => udpateBaseNetworkIds.contains(rawRelation.id))
+    //
+    //    var updatedContext = context
+    //
+    //    val createdIds = createRelations.flatMap(rawRelation => analyzeBaseNetwork(context, rawRelation))
+    //    val updatedIds = updateRelations.flatMap(rawRelation => analyzeBaseNetwork(context, rawRelation))
+    //
+    //    val notUpdatedNetworkIds = udpateBaseNetworkIds -- updatedIds.toSet
+    //
+    //    val allDeletedIds = (deleteBaseNetworkIds ++ notUpdatedNetworkIds).toSeq.sorted
+    //
+    //    allDeletedIds.foreach { networkId =>
+    //      updatedContext = existingBaseNetworks.get(networkId) match {
+    //        case None => updatedContext
+    //        case Some(doc) =>
+    //          processDelete(updatedContext, doc, networkId)
+    //      }
+    //    }
+    context
   }
 
-  def analyzeBaseNetwork(context: ChangeSetContext, rawRelation: RawRelation): Option[Long] = {
-    analysisContext.watched.networks.add(rawRelation.id)
+  private def processCreate(context: ChangeSetContext, rawRelation: RawRelation, networkId: Long): ChangeSetContext = {
     baseNetworkMainAnalyzer.analyze(rawRelation) match {
-      case None => None
-      case Some(baseNetworkDoc) =>
-        networkRepository.findBaseNetworkById(rawRelation.id) match {
-          case None =>
-          // TODO all nodes and routes are affected
-          case Some(before) =>
-            if (before == baseNetworkDoc) {
-              // no change
-            }
-            else {
-              // TODO figure out add/removed nodes/routes and register as affected
-            }
-        }
+      case None =>
+        // TODO message?
+        context
 
+      case Some(baseNetworkDoc) =>
+        analysisContext.watched.networks.add(rawRelation.id)
         networkRepository.saveBaseNetwork(baseNetworkDoc)
-        Some(baseNetworkDoc._id)
+        context.withImpact(
+          baseNetworkDoc.nodeIds,
+          baseNetworkDoc.routeIds,
+          Seq(networkId)
+        )
     }
   }
 
-  def processDelete(networkId: Long): Option[Long] = {
-    analysisContext.watched.networks.delete(networkId)
-    networkRepository.findBaseNetworkById(networkId) match {
-      case None => None
+  private def processUpdate(context: ChangeSetContext, before: BaseNetworkDoc, rawRelation: RawRelation, networkId: Long): ChangeSetContext = {
+    baseNetworkMainAnalyzer.analyze(rawRelation) match {
+      case None =>
+        processDelete(context, before, networkId)
+
       case Some(baseNetworkDoc) =>
-        // TODO figure out add/removed nodes/routes and register as affected
-        networkRepository.saveBaseNetwork(baseNetworkDoc.copy(active = false))
-        Some(baseNetworkDoc._id)
+
+        analysisContext.watched.networks.add(rawRelation.id)
+        networkRepository.saveBaseNetwork(baseNetworkDoc)
+
+        val beforeNodeIds = before.nodeIds.toSet
+        val afterNodeIds = baseNetworkDoc.nodeIds.toSet
+        val addedNodeIds = afterNodeIds -- beforeNodeIds
+        val removedNodeIds = beforeNodeIds -- afterNodeIds
+        val impactedNodeIds = (addedNodeIds ++ removedNodeIds).toSeq.sorted
+
+        val beforeRouteIds = before.routeIds.toSet
+        val afterRouteIds = baseNetworkDoc.routeIds.toSet
+        val addedRouteIds = afterRouteIds -- beforeRouteIds
+        val removedRouteIds = beforeRouteIds -- afterRouteIds
+        val impactedRouteIds = (addedRouteIds ++ removedRouteIds).toSeq.sorted
+
+        context.withImpact(
+          impactedNodeIds,
+          impactedRouteIds,
+          Seq(networkId)
+        )
     }
+  }
+
+  private def processDelete(context: ChangeSetContext, before: BaseNetworkDoc, networkId: Long): ChangeSetContext = {
+    analysisContext.watched.networks.delete(networkId)
+    networkRepository.saveBaseNetwork(before.copy(active = false))
+    context.withImpact(
+      before.nodeIds,
+      before.routeIds,
+      Seq(networkId)
+    )
   }
 }

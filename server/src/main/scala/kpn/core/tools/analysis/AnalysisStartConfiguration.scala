@@ -19,7 +19,6 @@ import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoExt
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoNodeDocAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzerImpl
 import kpn.server.analyzer.engine.analysis.node.base.BaseNodeMainAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeCountryAnalyzer
 import kpn.server.analyzer.engine.analysis.node.base.analyzers.BaseNodeLocationAnalyzer
@@ -204,7 +203,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
 
   val rawDataRepository: RawDataRepository = new RawDataRepositoryDevelopmentImpl(database)
 
-  val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzerImpl(
+  val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzer(
     rawDataRepository,
     nodeMainAnalyzer,
     nodeRepository,

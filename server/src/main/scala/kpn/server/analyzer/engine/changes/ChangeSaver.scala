@@ -1,5 +1,33 @@
 package kpn.server.analyzer.engine.changes
 
-trait ChangeSaver {
-  def save(context: ChangeSetContext): Unit
+import kpn.server.repository.ChangeSetRepository
+import kpn.server.repository.NetworkInfoRepository
+import org.springframework.stereotype.Component
+
+@Component
+class ChangeSaver(
+  changeSetRepository: ChangeSetRepository,
+  networkInfoRepository: NetworkInfoRepository
+) {
+
+  def save(context: ChangeSetContext): Unit = {
+
+    if (context.changes.nonEmpty) {
+
+      context.changes.networkChanges.foreach { networkChange =>
+        changeSetRepository.saveNetworkChange(networkChange)
+      }
+
+      context.changes.routeChanges.foreach { routeChange =>
+        changeSetRepository.saveRouteChange(routeChange)
+      }
+
+      context.changes.nodeChanges.foreach { nodeChange =>
+        changeSetRepository.saveNodeChange(nodeChange)
+      }
+
+      val changeSetSummary = new ChangeSetSummaryBuilder().build(context)
+      changeSetRepository.saveChangeSetSummary(changeSetSummary)
+    }
+  }
 }

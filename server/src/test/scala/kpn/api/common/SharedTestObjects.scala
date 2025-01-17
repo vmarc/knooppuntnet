@@ -169,6 +169,17 @@ trait SharedTestObjects extends MockFactory {
     newNode(nodeId, tags = newNodeTags(name) ++ extraTags)
   }
 
+  def newRouteNode(nodeId: Long, name: String): RouteNode = {
+    RouteNode(
+      nodeId = nodeId,
+      latitude = "0",
+      longitude = "0",
+      name = name,
+      alternateName = name,
+      isInWay = true,
+    )
+  }
+
   def newForeignRawNode(nodeId: Long, name: String): RawNode = {
     newRawNode(nodeId, latitude = "99", longitude = "99", tags = newNodeTags(name))
   }

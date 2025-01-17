@@ -20,6 +20,7 @@ import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.test.OverpassData
 
@@ -186,7 +187,7 @@ class NetworkCreateTest01 extends IntegrationTest {
               Some(Country.nl),
               RouteType.hiking,
               1,
-              "name",
+              "network-name",
               routeChanges = ChangeSetElementRefs(
                 added = Seq(
                   ChangeSetElementRef(11, "01-02", happy = true, investigate = false)
@@ -260,67 +261,132 @@ class NetworkCreateTest01 extends IntegrationTest {
         newChangeKey(elementId = 11),
         ChangeType.Update,
         "01-02",
-        addedToNetwork = Seq(Ref(1, "name")),
-        before = None,
-        //        Some(
-        //          newRouteData(
-        //            Some(Country.nl),
-        //            routeType.hiking,
-        //            relation = newRawRelation(
-        //              11,
-        //              members = Seq(
-        //                RawMember("way", 101, None)
-        //              ),
-        //              tags = newRouteTags("01-02")
-        //            ),
-        //            name = "01-02",
-        //            networkNodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            nodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            ways = Seq(
-        //              newRawWay(
-        //                101,
-        //                nodeIds = Vector(1001, 1002),
-        //                tags = Tags.from("highway" -> "unclassified")
-        //              )
-        //            )
-        //          )
-        //        ),
-        after = None,
-        //        Some(
-        //          newRouteData(
-        //            Some(Country.nl),
-        //            routeType.hiking,
-        //            relation = newRawRelation(
-        //              11,
-        //              members = Seq(
-        //                RawMember("way", 101, None)
-        //              ),
-        //              tags = newRouteTags("01-02")
-        //            ),
-        //            name = "01-02",
-        //            networkNodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            nodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            ways = Seq(
-        //              newRawWay(
-        //                101,
-        //                nodeIds = Vector(1001, 1002),
-        //                tags = Tags.from("highway" -> "unclassified")
-        //              )
-        //            )
-        //          )
-        //        ),
+        addedToNetwork = Seq(Ref(1, "network-name")),
+        before = Some(
+          newRouteData(
+            relationId = 11,
+            meta = MetaData(
+              version = 0,
+              timestamp = Timestamp(2015, 8, 11),
+              changeSetId = 1
+            ),
+            countries = Seq(Country.nl),
+            routeTypes = Seq(RouteType.hiking),
+            //            relation = newRawRelation(
+            //              11,
+            //              members = Seq(
+            //                RawMember("way", 101, None)
+            //              ),
+            //              tags = newRouteTags("01-02")
+            //            ),
+            name = "01-02",
+            networkNodes = Seq(
+              newRouteNode(1001, "01"),
+              newRouteNode(1002, "02")
+            ),
+            //            nodes = Seq(
+            //              newNodeWithName(1001, "01"),
+            //              newNodeWithName(1002, "02")
+            //            ),
+            ways = Seq.empty,
+            //            ways = Seq(
+            //              newRawWay(
+            //                101,
+            //                nodeIds = Vector(1001, 1002),
+            //                tags = Tags.from("highway" -> "unclassified")
+            //              )
+            //            ),
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "ref" -> "01-02",
+              "network:type" -> "node_network",
+            )
+          )
+        ),
+        after = Some(
+          //        "after" : {
+          //          "relationId" : 11,
+          //          "meta" : {
+          //          "version" : 0,
+          //          "timestamp" : "2015-08-11T00:00:00Z",
+          //          "changeSetId" : 1
+          //        },
+          //          "countries" : [
+          //          "nl"
+          //          ],
+          //          "routeTypes" : [
+          //          "hiking"
+          //          ],
+          //          "name" : "01-02",
+          //          "networkNodes" : [
+          //        {
+          //          "nodeId" : 1001,
+          //          "latitude" : "0",
+          //          "longitude" : "0",
+          //          "name" : "01",
+          //          "alternateName" : "01",
+          //          "isInWay" : true
+          //        },
+          //        {
+          //          "nodeId" : 1002,
+          //          "latitude" : "0",
+          //          "longitude" : "0",
+          //          "name" : "02",
+          //          "alternateName" : "02",
+          //          "isInWay" : true
+          //        }
+          //          ],
+          //          "ways" : [ ],
+          //          "facts" : [ ],
+          //          "meters" : 0,
+          //          "locationAnalysis" : {
+          //          "candidates" : [ ],
+          //          "locationNames" : [ ]
+          //        },
+          newRouteData(
+            relationId = 11,
+            meta = MetaData(
+              version = 0,
+              timestamp = Timestamp(2015, 8, 11),
+              changeSetId = 1
+            ),
+            Seq(Country.nl),
+            Seq(RouteType.hiking),
+            //            relation = newRawRelation(
+            //              11,
+            //              members = Seq(
+            //                RawMember("way", 101, None)
+            //              ),
+            //              tags = newRouteTags("01-02")
+            //            ),
+            name = "01-02",
+            networkNodes = Seq(
+              newRouteNode(1001, "01"),
+              newRouteNode(1002, "02")
+            ),
+            //            nodes = Seq(
+            //              newNodeWithName(1001, "01"),
+            //              newNodeWithName(1002, "02")
+            //            ),
+            ways = Seq.empty,
+            //            ways = Seq(
+            //              newRawWay(
+            //                101,
+            //                nodeIds = Vector(1001, 1002),
+            //                tags = Tags.from("highway" -> "unclassified")
+            //              )
+            //            ),
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "ref" -> "01-02",
+              "network:type" -> "node_network",
+            )
+          )
+        ),
         impactedNodeIds = Seq(1001, 1002),
         happy = true,
         impact = true,
@@ -345,7 +411,7 @@ class NetworkCreateTest01 extends IntegrationTest {
           newMetaData()
         ),
         addedToNetwork = Seq(
-          Ref(1, "name")
+          Ref(1, "network-name")
         ),
         happy = true,
         impact = true
@@ -368,7 +434,7 @@ class NetworkCreateTest01 extends IntegrationTest {
           newMetaData()
         ),
         addedToNetwork = Seq(
-          Ref(1, "name")
+          Ref(1, "network-name")
         ),
         happy = true,
         impact = true

@@ -3,18 +3,17 @@ package kpn.server.analyzer.engine.changes.route
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.changes.details.RouteChange
+import kpn.api.common.common.Ref
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Relation
-import kpn.core.analysis.TagInterpreter
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.Label
 import kpn.core.doc.RouteDoc
 import kpn.core.history.RouteDiffAnalyzer
 import kpn.core.history.RouteTagDiffAnalyzer
 import kpn.core.util.Log
-import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
 import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
@@ -45,56 +44,61 @@ class RouteChangeProcessor(
   def process(context: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
 
-      context.baseRouteDeletedIds.foreach { routeId =>
-        routeRepository.findRouteById(routeId) match {
-          case Some(routeDoc) => processDelete(context, routeDoc)
-          case None =>
-        }
+      val routeChanges = context.impactedRouteIds.flatMap { routeId =>
+        processRoute(context, routeId)
       }
-
-      context.baseRouteCreatedIds.foreach { routeId =>
-        routeRepository.findBaseRouteById(routeId) match {
-          case None =>
-          case Some(baseRouteDoc) =>
-            routeMainAnalyzer.analyze(baseRouteDoc) match {
-              case None =>
-              case Some(routeDoc) =>
-                routeRepository.saveRoute(routeDoc)
-            }
-        }
-      }
-
-      context.baseRouteUpdatedIds.foreach { routeId =>
-        routeRepository.findBaseRouteById(routeId) match {
-          case None =>
-          case Some(baseRouteDoc) =>
-            routeMainAnalyzer.analyze(baseRouteDoc) match {
-              case None =>
-              case Some(routeDoc) =>
-                routeRepository.saveRoute(routeDoc)
-            }
-        }
-      }
-
-      val impactedRelationIds = context.changes.networkChanges.flatMap(_.impactedRelationIds).distinct.sorted
-      val routeElementChanges = changeAnalyzer.analyze(context)
-      val batchSize = 50
-      val changedRouteIds = (routeElementChanges.elementIds ++ impactedRelationIds).distinct.sorted
-      if (changedRouteIds.nonEmpty) {
-        log.info(s"${changedRouteIds.size} route(s) impacted: ${changedRouteIds.mkString(", ")}")
-      }
-      val routeChanges = changedRouteIds.sliding(batchSize, batchSize).flatMap { routeIds =>
-        processBatch(context, routeElementChanges, routeIds)
-      }.toSeq
 
       (
-        s"${routeChanges.size} route changes",
+        s"${routeChanges} route changes",
         context.copy(
           changes = context.changes.copy(
             routeChanges = routeChanges
           )
         )
       )
+    }
+  }
+
+  private def processRoute(context: ChangeSetContext, routeId: Long): Option[RouteChange] = {
+    routeRepository.findRouteById(routeId) match {
+      case None =>
+        routeRepository.findBaseRouteById(routeId) match {
+          case None =>
+            // TODO nothing to do - log message?
+            None
+          case Some(baseRouteDoc) =>
+            if (baseRouteDoc.isActive) {
+              routeMainAnalyzer.analyze(baseRouteDoc) match {
+                case None =>
+                  // TODO delete?
+                  None
+
+                case Some(routeDocAfter) =>
+                  // CREATE
+                  processCreate(context, routeDocAfter, routeId)
+              }
+            }
+            else {
+              // DELETE - nothing to do anymore?
+              None
+            }
+        }
+
+      case Some(before) =>
+        // UPDATE
+        routeRepository.findBaseRouteById(routeId) match {
+          case None =>
+            // TODO message?
+            None
+          case Some(baseRouteDoc) =>
+            routeMainAnalyzer.analyze(baseRouteDoc) match {
+              case None =>
+                // TODO message? delete?
+                None
+              case Some(routeDoc) =>
+                processUpdate(context, before, routeDoc, routeId)
+            }
+        }
     }
   }
 
@@ -118,89 +122,67 @@ class RouteChangeProcessor(
   }
 
   private def processChangeData(context: ChangeSetContext, data: RouteChangeData): Option[RouteChange] = {
-    data.before match {
-      case None =>
-        data.after match {
-          case None => None // TODO message ?
-          case Some(after) =>
-            if (TagInterpreter.isRouteRelation(after)) {
-              processCreate(context, after, data.routeId)
-            }
-            else {
-              None
-            }
-        }
-      case Some(before) =>
-        data.after match {
-          case None => None // TODO processDelete(context, before, data.routeId)
-          case Some(after) =>
-            if (TagInterpreter.isRouteRelation(before)) {
-              processUpdate(context, before, after, data.routeId)
-            }
-            else {
-              processCreate(context, after, data.routeId)
-            }
-        }
-    }
+    //    data.before match {
+    //      case None =>
+    //        data.after match {
+    //          case None => None // TODO message ?
+    //          case Some(after) =>
+    //            if (TagInterpreter.isRouteRelation(after)) {
+    //              processCreate(context, after, data.routeId)
+    //            }
+    //            else {
+    //              None
+    //            }
+    //        }
+    //      case Some(before) =>
+    //        data.after match {
+    //          case None => None // TODO processDelete(context, before, data.routeId)
+    //          case Some(after) =>
+    //            if (TagInterpreter.isRouteRelation(before)) {
+    //              processUpdate(context, before, after, data.routeId)
+    //            }
+    //            else {
+    //              processCreate(context, after, data.routeId)
+    //            }
+    //        }
+    //    }
+    None
   }
 
-  private def processCreate(context: ChangeSetContext, relationAfter: Relation, routeId: Long): Option[RouteChange] = {
+  private def processCreate(context: ChangeSetContext, routeDocAfter: RouteDoc, routeId: Long): Option[RouteChange] = {
 
-    baseRouteMainAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */).map { contextAfter =>
-      val afterBaseRouteDoc = new BaseRouteDocBuilder(contextAfter).build()
-      routeRepository.saveBaseRoute(afterBaseRouteDoc)
-      // TODO redesign - move to phase 2
-      routeMainAnalyzer.analyze(afterBaseRouteDoc) match {
-        case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
-        case None =>
-      }
-
-      analysisContext.watched.routes.add(routeId, afterBaseRouteDoc.elementIds)
-
-      val factDiffs = if (afterBaseRouteDoc.facts.nonEmpty) {
-        Some(
-          FactDiffs(
-            introduced = afterBaseRouteDoc.facts
-          )
+    routeRepository.saveRoute(routeDocAfter)
+    val factDiffs = if (routeDocAfter.facts.nonEmpty) {
+      Some(
+        FactDiffs(
+          introduced = routeDocAfter.facts
         )
-      }
-      else {
-        None
-      }
+      )
+    }
+    else {
+      None
+    }
 
-      val impactedNodeIds: Seq[Long] = contextAfter.routeNodesAnalysis.nodes.map(_.node.id).distinct.sorted
+    val impactedNodeIds: Seq[Long] = routeDocAfter.nodes.nodeIds
 
-      val key = context.buildChangeKey(routeId)
+    val key = context.buildChangeKey(routeId)
 
-      val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
-        if (networkChanges.relations.added.contains(routeId)) {
-          Some(networkChanges.toRef)
-        }
-        else {
-          None
-        }
-      }
+    val addedToNetwork = routeDocAfter.networkReferences.map(r => Ref(r.id, r.name))
 
-      val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
-        if (networkChanges.relations.removed.contains(routeId)) {
-          Some(networkChanges.toRef)
-        }
-        else {
-          None
-        }
-      }
+    val removedFromNetwork: Seq[Ref] = Seq.empty
 
+    Some(
       RouteChangeStateAnalyzer.analyzed(
         RouteChange(
           _id = key.toId,
           key = key,
           changeType = ChangeType.Create,
-          name = afterBaseRouteDoc.summary.name,
-          locationAnalysis = afterBaseRouteDoc.locationAnalysis,
+          name = routeDocAfter.summary.name,
+          locationAnalysis = routeDocAfter.locationAnalysis,
           addedToNetwork = addedToNetwork,
           removedFromNetwork = removedFromNetwork,
           before = None,
-          after = Some(RouteData.from(contextAfter)),
+          after = Some(RouteData.from(routeDocAfter)),
           removedWays = Seq.empty,
           addedWays = Seq.empty,
           updatedWays = Seq.empty,
@@ -211,14 +193,10 @@ class RouteChangeProcessor(
           impactedNodeIds = impactedNodeIds,
         )
       )
-    }
+    )
   }
 
-  private def processDelete(context: ChangeSetContext, routeDoc: RouteDoc): Option[RouteChange] = {
-
-    /*
-        routeRepository.saveRoute(routeDoc.deactivated)
-     */
+  private def processDelete(context: ChangeSetContext, routeDoc: RouteDoc): ChangeSetContext = {
 
     val impactedNodeIds: Seq[Long] = routeDoc.nodes.nodeIds.sorted
 
@@ -264,94 +242,76 @@ class RouteChangeProcessor(
         )
       )
     )
+    context
   }
 
-  def processUpdate(context: ChangeSetContext, relationBefore: Relation, relationAfter: Relation, routeId: Long): Option[RouteChange] = {
+  def processUpdate(context: ChangeSetContext, before: RouteDoc, after: RouteDoc, routeId: Long): Option[RouteChange] = {
 
-    val lostRouteTags = TagInterpreter.isRouteRelation(relationBefore) &&
-      !TagInterpreter.isRouteRelation(relationAfter)
+    //    val lostRouteTags = TagInterpreter.isRouteRelation(relationBefore) &&
+    //      !TagInterpreter.isRouteRelation(relationAfter)
 
-    baseRouteMainAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */) match {
-      case None => None
-      case Some(contextBefore) =>
-        val baseRouteDocBefore = new BaseRouteDocBuilder(contextBefore).build()
-        if (lostRouteTags) {
-          processLostRouteTags(context, contextBefore, baseRouteDocBefore, relationAfter, routeId)
-        }
-        else {
-          baseRouteMainAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */) match {
-            case None => None
-            case Some(contextAfter) =>
-              val baseRouteDocAfter = new BaseRouteDocBuilder(contextAfter).build()
+    //    baseRouteMainAnalyzer.analyze(relationBefore, None /* TODO redesign - hierarchy */) match {
+    //      case None => None
+    //      case Some(contextBefore) =>
+    //        val baseRouteDocBefore = new BaseRouteDocBuilder(contextBefore).build()
+    //        if (lostRouteTags) {
+    //          processLostRouteTags(context, contextBefore, baseRouteDocBefore, relationAfter, routeId)
+    //        }
+    //        else {
+    //          baseRouteMainAnalyzer.analyze(relationAfter, None /* TODO redesign - hierarchy */) match {
+    //            case None => None
+    //            case Some(contextAfter) =>
+    //              val baseRouteDocAfter = new BaseRouteDocBuilder(contextAfter).build()
 
-              val impactedTiles = tileChangeAnalyzer.impactedTiles(contextBefore, contextAfter)
+    //              val impactedTiles = tileChangeAnalyzer.impactedTiles(contextBefore, contextAfter)
 
-              val routeUpdate = new RouteDiffAnalyzer(RouteData.from(contextBefore), RouteData.from(contextAfter)).analysis
+    val routeUpdate = new RouteDiffAnalyzer(RouteData.from(before), RouteData.from(after)).analysis
 
-              if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
-                analysisContext.watched.routes.delete(routeUpdate.id)
-              }
-              else {
-                analysisContext.watched.routes.add(contextAfter.relation.id, contextAfter.elementIds)
-              }
+    //    if (routeUpdate.facts.contains(Fact.LostRouteTags)) {
+    //      analysisContext.watched.routes.delete(routeUpdate.id)
+    //    }
+    //    else {
+    //      analysisContext.watched.routes.add(contextAfter.relation.id, contextAfter.elementIds)
+    //    }
+    //
+    val facts = routeUpdate.facts
 
-              val facts = routeUpdate.facts
+    routeRepository.saveRoute(after)
 
-              routeRepository.saveBaseRoute(baseRouteDocAfter)
-              // TODO redesign - move to phase 2
-              routeMainAnalyzer.analyze(baseRouteDocAfter) match {
-                case Some(routeDoc) => routeRepository.saveRoute(routeDoc)
-                case None =>
-              }
+    val impactedNodeIds: Seq[Long] = (before.nodes.nodeIds ++ after.nodes.nodeIds).distinct.sorted
 
-              val impactedNodeIds: Seq[Long] = Seq(contextBefore, contextAfter).flatMap { routeAnalysis =>
-                routeAnalysis.routeNodesAnalysis.nodes.map(_.node.id)
-              }.distinct.sorted
+    val beforeNetworkIds = before.networkReferences.map(_.id).toSet
+    val afterNetworkIds = after.networkReferences.map(_.id).toSet
 
-              val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
-                if (networkChanges.relations.added.contains(routeId)) {
-                  Some(networkChanges.toRef)
-                }
-                else {
-                  None
-                }
-              }
+    val addedNetworkIds = (afterNetworkIds -- beforeNetworkIds).toSeq.sorted
+    val removedNetworkIds = (beforeNetworkIds -- afterNetworkIds).toSeq.sorted
 
-              val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
-                if (networkChanges.relations.removed.contains(routeId)) {
-                  Some(networkChanges.toRef)
-                }
-                else {
-                  None
-                }
-              }
+    val addedToNetwork = after.networkReferences.filter(r => addedNetworkIds.contains(r.id)).map(r => Ref(r.id, r.name))
+    val removedFromNetwork = before.networkReferences.filter(r => removedNetworkIds.contains(r.id)).map(r => Ref(r.id, r.name))
 
-              val key = context.buildChangeKey(routeUpdate.after.relationId)
+    val key = context.buildChangeKey(routeId)
 
-              Some(
-                RouteChangeStateAnalyzer.analyzed(
-                  RouteChange(
-                    _id = key.toId,
-                    key = key,
-                    changeType = ChangeType.Update,
-                    name = routeUpdate.after.name,
-                    locationAnalysis = baseRouteDocAfter.locationAnalysis,
-                    addedToNetwork = addedToNetwork,
-                    removedFromNetwork = removedFromNetwork,
-                    before = Some(routeUpdate.before),
-                    after = Some(routeUpdate.after),
-                    removedWays = routeUpdate.removedWays,
-                    addedWays = routeUpdate.addedWays,
-                    updatedWays = routeUpdate.updatedWays,
-                    diffs = routeUpdate.diffs,
-                    facts = facts,
-                    impactedNodeIds = impactedNodeIds,
-                  )
-                )
-              )
-          }
-        }
-    }
+    Some(
+      RouteChangeStateAnalyzer.analyzed(
+        RouteChange(
+          _id = key.toId,
+          key = key,
+          changeType = ChangeType.Update,
+          name = after.summary.name,
+          locationAnalysis = after.locationAnalysis,
+          addedToNetwork = addedToNetwork,
+          removedFromNetwork = removedFromNetwork,
+          before = Some(routeUpdate.before),
+          after = Some(routeUpdate.after),
+          removedWays = routeUpdate.removedWays,
+          addedWays = routeUpdate.addedWays,
+          updatedWays = routeUpdate.updatedWays,
+          diffs = routeUpdate.diffs,
+          facts = routeUpdate.facts,
+          impactedNodeIds = impactedNodeIds,
+        )
+      )
+    )
   }
 
   private def processLostRouteTags(
