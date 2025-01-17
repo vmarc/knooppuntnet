@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.JsonNode
 import kpn.api.custom.ScopedRouteType
 
-class scopedRouteTypeJsonDeserializer extends JsonDeserializer[ScopedRouteType] {
+class ScopedRouteTypeJsonDeserializer extends JsonDeserializer[ScopedRouteType] {
   override def deserialize(jsonParser: JsonParser, deserializationContext: DeserializationContext): ScopedRouteType = {
     val node: JsonNode = jsonParser.getCodec.readTree(jsonParser)
     val key = node.asText

@@ -68,10 +68,10 @@ class AnalysisController(analysisFacade: AnalysisFacade) {
 
   @GetMapping(value = Array("/api/{country:be|de|fr|nl|at|es|dk}/{routeType:cycling|hiking|horse-riding|motorboat|canoe|inline-skating}/networks"))
   def subsetNetworks(
-    @PathVariable country: Country,
-    @PathVariable routeType: RouteType
+    @PathVariable country: String,
+    @PathVariable routeType: String
   ): ApiResponse[SubsetNetworksPage] = {
-    Subset.of(country, routeType) match {
+    Subset.of(Country.withName(country), RouteType.withName(routeType)) match {
       case Some(subset) => analysisFacade.subsetNetworks(subset)
       case None => notFound()
     }

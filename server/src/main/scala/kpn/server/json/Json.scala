@@ -78,11 +78,11 @@ object Json {
     b.deserializerByType(classOf[LinkDirection], new LinkDirectionJsonDeserializer())
     b.serializerByType(classOf[LinkDirection], new LinkDirectionJsonSerializer())
 
-    b.deserializerByType(classOf[RouteType], new routeTypeJsonDeserializer())
-    b.serializerByType(classOf[RouteType], new routeTypeJsonSerializer())
+    b.deserializerByType(classOf[RouteType], new RouteTypeJsonDeserializer())
+    b.serializerByType(classOf[RouteType], new RouteTypeJsonSerializer())
 
-    b.deserializerByType(classOf[ScopedRouteType], new scopedRouteTypeJsonDeserializer())
-    b.serializerByType(classOf[ScopedRouteType], new scopedRouteTypeJsonSerializer())
+    b.deserializerByType(classOf[ScopedRouteType], new ScopedRouteTypeJsonDeserializer())
+    b.serializerByType(classOf[ScopedRouteType], new ScopedRouteTypeJsonSerializer())
 
     b.deserializerByType(classOf[RouteScope], new RouteScopeJsonDeserializer())
     b.serializerByType(classOf[RouteScope], new RouteScopeJsonSerializer())

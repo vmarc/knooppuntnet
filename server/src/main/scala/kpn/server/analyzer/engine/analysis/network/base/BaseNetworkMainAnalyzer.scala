@@ -7,9 +7,11 @@ import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkAna
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkNameAnalyzer
 import kpn.server.analyzer.engine.analysis.network.base.analyzers.BaseNetworkTypeAnalyzer
+import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
+@Component
 class BaseNetworkMainAnalyzer {
 
   def analyze(relation: RawRelation): Option[BaseNetworkDoc] = {

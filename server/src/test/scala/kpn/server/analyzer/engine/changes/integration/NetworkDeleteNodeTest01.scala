@@ -20,7 +20,7 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
-      .networkRelation(
+      .networkRelation( // delete
         1,
         "network-name",
         Seq(

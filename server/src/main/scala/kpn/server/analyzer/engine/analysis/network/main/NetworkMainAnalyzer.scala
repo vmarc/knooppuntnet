@@ -25,9 +25,11 @@ import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoTag
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkLastUpdatedAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNameAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkSurveyAnalyzer
+import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
+@Component
 class NetworkMainAnalyzer(
   database: Database,
   networkInfoRouteAnalyzer: NetworkInfoRouteAnalyzer,

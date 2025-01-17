@@ -10,9 +10,11 @@ import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeIntegrityAnal
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeLabelsAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
+import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
 
+@Component
 class NodeMainAnalyzer(
   nodeRouteReferencesAnalyzer: NodeRouteReferencesAnalyzer,
   nodeNetworkReferencesAnalyzer: NodeNetworkReferencesAnalyzer,
