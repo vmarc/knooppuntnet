@@ -1,3 +1,4 @@
+import { TuiRoot } from '@taiga-ui/core';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
@@ -18,11 +19,13 @@ import { RootPageComponent } from './root/root.component';
   selector: 'kpn-app',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <kpn-root>
-      <router-outlet />
-    </kpn-root>
+    <tui-root>
+      <kpn-root>
+        <router-outlet />
+      </kpn-root>
+    </tui-root>
   `,
-  imports: [MatSidenavModule, RouterOutlet, RootPageComponent],
+  imports: [MatSidenavModule, RouterOutlet, RootPageComponent, TuiRoot],
 })
 export class AppComponent implements OnDestroy {
   private readonly iconService = inject(IconService);
