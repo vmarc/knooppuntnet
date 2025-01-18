@@ -7,21 +7,17 @@
       "projectType": "application",
       "i18n": {
         "sourceLocale": {
-          "code": "en",
-          "baseHref": "/en/"
+          "code": "en"
         },
         "locales": {
           "nl": {
-            "translation": "src/locale/translations.nl.xlf",
-            "baseHref": "/nl/"
+            "translation": "src/locale/translations.nl.xlf"
           },
           "fr": {
-            "translation": "src/locale/translations.fr.xlf",
-            "baseHref": "/fr/"
+            "translation": "src/locale/translations.fr.xlf"
           },
           "de": {
-            "translation": "src/locale/translations.de.xlf",
-            "baseHref": "/de/"
+            "translation": "src/locale/translations.de.xlf"
           }
         }
       },
