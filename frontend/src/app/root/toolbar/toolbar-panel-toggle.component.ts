@@ -1,42 +1,38 @@
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggle } from '@angular/material/button-toggle';
-import { MatButtonToggleGroup } from '@angular/material/button-toggle';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
+import { ReactiveFormsModule } from '@angular/forms';
 import { State } from '@app/state';
+import { TuiIcon } from '@taiga-ui/core';
+import { TuiSegmented } from '@taiga-ui/kit';
 
 @Component({
   selector: 'kpn-toolbar-panel-toggle',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-button-toggle-group
-      #group="matButtonToggleGroup"
-      [hideSingleSelectionIndicator]="true"
-      [value]="activePanel()"
-      (change)="updateActivePanel($event.value)"
-    >
-      <mat-button-toggle value="text" aria-label="Text">
-        <mat-icon>format_align_left</mat-icon>
-      </mat-button-toggle>
-      <mat-button-toggle value="map" aria-label="Map">
-        <mat-icon>map</mat-icon>
-      </mat-button-toggle>
-    </mat-button-toggle-group>
+    <div class="panel-toggle">
+      <tui-segmented [activeItemIndex]="activeItemIndex()">
+        <button type="button" (click)="updateActivePanel('text')">
+          <tui-icon icon="@tui.align-left" />
+        </button>
+        <button type="button" (click)="updateActivePanel('map')">
+          <tui-icon icon="@tui.map" />
+        </button>
+      </tui-segmented>
+    </div>
   `,
-  imports: [
-    MatButtonModule,
-    MatButtonToggle,
-    MatButtonToggleGroup,
-    MatIconModule,
-    MatToolbarModule,
-  ],
+  styles: `
+    .panel-toggle {
+      padding-right: 0.5em;
+    }
+  `,
+  imports: [TuiSegmented, TuiIcon, ReactiveFormsModule],
 })
 export class ToolbarPanelToggleComponent {
   private readonly state = inject(State);
   readonly activePanel = this.state.page.activePanel;
+  readonly activeItemIndex = computed(() => (this.activePanel() === 'text' ? 0 : 1));
 
   updateActivePanel(value: string): void {
     this.state.page.updateActivePanel(value);

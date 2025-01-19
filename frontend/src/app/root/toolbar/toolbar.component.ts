@@ -1,9 +1,6 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { SpinnerComponent } from '@app/spinner';
 import { State } from '@app/state';
 import { TuiButton } from '@taiga-ui/core';
@@ -23,8 +20,6 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
       <a tuiSlot="left" iconStart="@tui.user" title="User" tuiIconButton></a>
       <kpn-toolbar-title tuiSlot="left" />
       <kpn-spinner />
-      <a tuiSlot="right" iconStart="@tui.user" title="User" tuiIconButton></a>
-
       @if (small()) {
         <kpn-toolbar-panel-toggle tuiSlot="right" />
       }
@@ -37,16 +32,13 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
     }
   `,
   imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatToolbarModule,
+    SettingsMenuComponent,
     SpinnerComponent,
     ToolbarPanelToggleComponent,
     ToolbarTitleComponent,
     TuiAppBarComponent,
     TuiAppBarDirective,
     TuiButton,
-    SettingsMenuComponent,
   ],
 })
 export class ToolbarComponent {
