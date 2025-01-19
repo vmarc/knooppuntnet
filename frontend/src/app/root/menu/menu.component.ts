@@ -11,10 +11,18 @@ import { MenuTestLinksComponent } from './menu-test-links.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="main-menu">
-      <button tuiLink iconStart="@tui.search" routerLink="explore">Explore</button>
-      <button tuiLink iconStart="@tui.compass" routerLink="planner">Plan a route</button>
-      <button tuiLink iconStart="@tui.stethoscope" routerLink="analysis">Analysis</button>
-      <button tuiLink iconStart="@tui.heart-pulse" routerLink="monitor">Monitor</button>
+      <div>
+        <a tuiLink iconStart="@tui.search" routerLink="explore">Explore</a>
+      </div>
+      <div>
+        <a tuiLink iconStart="@tui.compass" routerLink="planner">Plan a route</a>
+      </div>
+      <div>
+        <a tuiLink iconStart="@tui.stethoscope" routerLink="analysis">Analysis</a>
+      </div>
+      <div>
+        <a tuiLink iconStart="@tui.heart-pulse" routerLink="monitor">Monitor</a>
+      </div>
     </div>
 
     <kpn-divider />
@@ -29,8 +37,7 @@ import { MenuTestLinksComponent } from './menu-test-links.component';
       padding-top: 1em;
       padding-left: 1em;
 
-      > button {
-        display: block;
+      > div {
         padding: 0.5em;
       }
     }

@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { TuiLoader } from '@taiga-ui/core';
 import { SpinnerService } from './spinner.service';
 
 @Component({
@@ -9,10 +9,10 @@ import { SpinnerService } from './spinner.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.showSpinner()) {
-      <mat-spinner diameter="40" />
+      <tui-loader />
     }
   `,
-  imports: [MatProgressSpinnerModule],
+  imports: [TuiLoader],
 })
 export class SpinnerComponent {
   readonly service = inject(SpinnerService);

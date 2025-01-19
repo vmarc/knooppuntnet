@@ -6,33 +6,34 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SpinnerComponent } from '@app/spinner';
 import { State } from '@app/state';
+import { TuiButton } from '@taiga-ui/core';
+import { TuiAppBarDirective } from '@taiga-ui/layout';
+import { TuiAppBarComponent } from '@taiga-ui/layout';
 import { SettingsMenuComponent } from './settings/settings-menu.component';
 import { ToolbarPanelToggleComponent } from './toolbar-panel-toggle.component';
-import { ToolbarRouteTypeMenuComponent } from './toolbar-route-type-menu.component';
 import { ToolbarTitleComponent } from './toolbar-title.component';
 
 @Component({
   selector: 'kpn-toolbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-toolbar>
-      <kpn-settings-menu />
-      <kpn-toolbar-route-type-menu />
-      <kpn-toolbar-title />
+    <tui-app-bar class="toolbar">
+      <kpn-settings-menu tuiSlot="left" />
+      <!-- <kpn-toolbar-route-type-menu /> -->
+      <a tuiSlot="left" iconStart="@tui.user" title="User" tuiIconButton></a>
+      <kpn-toolbar-title tuiSlot="left" />
       <kpn-spinner />
-      <span class="toolbar-spacer"></span>
+      <a tuiSlot="right" iconStart="@tui.user" title="User" tuiIconButton></a>
+
       @if (small()) {
-        <kpn-toolbar-panel-toggle />
+        <kpn-toolbar-panel-toggle tuiSlot="right" />
       }
-    </mat-toolbar>
+    </tui-app-bar>
   `,
   styles: `
-    mat-toolbar {
-      padding: 16px 16px 16px 6px;
-    }
-
-    .toolbar-spacer {
-      flex: 1 1 auto;
+    .toolbar {
+      background-color: #f8f8f8;
+      border-bottom: solid 1px lightgray;
     }
   `,
   imports: [
@@ -41,8 +42,10 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
     MatToolbarModule,
     SpinnerComponent,
     ToolbarPanelToggleComponent,
-    ToolbarRouteTypeMenuComponent,
     ToolbarTitleComponent,
+    TuiAppBarComponent,
+    TuiAppBarDirective,
+    TuiButton,
     SettingsMenuComponent,
   ],
 })
