@@ -15,9 +15,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
   selector: 'kpn-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="toolbar">
-      <kpn-toolbar />
-    </div>
+    <!--    <kpn-toolbar />-->
     @if (small()) {
       <div [ngClass]="{ hidden: hideText() }">
         <div class="main content">
@@ -114,14 +112,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
       flex: 0;
     }
   `,
-  imports: [
-    AngularSplitModule,
-    NgTemplateOutlet,
-    ToolbarComponent,
-    NgClass,
-    MapComponent,
-    SidebarFooterComponent,
-  ],
+  imports: [AngularSplitModule, NgTemplateOutlet, NgClass, MapComponent, SidebarFooterComponent],
 })
 export class RootPageComponent {
   private readonly state = inject(State);

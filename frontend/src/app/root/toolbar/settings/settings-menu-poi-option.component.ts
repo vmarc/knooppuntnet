@@ -1,43 +1,33 @@
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-import { signal } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatCheckboxModule } from '@angular/material/checkbox';
 import { State } from '@app/state';
+import { MenuItemCheckboxComponent } from './menu-item-checkbox.component';
 
 @Component({
   selector: 'kpn-settings-menu-poi-option',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-checkbox
-      (click)="$event.stopPropagation()"
-      [checked]="visible()"
-      [disabled]="enabled() === false"
-      (change)="enabledChanged($event)"
-      class="poi-group"
-    >
-      <ng-content />
-    </mat-checkbox>
+    <kpn-menu-item-checkbox
+      [value]="groupEnabled()"
+      [disabled]="poiLayerEnabled() === false"
+      (toggle)="groupEnabledChanged()"
+      [label]="label()"
+    />
   `,
-  styles: `
-    .poi-group {
-      display: block;
-      padding-left: 25px;
-      padding-right: 10px;
-    }
-  `,
-  imports: [MatCheckboxModule],
+  imports: [MenuItemCheckboxComponent],
 })
 export class SettingsMenuPoiOptionComponent {
   private readonly state = inject(State);
+  readonly label = input.required<string>();
   readonly groupName = input.required<string>();
-  readonly enabled = signal<boolean>(true);
-  readonly visible = computed(() => this.state.map.poiActive().get(this.groupName()));
+  readonly groupEnabled = computed(() => this.state.map.poiActive().get(this.groupName()));
+  readonly poiLayerEnabled = this.state.map.layers.poiLayerEnabled;
 
-  enabledChanged(event: MatCheckboxChange): void {
-    this.state.map.updatePoiGroupActive(this.groupName(), event.checked);
+  groupEnabledChanged(): void {
+    const value = this.groupEnabled();
+    this.state.map.updatePoiGroupActive(this.groupName(), !value);
   }
 }

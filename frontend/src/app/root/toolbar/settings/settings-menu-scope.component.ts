@@ -1,65 +1,46 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxChange } from '@angular/material/checkbox';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuItem } from '@angular/material/menu';
 import { State } from '@app/state';
+import { TuiDataListComponent } from '@taiga-ui/core';
+import { TuiDataListDropdownManager } from '@taiga-ui/kit';
+import { MenuItemCheckboxComponent } from './menu-item-checkbox.component';
 
 @Component({
   selector: 'kpn-settings-menu-scope',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div mat-menu-item>
-      <mat-checkbox
-        [checked]="scopeInternational()"
-        (change)="updateScopeInternational($event)"
-        (click)="$event.stopPropagation()"
-      >
-        International
-      </mat-checkbox>
-    </div>
-    <div mat-menu-item>
-      <mat-checkbox
-        [checked]="scopeNational()"
-        (change)="updateScopeNational($event)"
-        (click)="$event.stopPropagation()"
-      >
-        National
-      </mat-checkbox>
-    </div>
-    <div mat-menu-item>
-      <mat-checkbox
-        [checked]="scopeRegional()"
-        (change)="updateScopeRegional($event)"
-        (click)="$event.stopPropagation()"
-      >
-        Regional
-      </mat-checkbox>
-    </div>
-    <div mat-menu-item>
-      <mat-checkbox
-        [checked]="scopeLocal()"
-        (change)="updateScopeLocal($event)"
-        (click)="$event.stopPropagation()"
-      >
-        Local
-      </mat-checkbox>
-    </div>
-    <div mat-menu-item>
-      <mat-checkbox
-        [checked]="scopeNodeRoutes()"
-        (change)="updateScopeNodeRoutes($event)"
-        (click)="$event.stopPropagation()"
-      >
-        Node routes
-      </mat-checkbox>
+    <div class="kpn-menu-items">
+      <tui-data-list tuiDataListDropdownManager size="m">
+        <kpn-menu-item-checkbox
+          [value]="scopeInternational()"
+          (toggle)="toggleScopeInternational()"
+          label="International"
+        />
+        <kpn-menu-item-checkbox
+          [value]="scopeNational()"
+          (toggle)="toggleScopeNational()"
+          label="National"
+        />
+        <kpn-menu-item-checkbox
+          [value]="scopeRegional()"
+          (toggle)="toggleScopeRegional()"
+          label="Regional"
+        />
+        <kpn-menu-item-checkbox
+          [value]="scopeLocal()"
+          (toggle)="toggleScopeLocal()"
+          label="Local"
+        />
+        <kpn-menu-item-checkbox
+          [value]="scopeNodeRoutes()"
+          (toggle)="toggleScopeNodeRoutes()"
+          label="Node routes"
+        />
+      </tui-data-list>
     </div>
   `,
-  styles: ``,
-  imports: [MatButtonModule, MatIconModule, MatCheckbox, MatMenuItem],
+  imports: [MenuItemCheckboxComponent, TuiDataListDropdownManager, TuiDataListComponent],
 })
 export class SettingsMenuScopeComponent {
   private readonly state = inject(State);
@@ -70,23 +51,23 @@ export class SettingsMenuScopeComponent {
   readonly scopeLocal = this.scopes.scopeLocal;
   readonly scopeNodeRoutes = this.scopes.scopeNodeRoutes;
 
-  updateScopeInternational(event: MatCheckboxChange): void {
-    this.scopes.updateScopeInternational(event.checked);
+  toggleScopeInternational(): void {
+    this.scopes.updateScopeInternational(!this.scopeInternational());
   }
 
-  updateScopeNational(event: MatCheckboxChange): void {
-    this.scopes.updateScopeNational(event.checked);
+  toggleScopeNational(): void {
+    this.scopes.updateScopeNational(!this.scopeNational());
   }
 
-  updateScopeRegional(event: MatCheckboxChange): void {
-    this.scopes.updateScopeRegional(event.checked);
+  toggleScopeRegional(): void {
+    this.scopes.updateScopeRegional(!this.scopeRegional());
   }
 
-  updateScopeLocal(event: MatCheckboxChange): void {
-    this.scopes.updateScopeLocal(event.checked);
+  toggleScopeLocal(): void {
+    this.scopes.updateScopeLocal(!this.scopeLocal());
   }
 
-  updateScopeNodeRoutes(event: MatCheckboxChange): void {
-    this.scopes.updateScopeNodeRoutes(event.checked);
+  toggleScopeNodeRoutes(): void {
+    this.scopes.updateScopeNodeRoutes(!this.scopeNodeRoutes());
   }
 }

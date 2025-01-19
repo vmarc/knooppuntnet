@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatLabel } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuItem } from '@angular/material/menu';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { MatMenu } from '@angular/material/menu';
-import { DividerComponent } from '@app/components/shared';
-import { SettingsMenuPoiComponent } from './settings-menu-poi.component';
+import { TuiDropdownManual } from '@taiga-ui/core';
+import { TuiDropdownOptionsDirective } from '@taiga-ui/core';
+import { TuiDropdownPositionSided } from '@taiga-ui/core';
+import { TuiDropdownDirective } from '@taiga-ui/core';
+import { TuiOption } from '@taiga-ui/core';
+import { TuiDataListComponent } from '@taiga-ui/core';
+import { TuiDataListDropdownManager } from '@taiga-ui/kit';
 import { SettingsMenuLayersComponent } from './settings-menu-layers.component';
 import { SettingsMenuMapOptionsComponent } from './settings-menu-map-options.component';
 import { SettingsMenuScopeComponent } from './settings-menu-scope.component';
@@ -16,53 +15,77 @@ import { SettingsMenuScopeComponent } from './settings-menu-scope.component';
   selector: 'kpn-settings-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button [matMenuTriggerFor]="settingsMenu" mat-icon-button>
-      <span class="menu-button-icons">
-        <mat-icon>settings</mat-icon>
-      </span>
-    </button>
+    <tui-data-list tuiDataListDropdownManager size="m">
+      <button
+        iconStart="@tui.map"
+        iconEnd="@tui.chevron-right"
+        tuiDropdownAlign="right"
+        tuiDropdownDirection="top"
+        tuiDropdownManual
+        tuiDropdownSided
+        tuiOption
+        type="button"
+        [tuiDropdown]="mapOptionsMenu"
+      >
+        Map options
+      </button>
 
-    <mat-menu #settingsMenu="matMenu">
-      <button mat-menu-item [matMenuTriggerFor]="mapOptionsMenu">
-        <mat-icon>settings</mat-icon>
-        <mat-label>Map options</mat-label>
+      <button
+        iconStart="@tui.telescope"
+        iconEnd="@tui.chevron-right"
+        tuiDropdownAlign="right"
+        tuiDropdownDirection="top"
+        tuiDropdownManual
+        tuiDropdownSided
+        tuiOption
+        type="button"
+        [tuiDropdown]="scopeMenu"
+      >
+        Scope
       </button>
-      <button mat-menu-item [matMenuTriggerFor]="scopeMenu">
-        <mat-icon>clear_all</mat-icon>
-        <mat-label>Scope</mat-label>
-      </button>
-      <button mat-menu-item [matMenuTriggerFor]="layersMenu">
-        <mat-icon>layers</mat-icon>
-        <mat-label>Layers</mat-label>
-      </button>
-    </mat-menu>
 
-    <mat-menu #mapOptionsMenu="matMenu">
+      <button
+        iconStart="@tui.layers"
+        iconEnd="@tui.chevron-right"
+        tuiDropdownAlign="right"
+        tuiDropdownDirection="top"
+        tuiDropdownManual
+        tuiDropdownSided
+        tuiOption
+        type="button"
+        [tuiDropdown]="layersMenu"
+      >
+        Layers
+      </button>
+    </tui-data-list>
+
+    <ng-template #mapOptionsMenu let-close>
       <kpn-settings-menu-map-options />
-    </mat-menu>
+    </ng-template>
 
-    <mat-menu #scopeMenu="matMenu">
+    <ng-template #scopeMenu let-close>
       <kpn-settings-menu-scope />
-    </mat-menu>
+    </ng-template>
 
-    <mat-menu #layersMenu="matMenu">
+    <ng-template #layersMenu let-close>
       <kpn-settings-menu-layers />
-      <kpn-divider />
-      <kpn-settings-menu-poi />
-    </mat-menu>
+    </ng-template>
   `,
   imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatMenu,
-    MatMenuTrigger,
-    MatLabel,
-    MatMenuItem,
+    SettingsMenuLayersComponent,
     SettingsMenuMapOptionsComponent,
     SettingsMenuScopeComponent,
-    SettingsMenuLayersComponent,
-    SettingsMenuPoiComponent,
-    DividerComponent,
+    TuiDataListComponent,
+    TuiDataListDropdownManager,
+    TuiDropdownDirective,
+    TuiDropdownManual,
+    TuiDropdownOptionsDirective,
+    TuiDropdownPositionSided,
+    TuiOption,
   ],
 })
-export class SettingsMenuComponent {}
+export class SettingsMenuComponent {
+  protected open1 = false;
+  protected open2 = false;
+  protected open3 = false;
+}

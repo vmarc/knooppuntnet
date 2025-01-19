@@ -709,3 +709,12 @@ input[type=number] {
 .kpn-list-item > .mat-ripple {
   z-index: 50;
 }
+
+.kpn-menu-items {
+  > :not(:last-child) {
+    padding-bottom: 1em;
+    border-bottom: 1px solid lightgray;
+    margin-bottom: 1em;
+  }
+}
+
