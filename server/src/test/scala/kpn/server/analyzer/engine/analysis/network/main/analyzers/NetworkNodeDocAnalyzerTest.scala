@@ -7,7 +7,7 @@ import kpn.api.custom.ScopedRouteType
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
-class NetworkInfoNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
+class NetworkNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("pick up correct node docs") {
 
@@ -44,7 +44,7 @@ class NetworkInfoNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
       database.nodes.save(newNodeDoc(1003L))
       database.nodes.save(newNodeDoc(1004L))
 
-      val analyzer = new NetworkInfoNodeDocAnalyzer(database)
+      val analyzer = new NetworkNodeDocAnalyzer(database)
       val updatedContext = analyzer.analyze(context)
 
       assertEqual(

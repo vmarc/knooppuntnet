@@ -3,13 +3,13 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 import kpn.api.common.network.Integrity
 import kpn.core.util.Formatter.percentage
 
-object NetworkInfoIntegrityAnalyzer extends NetworkAnalyzer {
+object NetworkIntegrityAnalyzer extends NetworkAnalyzer {
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    new NetworkInfoIntegrityAnalyzer(context).analyze()
+    new NetworkIntegrityAnalyzer(context).analyze()
   }
 }
 
-class NetworkInfoIntegrityAnalyzer(context: NetworkAnalysisContext) {
+class NetworkIntegrityAnalyzer(context: NetworkAnalysisContext) {
 
   def analyze(): NetworkAnalysisContext = {
 

@@ -13,18 +13,18 @@ import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkAnalysi
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkCenterAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkCountryAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoExtraAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoFactAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoIntegrityAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoNodeAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoNodeDocAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoNodeMemberMissingAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoProposedAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoRouteAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkInfoTagAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkExtraAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkFactAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkIntegrityAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkLastUpdatedAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNameAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNodeAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNodeDocAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNodeMemberMissingAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkProposedAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkSurveyAnalyzer
+import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkTagAnalyzer
 import org.springframework.stereotype.Component
 
 import scala.annotation.tailrec
@@ -32,10 +32,10 @@ import scala.annotation.tailrec
 @Component
 class NetworkMainAnalyzer(
   database: Database,
-  networkInfoRouteAnalyzer: NetworkInfoRouteAnalyzer,
-  networkInfoNodeDocAnalyzer: NetworkInfoNodeDocAnalyzer,
+  networkRouteAnalyzer: NetworkRouteAnalyzer,
+  networkNodeDocAnalyzer: NetworkNodeDocAnalyzer,
   networkCountryAnalyzer: NetworkCountryAnalyzer,
-  networkInfoExtraAnalyzer: NetworkInfoExtraAnalyzer
+  networkExtraAnalyzer: NetworkExtraAnalyzer
 ) {
 
   def analyze(network: BaseNetworkDoc, analysisTimestamp: Timestamp, previousKnownCountry: Option[Country] = None): Option[NetworkDoc] = {
@@ -48,16 +48,16 @@ class NetworkMainAnalyzer(
       val analyzers: List[NetworkAnalyzer] = List(
         NetworkSurveyAnalyzer,
         NetworkNameAnalyzer,
-        NetworkInfoTagAnalyzer,
-        NetworkInfoProposedAnalyzer,
-        networkInfoRouteAnalyzer,
-        networkInfoNodeDocAnalyzer,
-        NetworkInfoNodeAnalyzer,
-        NetworkInfoIntegrityAnalyzer,
-        NetworkInfoFactAnalyzer,
-        NetworkInfoNodeMemberMissingAnalyzer,
+        NetworkTagAnalyzer,
+        NetworkProposedAnalyzer,
+        networkRouteAnalyzer,
+        networkNodeDocAnalyzer,
+        NetworkNodeAnalyzer,
+        NetworkIntegrityAnalyzer,
+        NetworkFactAnalyzer,
+        NetworkNodeMemberMissingAnalyzer,
         networkCountryAnalyzer,
-        networkInfoExtraAnalyzer,
+        networkExtraAnalyzer,
         NetworkCenterAnalyzer,
         NetworkLastUpdatedAnalyzer
       )
@@ -86,7 +86,7 @@ class NetworkMainAnalyzer(
           context.extraNodeIds,
           context.extraWayIds,
           context.extraRelationIds,
-          context.network.members,
+          if (context.network.active) context.network.members else Seq.empty,
           None
         )
       )

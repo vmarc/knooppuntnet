@@ -4,13 +4,13 @@ import kpn.api.common.Fact
 
 import scala.collection.mutable.ListBuffer
 
-object NetworkInfoTagAnalyzer extends NetworkAnalyzer {
+object NetworkTagAnalyzer extends NetworkAnalyzer {
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    new NetworkInfoTagAnalyzer(context).analyze()
+    new NetworkTagAnalyzer(context).analyze()
   }
 }
 
-class NetworkInfoTagAnalyzer(context: NetworkAnalysisContext) {
+class NetworkTagAnalyzer(context: NetworkAnalysisContext) {
 
   def analyze(): NetworkAnalysisContext = {
 

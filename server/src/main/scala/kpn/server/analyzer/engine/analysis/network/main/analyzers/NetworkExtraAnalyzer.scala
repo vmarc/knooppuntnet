@@ -9,7 +9,7 @@ import kpn.server.overpass.OverpassRepository
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkInfoExtraAnalyzer(
+class NetworkExtraAnalyzer(
   overpassRepository: OverpassRepository
 ) extends NetworkAnalyzer {
 
@@ -71,7 +71,12 @@ class NetworkInfoExtraAnalyzer(
       )
     }
     else {
-      context
+      context.copy(
+        _extraNodeIds = Some(Seq.empty),
+        _extraWayIds = Some(Seq.empty),
+        _extraRelationIds = Some(Seq.empty),
+        _networkFacts = Some(Seq.empty)
+      )
     }
   }
 

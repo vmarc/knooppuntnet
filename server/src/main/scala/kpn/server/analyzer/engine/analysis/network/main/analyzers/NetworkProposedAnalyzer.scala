@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
-object NetworkInfoProposedAnalyzer extends NetworkAnalyzer {
+object NetworkProposedAnalyzer extends NetworkAnalyzer {
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    new NetworkInfoProposedAnalyzer(context).analyze()
+    new NetworkProposedAnalyzer(context).analyze()
   }
 }
 
-class NetworkInfoProposedAnalyzer(context: NetworkAnalysisContext) {
+class NetworkProposedAnalyzer(context: NetworkAnalysisContext) {
   def analyze(): NetworkAnalysisContext = {
     context.copy(
       _proposed = Some(context.network.hasTag("state", "proposed"))

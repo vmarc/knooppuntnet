@@ -6,7 +6,7 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Ref
 import kpn.core.util.UnitTest
 
-class NetworkInfoNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestObjects {
+class NetworkNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("error if node not defined in relation") {
     analyze(definedInRelation = false) should equal(
@@ -51,6 +51,6 @@ class NetworkInfoNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestO
       _nodeDetails = Some(nodeDetails),
       _proposed = Some(networkProposed)
     )
-    NetworkInfoNodeMemberMissingAnalyzer.analyze(context).networkFacts
+    NetworkNodeMemberMissingAnalyzer.analyze(context).networkFacts
   }
 }

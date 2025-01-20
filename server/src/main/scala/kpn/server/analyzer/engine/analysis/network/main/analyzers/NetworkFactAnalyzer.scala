@@ -11,13 +11,13 @@ import kpn.core.analysis.Facts
 import kpn.core.util.Formatter
 import kpn.core.util.NaturalSorting
 
-object NetworkInfoFactAnalyzer extends NetworkAnalyzer {
+object NetworkFactAnalyzer extends NetworkAnalyzer {
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    new NetworkInfoFactAnalyzer(context).analyze()
+    new NetworkFactAnalyzer(context).analyze()
   }
 }
 
-class NetworkInfoFactAnalyzer(context: NetworkAnalysisContext) {
+class NetworkFactAnalyzer(context: NetworkAnalysisContext) {
 
   def analyze(): NetworkAnalysisContext = {
 
@@ -40,7 +40,12 @@ class NetworkInfoFactAnalyzer(context: NetworkAnalysisContext) {
       )
     }
     else {
-      context
+      context.copy(
+        _brokenRouteCount = Some(0),
+        _brokenRoutePercentage = Some("-"),
+        _inaccessibleRouteCount = Some(0),
+        _networkFacts = Some(Seq.empty)
+      )
     }
   }
 

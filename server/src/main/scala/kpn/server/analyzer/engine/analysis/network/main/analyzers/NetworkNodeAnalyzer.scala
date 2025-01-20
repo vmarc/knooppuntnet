@@ -3,16 +3,21 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 import kpn.core.doc.NetworkInfoNodeDetail
 import kpn.core.util.NaturalSorting
 
-object NetworkInfoNodeAnalyzer extends NetworkAnalyzer {
+object NetworkNodeAnalyzer extends NetworkAnalyzer {
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    new NetworkInfoNodeAnalyzer(context).analyze()
+    new NetworkNodeAnalyzer(context).analyze()
   }
 }
 
-class NetworkInfoNodeAnalyzer(context: NetworkAnalysisContext) {
+class NetworkNodeAnalyzer(context: NetworkAnalysisContext) {
 
   def analyze(): NetworkAnalysisContext = {
-    val nodeDetails = analyzeNetworkNodes()
+    val nodeDetails = if (context.network.active) {
+      analyzeNetworkNodes()
+    }
+    else {
+      Seq.empty
+    }
     context.copy(
       _nodeDetails = Some(nodeDetails)
     )

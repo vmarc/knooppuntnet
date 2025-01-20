@@ -9,6 +9,8 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -53,14 +55,22 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
   private def assertBaseNetwork(): Unit = {
     assertEqual(
       findBaseNetworkById(1),
-      newNetwork(
+      newBaseNetworkDoc(
         1,
         active = false,
+        name = Some("network-name"),
+        changeSetId = 1,
+        members = Seq(
+          RawMember(MemberType.Node, 1001, None)
+        ),
         tags = Tags.from(
           "network:type" -> "node_network",
           "type" -> "network",
           "network" -> "rwn",
           "name" -> "network-name"
+        ),
+        nodeIds = Seq(
+          1001
         )
       )
     )
@@ -97,6 +107,9 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         changeType = ChangeType.Delete,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
+        nodes = IdDiffs(
+          removed = Seq(1001)
+        ),
         nodeDiffs = RefDiffs(
           removed = Seq(Ref(1001, "01"))
         ),

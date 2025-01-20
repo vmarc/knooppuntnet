@@ -51,7 +51,7 @@ class NetworkChangeProcessor(
                   createNetwork(context, networkDoc, networkId)
               }
             case Some(before) =>
-              deleteNetwork(context, before, networkId)
+              deleteNetwork(context, before.copy(active = false), networkId)
           }
         }
         else {
@@ -64,7 +64,7 @@ class NetworkChangeProcessor(
                   // TODO log message?
                   None
                 case Some(beforeNetwork) =>
-                  deleteNetwork(context, beforeNetwork, networkId)
+                  deleteNetwork(context, beforeNetwork.copy(active = false), networkId)
               }
 
             case Some(networkDoc) =>
@@ -76,6 +76,8 @@ class NetworkChangeProcessor(
 
                 case Some(beforeNetwork) =>
                   if (!networkDoc.active) {
+                    networkRepository.save(networkDoc)
+
                     deleteNetwork(context, beforeNetwork, networkId)
                   }
                   else {
@@ -103,7 +105,6 @@ class NetworkChangeProcessor(
   }
 
   private def deleteNetwork(context: ChangeSetContext, before: NetworkDoc, networkId: Long): Option[NetworkChange] = {
-    networkRepository.save(before.copy(active = false))
     Some(new NetworkDeleteAnalyzer(context, before, networkId).analyze())
   }
 }

@@ -12,7 +12,7 @@ import kpn.core.util.UnitTest
 import kpn.server.overpass.OverpassRepository
 import org.scalamock.scalatest.MockFactory
 
-class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with SharedTestObjects {
+class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("network relation without members") {
 
@@ -23,7 +23,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
       analysisTimestamp,
     )
 
-    val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
+    val contextAfter = new NetworkExtraAnalyzer(overpassRepository).analyze(contextBefore)
 
     assertEqual(contextAfter.extraNodeIds, Seq.empty)
     assertEqual(contextAfter.extraWayIds, Seq.empty)
@@ -48,7 +48,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
       analysisTimestamp,
     )
 
-    val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
+    val contextAfter = new NetworkExtraAnalyzer(overpassRepository).analyze(contextBefore)
 
     assertEqual(contextAfter.extraNodeIds, Seq(1001))
     assertEqual(contextAfter.extraWayIds, Seq.empty)
@@ -127,7 +127,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
       analysisTimestamp,
     )
 
-    val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
+    val contextAfter = new NetworkExtraAnalyzer(overpassRepository).analyze(contextBefore)
 
     assertEqual(contextAfter.extraNodeIds, Seq(1001))
     assertEqual(contextAfter.extraWayIds, Seq.empty)
@@ -203,7 +203,7 @@ class NetworkInfoExtraAnalyzerTest extends UnitTest with MockFactory with Shared
     val overpassRepository = stub[OverpassRepository]
     (overpassRepository.nodes _).when(*, *).returns(rawNodes)
 
-    val contextAfter = new NetworkInfoExtraAnalyzer(overpassRepository).analyze(contextBefore)
+    val contextAfter = new NetworkExtraAnalyzer(overpassRepository).analyze(contextBefore)
 
     assertEqual(contextAfter.extraNodeIds, Seq.empty)
     assertEqual(contextAfter.extraWayIds, Seq.empty)

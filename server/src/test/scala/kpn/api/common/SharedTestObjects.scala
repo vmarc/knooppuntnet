@@ -39,11 +39,6 @@ import kpn.api.common.monitor.MonitorRouteSegment
 import kpn.api.common.network.Integrity
 import kpn.api.common.network.NetworkAttributes
 import kpn.api.common.network.NetworkDetail
-import kpn.api.common.network.NetworkInfo
-import kpn.api.common.network.NetworkInfoDetail
-import kpn.api.common.network.NetworkInfoNode
-import kpn.api.common.network.NetworkInfoRoute
-import kpn.api.common.network.NetworkShape
 import kpn.api.common.network.NetworkSummary
 import kpn.api.common.node.NodeIntegrity
 import kpn.api.common.planner.LegEndRoute
@@ -594,20 +589,6 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newNetworkInfoDetail(
-    nodes: Seq[NetworkInfoNode] = Seq.empty,
-    routes: Seq[NetworkInfoRoute] = Seq.empty,
-    networkFacts: NetworkFacts = NetworkFacts(),
-    shape: Option[NetworkShape] = None
-  ): NetworkInfoDetail = {
-    NetworkInfoDetail(
-      nodes,
-      routes,
-      networkFacts,
-      shape
-    )
-  }
-
   def newIntegrity(
     isOk: Boolean = true,
     hasChecks: Boolean = false,
@@ -627,68 +608,6 @@ trait SharedTestObjects extends MockFactory {
       coverage,
       okRate,
       nokRate
-    )
-  }
-
-  def newNetworkInfoNode(
-    id: Long,
-    name: String,
-    longName: Option[String] = None,
-    latitude: String = "",
-    longitude: String = "",
-    connection: Boolean = false,
-    roleConnection: Boolean = false,
-    definedInRelation: Boolean = false,
-    definedInRoute: Boolean = false,
-    proposed: Boolean = false,
-    timestamp: Timestamp = defaultTimestamp,
-    routeReferences: Seq[Ref] = Seq.empty,
-    integrityCheck: Option[NodeIntegrityCheck] = None,
-    facts: Seq[Fact] = Seq.empty,
-    tags: Seq[Tag] = Seq.empty
-  ): NetworkInfoNode = {
-    NetworkInfoNode(
-      id,
-      name,
-      longName,
-      latitude,
-      longitude,
-      connection,
-      roleConnection,
-      definedInRelation,
-      definedInRoute,
-      proposed,
-      timestamp,
-      None,
-      routeReferences,
-      integrityCheck,
-      facts,
-      tags
-    )
-  }
-
-  def newNetworkInfoRoute(
-    id: Long,
-    name: String,
-    wayCount: Int = 0,
-    length: Int = 0, // length in meter
-    role: Option[String] = None,
-    relationLastUpdated: Timestamp = defaultTimestamp,
-    lastUpdated: Timestamp = defaultTimestamp,
-    facts: Seq[Fact] = Seq.empty,
-    proposed: Boolean = false
-  ): NetworkInfoRoute = {
-    NetworkInfoRoute(
-      id,
-      name,
-      wayCount,
-      length,
-      role,
-      relationLastUpdated,
-      lastUpdated: Timestamp,
-      None,
-      facts,
-      proposed
     )
   }
 
@@ -1009,29 +928,6 @@ trait SharedTestObjects extends MockFactory {
       name,
       happy,
       investigate
-    )
-  }
-
-  def newNetworkInfo(
-    attributes: NetworkAttributes,
-    active: Boolean = true,
-    nodeRefs: Seq[Long] = Seq.empty,
-    routeRefs: Seq[Long] = Seq.empty,
-    networkRefs: Seq[Long] = Seq.empty,
-    facts: Seq[Fact] = Seq.empty,
-    tags: Seq[Tag] = Seq.empty,
-    detail: Option[NetworkInfoDetail] = None
-  ): NetworkInfo = {
-    NetworkInfo(
-      attributes.id,
-      attributes,
-      active,
-      nodeRefs,
-      routeRefs,
-      networkRefs,
-      facts,
-      tags,
-      detail
     )
   }
 

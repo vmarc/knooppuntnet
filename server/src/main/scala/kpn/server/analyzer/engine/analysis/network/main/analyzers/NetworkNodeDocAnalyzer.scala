@@ -11,15 +11,20 @@ import org.mongodb.scala.model.Filters.in
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkInfoNodeDocAnalyzer(database: Database) extends NetworkAnalyzer {
+class NetworkNodeDocAnalyzer(database: Database) extends NetworkAnalyzer {
 
-  private val log = Log(classOf[NetworkInfoNodeDocAnalyzer])
+  private val log = Log(classOf[NetworkNodeDocAnalyzer])
 
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    val routeNodeIds = context.routeDetails.flatMap(_.nodeRefs).distinct.sorted
-    val networkNodeIds = context.network.nodeIds
-    val nodeIds = (networkNodeIds ++ routeNodeIds).distinct.sorted
-    val nodeDocs = queryNodes(nodeIds)
+    val nodeDocs = if (context.network.active) {
+      val routeNodeIds = context.routeDetails.flatMap(_.nodeRefs).distinct.sorted
+      val networkNodeIds = context.network.nodeIds
+      val nodeIds = (networkNodeIds ++ routeNodeIds).distinct.sorted
+      queryNodes(nodeIds)
+    }
+    else {
+      Seq.empty
+    }
     context.copy(
       _nodeDocs = Some(nodeDocs)
     )

@@ -11,15 +11,19 @@ object NetworkCenterAnalyzer extends NetworkAnalyzer {
 class NetworkCenterAnalyzer(context: NetworkAnalysisContext) {
 
   def analyze: NetworkAnalysisContext = {
-    val center = if (context.nodeDetails.isEmpty) {
-      None
+    val center = if (context.network.active) {
+      if (context.nodeDetails.isEmpty) {
+        None
+      }
+      else {
+        val lattitude = context.nodeDetails.map(_.lat).sum / context.nodeDetails.size
+        val longititude = context.nodeDetails.map(_.lon).sum / context.nodeDetails.size
+        Some(LatLonImpl(lattitude.toString, longititude.toString))
+      }
     }
     else {
-      val lattitude = context.nodeDetails.map(_.lat).sum / context.nodeDetails.size
-      val longititude = context.nodeDetails.map(_.lon).sum / context.nodeDetails.size
-      Some(LatLonImpl(lattitude.toString, longititude.toString))
+      None
     }
-
     context.copy(
       _center = Some(center)
     )

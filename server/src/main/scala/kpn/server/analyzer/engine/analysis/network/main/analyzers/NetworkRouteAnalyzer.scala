@@ -18,7 +18,7 @@ import org.mongodb.scala.model.Projections.include
 import org.springframework.stereotype.Component
 
 @Component
-class NetworkInfoRouteAnalyzer(database: Database) extends NetworkAnalyzer {
+class NetworkRouteAnalyzer(database: Database) extends NetworkAnalyzer {
 
   private val log = Log(classOf[NetworkAnalysisContext])
 

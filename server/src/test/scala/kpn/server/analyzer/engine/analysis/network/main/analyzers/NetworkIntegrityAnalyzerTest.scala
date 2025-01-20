@@ -12,7 +12,7 @@ import kpn.api.common.node.NodeIntegrityDetail
 import kpn.api.custom.ScopedRouteType
 import kpn.core.util.UnitTest
 
-class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
+class NetworkIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("integrity") {
 
@@ -94,7 +94,7 @@ class NetworkInfoIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
       _nodeDocs = Some(Seq(node1, node2, node3, node4))
     )
 
-    val updatedContext = NetworkInfoIntegrityAnalyzer.analyze(context)
+    val updatedContext = NetworkIntegrityAnalyzer.analyze(context)
 
     assertEqual(
       updatedContext.integrity,
