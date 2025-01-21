@@ -3,8 +3,8 @@ package kpn.server.analyzer.engine.changes
 import kpn.server.analyzer.engine.analysis.ChangeSetInfoUpdater
 import kpn.server.analyzer.engine.changes.network.BaseNetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
-import kpn.server.analyzer.engine.changes.node.BaseNodeChangeProcessor
-import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
+import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeProcessor
+import kpn.server.analyzer.engine.changes.node.main.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.route.BaseRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
 import org.springframework.stereotype.Component

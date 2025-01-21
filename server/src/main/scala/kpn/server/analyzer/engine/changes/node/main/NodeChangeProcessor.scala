@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.changes.node
+package kpn.server.analyzer.engine.changes.node.main
 
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
@@ -12,17 +12,19 @@ import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer
+import kpn.server.analyzer.engine.changes.node.base.NodeChangeAnalyzer
 import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzer
+import kpn.server.repository.NetworkRepository
 import kpn.server.repository.NodeRepository
 import org.springframework.stereotype.Component
 
 @Component
 class NodeChangeProcessor(
-  analysisContext: AnalysisContext,
   bulkNodeAnalyzer: BulkNodeAnalyzer,
   nodeChangeAnalyzer: NodeChangeAnalyzer,
   nodeRepository: NodeRepository,
+  networkRepository: NetworkRepository,
   tileChangeAnalyzer: NodeTileChangeAnalyzer
 ) {
 
@@ -88,8 +90,18 @@ class NodeChangeProcessor(
         }
       case Some(nodeDocBefore) =>
         nodeDocAfterOption match {
-          case Some(nodeDocAfter) => processUpdate(context, nodeDocBefore, nodeDocAfter)
-          case None => processDelete(context, nodeDocBefore)
+          case Some(nodeDocAfter) =>
+            if (nodeDocAfter.active) {
+              processUpdate(context, nodeDocBefore, nodeDocAfter)
+            }
+            else {
+              nodeRepository.save(nodeDocAfter)
+              processDelete(context, nodeDocBefore)
+            }
+
+          case None =>
+            nodeRepository.save(nodeDocBefore.deactivated)
+            processDelete(context, nodeDocBefore)
         }
     }
   }
@@ -160,8 +172,7 @@ class NodeChangeProcessor(
 
     val allNodeTagsLost = !TagInterpreter.isNetworkNode(nodeDocAfter)
 
-    val changeType = if (allNodeTagsLost) {
-      analysisContext.watched.nodes.delete(nodeId) // TODO this should have been handled in phase I ??
+    val changeType = if (allNodeTagsLost || !nodeDocAfter.active) {
       nodeRepository.save(nodeDocAfter.deactivated)
       ChangeType.Delete
     }
@@ -191,20 +202,12 @@ class NodeChangeProcessor(
 
   private def processDelete(context: ChangeSetContext, nodeDoc: NodeDoc): Option[NodeChange] = {
 
-    analysisContext.watched.nodes.delete(nodeDoc._id)
-
-    nodeRepository.save(nodeDoc.deactivated)
-
     val key = context.buildChangeKey(nodeDoc._id)
     val subsets = nodeDoc.names.flatMap { nodeName =>
       nodeDoc.country.flatMap { country =>
         Subset.of(country, nodeName.routeType)
       }
     }
-
-    val removedFromNetwork = context.changes.networkChanges.filter { networkChange =>
-      networkChange.nodes.removed.contains(nodeDoc._id)
-    }.map(_.toRef)
 
     Some(
       analyzed(
@@ -225,7 +228,7 @@ class NodeChangeProcessor(
           addedToRoute = Seq.empty,
           removedFromRoute = nodeDoc.routeReferences.map(_.toRef),
           addedToNetwork = Seq.empty,
-          removedFromNetwork = removedFromNetwork,
+          removedFromNetwork = nodeDoc.networkReferences.map(_.toRef),
           factDiffs = None,
           facts = Seq(Fact.Deleted),
           initialTags = None,

@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.changes.node
+package kpn.server.analyzer.engine.changes.node.main
 
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact

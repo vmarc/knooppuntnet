@@ -10,10 +10,13 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
+import kpn.api.common.diff.TagDetail
+import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiffs
+import kpn.api.custom.Change
 import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkDeleteNodeTest04 extends IntegrationTest {
@@ -21,8 +24,8 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
   test("network delete - node looses node tag") {
 
     val dataBefore = OverpassData()
-      .networkNode(1001, "01", version = 1)
-      .networkRelation(
+      .networkNode(1001, "01", version = 1) // change
+      .networkRelation( // delete
         1,
         "network",
         Seq(
@@ -31,19 +34,24 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
       )
 
     val dataAfter = OverpassData()
-      .node(1001, version = 2)
+      .node(1001, version = 2) // change
 
     testIntegration(dataBefore, dataAfter) {
-
-      process(ChangeAction.Delete, newRawRelation(1))
+      process(
+        Seq(
+          Change(ChangeAction.Modify, Seq(newRawNode(1001))),
+          Change(ChangeAction.Delete, Seq(newRawRelation(1)))
+        )
+      )
 
       assert(database.orphanNodes.isEmpty) // the node does not become orphan, it is no longer a network node
 
       assert(!watched.networks.contains(1))
       assert(!watched.nodes.contains(1001))
 
-      assertNetwork()
+      assertBaseNode()
       assertNode()
+      assertNetwork()
       assertNetworkChange()
       assertNodeChange()
       assertChangeSetSummary()
@@ -70,23 +78,28 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
     )
   }
 
+  private def assertBaseNode(): Unit = {
+    assertEqual(
+      findBaseNodeById(1001),
+      newBaseNodeDoc(
+        1001,
+        active = false,
+        country = Some(Country.nl),
+        version = 2, // <--
+        latitude = "0",
+        longitude = "0",
+      )
+    )
+  }
+
   private def assertNode(): Unit = {
     assertEqual(
-      findNodeById(1001),
+      findNodeById(1001).copy(stamp = None),
       newNodeDoc(
         1001,
-        labels = Seq(
-          Label.routeType(RouteType.hiking)
-          // not active
-        ),
+        labels = Seq.empty, // not active
         country = Some(Country.nl),
-        name = Some("01"),
-        names = Seq(newNodeName(name = "01")),
-        version = 1, // <--
-        tags = Tags.from(
-          "rwn_ref" -> "01",
-          "network:type" -> "node_network",
-        )
+        version = 2, // <--
       )
     )
   }
@@ -100,20 +113,16 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         changeType = ChangeType.Delete,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
-        //  networkDataUpdate = None,
-        //  nodes= IdDiffs.empty,
-        //  ways = IdDiffs.empty,
-        //  relations = IdDiffs.empty,
+        nodes = IdDiffs(
+          removed = Seq(
+            1001
+          )
+        ),
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01")
           )
         ),
-        //  routeDiffs = RefDiffs.empty,
-        //  extraNodeDiffs = IdDiffs.empty,
-        //  extraWayDiffs = IdDiffs.empty,
-        //  extraRelationDiffs = IdDiffs.empty,
-        //  happy = false,
         investigate = true,
         impact = true,
       )
@@ -131,12 +140,21 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         before = Some(
           newMetaData(version = 1)
         ),
-        after = None,
-        tagDiffs = None,
+        after = Some(
+          newMetaData(version = 2)
+        ),
+        tagDiffs = Some(
+          TagDiffs(
+            mainTags = Seq(
+              TagDetail(TagDetailType.Delete, "rwn_ref", Some("01"), None),
+              TagDetail(TagDetailType.Delete, "network:type", Some("node_network"), None),
+            )
+          )
+        ),
         removedFromNetwork = Seq(
           Ref(1, "network")
         ),
-        facts = Seq(Fact.Deleted),
+        facts = Seq(Fact.LostHikingNodeTag),
         investigate = true,
         impact = true,
         locationInvestigate = true,

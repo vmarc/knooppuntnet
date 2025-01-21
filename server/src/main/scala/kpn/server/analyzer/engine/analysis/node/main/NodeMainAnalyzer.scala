@@ -22,7 +22,7 @@ class NodeMainAnalyzer(
 
   def analyze(node: BaseNodeDoc): Option[NodeDoc] = {
     Log.context(f"node=${node._id}%07d") {
-      val context = NodeAnalysisContext(node, facts = node.facts)
+      val context = NodeAnalysisContext(node, active = node.active, facts = node.facts)
       val analyzers: List[NodeAnalyzer] = List(
         nodeRouteReferencesAnalyzer,
         nodeNetworkReferencesAnalyzer,

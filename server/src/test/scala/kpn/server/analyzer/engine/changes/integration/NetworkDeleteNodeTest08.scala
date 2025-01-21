@@ -11,7 +11,9 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
@@ -34,11 +36,22 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Delete, newRawRelation(1))
+      process(
+        Seq(
+          Change(
+            ChangeAction.Delete,
+            Seq(
+              newRawNode(1001),
+              newRawRelation(1)
+            )
+          )
+        )
+      )
 
       assert(!watched.networks.contains(1))
       assert(!watched.nodes.contains(1001))
 
+      assertBaseNode()
       assertNode()
       assertBaseNetwork()
       assertNetwork()
@@ -48,9 +61,27 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
     }
   }
 
+  private def assertBaseNode(): Unit = {
+    assertEqual(
+      findBaseNodeById(1001),
+      newBaseNodeDoc(
+        1001,
+        active = false,
+        name = Some("01"),
+        names = Seq(
+          newNodeName(RouteType.hiking, RouteScope.regional, "01")
+        ),
+        latitude = "0",
+        longitude = "0",
+        tags = newNodeTags("01"),
+        country = Some(Country.nl),
+      )
+    )
+  }
+
   private def assertNode(): Unit = {
     assertEqual(
-      findNodeById(1001),
+      findNodeById(1001).copy(stamp = None),
       newNodeDoc(
         1001,
         labels = Seq(
@@ -101,20 +132,16 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
         changeType = ChangeType.Delete,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
-        //  networkDataUpdate = None,
-        //  nodes= IdDiffs.empty,
-        //  ways = IdDiffs.empty,
-        //  relations = IdDiffs.empty,
+        nodes = IdDiffs(
+          removed = Seq(
+            1001
+          )
+        ),
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01")
           )
         ),
-        //  routeDiffs = RefDiffs.empty,
-        //  extraNodeDiffs = IdDiffs.empty,
-        //  extraWayDiffs = IdDiffs.empty,
-        //  extraRelationDiffs = IdDiffs.empty,
-        //  happy = false,
         investigate = true,
         impact = true,
       )

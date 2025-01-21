@@ -1,4 +1,4 @@
-package kpn.server.analyzer.engine.changes.node
+package kpn.server.analyzer.engine.changes.node.base
 
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction.Create

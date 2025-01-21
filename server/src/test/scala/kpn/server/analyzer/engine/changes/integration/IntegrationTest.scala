@@ -11,6 +11,7 @@ import kpn.api.common.data.raw.RawElement
 import kpn.api.custom.Change
 import kpn.api.custom.Relation
 import kpn.core.doc.BaseNetworkDoc
+import kpn.core.doc.BaseNodeDoc
 import kpn.core.doc.BaseRouteDoc
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NodeDoc
@@ -160,6 +161,18 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
       }
       else {
         fail(s"Could not find orphan node ${_id} (but found: ${ids.mkString(", ")})")
+      }
+    }
+  }
+
+  def findBaseNodeById(nodeId: Long): BaseNodeDoc = {
+    database.baseNodes.findById(nodeId).getOrElse {
+      val ids = database.nodes.ids()
+      if (ids.isEmpty) {
+        fail(s"Could not find base node $nodeId, no base nodes in database")
+      }
+      else {
+        fail(s"Could not find base node $nodeId (but found: ${ids.mkString(", ")})")
       }
     }
   }

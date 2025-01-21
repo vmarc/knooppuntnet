@@ -53,7 +53,7 @@ object TagInterpreter {
     }
   }
 
-  def isValidNetworkNode(node: Node): Boolean = {
+  def isValidNetworkNode(node: Tagable): Boolean = {
     RouteType.values.exists(routeType => isValidNetworkNode(routeType, node))
   }
 
@@ -72,7 +72,7 @@ object TagInterpreter {
      If the node is not part of a known network or route relation, than we want it to be a known
      node.
    */
-  def isValidNetworkNode(routeType: RouteType, node: Node): Boolean = {
+  def isValidNetworkNode(routeType: RouteType, node: Tagable): Boolean = {
     val hasAnyNodeTagKey = ScopedRouteType.all.filter(_.routeType == routeType).exists { scopedRouteType =>
       hasNodeTagKey(scopedRouteType, node)
     }

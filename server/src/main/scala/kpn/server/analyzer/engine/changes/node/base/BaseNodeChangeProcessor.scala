@@ -1,0 +1,76 @@
+package kpn.server.analyzer.engine.changes.node.base
+
+import kpn.core.util.Log
+import kpn.server.analyzer.engine.analysis.node.BaseNodeBulkAnalyzer
+import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.analyzer.engine.context.AnalysisContext
+import kpn.server.repository.NodeRepository
+import org.springframework.stereotype.Component
+
+@Component
+class BaseNodeChangeProcessor(
+  analysisContext: AnalysisContext,
+  nodeChangeAnalyzer: NodeChangeAnalyzer,
+  nodeRepository: NodeRepository,
+  baseNodeBulkAnalyzer: BaseNodeBulkAnalyzer
+) {
+
+  private val log = Log(classOf[BaseNodeChangeProcessor])
+
+  def process(context: ChangeSetContext): ChangeSetContext = {
+    log.debugElapsed {
+      val nodeElementChanges = nodeChangeAnalyzer.analyze(context.changeSet)
+      val nodeIds = nodeElementChanges.elementIds
+      val baseNodeDocsBefore = nodeRepository.baseNodesWithIds(nodeIds)
+      val baseNodeDocsAfter = baseNodeBulkAnalyzer.analyze(context.timestampAfter, nodeIds)
+      nodeRepository.bulkSaveBaseNodes(baseNodeDocsAfter)
+
+      val beforeNodeIds = baseNodeDocsBefore.map(_._id).toSet
+      val afterNodeIds = baseNodeDocsAfter.filter(_.active).map(_._id).toSet
+      val createNodeIds = (afterNodeIds -- beforeNodeIds).toSeq.sorted
+
+      val updateNodeIds = (afterNodeIds -- createNodeIds).toSeq.sorted
+
+      val lostNodeTagsNodeIds = updateNodeIds.filter { nodeId =>
+        baseNodeDocsBefore.find(_._id == nodeId) match {
+          case None => false
+          case Some(before) =>
+            baseNodeDocsAfter.find(_._id == nodeId) match {
+              case None => false
+              case Some(after) =>
+                NodeChangeFactAnalyzer.facts(before, after).nonEmpty
+            }
+        }
+      }
+
+      val deleteNodeIds = (beforeNodeIds -- afterNodeIds).toSeq.sorted
+
+      createNodeIds.foreach(analysisContext.watched.nodes.add)
+
+      lostNodeTagsNodeIds.foreach(analysisContext.watched.nodes.delete)
+      val lostNodeTagsNodeDocs = lostNodeTagsNodeIds.flatMap { nodeId =>
+        baseNodeDocsAfter.find(_._id == nodeId).map { doc =>
+          doc.copy(
+            active = false,
+            tiles = Seq.empty,
+          )
+        }
+      }
+      nodeRepository.bulkSaveBaseNodes(lostNodeTagsNodeDocs)
+
+      deleteNodeIds.foreach(analysisContext.watched.nodes.delete)
+      val deletedBaseNodeDocs = deleteNodeIds.flatMap { nodeId =>
+        baseNodeDocsBefore.find(_._id == nodeId).map { doc =>
+          doc.copy(
+            active = false,
+            tiles = Seq.empty,
+          )
+        }
+      }
+      nodeRepository.bulkSaveBaseNodes(deletedBaseNodeDocs)
+
+      val updatedContext = context.withImpact(nodeIds = nodeIds)
+      (s"${baseNodeDocsAfter.size} node changes", updatedContext)
+    }
+  }
+}

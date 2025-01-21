@@ -11,11 +11,13 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType.Delete
 import kpn.api.common.diff.TagDetailType.Same
 import kpn.api.common.diff.TagDiffs
+import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
@@ -55,7 +57,12 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Delete, newRawRelation(1))
+      process(
+        Seq(
+          Change(ChangeAction.Modify, Seq(newRawNode(1001))),
+          Change(ChangeAction.Delete, Seq(newRawRelation(1)))
+        )
+      )
 
       assert(!watched.networks.contains(1))
       assert(watched.nodes.contains(1001))
@@ -71,7 +78,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
 
   private def assertNode(): Unit = {
     assertEqual(
-      findNodeById(1001),
+      findNodeById(1001).copy(stamp = None),
       newNodeDoc(
         1001,
         labels = Seq(
@@ -126,20 +133,16 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         changeType = ChangeType.Delete,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
-        //  networkDataUpdate = None,
-        //  nodes= IdDiffs.empty,
-        //  ways = IdDiffs.empty,
-        //  relations = IdDiffs.empty,
+        nodes = IdDiffs(
+          removed = Seq(
+            1001
+          )
+        ),
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01")
           )
         ),
-        //  routeDiffs = RefDiffs.empty,
-        //  extraNodeDiffs = IdDiffs.empty,
-        //  extraWayDiffs = IdDiffs.empty,
-        //  extraRelationDiffs = IdDiffs.empty,
-        //  happy = false,
         investigate = true,
         impact = true,
       )

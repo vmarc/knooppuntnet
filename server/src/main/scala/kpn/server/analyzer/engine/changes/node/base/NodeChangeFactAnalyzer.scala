@@ -1,15 +1,13 @@
-package kpn.server.analyzer.engine.changes.node
+package kpn.server.analyzer.engine.changes.node.base
 
 import kpn.api.common.Fact
 import kpn.api.common.RouteType
-import kpn.api.common.data.Node
+import kpn.api.common.data.Tagable
 import kpn.core.analysis.TagInterpreter
-import kpn.server.analyzer.engine.context.AnalysisContext
 
-// TODO redesign - cleanup if not used anymore
-class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
+object NodeChangeFactAnalyzer {
 
-  def facts(before: Node, after: Node): Seq[Fact] = {
+  def facts(before: Tagable, after: Tagable): Seq[Fact] = {
     Seq(
       test(Fact.LostHikingNodeTag, hasLostNodeTag(RouteType.hiking, before, after)),
       test(Fact.LostBicycleNodeTag, hasLostNodeTag(RouteType.cycling, before, after)),
@@ -20,7 +18,7 @@ class NodeChangeFactAnalyzer(analysisContext: AnalysisContext) {
     ).flatten
   }
 
-  private def hasLostNodeTag(routeType: RouteType, before: Node, after: Node): Boolean = {
+  private def hasLostNodeTag(routeType: RouteType, before: Tagable, after: Tagable): Boolean = {
     val nodeTagBefore: Boolean = TagInterpreter.isValidNetworkNode(routeType, before)
     val nodeTagAfter: Boolean = TagInterpreter.isValidNetworkNode(routeType, after)
     nodeTagBefore && !nodeTagAfter

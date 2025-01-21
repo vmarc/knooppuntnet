@@ -42,9 +42,9 @@ import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.BaseNetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzer
 import kpn.server.analyzer.engine.changes.network.NetworkChangeProcessor
-import kpn.server.analyzer.engine.changes.node.BaseNodeChangeProcessor
-import kpn.server.analyzer.engine.changes.node.NodeChangeAnalyzer
-import kpn.server.analyzer.engine.changes.node.NodeChangeProcessor
+import kpn.server.analyzer.engine.changes.node.base.BaseNodeChangeProcessor
+import kpn.server.analyzer.engine.changes.node.base.NodeChangeAnalyzer
+import kpn.server.analyzer.engine.changes.node.main.NodeChangeProcessor
 import kpn.server.analyzer.engine.changes.route.BaseRouteChangeProcessor
 import kpn.server.analyzer.engine.changes.route.RouteChangeAnalyzer
 import kpn.server.analyzer.engine.changes.route.RouteChangeProcessor
@@ -188,10 +188,10 @@ class IntegrationTestContext(
   }
 
   private val nodeChangeProcessor = new NodeChangeProcessor(
-    analysisContext,
     bulkNodeAnalyzer,
     nodeChangeAnalyzer,
     nodeRepository,
+    networkRepository,
     nodeTileChangeAnalyzer
   )
 
@@ -285,6 +285,7 @@ class IntegrationTestContext(
     }
 
     val baseNodeChangeProcessor = new BaseNodeChangeProcessor(
+      analysisContext,
       nodeChangeAnalyzer: NodeChangeAnalyzer,
       nodeRepository: NodeRepository,
       baseNodeBulkAnalyzer: BaseNodeBulkAnalyzer

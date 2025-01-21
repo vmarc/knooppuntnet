@@ -13,7 +13,7 @@ abstract class UnitTest extends AnyFunSuite with Matchers {
       val jsonActual = Json.pretty(actual)
       val jsonExpected = Json.pretty(expected)
       throw new TestFailedException(
-        (e: StackDepthException) => Some(s"""$jsonExpected did not equal $jsonActual"""),
+        (e: StackDepthException) => Some(s"""$jsonActual did not equal $jsonExpected"""),
         None,
         (e: StackDepthException) => 1, // source line of call point assertEqual() in failure message
       )

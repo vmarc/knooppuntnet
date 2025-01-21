@@ -1,21 +1,17 @@
-package kpn.server.analyzer.engine.changes.node
+package kpn.server.analyzer.engine.changes.node.base
 
 import kpn.api.common.Fact
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
-import kpn.server.analyzer.engine.context.AnalysisContext
 
 class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("no facts") {
-    val context = new AnalysisContext()
     val before = newNode()
     val after = newNode()
-
-    val analyzer = new NodeChangeFactAnalyzer(context)
     assertEqual(
-      analyzer.facts(before, after),
+      NodeChangeFactAnalyzer.facts(before, after),
       Seq.empty
     )
   }
@@ -23,13 +19,10 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
   test("lost node tag") {
 
     def doTestLostNodeTag(tagKey: String, expectedFact: Fact): Unit = {
-      val context = new AnalysisContext()
       val before = newNode(tags = Tags.from("network:type" -> "node_network", tagKey -> "01"))
       val after = newNode()
-
-      val analyzer = new NodeChangeFactAnalyzer(context)
       assertEqual(
-        analyzer.facts(before, after),
+        NodeChangeFactAnalyzer.facts(before, after),
         Seq(expectedFact)
       )
     }
@@ -54,27 +47,10 @@ class NodeChangeFactAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("no lost node tag fact when switching network scope only") {
-
-    val context = new AnalysisContext()
     val before = newNode(tags = Tags.from("network:type" -> "node_network", "rwn_name" -> "name"))
     val after = newNode(tags = Tags.from("network:type" -> "node_network", "lwn_name" -> "name"))
-
-    val analyzer = new NodeChangeFactAnalyzer(context)
     assertEqual(
-      analyzer.facts(before, after),
-      Seq.empty
-    )
-  }
-
-  test("Orphan node that remains orphan") {
-    val context = new AnalysisContext()
-    context.watched.nodes.add(1001)
-    val before = newNodeWithName(1001, "01")
-    val after = newNodeWithName(1001, "01")
-
-    val analyzer = new NodeChangeFactAnalyzer(context)
-    assertEqual(
-      analyzer.facts(before, after),
+      NodeChangeFactAnalyzer.facts(before, after),
       Seq.empty
     )
   }
