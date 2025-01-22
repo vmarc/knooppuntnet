@@ -1,4 +1,4 @@
-import { NG_EVENT_PLUGINS } from "@taiga-ui/event-plugins";
+import { NG_EVENT_PLUGINS } from '@taiga-ui/event-plugins';
 import { LayoutModule } from '@angular/cdk/layout';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { FullscreenOverlayContainer } from '@angular/cdk/overlay';
@@ -38,6 +38,13 @@ import { PoiService } from './map/poi/poi.service';
 import { RootService } from './root/root.service';
 import { UserService } from './shared/user';
 import { State } from '@app/state';
+import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+import { FormsModule } from '@angular/forms';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -93,6 +100,10 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     { provide: UserService },
-        NG_EVENT_PLUGINS
-    ],
+    NG_EVENT_PLUGINS,
+    provideNzI18n(en_US),
+    importProvidersFrom(FormsModule),
+    provideAnimationsAsync(),
+    provideHttpClient(),
+  ],
 };
