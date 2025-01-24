@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { TuiLink } from '@taiga-ui/core';
 
 @Component({
   selector: 'kpn-menu-test-links',
@@ -11,24 +10,22 @@ import { TuiLink } from '@taiga-ui/core';
 
     <ul>
       <li>
-        <a tuiLink routerLink="analysis/route/1788296">Route with many members</a>
+        <a routerLink="analysis/route/1788296">Route with many members</a>
       </li>
       <li>
-        <a tuiLink routerLink="analysis/route/6376622">Route 01-02</a>
+        <a routerLink="analysis/route/6376622">Route 01-02</a>
       </li>
       <li>
-        <a tuiLink routerLink="analysis/route/7973533">LAW9 Pieterpad</a>
+        <a routerLink="analysis/route/7973533">LAW9 Pieterpad</a>
       </li>
       <li>
-        <a tuiLink routerLink="analysis/route/16068584">Wandelpad Calmeyn</a>
+        <a routerLink="analysis/route/16068584">Wandelpad Calmeyn</a>
       </li>
       <li>
-        <a tuiLink routerLink="analysis/hiking/be/België:Oost-Vlaanderen:Aalst/details"
-          >Location Aalst</a
-        >
+        <a routerLink="analysis/hiking/be/België:Oost-Vlaanderen:Aalst/details">Location Aalst</a>
       </li>
       <li>
-        <a tuiLink routerLink="analysis/hiking/be/networks">Subset Belgium</a>
+        <a routerLink="analysis/hiking/be/networks">Subset Belgium</a>
       </li>
     </ul>
   `,
@@ -45,6 +42,6 @@ import { TuiLink } from '@taiga-ui/core';
       }
     `,
   ],
-  imports: [RouterLink, TuiLink],
+  imports: [RouterLink],
 })
 export class MenuTestLinksComponent {}

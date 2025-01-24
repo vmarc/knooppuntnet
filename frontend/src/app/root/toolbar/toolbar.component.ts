@@ -1,29 +1,27 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { SpinnerComponent } from '@app/spinner';
 import { State } from '@app/state';
-import { TuiButton } from '@taiga-ui/core';
-import { TuiAppBarDirective } from '@taiga-ui/layout';
-import { TuiAppBarComponent } from '@taiga-ui/layout';
+import { NzHeaderComponent } from 'ng-zorro-antd/layout';
 import { SettingsMenuComponent } from './settings/settings-menu.component';
-import { ToolbarPanelToggleComponent } from './toolbar-panel-toggle.component';
 import { ToolbarTitleComponent } from './toolbar-title.component';
 
 @Component({
   selector: 'kpn-toolbar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <tui-app-bar class="toolbar">
-      <kpn-settings-menu tuiSlot="left" />
-      <!-- <kpn-toolbar-route-type-menu /> -->
-      <a tuiSlot="left" iconStart="@tui.user" title="User" tuiIconButton></a>
-      <kpn-toolbar-title tuiSlot="left" />
-      <kpn-spinner />
-      @if (small()) {
-        <kpn-toolbar-panel-toggle tuiSlot="right" />
-      }
-    </tui-app-bar>
+    <nz-header class="toolbar">
+      <div class="toolbar">
+        <kpn-settings-menu />
+        <!-- <kpn-toolbar-route-type-menu /> -->
+        <!--      <a title="User"></a>-->
+        <kpn-toolbar-title />
+        <!--      <kpn-spinner />-->
+        <!--      @if (small()) {-->
+        <!--        <kpn-toolbar-panel-toggle />-->
+        <!--      }-->
+      </div>
+    </nz-header>
   `,
   styles: `
     .toolbar {
@@ -31,15 +29,7 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
       border-bottom: solid 1px lightgray;
     }
   `,
-  imports: [
-    SettingsMenuComponent,
-    SpinnerComponent,
-    ToolbarPanelToggleComponent,
-    ToolbarTitleComponent,
-    TuiAppBarComponent,
-    TuiAppBarDirective,
-    TuiButton,
-  ],
+  imports: [SettingsMenuComponent, ToolbarTitleComponent, NzHeaderComponent],
 })
 export class ToolbarComponent {
   private readonly state = inject(State);

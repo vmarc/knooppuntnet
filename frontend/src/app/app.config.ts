@@ -1,4 +1,3 @@
-import { NG_EVENT_PLUGINS } from '@taiga-ui/event-plugins';
 import { LayoutModule } from '@angular/cdk/layout';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { FullscreenOverlayContainer } from '@angular/cdk/overlay';
@@ -100,7 +99,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimations(),
     provideHttpClient(withInterceptorsFromDi()),
     { provide: UserService },
-    NG_EVENT_PLUGINS,
     provideNzI18n(en_US),
     importProvidersFrom(FormsModule),
     provideAnimationsAsync(),

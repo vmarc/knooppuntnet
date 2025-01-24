@@ -63,20 +63,12 @@
               "src/manifest.json",
               {
                 "glob": "**/*",
-                "input": "node_modules/@taiga-ui/icons/src",
-                "output": "assets/taiga-ui/icons"
-              },
-              {
-                "glob": "**/*",
                 "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
                 "output": "/assets/"
               }
             ],
             "styles": [
-              "node_modules/@taiga-ui/core/styles/taiga-ui-theme.less",
-              "node_modules/@taiga-ui/core/styles/taiga-ui-fonts.less",
-              "@angular/material/prebuilt-themes/azure-blue.css",
-              "src/theme.scss",
+              "src/theme.less",
               "src/styles.scss",
               "node_modules/ol/ol.css",
               "node_modules/ol-geocoder/dist/ol-geocoder.css"

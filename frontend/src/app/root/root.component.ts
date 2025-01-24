@@ -5,8 +5,9 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { SidebarFooterComponent } from '@app/components/shared/sidebar';
-import { TuiRoot } from '@taiga-ui/core';
 import { AngularSplitModule } from 'angular-split';
+import { NzContentComponent } from 'ng-zorro-antd/layout';
+import { NzLayoutComponent } from 'ng-zorro-antd/layout';
 import { MapComponent } from '../map/map.component';
 import { State } from '@app/state';
 import { RootService } from './root.service';
@@ -16,53 +17,55 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
   selector: 'kpn-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <tui-root>
+    <nz-layout>
       <kpn-toolbar />
-      @if (small()) {
-        <div [ngClass]="{ hidden: hideText() }">
-          <div class="main content">
-            <div class="text-panel-container">
-              <div class="text-panel-body">
-                <div>
-                  <ng-container *ngTemplateOutlet="text"></ng-container>
-                </div>
-              </div>
-              <div class="text-panel-footer">
-                <kpn-sidebar-footer />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div [ngClass]="{ hidden: hideMap() }">
-          <div class="map-panel-container content">
-            <kpn-map />
-          </div>
-        </div>
-      } @else {
-        <div class="main content">
-          <as-split direction="horizontal" disabled="false" unit="percent">
-            <!-- 40 -->
-            <as-split-area size="70">
+      <nz-content>
+        @if (small()) {
+          <div [ngClass]="{ hidden: hideText() }">
+            <div class="main content">
               <div class="text-panel-container">
                 <div class="text-panel-body">
-                  <ng-container *ngTemplateOutlet="text"></ng-container>
+                  <div>
+                    <ng-container *ngTemplateOutlet="text"></ng-container>
+                  </div>
                 </div>
                 <div class="text-panel-footer">
                   <kpn-sidebar-footer />
                 </div>
               </div>
-            </as-split-area>
-            <!-- 60 -->
-            <as-split-area size="30">
+            </div>
+          </div>
+          <div [ngClass]="{ hidden: hideMap() }">
+            <div class="map-panel-container content">
               <kpn-map />
-            </as-split-area>
-          </as-split>
-        </div>
-      }
-      <ng-template #text>
-        <ng-content />
-      </ng-template>
-    </tui-root>
+            </div>
+          </div>
+        } @else {
+          <div class="main content">
+            <as-split direction="horizontal" disabled="false" unit="percent">
+              <!-- 40 -->
+              <as-split-area size="70">
+                <div class="text-panel-container">
+                  <div class="text-panel-body">
+                    <ng-container *ngTemplateOutlet="text"></ng-container>
+                  </div>
+                  <div class="text-panel-footer">
+                    <kpn-sidebar-footer />
+                  </div>
+                </div>
+              </as-split-area>
+              <!-- 60 -->
+              <as-split-area size="30">
+                <kpn-map />
+              </as-split-area>
+            </as-split>
+          </div>
+        }
+        <ng-template #text>
+          <ng-content />
+        </ng-template>
+      </nz-content>
+    </nz-layout>
   `,
   styles: `
     .content {
@@ -112,7 +115,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     NgClass,
     MapComponent,
     SidebarFooterComponent,
-    TuiRoot,
+    NzLayoutComponent,
+    NzContentComponent,
     ToolbarComponent,
   ],
 })
