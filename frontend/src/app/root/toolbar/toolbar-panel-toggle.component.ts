@@ -1,38 +1,44 @@
-import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { State } from '@app/state';
-import { TuiIcon } from '@taiga-ui/core';
-import { TuiSegmented } from '@taiga-ui/kit';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzRadioComponent } from 'ng-zorro-antd/radio';
+import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 
 @Component({
   selector: 'kpn-toolbar-panel-toggle',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="panel-toggle">
-      <tui-segmented [activeItemIndex]="activeItemIndex()">
-        <button type="button" (click)="updateActivePanel('text')">
-          <tui-icon icon="@tui.align-left" />
-        </button>
-        <button type="button" (click)="updateActivePanel('map')">
-          <tui-icon icon="@tui.map" />
-        </button>
-      </tui-segmented>
-    </div>
+    <nz-radio-group [ngModel]="activePanel()" (ngModelChange)="updateActivePanel($event)">
+      <button nz-radio-button nzValue="text">
+        <nz-icon nzType="text" />
+      </button>
+      <button nz-radio-button nzValue="map">
+        <nz-icon nzType="map" />
+      </button>
+    </nz-radio-group>
   `,
   styles: `
-    .panel-toggle {
-      padding-right: 0.5em;
+    :host {
+      flex-grow: 2;
+      display: flex;
+      justify-content: flex-end;
     }
   `,
-  imports: [TuiSegmented, TuiIcon, ReactiveFormsModule],
+  imports: [
+    FormsModule,
+    NzIconDirective,
+    NzRadioComponent,
+    NzRadioGroupComponent,
+    ReactiveFormsModule,
+  ],
 })
 export class ToolbarPanelToggleComponent {
   private readonly state = inject(State);
   readonly activePanel = this.state.page.activePanel;
-  readonly activeItemIndex = computed(() => (this.activePanel() === 'text' ? 0 : 1));
 
   updateActivePanel(value: string): void {
     this.state.page.updateActivePanel(value);

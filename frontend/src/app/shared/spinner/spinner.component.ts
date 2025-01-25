@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { TuiLoader } from '@taiga-ui/core';
+import { NzSpinComponent } from 'ng-zorro-antd/spin';
 import { SpinnerService } from './spinner.service';
 
 @Component({
@@ -9,10 +9,10 @@ import { SpinnerService } from './spinner.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.showSpinner()) {
-      <tui-loader />
+      <nz-spin nzSimple></nz-spin>
     }
   `,
-  imports: [TuiLoader],
+  imports: [NzSpinComponent],
 })
 export class SpinnerComponent {
   readonly service = inject(SpinnerService);
