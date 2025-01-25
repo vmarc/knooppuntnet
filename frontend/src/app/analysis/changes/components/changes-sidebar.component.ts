@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ChangeOption } from '@app/kpn/common';
 import { ChangesPageService } from '../changes-page.service';
 
@@ -11,15 +10,13 @@ import { ChangesPageService } from '../changes-page.service';
   selector: 'kpn-changes-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-sidebar>
-      <kpn-analysis-strategy (strategyChange)="onStrategyChange()" />
-      <kpn-change-filter
-        [filterOptions]="service.filterOptions()"
-        (optionSelected)="onOptionSelected($event)"
-      />
-    </kpn-sidebar>
+    <kpn-analysis-strategy (strategyChange)="onStrategyChange()" />
+    <kpn-change-filter
+      [filterOptions]="service.filterOptions()"
+      (optionSelected)="onOptionSelected($event)"
+    />
   `,
-  imports: [AnalysisStrategyComponent, ChangeFilterComponent, SidebarComponent],
+  imports: [AnalysisStrategyComponent, ChangeFilterComponent],
 })
 export class ChangesSidebarComponent {
   protected readonly service = inject(ChangesPageService);

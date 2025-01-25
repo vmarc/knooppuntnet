@@ -18,8 +18,9 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
@@ -29,7 +30,10 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
   selector: 'kpn-subset-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
+      <kpn-subset-sidebar />
+      <nz-divider />
+
       <kpn-subset-page-header-block
         pageName="facts"
         pageTitle="Facts"
@@ -68,8 +72,7 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
           }
         </div>
       }
-      <kpn-subset-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [SubsetFactsPageService, AnalysisStrategyService, RouterService],
   imports: [
@@ -80,7 +83,8 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
     IconHappyComponent,
     ItemComponent,
     ItemsComponent,
-    OldPageComponent,
+    NzDividerComponent,
+    PageComponent,
     RouterLink,
     SituationOnComponent,
     SubsetPageHeaderBlockComponent,

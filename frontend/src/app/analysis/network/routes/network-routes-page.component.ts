@@ -2,24 +2,26 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OldPageComponent } from '@app/components/shared/page';
+import { FilterComponent } from '@app/analysis/components/filter';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkRouteTableComponent } from './components/network-route-table.component';
-import { NetworkRoutesSidebarComponent } from './components/network-routes-sidebar.component';
 import { NetworkRoutesPageService } from './network-routes-page.service';
 
 @Component({
   selector: 'kpn-network-routes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <kpn-network-page-header
         pageName="routes"
         pageTitle="Routes"
         i18n-pageTitle="@@network-routes.title"
       />
+
+      <kpn-filter [filterOptions]="service.filterOptions()" />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">
@@ -44,15 +46,14 @@ import { NetworkRoutesPageService } from './network-routes-page.service';
           }
         </div>
       }
-      <kpn-network-routes-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [NetworkRoutesPageService, RouterService],
   imports: [
+    FilterComponent,
     NetworkPageHeaderComponent,
     NetworkRouteTableComponent,
-    NetworkRoutesSidebarComponent,
-    OldPageComponent,
+    PageComponent,
     SituationOnComponent,
   ],
 })

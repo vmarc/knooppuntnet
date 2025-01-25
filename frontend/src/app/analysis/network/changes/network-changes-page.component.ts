@@ -3,26 +3,32 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangesComponent } from '@app/analysis/components/changes';
+import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { ChangeOption } from '@app/kpn/common';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkChangeSetComponent } from './components/network-change-set.component';
-import { NetworkChangesSidebarComponent } from './components/network-changes-sidebar.component';
 import { NetworkChangesPageService } from './network-changes-page.service';
 
 @Component({
   selector: 'kpn-network-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <kpn-network-page-header
         pageName="changes"
         pageTitle="Changes"
         i18n-pageTitle="@@network-changes.title"
+      />
+
+      <kpn-change-filter
+        [filterOptions]="filterOptions()"
+        (optionSelected)="onOptionSelected($event)"
       />
 
       @if (service.response(); as response) {
@@ -67,24 +73,24 @@ import { NetworkChangesPageService } from './network-changes-page.service';
           }
         </div>
       }
-      <kpn-network-changes-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [NetworkChangesPageService, RouterService],
   imports: [
+    ChangeFilterComponent,
     ChangesComponent,
     ItemComponent,
     ItemsComponent,
     NetworkChangeSetComponent,
-    NetworkChangesSidebarComponent,
     NetworkPageHeaderComponent,
-    OldPageComponent,
+    PageComponent,
     SituationOnComponent,
     UserLinkLoginComponent,
   ],
 })
 export class NetworkChangesPageComponent implements OnInit {
   protected readonly service = inject(NetworkChangesPageService);
+  protected readonly filterOptions = this.service.filterOptions;
 
   ngOnInit(): void {
     this.service.onInit();
@@ -100,5 +106,9 @@ export class NetworkChangesPageComponent implements OnInit {
 
   onPageIndexChange(pageIndex: number): void {
     this.service.setPageIndex(pageIndex);
+  }
+
+  onOptionSelected(option: ChangeOption): void {
+    this.service.setFilterOption(option);
   }
 }

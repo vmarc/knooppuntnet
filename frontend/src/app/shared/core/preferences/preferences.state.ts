@@ -1,7 +1,4 @@
-export enum AnalysisStrategy {
-  location = 'location',
-  network = 'network',
-}
+export type AnalysisStrategy = 'location' | 'network';
 
 export type PreferencesState = {
   strategy: AnalysisStrategy;
@@ -17,7 +14,7 @@ export type PreferencesState = {
 };
 
 export const initialPreferencesState: PreferencesState = {
-  strategy: AnalysisStrategy.location,
+  strategy: 'location',
   routeType: null,
   extraLayers: false,
   pageSize: 25,

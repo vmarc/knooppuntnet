@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { Util } from '@app/components/shared';
-import { OldPageComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
 import { ChangeSetPageService } from './change-set-page.service';
 import { ChangeSetHeaderComponent } from './components/change-set-header.component';
@@ -18,7 +17,7 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
   selector: 'kpn-change-set-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <h1>
         <ng-container i18n="@@change-set.title">Changeset</ng-container>
         {{ service.changeSetTitle }}
@@ -40,8 +39,7 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
           }
         }
       }
-      <kpn-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [ChangeSetPageService, RouterService],
   imports: [
@@ -50,9 +48,8 @@ import { ChangeSetOrphanRouteChangesComponent } from './components/change-set-or
     ChangeSetNetworkChangesComponent,
     ChangeSetOrphanNodeChangesComponent,
     ChangeSetOrphanRouteChangesComponent,
-    OldPageComponent,
-    SidebarComponent,
     MatDivider,
+    PageComponent,
   ],
 })
 export class ChangeSetPageComponent implements OnInit {

@@ -6,18 +6,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '@app/components/shared/icon';
 import { IconButtonsComponent } from '@app/components/shared/icon';
-import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
+import { AnalysisStrategyComponent } from '../../strategy';
 import { AnalysisStrategyService } from '../../strategy';
-import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 
 @Component({
   selector: 'kpn-analysis-motorboat-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -33,6 +33,8 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
         <span i18n="@@route-type.motorboat">Motorboat</span>
       </kpn-page-header>
 
+      <kpn-analysis-strategy />
+
       <kpn-icon-buttons>
         <kpn-icon-button
           [routerLink]="nlLink()"
@@ -41,17 +43,16 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
           title="The Netherlands"
         />
       </kpn-icon-buttons>
-      <kpn-analysis-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [AnalysisStrategyService, RouterService],
   imports: [
-    AnalysisSidebarComponent,
+    AnalysisStrategyComponent,
     IconButtonComponent,
     IconButtonsComponent,
     MatIconModule,
     NzIconDirective,
-    OldPageComponent,
+    PageComponent,
     PageHeaderComponent,
     RouterLink,
   ],

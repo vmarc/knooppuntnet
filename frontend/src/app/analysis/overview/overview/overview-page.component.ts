@@ -3,25 +3,27 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ErrorComponent } from '@app/components/shared/error';
-import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { OverviewPageService } from './overview-page.service';
 import { OverviewListComponent } from './components/overview-list.component';
 import { OverviewPageBreadcrumbComponent } from './components/overview-page-breadcrumb.component';
-import { OverviewSidebarComponent } from './components/overview-sidebar.component';
+import { OverviewOptionsComponent } from './components/overview-options.component';
 import { OverviewTableComponent } from './components/overview-table.component';
 
 @Component({
   selector: 'kpn-overview-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <kpn-overview-page-breadcrumb />
 
       <kpn-page-header subject="overview-in-numbers-page" i18n="@@overview-page.title">
         Overview
       </kpn-page-header>
+
+      <kpn-overview-options />
 
       <kpn-error></kpn-error>
 
@@ -39,18 +41,17 @@ import { OverviewTableComponent } from './components/overview-table.component';
           }
         </div>
       }
-      <kpn-overview-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   imports: [
     ErrorComponent,
     OverviewListComponent,
-    OverviewSidebarComponent,
+    OverviewPageBreadcrumbComponent,
+    OverviewOptionsComponent,
     OverviewTableComponent,
-    OldPageComponent,
+    PageComponent,
     PageHeaderComponent,
     SituationOnComponent,
-    OverviewPageBreadcrumbComponent,
   ],
 })
 export class OverviewPageComponent implements OnInit {

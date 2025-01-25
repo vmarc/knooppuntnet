@@ -4494,8 +4494,8 @@
       <trans-unit id="stats.route-name-deprecated-note-tag.comment" datatype="html">
         <source>
           Routes where the route name was defined in the *&quot;note&quot;* tag. This is OK, but the use
-          of the *&quot;note&quot;* tag for route names is no longer recommended (deprecated).  The idea is 
-          that the *&quot;note&quot;* should be used for mapper notes only. The *&quot;ref&quot;* and *&quot;name&quot;* tags can 
+          of the *&quot;note&quot;* tag for route names is no longer recommended (deprecated).  The idea is
+          that the *&quot;note&quot;* should be used for mapper notes only. The *&quot;ref&quot;* and *&quot;name&quot;* tags can
           be used for naming routes.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-configuration.service.ts</context>
@@ -4519,49 +4519,49 @@
       <trans-unit id="overview.sidebar.display-options" datatype="html">
         <source>Display options</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-sidebar.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-options.component.ts</context>
           <context context-type="linenumber">16,17</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview.sidebar.automatic.title" datatype="html">
         <source>Use list or table format depending on page width</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-sidebar.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-options.component.ts</context>
           <context context-type="linenumber">21,22</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview.sidebar.table.automatic" datatype="html">
         <source> Automatic selection </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-sidebar.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-options.component.ts</context>
           <context context-type="linenumber">25,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview.sidebar.list.title" datatype="html">
         <source>Show overview in list format</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-sidebar.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-options.component.ts</context>
           <context context-type="linenumber">31,32</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview.sidebar.list" datatype="html">
         <source> List </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-sidebar.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-options.component.ts</context>
           <context context-type="linenumber">35,36</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview.sidebar.table.title" datatype="html">
         <source>Show overview in table format</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-sidebar.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-options.component.ts</context>
           <context context-type="linenumber">41,42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="overview.sidebar.table" datatype="html">
         <source> Table </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-sidebar.component.ts</context>
+          <context context-type="sourcefile">src/app/analysis/overview/overview/components/overview-options.component.ts</context>
           <context context-type="linenumber">45,46</context>
         </context-group>
       </trans-unit>

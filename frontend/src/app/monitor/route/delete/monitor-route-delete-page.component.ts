@@ -8,9 +8,8 @@ import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { OldPageComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Translations } from '@app/i18n';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteDeletePageService } from './monitor-route-delete-page.service';
 
@@ -19,7 +18,7 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.state(); as state) {
-      <kpn-old-page>
+      <kpn-page>
         <ul class="breadcrumb">
           <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
           <li>
@@ -55,8 +54,7 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
             <a [routerLink]="state.groupLink">{{ cancelLinkText }}</a>
           </div>
         </div>
-        <kpn-sidebar sidebar />
-      </kpn-old-page>
+      </kpn-page>
     }
   `,
   providers: [MonitorRouteDeletePageService, NavService],
@@ -64,10 +62,9 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
     ErrorComponent,
     MatButtonModule,
     MatIconModule,
-    OldPageComponent,
-    RouterLink,
-    SidebarComponent,
+    PageComponent,
     PageHeaderComponent,
+    RouterLink,
   ],
 })
 export class MonitorRouteDeletePageComponent {

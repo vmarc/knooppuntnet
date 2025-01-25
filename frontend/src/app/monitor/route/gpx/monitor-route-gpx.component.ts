@@ -12,9 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { TimestampUtil } from '@app/components/shared';
 import { NavService } from '@app/components/shared';
-import { OldPageComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Translations } from '@app/i18n';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorRouteFormErrorsComponent } from '../components/monitor-route-form-errors.component';
 import { MonitorRouteFormSaveStepComponent } from '../components/monitor-route-form-save-step.component';
@@ -27,7 +26,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (_state(); as state) {
-      <kpn-old-page>
+      <kpn-page>
         <kpn-monitor-route-gpx-breadcrumb
           [groupName]="state.groupName"
           [groupLink]="state.groupLink"
@@ -92,9 +91,7 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
             </button>
           </div>
         }
-
-        <kpn-sidebar sidebar />
-      </kpn-old-page>
+      </kpn-page>
     }
   `,
   styles: `
@@ -107,14 +104,13 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
   providers: [MonitorRouteGpxService, MonitorWebsocketService, NavService],
   imports: [
     MatButtonModule,
-    MonitorRouteGpxBreadcrumbComponent,
-    MonitorRouteGpxReferenceComponent,
-    OldPageComponent,
-    ReactiveFormsModule,
-    RouterLink,
-    SidebarComponent,
     MonitorRouteFormErrorsComponent,
     MonitorRouteFormSaveStepComponent,
+    MonitorRouteGpxBreadcrumbComponent,
+    MonitorRouteGpxReferenceComponent,
+    PageComponent,
+    ReactiveFormsModule,
+    RouterLink,
   ],
 })
 export class MonitorRouteGpxComponent {

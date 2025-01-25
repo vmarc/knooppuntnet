@@ -2,9 +2,8 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { BaseSidebarComponent } from '@app/shared/base';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { PoiMapComponent } from './components/poi-map.component';
 import { PoiAreasPageService } from './poi-areas-page.service';
 
@@ -12,7 +11,7 @@ import { PoiAreasPageService } from './poi-areas-page.service';
   selector: 'kpn-poi-areas-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page [showFooter]="false">
+    <kpn-page>
       <kpn-page-header>
         <span i18n="@@poi-areas.title">Point of interest areas</span>
       </kpn-page-header>
@@ -24,11 +23,10 @@ import { PoiAreasPageService } from './poi-areas-page.service';
       @if (service.response(); as response) {
         <kpn-poi-map />
       }
-      <kpn-base-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [PoiAreasPageService],
-  imports: [BaseSidebarComponent, OldPageComponent, PageHeaderComponent, PoiMapComponent],
+  imports: [PageHeaderComponent, PoiMapComponent, PageComponent],
 })
 export class PoiAreasPageComponent implements OnInit {
   readonly service = inject(PoiAreasPageService);

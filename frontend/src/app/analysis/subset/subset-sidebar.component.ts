@@ -10,17 +10,15 @@ import { SubsetService } from './subset.service';
 @Component({
   selector: 'kpn-subset-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <kpn-sidebar>
-    <kpn-analysis-strategy (strategyChange)="strategyChanged($event)" />
-  </kpn-sidebar>`,
-  imports: [SidebarComponent, AnalysisStrategyComponent],
+  template: '<kpn-analysis-strategy (strategyChange)="strategyChanged($event)" />',
+  imports: [AnalysisStrategyComponent],
 })
 export class SubsetSidebarComponent {
   private readonly router = inject(Router);
   private readonly subsetService = inject(SubsetService);
 
   strategyChanged(strategy: AnalysisStrategy) {
-    if (strategy === AnalysisStrategy.location) {
+    if (strategy === 'location') {
       const subset = this.subsetService.subset();
       const url = `/analysis/${subset.routeType}/${subset.country}`;
       this.router.navigate([url]);

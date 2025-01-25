@@ -6,15 +6,14 @@ import { Tag } from '@api/custom';
 import { PoiAnalysisComponent } from '@app/components/poi';
 import { DividerComponent } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
-import { OldPageComponent } from '@app/components/shared/page';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
 import { PoiDetailMapComponent } from '@app/ol/components';
-import { BaseSidebarComponent } from '@app/shared/base';
 import { ActionButtonNodeComponent } from '../../analysis/components/action/action-button-node.component';
 import { ActionButtonRelationComponent } from '../../analysis/components/action/action-button-relation.component';
 import { ActionButtonWayComponent } from '../../analysis/components/action/action-button-way.component';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
 import { PoiDetailPageService } from './poi-detail-page.service';
 
@@ -25,7 +24,7 @@ import { PoiDetailPageService } from './poi-detail-page.service';
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <kpn-old-page>
+    <kpn-page>
       <!--    <kpn-page-header>-->
       <!--      <span i18n="@@poi-areas.title">Poi</span>-->
       <!--    </kpn-page-header>-->
@@ -109,18 +108,16 @@ import { PoiDetailPageService } from './poi-detail-page.service';
           </kpn-data>
         }
       }
-      <kpn-base-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [PoiDetailPageService, RouterService],
   imports: [
     ActionButtonNodeComponent,
     ActionButtonRelationComponent,
     ActionButtonWayComponent,
-    BaseSidebarComponent,
     DataComponent,
     DividerComponent,
-    OldPageComponent,
+    PageComponent,
     PoiAnalysisComponent,
     PoiDetailMapComponent,
     TagTableComponent,

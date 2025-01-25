@@ -2,10 +2,9 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OldPageComponent } from '@app/components/shared/page';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
-import { NetworkMapSidebarComponent } from './components/network-map-sidebar.component';
 import { NetworkMapComponent } from './components/network-map.component';
 import { NetworkMapService } from './components/network-map.service';
 import { NetworkMapPageService } from './network-map-page.service';
@@ -14,7 +13,7 @@ import { NetworkMapPageService } from './network-map-page.service';
   selector: 'kpn-network-map-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page [showFooter]="false">
+    <kpn-page>
       <kpn-network-page-header
         pageName="map"
         pageTitle="Map"
@@ -32,16 +31,10 @@ import { NetworkMapPageService } from './network-map-page.service';
           }
         </div>
       }
-      <kpn-network-map-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [NetworkMapService, NetworkMapPageService, RouterService],
-  imports: [
-    NetworkMapComponent,
-    NetworkMapSidebarComponent,
-    NetworkPageHeaderComponent,
-    OldPageComponent,
-  ],
+  imports: [NetworkMapComponent, NetworkPageHeaderComponent, PageComponent],
 })
 export class NetworkMapPageComponent implements OnInit {
   protected readonly service = inject(NetworkMapPageService);

@@ -16,9 +16,9 @@ export class AnalysisStrategyService {
   init(): void {
     const strategyQueryParam = this.routerService.queryParam('strategy');
     if (strategyQueryParam === 'location') {
-      this.preferencesService.setStrategy(AnalysisStrategy.location);
+      this.preferencesService.setStrategy('location');
     } else if (strategyQueryParam === 'network') {
-      this.preferencesService.setStrategy(AnalysisStrategy.network);
+      this.preferencesService.setStrategy('network');
     } else {
       this.routerService.updateQueryParams({ strategy: this.preferencesService.strategy() });
     }
@@ -33,7 +33,7 @@ export class AnalysisStrategyService {
     return computed(() => {
       return (
         `/analysis/${routeType}/${country}` +
-        (this.preferencesService.strategy() === AnalysisStrategy.network ? '/networks' : '')
+        (this.preferencesService.strategy() === 'network' ? '/networks' : '')
       );
     });
   }

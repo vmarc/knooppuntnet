@@ -3,9 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { NavService } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
-import { OldPageComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { MarkdownModule } from 'ngx-markdown';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteDetailsAnalysisComponent } from './monitor-route-details-analysis.component';
@@ -20,7 +19,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.state(); as state) {
-      <kpn-old-page>
+      <kpn-page>
         <kpn-monitor-route-page-header
           pageName="details"
           [groupName]="state.groupName"
@@ -73,8 +72,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
             }
           }
         }
-        <kpn-sidebar sidebar />
-      </kpn-old-page>
+      </kpn-page>
     }
   `,
   styles: `
@@ -93,8 +91,7 @@ import { MonitorRouteDetailsTimestampComponent } from './monitor-route-details-t
     MonitorRouteDetailsSummaryComponent,
     MonitorRouteDetailsTimestampComponent,
     MonitorRoutePageHeaderComponent,
-    OldPageComponent,
-    SidebarComponent,
+    PageComponent,
   ],
 })
 export class MonitorRouteDetailsPageComponent {

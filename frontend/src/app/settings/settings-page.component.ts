@@ -3,16 +3,15 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
-import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { PreferencesService } from '@app/core';
-import { SettingsSidebarComponent } from './settings-sidebar.component';
+import { PageComponent } from '../shared/components/shared/page/page.component';
 
 @Component({
   selector: 'kpn-settings-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li i18n="@@breadcrumb.settings">Settings</li>
@@ -38,8 +37,7 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
           OpenStreetMap (normally we use tiles from our own server).
         </p>
       </div>
-      <kpn-settings-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   styles: `
     .setting {
@@ -52,13 +50,7 @@ import { SettingsSidebarComponent } from './settings-sidebar.component';
       font-style: italic;
     }
   `,
-  imports: [
-    MatSlideToggleModule,
-    OldPageComponent,
-    PageHeaderComponent,
-    RouterLink,
-    SettingsSidebarComponent,
-  ],
+  imports: [MatSlideToggleModule, PageHeaderComponent, RouterLink, PageComponent],
 })
 export class SettingsPageComponent {
   protected readonly service = inject(PreferencesService);

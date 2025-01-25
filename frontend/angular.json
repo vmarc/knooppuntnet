@@ -68,6 +68,7 @@
               }
             ],
             "styles": [
+              "@angular/material/prebuilt-themes/azure-blue.css",
               "src/theme.less",
               "src/styles.scss",
               "node_modules/ol/ol.css",

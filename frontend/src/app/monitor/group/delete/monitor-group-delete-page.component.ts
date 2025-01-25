@@ -6,9 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { OldPageComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Translations } from '@app/i18n';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 import { MonitorGroupDeletePageService } from './monitor-group-delete-page.service';
 
@@ -16,7 +15,7 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
   selector: 'kpn-monitor-group-delete-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <kpn-monitor-group-breadcrumb />
 
       <kpn-page-header>
@@ -66,18 +65,16 @@ import { MonitorGroupDeletePageService } from './monitor-group-delete-page.servi
           }
         }
       }
-      <kpn-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [MonitorGroupDeletePageService, NavService],
   imports: [
     MatButtonModule,
     MatIconModule,
     MonitorGroupBreadcrumbComponent,
-    OldPageComponent,
-    RouterLink,
-    SidebarComponent,
+    PageComponent,
     PageHeaderComponent,
+    RouterLink,
   ],
 })
 export class MonitorGroupDeletePageComponent {

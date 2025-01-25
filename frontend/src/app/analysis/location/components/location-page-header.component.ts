@@ -9,6 +9,7 @@ import { RouteTypeNameComponent } from '@app/components/shared';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { LocationPipe } from '../../../shared/components/shared/format/location.pipe';
 import { LocationService } from '../location.service';
 import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.component';
@@ -21,7 +22,7 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
       <kpn-location-page-breadcrumb [locationKey]="key" />
       <kpn-page-header [pageTitle]="fullPageTitle()" subject="location-page">
         <span class="header-route-type-icon">
-          <mat-icon [svgIcon]="key.routeType" />
+          <nz-icon [nzType]="key.routeType" />
         </span>
         <kpn-route-type-name [routeType]="key.routeType" />&nbsp;
         <span i18n="@@location-page.header.in">in</span>
@@ -90,10 +91,11 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
     LocationPageBreadcrumbComponent,
     LocationPipe,
     MatIconModule,
-    RouteTypeNameComponent,
+    NzIconDirective,
     PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
+    RouteTypeNameComponent,
   ],
 })
 export class LocationPageHeaderComponent {

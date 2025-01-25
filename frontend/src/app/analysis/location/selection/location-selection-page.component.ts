@@ -4,7 +4,8 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
-import { OldPageComponent } from '@app/components/shared/page';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationSelectionPageBreadcrumbComponent } from './components/location-selection-page-breadcrumb.component';
 import { LocationSelectionPageHeaderComponent } from './components/location-selection-page-header.component';
@@ -17,7 +18,9 @@ import { LocationSelectionPageService } from './location-selection-page.service'
   selector: 'kpn-location-selection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
+      <kpn-location-selection-sidebar />
+      <nz-divider />
       <kpn-location-selection-page-breadcrumb [key]="service.key()" />
       <kpn-location-selection-page-header [key]="service.key()" />
       <kpn-error />
@@ -40,18 +43,18 @@ import { LocationSelectionPageService } from './location-selection-page.service'
           />
         }
       }
-      <kpn-location-selection-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [LocationSelectionPageService, AnalysisStrategyService, RouterService],
   imports: [
     ErrorComponent,
+    LocationSelectionPageBreadcrumbComponent,
+    LocationSelectionPageHeaderComponent,
     LocationSelectionSidebarComponent,
     LocationSelectorComponent,
     LocationTreeComponent,
-    OldPageComponent,
-    LocationSelectionPageBreadcrumbComponent,
-    LocationSelectionPageHeaderComponent,
+    NzDividerComponent,
+    PageComponent,
   ],
 })
 export class LocationSelectionPageComponent implements OnInit {

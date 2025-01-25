@@ -2,11 +2,13 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { OldPageComponent } from '@app/components/shared/page';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
-import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
+import { NetworkMapSidebarComponent } from '../map/components/network-map-sidebar.component';
 import { NetworkDetailsComponent } from './components/network-details.component';
 import { NetworkDetailsPageService } from './network-details-page.service';
 
@@ -14,7 +16,9 @@ import { NetworkDetailsPageService } from './network-details-page.service';
   selector: 'kpn-network-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
+      <kpn-analysis-strategy />
+      <nz-divider />
       <kpn-network-page-header
         pageName="details"
         pageTitle="Details"
@@ -30,15 +34,17 @@ import { NetworkDetailsPageService } from './network-details-page.service';
           }
         </div>
       }
-      <kpn-analysis-sidebar sidebar />
-    </kpn-old-page>
+      <kpn-network-map-sidebar />
+    </kpn-page>
   `,
   providers: [NetworkDetailsPageService, AnalysisStrategyService, RouterService],
   imports: [
-    AnalysisSidebarComponent,
+    AnalysisStrategyComponent,
     NetworkDetailsComponent,
     NetworkPageHeaderComponent,
-    OldPageComponent,
+    NzDividerComponent,
+    PageComponent,
+    NetworkMapSidebarComponent,
   ],
 })
 export class NetworkDetailsPageComponent implements OnInit {

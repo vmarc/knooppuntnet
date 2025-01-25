@@ -6,9 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { OldPageComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { Translations } from '@app/i18n';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorGroupBreadcrumbComponent } from '../components/monitor-group-breadcrumb.component';
 import { MonitorGroupDescriptionComponent } from '../components/monitor-group-description.component';
 import { MonitorGroupNameComponent } from '../components/monitor-group-name.component';
@@ -18,7 +17,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
   selector: 'kpn-monitor-group-add-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <kpn-monitor-group-breadcrumb />
 
       <kpn-page-header>
@@ -50,8 +49,7 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
           <a id="cancel" routerLink="/monitor">{{ cancelLinkText }}</a>
         </div>
       </form>
-      <kpn-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [MonitorGroupAddPageService, NavService],
   imports: [
@@ -60,11 +58,10 @@ import { MonitorGroupAddPageService } from './monitor-group-add-page.service';
     MonitorGroupDescriptionComponent,
     MonitorGroupDescriptionComponent,
     MonitorGroupNameComponent,
-    OldPageComponent,
+    PageComponent,
+    PageHeaderComponent,
     ReactiveFormsModule,
     RouterLink,
-    SidebarComponent,
-    PageHeaderComponent,
   ],
 })
 export class MonitorGroupAddPageComponent {

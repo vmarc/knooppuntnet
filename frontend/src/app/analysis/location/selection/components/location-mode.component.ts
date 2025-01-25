@@ -1,39 +1,43 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatRadioChange } from '@angular/material/radio';
-import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
+import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
+import { NzRadioComponent } from 'ng-zorro-antd/radio';
 import { LocationModeService } from './location-mode.service';
+import { LocationSelectionMode } from './location-selection-mode';
 
 @Component({
   selector: 'kpn-location-mode',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="sidebar-section">
-      <div class="sidebar-section-title" i18n="@@analysis.location-side-bar.title">Location</div>
+    <div i18n="@@analysis.location-side-bar.title">Location</div>
 
-      <mat-radio-group [value]="mode()" (change)="modeChanged($event)">
-        <div>
-          <mat-radio-button value="name" title="Name" i18n="@@analysis.location.search-by-name">
-            Search by name
-          </mat-radio-button>
-        </div>
-        <div>
-          <mat-radio-button value="tree" title="Tree" i18n="@@analysis.location.select-from-tree">
-            Select from tree
-          </mat-radio-button>
-        </div>
-      </mat-radio-group>
-    </div>
+    <nz-radio-group [ngModel]="mode()" (ngModelChange)="modeChanged($event)">
+      <li>
+        <label nz-radio nzValue="name" i18n="@@analysis.location.search-by-name">
+          Search by name
+        </label>
+      </li>
+      <li>
+        <label nz-radio nzValue="tree" i18n="@@analysis.location.select-from-tree">
+          Select from tree
+        </label>
+      </li>
+    </nz-radio-group>
   `,
-  styleUrl: '../../../../shared/components/shared/sidebar/sidebar.scss',
-  imports: [MatRadioModule],
+  styles: `
+    :host {
+      display: block;
+    }
+  `,
+  imports: [NzRadioComponent, NzRadioGroupComponent, FormsModule],
 })
 export class LocationModeComponent {
   private readonly locationModeService = inject(LocationModeService);
   readonly mode = this.locationModeService.mode;
 
-  modeChanged(event: MatRadioChange) {
-    this.locationModeService.setMode(event.value);
+  modeChanged(value: LocationSelectionMode) {
+    this.locationModeService.setMode(value);
   }
 }

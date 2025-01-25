@@ -6,9 +6,10 @@ import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { PageWidthService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { IntegerFormatPipe } from '@app/components/shared/format';
-import { OldPageComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { MarkdownModule } from 'ngx-markdown';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetSidebarComponent } from '../subset-sidebar.component';
@@ -20,7 +21,9 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
   selector: 'kpn-subset-networks-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
+      <kpn-subset-sidebar />
+      <nz-divider />
       <kpn-subset-page-header-block
         pageName="networks"
         pageTitle="Networks"
@@ -53,15 +56,15 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
           }
         </div>
       }
-      <kpn-subset-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [SubsetNetworksPageService, AnalysisStrategyService, RouterService],
   imports: [
     ErrorComponent,
     IntegerFormatPipe,
     MarkdownModule,
-    OldPageComponent,
+    NzDividerComponent,
+    PageComponent,
     SituationOnComponent,
     SubsetNetworkListComponent,
     SubsetNetworkTableComponent,

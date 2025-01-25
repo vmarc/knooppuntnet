@@ -24,16 +24,6 @@ p {
   line-height: 1.4em;
 }
 
-a {
-  text-decoration: none;
-  color: blue;
-  display: inline-block;
-}
-
-a:visited {
-  color: blue;
-}
-
 a.external {
   background: transparent url('/assets/images/external.png') no-repeat center right;
 
@@ -43,10 +33,6 @@ a.external {
 a:hover,
 a:active {
   text-decoration: underline;
-}
-
-a:hover {
-  cursor: pointer
 }
 
 strong {

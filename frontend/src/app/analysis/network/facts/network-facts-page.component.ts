@@ -2,10 +2,11 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { OldPageComponent } from '@app/components/shared/page';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
-import { AnalysisSidebarComponent } from '../../analysis/analysis-sidebar.component';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkFactsComponent } from './components/network-facts.component';
 import { NetworkFactsPageService } from './network-facts-page.service';
@@ -14,7 +15,9 @@ import { NetworkFactsPageService } from './network-facts-page.service';
   selector: 'kpn-network-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
+      <kpn-analysis-strategy />
+      <nz-divider />
       <kpn-network-page-header
         pageName="facts"
         pageTitle="Facts"
@@ -29,15 +32,15 @@ import { NetworkFactsPageService } from './network-facts-page.service';
           }
         </div>
       }
-      <kpn-analysis-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [NetworkFactsPageService, AnalysisStrategyService, RouterService],
   imports: [
-    AnalysisSidebarComponent,
-    NetworkPageHeaderComponent,
-    OldPageComponent,
+    AnalysisStrategyComponent,
     NetworkFactsComponent,
+    NetworkPageHeaderComponent,
+    NzDividerComponent,
+    PageComponent,
   ],
 })
 export class NetworkFactsPageComponent implements OnInit {

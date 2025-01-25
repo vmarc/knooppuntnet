@@ -9,9 +9,8 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { IconInvestigateComponent } from '@app/components/shared/icon';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { OsmLinkChangeSetComponent } from '@app/components/shared/link';
-import { OldPageComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { TimestampComponent } from '@app/components/shared/timestamp';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorRouteChangeMapComponent } from './monitor-route-change-map.component';
 import { MonitorRouteChangePageService } from './monitor-route-change-page.service';
 
@@ -22,7 +21,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li><a routerLink="/monitor/routes">Monitor</a></li>
@@ -222,8 +221,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
           </div>
         }
       }
-      <kpn-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   styles: `
     .distance-label {
@@ -248,9 +246,8 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
     MatIconModule,
     MonitorRouteChangeMapComponent,
     OsmLinkChangeSetComponent,
-    OldPageComponent,
+    PageComponent,
     RouterLink,
-    SidebarComponent,
     TimestampComponent,
   ],
 })

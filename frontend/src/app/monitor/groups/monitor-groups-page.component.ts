@@ -6,10 +6,8 @@ import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { OldPageComponent } from '@app/components/shared/page';
-import { SidebarComponent } from '@app/components/shared/sidebar';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
-import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
 import { MonitorGroupTableComponent } from './monitor-group-table.component';
 import { MonitorGroupsPageService } from './monitor-groups-page.service';
 
@@ -17,7 +15,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
   selector: 'kpn-monitor-groups',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li i18n="@@breadcrumb.monitor">Monitor</li>
@@ -27,7 +25,6 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
         <ng-container i18n="@@monitor.groups.title">Monitor</ng-container>
       </kpn-page-header>
 
-      <kpn-monitor-page-menu pageName="groups" />
       <kpn-error />
 
       @if (service.state(); as state) {
@@ -59,8 +56,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
           }
         }
       }
-      <kpn-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   styles: `
     .header {
@@ -80,11 +76,9 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
     MatButtonModule,
     MonitorAdminToggleComponent,
     MonitorGroupTableComponent,
-    MonitorPageMenuComponent,
-    OldPageComponent,
     RouterLink,
-    SidebarComponent,
     PageHeaderComponent,
+    PageComponent,
   ],
 })
 export class MonitorGroupsPageComponent {

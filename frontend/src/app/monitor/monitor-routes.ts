@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { MonitorAboutPageComponent } from './about/monitor-about-page.component';
 import { MonitorChangesPageComponent } from './changes/monitor-changes-page.component';
 import { MonitorGroupAddPageComponent } from './group/add/monitor-group-add-page.component';
 import { MonitorGroupChangesPageComponent } from './group/changes/monitor-group-changes-page.component';
@@ -36,10 +35,6 @@ export const monitorRoutes: Routes = [
       {
         path: 'changes',
         component: MonitorChangesPageComponent,
-      },
-      {
-        path: 'about',
-        component: MonitorAboutPageComponent,
       },
       {
         path: 'groups/:groupName',

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { OldPageComponent } from '@app/components/shared/page';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
 import { AnalysisDelayChartComponent } from './charts/analysis-delay-chart.component';
 import { DelayChartComponent } from './charts/delay-chart.component';
@@ -14,7 +14,6 @@ import { ReplicationElementsChartComponent } from './charts/replication-elements
 import { UpdateDelayChartComponent } from './charts/update-delay-chart.component';
 import { ReplicationStatusPageService } from './replication-status-page.service';
 import { StatusPageMenuComponent } from './status-page-menu.component';
-import { StatusSidebarComponent } from './status-sidebar.component';
 
 @Component({
   selector: 'kpn-replication-status-page',
@@ -22,7 +21,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
@@ -64,8 +63,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
           />
         </div>
       }
-      <kpn-status-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   styles: `
     .chart-group {
@@ -84,14 +82,13 @@ import { StatusSidebarComponent } from './status-sidebar.component';
   imports: [
     AnalysisDelayChartComponent,
     DelayChartComponent,
-    OldPageComponent,
+    PageComponent,
     ReplicationBytesChartComponent,
     ReplicationChangesetsChartComponent,
     ReplicationDelayChartComponent,
     ReplicationElementsChartComponent,
     RouterLink,
     StatusPageMenuComponent,
-    StatusSidebarComponent,
     UpdateDelayChartComponent,
   ],
 })

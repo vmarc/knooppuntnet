@@ -5,18 +5,16 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
-import { OldPageComponent } from '@app/components/shared/page';
 import { PaginatorComponent } from '@app/components/shared/paginator';
-import { SidebarComponent } from '@app/components/shared/sidebar';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { MonitorChangesComponent } from '../components/monitor-changes.component';
-import { MonitorPageMenuComponent } from '../components/monitor-page-menu.component';
 import { MonitorChangesPageService } from './monitor-changes-page.service';
 
 @Component({
   selector: 'kpn-monitor-changes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -27,7 +25,6 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
 
       <h1 i18n="@@monitor.changes.title">Monitor</h1>
 
-      <kpn-monitor-page-menu pageName="changes" />
       <kpn-error />
 
       @if (service.state(); as state) {
@@ -63,19 +60,16 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
           }
         }
       }
-      <kpn-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [MonitorChangesPageService],
   imports: [
     ErrorComponent,
     MatSlideToggleModule,
     MonitorChangesComponent,
-    MonitorPageMenuComponent,
-    OldPageComponent,
+    PageComponent,
     PaginatorComponent,
     RouterLink,
-    SidebarComponent,
   ],
 })
 export class MonitorChangesPageComponent {

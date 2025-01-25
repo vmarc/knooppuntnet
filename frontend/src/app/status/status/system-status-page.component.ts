@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { OldPageComponent } from '@app/components/shared/page';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
 import { DataSizeChartComponent } from './charts/system/data-size-chart.component';
 import { DiskSizeChartComponent } from './charts/system/disk-size-chart.component';
@@ -13,7 +13,6 @@ import { DiskSpaceOverpassChartComponent } from './charts/system/disk-space-over
 import { DiskSpaceUsedChartComponent } from './charts/system/disk-space-used-chart.component';
 import { DocsChartComponent } from './charts/system/docs-chart.component';
 import { StatusPageMenuComponent } from './status-page-menu.component';
-import { StatusSidebarComponent } from './status-sidebar.component';
 import { SystemStatusPageService } from './system-status-page.service';
 
 @Component({
@@ -22,7 +21,7 @@ import { SystemStatusPageService } from './system-status-page.service';
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
@@ -85,8 +84,7 @@ import { SystemStatusPageService } from './system-status-page.service';
           />
         </div>
       }
-      <kpn-status-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   styles: `
     .chart-group {
@@ -110,10 +108,9 @@ import { SystemStatusPageService } from './system-status-page.service';
     DiskSpaceOverpassChartComponent,
     DiskSpaceUsedChartComponent,
     DocsChartComponent,
-    OldPageComponent,
+    PageComponent,
     RouterLink,
     StatusPageMenuComponent,
-    StatusSidebarComponent,
   ],
 })
 export class SystemStatusPageComponent implements OnInit {

@@ -6,9 +6,8 @@ import { FactNameComponent } from '@app/analysis/fact';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { OldPageComponent } from '@app/components/shared/page';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
-import { AnalysisSidebarComponent } from '../analysis/analysis-sidebar.component';
 import { FactInfo } from '../fact';
 import { Facts } from '../fact';
 
@@ -16,7 +15,7 @@ import { Facts } from '../fact';
   selector: 'kpn-facts-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <h1 i18n="@@fact-page.title">All facts</h1>
 
       <kpn-items>
@@ -29,17 +28,15 @@ import { Facts } from '../fact';
           </kpn-item>
         }
       </kpn-items>
-      <kpn-analysis-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [AnalysisStrategyService, RouterService],
   imports: [
-    AnalysisSidebarComponent,
     FactDescriptionComponent,
     FactNameComponent,
     ItemComponent,
     ItemsComponent,
-    OldPageComponent,
+    PageComponent,
   ],
 })
 export class FactsPageComponent {

@@ -3,24 +3,26 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { IconButtonComponent } from '@app/components/shared/icon';
-import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
-import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 
 @Component({
   selector: 'kpn-analysis-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li i18n="@@breadcrumb.analysis">Analysis</li>
       </ul>
 
       <kpn-page-header i18n="@@analysis-page.title">Analysis</kpn-page-header>
+
+      <kpn-analysis-strategy />
 
       <div class="buttons">
         <kpn-icon-button
@@ -75,8 +77,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
           title="Inline skating"
         />
       </div>
-      <kpn-analysis-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   styles: `
     .buttons {
@@ -86,9 +87,9 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
   `,
   providers: [AnalysisStrategyService, RouterService],
   imports: [
-    AnalysisSidebarComponent,
+    AnalysisStrategyComponent,
     IconButtonComponent,
-    OldPageComponent,
+    PageComponent,
     PageHeaderComponent,
     RouterLink,
   ],

@@ -10,9 +10,10 @@ import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
-import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../shared/user';
 import { ChangesPageService } from './changes-page.service';
@@ -22,7 +23,9 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
   selector: 'kpn-changes-page',
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <kpn-old-page>
+    <kpn-page>
+      <kpn-changes-sidebar />
+      <nz-divider />
       <ul class="breadcrumb">
         <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
         <li>
@@ -79,8 +82,7 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
           }
         </div>
       }
-      <kpn-changes-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   providers: [ChangesPageService, AnalysisStrategyService, RouterService],
   imports: [
@@ -91,11 +93,12 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
     ErrorComponent,
     ItemComponent,
     ItemsComponent,
-    OldPageComponent,
     PageHeaderComponent,
     RouterLink,
     SituationOnComponent,
     UserLinkLoginComponent,
+    PageComponent,
+    NzDividerComponent,
   ],
 })
 export class ChangesPageComponent implements OnInit {

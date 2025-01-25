@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { OldPageComponent } from '@app/components/shared/page';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
 import { LogAnalysisChartComponent } from './charts/log/log-analysis-chart.component';
 import { LogAnalysisRobotChartComponent } from './charts/log/log-analysis-robot-chart.component';
@@ -15,7 +15,6 @@ import { LogTileChartComponent } from './charts/log/log-tile-chart.component';
 import { LogTileRobotChartComponent } from './charts/log/log-tile-robot-chart.component';
 import { LogPageService } from './log-page.service';
 import { StatusPageMenuComponent } from './status-page-menu.component';
-import { StatusSidebarComponent } from './status-sidebar.component';
 
 @Component({
   selector: 'kpn-log-page',
@@ -23,7 +22,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
   template: `
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
-    <kpn-old-page>
+    <kpn-page>
       <ul class="breadcrumb">
         <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
         <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
@@ -53,8 +52,7 @@ import { StatusSidebarComponent } from './status-sidebar.component';
           <kpn-log-non-robot-chart [barChart]="page.nonRobot" [xAxisLabel]="service.xAxisLabel" />
         </div>
       }
-      <kpn-status-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   styles: `
     .chart-group {
@@ -79,10 +77,9 @@ import { StatusSidebarComponent } from './status-sidebar.component';
     LogRobotChartComponent,
     LogTileChartComponent,
     LogTileRobotChartComponent,
-    OldPageComponent,
+    PageComponent,
     RouterLink,
     StatusPageMenuComponent,
-    StatusSidebarComponent,
   ],
 })
 export class LogPageComponent implements OnInit {

@@ -12,10 +12,9 @@ import { FactDescriptionComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ErrorComponent } from '@app/components/shared/error';
-import { OldPageComponent } from '@app/components/shared/page';
+import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { SubsetSidebarComponent } from '../subset-sidebar.component';
 import { SubsetFactDetailsSummaryComponent } from './components/subset-fact-details-summary.component';
 import { SubsetFactDetailsComponent } from './components/subset-fact-details.component';
 import { SubsetFactDetailsPageService } from './subset-fact-details-page.service';
@@ -24,7 +23,7 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
   selector: 'kpn-subset-fact-details-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
+    <kpn-page>
       <kpn-subset-page-header-block
         pageName="facts"
         pageTitle="Facts"
@@ -56,25 +55,23 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
           }
         </div>
       }
-      <kpn-subset-sidebar sidebar />
-    </kpn-old-page>
+    </kpn-page>
   `,
   styleUrl: './subset-fact-details-page.component.scss',
   providers: [SubsetFactDetailsPageService, AnalysisStrategyService, RouterService],
   imports: [
     ErrorComponent,
     FactDescriptionComponent,
+    FactLevelComponent,
     FactNameComponent,
     MatCard,
     MatCardContent,
     MatCardHeader,
     MatCardTitle,
-    OldPageComponent,
+    PageComponent,
     SubsetFactDetailsComponent,
     SubsetFactDetailsSummaryComponent,
     SubsetPageHeaderBlockComponent,
-    SubsetSidebarComponent,
-    FactLevelComponent,
   ],
 })
 export class SubsetFactDetailsPageComponent implements OnInit {
