@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DividerComponent } from '@app/components/shared';
-import { TuiLink } from '@taiga-ui/core';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { MenuTestActionsComponent } from './menu-test-actions.component';
 import { MenuTestLinksComponent } from './menu-test-links.component';
 
@@ -11,18 +11,22 @@ import { MenuTestLinksComponent } from './menu-test-links.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="main-menu">
-      <div>
-        <a tuiLink iconStart="@tui.search" routerLink="explore">Explore</a>
-      </div>
-      <div>
-        <a tuiLink iconStart="@tui.compass" routerLink="planner">Plan a route</a>
-      </div>
-      <div>
-        <a tuiLink iconStart="@tui.stethoscope" routerLink="analysis">Analysis</a>
-      </div>
-      <div>
-        <a tuiLink iconStart="@tui.heart-pulse" routerLink="monitor">Monitor</a>
-      </div>
+      <a routerLink="explore">
+        <nz-icon nzType="search" />
+        <span>Explore</span>
+      </a>
+      <a routerLink="planner">
+        <nz-icon nzType="compass" />
+        <span>Plan a route</span>
+      </a>
+      <a routerLink="analysis">
+        <nz-icon nzType="experiment" />
+        <span> Analysis </span>
+      </a>
+      <a routerLink="monitor">
+        <nz-icon nzType="dashboard" />
+        <span> Monitor </span>
+      </a>
     </div>
 
     <kpn-divider />
@@ -33,12 +37,16 @@ import { MenuTestLinksComponent } from './menu-test-links.component';
   `,
   styles: `
     .main-menu {
-      font-size: 1.2em;
-      padding-top: 1em;
+      padding-top: 2em;
       padding-left: 1em;
 
-      > div {
+      > a {
+        display: block;
         padding: 0.5em;
+      }
+
+      > a > span {
+        padding-left: 0.5em;
       }
     }
   `,
@@ -46,8 +54,8 @@ import { MenuTestLinksComponent } from './menu-test-links.component';
     DividerComponent,
     MenuTestActionsComponent,
     MenuTestLinksComponent,
+    NzIconDirective,
     RouterLink,
-    TuiLink,
   ],
 })
 export class MenuComponent {}

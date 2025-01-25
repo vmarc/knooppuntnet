@@ -3,53 +3,46 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { State } from '@app/state';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
-import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
 
 @Component({
   selector: 'kpn-settings-menu-scope',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div (click)="$event.stopPropagation()">
-      <li nz-menu-item>
-        <label
-          nz-checkbox
-          [nzChecked]="scopeInternational()"
-          (nzCheckedChange)="toggleScopeInternational()"
-        >
-          International
-        </label>
-      </li>
-
-      <li nz-menu-item>
-        <label nz-checkbox [nzChecked]="scopeNational()" (nzCheckedChange)="toggleScopeNational()">
-          National
-        </label>
-      </li>
-
-      <li nz-menu-item>
-        <label nz-checkbox [nzChecked]="scopeRegional()" (nzCheckedChange)="toggleScopeRegional()">
-          Regional
-        </label>
-      </li>
-
-      <li nz-menu-item>
-        <label nz-checkbox [nzChecked]="scopeLocal()" (nzCheckedChange)="toggleScopeLocal()">
-          Local
-        </label>
-      </li>
-
-      <li nz-menu-item>
-        <label
-          nz-checkbox
-          [nzChecked]="scopeNodeRoutes()"
-          (nzCheckedChange)="toggleScopeNodeRoutes()"
-        >
-          Node routes
-        </label>
-      </li>
+    <div>
+      <label
+        nz-checkbox
+        [nzChecked]="scopeInternational()"
+        (nzCheckedChange)="toggleScopeInternational()"
+      >
+        International
+      </label>
+    </div>
+    <div>
+      <label nz-checkbox [nzChecked]="scopeNational()" (nzCheckedChange)="toggleScopeNational()">
+        National
+      </label>
+    </div>
+    <div>
+      <label nz-checkbox [nzChecked]="scopeRegional()" (nzCheckedChange)="toggleScopeRegional()">
+        Regional
+      </label>
+    </div>
+    <div>
+      <label nz-checkbox [nzChecked]="scopeLocal()" (nzCheckedChange)="toggleScopeLocal()">
+        Local
+      </label>
+    </div>
+    <div>
+      <label
+        nz-checkbox
+        [nzChecked]="scopeNodeRoutes()"
+        (nzCheckedChange)="toggleScopeNodeRoutes()"
+      >
+        Node routes
+      </label>
     </div>
   `,
-  imports: [NzMenuItemComponent, NzCheckboxComponent],
+  imports: [NzCheckboxComponent],
 })
 export class SettingsMenuScopeComponent {
   private readonly state = inject(State);

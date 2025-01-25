@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { NzDropDownDirective } from 'ng-zorro-antd/dropdown';
-import { NzDropdownButtonDirective } from 'ng-zorro-antd/dropdown';
+import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
+import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
+import { NzDrawerContentDirective } from 'ng-zorro-antd/drawer';
+import { NzDrawerComponent } from 'ng-zorro-antd/drawer';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { NzSubMenuComponent } from 'ng-zorro-antd/menu';
-import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { SettingsMenuLayersComponent } from './settings-menu-layers.component';
 import { SettingsMenuMapOptionsComponent } from './settings-menu-map-options.component';
 import { SettingsMenuScopeComponent } from './settings-menu-scope.component';
@@ -15,41 +14,52 @@ import { SettingsMenuScopeComponent } from './settings-menu-scope.component';
   selector: 'kpn-settings-menu',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button nz-button nz-dropdown [nzClickHide]="false" [nzDropdownMenu]="settingsMenu">
+    <button nz-button (click)="open()">
       <nz-icon nzType="setting" />
     </button>
 
-    <nz-dropdown-menu #settingsMenu="nzDropdownMenu">
-      <ul nz-menu>
-        <li nz-submenu nzTitle="Map options">
-          <ul>
+    <nz-drawer
+      [nzClosable]="true"
+      [nzVisible]="visible"
+      nzPlacement="left"
+      nzTitle="Settings"
+      (nzOnClose)="close()"
+    >
+      <ng-container *nzDrawerContent>
+        <nz-collapse nzAccordion>
+          <nz-collapse-panel nzHeader="Map options" nzActive="true">
             <kpn-settings-menu-map-options />
-          </ul>
-        </li>
-        <li nz-submenu nzTitle="Scope">
-          <ul>
+          </nz-collapse-panel>
+          <nz-collapse-panel nzHeader="Scope" nzActive="true">
             <kpn-settings-menu-scope />
-          </ul>
-        </li>
-        <li nz-submenu nzTitle="Layers">
-          <ul>
+          </nz-collapse-panel>
+          <nz-collapse-panel nzHeader="Layers" nzActive="true">
             <kpn-settings-menu-layers />
-          </ul>
-        </li>
-      </ul>
-    </nz-dropdown-menu>
+          </nz-collapse-panel>
+        </nz-collapse>
+      </ng-container>
+    </nz-drawer>
   `,
   imports: [
-    NzIconDirective,
     NzButtonComponent,
-    NzDropdownButtonDirective,
-    NzDropDownDirective,
-    NzDropdownMenuComponent,
-    NzMenuDirective,
-    NzSubMenuComponent,
+    NzCollapseComponent,
+    NzCollapsePanelComponent,
+    NzDrawerComponent,
+    NzDrawerContentDirective,
+    NzIconDirective,
+    SettingsMenuLayersComponent,
     SettingsMenuMapOptionsComponent,
     SettingsMenuScopeComponent,
-    SettingsMenuLayersComponent,
   ],
 })
-export class SettingsMenuComponent {}
+export class SettingsMenuComponent {
+  visible = false;
+
+  open(): void {
+    this.visible = true;
+  }
+
+  close(): void {
+    this.visible = false;
+  }
+}

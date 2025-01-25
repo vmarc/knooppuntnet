@@ -3,29 +3,27 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TuiLabel } from '@taiga-ui/core';
-import { TuiOption } from '@taiga-ui/core';
-import { TuiCheckbox } from '@taiga-ui/kit';
+import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 
 @Component({
   selector: 'kpn-menu-item-checkbox',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <label tuiOption tuiLabel class="checkbox-line">
-      <input
-        tuiCheckbox
-        type="checkbox"
-        size="s"
-        [ngModel]="value()"
-        (click)="toggleValue()"
-        [disabled]="disabled()"
-      />
-      <span>
-        {{ label() }}
-      </span>
+    <label
+      nz-checkbox
+      [nzChecked]="value()"
+      (nzCheckedChange)="toggleValue()"
+      [nzDisabled]="disabled()"
+    >
+      {{ label() }}
     </label>
   `,
-  imports: [TuiCheckbox, FormsModule, TuiOption, TuiLabel],
+  styles: `
+    :host {
+      display: block;
+    }
+  `,
+  imports: [FormsModule, NzCheckboxComponent],
 })
 export class MenuItemCheckboxComponent {
   readonly label = input.required<string>();
