@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ChangeSetNetwork } from '@api/common';
 import { ChangeKey } from '@api/common/changes/details';
-import { RouteTypeIconComponent } from '@app/components/shared';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ChangesSetElementRefsComponent } from './change-set-element-refs.component';
 
 export class ChangeSetNetworkAction {
@@ -21,7 +21,7 @@ export class ChangeSetNetworkAction {
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>
-      <kpn-route-type-icon [routeType]="changeSetNetworkAction().network.routeType" />
+      <nz-icon nzType="changeSetNetworkAction().network.routeType" />
       <span>{{ changeSetNetworkAction().action }}</span>
       <a [routerLink]="link()" [fragment]="changeSetNetworkAction().network.networkId.toString()">
         {{ changeSetNetworkAction().network.networkName }}
@@ -30,7 +30,7 @@ export class ChangeSetNetworkAction {
     <kpn-change-set-element-refs elementType="node" [changeSetElementRefs]="nodeChanges()" />
     <kpn-change-set-element-refs elementType="route" [changeSetElementRefs]="routeChanges()" />
   `,
-  imports: [ChangesSetElementRefsComponent, RouteTypeIconComponent, RouterLink],
+  imports: [ChangesSetElementRefsComponent, RouterLink, NzIconDirective],
 })
 export class ChangesSetNetworkComponent {
   changeSetNetworkAction = input.required<ChangeSetNetworkAction>();

@@ -10,7 +10,6 @@ export * from './route-scope-name.component';
 export * from './page-width';
 export * from './page-width.service';
 export * from './page.service';
-export * from './route-type-icon.component';
 export * from './route-type-name.component';
 export * from './route-type.component';
 export * from './timestamp-util';

@@ -7,9 +7,9 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
-import { RouteTypeIconComponent } from '@app/components/shared';
 import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
 import { Subscriptions } from '@app/util';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { CsNcComponent } from './network/cs-nc.component';
 
 @Component({
@@ -21,7 +21,7 @@ import { CsNcComponent } from './network/cs-nc.component';
         <a [id]="networkChangeInfo.networkId"></a>
         <div class="kpn-level-1-header">
           <div class="kpn-line">
-            <kpn-route-type-icon [routeType]="networkChangeInfo.routeType" />
+            <nz-icon nzType="networkChangeInfo.routeType" />
             <span i18n="@@change-set.network-changes.network">Network</span>
             <kpn-link-network-details
               [networkId]="networkChangeInfo.networkId"
@@ -36,7 +36,7 @@ import { CsNcComponent } from './network/cs-nc.component';
       </div>
     }
   `,
-  imports: [CsNcComponent, LinkNetworkDetailsComponent, RouteTypeIconComponent],
+  imports: [CsNcComponent, LinkNetworkDetailsComponent, NzIconDirective],
 })
 export class ChangeSetNetworkChangesComponent implements OnDestroy, AfterViewInit {
   detail = input.required<ChangeSetDetail>();

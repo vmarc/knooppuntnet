@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NetworkService } from '../network.service';
 
 @Component({
@@ -25,7 +26,7 @@ import { NetworkService } from '../network.service';
       @if (service.summary(); as summary) {
         <kpn-page-header [pageTitle]="networkPageTitle(summary.name)" subject="network-page">
           <span class="header-route-type-icon">
-            <mat-icon [svgIcon]="summary.routeType" />
+            <nz-icon [nzType]="summary.routeType" />
           </span>
           <span>
             {{ summary.name }}
@@ -90,6 +91,7 @@ import { NetworkService } from '../network.service';
   `,
   imports: [
     MatIconModule,
+    NzIconDirective,
     PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,

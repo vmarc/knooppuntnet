@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'kpn-icon-button',
@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   template: `
     <a [routerLink]="routerLink()">
       <div class="wrapper">
-        <mat-icon [svgIcon]="icon()" class="icon" />
+        <nz-icon [nzType]="icon()" class="icon" />
       </div>
       <div class="text">
         {{ title() }}
@@ -54,7 +54,7 @@ import { RouterLink } from '@angular/router';
       color: grey;
     }
   `,
-  imports: [RouterLink, MatIconModule],
+  imports: [RouterLink, NzIconDirective],
 })
 export class IconButtonComponent {
   title = input.required<string>();

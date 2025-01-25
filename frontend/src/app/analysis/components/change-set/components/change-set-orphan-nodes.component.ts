@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeSetSubsetElementRefs } from '@api/common';
-import { RouteTypeIconComponent } from '@app/components/shared';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ChangesSetElementRefsComponent } from './change-set-element-refs.component';
 
 @Component({
@@ -11,7 +11,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>
-      <span><kpn-route-type-icon [routeType]="routeType()" /></span>
+      <span><nz-icon nzType="routeType()" /></span>
       <span i18n="@@change-set.orphan-nodes">Orphan node(s)</span>
     </div>
     <kpn-change-set-element-refs
@@ -19,7 +19,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
       [changeSetElementRefs]="subsetElementRefs().elementRefs"
     />
   `,
-  imports: [RouteTypeIconComponent, ChangesSetElementRefsComponent],
+  imports: [ChangesSetElementRefsComponent, NzIconDirective],
 })
 export class ChangesSetOrphanNodesComponent {
   subsetElementRefs = input.required<ChangeSetSubsetElementRefs>();

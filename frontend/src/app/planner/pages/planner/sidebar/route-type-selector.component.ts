@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatIconModule } from '@angular/material/icon';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { PlannerPageService } from '../planner-page.service';
 
 @Component({
@@ -17,22 +17,22 @@ import { PlannerPageService } from '../planner-page.service';
         (change)="routeTypeChanged($event)"
       >
         <mat-button-toggle value="cycling">
-          <mat-icon svgIcon="cycling" />
+          <nz-icon nzType="cycling" />
         </mat-button-toggle>
         <mat-button-toggle value="hiking">
-          <mat-icon svgIcon="hiking" />
+          <nz-icon nzType="hiking" />
         </mat-button-toggle>
         <mat-button-toggle value="horse-riding">
-          <mat-icon svgIcon="horse-riding" />
+          <nz-icon nzType="horse-riding" />
         </mat-button-toggle>
         <mat-button-toggle value="motorboat">
-          <mat-icon svgIcon="motorboat" />
+          <nz-icon nzType="motorboat" />
         </mat-button-toggle>
         <mat-button-toggle value="canoe">
-          <mat-icon svgIcon="canoe" />
+          <nz-icon nzType="canoe" />
         </mat-button-toggle>
         <mat-button-toggle value="inline-skating">
-          <mat-icon svgIcon="inline-skating" />
+          <nz-icon nzType="inline-skating" />
         </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
@@ -43,7 +43,7 @@ import { PlannerPageService } from '../planner-page.service';
       height: 34px;
     }
   `,
-  imports: [MatButtonToggleModule, MatIconModule],
+  imports: [MatButtonToggleModule, NzIconDirective],
 })
 export class RouteTypeSelectorComponent {
   readonly service = inject(PlannerPageService);

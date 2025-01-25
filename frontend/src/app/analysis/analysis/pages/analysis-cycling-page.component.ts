@@ -8,6 +8,7 @@ import { IconButtonComponent } from '@app/components/shared/icon';
 import { IconButtonsComponent } from '@app/components/shared/icon';
 import { OldPageComponent } from '@app/components/shared/page';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouterService } from '../../../shared/services/router.service';
 import { AnalysisStrategyService } from '../../strategy';
 import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
@@ -27,7 +28,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
 
       <kpn-page-header>
         <span class="header-route-type-icon">
-          <mat-icon svgIcon="cycling" />
+          <nz-icon nzType="cycling" />
         </span>
         <span i18n="@@route-type.cycling">Cycling</span>
       </kpn-page-header>
@@ -85,6 +86,7 @@ import { AnalysisSidebarComponent } from '../analysis-sidebar.component';
     IconButtonComponent,
     IconButtonsComponent,
     MatIconModule,
+    NzIconDirective,
     OldPageComponent,
     PageHeaderComponent,
     RouterLink,

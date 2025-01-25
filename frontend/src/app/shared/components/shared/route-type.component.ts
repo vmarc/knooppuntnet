@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteType } from '@api/common';
-import { RouteTypeIconComponent } from './route-type-icon.component';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteTypeNameComponent } from './route-type-name.component';
 
 @Component({
@@ -10,7 +10,7 @@ import { RouteTypeNameComponent } from './route-type-name.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="route-type">
-      <kpn-route-type-icon [routeType]="routeType()" />
+      <nz-icon nzType="routeType()" />
       <kpn-route-type-name [routeType]="routeType()" />
       <ng-content></ng-content>
     </div>
@@ -22,12 +22,12 @@ import { RouteTypeNameComponent } from './route-type-name.component';
       align-items: center;
     }
 
-    kpn-route-type-icon {
+    nz-icon {
       height: 24px;
       margin-right: 10px;
     }
   `,
-  imports: [RouteTypeIconComponent, RouteTypeNameComponent],
+  imports: [RouteTypeNameComponent, NzIconDirective],
 })
 export class RouteTypeComponent {
   routeType = input.required<RouteType>();

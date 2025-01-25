@@ -6,6 +6,7 @@ import { LocationKey } from '@api/custom';
 import { CountryNameComponent } from '@app/components/shared';
 import { RouteTypeNameComponent } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'kpn-location-selection-page-header',
@@ -14,7 +15,7 @@ import { PageHeaderComponent } from '@app/components/shared/page';
     @if (key(); as key) {
       <kpn-page-header [pageTitle]="'Locations'" subject="network-page">
         <span class="header-route-type-icon">
-          <mat-icon [svgIcon]="key.routeType" />
+          <nz-icon [nzType]="key.routeType" />
         </span>
         <kpn-route-type-name [routeType]="key.routeType" />
         <span i18n="@@subset.in" class="in">in</span>
@@ -31,7 +32,13 @@ import { PageHeaderComponent } from '@app/components/shared/page';
       content: ' ';
     }
   `,
-  imports: [CountryNameComponent, MatIconModule, RouteTypeNameComponent, PageHeaderComponent],
+  imports: [
+    CountryNameComponent,
+    MatIconModule,
+    NzIconDirective,
+    PageHeaderComponent,
+    RouteTypeNameComponent,
+  ],
 })
 export class LocationSelectionPageHeaderComponent {
   key = input.required<LocationKey>();

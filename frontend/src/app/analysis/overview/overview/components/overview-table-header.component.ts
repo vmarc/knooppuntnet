@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { Subsets } from '@app/kpn/common';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'kpn-overview-table-header',
@@ -22,7 +22,7 @@ import { Subsets } from '@app/kpn/common';
     <tr>
       @for (subset of subsets(); track subset) {
         <th class="value-cell">
-          <mat-icon [svgIcon]="subset.routeType" />
+          <nz-icon [nzType]="subset.routeType" />
         </th>
       }
     </tr>
@@ -32,7 +32,7 @@ import { Subsets } from '@app/kpn/common';
       display: table-header-group;
     }
   `,
-  imports: [MatIconModule],
+  imports: [NzIconDirective],
 })
 export class OverviewTableHeaderComponent {
   subsets() {

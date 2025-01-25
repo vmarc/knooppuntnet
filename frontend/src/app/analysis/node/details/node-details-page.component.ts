@@ -6,12 +6,12 @@ import { RouterLink } from '@angular/router';
 import { NodeDetailsPage } from '@api/common/node';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
-import { RouteTypeIconComponent } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
 import { ErrorComponent } from '@app/components/shared/error';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
@@ -70,7 +70,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
                       <div>
                         @for (routeType of routeTypes; track routeType) {
                           <div class="kpn-line">
-                            <kpn-route-type-icon [routeType]="routeType" />
+                            <nz-icon nzType="routeType" />
                             <kpn-node-location
                               [routeType]="routeType"
                               [locations]="page.nodeInfo.locations"
@@ -134,8 +134,8 @@ import { NodeDetailsPageService } from './node-details-page.service';
     NodePageHeaderComponent,
     NodeRouteReferencesComponent,
     NodeSummaryComponent,
+    NzIconDirective,
     PageComponent,
-    RouteTypeIconComponent,
     RouterLink,
     TagTableComponent,
     TimestampComponent,

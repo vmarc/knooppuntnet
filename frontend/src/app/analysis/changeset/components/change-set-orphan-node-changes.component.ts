@@ -6,8 +6,8 @@ import { ChangeSetSubsetElementRefs } from '@api/common';
 import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
 import { Ref } from '@api/common/common';
 import { RefDiffs } from '@api/common/diff';
-import { RouteTypeIconComponent } from '@app/components/shared';
 import { List } from 'immutable';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NodeDiffsData } from './node-diffs/node-diffs-data';
 import { NodeDiffsComponent } from './node-diffs/node-diffs.component';
 
@@ -18,7 +18,7 @@ import { NodeDiffsComponent } from './node-diffs/node-diffs.component';
     @for (refs of detail().orphanNodeChanges; track refs) {
       <div class="kpn-level-1">
         <div class="kpn-level-1-header kpn-line">
-          <kpn-route-type-icon [routeType]="refs.subset.routeType" />
+          <nz-icon nzType="refs.subset.routeType" />
           <span>{{ refs.subset.country.toUpperCase() }}</span>
           <span i18n="@@change-set.orphan-nodes.title">Orphan nodes</span>
         </div>
@@ -28,7 +28,7 @@ import { NodeDiffsComponent } from './node-diffs/node-diffs.component';
       </div>
     }
   `,
-  imports: [RouteTypeIconComponent, NodeDiffsComponent],
+  imports: [NodeDiffsComponent, NzIconDirective],
 })
 export class ChangeSetOrphanNodeChangesComponent {
   detail = input.required<ChangeSetDetail>();

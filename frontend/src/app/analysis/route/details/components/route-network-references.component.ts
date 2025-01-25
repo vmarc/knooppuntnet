@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Reference } from '@api/common/common';
-import { RouteTypeIconComponent } from '@app/components/shared';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'kpn-route-network-references',
@@ -11,7 +11,7 @@ import { RouteTypeIconComponent } from '@app/components/shared';
   template: `
     @for (reference of references(); track reference) {
       <div class="kpn-line">
-        <kpn-route-type-icon [routeType]="reference.routeType" />
+        <nz-icon nzType="reference.routeType" />
         <a
           id="{{ 'network-ref-' + reference.id }}"
           [routerLink]="'/analysis/network/' + reference.id"
@@ -23,7 +23,7 @@ import { RouteTypeIconComponent } from '@app/components/shared';
       <div i18n="@@route.no-network-references">None</div>
     }
   `,
-  imports: [RouteTypeIconComponent, RouterLink],
+  imports: [RouterLink, NzIconDirective],
 })
 export class RouteNetworkReferencesComponent {
   references = input.required<Reference[]>();

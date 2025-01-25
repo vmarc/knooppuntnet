@@ -4,9 +4,9 @@ import { input } from '@angular/core';
 import { NodeIntegrity } from '@api/common/node';
 import { NodeIntegrityDetail } from '@api/common/node';
 import { RouteScopeNameComponent } from '@app/components/shared';
-import { RouteTypeIconComponent } from '@app/components/shared';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'kpn-node-integrity',
@@ -23,7 +23,7 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
         @for (detail of integrity().details; track detail) {
           <div>
             <div class="kpn-line detail-header">
-              <kpn-route-type-icon [routeType]="detail.routeType" />
+              <nz-icon nzType="detail.routeType" />
               <div class="detail-header-text">
                 @if (happy(detail)) {
                   <span i18n="@@node.integrity.ok">
@@ -74,12 +74,7 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
       top: 3px;
     }
   `,
-  imports: [
-    IconHappyComponent,
-    IconInvestigateComponent,
-    RouteScopeNameComponent,
-    RouteTypeIconComponent,
-  ],
+  imports: [IconHappyComponent, IconInvestigateComponent, RouteScopeNameComponent, NzIconDirective],
 })
 export class NodeIntegrityComponent {
   integrity = input.required<NodeIntegrity>();

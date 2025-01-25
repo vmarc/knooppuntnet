@@ -4,15 +4,15 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Reference } from '@api/common/common';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteScopeNameComponent } from '../route-scope-name.component';
-import { RouteTypeIconComponent } from '../route-type-icon.component';
 
 @Component({
   selector: 'kpn-icon-link',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <kpn-route-type-icon [routeType]="reference().routeType" />
+      <nz-icon nzType="reference().routeType" />
       <a [routerLink]="link" [state]="state" title="">{{ reference().name }}</a>
       @if (mixedRouteScopes()) {
         <span class="kpn-brackets kpn-thin">
@@ -21,7 +21,7 @@ import { RouteTypeIconComponent } from '../route-type-icon.component';
       }
     </div>
   `,
-  imports: [RouteScopeNameComponent, RouteTypeIconComponent, RouterLink],
+  imports: [RouteScopeNameComponent, RouterLink, NzIconDirective],
 })
 export class IconLinkComponent implements OnInit {
   reference = input.required<Reference>();

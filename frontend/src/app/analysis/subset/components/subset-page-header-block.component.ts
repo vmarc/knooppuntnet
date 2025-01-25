@@ -3,9 +3,9 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { Translations } from '@app/i18n';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { SubsetService } from '../subset.service';
 import { SubsetPageBreadcrumbComponent } from './subset-page-breadcrumb.component';
 import { SubsetPageMenuComponent } from './subset-page-menu.component';
@@ -18,7 +18,7 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
 
     <kpn-page-header [pageTitle]="subsetPageTitle()" [subject]="'subset-' + pageName() + '-page'">
       <span class="header-route-type-icon">
-        <mat-icon [svgIcon]="routeType()" />
+        <nz-icon [nzType]="routeType()" />
       </span>
       <span>
         {{ subsetName() }}
@@ -28,7 +28,7 @@ import { SubsetPageMenuComponent } from './subset-page-menu.component';
     <kpn-subset-page-menu [subset]="subset()" [subsetInfo]="subsetInfo()" [pageName]="pageName()" />
   `,
   imports: [
-    MatIconModule,
+    NzIconDirective,
     PageHeaderComponent,
     SubsetPageBreadcrumbComponent,
     SubsetPageMenuComponent,

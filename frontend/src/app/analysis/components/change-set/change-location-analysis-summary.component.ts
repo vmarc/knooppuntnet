@@ -5,8 +5,8 @@ import { RouterLink } from '@angular/router';
 import { ChangeSetSummaryInfo } from '@api/common';
 import { RouteType } from '@api/common';
 import { Util } from '@app/components/shared';
-import { RouteTypeIconComponent } from '@app/components/shared';
 import { Translations } from '@app/i18n';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { LocationPipe } from '../../../shared/components/shared/format/location.pipe';
 import { ChangeHeaderComponent } from './change-header.component';
 import { ChangesSetElementRefsComponent } from './components/change-set-element-refs.component';
@@ -26,7 +26,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
       @for (locationChanges of changeSet().location.changes; track locationChanges) {
         <div>
           <div class="kpn-line">
-            <kpn-route-type-icon [routeType]="locationChanges.routeType" />
+            <nz-icon nzType="locationChanges.routeType" />
             <div class="location-names">
               @for (
                 locationName of locationChanges.locationNames;
@@ -77,9 +77,9 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
   imports: [
     ChangeHeaderComponent,
     ChangesSetElementRefsComponent,
-    RouteTypeIconComponent,
-    RouterLink,
     LocationPipe,
+    NzIconDirective,
+    RouterLink,
   ],
 })
 export class ChangeLocationAnalysisSummaryComponent {

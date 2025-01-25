@@ -6,6 +6,7 @@ import { State } from '@app/state';
 import { NzHeaderComponent } from 'ng-zorro-antd/layout';
 import { SettingsMenuComponent } from './settings/settings-menu.component';
 import { ToolbarPanelToggleComponent } from './toolbar-panel-toggle.component';
+import { ToolbarRouteTypeMenuComponent } from './toolbar-route-type-menu.component';
 import { ToolbarTitleComponent } from './toolbar-title.component';
 
 @Component({
@@ -14,7 +15,7 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
   template: `
     <nz-header class="toolbar">
       <kpn-settings-menu />
-      <!-- <kpn-toolbar-route-type-menu /> -->
+      <kpn-toolbar-route-type-menu />
       <kpn-toolbar-title />
       <kpn-spinner />
       @if (small()) {
@@ -32,11 +33,12 @@ import { ToolbarTitleComponent } from './toolbar-title.component';
     }
   `,
   imports: [
-    SettingsMenuComponent,
-    ToolbarTitleComponent,
     NzHeaderComponent,
-    ToolbarPanelToggleComponent,
+    SettingsMenuComponent,
     SpinnerComponent,
+    ToolbarPanelToggleComponent,
+    ToolbarRouteTypeMenuComponent,
+    ToolbarTitleComponent,
   ],
 })
 export class ToolbarComponent {

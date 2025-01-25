@@ -5,7 +5,7 @@ import { Country } from '@api/common';
 import { RouteType } from '@api/common';
 import { Subset } from '@api/custom';
 import { CountryNameComponent } from '@app/components/shared';
-import { RouteTypeIconComponent } from '@app/components/shared';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { Stat } from '../../domain/stat';
 import { OverviewValueComponent } from './overview-value.component';
 
@@ -20,7 +20,7 @@ import { OverviewValueComponent } from './overview-value.component';
         </td>
       }
       <td>
-        <kpn-route-type-icon [routeType]="routeType()" />
+        <nz-icon nzType="routeType()" />
       </td>
       <td class="value">
         <kpn-overview-value [stat]="stat()" [subset]="subset(country(), routeType())" />
@@ -38,7 +38,7 @@ import { OverviewValueComponent } from './overview-value.component';
       width: 3.5em;
     }
   `,
-  imports: [CountryNameComponent, RouteTypeIconComponent, OverviewValueComponent],
+  imports: [CountryNameComponent, OverviewValueComponent, NzIconDirective],
 })
 export class OverviewListStatRowComponent {
   rowspan = input<number>(null);
