@@ -7,6 +7,8 @@ import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { PageWidthService } from '@app/components/shared';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({
   selector: 'kpn-plan-action-button',
@@ -14,36 +16,22 @@ import { PageWidthService } from '@app/components/shared';
   template: `
     @if (showButtonText()) {
       <button
-        mat-stroked-button
+        nz-button
         class="button-with-text"
         (click)="action.emit()"
         [disabled]="!enabled()"
         [title]="title()"
       >
-        <mat-icon [svgIcon]="icon()" />
+        <nz-icon [nzType]="icon()" />
         <span>{{ text() }}</span>
       </button>
     } @else {
-      <button mat-icon-button (click)="action.emit()" [disabled]="!enabled()" [title]="title()">
-        <mat-icon [svgIcon]="icon()" />
+      <button nz-button (click)="action.emit()" [disabled]="!enabled()" [title]="title()">
+        <nz-icon [nzType]="icon()" />
       </button>
     }
   `,
-  styles: `
-    button {
-      margin-right: 10px;
-    }
-
-    .button-with-text > mat-icon {
-      height: 18px;
-      line-height: 18px;
-    }
-
-    .button-with-text > span {
-      padding-left: 10px;
-    }
-  `,
-  imports: [MatButtonModule, MatIconModule],
+  imports: [MatButtonModule, MatIconModule, NzIconDirective, NzButtonComponent],
 })
 export class PlanActionButtonComponent {
   enabled = input(false);

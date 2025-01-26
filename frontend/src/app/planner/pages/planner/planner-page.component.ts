@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { OldPageComponent } from '@app/components/shared/page';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
 import { RouteControlComponent } from '@app/ol/components';
@@ -16,7 +15,6 @@ import { PlannerPageService } from './planner-page.service';
 import { PoiMenuComponent } from './poi/poi-menu.component';
 import { PlannerPopupComponent } from './popup/planner-popup.component';
 import { PlannerSidebarComponent } from './sidebar/planner-sidebar.component';
-import { PlannerToolbarComponent } from './sidebar/planner-toolbar.component';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
@@ -24,26 +22,29 @@ import { ChangeDetectionStrategy } from '@angular/core';
   // TODO changeDetection: ChangeDetectionStrategy.OnPush,
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
-    <kpn-old-page>
-      <kpn-planner-popup />
-      <div [id]="service.mapId" class="map" (mouseleave)="service.mouseleave()">
-        <kpn-route-control (action)="service.zoomInToRoute()" />
-        <kpn-geolocation-control (action)="service.geolocation($event)" />
-        <kpn-layer-switcher>
-          <kpn-poi-menu />
-        </kpn-layer-switcher>
-        <kpn-map-link-menu />
+    <div style="display:flex;flex-direction: column">
+      <div style="width: 300px">
+        <kpn-planner-sidebar />
       </div>
-      <kpn-planner-toolbar toolbar />
-      <kpn-planner-sidebar sidebar />
-    </kpn-old-page>
+      <div>
+        <kpn-planner-popup />
+        <div [id]="service.mapId" class="map" (mouseleave)="service.mouseleave()">
+          <kpn-route-control (action)="service.zoomInToRoute()" />
+          <kpn-geolocation-control (action)="service.geolocation($event)" />
+          <kpn-layer-switcher>
+            <kpn-poi-menu />
+          </kpn-layer-switcher>
+          <kpn-map-link-menu />
+        </div>
+      </div>
+    </div>
   `,
   styles: `
     .map {
       position: absolute;
       top: 48px;
-      left: 0;
-      right: 0;
+      left: 300px;
+      right: 10px;
       bottom: 0;
       background-color: white;
       overflow: hidden;
@@ -70,10 +71,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
     GeolocationControlComponent,
     LayerSwitcherComponent,
     MapLinkMenuComponent,
-    OldPageComponent,
     PlannerPopupComponent,
     PlannerSidebarComponent,
-    PlannerToolbarComponent,
     PoiMenuComponent,
     RouteControlComponent,
   ],

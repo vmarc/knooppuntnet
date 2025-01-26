@@ -4,14 +4,13 @@ import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PlanParams } from '@api/common/planner';
-import { RouteType } from '@api/common';
 import { Util } from '@app/components/shared';
-import { PageService } from '@app/components/shared';
 import { NoRouteDialogComponent } from '@app/ol/components';
 import { LegNotFoundDialogComponent } from '@app/ol/components';
 import { LegHttpErrorDialogComponent } from '@app/ol/components';
 import { MapMode } from '@app/ol/services';
 import { ApiService } from '@app/services';
+import { State } from '@app/state';
 import { Subscriptions } from '@app/util';
 import { Coordinate } from 'ol/coordinate';
 import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
@@ -25,10 +24,11 @@ import { PlannerService } from './planner.service';
 
 @Injectable()
 export class PlannerPageService {
+  private readonly state = inject(State);
+
   private readonly plannerStateService = inject(PlannerStateService);
   private readonly plannerService = inject(PlannerService);
   private readonly plannerMapService = inject(PlannerMapService);
-  private readonly pageService = inject(PageService);
   private readonly dialog = inject(MatDialog);
   private readonly apiService = inject(ApiService);
   private readonly sharedStateService = inject(SharedStateService);
@@ -37,12 +37,15 @@ export class PlannerPageService {
   private readonly subscriptions = new Subscriptions();
 
   readonly mapId = this.plannerMapService.mapId;
-  readonly routeType = this.plannerStateService.routeType;
+  readonly routeType = this.state.page.routeType;
 
   constructor() {
     this.plannerStateService.onInit();
-    this.setRouteType(this.plannerStateService.routeType());
     this.sharedStateService.loadSurveyDateValues();
+    effect(() => {
+      const routeType = this.state.page.routeType();
+      this.plannerService.context.setRouteType(routeType);
+    });
     effect(() => {
       const error = this.plannerService.context.error();
       if (error) {
@@ -62,8 +65,7 @@ export class PlannerPageService {
   }
 
   onInit(): void {
-    const routeType = this.plannerStateService.routeType();
-    this.pageService.setRouteType(routeType);
+    const routeType = this.state.page.routeType();
     const planString = this.routerService.queryParam('plan');
     if (planString) {
       const planParams: PlanParams = {
@@ -81,13 +83,6 @@ export class PlannerPageService {
     }
   }
 
-  setRouteType(routeType: RouteType): void {
-    this.plannerStateService.setRouteType(routeType);
-    this.plannerService.context.setRouteType(routeType);
-    this.plannerMapService.routeTypeChanged(routeType);
-    this.pageService.setRouteType(routeType);
-  }
-
   setMapMode(mapMode: MapMode): void {
     this.plannerStateService.setMapMode(mapMode);
     this.plannerMapService.updateLayerVisibility();
@@ -98,12 +93,11 @@ export class PlannerPageService {
   }
 
   afterViewInit(): void {
-    this.plannerMapService.init(this.plannerStateService.state());
+    this.plannerMapService.init(this.plannerStateService.plannerState());
   }
 
   onDestroy(): void {
     this.subscriptions.unsubscribe();
-    this.pageService.setRouteType(null);
     this.plannerService.context.destroy();
     this.plannerMapService.destroy();
   }
@@ -126,7 +120,7 @@ export class PlannerPageService {
   geolocation(coordinate: Coordinate): void {
     this.plannerMapService.map.getView().setCenter(coordinate);
     let zoomLevel = 15;
-    if ('cycling' === this.plannerStateService.routeType()) {
+    if ('cycling' === this.state.page.routeType()) {
       zoomLevel = 13;
     }
     this.plannerMapService.map.getView().setZoom(zoomLevel);

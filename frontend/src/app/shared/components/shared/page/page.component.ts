@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'kpn-page',
@@ -15,6 +14,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
       margin: 1em;
     }
   `,
-  imports: [MatSidenavModule],
+  imports: [],
 })
 export class PageComponent {}

@@ -1,3 +1,4 @@
+import { effect } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
@@ -13,6 +14,7 @@ import { MapZoomService } from '@app/ol/services';
 import { OldPoiTileLayerService } from '@app/ol/services';
 import { MainMapStyleParameters } from '@app/ol/style';
 import { OldPoiService } from '@app/services';
+import { State } from '@app/state';
 import { Subscriptions } from '@app/util';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
@@ -28,6 +30,7 @@ import { PlannerService } from './planner.service';
   providedIn: 'root',
 })
 export class PlannerMapService extends OpenlayersMapService {
+  private readonly state = inject(State);
   private readonly plannerService = inject(PlannerService);
   private readonly poiService = inject(OldPoiService);
   private readonly mapZoomService = inject(MapZoomService);
@@ -56,10 +59,18 @@ export class PlannerMapService extends OpenlayersMapService {
 
   private subcriptions = new Subscriptions();
 
-  init(state: PlannerState): void {
+  constructor() {
+    super();
+    effect(() => {
+      const routeType = this.state.page.routeType();
+      this.routeTypeChanged(routeType);
+    });
+  }
+
+  init(plannerState: PlannerState): void {
     const registry = this.plannerMapLayerService.registerLayers(
-      state.routeType,
-      state.urlLayerIds,
+      this.state.page.routeType(),
+      plannerState.urlLayerIds,
       this.parameters
     );
     this.plannerStateService.setLayerStates(registry.layerStates);
@@ -82,8 +93,8 @@ export class PlannerMapService extends OpenlayersMapService {
       })
     );
 
-    this.map.getView().setZoom(state.position.zoom);
-    this.map.getView().setCenter([state.position.x, state.position.y]);
+    this.map.getView().setZoom(plannerState.position.zoom);
+    this.map.getView().setCenter([plannerState.position.x, plannerState.position.y]);
 
     this.plannerService.init(this.map);
     this.interaction.addToMap(this.map);
@@ -104,7 +115,7 @@ export class PlannerMapService extends OpenlayersMapService {
     super.destroy();
   }
 
-  routeTypeChanged(routeType: RouteType) {
+  private routeTypeChanged(routeType: RouteType) {
     let changed = false;
     const newLayerStates = this.layerStates().map((layerState) => {
       let enabled = layerState.enabled;
@@ -128,7 +139,7 @@ export class PlannerMapService extends OpenlayersMapService {
   }
 
   protected override layerVisible(mapLayer: OldMapLayer): boolean {
-    if (!!mapLayer.routeType && mapLayer.routeType !== this.plannerStateService.routeType()) {
+    if (!!mapLayer.routeType && mapLayer.routeType !== this.state.page.routeType()) {
       return false;
     }
     if (!!mapLayer.mapMode && mapLayer.mapMode !== this.plannerStateService.mapMode()) {

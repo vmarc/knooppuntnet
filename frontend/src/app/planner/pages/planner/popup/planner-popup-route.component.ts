@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LinkRouteComponent } from '@app/components/shared/link';
+import { State } from '@app/state';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
-import { PlannerStateService } from '../planner-state.service';
 
 @Component({
   selector: 'kpn-planner-popup-route',
@@ -57,8 +57,8 @@ import { PlannerStateService } from '../planner-state.service';
   imports: [RouterLink, LinkRouteComponent],
 })
 export class PlannerPopupRouteComponent {
+  private readonly state = inject(State);
   private readonly service = inject(PlannerPopupService);
-  private readonly plannerStateService = inject(PlannerStateService);
+  readonly routeType = this.state.page.routeType;
   readonly response = this.service.routeDetailResponse;
-  readonly routeType = this.plannerStateService.routeType;
 }

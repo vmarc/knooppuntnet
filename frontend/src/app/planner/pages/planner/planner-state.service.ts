@@ -12,6 +12,7 @@ import { MapPosition } from '@app/ol/domain';
 import { OldPoiTileLayerService } from '@app/ol/services';
 import { MapMode } from '@app/ol/services';
 import { BrowserStorageService } from '@app/services';
+import { State } from '@app/state';
 import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
 import { from } from 'rxjs';
@@ -23,6 +24,7 @@ import { PlannerState } from './planner-state';
 
 @Injectable()
 export class PlannerStateService {
+  private readonly state = inject(State);
   private readonly routerService = inject(RouterService);
   private readonly router = inject(Router);
   private readonly browserStorageService = inject(BrowserStorageService);
@@ -41,17 +43,16 @@ export class PlannerStateService {
     { id: 'sports', name: 'TODO TRANSLATION', enabled: true, visible: false },
   ];
 
-  private readonly _state = signal<PlannerState>(initialPlannerState);
+  private readonly _plannerState = signal<PlannerState>(initialPlannerState);
 
-  readonly state = this._state.asReadonly();
-  readonly routeType = computed(() => this._state().routeType);
-  readonly position = computed(() => this._state().position);
-  readonly mapMode = computed(() => this._state().mapMode);
-  readonly resultMode = computed(() => this._state().resultMode);
+  readonly plannerState = this._plannerState.asReadonly();
+  readonly position = computed(() => this._plannerState().position);
+  readonly mapMode = computed(() => this._plannerState().mapMode);
+  readonly resultMode = computed(() => this._plannerState().resultMode);
   readonly resultModeCompact = computed(() => this.resultMode() === 'compact');
   readonly resultModeDetailed = computed(() => this.resultMode() === 'detailed');
-  readonly layerStates = computed(() => this._state().layerStates);
-  readonly poiLayerStates = computed(() => this._state().poiLayerStates);
+  readonly layerStates = computed(() => this._plannerState().layerStates);
+  readonly poiLayerStates = computed(() => this._plannerState().poiLayerStates);
 
   readonly poisVisible = computed(() => {
     let visible = false;
@@ -75,44 +76,37 @@ export class PlannerStateService {
     this.updateState(state);
   }
 
-  setRouteType(routeType: RouteType): void {
-    this.updateState({
-      ...this._state(),
-      routeType,
-    });
-  }
-
   setMapPosition(position: MapPosition): void {
     this.updateState({
-      ...this._state(),
+      ...this._plannerState(),
       position,
     });
   }
 
   setMapMode(mapMode: MapMode): void {
     this.updateState({
-      ...this._state(),
+      ...this._plannerState(),
       mapMode,
     });
   }
 
   setResultMode(resultMode: MapResultMode): void {
     this.updateState({
-      ...this._state(),
+      ...this._plannerState(),
       resultMode,
     });
   }
 
   setLayerStates(layerStates: MapLayerState[]): void {
     this.updateState({
-      ...this._state(),
+      ...this._plannerState(),
       layerStates,
     });
   }
 
   setPoiLayerStates(poiLayerStates: MapLayerState[]): void {
     this.updateState({
-      ...this._state(),
+      ...this._plannerState(),
       poiLayerStates,
     });
   }
@@ -128,7 +122,7 @@ export class PlannerStateService {
       return layerState;
     });
     this.updateState({
-      ...this._state(),
+      ...this._plannerState(),
       poiLayerStates,
     });
   }
@@ -144,18 +138,20 @@ export class PlannerStateService {
       return layerState;
     });
     this.updateState({
-      ...this._state(),
+      ...this._plannerState(),
       layerStates,
     });
   }
 
   private updateState(state: PlannerState): void {
-    this._state.set(state);
+    this._plannerState.set(state);
     this.navigate(state);
   }
 
   private toPlannerState(routeParams: Params, queryParams: Params): PlannerState {
     const routeType = this.parseRouteType(routeParams);
+    this.state.page.updateRouteType(routeType);
+
     const position = this.parsePosition(queryParams);
     const mapMode = this.parseMapMode(queryParams);
     const resultMode = this.parseResultMode(queryParams);
@@ -169,7 +165,6 @@ export class PlannerStateService {
     const poiLayerStates = this.parsePoiLayerStates(queryParams);
 
     return {
-      routeType,
       position,
       mapMode,
       resultMode,
@@ -269,9 +264,9 @@ export class PlannerStateService {
     };
   }
 
-  private navigate(state: PlannerState): Observable<boolean> {
-    const queryParams = this.toQueryParams(state);
-    const promise = this.router.navigate(['map', state.routeType], {
+  private navigate(plannerState: PlannerState): Observable<boolean> {
+    const queryParams = this.toQueryParams(plannerState);
+    const promise = this.router.navigate(['map', this.state.page.routeType], {
       queryParams,
       replaceUrl: true, // do not push a new entry to the browser history
     });

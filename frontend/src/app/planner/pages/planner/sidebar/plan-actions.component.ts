@@ -45,7 +45,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
           <kpn-plan-action-button
             (action)="reset()"
             [enabled]="hasStartNode(plan)"
-            icon="reset"
+            icon="poweroff"
             text="Reset"
             i18n-text="@@planner.action.reset"
             title="Wipe out current route plan and restart route planning from scratch"
@@ -56,7 +56,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
           <kpn-plan-action-button
             (action)="reverse()"
             [enabled]="hasRoute(plan)"
-            icon="reverse"
+            icon="swap"
             text="Reverse"
             i18n-text="@@planner.action.reverse"
             title="Reverse the route direction (startnode becomes endnode, and vice versa)"
@@ -66,7 +66,7 @@ import { PlanOutputDialogComponent } from './plan-output-dialog.component';
         <kpn-plan-action-button
           (action)="output()"
           [enabled]="hasRoute(plan)"
-          icon="output"
+          icon="export"
           text="Output"
           i18n-text="@@planner.action.output"
           title="Output planned route"

@@ -1,11 +1,9 @@
-import { RouteType } from '@api/common';
 import { MapLayerState } from '@app/ol/domain';
 import { MapPosition } from '@app/ol/domain';
 import { MapMode } from '@app/ol/services';
 import { MapResultMode } from '../../../ol/services/map-result-mode';
 
 export const initialPlannerState: PlannerState = {
-  routeType: 'hiking',
   position: null,
   mapMode: 'surface',
   resultMode: 'compact',
@@ -15,7 +13,6 @@ export const initialPlannerState: PlannerState = {
 };
 
 export type PlannerState = {
-  routeType: RouteType;
   position: MapPosition;
   mapMode: MapMode;
   resultMode: MapResultMode;

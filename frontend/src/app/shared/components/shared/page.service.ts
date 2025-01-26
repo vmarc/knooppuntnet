@@ -4,7 +4,6 @@ import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { RouteType } from '@api/common';
 import { BrowserStorageService } from '@app/services';
 import { PageWidthService } from './page-width.service';
 
@@ -19,12 +18,10 @@ export class PageService {
   private readonly defaultTitle = 'knooppuntnet';
   private readonly sideBarOpenLocalStorageKey = 'sidebar-open';
 
-  private readonly _toolbarBackgroundColor = signal<string>(null);
   private readonly _manualSidebarOpen = signal<boolean | null>(null);
 
   private initializing = true;
 
-  readonly toolbarBackgroundColor = this._toolbarBackgroundColor.asReadonly();
   readonly sidebarOpen = computed(() => {
     const manualSidebarOpen = this._manualSidebarOpen();
     const large = !this.pageWidthService.isAllSmall();
@@ -55,10 +52,6 @@ export class PageService {
   setTitle(prefix: string): void {
     const title = prefix ? prefix + ' | ' + this.defaultTitle : this.defaultTitle;
     this.titleService.setTitle(title);
-  }
-
-  setRouteType(routeType: RouteType): void {
-    this._toolbarBackgroundColor.set(routeType ? 'toolbar-style-' + routeType : null);
   }
 
   private rememberSidebarOpen(sidebarOpen: boolean): void {

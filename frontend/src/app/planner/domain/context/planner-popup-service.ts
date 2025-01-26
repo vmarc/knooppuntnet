@@ -8,10 +8,10 @@ import { ApiResponse } from '@api/custom';
 import { OlUtil } from '@app/ol';
 import { MapZoomService } from '@app/ol/services';
 import { ApiService } from '@app/services';
+import { State } from '@app/state';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
-import { PlannerStateService } from '../../pages/planner/planner-state.service';
 import { NodeClick } from '../interaction/actions/node-click';
 import { PoiClick } from '../interaction/actions/poi-click';
 import { RouteClick } from '../interaction/actions/route-click';
@@ -19,8 +19,9 @@ import { PlannerPopup } from './planner-popup';
 
 @Injectable()
 export class PlannerPopupService implements PlannerPopup {
+  private readonly state = inject(State);
+
   private readonly apiService = inject(ApiService);
-  private readonly plannerStateService = inject(PlannerStateService);
   private readonly mapZoomService = inject(MapZoomService);
 
   private readonly _routeDetailResponse = signal<ApiResponse<MapRouteDetail>>(null);
@@ -53,7 +54,7 @@ export class PlannerPopupService implements PlannerPopup {
 
   nodeClicked(nodeClick: NodeClick): void {
     this._popupType.set('node');
-    const routeType = this.plannerStateService.routeType();
+    const routeType = this.state.page.routeType();
     const nodeId = +nodeClick.node.node.nodeId;
     this.apiService.mapNodeDetail(routeType, nodeId).subscribe((response) => {
       this._nodeDetailResponse.set(response);
