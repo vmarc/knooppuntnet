@@ -5,18 +5,18 @@ import { ChangesParameters } from '@api/common/changes/filter';
 import { SubsetChangesPage } from '@api/common/subset';
 import { ApiResponse } from '@api/custom';
 import { Util } from '@app/components/shared';
-import { PreferencesService } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';
+import { State } from '@app/state';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserService } from '../../../shared/user';
 import { SubsetService } from '../subset.service';
 
 export class SubsetChangesPageService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly subsetService = inject(SubsetService);
-  private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
   private readonly userService = inject(UserService);
 
@@ -37,15 +37,15 @@ export class SubsetChangesPageService {
     const queryParams = this.routerService.queryParams();
     const uniqueQueryParams = Util.uniqueParams(queryParams);
     const pageParams = new PageParams(params, uniqueQueryParams);
-    const preferencesImpact = this.preferencesService.impact();
-    const preferencesPageSize = this.preferencesService.pageSize();
+    const preferencesImpact = this.state.preferences.impact();
+    const preferencesPageSize = this.state.preferences.pageSize();
     const changesParameters = pageParams.changesParameters(preferencesImpact, preferencesPageSize);
     this._changesParameters.set(changesParameters);
     this.load();
   }
 
-  setPageSize(pageSize: number): void {
-    this.preferencesService.setPageSize(pageSize);
+  updatePageSize(pageSize: number): void {
+    this.state.preferences.updatePageSize(pageSize);
     this.setChangesParameters({
       ...this.changesParameters(),
       pageIndex: 0,
@@ -53,8 +53,8 @@ export class SubsetChangesPageService {
     });
   }
 
-  setImpact(impact: boolean): void {
-    this.preferencesService.setImpact(impact);
+  updateImpact(impact: boolean): void {
+    this.state.preferences.updateImpact(impact);
     this.setChangesParameters({
       ...this.changesParameters(),
       pageIndex: 0,

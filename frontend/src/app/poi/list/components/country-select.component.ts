@@ -41,6 +41,6 @@ export class CountrySelectComponent {
   });
 
   countrySelectionChanged(event: MatSelectChange) {
-    this.service.setCountry(event.value);
+    this.service.updateCountry(event.value);
   }
 }

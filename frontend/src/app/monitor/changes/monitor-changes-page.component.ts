@@ -27,7 +27,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
 
       <kpn-error />
 
-      @if (service.state(); as state) {
+      @if (service.changesState(); as state) {
         @if (state.response; as response) {
           @if (!response.result) {
             <p i18n="@@monitor.changes.no-changes">No group changes</p>
@@ -76,15 +76,15 @@ export class MonitorChangesPageComponent {
   readonly service = inject(MonitorChangesPageService);
 
   impactChanged(event: MatSlideToggleChange) {
-    this.service.impactChanged(event.checked);
+    this.service.updateImpact(event.checked);
   }
 
   pageSizeChanged(pageSize: number) {
-    this.service.pageSizeChanged(pageSize);
+    this.service.updatePageSize(pageSize);
   }
 
   pageIndexChanged(pageIndex: number) {
     window.scroll(0, 0);
-    this.service.pageIndexChanged(pageIndex);
+    this.service.updatePageIndex(pageIndex);
   }
 }

@@ -27,7 +27,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
         <li>Group changes</li>
       </ul>
 
-      @if (service.state(); as state) {
+      @if (service.changesState(); as state) {
         <kpn-page-header>
           {{ state.groupDescription }}
         </kpn-page-header>
@@ -43,7 +43,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
             <div class="kpn-spacer-above">
               <mat-slide-toggle
                 [checked]="service.impact()"
-                (change)="service.impactChanged($event.checked)"
+                (change)="service.updateImpact($event.checked)"
               >
                 Impact
               </mat-slide-toggle>
@@ -83,6 +83,6 @@ export class MonitorGroupChangesPageComponent {
 
   pageChanged(pageIndex: number) {
     window.scroll(0, 0);
-    this.service.pageChanged(pageIndex);
+    this.service.updatePage(pageIndex);
   }
 }

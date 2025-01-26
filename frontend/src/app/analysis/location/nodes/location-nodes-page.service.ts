@@ -9,15 +9,15 @@ import { BooleanParameter } from '@api/common/location/boolean-parameter';
 import { LastUpdatedParameter } from '@api/common/location/last-updated-parameter';
 import { ApiResponse } from '@api/custom';
 import { Util } from '@app/components/shared';
-import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
+import { State } from '@app/state';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationService } from '../location.service';
 
 export class LocationNodesPageService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly locationService = inject(LocationService);
-  private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
 
   private readonly _integrityCheck = signal<BooleanParameter | null>(null);
@@ -33,7 +33,7 @@ export class LocationNodesPageService {
   readonly response = this._response.asReadonly();
   readonly pageIndex = this._pageIndex.asReadonly();
   readonly routeType = computed(() => this.locationService.key().routeType);
-  readonly pageSize = this.preferencesService.pageSize;
+  readonly pageSize = this.state.preferences.pageSize;
 
   onInit(): void {
     this.locationService.initPage(this.routerService);
@@ -58,8 +58,8 @@ export class LocationNodesPageService {
     this.load();
   }
 
-  setPageSize(pageSize: number): void {
-    this.preferencesService.setPageSize(pageSize);
+  updatePageSize(pageSize: number): void {
+    this.state.preferences.updatePageSize(pageSize);
     this.load();
   }
 
@@ -112,7 +112,7 @@ export class LocationNodesPageService {
       lastUpdated: this._lastUpdated(),
       proposed: this._proposed(),
       referencedInRoutes: this._referencedInRoutes(),
-      pageSize: this.preferencesService.pageSize(),
+      pageSize: this.state.preferences.pageSize(),
       pageIndex: this.pageIndex(),
     };
     this.routerService.updateQueryParams(parameters).then(() => {

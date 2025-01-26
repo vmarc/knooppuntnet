@@ -4,14 +4,14 @@ import { Component } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { PreferencesService } from '@app/core';
+import { State } from '@app/state';
 
 @Component({
   selector: 'kpn-planner-sidebar-options',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-expansion-panel [expanded]="expanded()" (expandedChange)="expandedChanged($event)">
-      <mat-expansion-panel-header i18n="@@planner.options"> Options </mat-expansion-panel-header>
+      <mat-expansion-panel-header i18n="@@planner.options"> Options</mat-expansion-panel-header>
       <p>
         <mat-checkbox [checked]="showProposed()" (change)="showProposedChanged($event)">
           <span i18n="@@planner.options.show-proposed">Show proposed routes</span>
@@ -31,21 +31,21 @@ import { PreferencesService } from '@app/core';
   imports: [MatExpansionModule, MatCheckboxModule],
 })
 export class PlannerSideBarOptionsComponent {
-  private preferencesService = inject(PreferencesService);
+  private readonly state = inject(State);
 
-  readonly expanded = this.preferencesService.showOptions;
-  protected readonly showProposed = this.preferencesService.showProposed;
-  protected readonly planProposed = this.preferencesService.planProposed;
+  readonly expanded = this.state.preferences.showOptions;
+  protected readonly showProposed = this.state.preferences.showProposed;
+  protected readonly planProposed = this.state.preferences.planProposed;
 
   expandedChanged(expanded: boolean): void {
-    this.preferencesService.setShowOptions(expanded);
+    this.state.preferences.updateShowOptions(expanded);
   }
 
   showProposedChanged(event: MatCheckboxChange) {
-    this.preferencesService.setShowProposed(event.checked);
+    this.state.preferences.updateShowProposed(event.checked);
   }
 
   planProposedChanged(event: MatCheckboxChange) {
-    this.preferencesService.setPlanProposed(event.checked);
+    this.state.preferences.updatePlanProposed(event.checked);
   }
 }

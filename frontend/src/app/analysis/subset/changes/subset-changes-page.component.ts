@@ -101,11 +101,11 @@ export class SubsetChangesPageComponent implements OnInit {
   }
 
   onImpactChange(impact: boolean): void {
-    this.service.setImpact(impact);
+    this.service.updateImpact(impact);
   }
 
   onPageSizeChange(pageSize: number): void {
-    this.service.setPageSize(pageSize);
+    this.service.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {

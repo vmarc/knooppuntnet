@@ -99,37 +99,37 @@ export class LocationRoutesFilterComponent {
 
   factChanged(change: MatRadioChange): void {
     if (change.value == 'all') {
-      this.store.setFact(null);
+      this.store.updateFact(null);
     } else {
       const value = change.value as Fact;
-      this.store.setFact(value);
+      this.store.updateFact(value);
     }
   }
 
   surveyChanged(change: MatRadioChange): void {
     if (change.value == 'all') {
-      this.store.setSurvey(null);
+      this.store.updateSurvey(null);
     } else {
       const value = change.value as SurveyParameter;
-      this.store.setSurvey(value);
+      this.store.updateSurvey(value);
     }
   }
 
   lastUpdatedChanged(change: MatRadioChange): void {
     if (change.value == 'all') {
-      this.store.setLastUpdated(null);
+      this.store.updateLastUpdated(null);
     } else {
       const value = change.value as LastUpdatedParameter;
-      this.store.setLastUpdated(value);
+      this.store.updateLastUpdated(value);
     }
   }
 
   proposedChanged(change: MatRadioChange): void {
     if (change.value == 'all') {
-      this.store.setProposed(null);
+      this.store.updateProposed(null);
     } else {
       const value = change.value as BooleanParameter;
-      this.store.setProposed(value);
+      this.store.updateProposed(value);
     }
   }
 }

@@ -3,23 +3,23 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { NetworkNodesPage } from '@api/common/network';
 import { ApiResponse } from '@api/custom';
-import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
+import { State } from '@app/state';
 import { RouterService } from '../../../shared/services/router.service';
 import { NetworkService } from '../network.service';
 import { NetworkNodeFilter } from './components/network-node-filter';
 import { NetworkNodeFilterCriteria } from './components/network-node-filter-criteria';
 
 export class NetworkNodesPageService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly networkService = inject(NetworkService);
-  private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
 
   private readonly _response = signal<ApiResponse<NetworkNodesPage>>(null);
   readonly response = this._response.asReadonly();
 
-  readonly pageSize = this.preferencesService.pageSize;
+  readonly pageSize = this.state.preferences.pageSize;
 
   private readonly timeInfo = computed(() => this.response()?.result?.timeInfo);
   private readonly surveyDateInfo = computed(() => this.response()?.result?.surveyDateInfo);
@@ -42,8 +42,8 @@ export class NetworkNodesPageService {
     this.load();
   }
 
-  setPageSize(pageSize: number): void {
-    this.preferencesService.setPageSize(pageSize);
+  updatePageSize(pageSize: number): void {
+    this.state.preferences.updatePageSize(pageSize);
     this.load();
   }
 

@@ -101,7 +101,7 @@ export class LocationPoisSidebarComponent {
   readonly service = inject(PoiLocationPoisPageService);
 
   locationSelectionChanged(location: string): void {
-    this.service.setLocation(location);
+    this.service.updateLocation(location);
   }
 
   listPois(): void {
@@ -110,9 +110,9 @@ export class LocationPoisSidebarComponent {
 
   poiSelectionChanged(poiName: string, event: MatCheckboxChange): void {
     if (event.checked) {
-      this.service.setLayers(poiName);
+      this.service.updateLayers(poiName);
     } else {
-      this.service.setLayers('');
+      this.service.updateLayers('');
     }
   }
 }

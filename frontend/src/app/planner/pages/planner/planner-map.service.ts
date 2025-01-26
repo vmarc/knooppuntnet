@@ -3,7 +3,6 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { RouteType } from '@api/common';
-import { PreferencesService } from '@app/core';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapGeocoder } from '@app/ol/domain';
 import { MapLayerState } from '@app/ol/domain';
@@ -22,7 +21,6 @@ import View from 'ol/View';
 import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
 import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
 import { PlannerMapLayerService } from './planner-map-layer.service';
-import { PlannerStateService } from './planner-state.service';
 import { PlannerService } from './planner.service';
 
 @Injectable({
@@ -33,9 +31,7 @@ export class PlannerMapService extends OpenlayersMapService {
   private readonly plannerService = inject(PlannerService);
   private readonly poiService = inject(OldPoiService);
   private readonly mapZoomService = inject(MapZoomService);
-  private readonly preferencesService = inject(PreferencesService);
   private readonly sharedStateService = inject(SharedStateService);
-  private readonly plannerStateService = inject(PlannerStateService);
   private readonly plannerMapLayerService = inject(PlannerMapLayerService);
 
   private overlay: Overlay;
@@ -44,7 +40,7 @@ export class PlannerMapService extends OpenlayersMapService {
   private parameters = computed(() => {
     const selectedRouteId = '';
     const selectedNodeId = '';
-    const showProposed = this.preferencesService.showProposed();
+    const showProposed = this.state.preferences.showProposed();
     const surveyDateValues = this.sharedStateService.surveyDateValues();
 
     return new MainMapStyleParameters(

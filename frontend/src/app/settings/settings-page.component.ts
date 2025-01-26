@@ -4,7 +4,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { PageHeaderComponent } from '@app/components/shared/page';
-import { PreferencesService } from '@app/core';
+import { State } from '@app/state';
 import { PageComponent } from '../shared/components/shared/page/page.component';
 
 @Component({
@@ -21,7 +21,7 @@ import { PageComponent } from '../shared/components/shared/page/page.component';
 
       <div class="setting">
         <mat-slide-toggle
-          [checked]="service.extraLayers()"
+          [checked]="extraLayers()"
           (change)="extraLayersChanged($event)"
           i18n="@@settings.extra-layers"
         >
@@ -53,9 +53,10 @@ import { PageComponent } from '../shared/components/shared/page/page.component';
   imports: [MatSlideToggleModule, PageHeaderComponent, RouterLink, PageComponent],
 })
 export class SettingsPageComponent {
-  protected readonly service = inject(PreferencesService);
+  private readonly state = inject(State);
+  readonly extraLayers = this.state.preferences.extraLayers;
 
   extraLayersChanged(event: MatSlideToggleChange): void {
-    this.service.setExtraLayers(event.checked);
+    this.state.preferences.updateExtraLayers(event.checked);
   }
 }

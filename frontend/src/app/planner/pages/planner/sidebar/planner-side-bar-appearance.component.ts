@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { PreferencesService } from '@app/core';
 import { State } from '@app/state';
 import { PlannerPageService } from '../planner-page.service';
 
@@ -42,12 +41,11 @@ import { PlannerPageService } from '../planner-page.service';
 export class PlannerSideBarAppearanceComponent {
   private readonly state = inject(State);
   private readonly plannerPageService = inject(PlannerPageService);
-  private readonly preferencesService = inject(PreferencesService);
   readonly mapMode = this.state.planner.mapMode;
-  readonly expanded = this.preferencesService.showAppearanceOptions;
+  readonly expanded = this.state.preferences.showAppearanceOptions;
 
   expandedChanged(expanded: boolean): void {
-    this.preferencesService.setShowAppearanceOptions(expanded);
+    this.state.preferences.updateShowAppearanceOptions(expanded);
   }
 
   modeChanged(event: MatRadioChange): void {

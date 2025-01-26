@@ -9,15 +9,15 @@ import { LastUpdatedParameter } from '@api/common/location/last-updated-paramete
 import { SurveyParameter } from '@api/common/location/survey-parameter';
 import { ApiResponse } from '@api/custom';
 import { Util } from '@app/components/shared';
-import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
+import { State } from '@app/state';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationService } from '../location.service';
 
 export class LocationRoutesPageService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly locationService = inject(LocationService);
-  private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
 
   private readonly _fact = signal<Fact | null>(null);
@@ -31,7 +31,7 @@ export class LocationRoutesPageService {
   readonly pageIndex = this._pageIndex.asReadonly();
   readonly response = this._response.asReadonly();
   readonly routeType = computed(() => this.locationService.key().routeType);
-  readonly pageSize = computed(() => this.preferencesService.pageSize());
+  readonly pageSize = computed(() => this.state.preferences.pageSize());
 
   onInit(): void {
     this.locationService.initPage(this.routerService);
@@ -51,33 +51,33 @@ export class LocationRoutesPageService {
     this.load();
   }
 
-  setPageSize(pageSize: number): void {
-    this.preferencesService.setPageSize(pageSize);
+  updatePageSize(pageSize: number): void {
+    this.state.preferences.updatePageSize(pageSize);
     this._pageIndex.set(0);
     this.load();
   }
 
-  setPageIndex(pageIndex: number): void {
+  updatePageIndex(pageIndex: number): void {
     this._pageIndex.set(pageIndex);
     this.load();
   }
 
-  setFact(value: Fact): void {
+  updateFact(value: Fact): void {
     this._fact.set(value);
     this.load();
   }
 
-  setSurvey(value: SurveyParameter): void {
+  updateSurvey(value: SurveyParameter): void {
     this._survey.set(value);
     this.load();
   }
 
-  setLastUpdated(value: LastUpdatedParameter): void {
+  updateLastUpdated(value: LastUpdatedParameter): void {
     this._lastUpdated.set(value);
     this.load();
   }
 
-  setProposed(value: BooleanParameter): void {
+  updateProposed(value: BooleanParameter): void {
     this._proposed.set(value);
     this.load();
   }
@@ -88,7 +88,7 @@ export class LocationRoutesPageService {
       survey: this._survey(),
       lastUpdated: this._lastUpdated(),
       proposed: this._proposed(),
-      pageSize: this.preferencesService.pageSize(),
+      pageSize: this.state.preferences.pageSize(),
       pageIndex: this.pageIndex(),
     };
     this.routerService.updateQueryParams(parameters).then(() => {

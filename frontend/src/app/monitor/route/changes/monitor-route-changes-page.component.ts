@@ -17,7 +17,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
     <!-- work-in-progress -->
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
-    @if (service.state(); as state) {
+    @if (service.changesState(); as state) {
       <kpn-page>
         <kpn-monitor-route-page-header
           pageName="changes"
@@ -71,11 +71,11 @@ export class MonitorRouteChangesPageComponent {
   readonly service = inject(MonitorRouteChangesPageService);
 
   impactChanged(event: MatSlideToggleChange) {
-    this.service.impactChanged(event.checked);
+    this.service.updateImpact(event.checked);
   }
 
   pageChanged(pageIndex: number) {
     window.scroll(0, 0);
-    this.service.pageChanged(pageIndex);
+    this.service.updatePage(pageIndex);
   }
 }

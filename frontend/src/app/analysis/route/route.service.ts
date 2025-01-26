@@ -4,12 +4,14 @@ import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteType } from '@api/common';
 import { PreferencesService } from '@app/core';
+import { State } from '@app/state';
 import { RouterService } from '../../shared/services/router.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RouteService {
+  private readonly state = inject(State);
   private readonly _routeId = signal<string>(null);
   private readonly _routeName = signal<string>(null);
   private readonly _routeType = signal<RouteType>(null);
@@ -39,7 +41,7 @@ export class RouteService {
       this._routeName.set(newRouteName);
       this._routeType.set(newRouteType);
       if (newRouteType) {
-        this.preferencesService.setRouteType(newRouteType);
+        this.state.preferences.updateRouteType(newRouteType);
       }
     }
   }

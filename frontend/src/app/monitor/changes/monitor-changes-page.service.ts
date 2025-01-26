@@ -2,48 +2,48 @@ import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorChangesParameters } from '@api/common/monitor';
-import { PreferencesService } from '@app/core';
+import { State } from '@app/state';
 import { MonitorService } from '../monitor.service';
 import { initialState } from './monitor-changes-page.state';
 import { MonitorChangesPageState } from './monitor-changes-page.state';
 
 @Injectable()
 export class MonitorChangesPageService {
+  private readonly state = inject(State);
   private readonly monitorService = inject(MonitorService);
-  private readonly preferencesService = inject(PreferencesService);
 
-  private readonly _state = signal<MonitorChangesPageState>(initialState);
-  readonly state = this._state.asReadonly();
-  readonly impact = this.preferencesService.impact;
-  readonly pageSize = this.preferencesService.pageSize;
+  private readonly _changesState = signal<MonitorChangesPageState>(initialState);
+  readonly changesState = this._changesState.asReadonly();
+  readonly impact = this.state.preferences.impact;
+  readonly pageSize = this.state.preferences.pageSize;
 
   constructor() {
     this.load();
   }
 
-  impactChanged(impact: boolean) {
-    this.preferencesService.setImpact(impact);
+  updateImpact(impact: boolean) {
+    this.state.preferences.updateImpact(impact);
     this.load();
   }
 
-  pageSizeChanged(pageSize: number) {
-    this.preferencesService.setPageSize(pageSize);
+  updatePageSize(pageSize: number) {
+    this.state.preferences.updatePageSize(pageSize);
     this.load();
   }
 
-  pageIndexChanged(pageIndex: number) {
-    this._state.update((state) => ({ ...state, pageIndex }));
+  updatePageIndex(pageIndex: number) {
+    this._changesState.update((state) => ({ ...state, pageIndex }));
     this.load();
   }
 
   private load(): void {
     const parameters: MonitorChangesParameters = {
-      pageSize: this.preferencesService.pageSize(),
-      pageIndex: this._state().pageIndex,
-      impact: this.preferencesService.impact(),
+      pageSize: this.state.preferences.pageSize(),
+      pageIndex: this._changesState().pageIndex,
+      impact: this.state.preferences.impact(),
     };
     this.monitorService.changes(parameters).subscribe((response) => {
-      this._state.update((state) => ({ ...state, response }));
+      this._changesState.update((state) => ({ ...state, response }));
     });
   }
 }

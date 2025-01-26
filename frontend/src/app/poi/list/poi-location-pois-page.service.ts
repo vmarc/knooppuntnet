@@ -7,14 +7,12 @@ import { LocationPoiSummaryPage } from '@api/common';
 import { LocationPoisPage } from '@api/common';
 import { Country } from '@api/common';
 import { ApiResponse } from '@api/custom';
-import { PreferencesService } from '@app/core';
-import { RouterService } from '../../shared/services/router.service';
+import { State } from '@app/state';
 import { PoiService } from '../poi.service';
 
 export class PoiLocationPoisPageService {
+  private readonly state = inject(State);
   private readonly poiService = inject(PoiService);
-  private readonly routerService = inject(RouterService);
-  private readonly preferencesService = inject(PreferencesService);
 
   private readonly _country = signal<Country | null>(null);
   private readonly _location = signal<string | null>(null);
@@ -34,7 +32,7 @@ export class PoiLocationPoisPageService {
   readonly locationNode = computed(() => this.locationsResponse()?.result.locationNode);
 
   readonly pageIndex = this._pageIndex.asReadonly();
-  readonly pageSize = this.preferencesService.pageSize;
+  readonly pageSize = this.state.preferences.pageSize;
 
   constructor() {
     effect(() => {});
@@ -46,17 +44,17 @@ export class PoiLocationPoisPageService {
     // const layers = this.routerService.queryParam('layers');
   }
 
-  setCountry(country: Country) {
+  updateCountry(country: Country) {
     this._country.set(country);
     this.loadLocations();
   }
 
-  setLocation(location: string) {
+  updateLocation(location: string) {
     this._location.set(location);
     this.loadSummary();
   }
 
-  setLayers(layers: string) {
+  updateLayers(layers: string) {
     this._layers.set(layers);
   }
 
@@ -64,11 +62,11 @@ export class PoiLocationPoisPageService {
     this.loadPois();
   }
 
-  setPageSize(pageSize: number) {
-    this.preferencesService.setPageSize(pageSize);
+  updatePageSize(pageSize: number) {
+    this.state.preferences.updatePageSize(pageSize);
   }
 
-  setPageIndex(pageIndex: number) {
+  updatePageIndex(pageIndex: number) {
     this._pageIndex.set(pageIndex);
   }
 

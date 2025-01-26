@@ -97,18 +97,18 @@ export class NetworkChangesPageComponent implements OnInit {
   }
 
   onImpactChange(impact: boolean): void {
-    this.service.setImpact(impact);
+    this.service.updateImpact(impact);
   }
 
   onPageSizeChange(pageSize: number): void {
-    this.service.setPageSize(pageSize);
+    this.service.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number): void {
-    this.service.setPageIndex(pageIndex);
+    this.service.updatePageIndex(pageIndex);
   }
 
   onOptionSelected(option: ChangeOption): void {
-    this.service.setFilterOption(option);
+    this.service.updateFilterOption(option);
   }
 }

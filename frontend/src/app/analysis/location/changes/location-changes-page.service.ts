@@ -9,11 +9,13 @@ import { PreferencesService } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';
+import { State } from '@app/state';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserService } from '../../../shared/user';
 import { LocationService } from '../location.service';
 
 export class LocationChangesPageService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly locationService = inject(LocationService);
   private readonly routerService = inject(RouterService);
@@ -36,17 +38,17 @@ export class LocationChangesPageService {
     this.locationService.initPage(this.routerService);
     const uniqueQueryParams = Util.uniqueParams(this.routerService.queryParams());
     const pageParams = new PageParams(this.routerService.params(), uniqueQueryParams);
-    const strategy = pageParams.strategy(this.preferencesService.strategy());
+    const strategy = pageParams.strategy(this.state.preferences.strategy());
     const changesParameters = pageParams.changesParameters(
-      this.preferencesService.impact(),
-      this.preferencesService.pageSize()
+      this.state.preferences.impact(),
+      this.state.preferences.pageSize()
     );
     this._changesParameters.set(changesParameters);
     this.load();
   }
 
   setPageSize(pageSize: number): void {
-    this.preferencesService.setPageSize(pageSize);
+    this.state.preferences.updatePageSize(pageSize);
     this.setChangeParameters({
       ...this.changesParameters(),
       pageIndex: 0,
@@ -88,7 +90,7 @@ export class LocationChangesPageService {
   private load() {
     this.routerService
       .updateQueryParams({
-        strategy: this.preferencesService.strategy(),
+        strategy: this.state.preferences.strategy(),
         ...this.changesParameters(),
       })
       .then(() => {

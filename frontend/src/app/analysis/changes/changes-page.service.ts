@@ -6,18 +6,18 @@ import { ChangesParameters } from '@api/common/changes/filter';
 import { ApiResponse } from '@api/custom';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { Util } from '@app/components/shared';
-import { PreferencesService } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';
+import { State } from '@app/state';
 import { RouterService } from '../../shared/services/router.service';
 import { UserService } from '../../shared/user';
 
 export class ChangesPageService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly routerService = inject(RouterService);
   private readonly analysisStrategyService = inject(AnalysisStrategyService);
-  private readonly preferencesService = inject(PreferencesService);
   private readonly userService = inject(UserService);
 
   private readonly _changesParameters = signal<ChangesParameters | null>(null);
@@ -37,15 +37,15 @@ export class ChangesPageService {
     const uniqueQueryParams = Util.uniqueParams(this.routerService.queryParams());
     const pageParams = new PageParams(this.routerService.params(), uniqueQueryParams);
     const changesParameters = pageParams.changesParameters(
-      this.preferencesService.impact(),
-      this.preferencesService.pageSize()
+      this.state.preferences.impact(),
+      this.state.preferences.pageSize()
     );
     this._changesParameters.set(changesParameters);
     this.load();
   }
 
-  setPageSize(pageSize: number): void {
-    this.preferencesService.setPageSize(pageSize);
+  updatePageSize(pageSize: number): void {
+    this.state.preferences.updatePageSize(pageSize);
     this.setChangeParameters({
       ...this.changesParameters(),
       pageIndex: 0,
@@ -53,7 +53,7 @@ export class ChangesPageService {
     });
   }
 
-  setImpact(impact: boolean): void {
+  updateImpact(impact: boolean): void {
     this.setChangeParameters({
       ...this.changesParameters(),
       pageIndex: 0,
@@ -61,14 +61,14 @@ export class ChangesPageService {
     });
   }
 
-  setPageIndex(pageIndex: number): void {
+  updatePageIndex(pageIndex: number): void {
     this.setChangeParameters({
       ...this.changesParameters(),
       pageIndex,
     });
   }
 
-  setFilterOption(option: ChangeOption): void {
+  updateFilterOption(option: ChangeOption): void {
     this.setChangeParameters({
       ...this.changesParameters(),
       year: option.year,
@@ -91,12 +91,12 @@ export class ChangesPageService {
   private load(): void {
     this.routerService
       .updateQueryParams({
-        strategy: this.preferencesService.strategy(),
+        strategy: this.state.preferences.strategy(),
         ...this.changesParameters(),
       })
       .then(() => {
         this.apiService
-          .changes(this.preferencesService.strategy(), this.changesParameters())
+          .changes(this.state.preferences.strategy(), this.changesParameters())
           .subscribe((response) => this._response.set(response));
       });
   }

@@ -2,30 +2,30 @@ import { computed } from '@angular/core';
 import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { PreferencesService } from '@app/core';
 import { AnalysisStrategy } from '@app/core';
+import { State } from '@app/state';
 import { RouterService } from '../../shared/services/router.service';
 
 @Injectable()
 export class AnalysisStrategyService {
-  private readonly preferencesService = inject(PreferencesService);
+  private readonly state = inject(State);
   private readonly routerService = inject(RouterService);
 
-  readonly strategy = this.preferencesService.strategy;
+  readonly strategy = this.state.preferences.strategy;
 
   init(): void {
     const strategyQueryParam = this.routerService.queryParam('strategy');
     if (strategyQueryParam === 'location') {
-      this.preferencesService.setStrategy('location');
+      this.state.preferences.updateStrategy('location');
     } else if (strategyQueryParam === 'network') {
-      this.preferencesService.setStrategy('network');
+      this.state.preferences.updateStrategy('network');
     } else {
-      this.routerService.updateQueryParams({ strategy: this.preferencesService.strategy() });
+      this.routerService.updateQueryParams({ strategy: this.state.preferences.strategy() });
     }
   }
 
   setStrategy(strategy: AnalysisStrategy): void {
-    this.preferencesService.setStrategy(strategy);
+    this.state.preferences.updateStrategy(strategy);
     this.routerService.updateQueryParams({ strategy });
   }
 
@@ -33,7 +33,7 @@ export class AnalysisStrategyService {
     return computed(() => {
       return (
         `/analysis/${routeType}/${country}` +
-        (this.preferencesService.strategy() === 'network' ? '/networks' : '')
+        (this.state.preferences.strategy() === 'network' ? '/networks' : '')
       );
     });
   }

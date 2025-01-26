@@ -247,7 +247,7 @@ export class NetworkNodeTableComponent implements OnInit {
   }
 
   onPageSizeChange(pageSize: number) {
-    this.service.setPageSize(pageSize);
+    this.service.updatePageSize(pageSize);
   }
 
   edit(): void {

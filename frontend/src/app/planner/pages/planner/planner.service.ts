@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
+import { State } from '@app/state';
 import Map from 'ol/Map';
 import { PlannerContext } from '../../domain/context/planner-context';
 import { PlannerCursorImpl } from '../../domain/context/planner-cursor-impl';
@@ -19,6 +20,7 @@ import { PlannerEngineImpl } from '../../domain/interaction/planner-engine-impl'
   providedIn: 'root',
 })
 export class PlannerService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly preferencesService = inject(PreferencesService);
   private readonly plannerPopupService = inject(PlannerPopupService);
@@ -38,7 +40,7 @@ export class PlannerService {
     this.highlighter,
     this.legRepository,
     this.plannerPopupService,
-    this.preferencesService.planProposed
+    this.state.preferences.planProposed
   );
 
   readonly engine: PlannerEngine = new PlannerEngineImpl(this.context);

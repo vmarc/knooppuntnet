@@ -22,7 +22,7 @@ export class ChangesSidebarComponent {
   protected readonly service = inject(ChangesPageService);
 
   onOptionSelected(option: ChangeOption): void {
-    this.service.setFilterOption(option);
+    this.service.updateFilterOption(option);
   }
 
   onStrategyChange(): void {

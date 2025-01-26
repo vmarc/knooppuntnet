@@ -3,28 +3,28 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorChangesParameters } from '@api/common/monitor';
 import { NavService } from '@app/components/shared';
-import { PreferencesService } from '@app/core';
+import { State } from '@app/state';
 import { MonitorService } from '../../monitor.service';
 import { initialState } from './monitor-route-changes-page.state';
 import { MonitorRouteChangesPageState } from './monitor-route-changes-page.state';
 
 @Injectable()
 export class MonitorRouteChangesPageService {
+  private readonly state = inject(State);
   private readonly navService = inject(NavService);
   private readonly monitorService = inject(MonitorService);
-  private readonly preferencesService = inject(PreferencesService);
 
-  private readonly _state = signal<MonitorRouteChangesPageState>(initialState);
-  readonly state = this._state.asReadonly();
+  private readonly _changesState = signal<MonitorRouteChangesPageState>(initialState);
+  readonly changesState = this._changesState.asReadonly();
 
-  readonly impact = this.preferencesService.impact;
-  readonly pageSize = this.preferencesService.pageSize;
+  readonly impact = this.state.preferences.impact;
+  readonly pageSize = this.state.preferences.pageSize;
 
   constructor() {
     const groupName = this.navService.param('groupName');
     const routeName = this.navService.param('routeName');
     const description = this.navService.state('description');
-    this._state.update((state) => ({
+    this._changesState.update((state) => ({
       ...state,
       groupName,
       routeName,
@@ -33,27 +33,27 @@ export class MonitorRouteChangesPageService {
     this.load();
   }
 
-  impactChanged(impact: boolean) {
-    this.preferencesService.setImpact(impact);
+  updateImpact(impact: boolean) {
+    this.state.preferences.updateImpact(impact);
     this.load();
   }
 
-  pageChanged(pageIndex: number) {
-    this._state.update((state) => ({ ...state, pageIndex }));
+  updatePage(pageIndex: number) {
+    this._changesState.update((state) => ({ ...state, pageIndex }));
     this.load();
   }
 
   private load(): void {
     const parameters: MonitorChangesParameters = {
-      pageSize: this.preferencesService.pageSize(),
-      pageIndex: this.state().pageIndex,
-      impact: this.preferencesService.impact(),
+      pageSize: this.state.preferences.pageSize(),
+      pageIndex: this.changesState().pageIndex,
+      impact: this.state.preferences.impact(),
     };
     this.monitorService
-      .routeChanges(this.state().groupName, this.state().routeName, parameters)
+      .routeChanges(this.changesState().groupName, this.changesState().routeName, parameters)
       .subscribe((response) => {
         const routeDescription = 'TODO'; // TODO response?.result?.routeDescription && this.state().routeDescription;
-        this._state.update((state) => ({
+        this._changesState.update((state) => ({
           ...state,
           routeDescription,
           response,

@@ -1,126 +1,66 @@
-import { computed } from '@angular/core';
-import { Signal } from '@angular/core';
-import { WritableSignal } from '@angular/core';
+import { effect } from '@angular/core';
 import { inject } from '@angular/core';
-import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { BrowserStorageService } from '@app/services';
-import { initialPreferencesState } from './preferences.state';
-import { PreferencesState } from './preferences.state';
-import { AnalysisStrategy } from './preferences.state';
+import { State } from '@app/state';
+import { Preferences } from './preferences';
 
 @Injectable()
 export class PreferencesService {
+  private readonly state = inject(State);
   private readonly browserStorageService = inject(BrowserStorageService);
 
-  private readonly preferences: WritableSignal<PreferencesState>;
-
-  readonly strategy: Signal<AnalysisStrategy>;
-  readonly routeType: Signal<string>;
-  // TODO SIGNAL not used anymore? re-introduce?
-  readonly extraLayers: Signal<boolean>;
-  readonly pageSize: Signal<number>;
-  readonly impact: Signal<boolean>;
-  readonly showAppearanceOptions: Signal<boolean>;
-  readonly showLegend: Signal<boolean>;
-  readonly showOptions: Signal<boolean>;
-  readonly showProposed: Signal<boolean>;
-  readonly planProposed: Signal<boolean>;
-
   constructor() {
-    let preferences: PreferencesState = initialPreferencesState;
     const preferencesString = this.browserStorageService.get('preferences');
     if (preferencesString) {
-      preferences = JSON.parse(preferencesString);
+      const preferences: Preferences = JSON.parse(preferencesString);
+      if (preferences?.strategy) {
+        this.state.preferences.updateStrategy(preferences.strategy);
+      }
+      if (preferences?.routeType) {
+        this.state.preferences.updateRouteType(preferences.routeType);
+      }
+      if (preferences?.extraLayers) {
+        this.state.preferences.updateExtraLayers(preferences.extraLayers);
+      }
+      if (preferences?.pageSize) {
+        this.state.preferences.updatePageSize(preferences.pageSize);
+      }
+      if (preferences?.impact) {
+        this.state.preferences.updateImpact(preferences.impact);
+      }
+      if (preferences?.showAppearanceOptions) {
+        this.state.preferences.updateShowAppearanceOptions(preferences.showAppearanceOptions);
+      }
+      if (preferences?.showLegend) {
+        this.state.preferences.updateShowLegend(preferences.showLegend);
+      }
+      if (preferences?.showOptions) {
+        this.state.preferences.updateShowOptions(preferences.showOptions);
+      }
+      if (preferences?.showProposed) {
+        this.state.preferences.updateShowProposed(preferences.showProposed);
+      }
+      if (preferences?.planProposed) {
+        this.state.preferences.updatePlanProposed(preferences.planProposed);
+      }
     }
-    this.preferences = signal<PreferencesState>(preferences);
 
-    this.strategy = computed(() => this.preferences().strategy);
-    this.routeType = computed(() => this.preferences().routeType);
-    // TODO SIGNAL not used anymore? re-introduce?
-    this.extraLayers = computed(() => this.preferences().extraLayers);
-    this.pageSize = computed(() => this.preferences().pageSize);
-    this.impact = computed(() => this.preferences().impact);
-    this.showAppearanceOptions = computed(() => this.preferences().showAppearanceOptions);
-    this.showLegend = computed(() => this.preferences().showLegend);
-    this.showOptions = computed(() => this.preferences().showOptions);
-    this.showProposed = computed(() => this.preferences().showProposed);
-    this.planProposed = computed(() => this.preferences().planProposed);
-  }
-
-  setStrategy(strategy: AnalysisStrategy): void {
-    this.update({
-      ...this.preferences(),
-      strategy,
+    effect(() => {
+      const preferences: Preferences = {
+        strategy: this.state.preferences.strategy(),
+        routeType: this.state.preferences.routeType(),
+        extraLayers: this.state.preferences.extraLayers(),
+        pageSize: this.state.preferences.pageSize(),
+        impact: this.state.preferences.impact(),
+        showAppearanceOptions: this.state.preferences.showAppearanceOptions(),
+        showLegend: this.state.preferences.showLegend(),
+        showOptions: this.state.preferences.showOptions(),
+        showProposed: this.state.preferences.showProposed(),
+        planProposed: this.state.preferences.planProposed(),
+      };
+      const json = JSON.stringify(preferences);
+      this.browserStorageService.set('preferences', json);
     });
-  }
-
-  setRouteType(routeType: string): void {
-    this.update({
-      ...this.preferences(),
-      routeType,
-    });
-  }
-
-  setExtraLayers(extraLayers: boolean): void {
-    this.update({
-      ...this.preferences(),
-      extraLayers,
-    });
-  }
-
-  setPageSize(pageSize: number): void {
-    this.update({
-      ...this.preferences(),
-      pageSize,
-    });
-  }
-
-  setImpact(impact: boolean): void {
-    this.update({
-      ...this.preferences(),
-      impact,
-    });
-  }
-
-  setShowAppearanceOptions(showAppearanceOptions: boolean) {
-    this.update({
-      ...this.preferences(),
-      showAppearanceOptions,
-    });
-  }
-
-  setShowLegend(showLegend: boolean) {
-    this.update({
-      ...this.preferences(),
-      showLegend,
-    });
-  }
-
-  setShowOptions(showOptions: boolean) {
-    this.update({
-      ...this.preferences(),
-      showOptions,
-    });
-  }
-
-  setShowProposed(showProposed: boolean) {
-    this.update({
-      ...this.preferences(),
-      showProposed,
-    });
-  }
-
-  setPlanProposed(planProposed: boolean) {
-    this.update({
-      ...this.preferences(),
-      planProposed,
-    });
-  }
-
-  private update(preferences: PreferencesState): void {
-    this.preferences.set(preferences);
-    const json = JSON.stringify(preferences);
-    this.browserStorageService.set('preferences', json);
   }
 }

@@ -163,7 +163,7 @@ export class LocationNodeTableComponent {
   });
 
   onPageSizeChange(pageSize: number) {
-    this.service.setPageSize(pageSize);
+    this.service.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number) {

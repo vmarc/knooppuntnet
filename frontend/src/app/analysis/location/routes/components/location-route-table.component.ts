@@ -159,12 +159,12 @@ export class LocationRouteTableComponent {
   });
 
   onPageSizeChange(pageSize: number) {
-    this.service.setPageSize(pageSize);
+    this.service.updatePageSize(pageSize);
   }
 
   onPageIndexChange(pageIndex: number) {
     window.scroll(0, 0);
-    this.service.setPageIndex(pageIndex);
+    this.service.updatePageIndex(pageIndex);
   }
 
   edit(): void {

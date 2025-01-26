@@ -5,18 +5,18 @@ import { ChangesParameters } from '@api/common/changes/filter';
 import { NetworkChangesPage } from '@api/common/network';
 import { ApiResponse } from '@api/custom';
 import { Util } from '@app/components/shared';
-import { PreferencesService } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';
+import { State } from '@app/state';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserService } from '../../../shared/user';
 import { NetworkService } from '../network.service';
 
 export class NetworkChangesPageService {
+  private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
   private readonly networkService = inject(NetworkService);
-  private readonly preferencesService = inject(PreferencesService);
   private readonly routerService = inject(RouterService);
   private readonly userService = inject(UserService);
 
@@ -37,15 +37,15 @@ export class NetworkChangesPageService {
     const queryParams = this.routerService.queryParams();
     const uniqueQueryParams = Util.uniqueParams(queryParams);
     const pageParams = new PageParams(params, uniqueQueryParams);
-    const preferencesImpact = this.preferencesService.impact();
-    const preferencesPageSize = this.preferencesService.pageSize();
+    const preferencesImpact = this.state.preferences.impact();
+    const preferencesPageSize = this.state.preferences.pageSize();
     const changesParameters = pageParams.changesParameters(preferencesImpact, preferencesPageSize);
     this._changesParameters.set(changesParameters);
     this.load();
   }
 
-  setPageSize(pageSize: number): void {
-    this.preferencesService.setPageSize(pageSize);
+  updatePageSize(pageSize: number): void {
+    this.state.preferences.updatePageSize(pageSize);
     this.setChangeParameters({
       ...this.changesParameters(),
       pageIndex: 0,
@@ -53,7 +53,7 @@ export class NetworkChangesPageService {
     });
   }
 
-  setImpact(impact: boolean): void {
+  updateImpact(impact: boolean): void {
     this.setChangeParameters({
       ...this.changesParameters(),
       pageIndex: 0,
@@ -61,14 +61,14 @@ export class NetworkChangesPageService {
     });
   }
 
-  setPageIndex(pageIndex: number): void {
+  updatePageIndex(pageIndex: number): void {
     this.setChangeParameters({
       ...this.changesParameters(),
       pageIndex,
     });
   }
 
-  setFilterOption(option: ChangeOption): void {
+  updateFilterOption(option: ChangeOption): void {
     this.setChangeParameters({
       ...this.changesParameters(),
       year: option.year,
