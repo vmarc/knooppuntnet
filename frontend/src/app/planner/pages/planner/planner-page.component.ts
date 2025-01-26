@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MapLinkMenuComponent } from '@app/ol/components';
-import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { RouterService } from '../../../shared/services/router.service';
 import { PlannerPopupService } from '../../domain/context/planner-popup-service';
@@ -10,7 +9,6 @@ import { PlannerService } from './planner.service';
 import { PlannerMapLayerService } from './planner-map-layer.service';
 import { PlannerMapService } from './planner-map.service';
 import { PlannerPageService } from './planner-page.service';
-import { PoiMenuComponent } from './poi/poi-menu.component';
 import { PlannerPopupComponent } from './popup/planner-popup.component';
 import { PlannerSidebarComponent } from './sidebar/planner-sidebar.component';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -27,9 +25,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       <div>
         <kpn-planner-popup />
         <div [id]="service.mapId" class="map" (mouseleave)="service.mouseleave()">
-          <kpn-layer-switcher>
-            <kpn-poi-menu />
-          </kpn-layer-switcher>
           <kpn-map-link-menu />
         </div>
       </div>
@@ -63,13 +58,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       useExisting: PlannerMapService,
     },
   ],
-  imports: [
-    LayerSwitcherComponent,
-    MapLinkMenuComponent,
-    PlannerPopupComponent,
-    PlannerSidebarComponent,
-    PoiMenuComponent,
-  ],
+  imports: [MapLinkMenuComponent, PlannerPopupComponent, PlannerSidebarComponent],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly service = inject(PlannerPageService);

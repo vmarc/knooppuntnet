@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { PoiDetail } from '@api/common';
 import { MAP_SERVICE_TOKEN } from '../services';
-import { LayerSwitcherComponent } from './layer-switcher.component';
 import { MapLinkMenuComponent } from './map-link-menu.component';
 import { PoiDetailMapService } from './poi-detail-map.service';
 
@@ -15,7 +14,6 @@ import { PoiDetailMapService } from './poi-detail-map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="service.mapId" class="kpn-embedded-map">
-      <kpn-layer-switcher />
       <kpn-map-link-menu />
     </div>
   `,
@@ -26,7 +24,7 @@ import { PoiDetailMapService } from './poi-detail-map.service';
       useExisting: PoiDetailMapService,
     },
   ],
-  imports: [LayerSwitcherComponent, MapLinkMenuComponent],
+  imports: [MapLinkMenuComponent],
 })
 export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
   poiDetail = input.required<PoiDetail>();

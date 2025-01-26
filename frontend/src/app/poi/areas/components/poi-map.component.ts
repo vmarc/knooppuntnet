@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { PoiAreasPageService } from '../poi-areas-page.service';
 import { PoiMapService } from './poi-map.service';
@@ -11,18 +10,13 @@ import { PoiMapService } from './poi-map.service';
 @Component({
   selector: 'kpn-poi-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div [id]="service.mapId" class="kpn-map">
-      <kpn-layer-switcher />
-    </div>
-  `,
+  template: ` <div [id]="service.mapId" class="kpn-map"></div> `,
   providers: [
     {
       provide: MAP_SERVICE_TOKEN,
       useExisting: PoiMapService,
     },
   ],
-  imports: [LayerSwitcherComponent],
 })
 export class PoiMapComponent implements AfterViewInit, OnDestroy {
   readonly service = inject(PoiMapService);

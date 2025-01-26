@@ -6,7 +6,6 @@ import { OnDestroy } from '@angular/core';
 import { input } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node';
 import { MapLinkMenuComponent } from '@app/ol/components';
-import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { NodeMovedMapService } from './node-moved-map.service';
 
@@ -15,7 +14,6 @@ import { NodeMovedMapService } from './node-moved-map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="service.mapId" class="kpn-embedded-map">
-      <kpn-layer-switcher />
       <kpn-map-link-menu />
     </div>
   `,
@@ -26,7 +24,7 @@ import { NodeMovedMapService } from './node-moved-map.service';
       useExisting: NodeMovedMapService,
     },
   ],
-  imports: [LayerSwitcherComponent, MapLinkMenuComponent],
+  imports: [MapLinkMenuComponent],
 })
 export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
   nodeMoved = input.required<NodeMoved>();

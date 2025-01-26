@@ -8,7 +8,6 @@ import { Bounds } from '@api/common';
 import { GeometryDiff } from '@api/common/route';
 import { RouteNodeChange } from '@api/common/route/route-node-change';
 import { MapLinkMenuComponent } from '@app/ol/components';
-import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { RouteChangeMapService } from './route-change-map.service';
 
@@ -17,7 +16,6 @@ import { RouteChangeMapService } from './route-change-map.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [id]="service.mapId" class="kpn-embedded-map">
-      <kpn-layer-switcher />
       <kpn-map-link-menu />
     </div>
   `,
@@ -28,7 +26,7 @@ import { RouteChangeMapService } from './route-change-map.service';
       useExisting: RouteChangeMapService,
     },
   ],
-  imports: [LayerSwitcherComponent, MapLinkMenuComponent],
+  imports: [MapLinkMenuComponent],
 })
 export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   geometryDiff = input.required<GeometryDiff>();

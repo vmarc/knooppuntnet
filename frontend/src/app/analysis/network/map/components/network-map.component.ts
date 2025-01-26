@@ -5,7 +5,6 @@ import { input } from '@angular/core';
 import { NetworkMapPage } from '@api/common/network';
 import { Util } from '@app/components/shared';
 import { MapLinkMenuComponent } from '@app/ol/components';
-import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { NetworkMapPageService } from '../network-map-page.service';
 import { NetworkControlComponent } from './network-control.component';
@@ -17,7 +16,6 @@ import { NetworkMapService } from './network-map.service';
   template: `
     <div [id]="networkMapService.mapId" class="kpn-map">
       <kpn-network-control (action)="zoomInToNetwork()" />
-      <kpn-layer-switcher />
       <kpn-map-link-menu />
     </div>
   `,
@@ -27,7 +25,7 @@ import { NetworkMapService } from './network-map.service';
       useExisting: NetworkMapService,
     },
   ],
-  imports: [LayerSwitcherComponent, MapLinkMenuComponent, NetworkControlComponent],
+  imports: [MapLinkMenuComponent, NetworkControlComponent],
 })
 export class NetworkMapComponent implements AfterViewInit {
   networkId = input.required<number>();

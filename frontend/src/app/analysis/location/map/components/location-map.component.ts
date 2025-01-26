@@ -5,7 +5,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Util } from '@app/components/shared';
 import { MapLinkMenuComponent } from '@app/ol/components';
-import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { LocationMapPageService } from '../location-map-page.service';
 import { LocationMapControlComponent } from './location-map-control';
@@ -17,7 +16,6 @@ import { LocationMapService } from './location-map.service';
   template: `
     <div [id]="mapService.mapId" class="kpn-map">
       <kpn-location-map-control (action)="zoomToLocation()" />
-      <kpn-layer-switcher />
       <kpn-map-link-menu />
     </div>
   `,
@@ -27,7 +25,7 @@ import { LocationMapService } from './location-map.service';
       useExisting: LocationMapService,
     },
   ],
-  imports: [LayerSwitcherComponent, LocationMapControlComponent, MapLinkMenuComponent],
+  imports: [LocationMapControlComponent, MapLinkMenuComponent],
 })
 export class LocationMapComponent implements AfterViewInit, OnDestroy {
   private readonly service = inject(LocationMapPageService);

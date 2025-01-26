@@ -4,7 +4,6 @@ import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MapLinkMenuComponent } from '@app/ol/components';
-import { LayerSwitcherComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { GeolocationButtonComponent } from '../../../planner/pages/planner/geolocation/geolocation-button.component';
 import { RouterService } from '../../../shared/services/router.service';
@@ -16,7 +15,6 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   template: `
     <div [id]="mapId" class="kpn-map">
       <kpn-geolocation-button />
-      <kpn-layer-switcher />
       <kpn-map-link-menu />
     </div>
   `,
@@ -26,7 +24,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
       useExisting: MonitorRouteMapService,
     },
   ],
-  imports: [LayerSwitcherComponent, MapLinkMenuComponent, GeolocationButtonComponent],
+  imports: [MapLinkMenuComponent, GeolocationButtonComponent],
 })
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
   private readonly service = inject(MonitorRouteMapService);
