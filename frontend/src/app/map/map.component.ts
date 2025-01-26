@@ -19,7 +19,7 @@ import { MapService } from './map.service';
   selector: 'kpn-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div id="main-map" class="main-map" #overlayOrigin></div>
+    <div id="main-map" class="main-map" #overlayOrigin (mouseleave)="onMouseLeave()"></div>
 
     <ng-template cdkPortal>
       <kpn-map-route-popup />
@@ -82,6 +82,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.mapService.destroy();
+  }
+
+  onMouseLeave(): void {
+    this.mapService.mouseleave();
   }
 
   private openModel() {

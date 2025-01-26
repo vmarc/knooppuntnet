@@ -1,10 +1,8 @@
-import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { PageFooterComponent } from '@app/components/shared/page';
 import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { GeolocationButtonComponent } from '../geolocation/geolocation-button.component';
-import { PlannerPageService } from '../planner-page.service';
 import { PlanActionsComponent } from './plan-actions.component';
 import { PlannerSideBarAppearanceComponent } from './planner-side-bar-appearance.component';
 import { PlannerSideBarLegendComponent } from './planner-side-bar-legend.component';

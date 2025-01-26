@@ -34,7 +34,11 @@ import { MarkdownModule } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
 import { MapService } from './map/map.service';
 import { PoiService } from './map/poi/poi.service';
+import { PlannerPopupService } from './planner/domain/context/planner-popup-service';
+import { PlannerMapLayerService } from './planner/pages/planner/planner-map-layer.service';
+import { PlannerStateService } from './planner/pages/planner/planner-state.service';
 import { RootService } from './root/root.service';
+import { RouterService } from './shared/services/router.service';
 import { UserService } from './shared/user';
 import { State } from '@app/state';
 import { en_US, provideNzI18n } from 'ng-zorro-antd/i18n';
@@ -85,6 +89,10 @@ export const appConfig: ApplicationConfig = {
     EditService,
     IconService,
     MapService,
+    PlannerStateService,
+    RouterService,
+    PlannerPopupService,
+    PlannerMapLayerService,
     MatDialog,
     MatIconRegistry,
     OldPoiNameService,

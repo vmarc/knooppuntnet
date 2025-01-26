@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
 import { State } from '@app/state';
 import Map from 'ol/Map';
@@ -22,7 +21,6 @@ import { PlannerEngineImpl } from '../../domain/interaction/planner-engine-impl'
 export class PlannerService {
   private readonly state = inject(State);
   private readonly apiService = inject(ApiService);
-  private readonly preferencesService = inject(PreferencesService);
   private readonly plannerPopupService = inject(PlannerPopupService);
 
   private readonly routeLayer = new PlannerRouteLayerImpl();

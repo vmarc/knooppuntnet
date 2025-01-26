@@ -4,9 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { State } from '@app/state';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
-import { PlannerMapService } from '../planner-map.service';
+import { MapService } from '../../../../map/map.service';
 import { GeolocationPermissionDeniedDialogComponent } from './geolocation-permission-denied-dialog.component';
 import { GeolocationTimeoutDialogComponent } from './geolocation-timeout-dialog.component';
 import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable-dialog.component';
@@ -29,7 +28,7 @@ import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable
 })
 export class GeolocationButtonComponent {
   private readonly state = inject(State);
-  private readonly plannerMapService = inject(PlannerMapService);
+  private readonly mapService = inject(MapService);
   private readonly dialog = inject(MatDialog);
 
   onClick(): void {
@@ -42,7 +41,7 @@ export class GeolocationButtonComponent {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const center = fromLonLat([position.coords.longitude, position.coords.latitude]);
-          this.geolocation(center);
+          this.mapService.geolocation(center);
         },
         (positionError: GeolocationPositionError) => {
           if (positionError.code === 1) {
@@ -72,14 +71,5 @@ export class GeolocationButtonComponent {
         }
       );
     }
-  }
-
-  private geolocation(coordinate: Coordinate): void {
-    this.plannerMapService.map.getView().setCenter(coordinate);
-    let zoomLevel = 15;
-    if ('cycling' === this.state.page.routeType()) {
-      zoomLevel = 13;
-    }
-    this.plannerMapService.map.getView().setZoom(zoomLevel);
   }
 }

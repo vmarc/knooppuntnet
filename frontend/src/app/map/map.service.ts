@@ -1,17 +1,35 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Bounds } from '@api/common';
 import { LatLonImpl } from '@api/common';
+import { PlanParams } from '@api/common/planner';
 import { Util } from '@app/components/shared';
 import { OlUtil } from '@app/ol';
+import { NoRouteDialogComponent } from '@app/ol/components';
+import { LegNotFoundDialogComponent } from '@app/ol/components';
+import { LegHttpErrorDialogComponent } from '@app/ol/components';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapControls } from '@app/ol/layers';
+import { MapMode } from '@app/ol/services';
+import { ApiService } from '@app/services';
 import { State } from '@app/state';
+import { Subscriptions } from '@app/util';
+import { Coordinate } from 'ol/coordinate';
 import { FeatureLike } from 'ol/Feature';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import Map from 'ol/Map';
 import View from 'ol/View';
+import { PlannerCommandAddPlan } from '../planner/domain/commands/planner-command-add-plan';
+import { PlanBuilder } from '../planner/domain/plan/plan-builder';
+import { PlanUtil } from '../planner/domain/plan/plan-util';
+import { PlannerMapService } from '../planner/pages/planner/planner-map.service';
+import { PlannerStateService } from '../planner/pages/planner/planner-state.service';
+import { PlannerService } from '../planner/pages/planner/planner.service';
+import { SharedStateService } from '../shared/core/shared/shared-state.service';
+import { RouterService } from '../shared/services/router.service';
 import { FocusElements } from './focus-elements';
 import { Layers } from './layers/layers';
 import { MapRoutePopupAction } from './popup/map-route-popup-handler';
@@ -21,6 +39,16 @@ import { MapRoutePopupInteraction } from './popup/map-route-popup-interaction';
 export class MapService {
   private readonly state = inject(State);
   private _map: Map;
+
+  private readonly plannerStateService = inject(PlannerStateService);
+  private readonly plannerService = inject(PlannerService);
+  private readonly plannerMapService = inject(PlannerMapService);
+  private readonly dialog = inject(MatDialog);
+  private readonly apiService = inject(ApiService);
+  private readonly sharedStateService = inject(SharedStateService);
+  private readonly routerService = inject(RouterService);
+
+  private readonly subscriptions = new Subscriptions();
 
   private readonly updateResolution = () => {
     this.state.map.updateViewZoom(this._map.getView().getZoom());
@@ -40,6 +68,28 @@ export class MapService {
   action: MapRoutePopupAction;
 
   constructor() {
+    this.plannerStateService.onInit();
+    this.sharedStateService.loadSurveyDateValues();
+    effect(() => {
+      const routeType = this.state.page.routeType();
+      this.plannerService.context.setRouteType(routeType);
+    });
+    effect(() => {
+      const error = this.plannerService.context.error();
+      if (error) {
+        if (error instanceof HttpErrorResponse) {
+          this.dialog.open(LegHttpErrorDialogComponent, {
+            autoFocus: false,
+            maxWidth: 600,
+          });
+        } else if ('leg-not-found' === error.message) {
+          this.dialog.open(LegNotFoundDialogComponent, {
+            autoFocus: false,
+            maxWidth: 600,
+          });
+        }
+      }
+    });
     effect(() => {
       const state = this.state.map.routePopupState();
       if (this.action && state) {
@@ -74,6 +124,23 @@ export class MapService {
   }
 
   init(): void {
+    const routeType = this.state.page.routeType();
+    const planString = this.routerService.queryParam('plan');
+    if (planString) {
+      const planParams: PlanParams = {
+        routeType,
+        planString,
+      };
+      this.apiService.plan(planParams).subscribe((response) => {
+        const plan = PlanBuilder.build(response.result, planString);
+        const command = new PlannerCommandAddPlan(plan);
+        this.plannerService.context.execute(command);
+        if (this._map) {
+          this.zoomInToRoute();
+        }
+      });
+    }
+
     const mapLayers = this.layers.all.map((mapLayer) => mapLayer.layer);
     this._map = new Map({
       target: 'main-map',
@@ -100,6 +167,8 @@ export class MapService {
     const interaction = new MapRoutePopupInteraction(this.state);
 
     this._map.addInteraction(interaction);
+
+    this.plannerMapService.init(this._map);
   }
 
   destroy(): void {
@@ -109,6 +178,9 @@ export class MapService {
       this._map.dispose();
       this._map.setTarget(null);
     }
+    this.subscriptions.unsubscribe();
+    this.plannerService.context.destroy();
+    this.plannerMapService.destroy();
   }
 
   focusElements(bounds: Bounds, elements: FocusElements) {
@@ -141,5 +213,38 @@ export class MapService {
       }
     });
     return features;
+  }
+
+  setMapMode(mapMode: MapMode): void {
+    this.state.planner.updateMapMode(mapMode);
+    // this.plannerMapService.updateLayerVisibility();
+  }
+
+  mouseleave() {
+    this.plannerService.engine.handleMouseLeave();
+  }
+
+  zoomInToRoute(): void {
+    if (this.plannerService.context.plan().legs.isEmpty()) {
+      this.dialog.open(NoRouteDialogComponent, {
+        autoFocus: false,
+        maxWidth: 600,
+      });
+    } else {
+      const bounds = PlanUtil.planBounds(this.plannerService.context.plan());
+      if (bounds !== null) {
+        const extent = Util.toExtent(bounds, 0.1);
+        this._map.getView().fit(extent);
+      }
+    }
+  }
+
+  geolocation(coordinate: Coordinate): void {
+    this._map.getView().setCenter(coordinate);
+    let zoomLevel = 15;
+    if ('cycling' === this.state.page.routeType()) {
+      zoomLevel = 13;
+    }
+    this._map.getView().setZoom(zoomLevel);
   }
 }

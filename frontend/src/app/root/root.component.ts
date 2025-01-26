@@ -43,8 +43,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
         } @else {
           <div class="main content">
             <as-split direction="horizontal" disabled="false" unit="percent">
-              <!-- 40 -->
-              <as-split-area size="70">
+              <as-split-area size="40">
                 <div class="text-panel-container">
                   <div class="text-panel-body">
                     <ng-container *ngTemplateOutlet="text"></ng-container>
@@ -54,8 +53,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
                   </div>
                 </div>
               </as-split-area>
-              <!-- 60 -->
-              <as-split-area size="30">
+              <as-split-area size="60">
                 <kpn-map />
               </as-split-area>
             </as-split>
@@ -111,12 +109,12 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
   `,
   imports: [
     AngularSplitModule,
-    NgTemplateOutlet,
-    NgClass,
     MapComponent,
-    SidebarFooterComponent,
-    NzLayoutComponent,
+    NgClass,
+    NgTemplateOutlet,
     NzContentComponent,
+    NzLayoutComponent,
+    SidebarFooterComponent,
     ToolbarComponent,
   ],
 })
