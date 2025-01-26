@@ -14,13 +14,11 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import { FocusElements } from './focus-elements';
 import { Layers } from './layers/layers';
-import { PoiService } from './poi/poi.service';
 import { MapRoutePopupAction } from './popup/map-route-popup-handler';
 import { MapRoutePopupInteraction } from './popup/map-route-popup-interaction';
 
 @Injectable()
 export class MapService {
-  private readonly poiService = inject(PoiService);
   private readonly state = inject(State);
   private _map: Map;
 

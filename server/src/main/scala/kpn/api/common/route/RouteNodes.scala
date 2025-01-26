@@ -10,4 +10,8 @@ case class RouteNodes(
   def nodes: Seq[RouteNode] = startNode.toSeq ++ endNode.toSeq ++ startTentacleNodes ++ endTentacleNodes
 
   def nodeIds: Seq[Long] = nodes.map(_.nodeId)
+
+  def nodeWithId(id: Long): Option[RouteNode] = {
+    nodes.find(_.nodeId == id)
+  }
 }

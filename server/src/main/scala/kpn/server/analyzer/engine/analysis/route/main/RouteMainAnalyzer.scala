@@ -70,6 +70,7 @@ class RouteMainAnalyzer(
           context.structureRows,
           context.parentRoutes,
           context.networkReferences,
+          context.route.edges,
           None
         )
       )

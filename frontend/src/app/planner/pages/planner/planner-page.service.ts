@@ -12,7 +12,6 @@ import { MapMode } from '@app/ol/services';
 import { ApiService } from '@app/services';
 import { State } from '@app/state';
 import { Subscriptions } from '@app/util';
-import { Coordinate } from 'ol/coordinate';
 import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
 import { RouterService } from '../../../shared/services/router.service';
 import { PlannerCommandAddPlan } from '../../domain/commands/planner-command-add-plan';

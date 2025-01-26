@@ -10,6 +10,7 @@ import kpn.api.common.RouteSummary
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.route.ParentRoute
+import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteInfoAnalysis
 import kpn.api.common.route.RouteNodes
 import kpn.api.common.route.RoutePath
@@ -42,6 +43,7 @@ case class RouteDoc(
   structureRows: Seq[RouteStructureRow],
   parentRoutes: Seq[ParentRoute],
   networkReferences: Seq[Reference],
+  edges: Seq[RouteEdge],
   stamp: Option[ObjectId],
 ) extends WithId {
 

@@ -66,7 +66,7 @@ class MongoQueryGraphEdges(database: Database) {
     )
 
     log.debugElapsed {
-      val edges = database.routes.aggregate[RouteGraphEdge](pipeline, log)
+      val edges = database.baseRoutes.aggregate[RouteGraphEdge](pipeline, log)
       val grapEdgess = RouteType.values.map { routeType =>
         val routeTypeEdges = edges.filter(_.routeType == routeType).map { edge =>
           GraphEdge(
