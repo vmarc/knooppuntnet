@@ -1,39 +1,35 @@
-import { output } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
+import { State } from '@app/state';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
+import { PlannerMapService } from '../planner-map.service';
 import { GeolocationPermissionDeniedDialogComponent } from './geolocation-permission-denied-dialog.component';
 import { GeolocationTimeoutDialogComponent } from './geolocation-timeout-dialog.component';
 import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable-dialog.component';
 
 @Component({
-  selector: 'kpn-geolocation-control',
+  selector: 'kpn-geolocation-button',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="ol-control map-control geolocation-control">
-      <button
-        (click)="onClick()"
-        title="position the map on your current location"
-        i18n-title="@@geolocation-control.title"
-      >
-        <mat-icon svgIcon="location" />
-      </button>
-    </div>
+    <button
+      nz-button
+      (click)="onClick()"
+      title="position the map on your current location"
+      i18n-title="@@geolocation-control.title"
+    >
+      <nz-icon nzType="aim" />
+      <span>current location</span>
+    </button>
   `,
-  styles: `
-    .geolocation-control {
-      left: 8px;
-      top: 110px;
-    }
-  `,
-  imports: [MatIconModule],
+  imports: [NzButtonComponent, NzIconDirective],
 })
-export class GeolocationControlComponent {
-  action = output<Coordinate>();
-
+export class GeolocationButtonComponent {
+  private readonly state = inject(State);
+  private readonly plannerMapService = inject(PlannerMapService);
   private readonly dialog = inject(MatDialog);
 
   onClick(): void {
@@ -46,7 +42,7 @@ export class GeolocationControlComponent {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const center = fromLonLat([position.coords.longitude, position.coords.latitude]);
-          this.action.emit(center);
+          this.geolocation(center);
         },
         (positionError: GeolocationPositionError) => {
           if (positionError.code === 1) {
@@ -76,5 +72,14 @@ export class GeolocationControlComponent {
         }
       );
     }
+  }
+
+  private geolocation(coordinate: Coordinate): void {
+    this.plannerMapService.map.getView().setCenter(coordinate);
+    let zoomLevel = 15;
+    if ('cycling' === this.state.page.routeType()) {
+      zoomLevel = 13;
+    }
+    this.plannerMapService.map.getView().setZoom(zoomLevel);
   }
 }

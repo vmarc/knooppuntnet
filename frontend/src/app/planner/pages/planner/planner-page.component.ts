@@ -8,7 +8,6 @@ import { PlannerPopupService } from '../../domain/context/planner-popup-service'
 import { PlannerStateService } from './planner-state.service';
 import { PlannerService } from './planner.service';
 import { PlannerMapLayerService } from './planner-map-layer.service';
-import { GeolocationControlComponent } from './geolocation/geolocation-control.component';
 import { PlannerMapService } from './planner-map.service';
 import { PlannerPageService } from './planner-page.service';
 import { PoiMenuComponent } from './poi/poi-menu.component';
@@ -28,7 +27,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       <div>
         <kpn-planner-popup />
         <div [id]="service.mapId" class="map" (mouseleave)="service.mouseleave()">
-          <kpn-geolocation-control (action)="service.geolocation($event)" />
           <kpn-layer-switcher>
             <kpn-poi-menu />
           </kpn-layer-switcher>
@@ -66,7 +64,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
     },
   ],
   imports: [
-    GeolocationControlComponent,
     LayerSwitcherComponent,
     MapLinkMenuComponent,
     PlannerPopupComponent,

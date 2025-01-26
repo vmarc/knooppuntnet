@@ -116,13 +116,4 @@ export class PlannerPageService {
       }
     }
   }
-
-  geolocation(coordinate: Coordinate): void {
-    this.plannerMapService.map.getView().setCenter(coordinate);
-    let zoomLevel = 15;
-    if ('cycling' === this.state.page.routeType()) {
-      zoomLevel = 13;
-    }
-    this.plannerMapService.map.getView().setZoom(zoomLevel);
-  }
 }

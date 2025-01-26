@@ -7133,7 +7133,7 @@
       <trans-unit datatype="html" id="geolocation-control.title">
         <source>position the map on your current location</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-control.component.ts</context>
+          <context context-type="sourcefile">src/app/planner/pages/planner/geolocation/geolocation-button.component.ts</context>
           <context context-type="linenumber">19,20</context>
         </context-group>
       </trans-unit>
