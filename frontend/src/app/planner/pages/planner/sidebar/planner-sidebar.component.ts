@@ -2,6 +2,7 @@ import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { PageFooterComponent } from '@app/components/shared/page';
 import { SidebarFooterComponent } from '@app/components/shared/sidebar';
+import { MapLinkMenuComponent } from '@app/ol/components';
 import { GeolocationButtonComponent } from '../geolocation/geolocation-button.component';
 import { PlannerPageService } from '../planner-page.service';
 import { PlanActionsComponent } from './plan-actions.component';
@@ -14,12 +15,12 @@ import { PlannerSidebarFitRouteComponent } from './planner-sidebar-fit-route.com
 
 @Component({
   selector: 'kpn-planner-sidebar',
-  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-plan-actions />
     <kpn-planner-fit-route />
     <kpn-geolocation-button />
+    <kpn-map-link-menu />
     <kpn-planner-sidebar-planner />
     <kpn-planner-sidebar-appearance />
     <kpn-planner-sidebar-legend />
@@ -41,12 +42,7 @@ import { PlannerSidebarFitRouteComponent } from './planner-sidebar-fit-route.com
     PlannerSideBarPlannerComponent,
     PlannerSidebarFitRouteComponent,
     SidebarFooterComponent,
+    MapLinkMenuComponent,
   ],
 })
-export class PlannerSidebarComponent {
-  readonly service = inject(PlannerPageService);
-
-  zoomToFitRoute(): void {
-    this.service.zoomInToRoute();
-  }
-}
+export class PlannerSidebarComponent {}

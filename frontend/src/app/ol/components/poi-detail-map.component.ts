@@ -6,17 +6,12 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { PoiDetail } from '@api/common';
 import { MAP_SERVICE_TOKEN } from '../services';
-import { MapLinkMenuComponent } from './map-link-menu.component';
 import { PoiDetailMapService } from './poi-detail-map.service';
 
 @Component({
   selector: 'kpn-poi-detail-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div [id]="service.mapId" class="kpn-embedded-map">
-      <kpn-map-link-menu />
-    </div>
-  `,
+  template: ` <div [id]="service.mapId" class="kpn-embedded-map"></div> `,
   providers: [
     PoiDetailMapService,
     {
@@ -24,7 +19,6 @@ import { PoiDetailMapService } from './poi-detail-map.service';
       useExisting: PoiDetailMapService,
     },
   ],
-  imports: [MapLinkMenuComponent],
 })
 export class PoiDetailMapComponent implements AfterViewInit, OnDestroy {
   poiDetail = input.required<PoiDetail>();

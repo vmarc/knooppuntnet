@@ -6,18 +6,13 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MonitorRouteDeviation } from '@api/common/monitor';
 import { MonitorRouteSegment } from '@api/common/monitor';
-import { MapLinkMenuComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { MonitorRouteChangeMapService } from './monitor-route-change-map.service';
 
 @Component({
   selector: 'kpn-monitor-route-change-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div [id]="service.mapId" class="kpn-embedded-map">
-      <kpn-map-link-menu />
-    </div>
-  `,
+  template: ` <div [id]="service.mapId" class="kpn-embedded-map"></div> `,
   providers: [
     MonitorRouteChangeMapService,
     {
@@ -25,7 +20,6 @@ import { MonitorRouteChangeMapService } from './monitor-route-change-map.service
       useExisting: MonitorRouteChangeMapService,
     },
   ],
-  imports: [MapLinkMenuComponent],
 })
 export class MonitorRouteChangeMapComponent implements AfterViewInit, OnDestroy {
   referenceJson = input.required<string>();

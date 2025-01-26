@@ -5,18 +5,13 @@ import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { input } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node';
-import { MapLinkMenuComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { NodeMovedMapService } from './node-moved-map.service';
 
 @Component({
   selector: 'kpn-node-moved-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div [id]="service.mapId" class="kpn-embedded-map">
-      <kpn-map-link-menu />
-    </div>
-  `,
+  template: ` <div [id]="service.mapId" class="kpn-embedded-map"></div> `,
   providers: [
     NodeMovedMapService,
     {
@@ -24,7 +19,6 @@ import { NodeMovedMapService } from './node-moved-map.service';
       useExisting: NodeMovedMapService,
     },
   ],
-  imports: [MapLinkMenuComponent],
 })
 export class NodeMovedMapComponent implements AfterViewInit, OnDestroy {
   nodeMoved = input.required<NodeMoved>();

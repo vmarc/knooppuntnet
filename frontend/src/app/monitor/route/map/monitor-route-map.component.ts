@@ -15,7 +15,6 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
   template: `
     <div [id]="mapId" class="kpn-map">
       <kpn-geolocation-button />
-      <kpn-map-link-menu />
     </div>
   `,
   providers: [
@@ -24,7 +23,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
       useExisting: MonitorRouteMapService,
     },
   ],
-  imports: [MapLinkMenuComponent, GeolocationButtonComponent],
+  imports: [GeolocationButtonComponent],
 })
 export class MonitorRouteMapComponent implements AfterViewInit, OnDestroy {
   private readonly service = inject(MonitorRouteMapService);

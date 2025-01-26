@@ -7,18 +7,13 @@ import { input } from '@angular/core';
 import { Bounds } from '@api/common';
 import { GeometryDiff } from '@api/common/route';
 import { RouteNodeChange } from '@api/common/route/route-node-change';
-import { MapLinkMenuComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { RouteChangeMapService } from './route-change-map.service';
 
 @Component({
   selector: 'kpn-route-change-map',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div [id]="service.mapId" class="kpn-embedded-map">
-      <kpn-map-link-menu />
-    </div>
-  `,
+  template: ` <div [id]="service.mapId" class="kpn-embedded-map"></div> `,
   providers: [
     RouteChangeMapService,
     {
@@ -26,7 +21,6 @@ import { RouteChangeMapService } from './route-change-map.service';
       useExisting: RouteChangeMapService,
     },
   ],
-  imports: [MapLinkMenuComponent],
 })
 export class RouteChangeMapComponent implements AfterViewInit, OnDestroy {
   geometryDiff = input.required<GeometryDiff>();

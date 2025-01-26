@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
-import { MapLinkMenuComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { RouterService } from '../../../shared/services/router.service';
 import { PlannerPopupService } from '../../domain/context/planner-popup-service';
@@ -24,9 +23,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
       </div>
       <div>
         <kpn-planner-popup />
-        <div [id]="service.mapId" class="map" (mouseleave)="service.mouseleave()">
-          <kpn-map-link-menu />
-        </div>
+        <div [id]="service.mapId" class="map" (mouseleave)="service.mouseleave()"></div>
       </div>
     </div>
   `,
@@ -46,19 +43,19 @@ import { ChangeDetectionStrategy } from '@angular/core';
     }
   `,
   providers: [
+    PlannerMapLayerService,
+    PlannerMapService,
     PlannerPageService,
+    PlannerPopupService,
+    PlannerService,
     PlannerStateService,
     RouterService,
-    PlannerMapService,
-    PlannerService,
-    PlannerMapLayerService,
-    PlannerPopupService,
     {
       provide: MAP_SERVICE_TOKEN,
       useExisting: PlannerMapService,
     },
   ],
-  imports: [MapLinkMenuComponent, PlannerPopupComponent, PlannerSidebarComponent],
+  imports: [PlannerPopupComponent, PlannerSidebarComponent],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly service = inject(PlannerPageService);
