@@ -1,7 +1,6 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { computed } from '@angular/core';
-import { signal } from '@angular/core';
 import { Params } from '@angular/router';
 import { Router } from '@angular/router';
 import { RouteType } from '@api/common';
@@ -19,8 +18,6 @@ import { from } from 'rxjs';
 import { Observable } from 'rxjs';
 import { MapResultMode } from '../../../ol/services/map-result-mode';
 import { RouterService } from '../../../shared/services/router.service';
-import { initialPlannerState } from './planner-state';
-import { PlannerState } from './planner-state';
 
 @Injectable()
 export class PlannerStateService {
@@ -43,22 +40,11 @@ export class PlannerStateService {
     { id: 'sports', name: 'TODO TRANSLATION', enabled: true, visible: false },
   ];
 
-  private readonly _plannerState = signal<PlannerState>(initialPlannerState);
-
-  readonly plannerState = this._plannerState.asReadonly();
-  readonly position = computed(() => this._plannerState().position);
-  readonly mapMode = computed(() => this._plannerState().mapMode);
-  readonly resultMode = computed(() => this._plannerState().resultMode);
-  readonly resultModeCompact = computed(() => this.resultMode() === 'compact');
-  readonly resultModeDetailed = computed(() => this.resultMode() === 'detailed');
-  readonly layerStates = computed(() => this._plannerState().layerStates);
-  readonly poiLayerStates = computed(() => this._plannerState().poiLayerStates);
-
   readonly poisVisible = computed(() => {
     let visible = false;
-    const poiLayerState = this.layerStates().find(
-      (layerState) => layerState.id == OldPoiTileLayerService.poiLayerId
-    );
+    const poiLayerState = this.state.planner
+      .layerStates()
+      .find((layerState) => layerState.id == OldPoiTileLayerService.poiLayerId);
     if (poiLayerState) {
       visible = poiLayerState.visible;
     }
@@ -66,112 +52,33 @@ export class PlannerStateService {
   });
 
   poiGroupVisible(layerId: string): boolean {
-    const layerStates = this.poiLayerStates().filter((layerState) => layerState.id === layerId);
+    const layerStates = this.state.planner
+      .poiLayerStates()
+      .filter((layerState) => layerState.id === layerId);
     return layerStates.length === 1 && layerStates[0].visible;
   }
 
   onInit(): void {
     const uniqueQueryParams = Util.uniqueParams(this.routerService.queryParams());
-    const state = this.toPlannerState(this.routerService.params(), uniqueQueryParams);
-    this.updateState(state);
+    this.updatePlannerState(this.routerService.params(), uniqueQueryParams);
   }
 
-  setMapPosition(position: MapPosition): void {
-    this.updateState({
-      ...this._plannerState(),
-      position,
-    });
-  }
-
-  setMapMode(mapMode: MapMode): void {
-    this.updateState({
-      ...this._plannerState(),
-      mapMode,
-    });
-  }
-
-  setResultMode(resultMode: MapResultMode): void {
-    this.updateState({
-      ...this._plannerState(),
-      resultMode,
-    });
-  }
-
-  setLayerStates(layerStates: MapLayerState[]): void {
-    this.updateState({
-      ...this._plannerState(),
-      layerStates,
-    });
-  }
-
-  setPoiLayerStates(poiLayerStates: MapLayerState[]): void {
-    this.updateState({
-      ...this._plannerState(),
-      poiLayerStates,
-    });
-  }
-
-  setPoiGroupVisible(groupName: string, visible: boolean): void {
-    const poiLayerStates = this.poiLayerStates().map((layerState) => {
-      if (layerState.id === groupName) {
-        return {
-          ...layerState,
-          visible,
-        };
-      }
-      return layerState;
-    });
-    this.updateState({
-      ...this._plannerState(),
-      poiLayerStates,
-    });
-  }
-
-  setPoisVisible(visible: boolean): void {
-    const layerStates = this.layerStates().map((layerState) => {
-      if (layerState.id === OldPoiTileLayerService.poiLayerId) {
-        return {
-          ...layerState,
-          visible,
-        };
-      }
-      return layerState;
-    });
-    this.updateState({
-      ...this._plannerState(),
-      layerStates,
-    });
-  }
-
-  private updateState(state: PlannerState): void {
-    this._plannerState.set(state);
-    this.navigate(state);
-  }
-
-  private toPlannerState(routeParams: Params, queryParams: Params): PlannerState {
+  private updatePlannerState(routeParams: Params, queryParams: Params): void {
     const routeType = this.parseRouteType(routeParams);
     this.state.page.updateRouteType(routeType);
-
-    const position = this.parsePosition(queryParams);
-    const mapMode = this.parseMapMode(queryParams);
-    const resultMode = this.parseResultMode(queryParams);
+    this.state.planner.updatePosition(this.parsePosition(queryParams));
+    this.state.planner.updateMapMode(this.parseMapMode(queryParams));
+    this.state.planner.updateResultMode(this.parseResultMode(queryParams));
 
     let urlLayerIds: string[] = [];
     const layersParam = queryParams['layers'];
     if (layersParam) {
       urlLayerIds = layersParam.split(',');
     }
-    const layerStates: MapLayerState[] = [];
-    const poiLayerStates = this.parsePoiLayerStates(queryParams);
+    this.state.planner.updateUrlLayerIds(urlLayerIds);
 
-    return {
-      position,
-      mapMode,
-      resultMode,
-      urlLayerIds,
-      layerStates,
-      poiLayerStates,
-    };
+    this.state.planner.updateLayerStates([]);
+    this.state.planner.updatePoiLayerStates(this.parsePoiLayerStates(queryParams));
   }
 
   private parseRouteType(queryParams: Params): RouteType {
@@ -242,15 +149,17 @@ export class PlannerStateService {
     return poiLayerStates;
   }
 
-  private toQueryParams(state: PlannerState): Params {
-    const position = MapPosition.toQueryParam(state.position);
-    const mode = state.mapMode;
-    const result = state.resultMode;
-    const layers = state.layerStates
+  private toQueryParams(): Params {
+    const position = MapPosition.toQueryParam(this.state.planner.position());
+    const mode = this.state.planner.mapMode();
+    const result = this.state.planner.resultMode();
+    const layers = this.state.planner
+      .layerStates()
       .filter((layerState) => layerState.visible)
       .map((layerState) => layerState.id)
       .join(',');
-    const poiLayers = state.poiLayerStates
+    const poiLayers = this.state.planner
+      .poiLayerStates()
       .filter((layerState) => layerState.visible)
       .map((layerState) => layerState.id)
       .join(',');
@@ -264,8 +173,9 @@ export class PlannerStateService {
     };
   }
 
-  private navigate(plannerState: PlannerState): Observable<boolean> {
-    const queryParams = this.toQueryParams(plannerState);
+  // TODO update url after changing planner state
+  private navigate(): Observable<boolean> {
+    const queryParams = this.toQueryParams();
     const promise = this.router.navigate(['map', this.state.page.routeType], {
       queryParams,
       replaceUrl: true, // do not push a new entry to the browser history

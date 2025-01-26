@@ -36,7 +36,6 @@ export class PlannerPageService {
   private readonly subscriptions = new Subscriptions();
 
   readonly mapId = this.plannerMapService.mapId;
-  readonly routeType = this.state.page.routeType;
 
   constructor() {
     this.plannerStateService.onInit();
@@ -83,7 +82,7 @@ export class PlannerPageService {
   }
 
   setMapMode(mapMode: MapMode): void {
-    this.plannerStateService.setMapMode(mapMode);
+    this.state.planner.updateMapMode(mapMode);
     this.plannerMapService.updateLayerVisibility();
   }
 
@@ -92,7 +91,7 @@ export class PlannerPageService {
   }
 
   afterViewInit(): void {
-    this.plannerMapService.init(this.plannerStateService.plannerState());
+    this.plannerMapService.init();
   }
 
   onDestroy(): void {

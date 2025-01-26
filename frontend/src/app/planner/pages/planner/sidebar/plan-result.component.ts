@@ -1,6 +1,7 @@
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { PlannerStateService } from '../planner-state.service';
+import { State } from '@app/state';
 import { PlannerService } from '../planner.service';
 import { PlanCompactComponent } from './plan-compact.component';
 import { PlanDetailedComponent } from './plan-detailed.component';
@@ -23,10 +24,9 @@ import { PlanDistanceComponent } from './plan-distance.component';
   imports: [PlanCompactComponent, PlanDetailedComponent, PlanDistanceComponent],
 })
 export class PlanResultComponent {
+  private readonly state = inject(State);
   private readonly plannerService = inject(PlannerService);
-  private readonly plannerStateService = inject(PlannerStateService);
-
-  readonly compact = this.plannerStateService.resultModeCompact;
-  protected readonly detailed = this.plannerStateService.resultModeDetailed;
+  readonly compact = computed(() => this.state.planner.resultMode() === 'compact');
+  readonly detailed = computed(() => this.state.planner.resultMode() === 'detailed');
   protected readonly plan = this.plannerService.context.plan;
 }

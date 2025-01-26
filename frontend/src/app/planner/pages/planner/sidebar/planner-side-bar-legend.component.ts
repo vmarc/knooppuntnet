@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { PreferencesService } from '@app/core';
-import { PlannerStateService } from '../planner-state.service';
+import { State } from '@app/state';
 import { LegendIconComponent } from './legend-icon.component';
 
 @Component({
@@ -137,10 +137,10 @@ import { LegendIconComponent } from './legend-icon.component';
   imports: [MatExpansionModule, LegendIconComponent],
 })
 export class PlannerSideBarLegendComponent {
-  private readonly plannerStateService = inject(PlannerStateService);
+  private readonly state = inject(State);
   private readonly preferencesService = inject(PreferencesService);
   readonly expanded = this.preferencesService.showLegend;
-  readonly mapMode = this.plannerStateService.mapMode;
+  readonly mapMode = this.state.planner.mapMode;
 
   expandedChanged(expanded: boolean): void {
     this.preferencesService.setShowLegend(expanded);

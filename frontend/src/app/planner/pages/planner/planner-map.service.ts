@@ -22,7 +22,6 @@ import View from 'ol/View';
 import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
 import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
 import { PlannerMapLayerService } from './planner-map-layer.service';
-import { PlannerState } from './planner-state';
 import { PlannerStateService } from './planner-state.service';
 import { PlannerService } from './planner.service';
 
@@ -49,7 +48,7 @@ export class PlannerMapService extends OpenlayersMapService {
     const surveyDateValues = this.sharedStateService.surveyDateValues();
 
     return new MainMapStyleParameters(
-      this.plannerStateService.mapMode(),
+      this.state.planner.mapMode(),
       showProposed,
       surveyDateValues,
       selectedRouteId,
@@ -67,13 +66,13 @@ export class PlannerMapService extends OpenlayersMapService {
     });
   }
 
-  init(plannerState: PlannerState): void {
+  init(): void {
     const registry = this.plannerMapLayerService.registerLayers(
       this.state.page.routeType(),
-      plannerState.urlLayerIds,
+      this.state.planner.urlLayerIds(),
       this.parameters
     );
-    this.plannerStateService.setLayerStates(registry.layerStates);
+    this.state.planner.updateLayerStates(registry.layerStates);
     this.register(registry);
 
     this.subcriptions.unsubscribe();
@@ -93,8 +92,9 @@ export class PlannerMapService extends OpenlayersMapService {
       })
     );
 
-    this.map.getView().setZoom(plannerState.position.zoom);
-    this.map.getView().setCenter([plannerState.position.x, plannerState.position.y]);
+    const position = this.state.planner.position();
+    this.map.getView().setZoom(position.zoom);
+    this.map.getView().setCenter([position.x, position.y]);
 
     this.plannerService.init(this.map);
     this.interaction.addToMap(this.map);
@@ -142,7 +142,7 @@ export class PlannerMapService extends OpenlayersMapService {
     if (!!mapLayer.routeType && mapLayer.routeType !== this.state.page.routeType()) {
       return false;
     }
-    if (!!mapLayer.mapMode && mapLayer.mapMode !== this.plannerStateService.mapMode()) {
+    if (!!mapLayer.mapMode && mapLayer.mapMode !== this.state.planner.mapMode()) {
       return false;
     }
     return super.layerVisible(mapLayer);

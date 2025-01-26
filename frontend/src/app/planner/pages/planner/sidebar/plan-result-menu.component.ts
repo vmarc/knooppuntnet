@@ -1,9 +1,8 @@
 import { NgClass } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { PreferencesService } from '@app/core';
+import { State } from '@app/state';
 import { MapResultMode } from '../../../../ol/services/map-result-mode';
-import { PlannerStateService } from '../planner-state.service';
 
 @Component({
   selector: 'kpn-plan-result-menu',
@@ -51,10 +50,8 @@ import { PlannerStateService } from '../planner-state.service';
   imports: [NgClass],
 })
 export class PlanResultMenuComponent {
-  private readonly plannerStateService = inject(PlannerStateService);
-  private readonly preferencesService = inject(PreferencesService);
-
-  readonly resultMode = this.plannerStateService.resultMode;
+  private readonly state = inject(State);
+  readonly resultMode = this.state.planner.resultMode;
 
   resultModeCompact(event) {
     this.handleResultMode(event, 'compact');
@@ -65,7 +62,7 @@ export class PlanResultMenuComponent {
   }
 
   private handleResultMode(event, resultMode: MapResultMode) {
-    this.plannerStateService.setResultMode(resultMode);
+    this.state.planner.updateResultMode(resultMode);
     event.stopPropagation();
   }
 }
