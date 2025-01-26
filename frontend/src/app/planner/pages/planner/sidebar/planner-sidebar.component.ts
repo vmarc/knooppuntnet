@@ -1,13 +1,14 @@
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageFooterComponent } from '@app/components/shared/page';
-import { SidebarFooterComponent } from '@app/components/shared/sidebar';
 import { MapLinkMenuComponent } from '@app/ol/components';
+import { State } from '@app/state';
+import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
+import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 import { GeolocationButtonComponent } from '../geolocation/geolocation-button.component';
 import { PlanActionsComponent } from './plan-actions.component';
-import { PlannerSideBarAppearanceComponent } from './planner-side-bar-appearance.component';
+import { PlanComponent } from './plan.component';
 import { PlannerSideBarLegendComponent } from './planner-side-bar-legend.component';
 import { PlannerSideBarOptionsComponent } from './planner-side-bar-options.component';
-import { PlannerSideBarPlannerComponent } from './planner-side-bar-planner.component';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { PlannerSidebarFitRouteComponent } from './planner-sidebar-fit-route.component';
 
@@ -19,28 +20,59 @@ import { PlannerSidebarFitRouteComponent } from './planner-sidebar-fit-route.com
     <kpn-planner-fit-route />
     <kpn-geolocation-button />
     <kpn-map-link-menu />
-    <kpn-planner-sidebar-planner />
-    <kpn-planner-sidebar-appearance />
-    <kpn-planner-sidebar-legend />
-    <kpn-planner-sidebar-options />
-    <!--
-      <kpn-elevation-profile />
-      <kpn-planner-sidebar-poi-configuration />
-    -->
-    <kpn-sidebar-footer [loginEnabled]="false" />
-    <kpn-page-footer [settings]="false" />
+
+    <nz-collapse>
+      <nz-collapse-panel nzHeader="Plan" [nzActive]="true">
+        <kpn-plan />
+      </nz-collapse-panel>
+
+      <nz-collapse>
+        <nz-collapse-panel
+          i18n-nzHeader="@@planner.legend"
+          nzHeader="Legend"
+          [nzActive]="legendExpanded()"
+          (nzActiveChange)="legendExpandedChanged($event)"
+        >
+          <kpn-planner-sidebar-legend />
+        </nz-collapse-panel>
+        <nz-collapse-panel
+          i18n-nzHeader="@@planner.options"
+          nzHeader="Options"
+          [nzActive]="optionsExpanded()"
+          (nzActiveChange)="optionsExpandedChanged($event)"
+        >
+          <kpn-planner-sidebar-options />
+        </nz-collapse-panel>
+      </nz-collapse>
+
+      <!--
+        <kpn-elevation-profile />
+        <kpn-planner-sidebar-poi-configuration />
+      -->
+    </nz-collapse>
   `,
   imports: [
     GeolocationButtonComponent,
-    PageFooterComponent,
+    MapLinkMenuComponent,
+    NzCollapseComponent,
+    NzCollapsePanelComponent,
     PlanActionsComponent,
-    PlannerSideBarAppearanceComponent,
     PlannerSideBarLegendComponent,
     PlannerSideBarOptionsComponent,
-    PlannerSideBarPlannerComponent,
     PlannerSidebarFitRouteComponent,
-    SidebarFooterComponent,
-    MapLinkMenuComponent,
+    PlanComponent,
   ],
 })
-export class PlannerSidebarComponent {}
+export class PlannerSidebarComponent {
+  private readonly state = inject(State);
+  readonly legendExpanded = this.state.preferences.showLegend;
+  readonly optionsExpanded = this.state.preferences.showOptions;
+
+  legendExpandedChanged(expanded: boolean): void {
+    this.state.preferences.updateShowLegend(expanded);
+  }
+
+  optionsExpandedChanged(expanded: boolean): void {
+    this.state.preferences.updateShowOptions(expanded);
+  }
+}

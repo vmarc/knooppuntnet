@@ -9,117 +9,113 @@ import { LegendIconComponent } from './legend-icon.component';
   selector: 'kpn-planner-sidebar-legend',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-expansion-panel [expanded]="expanded()" (expandedChange)="expandedChanged($event)">
-      <mat-expansion-panel-header i18n="@@planner.legend">Legend</mat-expansion-panel-header>
-
-      @if (mapMode(); as mapMode) {
-        @if (mapMode === 'surface') {
-          <div class="legend">
-            <div>
-              <kpn-legend-icon color="rgba(0, 96, 255)" />
-              <span i18n="@@planner.legend.paved">Paved</span>
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(0, 240, 0)" />
-              <span i18n="@@planner.legend.unpaved">Unpaved</span>
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(255, 176, 0)" />
-              <span i18n="@@planner.legend.surface-unknown">Surface unknown</span>
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(0, 96, 255)" [proposed]="true" />
-              <span i18n="@@planner.legend.proposed">Proposed</span>
-            </div>
-          </div>
-        }
-        @if (mapMode === 'survey') {
-          <div class="legend">
-            <div>
-              <kpn-legend-icon color="rgb(0, 255, 0)" />
-              <span i18n="@@planner.legend.survey.last-month">Last month</span>
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(0, 200, 0)" />
-              <span i18n="@@planner.legend.survey.last-half-month">Last half year</span>
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(0, 150, 0)" />
-              <span i18n="@@planner.legend.survey.last-year">Last year</span>
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(0, 90, 0)" />
-              <span i18n="@@planner.legend.survey.last-two-years">Last two years</span>
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(150, 0, 0)" />
-              <span i18n="@@planner.legend.survey.more-than-tow-years-ago"
-                >More than two years ago</span
-              >
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(255, 255, 0)" circleColor="rgb(225, 225, 0)" />
-              <span i18n="@@planner.legend.survey.unknown">Unknown</span>
-            </div>
-          </div>
-        }
-        @if (mapMode === 'analysis') {
-          <div class="legend">
-            <div>
-              <kpn-legend-icon color="rgb(0, 200, 0)" />
-              <span i18n="@@planner.legend.analysis.ok">OK</span>
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(0, 150, 0)" />
-              <span i18n="@@planner.legend.survey.ok-orphan">OK Orphan</span>
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(255, 0, 0)" />
-              <span i18n="@@planner.legend.survey.review">Review</span>
-            </div>
-            <div>
-              <kpn-legend-icon color="rgb(187, 0, 0)" />
-              <span i18n="@@planner.legend.survey.review-orphan">Review Orphan</span>
-            </div>
-          </div>
-        }
+    @if (mapMode(); as mapMode) {
+      @if (mapMode === 'surface') {
         <div class="legend">
           <div>
-            <div class="legend-icon">
-              <img
-                src="/assets/images/marker-icon-blue.png"
-                class="image"
-                alt="Start node icon"
-                i18n-alt="@@planner.legend.marker.icon.start-node"
-              />
-            </div>
-            <span i18n="@@planner.legend.marker.start-node">Start node</span>
+            <kpn-legend-icon color="rgba(0, 96, 255)" />
+            <span i18n="@@planner.legend.paved">Paved</span>
           </div>
           <div>
-            <div class="legend-icon">
-              <img
-                src="/assets/images/marker-icon-green.png"
-                class="image"
-                alt="End node icon"
-                i18n-alt="@@planner.legend.marker.icon.end-node"
-              />
-            </div>
-            <span i18n="@@planner.legend.marker.end-node">End node</span>
+            <kpn-legend-icon color="rgb(0, 240, 0)" />
+            <span i18n="@@planner.legend.unpaved">Unpaved</span>
           </div>
           <div>
-            <div class="legend-icon">
-              <img
-                src="/assets/images/marker-icon-orange.png"
-                class="image"
-                alt="Via node icon"
-                i18n-alt="@@planner.legend.marker.icon.via-node"
-              />
-            </div>
-            <span i18n="@@planner.legend.marker.via-node">Via node</span>
+            <kpn-legend-icon color="rgb(255, 176, 0)" />
+            <span i18n="@@planner.legend.surface-unknown">Surface unknown</span>
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(0, 96, 255)" [proposed]="true" />
+            <span i18n="@@planner.legend.proposed">Proposed</span>
           </div>
         </div>
       }
-    </mat-expansion-panel>
+      @if (mapMode === 'survey') {
+        <div class="legend">
+          <div>
+            <kpn-legend-icon color="rgb(0, 255, 0)" />
+            <span i18n="@@planner.legend.survey.last-month">Last month</span>
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(0, 200, 0)" />
+            <span i18n="@@planner.legend.survey.last-half-month">Last half year</span>
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(0, 150, 0)" />
+            <span i18n="@@planner.legend.survey.last-year">Last year</span>
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(0, 90, 0)" />
+            <span i18n="@@planner.legend.survey.last-two-years">Last two years</span>
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(150, 0, 0)" />
+            <span i18n="@@planner.legend.survey.more-than-tow-years-ago"
+              >More than two years ago</span
+            >
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(255, 255, 0)" circleColor="rgb(225, 225, 0)" />
+            <span i18n="@@planner.legend.survey.unknown">Unknown</span>
+          </div>
+        </div>
+      }
+      @if (mapMode === 'analysis') {
+        <div class="legend">
+          <div>
+            <kpn-legend-icon color="rgb(0, 200, 0)" />
+            <span i18n="@@planner.legend.analysis.ok">OK</span>
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(0, 150, 0)" />
+            <span i18n="@@planner.legend.survey.ok-orphan">OK Orphan</span>
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(255, 0, 0)" />
+            <span i18n="@@planner.legend.survey.review">Review</span>
+          </div>
+          <div>
+            <kpn-legend-icon color="rgb(187, 0, 0)" />
+            <span i18n="@@planner.legend.survey.review-orphan">Review Orphan</span>
+          </div>
+        </div>
+      }
+      <div class="legend">
+        <div>
+          <div class="legend-icon">
+            <img
+              src="/assets/images/marker-icon-blue.png"
+              class="image"
+              alt="Start node icon"
+              i18n-alt="@@planner.legend.marker.icon.start-node"
+            />
+          </div>
+          <span i18n="@@planner.legend.marker.start-node">Start node</span>
+        </div>
+        <div>
+          <div class="legend-icon">
+            <img
+              src="/assets/images/marker-icon-green.png"
+              class="image"
+              alt="End node icon"
+              i18n-alt="@@planner.legend.marker.icon.end-node"
+            />
+          </div>
+          <span i18n="@@planner.legend.marker.end-node">End node</span>
+        </div>
+        <div>
+          <div class="legend-icon">
+            <img
+              src="/assets/images/marker-icon-orange.png"
+              class="image"
+              alt="Via node icon"
+              i18n-alt="@@planner.legend.marker.icon.via-node"
+            />
+          </div>
+          <span i18n="@@planner.legend.marker.via-node">Via node</span>
+        </div>
+      </div>
+    }
   `,
   styles: `
     .legend > div {
@@ -137,10 +133,5 @@ import { LegendIconComponent } from './legend-icon.component';
 })
 export class PlannerSideBarLegendComponent {
   private readonly state = inject(State);
-  readonly expanded = this.state.preferences.showLegend;
-  readonly mapMode = this.state.planner.mapMode;
-
-  expandedChanged(expanded: boolean): void {
-    this.state.preferences.updateShowLegend(expanded);
-  }
+  readonly mapMode = this.state.map.mode;
 }

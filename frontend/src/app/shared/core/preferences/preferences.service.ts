@@ -29,9 +29,6 @@ export class PreferencesService {
       if (preferences?.impact) {
         this.state.preferences.updateImpact(preferences.impact);
       }
-      if (preferences?.showAppearanceOptions) {
-        this.state.preferences.updateShowAppearanceOptions(preferences.showAppearanceOptions);
-      }
       if (preferences?.showLegend) {
         this.state.preferences.updateShowLegend(preferences.showLegend);
       }
@@ -53,7 +50,6 @@ export class PreferencesService {
         extraLayers: this.state.preferences.extraLayers(),
         pageSize: this.state.preferences.pageSize(),
         impact: this.state.preferences.impact(),
-        showAppearanceOptions: this.state.preferences.showAppearanceOptions(),
         showLegend: this.state.preferences.showLegend(),
         showOptions: this.state.preferences.showOptions(),
         showProposed: this.state.preferences.showProposed(),

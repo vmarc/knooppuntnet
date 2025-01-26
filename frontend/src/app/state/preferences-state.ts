@@ -9,7 +9,6 @@ export class PreferencesState {
   private readonly _extraLayers = signal<boolean>(false);
   private readonly _pageSize = signal<number>(25);
   private readonly _impact = signal<boolean>(true);
-  private readonly _showAppearanceOptions = signal<boolean>(true);
   private readonly _showLegend = signal<boolean>(true);
   private readonly _showOptions = signal<boolean>(true);
   private readonly _showProposed = signal<boolean>(true);
@@ -20,7 +19,6 @@ export class PreferencesState {
   readonly extraLayers = this._extraLayers.asReadonly();
   readonly pageSize = this._pageSize.asReadonly();
   readonly impact = this._impact.asReadonly();
-  readonly showAppearanceOptions = this._showAppearanceOptions.asReadonly();
   readonly showLegend = this._showLegend.asReadonly();
   readonly showOptions = this._showOptions.asReadonly();
   readonly showProposed = this._showProposed.asReadonly();
@@ -44,10 +42,6 @@ export class PreferencesState {
 
   updateImpact(value: boolean): void {
     this._impact.set(value);
-  }
-
-  updateShowAppearanceOptions(value: boolean): void {
-    this._showAppearanceOptions.set(value);
   }
 
   updateShowLegend(value: boolean): void {

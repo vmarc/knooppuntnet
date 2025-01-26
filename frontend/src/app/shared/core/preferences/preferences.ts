@@ -7,7 +7,6 @@ export type Preferences = {
   extraLayers: boolean;
   pageSize: number;
   impact: boolean;
-  showAppearanceOptions: boolean;
   showLegend: boolean;
   showOptions: boolean;
   showProposed: boolean;

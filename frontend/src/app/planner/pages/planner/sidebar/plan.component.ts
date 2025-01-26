@@ -6,8 +6,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'kpn-plan',
-  // TODO changeDetection: ChangeDetectionStrategy.OnPush,
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-plan-tip />
     <kpn-plan-result-menu />
