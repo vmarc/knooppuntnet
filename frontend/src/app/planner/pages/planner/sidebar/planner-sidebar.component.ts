@@ -1,6 +1,9 @@
+import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { PageFooterComponent } from '@app/components/shared/page';
 import { SidebarFooterComponent } from '@app/components/shared/sidebar';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { PlannerPageService } from '../planner-page.service';
 import { PlanActionsComponent } from './plan-actions.component';
 import { PlannerSideBarAppearanceComponent } from './planner-side-bar-appearance.component';
 import { PlannerSideBarLegendComponent } from './planner-side-bar-legend.component';
@@ -14,6 +17,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.Default,
   template: `
     <kpn-plan-actions />
+
+    <div>
+      <button nz-button class="button-with-text" (click)="zoomToFitRoute()">
+        Zoom to fit entire route
+      </button>
+    </div>
+
     <kpn-planner-sidebar-planner />
     <kpn-planner-sidebar-appearance />
     <kpn-planner-sidebar-legend />
@@ -26,6 +36,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
     <kpn-page-footer [settings]="false" />
   `,
   imports: [
+    NzButtonComponent,
     PageFooterComponent,
     PlanActionsComponent,
     PlannerSideBarAppearanceComponent,
@@ -35,4 +46,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
     SidebarFooterComponent,
   ],
 })
-export class PlannerSidebarComponent {}
+export class PlannerSidebarComponent {
+  readonly service = inject(PlannerPageService);
+
+  zoomToFitRoute(): void {
+    this.service.zoomInToRoute();
+  }
+}

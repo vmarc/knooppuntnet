@@ -19,6 +19,13 @@ import { PageButtonsComponent } from '@app/components/shared/page';
 import { ApiService } from '@app/services';
 import { ReactiveFormsModule } from '@angular/forms';
 import { State } from '@app/state';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzInputDirective } from 'ng-zorro-antd/input';
+import { NzInputGroupComponent } from 'ng-zorro-antd/input';
+import { NzInputGroupWhitSuffixOrPrefixDirective } from 'ng-zorro-antd/input';
+import { NzSegmentedComponent } from 'ng-zorro-antd/segmented';
 import { MapService } from '../map/map.service';
 import { PageComponent } from '../shared/components/shared/page/page.component';
 import { SearchComponent } from './advanced/search.component';
@@ -33,6 +40,23 @@ import { ExploreRoutesComponent } from './explore-routes.component';
       <mat-label>Explore</mat-label>
     </kpn-page-buttons>
     <kpn-page>
+      <nz-input-group [nzSuffix]="suffixIconSearch">
+        <input type="text" nz-input placeholder="input search text" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <nz-icon nzType="search" />
+      </ng-template>
+      <nz-segmented
+        [nzOptions]="options"
+        (nzValueChange)="handleValueChange($event)"
+      ></nz-segmented>
+      <label nz-checkbox>Advanced</label>
+      <div>
+        <button nz-button nzType="primary">
+          <nz-icon nzType="search" />
+          Search
+        </button>
+      </div>
       <form [formGroup]="form" class="kpn-form" #ngForm="ngForm">
         <mat-form-field appearance="outline">
           <mat-label>Search</mat-label>
@@ -67,21 +91,28 @@ import { ExploreRoutesComponent } from './explore-routes.component';
   `,
   imports: [
     BackButtonComponent,
-    MatLabel,
-    PageButtonsComponent,
+    DividerComponent,
+    ExploreRoutesComponent,
+    FormsModule,
+    MatButton,
     MatFormField,
     MatInput,
-    PageComponent,
-    MatButton,
-    FormsModule,
-    ReactiveFormsModule,
-    DividerComponent,
+    MatLabel,
     MatListItem,
     MatNavList,
-    PageComponent,
-    ExploreRoutesComponent,
-    SearchComponent,
     MatSlideToggle,
+    NzButtonComponent,
+    NzCheckboxComponent,
+    NzIconDirective,
+    NzInputDirective,
+    NzInputGroupComponent,
+    NzInputGroupWhitSuffixOrPrefixDirective,
+    NzSegmentedComponent,
+    PageButtonsComponent,
+    PageComponent,
+    PageComponent,
+    ReactiveFormsModule,
+    SearchComponent,
   ],
 })
 export class ExploreComponent {
@@ -94,6 +125,12 @@ export class ExploreComponent {
   readonly form = new FormGroup({
     query: this.query,
   });
+
+  readonly options = ['Map', 'Route', 'Network'];
+
+  handleValueChange(e: string | number): void {
+    console.log(e);
+  }
 
   search(): void {
     this.apiService.search(this.query.value).subscribe((response) => {

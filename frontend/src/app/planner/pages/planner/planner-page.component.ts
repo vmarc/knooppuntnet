@@ -2,7 +2,6 @@ import { inject } from '@angular/core';
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MapLinkMenuComponent } from '@app/ol/components';
 import { LayerSwitcherComponent } from '@app/ol/components';
-import { RouteControlComponent } from '@app/ol/components';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { RouterService } from '../../../shared/services/router.service';
 import { PlannerPopupService } from '../../domain/context/planner-popup-service';
@@ -29,7 +28,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
       <div>
         <kpn-planner-popup />
         <div [id]="service.mapId" class="map" (mouseleave)="service.mouseleave()">
-          <kpn-route-control (action)="service.zoomInToRoute()" />
           <kpn-geolocation-control (action)="service.geolocation($event)" />
           <kpn-layer-switcher>
             <kpn-poi-menu />
@@ -74,7 +72,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
     PlannerPopupComponent,
     PlannerSidebarComponent,
     PoiMenuComponent,
-    RouteControlComponent,
   ],
 })
 export class PlannerPageComponent implements OnInit, OnDestroy, AfterViewInit {
