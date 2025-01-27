@@ -25,10 +25,6 @@ export const appRoutes: Routes = [
     loadChildren: () => import('@app/analysis/analysis').then((m) => m.analysisRoutes),
   },
   {
-    path: 'map',
-    loadChildren: () => import('@app/planner').then((m) => m.plannerRoutes),
-  },
-  {
     path: 'status',
     loadChildren: () => import('@app/status').then((m) => m.statusRoutes),
   },
