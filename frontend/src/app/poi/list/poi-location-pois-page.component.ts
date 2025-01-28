@@ -2,30 +2,48 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { OldPageComponent } from '@app/components/shared/page';
+import { NzTabSetComponent } from 'ng-zorro-antd/tabs';
+import { NzTabComponent } from 'ng-zorro-antd/tabs';
+import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
+import { LocationPoiSelectComponent } from './components/poi-location-poi-select.component';
 import { PoiLocationPoiTableComponent } from './components/poi-location-poi-table.component';
-import { LocationPoisSidebarComponent } from './components/poi-location-pois-sidebar.component';
 import { PoiLocationPoisPageService } from './poi-location-pois-page.service';
 
 @Component({
   selector: 'kpn-poi-location-pois-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-old-page>
-      @if (service.poisResponse(); as response) {
-        @if (response.result; as page) {
-          <kpn-poi-location-poi-table [pois]="page.pois" [poiCount]="page.poiCount" />
-        }
-      }
-      <kpn-location-pois-sidebar sidebar />
-    </kpn-old-page>
+    <kpn-page>
+      <nz-tabset [nzSelectedIndex]="selectedTabIndex()">
+        <nz-tab nzTitle="Select">
+          <kpn-location-poi-select />
+        </nz-tab>
+        <nz-tab nzTitle="Pois">
+          @if (poisResponse(); as response) {
+            @if (response.result; as page) {
+              <kpn-poi-location-poi-table [pois]="page.pois" [poiCount]="page.poiCount" />
+            }
+          } @else {
+            First select location and poi type to see poi list.
+          }
+        </nz-tab>
+      </nz-tabset>
+    </kpn-page>
   `,
   providers: [PoiLocationPoisPageService, RouterService],
-  imports: [LocationPoisSidebarComponent, OldPageComponent, PoiLocationPoiTableComponent],
+  imports: [
+    LocationPoiSelectComponent,
+    NzTabComponent,
+    NzTabSetComponent,
+    PageComponent,
+    PoiLocationPoiTableComponent,
+  ],
 })
 export class PoiLocationPoisPageComponent implements OnInit {
-  readonly service = inject(PoiLocationPoisPageService);
+  private readonly service = inject(PoiLocationPoisPageService);
+  readonly selectedTabIndex = this.service.selectedTabIndex;
+  readonly poisResponse = this.service.poisResponse;
 
   ngOnInit(): void {
     this.service.onInit();

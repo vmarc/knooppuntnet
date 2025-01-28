@@ -14,6 +14,8 @@ export class PoiLocationPoisPageService {
   private readonly state = inject(State);
   private readonly poiService = inject(PoiService);
 
+  private readonly _selectedTabIndex = signal<number>(0);
+
   private readonly _country = signal<Country | null>(null);
   private readonly _location = signal<string | null>(null);
   private readonly _layers = signal<string | null>(null);
@@ -22,6 +24,8 @@ export class PoiLocationPoisPageService {
   private readonly _summaryResponse = signal<ApiResponse<LocationPoiSummaryPage>>(null);
   private readonly _poisResponse = signal<ApiResponse<LocationPoisPage>>(null);
   private readonly _pageIndex = signal<number>(0);
+
+  readonly selectedTabIndex = this._selectedTabIndex.asReadonly();
 
   readonly country = this._country.asReadonly();
   readonly location = this._location.asReadonly();
@@ -79,7 +83,10 @@ export class PoiLocationPoisPageService {
   private loadPois(): void {
     this.poiService
       .locationPois(this.location(), this.layers(), this.pageSize(), this.pageIndex())
-      .subscribe((response) => this._poisResponse.set(response));
+      .subscribe((response) => {
+        this._poisResponse.set(response);
+        this._selectedTabIndex.set(1);
+      });
   }
 
   private loadSummary(): void {

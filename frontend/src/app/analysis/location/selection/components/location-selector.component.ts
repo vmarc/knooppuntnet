@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
 import { UntypedFormBuilder } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UntypedFormControl } from '@angular/forms';
@@ -16,6 +17,10 @@ import { MatInputModule } from '@angular/material/input';
 import { Country } from '@api/common';
 import { LocationNode } from '@api/common/location';
 import { Util } from '@app/components/shared';
+import { NzFormItemComponent } from 'ng-zorro-antd/form';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
+import { NzOptionComponent } from 'ng-zorro-antd/select';
+import { NzSelectComponent } from 'ng-zorro-antd/select';
 import { LocationOption } from './location-option';
 
 @Component({
@@ -23,81 +28,64 @@ import { LocationOption } from './location-option';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (options()) {
-      <form class="selector-form" [formGroup]="formGroup" (submit)="select()">
-        <mat-form-field class="selector-full-width">
-          <mat-label i18n="@@location.selector.input.label"
-            >municipality or other administrative boundary name
-          </mat-label>
-          <input
-            type="text"
-            placeholder=""
-            matInput
-            [formControl]="locationInputControl"
-            [matAutocomplete]="auto"
-          />
-          <mat-autocomplete
-            autoActiveFirstOption
-            #auto="matAutocomplete"
-            [displayWith]="displayName"
-            (opened)="resetWarning()"
+      <nz-form-control style="margin-bottom: 24px">
+        <nz-form-item>
+          <nz-select
+            nzShowSearch
+            nzAllowClear
+            [ngModel]="undefined"
+            (ngModelChange)="selectionChanged($event)"
+            (nzOnSearch)="inputChanged($event)"
+            i18n-nzPlaceHolder="@@location.selector.input.label"
+            nzPlaceHolder="municipality or other administrative boundary name"
           >
             @for (option of filteredOptions(); track option) {
-              <mat-option [value]="option">
-                {{ option.name }}
-                @if (nodeCount(option) > 0) {
-                  <span class="node-count">({{ nodeCount(option) }})</span>
-                }
-              </mat-option>
+              <nz-option [nzValue]="option" [nzLabel]="option.name"></nz-option>
             }
-          </mat-autocomplete>
-        </mat-form-field>
-        @if (warningSelectionMandatory) {
-          <p class="kpn-warning" i18n="@@location.selector.warning-selection-mandatory">
-            Please make a selection in the field above
-          </p>
-        }
-        @if (warningSelectionInvalid) {
-          <p class="kpn-warning" i18n="@@location.selector.warning-selection-invalid">
-            Please select a value from the list
-          </p>
-        }
-        <button mat-stroked-button (submit)="select()" i18n="@@location.selector.button">
-          Location overview
-        </button>
-      </form>
-    }
-  `,
-  styles: `
-    .selector-form {
-      min-width: 250px;
-      max-width: 500px;
-      width: 100%;
-    }
+          </nz-select>
+        </nz-form-item>
+      </nz-form-control>
 
-    .selector-full-width {
-      width: 100%;
-    }
-
-    .node-count {
-      padding-left: 20px;
-      color: grey;
+      @if (warningSelectionMandatory) {
+        <p class="kpn-warning" i18n="@@location.selector.warning-selection-mandatory">
+          Please make a selection in the field above
+        </p>
+      }
+      @if (warningSelectionInvalid) {
+        <p class="kpn-warning" i18n="@@location.selector.warning-selection-invalid">
+          Please select a value from the list
+        </p>
+      }
+      <!--      <nz-form-control style="background-color: yellow;">-->
+      <!--        <nz-form-item>-->
+      <!--          <button nz-button (submit)="select()" i18n="@@location.selector.button">-->
+      <!--            Location overview-->
+      <!--          </button>-->
+      <!--        </nz-form-item>-->
+      <!--      </nz-form-control>-->
     }
   `,
   imports: [
+    FormsModule,
     MatAutocompleteModule,
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
+    NzFormControlComponent,
+    NzFormItemComponent,
+    NzOptionComponent,
+    NzSelectComponent,
     ReactiveFormsModule,
   ],
 })
 export class LocationSelectorComponent /* implements OnInit*/ {
   country = input.required<Country>();
+
   locationNode = input.required<LocationNode>();
   all = input(false);
   selection = output<string>();
-  private readonly maxOptions = 20;
+  private readonly maxOptions = 2000;
   private readonly fb = inject(UntypedFormBuilder);
 
   protected warningSelectionMandatory = false;
@@ -109,6 +97,7 @@ export class LocationSelectorComponent /* implements OnInit*/ {
   });
 
   private readonly inputControlValue = toSignal(this.locationInputControl.valueChanges);
+
   protected readonly filteredOptions = computed(() => {
     const options = this.options();
     const value = this.inputControlValue();
@@ -120,6 +109,15 @@ export class LocationSelectorComponent /* implements OnInit*/ {
     }
     return options.slice(0, this.maxOptions);
   });
+
+  selectionChanged(value) {
+    console.log('selection changed', value);
+    this.selection.emit(value.path + ':' + value.name);
+  }
+
+  inputChanged(value) {
+    console.log('input changed', value);
+  }
 
   select(): void {
     if (this.locationInputControl.value) {
