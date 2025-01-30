@@ -9,11 +9,6 @@ export const appRoutes: Routes = [
       ),
   },
   {
-    path: 'tryout-tabs',
-    loadComponent: () =>
-      import('./tryout/tabs/tryout-tabs-page.component').then((m) => m.TryoutTabsPageComponent),
-  },
-  {
     path: 'tryout-canvas',
     loadComponent: () =>
       import('./tryout/canvas/tryout-canvas-page.component').then(
