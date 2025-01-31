@@ -1,82 +1,73 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
+import { MonitorGroupsPageGroup } from '@api/common/monitor';
 import { MonitorGroupDetail } from '@api/common/monitor';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzTableModule } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'kpn-monitor-group-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <table mat-table [dataSource]="groups()">
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.table.name">Name</th>
-        <td mat-cell *matCellDef="let group">
-          <a [routerLink]="groupLink(group)" [state]="group">
-            {{ group.name }}
-          </a>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="description">
-        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.table.description">
-          Description
-        </th>
-        <td mat-cell *matCellDef="let group">
-          {{ group.description }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="routeCount">
-        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.table.routes">Routes</th>
-        <td mat-cell *matCellDef="let group">
-          {{ group.routeCount }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef i18n="@@monitor.group.table.actions">Actions</th>
-        <td mat-cell *matCellDef="let group" class="kpn-action-cell">
-          <a
-            mat-icon-button
-            [routerLink]="updateLink(group)"
-            title="Update"
-            i18n-title="@@action.update"
-            class="kpn-action-button kpn-link"
-          >
-            <mat-icon svgIcon="pencil" />
-          </a>
-          <button
-            mat-icon-button
-            [routerLink]="deleteLink(group)"
-            title="delete"
-            i18n-title="@@action.delete"
-            class="kpn-action-button kpn-warning"
-          >
-            <mat-icon svgIcon="garbage" />
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns(admin())"></tr>
-      <tr mat-row *matRowDef="let group; columns: displayedColumns(admin())"></tr>
-    </table>
+    <nz-table nzBordered [nzFrontPagination]="false" #groupTable [nzData]="groups()" nzSize="small">
+      <thead>
+        <tr>
+          <th i18n="@@monitor.group.table.name">Name</th>
+          <th i18n="@@monitor.group.table.description">Description</th>
+          <th i18n="@@monitor.group.table.routes">Routes</th>
+          @if (admin()) {
+            <th i18n="@@monitor.group.table.actions">Actions</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (group of groupTable.data; track group) {
+          <tr>
+            <td>
+              <a [routerLink]="groupLink(group)" [state]="group">
+                {{ group.name }}
+              </a>
+            </td>
+            <td>
+              {{ group.description }}
+            </td>
+            <td>
+              {{ group.routeCount }}
+            </td>
+            @if (admin()) {
+              <td>
+                <a
+                  [routerLink]="updateLink(group)"
+                  title="Update"
+                  i18n-title="@@action.update"
+                  class="kpn-action-button kpn-link"
+                >
+                  <nz-icon nzType="edit" />
+                </a>
+                <nz-divider nzType="vertical"></nz-divider>
+                <a
+                  [routerLink]="deleteLink(group)"
+                  title="delete"
+                  i18n-title="@@action.delete"
+                  class="kpn-action-button kpn-warning"
+                >
+                  <nz-icon nzType="delete" />
+                </a>
+              </td>
+            }
+          </tr>
+        }
+      </tbody>
+    </nz-table>
   `,
-  imports: [MatButtonModule, MatIconModule, MatTableModule, RouterLink],
+  imports: [RouterLink, NzTableModule, NzIconDirective, NzDividerComponent],
 })
 export class MonitorGroupTableComponent {
   admin = input.required<boolean>();
-  groups = input.required<MonitorGroupDetail[]>();
-
-  displayedColumns(admin: boolean) {
-    if (admin) {
-      return ['name', 'description', 'routeCount', 'actions'];
-    }
-    return ['name', 'description', 'routeCount'];
-  }
+  groups = input.required<MonitorGroupsPageGroup[]>();
 
   groupLink(group: MonitorGroupDetail): string {
     return `/monitor/groups/${group.name}`;

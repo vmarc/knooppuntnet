@@ -1,1 +1,1 @@
-export type MapSubject = 'plan' | 'explore' | 'node' | 'route' | 'network';
+export type MapSubject = 'plan' | 'explore' | 'monitor' | 'node' | 'route' | 'network';

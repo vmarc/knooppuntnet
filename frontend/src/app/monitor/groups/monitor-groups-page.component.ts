@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
 import { MonitorGroupTableComponent } from './monitor-group-table.component';
@@ -43,9 +44,9 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
             }
 
             @if (service.admin()) {
-              <div class="kpn-spacer-above">
+              <div>
                 <button
-                  mat-stroked-button
+                  nz-button
                   routerLink="/monitor/admin/groups/add"
                   i18n="@@monitor.groups.action.add"
                 >
@@ -79,6 +80,7 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
     RouterLink,
     PageHeaderComponent,
     PageComponent,
+    NzButtonComponent,
   ],
 })
 export class MonitorGroupsPageComponent {

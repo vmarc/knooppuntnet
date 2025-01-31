@@ -1,8 +1,10 @@
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { FormsModule } from '@angular/forms';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { NzSwitchComponent } from 'ng-zorro-antd/switch';
 import { MonitorService } from '../monitor.service';
 
 @Component({
@@ -10,31 +12,31 @@ import { MonitorService } from '../monitor.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="toggle">
-      <mat-slide-toggle
-        id="admin-toggle"
-        [disabled]="service.adminRole() === false"
-        [checked]="service.admin()"
-        (change)="adminChanged($event)"
-        i18n="@@monitor.admin-toggle"
+      <nz-switch
+        [ngModel]="admin()"
+        (ngModelChange)="adminChanged($event)"
+        [nzDisabled]="adminDisabled()"
       >
-        Admin
-      </mat-slide-toggle>
+      </nz-switch>
+      <span i18n="@@monitor.admin-toggle">Admin</span>
     </div>
   `,
   styles: `
     .toggle {
-      padding-top: 0.5em;
-      padding-bottom: 0.5em;
       display: flex;
       justify-content: flex-end;
+      gap: 0.5em;
+      align-items: center;
     }
   `,
-  imports: [MatSlideToggleModule],
+  imports: [MatSlideToggleModule, NzSwitchComponent, FormsModule],
 })
 export class MonitorAdminToggleComponent {
-  readonly service = inject(MonitorService);
+  private readonly service = inject(MonitorService);
+  readonly admin = this.service.admin;
+  readonly adminDisabled = computed(() => this.service.adminRole() === false);
 
-  adminChanged(event: MatSlideToggleChange): void {
-    this.service.setAdmin(event.checked);
+  adminChanged(checked: boolean): void {
+    this.service.setAdmin(checked);
   }
 }
