@@ -49,7 +49,7 @@ export class EditAndPaginatorComponent {
 
   pageSizeChange = output<number>();
   pageIndexChange = output<number>();
-  edit = new EventEmitter<void>();
+  edit = output<void>();
 
   readonly paginator = viewChild(PaginatorComponent);
 
