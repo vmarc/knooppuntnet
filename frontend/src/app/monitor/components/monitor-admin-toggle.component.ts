@@ -13,6 +13,7 @@ import { MonitorService } from '../monitor.service';
   template: `
     <div class="toggle">
       <nz-switch
+        nzSize="small"
         [ngModel]="admin()"
         (ngModelChange)="adminChanged($event)"
         [nzDisabled]="adminDisabled()"
@@ -27,6 +28,10 @@ import { MonitorService } from '../monitor.service';
       justify-content: flex-end;
       gap: 0.5em;
       align-items: center;
+    }
+
+    .toggle nz-switch {
+      line-height: 16px;
     }
   `,
   imports: [MatSlideToggleModule, NzSwitchComponent, FormsModule],
