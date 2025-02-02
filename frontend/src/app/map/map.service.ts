@@ -32,14 +32,15 @@ import { SharedStateService } from '../shared/core/shared/shared-state.service';
 import { RouterService } from '../shared/services/router.service';
 import { FocusElements } from './focus-elements';
 import { Layers } from './layers/layers';
+import { MapInteractionsService } from './map-interactions.service';
 import { MapRoutePopupAction } from './popup/map-route-popup-handler';
-import { MapRoutePopupInteraction } from './popup/map-route-popup-interaction';
 
 @Injectable()
 export class MapService {
   private readonly state = inject(State);
   private _map: Map;
 
+  private readonly mapInteractionsService = inject(MapInteractionsService);
   private readonly plannerStateService = inject(PlannerStateService);
   private readonly plannerService = inject(PlannerService);
   private readonly plannerMapService = inject(PlannerMapService);
@@ -164,10 +165,7 @@ export class MapService {
     this.updateResolution();
     this.updateCenter();
 
-    const interaction = new MapRoutePopupInteraction(this.state);
-
-    this._map.addInteraction(interaction);
-
+    this.mapInteractionsService.init(this._map);
     this.plannerMapService.init(this._map);
   }
 

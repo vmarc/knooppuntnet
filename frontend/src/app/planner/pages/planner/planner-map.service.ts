@@ -10,7 +10,6 @@ import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
 import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
 import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
-import { PlannerMapLayerService } from './planner-map-layer.service';
 import { PlannerService } from './planner.service';
 
 @Injectable({
@@ -22,10 +21,8 @@ export class PlannerMapService {
   private readonly poiService = inject(OldPoiService);
   private readonly mapZoomService = inject(MapZoomService);
   private readonly sharedStateService = inject(SharedStateService);
-  private readonly plannerMapLayerService = inject(PlannerMapLayerService);
 
-  private overlay: Overlay;
-  private readonly interaction = new PlannerInteraction(this.plannerService.engine);
+  readonly interaction = new PlannerInteraction(this.plannerService.engine).interaction;
 
   private parameters = computed(() => {
     const selectedRouteId = '';
@@ -83,7 +80,6 @@ export class PlannerMapService {
     // this.map.getView().setCenter([position.x, position.y]);
     //
     this.plannerService.init(map);
-    this.interaction.addToMap(map);
 
     const view = map.getView();
 

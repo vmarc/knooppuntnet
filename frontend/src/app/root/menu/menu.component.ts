@@ -1,6 +1,9 @@
+import { inject } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { State } from '@app/state';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { MenuTestActionsComponent } from './menu-test-actions.component';
@@ -66,4 +69,10 @@ import { MenuTestLinksComponent } from './menu-test-links.component';
     RouterLink,
   ],
 })
-export class MenuComponent {}
+export class MenuComponent implements OnInit {
+  private readonly state = inject(State);
+
+  ngOnInit(): void {
+    this.state.map.updateSubject('explore');
+  }
+}

@@ -32,8 +32,10 @@ import * as Sentry from '@sentry/angular';
 import { AngularSplitModule } from 'angular-split';
 import { MarkdownModule } from 'ngx-markdown';
 import { appRoutes } from './app-routes';
+import { MapInteractionsService } from './map/map-interactions.service';
 import { MapService } from './map/map.service';
 import { PoiService } from './map/poi/poi.service';
+import { MapRoutePopupInteractionService } from './map/popup/map-route-popup-interaction.service';
 import { PlannerPopupService } from './planner/domain/context/planner-popup-service';
 import { PlannerMapLayerService } from './planner/pages/planner/planner-map-layer.service';
 import { PlannerStateService } from './planner/pages/planner/planner-state.service';
@@ -93,6 +95,8 @@ export const appConfig: ApplicationConfig = {
     RouterService,
     PlannerPopupService,
     PlannerMapLayerService,
+    MapInteractionsService,
+    MapRoutePopupInteractionService,
     MatDialog,
     MatIconRegistry,
     OldPoiNameService,

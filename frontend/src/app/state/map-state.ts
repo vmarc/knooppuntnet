@@ -6,12 +6,15 @@ import { Coordinate } from 'ol/coordinate';
 import { ExploreMode } from '../explore/explore-mode';
 import { FocusElements } from '../map/focus-elements';
 import { PoiStyleMap } from '../map/style/poi-style-map';
+import { MapSubject } from '../ol/services/map-subject';
 import { MapStateLayers } from './map-state-layers';
 import { MapStateScopes } from './map-state-scopes';
 import { MapStyleOptions } from './map-style-options';
 import { MapRoutePopupState } from './map-route-popup-state';
 
 export class MapState {
+  private readonly _subject = signal<MapSubject>('explore');
+
   private readonly _viewZoom = signal<number>(15);
   private readonly _center = signal<Coordinate | null>(null);
   private readonly _routePopupState = signal<MapRoutePopupState>(
@@ -29,6 +32,7 @@ export class MapState {
   readonly layers: MapStateLayers;
   readonly scopes: MapStateScopes;
 
+  readonly subject = this._subject.asReadonly();
   readonly zoom = computed(() => Math.floor(this._viewZoom()));
   readonly center = this._center.asReadonly();
   readonly routePopupState = this._routePopupState.asReadonly();
@@ -59,6 +63,10 @@ export class MapState {
   constructor() {
     this.layers = new MapStateLayers();
     this.scopes = new MapStateScopes();
+  }
+
+  updateSubject(value: MapSubject): void {
+    this._subject.set(value);
   }
 
   updateViewZoom(value: number): void {

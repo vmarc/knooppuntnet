@@ -1,9 +1,12 @@
+import { OnInit } from '@angular/core';
+import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
+import { State } from '@app/state';
 import { PlannerMapService } from '../../planner/pages/planner/planner-map.service';
 import { PlannerSidebarComponent } from '../../planner/pages/planner/sidebar/planner-sidebar.component';
 
@@ -24,4 +27,10 @@ import { PlannerSidebarComponent } from '../../planner/pages/planner/sidebar/pla
   ],
   imports: [MatIcon, MatIconButton, RouterLink, PlannerSidebarComponent],
 })
-export class PlannerComponent {}
+export class PlannerComponent implements OnInit {
+  private readonly state = inject(State);
+
+  ngOnInit(): void {
+    this.state.map.updateSubject('plan');
+  }
+}

@@ -1,3 +1,4 @@
+import { OnInit } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
@@ -115,7 +116,7 @@ import { ExploreRoutesComponent } from './explore-routes.component';
     SearchComponent,
   ],
 })
-export class ExploreComponent {
+export class ExploreComponent implements OnInit {
   private readonly apiService = inject(ApiService);
   private readonly mapService = inject(MapService);
   private readonly state = inject(State);
@@ -127,6 +128,10 @@ export class ExploreComponent {
   });
 
   readonly options = ['Map', 'Route', 'Network'];
+
+  ngOnInit(): void {
+    this.state.map.updateSubject('explore');
+  }
 
   handleValueChange(e: string | number): void {
     console.log(e);

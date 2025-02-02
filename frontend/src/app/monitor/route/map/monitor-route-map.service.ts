@@ -279,7 +279,7 @@ export class MonitorRouteMapService extends OpenlayersMapService {
     this.setQueryParams(queryParams);
   }
 
-  private oldRrelationIdString = '';
+  private oldRelationIdString = '';
 
   private buildInteraction(): Interaction {
     return new Interaction({
@@ -311,8 +311,8 @@ export class MonitorRouteMapService extends OpenlayersMapService {
               });
             uniqueRelationIds.sort((a, b) => a - b);
             const relationIdString = JSON.stringify(uniqueRelationIds);
-            if (this.oldRrelationIdString !== relationIdString) {
-              this.oldRrelationIdString = relationIdString;
+            if (this.oldRelationIdString !== relationIdString) {
+              this.oldRelationIdString = relationIdString;
               console.log('relationIds=' + relationIdString);
             }
           }

@@ -12,23 +12,12 @@ export class PlannerInteraction {
   private eventDebugLogCount = 0;
   private readonly eventDebugLogEnabled = false;
 
-  private readonly interaction: Interaction;
+  readonly interaction: Interaction;
 
   private ctrl = false;
 
   constructor(private engine: PlannerEngine) {
     this.interaction = this.buildInteraction();
-  }
-
-  addToMap(map: Map) {
-    /*
-      Note that the interaction is added at the end of the collection of interactions that the map
-      already has.  When processing an event, the interactions are processing in reversed order of
-      the interaction collection.  This means that our interaction is processed first, and we have
-      to be careful with the decision to further propagate the event to the other interactions or
-      not.
-     */
-    map.addInteraction(this.interaction);
   }
 
   private buildInteraction(): Interaction {
