@@ -7,6 +7,8 @@ import { RouterLink } from '@angular/router';
 import { IconButtonComponent } from '@app/components/shared/icon';
 import { IconButtonsComponent } from '@app/components/shared/icon';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
@@ -18,13 +20,17 @@ import { AnalysisStrategyService } from '../../strategy';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
           <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-        </li>
-        <li i18n="@@route-type.hiking">Hiking</li>
-      </ul>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@route-type.hiking">Hiking</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <kpn-page-header>
         <span class="header-route-type-icon">
@@ -75,6 +81,8 @@ import { AnalysisStrategyService } from '../../strategy';
     IconButtonComponent,
     IconButtonsComponent,
     MatIconModule,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     NzIconDirective,
     PageComponent,
     PageHeaderComponent,

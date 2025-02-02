@@ -19,11 +19,9 @@ import { IconHappyComponent } from '@app/components/shared/icon';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { SubsetSidebarComponent } from '../subset-sidebar.component';
 import { SubsetFactsPageService } from './subset-facts-page.service';
 
 @Component({
@@ -31,9 +29,6 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <kpn-subset-sidebar />
-      <nz-divider />
-
       <kpn-subset-page-header-block
         pageName="facts"
         pageTitle="Facts"
@@ -83,12 +78,10 @@ import { SubsetFactsPageService } from './subset-facts-page.service';
     IconHappyComponent,
     ItemComponent,
     ItemsComponent,
-    NzDividerComponent,
     PageComponent,
     RouterLink,
     SituationOnComponent,
     SubsetPageHeaderBlockComponent,
-    SubsetSidebarComponent,
   ],
 })
 export class SubsetFactsPageComponent implements OnInit {

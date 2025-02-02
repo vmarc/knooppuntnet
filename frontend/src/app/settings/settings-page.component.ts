@@ -5,6 +5,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { State } from '@app/state';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../shared/components/shared/page/page.component';
 
 @Component({
@@ -12,10 +14,14 @@ import { PageComponent } from '../shared/components/shared/page/page.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li i18n="@@breadcrumb.settings">Settings</li>
-      </ul>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.settings">Settings</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <kpn-page-header i18n="@@settings-page.title">Settings</kpn-page-header>
 
@@ -50,7 +56,14 @@ import { PageComponent } from '../shared/components/shared/page/page.component';
       font-style: italic;
     }
   `,
-  imports: [MatSlideToggleModule, PageHeaderComponent, RouterLink, PageComponent],
+  imports: [
+    MatSlideToggleModule,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
+    PageComponent,
+    PageHeaderComponent,
+    RouterLink,
+  ],
 })
 export class SettingsPageComponent {
   private readonly state = inject(State);

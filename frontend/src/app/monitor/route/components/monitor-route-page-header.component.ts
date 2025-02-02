@@ -11,6 +11,8 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-relation-menu-option.component';
 
@@ -18,14 +20,20 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
   selector: 'kpn-monitor-route-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li><a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a></li>
-      <li>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
         <a [routerLink]="groupLink()">{{ groupName() }}</a>
-      </li>
-      <li i18n="@@breadcrumb.monitor.route">Route</li>
-    </ul>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <span i18n="@@breadcrumb.monitor.route">Route</span>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
 
     <kpn-page-header [pageTitle]="pageTitle()">
       {{ routeName() + ': ' + routeDescription() }}
@@ -116,10 +124,12 @@ import { MonitorRouteSubRelationMenuOptionComponent } from './monitor-route-sub-
     MatMenuModule,
     MonitorRouteSubRelationMenuOptionComponent,
     NgClass,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
+    PageHeaderComponent,
     PageMenuComponent,
     PageMenuOptionComponent,
     RouterLink,
-    PageHeaderComponent,
   ],
 })
 export class MonitorRoutePageHeaderComponent {

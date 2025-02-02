@@ -10,7 +10,6 @@ import { RouterLink } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
-import { BackButtonComponent } from '@app/components/shared';
 import { DividerComponent } from '@app/components/shared';
 import { PageWidthService } from '@app/components/shared';
 import { DataComponent } from '@app/components/shared/data';
@@ -18,6 +17,8 @@ import { PageButtonsComponent } from '@app/components/shared/page';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
@@ -35,7 +36,6 @@ import { RouteDetailsPageService } from './route-details-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page-buttons>
-      <kpn-back-button />
       <button mat-stroked-button routerLink="changes">
         <mat-icon>list</mat-icon>
         <mat-label>segments (3)</mat-label>
@@ -46,6 +46,17 @@ import { RouteDetailsPageService } from './route-details-page.service';
       </button>
     </kpn-page-buttons>
     <kpn-page>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.route">Route</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
       <kpn-route-page-header pageName="details" />
 
       @if (service.response(); as response) {
@@ -134,26 +145,27 @@ import { RouteDetailsPageService } from './route-details-page.service';
   styleUrl: '../../../shared/components/shared/data/data.component.scss',
   providers: [RouteDetailsPageService, RouterService],
   imports: [
-    BackButtonComponent,
     DataComponent,
     DividerComponent,
     FactsComponent,
     MatButton,
     MatIcon,
     MatLabel,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     PageButtonsComponent,
     PageComponent,
     RouteEndNodesComponent,
     RouteMembersComponent,
     RouteNetworkReferencesComponent,
     RoutePageHeaderComponent,
+    RouteParentsComponent,
     RouteRedundantNodesComponent,
     RouteStartNodesComponent,
     RouteSummaryComponent,
     RouterLink,
     TagTableComponent,
     TimestampComponent,
-    RouteParentsComponent,
   ],
 })
 export class RouteDetailsPageComponent implements OnInit {

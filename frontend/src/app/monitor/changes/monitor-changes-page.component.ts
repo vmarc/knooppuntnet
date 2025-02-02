@@ -6,6 +6,8 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PaginatorComponent } from '@app/components/shared/paginator';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { MonitorChangesComponent } from '../components/monitor-changes.component';
 import { MonitorChangesPageService } from './monitor-changes-page.service';
@@ -15,13 +17,17 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
           <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-        </li>
-        <li i18n="@@breadcrumb.monitor.changes">Changes</li>
-      </ul>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.monitor.changes">Changes</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <h1 i18n="@@monitor.changes.title">Monitor</h1>
 
@@ -67,6 +73,8 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
     ErrorComponent,
     MatSlideToggleModule,
     MonitorChangesComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     PageComponent,
     PaginatorComponent,
     RouterLink,

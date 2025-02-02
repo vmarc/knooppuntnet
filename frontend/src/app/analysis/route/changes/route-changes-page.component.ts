@@ -9,6 +9,8 @@ import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { ChangeOption } from '@app/kpn/common';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageFilterComponent } from '../../../shared/components/shared/page/page-filter.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
@@ -21,13 +23,17 @@ import { RouteChangesPageService } from './route-changes-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page-filter>
-      <ul class="breadcrumb">
-        <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
           <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
-        </li>
-        <li i18n="@@breadcrumb.route-changes">Route changes</li>
-      </ul>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.route-changes">Route changes</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <kpn-route-page-header pageName="changes" />
 
@@ -112,16 +118,18 @@ import { RouteChangesPageService } from './route-changes-page.service';
   `,
   providers: [RouteChangesPageService, RouterService],
   imports: [
+    ChangeFilterComponent,
     ChangesComponent,
     ItemComponent,
     ItemsComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
+    PageFilterComponent,
     RouteChangeComponent,
     RoutePageHeaderComponent,
     RouterLink,
     SituationOnComponent,
     UserLinkLoginComponent,
-    ChangeFilterComponent,
-    PageFilterComponent,
   ],
 })
 export class RouteChangesPageComponent implements OnInit {

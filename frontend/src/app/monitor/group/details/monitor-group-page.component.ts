@@ -6,6 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
 import { MonitorTranslations } from '../../components/monitor-translations';
@@ -18,13 +20,18 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
           <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-        </li>
-        <li i18n="@@breadcrumb.monitor.group">Group</li>
-      </ul>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.monitor.group">Group</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
+
       @if (service.state(); as state) {
         <kpn-page-header [pageTitle]="pageTitle()">
           <span class="kpn-label">{{ state.groupName }}</span>
@@ -72,6 +79,8 @@ import { MonitorGroupRouteTableComponent } from './monitor-group-route-table.com
     MonitorAdminToggleComponent,
     MonitorGroupPageMenuComponent,
     MonitorGroupRouteTableComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,

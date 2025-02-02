@@ -9,6 +9,8 @@ import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { Translations } from '@app/i18n';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteDeletePageService } from './monitor-route-delete-page.service';
@@ -19,16 +21,20 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
   template: `
     @if (service.state(); as state) {
       <kpn-page>
-        <ul class="breadcrumb">
-          <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-          <li>
+        <nz-breadcrumb>
+          <nz-breadcrumb-item>
+            <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+          </nz-breadcrumb-item>
+          <nz-breadcrumb-item>
             <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-          </li>
-          <li>
+          </nz-breadcrumb-item>
+          <nz-breadcrumb-item>
             <a [routerLink]="state.groupLink">{{ state.groupName }}</a>
-          </li>
-          <li i18n="@@breadcrumb.monitor.route">Route</li>
-        </ul>
+          </nz-breadcrumb-item>
+          <nz-breadcrumb-item>
+            <span i18n="@@breadcrumb.monitor.route">Route</span>
+          </nz-breadcrumb-item>
+        </nz-breadcrumb>
 
         <kpn-page-header [pageTitle]="pageTitle()">
           <span class="kpn-label">{{ state.routeName }}</span>
@@ -62,6 +68,8 @@ import { MonitorRouteDeletePageService } from './monitor-route-delete-page.servi
     ErrorComponent,
     MatButtonModule,
     MatIconModule,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,

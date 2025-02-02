@@ -5,27 +5,31 @@ import { RouterLink } from '@angular/router';
 import { Subset } from '@api/custom';
 import { CountryNameComponent } from '@app/components/shared';
 import { RouteTypeNameComponent } from '@app/components/shared';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 
 @Component({
   selector: 'kpn-subset-page-breadcrumb',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-      <li>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
         <a routerLink="/analysis" i18n="@@breadcrumb.analysis">Analysis</a>
-      </li>
-      <li>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
         <a [routerLink]="routeTypeLink()">
           <kpn-route-type-name [routeType]="subset().routeType" />
         </a>
-      </li>
-      <li>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
         <a [routerLink]="countryLink()">
           <kpn-country-name [country]="subset().country" />
         </a>
-      </li>
-      <li>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
         @switch (pageName()) {
           @case ('networks') {
             <span i18n="@@subset-page.menu.networks">Networks</span>
@@ -46,10 +50,16 @@ import { RouteTypeNameComponent } from '@app/components/shared';
             <span i18n="@@subset-page.menu.changes">Changes</span>
           }
         }
-      </li>
-    </ul>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
   `,
-  imports: [RouterLink, RouteTypeNameComponent, CountryNameComponent],
+  imports: [
+    CountryNameComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
+    RouteTypeNameComponent,
+    RouterLink,
+  ],
 })
 export class SubsetPageBreadcrumbComponent {
   subset = input.required<Subset>();

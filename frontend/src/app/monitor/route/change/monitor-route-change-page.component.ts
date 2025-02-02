@@ -10,6 +10,8 @@ import { IconInvestigateComponent } from '@app/components/shared/icon';
 import { IconHappyComponent } from '@app/components/shared/icon';
 import { OsmLinkChangeSetComponent } from '@app/components/shared/link';
 import { TimestampComponent } from '@app/components/shared/timestamp';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorRouteChangeMapComponent } from './monitor-route-change-map.component';
 import { MonitorRouteChangePageService } from './monitor-route-change-page.service';
@@ -22,11 +24,17 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li><a routerLink="/monitor/routes">Monitor</a></li>
-        <li>Route</li>
-      </ul>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <a routerLink="/monitor/routes">Monitor</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span>Route</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       @if (service.state(); as state) {
         <h1 class="title">
@@ -245,6 +253,8 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
     IconInvestigateComponent,
     MatIconModule,
     MonitorRouteChangeMapComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     OsmLinkChangeSetComponent,
     PageComponent,
     RouterLink,

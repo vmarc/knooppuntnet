@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { NzTableComponent } from 'ng-zorro-antd/table';
 import { InterpretedTags } from './interpreted-tags';
 import { TagValueComponent } from './tag-value.component';
 
@@ -11,7 +13,13 @@ import { TagValueComponent } from './tag-value.component';
     @if (tags().isEmpty()) {
       <ng-container i18n="@@tags.no-tags" class="no-tags">No tags</ng-container>
     } @else {
-      <table title="tags()" class="kpn-table">
+      <nz-table
+        nzBordered
+        [nzFrontPagination]="false"
+        title="tags()"
+        nzSize="small"
+        [nzData]="['']"
+      >
         <thead>
           <tr>
             <th i18n="@@tags.key">Key</th>
@@ -41,7 +49,7 @@ import { TagValueComponent } from './tag-value.component';
             </tr>
           }
         </tbody>
-      </table>
+      </nz-table>
     }
   `,
   styles: `
@@ -50,7 +58,7 @@ import { TagValueComponent } from './tag-value.component';
       padding-bottom: 10px;
     }
   `,
-  imports: [TagValueComponent],
+  imports: [TagValueComponent, NzTableModule],
 })
 export class TagTableComponent {
   tags = input.required<InterpretedTags>();

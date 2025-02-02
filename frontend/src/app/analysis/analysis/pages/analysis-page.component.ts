@@ -7,6 +7,8 @@ import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { IconButtonComponent } from '@app/components/shared/icon';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 
@@ -15,10 +17,14 @@ import { RouterService } from '../../../shared/services/router.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li i18n="@@breadcrumb.analysis">Analysis</li>
-      </ul>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.analysis">Analysis</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <kpn-page-header i18n="@@analysis-page.title">Analysis</kpn-page-header>
 
@@ -89,6 +95,8 @@ import { RouterService } from '../../../shared/services/router.service';
   imports: [
     AnalysisStrategyComponent,
     IconButtonComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     PageComponent,
     PageHeaderComponent,
     RouterLink,

@@ -2,9 +2,7 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
@@ -16,8 +14,6 @@ import { NetworkFactsPageService } from './network-facts-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <kpn-analysis-strategy />
-      <nz-divider />
       <kpn-network-page-header
         pageName="facts"
         pageTitle="Facts"
@@ -35,13 +31,7 @@ import { NetworkFactsPageService } from './network-facts-page.service';
     </kpn-page>
   `,
   providers: [NetworkFactsPageService, AnalysisStrategyService, RouterService],
-  imports: [
-    AnalysisStrategyComponent,
-    NetworkFactsComponent,
-    NetworkPageHeaderComponent,
-    NzDividerComponent,
-    PageComponent,
-  ],
+  imports: [NetworkFactsComponent, NetworkPageHeaderComponent, PageComponent],
 })
 export class NetworkFactsPageComponent implements OnInit {
   protected readonly service = inject(NetworkFactsPageService);

@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
 import { AnalysisDelayChartComponent } from './charts/analysis-delay-chart.component';
@@ -22,11 +24,17 @@ import { StatusPageMenuComponent } from './status-page-menu.component';
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
-        <li i18n="@@breadcrumb.replication">Replication</li>
-      </ul>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <a routerLink="/status" i18n="@@breadcrumb.status">Status</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.replication">Replication</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <h1>Replication</h1>
 
@@ -82,6 +90,8 @@ import { StatusPageMenuComponent } from './status-page-menu.component';
   imports: [
     AnalysisDelayChartComponent,
     DelayChartComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     PageComponent,
     ReplicationBytesChartComponent,
     ReplicationChangesetsChartComponent,

@@ -6,6 +6,8 @@ import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { ErrorComponent } from '@app/components/shared/error';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { MonitorAdminToggleComponent } from '../components/monitor-admin-toggle.component';
@@ -17,10 +19,14 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li i18n="@@breadcrumb.monitor">Monitor</li>
-      </ul>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.monitor">Monitor</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <kpn-page-header>
         <ng-container i18n="@@monitor.groups.title">Monitor</ng-container>
@@ -77,10 +83,12 @@ import { MonitorGroupsPageService } from './monitor-groups-page.service';
     MatButtonModule,
     MonitorAdminToggleComponent,
     MonitorGroupTableComponent,
-    RouterLink,
-    PageHeaderComponent,
-    PageComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     NzButtonComponent,
+    PageComponent,
+    PageHeaderComponent,
+    RouterLink,
   ],
 })
 export class MonitorGroupsPageComponent {

@@ -6,6 +6,8 @@ import { RouterLink } from '@angular/router';
 import { NavService } from '@app/components/shared';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { PaginatorComponent } from '@app/components/shared/paginator';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
 import { MonitorGroupPageMenuComponent } from '../components/monitor-group-page-menu.component';
@@ -19,13 +21,17 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
     <!-- eslint-disable @angular-eslint/template/i18n -->
 
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
           <a routerLink="/monitor" i18n="@@breadcrumb.monitor">Monitor</a>
-        </li>
-        <li>Group changes</li>
-      </ul>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span>Group changes</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       @if (service.changesState(); as state) {
         <kpn-page-header>
@@ -72,6 +78,8 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
     MatSlideToggleModule,
     MonitorChangesComponent,
     MonitorGroupPageMenuComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     PageComponent,
     PageHeaderComponent,
     PaginatorComponent,

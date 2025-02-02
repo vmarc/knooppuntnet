@@ -3,6 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
 import { DataSizeChartComponent } from './charts/system/data-size-chart.component';
@@ -22,11 +24,17 @@ import { SystemStatusPageService } from './system-status-page.service';
     <!-- English only-->
     <!-- eslint-disable @angular-eslint/template/i18n -->
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a routerLink="/" i18n="@@breadcrumb.home">Home</a></li>
-        <li><a routerLink="/status" i18n="@@breadcrumb.status">Status</a></li>
-        <li i18n="@@breadcrumb.system">System</li>
-      </ul>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a routerLink="/" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <a routerLink="/status" i18n="@@breadcrumb.status">Status</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.system">System</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <h1>System</h1>
 
@@ -108,6 +116,8 @@ import { SystemStatusPageService } from './system-status-page.service';
     DiskSpaceOverpassChartComponent,
     DiskSpaceUsedChartComponent,
     DocsChartComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
     PageComponent,
     RouterLink,
     StatusPageMenuComponent,

@@ -7,6 +7,8 @@ import { RouterLink } from '@angular/router';
 import { PageMenuOptionComponent } from '@app/components/shared/menu';
 import { PageMenuComponent } from '@app/components/shared/menu';
 import { PageHeaderComponent } from '@app/components/shared/page';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NetworkService } from '../network.service';
 
@@ -14,13 +16,17 @@ import { NetworkService } from '../network.service';
   selector: 'kpn-network-page-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ul class="breadcrumb">
-      <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
-      <li>
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
         <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
-      </li>
-      <li i18n="@@breadcrumb.network">Network</li>
-    </ul>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <span i18n="@@breadcrumb.network">Network</span>
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
 
     @if (service.networkId(); as networkId) {
       @if (service.summary(); as summary) {
@@ -96,6 +102,8 @@ import { NetworkService } from '../network.service';
     PageMenuComponent,
     PageMenuOptionComponent,
     RouterLink,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
   ],
 })
 export class NetworkPageHeaderComponent {

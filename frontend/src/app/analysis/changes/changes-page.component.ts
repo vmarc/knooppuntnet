@@ -12,6 +12,8 @@ import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { PageHeaderComponent } from '@app/components/shared/page';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
@@ -26,13 +28,17 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
     <kpn-page>
       <kpn-changes-sidebar />
       <nz-divider />
-      <ul class="breadcrumb">
-        <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
           <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
-        </li>
-        <li i18n="@@breadcrumb.changes">Changes</li>
-      </ul>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.changes">Changes</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <kpn-page-header subject="changes-page" i18n="@@changes-page.title">
         Changes
@@ -93,12 +99,14 @@ import { ChangesSidebarComponent } from './components/changes-sidebar.component'
     ErrorComponent,
     ItemComponent,
     ItemsComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
+    NzDividerComponent,
+    PageComponent,
     PageHeaderComponent,
     RouterLink,
     SituationOnComponent,
     UserLinkLoginComponent,
-    PageComponent,
-    NzDividerComponent,
   ],
 })
 export class ChangesPageComponent implements OnInit {

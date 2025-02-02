@@ -2,9 +2,7 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
@@ -17,8 +15,6 @@ import { NetworkDetailsPageService } from './network-details-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <kpn-analysis-strategy />
-      <nz-divider />
       <kpn-network-page-header
         pageName="details"
         pageTitle="Details"
@@ -39,12 +35,10 @@ import { NetworkDetailsPageService } from './network-details-page.service';
   `,
   providers: [NetworkDetailsPageService, AnalysisStrategyService, RouterService],
   imports: [
-    AnalysisStrategyComponent,
     NetworkDetailsComponent,
-    NetworkPageHeaderComponent,
-    NzDividerComponent,
-    PageComponent,
     NetworkMapSidebarComponent,
+    NetworkPageHeaderComponent,
+    PageComponent,
   ],
 })
 export class NetworkDetailsPageComponent implements OnInit {

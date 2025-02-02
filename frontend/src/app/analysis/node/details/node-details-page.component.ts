@@ -11,6 +11,8 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { InterpretedTags } from '@app/components/shared/tags';
 import { TagTableComponent } from '@app/components/shared/tags';
 import { TimestampComponent } from '@app/components/shared/timestamp';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
@@ -27,13 +29,17 @@ import { NodeDetailsPageService } from './node-details-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
           <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
-        </li>
-        <li i18n="@@breadcrumb.node">Node</li>
-      </ul>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.node">Node</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <kpn-node-page-header pageName="details" />
 
@@ -139,6 +145,8 @@ import { NodeDetailsPageService } from './node-details-page.service';
     RouterLink,
     TagTableComponent,
     TimestampComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
   ],
 })
 export class NodeDetailsPageComponent implements OnInit {

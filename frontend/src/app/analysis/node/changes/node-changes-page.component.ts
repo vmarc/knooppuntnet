@@ -8,6 +8,8 @@ import { ErrorComponent } from '@app/components/shared/error';
 import { ItemComponent } from '@app/components/shared/items';
 import { ItemsComponent } from '@app/components/shared/items';
 import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
+import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
@@ -20,13 +22,17 @@ import { NodeChangesPageService } from './node-changes-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <ul class="breadcrumb">
-        <li><a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a></li>
-        <li>
+      <nz-breadcrumb>
+        <nz-breadcrumb-item>
+          <a [routerLink]="'/'" i18n="@@breadcrumb.home">Home</a>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
           <a [routerLink]="'/analysis'" i18n="@@breadcrumb.analysis">Analysis</a>
-        </li>
-        <li i18n="@@breadcrumb.node-changes">Node changes</li>
-      </ul>
+        </nz-breadcrumb-item>
+        <nz-breadcrumb-item>
+          <span i18n="@@breadcrumb.node-changes">Node changes</span>
+        </nz-breadcrumb-item>
+      </nz-breadcrumb>
 
       <kpn-node-page-header pageName="changes" />
 
@@ -118,6 +124,8 @@ import { NodeChangesPageService } from './node-changes-page.service';
     RouterLink,
     SituationOnComponent,
     UserLinkLoginComponent,
+    NzBreadCrumbComponent,
+    NzBreadCrumbItemComponent,
   ],
 })
 export class NodeChangesPageComponent implements OnInit {

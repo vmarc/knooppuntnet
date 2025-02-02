@@ -12,7 +12,6 @@ import { MarkdownModule } from 'ngx-markdown';
 import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
-import { SubsetSidebarComponent } from '../subset-sidebar.component';
 import { SubsetNetworkListComponent } from './components/subset-network-list.component';
 import { SubsetNetworkTableComponent } from './components/subset-network-table.component';
 import { SubsetNetworksPageService } from './subset-networks-page.service';
@@ -22,8 +21,6 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-page>
-      <kpn-subset-sidebar />
-      <nz-divider />
       <kpn-subset-page-header-block
         pageName="networks"
         pageTitle="Networks"
@@ -63,13 +60,11 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
     ErrorComponent,
     IntegerFormatPipe,
     MarkdownModule,
-    NzDividerComponent,
     PageComponent,
     SituationOnComponent,
     SubsetNetworkListComponent,
     SubsetNetworkTableComponent,
     SubsetPageHeaderBlockComponent,
-    SubsetSidebarComponent,
   ],
 })
 export class SubsetNetworksPageComponent implements OnInit {
