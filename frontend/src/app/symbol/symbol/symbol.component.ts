@@ -68,7 +68,7 @@ export class SymbolComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    const sb = new SymbolBuilder(this.canvas());
+    const sb = new SymbolBuilder(this.canvas().nativeElement, this.width(), this.height());
     if (this.grid()) {
       sb.drawGrid();
     }

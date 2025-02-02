@@ -1,4 +1,3 @@
-import { ElementRef } from '@angular/core';
 import { SymbolDescription } from './symbol-description';
 import { SymbolImage } from './symbol-image';
 import { SymbolShape } from './symbol-shape';
@@ -6,9 +5,17 @@ import { SymbolShape } from './symbol-shape';
 export class SymbolBuilder {
   private readonly context: CanvasRenderingContext2D;
 
-  constructor(canvas: ElementRef<HTMLCanvasElement>) {
-    this.context = canvas.nativeElement.getContext('2d') as CanvasRenderingContext2D;
-    this.context.scale(canvas.nativeElement.width, canvas.nativeElement.height);
+  constructor(canvas: HTMLCanvasElement, width: number, height: number) {
+    this.context = canvas.getContext('2d') as CanvasRenderingContext2D;
+
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    this.context = canvas.getContext('2d');
+    canvas.style.width = `${width}px`;
+    canvas.style.height = `${height}px`;
+
+    this.context.scale(width * dpr, height * dpr);
   }
 
   drawGrid(): void {
