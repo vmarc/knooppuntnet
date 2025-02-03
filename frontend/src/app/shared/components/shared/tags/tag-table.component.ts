@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NzTableModule } from 'ng-zorro-antd/table';
-import { NzTableComponent } from 'ng-zorro-antd/table';
 import { InterpretedTags } from './interpreted-tags';
 import { TagValueComponent } from './tag-value.component';
 

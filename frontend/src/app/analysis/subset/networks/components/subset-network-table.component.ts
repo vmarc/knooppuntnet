@@ -5,13 +5,20 @@ import { input } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
+import { NzTableModule } from 'ng-zorro-antd/table';
 import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 
 @Component({
   selector: 'kpn-subset-network-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <table class="kpn-table">
+    <nz-table
+      nzBordered
+      [nzFrontPagination]="false"
+      #networksTable
+      [nzData]="networks()"
+      nzSize="small"
+    >
       <thead>
         <tr>
           <th colSpan="2" rowSpan="2" i18n="@@subset-networks.table.network">Network</th>
@@ -30,7 +37,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       </thead>
 
       <tbody>
-        @for (network of networks(); track network) {
+        @for (network of networksTable.data; track network.id) {
           <tr>
             <td>
               <kpn-link-network-details
@@ -72,7 +79,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
           </tr>
         }
       </tbody>
-    </table>
+    </nz-table>
   `,
   styles: `
     .happy {
@@ -84,7 +91,13 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       text-align: right;
     }
   `,
-  imports: [IntegerFormatPipe, LinkNetworkDetailsComponent, NgClass, SubsetNetworkHappyComponent],
+  imports: [
+    IntegerFormatPipe,
+    LinkNetworkDetailsComponent,
+    NgClass,
+    NzTableModule,
+    SubsetNetworkHappyComponent,
+  ],
 })
 export class SubsetNetworkTableComponent {
   networks = input.required<NetworkAttributes[]>();

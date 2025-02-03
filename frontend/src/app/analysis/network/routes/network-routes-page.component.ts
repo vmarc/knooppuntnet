@@ -21,7 +21,7 @@ import { NetworkRoutesPageService } from './network-routes-page.service';
         i18n-pageTitle="@@network-routes.title"
       />
 
-      <kpn-filter [filterOptions]="service.filterOptions()" />
+      <!-- TODO      <kpn-filter [filterOptions]="service.filterOptions()" /> -->
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">

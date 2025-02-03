@@ -1,27 +1,25 @@
 import { viewChild } from '@angular/core';
-import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
-import { effect } from '@angular/core';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatTableModule } from '@angular/material/table';
 import { SurveyDateInfo } from '@api/common';
 import { TimeInfo } from '@api/common';
 import { NetworkRouteRow } from '@api/common/network';
 import { RouteType } from '@api/common';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditService } from '@app/components/shared';
-import { PageWidthService } from '@app/components/shared';
-import { Util } from '@app/components/shared';
 import { DayComponent } from '@app/components/shared/day';
 import { DayPipe } from '@app/components/shared/format';
 import { IntegerFormatPipe } from '@app/components/shared/format';
 import { LinkRouteComponent } from '@app/components/shared/link';
 import { SymbolComponent } from '@app/symbol';
+import { NzTrDirective } from 'ng-zorro-antd/table';
+import { NzTheadComponent } from 'ng-zorro-antd/table';
+import { NzThMeasureDirective } from 'ng-zorro-antd/table';
+import { NzTbodyComponent } from 'ng-zorro-antd/table';
+import { NzTableCellDirective } from 'ng-zorro-antd/table';
+import { NzTableComponent } from 'ng-zorro-antd/table';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
 import { NetworkRoutesPageService } from '../network-routes-page.service';
 import { NetworkRouteAnalysisComponent } from './network-route-analysis.component';
@@ -34,112 +32,77 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
       (edit)="edit()"
       i18n-editLinkTitle="@@network-routes.edit.title"
       editLinkTitle="Load the routes in this page in JOSM"
-      [pageSize]="service.pageSize()"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="service.totalRouteCount()"
+      [length]="totalRouteCount()"
       [showPageSizeSelection]="true"
       [showFirstLastButtons]="true"
     />
 
-    <table mat-table matSort [dataSource]="dataSource">
-      <ng-container matColumnDef="nr">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.nr">
-          Nr
-        </th>
-        <td mat-cell *matCellDef="let route; let i = index">
-          {{ rowNumber(i) }}
-        </td>
-      </ng-container>
+    <nz-table
+      nzBordered
+      #routeTable
+      [nzData]="routes()"
+      [nzPageSize]="pageSize()"
+      nzPaginationPosition="both"
+      nzShowSizeChanger="true"
+      [nzPageSizeOptions]="[10, 25, 50, 100, 250, 500, 1000]"
+      nzSize="small"
+    >
+      <thead>
+        <tr>
+          <th i18n="@@network-routes.table.nr">Nr</th>
+          <th i18n="@@network-routes.table.analysis">Analysis</th>
+          <th i18n="@@network-routes.table.symbol">Symbol</th>
+          <th i18n="@@network-routes.table.node">Route</th>
+          <th i18n="@@network-routes.table.distance">Distance</th>
+          <th i18n="@@network-routes.table.role">Role</th>
+          <th i18n="@@network-routes.table.last-survey">Survey</th>
+          <th i18n="@@network-routes.table.last-edit">Last edit</th>
+        </tr>
+      </thead>
 
-      <ng-container matColumnDef="analysis">
-        <th mat-header-cell *matHeaderCellDef i18n="@@network-routes.table.analysis">Analysis</th>
-        <td mat-cell *matCellDef="let route">
-          <kpn-network-route-analysis [route]="route" [routeType]="routeType()" />
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="symbol">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.symbol">
-          Symbol
-        </th>
-        <td mat-cell *matCellDef="let route" class="symbol">
-          @if (route.symbol) {
-            <kpn-symbol [description]="route.symbol" [width]="25" [height]="25" />
-          }
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="route">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.node">
-          Route
-        </th>
-        <td mat-cell *matCellDef="let route" class="kpn-align-center route-column">
-          <kpn-action-button-route [routeType]="route.routeType" [relationId]="route.id" />
-          <kpn-link-route
-            [routeId]="route.id"
-            [routeName]="route.name"
-            [routeType]="route.routeType"
-          />
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="distance">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          i18n="@@network-routes.table.distance"
-        >
-          Distance
-        </th>
-        <td mat-cell *matCellDef="let route">
-          <div class="distance">{{ (route.length | integer) + ' m' }}</div>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header i18n="@@network-routes.table.role">
-          Role
-        </th>
-        <td mat-cell *matCellDef="let route">
-          {{ route.role ? route.role : '-' }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="last-survey">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          i18n="@@network-routes.table.last-survey"
-        >
-          Survey
-        </th>
-        <td mat-cell *matCellDef="let route">
-          {{ route.lastSurvey | day }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="last-edit">
-        <th
-          mat-header-cell
-          *matHeaderCellDef
-          mat-sort-header
-          i18n="@@network-routes.table.last-edit"
-        >
-          Last edit
-        </th>
-        <td mat-cell *matCellDef="let route" class="kpn-separated">
-          <kpn-day [timestamp]="route.lastUpdated" />
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns()"></tr>
-      <tr mat-row *matRowDef="let route; columns: displayedColumns()"></tr>
-    </table>
+      <tbody>
+        @for (route of routeTable.data; track route.id; let i = $index) {
+          <tr>
+            <td class="nr-column">
+              {{ rowNumber(i) }}
+            </td>
+            <td>
+              <kpn-network-route-analysis [route]="route" [routeType]="routeType()" />
+            </td>
+            <td class="symbol">
+              @if (route.symbol) {
+                <kpn-symbol [description]="route.symbol" [width]="25" [height]="25" />
+              }
+            </td>
+            <td class="kpn-align-center route-column">
+              <kpn-action-button-route [routeType]="routeType()" [relationId]="route.id" />
+              <kpn-link-route
+                [routeId]="route.id"
+                [routeName]="route.name"
+                [routeType]="routeType()"
+              />
+            </td>
+            <td>
+              <div class="distance">{{ (route.length | integer) + ' m' }}</div>
+            </td>
+            <td>
+              {{ route.role ? route.role : '-' }}
+            </td>
+            <td>
+              {{ route.lastSurvey | day }}
+            </td>
+            <td class="kpn-separated">
+              <kpn-day [timestamp]="route.lastUpdated" />
+            </td>
+          </tr>
+        }
+      </tbody>
+    </nz-table>
   `,
   styles: `
-    .mat-column-nr {
+    .nr-column {
       width: 3rem;
     }
 
@@ -159,19 +122,23 @@ import { NetworkRouteAnalysisComponent } from './network-route-analysis.componen
     }
   `,
   imports: [
+    ActionButtonRouteComponent,
     DayComponent,
     DayPipe,
     EditAndPaginatorComponent,
     IntegerFormatPipe,
     LinkRouteComponent,
-    MatSortModule,
-    MatTableModule,
     NetworkRouteAnalysisComponent,
+    NzTableCellDirective,
+    NzTableComponent,
+    NzTbodyComponent,
+    NzThMeasureDirective,
+    NzTheadComponent,
+    NzTrDirective,
     SymbolComponent,
-    ActionButtonRouteComponent,
   ],
 })
-export class NetworkRouteTableComponent implements OnInit {
+export class NetworkRouteTableComponent {
   timeInfo = input.required<TimeInfo>();
   surveyDateInfo = input.required<SurveyDateInfo>();
   routeType = input.required<RouteType>();
@@ -179,43 +146,22 @@ export class NetworkRouteTableComponent implements OnInit {
 
   private readonly editAndPaginator = viewChild(EditAndPaginatorComponent);
 
-  private readonly pageWidthService = inject(PageWidthService);
   private readonly editService = inject(EditService);
-  protected readonly service = inject(NetworkRoutesPageService);
+  private readonly service = inject(NetworkRoutesPageService);
 
-  protected readonly dataSource = new MatTableDataSource<NetworkRouteRow>();
-  protected readonly displayedColumns = computed(() => {
-    if (this.pageWidthService.isVeryLarge()) {
-      return ['nr', 'analysis', 'symbol', 'route', 'distance', 'role', 'last-survey', 'last-edit'];
-    }
-
-    if (this.pageWidthService.isLarge()) {
-      return ['nr', 'analysis', 'route', 'distance', 'role'];
-    }
-
-    return ['nr', 'analysis', 'route'];
-  });
-
-  constructor() {
-    effect(() => {
-      this.dataSource.data = this.routes();
-    });
-  }
-
-  ngOnInit(): void {
-    this.dataSource.paginator = this.editAndPaginator().paginator().matPaginator();
-  }
+  readonly pageSize = this.service.pageSize;
+  readonly totalRouteCount = this.service.totalRouteCount;
 
   rowNumber(index: number): number {
     return this.editAndPaginator().paginator().rowNumber(index);
   }
 
-  onPageSizeChange(pageSize: number) {
+  onPageSizeChange(pageSize: number): void {
     this.service.updatePageSize(pageSize);
   }
 
   edit(): void {
-    const relationIds = Util.currentPageItems(this.dataSource).map((route) => route.id);
+    const relationIds = this.routes().map((route) => route.id);
     this.editService.edit({
       relationIds,
       fullRelation: true,
