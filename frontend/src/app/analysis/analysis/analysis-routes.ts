@@ -23,7 +23,7 @@ export const analysisRoutes: Routes = [
       },
       {
         path: 'network',
-        loadChildren: () => import('../network').then((m) => m.networkRoutes),
+        loadChildren: () => import('../network/network-routes').then((m) => m.networkRoutes),
       },
       {
         path: 'changeset',

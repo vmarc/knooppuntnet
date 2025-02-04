@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { NetworkChangesPageComponent } from './changes/network-changes-page.component';
-import { NetworkDetailsPageComponent } from './details/network-details-page.component';
-import { NetworkFactsPageComponent } from './facts/network-facts-page.component';
-import { NetworkMapPageComponent } from './map/network-map-page.component';
-import { NetworkNodesPageComponent } from './nodes/network-nodes-page.component';
-import { NetworkRoutesPageComponent } from './routes/network-routes-page.component';
+import { NetworkChangesPageComponent } from './internal/changes/network-changes-page.component';
+import { NetworkDetailsPageComponent } from './internal/details/network-details-page.component';
+import { NetworkFactsPageComponent } from './internal/facts/network-facts-page.component';
+import { NetworkMapPageComponent } from './internal/map/network-map-page.component';
+import { NetworkNodesPageComponent } from './internal/nodes/network-nodes-page.component';
+import { NetworkRoutesPageComponent } from './internal/routes/network-routes-page.component';
 
 export const networkRoutes: Routes = [
   {
