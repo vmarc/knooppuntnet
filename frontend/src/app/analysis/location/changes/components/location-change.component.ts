@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { LocationChangeSetInfo } from '@api/common/location-change-set-info';
 import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
 import { ChangesSetElementRefsComponent } from '@app/analysis/components/change-set/components';
-import { LocationPipe } from '../../../../shared/components/shared/format/location.pipe';
+import { LocationPipe } from '../../../../shared/components/format/location.pipe';
 
 @Component({
   selector: 'kpn-location-change',

@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
-import { IntegerFormatPipe } from '@app/components/shared/format';
-import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
+import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
+import { LinkNetworkDetailsComponent } from '@app/shared/components/link/link-network-details.component';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 
@@ -97,6 +97,7 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
     NgClass,
     NzTableModule,
     SubsetNetworkHappyComponent,
+    IntegerFormatPipe,
   ],
 })
 export class SubsetNetworkTableComponent {

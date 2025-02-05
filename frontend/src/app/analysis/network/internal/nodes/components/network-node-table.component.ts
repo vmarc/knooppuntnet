@@ -8,11 +8,11 @@ import { TimeInfo } from '@api/common';
 import { RouteScope } from '@api/common';
 import { RouteType } from '@api/common';
 import { NetworkNodeRow } from '@api/common/network';
+import { EditService } from '@app/analysis/components/edit';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
-import { EditService } from '@app/components/shared';
-import { DayComponent } from '@app/components/shared/day';
-import { DayPipe } from '@app/components/shared/format';
-import { LinkNodeComponent } from '@app/components/shared/link';
+import { DayComponent } from '@app/shared/components/day/day.component';
+import { DayPipe } from '@app/shared/components/format/day.pipe';
+import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
 import { NzTbodyComponent } from 'ng-zorro-antd/table';
 import { NzTrDirective } from 'ng-zorro-antd/table';
 import { NzTheadComponent } from 'ng-zorro-antd/table';
@@ -130,6 +130,7 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
     NzThMeasureDirective,
     NzTheadComponent,
     NzTrDirective,
+    DayPipe,
   ],
 })
 export class NetworkNodeTableComponent {

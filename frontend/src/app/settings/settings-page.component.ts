@@ -3,11 +3,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
-import { PageHeaderComponent } from '@app/components/shared/page';
+import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { State } from '@app/state';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
-import { PageComponent } from '../shared/components/shared/page/page.component';
+import { PageComponent } from '../shared/components/page/page.component';
 
 @Component({
   selector: 'kpn-settings-page',

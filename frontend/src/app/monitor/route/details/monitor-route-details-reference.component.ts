@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
-import { TimestampPipe } from '@app/components/shared/format';
-import { DistancePipe } from '@app/components/shared/format';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
+import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 
 @Component({
   selector: 'kpn-monitor-route-details-reference',
@@ -31,7 +31,7 @@ import { DistancePipe } from '@app/components/shared/format';
 
     <p>{{ page().referenceDistance | distance }}</p>
   `,
-  imports: [DistancePipe, TimestampPipe],
+  imports: [DistancePipe, TimestampPipe, TimestampPipe, DistancePipe],
 })
 export class MonitorRouteDetailsReferenceComponent {
   page = input.required<MonitorRouteDetailsPage>();

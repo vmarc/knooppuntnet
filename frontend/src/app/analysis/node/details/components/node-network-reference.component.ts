@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NodeInfo } from '@api/common';
 import { Reference } from '@api/common/common';
-import { IconNetworkLinkComponent } from '@app/components/shared/link';
+import { IconNetworkLinkComponent } from '@app/shared/components/link/icon-network-link.component';
 
 @Component({
   selector: 'kpn-node-network-reference',

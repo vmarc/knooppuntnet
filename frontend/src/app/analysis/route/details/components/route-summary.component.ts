@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouteDetailsPageData } from '@api/common/route';
-import { DividerComponent } from '@app/components/shared';
-import { CountryNameComponent } from '@app/components/shared';
-import { DistancePipe } from '@app/components/shared/format';
+import { CountryNameComponent } from '@app/shared/components/country-name.component';
+import { DividerComponent } from '@app/shared/components/divider.component';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { SymbolComponent } from '@app/symbol';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
@@ -95,6 +95,7 @@ import { RouteLocationComponent } from './route-location.component';
     MatIconModule,
     RouteLocationComponent,
     SymbolComponent,
+    DistancePipe,
     DistancePipe,
   ],
 })

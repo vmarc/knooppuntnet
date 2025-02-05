@@ -5,8 +5,8 @@ import { input } from '@angular/core';
 import { RouteScope } from '@api/common';
 import { RouteType } from '@api/common';
 import { LocationNodeInfo } from '@api/common/location';
-import { IntegrityIndicatorData } from '@app/components/shared/indicator';
-import { IntegrityIndicatorComponent } from '@app/components/shared/indicator';
+import { IntegrityIndicatorData } from '@app/shared/components/indicator/integrity-indicator-data';
+import { IntegrityIndicatorComponent } from '@app/shared/components/indicator/integrity-indicator.component';
 import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicator.component';
 
 @Component({

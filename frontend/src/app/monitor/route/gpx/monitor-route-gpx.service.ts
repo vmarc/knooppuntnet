@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
 import { Timestamp } from '@api/custom';
-import { NavService } from '@app/components/shared';
+import { NavService } from '@app/shared/components/nav.service';
 import { from } from 'rxjs';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorService } from '../../monitor.service';

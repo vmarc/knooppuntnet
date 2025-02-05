@@ -8,11 +8,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { OrphanRouteInfo } from '@api/common';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
-import { EditService } from '@app/components/shared';
-import { Util } from '@app/components/shared';
-import { DayComponent } from '@app/components/shared/day';
-import { IntegerFormatPipe } from '@app/components/shared/format';
-import { LinkRouteComponent } from '@app/components/shared/link';
+import { DayComponent } from '@app/shared/components/day/day.component';
+import { EditService } from '@app/shared/components/edit.service';
+import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
+import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
+import { Util } from '@app/shared/components/util';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
 import { SubsetOrphanRoutesPageService } from '../subset-orphan-routes-page.service';
 import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analysis.component';
@@ -108,6 +108,7 @@ import { SubsetOrphanRouteAnalysisComponent } from './subset-orphan-route-analys
     MatTableModule,
     SubsetOrphanRouteAnalysisComponent,
     ActionButtonRouteComponent,
+    IntegerFormatPipe,
   ],
 })
 export class SubsetOrphanRoutesTableComponent implements OnInit {

@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
-import { IconHappyComponent } from '@app/components/shared/icon';
-import { OsmLinkNodeComponent } from '@app/components/shared/link';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.component';
 
 @Component({
   selector: 'kpn-cs-nc-nodes-removed',

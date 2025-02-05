@@ -9,9 +9,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Params } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteRelationStructureRow } from '@api/common/monitor';
-import { TimestampDayPipe } from '@app/components/shared/format';
-import { DayPipe } from '@app/components/shared/format';
-import { DistancePipe } from '@app/components/shared/format';
+import { DayPipe } from '@app/shared/components/format/day.pipe';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
+import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pipe';
 import { SymbolComponent } from '@app/symbol';
 import { ActionButtonRelationComponent } from '../../../analysis/components/action/action-button-relation.component';
 import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
@@ -312,6 +312,8 @@ import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
     SymbolComponent,
     NgClass,
     ActionButtonRelationComponent,
+    DistancePipe,
+    TimestampDayPipe,
   ],
 })
 export class MonitorRouteDetailsStructureComponent {

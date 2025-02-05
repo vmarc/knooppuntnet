@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NetworkRouteRow } from '@api/common/network';
-import { IndicatorComponent } from '@app/components/shared/indicator';
+import { IndicatorComponent } from '@app/shared/components/indicator/indicator.component';
 import { RouteConnectionIndicatorDialogComponent } from './route-connection-indicator-dialog.component';
 
 @Component({

@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { EditService } from '@app/components/shared';
+import { EditService } from '@app/shared/components/edit.service';
 import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 

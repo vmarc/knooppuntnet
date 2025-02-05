@@ -3,11 +3,11 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocationKey } from '@api/custom';
-import { CountryNameComponent } from '@app/components/shared';
-import { RouteTypeNameComponent } from '@app/components/shared';
+import { CountryNameComponent } from '@app/shared/components/country-name.component';
+import { LocationPipe } from '@app/shared/components/format/location.pipe';
+import { RouteTypeNameComponent } from '@app/shared/components/route-type-name.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
-import { LocationPipe } from '../../../shared/components/shared/format/location.pipe';
 
 @Component({
   selector: 'kpn-location-page-breadcrumb',
@@ -42,6 +42,7 @@ import { LocationPipe } from '../../../shared/components/shared/format/location.
     NzBreadCrumbItemComponent,
     RouteTypeNameComponent,
     RouterLink,
+    LocationPipe,
   ],
 })
 export class LocationPageBreadcrumbComponent {

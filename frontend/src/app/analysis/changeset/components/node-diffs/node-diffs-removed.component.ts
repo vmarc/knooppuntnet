@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Ref } from '@api/common/common';
-import { MetaDataComponent } from '@app/components/shared';
-import { IconInvestigateComponent } from '@app/components/shared/icon';
-import { LinkNodeRefHeaderComponent } from '@app/components/shared/link';
+import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
+import { LinkNodeRefHeaderComponent } from '@app/shared/components/link/link-node-ref-header';
+import { MetaDataComponent } from '@app/shared/components/meta-data.component';
 import { NodeDiffsData } from './node-diffs-data';
 
 @Component({

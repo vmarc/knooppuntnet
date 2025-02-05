@@ -2,10 +2,10 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DividerComponent } from '@app/components/shared';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ListItemComponent } from '@app/components/shared/list';
-import { ListComponent } from '@app/components/shared/list';
+import { DividerComponent } from '@app/shared/components/divider.component';
+import { ListItemComponent } from '@app/shared/components/list/list-item.component';
+import { ListComponent } from '@app/shared/components/list/list.component';
 import { ExploreService } from './explore.service';
 import { ScopeIconComponent } from './scope-icon.component';
 

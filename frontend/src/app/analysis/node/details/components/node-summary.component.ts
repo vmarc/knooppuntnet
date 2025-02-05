@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NodeInfo } from '@api/common';
-import { CountryNameComponent } from '@app/components/shared';
-import { RouteScopeNameComponent } from '@app/components/shared';
-import { RouteTypeComponent } from '@app/components/shared';
+import { CountryNameComponent } from '@app/shared/components/country-name.component';
+import { RouteScopeNameComponent } from '@app/shared/components/route-scope-name.component';
+import { RouteTypeComponent } from '@app/shared/components/route-type.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
 

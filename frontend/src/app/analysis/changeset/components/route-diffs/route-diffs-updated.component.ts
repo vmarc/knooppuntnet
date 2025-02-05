@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteChangeDetailComponent } from '@app/analysis/components/changes/route';
-import { LinkRouteRefHeaderComponent } from '@app/components/shared/link';
+import { LinkRouteRefHeaderComponent } from '@app/shared/components/link/link-route-ref-header';
 import { VersionChangeComponent } from '../version-change.component';
 import { RefRouteChangeInfo } from './ref-route-change-info';
 import { RouteDiffsData } from './route-diffs-data';

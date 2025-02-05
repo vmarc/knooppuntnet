@@ -2,15 +2,15 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
+import { LocationSelectorComponent } from '@app/analysis/location';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { ErrorComponent } from '@app/components/shared/error';
+import { ErrorComponent } from '@app/shared/components/error/error.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
-import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { LocationSelectionPageBreadcrumbComponent } from './components/location-selection-page-breadcrumb.component';
 import { LocationSelectionPageHeaderComponent } from './components/location-selection-page-header.component';
 import { LocationSelectionSidebarComponent } from './components/location-selection-sidebar.component';
-import { LocationSelectorComponent } from './components/location-selector.component';
 import { LocationTreeComponent } from './components/location-tree.component';
 import { LocationSelectionPageService } from './location-selection-page.service';
 

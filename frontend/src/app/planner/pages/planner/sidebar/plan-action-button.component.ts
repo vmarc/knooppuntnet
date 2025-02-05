@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { PageWidthService } from '@app/components/shared';
+import { PageWidthService } from '@app/shared/components/page-width.service';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 

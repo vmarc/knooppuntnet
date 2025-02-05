@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
-import { IconHappyComponent } from '@app/components/shared/icon';
-import { OsmLinkWayComponent } from '@app/components/shared/link';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.component';
 
 @Component({
   selector: 'kpn-cs-nc-ways-removed',

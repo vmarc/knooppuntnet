@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { FactDiffs } from '@api/common/diff/common';
 import { FactNameComponent } from '@app/analysis/fact';
-import { IconHappyComponent } from '@app/components/shared/icon';
-import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
 
 @Component({
   selector: 'kpn-fact-diffs',

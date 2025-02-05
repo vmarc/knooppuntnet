@@ -4,10 +4,10 @@ import { input } from '@angular/core';
 import { RawNode } from '@api/common/data/raw';
 import { NodeUpdate } from '@api/common/diff';
 import { WayUpdate } from '@api/common/diff';
-import { Util } from '@app/components/shared';
-import { MetaDataComponent } from '@app/components/shared';
-import { NodeListComponent } from '@app/components/shared/link';
-import { OsmLinkWayComponent } from '@app/components/shared/link';
+import { NodeListComponent } from '@app/shared/components/link/node-list.component';
+import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.component';
+import { MetaDataComponent } from '@app/shared/components/meta-data.component';
+import { Util } from '@app/shared/components/util';
 import { TagDiffsComponent } from '../tag-diffs.component';
 
 @Component({

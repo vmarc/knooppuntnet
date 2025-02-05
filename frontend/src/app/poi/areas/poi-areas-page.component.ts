@@ -2,8 +2,8 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { PageHeaderComponent } from '@app/components/shared/page';
-import { PageComponent } from '../../shared/components/shared/page/page.component';
+import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { PoiMapComponent } from './components/poi-map.component';
 import { PoiAreasPageService } from './poi-areas-page.service';
 

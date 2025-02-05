@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IndicatorDialogComponent } from '@app/components/shared/indicator';
+import { IndicatorDialogComponent } from '@app/shared/components/indicator/indicator-dialog.component';
 
 @Component({
   selector: 'kpn-route-connection-indicator-dialog',

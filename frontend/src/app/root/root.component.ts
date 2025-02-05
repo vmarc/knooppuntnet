@@ -4,7 +4,7 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { SidebarFooterComponent } from '@app/components/shared/sidebar';
+import { SidebarFooterComponent } from '@app/shared/components/sidebar/sidebar-footer.component';
 import { AngularSplitModule } from 'angular-split';
 import { NzContentComponent } from 'ng-zorro-antd/layout';
 import { NzLayoutComponent } from 'ng-zorro-antd/layout';

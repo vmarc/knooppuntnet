@@ -3,7 +3,7 @@ import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { PaginatorComponent } from '@app/components/shared/paginator';
+import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
 import { EditLinkComponent } from './edit-link.component';
 
 @Component({

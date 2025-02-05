@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ChangeOption } from '@app/kpn/common';
+import { SidebarComponent } from '@app/shared/components/sidebar/sidebar.component';
 import { LocationChangesPageService } from '../location-changes-page.service';
 
 @Component({

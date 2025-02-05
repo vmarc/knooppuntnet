@@ -5,11 +5,11 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { IconButtonComponent } from '@app/components/shared/icon';
-import { PageHeaderComponent } from '@app/components/shared/page';
+import { IconButtonComponent } from '@app/shared/components/icon/icon-button.component';
+import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
-import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 
 @Component({

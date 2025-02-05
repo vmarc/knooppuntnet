@@ -4,12 +4,12 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { NavService } from '@app/components/shared';
-import { DataComponent } from '@app/components/shared/data';
-import { TimestampDayPipe } from '@app/components/shared/format';
-import { DistancePipe } from '@app/components/shared/format';
 import { Translations } from '@app/i18n';
-import { PageComponent } from '../../../shared/components/shared/page/page.component';
+import { DataComponent } from '@app/shared/components/data/data.component';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
+import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pipe';
+import { NavService } from '@app/shared/components/nav.service';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { MonitorWebsocketService } from '../../monitor-websocket.service';
 import { MonitorRouteFormErrorsComponent } from '../components/monitor-route-form-errors.component';
 import { MonitorRouteFormSaveStepComponent } from '../components/monitor-route-form-save-step.component';
@@ -104,6 +104,8 @@ import { MonitorRouteGpxService } from './monitor-route-gpx.service';
     PageComponent,
     RouterLink,
     TimestampDayPipe,
+    TimestampDayPipe,
+    DistancePipe,
   ],
 })
 export class MonitorRouteGpxDeleteComponent implements OnDestroy {

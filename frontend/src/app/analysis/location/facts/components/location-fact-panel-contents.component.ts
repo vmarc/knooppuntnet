@@ -4,11 +4,11 @@ import { input } from '@angular/core';
 import { LocationFact } from '@api/common/location';
 import { FactInfo } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
-import { DividerComponent } from '@app/components/shared';
-import { IconRouteComponent } from '@app/components/shared/icon';
-import { IconNodeComponent } from '@app/components/shared/icon';
-import { LinkNodeComponent } from '@app/components/shared/link';
-import { LinkRouteComponent } from '@app/components/shared/link';
+import { DividerComponent } from '@app/shared/components/divider.component';
+import { IconNodeComponent } from '@app/shared/components/icon/icon-node.component';
+import { IconRouteComponent } from '@app/shared/components/icon/icon-route.component';
+import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
+import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
 import { ActionButtonRouteComponent } from '../../../components/action/action-button-route.component';
 

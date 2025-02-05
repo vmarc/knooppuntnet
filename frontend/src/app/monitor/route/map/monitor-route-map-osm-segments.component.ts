@@ -3,7 +3,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MonitorRouteSegment } from '@api/common/monitor';
-import { DistancePipe } from '@app/components/shared/format';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { LegendLineComponent } from './legend-line';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 import { MonitorRouteMapService } from './monitor-route-map.service';
@@ -46,7 +46,7 @@ import { MonitorRouteMapService } from './monitor-route-map.service';
       width: 3em;
     }
   `,
-  imports: [MatListModule, LegendLineComponent, DistancePipe],
+  imports: [MatListModule, LegendLineComponent, DistancePipe, DistancePipe],
 })
 export class MonitorRouteMapOsmSegmentsComponent {
   readonly mapStateService = inject(MonitorRouteMapStateService);

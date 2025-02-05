@@ -4,11 +4,11 @@ import { Component } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
-import { ErrorComponent } from '@app/components/shared/error';
-import { PaginatorComponent } from '@app/components/shared/paginator';
+import { ErrorComponent } from '@app/shared/components/error/error.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
+import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
-import { PageComponent } from '../../shared/components/shared/page/page.component';
 import { MonitorChangesComponent } from '../components/monitor-changes.component';
 import { MonitorChangesPageService } from './monitor-changes-page.service';
 

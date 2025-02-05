@@ -96,65 +96,8 @@
       "@app/analysis/subset": [
         "src/app/analysis/subset/index.ts"
       ],
-      "@app/components/poi": [
-        "src/app/shared/components/poi/index.ts"
-      ],
-      "@app/components/shared": [
-        "src/app/shared/components/shared/index.ts"
-      ],
-      "@app/components/shared/data": [
-        "src/app/shared/components/shared/data/index.ts"
-      ],
-      "@app/components/shared/day": [
-        "src/app/shared/components/shared/day/index.ts"
-      ],
-      "@app/components/shared/dialog": [
-        "src/app/shared/components/shared/dialog/index.ts"
-      ],
-      "@app/components/shared/error": [
-        "src/app/shared/components/shared/error/index.ts"
-      ],
-      "@app/components/shared/format": [
-        "src/app/shared/components/shared/format/index.ts"
-      ],
-      "@app/components/shared/icon": [
-        "src/app/shared/components/shared/icon/index.ts"
-      ],
-      "@app/components/shared/indicator": [
-        "src/app/shared/components/shared/indicator/index.ts"
-      ],
-      "@app/components/shared/list": [
-        "src/app/shared/components/shared/list/index.ts"
-      ],
-      "@app/components/shared/items": [
-        "src/app/shared/components/shared/items/index.ts"
-      ],
-      "@app/components/shared/json": [
-        "src/app/shared/components/shared/json/index.ts"
-      ],
-      "@app/components/shared/link": [
-        "src/app/shared/components/shared/link/index.ts"
-      ],
-      "@app/components/shared/menu": [
-        "src/app/shared/components/shared/menu/index.ts"
-      ],
-      "@app/components/shared/page": [
-        "src/app/shared/components/shared/page/index.ts"
-      ],
-      "@app/components/shared/paginator": [
-        "src/app/shared/components/shared/paginator/index.ts"
-      ],
-      "@app/components/shared/sidebar": [
-        "src/app/shared/components/shared/sidebar/index.ts"
-      ],
-      "@app/components/shared/tags": [
-        "src/app/shared/components/shared/tags/index.ts"
-      ],
-      "@app/components/shared/timestamp": [
-        "src/app/shared/components/shared/timestamp/index.ts"
-      ],
-      "@app/components/shared/toolbar": [
-        "src/app/shared/components/shared/toolbar/index.ts"
+      "@app/shared/components/*": [
+        "src/app/shared/components/*"
       ],
       "@app/core": [
         "src/app/shared/core/index.ts"

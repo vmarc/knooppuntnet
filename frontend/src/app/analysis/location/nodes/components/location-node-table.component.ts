@@ -9,12 +9,12 @@ import { RouteScope } from '@api/common';
 import { LocationNodeInfo } from '@api/common/location';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
-import { EditService } from '@app/components/shared';
-import { PageWidthService } from '@app/components/shared';
-import { DayComponent } from '@app/components/shared/day';
-import { DayPipe } from '@app/components/shared/format';
-import { LinkNodeComponent } from '@app/components/shared/link';
-import { PaginatorComponent } from '@app/components/shared/paginator';
+import { DayComponent } from '@app/shared/components/day/day.component';
+import { EditService } from '@app/shared/components/edit.service';
+import { DayPipe } from '@app/shared/components/format/day.pipe';
+import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
+import { PageWidthService } from '@app/shared/components/page-width.service';
+import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
 import { LocationNodesPageService } from '../location-nodes-page.service';
 import { LocationNodeAnalysisComponent } from './location-node-analysis.component';
@@ -126,6 +126,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
     LocationNodeRoutesComponent,
     MatTableModule,
     PaginatorComponent,
+    DayPipe,
   ],
 })
 export class LocationNodeTableComponent {

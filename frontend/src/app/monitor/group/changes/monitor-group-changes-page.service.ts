@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorChangesParameters } from '@api/common/monitor';
-import { NavService } from '@app/components/shared';
+import { NavService } from '@app/shared/components/nav.service';
 import { State } from '@app/state';
 import { MonitorService } from '../../monitor.service';
 import { MonitorGroupChangesPageState } from './monitor-group-changes-page.state';

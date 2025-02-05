@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteChangeSummary } from '@api/common/monitor';
-import { PageWidthService } from '@app/components/shared';
-import { IconHappyComponent } from '@app/components/shared/icon';
-import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
+import { PageWidthService } from '@app/shared/components/page-width.service';
 
 @Component({
   selector: 'kpn-monitor-change-header',

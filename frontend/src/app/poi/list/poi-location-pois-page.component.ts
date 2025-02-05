@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { NzTabSetComponent } from 'ng-zorro-antd/tabs';
 import { NzTabComponent } from 'ng-zorro-antd/tabs';
-import { PageComponent } from '../../shared/components/shared/page/page.component';
+import { PageComponent } from '../../shared/components/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
 import { LocationPoiSelectComponent } from './components/poi-location-poi-select.component';
 import { PoiLocationPoiTableComponent } from './components/poi-location-poi-table.component';

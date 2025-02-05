@@ -8,7 +8,7 @@ import { OldMapLayer } from '@app/ol/layers';
 import { OldMapLayerRegistry } from '@app/ol/layers';
 import { OldOsmLayer } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
-import { Util } from '@app/components/shared';
+import { Util } from '@app/shared/components/util';
 import { GeoJSON } from 'ol/format';
 import VectorLayer from 'ol/layer/Vector';
 import Map from 'ol/Map';

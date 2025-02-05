@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { RouteType } from '@api/common';
 import { RouteListItem } from '@api/common/search/route-list-item';
-import { DistancePipe } from '@app/components/shared/format';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { ActionButtonRouteComponent } from '../../analysis/components/action/action-button-route.component';
 
 @Component({
@@ -20,7 +20,7 @@ import { ActionButtonRouteComponent } from '../../analysis/components/action/act
       <span>{{ route.distance | distance }}</span>
     </div>
   `,
-  imports: [DistancePipe, RouterLink, ActionButtonRouteComponent],
+  imports: [DistancePipe, RouterLink, ActionButtonRouteComponent, DistancePipe],
 })
 export class SearchRouteComponent {
   routeType = input.required<RouteType>();

@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
-import { IconInvestigateComponent } from '@app/components/shared/icon';
-import { IconHappyComponent } from '@app/components/shared/icon';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
 
 @Component({
   selector: 'kpn-change-set-analysis',

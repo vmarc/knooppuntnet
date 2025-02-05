@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteChangeSummary } from '@api/common/monitor';
-import { IconHappyComponent } from '@app/components/shared/icon';
-import { IconInvestigateComponent } from '@app/components/shared/icon';
-import { ItemComponent } from '@app/components/shared/items';
-import { ItemsComponent } from '@app/components/shared/items';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
+import { ItemComponent } from '@app/shared/components/items/item.component';
+import { ItemsComponent } from '@app/shared/components/items/items.component';
 import { MonitorChangeHeaderComponent } from './monitor-change-header.component';
 
 @Component({

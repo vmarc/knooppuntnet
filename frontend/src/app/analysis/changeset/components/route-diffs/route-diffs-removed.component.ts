@@ -2,9 +2,9 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MetaDataComponent } from '@app/components/shared';
-import { IconInvestigateComponent } from '@app/components/shared/icon';
-import { LinkRouteRefHeaderComponent } from '@app/components/shared/link';
+import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
+import { LinkRouteRefHeaderComponent } from '@app/shared/components/link/link-route-ref-header';
+import { MetaDataComponent } from '@app/shared/components/meta-data.component';
 import { RefRouteChangeInfo } from './ref-route-change-info';
 import { RouteDiffsData } from './route-diffs-data';
 

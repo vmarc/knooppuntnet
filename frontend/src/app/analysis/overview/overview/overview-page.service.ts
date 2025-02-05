@@ -4,9 +4,9 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { StatisticValues } from '@api/common/statistics';
 import { ApiResponse } from '@api/custom';
-import { PageWidthService } from '@app/components/shared';
 import { ApiService } from '@app/services';
 import { BrowserStorageService } from '@app/services';
+import { PageWidthService } from '@app/shared/components/page-width.service';
 import { OverviewFormat } from './components/overview-format';
 
 @Injectable({

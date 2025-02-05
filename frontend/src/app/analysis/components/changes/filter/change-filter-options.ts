@@ -1,7 +1,7 @@
 import { ChangesFilter } from '@api/common/changes/filter';
 import { ChangesFilterPeriod } from '@api/common/changes/filter';
 import { ChangesParameters } from '@api/common/changes/filter';
-import { Util } from '@app/components/shared';
+import { Util } from '@app/shared/components/util';
 import { List } from 'immutable';
 import { ChangeFilterOption } from './change-filter-option';
 

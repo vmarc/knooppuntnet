@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
-import { DialogComponent } from '@app/components/shared/dialog';
+import { DialogComponent } from '@app/shared/components/dialog/dialog.component';
 
 @Component({
   selector: 'kpn-leg-http-error-dialog',

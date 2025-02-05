@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { DayInputComponent } from '@app/components/shared/format';
+import { DayInputComponent } from '@app/shared/components/format/day-input.component';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({

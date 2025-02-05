@@ -2,8 +2,8 @@ import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { LocationPipe } from '../../../../shared/components/shared/format/location.pipe';
-import { ZeroIntegerFormatPipe } from '../../../../shared/components/shared/format/zero-integer-format.pipe';
+import { LocationPipe } from '../../../../shared/components/format/location.pipe';
+import { ZeroIntegerFormatPipe } from '../../../../shared/components/format/zero-integer-format.pipe';
 import { LocationFlatNode } from './location-flat-node';
 
 @Component({

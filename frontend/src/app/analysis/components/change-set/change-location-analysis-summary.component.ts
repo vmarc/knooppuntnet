@@ -4,10 +4,10 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ChangeSetSummaryInfo } from '@api/common';
 import { RouteType } from '@api/common';
-import { Util } from '@app/components/shared';
 import { Translations } from '@app/i18n';
+import { LocationPipe } from '@app/shared/components/format/location.pipe';
+import { Util } from '@app/shared/components/util';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { LocationPipe } from '../../../shared/components/shared/format/location.pipe';
 import { ChangeHeaderComponent } from './change-header.component';
 import { ChangesSetElementRefsComponent } from './components/change-set-element-refs.component';
 
@@ -80,6 +80,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
     LocationPipe,
     NzIconDirective,
     RouterLink,
+    LocationPipe,
   ],
 })
 export class ChangeLocationAnalysisSummaryComponent {

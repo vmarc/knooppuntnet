@@ -6,9 +6,9 @@ import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Timestamp } from '@api/custom';
-import { TimestampPipe } from '@app/components/shared/format';
-import { DayInputComponent } from '@app/components/shared/format';
 import { ChangeDetectionStrategy } from '@angular/core';
+import { DayInputComponent } from '@app/shared/components/format/day-input.component';
+import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 
 @Component({
   selector: 'kpn-monitor-route-properties-step-5-reference-details',
@@ -162,7 +162,14 @@ import { ChangeDetectionStrategy } from '@angular/core';
       display: none;
     }
   `,
-  imports: [DayInputComponent, MatButtonModule, MatStepperModule, NgClass, TimestampPipe],
+  imports: [
+    DayInputComponent,
+    MatButtonModule,
+    MatStepperModule,
+    NgClass,
+    TimestampPipe,
+    TimestampPipe,
+  ],
 })
 export class MonitorRoutePropertiesStep5ReferenceDetailsComponent {
   ngForm = input.required<FormGroupDirective>();

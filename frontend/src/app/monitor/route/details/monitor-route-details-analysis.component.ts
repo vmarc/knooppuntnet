@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
-import { DistancePipe } from '@app/components/shared/format';
-import { IconHappyComponent } from '@app/components/shared/icon';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 
 @Component({
   selector: 'kpn-monitor-route-details-analysis',
@@ -45,7 +45,7 @@ import { IconHappyComponent } from '@app/components/shared/icon';
       </p>
     }
   `,
-  imports: [IconHappyComponent, DistancePipe],
+  imports: [IconHappyComponent, DistancePipe, DistancePipe],
 })
 export class MonitorRouteDetailsAnalysisComponent {
   page = input.required<MonitorRouteDetailsPage>();

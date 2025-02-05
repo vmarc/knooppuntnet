@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { SidebarComponent } from '@app/components/shared/sidebar';
 import { ZoomLevel } from '@app/ol/domain';
 import { MapZoomService } from '@app/ol/services';
 import { DeviceDetectorService } from 'ngx-device-detector';

@@ -4,7 +4,7 @@ import { Injector } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { PageWidthService } from '@app/components/shared';
+import { PageWidthService } from '@app/shared/components/page-width.service';
 import { PlannerCommandReset } from '../../../domain/commands/planner-command-reset';
 import { PlannerCommandReverse } from '../../../domain/commands/planner-command-reverse';
 import { Plan } from '../../../domain/plan/plan';

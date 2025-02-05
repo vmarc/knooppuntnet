@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { FormControl } from '@angular/forms';
-import { NavService } from '@app/components/shared';
+import { NavService } from '@app/shared/components/nav.service';
 import { MonitorService } from '../../monitor.service';
 import { initialState } from './monitor-group-update-page.state';
 import { MonitorGroupUpdatePageState } from './monitor-group-update-page.state';

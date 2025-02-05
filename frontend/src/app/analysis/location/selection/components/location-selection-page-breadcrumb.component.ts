@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocationKey } from '@api/custom';
-import { CountryNameComponent } from '@app/components/shared';
-import { RouteTypeNameComponent } from '@app/components/shared';
+import { CountryNameComponent } from '@app/shared/components/country-name.component';
+import { RouteTypeNameComponent } from '@app/shared/components/route-type-name.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { OsmLinkNodeComponent } from '@app/components/shared/link';
+import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.component';
 import { FactInfo } from '../fact-info';
 
 @Component({

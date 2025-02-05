@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { SidebarFooterComponent } from '@app/components/shared/sidebar';
+import { SidebarFooterComponent } from '@app/shared/components/sidebar/sidebar-footer.component';
 import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({

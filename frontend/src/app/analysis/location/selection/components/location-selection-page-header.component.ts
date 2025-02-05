@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { LocationKey } from '@api/custom';
-import { CountryNameComponent } from '@app/components/shared';
-import { RouteTypeNameComponent } from '@app/components/shared';
-import { PageHeaderComponent } from '@app/components/shared/page';
+import { CountryNameComponent } from '@app/shared/components/country-name.component';
+import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
+import { RouteTypeNameComponent } from '@app/shared/components/route-type-name.component';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({

@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
-import { PageComponent } from '../../shared/components/shared/page/page.component';
+import { PageComponent } from '../../shared/components/page/page.component';
 import { RouterService } from '../../shared/services/router.service';
 import { LogAnalysisChartComponent } from './charts/log/log-analysis-chart.component';
 import { LogAnalysisRobotChartComponent } from './charts/log/log-analysis-robot-chart.component';

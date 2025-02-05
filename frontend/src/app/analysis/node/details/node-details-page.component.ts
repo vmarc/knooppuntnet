@@ -6,15 +6,15 @@ import { RouterLink } from '@angular/router';
 import { NodeDetailsPage } from '@api/common/node';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
-import { DataComponent } from '@app/components/shared/data';
-import { ErrorComponent } from '@app/components/shared/error';
-import { InterpretedTags } from '@app/components/shared/tags';
-import { TagTableComponent } from '@app/components/shared/tags';
-import { TimestampComponent } from '@app/components/shared/timestamp';
+import { DataComponent } from '@app/shared/components/data/data.component';
+import { ErrorComponent } from '@app/shared/components/error/error.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
+import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
+import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
+import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { NodeIntegrityComponent } from './components/node-integrity.component';
@@ -128,7 +128,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
       }
     </kpn-page>
   `,
-  styleUrl: '../../../shared/components/shared/data/data.component.scss',
+  styleUrl: '../../../shared/components/data/data.component.scss',
   providers: [NodeDetailsPageService, RouterService],
   imports: [
     DataComponent,

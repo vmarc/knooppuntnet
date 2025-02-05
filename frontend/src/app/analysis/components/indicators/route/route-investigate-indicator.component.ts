@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IndicatorComponent } from '@app/components/shared/indicator';
+import { IndicatorComponent } from '@app/shared/components/indicator/indicator.component';
 import { RouteInvestigateIndicatorDialogComponent } from './route-investigate-indicator-dialog.component';
 
 @Component({

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { IconWayComponent } from '@app/components/shared/icon';
+import { IconWayComponent } from '@app/shared/components/icon/icon-way.component';
 import { ActionButtonWayComponent } from '../../../../components/action/action-button-way.component';
 
 @Component({

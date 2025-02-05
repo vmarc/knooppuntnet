@@ -5,12 +5,12 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { LocationKey } from '@api/custom';
-import { RouteTypeNameComponent } from '@app/components/shared';
-import { PageMenuOptionComponent } from '@app/components/shared/menu';
-import { PageMenuComponent } from '@app/components/shared/menu';
-import { PageHeaderComponent } from '@app/components/shared/page';
+import { LocationPipe } from '@app/shared/components/format/location.pipe';
+import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
+import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
+import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
+import { RouteTypeNameComponent } from '@app/shared/components/route-type-name.component';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { LocationPipe } from '../../../shared/components/shared/format/location.pipe';
 import { LocationService } from '../location.service';
 import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.component';
 
@@ -96,6 +96,7 @@ import { LocationPageBreadcrumbComponent } from './location-page-breadcrumb.comp
     PageMenuComponent,
     PageMenuOptionComponent,
     RouteTypeNameComponent,
+    LocationPipe,
   ],
 })
 export class LocationPageHeaderComponent {

@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouteStructureRow } from '@api/common/route';
-import { DistancePipe } from '@app/components/shared/format';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 
 @Component({
   selector: 'kpn-route-distance',
@@ -42,7 +42,7 @@ import { DistancePipe } from '@app/components/shared/format';
       font-weight: 800;
     }
   `,
-  imports: [MatIconModule, DistancePipe, MatTooltip],
+  imports: [MatIconModule, DistancePipe, MatTooltip, DistancePipe],
 })
 export class RouteDistanceComponent {
   structureRow = input.required<RouteStructureRow>();

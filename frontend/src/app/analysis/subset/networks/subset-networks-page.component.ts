@@ -3,13 +3,12 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { PageWidthService } from '@app/components/shared';
-import { ErrorComponent } from '@app/components/shared/error';
-import { IntegerFormatPipe } from '@app/components/shared/format';
-import { SituationOnComponent } from '@app/components/shared/timestamp';
-import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { ErrorComponent } from '@app/shared/components/error/error.component';
+import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
+import { PageWidthService } from '@app/shared/components/page-width.service';
+import { PageComponent } from '@app/shared/components/page/page.component';
+import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { MarkdownModule } from 'ngx-markdown';
-import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetNetworkListComponent } from './components/subset-network-list.component';
@@ -65,6 +64,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
     SubsetNetworkListComponent,
     SubsetNetworkTableComponent,
     SubsetPageHeaderBlockComponent,
+    IntegerFormatPipe,
   ],
 })
 export class SubsetNetworksPageComponent implements OnInit {

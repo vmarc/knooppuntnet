@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { NavService } from '@app/components/shared';
-import { DataComponent } from '@app/components/shared/data';
+import { DataComponent } from '@app/shared/components/data/data.component';
+import { NavService } from '@app/shared/components/nav.service';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { MarkdownModule } from 'ngx-markdown';
-import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorAdminToggleComponent } from '../../components/monitor-admin-toggle.component';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteDetailsAnalysisComponent } from './monitor-route-details-analysis.component';

@@ -8,10 +8,10 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { OrphanNodeInfo } from '@api/common';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
-import { EditService } from '@app/components/shared';
-import { Util } from '@app/components/shared';
-import { DayComponent } from '@app/components/shared/day';
-import { LinkNodeComponent } from '@app/components/shared/link';
+import { DayComponent } from '@app/shared/components/day/day.component';
+import { EditService } from '@app/shared/components/edit.service';
+import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
+import { Util } from '@app/shared/components/util';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
 import { SubsetOrphanNodesPageService } from '../subset-orphan-nodes-page.service';
 

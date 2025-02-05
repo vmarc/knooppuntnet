@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { PageMenuOptionComponent } from '@app/components/shared/menu';
-import { PageMenuComponent } from '@app/components/shared/menu';
-import { PageHeaderComponent } from '@app/components/shared/page';
+import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
+import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
+import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { RouteService } from '../route.service';
 
 @Component({

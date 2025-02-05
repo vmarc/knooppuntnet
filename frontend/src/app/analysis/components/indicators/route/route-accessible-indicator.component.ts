@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RouteType } from '@api/common';
-import { IndicatorComponent } from '@app/components/shared/indicator';
+import { IndicatorComponent } from '@app/shared/components/indicator/indicator.component';
 import { RouteAccessibleData } from './route-accessible-data';
 import { RouteAccessibleIndicatorDialogComponent } from './route-accessible-indicator-dialog.component';
 

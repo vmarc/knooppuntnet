@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Bounds } from '@api/common';
 import { GeometryDiff } from '@api/common/route';
 import { RouteNodeChange } from '@api/common/route/route-node-change';
-import { Util } from '@app/components/shared';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';
@@ -11,6 +10,7 @@ import { OldOsmLayer } from '@app/ol/layers';
 import { RouteNodesLayer } from '@app/ol/layers';
 import { RouteChangeLayers } from '@app/ol/layers';
 import { OpenlayersMapService } from '@app/ol/services';
+import { Util } from '@app/shared/components/util';
 import Map from 'ol/Map';
 import View from 'ol/View';
 

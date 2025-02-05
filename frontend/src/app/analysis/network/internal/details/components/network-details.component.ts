@@ -4,10 +4,10 @@ import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkDetailsPage } from '@api/common/network';
 import { ApiResponse } from '@api/custom';
-import { DataComponent } from '@app/components/shared/data';
-import { InterpretedTags } from '@app/components/shared/tags';
-import { TagTableComponent } from '@app/components/shared/tags';
-import { TimestampComponent } from '@app/components/shared/timestamp';
+import { DataComponent } from '@app/shared/components/data/data.component';
+import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
+import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
+import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 import { NetworkSummaryComponent } from './network-summary.component';
 
 @Component({
@@ -44,7 +44,7 @@ import { NetworkSummaryComponent } from './network-summary.component';
       <kpn-tag-table [tags]="tags" />
     </kpn-data>
   `,
-  styleUrl: '../../../../../shared/components/shared/data/data.component.scss',
+  styleUrl: '../../../../../shared/components/data/data.component.scss',
   imports: [DataComponent, NetworkSummaryComponent, TagTableComponent, TimestampComponent],
 })
 export class NetworkDetailsComponent implements OnInit {

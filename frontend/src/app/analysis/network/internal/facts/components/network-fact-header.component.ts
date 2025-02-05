@@ -9,7 +9,7 @@ import { FactLevel } from '@api/common';
 import { Facts } from '@app/analysis/fact';
 import { FactLevelComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
-import { EditService } from '@app/components/shared';
+import { EditService } from '@app/shared/components/edit.service';
 
 @Component({
   selector: 'kpn-network-fact-header',

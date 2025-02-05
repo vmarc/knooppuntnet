@@ -10,16 +10,17 @@ import { RouterLink } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
-import { DividerComponent } from '@app/components/shared';
-import { PageWidthService } from '@app/components/shared';
-import { DataComponent } from '@app/components/shared/data';
-import { PageButtonsComponent } from '@app/components/shared/page';
-import { InterpretedTags } from '@app/components/shared/tags';
-import { TagTableComponent } from '@app/components/shared/tags';
-import { TimestampComponent } from '@app/components/shared/timestamp';
+import { RouteSummaryComponent } from '@app/analysis/route';
+import { DataComponent } from '@app/shared/components/data/data.component';
+import { DividerComponent } from '@app/shared/components/divider.component';
+import { PageWidthService } from '@app/shared/components/page-width.service';
+import { PageButtonsComponent } from '@app/shared/components/page/page-buttons.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
+import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
+import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
+import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
-import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { RouteEndNodesComponent } from './components/route-end-nodes.component';
@@ -28,7 +29,6 @@ import { RouteNetworkReferencesComponent } from './components/route-network-refe
 import { RouteParentsComponent } from './components/route-parents.component';
 import { RouteRedundantNodesComponent } from './components/route-redundant-nodes.component';
 import { RouteStartNodesComponent } from './components/route-start-nodes.component';
-import { RouteSummaryComponent } from './components/route-summary.component';
 import { RouteDetailsPageService } from './route-details-page.service';
 
 @Component({
@@ -142,7 +142,7 @@ import { RouteDetailsPageService } from './route-details-page.service';
       }
     </kpn-page>
   `,
-  styleUrl: '../../../shared/components/shared/data/data.component.scss',
+  styleUrl: '../../../shared/components/data/data.component.scss',
   providers: [RouteDetailsPageService, RouterService],
   imports: [
     DataComponent,

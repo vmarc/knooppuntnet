@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { LocationChanges } from '@api/common';
 import { LocationTreeItem } from '@api/common';
-import { PageService } from '@app/components/shared';
+import { PageService } from '@app/shared/components/page.service';
 
 @Component({
   selector: 'kpn-change-set-location-changes',

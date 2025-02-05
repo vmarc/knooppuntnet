@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { LocationDetailsPage } from '@api/common/location/location-details-page';
-import { DistancePipe } from '@app/components/shared/format';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
+import { ZeroIntegerFormatPipe } from '@app/shared/components/format/zero-integer-format.pipe';
 import { MarkdownModule } from 'ngx-markdown';
-import { ZeroIntegerFormatPipe } from '../../../../shared/components/shared/format/zero-integer-format.pipe';
 
 @Component({
   selector: 'kpn-location-summary',
@@ -27,7 +27,7 @@ import { ZeroIntegerFormatPipe } from '../../../../shared/components/shared/form
       </span>
     </span>
   `,
-  imports: [MarkdownModule, MatIconModule, DistancePipe, ZeroIntegerFormatPipe],
+  imports: [MarkdownModule, MatIconModule, DistancePipe, ZeroIntegerFormatPipe, DistancePipe],
 })
 export class LocationSummaryComponent {
   page = input.required<LocationDetailsPage>();

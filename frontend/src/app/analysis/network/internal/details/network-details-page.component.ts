@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { PageComponent } from '../../../../shared/components/shared/page/page.component';
+import { PageComponent } from '../../../../shared/components/page/page.component';
 import { RouterService } from '../../../../shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkMapSidebarComponent } from '../map/components/network-map-sidebar.component';

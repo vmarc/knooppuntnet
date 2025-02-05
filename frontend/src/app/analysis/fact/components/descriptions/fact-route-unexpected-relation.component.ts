@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '@app/shared/components/link/osm-link-relation.component';
 import { MarkdownModule } from 'ngx-markdown';
 import { FactInfo } from '../fact-info';
 

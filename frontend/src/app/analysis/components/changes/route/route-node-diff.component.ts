@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Ref } from '@api/common/common';
-import { LinkNodeComponent } from '@app/components/shared/link';
+import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
 
 @Component({
   selector: 'kpn-route-node-diff',

@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkChangeInfo } from '@api/common/changes/details';
-import { IconInvestigateComponent } from '@app/components/shared/icon';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
+import { OsmLinkRelationComponent } from '@app/shared/components/link/osm-link-relation.component';
 
 @Component({
   selector: 'kpn-cs-nc-relations-added',

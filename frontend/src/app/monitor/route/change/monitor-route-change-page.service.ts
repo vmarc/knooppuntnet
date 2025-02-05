@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { NavService } from '@app/components/shared';
+import { NavService } from '@app/shared/components/nav.service';
 import { MonitorService } from '../../monitor.service';
 import { MonitorRouteChangePageState } from './monitor-route-change-page.state';
 import { initialState } from './monitor-route-change-page.state';

@@ -3,9 +3,9 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { FactDiffsComponent } from '@app/analysis/components/changes';
-import { MetaDataComponent } from '@app/components/shared';
-import { IconHappyComponent } from '@app/components/shared/icon';
-import { LinkRouteRefHeaderComponent } from '@app/components/shared/link';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { LinkRouteRefHeaderComponent } from '@app/shared/components/link/link-route-ref-header';
+import { MetaDataComponent } from '@app/shared/components/meta-data.component';
 import { RefRouteChangeInfo } from './ref-route-change-info';
 import { RouteDiffsData } from './route-diffs-data';
 

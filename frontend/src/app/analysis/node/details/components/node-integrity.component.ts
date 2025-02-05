@@ -3,9 +3,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { input } from '@angular/core';
 import { NodeIntegrity } from '@api/common/node';
 import { NodeIntegrityDetail } from '@api/common/node';
-import { RouteScopeNameComponent } from '@app/components/shared';
-import { IconHappyComponent } from '@app/components/shared/icon';
-import { IconInvestigateComponent } from '@app/components/shared/icon';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
+import { RouteScopeNameComponent } from '@app/shared/components/route-scope-name.component';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({

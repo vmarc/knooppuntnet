@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ApiResponse } from '@api/custom';
-import { SituationOnComponent } from '@app/components/shared/timestamp';
+import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 
 @Component({
   selector: 'kpn-location-response',

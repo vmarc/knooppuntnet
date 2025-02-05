@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { LocationNodeInfo } from '@api/common/location';
-import { LinkRouteComponent } from '@app/components/shared/link';
+import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 
 @Component({
   selector: 'kpn-location-node-routes',

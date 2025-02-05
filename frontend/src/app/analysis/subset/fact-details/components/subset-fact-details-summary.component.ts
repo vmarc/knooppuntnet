@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { SubsetFactDetailsPage } from '@api/common/subset';
 import { Facts } from '@app/analysis/fact';
-import { DividerComponent } from '@app/components/shared';
-import { IconHappyComponent } from '@app/components/shared/icon';
+import { DividerComponent } from '@app/shared/components/divider.component';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 
 @Component({
   selector: 'kpn-subset-fact-details-summary',

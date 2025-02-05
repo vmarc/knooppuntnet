@@ -5,13 +5,13 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { NavService } from '@app/components/shared';
-import { ErrorComponent } from '@app/components/shared/error';
-import { PageHeaderComponent } from '@app/components/shared/page';
 import { Translations } from '@app/i18n';
+import { ErrorComponent } from '@app/shared/components/error/error.component';
+import { NavService } from '@app/shared/components/nav.service';
+import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
-import { PageComponent } from '../../../shared/components/shared/page/page.component';
 import { MonitorTranslations } from '../../components/monitor-translations';
 import { MonitorRouteDeletePageService } from './monitor-route-delete-page.service';
 

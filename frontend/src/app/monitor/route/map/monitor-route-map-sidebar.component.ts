@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { TimestampPipe } from '@app/components/shared/format';
-import { SidebarComponent } from '@app/components/shared/sidebar';
+import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
+import { SidebarComponent } from '@app/shared/components/sidebar/sidebar.component';
 import { MonitorMapMode } from './monitor-map-mode';
 import { MonitorRouteMapControlJosmComponent } from './monitor-route-map-control-josm.component';
 import { MonitorRouteMapControlModeComponent } from './monitor-route-map-control-mode.component';
@@ -55,6 +55,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
     MonitorRouteMapLayersComponent,
     MonitorRouteMapOsmSegmentsComponent,
     SidebarComponent,
+    TimestampPipe,
     TimestampPipe,
   ],
 })

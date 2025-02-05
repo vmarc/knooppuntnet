@@ -7,9 +7,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { MonitorRouteDetail } from '@api/common/monitor';
-import { TimestampPipe } from '@app/components/shared/format';
-import { TimestampDayPipe } from '@app/components/shared/format';
-import { DistancePipe } from '@app/components/shared/format';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
+import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pipe';
+import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 import { SymbolComponent } from '@app/symbol';
 import { ActionButtonRelationComponent } from '../../../analysis/components/action/action-button-relation.component';
 
@@ -262,6 +262,9 @@ import { ActionButtonRelationComponent } from '../../../analysis/components/acti
     TimestampDayPipe,
     TimestampPipe,
     ActionButtonRelationComponent,
+    TimestampPipe,
+    TimestampDayPipe,
+    DistancePipe,
   ],
 })
 export class MonitorGroupRouteTableComponent {

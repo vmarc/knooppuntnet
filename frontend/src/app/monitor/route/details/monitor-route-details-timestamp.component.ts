@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor';
-import { TimestampPipe } from '@app/components/shared/format';
+import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 
 @Component({
   selector: 'kpn-monitor-route-details-timestamp',
@@ -21,7 +21,7 @@ import { TimestampPipe } from '@app/components/shared/format';
       -
     }
   `,
-  imports: [TimestampPipe],
+  imports: [TimestampPipe, TimestampPipe],
 })
 export class MonitorRouteDetailsTimestampComponent implements OnInit {
   page = input.required<MonitorRouteDetailsPage>();

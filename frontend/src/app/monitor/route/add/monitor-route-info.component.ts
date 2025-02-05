@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MonitorRouteInfoPage } from '@api/common/monitor';
-import { DataComponent } from '@app/components/shared/data';
+import { DataComponent } from '@app/shared/components/data/data.component';
 import { SymbolComponent } from '@app/symbol';
 
 @Component({

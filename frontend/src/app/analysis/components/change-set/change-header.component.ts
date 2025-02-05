@@ -4,11 +4,11 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeKey } from '@api/common/changes/details';
-import { PageWidthService } from '@app/components/shared';
-import { IconHappyComponent } from '@app/components/shared/icon';
-import { IconInvestigateComponent } from '@app/components/shared/icon';
-import { LinkChangesetComponent } from '@app/components/shared/link';
-import { TimestampComponent } from '@app/components/shared/timestamp';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
+import { LinkChangesetComponent } from '@app/shared/components/link/link-changeset.component';
+import { PageWidthService } from '@app/shared/components/page-width.service';
+import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 
 @Component({
   selector: 'kpn-change-header',

@@ -9,9 +9,9 @@ import { MatSelectionList } from '@angular/material/list';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MonitorRouteDeviation } from '@api/common/monitor';
-import { EditService } from '@app/components/shared';
-import { DistancePipe } from '@app/components/shared/format';
-import { IconHappyComponent } from '@app/components/shared/icon';
+import { EditService } from '@app/shared/components/edit.service';
+import { DistancePipe } from '@app/shared/components/format/distance.pipe';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { LegendLineComponent } from './legend-line';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
@@ -142,6 +142,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
     MatIconModule,
     MatListModule,
     MatMenuModule,
+    DistancePipe,
   ],
 })
 export class MonitorRouteMapDeviationsComponent {

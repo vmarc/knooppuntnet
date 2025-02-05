@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
-import { Util } from '@app/components/shared';
-import { OsmLinkChangeSetComponent } from '@app/components/shared/link';
-import { TimestampComponent } from '@app/components/shared/timestamp';
+import { OsmLinkChangeSetComponent } from '@app/shared/components/link/osm-link-change-set.component';
+import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
+import { Util } from '@app/shared/components/util';
 import { ChangeSetAnalysisComponent } from './change-set-analysis.component';
 
 @Component({

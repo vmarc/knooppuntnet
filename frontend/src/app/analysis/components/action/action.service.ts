@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RouteType } from '@api/common';
-import { TimeoutComponent } from '@app/components/shared/link';
 import { ApiService } from '@app/services';
+import { TimeoutComponent } from '@app/shared/components/link/timeout.component';
 
 @Injectable({
   providedIn: 'root',

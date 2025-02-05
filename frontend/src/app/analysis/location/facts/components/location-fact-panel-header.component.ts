@@ -7,7 +7,7 @@ import { FactLevel } from '@api/common';
 import { Facts } from '@app/analysis/fact';
 import { FactLevelComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';
-import { BracketsComponent } from '@app/components/shared/link';
+import { BracketsComponent } from '@app/shared/components/link/brackets.component';
 import { ActionButtonLocationFactNodesComponent } from '../../../components/action/action-button-location-fact-nodes.component';
 import { ActionButtonLocationFactRoutesComponent } from '../../../components/action/action-button-location-fact-routes.component';
 

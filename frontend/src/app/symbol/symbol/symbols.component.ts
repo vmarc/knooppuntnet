@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { OsmLinkRelationComponent } from '@app/components/shared/link';
+import { OsmLinkRelationComponent } from '../../shared/components/link/osm-link-relation.component';
 import { SymbolExample } from './symbol-example';
 import { SymbolShape } from './symbol-shape';
 import { SymbolComponent } from './symbol.component';

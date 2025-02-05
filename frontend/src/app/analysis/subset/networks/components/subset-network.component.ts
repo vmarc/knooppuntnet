@@ -3,8 +3,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkAttributes } from '@api/common/network';
-import { IntegerFormatPipe } from '@app/components/shared/format';
-import { LinkNetworkDetailsComponent } from '@app/components/shared/link';
+import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
+import { LinkNetworkDetailsComponent } from '@app/shared/components/link/link-network-details.component';
 import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
 import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
 
@@ -37,7 +37,12 @@ import { SubsetNetworkHappyComponent } from './subset-network-happy.component';
       white-space: nowrap;
     }
   `,
-  imports: [IntegerFormatPipe, LinkNetworkDetailsComponent, SubsetNetworkHappyComponent],
+  imports: [
+    IntegerFormatPipe,
+    LinkNetworkDetailsComponent,
+    SubsetNetworkHappyComponent,
+    IntegerFormatPipe,
+  ],
 })
 export class SubsetNetworkComponent implements OnInit {
   network = input.required<NetworkAttributes>();

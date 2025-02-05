@@ -9,7 +9,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LocationEditPage } from '@api/common/location';
 import { EditConfiguration } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
-import { EditService } from '@app/components/shared';
+import { EditService } from '@app/shared/components/edit.service';
 
 @Component({
   selector: 'kpn-location-edit',

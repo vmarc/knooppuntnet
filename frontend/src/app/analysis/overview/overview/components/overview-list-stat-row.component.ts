@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { Country } from '@api/common';
 import { RouteType } from '@api/common';
 import { Subset } from '@api/custom';
-import { CountryNameComponent } from '@app/components/shared';
+import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { Stat } from '../../domain/stat';
 import { OverviewValueComponent } from './overview-value.component';

@@ -6,12 +6,12 @@ import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/
 import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangesComponent } from '@app/analysis/components/changes';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
-import { ErrorComponent } from '@app/components/shared/error';
-import { ItemsComponent } from '@app/components/shared/items';
-import { ItemComponent } from '@app/components/shared/items';
-import { SituationOnComponent } from '@app/components/shared/timestamp';
 import { ChangeOption } from '@app/kpn/common';
-import { PageFilterComponent } from '../../../shared/components/shared/page/page-filter.component';
+import { ErrorComponent } from '@app/shared/components/error/error.component';
+import { ItemComponent } from '@app/shared/components/items/item.component';
+import { ItemsComponent } from '@app/shared/components/items/items.component';
+import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
+import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';

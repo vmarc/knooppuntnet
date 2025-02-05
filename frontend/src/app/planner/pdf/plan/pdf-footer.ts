@@ -1,4 +1,4 @@
-import { Util } from '@app/components/shared';
+import { Util } from '@app/shared/components/util';
 import { jsPDF } from 'jspdf';
 import { PdfPage } from './pdf-page';
 

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { PageComponent } from '../../../components/shared/page/page.component';
+import { PageComponent } from '../../../components/page/page.component';
 
 @Component({
   selector: 'kpn-not-found-page',

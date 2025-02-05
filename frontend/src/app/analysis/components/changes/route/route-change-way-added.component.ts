@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { WayInfo } from '@api/common/diff';
 import { RouteChangeInfo } from '@api/common/route';
-import { MetaDataComponent } from '@app/components/shared';
-import { OsmLinkWayComponent } from '@app/components/shared/link';
-import { InterpretedTags } from '@app/components/shared/tags';
-import { TagTableComponent } from '@app/components/shared/tags';
+import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.component';
+import { MetaDataComponent } from '@app/shared/components/meta-data.component';
+import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
+import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
 
 @Component({
   selector: 'kpn-route-change-way-added',

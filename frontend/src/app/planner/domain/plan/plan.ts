@@ -1,5 +1,5 @@
 import { PlanNode } from '@api/common/planner';
-import { Util } from '@app/components/shared';
+import { Util } from '@app/shared/components/util';
 import { List } from 'immutable';
 import { PlanFlag } from './plan-flag';
 import { PlanLeg } from './plan-leg';

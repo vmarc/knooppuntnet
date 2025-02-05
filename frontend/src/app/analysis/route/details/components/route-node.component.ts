@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteNode } from '@api/common/route/route-node';
-import { BracketsComponent } from '@app/components/shared/link';
-import { LinkNodeComponent } from '@app/components/shared/link';
-import { OsmLinkNodeComponent } from '@app/components/shared/link';
+import { BracketsComponent } from '@app/shared/components/link/brackets.component';
+import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
+import { OsmLinkNodeComponent } from '@app/shared/components/link/osm-link-node.component';
 
 @Component({
   selector: 'kpn-route-node',

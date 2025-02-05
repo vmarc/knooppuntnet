@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { DividerComponent } from '@app/components/shared';
+import { DividerComponent } from '@app/shared/components/divider.component';
 import { ConditionTreeComponent } from '../condition/condition-tree.component';
 import { SearchRoutesComponent } from './search-routes.component';
 

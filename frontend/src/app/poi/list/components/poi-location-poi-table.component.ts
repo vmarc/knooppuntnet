@@ -6,8 +6,8 @@ import { input } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { LocationPoiInfo } from '@api/common/poi';
-import { PageWidthService } from '@app/components/shared';
-import { PaginatorComponent } from '@app/components/shared/paginator';
+import { PageWidthService } from '@app/shared/components/page-width.service';
+import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
 import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 
 @Component({

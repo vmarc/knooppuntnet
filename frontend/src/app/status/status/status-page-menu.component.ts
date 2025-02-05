@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { PageMenuOptionComponent } from '@app/components/shared/menu';
-import { PageMenuComponent } from '@app/components/shared/menu';
+import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
+import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 import { StatusLinks } from './status-links';
 
 @Component({

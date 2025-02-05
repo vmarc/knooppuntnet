@@ -12,7 +12,7 @@ import { NzSubMenuComponent } from 'ng-zorro-antd/menu';
 import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
 import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { NzTagComponent } from 'ng-zorro-antd/tag';
-import { PageComponent } from '../../shared/components/shared/page/page.component';
+import { PageComponent } from '../../shared/components/page/page.component';
 
 @Component({
   selector: 'kpn-tryout-filter-page',

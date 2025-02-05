@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NetworkDetailsPage } from '@api/common/network';
-import { CountryNameComponent } from '@app/components/shared';
-import { IntegerFormatPipe } from '@app/components/shared/format';
+import { CountryNameComponent } from '@app/shared/components/country-name.component';
+import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
 import { MarkdownModule } from 'ngx-markdown';
 import { ActionButtonRelationComponent } from '../../../../components/action/action-button-relation.component';
 
@@ -67,6 +67,7 @@ import { ActionButtonRelationComponent } from '../../../../components/action/act
     MarkdownModule,
     MatIconModule,
     ActionButtonRelationComponent,
+    IntegerFormatPipe,
   ],
 })
 export class NetworkSummaryComponent {

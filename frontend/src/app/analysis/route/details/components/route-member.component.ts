@@ -6,9 +6,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
 import { RouteType } from '@api/common';
 import { RouteStructureRow } from '@api/common/route';
-import { DayPipe } from '@app/components/shared/format';
-import { LinkNodeComponent } from '@app/components/shared/link';
-import { TagsTextComponent } from '@app/components/shared/tags';
+import { DayPipe } from '@app/shared/components/format/day.pipe';
+import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
+import { TagsTextComponent } from '@app/shared/components/tags/tags-text.component';
 import { SymbolComponent } from '@app/symbol';
 import { RouteDistanceComponent } from './route-distance.component';
 import { RouteMemberIdComponent } from './route-member-id.component';
@@ -143,6 +143,7 @@ import { RouteMemberNameComponent } from './route-member-name.component';
     RouteMemberNameComponent,
     MatTooltip,
     MatLabel,
+    DayPipe,
   ],
 })
 export class RouteMemberComponent {
