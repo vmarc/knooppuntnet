@@ -3,13 +3,13 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { LocationSelectorComponent } from '@app/analysis/location';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { NzFormControlComponent } from 'ng-zorro-antd/form';
 import { NzFormItemComponent } from 'ng-zorro-antd/form';
 import { NzColDirective } from 'ng-zorro-antd/grid';
 import { NzRowDirective } from 'ng-zorro-antd/grid';
+import { LocationSelectorComponent } from '../../../analysis/location/location-selector.component';
 import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 import { CountrySelectComponent } from './country-select.component';
 

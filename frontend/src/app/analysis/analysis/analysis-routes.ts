@@ -67,7 +67,7 @@ export const analysisRoutes: Routes = [
       },
       {
         matcher: LocationUrlMatcher.match,
-        loadChildren: () => import('../location').then((m) => m.locationRoutes),
+        loadChildren: () => import('../location/location-routes').then((m) => m.locationRoutes),
       },
       {
         matcher: LocationUrlMatcher.subsetUrl,
