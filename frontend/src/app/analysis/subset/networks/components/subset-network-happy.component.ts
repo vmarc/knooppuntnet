@@ -11,7 +11,7 @@ import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (interpretedNetwork.happy()) {
-      <kpn-icon-happy></kpn-icon-happy>
+      <kpn-icon-happy />
     }
     @if (interpretedNetwork.veryHappy()) {
       <kpn-icon-happy class="very-happy" />

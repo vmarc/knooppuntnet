@@ -33,7 +33,7 @@ import { OverviewListStatTableComponent } from './overview-list-stat-table.compo
         <div class="body">
           <div class="comment">
             @if (stat().configuration.markdown) {
-              <markdown [data]="comment(stat())"></markdown>
+              <markdown [data]="comment(stat())" />
             } @else {
               <p>
                 {{ stat().configuration.comment }}

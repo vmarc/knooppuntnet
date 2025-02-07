@@ -14,7 +14,7 @@ import { OsmLinkRelationComponent } from './osm-link-relation.component';
     <div class="kpn-line">
       <div class="kpn-thick">
         @if (known) {
-          <kpn-link-route [routeId]="ref().id" [routeName]="ref().name"></kpn-link-route>
+          <kpn-link-route [routeId]="ref().id" [routeName]="ref().name" />
         } @else {
           <span>{{ ref().name }}</span>
         }

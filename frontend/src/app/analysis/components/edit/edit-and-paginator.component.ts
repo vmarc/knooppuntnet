@@ -11,7 +11,7 @@ import { EditLinkComponent } from './edit-link.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="edit-and-paginator">
-      <kpn-edit-link (edit)="editClicked()" title="{{ editLinkTitle() }}" />
+      <kpn-edit-link (edit)="editClicked()" [title]="editLinkTitle()" />
       <div class="paginator">
         <kpn-paginator
           [pageIndex]="pageIndex()"

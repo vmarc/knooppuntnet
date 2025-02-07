@@ -5,8 +5,10 @@ import { PlannerCommandStack } from './planner-command-stack';
 class TestCommand implements PlannerCommand {
   constructor(public name: string) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   do(context: PlannerContext) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   undo(context: PlannerContext) {}
 }
 

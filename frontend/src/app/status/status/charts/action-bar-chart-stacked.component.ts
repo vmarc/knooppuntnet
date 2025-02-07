@@ -8,8 +8,6 @@ import { BarChartModule } from '@swimlane/ngx-charts';
   selector: 'kpn-action-bar-chart-stacked',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <!-- English only-->
-    <!-- eslint-disable @angular-eslint/template/i18n -->
     <ngx-charts-bar-vertical-stacked
       [view]="view"
       [results]="barChart().data"

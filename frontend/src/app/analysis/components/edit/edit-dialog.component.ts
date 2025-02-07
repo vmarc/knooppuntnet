@@ -23,7 +23,7 @@ import { EditService } from './edit.service';
     <div mat-dialog-content>
       @if (editService.showProgress()) {
         <p>
-          <mat-progress-bar [value]="editService.progress()"></mat-progress-bar>
+          <mat-progress-bar [value]="editService.progress()" />
         </p>
       }
       @if (editService.error()) {

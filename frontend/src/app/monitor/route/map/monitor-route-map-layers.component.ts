@@ -18,7 +18,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
         (change)="mapStateService.referenceVisibleChanged($event.checked)"
       >
         <div class="kpn-line">
-          <kpn-legend-line color="blue"></kpn-legend-line>
+          <kpn-legend-line color="blue" />
           @if (referenceType() === 'gpx' || referenceType() === 'multi-gpx') {
             <span i18n="@@monitor.route.map-layers.reference.gpx">GPX Reference</span>
           }

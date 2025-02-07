@@ -34,7 +34,7 @@ import { SubsetFactDetailsPageService } from './subset-fact-details-page.service
           <mat-card-title>
             <div class="kpn-line">
               <kpn-fact-name [fact]="service.factDefinition().fact" />
-              <kpn-fact-level [factLevel]="service.factDefinition().level"></kpn-fact-level>
+              <kpn-fact-level [factLevel]="service.factDefinition().level" />
             </div>
           </mat-card-title>
         </mat-card-header>

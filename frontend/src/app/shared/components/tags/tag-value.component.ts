@@ -9,17 +9,17 @@ import { Tag } from '@api/custom';
   template: `
     @switch (tag().key) {
       @case ('website') {
-        <a href="{{ tag().value }}">{{ tag().value }}</a>
+        <a [href]="tag().value">{{ tag().value }}</a>
       }
       @case ('wikidata') {
-        <a href="http://www.wikidata.org/entity/{{ tag().value }}">{{ tag().value }}</a>
+        <a [href]="'http://www.wikidata.org/entity/' + tag().value">{{ tag().value }}</a>
       }
       @case ('wikipedia') {
-        <a href="https://en.wikipedia.org/wiki/{{ tag().value }}">{{ tag().value }}</a>
+        <a [href]="'https://en.wikipedia.org/wiki/' + tag().value">{{ tag().value }}</a>
       }
       @default {
         @if (tag().value.startsWith('http')) {
-          <a href="{{ tag().value }}">{{ tag().value }}</a>
+          <a [href]="tag().value">{{ tag().value }}</a>
         } @else {
           {{ tag().value }}
         }

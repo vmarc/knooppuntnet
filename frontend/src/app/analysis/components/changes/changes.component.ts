@@ -32,7 +32,7 @@ import { PaginatorComponent } from '@app/shared/components/paginator/paginator.c
 
     @if (changeCount() > 0) {
       <div>
-        <ng-content></ng-content>
+        <ng-content />
       </div>
     }
   `,

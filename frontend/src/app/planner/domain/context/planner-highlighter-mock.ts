@@ -7,6 +7,7 @@ export class PlannerHighlighterMock implements PlannerHighlighter {
   node: PlanNode = null;
   routeFeature: RouteFeature = null;
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   mouseDown(coordinate: Coordinate): void {}
 
   highlightNode(node: PlanNode): void {

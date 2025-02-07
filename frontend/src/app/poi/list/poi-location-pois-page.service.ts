@@ -38,10 +38,6 @@ export class PoiLocationPoisPageService {
   readonly pageIndex = this._pageIndex.asReadonly();
   readonly pageSize = this.state.preferences.pageSize;
 
-  constructor() {
-    effect(() => {});
-  }
-
   onInit(): void {
     // TODO SIGNAL interprete location and filter queryParams to go directly to poi list
     // const location = this.routerService.queryParam('location');

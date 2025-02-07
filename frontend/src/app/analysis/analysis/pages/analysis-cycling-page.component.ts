@@ -34,7 +34,7 @@ import { AnalysisStrategyService } from '../../strategy';
 
       <kpn-page-header>
         <span class="header-route-type-icon">
-          <nz-icon nzType="cycling" />
+          <nz-icon [nzType]="'cycling'" />
         </span>
         <span i18n="@@route-type.cycling">Cycling</span>
       </kpn-page-header>
@@ -44,43 +44,43 @@ import { AnalysisStrategyService } from '../../strategy';
       <kpn-icon-buttons>
         <kpn-icon-button
           [routerLink]="nlLink()"
-          icon="netherlands"
+          [icon]="'netherlands'"
           i18n-title="@@country.nl"
           title="The Netherlands"
         />
         <kpn-icon-button
           [routerLink]="beLink()"
-          icon="belgium"
+          [icon]="'belgium'"
           i18n-title="@@country.be"
           title="Belgium"
         />
         <kpn-icon-button
           [routerLink]="deLink()"
-          icon="germany"
+          [icon]="'germany'"
           i18n-title="@@country.de"
           title="Germany"
         />
         <kpn-icon-button
           [routerLink]="frLink()"
-          icon="france"
+          [icon]="'france'"
           i18n-title="@@country.fr"
           title="France"
         />
         <kpn-icon-button
           [routerLink]="atLink()"
-          icon="austria"
+          [icon]="'austria'"
           i18n-title="@@country.at"
           title="Austria"
         />
         <kpn-icon-button
           [routerLink]="esLink()"
-          icon="spain"
+          [icon]="'spain'"
           i18n-title="@@country.es"
           title="Spain"
         />
         <kpn-icon-button
           [routerLink]="dkLink()"
-          icon="denmark"
+          [icon]="'denmark'"
           i18n-title="@@country.dk"
           title="Denmark"
         />

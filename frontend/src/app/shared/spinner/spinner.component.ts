@@ -9,7 +9,7 @@ import { SpinnerService } from './spinner.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (service.showSpinner()) {
-      <nz-spin nzSimple></nz-spin>
+      <nz-spin nzSimple />
     }
   `,
   imports: [NzSpinComponent],

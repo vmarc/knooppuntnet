@@ -13,12 +13,11 @@ import { MonitorService } from '../monitor.service';
   template: `
     <div class="toggle">
       <nz-switch
-        nzSize="small"
+        [nzSize]="'small'"
         [ngModel]="admin()"
         (ngModelChange)="adminChanged($event)"
         [nzDisabled]="adminDisabled()"
-      >
-      </nz-switch>
+      />
       <span i18n="@@monitor.admin-toggle">Admin</span>
     </div>
   `,

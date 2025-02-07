@@ -22,7 +22,7 @@ import { CountryName } from './country-name';
       nzPlaceHolder="Select country"
     >
       @for (countryName of countryNames; track countryName) {
-        <nz-option [nzValue]="countryName.country" [nzLabel]="countryName.name"></nz-option>
+        <nz-option [nzValue]="countryName.country" [nzLabel]="countryName.name" />
       }
     </nz-select>
   `,

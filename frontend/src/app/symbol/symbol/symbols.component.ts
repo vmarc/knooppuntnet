@@ -37,7 +37,7 @@ import { SymbolComponent } from './symbol.component';
         @for (symbol of wikiExamples; track symbol) {
           <div class="example">
             <div class="symbol-name">{{ symbol }}</div>
-            <kpn-symbol [description]="symbol" [grid]="true"></kpn-symbol>
+            <kpn-symbol [description]="symbol" [grid]="true" />
           </div>
         }
       </div>

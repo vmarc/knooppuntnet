@@ -5,6 +5,7 @@ import { TimestampFilter } from './timestamp-filter';
 import { TimestampFilterKind } from './timestamp-filter-kind';
 
 describe('TimestampFilter', () => {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const doNothing = (): void => {};
 
   const buildFilter = (kind: TimestampFilterKind): TimestampFilter<Timestamp> => {

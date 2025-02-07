@@ -16,7 +16,7 @@ import { PageService } from '../page.service';
   template: `
     <div class="header">
       <h1 #title class="kpn-ellipsis">
-        <ng-content></ng-content>
+        <ng-content />
       </h1>
       @if (subject()) {
         <kpn-doc-link [subject]="subject()" />

@@ -40,7 +40,7 @@ import { LocationOption } from './internal/selection/components/location-option'
             nzPlaceHolder="municipality or other administrative boundary name"
           >
             @for (option of filteredOptions(); track option) {
-              <nz-option [nzValue]="option" [nzLabel]="option.name"></nz-option>
+              <nz-option [nzValue]="option" [nzLabel]="option.name" />
             }
           </nz-select>
         </nz-form-item>

@@ -16,12 +16,12 @@ import { Facts } from './facts';
   selector: 'kpn-facts',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p i18n-title="@@route.facts">Facts</p>
+    <p i18n="@@route.facts">Facts</p>
     @for (factInfo of filteredFactInfos; track $index) {
       <div class="fact">
         <div>
           <kpn-fact-level [factLevel]="factLevel(factInfo)" class="level" />
-          <kpn-fact-name [fact]="factInfo.fact"></kpn-fact-name>
+          <kpn-fact-name [fact]="factInfo.fact" />
 
           @if (factInfo.networkRef) {
             <div class="reference">

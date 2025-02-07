@@ -11,7 +11,7 @@ import { input } from '@angular/core';
         {{ title() }}
       </div>
       <div class="body">
-        <ng-content></ng-content>
+        <ng-content />
       </div>
     </div>
   `,

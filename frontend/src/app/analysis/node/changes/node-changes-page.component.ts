@@ -57,7 +57,7 @@ import { NodeChangesPageService } from './node-changes-page.service';
               @if (response.result; as page) {
                 <div>
                   <p>
-                    <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+                    <kpn-situation-on [timestamp]="response.situationOn" />
                   </p>
                   <kpn-changes
                     [impact]="service.impact()"
@@ -84,7 +84,7 @@ import { NodeChangesPageService } from './node-changes-page.service';
               @if (response.result; as page) {
                 <div>
                   <p>
-                    <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+                    <kpn-situation-on [timestamp]="response.situationOn" />
                   </p>
                   <kpn-changes
                     [impact]="service.impact()"

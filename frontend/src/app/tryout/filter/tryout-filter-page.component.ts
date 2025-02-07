@@ -3,6 +3,7 @@ import { signal } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatLabel } from '@angular/material/form-field';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
 import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
@@ -12,12 +13,12 @@ import { NzSubMenuComponent } from 'ng-zorro-antd/menu';
 import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
 import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { NzTagComponent } from 'ng-zorro-antd/tag';
-import { PageComponent } from '../../shared/components/page/page.component';
 
 @Component({
   selector: 'kpn-tryout-filter-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <kpn-page>
       <h1>Tryout filter</h1>
       <nz-collapse>
@@ -75,6 +76,7 @@ import { PageComponent } from '../../shared/components/page/page.component';
         {{ queryParams() }}
       </div>
     </kpn-page>
+    <!-- eslint-enable @angular-eslint/template/i18n -->
   `,
   styles: `
     .menu-link {

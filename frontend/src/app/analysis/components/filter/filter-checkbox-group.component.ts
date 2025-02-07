@@ -14,7 +14,7 @@ import { FilterOptionGroup } from '@app/kpn/filter';
     <div>
       <div class="group-name">{{ groupName() }}</div>
       @for (option of group().options; track $index) {
-        <mat-checkbox [checked]="isSelected()" (change)="selectedChanged($event)">
+        <mat-checkbox [checked]="isSelected()" (change)="selectedChanged()">
           {{ optionName(option) }}<span class="option-count">{{ option.count }}</span>
         </mat-checkbox>
       }
@@ -29,7 +29,8 @@ export class FilterCheckboxGroupComponent {
     return false;
   }
 
-  selectedChanged(event: MatCheckboxChange) {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  selectedChanged() {}
 
   groupName(): string {
     return Translations.get(`filter.${this.group().name}`);

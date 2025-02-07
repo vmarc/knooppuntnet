@@ -28,21 +28,21 @@ import { ConditionGroupForm } from './condition-controls';
       </mat-button-toggle-group>
 
       <button mat-icon-button [matMenuTriggerFor]="addMenu">
-        <mat-icon svgIcon="add"></mat-icon>
+        <mat-icon svgIcon="add" />
       </button>
       <mat-menu #addMenu="matMenu">
         <button mat-menu-item (click)="addCondition()">
-          <mat-icon svgIcon="add"></mat-icon>
+          <mat-icon svgIcon="add" />
           <mat-label>add condition</mat-label>
         </button>
         <button mat-menu-item (click)="addGroup()">
-          <mat-icon svgIcon="add"></mat-icon>
+          <mat-icon svgIcon="add" />
           <mat-label>add group</mat-label>
         </button>
       </mat-menu>
       @if (removeEnabled()) {
         <button mat-icon-button>
-          <mat-icon svgIcon="remove" (click)="onRemove()"></mat-icon>
+          <mat-icon svgIcon="remove" (click)="onRemove()" />
         </button>
       }
     </div>

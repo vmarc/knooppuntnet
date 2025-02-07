@@ -15,7 +15,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
     <div #stepDiv class="kpn-line kpn-spacer-below">
       <div class="icon">
         @if (step().status === 'busy') {
-          <mat-spinner diameter="20"></mat-spinner>
+          <mat-spinner diameter="20" />
         }
 
         @if (step().status === 'todo') {

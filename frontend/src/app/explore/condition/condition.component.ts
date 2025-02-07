@@ -47,7 +47,7 @@ import { ConditionTagComponent } from './condition-tag.component';
           }
 
           <button mat-icon-button>
-            <mat-icon svgIcon="remove" (click)="onRemove()"></mat-icon>
+            <mat-icon svgIcon="remove" (click)="onRemove()" />
           </button>
         </div>
       </mat-card>

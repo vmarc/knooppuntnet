@@ -8,9 +8,9 @@ import { input } from '@angular/core';
   template: `
     <a
       class="external"
-      rel="nofollow noreferrer"
+      [rel]="'nofollow noreferrer'"
       target="_blank"
-      href="https://www.openstreetmap.org/{{ kind() }}/{{ elementId() }}"
+      [href]="'https://www.openstreetmap.org/' + kind() + '/' + elementId()"
       title="Open in OpenStreetMap website"
       i18n-title="@@osm-link.title"
     >

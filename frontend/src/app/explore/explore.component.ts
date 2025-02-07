@@ -47,10 +47,8 @@ import { ExploreRoutesComponent } from './explore-routes.component';
       <ng-template #suffixIconSearch>
         <nz-icon nzType="search" />
       </ng-template>
-      <nz-segmented
-        [nzOptions]="options"
-        (nzValueChange)="handleValueChange($event)"
-      ></nz-segmented>
+
+      <nz-segmented [nzOptions]="options" (nzValueChange)="handleValueChange($event)" />
       <label nz-checkbox>Advanced</label>
       <div>
         <button nz-button nzType="primary">

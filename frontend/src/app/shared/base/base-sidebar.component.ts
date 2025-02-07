@@ -5,7 +5,7 @@ import { SidebarComponent } from '@app/shared/components/sidebar/sidebar.compone
 @Component({
   selector: 'kpn-base-sidebar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: ` <kpn-sidebar></kpn-sidebar> `,
+  template: ` <kpn-sidebar /> `,
   imports: [SidebarComponent],
 })
 export class BaseSidebarComponent {}

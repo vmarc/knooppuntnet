@@ -11,11 +11,8 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
   template: `
     @for (reference of references(); track reference) {
       <div class="kpn-line">
-        <nz-icon nzType="reference.routeType" />
-        <a
-          id="{{ 'network-ref-' + reference.id }}"
-          [routerLink]="'/analysis/network/' + reference.id"
-        >
+        <nz-icon [nzType]="reference.routeType" />
+        <a [id]="'network-ref-' + reference.id" [routerLink]="'/analysis/network/' + reference.id">
           {{ reference.name }}
         </a>
       </div>

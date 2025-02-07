@@ -26,7 +26,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
               <div class="text-panel-container">
                 <div class="text-panel-body">
                   <div>
-                    <ng-container *ngTemplateOutlet="text"></ng-container>
+                    <ng-container *ngTemplateOutlet="text" />
                   </div>
                 </div>
                 <div class="text-panel-footer">
@@ -46,7 +46,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
               <as-split-area size="40">
                 <div class="text-panel-container">
                   <div class="text-panel-body">
-                    <ng-container *ngTemplateOutlet="text"></ng-container>
+                    <ng-container *ngTemplateOutlet="text" />
                   </div>
                   <div class="text-panel-footer">
                     <kpn-sidebar-footer />

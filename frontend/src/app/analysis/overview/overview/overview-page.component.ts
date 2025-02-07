@@ -25,7 +25,7 @@ import { OverviewTableComponent } from './components/overview-table.component';
 
       <kpn-overview-options />
 
-      <kpn-error></kpn-error>
+      <kpn-error />
 
       @if (service.response(); as response) {
         <div class="kpn-spacer-above">

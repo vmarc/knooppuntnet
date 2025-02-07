@@ -21,7 +21,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
         [initialProperties]="initialProperties()"
         [routeGroups]="routeGroups()"
         (update)="update($event)"
-      ></kpn-monitor-route-properties>
+      />
     </div>
     <div [ngClass]="{ hidden: !saving }">
       <kpn-monitor-route-form-save [command]="command" />

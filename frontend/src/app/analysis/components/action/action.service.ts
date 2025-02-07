@@ -135,6 +135,7 @@ export class ActionService {
       window.open(url, 'josm');
     } else {
       this.apiService.edit(url).subscribe({
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         next: () => {},
         error: () => {
           this.dialog.open(TimeoutComponent, { autoFocus: false, maxWidth: 500 });

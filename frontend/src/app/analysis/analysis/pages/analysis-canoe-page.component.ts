@@ -34,7 +34,7 @@ import { AnalysisStrategyService } from '../../strategy';
 
       <kpn-page-header>
         <span class="header-route-type-icon">
-          <nz-icon nzType="canoe" />
+          <nz-icon [nzType]="'canoe'" />
         </span>
         <span i18n="@@route-type.canoe">Canoe</span>
       </kpn-page-header>
@@ -42,21 +42,18 @@ import { AnalysisStrategyService } from '../../strategy';
       <kpn-analysis-strategy />
 
       <kpn-icon-buttons>
-        <!-- icon attribute does not need translation -->
-        <!-- eslint-disable @angular-eslint/template/i18n -->
         <kpn-icon-button
           [routerLink]="nlLink()"
-          icon="netherlands"
+          [icon]="'netherlands'"
           i18n-title="@@country.nl"
           title="The Netherlands"
         />
         <kpn-icon-button
           [routerLink]="frLink()"
-          icon="france"
+          [icon]="'france'"
           i18n-title="@@country.fr"
           title="France"
         />
-        <!-- eslint-enable @angular-eslint/template/i18n -->
       </kpn-icon-buttons>
     </kpn-page>
   `,

@@ -7,6 +7,7 @@ import { input } from '@angular/core';
   selector: 'kpn-symbol-hiker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <div [style]="box">
       <svg
         xmlns="http://www.w3.org/2000/svg"

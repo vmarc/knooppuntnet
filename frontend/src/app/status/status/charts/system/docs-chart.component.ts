@@ -33,8 +33,7 @@ import { ActionBarChartComponent } from '../action-bar-chart.component';
         [yAxisLabel]="'documents'"
         [legend]="false"
         [roundDomains]="false"
-      >
-      </ngx-charts-line-chart>
+      />
     </div>
   `,
   imports: [ActionBarChartComponent, LineChartModule],

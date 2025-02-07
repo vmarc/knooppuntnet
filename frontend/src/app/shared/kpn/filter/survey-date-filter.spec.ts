@@ -5,6 +5,7 @@ import { SurveyDateFilter } from './survey-date-filter';
 import { SurveyDateFilterKind } from './survey-date-filter-kind';
 
 describe('SurveyDateFilter', () => {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const doNothing = (): void => {};
 
   const buildFilter = (kind: SurveyDateFilterKind): SurveyDateFilter<Day> => {

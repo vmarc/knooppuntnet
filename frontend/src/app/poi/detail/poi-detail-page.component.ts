@@ -73,7 +73,7 @@ import { PoiDetailPageService } from './poi-detail-page.service';
                   class="external"
                   rel="nofollow noreferrer"
                   target="_blank"
-                  href="{{ response.result.poiState.imageLink }}"
+                  [href]="response.result.poiState.imageLink"
                 >
                   {{ response.result.poiState.imageLink }}
                 </a>

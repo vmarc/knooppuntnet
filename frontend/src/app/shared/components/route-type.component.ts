@@ -10,9 +10,9 @@ import { RouteTypeNameComponent } from './route-type-name.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="route-type">
-      <nz-icon nzType="routeType()" />
+      <nz-icon [nzType]="routeType()" />
       <kpn-route-type-name [routeType]="routeType()" />
-      <ng-content></ng-content>
+      <ng-content />
     </div>
   `,
   styles: `

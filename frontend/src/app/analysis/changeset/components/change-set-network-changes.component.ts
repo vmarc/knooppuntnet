@@ -18,10 +18,11 @@ import { CsNcComponent } from './network/cs-nc.component';
   template: `
     @for (networkChangeInfo of detail().networkChanges; track networkChangeInfo) {
       <div class="kpn-level-1">
+        <!-- eslint-disable-next-line @angular-eslint/template/elements-content -->
         <a [id]="networkChangeInfo.networkId"></a>
         <div class="kpn-level-1-header">
           <div class="kpn-line">
-            <nz-icon nzType="networkChangeInfo.routeType" />
+            <nz-icon [nzType]="networkChangeInfo.routeType" />
             <span i18n="@@change-set.network-changes.network">Network</span>
             <kpn-link-network-details
               [networkId]="networkChangeInfo.networkId"

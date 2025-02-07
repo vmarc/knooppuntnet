@@ -41,7 +41,7 @@ import { MonitorRouteChangePageService } from './monitor-route-change-page.servi
           {{ state.routeName }}
         </h1>
 
-        <kpn-error></kpn-error>
+        <kpn-error />
 
         @if (state.response; as response) {
           <div class="kpn-spacer-above">

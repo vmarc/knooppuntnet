@@ -12,7 +12,7 @@ import { ExploreStyleStandard } from '../map/style/explore-style-standard';
   template: `
     <div
       [matTooltip]="tooltip()"
-      class="indicator-icon {{ color() }}"
+      [class]="'indicator-icon ' + color()"
       [style]="'background-color: ' + color()"
     ></div>
   `,

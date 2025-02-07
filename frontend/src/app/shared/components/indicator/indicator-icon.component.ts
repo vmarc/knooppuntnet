@@ -6,7 +6,7 @@ import { input } from '@angular/core';
   selector: 'kpn-indicator-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="indicator-icon {{ color() }}">
+    <div [class]="'indicator-icon ' + color()">
       {{ letter() }}
     </div>
   `,

@@ -47,7 +47,7 @@ import { MonitorRouteMapStateService } from './monitor-route-map-state.service';
 
           <div class="segment segment-header">
             <span class="segment-id">
-              <kpn-legend-line color="red"></kpn-legend-line>
+              <kpn-legend-line color="red" />
             </span>
             <span class="segment-deviation" i18n="@@monitor.route.map-deviations.deviation">
               Deviation

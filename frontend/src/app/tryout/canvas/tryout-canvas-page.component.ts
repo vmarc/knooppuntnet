@@ -13,6 +13,7 @@ import { TryoutWrapperComponent } from './tryout-wrapper.component';
   selector: 'kpn-tryout-canvas-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
+    <!-- eslint-disable @angular-eslint/template/i18n -->
     <div class="page">
       @if (linkInfos()) {
         <p>Links: {{ linkCount() }}</p>

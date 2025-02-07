@@ -35,7 +35,7 @@ import { SubsetNetworksPageService } from './subset-networks-page.service';
           } @else {
             <div>
               <p>
-                <kpn-situation-on [timestamp]="response.situationOn"></kpn-situation-on>
+                <kpn-situation-on [timestamp]="response.situationOn" />
               </p>
               <markdown i18n="@@subset-networks.summary">
                 _There are __{{ response.result.networkCount | integer }}__ networks, with a total

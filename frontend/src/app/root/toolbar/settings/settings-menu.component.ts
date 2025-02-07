@@ -15,13 +15,13 @@ import { SettingsMenuScopeComponent } from './settings-menu-scope.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button nz-button (click)="open()">
-      <nz-icon nzType="setting" />
+      <nz-icon [nzType]="'setting'" />
     </button>
 
     <nz-drawer
       [nzClosable]="true"
       [nzVisible]="visible"
-      nzPlacement="left"
+      [nzPlacement]="'left'"
       nzTitle="Settings"
       (nzOnClose)="close()"
     >

@@ -10,8 +10,8 @@ import { UserService } from '../../user';
   template: `
     <a
       class="external"
-      href="{{ link() }}}"
-      rel="nofollow noreferrer"
+      [href]="link()"
+      [rel]="'nofollow noreferrer'"
       target="_blank"
       i18n="@@osm-link.oath-clients"
     >
