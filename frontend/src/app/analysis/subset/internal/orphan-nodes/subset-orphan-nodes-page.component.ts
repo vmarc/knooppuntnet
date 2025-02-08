@@ -1,0 +1,64 @@
+import { OnInit } from '@angular/core';
+import { inject } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
+import { Component } from '@angular/core';
+import { FilterComponent } from '@app/analysis/components/filter';
+import { ErrorComponent } from '@app/shared/components/error/error.component';
+import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
+import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
+import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
+import { RouterService } from '../../../../shared/services/router.service';
+import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
+import { SubsetOrphanNodesTableComponent } from './components/subset-orphan-nodes-table.component';
+import { SubsetOrphanNodesPageService } from './subset-orphan-nodes-page.service';
+
+@Component({
+  selector: 'kpn-subset-orphan-nodes-page',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <kpn-page-filter>
+      <kpn-subset-page-header-block
+        pageName="orphan-nodes"
+        pageTitle="Orphan nodes"
+        i18n-pageTitle="@@subset-orphan-nodes.title"
+      />
+
+      <kpn-error />
+
+      @if (service.response(); as response) {
+        <div class="kpn-spacer-above">
+          <p>
+            <kpn-situation-on [timestamp]="response.situationOn" />
+          </p>
+          @if (response.result.nodes.length === 0) {
+            <p class="kpn-line">
+              <kpn-icon-happy />
+              <span i18n="@@subset-orphan-nodes.no-routes">No orphan nodes</span>
+            </p>
+          } @else {
+            <kpn-subset-orphan-nodes-table />
+          }
+        </div>
+      }
+      <kpn-filter [filterOptions]="filterOptions()" filter />
+    </kpn-page-filter>
+  `,
+  providers: [SubsetOrphanNodesPageService, RouterService],
+  imports: [
+    ErrorComponent,
+    FilterComponent,
+    IconHappyComponent,
+    PageFilterComponent,
+    SituationOnComponent,
+    SubsetOrphanNodesTableComponent,
+    SubsetPageHeaderBlockComponent,
+  ],
+})
+export class SubsetOrphanNodesPageComponent implements OnInit {
+  protected readonly service = inject(SubsetOrphanNodesPageService);
+  protected readonly filterOptions = this.service.filterOptions;
+
+  ngOnInit(): void {
+    this.service.onInit();
+  }
+}

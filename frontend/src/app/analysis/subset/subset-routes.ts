@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
-import { SubsetChangesPageComponent } from './changes/subset-changes-page.component';
-import { SubsetFactDetailsPageComponent } from './fact-details/subset-fact-details-page.component';
-import { SubsetFactsPageComponent } from './facts/subset-facts-page.component';
-import { SubsetMapPageComponent } from './map/subset-map-page.component';
-import { SubsetMapService } from './map/subset-map.service';
-import { SubsetNetworksPageComponent } from './networks/subset-networks-page.component';
-import { SubsetOrphanNodesPageComponent } from './orphan-nodes/subset-orphan-nodes-page.component';
-import { SubsetOrphanRoutesPageComponent } from './orphan-routes/subset-orphan-routes-page.component';
+import { SubsetChangesPageComponent } from './internal/changes/subset-changes-page.component';
+import { SubsetFactDetailsPageComponent } from './internal/fact-details/subset-fact-details-page.component';
+import { SubsetFactsPageComponent } from './internal/facts/subset-facts-page.component';
+import { SubsetMapPageComponent } from './internal/map/subset-map-page.component';
+import { SubsetMapService } from './internal/map/subset-map.service';
+import { SubsetNetworksPageComponent } from './internal/networks/subset-networks-page.component';
+import { SubsetOrphanNodesPageComponent } from './internal/orphan-nodes/subset-orphan-nodes-page.component';
+import { SubsetOrphanRoutesPageComponent } from './internal/orphan-routes/subset-orphan-routes-page.component';
 
 export const subsetRoutes: Routes = [
   {

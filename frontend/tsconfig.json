@@ -63,17 +63,8 @@
       "@app/analysis/fact/*": [
         "src/app/analysis/fact/*"
       ],
-      "@app/analysis/overview": [
-        "src/app/analysis/overview/index.ts"
-      ],
-      "@app/analysis/route": [
-        "src/app/analysis/route/index.ts"
-      ],
       "@app/analysis/strategy": [
         "src/app/analysis/strategy/index.ts"
-      ],
-      "@app/analysis/subset": [
-        "src/app/analysis/subset/index.ts"
       ],
       "@app/shared/components/*": [
         "src/app/shared/components/*"
