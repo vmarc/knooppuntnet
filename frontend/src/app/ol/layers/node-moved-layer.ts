@@ -1,4 +1,4 @@
-import { NodeMoved } from '@api/common/diff/node';
+import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { OlUtil } from '@app/ol';
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';

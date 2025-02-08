@@ -3,8 +3,8 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { LocationChanges } from '@api/common';
-import { LocationTreeItem } from '@api/common';
+import { LocationChanges } from '@api/common/location-changes';
+import { LocationTreeItem } from '@api/common/location-tree-item';
 import { PageService } from '@app/shared/components/page.service';
 
 @Component({

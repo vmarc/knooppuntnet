@@ -1,11 +1,11 @@
 // this file is generated, please do not modify
 
-import { ChangeType } from '@api/common';
-import { Country } from '@api/common';
-import { RouteType } from '@api/common';
-import { IdDiffs } from '@api/common/diff';
-import { NetworkDataUpdate } from '@api/common/diff';
-import { RefDiffs } from '@api/common/diff';
+import { ChangeType } from '@api/common/change-type';
+import { Country } from '@api/common/country';
+import { RouteType } from '@api/common/route-type';
+import { IdDiffs } from '@api/common/diff/id-diffs';
+import { NetworkDataUpdate } from '@api/common/diff/network-data-update';
+import { RefDiffs } from '@api/common/diff/ref-diffs';
 import { ChangeKey } from './change-key';
 
 export interface NetworkInfoChange {

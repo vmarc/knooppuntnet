@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { Bounds } from '@api/common';
-import { MonitorRouteSubRelation } from '@api/common/monitor';
-import { MonitorRouteMapPage } from '@api/common/monitor';
+import { Bounds } from '@api/common/bounds';
+import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
+import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { NavService } from '@app/shared/components/nav.service';
 import { Util } from '@app/shared/components/util';
 import { MonitorService } from '../../monitor.service';

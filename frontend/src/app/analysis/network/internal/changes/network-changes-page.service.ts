@@ -1,9 +1,9 @@
 import { signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-import { ChangesParameters } from '@api/common/changes/filter';
-import { NetworkChangesPage } from '@api/common/network';
-import { ApiResponse } from '@api/custom';
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { NetworkChangesPage } from '@api/common/network/network-changes-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';

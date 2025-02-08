@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Check } from '@api/common';
+import { Check } from '@api/common/check';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
 import { ActionButtonNodeComponent } from '../../../../components/action/action-button-node.component';
 

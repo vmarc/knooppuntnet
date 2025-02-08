@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { PlanRoute } from '@api/common/planner';
+import { PlanRoute } from '@api/common/planner/plan-route';
 import { Plan } from '../../../domain/plan/plan';
 import { PlanRouteColourUtil } from '../../../util/plan-route-colour-util';
 

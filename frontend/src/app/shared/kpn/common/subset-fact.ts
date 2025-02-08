@@ -1,5 +1,5 @@
-import { Fact } from '@api/common';
-import { Subset } from '@api/custom';
+import { Fact } from '@api/common/fact';
+import { Subset } from '@api/custom/subset';
 
 export class SubsetFact {
   constructor(

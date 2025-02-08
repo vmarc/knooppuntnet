@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Tag } from '@api/custom';
-import { Timestamp } from '@api/custom';
+import { Tag } from '@api/custom/tag';
+import { Timestamp } from '@api/custom/timestamp';
 import { Country } from './country';
 import { RouteScope } from './route-scope';
 import { RouteType } from './route-type';

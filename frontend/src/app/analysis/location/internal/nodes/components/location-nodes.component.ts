@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { LocationNodesPage } from '@api/common/location';
+import { LocationNodesPage } from '@api/common/location/location-nodes-page';
 import { LocationNodeTableComponent } from './location-node-table.component';
 
 @Component({

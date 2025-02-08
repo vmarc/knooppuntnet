@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { StatisticValues } from '@api/common/statistics';
+import { StatisticValues } from '@api/common/statistics/statistic-values';
 import { Stat } from '../../domain/stat';
 import { OverviewConfigurationService } from './overview-configuration.service';
 import { OverviewTableHeaderComponent } from './overview-table-header.component';

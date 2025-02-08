@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { OrphanRouteInfo } from '@api/common';
-import { RouteType } from '@api/common';
+import { OrphanRouteInfo } from '@api/common/orphan-route-info';
+import { RouteType } from '@api/common/route-type';
 import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indicators/route';
 import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route';
 

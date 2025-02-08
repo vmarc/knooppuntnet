@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { TimeKey } from '@api/common';
-import { Timestamp } from '@api/custom';
+import { TimeKey } from '@api/common/time-key';
+import { Timestamp } from '@api/custom/timestamp';
 
 export interface ChangeKey {
   readonly replicationNumber: number;

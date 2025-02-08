@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { DiskUsage } from '@api/common/status';
+import { DiskUsage } from '@api/common/status/disk-usage';
 import { ServerDiskUsageLegendComponent } from './server-disk-usage-legend.component';
 import { ServerDiskUsagePieChartComponent } from './server-disk-usage-pie-chart.component';
 

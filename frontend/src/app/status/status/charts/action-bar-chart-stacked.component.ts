@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { BarChart2D } from '@api/common/status';
+import { BarChart2D } from '@api/common/status/bar-chart2d';
 import { BarChartModule } from '@swimlane/ngx-charts';
 
 @Component({

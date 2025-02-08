@@ -1,4 +1,4 @@
-import { PlanNode } from '@api/common/planner';
+import { PlanNode } from '@api/common/planner/plan-node';
 import { OlUtil } from '@app/ol';
 import { PoiId } from '@app/ol/domain';
 import * as Sentry from '@sentry/angular';

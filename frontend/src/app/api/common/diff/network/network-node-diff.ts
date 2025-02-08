@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { TagDiffs } from '@api/common/diff';
+import { TagDiffs } from '@api/common/diff/tag-diffs';
 import { NodeIntegrityCheckDiff } from './node-integrity-check-diff';
 import { NodeRouteReferenceDiffs } from './node-route-reference-diffs';
 

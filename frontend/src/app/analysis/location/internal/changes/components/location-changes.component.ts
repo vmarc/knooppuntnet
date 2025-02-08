@@ -4,7 +4,7 @@ import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
 import { LocationChangesPageService } from '../location-changes-page.service';
 import { LocationChangeComponent } from './location-change.component';
-import { LocationChangesPage } from '@api/common/location';
+import { LocationChangesPage } from '@api/common/location/location-changes-page';
 
 @Component({
   selector: 'kpn-location-changes',

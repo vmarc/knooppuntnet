@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
-import { RouteScope } from '@api/common';
+import { RouteScope } from '@api/common/route-scope';
 import { ExploreStyleStandard } from '../map/style/explore-style-standard';
 
 @Component({

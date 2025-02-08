@@ -2,7 +2,7 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 import { RouteListItem } from '@api/common/search/route-list-item';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { ActionButtonRouteComponent } from '../../analysis/components/action/action-button-route.component';

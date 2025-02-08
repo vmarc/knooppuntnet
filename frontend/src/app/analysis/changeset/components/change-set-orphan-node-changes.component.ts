@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { ChangeSetElementRef } from '@api/common';
-import { ChangeSetSubsetElementRefs } from '@api/common';
+import { ChangeSetElementRef } from '@api/common/change-set-element-ref';
+import { ChangeSetSubsetElementRefs } from '@api/common/change-set-subset-element-refs';
 import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
-import { Ref } from '@api/common/common';
-import { RefDiffs } from '@api/common/diff';
+import { Ref } from '@api/common/common/ref';
+import { RefDiffs } from '@api/common/diff/ref-diffs';
 import { List } from 'immutable';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NodeDiffsData } from './node-diffs/node-diffs-data';
@@ -18,7 +18,7 @@ import { NodeDiffsComponent } from './node-diffs/node-diffs.component';
     @for (refs of detail().orphanNodeChanges; track refs) {
       <div class="kpn-level-1">
         <div class="kpn-level-1-header kpn-line">
-          <nz-icon nzType="refs.subset.routeType" />
+          <nz-icon [nzType]="refs.subset.routeType" />
           <span>{{ refs.subset.country.toUpperCase() }}</span>
           <span i18n="@@change-set.orphan-nodes.title">Orphan nodes</span>
         </div>

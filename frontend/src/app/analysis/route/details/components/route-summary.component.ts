@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouteDetailsPageData } from '@api/common/route';
+import { RouteDetailsPageData } from '@api/common/route/route-details-page-data';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';

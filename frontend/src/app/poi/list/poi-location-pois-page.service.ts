@@ -1,12 +1,11 @@
-import { effect } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
-import { PoiLocationsPage } from '@api/common';
-import { LocationPoiSummaryPage } from '@api/common';
-import { LocationPoisPage } from '@api/common';
-import { Country } from '@api/common';
-import { ApiResponse } from '@api/custom';
+import { Country } from '@api/common/country';
+import { LocationPoiSummaryPage } from '@api/common/poi/location-poi-summary-page';
+import { LocationPoisPage } from '@api/common/poi/location-pois-page';
+import { PoiLocationsPage } from '@api/common/poi/poi-locations-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { State } from '@app/state';
 import { PoiService } from '../poi.service';
 

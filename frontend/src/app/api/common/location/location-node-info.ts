@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import { Fact } from '@api/common';
-import { Reference } from '@api/common/common';
-import { Day } from '@api/custom';
-import { Timestamp } from '@api/custom';
+import { Fact } from '@api/common/fact';
+import { Reference } from '@api/common/common/reference';
+import { Day } from '@api/custom/day';
+import { Timestamp } from '@api/custom/timestamp';
 
 export interface LocationNodeInfo {
   readonly rowIndex: number;

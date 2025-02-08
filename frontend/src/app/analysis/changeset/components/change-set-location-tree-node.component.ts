@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { LocationChangesTreeNode } from '@api/common';
+import { LocationChangesTreeNode } from '@api/common/location-changes-tree-node';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';

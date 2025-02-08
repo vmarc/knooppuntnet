@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
-import { NetworkAttributes } from '@api/common/network';
+import { NetworkAttributes } from '@api/common/network/network-attributes';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { InterpretedNetworkAttributes } from './interpreted-network-attributes';
 

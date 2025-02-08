@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { TimeInfo } from '@api/common';
+import { TimeInfo } from '@api/common/time-info';
 import { LocationRouteInfo } from './location-route-info';
 import { LocationRouteOptions } from './location-route-options';
 import { LocationSummary } from './location-summary';

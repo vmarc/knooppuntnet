@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { NetworkMapPage } from '@api/common/network';
-import { ApiResponse } from '@api/custom';
+import { NetworkMapPage } from '@api/common/network/network-map-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { MapPosition } from '@app/ol/domain';
 import { CachedMapPosition } from '@app/ol/domain';
 import { ApiService } from '@app/services';

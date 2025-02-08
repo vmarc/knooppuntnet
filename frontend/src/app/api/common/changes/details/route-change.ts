@@ -1,13 +1,13 @@
 // this file is generated, please do not modify
 
-import { ChangeType } from '@api/common';
-import { Fact } from '@api/common';
-import { RouteLocationAnalysis } from '@api/common';
-import { Ref } from '@api/common/common';
-import { RawWay } from '@api/common/data/raw';
-import { RouteData } from '@api/common/diff';
-import { WayUpdate } from '@api/common/diff';
-import { RouteDiff } from '@api/common/diff/route';
+import { ChangeType } from '@api/common/change-type';
+import { Fact } from '@api/common/fact';
+import { RouteLocationAnalysis } from '@api/common/route-location-analysis';
+import { Ref } from '@api/common/common/ref';
+import { RawWay } from '@api/common/data/raw/raw-way';
+import { RouteData } from '@api/common/diff/route-data';
+import { WayUpdate } from '@api/common/diff/way-update';
+import { RouteDiff } from '@api/common/diff/route/route-diff';
 import { ChangeKey } from './change-key';
 
 export interface RouteChange {

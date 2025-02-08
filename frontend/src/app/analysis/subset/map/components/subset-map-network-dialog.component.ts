@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { RouterLink } from '@angular/router';
-import { SubsetMapNetwork } from '@api/common/subset';
+import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 
 @Component({
   selector: 'kpn-subset-map-network-dialog',

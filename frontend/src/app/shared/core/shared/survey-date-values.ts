@@ -1,4 +1,4 @@
-import { SurveyDateInfo } from '@api/common';
+import { SurveyDateInfo } from '@api/common/survey-date-info';
 import { DayPipe } from '../../components/format/day.pipe';
 
 export class SurveyDateValues {

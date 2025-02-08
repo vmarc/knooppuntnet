@@ -1,6 +1,6 @@
 import { WritableSignal } from '@angular/core';
-import { OrphanNodeInfo } from '@api/common';
-import { TimeInfo } from '@api/common';
+import { OrphanNodeInfo } from '@api/common/orphan-node-info';
+import { TimeInfo } from '@api/common/time-info';
 import { FilterOptions } from '@app/kpn/filter';
 import { Filters } from '@app/kpn/filter';
 import { TimestampFilter } from '@app/kpn/filter';

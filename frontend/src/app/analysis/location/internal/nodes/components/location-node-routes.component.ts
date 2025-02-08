@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { LocationNodeInfo } from '@api/common/location';
+import { LocationNodeInfo } from '@api/common/location/location-node-info';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 
 @Component({

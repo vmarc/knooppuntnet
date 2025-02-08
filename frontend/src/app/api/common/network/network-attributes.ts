@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
-import { Country } from '@api/common';
-import { LatLonImpl } from '@api/common';
-import { RouteScope } from '@api/common';
-import { RouteType } from '@api/common';
-import { Timestamp } from '@api/custom';
+import { Country } from '@api/common/country';
+import { LatLonImpl } from '@api/common/lat-lon-impl';
+import { RouteScope } from '@api/common/route-scope';
+import { RouteType } from '@api/common/route-type';
+import { Timestamp } from '@api/custom/timestamp';
 import { Integrity } from './integrity';
 
 export interface NetworkAttributes {

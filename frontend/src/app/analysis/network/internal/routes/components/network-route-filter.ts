@@ -1,7 +1,7 @@
 import { WritableSignal } from '@angular/core';
-import { SurveyDateInfo } from '@api/common';
-import { TimeInfo } from '@api/common';
-import { NetworkRouteRow } from '@api/common/network';
+import { SurveyDateInfo } from '@api/common/survey-date-info';
+import { TimeInfo } from '@api/common/time-info';
+import { NetworkRouteRow } from '@api/common/network/network-route-row';
 import { BooleanFilter } from '@app/kpn/filter';
 import { FilterOptions } from '@app/kpn/filter';
 import { Filters } from '@app/kpn/filter';

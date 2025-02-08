@@ -1,8 +1,8 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { SubsetOrphanRoutesPage } from '@api/common/subset';
-import { ApiResponse } from '@api/custom';
+import { SubsetOrphanRoutesPage } from '@api/common/subset/subset-orphan-routes-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/services';
 import { State } from '@app/state';
 import { RouterService } from '../../../shared/services/router.service';

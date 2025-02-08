@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '@api/common';
+import { Bounds } from '@api/common/bounds';
 
 export interface MonitorRouteSegment {
   readonly id: number;

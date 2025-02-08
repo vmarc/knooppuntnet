@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { WayInfo } from '@api/common/diff';
-import { RouteChangeInfo } from '@api/common/route';
+import { WayInfo } from '@api/common/diff/way-info';
+import { RouteChangeInfo } from '@api/common/route/route-change-info';
 import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.component';
 import { MetaDataComponent } from '@app/shared/components/meta-data.component';
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';

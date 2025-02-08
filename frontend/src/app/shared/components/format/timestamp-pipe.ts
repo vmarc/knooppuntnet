@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { LOCALE_ID } from '@angular/core';
 import { Pipe } from '@angular/core';
 import { PipeTransform } from '@angular/core';
-import { Timestamp } from '@api/custom';
+import { Timestamp } from '@api/custom/timestamp';
 import { TimestampUtil } from '@app/shared/components/timestamp-util';
 
 @Pipe({

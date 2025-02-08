@@ -1,5 +1,5 @@
-import { MonitorRouteGpxPage } from '@api/common/monitor';
-import { ApiResponse } from '@api/custom';
+import { MonitorRouteGpxPage } from '@api/common/monitor/monitor-route-gpx-page';
+import { ApiResponse } from '@api/custom/api-response';
 
 export const initialState: MonitorRouteGpxState = {
   groupName: '',

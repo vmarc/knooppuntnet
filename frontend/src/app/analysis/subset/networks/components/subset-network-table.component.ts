@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NetworkAttributes } from '@api/common/network';
+import { NetworkAttributes } from '@api/common/network/network-attributes';
 import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
 import { LinkNetworkDetailsComponent } from '@app/shared/components/link/link-network-details.component';
 import { NzTableModule } from 'ng-zorro-antd/table';

@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Tag } from '@api/custom';
+import { Tag } from '@api/custom/tag';
 import { RouteNetworkNodeInfo } from './route-network-node-info';
 import { WayDirection } from './way-direction';
 

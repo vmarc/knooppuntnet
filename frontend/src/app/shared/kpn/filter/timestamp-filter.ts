@@ -1,5 +1,5 @@
-import { TimeInfo } from '@api/common';
-import { Timestamp } from '@api/custom';
+import { TimeInfo } from '@api/common/time-info';
+import { Timestamp } from '@api/custom/timestamp';
 import { Filter } from './filter';
 import { FilterOption } from './filter-option';
 import { FilterOptionGroup } from './filter-option-group';

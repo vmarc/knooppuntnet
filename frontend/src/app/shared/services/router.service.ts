@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { Subset } from '@api/custom';
-import { RouteType } from '@api/common';
+import { Subset } from '@api/custom/subset';
+import { RouteType } from '@api/common/route-type';
 import { Countries } from '@app/kpn/common';
 import { RouteTypes } from '@app/kpn/common';
 

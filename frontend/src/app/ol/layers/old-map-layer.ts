@@ -1,4 +1,4 @@
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 import BaseLayer from 'ol/layer/Base';
 import { MapMode } from '../services';
 import { MapTile } from '../services/map-tile';

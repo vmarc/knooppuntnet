@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { LocationFact } from '@api/common/location';
+import { LocationFact } from '@api/common/location/location-fact';
 import { FactInfo } from '@app/analysis/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact';
 import { DividerComponent } from '@app/shared/components/divider.component';

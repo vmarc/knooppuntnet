@@ -2,8 +2,8 @@ import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
-import { Status } from '@api/common/status';
-import { ApiResponse } from '@api/custom';
+import { Status } from '@api/common/status/status';
+import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/services';
 import { StatusLinks } from './status-links';
 

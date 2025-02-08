@@ -1,4 +1,4 @@
-import { MemberType } from '@api/common/data';
+import { MemberType } from '@api/common/data/member-type';
 import { Link } from '@api/common/route/link';
 
 export class TryoutLinkBuilder {

@@ -1,5 +1,5 @@
-import { LatLonImpl } from '@api/common';
-import { PlanNode } from '@api/common/planner';
+import { LatLonImpl } from '@api/common/lat-lon-impl';
+import { PlanNode } from '@api/common/planner/plan-node';
 import { saveAs } from 'file-saver-es';
 import { List } from 'immutable';
 import { Plan } from '../../domain/plan/plan';

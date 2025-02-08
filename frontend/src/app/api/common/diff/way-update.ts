@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { MetaData } from '@api/common/data';
-import { Node } from '@api/common/data';
+import { MetaData } from '@api/common/data/meta-data';
+import { Node } from '@api/common/data/node';
 import { NodeUpdate } from './node-update';
 import { TagDiffs } from './tag-diffs';
 

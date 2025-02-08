@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { RouteStructureRow } from '@api/common/route';
+import { RouteStructureRow } from '@api/common/route/route-structure-row';
 
 @Component({
   selector: 'kpn-route-member-name',

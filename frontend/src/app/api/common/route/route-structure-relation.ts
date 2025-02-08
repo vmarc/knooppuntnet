@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Day } from '@api/custom';
+import { Day } from '@api/custom/day';
 
 export interface RouteStructureRelation {
   readonly level: number;

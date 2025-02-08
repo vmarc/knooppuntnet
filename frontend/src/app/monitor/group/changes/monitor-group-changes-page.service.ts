@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { MonitorChangesParameters } from '@api/common/monitor';
+import { MonitorChangesParameters } from '@api/common/monitor/monitor-changes-parameters';
 import { NavService } from '@app/shared/components/nav.service';
 import { State } from '@app/state';
 import { MonitorService } from '../../monitor.service';

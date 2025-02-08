@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { LocationEditPage } from '@api/common/location';
-import { ApiResponse } from '@api/custom';
+import { LocationEditPage } from '@api/common/location/location-edit-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/services';
 import { RouterService } from '../../../../shared/services/router.service';
 import { LocationService } from '../location.service';

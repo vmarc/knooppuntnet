@@ -7,7 +7,7 @@ import { MatButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatLabel } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
-import { RouteDetailsPage } from '@api/common/route';
+import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
 import { RouteSummaryComponent } from '@app/analysis/route';

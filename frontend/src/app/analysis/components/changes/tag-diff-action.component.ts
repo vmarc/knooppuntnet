@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { TagDetailType } from '@api/common/diff';
+import { TagDetailType } from '@api/common/diff/tag-detail-type';
 
 @Component({
   selector: 'kpn-tag-diff-action',

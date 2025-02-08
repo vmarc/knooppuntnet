@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouteType } from '@api/common';
-import { RouteStructureRow } from '@api/common/route';
+import { RouteType } from '@api/common/route-type';
+import { RouteStructureRow } from '@api/common/route/route-structure-row';
 import { RouteMemberComponent } from './route-member.component';
 
 @Component({

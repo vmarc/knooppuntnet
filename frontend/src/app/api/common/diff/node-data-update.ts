@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NodeMoved } from '@api/common/diff/node';
+import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { NodeData } from './node-data';
 import { TagDiffs } from './tag-diffs';
 

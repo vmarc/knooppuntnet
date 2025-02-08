@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { ApiResponse } from '@api/custom';
+import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/services';
 import { PoiMapService } from './components/poi-map.service';
 

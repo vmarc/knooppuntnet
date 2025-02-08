@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '@api/common';
+import { Bounds } from '@api/common/bounds';
 import { SubsetInfo } from './subset-info';
 import { SubsetMapNetwork } from './subset-map-network';
 

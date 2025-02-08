@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LocationKey } from '@api/custom';
+import { LocationKey } from '@api/custom/location-key';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { LocationPipe } from '@app/shared/components/format/location.pipe';
 import { RouteTypeNameComponent } from '@app/shared/components/route-type-name.component';

@@ -34,7 +34,7 @@ import { AnalysisStrategyService } from '../../strategy';
 
       <kpn-page-header>
         <span class="header-route-type-icon">
-          <nz-icon nzType="motorboat" />
+          <nz-icon [nzType]="'motorboat'" />
         </span>
         <span i18n="@@route-type.motorboat">Motorboat</span>
       </kpn-page-header>

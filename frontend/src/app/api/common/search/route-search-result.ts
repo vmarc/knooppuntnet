@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '@api/common';
-import { RouteScope } from '@api/common';
+import { Bounds } from '@api/common/bounds';
+import { RouteScope } from '@api/common/route-scope';
 
 export interface RouteSearchResult {
   readonly id: number;

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { MonitorRouteInfoPage } from '@api/common/monitor';
+import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { SymbolComponent } from '@app/symbol';
 

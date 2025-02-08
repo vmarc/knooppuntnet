@@ -1,4 +1,4 @@
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 
 export class RouteTypes {
   static all: RouteType[] = [

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { LocationRoutesPage } from '@api/common/location';
+import { LocationRoutesPage } from '@api/common/location/location-routes-page';
 import { LocationRouteTableComponent } from './location-route-table.component';
 
 @Component({

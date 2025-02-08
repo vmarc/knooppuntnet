@@ -6,7 +6,7 @@ import { input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { LocationEditPage } from '@api/common/location';
+import { LocationEditPage } from '@api/common/location/location-edit-page';
 import { EditConfiguration } from '@app/analysis/components/edit';
 import { EditParameters } from '@app/analysis/components/edit';
 import { EditService } from '@app/shared/components/edit.service';

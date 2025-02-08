@@ -1,6 +1,6 @@
 import { signal } from '@angular/core';
-import { PlanNode } from '@api/common/planner';
-import { PlanRoute } from '@api/common/planner';
+import { PlanNode } from '@api/common/planner/plan-node';
+import { PlanRoute } from '@api/common/planner/plan-route';
 import { List } from 'immutable';
 import { FeatureId } from '../features/feature-id';
 import { Plan } from '../plan/plan';

@@ -1,5 +1,5 @@
 import { signal } from '@angular/core';
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 
 export class PageState {
   private readonly _small = signal<boolean>(false);

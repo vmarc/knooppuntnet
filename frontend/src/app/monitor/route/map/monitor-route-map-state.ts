@@ -1,6 +1,6 @@
-import { MonitorRouteSegment } from '@api/common/monitor';
-import { MonitorRouteDeviation } from '@api/common/monitor';
-import { MonitorRouteMapPage } from '@api/common/monitor';
+import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
+import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
+import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MonitorMapMode } from './monitor-map-mode';
 
 export const initialState: MonitorRouteMapState = {

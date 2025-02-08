@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { RouteDiff } from '@api/common/diff/route';
+import { RouteDiff } from '@api/common/diff/route/route-diff';
 import { Util } from '@app/shared/components/util';
 import { FactDiffsComponent } from '../fact-diffs.component';
 import { TagDiffsComponent } from '../tag-diffs.component';

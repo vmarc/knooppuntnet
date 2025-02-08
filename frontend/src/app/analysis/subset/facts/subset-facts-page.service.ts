@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { SubsetFactsPage } from '@api/common/subset';
-import { ApiResponse } from '@api/custom';
+import { SubsetFactsPage } from '@api/common/subset/subset-facts-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/services';
 import { RouterService } from '../../../shared/services/router.service';
 import { SubsetService } from '../subset.service';

@@ -1,4 +1,4 @@
-import { LatLonImpl } from '@api/common';
+import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
 import { toLonLat } from 'ol/proj';

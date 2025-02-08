@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Tag } from '@api/custom';
+import { Tag } from '@api/custom/tag';
 
 export interface PoiAnalysis {
   readonly layers: string[];

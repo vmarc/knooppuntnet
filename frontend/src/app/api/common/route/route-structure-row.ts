@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { MemberType } from '@api/common/data';
+import { MemberType } from '@api/common/data/member-type';
 import { Link } from './link';
 import { RouteStructureRelation } from './route-structure-relation';
 import { RouteStructureWay } from './route-structure-way';

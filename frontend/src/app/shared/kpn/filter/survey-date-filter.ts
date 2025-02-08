@@ -1,5 +1,5 @@
-import { SurveyDateInfo } from '@api/common';
-import { Day } from '@api/custom';
+import { SurveyDateInfo } from '@api/common/survey-date-info';
+import { Day } from '@api/custom/day';
 import { Days } from '@app/kpn/common';
 import { Filter } from './filter';
 import { FilterOption } from './filter-option';

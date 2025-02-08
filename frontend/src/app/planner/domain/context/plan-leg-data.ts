@@ -1,6 +1,6 @@
-import { PlanRoute } from '@api/common/planner';
-import { PlanNode } from '@api/common/planner';
-import { LegEnd } from '@api/common/planner';
+import { PlanRoute } from '@api/common/planner/plan-route';
+import { PlanNode } from '@api/common/planner/plan-node';
+import { LegEnd } from '@api/common/planner/leg-end';
 import { List } from 'immutable';
 
 export class PlanLegData {

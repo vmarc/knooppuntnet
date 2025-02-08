@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Country } from '@api/common';
-import { RouteType } from '@api/common';
-import { Subset } from '@api/custom';
+import { Country } from '@api/common/country';
+import { RouteType } from '@api/common/route-type';
+import { Subset } from '@api/custom/subset';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { Stat } from '../../domain/stat';

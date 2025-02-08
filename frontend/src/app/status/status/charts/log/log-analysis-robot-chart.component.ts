@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { BarChart } from '@api/common/status';
+import { BarChart } from '@api/common/status/bar-chart';
 import { ActionBarChartComponent } from '../action-bar-chart.component';
 
 @Component({

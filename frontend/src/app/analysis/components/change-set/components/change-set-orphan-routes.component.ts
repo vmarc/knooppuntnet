@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { ChangeSetSubsetElementRefs } from '@api/common';
+import { ChangeSetSubsetElementRefs } from '@api/common/change-set-subset-element-refs';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ChangesSetElementRefsComponent } from './change-set-element-refs.component';
 

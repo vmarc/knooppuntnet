@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NodeMoved } from '@api/common/diff/node';
+import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { OlUtil } from '@app/ol';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldBackgroundLayer } from '@app/ol/layers';

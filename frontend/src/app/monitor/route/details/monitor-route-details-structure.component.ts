@@ -8,7 +8,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Params } from '@angular/router';
 import { RouterLink } from '@angular/router';
-import { MonitorRouteRelationStructureRow } from '@api/common/monitor';
+import { MonitorRouteRelationStructureRow } from '@api/common/monitor/monitor-route-relation-structure-row';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pipe';

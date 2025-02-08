@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NetworkRouteRow } from '@api/common/network';
-import { RouteType } from '@api/common';
+import { NetworkRouteRow } from '@api/common/network/network-route-row';
+import { RouteType } from '@api/common/route-type';
 import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indicators/route';
 import { RouteConnectionIndicatorComponent } from '@app/analysis/components/indicators/route';
 import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route';

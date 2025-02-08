@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MetaData } from '@api/common/data';
+import { MetaData } from '@api/common/data/meta-data';
 import { MetaDataComponent } from '@app/shared/components/meta-data.component';
 
 @Component({

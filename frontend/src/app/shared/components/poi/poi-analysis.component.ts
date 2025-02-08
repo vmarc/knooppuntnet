@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { PoiAnalysis } from '@api/common';
+import { PoiAnalysis } from '@api/common/poi-analysis';
 import { OldPoiService } from '@app/services';
 
 @Component({

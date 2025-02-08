@@ -34,7 +34,7 @@ import { AnalysisStrategyService } from '../../strategy';
 
       <kpn-page-header>
         <span class="header-route-type-icon">
-          <nz-icon nzType="hiking" />
+          <nz-icon [nzType]="'hiking'" />
         </span>
         <span i18n="@@route-type.hiking">Hiking</span>
       </kpn-page-header>
@@ -44,13 +44,13 @@ import { AnalysisStrategyService } from '../../strategy';
       <kpn-icon-buttons>
         <kpn-icon-button
           [routerLink]="nlLink()"
-          icon="netherlands"
+          [icon]="'netherlands'"
           i18n-title="@@country.nl"
           title="The Netherlands"
         />
         <kpn-icon-button
           [routerLink]="beLink()"
-          icon="belgium"
+          [icon]="'belgium'"
           i18n-title="@@country.be"
           title="Belgium"
         />

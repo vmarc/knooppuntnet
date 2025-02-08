@@ -1,8 +1,8 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { LocationMapPage } from '@api/common/location';
-import { ApiResponse } from '@api/custom';
+import { LocationMapPage } from '@api/common/location/location-map-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { MapPosition } from '@app/ol/domain';
 import { ApiService } from '@app/services';
 import { SharedStateService } from '../../../../shared/core/shared/shared-state.service';

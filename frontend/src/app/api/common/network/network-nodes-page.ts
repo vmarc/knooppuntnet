@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { SurveyDateInfo } from '@api/common';
-import { TimeInfo } from '@api/common';
+import { SurveyDateInfo } from '@api/common/survey-date-info';
+import { TimeInfo } from '@api/common/time-info';
 import { NetworkNodeRow } from './network-node-row';
 import { NetworkSummary } from './network-summary';
 

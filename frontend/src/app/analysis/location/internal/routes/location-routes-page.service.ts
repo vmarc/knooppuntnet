@@ -1,13 +1,13 @@
 import { signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
-import { Fact } from '@api/common';
-import { LocationRoutesParameters } from '@api/common/location';
-import { LocationRoutesPage } from '@api/common/location';
+import { Fact } from '@api/common/fact';
+import { LocationRoutesParameters } from '@api/common/location/location-routes-parameters';
+import { LocationRoutesPage } from '@api/common/location/location-routes-page';
 import { BooleanParameter } from '@api/common/location/boolean-parameter';
 import { LastUpdatedParameter } from '@api/common/location/last-updated-parameter';
 import { SurveyParameter } from '@api/common/location/survey-parameter';
-import { ApiResponse } from '@api/custom';
+import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/services';
 import { Util } from '@app/shared/components/util';
 import { State } from '@app/state';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subset } from '@api/custom';
+import { Subset } from '@api/custom/subset';
 import { Subsets } from '@app/kpn/common';
 import { List } from 'immutable';
 import { StatisticConfiguration } from '../../domain/statistic-configuration';
@@ -430,8 +430,8 @@ export class OverviewConfigurationService {
         $localize`:@@stats.route-name-deprecated-note-tag.name:RouteNameDeprecatedNoteTag`,
         $localize`:@@stats.route-name-deprecated-note-tag.comment:
           Routes where the route name was defined in the *"note"* tag. This is OK, but the use
-          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is 
-          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can 
+          of the *"note"* tag for route names is no longer recommended (deprecated).  The idea is
+          that the *"note"* should be used for mapper notes only. The *"ref"* and *"name"* tags can
           be used for naming routes.`
       )
     );

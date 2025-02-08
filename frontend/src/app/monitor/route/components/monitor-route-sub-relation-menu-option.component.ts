@@ -3,7 +3,7 @@ import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MonitorRouteSubRelation } from '@api/common/monitor';
+import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
 
 @Component({
   selector: 'kpn-monitor-sub-relation-menu-option',

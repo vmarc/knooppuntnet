@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Timestamp } from '@api/custom';
+import { Timestamp } from '@api/custom/timestamp';
 import { TimestampDayPipe } from '../format/timestamp-day.pipe';
 
 @Component({

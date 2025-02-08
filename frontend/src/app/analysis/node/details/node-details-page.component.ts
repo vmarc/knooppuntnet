@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NodeDetailsPage } from '@api/common/node';
+import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { FactInfo } from '@app/analysis/fact';
 import { FactsComponent } from '@app/analysis/fact';
 import { DataComponent } from '@app/shared/components/data/data.component';

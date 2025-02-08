@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Node } from '@api/common/data';
-import { NodeMoved } from '@api/common/diff/node';
+import { Node } from '@api/common/data/node';
+import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { TagDiffs } from './tag-diffs';
 
 export interface NodeUpdate {

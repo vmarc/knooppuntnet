@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocationDetailsPage } from '@api/common/location/location-details-page';
-import { ApiResponse } from '@api/custom';
+import { ApiResponse } from '@api/custom/api-response';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { LocationPipe } from '@app/shared/components/format/location.pipe';
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';

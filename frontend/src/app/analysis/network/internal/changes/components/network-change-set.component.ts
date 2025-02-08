@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NetworkChangeInfo } from '@api/common/changes/details';
+import { NetworkChangeInfo } from '@api/common/changes/details/network-change-info';
 import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
 import { NetworkChangeComponent } from './network-change.component';
 

@@ -4,7 +4,7 @@ import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { input } from '@angular/core';
-import { NodeMoved } from '@api/common/diff/node';
+import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { NodeMovedMapService } from './node-moved-map.service';
 

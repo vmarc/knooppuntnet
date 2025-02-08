@@ -1,4 +1,4 @@
-import { PlanRoute } from '@api/common/planner';
+import { PlanRoute } from '@api/common/planner/plan-route';
 import { List } from 'immutable';
 import { PlanUtil } from '../domain/plan/plan-util';
 import { PlannerTranslations } from './planner-translations';

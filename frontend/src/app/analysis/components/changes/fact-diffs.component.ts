@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { FactDiffs } from '@api/common/diff/common';
+import { FactDiffs } from '@api/common/diff/common/fact-diffs';
 import { FactNameComponent } from '@app/analysis/fact';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';

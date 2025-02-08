@@ -1,5 +1,5 @@
 import { Params } from '@angular/router';
-import { LocationKey } from '@api/custom';
+import { LocationKey } from '@api/custom/location-key';
 import { Countries } from '@app/kpn/common';
 import { RouteTypes } from '@app/kpn/common';
 

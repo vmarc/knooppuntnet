@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NetworkMapPage } from '@api/common/network';
+import { NetworkMapPage } from '@api/common/network/network-map-page';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services';
 import { Util } from '@app/shared/components/util';
 import { NetworkMapPageService } from '../network-map-page.service';

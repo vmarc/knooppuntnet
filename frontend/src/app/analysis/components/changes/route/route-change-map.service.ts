@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Bounds } from '@api/common';
-import { GeometryDiff } from '@api/common/route';
+import { Bounds } from '@api/common/bounds';
+import { GeometryDiff } from '@api/common/route/geometry-diff';
 import { RouteNodeChange } from '@api/common/route/route-node-change';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldBackgroundLayer } from '@app/ol/layers';

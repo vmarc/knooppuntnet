@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Bounds } from '@api/common';
-import { SubsetMapNetwork } from '@api/common/subset';
+import { Bounds } from '@api/common/bounds';
+import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldMapLayerRegistry } from '@app/ol/layers';

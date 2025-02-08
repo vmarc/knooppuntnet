@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { ChangeSetElementRef } from '@api/common';
+import { ChangeSetElementRef } from '@api/common/change-set-element-ref';
 
 export class ChangeSetElement {
   constructor(

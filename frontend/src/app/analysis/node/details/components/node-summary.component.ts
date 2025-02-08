@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { NodeInfo } from '@api/common';
+import { NodeInfo } from '@api/common/node-info';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { RouteScopeNameComponent } from '@app/shared/components/route-scope-name.component';
 import { RouteTypeComponent } from '@app/shared/components/route-type.component';

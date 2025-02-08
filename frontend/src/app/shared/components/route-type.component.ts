@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { RouteTypeNameComponent } from './route-type-name.component';
 

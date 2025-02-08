@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { ServerFilterGroup } from '@api/common/changes/filter';
+import { ServerFilterGroup } from '@api/common/changes/filter/server-filter-group';
 import { Translations } from '@app/i18n';
 
 @Component({

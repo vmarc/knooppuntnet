@@ -3,7 +3,7 @@ import { output } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { ChangesFilterOption } from '@api/common/changes/filter';
+import { ChangesFilterOption } from '@api/common/changes/filter/changes-filter-option';
 import { ChangeOption } from '@app/kpn/common';
 import { MonthComponent } from './month.component';
 

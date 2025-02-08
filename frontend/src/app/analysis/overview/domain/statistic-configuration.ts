@@ -1,4 +1,4 @@
-import { Subset } from '@api/custom';
+import { Subset } from '@api/custom/subset';
 
 export class StatisticConfiguration {
   constructor(

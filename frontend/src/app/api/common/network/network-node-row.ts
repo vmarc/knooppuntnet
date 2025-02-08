@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Reference } from '@api/common/common';
+import { Reference } from '@api/common/common/reference';
 import { NetworkNodeDetail } from './network-node-detail';
 
 export interface NetworkNodeRow {

@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Day } from '@api/custom';
-import { Timestamp } from '@api/custom';
+import { Day } from '@api/custom/day';
+import { Timestamp } from '@api/custom/timestamp';
 
 export interface NetworkRouteRow {
   readonly id: number;

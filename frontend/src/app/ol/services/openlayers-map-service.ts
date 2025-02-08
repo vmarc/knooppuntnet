@@ -7,7 +7,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
-import { Bounds } from '@api/common';
+import { Bounds } from '@api/common/bounds';
 import { UniqueId } from '@app/kpn/common';
 import { PageService } from '@app/shared/components/page.service';
 import { Subscriptions } from '@app/util';

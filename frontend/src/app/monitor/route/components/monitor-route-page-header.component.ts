@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
-import { MonitorRouteSubRelation } from '@api/common/monitor';
+import { MonitorRouteSubRelation } from '@api/common/monitor/monitor-route-sub-relation';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';

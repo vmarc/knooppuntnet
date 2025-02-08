@@ -1,5 +1,5 @@
-import { MonitorGroupPage } from '@api/common/monitor';
-import { ApiResponse } from '@api/custom';
+import { MonitorGroupPage } from '@api/common/monitor/monitor-group-page';
+import { ApiResponse } from '@api/custom/api-response';
 
 export const initialState: MonitorGroupUpdatePageState = {
   groupName: '',

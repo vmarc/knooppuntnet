@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '@api/common';
-import { Timestamp } from '@api/custom';
+import { Bounds } from '@api/common/bounds';
+import { Timestamp } from '@api/custom/timestamp';
 import { MonitorRouteDeviation } from './monitor-route-deviation';
 import { MonitorRouteReferenceInfo } from './monitor-route-reference-info';
 import { MonitorRouteSegment } from './monitor-route-segment';

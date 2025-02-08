@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { ChangesFilterOption } from '@api/common/changes/filter';
+import { ChangesFilterOption } from '@api/common/changes/filter/changes-filter-option';
 import { ChangeSetSummaryInfo } from './change-set-summary-info';
 
 export interface ChangesPage {

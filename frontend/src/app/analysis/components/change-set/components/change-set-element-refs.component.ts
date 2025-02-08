@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
-import { ChangeSetElementRef } from '@api/common';
-import { ChangeSetElementRefs } from '@api/common';
+import { ChangeSetElementRef } from '@api/common/change-set-element-ref';
+import { ChangeSetElementRefs } from '@api/common/change-set-element-refs';
 import { ChangeSetElement } from './change-set-element-ref.component';
 import { ChangesSetElementRefComponent } from './change-set-element-ref.component';
 

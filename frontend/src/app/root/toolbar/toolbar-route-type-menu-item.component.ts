@@ -3,7 +3,7 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 import { State } from '@app/state';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzMenuItemComponent } from 'ng-zorro-antd/menu';

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { Timestamp } from '@api/custom';
+import { Timestamp } from '@api/custom/timestamp';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';

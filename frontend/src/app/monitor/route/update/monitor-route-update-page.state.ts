@@ -1,5 +1,5 @@
-import { MonitorRouteUpdatePage } from '@api/common/monitor';
-import { ApiResponse } from '@api/custom';
+import { MonitorRouteUpdatePage } from '@api/common/monitor/monitor-route-update-page';
+import { ApiResponse } from '@api/custom/api-response';
 
 export const initialState: MonitorRouteUpdatePageState = {
   groupName: '',

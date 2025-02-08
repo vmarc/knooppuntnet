@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MonitorRouteDetailsPage } from '@api/common/monitor';
+import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 

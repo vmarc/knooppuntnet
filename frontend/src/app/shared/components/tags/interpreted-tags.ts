@@ -1,4 +1,4 @@
-import { Tag } from '@api/custom';
+import { Tag } from '@api/custom/tag';
 import { RouteScopes } from '@app/kpn/common';
 import { RouteTypes } from '@app/kpn/common';
 import { List } from 'immutable';

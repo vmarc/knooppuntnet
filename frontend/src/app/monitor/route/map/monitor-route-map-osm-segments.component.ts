@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
-import { MonitorRouteSegment } from '@api/common/monitor';
+import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { LegendLineComponent } from './legend-line';
 import { MonitorRouteMapStateService } from './monitor-route-map-state.service';

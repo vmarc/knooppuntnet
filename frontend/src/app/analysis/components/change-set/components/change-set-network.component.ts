@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ChangeSetNetwork } from '@api/common';
-import { ChangeKey } from '@api/common/changes/details';
+import { ChangeSetNetwork } from '@api/common/change-set-network';
+import { ChangeKey } from '@api/common/changes/details/change-key';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { ChangesSetElementRefsComponent } from './change-set-element-refs.component';
 

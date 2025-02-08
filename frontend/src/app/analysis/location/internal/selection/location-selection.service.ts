@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { Country } from '@api/common';
-import { RouteType } from '@api/common';
-import { LocationNode } from '@api/common/location';
+import { Country } from '@api/common/country';
+import { RouteType } from '@api/common/route-type';
+import { LocationNode } from '@api/common/location/location-node';
 import { ApiService } from '@app/services';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';

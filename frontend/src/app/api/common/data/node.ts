@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Tag } from '@api/custom';
-import { Timestamp } from '@api/custom';
+import { Tag } from '@api/custom/tag';
+import { Timestamp } from '@api/custom/timestamp';
 
 export interface Node {
   readonly id: number;

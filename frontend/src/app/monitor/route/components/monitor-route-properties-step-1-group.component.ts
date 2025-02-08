@@ -8,7 +8,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
-import { MonitorRouteGroup } from '@api/common/monitor';
+import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({

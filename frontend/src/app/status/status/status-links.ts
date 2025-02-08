@@ -1,4 +1,4 @@
-import { ActionTimestamp } from '@api/common/status';
+import { ActionTimestamp } from '@api/common/status/action-timestamp';
 
 export class StatusLinks {
   year: string;

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { LocationFact } from '@api/common/location';
-import { Fact } from '@api/common';
-import { FactLevel } from '@api/common';
+import { LocationFact } from '@api/common/location/location-fact';
+import { Fact } from '@api/common/fact';
+import { FactLevel } from '@api/common/fact-level';
 import { Facts } from '@app/analysis/fact';
 import { FactLevelComponent } from '@app/analysis/fact';
 import { FactNameComponent } from '@app/analysis/fact';

@@ -1,6 +1,6 @@
 import { WritableSignal } from '@angular/core';
-import { OrphanRouteInfo } from '@api/common';
-import { TimeInfo } from '@api/common';
+import { OrphanRouteInfo } from '@api/common/orphan-route-info';
+import { TimeInfo } from '@api/common/time-info';
 import { BooleanFilter } from '@app/kpn/filter';
 import { FilterOptions } from '@app/kpn/filter';
 import { Filters } from '@app/kpn/filter';

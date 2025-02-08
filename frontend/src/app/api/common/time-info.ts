@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Timestamp } from '@api/custom';
+import { Timestamp } from '@api/custom/timestamp';
 
 export interface TimeInfo {
   readonly now: Timestamp;

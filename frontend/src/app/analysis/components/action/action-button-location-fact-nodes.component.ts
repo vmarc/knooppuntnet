@@ -8,7 +8,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatMenu } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { LocationFact } from '@api/common/location';
+import { LocationFact } from '@api/common/location/location-fact';
 import { ActionService } from './action.service';
 
 @Component({

@@ -1,4 +1,4 @@
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 import { AnalysisStrategy } from './analysis-strategy';
 
 export type Preferences = {

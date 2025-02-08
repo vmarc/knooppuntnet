@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { Ref } from '@api/common/common';
+import { Ref } from '@api/common/common/ref';
 import { Check } from './check';
 import { Fact } from './fact';
 

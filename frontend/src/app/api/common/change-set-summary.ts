@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
-import { ChangeKey } from '@api/common/changes/details';
-import { Subset } from '@api/custom';
-import { Timestamp } from '@api/custom';
+import { ChangeKey } from '@api/common/changes/details/change-key';
+import { Subset } from '@api/custom/subset';
+import { Timestamp } from '@api/custom/timestamp';
 import { ChangeSetSubsetAnalysis } from './change-set-subset-analysis';
 import { ChangeSetSubsetElementRefs } from './change-set-subset-element-refs';
 import { LocationChanges } from './location-changes';

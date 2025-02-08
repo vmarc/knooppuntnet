@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Subset } from '@api/custom';
+import { Subset } from '@api/custom/subset';
 import { Stat } from '../../domain/stat';
 
 @Component({

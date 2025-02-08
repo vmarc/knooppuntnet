@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ChangeSetSummaryInfo } from '@api/common';
-import { RouteType } from '@api/common';
+import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
+import { RouteType } from '@api/common/route-type';
 import { Translations } from '@app/i18n';
 import { LocationPipe } from '@app/shared/components/format/location.pipe';
 import { Util } from '@app/shared/components/util';
@@ -26,7 +26,7 @@ import { ChangesSetElementRefsComponent } from './components/change-set-element-
       @for (locationChanges of changeSet().location.changes; track locationChanges) {
         <div>
           <div class="kpn-line">
-            <nz-icon nzType="locationChanges.routeType" />
+            <nz-icon [nzType]="locationChanges.routeType" />
             <div class="location-names">
               @for (
                 locationName of locationChanges.locationNames;

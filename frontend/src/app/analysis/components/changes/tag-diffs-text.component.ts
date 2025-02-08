@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
-import { TagDetail } from '@api/common/diff';
-import { TagDiffs } from '@api/common/diff';
+import { TagDetail } from '@api/common/diff/tag-detail';
+import { TagDiffs } from '@api/common/diff/tag-diffs';
 
 @Component({
   selector: 'kpn-tag-diffs-text',

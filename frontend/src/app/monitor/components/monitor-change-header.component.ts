@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MonitorRouteChangeSummary } from '@api/common/monitor';
+import { MonitorRouteChangeSummary } from '@api/common/monitor/monitor-route-change-summary';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
 import { PageWidthService } from '@app/shared/components/page-width.service';

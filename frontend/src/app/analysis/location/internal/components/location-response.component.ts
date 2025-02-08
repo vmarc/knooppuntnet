@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { ApiResponse } from '@api/custom';
+import { ApiResponse } from '@api/custom/api-response';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 
 @Component({

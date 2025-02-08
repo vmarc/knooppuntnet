@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Ref } from '@api/common/common';
-import { RouteType } from '@api/common';
+import { Ref } from '@api/common/common/ref';
+import { RouteType } from '@api/common/route-type';
 import { IconRouteComponent } from '@app/shared/components/icon/icon-route.component';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 import { ActionButtonRouteComponent } from '../../../../components/action/action-button-route.component';

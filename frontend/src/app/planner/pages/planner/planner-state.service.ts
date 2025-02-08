@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { computed } from '@angular/core';
 import { Params } from '@angular/router';
 import { Router } from '@angular/router';
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 import { RouteTypes } from '@app/kpn/common';
 import { MapLayerState } from '@app/ol/domain';
 import { MapPosition } from '@app/ol/domain';

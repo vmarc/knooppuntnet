@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { ParentRoute } from '@api/common/route';
+import { ParentRoute } from '@api/common/route/parent-route';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({

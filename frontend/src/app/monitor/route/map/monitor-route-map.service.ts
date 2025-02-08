@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Params } from '@angular/router';
-import { MonitorRouteMapPage } from '@api/common/monitor';
+import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldBackgroundLayer } from '@app/ol/layers';

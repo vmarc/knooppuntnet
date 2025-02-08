@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
-import { OrphanRouteInfo } from '@api/common';
+import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
 import { DayComponent } from '@app/shared/components/day/day.component';
 import { EditService } from '@app/shared/components/edit.service';

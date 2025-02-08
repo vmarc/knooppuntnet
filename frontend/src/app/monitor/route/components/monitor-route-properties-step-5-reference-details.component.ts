@@ -5,7 +5,7 @@ import { FormGroupDirective } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
-import { Timestamp } from '@api/custom';
+import { Timestamp } from '@api/custom/timestamp';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { DayInputComponent } from '@app/shared/components/format/day-input.component';
 import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';

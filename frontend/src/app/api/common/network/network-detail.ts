@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import { LatLonImpl } from '@api/common';
-import { Day } from '@api/custom';
-import { Tag } from '@api/custom';
-import { Timestamp } from '@api/custom';
+import { LatLonImpl } from '@api/common/lat-lon-impl';
+import { Day } from '@api/custom/day';
+import { Tag } from '@api/custom/tag';
+import { Timestamp } from '@api/custom/timestamp';
 import { Integrity } from './integrity';
 
 export interface NetworkDetail {

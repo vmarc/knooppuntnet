@@ -1,4 +1,4 @@
-import { NodeMapInfo } from '@api/common';
+import { NodeMapInfo } from '@api/common/node-map-info';
 import { OlUtil } from '@app/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';

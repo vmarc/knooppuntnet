@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { MonitorRouteDetail } from '@api/common/monitor';
+import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pipe';
 import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';

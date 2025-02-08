@@ -1,4 +1,4 @@
-import { LegEnd } from '@api/common/planner';
+import { LegEnd } from '@api/common/planner/leg-end';
 import { List } from 'immutable';
 import { Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { SubsetInfo } from '@api/common/subset';
-import { Subset } from '@api/custom';
+import { SubsetInfo } from '@api/common/subset/subset-info';
+import { Subset } from '@api/custom/subset';
 import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';
 

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NameValue } from '@api/common/status';
+import { NameValue } from '@api/common/status/name-value';
 import { PieChartModule } from '@swimlane/ngx-charts';
 
 @Component({

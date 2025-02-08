@@ -9,7 +9,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatMenu } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 import { ActionService } from './action.service';
 
 @Component({

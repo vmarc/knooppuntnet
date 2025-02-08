@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NodeInfo } from '@api/common';
-import { Reference } from '@api/common/common';
+import { NodeInfo } from '@api/common/node-info';
+import { Reference } from '@api/common/common/reference';
 import { NodeNetworkReferenceComponent } from './node-network-reference.component';
 
 @Component({

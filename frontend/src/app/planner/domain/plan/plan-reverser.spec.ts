@@ -1,8 +1,8 @@
-import { TrackPathKey } from '@api/common/common';
-import { LegEnd } from '@api/common/planner';
-import { PlanFragment } from '@api/common/planner';
-import { PlanRoute } from '@api/common/planner';
-import { PlanSegment } from '@api/common/planner';
+import { TrackPathKey } from '@api/common/common/track-path-key';
+import { LegEnd } from '@api/common/planner/leg-end';
+import { PlanFragment } from '@api/common/planner/plan-fragment';
+import { PlanRoute } from '@api/common/planner/plan-route';
+import { PlanSegment } from '@api/common/planner/plan-segment';
 import { List } from 'immutable';
 import { expectEndFlagCoordinate } from '../../util/test-support';
 import { expectStartFlagCoordinate } from '../../util/test-support';

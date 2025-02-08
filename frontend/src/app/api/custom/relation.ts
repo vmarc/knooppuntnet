@@ -1,4 +1,4 @@
-import { RawRelation } from '../common/data/raw';
+import { RawRelation } from '../common/data/raw/raw-relation';
 
 export interface Relation {
   readonly raw: RawRelation;

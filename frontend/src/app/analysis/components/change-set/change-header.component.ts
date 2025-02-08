@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { ChangeKey } from '@api/common/changes/details';
+import { ChangeKey } from '@api/common/changes/details/change-key';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
 import { LinkChangesetComponent } from '@app/shared/components/link/link-changeset.component';

@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectionList } from '@angular/material/list';
 import { MatListModule, MatSelectionListChange } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
-import { MonitorRouteDeviation } from '@api/common/monitor';
+import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { EditService } from '@app/shared/components/edit.service';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';

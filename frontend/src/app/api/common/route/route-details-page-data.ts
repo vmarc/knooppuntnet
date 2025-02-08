@@ -1,11 +1,11 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '@api/common';
-import { Fact } from '@api/common';
-import { RouteSummary } from '@api/common';
-import { LocationCandidateInfo } from '@api/common/location';
-import { Day } from '@api/custom';
-import { Timestamp } from '@api/custom';
+import { Bounds } from '@api/common/bounds';
+import { Fact } from '@api/common/fact';
+import { RouteSummary } from '@api/common/route-summary';
+import { LocationCandidateInfo } from '@api/common/location/location-candidate-info';
+import { Day } from '@api/custom/day';
+import { Timestamp } from '@api/custom/timestamp';
 import { ParentRoute } from './parent-route';
 import { RouteNodes } from './route-nodes';
 import { RouteStructureRow } from './route-structure-row';

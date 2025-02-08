@@ -1,8 +1,8 @@
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
-import { RouteMapPage } from '@api/common/route';
-import { ApiResponse } from '@api/custom';
+import { RouteMapPage } from '@api/common/route/route-map-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { MapPosition } from '@app/ol/domain';
 import { ApiService } from '@app/services';
 import { RouterService } from '../../../shared/services/router.service';

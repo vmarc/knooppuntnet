@@ -4,7 +4,7 @@ import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { Component } from '@angular/core';
-import { MemberType } from '@api/common/data';
+import { MemberType } from '@api/common/data/member-type';
 import { Link } from '@api/common/route/link';
 import { TryoutLinkBuilder } from './tryout-link-builder';
 

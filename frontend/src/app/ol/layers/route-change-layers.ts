@@ -1,5 +1,5 @@
-import { GeometryDiff } from '@api/common/route';
-import { PointSegment } from '@api/common/route';
+import { GeometryDiff } from '@api/common/route/geometry-diff';
+import { PointSegment } from '@api/common/route/point-segment';
 import { OlUtil } from '@app/ol';
 import { List } from 'immutable';
 import { Color } from 'ol/color';

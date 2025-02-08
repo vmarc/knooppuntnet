@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { NetworkDetailsPage } from '@api/common/network';
-import { ApiResponse } from '@api/custom';
+import { NetworkDetailsPage } from '@api/common/network/network-details-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { PreferencesService } from '@app/core';
 import { ApiService } from '@app/services';
 import { RouterService } from '../../../../shared/services/router.service';

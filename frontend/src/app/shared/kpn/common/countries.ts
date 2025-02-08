@@ -1,4 +1,4 @@
-import { Country } from '@api/common';
+import { Country } from '@api/common/country';
 
 export class Countries {
   static all: Array<Country> = ['nl', 'be', 'de', 'fr', 'at', 'es', 'dk'];

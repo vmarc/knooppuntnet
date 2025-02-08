@@ -2,7 +2,7 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { LocationKey } from '@api/custom';
+import { LocationKey } from '@api/custom/location-key';
 import { CountryNameComponent } from '@app/shared/components/country-name.component';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { RouteTypeNameComponent } from '@app/shared/components/route-type-name.component';

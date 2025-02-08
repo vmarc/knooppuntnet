@@ -1,4 +1,4 @@
-import { PoiDetail } from '@api/common';
+import { PoiDetail } from '@api/common/poi-detail';
 import { OlUtil } from '@app/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';

@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Bounds } from '@api/common';
-import { ChangeKey } from '@api/common/changes/details';
+import { Bounds } from '@api/common/bounds';
+import { ChangeKey } from '@api/common/changes/details/change-key';
 import { MonitorRouteDeviation } from './monitor-route-deviation';
 import { MonitorRouteReferenceInfo } from './monitor-route-reference-info';
 import { MonitorRouteSegment } from './monitor-route-segment';

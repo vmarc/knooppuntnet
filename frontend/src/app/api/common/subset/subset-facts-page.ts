@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { FactCount } from '@api/common';
+import { FactCount } from '@api/common/fact-count';
 import { SubsetInfo } from './subset-info';
 
 export interface SubsetFactsPage {

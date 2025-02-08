@@ -2,7 +2,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NetworkChangeInfo } from '@api/common/changes/details';
+import { NetworkChangeInfo } from '@api/common/changes/details/network-change-info';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 

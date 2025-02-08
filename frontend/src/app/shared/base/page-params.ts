@@ -1,6 +1,6 @@
 import { Params } from '@angular/router';
-import { ChangesParameters } from '@api/common/changes/filter';
-import { Subset } from '@api/custom';
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { Subset } from '@api/custom/subset';
 import { AnalysisStrategy } from '@app/core';
 import { SubsetFact } from '@app/kpn/common';
 import { Countries } from '@app/kpn/common';

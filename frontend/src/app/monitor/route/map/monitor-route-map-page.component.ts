@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MonitorRouteMapPage } from '@api/common/monitor';
+import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { NavService } from '@app/shared/components/nav.service';
 import { OldPageComponent } from '@app/shared/components/page/old-page.component';
 import { EditGotoService } from '../../../analysis/components/edit/edit-goto.service';

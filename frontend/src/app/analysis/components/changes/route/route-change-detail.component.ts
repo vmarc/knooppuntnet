@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { RouteChangeInfo } from '@api/common/route';
+import { RouteChangeInfo } from '@api/common/route/route-change-info';
 import { RouteChangeMapComponent } from './route-change-map.component';
 import { RouteChangeWayAddedComponent } from './route-change-way-added.component';
 import { RouteChangeWayRemovedComponent } from './route-change-way-removed.component';

@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MonitorRouteDetailsPage } from '@api/common/monitor';
+import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
 import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 
 @Component({

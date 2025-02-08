@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Country } from '@api/common';
+import { Country } from '@api/common/country';
 import { Translations } from '@app/i18n';
 import { Countries } from '@app/kpn/common';
 import { NzSelectComponent } from 'ng-zorro-antd/select';

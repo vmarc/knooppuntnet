@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { LocationRouteInfo } from '@api/common/location';
-import { RouteType } from '@api/common';
+import { LocationRouteInfo } from '@api/common/location/location-route-info';
+import { RouteType } from '@api/common/route-type';
 import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indicators/route';
 import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route';
 

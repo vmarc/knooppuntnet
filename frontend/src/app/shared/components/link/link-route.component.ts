@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 
 @Component({
   selector: 'kpn-link-route',

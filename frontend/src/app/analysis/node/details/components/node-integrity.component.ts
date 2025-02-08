@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { input } from '@angular/core';
-import { NodeIntegrity } from '@api/common/node';
-import { NodeIntegrityDetail } from '@api/common/node';
+import { NodeIntegrity } from '@api/common/node/node-integrity';
+import { NodeIntegrityDetail } from '@api/common/node/node-integrity-detail';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
 import { RouteScopeNameComponent } from '@app/shared/components/route-scope-name.component';

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NetworkNodeRow } from '@api/common/network';
+import { NetworkNodeRow } from '@api/common/network/network-node-row';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 
 @Component({

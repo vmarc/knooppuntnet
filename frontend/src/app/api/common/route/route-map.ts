@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import { MapBounds } from '@api/common/common';
-import { TrackPath } from '@api/common/common';
-import { TrackPoint } from '@api/common/common';
-import { TrackSegment } from '@api/common/common';
+import { MapBounds } from '@api/common/common/map-bounds';
+import { TrackPath } from '@api/common/common/track-path';
+import { TrackPoint } from '@api/common/common/track-point';
+import { TrackSegment } from '@api/common/common/track-segment';
 import { RouteNetworkNodeInfo } from './route-network-node-info';
 
 export interface RouteMap {

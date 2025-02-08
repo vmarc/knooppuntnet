@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouteStructureRow } from '@api/common/route';
+import { RouteStructureRow } from '@api/common/route/route-structure-row';
 import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
 import { ActionButtonRelationComponent } from '../../../components/action/action-button-relation.component';
 import { ActionButtonWayComponent } from '../../../components/action/action-button-way.component';

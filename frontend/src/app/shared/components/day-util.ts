@@ -1,4 +1,4 @@
-import { Day } from '@api/custom';
+import { Day } from '@api/custom/day';
 
 export class DayUtil {
   static year(day: Day): string {

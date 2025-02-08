@@ -1,4 +1,4 @@
-import { Fact } from '@api/common';
+import { Fact } from '@api/common/fact';
 import { FactElement } from './fact-element';
 import { FactLevel } from '@api/common/fact-level';
 

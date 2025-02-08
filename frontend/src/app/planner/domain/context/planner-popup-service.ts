@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { signal } from '@angular/core';
-import { PoiPage } from '@api/common';
-import { MapNodeDetail } from '@api/common/node';
-import { MapRouteDetail } from '@api/common/route';
-import { ApiResponse } from '@api/custom';
+import { PoiPage } from '@api/common/poi-page';
+import { MapNodeDetail } from '@api/common/node/map-node-detail';
+import { MapRouteDetail } from '@api/common/route/map-route-detail';
+import { ApiResponse } from '@api/custom/api-response';
 import { OlUtil } from '@app/ol';
 import { MapZoomService } from '@app/ol/services';
 import { ApiService } from '@app/services';

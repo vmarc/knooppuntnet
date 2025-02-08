@@ -1,8 +1,8 @@
-import { TrackPath } from '@api/common/common';
-import { TrackPoint } from '@api/common/common';
-import { TrackSegment } from '@api/common/common';
-import { RouteMap } from '@api/common/route';
-import { RouteNetworkNodeInfo } from '@api/common/route';
+import { TrackPath } from '@api/common/common/track-path';
+import { TrackPoint } from '@api/common/common/track-point';
+import { TrackSegment } from '@api/common/common/track-segment';
+import { RouteMap } from '@api/common/route/route-map';
+import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info';
 import { Translations } from '@app/i18n';
 import { OlUtil } from '@app/ol';
 import { List } from 'immutable';

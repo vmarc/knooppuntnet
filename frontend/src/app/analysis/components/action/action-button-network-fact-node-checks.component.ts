@@ -8,7 +8,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatMenu } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { NetworkFact } from '@api/common';
+import { NetworkFact } from '@api/common/network-fact';
 import { ActionService } from './action.service';
 
 @Component({

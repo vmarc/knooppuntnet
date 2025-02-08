@@ -7,7 +7,7 @@ import { AfterViewInit } from '@angular/core';
 import { ElementRef } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MemberType } from '@api/common/data';
+import { MemberType } from '@api/common/data/member-type';
 import { Link } from '@api/common/route/link';
 import { fromEvent } from 'rxjs';
 import { Subscription } from 'rxjs';

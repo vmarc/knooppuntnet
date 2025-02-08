@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { OrphanNodeInfo } from '@api/common';
-import { TimeInfo } from '@api/common';
+import { OrphanNodeInfo } from '@api/common/orphan-node-info';
+import { TimeInfo } from '@api/common/time-info';
 import { SubsetInfo } from './subset-info';
 
 export interface SubsetOrphanNodesPage {

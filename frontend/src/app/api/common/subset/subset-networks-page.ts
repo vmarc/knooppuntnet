@@ -1,6 +1,6 @@
 // this file is generated, please do not modify
 
-import { NetworkAttributes } from '@api/common/network';
+import { NetworkAttributes } from '@api/common/network/network-attributes';
 import { SubsetInfo } from './subset-info';
 
 export interface SubsetNetworksPage {

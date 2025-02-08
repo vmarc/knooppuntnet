@@ -1,4 +1,4 @@
-import { LegEnd } from '@api/common/planner';
+import { LegEnd } from '@api/common/planner/leg-end';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { PlannerCommandRemoveViaPoint } from '../../commands/planner-command-remove-via-point';

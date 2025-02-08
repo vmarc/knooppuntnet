@@ -1,4 +1,4 @@
-import { NetworkMapNode } from '@api/common/network';
+import { NetworkMapNode } from '@api/common/network/network-map-node';
 import { OlUtil } from '@app/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';

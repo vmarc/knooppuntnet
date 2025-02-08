@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NodeChangeInfo } from '@api/common/node';
+import { NodeChangeInfo } from '@api/common/node/node-change-info';
 import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
 import { ChangeSetTagsComponent } from '@app/analysis/components/change-set';
 import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node';

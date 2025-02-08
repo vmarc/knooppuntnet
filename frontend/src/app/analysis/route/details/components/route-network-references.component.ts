@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Reference } from '@api/common/common';
+import { Reference } from '@api/common/common/reference';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
-import { RouteStructureRow } from '@api/common/route';
+import { RouteStructureRow } from '@api/common/route/route-structure-row';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 
 @Component({

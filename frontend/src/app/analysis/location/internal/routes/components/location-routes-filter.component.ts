@@ -6,7 +6,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { BooleanParameter } from '@api/common/location/boolean-parameter';
 import { LastUpdatedParameter } from '@api/common/location/last-updated-parameter';
 import { SurveyParameter } from '@api/common/location/survey-parameter';
-import { Fact } from '@api/common';
+import { Fact } from '@api/common/fact';
 import { LocationRoutesPageService } from '../location-routes-page.service';
 
 @Component({

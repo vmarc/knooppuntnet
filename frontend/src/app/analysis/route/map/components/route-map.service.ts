@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { RouteMapPage } from '@api/common/route';
+import { RouteMapPage } from '@api/common/route/route-map-page';
 import { MapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldOpenDataLayers } from '@app/ol/layers';

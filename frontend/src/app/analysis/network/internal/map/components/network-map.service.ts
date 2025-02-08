@@ -1,7 +1,7 @@
 import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { NetworkMapPage } from '@api/common/network';
+import { NetworkMapPage } from '@api/common/network/network-map-page';
 import { CachedMapPosition } from '@app/ol/domain';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldOpenDataLayers } from '@app/ol/layers';

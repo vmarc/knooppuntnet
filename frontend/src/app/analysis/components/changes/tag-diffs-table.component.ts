@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { TagDiffs } from '@api/common/diff';
+import { TagDiffs } from '@api/common/diff/tag-diffs';
 import { TagDiffActionComponent } from './tag-diff-action.component';
 
 @Component({

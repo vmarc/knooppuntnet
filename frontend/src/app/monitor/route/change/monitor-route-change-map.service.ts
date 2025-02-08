@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { MonitorRouteDeviation } from '@api/common/monitor';
-import { MonitorRouteSegment } from '@api/common/monitor';
+import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
+import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
 import { ZoomLevel } from '@app/ol/domain';
 import { OldBackgroundLayer } from '@app/ol/layers';
 import { MapControls } from '@app/ol/layers';

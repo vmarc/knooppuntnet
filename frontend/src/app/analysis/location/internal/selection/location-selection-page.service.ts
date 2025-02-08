@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { LocationNode } from '@api/common/location';
+import { LocationNode } from '@api/common/location/location-node';
 import { RouterService } from '../../../../shared/services/router.service';
 import { LocationService } from '../location.service';
 import { LocalLocationNode } from './components/local-location-node';

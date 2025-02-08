@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
-import { Reference } from '@api/common/common';
-import { NodeIntegrity } from '@api/common/node';
-import { Day } from '@api/custom';
-import { Tag } from '@api/custom';
-import { Timestamp } from '@api/custom';
+import { Reference } from '@api/common/common/reference';
+import { NodeIntegrity } from '@api/common/node/node-integrity';
+import { Day } from '@api/custom/day';
+import { Tag } from '@api/custom/tag';
+import { Timestamp } from '@api/custom/timestamp';
 import { Country } from './country';
 import { Fact } from './fact';
 import { LocationInfo } from './location-info';

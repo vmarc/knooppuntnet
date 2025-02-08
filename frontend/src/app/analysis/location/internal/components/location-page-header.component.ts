@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { LocationKey } from '@api/custom';
+import { LocationKey } from '@api/custom/location-key';
 import { LocationPipe } from '@app/shared/components/format/location.pipe';
 import { PageMenuOptionComponent } from '@app/shared/components/menu/page-menu-option.component';
 import { PageMenuComponent } from '@app/shared/components/menu/page-menu.component';

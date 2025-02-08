@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { TagDiffs } from '@api/common/diff';
+import { TagDiffs } from '@api/common/diff/tag-diffs';
 import { PageWidthService } from '@app/shared/components/page-width.service';
 import { TagDiffsTableComponent } from './tag-diffs-table.component';
 import { TagDiffsTextComponent } from './tag-diffs-text.component';

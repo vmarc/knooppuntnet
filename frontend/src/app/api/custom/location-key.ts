@@ -1,5 +1,5 @@
-import { Country } from '@api/common';
-import { RouteType } from '@api/common';
+import { Country } from '@api/common/country';
+import { RouteType } from '@api/common/route-type';
 
 export interface LocationKey {
   readonly routeType: RouteType;

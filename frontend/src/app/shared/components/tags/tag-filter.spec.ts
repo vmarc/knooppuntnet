@@ -1,4 +1,4 @@
-import { Tag } from '@api/custom';
+import { Tag } from '@api/custom/tag';
 import { InterpretedTags } from './interpreted-tags';
 
 describe('TagFilter', () => {

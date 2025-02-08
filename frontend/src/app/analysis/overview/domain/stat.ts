@@ -1,5 +1,5 @@
-import { StatisticValues } from '@api/common/statistics';
-import { Subset } from '@api/custom';
+import { StatisticValues } from '@api/common/statistics/statistic-values';
+import { Subset } from '@api/custom/subset';
 import { StatisticConfiguration } from './statistic-configuration';
 
 export class Stat {

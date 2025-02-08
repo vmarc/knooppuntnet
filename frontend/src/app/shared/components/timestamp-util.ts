@@ -1,5 +1,5 @@
-import { Day } from '@api/custom';
-import { Timestamp } from '@api/custom';
+import { Day } from '@api/custom/day';
+import { Timestamp } from '@api/custom/timestamp';
 
 export class TimestampUtil {
   static day(timestamp: Timestamp): string {

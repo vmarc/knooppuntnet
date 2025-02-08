@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { RawNode } from '@api/common/data/raw';
-import { NodeUpdate } from '@api/common/diff';
-import { WayUpdate } from '@api/common/diff';
+import { RawNode } from '@api/common/data/raw/raw-node';
+import { NodeUpdate } from '@api/common/diff/node-update';
+import { WayUpdate } from '@api/common/diff/way-update';
 import { NodeListComponent } from '@app/shared/components/link/node-list.component';
 import { OsmLinkWayComponent } from '@app/shared/components/link/osm-link-way.component';
 import { MetaDataComponent } from '@app/shared/components/meta-data.component';

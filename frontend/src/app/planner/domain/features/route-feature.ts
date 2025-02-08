@@ -1,4 +1,4 @@
-import { TrackPathKey } from '@api/common/common';
+import { TrackPathKey } from '@api/common/common/track-path-key';
 import { FeatureLike } from 'ol/Feature';
 
 export class RouteFeature {

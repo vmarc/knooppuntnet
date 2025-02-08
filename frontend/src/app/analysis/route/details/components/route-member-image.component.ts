@@ -2,8 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { RouteStructureRow } from '@api/common/route';
-import { MonitorRouteGapComponent } from '../../../../monitor/route/monitor-route-gap.component';
+import { RouteStructureRow } from '@api/common/route/route-structure-row';
 import { TryoutWrapperComponent } from '../../../../tryout/canvas/tryout-wrapper.component';
 
 @Component({

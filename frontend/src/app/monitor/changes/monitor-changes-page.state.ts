@@ -1,5 +1,5 @@
-import { MonitorChangesPage } from '@api/common/monitor';
-import { ApiResponse } from '@api/custom';
+import { MonitorChangesPage } from '@api/common/monitor/monitor-changes-page';
+import { ApiResponse } from '@api/custom/api-response';
 
 export const initialState: MonitorChangesPageState = {
   pageIndex: 0,

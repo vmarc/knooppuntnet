@@ -1,4 +1,4 @@
-import { SubsetMapNetwork } from '@api/common/subset';
+import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
 import { OlUtil } from '@app/ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';

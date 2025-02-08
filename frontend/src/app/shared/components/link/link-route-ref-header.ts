@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
-import { KnownElements } from '@api/common/common';
-import { Ref } from '@api/common/common';
+import { KnownElements } from '@api/common/common/known-elements';
+import { Ref } from '@api/common/common/ref';
 import { LinkRouteComponent } from './link-route.component';
 import { OsmLinkRelationComponent } from './osm-link-relation.component';
 

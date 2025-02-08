@@ -1,5 +1,5 @@
 import { signal } from '@angular/core';
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 import { AnalysisStrategy } from '@app/core';
 
 export class PreferencesState {

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { NodeChangeInfo } from '@api/common/node';
+import { NodeChangeInfo } from '@api/common/node/node-change-info';
 import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 import { NodeMovedMapComponent } from './node-moved-map.component';
 

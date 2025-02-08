@@ -1,4 +1,4 @@
-import { RouteScope } from '@api/common';
+import { RouteScope } from '@api/common/route-scope';
 
 export class RouteScopes {
   static all: RouteScope[] = ['local', 'regional', 'national', 'international'];

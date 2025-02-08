@@ -1,5 +1,5 @@
-import { LegEnd } from '@api/common/planner';
-import { RouteType } from '@api/common';
+import { LegEnd } from '@api/common/planner/leg-end';
+import { RouteType } from '@api/common/route-type';
 import { Map } from 'immutable';
 import { List } from 'immutable';
 import { Observable, of } from 'rxjs';

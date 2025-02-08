@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { Tag } from '@api/custom';
+import { Tag } from '@api/custom/tag';
 import { PoiDetailMapComponent } from '@app/ol/components';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { DividerComponent } from '@app/shared/components/divider.component';

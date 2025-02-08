@@ -1,9 +1,9 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { ChangesParameters } from '@api/common/changes/filter';
-import { LocationChangesPage } from '@api/common/location';
-import { ApiResponse } from '@api/custom';
+import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
+import { LocationChangesPage } from '@api/common/location/location-changes-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { PreferencesService } from '@app/core';
 import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';

@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NetworkNodeRow } from '@api/common/network';
+import { NetworkNodeRow } from '@api/common/network/network-node-row';
 import { IndicatorComponent } from '@app/shared/components/indicator/indicator.component';
 import { RoleConnectionIndicatorDialogComponent } from './role-connection-indicator-dialog.component';
 

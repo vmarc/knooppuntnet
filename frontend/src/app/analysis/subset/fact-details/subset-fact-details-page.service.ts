@@ -1,8 +1,8 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
-import { SubsetFactDetailsPage } from '@api/common/subset';
-import { ApiResponse } from '@api/custom';
+import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { Facts } from '@app/analysis/fact';
 import { SubsetFact } from '@app/kpn/common';
 import { ApiService } from '@app/services';

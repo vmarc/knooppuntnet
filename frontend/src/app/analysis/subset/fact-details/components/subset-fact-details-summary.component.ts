@@ -2,7 +2,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { SubsetFactDetailsPage } from '@api/common/subset';
+import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
 import { Facts } from '@app/analysis/fact';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';

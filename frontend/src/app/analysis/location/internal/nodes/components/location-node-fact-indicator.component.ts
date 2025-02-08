@@ -4,7 +4,7 @@ import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { LocationNodeInfo } from '@api/common/location';
+import { LocationNodeInfo } from '@api/common/location/location-node-info';
 import { IndicatorComponent } from '@app/shared/components/indicator/indicator.component';
 import { LocationNodeFactIndicatorDialogComponent } from './location-node-fact-indicator-dialog.component';
 

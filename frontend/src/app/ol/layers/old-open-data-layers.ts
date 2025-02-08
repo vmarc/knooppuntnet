@@ -1,4 +1,4 @@
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 import { OldMapLayer } from './old-map-layer';
 import { OldMapLayerRegistry } from './old-map-layer-registry';
 import { OldOpendataBitmapTileLayer } from './old-opendata-bitmap-tile-layer';

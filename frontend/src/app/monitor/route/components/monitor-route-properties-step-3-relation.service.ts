@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { MonitorRouteInfoPage } from '@api/common/monitor';
-import { ApiResponse } from '@api/custom';
+import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
+import { ApiResponse } from '@api/custom/api-response';
 import { MonitorService } from '../../monitor.service';
 
 @Injectable()

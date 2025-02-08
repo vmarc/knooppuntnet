@@ -1,10 +1,10 @@
 // this file is generated, please do not modify
 
-import { Link } from '@api/common/route';
-import { RouteNetworkNodeInfo } from '@api/common/route';
-import { WayDirection } from '@api/common/route';
-import { Tag } from '@api/custom';
-import { Timestamp } from '@api/custom';
+import { Link } from '@api/common/route/link';
+import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info';
+import { WayDirection } from '@api/common/route/way-direction';
+import { Tag } from '@api/custom/tag';
+import { Timestamp } from '@api/custom/timestamp';
 
 export interface RouteMemberInfoWay {
   readonly wayType: string;

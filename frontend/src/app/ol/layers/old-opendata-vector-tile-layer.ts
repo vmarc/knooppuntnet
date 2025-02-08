@@ -1,4 +1,4 @@
-import { RouteType } from '@api/common';
+import { RouteType } from '@api/common/route-type';
 import { Color } from 'ol/color';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
