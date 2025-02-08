@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
-import { AnalysisCanoePageComponent } from './pages/analysis-canoe-page.component';
-import { AnalysisCyclingPageComponent } from './pages/analysis-cycling-page.component';
-import { AnalysisHikingPageComponent } from './pages/analysis-hiking-page.component';
-import { AnalysisHorseRidingPageComponent } from './pages/analysis-horse-riding-page.component';
-import { AnalysisInlineSkatingPageComponent } from './pages/analysis-inline-skating-page.component';
-import { AnalysisMotorboatPageComponent } from './pages/analysis-motorboat-page.component';
-import { AnalysisPageComponent } from './pages/analysis-page.component';
-import { LocationUrlMatcher } from './pages/location-url-matcher';
+import { AnalysisCanoePageComponent } from './internal/analysis-canoe-page.component';
+import { AnalysisCyclingPageComponent } from './internal/analysis-cycling-page.component';
+import { AnalysisHikingPageComponent } from './internal/analysis-hiking-page.component';
+import { AnalysisHorseRidingPageComponent } from './internal/analysis-horse-riding-page.component';
+import { AnalysisInlineSkatingPageComponent } from './internal/analysis-inline-skating-page.component';
+import { AnalysisMotorboatPageComponent } from './internal/analysis-motorboat-page.component';
+import { AnalysisPageComponent } from './internal/analysis-page.component';
+import { LocationUrlMatcher } from './internal/location-url-matcher';
 
 export const analysisRoutes: Routes = [
   {

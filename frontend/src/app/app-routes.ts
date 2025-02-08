@@ -17,7 +17,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'analysis',
-    loadChildren: () => import('@app/analysis/analysis').then((m) => m.analysisRoutes),
+    loadChildren: () => import('./analysis/analysis/analysis-routes').then((m) => m.analysisRoutes),
   },
   {
     path: 'status',

@@ -4,6 +4,7 @@ import { SheriffConfig } from '@softarc/sheriff-core';
 export const sheriffConfig: SheriffConfig = {
   modules: {
     'src/app/api': 'noTag',
+    'src/app/analysis/analysis': 'noTag',
     'src/app/analysis/changeset': 'noTag',
     'src/app/analysis/fact': 'noTag',
     'src/app/analysis/facts': 'noTag',

@@ -36,9 +36,6 @@
       "@app/*": [
         "src/app/index.ts"
       ],
-      "@app/analysis/analysis": [
-        "src/app/analysis/analysis/index.ts"
-      ],
       "@app/analysis/components/change-set": [
         "src/app/analysis/components/change-set/index.ts"
       ],
