@@ -31,7 +31,7 @@ export const analysisRoutes: Routes = [
       },
       {
         path: 'changes',
-        loadChildren: () => import('../changes').then((m) => m.changesRoutes),
+        loadChildren: () => import('../changes/changes-routes').then((m) => m.changesRoutes),
       },
       {
         path: 'facts',

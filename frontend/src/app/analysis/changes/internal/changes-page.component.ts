@@ -16,8 +16,8 @@ import { SituationOnComponent } from '@app/shared/components/timestamp/situation
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
-import { RouterService } from '../../shared/services/router.service';
-import { UserLinkLoginComponent } from '../../shared/user';
+import { RouterService } from '../../../shared/services/router.service';
+import { UserLinkLoginComponent } from '../../../shared/user';
 import { ChangesPageService } from './changes-page.service';
 import { ChangesSidebarComponent } from './components/changes-sidebar.component';
 

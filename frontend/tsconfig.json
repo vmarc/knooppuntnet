@@ -42,9 +42,6 @@
       "@app/analysis/components/change-set/components": [
         "src/app/analysis/components/change-set/components/index.ts"
       ],
-      "@app/analysis/components/changes": [
-        "src/app/analysis/components/changes/index.ts"
-      ],
       "@app/analysis/components/changes/filter": [
         "src/app/analysis/components/changes/filter/index.ts"
       ],
