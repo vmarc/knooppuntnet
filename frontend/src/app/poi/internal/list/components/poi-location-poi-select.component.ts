@@ -9,7 +9,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
 import { NzFormItemComponent } from 'ng-zorro-antd/form';
 import { NzColDirective } from 'ng-zorro-antd/grid';
 import { NzRowDirective } from 'ng-zorro-antd/grid';
-import { LocationSelectorComponent } from '../../../analysis/location/location-selector.component';
+import { LocationSelectorComponent } from '../../../../analysis/location/location-selector.component';
 import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 import { CountrySelectComponent } from './country-select.component';
 

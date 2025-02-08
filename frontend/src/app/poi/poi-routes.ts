@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { PoiMapService } from './areas/components/poi-map.service';
-import { PoiAreasPageComponent } from './areas/poi-areas-page.component';
-import { PoiDetailPageComponent } from './detail/poi-detail-page.component';
-import { PoiLocationPoisPageComponent } from './list/poi-location-pois-page.component';
-import { PoiService } from './poi.service';
+import { PoiMapService } from './internal/areas/components/poi-map.service';
+import { PoiAreasPageComponent } from './internal/areas/poi-areas-page.component';
+import { PoiDetailPageComponent } from './internal/detail/poi-detail-page.component';
+import { PoiLocationPoisPageComponent } from './internal/list/poi-location-pois-page.component';
+import { PoiService } from './internal/poi.service';
 
 export const poiRoutes: Routes = [
   {

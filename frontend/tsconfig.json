@@ -84,9 +84,6 @@
       "@app/ol/*": [
         "src/app/ol/*"
       ],
-      "@app/poi": [
-        "src/app/poi/index.ts"
-      ],
       "@app/root": [
         "src/app/root/index.ts"
       ],

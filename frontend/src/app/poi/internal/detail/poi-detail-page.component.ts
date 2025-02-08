@@ -11,10 +11,10 @@ import { PoiAnalysisComponent } from '@app/shared/components/poi/poi-analysis.co
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
 import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
 import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
-import { ActionButtonNodeComponent } from '../../analysis/components/action/action-button-node.component';
-import { ActionButtonRelationComponent } from '../../analysis/components/action/action-button-relation.component';
-import { ActionButtonWayComponent } from '../../analysis/components/action/action-button-way.component';
-import { RouterService } from '../../shared/services/router.service';
+import { ActionButtonNodeComponent } from '../../../analysis/components/action/action-button-node.component';
+import { ActionButtonRelationComponent } from '../../../analysis/components/action/action-button-relation.component';
+import { ActionButtonWayComponent } from '../../../analysis/components/action/action-button-way.component';
+import { RouterService } from '../../../shared/services/router.service';
 import { PoiDetailPageService } from './poi-detail-page.service';
 
 @Component({

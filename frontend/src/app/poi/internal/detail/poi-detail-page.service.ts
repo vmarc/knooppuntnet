@@ -4,7 +4,7 @@ import { signal } from '@angular/core';
 import { PoiDetail } from '@api/common/poi-detail';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/services';
-import { RouterService } from '../../shared/services/router.service';
+import { RouterService } from '../../../shared/services/router.service';
 
 @Injectable()
 export class PoiDetailPageService {

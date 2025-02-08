@@ -29,7 +29,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'poi',
-    loadChildren: () => import('@app/poi').then((m) => m.poiRoutes),
+    loadChildren: () => import('./poi/poi-routes').then((m) => m.poiRoutes),
   },
   {
     path: 'monitor',
