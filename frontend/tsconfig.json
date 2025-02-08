@@ -81,9 +81,6 @@
       "@app/kpn/filter": [
         "src/app/shared/kpn/filter/index.ts"
       ],
-      "@app/monitor": [
-        "src/app/monitor/index.ts"
-      ],
       "@app/ol": [
         "src/app/ol/index.ts"
       ],

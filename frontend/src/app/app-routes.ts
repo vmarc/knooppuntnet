@@ -33,7 +33,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'monitor',
-    loadChildren: () => import('@app/monitor').then((m) => m.monitorRoutes),
+    loadChildren: () => import('./monitor/monitor-routes').then((m) => m.monitorRoutes),
   },
   {
     path: 'symbols',

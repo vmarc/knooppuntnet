@@ -17,6 +17,7 @@ export const sheriffConfig: SheriffConfig = {
     'src/app/analysis/strategy': 'noTag',
     'src/app/analysis/subset': 'noTag',
     'src/app/explore': 'noTag',
+    'src/app/monitor': 'noTag',
     'src/app/shared/components': 'noTag',
   },
   enableBarrelLess: true,
