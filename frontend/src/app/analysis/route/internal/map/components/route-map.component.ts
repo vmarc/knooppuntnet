@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit, Component } from '@angular/core';
-import { MAP_SERVICE_TOKEN } from '@app/ol/services';
+import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { RouteMapPageService } from '../route-map-page.service';
 import { RouteMapService } from './route-map.service';
 

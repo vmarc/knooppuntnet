@@ -1,5 +1,5 @@
-import { Marker } from '@app/ol/domain';
-import { OldLayers } from '@app/ol/layers';
+import { Marker } from '@app/ol/domain/marker';
+import { OldLayers } from '@app/ol/layers/old-layers';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import Feature from 'ol/Feature';

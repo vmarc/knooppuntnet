@@ -13,7 +13,7 @@ import { Facts } from '@app/analysis/fact/components/facts';
 import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-description.component';
 import { FactLevelComponent } from '@app/analysis/fact/components/fact-level.component';
 import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
-import { AnalysisStrategyService } from '@app/analysis/strategy';
+import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { ItemComponent } from '@app/shared/components/items/item.component';

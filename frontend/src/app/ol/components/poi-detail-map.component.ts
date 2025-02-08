@@ -5,7 +5,7 @@ import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { PoiDetail } from '@api/common/poi-detail';
-import { MAP_SERVICE_TOKEN } from '../services';
+import { MAP_SERVICE_TOKEN } from '../services/openlayers-map-service';
 import { PoiDetailMapService } from './poi-detail-map.service';
 
 @Component({

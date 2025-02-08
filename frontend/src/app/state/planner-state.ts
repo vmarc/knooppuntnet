@@ -1,7 +1,7 @@
 import { signal } from '@angular/core';
-import { MapLayerState } from '@app/ol/domain';
-import { MapPosition } from '@app/ol/domain';
-import { MapMode } from '@app/ol/services';
+import { MapLayerState } from '@app/ol/domain/map-layer-state';
+import { MapPosition } from '@app/ol/domain/map-position';
+import { MapMode } from '@app/ol/services/map-mode';
 import { MapResultMode } from '../ol/services/map-result-mode';
 
 export class PlannerState {

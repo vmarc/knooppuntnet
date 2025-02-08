@@ -1,7 +1,7 @@
 import { RouteType } from '@api/common/route-type';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
-import { ZoomLevel } from '../domain';
+import { ZoomLevel } from '../domain/zoom-level';
 import { OldMapLayer } from './old-map-layer';
 
 export class OldOpendataBitmapTileLayer {

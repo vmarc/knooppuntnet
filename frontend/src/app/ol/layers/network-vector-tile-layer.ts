@@ -4,7 +4,7 @@ import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { StyleFunction } from 'ol/style/Style';
-import { ZoomLevel } from '../domain';
+import { ZoomLevel } from '../domain/zoom-level';
 import { OldLayers } from './old-layers';
 import { OldMapLayer } from './old-map-layer';
 

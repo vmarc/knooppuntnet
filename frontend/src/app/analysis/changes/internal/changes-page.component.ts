@@ -5,8 +5,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set';
-import { ChangesComponent } from '@app/analysis/components/changes';
-import { AnalysisStrategyService } from '@app/analysis/strategy';
+import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
@@ -18,6 +17,7 @@ import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { RouterService } from '../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../shared/user';
+import { ChangesComponent } from '../../components/changes';
 import { ChangesPageService } from './changes-page.service';
 import { ChangesSidebarComponent } from './components/changes-sidebar.component';
 

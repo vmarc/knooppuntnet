@@ -1,7 +1,7 @@
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
 import { SurveyDateValues } from '@app/core';
-import { MapLayerState } from '@app/ol/domain';
+import { MapLayerState } from '@app/ol/domain/map-layer-state';
 import { Coordinate } from 'ol/coordinate';
 import { ExploreMode } from '../explore/explore-mode';
 import { FocusElements } from '../map/focus-elements';

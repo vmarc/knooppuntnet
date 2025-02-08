@@ -1,8 +1,8 @@
 import { RouteNodeChange } from '@api/common/route/route-node-change';
-import { OlUtil } from '@app/ol';
+import { OlUtil } from '@app/ol/ol-util';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { Marker } from '../domain';
+import { Marker } from '../domain/marker';
 import { OldLayers } from './old-layers';
 import { OldMapLayer } from './old-map-layer';
 

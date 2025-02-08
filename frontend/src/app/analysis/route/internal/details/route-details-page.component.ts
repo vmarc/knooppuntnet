@@ -10,7 +10,6 @@ import { RouterLink } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactsComponent } from '@app/analysis/fact/components/facts.component';
-import { RouteSummaryComponent } from '@app/analysis/route';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { PageWidthService } from '@app/shared/components/page-width.service';
@@ -29,6 +28,7 @@ import { RouteNetworkReferencesComponent } from './components/route-network-refe
 import { RouteParentsComponent } from './components/route-parents.component';
 import { RouteRedundantNodesComponent } from './components/route-redundant-nodes.component';
 import { RouteStartNodesComponent } from './components/route-start-nodes.component';
+import { RouteSummaryComponent } from './components/route-summary.component';
 import { RouteDetailsPageService } from './route-details-page.service';
 
 @Component({

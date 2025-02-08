@@ -1,4 +1,4 @@
-import { OldLayers } from '@app/ol/layers';
+import { OldLayers } from '@app/ol/layers/old-layers';
 import { FeatureLike } from 'ol/Feature';
 import Feature from 'ol/Feature';
 import { Geometry } from 'ol/geom';

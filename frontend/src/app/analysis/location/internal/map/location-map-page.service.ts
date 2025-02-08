@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { LocationMapPage } from '@api/common/location/location-map-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { MapPosition } from '@app/ol/domain';
+import { MapPosition } from '@app/ol/domain/map-position';
 import { ApiService } from '@app/services';
 import { SharedStateService } from '../../../../shared/core/shared/shared-state.service';
 import { RouterService } from '../../../../shared/services/router.service';

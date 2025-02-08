@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MonitorRouteDeviation } from '@api/common/monitor/monitor-route-deviation';
 import { MonitorRouteSegment } from '@api/common/monitor/monitor-route-segment';
-import { MAP_SERVICE_TOKEN } from '@app/ol/services';
+import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { MonitorRouteChangeMapService } from './monitor-route-change-map.service';
 
 @Component({

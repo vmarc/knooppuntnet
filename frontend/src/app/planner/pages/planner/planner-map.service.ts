@@ -1,8 +1,8 @@
 import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { MapZoomService } from '@app/ol/services';
-import { MainMapStyleParameters } from '@app/ol/style';
+import { MapZoomService } from '@app/ol/services/map-zoom.service';
+import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
 import { OldPoiService } from '@app/services';
 import { State } from '@app/state';
 import { Subscriptions } from '@app/util';

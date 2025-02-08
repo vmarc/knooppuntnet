@@ -1,12 +1,12 @@
 import { NodeMoved } from '@api/common/diff/node/node-moved';
-import { OlUtil } from '@app/ol';
+import { OlUtil } from '@app/ol/ol-util';
 import Feature from 'ol/Feature';
 import LineString from 'ol/geom/LineString';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import { Marker } from '../domain';
+import { Marker } from '../domain/marker';
 import { OldMapLayer } from './old-map-layer';
 
 export class NodeMovedLayer {

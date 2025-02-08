@@ -1,10 +1,10 @@
 import { RouteType } from '@api/common/route-type';
 import { Translations } from '@app/i18n';
+import { OldMapLayer } from '@app/ol/layers/old-map-layer';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
-import { OldMapLayer } from '.';
-import { ZoomLevel } from '../domain';
-import { MapMode } from '../services';
+import { ZoomLevel } from '../domain/zoom-level';
+import { MapMode } from '../services/map-mode';
 
 export class NetworkBitmapTileLayer {
   public static build(routeType: RouteType, mapMode: MapMode): OldMapLayer {

@@ -2,7 +2,7 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { SubsetMapPage } from '@api/common/subset/subset-map-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { MapPosition } from '@app/ol/domain';
+import { MapPosition } from '@app/ol/domain/map-position';
 import { ApiService } from '@app/services';
 import { RouterService } from '../../../../shared/services/router.service';
 import { SubsetService } from '../subset.service';

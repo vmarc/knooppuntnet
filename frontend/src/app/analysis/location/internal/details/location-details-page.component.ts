@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { AnalysisStrategyService } from '@app/analysis/strategy';
+import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { SidebarFooterComponent } from '@app/shared/components/sidebar/sidebar-footer.component';
 import { RouterService } from '../../../../shared/services/router.service';

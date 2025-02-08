@@ -1,5 +1,5 @@
 import { RouteType } from '@api/common/route-type';
-import { ZoomLevel } from '@app/ol/domain';
+import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { Color } from 'ol/color';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';

@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { MAP_SERVICE_TOKEN } from '@app/ol/services';
+import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { SubsetMapService } from '../subset-map.service';
 import { SubsetMapPageService } from '../subset-map-page.service';
 

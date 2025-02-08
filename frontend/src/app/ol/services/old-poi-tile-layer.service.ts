@@ -2,10 +2,10 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { OldPoiService } from '@app/services';
 import { StyleFunction } from 'ol/style/Style';
-import { ZoomLevel } from '../domain';
-import { OldPoiTileLayer } from '../layers';
-import { OldMapLayer } from '../layers';
-import { OldPoiStyleMap } from '../style';
+import { ZoomLevel } from '../domain/zoom-level';
+import { OldPoiTileLayer } from '../layers/old-poi-tile-layer';
+import { OldMapLayer } from '../layers/old-map-layer';
+import { OldPoiStyleMap } from '../style/old-poi-style-map';
 
 @Injectable({
   providedIn: 'root',

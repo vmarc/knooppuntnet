@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AnalysisStrategyService } from '@app/analysis/strategy';
+import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { SubsetChangesPageComponent } from './internal/changes/subset-changes-page.component';
 import { SubsetFactDetailsPageComponent } from './internal/fact-details/subset-fact-details-page.component';
 import { SubsetFactsPageComponent } from './internal/facts/subset-facts-page.component';

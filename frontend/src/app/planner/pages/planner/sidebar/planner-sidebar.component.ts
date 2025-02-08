@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
-import { MapLinkMenuComponent } from '@app/ol/components';
+import { MapLinkMenuComponent } from '@app/ol/components/map-link-menu.component';
 import { State } from '@app/state';
 import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
 import { NzCollapseComponent } from 'ng-zorro-antd/collapse';

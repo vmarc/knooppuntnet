@@ -4,7 +4,7 @@ import { signal } from '@angular/core';
 import { ChangesPage } from '@api/common/changes-page';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { ApiResponse } from '@api/custom/api-response';
-import { AnalysisStrategyService } from '@app/analysis/strategy';
+import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';

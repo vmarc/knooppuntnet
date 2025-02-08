@@ -8,7 +8,7 @@ import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import Style, { StyleFunction } from 'ol/style/Style';
 import Text from 'ol/style/Text';
-import { ZoomLevel } from '../domain';
+import { ZoomLevel } from '../domain/zoom-level';
 import { OldLayers } from './old-layers';
 import { OldMapLayer } from './old-map-layer';
 

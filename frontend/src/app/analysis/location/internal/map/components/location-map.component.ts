@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MAP_SERVICE_TOKEN } from '@app/ol/services';
+import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { Util } from '@app/shared/components/util';
 import { LocationMapPageService } from '../location-map-page.service';
 import { LocationMapControlComponent } from './location-map-control';

@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node/node-moved';
-import { OlUtil } from '@app/ol';
-import { ZoomLevel } from '@app/ol/domain';
-import { OldBackgroundLayer } from '@app/ol/layers';
-import { OldOsmLayer } from '@app/ol/layers';
-import { MapControls } from '@app/ol/layers';
-import { NodeMovedLayer } from '@app/ol/layers';
-import { OldMapLayerRegistry } from '@app/ol/layers';
-import { OpenlayersMapService } from '@app/ol/services';
+import { OlUtil } from '@app/ol/ol-util';
+import { ZoomLevel } from '@app/ol/domain/zoom-level';
+import { OldBackgroundLayer } from '@app/ol/layers/old-background-layer';
+import { OldOsmLayer } from '@app/ol/layers/old-osm-layer';
+import { MapControls } from '@app/ol/layers/map-controls';
+import { NodeMovedLayer } from '@app/ol/layers/node-moved-layer';
+import { OldMapLayerRegistry } from '@app/ol/layers/old-map-layer-registry';
+import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
 import Map from 'ol/Map';
 import View from 'ol/View';
 

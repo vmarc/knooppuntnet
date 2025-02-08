@@ -1,7 +1,7 @@
 import { Map } from 'immutable';
 import Icon from 'ol/style/Icon';
 import Style from 'ol/style/Style';
-import { OldInterpretedPoiConfiguration } from '../domain';
+import { OldInterpretedPoiConfiguration } from '../domain/old-interpreted-poi-configuration';
 
 export class OldPoiStyleMap {
   private readonly poiStyleMap: Map<string, Style>;

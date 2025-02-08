@@ -20,13 +20,13 @@ import { BehaviorSubject } from 'rxjs';
 import { fromEvent } from 'rxjs';
 import { distinct } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { MapGeocoder } from '../domain';
-import { MapLayerState } from '../domain';
-import { MapPosition } from '../domain';
-import { OldMapLayer } from '../layers';
-import { OldMapLayerRegistry } from '../layers';
-import { OldOsmLayer } from '../layers';
-import { OldBackgroundLayer } from '../layers/';
+import { MapGeocoder } from '../domain/map-geocoder';
+import { MapLayerState } from '../domain/map-layer-state';
+import { MapPosition } from '../domain/map-position';
+import { OldMapLayer } from '../layers/old-map-layer';
+import { OldMapLayerRegistry } from '../layers/old-map-layer-registry';
+import { OldOsmLayer } from '../layers/old-osm-layer';
+import { OldBackgroundLayer } from '../layers/old-background-layer';
 
 export const MAP_SERVICE_TOKEN = new InjectionToken<OpenlayersMapService>('MAP_SERVICE_TOKEN');
 

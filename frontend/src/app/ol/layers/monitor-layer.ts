@@ -1,4 +1,4 @@
-import { blue } from '@app/ol/style';
+import { blue } from '@app/ol/style/style-color';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';

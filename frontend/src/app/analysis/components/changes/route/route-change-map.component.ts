@@ -7,7 +7,7 @@ import { input } from '@angular/core';
 import { Bounds } from '@api/common/bounds';
 import { GeometryDiff } from '@api/common/route/geometry-diff';
 import { RouteNodeChange } from '@api/common/route/route-node-change';
-import { MAP_SERVICE_TOKEN } from '@app/ol/services';
+import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { RouteChangeMapService } from './route-change-map.service';
 
 @Component({

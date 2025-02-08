@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { FactDiffsComponent } from '@app/analysis/components/changes';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { LinkRouteRefHeaderComponent } from '@app/shared/components/link/link-route-ref-header';
 import { MetaDataComponent } from '@app/shared/components/meta-data.component';
+import { FactDiffsComponent } from '../../../../components/changes';
 import { RefRouteChangeInfo } from './ref-route-change-info';
 import { RouteDiffsData } from './route-diffs-data';
 

@@ -1,5 +1,5 @@
-import { OldMapLayer } from '.';
-import { MapLayerState } from '../domain';
+import { OldMapLayer } from '@app/ol/layers/old-map-layer';
+import { MapLayerState } from '../domain/map-layer-state';
 
 export class OldMapLayerRegistry {
   layers: OldMapLayer[] = [];

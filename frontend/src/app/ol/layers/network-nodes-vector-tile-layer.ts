@@ -3,8 +3,8 @@ import { Translations } from '@app/i18n';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
-import { ZoomLevel } from '../domain';
-import { NetworkMapStyle } from '../style';
+import { ZoomLevel } from '../domain/zoom-level';
+import { NetworkMapStyle } from '../style/network-map-style';
 import { OldLayers } from './old-layers';
 import { OldMapLayer } from './old-map-layer';
 

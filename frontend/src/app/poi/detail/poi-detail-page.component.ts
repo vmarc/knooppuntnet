@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Tag } from '@api/custom/tag';
-import { PoiDetailMapComponent } from '@app/ol/components';
+import { PoiDetailMapComponent } from '@app/ol/components/poi-detail-map.component';
 import { DataComponent } from '@app/shared/components/data/data.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { PageComponent } from '@app/shared/components/page/page.component';

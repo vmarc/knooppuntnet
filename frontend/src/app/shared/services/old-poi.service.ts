@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { OldInterpretedPoiConfiguration } from '@app/ol/domain';
+import { OldInterpretedPoiConfiguration } from '@app/ol/domain/old-interpreted-poi-configuration';
 import { Map } from 'immutable';
 import { BehaviorSubject } from 'rxjs';
 import { ApiService } from './api.service';

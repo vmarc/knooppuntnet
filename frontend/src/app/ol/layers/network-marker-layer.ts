@@ -1,9 +1,9 @@
 import { SubsetMapNetwork } from '@api/common/subset/subset-map-network';
-import { OlUtil } from '@app/ol';
+import { Marker } from '@app/ol/domain/marker';
+import { OldMapLayer } from '@app/ol/layers/old-map-layer';
+import { OlUtil } from '@app/ol/ol-util';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
-import { OldMapLayer } from '.';
-import { Marker } from '../domain';
 
 export class NetworkMarkerLayer {
   static readonly networkId = 'network-id';

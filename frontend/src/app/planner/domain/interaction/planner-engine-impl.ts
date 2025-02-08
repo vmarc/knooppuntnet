@@ -1,6 +1,6 @@
 import { PlanNode } from '@api/common/planner/plan-node';
-import { OlUtil } from '@app/ol';
-import { PoiId } from '@app/ol/domain';
+import { OlUtil } from '@app/ol/ol-util';
+import { PoiId } from '@app/ol/domain/poi-id';
 import * as Sentry from '@sentry/angular';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';

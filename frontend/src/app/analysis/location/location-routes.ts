@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AnalysisStrategyService } from '@app/analysis/strategy';
+import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { LocationChangesPageComponent } from './internal/changes/location-changes-page.component';
 import { LocationDetailsPageComponent } from './internal/details/location-details-page.component';
 import { LocationEditPageComponent } from './internal/edit/location-edit-page.component';

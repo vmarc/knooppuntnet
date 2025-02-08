@@ -1,7 +1,7 @@
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
-import { ZoomLevel } from '@app/ol/domain';
+import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { FeatureLike } from 'ol/Feature';
 import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';

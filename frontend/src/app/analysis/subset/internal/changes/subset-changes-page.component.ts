@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set';
 import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
-import { ChangesComponent } from '@app/*';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { ChangeOption } from '@app/kpn/common';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
@@ -14,6 +13,7 @@ import { PageFilterComponent } from '@app/shared/components/page/page-filter.com
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { RouterService } from '../../../../shared/services/router.service';
 import { UserLinkLoginComponent } from '../../../../shared/user';
+import { ChangesComponent } from '../../../components/changes';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetChangesPageService } from './subset-changes-page.service';
 

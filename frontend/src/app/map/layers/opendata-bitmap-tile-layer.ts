@@ -1,5 +1,5 @@
 import { RouteType } from '@api/common/route-type';
-import { ZoomLevel } from '@app/ol/domain';
+import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import { LayerType } from './layer-type';

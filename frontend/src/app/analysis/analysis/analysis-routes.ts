@@ -15,11 +15,11 @@ export const analysisRoutes: Routes = [
       { path: '', component: AnalysisPageComponent },
       {
         path: 'node',
-        loadChildren: () => import('../node').then((m) => m.nodeRoutes),
+        loadChildren: () => import('../node/node-routes').then((m) => m.nodeRoutes),
       },
       {
         path: 'route',
-        loadChildren: () => import('../route').then((m) => m.routeRoutes),
+        loadChildren: () => import('../route/route-routes').then((m) => m.routeRoutes),
       },
       {
         path: 'network',
@@ -39,7 +39,7 @@ export const analysisRoutes: Routes = [
       },
       {
         path: 'overview',
-        loadChildren: () => import('../overview').then((m) => m.overviewRoutes),
+        loadChildren: () => import('../overview/overview-routes').then((m) => m.overviewRoutes),
       },
       {
         path: 'cycling',
@@ -71,7 +71,7 @@ export const analysisRoutes: Routes = [
       },
       {
         matcher: LocationUrlMatcher.subsetUrl,
-        loadChildren: () => import('../subset').then((m) => m.subsetRoutes),
+        loadChildren: () => import('../subset/subset-routes').then((m) => m.subsetRoutes),
       },
     ],
   },

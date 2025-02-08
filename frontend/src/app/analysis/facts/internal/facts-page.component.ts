@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Fact } from '@api/common/fact';
 import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-description.component';
 import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
-import { AnalysisStrategyService } from '@app/analysis/strategy';
+import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
 import { PageComponent } from '@app/shared/components/page/page.component';

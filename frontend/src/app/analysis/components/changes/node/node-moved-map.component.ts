@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { input } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node/node-moved';
-import { MAP_SERVICE_TOKEN } from '@app/ol/services';
+import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { NodeMovedMapService } from './node-moved-map.service';
 
 @Component({

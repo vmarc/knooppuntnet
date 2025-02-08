@@ -6,7 +6,7 @@ import { PlanFragment } from '@api/common/planner/plan-fragment';
 import { PlanNode } from '@api/common/planner/plan-node';
 import { PlanRoute } from '@api/common/planner/plan-route';
 import { PlanSegment } from '@api/common/planner/plan-segment';
-import { OlUtil } from '@app/ol';
+import { OlUtil } from '@app/ol/ol-util';
 import { List } from 'immutable';
 import { Coordinate } from 'ol/coordinate';
 import { PlanLegData } from '../context/plan-leg-data';

@@ -63,8 +63,8 @@
       "@app/analysis/fact/*": [
         "src/app/analysis/fact/*"
       ],
-      "@app/analysis/strategy": [
-        "src/app/analysis/strategy/index.ts"
+      "@app/analysis/strategy/*": [
+        "src/app/analysis/strategy/*"
       ],
       "@app/shared/components/*": [
         "src/app/shared/components/*"
@@ -81,23 +81,8 @@
       "@app/kpn/filter": [
         "src/app/shared/kpn/filter/index.ts"
       ],
-      "@app/ol": [
-        "src/app/ol/index.ts"
-      ],
-      "@app/ol/components": [
-        "src/app/ol/components/index.ts"
-      ],
-      "@app/ol/domain": [
-        "src/app/ol/domain/index.ts"
-      ],
-      "@app/ol/layers": [
-        "src/app/ol/layers/index.ts"
-      ],
-      "@app/ol/services": [
-        "src/app/ol/services/index.ts"
-      ],
-      "@app/ol/style": [
-        "src/app/ol/style/index.ts"
+      "@app/ol/*": [
+        "src/app/ol/*"
       ],
       "@app/poi": [
         "src/app/poi/index.ts"

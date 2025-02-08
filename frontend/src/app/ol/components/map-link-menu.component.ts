@@ -7,8 +7,8 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
 import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { toLonLat } from 'ol/proj';
-import { OpenlayersMapService } from '../services';
-import { MAP_SERVICE_TOKEN } from '../services';
+import { OpenlayersMapService } from '../services/openlayers-map-service';
+import { MAP_SERVICE_TOKEN } from '../services/openlayers-map-service';
 
 @Component({
   selector: 'kpn-map-link-menu',

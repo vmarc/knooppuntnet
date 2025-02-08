@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ZoomLevel } from '@app/ol/domain';
-import { MapZoomService } from '@app/ol/services';
+import { ZoomLevel } from '@app/ol/domain/zoom-level';
+import { MapZoomService } from '@app/ol/services/map-zoom.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { NetworkMapLegendIconComponent } from './network-map-legend-icon.component';
 

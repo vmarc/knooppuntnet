@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { ChangesComponent } from '@app/analysis/components/changes';
 import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
+import { ChangesComponent } from '../../../../components/changes';
 import { LocationChangesPageService } from '../location-changes-page.service';
 import { LocationChangeComponent } from './location-change.component';
 import { LocationChangesPage } from '@api/common/location/location-changes-page';

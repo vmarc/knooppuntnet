@@ -1,6 +1,6 @@
 import { SurveyDateValues } from '@app/core';
-import { MainMapNodeStyle } from '@app/ol/style';
-import { MainMapStyleParameters } from '@app/ol/style';
+import { MainMapNodeStyle } from '@app/ol/style/main-map-node-style';
+import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
 import { FeatureLike } from 'ol/Feature';
 import Style from 'ol/style/Style';
 import { MapStyleOptions } from '../../state/map-style-options';

@@ -1,8 +1,8 @@
 import { SurveyDateValues } from '@app/core';
-import { proposedLarge } from '@app/ol/style';
-import { large } from '@app/ol/style';
-import { StyleColor } from '@app/ol/style';
-import { small } from '@app/ol/style';
+import { proposedLarge } from '@app/ol/style/node-style-builder';
+import { large } from '@app/ol/style/node-style-builder';
+import { StyleColor } from '@app/ol/style/style-color';
+import { small } from '@app/ol/style/node-style-builder';
 import { Color } from 'ol/color';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';

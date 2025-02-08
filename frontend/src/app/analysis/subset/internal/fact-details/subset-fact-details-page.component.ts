@@ -10,7 +10,7 @@ import { FactLevelComponent } from '@app/analysis/fact/components/fact-level.com
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-description.component';
 import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
-import { AnalysisStrategyService } from '@app/analysis/strategy';
+import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { RouterService } from '../../../../shared/services/router.service';
