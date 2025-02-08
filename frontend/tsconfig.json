@@ -75,12 +75,6 @@
       "@app/analysis/facts": [
         "src/app/analysis/facts/index.ts"
       ],
-      "@app/analysis/location": [
-        "src/app/analysis/location/index.ts"
-      ],
-      "@app/analysis/network": [
-        "src/app/analysis/network/index.ts"
-      ],
       "@app/analysis/node": [
         "src/app/analysis/node/index.ts"
       ],
@@ -101,9 +95,6 @@
       ],
       "@app/core": [
         "src/app/shared/core/index.ts"
-      ],
-      "@app/demo": [
-        "src/app/demo/index.ts"
       ],
       "@app/i18n": [
         "src/app/shared/i18n/index.ts"
@@ -134,9 +125,6 @@
       ],
       "@app/ol/style": [
         "src/app/ol/style/index.ts"
-      ],
-      "@app/planner": [
-        "src/app/planner/index.ts"
       ],
       "@app/poi": [
         "src/app/poi/index.ts"
