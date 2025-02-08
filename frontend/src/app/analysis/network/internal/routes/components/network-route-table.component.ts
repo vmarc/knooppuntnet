@@ -13,7 +13,7 @@ import { EditService } from '@app/shared/components/edit.service';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.pipe';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
-import { SymbolComponent } from '@app/symbol';
+import { SymbolComponent } from '@app/symbol/symbol.component';
 import { NzTrDirective } from 'ng-zorro-antd/table';
 import { NzTheadComponent } from 'ng-zorro-antd/table';
 import { NzThMeasureDirective } from 'ng-zorro-antd/table';

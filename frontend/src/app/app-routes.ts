@@ -37,7 +37,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'symbols',
-    loadChildren: () => import('@app/symbol').then((m) => m.symbolRoutes),
+    loadChildren: () => import('./symbol/symbol-routes').then((m) => m.symbolRoutes),
   },
   {
     path: '',

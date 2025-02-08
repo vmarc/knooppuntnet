@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { OsmLinkRelationComponent } from '../../shared/components/link/osm-link-relation.component';
 import { SymbolExample } from './symbol-example';
 import { SymbolShape } from './symbol-shape';
-import { SymbolComponent } from './symbol.component';
+import { SymbolComponent } from '../symbol.component';
 
 @Component({
   selector: 'kpn-status-page',

@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MonitorRouteInfoPage } from '@api/common/monitor/monitor-route-info-page';
 import { DataComponent } from '@app/shared/components/data/data.component';
-import { SymbolComponent } from '@app/symbol';
+import { SymbolComponent } from '@app/symbol/symbol.component';
 
 @Component({
   selector: 'kpn-monitor-route-info',

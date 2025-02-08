@@ -10,7 +10,7 @@ import { MonitorRouteDetail } from '@api/common/monitor/monitor-route-detail';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pipe';
 import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
-import { SymbolComponent } from '@app/symbol';
+import { SymbolComponent } from '@app/symbol/symbol.component';
 import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
 
 @Component({

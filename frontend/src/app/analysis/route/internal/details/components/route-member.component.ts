@@ -9,7 +9,7 @@ import { RouteStructureRow } from '@api/common/route/route-structure-row';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
 import { TagsTextComponent } from '@app/shared/components/tags/tags-text.component';
-import { SymbolComponent } from '@app/symbol';
+import { SymbolComponent } from '@app/symbol/symbol.component';
 import { RouteDistanceComponent } from './route-distance.component';
 import { RouteMemberIdComponent } from './route-member-id.component';
 import { RouteMemberImageComponent } from './route-member-image.component';

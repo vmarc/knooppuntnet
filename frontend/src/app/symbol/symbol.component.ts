@@ -5,11 +5,11 @@ import { ElementRef } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { SymbolBuilder } from './symbol-builder';
-import { SymbolDescription } from './symbol-description';
-import { SymbolHikerComponent } from './symbol-hiker.component';
-import { SymbolParser } from './symbol-parser';
-import { SymbolWheelComponent } from './symbol-wheel.component';
+import { SymbolBuilder } from './internal/symbol-builder';
+import { SymbolDescription } from './internal/symbol-description';
+import { SymbolHikerComponent } from './internal/symbol-hiker.component';
+import { SymbolParser } from './internal/symbol-parser';
+import { SymbolWheelComponent } from './internal/symbol-wheel.component';
 
 @Component({
   selector: 'kpn-symbol',

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
-import { SymbolComponent } from '@app/symbol';
+import { SymbolComponent } from '@app/symbol/symbol.component';
 import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
 
 @Component({

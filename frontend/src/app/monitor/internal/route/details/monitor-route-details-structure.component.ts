@@ -12,7 +12,7 @@ import { MonitorRouteRelationStructureRow } from '@api/common/monitor/monitor-ro
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pipe';
-import { SymbolComponent } from '@app/symbol';
+import { SymbolComponent } from '@app/symbol/symbol.component';
 import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
 import { MonitorRouteGapComponent } from '../monitor-route-gap.component';
 

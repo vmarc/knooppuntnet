@@ -16,7 +16,7 @@ import { IntegerFormatPipe } from '@app/shared/components/format/integer-format.
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 import { PageWidthService } from '@app/shared/components/page-width.service';
 import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
-import { SymbolComponent } from '@app/symbol';
+import { SymbolComponent } from '@app/symbol/symbol.component';
 import { ActionButtonRouteComponent } from '../../../../components/action/action-button-route.component';
 import { LocationRoutesPageService } from '../location-routes-page.service';
 import { LocationRouteAnalysisComponent } from './location-route-analysis';

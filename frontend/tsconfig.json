@@ -105,8 +105,8 @@
       "@app/status": [
         "src/app/status/index.ts"
       ],
-      "@app/symbol": [
-        "src/app/symbol/index.ts"
+      "@app/symbol/*": [
+        "src/app/symbol/*"
       ],
       "@app/util": [
         "src/app/util/index.ts"
