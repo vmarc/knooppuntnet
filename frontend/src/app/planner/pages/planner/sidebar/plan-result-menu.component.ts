@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { MapResultMode } from '../../../../ol/services/map-result-mode';
 
 @Component({

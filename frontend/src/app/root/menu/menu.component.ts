@@ -3,7 +3,7 @@ import { OnInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { MenuTestActionsComponent } from './menu-test-actions.component';

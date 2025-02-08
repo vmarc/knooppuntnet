@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { fromLonLat } from 'ol/proj';

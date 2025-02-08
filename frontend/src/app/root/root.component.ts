@@ -9,7 +9,7 @@ import { AngularSplitModule } from 'angular-split';
 import { NzContentComponent } from 'ng-zorro-antd/layout';
 import { NzLayoutComponent } from 'ng-zorro-antd/layout';
 import { MapComponent } from '../map/map.component';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { RootService } from './root.service';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 

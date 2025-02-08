@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { effect } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import Map from 'ol/Map';
 import { MapSubject } from '../ol/services/map-subject';
 import { PlannerMapService } from '../planner/pages/planner/planner-map.service';

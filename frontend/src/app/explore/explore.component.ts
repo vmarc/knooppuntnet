@@ -19,7 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BackButtonComponent } from '@app/shared/components/back-button.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { PageButtonsComponent } from '@app/shared/components/page/page-buttons.component';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzCheckboxComponent } from 'ng-zorro-antd/checkbox';
 import { NzIconDirective } from 'ng-zorro-antd/icon';

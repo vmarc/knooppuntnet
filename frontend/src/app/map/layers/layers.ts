@@ -1,7 +1,7 @@
 import { computed } from '@angular/core';
 import { effect } from '@angular/core';
 import { Signal } from '@angular/core';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { LayersState } from '../../state/layers-state';
 import { MapStyleOptions } from '../../state/map-style-options';
 import { PoiStyleMap } from '../style/poi-style-map';

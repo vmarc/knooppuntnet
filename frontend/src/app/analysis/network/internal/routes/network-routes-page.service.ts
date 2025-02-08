@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { NetworkRoutesPage } from '@api/common/network/network-routes-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/services';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { RouterService } from '../../../../shared/services/router.service';
 import { NetworkService } from '../network.service';
 import { NetworkRouteFilterCriteria } from './components/network-route-filter-criteria';

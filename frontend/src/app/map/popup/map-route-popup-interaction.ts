@@ -1,4 +1,4 @@
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { Interaction } from 'ol/interaction';
 import MapBrowserEvent from 'ol/MapBrowserEvent';
 import MapBrowserEventType from 'ol/MapBrowserEventType';

@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { MapLinkMenuComponent } from '@app/ol/components/map-link-menu.component';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { NzCollapsePanelComponent } from 'ng-zorro-antd/collapse';
 import { NzCollapseComponent } from 'ng-zorro-antd/collapse';
 import { GeolocationButtonComponent } from '../geolocation/geolocation-button.component';

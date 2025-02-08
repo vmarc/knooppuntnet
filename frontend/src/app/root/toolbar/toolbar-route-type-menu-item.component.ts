@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { RouteType } from '@api/common/route-type';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
 

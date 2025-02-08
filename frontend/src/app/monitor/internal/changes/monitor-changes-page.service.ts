@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MonitorChangesParameters } from '@api/common/monitor/monitor-changes-parameters';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { MonitorService } from '../monitor.service';
 import { initialState } from './monitor-changes-page.state';
 import { MonitorChangesPageState } from './monitor-changes-page.state';

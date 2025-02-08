@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { RouteListItem } from '@api/common/search/route-list-item';
 import { ListItemComponent } from '@app/shared/components/list/list-item.component';
 import { ListComponent } from '@app/shared/components/list/list.component';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { MapService } from '../../map/map.service';
 import { ScopeIconComponent } from '../scope-icon.component';
 import { SearchRouteComponent } from './search-route.component';

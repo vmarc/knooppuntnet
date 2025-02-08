@@ -10,7 +10,7 @@ import { SurveyParameter } from '@api/common/location/survey-parameter';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/services';
 import { Util } from '@app/shared/components/util';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { RouterService } from '../../../../shared/services/router.service';
 import { LocationService } from '../location.service';
 

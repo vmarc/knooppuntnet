@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { BrowserStorageService } from '@app/services';
 import { ApiService } from '@app/services';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { BehaviorSubject } from 'rxjs';
 import { InterpretedPoiConfiguration } from '../../state/poi/interpreted-poi-configuration';
 import { PoiGroupPreference } from '../../state/poi/poi-group-preference';

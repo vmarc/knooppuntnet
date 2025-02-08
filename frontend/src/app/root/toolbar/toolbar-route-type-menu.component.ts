@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzDropDownDirective } from 'ng-zorro-antd/dropdown';
 import { NzIconDirective } from 'ng-zorro-antd/icon';

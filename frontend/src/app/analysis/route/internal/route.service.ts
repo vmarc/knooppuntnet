@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
 import { PreferencesService } from '@app/core';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { RouterService } from '../../../shared/services/router.service';
 
 @Injectable({

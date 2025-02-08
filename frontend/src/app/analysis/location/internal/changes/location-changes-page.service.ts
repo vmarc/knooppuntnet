@@ -9,7 +9,7 @@ import { ChangeOption } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';
 import { Util } from '@app/shared/components/util';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { RouterService } from '../../../../shared/services/router.service';
 import { UserService } from '../../../../shared/user';
 import { LocationService } from '../location.service';

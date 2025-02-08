@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { NzSegmentedOptions } from 'ng-zorro-antd/segmented';
 import { NzSegmentedComponent } from 'ng-zorro-antd/segmented';
 

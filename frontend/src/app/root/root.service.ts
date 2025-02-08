@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { SurveyDateValues } from '@app/core';
 import { ApiService } from '@app/services';
 import { merge } from 'rxjs';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 
 @Injectable({
   providedIn: 'root',

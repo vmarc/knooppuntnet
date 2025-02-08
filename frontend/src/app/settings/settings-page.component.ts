@@ -4,7 +4,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '../shared/components/page/page.component';

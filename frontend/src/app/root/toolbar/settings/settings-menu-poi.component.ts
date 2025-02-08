@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { MenuItemCheckboxComponent } from './menu-item-checkbox.component';
 import { SettingsMenuPoiOptionComponent } from './settings-menu-poi-option.component';
 

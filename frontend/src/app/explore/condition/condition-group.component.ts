@@ -14,7 +14,7 @@ import { MatMenu } from '@angular/material/menu';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Condition } from '@api/common/search/condition';
 import { ConditionGroup } from '@api/common/search/condition-group';
-import { ExploreState } from '@app/state';
+import { ExploreState } from '@app/state/explore-state';
 import { ConditionGroupForm } from './condition-controls';
 
 @Component({

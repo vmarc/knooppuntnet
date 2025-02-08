@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { ApiService } from '@app/services';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import Map from 'ol/Map';
 import { PlannerContext } from '../../domain/context/planner-context';
 import { PlannerCursorImpl } from '../../domain/context/planner-cursor-impl';

@@ -13,7 +13,7 @@ import { MatLabel } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Condition } from '@api/common/search/condition';
 import { ConditionSubject } from '@api/common/search/condition-subject';
-import { ExploreState } from '@app/state';
+import { ExploreState } from '@app/state/explore-state';
 import { ConditionForm } from './condition-controls';
 import { ConditionLocationComponent } from './condition-location.component';
 import { ConditionNameComponent } from './condition-name.component';

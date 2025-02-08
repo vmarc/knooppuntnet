@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { MapZoomService } from '@app/ol/services/map-zoom.service';
 import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
 import { OldPoiService } from '@app/services';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { Subscriptions } from '@app/util';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';

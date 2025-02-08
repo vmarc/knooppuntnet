@@ -15,7 +15,7 @@ import { MapControls } from '@app/ol/layers/map-controls';
 import { MapMode } from '@app/ol/services/map-mode';
 import { ApiService } from '@app/services';
 import { Util } from '@app/shared/components/util';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { Subscriptions } from '@app/util';
 import { Coordinate } from 'ol/coordinate';
 import { FeatureLike } from 'ol/Feature';

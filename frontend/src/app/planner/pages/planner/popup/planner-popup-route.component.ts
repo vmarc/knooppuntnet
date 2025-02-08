@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 
 @Component({

@@ -1,7 +1,7 @@
-import { ExploreRoute } from '@app/state';
-import { MapRoutePopupState } from '@app/state';
-import { MapRoutePopupRoute } from '@app/state';
-import { State } from '@app/state';
+import { ExploreRoute } from '@app/state/explore-route';
+import { MapRoutePopupState } from '@app/state/map-route-popup-state';
+import { MapRoutePopupRoute } from '@app/state/map-route-popup-route';
+import { State } from '@app/state/state';
 import { Coordinate } from 'ol/coordinate';
 import { FeatureLike } from 'ol/Feature';
 

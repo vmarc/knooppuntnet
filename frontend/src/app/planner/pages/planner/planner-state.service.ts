@@ -11,7 +11,7 @@ import { OldPoiTileLayerService } from '@app/ol/services/old-poi-tile-layer.serv
 import { MapMode } from '@app/ol/services/map-mode';
 import { BrowserStorageService } from '@app/services';
 import { Util } from '@app/shared/components/util';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { Coordinate } from 'ol/coordinate';
 import { fromLonLat } from 'ol/proj';
 import { from } from 'rxjs';

@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { NzRadioComponent } from 'ng-zorro-antd/radio';
 import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 import { ExploreMode } from '../../../explore/explore-mode';

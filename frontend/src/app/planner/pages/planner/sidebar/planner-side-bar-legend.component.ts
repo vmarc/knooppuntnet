@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { LegendIconComponent } from './legend-icon.component';
 
 @Component({

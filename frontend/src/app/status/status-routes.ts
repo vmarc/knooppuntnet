@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { LogPageComponent } from './status/log-page.component';
-import { ReplicationStatusPageComponent } from './status/replication-status-page.component';
-import { StatusPageComponent } from './status/status-page.component';
-import { SystemStatusPageComponent } from './status/system-status-page.component';
+import { LogPageComponent } from './internal/log-page.component';
+import { ReplicationStatusPageComponent } from './internal/replication-status-page.component';
+import { StatusPageComponent } from './internal/status-page.component';
+import { SystemStatusPageComponent } from './internal/system-status-page.component';
 
 export const statusRoutes: Routes = [
   { path: '', component: StatusPageComponent },

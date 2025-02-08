@@ -6,7 +6,7 @@ import { LocationPoiSummaryPage } from '@api/common/poi/location-poi-summary-pag
 import { LocationPoisPage } from '@api/common/poi/location-pois-page';
 import { PoiLocationsPage } from '@api/common/poi/poi-locations-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { PoiService } from '../poi.service';
 
 export class PoiLocationPoisPageService {

@@ -4,7 +4,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { DividerComponent } from '@app/shared/components/divider.component';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { ScopeIconComponent } from '../../explore/scope-icon.component';
 
 @Component({

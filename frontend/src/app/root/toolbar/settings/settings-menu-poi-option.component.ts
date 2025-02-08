@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { MenuItemCheckboxComponent } from './menu-item-checkbox.component';
 
 @Component({

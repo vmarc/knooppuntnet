@@ -21,7 +21,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'status',
-    loadChildren: () => import('@app/status').then((m) => m.statusRoutes),
+    loadChildren: () => import('./status/status-routes').then((m) => m.statusRoutes),
   },
   {
     path: 'settings',

@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { State } from '@app/state';
+import { State } from '@app/state/state';
 import { MapRoutePopupInteraction } from './map-route-popup-interaction';
 
 @Injectable()
