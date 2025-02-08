@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { NodeChangesPageComponent } from './changes/node-changes-page.component';
-import { NodeDetailsPageComponent } from './details/node-details-page.component';
+import { NodeChangesPageComponent } from './internal/changes/node-changes-page.component';
+import { NodeDetailsPageComponent } from './internal/details/node-details-page.component';
 
 export const nodeRoutes: Routes = [
   {

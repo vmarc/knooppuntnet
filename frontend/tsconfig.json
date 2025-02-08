@@ -63,9 +63,6 @@
       "@app/analysis/fact/*": [
         "src/app/analysis/fact/*"
       ],
-      "@app/analysis/node": [
-        "src/app/analysis/node/index.ts"
-      ],
       "@app/analysis/overview": [
         "src/app/analysis/overview/index.ts"
       ],

@@ -7,7 +7,7 @@ import { CountryNameComponent } from '@app/shared/components/country-name.compon
 import { RouteScopeNameComponent } from '@app/shared/components/route-scope-name.component';
 import { RouteTypeComponent } from '@app/shared/components/route-type.component';
 import { MarkdownModule } from 'ngx-markdown';
-import { ActionButtonNodeComponent } from '../../../components/action/action-button-node.component';
+import { ActionButtonNodeComponent } from '../../../../components/action/action-button-node.component';
 
 @Component({
   selector: 'kpn-node-summary',

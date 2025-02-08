@@ -7,8 +7,8 @@ import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { RouteTypes } from '@app/kpn/common';
 import { ApiService } from '@app/services';
-import { MapService } from '../../../map/map.service';
-import { RouterService } from '../../../shared/services/router.service';
+import { MapService } from '../../../../map/map.service';
+import { RouterService } from '../../../../shared/services/router.service';
 import { NodeService } from '../node.service';
 
 @Injectable()

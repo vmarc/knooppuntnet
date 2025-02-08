@@ -10,8 +10,8 @@ import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';
 import { Util } from '@app/shared/components/util';
 import { State } from '@app/state';
-import { RouterService } from '../../../shared/services/router.service';
-import { UserService } from '../../../shared/user';
+import { RouterService } from '../../../../shared/services/router.service';
+import { UserService } from '../../../../shared/user';
 import { NodeService } from '../node.service';
 
 @Injectable()

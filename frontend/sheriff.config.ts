@@ -11,6 +11,7 @@ export const sheriffConfig: SheriffConfig = {
     'src/app/analysis/facts': 'noTag',
     'src/app/analysis/location': 'noTag',
     'src/app/analysis/network': 'noTag',
+    'src/app/analysis/node': 'noTag',
     'src/app/shared/components': 'noTag',
   },
   enableBarrelLess: true,

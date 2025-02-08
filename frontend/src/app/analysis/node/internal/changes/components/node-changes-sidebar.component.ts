@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
 import { ChangeOption } from '@app/kpn/common';
 import { SidebarComponent } from '@app/shared/components/sidebar/sidebar.component';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '../../../../../shared/services/router.service';
 import { NodeChangesPageService } from '../node-changes-page.service';
 
 @Component({
