@@ -10,7 +10,7 @@ import { MatExpansionPanelContent } from '@angular/material/expansion';
 import { MatExpansionPanel } from '@angular/material/expansion';
 import { RouterLink } from '@angular/router';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
-import { Facts } from '@app/analysis/fact';
+import { Facts } from '@app/analysis/fact/components/facts';
 import { ExpandCollapseComponent } from '@app/shared/components/button/expand-collapse.component';
 import { IconNetworkComponent } from '@app/shared/components/icon/icon-network.component';
 import { IconNodeComponent } from '@app/shared/components/icon/icon-node.component';

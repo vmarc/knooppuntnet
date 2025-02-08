@@ -27,7 +27,7 @@ export const analysisRoutes: Routes = [
       },
       {
         path: 'changeset',
-        loadChildren: () => import('../changeset').then((m) => m.changeSetRoutes),
+        loadChildren: () => import('../changeset/change-set-routes').then((m) => m.changeSetRoutes),
       },
       {
         path: 'changes',
@@ -35,7 +35,7 @@ export const analysisRoutes: Routes = [
       },
       {
         path: 'facts',
-        loadChildren: () => import('../facts').then((m) => m.factsRoutes),
+        loadChildren: () => import('../facts/facts-routes').then((m) => m.factsRoutes),
       },
       {
         path: 'overview',

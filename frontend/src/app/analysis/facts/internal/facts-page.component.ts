@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Fact } from '@api/common/fact';
-import { FactDescriptionComponent } from '@app/analysis/fact';
-import { FactNameComponent } from '@app/analysis/fact';
+import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-description.component';
+import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
 import { AnalysisStrategyService } from '@app/analysis/strategy';
 import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { RouterService } from '../../shared/services/router.service';
-import { FactInfo } from '../fact';
-import { Facts } from '../fact';
+import { RouterService } from '../../../shared/services/router.service';
+import { FactInfo } from '@app/analysis/fact/components/fact-info';
+import { Facts } from '@app/analysis/fact/components/facts';
 
 @Component({
   selector: 'kpn-facts-page',

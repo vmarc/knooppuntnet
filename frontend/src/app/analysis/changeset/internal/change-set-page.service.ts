@@ -5,7 +5,7 @@ import { ChangeSetPage } from '@api/common/changes/change-set-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/services';
 import { Util } from '@app/shared/components/util';
-import { RouterService } from '../../shared/services/router.service';
+import { RouterService } from '../../../shared/services/router.service';
 
 class ChangeSetKey {
   constructor(

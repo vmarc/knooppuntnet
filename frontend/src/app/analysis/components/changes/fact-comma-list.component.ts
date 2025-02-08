@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Fact } from '@api/common/fact';
-import { FactNameComponent } from '@app/analysis/fact';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { IconInvestigateComponent } from '@app/shared/components/icon/icon-investigate.component';
+import { FactNameComponent } from '../../fact/components/fact-name.component';
 
 @Component({
   selector: 'kpn-fact-comma-list',

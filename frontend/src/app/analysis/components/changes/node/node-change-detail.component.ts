@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NodeMoved } from '@api/common/diff/node/node-moved';
 import { NodeChangeInfo } from '@api/common/node/node-change-info';
-import { FactNameComponent } from '@app/analysis/fact';
+import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
 import { LinkNetworkDetailsComponent } from '@app/shared/components/link/link-network-details.component';
 import { LinkRouteComponent } from '@app/shared/components/link/link-route.component';
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';

@@ -4,11 +4,11 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkFact } from '@api/common/network-fact';
 import { EditParameters } from '@app/analysis/components/edit';
-import { FactInfo } from '@app/analysis/fact';
+import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactLevel } from '@api/common/fact-level';
-import { Facts } from '@app/analysis/fact';
-import { FactLevelComponent } from '@app/analysis/fact';
-import { FactNameComponent } from '@app/analysis/fact';
+import { Facts } from '@app/analysis/fact/components/facts';
+import { FactLevelComponent } from '@app/analysis/fact/components/fact-level.component';
+import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
 import { EditService } from '@app/shared/components/edit.service';
 
 @Component({

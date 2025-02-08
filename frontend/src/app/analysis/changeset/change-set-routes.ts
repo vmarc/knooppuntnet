@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ChangeSetPageComponent } from './change-set-page.component';
+import { ChangeSetPageComponent } from './internal/change-set-page.component';
 
 export const changeSetRoutes: Routes = [
   {

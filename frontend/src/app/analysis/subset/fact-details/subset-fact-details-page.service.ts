@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { Facts } from '@app/analysis/fact';
+import { Facts } from '@app/analysis/fact/components/facts';
 import { SubsetFact } from '@app/kpn/common';
 import { ApiService } from '@app/services';
 import { PageParams } from '@app/shared/base';

@@ -5,7 +5,7 @@ import { OnInit } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { Util } from '@app/shared/components/util';
-import { RouterService } from '../../shared/services/router.service';
+import { RouterService } from '../../../shared/services/router.service';
 import { ChangeSetPageService } from './change-set-page.service';
 import { ChangeSetHeaderComponent } from './components/change-set-header.component';
 import { ChangeSetLocationChangesComponent } from './components/change-set-location-changes.component';

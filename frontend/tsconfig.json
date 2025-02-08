@@ -39,9 +39,6 @@
       "@app/analysis/analysis": [
         "src/app/analysis/analysis/index.ts"
       ],
-      "@app/analysis/changeset": [
-        "src/app/analysis/changeset/index.ts"
-      ],
       "@app/analysis/components/change-set": [
         "src/app/analysis/components/change-set/index.ts"
       ],
@@ -69,11 +66,8 @@
       "@app/analysis/components/indicators/route": [
         "src/app/analysis/components/indicators/route/index.ts"
       ],
-      "@app/analysis/fact": [
-        "src/app/analysis/fact/index.ts"
-      ],
-      "@app/analysis/facts": [
-        "src/app/analysis/facts/index.ts"
+      "@app/analysis/fact/*": [
+        "src/app/analysis/fact/*"
       ],
       "@app/analysis/node": [
         "src/app/analysis/node/index.ts"
