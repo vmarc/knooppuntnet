@@ -5,10 +5,10 @@ import { MainMapNodeStyle } from './main-map-node-style';
 import { MainMapRouteStyle } from './main-map-route-style';
 import { MainMapStyleParameters } from './main-map-style-parameters';
 
-export class MainMapStyle {
-  static readonly zIndexNode = 11;
-  static readonly zIndexRoute = 10;
+export const zIndexNode = 11;
+export const zIndexRoute = 10;
 
+export class MainMapStyle {
   private readonly invisible = new Style({});
   private readonly mainMapNodeStyle: MainMapNodeStyle;
   private readonly mainMapRouteStyle: MainMapRouteStyle;

@@ -2,7 +2,7 @@ import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
-import { MainMapStyle } from './main-map-style';
+import { zIndexRoute } from './main-map-style';
 import { MainMapStyleParameters } from './main-map-style-parameters';
 import { RouteStyle } from './route-style';
 import { StyleColor } from './style-color';
@@ -49,7 +49,7 @@ export class MainMapRouteStyle {
 
   private initRouteSelectedStyle(): Style {
     return new Style({
-      zIndex: MainMapStyle.zIndexRoute,
+      zIndex: zIndexRoute,
       stroke: new Stroke({
         color: StyleColor.selected,
         width: 14,

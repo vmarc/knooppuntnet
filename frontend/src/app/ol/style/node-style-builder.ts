@@ -4,13 +4,13 @@ import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import Style from 'ol/style/Style';
 import Text from 'ol/style/Text';
-import { MainMapStyle } from './main-map-style';
+import { zIndexNode } from './main-map-style';
 import { proposedWhite } from './style-color';
 import { white } from './style-color';
 
 export const nameStyle = (): Style =>
   new Style({
-    zIndex: MainMapStyle.zIndexNode,
+    zIndex: zIndexNode,
     text: new Text({
       text: '',
       textAlign: 'center',
@@ -29,7 +29,7 @@ export const nameStyle = (): Style =>
 
 export const small = (color: Color | string): Style => {
   return new Style({
-    zIndex: MainMapStyle.zIndexNode,
+    zIndex: zIndexNode,
     image: new Circle({
       radius: 3,
       fill: new Fill({
@@ -51,12 +51,11 @@ export const proposedLarge = (color: Color): Style => {
   return buildLarge(color, true);
 };
 
-const buildLarge = (color: Color | string, proposed: boolean): Style => {
+function buildLarge(color: Color | string, proposed: boolean): Style {
   const backgroundColor = proposed ? proposedWhite : white;
   const lineDash = proposed ? [3, 6] : null;
-
   return new Style({
-    zIndex: MainMapStyle.zIndexNode,
+    zIndex: zIndexNode,
     image: new Circle({
       radius: 14,
       fill: new Fill({
@@ -79,4 +78,4 @@ const buildLarge = (color: Color | string, proposed: boolean): Style => {
       }),
     }),
   });
-};
+}
