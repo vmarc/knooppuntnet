@@ -2,7 +2,7 @@ import { RouteType } from '@api/common/route-type';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
-import { LayerType } from './layer-type';
+import { LayerType } from '../../state/layer-type';
 import { MapLayer } from './map-layer';
 
 export class OpendataBitmapTileLayer {

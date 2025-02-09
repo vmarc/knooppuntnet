@@ -12,7 +12,7 @@ import { RouteScopeNameComponent } from '../route-scope-name.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="kpn-line">
-      <nz-icon nzType="reference().routeType" />
+      <nz-icon [nzType]="reference().routeType" />
       <a [routerLink]="link" [state]="state" title="">{{ reference().name }}</a>
       @if (mixedRouteScopes()) {
         <span class="kpn-brackets kpn-thin">

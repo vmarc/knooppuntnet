@@ -4,7 +4,7 @@ import { AfterViewInit } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
-import { GeolocationButtonComponent } from '../../../../planner/pages/planner/geolocation/geolocation-button.component';
+import { GeolocationButtonComponent } from '@app/planner/pages/planner/geolocation/geolocation-button.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { MonitorRouteMapService } from './monitor-route-map.service';
 

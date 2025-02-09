@@ -15,7 +15,7 @@ import { SettingsMenuScopeComponent } from './settings-menu-scope.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button nz-button (click)="open()">
-      <nz-icon [nzType]="'setting'" />
+      <nz-icon nzType="setting" />
     </button>
 
     <nz-drawer

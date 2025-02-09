@@ -1,6 +1,6 @@
 import Icon from 'ol/style/Icon';
 import Style from 'ol/style/Style';
-import { InterpretedPoiConfiguration } from '../../state/poi/interpreted-poi-configuration';
+import { InterpretedPoiConfiguration } from './interpreted-poi-configuration';
 
 export class PoiStyleMap {
   private readonly poiStyleMap: ReadonlyMap<string, Style>;

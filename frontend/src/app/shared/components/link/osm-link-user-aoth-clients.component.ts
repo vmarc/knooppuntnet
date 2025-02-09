@@ -11,7 +11,7 @@ import { UserService } from '@app/shared/user/user.service';
     <a
       class="external"
       [href]="link()"
-      [rel]="'nofollow noreferrer'"
+      rel="nofollow noreferrer"
       target="_blank"
       i18n="@@osm-link.oath-clients"
     >

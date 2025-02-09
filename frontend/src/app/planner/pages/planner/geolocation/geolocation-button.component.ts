@@ -5,7 +5,7 @@ import { State } from '@app/state/state';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { fromLonLat } from 'ol/proj';
-import { MapService } from '../../../../map/map.service';
+import { MapService } from '@app/map/map.service';
 import { GeolocationPermissionDeniedDialogComponent } from './geolocation-permission-denied-dialog.component';
 import { GeolocationTimeoutDialogComponent } from './geolocation-timeout-dialog.component';
 import { GeolocationUnavailableDialogComponent } from './geolocation-unavailable-dialog.component';

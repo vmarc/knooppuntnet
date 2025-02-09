@@ -1,5 +1,5 @@
 import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
-import { FocusElements } from '../map/focus-elements';
+import { FocusElements } from './focus-elements';
 
 export interface MapStyleOptions {
   zoom: number;

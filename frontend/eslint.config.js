@@ -12,7 +12,7 @@ module.exports = tseslint.config(
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
-      //sheriff.configs.all,
+      sheriff.configs.all,
     ],
     processor: angular.processInlineTemplates,
     rules: {
@@ -43,6 +43,7 @@ module.exports = tseslint.config(
       "@typescript-eslint/consistent-indexed-object-style": "off",
       "@typescript-eslint/consistent-type-definitions": "off",
       "@angular-eslint/no-output-native": "off",
+      "@softarc/sheriff/dependency-rule": "warn",
     },
   },
   {
@@ -57,7 +58,23 @@ module.exports = tseslint.config(
       "@angular-eslint/template/label-has-associated-control": "off",
       "@angular-eslint/template/attributes-order": "off",
       "@angular-eslint/template/button-has-type": "off",
-      "@angular-eslint/template/i18n": "warn",
+      "@angular-eslint/template/i18n": [
+        "warn",
+        {
+          ignoreAttributes: [
+            "rel",
+            "kpn-icon-button[icon]",
+            "kpn-page-header[subject]",
+            "nz-icon[nzType]",
+            "button[nzType]",
+            "nz-divider[nzType]",
+            "kpn-icon-link[elementType]",
+            "kpn-osm-link[kind]",
+            "nzSize",
+          ],
+          ignoreTags: ["mat-icon"],
+        },
+      ],
       "@angular-eslint/template/no-inline-styles": "off",
       "@angular-eslint/template/prefer-ngsrc": "off",
     },

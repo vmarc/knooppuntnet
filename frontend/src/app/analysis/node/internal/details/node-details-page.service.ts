@@ -7,7 +7,7 @@ import { NodeDetailsPage } from '@api/common/node/node-details-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { RouteTypes } from '@app/shared/kpn/common/route-types';
 import { ApiService } from '@app/shared/services/api.service';
-import { MapService } from '../../../../map/map.service';
+import { MapService } from '@app/map/map.service';
 import { RouterService } from '@app/shared/services/router.service';
 import { NodeService } from '../node.service';
 

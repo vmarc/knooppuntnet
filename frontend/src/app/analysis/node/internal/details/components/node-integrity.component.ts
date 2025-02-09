@@ -23,7 +23,7 @@ import { NzIconDirective } from 'ng-zorro-antd/icon';
         @for (detail of integrity().details; track detail) {
           <div>
             <div class="kpn-line detail-header">
-              <nz-icon nzType="detail.routeType" />
+              <nz-icon [nzType]="detail.routeType" />
               <div class="detail-header-text">
                 @if (happy(detail)) {
                   <span i18n="@@node.integrity.ok">

@@ -76,7 +76,7 @@ import { NodeDetailsPageService } from './node-details-page.service';
                       <div>
                         @for (routeType of routeTypes; track routeType) {
                           <div class="kpn-line">
-                            <nz-icon nzType="routeType" />
+                            <nz-icon [nzType]="routeType" />
                             <kpn-node-location
                               [routeType]="routeType"
                               [locations]="page.nodeInfo.locations"

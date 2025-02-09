@@ -21,7 +21,7 @@ export class ChangeSetNetworkAction {
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>
-      <nz-icon nzType="changeSetNetworkAction().network.routeType" />
+      <nz-icon [nzType]="changeSetNetworkAction().network.routeType" />
       <span>{{ changeSetNetworkAction().action }}</span>
       <a [routerLink]="link()" [fragment]="changeSetNetworkAction().network.networkId.toString()">
         {{ changeSetNetworkAction().network.networkName }}

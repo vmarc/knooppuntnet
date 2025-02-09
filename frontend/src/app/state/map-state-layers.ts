@@ -2,8 +2,8 @@ import { WritableSignal } from '@angular/core';
 import { Signal } from '@angular/core';
 import { computed } from '@angular/core';
 import { signal } from '@angular/core';
-import { BackgroundLayerType } from '../map/layers/background-layer-type';
-import { LayerType } from '../map/layers/layer-type';
+import { BackgroundLayerType } from './background-layer-type';
+import { LayerType } from './layer-type';
 
 export class MapStateLayers {
   private readonly _backgroundLayer: WritableSignal<BackgroundLayerType>;

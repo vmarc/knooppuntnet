@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
   selector: 'kpn-brackets',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <!-- eslint-disable @angular-eslint/template/i18n -->
     <span class="bracket">(</span>
     <ng-content />
     <span class="bracket">)</span>

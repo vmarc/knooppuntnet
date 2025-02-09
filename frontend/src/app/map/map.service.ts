@@ -30,7 +30,7 @@ import { PlannerStateService } from '../planner/pages/planner/planner-state.serv
 import { PlannerService } from '../planner/pages/planner/planner.service';
 import { SharedStateService } from '../shared/core/shared/shared-state.service';
 import { RouterService } from '@app/shared/services/router.service';
-import { FocusElements } from './focus-elements';
+import { FocusElements } from '../state/focus-elements';
 import { Layers } from './layers/layers';
 import { MapInteractionsService } from './map-interactions.service';
 import { MapRoutePopupAction } from './popup/map-route-popup-handler';

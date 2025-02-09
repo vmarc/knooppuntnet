@@ -13,7 +13,7 @@
     "extract-i18n": "ng extract-i18n --output-path src/locale",
     "prettier-check": "prettier --check --config .prettierrc --ignore-path .prettierignore --log-level warn \"{**/*,*}.{js,ts}\"",
     "prettier-write": "prettier --write --config .prettierrc --ignore-path .prettierignore --log-level warn \"{**/*,*}.{js,ts}\"",
-    "lint": "ng lint --quiet",
+    "lint": "ng lint",
     "build": "ng build",
     "test": "ng test",
     "bundle-report": "ng build --configuration production --source-map && esbuild-visualizer --metadata dist/frontend/stats.json --filename dist/stats.html",

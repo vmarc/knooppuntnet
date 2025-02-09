@@ -9,7 +9,7 @@ import { PoiGroupPreference } from '../../state/poi/poi-group-preference';
 import { PoiNameTranslations } from '../../state/poi/poi-name-translations';
 import { PoiPreference } from '../../state/poi/poi-preference';
 import { PoiPreferences } from '../../state/poi/poi-preferences';
-import { PoiStyleMap } from '../style/poi-style-map';
+import { PoiStyleMap } from '../../state/poi/poi-style-map';
 
 @Injectable()
 export class PoiService {

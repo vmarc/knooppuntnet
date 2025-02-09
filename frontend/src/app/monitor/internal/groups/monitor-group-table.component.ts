@@ -45,16 +45,16 @@ import { NzTableModule } from 'ng-zorro-antd/table';
                   i18n-title="@@action.update"
                   class="kpn-action-button kpn-link"
                 >
-                  <nz-icon [nzType]="'edit'" />
+                  <nz-icon nzType="edit" />
                 </a>
-                <nz-divider [nzType]="'vertical'" />
+                <nz-divider nzType="vertical" />
                 <a
                   [routerLink]="deleteLink(group)"
                   title="delete"
                   i18n-title="@@action.delete"
                   class="kpn-action-button kpn-warning"
                 >
-                  <nz-icon [nzType]="'delete'" />
+                  <nz-icon nzType="delete" />
                 </a>
               </td>
             }

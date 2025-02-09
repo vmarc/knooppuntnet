@@ -4,7 +4,7 @@ import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { StyleFunction } from 'ol/style/Style';
-import { PoiStyleMap } from '../style/poi-style-map';
+import { PoiStyleMap } from '../../state/poi/poi-style-map';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 

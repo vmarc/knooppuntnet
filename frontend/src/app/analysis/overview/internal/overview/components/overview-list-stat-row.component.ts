@@ -20,7 +20,7 @@ import { OverviewValueComponent } from './overview-value.component';
         </td>
       }
       <td>
-        <nz-icon nzType="routeType()" />
+        <nz-icon [nzType]="routeType()" />
       </td>
       <td class="value">
         <kpn-overview-value [stat]="stat()" [subset]="subset(country(), routeType())" />

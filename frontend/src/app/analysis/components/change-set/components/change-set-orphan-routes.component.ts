@@ -11,7 +11,7 @@ import { ChangesSetElementRefsComponent } from './change-set-element-refs.compon
   template: `
     <div class="kpn-line">
       <span>{{ domain() }}</span>
-      <nz-icon nzType="routeType()" />
+      <nz-icon [nzType]="routeType()" />
       <span i18n="@@change-set.orphan-routes">Free route(s)</span>
     </div>
     <kpn-change-set-element-refs

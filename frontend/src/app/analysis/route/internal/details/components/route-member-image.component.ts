@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouteStructureRow } from '@api/common/route/route-structure-row';
-import { TryoutWrapperComponent } from '../../../../../tryout/canvas/tryout-wrapper.component';
+import { TryoutWrapperComponent } from '@app/tryout/canvas/tryout-wrapper.component';
 
 @Component({
   selector: 'kpn-route-member-image',

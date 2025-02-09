@@ -1,5 +1,5 @@
 import { RouteType } from '@api/common/route-type';
-import { LayerType } from '../map/layers/layer-type';
+import { LayerType } from './layer-type';
 
 export interface LayersState {
   routeType: RouteType;

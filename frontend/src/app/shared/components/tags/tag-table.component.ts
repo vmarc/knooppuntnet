@@ -12,13 +12,7 @@ import { TagValueComponent } from './tag-value.component';
     @if (tags().isEmpty()) {
       <ng-container i18n="@@tags.no-tags" class="no-tags">No tags</ng-container>
     } @else {
-      <nz-table
-        nzBordered
-        [nzFrontPagination]="false"
-        title="tags()"
-        nzSize="small"
-        [nzData]="['']"
-      >
+      <nz-table nzBordered [nzFrontPagination]="false" title="tags" nzSize="small" [nzData]="['']">
         <thead>
           <tr>
             <th i18n="@@tags.key">Key</th>

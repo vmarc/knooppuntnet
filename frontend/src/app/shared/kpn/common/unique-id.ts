@@ -1,4 +1,3 @@
-/* eslint-disable no-bitwise */
 export class UniqueId {
   static get(): string {
     let dt = new Date().getTime();
