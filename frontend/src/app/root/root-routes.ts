@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
 import { ExploreComponent } from '../explore/explore.component';
 import { NotFoundPageComponent } from '../shared/base/pages/not-found/not-found-page.component';
-import { MenuComponent } from './menu/menu.component';
-import { AnalysisComponent } from './tryout/analysis.component';
-import { MonitorComponent } from './tryout/monitor.component';
-import { PlannerComponent } from './tryout/planner.component';
+import { MenuComponent } from './internal/menu/menu.component';
+import { AnalysisComponent } from './internal/tryout/analysis.component';
+import { MonitorComponent } from './internal/tryout/monitor.component';
+import { PlannerComponent } from './internal/tryout/planner.component';
 
 export const rootRoutes: Routes = [
   {

@@ -25,7 +25,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'settings',
-    loadChildren: () => import('@app/settings').then((m) => m.settingsRoutes),
+    loadChildren: () => import('./settings/settings-routes').then((m) => m.settingsRoutes),
   },
   {
     path: 'poi',
@@ -41,6 +41,6 @@ export const appRoutes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('@app/root').then((m) => m.rootRoutes),
+    loadChildren: () => import('./root/root-routes').then((m) => m.rootRoutes),
   },
 ];

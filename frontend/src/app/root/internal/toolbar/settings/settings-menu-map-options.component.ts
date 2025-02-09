@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { State } from '@app/state/state';
 import { NzRadioComponent } from 'ng-zorro-antd/radio';
 import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
-import { ExploreMode } from '../../../explore/explore-mode';
+import { ExploreMode } from '../../../../explore/explore-mode';
 
 @Component({
   selector: 'kpn-settings-menu-map-options',

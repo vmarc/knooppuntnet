@@ -39,7 +39,7 @@ import { MapRoutePopupInteractionService } from './map/popup/map-route-popup-int
 import { PlannerPopupService } from './planner/domain/context/planner-popup-service';
 import { PlannerMapLayerService } from './planner/pages/planner/planner-map-layer.service';
 import { PlannerStateService } from './planner/pages/planner/planner-state.service';
-import { RootService } from './root/root.service';
+import { RootService } from './root/internal/root.service';
 import { RouterService } from './shared/services/router.service';
 import { UserService } from '@app/shared/user/user.service';
 import { State } from '@app/state/state';

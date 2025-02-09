@@ -34,58 +34,7 @@
         "src/app/api/*"
       ],
       "@app/*": [
-        "src/app/index.ts"
-      ],
-      "@app/analysis/components/change-set": [
-        "src/app/analysis/components/change-set/index.ts"
-      ],
-      "@app/analysis/components/change-set/components": [
-        "src/app/analysis/components/change-set/components/index.ts"
-      ],
-      "@app/analysis/components/changes/filter": [
-        "src/app/analysis/components/changes/filter/index.ts"
-      ],
-      "@app/analysis/components/changes/node": [
-        "src/app/analysis/components/changes/node/index.ts"
-      ],
-      "@app/analysis/components/changes/route": [
-        "src/app/analysis/components/changes/route/index.ts"
-      ],
-      "@app/analysis/components/edit": [
-        "src/app/analysis/components/edit/index.ts"
-      ],
-      "@app/analysis/components/filter": [
-        "src/app/analysis/components/filter/index.ts"
-      ],
-      "@app/analysis/components/indicators/route": [
-        "src/app/analysis/components/indicators/route/index.ts"
-      ],
-      "@app/analysis/fact/*": [
-        "src/app/analysis/fact/*"
-      ],
-      "@app/analysis/strategy/*": [
-        "src/app/analysis/strategy/*"
-      ],
-      "@app/ol/*": [
-        "src/app/ol/*"
-      ],
-      "@app/root": [
-        "src/app/root/index.ts"
-      ],
-      "@app/settings": [
-        "src/app/settings/index.ts"
-      ],
-      "@app/shared/*": [
-        "src/app/shared/*"
-      ],
-      "@app/state/*": [
-        "src/app/state/*"
-      ],
-      "@app/symbol/*": [
-        "src/app/symbol/*"
-      ],
-      "@app/util": [
-        "src/app/util/index.ts"
+        "src/app/*"
       ]
     }
   },

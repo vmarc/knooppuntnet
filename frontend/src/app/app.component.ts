@@ -11,7 +11,7 @@ import { Version } from '@app/shared/services/version';
 import { SpinnerService } from '@app/shared/spinner/spinner.service';
 import { Subscriptions } from '@app/util';
 import { setTag } from '@sentry/angular';
-import { RootPageComponent } from './root/root.component';
+import { RootPageComponent } from './root/internal/root.component';
 
 @Component({
   selector: 'kpn-app',
