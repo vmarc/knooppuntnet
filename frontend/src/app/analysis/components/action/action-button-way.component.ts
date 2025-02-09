@@ -2,11 +2,9 @@ import { inject } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { NzDividerComponent } from 'ng-zorro-antd/divider';
-import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { NzDropDownDirective } from 'ng-zorro-antd/dropdown';
-import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
+import { ActionMenuItemComponent } from '@app/analysis/components/action/action-menu-item.component';
+import { ActionMenuComponent } from '@app/analysis/components/action/action-menu.component';
+import { NzMenuDividerDirective } from 'ng-zorro-antd/menu';
 import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
 
@@ -14,54 +12,43 @@ import { ActionService } from './action.service';
   selector: 'kpn-action-button-way',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <nz-icon nzType="open-in-new" class="action-button-icon" nz-dropdown [nzDropdownMenu]="menu" />
-    <nz-dropdown-menu #menu="nzDropdownMenu">
+    <kpn-action-menu>
       <ul nz-menu>
-        <li nz-menu-item (click)="josmLoad($event)">JOSM load way</li>
-        <li nz-menu-item (click)="josmZoom($event)">JOSM zoom/pan to way</li>
-        <nz-divider />
-        <li nz-menu-item (click)="id($event)">Open in iD</li>
-        <li nz-menu-item (click)="osm($event)">Open in openstreetmap.org</li>
-        <li nz-menu-item (click)="deepHistory($event)">Open in OSM Deep History</li>
+        <kpn-action-menu-item (action)="josmLoad()">JOSM load way</kpn-action-menu-item>
+        <kpn-action-menu-item (action)="josmZoom()">JOSM zoom/pan to way</kpn-action-menu-item>
+        <li nz-menu-divider></li>
+        <kpn-action-menu-item (action)="id()">Open in iD</kpn-action-menu-item>
+        <kpn-action-menu-item (action)="osm()">Open in openstreetmap.org</kpn-action-menu-item>
+        <kpn-action-menu-item (action)="deepHistory()">
+          Open in OSM Deep History
+        </kpn-action-menu-item>
       </ul>
-    </nz-dropdown-menu>
+    </kpn-action-menu>
   `,
-  imports: [
-    NzDropDownDirective,
-    NzDropdownMenuComponent,
-    NzIconDirective,
-    NzMenuDirective,
-    NzMenuItemComponent,
-    NzDividerComponent,
-  ],
+  imports: [NzMenuDirective, NzMenuDividerDirective, ActionMenuComponent, ActionMenuItemComponent],
 })
 export class ActionButtonWayComponent {
   wayId = input.required<number>();
 
   private readonly actionService = inject(ActionService);
 
-  josmLoad(event: MouseEvent): void {
-    event.stopPropagation();
+  josmLoad(): void {
     this.actionService.josmLoadWay(this.wayId());
   }
 
-  josmZoom(event: MouseEvent): void {
-    event.stopPropagation();
+  josmZoom(): void {
     this.actionService.josmZoomWay(this.wayId());
   }
 
-  id(event: MouseEvent): void {
-    event.stopPropagation();
+  id(): void {
     this.actionService.idWay(this.wayId());
   }
 
-  osm(event: MouseEvent): void {
-    event.stopPropagation();
+  osm(): void {
     this.actionService.osmWay(this.wayId());
   }
 
-  deepHistory(event: MouseEvent): void {
-    event.stopPropagation();
+  deepHistory(): void {
     this.actionService.deepHistoryWay(this.wayId());
   }
 }

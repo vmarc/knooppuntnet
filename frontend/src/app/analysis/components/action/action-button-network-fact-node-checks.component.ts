@@ -3,10 +3,8 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { NetworkFact } from '@api/common/network-fact';
-import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
-import { NzDropDownDirective } from 'ng-zorro-antd/dropdown';
-import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
+import { ActionMenuItemComponent } from '@app/analysis/components/action/action-menu-item.component';
+import { ActionMenuComponent } from '@app/analysis/components/action/action-menu.component';
 import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
 
@@ -14,28 +12,20 @@ import { ActionService } from './action.service';
   selector: 'kpn-action-button-network-fact-node-checks',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <nz-icon nzType="open-in-new" class="action-button-icon" nz-dropdown [nzDropdownMenu]="menu" />
-    <nz-dropdown-menu #menu="nzDropdownMenu">
+    <kpn-action-menu>
       <ul nz-menu>
-        <li nz-menu-item (click)="josmLoad($event)">JOSM load nodes</li>
+        <kpn-action-menu-item (action)="josmLoad()">JOSM load nodes</kpn-action-menu-item>
       </ul>
-    </nz-dropdown-menu>
+    </kpn-action-menu>
   `,
-  imports: [
-    NzDropDownDirective,
-    NzDropdownMenuComponent,
-    NzIconDirective,
-    NzMenuDirective,
-    NzMenuItemComponent,
-  ],
+  imports: [NzMenuDirective, ActionMenuComponent, ActionMenuItemComponent],
 })
 export class ActionButtonNetworkFactNodeChecksComponent {
   networkFact = input.required<NetworkFact>();
 
   private readonly actionService = inject(ActionService);
 
-  josmLoad(event: MouseEvent): void {
-    event.stopPropagation();
+  josmLoad(): void {
     const nodeIds = this.networkFact().checks.map((check) => check.nodeId);
     this.actionService.josmLoadNodes(nodeIds);
   }
