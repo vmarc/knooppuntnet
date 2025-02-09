@@ -16,7 +16,7 @@
     "lint": "ng lint --quiet",
     "build": "ng build",
     "test": "ng test",
-    "bundle-report": "ng build --configuration production --source-map && source-map-explorer dist/frontend/en/*.js",
+    "bundle-report": "ng build --configuration production --source-map && esbuild-visualizer --metadata dist/frontend/stats.json --filename dist/stats.html",
     "build-prod": "rm -rf ./dist/*; ng run frontend:build:production --progress --source-map --output-path ./dist/${npm_package_name}-${npm_package_version}",
     "sentry:release": "sentry-cli releases --org knooppuntnet --project knooppuntnet new \"${npm_package_version}\"",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org knooppuntnet --project knooppuntnet ./dist/${npm_package_name}-${npm_package_version}/browser && sentry-cli sourcemaps upload --org knooppuntnet --project knooppuntnet  --release ${npm_package_version} ./dist/${npm_package_name}-${npm_package_version}/browser",
@@ -64,8 +64,6 @@
     "@angular-devkit/build-angular": "^19.1.2",
     "@angular-devkit/core": "19.1.2",
     "@angular-devkit/schematics": "19.1.2",
-    "angular-eslint": "19.0.2",
-    "eslint": "^9.16.0",
     "@angular/cli": "^19.1.2",
     "@angular/compiler-cli": "^19.1.1",
     "@angular/language-service": "19.1.1",
@@ -73,7 +71,9 @@
     "@softarc/eslint-plugin-sheriff": "^0.18.0",
     "@softarc/sheriff-core": "^0.18.0",
     "@types/jasmine": "~5.1.4",
-    "typescript-eslint": "8.18.0",
+    "angular-eslint": "19.0.2",
+    "esbuild-visualizer": "^0.7.0",
+    "eslint": "^9.16.0",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
@@ -84,6 +84,7 @@
     "prettier": "^3.3.3",
     "prettier-eslint": "^16.3.0",
     "ts-node": "~10.9.2",
-    "typescript": "5.6.3"
+    "typescript": "5.6.3",
+    "typescript-eslint": "8.18.0"
   }
 }

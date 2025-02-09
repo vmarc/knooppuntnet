@@ -48,6 +48,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "statsJson": true,
             "outputPath": {
               "base": "dist/frontend"
             },
