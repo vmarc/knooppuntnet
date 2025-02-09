@@ -2,44 +2,37 @@ import { inject } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatIconButton } from '@angular/material/button';
-import { MatDivider } from '@angular/material/divider';
-import { MatIcon } from '@angular/material/icon';
-import { MatMenuTrigger } from '@angular/material/menu';
-import { MatMenuItem } from '@angular/material/menu';
-import { MatMenu } from '@angular/material/menu';
-import { MatTooltipModule } from '@angular/material/tooltip';
+import { NzDividerComponent } from 'ng-zorro-antd/divider';
+import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
+import { NzDropDownDirective } from 'ng-zorro-antd/dropdown';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
+import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
 
 @Component({
   selector: 'kpn-action-button-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button
-      mat-icon-button
-      matTooltip="Open node action menu"
-      [matMenuTriggerFor]="menu"
-      (click)="$event.stopPropagation()"
-    >
-      <mat-icon svgIcon="open-in-new" class="action-button-icon" />
-    </button>
-    <mat-menu #menu="matMenu" class="menu-fit-width">
-      <button mat-menu-item (click)="josmLoad()">JOSM load node</button>
-      <button mat-menu-item (click)="josmZoom()">JOSM zoom/pan to node</button>
-      <mat-divider />
-      <button mat-menu-item (click)="id()">Open in iD</button>
-      <button mat-menu-item (click)="osm()">Open in openstreetmap.org</button>
-      <button mat-menu-item (click)="deepHistory()">Open in OSM Deep History</button>
-    </mat-menu>
+    <nz-icon nzType="open-in-new" class="action-button-icon" nz-dropdown [nzDropdownMenu]="menu" />
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item (click)="josmLoad($event)">JOSM load node</li>
+        <li nz-menu-item (click)="josmZoom($event)">JOSM zoom/pan to node</li>
+        <nz-divider />
+        <li nz-menu-item (click)="id($event)">Open in iD</li>
+        <li nz-menu-item (click)="osm($event)">Open in openstreetmap.org</li>
+        <li nz-menu-item (click)="deepHistory($event)">Open in OSM Deep History</li>
+      </ul>
+    </nz-dropdown-menu>
   `,
   imports: [
-    MatIconButton,
-    MatIcon,
-    MatTooltipModule,
-    MatMenu,
-    MatMenuItem,
-    MatMenuTrigger,
-    MatDivider,
+    NzDropDownDirective,
+    NzDropdownMenuComponent,
+    NzIconDirective,
+    NzMenuDirective,
+    NzMenuItemComponent,
+    NzDividerComponent,
   ],
 })
 export class ActionButtonNodeComponent {
@@ -47,23 +40,28 @@ export class ActionButtonNodeComponent {
 
   private readonly actionService = inject(ActionService);
 
-  josmLoad(): void {
+  josmLoad(event: MouseEvent): void {
+    event.stopPropagation();
     this.actionService.josmLoadNode(this.nodeId());
   }
 
-  josmZoom(): void {
+  josmZoom(event: MouseEvent): void {
+    event.stopPropagation();
     this.actionService.josmZoomNode(this.nodeId());
   }
 
-  id(): void {
+  id(event: MouseEvent): void {
+    event.stopPropagation();
     this.actionService.idNode(this.nodeId());
   }
 
-  osm(): void {
+  osm(event: MouseEvent): void {
+    event.stopPropagation();
     this.actionService.osmNode(this.nodeId());
   }
 
-  deepHistory(): void {
+  deepHistory(event: MouseEvent): void {
+    event.stopPropagation();
     this.actionService.deepHistoryNode(this.nodeId());
   }
 }

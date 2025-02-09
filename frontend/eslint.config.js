@@ -71,6 +71,7 @@ module.exports = tseslint.config(
             "kpn-icon-link[elementType]",
             "kpn-osm-link[kind]",
             "nzSize",
+            "kpn-location-page-header[pageName]",
           ],
           ignoreTags: ["mat-icon"],
         },
