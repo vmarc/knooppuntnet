@@ -7,7 +7,7 @@ import { SurveyDateInfo } from '@api/common/survey-date-info';
 import { TimeInfo } from '@api/common/time-info';
 import { NetworkRouteRow } from '@api/common/network/network-route-row';
 import { RouteType } from '@api/common/route-type';
-import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
+import { EditAndPaginatorComponent } from '@app/analysis/components/edit/edit-and-paginator.component';
 import { DayComponent } from '@app/shared/components/day/day.component';
 import { EditService } from '@app/shared/components/edit.service';
 import { DayPipe } from '@app/shared/components/format/day.pipe';

@@ -3,10 +3,10 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkRouteRow } from '@api/common/network/network-route-row';
 import { RouteType } from '@api/common/route-type';
-import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indicators/route';
-import { RouteConnectionIndicatorComponent } from '@app/analysis/components/indicators/route';
-import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route';
-import { RouteProposedIndicatorComponent } from '@app/analysis/components/indicators/route';
+import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indicators/route/route-accessible-indicator.component';
+import { RouteConnectionIndicatorComponent } from '@app/analysis/components/indicators/route/route-connection-indicator.component';
+import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route/route-investigate-indicator.component';
+import { RouteProposedIndicatorComponent } from '@app/analysis/components/indicators/route/route-proposed-indicator.component';
 
 @Component({
   selector: 'kpn-network-route-analysis',

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { RouteChangeDetailComponent } from '@app/analysis/components/changes/route';
+import { RouteChangeDetailComponent } from '@app/analysis/components/changes/route/route-change-detail.component';
 import { LinkRouteRefHeaderComponent } from '@app/shared/components/link/link-route-ref-header';
 import { VersionChangeComponent } from '../version-change.component';
 import { RefRouteChangeInfo } from './ref-route-change-info';

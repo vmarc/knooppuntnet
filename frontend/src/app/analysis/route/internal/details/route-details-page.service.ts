@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { ApiService } from '@app/shared/services/api.service';
-import { Subscriptions } from '@app/util';
+import { Subscriptions } from '@app/util/subscriptions';
 import { FocusElements } from '../../../../map/focus-elements';
 import { MapService } from '../../../../map/map.service';
 import { RouterService } from '@app/shared/services/router.service';

@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EditDialogComponent } from '@app/analysis/components/edit';
-import { EditParameters } from '@app/analysis/components/edit';
+import { EditDialogComponent } from '@app/analysis/components/edit/edit-dialog.component';
+import { EditParameters } from '@app/analysis/components/edit/edit-parameters';
 
 @Injectable()
 export class EditService {

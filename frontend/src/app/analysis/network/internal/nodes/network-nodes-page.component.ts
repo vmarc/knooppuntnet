@@ -2,7 +2,7 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FilterComponent } from '@app/analysis/components/filter';
+import { FilterComponent } from '@app/analysis/components/filter/filter.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { NzTabSetComponent } from 'ng-zorro-antd/tabs';

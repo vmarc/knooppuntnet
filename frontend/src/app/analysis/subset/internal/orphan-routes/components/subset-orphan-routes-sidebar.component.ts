@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FilterComponent } from '@app/analysis/components/filter';
+import { FilterComponent } from '@app/analysis/components/filter/filter.component';
 import { SidebarComponent } from '@app/shared/components/sidebar/sidebar.component';
 import { SubsetOrphanRoutesPageService } from '../subset-orphan-routes-page.service';
 

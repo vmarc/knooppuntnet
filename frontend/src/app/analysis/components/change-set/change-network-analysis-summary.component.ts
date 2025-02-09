@@ -4,9 +4,9 @@ import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeSetNetwork } from '@api/common/change-set-network';
 import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
-import { ChangesSetOrphanRoutesComponent } from '@app/analysis/components/change-set/components';
+import { ChangesSetOrphanRoutesComponent } from '@app/analysis/components/change-set/components/change-set-orphan-routes.component';
 import { ChangeHeaderComponent } from './change-header.component';
-import { ChangeSetNetworkAction } from './components';
+import { ChangeSetNetworkAction } from './components/change-set-network.component';
 import { ChangesSetNetworkComponent } from './components/change-set-network.component';
 import { ChangesSetOrphanNodesComponent } from './components/change-set-orphan-nodes.component';
 

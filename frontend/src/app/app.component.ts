@@ -9,7 +9,7 @@ import { RouterOutlet } from '@angular/router';
 import { IconService } from '@app/shared/services/icon.service';
 import { Version } from '@app/shared/services/version';
 import { SpinnerService } from '@app/shared/spinner/spinner.service';
-import { Subscriptions } from '@app/util';
+import { Subscriptions } from '@app/util/subscriptions';
 import { setTag } from '@sentry/angular';
 import { RootPageComponent } from './root/internal/root.component';
 

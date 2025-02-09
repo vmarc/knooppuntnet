@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteChangeInfo } from '@api/common/route/route-change-info';
-import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
-import { ChangeSetTagsComponent } from '@app/analysis/components/change-set';
-import { RouteChangeDetailComponent } from '@app/analysis/components/changes/route';
+import { ChangeHeaderComponent } from '@app/analysis/components/change-set/change-header.component';
+import { ChangeSetTagsComponent } from '@app/analysis/components/change-set/change-set-tags.component';
+import { RouteChangeDetailComponent } from '@app/analysis/components/changes/route/route-change-detail.component';
 
 @Component({
   selector: 'kpn-route-change',

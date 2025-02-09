@@ -8,7 +8,7 @@ import { input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ChangeSetDetail } from '@api/common/changes/change-set-detail';
 import { LinkNetworkDetailsComponent } from '@app/shared/components/link/link-network-details.component';
-import { Subscriptions } from '@app/util';
+import { Subscriptions } from '@app/util/subscriptions';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { CsNcComponent } from './network/cs-nc.component';
 

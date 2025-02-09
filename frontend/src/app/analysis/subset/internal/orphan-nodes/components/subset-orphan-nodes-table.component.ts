@@ -7,7 +7,7 @@ import { OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatTableModule } from '@angular/material/table';
 import { OrphanNodeInfo } from '@api/common/orphan-node-info';
-import { EditAndPaginatorComponent } from '@app/analysis/components/edit';
+import { EditAndPaginatorComponent } from '@app/analysis/components/edit/edit-and-paginator.component';
 import { DayComponent } from '@app/shared/components/day/day.component';
 import { EditService } from '@app/shared/components/edit.service';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';

@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NetworkFact } from '@api/common/network-fact';
-import { EditParameters } from '@app/analysis/components/edit';
+import { EditParameters } from '@app/analysis/components/edit/edit-parameters';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactLevel } from '@api/common/fact-level';
 import { Facts } from '@app/analysis/fact/components/facts';

@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LocationChangeSetInfo } from '@api/common/location-change-set-info';
-import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
-import { ChangesSetElementRefsComponent } from '@app/analysis/components/change-set/components';
+import { ChangeHeaderComponent } from '@app/analysis/components/change-set/change-header.component';
+import { ChangesSetElementRefsComponent } from '@app/analysis/components/change-set/components/change-set-element-refs.component';
 import { LocationPipe } from '@app/shared/components/format/location.pipe';
 
 @Component({

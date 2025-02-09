@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { LocationRouteInfo } from '@api/common/location/location-route-info';
 import { RouteType } from '@api/common/route-type';
-import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indicators/route';
-import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route';
+import { RouteAccessibleIndicatorComponent } from '@app/analysis/components/indicators/route/route-accessible-indicator.component';
+import { RouteInvestigateIndicatorComponent } from '@app/analysis/components/indicators/route/route-investigate-indicator.component';
 
 @Component({
   selector: 'kpn-location-route-analysis',

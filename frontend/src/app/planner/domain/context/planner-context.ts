@@ -2,7 +2,7 @@ import { signal } from '@angular/core';
 import { Signal } from '@angular/core';
 import { LegEnd } from '@api/common/planner/leg-end';
 import { RouteType } from '@api/common/route-type';
-import { Subscriptions } from '@app/util';
+import { Subscriptions } from '@app/util/subscriptions';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { PlannerCommand } from '../commands/planner-command';

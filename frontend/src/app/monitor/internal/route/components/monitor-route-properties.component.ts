@@ -22,7 +22,7 @@ import { Timestamp } from '@api/custom/timestamp';
 import { Translations } from '@app/shared/i18n/translations';
 import { DayUtil } from '@app/shared/components/day-util';
 import { TimestampUtil } from '@app/shared/components/timestamp-util';
-import { Subscriptions } from '@app/util';
+import { Subscriptions } from '@app/util/subscriptions';
 import { from } from 'rxjs';
 import { of } from 'rxjs';
 import { Observable } from 'rxjs';

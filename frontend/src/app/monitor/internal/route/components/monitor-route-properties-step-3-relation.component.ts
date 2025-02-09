@@ -12,7 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
-import { Subscriptions } from '@app/util';
+import { Subscriptions } from '@app/util/subscriptions';
 import { MonitorRouteInfoComponent } from '../add/monitor-route-info.component';
 import { MonitorRoutePropertiesStep3RelationService } from './monitor-route-properties-step-3-relation.service';
 import { ChangeDetectionStrategy } from '@angular/core';

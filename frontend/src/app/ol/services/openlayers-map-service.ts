@@ -10,7 +10,7 @@ import { Params } from '@angular/router';
 import { Bounds } from '@api/common/bounds';
 import { UniqueId } from '@app/shared/kpn/common/unique-id';
 import { PageService } from '@app/shared/components/page.service';
-import { Subscriptions } from '@app/util';
+import { Subscriptions } from '@app/util/subscriptions';
 import { Coordinate } from 'ol/coordinate';
 import BaseLayer from 'ol/layer/Base';
 import Map from 'ol/Map';

@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
+import { ChangeFilterComponent } from '@app/analysis/components/changes/filter/change-filter.component';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy/analysis-strategy.component';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ChangesPageService } from '../changes-page.service';

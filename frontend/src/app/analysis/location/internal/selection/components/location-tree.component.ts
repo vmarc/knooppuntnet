@@ -18,7 +18,7 @@ import { MatTreeFlattener } from '@angular/material/tree';
 import { RouterLink } from '@angular/router';
 import { Country } from '@api/common/country';
 import { RouteType } from '@api/common/route-type';
-import { Subscriptions } from '@app/util';
+import { Subscriptions } from '@app/util/subscriptions';
 import { LocalLocationNode } from './local-location-node';
 import { LocationFlatNode } from './location-flat-node';
 import { LocationTreeNodeComponent } from './location-tree-node.component';

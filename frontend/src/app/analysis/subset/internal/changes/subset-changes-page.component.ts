@@ -2,9 +2,10 @@ import { inject } from '@angular/core';
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
-import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set';
-import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set';
-import { ChangeFilterComponent } from '@app/analysis/components/changes/filter';
+import { ChangeNetworkAnalysisSummaryComponent } from '@app/analysis/components/change-set/change-network-analysis-summary.component';
+import { ChangeLocationAnalysisSummaryComponent } from '@app/analysis/components/change-set/change-location-analysis-summary.component';
+import { ChangesComponent } from '@app/analysis/components/changes/changes.component';
+import { ChangeFilterComponent } from '@app/analysis/components/changes/filter/change-filter.component';
 import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { ItemComponent } from '@app/shared/components/items/item.component';
@@ -13,7 +14,6 @@ import { PageFilterComponent } from '@app/shared/components/page/page-filter.com
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.component';
-import { ChangesComponent } from '../../../components/changes';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetChangesPageService } from './subset-changes-page.service';
 

@@ -5,7 +5,7 @@ import { MapZoomService } from '@app/ol/services/map-zoom.service';
 import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
 import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { State } from '@app/state/state';
-import { Subscriptions } from '@app/util';
+import { Subscriptions } from '@app/util/subscriptions';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
 import { SharedStateService } from '../../../shared/core/shared/shared-state.service';

@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { NodeChangeInfo } from '@api/common/node/node-change-info';
-import { ChangeHeaderComponent } from '@app/analysis/components/change-set';
-import { ChangeSetTagsComponent } from '@app/analysis/components/change-set';
-import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node';
+import { ChangeHeaderComponent } from '@app/analysis/components/change-set/change-header.component';
+import { ChangeSetTagsComponent } from '@app/analysis/components/change-set/change-set-tags.component';
+import { NodeChangeDetailComponent } from '@app/analysis/components/changes/node/node-change-detail.component';
 
 @Component({
   selector: 'kpn-node-change',
