@@ -2,8 +2,9 @@ import { inject } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { ActionButtonComponent } from '@app/analysis/components/action/action-button.component';
 import { ActionMenuItemComponent } from '@app/analysis/components/action/action-menu-item.component';
-import { ActionMenuComponent } from '@app/analysis/components/action/action-menu.component';
+import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
 
@@ -11,16 +12,22 @@ import { ActionService } from './action.service';
   selector: 'kpn-action-button-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-action-menu>
+    <kpn-action-button [nzDropdownMenu]="menu" />
+    <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
         <kpn-action-menu-item (action)="josmLoad()">JOSM load route relation</kpn-action-menu-item>
         <kpn-action-menu-item (action)="josmLoadFull()">
           JOSM load relation and members
         </kpn-action-menu-item>
       </ul>
-    </kpn-action-menu>
+    </nz-dropdown-menu>
   `,
-  imports: [NzMenuDirective, ActionMenuComponent, ActionMenuItemComponent],
+  imports: [
+    ActionButtonComponent,
+    ActionMenuItemComponent,
+    NzDropdownMenuComponent,
+    NzMenuDirective,
+  ],
 })
 export class ActionButtonRoutesComponent {
   relationIds = input.required<number[]>();

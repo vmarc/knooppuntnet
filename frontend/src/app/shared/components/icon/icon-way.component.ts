@@ -1,12 +1,19 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'kpn-icon-way',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: '<mat-icon svgIcon="way" matTooltip="way" i18n-matTooltip="@@icon.way.tooltip" />',
-  imports: [MatIcon, MatTooltip],
+  template: `
+    <nz-icon
+      nzType="way"
+      nz-tooltip
+      i18n-nzTooltipTitle="@@icon.way.tooltip"
+      nzTooltipTitle="way"
+    />
+  `,
+  imports: [NzIconDirective, NzTooltipDirective],
 })
 export class IconWayComponent {}

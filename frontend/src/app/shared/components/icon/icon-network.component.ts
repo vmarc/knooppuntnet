@@ -1,13 +1,19 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'kpn-icon-network',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template:
-    '<mat-icon svgIcon="network" matTooltip="node network" i18n-matTooltip="@@icon.network.tooltip" />',
-  imports: [MatIcon, MatTooltip],
+  template: `
+    <nz-icon
+      nzType="network"
+      nz-tooltip
+      i18n-nzTooltipTitle="@@icon.network.tooltip"
+      nzTooltipTitle="network"
+    />
+  `,
+  imports: [NzIconDirective, NzTooltipDirective],
 })
 export class IconNetworkComponent {}

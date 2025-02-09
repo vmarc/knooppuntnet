@@ -3,8 +3,9 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { LocationFact } from '@api/common/location/location-fact';
+import { ActionButtonComponent } from '@app/analysis/components/action/action-button.component';
 import { ActionMenuItemComponent } from '@app/analysis/components/action/action-menu-item.component';
-import { ActionMenuComponent } from '@app/analysis/components/action/action-menu.component';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
 
@@ -12,7 +13,8 @@ import { ActionService } from './action.service';
   selector: 'kpn-action-button-location-fact-routes',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-action-menu>
+    <kpn-action-button [nzDropdownMenu]="menu" />
+    <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
         <kpn-action-menu-item (action)="josmLoadRelations()">
           JOSM load route relations
@@ -21,9 +23,9 @@ import { ActionService } from './action.service';
           JOSM load relations and members
         </kpn-action-menu-item>
       </ul>
-    </kpn-action-menu>
+    </nz-dropdown-menu>
   `,
-  imports: [ActionMenuComponent, ActionMenuItemComponent, NzMenuDirective],
+  imports: [ActionMenuItemComponent, NzMenuDirective, NzDropDownModule, ActionButtonComponent],
 })
 export class ActionButtonLocationFactRoutesComponent {
   locationFact = input.required<LocationFact>();

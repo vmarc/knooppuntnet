@@ -2,8 +2,9 @@ import { inject } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
+import { ActionButtonComponent } from '@app/analysis/components/action/action-button.component';
 import { ActionMenuItemComponent } from '@app/analysis/components/action/action-menu-item.component';
-import { ActionMenuComponent } from '@app/analysis/components/action/action-menu.component';
+import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMenuDividerDirective } from 'ng-zorro-antd/menu';
 import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
@@ -12,7 +13,8 @@ import { ActionService } from './action.service';
   selector: 'kpn-action-button-node',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-action-menu>
+    <kpn-action-button [nzDropdownMenu]="menu" />
+    <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
         <kpn-action-menu-item (action)="josmLoad()">JOSM load node</kpn-action-menu-item>
         <kpn-action-menu-item (action)="josmZoom()">JOSM zoom/pan to node</kpn-action-menu-item>
@@ -20,12 +22,18 @@ import { ActionService } from './action.service';
         <kpn-action-menu-item (action)="id()">Open in iD</kpn-action-menu-item>
         <kpn-action-menu-item (action)="osm()">Open in openstreetmap.org</kpn-action-menu-item>
         <kpn-action-menu-item (action)="deepHistory()"
-          >Open in OSM Deep History</kpn-action-menu-item
-        >
+          >Open in OSM Deep History
+        </kpn-action-menu-item>
       </ul>
-    </kpn-action-menu>
+    </nz-dropdown-menu>
   `,
-  imports: [NzMenuDirective, NzMenuDividerDirective, ActionMenuComponent, ActionMenuItemComponent],
+  imports: [
+    ActionButtonComponent,
+    ActionMenuItemComponent,
+    NzDropdownMenuComponent,
+    NzMenuDirective,
+    NzMenuDividerDirective,
+  ],
 })
 export class ActionButtonNodeComponent {
   nodeId = input.required<number>();

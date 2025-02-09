@@ -11,7 +11,7 @@ import { MatExpansionPanel } from '@angular/material/expansion';
 import { RouterLink } from '@angular/router';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
 import { Facts } from '@app/analysis/fact/components/facts';
-import { ExpandCollapseComponent } from '@app/shared/components/button/expand-collapse.component';
+import { OldExpandCollapseComponent } from '@app/shared/components/button/old-expand-collapse.component';
 import { IconNetworkComponent } from '@app/shared/components/icon/icon-network.component';
 import { IconNodeComponent } from '@app/shared/components/icon/icon-node.component';
 import { IconRelationComponent } from '@app/shared/components/icon/icon-relation.component';
@@ -33,7 +33,7 @@ import { ActionButtonWayComponent } from '../../../../components/action/action-b
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (page().networks.length > 0) {
-      <kpn-expand-collapse [accordion]="accordion()" />
+      <kpn-old-expand-collapse [accordion]="accordion()" />
       @if (fact(); as fact) {
         <mat-accordion multi>
           @for (networkFactRefs of page().networks; track networkFactRefs) {
@@ -138,7 +138,7 @@ import { ActionButtonWayComponent } from '../../../../components/action/action-b
     OsmLinkRelationComponent,
     OsmLinkWayComponent,
     RouterLink,
-    ExpandCollapseComponent,
+    OldExpandCollapseComponent,
   ],
 })
 export class SubsetFactDetailsComponent {

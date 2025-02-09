@@ -3,8 +3,9 @@ import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
+import { ActionButtonComponent } from '@app/analysis/components/action/action-button.component';
 import { ActionMenuItemComponent } from '@app/analysis/components/action/action-menu-item.component';
-import { ActionMenuComponent } from '@app/analysis/components/action/action-menu.component';
+import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMenuDividerDirective } from 'ng-zorro-antd/menu';
 import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
@@ -13,7 +14,8 @@ import { ActionService } from './action.service';
   selector: 'kpn-action-button-route',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-action-menu>
+    <kpn-action-button [nzDropdownMenu]="menu" />
+    <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
         <kpn-action-menu-item (action)="josmLoad()">JOSM load route relation</kpn-action-menu-item>
         <kpn-action-menu-item (action)="josmLoadFull()">
@@ -31,9 +33,15 @@ import { ActionService } from './action.service';
           <kpn-action-menu-item (action)="waymarkedTrails()">Waymarked Trails</kpn-action-menu-item>
         }
       </ul>
-    </kpn-action-menu>
+    </nz-dropdown-menu>
   `,
-  imports: [NzMenuDirective, NzMenuDividerDirective, ActionMenuComponent, ActionMenuItemComponent],
+  imports: [
+    ActionButtonComponent,
+    ActionMenuItemComponent,
+    NzDropdownMenuComponent,
+    NzMenuDirective,
+    NzMenuDividerDirective,
+  ],
 })
 export class ActionButtonRouteComponent {
   relationId = input.required<number>();

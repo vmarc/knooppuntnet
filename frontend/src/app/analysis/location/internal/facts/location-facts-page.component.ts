@@ -4,7 +4,6 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { SidebarFooterComponent } from '@app/shared/components/sidebar/sidebar-footer.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
@@ -18,8 +17,8 @@ import { LocationFactsPageService } from './location-facts-page.service';
     <kpn-page>
       <kpn-location-page-header
         pageName="facts"
-        pageTitle="Facts"
         i18n-pageTitle="@@location-facts.title"
+        pageTitle="Facts"
       />
 
       <kpn-error />
@@ -32,7 +31,6 @@ import { LocationFactsPageService } from './location-facts-page.service';
         </div>
       }
     </kpn-page>
-    <kpn-sidebar-footer />
   `,
   providers: [LocationFactsPageService, RouterService],
   imports: [
@@ -41,7 +39,6 @@ import { LocationFactsPageService } from './location-facts-page.service';
     LocationPageHeaderComponent,
     LocationResponseComponent,
     PageComponent,
-    SidebarFooterComponent,
   ],
 })
 export class LocationFactsPageComponent implements OnInit {

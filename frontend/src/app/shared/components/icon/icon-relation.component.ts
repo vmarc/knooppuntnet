@@ -1,13 +1,19 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
-import { MatTooltip } from '@angular/material/tooltip';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzTooltipDirective } from 'ng-zorro-antd/tooltip';
 
 @Component({
   selector: 'kpn-icon-relation',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template:
-    '<mat-icon svgIcon="relation" matTooltip="relation" i18n-matTooltip="@@icon.relation.tooltip" />',
-  imports: [MatIcon, MatTooltip],
+  template: `
+    <nz-icon
+      nzType="relation"
+      nz-tooltip
+      i18n-nzTooltipTitle="@@icon.relation.tooltip"
+      nzTooltipTitle="relation"
+    />
+  `,
+  imports: [NzIconDirective, NzTooltipDirective],
 })
 export class IconRelationComponent {}

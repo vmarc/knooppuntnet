@@ -4,7 +4,6 @@ import { input } from '@angular/core';
 import { LocationFact } from '@api/common/location/location-fact';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-description.component';
-import { DividerComponent } from '@app/shared/components/divider.component';
 import { IconNodeComponent } from '@app/shared/components/icon/icon-node.component';
 import { IconRouteComponent } from '@app/shared/components/icon/icon-route.component';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
@@ -20,11 +19,10 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
       <div class="description">
         <kpn-fact-description [factInfo]="factInfo(locationFact)" />
       </div>
-      <kpn-divider />
       <div class="sideline">
         @if (locationFact.elementType === 'route') {
           @for (ref of locationFact.refs; track ref) {
-            <div class="kpn-align-center">
+            <div class="kpn-line fact-line">
               <kpn-icon-route />
               <kpn-action-button-route [relationId]="ref.id" />
               <kpn-link-route [routeId]="ref.id" [routeName]="ref.name" />
@@ -33,7 +31,7 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
         }
         @if (locationFact.elementType === 'node') {
           @for (ref of locationFact.refs; track ref) {
-            <div class="kpn-align-center">
+            <div class="kpn-line fact-line">
               <kpn-icon-node />
               <kpn-action-button-node [nodeId]="ref.id" />
               <kpn-link-node [nodeId]="ref.id" [nodeName]="ref.name" />
@@ -48,6 +46,11 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
       max-width: 60em;
     }
 
+    .fact-line {
+      padding-top: 0.5em;
+      padding-bottom: 0.5em;
+    }
+
     .sideline {
       margin-top: 1em;
       margin-bottom: 1em;
@@ -59,7 +62,6 @@ import { ActionButtonRouteComponent } from '../../../../components/action/action
   imports: [
     ActionButtonNodeComponent,
     ActionButtonRouteComponent,
-    DividerComponent,
     FactDescriptionComponent,
     IconNodeComponent,
     IconRouteComponent,

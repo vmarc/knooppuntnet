@@ -18,7 +18,7 @@ import { ApiResponse } from '@api/custom/api-response';
 import { Fact } from '@api/common/fact';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { FactDescriptionComponent } from '@app/analysis/fact/components/fact-description.component';
-import { ExpandCollapseComponent } from '@app/shared/components/button/expand-collapse.component';
+import { OldExpandCollapseComponent } from '@app/shared/components/button/old-expand-collapse.component';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
@@ -47,7 +47,7 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
           <kpn-icon-happy />
         </p>
       } @else {
-        <kpn-expand-collapse
+        <kpn-old-expand-collapse
           [accordion]="accordion()"
           (active)="expandCollapseActiveChanged($event)"
         />
@@ -141,7 +141,6 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
     ActionButtonRoutesComponent,
     ActionButtonWaysComponent,
     DividerComponent,
-    ExpandCollapseComponent,
     FactDescriptionComponent,
     IconHappyComponent,
     MatAccordion,
@@ -156,6 +155,7 @@ import { NetworkFactWayIdsComponent } from './network-fact-way-ids.component';
     NetworkFactRoutesComponent,
     NetworkFactWayIdsComponent,
     SituationOnComponent,
+    OldExpandCollapseComponent,
   ],
 })
 export class NetworkFactsComponent implements AfterViewInit {

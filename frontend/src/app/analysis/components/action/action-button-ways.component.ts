@@ -2,8 +2,9 @@ import { inject } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { ActionMenuComponent } from '@app/analysis/components/action/action-menu.component';
-import { NzMenuItemComponent } from 'ng-zorro-antd/menu';
+import { ActionButtonComponent } from '@app/analysis/components/action/action-button.component';
+import { ActionMenuItemComponent } from '@app/analysis/components/action/action-menu-item.component';
+import { NzDropdownMenuComponent } from 'ng-zorro-antd/dropdown';
 import { NzMenuDirective } from 'ng-zorro-antd/menu';
 import { ActionService } from './action.service';
 
@@ -11,21 +12,26 @@ import { ActionService } from './action.service';
   selector: 'kpn-action-button-ways',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-action-menu>
+    <kpn-action-button [nzDropdownMenu]="menu" />
+    <nz-dropdown-menu #menu="nzDropdownMenu">
       <ul nz-menu>
-        <li nz-menu-item (click)="josmLoad($event)">JOSM load ways</li>
+        <kpn-action-menu-item (action)="josmLoad()">JOSM load ways</kpn-action-menu-item>
       </ul>
-    </kpn-action-menu>
+    </nz-dropdown-menu>
   `,
-  imports: [NzMenuDirective, NzMenuItemComponent, ActionMenuComponent],
+  imports: [
+    ActionButtonComponent,
+    ActionMenuItemComponent,
+    NzDropdownMenuComponent,
+    NzMenuDirective,
+  ],
 })
 export class ActionButtonWaysComponent {
   wayIds = input.required<number[]>();
 
   private readonly actionService = inject(ActionService);
 
-  josmLoad(event: MouseEvent): void {
-    event.stopPropagation();
+  josmLoad(): void {
     this.actionService.josmLoadWays(this.wayIds());
   }
 }
