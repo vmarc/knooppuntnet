@@ -3,9 +3,9 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
-import { PreferencesService } from '@app/core';
+import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
 import { State } from '@app/state/state';
-import { RouterService } from '../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 
 @Injectable({
   providedIn: 'root',

@@ -4,14 +4,14 @@ import { inject } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { LocationChangesPage } from '@api/common/location/location-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { PreferencesService } from '@app/core';
-import { ChangeOption } from '@app/kpn/common';
-import { ApiService } from '@app/services';
-import { PageParams } from '@app/shared/base';
+import { PreferencesService } from '@app/shared/core/preferences/preferences.service';
+import { ChangeOption } from '@app/shared/kpn/common/change-option';
+import { ApiService } from '@app/shared/services/api.service';
+import { PageParams } from '@app/shared/base/page-params';
 import { Util } from '@app/shared/components/util';
 import { State } from '@app/state/state';
-import { RouterService } from '../../../../shared/services/router.service';
-import { UserService } from '../../../../shared/user';
+import { RouterService } from '@app/shared/services/router.service';
+import { UserService } from '@app/shared/user/user.service';
 import { LocationService } from '../location.service';
 
 export class LocationChangesPageService {

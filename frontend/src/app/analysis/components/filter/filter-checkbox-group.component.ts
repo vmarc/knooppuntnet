@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Translations } from '@app/i18n';
-import { FilterOption } from '@app/kpn/filter';
-import { FilterOptionGroup } from '@app/kpn/filter';
+import { Translations } from '@app/shared/i18n/translations';
+import { FilterOption } from '@app/shared/kpn/filter/filter-option';
+import { FilterOptionGroup } from '@app/shared/kpn/filter/filter-option-group';
 
 @Component({
   selector: 'kpn-filter-checkbox-group',

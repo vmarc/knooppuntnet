@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Subsets } from '@app/kpn/common';
+import { Subsets } from '@app/shared/kpn/common/subsets';
 import { MarkdownModule } from 'ngx-markdown';
 import { Stat } from '../../domain/stat';
 import { OverviewValueComponent } from './overview-value.component';

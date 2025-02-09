@@ -1,5 +1,5 @@
-import { SurveyDateFilterKind } from '@app/kpn/filter';
-import { TimestampFilterKind } from '@app/kpn/filter';
+import { SurveyDateFilterKind } from '@app/shared/kpn/filter/survey-date-filter-kind';
+import { TimestampFilterKind } from '@app/shared/kpn/filter/timestamp-filter-kind';
 
 export class NetworkRouteFilterCriteria {
   constructor(

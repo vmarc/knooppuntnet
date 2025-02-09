@@ -2,7 +2,7 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { LocationSummary } from '@api/common/location/location-summary';
 import { LocationKey } from '@api/custom/location-key';
-import { RouterService } from '../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 
 @Injectable({
   providedIn: 'root',

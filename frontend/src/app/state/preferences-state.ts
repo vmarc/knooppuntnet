@@ -1,6 +1,6 @@
 import { signal } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
-import { AnalysisStrategy } from '@app/core';
+import { AnalysisStrategy } from '@app/shared/core/preferences/analysis-strategy';
 
 export class PreferencesState {
   private readonly _strategy = signal<AnalysisStrategy>('location');

@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationRoutesFilterComponent } from './components/location-routes-filter.component';

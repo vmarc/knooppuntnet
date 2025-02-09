@@ -4,13 +4,13 @@ import { inject } from '@angular/core';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { NetworkChangesPage } from '@api/common/network/network-changes-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { ChangeOption } from '@app/kpn/common';
-import { ApiService } from '@app/services';
-import { PageParams } from '@app/shared/base';
+import { ChangeOption } from '@app/shared/kpn/common/change-option';
+import { ApiService } from '@app/shared/services/api.service';
+import { PageParams } from '@app/shared/base/page-params';
 import { Util } from '@app/shared/components/util';
 import { State } from '@app/state/state';
-import { RouterService } from '../../../../shared/services/router.service';
-import { UserService } from '../../../../shared/user';
+import { RouterService } from '@app/shared/services/router.service';
+import { UserService } from '@app/shared/user/user.service';
 import { NetworkService } from '../network.service';
 
 export class NetworkChangesPageService {

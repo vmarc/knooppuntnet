@@ -3,9 +3,9 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { Translations } from '@app/i18n';
-import { FilterOption } from '@app/kpn/filter';
-import { FilterOptionGroup } from '@app/kpn/filter';
+import { Translations } from '@app/shared/i18n/translations';
+import { FilterOption } from '@app/shared/kpn/filter/filter-option';
+import { FilterOptionGroup } from '@app/shared/kpn/filter/filter-option-group';
 
 @Component({
   selector: 'kpn-filter-radio-group',

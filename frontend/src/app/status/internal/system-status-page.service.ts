@@ -5,8 +5,8 @@ import { Params } from '@angular/router';
 import { PeriodParameters } from '@api/common/status/period-parameters';
 import { SystemStatusPage } from '@api/common/status/system-status-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { ApiService } from '@app/services';
-import { RouterService } from '../../shared/services/router.service';
+import { ApiService } from '@app/shared/services/api.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { StatusLinks } from './status-links';
 
 export class SystemStatusPageService {

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { Status } from '@api/common/status/status';
 import { ApiResponse } from '@api/custom/api-response';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { StatusLinks } from './status-links';
 
 @Injectable()

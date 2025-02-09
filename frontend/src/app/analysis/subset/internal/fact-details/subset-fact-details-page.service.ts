@@ -4,10 +4,10 @@ import { inject } from '@angular/core';
 import { SubsetFactDetailsPage } from '@api/common/subset/subset-fact-details-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { Facts } from '@app/analysis/fact/components/facts';
-import { SubsetFact } from '@app/kpn/common';
-import { ApiService } from '@app/services';
-import { PageParams } from '@app/shared/base';
-import { RouterService } from '../../../../shared/services/router.service';
+import { SubsetFact } from '@app/shared/kpn/common/subset-fact';
+import { ApiService } from '@app/shared/services/api.service';
+import { PageParams } from '@app/shared/base/page-params';
+import { RouterService } from '@app/shared/services/router.service';
 import { SubsetService } from '../subset.service';
 
 export class SubsetFactDetailsPageService {

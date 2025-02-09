@@ -5,7 +5,7 @@ import { OnInit } from '@angular/core';
 import { input } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
-import { OldPoiService } from '@app/services';
+import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { Subscriptions } from '@app/util';
 import { ChangeDetectionStrategy } from '@angular/core';
 

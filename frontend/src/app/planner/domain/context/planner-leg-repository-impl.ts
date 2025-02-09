@@ -1,7 +1,7 @@
 import { LegBuildParams } from '@api/common/planner/leg-build-params';
 import { LegEnd } from '@api/common/planner/leg-end';
 import { RouteType } from '@api/common/route-type';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { List } from 'immutable';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';

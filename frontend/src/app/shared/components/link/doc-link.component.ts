@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 
 @Component({
   selector: 'kpn-doc-link',

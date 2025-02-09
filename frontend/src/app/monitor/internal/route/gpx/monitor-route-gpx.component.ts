@@ -10,7 +10,7 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { TimestampUtil } from '@app/shared/components/timestamp-util';

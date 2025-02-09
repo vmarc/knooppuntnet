@@ -2,7 +2,7 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { SubsetInfo } from '@api/common/subset/subset-info';
 import { Subset } from '@api/custom/subset';
-import { RouterService } from '../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 
 @Injectable({
   providedIn: 'root',

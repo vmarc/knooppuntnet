@@ -4,7 +4,7 @@ import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { BrowserStorageService } from '@app/services';
+import { BrowserStorageService } from '@app/shared/services/browser-storage.service';
 import { PageWidthService } from './page-width.service';
 
 @Injectable({

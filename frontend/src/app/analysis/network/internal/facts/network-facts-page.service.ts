@@ -2,9 +2,9 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { NetworkFactsPage } from '@api/common/network/network-facts-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { State } from '@app/state/state';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { NetworkService } from '../network.service';
 
 export class NetworkFactsPageService {

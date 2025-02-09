@@ -1,5 +1,5 @@
 import { RouteType } from '@api/common/route-type';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
 import { ZoomLevel } from '../domain/zoom-level';

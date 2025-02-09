@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 
 @Component({
   selector: 'kpn-page-footer',

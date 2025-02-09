@@ -1,10 +1,10 @@
 import { Params } from '@angular/router';
 import { ChangesParameters } from '@api/common/changes/filter/changes-parameters';
 import { Subset } from '@api/custom/subset';
-import { AnalysisStrategy } from '@app/core';
-import { SubsetFact } from '@app/kpn/common';
-import { Countries } from '@app/kpn/common';
-import { RouteTypes } from '@app/kpn/common';
+import { AnalysisStrategy } from '@app/shared/core/preferences/analysis-strategy';
+import { SubsetFact } from '@app/shared/kpn/common/subset-fact';
+import { Countries } from '@app/shared/kpn/common/countries';
+import { RouteTypes } from '@app/shared/kpn/common/route-types';
 
 export class PageParams {
   constructor(

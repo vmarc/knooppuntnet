@@ -4,11 +4,11 @@ import { inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RouteDetailsPage } from '@api/common/route/route-details-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { Subscriptions } from '@app/util';
 import { FocusElements } from '../../../../map/focus-elements';
 import { MapService } from '../../../../map/map.service';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { RouteService } from '../route.service';
 
 @Injectable()

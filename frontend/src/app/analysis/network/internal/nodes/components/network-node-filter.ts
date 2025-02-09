@@ -2,13 +2,13 @@ import { WritableSignal } from '@angular/core';
 import { SurveyDateInfo } from '@api/common/survey-date-info';
 import { TimeInfo } from '@api/common/time-info';
 import { NetworkNodeRow } from '@api/common/network/network-node-row';
-import { BooleanFilter } from '@app/kpn/filter';
-import { FilterOptions } from '@app/kpn/filter';
-import { Filters } from '@app/kpn/filter';
-import { SurveyDateFilter } from '@app/kpn/filter';
-import { SurveyDateFilterKind } from '@app/kpn/filter';
-import { TimestampFilter } from '@app/kpn/filter';
-import { TimestampFilterKind } from '@app/kpn/filter';
+import { BooleanFilter } from '@app/shared/kpn/filter/boolean-filter';
+import { FilterOptions } from '@app/shared/kpn/filter/filter-options';
+import { Filters } from '@app/shared/kpn/filter/filters';
+import { SurveyDateFilter } from '@app/shared/kpn/filter/survey-date-filter';
+import { SurveyDateFilterKind } from '@app/shared/kpn/filter/survey-date-filter-kind';
+import { TimestampFilter } from '@app/shared/kpn/filter/timestamp-filter';
+import { TimestampFilterKind } from '@app/shared/kpn/filter/timestamp-filter-kind';
 import { NetworkNodeFilterCriteria } from './network-node-filter-criteria';
 
 export class NetworkNodeFilter {

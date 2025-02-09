@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ChangeSetSummaryInfo } from '@api/common/change-set-summary-info';
 import { RouteType } from '@api/common/route-type';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 import { LocationPipe } from '@app/shared/components/format/location.pipe';
 import { Util } from '@app/shared/components/util';
 import { NzIconDirective } from 'ng-zorro-antd/icon';

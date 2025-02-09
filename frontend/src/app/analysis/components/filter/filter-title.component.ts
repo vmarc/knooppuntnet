@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { FilterOptions } from '@app/kpn/filter';
+import { FilterOptions } from '@app/shared/kpn/filter/filter-options';
 
 @Component({
   selector: 'kpn-filter-title',

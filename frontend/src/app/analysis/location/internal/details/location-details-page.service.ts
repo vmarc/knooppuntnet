@@ -3,8 +3,8 @@ import { inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LocationDetailsPage } from '@api/common/location/location-details-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { ApiService } from '@app/services';
-import { RouterService } from '../../../../shared/services/router.service';
+import { ApiService } from '@app/shared/services/api.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { LocationService } from '../location.service';
 
 export class LocationDetailsPageService {

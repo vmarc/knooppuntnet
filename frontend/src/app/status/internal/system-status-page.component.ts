@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
-import { RouterService } from '../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { DataSizeChartComponent } from './charts/system/data-size-chart.component';
 import { DiskSizeChartComponent } from './charts/system/disk-size-chart.component';
 import { DiskSizeExternalChartComponent } from './charts/system/disk-size-external-chart.component';

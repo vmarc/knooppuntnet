@@ -1,5 +1,5 @@
 import { RouteType } from '@api/common/route-type';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 import { OldMapLayer } from '@app/ol/layers/old-map-layer';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';

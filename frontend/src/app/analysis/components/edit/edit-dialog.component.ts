@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 import { Subscriptions } from '@app/util';
 import { EditParameters } from './edit-parameters';
 import { EditService } from './edit.service';

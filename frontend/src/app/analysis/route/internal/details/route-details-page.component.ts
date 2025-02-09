@@ -20,7 +20,7 @@ import { TagTableComponent } from '@app/shared/components/tags/tag-table.compone
 import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { RouteEndNodesComponent } from './components/route-end-nodes.component';
 import { RouteMembersComponent } from './components/route-members.component';

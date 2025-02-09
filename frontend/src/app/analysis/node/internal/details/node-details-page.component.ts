@@ -15,7 +15,7 @@ import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.c
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { NodePageHeaderComponent } from '../components/node-page-header.component';
 import { NodeIntegrityComponent } from './components/node-integrity.component';
 import { NodeLocationComponent } from './components/node-location.component';

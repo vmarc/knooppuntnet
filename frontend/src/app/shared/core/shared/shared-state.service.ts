@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { signal } from '@angular/core';
-import { ApiService } from '@app/services';
-import { SurveyDateValues } from '@app/core';
+import { ApiService } from '@app/shared/services/api.service';
+import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 
 @Injectable({
   providedIn: 'root',

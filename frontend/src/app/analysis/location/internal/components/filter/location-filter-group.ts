@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { MatRadioChange } from '@angular/material/radio';
 import { MatRadioModule } from '@angular/material/radio';
 import { ServerFilterGroup } from '@api/common/changes/filter/server-filter-group';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 
 @Component({
   selector: 'kpn-location-filter-group',

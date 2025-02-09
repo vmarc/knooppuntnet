@@ -7,7 +7,7 @@ import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strateg
 import { ItemComponent } from '@app/shared/components/items/item.component';
 import { ItemsComponent } from '@app/shared/components/items/items.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { RouterService } from '../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { FactInfo } from '@app/analysis/fact/components/fact-info';
 import { Facts } from '@app/analysis/fact/components/facts';
 

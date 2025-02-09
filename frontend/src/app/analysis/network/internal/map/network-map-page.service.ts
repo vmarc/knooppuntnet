@@ -4,8 +4,8 @@ import { NetworkMapPage } from '@api/common/network/network-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { MapPosition } from '@app/ol/domain/map-position';
 import { CachedMapPosition } from '@app/ol/domain/cached-map-position';
-import { ApiService } from '@app/services';
-import { RouterService } from '../../../../shared/services/router.service';
+import { ApiService } from '@app/shared/services/api.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { NetworkService } from '../network.service';
 import { NetworkMapService } from './components/network-map.service';
 

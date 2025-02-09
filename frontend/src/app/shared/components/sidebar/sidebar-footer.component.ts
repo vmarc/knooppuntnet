@@ -3,10 +3,10 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Version } from '@app/services';
-import { UserService } from '../../user';
-import { UserLinkLogoutComponent } from '../../user';
-import { UserLinkLoginComponent } from '../../user';
+import { Version } from '@app/shared/services/version';
+import { UserService } from '@app/shared/user/user.service';
+import { UserLinkLogoutComponent } from '@app/shared/user/user-link-logout.component';
+import { UserLinkLoginComponent } from '@app/shared/user/user-link-login.component';
 
 @Component({
   selector: 'kpn-sidebar-footer',

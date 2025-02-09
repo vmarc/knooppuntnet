@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { SidebarFooterComponent } from '@app/shared/components/sidebar/sidebar-footer.component';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
 import { LocationFactsComponent } from './components/location-facts.component';

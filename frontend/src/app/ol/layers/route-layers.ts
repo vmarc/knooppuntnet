@@ -3,7 +3,7 @@ import { TrackPoint } from '@api/common/common/track-point';
 import { TrackSegment } from '@api/common/common/track-segment';
 import { RouteMap } from '@api/common/route/route-map';
 import { RouteNetworkNodeInfo } from '@api/common/route/route-network-node-info';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 import { OlUtil } from '@app/ol/ol-util';
 import { List } from 'immutable';
 import { Color } from 'ol/color';

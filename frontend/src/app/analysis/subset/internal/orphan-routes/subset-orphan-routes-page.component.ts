@@ -6,7 +6,7 @@ import { FilterComponent } from '@app/analysis/components/filter';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { SubsetPageHeaderBlockComponent } from '../components/subset-page-header-block.component';
 import { SubsetOrphanRoutesTableComponent } from './components/subset-orphan-routes-table.component';
 import { SubsetOrphanRoutesPageService } from './subset-orphan-routes-page.service';

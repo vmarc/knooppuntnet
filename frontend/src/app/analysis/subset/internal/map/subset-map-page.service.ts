@@ -3,8 +3,8 @@ import { inject } from '@angular/core';
 import { SubsetMapPage } from '@api/common/subset/subset-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { MapPosition } from '@app/ol/domain/map-position';
-import { ApiService } from '@app/services';
-import { RouterService } from '../../../../shared/services/router.service';
+import { ApiService } from '@app/shared/services/api.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { SubsetService } from '../subset.service';
 import { SubsetMapService } from './subset-map.service';
 

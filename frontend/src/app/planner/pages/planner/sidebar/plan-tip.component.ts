@@ -2,7 +2,7 @@ import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { MapZoomService } from '@app/ol/services/map-zoom.service';
 import { Plan } from '../../../domain/plan/plan';

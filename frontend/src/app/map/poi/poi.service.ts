@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { BrowserStorageService } from '@app/services';
-import { ApiService } from '@app/services';
+import { BrowserStorageService } from '@app/shared/services/browser-storage.service';
+import { ApiService } from '@app/shared/services/api.service';
 import { State } from '@app/state/state';
 import { BehaviorSubject } from 'rxjs';
 import { InterpretedPoiConfiguration } from '../../state/poi/interpreted-poi-configuration';

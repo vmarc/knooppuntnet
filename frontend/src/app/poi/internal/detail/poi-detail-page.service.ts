@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { signal } from '@angular/core';
 import { PoiDetail } from '@api/common/poi-detail';
 import { ApiResponse } from '@api/custom/api-response';
-import { ApiService } from '@app/services';
-import { RouterService } from '../../../shared/services/router.service';
+import { ApiService } from '@app/shared/services/api.service';
+import { RouterService } from '@app/shared/services/router.service';
 
 @Injectable()
 export class PoiDetailPageService {

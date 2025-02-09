@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Subsets } from '@app/kpn/common';
+import { Subsets } from '@app/shared/kpn/common/subsets';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 
 @Component({

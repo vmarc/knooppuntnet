@@ -7,7 +7,7 @@ import { PageComponent } from '@app/shared/components/page/page.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
 import { NzTabSetComponent } from 'ng-zorro-antd/tabs';
 import { NzTabComponent } from 'ng-zorro-antd/tabs';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkNodeTableComponent } from './components/network-node-table.component';
 import { NetworkNodesPageService } from './network-nodes-page.service';

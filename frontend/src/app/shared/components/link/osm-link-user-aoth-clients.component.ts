@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { UserService } from '../../user';
+import { UserService } from '@app/shared/user/user.service';
 
 @Component({
   selector: 'kpn-osm-link-user-oath-clients',

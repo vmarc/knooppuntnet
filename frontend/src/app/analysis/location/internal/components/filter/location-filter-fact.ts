@@ -7,7 +7,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { ServerFilterGroup } from '@api/common/changes/filter/server-filter-group';
 import { Fact } from '@api/common/fact';
 import { FactNameComponent } from '@app/analysis/fact/components/fact-name.component';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 
 @Component({
   selector: 'kpn-location-filter-fact',

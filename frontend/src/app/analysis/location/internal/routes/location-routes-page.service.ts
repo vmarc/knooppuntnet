@@ -8,10 +8,10 @@ import { BooleanParameter } from '@api/common/location/boolean-parameter';
 import { LastUpdatedParameter } from '@api/common/location/last-updated-parameter';
 import { SurveyParameter } from '@api/common/location/survey-parameter';
 import { ApiResponse } from '@api/custom/api-response';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { Util } from '@app/shared/components/util';
 import { State } from '@app/state/state';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { LocationService } from '../location.service';
 
 export class LocationRoutesPageService {

@@ -2,9 +2,9 @@ import { computed } from '@angular/core';
 import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { AnalysisStrategy } from '@app/core';
+import { AnalysisStrategy } from '@app/shared/core/preferences/analysis-strategy';
 import { State } from '@app/state/state';
-import { RouterService } from '../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 
 @Injectable()
 export class AnalysisStrategyService {

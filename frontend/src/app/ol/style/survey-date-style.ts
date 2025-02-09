@@ -1,4 +1,4 @@
-import { SurveyDateValues } from '@app/core';
+import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { Color } from 'ol/color';
 import { FeatureLike } from 'ol/Feature';
 import { Style } from 'ol/style';

@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Params } from '@angular/router';
 import { Bounds } from '@api/common/bounds';
-import { UniqueId } from '@app/kpn/common';
+import { UniqueId } from '@app/shared/kpn/common/unique-id';
 import { PageService } from '@app/shared/components/page.service';
 import { Subscriptions } from '@app/util';
 import { Coordinate } from 'ol/coordinate';

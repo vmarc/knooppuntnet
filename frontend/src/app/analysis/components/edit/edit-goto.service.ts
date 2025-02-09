@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Bounds } from '@api/common/bounds';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { EditConfiguration } from './edit-configuration';
 import { EditGotoErrorDialogComponent } from './edit-goto-error-dialog.component';
 

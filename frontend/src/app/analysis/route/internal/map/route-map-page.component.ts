@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { RoutePageHeaderComponent } from '../components/route-page-header.component';
 import { RouteMapComponent } from './components/route-map.component';
 import { RouteMapService } from './components/route-map.service';

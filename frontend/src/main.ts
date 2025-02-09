@@ -2,7 +2,7 @@
 
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { Version } from '@app/services';
+import { Version } from '@app/shared/services/version';
 
 import { Breadcrumb } from '@sentry/angular';
 import { BreadcrumbHint } from '@sentry/angular';

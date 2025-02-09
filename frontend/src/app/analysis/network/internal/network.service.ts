@@ -3,7 +3,7 @@ import { signal } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { inject } from '@angular/core';
 import { NetworkSummary } from '@api/common/network/network-summary';
-import { RouterService } from '../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 
 const defaultSummary: NetworkSummary = {
   name: '',

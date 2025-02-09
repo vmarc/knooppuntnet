@@ -1,7 +1,7 @@
 import { effect } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { BrowserStorageService } from '@app/services';
+import { BrowserStorageService } from '@app/shared/services/browser-storage.service';
 import { State } from '@app/state/state';
 import { Preferences } from './preferences';
 

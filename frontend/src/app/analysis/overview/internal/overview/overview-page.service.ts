@@ -4,8 +4,8 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { StatisticValues } from '@api/common/statistics/statistic-values';
 import { ApiResponse } from '@api/custom/api-response';
-import { ApiService } from '@app/services';
-import { BrowserStorageService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
+import { BrowserStorageService } from '@app/shared/services/browser-storage.service';
 import { PageWidthService } from '@app/shared/components/page-width.service';
 import { OverviewFormat } from './components/overview-format';
 

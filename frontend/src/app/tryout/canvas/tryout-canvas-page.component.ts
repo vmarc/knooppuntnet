@@ -6,7 +6,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { LinkInfo } from '@api/common/route/link-info';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { TryoutWrapperComponent } from './tryout-wrapper.component';
 
 @Component({

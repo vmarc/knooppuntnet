@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { Range } from 'immutable';
 import { Subscription } from 'rxjs';
 import { TimeoutError } from 'rxjs';

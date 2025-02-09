@@ -1,4 +1,4 @@
-import { SurveyDateValues } from '@app/core';
+import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { proposedLarge } from '@app/ol/style/node-style-builder';
 import { large } from '@app/ol/style/node-style-builder';
 import { StyleColor } from '@app/ol/style/style-color';

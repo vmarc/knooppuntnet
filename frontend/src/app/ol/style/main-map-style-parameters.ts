@@ -1,4 +1,4 @@
-import { SurveyDateValues } from '@app/core';
+import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MapMode } from '@app/ol/services/map-mode';
 
 export class MainMapStyleParameters {

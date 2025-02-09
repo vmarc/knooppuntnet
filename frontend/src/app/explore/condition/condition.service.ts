@@ -10,7 +10,7 @@ import { ConditionOperator } from '@api/common/search/condition-operator';
 import { ConditionName } from '@api/common/search/condition-name';
 import { ConditionSubject } from '@api/common/search/condition-subject';
 import { ConditionTag } from '@api/common/search/condition-tag';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { ExploreState } from '@app/state/explore-state';
 import { State } from '@app/state/state';
 import { ConditionRouteNameForm } from './condition-controls';

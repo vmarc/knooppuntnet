@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AnalysisStrategyComponent } from '@app/analysis/strategy/analysis-strategy.component';
-import { AnalysisStrategy } from '@app/core';
+import { AnalysisStrategy } from '@app/shared/core/preferences/analysis-strategy';
 import { NzDividerComponent } from 'ng-zorro-antd/divider';
 import { LocationService } from '../../location.service';
 import { LocationModeComponent } from './location-mode.component';

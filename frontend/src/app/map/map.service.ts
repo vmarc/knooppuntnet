@@ -13,7 +13,7 @@ import { LegHttpErrorDialogComponent } from '@app/ol/components/leg-http-error.d
 import { ZoomLevel } from '@app/ol/domain/zoom-level';
 import { MapControls } from '@app/ol/layers/map-controls';
 import { MapMode } from '@app/ol/services/map-mode';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { Util } from '@app/shared/components/util';
 import { State } from '@app/state/state';
 import { Subscriptions } from '@app/util';
@@ -29,7 +29,7 @@ import { PlannerMapService } from '../planner/pages/planner/planner-map.service'
 import { PlannerStateService } from '../planner/pages/planner/planner-state.service';
 import { PlannerService } from '../planner/pages/planner/planner.service';
 import { SharedStateService } from '../shared/core/shared/shared-state.service';
-import { RouterService } from '../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { FocusElements } from './focus-elements';
 import { Layers } from './layers/layers';
 import { MapInteractionsService } from './map-interactions.service';

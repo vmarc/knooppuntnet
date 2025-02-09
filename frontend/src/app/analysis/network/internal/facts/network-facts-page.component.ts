@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { PageComponent } from '../../../../shared/components/page/page.component';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkFactsComponent } from './components/network-facts.component';
 import { NetworkFactsPageService } from './network-facts-page.service';

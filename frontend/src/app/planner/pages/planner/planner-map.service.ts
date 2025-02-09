@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { MapZoomService } from '@app/ol/services/map-zoom.service';
 import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
-import { OldPoiService } from '@app/services';
+import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { State } from '@app/state/state';
 import { Subscriptions } from '@app/util';
 import Map from 'ol/Map';

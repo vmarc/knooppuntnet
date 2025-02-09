@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { Version } from '@app/services';
+import { Version } from '@app/shared/services/version';
 
 @Component({
   selector: 'kpn-page-experimental',

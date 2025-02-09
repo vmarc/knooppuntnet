@@ -4,7 +4,7 @@ import { signal } from '@angular/core';
 import { WritableSignal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { BrowserStorageService } from '@app/services';
+import { BrowserStorageService } from '@app/shared/services/browser-storage.service';
 import { LocationSelectionMode } from './location-selection-mode';
 
 @Injectable()

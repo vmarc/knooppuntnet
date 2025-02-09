@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { SpinnerComponent } from '@app/spinner';
+import { SpinnerComponent } from '@app/shared/spinner/spinner.component';
 import { State } from '@app/state/state';
 import { NzHeaderComponent } from 'ng-zorro-antd/layout';
 import { SettingsMenuComponent } from './settings/settings-menu.component';

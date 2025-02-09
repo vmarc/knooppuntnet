@@ -14,7 +14,7 @@ import { TimestampComponent } from '@app/shared/components/timestamp/timestamp.c
 import { ActionButtonNodeComponent } from '../../../analysis/components/action/action-button-node.component';
 import { ActionButtonRelationComponent } from '../../../analysis/components/action/action-button-relation.component';
 import { ActionButtonWayComponent } from '../../../analysis/components/action/action-button-way.component';
-import { RouterService } from '../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { PoiDetailPageService } from './poi-detail-page.service';
 
 @Component({

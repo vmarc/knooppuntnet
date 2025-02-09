@@ -19,7 +19,7 @@ import { MonitorRouteGroup } from '@api/common/monitor/monitor-route-group';
 import { MonitorRouteProperties } from '@api/common/monitor/monitor-route-properties';
 import { MonitorRouteUpdate } from '@api/common/monitor/monitor-route-update';
 import { Timestamp } from '@api/custom/timestamp';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 import { DayUtil } from '@app/shared/components/day-util';
 import { TimestampUtil } from '@app/shared/components/timestamp-util';
 import { Subscriptions } from '@app/util';

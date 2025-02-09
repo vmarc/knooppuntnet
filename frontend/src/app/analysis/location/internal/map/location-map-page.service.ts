@@ -4,9 +4,9 @@ import { inject } from '@angular/core';
 import { LocationMapPage } from '@api/common/location/location-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { MapPosition } from '@app/ol/domain/map-position';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { SharedStateService } from '../../../../shared/core/shared/shared-state.service';
-import { RouterService } from '../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { LocationService } from '../location.service';
 import { LocationMapService } from './components/location-map.service';
 

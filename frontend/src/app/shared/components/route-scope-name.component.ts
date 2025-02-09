@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { RouteScope } from '@api/common/route-scope';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 
 @Component({
   selector: 'kpn-route-scope-name',

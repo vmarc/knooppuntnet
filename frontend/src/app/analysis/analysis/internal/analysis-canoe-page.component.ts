@@ -11,7 +11,7 @@ import { PageComponent } from '@app/shared/components/page/page.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { RouterService } from '../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { AnalysisStrategyComponent } from '../../strategy/analysis-strategy.component';
 import { AnalysisStrategyService } from '../../strategy/analysis-strategy.service';
 

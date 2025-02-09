@@ -59,8 +59,8 @@ import { ClientPoiConfiguration } from '@api/common/tiles/client-poi-configurati
 import { ApiResponse } from '@api/custom/api-response';
 import { LocationKey } from '@api/custom/location-key';
 import { Subset } from '@api/custom/subset';
-import { AnalysisStrategy } from '@app/core';
-import { LOCAL_ERROR_HANDLING } from '@app/spinner';
+import { AnalysisStrategy } from '@app/shared/core/preferences/analysis-strategy';
+import { LOCAL_ERROR_HANDLING } from '@app/shared/spinner/spinner-interceptor';
 import { Observable } from 'rxjs';
 import { timeout } from 'rxjs/operators';
 

@@ -4,8 +4,8 @@ import { inject } from '@angular/core';
 import { RouteMapPage } from '@api/common/route/route-map-page';
 import { ApiResponse } from '@api/custom/api-response';
 import { MapPosition } from '@app/ol/domain/map-position';
-import { ApiService } from '@app/services';
-import { RouterService } from '../../../../shared/services/router.service';
+import { ApiService } from '@app/shared/services/api.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { RouteService } from '../route.service';
 import { RouteMapService } from './components/route-map.service';
 

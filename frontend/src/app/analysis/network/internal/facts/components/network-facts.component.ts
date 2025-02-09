@@ -22,7 +22,7 @@ import { ExpandCollapseComponent } from '@app/shared/components/button/expand-co
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
-import { RouterService } from '../../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { ActionButtonNodesComponent } from '../../../../components/action/action-button-nodes.component';
 import { ActionButtonRelationsComponent } from '../../../../components/action/action-button-relations.component';
 import { ActionButtonRoutesComponent } from '../../../../components/action/action-button-routes.component';

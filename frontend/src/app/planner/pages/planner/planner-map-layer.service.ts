@@ -2,7 +2,7 @@ import { Signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
 import { RouteType } from '@api/common/route-type';
-import { RouteTypes } from '@app/kpn/common';
+import { RouteTypes } from '@app/shared/kpn/common/route-types';
 import { NetworkBitmapTileLayer } from '@app/ol/layers/network-bitmap-tile-layer';
 import { OldOpenDataLayers } from '@app/ol/layers/old-open-data-layers';
 import { NetworkVectorTileLayer } from '@app/ol/layers/network-vector-tile-layer';
@@ -15,7 +15,7 @@ import { OldMapLayerRegistry } from '@app/ol/layers/old-map-layer-registry';
 import { OldPoiTileLayerService } from '@app/ol/services/old-poi-tile-layer.service';
 import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
 import { MainMapStyle } from '@app/ol/style/main-map-style';
-import { OldPoiService } from '@app/services';
+import { OldPoiService } from '@app/shared/services/old-poi.service';
 
 @Injectable()
 export class PlannerMapLayerService {

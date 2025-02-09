@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangesFilterOption } from '@api/common/changes/filter/changes-filter-option';
-import { ChangeOption } from '@app/kpn/common';
+import { ChangeOption } from '@app/shared/kpn/common/change-option';
 import { ChangeFilterPeriodComponent } from './change-filter-period.component';
 
 @Component({

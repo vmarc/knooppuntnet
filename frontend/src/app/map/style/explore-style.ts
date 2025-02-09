@@ -1,4 +1,4 @@
-import { SurveyDateValues } from '@app/core';
+import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
 import { MainMapNodeStyle } from '@app/ol/style/main-map-node-style';
 import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
 import { FeatureLike } from 'ol/Feature';

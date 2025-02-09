@@ -3,7 +3,7 @@ import { computed } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { Translations } from '@app/i18n';
+import { Translations } from '@app/shared/i18n/translations';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
 import { SubsetService } from '../subset.service';

@@ -1,6 +1,6 @@
 import { Tag } from '@api/custom/tag';
-import { RouteScopes } from '@app/kpn/common';
-import { RouteTypes } from '@app/kpn/common';
+import { RouteScopes } from '@app/shared/kpn/common/route-scopes';
+import { RouteTypes } from '@app/shared/kpn/common/route-types';
 import { List } from 'immutable';
 
 export class InterpretedTags {

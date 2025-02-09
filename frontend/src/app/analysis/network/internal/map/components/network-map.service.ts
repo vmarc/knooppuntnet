@@ -16,7 +16,7 @@ import { TileDebug256Layer } from '@app/ol/layers/tile-debug-256-layer';
 import { MapClickService } from '@app/ol/services/map-click.service';
 import { MapZoomService } from '@app/ol/services/map-zoom.service';
 import { OpenlayersMapService } from '@app/ol/services/openlayers-map-service';
-import { BrowserStorageService } from '@app/services';
+import { BrowserStorageService } from '@app/shared/services/browser-storage.service';
 import { Util } from '@app/shared/components/util';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';

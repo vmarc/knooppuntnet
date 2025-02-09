@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatExpansionModule } from '@angular/material/expansion';
-import { OldPoiService } from '@app/services';
+import { OldPoiService } from '@app/shared/services/old-poi.service';
 import { MapPoiConfigComponent } from './poi/map-poi-config.component';
 
 @Component({

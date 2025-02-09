@@ -7,7 +7,7 @@ import { MapRouteDetail } from '@api/common/route/map-route-detail';
 import { ApiResponse } from '@api/custom/api-response';
 import { OlUtil } from '@app/ol/ol-util';
 import { MapZoomService } from '@app/ol/services/map-zoom.service';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { State } from '@app/state/state';
 import { Coordinate } from 'ol/coordinate';
 import Map from 'ol/Map';

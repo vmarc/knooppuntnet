@@ -2,8 +2,8 @@ import { signal } from '@angular/core';
 import { inject } from '@angular/core';
 import { LocationEditPage } from '@api/common/location/location-edit-page';
 import { ApiResponse } from '@api/custom/api-response';
-import { ApiService } from '@app/services';
-import { RouterService } from '../../../../shared/services/router.service';
+import { ApiService } from '@app/shared/services/api.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { LocationService } from '../location.service';
 
 export class LocationEditPageService {

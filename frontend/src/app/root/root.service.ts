@@ -1,8 +1,8 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { inject } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { SurveyDateValues } from '@app/core';
-import { ApiService } from '@app/services';
+import { SurveyDateValues } from '@app/shared/core/shared/survey-date-values';
+import { ApiService } from '@app/shared/services/api.service';
 import { merge } from 'rxjs';
 import { State } from '@app/state/state';
 

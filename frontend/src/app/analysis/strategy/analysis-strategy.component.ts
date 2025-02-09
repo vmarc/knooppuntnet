@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AnalysisStrategy } from '@app/core';
+import { AnalysisStrategy } from '@app/shared/core/preferences/analysis-strategy';
 import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
 import { NzRadioComponent } from 'ng-zorro-antd/radio';
 import { AnalysisStrategyService } from './analysis-strategy.service';

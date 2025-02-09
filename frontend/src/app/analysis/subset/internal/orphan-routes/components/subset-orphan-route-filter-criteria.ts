@@ -1,4 +1,4 @@
-import { TimestampFilterKind } from '@app/kpn/filter';
+import { TimestampFilterKind } from '@app/shared/kpn/filter/timestamp-filter-kind';
 
 export class SubsetOrphanRouteFilterCriteria {
   constructor(

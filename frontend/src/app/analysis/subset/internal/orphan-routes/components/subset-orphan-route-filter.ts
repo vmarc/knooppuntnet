@@ -1,11 +1,11 @@
 import { WritableSignal } from '@angular/core';
 import { OrphanRouteInfo } from '@api/common/orphan-route-info';
 import { TimeInfo } from '@api/common/time-info';
-import { BooleanFilter } from '@app/kpn/filter';
-import { FilterOptions } from '@app/kpn/filter';
-import { Filters } from '@app/kpn/filter';
-import { TimestampFilter } from '@app/kpn/filter';
-import { TimestampFilterKind } from '@app/kpn/filter';
+import { BooleanFilter } from '@app/shared/kpn/filter/boolean-filter';
+import { FilterOptions } from '@app/shared/kpn/filter/filter-options';
+import { Filters } from '@app/shared/kpn/filter/filters';
+import { TimestampFilter } from '@app/shared/kpn/filter/timestamp-filter';
+import { TimestampFilterKind } from '@app/shared/kpn/filter/timestamp-filter-kind';
 import { SubsetOrphanRouteFilterCriteria } from './subset-orphan-route-filter-criteria';
 
 export class SubsetOrphanRouteFilter {

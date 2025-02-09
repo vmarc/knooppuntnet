@@ -14,7 +14,7 @@ import { MatFormField } from '@angular/material/select';
 import { MatLabel } from '@angular/material/select';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
 import { GeocoderLocation } from '@api/common/geocoder-location';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BackButtonComponent } from '@app/shared/components/back-button.component';
 import { DividerComponent } from '@app/shared/components/divider.component';

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Country } from '@api/common/country';
 import { RouteType } from '@api/common/route-type';
 import { LocationNode } from '@api/common/location/location-node';
-import { ApiService } from '@app/services';
+import { ApiService } from '@app/shared/services/api.service';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { map } from 'rxjs/operators';

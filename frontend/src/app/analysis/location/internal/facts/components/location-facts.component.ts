@@ -16,7 +16,7 @@ import { LocationFact } from '@api/common/location/location-fact';
 import { Fact } from '@api/common/fact';
 import { ExpandCollapseComponent } from '@app/shared/components/button/expand-collapse.component';
 import { IconHappyComponent } from '@app/shared/components/icon/icon-happy.component';
-import { RouterService } from '../../../../../shared/services/router.service';
+import { RouterService } from '@app/shared/services/router.service';
 import { LocationFactPanelContentsComponent } from './location-fact-panel-contents.component';
 import { LocationFactPanelHeaderComponent } from './location-fact-panel-header.component';
 

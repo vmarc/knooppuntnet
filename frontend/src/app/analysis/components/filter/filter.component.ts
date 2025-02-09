@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { FilterOptions } from '@app/kpn/filter';
+import { FilterOptions } from '@app/shared/kpn/filter/filter-options';
 import { FilterCheckboxGroupComponent } from './filter-checkbox-group.component';
 import { FilterRadioGroupComponent } from './filter-radio-group.component';
 import { FilterTitleComponent } from './filter-title.component';
