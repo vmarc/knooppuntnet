@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
 import { RouteType } from '@api/common/route-type';
 import { RouteListItem } from '@api/common/search/route-list-item';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
-import { ActionButtonRouteComponent } from '../../analysis/components/action/action-button-route.component';
+import { ActionButtonRouteComponent } from '@app/analysis/components/action/action-button-route.component';
 
 @Component({
   selector: 'kpn-search-route',

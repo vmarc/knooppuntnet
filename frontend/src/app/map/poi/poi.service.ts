@@ -4,12 +4,12 @@ import { BrowserStorageService } from '@app/shared/services/browser-storage.serv
 import { ApiService } from '@app/shared/services/api.service';
 import { State } from '@app/state/state';
 import { BehaviorSubject } from 'rxjs';
-import { InterpretedPoiConfiguration } from '../../state/poi/interpreted-poi-configuration';
-import { PoiGroupPreference } from '../../state/poi/poi-group-preference';
-import { PoiNameTranslations } from '../../state/poi/poi-name-translations';
-import { PoiPreference } from '../../state/poi/poi-preference';
-import { PoiPreferences } from '../../state/poi/poi-preferences';
-import { PoiStyleMap } from '../../state/poi/poi-style-map';
+import { InterpretedPoiConfiguration } from '@app/state/poi/interpreted-poi-configuration';
+import { PoiGroupPreference } from '@app/state/poi/poi-group-preference';
+import { PoiNameTranslations } from '@app/state/poi/poi-name-translations';
+import { PoiPreference } from '@app/state/poi/poi-preference';
+import { PoiPreferences } from '@app/state/poi/poi-preferences';
+import { PoiStyleMap } from '@app/state/poi/poi-style-map';
 
 @Injectable()
 export class PoiService {

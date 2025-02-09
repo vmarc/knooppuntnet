@@ -10,7 +10,7 @@ import { concat } from 'rxjs';
 import { Observable } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { tap } from 'rxjs/operators';
-import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
+import { SharedStateService } from '@app/shared/core/shared/shared-state.service';
 import { EditConfiguration } from './edit-configuration';
 import { EditParameters } from './edit-parameters';
 

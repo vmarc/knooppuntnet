@@ -7,8 +7,8 @@ import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MAP_SERVICE_TOKEN } from '@app/ol/services/openlayers-map-service';
 import { State } from '@app/state/state';
-import { PlannerMapService } from '../../../planner/pages/planner/planner-map.service';
-import { PlannerSidebarComponent } from '../../../planner/pages/planner/sidebar/planner-sidebar.component';
+import { PlannerMapService } from '@app/planner/pages/planner/planner-map.service';
+import { PlannerSidebarComponent } from '@app/planner/pages/planner/sidebar/planner-sidebar.component';
 
 @Component({
   selector: 'kpn-planner',

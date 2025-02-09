@@ -7,7 +7,7 @@ import { MVT } from 'ol/format';
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTile from 'ol/source/VectorTile';
 import { StyleFunction } from 'ol/style/Style';
-import { MapStyleOptions } from '../../state/map-style-options';
+import { MapStyleOptions } from '@app/state/map-style-options';
 import { ExploreStyle } from '../style/explore-style';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';

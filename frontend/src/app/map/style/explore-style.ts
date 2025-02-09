@@ -3,7 +3,7 @@ import { MainMapNodeStyle } from '@app/ol/style/main-map-node-style';
 import { MainMapStyleParameters } from '@app/ol/style/main-map-style-parameters';
 import { FeatureLike } from 'ol/Feature';
 import Style from 'ol/style/Style';
-import { MapStyleOptions } from '../../state/map-style-options';
+import { MapStyleOptions } from '@app/state/map-style-options';
 import { ExploreStyleAnalysis } from './explore-style-analysis';
 import { ExploreStyleFocus } from './explore-style-focus';
 import { ExploreStyleStandard } from './explore-style-standard';

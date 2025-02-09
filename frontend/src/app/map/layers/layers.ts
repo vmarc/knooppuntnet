@@ -4,7 +4,7 @@ import { Signal } from '@angular/core';
 import { State } from '@app/state/state';
 import { LayersState } from '@app/state/layers-state';
 import { MapStyleOptions } from '@app/state/map-style-options';
-import { PoiStyleMap } from '../../state/poi/poi-style-map';
+import { PoiStyleMap } from '@app/state/poi/poi-style-map';
 import { OpendataBitmapTileLayer } from './opendata-bitmap-tile-layer';
 import { OpendataVectorTileLayer } from './opendata-vector-tile-layer';
 import { StandardBackground } from './standard-background';

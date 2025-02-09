@@ -8,7 +8,7 @@ import { State } from '@app/state/state';
 import { Subscriptions } from '@app/util/subscriptions';
 import Map from 'ol/Map';
 import Overlay from 'ol/Overlay';
-import { SharedStateService } from '../../../shared/core/shared/shared-state.service';
+import { SharedStateService } from '@app/shared/core/shared/shared-state.service';
 import { PlannerInteraction } from '../../domain/interaction/planner-interaction';
 import { PlannerService } from './planner.service';
 

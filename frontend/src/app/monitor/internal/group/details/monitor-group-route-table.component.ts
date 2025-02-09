@@ -11,7 +11,7 @@ import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { TimestampDayPipe } from '@app/shared/components/format/timestamp-day.pipe';
 import { TimestampPipe } from '@app/shared/components/format/timestamp-pipe';
 import { SymbolComponent } from '@app/symbol/symbol.component';
-import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
+import { ActionButtonRelationComponent } from '@app/analysis/components/action/action-button-relation.component';
 
 @Component({
   selector: 'kpn-monitor-group-route-table',

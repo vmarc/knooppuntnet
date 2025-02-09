@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { DividerComponent } from '@app/shared/components/divider.component';
 import { State } from '@app/state/state';
-import { ScopeIconComponent } from '../../explore/scope-icon.component';
+import { ScopeIconComponent } from '@app/explore/scope-icon.component';
 
 @Component({
   selector: 'kpn-map-route-popup',

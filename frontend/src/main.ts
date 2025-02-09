@@ -9,8 +9,8 @@ import { BreadcrumbHint } from '@sentry/angular';
 import { ErrorEvent } from '@sentry/angular';
 import { EventHint } from '@sentry/angular';
 import * as Sentry from '@sentry/angular';
-import { AppComponent } from './app/app.component';
-import { appConfig } from './app/app.config';
+import { AppComponent } from '@app/app.component';
+import { appConfig } from '@app/app.config';
 import { environment } from './environments/environment';
 
 if (environment.production) {

@@ -4,7 +4,7 @@ import { input } from '@angular/core';
 import { MonitorRouteDetailsPage } from '@api/common/monitor/monitor-route-details-page';
 import { DistancePipe } from '@app/shared/components/format/distance.pipe';
 import { SymbolComponent } from '@app/symbol/symbol.component';
-import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
+import { ActionButtonRelationComponent } from '@app/analysis/components/action/action-button-relation.component';
 
 @Component({
   selector: 'kpn-monitor-route-details-summary',

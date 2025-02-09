@@ -9,7 +9,7 @@ import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import Style, { StyleFunction } from 'ol/style/Style';
 import Text from 'ol/style/Text';
-import { LayerType } from '../../state/layer-type';
+import { LayerType } from '@app/state/layer-type';
 import { Layers } from './layers';
 import { MapLayer } from './map-layer';
 

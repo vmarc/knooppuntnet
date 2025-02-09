@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
 import { PoiAnalysisComponent } from '@app/shared/components/poi/poi-analysis.component';
 import { InterpretedTags } from '@app/shared/components/tags/interpreted-tags';
 import { TagTableComponent } from '@app/shared/components/tags/tag-table.component';
-import { ActionButtonNodeComponent } from '../../../../analysis/components/action/action-button-node.component';
-import { ActionButtonRelationComponent } from '../../../../analysis/components/action/action-button-relation.component';
-import { ActionButtonWayComponent } from '../../../../analysis/components/action/action-button-way.component';
+import { ActionButtonNodeComponent } from '@app/analysis/components/action/action-button-node.component';
+import { ActionButtonRelationComponent } from '@app/analysis/components/action/action-button-relation.component';
+import { ActionButtonWayComponent } from '@app/analysis/components/action/action-button-way.component';
 import { PlannerPopupService } from '../../../domain/context/planner-popup-service';
 
 @Component({

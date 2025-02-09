@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
 import { MonitorRouteMapPage } from '@api/common/monitor/monitor-route-map-page';
 import { NavService } from '@app/shared/components/nav.service';
 import { OldPageComponent } from '@app/shared/components/page/old-page.component';
-import { EditGotoService } from '../../../../analysis/components/edit/edit-goto.service';
+import { EditGotoService } from '@app/analysis/components/edit/edit-goto.service';
 import { RouterService } from '@app/shared/services/router.service';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteMapPageService } from './monitor-route-map-page.service';

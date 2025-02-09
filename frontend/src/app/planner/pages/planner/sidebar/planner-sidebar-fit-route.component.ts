@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { NzButtonComponent } from 'ng-zorro-antd/button';
 import { NzIconDirective } from 'ng-zorro-antd/icon';
-import { MapService } from '../../../../map/map.service';
+import { MapService } from '@app/map/map.service';
 import { ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
