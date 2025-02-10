@@ -4,7 +4,6 @@ import { inject } from '@angular/core';
 import { Component } from '@angular/core';
 import { AnalysisStrategyService } from '@app/analysis/strategy/analysis-strategy.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { SidebarFooterComponent } from '@app/shared/components/sidebar/sidebar-footer.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationDetailsComponent } from './components/location-details.component';
@@ -31,15 +30,9 @@ import { LocationDetailsPageService } from './location-details-page.service';
         </div>
       }
     </kpn-page>
-    <kpn-sidebar-footer />
   `,
   providers: [LocationDetailsPageService, AnalysisStrategyService, RouterService],
-  imports: [
-    LocationDetailsComponent,
-    LocationPageHeaderComponent,
-    PageComponent,
-    SidebarFooterComponent,
-  ],
+  imports: [LocationDetailsComponent, LocationPageHeaderComponent, PageComponent],
 })
 export class LocationDetailsPageComponent implements OnInit {
   protected readonly service = inject(LocationDetailsPageService);

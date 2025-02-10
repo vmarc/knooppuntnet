@@ -46,6 +46,10 @@ import { TagValueComponent } from './tag-value.component';
     }
   `,
   styles: `
+    :host {
+      display: inline-block;
+    }
+
     .no-tags {
       padding-top: 10px;
       padding-bottom: 10px;
