@@ -31,9 +31,9 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       (edit)="edit()"
       i18n-editLinkTitle="@@location-nodes.edit.title"
       editLinkTitle="Load the nodes in this page in JOSM"
-      [pageIndex]="service.pageIndex()"
+      [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="service.pageSize()"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount()"
       [showFirstLastButtons]="false"
@@ -44,7 +44,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       nzBordered
       #nodeTable
       [nzData]="nodes()"
-      [nzPageSize]="service.pageSize()"
+      [nzPageSize]="pageSize()"
       nzPaginationPosition="both"
       nzShowSizeChanger="true"
       [nzPageSizeOptions]="[10, 25, 50, 100, 250, 500, 1000]"
@@ -72,7 +72,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
             <td>
               <kpn-location-node-analysis
                 [node]="node"
-                [routeType]="service.routeType()"
+                [routeType]="routeType()"
                 [routeScope]="routeScope"
               />
             </td>
@@ -101,9 +101,9 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
     </nz-table>
 
     <kpn-paginator
-      [pageIndex]="service.pageIndex()"
+      [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
-      [pageSize]="service.pageSize()"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount()"
     />
@@ -132,12 +132,16 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
   ],
 })
 export class LocationNodeTableComponent {
-  readonly service = inject(LocationNodesPageService);
+  private readonly service = inject(LocationNodesPageService);
   private readonly editService = inject(EditService);
 
   timeInfo = input.required<TimeInfo>();
   nodes = input.required<LocationNodeInfo[]>();
   nodeCount = input.required<number>();
+
+  readonly pageSize = this.service.pageSize;
+  readonly pageIndex = this.service.pageIndex;
+  readonly routeType = this.service.routeType;
 
   // TODO SIGNAL
   routeScope: RouteScope = 'regional';
