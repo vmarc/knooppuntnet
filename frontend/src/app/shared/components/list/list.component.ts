@@ -10,7 +10,7 @@ import { PaginatorComponent } from '@app/shared/components/paginator/paginator.c
   template: `
     @if (pageSize() > 0) {
       <div class="header">
-        <ng-content select="[extra]" />
+        <ng-content select="[header-extra]" />
         <span class="paginator">
           <kpn-paginator
             [pageIndex]="pageIndex()"

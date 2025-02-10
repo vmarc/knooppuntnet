@@ -19,7 +19,7 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
 import { LocationRouteAnalysisComponent } from './location-route-analysis';
 
 @Component({
-  selector: 'kpn-location-route-table',
+  selector: 'kpn-location-route-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <kpn-list
@@ -30,7 +30,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       [length]="routeCount()"
     >
       <kpn-edit-link
-        extra
+        header-extra
         (edit)="edit()"
         i18n-title="@@location-routes.edit.title"
         title="Load the routes in this page in JOSM"
@@ -80,7 +80,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
     SymbolComponent,
   ],
 })
-export class LocationRouteTableComponent {
+export class LocationRouteListComponent {
   private readonly service = inject(LocationRoutesPageService);
   private readonly editService = inject(EditService);
 

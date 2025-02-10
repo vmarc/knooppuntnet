@@ -13,15 +13,8 @@ import { LocationNodeFactIndicatorComponent } from './location-node-fact-indicat
   selector: 'kpn-location-node-analysis',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="analysis">
-      <kpn-location-node-fact-indicator [node]="node()" />
-      <kpn-integrity-indicator [data]="integrityIndicatorData" />
-    </div>
-  `,
-  styles: `
-    .analysis {
-      display: flex;
-    }
+    <kpn-location-node-fact-indicator [node]="node()" />
+    <kpn-integrity-indicator [data]="integrityIndicatorData" />
   `,
   imports: [LocationNodeFactIndicatorComponent, IntegrityIndicatorComponent],
 })
