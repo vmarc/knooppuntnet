@@ -86,11 +86,11 @@ import { LocationRoutesPageService } from '../location-routes-page.service';
   `,
   styles: `
     .filter {
-      padding: 25px 15px 25px 25px;
+      padding: 1em;
     }
 
     .title {
-      padding-bottom: 10px;
+      padding-bottom: 1em;
     }
   `,
   imports: [NzRadioGroupComponent, NzRadioComponent, FormsModule],

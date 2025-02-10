@@ -1,27 +1,45 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatButton } from '@angular/material/button';
-import { MatDrawerContent } from '@angular/material/sidenav';
-import { MatDrawer } from '@angular/material/sidenav';
-import { MatDrawerContainer } from '@angular/material/sidenav';
 import { PageComponent } from './page.component';
 
 @Component({
   selector: 'kpn-page-filter',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-drawer-container class="example-container" hasBackdrop="false">
-      <mat-drawer #drawer mode="push">
-        <ng-content select="[filter]" />
-      </mat-drawer>
-      <mat-drawer-content>
-        <kpn-page>
-          <button mat-raised-button (click)="drawer.toggle()">Filter</button>
+    <kpn-page>
+      <div class="page">
+        <div class="page-left">
+          <div>
+            <ng-content select="[filter]" />
+          </div>
+        </div>
+        <div class="page-right">
           <ng-content />
-        </kpn-page>
-      </mat-drawer-content>
-    </mat-drawer-container>
+        </div>
+      </div>
+    </kpn-page>
   `,
-  imports: [MatDrawerContainer, MatDrawer, MatDrawerContent, PageComponent, MatButton],
+  styles: `
+    .page {
+      display: flex;
+      height: 100%;
+    }
+
+    .page-left {
+      position: absolute;
+      top: 0;
+      width: 20em;
+      height: 100%;
+      border-right: 1px solid lightgray;
+      margin-right: 1em;
+      overflow-y: auto;
+    }
+
+    .page-right {
+      margin-left: 22em;
+      flex-grow: 1;
+    }
+  `,
+  imports: [PageComponent],
 })
 export class PageFilterComponent {}

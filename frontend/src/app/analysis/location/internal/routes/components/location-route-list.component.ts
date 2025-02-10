@@ -6,6 +6,7 @@ import { TimeInfo } from '@api/common/time-info';
 import { LocationRouteInfo } from '@api/common/location/location-route-info';
 import { EditLinkComponent } from '@app/analysis/components/edit/edit-link.component';
 import { EditParameters } from '@app/analysis/components/edit/edit-parameters';
+import { LocationRoutesFilterComponent } from '@app/analysis/location/internal/routes/components/location-routes-filter.component';
 import { DayComponent } from '@app/shared/components/day/day.component';
 import { EditService } from '@app/shared/components/edit.service';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
@@ -28,7 +29,9 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="routeCount()"
+      [filter]="true"
     >
+      <kpn-location-routes-filter filter />
       <kpn-edit-link
         header-extra
         (edit)="edit()"
@@ -77,6 +80,7 @@ import { LocationRouteAnalysisComponent } from './location-route-analysis';
     ListComponent,
     ListItemComponent,
     LocationRouteAnalysisComponent,
+    LocationRoutesFilterComponent,
     SymbolComponent,
   ],
 })

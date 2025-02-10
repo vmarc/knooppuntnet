@@ -7,6 +7,7 @@ import { RouteScope } from '@api/common/route-scope';
 import { LocationNodeInfo } from '@api/common/location/location-node-info';
 import { EditLinkComponent } from '@app/analysis/components/edit/edit-link.component';
 import { EditParameters } from '@app/analysis/components/edit/edit-parameters';
+import { LocationNodesFilterComponent } from '@app/analysis/location/internal/nodes/components/location-nodes-filter.component';
 import { DayComponent } from '@app/shared/components/day/day.component';
 import { EditService } from '@app/shared/components/edit.service';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
@@ -28,7 +29,10 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
       [length]="nodeCount()"
+      [filter]="true"
     >
+      <kpn-location-nodes-filter filter />
+
       <kpn-edit-link
         header-extra
         (edit)="edit()"
@@ -93,6 +97,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
     ListItemComponent,
     LocationNodeAnalysisComponent,
     LocationNodeRoutesComponent,
+    LocationNodesFilterComponent,
   ],
 })
 export class LocationNodeListComponent {

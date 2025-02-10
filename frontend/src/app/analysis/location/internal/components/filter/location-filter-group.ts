@@ -2,10 +2,11 @@ import { output } from '@angular/core';
 import { input } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { MatRadioChange } from '@angular/material/radio';
-import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
 import { ServerFilterGroup } from '@api/common/changes/filter/server-filter-group';
 import { Translations } from '@app/shared/i18n/translations';
+import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
+import { NzRadioComponent } from 'ng-zorro-antd/radio';
 
 @Component({
   selector: 'kpn-location-filter-group',
@@ -13,28 +14,28 @@ import { Translations } from '@app/shared/i18n/translations';
   template: `
     <div class="filter">
       <div class="title">{{ translate(title()) }}</div>
-      <mat-radio-group [value]="filterGroup().selected" (change)="selectionChanged($event)">
+      <nz-radio-group [ngModel]="filterGroup().selected" (ngModelChange)="selectionChanged($event)">
         @for (option of filterGroup().options; track option.name) {
           <div>
-            <mat-radio-button [value]="option.name">
+            <label nz-radio [nzValue]="option.name">
               <span>{{ translate(option.name) }}</span
               ><span class="kpn-brackets">{{ option.count }}</span>
-            </mat-radio-button>
+            </label>
           </div>
         }
-      </mat-radio-group>
+      </nz-radio-group>
     </div>
   `,
   styles: `
     .filter {
-      padding: 25px 15px 25px 25px;
+      padding: 1em;
     }
 
     .title {
-      padding-bottom: 10px;
+      padding-bottom: 1em;
     }
   `,
-  imports: [MatRadioModule],
+  imports: [NzRadioComponent, NzRadioGroupComponent, FormsModule],
 })
 export class LocationFilterGroupComponent {
   title = input.required<string>();
@@ -45,11 +46,11 @@ export class LocationFilterGroupComponent {
     return Translations.get(`filter.${option}`);
   }
 
-  selectionChanged(change: MatRadioChange): void {
-    if (change.value == 'all') {
+  selectionChanged(value: string): void {
+    if (value == 'all') {
       this.changed.emit(null);
     } else {
-      this.changed.emit(change.value);
+      this.changed.emit(value);
     }
   }
 }

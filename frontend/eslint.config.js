@@ -75,6 +75,7 @@ module.exports = tseslint.config(
             "nz-icon[nzSize]",
             "nz-icon[nzType]",
             "nz-pagination[nzSize]",
+            "nz-switch[nzSize]",
             "nz-table[nzPaginationPosition]",
             "nz-table[nzSize]",
             "nzOverlayClassName",

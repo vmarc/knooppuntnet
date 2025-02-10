@@ -3,11 +3,10 @@ import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
-import { PageFilterComponent } from '@app/shared/components/page/page-filter.component';
+import { PageComponent } from '@app/shared/components/page/page.component';
 import { RouterService } from '@app/shared/services/router.service';
 import { LocationPageHeaderComponent } from '../components/location-page-header.component';
 import { LocationResponseComponent } from '../components/location-response.component';
-import { LocationNodesFilterComponent } from './components/location-nodes-filter.component';
 import { LocationNodesComponent } from './components/location-nodes.component';
 import { LocationNodesPageService } from './location-nodes-page.service';
 
@@ -15,7 +14,7 @@ import { LocationNodesPageService } from './location-nodes-page.service';
   selector: 'kpn-location-nodes-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-page-filter>
+    <kpn-page>
       <kpn-location-page-header
         pageName="nodes"
         pageTitle="Nodes"
@@ -30,17 +29,15 @@ import { LocationNodesPageService } from './location-nodes-page.service';
           </kpn-location-response>
         </div>
       }
-      <kpn-location-nodes-filter filter />
-    </kpn-page-filter>
+    </kpn-page>
   `,
   providers: [LocationNodesPageService, RouterService],
   imports: [
     ErrorComponent,
     LocationNodesComponent,
-    LocationNodesFilterComponent,
     LocationPageHeaderComponent,
     LocationResponseComponent,
-    PageFilterComponent,
+    PageComponent,
   ],
 })
 export class LocationNodesPageComponent implements OnInit {
