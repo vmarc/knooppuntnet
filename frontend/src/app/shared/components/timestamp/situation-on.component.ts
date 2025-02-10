@@ -8,7 +8,7 @@ import { TimestampComponent } from './timestamp.component';
   selector: 'kpn-situation-on',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ng-container class="kpn-label" i18n="@@situation-on"> Situation on </ng-container>
+    <span class="kpn-label" i18n="@@situation-on">Situation on</span>
     <kpn-timestamp [timestamp]="timestamp()" />
   `,
   imports: [TimestampComponent],

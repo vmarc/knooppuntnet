@@ -11,7 +11,7 @@ import { DayComponent } from '@app/shared/components/day/day.component';
 import { EditService } from '@app/shared/components/edit.service';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
-import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
+import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
 import { NzTrDirective } from 'ng-zorro-antd/table';
 import { NzTheadComponent } from 'ng-zorro-antd/table';
 import { NzThMeasureDirective } from 'ng-zorro-antd/table';
@@ -100,7 +100,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
       </tbody>
     </nz-table>
 
-    <kpn-paginator
+    <kpn-old-paginator
       [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
@@ -128,7 +128,7 @@ import { LocationNodeRoutesComponent } from './location-node-routes.component';
     NzThMeasureDirective,
     NzTheadComponent,
     NzTrDirective,
-    PaginatorComponent,
+    OldPaginatorComponent,
   ],
 })
 export class LocationNodeTableComponent {

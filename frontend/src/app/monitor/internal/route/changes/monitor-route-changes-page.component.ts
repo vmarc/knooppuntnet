@@ -5,7 +5,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
+import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
 import { MonitorRoutePageHeaderComponent } from '../components/monitor-route-page-header.component';
 import { MonitorRouteChangesPageService } from './monitor-route-changes-page.service';
@@ -38,7 +38,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
                   >Impact
                 </mat-slide-toggle>
 
-                <kpn-paginator
+                <kpn-old-paginator
                   (pageIndexChange)="pageChanged($event)"
                   [pageIndex]="page.pageIndex"
                   [pageSize]="page.pageSize"
@@ -63,7 +63,7 @@ import { MonitorRouteChangesPageService } from './monitor-route-changes-page.ser
     MatSlideToggleModule,
     MonitorChangesComponent,
     MonitorRoutePageHeaderComponent,
-    PaginatorComponent,
+    OldPaginatorComponent,
     PageComponent,
   ],
 })

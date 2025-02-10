@@ -6,7 +6,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { RouterLink } from '@angular/router';
 import { ErrorComponent } from '@app/shared/components/error/error.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
+import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { MonitorChangesComponent } from '../components/monitor-changes.component';
@@ -48,7 +48,7 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
                 >Impact
               </mat-slide-toggle>
 
-              <kpn-paginator
+              <kpn-old-paginator
                 [pageSize]="service.pageSize()"
                 (pageSizeChange)="pageSizeChanged($event)"
                 [pageIndex]="page.pageIndex"
@@ -75,8 +75,8 @@ import { MonitorChangesPageService } from './monitor-changes-page.service';
     MonitorChangesComponent,
     NzBreadCrumbComponent,
     NzBreadCrumbItemComponent,
+    OldPaginatorComponent,
     PageComponent,
-    PaginatorComponent,
     RouterLink,
   ],
 })

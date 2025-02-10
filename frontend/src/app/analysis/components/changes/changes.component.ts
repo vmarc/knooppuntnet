@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
+import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
 
 @Component({
   selector: 'kpn-changes',
@@ -17,7 +17,7 @@ import { PaginatorComponent } from '@app/shared/components/paginator/paginator.c
       >Impact
     </mat-slide-toggle>
 
-    <kpn-paginator
+    <kpn-old-paginator
       [pageIndex]="pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="pageSize()"
@@ -36,7 +36,7 @@ import { PaginatorComponent } from '@app/shared/components/paginator/paginator.c
       </div>
     }
   `,
-  imports: [MatSlideToggleModule, PaginatorComponent],
+  imports: [MatSlideToggleModule, OldPaginatorComponent],
 })
 export class ChangesComponent {
   changeCount = input.required<number>();

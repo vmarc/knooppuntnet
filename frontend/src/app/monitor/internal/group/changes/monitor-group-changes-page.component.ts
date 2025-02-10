@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { NavService } from '@app/shared/components/nav.service';
 import { PageHeaderComponent } from '@app/shared/components/page/page-header.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
-import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
+import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
 import { NzBreadCrumbItemComponent } from 'ng-zorro-antd/breadcrumb';
 import { NzBreadCrumbComponent } from 'ng-zorro-antd/breadcrumb';
 import { MonitorChangesComponent } from '../../components/monitor-changes.component';
@@ -54,7 +54,7 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
                 Impact
               </mat-slide-toggle>
 
-              <kpn-paginator
+              <kpn-old-paginator
                 (pageIndexChange)="pageChanged($event)"
                 [pageIndex]="page.pageIndex"
                 [pageSize]="page.pageSize"
@@ -80,9 +80,9 @@ import { MonitorGroupChangesPageService } from './monitor-group-changes-page.ser
     MonitorGroupPageMenuComponent,
     NzBreadCrumbComponent,
     NzBreadCrumbItemComponent,
+    OldPaginatorComponent,
     PageComponent,
     PageHeaderComponent,
-    PaginatorComponent,
     RouterLink,
   ],
 })

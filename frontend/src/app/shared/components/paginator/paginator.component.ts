@@ -1,79 +1,136 @@
+import { computed } from '@angular/core';
 import { output } from '@angular/core';
-import { viewChild } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { AfterViewInit } from '@angular/core';
 import { input } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatPaginator } from '@angular/material/paginator';
+import { FormsModule } from '@angular/forms';
+import { NzButtonComponent } from 'ng-zorro-antd/button';
+import { NzIconDirective } from 'ng-zorro-antd/icon';
+import { NzOptionComponent } from 'ng-zorro-antd/select';
+import { NzSelectComponent } from 'ng-zorro-antd/select';
 
 @Component({
   selector: 'kpn-paginator',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <mat-paginator
-      (page)="pageChanged($event)"
-      [pageIndex]="pageIndex()"
-      [pageSize]="pageSize()"
-      [pageSizeOptions]="[10, 25, 50, 100, 250, 500, 1000]"
-      [length]="length()"
-      [showFirstLastButtons]="showFirstLastButtons()"
-      [hidePageSize]="!showPageSizeSelection()"
-    />
+    <span class="kpn-line paginator">
+      @if (full()) {
+        <span i18n="@@paginator.items-per-page-label">Items per page</span>
+        <span>
+          <nz-select [ngModel]="pageSizeString()" (ngModelChange)="pageSizeChanged($event)">
+            <nz-option nzValue="10" nzLabel="10" />
+            <nz-option nzValue="25" nzLabel="25" />
+            <nz-option nzValue="50" nzLabel="50" />
+            <nz-option nzValue="100" nzLabel="100" />
+            <nz-option nzValue="250" nzLabel="250" />
+            <nz-option nzValue="500" nzLabel="500" />
+            <nz-option nzValue="1000" nzLabel="1000" />
+          </nz-select>
+        </span>
+      }
+      <span class="page-index-line">
+        <span>{{ pageStartIndex() }}</span>
+        <span>-</span>
+        <span>{{ pageEndIndex() }}</span>
+        <span i18n="@@paginator.from">of</span>
+        <span>{{ length() }}</span>
+      </span>
+      @if (full()) {
+        <span>
+          <button nz-button nzShape="circle" [disabled]="buttonStartDisabled()" (click)="start()">
+            <nz-icon nzType="double-left" />
+          </button>
+        </span>
+      }
+      <span>
+        <button nz-button nzShape="circle" [disabled]="buttonPrevDisabled()" (click)="prev()">
+          <nz-icon nzType="left" />
+        </button>
+      </span>
+      <span>
+        <button nz-button nzShape="circle" [disabled]="buttonNextDisabled()" (click)="next()">
+          <nz-icon nzType="right" />
+        </button>
+      </span>
+      @if (full()) {
+        <span>
+          <button nz-button nzShape="circle" [disabled]="buttonEndDisabled()" (click)="end()">
+            <nz-icon nzType="double-right" />
+          </button>
+        </span>
+      }
+    </span>
   `,
   styles: `
-    mat-paginator {
-      background-color: transparent;
+    .paginator {
+      font-size: 0.8em;
+    }
+
+    .page-index-line {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      > :not(:last-child) {
+        padding-right: 0.5em;
+      }
     }
   `,
-  imports: [MatPaginatorModule],
+  imports: [FormsModule, NzButtonComponent, NzIconDirective, NzOptionComponent, NzSelectComponent],
 })
-export class PaginatorComponent implements AfterViewInit {
+export class PaginatorComponent {
   pageSize = input.required<number>();
   pageIndex = input.required<number>();
   length = input.required<number>();
-  showFirstLastButtons = input(false);
-  showPageSizeSelection = input(false);
+  full = input<boolean>(true);
 
   pageSizeChange = output<number>();
   pageIndexChange = output<number>();
 
-  readonly matPaginator = viewChild(MatPaginator);
-
-  ngAfterViewInit(): void {
-    this.initTranslations();
-  }
-
-  rowNumber(index: number): number {
-    return this.matPaginator().pageSize * this.matPaginator().pageIndex + index + 1;
-  }
-
-  pageChanged(event: PageEvent): void {
-    if (event.pageSize !== this.pageSize()) {
-      this.pageSizeChange.emit(event.pageSize);
-    } else if (event.pageIndex !== event.previousPageIndex) {
-      this.pageIndexChange.emit(event.pageIndex);
+  pageSizeString = computed(() => '' + this.pageSize());
+  pageStartIndex = computed(() => this.pageIndex() * this.pageSize() + 1);
+  pageEndIndex = computed(() => {
+    const endIndex = this.pageStartIndex() + this.pageSize() - 1;
+    if (endIndex > this.length()) {
+      return this.length();
     }
+    return endIndex;
+  });
+
+  pageCount = computed(() => {
+    const count = Math.trunc(this.length() / this.pageSize());
+    if (count * this.pageSize() + 1 < this.length()) {
+      return count + 1;
+    }
+    return count;
+  });
+
+  buttonStartDisabled = computed(() => this.length() > 0 && this.pageIndex() < 1);
+  buttonPrevDisabled = computed(() => this.length() > 0 && this.pageIndex() < 1);
+  buttonNextDisabled = computed(
+    () => this.length() > 0 && this.pageIndex() === this.pageCount() - 1
+  );
+  buttonEndDisabled = computed(
+    () => this.length() > 0 && this.pageIndex() === this.pageCount() - 1
+  );
+
+  pageSizeChanged(pageSize: number): void {
+    this.pageSizeChange.emit(pageSize);
   }
 
-  private initTranslations(): void {
-    this.matPaginator()._intl.itemsPerPageLabel = $localize`:@@paginator.items-per-page-label:Items per page`;
-    this.matPaginator()._intl.nextPageLabel = $localize`:@@paginator.next-page-label:Next page`;
-    this.matPaginator()._intl.previousPageLabel = $localize`:@@paginator.previous-page-label:Previous page`;
-    this.matPaginator()._intl.firstPageLabel = $localize`:@@paginator.first-page-label:First page`;
-    this.matPaginator()._intl.lastPageLabel = $localize`:@@paginator.last-page-label:Last page`;
+  start(): void {
+    this.pageIndexChange.emit(0);
+  }
 
-    const of = $localize`:@@paginator.from:of`;
-    this.matPaginator()._intl.getRangeLabel = (page: number, pageSize: number, length: number) => {
-      if (length === 0 || pageSize === 0) {
-        return `0 ${of} ${length}`;
-      }
-      const itemCount = Math.max(length, 0);
-      const startIndex = page * pageSize;
-      const endIndex =
-        startIndex < itemCount ? Math.min(startIndex + pageSize, itemCount) : startIndex + pageSize;
-      return `${startIndex + 1} - ${endIndex} ${of} ${length}`;
-    };
+  prev(): void {
+    this.pageIndexChange.emit(this.pageIndex() - 1);
+  }
+
+  next(): void {
+    this.pageIndexChange.emit(this.pageIndex() + 1);
+  }
+
+  end(): void {
+    this.pageIndexChange.emit(this.pageCount() - 1);
   }
 }

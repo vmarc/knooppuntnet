@@ -7,14 +7,14 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterLink } from '@angular/router';
 import { LocationPoiInfo } from '@api/common/poi/location-poi-info';
 import { PageWidthService } from '@app/shared/components/page-width.service';
-import { PaginatorComponent } from '@app/shared/components/paginator/paginator.component';
+import { OldPaginatorComponent } from '@app/shared/components/paginator/old-paginator.component';
 import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
 
 @Component({
   selector: 'kpn-poi-location-poi-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-paginator
+    <kpn-old-paginator
       [pageIndex]="service.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="service.pageSize()"
@@ -81,7 +81,7 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
       <tr mat-row *matRowDef="let node; columns: displayedColumns()"></tr>
     </table>
 
-    <kpn-paginator
+    <kpn-old-paginator
       [pageIndex]="service.pageIndex()"
       (pageIndexChange)="onPageIndexChange($event)"
       [pageSize]="service.pageSize()"
@@ -94,7 +94,7 @@ import { PoiLocationPoisPageService } from '../poi-location-pois-page.service';
       flex: 0 0 4em;
     }
   `,
-  imports: [PaginatorComponent, MatTableModule, RouterLink],
+  imports: [MatTableModule, RouterLink, OldPaginatorComponent],
 })
 export class PoiLocationPoiTableComponent {
   pois = input.required<LocationPoiInfo[]>();

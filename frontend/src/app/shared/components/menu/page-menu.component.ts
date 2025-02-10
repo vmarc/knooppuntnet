@@ -14,11 +14,11 @@ import { MatDividerModule } from '@angular/material/divider';
         <ng-content select="[menu-extra-item]" />
       </div>
     </div>
-    <mat-divider />
   `,
   styles: `
     .menu-wrapper {
       display: flex;
+      border-bottom: 1px solid lightgray;
     }
 
     .menu {

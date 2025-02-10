@@ -64,6 +64,7 @@ module.exports = tseslint.config(
           ignoreAttributes: [
             "as-split[direction]",
             "as-split[unit]",
+            "button[nzShape]",
             "button[nzType]",
             "kpn-icon-button[icon]",
             "kpn-icon-link[elementType]",
@@ -73,6 +74,7 @@ module.exports = tseslint.config(
             "nz-divider[nzType]",
             "nz-icon[nzSize]",
             "nz-icon[nzType]",
+            "nz-pagination[nzSize]",
             "nz-table[nzPaginationPosition]",
             "nz-table[nzSize]",
             "nzOverlayClassName",
