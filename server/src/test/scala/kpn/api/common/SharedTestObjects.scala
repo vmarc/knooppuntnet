@@ -953,7 +953,8 @@ trait SharedTestObjects extends MockFactory {
     bounds: Option[Bounds] = None,
     structureRows: Seq[RouteStructureRow] = Seq.empty,
     parentRoutes: Seq[ParentRoute] = Seq.empty,
-    networkReferences: Seq[Reference] = Seq.empty
+    networkReferences: Seq[Reference] = Seq.empty,
+    edges: Seq[RouteEdge] = Seq.empty,
   ): RouteDoc = {
     RouteDoc(
       summary.id,
@@ -979,6 +980,7 @@ trait SharedTestObjects extends MockFactory {
       structureRows,
       parentRoutes,
       networkReferences,
+      edges,
       None,
     )
   }

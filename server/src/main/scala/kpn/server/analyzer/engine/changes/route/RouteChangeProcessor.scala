@@ -49,7 +49,7 @@ class RouteChangeProcessor(
       }
 
       (
-        s"${routeChanges} route changes",
+        s"$routeChanges route changes",
         context.copy(
           changes = context.changes.copy(
             routeChanges = routeChanges

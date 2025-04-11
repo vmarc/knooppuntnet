@@ -452,7 +452,7 @@ class MonitorRouteUpdateExecutor(
     context.reporter.stepDone("save")
   }
 
-  private def addRouteWithMultiGpxReference() = {
+  private def addRouteWithMultiGpxReference(): Unit = {
     context.newRoute match {
       case None =>
       case Some(newRoute) =>

@@ -20,7 +20,7 @@ case class RoutedatabankNode(
       name,
       latitude,
       longitude,
-      false
+      virtual = false
     )
   }
 }

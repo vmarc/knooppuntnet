@@ -1,7 +1,7 @@
 package kpn.core.tools.monitor.support
 
 object StructureIssueLinks {
-  val links = Seq(
+  val links: Seq[String] = Seq(
     "wb000",
     "wb001",
     "wb002",

@@ -45,8 +45,8 @@ object RouteExploreTool {
         val inaccessibleMembers = doc.members.filter { m =>
           m.way.exists(i => !i.accessible) &&
             m.role.nonEmpty &&
-            !RouteRoleAnalyzer.knownRoles.contains(m.role) &&
-            !RouteRoleAnalyzer.poiRoles.contains(m.role) &&
+            !RouteRoleAnalyzer.knownRoles.contains(m.role.get) &&
+            !RouteRoleAnalyzer.poiRoles.contains(m.role.get) &&
             !m.role.exists(_.startsWith("stop"))
         }
         inaccessibleMembers.foreach { member =>

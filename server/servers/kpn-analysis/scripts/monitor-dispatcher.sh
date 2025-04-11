@@ -4,10 +4,9 @@
 #
 while true
 do
-	echo ---
-	date +"%F %T"
-	echo ---
-	/kpn/overpass/bin/dispatcher --osm-base --status
-	sleep 5
+  echo ---
+  date +"%F %T"
+  echo ---
+  /kpn/overpass/bin/dispatcher --osm-base --status
+  sleep 5
 done
-

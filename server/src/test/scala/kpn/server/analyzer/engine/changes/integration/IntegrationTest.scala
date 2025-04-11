@@ -250,7 +250,9 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   def assertNoNodeChange(nodeId: Long): Unit = {
-    !database.nodeChanges.findAll().exists(_.id == nodeId)
+    if (database.nodeChanges.findAll().exists(_.id == nodeId)) {
+      fail(s"unexpected node changes for node $nodeId")
+    }
   }
 
   def beforeNodeWithId(nodeId: Long): Node = {
