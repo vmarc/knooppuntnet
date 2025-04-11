@@ -63,19 +63,19 @@ class NetworkCreateTest01 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      assert(!watched.networks.contains(1))
-      assert(watched.routes.contains(11))
-      assert(watched.nodes.contains(1001))
-      assert(watched.nodes.contains(1002))
-      assert(database.orphanNodes.isEmpty)
+      watched.networks.ids should not contain (1)
+      watched.routes.ids should contain(11)
+      watched.nodes.ids should contain(1001)
+      watched.nodes.ids should contain(1002)
+      database.orphanNodes shouldBe empty
       database.orphanRoutes.findAll().map(_._id) should equal(Seq(11))
 
       process(ChangeAction.Create, dataAfter.rawRelationWithId(1))
 
-      assert(watched.networks.contains(1))
-      assert(watched.routes.contains(11))
-      assert(watched.nodes.contains(1001))
-      assert(watched.nodes.contains(1002))
+      watched.networks.ids should contain(1)
+      watched.routes.ids should contain(11)
+      watched.nodes.ids should contain(1001)
+      watched.nodes.ids should contain(1002)
 
       assertBaseNetworkDoc()
       assertNetworkDoc()
@@ -85,8 +85,8 @@ class NetworkCreateTest01 extends IntegrationTest {
       assertNodeChange1002()
       assertChangeSetSummary()
 
-      assert(database.orphanNodes.isEmpty)
-      assert(database.orphanRoutes.isEmpty)
+      database.orphanNodes shouldBe empty
+      database.orphanRoutes shouldBe empty
     }
   }
 

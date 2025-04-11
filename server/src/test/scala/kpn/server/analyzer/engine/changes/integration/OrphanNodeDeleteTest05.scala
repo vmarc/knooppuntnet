@@ -25,10 +25,10 @@ class OrphanNodeDeleteTest05 extends IntegrationTest {
 
       process(ChangeAction.Delete, dataBefore.rawNodeWithId(1001))
 
-      assert(!watched.nodes.contains(1001))
-      assert(database.nodes.isEmpty)
-      assert(database.nodeChanges.isEmpty)
-      assert(database.changes.isEmpty)
+      watched.nodes.ids should not contain (1001)
+      database.nodes shouldBe empty
+      database.nodeChanges shouldBe empty
+      database.changes shouldBe empty
     }
   }
 }

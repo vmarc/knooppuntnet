@@ -48,11 +48,11 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      assert(watched.nodes.contains(1001))
-      assert(watched.nodes.contains(1002))
-      assert(watched.networks.contains(1))
+      watched.nodes.ids should contain(1001)
+      watched.nodes.ids should contain(1002)
+      watched.networks.ids should contain(1)
 
-      assert(database.routes.isEmpty)
+      database.routes shouldBe empty
       assertEqual(findNodeById(1001), node1001)
       assertEqual(findNodeById(1002), node1002)
       assertEqual(database.orphanNodes.stringIds(), Seq("nl:hiking:1002"))

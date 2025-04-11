@@ -14,13 +14,13 @@ class NetworkDeleteTest02 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(1))
 
-      assert(!watched.networks.contains(1))
+      watched.networks.ids should not contain (1)
 
-      assert(database.baseNetworks.isEmpty)
-      assert(database.networks.isEmpty)
-      assert(database.changes.isEmpty)
-      assert(database.networkInfoChanges.isEmpty)
-      assert(database.routeChanges.isEmpty)
+      database.baseNetworks shouldBe empty
+      database.networks shouldBe empty
+      database.changes shouldBe empty
+      database.networkInfoChanges shouldBe empty
+      database.routeChanges shouldBe empty
     }
   }
 }

@@ -27,7 +27,7 @@ class OrphanNodeCreateTest01 extends IntegrationTest {
 
       process(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
 
-      assert(watched.nodes.contains(1001))
+      watched.nodes.ids should contain(1001)
 
       assertNode()
       assertNodeChange()

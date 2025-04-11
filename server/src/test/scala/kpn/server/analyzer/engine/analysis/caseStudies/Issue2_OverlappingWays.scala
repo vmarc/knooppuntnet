@@ -35,8 +35,8 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
       //      routeAnalysis.routeDetail.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
       //        makeGeojson(s"unusedSegment ${index + 1}", segment)
       //      }
-      assert(routeAnalysis.facts.isEmpty)
-      //      assert(routeAnalysis.structure.unusedSegments.isEmpty)
+      routeAnalysis.facts shouldBe empty
+      //      routeAnalysis.structure.unusedSegments shouldBe empty
     }
   }
 
@@ -49,8 +49,8 @@ class Issue2_OverlappingWays extends UnitTest with MockFactory {
       //      routeAnalysis.routeDetail.analysis.map.unusedSegments.zipWithIndex.foreach { case (segment, index) =>
       //        makeGeojson(s"unusedSegment: ${index + 1}", segment)
       //      }
-      assert(routeAnalysis.facts.isEmpty)
-      //      assert(routeAnalysis.structure.unusedSegments.isEmpty)
+      routeAnalysis.facts shouldBe empty
+      //      routeAnalysis.structure.unusedSegments shouldBe empty
     }
   }
 

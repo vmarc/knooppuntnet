@@ -77,7 +77,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      assert(watched.routes.contains(11))
+      watched.routes.ids should contain(11)
 
       assertRoute()
       assertRouteDetail()
@@ -86,7 +86,7 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
       assertRouteChange()
       assertChangeSetSummary()
 
-      assert(database.nodeChanges.isEmpty)
+      database.nodeChanges shouldBe empty
     }
   }
 

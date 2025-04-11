@@ -64,12 +64,12 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
-      assert(watched.nodes.contains(1001))
-      assert(watched.nodes.contains(1002))
-      assert(watched.networks.contains(1))
-      assert(watched.networks.contains(2))
+      watched.nodes.ids should contain(1001)
+      watched.nodes.ids should contain(1002)
+      watched.networks.ids should contain(1)
+      watched.networks.ids should contain(2)
 
-      assert(database.orphanNodes.isEmpty)
+      database.orphanNodes shouldBe empty
 
       // network 2 has not changed
       assertEqual(findBaseNetworkById(2), network2)

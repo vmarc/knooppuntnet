@@ -37,9 +37,10 @@ class RouteCreateTest01 extends IntegrationTest {
 
       process(ChangeAction.Create, dataAfter.rawRelationWithId(11))
 
-      assert(watched.routes.contains(11))
-      assert(watched.nodes.contains(1001))
-      assert(watched.nodes.contains(1002))
+      watched.routes.ids should contain(11)
+      watched.nodes.ids should contain(1001)
+      watched.nodes.ids should contain(1001)
+      watched.nodes.ids should contain(1002)
 
       assertRoute()
       assertOrphanRoute()
@@ -50,7 +51,7 @@ class RouteCreateTest01 extends IntegrationTest {
       assertNodeChange1002()
       assertChangeSetSummary()
 
-      assert(database.orphanNodes.isEmpty)
+      database.orphanNodes shouldBe empty
     }
   }
 

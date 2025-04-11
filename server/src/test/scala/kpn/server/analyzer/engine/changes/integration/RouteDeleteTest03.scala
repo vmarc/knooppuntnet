@@ -48,12 +48,12 @@ class RouteDeleteTest03 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      assert(watched.routes.contains(11))
-      assert(database.orphanNodes.isEmpty)
+      watched.routes.ids should contain(11)
+      database.orphanNodes shouldBe empty
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
-      assert(!watched.routes.contains(11))
+      watched.nodes.ids should not contain (11)
 
       assertRoute()
       assertRouteChange()
@@ -61,7 +61,7 @@ class RouteDeleteTest03 extends IntegrationTest {
       assertNodeChange1002()
       assertOrphanNode1001()
       assertOrphanNode1002()
-      assert(database.orphanRoutes.isEmpty)
+      database.orphanRoutes shouldBe empty
       assertChangeSetSummary()
     }
   }

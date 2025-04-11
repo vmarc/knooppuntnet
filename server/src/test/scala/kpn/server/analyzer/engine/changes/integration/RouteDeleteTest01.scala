@@ -6,8 +6,8 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.RouteScope
 import kpn.api.common.NodeName
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
@@ -39,9 +39,9 @@ class RouteDeleteTest01 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(11))
 
-      assert(watched.nodes.contains(1001))
-      assert(watched.nodes.contains(1002))
-      assert(!watched.routes.contains(11))
+      watched.nodes.ids should contain(1001)
+      watched.nodes.ids should contain(1002)
+      watched.routes.ids should not contain (11)
 
       assertRoute()
       assertNode1001()
@@ -51,7 +51,7 @@ class RouteDeleteTest01 extends IntegrationTest {
       assertNodeChange1002()
       assertOrphanNode1001()
       assertOrphanNode1002()
-      assert(database.orphanRoutes.isEmpty)
+      database.orphanRoutes shouldBe empty
       assertChangeSetSummary()
     }
   }

@@ -98,39 +98,39 @@ class RouteChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.blacklistRoute(11L)
     val change = Change(Create, Seq(buildRoute(11L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Modify' of blacklisted route") {
     val setup = new Setup()
     setup.blacklistRoute(11L)
     val change = Change(Modify, Seq(buildRoute(11L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Delete' of blacklisted route") {
     val setup = new Setup()
     setup.blacklistRoute(11L)
     val change = Change(Delete, Seq(buildRoute(11L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Create' of non-route relation") {
     val setup = new Setup()
     val change = Change(Create, Seq(newRawRelation(11L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Modify' of non-route relation") {
     val setup = new Setup()
     val change = Change(Modify, Seq(newRawRelation(11L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Delete' of unknown route relation") {
     val setup = new Setup()
     val change = Change(Delete, Seq(newRawRelation(11L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   private def buildRoute(routeId: Long, networkTagValue: String = "rwn"): RawRelation = {

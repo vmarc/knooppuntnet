@@ -86,39 +86,39 @@ class NodeChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.blacklistNode(1001L)
     val change = Change(Create, Seq(createNode(1001L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Modify' of blacklisted route") {
     val setup = new Setup()
     setup.blacklistNode(1001L)
     val change = Change(Modify, Seq(createNode(1001L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Delete' of blacklisted route") {
     val setup = new Setup()
     setup.blacklistNode(1001L)
     val change = Change(Delete, Seq(createNode(1001L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Create' of non-network node") {
     val setup = new Setup()
     val change = Change(Create, Seq(newRawNode(1001L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Modify' of non-network node") {
     val setup = new Setup()
     val change = Change(Modify, Seq(newRawNode(1001L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Delete' of non-network node") {
     val setup = new Setup()
     val change = Change(Delete, Seq(newRawNode(1001L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   private def createNode(nodeId: Long, networkTagValue: String = "rwn_ref"): RawNode = {

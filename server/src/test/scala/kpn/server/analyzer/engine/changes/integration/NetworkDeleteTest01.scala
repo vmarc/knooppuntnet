@@ -37,13 +37,13 @@ class NetworkDeleteTest01 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      assert(watched.networks.contains(1))
-      assert(watched.nodes.contains(1001))
+      watched.networks.ids should contain(1)
+      watched.nodes.ids should contain(1001)
 
       process(ChangeAction.Delete, newRawRelation(1))
 
-      assert(!watched.networks.contains(1))
-      assert(!watched.nodes.contains(1001))
+      watched.networks.ids should not contain (1)
+      watched.nodes.ids should not contain (1001)
 
       assertNetworkNonActive()
       assertNetworkInfoNoneActive()

@@ -46,12 +46,12 @@ class RouteUpdateTest01 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
-      assert(watched.routes.contains(11))
+      watched.routes.ids should contain(11)
 
       assertRoute()
       assertRouteChange()
       assertOrphanRoute()
-      assert(database.nodeChanges.isEmpty)
+      database.nodeChanges shouldBe empty
       assertChangeSetSummary()
     }
   }

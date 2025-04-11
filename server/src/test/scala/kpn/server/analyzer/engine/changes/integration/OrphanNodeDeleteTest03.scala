@@ -14,11 +14,11 @@ class OrphanNodeDeleteTest03 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawNode(1001))
 
-      assert(!watched.nodes.contains(1001))
+      watched.nodes.ids should not contain (1001)
 
-      assert(database.nodes.isEmpty)
-      assert(database.changes.isEmpty)
-      assert(database.nodeChanges.isEmpty)
+      database.nodes shouldBe empty
+      database.changes shouldBe empty
+      database.nodeChanges shouldBe empty
     }
   }
 }

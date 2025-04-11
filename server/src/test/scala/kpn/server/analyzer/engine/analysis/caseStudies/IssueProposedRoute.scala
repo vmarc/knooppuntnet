@@ -8,7 +8,7 @@ class IssueProposedRoute extends UnitTest {
     val context = CaseStudy.analyze("11771769")
     context.routeNodesAnalysis.startNode.map(_.node.id) should equal(Some(287668251))
     context.routeNodesAnalysis.endNode.map(_.node.id) should equal(Some(282827349))
-    assert(context.routeNodesAnalysis.redundantNodes.isEmpty)
-    context.facts should equal(Seq.empty)
+    context.routeNodesAnalysis.redundantNodes shouldBe empty
+    context.facts shouldBe empty
   }
 }

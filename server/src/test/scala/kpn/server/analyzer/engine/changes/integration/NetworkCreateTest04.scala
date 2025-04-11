@@ -56,7 +56,7 @@ class NetworkCreateTest04 extends IntegrationTest {
         )
       )
 
-      assert(watched.networks.contains(1))
+      watched.networks.ids should contain(1)
 
       assertBaseNetwork()
       assertNetwork()

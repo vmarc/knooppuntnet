@@ -14,11 +14,11 @@ class RouteDeleteTest02 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(11))
 
-      assert(!watched.routes.contains(11))
+      watched.nodes.ids should not contain (11)
 
-      assert(database.routes.isEmpty)
-      assert(database.changes.isEmpty)
-      assert(database.routeChanges.isEmpty)
+      database.routes shouldBe empty
+      database.changes shouldBe empty
+      database.routeChanges shouldBe empty
     }
   }
 }

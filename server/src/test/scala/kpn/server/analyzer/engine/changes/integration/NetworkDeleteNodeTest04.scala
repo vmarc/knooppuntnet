@@ -44,10 +44,10 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         )
       )
 
-      assert(database.orphanNodes.isEmpty) // the node does not become orphan, it is no longer a network node
+      database.orphanNodes shouldBe empty // the node does not become orphan, it is no longer a network node
 
-      assert(!watched.networks.contains(1))
-      assert(!watched.nodes.contains(1001))
+      watched.networks.ids should not contain (1)
+      watched.nodes.ids should not contain (1001)
 
       assertBaseNode()
       assertNode()

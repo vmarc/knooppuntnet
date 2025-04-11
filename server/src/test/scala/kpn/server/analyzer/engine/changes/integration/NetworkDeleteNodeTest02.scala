@@ -31,11 +31,11 @@ class NetworkDeleteNodeTest02 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(1))
 
-      assert(database.orphanNodes.isEmpty)
+      database.orphanNodes shouldBe empty
 
-      assert(!watched.networks.contains(1))
-      assert(watched.networks.contains(2))
-      assert(watched.nodes.contains(1001))
+      watched.networks.ids should not contain (1)
+      watched.networks.ids should contain(2)
+      watched.nodes.ids should contain(1001)
 
       assertNetwork()
       assertNetworkChange()

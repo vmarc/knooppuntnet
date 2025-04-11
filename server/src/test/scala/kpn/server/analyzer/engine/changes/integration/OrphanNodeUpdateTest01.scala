@@ -5,8 +5,8 @@ import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
-import kpn.api.common.RouteScope
 import kpn.api.common.NodeName
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.diff.TagDetail
@@ -43,7 +43,7 @@ class OrphanNodeUpdateTest01 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawNodeWithId(1001))
 
-      assert(watched.nodes.contains(1001))
+      watched.nodes.ids should contain(1001)
 
       assertNode()
       assertNodeChange()

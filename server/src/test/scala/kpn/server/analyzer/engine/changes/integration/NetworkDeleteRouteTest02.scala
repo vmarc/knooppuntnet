@@ -66,16 +66,16 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(1))
 
-      assert(!watched.networks.contains(1))
-      assert(watched.networks.contains(2))
-      assert(watched.routes.contains(11))
+      watched.networks.ids should not contain (1)
+      watched.networks.ids should contain(2)
+      watched.routes.ids should contain(11)
 
-      assert(watched.nodes.contains(1001))
-      assert(watched.nodes.contains(1002))
+      watched.nodes.ids should contain(1001)
+      watched.nodes.ids should contain(1002)
 
-      assert(database.orphanNodes.isEmpty)
-      assert(database.orphanRoutes.isEmpty)
-      assert(database.nodeChanges.isEmpty)
+      database.orphanNodes shouldBe empty
+      database.orphanRoutes shouldBe empty
+      database.nodeChanges shouldBe empty
 
       assertNetwork()
       assertNetworkChange()

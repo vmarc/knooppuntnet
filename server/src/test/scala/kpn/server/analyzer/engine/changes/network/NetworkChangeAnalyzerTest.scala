@@ -72,39 +72,39 @@ class NetworkChangeAnalyzerTest extends UnitTest with SharedTestObjects {
     val setup = new Setup()
     setup.blacklistNetwork(1L)
     val change = Change(Create, Seq(buildNetwork(1L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Modify' of blacklisted network") {
     val setup = new Setup()
     setup.blacklistNetwork(1L)
     val change = Change(Modify, Seq(buildNetwork(1L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Delete' of blacklisted network") {
     val setup = new Setup()
     setup.blacklistNetwork(1L)
     val change = Change(Delete, Seq(buildNetwork(1L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Create' of non-network relation") {
     val setup = new Setup()
     val change = Change(Create, Seq(newRawRelation(1L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Modify' of non-network relation") {
     val setup = new Setup()
     val change = Change(Modify, Seq(newRawRelation(1L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   test("Ignore 'Delete' of unknown network relation") {
     val setup = new Setup()
     val change = Change(Delete, Seq(newRawRelation(1L)))
-    assert(setup.analyze(change).isEmpty)
+    setup.analyze(change) shouldBe empty
   }
 
   private def buildNetwork(networkId: Long, networkTagValue: String = "rwn"): RawRelation = {
