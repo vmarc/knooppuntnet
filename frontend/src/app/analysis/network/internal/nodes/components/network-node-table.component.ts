@@ -1,4 +1,4 @@
-import { viewChild } from '@angular/core';
+import { computed } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
@@ -8,17 +8,14 @@ import { TimeInfo } from '@api/common/time-info';
 import { RouteScope } from '@api/common/route-scope';
 import { RouteType } from '@api/common/route-type';
 import { NetworkNodeRow } from '@api/common/network/network-node-row';
-import { EditService } from '@app/analysis/components/edit/edit.service';
-import { EditAndPaginatorComponent } from '@app/analysis/components/edit/edit-and-paginator.component';
+import { EditLinkComponent } from '@app/analysis/components/edit/edit-link.component';
+import { FilterComponent } from '@app/analysis/components/filter/filter.component';
 import { DayComponent } from '@app/shared/components/day/day.component';
 import { DayPipe } from '@app/shared/components/format/day.pipe';
 import { LinkNodeComponent } from '@app/shared/components/link/link-node.component';
-import { NzTbodyComponent } from 'ng-zorro-antd/table';
-import { NzTrDirective } from 'ng-zorro-antd/table';
-import { NzTheadComponent } from 'ng-zorro-antd/table';
-import { NzThMeasureDirective } from 'ng-zorro-antd/table';
+import { ListItemComponent } from '@app/shared/components/list/list-item.component';
+import { ListComponent } from '@app/shared/components/list/list.component';
 import { NzTableCellDirective } from 'ng-zorro-antd/table';
-import { NzTableComponent } from 'ng-zorro-antd/table';
 import { ActionButtonNodeComponent } from '../../../../components/action/action-button-node.component';
 import { NetworkNodesPageService } from '../network-nodes-page.service';
 import { NetworkNodeAnalysisComponent } from './network-node-analysis.component';
@@ -28,132 +25,109 @@ import { NetworkNodeRoutesComponent } from './network-node-routes.component';
   selector: 'kpn-network-node-table',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <kpn-edit-and-paginator
-      (edit)="edit()"
-      i18n-editLinkTitle="@@network-nodes.edit.title"
-      editLinkTitle="Load the nodes in this page in JOSM"
-      [pageSize]="service.pageSize()"
+    <kpn-list
+      [pageIndex]="pageIndex()"
+      (pageIndexChange)="onPageIndexChange($event)"
+      [pageSize]="pageSize()"
       (pageSizeChange)="onPageSizeChange($event)"
-      [length]="nodes()?.length"
-      [showPageSizeSelection]="true"
-      [showFirstLastButtons]="true"
-    />
-
-    <nz-table
-      nzBordered
-      #nodeTable
-      [nzData]="filteredNodes()"
-      [nzPageSize]="pageSize()"
-      nzPaginationPosition="both"
-      nzShowSizeChanger="true"
-      [nzPageSizeOptions]="[10, 25, 50, 100, 250, 500, 1000]"
-      nzSize="small"
+      [length]="nodeCount()"
+      [filter]="true"
     >
-      <thead>
-        <tr>
-          <th rowSpan="2" i18n="@@network-nodes.table.nr">Nr</th>
-          <th rowSpan="2" i18n="@@network-nodes.table.analysis">Analysis</th>
-          <th rowSpan="2" i18n="@@network-nodes.table.node">Node</th>
-          <th rowSpan="2" i18n="@@network-nodes.table.name">Name</th>
-          <th colSpan="2" i18n="@@network-nodes.table.routes">Routes</th>
-          <th rowSpan="2" i18n="@@network-nodes.table.last-survey">Survey</th>
-          <th rowSpan="2" i18n="@@network-nodes.table.last-edit">Last edit</th>
-        </tr>
-        <tr>
-          <th i18n="@@network-nodes.table.routes.expected">Expected</th>
-          <th i18n="@@network-nodes.table.routes.actual">Actual</th>
-        </tr>
-      </thead>
+      <kpn-filter [filterOptions]="filterOptions()" filter />
 
-      <tbody>
-        @for (node of nodeTable.data; track node.detail.id; let i = $index) {
-          <tr>
-            <td class="nr-column">
-              {{ rowNumber(i) }}
-            </td>
-            <td>
-              <kpn-network-node-analysis
-                [routeType]="routeType()"
-                [routeScope]="routeScope()"
-                [node]="node"
-              />
-            </td>
-            <td class="kpn-align-center node-column">
-              <kpn-action-button-node [nodeId]="node.detail.id" />
-              <kpn-link-node [nodeId]="node.detail.id" [nodeName]="node.detail.name" />
-            </td>
-            <td>
-              {{ node.detail.longName }}
-            </td>
-            <td>
-              {{ expectedRouteCount(node) }}
-            </td>
-            <td class="routes-actual-column">
-              <kpn-network-node-routes [node]="node" />
-            </td>
-            <td>
-              {{ node.detail.lastSurvey | day }}
-            </td>
-            <td class="kpn-separated">
-              <kpn-day [timestamp]="node.detail.timestamp" />
-            </td>
-          </tr>
-        }
-      </tbody>
-    </nz-table>
-  `,
-  styles: `
-    .nr-column {
-      width: 3rem;
-    }
+      <kpn-edit-link
+        header-extra
+        (edit)="edit()"
+        i18n-title="@@network-nodes.edit.title"
+        title="Load the nodes in this page in JOSM"
+      />
 
-    .routes-actual-column {
-      width: 12rem;
-    }
+      @for (node of filteredNodes(); track node.detail.id; let i = $index) {
+        <kpn-list-item [selected]="false">
+          <div class="kpn-line">
+            {{ rowNumber(i) }}
+            <kpn-action-button-node [nodeId]="node.detail.id" />
+            <kpn-link-node [nodeId]="node.detail.id" [nodeName]="node.detail.name" />
+            <span>{{ node.detail.longName }}</span>
+          </div>
+          <div class="kpn-line">
+            <kpn-network-node-analysis
+              [routeType]="routeType()"
+              [routeScope]="routeScope()"
+              [node]="node"
+            />
+            @if (node.detail.lastSurvey) {
+              <span>
+                <span i18n="@@network-nodes.table.last-survey" class="kpn-label">Survey</span>
+                <span>
+                  {{ node.detail.lastSurvey | day }}
+                </span>
+              </span>
+            }
+            <span>
+              <span i18n="@@network-nodes.table.last-edit" class="kpn-label">Last edit</span>
+              <span>
+                <kpn-day [timestamp]="node.detail.timestamp" />
+              </span>
+            </span>
+          </div>
+          <div>
+            <span>
+              <span i18n="@@network-nodes.table.routes.expected" class="kpn-label"> Expected </span>
+              <span>{{ expectedRouteCount(node) }}</span>
+            </span>
+          </div>
 
-    .node-column {
-      padding-left: 0 !important;
-      padding-right: 1rem !important;
-    }
+          <div>
+            <kpn-network-node-routes [node]="node" />
+          </div>
+          <td></td>
+        </kpn-list-item>
+      }
+    </kpn-list>
   `,
   imports: [
     ActionButtonNodeComponent,
     DayComponent,
     DayPipe,
-    EditAndPaginatorComponent,
+    EditLinkComponent,
+    FilterComponent,
     LinkNodeComponent,
+    ListComponent,
+    ListItemComponent,
     NetworkNodeAnalysisComponent,
     NetworkNodeRoutesComponent,
     NzTableCellDirective,
-    NzTableComponent,
-    NzTbodyComponent,
-    NzThMeasureDirective,
-    NzTheadComponent,
-    NzTrDirective,
-    DayPipe,
   ],
 })
 export class NetworkNodeTableComponent {
+  private readonly service = inject(NetworkNodesPageService);
+
   routeType = input.required<RouteType>();
   routeScope = input.required<RouteScope>();
   timeInfo = input.required<TimeInfo>();
   surveyDateInfo = input.required<SurveyDateInfo>();
   nodes = input.required<NetworkNodeRow[]>();
 
-  private readonly editAndPaginator = viewChild(EditAndPaginatorComponent);
+  // private readonly editService = inject(EditService);
 
-  private readonly editService = inject(EditService);
-  protected readonly service = inject(NetworkNodesPageService);
-
+  readonly pageIndex = this.service.pageIndex;
   readonly pageSize = this.service.pageSize;
   readonly filteredNodes = this.service.filteredNodes;
+  readonly nodeCount = computed(() => this.filteredNodes()?.length);
+  readonly filterOptions = this.service.filterOptions;
 
   rowNumber(index: number): number {
-    return this.editAndPaginator().paginator().rowNumber(index);
+    // return this.editAndPaginator().paginator().rowNumber(index);
+    return 0;
   }
 
   expectedRouteCount(node: NetworkNodeRow): string {
     return node.detail.expectedRouteCount ? node.detail.expectedRouteCount.toString() : '-';
+  }
+
+  onPageIndexChange(pageIndex: number) {
+    // this.service.updatePageIndex(pageSize);
   }
 
   onPageSizeChange(pageSize: number) {
@@ -162,8 +136,8 @@ export class NetworkNodeTableComponent {
 
   edit(): void {
     const nodeIds = this.filteredNodes().map((node) => node.detail.id);
-    this.editService.edit({
-      nodeIds,
-    });
+    // this.editService.edit({
+    //   nodeIds,
+    // });
   }
 }

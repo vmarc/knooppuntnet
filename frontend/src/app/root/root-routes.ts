@@ -4,7 +4,6 @@ import { NotFoundPageComponent } from '../shared/base/pages/not-found/not-found-
 import { MenuComponent } from './internal/menu/menu.component';
 import { AnalysisComponent } from './internal/tryout/analysis.component';
 import { MonitorComponent } from './internal/tryout/monitor.component';
-import { PlannerComponent } from './internal/tryout/planner.component';
 
 export const rootRoutes: Routes = [
   {
@@ -17,7 +16,8 @@ export const rootRoutes: Routes = [
   },
   {
     path: 'planner',
-    component: PlannerComponent,
+    loadComponent: () =>
+      import('./internal/tryout/planner.component').then((m) => m.PlannerComponent),
   },
   {
     path: 'analysis',

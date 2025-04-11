@@ -3,7 +3,7 @@ import { SheriffConfig } from '@softarc/sheriff-core';
 // noinspection JSUnusedGlobalSymbols
 export const sheriffConfig: SheriffConfig = {
   modules: {
-    'src/app/api': 'noTag',
+    'src/app/api': 'api',
     'src/app/analysis/analysis': 'noTag',
     'src/app/analysis/changes': 'noTag',
     'src/app/analysis/changeset': 'noTag',
@@ -18,6 +18,8 @@ export const sheriffConfig: SheriffConfig = {
     'src/app/analysis/subset': 'noTag',
     'src/app/analysis/components': 'noTag',
     'src/app/explore': 'noTag',
+    'src/app/map': 'noTag',
+    'src/app/planner': 'noTag',
     'src/app/monitor': 'noTag',
     'src/app/ol': 'noTag',
     'src/app/poi': 'noTag',
@@ -28,7 +30,8 @@ export const sheriffConfig: SheriffConfig = {
   },
   enableBarrelLess: true,
   depRules: {
-    root: 'noTag',
-    noTag: 'noTag',
+    root: ['noTag', 'api'],
+    noTag: ['noTag', 'api'],
+    api: [],
   },
 };

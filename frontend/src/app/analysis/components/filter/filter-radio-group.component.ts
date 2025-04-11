@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
-import { MatRadioChange } from '@angular/material/radio';
+import { FormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { Translations } from '@app/shared/i18n/translations';
 import { FilterOption } from '@app/shared/kpn/filter/filter-option';
 import { FilterOptionGroup } from '@app/shared/kpn/filter/filter-option-group';
+import { NzRadioGroupComponent } from 'ng-zorro-antd/radio';
+import { NzRadioComponent } from 'ng-zorro-antd/radio';
 
 @Component({
   selector: 'kpn-filter-radio-group',
@@ -13,20 +15,22 @@ import { FilterOptionGroup } from '@app/shared/kpn/filter/filter-option-group';
   template: `
     <div>
       <div class="group-name">{{ groupName() }}</div>
-      <mat-radio-group [value]="selection()" (change)="selectionChanged($event)">
-        @for (option of group().options; track $index) {
-          <mat-radio-button [value]="option.name" [disabled]="option.count === 0">
-            <div class="filter-option">
-              <span class="option-name">{{ optionName(option) }}</span>
-              <span class="option-count">{{ option.count }}</span>
-            </div>
-          </mat-radio-button>
+      <nz-radio-group [ngModel]="selection()" (ngModelChange)="selectionChanged($event)">
+        @for (option of group().options; track option.name) {
+          <div>
+            <label nz-radio [nzValue]="option.name" [nzDisabled]="option.count === 0">
+              <div class="filter-option">
+                <span class="option-name">{{ optionName(option) }}</span>
+                <span class="option-count">{{ option.count }}</span>
+              </div>
+            </label>
+          </div>
         }
-      </mat-radio-group>
+      </nz-radio-group>
     </div>
   `,
   styleUrl: './filter.scss',
-  imports: [MatRadioModule],
+  imports: [MatRadioModule, NzRadioComponent, NzRadioGroupComponent, FormsModule],
 })
 export class FilterRadioGroupComponent {
   group = input.required<FilterOptionGroup>();
@@ -36,8 +40,8 @@ export class FilterRadioGroupComponent {
     return selectedOption == null ? null : selectedOption.name;
   }
 
-  selectionChanged(event: MatRadioChange) {
-    const option = this.group().options.find((o) => o.name === event.value);
+  selectionChanged(value: string) {
+    const option = this.group().options.find((o) => o.name === value);
     if (option) {
       option.updateState();
     }

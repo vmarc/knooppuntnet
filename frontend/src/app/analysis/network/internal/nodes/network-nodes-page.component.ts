@@ -2,11 +2,8 @@ import { OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
-import { FilterComponent } from '@app/analysis/components/filter/filter.component';
 import { PageComponent } from '@app/shared/components/page/page.component';
 import { SituationOnComponent } from '@app/shared/components/timestamp/situation-on.component';
-import { NzTabSetComponent } from 'ng-zorro-antd/tabs';
-import { NzTabComponent } from 'ng-zorro-antd/tabs';
 import { RouterService } from '@app/shared/services/router.service';
 import { NetworkPageHeaderComponent } from '../components/network-page-header.component';
 import { NetworkNodeTableComponent } from './components/network-node-table.component';
@@ -23,51 +20,40 @@ import { NetworkNodesPageService } from './network-nodes-page.service';
         i18n-pageTitle="@@network-nodes.title"
       />
 
-      <nz-tabset [nzSelectedIndex]="selectedTabIndex()" nzSize="small">
-        <nz-tab nzTitle="Nodes">
-          @if (service.response(); as response) {
-            @if (!response.result) {
-              <p i18n="@@network-page.network-not-found">Network not found</p>
+      @if (service.response(); as response) {
+        @if (!response.result) {
+          <p i18n="@@network-page.network-not-found">Network not found</p>
+        } @else {
+          @if (response.result; as page) {
+            <p>
+              <kpn-situation-on [timestamp]="response.situationOn" />
+            </p>
+            @if (page.nodes.length === 0) {
+              <div i18n="@@network-nodes.no-nodes">No network nodes in network</div>
             } @else {
-              @if (response.result; as page) {
-                <p>
-                  <kpn-situation-on [timestamp]="response.situationOn" />
-                </p>
-                @if (page.nodes.length === 0) {
-                  <div i18n="@@network-nodes.no-nodes">No network nodes in network</div>
-                } @else {
-                  <kpn-network-node-table
-                    [routeType]="page.summary.routeType"
-                    [routeScope]="page.summary.routeScope"
-                    [timeInfo]="page.timeInfo"
-                    [surveyDateInfo]="page.surveyDateInfo"
-                    [nodes]="page.nodes"
-                  />
-                }
-              }
+              <kpn-network-node-table
+                [routeType]="page.summary.routeType"
+                [routeScope]="page.summary.routeScope"
+                [timeInfo]="page.timeInfo"
+                [surveyDateInfo]="page.surveyDateInfo"
+                [nodes]="page.nodes"
+              />
             }
           }
-        </nz-tab>
-        <nz-tab nzTitle="Filter">
-          <kpn-filter [filterOptions]="service.filterOptions()" />
-        </nz-tab>
-      </nz-tabset>
+        }
+      }
     </kpn-page>
   `,
   providers: [NetworkNodesPageService, RouterService],
   imports: [
-    FilterComponent,
     NetworkNodeTableComponent,
     NetworkPageHeaderComponent,
     PageComponent,
     SituationOnComponent,
-    NzTabComponent,
-    NzTabSetComponent,
   ],
 })
 export class NetworkNodesPageComponent implements OnInit {
   protected readonly service = inject(NetworkNodesPageService);
-  readonly selectedTabIndex = this.service.selectedTabIndex;
 
   ngOnInit(): void {
     this.service.onInit();

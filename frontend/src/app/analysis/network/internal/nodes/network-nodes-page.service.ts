@@ -16,11 +16,11 @@ export class NetworkNodesPageService {
   private readonly networkService = inject(NetworkService);
   private readonly routerService = inject(RouterService);
 
-  private readonly _selectedTabIndex = signal<number>(0);
-  readonly selectedTabIndex = this._selectedTabIndex.asReadonly();
-
   private readonly _response = signal<ApiResponse<NetworkNodesPage>>(null);
   readonly response = this._response.asReadonly();
+
+  private readonly _pageIndex = signal<number>(0);
+  readonly pageIndex = this._pageIndex.asReadonly();
 
   readonly pageSize = this.state.preferences.pageSize;
 

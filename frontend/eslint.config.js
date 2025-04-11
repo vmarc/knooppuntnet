@@ -50,6 +50,9 @@ module.exports = tseslint.config(
     files: ["**/*.html"],
     ignores: ["**/index.html"],
     extends: [...angular.configs.templateAll, ...angular.configs.templateAccessibility],
+    linterOptions: {
+      reportUnusedDisableDirectives: "off", // off together with "@angular-eslint/template/i18n": "off"
+    },
     rules: {
       "@angular-eslint/template/eqeqeq": "off",
       "@angular-eslint/template/no-call-expression": "off",
@@ -59,7 +62,7 @@ module.exports = tseslint.config(
       "@angular-eslint/template/attributes-order": "off",
       "@angular-eslint/template/button-has-type": "off",
       "@angular-eslint/template/i18n": [
-        "warn",
+        "off",
         {
           ignoreAttributes: [
             "as-split[direction]",
