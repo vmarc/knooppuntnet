@@ -41,7 +41,7 @@ class RouteDeleteTest01 extends IntegrationTest {
 
       watched.nodes.ids should contain(1001)
       watched.nodes.ids should contain(1002)
-      watched.routes.ids should not contain (11)
+      watched.routes.ids shouldNot contain(11)
 
       assertRoute()
       assertNode1001()
@@ -113,7 +113,6 @@ class RouteDeleteTest01 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    pending // TODO redesign
     assertEqual(
       findRouteChangeById("123:1:11"),
       newRouteChange(

@@ -53,7 +53,7 @@ class RouteDeleteTest03 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
 
-      watched.nodes.ids should not contain (11)
+      watched.nodes.ids shouldNot contain(11)
 
       assertRoute()
       assertRouteChange()

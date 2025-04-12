@@ -36,7 +36,7 @@ class RouteToNetworkTest01 extends IntegrationTest {
       database.orphanRoutes.findById(1) should equal(None)
 
       val route = database.routes.findById(1).get
-      route.labels should not contain Label.active
+      route.labels shouldNot contain(Label.active)
       route.summary.name should equal("01-02")
       route.version should equal(1)
 

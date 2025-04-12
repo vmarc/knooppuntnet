@@ -86,7 +86,7 @@ class RouteCreateTest01 extends IntegrationTest {
 
   private def assertNode1001(): Unit = {
     assertEqual(
-      findNodeById(1001).copy(stamp = None),
+      findNodeById(1001),
       newNodeDoc(
         1001,
         labels = Seq(
@@ -112,7 +112,7 @@ class RouteCreateTest01 extends IntegrationTest {
 
   private def assertNode1002(): Unit = {
     assertEqual(
-      findNodeById(1002).copy(stamp = None),
+      findNodeById(1002),
       newNodeDoc(
         1002,
         labels = Seq(

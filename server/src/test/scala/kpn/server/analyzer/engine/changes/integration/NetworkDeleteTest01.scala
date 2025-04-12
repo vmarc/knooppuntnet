@@ -42,8 +42,8 @@ class NetworkDeleteTest01 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(1))
 
-      watched.networks.ids should not contain (1)
-      watched.nodes.ids should not contain (1001)
+      watched.networks.ids shouldNot contain(1)
+      watched.nodes.ids shouldNot contain(1001)
 
       assertNetworkNonActive()
       assertNetworkInfoNoneActive()

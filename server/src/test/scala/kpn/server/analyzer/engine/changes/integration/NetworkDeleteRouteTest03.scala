@@ -45,7 +45,7 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
       process(ChangeAction.Delete, newRawRelation(1))
 
       // network 1 is no longer in memory
-      watched.networks.ids should not contain (1)
+      watched.networks.ids shouldNot contain(1)
 
       watched.routes.ids should contain(11) // network 1 was removed, route no longer referenced
       watched.routes.ids should contain(12) // network 1 was removed, but route still referenced in network 2

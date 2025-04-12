@@ -14,7 +14,7 @@ class RouteDeleteTest02 extends IntegrationTest {
 
       process(ChangeAction.Delete, newRawRelation(11))
 
-      watched.nodes.ids should not contain (11)
+      watched.nodes.ids shouldNot contain(11)
 
       database.routes shouldBe empty
       database.changes shouldBe empty

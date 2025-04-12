@@ -64,7 +64,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         )
       )
 
-      watched.networks.ids should not contain (1)
+      watched.networks.ids shouldNot contain(1)
       watched.nodes.ids should contain(1001)
 
       assertNode()
@@ -78,7 +78,7 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
 
   private def assertNode(): Unit = {
     assertEqual(
-      findNodeById(1001).copy(stamp = None),
+      findNodeById(1001),
       newNodeDoc(
         1001,
         labels = Seq(

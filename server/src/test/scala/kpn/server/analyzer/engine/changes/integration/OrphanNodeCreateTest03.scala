@@ -25,7 +25,7 @@ class OrphanNodeCreateTest03 extends IntegrationTest {
 
       process(ChangeAction.Create, dataAfter.rawNodeWithId(1001))
 
-      watched.nodes.ids should not contain (1001)
+      watched.nodes.ids shouldNot contain(1001)
 
       database.nodes shouldBe empty
       database.nodeChanges shouldBe empty

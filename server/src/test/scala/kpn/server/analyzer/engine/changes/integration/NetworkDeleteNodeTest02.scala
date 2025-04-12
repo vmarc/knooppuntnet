@@ -33,7 +33,7 @@ class NetworkDeleteNodeTest02 extends IntegrationTest {
 
       database.orphanNodes shouldBe empty
 
-      watched.networks.ids should not contain (1)
+      watched.networks.ids shouldNot contain(1)
       watched.networks.ids should contain(2)
       watched.nodes.ids should contain(1001)
 

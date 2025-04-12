@@ -142,7 +142,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   def findNodeById(nodeId: Long): NodeDoc = {
-    database.nodes.findById(nodeId).getOrElse {
+    database.nodes.findById(nodeId).map(_.copy(stamp = None)).getOrElse {
       val ids = database.nodes.ids()
       if (ids.isEmpty) {
         fail(s"Could not find node $nodeId, no nodes in database")

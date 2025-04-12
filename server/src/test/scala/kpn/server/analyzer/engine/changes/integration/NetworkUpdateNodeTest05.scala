@@ -51,7 +51,7 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       watched.nodes.ids should contain(1001)
-      watched.nodes.ids should not contain (1002)
+      watched.nodes.ids shouldNot contain(1002)
       watched.networks.ids should contain(1)
 
       database.orphanNodes shouldBe empty

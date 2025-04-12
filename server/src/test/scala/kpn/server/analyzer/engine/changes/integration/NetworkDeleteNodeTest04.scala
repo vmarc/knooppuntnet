@@ -46,8 +46,8 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
 
       database.orphanNodes shouldBe empty // the node does not become orphan, it is no longer a network node
 
-      watched.networks.ids should not contain (1)
-      watched.nodes.ids should not contain (1001)
+      watched.networks.ids shouldNot contain(1)
+      watched.nodes.ids shouldNot contain(1001)
 
       assertBaseNode()
       assertNode()
@@ -94,7 +94,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
 
   private def assertNode(): Unit = {
     assertEqual(
-      findNodeById(1001).copy(stamp = None),
+      findNodeById(1001),
       newNodeDoc(
         1001,
         labels = Seq.empty, // not active

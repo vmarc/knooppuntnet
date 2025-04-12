@@ -35,20 +35,20 @@ class RouteLabelsAnalyzerTest extends UnitTest with SharedTestObjects {
   test("active false") {
     val context = buildContext().copy(active = false)
     val labels = BaseRouteLabelsAnalyzer.analyze(context).labels
-    labels should not contain Label.active
+    labels shouldNot contain(Label.active)
   }
 
   test("no survey") {
     val context = buildContext().copy(lastSurvey = None)
     val labels = BaseRouteLabelsAnalyzer.analyze(context).labels
-    labels should not contain Label.survey
+    labels shouldNot contain(Label.survey)
   }
 
   test("not broken") {
     val context = buildContext().copy(facts = Seq(Fact.RouteInaccessible))
     val labels = BaseRouteLabelsAnalyzer.analyze(context).labels
     labels should contain(Label.facts)
-    labels should not contain "broken"
+    labels shouldNot contain("broken")
   }
 
   test("no location analysis - country location is included") {
