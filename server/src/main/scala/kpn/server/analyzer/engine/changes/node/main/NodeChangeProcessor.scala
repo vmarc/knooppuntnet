@@ -34,14 +34,7 @@ class NodeChangeProcessor(
 
     log.debugElapsed {
 
-      //      val impactedNodeIds = context.impactedNodeIds
-      //
-      //      val nodeElementChanges = nodeChangeAnalyzer.analyze(context.changeSet)
       val batchSize = 500
-      //      val changedNodeIds = (nodeElementChanges.elementIds ++ impactedNodeIds).distinct.sorted
-      //      if (changedNodeIds.nonEmpty) {
-      //        log.info(s"${changedNodeIds.size} node(s) impacted: ${changedNodeIds.mkString(", ")}")
-      //      }
       val nodeChanges = context.impactedNodeIds.sliding(batchSize, batchSize).toSeq.flatMap { nodeIds =>
         processBatch(context, nodeIds)
       }

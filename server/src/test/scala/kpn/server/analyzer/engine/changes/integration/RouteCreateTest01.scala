@@ -12,6 +12,7 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
+import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
@@ -35,10 +36,21 @@ class RouteCreateTest01 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
-      process(ChangeAction.Create, dataAfter.rawRelationWithId(11))
+      process(
+        Seq(
+          Change(
+            ChangeAction.Create,
+            Seq(
+              dataAfter.rawNodeWithId(1001),
+              dataAfter.rawNodeWithId(1002),
+              dataAfter.rawWayWithId(101),
+              dataAfter.rawRelationWithId(11)
+            )
+          )
+        )
+      )
 
       watched.routes.ids should contain(11)
-      watched.nodes.ids should contain(1001)
       watched.nodes.ids should contain(1001)
       watched.nodes.ids should contain(1002)
 
@@ -74,7 +86,7 @@ class RouteCreateTest01 extends IntegrationTest {
 
   private def assertNode1001(): Unit = {
     assertEqual(
-      findNodeById(1001),
+      findNodeById(1001).copy(stamp = None),
       newNodeDoc(
         1001,
         labels = Seq(
@@ -100,7 +112,7 @@ class RouteCreateTest01 extends IntegrationTest {
 
   private def assertNode1002(): Unit = {
     assertEqual(
-      findNodeById(1002),
+      findNodeById(1002).copy(stamp = None),
       newNodeDoc(
         1002,
         labels = Seq(
@@ -125,43 +137,32 @@ class RouteCreateTest01 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    pending // TODO redesign
     assertEqual(
       findRouteChangeById("123:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Create,
         "01-02",
-        after = None,
-        //        Some(
-        //          newRouteData(
-        //            Some(Country.nl),
-        //            routeType.hiking,
-        //            relation = newRawRelation(
-        //              11,
-        //              members = Seq(
-        //                RawMember("way", 101, None)
-        //              ),
-        //              tags = newRouteTags("01-02")
-        //            ),
-        //            name = "01-02",
-        //            networkNodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            nodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            ways = Seq(
-        //              newRawWay(
-        //                101,
-        //                nodeIds = Vector(1001, 1002),
-        //                tags = Tags.from("highway" -> "unclassified")
-        //              )
-        //            )
-        //          )
-        //        ),
+        after = Some(
+          newRouteData(
+            relationId = 11,
+            meta = newMetaData(changeSetId = 1),
+            countries = Seq(Country.nl),
+            routeTypes = Seq(RouteType.hiking),
+            name = "01-02",
+            networkNodes = Seq(
+              newRouteNode(1001, "01"),
+              newRouteNode(1002, "02")
+            ),
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "ref" -> "01-02",
+              "network:type" -> "node_network"
+            )
+          )
+        ),
         impactedNodeIds = Seq(1001, 1002),
         happy = true,
         impact = true,

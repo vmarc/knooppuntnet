@@ -59,13 +59,13 @@ class BaseRouteChangeProcessor(
       val createImpactedNodeIds = routeElementChanges.creates.flatMap { routeId =>
         rawDataRepository.route(context.changeSet.timestampAfter, routeId) match {
           case None =>
-            // TODO report?
+            // TODO redesign report?
             println("route not found")
             Seq.empty
           case Some(rawRouteDoc) =>
             baseRouteMainAnalyzer.analyze(rawRouteDoc.relation, rawRouteDoc.structure) match {
               case None =>
-                // TODO report?
+                // TODO redesign report?
                 Seq.empty
               case Some(routeAnalysisContext) =>
                 analysisContext.watched.routes.add(routeId, routeAnalysisContext.elementIds)
@@ -101,13 +101,6 @@ class BaseRouteChangeProcessor(
         }
       }
 
-      //      val batchSize = 50
-      //      val changedRouteIds = routeElementChanges.elementIds
-      //      if (changedRouteIds.nonEmpty) {
-      //        log.info(s"${changedRouteIds.size} route(s) impacted: ${changedRouteIds.mkString(", ")}")
-      //      }
-      //      val updatedContext = processRouteIds(context, changedRouteIds)
-
       val impactedNodeIds = (deleteImpactedNodeIds ++ createImpactedNodeIds ++ updateImpactedNodeIds).distinct.sorted
       val impactedRouteIds = routeElementChanges.elementIds
 
@@ -123,48 +116,6 @@ class BaseRouteChangeProcessor(
       )
     }
   }
-
-  //  private def processRouteIds(context: ChangeSetContext, routeIds: Seq[Long]): ChangeSetContext = {
-  //    Log.context("base-routes") {
-  //      val routeCount = routeIds.size
-  //      log.info(s"analyzing $routeCount base routes")
-  //      val logContext = Log.contextMessages
-  //      log.infoElapsed {
-  //        ThreadExecutor.execute(10, routeIds) { (index, count, routeId) =>
-  //          Log.context(logContext) {
-  //            Log.context(s"$index/$count $routeId") {
-  //              analysisContext.watched.routes.delete(routeId)
-  //              log.infoElapsed {
-  //                try {
-  //                  rawDataRepository.route(context.changeSet.timestampAfter, routeId) match {
-  //                    case Some(rawRouteDoc) =>
-  //                      analyzeBaseRoute(rawRouteDoc.relation, rawRouteDoc.structure)
-  //                    case None =>
-  //                      log.error(s"route $routeId not found in route-relations")
-  //                  }
-  //                } catch {
-  //                  case e: Exception =>
-  //                    log.error(s"Error analyzing detail route $routeId", e)
-  //                }
-  //                (s"Analyzed route $routeId", ())
-  //              }
-  //            }
-  //          }
-  //        }
-  //        (s"Analyzed $routeCount routes", ())
-  //      }
-  //    }
-  //
-  //    val baseRouteCreatedIds: Seq[Long] = Seq.empty
-  //    val baseRouteUpdatedIds: Seq[Long] = Seq.empty
-  //    val baseRouteDeletedIds: Seq[Long] = Seq.empty
-  //
-  //    context.copy(
-  //      baseRouteCreatedIds = baseRouteCreatedIds,
-  //      baseRouteUpdatedIds = baseRouteUpdatedIds,
-  //      baseRouteDeletedIds = baseRouteDeletedIds,
-  //    )
-  //  }
 
   private def analyzeBaseRoute(relation: Relation, hierarchy: Option[RouteRelation]): Option[BaseRouteDoc] = {
     baseRouteMainAnalyzer.analyze(relation, hierarchy) match {
