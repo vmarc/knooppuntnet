@@ -54,6 +54,9 @@ class RouteCreateTest01 extends IntegrationTest {
       watched.nodes.ids should contain(1001)
       watched.nodes.ids should contain(1002)
 
+      assertBaseRoute()
+      // TODO redesign - assertBaseNode1001()
+      // TODO redesign - assertBaseNode1002()
       assertRoute()
       assertOrphanRoute()
       assertNode1001()
@@ -67,9 +70,16 @@ class RouteCreateTest01 extends IntegrationTest {
     }
   }
 
+  private def assertBaseRoute(): Unit = {
+    val baseRouteDoc = findBaseRouteById(11L)
+    baseRouteDoc.summary.name should equal("01-02")
+    // TODO redesign - add detailed doc comparison?
+  }
+
   private def assertRoute(): Unit = {
     val routeDoc = findRouteById(11L)
     routeDoc.summary.name should equal("01-02")
+    // TODO redesign - add detailed doc comparison?
   }
 
   private def assertOrphanRoute(): Unit = {

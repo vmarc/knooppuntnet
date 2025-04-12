@@ -13,6 +13,7 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
@@ -43,6 +44,9 @@ class RouteDeleteTest01 extends IntegrationTest {
       watched.nodes.ids should contain(1002)
       watched.routes.ids shouldNot contain(11)
 
+      assertBaseRoute()
+      // TODO redesign - assertBaseNode1001() ???
+      // TODO redesign - assertBaseNode1002() ???
       assertRoute()
       assertNode1001()
       assertNode1002()
@@ -54,6 +58,12 @@ class RouteDeleteTest01 extends IntegrationTest {
       database.orphanRoutes shouldBe empty
       assertChangeSetSummary()
     }
+  }
+
+  private def assertBaseRoute(): Unit = {
+    val baseRouteDoc = findBaseRouteById(11)
+    baseRouteDoc.id should equal(11)
+    assert(!baseRouteDoc.isActive)
   }
 
   private def assertRoute(): Unit = {
@@ -119,36 +129,26 @@ class RouteDeleteTest01 extends IntegrationTest {
         newChangeKey(elementId = 11),
         ChangeType.Delete,
         "01-02",
-        before = None,
-        //        Some(
-        //          newRouteData(
-        //            Some(Country.nl),
-        //            routeType.hiking,
-        //            relation = newRawRelation(
-        //              11,
-        //              members = Seq(
-        //                RawMember("way", 101, None)
-        //              ),
-        //              tags = newRouteTags("01-02")
-        //            ),
-        //            name = "01-02",
-        //            networkNodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            nodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            ways = Seq(
-        //              newRawWay(
-        //                101,
-        //                nodeIds = Vector(1001, 1002),
-        //                tags = Tags.from("highway" -> "unclassified")
-        //              )
-        //            )
-        //          )
-        //        ),
+        before = Some(
+          newRouteData(
+            relationId = 11,
+            meta = newMetaData(changeSetId = 1),
+            countries = Seq(Country.nl),
+            routeTypes = Seq(RouteType.hiking),
+            name = "01-02",
+            networkNodes = Seq(
+              newRouteNode(1001, "01"),
+              newRouteNode(1002, "02")
+            ),
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "ref" -> "01-02",
+              "network:type" -> "node_network"
+            )
+          )
+        ),
         facts = Seq(Fact.Deleted),
         impactedNodeIds = Seq(1001, 1002),
         investigate = true,

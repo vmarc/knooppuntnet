@@ -96,7 +96,12 @@ class RouteChangeProcessor(
                 // TODO message? delete?
                 None
               case Some(routeDoc) =>
-                processUpdate(context, before, routeDoc, routeId)
+                if (context.baseRouteDeletedIds.contains(routeId)) {
+                  processDelete(context, before)
+                }
+                else {
+                  processUpdate(context, before, routeDoc, routeId)
+                }
             }
         }
     }
@@ -196,7 +201,9 @@ class RouteChangeProcessor(
     )
   }
 
-  private def processDelete(context: ChangeSetContext, routeDoc: RouteDoc): ChangeSetContext = {
+  private def processDelete(context: ChangeSetContext, routeDoc: RouteDoc): Option[RouteChange] = {
+
+    routeRepository.saveRoute(routeDoc.deactivated)
 
     val impactedNodeIds: Seq[Long] = routeDoc.nodes.nodeIds.sorted
 
@@ -242,7 +249,6 @@ class RouteChangeProcessor(
         )
       )
     )
-    context
   }
 
   def processUpdate(context: ChangeSetContext, before: RouteDoc, after: RouteDoc, routeId: Long): Option[RouteChange] = {

@@ -106,7 +106,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
   }
 
   def findRouteById(routeId: Long): RouteDoc = {
-    database.routes.findById(routeId).getOrElse {
+    database.routes.findById(routeId).map(_.copy(stamp = None)).getOrElse {
       val ids = database.routes.ids()
       if (ids.isEmpty) {
         fail(s"Could not find route $routeId, no routes in database")
