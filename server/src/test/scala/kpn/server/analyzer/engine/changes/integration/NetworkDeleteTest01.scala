@@ -13,6 +13,9 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
+import kpn.api.common.diff.IdDiffs
+import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -40,14 +43,25 @@ class NetworkDeleteTest01 extends IntegrationTest {
       watched.networks.ids should contain(1)
       watched.nodes.ids should contain(1001)
 
-      process(ChangeAction.Delete, newRawRelation(1))
-
+      process(
+        Seq(
+          Change(
+            ChangeAction.Delete,
+            Seq(
+              newRawNode(1001),
+              newRawRelation(1)
+            )
+          )
+        )
+      )
       watched.networks.ids shouldNot contain(1)
       watched.nodes.ids shouldNot contain(1001)
 
-      assertNetworkNonActive()
-      assertNetworkInfoNoneActive()
-      assertNodeNonActive()
+      assertBaseNode()
+      assertBaseNetwork()
+
+      assertNode()
+      assertNetwork()
 
       assertNetworkChange()
       assertNodeChange()
@@ -55,12 +69,31 @@ class NetworkDeleteTest01 extends IntegrationTest {
     }
   }
 
-  private def assertNetworkNonActive(): Unit = {
+  private def assertBaseNode(): Unit = {
+    assertEqual(
+      findBaseNodeById(1001L),
+      newBaseNodeDoc(
+        1001L,
+        active = false,
+        country = Some(Country.nl),
+        name = Some("01"),
+        names = Seq(newNodeName(name = "01")),
+        tags = Tags.from(
+          "rwn_ref" -> "01",
+          "network:type" -> "node_network",
+        ),
+      )
+    )
+  }
+
+  private def assertBaseNetwork(): Unit = {
     assertEqual(
       findBaseNetworkById(1),
-      newNetwork(
+      newBaseNetworkDoc(
         1L,
         active = false,
+        name = Some("network1"),
+        changeSetId = 1,
         tags = Tags.from(
           "network:type" -> "node_network",
           "type" -> "network",
@@ -71,7 +104,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNetworkInfoNoneActive(): Unit = {
+  private def assertNetwork(): Unit = {
     assertEqual(
       findNetworkById(1),
       newNetworkDoc(
@@ -93,7 +126,7 @@ class NetworkDeleteTest01 extends IntegrationTest {
     )
   }
 
-  private def assertNodeNonActive(): Unit = {
+  private def assertNode(): Unit = {
     assertEqual(
       findNodeById(1001L),
       newNodeDoc(
@@ -151,26 +184,43 @@ class NetworkDeleteTest01 extends IntegrationTest {
   }
 
   private def assertNetworkChange(): Unit = {
-    val networkChange = findNetworkChangeById("123:1:1")
-    networkChange.key.changeSetId should equal(123)
-    networkChange.key.elementId should equal(1)
-    networkChange.changeType should equal(ChangeType.Delete)
-    networkChange.routeType should equal(RouteType.hiking)
-    networkChange.networkName should equal("network1")
-    assert(!networkChange.happy)
-    assert(networkChange.investigate)
+    assertEqual(
+      findNetworkChangeById("123:1:1"),
+      newNetworkChange(
+        key = newChangeKey(elementId = 1),
+        networkName = "network1",
+        changeType = ChangeType.Delete,
+        country = Some(Country.nl),
+        routeType = RouteType.hiking,
+        nodes = IdDiffs(removed = Seq(1001)),
+        nodeDiffs = RefDiffs(
+          removed = Seq(
+            Ref(1001, "01"),
+          )
+        ),
+        investigate = true,
+        impact = true,
+      )
+    )
   }
 
   private def assertNodeChange(): Unit = {
     val nodeChange = findNodeChangeById("123:1:1001")
-    nodeChange.key.changeSetId should equal(123)
-    nodeChange.key.elementId should equal(1001)
-    nodeChange.changeType should equal(ChangeType.Delete)
-    nodeChange.subsets should contain(Subset.nlHiking)
-    nodeChange.name should equal(Some("01"))
-    nodeChange.removedFromNetwork should equal(Seq(Ref(1, "network1")))
-    nodeChange.facts should equal(Seq(Fact.Deleted))
-    assert(!nodeChange.happy)
-    assert(nodeChange.investigate)
+    assertEqual(
+      nodeChange,
+      newNodeChange(
+        key = newChangeKey(elementId = 1001),
+        changeType = ChangeType.Delete,
+        subsets = Seq(Subset.nlHiking),
+        name = Some("01"),
+        before = Some(newMetaData()),
+        removedFromNetwork = Seq(Ref(1, "network1")),
+        facts = Seq(Fact.Deleted),
+        investigate = true,
+        impact = true,
+        locationInvestigate = true,
+        locationImpact = true
+      )
+    )
   }
 }

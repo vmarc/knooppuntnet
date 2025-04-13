@@ -139,7 +139,13 @@ class BaseNetworkChangeProcessor(
 
   private def processDelete(context: ChangeSetContext, before: BaseNetworkDoc, networkId: Long): ChangeSetContext = {
     analysisContext.watched.networks.delete(networkId)
-    networkRepository.saveBaseNetwork(before.copy(active = false))
+    val updatedDoc = before.copy(
+      active = false,
+      members = Seq.empty,
+      nodeIds = Seq.empty,
+      routeIds = Seq.empty
+    )
+    networkRepository.saveBaseNetwork(updatedDoc)
     context.withImpact(
       before.nodeIds,
       before.routeIds,
