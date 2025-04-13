@@ -65,8 +65,12 @@ class RouteAnalysisCompareTool(config: AnalysisStartConfiguration) {
   }
 
   private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Option[BaseRouteDoc] = {
-    config.baseRouteMainAnalyzer.analyze(relation, hierarchy).map { context =>
-      new BaseRouteDocBuilder(context).build()
+    val context = config.baseRouteMainAnalyzer.analyze(relation, hierarchy)
+    if (!context.abort) {
+      Some(new BaseRouteDocBuilder(context).build())
+    }
+    else {
+      None
     }
   }
 

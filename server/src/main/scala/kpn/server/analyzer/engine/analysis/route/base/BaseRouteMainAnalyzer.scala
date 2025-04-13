@@ -59,7 +59,7 @@ class BaseRouteMainAnalyzer(
     relation: Relation,
     hierarchy: Option[RouteRelation],
     traceEnabled: Boolean = false
-  ): Option[BaseRouteAnalysisContext] = {
+  ): BaseRouteAnalysisContext = {
 
     Log.context(f"route=${relation.id}%07d") {
 
@@ -111,13 +111,9 @@ class BaseRouteMainAnalyzer(
   private def doAnalyze(
     analyzers: List[BaseRouteAnalyzer],
     context: BaseRouteAnalysisContext
-  ): Option[BaseRouteAnalysisContext] = {
+  ): BaseRouteAnalysisContext = {
 
-    if (context.abort) {
-      None
-    }
-    else if (analyzers.isEmpty) {
-
+    if (context.abort || analyzers.isEmpty) {
       val facts: ListBuffer[Fact] = ListBuffer[Fact]()
       facts ++= context.facts
       if (facts.exists(Facts.isError)) {
@@ -125,11 +121,8 @@ class BaseRouteMainAnalyzer(
           facts += RouteBroken
         }
       }
-
-      Some(
-        context.copy(
-          facts = facts.toSeq,
-        )
+      context.copy(
+        facts = facts.toSeq,
       )
     }
     else {

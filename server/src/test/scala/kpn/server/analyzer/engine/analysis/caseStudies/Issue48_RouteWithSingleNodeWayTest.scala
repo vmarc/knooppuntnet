@@ -35,7 +35,7 @@ class Issue48_RouteWithSingleNodeWayTest extends UnitTest with MockFactory {
       routeLocationAnalyzer,
       routeTileAnalyzer
     )
-    val context = routeAnalyzer.analyze(routeRelation, None).get
+    val context = routeAnalyzer.analyze(routeRelation, None)
     assert(context.facts.contains(Fact.RouteSuspiciousWays))
   }
 

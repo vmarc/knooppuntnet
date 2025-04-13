@@ -243,28 +243,27 @@ class RouteAnalysisTool(config: AnalysisStartConfiguration) {
   }
 
   private def analyzeBaseRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
-    config.baseRouteMainAnalyzer.analyze(relation, hierarchy) match {
-      case None =>
-      case Some(context) =>
-        val baseRouteDoc = new BaseRouteDocBuilder(context).build()
-        config.routeRepository.saveBaseRoute(baseRouteDoc)
-        context.tileDatas.foreach { tileData =>
-          val doc = RouteTileDoc(
-            _id = s"${tileData.name}-${context.relation.id}",
-            routeId = context.relation.id,
-            routeName = context.routeNameAnalysis.name.getOrElse("no-name"), // TODO redesign tiles - can do better?
-            routeTypes = context.routeTypes,
-            z = tileData.z,
-            x = tileData.x,
-            y = tileData.y,
-            layer = tileData.layer,
-            scope = tileData.scope,
-            survey = tileData.survey,
-            error = tileData.error,
-            segments = tileData.segments
-          )
-          config.routeRepository.saveRouteTile(doc)
-        }
+    val context = config.baseRouteMainAnalyzer.analyze(relation, hierarchy)
+    if (!context.abort) {
+      val baseRouteDoc = new BaseRouteDocBuilder(context).build()
+      config.routeRepository.saveBaseRoute(baseRouteDoc)
+      context.tileDatas.foreach { tileData =>
+        val doc = RouteTileDoc(
+          _id = s"${tileData.name}-${context.relation.id}",
+          routeId = context.relation.id,
+          routeName = context.routeNameAnalysis.name.getOrElse("no-name"), // TODO redesign tiles - can do better?
+          routeTypes = context.routeTypes,
+          z = tileData.z,
+          x = tileData.x,
+          y = tileData.y,
+          layer = tileData.layer,
+          scope = tileData.scope,
+          survey = tileData.survey,
+          error = tileData.error,
+          segments = tileData.segments
+        )
+        config.routeRepository.saveRouteTile(doc)
+      }
       // TODO saveRouteChange(routeAnalysis)
     }
   }

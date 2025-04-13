@@ -34,7 +34,7 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
       routeTileAnalyzer
     )
     val relation = readRoute()
-    val context = routeAnalyzer.analyze(relation, None).get
+    val context = routeAnalyzer.analyze(relation, None)
 
     context.facts shouldBe empty
     context.structure.otherPaths shouldBe empty

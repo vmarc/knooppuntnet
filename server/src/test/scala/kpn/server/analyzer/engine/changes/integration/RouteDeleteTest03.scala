@@ -55,6 +55,7 @@ class RouteDeleteTest03 extends IntegrationTest {
 
       watched.nodes.ids shouldNot contain(11)
 
+      assertBaseRoute()
       assertRoute()
       assertRouteChange()
       assertNodeChange1001()
@@ -66,6 +67,12 @@ class RouteDeleteTest03 extends IntegrationTest {
     }
   }
 
+  private def assertBaseRoute(): Unit = {
+    val baseRouteDoc = findBaseRouteById(11)
+    baseRouteDoc.id should equal(11)
+    assert(!baseRouteDoc.isActive)
+  }
+
   private def assertRoute(): Unit = {
     val routeDoc = findRouteById(11)
     routeDoc.id should equal(11)
@@ -73,50 +80,52 @@ class RouteDeleteTest03 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    pending // TODO redesign
     assertEqual(
       findRouteChangeById("123:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
-        ChangeType.Delete,
+        ChangeType.Update,
         "01-02",
-        before = None,
-        //        Some(
-        //          newRouteData(
-        //            Some(Country.nl),
-        //            routeType.hiking,
-        //            relation = newRawRelation(
-        //              11,
-        //              members = Seq(
-        //                RawMember("way", 101, None)
-        //              ),
-        //              tags = Tags.from(
-        //                "network" -> "rwn",
-        //                "type" -> "route",
-        //                "route" -> "foot", // this is removed in 'after' situation
-        //                "ref" -> "01-02",
-        //                "network:type" -> "node_network"
-        //              )
-        //            ),
-        //            name = "01-02",
-        //            networkNodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            nodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            ways = Seq(
-        //              newRawWay(
-        //                101,
-        //                nodeIds = Vector(1001, 1002),
-        //                tags = Tags.from("highway" -> "unclassified")
-        //              )
-        //            )
-        //          )
-        //        ),
-        after = None,
+        before = Some(
+          newRouteData(
+            relationId = 11,
+            meta = newMetaData(changeSetId = 1),
+            countries = Seq(Country.nl),
+            routeTypes = Seq(RouteType.hiking),
+            name = "01-02",
+            networkNodes = Seq(
+              newRouteNode(1001, "01"),
+              newRouteNode(1002, "02")
+            ),
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "ref" -> "01-02",
+              "network:type" -> "node_network"
+            ),
+          )
+        ),
+        after = Some(
+          newRouteData(
+            relationId = 11,
+            meta = newMetaData(changeSetId = 1),
+            countries = Seq(Country.nl),
+            routeTypes = Seq(RouteType.hiking),
+            name = "01-02",
+            networkNodes = Seq(
+              newRouteNode(1001, "01"),
+              newRouteNode(1002, "02")
+            ),
+            tags = Tags.from(
+              "network" -> "rwn",
+              "type" -> "route",
+              "route" -> "foot",
+              "ref" -> "01-02",
+              "network:type" -> "node_network"
+            ),
+          )
+        ),
         diffs = RouteDiff(
           tagDiffs = Some(
             TagDiffs(

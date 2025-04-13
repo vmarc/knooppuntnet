@@ -44,7 +44,7 @@ class StructureTestSetup(val data: Data) {
       routeTileAnalyzer
     )
     RouteDetailAnalysisTestContext(
-      routeAnalyzer.analyze(relation, None, traceEnabled).get
+      routeAnalyzer.analyze(relation, None, traceEnabled)
     )
   }
 

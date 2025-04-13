@@ -81,19 +81,17 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
     Log.context(s"route=${relation.id}") {
       try {
-        config.baseRouteMainAnalyzer.analyze(relation, hierarchy) match {
-          case None =>
-          case Some(context) =>
-            val baseRouteDoc = new BaseRouteDocBuilder(context).build()
-            config.routeRepository.saveBaseRoute(baseRouteDoc)
-            // TODO redesign - move to phase 2
-            config.routeMainAnalyzer.analyze(baseRouteDoc) match {
-              case None =>
-              case Some(routeDoc) =>
-                config.routeRepository.saveRoute(routeDoc)
-
-                saveRouteChange(routeDoc)
-            }
+        val context = config.baseRouteMainAnalyzer.analyze(relation, hierarchy)
+        if (!context.abort) {
+          val baseRouteDoc = new BaseRouteDocBuilder(context).build()
+          config.routeRepository.saveBaseRoute(baseRouteDoc)
+          // TODO redesign - move to phase 2
+          config.routeMainAnalyzer.analyze(baseRouteDoc) match {
+            case None =>
+            case Some(routeDoc) =>
+              config.routeRepository.saveRoute(routeDoc)
+              saveRouteChange(routeDoc)
+          }
         }
       } catch {
         case e: Exception =>
