@@ -8,8 +8,8 @@ class DatabaseCollectionTest extends UnitTest with SharedTestObjects {
 
   test("ids") {
     withDatabase { database =>
-      database.networks.save(newNetwork(1L))
-      database.networks.save(newNetwork(2L))
+      database.networks.save(newNetworkDoc(1L))
+      database.networks.save(newNetworkDoc(2L))
       database.networks.ids() should equal(Seq(1L, 2L))
     }
   }
@@ -36,7 +36,7 @@ class DatabaseCollectionTest extends UnitTest with SharedTestObjects {
 
   test("findById") {
     withDatabase { database =>
-      val network = newNetwork(1L)
+      val network = newNetworkDoc(1L)
       database.networks.save(network)
       database.networks.findById(1L) should equal(Some(network))
     }
@@ -50,9 +50,9 @@ class DatabaseCollectionTest extends UnitTest with SharedTestObjects {
 
   test("findByIds") {
     withDatabase { database =>
-      val network1 = newNetwork(1L)
-      val network2 = newNetwork(2L)
-      val network3 = newNetwork(3L)
+      val network1 = newNetworkDoc(1L)
+      val network2 = newNetworkDoc(2L)
+      val network3 = newNetworkDoc(3L)
       database.networks.insertMany(Seq(network1, network2, network3))
 
       database.networks.findByIds(Seq(1L, 2L)) should equal(
