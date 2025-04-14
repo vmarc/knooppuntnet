@@ -57,7 +57,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       watched.networks.ids should contain(1)
-      watched.nodes.ids shouldNot contain(1)
+      watched.routes.ids shouldNot contain(1)
 
       process(ChangeAction.Modify, dataAfter.data.relations(1).toRaw)
 

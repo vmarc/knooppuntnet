@@ -29,16 +29,16 @@ class MongoQueryRouteCountry(database: Database) {
         filter(
           and(
             equal("active", true),
-            elemMatch("relationMembers", equal("relationId", routeId))
+            equal("routeIds", routeId)
           )
         ),
-        lookup("network-infos", "_id", "_id", "networkInfos"),
+        lookup("networks", "_id", "_id", "networks"),
         filter(
-          elemMatch("networkInfos", equal("active", true))
+          elemMatch("networks", equal("active", true))
         ),
         project(
           fields(
-            computed("country", "$networkInfos.country")
+            computed("country", "$networks.country")
           )
         ),
         unwind("$country"),
@@ -50,7 +50,7 @@ class MongoQueryRouteCountry(database: Database) {
           )
         ),
       )
-      val country = database.networks.optionAggregate[CountryResult](pipeline, log).map(_.country)
+      val country = database.baseNetworks.optionAggregate[CountryResult](pipeline, log).map(_.country)
       (s"route $routeId country: $country", country)
     }
   }

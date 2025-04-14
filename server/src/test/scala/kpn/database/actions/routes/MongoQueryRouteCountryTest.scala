@@ -2,7 +2,6 @@ package kpn.database.actions.routes
 
 import kpn.api.common.Country
 import kpn.api.common.SharedTestObjects
-import kpn.core.doc.NetworkRelationMember
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -11,12 +10,10 @@ class MongoQueryRouteCountryTest extends UnitTest with SharedTestObjects {
   test("read route country from network collections") {
     withDatabase { database =>
 
-      database.networks.save(
-        newNetwork(
+      database.baseNetworks.save(
+        newBaseNetworkDoc(
           _id = 1,
-          relationMembers = Seq(
-            NetworkRelationMember(11, None)
-          ),
+          routeIds = Seq(11),
         )
       )
       database.networks.save(
@@ -36,16 +33,14 @@ class MongoQueryRouteCountryTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  test("no active network") {
+  test("no active base network document") {
     withDatabase { database =>
 
-      database.networks.save(
-        newNetwork(
+      database.baseNetworks.save(
+        newBaseNetworkDoc(
           _id = 1,
           active = false,
-          relationMembers = Seq(
-            NetworkRelationMember(11, None)
-          ),
+          routeIds = Seq(11)
         )
       )
       database.networks.save(
@@ -58,15 +53,13 @@ class MongoQueryRouteCountryTest extends UnitTest with SharedTestObjects {
     }
   }
 
-  test("no active network info") {
+  test("no active network document") {
     withDatabase { database =>
 
-      database.networks.save(
-        newNetwork(
+      database.baseNetworks.save(
+        newBaseNetworkDoc(
           _id = 1,
-          relationMembers = Seq(
-            NetworkRelationMember(11, None)
-          ),
+          routeIds = Seq(11)
         )
       )
       database.networks.save(
