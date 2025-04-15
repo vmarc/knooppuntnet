@@ -1,7 +1,6 @@
 package kpn.database.actions.tiles
 
 import kpn.core.TestObjects
-import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 import kpn.server.repository.NodeRepositoryImpl
@@ -14,9 +13,9 @@ class MongoQueryTilesTest extends UnitTest with TestObjects {
     withDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(database)
-      nodeRepository.save(newNodeDoc(1001, tiles = Seq("cycling-10-001-001")))
-      nodeRepository.save(newNodeDoc(1002, tiles = Seq("cycling-10-001-001")))
-      nodeRepository.save(newNodeDoc(1003, tiles = Seq("cycling-10-001-002")))
+      nodeRepository.saveBaseNode(newBaseNodeDoc(1001, tiles = Seq("cycling-10-001-001")))
+      nodeRepository.saveBaseNode(newBaseNodeDoc(1002, tiles = Seq("cycling-10-001-001")))
+      nodeRepository.saveBaseNode(newBaseNodeDoc(1003, tiles = Seq("cycling-10-001-002")))
 
       val query = new MongoQueryTiles(database)
 
@@ -35,8 +34,8 @@ class MongoQueryTilesTest extends UnitTest with TestObjects {
     withDatabase { database =>
 
       val nodeRepository = new NodeRepositoryImpl(database)
-      nodeRepository.save(newNodeDoc(1001, tiles = Seq("cycling-10-001-001"), labels = Seq(Label.active)))
-      nodeRepository.save(newNodeDoc(1002, tiles = Seq("cycling-10-001-001"), labels = Seq.empty /* not active */))
+      nodeRepository.saveBaseNode(newBaseNodeDoc(1001, tiles = Seq("cycling-10-001-001")))
+      nodeRepository.saveBaseNode(newBaseNodeDoc(1002, tiles = Seq("cycling-10-001-001"), active = false))
 
       val query = new MongoQueryTiles(database)
 

@@ -21,14 +21,40 @@ class MongoQueryTiles(database: Database) {
 
   def nodeIds(tileName: String): Seq[Long] = {
     log.debugElapsed {
-      val ids = database.nodes.aggregate[Id](pipeline(tileName))
+      val pipeline = Seq(
+        filter(
+          and(
+            equal("active", true),
+            equal("tiles", tileName)
+          )
+        ),
+        project(
+          fields(
+            include("_id")
+          )
+        )
+      )
+      val ids = database.baseNodes.aggregate[Id](pipeline)
       (s"tile '$tileName', node ids: ${ids.size}", ids.map(_._id))
     }
   }
 
   def routeIds(tileName: String): Seq[Long] = {
     log.debugElapsed {
-      val ids = database.baseRoutes.aggregate[Id](pipeline(tileName))
+      val pipeline = Seq(
+        filter(
+          and(
+            equal("labels", Label.active),
+            equal("tiles", tileName)
+          )
+        ),
+        project(
+          fields(
+            include("_id")
+          )
+        )
+      )
+      val ids = database.baseRoutes.aggregate[Id](pipeline)
       (s"tile '$tileName', route ids: ${ids.size}", ids.map(_._id))
     }
   }
@@ -37,7 +63,7 @@ class MongoQueryTiles(database: Database) {
     Seq(
       filter(
         and(
-          equal("labels", Label.active),
+          equal("active", true),
           equal("tiles", tileName)
         )
       ),
