@@ -102,13 +102,13 @@ class StatisticsUpdateSubsetFactCountTest extends UnitTest with SharedTestObject
   }
 
   private def buildNetworks(database: Database): Unit = {
-    buildNetwork(database, 1L, nl, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode), NetworkFact(Fact.NetworkExtraMemberWay)))
-    buildNetwork(database, 2L, nl, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode), NetworkFact(Fact.NetworkExtraMemberRelation)))
+    buildNetwork(database, 1L, nl, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001))), NetworkFact(Fact.NetworkExtraMemberWay, elementIds = Some(Seq(1001)))))
+    buildNetwork(database, 2L, nl, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001))), NetworkFact(Fact.NetworkExtraMemberRelation, elementIds = Some(Seq(1001)))))
     buildNetwork(database, 3L, nl, hiking, Seq.empty)
-    buildNetwork(database, 4L, de, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode)))
-    buildNetwork(database, 5L, de, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode)))
-    buildNetwork(database, 6L, de, cycling, Seq(NetworkFact(Fact.NetworkExtraMemberNode)))
-    buildNetwork(database, 7L, de, cycling, Seq(NetworkFact(Fact.NetworkExtraMemberNode)), active = false)
+    buildNetwork(database, 4L, de, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))))
+    buildNetwork(database, 5L, de, hiking, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))))
+    buildNetwork(database, 6L, de, cycling, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))))
+    buildNetwork(database, 7L, de, cycling, Seq(NetworkFact(Fact.NetworkExtraMemberNode, elementIds = Some(Seq(1001)))), active = false)
   }
 
   private def buildNetwork(
