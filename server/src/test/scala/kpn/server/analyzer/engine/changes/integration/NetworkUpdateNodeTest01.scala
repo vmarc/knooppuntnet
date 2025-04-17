@@ -4,13 +4,17 @@ import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
+import kpn.api.common.LatLonImpl
 import kpn.api.common.NetworkChanges
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.data.raw.RawMember
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
+import kpn.api.custom.Tags
 import kpn.core.test.OverpassData
 
 class NetworkUpdateNodeTest01 extends IntegrationTest {
@@ -43,6 +47,8 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
 
     testIntegration(dataBefore, dataAfter) {
 
+      val baseNode1001 = findBaseNodeById(1001)
+      val baseNode1002 = findBaseNodeById(1002)
       val node1001 = findNodeById(1001)
       val node1002 = findNodeById(1002)
 
@@ -53,10 +59,20 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
       watched.networks.ids should contain(1)
 
       database.routes shouldBe empty
-      assertEqual(findNodeById(1001), node1001)
-      assertEqual(findNodeById(1002), node1002)
+
+      assertEqual(findBaseNodeById(1001), baseNode1001) // no change
+      assertEqual(findBaseNodeById(1002), baseNode1002) // no change
+      assertEqual(findNodeById(1001), node1001) // no change
+      assertEqual(
+        findNodeById(1002),
+        node1002.copy( // no longer part of the network
+          networkReferences = Seq.empty
+        )
+      )
+
       assertEqual(database.orphanNodes.stringIds(), Seq("nl:hiking:1002"))
 
+      assertBaseNetwork()
       assertNetwork()
       assertNoNodeChange(1001)
       assertNodeChange1002()
@@ -65,9 +81,60 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
     }
   }
 
+  private def assertBaseNetwork(): Unit = {
+    assertEqual(
+      findBaseNetworkById(1),
+      newBaseNetworkDoc(
+        1,
+        name = Some("name"),
+        changeSetId = 1,
+        members = Seq(
+          RawMember(MemberType.Node, 1001, None)
+        ),
+        tags = Tags.from(
+          "network:type" -> "node_network",
+          "type" -> "network",
+          "network" -> "rwn",
+          "name" -> "name"
+        ),
+        nodeIds = Seq(
+          1001
+        )
+      )
+    )
+  }
+
   private def assertNetwork(): Unit = {
-    val networkDoc = findNetworkById(1)
-    networkDoc._id should equal(1)
+    assertEqual(
+      findNetworkById(1),
+      newNetworkDoc(
+        1,
+        country = Some(Country.nl),
+        summary = newNetworkSummary(
+          name = "name",
+          nodeCount = 1,
+        ),
+        detail = newNetworkDetail(
+          tags = Tags.from(
+            "network:type" -> "node_network",
+            "type" -> "network",
+            "network" -> "rwn",
+            "name" -> "name"
+          ),
+          center = Some(LatLonImpl("0.0", "0.0")),
+        ),
+        nodes = Seq(
+          newNetworkInfoNodeDetail(
+            1001,
+            name = "01",
+            definedInRelation = true
+          )
+        ),
+        members = Seq(
+          RawMember(MemberType.Node, 1001, None)
+        )
+      )
+    )
   }
 
   private def assertNodeChange1002(): Unit = {
@@ -100,16 +167,10 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
         changeType = ChangeType.Update,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
-        //  networkDataUpdate = None,
-        //  nodes= IdDiffs.empty,
-        //  ways = IdDiffs.empty,
-        //  relations = IdDiffs.empty,
+        nodes = IdDiffs(
+          removed = Seq(1002)
+        ),
         nodeDiffs = RefDiffs(removed = Seq(Ref(1002, "02"))),
-        //  routeDiffs = RefDiffs.empty,
-        //  extraNodeDiffs = IdDiffs.empty,
-        //  extraWayDiffs = IdDiffs.empty,
-        //  extraRelationDiffs = IdDiffs.empty,
-        //  happy = false,
         investigate = true,
         impact = true,
       )

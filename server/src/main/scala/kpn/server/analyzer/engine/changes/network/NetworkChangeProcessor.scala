@@ -51,7 +51,12 @@ class NetworkChangeProcessor(
                   createNetwork(context, networkDoc, networkId)
               }
             case Some(before) =>
-              deleteNetwork(context, before.copy(active = false), networkId)
+              networkMainAnalyzer.analyze(baseNetworkDoc, context.timestampAfter) match {
+                case None =>
+                  deleteNetwork(context, before.copy(active = false), networkId)
+                case Some(networkDoc) =>
+                  updateNetwork(context, before, networkDoc, networkId)
+              }
           }
         }
         else {
