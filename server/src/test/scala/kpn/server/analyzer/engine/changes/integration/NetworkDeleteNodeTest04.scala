@@ -12,20 +12,17 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
-import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
 
 class NetworkDeleteNodeTest04 extends IntegrationTest {
 
-  test("network delete - node looses node tag") {
+  test("network delete and node looses node tag") {
 
     val dataBefore = OverpassData()
-      .networkNode(1001, "01", version = 1) // change
-      .networkRelation( // delete
+      .networkNode(1001, "01", version = 1) // before change
+      .networkRelation( // before delete
         1,
         "network",
         Seq(
@@ -34,7 +31,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
       )
 
     val dataAfter = OverpassData()
-      .node(1001, version = 2) // change
+      .node(1001, version = 2) // after change
 
     testIntegration(dataBefore, dataAfter) {
       process(
@@ -50,12 +47,52 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
       watched.nodes.ids shouldNot contain(1001)
 
       assertBaseNode()
+      assertBaseNetwork()
+
       assertNode()
       assertNetwork()
-      assertNetworkChange()
+
       assertNodeChange()
+      assertNetworkChange()
       assertChangeSetSummary()
     }
+  }
+
+  private def assertBaseNode(): Unit = {
+    assertEqual(
+      findBaseNodeById(1001),
+      newBaseNodeDoc(
+        1001,
+        active = false,
+        country = Some(Country.nl),
+        version = 2, // <--
+      )
+    )
+  }
+
+  private def assertBaseNetwork(): Unit = {
+    assertEqual(
+      findBaseNetworkById(1),
+      newBaseNetworkDoc(
+        1,
+        active = false, // <--- !!!
+        name = Some("network"),
+        changeSetId = 1,
+        tags = newNetworkTags("network")
+      )
+    )
+  }
+
+  private def assertNode(): Unit = {
+    assertEqual(
+      findNodeById(1001),
+      newNodeDoc(
+        1001,
+        labels = Seq.empty, // not active
+        country = Some(Country.nl),
+        version = 2, // <--
+      )
+    )
   }
 
   private def assertNetwork(): Unit = {
@@ -74,32 +111,6 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
           relationLastUpdated = defaultTimestamp,
           tags = newNetworkTags("network")
         )
-      )
-    )
-  }
-
-  private def assertBaseNode(): Unit = {
-    assertEqual(
-      findBaseNodeById(1001),
-      newBaseNodeDoc(
-        1001,
-        active = false,
-        country = Some(Country.nl),
-        version = 2, // <--
-        latitude = "0",
-        longitude = "0",
-      )
-    )
-  }
-
-  private def assertNode(): Unit = {
-    assertEqual(
-      findNodeById(1001),
-      newNodeDoc(
-        1001,
-        labels = Seq.empty, // not active
-        country = Some(Country.nl),
-        version = 2, // <--
       )
     )
   }
@@ -140,21 +151,11 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
         before = Some(
           newMetaData(version = 1)
         ),
-        after = Some(
-          newMetaData(version = 2)
-        ),
-        tagDiffs = Some(
-          TagDiffs(
-            mainTags = Seq(
-              TagDetail(TagDetailType.Delete, "rwn_ref", Some("01"), None),
-              TagDetail(TagDetailType.Delete, "network:type", Some("node_network"), None),
-            )
-          )
-        ),
+        after = None,
         removedFromNetwork = Seq(
           Ref(1, "network")
         ),
-        facts = Seq(Fact.LostHikingNodeTag),
+        facts = Seq(Fact.Deleted),
         investigate = true,
         impact = true,
         locationInvestigate = true,
