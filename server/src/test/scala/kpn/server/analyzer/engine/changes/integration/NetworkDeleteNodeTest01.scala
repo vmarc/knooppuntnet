@@ -9,11 +9,11 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
-import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
+import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkDeleteNodeTest01 extends IntegrationTest {
@@ -42,14 +42,44 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
 
       database.routeChanges shouldBe empty
 
+      assertBaseNode()
       assertBaseNetwork()
+
+      assertNode()
       assertNetwork()
-      assertNetworkChange()
+
       assertNodeChange()
+      assertNetworkChange()
       assertChangeSetSummary()
 
       assertOrphanNode()
     }
+  }
+
+  private def assertBaseNode(): Unit = {
+    assertEqual(
+      findBaseNodeById(1001),
+      newBaseNodeDoc(
+        1001,
+        name = Some("01"),
+        names = Seq(
+          newNodeName(name = "01")
+        ),
+        tags = Tags.from(
+          "rwn_ref" -> "01",
+          "network:type" -> "node_network"
+        ),
+        country = Some(Country.nl),
+        tiles = Seq(
+          "hiking-9-256-256",
+          "hiking-10-512-512",
+          "hiking-11-1024-1024",
+          "hiking-12-2048-2048",
+          "hiking-13-4096-4096",
+          "hiking-14-8192-8192"
+        )
+      )
+    )
   }
 
   private def assertBaseNetwork(): Unit = {
@@ -60,18 +90,34 @@ class NetworkDeleteNodeTest01 extends IntegrationTest {
         active = false,
         name = Some("network-name"),
         changeSetId = 1,
-        members = Seq(
-          RawMember(MemberType.Node, 1001, None)
-        ),
         tags = Tags.from(
           "network:type" -> "node_network",
           "type" -> "network",
           "network" -> "rwn",
           "name" -> "network-name"
         ),
-        nodeIds = Seq(
-          1001
-        )
+      )
+    )
+  }
+
+  private def assertNode(): Unit = {
+    assertEqual(
+      findNodeById(1001),
+      newNodeDoc(
+        1001,
+        labels = Seq(
+          Label.active,
+          Label.routeType(RouteType.hiking)
+        ),
+        country = Some(Country.nl),
+        name = Some("01"),
+        names = Seq(
+          newNodeName(name = "01")
+        ),
+        tags = Tags.from(
+          "rwn_ref" -> "01",
+          "network:type" -> "node_network"
+        ),
       )
     )
   }
