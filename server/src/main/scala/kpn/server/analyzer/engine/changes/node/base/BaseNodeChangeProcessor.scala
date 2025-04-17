@@ -47,14 +47,8 @@ class BaseNodeChangeProcessor(
 
       createNodeIds.foreach(analysisContext.watched.nodes.add)
 
-      lostNodeTagsNodeIds.foreach(analysisContext.watched.nodes.delete)
       val lostNodeTagsNodeDocs = lostNodeTagsNodeIds.flatMap { nodeId =>
-        baseNodeDocsAfter.find(_._id == nodeId).map { doc =>
-          doc.copy(
-            active = false,
-            tiles = Seq.empty,
-          )
-        }
+        baseNodeDocsAfter.find(_._id == nodeId)
       }
       nodeRepository.bulkSaveBaseNodes(lostNodeTagsNodeDocs)
 

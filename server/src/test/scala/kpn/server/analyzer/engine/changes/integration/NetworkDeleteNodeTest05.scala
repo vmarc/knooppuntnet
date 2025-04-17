@@ -67,13 +67,46 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
       watched.networks.ids shouldNot contain(1)
       watched.nodes.ids should contain(1001)
 
-      assertNode()
+      assertBaseNode()
       assertBaseNetwork()
+      assertNode()
       assertNetwork()
       assertNetworkChange()
       assertNodeChange()
       assertChangeSetSummary()
     }
+  }
+
+  private def assertBaseNode(): Unit = {
+    assertEqual(
+      findBaseNodeById(1001),
+      newBaseNodeDoc(
+        1001,
+        name = Some("02"),
+        names = Seq(
+          newNodeName(RouteType.cycling, RouteScope.regional, "02")
+        ),
+        version = 2,
+        tags = Tags.from(
+          "network:type" -> "node_network",
+          "rcn_ref" -> "02"
+        ),
+        country = Some(Country.nl),
+        tiles = Seq(
+          "cycling-9-256-256",
+          "cycling-10-512-512",
+          "cycling-11-1024-1024",
+          "cycling-12-2048-2048",
+          "cycling-13-4096-4096",
+          "cycling-14-8192-8192"
+        )
+      )
+    )
+  }
+
+  private def assertBaseNetwork(): Unit = {
+    val networkDoc = findBaseNetworkById(1)
+    networkDoc._id should equal(1)
   }
 
   private def assertNode(): Unit = {
@@ -97,11 +130,6 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         )
       )
     )
-  }
-
-  private def assertBaseNetwork(): Unit = {
-    val networkDoc = findBaseNetworkById(1)
-    networkDoc._id should equal(1)
   }
 
   private def assertNetwork(): Unit = {
