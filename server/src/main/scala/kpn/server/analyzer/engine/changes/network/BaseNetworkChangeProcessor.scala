@@ -121,7 +121,14 @@ class BaseNetworkChangeProcessor(
         val afterNodeIds = baseNetworkDoc.nodeIds.toSet
         val addedNodeIds = afterNodeIds -- beforeNodeIds
         val removedNodeIds = beforeNodeIds -- afterNodeIds
-        val impactedNodeIds = (addedNodeIds ++ removedNodeIds).toSeq.sorted
+
+        val updatedNodeIds = afterNodeIds.intersect(beforeNodeIds).filter { nodeId =>
+          val beforeNodeMember = before.members.find(member => member.isNode && member.ref == nodeId)
+          val afterNodeMember = baseNetworkDoc.members.find(member => member.isNode && member.ref == nodeId)
+          beforeNodeMember.map(_.role) != afterNodeMember.map(_.role)
+        }
+
+        val impactedNodeIds = (addedNodeIds ++ removedNodeIds ++ updatedNodeIds).toSeq.sorted
 
         val beforeRouteIds = before.routeIds.toSet
         val afterRouteIds = baseNetworkDoc.routeIds.toSet
