@@ -43,14 +43,15 @@ class BaseNodeChangeProcessor(
         }
       }
 
-      val deleteNodeIds = (beforeNodeIds -- afterNodeIds).toSeq.sorted
-
       createNodeIds.foreach(analysisContext.watched.nodes.add)
 
       val lostNodeTagsNodeDocs = lostNodeTagsNodeIds.flatMap { nodeId =>
         baseNodeDocsAfter.find(_._id == nodeId)
       }
       nodeRepository.bulkSaveBaseNodes(lostNodeTagsNodeDocs)
+      lostNodeTagsNodeDocs.filterNot(_.active).map(_._id).foreach(analysisContext.watched.nodes.delete)
+
+      val deleteNodeIds = (beforeNodeIds -- afterNodeIds).toSeq.sorted
 
       deleteNodeIds.foreach(analysisContext.watched.nodes.delete)
       val deletedBaseNodeDocs = deleteNodeIds.flatMap { nodeId =>

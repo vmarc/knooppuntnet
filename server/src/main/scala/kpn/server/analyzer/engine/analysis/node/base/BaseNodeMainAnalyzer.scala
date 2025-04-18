@@ -41,7 +41,7 @@ class BaseNodeMainAnalyzer(
       Some(
         BaseNodeDoc(
           _id = context.node.id,
-          active = true,
+          active = context.active,
           name = context.name,
           names = context.names,
           version = context.node.version,

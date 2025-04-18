@@ -10,7 +10,9 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
+import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
@@ -48,7 +50,17 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
 
       val node1001 = findNodeById(1001)
 
-      process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
+      process(
+        Seq(
+          Change(
+            ChangeAction.Modify,
+            Seq(
+              dataAfter.rawRelationWithId(1),
+              dataAfter.rawNodeWithId(1002),
+            )
+          )
+        )
+      )
 
       watched.nodes.ids should contain(1001)
       watched.nodes.ids shouldNot contain(1002)
@@ -110,18 +122,12 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
         changeType = ChangeType.Update,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
-        //  networkDataUpdate = None,
-        //  nodes= IdDiffs.empty,
-        //  ways = IdDiffs.empty,
-        //  relations = IdDiffs.empty,
+        nodes = IdDiffs(
+          removed = Seq(1002)
+        ),
         nodeDiffs = RefDiffs(
           removed = Seq(Ref(1002, "02"))
         ),
-        //  routeDiffs = RefDiffs.empty,
-        //  extraNodeDiffs = IdDiffs.empty,
-        //  extraWayDiffs = IdDiffs.empty,
-        //  extraRelationDiffs = IdDiffs.empty,
-        //  happy = false,
         investigate = true,
         impact = true,
       )
@@ -140,7 +146,6 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
           newMetaData()
         ),
         after = None,
-        tagDiffs = None,
         removedFromNetwork = Seq(Ref(1, "name")),
         facts = Seq(Fact.Deleted),
         investigate = true,

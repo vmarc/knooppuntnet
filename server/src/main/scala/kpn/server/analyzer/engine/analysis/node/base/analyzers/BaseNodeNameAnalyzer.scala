@@ -11,9 +11,11 @@ object BaseNodeNameAnalyzer extends BaseNodeAnalyzer {
   def analyze(context: BaseNodeAnalysisContext): BaseNodeAnalysisContext = {
     val names = findNodeNames(context.node)
     val name = if (names.nonEmpty) Some(names.map(_.name).distinct.mkString(" / ")) else None
+    val active = names.nonEmpty
     context.copy(
       _name = Some(name),
-      _names = Some(names)
+      _names = Some(names),
+      active = active
     )
   }
 
