@@ -6,6 +6,7 @@ import kpn.database.base.Id
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
+import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.fields
@@ -16,10 +17,15 @@ class OrphanNodeUpdater_ReferencesInNetworks(database: Database, log: Log) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(equal("active", true)),
-        unwind("$nodeIds"),
+        unwind("$members"),
+        filter(
+          and(
+            equal("members.memberType", "node"),
+          )
+        ),
         project(
           fields(
-            computed("_id", "$nodeIds")
+            computed("_id", "$members.ref")
           )
         )
       )
