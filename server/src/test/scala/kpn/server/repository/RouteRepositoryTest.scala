@@ -4,6 +4,8 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.common.Reference
+import kpn.api.common.data.MemberType
+import kpn.api.common.data.raw.RawMember
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -28,24 +30,27 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      database.networks.save(
-        newNetworkDoc(
+      database.baseNetworks.save(
+        newBaseNetworkDoc(
           1L,
-          summary = newNetworkSummary(
-            name = "network-name"
-          ),
-          routes = Seq(
-            newNetworkInfoRouteDetail(
-              10
-            )
+          name = Some("network-name"),
+          members = Seq(
+            RawMember(MemberType.Relation, 10, Some("role")),
           )
         )
       )
 
       val routeRepository = new RouteRepositoryImpl(database)
-      pendingRedesignPrio0()
       routeRepository.networkReferences(10) should equal(
-        Seq(Reference(RouteType.hiking, RouteScope.regional, 1, "network-name", None))
+        Seq(
+          Reference(
+            RouteType.hiking,
+            RouteScope.regional,
+            1,
+            "network-name",
+            Some("role")
+          )
+        )
       )
     }
   }
