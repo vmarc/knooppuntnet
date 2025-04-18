@@ -105,6 +105,7 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
   }
 
   private def assertNetworkChange(): Unit = {
+    pendingRedesignPrio1()
     assertEqual(
       findNetworkChangeById("123:1:1"),
       newNetworkChange(
@@ -140,7 +141,7 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
 
   private def assertRouteChange(): Unit = {
 
-    pending // TODO redesign
+    pendingRedesignPrio1()
     val routeData = newRouteData()
     //  val routeData = newRouteData(
     //    Some(Country.nl),

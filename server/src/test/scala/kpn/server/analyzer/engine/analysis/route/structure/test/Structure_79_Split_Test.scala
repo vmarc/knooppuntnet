@@ -19,7 +19,7 @@ class Structure_79_Split_Test extends UnitTest {
   }.build
 
   test("analyze") {
-    pending
+    pendingRedesign()
     val context = setup.analyze()
     assertEqual(
       context.links,
@@ -55,7 +55,7 @@ class Structure_79_Split_Test extends UnitTest {
   }
 
   test("structure") {
-    pending
+    pendingRedesign()
     //    val structure = setup.structure()
     //    structure.shouldMatchTo(
     //      TestStructure(

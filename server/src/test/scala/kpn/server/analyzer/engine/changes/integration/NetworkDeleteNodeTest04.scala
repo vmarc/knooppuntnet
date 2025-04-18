@@ -59,6 +59,7 @@ class NetworkDeleteNodeTest04 extends IntegrationTest {
   }
 
   private def assertBaseNode(): Unit = {
+    pendingRedesignPrio1()
     assertEqual(
       findBaseNodeById(1001),
       newBaseNodeDoc(

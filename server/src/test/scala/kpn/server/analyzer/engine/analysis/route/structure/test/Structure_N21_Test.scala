@@ -47,7 +47,7 @@ class Structure_N21_Test extends UnitTest {
       )
     )
 
-    pending
+    pendingRedesign()
     assertEqual(
       context.paths,
       Seq(

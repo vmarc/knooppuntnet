@@ -23,7 +23,7 @@ class Structure_N22_Test extends UnitTest {
     context.segments.foreach(a => println(s""""$a","""))
     context.paths.foreach(a => println(s""""$a","""))
 
-    pending
+    pendingRedesign()
 
     // TODO context.facts.shouldMatchTo(Set(RouteNotOneWay))
     assertEqual(
@@ -50,7 +50,7 @@ class Structure_N22_Test extends UnitTest {
       )
     )
 
-    pending
+    pendingRedesign()
     assertEqual(
       context.paths,
       Seq(

@@ -45,6 +45,6 @@ class Structure_61_NonCircularRoundaboutTest extends UnitTest {
         "backward=8>1 nodes=8, 7, 5, 4, 3, 2, 1", // TODO redesign - there should be no backward path because of unidirectional roundabout section (at least for cycling)
       )
     )
-    pending
+    pendingRedesign()
   }
 }

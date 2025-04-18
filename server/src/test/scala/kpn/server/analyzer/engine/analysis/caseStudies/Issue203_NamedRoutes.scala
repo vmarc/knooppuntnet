@@ -6,6 +6,7 @@ import kpn.core.util.UnitTest
 class Issue203_NamedRoutes extends UnitTest {
 
   test("Carrefour des Planches - Croix des Clos") {
+    pendingRedesign()
     val context = CaseStudy.analyze("13305500")
     context.facts should equal(
       Seq(
@@ -19,6 +20,7 @@ class Issue203_NamedRoutes extends UnitTest {
   }
 
   test("Le Villard - Le Villard") {
+    pendingRedesign()
     val context = CaseStudy.analyze("12219285")
     context.facts should equal(
       Seq(

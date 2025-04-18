@@ -14,7 +14,7 @@ class Structure_74_Split_Test extends UnitTest {
   }.build
 
   test("reference") {
-    pending
+    pendingRedesign()
     val context = setup.analyze()
     assertEqual(
       context.links,
@@ -28,9 +28,9 @@ class Structure_74_Split_Test extends UnitTest {
   }
 
   test("elements") {
-    pending
+    pendingRedesign()
     assertEqual(
-    setup.elementGroups(traceEnabled = true),
+      setup.elementGroups(traceEnabled = true),
       Seq(
         Seq(
           "1>3 (Forward)",
@@ -41,7 +41,7 @@ class Structure_74_Split_Test extends UnitTest {
   }
 
   test("structure") {
-    pending
+    pendingRedesign()
     //    val structure = setup.structure()
     //    structure.shouldMatchTo(
     //      TestStructure(

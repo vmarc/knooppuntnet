@@ -53,7 +53,7 @@ class GraphTestData extends SharedTestObjects {
   }
 
   private def routeDoc(legEndRoute: LegEndRoute, startNode: RouteNetworkNodeInfo, endNode: RouteNetworkNodeInfo): BaseRouteDoc = {
-    pending // TODO redesign
+    pending
     newBaseRouteDoc(
       summary = newRouteSummary(
         id = legEndRoute.trackPathKeys.head.routeId

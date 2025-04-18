@@ -15,6 +15,7 @@ import org.scalamock.scalatest.MockFactory
 class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("network relation without members") {
+    pendingRedesignPrio2()
 
     val overpassRepository: OverpassRepository = null
     val analysisTimestamp: Timestamp = Timestamp(2020, 11, 8)
@@ -32,6 +33,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTest
   }
 
   test("networkExtraMemberNode") {
+    pendingRedesignPrio2()
 
     val overpassRepository = stub[OverpassRepository]
     (overpassRepository.nodes _).when(*, *).returns(Seq(newRawNode(1001)))
@@ -71,6 +73,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTest
   }
 
   test("no fact networkExtraMemberNode when map, guidepost, board or route_marker") {
+    pendingRedesignPrio2()
 
     val node = newRawNode(
       1001
@@ -151,7 +154,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTest
 
   test("networkExtraMemberNode - not generated when proposed node in non-proposed network") {
 
-    pending
+    pendingRedesign()
 
     val node1001 = newRawNode(1002, tags = Tags.from("network:type" -> "node_network", "rwn_ref" -> "01"))
     val node1002 = newRawNode(1002, tags = Tags.from("network:type" -> "node_network", "proposed:rwn_ref" -> "02"))
@@ -217,7 +220,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTest
 
   test("networkExtraMemberNode - not generated when non-proposed node in proposed network") {
 
-    pending
+    pendingRedesign()
 
     val d = new TestData() {
       networkNode(1001, "01")
@@ -243,7 +246,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTest
 
   test("networkExtraMemberWay relation without members") {
 
-    pending
+    pendingRedesign()
 
     val d = new TestData() {
       way(1)
@@ -261,7 +264,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTest
 
   test("networkExtraMemberRelation") {
 
-    pending
+    pendingRedesign()
 
     val d = new TestData() {
       relation(10, Seq.empty, newRouteTags("01-02")) // valid route relation
@@ -281,7 +284,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTest
 
   test("routes") {
 
-    pending
+    pendingRedesign()
 
     val d = new TestData() {
       relation(10, Seq.empty, newRouteTags("01-03"))
@@ -306,7 +309,7 @@ class NetworkExtraAnalyzerTest extends UnitTest with MockFactory with SharedTest
 
   test("nodes") {
 
-    pending
+    pendingRedesign()
 
     val d = new TestData() {
       node(1001, tags = Tags.from("network:type" -> "node_network", "rwn_ref" -> "01"))

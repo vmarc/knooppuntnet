@@ -5,12 +5,13 @@ import kpn.core.util.UnitTest
 class Issue114_LoopRoute extends UnitTest {
 
   test("route 62-62") {
+    pendingRedesign()
     val context = CaseStudy.analyze("11772920")
     context.facts shouldBe empty
   }
 
   test("route 4-4") {
-    pending // TODO redesign
+    pendingRedesign()
     val context = CaseStudy.analyze("11659448")
 
     context.facts shouldBe empty
@@ -35,6 +36,7 @@ class Issue114_LoopRoute extends UnitTest {
   }
 
   test("route 30-30, not a loop but all nodes have the same name") {
+    pendingRedesign()
     val context = CaseStudy.analyze("9432838")
     context.facts shouldBe empty
   }

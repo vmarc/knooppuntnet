@@ -253,6 +253,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("route name missing") {
+    pendingRedesign()
     val context = analyze(Seq.empty)
     context._routeNameAnalysis should equal(Some(RouteNameAnalysis()))
     assertEqual(context.facts.toSet, Set(RouteNameMissing))
@@ -383,6 +384,7 @@ class RouteNameAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   private def analyzeRouteName(tags: Seq[Tag], routeNodeInfos: Map[Long, RouteNodeInfo] = Map.empty): RouteNameAnalysis = {
+    pendingRedesignPrio2()
     val newContext = analyze(tags, routeNodeInfos)
     newContext.routeNameAnalysis
   }

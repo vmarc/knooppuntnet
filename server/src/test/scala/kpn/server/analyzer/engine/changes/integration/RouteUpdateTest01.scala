@@ -63,7 +63,7 @@ class RouteUpdateTest01 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    pending // TODO redesign
+    pendingRedesignPrio1()
     assertEqual(
       findRouteChangeById("123:1:11"),
       newRouteChange(

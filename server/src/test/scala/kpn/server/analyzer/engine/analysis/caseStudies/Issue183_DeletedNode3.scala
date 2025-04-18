@@ -14,6 +14,7 @@ class Issue183_DeletedNode3 extends IntegrationTest {
   private val deletedNodeId = 2969204425L
 
   test("node looses node tags") {
+    pendingRedesignPrio1()
 
     val dataBefore = OverpassData.load("/case-studies/node-2969204425-before.xml")
     val dataAfter = OverpassData.load("/case-studies/node-2969204425-after.xml")

@@ -5,10 +5,10 @@ import kpn.core.util.UnitTest
 class OrphanRepositoryTest extends UnitTest {
 
   test("orphanNodes") {
-    pending
+    pending // implement
   }
 
   test("orphanRoutes") {
-    pending
+    pending // implement
   }
 }

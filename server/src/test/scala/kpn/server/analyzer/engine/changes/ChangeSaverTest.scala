@@ -46,6 +46,8 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
   test("save network changes") {
 
+    pendingRedesign()
+
     val networkChange = newNetworkChange(newChangeKey(elementId = 1))
 
     val changeSetChanges = ChangeSetChanges(

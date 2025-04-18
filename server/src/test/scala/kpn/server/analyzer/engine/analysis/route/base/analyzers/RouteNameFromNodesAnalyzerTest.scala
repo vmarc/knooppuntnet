@@ -5,7 +5,7 @@ import kpn.core.util.UnitTest
 class RouteNameFromNodesAnalyzerTest extends UnitTest {
 
   test("derive route name from node names") {
-    pending // TODO redesign
+    pendingRedesign()
     val context = BaseRouteAnalysisContext(
       null,
       None,
@@ -28,7 +28,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
   }
 
   test("derive route name from non-digit node names (use separator with spaces)") {
-    pending // TODO redesign
+    pendingRedesign()
     val context = BaseRouteAnalysisContext(
       null,
       None,
@@ -51,7 +51,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
   }
 
   test("do not derive route name from node names if route name already known") {
-    pending // TODO redesign
+    pendingRedesign()
     val context = BaseRouteAnalysisContext(
       null,
       None,
@@ -75,7 +75,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
   }
 
   test("do not derive route name from node names if start node name unknown") {
-    pending // TODO redesign
+    pendingRedesign()
     val context = BaseRouteAnalysisContext(
       null,
       None,
@@ -98,7 +98,7 @@ class RouteNameFromNodesAnalyzerTest extends UnitTest {
   }
 
   test("do not derive route name from node names if end node name unknown") {
-    pending // TODO redesign
+    pendingRedesign()
     val context = BaseRouteAnalysisContext(
       null,
       None,

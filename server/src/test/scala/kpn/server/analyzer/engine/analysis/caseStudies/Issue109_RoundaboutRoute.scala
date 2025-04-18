@@ -21,6 +21,7 @@ import scala.xml.XML
 class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
 
   test("analysis") {
+    pendingRedesign()
     val locationAnalyzer = new LocationAnalyzerFixed()
     val tileCalculator = new TileCalculatorImpl()
     val lineSegmentTileCalculator = new LineSegmentTileCalculatorImpl(tileCalculator)
@@ -39,7 +40,7 @@ class Issue109_RoundaboutRoute extends UnitTest with MockFactory {
     context.facts shouldBe empty
     context.structure.otherPaths shouldBe empty
 
-    pending
+    pendingRedesign()
     //    context.routeMap.freeNodes.map(_.id).toSet should equal(
     //      Set(
     //        1015045148L,

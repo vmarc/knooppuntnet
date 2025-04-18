@@ -16,7 +16,7 @@ class Issue184_NodeDeletion extends IntegrationTest {
 
   test("simulate node create/modify/delete") {
 
-    pending
+    pendingRedesign()
 
     testIntegration(OverpassData.empty, OverpassData.empty) {
 

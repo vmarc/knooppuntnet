@@ -6,8 +6,7 @@ class SebastianTest02 extends UnitTest {
 
   test("route 22-56") {
     val analysis = CaseStudy.analyze("11527464")
-    pending
-    // TODO redesign
+    pendingRedesign()
     //    analysis.routeDetail.analysis.map.unusedSegments.size should equal(1)
     //    analysis.routeDetail.oldFacts should equal(Seq(Fact.RouteUnusedSegments, Fact.RouteBroken))
     //    if (Redesign.enableNewFactTests) {
@@ -22,7 +21,6 @@ class SebastianTest02 extends UnitTest {
 
   test("route 22-56 adapted") {
     val context = CaseStudy.analyze("11527464-adapted")
-    pending
-    // TODO redesign - GeoJsonUtil.printMap(context.structure)
+    pendingRedesign() // GeoJsonUtil.printMap(context.structure)
   }
 }

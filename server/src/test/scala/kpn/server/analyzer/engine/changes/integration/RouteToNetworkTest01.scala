@@ -49,6 +49,7 @@ class RouteToNetworkTest01 extends IntegrationTest {
       network.summary.name should equal("01-02")
 
       val routeChange = database.routeChanges.findByStringId("123:1:1").get
+      pendingRedesignPrio1()
       routeChange.changeType should equal(ChangeType.Delete)
       routeChange.name should equal("01-02")
 

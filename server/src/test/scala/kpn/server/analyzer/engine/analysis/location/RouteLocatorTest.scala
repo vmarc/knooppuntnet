@@ -5,7 +5,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.Location
 import kpn.api.common.location.LocationCandidate
 import kpn.core.doc.BaseRouteDoc
-import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.caseStudies.CaseStudy
 
@@ -19,72 +18,71 @@ class RouteLocatorTest extends UnitTest with SharedTestObjects {
 
   test("way based locator") {
 
-    if (Redesign.enablePendingTests) {
+    pendingRedesignPrio2()
 
-      val locator = new RouteLocatorImpl(LocationAnalyzerTest.locationAnalyzer)
+    val locator = new RouteLocatorImpl(LocationAnalyzerTest.locationAnalyzer)
 
-      // route 24-81
-      assertEqual(
-        route("28184").locationAnalysis,
-        RouteLocationAnalysis(
-          Some(essen),
-          Seq(
-            LocationCandidate(essen, 68),
-            LocationCandidate(roosendaal, 30),
-            LocationCandidate(woensdrecht, 2)
-          ),
-          Seq(
-            "be",
-            "be-1-10000", // Antwerp province
-            "be-2-11016", // Essen
-            "nl",
-            "nl-1-nb", // North Brabant
-            "nl-2-1674", // Roosendaal
-            "nl-2-873" // Woensdrecht
-          )
+    // route 24-81
+    assertEqual(
+      route("28184").locationAnalysis,
+      RouteLocationAnalysis(
+        Some(essen),
+        Seq(
+          LocationCandidate(essen, 68),
+          LocationCandidate(roosendaal, 30),
+          LocationCandidate(woensdrecht, 2)
+        ),
+        Seq(
+          "be",
+          "be-1-10000", // Antwerp province
+          "be-2-11016", // Essen
+          "nl",
+          "nl-1-nb", // North Brabant
+          "nl-2-1674", // Roosendaal
+          "nl-2-873" // Woensdrecht
         )
       )
+    )
 
-      // route 55-95
-      assertEqual(
-        route("19227").locationAnalysis,
-        RouteLocationAnalysis(
-          Some(rucphen),
-          Seq(
-            LocationCandidate(rucphen, 61),
-            LocationCandidate(roosendaal, 23),
-            LocationCandidate(essen, 16)
-          ),
-          Seq(
-            "be",
-            "be-1-10000", // Antwerp province
-            "be-2-11016", // Essen
-            "nl",
-            "nl-1-nb", // North Brabant
-            "nl-2-1674", // Roosendaal
-            "nl-2-840" // Rucphen
-          )
+    // route 55-95
+    assertEqual(
+      route("19227").locationAnalysis,
+      RouteLocationAnalysis(
+        Some(rucphen),
+        Seq(
+          LocationCandidate(rucphen, 61),
+          LocationCandidate(roosendaal, 23),
+          LocationCandidate(essen, 16)
+        ),
+        Seq(
+          "be",
+          "be-1-10000", // Antwerp province
+          "be-2-11016", // Essen
+          "nl",
+          "nl-1-nb", // North Brabant
+          "nl-2-1674", // Roosendaal
+          "nl-2-840" // Rucphen
         )
       )
+    )
 
-      // route 80-89
-      assertEqual(
-        route("28182").locationAnalysis,
-        RouteLocationAnalysis(
-          Some(kalmthout),
-          Seq(
-            LocationCandidate(kalmthout, 85),
-            LocationCandidate(essen, 15)
-          ),
-          Seq(
-            "be",
-            "be-1-10000", // Antwerp province
-            "be-2-11016", // Essen
-            "be-2-11022" // Kalmthout
-          )
+    // route 80-89
+    assertEqual(
+      route("28182").locationAnalysis,
+      RouteLocationAnalysis(
+        Some(kalmthout),
+        Seq(
+          LocationCandidate(kalmthout, 85),
+          LocationCandidate(essen, 15)
+        ),
+        Seq(
+          "be",
+          "be-1-10000", // Antwerp province
+          "be-2-11016", // Essen
+          "be-2-11022" // Kalmthout
         )
       )
-    }
+    )
   }
 
   private def route(routeId: String): BaseRouteDoc = {

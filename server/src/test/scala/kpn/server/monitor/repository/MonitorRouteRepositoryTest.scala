@@ -12,7 +12,7 @@ import kpn.server.monitor.domain.MonitorRouteChange
 class MonitorRouteRepositoryTest extends UnitTest with SharedTestObjects {
 
   test("changes/changesCount") {
-    pending
+    pendingRedesign()
 
     withDatabase { database =>
 

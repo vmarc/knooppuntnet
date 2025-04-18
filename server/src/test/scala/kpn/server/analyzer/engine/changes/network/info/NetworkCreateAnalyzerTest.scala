@@ -6,6 +6,6 @@ import kpn.core.util.UnitTest
 class NetworkCreateAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("xxx") {
-    pending
+    pendingRedesign()
   }
 }

@@ -110,7 +110,7 @@ class NodeFragmentConnectionAnalyzerTest extends UnitTest with SharedTestObjects
   }
 
   private def canConnect(way: Way, routeType: RouteType, direction: SegmentDirection.Value, node: Node, role: Option[String]): Boolean = {
-    pending
+    pendingRedesign()
     //    val fragment = Fragment.create(None, None, way, wayNodes, role)
     //    new NodeFragmentConnectionAnalyzer(Seq(routeType), direction, node, fragment).canConnect
     false

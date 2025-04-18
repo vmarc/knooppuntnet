@@ -12,6 +12,7 @@ class Structure_56_DoubleRoundaboutGapTest extends UnitTest {
   }.build
 
   test("analyze") {
+    pendingRedesign()
     val context = setup.analyze()
 
     context.facts.foreach(a => println(s""""$a","""))

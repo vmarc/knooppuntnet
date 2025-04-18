@@ -6,26 +6,26 @@ import kpn.core.util.UnitTest
 class NetworkDocAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("roleConnection") {
-    pending
+    pending // implement
   }
 
   test("longName") {
-    pending
+    pending // implement
   }
 
   test("expectedRouteCount") {
-    pending
+    pending // implement
   }
 
   test("connection") {
-    pending
+    pending // implement
   }
 
   test("proposed") {
-    pending
+    pending // implement
   }
 
   test("definedInRelation") {
-    pending
+    pending // implement
   }
 }

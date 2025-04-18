@@ -45,7 +45,7 @@ class Structure_81_RoundaboutGap_Test extends UnitTest {
   }
 
   test("structure") {
-    pending
+    pendingRedesign()
     //    val structure = setup.structure()
     //    structure.shouldMatchTo(
     //      TestStructure(

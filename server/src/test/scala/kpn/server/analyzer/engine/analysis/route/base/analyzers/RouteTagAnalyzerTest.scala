@@ -16,7 +16,6 @@ import kpn.api.common.SharedTestObjects
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
 import kpn.api.custom.Tags
-import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 
 class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
@@ -44,9 +43,8 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("ignore additional values") {
-    if (Redesign.enablePendingTests) {
-      testValid(RouteScope.regional, RouteType.cycling, "bicycle;mtb")
-    }
+    pendingRedesignPrio2()
+    testValid(RouteScope.regional, RouteType.cycling, "bicycle;mtb")
   }
 
   private def testValid(routeScope: RouteScope, routeType: RouteType, tagValue: String): Unit = {

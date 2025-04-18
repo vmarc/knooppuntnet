@@ -1,7 +1,7 @@
 package kpn.server.analyzer.engine.tiles
 
-import kpn.api.common.RouteScope
 import kpn.api.common.NodeName
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
@@ -315,13 +315,13 @@ class TileDataNodeBuilderTest extends UnitTest with SharedTestObjects {
       )
     )
 
-    pending
+    pendingRedesign()
     tileDataNodeBuilder.build(RouteType.hiking, null /*node*/).flatMap(_.ref) should equal(Some("01"))
     tileDataNodeBuilder.build(RouteType.cycling, null /*node*/).flatMap(_.ref) should equal(Some("02"))
   }
 
   private def buildTileDataNode(node: NodeDoc): TileDataNode = {
-    pending
+    pendingRedesign()
     tileDataNodeBuilder.build(RouteType.hiking, null /*node*/).get
   }
 

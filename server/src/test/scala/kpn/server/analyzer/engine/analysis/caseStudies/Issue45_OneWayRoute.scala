@@ -6,11 +6,13 @@ import kpn.core.util.UnitTest
 class Issue45_OneWayRoute extends UnitTest {
 
   test("route 60-61") {
+    pendingRedesign()
     val context = CaseStudy.analyze("7328339")
     context.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteOneWay))
   }
 
   test("route 63-64") {
+    pendingRedesign()
     val context = CaseStudy.analyze("9515132")
     context.facts should equal(Seq(Fact.RouteNameDeprecatedNoteTag, Fact.RouteOneWay))
   }

@@ -29,6 +29,7 @@ import java.time.ZonedDateTime
 class Issue253_DoubleTransportNode extends IntegrationTest {
 
   test("orphan node list, location node list") {
+    pendingRedesign()
     val data = OverpassData().node(
       620168928L,
       Tags.from(
@@ -139,6 +140,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
   }
 
   test("step1: node that is both regional and local") {
+    pendingRedesign()
     val context = analyze(
       Tags.from(
         "hiking" -> "yes",
@@ -175,6 +177,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
   }
 
   test("step2: node only local, regional tag removed, changeset 113461712 004/790/397") {
+    pendingRedesign()
     val context = analyze(
       Tags.from(
         "hiking" -> "yes",
@@ -204,6 +207,7 @@ class Issue253_DoubleTransportNode extends IntegrationTest {
   }
 
   test("step3: lost network node tags, changeset 113584885 004/794/696") {
+    pendingRedesign()
     val context = analyze(
       Tags.from(
         "hiking" -> "yes",

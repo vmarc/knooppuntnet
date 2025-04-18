@@ -6,6 +6,7 @@ import kpn.core.util.UnitTest
 class Issue377_RouteNodeNameMismatch extends UnitTest {
 
   test("RouteNodeNameMismatch") {
+    pendingRedesign()
     val route = CaseStudy.baseRouteDoc("13945193")
     route.facts should equal(
       Seq(

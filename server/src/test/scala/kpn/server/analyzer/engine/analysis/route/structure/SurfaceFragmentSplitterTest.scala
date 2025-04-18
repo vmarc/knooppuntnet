@@ -4,6 +4,6 @@ import kpn.core.util.UnitTest
 
 class SurfaceFragmentSplitterTest extends UnitTest {
   test("migrate from PavedUnpavedSplitterTest") {
-    pending // TODO redesign
+    pendingRedesign()
   }
 }

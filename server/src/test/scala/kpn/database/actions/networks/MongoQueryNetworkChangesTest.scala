@@ -6,6 +6,6 @@ import kpn.core.util.UnitTest
 class MongoQueryNetworkChangesTest extends UnitTest with SharedTestObjects {
 
   test("execute") {
-    pending
+    pending // implement
   }
 }

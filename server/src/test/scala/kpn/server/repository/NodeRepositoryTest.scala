@@ -106,7 +106,7 @@ class NodeRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      pending
+      pendingRedesign()
 
       //  new NetworkRepositoryImpl(database).oldSaveNetworkInfo(
       //    newNetworkInfo(

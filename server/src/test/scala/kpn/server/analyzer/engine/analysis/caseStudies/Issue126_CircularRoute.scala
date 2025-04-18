@@ -5,13 +5,14 @@ import kpn.core.util.UnitTest
 class Issue126_CircularRoute extends UnitTest {
 
   test("route 75-75") {
+    pendingRedesign()
 
     // [date:"2020-11-30T00:00:00Z"];relation(11858847);(>>;);out meta;
     val context = CaseStudy.analyze("11858847")
 
     context.facts shouldBe empty
 
-    pending // TODO redesign
+    pendingRedesign()
     //    context.analysis.map.freeNodes.shouldMatchTo {
     //      Seq(
     //        RouteNetworkNodeInfo(

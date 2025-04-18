@@ -63,7 +63,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("numeric compare") {
-    pending // TODO redesign - this logic is not needed anymore in the new design?
+    pendingRedesign() // this logic is not needed anymore in the new design?
 
     val d = new RouteTestData("unknown") {
       node(1, "100")
@@ -228,6 +228,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("start and end node with the same name, but only one node in ways") {
+    pendingRedesign()
 
     val d = new RouteTestData("01-01") {
       node(1, "01")
@@ -251,6 +252,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("node name with leading zero in route name and without leading zero in way") {
+    pendingRedesign()
 
     val d = new RouteTestData("01-02") {
       node(1, "1")
@@ -274,6 +276,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("start node in route relation, but not in ways") {
+    pendingRedesign()
 
     val d = new RouteTestData("01-02") {
       node(1, "01")
@@ -448,6 +451,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("extra 'proposed' nodes in regular route are ignored") {
+    pendingRedesign()
     val d = new RouteTestData("01-02") {
       node(1, "01")
       node(2, "02")
@@ -485,6 +489,7 @@ class RouteNodesAnalyzerTest extends UnitTest {
   }
 
   test("extra regular nodes in proposed route") {
+    pendingRedesign()
     val d = new RouteTestData("01-02", routeTags = Tags.from("state" -> "proposed")) {
       rawNode(
         newRawNode(

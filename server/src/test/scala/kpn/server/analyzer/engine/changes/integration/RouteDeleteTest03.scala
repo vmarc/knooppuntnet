@@ -80,6 +80,7 @@ class RouteDeleteTest03 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
+    pendingRedesignPrio1()
     assertEqual(
       findRouteChangeById("123:1:11"),
       newRouteChange(

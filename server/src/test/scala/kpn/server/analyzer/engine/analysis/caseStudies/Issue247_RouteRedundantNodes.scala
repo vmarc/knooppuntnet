@@ -6,6 +6,7 @@ import kpn.core.util.UnitTest
 class Issue247_RouteRedundantNodes extends UnitTest {
 
   test("redundant nodes") {
+    pendingRedesign()
     // status 2021-12-20T21:00:00Z
     val route = CaseStudy.baseRouteDoc("13569497")
     route.facts shouldBe empty

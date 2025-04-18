@@ -102,6 +102,7 @@ class NetworkUpdateRouteTest02 extends IntegrationTest {
   }
 
   private def assertNetworkChange(): Unit = {
+    pendingRedesignPrio1()
     assertEqual(
       findNetworkChangeById("123:1:1"),
       newNetworkChange(

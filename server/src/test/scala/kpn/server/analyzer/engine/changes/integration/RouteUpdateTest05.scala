@@ -8,7 +8,7 @@ class RouteUpdateTest05 extends IntegrationTest {
 
   test("name diff") {
 
-    pending
+    pendingRedesignPrio1()
 
     val dataBefore = OverpassData()
       .node(1001)

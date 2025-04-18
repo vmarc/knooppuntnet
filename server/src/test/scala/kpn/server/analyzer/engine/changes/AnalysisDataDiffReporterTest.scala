@@ -15,7 +15,7 @@ class AnalysisDataDiffReporterTest extends UnitTest {
 
   test("Network differences") {
 
-    pending
+    pendingRedesign()
 
     val left = Watched()
     val right = Watched()
@@ -59,8 +59,7 @@ class AnalysisDataDiffReporterTest extends UnitTest {
 
   test("Orphan route differences") {
 
-    pending
-
+    pendingRedesign()
 
     val left = Watched()
     val right = Watched()
@@ -109,7 +108,7 @@ class AnalysisDataDiffReporterTest extends UnitTest {
 
   test("Orphan node differences") {
 
-    pending
+    pendingRedesign()
 
     val left = Watched()
     val right = Watched()
@@ -137,5 +136,4 @@ class AnalysisDataDiffReporterTest extends UnitTest {
 
     report should equal(expected)
   }
-
 }

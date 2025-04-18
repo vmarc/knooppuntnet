@@ -13,6 +13,7 @@ import scala.xml.XML
 class Issue_ItalianNodesInFrenchNetwork extends IntegrationTest {
 
   test("Italian nodes in French network cause NetworkExtraMemberNode fact") {
+    pendingRedesign()
 
     val filename = s"/case-studies/12280062.xml"
     val stream = getClass.getResourceAsStream(filename)

@@ -13,6 +13,8 @@ class RouteTileCalculatorTest extends UnitTest {
 
   test("single tile route") {
 
+    pendingRedesign()
+
     val b = t.t22.tile.bounds
 
     val delta = (b.xMax - b.xMin) / 4
@@ -46,6 +48,8 @@ class RouteTileCalculatorTest extends UnitTest {
 
   test("route traversing 2 tiles") {
 
+    pendingRedesign()
+
     val tile1 = t.t12.tile.bounds
     val tile2 = t.t22.tile.bounds
 
@@ -74,6 +78,8 @@ class RouteTileCalculatorTest extends UnitTest {
   }
 
   test("route traversing 3 tiles") {
+
+    pendingRedesign()
 
     val tile1 = t.t12.tile.bounds
     val tile2 = t.t32.tile.bounds

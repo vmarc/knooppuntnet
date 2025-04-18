@@ -10,7 +10,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      pending
+      pendingRedesign()
 
       //      val networkRepository = new NetworkRepositoryImpl(database)
       //      networkRepository.saveNetworkInfo(
@@ -95,7 +95,7 @@ class FactRepositoryTest extends UnitTest with SharedTestObjects {
 
     withDatabase { database =>
 
-      pending
+      pendingRedesign()
 
       //      val networkRepository = new NetworkRepositoryImpl(database)
       //      networkRepository.saveNetworkInfo(

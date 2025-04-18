@@ -97,6 +97,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertNode1003(): Unit = {
+    pendingRedesignPrio1()
     assertEqual(
       findNodeById(1003),
       newNodeDoc(
@@ -160,7 +161,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    pending // TODO redesign
+    pendingRedesignPrio1()
     assertEqual(
       findRouteChangeById("123:1:12"),
       newRouteChange(

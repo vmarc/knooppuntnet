@@ -10,7 +10,6 @@ import kpn.api.common.location.LocationNodesParameters
 import kpn.api.custom.Day
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
-import kpn.core.util.Redesign
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.analysis.location.LocationSubset
 
@@ -127,63 +126,63 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
   }
 
   test("include nodes with lastSurvey values only") {
-    if (Redesign.enablePendingTests) {
-      withDatabase { database =>
-        val setup = new MongoQueryLocationNodesTestSetup(database)
+    pendingRedesignPrio2()
 
-        database.nodes.save(
-          newNodeDoc(
+    withDatabase { database =>
+      val setup = new MongoQueryLocationNodesTestSetup(database)
+
+      database.nodes.save(
+        newNodeDoc(
+          1001L,
+          labels = Seq(
+            Label.active,
+            Label.survey,
+            Label.routeType(RouteType.hiking),
+            Label.location(Country.be.entryName)
+          ),
+          names = Seq(
+            newNodeName(name = "01")
+          ),
+          lastSurvey = Some(Day(2020, 8))
+        )
+      )
+
+      database.nodes.save(
+        newNodeDoc(
+          1002L,
+          labels = Seq(
+            Label.active,
+            Label.routeType(RouteType.hiking),
+            Label.location(Country.be.entryName)
+          ),
+          names = Seq(
+            newNodeName(name = "02")
+          )
+        )
+      )
+
+      val subset = LocationSubset("", hiking, Seq("be"))
+      val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
+      query.countDocuments(subset, LocationNodesParameters(/* TODO survey */)) should equal(1)
+      val locationNodeInfos = query.find(subset, LocationNodesParameters())
+      assertEqual(
+        locationNodeInfos,
+        Seq(
+          LocationNodeInfo(
+            0L,
             1001L,
-            labels = Seq(
-              Label.active,
-              Label.survey,
-              Label.routeType(RouteType.hiking),
-              Label.location(Country.be.entryName)
-            ),
-            names = Seq(
-              newNodeName(name = "01")
-            ),
-            lastSurvey = Some(Day(2020, 8))
+            "01",
+            "-",
+            "0",
+            "0",
+            defaultTimestamp,
+            Some(Day(2020, 8)),
+            Seq.empty,
+            "-",
+            Seq.empty
           )
         )
-
-        database.nodes.save(
-          newNodeDoc(
-            1002L,
-            labels = Seq(
-              Label.active,
-              Label.routeType(RouteType.hiking),
-              Label.location(Country.be.entryName)
-            ),
-            names = Seq(
-              newNodeName(name = "02")
-            )
-          )
-        )
-
-        val subset = LocationSubset("", hiking, Seq("be"))
-        val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
-        query.countDocuments(subset, LocationNodesParameters(/* TODO survey */)) should equal(1)
-        val locationNodeInfos = query.find(subset, LocationNodesParameters())
-        assertEqual(
-          locationNodeInfos,
-          Seq(
-            LocationNodeInfo(
-              0L,
-              1001L,
-              "01",
-              "-",
-              "0",
-              "0",
-              defaultTimestamp,
-              Some(Day(2020, 8)),
-              Seq.empty,
-              "-",
-              Seq.empty
-            )
-          )
-        )
-      }
+      )
     }
   }
 
@@ -268,63 +267,62 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
   }
 
   test("only include nodes with facts") {
-    if (Redesign.enablePendingTests) {
-      withDatabase { database =>
-        val setup = new MongoQueryLocationNodesTestSetup(database)
+    pendingRedesignPrio2()
+    withDatabase { database =>
+      val setup = new MongoQueryLocationNodesTestSetup(database)
 
-        database.nodes.save(
-          newNodeDoc(
-            1001L,
-            labels = Seq(
-              Label.active,
-              Label.routeType(RouteType.hiking),
-              Label.location(Country.be.entryName)
-            ),
-            names = Seq(
-              newNodeName(name = "01")
-            )
+      database.nodes.save(
+        newNodeDoc(
+          1001L,
+          labels = Seq(
+            Label.active,
+            Label.routeType(RouteType.hiking),
+            Label.location(Country.be.entryName)
+          ),
+          names = Seq(
+            newNodeName(name = "01")
           )
         )
+      )
 
-        database.nodes.save(
-          newNodeDoc(
+      database.nodes.save(
+        newNodeDoc(
+          1007L,
+          labels = Seq(
+            Label.active,
+            Label.facts,
+            Label.fact(Fact.NodeInvalidSurveyDate),
+            Label.routeType(RouteType.hiking),
+            Label.location(Country.be.entryName)
+          ),
+          names = Seq(
+            newNodeName(name = "02")
+          ),
+          facts = Seq(Fact.NodeInvalidSurveyDate)
+        )
+      )
+
+      val subset = LocationSubset("", hiking, Seq("be"))
+      val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
+      query.countDocuments(subset, LocationNodesParameters(/*TODOfact*/)) should equal(1)
+      assertEqual(
+        query.find(subset, LocationNodesParameters(/*TODOfact*/)),
+        Seq(
+          LocationNodeInfo(
+            0L,
             1007L,
-            labels = Seq(
-              Label.active,
-              Label.facts,
-              Label.fact(Fact.NodeInvalidSurveyDate),
-              Label.routeType(RouteType.hiking),
-              Label.location(Country.be.entryName)
-            ),
-            names = Seq(
-              newNodeName(name = "02")
-            ),
-            facts = Seq(Fact.NodeInvalidSurveyDate)
+            "02",
+            "-",
+            "0",
+            "0",
+            defaultTimestamp,
+            None,
+            Seq(Fact.NodeInvalidSurveyDate),
+            "-",
+            Seq.empty
           )
         )
-
-        val subset = LocationSubset("", hiking, Seq("be"))
-        val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
-        query.countDocuments(subset, LocationNodesParameters(/*TODOfact*/)) should equal(1)
-        assertEqual(
-          query.find(subset, LocationNodesParameters(/*TODOfact*/)),
-          Seq(
-            LocationNodeInfo(
-              0L,
-              1007L,
-              "02",
-              "-",
-              "0",
-              "0",
-              defaultTimestamp,
-              None,
-              Seq(Fact.NodeInvalidSurveyDate),
-              "-",
-              Seq.empty
-            )
-          )
-        )
-      }
+      )
     }
   }
 

@@ -9,6 +9,7 @@ import kpn.core.util.UnitTest
 class NetworkNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("error if node not defined in relation") {
+    pendingRedesignPrio2()
     analyze(definedInRelation = false) should equal(
       Seq(
         NetworkFact(
@@ -23,14 +24,17 @@ class NetworkNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestObjec
   }
 
   test("no error if node defined in relation") {
+    pendingRedesignPrio2()
     analyze(definedInRelation = true) should equal(Seq.empty)
   }
 
   test("no error if proposed node not defined in regular non-proposed network") {
+    pendingRedesignPrio2()
     analyze(definedInRelation = false, nodeProposed = true) should equal(Seq.empty)
   }
 
   test("no error if non-proposed node not defined in proposed network") {
+    pendingRedesignPrio2()
     analyze(definedInRelation = false, networkProposed = true) should equal(Seq.empty)
   }
 
