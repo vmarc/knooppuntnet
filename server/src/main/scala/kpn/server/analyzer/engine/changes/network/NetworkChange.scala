@@ -38,7 +38,7 @@ case class NetworkChange(
   }
 
   def impactedNodeIds: Seq[Long] = {
-    nodes.ids
+    nodeDiffs.ids
   }
 
   def impactedRelationIds: Seq[Long] = {
