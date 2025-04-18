@@ -12,7 +12,6 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
@@ -51,15 +50,9 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
       val node1001 = findNodeById(1001)
 
       process(
-        Seq(
-          Change(
-            ChangeAction.Modify,
-            Seq(
-              dataAfter.rawRelationWithId(1),
-              dataAfter.rawNodeWithId(1002),
-            )
-          )
-        )
+        ChangeAction.Modify,
+        dataAfter.rawRelationWithId(1),
+        dataAfter.rawNodeWithId(1002),
       )
 
       watched.nodes.ids should contain(1001)

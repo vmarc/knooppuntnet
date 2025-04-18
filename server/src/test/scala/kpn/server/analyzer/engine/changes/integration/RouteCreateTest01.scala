@@ -12,7 +12,6 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
-import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.core.doc.Label
@@ -37,17 +36,11 @@ class RouteCreateTest01 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       process(
-        Seq(
-          Change(
-            ChangeAction.Create,
-            Seq(
-              dataAfter.rawNodeWithId(1001),
-              dataAfter.rawNodeWithId(1002),
-              dataAfter.rawWayWithId(101),
-              dataAfter.rawRelationWithId(11)
-            )
-          )
-        )
+        ChangeAction.Create,
+        dataAfter.rawNodeWithId(1001),
+        dataAfter.rawNodeWithId(1002),
+        dataAfter.rawWayWithId(101),
+        dataAfter.rawRelationWithId(11)
       )
 
       watched.routes.ids should contain(11)

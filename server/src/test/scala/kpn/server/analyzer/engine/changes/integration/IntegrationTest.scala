@@ -88,8 +88,8 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
     context.analysisContext.watched
   }
 
-  def process(action: ChangeAction, element: RawElement): Unit = {
-    val changes = Seq(Change(action, Seq(element)))
+  def process(action: ChangeAction, elements: RawElement*): Unit = {
+    val changes = Seq(Change(action, elements))
     process(changes)
   }
 

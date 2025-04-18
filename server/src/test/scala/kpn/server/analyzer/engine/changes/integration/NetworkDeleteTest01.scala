@@ -15,7 +15,6 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawMember
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
@@ -44,15 +43,9 @@ class NetworkDeleteTest01 extends IntegrationTest {
       watched.nodes.ids should contain(1001)
 
       process(
-        Seq(
-          Change(
-            ChangeAction.Delete,
-            Seq(
-              newRawNode(1001),
-              newRawRelation(1)
-            )
-          )
-        )
+        ChangeAction.Delete,
+        newRawNode(1001),
+        newRawRelation(1)
       )
       watched.networks.ids shouldNot contain(1)
       watched.nodes.ids shouldNot contain(1001)

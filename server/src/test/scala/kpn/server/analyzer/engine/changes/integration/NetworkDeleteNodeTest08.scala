@@ -13,7 +13,6 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
@@ -37,15 +36,9 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       process(
-        Seq(
-          Change(
-            ChangeAction.Delete,
-            Seq(
-              newRawNode(1001),
-              newRawRelation(1)
-            )
-          )
-        )
+        ChangeAction.Delete,
+        newRawNode(1001),
+        newRawRelation(1)
       )
 
       watched.networks.ids shouldNot contain(1)

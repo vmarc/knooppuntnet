@@ -15,7 +15,6 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
-import kpn.api.custom.Change
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
@@ -43,17 +42,11 @@ class NetworkCreateTest04 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
 
       process(
-        Seq(
-          Change(
-            ChangeAction.Create,
-            Seq(
-              dataAfter.rawNodeWithId(1001),
-              dataAfter.rawNodeWithId(1002),
-              dataAfter.rawRelationWithId(11),
-              dataAfter.rawRelationWithId(1)
-            )
-          )
-        )
+        ChangeAction.Create,
+        dataAfter.rawNodeWithId(1001),
+        dataAfter.rawNodeWithId(1002),
+        dataAfter.rawRelationWithId(11),
+        dataAfter.rawRelationWithId(1)
       )
 
       watched.networks.ids should contain(1)
