@@ -44,7 +44,7 @@ class RouteRepositoryTest extends UnitTest with SharedTestObjects {
 
       val routeRepository = new RouteRepositoryImpl(database)
       routeRepository.networkReferences(10) should equal(
-        Seq(Reference(RouteType.hiking, RouteScope.regional, 1, "network-name"))
+        Seq(Reference(RouteType.hiking, RouteScope.regional, 1, "network-name", None))
       )
     }
   }

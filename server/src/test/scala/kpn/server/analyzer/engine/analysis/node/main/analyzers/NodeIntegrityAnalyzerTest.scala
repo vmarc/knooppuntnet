@@ -59,19 +59,22 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
             RouteType.hiking,
             routeScope = RouteScope.regional,
             10,
-            "R1"
+            "R1",
+            None
           ),
           Reference(
             RouteType.hiking,
             routeScope = RouteScope.regional,
             20,
-            "R2"
+            "R2",
+            None
           ),
           Reference(
             RouteType.hiking,
             routeScope = RouteScope.regional,
             30,
-            "R3"
+            "R3",
+            None
           ),
         )
       )
@@ -123,13 +126,15 @@ class NodeIntegrityAnalyzerTest extends UnitTest with SharedTestObjects {
             RouteType.hiking,
             routeScope = RouteScope.regional,
             10,
-            "R1"
+            "R1",
+            None
           ),
           Reference(
             RouteType.hiking,
             routeScope = RouteScope.regional,
             20,
-            "R2"
+            "R2",
+            None
           ),
         )
       )

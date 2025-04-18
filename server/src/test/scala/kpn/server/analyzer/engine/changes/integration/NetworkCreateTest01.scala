@@ -113,8 +113,6 @@ class NetworkCreateTest01 extends IntegrationTest {
           "network" -> "rwn",
           "name" -> "network-name",
         ),
-        nodeIds = Seq(1001, 1002),
-        routeIds = Seq(11),
       )
     )
   }

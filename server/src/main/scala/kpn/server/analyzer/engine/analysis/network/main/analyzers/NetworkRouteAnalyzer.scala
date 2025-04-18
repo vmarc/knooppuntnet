@@ -23,7 +23,7 @@ class NetworkRouteAnalyzer(database: Database) extends NetworkAnalyzer {
   private val log = Log(classOf[NetworkAnalysisContext])
 
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    val routeIds = context.network.routeIds
+    val routeIds = context.network.members.filter(_.memberType == MemberType.Relation).map(_.ref)
     val routeDetails = queryRouteDetails(routeIds)
     val meters = routeDetails.map(_.length).sum
     val km = Math.round(meters.toDouble / 1000)

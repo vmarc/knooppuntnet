@@ -117,7 +117,7 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         ),
         tags = newNodeTags("03"),
         routeReferences = Seq(
-          Reference(RouteType.hiking, RouteScope.regional, 12, "02-03")
+          Reference(RouteType.hiking, RouteScope.regional, 12, "02-03", None)
         )
       )
     )

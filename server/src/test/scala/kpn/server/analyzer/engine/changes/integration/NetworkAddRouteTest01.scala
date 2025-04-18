@@ -342,7 +342,8 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         RouteType.hiking,
         RouteScope.regional,
         11,
-        "01-02"
+        "01-02",
+        None
       )
     )
     context.nodeRepository.nodeRouteReferences(1001) should equal(nodeRouteReferences)

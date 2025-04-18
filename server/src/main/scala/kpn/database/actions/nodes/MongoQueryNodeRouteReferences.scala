@@ -26,7 +26,7 @@ class MongoQueryNodeRouteReferences(database: Database) {
         filter(
           and(
             equal("labels", Label.active),
-            in("nodeRefs", nodeIds: _*),
+            in("nodeRefs", nodeIds: _*), // TODO redesign - use route members instead?
           )
         ),
         unwind("$nodeRefs"),
@@ -44,6 +44,7 @@ class MongoQueryNodeRouteReferences(database: Database) {
             computed("routeType", "$summary.routeTypes"),
             computed("routeScope", "$summary.scopes"),
             computed("routeName", "$summary.name"),
+            // TODO redesign - include role
           )
         )
       )

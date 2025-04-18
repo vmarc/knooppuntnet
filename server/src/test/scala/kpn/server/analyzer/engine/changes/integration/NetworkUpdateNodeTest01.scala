@@ -97,9 +97,6 @@ class NetworkUpdateNodeTest01 extends IntegrationTest {
           "network" -> "rwn",
           "name" -> "name"
         ),
-        nodeIds = Seq(
-          1001
-        )
       )
     )
   }

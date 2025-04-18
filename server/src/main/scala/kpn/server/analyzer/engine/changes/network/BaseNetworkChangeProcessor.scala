@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.network
 
+import kpn.api.common.data.MemberType
 import kpn.api.common.data.raw.RawRelation
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.util.Log
@@ -100,8 +101,8 @@ class BaseNetworkChangeProcessor(
         analysisContext.watched.networks.add(rawRelation.id)
         networkRepository.saveBaseNetwork(baseNetworkDoc)
         context.withImpact(
-          baseNetworkDoc.nodeIds,
-          baseNetworkDoc.routeIds,
+          baseNetworkDoc.members.filter(_.memberType == MemberType.Node).map(_.ref),
+          baseNetworkDoc.members.filter(_.memberType == MemberType.Relation).map(_.ref),
           Seq(networkId)
         )
     }
@@ -117,8 +118,8 @@ class BaseNetworkChangeProcessor(
         analysisContext.watched.networks.add(rawRelation.id)
         networkRepository.saveBaseNetwork(baseNetworkDoc)
 
-        val beforeNodeIds = before.nodeIds.toSet
-        val afterNodeIds = baseNetworkDoc.nodeIds.toSet
+        val beforeNodeIds = before.members.filter(_.memberType == MemberType.Node).map(_.ref).toSet
+        val afterNodeIds = baseNetworkDoc.members.filter(_.memberType == MemberType.Node).map(_.ref).toSet
         val addedNodeIds = afterNodeIds -- beforeNodeIds
         val removedNodeIds = beforeNodeIds -- afterNodeIds
 
@@ -130,8 +131,8 @@ class BaseNetworkChangeProcessor(
 
         val impactedNodeIds = (addedNodeIds ++ removedNodeIds ++ updatedNodeIds).toSeq.sorted
 
-        val beforeRouteIds = before.routeIds.toSet
-        val afterRouteIds = baseNetworkDoc.routeIds.toSet
+        val beforeRouteIds = before.members.filter(_.memberType == MemberType.Relation).map(_.ref).toSet
+        val afterRouteIds = baseNetworkDoc.members.filter(_.memberType == MemberType.Relation).map(_.ref).toSet
         val addedRouteIds = afterRouteIds -- beforeRouteIds
         val removedRouteIds = beforeRouteIds -- afterRouteIds
         val impactedRouteIds = (addedRouteIds ++ removedRouteIds).toSeq.sorted
@@ -149,13 +150,11 @@ class BaseNetworkChangeProcessor(
     val updatedDoc = before.copy(
       active = false,
       members = Seq.empty,
-      nodeIds = Seq.empty,
-      routeIds = Seq.empty
     )
     networkRepository.saveBaseNetwork(updatedDoc)
     context.withImpact(
-      before.nodeIds,
-      before.routeIds,
+      before.members.filter(_.memberType == MemberType.Node).map(_.ref),
+      before.members.filter(_.memberType == MemberType.Relation).map(_.ref),
       Seq(networkId)
     )
   }

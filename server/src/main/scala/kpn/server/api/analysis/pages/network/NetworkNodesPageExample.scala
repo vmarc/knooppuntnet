@@ -40,13 +40,13 @@ object NetworkNodesPageExample {
         facts = Seq.empty
       ),
       routeReferences = Seq(
-        Reference(RouteType.hiking, RouteScope.regional, 11, "01-02"),
-        Reference(RouteType.hiking, RouteScope.regional, 12, "01-03"),
-        Reference(RouteType.hiking, RouteScope.regional, 13, "01-04"),
-        Reference(RouteType.hiking, RouteScope.regional, 14, "01-05"),
-        Reference(RouteType.hiking, RouteScope.regional, 15, "01-06"),
-        Reference(RouteType.hiking, RouteScope.regional, 16, "01-07"),
-        Reference(RouteType.hiking, RouteScope.regional, 17, "01-08")
+        Reference(RouteType.hiking, RouteScope.regional, 11, "01-02", None),
+        Reference(RouteType.hiking, RouteScope.regional, 12, "01-03", None),
+        Reference(RouteType.hiking, RouteScope.regional, 13, "01-04", None),
+        Reference(RouteType.hiking, RouteScope.regional, 14, "01-05", None),
+        Reference(RouteType.hiking, RouteScope.regional, 15, "01-06", None),
+        Reference(RouteType.hiking, RouteScope.regional, 16, "01-07", None),
+        Reference(RouteType.hiking, RouteScope.regional, 17, "01-08", None)
       )
     )
   }
@@ -69,9 +69,9 @@ object NetworkNodesPageExample {
         proposed = true
       ),
       routeReferences = Seq(
-        Reference(RouteType.hiking, RouteScope.regional, 11, "01-02"),
-        Reference(RouteType.hiking, RouteScope.regional, 12, "01-03"),
-        Reference(RouteType.hiking, RouteScope.regional, 13, "01-04")
+        Reference(RouteType.hiking, RouteScope.regional, 11, "01-02", None),
+        Reference(RouteType.hiking, RouteScope.regional, 12, "01-03", None),
+        Reference(RouteType.hiking, RouteScope.regional, 13, "01-04", None)
       )
     )
   }

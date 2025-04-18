@@ -27,7 +27,13 @@ class MongoQueryRouteNetworkReferences(database: Database) {
         filter(
           and(
             equal("active", true),
-            equal("routeIds", routeId),
+          )
+        ),
+        unwind("$members"),
+        filter(
+          and(
+            equal("members.memberType", "relation"),
+            equal("members.ref", routeId),
           )
         ),
         project(
@@ -37,6 +43,7 @@ class MongoQueryRouteNetworkReferences(database: Database) {
             include("routeScope"),
             computed("id", "$_id"),
             include("name"),
+            computed("role", "$members.role"),
           )
         )
       )

@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.analysis.network.main.analyzers
 
+import kpn.api.common.data.MemberType
 import kpn.core.doc.Label
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
@@ -18,7 +19,7 @@ class NetworkNodeDocAnalyzer(database: Database) extends NetworkAnalyzer {
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
     val nodeDocs = if (context.network.active) {
       val routeNodeIds = context.routeDetails.flatMap(_.nodeRefs).distinct.sorted
-      val networkNodeIds = context.network.nodeIds
+      val networkNodeIds = context.network.members.filter(_.memberType == MemberType.Node).map(_.ref)
       val nodeIds = (networkNodeIds ++ routeNodeIds).distinct.sorted
       queryNodes(nodeIds)
     }

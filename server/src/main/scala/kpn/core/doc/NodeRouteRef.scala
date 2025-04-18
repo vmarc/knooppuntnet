@@ -10,5 +10,6 @@ case class NodeRouteRef(
   routeId: Long,
   routeType: RouteType,
   routeScope: RouteScope,
-  routeName: String
+  routeName: String,
+  role: Option[String],
 ) extends WithStringId

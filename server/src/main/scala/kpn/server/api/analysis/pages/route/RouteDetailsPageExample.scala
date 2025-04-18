@@ -22,8 +22,8 @@ object RouteDetailsPageExample {
     RouteDetailsPage(
       route(),
       networkReferences = Seq(
-        Reference(RouteType.cycling, RouteScope.regional, 1, "network one"),
-        Reference(RouteType.cycling, RouteScope.regional, 2, "network two")
+        Reference(RouteType.cycling, RouteScope.regional, 1, "network one", None),
+        Reference(RouteType.cycling, RouteScope.regional, 2, "network two", None)
       ),
       123
     )

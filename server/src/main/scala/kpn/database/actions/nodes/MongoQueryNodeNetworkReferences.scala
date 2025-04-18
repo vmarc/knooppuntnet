@@ -3,13 +3,11 @@ package kpn.database.actions.nodes
 import kpn.api.common.common.Reference
 import kpn.core.util.Log
 import kpn.database.base.Database
-import kpn.database.base.Id
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
 import org.mongodb.scala.model.Filters.and
 import org.mongodb.scala.model.Filters.equal
-import org.mongodb.scala.model.Filters.in
 import org.mongodb.scala.model.Projections.computed
 import org.mongodb.scala.model.Projections.excludeId
 import org.mongodb.scala.model.Projections.fields
@@ -25,10 +23,14 @@ class MongoQueryNodeNetworkReferences(database: Database) {
     log.debugElapsed {
       val pipeline = Seq(
         filter(
+          equal("active", true),
+        ),
+        unwind("$members"),
+        filter(
           and(
-            equal("active", true),
-            equal("nodeIds", nodeId)
-          ),
+            equal("members.memberType", "node"),
+            equal("members.ref", nodeId),
+          )
         ),
         project(
           fields(
@@ -37,33 +39,12 @@ class MongoQueryNodeNetworkReferences(database: Database) {
             include("routeScope"),
             computed("id", "$_id"),
             include("name"),
+            computed("role", "$members.role"),
           )
         )
       )
       val references = database.baseNetworks.aggregate[Reference](pipeline, log)
       (s"node network references: ${references.size}", references)
-    }
-  }
-
-  def executeNodeIds(nodeIds: Seq[Long], log: Log = MongoQueryNodeNetworkReferences.log): Seq[Long] = {
-    if (nodeIds.nonEmpty) {
-      log.debugElapsed {
-        val pipeline = Seq(
-          filter(equal("active", true)),
-          unwind("$relationMembers"),
-          filter(in("relationMembers.nodeId", nodeIds: _*)),
-          project(
-            fields(
-              include("_id")
-            )
-          )
-        )
-        val ids = database.networks.aggregate[Id](pipeline, log).map(_._id)
-        (s"network references: ${ids.size}", ids)
-      }
-    }
-    else {
-      Seq.empty
     }
   }
 }

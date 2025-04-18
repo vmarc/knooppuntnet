@@ -43,8 +43,6 @@ class BaseNetworkMainAnalyzer {
           changeSetId = context.relation.changeSetId,
           members = context.relation.members,
           tags = context.relation.tags,
-          nodeIds = context.relation.nodeMembers.map(_.ref),
-          routeIds = context.relation.relationMembers.map(_.ref),
         )
       )
     }

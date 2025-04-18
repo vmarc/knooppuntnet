@@ -42,8 +42,8 @@ object LocationNodesPageExample {
           facts = Seq(Fact.NodeInvalidSurveyDate),
           expectedRouteCount = "3",
           routeReferences = Seq(
-            Reference(RouteType.hiking, RouteScope.regional, 101, "01-02"),
-            Reference(RouteType.hiking, RouteScope.regional, 102, "01-03")
+            Reference(RouteType.hiking, RouteScope.regional, 101, "01-02", None),
+            Reference(RouteType.hiking, RouteScope.regional, 102, "01-03", None)
           )
         )
       )

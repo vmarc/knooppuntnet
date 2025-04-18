@@ -9,7 +9,8 @@ case class Reference(
   routeType: RouteType,
   routeScope: RouteScope,
   id: Long,
-  name: String
+  name: String,
+  role: Option[String],
 ) extends Ordered[Reference] {
 
   def toRef: Ref = {
@@ -17,8 +18,8 @@ case class Reference(
   }
 
   def compare(that: Reference): Int = {
-    (this.routeScope.entryName, this.routeType.entryName, this.name).compare(
-      (that.routeScope.entryName, that.routeType.entryName, that.name)
+    (this.routeScope.entryName, this.routeType.entryName, this.name, this.role).compare(
+      (that.routeScope.entryName, that.routeType.entryName, that.name, that.role)
     )
   }
 }

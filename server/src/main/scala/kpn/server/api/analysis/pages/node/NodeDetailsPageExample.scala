@@ -57,15 +57,15 @@ object NodeDetailsPageExample {
       nodeInfo,
       mixedRouteScopes = true,
       Seq(
-        Reference(RouteType.cycling, RouteScope.regional, 101, "01-02"),
-        Reference(RouteType.cycling, RouteScope.regional, 102, "02-03"),
-        Reference(RouteType.cycling, RouteScope.local, 103, "03-04"),
-        Reference(RouteType.hiking, RouteScope.regional, 104, "05-06")
+        Reference(RouteType.cycling, RouteScope.regional, 101, "01-02", None),
+        Reference(RouteType.cycling, RouteScope.regional, 102, "02-03", None),
+        Reference(RouteType.cycling, RouteScope.local, 103, "03-04", None),
+        Reference(RouteType.hiking, RouteScope.regional, 104, "05-06", None)
       ),
       Seq(
-        Reference(RouteType.hiking, RouteScope.regional, 1, "network one"),
-        Reference(RouteType.hiking, RouteScope.regional, 2, "network two"),
-        Reference(RouteType.hiking, RouteScope.local, 3, "network three")
+        Reference(RouteType.hiking, RouteScope.regional, 1, "network one", None),
+        Reference(RouteType.hiking, RouteScope.regional, 2, "network two", None),
+        Reference(RouteType.hiking, RouteScope.local, 3, "network three", None)
       ),
       Some(
         NodeIntegrity(

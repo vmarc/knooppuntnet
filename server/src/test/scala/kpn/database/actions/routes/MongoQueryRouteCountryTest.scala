@@ -2,6 +2,8 @@ package kpn.database.actions.routes
 
 import kpn.api.common.Country
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.data.MemberType
+import kpn.api.common.data.raw.RawMember
 import kpn.core.test.TestSupport.withDatabase
 import kpn.core.util.UnitTest
 
@@ -13,7 +15,9 @@ class MongoQueryRouteCountryTest extends UnitTest with SharedTestObjects {
       database.baseNetworks.save(
         newBaseNetworkDoc(
           _id = 1,
-          routeIds = Seq(11),
+          members = Seq(
+            RawMember(MemberType.Relation, 11, None)
+          )
         )
       )
       database.networks.save(
@@ -40,7 +44,9 @@ class MongoQueryRouteCountryTest extends UnitTest with SharedTestObjects {
         newBaseNetworkDoc(
           _id = 1,
           active = false,
-          routeIds = Seq(11)
+          members = Seq(
+            RawMember(MemberType.Relation, 11, None)
+          )
         )
       )
       database.networks.save(
@@ -59,7 +65,9 @@ class MongoQueryRouteCountryTest extends UnitTest with SharedTestObjects {
       database.baseNetworks.save(
         newBaseNetworkDoc(
           _id = 1,
-          routeIds = Seq(11)
+          members = Seq(
+            RawMember(MemberType.Relation, 11, None)
+          )
         )
       )
       database.networks.save(

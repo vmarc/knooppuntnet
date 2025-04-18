@@ -29,7 +29,13 @@ class MongoQueryRouteCountry(database: Database) {
         filter(
           and(
             equal("active", true),
-            equal("routeIds", routeId)
+          )
+        ),
+        unwind("$members"),
+        filter(
+          and(
+            equal("members.memberType", "relation"),
+            equal("members.ref", routeId),
           )
         ),
         lookup("networks", "_id", "_id", "networks"),

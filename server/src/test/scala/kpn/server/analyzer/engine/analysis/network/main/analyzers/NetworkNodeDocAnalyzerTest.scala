@@ -19,10 +19,6 @@ class NetworkNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
           RawMember(MemberType.Node, 1002L, None),
           RawMember(MemberType.Node, 1003L, None),
         ),
-        nodeIds = Seq(
-          1002L,
-          1003L,
-        )
       )
 
       val context = NetworkAnalysisContext(

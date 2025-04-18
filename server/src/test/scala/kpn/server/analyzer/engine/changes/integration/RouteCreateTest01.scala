@@ -107,7 +107,7 @@ class RouteCreateTest01 extends IntegrationTest {
         ),
         tags = newNodeTags("01"),
         routeReferences = Seq(
-          Reference(RouteType.hiking, RouteScope.regional, 11, "01-02")
+          Reference(RouteType.hiking, RouteScope.regional, 11, "01-02", None)
         )
       )
     )
@@ -133,7 +133,7 @@ class RouteCreateTest01 extends IntegrationTest {
         ),
         tags = newNodeTags("02"),
         routeReferences = Seq(
-          Reference(RouteType.hiking, RouteScope.regional, 11, "01-02")
+          Reference(RouteType.hiking, RouteScope.regional, 11, "01-02", None)
         )
       )
     )

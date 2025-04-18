@@ -21,7 +21,8 @@ class NodeRouteRepositoryImpl(database: Database) extends NodeRouteRepository {
           nodeRouteRef.routeType,
           nodeRouteRef.routeScope,
           nodeRouteRef.routeId,
-          nodeRouteRef.routeName
+          nodeRouteRef.routeName,
+          nodeRouteRef.role
         )
       }.sortBy(_.name)
       NodeRouteRefs(nodeId, references)

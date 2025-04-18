@@ -530,8 +530,6 @@ trait SharedTestObjects extends MockFactory {
     changeSetId: Long = 0,
     members: Seq[RawMember] = Seq.empty,
     tags: Seq[Tag] = Seq.empty,
-    nodeIds: Seq[Long] = Seq.empty,
-    routeIds: Seq[Long] = Seq.empty,
   ): BaseNetworkDoc = {
     BaseNetworkDoc(
       _id,
@@ -544,8 +542,6 @@ trait SharedTestObjects extends MockFactory {
       changeSetId,
       members,
       tags,
-      nodeIds,
-      routeIds,
     )
   }
 
