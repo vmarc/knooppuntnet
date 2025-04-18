@@ -9,6 +9,7 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
@@ -75,25 +76,25 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
       assertEqual(findBaseNetworkById(2), network2)
       assertEqual(findNetworkById(2), networkInfo2)
 
-      assertNetwork1()
-      assertNetworkInfo1()
-      assertNetworkInfoChange1()
+      assertBaseNetwork()
+      assertNetwork()
+      assertNetworkChange()
       assertNodeChange1002()
       assertChangeSetSummary()
     }
   }
 
-  private def assertNetwork1(): Unit = {
+  private def assertBaseNetwork(): Unit = {
     val networkDoc = findBaseNetworkById(1)
     networkDoc._id should equal(1)
   }
 
-  private def assertNetworkInfo1(): Unit = {
+  private def assertNetwork(): Unit = {
     val networkInfoDoc = findNetworkById(1)
     networkInfoDoc._id should equal(1)
   }
 
-  private def assertNetworkInfoChange1(): Unit = {
+  private def assertNetworkChange(): Unit = {
     assertEqual(
       findNetworkChangeById("123:1:1"),
       newNetworkChange(
@@ -102,20 +103,14 @@ class NetworkUpdateNodeTest03 extends IntegrationTest {
         changeType = ChangeType.Update,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
-        //  networkDataUpdate = None,
-        //  nodes= IdDiffs.empty,
-        //  ways = IdDiffs.empty,
-        //  relations = IdDiffs.empty,
+        nodes = IdDiffs(
+          removed = Seq(1002)
+        ),
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1002, "02")
           )
         ),
-        //  routeDiffs = RefDiffs.empty,
-        //  extraNodeDiffs = IdDiffs.empty,
-        //  extraWayDiffs = IdDiffs.empty,
-        //  extraRelationDiffs = IdDiffs.empty,
-        //  happy = false,
         investigate = true,
         impact = true,
       )
