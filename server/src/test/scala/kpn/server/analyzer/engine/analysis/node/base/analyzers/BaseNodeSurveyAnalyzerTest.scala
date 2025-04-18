@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.analysis.node.base.analyzers
 import kpn.api.common.Fact
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.Day
+import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
 
 class BaseNodeSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
@@ -24,7 +25,7 @@ class BaseNodeSurveyAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   private def analyze(tags: (String, String)*): BaseNodeAnalysisContext = {
-    val context = BaseNodeAnalysisContext(newRawNode())
+    val context = BaseNodeAnalysisContext(newRawNode(tags = Tags.from(tags: _*)))
     BaseNodeSurveyAnalyzer.analyze(context)
   }
 }
