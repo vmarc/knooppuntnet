@@ -27,25 +27,13 @@ class NodeDocChangeAnalyzer(
 
   def analyze(): Option[NodeChange] = {
 
-    val nodeId = before._id
-
-    val roleConnectionChanges = context.changes.networkChanges.flatMap { networkChange =>
-      if (networkChange.nodes.updated.contains(nodeId)) {
-        context.elementChanges.relationGet(networkChange.networkId) match {
-          case Some(rawRelationChange) =>
-            val connectionBefore = rawRelationChange.before.nodeMembers.filter(_.ref == nodeId).exists(_.role.contains("connection"))
-            val connectionAfter = rawRelationChange.after.nodeMembers.filter(_.ref == nodeId).exists(_.role.contains("connection"))
-            if (connectionBefore != connectionAfter) {
-              Some(
-                RefBooleanChange(networkChange.toRef, connectionAfter)
-              )
-            }
-            else {
-              None
-            }
-
-          case _ => None
-        }
+    val roleConnectionChanges = before.networkReferences.map(_.id).intersect(after.networkReferences.map(_.id)).flatMap { networkId =>
+      val networkReferenceBefore = before.networkReferences.find(_.id == networkId)
+      val networkReferenceAfter = after.networkReferences.find(_.id == networkId)
+      val connectionBefore = networkReferenceBefore.flatMap(_.role).contains("connection")
+      val connectionAfter = networkReferenceAfter.flatMap(_.role).contains("connection")
+      if (connectionBefore != connectionAfter) {
+        networkReferenceAfter.map(networkRef => RefBooleanChange(networkRef.toRef, connectionAfter))
       }
       else {
         None
