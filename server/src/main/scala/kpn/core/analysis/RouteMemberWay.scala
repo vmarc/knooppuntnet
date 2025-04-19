@@ -42,9 +42,9 @@ case class RouteMemberWay(
       rn.nodeId,
       rn.name,
       rn.alternateName,
-      None, // TODO redesign
-      "TODO rn.latitude",
-      "TODO rn.longitude"
+      None, // TODO redesign - longName
+      rn.latitude,
+      rn.longitude
     )
   }
 

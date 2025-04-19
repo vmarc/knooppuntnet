@@ -154,8 +154,8 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
             rn.name,
             rn.alternateName,
             None, // TODO redesign
-            "TODO rn.latitude",
-            "TODO rn.longitude"
+            rn.latitude,
+            rn.longitude
           )
         }
 
@@ -168,6 +168,9 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
           case _ => None
         }
 
+        val fromNodeName = context.routeNodesAnalysis.nodes.find(_.node.id == fromNode.id).map(_.name).getOrElse("")
+        val toNodeName = context.routeNodesAnalysis.nodes.find(_.node.id == toNode.id).map(_.name).getOrElse("")
+
         Some(
           RouteMemberInfo(
             way.id,
@@ -179,10 +182,6 @@ class BaseRouteMemberAnalyzer(context: BaseRouteAnalysisContext) {
               RouteMemberInfoWay(
                 wayType = wayType,
                 nodes = nodesX,
-                from = fromNode.toString,
-                fromNodeId = fromNode.id,
-                to = toNode.toString,
-                toNodeId = toNode.id,
                 timestamp = way.timestamp,
                 accessible = accessible,
                 distance = way.length,

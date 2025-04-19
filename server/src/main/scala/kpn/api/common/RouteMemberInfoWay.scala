@@ -9,10 +9,6 @@ import kpn.api.custom.Timestamp
 case class RouteMemberInfoWay(
   wayType: Option[String],
   nodes: Seq[RouteNetworkNodeInfo],
-  from: String,
-  fromNodeId: Long,
-  to: String,
-  toNodeId: Long,
   timestamp: Timestamp,
   accessible: Boolean,
   distance: Long,

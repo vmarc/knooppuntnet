@@ -9,10 +9,6 @@ import { Timestamp } from '@api/custom/timestamp';
 export interface RouteMemberInfoWay {
   readonly wayType: string;
   readonly nodes: RouteNetworkNodeInfo[];
-  readonly from: string;
-  readonly fromNodeId: number;
-  readonly to: string;
-  readonly toNodeId: number;
   readonly timestamp: Timestamp;
   readonly accessible: boolean;
   readonly distance: number;

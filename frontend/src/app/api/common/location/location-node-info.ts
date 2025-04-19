@@ -1,7 +1,7 @@
 // this file is generated, please do not modify
 
-import { Fact } from '@api/common/fact';
 import { Reference } from '@api/common/common/reference';
+import { Fact } from '@api/common/fact';
 import { Day } from '@api/custom/day';
 import { Timestamp } from '@api/custom/timestamp';
 

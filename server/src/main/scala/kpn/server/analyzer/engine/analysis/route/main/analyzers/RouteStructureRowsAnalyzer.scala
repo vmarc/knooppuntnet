@@ -77,10 +77,6 @@ class RouteStructureRowsAnalyzer(routeRepository: RouteRepository) extends Route
         RouteStructureWay(
           wayType = way.wayType,
           nodes = way.nodes,
-          from = way.from,
-          fromNodeId = way.fromNodeId,
-          to = way.to,
-          toNodeId = way.toNodeId,
           accessible = way.accessible,
           nodeCount = way.nodeCount,
           oneWay = way.oneWay,

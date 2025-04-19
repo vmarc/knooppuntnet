@@ -28,7 +28,8 @@ class ClassAnalyzerTest extends UnitTest {
 
     val caseClass = mirror.staticClass("kpn.core.tools.typescript.TestClass").typeSignature
     val classInfo = new ClassAnalyzer().analyze(caseClass)
-    classInfo.displayString should equal(
+    assertEqual(
+      classInfo,
       ClassInfo(
         "TestClass",
         Seq(
@@ -78,8 +79,9 @@ class ClassAnalyzerTest extends UnitTest {
             "timestamps",
             ClassType(
               "Array<Timestamp>",
-              arrayType = Some(ClassType("Timestamp"))
-            )
+              arrayType = Some(ClassType("Timestamp", optional = true)),
+              optional = true
+            ),
           ),
           ClassField(
             "selfRef",
@@ -89,11 +91,11 @@ class ClassAnalyzerTest extends UnitTest {
         Seq(
           ClassDependency(
             "Timestamp",
-            "@api/custom"
+            "@api/custom/timestamp",
           )
         ),
         formClass = false
-      ).displayString
+      )
     )
   }
 }

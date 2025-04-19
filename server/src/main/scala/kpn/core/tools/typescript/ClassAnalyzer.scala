@@ -72,7 +72,7 @@ class ClassAnalyzer {
                 s"./${CamelCaseUtil.toDashed(withoutPackage)}"
               }
               else if (fieldPackageName.startsWith("kpn.api.")) {
-                s"@api/${fieldPackageName.substring("kpn.api.".length).replaceAll("\\.", "/")}"
+                s"@api/${fieldPackageName.substring("kpn.api.".length).replaceAll("\\.", "/")}/${CamelCaseUtil.toDashed(withoutPackage)}"
               }
               else {
                 throw new RuntimeException("unexpected field package name")

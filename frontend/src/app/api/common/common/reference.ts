@@ -8,4 +8,5 @@ export interface Reference {
   readonly routeScope: RouteScope;
   readonly id: number;
   readonly name: string;
+  readonly role: string;
 }

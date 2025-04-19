@@ -632,6 +632,7 @@ trait SharedTestObjects extends MockFactory {
     countries: Seq[Country] = Seq.empty,
     nodeNetwork: Boolean = true,
     routeTypes: Seq[RouteType] = Seq(RouteType.hiking),
+    scopes: Seq[RouteScope] = Seq(RouteScope.regional),
     name: String = "",
     meters: Int = 0,
     broken: Boolean = false,
@@ -645,7 +646,7 @@ trait SharedTestObjects extends MockFactory {
       countries,
       nodeNetwork,
       routeTypes,
-      Seq.empty, // TODO redesign tiles - scopes
+      scopes,
       name,
       meters,
       broken,

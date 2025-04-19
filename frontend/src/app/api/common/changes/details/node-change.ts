@@ -1,13 +1,13 @@
 // this file is generated, please do not modify
 
 import { ChangeType } from '@api/common/change-type';
-import { Fact } from '@api/common/fact';
-import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { Ref } from '@api/common/common/ref';
 import { MetaData } from '@api/common/data/meta-data';
-import { TagDiffs } from '@api/common/diff/tag-diffs';
 import { FactDiffs } from '@api/common/diff/common/fact-diffs';
 import { NodeMoved } from '@api/common/diff/node/node-moved';
+import { TagDiffs } from '@api/common/diff/tag-diffs';
+import { Fact } from '@api/common/fact';
+import { LatLonImpl } from '@api/common/lat-lon-impl';
 import { Subset } from '@api/custom/subset';
 import { Tag } from '@api/custom/tag';
 import { ChangeKey } from './change-key';

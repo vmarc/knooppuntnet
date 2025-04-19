@@ -97,10 +97,6 @@ object RouteDetailsPageExample {
             RouteStructureWay(
               wayType = Some("path"),
               nodes = Seq.empty,
-              from = "01",
-              fromNodeId = 1,
-              to = "02",
-              toNodeId = 2,
               accessible = false,
               nodeCount = "3",
               oneWay = WayDirection.Both,
