@@ -3,7 +3,6 @@ package kpn.server.analyzer.engine.changes.route
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
 import kpn.api.common.changes.details.RouteChange
-import kpn.api.common.common.Ref
 import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
@@ -172,9 +171,7 @@ class RouteChangeProcessor(
 
     val key = context.buildChangeKey(routeId)
 
-    val addedToNetwork = routeDocAfter.networkReferences.map(r => Ref(r.id, r.name))
-
-    val removedFromNetwork: Seq[Ref] = Seq.empty
+    val addedToNetwork = routeDocAfter.networkReferences.map(_.toRef)
 
     Some(
       RouteChangeStateAnalyzer.analyzed(
@@ -185,7 +182,7 @@ class RouteChangeProcessor(
           name = routeDocAfter.summary.name,
           locationAnalysis = routeDocAfter.locationAnalysis,
           addedToNetwork = addedToNetwork,
-          removedFromNetwork = removedFromNetwork,
+          removedFromNetwork = Seq.empty,
           before = None,
           after = Some(RouteData.from(routeDocAfter)),
           removedWays = Seq.empty,
@@ -207,23 +204,7 @@ class RouteChangeProcessor(
 
     val impactedNodeIds: Seq[Long] = routeDoc.nodes.nodeIds.sorted
 
-    val addedToNetwork = context.changes.networkChanges.flatMap { networkChanges =>
-      if (networkChanges.relations.added.contains(routeDoc._id)) {
-        Some(networkChanges.toRef)
-      }
-      else {
-        None
-      }
-    }
-
-    val removedFromNetwork = context.changes.networkChanges.flatMap { networkChanges =>
-      if (networkChanges.relations.removed.contains(routeDoc._id)) {
-        Some(networkChanges.toRef)
-      }
-      else {
-        None
-      }
-    }
+    val removedFromNetwork = routeDoc.networkReferences.map(_.toRef)
 
     val key = context.buildChangeKey(routeDoc._id)
 
@@ -236,7 +217,7 @@ class RouteChangeProcessor(
           changeType = ChangeType.Delete,
           name = routeDoc.summary.name,
           locationAnalysis = routeDoc.locationAnalysis,
-          addedToNetwork = addedToNetwork,
+          addedToNetwork = Seq.empty,
           removedFromNetwork = removedFromNetwork,
           before = Some(RouteData.from(routeDoc)),
           after = None,
@@ -292,8 +273,8 @@ class RouteChangeProcessor(
     val addedNetworkIds = (afterNetworkIds -- beforeNetworkIds).toSeq.sorted
     val removedNetworkIds = (beforeNetworkIds -- afterNetworkIds).toSeq.sorted
 
-    val addedToNetwork = after.networkReferences.filter(r => addedNetworkIds.contains(r.id)).map(r => Ref(r.id, r.name))
-    val removedFromNetwork = before.networkReferences.filter(r => removedNetworkIds.contains(r.id)).map(r => Ref(r.id, r.name))
+    val addedToNetwork = after.networkReferences.filter(r => addedNetworkIds.contains(r.id)).map(_.toRef)
+    val removedFromNetwork = before.networkReferences.filter(r => removedNetworkIds.contains(r.id)).map(_.toRef)
 
     val key = context.buildChangeKey(routeId)
 

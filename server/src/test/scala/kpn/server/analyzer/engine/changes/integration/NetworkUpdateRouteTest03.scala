@@ -11,8 +11,8 @@ import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
-import kpn.api.common.common.Reference
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
@@ -57,8 +57,20 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
 
       process(
         Seq(
-          Change(ChangeAction.Modify, Seq(dataAfter.rawRelationWithId(1))),
-          Change(ChangeAction.Delete, Seq(newRawRelation(12)))
+          Change(
+            ChangeAction.Modify,
+            Seq(
+              dataAfter.rawRelationWithId(1)
+            )
+          ),
+          Change(
+            ChangeAction.Delete,
+            Seq(
+              newRawNode(1003),
+              newRawWay(102),
+              newRawRelation(12)
+            )
+          )
         )
       )
 
@@ -97,7 +109,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertNode1003(): Unit = {
-    pendingRedesignPrio1()
     assertEqual(
       findNodeById(1003),
       newNodeDoc(
@@ -117,9 +128,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
           )
         ),
         tags = newNodeTags("03"),
-        routeReferences = Seq(
-          Reference(RouteType.hiking, RouteScope.regional, 12, "02-03", None)
-        )
       )
     )
   }
@@ -133,10 +141,9 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         changeType = ChangeType.Update,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
-        //  networkDataUpdate = None,
-        //  nodes= IdDiffs.empty,
-        //  ways = IdDiffs.empty,
-        //  relations = IdDiffs.empty,
+        relations = IdDiffs(
+          removed = Seq(12)
+        ),
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1003, "03")
@@ -150,10 +157,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
             Ref(12, "02-03")
           )
         ),
-        //  extraNodeDiffs = IdDiffs.empty,
-        //  extraWayDiffs = IdDiffs.empty,
-        //  extraRelationDiffs = IdDiffs.empty,
-        //  happy = false,
         investigate = true,
         impact = true,
       )
@@ -161,7 +164,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    pendingRedesignPrio1()
     assertEqual(
       findRouteChangeById("123:1:12"),
       newRouteChange(
@@ -169,34 +171,20 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
         ChangeType.Delete,
         "02-03",
         removedFromNetwork = Seq(Ref(1, "name")),
-        before = None,
-        //        Some(
-        //          newRouteData(
-        //            Some(Country.nl),
-        //            routeType.hiking,
-        //            relation = newRawRelation(
-        //              12,
-        //              members = Seq(RawMember("way", 102, None)),
-        //              tags = newRouteTags("02-03")
-        //            ),
-        //            name = "02-03",
-        //            networkNodes = Seq(
-        //              newNodeWithName(1002, "02"),
-        //              newNodeWithName(1003, "03")
-        //            ),
-        //            nodes = Seq(
-        //              newNodeWithName(1002, "02"),
-        //              newNodeWithName(1003, "03")
-        //            ),
-        //            ways = Seq(
-        //              newRawWay(
-        //                102,
-        //                nodeIds = Vector(1002, 1003),
-        //                tags = Tags.from("highway" -> "unclassified")
-        //              )
-        //            )
-        //          )
-        //        ),
+        before = Some(
+          newRouteData(
+            relationId = 12,
+            meta = newMetaData(changeSetId = 1),
+            countries = Seq(Country.nl),
+            routeTypes = Seq(RouteType.hiking),
+            name = "02-03",
+            networkNodes = Seq(
+              newRouteNode(1002, "02"),
+              newRouteNode(1003, "03")
+            ),
+            tags = newRouteTags("02-03")
+          )
+        ),
         facts = Seq(Fact.Deleted),
         impactedNodeIds = Seq(1002, 1003),
         investigate = true,
