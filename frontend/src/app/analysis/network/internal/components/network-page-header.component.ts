@@ -83,10 +83,11 @@ import { NetworkService } from '../network.service';
             Map
           </kpn-page-menu-option>
 
+          <!-- [elementCount]="summary?.changeCount"-->
           <kpn-page-menu-option
             [link]="'/analysis/network/' + networkId + '/changes'"
             [active]="pageName() === 'changes'"
-            [elementCount]="summary?.changeCount"
+            [elementCount]="999"
             i18n="@@network-page.menu.changes"
           >
             Changes

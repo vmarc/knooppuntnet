@@ -12,7 +12,6 @@ const defaultSummary: NetworkSummary = {
   factCount: 0,
   nodeCount: 0,
   routeCount: 0,
-  changeCount: 0,
 };
 
 @Injectable({
