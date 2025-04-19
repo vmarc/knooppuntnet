@@ -9,6 +9,7 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.core.test.OverpassData
@@ -96,7 +97,6 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
   }
 
   private def assertNetworkChange(): Unit = {
-    pendingRedesignPrio1()
     assertEqual(
       findNetworkChangeById("123:1:1"),
       newNetworkChange(
@@ -105,10 +105,9 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
         changeType = ChangeType.Delete,
         country = Some(Country.nl),
         routeType = RouteType.hiking,
-        //  networkDataUpdate = None,
-        //  nodes= IdDiffs.empty,
-        //  ways = IdDiffs.empty,
-        //  relations = IdDiffs.empty,
+        relations = IdDiffs(
+          removed = Seq(11)
+        ),
         nodeDiffs = RefDiffs(
           removed = Seq(
             Ref(1001, "01"),
@@ -120,10 +119,6 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
             Ref(11, "01-02")
           )
         ),
-        //  extraNodeDiffs = IdDiffs.empty,
-        //  extraWayDiffs = IdDiffs.empty,
-        //  extraRelationDiffs = IdDiffs.empty,
-        //  happy = false,
         investigate = true,
         impact = true,
       )
@@ -131,34 +126,18 @@ class NetworkDeleteRouteTest01 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    val routeData = newRouteData()
-    //  val routeData = newRouteData(
-    //    Some(Country.nl),
-    //    routeType.hiking,
-    //    relation = newRawRelation(
-    //      11,
-    //      members = Seq(
-    //        RawMember("way", 101, None)
-    //      ),
-    //      tags = newRouteTags("01-02")
-    //    ),
-    //    name = "01-02",
-    //    networkNodes = Seq(
-    //      newNodeWithName(1001, "01"),
-    //      newNodeWithName(1002, "02")
-    //    ),
-    //    nodes = Seq(
-    //      newNodeWithName(1001, "01"),
-    //      newNodeWithName(1002, "02")
-    //    ),
-    //    ways = Seq(
-    //      newRawWay(
-    //        101,
-    //        nodeIds = Vector(1001, 1002),
-    //        tags = Tags.from("highway" -> "unclassified")
-    //      )
-    //    )
-    //  )
+    val routeData = newRouteData(
+      relationId = 11,
+      meta = newMetaData(changeSetId = 1),
+      countries = Seq(Country.nl),
+      routeTypes = Seq(RouteType.hiking),
+      name = "01-02",
+      networkNodes = Seq(
+        newRouteNode(1001, "01"),
+        newRouteNode(1002, "02")
+      ),
+      tags = newRouteTags("01-02")
+    )
 
     assertEqual(
       findRouteChangeById("123:1:11"),

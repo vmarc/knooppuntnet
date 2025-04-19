@@ -61,7 +61,7 @@ class NetworkDeleteTest04 extends IntegrationTest {
 
       process(ChangeAction.Modify, dataAfter.data.relations(1).toRaw)
 
-      pendingRedesignPrio1()
+      pendingRedesignPrio0()
 
       watched.networks.ids shouldNot contain(1)
       watched.routes.ids should contain(1)

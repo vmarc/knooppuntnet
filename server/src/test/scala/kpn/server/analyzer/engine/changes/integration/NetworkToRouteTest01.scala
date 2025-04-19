@@ -33,7 +33,7 @@ class NetworkToRouteTest01 extends IntegrationTest {
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(1))
 
       val baseNetwork = database.baseNetworks.findById(1).get
-      pendingRedesignPrio1()
+      pendingRedesignPrio0()
       baseNetwork.active should equal(false)
       baseNetwork.version should equal(1)
 
