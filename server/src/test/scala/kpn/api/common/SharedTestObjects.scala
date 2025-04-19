@@ -662,8 +662,8 @@ trait SharedTestObjects extends MockFactory {
     name: String,
     alternateName: String = "",
     longName: Option[String] = None,
-    lat: String = "",
-    lon: String = ""
+    lat: String = "0",
+    lon: String = "0"
   ): RouteNetworkNodeInfo = {
     RouteNetworkNodeInfo(
       id,

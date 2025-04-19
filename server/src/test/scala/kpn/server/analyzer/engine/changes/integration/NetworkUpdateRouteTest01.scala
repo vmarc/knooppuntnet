@@ -1,6 +1,6 @@
 package kpn.server.analyzer.engine.changes.integration
 
-import kpn.api.common
+import kpn.api.common.Bounds
 import kpn.api.common.ChangeSetElementRefs
 import kpn.api.common.ChangeSetSubsetAnalysis
 import kpn.api.common.ChangeType
@@ -8,19 +8,29 @@ import kpn.api.common.Country
 import kpn.api.common.NetworkChanges
 import kpn.api.common.RouteMemberInfo
 import kpn.api.common.RouteMemberInfoWay
+import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.data.MetaData
+import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.route.RouteEdge
 import kpn.api.common.route.RouteNetworkNodeInfo
+import kpn.api.common.route.RouteNodes
+import kpn.api.common.route.RoutePath
+import kpn.api.common.route.RouteSegment
+import kpn.api.common.route.RouteStructureRow
+import kpn.api.common.route.RouteStructureWay
 import kpn.api.common.route.WayDirection
 import kpn.api.custom.Subset
 import kpn.api.custom.Timestamp
+import kpn.core.doc.BaseRoutePath
+import kpn.core.doc.BaseRouteSegment
+import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 import kpn.server.analyzer.engine.context.ElementIds
@@ -79,8 +89,9 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
 
       watched.routes.ids should contain(11)
 
+      assertBaseRoute()
       assertRoute()
-      assertRouteDetail()
+
       assertOrphanRoute()
       assertNetworkChange()
       assertRouteChange()
@@ -90,8 +101,105 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
     }
   }
 
+  private def assertBaseRoute(): Unit = {
+    assertEqual(
+      findBaseRouteById(11).copy(geometryDigest = "", tiles = Seq.empty),
+      newBaseRouteDoc(
+        newRouteSummary(
+          11,
+          name = "01-02",
+          countries = Seq(Country.nl),
+          wayCount = 1,
+          tags = newRouteTags("01-02")
+        ),
+        labels = Seq(
+          Label.active,
+          Label.country(Country.nl),
+          Label.routeType(RouteType.hiking),
+          Label.scope(RouteScope.regional),
+        ),
+        members = Seq(
+          RouteMemberInfo(
+            id = 101,
+            memberType = MemberType.Way,
+            role = None,
+            name = None,
+            poi = None,
+            way = Some(
+              RouteMemberInfoWay(
+                wayType = Some("unclassified"),
+                nodes = Seq(
+                  RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
+                  RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
+                ),
+                timestamp = Timestamp(2015, 8, 11, 0, 0, 0),
+                accessible = true,
+                distance = 0,
+                nodeCount = "2",
+                oneWay = WayDirection.Both,
+                oneWayTags = Seq.empty,
+                link = newLink() // "wn000"
+              )
+            )
+          )
+        ),
+        nodes = RouteNodes(
+          startNode = Some(newRouteNode(1001, "01")),
+          endNode = Some(newRouteNode(1002, "02")),
+        ),
+        analysis = newRouteInfoAnalysis(
+          expectedName = "01-02",
+        ),
+        nodeRefs = Seq(
+          1001,
+          1002
+        ),
+        elementIds = ElementIds(
+          nodeIds = Set(1001, 1002),
+          wayIds = Set(101)
+        ),
+        edges = Seq(
+          RouteEdge(1, 1001, 1002, 0),
+          RouteEdge(2, 1002, 1001, 0),
+        ),
+        segments = Seq(
+          BaseRouteSegment(
+            id = 1,
+            startNodeId = 1001,
+            endNodeId = 1002,
+            meters = 0,
+            bounds = Bounds(),
+            elementIds = Seq(1)
+          )
+        ),
+        segmentElements = Seq(
+          BaseRouteSegmentElement(
+            segmentId = 1,
+            segmentElementId = 1,
+            surface = "paved",
+            coordinates = "[[0,0],[0,0]]"
+          )
+        ),
+        paths = Seq(
+          BaseRoutePath(
+            id = 1,
+            name = "forward",
+            elementIds = Seq(1),
+          ),
+          BaseRoutePath(
+            id = 2,
+            name = "backward",
+            elementIds = Seq(1),
+          ),
+        ),
+        bounds = Some(Bounds())
+      )
+    )
+  }
+
   private def assertRoute(): Unit = {
-    pendingRedesignPrio1()
+    val baseRouteDoc = findBaseRouteById(11)
+
     assertEqual(
       findRouteById(11),
       newRouteDoc(
@@ -105,7 +213,8 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
         labels = Seq(
           Label.active,
           Label.country(Country.nl),
-          Label.routeType(RouteType.hiking)
+          Label.routeType(RouteType.hiking),
+          Label.scope(RouteScope.regional),
         ),
         members = Seq(
           RouteMemberInfo(
@@ -116,15 +225,11 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             None,
             Some(
               RouteMemberInfoWay(
-                None,
+                Some("unclassified"),
                 Seq(
                   RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
                   RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
                 ),
-                "1",
-                1002,
-                "2",
-                1001,
                 Timestamp(2015, 8, 11, 0, 0, 0),
                 accessible = true,
                 0,
@@ -136,168 +241,78 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             )
           )
         ),
+        nodes = RouteNodes(
+          startNode = Some(newRouteNode(1001, "01")),
+          endNode = Some(newRouteNode(1002, "02")),
+        ),
         analysis = newRouteInfoAnalysis(
           expectedName = "01-02",
-          // TODO redesign
-          //  map = newRouteMap(
-          //    bounds = MapBounds("0.0", "0.0", "0.0", "0.0"),
-          //    forwardPath = Some(
-          //      TrackPath(
-          //        pathId = 1,
-          //        startNodeId = 1001,
-          //        endNodeId = 1002,
-          //        meters = 0,
-          //        oneWay = false,
-          //        segments = Seq(
-          //          TrackSegment(
-          //            "paved",
-          //            TrackPoint("0", "0"),
-          //            Seq(
-          //              TrackSegmentFragment(TrackPoint("0", "0"), 0)
-          //            )
-          //          )
-          //        )
-          //      )
-          //    ),
-          //    backwardPath = Some(
-          //      TrackPath(
-          //        pathId = 2,
-          //        startNodeId = 1002,
-          //        endNodeId = 1001,
-          //        meters = 0,
-          //        oneWay = false,
-          //        segments = Seq(
-          //          TrackSegment(
-          //            "paved",
-          //            TrackPoint("0", "0"),
-          //            Seq(
-          //              TrackSegmentFragment(TrackPoint("0", "0"), 0)
-          //            )
-          //          )
-          //        )
-          //      )
-          //    ),
-          //    startNodes = Seq(
-          //      RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0")
-          //    ),
-          //    endNodes = Seq(
-          //      RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
-          //    )
-          //  ),
-        )
-      )
-    )
-  }
+        ),
+        segments = Seq(
+          RouteSegment(
+            id = 1,
+            startNodeId = 1001,
+            endNodeId = 1002,
+            meters = 0,
+            bounds = Bounds(),
+            elementIds = Seq(1)
+          )
+        ),
+        paths = Seq(
+          RoutePath(
+            id = 1,
+            name = "forward",
+            elementIds = Seq(1),
+          ),
+          RoutePath(
+            id = 2,
+            name = "backward",
+            elementIds = Seq(1),
+          )
+        ),
+        routeIds = Seq(11),
+        bounds = Some(Bounds()),
+        structureRows = Seq(
+          RouteStructureRow(
+            id = 101,
+            memberType = MemberType.Way,
+            role = None,
+            link = Some(
+              newLink(
 
-  private def assertRouteDetail(): Unit = {
-    pendingRedesignPrio1()
-    assertEqual(
-      findBaseRouteById(11),
-      newBaseRouteDoc(
-        newRouteSummary(
-          11,
-          name = "01-02",
-          countries = Seq(Country.nl),
-          wayCount = 1,
-          tags = newRouteTags("01-02")
-        ),
-        labels = Seq(
-          Label.active,
-          Label.country(Country.nl),
-          Label.routeType(RouteType.hiking)
-        ),
-        members = Seq(
-          common.RouteMemberInfo(
-            101,
-            MemberType.Way,
-            None,
-            None,
-            None,
-            Some(
-              RouteMemberInfoWay(
-                None,
-                Seq(
-                  RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0"),
-                  RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
-                ),
-                "1",
-                1002,
-                "2",
-                1001,
-                Timestamp(2015, 8, 11, 0, 0, 0),
-                accessible = true,
-                0,
-                "2",
-                WayDirection.Both,
-                Seq.empty,
-                newLink() // "wn000"
               )
-            )
-          )
-        ),
-        analysis = newRouteInfoAnalysis(
-          expectedName = "01-02",
-          // TODO redesign
-          //  map = newRouteMap(
-          //    bounds = MapBounds("0.0", "0.0", "0.0", "0.0"),
-          //    forwardPath = Some(
-          //      TrackPath(
-          //        pathId = 1,
-          //        startNodeId = 1001,
-          //        endNodeId = 1002,
-          //        meters = 0,
-          //        oneWay = false,
-          //        segments = Seq(
-          //          TrackSegment(
-          //            "paved",
-          //            TrackPoint("0", "0"),
-          //            Seq(
-          //              TrackSegmentFragment(TrackPoint("0", "0"), 0)
-          //            )
-          //          )
-          //        )
-          //      )
-          //    ),
-          //    backwardPath = Some(
-          //      TrackPath(
-          //        pathId = 2,
-          //        startNodeId = 1002,
-          //        endNodeId = 1001,
-          //        meters = 0,
-          //        oneWay = false,
-          //        segments = Seq(
-          //          TrackSegment(
-          //            "paved",
-          //            TrackPoint("0", "0"),
-          //            Seq(
-          //              TrackSegmentFragment(TrackPoint("0", "0"), 0)
-          //            )
-          //          )
-          //        )
-          //      )
-          //    ),
-          //    startNodes = Seq(
-          //      RouteNetworkNodeInfo(1001, "01", "01", None, "0", "0")
-          //    ),
-          //    endNodes = Seq(
-          //      RouteNetworkNodeInfo(1002, "02", "02", None, "0", "0")
-          //    )
-          //  ),
-        ),
-        nodeRefs = Seq(
-          1001,
-          1002
-        ),
-        elementIds = ElementIds(
-          nodeIds = Set(1001, 1002),
-          wayIds = Set(101)
+            ),
+            distance = 0,
+            name = None,
+            poi = None,
+            way = Some(
+              RouteStructureWay(
+                wayType = Some("unclassified"),
+                nodes = Seq(
+                  newRouteNetworkNodeInfo(
+                    id = 1001,
+                    name = "01",
+                    alternateName = "01",
+                  ),
+                  newRouteNetworkNodeInfo(
+                    id = 1002,
+                    name = "02",
+                    alternateName = "02",
+                  ),
+                ),
+                accessible = true,
+                nodeCount = "2",
+                oneWay = WayDirection.Both,
+                oneWayTags = Seq.empty,
+              )
+            ),
+            relation = None,
+          ),
         ),
         edges = Seq(
           RouteEdge(1, 1001, 1002, 0),
-          RouteEdge(101, 1002, 1001, 0),
           RouteEdge(2, 1002, 1001, 0),
-          RouteEdge(102, 1001, 1002, 0)
-        )
+        ),
       )
     )
   }
@@ -339,19 +354,14 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
             ),
           )
         ),
-        //  nodes= IdDiffs.empty,
-        //  ways = IdDiffs.empty,
-        //  relations = IdDiffs.empty,
-        //  nodeDiffs = RefDiffs.empty,
+        relations = IdDiffs(
+          removed = Seq(11)
+        ),
         routeDiffs = RefDiffs(
           removed = Seq(
             Ref(11, "01-02")
           )
         ),
-        //  extraNodeDiffs = IdDiffs.empty,
-        //  extraWayDiffs = IdDiffs.empty,
-        //  extraRelationDiffs = IdDiffs.empty,
-        //  happy = false,
         investigate = true,
         impact = true,
       )
@@ -360,34 +370,18 @@ class NetworkUpdateRouteTest01 extends IntegrationTest {
 
   private def assertRouteChange(): Unit = {
 
-    val routeData = newRouteData()
-    //  val routeData = newRouteData(
-    //    Some(Country.nl),
-    //    routeType.hiking,
-    //    relation = newRawRelation(
-    //      11,
-    //      members = Seq(
-    //        RawMember("way", 101, None)
-    //      ),
-    //      tags = newRouteTags("01-02")
-    //    ),
-    //    name = "01-02",
-    //    networkNodes = Seq(
-    //      newNodeWithName(1001, "01"),
-    //      newNodeWithName(1002, "02")
-    //    ),
-    //    nodes = Seq(
-    //      newNodeWithName(1001, "01"),
-    //      newNodeWithName(1002, "02")
-    //    ),
-    //    ways = Seq(
-    //      newRawWay(
-    //        101,
-    //        nodeIds = Vector(1001, 1002),
-    //        tags = Tags.from("highway" -> "unclassified")
-    //      )
-    //    )
-    //  )
+    val routeData = newRouteData(
+      relationId = 11,
+      meta = newMetaData(changeSetId = 1),
+      countries = Seq(Country.nl),
+      routeTypes = Seq(RouteType.hiking),
+      name = "01-02",
+      networkNodes = Seq(
+        newRouteNode(1001, "01"),
+        newRouteNode(1002, "02")
+      ),
+      tags = newRouteTags("01-02")
+    )
 
     assertEqual(
       findRouteChangeById("123:1:11"),
