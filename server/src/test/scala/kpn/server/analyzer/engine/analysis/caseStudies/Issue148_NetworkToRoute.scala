@@ -12,7 +12,7 @@ import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 class Issue148_NetworkToRoute extends IntegrationTest {
 
   test("change type=network to type=route") {
-    pendingRedesignPrio1()
+    pendingRedesignPrio0()
     val dataBefore = OverpassData()
       .node(
         1001,
