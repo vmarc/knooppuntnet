@@ -18,7 +18,6 @@ import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
 import kpn.api.custom.Timestamp
-import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkDeleteTest01 extends IntegrationTest {
@@ -69,12 +68,6 @@ class NetworkDeleteTest01 extends IntegrationTest {
         1001L,
         active = false,
         country = Some(Country.nl),
-        name = Some("01"),
-        names = Seq(newNodeName(name = "01")),
-        tags = Tags.from(
-          "rwn_ref" -> "01",
-          "network:type" -> "node_network",
-        ),
       )
     )
   }
@@ -124,17 +117,8 @@ class NetworkDeleteTest01 extends IntegrationTest {
       findNodeById(1001L),
       newNodeDoc(
         1001L,
-        labels = Seq(
-          Label.routeType(RouteType.hiking)
-          // not active
-        ),
+        labels = Seq.empty,
         country = Some(Country.nl),
-        name = Some("01"),
-        names = Seq(newNodeName(name = "01")),
-        tags = Tags.from(
-          "rwn_ref" -> "01",
-          "network:type" -> "node_network",
-        ),
       )
     )
   }

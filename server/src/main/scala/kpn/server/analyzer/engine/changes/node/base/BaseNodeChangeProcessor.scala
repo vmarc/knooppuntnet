@@ -22,6 +22,21 @@ class BaseNodeChangeProcessor(
       val nodeElementChanges = nodeChangeAnalyzer.analyze(context.changeSet)
       val nodeIds = nodeElementChanges.elementIds
       val baseNodeDocsBefore = nodeRepository.baseNodesWithIds(nodeIds)
+
+      val deletedBaseNodeDocs = nodeElementChanges.deletes.flatMap { nodeId =>
+        baseNodeDocsBefore.find(_._id == nodeId).map { doc =>
+          doc.copy(
+            active = false,
+            name = None,
+            names = Seq.empty,
+            tags = Seq.empty,
+            facts = Seq.empty,
+            tiles = Seq.empty,
+          )
+        }
+      }
+      nodeRepository.bulkSaveBaseNodes(deletedBaseNodeDocs)
+
       val baseNodeDocsAfter = baseNodeBulkAnalyzer.analyze(context.timestampAfter, nodeIds)
       nodeRepository.bulkSaveBaseNodes(baseNodeDocsAfter)
 
@@ -29,7 +44,7 @@ class BaseNodeChangeProcessor(
       val afterNodeIds = baseNodeDocsAfter.filter(_.active).map(_._id).toSet
       val createNodeIds = (afterNodeIds -- beforeNodeIds).toSeq.sorted
 
-      val updateNodeIds = (afterNodeIds -- createNodeIds).toSeq.sorted
+      val updateNodeIds = ((afterNodeIds -- beforeNodeIds) ++ (beforeNodeIds -- afterNodeIds)).toSeq.sorted
 
       val lostNodeTagsNodeIds = updateNodeIds.filter { nodeId =>
         baseNodeDocsBefore.find(_._id == nodeId) match {
@@ -48,21 +63,11 @@ class BaseNodeChangeProcessor(
       val lostNodeTagsNodeDocs = lostNodeTagsNodeIds.flatMap { nodeId =>
         baseNodeDocsAfter.find(_._id == nodeId)
       }
-      nodeRepository.bulkSaveBaseNodes(lostNodeTagsNodeDocs)
       lostNodeTagsNodeDocs.filterNot(_.active).map(_._id).foreach(analysisContext.watched.nodes.delete)
 
       val deleteNodeIds = (beforeNodeIds -- afterNodeIds).toSeq.sorted
 
       deleteNodeIds.foreach(analysisContext.watched.nodes.delete)
-      val deletedBaseNodeDocs = deleteNodeIds.flatMap { nodeId =>
-        baseNodeDocsBefore.find(_._id == nodeId).map { doc =>
-          doc.copy(
-            active = false,
-            tiles = Seq.empty,
-          )
-        }
-      }
-      nodeRepository.bulkSaveBaseNodes(deletedBaseNodeDocs)
 
       val updatedContext = context.withImpact(nodeIds = nodeIds)
       (s"${baseNodeDocsAfter.size} node changes", updatedContext)

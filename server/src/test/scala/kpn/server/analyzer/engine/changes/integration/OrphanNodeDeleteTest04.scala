@@ -7,11 +7,8 @@ import kpn.api.common.ChangeSetSubsetElementRefs
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
-import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class OrphanNodeDeleteTest04 extends IntegrationTest {
@@ -42,19 +39,10 @@ class OrphanNodeDeleteTest04 extends IntegrationTest {
       newNodeDoc(
         1001,
         labels = Seq(
-          Label.routeType(RouteType.hiking)
           // not active
         ),
         country = Some(Country.nl),
-        name = Some("01"),
-        names = Seq(
-          newNodeName(name = "01")
-        ),
-        version = 1,
-        tags = Tags.from(
-          "rwn_ref" -> "01",
-          "network:type" -> "node_network",
-        )
+        version = 2,
       )
     )
   }

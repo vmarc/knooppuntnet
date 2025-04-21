@@ -13,8 +13,6 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
-import kpn.api.custom.Tags
-import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkUpdateNodeTest05 extends IntegrationTest {
@@ -89,19 +87,8 @@ class NetworkUpdateNodeTest05 extends IntegrationTest {
       findNodeById(1002),
       newNodeDoc(
         1002,
-        labels = Seq(
-          Label.routeType(RouteType.hiking)
-          // not active
-        ),
+        labels = Seq.empty,
         country = Some(Country.nl),
-        name = Some("02"),
-        names = Seq(
-          newNodeName(name = "02")
-        ),
-        tags = Tags.from(
-          "rwn_ref" -> "02",
-          "network:type" -> "node_network",
-        )
       )
     )
   }

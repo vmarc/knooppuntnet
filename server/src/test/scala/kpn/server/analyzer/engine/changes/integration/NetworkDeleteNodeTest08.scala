@@ -6,7 +6,6 @@ import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.Fact
 import kpn.api.common.NetworkChanges
-import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
@@ -14,7 +13,6 @@ import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.api.custom.Subset
-import kpn.core.doc.Label
 import kpn.core.test.OverpassData
 
 class NetworkDeleteNodeTest08 extends IntegrationTest {
@@ -60,13 +58,6 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
       newBaseNodeDoc(
         1001,
         active = false,
-        name = Some("01"),
-        names = Seq(
-          newNodeName(RouteType.hiking, RouteScope.regional, "01")
-        ),
-        latitude = "0",
-        longitude = "0",
-        tags = newNodeTags("01"),
         country = Some(Country.nl),
       )
     )
@@ -77,16 +68,8 @@ class NetworkDeleteNodeTest08 extends IntegrationTest {
       findNodeById(1001),
       newNodeDoc(
         1001,
-        labels = Seq(
-          Label.routeType(RouteType.hiking)
-          // not active
-        ),
+        labels = Seq.empty,
         country = Some(Country.nl),
-        name = Some("01"),
-        names = Seq(
-          newNodeName(RouteType.hiking, RouteScope.regional, "01")
-        ),
-        tags = newNodeTags("01")
       )
     )
   }
