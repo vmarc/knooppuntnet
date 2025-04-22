@@ -1,9 +1,6 @@
 package kpn.server.analyzer.engine.changes.route
 
-import kpn.api.common.changes.ChangeAction.ChangeAction
-import kpn.api.common.changes.ChangeAction.Create
-import kpn.api.common.changes.ChangeAction.Delete
-import kpn.api.common.changes.ChangeAction.Modify
+import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawRelation
 import kpn.core.analysis.TagInterpreter
@@ -23,9 +20,9 @@ class RouteChangeAnalyzer(
 
   def analyze(context: ChangeSetContext): ElementChanges = {
 
-    val createdRelationsById = buildRelationMap(context.changeSet, Create)
-    val updatedRelationsById = buildRelationMap(context.changeSet, Modify)
-    val deletedRelationsById = buildRelationMap(context.changeSet, Delete)
+    val createdRelationsById = buildRelationMap(context.changeSet, ChangeAction.Create)
+    val updatedRelationsById = buildRelationMap(context.changeSet, ChangeAction.Modify)
+    val deletedRelationsById = buildRelationMap(context.changeSet, ChangeAction.Delete)
 
     val createdRouteIds = findRouteRelationIds(createdRelationsById)
     val updatedRouteIds = findRouteRelationIds(updatedRelationsById)

@@ -1,7 +1,6 @@
 package kpn.server.analyzer.engine.changes
 
 import kpn.api.common.changes.ChangeAction
-import kpn.api.common.changes.ChangeAction.ChangeAction
 
 case class ElementChanges(
   creates: Seq[Long] = Seq.empty,
@@ -31,5 +30,4 @@ case class ElementChanges(
       ChangeAction.Modify
     }
   }
-
 }

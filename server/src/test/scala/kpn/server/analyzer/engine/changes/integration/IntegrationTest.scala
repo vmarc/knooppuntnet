@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.changes.integration
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.changes.ChangeAction.ChangeAction
+import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.Node

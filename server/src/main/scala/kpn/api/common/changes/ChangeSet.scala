@@ -1,6 +1,5 @@
 package kpn.api.common.changes
 
-import kpn.api.common.changes.ChangeAction.ChangeAction
 import kpn.api.common.data.raw.RawElement
 import kpn.api.common.data.raw.RawNode
 import kpn.api.common.data.raw.RawRelation

@@ -1,9 +1,6 @@
 package kpn.server.analyzer.engine.changes.node.base
 
-import kpn.api.common.changes.ChangeAction.ChangeAction
-import kpn.api.common.changes.ChangeAction.Create
-import kpn.api.common.changes.ChangeAction.Delete
-import kpn.api.common.changes.ChangeAction.Modify
+import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawNode
 import kpn.core.analysis.TagInterpreter
@@ -25,9 +22,9 @@ class NodeChangeAnalyzer(
 
     log.debugElapsed {
 
-      val createdNodesById = nodeMap(changeSet, Create)
-      val updatedNodesById = nodeMap(changeSet, Modify)
-      val deletedNodesById = nodeMap(changeSet, Delete)
+      val createdNodesById = nodeMap(changeSet, ChangeAction.Create)
+      val updatedNodesById = nodeMap(changeSet, ChangeAction.Modify)
+      val deletedNodesById = nodeMap(changeSet, ChangeAction.Delete)
 
       val createdNetworkNodeIds = networkNodeIds(createdNodesById)
       val updatedNetworkNodeIds = networkNodeIds(updatedNodesById)

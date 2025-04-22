@@ -1,9 +1,6 @@
 package kpn.server.analyzer.engine.changes.network
 
-import kpn.api.common.changes.ChangeAction.ChangeAction
-import kpn.api.common.changes.ChangeAction.Create
-import kpn.api.common.changes.ChangeAction.Delete
-import kpn.api.common.changes.ChangeAction.Modify
+import kpn.api.common.changes.ChangeAction
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.data.raw.RawRelation
 import kpn.core.analysis.TagInterpreter
@@ -26,14 +23,14 @@ class NetworkChangeAnalyzer(
 
     log.debugElapsed {
 
-      val networkCreateIds1 = findNetworkRelationChanges(context.changeSet, Create)
+      val networkCreateIds1 = findNetworkRelationChanges(context.changeSet, ChangeAction.Create)
       val networkCreateIds2 = findUpdatesToUnknownNetworks(context.changeSet)
 
       val networkUpdateIds1 = context.elementIds.relationIds.filter(analysisContext.watched.networks.contains)
-      val networkUpdateIds2 = findNetworkRelationChanges(context.changeSet, Modify)
+      val networkUpdateIds2 = findNetworkRelationChanges(context.changeSet, ChangeAction.Modify)
 
       val deletes = {
-        val networkRelationDeletes = findNetworkRelationChanges(context.changeSet, Delete).filter(analysisContext.watched.networks.contains)
+        val networkRelationDeletes = findNetworkRelationChanges(context.changeSet, ChangeAction.Delete).filter(analysisContext.watched.networks.contains)
         val knownNetworkDeletes = findKnownNetworkDeletes(context.changeSet)
         networkRelationDeletes ++ knownNetworkDeletes
       }
@@ -51,7 +48,7 @@ class NetworkChangeAnalyzer(
   }
 
   private def findUpdatesToUnknownNetworks(changeSet: ChangeSet): Set[Long] = {
-    val networkIds = findNetworkRelationChanges(changeSet, Modify)
+    val networkIds = findNetworkRelationChanges(changeSet, ChangeAction.Modify)
     networkIds.filterNot(analysisContext.watched.networks.contains)
   }
 
@@ -64,7 +61,7 @@ class NetworkChangeAnalyzer(
   }
 
   private def findKnownNetworkDeletes(changeSet: ChangeSet): Set[Long] = {
-    changeSet.relations(Delete).map(_.id).filter(analysisContext.watched.networks.contains).toSet
+    changeSet.relations(ChangeAction.Delete).map(_.id).filter(analysisContext.watched.networks.contains).toSet
   }
 
   private def isBlackListed(relation: RawRelation): Boolean = {

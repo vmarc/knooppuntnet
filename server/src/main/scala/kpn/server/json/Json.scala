@@ -99,6 +99,9 @@ object Json {
     b.deserializerByType(classOf[ChangeType], new ChangeTypeJsonDeserializer())
     b.serializerByType(classOf[ChangeType], new ChangeTypeJsonSerializer())
 
+    b.deserializerByType(classOf[ChangeType], new ChangeTypeJsonDeserializer())
+    b.serializerByType(classOf[ChangeType], new ChangeTypeJsonSerializer())
+
     b.deserializerByType(classOf[Subset], new SubsetJsonDeserializer())
 
     b.deserializerByType(classOf[Timestamp], new TimestampJsonDeserializer(mongo))
