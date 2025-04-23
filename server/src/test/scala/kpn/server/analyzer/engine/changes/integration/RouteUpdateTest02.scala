@@ -46,7 +46,7 @@ class RouteUpdateTest02 extends IntegrationTest {
 
       val routeChange = findRouteChangeById("123:1:11")
 
-      pendingRedesignPrio1()
+      pendingRedesignPrio2() // TODO redesign - make way information available in routeData or not???
 
       assertEqual(
         routeChange.removedWays,
