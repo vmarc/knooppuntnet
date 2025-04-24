@@ -1,14 +1,16 @@
 package kpn.server.analyzer.engine.changes.integration
 
+import kpn.api.common.Fact
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.common.FactDiffs
 import kpn.core.test.OverpassData
 
 class RouteUpdateTest07 extends IntegrationTest {
 
   test("fact diff") {
 
-    pendingRedesignPrio1()
+    pendingRedesignPrio2() // TODO redesign - need better analysis to determine whether a subrelation is a route or not
 
     val dataBefore = OverpassData()
       .networkNode(1001, "01")
@@ -41,19 +43,17 @@ class RouteUpdateTest07 extends IntegrationTest {
     testIntegration(dataBefore, dataAfter) {
       process(ChangeAction.Modify, dataAfter.rawRelationWithId(11))
       val routeChange = findRouteChangeById("123:1:11")
+      assertEqual(
+        routeChange.diffs.factDiffs,
+        Some(
+          FactDiffs(
+            introduced = Seq(
+              Fact.RouteUnexpectedRelation,
+              Fact.RouteBroken
+            )
+          )
+        )
+      )
     }
-
-    //    val analysis = new NetworkRouteDiffAnalyzer(snapshot(before), snapshot(after), 11).analysis
-    //
-    //    val expectedDiff = FactDiffs(
-    //      Set(),
-    //      Set(
-    //        Fact.RouteUnexpectedRelation,
-    //        Fact.RouteBroken
-    //      ),
-    //      Set()
-    //    )
-    //
-    //    analysis.get.diffs.shouldMatchTo(RouteDiff(factDiffs = Some(expectedDiff)))
   }
 }

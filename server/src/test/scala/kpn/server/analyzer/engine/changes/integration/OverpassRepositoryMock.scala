@@ -126,7 +126,21 @@ class OverpassRepositoryMock(beforeData: Data, afterData: Data) extends Overpass
     }
   }
 
-  override def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = ???
+  override def relationHierarchy(timestamp: Timestamp, relationId: Long): Option[RouteRelation] = {
+    if (timestamp == timestampBeforeValue) {
+      beforeData.relations.get(relationId).map { relation =>
+        RouteRelation.from(relation, None)
+      }
+    }
+    else if (timestamp == timestampAfterValue) {
+      afterData.relations.get(relationId).map { relation =>
+        RouteRelation.from(relation, None)
+      }
+    }
+    else {
+      throw new IllegalArgumentException(s"unknown timestamp: ${timestamp.yyyymmddhhmmss}")
+    }
+  }
 
   private def nodeIdsIn(data: Data): Seq[Long] = {
     data.nodes.values.filter(isNetworkNode).map(_.id).toSeq.sorted

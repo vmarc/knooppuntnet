@@ -14,7 +14,6 @@ class Issue183_DeletedNode3 extends IntegrationTest {
   private val deletedNodeId = 2969204425L
 
   test("node looses node tags") {
-    pendingRedesignPrio1()
 
     val dataBefore = OverpassData.load("/case-studies/node-2969204425-before.xml")
     val dataAfter = OverpassData.load("/case-studies/node-2969204425-after.xml")
@@ -23,7 +22,7 @@ class Issue183_DeletedNode3 extends IntegrationTest {
 
       val nodeBefore = findNodeById(deletedNodeId)
       assert(nodeBefore.active)
-      nodeBefore.name should equal("Pau49")
+      nodeBefore.name should equal(Some("Pau49"))
       nodeBefore.names should equal(
         Seq(
           newNodeName(
