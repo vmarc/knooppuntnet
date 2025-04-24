@@ -9,7 +9,6 @@ import kpn.server.analyzer.engine.changes.integration.IntegrationTest
 class Issue408_AddNonRouteRelationToNetwork extends IntegrationTest {
 
   test("relation without 'network:type=node_network' should not be considered a route") {
-    pendingRedesignPrio1()
 
     val dataBefore = OverpassData()
       .networkRelation(
@@ -46,7 +45,7 @@ class Issue408_AddNonRouteRelationToNetwork extends IntegrationTest {
       val networkInfoDoc = findNetworkById(1)
 
       networkInfoDoc.routes.size should equal(0)
-      networkInfoDoc.facts.map(_.fact) should equal(Seq("NetworkExtraMemberRelation"))
+      networkInfoDoc.facts.map(_.fact.entryName) should equal(Seq("NetworkExtraMemberRelation"))
       networkInfoDoc.extraRelationIds should equal(Seq(11))
       database.routes.findById(11) should equal(None)
     }
