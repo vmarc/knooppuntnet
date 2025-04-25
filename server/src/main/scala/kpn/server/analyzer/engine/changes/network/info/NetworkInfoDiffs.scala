@@ -26,4 +26,12 @@ case class NetworkInfoDiffs(
       extraWayDiffs.added.nonEmpty ||
       extraRelationDiffs.added.nonEmpty
   }
+
+  def nonEmpty: Boolean = {
+    nodeDiffs.nonEmpty ||
+      routeDiffs.nonEmpty ||
+      extraNodeDiffs.nonEmpty ||
+      extraWayDiffs.nonEmpty ||
+      extraRelationDiffs.nonEmpty
+  }
 }

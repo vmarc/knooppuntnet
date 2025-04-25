@@ -127,7 +127,6 @@ class RouteUpdateTest01 extends IntegrationTest {
             )
           )
         ),
-        impactedNodeIds = Seq(1001, 1002)
       )
     )
   }

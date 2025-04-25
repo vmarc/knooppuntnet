@@ -43,22 +43,27 @@ class RouteChangeProcessor(
   def process(context: ChangeSetContext): ChangeSetContext = {
     log.debugElapsed {
 
-      val routeChanges = context.impactedRouteIds.flatMap { routeId =>
+      val routeChangeContexts = context.impactedRouteIds.flatMap { routeId =>
         processRoute(context, routeId)
       }
 
+      val impactedNodeIds = (context.impactedNodeIds ++ routeChangeContexts.flatMap(_.impactedNodeIds)).distinct.sorted
+      val impactedNetworkIds = (context.impactedNetworkIds ++ routeChangeContexts.flatMap(_.impactedNetworkIds)).distinct.sorted
+
       (
-        s"$routeChanges route changes",
+        s"${routeChangeContexts.size} route changes",
         context.copy(
           changes = context.changes.copy(
-            routeChanges = routeChanges
-          )
+            routeChanges = routeChangeContexts.map(_.routeChange),
+          ),
+          impactedNodeIds = impactedNodeIds,
+          impactedNetworkIds = impactedNetworkIds,
         )
       )
     }
   }
 
-  private def processRoute(context: ChangeSetContext, routeId: Long): Option[RouteChange] = {
+  private def processRoute(context: ChangeSetContext, routeId: Long): Option[RouteChangeContext] = {
     routeRepository.findRouteById(routeId) match {
       case None =>
         routeRepository.findBaseRouteById(routeId) match {
@@ -153,7 +158,7 @@ class RouteChangeProcessor(
     None
   }
 
-  private def processCreate(context: ChangeSetContext, routeDocAfter: RouteDoc, routeId: Long): Option[RouteChange] = {
+  private def processCreate(context: ChangeSetContext, routeDocAfter: RouteDoc, routeId: Long): Option[RouteChangeContext] = {
 
     routeRepository.saveRoute(routeDocAfter)
     val factDiffs = if (routeDocAfter.facts.nonEmpty) {
@@ -172,67 +177,74 @@ class RouteChangeProcessor(
     val key = context.buildChangeKey(routeId)
 
     val addedToNetwork = routeDocAfter.networkReferences.map(_.toRef)
+    val impactedNetworkIds = addedToNetwork.map(_.id)
 
     Some(
-      RouteChangeStateAnalyzer.analyzed(
-        RouteChange(
-          _id = key.toId,
-          key = key,
-          changeType = ChangeType.Create,
-          name = routeDocAfter.summary.name,
-          locationAnalysis = routeDocAfter.locationAnalysis,
-          addedToNetwork = addedToNetwork,
-          removedFromNetwork = Seq.empty,
-          before = None,
-          after = Some(RouteData.from(routeDocAfter)),
-          removedWays = Seq.empty,
-          addedWays = Seq.empty,
-          updatedWays = Seq.empty,
-          diffs = RouteDiff(
-            factDiffs = factDiffs
-          ),
-          facts = Seq.empty,
-          impactedNodeIds = impactedNodeIds,
-        )
+      RouteChangeContext(
+        RouteChangeStateAnalyzer.analyzed(
+          RouteChange(
+            _id = key.toId,
+            key = key,
+            changeType = ChangeType.Create,
+            name = routeDocAfter.summary.name,
+            locationAnalysis = routeDocAfter.locationAnalysis,
+            addedToNetwork = addedToNetwork,
+            removedFromNetwork = Seq.empty,
+            before = None,
+            after = Some(RouteData.from(routeDocAfter)),
+            removedWays = Seq.empty,
+            addedWays = Seq.empty,
+            updatedWays = Seq.empty,
+            diffs = RouteDiff(
+              factDiffs = factDiffs
+            ),
+            facts = Seq.empty,
+          )
+        ),
+        impactedNodeIds = impactedNodeIds,
+        impactedNetworkIds = impactedNetworkIds
       )
     )
   }
 
-  private def processDelete(context: ChangeSetContext, routeDoc: RouteDoc): Option[RouteChange] = {
+  private def processDelete(context: ChangeSetContext, routeDoc: RouteDoc): Option[RouteChangeContext] = {
 
     routeRepository.saveRoute(routeDoc.deactivated)
 
     val impactedNodeIds: Seq[Long] = routeDoc.nodes.nodeIds.sorted
 
     val removedFromNetwork = routeDoc.networkReferences.map(_.toRef)
+    val impactedNetworkIds = removedFromNetwork.map(_.id)
 
     val key = context.buildChangeKey(routeDoc._id)
 
     Some(
-
-      RouteChangeStateAnalyzer.analyzed(
-        RouteChange(
-          _id = key.toId,
-          key = key,
-          changeType = ChangeType.Delete,
-          name = routeDoc.summary.name,
-          locationAnalysis = routeDoc.locationAnalysis,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = removedFromNetwork,
-          before = Some(RouteData.from(routeDoc)),
-          after = None,
-          removedWays = Seq.empty,
-          addedWays = Seq.empty,
-          updatedWays = Seq.empty,
-          diffs = RouteDiff(),
-          facts = Seq(Fact.Deleted),
-          impactedNodeIds = impactedNodeIds,
-        )
+      RouteChangeContext(
+        RouteChangeStateAnalyzer.analyzed(
+          RouteChange(
+            _id = key.toId,
+            key = key,
+            changeType = ChangeType.Delete,
+            name = routeDoc.summary.name,
+            locationAnalysis = routeDoc.locationAnalysis,
+            addedToNetwork = Seq.empty,
+            removedFromNetwork = removedFromNetwork,
+            before = Some(RouteData.from(routeDoc)),
+            after = None,
+            removedWays = Seq.empty,
+            addedWays = Seq.empty,
+            updatedWays = Seq.empty,
+            diffs = RouteDiff(),
+            facts = Seq(Fact.Deleted),
+          )
+        ),
+        impactedNodeIds = impactedNodeIds,
+        impactedNetworkIds = impactedNetworkIds
       )
     )
   }
 
-  def processUpdate(context: ChangeSetContext, before: RouteDoc, after: RouteDoc, routeId: Long): Option[RouteChange] = {
+  def processUpdate(context: ChangeSetContext, before: RouteDoc, after: RouteDoc, routeId: Long): Option[RouteChangeContext] = {
 
     //    val lostRouteTags = TagInterpreter.isRouteRelation(relationBefore) &&
     //      !TagInterpreter.isRouteRelation(relationAfter)
@@ -272,31 +284,34 @@ class RouteChangeProcessor(
 
     val addedNetworkIds = (afterNetworkIds -- beforeNetworkIds).toSeq.sorted
     val removedNetworkIds = (beforeNetworkIds -- afterNetworkIds).toSeq.sorted
-
+    val impactedNetworkIds = (beforeNetworkIds ++ afterNetworkIds).toSeq.sorted
     val addedToNetwork = after.networkReferences.filter(r => addedNetworkIds.contains(r.id)).map(_.toRef)
     val removedFromNetwork = before.networkReferences.filter(r => removedNetworkIds.contains(r.id)).map(_.toRef)
 
     val key = context.buildChangeKey(routeId)
 
     Some(
-      RouteChangeStateAnalyzer.analyzed(
-        RouteChange(
-          _id = key.toId,
-          key = key,
-          changeType = ChangeType.Update,
-          name = after.summary.name,
-          locationAnalysis = after.locationAnalysis,
-          addedToNetwork = addedToNetwork,
-          removedFromNetwork = removedFromNetwork,
-          before = Some(routeUpdate.before),
-          after = Some(routeUpdate.after),
-          removedWays = routeUpdate.removedWays,
-          addedWays = routeUpdate.addedWays,
-          updatedWays = routeUpdate.updatedWays,
-          diffs = routeUpdate.diffs,
-          facts = routeUpdate.facts,
-          impactedNodeIds = impactedNodeIds,
-        )
+      RouteChangeContext(
+        RouteChangeStateAnalyzer.analyzed(
+          RouteChange(
+            _id = key.toId,
+            key = key,
+            changeType = ChangeType.Update,
+            name = after.summary.name,
+            locationAnalysis = after.locationAnalysis,
+            addedToNetwork = addedToNetwork,
+            removedFromNetwork = removedFromNetwork,
+            before = Some(routeUpdate.before),
+            after = Some(routeUpdate.after),
+            removedWays = routeUpdate.removedWays,
+            addedWays = routeUpdate.addedWays,
+            updatedWays = routeUpdate.updatedWays,
+            diffs = routeUpdate.diffs,
+            facts = routeUpdate.facts,
+          )
+        ),
+        impactedNodeIds = impactedNodeIds,
+        impactedNetworkIds = impactedNetworkIds,
       )
     )
   }
@@ -307,7 +322,7 @@ class RouteChangeProcessor(
     beforeBaseRouteDoc: BaseRouteDoc,
     relationAfter: Relation,
     routeId: Long
-  ): Option[RouteChange] = {
+  ): Option[RouteChangeContext] = {
 
     analysisContext.watched.routes.delete(routeId)
 
@@ -333,32 +348,37 @@ class RouteChangeProcessor(
         None
       }
     }
+    val impactedNetworkIds = removedFromNetwork.map(_.id)
 
     val tagDiffs = new RouteTagDiffAnalyzer(beforeContext.relation, relationAfter).diffs
 
     val key = context.buildChangeKey(routeId)
 
     Some(
-      RouteChangeStateAnalyzer.analyzed(
-        RouteChange(
-          _id = key.toId,
-          key = key,
-          changeType = ChangeType.Delete,
-          name = beforeBaseRouteDoc.summary.name,
-          locationAnalysis = beforeBaseRouteDoc.locationAnalysis,
-          addedToNetwork = Seq.empty,
-          removedFromNetwork = removedFromNetwork,
-          before = Some(RouteData.from(beforeContext)),
-          after = None,
-          removedWays = Seq.empty,
-          addedWays = Seq.empty,
-          updatedWays = Seq.empty,
-          diffs = RouteDiff(
-            tagDiffs = tagDiffs
-          ),
-          facts = Seq(Fact.LostRouteTags),
-          impactedNodeIds = impactedNodeIds,
-        )
+      RouteChangeContext(
+
+        RouteChangeStateAnalyzer.analyzed(
+          RouteChange(
+            _id = key.toId,
+            key = key,
+            changeType = ChangeType.Delete,
+            name = beforeBaseRouteDoc.summary.name,
+            locationAnalysis = beforeBaseRouteDoc.locationAnalysis,
+            addedToNetwork = Seq.empty,
+            removedFromNetwork = removedFromNetwork,
+            before = Some(RouteData.from(beforeContext)),
+            after = None,
+            removedWays = Seq.empty,
+            addedWays = Seq.empty,
+            updatedWays = Seq.empty,
+            diffs = RouteDiff(
+              tagDiffs = tagDiffs
+            ),
+            facts = Seq(Fact.LostRouteTags)
+          )
+        ),
+        impactedNodeIds = impactedNodeIds,
+        impactedNetworkIds = impactedNetworkIds,
       )
     )
   }

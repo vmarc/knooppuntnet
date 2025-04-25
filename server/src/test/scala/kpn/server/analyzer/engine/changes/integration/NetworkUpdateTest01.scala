@@ -9,17 +9,13 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
-import kpn.api.common.data.MetaData
-import kpn.api.common.diff.NodeUpdate
 import kpn.api.common.diff.RefDiffs
 import kpn.api.common.diff.TagDetail
 import kpn.api.common.diff.TagDetailType
 import kpn.api.common.diff.TagDiffs
-import kpn.api.common.diff.WayUpdate
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
 import kpn.api.custom.Subset
-import kpn.api.custom.Timestamp
 import kpn.core.test.OverpassData
 
 class NetworkUpdateTest01 extends IntegrationTest {
@@ -91,88 +87,58 @@ class NetworkUpdateTest01 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    pendingRedesignPrio1()
     assertEqual(
       findRouteChangeById("123:1:11"),
       newRouteChange(
         newChangeKey(elementId = 11),
         ChangeType.Update,
         "01-03",
-        before = None,
-        //        Some(
-        //          newRouteData(
-        //            Some(Country.nl),
-        //            routeType.hiking,
-        //            relation = newRawRelation(
-        //              11,
-        //              members = Seq(RawMember("way", 101, None)),
-        //              tags = newRouteTags("01-02")
-        //            ),
-        //            name = "01-02",
-        //            networkNodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            nodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "02")
-        //            ),
-        //            ways = Seq(
-        //              newRawWay(
-        //                101,
-        //                nodeIds = Vector(1001, 1002),
-        //                tags = Tags.from("highway" -> "unclassified")
-        //              )
-        //            )
-        //          )
-        //        ),
-        after = None,
-        //        Some(
-        //          newRouteData(
-        //            Some(Country.nl),
-        //            routeType.hiking,
-        //            relation = newRawRelation(
-        //              11,
-        //              members = Seq(
-        //                RawMember("way", 101, None)
-        //              ),
-        //              tags = newRouteTags("01-03")
-        //            ),
-        //            name = "01-03",
-        //            networkNodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "03")
-        //            ),
-        //            nodes = Seq(
-        //              newNodeWithName(1001, "01"),
-        //              newNodeWithName(1002, "03")
-        //            ),
-        //            ways = Seq(
-        //              newRawWay(
-        //                101,
-        //                nodeIds = Vector(1001, 1002),
-        //                tags = Tags.from("highway" -> "unclassified")
-        //              )
-        //            )
-        //          )
-        //        ),
-        updatedWays = Seq(
-          WayUpdate(
-            101,
-            MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
-            MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
-            Seq.empty,
-            Seq.empty,
-            Seq(
-              NodeUpdate(
-                newNodeWithName(1002, "02"),
-                newNodeWithName(1002, "03"),
-                None,
-                None
-              )
-            )
+        before = Some(
+          newRouteData(
+            relationId = 11,
+            meta = newMetaData(changeSetId = 1),
+            countries = Seq(Country.nl),
+            routeTypes = Seq(RouteType.hiking),
+            name = "01-02",
+            networkNodes = Seq(
+              newRouteNode(1001, "01"),
+              newRouteNode(1002, "02")
+            ),
+            tags = newRouteTags("01-02")
           )
         ),
+        after = Some(
+          newRouteData(
+            relationId = 11,
+            meta = newMetaData(changeSetId = 1),
+            countries = Seq(Country.nl),
+            routeTypes = Seq(RouteType.hiking),
+            name = "01-03",
+            networkNodes = Seq(
+              newRouteNode(1001, "01"),
+              newRouteNode(1002, "03")
+            ),
+            tags = newRouteTags("01-03")
+          )
+        ),
+        // TODO redesign - should addd updatedWays again???
+        //        updatedWays = Seq(
+        //          WayUpdate(
+        //            101,
+        //            MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
+        //            MetaData(0, Timestamp(2015, 8, 11, 0, 0, 0), 0),
+        //            Seq.empty,
+        //            Seq.empty,
+        //            Seq(
+        //              NodeUpdate(
+        //                newNodeWithName(1002, "02"),
+        //                newNodeWithName(1002, "03"),
+        //                None,
+        //                None
+        //              )
+        //            )
+        //          )
+        //        ),
         diffs = RouteDiff(
           nameDiff = Some(
             RouteNameDiff(
@@ -216,8 +182,7 @@ class NetworkUpdateTest01 extends IntegrationTest {
               )
             )
           )
-        ),
-        impactedNodeIds = Seq(1001, 1002)
+        )
       )
     )
   }
@@ -287,7 +252,6 @@ class NetworkUpdateTest01 extends IntegrationTest {
   }
 
   private def assertNetworkChange(): Unit = {
-    pendingRedesignPrio1()
     assertEqual(
       findNetworkChangeById("123:1:1"),
       newNetworkChange(

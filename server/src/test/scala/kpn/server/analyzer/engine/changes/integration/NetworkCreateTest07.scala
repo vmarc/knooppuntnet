@@ -195,7 +195,6 @@ class NetworkCreateTest07 extends IntegrationTest {
             )
           )
         ),
-        impactedNodeIds = Seq(1001, 1002),
         happy = true,
         impact = true,
         locationHappy = true,

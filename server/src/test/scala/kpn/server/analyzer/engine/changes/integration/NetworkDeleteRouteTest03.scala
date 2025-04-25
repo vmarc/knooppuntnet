@@ -138,7 +138,6 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
         removedFromNetwork = Seq(Ref(1, "network1")),
         before = Some(routeData),
         after = Some(routeData),
-        impactedNodeIds = Seq(1001, 1002),
         investigate = true,
         impact = true
       )
@@ -169,7 +168,6 @@ class NetworkDeleteRouteTest03 extends IntegrationTest {
         removedFromNetwork = Seq(Ref(1, "network1")),
         before = Some(routeData),
         after = Some(routeData),
-        impactedNodeIds = Seq(1001, 1003),
         investigate = true,
         impact = true
       )

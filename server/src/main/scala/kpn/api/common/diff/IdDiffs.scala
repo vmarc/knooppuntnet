@@ -12,4 +12,5 @@ case class IdDiffs(
 
   def ids: Seq[Long] = removed ++ added ++ updated
 
+  def nonEmpty: Boolean = removed.nonEmpty || added.nonEmpty || updated.nonEmpty
 }

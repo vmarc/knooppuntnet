@@ -15,7 +15,7 @@ class NetworkUpdateAnalyzer(
   networkId: Long
 ) {
 
-  def analyze(): NetworkChange = {
+  def analyze(): Option[NetworkChange] = {
 
     val networkDataBefore = NetworkData(
       before.detail.toMeta,
@@ -52,27 +52,34 @@ class NetworkUpdateAnalyzer(
     val investigate = diffs.investigate
     val impact = happy || investigate
 
-    val key = context.buildChangeKey(networkId)
-    NetworkChange(
-      key.toId,
-      key,
-      networkId,
-      after.summary.name,
-      ChangeType.Update,
-      after.country,
-      after.summary.routeType,
-      networkDataUpdate,
-      relationDiffAnalyzer.nodeDiffs,
-      relationDiffAnalyzer.wayDiffs,
-      relationDiffAnalyzer.relationDiffs,
-      diffs.nodeDiffs,
-      diffs.routeDiffs,
-      diffs.extraNodeDiffs,
-      diffs.extraWayDiffs,
-      diffs.extraRelationDiffs,
-      happy,
-      investigate,
-      impact
-    )
+    if (networkDataUpdate.nonEmpty || diffs.nonEmpty) {
+      val key = context.buildChangeKey(networkId)
+      Some(
+        NetworkChange(
+          key.toId,
+          key,
+          networkId,
+          after.summary.name,
+          ChangeType.Update,
+          after.country,
+          after.summary.routeType,
+          networkDataUpdate,
+          relationDiffAnalyzer.nodeDiffs,
+          relationDiffAnalyzer.wayDiffs,
+          relationDiffAnalyzer.relationDiffs,
+          diffs.nodeDiffs,
+          diffs.routeDiffs,
+          diffs.extraNodeDiffs,
+          diffs.extraWayDiffs,
+          diffs.extraRelationDiffs,
+          happy,
+          investigate,
+          impact
+        )
+      )
+    }
+    else {
+      None
+    }
   }
 }

@@ -386,6 +386,6 @@ class NetworkUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
       newChangeSet(),
       ElementIds()
     )
-    new NetworkUpdateAnalyzer(context, before, after, networkId).analyze()
+    new NetworkUpdateAnalyzer(context, before, after, networkId).analyze().get
   }
 }

@@ -136,7 +136,6 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
         updatedWays = Seq.empty,
         diffs = RouteDiff(factDiffs = Some(FactDiffs(remaining = facts))),
         facts = routeDoc.facts,
-        Seq.empty,
         investigate = facts.nonEmpty,
         impact = true,
         locationInvestigate = locationFacts.nonEmpty,

@@ -148,7 +148,6 @@ class NetworkUpdateRouteTest05 extends IntegrationTest {
         ),
         before = Some(routeData),
         after = Some(routeData),
-        impactedNodeIds = Seq(1001, 1002),
         happy = true,
         impact = true,
         locationHappy = true,

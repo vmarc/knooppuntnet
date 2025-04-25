@@ -150,7 +150,6 @@ class RouteDeleteTest01 extends IntegrationTest {
           )
         ),
         facts = Seq(Fact.Deleted),
-        impactedNodeIds = Seq(1001, 1002),
         investigate = true,
         impact = true,
         locationInvestigate = true,

@@ -141,7 +141,6 @@ class RouteDeleteTest03 extends IntegrationTest {
           )
         ),
         facts = Seq(Fact.LostRouteTags),
-        impactedNodeIds = Seq(1001L, 1002L),
         investigate = true,
         impact = true,
         locationInvestigate = true,

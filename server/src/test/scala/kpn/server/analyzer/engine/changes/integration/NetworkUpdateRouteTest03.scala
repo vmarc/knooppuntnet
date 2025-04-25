@@ -170,7 +170,6 @@ class NetworkUpdateRouteTest03 extends IntegrationTest {
           )
         ),
         facts = Seq(Fact.Deleted),
-        impactedNodeIds = Seq(1002, 1003),
         investigate = true,
         impact = true,
         locationInvestigate = true,

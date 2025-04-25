@@ -15,8 +15,22 @@ object NetworkInfoUpdateRouteDiffsAnalyzer {
     val routeIdsCommon = routeIdsBefore.intersect(routeIdsAfter)
     val routeRefsAdded = after.routes.filter(route => routeIdsAdded.contains(route.id)).map(_.toRef).sortBy(_.id)
     val routeRefsRemoved = before.routes.filter(route => routeIdsRemoved.contains(route.id)).map(_.toRef).sortBy(_.id)
+
+    val networkId = before._id
+    val relevantRouteChanges = context.changes.routeChanges.filter { routeChange =>
+      routeChange.addedToNetwork.map(_.id).contains(networkId) ||
+        routeChange.removedFromNetwork.map(_.id).contains(networkId) ||
+        routeChange.before != routeChange.after ||
+        routeChange.removedWays.nonEmpty ||
+        routeChange.addedWays.nonEmpty ||
+        routeChange.updatedWays.nonEmpty ||
+        routeChange.diffs.nonEmpty ||
+        routeChange.facts.nonEmpty
+    }
+
     val routeRefsUpdated = routeIdsCommon.toSeq.sorted.flatMap { routeId =>
-      if (context.changes.routeChanges.exists(_.id == routeId)) {
+
+      if (relevantRouteChanges.exists(_.id == routeId)) {
         after.routes.find(_.id == routeId).map { routeAfter =>
           Ref(routeId, routeAfter.name)
         }

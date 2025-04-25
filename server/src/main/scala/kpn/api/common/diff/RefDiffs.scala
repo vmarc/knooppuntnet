@@ -14,4 +14,5 @@ case class RefDiffs(
 
   def ids: Seq[Long] = removed.map(_.id) ++ added.map(_.id) ++ updated.map(_.id)
 
+  def nonEmpty: Boolean = removed.nonEmpty || added.nonEmpty || updated.nonEmpty
 }

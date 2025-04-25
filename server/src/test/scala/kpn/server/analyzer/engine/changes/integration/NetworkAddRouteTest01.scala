@@ -214,7 +214,6 @@ class NetworkAddRouteTest01 extends IntegrationTest {
         addedToNetwork = Seq(Ref(1, "network")),
         before = None,
         after = Some(routeData),
-        impactedNodeIds = Seq(1001, 1002),
         happy = true,
         impact = true,
         locationHappy = true,

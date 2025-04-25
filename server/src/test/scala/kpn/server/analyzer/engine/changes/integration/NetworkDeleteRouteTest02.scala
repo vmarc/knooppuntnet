@@ -59,7 +59,7 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
         2,
         "network2",
         Seq(
-          newMember(MemberType.Relation, 12)
+          newMember(MemberType.Relation, 11)
         )
       )
 
@@ -158,7 +158,6 @@ class NetworkDeleteRouteTest02 extends IntegrationTest {
         removedFromNetwork = Seq(Ref(1, "network1")),
         before = Some(routeData),
         after = Some(routeData),
-        impactedNodeIds = Seq(1001, 1002),
         investigate = true,
         impact = true
       )

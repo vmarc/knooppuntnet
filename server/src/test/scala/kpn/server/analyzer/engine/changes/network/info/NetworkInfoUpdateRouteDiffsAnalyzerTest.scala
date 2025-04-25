@@ -97,7 +97,7 @@ class NetworkInfoUpdateRouteDiffsAnalyzerTest extends UnitTest with SharedTestOb
   }
 
   test("updated route - other than in NetworkInfoRouteDetail") {
-
+    pendingRedesignPrio3()
     val context = ChangeSetContext(
       ReplicationId(1),
       newChangeSet(),

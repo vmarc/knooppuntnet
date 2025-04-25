@@ -106,7 +106,7 @@ class NetworkChangeProcessor(
 
   private def updateNetwork(context: ChangeSetContext, before: NetworkDoc, after: NetworkDoc, networkId: Long): Option[NetworkChange] = {
     networkRepository.save(after)
-    Some(new NetworkUpdateAnalyzer(context, before, after, networkId).analyze())
+    new NetworkUpdateAnalyzer(context, before, after, networkId).analyze()
   }
 
   private def deleteNetwork(context: ChangeSetContext, before: NetworkDoc, networkId: Long): Option[NetworkChange] = {
