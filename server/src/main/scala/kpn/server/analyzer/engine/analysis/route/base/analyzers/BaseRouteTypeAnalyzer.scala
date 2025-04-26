@@ -40,7 +40,7 @@ class BaseRouteTypeAnalyzer(tags: Seq[Tag]) {
             case "inline_skates" => Some(RouteType.inlineSkating)
             case _ => None
           }
-        }
+        }.distinct.sortBy(_.entryName)
     }
   }
 }
