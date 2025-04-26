@@ -13,21 +13,23 @@ import kpn.core.util.NaturalSorting
 
 object NetworkFactAnalyzer extends NetworkAnalyzer {
   override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    new NetworkFactAnalyzer(context).analyze()
+    val nodeMemberMissingAnalyzer = new NetworkNodeMemberMissingAnalyzer(context)
+    new NetworkFactAnalyzer(context, nodeMemberMissingAnalyzer).analyze()
   }
 }
 
-class NetworkFactAnalyzer(context: NetworkAnalysisContext) {
+class NetworkFactAnalyzer(context: NetworkAnalysisContext, nodeMemberMissingAnalyzer: NetworkNodeMemberMissingAnalyzer) {
 
   def analyze(): NetworkAnalysisContext = {
 
     if (context.network.active) {
 
       val nodeFacts = collectNodeFacts(context)
+      val nodeMemberMissingFactOption = nodeMemberMissing(context)
       val routeFacts = collectRouteFacts(context)
       val networkFacts = integrityFailedFacts(context)
 
-      val facts = networkFacts ++ routeFacts ++ nodeFacts
+      val facts = networkFacts ++ routeFacts ++ nodeFacts ++ nodeMemberMissingFactOption.toSeq
       val brokenRouteCount = context.routeDetails.count(_.facts.exists(Facts.isError))
       val brokenRoutePercentage = Formatter.percentage(brokenRouteCount, context.routeDetails.size)
       val inaccessibleRouteCount: Long = context.routeDetails.count(_.facts.contains(Fact.RouteInaccessible))
@@ -68,6 +70,10 @@ class NetworkFactAnalyzer(context: NetworkAnalysisContext) {
         None
       )
     }
+  }
+
+  private def nodeMemberMissing(context: NetworkAnalysisContext): Option[NetworkFact] = {
+    nodeMemberMissingAnalyzer.analyze()
   }
 
   private def collectRouteFacts(context: NetworkAnalysisContext): Seq[NetworkFact] = {

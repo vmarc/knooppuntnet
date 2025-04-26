@@ -3,15 +3,9 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 import kpn.api.common.Fact
 import kpn.api.common.NetworkFact
 
-object NetworkNodeMemberMissingAnalyzer extends NetworkAnalyzer {
-  override def analyze(context: NetworkAnalysisContext): NetworkAnalysisContext = {
-    new NetworkNodeMemberMissingAnalyzer(context).analyze()
-  }
-}
-
 class NetworkNodeMemberMissingAnalyzer(context: NetworkAnalysisContext) {
 
-  def analyze(): NetworkAnalysisContext = {
+  def analyze(): Option[NetworkFact] = {
     val missingNodeDetails = context.nodeDetails.filter { nodeDetail =>
       if (nodeDetail.definedInRelation) {
         false
@@ -26,19 +20,18 @@ class NetworkNodeMemberMissingAnalyzer(context: NetworkAnalysisContext) {
     }
 
     if (missingNodeDetails.nonEmpty) {
-      val fact = NetworkFact(
-        Fact.NodeMemberMissing,
-        Some("node"),
-        None,
-        Some(missingNodeDetails.map(_.toRef)),
-        None
-      )
-      context.copy(
-        _networkFacts = Some(context.networkFacts :+ fact)
+      Some(
+        NetworkFact(
+          Fact.NodeMemberMissing,
+          Some("node"),
+          None,
+          Some(missingNodeDetails.map(_.toRef)),
+          None
+        )
       )
     }
     else {
-      context
+      None
     }
   }
 }

@@ -20,7 +20,6 @@ import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkLastUpd
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNameAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNodeAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNodeDocAnalyzer
-import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkNodeMemberMissingAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkProposedAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkRouteAnalyzer
 import kpn.server.analyzer.engine.analysis.network.main.analyzers.NetworkSurveyAnalyzer
@@ -55,7 +54,6 @@ class NetworkMainAnalyzer(
         NetworkNodeAnalyzer,
         NetworkIntegrityAnalyzer,
         NetworkFactAnalyzer,
-        NetworkNodeMemberMissingAnalyzer,
         networkCountryAnalyzer,
         networkExtraAnalyzer,
         NetworkCenterAnalyzer,

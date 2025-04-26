@@ -9,9 +9,8 @@ import kpn.core.util.UnitTest
 class NetworkNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestObjects {
 
   test("error if node not defined in relation") {
-    pendingRedesignPrio2()
     analyze(definedInRelation = false) should equal(
-      Seq(
+      Some(
         NetworkFact(
           Fact.NodeMemberMissing,
           Some("node"),
@@ -24,21 +23,18 @@ class NetworkNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestObjec
   }
 
   test("no error if node defined in relation") {
-    pendingRedesignPrio2()
-    analyze(definedInRelation = true) should equal(Seq.empty)
+    analyze(definedInRelation = true) should equal(None)
   }
 
   test("no error if proposed node not defined in regular non-proposed network") {
-    pendingRedesignPrio2()
-    analyze(definedInRelation = false, nodeProposed = true) should equal(Seq.empty)
+    analyze(definedInRelation = false, nodeProposed = true) should equal(None)
   }
 
   test("no error if non-proposed node not defined in proposed network") {
-    pendingRedesignPrio2()
-    analyze(definedInRelation = false, networkProposed = true) should equal(Seq.empty)
+    analyze(definedInRelation = false, networkProposed = true) should equal(None)
   }
 
-  private def analyze(definedInRelation: Boolean, nodeProposed: Boolean = false, networkProposed: Boolean = false): Seq[NetworkFact] = {
+  private def analyze(definedInRelation: Boolean, nodeProposed: Boolean = false, networkProposed: Boolean = false): Option[NetworkFact] = {
 
     val nodeDetails = Seq(
       newNetworkInfoNodeDetail(
@@ -55,6 +51,6 @@ class NetworkNodeMemberMissingAnalyzerTest extends UnitTest with SharedTestObjec
       _nodeDetails = Some(nodeDetails),
       _proposed = Some(networkProposed)
     )
-    NetworkNodeMemberMissingAnalyzer.analyze(context).networkFacts
+    new NetworkNodeMemberMissingAnalyzer(context).analyze()
   }
 }
