@@ -22,8 +22,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
@@ -678,13 +677,13 @@ object ChangeSetPageExample {
         tagDiffs = Some(
           TagDiffs(
             mainTags = Seq(
-              TagDetail(TagDetailType.Update, "key1", Some("before"), Some("after"))
+              TagDiff.update("key1", "before", "after")
             ),
             extraTags = Seq(
-              TagDetail(TagDetailType.Add, "key2", None, Some("after")),
-              TagDetail(TagDetailType.Same, "key3", Some("value"), Some("value")),
-              TagDetail(TagDetailType.Update, "key4", Some("before"), Some("after")),
-              TagDetail(TagDetailType.Delete, "key5", Some("before"), None)
+              TagDiff.add("key2", "after"),
+              TagDiff.same("key3", "value"),
+              TagDiff.update("key4", "before", "after"),
+              TagDiff.delete("key5", "before")
             )
           )
         ),

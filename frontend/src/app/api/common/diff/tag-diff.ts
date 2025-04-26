@@ -1,9 +1,9 @@
 // this file is generated, please do not modify
 
-import { TagDetailType } from './tag-detail-type';
+import { TagDiffType } from './tag-diff-type';
 
-export interface TagDetail {
-  readonly action: TagDetailType;
+export interface TagDiff {
+  readonly action: TagDiffType;
   readonly key: string;
   readonly valueBefore: string;
   readonly valueAfter: string;

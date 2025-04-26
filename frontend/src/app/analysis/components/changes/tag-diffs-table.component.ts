@@ -21,14 +21,14 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
           </tr>
         </thead>
         <tbody>
-          @for (tagDetail of tagDiffs().mainTags; track $index) {
-            <tr [ngClass]="{ same: tagDetail.action.name === 'Same' }">
+          @for (tagDiff of tagDiffs().mainTags; track $index) {
+            <tr [ngClass]="{ same: tagDiff.action === 'same' }">
               <td>
-                <kpn-tag-diff-action [action]="tagDetail.action" />
+                <kpn-tag-diff-action [action]="tagDiff.action" />
               </td>
-              <td>{{ tagDetail.key }}</td>
-              <td>{{ tagDetail.valueBefore }}</td>
-              <td>{{ tagDetail.valueAfter }}</td>
+              <td>{{ tagDiff.key }}</td>
+              <td>{{ tagDiff.valueBefore }}</td>
+              <td>{{ tagDiff.valueAfter }}</td>
             </tr>
           }
 
@@ -38,14 +38,14 @@ import { TagDiffActionComponent } from './tag-diff-action.component';
             </tr>
           }
 
-          @for (tagDetail of tagDiffs().extraTags; track $index) {
-            <tr [ngClass]="{ same: tagDetail.action.name === 'Same' }">
+          @for (tagDiff of tagDiffs().extraTags; track $index) {
+            <tr [ngClass]="{ same: tagDiff.action === 'same' }">
               <td>
-                <kpn-tag-diff-action [action]="tagDetail.action" />
+                <kpn-tag-diff-action [action]="tagDiff.action" />
               </td>
-              <td>{{ tagDetail.key }}</td>
-              <td>{{ tagDetail.valueBefore }}</td>
-              <td>{{ tagDetail.valueAfter }}</td>
+              <td>{{ tagDiff.key }}</td>
+              <td>{{ tagDiff.valueBefore }}</td>
+              <td>{{ tagDiff.valueAfter }}</td>
             </tr>
           }
         </tbody>

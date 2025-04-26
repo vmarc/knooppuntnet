@@ -2,20 +2,20 @@ import { ChangeDetectionStrategy } from '@angular/core';
 import { Component } from '@angular/core';
 import { input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { TagDetailType } from '@api/common/diff/tag-detail-type';
+import { TagDiffType } from '@api/common/diff/tag-diff-type';
 
 @Component({
   selector: 'kpn-tag-diff-action',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    @switch (action().name) {
-      @case ('Add') {
+    @switch (action()) {
+      @case ('add') {
         <mat-icon svgIcon="add" />
       }
-      @case ('Update') {
+      @case ('update') {
         <mat-icon svgIcon="update" />
       }
-      @case ('Delete') {
+      @case ('delete') {
         <mat-icon svgIcon="remove" />
       }
     }
@@ -23,5 +23,5 @@ import { TagDetailType } from '@api/common/diff/tag-detail-type';
   imports: [MatIconModule],
 })
 export class TagDiffActionComponent {
-  action = input.required<TagDetailType>();
+  action = input.required<TagDiffType>();
 }

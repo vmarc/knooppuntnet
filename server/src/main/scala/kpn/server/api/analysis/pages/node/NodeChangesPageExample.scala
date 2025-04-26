@@ -7,8 +7,7 @@ import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.node.NodeMoved
@@ -91,16 +90,16 @@ object NodeChangesPageExample {
         tagDiffs = Some(
           TagDiffs(
             mainTags = Seq(
-              TagDetail(TagDetailType.Add, "add", None, Some("added")),
-              TagDetail(TagDetailType.Update, "rwn_ref", Some("01"), Some("02")),
-              TagDetail(TagDetailType.Delete, "delete", Some("deleted"), None),
-              TagDetail(TagDetailType.Same, "same", Some("value"), Some("value"))
+              TagDiff.add("add", "added"),
+              TagDiff.update("rwn_ref", "01", "02"),
+              TagDiff.delete("delete", "deleted"),
+              TagDiff.same("same", "value")
             ),
             extraTags = Seq(
-              TagDetail(TagDetailType.Add, "add", None, Some("added")),
-              TagDetail(TagDetailType.Update, "rwn_ref", Some("01"), Some("02")),
-              TagDetail(TagDetailType.Delete, "delete", Some("deleted"), None),
-              TagDetail(TagDetailType.Same, "same", Some("value"), Some("value"))
+              TagDiff.add("add", "added"),
+              TagDiff.update("rwn_ref", "01", "02"),
+              TagDiff.delete("delete", "deleted"),
+              TagDiff.same("same", "value")
             )
           )
         ),

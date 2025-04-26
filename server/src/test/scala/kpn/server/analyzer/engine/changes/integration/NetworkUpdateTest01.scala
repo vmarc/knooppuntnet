@@ -10,8 +10,7 @@ import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.common.diff.route.RouteNameDiff
@@ -149,36 +148,11 @@ class NetworkUpdateTest01 extends IntegrationTest {
           tagDiffs = Some(
             TagDiffs(
               mainTags = Seq(
-                TagDetail(
-                  action = TagDetailType.Update,
-                  key = "ref",
-                  valueBefore = Some("01-02"),
-                  valueAfter = Some("01-03"),
-                ),
-                TagDetail(
-                  action = TagDetailType.Same,
-                  key = "network",
-                  valueBefore = Some("rwn"),
-                  valueAfter = Some("rwn")
-                ),
-                TagDetail(
-                  action = TagDetailType.Same,
-                  key = "type",
-                  valueBefore = Some("route"),
-                  valueAfter = Some("route"),
-                ),
-                TagDetail(
-                  action = TagDetailType.Same,
-                  key = "route",
-                  valueBefore = Some("foot"),
-                  valueAfter = Some("foot")
-                ),
-                TagDetail(
-                  action = TagDetailType.Same,
-                  key = "network:type",
-                  valueBefore = Some("node_network"),
-                  valueAfter = Some("node_network")
-                )
+                TagDiff.update("ref", "01-02", "01-03"),
+                TagDiff.same("network", "rwn"),
+                TagDiff.same("type", "route"),
+                TagDiff.same("route", "foot"),
+                TagDiff.same("network:type", "node_network")
               )
             )
           )
@@ -204,18 +178,8 @@ class NetworkUpdateTest01 extends IntegrationTest {
         tagDiffs = Some(
           TagDiffs(
             mainTags = Seq(
-              TagDetail(
-                TagDetailType.Update,
-                "rwn_ref",
-                Some("02"),
-                Some("03")
-              ),
-              TagDetail(
-                TagDetailType.Same,
-                "network:type",
-                Some("node_network"),
-                Some("node_network")
-              )
+              TagDiff.update("rwn_ref", "02", "03"),
+              TagDiff.same("network:type", "node_network")
             )
           )
         )

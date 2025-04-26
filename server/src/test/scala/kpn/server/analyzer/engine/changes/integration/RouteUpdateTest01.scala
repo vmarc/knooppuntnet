@@ -8,8 +8,7 @@ import kpn.api.common.Country
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.data.MemberType
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Subset
@@ -115,14 +114,14 @@ class RouteUpdateTest01 extends IntegrationTest {
           tagDiffs = Some(
             TagDiffs(
               mainTags = Seq(
-                TagDetail(TagDetailType.Same, "ref", Some("01-02"), Some("01-02")),
-                TagDetail(TagDetailType.Same, "network", Some("rwn"), Some("rwn")),
-                TagDetail(TagDetailType.Same, "type", Some("route"), Some("route")),
-                TagDetail(TagDetailType.Same, "route", Some("foot"), Some("foot")),
-                TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
+                TagDiff.same("ref", "01-02"),
+                TagDiff.same("network", "rwn"),
+                TagDiff.same("type", "route"),
+                TagDiff.same("route", "foot"),
+                TagDiff.same("network:type", "node_network")
               ),
               extraTags = Seq(
-                TagDetail(TagDetailType.Update, "key", Some("value1"), Some("value2"))
+                TagDiff.update("key", "value1", "value2")
               )
             )
           )

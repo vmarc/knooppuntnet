@@ -3,8 +3,8 @@ package kpn.core.history
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.Tagable
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
+import kpn.api.common.diff.TagDiffType
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.RouteScopeLetter
 import kpn.api.custom.RouteTypeLetter
@@ -60,31 +60,31 @@ class TagDiffAnalyzer(before: Tagable, after: Tagable, mainTagKeys: Seq[String] 
     val removedKeys = beforeKeys -- afterKeys
     val addedKeys = afterKeys -- beforeKeys
 
-    val tagDetails = allKeys.map { key =>
+    val tagDiffs = allKeys.map { key =>
       val beforeValue = before.tagValue(key)
       val afterValue = after.tagValue(key)
 
       val action = if (removedKeys.contains(key)) {
-        TagDetailType.Delete
+        TagDiffType.delete
       }
       else if (addedKeys.contains(key)) {
-        TagDetailType.Add
+        TagDiffType.add
       }
       else if (beforeValue != afterValue) {
-        TagDetailType.Update
+        TagDiffType.update
       }
       else {
-        TagDetailType.Same
+        TagDiffType.same
       }
-      TagDetail(action, key, beforeValue, afterValue)
+      TagDiff(action, key, beforeValue, afterValue)
     }
 
-    val tagDetailMap = tagDetails.map(detail => detail.key -> detail).toMap
+    val tagDiffMap = tagDiffs.map(detail => detail.key -> detail).toMap
 
-    if (tagDetails.exists(_.action != TagDetailType.Same)) {
-      val mainDetails = mainTagKeys.filter(key => tagDetailMap.contains(key)).map(key => tagDetailMap(key))
-      val extraDetails = tagDetails.filterNot(detail => mainTagKeys.contains(detail.key)).sortBy(_.sortKey)
-      Some(TagDiffs(mainDetails, extraDetails))
+    if (tagDiffs.exists(_.action != TagDiffType.same)) {
+      val mainDiffs = mainTagKeys.filter(key => tagDiffMap.contains(key)).map(key => tagDiffMap(key))
+      val extraDiffs = tagDiffs.filterNot(detail => mainTagKeys.contains(detail.key)).sortBy(_.sortKey)
+      Some(TagDiffs(mainDiffs, extraDiffs))
     }
     else {
       None

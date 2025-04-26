@@ -15,8 +15,7 @@ import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
@@ -208,11 +207,11 @@ class NetworkCreateTest06 extends IntegrationTest {
         tagDiffs = Some(
           TagDiffs(
             mainTags = Seq(
-              TagDetail(TagDetailType.Same, "rwn_ref", Some("02"), Some("02")),
-              TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
+              TagDiff.same("rwn_ref", "02"),
+              TagDiff.same("network:type", "node_network")
             ),
             extraTags = Seq(
-              TagDetail(TagDetailType.Add, "tag", None, Some("after"))
+              TagDiff.add("tag", "after")
             )
           )
         ),

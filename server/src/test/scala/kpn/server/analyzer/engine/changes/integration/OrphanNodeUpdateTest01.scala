@@ -9,8 +9,7 @@ import kpn.api.common.NodeName
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -99,11 +98,11 @@ class OrphanNodeUpdateTest01 extends IntegrationTest {
         tagDiffs = Some(
           TagDiffs(
             mainTags = Seq(
-              TagDetail(TagDetailType.Same, "rwn_ref", Some("01"), Some("01")),
-              TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
+              TagDiff.same("rwn_ref", "01"),
+              TagDiff.same("network:type", "node_network")
             ),
             extraTags = Seq(
-              TagDetail(TagDetailType.Update, "tag", Some("before"), Some("after"))
+              TagDiff.update("tag", "before", "after")
             )
           )
         )

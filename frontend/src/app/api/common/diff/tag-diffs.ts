@@ -1,8 +1,8 @@
 // this file is generated, please do not modify
 
-import { TagDetail } from './tag-detail';
+import { TagDiff } from './tag-diff';
 
 export interface TagDiffs {
-  readonly mainTags: TagDetail[];
-  readonly extraTags: TagDetail[];
+  readonly mainTags: TagDiff[];
+  readonly extraTags: TagDiff[];
 }

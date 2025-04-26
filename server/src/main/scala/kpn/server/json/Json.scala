@@ -19,6 +19,7 @@ import kpn.api.common.Language
 import kpn.api.common.RouteScope
 import kpn.api.common.RouteType
 import kpn.api.common.data.MemberType
+import kpn.api.common.diff.TagDiffType
 import kpn.api.common.location.BooleanParameter
 import kpn.api.common.location.LastUpdatedParameter
 import kpn.api.common.location.SurveyParameter
@@ -139,6 +140,9 @@ object Json {
 
     b.deserializerByType(classOf[AnalysisStrategy], new AnalysisStrategyJsonDeserializer())
     b.serializerByType(classOf[AnalysisStrategy], new AnalysisStrategyJsonSerializer())
+
+    b.deserializerByType(classOf[TagDiffType], new TagDiffTypeJsonDeserializer())
+    b.serializerByType(classOf[TagDiffType], new TagDiffTypeJsonSerializer())
 
     b.deserializerByType(classOf[CoordinateArray], new CoordinateArrayJsonDeserializer())
 

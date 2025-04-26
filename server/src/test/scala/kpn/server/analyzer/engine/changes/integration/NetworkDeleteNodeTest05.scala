@@ -13,9 +13,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType.Delete
-import kpn.api.common.diff.TagDetailType.Same
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.Change
 import kpn.api.custom.Subset
@@ -197,9 +195,9 @@ class NetworkDeleteNodeTest05 extends IntegrationTest {
         tagDiffs = Some(
           TagDiffs(
             mainTags = Seq(
-              TagDetail(Delete, "rwn_ref", Some("01"), None),
-              TagDetail(Same, "rcn_ref", Some("02"), Some("02")),
-              TagDetail(Same, "network:type", Some("node_network"), Some("node_network"))
+              TagDiff.delete("rwn_ref", "01"),
+              TagDiff.same("rcn_ref", "02"),
+              TagDiff.same("network:type", "node_network")
             )
           )
         ),

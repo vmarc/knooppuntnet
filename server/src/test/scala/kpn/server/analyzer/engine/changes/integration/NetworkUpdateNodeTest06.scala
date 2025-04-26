@@ -14,8 +14,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.Subset
 import kpn.api.custom.Tags
@@ -173,9 +172,9 @@ class NetworkUpdateNodeTest06 extends IntegrationTest {
         tagDiffs = Some(
           TagDiffs(
             Seq(
-              TagDetail(TagDetailType.Delete, "rwn_ref", Some("02"), None),
-              TagDetail(TagDetailType.Same, "rcn_ref", Some("03"), Some("03")),
-              TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
+              TagDiff.delete("rwn_ref", "02"),
+              TagDiff.same("rcn_ref", "03"),
+              TagDiff.same("network:type", "node_network")
             ),
             Seq.empty
           )

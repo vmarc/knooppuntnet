@@ -3,8 +3,7 @@ package kpn.core.history
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.data.Way
 import kpn.api.common.diff.NodeUpdate
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayUpdate
 import kpn.api.custom.Tags
@@ -80,12 +79,7 @@ class WayDiffAnalyzerTest extends UnitTest with SharedTestObjects {
           TagDiffs(
             Seq.empty,
             Seq(
-              TagDetail(
-                TagDetailType.Update,
-                "a",
-                Some("1"),
-                Some("2")
-              )
+              TagDiff.update("a", "1", "2")
             )
           )
         )

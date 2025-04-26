@@ -4,8 +4,7 @@ import kpn.api.common.LatLonImpl
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.diff.NodeData
 import kpn.api.common.diff.NodeDataUpdate
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.node.NodeMoved
 import kpn.api.custom.Tag
@@ -41,7 +40,7 @@ class NodeDataDiffAnalyzerTest extends UnitTest with SharedTestObjects {
   test("tags changed") {
     val n1 = nodeData(1, "51.5291500", "4.297700", 3, Timestamp(2015, 8, 11, 0, 0, 0), 100, Tags.from("a" -> "1"))
     val n2 = nodeData(1, "51.5291500", "4.297700", 4, Timestamp(2015, 8, 11, 12, 0, 0), 100, Tags.from("a" -> "2"))
-    val expectedDiffs = TagDiffs(Seq.empty, Seq(TagDetail(TagDetailType.Update, "a", Some("1"), Some("2"))))
+    val expectedDiffs = TagDiffs(Seq.empty, Seq(TagDiff.update("a", "1", "2")))
     assertEqual(
       new NodeDataDiffAnalyzer(n1, n2).analysis,
       Some(NodeDataUpdate(n1, n2, Some(expectedDiffs)))

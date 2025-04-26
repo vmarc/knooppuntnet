@@ -10,8 +10,7 @@ import kpn.api.common.RouteType
 import kpn.api.common.changes.ChangeAction
 import kpn.api.common.common.Ref
 import kpn.api.common.data.MemberType
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Subset
@@ -80,7 +79,6 @@ class RouteDeleteTest03 extends IntegrationTest {
   }
 
   private def assertRouteChange(): Unit = {
-    pendingRedesignPrio1()
     assertEqual(
       findRouteChangeById("123:1:11"),
       newRouteChange(
@@ -131,11 +129,11 @@ class RouteDeleteTest03 extends IntegrationTest {
           tagDiffs = Some(
             TagDiffs(
               mainTags = Seq(
-                TagDetail(TagDetailType.Delete, "ref", Some("01-02"), None),
-                TagDetail(TagDetailType.Delete, "network", Some("rwn"), None),
-                TagDetail(TagDetailType.Delete, "type", Some("route"), None),
-                TagDetail(TagDetailType.Delete, "route", Some("foot"), None),
-                TagDetail(TagDetailType.Same, "network:type", Some("node_network"), Some("node_network"))
+                TagDiff.delete("ref", "01-02"),
+                TagDiff.delete("network", "rwn"),
+                TagDiff.delete("type", "route"),
+                TagDiff.delete("route", "foot"),
+                TagDiff.same("network:type", "node_network")
               )
             )
           )

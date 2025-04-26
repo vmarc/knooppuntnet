@@ -8,8 +8,7 @@ import kpn.api.common.common.Ref
 import kpn.api.common.data.MetaData
 import kpn.api.common.data.Node
 import kpn.api.common.diff.NodeUpdate
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.common.diff.WayInfo
 import kpn.api.common.diff.WayUpdate
@@ -141,10 +140,10 @@ object RouteChangesPageExample {
   private def routeTagDiffs(): TagDiffs = {
     TagDiffs(
       mainTags = Seq(
-        TagDetail(TagDetailType.Same, "same", Some("Same"), Some("Same"))
+        TagDiff.same("same", "Same")
       ),
       extraTags = Seq(
-        TagDetail(TagDetailType.Update, "tag", Some("before"), Some("after"))
+        TagDiff.update("tag", "before", "after")
       )
     )
   }

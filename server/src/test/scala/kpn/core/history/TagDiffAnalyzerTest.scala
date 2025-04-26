@@ -1,8 +1,7 @@
 package kpn.core.history
 
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.diff.TagDetail
-import kpn.api.common.diff.TagDetailType
+import kpn.api.common.diff.TagDiff
 import kpn.api.common.diff.TagDiffs
 import kpn.api.custom.Tags
 import kpn.core.util.UnitTest
@@ -20,13 +19,13 @@ class TagDiffAnalyzerTest extends UnitTest with SharedTestObjects {
       Some(
         TagDiffs(
           Seq(
-            TagDetail(TagDetailType.Delete, "aaa", Some("1"), None),
-            TagDetail(TagDetailType.Add, "bbb", None, Some("4"))
+            TagDiff.delete("aaa", "1"),
+            TagDiff.add("bbb", "4")
           ),
           Seq(
-            TagDetail(TagDetailType.Add, "eee", None, Some("6")),
-            TagDetail(TagDetailType.Same, "ccc", Some("2"), Some("2")),
-            TagDetail(TagDetailType.Update, "ddd", Some("3"), Some("5"))
+            TagDiff.add("eee", "6"),
+            TagDiff.same("ccc", "2"),
+            TagDiff.update("ddd", "3", "5")
           )
         )
       )
@@ -45,10 +44,10 @@ class TagDiffAnalyzerTest extends UnitTest with SharedTestObjects {
           Seq(
           ),
           Seq(
-            TagDetail(TagDetailType.Add, "aaa", None, Some("2")),
-            TagDetail(TagDetailType.Delete, "bbb", Some("5"), None),
-            TagDetail(TagDetailType.Same, "ddd", Some("1"), Some("1")),
-            TagDetail(TagDetailType.Update, "ccc", Some("3"), Some("4"))
+            TagDiff.add("aaa", "2"),
+            TagDiff.delete("bbb", "5"),
+            TagDiff.same("ddd", "1"),
+            TagDiff.update("ccc", "3", "4")
           )
         )
       )
