@@ -40,7 +40,7 @@ class FlandersRouteParser {
     val geom = route \ "geom"
     val lineString = geom \ "LineString"
     val posList = (lineString \ "posList").text
-    val positionCoordinates = posList.split(" ")
+    val positionCoordinates = posList.split("\\s+")
     positionCoordinates.sliding(2, 2).toSeq.map { case Array(x, y) =>
       lambertToLatLon(x, y)
     }
