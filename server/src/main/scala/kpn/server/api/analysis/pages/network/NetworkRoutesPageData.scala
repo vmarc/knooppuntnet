@@ -1,9 +1,9 @@
 package kpn.server.api.analysis.pages.network
 
 import kpn.api.common.network.NetworkSummary
-import kpn.core.doc.NetworkInfoRouteDetail
+import kpn.core.doc.NetworkRouteDetail
 
 case class NetworkRoutesPageData(
   summary: NetworkSummary,
-  routes: Seq[NetworkInfoRouteDetail]
+  routes: Seq[NetworkRouteDetail]
 )

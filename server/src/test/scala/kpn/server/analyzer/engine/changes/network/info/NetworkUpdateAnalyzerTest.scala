@@ -120,7 +120,7 @@ class NetworkUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val before = newNetworkDoc(
       1,
       routes = Seq(
-        newNetworkInfoRouteDetail(
+        newNetworkRouteDetail(
           11,
           "01-02"
         )
@@ -156,7 +156,7 @@ class NetworkUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val after = newNetworkDoc(
       1,
       routes = Seq(
-        newNetworkInfoRouteDetail(
+        newNetworkRouteDetail(
           11,
           "01-02"
         )
@@ -184,7 +184,7 @@ class NetworkUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val before = newNetworkDoc(
       1,
       routes = Seq(
-        newNetworkInfoRouteDetail(
+        newNetworkRouteDetail(
           11,
           "01-02"
         )
@@ -194,7 +194,7 @@ class NetworkUpdateAnalyzerTest extends UnitTest with SharedTestObjects {
     val after = newNetworkDoc(
       1,
       routes = Seq(
-        newNetworkInfoRouteDetail(
+        newNetworkRouteDetail(
           11,
           "01-03"
         )

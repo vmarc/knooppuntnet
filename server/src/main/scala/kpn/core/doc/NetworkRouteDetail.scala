@@ -7,7 +7,7 @@ import kpn.api.custom.Day
 import kpn.api.custom.Tag
 import kpn.api.custom.Timestamp
 
-case class NetworkInfoRouteDetail(
+case class NetworkRouteDetail(
   id: Long,
   name: String,
   length: Long,
@@ -27,7 +27,7 @@ case class NetworkInfoRouteDetail(
     Ref(id, name)
   }
 
-  def isSameAs(other: NetworkInfoRouteDetail): Boolean = {
+  def isSameAs(other: NetworkRouteDetail): Boolean = {
     name == other.name &&
       length == other.length &&
       role == other.role &&

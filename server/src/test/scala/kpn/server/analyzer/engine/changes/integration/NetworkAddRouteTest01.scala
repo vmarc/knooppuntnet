@@ -121,7 +121,7 @@ class NetworkAddRouteTest01 extends IntegrationTest {
           )
         ),
         routes = Seq(
-          newNetworkInfoRouteDetail(
+          newNetworkRouteDetail(
             11,
             "01-02",
             tags = Tags.from(

@@ -27,7 +27,7 @@ class NetworkNodeDocAnalyzerTest extends UnitTest with SharedTestObjects {
         _scopedRouteTypeOption = Some(Some(ScopedRouteType.rwn)),
         _routeDetails = Some(
           Seq(
-            newNetworkInfoRouteDetail(
+            newNetworkRouteDetail(
               id = 10L,
               nodeRefs = Seq(1001L)
             )

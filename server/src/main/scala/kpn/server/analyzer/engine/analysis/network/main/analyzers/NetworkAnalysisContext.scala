@@ -11,7 +11,7 @@ import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Timestamp
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
-import kpn.core.doc.NetworkInfoRouteDetail
+import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.context.PreconditionMissingException
 
@@ -27,7 +27,7 @@ case class NetworkAnalysisContext(
   _nodeDocs: Option[Seq[NodeDoc]] = None,
   _networkFacts: Option[Seq[NetworkFact]] = None,
   _nodeDetails: Option[Seq[NetworkInfoNodeDetail]] = None,
-  _routeDetails: Option[Seq[NetworkInfoRouteDetail]] = None,
+  _routeDetails: Option[Seq[NetworkRouteDetail]] = None,
   _extraNodeIds: Option[Seq[Long]] = None,
   _extraWayIds: Option[Seq[Long]] = None,
   _extraRelationIds: Option[Seq[Long]] = None,
@@ -70,7 +70,7 @@ case class NetworkAnalysisContext(
 
   def nodeDetails: Seq[NetworkInfoNodeDetail] = _nodeDetails.getOrElse(throw new PreconditionMissingException)
 
-  def routeDetails: Seq[NetworkInfoRouteDetail] = _routeDetails.getOrElse(throw new PreconditionMissingException)
+  def routeDetails: Seq[NetworkRouteDetail] = _routeDetails.getOrElse(throw new PreconditionMissingException)
 
   def extraNodeIds: Seq[Long] = _extraNodeIds.getOrElse(throw new PreconditionMissingException)
 

@@ -3,7 +3,7 @@ package kpn.server.analyzer.engine.analysis.network.main.analyzers
 import kpn.api.common.Fact
 import kpn.api.common.data.MemberType
 import kpn.core.doc.Label
-import kpn.core.doc.NetworkInfoRouteDetail
+import kpn.core.doc.NetworkRouteDetail
 import kpn.core.util.Log
 import kpn.core.util.NaturalSorting
 import kpn.database.base.Database
@@ -53,7 +53,7 @@ class NetworkRouteAnalyzer(database: Database) extends NetworkAnalyzer {
     )
   }
 
-  private def queryRouteDetails(routeIds: Seq[Long]): Seq[NetworkInfoRouteDetail] = {
+  private def queryRouteDetails(routeIds: Seq[Long]): Seq[NetworkRouteDetail] = {
     if (routeIds.nonEmpty) {
       log.debugElapsed {
         val pipeline = Seq(
@@ -77,7 +77,7 @@ class NetworkRouteAnalyzer(database: Database) extends NetworkAnalyzer {
             )
           )
         )
-        val routeDetails = database.baseRoutes.aggregate[NetworkInfoRouteDetail](pipeline, log)
+        val routeDetails = database.baseRoutes.aggregate[NetworkRouteDetail](pipeline, log)
         (s"routeDetails: ${routeDetails.size}", routeDetails)
       }
     }

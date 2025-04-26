@@ -73,9 +73,9 @@ import kpn.core.doc.BaseRouteSegmentElement
 import kpn.core.doc.Label
 import kpn.core.doc.NetworkDoc
 import kpn.core.doc.NetworkInfoNodeDetail
-import kpn.core.doc.NetworkInfoRouteDetail
 import kpn.core.doc.NetworkNodeMember
 import kpn.core.doc.NetworkRelationMember
+import kpn.core.doc.NetworkRouteDetail
 import kpn.core.doc.NetworkWayMember
 import kpn.core.doc.NodeDoc
 import kpn.core.doc.OrphanNodeDoc
@@ -1330,7 +1330,7 @@ trait SharedTestObjects extends MockFactory {
     detail: NetworkDetail = newNetworkDetail(),
     facts: Seq[NetworkFact] = Seq.empty,
     nodes: Seq[NetworkInfoNodeDetail] = Seq.empty,
-    routes: Seq[NetworkInfoRouteDetail] = Seq.empty,
+    routes: Seq[NetworkRouteDetail] = Seq.empty,
     extraNodeIds: Seq[Long] = Seq.empty,
     extraWayIds: Seq[Long] = Seq.empty,
     extraRelationIds: Seq[Long] = Seq.empty,
@@ -1403,7 +1403,7 @@ trait SharedTestObjects extends MockFactory {
     )
   }
 
-  def newNetworkInfoRouteDetail(
+  def newNetworkRouteDetail(
     id: Long,
     name: String = "",
     length: Long = 0,
@@ -1417,8 +1417,8 @@ trait SharedTestObjects extends MockFactory {
     facts: Seq[Fact] = Seq.empty,
     tags: Seq[Tag] = Seq.empty,
     nodeRefs: Seq[Long] = Seq.empty
-  ): NetworkInfoRouteDetail = {
-    NetworkInfoRouteDetail(
+  ): NetworkRouteDetail = {
+    NetworkRouteDetail(
       id,
       name,
       length,

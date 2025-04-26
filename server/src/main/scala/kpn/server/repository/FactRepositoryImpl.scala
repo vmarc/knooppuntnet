@@ -8,6 +8,7 @@ import kpn.core.analysis.Facts
 import kpn.core.doc.Label
 import kpn.core.util.Log
 import kpn.database.base.Database
+import kpn.database.util.Mongo
 import org.mongodb.scala.model.Aggregates.filter
 import org.mongodb.scala.model.Aggregates.project
 import org.mongodb.scala.model.Aggregates.unwind
@@ -97,6 +98,9 @@ class FactRepositoryImpl(database: Database) extends FactRepository {
           )
         )
       )
+
+      println(Mongo.pipelineString(pipeline))
+
       val refs = database.routes.aggregate[Ref](pipeline, log)
       (s"routeRefs: ${refs.size}", refs)
     }

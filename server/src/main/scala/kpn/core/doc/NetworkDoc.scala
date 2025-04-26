@@ -17,7 +17,7 @@ case class NetworkDoc(
   detail: NetworkDetail,
   facts: Seq[NetworkFact],
   nodes: Seq[NetworkInfoNodeDetail],
-  routes: Seq[NetworkInfoRouteDetail],
+  routes: Seq[NetworkRouteDetail],
   extraNodeIds: Seq[Long],
   extraWayIds: Seq[Long],
   extraRelationIds: Seq[Long],
