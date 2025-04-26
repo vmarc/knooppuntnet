@@ -31,7 +31,7 @@ case class InterpretedLocationJson(locationJson: LocationJson) {
 
   def names: Seq[LocationName] = {
     val allTags = Tags.from(locationJson.properties.all_tags)
-    val name = Tags.get(allTags, "name").getOrElse("")
+    val name = Tags.values(allTags, "name").headOption.getOrElse("")
     LocationNames.from(allTags, name)
   }
 

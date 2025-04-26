@@ -25,27 +25,22 @@ object BaseRouteScopeAnalyzer extends BaseRouteAnalyzer {
 class BaseRouteScopeAnalyzer(context: BaseRouteAnalysisContext) {
 
   def analyze: BaseRouteAnalysisContext = {
-    val scopes: Seq[RouteScope] = Tags.get(context.relation.tags, "network") match {
-      case None => Seq.empty
-      case Some(tagValue) =>
-        val values = tagValue.split(";").toSeq
-        values.flatMap { value =>
-          if (BaseRouteScopeAnalyzer.localNetworkTagValues.contains(value)) {
-            Some(RouteScope.local)
-          }
-          else if (BaseRouteScopeAnalyzer.regionalNetworkTagValues.contains(value)) {
-            Some(RouteScope.regional)
-          }
-          else if (BaseRouteScopeAnalyzer.nationalNetworkTagValues.contains(value)) {
-            Some(RouteScope.national)
-          }
-          else if (BaseRouteScopeAnalyzer.internationalNetworkTagValues.contains(value)) {
-            Some(RouteScope.international)
-          }
-          else {
-            None
-          }
-        }
+    val scopes: Seq[RouteScope] = Tags.values(context.relation.tags, "network").flatMap { value =>
+      if (BaseRouteScopeAnalyzer.localNetworkTagValues.contains(value)) {
+        Some(RouteScope.local)
+      }
+      else if (BaseRouteScopeAnalyzer.regionalNetworkTagValues.contains(value)) {
+        Some(RouteScope.regional)
+      }
+      else if (BaseRouteScopeAnalyzer.nationalNetworkTagValues.contains(value)) {
+        Some(RouteScope.national)
+      }
+      else if (BaseRouteScopeAnalyzer.internationalNetworkTagValues.contains(value)) {
+        Some(RouteScope.international)
+      }
+      else {
+        None
+      }
     }
     val allScopes = if (scopes.isEmpty) {
       Seq(RouteScope.unknown)

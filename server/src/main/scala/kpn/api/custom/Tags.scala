@@ -1,13 +1,15 @@
 package kpn.api.custom
 
 object Tags {
+  private val ValueSeparator = ";"
+  type TagTuple = (String, String)
 
-  def from(tags: (String, String)*): Seq[Tag] = {
-    tags.map(a => Tag(a._1, a._2))
+  def from(tags: TagTuple*): Seq[Tag] = {
+    tags.map { case (key, value) => Tag(key, value) }
   }
 
   def from(map: Map[String, String]): Seq[Tag] = {
-    map.keys.toSeq.map(key => Tag(key, map(key)))
+    map.toSeq.map { case (key, value) => Tag(key, value) }
   }
 
   def toString(tags: Seq[Tag]): String = tags.map { case Tag(key, value) => s"$key=$value" }.mkString(", ")
@@ -16,19 +18,30 @@ object Tags {
     tags.find(_.key == key).map(_.value)
   }
 
+  def values(tags: Seq[Tag], key: String): Seq[String] = {
+    get(tags, key)
+      .filter(_.nonEmpty)
+      .map(splitAndNormalize)
+      .getOrElse(Seq.empty)
+  }
+
   def has(tags: Seq[Tag], key: String, allowedValues: String*): Boolean = {
-    if (allowedValues.isEmpty) {
-      tags.nonEmpty && tags.exists(_.key == key)
+    tags.exists { tag =>
+      tag.key == key && (
+        allowedValues.isEmpty ||
+          splitAndNormalize(tag.value).exists(allowedValues.contains)
+        )
     }
-    else {
-      tags.exists { tag =>
-        if (tag.key == key) {
-          tag.value.split(";").exists(allowedValues.contains(_))
-        }
-        else {
-          false
-        }
-      }
+  }
+
+  def splitAndNormalize(value: String): Seq[String] = {
+    if (value.contains(ValueSeparator)) {
+      value.split(ValueSeparator)
+        .map(_.trim)
+        .filter(_.nonEmpty)
+        .sorted
+    } else {
+      Seq(value.trim)
     }
   }
 }

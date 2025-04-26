@@ -24,23 +24,18 @@ object BaseRouteTypeAnalyzer extends BaseRouteAnalyzer {
 
 class BaseRouteTypeAnalyzer(tags: Seq[Tag]) {
   def analyze(): Seq[RouteType] = {
-    Tags.get(tags, "route") match {
-      case None => Seq.empty
-      case Some(routeTagValue) =>
-        val values = routeTagValue.split(";").toSeq.map(_.trim)
-        values.flatMap { value =>
-          value match {
-            case "hiking" => Some(RouteType.hiking)
-            case "walking" => Some(RouteType.hiking)
-            case "foot" => Some(RouteType.hiking)
-            case "bicycle" => Some(RouteType.cycling)
-            case "horse" => Some(RouteType.horseRiding)
-            case "canoe" => Some(RouteType.canoe)
-            case "motorboat" => Some(RouteType.motorboat)
-            case "inline_skates" => Some(RouteType.inlineSkating)
-            case _ => None
-          }
-        }.distinct.sortBy(_.entryName)
-    }
+    Tags.values(tags, "route").flatMap { value =>
+      value match {
+        case "hiking" => Some(RouteType.hiking)
+        case "walking" => Some(RouteType.hiking)
+        case "foot" => Some(RouteType.hiking)
+        case "bicycle" => Some(RouteType.cycling)
+        case "horse" => Some(RouteType.horseRiding)
+        case "canoe" => Some(RouteType.canoe)
+        case "motorboat" => Some(RouteType.motorboat)
+        case "inline_skates" => Some(RouteType.inlineSkating)
+        case _ => None
+      }
+    }.distinct.sortBy(_.entryName)
   }
 }

@@ -5,6 +5,7 @@ import kpn.api.common.Fact.RouteTagInvalid
 import kpn.api.common.Fact.RouteTagMissing
 import kpn.api.common.RouteType
 import kpn.api.custom.ScopedRouteType
+import kpn.api.custom.Tags
 
 import scala.collection.mutable.ListBuffer
 
@@ -49,39 +50,41 @@ class BaseRouteTagAnalyzer(context: BaseRouteAnalysisContext) {
 
   private def assertTagValueMatchesrouteType(routeType: RouteType, routeTagValue: String): Seq[Fact] = {
 
+    val routeTagValues = Tags.splitAndNormalize(routeTagValue)
+
     val facts = ListBuffer[Fact]()
     if (routeType == RouteType.hiking) {
-      if (!Seq("hiking", "walking", "foot").contains(routeTagValue)) {
+      if (!routeTagValues.exists(value => Seq("hiking", "walking", "foot").contains(value))) {
         facts += RouteTagInvalid
       }
     }
     else if (routeType == RouteType.cycling) {
-      if (routeTagValue != "bicycle") {
+      if (!routeTagValues.contains("bicycle")) {
         facts += RouteTagInvalid
       }
     }
     else if (routeType == RouteType.horseRiding) {
-      if (routeTagValue != "horse") {
+      if (!routeTagValues.contains("horse")) {
         facts += RouteTagInvalid
       }
     }
     else if (routeType == RouteType.horseRiding) {
-      if (routeTagValue != "horse") {
+      if (!routeTagValues.contains("horse")) {
         facts += RouteTagInvalid
       }
     }
     else if (routeType == RouteType.canoe) {
-      if (routeTagValue != "canoe") {
+      if (!routeTagValues.contains("canoe")) {
         facts += RouteTagInvalid
       }
     }
     else if (routeType == RouteType.motorboat) {
-      if (routeTagValue != "motorboat") {
+      if (!routeTagValues.contains("motorboat")) {
         facts += RouteTagInvalid
       }
     }
     else if (routeType == RouteType.inlineSkating) {
-      if (routeTagValue != "inline_skates") {
+      if (!routeTagValues.contains("inline_skates")) {
         facts += RouteTagInvalid
       }
     }

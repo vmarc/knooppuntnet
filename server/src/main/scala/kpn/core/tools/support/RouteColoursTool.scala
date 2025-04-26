@@ -44,10 +44,9 @@ class RouteColoursTool(database: Database) {
       if ((index + 1) % 500 == 0) {
         println(s"${index + 1}/$routeIdsSize")
       }
-      val colourTagValues = routeRepository.findRouteById(routeId).toSeq.flatMap(_.summary.tagValue("colour"))
-      val colours = colourTagValues.flatMap(value => value.split(";"))
+      val colours = routeRepository.findRouteById(routeId).toSeq.flatMap(_.summary.tagValues("colour")).distinct.sorted
       if (colours.exists(colour => !knownColours.contains(colour))) {
-        println(s"$routeId ${colourTagValues.mkString("|")}")
+        println(s"$routeId ${colours.mkString("|")}")
       }
       colours
     }

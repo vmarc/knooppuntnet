@@ -2,16 +2,7 @@ package kpn.server.analyzer.engine.analysis.route.base.analyzers
 
 import kpn.api.common.Fact.RouteTagMissing
 import kpn.api.common.RouteScope
-import kpn.api.common.RouteScope.local
-import kpn.api.common.RouteScope.national
-import kpn.api.common.RouteScope.regional
 import kpn.api.common.RouteType
-import kpn.api.common.RouteType.canoe
-import kpn.api.common.RouteType.cycling
-import kpn.api.common.RouteType.hiking
-import kpn.api.common.RouteType.horseRiding
-import kpn.api.common.RouteType.inlineSkating
-import kpn.api.common.RouteType.motorboat
 import kpn.api.common.SharedTestObjects
 import kpn.api.custom.ScopedRouteType
 import kpn.api.custom.Tag
@@ -32,18 +23,17 @@ class RouteTagAnalyzerTest extends UnitTest with SharedTestObjects {
   }
 
   test("route tag valid") {
-    testValid(local, hiking, "foot")
-    testValid(regional, hiking, "hiking")
-    testValid(national, hiking, "walking")
-    testValid(local, cycling, "bicycle")
-    testValid(regional, horseRiding, "horse")
-    testValid(national, canoe, "canoe")
-    testValid(local, motorboat, "motorboat")
-    testValid(regional, inlineSkating, "inline_skates")
+    testValid(RouteScope.local, RouteType.hiking, "foot")
+    testValid(RouteScope.regional, RouteType.hiking, "hiking")
+    testValid(RouteScope.national, RouteType.hiking, "walking")
+    testValid(RouteScope.local, RouteType.cycling, "bicycle")
+    testValid(RouteScope.regional, RouteType.horseRiding, "horse")
+    testValid(RouteScope.national, RouteType.canoe, "canoe")
+    testValid(RouteScope.local, RouteType.motorboat, "motorboat")
+    testValid(RouteScope.regional, RouteType.inlineSkating, "inline_skates")
   }
 
   test("ignore additional values") {
-    pendingRedesignPrio2()
     testValid(RouteScope.regional, RouteType.cycling, "bicycle;mtb")
   }
 

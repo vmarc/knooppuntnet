@@ -11,6 +11,10 @@ trait Tagable {
     Tags.get(tags, key)
   }
 
+  def tagValues(key: String): Seq[String] = {
+    Tags.values(tags, key)
+  }
+
   def hasTag(key: String, allowedValues: String*): Boolean = {
     Tags.has(tags, key, allowedValues: _*)
   }

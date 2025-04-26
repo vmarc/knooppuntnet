@@ -22,7 +22,7 @@ object MonitorRouteRelation {
       "ref",
     )
 
-    val names = nameTagKeys.flatMap(nameTagKey => relation.tagValue(nameTagKey))
+    val names = nameTagKeys.flatMap(nameTagKey => relation.tagValues(nameTagKey))
 
     val name = names.headOption match {
       case Some(name) => name

@@ -9,20 +9,18 @@ object LocationNames {
   def from(tags: Seq[Tag], name: String): Seq[LocationName] = {
     Language.values.flatMap { language =>
       val lang = language.toString.toLowerCase
-      Tags.get(tags, s"name:$lang") match {
-        case None => None
-        case Some(value) =>
-          if (value != name) {
-            Some(
-              LocationName(
-                language,
-                value
-              )
+      Tags.values(tags, s"name:$lang").flatMap { value =>
+        if (value != name) {
+          Some(
+            LocationName(
+              language,
+              value
             )
-          }
-          else {
-            None
-          }
+          )
+        }
+        else {
+          None
+        }
       }
     }
   }

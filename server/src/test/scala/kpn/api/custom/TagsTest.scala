@@ -7,16 +7,41 @@ class TagsTest extends UnitTest {
 
   private case class TestObject(tags: Seq[Tag]) extends Tagable
 
-  test("hasTag") {
-
+  test("hasTag - false when tag is missing") {
     assert(!TestObject(Seq.empty).hasTag("key"))
+  }
 
-    assert(TestObject(Tags.from("key" -> "value")).hasTag("key"))
-    assert(TestObject(Tags.from("key" -> "value")).hasTag("key", "value"))
-    assert(!TestObject(Tags.from("key" -> "value")).hasTag("key", "value1", "value2"))
+  test("hasTag - tag with single value") {
+    val taggable = taggableWithTagValue("value")
+    assert(taggable.hasTag("key"))
+    assert(taggable.hasTag("key", "value"))
+    assert(!taggable.hasTag("key", "bla"))
+  }
 
-    assert(!TestObject(Tags.from("key" -> "value1;value2")).hasTag("key", "value"))
-    assert(TestObject(Tags.from("key" -> "value1;value2")).hasTag("key", "value1"))
-    assert(TestObject(Tags.from("key" -> "value1;value2")).hasTag("key", "value2"))
+  test("hasTag - tag with multiple values") {
+    val taggable = taggableWithTagValue("value1;value2")
+    assert(taggable.hasTag("key", "value1"))
+    assert(taggable.hasTag("key", "value2"))
+    assert(!taggable.hasTag("key", "bla"))
+  }
+
+  test("values - no values when tag is missing") {
+    TestObject(Seq.empty).tagValues("key") should equal(Seq.empty)
+  }
+
+  test("values - no values when tag value is empty") {
+    taggableWithTagValue("").tagValues("key") should equal(Seq.empty)
+  }
+
+  test("values") {
+    taggableWithTagValue("value").tagValues("key") should equal(Seq("value"))
+    taggableWithTagValue("  value  ").tagValues("key") should equal(Seq("value"))
+    taggableWithTagValue("value1;value2").tagValues("key") should equal(Seq("value1", "value2"))
+    taggableWithTagValue("value1;;value2").tagValues("key") should equal(Seq("value1", "value2"))
+    taggableWithTagValue("value1  ;  ;  value2").tagValues("key") should equal(Seq("value1", "value2"))
+  }
+
+  private def taggableWithTagValue(value: String): TestObject = {
+    TestObject(Tags.from("key" -> value))
   }
 }
