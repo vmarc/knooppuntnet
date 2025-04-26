@@ -7,6 +7,7 @@ import kpn.api.common.RouteType.hiking
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.location.LocationNodeInfo
 import kpn.api.common.location.LocationNodesParameters
+import kpn.api.common.location.SurveyParameter
 import kpn.api.custom.Day
 import kpn.core.doc.Label
 import kpn.core.test.TestSupport.withDatabase
@@ -126,7 +127,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
   }
 
   test("include nodes with lastSurvey values only") {
-    pendingRedesignPrio2()
 
     withDatabase { database =>
       val setup = new MongoQueryLocationNodesTestSetup(database)
@@ -162,9 +162,10 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
       )
 
       val subset = LocationSubset("", hiking, Seq("be"))
+      val parameters = LocationNodesParameters(survey = Some(SurveyParameter.Older))
       val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
-      query.countDocuments(subset, LocationNodesParameters(/* TODO survey */)) should equal(1)
-      val locationNodeInfos = query.find(subset, LocationNodesParameters())
+      query.countDocuments(subset, parameters) should equal(1)
+      val locationNodeInfos = query.find(subset, parameters)
       assertEqual(
         locationNodeInfos,
         Seq(
@@ -267,7 +268,6 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
   }
 
   test("only include nodes with facts") {
-    pendingRedesignPrio2()
     withDatabase { database =>
       val setup = new MongoQueryLocationNodesTestSetup(database)
 
@@ -302,11 +302,12 @@ class MongoQueryLocationNodesTest extends UnitTest with SharedTestObjects {
         )
       )
 
+      val parameters = LocationNodesParameters(fact = Some(Fact.NodeInvalidSurveyDate))
       val subset = LocationSubset("", hiking, Seq("be"))
       val query = new MongoQueryLocationNodes(database, setup.surveyDateInfo)
-      query.countDocuments(subset, LocationNodesParameters(/*TODOfact*/)) should equal(1)
+      query.countDocuments(subset, parameters) should equal(1)
       assertEqual(
-        query.find(subset, LocationNodesParameters(/*TODOfact*/)),
+        query.find(subset, parameters),
         Seq(
           LocationNodeInfo(
             0L,
