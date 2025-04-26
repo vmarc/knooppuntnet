@@ -5,6 +5,7 @@ import kpn.api.common.data.raw.RawRelation
 import kpn.core.doc.BaseNetworkDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.base.BaseNetworkMainAnalyzer
+import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.NetworkRepository
@@ -18,7 +19,7 @@ class BaseNetworkChangeProcessor(
   rawDataRepository: RawDataRepository,
   networkRepository: NetworkRepository,
   baseNetworkMainAnalyzer: BaseNetworkMainAnalyzer,
-) {
+) extends ChangeProcessor {
 
   private val log = Log(classOf[BaseNetworkChangeProcessor])
 

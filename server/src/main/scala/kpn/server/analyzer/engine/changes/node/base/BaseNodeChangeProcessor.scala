@@ -2,6 +2,7 @@ package kpn.server.analyzer.engine.changes.node.base
 
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BaseNodeBulkAnalyzer
+import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.repository.NodeRepository
@@ -13,7 +14,7 @@ class BaseNodeChangeProcessor(
   nodeChangeAnalyzer: NodeChangeAnalyzer,
   nodeRepository: NodeRepository,
   baseNodeBulkAnalyzer: BaseNodeBulkAnalyzer
-) {
+) extends ChangeProcessor {
 
   private val log = Log(classOf[BaseNodeChangeProcessor])
 

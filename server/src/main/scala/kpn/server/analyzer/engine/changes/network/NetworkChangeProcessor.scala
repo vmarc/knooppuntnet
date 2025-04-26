@@ -3,6 +3,7 @@ package kpn.server.analyzer.engine.changes.network
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer
+import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.network.info.NetworkCreateAnalyzer
 import kpn.server.analyzer.engine.changes.network.info.NetworkDeleteAnalyzer
@@ -16,7 +17,7 @@ class NetworkChangeProcessor(
   analysisContext: AnalysisContext,
   networkRepository: NetworkRepository,
   networkMainAnalyzer: NetworkMainAnalyzer,
-) {
+) extends ChangeProcessor {
 
   private val log = Log(classOf[NetworkChangeProcessor])
 

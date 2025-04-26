@@ -11,6 +11,7 @@ import kpn.core.analysis.TagInterpreter
 import kpn.core.doc.NodeDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
+import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.node.NodeChangeStateAnalyzer
 import kpn.server.analyzer.engine.changes.node.base.NodeChangeAnalyzer
@@ -26,7 +27,7 @@ class NodeChangeProcessor(
   nodeRepository: NodeRepository,
   networkRepository: NetworkRepository,
   tileChangeAnalyzer: NodeTileChangeAnalyzer
-) {
+) extends ChangeProcessor {
 
   private val log = Log(classOf[NodeChangeProcessor])
 

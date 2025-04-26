@@ -101,7 +101,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
       changeSet,
       elementIds
     )
-    context.changeProcessor.process(changeSetContext)
+    context.mainChangeProcessor.process(changeSetContext)
     context.postProcessor.process()
   }
 

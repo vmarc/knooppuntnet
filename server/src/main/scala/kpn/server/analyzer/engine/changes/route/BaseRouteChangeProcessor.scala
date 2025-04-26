@@ -9,6 +9,7 @@ import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
+import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.context.AnalysisContext
 import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzer
@@ -25,7 +26,7 @@ class BaseRouteChangeProcessor(
   tileChangeAnalyzer: RouteTileChangeAnalyzer,
   routeRepository: RouteRepository,
   rawDataRepository: RawDataRepository,
-) {
+) extends ChangeProcessor {
 
   private val log = Log(classOf[BaseRouteChangeProcessor])
 

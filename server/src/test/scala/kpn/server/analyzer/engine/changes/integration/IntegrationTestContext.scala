@@ -35,9 +35,9 @@ import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteBoundsAnaly
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteNetworkReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteParentAnalyzer
 import kpn.server.analyzer.engine.analysis.route.main.analyzers.RouteStructureRowsAnalyzer
-import kpn.server.analyzer.engine.changes.ChangeProcessor
 import kpn.server.analyzer.engine.changes.ChangeSaver
 import kpn.server.analyzer.engine.changes.ElementIdAnalyzerImpl
+import kpn.server.analyzer.engine.changes.MainChangeProcessor
 import kpn.server.analyzer.engine.changes.data.Blacklist
 import kpn.server.analyzer.engine.changes.network.BaseNetworkChangeProcessor
 import kpn.server.analyzer.engine.changes.network.NetworkChangeAnalyzer
@@ -249,7 +249,7 @@ class IntegrationTestContext(
   private val orphanRouteUpdater = new OrphanRouteUpdater(database)
   private val statisticsUpdater = new StatisticsUpdater(database)
 
-  val changeProcessor: ChangeProcessor = {
+  val mainChangeProcessor: MainChangeProcessor = {
 
     val changeSaver = new ChangeSaver(
       changeSetRepository,
@@ -310,7 +310,7 @@ class IntegrationTestContext(
       )
     }
 
-    new ChangeProcessor(
+    new MainChangeProcessor(
       baseNodeChangeProcessor,
       baseNetworkChangeProcessor,
       baseRouteChangeProcessor,
