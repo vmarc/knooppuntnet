@@ -66,7 +66,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
     withDatabase(keepDatabaseAfterTest) { database =>
       contextOption = Some(new IntegrationTestContext(database, dataBefore, dataAfter, locationAnalyzer))
       try {
-        context.fullAnalyzer.analyze(timestampBeforeValue)
+        context.mainFullAnalyzer.analyze(timestampBeforeValue)
         context.analysisDataInitializer.load()
         f
       }

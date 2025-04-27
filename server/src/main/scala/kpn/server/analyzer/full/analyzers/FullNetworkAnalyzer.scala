@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class FullNetworkAnalyzer(
   networkRepository: NetworkRepository,
   networkMainAnalyzer: NetworkMainAnalyzer
-) {
+) extends FullAnalyzer {
 
   private val log = Log(classOf[FullNetworkAnalyzer])
 

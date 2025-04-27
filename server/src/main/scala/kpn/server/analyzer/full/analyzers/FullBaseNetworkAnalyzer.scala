@@ -12,7 +12,7 @@ class FullBaseNetworkAnalyzer(
   rawDataRepository: RawDataRepository,
   baseNetworkMainAnalyzer: BaseNetworkMainAnalyzer,
   networkRepository: NetworkRepository
-) {
+) extends FullAnalyzer {
 
   private val log = Log(classOf[FullBaseNetworkAnalyzer])
 

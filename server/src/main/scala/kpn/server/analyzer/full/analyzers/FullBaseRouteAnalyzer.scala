@@ -17,7 +17,7 @@ class FullBaseRouteAnalyzer(
   rawDataRepository: RawDataRepository,
   routeRepository: RouteRepository,
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
-) {
+) extends FullAnalyzer {
 
   private val log = Log(classOf[FullBaseRouteAnalyzer])
 

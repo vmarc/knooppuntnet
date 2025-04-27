@@ -15,7 +15,7 @@ import kpn.server.analyzer.engine.poi.PoiChangeAnalyzer
 import kpn.server.analyzer.engine.poi.PoiTileUpdater
 import kpn.server.analyzer.engine.tile.TileTask
 import kpn.server.analyzer.engine.tile.TileUpdater
-import kpn.server.analyzer.full.FullAnalyzer
+import kpn.server.analyzer.full.MainFullAnalyzer
 import kpn.server.analyzer.load.AnalysisDataInitializer
 import kpn.server.repository.AnalysisRepository
 import kpn.server.repository.TaskRepository
@@ -31,7 +31,7 @@ class AnalyzerEngineImpl(
   analyzerStatisticsUpdateEnabled: Boolean,
   osmChangeRepository: OsmChangeRepository,
   analysisDataInitializer: AnalysisDataInitializer,
-  fullAnalyzer: FullAnalyzer,
+  mainFullAnalyzer: MainFullAnalyzer,
   mainChangeProcessor: MainChangeProcessor,
   analysisRepository: AnalysisRepository,
   taskRepository: TaskRepository,
@@ -55,7 +55,7 @@ class AnalyzerEngineImpl(
     }
 
     if (analyzerReload) {
-      fullAnalyzer.analyze(timestampAfter)
+      mainFullAnalyzer.analyze(timestampAfter)
     }
     analysisDataInitializer.load()
   }

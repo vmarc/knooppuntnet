@@ -12,7 +12,7 @@ class FullBaseNodeAnalyzer(
   rawDataRepository: RawDataRepository,
   nodeRepository: NodeRepository,
   baseNodeMainAnalyzer: BaseNodeMainAnalyzer,
-) {
+) extends FullAnalyzer {
 
   private val log = Log(classOf[FullBaseNodeAnalyzer])
 

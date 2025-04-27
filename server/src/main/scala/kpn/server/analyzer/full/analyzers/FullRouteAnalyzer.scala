@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 class FullRouteAnalyzer(
   routeRepository: RouteRepository,
   routeMainAnalyzer: RouteMainAnalyzer,
-) {
+) extends FullAnalyzer {
 
   private val log = Log(classOf[FullRouteAnalyzer])
 

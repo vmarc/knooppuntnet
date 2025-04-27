@@ -56,7 +56,7 @@ import kpn.server.analyzer.engine.tile.NodeTileChangeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.RouteTileChangeAnalyzerImpl
 import kpn.server.analyzer.engine.tile.TileCalculatorImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
-import kpn.server.analyzer.full.FullAnalyzer
+import kpn.server.analyzer.full.MainFullAnalyzer
 import kpn.server.analyzer.full.analyzers.FullBaseNetworkAnalyzer
 import kpn.server.analyzer.full.analyzers.FullBaseNodeAnalyzer
 import kpn.server.analyzer.full.analyzers.FullBaseRouteAnalyzer
@@ -328,7 +328,7 @@ class IntegrationTestContext(
     statisticsUpdater
   )
 
-  val fullAnalyzer: FullAnalyzer = {
+  val mainFullAnalyzer: MainFullAnalyzer = {
     val fullBaseNodeAnalyzer = new FullBaseNodeAnalyzer(
       rawDataRepository,
       nodeRepository,
@@ -345,7 +345,7 @@ class IntegrationTestContext(
       baseRouteMainAnalyzer,
     )
 
-    new FullAnalyzer(
+    new MainFullAnalyzer(
       fullBaseNodeAnalyzer,
       fullBaseNetworkAnalyzer,
       fullBaseRouteAnalyzer,
