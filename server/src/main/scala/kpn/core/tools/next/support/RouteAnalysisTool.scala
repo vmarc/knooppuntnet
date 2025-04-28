@@ -1,19 +1,11 @@
 package kpn.core.tools.next.support
 
-import kpn.api.custom.Relation
 import kpn.api.custom.Timestamp
-import kpn.core.doc.RouteRelation
-import kpn.core.tools.analysis.AnalysisStartConfiguration
-import kpn.core.tools.analysis.AnalysisStartToolOptions
 import kpn.core.util.Log
-import kpn.core.util.ThreadExecutor
-import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
-import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 
 object RouteAnalysisTool {
   def main(args: Array[String]): Unit = {
-    val configuration = new AnalysisStartConfiguration(AnalysisStartToolOptions("kpn-next"))
-    new RouteAnalysisTool(configuration).analyze()
+    new RouteAnalysisTool().analyze()
   }
 
   val essenOkRouteIds: Seq[Long] = Seq(
@@ -57,214 +49,12 @@ object RouteAnalysisTool {
   )
 }
 
-class RouteAnalysisTool(config: AnalysisStartConfiguration) {
+class RouteAnalysisTool() {
 
   private val timestamp = Timestamp(2025, 1, 1)
   private val log = Log(classOf[RouteAnalysisTool])
 
   def analyze(): Unit = {
-    log.info("Fetching all node ids")
-    val nodeIds = config.rawDataRepository.nodeIds(timestamp)
-    analyzeBaseNodes(nodeIds)
-
-    log.info("Fetching all network ids")
-    val rawNetworkIds = config.rawDataRepository.networkIds(timestamp)
-    analyzeBaseNetworks(rawNetworkIds)
-
-    log.info("Fetching all route ids")
-    val routeIds = config.rawDataRepository.routeIds(timestamp)
-    log.info(s"found ${routeIds.size} routeIds")
-    analyzeBaseRoutes(routeIds)
-
-    analyzeNodes(nodeIds)
-
-    analyzeRoutesMain(routeIds)
-
-    log.info("Fetching base network ids")
-    val networkIds = config.networkRepository.baseNetworkIds()
-    analyzeNetworks(networkIds)
-
-    log.info(s"Done")
-  }
-
-  private def analyzeBaseNodes(nodeIds: Seq[Long]): Unit = {
-    val batchSize = 500
-    Log.context("base-nodes") {
-      val nodeCount = nodeIds.size
-      log.info(s"Analyzing $nodeCount base nodes")
-      log.infoElapsed {
-        nodeIds.sliding(batchSize, batchSize).toSeq.zipWithIndex.foreach { case (nodeIdsBatch, index) =>
-          log.infoElapsed {
-            val rawNodes = config.rawDataRepository.nodes(timestamp, nodeIdsBatch)
-            rawNodes.foreach { rawNode =>
-              config.baseNodeMainAnalyzer.analyze(rawNode) match {
-                case None => log.error(s"Could not analyze node ${rawNode.id}")
-                case Some(baseNodeDoc) =>
-                  config.nodeRepository.saveBaseNode(baseNodeDoc)
-              }
-            }
-            (s"Analyzed ${batchSize * (index + 1)}/$nodeCount nodes", ())
-          }
-        }
-        (s"Analyzed $nodeCount nodes", ())
-      }
-    }
-  }
-
-  private def analyzeNodes(nodeIds: Seq[Long]): Unit = {
-    Log.context("nodes") {
-      val nodeCount = nodeIds.size
-      log.info(s"Analyzing $nodeCount nodes")
-      log.infoElapsed {
-        nodeIds.zipWithIndex.foreach { case (nodeId, index) =>
-          if (((index + 1) % 100) == 0) {
-            log.info(s"${index + 1}/$nodeCount")
-          }
-          config.nodeRepository.baseNodeWithId(nodeId) match {
-            case None => log.error(s"Could not find base node $nodeId")
-            case Some(baseNodeDoc) =>
-              config.nodeMainAnalyzer.analyze(baseNodeDoc) match {
-                case None => log.error(s"Could not analyze node $nodeId")
-                case Some(nodeDoc) =>
-                  config.nodeRepository.save(nodeDoc)
-              }
-          }
-        }
-        (s"Analyzed $nodeCount nodes", ())
-      }
-    }
-  }
-
-  private def analyzeBaseNetworks(networkIds: Seq[Long]): Unit = {
-    val batchSize = 25
-    Log.context("base-networks") {
-      log.info("Analyzing base networks")
-      val networkCount = networkIds.size
-      log.info(s"Analyzing $networkCount networks")
-      log.infoElapsed {
-        networkIds.sliding(batchSize, batchSize).toSeq.zipWithIndex.foreach { case (networkIdsBatch, index) =>
-          log.infoElapsed {
-            val rawNetworks = config.rawDataRepository.networks(timestamp, networkIdsBatch)
-            rawNetworks.foreach { rawNetwork =>
-              config.baseNetworkMainAnalyzer.analyze(rawNetwork) match {
-                case None =>
-                case Some(baseNetworkDoc) =>
-                  config.networkRepository.saveBaseNetwork(baseNetworkDoc)
-              }
-            }
-            (s"Analyzed ${batchSize * (index + 1)}/$networkCount networks", ())
-          }
-        }
-        (s"Analyzed $networkCount networks", ())
-      }
-    }
-  }
-
-  private def analyzeNetworks(networkIds: Seq[Long]): Unit = {
-    Log.context("networks") {
-      log.info("Analyzing networks")
-      val networkCount = networkIds.size
-      log.info(s"Analyzing $networkCount networks")
-      log.infoElapsed {
-        networkIds.zipWithIndex.foreach { case (networkId, index) =>
-          Log.context(s"$index/$networkCount $networkId") {
-            log.infoElapsed {
-              log.info(s"analyzing network $networkId")
-              config.networkRepository.findBaseNetworkById(networkId) match {
-                case None =>
-                case Some(baseNetworkDoc) =>
-                  config.networkMainAnalyzer.analyze(baseNetworkDoc, timestamp) match {
-                    case None =>
-                    case Some(networkDoc) =>
-                      config.networkRepository.save(networkDoc)
-                  }
-              }
-              (s"Analyzed network $networkId", ())
-            }
-          }
-        }
-        (s"Analyzed $networkCount networks", ())
-      }
-    }
-  }
-
-  private def analyzeBaseRoutes(routeIds: Seq[Long]): Unit = {
-    Log.context("base-routes") {
-      val routeCount = routeIds.size
-      log.info(s"analyzing $routeCount base routes")
-      val context = Log.contextMessages
-      log.infoElapsed {
-        ThreadExecutor.execute(10, routeIds) { (index, count, routeId) =>
-          Log.context(context) {
-            Log.context(s"$index/$count $routeId") {
-              log.infoElapsed {
-                try {
-                  config.rawDataRepository.route(timestamp, routeId) match {
-                    case Some(rawRouteDoc) =>
-                      analyzeBaseRoute(rawRouteDoc.relation, rawRouteDoc.structure)
-                    case None =>
-                      log.error(s"route $routeId not found in route-relations")
-                  }
-                } catch {
-                  case e: Exception =>
-                    log.error(s"Error analyzing detail route $routeId", e)
-                }
-                (s"Analyzed route $routeId", ())
-              }
-            }
-          }
-        }
-        (s"Analyzed $routeCount routes", ())
-      }
-    }
-  }
-
-  private def analyzeRoutesMain(routeIds: Seq[Long]): Unit = {
-    val routeIdsSize = routeIds.size
-    routeIds.zipWithIndex.foreach { case (relationId, index) =>
-      Log.context(s"${index + 1}/$routeIdsSize route=$relationId") {
-        try {
-          log.info("analyze main")
-          config.routeRepository.findBaseRouteById(relationId) match {
-            case None => log.error(s"could not find route details")
-            case Some(baseRouteDoc) =>
-              config.routeMainAnalyzer.analyze(baseRouteDoc) match {
-                case Some(routeDoc) => config.routeRepository.saveRoute(routeDoc)
-                case None =>
-              }
-          }
-        } catch {
-          case e: Exception =>
-            log.error(s"Error analyzing main route $relationId", e)
-            Seq.empty
-        }
-      }
-    }
-  }
-
-  private def analyzeBaseRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
-    val context = config.baseRouteMainAnalyzer.analyze(relation, hierarchy)
-    if (!context.abort) {
-      val baseRouteDoc = new BaseRouteDocBuilder(context).build()
-      config.routeRepository.saveBaseRoute(baseRouteDoc)
-      context.tileDatas.foreach { tileData =>
-        val doc = RouteTileDoc(
-          _id = s"${tileData.name}-${context.relation.id}",
-          routeId = context.relation.id,
-          routeName = context.routeNameAnalysis.name.getOrElse("no-name"), // TODO redesign tiles - can do better?
-          routeTypes = context.routeTypes,
-          z = tileData.z,
-          x = tileData.x,
-          y = tileData.y,
-          layer = tileData.layer,
-          scope = tileData.scope,
-          survey = tileData.survey,
-          error = tileData.error,
-          segments = tileData.segments
-        )
-        config.routeRepository.saveRouteTile(doc)
-      }
-      // TODO saveRouteChange(routeAnalysis)
-    }
+    // TODO redesign - populate temp collections from rawRepository, and run AnalysisStartTool
   }
 }

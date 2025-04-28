@@ -7,11 +7,18 @@ import kpn.api.common.diff.RouteData
 import kpn.api.common.diff.common.FactDiffs
 import kpn.api.common.diff.route.RouteDiff
 import kpn.api.custom.Relation
+import kpn.api.custom.Timestamp
 import kpn.core.analysis.Facts
 import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
+import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.main.RouteMainAnalyzer
+import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.overpass.OverpassRepository
+import kpn.server.repository.ChangeSetRepository
+import kpn.server.repository.RouteRepository
 
 import java.util.concurrent.TimeUnit
 import scala.concurrent.Await
@@ -19,16 +26,28 @@ import scala.concurrent.ExecutionContext
 import scala.concurrent.Future
 import scala.concurrent.duration.Duration
 
-class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(implicit val executionContext: ExecutionContext) {
+class AnalysisStartBaseRouteAnalyzer(
+  routeRepository: RouteRepository,
+  overpassRepository: OverpassRepository,
+  baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
+  routeMainAnalyzer: RouteMainAnalyzer, // TODO move to phase 2
+  changeSetRepository: ChangeSetRepository,
+  changeSetContext: ChangeSetContext,
+  timestamp: Timestamp,
+)(implicit val executionContext: ExecutionContext) {
+  private val log = Log(classOf[AnalysisStartBaseRouteAnalyzer])
 
-  def analyze(): Unit = {
+  def analyze(context: AnalysisStartContext): AnalysisStartContext = {
     Log.context("route-analysis") {
       log.infoElapsed {
         val overpassRouteIds = collectOverpassRouteIds()
-        val databaseRouteIds = config.routeRepository.allRouteIds()
+        val databaseRouteIds = routeRepository.allRouteIds()
         val routeIds = (overpassRouteIds.toSet -- databaseRouteIds.toSet).toSeq.sorted
         val analyzedRouteIds = analyzeRoutes(routeIds)
-        (s"completed (${analyzedRouteIds.size} routes", ())
+        (
+          s"completed (${analyzedRouteIds.size} routes",
+          context
+        )
       }
     }
   }
@@ -36,7 +55,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def collectOverpassRouteIds(): Seq[Long] = {
     log.info(s"Collecting overpass route ids")
     log.infoElapsed {
-      val ids = config.overpassRepository.oldRouteIds(config.timestamp)
+      val ids = overpassRepository.oldRouteIds(timestamp)
       (s"${ids.size} overpass route ids", ids)
     }
   }
@@ -62,10 +81,10 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def analyzeRouteBatch(routeIds: Seq[Long]): Seq[Long] = {
     log.infoElapsed {
       routeIds.foreach { routeId =>
-        config.overpassRepository.relationTopLevel(config.timestamp, routeId) match {
+        overpassRepository.relationTopLevel(timestamp, routeId) match {
           case Some(relation) =>
             val hierarchy = if (relation.relationIdMembers.nonEmpty) {
-              config.overpassRepository.relationHierarchy(config.timestamp, routeId)
+              overpassRepository.relationHierarchy(timestamp, routeId)
             }
             else {
               None
@@ -81,15 +100,15 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
   private def analyzeRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
     Log.context(s"route=${relation.id}") {
       try {
-        val context = config.baseRouteMainAnalyzer.analyze(relation, hierarchy)
+        val context = baseRouteMainAnalyzer.analyze(relation, hierarchy)
         if (!context.abort) {
           val baseRouteDoc = new BaseRouteDocBuilder(context).build()
-          config.routeRepository.saveBaseRoute(baseRouteDoc)
+          routeRepository.saveBaseRoute(baseRouteDoc)
           // TODO redesign - move to phase 2
-          config.routeMainAnalyzer.analyze(baseRouteDoc) match {
+          routeMainAnalyzer.analyze(baseRouteDoc) match {
             case None =>
             case Some(routeDoc) =>
-              config.routeRepository.saveRoute(routeDoc)
+              routeRepository.saveRoute(routeDoc)
               saveRouteChange(routeDoc)
           }
         }
@@ -103,7 +122,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
 
   private def saveRouteChange(routeDoc: RouteDoc): Unit = {
 
-    val key = config.changeSetContext.buildChangeKey(routeDoc.id)
+    val key = changeSetContext.buildChangeKey(routeDoc.id)
     val facts = routeDoc.facts
     val locationFacts = facts.filter(Facts.locationFacts.contains)
     val routeData = RouteData(
@@ -120,7 +139,7 @@ class AnalysisStartRouteAnalyzer(log: Log, config: AnalysisStartConfiguration)(i
       routeDoc.summary.tags
     )
 
-    config.changeSetRepository.saveRouteChange(
+    changeSetRepository.saveRouteChange(
       RouteChange(
         _id = key.toId,
         key = key,

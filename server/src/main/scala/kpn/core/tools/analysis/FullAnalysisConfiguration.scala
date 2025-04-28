@@ -28,6 +28,7 @@ import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeNetworkRefere
 import kpn.server.analyzer.engine.analysis.node.main.analyzers.NodeRouteReferencesAnalyzer
 import kpn.server.analyzer.engine.analysis.post.OrphanNodeUpdater
 import kpn.server.analyzer.engine.analysis.post.OrphanRouteUpdater
+import kpn.server.analyzer.engine.analysis.post.PostProcessor
 import kpn.server.analyzer.engine.analysis.post.StatisticsUpdater
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
 import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteCountryAnalyzerImpl
@@ -47,6 +48,14 @@ import kpn.server.analyzer.engine.tile.TileFileBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileDataNodeBuilderImpl
 import kpn.server.analyzer.engine.tiles.TileFileRepositoryImpl
 import kpn.server.analyzer.engine.tiles.TilesBuilder
+import kpn.server.analyzer.full.MainFullAnalyzer
+import kpn.server.analyzer.full.analyzers.FullAnalysisPipeline
+import kpn.server.analyzer.full.analyzers.FullBaseNetworkAnalyzer
+import kpn.server.analyzer.full.analyzers.FullBaseNodeAnalyzer
+import kpn.server.analyzer.full.analyzers.FullBaseRouteAnalyzer
+import kpn.server.analyzer.full.analyzers.FullNetworkAnalyzer
+import kpn.server.analyzer.full.analyzers.FullNodeAnalyzer
+import kpn.server.analyzer.full.analyzers.FullRouteAnalyzer
 import kpn.server.overpass.OverpassRepository
 import kpn.server.overpass.OverpassRepositoryImpl
 import kpn.server.repository.AnalysisRepository
@@ -68,19 +77,19 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor
 import java.util.concurrent.ThreadPoolExecutor.CallerRunsPolicy
 import scala.concurrent.ExecutionContext
 
-class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
+class FullAnalysisConfiguration(options: FullAnalysisToolOptions) {
 
   val timestamp: Timestamp = Timestamp.analysisStart
 
   private val database = Mongo.database(Mongo.client, options.databaseName)
   private val nextDatabase = Mongo.nextDatabase(Mongo.client, options.databaseName)
-  val oldDatabase: OldDatabase = Mongo.oldDatabase(Mongo.client, options.databaseName)
+  private val oldDatabase: OldDatabase = Mongo.oldDatabase(Mongo.client, options.databaseName)
 
-  val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
-  val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
-  val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
+  private val networkRepository: NetworkRepository = new NetworkRepositoryImpl(database)
+  private val routeRepository: RouteRepository = new RouteRepositoryImpl(database)
+  private val nodeRepository: NodeRepository = new NodeRepositoryImpl(database)
   val analysisRepository: AnalysisRepository = new AnalysisRepositoryImpl(database)
-  val nextRepository: NextRepository = new NextRepositoryImpl(nextDatabase)
+  private val nextRepository: NextRepository = new NextRepositoryImpl(nextDatabase)
 
   private val locationAnalyzer = new LocationAnalyzerImpl(true, false)
 
@@ -93,12 +102,12 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     new BaseRouteTileAnalyzer(lineSegmentTileCalculator)
   }
 
-  val overpassQueryExecutor: OverpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
-  val overpassRepository: OverpassRepository = new OverpassRepositoryImpl(overpassQueryExecutor)
+  private val overpassQueryExecutor: OverpassQueryExecutor = new OverpassQueryExecutorRemoteImpl()
+  private val overpassRepository: OverpassRepository = new OverpassRepositoryImpl(overpassQueryExecutor)
 
-  val changeSetRepository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
+  private val changeSetRepository: ChangeSetRepository = new ChangeSetRepositoryImpl(database)
 
-  val baseNodeMainAnalyzer: BaseNodeMainAnalyzer = {
+  private val baseNodeMainAnalyzer: BaseNodeMainAnalyzer = {
     val baseNodeLocationAnalyzer = new BaseNodeLocationAnalyzer(locationAnalyzer)
     val countryAnalyzer = new BaseNodeCountryAnalyzer(locationAnalyzer)
     val tileAnalyzer = new BaseNodeTileAnalyzer(nodeTileCalculator)
@@ -109,7 +118,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )
   }
 
-  val nodeMainAnalyzer: NodeMainAnalyzer = {
+  private val nodeMainAnalyzer: NodeMainAnalyzer = {
     val nodeRouteReferencesAnalyzer = new NodeRouteReferencesAnalyzer(nodeRepository)
     val nodeNetworkReferencesAnalyzer = new NodeNetworkReferencesAnalyzer(networkRepository)
     new NodeMainAnalyzer(
@@ -118,9 +127,9 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )
   }
 
-  val baseNetworkMainAnalyzer: BaseNetworkMainAnalyzer = new BaseNetworkMainAnalyzer
+  private val baseNetworkMainAnalyzer: BaseNetworkMainAnalyzer = new BaseNetworkMainAnalyzer
 
-  val baseRouteMainAnalyzer: BaseRouteMainAnalyzer = {
+  private val baseRouteMainAnalyzer: BaseRouteMainAnalyzer = {
     val routeLocator = new RouteLocatorImpl(locationAnalyzer)
     val routeLocationAnalyzer = new BaseRouteLocationAnalyzerImpl(routeRepository, routeLocator)
     val routeCountryAnalyzer = new BaseRouteCountryAnalyzerImpl(locationAnalyzer, routeRepository)
@@ -131,7 +140,7 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )
   }
 
-  val routeMainAnalyzer: RouteMainAnalyzer = {
+  private val routeMainAnalyzer: RouteMainAnalyzer = {
     val routeBoundsAnalyzer = new RouteBoundsAnalyzer(routeRepository)
     val routeStructureRowsAnalyzer = new RouteStructureRowsAnalyzer(routeRepository)
     val routeParentAnalyzer = new RouteParentAnalyzer(routeRepository)
@@ -144,9 +153,9 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )
   }
 
-  val networkInfoRepository: NetworkInfoRepository = new NetworkInfoRepositoryImpl(database)
+  private val networkInfoRepository: NetworkInfoRepository = new NetworkInfoRepositoryImpl(database)
 
-  val networkMainAnalyzer: NetworkMainAnalyzer = {
+  private val networkMainAnalyzer: NetworkMainAnalyzer = {
 
     val networkInfoRouteAnalyzer = new NetworkRouteAnalyzer(database)
     val networkInfoNodeDocAnalyzer = new NetworkNodeDocAnalyzer(database)
@@ -162,13 +171,13 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )
   }
 
-  val orphanNodeUpdater: OrphanNodeUpdater = new OrphanNodeUpdater(database)
+  private val orphanNodeUpdater: OrphanNodeUpdater = new OrphanNodeUpdater(database)
 
-  val orphanRouteUpdater: OrphanRouteUpdater = new OrphanRouteUpdater(database)
+  private val orphanRouteUpdater: OrphanRouteUpdater = new OrphanRouteUpdater(database)
 
-  val statisticsUpdater: StatisticsUpdater = new StatisticsUpdater(database)
+  private val statisticsUpdater: StatisticsUpdater = new StatisticsUpdater(database)
 
-  val changeSetContext: ChangeSetContext = ChangeSetContext(
+  private val changeSetContext: ChangeSetContext = ChangeSetContext(
     ReplicationId(1),
     ChangeSet(
       0,
@@ -185,12 +194,13 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
   private val tileDir = s"${Dirs.root.getAbsolutePath}/tiles"
   private val tileDataNodeBuilder = new TileDataNodeBuilderImpl()
 
+  private val executor = buildExecutor()
+
   private val executionContext: ExecutionContext = {
-    val executor = buildExecutor()
     ExecutionContext.fromExecutor(executor)
   }
 
-  val tilesBuilder: TilesBuilder = {
+  private val tilesBuilder: TilesBuilder = {
     val bitmapTileFileRepository = new TileFileRepositoryImpl(tileDir, "png")
     val vectorTileFileRepository = new TileFileRepositoryImpl(tileDir, "mvt")
     val tileFileBuilder = new TileFileBuilderImpl(bitmapTileFileRepository, vectorTileFileRepository)
@@ -201,9 +211,9 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     )(executionContext)
   }
 
-  val rawDataRepository: RawDataRepository = new RawDataRepositoryDevelopmentImpl(database)
+  private val rawDataRepository: RawDataRepository = new RawDataRepositoryDevelopmentImpl(database)
 
-  val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzer(
+  private val bulkNodeAnalyzer: BulkNodeAnalyzer = new BulkNodeAnalyzer(
     rawDataRepository,
     nodeMainAnalyzer,
     nodeRepository,
@@ -217,5 +227,91 @@ class AnalysisStartConfiguration(options: AnalysisStartToolOptions) {
     executor.setThreadNamePrefix("analyzer-start-")
     executor.initialize()
     executor
+  }
+
+  private val nodeChangeBuilder = new AnalysisStartNodeChangeBuilder(
+    changeSetContext,
+    changeSetRepository
+  )
+
+  private val baseNodeAnalyzer = new AnalysisStartBaseNodeAnalyzer(
+    nodeRepository,
+    overpassRepository,
+    bulkNodeAnalyzer,
+    nodeChangeBuilder
+  )(executionContext)
+
+  private val baseRouteAnalyzer = new AnalysisStartBaseRouteAnalyzer(
+    routeRepository,
+    overpassRepository,
+    baseRouteMainAnalyzer,
+    routeMainAnalyzer,
+    changeSetRepository,
+    changeSetContext,
+    timestamp
+  )(executionContext)
+
+  private val networkChangeBuilder = new AnalysisStartNetworkChangeBuilder(
+    changeSetRepository,
+    changeSetContext,
+    networkInfoRepository
+  )
+
+  private val fullBaseNodeAnalyzer = new FullBaseNodeAnalyzer(
+    rawDataRepository,
+    nodeRepository,
+    baseNodeMainAnalyzer
+  )
+
+  private val fullBaseRouteAnalyzer = new FullBaseRouteAnalyzer(
+    rawDataRepository,
+    routeRepository,
+    baseRouteMainAnalyzer
+  )
+
+  private val fullBaseNetworkAnalyzer = new FullBaseNetworkAnalyzer(
+    rawDataRepository,
+    baseNetworkMainAnalyzer,
+    networkRepository
+  )
+
+  private val fullNodeAnalyzer = new FullNodeAnalyzer(
+    rawDataRepository,
+    nodeRepository,
+    bulkNodeAnalyzer
+  )
+
+  private val fullRouteAnalyzer = new FullRouteAnalyzer(
+    routeRepository,
+    routeMainAnalyzer,
+  )
+
+  private val fullNetworkAnalyzer = new FullNetworkAnalyzer(
+    networkRepository,
+    networkMainAnalyzer
+  )
+
+  private val postProcessor = new PostProcessor(
+    orphanNodeUpdater,
+    orphanRouteUpdater,
+    statisticsUpdater
+  )
+
+  private val fullAnalysisPipeline = new FullAnalysisPipeline(
+    fullBaseNodeAnalyzer,
+    fullBaseRouteAnalyzer,
+    fullBaseNetworkAnalyzer,
+    fullNodeAnalyzer,
+    fullRouteAnalyzer,
+    fullNetworkAnalyzer
+  )
+
+  val mainFullAnalyzer = new MainFullAnalyzer(
+    fullAnalysisPipeline,
+    postProcessor
+  )
+
+  def shutdown(): Unit = {
+    executor.shutdown()
   }
 }

@@ -15,14 +15,15 @@ class FullBaseNetworkAnalyzer(
 ) extends FullAnalyzer {
 
   private val log = Log(classOf[FullBaseNetworkAnalyzer])
+  private val NetworkBatchSize = 25
 
   def analyze(context: FullAnalysisContext): FullAnalysisContext = {
     Log.context("base-networks") {
       log.infoElapsed {
         val activeNetworkIds = collectActiveBaseNetworkIds()
         val rawNetworkIds = collectRawNetworkIds(context.timestamp)
-        val analyzedNetworkIds = analyzeBaseNetworks(context, rawNetworkIds)
-        val obsoleteNetworkIds = (activeNetworkIds.toSet -- analyzedNetworkIds).toSeq.sorted
+        val analyzedNetworkIds = processNetworksInBatches(context, rawNetworkIds)
+        val obsoleteNetworkIds = findObsoleteNetworks(activeNetworkIds, analyzedNetworkIds)
         deactivateObsoleteBaseNetworks(obsoleteNetworkIds)
         (
           s"Analyzed (${analyzedNetworkIds.size} networks, ${obsoleteNetworkIds.size} obsolete networks)",
@@ -50,21 +51,36 @@ class FullBaseNetworkAnalyzer(
     }
   }
 
-  private def analyzeBaseNetworks(context: FullAnalysisContext, rawNetworkIds: Seq[Long]): Seq[Long] = {
-    val batchSize = 25
+  private def findObsoleteNetworks(activeIds: Seq[Long], analyzedIds: Seq[Long]): Seq[Long] = {
+    (activeIds.toSet -- analyzedIds).toSeq.sorted
+  }
+
+  private def processNetworksInBatches(context: FullAnalysisContext, rawNetworkIds: Seq[Long]): Seq[Long] = {
     val networkCount = rawNetworkIds.size
-    val networkIds = rawNetworkIds.sliding(batchSize, batchSize).zipWithIndex.flatMap { case (networkIdsBatch, index) =>
-      Log.context(s"${index * batchSize}/$networkCount") {
-        log.infoElapsed {
-          val rawRelations = rawDataRepository.networks(context.timestamp, networkIdsBatch)
-          val baseNetworkDocs = rawRelations.flatMap(baseNetworkMainAnalyzer.analyze)
-          networkRepository.bulkSaveBaseNetworks(baseNetworkDocs)
-          val ids = baseNetworkDocs.map(_._id)
-          (s"analyzed ${ids.size} base networks: ${ids.mkString(", ")}", ids)
-        }
+    rawNetworkIds
+      .sliding(NetworkBatchSize, NetworkBatchSize)
+      .zipWithIndex
+      .flatMap { case (networkIdsBatch, index) =>
+        processBatch(context, networkIdsBatch, index, networkCount)
       }
-    }.toSeq
-    networkIds
+      .toSeq
+  }
+
+  private def processBatch(
+    context: FullAnalysisContext,
+    networkIdsBatch: Seq[Long],
+    index: Int,
+    totalCount: Int
+  ): Seq[Long] = {
+    Log.context(s"${index * NetworkBatchSize}/$totalCount") {
+      log.infoElapsed {
+        val rawRelations = rawDataRepository.networks(context.timestamp, networkIdsBatch)
+        val baseNetworkDocs = rawRelations.flatMap(baseNetworkMainAnalyzer.analyze)
+        networkRepository.bulkSaveBaseNetworks(baseNetworkDocs)
+        val ids = baseNetworkDocs.map(_._id)
+        (s"analyzed ${ids.size} base networks: ${ids.mkString(", ")}", ids)
+      }
+    }
   }
 
   private def deactivateObsoleteBaseNetworks(networkIds: Seq[Long]): Unit = {

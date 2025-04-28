@@ -15,15 +15,17 @@ class FullBaseNodeAnalyzer(
 ) extends FullAnalyzer {
 
   private val log = Log(classOf[FullBaseNodeAnalyzer])
+  private val NodeBatchSize = 500
 
   def analyze(context: FullAnalysisContext): FullAnalysisContext = {
     Log.context("base-nodes") {
       log.infoElapsed {
-        val activeNodeIds = collectActiveBaseNodeIds()
+        val activeNodeIds = nodeRepository.activeBaseNodeIds()
         val rawNodeIds = collectRawNodeIds(context.timestamp)
-        val analyzedNodeIds = analyzeBaseNodes(context, rawNodeIds)
-        val obsoleteNodeIds = (activeNodeIds.toSet -- analyzedNodeIds).toSeq.sorted
+        val analyzedNodeIds = processNodesInBatches(context.timestamp, rawNodeIds)
+        val obsoleteNodeIds = findObsoleteNodes(activeNodeIds, analyzedNodeIds)
         deactivateObsoleteNodes(obsoleteNodeIds)
+
         (
           s"completed (${analyzedNodeIds.size} nodes, ${obsoleteNodeIds.size} obsolete nodes)",
           context.copy(
@@ -47,38 +49,50 @@ class FullBaseNodeAnalyzer(
     }
   }
 
-  private def analyzeBaseNodes(context: FullAnalysisContext, rawNodeIds: Seq[Long]): Seq[Long] = {
-    val batchSize = 500
-    Log.context("base-nodes") {
-      val nodeCount = rawNodeIds.size
-      log.info(s"Analyzing $nodeCount base nodes")
-      log.infoElapsed {
-        val ids = rawNodeIds.sliding(batchSize, batchSize).toSeq.zipWithIndex.flatMap { case (nodeIdsBatch, index) =>
-          log.infoElapsed {
-            val rawNodes = rawDataRepository.nodes(context.timestamp, nodeIdsBatch)
-            val baseNodeDocs = rawNodes.flatMap { rawNode =>
-              baseNodeMainAnalyzer.analyze(rawNode) match {
-                case Some(baseNodeDoc) => Some(baseNodeDoc)
-                case None =>
-                  log.error(s"Could not analyze node ${rawNode.id}")
-                  None
-              }
-            }
-            nodeRepository.bulkSaveBaseNodes(baseNodeDocs)
-            val baseNodeIds = baseNodeDocs.map(_._id)
-            (s"Analyzed ${batchSize * (index + 1)}/$nodeCount nodes", baseNodeIds)
-          }
+  private def processNodesInBatches(timestamp: Timestamp, rawNodeIds: Seq[Long]): Seq[Long] = {
+    val nodeCount = rawNodeIds.size
+    log.info(s"Analyzing $nodeCount base nodes")
+
+    log.infoElapsed {
+      val results = rawNodeIds
+        .sliding(NodeBatchSize, NodeBatchSize)
+        .toSeq
+        .zipWithIndex
+        .flatMap { case (batch, index) =>
+          processBatch(timestamp, batch, index, nodeCount)
         }
-        (s"Analyzed ${ids.size} nodes", ids)
-      }
+      (s"Analyzed ${results.size} nodes", results)
     }
   }
 
-  private def deactivateObsoleteNodes(nodeIds: Seq[Long]): Unit = {
-    nodeIds.foreach { nodeId =>
-      nodeRepository.baseNodeWithId(nodeId).map { baseNodeDoc =>
-        nodeRepository.saveBaseNode(baseNodeDoc.deactivated)
+  private def processBatch(
+    timestamp: Timestamp,
+    nodeIdsBatch: Seq[Long],
+    batchIndex: Int,
+    totalCount: Int
+  ): Seq[Long] = {
+    log.infoElapsed {
+      val rawNodes = rawDataRepository.nodes(timestamp, nodeIdsBatch)
+      val baseNodeDocs = rawNodes.flatMap { rawNode =>
+        baseNodeMainAnalyzer.analyze(rawNode).orElse {
+          log.error(s"Could not analyze node ${rawNode.id}")
+          None
+        }
       }
+
+      nodeRepository.bulkSaveBaseNodes(baseNodeDocs)
+      val processedIds = baseNodeDocs.map(_._id)
+      (s"Analyzed ${NodeBatchSize * (batchIndex + 1)}/$totalCount nodes", processedIds)
     }
+  }
+
+  private def findObsoleteNodes(activeNodeIds: Seq[Long], analyzedNodeIds: Seq[Long]): Seq[Long] = {
+    (activeNodeIds.toSet -- analyzedNodeIds).toSeq.sorted
+  }
+
+  private def deactivateObsoleteNodes(nodeIds: Seq[Long]): Unit = {
+    nodeIds.flatMap(nodeRepository.baseNodeWithId).foreach(baseNodeDoc =>
+      nodeRepository.saveBaseNode(baseNodeDoc.deactivated)
+    )
   }
 }

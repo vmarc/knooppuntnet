@@ -4,7 +4,7 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.ThreadContext
 
 import scala.collection.mutable.ListBuffer
-import scala.jdk.CollectionConverters._
+import scala.jdk.CollectionConverters.*
 
 trait Log {
 
@@ -32,6 +32,11 @@ trait Log {
     result
   }
 
+  def infoElapsed(f: => String): Unit = {
+    val message = elapsedMessage(f)
+    info(message)
+  }
+
   def warn(message: String): Unit
 
   def error(message: String): Unit
@@ -46,6 +51,14 @@ trait Log {
     val t2 = System.nanoTime()
     val elapsed = Elapsed((t2 - t1) / 1000000)
     (s"$message ($elapsed)", result)
+  }
+
+  private def elapsedMessage(f: => String): String = {
+    val t1 = System.nanoTime()
+    val message = f
+    val t2 = System.nanoTime()
+    val elapsed = Elapsed((t2 - t1) / 1000000)
+    s"$message ($elapsed)"
   }
 }
 

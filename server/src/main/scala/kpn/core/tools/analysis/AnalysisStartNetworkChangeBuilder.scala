@@ -5,33 +5,21 @@ import kpn.api.common.changes.details.NetworkInfoChange
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.core.doc.NetworkDoc
-import kpn.core.util.Log
+import kpn.server.analyzer.engine.changes.ChangeSetContext
+import kpn.server.repository.ChangeSetRepository
+import kpn.server.repository.NetworkInfoRepository
 
-class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfiguration) {
+class AnalysisStartNetworkChangeBuilder(
+  changeSetRepository: ChangeSetRepository,
+  changeSetContext: ChangeSetContext,
+  networkInfoRepository: NetworkInfoRepository,
+) {
 
-  def analyze(networkIds: Seq[Long]): Unit = {
-    networkIds.zipWithIndex.foreach { case (networkId, index) =>
-      Log.context(s"${index + 1}/${networkIds.size}") {
-        log.infoElapsed {
-          config.networkRepository.findBaseNetworkById(networkId) match {
-            case None =>
-            case Some(baseNetworkDoc) =>
-              config.networkMainAnalyzer.analyze(baseNetworkDoc, config.timestamp) match {
-                case Some(networkDoc) => saveNetworkInfoChange(networkDoc)
-                case None =>
-              }
-          }
-          (s"network $networkId", ())
-        }
-      }
-    }
-  }
-
-  private def saveNetworkInfoChange(networkDoc: NetworkDoc): Unit = {
+  def saveNetworkInfoChange(networkDoc: NetworkDoc): Unit = {
 
     val nodeRefs = networkDoc.nodes.map(_.toRef)
     val routeRefs = networkDoc.routes.map(_.toRef)
-    val key = config.changeSetContext.buildChangeKey(networkDoc._id)
+    val key = changeSetContext.buildChangeKey(networkDoc._id)
 
     val extraNodeDiffs = IdDiffs(added = networkDoc.extraNodeIds)
     val extraWayDiffs = IdDiffs(added = networkDoc.extraWayIds)
@@ -41,7 +29,7 @@ class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfigurat
       extraWayDiffs.added.nonEmpty ||
       extraRelationDiffs.added.nonEmpty
 
-    config.changeSetRepository.saveNetworkInfoChange(
+    changeSetRepository.saveNetworkInfoChange(
       NetworkInfoChange(
         _id = key.toId,
         key = key,
@@ -61,6 +49,7 @@ class AnalysisStartNetworkInfoAnalyzer(log: Log, config: AnalysisStartConfigurat
         impact = true
       )
     )
-    config.networkInfoRepository.updateNetworkChangeCount(networkDoc._id)
+    networkInfoRepository.updateNetworkChangeCount(networkDoc._id)
   }
 }
+
