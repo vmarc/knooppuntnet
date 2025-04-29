@@ -120,4 +120,10 @@ trait Database {
   def rawRoutes: DatabaseCollection[RawRouteDoc]
 
   def rawNetworks: DatabaseCollection[RawNetworkDoc]
+
+  def allRawNodes: DatabaseCollection[RawNodeDoc]
+
+  def allRawRoutes: DatabaseCollection[RawRouteDoc]
+
+  def allRawNetworks: DatabaseCollection[RawNetworkDoc]
 }
