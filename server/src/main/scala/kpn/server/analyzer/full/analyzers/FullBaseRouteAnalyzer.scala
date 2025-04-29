@@ -7,6 +7,8 @@ import kpn.core.util.Log
 import kpn.core.util.ThreadExecutor
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteDocBuilder
 import kpn.server.analyzer.engine.analysis.route.base.BaseRouteMainAnalyzer
+import kpn.server.analyzer.engine.analysis.route.base.analyzers.BaseRouteAnalysisContext
+import kpn.server.analyzer.engine.analysis.route.domain.RouteTileData
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.repository.RawDataRepository
 import kpn.server.repository.RouteRepository
@@ -19,6 +21,7 @@ class FullBaseRouteAnalyzer(
   baseRouteMainAnalyzer: BaseRouteMainAnalyzer,
 ) extends FullAnalyzer {
 
+  private val ThreadPoolSize = 10
   private val log = Log(classOf[FullBaseRouteAnalyzer])
 
   def analyze(context: FullAnalysisContext): FullAnalysisContext = {
@@ -27,8 +30,7 @@ class FullBaseRouteAnalyzer(
         val existingRouteIds = collectActiveBaseRouteIds()
         val routeIds = collectRawRouteIds(context.timestamp)
         analyzeRoutes(context.timestamp, routeIds)
-        val obsoleteRouteIds = (existingRouteIds.toSet -- routeIds).toSeq.sorted
-        deactivateObsoleteRoutes(obsoleteRouteIds)
+        val obsoleteRouteIds = handleObsoleteRoutes(existingRouteIds, routeIds)
         (s"Analyzed (${routeIds.size} routes, ${obsoleteRouteIds.size} obsolete routes)", context)
       }
     }
@@ -55,23 +57,10 @@ class FullBaseRouteAnalyzer(
     log.info(s"analyzing $routeCount base routes")
     val context = Log.contextMessages
     log.infoElapsed {
-      ThreadExecutor.execute(10, routeIds) { (index, count, routeId) =>
+      ThreadExecutor.execute(ThreadPoolSize, routeIds) { (index, count, routeId) =>
         Log.context(context) {
           Log.context(s"$index/$count $routeId") {
-            log.infoElapsed {
-              try {
-                rawDataRepository.route(timestamp, routeId) match {
-                  case Some(rawRouteDoc) =>
-                    analyzeBaseRoute(rawRouteDoc.relation, rawRouteDoc.structure)
-                  case None =>
-                    log.error(s"route $routeId not found in route-relations")
-                }
-              } catch {
-                case e: Exception =>
-                  log.error(s"Error analyzing detail route $routeId", e)
-              }
-              (s"Analyzed route $routeId", ())
-            }
+            processRoute(timestamp, routeId)
           }
         }
       }
@@ -79,44 +68,84 @@ class FullBaseRouteAnalyzer(
     }
   }
 
-  private def analyzeBaseRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
-    val context = baseRouteMainAnalyzer.analyze(relation, hierarchy)
-    if (!context.abort) {
-      val baseRouteDoc = new BaseRouteDocBuilder(context).build()
-      routeRepository.saveBaseRoute(baseRouteDoc)
-      context.tileDatas.foreach { tileData =>
-        val doc = RouteTileDoc(
-          _id = s"${tileData.name}-${context.relation.id}",
-          routeId = context.relation.id,
-          routeName = context.routeNameAnalysis.name.getOrElse("no-name"), // TODO redesign tiles - can do better?
-          routeTypes = context.routeTypes,
-          z = tileData.z,
-          x = tileData.x,
-          y = tileData.y,
-          layer = tileData.layer,
-          scope = tileData.scope,
-          survey = tileData.survey,
-          error = tileData.error,
-          segments = tileData.segments
-        )
-        routeRepository.saveRouteTile(doc)
+  private def processRoute(timestamp: Timestamp, routeId: Long): Unit = {
+    log.infoElapsed {
+      try {
+        rawDataRepository.route(timestamp, routeId) match {
+          case Some(rawRouteDoc) =>
+            analyzeBaseRoute(rawRouteDoc.relation, rawRouteDoc.structure)
+          case None =>
+            log.error(s"route $routeId not found in route-relations")
+        }
+      } catch {
+        case e: Exception =>
+          log.error(s"Error analyzing detail route $routeId", e)
       }
-      // TODO saveRouteChange(routeAnalysis)
+      (s"Analyzed route $routeId", ())
     }
   }
 
+  private def analyzeBaseRoute(relation: Relation, hierarchy: Option[RouteRelation]): Unit = {
+    val context = baseRouteMainAnalyzer.analyze(relation, hierarchy)
+    if (!context.abort) {
+      saveRouteData(context)
+    }
+  }
+
+  private def saveRouteData(context: BaseRouteAnalysisContext): Unit = {
+    val baseRouteDoc = new BaseRouteDocBuilder(context).build()
+    routeRepository.saveBaseRoute(baseRouteDoc)
+    saveTileData(context)
+  }
+
+  private def saveTileData(context: BaseRouteAnalysisContext): Unit = {
+    context.tileDatas.foreach { tileData =>
+      val doc = buildTileDoc(context, tileData)
+      routeRepository.saveRouteTile(doc)
+    }
+  }
+
+  private def buildTileDoc(context: BaseRouteAnalysisContext, tileData: RouteTileData) = {
+    RouteTileDoc(
+      _id = s"${tileData.name}-${context.relation.id}",
+      routeId = context.relation.id,
+      routeName = context.routeNameAnalysis.name.getOrElse("no-name"), // TODO redesign tiles - can do better?
+      routeTypes = context.routeTypes,
+      z = tileData.z,
+      x = tileData.x,
+      y = tileData.y,
+      layer = tileData.layer,
+      scope = tileData.scope,
+      survey = tileData.survey,
+      error = tileData.error,
+      segments = tileData.segments
+    )
+  }
+
+  private def handleObsoleteRoutes(existingRouteIds: Seq[Long], routeIds: Seq[Long]) = {
+    val obsoleteRouteIds = (existingRouteIds.toSet -- routeIds).toSeq.sorted
+    deactivateObsoleteRoutes(obsoleteRouteIds)
+    obsoleteRouteIds
+  }
+
   private def deactivateObsoleteRoutes(routeIds: Seq[Long]): Unit = {
-    if (routeIds.nonEmpty) {
-      routeIds.foreach { routeId =>
-        routeRepository.findRouteById(routeId).foreach { routeDoc =>
-          log.warn(s"de-activating route ${routeDoc._id}")
-          routeRepository.saveRoute(routeDoc.deactivated)
-        }
-        routeRepository.findBaseRouteById(routeId).foreach { baseRouteDoc =>
-          log.warn(s"de-activating route ${baseRouteDoc._id}")
-          routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
-        }
-      }
+    routeIds.foreach { routeId =>
+      deactivateRoute(routeId)
+      deactivateBaseRoute(routeId)
+    }
+  }
+
+  private def deactivateRoute(routeId: Long): Unit = {
+    routeRepository.findRouteById(routeId).foreach { routeDoc =>
+      log.warn(s"de-activating route ${routeDoc._id}")
+      routeRepository.saveRoute(routeDoc.deactivated)
+    }
+  }
+
+  private def deactivateBaseRoute(routeId: Long): Unit = {
+    routeRepository.findBaseRouteById(routeId).foreach { baseRouteDoc =>
+      log.warn(s"de-activating route ${baseRouteDoc._id}")
+      routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
     }
   }
 }
