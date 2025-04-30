@@ -19,7 +19,7 @@ class FullRouteAnalyzer(
         val existingRouteIds = collectActiveRouteIds()
         val routeIds = collectBaseRouteIds()
         val analyzedRouteIds = analyzeRoutes(routeIds)
-        val obsoleteRouteIds = (existingRouteIds.toSet -- analyzedRouteIds).toSeq.sorted
+        val obsoleteRouteIds = findObsoleteRoutes(existingRouteIds, analyzedRouteIds)
         deactivateObsoleteRoutes(obsoleteRouteIds)
         (s"completed (${analyzedRouteIds.size} routes, ${obsoleteRouteIds.size} obsolete routes)", context)
       }
@@ -47,43 +47,55 @@ class FullRouteAnalyzer(
       val routeIdsSize = routeIds.size
       val ids = routeIds.zipWithIndex.flatMap { case (relationId, index) =>
         Log.context(s"${index + 1}/$routeIdsSize route=$relationId") {
-          try {
-            log.info("analyze main")
-            routeRepository.findBaseRouteById(relationId) match {
-              case None =>
-                log.error(s"could not find route details")
-                None
-              case Some(baseRouteDoc) =>
-                routeMainAnalyzer.analyze(baseRouteDoc) match {
-                  case Some(routeDoc) =>
-                    routeRepository.saveRoute(routeDoc)
-                    Some(relationId)
-                  case None => None
-                }
-            }
-          } catch {
-            case e: Exception =>
-              log.error(s"Error analyzing main route $relationId", e)
-              None
-          }
+          analyzeRoute(relationId)
         }
       }
       (s"${ids.size} routes analyzed", ids)
     }
   }
 
-  private def deactivateObsoleteRoutes(routeIds: Seq[Long]): Unit = {
-    if (routeIds.nonEmpty) {
-      routeIds.foreach { routeId =>
-        routeRepository.findRouteById(routeId).foreach { routeDoc =>
-          log.warn(s"de-activating route ${routeDoc._id}")
-          routeRepository.saveRoute(routeDoc.deactivated)
-        }
-        routeRepository.findBaseRouteById(routeId).foreach { baseRouteDoc =>
-          log.warn(s"de-activating route ${baseRouteDoc._id}")
-          routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
-        }
+  private def analyzeRoute(relationId: Long) = {
+    try {
+      log.info("analyze main")
+      routeRepository.findBaseRouteById(relationId) match {
+        case None =>
+          log.error(s"could not find route details")
+          None
+        case Some(baseRouteDoc) =>
+          routeMainAnalyzer.analyze(baseRouteDoc).map { routeDoc =>
+            routeRepository.saveRoute(routeDoc)
+            relationId
+          }
       }
+    } catch {
+      case e: Exception =>
+        log.error(s"Error analyzing main route $relationId", e)
+        None
+    }
+  }
+
+  private def findObsoleteRoutes(existingRouteIds: Seq[Long], analyzedRouteIds: Seq[Long]): Seq[Long] = {
+    (existingRouteIds.toSet -- analyzedRouteIds).toSeq.sorted
+  }
+
+  private def deactivateObsoleteRoutes(routeIds: Seq[Long]): Unit = {
+    routeIds.foreach { routeId =>
+      deactivateBaseRoute(routeId)
+      deactivateRoute(routeId)
+    }
+  }
+
+  private def deactivateBaseRoute(routeId: Long): Unit = {
+    routeRepository.findBaseRouteById(routeId).foreach { baseRouteDoc =>
+      log.warn(s"de-activating route ${baseRouteDoc._id}")
+      routeRepository.saveBaseRoute(baseRouteDoc.deactivated)
+    }
+  }
+
+  private def deactivateRoute(routeId: Long): Unit = {
+    routeRepository.findRouteById(routeId).foreach { routeDoc =>
+      log.warn(s"de-activating route ${routeDoc._id}")
+      routeRepository.saveRoute(routeDoc.deactivated)
     }
   }
 }
