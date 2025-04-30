@@ -1,6 +1,5 @@
 package kpn.server.analyzer.full.analyzers
 
-import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.node.BulkNodeAnalyzer
 import kpn.server.repository.NodeRepository
@@ -20,7 +19,7 @@ class FullNodeAnalyzer(
     Log.context("full-node-analysis") {
       log.infoElapsed {
         val activeNodeIds = collectActiveNodeIds()
-        val rawNodeIds = collectRawNodeIds(context.timestamp)
+        val rawNodeIds = collectBaseNodeIds()
         val analyzedNodeIds = analyzeBaseNodes(context, rawNodeIds)
         val obsoleteNodeIds = (activeNodeIds.toSet -- analyzedNodeIds).toSeq.sorted
         deactivateObsoleteNodes(obsoleteNodeIds)
@@ -39,23 +38,21 @@ class FullNodeAnalyzer(
     nodeRepository.activeNodeIds()
   }
 
-  private def collectRawNodeIds(timestamp: Timestamp): Seq[Long] = {
-    log.info("Collecting raw node ids")
+  private def collectBaseNodeIds(): Seq[Long] = {
+    log.info("Collecting base node ids")
     log.infoElapsed {
-      val ids = rawDataRepository.nodeIds(timestamp)
+      val ids = nodeRepository.activeBaseNodeIds()
       (s"Collected ${ids.size} raw node ids", ids)
     }
   }
 
   private def analyzeBaseNodes(context: FullAnalysisContext, rawNodeIds: Seq[Long]): Seq[Long] = {
-    val batchSize = 500
     Log.context("base-nodes") {
-      val nodeCount = rawNodeIds.size
-      log.info(s"Analyzing $nodeCount base nodes")
+      log.info(s"Analyzing ${rawNodeIds.size} base nodes")
       log.infoElapsed {
         val nodeDocs = bulkNodeAnalyzer.analyze(rawNodeIds)
         val ids = nodeDocs.map(_._id)
-        (s"Analyzed ${nodeDocs.size} nodes", ids)
+        (s"Analyzed ${ids.size} nodes", ids)
       }
     }
   }

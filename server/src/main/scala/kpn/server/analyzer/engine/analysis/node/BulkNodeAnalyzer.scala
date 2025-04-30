@@ -14,27 +14,30 @@ class BulkNodeAnalyzer(
   nodeRepository: NodeRepository,
 ) {
 
+  private val BatchSize = 500
   private val log = Log(classOf[BulkNodeAnalyzer])
 
   def analyze(nodeIds: Seq[Long]): Seq[NodeDoc] = {
-    val batchSize = 500
     Log.context("nodes") {
-      val nodeCount = nodeIds.size
-      log.info(s"Analyzing $nodeCount base nodes")
+      log.info(s"Analyzing ${nodeIds.size} base nodes")
       log.infoElapsed {
-        val nodeDocs = nodeIds.sliding(batchSize, batchSize).toSeq.zipWithIndex.flatMap { case (batchNodeIds, batchIndex) =>
-          val baseNodeDocs = nodeRepository.baseNodesWithIds(batchNodeIds)
-          baseNodeDocs.flatMap { baseNodeDoc =>
-            nodeMainAnalyzer.analyze(baseNodeDoc) match {
-              case Some(nodeDoc) => Some(nodeDoc)
-              case None =>
-                log.error(s"Could not analyze node ${baseNodeDoc._id}")
-                None
-            }
-          }
-        }
+        val nodeDocs = analyzeNodes(nodeIds)
         nodeRepository.bulkSave(nodeDocs: _*)
-        (s"Analyzed $nodeCount nodes", nodeDocs)
+        (s"Analyzed ${nodeDocs.size} nodes", nodeDocs)
+      }
+    }
+  }
+
+  private def analyzeNodes(nodeIds: Seq[Long]) = {
+    nodeIds.sliding(BatchSize, BatchSize).toSeq.flatMap { batchNodeIds =>
+      val baseNodeDocs = nodeRepository.baseNodesWithIds(batchNodeIds)
+      baseNodeDocs.flatMap { baseNodeDoc =>
+        nodeMainAnalyzer.analyze(baseNodeDoc) match {
+          case Some(nodeDoc) => Some(nodeDoc)
+          case None =>
+            log.error(s"Could not analyze node ${baseNodeDoc._id}")
+            None
+        }
       }
     }
   }
