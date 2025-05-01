@@ -1,4 +1,4 @@
-package kpn.core.tools.analysis
+package kpn.server.analyzer.full.analyzers
 
 import kpn.api.common.ChangeType
 import kpn.api.common.Fact
@@ -10,18 +10,19 @@ import kpn.core.analysis.Facts
 import kpn.core.doc.NodeDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.repository.ChangeSetRepository
+import org.springframework.stereotype.Component
 
-class AnalysisStartNodeChangeBuilder(
-  changeSetContext: ChangeSetContext,
+@Component
+class InitialNodeChangeBuilder(
   changeSetRepository: ChangeSetRepository
 ) {
 
-  def buildAndSave(nodeDoc: NodeDoc): Unit = {
-    val nodeChange = buildNodeChange(nodeDoc)
+  def buildAndSave(changeSetContext: ChangeSetContext, nodeDoc: NodeDoc): Unit = {
+    val nodeChange = buildNodeChange(changeSetContext, nodeDoc)
     changeSetRepository.saveNodeChange(nodeChange)
   }
 
-  private def buildNodeChange(nodeDoc: NodeDoc): NodeChange = {
+  private def buildNodeChange(changeSetContext: ChangeSetContext, nodeDoc: NodeDoc): NodeChange = {
     val key = changeSetContext.buildChangeKey(nodeDoc._id)
     val facts = nodeDoc.facts
     val locationFacts = facts.filter(Facts.locationFacts.contains)

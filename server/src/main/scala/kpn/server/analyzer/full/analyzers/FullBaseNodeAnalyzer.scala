@@ -25,14 +25,13 @@ class FullBaseNodeAnalyzer(
         val analyzedNodeIds = processNodesInBatches(context.timestamp, rawNodeIds)
         val obsoleteNodeIds = findObsoleteNodes(activeNodeIds, analyzedNodeIds)
         deactivateObsoleteNodes(obsoleteNodeIds)
-
-        (
-          s"completed (${analyzedNodeIds.size} nodes, ${obsoleteNodeIds.size} obsolete nodes)",
-          context.copy(
-            obsoleteNodeIds = obsoleteNodeIds,
-            nodeIds = analyzedNodeIds
-          )
+        val message = s"completed (${analyzedNodeIds.size} nodes, ${obsoleteNodeIds.size} obsolete nodes)"
+        val updatedContext = context.copy(
+          obsoleteNodeIds = obsoleteNodeIds,
+          nodeIds = analyzedNodeIds
         )
+
+        (message, updatedContext)
       }
     }
   }

@@ -11,7 +11,7 @@ import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeSetData
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.changes.details.NetworkInfoChange
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesFilterOption
@@ -50,12 +50,12 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       val nodeChange2 = nodeChange(changeSetId, replicationNumber2, 10002L)
 
       repository.saveChangeSetSummary(changeSetSummary1)
-      repository.saveNetworkInfoChange(networkChange1)
+      repository.saveNetworkChange(networkChange1)
       repository.saveRouteChange(routeChange1)
       repository.saveNodeChange(nodeChange1)
 
       repository.saveChangeSetSummary(changeSetSummary2)
-      repository.saveNetworkInfoChange(networkChange2)
+      repository.saveNetworkChange(networkChange2)
       repository.saveRouteChange(routeChange2)
       repository.saveNodeChange(nodeChange2)
 
@@ -140,9 +140,9 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
 
     withChangeSetRepository { repository =>
 
-      repository.saveNetworkInfoChange(networkChange(11, 1, 1, Timestamp(2015, 1, 1)))
-      repository.saveNetworkInfoChange(networkChange(12, 1, 1, Timestamp(2015, 1, 2)))
-      repository.saveNetworkInfoChange(networkChange(13, 1, 1, Timestamp(2015, 1, 3)))
+      repository.saveNetworkChange(networkChange(11, 1, 1, Timestamp(2015, 1, 1)))
+      repository.saveNetworkChange(networkChange(12, 1, 1, Timestamp(2015, 1, 2)))
+      repository.saveNetworkChange(networkChange(13, 1, 1, Timestamp(2015, 1, 3)))
 
       repository.networkChanges(1L, ChangesParameters()).map(_.key.changeSetId) should equal(Seq(13, 12, 11))
     }
@@ -262,8 +262,8 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
 
     withChangeSetRepository { repository =>
 
-      repository.saveNetworkInfoChange(networkChange(1, 1, 1L))
-      repository.saveNetworkInfoChange(networkChange(2, 2, 1L))
+      repository.saveNetworkChange(networkChange(1, 1, 1L))
+      repository.saveNetworkChange(networkChange(2, 2, 1L))
 
       repository.networkChangesCount(1L) should equal(2)
       repository.networkChangesCount(2L) should equal(0)
@@ -302,7 +302,7 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
     networkId: Long,
     timestamp: Timestamp = Timestamp(2015, 8, 11),
     happy: Boolean = true
-  ): NetworkInfoChange = {
+  ): NetworkChange = {
 
     val key = ChangeKey(
       replicationNumber,
@@ -311,15 +311,18 @@ class ChangeSetRepositoryTest extends UnitTest with SharedTestObjects {
       networkId
     )
 
-    NetworkInfoChange(
+    NetworkChange(
       key.toId,
       key,
+      networkId,
+      s"network$networkId",
       ChangeType.Update,
       Some(Country.nl),
       RouteType.hiking,
-      networkId,
-      s"network$networkId",
       None,
+      IdDiffs.empty,
+      IdDiffs.empty,
+      IdDiffs.empty,
       RefDiffs.empty,
       RefDiffs.empty,
       IdDiffs.empty,

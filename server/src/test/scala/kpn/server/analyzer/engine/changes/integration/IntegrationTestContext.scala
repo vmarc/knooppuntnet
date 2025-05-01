@@ -64,6 +64,9 @@ import kpn.server.analyzer.full.analyzers.FullBaseRouteAnalyzer
 import kpn.server.analyzer.full.analyzers.FullNetworkAnalyzer
 import kpn.server.analyzer.full.analyzers.FullNodeAnalyzer
 import kpn.server.analyzer.full.analyzers.FullRouteAnalyzer
+import kpn.server.analyzer.full.analyzers.InitialNetworkChangeBuilder
+import kpn.server.analyzer.full.analyzers.InitialNodeChangeBuilder
+import kpn.server.analyzer.full.analyzers.InitialRouteChangeBuilder
 import kpn.server.analyzer.load.AnalysisDataInitializer
 import kpn.server.analyzer.load.AnalysisDataInitializerImpl
 import kpn.server.repository.BlacklistRepository
@@ -214,15 +217,26 @@ class IntegrationTestContext(
     )
   }
 
-  private val fullNetworkAnalyzer = new FullNetworkAnalyzer(
-    networkRepository,
-    networkMainAnalyzer,
-  )
+  private val fullNetworkAnalyzer = {
+    val initialNetworkChangeBuilder = new InitialNetworkChangeBuilder(
+      changeSetRepository,
+      networkInfoRepository
+    )
+    new FullNetworkAnalyzer(
+      networkRepository,
+      networkMainAnalyzer,
+      initialNetworkChangeBuilder
+    )
+  }
 
-  private val fullRouteAnalyzer = new FullRouteAnalyzer(
-    routeRepository,
-    routeMainAnalyzer,
-  )
+  private val fullRouteAnalyzer = {
+    val initialRouteChangeBuilder = new InitialRouteChangeBuilder(changeSetRepository)
+    new FullRouteAnalyzer(
+      routeRepository,
+      routeMainAnalyzer,
+      initialRouteChangeBuilder
+    )
+  }
 
   private val baseNodeMainAnalyzer = {
     val locationAnalyzer: LocationAnalyzer = new LocationAnalyzerFixed()
@@ -238,11 +252,12 @@ class IntegrationTestContext(
   }
 
   private val fullNodeAnalyzer = {
-
+    val initialNodeChangeBuilder = new InitialNodeChangeBuilder(changeSetRepository)
     new FullNodeAnalyzer(
       rawDataRepository,
       nodeRepository,
       bulkNodeAnalyzer,
+      initialNodeChangeBuilder
     )
   }
 

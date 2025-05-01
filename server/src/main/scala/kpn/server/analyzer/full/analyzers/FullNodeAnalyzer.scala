@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component
 class FullNodeAnalyzer(
   rawDataRepository: RawDataRepository,
   nodeRepository: NodeRepository,
-  bulkNodeAnalyzer: BulkNodeAnalyzer
+  bulkNodeAnalyzer: BulkNodeAnalyzer,
+  initialNodeChangeBuilder: InitialNodeChangeBuilder
 ) extends FullAnalyzer {
 
   private val log = Log(classOf[FullNodeAnalyzer])
@@ -23,13 +24,13 @@ class FullNodeAnalyzer(
         val analyzedNodeIds = analyzeBaseNodes(context, rawNodeIds)
         val obsoleteNodeIds = (activeNodeIds.toSet -- analyzedNodeIds).toSeq.sorted
         deactivateObsoleteNodes(obsoleteNodeIds)
-        (
-          s"completed (${analyzedNodeIds.size} nodes, ${obsoleteNodeIds.size} obsolete nodes)",
-          context.copy(
-            obsoleteNodeIds = obsoleteNodeIds,
-            nodeIds = analyzedNodeIds
-          )
+        val message = s"completed (${analyzedNodeIds.size} nodes, ${obsoleteNodeIds.size} obsolete nodes)"
+        val updatedContext = context.copy(
+          obsoleteNodeIds = obsoleteNodeIds,
+          nodeIds = analyzedNodeIds
         )
+
+        (message, updatedContext)
       }
     }
   }
@@ -51,6 +52,11 @@ class FullNodeAnalyzer(
       log.info(s"Analyzing ${rawNodeIds.size} base nodes")
       log.infoElapsed {
         val nodeDocs = bulkNodeAnalyzer.analyze(rawNodeIds)
+        context.initialAnalysisChangeSetContext.foreach { changeSetContext =>
+          nodeDocs.foreach { nodeDoc =>
+            initialNodeChangeBuilder.buildAndSave(changeSetContext, nodeDoc)
+          }
+        }
         val ids = nodeDocs.map(_._id)
         (s"Analyzed ${ids.size} nodes", ids)
       }

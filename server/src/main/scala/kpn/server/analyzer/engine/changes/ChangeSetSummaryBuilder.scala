@@ -10,13 +10,13 @@ import kpn.api.common.LocationChanges
 import kpn.api.common.NetworkChanges
 import kpn.api.common.RouteType
 import kpn.api.common.changes.details.ChangeKey
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.Ref
 import kpn.api.common.location.Location
 import kpn.api.custom.Subset
 import kpn.core.util.NaturalSorting
-import kpn.server.analyzer.engine.changes.network.NetworkChange
 
 class ChangeSetSummaryBuilder {
 

@@ -3,6 +3,7 @@ package kpn.server.analyzer.full
 import kpn.api.custom.Timestamp
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.post.PostProcessor
+import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.full.analyzers.FullAnalysisContext
 import kpn.server.analyzer.full.analyzers.FullAnalysisPipeline
 import org.springframework.stereotype.Component
@@ -15,8 +16,8 @@ class MainFullAnalyzer(
 
   private val log = Log(classOf[MainFullAnalyzer])
 
-  def analyze(timestamp: Timestamp, initialAnalysis: Boolean = false): Unit = {
-    val initialContext = FullAnalysisContext(timestamp, initialAnalysis)
+  def analyze(timestamp: Timestamp, changeSetContext: Option[ChangeSetContext]): Unit = {
+    val initialContext = FullAnalysisContext(timestamp, initialAnalysisChangeSetContext = changeSetContext)
     Log.context("full-analysis") {
       log.infoElapsed {
         val analysisResult = fullAnalysisPipeline.execute(initialContext)

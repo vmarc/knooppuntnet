@@ -4,7 +4,7 @@ import kpn.api.base.WithStringId
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.PoiState
 import kpn.api.common.changes.ChangeSetInfo
-import kpn.api.common.changes.details.NetworkInfoChange
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.common.User
@@ -27,7 +27,6 @@ import kpn.core.doc.Task
 import kpn.database.actions.statistics.StatisticLongValues
 import kpn.server.analyzer.engine.analysis.route.domain.RouteTileDoc
 import kpn.server.analyzer.engine.changes.data.Blacklist
-import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRelation
 import kpn.server.monitor.domain.MonitorRoute
@@ -90,10 +89,6 @@ class DatabaseImpl(val database: MongoDatabase) extends Database {
 
   override def networkChanges: DatabaseCollection[NetworkChange] = {
     new DatabaseCollectionImpl(database.getCollection[NetworkChange]("network-changes"))
-  }
-
-  override def networkInfoChanges: DatabaseCollection[NetworkInfoChange] = {
-    new DatabaseCollectionImpl(database.getCollection[NetworkInfoChange]("network-info-changes"))
   }
 
   override def routeChanges: DatabaseCollection[RouteChange] = {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component
 class FullRouteAnalyzer(
   routeRepository: RouteRepository,
   routeMainAnalyzer: RouteMainAnalyzer,
+  initialRouteChangeBuilder: InitialRouteChangeBuilder
 ) extends FullAnalyzer {
 
   private val log = Log(classOf[FullRouteAnalyzer])
@@ -18,10 +19,11 @@ class FullRouteAnalyzer(
       log.infoElapsed {
         val existingRouteIds = collectActiveRouteIds()
         val routeIds = collectBaseRouteIds()
-        val analyzedRouteIds = analyzeRoutes(routeIds)
+        val analyzedRouteIds = analyzeRoutes(context, routeIds)
         val obsoleteRouteIds = findObsoleteRoutes(existingRouteIds, analyzedRouteIds)
         deactivateObsoleteRoutes(obsoleteRouteIds)
-        (s"completed (${analyzedRouteIds.size} routes, ${obsoleteRouteIds.size} obsolete routes)", context)
+        val message = s"completed (${analyzedRouteIds.size} routes, ${obsoleteRouteIds.size} obsolete routes)"
+        (message, context)
       }
     }
   }
@@ -42,19 +44,19 @@ class FullRouteAnalyzer(
     }
   }
 
-  private def analyzeRoutes(routeIds: Seq[Long]): Seq[Long] = {
+  private def analyzeRoutes(context: FullAnalysisContext, routeIds: Seq[Long]): Seq[Long] = {
     log.infoElapsed {
       val routeIdsSize = routeIds.size
       val ids = routeIds.zipWithIndex.flatMap { case (relationId, index) =>
         Log.context(s"${index + 1}/$routeIdsSize route=$relationId") {
-          analyzeRoute(relationId)
+          analyzeRoute(context, relationId)
         }
       }
       (s"${ids.size} routes analyzed", ids)
     }
   }
 
-  private def analyzeRoute(relationId: Long) = {
+  private def analyzeRoute(context: FullAnalysisContext, relationId: Long) = {
     try {
       log.info("analyze main")
       routeRepository.findBaseRouteById(relationId) match {
@@ -64,6 +66,9 @@ class FullRouteAnalyzer(
         case Some(baseRouteDoc) =>
           routeMainAnalyzer.analyze(baseRouteDoc).map { routeDoc =>
             routeRepository.saveRoute(routeDoc)
+            context.initialAnalysisChangeSetContext.foreach { changeSetContext =>
+              initialRouteChangeBuilder.saveRouteChange(changeSetContext, routeDoc)
+            }
             relationId
           }
       }

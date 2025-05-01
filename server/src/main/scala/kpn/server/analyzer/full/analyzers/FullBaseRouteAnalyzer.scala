@@ -31,7 +31,8 @@ class FullBaseRouteAnalyzer(
         val routeIds = collectRawRouteIds(context.timestamp)
         analyzeRoutes(context.timestamp, routeIds)
         val obsoleteRouteIds = handleObsoleteRoutes(existingRouteIds, routeIds)
-        (s"Analyzed (${routeIds.size} routes, ${obsoleteRouteIds.size} obsolete routes)", context)
+        val message = s"Analyzed (${routeIds.size} routes, ${obsoleteRouteIds.size} obsolete routes)"
+        (message, context)
       }
     }
   }

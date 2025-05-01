@@ -11,7 +11,7 @@ import kpn.api.common.NetworkChanges
 import kpn.api.common.ReplicationId
 import kpn.api.common.RouteType
 import kpn.api.common.SharedTestObjects
-import kpn.api.common.changes.details.NetworkInfoChange
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.custom.Subset
@@ -38,7 +38,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
     new ChangeSaver(changeSetRepository, networkInfoRepository).save(context)
 
-    (changeSetRepository.saveNetworkInfoChange _).verify(*).never()
+    (changeSetRepository.saveNetworkChange _).verify(*).never()
     (changeSetRepository.saveRouteChange _).verify(*).never()
     (changeSetRepository.saveNodeChange _).verify(*).never()
     (changeSetRepository.saveChangeSetSummary _).verify(*).never()
@@ -62,8 +62,8 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
     (changeSetRepository.saveRouteChange _).verify(*).never()
     (changeSetRepository.saveNodeChange _).verify(*).never()
 
-    (changeSetRepository.saveNetworkInfoChange _).verify(
-      where { (savedNetworkChange: NetworkInfoChange) =>
+    (changeSetRepository.saveNetworkChange _).verify(
+      where { (savedNetworkChange: NetworkChange) =>
         assertEqual(savedNetworkChange, networkChange)
         true
       }
@@ -115,7 +115,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
     save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
-    (changeSetRepository.saveNetworkInfoChange _).verify(*).never()
+    (changeSetRepository.saveNetworkChange _).verify(*).never()
     (changeSetRepository.saveNodeChange _).verify(*).never()
     (networkInfoRepository.updateNetworkChangeCount _).verify(*).never()
 
@@ -170,7 +170,7 @@ class ChangeSaverTest extends UnitTest with MockFactory with SharedTestObjects {
 
     save(changeSetRepository, networkInfoRepository, changeSetChanges)
 
-    (changeSetRepository.saveNetworkInfoChange _).verify(*).never()
+    (changeSetRepository.saveNetworkChange _).verify(*).never()
     (changeSetRepository.saveRouteChange _).verify(*).never()
     (networkInfoRepository.updateNetworkChangeCount _).verify(*).never()
 

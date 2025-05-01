@@ -1,5 +1,6 @@
 package kpn.server.analyzer.engine.changes.network
 
+import kpn.api.common.changes.details.NetworkChange
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.Log
 import kpn.server.analyzer.engine.analysis.network.main.NetworkMainAnalyzer

@@ -2,13 +2,13 @@ package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.common.Ref
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.core.doc.NetworkDoc
 import kpn.core.util.UnitTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.ElementIds
 
 class NetworkUpdateAnalyzerTest extends UnitTest with SharedTestObjects {

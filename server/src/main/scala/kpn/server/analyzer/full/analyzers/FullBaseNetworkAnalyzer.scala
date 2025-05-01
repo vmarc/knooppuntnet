@@ -55,7 +55,9 @@ class FullBaseNetworkAnalyzer(
       .sliding(NetworkBatchSize, NetworkBatchSize)
       .zipWithIndex
       .flatMap { case (networkIdsBatch, index) =>
-        processBatch(timestamp, networkIdsBatch, index, networkCount)
+        Log.context(s"${index * NetworkBatchSize}/$networkCount") {
+          processBatch(timestamp, networkIdsBatch)
+        }
       }
       .toSeq
   }
@@ -63,17 +65,13 @@ class FullBaseNetworkAnalyzer(
   private def processBatch(
     timestamp: Timestamp,
     networkIdsBatch: Seq[Long],
-    index: Int,
-    totalCount: Int
   ): Seq[Long] = {
-    Log.context(s"${index * NetworkBatchSize}/$totalCount") {
-      log.infoElapsed {
-        val rawRelations = rawDataRepository.networks(timestamp, networkIdsBatch)
-        val baseNetworkDocs = rawRelations.flatMap(baseNetworkMainAnalyzer.analyze)
-        networkRepository.bulkSaveBaseNetworks(baseNetworkDocs)
-        val ids = baseNetworkDocs.map(_._id)
-        (s"analyzed ${ids.size} base networks: ${ids.mkString(", ")}", ids)
-      }
+    log.infoElapsed {
+      val rawRelations = rawDataRepository.networks(timestamp, networkIdsBatch)
+      val baseNetworkDocs = rawRelations.flatMap(baseNetworkMainAnalyzer.analyze)
+      networkRepository.bulkSaveBaseNetworks(baseNetworkDocs)
+      val ids = baseNetworkDocs.map(_._id)
+      (s"analyzed ${ids.size} base networks: ${ids.mkString(", ")}", ids)
     }
   }
 

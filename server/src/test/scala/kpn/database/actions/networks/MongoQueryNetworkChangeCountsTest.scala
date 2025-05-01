@@ -66,14 +66,15 @@ class MongoQueryNetworkChangeCountsTest extends UnitTest with SharedTestObjects 
     day: Int,
     happy: Boolean
   ): Unit = {
-    database.networkInfoChanges.save(
-      newNetworkInfoChange(
+    database.networkChanges.save(
+      newNetworkChange(
         key = newChangeKey(
           replicationNumber = replicationNumber,
-          timestamp = Timestamp(year, month, day)
+          timestamp = Timestamp(year, month, day),
+          elementId = networkId
         ),
-        networkId = networkId,
-        happy = happy
+        happy = happy,
+        impact = happy
       )
     )
   }

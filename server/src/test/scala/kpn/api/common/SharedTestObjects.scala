@@ -3,7 +3,7 @@ package kpn.api.common
 import kpn.api.base.ObjectId
 import kpn.api.common.changes.ChangeSet
 import kpn.api.common.changes.details.ChangeKey
-import kpn.api.common.changes.details.NetworkInfoChange
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RefBooleanChange
 import kpn.api.common.changes.details.RefChanges
@@ -84,7 +84,6 @@ import kpn.core.doc.RouteDoc
 import kpn.core.doc.RouteRelation
 import kpn.core.test.OverpassData
 import kpn.database.actions.statistics.ChangeSetCount2
-import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.ElementIds
 import kpn.server.monitor.domain.MonitorGroup
 import kpn.server.monitor.domain.MonitorRoute
@@ -749,42 +748,6 @@ trait SharedTestObjects extends MockFactory {
       locationHappy,
       locationInvestigate,
       locationImpact
-    )
-  }
-
-  def newNetworkInfoChange(
-    key: ChangeKey = newChangeKey(),
-    changeType: ChangeType = ChangeType.Update,
-    country: Option[Country] = None,
-    routeType: RouteType = RouteType.hiking,
-    networkId: Long = 0,
-    networkName: String = "",
-    networkDataUpdate: Option[NetworkDataUpdate] = None,
-    nodeDiffs: RefDiffs = RefDiffs.empty,
-    routeDiffs: RefDiffs = RefDiffs.empty,
-    extraNodes: IdDiffs = IdDiffs.empty,
-    extraWays: IdDiffs = IdDiffs.empty,
-    extraRelations: IdDiffs = IdDiffs.empty,
-    happy: Boolean = false,
-    investigate: Boolean = false
-  ): NetworkInfoChange = {
-    NetworkInfoChange(
-      key.toId,
-      key,
-      changeType,
-      country,
-      routeType,
-      networkId,
-      networkName,
-      networkDataUpdate,
-      nodeDiffs,
-      routeDiffs,
-      extraNodes,
-      extraWays,
-      extraRelations,
-      happy,
-      investigate,
-      happy || investigate
     )
   }
 

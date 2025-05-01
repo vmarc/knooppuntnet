@@ -1,8 +1,8 @@
 package kpn.server.analyzer.engine.changes.data
 
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
-import kpn.server.analyzer.engine.changes.network.NetworkChange
 
 case class ChangeSetChanges(
   networkChanges: Seq[NetworkChange] = Seq.empty,

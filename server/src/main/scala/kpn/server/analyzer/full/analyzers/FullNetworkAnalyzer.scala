@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component
 @Component
 class FullNetworkAnalyzer(
   networkRepository: NetworkRepository,
-  networkMainAnalyzer: NetworkMainAnalyzer
+  networkMainAnalyzer: NetworkMainAnalyzer,
+  initialNetworkChangeBuilder: InitialNetworkChangeBuilder
 ) extends FullAnalyzer {
 
   private val log = Log(classOf[FullNetworkAnalyzer])
@@ -19,15 +20,14 @@ class FullNetworkAnalyzer(
         val activeNetworkIds = collectActiveNetworkIds()
         val baseNetworkIds = collectBaseNetworkIds()
         val analyzedNetworkIds = analyzeNetworks(context, baseNetworkIds)
-        val obsoleteNetworkIds = (activeNetworkIds.toSet -- analyzedNetworkIds).toSeq.sorted
+        val obsoleteNetworkIds = findObsoleteNetworks(activeNetworkIds, analyzedNetworkIds)
         deactivateObsoleteNetworks(obsoleteNetworkIds)
-        (
-          s"completed (${analyzedNetworkIds.size} networks, ${obsoleteNetworkIds.size} obsolete networks)",
-          context.copy(
-            obsoleteNetworkIds = obsoleteNetworkIds,
-            networkIds = analyzedNetworkIds,
-          )
+        val message = s"completed (${analyzedNetworkIds.size} networks, ${obsoleteNetworkIds.size} obsolete networks)"
+        val updatedContext = context.copy(
+          obsoleteNetworkIds = obsoleteNetworkIds,
+          networkIds = analyzedNetworkIds,
         )
+        (message, updatedContext)
       }
     }
   }
@@ -62,6 +62,9 @@ class FullNetworkAnalyzer(
                   case None => None
                   case Some(networkDoc) =>
                     networkRepository.save(networkDoc)
+                    context.initialAnalysisChangeSetContext.foreach { changeSetContext =>
+                      initialNetworkChangeBuilder.saveNetworkChange(changeSetContext, networkDoc)
+                    }
                     Some(networkId)
                 }
             }
@@ -73,13 +76,15 @@ class FullNetworkAnalyzer(
     }
   }
 
+  private def findObsoleteNetworks(activeNetworkIds: Seq[Long], analyzedNetworkIds: Seq[Long]): Seq[Long] = {
+    (activeNetworkIds.toSet -- analyzedNetworkIds).toSeq.sorted
+  }
+
   private def deactivateObsoleteNetworks(networkIds: Seq[Long]): Unit = {
-    if (networkIds.nonEmpty) {
-      networkIds.foreach { networkId =>
-        networkRepository.findById(networkId).map { networkDoc =>
-          log.warn(s"de-activating network ${networkDoc._id}")
-          networkRepository.save(networkDoc.copy(active = false))
-        }
+    networkIds.foreach { networkId =>
+      networkRepository.findById(networkId).map { networkDoc =>
+        log.warn(s"de-activating network ${networkDoc._id}")
+        networkRepository.save(networkDoc.copy(active = false))
       }
     }
   }

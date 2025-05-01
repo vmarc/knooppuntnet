@@ -55,7 +55,7 @@ class AnalyzerEngineImpl(
     }
 
     if (analyzerReload) {
-      mainFullAnalyzer.analyze(timestampAfter)
+      mainFullAnalyzer.analyze(timestampAfter, None)
     }
     analysisDataInitializer.load()
   }

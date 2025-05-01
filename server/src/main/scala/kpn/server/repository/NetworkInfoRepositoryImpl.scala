@@ -1,6 +1,6 @@
 package kpn.server.repository
 
-import kpn.api.common.changes.details.NetworkInfoChange
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.filter.ChangesFilterOption
 import kpn.api.common.changes.filter.ChangesParameters
 import kpn.core.common.Time
@@ -17,7 +17,7 @@ class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepositor
 
   private val log = Log(classOf[NetworkInfoRepositoryImpl])
 
-  override def networkChanges(networkId: Long, parameters: ChangesParameters): Seq[NetworkInfoChange] = {
+  override def networkChanges(networkId: Long, parameters: ChangesParameters): Seq[NetworkChange] = {
     new MongoQueryNetworkChanges(database).execute(networkId, parameters)
   }
 
@@ -40,7 +40,7 @@ class NetworkInfoRepositoryImpl(database: Database) extends NetworkInfoRepositor
 
     val changesCount = {
       val changesFilter = equal("networkId", networkId)
-      database.networkInfoChanges.countDocuments(changesFilter)
+      database.networkChanges.countDocuments(changesFilter)
     }
 
     val filter = equal("_id", networkId)

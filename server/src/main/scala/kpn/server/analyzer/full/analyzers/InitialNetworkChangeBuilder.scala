@@ -1,21 +1,22 @@
-package kpn.core.tools.analysis
+package kpn.server.analyzer.full.analyzers
 
 import kpn.api.common.ChangeType
-import kpn.api.common.changes.details.NetworkInfoChange
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
 import kpn.core.doc.NetworkDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.repository.ChangeSetRepository
 import kpn.server.repository.NetworkInfoRepository
+import org.springframework.stereotype.Component
 
-class AnalysisStartNetworkChangeBuilder(
+@Component
+class InitialNetworkChangeBuilder(
   changeSetRepository: ChangeSetRepository,
-  changeSetContext: ChangeSetContext,
   networkInfoRepository: NetworkInfoRepository,
 ) {
 
-  def saveNetworkInfoChange(networkDoc: NetworkDoc): Unit = {
+  def saveNetworkChange(changeSetContext: ChangeSetContext, networkDoc: NetworkDoc): Unit = {
 
     val nodeRefs = networkDoc.nodes.map(_.toRef)
     val routeRefs = networkDoc.routes.map(_.toRef)
@@ -29,16 +30,19 @@ class AnalysisStartNetworkChangeBuilder(
       extraWayDiffs.added.nonEmpty ||
       extraRelationDiffs.added.nonEmpty
 
-    changeSetRepository.saveNetworkInfoChange(
-      NetworkInfoChange(
+    changeSetRepository.saveNetworkChange(
+      NetworkChange(
         _id = key.toId,
         key = key,
+        networkId = networkDoc._id,
+        networkName = networkDoc.summary.name,
         changeType = ChangeType.InitialValue,
-        networkDoc.country,
-        networkDoc.summary.routeType,
-        networkDoc._id,
-        networkDoc.summary.name,
+        country = networkDoc.country,
+        routeType = networkDoc.summary.routeType,
         networkDataUpdate = None,
+        nodes = IdDiffs(),
+        ways = IdDiffs(),
+        relations = IdDiffs(),
         nodeDiffs = RefDiffs(added = nodeRefs),
         routeDiffs = RefDiffs(added = routeRefs),
         extraNodeDiffs = extraNodeDiffs,
@@ -49,7 +53,7 @@ class AnalysisStartNetworkChangeBuilder(
         impact = true
       )
     )
-    networkInfoRepository.updateNetworkChangeCount(networkDoc._id)
   }
 }
+
 

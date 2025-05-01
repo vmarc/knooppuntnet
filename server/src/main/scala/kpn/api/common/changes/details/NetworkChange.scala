@@ -1,10 +1,9 @@
-package kpn.server.analyzer.engine.changes.network
+package kpn.api.common.changes.details
 
 import kpn.api.base.WithStringId
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.RouteType
-import kpn.api.common.changes.details.ChangeKey
 import kpn.api.common.common.Ref
 import kpn.api.common.common.ReferencedElements
 import kpn.api.common.diff.IdDiffs

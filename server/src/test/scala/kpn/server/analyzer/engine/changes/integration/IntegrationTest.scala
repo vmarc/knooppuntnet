@@ -4,6 +4,7 @@ import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.SharedTestObjects
 import kpn.api.common.changes.ChangeAction
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.data.Node
@@ -27,7 +28,6 @@ import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerMock
 import kpn.server.analyzer.engine.analysis.location.LocationAnalyzerTest
 import kpn.server.analyzer.engine.changes.ChangeSetContext
 import kpn.server.analyzer.engine.changes.changes.ChangeSetBuilder
-import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.context.Watched
 import org.scalamock.scalatest.MockFactory
 
@@ -66,7 +66,7 @@ class IntegrationTest extends UnitTest with MockFactory with SharedTestObjects {
     withDatabase(keepDatabaseAfterTest) { database =>
       contextOption = Some(new IntegrationTestContext(database, dataBefore, dataAfter, locationAnalyzer))
       try {
-        context.mainFullAnalyzer.analyze(timestampBeforeValue)
+        context.mainFullAnalyzer.analyze(timestampBeforeValue, None)
         context.analysisDataInitializer.load()
         f
       }

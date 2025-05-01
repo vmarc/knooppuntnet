@@ -70,6 +70,23 @@ class RouteDataTool(
     database.rawRoutes.drop()
     database.rawNetworks.drop()
 
+    database.baseNodes.drop()
+    database.baseRoutes.drop()
+    database.baseNetworks.drop()
+
+    database.nodes.drop()
+    database.routes.drop()
+    database.networks.drop()
+
+    database.nodeChanges.drop()
+    database.routeChanges.drop()
+    database.networkChanges.drop()
+
+    database.routeTiles.drop()
+    database.statistics.drop()
+    database.status.drop()
+    database.transactions.drop()
+
     database.rawNodes.bulkSave(database.allRawNodes.findByIds(nodeIds))
     database.rawRoutes.bulkSave(database.allRawRoutes.findByIds(routeIds))
     database.rawNetworks.bulkSave(database.allRawNetworks.findByIds(networkIds))

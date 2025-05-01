@@ -3,7 +3,7 @@ package kpn.server.repository
 import kpn.api.common.ChangeSetSummary
 import kpn.api.common.ReplicationId
 import kpn.api.common.changes.ChangeSetData
-import kpn.api.common.changes.details.NetworkInfoChange
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NodeChange
 import kpn.api.common.changes.details.RouteChange
 import kpn.api.common.changes.filter.ChangesFilter
@@ -26,7 +26,6 @@ import kpn.database.actions.routes.MongoQueryRouteChangeCounts
 import kpn.database.actions.routes.MongoQueryRouteChanges
 import kpn.database.actions.subsets.MongoQuerySubsetChanges
 import kpn.database.base.Database
-import kpn.server.analyzer.engine.changes.network.NetworkChange
 import org.springframework.stereotype.Component
 
 @Component
@@ -40,10 +39,6 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
 
   override def saveNetworkChange(networkChange: NetworkChange): Unit = {
     database.networkChanges.save(networkChange, log)
-  }
-
-  override def saveNetworkInfoChange(networkInfoChange: NetworkInfoChange): Unit = {
-    database.networkInfoChanges.save(networkInfoChange, log)
   }
 
   override def saveRouteChange(routeChange: RouteChange): Unit = {
@@ -120,7 +115,7 @@ class ChangeSetRepositoryImpl(database: Database) extends ChangeSetRepository {
     new MongoQuerySubsetChanges(database).execute(subset, parameters)
   }
 
-  override def networkChanges(networkId: Long, parameters: ChangesParameters): Seq[NetworkInfoChange] = {
+  override def networkChanges(networkId: Long, parameters: ChangesParameters): Seq[NetworkChange] = {
     new MongoQueryNetworkChanges(database).execute(networkId, parameters)
   }
 

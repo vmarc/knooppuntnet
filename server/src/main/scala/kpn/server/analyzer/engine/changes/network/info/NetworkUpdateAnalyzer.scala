@@ -1,11 +1,11 @@
 package kpn.server.analyzer.engine.changes.network.info
 
 import kpn.api.common.ChangeType
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.diff.NetworkData
 import kpn.api.common.diff.NetworkDataUpdate
 import kpn.core.doc.NetworkDoc
 import kpn.server.analyzer.engine.changes.ChangeSetContext
-import kpn.server.analyzer.engine.changes.network.NetworkChange
 import kpn.server.analyzer.engine.changes.network.NetworkDiffAnalyzer
 
 class NetworkUpdateAnalyzer(

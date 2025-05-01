@@ -3,6 +3,7 @@ package kpn.api.common.changes.details
 import kpn.api.common.ChangeType
 import kpn.api.common.Country
 import kpn.api.common.RouteType
+import kpn.api.common.common.ReferencedElements
 import kpn.api.common.data.MetaData
 import kpn.api.common.diff.IdDiffs
 import kpn.api.common.diff.RefDiffs
@@ -26,4 +27,9 @@ case class NetworkChangeInfo(
   relations: IdDiffs,
   happy: Boolean,
   investigate: Boolean
-)
+) {
+
+  def referencedElements: ReferencedElements = {
+    ReferencedElements(nodes.ids.toSet, routes.ids.toSet)
+  }
+}

@@ -75,7 +75,8 @@ class ClassAnalyzer {
                 s"@api/${fieldPackageName.substring("kpn.api.".length).replaceAll("\\.", "/")}/${CamelCaseUtil.toDashed(withoutPackage)}"
               }
               else {
-                throw new RuntimeException("unexpected field package name")
+                throw new RuntimeException(
+                  s"""unexpected field package name "$fieldPackageName" in find field "$fieldClassName" in class "$className"""")
               }
             }
             Some(

@@ -1,12 +1,12 @@
 package kpn.server.analyzer.engine.changes.builder
 
 import kpn.api.common.changes.ChangeSetInfo
+import kpn.api.common.changes.details.NetworkChange
 import kpn.api.common.changes.details.NetworkChangeInfo
-import kpn.api.common.changes.details.NetworkInfoChange
 
 class NetworkChangeInfoBuilder {
 
-  def build(index: Long, change: NetworkInfoChange, changeSetInfos: Seq[ChangeSetInfo]): NetworkChangeInfo = {
+  def build(index: Long, change: NetworkChange, changeSetInfos: Seq[ChangeSetInfo]): NetworkChangeInfo = {
 
     val comment = changeSetInfos.find(s => s.id == change.key.changeSetId).flatMap(_.tagValue("comment"))
 

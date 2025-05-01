@@ -19,7 +19,7 @@ class NetworkDeleteTest02 extends IntegrationTest {
       database.baseNetworks shouldBe empty
       database.networks shouldBe empty
       database.changes shouldBe empty
-      database.networkInfoChanges shouldBe empty
+      database.networkChanges shouldBe empty
       database.routeChanges shouldBe empty
     }
   }
