@@ -20,10 +20,6 @@ abstract class UnitTest extends AnyFunSuite with Matchers {
     }
   }
 
-  def pendingRedesign(): Unit = {
-    pending
-  }
-
   def pendingRedesignPrio0(): Unit = {
     pending
   }
@@ -37,6 +33,14 @@ abstract class UnitTest extends AnyFunSuite with Matchers {
   }
 
   def pendingRedesignPrio3(): Unit = {
+    pending
+  }
+
+  def pendingRedesign(): Unit = {
+    pending
+  }
+
+  def pendingRedesignImplementation(): Unit = {
     pending
   }
 
